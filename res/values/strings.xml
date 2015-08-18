@@ -4,5 +4,37 @@
     <string name="app_name">JianFanJia</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    
+      <!-- main activity -->
+    <string name="main_tab_name_darly">日记</string>
+    <string name="main_tab_name_site">工地</string>
+    <string name="main_tab_name_my">我的</string>
+    <string name="main_title_example">简繁家</string>
+    <string name="main_right_example">配置工地</string>
+    <!-- main activity -->
 
-</resources>
+    <!-- login_activity -->
+    <string name="login">登录</string>
+    <string name="hint_username">请输入手机号码</string>
+    <string name="hint_password">请输入密码</string>
+    <string name="forget_pwd">忘记密码</string>
+    <string name="register">用户注册</string>
+    <string name="tip_please_input_username">请输入账号</string>
+    <string name="tip_please_input_password">请输入密码</string>
+    <string name="progress_login">正在登录…</string>
+    <string name="login_failure">用户名或密码错误</string>
+    <string name="tip_login_error_for_network">对不起,无法登录</string>
+    <string name="tip_no_internet">当前没有可用的网络链接</string>
+    <!-- login_activity -->
+    
+    <!-- register_activity -->
+    <string name="next">下一步</string>
+    <string name="get_verification">获取验证码</string>
+    <string name="hint_verification">请输入验证码</string>
+    <string name="hint_inputpsw_two">请再次输入密码</string>
+    <string name="hint_reset_psw">请输入重置密码</string>
+    <string name="confirm">确认</string>
+        <string name="finish">完成</string>
+    <!-- register_activity -->
+    
+    </resources>

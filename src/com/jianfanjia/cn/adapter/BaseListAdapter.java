@@ -1,4 +1,4 @@
-package com.jianfanjia.cn.adapter;
+ package com.jianfanjia.cn.adapter;
 
 import java.util.List;
 import android.content.Context;

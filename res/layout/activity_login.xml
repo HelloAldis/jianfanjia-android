@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_layout_bg" >
+    
+    <include layout="@layout/common_head_layout"
+        android:id="@+id/login_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="40dp"
+        android:orientation="vertical"
+        android:padding="@dimen/space_16" >
+
+        <LinearLayout style="@style/item_input_container"
+             >
+
+            <EditText
+                android:id="@+id/et_username"
+                style="@style/item_input_edittext"
+                android:hint="@string/hint_username"
+                android:imeOptions="actionNext"
+                android:inputType="text" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/item_input_container"
+            >
+
+            <EditText
+                android:id="@+id/et_password"
+                style="@style/item_input_edittext"
+                android:hint="@string/hint_password"
+                android:inputType="textPassword" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_12"
+            android:layout_marginLeft="@dimen/space_8"
+            android:layout_marginRight="@dimen/space_8" >
+
+            <TextView
+                android:id="@+id/forget_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/forget_pwd" />
+
+            <TextView
+                android:id="@+id/register"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="@string/register" />
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btn_login"
+            style="@style/button_login_style"
+            android:layout_marginTop="30dp"
+            android:text="@string/login" />
+    </LinearLayout>
+
+</RelativeLayout>
