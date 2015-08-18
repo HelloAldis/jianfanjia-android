@@ -5,7 +5,7 @@ import com.jianfanjia.cn.base.BaseActivity;
 /**
  * 
  * @ClassName: RegisterActivity
- * @Description: ×¢²á
+ * @Description: ×¢²á½çÃæ
  * @author fengliang
  * @date 2015-8-18 ÏÂÎç12:11:35
  * 
