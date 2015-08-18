@@ -19,5 +19,6 @@ public class Constant {
 		public static final boolean DEVELOPER_MODE = false;
 	}
 
+	public static final String ISFIRST = "isFirst";// 是否是首次打开程序
 	public static final String ACCOUNT = "account";// 账号
 }
