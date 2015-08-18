@@ -6,7 +6,7 @@ import com.jianfanjia.cn.dao.ICollectDao;
 /**
  * 
  * @ClassName: CollectDaoImlp
- * @Description: 收藏dao实现类
+ * @Description: 数据收藏dao实现类
  * @author fengliang
  * @date 2015-8-18 下午3:54:41
  * 
