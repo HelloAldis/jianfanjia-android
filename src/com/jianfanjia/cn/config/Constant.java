@@ -18,4 +18,6 @@ public class Constant {
 	public static class Config {
 		public static final boolean DEVELOPER_MODE = false;
 	}
+
+	public static final String ACCOUNT = "account";// ук╨е
 }
