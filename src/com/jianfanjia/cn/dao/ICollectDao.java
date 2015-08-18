@@ -3,7 +3,7 @@ package com.jianfanjia.cn.dao;
 /**
  * 
  * @ClassName: ICollectDao
- * @Description: 收藏dao
+ * @Description: 收藏dao类
  * @author fengliang
  * @date 2015-8-18 下午3:54:13
  * 
