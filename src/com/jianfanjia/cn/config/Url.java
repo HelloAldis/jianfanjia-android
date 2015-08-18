@@ -13,6 +13,10 @@ public class Url {
 	public static String SEVER_PORT = "80";
 	public static final String HTTPROOT = "http://" + SEVER_IP + ":"
 			+ SEVER_PORT + "/HomeApi/";
-
+	// 登录
 	public static final String LOGIN_URL = HTTPROOT + "Login";
+	// 注册
+	public static final String REGISTER_URL = HTTPROOT + "Register";
+	// 获取短信验证码
+	public static final String GET_CODE_URL = HTTPROOT + "GetCode";
 }
