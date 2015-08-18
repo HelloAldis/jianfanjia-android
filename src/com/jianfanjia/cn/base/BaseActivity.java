@@ -2,6 +2,7 @@ package com.jianfanjia.cn.base;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -9,10 +10,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Window;
 import android.widget.Toast;
+
+import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.SharedPrefer;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
  * 
@@ -27,6 +32,8 @@ public abstract class BaseActivity extends FragmentActivity {
 	protected FragmentManager fragmentManager = null;
 	protected SharedPrefer sharedPrefer = null;
 	protected JsonParser jsonParser = null;
+	protected ImageLoader imageLoader = null;
+	protected DisplayImageOptions options = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -52,10 +59,17 @@ public abstract class BaseActivity extends FragmentActivity {
 		sharedPrefer = new SharedPrefer(this, Constant.SHARED_MAIN);
 		jsonParser = new JsonParser();
 		fragmentManager = this.getSupportFragmentManager();
+		imageLoader = ImageLoader.getInstance();
+		options = new DisplayImageOptions.Builder()
+				.showImageOnLoading(R.drawable.empty_photo)
+				.showImageForEmptyUri(R.drawable.empty_photo)
+				.showImageOnFail(R.drawable.empty_photo).cacheInMemory(true)
+				.cacheOnDisk(true).considerExifParams(true)
+				.bitmapConfig(Bitmap.Config.RGB_565).build();
 	}
 
 	private void initParams() {
-		
+
 	}
 
 	private void initDao() {
@@ -130,5 +144,4 @@ public abstract class BaseActivity extends FragmentActivity {
 		startActivity(intent);
 	}
 
-	
 }
