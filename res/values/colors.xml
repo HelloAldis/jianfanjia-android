@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+      <!-- my_fragment -->
+    <color name="main_layout_bg">#efefef</color>
+    <color name="my_text_color">#888888</color>
+    
+    <!-- actionbar title color -->
+    <color name="head_color_bg">#eeeeee</color>
+    <color name="site_item_selected_bg">#ff9800</color>
+    <color name="site_item_normal_bg">#999999</color>
+    
+    <color name="line_color">#BBBBBB</color>
+    
+    
+      <!-- 字体色值 -->
+    <color name="font_white">#ffffff</color>
+    <color name="font_gray">#c9c9c9</color>
+    <color name="font_yellow">#ff9800</color>
+    <color name="font_blue">#9aedff</color>
+    <color name="font_green">#12abad</color>
+    <color name="font_black">#333</color>
+    <color name="font_red">#dd0000</color>
+    
+</resources>

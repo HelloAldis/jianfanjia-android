@@ -16,5 +16,52 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
+    
+      <!-- horizontal line_style -->
+    <style name="divier_line">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/line_color</item>
+    </style>
+
+    <!-- vertical line_style -->
+    <style name="vertical_divier_line">
+        <item name="android:layout_width">1dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/line_color</item>
+    </style>
+    
+    <!-- site_listview_item_text_style -->
+    <style name="site_listview_item_text_style_small">
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="site_listview_item_text_style_middle">
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="site_listview_item_text_style_big">
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_size_18</item>
+        <item name="android:textColor">@color/font_black</item>
+    </style>
+    
+    <style name="site_listview_item_text_style_title">
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_size_22</item>
+        <item name="android:textColor">@color/font_black</item>
+    </style>
 
 </resources>
