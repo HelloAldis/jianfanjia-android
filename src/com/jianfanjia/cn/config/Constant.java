@@ -14,4 +14,8 @@ public class Constant {
 	public static final String SHARED_MAIN = "jianfanjia";
 	public static final String LOG_PATH = Environment
 			.getExternalStorageDirectory() + "/JianFanJia/MyLog/mylog.txt";// log´æ·ÅÂ·¾¶
+
+	public static class Config {
+		public static final boolean DEVELOPER_MODE = false;
+	}
 }
