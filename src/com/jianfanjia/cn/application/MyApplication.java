@@ -3,6 +3,7 @@ package com.jianfanjia.cn.application;
 import android.annotation.TargetApi;
 import android.app.Application;
 import android.content.Context;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.StrictMode;
 import com.jianfanjia.cn.config.Constant;
@@ -11,9 +12,10 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
-public class UilApplication extends Application {
+public class MyApplication extends Application {
 	
-	
+	static Context _context;
+	static Resources _resources;
 	
 	@TargetApi(Build.VERSION_CODES.GINGERBREAD)
 	@SuppressWarnings("unused")
@@ -28,6 +30,9 @@ public class UilApplication extends Application {
 					.detectAll().penaltyDeath().build());
 		}
 		initImageLoader(getApplicationContext());
+		
+		_context = getApplicationContext();
+		_resources = _context.getResources();
 	}
 
 	public static void initImageLoader(Context context) {
@@ -47,5 +52,13 @@ public class UilApplication extends Application {
 
 		// Initialize ImageLoader with configuration.
 		ImageLoader.getInstance().init(config.build());
+	}
+	
+	public static Context context(){
+		return _context;
+	}
+	
+	public static Resources resources(){
+		return _resources;
 	}
 }

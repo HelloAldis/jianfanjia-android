@@ -1,4 +1,4 @@
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
@@ -70,5 +70,69 @@
         <item name="android:gravity">center</item>
     </style>
     <!-- head_layout -->
+    
+    <!-- my_item_layout_text_style -->
+    <style name="my_item_layout_text_style_base">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/font_black</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="my_item_layout_text_style" parent="my_item_layout_text_style_base">
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <!-- my_item_layout__style -->
+    <style name="my_item_layout_image_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@android:drawable/ic_menu_directions</item>
+    </style>
+
+    <!-- site_listview_item_text_style -->
+    <style name="site_listview_item_text_style_small">
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="site_listview_item_text_style_middle">
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="site_listview_item_text_style_big">
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_size_18</item>
+        <item name="android:textColor">@color/font_black</item>
+    </style>
+
+    <style name="site_listview_item_text_style_title">
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_size_22</item>
+        <item name="android:textColor">@color/font_black</item>
+    </style>
+    
+     <!-- my_item_layout_style -->
+    <style name="my_item_layout_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/common_item_layout_height</item>
+        <item name="android:background">#ffffff</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">@dimen/space_32</item>
+        <item name="android:paddingRight">@dimen/space_16</item>
+    </style>
+    
 
 </resources>

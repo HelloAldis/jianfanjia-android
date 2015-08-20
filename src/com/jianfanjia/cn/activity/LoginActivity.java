@@ -1,5 +1,7 @@
 package com.jianfanjia.cn.activity;
 
+import org.apache.http.Header;
+
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -7,6 +9,9 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.http.JianFanJiaApiClient;
+import com.jianfanjia.cn.tools.TDevice;
+import com.loopj.android.http.JsonHttpResponseHandler;
 
 /**
  * 
@@ -47,24 +52,41 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		return R.layout.activity_login;
 	}
 
-	//处理登录过程
+	// 处理登录过程
 	private void handleLogin() {
-		if (!prepareForLogin()) {
+		/*if (!prepareForLogin()) {
 			return;
-		}
+		}*/
 		// if the data has ready
 		mUserName = mEtUserName.getText().toString();
 		mPassword = mEtPassword.getText().toString();
 
-//		JianFanJianApiClient.login(this, mUserName, mPassword, loginCallback);
+		JianFanJiaApiClient.login("18107218595", "654321",
+				asyncHttpResponseHandler);
 	}
 
-	//客户端对登录数据的验证
+	private JsonHttpResponseHandler asyncHttpResponseHandler = new JsonHttpResponseHandler() {
+		
+		@Override
+		public void onSuccess(int statusCode, Header[] headers, org.json.JSONObject response) {
+			makeTextLong(response.toString());
+		};
+		
+		@Override
+		public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+			makeTextLong(responseString);
+		};
+		
+	};
+
+	// 客户端对登录数据的验证
 	private boolean prepareForLogin() {
-		/*
-		 * if (!TDevice.hasInternet()) {
-		 * AppContext.showToastShort(R.string.tip_no_internet); return false; }
-		 */
+
+		if (!TDevice.hasInternet()) {
+			makeTextShort(getResources().getString(R.string.tip_no_internet));
+			return false;
+		}
+
 		String uName = mEtUserName.getText().toString();
 		if (TextUtils.isEmpty(uName)) {
 			makeTextShort(getResources().getString(

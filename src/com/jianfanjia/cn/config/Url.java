@@ -9,14 +9,14 @@ package com.jianfanjia.cn.config;
  * 
  */
 public class Url {
-	public static String SEVER_IP = "120.55.103.141";
+	public static String SEVER_IP = "192.168.1.107";
 	public static String SEVER_PORT = "80";
 	public static final String HTTPROOT = "http://" + SEVER_IP + ":"
-			+ SEVER_PORT + "/HomeApi/";
+			+ SEVER_PORT + "/api/v1/";
 	// 登录
-	public static final String LOGIN_URL = HTTPROOT + "Login";
+	public static final String LOGIN_URL = HTTPROOT + "login";
 	// 注册
-	public static final String REGISTER_URL = HTTPROOT + "Register";
+	public static final String REGISTER_URL = HTTPROOT + "register";
 	// 获取短信验证码
-	public static final String GET_CODE_URL = HTTPROOT + "GetCode";
+	public static final String GET_CODE_URL = HTTPROOT + "getCode";
 }

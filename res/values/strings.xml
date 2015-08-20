@@ -37,4 +37,89 @@
         <string name="finish">完成</string>
     <!-- register_activity -->
     
-    </resources>
+    <!-- site_fragment -->
+    <string name="site_example_node_name">面板数量核算</string>
+    <string name="site_example_node_check">对比验证</string>
+    <string name="site_example_node_time">2015-8-1 9:30</string>
+    <string name="site_example_node_delay">预计延期</string>
+    <string name="site_example_node_working">正在施工</string>
+    <string name="site_example_node_finish">已完工</string>
+    <string name="site_example_node_confirm_finish">确认完工</string>
+    <string name="site_example_node_upload_picture">上传照片</string>
+    <string name="site_example_node_assess">评价</string>
+    <string name="more">更多</string>
+    <string name="retract">收起</string>
+
+    <!-- my_site information -->
+    <string name="my_site_city">所在城市</string>
+    <string name="my_site_city_example">湖北武汉洪山区</string>
+    <string name="my_site_villagename">小区名称</string>
+    <string name="my_site_villagename_example">中建康城二期</string>
+    <string name="my_site_housestyle">户型</string>
+    <string name="my_site_housestyle_example">三室一厅</string>
+    <string name="my_site_housesize">装修面积大小（㎡）</string>
+    <string name="my_site_housesize_example">110㎡</string>
+    <string name="my_site_lovestyle">风格喜好</string>
+    <string name="my_site_lovestyle_example">现代简约</string>
+    <string name="my_site_decorationstyle">装修类型</string>
+    <string name="my_site_decorationstyle_example">半包</string>
+    <string name="my_site_decorationbudget">装修预算</string>
+    <string name="my_site_decorationbudget_example">20w</string>
+    <string name="my_site_startdate">开工日期</string>
+    <string name="my_site_startdate_example">2015-8-17</string>
+    <string name="my_site_totaldate">总工期</string>
+    <string name="my_site_totaldate_example">60天</string>
+
+    <!-- my_designer_information -->
+    <string name="my_designer_name">Jeff Zhang</string>
+    <string name="my_designer_product">作品</string>
+    <string name="my_designer_product_sum">9999</string>
+    <string name="my_designer_appointment">预约</string>
+    <string name="my_designer_appointment_sum">20</string>
+    <string name="work_city">服务城市:</string>
+    <string name="designer_budget">设计费:</string>
+    <string name="good_at_style">擅长风格:</string>
+    
+    <!-- my_fragment -->
+    <string name="my_designer">我的设计师</string>
+    <string name="my_decoration_site">我的装修工地</string>
+    <string name="my_diary">我的日记</string>
+    <string name="my_favorite">我的收藏</string>
+    <string name="my_setting">设置</string>
+    <string name="my_tip">我的提醒</string>
+    <string name="my_help">帮助</string>
+    <string name="my_ower">我的业主</string>
+    <string name="my_site">我的工地</string>
+    <string name="my_example_name">Jeff</string>
+    <string name="my_example_account">账号：12244444</string>
+    
+    <string name="message_push">消息推送</string>
+    <string name="share">分享给小伙伴</string>
+    <string name="current_version">当前版本</string>
+    <string name="current_version_example">1.0</string>
+    <string name="clear_cache">清空缓存</string>
+    <string name="cache_size">110M</string>
+    <string name="feedback">用户反馈</string>
+    <string name="about">关于我们</string>
+    <string name="logout">退出登录</string>
+    
+    <!-- site procedure -->
+    <string-array name="site_procedure">
+        <item>开工</item>
+        <item>拆改</item>
+        <item>水电</item>
+        <item>泥木</item>
+        <item>油漆</item>
+        <item>安装</item>
+        <item>竣工</item>
+    </string-array>
+    
+    <string-array name="site_procedure_check">
+        <item>水电阶段验收</item>
+        <item>泥木阶段验收</item>
+        <item>油漆阶段验收</item>
+        <item>安装阶段验收</item>
+        <item>竣工阶段验收</item>
+    </string-array>
+
+</resources>

@@ -1,6 +1,12 @@
 package com.jianfanjia.cn.http;
 
+import java.util.Locale;
+
+import org.apache.http.HttpEntity;
+
 import android.content.Context;
+
+import com.jianfanjia.cn.tools.LogTool;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -15,7 +21,12 @@ import com.loopj.android.http.RequestParams;
  */
 public class HttpRestClient {
 	private static AsyncHttpClient client = new AsyncHttpClient();
-
+	
+	static{
+		client.addHeader("Content-Type", "application/json;charset=utf-8");
+		client.addHeader("Accept-Language", Locale.getDefault().toString());
+	}
+	
 	public static void get(String url, AsyncHttpResponseHandler responseHandler) {
 		client.get(url, responseHandler);
 	}
@@ -42,8 +53,17 @@ public class HttpRestClient {
 	public static void post(String url, RequestParams params,
 			AsyncHttpResponseHandler responseHandler) {
 		client.post(url, params, responseHandler);
+		LogTool.d("HttpRestClient", new StringBuilder("Post" ).append(url).append("&")
+                .append(params).toString());
+	}
+	
+	public static void post(Context context,String url,HttpEntity entity,String contentType,AsyncHttpResponseHandler responseHandler){
+		client.post(context, url, entity, contentType, responseHandler);
+		LogTool.d("HttpRestClient", new StringBuilder("Post" ).append(url).append("&")
+                .append(entity.toString()).toString());
 	}
 
+	
 	public static void post(Context context, String url, RequestParams params,
 			AsyncHttpResponseHandler responseHandler) {
 		client.post(context, url, params, responseHandler);
