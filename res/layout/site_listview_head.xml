@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ImageView
+        android:id="@+id/site_listview_item_status"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginLeft="33dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="@null"
+        android:scaleType="center"
+        android:src="@drawable/site_listview_item_notstart_circle" />
+
+    <RelativeLayout
+        android:id="@+id/site_listview_item_content_small"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="8dp"
+        android:layout_toRightOf="@+id/site_listview_item_status"
+        android:background="@drawable/left_text_bg" >
+
+        <TextView
+            android:id="@+id/site_list_item_content_small_node_name"
+            style="@style/site_listview_item_text_style_big"
+            android:text="@string/site_example_node_name" />
+
+        <TextView
+            android:id="@+id/site_list_item_content_small_node_more"
+            style="@style/site_listview_item_text_style_middle"
+            android:layout_alignBottom="@+id/site_list_item_content_small_node_name"
+            android:layout_alignParentRight="true"
+            android:text="@string/more" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/site_listview_item_content_expand"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="8dp"
+        android:layout_toRightOf="@+id/site_listview_item_status"
+        android:background="@drawable/left_text_bg"
+        android:visibility="gone" >
+
+        <TextView
+            android:id="@+id/site_list_item_content_expand_node_name"
+            style="@style/site_listview_item_text_style_big"
+            android:text="@string/site_example_node_name" />
+
+        <TextView
+            android:id="@+id/site_list_item_content_expand_node_more"
+            style="@style/site_listview_item_text_style_middle"
+            android:layout_alignBottom="@+id/site_list_item_content_expand_node_name"
+            android:layout_alignParentRight="true"
+            android:text="@string/retract" />
+
+        <LinearLayout
+            android:id="@+id/site_list_head_checkbutton_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/site_list_item_content_expand_node_name"
+            android:layout_margin="8dp"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/site_list_head_check"
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:background="@drawable/site_listview_head_yellow_bg"
+                android:gravity="center"
+                android:text="@string/site_example_node_check"
+                android:textColor="@color/font_black" />
+
+            <TextView
+                android:id="@+id/site_list_head_delay"
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/site_listview_head_white_bg"
+                android:gravity="center"
+                android:text="@string/site_example_node_delay"
+                android:textColor="@color/font_black" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

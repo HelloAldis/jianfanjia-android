@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_layout_bg" >
+    
+    <include layout="@layout/my_head_layout"
+        android:id="@+id/my_designer_information_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/my_designer_information_top"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
+        android:background="#ffffff" >
+
+        <ImageView
+            android:id="@+id/my_designer_head_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="24dp"
+            android:contentDescription="@null"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_launcher" />
+
+        <TextView
+            android:id="@+id/my_designer_name"
+            style="@style/site_listview_item_text_style_middle"
+            android:layout_below="@+id/my_designer_head_icon"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp"
+            android:text="@string/my_designer_name" />
+
+        <ImageView
+            android:id="@+id/my_designer_sex_icon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignBottom="@+id/my_designer_name"
+            android:layout_marginLeft="8dp"
+            android:layout_toRightOf="@+id/my_designer_name"
+            android:contentDescription="@null"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_launcher" />
+
+        <LinearLayout
+            android:id="@+id/my_designer_middle_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/my_designer_name"
+            android:layout_marginBottom="48dp"
+            android:layout_marginTop="48dp"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:id="@+id/my_designer_middle_item1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/my_designer_product_sum"
+                    style="@style/site_listview_item_text_style_middle"
+                    android:text="@string/my_designer_product_sum" />
+
+                <TextView
+                    style="@style/site_listview_item_text_style_middle"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/my_designer_product" />
+            </LinearLayout>
+
+            <view style="@style/vertical_divier_line" />
+
+            <LinearLayout
+                android:id="@+id/my_designer_middle_item2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/my_designer_appointment_sum"
+                    style="@style/site_listview_item_text_style_middle"
+                    android:text="@string/my_designer_appointment_sum" />
+
+                <TextView
+                    style="@style/site_listview_item_text_style_middle"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/my_designer_appointment" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/my_designer_middle_layout"
+            android:layout_marginLeft="36dp"
+            android:paddingBottom="72dp" >
+
+            <TextView
+                android:id="@+id/work_city"
+                style="@style/site_listview_item_text_style_middle"
+                android:text="@string/work_city" />
+
+            <TextView
+                android:id="@+id/my_designer_city"
+                style="@style/site_listview_item_text_style_middle"
+                android:layout_alignBottom="@+id/work_city"
+                android:layout_marginLeft="2dp"
+                android:layout_toRightOf="@+id/work_city"
+                android:text="@string/my_example_name" />
+
+            <TextView
+                android:id="@+id/good_at_style"
+                style="@style/site_listview_item_text_style_middle"
+                android:layout_below="@+id/work_city"
+                android:layout_marginTop="16dp"
+                android:text="@string/good_at_style" />
+
+            <TextView
+                android:id="@+id/my_designer_style"
+                style="@style/site_listview_item_text_style_middle"
+                android:layout_alignBottom="@+id/good_at_style"
+                android:layout_marginLeft="2dp"
+                android:layout_toRightOf="@+id/good_at_style"
+                android:text="@string/my_example_name" />
+
+            <TextView
+                android:id="@+id/designer_budget"
+                style="@style/site_listview_item_text_style_middle"
+                android:layout_below="@+id/good_at_style"
+                android:layout_marginTop="16dp"
+                android:text="@string/designer_budget" />
+
+            <TextView
+                android:id="@+id/my_designer_budget"
+                style="@style/site_listview_item_text_style_middle"
+                android:layout_alignBottom="@+id/designer_budget"
+                android:layout_marginLeft="2dp"
+                android:layout_toRightOf="@+id/designer_budget"
+                android:text="@string/my_example_name" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

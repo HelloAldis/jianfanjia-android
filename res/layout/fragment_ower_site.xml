@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_layout_bg" >
+    
+   <include layout="@layout/my_head_layout"
+        android:id="@+id/my_site_information_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <ScrollView
+        android:id="@+id/scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/my_site_information_top" >
+
+        <LinearLayout
+            android:id="@+id/rootview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <View style="@style/divier_line" />
+
+            <RelativeLayout
+                android:id="@+id/my_city_layout"
+                style="@style/my_item_layout_style" >
+
+                <TextView
+                    android:id="@+id/my_site_city"
+                    style="@style/my_item_layout_text_style"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="4dp"
+                    android:layout_toLeftOf="@+id/city_select_goto"
+                    android:text="@string/my_site_city_example" />
+
+                <ImageView
+                    android:id="@+id/city_select_goto"
+                    style="@style/my_item_layout_image_style"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@null" />
+
+                <TextView
+                    style="@style/my_item_layout_text_style_base"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/my_site_city" />
+            </RelativeLayout>
+
+            <View style="@style/divier_line" />
+
+            <RelativeLayout
+                android:id="@+id/my_villagename_layout"
+                style="@style/my_item_layout_style" >
+
+                <TextView
+                    style="@style/my_item_layout_text_style_base"
+                    android:layout_centerVertical="true"
+                    android:text="@string/my_site_villagename" />
+
+                <TextView
+                    android:id="@+id/my_site_villagename"
+                    style="@style/my_item_layout_text_style"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="36dp"
+                    android:text="@string/my_site_villagename_example" />
+            </RelativeLayout>
+
+            <View style="@style/divier_line" />
+
+            <RelativeLayout
+                android:id="@+id/my_housestyle_layout"
+                style="@style/my_item_layout_style" >
+
+                <TextView
+                    style="@style/my_item_layout_text_style_base"
+                    android:layout_centerVertical="true"
+                    android:text="@string/my_site_housestyle" />
+
+                <ImageView
+                    android:id="@+id/housestyle_select_goto"
+                    style="@style/my_item_layout_image_style"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@null" />
+
+                <TextView
+                    android:id="@+id/my_site_housestyle"
+                    style="@style/my_item_layout_text_style"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="4dp"
+                    android:layout_toLeftOf="@+id/housestyle_select_goto"
+                    android:text="@string/my_site_city_example" />
+            </RelativeLayout>
+
+            <View style="@style/divier_line" />
+
+            <RelativeLayout
+                android:id="@+id/my_decorationArea_layout"
+                style="@style/my_item_layout_style" >
+
+                <TextView
+                    style="@style/my_item_layout_text_style_base"
+                    android:layout_centerVertical="true"
+                    android:text="@string/my_site_housesize" />
+
+                <TextView
+                    android:id="@+id/my_site_derationArea"
+                    style="@style/my_item_layout_text_style"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="36dp"
+                    android:text="@string/my_site_housesize_example" />
+            </RelativeLayout>
+
+            <View style="@style/divier_line" />
+
+            <RelativeLayout
+                android:id="@+id/my_lovestyle_layout"
+                style="@style/my_item_layout_style" >
+
+                <TextView
+                    style="@style/my_item_layout_text_style_base"
+                    android:layout_centerVertical="true"
+                    android:text="@string/my_site_lovestyle" />
+
+                <ImageView
+                    android:id="@+id/lovestyle_select_goto"
+                    style="@style/my_item_layout_image_style"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@null" />
+
+                <TextView
+                    android:id="@+id/my_site_lovestyle"
+                    style="@style/my_item_layout_text_style"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="4dp"
+                    android:layout_toLeftOf="@+id/lovestyle_select_goto"
+                    android:text="@string/my_site_housestyle_example" />
+            </RelativeLayout>
+
+            <View style="@style/divier_line" />
+
+            <RelativeLayout
+                android:id="@+id/my_decorationstyle_layout"
+                style="@style/my_item_layout_style" >
+
+                <TextView
+                    style="@style/my_item_layout_text_style_base"
+                    android:layout_centerVertical="true"
+                    android:text="@string/my_site_decorationstyle" />
+
+                <TextView
+                    android:id="@+id/my_site_decorationstyle"
+                    style="@style/my_item_layout_text_style"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="36dp"
+                    android:text="@string/my_site_decorationstyle_example" />
+            </RelativeLayout>
+
+            <View style="@style/divier_line" />
+
+            <RelativeLayout
+                android:id="@+id/my_decorationbudget_layout"
+                style="@style/my_item_layout_style" >
+
+                <TextView
+                    style="@style/my_item_layout_text_style_base"
+                    android:layout_centerVertical="true"
+                    android:text="@string/my_site_decorationbudget" />
+
+                <TextView
+                    android:id="@+id/my_site_decorationbudget"
+                    style="@style/my_item_layout_text_style"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="36dp"
+                    android:text="@string/my_site_decorationbudget_example" />
+            </RelativeLayout>
+
+            <View style="@style/divier_line" />
+
+            <View
+                style="@style/divier_line"
+                android:layout_marginTop="16dp" />
+
+            <RelativeLayout
+                android:id="@+id/my_startdate_layout"
+                style="@style/my_item_layout_style" >
+
+                <TextView
+                    style="@style/my_item_layout_text_style_base"
+                    android:layout_centerVertical="true"
+                    android:text="@string/my_site_startdate" />
+                
+                 <TextView
+                    android:id="@+id/my_site_startdate"
+                    style="@style/my_item_layout_text_style"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="36dp"
+                    android:text="@string/my_site_startdate_example" />
+            </RelativeLayout>
+
+            <View style="@style/divier_line" />
+
+            <RelativeLayout
+                android:id="@+id/my_totaldate_layout"
+                style="@style/my_item_layout_style" >
+
+                <TextView
+                    style="@style/my_item_layout_text_style_base"
+                    android:layout_centerVertical="true"
+                    android:text="@string/my_site_totaldate" />
+                
+                 <TextView
+                    android:id="@+id/my_site_totaldate"
+                    style="@style/my_item_layout_text_style"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="36dp"
+                    android:text="@string/my_site_totaldate_example" />
+            </RelativeLayout>
+
+            <View style="@style/divier_line" />
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/my_site_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_48"
+        android:layout_marginTop="@dimen/space_24"
+        android:layout_marginLeft="@dimen/space_24"
+        android:layout_marginRight="@dimen/space_24"
+        android:layout_below="@+id/scrollview"
+        android:gravity="center"
+        android:background="@drawable/btn_login_selector"
+        android:text="@string/confirm" />
+
+</RelativeLayout>
