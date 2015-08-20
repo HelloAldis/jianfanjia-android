@@ -6,59 +6,55 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.StrictMode;
+
+import com.jianfanjia.cn.base.BaseApplication;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.tools.SharedPrefer;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
-public class MyApplication extends Application {
+/**
+ * @version 1.0
+ * @Description 此类是我的应用程序类
+ * @author Administrator
+ * @date 2015-8-20 下午1:45
+ *
+ */
+public class MyApplication extends BaseApplication {
 	
-	static Context _context;
-	static Resources _resources;
+	private static MyApplication instance;
+	
+	private boolean isLogin;//判断用户是否登录
+	private int userType;//判断用户类型
 	
 	@TargetApi(Build.VERSION_CODES.GINGERBREAD)
 	@SuppressWarnings("unused")
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		if (Constant.Config.DEVELOPER_MODE
-				&& Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
-			StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
-					.detectAll().penaltyDialog().build());
-			StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
-					.detectAll().penaltyDeath().build());
-		}
-		initImageLoader(getApplicationContext());
-		
-		_context = getApplicationContext();
-		_resources = _context.getResources();
+		instance = this;
 	}
 
-	public static void initImageLoader(Context context) {
-		// This configuration tuning is custom. You can tune every option, you
-		// may tune some of them,
-		// or you can create default configuration by
-		// ImageLoaderConfiguration.createDefault(this);
-		// method.
-		ImageLoaderConfiguration.Builder config = new ImageLoaderConfiguration.Builder(
-				context);
-		config.threadPriority(Thread.NORM_PRIORITY - 2);
-		config.denyCacheImageMultipleSizesInMemory();
-		config.diskCacheFileNameGenerator(new Md5FileNameGenerator());
-		config.diskCacheSize(50 * 1024 * 1024); // 50 MiB
-		config.tasksProcessingOrder(QueueProcessingType.LIFO);
-		config.writeDebugLogs(); // Remove for release app
+	public int getUserType() {
+		return userType;
+	}
 
-		// Initialize ImageLoader with configuration.
-		ImageLoader.getInstance().init(config.build());
+	public void setUserType(int userType) {
+		this.userType = userType;
+	}
+
+	public boolean isLogin() {
+		return isLogin;
+	}
+
+	public void setLogin(boolean isLogin) {
+		this.isLogin = isLogin;
+	}
+
+	public static MyApplication getInstance(){
+		return instance;
 	}
 	
-	public static Context context(){
-		return _context;
-	}
-	
-	public static Resources resources(){
-		return _resources;
-	}
 }

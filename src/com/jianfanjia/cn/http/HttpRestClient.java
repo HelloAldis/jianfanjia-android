@@ -62,7 +62,6 @@ public class HttpRestClient {
 		LogTool.d("HttpRestClient", new StringBuilder("Post" ).append(url).append("&")
                 .append(entity.toString()).toString());
 	}
-
 	
 	public static void post(Context context, String url, RequestParams params,
 			AsyncHttpResponseHandler responseHandler) {

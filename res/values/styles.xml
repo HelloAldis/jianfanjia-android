@@ -37,8 +37,8 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:orientation">horizontal</item>
-        <item name="android:paddingLeft">8dp</item>
-        <item name="android:paddingRight">8dp</item>
+        <item name="android:paddingLeft">@dimen/space_16</item>
+        <item name="android:paddingRight">@dimen/space_16</item>
         <item name="android:background">@drawable/reg_and_login_text_layout_bg</item>
     </style>
 

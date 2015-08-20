@@ -8,9 +8,9 @@ import android.content.Context;
 /**
  * 
  * @version 1.0
- * @Description: �����ǹ���ʵ����
+ * @Description: 此类是工地实体类
  * @author zhanghao
- * @date 2015-8-19 ����4:20:58
+ * @date 2015-8-19 下午4:20:58
  * 
  */
 public class SiteInfo implements Serializable {

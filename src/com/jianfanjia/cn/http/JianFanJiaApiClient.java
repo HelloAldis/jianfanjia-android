@@ -29,13 +29,6 @@ public class JianFanJiaApiClient {
 	 */
 	public static void login(String username, String password,
 			AsyncHttpResponseHandler handler) {
-		// RequestParams params = new RequestParams();
-		// params.put("phone", username);
-		// params.put("pass", password);
-		/*
-		 * UserInfo user = new UserInfo(); user.setPhone(username);
-		 * user.setPass(password);
-		 */
 		JSONObject jsonParams = new JSONObject();
 		try {
 			jsonParams.put("phone", username);
@@ -44,11 +37,8 @@ public class JianFanJiaApiClient {
 			HttpRestClient.post(MyApplication.context(), Url.LOGIN_URL, entity,
 					"application/json", handler);
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

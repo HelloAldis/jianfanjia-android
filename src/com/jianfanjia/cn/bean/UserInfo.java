@@ -16,8 +16,7 @@ public class UserInfo implements Serializable {
 	public final static int IDENTITY_DESIGNER = 0;// 设计师身份
 	public final static int IDENTITY_COMMON_USER = 1;// 业主身份
 
-
-	private String name;// 用户姓名
+	private String username;// 用户姓名
 
 	private String phone;// 用户电话，用来做key,每个用户一个电话
 
@@ -27,7 +26,7 @@ public class UserInfo implements Serializable {
 
 	private String imageId;// 用户头像
 
-	private int userIdentity;// 用户身份，用来标识设计师还是业主
+	private String usertype;// 用户身份，用来标识设计师还是业主
 
 	private String sex;// 我的性别
 
@@ -47,20 +46,20 @@ public class UserInfo implements Serializable {
 		this.imageId = imageId;
 	}
 
-	public int getUserIdentity() {
-		return userIdentity;
+	public String getUsertype() {
+		return usertype;
 	}
 
-	public void setUserIdentity(int userIdentity) {
-		this.userIdentity = userIdentity;
+	public void setUsertype(String usertype) {
+		this.usertype = usertype;
 	}
 
-	public String getName() {
-		return name;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getPhone() {
