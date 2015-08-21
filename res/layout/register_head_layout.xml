@@ -15,70 +15,29 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/space_8"
-            android:drawableLeft="@drawable/icon_goto"
+            android:drawableLeft="@drawable/icon_enrollment_back"
             android:gravity="center"
-            android:text="返回" />
+            android:text="@string/back"
+            android:textColor="#aaaaaa"
+            android:textSize="16sp" />
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/dot_layout"
+    <ImageView
+        android:id="@+id/indicator"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/top_title"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/space_24"
-        android:layout_marginTop="@dimen/space_24" >
-
-        <ImageView
-            android:id="@+id/dot01"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/line01"
-            android:contentDescription="@null"
-            android:src="@drawable/site_listview_item_finish_circle" />
-
-        <View
-            android:id="@+id/line01"
-            style="@style/divier_line"
-            android:layout_width="68dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/space_4"
-            android:layout_marginRight="@dimen/space_4"
-            android:layout_toLeftOf="@+id/dot02" />
-
-        <ImageView
-            android:id="@+id/dot02"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:contentDescription="@null"
-            android:src="@drawable/site_listview_item_finish_circle" />
-
-        <View
-            android:id="@+id/line02"
-            style="@style/divier_line"
-            android:layout_width="68dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/space_4"
-            android:layout_marginRight="@dimen/space_4"
-            android:layout_toRightOf="@+id/dot02" />
-
-        <ImageView
-            android:id="@+id/dot03"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/line02"
-            android:contentDescription="@null"
-            android:src="@drawable/site_listview_item_finish_circle" />
-    </RelativeLayout>
+        android:layout_marginTop="@dimen/space_24"
+        android:src="@drawable/rounded_enrollment1" />
 
     <TextView
         android:id="@+id/register_pro"
         style="@style/site_listview_item_text_style_middle"
-        android:layout_below="@+id/dot_layout"
+        android:layout_below="@+id/indicator"
         android:layout_centerHorizontal="true"
-        android:text="验证手机" />
+        android:text="@string/choose_role"
+        android:textColor="@color/font_white" />
 
 </RelativeLayout>

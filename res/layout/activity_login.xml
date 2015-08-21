@@ -2,18 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main_layout_bg" >
+    android:background="@drawable/bg_login" >
     
-    <include layout="@layout/common_head_layout"
-        android:id="@+id/login_top"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="96dp"
         android:layout_marginLeft="@dimen/space_48"
         android:layout_marginRight="@dimen/space_48"
         android:orientation="vertical"
@@ -53,21 +48,35 @@
                 android:id="@+id/forget_password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/forget_pwd" />
+                android:text="@string/forget_pwd"
+                android:textColor="#f2f5f5"
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/register"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:text="@string/register" />
+                android:text="@string/register"
+                android:textColor="#f2f5f5"
+                android:textSize="14sp" />
         </RelativeLayout>
 
         <Button
             android:id="@+id/btn_login"
             style="@style/button_login_style"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="@dimen/space_24"
             android:text="@string/login" />
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="59dp"
+        android:contentDescription="@null"
+        android:src="@drawable/logo_loading" />
 
 </RelativeLayout>

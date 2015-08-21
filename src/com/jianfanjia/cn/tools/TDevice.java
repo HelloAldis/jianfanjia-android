@@ -32,6 +32,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
 import com.jianfanjia.cn.application.MyApplication;
+import com.jianfanjia.cn.base.BaseApplication;
 
 
 @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
@@ -68,7 +69,7 @@ public class TDevice {
 
     public static int getDefaultLoadFactor() {
         if (_loadFactor == null) {
-            Integer integer = Integer.valueOf(0xf & MyApplication.context()
+            Integer integer = Integer.valueOf(0xf & BaseApplication.context()
                     .getResources().getConfiguration().screenLayout);
             _loadFactor = integer;
             _loadFactor = Integer.valueOf(Math.max(integer.intValue(), 1));
@@ -84,7 +85,7 @@ public class TDevice {
 
     public static DisplayMetrics getDisplayMetrics() {
         DisplayMetrics displaymetrics = new DisplayMetrics();
-        ((WindowManager) MyApplication.context().getSystemService(
+        ((WindowManager) BaseApplication.context().getSystemService(
                 Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(
                 displaymetrics);
         return displaymetrics;
@@ -142,7 +143,7 @@ public class TDevice {
             obj = c.newInstance();
             field = c.getField("status_bar_height");
             x = Integer.parseInt(field.get(obj).toString());
-            return MyApplication.context().getResources()
+            return BaseApplication.context().getResources()
                     .getDimensionPixelSize(x);
         } catch (Exception e) {
             e.printStackTrace();
@@ -154,7 +155,7 @@ public class TDevice {
         boolean flag = true;
         if (_hasBigScreen == null) {
             boolean flag1;
-            if ((0xf & MyApplication.context().getResources()
+            if ((0xf & BaseApplication.context().getResources()
                     .getConfiguration().screenLayout) >= 3)
                 flag1 = flag;
             else
@@ -172,7 +173,7 @@ public class TDevice {
 
     public static final boolean hasCamera() {
         if (_hasCamera == null) {
-            PackageManager pckMgr = MyApplication.context()
+            PackageManager pckMgr = BaseApplication.context()
                     .getPackageManager();
             boolean flag = pckMgr
                     .hasSystemFeature("android.hardware.camera.front");
@@ -200,7 +201,7 @@ public class TDevice {
 
     public static boolean hasInternet() {
         boolean flag;
-        if (((ConnectivityManager) MyApplication.context().getSystemService(
+        if (((ConnectivityManager) BaseApplication.context().getSystemService(
                 "connectivity")).getActiveNetworkInfo() != null)
             flag = true;
         else
@@ -224,7 +225,7 @@ public class TDevice {
 
     public static boolean isPackageExist(String pckName) {
         try {
-            PackageInfo pckInfo = MyApplication.context().getPackageManager()
+            PackageInfo pckInfo = BaseApplication.context().getPackageManager()
                     .getPackageInfo(pckName, 0);
             if (pckInfo != null)
                 return true;
@@ -242,14 +243,14 @@ public class TDevice {
     public static void hideSoftKeyboard(View view) {
         if (view == null)
             return;
-        ((InputMethodManager) MyApplication.context().getSystemService(
+        ((InputMethodManager) BaseApplication.context().getSystemService(
                 Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(
                 view.getWindowToken(), 0);
     }
 
     public static boolean isLandscape() {
         boolean flag;
-        if (MyApplication.context().getResources().getConfiguration().orientation == 2)
+        if (BaseApplication.context().getResources().getConfiguration().orientation == 2)
             flag = true;
         else
             flag = false;
@@ -258,7 +259,7 @@ public class TDevice {
 
     public static boolean isPortrait() {
         boolean flag = true;
-        if (MyApplication.context().getResources().getConfiguration().orientation != 1)
+        if (BaseApplication.context().getResources().getConfiguration().orientation != 1)
             flag = false;
         return flag;
     }
@@ -266,7 +267,7 @@ public class TDevice {
     public static boolean isTablet() {
         if (_isTablet == null) {
             boolean flag;
-            if ((0xf & MyApplication.context().getResources()
+            if ((0xf & BaseApplication.context().getResources()
                     .getConfiguration().screenLayout) >= 3)
                 flag = true;
             else
@@ -290,13 +291,13 @@ public class TDevice {
     }
 
     public static void showSoftKeyboard(View view) {
-        ((InputMethodManager) MyApplication.context().getSystemService(
+        ((InputMethodManager) BaseApplication.context().getSystemService(
                 Context.INPUT_METHOD_SERVICE)).showSoftInput(view,
                 InputMethodManager.SHOW_FORCED);
     }
 
     public static void toogleSoftKeyboard(View view) {
-        ((InputMethodManager) MyApplication.context().getSystemService(
+        ((InputMethodManager) BaseApplication.context().getSystemService(
                 Context.INPUT_METHOD_SERVICE)).toggleSoftInput(0,
                 InputMethodManager.HIDE_NOT_ALWAYS);
     }
@@ -307,15 +308,15 @@ public class TDevice {
     }
 
     public static String getCurCountryLan() {
-        return MyApplication.context().getResources().getConfiguration().locale
+        return BaseApplication.context().getResources().getConfiguration().locale
                 .getLanguage()
                 + "-"
-                + MyApplication.context().getResources().getConfiguration().locale
+                + BaseApplication.context().getResources().getConfiguration().locale
                 .getCountry();
     }
 
     public static boolean isZhCN() {
-        String lang = MyApplication.context().getResources()
+        String lang = BaseApplication.context().getResources()
                 .getConfiguration().locale.getCountry();
         if (lang.equalsIgnoreCase("CN")) {
             return true;
@@ -370,7 +371,7 @@ public class TDevice {
 
     public static PackageInfo getPackageInfo(String pckName) {
         try {
-            return MyApplication.context().getPackageManager()
+            return BaseApplication.context().getPackageManager()
                     .getPackageInfo(pckName, 0);
         } catch (NameNotFoundException e) {
             LogTool.d("TDevice.class", "getPackageInfo");
@@ -381,10 +382,10 @@ public class TDevice {
     public static int getVersionCode() {
         int versionCode = 0;
         try {
-            versionCode = MyApplication
+            versionCode = BaseApplication
                     .context()
                     .getPackageManager()
-                    .getPackageInfo(MyApplication.context().getPackageName(),
+                    .getPackageInfo(BaseApplication.context().getPackageName(),
                             0).versionCode;
         } catch (PackageManager.NameNotFoundException ex) {
             versionCode = 0;
@@ -395,7 +396,7 @@ public class TDevice {
     public static int getVersionCode(String packageName) {
         int versionCode = 0;
         try {
-            versionCode = MyApplication.context().getPackageManager()
+            versionCode = BaseApplication.context().getPackageManager()
                     .getPackageInfo(packageName, 0).versionCode;
         } catch (PackageManager.NameNotFoundException ex) {
             versionCode = 0;
@@ -406,10 +407,10 @@ public class TDevice {
     public static String getVersionName() {
         String name = "";
         try {
-            name = MyApplication
+            name = BaseApplication
             		.context()
                     .getPackageManager()
-                    .getPackageInfo(MyApplication.context().getPackageName(),
+                    .getPackageInfo(BaseApplication.context().getPackageName(),
                             0).versionName;
         } catch (PackageManager.NameNotFoundException ex) {
             name = "";
@@ -418,7 +419,7 @@ public class TDevice {
     }
 
     public static boolean isScreenOn() {
-        PowerManager pm = (PowerManager) MyApplication.context()
+        PowerManager pm = (PowerManager) BaseApplication.context()
                 .getSystemService(Context.POWER_SERVICE);
         return pm.isScreenOn();
     }
@@ -477,7 +478,7 @@ public class TDevice {
     }
 
     public static String getIMEI() {
-        TelephonyManager tel = (TelephonyManager) MyApplication.context()
+        TelephonyManager tel = (TelephonyManager) BaseApplication.context()
                 .getSystemService(Context.TELEPHONY_SERVICE);
         return tel.getDeviceId();
     }
@@ -502,7 +503,7 @@ public class TDevice {
 
     public static boolean isWifiOpen() {
         boolean isWifiConnect = false;
-        ConnectivityManager cm = (ConnectivityManager) MyApplication
+        ConnectivityManager cm = (ConnectivityManager) BaseApplication
                 .context().getSystemService(Context.CONNECTIVITY_SERVICE);
         // check the networkInfos numbers
         NetworkInfo[] networkInfos = cm.getAllNetworkInfo();
@@ -572,7 +573,7 @@ public class TDevice {
             obj = c.newInstance();
             field = c.getField("status_bar_height");
             x = Integer.parseInt(field.get(obj).toString());
-            sbar = MyApplication.context().getResources()
+            sbar = BaseApplication.context().getResources()
                     .getDimensionPixelSize(x);
 
         } catch (Exception e1) {
@@ -613,7 +614,7 @@ public class TDevice {
      */
     public static int getNetworkType() {
         int netType = 0;
-        ConnectivityManager connectivityManager = (ConnectivityManager) MyApplication.context()
+        ConnectivityManager connectivityManager = (ConnectivityManager) BaseApplication.context()
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
         if (networkInfo == null) {

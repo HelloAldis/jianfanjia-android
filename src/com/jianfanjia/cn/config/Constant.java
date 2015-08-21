@@ -24,8 +24,9 @@ public class Constant {
 	public static final String PASSWORD = "password";//密码
 	public static final String USERTYPE = "usertype";//密码
 	
-	public static final String DATA = "data";//登录返回的数据key
-	public static final String ERROR_MSG ="error_msg";//登录失败返回的信息
+	public static final String DATA = "data";//获取成功的数据
+	public static final String ERROR_MSG ="err_msg";//获取数据失败的返回信息
+	public static final String SUCCESS_MSG ="msg";//获取数据成功的返回信息
 
 	
 }

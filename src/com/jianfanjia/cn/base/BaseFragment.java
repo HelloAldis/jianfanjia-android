@@ -36,6 +36,7 @@ public abstract class BaseFragment extends Fragment implements OnClickListener{
 		this.inflater = inflater;
 		View view = inflateView(getLayoutId());
 		initView(view);
+		setListener();
 		return view;
 	}
 	
@@ -65,6 +66,8 @@ public abstract class BaseFragment extends Fragment implements OnClickListener{
 	public abstract int getLayoutId();
 
 	public abstract void initView(View view);
+	
+	public abstract void setListener();
 
 	protected View inflateView(int resId) {
 		return this.inflater.inflate(resId, null);

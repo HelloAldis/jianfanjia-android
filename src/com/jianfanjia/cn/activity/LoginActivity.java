@@ -2,15 +2,15 @@ package com.jianfanjia.cn.activity;
 
 import org.apache.http.Header;
 import org.json.JSONException;
-import org.json.JSONObject;
 
+import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
-import com.google.gson.JsonObject;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.LoginUserBean;
@@ -36,7 +36,9 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	EditText mEtUserName;// 用户名输入框
 	EditText mEtPassword;// 用户密码输入框
 	Button mBtnLogin;// 登录按钮
-
+	
+	private TextView mRegisterView;//导航到用户注册
+	
 	private String mUserName;// 用户名
 	private String mPassword;// 密码
 
@@ -45,6 +47,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		mEtUserName = (EditText) findViewById(R.id.et_username);
 		mEtPassword = (EditText) findViewById(R.id.et_password);
 		mBtnLogin = (Button) findViewById(R.id.btn_login);
+		mRegisterView = (TextView)findViewById(R.id.register);
 
 		mUserName = sharedPrefer.getValue(Constant.ACCOUNT, null);
 		mPassword = sharedPrefer.getValue(Constant.PASSWORD, null);
@@ -60,6 +63,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	@Override
 	public void setListener() {
 		mBtnLogin.setOnClickListener(this);
+		mRegisterView.setOnClickListener(this);
 	}
 
 	@Override
@@ -162,6 +166,11 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		switch (id) {
 		case R.id.btn_login:
 			handleLogin();
+			break;
+		case R.id.register:
+			Intent intent = new Intent(LoginActivity.this,RegisterActivity.class);
+			startActivity(intent);
+			overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 			break;
 		default:
 			break;

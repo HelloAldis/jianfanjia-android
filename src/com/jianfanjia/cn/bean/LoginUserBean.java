@@ -8,7 +8,6 @@ package com.jianfanjia.cn.bean;
  */
 public class LoginUserBean {
 	
-
 		private String username;
 
 		private String usertype;

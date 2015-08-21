@@ -1,19 +1,8 @@
 package com.jianfanjia.cn.application;
 
 import android.annotation.TargetApi;
-import android.app.Application;
-import android.content.Context;
-import android.content.res.Resources;
 import android.os.Build;
-import android.os.StrictMode;
-
 import com.jianfanjia.cn.base.BaseApplication;
-import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.tools.SharedPrefer;
-import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
 /**
  * @version 1.0
@@ -27,7 +16,7 @@ public class MyApplication extends BaseApplication {
 	private static MyApplication instance;
 	
 	private boolean isLogin;//判断用户是否登录
-	private int userType;//判断用户类型
+	private int userType = -1;//判断用户类型
 	
 	@TargetApi(Build.VERSION_CODES.GINGERBREAD)
 	@SuppressWarnings("unused")
