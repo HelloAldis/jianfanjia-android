@@ -96,8 +96,8 @@ public class RegChooseRoleFragment extends BaseFragment implements OnTouchListen
 					nextView.setEnabled(true);
 					break;
 				case R.id.choose_ower:
-					designerView.setImageResource(R.drawable.btn_enrollment_designer2_pressed);
-					owerView.setImageResource(R.drawable.btn_enrollment_user1_normal);
+					designerView.setImageResource(R.drawable.btn_enrollment_designer2_normal);
+					owerView.setImageResource(R.drawable.btn_enrollment_user1_pressed);
 					registerActivity.getRegisterInfo().setUserType(String.valueOf(UserInfo.IDENTITY_COMMON_USER));
 					nextView.setEnabled(true);
 					break;

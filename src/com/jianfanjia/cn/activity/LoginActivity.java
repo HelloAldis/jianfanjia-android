@@ -170,7 +170,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		case R.id.register:
 			Intent intent = new Intent(LoginActivity.this,RegisterActivity.class);
 			startActivity(intent);
-			overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+			overridePendingTransition(R.anim.fragment_slide_right_enter, R.anim.fragment_slide_left_exit);
 			break;
 		default:
 			break;
