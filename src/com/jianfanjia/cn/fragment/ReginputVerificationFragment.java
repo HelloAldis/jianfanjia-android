@@ -4,10 +4,8 @@ import org.apache.http.Header;
 
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -89,6 +87,7 @@ public class ReginputVerificationFragment extends BaseFragment{
 			makeTextLong(response.toString());
 		}
 		
+		@Override
 		public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
 			
 		};

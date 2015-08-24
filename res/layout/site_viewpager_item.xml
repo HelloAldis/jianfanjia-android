@@ -22,10 +22,6 @@
         style="@style/divier_line"
         android:layout_below="@+id/site_viewpager_head" />
 
-    <View
-        style="@style/vertical_divier_line"
-        android:layout_below="@+id/second_line"
-        android:layout_marginLeft="45dp" />
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/site_viewpager_refresh"

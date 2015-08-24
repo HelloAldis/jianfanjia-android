@@ -93,6 +93,7 @@ public class RegInputPhoneFragment extends BaseFragment{
 			makeTextLong(response.toString());
 		}
 		
+		@Override
 		public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
 			
 		};

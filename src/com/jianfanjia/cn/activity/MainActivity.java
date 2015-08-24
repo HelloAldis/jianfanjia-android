@@ -1,8 +1,10 @@
 package com.jianfanjia.cn.activity;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.fragment.SiteManageFragment;
 
 /**
  * 
@@ -13,23 +15,46 @@ import com.jianfanjia.cn.base.BaseActivity;
  * 
  */
 public class MainActivity extends BaseActivity {
+	
+//	private SlidingMenu slidingMenu;
+	private SiteManageFragment siteManageFragment;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		// PushManager.getInstance().initialize(getApplicationContext());
 	}
 
 	@Override
 	public void initView() {
-		// TODO Auto-generated method stub
+		/*slidingMenu = (SlidingMenu) this.findViewById(R.id.slidingmenulayout);
+		slidingMenu.setMode(SlidingMenu.LEFT);
+		slidingMenu.setTouchModeAbove(0);
+		slidingMenu.setOnClosedListener(new OnClosedListener() {
 
+			@Override
+			public void onClosed() {
+			}
+		});
+		slidingMenu.setOnOpenedListener(new OnOpenedListener() {
+
+			@Override
+			public void onOpened() {
+			}
+		});*/
+		
+		initMainContent();
+	}
+
+	private void initMainContent() {
+		siteManageFragment = new SiteManageFragment();
+		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+		fragmentTransaction.add(R.id.main_content_frame, siteManageFragment);
+		fragmentTransaction.commit();		
 	}
 
 	@Override
 	public void setListener() {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override

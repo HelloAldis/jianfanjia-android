@@ -84,6 +84,8 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		// mUserName = "18107218595"，password = "654321"
 		makeTextShort("mUserName =" + mUserName + "password " + mPassword);
 
+		handlerLoginSuccess();
+
 		JianFanJiaApiClient.login(mUserName, mPassword,
 				asyncHttpResponseHandler);
 	}
@@ -110,8 +112,8 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 					makeTextShort(getString(R.string.login_success));
 					
 					//处理登录后的转发
-					handlerLoginSuccess();
 					
+//					handlerLoginSuccess();
 				} else if (response.has(Constant.ERROR_MSG)) {
 					makeTextLong(response.get(Constant.ERROR_MSG).toString());
 				}
@@ -132,7 +134,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 
 	// 处理登录成功的后续操作
 	private void handlerLoginSuccess() {
-		
+		startActivity(MainActivity.class, null);
 	}
 
 	// 客户端对登录数据的验证

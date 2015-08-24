@@ -126,6 +126,9 @@
         <item>油漆</item>
         <item>安装</item>
         <item>竣工</item>
+        <item>开工</item>
+        <item>拆改</item>
+        <item>水电</item>
     </string-array>
     <string-array name="site_procedure_check">
         <item>水电阶段验收</item>

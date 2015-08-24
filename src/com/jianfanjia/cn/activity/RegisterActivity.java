@@ -3,23 +3,15 @@ package com.jianfanjia.cn.activity;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.http.Header;
-import org.json.JSONException;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 
-import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.bean.LoginUserBean;
 import com.jianfanjia.cn.bean.RegisterInfo;
-import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.fragment.RegChooseRoleFragment;
 import com.jianfanjia.cn.fragment.RegInputPhoneFragment;
 import com.jianfanjia.cn.fragment.ReginputVerificationFragment;
-import com.jianfanjia.cn.tools.LogTool;
-import com.loopj.android.http.JsonHttpResponseHandler;
 
 /**
  * 
