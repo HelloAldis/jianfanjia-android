@@ -4,11 +4,23 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_login" >
     
+     <ImageView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="24dp"
+        android:layout_above="@+id/login_layout"
+        android:contentDescription="@null"
+        android:src="@drawable/logo_loading" />
+    
     <LinearLayout
+        android:id="@+id/login_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="96dp"
+        android:layout_marginBottom="48dp"
         android:layout_marginLeft="@dimen/space_48"
         android:layout_marginRight="@dimen/space_48"
         android:orientation="vertical"
@@ -69,14 +81,6 @@
             android:text="@string/login" />
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="59dp"
-        android:contentDescription="@null"
-        android:src="@drawable/logo_loading" />
+   
 
 </RelativeLayout>
