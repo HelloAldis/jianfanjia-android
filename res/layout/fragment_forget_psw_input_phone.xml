@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_login" >
+    android:background="@drawable/bg_register" >
     
     <RelativeLayout
         android:id="@+id/top_title"
@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/space_8"
-            android:drawableLeft="@drawable/icon_enrollment_back"
+            android:drawableLeft="@drawable/icon_register_back"
             android:gravity="center"
             android:text="@string/back"
             android:textColor="#aaaaaa"
