@@ -22,7 +22,7 @@ import com.jianfanjia.cn.config.Url;
 import com.jianfanjia.cn.tools.StringUtils;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
-/*
+/**
  * 
  * @ClassName: JianFanJiaApi
  * @Description: http½Ó¿ÚÀà

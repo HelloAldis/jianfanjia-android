@@ -60,8 +60,8 @@ public class RegisterInfo implements Serializable {
 
 	@Override
 	public String toString() {
-		String regJson = "{\"phone\" :" + phone + "," + "\"pass\" :" + pass + ","
-				+ "\"code\" :" + code + "," + "\"type\" :" + userType + "}";
+		String regJson = "{\"phone\" : \"" + phone + "\"," + "\"pass\" : \"" + pass + "\","
+				+ "\"code\" : \"" + code + "\"," + "\"type\" : \"" + userType + "\"}";
 		LogTool.d(this.getClass().getName(), regJson);
 		return regJson;
 	}

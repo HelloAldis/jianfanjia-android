@@ -57,7 +57,7 @@
 
         <TextView
             android:id="@+id/site_list_item_content_expand_node_finish_status"
-            style="@style/site_listview_item_text_style_middle"
+            style="@style/site_listview_item_text_style_small"
             android:layout_alignParentRight="true"
             android:layout_alignTop="@+id/site_list_item_content_expand_node_name"
             android:text="@string/site_example_node_finish" />
@@ -99,22 +99,25 @@
             android:layout_alignBottom="@+id/site_list_item_content_expand_node_upload_picture"
             android:layout_alignTop="@+id/site_list_item_content_expand_node_upload_picture"
             android:layout_below="@+id/site_list_item_content_expand_node_picture_layout"
-            android:text="@string/site_example_node_time" />
+            android:text="@string/site_example_node_time"
+            android:textColor="@color/site_text_color2" />
 
         <TextView
             android:id="@+id/site_list_item_content_expand_node_upload_picture"
-            style="@style/site_listview_item_text_style_middle"
+            style="@style/site_listview_item_text_style_small"
             android:layout_below="@+id/site_list_item_content_expand_node_picture_layout"
             android:layout_marginRight="24dp"
             android:layout_toLeftOf="@+id/site_list_item_content_expand_node_assess"
-            android:text="@string/site_example_node_upload_picture" />
+            android:text="@string/site_example_node_upload_picture"
+            android:textColor="@color/site_text_color2" />
 
         <TextView
             android:id="@+id/site_list_item_content_expand_node_assess"
-            style="@style/site_listview_item_text_style_middle"
+            style="@style/site_listview_item_text_style_small"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/site_list_item_content_expand_node_picture_layout"
-            android:text="@string/site_example_node_assess" />
+            android:text="@string/site_example_node_assess"
+            android:textColor="@color/site_text_color2" />
     </RelativeLayout>
 
 </RelativeLayout>

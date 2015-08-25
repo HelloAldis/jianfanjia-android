@@ -1,12 +1,13 @@
 package com.jianfanjia.cn.adapter;
 
-import java.util.ArrayList;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -22,11 +23,13 @@ public class NoteListAdapter extends BaseAdapter{
 	private Context context;
 	private int lastClickItem = 0;//记录上一次点击的条目
 	private ProcedureInfo procedureInfo;
+	private Animation animation;
 	
 	public NoteListAdapter(ProcedureInfo procedureInfo,Context context){
 		this.procedureInfo = procedureInfo;
 		this.context = context;
 		this.mInflater = LayoutInflater.from(context);
+		animation = AnimationUtils.loadAnimation(context, R.anim.fragment_list_right_enter);
 	}
 	
 	public ProcedureInfo getProcedureInfo() {
@@ -122,6 +125,7 @@ public class NoteListAdapter extends BaseAdapter{
 		}
 		viewHolder.bigOpenLayout.setVisibility(View.GONE);
 		viewHolder.smallcloseLayout.setVisibility(View.VISIBLE);
+		viewHolder.smallcloseLayout.startAnimation(animation);
 		viewHolder.openComment.setOnClickListener(new OnClickListener() {
 			
 			@Override
