@@ -21,6 +21,7 @@
     <string name="login">登录</string>
     <string name="hint_username">请输入手机号码</string>
     <string name="hint_password">请输入密码</string>
+    <string name="hint_update_password">请输入重置密码</string>
     <string name="forget_pwd">忘记密码</string>
     <string name="register">用户注册</string>
     <string name="tip_please_input_username">请输入账号</string>

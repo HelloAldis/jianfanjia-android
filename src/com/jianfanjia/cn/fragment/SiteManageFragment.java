@@ -1,12 +1,15 @@
 package com.jianfanjia.cn.fragment;
 
 import java.util.ArrayList;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -28,6 +31,8 @@ public class SiteManageFragment extends BaseFragment{
 	private ListView detailNodeListView;
 	private NoteListAdapter mNoteListAdapter;
 	private ScrollLayout scrollLayout;
+	private String[] pro = null;
+	private int size;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -36,13 +41,28 @@ public class SiteManageFragment extends BaseFragment{
 		site = JianFanJiaApiClient.getAllSites(getActivity(), "18107218595" , "1").get(0);//默认拿到第一个工地
 		currentPro = site.getCurrentPro();
 		procedureList = site.getProcedures();
+		size = procedureList.size();
+		pro = getResources().getStringArray(R.array.site_procedure);
 		Log.i(this.getClass().getName(), "pro ="+procedureList.get(currentPro).getNodeList().size());
 	}
 	
 	@Override
 	public void initView(View view) {
 		
+		initScrollLayout(view);
+		
+		initListView(view,procedureList.get(currentPro));
+	}
+
+	private void initScrollLayout(View view) {
 		scrollLayout = (ScrollLayout)view.findViewById(R.id.site_scroller_layout);
+		LayoutParams lp = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		for(int i = 0;i < pro.length ;i++){
+			View siteHead = inflater.inflate(R.layout.site_head_item, null);
+			initItem(siteHead,i);
+			scrollLayout.addView(siteHead, lp);
+		}
+		
 		scrollLayout.setmCurScreen(currentPro);
 		scrollLayout.SetOnViewChangeListener(new OnViewChangeListener() {
 			
@@ -52,8 +72,14 @@ public class SiteManageFragment extends BaseFragment{
 				mNoteListAdapter.notifyDataSetChanged();
 			}
 		});
-		
-		initListView(view,procedureList.get(currentPro));
+	}
+
+	private void initItem(View siteHead,int position) {
+		TextView proName = (TextView)siteHead.findViewById(R.id.site_head_procedure_name);
+		proName.setText(pro[position]);
+		TextView proDate = (TextView)siteHead.findViewById(R.id.site_head_procedure_date);
+		proDate.setText(procedureList.get(position >= size ? 0 : position).getDate());
+		ImageView icon = (ImageView)siteHead.findViewById(R.id.site_head_procedure_icon);
 	}
 
 	private void initListView(View view,ProcedureInfo procedure) {
@@ -158,7 +184,12 @@ public class SiteManageFragment extends BaseFragment{
 	@Override
 	public void setListener() {
 		// TODO Auto-generated method stub
-		
+	}
+	
+	class HeadViewHold{
+		ImageView headIcon;
+		TextView headTile;
+		TextView headDate;
 	}
 
 }

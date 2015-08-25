@@ -4,23 +4,11 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_register" >
     
-    <RelativeLayout
-        android:id="@+id/top_title"
+    <include
+        android:id="@+id/forget_psw_top"
         android:layout_width="match_parent"
-        android:layout_height="48dp" >
-
-        <TextView
-            android:id="@+id/goback"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/space_8"
-            android:drawableLeft="@drawable/icon_register_back"
-            android:gravity="center"
-            android:text="@string/back"
-            android:textColor="#aaaaaa"
-            android:textSize="16sp" />
-    </RelativeLayout>
+        android:layout_height="wrap_content"
+        layout="@layout/register_head_layout" />
     
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,7 +16,7 @@
         android:layout_marginTop="@dimen/space_48"
         android:layout_marginLeft="@dimen/space_48"
         android:layout_marginRight="@dimen/space_48"
-        android:layout_below="@+id/top_title"
+        android:layout_below="@+id/forget_psw_top"
         android:orientation="vertical"
         >
 
@@ -51,7 +39,7 @@
             <EditText
                 android:id="@+id/et_password"
                 style="@style/item_input_edittext"
-                android:hint="@string/hint_password"
+                android:hint="@string/hint_update_password"
                 android:inputType="textPassword" />
         </LinearLayout>
 

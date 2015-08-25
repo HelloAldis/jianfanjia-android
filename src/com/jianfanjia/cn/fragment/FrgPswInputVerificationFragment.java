@@ -27,8 +27,8 @@ import com.loopj.android.http.JsonHttpResponseHandler;
  * @date 2015-8-21 上午9:15
  * 
  */
-public class ReginputVerificationFragment extends BaseFragment {
-	private static final String TAG = ReginputVerificationFragment.class
+public class FrgPswInputVerificationFragment extends BaseFragment {
+	private static final String TAG = FrgPswInputVerificationFragment.class
 			.getClass().getName();
 	private FragmentListener fragemntListener = null;
 	private Button nextView = null;// 下一步
@@ -53,7 +53,7 @@ public class ReginputVerificationFragment extends BaseFragment {
 		backView = (TextView) view.findViewById(R.id.goback);
 		mEdVerif = (EditText) view.findViewById(R.id.et_verification);
 		indicatorView = (ImageView) view.findViewById(R.id.indicator);
-		indicatorView.setImageResource(R.drawable.rounded_register3);
+		indicatorView.setImageResource(R.drawable.rounded_forget2);
 		proTipView = (TextView) view.findViewById(R.id.register_pro);
 		proTipView.setText(getString(R.string.verification_code_sended));
 	}
@@ -139,6 +139,6 @@ public class ReginputVerificationFragment extends BaseFragment {
 
 	@Override
 	public int getLayoutId() {
-		return R.layout.fragment_register_input_verification;
+		return R.layout.fragment_forget_psw_input_verification;
 	}
 }
