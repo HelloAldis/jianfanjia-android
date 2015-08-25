@@ -19,14 +19,17 @@ public class Constant {
 		public static final boolean DEVELOPER_MODE = false;
 	}
 
+	// 用户身份
+	public final static String IDENTITY_OWNER = "1";// 业主
+	public final static String IDENTITY_DESIGNER = "2";// 设计师
+
 	public static final String ISFIRST = "isFirst";// 是否是首次打开程序
 	public static final String ACCOUNT = "account";// 账号
-	public static final String PASSWORD = "password";//密码
-	public static final String USERTYPE = "usertype";//密码
-	
-	public static final String DATA = "data";//获取成功的数据
-	public static final String ERROR_MSG ="err_msg";//获取数据失败的返回信息
-	public static final String SUCCESS_MSG ="msg";//获取数据成功的返回信息
+	public static final String PASSWORD = "password";// 密码
+	public static final String USERTYPE = "usertype";// 密码
 
-	
+	public static final String DATA = "data";// 获取成功的数据
+	public static final String ERROR_MSG = "err_msg";// 获取数据失败的返回信息
+	public static final String SUCCESS_MSG = "msg";// 获取数据成功的返回信息
+
 }
