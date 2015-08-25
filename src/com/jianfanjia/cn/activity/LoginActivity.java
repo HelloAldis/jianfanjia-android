@@ -31,6 +31,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	private EditText mEtUserName;// 用户名输入框
 	private EditText mEtPassword;// 用户密码输入框
 	private Button mBtnLogin;// 登录按钮
+	private TextView mForgetPswView;
 	private TextView mRegisterView;// 导航到用户注册
 	private String mUserName;// 用户名
 	private String mPassword;// 密码

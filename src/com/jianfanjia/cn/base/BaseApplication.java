@@ -3,7 +3,6 @@ package com.jianfanjia.cn.base;
 import android.annotation.TargetApi;
 import android.app.Application;
 import android.content.Context;
-import android.content.res.Resources;
 import android.os.Build;
 import android.os.StrictMode;
 import com.jianfanjia.cn.config.Constant;
@@ -17,13 +16,10 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
  * @Description 此类是基本应用程序类，做一些配置工作
  * @author zhanghao
  * @date 2015-8-20 下午1:43
- *
+ * 
  */
 public class BaseApplication extends Application {
-	
-	static Context _context;
-	static Resources _resources;
-	
+
 	@TargetApi(Build.VERSION_CODES.GINGERBREAD)
 	@SuppressWarnings("unused")
 	@Override
@@ -37,9 +33,6 @@ public class BaseApplication extends Application {
 					.detectAll().penaltyDeath().build());
 		}
 		initImageLoader(getApplicationContext());
-		
-		_context = getApplicationContext();
-		_resources = _context.getResources();
 	}
 
 	public static void initImageLoader(Context context) {
@@ -60,12 +53,5 @@ public class BaseApplication extends Application {
 		// Initialize ImageLoader with configuration.
 		ImageLoader.getInstance().init(config.build());
 	}
-	
-	public static Context context(){
-		return _context;
-	}
-	
-	public static Resources resources(){
-		return _resources;
-	}
+
 }

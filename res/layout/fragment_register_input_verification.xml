@@ -9,8 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         layout="@layout/register_head_layout" />
-    
-    
+
     <TextView
         android:id="@+id/register_tip"
         style="@style/site_listview_item_text_style_small"
@@ -27,9 +26,8 @@
         android:layout_marginRight="@dimen/space_48"
         android:layout_marginTop="@dimen/space_24"
         android:orientation="vertical" >
-        <LinearLayout
-            style="@style/item_input_container"
-            >
+
+        <LinearLayout style="@style/item_input_container" >
 
             <EditText
                 android:id="@+id/et_verification"

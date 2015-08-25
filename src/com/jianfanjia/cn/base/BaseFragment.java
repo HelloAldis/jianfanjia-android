@@ -1,7 +1,5 @@
 package com.jianfanjia.cn.base;
 
-import com.jianfanjia.cn.tools.LogTool;
-
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,6 +8,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Toast;
+import com.jianfanjia.cn.bean.RegisterInfo;
+import com.jianfanjia.cn.tools.LogTool;
 
 /**
  * @version 1.0
@@ -18,65 +18,68 @@ import android.widget.Toast;
  * @date 2015-8-19 16:02:18
  * 
  */
-public abstract class BaseFragment extends Fragment implements OnClickListener{
-
+public abstract class BaseFragment extends Fragment implements OnClickListener {
 	protected LayoutInflater inflater = null;
+	protected RegisterInfo registerInfo = null;// 注册所需要的信息实体类
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		LogTool.d(this.getClass().getName(),"onCreate");
+		LogTool.d(this.getClass().getName(), "onCreate");
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		LogTool.d(this.getClass().getName(),"onCreateView");
+		LogTool.d(this.getClass().getName(), "onCreateView");
 		this.inflater = inflater;
 		View view = inflateView(getLayoutId());
 		initView(view);
+		init();
 		setListener();
 		return view;
 	}
-	
+
 	@Override
-	public void onDestroy() {
-		// TODO Auto-generated method stub
-		super.onDestroy();
-		LogTool.d(this.getClass().getName(),"onDestroy");
+	public void onResume() {
+		super.onResume();
+		LogTool.d(this.getClass().getName(), "onResume");
 	}
 
 	@Override
-    public void onResume() {
-        super.onResume();
-		LogTool.d(this.getClass().getName(),"onResume");
-    }
+	public void onPause() {
+		super.onPause();
+		LogTool.d(this.getClass().getName(), "onPause");
+	}
 
-    @Override
-    public void onPause() {
-        super.onPause();
-		LogTool.d(this.getClass().getName(),"onPause");
-    }
-    
-    public Context getApplication() {
-        return getActivity().getApplication();
-    }
-    
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		LogTool.d(this.getClass().getName(), "onDestroy");
+	}
+
+	public Context getApplication() {
+		return getActivity().getApplication();
+	}
+
 	public abstract int getLayoutId();
 
 	public abstract void initView(View view);
-	
+
 	public abstract void setListener();
 
 	protected View inflateView(int resId) {
 		return this.inflater.inflate(resId, null);
 	}
-	
+
+	private void init() {
+		registerInfo = new RegisterInfo();
+	}
+
 	@Override
 	public void onClick(View arg0) {
 	}
-	
+
 	protected void makeTextShort(String text) {
 		Toast.makeText(getActivity(), text, Toast.LENGTH_SHORT).show();
 	}

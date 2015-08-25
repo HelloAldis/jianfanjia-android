@@ -12,7 +12,6 @@
     <!-- common -->
     <dimen name="common_head_layout_height">48dp</dimen>
     <dimen name="common_item_layout_height">48dp</dimen>
-    
     <dimen name="behind_offset">60dp</dimen>
     <dimen name="shadow_width">15dp</dimen>
 

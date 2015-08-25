@@ -34,12 +34,14 @@
             android:name="com.jianfanjia.cn.activity.MainActivity"
             android:label="@string/app_name" >
         </activity>
-        
         <activity
             android:name="com.jianfanjia.cn.activity.RegisterActivity"
             android:label="@string/app_name" >
         </activity>
-        
+        <activity
+            android:name="com.jianfanjia.cn.activity.ForgetPswActivity"
+            android:label="@string/app_name" >
+        </activity>
         <activity
             android:name="com.jianfanjia.cn.activity.LoginActivity"
             android:label="@string/app_name"

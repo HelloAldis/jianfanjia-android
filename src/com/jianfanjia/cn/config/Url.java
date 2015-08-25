@@ -19,4 +19,8 @@ public class Url {
 	public static final String REGISTER_URL = HTTPROOT + "signup";
 	// 获取短信验证码
 	public static final String GET_CODE_URL = HTTPROOT + "send_verify_code";
+	// 忘记密码
+	public static final String UPDATE_PASS_URL = HTTPROOT + "update_pass";
+	// 登出
+	public static final String SIGNOUT_URL = HTTPROOT + "signout";
 }
