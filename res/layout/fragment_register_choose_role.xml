@@ -30,7 +30,7 @@
                 android:layout_width="96dp"
                 android:layout_height="96dp"
                 android:contentDescription="@null"
-                android:src="@drawable/btn_enrollment_user1_normal" />
+                android:src="@drawable/btn_register_user1_normal" />
 
             <TextView
                 style="@style/my_item_layout_text_style_base"
@@ -51,7 +51,7 @@
                 android:layout_width="96dp"
                 android:layout_height="96dp"
                 android:contentDescription="@null"
-                android:src="@drawable/btn_enrollment_designer2_normal" />
+                android:src="@drawable/btn_register_designer2_normal" />
 
             <TextView
                 style="@style/my_item_layout_text_style_base"

@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-   <!--  <FrameLayout
+    <!--
+    <FrameLayout
         android:id="@+id/banner_head"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -49,31 +50,43 @@
                 android:textColor="@color/font_white"
                 android:textSize="18sp" />
         </RelativeLayout>
-    </FrameLayout> -->
-    
-    <View style="@style/divier_line"/>
+    </FrameLayout>
+    -->
 
-    <com.jianfanjia.cn.view.ScrollLayout
-        android:id="@+id/site_scroller_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-     
-     <View style="@style/divier_line"
-  android:layout_below="@+id/site_scroller_layout"
-/>
-     <View
-        style="@style/vertical_divier_line"
-        android:layout_below="@+id/site_scroller_layout"
-        android:layout_marginLeft="45dp" />
+    <View style="@style/divier_line" />
 
-    <ListView
-        android:id="@+id/site__listview"
+    <com.jianfanjia.cn.view.MainSiteLayout
+        android:id="@+id/site_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:cacheColorHint="#ffffff"
-        android:layout_below="@+id/site_scroller_layout"
-        android:divider="@null"
-        android:listSelector="@android:color/transparent"
-        android:scrollbars="none" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.jianfanjia.cn.view.ScrollLayout
+            android:id="@+id/site_scroller_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <RelativeLayout
+            android:id="@+id/content_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/site_content_bg">
+
+            <View style="@style/divier_line" />
+
+            <View
+                style="@style/vertical_divier_line"
+                android:layout_marginLeft="45dp" />
+
+            <ListView
+                android:id="@+id/site__listview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:cacheColorHint="#ffffff"
+                android:divider="@null"
+                android:listSelector="@android:color/transparent"
+                android:scrollbars="none" />
+        </RelativeLayout>
+    </com.jianfanjia.cn.view.MainSiteLayout>
 
 </RelativeLayout>
