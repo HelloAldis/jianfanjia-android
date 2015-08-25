@@ -15,21 +15,21 @@
         android:scaleType="center"
         android:src="@drawable/site_listview_item_notstart_circle" />
 
-    
-
     <RelativeLayout
         android:id="@+id/site_listview_item_content_small"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="14dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginRight="8dp"
+        android:padding="8dp"
         android:layout_toRightOf="@+id/site_listview_item_status"
-        android:background="@drawable/left_text_bg"
+        android:background="@drawable/list_item_text_bg1"
         android:visibility="gone" >
 
         <TextView
             android:id="@+id/site_list_item_content_small_node_name"
             style="@style/site_listview_item_text_style_big"
+            android:textColor="@color/site_text_color1"
             android:text="@string/site_example_node_name" />
 
         <TextView
@@ -46,8 +46,9 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="8dp"
+        android:padding="8dp"
         android:layout_toRightOf="@+id/site_listview_item_status"
-        android:background="@drawable/left_text_bg" >
+        android:background="@drawable/list_item_text_bg1" >
 
         <TextView
             android:id="@+id/site_list_item_content_expand_node_name"
