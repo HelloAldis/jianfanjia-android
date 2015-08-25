@@ -4,13 +4,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-
 import org.apache.http.entity.StringEntity;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.content.Context;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.base.BaseApplication;
@@ -39,14 +36,14 @@ public class JianFanJiaApiClient {
 	 * @param password
 	 * @param handler
 	 */
-	public static void login(String username, String password,
+	public static void login(Context context, String username, String password,
 			AsyncHttpResponseHandler handler) {
 		JSONObject jsonParams = new JSONObject();
 		try {
 			jsonParams.put("phone", username);
 			jsonParams.put("pass", password);
 			StringEntity entity = new StringEntity(jsonParams.toString());
-			HttpRestClient.post(BaseApplication.context(), Url.LOGIN_URL, entity,
+			HttpRestClient.post(context, Url.LOGIN_URL, entity,
 					"application/json", handler);
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -54,18 +51,19 @@ public class JianFanJiaApiClient {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * @author zhanghao
 	 * @param phone
 	 * @param handler
 	 */
-	public static void send_verification(String phone,AsyncHttpResponseHandler handler){
+	public static void send_verification(Context context, String phone,
+			AsyncHttpResponseHandler handler) {
 		JSONObject jsonParams = new JSONObject();
 		try {
 			jsonParams.put("phone", phone);
 			StringEntity entity = new StringEntity(jsonParams.toString());
-			HttpRestClient.post(BaseApplication.context(), Url.GET_CODE_URL, entity,
+			HttpRestClient.post(context, Url.GET_CODE_URL, entity,
 					"application/json", handler);
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -73,41 +71,43 @@ public class JianFanJiaApiClient {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * @author zhanghao
 	 * @param registerInfo
 	 * @param handler
 	 */
-	public static void register(RegisterInfo registerInfo,AsyncHttpResponseHandler handler){
-			StringEntity entity;
-			try {
-				entity = new StringEntity(registerInfo.toString());
-				HttpRestClient.post(BaseApplication.context(), Url.REGISTER_URL, entity,
-						"application/json", handler);
-			} catch (UnsupportedEncodingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+	public static void register(Context context, RegisterInfo registerInfo,
+			AsyncHttpResponseHandler handler) {
+		StringEntity entity;
+		try {
+			entity = new StringEntity(registerInfo.toString());
+			HttpRestClient.post(context, Url.REGISTER_URL, entity,
+					"application/json", handler);
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
-	
+
 	/**
 	 * @author zhanghao
 	 * @param phone
 	 * @param hanlder
 	 */
-	public static void getUserInfoByPhone(String phone,AsyncHttpResponseHandler hanlder){
-		 StringEntity entity;
-		 try{
-			 entity = new StringEntity(phone);
-			 HttpRestClient.post(BaseApplication.context(), Url.REGISTER_URL, entity,
-						"application/json", hanlder);
-		 } catch (UnsupportedEncodingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-		 }
+	public static void getUserInfoByPhone(Context context, String phone,
+			AsyncHttpResponseHandler hanlder) {
+		StringEntity entity;
+		try {
+			entity = new StringEntity(phone);
+			HttpRestClient.post(context, Url.REGISTER_URL, entity,
+					"application/json", hanlder);
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
-	
+
 	// 拿到所有的模拟工地数据
 	public static ArrayList<SiteInfo> getAllSites(Context context) {
 		ArrayList<SiteInfo> allSites = null;
@@ -126,7 +126,8 @@ public class JianFanJiaApiClient {
 	}
 
 	// 拿到用户所拥有的工地
-	public static ArrayList<SiteInfo> getAllSites(Context context,String phone,String userType) {
+	public static ArrayList<SiteInfo> getAllSites(Context context,
+			String phone, String userType) {
 		ArrayList<SiteInfo> allSites = getAllSites(context);
 		ArrayList<SiteInfo> userSite = new ArrayList<SiteInfo>();
 		if (userType.equals(UserInfo.IDENTITY_DESIGNER)) {
@@ -164,10 +165,5 @@ public class JianFanJiaApiClient {
 			e.printStackTrace();
 		}
 	}
-	
-	
-	
-	
-	
-	
+
 }
