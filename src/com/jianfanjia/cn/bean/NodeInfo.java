@@ -8,27 +8,24 @@ import android.net.Uri;
 
 /**
  * @version 1.0
- * @Description 此类是节点实体类
+ * @Description 姝ょ被鏄妭鐐瑰疄浣撶被
  * @author zhanghao
  * @date 2015-8-19 15:15:20
  * 
  */
 public class NodeInfo implements Serializable {
-
 	private static final long serialVersionUID = -7787432251105107090L;
+	public static final int NOT_START = 0x00;// 鏈柦宸�?
+	public static final int WORKING = 0x01;// 姝ｅ湪鏂藉伐
+	public static final int FINISH = 0x02;// 宸插畬宸�?
+	public static final int WORKING_TYPE = 0x03;// 鏂藉伐绫诲瀷
+	public static final int CHECK_TYPE = 0x04;// 楠岃瘉绫诲瀷
 
-	public static final int NOT_START = 0x00;// 未施工?
-	public static final int WORKING = 0x01;// 正在施工
-	public static final int FINISH = 0x02;// 已完工?
+	private String nodeName;// 褰撳墠鑺傜偣鐨勫悕瀛�?
+	private int finishStatus;// 璇ヨ妭鐐规槸鍚﹀畬宸�?
 
-	public static final int WORKING_TYPE = 0x03;// 施工类型
-	public static final int CHECK_TYPE = 0x04;// 验证类型
-
-	private String nodeName;// 当前节点的名字?
-	private int finishStatus;// 该节点是否完工?
-
-	private List<Uri> imageUris = new ArrayList<Uri>();// 当前节点要上传的图片
-	private List<CommentInfo> comment = new ArrayList<CommentInfo>();// 评论
+	private List<Uri> imageUris = new ArrayList<Uri>();// 褰撳墠鑺傜偣瑕佷笂浼犵殑鍥剧墖
+	private List<CommentInfo> comment = new ArrayList<CommentInfo>();// 璇勮
 
 	public int getFinishStatus() {
 		return finishStatus;

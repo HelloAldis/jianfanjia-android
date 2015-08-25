@@ -18,7 +18,6 @@ import com.jianfanjia.cn.bean.NodeInfo;
 import com.jianfanjia.cn.bean.ProcedureInfo;
 
 public class NoteListAdapter extends BaseAdapter {
-
 	private LayoutInflater mInflater;
 	private Context context;
 	private int lastClickItem = 0;// 记录上一次点击的条目
