@@ -17,21 +17,22 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.NodeInfo;
 import com.jianfanjia.cn.bean.ProcedureInfo;
 
-public class NoteListAdapter extends BaseAdapter{
-	
+public class NoteListAdapter extends BaseAdapter {
+
 	private LayoutInflater mInflater;
 	private Context context;
-	private int lastClickItem = 0;//记录上一次点击的条目
+	private int lastClickItem = 0;// 记录上一次点击的条目
 	private ProcedureInfo procedureInfo;
 	private Animation animation;
-	
-	public NoteListAdapter(ProcedureInfo procedureInfo,Context context){
+
+	public NoteListAdapter(ProcedureInfo procedureInfo, Context context) {
 		this.procedureInfo = procedureInfo;
 		this.context = context;
 		this.mInflater = LayoutInflater.from(context);
-		animation = AnimationUtils.loadAnimation(context, R.anim.fragment_list_right_enter);
+		animation = AnimationUtils.loadAnimation(context,
+				R.anim.fragment_list_right_enter);
 	}
-	
+
 	public ProcedureInfo getProcedureInfo() {
 		return procedureInfo;
 	}
@@ -57,7 +58,7 @@ public class NoteListAdapter extends BaseAdapter{
 		// TODO Auto-generated method stub
 		return position;
 	}
-	
+
 	public int getLastClickItem() {
 		return lastClickItem;
 	}
@@ -66,93 +67,108 @@ public class NoteListAdapter extends BaseAdapter{
 		this.lastClickItem = lastClickItem;
 	}
 
-
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewHolder viewHolder = null;
 		final NodeInfo nodeInfo = procedureInfo.getNodeList().get(position);
 		Log.i(this.getClass().getName(), nodeInfo.getNodeName());
-		if(convertView == null){
+		if (convertView == null) {
 			convertView = mInflater.inflate(R.layout.site_listview_item, null);
 			viewHolder = new ViewHolder();
-			viewHolder.smallcloseLayout = (RelativeLayout)convertView.findViewById(R.id.site_listview_item_content_small);
-			viewHolder.bigOpenLayout = (RelativeLayout)convertView.findViewById(R.id.site_listview_item_content_expand);
-			viewHolder.closeNodeName = (TextView)convertView.findViewById(R.id.site_list_item_content_small_node_name);
-			viewHolder.openNodeName = (TextView)convertView.findViewById(R.id.site_list_item_content_expand_node_name);
-			viewHolder.openUploadPic = (TextView)convertView.findViewById(R.id.site_list_item_content_expand_node_upload_picture);
-			viewHolder.finishTime = (TextView)convertView.findViewById(R.id.site_list_item_content_small_node_finishtime);
-			viewHolder.openUploadTime = (TextView)convertView.findViewById(R.id.site_list_item_content_expand_node_time);
-			viewHolder.openComment = (TextView)convertView.findViewById(R.id.site_list_item_content_expand_node_assess);
-			viewHolder.openFinishStatus = (TextView)convertView.findViewById(R.id.site_list_item_content_expand_node_finish_status);
-			viewHolder.finishStatusIcon = (ImageView)convertView.findViewById(R.id.site_listview_item_status);
+			viewHolder.smallcloseLayout = (RelativeLayout) convertView
+					.findViewById(R.id.site_listview_item_content_small);
+			viewHolder.bigOpenLayout = (RelativeLayout) convertView
+					.findViewById(R.id.site_listview_item_content_expand);
+			viewHolder.closeNodeName = (TextView) convertView
+					.findViewById(R.id.site_list_item_content_small_node_name);
+			viewHolder.openNodeName = (TextView) convertView
+					.findViewById(R.id.site_list_item_content_expand_node_name);
+			viewHolder.openUploadPic = (TextView) convertView
+					.findViewById(R.id.site_list_item_content_expand_node_upload_picture);
+			viewHolder.finishTime = (TextView) convertView
+					.findViewById(R.id.site_list_item_content_small_node_finishtime);
+			viewHolder.openUploadTime = (TextView) convertView
+					.findViewById(R.id.site_list_item_content_expand_node_time);
+			viewHolder.openComment = (TextView) convertView
+					.findViewById(R.id.site_list_item_content_expand_node_assess);
+			viewHolder.openFinishStatus = (TextView) convertView
+					.findViewById(R.id.site_list_item_content_expand_node_finish_status);
+			viewHolder.finishStatusIcon = (ImageView) convertView
+					.findViewById(R.id.site_listview_item_status);
 			convertView.setTag(viewHolder);
-		}else{
-			viewHolder = (ViewHolder)convertView.getTag();
+		} else {
+			viewHolder = (ViewHolder) convertView.getTag();
 		}
 		viewHolder.closeNodeName.setText(nodeInfo.getNodeName());
 		viewHolder.openNodeName.setText(nodeInfo.getNodeName());
 		switch (nodeInfo.getFinishStatus()) {
-			case NodeInfo.FINISH:
-				viewHolder.finishStatusIcon.setImageResource(R.drawable.site_listview_item_finish_circle);
-				viewHolder.openFinishStatus.setText(context.getResources().getString(R.string.site_example_node_finish));
-				viewHolder.finishTime.setVisibility(View.VISIBLE);
-				break;
-			case NodeInfo.NOT_START:
-				viewHolder.finishStatusIcon.setImageResource(R.drawable.site_listview_item_notstart_circle);
-				viewHolder.finishTime.setVisibility(View.GONE);
-				break;
-			case NodeInfo.WORKING:
-				viewHolder.finishTime.setVisibility(View.GONE);
-				viewHolder.finishStatusIcon.setImageResource(R.drawable.site_listview_item_working_circle);
-				//根据用户的不同设置不同的显示
-				/*if(AppContext.getInstance().getLoginUser().getUserIdentity() == UserInfo.IDENTITY_COMMON_USER){
-					viewHolder.openFinishStatus.setText(context.getResources().getString(R.string.site_example_node_working));
-				}else{
-					viewHolder.openFinishStatus.setText(context.getResources().getString(R.string.site_example_node_confirm_finish));
-					//设计师确认完工操�?
-					viewHolder.openFinishStatus.setOnClickListener(new OnClickListener() {
-						
-						@Override
-						public void onClick(View v) {
-							v.setOnClickListener(null);
-							NodeInfo.setFinishStatus(NodeInfo.FINISH);
-						}
-					});
-				}*/
-				break;
-			default:
-				break;
+		case NodeInfo.FINISH:
+			viewHolder.finishStatusIcon
+					.setImageResource(R.drawable.site_listview_item_finish_circle);
+			viewHolder.openFinishStatus.setText(context.getResources()
+					.getString(R.string.site_example_node_finish));
+			viewHolder.finishTime.setVisibility(View.VISIBLE);
+			break;
+		case NodeInfo.NOT_START:
+			viewHolder.finishStatusIcon
+					.setImageResource(R.drawable.site_listview_item_notstart_circle);
+			viewHolder.finishTime.setVisibility(View.GONE);
+			break;
+		case NodeInfo.WORKING:
+			viewHolder.finishTime.setVisibility(View.GONE);
+			viewHolder.finishStatusIcon
+					.setImageResource(R.drawable.site_listview_item_working_circle);
+			// 根据用户的不同设置不同的显示
+			/*
+			 * if(AppContext.getInstance().getLoginUser().getUserIdentity() ==
+			 * UserInfo.IDENTITY_COMMON_USER){
+			 * viewHolder.openFinishStatus.setText
+			 * (context.getResources().getString
+			 * (R.string.site_example_node_working)); }else{
+			 * viewHolder.openFinishStatus
+			 * .setText(context.getResources().getString
+			 * (R.string.site_example_node_confirm_finish)); //设计师确认完工操�?
+			 * viewHolder.openFinishStatus.setOnClickListener(new
+			 * OnClickListener() {
+			 * 
+			 * @Override public void onClick(View v) {
+			 * v.setOnClickListener(null);
+			 * NodeInfo.setFinishStatus(NodeInfo.FINISH); } }); }
+			 */
+			break;
+		default:
+			break;
 		}
 		viewHolder.bigOpenLayout.setVisibility(View.GONE);
 		viewHolder.smallcloseLayout.setVisibility(View.VISIBLE);
 		viewHolder.smallcloseLayout.startAnimation(animation);
 		viewHolder.openComment.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
-//				MyApplication.getInstance().showToast("打开评论");
+				// MyApplication.getInstance().showToast("打开评论");
 			}
 		});
 		viewHolder.openUploadPic.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
-//				AppContext.showToast("上传照片");
+				// AppContext.showToast("上传照片");
 			}
 		});
 		return convertView;
 	}
 
-    class ViewHolder{
-    	RelativeLayout smallcloseLayout;
-    	RelativeLayout bigOpenLayout;
-    	TextView closeNodeName;
-    	TextView openNodeName;
-    	TextView openUploadPic;
-    	TextView openComment;
-    	TextView openUploadTime;
-    	TextView finishTime;
-    	TextView openFinishStatus;
-    	ImageView finishStatusIcon;
-    }
+	class ViewHolder {
+		RelativeLayout smallcloseLayout;
+		RelativeLayout bigOpenLayout;
+		TextView closeNodeName;
+		TextView openNodeName;
+		TextView openUploadPic;
+		TextView openComment;
+		TextView openUploadTime;
+		TextView finishTime;
+		TextView openFinishStatus;
+		ImageView finishStatusIcon;
+	}
 }

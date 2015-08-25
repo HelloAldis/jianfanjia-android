@@ -12,9 +12,7 @@ import com.jianfanjia.cn.base.BaseApplication;
  *
  */
 public class MyApplication extends BaseApplication {
-	
 	private static MyApplication instance;
-	
 	private boolean isLogin;//判断用户是否登录
 	private int userType = -1;//判断用户类型
 	

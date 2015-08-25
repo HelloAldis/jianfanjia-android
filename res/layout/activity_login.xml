@@ -3,18 +3,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_login" >
-    
-     <ImageView
+
+    <ImageView
         android:id="@+id/logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/login_layout"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="24dp"
-        android:layout_above="@+id/login_layout"
         android:contentDescription="@null"
         android:src="@drawable/logo_loading" />
-    
+
     <LinearLayout
         android:id="@+id/login_layout"
         android:layout_width="match_parent"
@@ -23,11 +23,9 @@
         android:layout_marginBottom="48dp"
         android:layout_marginLeft="@dimen/space_48"
         android:layout_marginRight="@dimen/space_48"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical" >
 
-        <LinearLayout style="@style/item_input_container"
-             >
+        <LinearLayout style="@style/item_input_container" >
 
             <EditText
                 android:id="@+id/et_username"
@@ -39,8 +37,7 @@
 
         <LinearLayout
             style="@style/item_input_container"
-            android:layout_marginTop="@dimen/space_16"
-            >
+            android:layout_marginTop="@dimen/space_16" >
 
             <EditText
                 android:id="@+id/et_password"
@@ -52,9 +49,9 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_12"
             android:layout_marginLeft="@dimen/space_8"
-            android:layout_marginRight="@dimen/space_8" >
+            android:layout_marginRight="@dimen/space_8"
+            android:layout_marginTop="@dimen/space_12" >
 
             <TextView
                 android:id="@+id/forget_password"
@@ -80,7 +77,5 @@
             android:layout_marginTop="@dimen/space_24"
             android:text="@string/login" />
     </LinearLayout>
-
-   
 
 </RelativeLayout>

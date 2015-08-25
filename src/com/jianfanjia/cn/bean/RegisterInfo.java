@@ -1,7 +1,6 @@
 package com.jianfanjia.cn.bean;
 
 import java.io.Serializable;
-
 import com.jianfanjia.cn.tools.LogTool;
 
 /**
@@ -12,18 +11,10 @@ import com.jianfanjia.cn.tools.LogTool;
  * 
  */
 public class RegisterInfo implements Serializable {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-
 	private String phone;// 手机号
-
 	private String pass;// 密码
-
 	private String code;// 验证码
-
 	private String userType;// 用户类型
 
 	public String getPhone() {
@@ -60,10 +51,10 @@ public class RegisterInfo implements Serializable {
 
 	@Override
 	public String toString() {
-		String regJson = "{\"phone\" : \"" + phone + "\"," + "\"pass\" : \"" + pass + "\","
-				+ "\"code\" : \"" + code + "\"," + "\"type\" : \"" + userType + "\"}";
+		String regJson = "{\"phone\" : \"" + phone + "\"," + "\"pass\" : \""
+				+ pass + "\"," + "\"code\" : \"" + code + "\","
+				+ "\"type\" : \"" + userType + "\"}";
 		LogTool.d(this.getClass().getName(), regJson);
 		return regJson;
 	}
-
 }

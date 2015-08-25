@@ -14,42 +14,42 @@ import android.content.Context;
  * 
  */
 public class SiteInfo implements Serializable {
-	
-	private String userPhone;//业主电话
-	
-	private String designerPhone;//设计师电话
+	private static final long serialVersionUID = -6970574857379863429L;
 
-	private String city;//所在城市
-	
-	private String district;//所在区
-	
-	private String villageName;//小区名称
-	
-	private String houseStyle;//户型
-	
-	private String houseSize;//房子面积
-	
-	private String loveStyle;//风格喜好
-	
-	private String decorationStyle;//装修类型
-	
-	private String decorationBudget;//装修预算
-	
-	private String startDate;//开工日期
-	
-	private int totalDate;//总工期 
-	
-	private int currentPro;//当前所在工序
-	
-	private ArrayList<ProcedureInfo> procedures = new ArrayList<ProcedureInfo>();//�?包含的所有工�?
-	
+	private String userPhone;// 业主电话
+
+	private String designerPhone;// 设计师电话
+
+	private String city;// 所在城市
+
+	private String district;// 所在区
+
+	private String villageName;// 小区名称
+
+	private String houseStyle;// 户型
+
+	private String houseSize;// 房子面积
+
+	private String loveStyle;// 风格喜好
+
+	private String decorationStyle;// 装修类型
+
+	private String decorationBudget;// 装修预算
+
+	private String startDate;// 开工日期
+
+	private int totalDate;// 总工期
+
+	private int currentPro;// 当前所在工序
+
+	private ArrayList<ProcedureInfo> procedures = new ArrayList<ProcedureInfo>();// �?包含的所有工�?
+
 	private Context context;
-	
-	public SiteInfo(Context context){
+
+	public SiteInfo(Context context) {
 		this.context = context;
 	}
-	
-	
+
 	public String getDesignerPhone() {
 		return designerPhone;
 	}
@@ -81,16 +81,14 @@ public class SiteInfo implements Serializable {
 	public void setCity(String city) {
 		this.city = city;
 	}
-	
+
 	public String getDistrict() {
 		return district;
 	}
 
-
 	public void setDistrict(String district) {
 		this.district = district;
 	}
-
 
 	public String getVillageName() {
 		return villageName;
@@ -144,21 +142,17 @@ public class SiteInfo implements Serializable {
 		return startDate;
 	}
 
-
 	public void setStartDate(String startDate) {
 		this.startDate = startDate;
 	}
-
 
 	public int getTotalDate() {
 		return totalDate;
 	}
 
-
 	public void setTotalDate(int totalDate) {
 		this.totalDate = totalDate;
 	}
-
 
 	public ArrayList<ProcedureInfo> getProcedures() {
 		return procedures;
@@ -172,6 +166,5 @@ public class SiteInfo implements Serializable {
 	public String toString() {
 		return super.toString();
 	}
-	
 
 }

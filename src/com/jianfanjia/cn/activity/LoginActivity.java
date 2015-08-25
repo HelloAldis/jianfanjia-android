@@ -2,21 +2,19 @@ package com.jianfanjia.cn.activity;
 
 import org.apache.http.Header;
 import org.json.JSONException;
-
-import android.content.Intent;
+import org.json.JSONObject;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.LoginUserBean;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
-import com.jianfanjia.cn.tools.TDevice;
+import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.tools.NetTool;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 /**
@@ -28,17 +26,12 @@ import com.loopj.android.http.JsonHttpResponseHandler;
  * 
  */
 public class LoginActivity extends BaseActivity implements OnClickListener {
-
-	public static final int REQUEST_CODE_INIT = 0;
-	private static final String BUNDLE_KEY_REQUEST_CODE = "BUNDLE_KEY_REQUEST_CODE";
-	protected static final String TAG = LoginActivity.class.getSimpleName();
-
-	EditText mEtUserName;// 用户名输入框
-	EditText mEtPassword;// 用户密码输入框
-	Button mBtnLogin;// 登录按钮
-	
-	private TextView mRegisterView;//导航到用户注册
-	
+	private static final String TAG = LoginActivity.class.getClass().getName();
+	private EditText mEtUserName;// 用户名输入框
+	private EditText mEtPassword;// 用户密码输入框
+	private Button mBtnLogin;// 登录按钮
+	private TextView mForgetPswView;
+	private TextView mRegisterView;// 导航到用户注册
 	private String mUserName;// 用户名
 	private String mPassword;// 密码
 
@@ -47,15 +40,15 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		mEtUserName = (EditText) findViewById(R.id.et_username);
 		mEtPassword = (EditText) findViewById(R.id.et_password);
 		mBtnLogin = (Button) findViewById(R.id.btn_login);
-		mRegisterView = (TextView)findViewById(R.id.register);
-
+		mForgetPswView = (TextView) findViewById(R.id.forget_password);
+		mRegisterView = (TextView) findViewById(R.id.register);
 		mUserName = sharedPrefer.getValue(Constant.ACCOUNT, null);
 		mPassword = sharedPrefer.getValue(Constant.PASSWORD, null);
-		if (mUserName != null) {
+		LogTool.d(TAG, "mUserName=" + mUserName + " mPassword=" + mPassword);
+		if (!TextUtils.isEmpty(mUserName)) {
 			mEtUserName.setText(mUserName);
 		}
-
-		if (sharedPrefer.getValue(Constant.PASSWORD, null) != null) {
+		if (!TextUtils.isEmpty(mPassword)) {
 			mEtPassword.setText(mPassword);
 		}
 	}
@@ -64,119 +57,114 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	public void setListener() {
 		mBtnLogin.setOnClickListener(this);
 		mRegisterView.setOnClickListener(this);
+		mForgetPswView.setOnClickListener(this);
 	}
 
 	@Override
-	public int getLayoutId() {
-		// TODO Auto-generated method stub
-		return R.layout.activity_login;
-	}
-
-	// 处理登录过程
-	private void handleLogin() {
-		if (!prepareForLogin()) {
-			return;
-		}
-		// if the data has ready
-		mUserName = mEtUserName.getText().toString();
-		mPassword = mEtPassword.getText().toString();
-
-		// mUserName = "18107218595"，password = "654321"
-		makeTextShort("mUserName =" + mUserName + "password " + mPassword);
-
-		handlerLoginSuccess();
-
-		JianFanJiaApiClient.login(mUserName, mPassword,
-				asyncHttpResponseHandler);
-	}
-
-	private JsonHttpResponseHandler asyncHttpResponseHandler = new JsonHttpResponseHandler() {
-
-		@Override
-		public void onSuccess(int statusCode, Header[] headers,
-				org.json.JSONObject response) {
-			try {
-				if (response.has(Constant.DATA)) {
-					LoginUserBean loginUserBean = jsonParser.jsonToBean(
-							response.get(Constant.DATA).toString(),
-							LoginUserBean.class);
-					sharedPrefer.setValue(Constant.ACCOUNT, mUserName);
-					sharedPrefer.setValue(Constant.PASSWORD, mPassword);
-
-					// 保存登录状态和用户类型
-					MyApplication.getInstance().setLogin(true);
-					MyApplication.getInstance().setUserType(
-							Integer.parseInt(loginUserBean.getUsertype()));
-
-					// 提示登录成功
-					makeTextShort(getString(R.string.login_success));
-					
-					//处理登录后的转发
-					
-//					handlerLoginSuccess();
-				} else if (response.has(Constant.ERROR_MSG)) {
-					makeTextLong(response.get(Constant.ERROR_MSG).toString());
-				}
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				makeTextLong(getString(R.string.tip_login_error_for_network));
+	public void onClick(View view) {
+		switch (view.getId()) {
+		case R.id.btn_login:
+			mUserName = mEtUserName.getText().toString().trim();
+			mPassword = mEtPassword.getText().toString().trim();
+			if (checkInput(mUserName, mPassword)) {
+				login(mUserName, mPassword);
 			}
-		};
-
-		@Override
-		public void onFailure(int statusCode, Header[] headers,
-				String responseString, Throwable throwable) {
-			makeTextLong(getString(R.string.tip_login_error_for_network));
-		};
-
-	};
-
-	// 处理登录成功的后续操作
-	private void handlerLoginSuccess() {
-		startActivity(MainActivity.class, null);
+			break;
+		case R.id.register:
+			startActivity(RegisterActivity.class);
+			overridePendingTransition(R.anim.fragment_slide_right_enter,
+					R.anim.fragment_slide_left_exit);
+			break;
+		case R.id.forget_password:
+			startActivity(ForgetPswActivity.class);
+			break;
+		default:
+			break;
+		}
 	}
 
-	// 客户端对登录数据的验证
-	private boolean prepareForLogin() {
-
-		if (!TDevice.hasInternet()) {
-			makeTextShort(getResources().getString(R.string.tip_no_internet));
-			return false;
-		}
-
-		String uName = mEtUserName.getText().toString();
-		if (TextUtils.isEmpty(uName)) {
+	private boolean checkInput(String name, String password) {
+		if (TextUtils.isEmpty(name)) {
 			makeTextShort(getResources().getString(
 					R.string.tip_please_input_username));
 			mEtUserName.requestFocus();
 			return false;
 		}
-		String pwd = mEtPassword.getText().toString();
-		if (TextUtils.isEmpty(pwd)) {
+		if (TextUtils.isEmpty(password)) {
 			makeTextShort(getResources().getString(
 					R.string.tip_please_input_password));
 			mEtPassword.requestFocus();
 			return false;
 		}
+		if (!NetTool.isNetworkAvailable(LoginActivity.this)) {
+			makeTextShort(getResources().getString(R.string.tip_no_internet));
+			return false;
+		}
 		return true;
 	}
 
+	/**
+	 * 登录
+	 * 
+	 * @param name
+	 * @param password
+	 */
+	private void login(String name, String password) {
+		JianFanJiaApiClient.login(LoginActivity.this, name, password,
+				new JsonHttpResponseHandler() {
+					@Override
+					public void onStart() {
+						LogTool.d(TAG, "onStart()");
+					}
+
+					@Override
+					public void onSuccess(int statusCode, Header[] headers,
+							JSONObject response) {
+						LogTool.d(TAG, "JSONObject response:" + response);
+						try {
+							if (response.has(Constant.DATA)) {
+								makeTextShort(getString(R.string.login_success));
+								LoginUserBean loginUserBean = jsonParser
+										.jsonToBean(response.get(Constant.DATA)
+												.toString(),
+												LoginUserBean.class);
+								saveLoginUserInfo(loginUserBean);
+								startActivity(MainActivity.class);
+								finish();
+							} else if (response.has(Constant.ERROR_MSG)) {
+								makeTextLong(response.get(Constant.ERROR_MSG)
+										.toString());
+							}
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+							makeTextLong(getString(R.string.tip_login_error_for_network));
+						}
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							String responseString, Throwable throwable) {
+						LogTool.d(TAG, "throwable:" + throwable);
+						makeTextLong(getString(R.string.tip_login_error_for_network));
+					};
+				});
+	}
+
+	/**
+	 * 保存登录成功用户信息
+	 * 
+	 * @param userBean
+	 */
+	private void saveLoginUserInfo(LoginUserBean userBean) {
+		sharedPrefer.setValue(Constant.ACCOUNT, userBean.getPhone());
+		sharedPrefer.setValue(Constant.USERTYPE, userBean.getUsertype());
+		sharedPrefer.setValue(Constant.PASSWORD, mPassword);
+	}
+
 	@Override
-	public void onClick(View view) {
-		int id = view.getId();
-		switch (id) {
-		case R.id.btn_login:
-			handleLogin();
-			break;
-		case R.id.register:
-			Intent intent = new Intent(LoginActivity.this,RegisterActivity.class);
-			startActivity(intent);
-			overridePendingTransition(R.anim.fragment_slide_right_enter, R.anim.fragment_slide_left_exit);
-			break;
-		default:
-			break;
-		}
+	public int getLayoutId() {
+		return R.layout.activity_login;
 	}
 
 }
