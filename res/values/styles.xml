@@ -68,7 +68,7 @@
     
     <!-- head_layout -->
     <style name="head_title_text_style">
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">22sp</item>
         <item name="android:textColor">#101010</item>
         <item name="android:gravity">center</item>
     </style>
@@ -99,15 +99,15 @@
         <item name="android:gravity">center</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">@dimen/text_size_12</item>
-        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/site_text_color1</item>
     </style>
 
     <style name="site_listview_item_text_style_middle">
         <item name="android:gravity">center</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
         <item name="android:textColor">@android:color/black</item>
     </style>
 

@@ -3,7 +3,6 @@ package com.jianfanjia.cn.activity;
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
-import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -41,6 +40,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		mEtUserName = (EditText) findViewById(R.id.et_username);
 		mEtPassword = (EditText) findViewById(R.id.et_password);
 		mBtnLogin = (Button) findViewById(R.id.btn_login);
+		mForgetPswView = (TextView) findViewById(R.id.forget_password);
 		mRegisterView = (TextView) findViewById(R.id.register);
 		mUserName = sharedPrefer.getValue(Constant.ACCOUNT, null);
 		mPassword = sharedPrefer.getValue(Constant.PASSWORD, null);
@@ -57,6 +57,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	public void setListener() {
 		mBtnLogin.setOnClickListener(this);
 		mRegisterView.setOnClickListener(this);
+		mForgetPswView.setOnClickListener(this);
 	}
 
 	@Override
@@ -70,11 +71,12 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 			}
 			break;
 		case R.id.register:
-			Intent intent = new Intent(LoginActivity.this,
-					RegisterActivity.class);
-			startActivity(intent);
+			startActivity(RegisterActivity.class);
 			overridePendingTransition(R.anim.fragment_slide_right_enter,
 					R.anim.fragment_slide_left_exit);
+			break;
+		case R.id.forget_password:
+			startActivity(ForgetPswActivity.class);
 			break;
 		default:
 			break;

@@ -48,7 +48,7 @@ public class RegChooseRoleFragment extends BaseFragment implements
 		nextView = (Button) view.findViewById(R.id.next);
 		backView = (TextView) view.findViewById(R.id.goback);
 		indicatorView = (ImageView) view.findViewById(R.id.indicator);
-		indicatorView.setImageResource(R.drawable.rounded_enrollment1);
+		indicatorView.setImageResource(R.drawable.rounded_register1);
 		proTipView = (TextView) view.findViewById(R.id.register_pro);
 		proTipView.setText(getString(R.string.choose_role));
 		nextView.setEnabled(false);
@@ -83,16 +83,16 @@ public class RegChooseRoleFragment extends BaseFragment implements
 		if (action == MotionEvent.ACTION_DOWN) {
 			switch (viewId) {
 			case R.id.choose_designer:
-				owerView.setImageResource(R.drawable.btn_enrollment_user1_normal);
+				owerView.setImageResource(R.drawable.btn_register_user1_normal);
 				designerView
-						.setImageResource(R.drawable.btn_enrollment_designer2_pressed);
+						.setImageResource(R.drawable.btn_register_designer2_pressed);
 				registerInfo.setUserType(Constant.IDENTITY_DESIGNER);
 				nextView.setEnabled(true);
 				break;
 			case R.id.choose_ower:
 				designerView
-						.setImageResource(R.drawable.btn_enrollment_designer2_normal);
-				owerView.setImageResource(R.drawable.btn_enrollment_user1_pressed);
+						.setImageResource(R.drawable.btn_register_designer2_normal);
+				owerView.setImageResource(R.drawable.btn_register_user1_pressed);
 				registerInfo.setUserType(Constant.IDENTITY_OWNER);
 				nextView.setEnabled(true);
 				break;

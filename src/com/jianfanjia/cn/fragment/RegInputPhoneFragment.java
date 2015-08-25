@@ -57,7 +57,7 @@ public class RegInputPhoneFragment extends BaseFragment {
 		mUserName = (EditText) view.findViewById(R.id.et_username);
 		mPassword = (EditText) view.findViewById(R.id.et_password);
 		indicatorView = (ImageView) view.findViewById(R.id.indicator);
-		indicatorView.setImageResource(R.drawable.rounded_enrollment2);
+		indicatorView.setImageResource(R.drawable.rounded_register2);
 		proTipView = (TextView) view.findViewById(R.id.register_pro);
 		proTipView.setText(getString(R.string.input_phone));
 	}

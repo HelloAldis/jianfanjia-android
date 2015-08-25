@@ -9,15 +9,11 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.Scroller;
-import android.widget.TextView;
-
-import com.jianfanjia.cn.activity.R;
 
 /**
- * 瀹革箑褰稿鎴濆З閸掑洦宕茬仦蹇撶閹貉傛
- * 
- * @author Yao.GUET date: 2011-05-04
- * @modify liux (http://my.oschina.net/liux)
+ * @version 1.0
+ * @author zhanghao
+ * @date 2015-8-25 10:13
  */
 public class ScrollLayout extends ViewGroup {
 	private static final String TAG = "ScrollLayout";
@@ -36,14 +32,6 @@ public class ScrollLayout extends ViewGroup {
 
 	private int perChildWidth;
 
-	private String[] proString = getResources().getStringArray(
-			R.array.site_procedure);
-
-	/**
-	 * 鐠佸墽鐤嗛弰顖氭儊閸欘垰涔忛崣铏拨閸旓拷
-	 * 
-	 * @author liux
-	 */
 	private boolean isScroll = true;
 
 	public void setIsScroll(boolean b) {
@@ -56,17 +44,10 @@ public class ScrollLayout extends ViewGroup {
 
 	public ScrollLayout(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
+
 		mScroller = new Scroller(context);
 		mCurScreen = mDefaultScreen;
 		mTouchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
-
-		for (int i = 0; i < proString.length; i++) {
-			View view = inflate(context, R.layout.site_head_item, null);
-			((TextView) view.findViewById(R.id.site_head_procedure_name))
-					.setText(proString[i]);
-			addView(view);
-		}
-		// perChildWidth = (int) TDevice.getScreenWidth() / 4;
 	}
 
 	@Override
@@ -92,21 +73,18 @@ public class ScrollLayout extends ViewGroup {
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 		// Log.e(TAG, "onMeasure");
-		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-		final int width = MeasureSpec.getSize(widthMeasureSpec);
-		final int widthMode = MeasureSpec.getMode(widthMeasureSpec);
-
-		final int heightMode = MeasureSpec.getMode(heightMeasureSpec);
-		// The children are given the same width and height as the scrollLayout
-		final int count = getChildCount();
+		int count = getChildCount();
 		for (int i = 0; i < count; i++) {
-			getChildAt(i).measure(
-					MeasureSpec.makeMeasureSpec(perChildWidth,
-							MeasureSpec.AT_MOST), 0);
+			getChildAt(i).measure(0, 0);
 		}
-		setMeasuredDimension(getChildCount() * perChildWidth, getChildAt(0)
-				.getHeight());
+		int height = 0;
+		if (getChildCount() > 0) {
+			perChildWidth = getChildAt(0).getMeasuredWidth();
+			height = getChildAt(0).getHeight();
+		}
+		setMeasuredDimension(getChildCount() * perChildWidth, height);
 		// Log.e(TAG, "moving to screen "+mCurScreen);
+
 		scrollTo(mCurScreen * perChildWidth, 0);
 	}
 
@@ -116,6 +94,7 @@ public class ScrollLayout extends ViewGroup {
 
 	public void setmCurScreen(int mCurScreen) {
 		this.mCurScreen = mCurScreen;
+		snapToScreen(mCurScreen);
 	}
 
 	/**
@@ -129,7 +108,7 @@ public class ScrollLayout extends ViewGroup {
 	}
 
 	public void snapToScreen(int whichScreen) {
-		// 閺勵垰鎯侀崣顖涚拨閸旓拷
+		// 鏄惁鍙粦鍔�
 		if (!isScroll) {
 			this.setToScreen(whichScreen);
 			return;
@@ -144,7 +123,7 @@ public class ScrollLayout extends ViewGroup {
 		if (getScrollX() != (whichScreen * perChildWidth)) {
 			final int delta = whichScreen * perChildWidth - getScrollX();
 			mScroller.startScroll(getScrollX(), 0, delta, 0,
-					Math.abs(delta) * 1);// 閹镐胶鐢诲姘З閺冨爼妫� 娴犮儲顕犵粔鎺嶈礋閸楁洑缍�
+					Math.abs(delta) * 1);// 鎸佺画婊氬姩鏃堕棿 浠ユ绉掍负鍗曚綅
 			mCurScreen = whichScreen;
 			invalidate(); // Redraw the layout
 
@@ -178,7 +157,7 @@ public class ScrollLayout extends ViewGroup {
 
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
-		// 閺勵垰鎯侀崣顖涚拨閸旓拷
+		// 鏄惁鍙粦鍔�
 		if (!isScroll) {
 			return false;
 		}
@@ -197,7 +176,6 @@ public class ScrollLayout extends ViewGroup {
 				mScroller.abortAnimation();
 			}
 			mLastMotionX = x;
-
 			// ---------------New Code----------------------
 			mLastMotionY = y;
 			// ---------------------------------------------
@@ -205,17 +183,17 @@ public class ScrollLayout extends ViewGroup {
 			break;
 		case MotionEvent.ACTION_MOVE:
 			int deltaX = (int) (mLastMotionX - x);
-
-			// ---------------New Code----------------------
 			int deltaY = (int) (mLastMotionY - y);
 			if (Math.abs(deltaX) < 200 && Math.abs(deltaY) > 10)
 				break;
 			if (getScrollX() < 0)
 				break;
+			if (getScrollX() > perChildWidth * 6)
+				break;
 			mLastMotionY = y;
 			// -------------------------------------
-
 			mLastMotionX = x;
+
 			scrollBy(deltaX, 0);
 			break;
 		case MotionEvent.ACTION_UP:
@@ -286,7 +264,7 @@ public class ScrollLayout extends ViewGroup {
 	}
 
 	/**
-	 * 鐠佸墽鐤嗙仦蹇撶閸掑洦宕查惄鎴濇儔閸ｏ拷
+	 * 璁剧疆灞忓箷鍒囨崲鐩戝惉鍣�
 	 * 
 	 * @param listener
 	 */
@@ -295,7 +273,7 @@ public class ScrollLayout extends ViewGroup {
 	}
 
 	/**
-	 * 鐏炲繐绠烽崚鍥ㄥ床閻╂垵鎯夐崳锟�
+	 * 灞忓箷鍒囨崲鐩戝惉鍣�
 	 * 
 	 * @author liux
 	 */

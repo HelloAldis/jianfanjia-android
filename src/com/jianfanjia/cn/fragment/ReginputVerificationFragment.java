@@ -53,7 +53,7 @@ public class ReginputVerificationFragment extends BaseFragment {
 		backView = (TextView) view.findViewById(R.id.goback);
 		mEdVerif = (EditText) view.findViewById(R.id.et_verification);
 		indicatorView = (ImageView) view.findViewById(R.id.indicator);
-		indicatorView.setImageResource(R.drawable.rounded_enrollment3);
+		indicatorView.setImageResource(R.drawable.rounded_register3);
 		proTipView = (TextView) view.findViewById(R.id.register_pro);
 		proTipView.setText(getString(R.string.verification_code_sended));
 	}

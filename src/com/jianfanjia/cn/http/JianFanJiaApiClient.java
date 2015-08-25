@@ -10,7 +10,6 @@ import org.json.JSONObject;
 import android.content.Context;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.jianfanjia.cn.base.BaseApplication;
 import com.jianfanjia.cn.bean.ProcedureInfo;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.bean.SiteInfo;
@@ -19,7 +18,7 @@ import com.jianfanjia.cn.config.Url;
 import com.jianfanjia.cn.tools.StringUtils;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
-/*
+/**
  * 
  * @ClassName: JianFanJiaApi
  * @Description: http½Ó¿ÚÀà
