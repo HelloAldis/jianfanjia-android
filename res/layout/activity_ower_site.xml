@@ -3,12 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_layout_bg" >
-    
-   <RelativeLayout
+
+    <RelativeLayout
         android:id="@+id/ower_site_head_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-         >
+        android:layout_height="wrap_content" >
 
         <ImageView
             android:id="@+id/ower_site_head"
@@ -108,8 +107,7 @@
                     style="@style/my_item_layout_image_style"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:contentDescription="@null"
-                     />
+                    android:contentDescription="@null" />
 
                 <TextView
                     android:id="@+id/my_site_housestyle"
@@ -118,7 +116,7 @@
                     android:layout_marginRight="4dp"
                     android:layout_toLeftOf="@+id/housestyle_select_goto"
                     android:text="@string/my_site_city_example"
-                    android:textColor="@color/site_text_color2"  />
+                    android:textColor="@color/site_text_color2" />
             </RelativeLayout>
 
             <View style="@style/divier_line" />
@@ -128,7 +126,7 @@
                 style="@style/my_item_layout_style" >
 
                 <TextView
-					style="@style/site_listview_item_text_style_big"
+                    style="@style/site_listview_item_text_style_big"
                     android:layout_centerVertical="true"
                     android:text="@string/my_site_housesize"
                     android:textColor="@color/site_text_color1" />
@@ -231,8 +229,8 @@
                     android:layout_centerVertical="true"
                     android:text="@string/my_site_startdate"
                     android:textColor="@color/site_text_color1" />
-                
-                 <TextView
+
+                <TextView
                     android:id="@+id/my_site_startdate"
                     style="@style/site_listview_item_text_style_small"
                     android:layout_alignParentRight="true"
@@ -252,32 +250,32 @@
                     style="@style/site_listview_item_text_style_big"
                     android:layout_centerVertical="true"
                     android:text="@string/my_site_totaldate"
-                    android:textColor="@color/site_text_color1"  />
-                
-                 <TextView
+                    android:textColor="@color/site_text_color1" />
+
+                <TextView
                     android:id="@+id/my_site_totaldate"
                     style="@style/site_listview_item_text_style_small"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="36dp"
                     android:text="@string/my_site_totaldate_example"
-                    android:textColor="@color/site_text_color2"  />
+                    android:textColor="@color/site_text_color2" />
             </RelativeLayout>
 
             <View style="@style/divier_line" />
-    <TextView
-        android:id="@+id/my_site_confirm"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/space_48"
-        android:layout_marginTop="@dimen/space_24"
-        android:layout_marginLeft="@dimen/space_24"
-        android:layout_marginRight="@dimen/space_24"
-        android:background="@drawable/btn_yellow_bg"
-        android:gravity="center"
-        android:text="@string/confirm"
-        android:textColor="@color/font_white" />
+
+            <TextView
+                android:id="@+id/my_site_confirm"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_48"
+                android:layout_marginLeft="@dimen/space_24"
+                android:layout_marginRight="@dimen/space_24"
+                android:layout_marginTop="@dimen/space_24"
+                android:background="@drawable/btn_yellow_bg"
+                android:gravity="center"
+                android:text="@string/confirm"
+                android:textColor="@color/font_white" />
         </LinearLayout>
     </ScrollView>
-
 
 </RelativeLayout>

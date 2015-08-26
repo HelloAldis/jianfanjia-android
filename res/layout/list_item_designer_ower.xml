@@ -3,17 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/transparent" >
-    
-     <View style="@style/divier_line"/>
+
+    <View style="@style/divier_line" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/space_16"
         android:paddingLeft="@dimen/space_32"
         android:paddingRight="@dimen/space_16"
-        android:paddingTop="@dimen/space_16"
-        android:paddingBottom="@dimen/space_16" >
-       
+        android:paddingTop="@dimen/space_16" >
+
         <TextView
             android:id="@+id/list_item_site_currentpro"
             style="@style/site_listview_item_text_style_middle"
@@ -36,9 +36,9 @@
             android:id="@+id/list_item_site_owername"
             style="@style/site_listview_item_text_style_big"
             android:layout_marginLeft="@dimen/space_8"
-            android:textColor="@color/site_text_color1"
             android:layout_toRightOf="@+id/list_item_site_owerhead"
-            android:text="@string/my_site_villagename_example" />
+            android:text="@string/my_site_villagename_example"
+            android:textColor="@color/site_text_color1" />
 
         <ImageView
             android:id="@+id/list_item_site_owerhead"

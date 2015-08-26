@@ -132,7 +132,7 @@
                         style="@style/site_listview_item_text_style_small"
                         android:layout_marginTop="8dp"
                         android:text="@string/my_designer_appointment"
-                        android:textColor="@color/site_text_color2"  />
+                        android:textColor="@color/site_text_color2" />
                 </LinearLayout>
             </LinearLayout>
 

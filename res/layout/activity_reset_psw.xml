@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" 
-     android:background="@color/main_layout_bg" >
-    
-    <include layout="@layout/common_head_layout"
+    android:layout_height="match_parent"
+    android:background="@color/main_layout_bg" >
+
+    <include
         android:id="@+id/inputpsw_top"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    
+        android:layout_height="wrap_content"
+        layout="@layout/common_head_layout" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,11 +24,10 @@
                 android:id="@+id/et_reset_password"
                 style="@style/item_input_edittext"
                 android:layout_marginLeft="@dimen/space_8"
-                android:imeOptions="actionNext"
                 android:hint="@string/hint_reset_psw"
+                android:imeOptions="actionNext"
                 android:inputType="textPassword" />
         </LinearLayout>
-
 
         <Button
             android:id="@+id/btn_register"
@@ -35,6 +35,5 @@
             android:layout_marginTop="30dp"
             android:text="@string/finish" />
     </LinearLayout>
-    
 
 </RelativeLayout>

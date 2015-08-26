@@ -3,22 +3,22 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/transparent" >
-    
-     <View style="@style/divier_line"/>
+
+    <View style="@style/divier_line" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/space_16"
         android:paddingLeft="@dimen/space_16"
         android:paddingRight="@dimen/space_16"
-        android:paddingTop="@dimen/space_16"
-        android:paddingBottom="@dimen/space_16" >
-       
+        android:paddingTop="@dimen/space_16" >
+
         <TextView
             android:id="@+id/list_item_comment_pubtime"
             style="@style/site_listview_item_text_style_small"
-            android:layout_alignParentRight="true"
             android:layout_alignBottom="@+id/list_item_site_username"
+            android:layout_alignParentRight="true"
             android:text="@string/list_item_comment_pubtime_example"
             android:textColor="@color/site_text_color2" />
 
@@ -32,13 +32,13 @@
             android:maxWidth="@dimen/space_100"
             android:text="@string/my_site_villagename_example"
             android:textColor="@color/site_text_color2" />
-        
+
         <TextView
             android:id="@+id/list_item_comment_userrole"
             style="@style/site_listview_item_text_style_small"
-            android:layout_toRightOf="@+id/list_item_site_username"
-            android:layout_marginLeft="@dimen/space_8"
             android:layout_alignBottom="@+id/list_item_site_username"
+            android:layout_marginLeft="@dimen/space_8"
+            android:layout_toRightOf="@+id/list_item_site_username"
             android:text="@string/ower"
             android:textColor="@color/ower_color" />
 
@@ -46,10 +46,9 @@
             android:id="@+id/list_item_site_username"
             style="@style/site_listview_item_text_style_middle"
             android:layout_marginLeft="@dimen/space_8"
-            android:textColor="@color/site_text_color1"
             android:layout_toRightOf="@+id/list_item_comment_user_head"
             android:text="@string/my_example_name"
-             />
+            android:textColor="@color/site_text_color1" />
 
         <ImageView
             android:id="@+id/list_item_comment_user_head"
