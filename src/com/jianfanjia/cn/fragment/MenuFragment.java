@@ -1,11 +1,14 @@
 package com.jianfanjia.cn.fragment;
 
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseFragment;
+import com.jianfanjia.cn.config.Constant;
 
 /**
  * 
@@ -15,64 +18,93 @@ import com.jianfanjia.cn.base.BaseFragment;
  * @date 2015-8-26 上午9:51:44
  * 
  */
-public class MenuFragment extends BaseFragment {
+public class MenuFragment extends BaseFragment implements
+		OnCheckedChangeListener {
 	private static final String TAG = ReginputVerificationFragment.class
 			.getClass().getName();
-	private TextView mainText = null;
-	private TextView notifyText = null;
-	private TextView roleText = null;
-	private TextView siteText = null;
-	private TextView settingText = null;
-	private TextView helpText = null;
+	private static final int HOME = 0;
+	private static final int NOTIFY = 1;
+	private static final int ROLE = 2;
+	private static final int SITE = 3;
+	private static final int SETTING = 4;
+	private static final int HELP = 5;
+	private RadioGroup mTabRg = null;
+	private SiteManageFragment siteFragment = null;
+	private NotifyFragment notifyFragment = null;
 
 	@Override
 	public void initView(View view) {
-		mainText = (TextView) view.findViewById(R.id.mainText);
-		notifyText = (TextView) view.findViewById(R.id.notifyText);
-		roleText = (TextView) view.findViewById(R.id.roleText);
-		siteText = (TextView) view.findViewById(R.id.siteText);
-		settingText = (TextView) view.findViewById(R.id.settingText);
-		helpText = (TextView) view.findViewById(R.id.helpText);
+		mTabRg = (RadioGroup) view.findViewById(R.id.tab_rg_menu);
 	}
 
 	@Override
 	public void setListener() {
-		mainText.setOnClickListener(this);
-		notifyText.setOnClickListener(this);
-		roleText.setOnClickListener(this);
-		siteText.setOnClickListener(this);
-		settingText.setOnClickListener(this);
-		helpText.setOnClickListener(this);
+		mTabRg.setOnCheckedChangeListener(this);
 	}
 
 	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.mainText:
-			((MainActivity) getActivity()).getSlidingPaneLayout().closePane();
+	public void onCheckedChanged(RadioGroup group, int checkedId) {
+		((MainActivity) getActivity()).getSlidingPaneLayout().closePane();
+		switch (checkedId) {
+		case R.id.tab_rb_1:
+			setTabSelection(HOME);
 			break;
-		case R.id.notifyText:
-			((MainActivity) getActivity()).getSlidingPaneLayout().closePane();
-			NotifyFragment notifyFragment = new NotifyFragment();
-			FragmentTransaction transaction = fragmentManager
-					.beginTransaction();
-			transaction.replace(R.id.slidingpane_content, notifyFragment);
-			transaction.commit();
+		case R.id.tab_rb_2:
+			setTabSelection(NOTIFY);
 			break;
-		case R.id.roleText:
-			((MainActivity) getActivity()).getSlidingPaneLayout().closePane();
+		case R.id.tab_rb_3:
+
 			break;
-		case R.id.siteText:
-			((MainActivity) getActivity()).getSlidingPaneLayout().closePane();
+		case R.id.tab_rb_4:
+
 			break;
-		case R.id.settingText:
-			((MainActivity) getActivity()).getSlidingPaneLayout().closePane();
+		case R.id.tab_rb_5:
+
 			break;
-		case R.id.helpText:
-			((MainActivity) getActivity()).getSlidingPaneLayout().closePane();
+		case R.id.tab_rb_6:
+
 			break;
 		default:
 			break;
+		}
+	}
+
+	private void setTabSelection(int index) {
+		// 开启一个Fragment事务
+		FragmentTransaction transaction = fragmentManager.beginTransaction();
+		hideFragments(transaction);
+		switch (index) {
+		case HOME:
+			if (siteFragment != null) {
+				transaction.show(siteFragment);
+			} else {
+				siteFragment = new SiteManageFragment();
+				transaction.add(R.id.slidingpane_content, siteFragment);
+			}
+			break;
+		case NOTIFY:
+			if (notifyFragment != null) {
+				transaction.show(notifyFragment);
+			} else {
+				notifyFragment = new NotifyFragment();
+				transaction.add(R.id.slidingpane_content, notifyFragment);
+			}
+			break;
+		case ROLE:
+			break;
+		default:
+			break;
+		}
+		transaction.commit();
+	}
+
+	// 当fragment已被实例化，相当于发生过切换，就隐藏起来
+	public void hideFragments(FragmentTransaction ft) {
+		if (siteFragment != null) {
+			ft.hide(siteFragment);
+		}
+		if (notifyFragment != null) {
+			ft.hide(notifyFragment);
 		}
 	}
 

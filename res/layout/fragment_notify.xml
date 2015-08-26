@@ -22,10 +22,10 @@
             android:src="@drawable/site_listview_item_finish_circle" />
 
         <TextView
-            android:id="@+id/my_designer_title"
+            android:id="@+id/my_notify_title"
             style="@style/site_listview_item_text_style_title"
             android:layout_centerInParent="true"
-            android:text="@string/my_designer"
+            android:text="@string/my_tip"
             android:textColor="@color/site_text_color1" />
     </RelativeLayout>
     <!-- tabpage -->
