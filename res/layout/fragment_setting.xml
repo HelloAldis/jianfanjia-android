@@ -117,17 +117,9 @@
                     style="@style/site_listview_item_text_style_middle"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="4dp"
-                    android:layout_toLeftOf="@+id/clear_select_goto"
                     android:text="@string/cache_size"
                     android:textColor="@color/site_text_color2" />
 
-                <ImageView
-                    android:id="@+id/clear_select_goto"
-                    style="@style/my_item_layout_image_style"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:contentDescription="@null" />
             </RelativeLayout>
 
             <View style="@style/divier_line" />
