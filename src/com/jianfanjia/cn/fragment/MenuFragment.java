@@ -31,6 +31,7 @@ public class MenuFragment extends BaseFragment implements
 	private DesignerFragment designerFragment = null;
 	private SiteFragment siteFragment = null;
 	private SettingFragment settingFragment = null;
+	private HelpFrgment helpFragment = null;
 
 	@Override
 	public void initView(View view) {
@@ -115,6 +116,12 @@ public class MenuFragment extends BaseFragment implements
 			}
 			break;
 		case HELP:
+			if (helpFragment != null) {
+				transaction.show(helpFragment);
+			} else {
+				helpFragment = new HelpFrgment();
+				transaction.add(R.id.slidingpane_content, helpFragment);
+			}
 			break;
 		default:
 			break;
@@ -138,6 +145,9 @@ public class MenuFragment extends BaseFragment implements
 		}
 		if (settingFragment != null) {
 			ft.hide(settingFragment);
+		}
+		if (helpFragment != null) {
+			ft.hide(helpFragment);
 		}
 	}
 
