@@ -1,6 +1,5 @@
 package com.jianfanjia.cn.fragment;
 
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.RadioGroup;
@@ -8,7 +7,6 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseFragment;
-import com.jianfanjia.cn.config.Constant;
 
 /**
  * 
@@ -20,8 +18,7 @@ import com.jianfanjia.cn.config.Constant;
  */
 public class MenuFragment extends BaseFragment implements
 		OnCheckedChangeListener {
-	private static final String TAG = ReginputVerificationFragment.class
-			.getClass().getName();
+	private static final String TAG = MenuFragment.class.getClass().getName();
 	private static final int HOME = 0;
 	private static final int NOTIFY = 1;
 	private static final int ROLE = 2;
@@ -29,8 +26,11 @@ public class MenuFragment extends BaseFragment implements
 	private static final int SETTING = 4;
 	private static final int HELP = 5;
 	private RadioGroup mTabRg = null;
-	private SiteManageFragment siteFragment = null;
+	private SiteManageFragment siteManageFragment = null;
 	private NotifyFragment notifyFragment = null;
+	private DesignerFragment designerFragment = null;
+	private SiteFragment siteFragment = null;
+	private SettingFragment settingFragment = null;
 
 	@Override
 	public void initView(View view) {
@@ -53,16 +53,16 @@ public class MenuFragment extends BaseFragment implements
 			setTabSelection(NOTIFY);
 			break;
 		case R.id.tab_rb_3:
-
+			setTabSelection(ROLE);
 			break;
 		case R.id.tab_rb_4:
-
+			setTabSelection(SITE);
 			break;
 		case R.id.tab_rb_5:
-
+			setTabSelection(SETTING);
 			break;
 		case R.id.tab_rb_6:
-
+			setTabSelection(HELP);
 			break;
 		default:
 			break;
@@ -75,11 +75,11 @@ public class MenuFragment extends BaseFragment implements
 		hideFragments(transaction);
 		switch (index) {
 		case HOME:
-			if (siteFragment != null) {
-				transaction.show(siteFragment);
+			if (siteManageFragment != null) {
+				transaction.show(siteManageFragment);
 			} else {
-				siteFragment = new SiteManageFragment();
-				transaction.add(R.id.slidingpane_content, siteFragment);
+				siteManageFragment = new SiteManageFragment();
+				transaction.add(R.id.slidingpane_content, siteManageFragment);
 			}
 			break;
 		case NOTIFY:
@@ -91,6 +91,30 @@ public class MenuFragment extends BaseFragment implements
 			}
 			break;
 		case ROLE:
+			if (designerFragment != null) {
+				transaction.show(designerFragment);
+			} else {
+				designerFragment = new DesignerFragment();
+				transaction.add(R.id.slidingpane_content, designerFragment);
+			}
+			break;
+		case SITE:
+			if (siteFragment != null) {
+				transaction.show(siteFragment);
+			} else {
+				siteFragment = new SiteFragment();
+				transaction.add(R.id.slidingpane_content, siteFragment);
+			}
+			break;
+		case SETTING:
+			if (settingFragment != null) {
+				transaction.show(settingFragment);
+			} else {
+				settingFragment = new SettingFragment();
+				transaction.add(R.id.slidingpane_content, settingFragment);
+			}
+			break;
+		case HELP:
 			break;
 		default:
 			break;
@@ -100,11 +124,20 @@ public class MenuFragment extends BaseFragment implements
 
 	// 当fragment已被实例化，相当于发生过切换，就隐藏起来
 	public void hideFragments(FragmentTransaction ft) {
-		if (siteFragment != null) {
-			ft.hide(siteFragment);
+		if (siteManageFragment != null) {
+			ft.hide(siteManageFragment);
 		}
 		if (notifyFragment != null) {
 			ft.hide(notifyFragment);
+		}
+		if (designerFragment != null) {
+			ft.hide(designerFragment);
+		}
+		if (siteFragment != null) {
+			ft.hide(siteFragment);
+		}
+		if (settingFragment != null) {
+			ft.hide(settingFragment);
 		}
 	}
 
