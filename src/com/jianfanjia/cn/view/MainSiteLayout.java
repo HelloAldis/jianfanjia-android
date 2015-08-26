@@ -4,7 +4,6 @@ import com.jianfanjia.cn.activity.R;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 

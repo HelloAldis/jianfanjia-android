@@ -35,7 +35,7 @@
                     android:contentDescription="@null" />
 
                 <TextView
-                    style="@style/my_item_layout_text_style_base"
+                    style="site_listview_item_text_style_small_base"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:text="@string/message_push" />
@@ -48,7 +48,7 @@
                 style="@style/my_item_layout_style" >
 
                 <TextView
-                    style="@style/my_item_layout_text_style_base"
+                    style="site_listview_item_text_style_small_base"
                     android:layout_centerVertical="true"
                     android:text="@string/share" />
                 
@@ -67,13 +67,13 @@
                 style="@style/my_item_layout_style" >
 
                 <TextView
-                    style="@style/my_item_layout_text_style_base"
+                    style="site_listview_item_text_style_small_base"
                     android:layout_centerVertical="true"
                     android:text="@string/current_version" />
 
                 <TextView
                     android:id="@+id/my_site_housestyle"
-                    style="@style/my_item_layout_text_style"
+                    style="site_listview_item_text_style_small"
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
                     android:text="@string/current_version_example" />
@@ -86,13 +86,13 @@
                 style="@style/my_item_layout_style" >
 
                 <TextView
-                    style="@style/my_item_layout_text_style_base"
+                    style="site_listview_item_text_style_small_base"
                     android:layout_centerVertical="true"
                     android:text="@string/clear_cache" />
 
                 <TextView
                     android:id="@+id/cache_size"
-                    style="@style/my_item_layout_text_style"
+                    style="site_listview_item_text_style_small"
                     android:layout_centerVertical="true"
                     android:layout_toLeftOf="@+id/clear_select_goto"
                     android:layout_marginRight="4dp"
@@ -118,7 +118,7 @@
                 style="@style/my_item_layout_style" >
 
                 <TextView
-                    style="@style/my_item_layout_text_style_base"
+                    style="site_listview_item_text_style_small_base"
                     android:layout_centerVertical="true"
                     android:text="@string/feedback" />
                 
@@ -136,7 +136,7 @@
                 style="@style/my_item_layout_style" >
 
                 <TextView
-                    style="@style/my_item_layout_text_style_base"
+                    style="site_listview_item_text_style_small_base"
                     android:layout_centerVertical="true"
                     android:text="@string/about" />
                 
@@ -157,7 +157,7 @@
                 style="@style/my_item_layout_style" >
 
                 <TextView
-                    style="@style/my_item_layout_text_style_base"
+                    style="site_listview_item_text_style_small_base"
                     android:layout_centerVertical="true"
                     android:text="@string/logout" />
                 

@@ -16,7 +16,7 @@
     <!-- 字体色值 -->
     <color name="font_white">#ffffff</color>
     <color name="font_gray">#c9c9c9</color>
-    <color name="font_yellow">#ff9800</color>
+    <color name="font_yellow">#fe7003</color>
     <color name="font_blue">#9aedff</color>
     <color name="font_green">#12abad</color>
     <color name="font_black">#333</color>
