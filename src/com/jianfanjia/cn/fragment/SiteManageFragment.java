@@ -7,9 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.FrameLayout.LayoutParams;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.NoteListAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
@@ -19,9 +20,18 @@ import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.view.ScrollLayout;
 import com.jianfanjia.cn.view.ScrollLayout.OnViewChangeListener;
 
+/**
+ * 
+ * @ClassName: SiteManageFragment
+ * @Description: 工地管理
+ * @author fengliang
+ * @date 2015-8-26 上午11:14:00
+ * 
+ */
 public class SiteManageFragment extends BaseFragment {
 	private static final String TAG = SiteManageFragment.class.getClass()
 			.getName();
+	private View currentView = null;
 	private ArrayList<ProcedureInfo> procedureList;
 	private SiteInfo site;
 	private int currentPro;
@@ -42,6 +52,8 @@ public class SiteManageFragment extends BaseFragment {
 
 	@Override
 	public void initView(View view) {
+		this.currentView = view;
+		Log.i(TAG, "currentView =" + currentView);
 		scrollLayout = (ScrollLayout) view
 				.findViewById(R.id.site_scroller_layout);
 		scrollLayout.setmCurScreen(currentPro);
@@ -55,6 +67,14 @@ public class SiteManageFragment extends BaseFragment {
 		});
 
 		initListView(view, procedureList.get(currentPro));
+	}
+
+	public void setCurrentViewPararms(FrameLayout.LayoutParams layoutParams) {
+		currentView.setLayoutParams(layoutParams);
+	}
+
+	public FrameLayout.LayoutParams getCurrentViewParams() {
+		return (LayoutParams) currentView.getLayoutParams();
 	}
 
 	private void initListView(View view, ProcedureInfo procedure) {
@@ -167,7 +187,6 @@ public class SiteManageFragment extends BaseFragment {
 
 	@Override
 	public int getLayoutId() {
-		// TODO Auto-generated method stub
 		return R.layout.fragment_site;
 	}
 

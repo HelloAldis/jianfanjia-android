@@ -1,12 +1,13 @@
 package com.jianfanjia.cn.base;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.Toast;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.tools.LogTool;
@@ -77,7 +78,9 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 	}
 
 	@Override
-	public void onClick(View arg0) {
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+
 	}
 
 	protected void makeTextShort(String text) {
@@ -86,6 +89,21 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 
 	protected void makeTextLong(String text) {
 		Toast.makeText(getActivity(), text, Toast.LENGTH_LONG).show();
+	}
+
+	// 通过Class跳转界面
+	protected void startActivity(Class<?> cls) {
+		startActivity(cls, null);
+	}
+
+	// 含有Bundle通过Class跳转界面
+	protected void startActivity(Class<?> cls, Bundle bundle) {
+		Intent intent = new Intent();
+		intent.setClass(getActivity(), cls);
+		if (bundle != null) {
+			intent.putExtras(bundle);
+		}
+		startActivity(intent);
 	}
 
 }
