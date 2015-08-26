@@ -17,14 +17,14 @@
             style="@style/site_listview_item_text_style_small"
             android:text="@string/list_item_comment_pubtime_example"
             android:textColor="@color/site_text_color1" />
-        
+
         <TextView
             android:id="@+id/list_item_tip_delay_status"
             style="@style/site_listview_item_text_style_small"
+            android:layout_alignParentRight="true"
             android:text="@string/list_item_comment_pubtime_example"
-            android:textColor="@color/font_red"
-            android:layout_alignParentRight="true" />
-
+            android:textColor="@color/font_red" />
+        
         <TextView
             android:id="@+id/list_item_tip_delay_content"
             style="@style/site_listview_item_text_style_middle"
@@ -33,6 +33,7 @@
             android:layout_marginTop="@dimen/space_16"
             android:text="@string/my_site_villagename_example"
             android:textColor="@color/font_yellow" />
+        
 
         <TextView
             android:id="@+id/list_item_tip_delay_node"
