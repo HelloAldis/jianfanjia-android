@@ -7,6 +7,7 @@
     <!-- actionbar title color -->
     <color name="head_color_bg">#eeeeee</color>
     <color name="line_color">#b5babb</color>
+    <color name="horzontal_line_color">#d5d5d5</color>
     <color name="transparent">#00000000</color>
 
     <!-- site_manager -->

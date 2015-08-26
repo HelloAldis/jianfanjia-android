@@ -2,13 +2,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main_layout_bg" >
-    
-   <RelativeLayout
+    android:background="@color/site_content_bg" >
+
+    <RelativeLayout
         android:id="@+id/ower_site_head_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-         >
+        android:layout_height="52dp" >
 
         <ImageView
             android:id="@+id/ower_site_head"
@@ -16,6 +15,7 @@
             android:layout_height="48dp"
             android:layout_marginLeft="@dimen/space_8"
             android:contentDescription="@null"
+            android:layout_centerVertical="true"
             android:scaleType="centerCrop"
             android:src="@drawable/site_listview_item_finish_circle" />
 
@@ -25,8 +25,32 @@
             android:layout_centerInParent="true"
             android:text="@string/my_decoration_site"
             android:textColor="@color/site_text_color1" />
-    </RelativeLayout>
-    
 
-    
+        <View
+            style="@style/divier_line"
+            android:layout_alignParentBottom="true"
+            android:background="@color/horzontal_line_color" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/add_comment_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_48"
+        android:layout_alignParentBottom="true"
+        android:background="@color/font_white" >
+
+        <View
+            style="@style/divier_line"
+            android:layout_alignParentTop="true"
+            android:background="@color/horzontal_line_color" />
+
+        <TextView
+            android:id="@+id/add_comment"
+            style="@style/site_listview_item_text_style_middle"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/space_32"
+            android:text="@string/add_comment"
+            android:textColor="#d5d5d5" />
+    </RelativeLayout>
+
 </RelativeLayout>
