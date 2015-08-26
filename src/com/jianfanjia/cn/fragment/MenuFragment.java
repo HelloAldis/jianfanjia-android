@@ -130,7 +130,7 @@ public class MenuFragment extends BaseFragment implements
 	}
 
 	// 当fragment已被实例化，相当于发生过切换，就隐藏起来
-	public void hideFragments(FragmentTransaction ft) {
+	private void hideFragments(FragmentTransaction ft) {
 		if (siteManageFragment != null) {
 			ft.hide(siteManageFragment);
 		}
