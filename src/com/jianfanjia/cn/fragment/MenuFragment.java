@@ -73,35 +73,82 @@ public class MenuFragment extends BaseFragment implements
 	private void setTabSelection(int index) {
 		// 开启一个Fragment事务
 		FragmentTransaction transaction = fragmentManager.beginTransaction();
+		hideFragments(transaction);
 		switch (index) {
 		case HOME:
-			siteManageFragment = new SiteManageFragment();
-			transaction.replace(R.id.slidingpane_content, siteManageFragment);
+			if (siteManageFragment != null) {
+				transaction.show(siteManageFragment);
+			} else {
+				siteManageFragment = new SiteManageFragment();
+				transaction.add(R.id.slidingpane_content, siteManageFragment);
+			}
 			break;
 		case NOTIFY:
-			notifyFragment = new NotifyFragment();
-			transaction.replace(R.id.slidingpane_content, notifyFragment);
+			if (notifyFragment != null) {
+				transaction.show(notifyFragment);
+			} else {
+				notifyFragment = new NotifyFragment();
+				transaction.add(R.id.slidingpane_content, notifyFragment);
+			}
 			break;
 		case ROLE:
-			designerFragment = new DesignerFragment();
-			transaction.replace(R.id.slidingpane_content, designerFragment);
+			if (designerFragment != null) {
+				transaction.show(designerFragment);
+			} else {
+				designerFragment = new DesignerFragment();
+				transaction.add(R.id.slidingpane_content, designerFragment);
+			}
 			break;
 		case SITE:
-			siteFragment = new SiteFragment();
-			transaction.replace(R.id.slidingpane_content, siteFragment);
+			if (siteFragment != null) {
+				transaction.show(siteFragment);
+			} else {
+				siteFragment = new SiteFragment();
+				transaction.add(R.id.slidingpane_content, siteFragment);
+			}
 			break;
 		case SETTING:
-			settingFragment = new SettingFragment();
-			transaction.replace(R.id.slidingpane_content, settingFragment);
+			if (settingFragment != null) {
+				transaction.show(settingFragment);
+			} else {
+				settingFragment = new SettingFragment();
+				transaction.add(R.id.slidingpane_content, settingFragment);
+			}
 			break;
 		case HELP:
-			helpFragment = new HelpFrgment();
-			transaction.replace(R.id.slidingpane_content, helpFragment);
+			if (helpFragment != null) {
+				transaction.show(helpFragment);
+			} else {
+				helpFragment = new HelpFrgment();
+				transaction.add(R.id.slidingpane_content, helpFragment);
+			}
 			break;
 		default:
 			break;
 		}
 		transaction.commit();
+	}
+
+	// 当fragment已被实例化，相当于发生过切换，就隐藏起来
+	public void hideFragments(FragmentTransaction ft) {
+		if (siteManageFragment != null) {
+			ft.hide(siteManageFragment);
+		}
+		if (notifyFragment != null) {
+			ft.hide(notifyFragment);
+		}
+		if (designerFragment != null) {
+			ft.hide(designerFragment);
+		}
+		if (siteFragment != null) {
+			ft.hide(siteFragment);
+		}
+		if (settingFragment != null) {
+			ft.hide(settingFragment);
+		}
+		if (helpFragment != null) {
+			ft.hide(helpFragment);
+		}
 	}
 
 	@Override
