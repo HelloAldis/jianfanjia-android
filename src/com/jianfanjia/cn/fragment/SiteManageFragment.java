@@ -1,6 +1,7 @@
 package com.jianfanjia.cn.fragment;
 
 import java.util.ArrayList;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.NoteListAdapter;
 import com.jianfanjia.cn.base.BaseFragment;

@@ -1,11 +1,11 @@
 package com.jianfanjia.cn.view;
 
-import com.jianfanjia.cn.activity.R;
-
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+
+import com.jianfanjia.cn.activity.R;
 
 public class MainSiteLayout extends LinearLayout {
 
