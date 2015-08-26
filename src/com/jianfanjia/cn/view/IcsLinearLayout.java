@@ -39,6 +39,7 @@ public class IcsLinearLayout extends LinearLayout {
 		a.recycle();
 	}
 
+	@Override
 	public void setDividerDrawable(Drawable divider) {
 		if (divider == mDivider) {
 			return;

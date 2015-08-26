@@ -28,7 +28,6 @@ import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.interf.IconPagerAdapter;
 import com.jianfanjia.cn.interf.PageIndicator;
@@ -58,6 +57,7 @@ public class TabPageIndicator extends HorizontalScrollView implements
 	private Runnable mTabSelector;
 
 	private final OnClickListener mTabClickListener = new OnClickListener() {
+		@Override
 		public void onClick(View view) {
 			TabView tabView = (TabView) view;
 			final int oldSelected = mViewPager.getCurrentItem();
@@ -131,6 +131,7 @@ public class TabPageIndicator extends HorizontalScrollView implements
 			removeCallbacks(mTabSelector);
 		}
 		mTabSelector = new Runnable() {
+			@Override
 			public void run() {
 				final int scrollPos = tabView.getLeft()
 						- (getWidth() - tabView.getWidth()) / 2;
@@ -213,6 +214,7 @@ public class TabPageIndicator extends HorizontalScrollView implements
 		notifyDataSetChanged();
 	}
 
+	@Override
 	public void notifyDataSetChanged() {
 		mTabLayout.removeAllViews();
 		PagerAdapter adapter = mViewPager.getAdapter();

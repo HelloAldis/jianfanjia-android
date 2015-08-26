@@ -117,6 +117,7 @@
     <string name="logout">退出登录</string>
     
 	<string name="list_item_comment_pubtime_example">30分钟前</string>
+	<string name="add_comment">添加评论</string>
     
     <!-- site procedure -->
     <string-array name="site_procedure">
