@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/font_white" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/space_16"
+        android:paddingLeft="@dimen/space_16"
+        android:paddingRight="@dimen/space_16"
+        android:paddingTop="@dimen/space_16" >
+
+        <TextView
+            android:id="@+id/list_item_tip_delay_name"
+            style="@style/site_listview_item_text_style_small"
+            android:text="@string/list_item_comment_pubtime_example"
+            android:textColor="@color/site_text_color1" />
+        
+        <TextView
+            android:id="@+id/list_item_tip_delay_status"
+            style="@style/site_listview_item_text_style_small"
+            android:text="@string/list_item_comment_pubtime_example"
+            android:textColor="@color/font_red"
+            android:layout_alignParentRight="true" />
+
+        <TextView
+            android:id="@+id/list_item_tip_delay_content"
+            style="@style/site_listview_item_text_style_middle"
+            android:layout_below="@+id/list_item_tip_delay_name"
+            android:layout_marginBottom="@dimen/space_16"
+            android:layout_marginTop="@dimen/space_16"
+            android:text="@string/my_site_villagename_example"
+            android:textColor="@color/font_yellow" />
+
+        <TextView
+            android:id="@+id/list_item_tip_delay_node"
+            style="@style/site_listview_item_text_style_small"
+            android:layout_below="@+id/list_item_tip_delay_content"
+            android:text="@string/ower"
+            android:textColor="@color/site_text_color2" />
+
+        <TextView
+            android:id="@+id/list_item_tip_time"
+            style="@style/site_listview_item_text_style_small"
+            android:layout_alignBottom="@+id/list_item_tip_delay_node"
+            android:layout_alignParentRight="true"
+            android:text="@string/ower"
+            android:textColor="@color/site_text_color2" />
+    </RelativeLayout>
+
+</RelativeLayout>
