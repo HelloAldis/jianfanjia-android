@@ -48,7 +48,7 @@ public class MainActivity extends BaseActivity implements PanelSlideListener {
 
 	@Override
 	public void onPanelSlide(View panel, float slideOffset) {
-		Log.d(TAG, "slideOffset=" + slideOffset);
+
 	}
 
 	@Override

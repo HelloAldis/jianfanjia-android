@@ -88,7 +88,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dip"
             android:padding="10dip"
-            android:text="装修工地"
+            android:text="我的工地"
             android:textColor="@color/menu_item_font_color"
             android:textSize="20sp" />
 

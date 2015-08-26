@@ -29,7 +29,7 @@
 
         <TextView
             android:id="@+id/my_designer_title"
-            style="@style/site_listview_item_text_style_big"
+            style="@style/site_listview_item_text_style_title"
             android:layout_centerInParent="true"
             android:text="@string/my_designer"
             android:textColor="@color/font_white" />
