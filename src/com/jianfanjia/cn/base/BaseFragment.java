@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import com.jianfanjia.cn.tools.LogTool;
  * 
  */
 public abstract class BaseFragment extends Fragment implements OnClickListener {
+	protected FragmentManager fragmentManager = null;
 	protected LayoutInflater inflater = null;
 	protected RegisterInfo registerInfo = null;// 注册所需要的信息实体类
 
@@ -34,6 +36,7 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 			Bundle savedInstanceState) {
 		LogTool.d(this.getClass().getName(), "onCreateView");
 		this.inflater = inflater;
+		fragmentManager = getFragmentManager();
 		View view = inflateView(getLayoutId());
 		initView(view);
 		init();

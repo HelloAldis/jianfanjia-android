@@ -1,5 +1,6 @@
 package com.jianfanjia.cn.fragment;
 
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.TextView;
 import com.jianfanjia.cn.activity.MainActivity;
@@ -17,7 +18,6 @@ import com.jianfanjia.cn.base.BaseFragment;
 public class MenuFragment extends BaseFragment {
 	private static final String TAG = ReginputVerificationFragment.class
 			.getClass().getName();
-	private View currentView;
 	private TextView mainText = null;
 	private TextView notifyText = null;
 	private TextView roleText = null;
@@ -27,17 +27,12 @@ public class MenuFragment extends BaseFragment {
 
 	@Override
 	public void initView(View view) {
-		this.currentView = view;
 		mainText = (TextView) view.findViewById(R.id.mainText);
 		notifyText = (TextView) view.findViewById(R.id.notifyText);
 		roleText = (TextView) view.findViewById(R.id.roleText);
 		siteText = (TextView) view.findViewById(R.id.siteText);
 		settingText = (TextView) view.findViewById(R.id.settingText);
 		helpText = (TextView) view.findViewById(R.id.helpText);
-	}
-
-	public View getCurrentView() {
-		return currentView;
 	}
 
 	@Override
@@ -58,6 +53,11 @@ public class MenuFragment extends BaseFragment {
 			break;
 		case R.id.notifyText:
 			((MainActivity) getActivity()).getSlidingPaneLayout().closePane();
+			NotifyFragment notifyFragment = new NotifyFragment();
+			FragmentTransaction transaction = fragmentManager
+					.beginTransaction();
+			transaction.replace(R.id.slidingpane_content, notifyFragment);
+			transaction.commit();
 			break;
 		case R.id.roleText:
 			((MainActivity) getActivity()).getSlidingPaneLayout().closePane();

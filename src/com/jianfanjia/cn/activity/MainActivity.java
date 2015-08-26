@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SlidingPaneLayout;
 import android.support.v4.widget.SlidingPaneLayout.PanelSlideListener;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 
@@ -22,11 +21,9 @@ import com.jianfanjia.cn.fragment.SiteManageFragment;
  */
 public class MainActivity extends BaseActivity implements PanelSlideListener {
 	private static final String TAG = MainActivity.class.getClass().getName();
-	private SlidingPaneLayout slidingPaneLayout;
-	private MenuFragment menuFragment;
-	private SiteManageFragment siteManageFragment;
-	private DisplayMetrics displayMetrics = new DisplayMetrics();
-	private int maxMargin = 0;
+	private SlidingPaneLayout slidingPaneLayout = null;
+	private MenuFragment menuFragment = null;
+	private SiteManageFragment siteManageFragment = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +39,6 @@ public class MainActivity extends BaseActivity implements PanelSlideListener {
 		transaction.replace(R.id.slidingpane_menu, menuFragment);
 		transaction.replace(R.id.slidingpane_content, siteManageFragment);
 		transaction.commit();
-		maxMargin = displayMetrics.heightPixels / 10;
-
 	}
 
 	@Override
@@ -54,8 +49,6 @@ public class MainActivity extends BaseActivity implements PanelSlideListener {
 	@Override
 	public void onPanelSlide(View panel, float slideOffset) {
 		Log.d(TAG, "slideOffset=" + slideOffset);
-		int contentMargin = (int) (slideOffset * maxMargin);
-		Log.d(TAG, "contentMargin=" + contentMargin);
 	}
 
 	@Override
