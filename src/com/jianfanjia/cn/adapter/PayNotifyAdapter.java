@@ -4,9 +4,8 @@ import java.util.List;
 
 import android.content.Context;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
-import com.jianfanjia.cn.bean.NotifyCaiGouInfo;
+import com.jianfanjia.cn.bean.NotifyPayInfo;
 
 import com.jianfanjia.cn.activity.R;
 
@@ -14,13 +13,12 @@ import com.jianfanjia.cn.activity.R;
  * @class CaiGouNotifyAdapter.clase
  * @author zhanghao
  * @date 2015-8-26 15:57
- * @param <NotifyCaiGouInfo>
+ * @param <NotifypayInfo>
  */
-@SuppressWarnings("hiding")
-public class PayNotifyAdapter extends BaseListAdapter<NotifyCaiGouInfo> {
+public class PayNotifyAdapter extends BaseListAdapter<NotifyPayInfo> {
 
 	public PayNotifyAdapter(Context context,
-			List<NotifyCaiGouInfo> caigouList) {
+			List<NotifyPayInfo> caigouList) {
 		super(context, caigouList);
 	}
 
@@ -28,29 +26,26 @@ public class PayNotifyAdapter extends BaseListAdapter<NotifyCaiGouInfo> {
 	@SuppressWarnings("unchecked")
 	public View initView(int position, View convertView){
 		ViewHolder viewHolder = null;
-		NotifyCaiGouInfo caiGouInfo =list.get(position);
+		NotifyPayInfo payInfo =list.get(position);
 		if(convertView == null){
-			convertView = layoutInflater.inflate(R.layout.list_item_tip_caigou, null);
+			convertView = layoutInflater.inflate(R.layout.list_item_tip_pay, null);
 			viewHolder = new ViewHolder();
-			viewHolder.itemContentView = (TextView)convertView.findViewById(R.id.list_item_tip_caigou_content);
-			viewHolder.itemNameView = (TextView)convertView.findViewById(R.id.list_item_tip_caigou_name);
-			viewHolder.itemNodeView = (TextView)convertView.findViewById(R.id.list_item_tip_caigou_node);
-			viewHolder.itemPubTimeView= (TextView)convertView.findViewById(R.id.list_item_tip_caigou_time);
+			viewHolder.itemNameView = (TextView)convertView.findViewById(R.id.list_item_tip_pay_name);
+			viewHolder.itemNodeView = (TextView)convertView.findViewById(R.id.list_item_tip_pay_node);
+			viewHolder.itemPubTimeView= (TextView)convertView.findViewById(R.id.list_item_pay_time);
 			convertView.setTag(viewHolder);
 		}else{
 			viewHolder = (ViewHolder)convertView.getTag();
 		}
-		viewHolder.itemNameView.setText(caiGouInfo.getTitle());
-		viewHolder.itemContentView .setText(caiGouInfo.getContent());
-		viewHolder.itemNodeView.setText(caiGouInfo.getStage());
-		viewHolder.itemPubTimeView.setText(caiGouInfo.getTime());
+		viewHolder.itemNameView.setText(payInfo.getTitle());
+		viewHolder.itemNodeView.setText(payInfo.getStage());
+		viewHolder.itemPubTimeView.setText(payInfo.getTime());
 		return convertView;
 	}
 
 	class ViewHolder {
-		TextView itemNameView;// 采购工序视图
-		TextView itemContentView;// 采购内容视图
-		TextView itemNodeView;// 采购节点
+		TextView itemNameView;// 延迟工序
+		TextView itemNodeView;// 延迟节点
 		TextView itemPubTimeView;// 发布时间
 	}
 

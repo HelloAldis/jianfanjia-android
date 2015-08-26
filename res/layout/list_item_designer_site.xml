@@ -32,7 +32,7 @@
             android:textColor="@color/font_yellow" />
 
         <TextView
-            android:id="@+id/list_item_site_currentpro"
+            android:id="@+id/list_item_site_currentstage"
             style="@style/site_listview_item_text_style_small"
             android:layout_alignBottom="@+id/list_item_site_villagename"
             android:layout_alignParentRight="true"

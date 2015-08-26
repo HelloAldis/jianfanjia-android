@@ -4,14 +4,13 @@ import java.util.List;
 
 import android.content.Context;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 import com.jianfanjia.cn.bean.NotifyCaiGouInfo;
 
 import com.jianfanjia.cn.activity.R;
 
 /**
- * @class CaiGouNotifyAdapter.clase
+ * @class CaiGouNotifyAdapter
  * @author zhanghao
  * @date 2015-8-26 15:57
  * @param <NotifyCaiGouInfo>

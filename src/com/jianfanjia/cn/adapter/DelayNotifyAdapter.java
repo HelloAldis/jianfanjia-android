@@ -5,20 +5,17 @@ import java.util.List;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
-import com.jianfanjia.cn.bean.NotifyCaiGouInfo;
 import com.jianfanjia.cn.bean.NotifyDelayInfo;
 
 import com.jianfanjia.cn.activity.R;
 
 /**
- * @class DelayNotifyAdapter.clase
+ * @class DelayNotifyAdapter
  * @author zhanghao
  * @date 2015-8-26 15:57
  * @param <NotifyCaiGouInfo>
  */
-@SuppressWarnings("hiding")
 public class DelayNotifyAdapter extends BaseListAdapter<NotifyDelayInfo> {
 
 	public DelayNotifyAdapter(Context context,
@@ -58,9 +55,9 @@ public class DelayNotifyAdapter extends BaseListAdapter<NotifyDelayInfo> {
 	}
 
 	class ViewHolder {
-		TextView itemNameView;// 采购工序视图
-		TextView itemContentView;// 采购内容视图
-		TextView itemNodeView;// 采购节点
+		TextView itemNameView;// 延迟标题
+		TextView itemContentView;// 延迟内容
+		TextView itemNodeView;// 延迟节点
 		TextView itemPubTimeView;// 发布时间
 		TextView itemAgressView;//是否同意
 	}

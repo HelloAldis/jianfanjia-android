@@ -29,6 +29,8 @@ public class MenuFragment extends BaseFragment implements
 	private SiteManageFragment siteManageFragment = null;
 	private NotifyFragment notifyFragment = null;
 	private DesignerFragment designerFragment = null;
+	private DesignerSiteFragment designerSiteFragment = null;
+	private OwerFragment owerFragment = null;
 	private SiteFragment siteFragment = null;
 	private SettingFragment settingFragment = null;
 	private HelpFrgment helpFragment = null;
@@ -100,11 +102,17 @@ public class MenuFragment extends BaseFragment implements
 			}
 			break;
 		case SITE:
-			if (siteFragment != null) {
+			/*if (siteFragment != null) {
 				transaction.show(siteFragment);
 			} else {
 				siteFragment = new SiteFragment();
 				transaction.add(R.id.slidingpane_content, siteFragment);
+			}*/
+			if (designerSiteFragment != null) {
+				transaction.show(designerSiteFragment);
+			} else {
+				designerSiteFragment = new DesignerSiteFragment();
+				transaction.add(R.id.slidingpane_content, designerSiteFragment);
 			}
 			break;
 		case SETTING:
@@ -140,8 +148,11 @@ public class MenuFragment extends BaseFragment implements
 		if (designerFragment != null) {
 			ft.hide(designerFragment);
 		}
-		if (siteFragment != null) {
+		/*if (siteFragment != null) {
 			ft.hide(siteFragment);
+		}*/
+		if(designerSiteFragment != null){
+			ft.hide(designerSiteFragment);
 		}
 		if (settingFragment != null) {
 			ft.hide(settingFragment);
