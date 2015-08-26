@@ -18,13 +18,16 @@
     <color name="font_blue">#9aedff</color>
     <color name="font_black">#333</color>
     <color name="font_log_and_res_hint">#d8d8d8</color>
-    <color name="site_content_bg">#f2f2f3</color>
     <!-- 四种字体颜色 -->
+    <color name="site_content_bg">#f2f2f3</color>
     <color name="site_text_color1">#344a5c</color>
     <color name="site_text_color2">#798489</color>
     <color name="font_yellow">#fe7003</color>
     <color name="font_red">#dd4847</color>
     <color name="font_green">#219d2b</color>
+    
+    <color name="ower_color">#378fe4</color>
+    <color name="designer_color">#e3398c</color>
     <!-- 四种字体颜色 -->
 
 </resources>

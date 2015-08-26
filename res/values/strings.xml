@@ -102,7 +102,7 @@
     <string name="my_setting">设置</string>
     <string name="my_tip">提醒</string>
     <string name="my_help">帮助</string>
-    <string name="my_ower">业主</string>
+    <string name="my_ower">我的业主</string>
     <string name="my_site">我的工地</string>
     <string name="my_example_name">Jeff</string>
     <string name="my_example_account">账号：12244444</string>
@@ -115,7 +115,9 @@
     <string name="feedback">用户反馈</string>
     <string name="about">关于我们</string>
     <string name="logout">退出登录</string>
-
+    
+	<string name="list_item_comment_pubtime_example">30分钟前</string>
+    
     <!-- site procedure -->
     <string-array name="site_procedure">
         <item>开工</item>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/font_white" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/space_16"
+        android:paddingLeft="@dimen/space_24"
+        android:paddingRight="@dimen/space_16"
+        android:paddingTop="@dimen/space_16" >
+
+        <TextView
+            android:id="@+id/list_item_site_villagename"
+            style="@style/site_listview_item_text_style_big"
+            android:ellipsize="end"
+            android:gravity="left"
+            android:maxWidth="100dp"
+            android:singleLine="true"
+            android:text="@string/my_site_villagename_example"
+            android:textColor="@color/site_text_color1" />
+
+        <TextView
+            android:id="@+id/list_item_site_currentsite"
+            style="@style/site_listview_item_text_style_small"
+            android:layout_alignBottom="@+id/list_item_site_villagename"
+            android:layout_marginLeft="@dimen/space_4"
+            android:layout_toRightOf="@+id/list_item_site_villagename"
+            android:text="@string/my_site_villagename_example"
+            android:textColor="@color/font_yellow" />
+
+        <TextView
+            android:id="@+id/list_item_site_currentpro"
+            style="@style/site_listview_item_text_style_small"
+            android:layout_alignBottom="@+id/list_item_site_villagename"
+            android:layout_alignParentRight="true"
+            android:text="@string/my_site_villagename_example"
+            android:textColor="@color/site_text_color2" />
+
+        <TextView
+            android:id="@+id/list_item_site_address"
+            style="@style/site_listview_item_text_style_small"
+            android:layout_below="@+id/list_item_site_villagename"
+            android:layout_marginTop="@dimen/space_8"
+            android:maxWidth="@dimen/space_100"
+            android:text="@string/my_site_villagename_example"
+            android:textColor="@color/site_text_color2" />
+
+        <TextView
+            android:id="@+id/list_item_site_owername"
+            style="@style/site_listview_item_text_style_small"
+            android:layout_alignBottom="@+id/list_item_site_address"
+            android:layout_marginRight="@dimen/space_8"
+            android:layout_toLeftOf="@+id/list_item_site_owerhead"
+            android:text="@string/my_site_villagename_example"
+            android:textColor="@color/site_text_color2" />
+
+        <ImageView
+            android:id="@+id/list_item_site_owerhead"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignBottom="@+id/list_item_site_address"
+            android:layout_alignParentRight="true"
+            android:contentDescription="@null"
+            android:scaleType="centerCrop"
+            android:src="@drawable/site_listview_item_finish_circle" />
+    </RelativeLayout>
+
+</RelativeLayout>

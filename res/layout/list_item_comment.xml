@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent" >
+    
+     <View style="@style/divier_line"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/space_16"
+        android:paddingRight="@dimen/space_16"
+        android:paddingTop="@dimen/space_16"
+        android:paddingBottom="@dimen/space_16" >
+       
+        <TextView
+            android:id="@+id/list_item_comment_pubtime"
+            style="@style/site_listview_item_text_style_small"
+            android:layout_alignParentRight="true"
+            android:layout_alignBottom="@+id/list_item_site_username"
+            android:text="@string/list_item_comment_pubtime_example"
+            android:textColor="@color/site_text_color2" />
+
+        <TextView
+            android:id="@+id/list_item_comment_content"
+            style="@style/site_listview_item_text_style_small"
+            android:layout_below="@+id/list_item_site_username"
+            android:layout_marginLeft="@dimen/space_8"
+            android:layout_marginTop="@dimen/space_8"
+            android:layout_toRightOf="@+id/list_item_comment_user_head"
+            android:maxWidth="@dimen/space_100"
+            android:text="@string/my_site_villagename_example"
+            android:textColor="@color/site_text_color2" />
+        
+        <TextView
+            android:id="@+id/list_item_comment_userrole"
+            style="@style/site_listview_item_text_style_small"
+            android:layout_toRightOf="@+id/list_item_site_username"
+            android:layout_marginLeft="@dimen/space_8"
+            android:layout_alignBottom="@+id/list_item_site_username"
+            android:text="@string/ower"
+            android:textColor="@color/ower_color" />
+
+        <TextView
+            android:id="@+id/list_item_site_username"
+            style="@style/site_listview_item_text_style_middle"
+            android:layout_marginLeft="@dimen/space_8"
+            android:textColor="@color/site_text_color1"
+            android:layout_toRightOf="@+id/list_item_comment_user_head"
+            android:text="@string/my_example_name"
+             />
+
+        <ImageView
+            android:id="@+id/list_item_comment_user_head"
+            android:layout_width="68dp"
+            android:layout_height="68dp"
+            android:contentDescription="@null"
+            android:scaleType="centerCrop"
+            android:src="@drawable/site_listview_item_finish_circle" />
+    </RelativeLayout>
+
+</RelativeLayout>
