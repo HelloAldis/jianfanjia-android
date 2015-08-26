@@ -4,9 +4,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import android.util.Log;
+
 import com.jianfanjia.cn.config.Constant;
 
 /**

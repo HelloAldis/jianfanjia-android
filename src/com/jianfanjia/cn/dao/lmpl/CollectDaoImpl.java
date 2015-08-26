@@ -1,6 +1,7 @@
 package com.jianfanjia.cn.dao.lmpl;
 
 import android.content.Context;
+
 import com.jianfanjia.cn.dao.ICollectDao;
 
 /**

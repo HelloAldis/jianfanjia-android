@@ -6,6 +6,7 @@ import android.support.v4.widget.SlidingPaneLayout;
 import android.support.v4.widget.SlidingPaneLayout.PanelSlideListener;
 import android.util.Log;
 import android.view.View;
+
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.fragment.MenuFragment;
 import com.jianfanjia.cn.fragment.SiteManageFragment;
