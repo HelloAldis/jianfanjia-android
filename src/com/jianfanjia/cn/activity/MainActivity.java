@@ -6,6 +6,7 @@ import android.support.v4.widget.SlidingPaneLayout;
 import android.support.v4.widget.SlidingPaneLayout.PanelSlideListener;
 import android.util.Log;
 import android.view.View;
+import android.widget.FrameLayout;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.fragment.MenuFragment;
 import com.jianfanjia.cn.fragment.SiteManageFragment;
@@ -22,6 +23,8 @@ import com.jianfanjia.cn.view.PagerEnabledSlidingPaneLayout;
 public class MainActivity extends BaseActivity implements PanelSlideListener {
 	private static final String TAG = MainActivity.class.getClass().getName();
 	private PagerEnabledSlidingPaneLayout slidingPaneLayout = null;
+	private FrameLayout slidingpane_menu = null;
+	private FrameLayout slidingpane_content = null;
 	private MenuFragment menuFragment = null;
 	private SiteManageFragment siteManageFragment = null;
 
@@ -33,11 +36,14 @@ public class MainActivity extends BaseActivity implements PanelSlideListener {
 	@Override
 	public void initView() {
 		slidingPaneLayout = (PagerEnabledSlidingPaneLayout) findViewById(R.id.slidingpanellayout);
+		slidingpane_menu = (FrameLayout) findViewById(R.id.slidingpane_menu);
+		slidingpane_content = (FrameLayout) findViewById(R.id.slidingpane_content);
 		menuFragment = new MenuFragment();
 		siteManageFragment = new SiteManageFragment();
 		FragmentTransaction transaction = fragmentManager.beginTransaction();
 		transaction.replace(R.id.slidingpane_menu, menuFragment);
 		transaction.replace(R.id.slidingpane_content, siteManageFragment);
+		transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);// 设置动画效果
 		transaction.commit();
 	}
 
@@ -48,7 +54,10 @@ public class MainActivity extends BaseActivity implements PanelSlideListener {
 
 	@Override
 	public void onPanelSlide(View panel, float slideOffset) {
-
+		slidingpane_menu.setScaleY(slideOffset / 2 + 0.5F);
+		slidingpane_menu.setScaleX(slideOffset / 2 + 0.5F);
+		slidingpane_menu.setAlpha(slideOffset);
+		slidingpane_content.setScaleY(1 - slideOffset / 5);
 	}
 
 	@Override
