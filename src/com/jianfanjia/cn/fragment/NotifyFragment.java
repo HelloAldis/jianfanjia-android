@@ -21,7 +21,7 @@ import com.jianfanjia.cn.view.TabPageIndicator;
 public class NotifyFragment extends BaseFragment {
 	private TabPageIndicator mPageIndicator = null;
 	private MyFragmentPagerAdapter adapter = null;
-	private ViewPager mPager;// 页卡内容
+	private ViewPager mPager = null;// 页卡内容
 	private List<SelectItem> listViews = new ArrayList<SelectItem>(); // Tab页面列表
 
 	@Override

@@ -9,7 +9,7 @@
         android:id="@+id/my_designer_head_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dip"
+        android:layout_margin="5dip"
         android:background="@android:color/transparent" >
 
         <ImageView
@@ -26,8 +26,7 @@
             style="@style/site_listview_item_text_style_title"
             android:layout_centerInParent="true"
             android:text="@string/my_designer"
-            android:textColor="@color/site_text_color1"
-            android:textStyle="bold" />
+            android:textColor="@color/site_text_color1" />
     </RelativeLayout>
     <!-- tabpage -->
 
