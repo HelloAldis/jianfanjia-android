@@ -16,7 +16,8 @@
         android:layout_below="@+id/register_top"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/space_16"
-        android:text="验证码已发送" />
+        android:text="验证码已发送"
+        android:textColor="#ffffff" />
 
     <LinearLayout
         android:layout_width="match_parent"

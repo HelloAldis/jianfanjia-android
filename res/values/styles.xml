@@ -74,18 +74,6 @@
     </style>
     <!-- head_layout -->
     
-    <!-- my_item_layout_text_style -->
-    <style name="my_item_layout_text_style_base">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">@dimen/text_size_14</item>
-        <item name="android:textColor">@color/font_black</item>
-        <item name="android:gravity">center</item>
-    </style>
-
-    <style name="my_item_layout_text_style" parent="my_item_layout_text_style_base">
-        <item name="android:textColor">@android:color/black</item>
-    </style>
 
     <!-- my_item_layout__style -->
     <style name="my_item_layout_image_style">
@@ -93,38 +81,29 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@android:drawable/ic_menu_directions</item>
     </style>
-
-    <!-- site_listview_item_text_style -->
-    <style name="site_listview_item_text_style_small">
-        <item name="android:gravity">center</item>
+    
+    <!-- my_item_layout_text_style -->
+    <style name="my_item_layout_text_style_base">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+   <!-- site_listview_item_text_style -->
+    <style name="site_listview_item_text_style_small" parent="my_item_layout_text_style_base">
         <item name="android:textSize">@dimen/text_size_14</item>
-        <item name="android:textColor">@color/site_text_color1</item>
     </style>
 
-    <style name="site_listview_item_text_style_middle">
-        <item name="android:gravity">center</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
+    <style name="site_listview_item_text_style_middle" parent="my_item_layout_text_style_base">
         <item name="android:textSize">@dimen/text_size_16</item>
-        <item name="android:textColor">@android:color/black</item>
     </style>
 
-    <style name="site_listview_item_text_style_big">
-        <item name="android:gravity">center</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
+    <style name="site_listview_item_text_style_big" parent="my_item_layout_text_style_base">
         <item name="android:textSize">@dimen/text_size_18</item>
-        <item name="android:textColor">@color/site_text_color1</item>
     </style>
 
-    <style name="site_listview_item_text_style_title">
-        <item name="android:gravity">center</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
+    <style name="site_listview_item_text_style_title" parent="my_item_layout_text_style_base">
         <item name="android:textSize">@dimen/text_size_22</item>
-        <item name="android:textColor">@color/font_black</item>
     </style>
     
      <!-- my_item_layout_style -->

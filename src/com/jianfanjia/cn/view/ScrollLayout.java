@@ -2,12 +2,15 @@ package com.jianfanjia.cn.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.Interpolator;
 import android.widget.Scroller;
 
 /**
@@ -122,10 +125,14 @@ public class ScrollLayout extends ViewGroup {
 		whichScreen = Math.max(0, Math.min(whichScreen, getChildCount() - 1));
 		if (getScrollX() != (whichScreen * perChildWidth)) {
 			final int delta = whichScreen * perChildWidth - getScrollX();
-			mScroller.startScroll(getScrollX(), 0, delta, 0,
-					Math.abs(delta) * 1);// 鎸佺画婊氬姩鏃堕棿 浠ユ绉掍负鍗曚綅
+			/*
+			 * mScroller.startScroll(getScrollX(), 0, delta, 0, Math.abs(delta)
+			 * * 1);// 鎸佺画婊氬姩鏃堕棿 浠ユ绉掍负鍗曚綅
+			 */
+			post(new SmoothScrollRunnable(getScrollX(), whichScreen
+					* perChildWidth, 200, null));
 			mCurScreen = whichScreen;
-			invalidate(); // Redraw the layout
+			// invalidate(); // Redraw the layout
 
 			if (mOnViewChangeListener != null) {
 				mOnViewChangeListener.OnViewChange(mCurScreen);
@@ -147,13 +154,11 @@ public class ScrollLayout extends ViewGroup {
 		return mCurScreen;
 	}
 
-	@Override
-	public void computeScroll() {
-		if (mScroller.computeScrollOffset()) {
-			scrollTo(mScroller.getCurrX(), mScroller.getCurrY());
-			postInvalidate();
-		}
-	}
+	/*
+	 * @Override public void computeScroll() { if
+	 * (mScroller.computeScrollOffset()) { scrollTo(mScroller.getCurrX(),
+	 * mScroller.getCurrY()); postInvalidate(); } }
+	 */
 
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
@@ -280,4 +285,72 @@ public class ScrollLayout extends ViewGroup {
 	public interface OnViewChangeListener {
 		public void OnViewChange(int view);
 	}
+
+	final class SmoothScrollRunnable implements Runnable {
+		private final Interpolator mInterpolator;
+		private final int mScrollToY;
+		private final int mScrollFromY;
+		private final long mDuration;
+		private OnSmoothScrollFinishedListener mListener;
+
+		private boolean mContinueRunning = true;
+		private long mStartTime = -1;
+		private int mCurrentY = -1;
+
+		public SmoothScrollRunnable(int fromY, int toY, long duration,
+				OnSmoothScrollFinishedListener listener) {
+			mScrollFromY = fromY;
+			mScrollToY = toY;
+			mInterpolator = new DecelerateInterpolator();
+			mDuration = duration;
+			mListener = listener;
+		}
+
+		@Override
+		public void run() {
+
+			/**
+			 * Only set mStartTime if this is the first time we're starting,
+			 * else actually calculate the Y delta
+			 */
+			if (mStartTime == -1) {
+				mStartTime = System.currentTimeMillis();
+			} else {
+
+				/**
+				 * We do do all calculations in long to reduce software float
+				 * calculations. We use 1000 as it gives us good accuracy and
+				 * small rounding errors
+				 */
+				long normalizedTime = (1000 * (System.currentTimeMillis() - mStartTime))
+						/ mDuration;
+				normalizedTime = Math.max(Math.min(normalizedTime, 1000), 0);
+
+				final int deltaY = Math.round((mScrollFromY - mScrollToY)
+						* mInterpolator
+								.getInterpolation(normalizedTime / 1000f));
+				mCurrentY = mScrollFromY - deltaY;
+				scrollTo(mCurrentY, 0);
+			}
+
+			// If we're not at the target Y, keep going...
+			if (mContinueRunning && mScrollToY != mCurrentY) {
+				ViewCompat.postOnAnimation(ScrollLayout.this, this);
+			} else {
+				if (null != mListener) {
+					mListener.onSmoothScrollFinished();
+				}
+			}
+		}
+
+		public void stop() {
+			mContinueRunning = false;
+			removeCallbacks(this);
+		}
+	}
+
+	static interface OnSmoothScrollFinishedListener {
+		void onSmoothScrollFinished();
+	}
+
 }
