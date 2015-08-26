@@ -20,8 +20,8 @@ public class Constant {
 	}
 
 	// 用户身份
-	public final static String IDENTITY_OWNER = "1";// 业主
-	public final static String IDENTITY_DESIGNER = "2";// 设计师
+	public static final String IDENTITY_OWNER = "1";// 业主
+	public static final String IDENTITY_DESIGNER = "2";// 设计师
 
 	public static final String ISFIRST = "isFirst";// 是否是首次打开程序
 	public static final String ACCOUNT = "account";// 账号
