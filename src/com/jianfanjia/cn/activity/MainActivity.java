@@ -6,10 +6,10 @@ import android.support.v4.widget.SlidingPaneLayout;
 import android.support.v4.widget.SlidingPaneLayout.PanelSlideListener;
 import android.util.Log;
 import android.view.View;
-
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.fragment.MenuFragment;
 import com.jianfanjia.cn.fragment.SiteManageFragment;
+import com.jianfanjia.cn.view.PagerEnabledSlidingPaneLayout;
 
 /**
  * 
@@ -21,7 +21,7 @@ import com.jianfanjia.cn.fragment.SiteManageFragment;
  */
 public class MainActivity extends BaseActivity implements PanelSlideListener {
 	private static final String TAG = MainActivity.class.getClass().getName();
-	private SlidingPaneLayout slidingPaneLayout = null;
+	private PagerEnabledSlidingPaneLayout slidingPaneLayout = null;
 	private MenuFragment menuFragment = null;
 	private SiteManageFragment siteManageFragment = null;
 
@@ -32,7 +32,7 @@ public class MainActivity extends BaseActivity implements PanelSlideListener {
 
 	@Override
 	public void initView() {
-		slidingPaneLayout = (SlidingPaneLayout) findViewById(R.id.slidingpanellayout);
+		slidingPaneLayout = (PagerEnabledSlidingPaneLayout) findViewById(R.id.slidingpanellayout);
 		menuFragment = new MenuFragment();
 		siteManageFragment = new SiteManageFragment();
 		FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -53,13 +53,11 @@ public class MainActivity extends BaseActivity implements PanelSlideListener {
 
 	@Override
 	public void onPanelOpened(View panel) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void onPanelClosed(View panel) {
-		// TODO Auto-generated method stub
 
 	}
 

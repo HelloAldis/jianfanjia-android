@@ -1,7 +1,6 @@
 package com.jianfanjia.cn.fragment;
 
 import java.util.ArrayList;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,7 +11,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-
+import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.NoteListAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
@@ -37,6 +36,7 @@ public class SiteManageFragment extends BaseFragment {
 	private SiteInfo site;
 	private int currentPro;
 	private LayoutInflater mLayoutInflater;
+	private ImageView icon_user_head = null;
 	private ListView detailNodeListView;
 	private NoteListAdapter mNoteListAdapter;
 	private ScrollLayout scrollLayout;
@@ -59,6 +59,7 @@ public class SiteManageFragment extends BaseFragment {
 
 	@Override
 	public void initView(View view) {
+		icon_user_head = (ImageView) view.findViewById(R.id.icon_user_head);
 		initScrollLayout(view);
 		initListView(view, procedureList.get(currentPro));
 	}
@@ -166,7 +167,18 @@ public class SiteManageFragment extends BaseFragment {
 
 	@Override
 	public void setListener() {
-		// TODO Auto-generated method stub
+		icon_user_head.setOnClickListener(this);
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.icon_user_head:
+			((MainActivity) getActivity()).getSlidingPaneLayout().openPane();
+			break;
+		default:
+			break;
+		}
 	}
 
 	class HeadViewHold {

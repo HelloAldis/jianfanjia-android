@@ -3,12 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_layout_bg" >
-    
-   <RelativeLayout
+
+    <RelativeLayout
         android:id="@+id/my_setting_head_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-         >
+        android:layout_margin="@dimen/space_10" >
 
         <ImageView
             android:id="@+id/my_designer_head"
@@ -71,14 +71,12 @@
                     android:layout_centerVertical="true"
                     android:text="@string/share"
                     android:textColor="@color/site_text_color1" />
-                
-                 <ImageView
+
+                <ImageView
                     style="@style/my_item_layout_image_style"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:contentDescription="@null"
-                     />
-
+                    android:contentDescription="@null" />
             </RelativeLayout>
 
             <View style="@style/divier_line" />
@@ -91,13 +89,13 @@
                     style="@style/site_listview_item_text_style_big"
                     android:layout_centerVertical="true"
                     android:text="@string/current_version"
-                    android:textColor="@color/site_text_color1"  />
+                    android:textColor="@color/site_text_color1" />
 
                 <TextView
                     android:id="@+id/my_site_housestyle"
                     style="@style/site_listview_item_text_style_middle"
-                    android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
                     android:text="@string/current_version_example"
                     android:textColor="@color/site_text_color2" />
             </RelativeLayout>
@@ -112,17 +110,17 @@
                     style="@style/site_listview_item_text_style_big"
                     android:layout_centerVertical="true"
                     android:text="@string/clear_cache"
-                    android:textColor="@color/site_text_color1"  />
+                    android:textColor="@color/site_text_color1" />
 
                 <TextView
                     android:id="@+id/cache_size"
                     style="@style/site_listview_item_text_style_middle"
                     android:layout_centerVertical="true"
-                    android:layout_toLeftOf="@+id/clear_select_goto"
                     android:layout_marginRight="4dp"
-                    android:text="@string/cache_size" 
+                    android:layout_toLeftOf="@+id/clear_select_goto"
+                    android:text="@string/cache_size"
                     android:textColor="@color/site_text_color2" />
-                
+
                 <ImageView
                     android:id="@+id/clear_select_goto"
                     style="@style/my_item_layout_image_style"
@@ -132,7 +130,6 @@
             </RelativeLayout>
 
             <View style="@style/divier_line" />
-
 
             <View
                 style="@style/divier_line"
@@ -146,9 +143,9 @@
                     style="@style/site_listview_item_text_style_big"
                     android:layout_centerVertical="true"
                     android:text="@string/feedback"
-                    android:textColor="@color/site_text_color1"  />
-                
-                 <ImageView
+                    android:textColor="@color/site_text_color1" />
+
+                <ImageView
                     style="@style/my_item_layout_image_style"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
@@ -165,8 +162,8 @@
                     style="@style/site_listview_item_text_style_big"
                     android:layout_centerVertical="true"
                     android:text="@string/about"
-                    android:textColor="@color/site_text_color1"  />
-                
+                    android:textColor="@color/site_text_color1" />
+
                 <ImageView
                     style="@style/my_item_layout_image_style"
                     android:layout_alignParentRight="true"
@@ -175,9 +172,10 @@
             </RelativeLayout>
 
             <View style="@style/divier_line" />
-            
-               <View style="@style/divier_line" 
-                   android:layout_marginTop="@dimen/space_16"/>
+
+            <View
+                style="@style/divier_line"
+                android:layout_marginTop="@dimen/space_16" />
 
             <RelativeLayout
                 android:id="@+id/logout_layout"
@@ -185,10 +183,10 @@
 
                 <TextView
                     style="@style/site_listview_item_text_style_big"
+                    android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:text="@string/logout"
-                    android:layout_centerHorizontal="true"
-                    android:textColor="@color/site_text_color1"  />
+                    android:textColor="@color/site_text_color1" />
             </RelativeLayout>
 
             <View style="@style/divier_line" />

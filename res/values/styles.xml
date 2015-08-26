@@ -2,13 +2,13 @@
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
     <style name="AppBaseTheme" parent="android:Theme.Light">
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
+            backward-compatibility can go here.
         -->
     </style>
 
@@ -16,12 +16,12 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
-    
-     <!-- horizontal line_style -->
+
+    <!-- horizontal line_style -->
     <style name="divier_line">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">1dp</item>
-        <item name="android:background">@color/line_color</item>
+        <item name="android:background">@color/transparent</item>
     </style>
 
     <!-- vertical line_style -->
@@ -30,8 +30,8 @@
         <item name="android:layout_height">match_parent</item>
         <item name="android:background">@color/line_color</item>
     </style>
-    
-       <!-- login activity -->
+
+    <!-- login activity -->
     <style name="item_input_container">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -65,7 +65,8 @@
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
     <!-- login activity -->
-    
+
+
     <!-- head_layout -->
     <style name="head_title_text_style">
         <item name="android:textSize">22sp</item>
@@ -73,7 +74,7 @@
         <item name="android:gravity">center</item>
     </style>
     <!-- head_layout -->
-    
+
 
     <!-- my_item_layout__style -->
     <style name="my_item_layout_image_style">
@@ -81,7 +82,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@drawable/icon_setting_next</item>
     </style>
-    
+
     <!-- my_item_layout_text_style -->
     <style name="my_item_layout_text_style_base">
         <item name="android:layout_width">wrap_content</item>
@@ -89,7 +90,7 @@
         <item name="android:gravity">center</item>
     </style>
 
-   <!-- site_listview_item_text_style -->
+    <!-- site_listview_item_text_style -->
     <style name="site_listview_item_text_style_small" parent="my_item_layout_text_style_base">
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
@@ -105,8 +106,8 @@
     <style name="site_listview_item_text_style_title" parent="my_item_layout_text_style_base">
         <item name="android:textSize">@dimen/text_size_22</item>
     </style>
-    
-     <!-- my_item_layout_style -->
+
+    <!-- my_item_layout_style -->
     <style name="my_item_layout_style">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/common_item_layout_height</item>
@@ -115,6 +116,5 @@
         <item name="android:paddingLeft">@dimen/space_32</item>
         <item name="android:paddingRight">@dimen/space_16</item>
     </style>
-    
 
 </resources>
