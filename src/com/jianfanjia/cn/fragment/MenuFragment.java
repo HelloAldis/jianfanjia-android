@@ -1,5 +1,6 @@
 package com.jianfanjia.cn.fragment;
 
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.TextView;
 import com.jianfanjia.cn.activity.MainActivity;
@@ -52,6 +53,11 @@ public class MenuFragment extends BaseFragment {
 			break;
 		case R.id.notifyText:
 			((MainActivity) getActivity()).getSlidingPaneLayout().closePane();
+			NotifyFragment notifyFragment = new NotifyFragment();
+			FragmentTransaction transaction = fragmentManager
+					.beginTransaction();
+			transaction.replace(R.id.slidingpane_content, notifyFragment);
+			transaction.commit();
 			break;
 		case R.id.roleText:
 			((MainActivity) getActivity()).getSlidingPaneLayout().closePane();

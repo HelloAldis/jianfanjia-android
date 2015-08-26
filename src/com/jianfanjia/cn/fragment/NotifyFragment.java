@@ -26,8 +26,10 @@ public class NotifyFragment extends BaseFragment {
 
 	@Override
 	public void initView(View view) {
-		// TODO Auto-generated method stub
-
+		mPageIndicator = (TabPageIndicator) view
+				.findViewById(R.id.page_indicator);
+		mPager = (ViewPager) view.findViewById(R.id.vPager);
+		initItem();
 	}
 
 	@Override
@@ -36,36 +38,38 @@ public class NotifyFragment extends BaseFragment {
 
 	}
 
-	// private void initItem() {
-	// SelectItem newItem = new SelectItem(new NewFragment(), "最新");
-	// SelectItem huodongItem = new SelectItem(new HuoDongFragment(), "活动");
-	// SelectItem qiuzhuItem = new SelectItem(new QiuZhuFragment(), "求助");
-	// listViews.add(newItem);
-	// listViews.add(huodongItem);
-	// listViews.add(qiuzhuItem);
-	// adapter = new MyFragmentPagerAdapter(fragmentManager, listViews);
-	// mPager.setAdapter(adapter);
-	// mPager.setOffscreenPageLimit(1);
-	// mPageIndicator.setViewPager(mPager, 0);
-	// mPageIndicator
-	// .setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-	//
-	// @Override
-	// public void onPageSelected(int pos) {
-	//
-	// }
-	//
-	// @Override
-	// public void onPageScrolled(int arg0, float arg1, int arg2) {
-	//
-	// }
-	//
-	// @Override
-	// public void onPageScrollStateChanged(int arg0) {
-	//
-	// }
-	// });
-	// }
+	private void initItem() {
+		SelectItem caigouItem = new SelectItem(new CaiGouNotifyFragment(),
+				"采购提醒");
+		SelectItem fukuanItem = new SelectItem(new FuKuanNotifyFragment(),
+				"付款提醒");
+		SelectItem yanqiItem = new SelectItem(new YanQiNotifyFragment(), "延期提醒");
+		listViews.add(caigouItem);
+		listViews.add(fukuanItem);
+		listViews.add(yanqiItem);
+		adapter = new MyFragmentPagerAdapter(fragmentManager, listViews);
+		mPager.setAdapter(adapter);
+		mPager.setOffscreenPageLimit(1);
+		mPageIndicator.setViewPager(mPager, 0);
+		mPageIndicator
+				.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
+					@Override
+					public void onPageSelected(int pos) {
+
+					}
+
+					@Override
+					public void onPageScrolled(int arg0, float arg1, int arg2) {
+
+					}
+
+					@Override
+					public void onPageScrollStateChanged(int arg0) {
+
+					}
+				});
+	}
 
 	@Override
 	public int getLayoutId() {
