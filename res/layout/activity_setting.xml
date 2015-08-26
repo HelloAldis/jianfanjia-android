@@ -4,16 +4,34 @@
     android:layout_height="match_parent"
     android:background="@color/main_layout_bg" >
     
-   <include layout="@layout/my_head_layout"
-        android:id="@+id/my_site_information_top"
+   <RelativeLayout
+        android:id="@+id/my_setting_head_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+         >
+
+        <ImageView
+            android:id="@+id/my_designer_head"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="@dimen/space_8"
+            android:contentDescription="@null"
+            android:scaleType="centerCrop"
+            android:src="@drawable/site_listview_item_finish_circle" />
+
+        <TextView
+            android:id="@+id/my_designer_title"
+            style="@style/site_listview_item_text_style_title"
+            android:layout_centerInParent="true"
+            android:text="@string/my_setting"
+            android:textColor="@color/site_text_color1" />
+    </RelativeLayout>
 
     <ScrollView
-        android:id="@+id/scrollview"
+        android:id="@+id/setting_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/my_site_information_top" >
+        android:layout_below="@+id/my_setting_head_layout" >
 
         <LinearLayout
             android:id="@+id/rootview"
@@ -35,10 +53,11 @@
                     android:contentDescription="@null" />
 
                 <TextView
-                    style="site_listview_item_text_style_small_base"
+                    style="@style/site_listview_item_text_style_big"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
-                    android:text="@string/message_push" />
+                    android:text="@string/message_push"
+                    android:textColor="@color/site_text_color1" />
             </RelativeLayout>
 
             <View style="@style/divier_line" />
@@ -48,15 +67,17 @@
                 style="@style/my_item_layout_style" >
 
                 <TextView
-                    style="site_listview_item_text_style_small_base"
+                    style="@style/site_listview_item_text_style_big"
                     android:layout_centerVertical="true"
-                    android:text="@string/share" />
+                    android:text="@string/share"
+                    android:textColor="@color/site_text_color1" />
                 
                  <ImageView
                     style="@style/my_item_layout_image_style"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:contentDescription="@null" />
+                    android:contentDescription="@null"
+                     />
 
             </RelativeLayout>
 
@@ -67,16 +88,18 @@
                 style="@style/my_item_layout_style" >
 
                 <TextView
-                    style="site_listview_item_text_style_small_base"
+                    style="@style/site_listview_item_text_style_big"
                     android:layout_centerVertical="true"
-                    android:text="@string/current_version" />
+                    android:text="@string/current_version"
+                    android:textColor="@color/site_text_color1"  />
 
                 <TextView
                     android:id="@+id/my_site_housestyle"
-                    style="site_listview_item_text_style_small"
+                    style="@style/site_listview_item_text_style_middle"
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
-                    android:text="@string/current_version_example" />
+                    android:text="@string/current_version_example"
+                    android:textColor="@color/site_text_color2" />
             </RelativeLayout>
 
             <View style="@style/divier_line" />
@@ -86,17 +109,19 @@
                 style="@style/my_item_layout_style" >
 
                 <TextView
-                    style="site_listview_item_text_style_small_base"
+                    style="@style/site_listview_item_text_style_big"
                     android:layout_centerVertical="true"
-                    android:text="@string/clear_cache" />
+                    android:text="@string/clear_cache"
+                    android:textColor="@color/site_text_color1"  />
 
                 <TextView
                     android:id="@+id/cache_size"
-                    style="site_listview_item_text_style_small"
+                    style="@style/site_listview_item_text_style_middle"
                     android:layout_centerVertical="true"
                     android:layout_toLeftOf="@+id/clear_select_goto"
                     android:layout_marginRight="4dp"
-                    android:text="@string/cache_size" />
+                    android:text="@string/cache_size" 
+                    android:textColor="@color/site_text_color2" />
                 
                 <ImageView
                     android:id="@+id/clear_select_goto"
@@ -118,9 +143,10 @@
                 style="@style/my_item_layout_style" >
 
                 <TextView
-                    style="site_listview_item_text_style_small_base"
+                    style="@style/site_listview_item_text_style_big"
                     android:layout_centerVertical="true"
-                    android:text="@string/feedback" />
+                    android:text="@string/feedback"
+                    android:textColor="@color/site_text_color1"  />
                 
                  <ImageView
                     style="@style/my_item_layout_image_style"
@@ -136,9 +162,10 @@
                 style="@style/my_item_layout_style" >
 
                 <TextView
-                    style="site_listview_item_text_style_small_base"
+                    style="@style/site_listview_item_text_style_big"
                     android:layout_centerVertical="true"
-                    android:text="@string/about" />
+                    android:text="@string/about"
+                    android:textColor="@color/site_text_color1"  />
                 
                 <ImageView
                     style="@style/my_item_layout_image_style"
@@ -157,15 +184,11 @@
                 style="@style/my_item_layout_style" >
 
                 <TextView
-                    style="site_listview_item_text_style_small_base"
+                    style="@style/site_listview_item_text_style_big"
                     android:layout_centerVertical="true"
-                    android:text="@string/logout" />
-                
-                <ImageView
-                    style="@style/my_item_layout_image_style"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:contentDescription="@null" />
+                    android:text="@string/logout"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/site_text_color1"  />
             </RelativeLayout>
 
             <View style="@style/divier_line" />

@@ -1,31 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    
+
     <!-- main_layout_bg -->
     <color name="main_layout_bg">#efefef</color>
-    
-    
-     <!-- actionbar title color -->
+
+    <!-- actionbar title color -->
     <color name="head_color_bg">#eeeeee</color>
     <color name="line_color">#b5babb</color>
-    
-    <!--  site_manager -->
+
+    <!-- site_manager -->
     <color name="site_item_normal_bg">#999999</color>
     <color name="site_item_selected_bg">#ff9800</color>
-    
+
     <!-- 字体色值 -->
     <color name="font_white">#ffffff</color>
     <color name="font_gray">#c9c9c9</color>
-    <color name="font_yellow">#fe7003</color>
     <color name="font_blue">#9aedff</color>
-    <color name="font_green">#12abad</color>
     <color name="font_black">#333</color>
-    <color name="font_red">#dd0000</color>
-    
     <color name="font_log_and_res_hint">#d8d8d8</color>
-    
     <color name="site_content_bg">#f2f2f3</color>
+    <!-- 四种字体颜色 -->
     <color name="site_text_color1">#344a5c</color>
     <color name="site_text_color2">#798489</color>
-    
+    <color name="font_yellow">#fe7003</color>
+    <color name="font_red">#dd4847</color>
+    <color name="font_green">#219d2b</color>
+    <!-- 四种字体颜色 -->
+
 </resources>
