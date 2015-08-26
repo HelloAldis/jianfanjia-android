@@ -41,8 +41,8 @@ public class MainActivity extends BaseActivity implements PanelSlideListener {
 		menuFragment = new MenuFragment();
 		siteManageFragment = new SiteManageFragment();
 		FragmentTransaction transaction = fragmentManager.beginTransaction();
-		transaction.add(R.id.slidingpane_menu, menuFragment);
-		transaction.add(R.id.slidingpane_content, siteManageFragment);
+		transaction.replace(R.id.slidingpane_menu, menuFragment);
+		transaction.replace(R.id.slidingpane_content, siteManageFragment);
 		transaction.commit();
 	}
 
