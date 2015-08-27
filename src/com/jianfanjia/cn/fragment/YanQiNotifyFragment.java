@@ -2,10 +2,8 @@ package com.jianfanjia.cn.fragment;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import android.view.View;
 import android.widget.ListView;
-
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.DelayNotifyAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
@@ -20,7 +18,7 @@ import com.jianfanjia.cn.bean.NotifyDelayInfo;
  * 
  */
 public class YanQiNotifyFragment extends BaseFragment {
-	private ListView listView;
+	private ListView listView = null;
 	private List<NotifyDelayInfo> caigouList = new ArrayList<NotifyDelayInfo>();
 	private NotifyDelayInfo caiGouInfo = null;
 	private DelayNotifyAdapter caiGouAdapter = null;
