@@ -84,7 +84,7 @@ public class SiteManageFragment extends BaseFragment {
 		}
 		ViewPageAdapter pageAdapter = new ViewPageAdapter(getActivity(), list);
 		viewPager.setAdapter(pageAdapter);
-		viewPager.setCurrentItem(Integer.MAX_VALUE);
+		viewPager.setPageMargin(5);
 		//
 		// scrollLayout = (ScrollLayout) view
 		// .findViewById(R.id.site_scroller_layout);
