@@ -64,7 +64,7 @@
     <style name="button_login_style">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/space_48</item>
-        <item name="android:background">@drawable/btn_login_selector</item>
+        <item name="android:background">@drawable/btn_selector</item>
         <item name="android:textColor">@color/font_white</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>

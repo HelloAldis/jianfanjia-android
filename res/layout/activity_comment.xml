@@ -5,25 +5,25 @@
     android:background="@color/site_content_bg" >
 
     <RelativeLayout
-        android:id="@+id/ower_site_head_layout"
+        android:id="@+id/comment_head_layout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_48" >
 
-        <ImageView
-            android:id="@+id/ower_site_head"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="@dimen/space_8"
-            android:contentDescription="@null"
+        <TextView
+            android:id="@+id/comment_back"
+            style="@style/site_listview_item_text_style_big"
             android:layout_centerVertical="true"
-            android:scaleType="centerCrop"
-            android:src="@drawable/site_listview_item_finish_circle" />
+            android:layout_marginLeft="@dimen/space_16"
+            android:drawableLeft="@drawable/icon_register_back"
+            android:drawablePadding="4dp"
+            android:text="@string/back"
+            android:textColor="@color/back_color" />
 
         <TextView
             android:id="@+id/ower_site_title"
             style="@style/site_listview_item_text_style_title"
             android:layout_centerInParent="true"
-            android:text="@string/my_decoration_site"
+            android:text="@string/comment"
             android:textColor="@color/site_text_color1" />
 
         <View
@@ -31,26 +31,57 @@
             android:layout_alignParentBottom="true"
             android:background="@color/horzontal_line_color" />
     </RelativeLayout>
+    
+    <ListView
+        android:id="@+id/comment_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/space_8"
+        android:layout_marginBottom="@dimen/space_8"
+        android:layout_below="@+id/comment_head_layout"
+        android:layout_above="@+id/add_comment_layout"
+        android:cacheColorHint="#ffffff"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="@dimen/space_1"
+        android:listSelector="@android:color/transparent"
+        android:scrollbars="none" />
 
     <RelativeLayout
         android:id="@+id/add_comment_layout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/space_48"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/font_white" >
+        android:background="@color/font_white"
+        android:padding="@dimen/space_8"
+        >
 
         <View
             style="@style/divier_line"
             android:layout_alignParentTop="true"
             android:background="@color/horzontal_line_color" />
 
-        <TextView
-            android:id="@+id/add_comment"
-            style="@style/site_listview_item_text_style_middle"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/space_32"
-            android:text="@string/add_comment"
-            android:textColor="#d5d5d5" />
+        <EditText android:id="@+id/add_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/space_8"
+            android:hint="@string/add_comment"
+            android:textColorHint="@color/horzontal_line_color"
+            android:layout_toLeftOf="@+id/btn_send"
+            android:layout_alignParentBottom="true"
+            android:minHeight="40dp"
+            android:layout_marginRight="@dimen/space_8"
+            android:background="@drawable/edit_comment_bg"/>
+        
+        <Button
+            android:id="@+id/btn_send"
+            android:layout_height="40dp"
+            android:layout_width="96dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/btn_selector"
+            android:text="@string/send" 
+            android:textColor="@color/font_white"
+            android:textSize="16sp"/>
     </RelativeLayout>
 
 </RelativeLayout>

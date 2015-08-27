@@ -35,7 +35,7 @@
 
     <!-- register_activity -->
     <string name="next">下一步</string>
-    <string name="back">上一步</string>
+    <string name="last">上一步</string>
     <string name="get_verification">获取验证码</string>
     <string name="hint_verification">请输入验证码</string>
     <string name="hint_inputpsw_two">请再次输入密码</string>
@@ -117,7 +117,9 @@
     <string name="logout">退出登录</string>
     <string name="list_item_comment_pubtime_example">30分钟前</string>
     <string name="add_comment">添加评论</string>
-
+    <string name="comment">评论</string>
+    <string name="back">返回</string>
+    <string name="send">发送</string>
     <!-- site procedure -->
     <string-array name="site_procedure">
         <item>开工</item>
