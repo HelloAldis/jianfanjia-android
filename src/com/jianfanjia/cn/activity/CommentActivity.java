@@ -2,14 +2,12 @@ package com.jianfanjia.cn.activity;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import com.jianfanjia.cn.adapter.CommentInfoAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.CommentInfo;
@@ -45,7 +43,6 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
 			commentInfo.setTime("2015-8-27");
 			commentInfoList.add(commentInfo);
 		}
-
 		commentInfoAdapter = new CommentInfoAdapter(this, commentInfoList);
 		listView.setAdapter(commentInfoAdapter);
 	}
@@ -63,7 +60,6 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
 
 	@Override
 	public int getLayoutId() {
-		// TODO Auto-generated method stub
 		return R.layout.activity_comment;
 	}
 
