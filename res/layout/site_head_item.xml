@@ -9,41 +9,54 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true" >
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/site_head_procedure_icon_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true" >
+            android:orientation="horizontal" >
+
+            <View
+                android:id="@+id/lineView"
+                android:layout_width="30dip"
+                android:layout_height="1dp"
+                android:layout_gravity="center_vertical"
+                android:background="#A6A6A6" />
 
             <ImageView
                 android:id="@+id/site_head_procedure_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:contentDescription="@null"
                 android:src="@drawable/icon_home_checked1" />
-        </RelativeLayout>
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/site_head_procedure_name"
+        <LinearLayout
+            android:id="@+id/site_head_procedure_text_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
             android:layout_below="@+id/site_head_procedure_icon_layout"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="4dp"
-            android:gravity="center"
-            android:textColor="@color/site_text_color1"
-            android:textSize="18sp" />
+            android:orientation="vertical" >
 
-        <TextView
-            android:id="@+id/site_head_procedure_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/site_head_procedure_name"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="4dp"
-            android:gravity="center"
-            android:textColor="@color/site_text_color2"
-            android:textSize="14sp" />
+            <TextView
+                android:id="@+id/site_head_procedure_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="4dp"
+                android:textColor="@color/site_text_color1"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/site_head_procedure_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="4dp"
+                android:textColor="@color/site_text_color2"
+                android:textSize="14sp" />
+        </LinearLayout>
     </RelativeLayout>
 
 </RelativeLayout>
