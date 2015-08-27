@@ -1,7 +1,5 @@
 package com.jianfanjia.cn.application;
 
-import android.annotation.TargetApi;
-import android.os.Build;
 import com.jianfanjia.cn.base.BaseApplication;
 import com.jianfanjia.cn.bean.LoginUserBean;
 import com.jianfanjia.cn.bean.RegisterInfo;
@@ -18,10 +16,8 @@ public class MyApplication extends BaseApplication {
 	private static MyApplication instance;
 	private boolean isLogin;//判断用户是否登录
 	private int userType = -1;//判断用户类型
-	private RegisterInfo registerInfo = new RegisterInfo();
+	private RegisterInfo registerInfo = new RegisterInfo();//注册实体信息
 	
-	@TargetApi(Build.VERSION_CODES.GINGERBREAD)
-	@SuppressWarnings("unused")
 	@Override
 	public void onCreate() {
 		super.onCreate();
