@@ -123,6 +123,12 @@
 	<string name="send">发送</string>
 	<string name="confirm_upload">确认上传</string>
 	
+	<!-- activity_upload_pic -->
+	<string name="upload_pic">上传照片</string>
+	<string name="show_pic">示范照片</string>
+	<string name="edit">编辑</string>
+	<string name="confirm_check">确认验收</string>
+	<!-- activity_upload_pic -->
 	
 	<!-- activity_about -->
 	<string name="about">关于我们</string>
@@ -132,6 +138,7 @@
 	<string name="company">武汉家易装科技有限公司</string>
 	<string name="compant_net">Copyright © 2015-2025 jianfanjia.com</string>
 	<!-- activity_about -->
+	
     <!-- site procedure -->
     <string-array name="site_procedure">
         <item>开工</item>

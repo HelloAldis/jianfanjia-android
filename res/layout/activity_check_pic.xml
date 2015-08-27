@@ -32,20 +32,70 @@
             android:background="@color/horzontal_line_color" />
     </RelativeLayout>
 
-   <!--  <ListView
-        android:id="@+id/comment_listview"
+   <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/btn_confirm_upload"
-        android:layout_below="@+id/upload_pic_head_layout"
-        android:layout_marginBottom="@dimen/space_8"
+        android:layout_below="@+id/check_pic_head_layout"
         android:layout_marginTop="@dimen/space_8"
-        android:cacheColorHint="#ffffff"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="@dimen/space_1"
-        android:listSelector="@android:color/transparent"
-        android:scrollbars="none" />
- -->
+        android:background="@color/font_white"
+        android:orientation="horizontal"
+        android:padding="@dimen/space_8"
+        android:weightSum="2" >
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <TextView
+                style="@style/site_listview_item_text_style_middle"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/show_pic"
+                android:textColor="@color/site_text_color1" />
+
+            <ListView
+                android:id="@+id/show_pic_listview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/space_8"
+                android:cacheColorHint="#ffffff"
+                android:divider="@android:color/transparent"
+                android:dividerHeight="@dimen/space_1"
+                android:listSelector="@android:color/transparent"
+                android:scrollbars="none" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <TextView
+                style="@style/site_listview_item_text_style_middle"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/upload_pic"
+                android:textColor="@color/site_text_color1" />
+
+            <ListView
+                android:id="@+id/upload_pic_listview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/space_8"
+                android:cacheColorHint="#ffffff"
+                android:divider="@android:color/transparent"
+                android:dividerHeight="@dimen/space_1"
+                android:listSelector="@android:color/transparent"
+                android:scrollbars="none" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        style="@style/divier_line"
+        android:layout_above="@+id/btn_confirm_upload" />
+    
     <Button
         android:id="@+id/btn_confirm_upload"
         android:layout_width="match_parent"
@@ -53,7 +103,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:background="@drawable/btn_selector"
-        android:text="@string/confirm_upload"
+        android:text="@string/confirm_check"
         android:textColor="@color/font_white"
         android:textSize="16sp" />
 
