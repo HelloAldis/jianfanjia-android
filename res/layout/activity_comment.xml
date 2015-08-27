@@ -11,19 +11,29 @@
 
         <ImageView
             android:id="@+id/ower_site_head"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="@dimen/space_8"
-            android:contentDescription="@null"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/space_16"
+            android:contentDescription="@null"
             android:scaleType="centerCrop"
-            android:src="@drawable/site_listview_item_finish_circle" />
+            android:src="@drawable/icon_register_back" />
+
+        <TextView
+            android:id="@+id/comment_back"
+            style="@style/site_listview_item_text_style_big"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/space_16"
+            android:drawableLeft="@drawable/icon_register_back"
+            android:drawablePadding="4dp"
+            android:text="@string/back"
+            android:textColor="@color/back_color" />
 
         <TextView
             android:id="@+id/ower_site_title"
             style="@style/site_listview_item_text_style_title"
             android:layout_centerInParent="true"
-            android:text="@string/my_decoration_site"
+            android:text="@string/comment"
             android:textColor="@color/site_text_color1" />
 
         <View

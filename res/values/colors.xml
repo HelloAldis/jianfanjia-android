@@ -28,6 +28,8 @@
     <color name="font_red">#dd4847</color>
     <color name="font_green">#219d2b</color>
     
+    <color name="back_color">#7c8489</color>
+    
     <color name="ower_color">#378fe4</color>
     <color name="designer_color">#e3398c</color>
     <!-- 四种字体颜色 -->
