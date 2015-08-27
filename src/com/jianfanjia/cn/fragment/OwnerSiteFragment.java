@@ -64,7 +64,7 @@ public class OwnerSiteFragment extends BaseFragment {
 		getRequirement();
 	}
 
-	public void getRequirement() {
+	private void getRequirement() {
 		JianFanJiaApiClient.get_Requirement(getApplication(),
 				new JsonHttpResponseHandler() {
 					@Override
@@ -79,7 +79,6 @@ public class OwnerSiteFragment extends BaseFragment {
 						makeTextLong(response.toString());
 						try {
 							if (response != null) {
-
 								makeTextLong(response.toString());
 							} else if (response.has(Constant.ERROR_MSG)) {
 								makeTextLong(response.get(Constant.ERROR_MSG)
@@ -115,7 +114,6 @@ public class OwnerSiteFragment extends BaseFragment {
 		headBackView.setOnClickListener(this);
 		startDateLayout.setOnClickListener(this);
 		totalDateLayout.setOnClickListener(this);
-
 	}
 
 	@Override

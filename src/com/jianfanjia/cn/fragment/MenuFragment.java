@@ -108,7 +108,6 @@ public class MenuFragment extends BaseFragment implements
 			}
 			break;
 		case SITE:
-
 			if (ownerSiteFragment != null) {
 				transaction.show(ownerSiteFragment);
 			} else {
@@ -154,9 +153,9 @@ public class MenuFragment extends BaseFragment implements
 		if (notifyFragment != null) {
 			ft.hide(notifyFragment);
 		}
-		/*if (designerFragment != null) {
-			ft.hide(designerFragment);
-		}*/
+		/*
+		 * if (designerFragment != null) { ft.hide(designerFragment); }
+		 */
 		if (owerFragment != null) {
 			ft.hide(owerFragment);
 		}
