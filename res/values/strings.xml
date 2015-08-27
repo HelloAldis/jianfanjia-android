@@ -120,6 +120,7 @@
 	<string name="comment">评论</string>
 	<string name="back">返回</string>
 	<string name="send">发送</string>
+	<string name="upload_pic">确认上传</string>
     <!-- site procedure -->
     <string-array name="site_procedure">
         <item>开工</item>

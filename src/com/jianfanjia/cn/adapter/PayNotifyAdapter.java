@@ -1,13 +1,11 @@
 package com.jianfanjia.cn.adapter;
 
 import java.util.List;
-
 import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
-import com.jianfanjia.cn.bean.NotifyPayInfo;
-
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.bean.NotifyPayInfo;
 
 /**
  * @class CaiGouNotifyAdapter.clase
@@ -17,25 +15,27 @@ import com.jianfanjia.cn.activity.R;
  */
 public class PayNotifyAdapter extends BaseListAdapter<NotifyPayInfo> {
 
-	public PayNotifyAdapter(Context context,
-			List<NotifyPayInfo> caigouList) {
+	public PayNotifyAdapter(Context context, List<NotifyPayInfo> caigouList) {
 		super(context, caigouList);
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
-	public View initView(int position, View convertView){
+	public View initView(int position, View convertView) {
 		ViewHolder viewHolder = null;
-		NotifyPayInfo payInfo =list.get(position);
-		if(convertView == null){
-			convertView = layoutInflater.inflate(R.layout.list_item_tip_pay, null);
+		NotifyPayInfo payInfo = list.get(position);
+		if (convertView == null) {
+			convertView = layoutInflater.inflate(R.layout.list_item_tip_pay,
+					null);
 			viewHolder = new ViewHolder();
-			viewHolder.itemNameView = (TextView)convertView.findViewById(R.id.list_item_tip_pay_name);
-			viewHolder.itemNodeView = (TextView)convertView.findViewById(R.id.list_item_tip_pay_node);
-			viewHolder.itemPubTimeView= (TextView)convertView.findViewById(R.id.list_item_pay_time);
+			viewHolder.itemNameView = (TextView) convertView
+					.findViewById(R.id.list_item_tip_pay_name);
+			viewHolder.itemNodeView = (TextView) convertView
+					.findViewById(R.id.list_item_tip_pay_node);
+			viewHolder.itemPubTimeView = (TextView) convertView
+					.findViewById(R.id.list_item_pay_time);
 			convertView.setTag(viewHolder);
-		}else{
-			viewHolder = (ViewHolder)convertView.getTag();
+		} else {
+			viewHolder = (ViewHolder) convertView.getTag();
 		}
 		viewHolder.itemNameView.setText(payInfo.getTitle());
 		viewHolder.itemNodeView.setText(payInfo.getStage());
@@ -43,7 +43,7 @@ public class PayNotifyAdapter extends BaseListAdapter<NotifyPayInfo> {
 		return convertView;
 	}
 
-	class ViewHolder {
+	private static class ViewHolder {
 		TextView itemNameView;// 延迟工序
 		TextView itemNodeView;// 延迟节点
 		TextView itemPubTimeView;// 发布时间

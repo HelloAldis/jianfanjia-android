@@ -28,8 +28,8 @@ public class MainSiteLayout extends LinearLayout {
 
 	public MainSiteLayout(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
-		headLayout = (ScrollLayout) findViewById(R.id.site_scroller_layout);
-		contentLayout = (RelativeLayout) findViewById(R.id.content_layout);
+		// headLayout = (ScrollLayout) findViewById(R.id.site_scroller_layout);
+		// contentLayout = (RelativeLayout) findViewById(R.id.content_layout);
 	}
 
 }

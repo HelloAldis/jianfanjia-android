@@ -5,75 +5,84 @@
     android:background="@color/site_content_bg"
     android:orientation="vertical" >
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/space_48"
-        android:background="@android:color/transparent" >
-
-        <ImageView
-            android:id="@+id/icon_user_head"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/space_8"
-            android:contentDescription="@null"
-            android:src="@drawable/site_listview_item_finish_circle" />
-
-        <TextView
-            android:id="@+id/head_center_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="简繁家"
-            android:textColor="@color/site_text_color1"
-            android:textSize="22sp" />
-
-        <TextView
-            android:id="@+id/head_right_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:text="工地配置"
-            android:textColor="@color/site_text_color1"
-            android:textSize="18sp" />
-    </RelativeLayout>
-
-    <View style="@style/divier_line" />
-
-    <com.jianfanjia.cn.view.MainSiteLayout
-        android:id="@+id/site_layout"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:scrollbars="none" >
 
-        <com.jianfanjia.cn.view.ScrollLayout
-            android:id="@+id/site_scroller_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/font_white" />
-
-        <RelativeLayout
-            android:id="@+id/content_layout"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/site_content_bg" >
+            android:orientation="vertical" >
 
-            <View style="@style/divier_line" />
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_100" >
 
-            <View
-                style="@style/vertical_divier_line"
-                android:layout_marginLeft="45dp" />
+                <!-- banner布局 -->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#ff0000"
+                    android:orientation="vertical" >
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/space_48"
+                    android:layout_margin="5dip"
+                    android:background="@android:color/transparent" >
+
+                    <ImageView
+                        android:id="@+id/icon_user_head"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/space_8"
+                        android:contentDescription="@null"
+                        android:src="@drawable/site_listview_item_finish_circle" />
+
+                    <TextView
+                        android:id="@+id/head_center_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="简繁家"
+                        android:textColor="@color/site_text_color1"
+                        android:textSize="22sp" />
+
+                    <TextView
+                        android:id="@+id/head_right_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:text="工地配置"
+                        android:textColor="@color/site_text_color1"
+                        android:textSize="18sp" />
+                </RelativeLayout>
+            </FrameLayout>
+
+            <com.jianfanjia.cn.view.ProcessViewPager
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:background="#ffffff"
+                android:fadingEdge="none" />
 
             <com.jianfanjia.cn.view.MyListView
                 android:id="@+id/site__listview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:cacheColorHint="#ffffff"
+                android:clipToPadding="false"
                 android:divider="@null"
+                android:fadingEdge="none"
+                android:fastScrollEnabled="false"
                 android:listSelector="@android:color/transparent"
                 android:scrollbars="none" />
-        </RelativeLayout>
-    </com.jianfanjia.cn.view.MainSiteLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>
