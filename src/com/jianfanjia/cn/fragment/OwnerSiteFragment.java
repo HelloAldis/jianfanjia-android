@@ -6,13 +6,13 @@ import com.jianfanjia.cn.base.BaseFragment;
 
 /**
  * 
- * @ClassName: SiteFragment
- * @Description: 装修工地
+ * @ClassName: OwnerSiteFragment
+ * @Description: 我的工地(业主)
  * @author fengliang
  * @date 2015-8-26 下午3:49:05
  * 
  */
-public class SiteFragment extends BaseFragment {
+public class OwnerSiteFragment extends BaseFragment {
 
 	@Override
 	public void initView(View view) {

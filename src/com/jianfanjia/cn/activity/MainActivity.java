@@ -53,11 +53,11 @@ public class MainActivity extends BaseActivity implements PanelSlideListener {
 
 	@Override
 	public void onPanelSlide(View panel, float slideOffset) {
-		slidingpane_menu.setScaleY(slideOffset / 2 + 0.5F);
-		slidingpane_menu.setScaleX(slideOffset / 2 + 0.5F);
-		slidingpane_menu.setAlpha(slideOffset);
-		slidingpane_content.setScaleX(1 - slideOffset / 5);
-		slidingpane_content.setScaleY(1 - slideOffset / 5);
+		// slidingpane_menu.setScaleY(slideOffset / 2 + 0.5F);
+		// slidingpane_menu.setScaleX(slideOffset / 2 + 0.5F);
+		// slidingpane_menu.setAlpha(slideOffset);
+		// slidingpane_content.setScaleX(1 - slideOffset / 5);
+		// slidingpane_content.setScaleY(1 - slideOffset / 5);
 	}
 
 	@Override

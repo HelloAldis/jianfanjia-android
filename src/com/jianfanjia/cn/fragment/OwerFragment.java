@@ -27,8 +27,10 @@ public class OwerFragment extends BaseFragment {
 
 	@Override
 	public void initView(View view) {
+		headView = (ImageView)view.findViewById(R.id.my_ower_head);
+		listView = (ListView) view.findViewById(R.id.my_ower_listview);
 		headView = (ImageView) view.findViewById(R.id.my_ower_head);
-		listView = (ListView) view.findViewById(R.id.tip_caigou__listview);
+		listView = (ListView) view.findViewById(R.id.my_ower_listview);
 		for (int i = 0; i < 3; i++) {
 			myOwerInfo = new MyOwerInfo();
 			myOwerInfo.setName("zhanghao" + i);
