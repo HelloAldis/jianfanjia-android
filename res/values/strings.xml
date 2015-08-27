@@ -127,6 +127,7 @@
 	<string name="upload_pic">上传照片</string>
 	<string name="show_pic">示范照片</string>
 	<string name="edit">编辑</string>
+	<string name="confirm_check">确认验收</string>
 	<!-- activity_upload_pic -->
 	
 	<!-- activity_about -->
