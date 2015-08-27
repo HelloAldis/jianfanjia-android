@@ -27,7 +27,7 @@ public class OwerFragment extends BaseFragment {
 
 	@Override
 	public void initView(View view) {
-		headView = (ImageView)view.findViewById(R.id.my_ower_head);
+		headView = (ImageView) view.findViewById(R.id.my_ower_head);
 		listView = (ListView) view.findViewById(R.id.my_ower_listview);
 		headView = (ImageView) view.findViewById(R.id.my_ower_head);
 		listView = (ListView) view.findViewById(R.id.my_ower_listview);
