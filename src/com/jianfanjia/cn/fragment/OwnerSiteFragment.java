@@ -3,16 +3,12 @@ package com.jianfanjia.cn.fragment;
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseFragment;
-import com.jianfanjia.cn.bean.LoginUserBean;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.tools.LogTool;
@@ -27,9 +23,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
  * 
  */
 public class OwnerSiteFragment extends BaseFragment {
-
 	private static final String TAG = "OwnerSiteFragment";
-
 	private ImageView headBackView;// 返回头像
 	private TextView cityView;// 所在城市
 	private TextView villageNameView;// 小区名字
@@ -67,9 +61,7 @@ public class OwnerSiteFragment extends BaseFragment {
 				.findViewById(R.id.my_startdate_layout);
 		totalDateLayout = (RelativeLayout) view
 				.findViewById(R.id.my_totaldate_layout);
-
 		getRequirement();
-
 	}
 
 	public void getRequirement() {
