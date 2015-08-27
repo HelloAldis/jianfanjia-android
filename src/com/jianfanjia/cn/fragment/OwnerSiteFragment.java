@@ -75,10 +75,9 @@ public class OwnerSiteFragment extends BaseFragment {
 					@Override
 					public void onSuccess(int statusCode, Header[] headers,
 							JSONObject response) {
-						LogTool.d(TAG, "JSONObject response:" + response);
 						makeTextLong(response.toString());
 						try {
-							if (response != null) {
+							if (response.has(Constant.DATA)) {
 								makeTextLong(response.toString());
 							} else if (response.has(Constant.ERROR_MSG)) {
 								makeTextLong(response.get(Constant.ERROR_MSG)
@@ -108,6 +107,32 @@ public class OwnerSiteFragment extends BaseFragment {
 				});
 	}
 
+	/*
+	 * public void send_site() {
+	 * JianFanJiaApiClient.get_Requirement(getApplication(), new
+	 * JsonHttpResponseHandler() {
+	 * 
+	 * @Override public void onStart() { LogTool.d(TAG, "onStart()"); }
+	 * 
+	 * @Override public void onSuccess(int statusCode, Header[] headers,
+	 * JSONObject response) { makeTextLong(response.toString()); try { if
+	 * (response.has(Constant.DATA)) { makeTextLong(response.toString()); } else
+	 * if (response.has(Constant.ERROR_MSG)) {
+	 * makeTextLong(response.get(Constant.ERROR_MSG) .toString()); } } catch
+	 * (JSONException e) { // TODO Auto-generated catch block
+	 * e.printStackTrace();
+	 * makeTextLong(getString(R.string.tip_login_error_for_network)); } }
+	 * 
+	 * @Override public void onFailure(int statusCode, Header[] headers,
+	 * Throwable throwable, JSONObject errorResponse) { LogTool.d(TAG,
+	 * "Throwable throwable:" + throwable.toString());
+	 * makeTextLong(getString(R.string.tip_login_error_for_network)); }
+	 * 
+	 * @Override public void onFailure(int statusCode, Header[] headers, String
+	 * responseString, Throwable throwable) { LogTool.d(TAG, "throwable:" +
+	 * throwable);
+	 * makeTextLong(getString(R.string.tip_login_error_for_network)); }; }); }
+	 */
 	@Override
 	public void setListener() {
 		confirmView.setOnClickListener(this);
