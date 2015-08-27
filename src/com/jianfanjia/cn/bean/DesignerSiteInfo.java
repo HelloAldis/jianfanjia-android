@@ -10,22 +10,18 @@ import java.io.Serializable;
  * @date 2015-8-26 下午20:03
  * 
  */
-public class DesignerSiteInfo implements Serializable{
-	
-	/**
-	 * 
-	 */
+public class DesignerSiteInfo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private String imageUrl;//业主头像
-	
-	private String name;//业主姓名
-	
-	private String villageName;//小区名称
-	
-	private String address;//工地地址
-	
-	private String stage;//所处阶段
+	private String imageUrl;// 业主头像
+
+	private String name;// 业主姓名
+
+	private String villageName;// 小区名称
+
+	private String address;// 工地地址
+
+	private String stage;// 所处阶段
 
 	public String getImageUrl() {
 		return imageUrl;
@@ -67,7 +63,4 @@ public class DesignerSiteInfo implements Serializable{
 		this.villageName = villageName;
 	}
 
-	
-	
-	
 }

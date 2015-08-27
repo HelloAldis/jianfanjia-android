@@ -10,20 +10,16 @@ import java.io.Serializable;
  * @date 2015-8-26 下午19:33
  * 
  */
-public class MyOwerInfo implements Serializable{
-	
-	/**
-	 * 
-	 */
+public class MyOwerInfo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private String imageUrl;//业主头像
-	
-	private String name;//业主姓名
-	
-	private String address;//工地地址
-	
-	private String stage;//所处阶段
+	private String imageUrl;// 业主头像
+
+	private String name;// 业主姓名
+
+	private String address;// 工地地址
+
+	private String stage;// 所处阶段
 
 	public String getImageUrl() {
 		return imageUrl;
@@ -56,5 +52,5 @@ public class MyOwerInfo implements Serializable{
 	public void setStage(String stage) {
 		this.stage = stage;
 	}
-	
+
 }

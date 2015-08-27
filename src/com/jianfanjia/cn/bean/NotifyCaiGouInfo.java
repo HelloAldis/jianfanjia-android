@@ -1,27 +1,24 @@
 package com.jianfanjia.cn.bean;
 
 import java.io.Serializable;
+
 /**
  * @Class NotifyCaiGouInfo.class
  * @Decription 采购信息实体类
  * @author zhanghao
  * @date 2015-8-26 下午17:31
- *
+ * 
  */
-public class NotifyCaiGouInfo implements Serializable{
-
-	/**
-	 * 
-	 */
+public class NotifyCaiGouInfo implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
-	private String title;//提醒标题
-	
-	private String content;//提醒内容
-	
-	private String time;//提醒时间
-	
-	private String stage;//提醒阶段
+
+	private String title;// 提醒标题
+
+	private String content;// 提醒内容
+
+	private String time;// 提醒时间
+
+	private String stage;// 提醒阶段
 
 	public String getTitle() {
 		return title;
