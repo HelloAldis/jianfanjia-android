@@ -94,11 +94,17 @@ public class MenuFragment extends BaseFragment implements
 			}
 			break;
 		case ROLE:
-			if (designerFragment != null) {
+			/*if (designerFragment != null) {
 				transaction.show(designerFragment);
 			} else {
 				designerFragment = new DesignerFragment();
 				transaction.add(R.id.slidingpane_content, designerFragment);
+			}*/
+			if(owerFragment != null){
+				transaction.show(owerFragment);
+			}else{
+				owerFragment = new OwerFragment();
+				transaction.add(R.id.slidingpane_content, owerFragment);
 			}
 			break;
 		case SITE:
@@ -147,6 +153,9 @@ public class MenuFragment extends BaseFragment implements
 		}
 		if (designerFragment != null) {
 			ft.hide(designerFragment);
+		}
+		if(owerFragment != null){
+			ft.hide(owerFragment);
 		}
 		/*if (siteFragment != null) {
 			ft.hide(siteFragment);
