@@ -274,7 +274,7 @@
                 android:layout_marginLeft="@dimen/space_24"
                 android:layout_marginRight="@dimen/space_24"
                 android:layout_marginTop="@dimen/space_24"
-                android:background="@drawable/btn_yellow_bg"
+                android:background="@drawable/edit_comment_bg"
                 android:gravity="center"
                 android:text="@string/confirm"
                 android:textColor="@color/font_white" />
