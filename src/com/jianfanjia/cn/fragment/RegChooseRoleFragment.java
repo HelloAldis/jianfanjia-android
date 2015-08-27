@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.FragmentListener;
@@ -86,14 +87,14 @@ public class RegChooseRoleFragment extends BaseFragment implements
 				owerView.setImageResource(R.drawable.btn_register_user1_normal);
 				designerView
 						.setImageResource(R.drawable.btn_register_designer2_pressed);
-				registerInfo.setUserType(Constant.IDENTITY_DESIGNER);
+				MyApplication.getInstance().getRegisterInfo().setUserType(Constant.IDENTITY_DESIGNER);
 				nextView.setEnabled(true);
 				break;
 			case R.id.choose_ower:
 				designerView
 						.setImageResource(R.drawable.btn_register_designer2_normal);
 				owerView.setImageResource(R.drawable.btn_register_user1_pressed);
-				registerInfo.setUserType(Constant.IDENTITY_OWNER);
+				MyApplication.getInstance().getRegisterInfo().setUserType(Constant.IDENTITY_OWNER);
 				nextView.setEnabled(true);
 				break;
 			default:

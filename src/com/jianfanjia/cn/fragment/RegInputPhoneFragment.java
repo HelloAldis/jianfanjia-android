@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
@@ -78,8 +79,8 @@ public class RegInputPhoneFragment extends BaseFragment {
 			mPasswordStr = mPassword.getText().toString().trim();
 			if (checkInput(mUserNameStr, mUserNameStr)) {
 				fragemntListener.onNext();
-				registerInfo.setPhone(mUserNameStr);
-				registerInfo.setPass(mPasswordStr);
+				MyApplication.getInstance().getRegisterInfo().setPhone(mUserNameStr);
+				MyApplication.getInstance().getRegisterInfo().setPass(mPasswordStr);
 				sendVerifyCode(mUserNameStr);
 			}
 			break;

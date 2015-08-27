@@ -108,18 +108,21 @@ public class MenuFragment extends BaseFragment implements
 			}
 			break;
 		case SITE:
-			/*
-			 * if (ownerSiteFragment != null) {
-			 * transaction.show(ownerSiteFragment); } else { ownerSiteFragment =
-			 * new OwnerSiteFragment();
-			 * transaction.add(R.id.slidingpane_content, ownerSiteFragment); }
-			 */
-			if (designerSiteFragment != null) {
-				transaction.show(designerSiteFragment);
+
+			if (ownerSiteFragment != null) {
+				transaction.show(ownerSiteFragment);
 			} else {
-				designerSiteFragment = new DesignerSiteFragment();
-				transaction.add(R.id.slidingpane_content, designerSiteFragment);
+				ownerSiteFragment = new OwnerSiteFragment();
+				transaction.add(R.id.slidingpane_content, ownerSiteFragment);
 			}
+
+			/*
+			 * if (designerSiteFragment != null) {
+			 * transaction.show(designerSiteFragment); } else {
+			 * designerSiteFragment = new DesignerSiteFragment();
+			 * transaction.add(R.id.slidingpane_content, designerSiteFragment);
+			 * }
+			 */
 			break;
 		case SETTING:
 			if (settingFragment != null) {
@@ -151,15 +154,16 @@ public class MenuFragment extends BaseFragment implements
 		if (notifyFragment != null) {
 			ft.hide(notifyFragment);
 		}
-		if (designerFragment != null) {
+		/*if (designerFragment != null) {
 			ft.hide(designerFragment);
-		}
+		}*/
 		if (owerFragment != null) {
 			ft.hide(owerFragment);
 		}
-		/*
-		 * if ( ownerSiteFragment != null) { ft.hide( ownerSiteFragment); }
-		 */
+		if (ownerSiteFragment != null) {
+			ft.hide(ownerSiteFragment);
+		}
+
 		if (settingFragment != null) {
 			ft.hide(settingFragment);
 		}

@@ -13,9 +13,6 @@ import java.io.Serializable;
 public class UserInfo implements Serializable {
 	private static final long serialVersionUID = 8954526830558571075L;
 
-	public final static int IDENTITY_DESIGNER = 2;// 设计师身份
-	public final static int IDENTITY_COMMON_USER = 1;// 业主身份
-
 	private String username;// 用户姓名
 
 	private String phone;// 用户电话，用来做key,每个用户一个电话

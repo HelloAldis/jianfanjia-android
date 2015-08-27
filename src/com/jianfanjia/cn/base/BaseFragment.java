@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.Toast;
 import com.jianfanjia.cn.bean.RegisterInfo;
+import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 
 /**
@@ -23,12 +24,13 @@ import com.jianfanjia.cn.tools.LogTool;
 public abstract class BaseFragment extends Fragment implements OnClickListener {
 	protected FragmentManager fragmentManager = null;
 	protected LayoutInflater inflater = null;
-	protected RegisterInfo registerInfo = null;// 注册所需要的信息实体类
+	protected JsonParser jsonParser = null;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		LogTool.d(this.getClass().getName(), "onCreate");
+		jsonParser = new JsonParser();
 	}
 
 	@Override
@@ -39,7 +41,6 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 		fragmentManager = getFragmentManager();
 		View view = inflateView(getLayoutId());
 		initView(view);
-		init();
 		setListener();
 		return view;
 	}
@@ -74,10 +75,6 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 
 	protected View inflateView(int resId) {
 		return this.inflater.inflate(resId, null);
-	}
-
-	private void init() {
-		registerInfo = new RegisterInfo();
 	}
 
 	@Override

@@ -3,6 +3,9 @@ package com.jianfanjia.cn.application;
 import android.annotation.TargetApi;
 import android.os.Build;
 import com.jianfanjia.cn.base.BaseApplication;
+import com.jianfanjia.cn.bean.LoginUserBean;
+import com.jianfanjia.cn.bean.RegisterInfo;
+import com.jianfanjia.cn.config.Constant;
 
 /**
  * @version 1.0
@@ -15,6 +18,7 @@ public class MyApplication extends BaseApplication {
 	private static MyApplication instance;
 	private boolean isLogin;//判断用户是否登录
 	private int userType = -1;//判断用户类型
+	private RegisterInfo registerInfo = new RegisterInfo();
 	
 	@TargetApi(Build.VERSION_CODES.GINGERBREAD)
 	@SuppressWarnings("unused")
@@ -43,5 +47,15 @@ public class MyApplication extends BaseApplication {
 	public static MyApplication getInstance(){
 		return instance;
 	}
+
+	public RegisterInfo getRegisterInfo() {
+		return registerInfo;
+	}
 	
+	public void saveLoginUserInfo(LoginUserBean userBean){
+		sharedPrefer.setValue(Constant.ACCOUNT, userBean.getPhone());
+		sharedPrefer.setValue(Constant.USERTYPE, userBean.getUsertype());
+		sharedPrefer.setValue(Constant.PASSWORD, userBean.getPass());
+		sharedPrefer.setValue(Constant.USERIMAGE_ID, userBean.getImageId());
+	}
 }
