@@ -2,7 +2,6 @@ package com.jianfanjia.cn.fragment;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -13,8 +12,8 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
-
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.NoteListAdapter;
@@ -23,6 +22,10 @@ import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.ProcedureInfo;
 import com.jianfanjia.cn.bean.SiteInfo;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
+import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
+import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.Mode;
+import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
+import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshScrollView;
 import com.jianfanjia.cn.view.ScrollLayout;
 
 /**
@@ -36,6 +39,8 @@ import com.jianfanjia.cn.view.ScrollLayout;
 public class SiteManageFragment extends BaseFragment {
 	private static final String TAG = SiteManageFragment.class.getClass()
 			.getName();
+	private PullToRefreshScrollView mPullRefreshScrollView = null;
+	private ScrollView mScrollView = null;
 	private ArrayList<ProcedureInfo> procedureList;
 	private SiteInfo site;
 	private int currentPro;
@@ -65,6 +70,10 @@ public class SiteManageFragment extends BaseFragment {
 
 	@Override
 	public void initView(View view) {
+		mPullRefreshScrollView = (PullToRefreshScrollView) view
+				.findViewById(R.id.pull_refresh_scrollview);
+		mPullRefreshScrollView.setMode(Mode.PULL_FROM_START);
+		mScrollView = mPullRefreshScrollView.getRefreshableView();
 		icon_user_head = (ImageView) view.findViewById(R.id.icon_user_head);
 		initScrollLayout(view);
 		initListView(view, procedureList.get(currentPro));
@@ -84,7 +93,7 @@ public class SiteManageFragment extends BaseFragment {
 		}
 		ViewPageAdapter pageAdapter = new ViewPageAdapter(getActivity(), list);
 		viewPager.setAdapter(pageAdapter);
-		viewPager.setPageMargin(5);
+
 		//
 		// scrollLayout = (ScrollLayout) view
 		// .findViewById(R.id.site_scroller_layout);
@@ -101,6 +110,10 @@ public class SiteManageFragment extends BaseFragment {
 	}
 
 	private void initItem(View siteHead, int position) {
+		View lineView = (View) siteHead.findViewById(R.id.lineView);
+		if (position == 0) {
+			lineView.setVisibility(View.INVISIBLE);
+		}
 		TextView proName = (TextView) siteHead
 				.findViewById(R.id.site_head_procedure_name);
 		proName.setText(pro[position]);
@@ -157,28 +170,28 @@ public class SiteManageFragment extends BaseFragment {
 			}
 		});
 
-		/*
-		 * final SwipeRefreshLayout mSuperSwipeRefreshLayout =
-		 * (SwipeRefreshLayout)view.findViewById(R.id.site_viewpager_refresh);
-		 * mSuperSwipeRefreshLayout.setOnRefreshListener(new OnRefreshListener()
-		 * {
-		 * 
-		 * @Override public void onRefresh() {
-		 * mSuperSwipeRefreshLayout.setRefreshing(true); new
-		 * Handler().postDelayed(new Runnable() {
-		 * 
-		 * @Override public void run() {
-		 * mSuperSwipeRefreshLayout.setRefreshing(false); makeTextShort("刷新成功");
-		 * } },2000);
-		 * 
-		 * } });
-		 */
-
 	}
 
 	@Override
 	public void setListener() {
 		icon_user_head.setOnClickListener(this);
+		mPullRefreshScrollView
+				.setOnRefreshListener(new OnRefreshListener2<ScrollView>() {
+
+					@Override
+					public void onPullDownToRefresh(
+							PullToRefreshBase<ScrollView> refreshView) {
+						// 下拉刷新(从第一页开始装载数据)
+						mPullRefreshScrollView.onRefreshComplete();
+					}
+
+					@Override
+					public void onPullUpToRefresh(
+							PullToRefreshBase<ScrollView> refreshView) {
+						// 上拉加载更多(加载下一页数据)
+						mPullRefreshScrollView.onRefreshComplete();
+					}
+				});
 	}
 
 	@Override
@@ -196,7 +209,6 @@ public class SiteManageFragment extends BaseFragment {
 		ImageView headIcon;
 		TextView headTile;
 		TextView headDate;
-
 	}
 
 	// 设置工序验收
