@@ -8,6 +8,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_48"
+        android:layout_margin="5dip"
         android:background="@android:color/transparent" >
 
         <ImageView
@@ -41,39 +42,20 @@
 
     <View style="@style/divier_line" />
 
-    <com.jianfanjia.cn.view.MainSiteLayout
-        android:id="@+id/site_layout"
+    <com.jianfanjia.cn.view.ProcessViewPager
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:layout_height="150dp"
+        android:background="@drawable/selector_item_background"
+        android:fadingEdge="none" />
 
-        <com.jianfanjia.cn.view.ScrollLayout
-            android:id="@+id/site_scroller_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/font_white" />
-
-        <RelativeLayout
-            android:id="@+id/content_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/site_content_bg" >
-
-            <View style="@style/divier_line" />
-
-            <View
-                style="@style/vertical_divier_line"
-                android:layout_marginLeft="45dp" />
-
-            <com.jianfanjia.cn.view.MyListView
-                android:id="@+id/site__listview"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:cacheColorHint="#ffffff"
-                android:divider="@null"
-                android:listSelector="@android:color/transparent"
-                android:scrollbars="none" />
-        </RelativeLayout>
-    </com.jianfanjia.cn.view.MainSiteLayout>
+    <com.jianfanjia.cn.view.MyListView
+        android:id="@+id/site__listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:cacheColorHint="#ffffff"
+        android:divider="@null"
+        android:listSelector="@android:color/transparent"
+        android:scrollbars="none" />
 
 </LinearLayout>

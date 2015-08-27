@@ -115,10 +115,9 @@
     <string name="feedback">用户反馈</string>
     <string name="about">关于我们</string>
     <string name="logout">退出登录</string>
-    
-	<string name="list_item_comment_pubtime_example">30分钟前</string>
-	<string name="add_comment">添加评论</string>
-    
+    <string name="list_item_comment_pubtime_example">30分钟前</string>
+    <string name="add_comment">添加评论</string>
+
     <!-- site procedure -->
     <string-array name="site_procedure">
         <item>开工</item>
@@ -128,9 +127,6 @@
         <item>油漆</item>
         <item>安装</item>
         <item>竣工</item>
-        <item>开工</item>
-        <item>拆改</item>
-        <item>水电</item>
     </string-array>
     <string-array name="site_procedure_check">
         <item>水电阶段验收</item>

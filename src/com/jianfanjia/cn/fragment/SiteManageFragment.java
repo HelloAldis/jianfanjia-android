@@ -1,7 +1,10 @@
 package com.jianfanjia.cn.fragment;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,15 +14,16 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.NoteListAdapter;
+import com.jianfanjia.cn.adapter.ViewPageAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.ProcedureInfo;
 import com.jianfanjia.cn.bean.SiteInfo;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.view.ScrollLayout;
-import com.jianfanjia.cn.view.ScrollLayout.OnViewChangeListener;
 
 /**
  * 
@@ -36,12 +40,14 @@ public class SiteManageFragment extends BaseFragment {
 	private SiteInfo site;
 	private int currentPro;
 	private LayoutInflater mLayoutInflater;
+	private ViewPager viewPager;
 	private ImageView icon_user_head = null;
 	private ListView detailNodeListView;
 	private NoteListAdapter mNoteListAdapter;
 	private ScrollLayout scrollLayout;
 	private String[] pro = null;
 	private int size;
+	private List<View> list = new ArrayList<View>();
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -65,27 +71,32 @@ public class SiteManageFragment extends BaseFragment {
 	}
 
 	private void initScrollLayout(View view) {
-		scrollLayout = (ScrollLayout) view
-				.findViewById(R.id.site_scroller_layout);
+		viewPager = (ViewPager) view.findViewById(R.id.viewPager);
+		// scrollLayout = (ScrollLayout) view
+		// .findViewById(R.id.site_scroller_layout);
 		LayoutParams lp = new LayoutParams(LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT);
 		for (int i = 0; i < pro.length; i++) {
 			View siteHead = inflater.inflate(R.layout.site_head_item, null);
 			initItem(siteHead, i);
-			scrollLayout.addView(siteHead, lp);
+			// scrollLayout.addView(siteHead, lp);
+			list.add(siteHead);
 		}
-
-		scrollLayout = (ScrollLayout) view
-				.findViewById(R.id.site_scroller_layout);
-		scrollLayout.setmCurScreen(currentPro);
-		scrollLayout.SetOnViewChangeListener(new OnViewChangeListener() {
-
-			@Override
-			public void OnViewChange(int view) {
-				mNoteListAdapter.setProcedureInfo(procedureList.get(view));
-				mNoteListAdapter.notifyDataSetChanged();
-			}
-		});
+		ViewPageAdapter pageAdapter = new ViewPageAdapter(getActivity(), list);
+		viewPager.setAdapter(pageAdapter);
+		viewPager.setCurrentItem(Integer.MAX_VALUE);
+		//
+		// scrollLayout = (ScrollLayout) view
+		// .findViewById(R.id.site_scroller_layout);
+		// scrollLayout.setmCurScreen(currentPro);
+		// scrollLayout.SetOnViewChangeListener(new OnViewChangeListener() {
+		//
+		// @Override
+		// public void OnViewChange(int view) {
+		// mNoteListAdapter.setProcedureInfo(procedureList.get(view));
+		// mNoteListAdapter.notifyDataSetChanged();
+		// }
+		// });
 		initListView(view, procedureList.get(currentPro));
 	}
 
