@@ -14,6 +14,7 @@ import com.jianfanjia.cn.bean.ProcedureInfo;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.bean.SiteInfo;
 import com.jianfanjia.cn.bean.UserInfo;
+import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url;
 import com.jianfanjia.cn.tools.StringUtils;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -73,6 +74,17 @@ public class JianFanJiaApiClient {
 
 	/**
 	 * @author zhanghao
+	 * @Description 获取业主需求
+	 * @param context
+	 * @param handler
+	 */
+	public static void get_Requirement(Context context,
+			AsyncHttpResponseHandler handler) {
+		HttpRestClient.get(context, Url.GET_REQUIREMENT, handler);
+	}
+	
+	/**
+	 * @author zhanghao
 	 * @param registerInfo
 	 * @param handler
 	 */
@@ -129,7 +141,7 @@ public class JianFanJiaApiClient {
 			String phone, String userType) {
 		ArrayList<SiteInfo> allSites = getAllSites(context);
 		ArrayList<SiteInfo> userSite = new ArrayList<SiteInfo>();
-		if (userType.equals(UserInfo.IDENTITY_DESIGNER)) {
+		if (userType.equals(Constant.IDENTITY_DESIGNER)) {
 			for (SiteInfo site : allSites) {
 				if (site.getDesignerPhone().equals(phone)) {
 					AddProcudureToSite(context, site);

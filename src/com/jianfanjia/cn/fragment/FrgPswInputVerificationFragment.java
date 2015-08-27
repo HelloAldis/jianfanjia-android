@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.config.Constant;
@@ -70,8 +71,8 @@ public class FrgPswInputVerificationFragment extends BaseFragment {
 		case R.id.btn_next:
 			String verif = mEdVerif.getText().toString().trim();
 			if (checkInput(verif)) {
-				registerInfo.setCode(verif);
-				register(registerInfo);
+				MyApplication.getInstance().getRegisterInfo().setCode(verif);
+				register(MyApplication.getInstance().getRegisterInfo());
 			}
 			break;
 		case R.id.goback:

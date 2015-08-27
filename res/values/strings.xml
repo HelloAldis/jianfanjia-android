@@ -115,11 +115,12 @@
     <string name="feedback">用户反馈</string>
     <string name="about">关于我们</string>
     <string name="logout">退出登录</string>
-    <string name="list_item_comment_pubtime_example">30分钟前</string>
-    <string name="add_comment">添加评论</string>
-    <string name="comment">评论</string>
-    <string name="back">返回</string>
-    <string name="send">发送</string>
+	<string name="list_item_comment_pubtime_example">30分钟前</string>
+	<string name="add_comment">添加评论</string>
+	<string name="comment">评论</string>
+	<string name="back">返回</string>
+	<string name="send">发送</string>
+	<string name="confirm_upload">确认上传</string>
     <!-- site procedure -->
     <string-array name="site_procedure">
         <item>开工</item>

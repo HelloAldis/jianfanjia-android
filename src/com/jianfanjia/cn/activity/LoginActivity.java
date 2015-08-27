@@ -9,6 +9,8 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.LoginUserBean;
 import com.jianfanjia.cn.config.Constant;
@@ -128,7 +130,8 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 										.jsonToBean(response.get(Constant.DATA)
 												.toString(),
 												LoginUserBean.class);
-								saveLoginUserInfo(loginUserBean);
+								loginUserBean.setPass(mPassword);
+								MyApplication.getInstance().saveLoginUserInfo(loginUserBean);
 								startActivity(MainActivity.class);
 								finish();
 							} else if (response.has(Constant.ERROR_MSG)) {
@@ -157,17 +160,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 						makeTextLong(getString(R.string.tip_login_error_for_network));
 					};
 				});
-	}
-
-	/**
-	 * 保存登录成功用户信息
-	 * 
-	 * @param userBean
-	 */
-	private void saveLoginUserInfo(LoginUserBean userBean) {
-		sharedPrefer.setValue(Constant.ACCOUNT, userBean.getPhone());
-		sharedPrefer.setValue(Constant.USERTYPE, userBean.getUsertype());
-		sharedPrefer.setValue(Constant.PASSWORD, mPassword);
 	}
 
 	@Override

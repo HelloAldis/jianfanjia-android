@@ -2,10 +2,14 @@ package com.jianfanjia.cn.activity;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+
 import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.fragment.RegChooseRoleFragment;
 import com.jianfanjia.cn.fragment.RegInputPhoneFragment;
 import com.jianfanjia.cn.fragment.ReginputVerificationFragment;

@@ -5,13 +5,18 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import android.app.Activity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
+import com.jianfanjia.cn.bean.LoginUserBean;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
@@ -67,11 +72,12 @@ public class ReginputVerificationFragment extends BaseFragment {
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.btn_next:
+		case R.id.btn_commit:
 			String verif = mEdVerif.getText().toString().trim();
 			if (checkInput(verif)) {
-				registerInfo.setCode(verif);
-				register(registerInfo);
+				MyApplication.getInstance().getRegisterInfo().setCode(verif);
+				makeTextLong(MyApplication.getInstance().getRegisterInfo().toString());
+				register(MyApplication.getInstance().getRegisterInfo());
 			}
 			break;
 		case R.id.goback:
@@ -113,11 +119,16 @@ public class ReginputVerificationFragment extends BaseFragment {
 							JSONObject response) {
 						LogTool.d(TAG, "JSONObject response:" + response);
 						try {
-							if (response.has(Constant.SUCCESS_MSG)) {
-								makeTextLong(response.get(Constant.SUCCESS_MSG)
-										.toString());
+							if (response.has(Constant.DATA)) {
+								makeTextShort(getString(R.string.login_success));
+								LoginUserBean loginUserBean = jsonParser
+										.jsonToBean(response.get(Constant.DATA)
+												.toString(),
+												LoginUserBean.class);
+								MyApplication.getInstance().saveLoginUserInfo(loginUserBean);
+								startActivity(MainActivity.class);
 								getActivity().finish();
-							} else if (response.has(Constant.ERROR_MSG)) {
+							}else if (response.has(Constant.ERROR_MSG)) {
 								makeTextLong(response.get(Constant.ERROR_MSG)
 										.toString());
 							}

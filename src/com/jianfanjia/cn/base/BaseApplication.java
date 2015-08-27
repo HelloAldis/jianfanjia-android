@@ -6,6 +6,7 @@ import android.content.Context;
 import android.os.Build;
 import android.os.StrictMode;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.tools.SharedPrefer;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -19,6 +20,8 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
  * 
  */
 public class BaseApplication extends Application {
+	
+	protected SharedPrefer sharedPrefer = null;
 
 	@TargetApi(Build.VERSION_CODES.GINGERBREAD)
 	@SuppressWarnings("unused")
@@ -33,6 +36,8 @@ public class BaseApplication extends Application {
 					.detectAll().penaltyDeath().build());
 		}
 		initImageLoader(getApplicationContext());
+		
+		sharedPrefer = new SharedPrefer(this, Constant.SHARED_MAIN);
 	}
 
 	public static void initImageLoader(Context context) {

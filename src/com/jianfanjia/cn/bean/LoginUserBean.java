@@ -15,6 +15,33 @@ public class LoginUserBean implements Serializable {
 	private String username;
 	private String usertype;
 	private String phone;
+	private String pass;
+	private String imageId;
+	private String id;
+	
+	public String getPass() {
+		return pass;
+	}
+
+	public void setPass(String pass) {
+		this.pass = pass;
+	}
+
+	public String getImageId() {
+		return imageId;
+	}
+
+	public void setImageId(String imageId) {
+		this.imageId = imageId;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public String getUsername() {
 		return username;
