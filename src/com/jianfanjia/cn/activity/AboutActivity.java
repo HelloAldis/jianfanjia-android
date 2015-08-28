@@ -1,16 +1,10 @@
 package com.jianfanjia.cn.activity;
 
-import java.util.ArrayList;
-import java.util.List;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
-import com.jianfanjia.cn.adapter.CommentInfoAdapter;
+
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.bean.CommentInfo;
 
 /**
  * @class AboutActivity
@@ -24,7 +18,7 @@ public class AboutActivity extends BaseActivity implements OnClickListener {
 
 	@Override
 	public void initView() {
-		backView = (TextView) findViewById(R.id.comment_back);
+		backView = (TextView) findViewById(R.id.about_back);
 	}
 
 	@Override
@@ -33,8 +27,14 @@ public class AboutActivity extends BaseActivity implements OnClickListener {
 	}
 
 	@Override
-	public void onClick(View arg0) {
-
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.about_back:
+			finish();
+			break;
+		default:
+			break;
+		}
 	}
 
 	@Override

@@ -54,8 +54,14 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
 	}
 
 	@Override
-	public void onClick(View arg0) {
-
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.comment_back:
+			finish();
+			break;
+		default:
+			break;
+		}
 	}
 
 	@Override

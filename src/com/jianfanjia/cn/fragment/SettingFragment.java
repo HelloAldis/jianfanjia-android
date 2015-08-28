@@ -1,6 +1,9 @@
 package com.jianfanjia.cn.fragment;
 
 import android.view.View;
+import android.widget.RelativeLayout;
+import com.jianfanjia.cn.activity.AboutActivity;
+import com.jianfanjia.cn.activity.FeedBackActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseFragment;
 
@@ -13,17 +16,34 @@ import com.jianfanjia.cn.base.BaseFragment;
  * 
  */
 public class SettingFragment extends BaseFragment {
+	private RelativeLayout feedbackFragment = null;
+	private RelativeLayout aboutFragment = null;
 
 	@Override
 	public void initView(View view) {
-		// TODO Auto-generated method stub
-
+		feedbackFragment = (RelativeLayout) view
+				.findViewById(R.id.feedback_layout);
+		aboutFragment = (RelativeLayout) view.findViewById(R.id.about_layout);
 	}
 
 	@Override
 	public void setListener() {
-		// TODO Auto-generated method stub
+		feedbackFragment.setOnClickListener(this);
+		aboutFragment.setOnClickListener(this);
+	}
 
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.feedback_layout:
+			startActivity(FeedBackActivity.class);
+			break;
+		case R.id.about_layout:
+			startActivity(AboutActivity.class);
+			break;
+		default:
+			break;
+		}
 	}
 
 	@Override
