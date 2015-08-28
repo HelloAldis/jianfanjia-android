@@ -16,9 +16,9 @@ import com.jianfanjia.cn.base.BaseFragment;
  * @date 2015-8-28 ÉÏÎç10:40:10
  * 
  */
-public class DesignMenuFragment extends BaseFragment implements
+public class DesignerMenuFragment extends BaseFragment implements
 		OnCheckedChangeListener {
-	private static final String TAG = DesignMenuFragment.class.getClass()
+	private static final String TAG = DesignerMenuFragment.class.getClass()
 			.getName();
 	private static final int HOME = 0;
 	private static final int NOTIFY = 1;
@@ -154,6 +154,6 @@ public class DesignMenuFragment extends BaseFragment implements
 
 	@Override
 	public int getLayoutId() {
-		return R.layout.fragment_owner_menu;
+		return R.layout.fragment_designer_menu;
 	}
 }
