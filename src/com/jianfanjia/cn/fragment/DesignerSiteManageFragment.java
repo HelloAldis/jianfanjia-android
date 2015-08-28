@@ -29,6 +29,14 @@ import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.jianfanjia.cn.view.ScrollLayout;
 
+/**
+ * 
+ * @ClassName: DesignerSiteManageFragment
+ * @Description:设计师工地管理
+ * @author fengliang
+ * @date 2015-8-28 上午11:10:21
+ * 
+ */
 public class DesignerSiteManageFragment extends BaseFragment {
 	private static final String TAG = DesignerSiteManageFragment.class
 			.getClass().getName();
