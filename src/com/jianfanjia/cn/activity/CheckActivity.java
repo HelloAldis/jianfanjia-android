@@ -1,10 +1,14 @@
 package com.jianfanjia.cn.activity;
 
+import java.util.ArrayList;
+import java.util.List;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.GridView;
 import android.widget.TextView;
-
+import com.jianfanjia.cn.adapter.MyGridViewAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.bean.GridItem;
 
 /**
  * 
@@ -15,12 +19,30 @@ import com.jianfanjia.cn.base.BaseActivity;
  * 
  */
 public class CheckActivity extends BaseActivity implements OnClickListener {
-	private TextView backView;// 返回视图
+	private TextView backView=null;// 返回视图
+	private GridView gridView = null;
+	private static final int ICON[] = { R.drawable.ic_launcher,
+			R.drawable.ic_launcher, R.drawable.ic_launcher,
+			R.drawable.ic_launcher, R.drawable.ic_launcher };
+	private List<GridItem> gridList = new ArrayList<GridItem>();
 
 	@Override
 	public void initView() {
 		backView = (TextView) findViewById(R.id.check_pic_back);
+		gridView = (GridView) findViewById(R.id.mygridview);
+		gridView.setFocusable(false);
+		initData();
+	}
 
+	private void initData() {
+		for (int i = 0; i < ICON.length; i++) {
+			GridItem item = new GridItem();
+			item.setImgId(ICON[i]);
+			gridList.add(item);
+		}
+		MyGridViewAdapter adapter = new MyGridViewAdapter(CheckActivity.this,
+				gridList);
+		gridView.setAdapter(adapter);
 	}
 
 	@Override
