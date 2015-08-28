@@ -18,7 +18,6 @@ import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.LoginUserBean;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.bean.SiteInfo;
-import com.jianfanjia.cn.config.AppConfig;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.tools.JsonParser;
