@@ -1,6 +1,7 @@
 package com.jianfanjia.cn.bean;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @class RequirementInfo
@@ -26,7 +27,7 @@ public class RequirementInfo implements Serializable {
 	private String dec_style;
 	private String work_type;
 	private String total_price;
-	private String start_at;
+	private Date start_at;
 	private String duration;
 
 	public String getFinal_designerid() {
@@ -109,11 +110,11 @@ public class RequirementInfo implements Serializable {
 		this.total_price = total_price;
 	}
 
-	public String getStart_at() {
+	public Date getStart_at() {
 		return start_at;
 	}
 
-	public void setStart_at(String start_at) {
+	public void setStart_at(Date start_at) {
 		this.start_at = start_at;
 	}
 
