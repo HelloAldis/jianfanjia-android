@@ -4,6 +4,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
+
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseFragment;
@@ -29,8 +30,8 @@ public class OwnerMenuFragment extends BaseFragment implements
 	private RadioGroup mTabRg = null;
 	private OwnerSiteManageFragment siteManageFragment = null;
 	private NotifyFragment notifyFragment = null;
-	private DesignerFragment designerFragment = null;
-	private DesignerSiteFragment designerSiteFragment = null;
+	private OwerFragment ownerFragment = null;
+	private OwnerSiteFragment ownerSiteFragment = null;
 	private SettingFragment settingFragment = null;
 	private HelpFrgment helpFragment = null;
 
@@ -93,19 +94,19 @@ public class OwnerMenuFragment extends BaseFragment implements
 			}
 			break;
 		case DESIGNER:
-			if (designerFragment != null) {
-				transaction.show(designerFragment);
+			if (ownerFragment != null) {
+				transaction.show(ownerFragment);
 			} else {
-				designerFragment = new DesignerFragment();
-				transaction.add(R.id.slidingpane_content, designerFragment);
+				ownerFragment = new OwerFragment();
+				transaction.add(R.id.slidingpane_content, ownerFragment);
 			}
 			break;
 		case DESIGNERSITE:
-			if (designerSiteFragment != null) {
-				transaction.show(designerSiteFragment);
+			if (ownerSiteFragment != null) {
+				transaction.show(ownerSiteFragment);
 			} else {
-				designerSiteFragment = new DesignerSiteFragment();
-				transaction.add(R.id.slidingpane_content, designerSiteFragment);
+				ownerSiteFragment = new OwnerSiteFragment();
+				transaction.add(R.id.slidingpane_content, ownerSiteFragment);
 			}
 			break;
 		case SETTING:
@@ -138,11 +139,11 @@ public class OwnerMenuFragment extends BaseFragment implements
 		if (notifyFragment != null) {
 			ft.hide(notifyFragment);
 		}
-		if (designerFragment != null) {
-			ft.hide(designerFragment);
+		if (ownerFragment != null) {
+			ft.hide(ownerFragment);
 		}
-		if (designerSiteFragment != null) {
-			ft.hide(designerSiteFragment);
+		if (ownerSiteFragment != null) {
+			ft.hide(ownerSiteFragment);
 		}
 		if (settingFragment != null) {
 			ft.hide(settingFragment);

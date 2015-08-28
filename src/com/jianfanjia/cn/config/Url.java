@@ -10,7 +10,7 @@ package com.jianfanjia.cn.config;
  */
 public class Url {
 	public static String SEVER_IP = "192.168.1.107";
-	public static String SEVER_PORT = "8080";
+	public static String SEVER_PORT = "80";
 	public static final String HTTPROOT = "http://" + SEVER_IP + ":"
 			+ SEVER_PORT + "/api/v1/";
 	// 登录
@@ -23,8 +23,8 @@ public class Url {
 	public static final String UPDATE_PASS_URL = HTTPROOT + "update_pass";
 	// 登出
 	public static final String SIGNOUT_URL = HTTPROOT + "signout";
-	//获取需求
-	public static final String GET_REQUIREMENT = HTTPROOT + "user/requirement";
-	//获取工地信息
-	public static final String GET_SITE = HTTPROOT + "process/";
+	//获取需求和发送需求
+	public static final String REQUIREMENT = HTTPROOT + "user/requirement";
+	//发送工地配置和配置工地
+	public static final String PROCESS = HTTPROOT +"user/process";
 }

@@ -3,6 +3,7 @@ package com.jianfanjia.cn.application;
 import com.jianfanjia.cn.base.BaseApplication;
 import com.jianfanjia.cn.bean.LoginUserBean;
 import com.jianfanjia.cn.bean.RegisterInfo;
+import com.jianfanjia.cn.bean.SiteInfo;
 import com.jianfanjia.cn.config.Constant;
 
 /**
@@ -17,6 +18,7 @@ public class MyApplication extends BaseApplication {
 	private boolean isLogin;// 判断用户是否登录
 	private String userType;// 判断用户类型
 	private RegisterInfo registerInfo = new RegisterInfo();// 注册实体信息
+	private SiteInfo siteInfo;
 
 	@Override
 	public void onCreate() {
@@ -46,6 +48,15 @@ public class MyApplication extends BaseApplication {
 		sharedPrefer.setValue(Constant.PASSWORD, userBean.getPass());
 		sharedPrefer.setValue(Constant.USERIMAGE_ID, userBean.getImageId());
 	}
+	
+	public SiteInfo getSiteInfo() {
+		return siteInfo;
+	}
+
+	public void setSiteInfo(SiteInfo siteInfo) {
+		this.siteInfo = siteInfo;
+	}
+
 
 	public String getUserType() {
 		return userType;
