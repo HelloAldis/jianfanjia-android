@@ -34,6 +34,7 @@
             android:name="com.jianfanjia.cn.activity.MainActivity"
             android:theme="@style/Theme.PageIndicatorDefaults" />
         <activity android:name="com.jianfanjia.cn.activity.RegisterActivity" />
+        <activity android:name="com.jianfanjia.cn.activity.NavigateActivity" />
         <activity android:name="com.jianfanjia.cn.activity.ForgetPswActivity" />
         <activity android:name="com.jianfanjia.cn.activity.FeedBackActivity" />
         <activity android:name="com.jianfanjia.cn.activity.AboutActivity" />

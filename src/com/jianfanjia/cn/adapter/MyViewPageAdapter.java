@@ -7,12 +7,12 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class ViewPageAdapter extends PagerAdapter {
+public class MyViewPageAdapter extends PagerAdapter {
 	private static final String TAG = "ViewPageAdapter";
 	private Context context;
 	private List<View> list;
 
-	public ViewPageAdapter(Context context, List<View> list) {
+	public MyViewPageAdapter(Context context, List<View> list) {
 		this.context = context;
 		this.list = list;
 	}
@@ -51,7 +51,7 @@ public class ViewPageAdapter extends PagerAdapter {
 
 	@Override
 	public float getPageWidth(int position) {
-		return super.getPageWidth(position);
+		return 0.25f;
 	}
 
 }

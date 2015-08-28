@@ -18,7 +18,7 @@ import android.widget.TextView;
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.NoteListAdapter;
-import com.jianfanjia.cn.adapter.ViewPageAdapter;
+import com.jianfanjia.cn.adapter.MyViewPageAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.ProcedureInfo;
 import com.jianfanjia.cn.bean.SiteInfo;
@@ -92,7 +92,7 @@ public class OwnerSiteManageFragment extends BaseFragment {
 			// scrollLayout.addView(siteHead, lp);
 			list.add(siteHead);
 		}
-		ViewPageAdapter pageAdapter = new ViewPageAdapter(getActivity(), list);
+		MyViewPageAdapter pageAdapter = new MyViewPageAdapter(getActivity(), list);
 		viewPager.setAdapter(pageAdapter);
 		viewPager.setOnPageChangeListener(new OnPageChangeListener() {
 			@Override
