@@ -10,12 +10,7 @@ import java.io.Serializable;
  * 
  */
 public class RequirementInfo implements Serializable {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-
 	private String final_designerid;
 	private String province;
 	private String city;
@@ -124,7 +119,7 @@ public class RequirementInfo implements Serializable {
 	public void setDuration(String duration) {
 		this.duration = duration;
 	}
-	
+
 	@Override
 	public String toString() {
 		return super.toString();

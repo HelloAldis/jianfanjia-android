@@ -1,11 +1,9 @@
 package com.jianfanjia.cn.fragment;
 
 import java.util.Calendar;
-
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.app.DatePickerDialog;
 import android.view.View;
 import android.widget.DatePicker;
@@ -15,7 +13,6 @@ import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
-import com.jianfanjia.cn.bean.LoginUserBean;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.bean.SiteInfo;
 import com.jianfanjia.cn.config.Constant;
@@ -36,7 +33,7 @@ public class OwnerSiteFragment extends BaseFragment {
 	private static final String TAG = "OwnerSiteFragment";
 	private SiteInfo siteInfo;// 工地信息类
 	private RequirementInfo requirementInfo;// 实体信息类
-	private DatePickerDialog datePickerDialog;//时间选择对话框
+	private DatePickerDialog datePickerDialog;// 时间选择对话框
 	private Calendar calendar = Calendar.getInstance();
 
 	private ImageView headBackView;// 返回头像
@@ -76,9 +73,6 @@ public class OwnerSiteFragment extends BaseFragment {
 				.findViewById(R.id.my_startdate_layout);
 		totalDateLayout = (RelativeLayout) view
 				.findViewById(R.id.my_totaldate_layout);
-
-		
-		
 		siteInfo = MyApplication.getInstance().getSiteInfo();
 		if (siteInfo == null) {
 			getRequirement();
@@ -182,16 +176,18 @@ public class OwnerSiteFragment extends BaseFragment {
 		int viewId = v.getId();
 		switch (viewId) {
 		case R.id.my_startdate_layout:
-			datePickerDialog = new DatePickerDialog(getActivity(), dateSetListener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), Calendar.DATE);
+			datePickerDialog = new DatePickerDialog(getActivity(),
+					dateSetListener, calendar.get(Calendar.YEAR),
+					calendar.get(Calendar.MONTH), Calendar.DATE);
 			datePickerDialog.show();
 			break;
 		default:
 			break;
 		}
 	}
-	
+
 	private DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-		
+
 		@Override
 		public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
 			Calendar calendar = Calendar.getInstance();
