@@ -3,6 +3,8 @@ package com.jianfanjia.cn.activity;
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.app.ProgressDialog;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -15,6 +17,7 @@ import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.LoginUserBean;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
+import com.jianfanjia.cn.tools.DialogTool;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.NetTool;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -29,6 +32,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
  */
 public class LoginActivity extends BaseActivity implements OnClickListener {
 	private static final String TAG = LoginActivity.class.getClass().getName();
+	private ProgressDialog progressDialog = null;
 	private EditText mEtUserName;// 用户名输入框
 	private EditText mEtPassword;// 用户密码输入框
 	private Button mBtnLogin;// 登录按钮
@@ -39,6 +43,8 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 
 	@Override
 	public void initView() {
+		progressDialog = DialogTool.showProgressDialog(LoginActivity.this,
+				"正在登录...");
 		mEtUserName = (EditText) findViewById(R.id.et_username);
 		mEtPassword = (EditText) findViewById(R.id.et_password);
 		mBtnLogin = (Button) findViewById(R.id.btn_login);
@@ -117,6 +123,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 					@Override
 					public void onStart() {
 						LogTool.d(TAG, "onStart()");
+						progressDialog.show();
 					}
 
 					@Override
@@ -125,16 +132,19 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 						LogTool.d(TAG, "JSONObject response:" + response);
 						try {
 							if (response.has(Constant.DATA)) {
+								progressDialog.dismiss();
 								makeTextShort(getString(R.string.login_success));
 								LoginUserBean loginUserBean = jsonParser
 										.jsonToBean(response.get(Constant.DATA)
 												.toString(),
 												LoginUserBean.class);
 								loginUserBean.setPass(mPassword);
-								MyApplication.getInstance().saveLoginUserInfo(loginUserBean);
+								MyApplication.getInstance().saveLoginUserInfo(
+										loginUserBean);
 								startActivity(MainActivity.class);
 								finish();
 							} else if (response.has(Constant.ERROR_MSG)) {
+								progressDialog.dismiss();
 								makeTextLong(response.get(Constant.ERROR_MSG)
 										.toString());
 							}
@@ -150,6 +160,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 							Throwable throwable, JSONObject errorResponse) {
 						LogTool.d(TAG,
 								"Throwable throwable:" + throwable.toString());
+						progressDialog.dismiss();
 						makeTextLong(getString(R.string.tip_login_error_for_network));
 					}
 
@@ -157,6 +168,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 					public void onFailure(int statusCode, Header[] headers,
 							String responseString, Throwable throwable) {
 						LogTool.d(TAG, "throwable:" + throwable);
+						progressDialog.dismiss();
 						makeTextLong(getString(R.string.tip_login_error_for_network));
 					};
 				});
