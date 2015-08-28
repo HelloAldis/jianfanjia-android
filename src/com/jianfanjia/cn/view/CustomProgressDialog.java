@@ -4,6 +4,8 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
@@ -28,11 +30,10 @@ public class CustomProgressDialog extends ProgressDialog {
 		// TODO Auto-generated constructor stub
 	}
 
-	public CustomProgressDialog(Context context, String content, int id,
+	public CustomProgressDialog(Context context, String content,
 			int theme) {
 		super(context, theme);
 		this.content = content;
-		this.mResid = mResid;
 		setCanceledOnTouchOutside(true);
 	}
 
@@ -44,21 +45,15 @@ public class CustomProgressDialog extends ProgressDialog {
 
 	private void init() {
 		setContentView(R.layout.progress_dialog);
-		mImageView = (ImageView) findViewById(R.id.loadingIv);
+	    mImageView = (ImageView) findViewById(R.id.loadingIv);
 		mLoadingTv = (TextView) findViewById(R.id.loadingTv);
 		mLoadingTv.setText(content);
-		mImageView.setBackgroundResource(mResid);
-		// 通过ImageView对象拿到背景显示的AnimationDrawable
-		mAnimation = (AnimationDrawable) mImageView.getBackground();
-		// 为了防止在onCreate方法中只显示第一帧的解决方案之一
-		// mImageView.post(new Runnable() {
-		// @Override
-		// public void run() {
-		// mAnimation.start();
-		//
-		// }
-		// });
-
+	    AlphaAnimation mAlphaAnimation = new AlphaAnimation(0.1f, 1.0f); ////创建一个AlphaAnimation对象，参数从透明到不透明 
+		mAlphaAnimation.setDuration(1000);// 设定动画时间
+		mAlphaAnimation.setRepeatCount(Animation.INFINITE);//定义动画重复时间
+		mAlphaAnimation.setRepeatMode(Animation.REVERSE);//通过设置重复时间定义动画的行为
+		mImageView.setAnimation(mAlphaAnimation);
+		mAlphaAnimation.start();
 	}
 
 }
