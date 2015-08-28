@@ -13,7 +13,6 @@ import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.bean.ProcedureInfo;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.bean.SiteInfo;
-import com.jianfanjia.cn.bean.UserInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url;
 import com.jianfanjia.cn.tools.StringUtils;
@@ -82,7 +81,7 @@ public class JianFanJiaApiClient {
 			AsyncHttpResponseHandler handler) {
 		HttpRestClient.get(context, Url.GET_REQUIREMENT, handler);
 	}
-	
+
 	/**
 	 * @author zhanghao
 	 * @param registerInfo
