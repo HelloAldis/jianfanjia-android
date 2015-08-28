@@ -61,7 +61,8 @@
                 android:layout_below="@+id/my_designer_head_icon"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="12dp"
-                android:text="@string/my_designer_name" />
+                android:text="@string/my_designer_name"
+                android:textColor="@color/font_white" />
 
             <ImageView
                 android:id="@+id/my_designer_sex_icon"
@@ -90,8 +91,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/my_designer_verify"
-                android:layout_marginBottom="48dp"
-                android:layout_marginTop="48dp"
+                android:layout_marginBottom="32dp"
+                android:layout_marginTop="32dp"
                 android:orientation="horizontal" >
 
                 <LinearLayout
@@ -142,12 +143,13 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/my_designer_middle_layout"
                 android:layout_marginLeft="36dp"
-                android:paddingBottom="72dp" >
+                android:paddingBottom="48dp" >
 
                 <TextView
                     android:id="@+id/work_city"
                     style="@style/site_listview_item_text_style_middle"
-                    android:text="@string/work_city" />
+                    android:text="@string/work_city"
+                    android:textColor="@color/font_white" />
 
                 <TextView
                     android:id="@+id/my_designer_city"
@@ -155,14 +157,16 @@
                     android:layout_alignBottom="@+id/work_city"
                     android:layout_marginLeft="2dp"
                     android:layout_toRightOf="@+id/work_city"
-                    android:text="@string/my_example_name" />
+                    android:text="@string/my_example_name"
+                    android:textColor="@color/font_white" />
 
                 <TextView
                     android:id="@+id/good_at_style"
                     style="@style/site_listview_item_text_style_middle"
                     android:layout_below="@+id/work_city"
                     android:layout_marginTop="16dp"
-                    android:text="@string/good_at_style" />
+                    android:text="@string/good_at_style"
+                    android:textColor="@color/font_white" />
 
                 <TextView
                     android:id="@+id/my_designer_style"
@@ -170,14 +174,16 @@
                     android:layout_alignBottom="@+id/good_at_style"
                     android:layout_marginLeft="2dp"
                     android:layout_toRightOf="@+id/good_at_style"
-                    android:text="@string/my_example_name" />
+                    android:text="@string/my_example_name"
+                    android:textColor="@color/font_white" />
 
                 <TextView
                     android:id="@+id/designer_budget"
                     style="@style/site_listview_item_text_style_middle"
                     android:layout_below="@+id/good_at_style"
                     android:layout_marginTop="16dp"
-                    android:text="@string/designer_budget" />
+                    android:text="@string/designer_budget"
+                    android:textColor="@color/font_white" />
 
                 <TextView
                     android:id="@+id/my_designer_budget"
@@ -185,7 +191,8 @@
                     android:layout_alignBottom="@+id/designer_budget"
                     android:layout_marginLeft="2dp"
                     android:layout_toRightOf="@+id/designer_budget"
-                    android:text="@string/my_example_name" />
+                    android:text="@string/my_example_name"
+                    android:textColor="@color/font_white" />
             </RelativeLayout>
         </RelativeLayout>
     </RelativeLayout>

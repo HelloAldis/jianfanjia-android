@@ -1,5 +1,6 @@
 package com.jianfanjia.cn.fragment;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import org.apache.http.Header;
 import org.json.JSONException;
@@ -82,6 +83,51 @@ public class OwnerSiteFragment extends BaseFragment {
 	}
 
 	private void getSiteInfo() {
+		makeTextLong(JsonParser.beanToJson(requirementInfo));
+		JianFanJiaApiClient.post_Requiremeng(getApplication(), requirementInfo,
+				new JsonHttpResponseHandler() {
+					@Override
+					public void onStart() {
+						LogTool.d(TAG, "onStart()");
+					}
+
+					@Override
+					public void onSuccess(int statusCode, Header[] headers,
+							JSONObject response) {
+						makeTextLong("getRequirement");
+						try {
+							if (response.has(Constant.DATA)) {
+								requirementInfo = JsonParser.jsonToBean(
+										response.get(Constant.DATA).toString(),
+										RequirementInfo.class);
+								handlerSuccess();
+								makeTextLong(response.toString());
+							} else if (response.has(Constant.ERROR_MSG)) {
+								makeTextLong(response.get(Constant.ERROR_MSG)
+										.toString());
+							}
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+							makeTextLong(getString(R.string.tip_login_error_for_network));
+						}
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							Throwable throwable, JSONObject errorResponse) {
+						LogTool.d(TAG,
+								"Throwable throwable:" + throwable.toString());
+						makeTextLong(getString(R.string.tip_login_error_for_network));
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							String responseString, Throwable throwable) {
+						LogTool.d(TAG, "throwable:" + throwable);
+						makeTextLong(getString(R.string.tip_login_error_for_network));
+					};
+				});
 
 	}
 
@@ -117,14 +163,12 @@ public class OwnerSiteFragment extends BaseFragment {
 					@Override
 					public void onSuccess(int statusCode, Header[] headers,
 							JSONObject response) {
-						makeTextLong("getRequirement");
 						try {
 							if (response.has(Constant.DATA)) {
 								requirementInfo = JsonParser.jsonToBean(
 										response.get(Constant.DATA).toString(),
 										RequirementInfo.class);
 								handlerSuccess();
-								makeTextLong(response.toString());
 							} else if (response.has(Constant.ERROR_MSG)) {
 								makeTextLong(response.get(Constant.ERROR_MSG)
 										.toString());
@@ -178,7 +222,8 @@ public class OwnerSiteFragment extends BaseFragment {
 		case R.id.my_startdate_layout:
 			datePickerDialog = new DatePickerDialog(getActivity(),
 					dateSetListener, calendar.get(Calendar.YEAR),
-					calendar.get(Calendar.MONTH), Calendar.DATE);
+					calendar.get(Calendar.MONTH),
+					calendar.get(Calendar.DAY_OF_MONTH));
 			datePickerDialog.show();
 			break;
 		default:
@@ -190,11 +235,15 @@ public class OwnerSiteFragment extends BaseFragment {
 
 		@Override
 		public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
-			Calendar calendar = Calendar.getInstance();
-			calendar.set(arg1, arg2, arg3);
-			String date = calendar.getTime().toString();
+			Calendar calendar1 = Calendar.getInstance();
+			calendar1.set(arg1, arg2, arg3);
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat(
+					"yyyy-MM-dd HH:mm:ss");
+			String date = simpleDateFormat.format(calendar1.getTime());
 			startDateView.setText(date);
-			datePickerDialog.dismiss();
+			requirementInfo.setTotal_price("60");
+			requirementInfo.setStart_at(calendar1.getTime());
+			getSiteInfo();
 		}
 	};
 
