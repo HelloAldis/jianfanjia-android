@@ -12,9 +12,11 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.bean.ProcedureInfo;
 import com.jianfanjia.cn.bean.RegisterInfo;
+import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.bean.SiteInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url;
+import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.StringUtils;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
@@ -79,7 +81,25 @@ public class JianFanJiaApiClient {
 	 */
 	public static void get_Requirement(Context context,
 			AsyncHttpResponseHandler handler) {
-		HttpRestClient.get(context, Url.GET_REQUIREMENT, handler);
+		HttpRestClient.get(context, Url.REQUIREMENT, handler);
+	}
+	
+	/**
+	 * @author zhanghao
+	 * @param context
+	 * @param requirementInfo
+	 * @param handler
+	 */
+	public static void post_Requiremeng(Context context,RequirementInfo requirementInfo,AsyncHttpResponseHandler handler){
+		StringEntity entity;
+		try {
+			entity = new StringEntity(JsonParser.beanToJson(requirementInfo));
+			HttpRestClient.post(context, Url.REGISTER_URL, entity,
+					"application/json", handler);
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -91,7 +111,7 @@ public class JianFanJiaApiClient {
 			AsyncHttpResponseHandler handler) {
 		StringEntity entity;
 		try {
-			entity = new StringEntity(registerInfo.toString());
+			entity = new StringEntity(JsonParser.beanToJson(registerInfo));
 			HttpRestClient.post(context, Url.REGISTER_URL, entity,
 					"application/json", handler);
 		} catch (UnsupportedEncodingException e) {

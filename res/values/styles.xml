@@ -117,8 +117,8 @@
         <item name="android:layout_height">@dimen/common_item_layout_height</item>
         <item name="android:background">#ffffff</item>
         <item name="android:gravity">center_vertical</item>
-        <item name="android:paddingLeft">@dimen/space_32</item>
-        <item name="android:paddingRight">@dimen/space_16</item>
+        <item name="android:paddingLeft">@dimen/space_24</item>
+        <item name="android:paddingRight">@dimen/space_24</item>
     </style>
 
 </resources>

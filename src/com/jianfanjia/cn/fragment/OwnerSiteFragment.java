@@ -1,16 +1,26 @@
 package com.jianfanjia.cn.fragment;
 
+import java.util.Calendar;
+
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.app.DatePickerDialog;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
+import com.jianfanjia.cn.bean.LoginUserBean;
+import com.jianfanjia.cn.bean.RequirementInfo;
+import com.jianfanjia.cn.bean.SiteInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
+import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -24,6 +34,11 @@ import com.loopj.android.http.JsonHttpResponseHandler;
  */
 public class OwnerSiteFragment extends BaseFragment {
 	private static final String TAG = "OwnerSiteFragment";
+	private SiteInfo siteInfo;// 工地信息类
+	private RequirementInfo requirementInfo;// 实体信息类
+	private DatePickerDialog datePickerDialog;//时间选择对话框
+	private Calendar calendar = Calendar.getInstance();
+
 	private ImageView headBackView;// 返回头像
 	private TextView cityView;// 所在城市
 	private TextView villageNameView;// 小区名字
@@ -61,7 +76,40 @@ public class OwnerSiteFragment extends BaseFragment {
 				.findViewById(R.id.my_startdate_layout);
 		totalDateLayout = (RelativeLayout) view
 				.findViewById(R.id.my_totaldate_layout);
-		getRequirement();
+
+		
+		
+		siteInfo = MyApplication.getInstance().getSiteInfo();
+		if (siteInfo == null) {
+			getRequirement();
+		} else {
+			initData();
+		}
+	}
+
+	private void getSiteInfo() {
+
+	}
+
+	// 初始化数据
+	private void initData() {
+		if (requirementInfo != null) {
+			String city = requirementInfo.getProvince()
+					+ requirementInfo.getCity() + requirementInfo.getDistrict();
+			cityView.setText(city);
+			villageNameView.setText(requirementInfo.getCell());
+			houseStyleView.setText(getResources().getStringArray(
+					R.array.house_type)[Integer.parseInt(requirementInfo
+					.getHouse_type())]);
+			decorateAreaView.setText(requirementInfo.getHouse_area());
+			loveStyleView.setText(getResources().getStringArray(
+					R.array.dec_style)[Integer.parseInt(requirementInfo
+					.getDec_style())]);
+			decorateStyleView.setText(getResources().getStringArray(
+					R.array.work_type)[Integer.parseInt(requirementInfo
+					.getWork_type())]);
+			decorateBudgetView.setText(requirementInfo.getTotal_price());
+		}
 	}
 
 	private void getRequirement() {
@@ -75,9 +123,13 @@ public class OwnerSiteFragment extends BaseFragment {
 					@Override
 					public void onSuccess(int statusCode, Header[] headers,
 							JSONObject response) {
-						makeTextLong(response.toString());
+						makeTextLong("getRequirement");
 						try {
 							if (response.has(Constant.DATA)) {
+								requirementInfo = JsonParser.jsonToBean(
+										response.get(Constant.DATA).toString(),
+										RequirementInfo.class);
+								handlerSuccess();
 								makeTextLong(response.toString());
 							} else if (response.has(Constant.ERROR_MSG)) {
 								makeTextLong(response.get(Constant.ERROR_MSG)
@@ -107,32 +159,15 @@ public class OwnerSiteFragment extends BaseFragment {
 				});
 	}
 
-	/*
-	 * public void send_site() {
-	 * JianFanJiaApiClient.get_Requirement(getApplication(), new
-	 * JsonHttpResponseHandler() {
-	 * 
-	 * @Override public void onStart() { LogTool.d(TAG, "onStart()"); }
-	 * 
-	 * @Override public void onSuccess(int statusCode, Header[] headers,
-	 * JSONObject response) { makeTextLong(response.toString()); try { if
-	 * (response.has(Constant.DATA)) { makeTextLong(response.toString()); } else
-	 * if (response.has(Constant.ERROR_MSG)) {
-	 * makeTextLong(response.get(Constant.ERROR_MSG) .toString()); } } catch
-	 * (JSONException e) { // TODO Auto-generated catch block
-	 * e.printStackTrace();
-	 * makeTextLong(getString(R.string.tip_login_error_for_network)); } }
-	 * 
-	 * @Override public void onFailure(int statusCode, Header[] headers,
-	 * Throwable throwable, JSONObject errorResponse) { LogTool.d(TAG,
-	 * "Throwable throwable:" + throwable.toString());
-	 * makeTextLong(getString(R.string.tip_login_error_for_network)); }
-	 * 
-	 * @Override public void onFailure(int statusCode, Header[] headers, String
-	 * responseString, Throwable throwable) { LogTool.d(TAG, "throwable:" +
-	 * throwable);
-	 * makeTextLong(getString(R.string.tip_login_error_for_network)); }; }); }
-	 */
+	// 获取需求成功
+	private void handlerSuccess() {
+		if (requirementInfo == null) {
+			// 获取错误，加载错误视图
+		} else {
+			initData();
+		}
+	}
+
 	@Override
 	public void setListener() {
 		confirmView.setOnClickListener(this);
@@ -140,6 +175,32 @@ public class OwnerSiteFragment extends BaseFragment {
 		startDateLayout.setOnClickListener(this);
 		totalDateLayout.setOnClickListener(this);
 	}
+
+	@Override
+	public void onClick(View v) {
+		super.onClick(v);
+		int viewId = v.getId();
+		switch (viewId) {
+		case R.id.my_startdate_layout:
+			datePickerDialog = new DatePickerDialog(getActivity(), dateSetListener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), Calendar.DATE);
+			datePickerDialog.show();
+			break;
+		default:
+			break;
+		}
+	}
+	
+	private DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+		
+		@Override
+		public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
+			Calendar calendar = Calendar.getInstance();
+			calendar.set(arg1, arg2, arg3);
+			String date = calendar.getTime().toString();
+			startDateView.setText(date);
+			datePickerDialog.dismiss();
+		}
+	};
 
 	@Override
 	public int getLayoutId() {

@@ -47,19 +47,11 @@
 
                 <TextView
                     android:id="@+id/my_site_city"
-                    style="@style/site_listview_item_text_style_small"
+                    style="@style/site_listview_item_text_style_middle"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="4dp"
-                    android:layout_toLeftOf="@+id/city_select_goto"
+                    android:layout_alignParentRight="true"
                     android:text="@string/my_site_city_example"
                     android:textColor="@color/site_text_color2" />
-
-                <ImageView
-                    android:id="@+id/city_select_goto"
-                    style="@style/my_item_layout_image_style"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:contentDescription="@null" />
 
                 <TextView
                     style="@style/site_listview_item_text_style_big"
@@ -83,10 +75,9 @@
 
                 <TextView
                     android:id="@+id/my_site_villagename"
-                    style="@style/site_listview_item_text_style_small"
+                    style="@style/site_listview_item_text_style_middle"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="36dp"
                     android:text="@string/my_site_villagename_example"
                     android:textColor="@color/site_text_color2" />
             </RelativeLayout>
@@ -103,20 +94,12 @@
                     android:text="@string/my_site_housestyle"
                     android:textColor="@color/site_text_color1" />
 
-                <ImageView
-                    android:id="@+id/housestyle_select_goto"
-                    style="@style/my_item_layout_image_style"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:contentDescription="@null" />
-
                 <TextView
                     android:id="@+id/my_site_housestyle"
-                    style="@style/site_listview_item_text_style_small"
+                    style="@style/site_listview_item_text_style_middle"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="4dp"
-                    android:layout_toLeftOf="@+id/housestyle_select_goto"
-                    android:text="@string/my_site_city_example"
+                    android:layout_alignParentRight="true"
+                    android:text="@string/my_site_housestyle_example"
                     android:textColor="@color/site_text_color2" />
             </RelativeLayout>
 
@@ -134,10 +117,9 @@
 
                 <TextView
                     android:id="@+id/my_site_derationArea"
-                    style="@style/site_listview_item_text_style_small"
+                    style="@style/site_listview_item_text_style_middle"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="36dp"
                     android:text="@string/my_site_housesize_example"
                     android:textColor="@color/site_text_color2" />
             </RelativeLayout>
@@ -154,20 +136,13 @@
                     android:text="@string/my_site_lovestyle"
                     android:textColor="@color/site_text_color1" />
 
-                <ImageView
-                    android:id="@+id/lovestyle_select_goto"
-                    style="@style/my_item_layout_image_style"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:contentDescription="@null" />
 
                 <TextView
                     android:id="@+id/my_site_lovestyle"
-                    style="@style/site_listview_item_text_style_small"
+                    style="@style/site_listview_item_text_style_middle"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="4dp"
-                    android:layout_toLeftOf="@+id/lovestyle_select_goto"
-                    android:text="@string/my_site_housestyle_example"
+                    android:layout_alignParentRight="true"
+                    android:text="@string/my_site_lovestyle_example"
                     android:textColor="@color/site_text_color2" />
             </RelativeLayout>
 
@@ -185,10 +160,9 @@
 
                 <TextView
                     android:id="@+id/my_site_decorationstyle"
-                    style="@style/site_listview_item_text_style_small"
+                    style="@style/site_listview_item_text_style_middle"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="36dp"
                     android:text="@string/my_site_decorationstyle_example"
                     android:textColor="@color/site_text_color2" />
             </RelativeLayout>
@@ -207,10 +181,9 @@
 
                 <TextView
                     android:id="@+id/my_site_decorationbudget"
-                    style="@style/site_listview_item_text_style_small"
+                    style="@style/site_listview_item_text_style_middle"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="36dp"
                     android:text="@string/my_site_decorationbudget_example"
                     android:textColor="@color/site_text_color2" />
             </RelativeLayout>
@@ -230,13 +203,20 @@
                     android:layout_centerVertical="true"
                     android:text="@string/my_site_startdate"
                     android:textColor="@color/site_text_color1" />
+                
+                <ImageView
+                    android:id="@+id/startdate_select_goto"
+                    style="@style/my_item_layout_image_style"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@null" />
 
                 <TextView
                     android:id="@+id/my_site_startdate"
-                    style="@style/site_listview_item_text_style_small"
-                    android:layout_alignParentRight="true"
+                    style="@style/site_listview_item_text_style_middle"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="36dp"
+                    android:layout_toLeftOf="@+id/startdate_select_goto"
+                    android:layout_marginRight="4dp"
                     android:text="@string/my_site_startdate_example"
                     android:textColor="@color/site_text_color2" />
             </RelativeLayout>
@@ -252,13 +232,21 @@
                     android:layout_centerVertical="true"
                     android:text="@string/my_site_totaldate"
                     android:textColor="@color/site_text_color1" />
+                
+                
+                <ImageView
+                    android:id="@+id/totaldate_select_goto"
+                    style="@style/my_item_layout_image_style"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@null" />
 
                 <TextView
                     android:id="@+id/my_site_totaldate"
-                    style="@style/site_listview_item_text_style_small"
-                    android:layout_alignParentRight="true"
+                    style="@style/site_listview_item_text_style_middle"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="36dp"
+                    android:layout_toLeftOf="@+id/totaldate_select_goto"
+                    android:layout_marginRight="4dp"
                     android:text="@string/my_site_totaldate_example"
                     android:textColor="@color/site_text_color2" />
             </RelativeLayout>

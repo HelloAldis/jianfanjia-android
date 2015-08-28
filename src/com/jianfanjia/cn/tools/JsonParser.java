@@ -12,9 +12,9 @@ import com.google.gson.Gson;
  */
 public class JsonParser {
 	
-	private Gson gson;
+	private static Gson gson;
 	
-	public JsonParser(){
+	static{
 		gson = new Gson();
 	}
 	
@@ -24,7 +24,7 @@ public class JsonParser {
 	 * @param beanClass
 	 * @return
 	 */
-	public <T> T jsonToBean(String json,Class<T> beanClass){
+	public static <T> T jsonToBean(String json,Class<T> beanClass){
 		return gson.fromJson(json, beanClass);
 	}
 	
@@ -33,7 +33,7 @@ public class JsonParser {
 	 * @param object
 	 * @return
 	 */
-	public String beanToJson(Object object){
+	public static String beanToJson(Object object){
 		String jsonObject = gson.toJson(object);
 		return jsonObject;
 	}
