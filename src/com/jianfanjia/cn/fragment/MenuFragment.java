@@ -7,6 +7,8 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseFragment;
+import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.tools.LogTool;
 
 /**
  * 
@@ -26,6 +28,7 @@ public class MenuFragment extends BaseFragment implements
 	private static final int SETTING = 4;
 	private static final int HELP = 5;
 	private RadioGroup mTabRg = null;
+	private String userIdentity = null;
 	private SiteManageFragment siteManageFragment = null;
 	private NotifyFragment notifyFragment = null;
 	private DesignerFragment designerFragment = null;
@@ -37,6 +40,8 @@ public class MenuFragment extends BaseFragment implements
 
 	@Override
 	public void initView(View view) {
+		userIdentity = shared.getValue(Constant.USERTYPE, null);
+		LogTool.d(TAG, "userIdentity=" + userIdentity);
 		mTabRg = (RadioGroup) view.findViewById(R.id.tab_rg_menu);
 	}
 

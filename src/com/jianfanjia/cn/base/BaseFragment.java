@@ -10,8 +10,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.tools.SharedPrefer;
 
 /**
  * @version 1.0
@@ -23,12 +26,14 @@ import com.jianfanjia.cn.tools.LogTool;
 public abstract class BaseFragment extends Fragment implements OnClickListener {
 	protected FragmentManager fragmentManager = null;
 	protected LayoutInflater inflater = null;
+	protected SharedPrefer shared = null;
 	protected JsonParser jsonParser = null;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		LogTool.d(this.getClass().getName(), "onCreate");
+		shared = new SharedPrefer(getActivity(), Constant.SHARED_MAIN);
 		jsonParser = new JsonParser();
 	}
 
