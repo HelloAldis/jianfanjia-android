@@ -10,6 +10,7 @@
     <dimen name="indicator_internal_padding">4dp</dimen>
     <dimen name="header_footer_left_right_padding">24dp</dimen>
     <dimen name="header_footer_top_bottom_padding">12dp</dimen>
+
     <!-- found_list_item -->
     <dimen name="found_list_item_height">240dp</dimen>
     <dimen name="found_list_item_detail_horizontal_margin">48dp</dimen>
