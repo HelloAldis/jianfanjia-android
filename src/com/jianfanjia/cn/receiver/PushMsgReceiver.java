@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import com.igexin.sdk.PushConsts;
 import com.igexin.sdk.PushManager;
+import com.jianfanjia.cn.interf.PushMsgReceiveListener;
 import com.jianfanjia.cn.tools.LogTool;
 
 /**
@@ -18,6 +19,11 @@ import com.jianfanjia.cn.tools.LogTool;
  */
 public class PushMsgReceiver extends BroadcastReceiver {
 	private static final String TAG = "PushMsgReceiver";
+	private PushMsgReceiveListener listerner;
+
+	public PushMsgReceiver(PushMsgReceiveListener receiveListener) {
+		this.listerner = listerner;
+	}
 
 	@Override
 	public void onReceive(Context context, Intent intent) {

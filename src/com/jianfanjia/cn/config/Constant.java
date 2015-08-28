@@ -27,10 +27,14 @@ public class Constant {
 	public static final String ACCOUNT = "account";// 账号
 	public static final String PASSWORD = "password";// 密码
 	public static final String USERTYPE = "usertype";// 用户类型
-	public static final String USERIMAGE_ID ="userimageid";// 用户头像id
+	public static final String USERIMAGE_ID = "userimageid";// 用户头像id
 
 	public static final String DATA = "data";// 获取成功的数据
 	public static final String ERROR_MSG = "err_msg";// 获取数据失败的返回信息
 	public static final String SUCCESS_MSG = "msg";// 获取数据成功的返回信息
 
+	// 提醒类型
+	public static final int CAIGOU_NOTIFY = 1;// 采购提醒
+	public static final int FUKUAN_NOTIFY = 2;// 付款提醒
+	public static final int YANQI_NOTIFY = 3;// 延期提醒
 }
