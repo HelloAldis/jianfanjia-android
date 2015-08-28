@@ -38,6 +38,7 @@
         <activity android:name="com.jianfanjia.cn.activity.FeedBackActivity" />
         <activity android:name="com.jianfanjia.cn.activity.AboutActivity" />
         <activity android:name="com.jianfanjia.cn.activity.CommentActivity" />
+        <activity android:name="com.jianfanjia.cn.activity.CheckActivity" />
         <activity
             android:name="com.jianfanjia.cn.activity.LoginActivity"
             android:label="@string/app_name"

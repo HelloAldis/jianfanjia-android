@@ -113,33 +113,34 @@
     <string name="clear_cache">清空缓存</string>
     <string name="cache_size">110M</string>
     <string name="feedback">用户反馈</string>
-    
     <string name="logout">退出登录</string>
-	<string name="list_item_comment_pubtime_example">30分钟前</string>
-	<string name="add_comment">添加评论</string>
-	<string name="add_feedback">请添加您想说的内容</string>
-	<string name="comment">评论</string>
-	<string name="back">返回</string>
-	<string name="send">发送</string>
-	<string name="confirm_upload">确认上传</string>
-	
-	<!-- activity_upload_pic -->
-	<string name="upload_pic">上传照片</string>
-	<string name="show_pic">示范照片</string>
-	<string name="edit">编辑</string>
-	<string name="confirm_check">确认验收</string>
-	<!-- activity_upload_pic -->
-	
-	<!-- activity_about -->
-	<string name="about">关于我们</string>
-	<string name="about_my">关于简繁家</string>
-	<string name="about_content">互联网设计师专单平台</string>
-	<string name="about_version">版本号：V$1%s</string>
-	<string name="company">武汉家易装科技有限公司</string>
-	<string name="compant_net">Copyright © 2015-2025 jianfanjia.com</string>
-	<!-- activity_about -->
-	
+    <string name="list_item_comment_pubtime_example">30分钟前</string>
+    <string name="add_comment">添加评论</string>
+    <string name="add_feedback">请添加您想说的内容</string>
+    <string name="comment">评论</string>
+    <string name="check">阶段验收</string>
+    <string name="back">返回</string>
+    <string name="send">发送</string>
+    <string name="confirm_upload">确认上传</string>
+
+    <!-- activity_upload_pic -->
+    <string name="upload_pic">上传照片</string>
+    <string name="show_pic">示范照片</string>
+    <string name="edit">编辑</string>
+    <string name="confirm_check">确认验收</string>
+    <!-- activity_upload_pic -->
+
+
+    <!-- activity_about -->
+    <string name="about">关于我们</string>
+    <string name="about_my">关于简繁家</string>
+    <string name="about_content">互联网设计师专单平台</string>
+    <string name="about_version">版本号：V$1%s</string>
+    <string name="company">武汉家易装科技有限公司</string>
+    <string name="compant_net">Copyright © 2015-2025 jianfanjia.com</string>
+    <!-- activity_about -->
+
+
     <!-- site procedure -->
-    
 
 </resources>

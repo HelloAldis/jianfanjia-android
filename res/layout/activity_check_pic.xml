@@ -23,7 +23,7 @@
             android:id="@+id/check_pic_title"
             style="@style/site_listview_item_text_style_title"
             android:layout_centerInParent="true"
-            android:text="@string/comment"
+            android:text="@string/check"
             android:textColor="@color/site_text_color1" />
 
         <View
@@ -32,7 +32,7 @@
             android:background="@color/horzontal_line_color" />
     </RelativeLayout>
 
-   <LinearLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/btn_confirm_upload"
@@ -95,7 +95,7 @@
     <View
         style="@style/divier_line"
         android:layout_above="@+id/btn_confirm_upload" />
-    
+
     <Button
         android:id="@+id/btn_confirm_upload"
         android:layout_width="match_parent"
