@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="sex">
+        <item>男</item>
+        <item>女</item>
+    </string-array>
+    <string-array name="work_type">
+        <item>半包</item>
+        <item>全包</item>
+    </string-array>
+    <string-array name="dec_districts">
+        <item>汉口</item>
+        <item>汉阳</item>
+        <item>武昌</item>
+    </string-array>
+    <string-array name="dec_style">
+        <item>欧尚</item>
+        <item>中式</item>
+        <item>现代</item>
+        <item>地中海</item>
+        <item>美式</item>
+        <item>东南亚</item>
+    </string-array>
+    <string-array name="house_type">
+        <item>一居</item>
+        <item>二居</item>
+        <item>三居</item>
+        <item>四居</item>
+        <item>复式</item>
+        <item>别墅</item>
+    </string-array>
+	<string-array name="design_fee_range">
+        <item>50－100</item>
+        <item>100－200</item>
+        <item>200－300</item>
+        <item>300以上</item>
+    </string-array>
+    <string-array name="site_procedure">
+        <item>开工</item>
+        <item>拆改</item>
+        <item>水电</item>
+        <item>泥木</item>
+        <item>油漆</item>
+        <item>安装</item>
+        <item>竣工</item>
+    </string-array>
+    <string-array name="site_procedure_check">
+        <item>水电阶段验收</item>
+        <item>泥木阶段验收</item>
+        <item>油漆阶段验收</item>
+        <item>安装阶段验收</item>
+        <item>竣工阶段验收</item>
+    </string-array>
+    
+    
+
+</resources>
