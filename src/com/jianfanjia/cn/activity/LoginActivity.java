@@ -3,7 +3,6 @@ package com.jianfanjia.cn.activity;
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
-import android.app.ProgressDialog;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -15,9 +14,9 @@ import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.LoginUserBean;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
-import com.jianfanjia.cn.tools.DialogTool;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.NetTool;
+import com.jianfanjia.cn.view.CustomProgressDialog;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 /**
@@ -30,7 +29,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
  */
 public class LoginActivity extends BaseActivity implements OnClickListener {
 	private static final String TAG = LoginActivity.class.getClass().getName();
-	private ProgressDialog progressDialog = null;
+	private CustomProgressDialog progressDialog = null;
 	private EditText mEtUserName;// 用户名输入框
 	private EditText mEtPassword;// 用户密码输入框
 	private Button mBtnLogin;// 登录按钮
@@ -41,8 +40,8 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 
 	@Override
 	public void initView() {
-		progressDialog = DialogTool.showProgressDialog(LoginActivity.this,
-				"正在登录...");
+		progressDialog = new CustomProgressDialog(LoginActivity.this, "正在加载中",
+				R.anim.frame, R.style.dialog);
 		mEtUserName = (EditText) findViewById(R.id.et_username);
 		mEtPassword = (EditText) findViewById(R.id.et_password);
 		mBtnLogin = (Button) findViewById(R.id.btn_login);
