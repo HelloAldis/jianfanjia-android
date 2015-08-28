@@ -4,12 +4,17 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SlidingPaneLayout;
 import android.support.v4.widget.SlidingPaneLayout.PanelSlideListener;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.fragment.MenuFragment;
-import com.jianfanjia.cn.fragment.SiteManageFragment;
+import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.fragment.DesignMenuFragment;
+import com.jianfanjia.cn.fragment.DesignerSiteManageFragment;
+import com.jianfanjia.cn.fragment.OwnerMenuFragment;
+import com.jianfanjia.cn.fragment.OwnerSiteManageFragment;
+import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.PagerEnabledSlidingPaneLayout;
 
 /**
@@ -25,8 +30,11 @@ public class MainActivity extends BaseActivity implements PanelSlideListener {
 	private PagerEnabledSlidingPaneLayout slidingPaneLayout = null;
 	private FrameLayout slidingpane_menu = null;
 	private FrameLayout slidingpane_content = null;
-	private MenuFragment menuFragment = null;
-	private SiteManageFragment siteManageFragment = null;
+	private OwnerMenuFragment ownerMenuFragment = null;
+	private DesignMenuFragment designMenuFragment = null;
+	private OwnerSiteManageFragment ownerSiteManageFragment = null;
+	private DesignerSiteManageFragment designerSiteManageFragment = null;
+	private String userIdentity = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,15 +43,28 @@ public class MainActivity extends BaseActivity implements PanelSlideListener {
 
 	@Override
 	public void initView() {
+		userIdentity = sharedPrefer.getValue(Constant.USERTYPE, null);
+		LogTool.d(TAG, "userIdentity=" + userIdentity);
 		slidingPaneLayout = (PagerEnabledSlidingPaneLayout) findViewById(R.id.slidingpanellayout);
 		slidingpane_menu = (FrameLayout) findViewById(R.id.slidingpane_menu);
 		slidingpane_content = (FrameLayout) findViewById(R.id.slidingpane_content);
-		menuFragment = new MenuFragment();
-		siteManageFragment = new SiteManageFragment();
+		ownerMenuFragment = new OwnerMenuFragment();
+		designMenuFragment = new DesignMenuFragment();
+		ownerSiteManageFragment = new OwnerSiteManageFragment();
+		designerSiteManageFragment = new DesignerSiteManageFragment();
 		FragmentTransaction transaction = fragmentManager.beginTransaction();
-		transaction.replace(R.id.slidingpane_menu, menuFragment);
-		transaction.replace(R.id.slidingpane_content, siteManageFragment);
-		transaction.commit();
+		if (!TextUtils.isEmpty(userIdentity)) {
+			if (userIdentity.equals(Constant.IDENTITY_OWNER)) {
+				transaction.replace(R.id.slidingpane_menu, ownerMenuFragment);
+				transaction.replace(R.id.slidingpane_content,
+						ownerSiteManageFragment);
+			} else if (userIdentity.equals(Constant.IDENTITY_DESIGNER)) {
+				transaction.replace(R.id.slidingpane_menu, designMenuFragment);
+				transaction.replace(R.id.slidingpane_content,
+						designerSiteManageFragment);
+			}
+			transaction.commit();
+		}
 	}
 
 	@Override

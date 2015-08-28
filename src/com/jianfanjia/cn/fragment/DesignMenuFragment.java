@@ -7,32 +7,28 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseFragment;
-import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.tools.LogTool;
 
 /**
  * 
- * @ClassName: MenuFragment
- * @Description: 侧滑栏菜单
+ * @ClassName: DesignMenuFragment
+ * @Description: 设计师侧滑栏菜单
  * @author fengliang
- * @date 2015-8-26 上午9:51:44
+ * @date 2015-8-28 上午10:40:10
  * 
  */
-public class MenuFragment extends BaseFragment implements
+public class DesignMenuFragment extends BaseFragment implements
 		OnCheckedChangeListener {
-	private static final String TAG = MenuFragment.class.getClass().getName();
+	private static final String TAG = DesignMenuFragment.class.getClass()
+			.getName();
 	private static final int HOME = 0;
 	private static final int NOTIFY = 1;
-	private static final int ROLE = 2;
-	private static final int SITE = 3;
+	private static final int OWNER = 2;
+	private static final int OWNERSITE = 3;
 	private static final int SETTING = 4;
 	private static final int HELP = 5;
 	private RadioGroup mTabRg = null;
-	private String userIdentity = null;
-	private SiteManageFragment siteManageFragment = null;
+	private OwnerSiteManageFragment siteManageFragment = null;
 	private NotifyFragment notifyFragment = null;
-	private DesignerFragment designerFragment = null;
-	private DesignerSiteFragment designerSiteFragment = null;
 	private OwerFragment owerFragment = null;
 	private OwnerSiteFragment ownerSiteFragment = null;
 	private SettingFragment settingFragment = null;
@@ -40,8 +36,6 @@ public class MenuFragment extends BaseFragment implements
 
 	@Override
 	public void initView(View view) {
-		userIdentity = shared.getValue(Constant.USERTYPE, null);
-		LogTool.d(TAG, "userIdentity=" + userIdentity);
 		mTabRg = (RadioGroup) view.findViewById(R.id.tab_rg_menu);
 	}
 
@@ -61,10 +55,10 @@ public class MenuFragment extends BaseFragment implements
 			setTabSelection(NOTIFY);
 			break;
 		case R.id.tab_rb_3:
-			setTabSelection(ROLE);
+			setTabSelection(OWNER);
 			break;
 		case R.id.tab_rb_4:
-			setTabSelection(SITE);
+			setTabSelection(OWNERSITE);
 			break;
 		case R.id.tab_rb_5:
 			setTabSelection(SETTING);
@@ -86,7 +80,7 @@ public class MenuFragment extends BaseFragment implements
 			if (siteManageFragment != null) {
 				transaction.show(siteManageFragment);
 			} else {
-				siteManageFragment = new SiteManageFragment();
+				siteManageFragment = new OwnerSiteManageFragment();
 				transaction.add(R.id.slidingpane_content, siteManageFragment);
 			}
 			break;
@@ -98,13 +92,7 @@ public class MenuFragment extends BaseFragment implements
 				transaction.add(R.id.slidingpane_content, notifyFragment);
 			}
 			break;
-		case ROLE:
-			/*
-			 * if (designerFragment != null) {
-			 * transaction.show(designerFragment); } else { designerFragment =
-			 * new DesignerFragment(); transaction.add(R.id.slidingpane_content,
-			 * designerFragment); }
-			 */
+		case OWNER:
 			if (owerFragment != null) {
 				transaction.show(owerFragment);
 			} else {
@@ -112,21 +100,13 @@ public class MenuFragment extends BaseFragment implements
 				transaction.add(R.id.slidingpane_content, owerFragment);
 			}
 			break;
-		case SITE:
+		case OWNERSITE:
 			if (ownerSiteFragment != null) {
 				transaction.show(ownerSiteFragment);
 			} else {
 				ownerSiteFragment = new OwnerSiteFragment();
 				transaction.add(R.id.slidingpane_content, ownerSiteFragment);
 			}
-
-			/*
-			 * if (designerSiteFragment != null) {
-			 * transaction.show(designerSiteFragment); } else {
-			 * designerSiteFragment = new DesignerSiteFragment();
-			 * transaction.add(R.id.slidingpane_content, designerSiteFragment);
-			 * }
-			 */
 			break;
 		case SETTING:
 			if (settingFragment != null) {
@@ -158,16 +138,12 @@ public class MenuFragment extends BaseFragment implements
 		if (notifyFragment != null) {
 			ft.hide(notifyFragment);
 		}
-		/*
-		 * if (designerFragment != null) { ft.hide(designerFragment); }
-		 */
 		if (owerFragment != null) {
 			ft.hide(owerFragment);
 		}
 		if (ownerSiteFragment != null) {
 			ft.hide(ownerSiteFragment);
 		}
-
 		if (settingFragment != null) {
 			ft.hide(settingFragment);
 		}
@@ -178,6 +154,6 @@ public class MenuFragment extends BaseFragment implements
 
 	@Override
 	public int getLayoutId() {
-		return R.layout.fragment_menu;
+		return R.layout.fragment_owner_menu;
 	}
 }

@@ -10,11 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.AdapterView.OnItemClickListener;
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.NoteListAdapter;
@@ -24,22 +24,14 @@ import com.jianfanjia.cn.bean.ProcedureInfo;
 import com.jianfanjia.cn.bean.SiteInfo;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
+import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshScrollView;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
-import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshScrollView;
 import com.jianfanjia.cn.view.ScrollLayout;
 
-/**
- * 
- * @ClassName: SiteManageFragment
- * @Description: 工地管理
- * @author fengliang
- * @date 2015-8-26 上午11:14:00
- * 
- */
-public class SiteManageFragment extends BaseFragment {
-	private static final String TAG = SiteManageFragment.class.getClass()
-			.getName();
+public class DesignerSiteManageFragment extends BaseFragment {
+	private static final String TAG = DesignerSiteManageFragment.class
+			.getClass().getName();
 	private PullToRefreshScrollView mPullRefreshScrollView = null;
 	private ScrollView mScrollView = null;
 	private ArrayList<ProcedureInfo> procedureList;
@@ -145,7 +137,6 @@ public class SiteManageFragment extends BaseFragment {
 
 	private void initListView(View view, ProcedureInfo procedure) {
 		detailNodeListView = (ListView) view.findViewById(R.id.site__listview);
-		initCheck(detailNodeListView, procedure);
 		mNoteListAdapter = new NoteListAdapter(procedure, getActivity());
 		detailNodeListView.setAdapter(mNoteListAdapter);
 		detailNodeListView.setOnItemClickListener(new OnItemClickListener() {
@@ -229,47 +220,9 @@ public class SiteManageFragment extends BaseFragment {
 		TextView headDate;
 	}
 
-	// 设置工序验收
-	private void initCheck(ListView detailNodeListView, ProcedureInfo procedure) {
-		if (procedure.isProIsRequestCheck()) {
-			View view = mLayoutInflater.inflate(R.layout.site_listview_head,
-					null);
-			TextView openCheckNode = (TextView) view
-					.findViewById(R.id.site_list_item_content_expand_node_name);
-			TextView closeCheckNode = (TextView) view
-					.findViewById(R.id.site_list_item_content_small_node_name);
-			openCheckNode.setText(procedure.getName() + "阶段验收");
-			closeCheckNode.setText(procedure.getName() + "阶段验收");
-			detailNodeListView.addHeaderView(view);
-		}
-	}
-
-	/*
-	 * private void setHead(final int position,View view,ProcedureInfo
-	 * procedure){ if(procedure.isProIsFinish()){
-	 * view.findViewById(R.id.site_head_procedure_icon
-	 * ).setBackgroundResource(R.drawable.site_viewpager_item_selected_bg);
-	 * }else{
-	 * view.findViewById(R.id.site_head_procedure_icon).setBackgroundResource
-	 * (R.drawable.site_viewpager_item_normal_bg); } TextView name =
-	 * (TextView)view.findViewById(R.id.site_head_procedure_name);
-	 * name.setText(procedure.getName()); TextView date =
-	 * (TextView)view.findViewById(R.id.site_head_procedure_date);
-	 * date.setText(procedure.getDate()); view.setOnClickListener(new
-	 * OnClickListener() {
-	 * 
-	 * @Override public void onClick(View v) {
-	 * mViewPager.setCurrentItem(position); } }); }
-	 * 
-	 * //根据当前所在工序初始化显示的工序头列表，因为是循环显示的，所以有个归零的状态 private void
-	 * initHeadShowList(int firstItem) { int temp = firstItem; for(int i=
-	 * 0;i<4;i++){ if(temp >= procedureList.size()){ temp = 0; }
-	 * headShowProcedure.add(procedureList.get(temp)); temp++; } }
-	 */
-
 	@Override
 	public int getLayoutId() {
-		return R.layout.fragment_site;
+		return R.layout.fragment_designer_site_manage;
 	}
 
 }
