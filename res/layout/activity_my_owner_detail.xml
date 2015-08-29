@@ -20,8 +20,8 @@
 
         <ImageView
             android:id="@+id/my_designer_head"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginLeft="@dimen/space_8"
             android:contentDescription="@null"
             android:scaleType="centerCrop"
@@ -44,7 +44,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_28" >
+            android:layout_marginTop="@dimen/space_24" >
 
             <ImageView
                 android:id="@+id/my_designer_head_icon"
