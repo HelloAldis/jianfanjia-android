@@ -40,9 +40,9 @@
         <activity android:name="com.jianfanjia.cn.activity.AboutActivity" />
         <activity android:name="com.jianfanjia.cn.activity.CommentActivity" />
         <activity android:name="com.jianfanjia.cn.activity.CheckActivity" />
-        <activity android:name="com.jianfanjia.cn.activity.LoginActivity" />
+        <activity android:name="com.jianfanjia.cn.activity.WelcomeActivity" />
         <activity
-            android:name="com.jianfanjia.cn.activity.WelcomeActivity"
+            android:name="com.jianfanjia.cn.activity.LoginActivity"
             android:label="@string/app_name"
             android:windowSoftInputMode="stateHidden|adjustResize" >
             <intent-filter>
