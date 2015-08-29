@@ -78,5 +78,15 @@ public class ForgetPswActivity extends BaseActivity implements FragmentListener 
 	public int getLayoutId() {
 		return R.layout.activity_forget_psw;
 	}
+	
+	@Override
+	public void onBackPressed() {
+		super.onBackPressed();
+		if (currentPage >= 0) {
+			currentPage--;
+		} else {
+			finish();
+		}
+	}
 
 }
