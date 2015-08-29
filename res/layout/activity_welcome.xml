@@ -2,6 +2,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_login" >
+    android:background="@drawable/bg_loading_720" >
+    
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="96dp"
+        android:contentDescription="@null"
+        android:src="@drawable/logo_loading" />
+    
+    <TextView style="@style/site_listview_item_text_style_middle"
+        android:textColor="@color/site_text_color2"
+        android:text="@string/jianfanjia_net"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="24dp"/>
 
 </RelativeLayout>
