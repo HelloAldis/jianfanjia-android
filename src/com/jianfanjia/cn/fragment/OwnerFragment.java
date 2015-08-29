@@ -8,7 +8,7 @@ import android.widget.ListView;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.MyOwerInfoAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
-import com.jianfanjia.cn.bean.MyOwerInfo;
+import com.jianfanjia.cn.bean.MyOwnerInfo;
 
 /**
  * 
@@ -18,11 +18,11 @@ import com.jianfanjia.cn.bean.MyOwerInfo;
  * @date 2015-8-26 下午7:07:52
  * 
  */
-public class OwerFragment extends BaseFragment {
+public class OwnerFragment extends BaseFragment {
 	private ImageView headView;
 	private ListView listView;
-	private List<MyOwerInfo> caigouList = new ArrayList<MyOwerInfo>();
-	private MyOwerInfo myOwerInfo = null;
+	private List<MyOwnerInfo> caigouList = new ArrayList<MyOwnerInfo>();
+	private MyOwnerInfo myOwerInfo = null;
 	private MyOwerInfoAdapter myOwerInfoAdapter = null;
 
 	@Override
@@ -32,7 +32,7 @@ public class OwerFragment extends BaseFragment {
 		headView = (ImageView) view.findViewById(R.id.my_ower_head);
 		listView = (ListView) view.findViewById(R.id.my_ower_listview);
 		for (int i = 0; i < 3; i++) {
-			myOwerInfo = new MyOwerInfo();
+			myOwerInfo = new MyOwnerInfo();
 			myOwerInfo.setName("zhanghao" + i);
 			myOwerInfo.setAddress("湖北省武汉市洪山区观澜花园" + i);
 			myOwerInfo.setStage("方案阶段");

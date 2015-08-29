@@ -249,6 +249,6 @@ public class OwnerSiteFragment extends BaseFragment {
 
 	@Override
 	public int getLayoutId() {
-		return R.layout.fragment_ower_site;
+		return R.layout.fragment_owner_site;
 	}
 }
