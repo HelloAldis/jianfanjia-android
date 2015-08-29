@@ -15,10 +15,11 @@
     <string name="main_right_example">配置工地</string>
     <!-- main activity -->
 
-
     <!-- login_activity -->
     <string name="login">登录</string>
     <string name="enter">欢迎使用</string>
+    <string name="loging">正在登录中</string>
+    <string name="loding">正在加载中</string>
     <string name="hint_username">请输入手机号码</string>
     <string name="hint_password">请输入密码</string>
     <string name="forget_pwd">忘记密码</string>
@@ -104,6 +105,7 @@
     <string name="my_tip">我的提醒</string>
     <string name="my_help">帮助</string>
     <string name="my_ower">我的业主</string>
+    <string name="owner_detail">业主详情</string>
     <string name="my_site">我的工地</string>
     <string name="my_example_name">Jeff</string>
     <string name="my_example_account">账号：12244444</string>
@@ -132,6 +134,20 @@
     <!-- activity_upload_pic -->
 
 
+    <!-- activity owner detail -->
+    <string name="owner_detail_city">所在城市：</string>
+    <string name="owner_detail_site">工地地址：</string>
+    <string name="owner_detail_housestyle">装修户型：</string>
+    <string name="owner_detail_decoratearea">装修面积：</string>
+    <string name="owner_detail_lovestyle">风格喜好：</string>
+    <string name="owner_detail_decoratestyle">装修类型：</string>
+    <string name="owner_detail_decoratebudget">装修预算：</string>
+    <string name="owner_detail_startdate">开工日期：</string>
+    <string name="owner_detail_totaldate">总工期：</string>
+
+    <!-- activity owner detail -->
+
+
     <!-- activity_about -->
     <string name="about">关于我们</string>
     <string name="about_my">关于简繁家</string>
@@ -141,7 +157,5 @@
     <string name="compant_net">Copyright © 2015-2025 jianfanjia.com</string>
     <!-- activity_about -->
 
-
-    <!-- site procedure -->
 
 </resources>
