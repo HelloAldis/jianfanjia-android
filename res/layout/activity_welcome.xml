@@ -20,6 +20,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="24dp"
         android:text="@string/jianfanjia_net"
-        android:textColor="@color/site_text_color2" />
+        android:textColor="@color/main_color_grey" />
 
 </RelativeLayout>

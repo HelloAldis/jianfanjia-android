@@ -20,7 +20,7 @@
             android:maxWidth="100dp"
             android:singleLine="true"
             android:text="@string/my_site_villagename_example"
-            android:textColor="@color/site_text_color1" />
+            android:textColor="@color/main_color_black" />
 
         <TextView
             android:id="@+id/list_item_site_currentsite"
@@ -37,7 +37,7 @@
             android:layout_alignBottom="@+id/list_item_site_villagename"
             android:layout_alignParentRight="true"
             android:text="@string/my_site_villagename_example"
-            android:textColor="@color/site_text_color2" />
+            android:textColor="@color/main_color_grey" />
 
         <TextView
             android:id="@+id/list_item_site_address"
@@ -46,7 +46,7 @@
             android:layout_marginTop="@dimen/space_8"
             android:maxWidth="@dimen/space_100"
             android:text="@string/my_site_villagename_example"
-            android:textColor="@color/site_text_color2" />
+            android:textColor="@color/main_color_grey" />
 
         <TextView
             android:id="@+id/list_item_site_owername"
@@ -55,7 +55,7 @@
             android:layout_marginRight="@dimen/space_8"
             android:layout_toLeftOf="@+id/list_item_site_owerhead"
             android:text="@string/my_site_villagename_example"
-            android:textColor="@color/site_text_color2" />
+            android:textColor="@color/main_color_grey" />
 
         <ImageView
             android:id="@+id/list_item_site_owerhead"

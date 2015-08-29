@@ -16,7 +16,7 @@
             android:id="@+id/list_item_tip_caigou_name"
             style="@style/site_listview_item_text_style_small"
             android:text="@string/list_item_comment_pubtime_example"
-            android:textColor="@color/site_text_color1" />
+            android:textColor="@color/main_color_black" />
 
         <TextView
             android:id="@+id/list_item_tip_caigou_content"
@@ -32,7 +32,7 @@
             style="@style/site_listview_item_text_style_small"
             android:layout_below="@+id/list_item_tip_caigou_content"
             android:text="@string/ower"
-            android:textColor="@color/site_text_color2" />
+            android:textColor="@color/main_color_grey" />
 
         <TextView
             android:id="@+id/list_item_tip_caigou_time"
@@ -40,7 +40,7 @@
             android:layout_alignBottom="@+id/list_item_tip_caigou_node"
             android:layout_alignParentRight="true"
             android:text="@string/ower"
-            android:textColor="@color/site_text_color2" />
+            android:textColor="@color/main_color_grey" />
     </RelativeLayout>
 
 </RelativeLayout>

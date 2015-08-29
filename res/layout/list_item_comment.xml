@@ -20,7 +20,7 @@
             android:layout_alignBottom="@+id/list_item_comment_username"
             android:layout_alignParentRight="true"
             android:text="@string/list_item_comment_pubtime_example"
-            android:textColor="@color/site_text_color2" />
+            android:textColor="@color/main_color_grey" />
 
         <TextView
             android:id="@+id/list_item_comment_content"
@@ -31,7 +31,7 @@
             android:layout_toRightOf="@+id/list_item_comment_userhead"
             android:maxWidth="@dimen/space_100"
             android:text="@string/my_site_villagename_example"
-            android:textColor="@color/site_text_color2" />
+            android:textColor="@color/main_color_grey" />
 
         <TextView
             android:id="@+id/list_item_comment_userrole"
@@ -48,7 +48,7 @@
             android:layout_marginLeft="@dimen/space_8"
             android:layout_toRightOf="@+id/list_item_comment_userhead"
             android:text="@string/my_example_name"
-            android:textColor="@color/site_text_color1" />
+            android:textColor="@color/main_color_black" />
 
         <ImageView
             android:id="@+id/list_item_comment_userhead"

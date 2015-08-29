@@ -24,7 +24,7 @@
             style="@style/site_listview_item_text_style_title"
             android:layout_centerInParent="true"
             android:text="@string/my_site"
-            android:textColor="@color/site_text_color1" />
+            android:textColor="@color/main_color_black" />
 
         <View
             style="@style/divier_line"
@@ -57,14 +57,14 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:text="@string/my_site_city_example"
-                    android:textColor="@color/site_text_color2" />
+                    android:textColor="@color/main_color_grey" />
 
                 <TextView
                     style="@style/site_listview_item_text_style_big"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:text="@string/my_site_city"
-                    android:textColor="@color/site_text_color1" />
+                    android:textColor="@color/main_color_black" />
             </RelativeLayout>
 
             <View style="@style/divier_line" />
@@ -77,7 +77,7 @@
                     style="@style/site_listview_item_text_style_big"
                     android:layout_centerVertical="true"
                     android:text="@string/my_site_villagename"
-                    android:textColor="@color/site_text_color1" />
+                    android:textColor="@color/main_color_black" />
 
                 <TextView
                     android:id="@+id/my_site_villagename"
@@ -85,7 +85,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:text="@string/my_site_villagename_example"
-                    android:textColor="@color/site_text_color2" />
+                    android:textColor="@color/main_color_grey" />
             </RelativeLayout>
 
             <View style="@style/divier_line" />
@@ -98,7 +98,7 @@
                     style="@style/site_listview_item_text_style_big"
                     android:layout_centerVertical="true"
                     android:text="@string/my_site_housestyle"
-                    android:textColor="@color/site_text_color1" />
+                    android:textColor="@color/main_color_black" />
 
                 <TextView
                     android:id="@+id/my_site_housestyle"
@@ -106,7 +106,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:text="@string/my_site_housestyle_example"
-                    android:textColor="@color/site_text_color2" />
+                    android:textColor="@color/main_color_grey" />
             </RelativeLayout>
 
             <View style="@style/divier_line" />
@@ -119,7 +119,7 @@
                     style="@style/site_listview_item_text_style_big"
                     android:layout_centerVertical="true"
                     android:text="@string/my_site_housesize"
-                    android:textColor="@color/site_text_color1" />
+                    android:textColor="@color/main_color_black" />
 
                 <TextView
                     android:id="@+id/my_site_derationArea"
@@ -127,7 +127,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:text="@string/my_site_housesize_example"
-                    android:textColor="@color/site_text_color2" />
+                    android:textColor="@color/main_color_grey" />
             </RelativeLayout>
 
             <View style="@style/divier_line" />
@@ -140,7 +140,7 @@
                     style="@style/site_listview_item_text_style_big"
                     android:layout_centerVertical="true"
                     android:text="@string/my_site_lovestyle"
-                    android:textColor="@color/site_text_color1" />
+                    android:textColor="@color/main_color_black" />
 
                 <TextView
                     android:id="@+id/my_site_lovestyle"
@@ -148,7 +148,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:text="@string/my_site_lovestyle_example"
-                    android:textColor="@color/site_text_color2" />
+                    android:textColor="@color/main_color_grey" />
             </RelativeLayout>
 
             <View style="@style/divier_line" />
@@ -161,7 +161,7 @@
                     style="@style/site_listview_item_text_style_big"
                     android:layout_centerVertical="true"
                     android:text="@string/my_site_decoratestyle"
-                    android:textColor="@color/site_text_color1" />
+                    android:textColor="@color/main_color_black" />
 
                 <TextView
                     android:id="@+id/my_site_decorationstyle"
@@ -169,7 +169,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:text="@string/my_site_decoratestyle_example"
-                    android:textColor="@color/site_text_color2" />
+                    android:textColor="@color/main_color_grey" />
             </RelativeLayout>
 
             <View style="@style/divier_line" />
@@ -182,7 +182,7 @@
                     style="@style/site_listview_item_text_style_big"
                     android:layout_centerVertical="true"
                     android:text="@string/my_site_decoratebudget"
-                    android:textColor="@color/site_text_color1" />
+                    android:textColor="@color/main_color_black" />
 
                 <TextView
                     android:id="@+id/my_site_decorationbudget"
@@ -190,7 +190,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:text="@string/my_site_decoratebudget_example"
-                    android:textColor="@color/site_text_color2" />
+                    android:textColor="@color/main_color_grey" />
             </RelativeLayout>
 
             <View style="@style/divier_line" />
@@ -207,7 +207,7 @@
                     style="@style/site_listview_item_text_style_big"
                     android:layout_centerVertical="true"
                     android:text="@string/my_site_startdate"
-                    android:textColor="@color/site_text_color1" />
+                    android:textColor="@color/main_color_black" />
 
                 <ImageView
                     android:id="@+id/startdate_select_goto"
@@ -223,7 +223,7 @@
                     android:layout_marginRight="4dp"
                     android:layout_toLeftOf="@+id/startdate_select_goto"
                     android:text="@string/my_site_startdate_example"
-                    android:textColor="@color/site_text_color2" />
+                    android:textColor="@color/main_color_grey" />
             </RelativeLayout>
 
             <View style="@style/divier_line" />
@@ -236,7 +236,7 @@
                     style="@style/site_listview_item_text_style_big"
                     android:layout_centerVertical="true"
                     android:text="@string/my_site_totaldate"
-                    android:textColor="@color/site_text_color1" />
+                    android:textColor="@color/main_color_black" />
 
                 <ImageView
                     android:id="@+id/totaldate_select_goto"
@@ -252,7 +252,7 @@
                     android:layout_marginRight="4dp"
                     android:layout_toLeftOf="@+id/totaldate_select_goto"
                     android:text="@string/my_site_totaldate_example"
-                    android:textColor="@color/site_text_color2" />
+                    android:textColor="@color/main_color_grey" />
             </RelativeLayout>
 
             <View style="@style/divier_line" />

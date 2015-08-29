@@ -24,7 +24,7 @@
             style="@style/site_listview_item_text_style_title"
             android:layout_centerInParent="true"
             android:text="@string/my_setting"
-            android:textColor="@color/site_text_color1" />
+            android:textColor="@color/main_color_black" />
     </RelativeLayout>
 
     <ScrollView
@@ -50,7 +50,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:text="@string/message_push"
-                    android:textColor="@color/site_text_color1" />
+                    android:textColor="@color/main_color_black" />
                 
                 <ToggleButton android:id="@+id/mespush_toggle"
                     android:layout_alignParentRight="true"
@@ -69,7 +69,7 @@
                     style="@style/site_listview_item_text_style_big"
                     android:layout_centerVertical="true"
                     android:text="@string/share"
-                    android:textColor="@color/site_text_color1" />
+                    android:textColor="@color/main_color_black" />
 
                 <ImageView
                     style="@style/my_item_layout_image_style"
@@ -88,7 +88,7 @@
                     style="@style/site_listview_item_text_style_big"
                     android:layout_centerVertical="true"
                     android:text="@string/current_version"
-                    android:textColor="@color/site_text_color1" />
+                    android:textColor="@color/main_color_black" />
 
                 <TextView
                     android:id="@+id/my_site_housestyle"
@@ -96,7 +96,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:text="@string/current_version_example"
-                    android:textColor="@color/site_text_color2" />
+                    android:textColor="@color/main_color_grey" />
             </RelativeLayout>
 
             <View style="@style/divier_line" />
@@ -109,7 +109,7 @@
                     style="@style/site_listview_item_text_style_big"
                     android:layout_centerVertical="true"
                     android:text="@string/clear_cache"
-                    android:textColor="@color/site_text_color1" />
+                    android:textColor="@color/main_color_black" />
 
                 <TextView
                     android:id="@+id/cache_size"
@@ -117,7 +117,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:text="@string/cache_size"
-                    android:textColor="@color/site_text_color2" />
+                    android:textColor="@color/main_color_grey" />
             </RelativeLayout>
 
             <View style="@style/divier_line" />
@@ -134,7 +134,7 @@
                     style="@style/site_listview_item_text_style_big"
                     android:layout_centerVertical="true"
                     android:text="@string/feedback"
-                    android:textColor="@color/site_text_color1" />
+                    android:textColor="@color/main_color_black" />
 
                 <ImageView
                     style="@style/my_item_layout_image_style"
@@ -153,7 +153,7 @@
                     style="@style/site_listview_item_text_style_big"
                     android:layout_centerVertical="true"
                     android:text="@string/about"
-                    android:textColor="@color/site_text_color1" />
+                    android:textColor="@color/main_color_black" />
 
                 <ImageView
                     style="@style/my_item_layout_image_style"
@@ -177,7 +177,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:text="@string/logout"
-                    android:textColor="@color/site_text_color1" />
+                    android:textColor="@color/main_color_black" />
             </RelativeLayout>
 
             <View style="@style/divier_line" />

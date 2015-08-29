@@ -23,7 +23,7 @@
             android:id="@+id/upload_pic_title"
             style="@style/site_listview_item_text_style_title"
             android:layout_centerInParent="true"
-            android:textColor="@color/site_text_color1" />
+            android:textColor="@color/main_color_black" />
 
         <TextView
             android:id="@+id/upload_pic_edit_status"
@@ -61,7 +61,7 @@
                 style="@style/site_listview_item_text_style_middle"
                 android:layout_gravity="center_horizontal"
                 android:text="@string/show_pic"
-                android:textColor="@color/site_text_color1" />
+                android:textColor="@color/main_color_black" />
 
             <ListView
                 android:id="@+id/show_pic_listview"
@@ -85,7 +85,7 @@
                 style="@style/site_listview_item_text_style_middle"
                 android:layout_gravity="center_horizontal"
                 android:text="@string/upload_pic"
-                android:textColor="@color/site_text_color1" />
+                android:textColor="@color/main_color_black" />
 
             <ListView
                 android:id="@+id/upload_pic_listview"

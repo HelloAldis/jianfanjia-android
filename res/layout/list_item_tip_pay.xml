@@ -16,7 +16,7 @@
             android:id="@+id/list_item_tip_pay_name"
             style="@style/site_listview_item_text_style_small"
             android:text="@string/list_item_comment_pubtime_example"
-            android:textColor="@color/site_text_color1" />
+            android:textColor="@color/main_color_black" />
 
         <TextView
             android:id="@+id/list_item_tip_pay_node"
@@ -24,7 +24,7 @@
             android:layout_below="@+id/list_item_tip_pay_name"
             android:layout_marginTop="@dimen/space_16"
             android:text="@string/ower"
-            android:textColor="@color/site_text_color2" />
+            android:textColor="@color/main_color_grey" />
 
         <TextView
             android:id="@+id/list_item_pay_time"
@@ -32,7 +32,7 @@
             android:layout_alignBottom="@+id/list_item_tip_pay_node"
             android:layout_alignParentRight="true"
             android:text="@string/ower"
-            android:textColor="@color/site_text_color2" />
+            android:textColor="@color/main_color_grey" />
     </RelativeLayout>
 
 </RelativeLayout>

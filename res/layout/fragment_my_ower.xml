@@ -24,7 +24,7 @@
             style="@style/site_listview_item_text_style_title"
             android:layout_centerInParent="true"
             android:text="@string/my_ower"
-            android:textColor="@color/site_text_color1" />
+            android:textColor="@color/main_color_black" />
 
         <View
             style="@style/divier_line"

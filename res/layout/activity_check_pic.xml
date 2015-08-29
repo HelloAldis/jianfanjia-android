@@ -24,7 +24,7 @@
             style="@style/site_listview_item_text_style_title"
             android:layout_centerInParent="true"
             android:text="@string/check"
-            android:textColor="@color/site_text_color1" />
+            android:textColor="@color/main_color_black" />
 
         <View
             style="@style/divier_line"
@@ -70,7 +70,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
                     android:text="@string/show_pic"
-                    android:textColor="@color/site_text_color1" />
+                    android:textColor="@color/main_color_black" />
 
                 <TextView
                     style="@style/site_listview_item_text_style_middle"
@@ -79,7 +79,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
                     android:text="@string/upload_pic"
-                    android:textColor="@color/site_text_color1" />
+                    android:textColor="@color/main_color_black" />
             </LinearLayout>
 
             <com.jianfanjia.cn.view.MyGridView

@@ -19,18 +19,15 @@
     <color name="log_and_res_broder">#d8d8d8</color>
     <color name="font_reg_color1">#f2f5f5</color>
     <color name="font_reg_color2">#fe7003</color>
-
-    <!-- 四种字体颜色 -->
     <color name="site_content_bg">#f2f2f3</color>
-    <color name="site_text_color1">#344a5c</color>
-    <color name="site_text_color2">#798489</color>
+    <color name="main_color_black">#344a5c</color>
+    <color name="main_color_grey">#798489</color>
     <color name="font_yellow">#fe7003</color>
     <color name="font_red">#dd4847</color>
     <color name="font_green">#219d2b</color>
     <color name="back_color">#7c8489</color>
     <color name="ower_color">#378fe4</color>
     <color name="designer_color">#e3398c</color>
-    <!-- 四种字体颜色 -->
     <color name="add_comment_bg">#f2f2f3</color>
     <color name="btn_unenable">#aaaaaa</color>
     <color name="btn_enable_unpress">#fe7003</color>
