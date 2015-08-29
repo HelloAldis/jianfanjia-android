@@ -228,7 +228,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="8dp"
                         android:layout_toRightOf="@+id/item6"
-                        android:text="@string/my_site_decorationstyle_example"
+                        android:text="@string/my_site_decoratestyle_example"
                         android:textColor="@color/font_white" />
                 </RelativeLayout>
 
@@ -251,7 +251,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="8dp"
                         android:layout_toRightOf="@+id/item7"
-                        android:text="@string/my_site_decorationbudget_example"
+                        android:text="@string/my_site_decoratebudget_example"
                         android:textColor="@color/font_white" />
                 </RelativeLayout>
 

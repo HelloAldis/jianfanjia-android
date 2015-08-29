@@ -160,7 +160,7 @@
                 <TextView
                     style="@style/site_listview_item_text_style_big"
                     android:layout_centerVertical="true"
-                    android:text="@string/my_site_decorationstyle"
+                    android:text="@string/my_site_decoratestyle"
                     android:textColor="@color/site_text_color1" />
 
                 <TextView
@@ -168,7 +168,7 @@
                     style="@style/site_listview_item_text_style_middle"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:text="@string/my_site_decorationstyle_example"
+                    android:text="@string/my_site_decoratestyle_example"
                     android:textColor="@color/site_text_color2" />
             </RelativeLayout>
 
@@ -181,7 +181,7 @@
                 <TextView
                     style="@style/site_listview_item_text_style_big"
                     android:layout_centerVertical="true"
-                    android:text="@string/my_site_decorationbudget"
+                    android:text="@string/my_site_decoratebudget"
                     android:textColor="@color/site_text_color1" />
 
                 <TextView
@@ -189,7 +189,7 @@
                     style="@style/site_listview_item_text_style_middle"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:text="@string/my_site_decorationbudget_example"
+                    android:text="@string/my_site_decoratebudget_example"
                     android:textColor="@color/site_text_color2" />
             </RelativeLayout>
 
