@@ -2,11 +2,11 @@ package com.jianfanjia.cn.fragment;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
-
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.DesignerSiteInfoAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
@@ -20,9 +20,10 @@ import com.jianfanjia.cn.bean.DesignerSiteInfo;
  * @date 2015-8-26 ÏÂÎç7:07:52
  * 
  */
-public class DesignerSiteFragment extends BaseFragment {
+public class DesignerSiteFragment extends BaseFragment implements
+		OnItemClickListener {
 	private ImageView headView;
-	private ListView listView;
+	private ListView siteListView;
 	private List<DesignerSiteInfo> caigouList = new ArrayList<DesignerSiteInfo>();
 	private DesignerSiteInfo designerSiteInfo = null;
 	private DesignerSiteInfoAdapter designerSiteInfoAdapter = null;
@@ -30,7 +31,8 @@ public class DesignerSiteFragment extends BaseFragment {
 	@Override
 	public void initView(View view) {
 		headView = (ImageView) view.findViewById(R.id.designer_site_head);
-		listView = (ListView) view.findViewById(R.id.designer_site_listview);
+		siteListView = (ListView) view
+				.findViewById(R.id.designer_site_listview);
 		for (int i = 0; i < 3; i++) {
 			designerSiteInfo = new DesignerSiteInfo();
 			designerSiteInfo.setName("zhanghao" + i);
@@ -42,12 +44,13 @@ public class DesignerSiteFragment extends BaseFragment {
 		}
 		designerSiteInfoAdapter = new DesignerSiteInfoAdapter(getActivity(),
 				caigouList);
-		listView.setAdapter(designerSiteInfoAdapter);
+		siteListView.setAdapter(designerSiteInfoAdapter);
 	}
 
 	@Override
 	public void setListener() {
 		headView.setOnClickListener(this);
+		siteListView.setOnItemClickListener(this);
 	}
 
 	@Override
@@ -63,7 +66,14 @@ public class DesignerSiteFragment extends BaseFragment {
 	}
 
 	@Override
+	public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
 	public int getLayoutId() {
 		return R.layout.fragment_designer_site;
 	}
+
 }
