@@ -107,7 +107,7 @@
                         android:id="@+id/my_designer_product_sum"
                         style="@style/site_listview_item_text_style_big"
                         android:text="@string/my_designer_product_sum"
-                        android:textColor="@color/font_yellow" />
+                        android:textColor="@color/main_color_orange" />
 
                     <TextView
                         style="@style/site_listview_item_text_style_small"
@@ -128,7 +128,7 @@
                         android:id="@+id/my_designer_appointment_sum"
                         style="@style/site_listview_item_text_style_big"
                         android:text="@string/my_designer_appointment_sum"
-                        android:textColor="@color/font_yellow" />
+                        android:textColor="@color/main_color_orange" />
 
                     <TextView
                         style="@style/site_listview_item_text_style_small"

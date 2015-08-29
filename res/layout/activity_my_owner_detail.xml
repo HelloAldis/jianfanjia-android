@@ -82,7 +82,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="12dp"
                 android:text="@string/work_city"
-                android:textColor="@color/font_yellow" />
+                android:textColor="@color/main_color_orange" />
 
             <LinearLayout
                 android:id="@+id/owner_detail_middle_layout"

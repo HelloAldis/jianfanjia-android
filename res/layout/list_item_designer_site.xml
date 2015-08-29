@@ -29,7 +29,7 @@
             android:layout_marginLeft="@dimen/space_4"
             android:layout_toRightOf="@+id/list_item_site_villagename"
             android:text="@string/my_site_villagename_example"
-            android:textColor="@color/font_yellow" />
+            android:textColor="@color/main_color_orange" />
 
         <TextView
             android:id="@+id/list_item_site_currentstage"
