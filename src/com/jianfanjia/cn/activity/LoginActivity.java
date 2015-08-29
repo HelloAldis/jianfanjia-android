@@ -3,8 +3,10 @@ package com.jianfanjia.cn.activity;
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,10 +40,16 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	private String mUserName;// 用户名
 	private String mPassword;// 密码
 
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);
+	}
+
 	@Override
 	public void initView() {
 		progressDialog = new CustomProgressDialog(LoginActivity.this, "正在加载中",
-			 R.style.dialog);
+				R.style.dialog);
 		mEtUserName = (EditText) findViewById(R.id.et_username);
 		mEtPassword = (EditText) findViewById(R.id.et_password);
 		mBtnLogin = (Button) findViewById(R.id.btn_login);
