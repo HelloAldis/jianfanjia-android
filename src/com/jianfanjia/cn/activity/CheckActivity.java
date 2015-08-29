@@ -19,7 +19,7 @@ import com.jianfanjia.cn.bean.GridItem;
  * 
  */
 public class CheckActivity extends BaseActivity implements OnClickListener {
-	private TextView backView=null;// 返回视图
+	private TextView backView = null;// 返回视图
 	private GridView gridView = null;
 	private static final int ICON[] = { R.drawable.ic_launcher,
 			R.drawable.ic_launcher, R.drawable.ic_launcher,
