@@ -7,16 +7,17 @@
     <RelativeLayout
         android:id="@+id/my_setting_head_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/space_5" >
+        android:layout_height="@dimen/space_48"
+         >
 
         <ImageView
             android:id="@+id/my_designer_head"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginLeft="@dimen/space_8"
             android:contentDescription="@null"
             android:scaleType="centerCrop"
+            android:layout_centerVertical="true"
             android:src="@drawable/site_listview_item_finish_circle" />
 
         <TextView

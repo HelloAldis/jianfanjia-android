@@ -14,7 +14,7 @@
     <RelativeLayout
         android:id="@+id/owner_detail_head_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/space_48"
         android:background="@android:color/transparent" >
 
         <TextView

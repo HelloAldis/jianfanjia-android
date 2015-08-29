@@ -28,7 +28,6 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_48"
-                android:layout_margin="5dip"
                 android:background="@android:color/transparent" >
 
                 <ImageView
@@ -55,6 +54,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/space_8"
                     android:text="工地配置"
                     android:textColor="@color/main_color_black"
                     android:textSize="18sp" />
