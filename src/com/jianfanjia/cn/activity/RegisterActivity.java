@@ -80,7 +80,7 @@ public class RegisterActivity extends BaseActivity implements FragmentListener {
 	public int getLayoutId() {
 		return R.layout.activity_register;
 	}
-	
+
 	@Override
 	public void onBackPressed() {
 		super.onBackPressed();
