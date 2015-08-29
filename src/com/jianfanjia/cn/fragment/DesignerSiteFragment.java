@@ -7,6 +7,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
+import com.jianfanjia.cn.activity.OwnerDetailActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.DesignerSiteInfoAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
@@ -67,8 +68,7 @@ public class DesignerSiteFragment extends BaseFragment implements
 
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
-		// TODO Auto-generated method stub
-
+		startActivity(OwnerDetailActivity.class);
 	}
 
 	@Override

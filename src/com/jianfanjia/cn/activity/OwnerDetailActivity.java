@@ -2,11 +2,9 @@ package com.jianfanjia.cn.activity;
 
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.jianfanjia.cn.base.BaseActivity;
 
 public class OwnerDetailActivity extends BaseActivity {
-
 	private TextView backView;// 返回视图
 	private ImageView ownerHeadView;// 用户头像视图
 	private ImageView ownerSexView;// 用户性别视图
@@ -22,12 +20,6 @@ public class OwnerDetailActivity extends BaseActivity {
 	private TextView startDateView;// 开工日期
 	private TextView totalDateView;// 总工期
 	private TextView confirmView;// 确认按钮
-
-	@Override
-	public int getLayoutId() {
-		// TODO Auto-generated method stub
-		return R.layout.activity_my_owner_detail;
-	}
 
 	@Override
 	public void initView() {
@@ -52,6 +44,11 @@ public class OwnerDetailActivity extends BaseActivity {
 	public void setListener() {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public int getLayoutId() {
+		return R.layout.activity_my_owner_detail;
 	}
 
 }
