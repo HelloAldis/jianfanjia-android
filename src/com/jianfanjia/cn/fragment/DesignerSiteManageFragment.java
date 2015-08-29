@@ -207,7 +207,7 @@ public class DesignerSiteManageFragment extends BaseFragment {
 					public void onPullUpToRefresh(
 							PullToRefreshBase<ScrollView> refreshView) {
 						// 上拉加载更多(加载下一页数据)
-						// mPullRefreshScrollView.onRefreshComplete();
+						mPullRefreshScrollView.onRefreshComplete();
 					}
 				});
 	}
