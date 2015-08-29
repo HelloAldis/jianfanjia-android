@@ -16,6 +16,7 @@ import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.LoginUserBean;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
+import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.NetTool;
 import com.jianfanjia.cn.view.dialog.CustomProgressDialog;
@@ -40,6 +41,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	private String mUserName;// ”√ªß√˚
 	private String mPassword;// √‹¬Î
 
+	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -139,7 +141,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 							if (response.has(Constant.DATA)) {
 								progressDialog.dismiss();
 								makeTextShort(getString(R.string.login_success));
-								LoginUserBean loginUserBean = jsonParser
+								LoginUserBean loginUserBean = JsonParser
 										.jsonToBean(response.get(Constant.DATA)
 												.toString(),
 												LoginUserBean.class);

@@ -1,6 +1,7 @@
 package com.jianfanjia.cn.pulltorefresh.library.internal;
 
 import java.util.ArrayList;
+
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
@@ -14,6 +15,7 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+
 import com.jianfanjia.cn.activity.R;
 
 @TargetApi(Build.VERSION_CODES.GINGERBREAD)
@@ -148,8 +150,8 @@ public class WaterFallView extends ScrollView implements View.OnClickListener {
 		parent.setOnClickListener(this);
 
 		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-				RelativeLayout.LayoutParams.WRAP_CONTENT,
-				RelativeLayout.LayoutParams.WRAP_CONTENT);
+				android.view.ViewGroup.LayoutParams.WRAP_CONTENT,
+				android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
 		parent.addView(view, params);
 
 		return parent;

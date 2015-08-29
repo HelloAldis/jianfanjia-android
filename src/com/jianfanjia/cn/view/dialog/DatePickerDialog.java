@@ -2,6 +2,7 @@ package com.jianfanjia.cn.view.dialog;
 
 import android.content.Context;
 import android.os.Bundle;
+
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.view.MyDialog;
 

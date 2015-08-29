@@ -25,11 +25,13 @@ public class DialogTool {
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
 		builder.setTitle(title).setMessage(message).setCancelable(false)
 				.setPositiveButton(msg1, new DialogInterface.OnClickListener() {
+					@Override
 					public void onClick(DialogInterface dialog, int id) {
 						listener.onPositiveButtonClick();
 					}
 				})
 				.setNegativeButton(msg2, new DialogInterface.OnClickListener() {
+					@Override
 					public void onClick(DialogInterface dialog, int id) {
 						listener.onNegativeButtonClick();
 					}

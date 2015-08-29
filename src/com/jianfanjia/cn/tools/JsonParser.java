@@ -28,6 +28,7 @@ public class JsonParser {
 		gson = new GsonBuilder()
 				.registerTypeHierarchyAdapter(Date.class,
 						new JsonSerializer<Date>() {
+							@Override
 							@SuppressLint("SimpleDateFormat")
 							public JsonElement serialize(Date src,
 									Type typeOfSrc,

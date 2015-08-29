@@ -31,6 +31,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
+
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.pulltorefresh.library.internal.EmptyViewMethodAccessor;
 import com.jianfanjia.cn.pulltorefresh.library.internal.IndicatorLayout;
@@ -100,6 +101,7 @@ public abstract class PullToRefreshAdapterViewBase<T extends AbsListView>
 		return mShowIndicator;
 	}
 
+	@Override
 	public final void onScroll(final AbsListView view,
 			final int firstVisibleItem, final int visibleItemCount,
 			final int totalItemCount) {
@@ -131,6 +133,7 @@ public abstract class PullToRefreshAdapterViewBase<T extends AbsListView>
 		}
 	}
 
+	@Override
 	public final void onScrollStateChanged(final AbsListView view,
 			final int state) {
 		/**
@@ -276,6 +279,7 @@ public abstract class PullToRefreshAdapterViewBase<T extends AbsListView>
 		}
 	}
 
+	@Override
 	protected void onRefreshing(boolean doScroll) {
 		super.onRefreshing(doScroll);
 
@@ -320,10 +324,12 @@ public abstract class PullToRefreshAdapterViewBase<T extends AbsListView>
 				!isPullToRefreshOverScrollEnabled());
 	}
 
+	@Override
 	protected boolean isReadyForPullStart() {
 		return isFirstItemVisible();
 	}
 
+	@Override
 	protected boolean isReadyForPullEnd() {
 		return isLastItemVisible();
 	}

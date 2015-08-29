@@ -2,8 +2,10 @@ package com.jianfanjia.cn.fragment;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import android.support.v4.view.ViewPager;
 import android.view.View;
+
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.MyFragmentPagerAdapter;
 import com.jianfanjia.cn.base.BaseFragment;

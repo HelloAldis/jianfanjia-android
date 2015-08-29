@@ -28,6 +28,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.pulltorefresh.library.internal.EmptyViewMethodAccessor;
 import com.jianfanjia.cn.pulltorefresh.library.internal.LoadingLayout;
@@ -234,8 +235,8 @@ public class PullToRefreshListView extends
 
 		if (mListViewExtrasEnabled) {
 			final FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
-					FrameLayout.LayoutParams.MATCH_PARENT,
-					FrameLayout.LayoutParams.WRAP_CONTENT,
+					android.view.ViewGroup.LayoutParams.MATCH_PARENT,
+					android.view.ViewGroup.LayoutParams.WRAP_CONTENT,
 					Gravity.CENTER_HORIZONTAL);
 
 			// Create Loading Views ready for use later

@@ -2,13 +2,13 @@
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
     <style name="AppBaseTheme" parent="android:Theme.Light">
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
+            backward-compatibility can go here.
         -->
     </style>
 
@@ -54,7 +54,7 @@
         <item name="android:minHeight">40dp</item>
         <item name="android:singleLine">true</item>
         <item name="android:textColor">@color/font_white</item>
-        <item name="android:textColorHint">@color/font_log_and_res_hint</item>
+        <item name="android:textColorHint">@color/log_and_res_hint</item>
         <item name="android:shadowRadius">1.0</item>
         <item name="android:shadowDx">0.5</item>
         <item name="android:shadowDy">0.5</item>
@@ -66,7 +66,7 @@
         <item name="android:layout_height">@dimen/space_48</item>
         <item name="android:background">@drawable/btn_selector</item>
         <item name="android:textColor">@color/font_white</item>
-        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
     </style>
     <!-- login activity -->
 
@@ -150,29 +150,34 @@
         <item name="android:backgroundDimEnabled">false</item>
         <!-- 模糊 -->
     </style>
-    
+
     <!-- ProgressBar  style -->
     <style name="myProgressBarStyleLarge">
 
 
 
-　　                                <item name="android:indeterminateDrawable">@drawable/progress_large_shape</item>
+
+　　                                        <item name="android:indeterminateDrawable">@drawable/progress_large_shape</item>
 
 
 
-　　                                <item name="android:minWidth">60dip</item>
+
+　　                                        <item name="android:minWidth">60dip</item>
 
 
 
-　　                                <item name="android:maxWidth">60dip</item>
+
+　　                                        <item name="android:maxWidth">60dip</item>
 
 
 
-　　                                 <item name="android:minHeight">60dip</item>
+
+　　                                         <item name="android:minHeight">60dip</item>
 
 
 
-　　                                 <item name="android:maxHeight">60dip</item>
+
+　　                                         <item name="android:maxHeight">60dip</item>
     </style>
 
 </resources>

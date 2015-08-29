@@ -2,15 +2,18 @@ package com.jianfanjia.cn.fragment;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import android.app.DatePickerDialog;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;

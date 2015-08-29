@@ -22,6 +22,7 @@ import android.graphics.drawable.Drawable;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView.ScaleType;
+
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.Orientation;
@@ -57,6 +58,7 @@ public class RotateLoadingLayout extends LoadingLayout {
 		mRotateAnimation.setRepeatMode(Animation.RESTART);
 	}
 
+	@Override
 	public void onLoadingDrawableSet(Drawable imageDrawable) {
 		if (null != imageDrawable) {
 			mRotationPivotX = Math
@@ -66,6 +68,7 @@ public class RotateLoadingLayout extends LoadingLayout {
 		}
 	}
 
+	@Override
 	protected void onPullImpl(float scaleOfLayout) {
 		float angle;
 		if (mRotateDrawableWhilePulling) {

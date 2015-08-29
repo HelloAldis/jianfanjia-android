@@ -1,6 +1,7 @@
 package com.jianfanjia.cn.fragment;
 
 import android.view.View;
+
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseFragment;
 

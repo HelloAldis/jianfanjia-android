@@ -3,9 +3,9 @@ package com.jianfanjia.cn.fragment;
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import android.app.Activity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,6 +21,7 @@ import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.interf.FragmentListener;
+import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.NetTool;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -121,7 +122,7 @@ public class ReginputVerificationFragment extends BaseFragment {
 						try {
 							if (response.has(Constant.DATA)) {
 								makeTextShort(getString(R.string.login_success));
-								LoginUserBean loginUserBean = jsonParser
+								LoginUserBean loginUserBean = JsonParser
 										.jsonToBean(response.get(Constant.DATA)
 												.toString(),
 												LoginUserBean.class);

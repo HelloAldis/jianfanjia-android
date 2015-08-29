@@ -3,12 +3,12 @@
     android:shape="rectangle" >
 
     <stroke
-        android:width="0.01dp"
-        android:color="@color/font_gray" 
+        android:width="1px"
+        android:color="@color/log_and_res_broder" 
         />
 
-    <solid android:color="@android:color/transparent" />
+    <solid android:color="#14f3f4f6" />
     
-    <corners android:radius="10dp"/>
+    <corners android:radius="10px"/>
 
 </shape>

@@ -16,6 +16,7 @@ import com.jianfanjia.cn.base.BaseActivity;
 public class WelcomeActivity extends BaseActivity {
 	private Handler handler = new Handler();
 
+	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,

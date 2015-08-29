@@ -37,7 +37,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/space_24"
                 android:text="@string/ower"
-                android:textColor="#f2f5f5" />
+                android:textColor="@color/font_reg_color1" />
         </LinearLayout>
 
         <LinearLayout
@@ -58,7 +58,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/space_24"
                 android:text="@string/designer"
-                android:textColor="#f2f5f5" />
+                android:textColor="@color/font_reg_color1" />
         </LinearLayout>
     </RelativeLayout>
 

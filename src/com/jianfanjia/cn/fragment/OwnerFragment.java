@@ -2,9 +2,11 @@ package com.jianfanjia.cn.fragment;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
+
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.MyOwerInfoAdapter;
 import com.jianfanjia.cn.base.BaseFragment;

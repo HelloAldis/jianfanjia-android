@@ -28,6 +28,7 @@ import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.interf.IconPagerAdapter;
 import com.jianfanjia.cn.interf.PageIndicator;

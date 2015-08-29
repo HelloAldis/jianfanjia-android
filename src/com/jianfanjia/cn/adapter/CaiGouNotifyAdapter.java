@@ -4,8 +4,9 @@ import java.util.List;
 import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
-import com.jianfanjia.cn.bean.NotifyCaiGouInfo;
+
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.bean.NotifyCaiGouInfo;
 
 /**
  * @class CaiGouNotifyAdapter
