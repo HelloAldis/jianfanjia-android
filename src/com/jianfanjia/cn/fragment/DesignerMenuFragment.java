@@ -4,7 +4,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
-
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseFragment;
@@ -23,15 +22,15 @@ public class DesignerMenuFragment extends BaseFragment implements
 			.getName();
 	private static final int HOME = 0;
 	private static final int NOTIFY = 1;
-	private static final int OWNER = 2;
-	private static final int OWNERSITE = 3;
+	private static final int MYOWNER = 2;
+	private static final int MYSITE = 3;
 	private static final int SETTING = 4;
 	private static final int HELP = 5;
 	private RadioGroup mTabRg = null;
 	private OwnerSiteManageFragment siteManageFragment = null;
 	private NotifyFragment notifyFragment = null;
 	private OwnerFragment owerFragment = null;
-	private OwnerSiteFragment ownerSiteFragment = null;
+	private DesignerSiteFragment designerSiteFragment = null;
 	private SettingFragment settingFragment = null;
 	private HelpFrgment helpFragment = null;
 
@@ -56,10 +55,10 @@ public class DesignerMenuFragment extends BaseFragment implements
 			setTabSelection(NOTIFY);
 			break;
 		case R.id.tab_rb_3:
-			setTabSelection(OWNER);
+			setTabSelection(MYOWNER);
 			break;
 		case R.id.tab_rb_4:
-			setTabSelection(OWNERSITE);
+			setTabSelection(MYSITE);
 			break;
 		case R.id.tab_rb_5:
 			setTabSelection(SETTING);
@@ -93,7 +92,7 @@ public class DesignerMenuFragment extends BaseFragment implements
 				transaction.add(R.id.slidingpane_content, notifyFragment);
 			}
 			break;
-		case OWNER:
+		case MYOWNER:
 			if (owerFragment != null) {
 				transaction.show(owerFragment);
 			} else {
@@ -101,12 +100,12 @@ public class DesignerMenuFragment extends BaseFragment implements
 				transaction.add(R.id.slidingpane_content, owerFragment);
 			}
 			break;
-		case OWNERSITE:
-			if (ownerSiteFragment != null) {
-				transaction.show(ownerSiteFragment);
+		case MYSITE:
+			if (designerSiteFragment != null) {
+				transaction.show(designerSiteFragment);
 			} else {
-				ownerSiteFragment = new OwnerSiteFragment();
-				transaction.add(R.id.slidingpane_content, ownerSiteFragment);
+				designerSiteFragment = new DesignerSiteFragment();
+				transaction.add(R.id.slidingpane_content, designerSiteFragment);
 			}
 			break;
 		case SETTING:
@@ -142,8 +141,8 @@ public class DesignerMenuFragment extends BaseFragment implements
 		if (owerFragment != null) {
 			ft.hide(owerFragment);
 		}
-		if (ownerSiteFragment != null) {
-			ft.hide(ownerSiteFragment);
+		if (designerSiteFragment != null) {
+			ft.hide(designerSiteFragment);
 		}
 		if (settingFragment != null) {
 			ft.hide(settingFragment);
