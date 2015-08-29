@@ -38,7 +38,6 @@ public class ForgetPswActivity extends BaseActivity implements FragmentListener 
 		fragmentTransaction.add(R.id.forget_psw_content,
 				forgetPswInputPhoneFragment);
 		fragmentTransaction.commit();
-
 	}
 
 	@Override
@@ -55,7 +54,6 @@ public class ForgetPswActivity extends BaseActivity implements FragmentListener 
 		} else {
 			finish();
 		}
-
 	}
 
 	@Override

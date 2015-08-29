@@ -3,7 +3,6 @@ package com.jianfanjia.cn.fragment;
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.app.Activity;
 import android.text.TextUtils;
 import android.view.View;
@@ -11,7 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
@@ -72,8 +70,10 @@ public class ForgetPswInputPhoneFragment extends BaseFragment {
 			mPasswordStr = mPassword.getText().toString().trim();
 			if (checkInput(mUserNameStr, mUserNameStr)) {
 				fragemntListener.onNext();
-				MyApplication.getInstance().getRegisterInfo().setPhone(mUserNameStr);
-				MyApplication.getInstance().getRegisterInfo().setPass(mPasswordStr);
+				MyApplication.getInstance().getRegisterInfo()
+						.setPhone(mUserNameStr);
+				MyApplication.getInstance().getRegisterInfo()
+						.setPass(mPasswordStr);
 				sendVerifyCode(mUserNameStr);
 			}
 			break;
