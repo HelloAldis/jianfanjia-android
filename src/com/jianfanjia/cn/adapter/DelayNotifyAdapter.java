@@ -53,7 +53,7 @@ public class DelayNotifyAdapter extends BaseListAdapter<NotifyDelayInfo> {
 			viewHolder.itemAgressView.setText("已同意");
 		} else {
 			viewHolder.itemAgressView.setTextColor(context.getResources()
-					.getColor(R.color.font_red));
+					.getColor(R.color.main_color_red));
 			viewHolder.itemAgressView.setText("已拒绝");
 		}
 		return convertView;
