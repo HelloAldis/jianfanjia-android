@@ -7,6 +7,7 @@
     <string name="designer">设计师</string>
     <string name="ower">业主</string>
     <string name="updated">更新于:</string>
+    <string name="jianfanjia_net">http://www.jianfanjia.com</string>
     <!-- main activity -->
     <string name="main_tab_name_darly">日记</string>
     <string name="main_tab_name_site">工地</string>
@@ -78,10 +79,10 @@
     <string name="my_site_housesize_example">110㎡</string>
     <string name="my_site_lovestyle">风格喜好</string>
     <string name="my_site_lovestyle_example">现代简约</string>
-    <string name="my_site_decorationstyle">装修类型</string>
-    <string name="my_site_decorationstyle_example">半包</string>
-    <string name="my_site_decorationbudget">装修预算</string>
-    <string name="my_site_decorationbudget_example">20w</string>
+    <string name="my_site_decoratestyle">装修类型</string>
+    <string name="my_site_decoratestyle_example">半包</string>
+    <string name="my_site_decoratebudget">装修预算</string>
+    <string name="my_site_decoratebudget_example">20w</string>
     <string name="my_site_startdate">开工日期</string>
     <string name="my_site_startdate_example">2015-8-17</string>
     <string name="my_site_totaldate">总工期</string>
@@ -107,6 +108,7 @@
     <string name="my_tip">我的提醒</string>
     <string name="my_help">帮助</string>
     <string name="my_ower">我的业主</string>
+    <string name="owner_detail">业主详情</string>
     <string name="my_site">我的工地</string>
     <string name="my_example_name">Jeff</string>
     <string name="my_example_account">账号：12244444</string>
@@ -135,6 +137,20 @@
     <!-- activity_upload_pic -->
 
 
+    <!-- activity owner detail -->
+    <string name="owner_detail_city">所在城市：</string>
+    <string name="owner_detail_site">工地地址：</string>
+    <string name="owner_detail_housestyle">装修户型：</string>
+    <string name="owner_detail_decoratearea">装修面积：</string>
+    <string name="owner_detail_lovestyle">风格喜好：</string>
+    <string name="owner_detail_decoratestyle">装修类型：</string>
+    <string name="owner_detail_decoratebudget">装修预算：</string>
+    <string name="owner_detail_startdate">开工日期：</string>
+    <string name="owner_detail_totaldate">总工期：</string>
+
+    <!-- activity owner detail -->
+
+
     <!-- activity_about -->
     <string name="about">关于我们</string>
     <string name="about_my">关于简繁家</string>
@@ -143,8 +159,5 @@
     <string name="company">武汉家易装科技有限公司</string>
     <string name="compant_net">Copyright © 2015-2025 jianfanjia.com</string>
     <!-- activity_about -->
-
-
-    <!-- site procedure -->
 
 </resources>

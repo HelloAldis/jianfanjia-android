@@ -10,7 +10,7 @@ import java.io.Serializable;
  * @date 2015-8-26 下午19:33
  * 
  */
-public class MyOwerInfo implements Serializable {
+public class MyOwnerInfo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String imageUrl;// 业主头像

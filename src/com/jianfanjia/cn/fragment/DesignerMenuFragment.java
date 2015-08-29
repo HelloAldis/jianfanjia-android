@@ -29,7 +29,7 @@ public class DesignerMenuFragment extends BaseFragment implements
 	private RadioGroup mTabRg = null;
 	private OwnerSiteManageFragment siteManageFragment = null;
 	private NotifyFragment notifyFragment = null;
-	private OwerFragment owerFragment = null;
+	private OwnerFragment owerFragment = null;
 	private OwnerSiteFragment ownerSiteFragment = null;
 	private SettingFragment settingFragment = null;
 	private HelpFrgment helpFragment = null;
@@ -96,7 +96,7 @@ public class DesignerMenuFragment extends BaseFragment implements
 			if (owerFragment != null) {
 				transaction.show(owerFragment);
 			} else {
-				owerFragment = new OwerFragment();
+				owerFragment = new OwnerFragment();
 				transaction.add(R.id.slidingpane_content, owerFragment);
 			}
 			break;

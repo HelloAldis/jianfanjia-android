@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.bean.MyOwerInfo;
+import com.jianfanjia.cn.bean.MyOwnerInfo;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
@@ -17,16 +17,16 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  * @date 2015-8-26 15:57
  * @param <NotifyCaiGouInfo>
  */
-public class MyOwerInfoAdapter extends BaseListAdapter<MyOwerInfo> {
+public class MyOwerInfoAdapter extends BaseListAdapter<MyOwnerInfo> {
 
-	public MyOwerInfoAdapter(Context context, List<MyOwerInfo> caigouList) {
+	public MyOwerInfoAdapter(Context context, List<MyOwnerInfo> caigouList) {
 		super(context, caigouList);
 	}
 
 	@Override
 	public View initView(int position, View convertView) {
 		ViewHolder viewHolder = null;
-		MyOwerInfo myOwerInfo = list.get(position);
+		MyOwnerInfo myOwerInfo = list.get(position);
 		if (convertView == null) {
 			convertView = layoutInflater.inflate(
 					R.layout.list_item_designer_ower, null);
