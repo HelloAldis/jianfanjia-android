@@ -1,4 +1,4 @@
-package com.jianfanjia.cn.view;
+package com.jianfanjia.cn.view.dialog;
 
 import android.app.ProgressDialog;
 import android.content.Context;

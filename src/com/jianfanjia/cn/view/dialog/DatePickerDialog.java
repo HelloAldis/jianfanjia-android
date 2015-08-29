@@ -2,7 +2,6 @@ package com.jianfanjia.cn.view.dialog;
 
 import android.content.Context;
 import android.os.Bundle;
-
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.view.MyDialog;
 
@@ -16,16 +15,16 @@ public class DatePickerDialog extends MyDialog {
 		super(context, theme);
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.date_pick_dialog);
 		initView();
 	}
 
 	private void initView() {
+
 	}
 
 }

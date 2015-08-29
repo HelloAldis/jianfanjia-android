@@ -51,6 +51,7 @@
     <dimen name="text_size_7">7.0sp</dimen>
 
     <!-- common space -->
+    <dimen name="space_150">150.0dip</dimen>
     <dimen name="space_100">100.0dip</dimen>
     <dimen name="space_60">60dp</dimen>
     <dimen name="space_49">49dip</dimen>

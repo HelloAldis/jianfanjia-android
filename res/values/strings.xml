@@ -21,6 +21,7 @@
     <string name="enter">欢迎使用</string>
     <string name="loging">正在登录中</string>
     <string name="loding">正在加载中</string>
+    <string name="comfirm">确认</string>
     <string name="hint_username">请输入手机号码</string>
     <string name="hint_password">请输入密码</string>
     <string name="forget_pwd">忘记密码</string>
