@@ -137,7 +137,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		setData();
 		sectionItemAdapter.setSectionItemInfos(sectionItemInfos);
 		sectionItemAdapter.notifyDataSetChanged();
-		for(int i = 0; i < pro.length; i++){
+		for (int i = 0; i < pro.length; i++) {
 			View siteHead = list.get(i);
 			initItem(siteHead, i);
 		}
@@ -162,8 +162,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 			initItem(siteHead, i);
 			list.add(siteHead);
 		}
-		myViewPageAdapter = new MyViewPageAdapter(getActivity(),
-				list);
+		myViewPageAdapter = new MyViewPageAdapter(getActivity(), list);
 		viewPager.setAdapter(myViewPageAdapter);
 		viewPager.setOnPageChangeListener(new OnPageChangeListener() {
 			@Override
@@ -180,13 +179,19 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 
 			@Override
 			public void onPageSelected(int arg0) {
-
+				if (currentPro != arg0) {
+					currentPro = arg0;
+					sectionInfo = sectionInfos.get(currentPro);
+					sectionItemInfos = sectionInfo.getItems();
+					sectionItemAdapter.setSectionItemInfos(sectionItemInfos);
+					sectionItemAdapter.notifyDataSetChanged();
+				}
 			}
 		});
 	}
 
 	private void initItem(View siteHead, int position) {
-		Log.i(TAG, "initItem"+position);
+		Log.i(TAG, "initItem" + position);
 		View lineView = siteHead.findViewById(R.id.lineView);
 		if (position == 0) {
 			lineView.setVisibility(View.INVISIBLE);
@@ -197,12 +202,18 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		TextView proDate = (TextView) siteHead
 				.findViewById(R.id.site_head_procedure_date);
 		if (sectionInfos != null) {
-			proDate.setText(DateFormatTool.covertLongToString(sectionInfos.get(position).getStart_at(),"M.dd")+"-"+
-					DateFormatTool.covertLongToString(sectionInfos.get(position).getEnd_at(),"M.dd"));
+			proDate.setText(DateFormatTool.covertLongToString(
+					sectionInfos.get(position).getStart_at(), "M.dd")
+					+ "-"
+					+ DateFormatTool.covertLongToString(
+							sectionInfos.get(position).getEnd_at(), "M.dd"));
 		}
 		ImageView icon = (ImageView) siteHead
 				.findViewById(R.id.site_head_procedure_icon);
-		icon.setImageResource(getResources().getIdentifier("icon_home_normal"+ (position + 1),"drawable",MyApplication.getInstance().getPackageName()));
+		icon.setImageResource(getResources().getIdentifier(
+				"icon_home_normal" + (position + 1), "drawable",
+				MyApplication.getInstance().getPackageName()));
+
 	}
 
 	private void initListView(View view,
