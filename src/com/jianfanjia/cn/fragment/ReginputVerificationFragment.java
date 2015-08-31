@@ -35,7 +35,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
  */
 public class ReginputVerificationFragment extends BaseFragment {
 	private static final String TAG = ReginputVerificationFragment.class
-			.getClass().getName();
+			.getName();
 	private FragmentListener fragemntListener = null;
 	private Button nextView = null;// 下一步
 	private TextView backView = null;// 返回
@@ -77,7 +77,8 @@ public class ReginputVerificationFragment extends BaseFragment {
 			String verif = mEdVerif.getText().toString().trim();
 			if (checkInput(verif)) {
 				MyApplication.getInstance().getRegisterInfo().setCode(verif);
-				makeTextLong(MyApplication.getInstance().getRegisterInfo().toString());
+				makeTextLong(MyApplication.getInstance().getRegisterInfo()
+						.toString());
 				register(MyApplication.getInstance().getRegisterInfo());
 			}
 			break;
@@ -126,10 +127,11 @@ public class ReginputVerificationFragment extends BaseFragment {
 										.jsonToBean(response.get(Constant.DATA)
 												.toString(),
 												LoginUserBean.class);
-								MyApplication.getInstance().saveLoginUserInfo(loginUserBean);
+								MyApplication.getInstance().saveLoginUserInfo(
+										loginUserBean);
 								startActivity(MainActivity.class);
 								getActivity().finish();
-							}else if (response.has(Constant.ERROR_MSG)) {
+							} else if (response.has(Constant.ERROR_MSG)) {
 								makeTextLong(response.get(Constant.ERROR_MSG)
 										.toString());
 							}

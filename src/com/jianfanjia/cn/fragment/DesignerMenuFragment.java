@@ -18,8 +18,7 @@ import com.jianfanjia.cn.base.BaseFragment;
  */
 public class DesignerMenuFragment extends BaseFragment implements
 		OnCheckedChangeListener {
-	private static final String TAG = DesignerMenuFragment.class.getClass()
-			.getName();
+	private static final String TAG = DesignerMenuFragment.class.getName();
 	private static final int HOME = 0;
 	private static final int NOTIFY = 1;
 	private static final int MYOWNER = 2;

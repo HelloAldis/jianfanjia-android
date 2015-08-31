@@ -34,7 +34,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
  * 
  */
 public class OwnerSiteFragment extends BaseFragment {
-	private static final String TAG = "OwnerSiteFragment";
+	private static final String TAG = OwnerSiteFragment.class.getName();
 	private SiteInfo siteInfo;// 工地信息类
 	private RequirementInfo requirementInfo;// 实体信息类
 	private DatePickerDialog datePickerDialog;// 时间选择对话框

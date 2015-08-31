@@ -21,7 +21,7 @@ import com.jianfanjia.cn.view.TabPageIndicator;
  * 
  */
 public class NotifyFragment extends BaseFragment {
-	private static final String TAG = NotifyFragment.class.getClass().getName();
+	private static final String TAG = NotifyFragment.class.getName();
 	private TabPageIndicator mPageIndicator = null;
 	private MyFragmentPagerAdapter adapter = null;
 	private ViewPager mPager = null;// Ò³¿¨ÄÚÈÝ

@@ -31,7 +31,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
  * 
  */
 public class LoginActivity extends BaseActivity implements OnClickListener {
-	private static final String TAG = LoginActivity.class.getClass().getName();
+	private static final String TAG = LoginActivity.class.getName();
 	private CustomProgressDialog progressDialog = null;
 	private EditText mEtUserName;// 用户名输入框
 	private EditText mEtPassword;// 用户密码输入框

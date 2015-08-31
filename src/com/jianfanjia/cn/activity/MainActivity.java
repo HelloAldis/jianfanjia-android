@@ -26,7 +26,7 @@ import com.jianfanjia.cn.view.PagerEnabledSlidingPaneLayout;
  * 
  */
 public class MainActivity extends BaseActivity implements PanelSlideListener {
-	private static final String TAG = MainActivity.class.getClass().getName();
+	private static final String TAG = MainActivity.class.getName();
 	private PagerEnabledSlidingPaneLayout slidingPaneLayout = null;
 	private FrameLayout slidingpane_content = null;
 	private String userIdentity = null;
@@ -88,7 +88,7 @@ public class MainActivity extends BaseActivity implements PanelSlideListener {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		Log.d(this.getClass().getName(), "---onDestroy()");
+		Log.d(TAG, "---onDestroy()");
 		// PushManager.getInstance().stopService(getApplicationContext());//
 		// 完全终止SDK的服务
 	}

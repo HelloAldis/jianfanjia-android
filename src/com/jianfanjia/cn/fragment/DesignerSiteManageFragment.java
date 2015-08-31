@@ -39,7 +39,7 @@ import com.jianfanjia.cn.view.ScrollLayout;
  */
 public class DesignerSiteManageFragment extends BaseFragment {
 	private static final String TAG = DesignerSiteManageFragment.class
-			.getClass().getName();
+			.getName();
 	private PullToRefreshScrollView mPullRefreshScrollView = null;
 	private ScrollView mScrollView = null;
 	private ArrayList<ProcedureInfo> procedureList;
@@ -64,8 +64,6 @@ public class DesignerSiteManageFragment extends BaseFragment {
 		procedureList = site.getProcedures();
 		size = procedureList.size();
 		pro = getResources().getStringArray(R.array.site_procedure);
-		Log.i(this.getClass().getName(), "pro ="
-				+ procedureList.get(currentPro).getNodeList().size());
 		Log.i(TAG, "pro =" + procedureList.get(currentPro).getNodeList().size());
 	}
 

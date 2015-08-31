@@ -20,8 +20,7 @@ import com.jianfanjia.cn.interf.FragmentListener;
  * 
  */
 public class RegisterActivity extends BaseActivity implements FragmentListener {
-	private static final String TAG = RegisterActivity.class.getClass()
-			.getName();
+	private static final String TAG = RegisterActivity.class.getName();
 	private RegChooseRoleFragment regChooseRoleFragment;
 	private RegInputPhoneFragment regInputPhoneFragment;
 	private ReginputVerificationFragment reginputVerificationFragment;

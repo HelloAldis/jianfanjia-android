@@ -18,7 +18,6 @@ import com.jianfanjia.cn.bean.NotifyPayInfo;
  * 
  */
 public class FuKuanNotifyFragment extends BaseFragment {
-
 	private ListView listView;
 	private List<NotifyPayInfo> payList = new ArrayList<NotifyPayInfo>();
 	private NotifyPayInfo payInfo = null;

@@ -40,8 +40,7 @@ import com.jianfanjia.cn.view.ScrollLayout;
  * 
  */
 public class OwnerSiteManageFragment extends BaseFragment {
-	private static final String TAG = OwnerSiteManageFragment.class.getClass()
-			.getName();
+	private static final String TAG = OwnerSiteManageFragment.class.getName();
 	private PullToRefreshScrollView mPullRefreshScrollView = null;
 	private ScrollView mScrollView = null;
 	private ArrayList<ProcedureInfo> procedureList;
