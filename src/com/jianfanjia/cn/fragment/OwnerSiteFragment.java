@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
+import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.bean.SiteInfo;
 import com.jianfanjia.cn.config.Constant;
@@ -34,7 +35,8 @@ import com.loopj.android.http.JsonHttpResponseHandler;
  * 
  */
 public class OwnerSiteFragment extends BaseFragment {
-	private static final String TAG = OwnerSiteFragment.class.getName();
+	private static final String TAG = "OwnerSiteFragment";
+	private ProcessInfo processInfo;// 工地信息类
 	private SiteInfo siteInfo;// 工地信息类
 	private RequirementInfo requirementInfo;// 实体信息类
 	private DatePickerDialog datePickerDialog;// 时间选择对话框
@@ -77,8 +79,9 @@ public class OwnerSiteFragment extends BaseFragment {
 				.findViewById(R.id.my_startdate_layout);
 		totalDateLayout = (RelativeLayout) view
 				.findViewById(R.id.my_totaldate_layout);
-		siteInfo = MyApplication.getInstance().getSiteInfo();
-		if (siteInfo == null) {
+		
+		processInfo = MyApplication.getInstance().getProcessInfo();
+		if (processInfo == null) {
 			getRequirement();
 		} else {
 			initData();
@@ -87,7 +90,7 @@ public class OwnerSiteFragment extends BaseFragment {
 
 	private void getSiteInfo() {
 		makeTextLong(JsonParser.beanToJson(requirementInfo));
-		JianFanJiaApiClient.post_Requiremeng(getApplication(), requirementInfo,
+		JianFanJiaApiClient.post_Owner_Process(getApplication(), requirementInfo,
 				new JsonHttpResponseHandler() {
 					@Override
 					public void onStart() {
@@ -241,10 +244,10 @@ public class OwnerSiteFragment extends BaseFragment {
 			Calendar calendar1 = Calendar.getInstance();
 			calendar1.set(arg1, arg2, arg3);
 			SimpleDateFormat simpleDateFormat = new SimpleDateFormat(
-					"yyyy-MM-dd HH:mm:ss");
+					"yyyy-MM-dd");
 			String date = simpleDateFormat.format(calendar1.getTime());
 			startDateView.setText(date);
-			requirementInfo.setTotal_price("60");
+			requirementInfo.setDuration("60");
 			requirementInfo.setStart_at(calendar1.getTimeInMillis());
 			getSiteInfo();
 		}

@@ -2,12 +2,16 @@ package com.jianfanjia.cn.fragment;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.http.Header;
+import org.json.JSONException;
+import org.json.JSONObject;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -18,16 +22,25 @@ import android.widget.TextView;
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.MyViewPageAdapter;
-import com.jianfanjia.cn.adapter.NoteListAdapter;
+import com.jianfanjia.cn.adapter.SectionItemAdapter;
+import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.ProcedureInfo;
+import com.jianfanjia.cn.bean.ProcessInfo;
+import com.jianfanjia.cn.bean.RequirementInfo;
+import com.jianfanjia.cn.bean.SectionInfo;
+import com.jianfanjia.cn.bean.SectionItemInfo;
 import com.jianfanjia.cn.bean.SiteInfo;
+import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshScrollView;
+import com.jianfanjia.cn.tools.JsonParser;
+import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.ScrollLayout;
+import com.loopj.android.http.JsonHttpResponseHandler;
 
 /**
  * 
@@ -42,15 +55,15 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	private static final String TAG = OwnerSiteManageFragment.class.getName();
 	private PullToRefreshScrollView mPullRefreshScrollView = null;
 	private ScrollView mScrollView = null;
-	private ArrayList<ProcedureInfo> procedureList;
-	private SiteInfo site;
-	private int currentPro;
-	private LayoutInflater mLayoutInflater;
+	private ArrayList<SectionInfo> sectionInfos;
+	private ArrayList<SectionItemInfo> sectionItemInfos;
+	private SectionInfo sectionInfo;
+	private ProcessInfo processInfo;
+	private int currentPro = 2;
 	private ViewPager viewPager;
 	private ImageView icon_user_head = null;
 	private ListView detailNodeListView;
-	private NoteListAdapter mNoteListAdapter;
-	private ScrollLayout scrollLayout;
+	private SectionItemAdapter sectionItemAdapter;
 	private String[] pro = null;
 	private int size;
 	private List<View> list = new ArrayList<View>();
@@ -58,16 +71,78 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		site = JianFanJiaApiClient.getAllSites(getActivity(), "18107218595",
-				"1").get(0);// 默认拿到第一个工地
-		currentPro = site.getCurrentPro();
-		procedureList = site.getProcedures();
-		size = procedureList.size();
+		if(MyApplication.getInstance().getProcessInfo() == null){
+			getOwnerProcess();
+		}else{
+			initData();
+		}
 		pro = getResources().getStringArray(R.array.site_procedure);
-		Log.i(this.getClass().getName(), "pro ="
-				+ procedureList.get(currentPro).getNodeList().size());
-		Log.i(TAG, "pro =" + procedureList.get(currentPro).getNodeList().size());
 	}
+	
+	private void getOwnerProcess() {
+		JianFanJiaApiClient.get_Owner_Process(getApplication(),
+				new JsonHttpResponseHandler() {
+					@Override
+					public void onStart() {
+						LogTool.d(TAG, "onStart()");
+					}
+
+					@Override
+					public void onSuccess(int statusCode, Header[] headers,
+							JSONObject response) {
+						makeTextLong("getProcessInfo");
+						try {
+							if (response.has(Constant.DATA)) {
+								processInfo = JsonParser.jsonToBean(
+										response.get(Constant.DATA).toString(),
+										ProcessInfo.class);
+								MyApplication.getInstance().setProcessInfo(processInfo);
+								handlerSuccess();
+								makeTextLong(response.toString());
+							} else if (response.has(Constant.ERROR_MSG)) {
+								makeTextLong(response.get(Constant.ERROR_MSG)
+										.toString());
+							}
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+							makeTextLong(getString(R.string.tip_login_error_for_network));
+						}
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							Throwable throwable, JSONObject errorResponse) {
+						LogTool.d(TAG,
+								"Throwable throwable:" + throwable.toString());
+						makeTextLong(getString(R.string.tip_login_error_for_network));
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							String responseString, Throwable throwable) {
+						LogTool.d(TAG, "throwable:" + throwable);
+						makeTextLong(getString(R.string.tip_login_error_for_network));
+					};
+				});
+	}
+	
+	private void initData(){
+		processInfo = MyApplication.getInstance().getProcessInfo();
+		if(processInfo != null){
+			sectionInfos = processInfo.getSections();
+			sectionInfo= sectionInfos.get(currentPro);
+			sectionItemInfos = sectionInfo.getItems();
+		}
+
+	}
+
+	private void handlerSuccess() {
+		initData();
+		sectionItemAdapter.setSectionItemInfos(sectionItemInfos);
+		sectionItemAdapter.notifyDataSetChanged();
+	}
+
 
 	@Override
 	public void initView(View view) {
@@ -77,19 +152,14 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		mScrollView = mPullRefreshScrollView.getRefreshableView();
 		icon_user_head = (ImageView) view.findViewById(R.id.icon_user_head);
 		initScrollLayout(view);
-		initListView(view, procedureList.get(currentPro));
+		initListView(view, sectionItemInfos);
 	}
 
 	private void initScrollLayout(View view) {
 		viewPager = (ViewPager) view.findViewById(R.id.viewPager);
-		// scrollLayout = (ScrollLayout) view
-		// .findViewById(R.id.site_scroller_layout);
-		LayoutParams lp = new LayoutParams(LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT);
 		for (int i = 0; i < pro.length; i++) {
 			View siteHead = inflater.inflate(R.layout.site_head_item, null);
 			initItem(siteHead, i);
-			// scrollLayout.addView(siteHead, lp);
 			list.add(siteHead);
 		}
 		MyViewPageAdapter pageAdapter = new MyViewPageAdapter(getActivity(),
@@ -113,19 +183,6 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 
 			}
 		});
-		//
-		// scrollLayout = (ScrollLayout) view
-		// .findViewById(R.id.site_scroller_layout);
-		// scrollLayout.setmCurScreen(currentPro);
-		// scrollLayout.SetOnViewChangeListener(new OnViewChangeListener() {
-		//
-		// @Override
-		// public void OnViewChange(int view) {
-		// mNoteListAdapter.setProcedureInfo(procedureList.get(view));
-		// mNoteListAdapter.notifyDataSetChanged();
-		// }
-		// });
-		initListView(view, procedureList.get(currentPro));
 	}
 
 	private void initItem(View siteHead, int position) {
@@ -138,25 +195,25 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		proName.setText(pro[position]);
 		TextView proDate = (TextView) siteHead
 				.findViewById(R.id.site_head_procedure_date);
-		proDate.setText(procedureList.get(position >= size ? 0 : position)
-				.getDate());
+//		proDate.setText(sectionInfos.get(position >= size ? 0 : position)
+//				.getStart_at()+"");
 		ImageView icon = (ImageView) siteHead
 				.findViewById(R.id.site_head_procedure_icon);
 	}
 
-	private void initListView(View view, ProcedureInfo procedure) {
+	private void initListView(View view, ArrayList<SectionItemInfo> sectionItemInfos) {
 		detailNodeListView = (ListView) view.findViewById(R.id.site__listview);
-		initCheck(detailNodeListView, procedure);
-		mNoteListAdapter = new NoteListAdapter(procedure, getActivity());
-		detailNodeListView.setAdapter(mNoteListAdapter);
+//		initCheck(detailNodeListView, sectionInfo);
+		sectionItemAdapter = new SectionItemAdapter(getActivity(),sectionItemInfos);
+		detailNodeListView.setAdapter(sectionItemAdapter);
 		detailNodeListView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				View lastClickItem = parent.getChildAt(mNoteListAdapter
+				View lastClickItem = parent.getChildAt(sectionItemAdapter
 						.getLastClickItem());
-				if (position != mNoteListAdapter.getLastClickItem()) {
+				if (position != sectionItemAdapter.getLastClickItem()) {
 					lastClickItem.findViewById(
 							R.id.site_listview_item_content_expand)
 							.setVisibility(View.GONE);
@@ -167,7 +224,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 							.setVisibility(View.VISIBLE);
 					view.findViewById(R.id.site_listview_item_content_small)
 							.setVisibility(View.GONE);
-					mNoteListAdapter.setLastClickItem(position);
+					sectionItemAdapter.setLastClickItem(position);
 				} else {
 					int visible = view.findViewById(
 							R.id.site_listview_item_content_expand)
@@ -188,7 +245,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 				}
 			}
 		});
-
+		
 	}
 
 	@Override
@@ -226,7 +283,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		TextView headDate;
 	}
 
-	// 设置工序验收
+	/*// 设置工序验收
 	private void initCheck(ListView detailNodeListView, ProcedureInfo procedure) {
 		if (procedure.isProIsRequestCheck()) {
 			View view = mLayoutInflater.inflate(R.layout.site_listview_head,
@@ -239,7 +296,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 			closeCheckNode.setText(procedure.getName() + "阶段验收");
 			detailNodeListView.addHeaderView(view);
 		}
-	}
+	}*/
 
 	/*
 	 * private void setHead(final int position,View view,ProcedureInfo

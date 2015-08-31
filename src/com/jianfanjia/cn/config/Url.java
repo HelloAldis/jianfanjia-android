@@ -35,7 +35,17 @@ public class Url {
 	public static final String GET_DESIGNER_INFO = "designer/info";
 	// 获取设计师的业主
 	public static final String GET_DESIGNER_OWNER = "designer/user";
-	// 获取设计师的工地列表
-	public static final String GET_DESIGNER_PROCESS = "designer/process/list";
-
+	//获取设计师的工地列表
+	public static final String GET_DESIGNER_PROCESS ="designer/process/list";
+	
+	
+	//上传图片到装修流程
+	public static final String POST_PROCESS_IMAGE = "process/image";
+	//评价装修流程
+	public static final String POST_PROCESS_COMMENT ="process/comment";
+	
+	//获取图片
+	public static final String GET_IMAGE ="image/";
+	
+	
 }

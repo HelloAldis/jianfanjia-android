@@ -1,5 +1,7 @@
 package com.jianfanjia.cn.bean;
 
+import java.util.ArrayList;
+
 /**
  * @class ProcessInfo
  * @Decription 此类是工地信息类
@@ -14,22 +16,40 @@ public class ProcessInfo extends RequirementInfo {
 
 	private String userid;
 
-	private String final_designerid;
-
 	private String going_on;
 
-	private Object jun_gong;
+	private ArrayList<SectionInfo> sections;
 
-	private Object an_zhuang;
+	public String get_id() {
+		return _id;
+	}
 
-	private Object yan_qi;
+	public void set_id(String _id) {
+		this._id = _id;
+	}
 
-	private Object ni_mu;
+	public String getUserid() {
+		return userid;
+	}
 
-	private Object shui_dian;
+	public void setUserid(String userid) {
+		this.userid = userid;
+	}
 
-	private Object cai_gai;
+	public String getGoing_on() {
+		return going_on;
+	}
 
-	private Object kai_gong;
+	public void setGoing_on(String going_on) {
+		this.going_on = going_on;
+	}
 
+	public ArrayList<SectionInfo> getSections() {
+		return sections;
+	}
+
+	public void setSections(ArrayList<SectionInfo> sections) {
+		this.sections = sections;
+	}
+	
 }

@@ -86,11 +86,12 @@ public class JianFanJiaApiClient {
 	
 	/**
 	 * @author zhanghao
+	 * @decription 业主配置工地
 	 * @param context
 	 * @param requirementInfo
 	 * @param handler
 	 */
-	public static void post_Requiremeng(Context context,RequirementInfo requirementInfo,AsyncHttpResponseHandler handler){
+	public static void post_Owner_Process(Context context,RequirementInfo requirementInfo,AsyncHttpResponseHandler handler){
 		StringEntity entity;
 		try {
 			entity = new StringEntity(JsonParser.beanToJson(requirementInfo));
@@ -137,7 +138,74 @@ public class JianFanJiaApiClient {
 			e.printStackTrace();
 		}
 	}
-
+	
+	/**
+	 * @author zhanghao
+	 * @description 业主获取个人信息 
+	 * @param context
+	 * @param hanlder
+	 */
+	public static void get_Owner_Info(Context context,
+			AsyncHttpResponseHandler hanlder){
+		HttpRestClient.get(context, Url.GET_OWER_INFO, hanlder);
+	}
+	
+	/**
+	 * @author zhanghao
+	 * @description 设计师获取个人信息 
+	 * @param context
+	 * @param hanlder
+	 */
+	public static void get_Designer_Info(Context context,
+			AsyncHttpResponseHandler hanlder){
+		HttpRestClient.get(context, Url.GET_DESIGNER_INFO, hanlder);
+	}
+	
+	/**
+	 * @author zhanghao
+	 * @description 业主获取我的设计师
+	 * @param context
+	 * @param hanlder
+	 */
+	public static void get_Owner_Designer(Context context,
+			AsyncHttpResponseHandler hanlder){
+		HttpRestClient.get(context, Url.GET_OWER_DESIGNER, hanlder);
+	}
+	
+	/**
+	 * @author zhanghao
+	 * @description 设计师获取我的业主
+	 * @param context
+	 * @param hanlder
+	 */
+	public static void get_Designer_Owner(Context context,
+			AsyncHttpResponseHandler hanlder){
+		HttpRestClient.get(context, Url.GET_DESIGNER_OWNER, hanlder);
+	}
+	
+	/**
+	 * @author zhanghao
+	 * @description 设计师获取我的工地
+	 * @param context
+	 * @param hanlder
+	 */
+	public static void get_Designer_Process_List(Context context,
+			AsyncHttpResponseHandler hanlder){
+		HttpRestClient.get(context, Url.GET_DESIGNER_PROCESS, hanlder);
+	}
+	
+	/**
+	 * @author zhanghao
+	 * @description 业主获取我的工地
+	 * @param context
+	 * @param hanlder
+	 */
+	public static void get_Owner_Process(Context context,
+			AsyncHttpResponseHandler hanlder){
+		HttpRestClient.get(context, Url.PROCESS, hanlder);
+	}
+	
+	
 	// 拿到所有的模拟工地数据
 	public static ArrayList<SiteInfo> getAllSites(Context context) {
 		ArrayList<SiteInfo> allSites = null;
