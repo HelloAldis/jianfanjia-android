@@ -132,7 +132,7 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 		}
 		viewHolder.bigOpenLayout.setVisibility(View.GONE);
 		viewHolder.smallcloseLayout.setVisibility(View.VISIBLE);
-		viewHolder.smallcloseLayout.startAnimation(animation);
+//		viewHolder.smallcloseLayout.startAnimation(animation);
 		viewHolder.openComment.setOnClickListener(new OnClickListener() {
 
 			@Override

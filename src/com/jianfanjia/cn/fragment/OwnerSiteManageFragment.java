@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -30,6 +31,7 @@ import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshScrollView;
+import com.jianfanjia.cn.tools.DateFormatTool;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -56,6 +58,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	private ImageView icon_user_head = null;
 	private ListView detailNodeListView;
 	private SectionItemAdapter sectionItemAdapter;
+	private MyViewPageAdapter myViewPageAdapter;
 	private String[] pro = null;
 	private int size;
 	private List<View> list = new ArrayList<View>();
@@ -92,7 +95,6 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 								MyApplication.getInstance().setProcessInfo(
 										processInfo);
 								handlerSuccess();
-								makeTextLong(response.toString());
 							} else if (response.has(Constant.ERROR_MSG)) {
 								makeTextLong(response.get(Constant.ERROR_MSG)
 										.toString());
@@ -129,13 +131,17 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 			sectionInfo = sectionInfos.get(currentPro);
 			sectionItemInfos = sectionInfo.getItems();
 		}
-
 	}
 
 	private void handlerSuccess() {
 		setData();
 		sectionItemAdapter.setSectionItemInfos(sectionItemInfos);
 		sectionItemAdapter.notifyDataSetChanged();
+		for(int i = 0; i < pro.length; i++){
+			View siteHead = list.get(i);
+			initItem(siteHead, i);
+		}
+		myViewPageAdapter.notifyDataSetChanged();
 	}
 
 	@Override
@@ -156,9 +162,9 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 			initItem(siteHead, i);
 			list.add(siteHead);
 		}
-		MyViewPageAdapter pageAdapter = new MyViewPageAdapter(getActivity(),
+		myViewPageAdapter = new MyViewPageAdapter(getActivity(),
 				list);
-		viewPager.setAdapter(pageAdapter);
+		viewPager.setAdapter(myViewPageAdapter);
 		viewPager.setOnPageChangeListener(new OnPageChangeListener() {
 			@Override
 			public void onPageScrollStateChanged(int arg0) {
@@ -180,7 +186,8 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	}
 
 	private void initItem(View siteHead, int position) {
-		View lineView = (View) siteHead.findViewById(R.id.lineView);
+		Log.i(TAG, "initItem"+position);
+		View lineView = siteHead.findViewById(R.id.lineView);
 		if (position == 0) {
 			lineView.setVisibility(View.INVISIBLE);
 		}
@@ -189,10 +196,13 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		proName.setText(pro[position]);
 		TextView proDate = (TextView) siteHead
 				.findViewById(R.id.site_head_procedure_date);
-		// proDate.setText(sectionInfos.get(position >= size ? 0 : position)
-		// .getStart_at()+"");
+		if (sectionInfos != null) {
+			proDate.setText(DateFormatTool.covertLongToString(sectionInfos.get(position).getStart_at(),"M.dd")+"-"+
+					DateFormatTool.covertLongToString(sectionInfos.get(position).getEnd_at(),"M.dd"));
+		}
 		ImageView icon = (ImageView) siteHead
 				.findViewById(R.id.site_head_procedure_icon);
+		icon.setImageResource(getResources().getIdentifier("icon_home_normal"+ (position + 1),"drawable",MyApplication.getInstance().getPackageName()));
 	}
 
 	private void initListView(View view,

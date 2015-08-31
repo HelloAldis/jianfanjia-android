@@ -1,15 +1,11 @@
 package com.jianfanjia.cn.fragment;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.DatePickerDialog;
-import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.ImageView;
@@ -179,8 +175,8 @@ public class OwnerSiteFragment extends BaseFragment {
 			decorateBudgetView.setText(processInfo.getTotal_price());
 			startDateView.setText(DateFormatTool.covertLongToString(processInfo.getStart_at(), "yyyy-MM-dd"));
 			totalDateView.setText(processInfo.getDuration());
-			startDateView.setEnabled(false);
-			totalDateView.setEnabled(false);
+			startDateLayout.setEnabled(false);
+			totalDateLayout.setEnabled(false);
 		}
 	}
 

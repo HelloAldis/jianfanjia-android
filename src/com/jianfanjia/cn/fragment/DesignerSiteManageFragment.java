@@ -9,8 +9,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ScrollView;
@@ -129,7 +127,7 @@ public class DesignerSiteManageFragment extends BaseFragment implements
 	}
 
 	private void initItem(View siteHead, int position) {
-		View lineView = (View) siteHead.findViewById(R.id.lineView);
+		View lineView = siteHead.findViewById(R.id.lineView);
 		if (position == 0) {
 			lineView.setVisibility(View.INVISIBLE);
 		}
