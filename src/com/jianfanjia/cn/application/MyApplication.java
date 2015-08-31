@@ -93,7 +93,7 @@ public class MyApplication extends BaseApplication {
 	/**
 	 * @description 根据name,拿到当前的进行工序的位置
 	 * @param name
-	 * @return 默认返回0，第一个工序
+	 * @return 默认返回0，当前工序为第一个工序
 	 */
 	public int getPositionByItemName(String name){
 		String[] items = getResources().getStringArray(R.array.site_data);

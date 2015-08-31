@@ -59,7 +59,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	private ArrayList<SectionItemInfo> sectionItemInfos;
 	private SectionInfo sectionInfo;
 	private ProcessInfo processInfo;
-	private int currentPro = 2;
+	private int currentPro = 0;
 	private ViewPager viewPager;
 	private ImageView icon_user_head = null;
 	private ListView detailNodeListView;
@@ -75,7 +75,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		if(processInfo == null){
 			getOwnerProcess();
 		}else{
-			initData();
+			setData();
 		}
 		pro = getResources().getStringArray(R.array.site_procedure);
 	}
@@ -128,7 +128,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 				});
 	}
 	
-	private void initData(){
+	private void setData(){
 		if(processInfo != null){
 			currentPro = MyApplication.getInstance().getPositionByItemName(processInfo.getGoing_on());
 			sectionInfos = processInfo.getSections();
@@ -139,7 +139,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	}
 
 	private void handlerSuccess() {
-		initData();
+		setData();
 		sectionItemAdapter.setSectionItemInfos(sectionItemInfos);
 		sectionItemAdapter.notifyDataSetChanged();
 	}
