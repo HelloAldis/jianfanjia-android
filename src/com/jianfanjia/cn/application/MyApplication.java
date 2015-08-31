@@ -80,8 +80,18 @@ public class MyApplication extends BaseApplication {
 		this.userType = userType;
 	}
 	
-	public String getStringById(String string){
-		int StringId = getResources().getIdentifier(string, "string", getPackageName());
+	/**
+	 * @description 根据英文的name,拿到中文的name
+	 * @param string
+	 * @return
+	 */
+	public String getStringById(String name){
+		int StringId = getResources().getIdentifier(name, "string", getPackageName());
 		return getResources().getString(StringId);
+	}
+	
+	public int getPositionByItemName(String name){
+		String[] items = getResources().getStringArray(R.array.site_data);
+		return 1;
 	}
 }

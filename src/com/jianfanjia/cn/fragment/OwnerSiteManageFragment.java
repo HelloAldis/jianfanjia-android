@@ -71,7 +71,8 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		if(MyApplication.getInstance().getProcessInfo() == null){
+		processInfo = MyApplication.getInstance().getProcessInfo();
+		if(processInfo == null){
 			getOwnerProcess();
 		}else{
 			initData();
@@ -128,7 +129,6 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	}
 	
 	private void initData(){
-		processInfo = MyApplication.getInstance().getProcessInfo();
 		if(processInfo != null){
 			sectionInfos = processInfo.getSections();
 			sectionInfo= sectionInfos.get(currentPro);
