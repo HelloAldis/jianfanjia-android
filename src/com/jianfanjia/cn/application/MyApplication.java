@@ -90,8 +90,18 @@ public class MyApplication extends BaseApplication {
 		return getResources().getString(StringId);
 	}
 	
+	/**
+	 * @description 根据name,拿到当前的进行工序的位置
+	 * @param name
+	 * @return 默认返回0，第一个工序
+	 */
 	public int getPositionByItemName(String name){
 		String[] items = getResources().getStringArray(R.array.site_data);
-		return 1;
+		for(int i= 0;i<items.length;i++){
+			if(items[i].equals(name)){
+				return i;
+			}
+		}
+		return 0;
 	}
 }

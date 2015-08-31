@@ -130,6 +130,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	
 	private void initData(){
 		if(processInfo != null){
+			currentPro = MyApplication.getInstance().getPositionByItemName(processInfo.getGoing_on());
 			sectionInfos = processInfo.getSections();
 			sectionInfo= sectionInfos.get(currentPro);
 			sectionItemInfos = sectionInfo.getItems();
