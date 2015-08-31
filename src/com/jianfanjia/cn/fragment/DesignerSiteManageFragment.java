@@ -105,13 +105,12 @@ public class DesignerSiteManageFragment extends BaseFragment implements
 
 			@Override
 			public void onPageScrolled(int arg0, float arg1, int arg2) {
-				// TODO Auto-generated method stub
-
+				Log.i(TAG, "arg0:" + arg0 + "  arg1:" + arg1 + "  arg2:" + arg2);
 			}
 
 			@Override
 			public void onPageSelected(int arg0) {
-
+				Log.i(TAG, "arg0:" + arg0);
 			}
 		});
 		//
