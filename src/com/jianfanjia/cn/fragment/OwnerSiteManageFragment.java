@@ -127,7 +127,6 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 			sectionInfo = sectionInfos.get(currentPro);
 			sectionItemInfos = sectionInfo.getItems();
 		}
-
 	}
 
 	private void handlerSuccess() {
