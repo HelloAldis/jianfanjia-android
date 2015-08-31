@@ -8,7 +8,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
-
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.fragment.DesignerMenuFragment;
@@ -29,7 +28,6 @@ import com.jianfanjia.cn.view.PagerEnabledSlidingPaneLayout;
 public class MainActivity extends BaseActivity implements PanelSlideListener {
 	private static final String TAG = MainActivity.class.getClass().getName();
 	private PagerEnabledSlidingPaneLayout slidingPaneLayout = null;
-	private FrameLayout slidingpane_menu = null;
 	private FrameLayout slidingpane_content = null;
 	private String userIdentity = null;
 
@@ -43,7 +41,6 @@ public class MainActivity extends BaseActivity implements PanelSlideListener {
 		userIdentity = sharedPrefer.getValue(Constant.USERTYPE, null);
 		LogTool.d(TAG, "userIdentity=" + userIdentity);
 		slidingPaneLayout = (PagerEnabledSlidingPaneLayout) findViewById(R.id.slidingpanellayout);
-		slidingpane_menu = (FrameLayout) findViewById(R.id.slidingpane_menu);
 		slidingpane_content = (FrameLayout) findViewById(R.id.slidingpane_content);
 		FragmentTransaction transaction = fragmentManager.beginTransaction();
 		if (!TextUtils.isEmpty(userIdentity)) {
@@ -74,9 +71,6 @@ public class MainActivity extends BaseActivity implements PanelSlideListener {
 
 	@Override
 	public void onPanelSlide(View panel, float slideOffset) {
-		// slidingpane_menu.setScaleY(slideOffset / 2 + 0.5F);
-		// slidingpane_menu.setScaleX(slideOffset / 2 + 0.5F);
-		// slidingpane_menu.setAlpha(slideOffset);
 		slidingpane_content.setScaleX(1 - slideOffset / 5);
 		slidingpane_content.setScaleY(1 - slideOffset / 5);
 	}
