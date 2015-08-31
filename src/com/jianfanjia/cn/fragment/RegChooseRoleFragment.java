@@ -88,7 +88,7 @@ public class RegChooseRoleFragment extends BaseFragment implements
 				designerView
 						.setImageResource(R.drawable.btn_register_designer2_pressed);
 				MyApplication.getInstance().getRegisterInfo()
-						.setUserType(Constant.IDENTITY_DESIGNER);
+						.setType(Constant.IDENTITY_DESIGNER);
 				nextView.setEnabled(true);
 				break;
 			case R.id.choose_ower:
@@ -96,7 +96,7 @@ public class RegChooseRoleFragment extends BaseFragment implements
 						.setImageResource(R.drawable.btn_register_designer2_normal);
 				owerView.setImageResource(R.drawable.btn_register_user1_pressed);
 				MyApplication.getInstance().getRegisterInfo()
-						.setUserType(Constant.IDENTITY_OWNER);
+						.setType(Constant.IDENTITY_OWNER);
 				nextView.setEnabled(true);
 				break;
 			default:
