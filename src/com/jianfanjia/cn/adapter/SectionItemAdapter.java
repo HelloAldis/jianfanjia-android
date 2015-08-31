@@ -57,7 +57,6 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 
 	@Override
 	public View initView(int position, View convertView) {
-		// TODO Auto-generated method stub
 		ViewHolder viewHolder = null;
 		final SectionItemInfo nodeInfo = list.get(position);
 		Log.i(this.getClass().getName(), nodeInfo.getName());
