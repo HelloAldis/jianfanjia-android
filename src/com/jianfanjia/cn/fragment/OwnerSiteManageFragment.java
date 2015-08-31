@@ -86,7 +86,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 					@Override
 					public void onSuccess(int statusCode, Header[] headers,
 							JSONObject response) {
-						makeTextLong("getProcessInfo");
+						LogTool.d(TAG, "response:" + response.toString());
 						try {
 							if (response.has(Constant.DATA)) {
 								processInfo = JsonParser.jsonToBean(response
@@ -192,10 +192,6 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 
 	private void initItem(View siteHead, int position) {
 		Log.i(TAG, "initItem" + position);
-		View lineView = siteHead.findViewById(R.id.lineView);
-		if (position == 0) {
-			lineView.setVisibility(View.INVISIBLE);
-		}
 		TextView proName = (TextView) siteHead
 				.findViewById(R.id.site_head_procedure_name);
 		proName.setText(pro[position]);
@@ -213,7 +209,6 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		icon.setImageResource(getResources().getIdentifier(
 				"icon_home_normal" + (position + 1), "drawable",
 				MyApplication.getInstance().getPackageName()));
-
 	}
 
 	private void initListView(View view,

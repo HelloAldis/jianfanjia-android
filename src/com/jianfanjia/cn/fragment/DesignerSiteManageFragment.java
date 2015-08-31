@@ -127,10 +127,6 @@ public class DesignerSiteManageFragment extends BaseFragment implements
 	}
 
 	private void initItem(View siteHead, int position) {
-		View lineView = siteHead.findViewById(R.id.lineView);
-		if (position == 0) {
-			lineView.setVisibility(View.INVISIBLE);
-		}
 		TextView proName = (TextView) siteHead
 				.findViewById(R.id.site_head_procedure_name);
 		proName.setText(pro[position]);

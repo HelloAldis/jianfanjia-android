@@ -3,18 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content" >
 
-    <View
-        android:id="@+id/view_0"
-        android:layout_width="1dp"
-        android:layout_height="60dp"
-        android:layout_marginLeft="42dp"
-        android:background="#A6A6A6" />
-
     <ImageView
         android:id="@+id/site_listview_item_status"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginLeft="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dip"
         android:contentDescription="@null"
         android:scaleType="center"
         android:src="@drawable/site_listview_item_notstart_circle" />
@@ -23,9 +16,8 @@
         android:id="@+id/site_listview_item_content_small"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="10dip"
+        android:layout_centerVertical="true"
+        android:layout_margin="15dip"
         android:layout_toRightOf="@+id/site_listview_item_status"
         android:background="@drawable/list_item_text_bg1"
         android:padding="8dp"
@@ -50,9 +42,8 @@
         android:id="@+id/site_listview_item_content_expand"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="10dip"
+        android:layout_centerVertical="true"
+        android:layout_margin="15dip"
         android:layout_toRightOf="@+id/site_listview_item_status"
         android:background="@drawable/list_item_text_bg1"
         android:padding="8dp" >
