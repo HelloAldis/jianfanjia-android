@@ -2,7 +2,6 @@ package com.jianfanjia.cn.fragment;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -16,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
-
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.MyViewPageAdapter;
@@ -94,7 +92,8 @@ public class DesignerSiteManageFragment extends BaseFragment {
 			// scrollLayout.addView(siteHead, lp);
 			list.add(siteHead);
 		}
-		MyViewPageAdapter pageAdapter = new MyViewPageAdapter(getActivity(), list);
+		MyViewPageAdapter pageAdapter = new MyViewPageAdapter(getActivity(),
+				list);
 		viewPager.setAdapter(pageAdapter);
 		viewPager.setOnPageChangeListener(new OnPageChangeListener() {
 			@Override
@@ -208,7 +207,7 @@ public class DesignerSiteManageFragment extends BaseFragment {
 					public void onPullUpToRefresh(
 							PullToRefreshBase<ScrollView> refreshView) {
 						// 上拉加载更多(加载下一页数据)
-						// mPullRefreshScrollView.onRefreshComplete();
+						mPullRefreshScrollView.onRefreshComplete();
 					}
 				});
 	}
