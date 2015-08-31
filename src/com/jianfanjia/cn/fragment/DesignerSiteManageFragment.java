@@ -49,6 +49,7 @@ public class DesignerSiteManageFragment extends BaseFragment implements
 	private LayoutInflater mLayoutInflater;
 	private ViewPager viewPager;
 	private ImageView icon_user_head = null;
+	private TextView head_right_title = null;
 	private ListView detailNodeListView;
 	private NoteListAdapter mNoteListAdapter;
 	private ScrollLayout scrollLayout;
@@ -75,6 +76,7 @@ public class DesignerSiteManageFragment extends BaseFragment implements
 		mPullRefreshScrollView.setMode(Mode.PULL_FROM_START);
 		mScrollView = mPullRefreshScrollView.getRefreshableView();
 		icon_user_head = (ImageView) view.findViewById(R.id.icon_user_head);
+		head_right_title = (TextView) view.findViewById(R.id.head_right_title);
 		initScrollLayout(view);
 		initListView(view, procedureList.get(currentPro));
 	}
@@ -192,6 +194,7 @@ public class DesignerSiteManageFragment extends BaseFragment implements
 	@Override
 	public void setListener() {
 		icon_user_head.setOnClickListener(this);
+		head_right_title.setOnClickListener(this);
 		mPullRefreshScrollView.setOnRefreshListener(this);
 	}
 
@@ -200,6 +203,9 @@ public class DesignerSiteManageFragment extends BaseFragment implements
 		switch (v.getId()) {
 		case R.id.icon_user_head:
 			((MainActivity) getActivity()).getSlidingPaneLayout().openPane();
+			break;
+		case R.id.head_right_title:
+
 			break;
 		default:
 			break;
