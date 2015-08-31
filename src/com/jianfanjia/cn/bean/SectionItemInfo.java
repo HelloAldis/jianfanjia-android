@@ -8,23 +8,20 @@ import java.util.ArrayList;
  * @author zhanghao
  * @Decription 此类是节点信息实体类
  * @date 2015-8-31 上午11:57
- *
+ * 
  */
 public class SectionItemInfo implements Serializable {
-	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 
 	private String _id;
-	
+
 	private String name;
-	
+
 	private String status;
-	
+
 	private ArrayList<CommentInfo> comments;
-	
+
 	private ArrayList<ImageInfo> images;
 
 	public String get_id() {
@@ -66,7 +63,4 @@ public class SectionItemInfo implements Serializable {
 	public void setImages(ArrayList<ImageInfo> images) {
 		this.images = images;
 	}
-	
-	
-
 }

@@ -65,7 +65,6 @@
         <item>an_zhuang</item>
         <item>jun_gong</item>
     </string-array>
-    
     <string-array name="process_status">
         <item>未开工</item>
         <item>进行中</item>
@@ -74,7 +73,7 @@
         <item>设计师申请延期中</item>
     </string-array>
 
-    <!-- 服务器返回工地英文解析  -->
+    <!-- 服务器返回工地英文解析 -->
     <string name="kai_gong">开工</string>
     <string name="xcjd">现场交底</string>
     <string name="sgxcl">石膏线测量</string>
@@ -111,6 +110,7 @@
     <string name="qzpt">墙纸铺贴</string>
     <string name="snzl">室内整理</string>
     <string name="mbdjaz">面板灯具安装</string>
-	<string name="jun_gong">竣工</string>
-	<!-- 服务器返回工地英文解析  -->
+    <string name="jun_gong">竣工</string>
+    <!-- 服务器返回工地英文解析 -->
+
 </resources>

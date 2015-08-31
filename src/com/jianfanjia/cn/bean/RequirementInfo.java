@@ -1,7 +1,6 @@
 package com.jianfanjia.cn.bean;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * @class RequirementInfo

@@ -2,32 +2,32 @@ package com.jianfanjia.cn.bean;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * @class SectionInfo.class
  * @author zhanghao
  * @Decription 此类是工序信息实体类
  * @date 2015-8-31 上午11:50
- *
+ * 
  */
-public class SectionInfo implements Serializable{
+public class SectionInfo implements Serializable {
+
+	private static final long serialVersionUID = 7265654008649361788L;
 
 	private String _id;
-	
+
 	private long start_at;
-	
+
 	private long end_at;
-	
+
 	private String name;
-	
+
 	private int status;
-	
+
 	private ArrayList<SectionItemInfo> items;
-	
+
 	private CheckInfo ys;
-	
+
 	public String get_id() {
 		return _id;
 	}
@@ -35,8 +35,7 @@ public class SectionInfo implements Serializable{
 	public void set_id(String _id) {
 		this._id = _id;
 	}
-	
-	
+
 	public int getStatus() {
 		return status;
 	}
@@ -84,5 +83,5 @@ public class SectionInfo implements Serializable{
 	public void setYs(CheckInfo ys) {
 		this.ys = ys;
 	}
-	
+
 }

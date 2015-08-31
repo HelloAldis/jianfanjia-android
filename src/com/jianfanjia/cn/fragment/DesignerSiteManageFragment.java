@@ -78,7 +78,7 @@ public class DesignerSiteManageFragment extends BaseFragment implements
 		icon_user_head = (ImageView) view.findViewById(R.id.icon_user_head);
 		head_right_title = (TextView) view.findViewById(R.id.head_right_title);
 		initScrollLayout(view);
-//		initListView(view, procedureList.get(currentPro));
+		// initListView(view, procedureList.get(currentPro));
 	}
 
 	private void initScrollLayout(View view) {
@@ -113,7 +113,7 @@ public class DesignerSiteManageFragment extends BaseFragment implements
 				Log.i(TAG, "arg0:" + arg0);
 			}
 		});
-		//
+
 		// scrollLayout = (ScrollLayout) view
 		// .findViewById(R.id.site_scroller_layout);
 		// scrollLayout.setmCurScreen(currentPro);
@@ -125,7 +125,7 @@ public class DesignerSiteManageFragment extends BaseFragment implements
 		// mNoteListAdapter.notifyDataSetChanged();
 		// }
 		// });
-//		initListView(view, procedureList.get(currentPro));
+		// initListView(view, procedureList.get(currentPro));
 	}
 
 	private void initItem(View siteHead, int position) {
@@ -144,51 +144,36 @@ public class DesignerSiteManageFragment extends BaseFragment implements
 				.findViewById(R.id.site_head_procedure_icon);
 	}
 
-	/*private void initListView(View view, ProcedureInfo procedure) {
-		detailNodeListView = (ListView) view.findViewById(R.id.site__listview);
-		mNoteListAdapter = new NoteListAdapter(procedure, getActivity());
-		detailNodeListView.setAdapter(mNoteListAdapter);
-		detailNodeListView.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				View lastClickItem = parent.getChildAt(mNoteListAdapter
-						.getLastClickItem());
-				if (position != mNoteListAdapter.getLastClickItem()) {
-					lastClickItem.findViewById(
-							R.id.site_listview_item_content_expand)
-							.setVisibility(View.GONE);
-					lastClickItem.findViewById(
-							R.id.site_listview_item_content_small)
-							.setVisibility(View.VISIBLE);
-					view.findViewById(R.id.site_listview_item_content_expand)
-							.setVisibility(View.VISIBLE);
-					view.findViewById(R.id.site_listview_item_content_small)
-							.setVisibility(View.GONE);
-					mNoteListAdapter.setLastClickItem(position);
-				} else {
-					int visible = view.findViewById(
-							R.id.site_listview_item_content_expand)
-							.getVisibility();
-					if (visible == View.GONE) {
-						view.findViewById(
-								R.id.site_listview_item_content_expand)
-								.setVisibility(View.VISIBLE);
-						view.findViewById(R.id.site_listview_item_content_small)
-								.setVisibility(View.GONE);
-					} else {
-						view.findViewById(
-								R.id.site_listview_item_content_expand)
-								.setVisibility(View.GONE);
-						view.findViewById(R.id.site_listview_item_content_small)
-								.setVisibility(View.VISIBLE);
-					}
-				}
-			}
-		});
-
-	}*/
+	/*
+	 * private void initListView(View view, ProcedureInfo procedure) {
+	 * detailNodeListView = (ListView) view.findViewById(R.id.site__listview);
+	 * mNoteListAdapter = new NoteListAdapter(procedure, getActivity());
+	 * detailNodeListView.setAdapter(mNoteListAdapter);
+	 * detailNodeListView.setOnItemClickListener(new OnItemClickListener() {
+	 * 
+	 * @Override public void onItemClick(AdapterView<?> parent, View view, int
+	 * position, long id) { View lastClickItem =
+	 * parent.getChildAt(mNoteListAdapter .getLastClickItem()); if (position !=
+	 * mNoteListAdapter.getLastClickItem()) { lastClickItem.findViewById(
+	 * R.id.site_listview_item_content_expand) .setVisibility(View.GONE);
+	 * lastClickItem.findViewById( R.id.site_listview_item_content_small)
+	 * .setVisibility(View.VISIBLE);
+	 * view.findViewById(R.id.site_listview_item_content_expand)
+	 * .setVisibility(View.VISIBLE);
+	 * view.findViewById(R.id.site_listview_item_content_small)
+	 * .setVisibility(View.GONE); mNoteListAdapter.setLastClickItem(position); }
+	 * else { int visible = view.findViewById(
+	 * R.id.site_listview_item_content_expand) .getVisibility(); if (visible ==
+	 * View.GONE) { view.findViewById( R.id.site_listview_item_content_expand)
+	 * .setVisibility(View.VISIBLE);
+	 * view.findViewById(R.id.site_listview_item_content_small)
+	 * .setVisibility(View.GONE); } else { view.findViewById(
+	 * R.id.site_listview_item_content_expand) .setVisibility(View.GONE);
+	 * view.findViewById(R.id.site_listview_item_content_small)
+	 * .setVisibility(View.VISIBLE); } } } });
+	 * 
+	 * }
+	 */
 
 	@Override
 	public void setListener() {

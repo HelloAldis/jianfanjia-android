@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 public class MyViewPageAdapter extends PagerAdapter {
-	private static final String TAG = "ViewPageAdapter";
+	private static final String TAG = "MyViewPageAdapter";
 	private Context context;
 	private List<View> list;
 

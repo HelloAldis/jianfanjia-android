@@ -2,13 +2,11 @@ package com.jianfanjia.cn.application;
 
 import java.util.Arrays;
 import java.util.List;
-
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseApplication;
 import com.jianfanjia.cn.bean.LoginUserBean;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.RegisterInfo;
-import com.jianfanjia.cn.bean.SiteInfo;
 import com.jianfanjia.cn.config.Constant;
 
 /**
@@ -23,16 +21,17 @@ public class MyApplication extends BaseApplication {
 	private boolean isLogin;// 判断用户是否登录
 	private String userType;// 判断用户类型
 	private RegisterInfo registerInfo = new RegisterInfo();// 注册实体信息
-	private ProcessInfo processInfo;//工地信息
-	private List<String> site_data;//静态的工序列表
+	private ProcessInfo processInfo;// 工地信息
+	private List<String> site_data;// 静态的工序列表
 
 	@Override
 	public void onCreate() {
 		super.onCreate();
 		instance = this;
-		site_data = Arrays.asList(getResources().getStringArray(R.array.site_data));
+		site_data = Arrays.asList(getResources().getStringArray(
+				R.array.site_data));
 	}
-	
+
 	public List<String> getSite_data() {
 		return site_data;
 	}
@@ -63,7 +62,7 @@ public class MyApplication extends BaseApplication {
 		sharedPrefer.setValue(Constant.PASSWORD, userBean.getPass());
 		sharedPrefer.setValue(Constant.USERIMAGE_ID, userBean.getImageId());
 	}
-	
+
 	public ProcessInfo getProcessInfo() {
 		return processInfo;
 	}
@@ -79,26 +78,27 @@ public class MyApplication extends BaseApplication {
 	public void setUserType(String userType) {
 		this.userType = userType;
 	}
-	
+
 	/**
 	 * @description 根据英文的name,拿到中文的name
 	 * @param string
 	 * @return
 	 */
-	public String getStringById(String name){
-		int StringId = getResources().getIdentifier(name, "string", getPackageName());
+	public String getStringById(String name) {
+		int StringId = getResources().getIdentifier(name, "string",
+				getPackageName());
 		return getResources().getString(StringId);
 	}
-	
+
 	/**
 	 * @description 根据name,拿到当前的进行工序的位置
 	 * @param name
 	 * @return 默认返回0，当前工序为第一个工序
 	 */
-	public int getPositionByItemName(String name){
+	public int getPositionByItemName(String name) {
 		String[] items = getResources().getStringArray(R.array.site_data);
-		for(int i= 0;i<items.length;i++){
-			if(items[i].equals(name)){
+		for (int i = 0; i < items.length; i++) {
+			if (items[i].equals(name)) {
 				return i;
 			}
 		}

@@ -1,32 +1,26 @@
 package com.jianfanjia.cn.adapter;
 
 import java.util.List;
-
 import android.content.Context;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.bean.NodeInfo;
-import com.jianfanjia.cn.bean.ProcedureInfo;
-import com.jianfanjia.cn.bean.SectionInfo;
 import com.jianfanjia.cn.bean.SectionItemInfo;
 
 public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 	private int lastClickItem = 0;// 记录上一次点击的条目
 	private Animation animation;
 
-	public SectionItemAdapter(Context context,List<SectionItemInfo> sectionItemInfos) {
+	public SectionItemAdapter(Context context,
+			List<SectionItemInfo> sectionItemInfos) {
 		super(context, sectionItemInfos);
 		animation = AnimationUtils.loadAnimation(context,
 				R.anim.fragment_list_right_enter);
@@ -35,7 +29,7 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 	public int getLastClickItem() {
 		return lastClickItem;
 	}
-	
+
 	public List<SectionItemInfo> getSectionItemInfos() {
 		return list;
 	}
@@ -63,12 +57,12 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 
 	@Override
 	public View initView(int position, View convertView) {
-		// TODO Auto-generated method stub
 		ViewHolder viewHolder = null;
 		final SectionItemInfo nodeInfo = list.get(position);
 		Log.i(this.getClass().getName(), nodeInfo.getName());
 		if (convertView == null) {
-			convertView = layoutInflater.inflate(R.layout.site_listview_item, null);
+			convertView = layoutInflater.inflate(R.layout.site_listview_item,
+					null);
 			viewHolder = new ViewHolder();
 			viewHolder.smallcloseLayout = (RelativeLayout) convertView
 					.findViewById(R.id.site_listview_item_content_small);
@@ -94,8 +88,10 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 		} else {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
-		viewHolder.closeNodeName.setText(MyApplication.getInstance().getStringById(nodeInfo.getName()));
-		viewHolder.openNodeName.setText(MyApplication.getInstance().getStringById(nodeInfo.getName()));
+		viewHolder.closeNodeName.setText(MyApplication.getInstance()
+				.getStringById(nodeInfo.getName()));
+		viewHolder.openNodeName.setText(MyApplication.getInstance()
+				.getStringById(nodeInfo.getName()));
 		switch (Integer.parseInt(nodeInfo.getStatus())) {
 		case NodeInfo.FINISH:
 			viewHolder.finishStatusIcon
