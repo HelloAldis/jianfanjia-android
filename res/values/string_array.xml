@@ -57,6 +57,14 @@
         <item>安装阶段验收</item>
         <item>竣工阶段验收</item>
     </string-array>
-    
+    <string-array name="site_data">
+        <item>kai_gong</item>
+        <item>chai_gai</item>
+        <item>shui_dian</item>
+        <item>ni_mu</item>
+        <item>you_qi</item>
+        <item>an_zhuang</item>
+        <item>jun_gong</item>
+    </string-array>    
 
 </resources>
