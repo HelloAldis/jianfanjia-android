@@ -30,6 +30,7 @@ import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshScrollView;
+import com.jianfanjia.cn.tools.DateFormatTool;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -56,6 +57,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	private ImageView icon_user_head = null;
 	private ListView detailNodeListView;
 	private SectionItemAdapter sectionItemAdapter;
+	private MyViewPageAdapter myViewPageAdapter;
 	private String[] pro = null;
 	private int size;
 	private List<View> list = new ArrayList<View>();
@@ -134,6 +136,11 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		setData();
 		sectionItemAdapter.setSectionItemInfos(sectionItemInfos);
 		sectionItemAdapter.notifyDataSetChanged();
+		for (int i = 0; i < pro.length; i++) {
+			View siteHead = list.get(i);
+			initItem(siteHead, i);
+		}
+		myViewPageAdapter.notifyDataSetChanged();
 	}
 
 	@Override
@@ -154,9 +161,8 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 			initItem(siteHead, i);
 			list.add(siteHead);
 		}
-		MyViewPageAdapter pageAdapter = new MyViewPageAdapter(getActivity(),
-				list);
-		viewPager.setAdapter(pageAdapter);
+		myViewPageAdapter = new MyViewPageAdapter(getActivity(), list);
+		viewPager.setAdapter(myViewPageAdapter);
 		viewPager.setOnPageChangeListener(new OnPageChangeListener() {
 			@Override
 			public void onPageScrollStateChanged(int arg0) {
@@ -183,10 +189,18 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		proName.setText(pro[position]);
 		TextView proDate = (TextView) siteHead
 				.findViewById(R.id.site_head_procedure_date);
-		// proDate.setText(sectionInfos.get(position >= size ? 0 : position)
-		// .getStart_at()+"");
+		if (sectionInfos != null) {
+			proDate.setText(DateFormatTool.covertLongToString(
+					sectionInfos.get(position).getStart_at(), "M.dd")
+					+ "-"
+					+ DateFormatTool.covertLongToString(
+							sectionInfos.get(position).getEnd_at(), "M.dd"));
+		}
 		ImageView icon = (ImageView) siteHead
 				.findViewById(R.id.site_head_procedure_icon);
+		icon.setImageResource(getResources().getIdentifier(
+				"icon_home_normal" + (position + 1), "drawable",
+				MyApplication.getInstance().getPackageName()));
 	}
 
 	private void initListView(View view,

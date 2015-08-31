@@ -15,7 +15,7 @@ public class RegisterInfo implements Serializable {
 	private String phone;// 手机号
 	private String pass;// 密码
 	private String code;// 验证码
-	private String userType;// 用户类型
+	private String type;// 用户类型
 
 	public String getPhone() {
 		return phone;
@@ -41,19 +41,19 @@ public class RegisterInfo implements Serializable {
 		this.code = code;
 	}
 
-	public String getUserType() {
-		return userType;
+	public String getType() {
+		return type;
 	}
 
-	public void setUserType(String userType) {
-		this.userType = userType;
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	@Override
 	public String toString() {
 		String regJson = "{\"phone\" : \"" + phone + "\"," + "\"pass\" : \""
 				+ pass + "\"," + "\"code\" : \"" + code + "\","
-				+ "\"type\" : \"" + userType + "\"}";
+				+ "\"type\" : \"" + type + "\"}";
 		LogTool.d(this.getClass().getName(), regJson);
 		return regJson;
 	}
