@@ -19,6 +19,7 @@ import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
+import com.jianfanjia.cn.bean.SiteInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.tools.JsonParser;
@@ -36,6 +37,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 public class OwnerSiteFragment extends BaseFragment {
 	private static final String TAG = "OwnerSiteFragment";
 	private ProcessInfo processInfo;// 工地信息类
+	private SiteInfo siteInfo;// 工地信息类
 	private RequirementInfo requirementInfo;// 实体信息类
 	private DatePickerDialog datePickerDialog;// 时间选择对话框
 	private Calendar calendar = Calendar.getInstance();

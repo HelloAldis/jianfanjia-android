@@ -37,9 +37,10 @@ import com.jianfanjia.cn.view.ScrollLayout;
  * @date 2015-8-28 上午11:10:21
  * 
  */
-public class DesignerSiteManageFragment extends BaseFragment {
+public class DesignerSiteManageFragment extends BaseFragment implements
+		OnRefreshListener2<ScrollView> {
 	private static final String TAG = DesignerSiteManageFragment.class
-			.getClass().getName();
+			.getName();
 	private PullToRefreshScrollView mPullRefreshScrollView = null;
 	private ScrollView mScrollView = null;
 	private ArrayList<ProcedureInfo> procedureList;
@@ -48,6 +49,7 @@ public class DesignerSiteManageFragment extends BaseFragment {
 	private LayoutInflater mLayoutInflater;
 	private ViewPager viewPager;
 	private ImageView icon_user_head = null;
+	private TextView head_right_title = null;
 	private ListView detailNodeListView;
 	private SectionItemAdapter mNoteListAdapter;
 	private ScrollLayout scrollLayout;
@@ -64,8 +66,6 @@ public class DesignerSiteManageFragment extends BaseFragment {
 		procedureList = site.getProcedures();
 		size = procedureList.size();
 		pro = getResources().getStringArray(R.array.site_procedure);
-		Log.i(this.getClass().getName(), "pro ="
-				+ procedureList.get(currentPro).getNodeList().size());
 		Log.i(TAG, "pro =" + procedureList.get(currentPro).getNodeList().size());
 	}
 
@@ -76,6 +76,7 @@ public class DesignerSiteManageFragment extends BaseFragment {
 		mPullRefreshScrollView.setMode(Mode.PULL_FROM_START);
 		mScrollView = mPullRefreshScrollView.getRefreshableView();
 		icon_user_head = (ImageView) view.findViewById(R.id.icon_user_head);
+		head_right_title = (TextView) view.findViewById(R.id.head_right_title);
 		initScrollLayout(view);
 //		initListView(view, procedureList.get(currentPro));
 	}
@@ -104,13 +105,12 @@ public class DesignerSiteManageFragment extends BaseFragment {
 
 			@Override
 			public void onPageScrolled(int arg0, float arg1, int arg2) {
-				// TODO Auto-generated method stub
-
+				Log.i(TAG, "arg0:" + arg0 + "  arg1:" + arg1 + "  arg2:" + arg2);
 			}
 
 			@Override
 			public void onPageSelected(int arg0) {
-
+				Log.i(TAG, "arg0:" + arg0);
 			}
 		});
 		//
@@ -193,23 +193,8 @@ public class DesignerSiteManageFragment extends BaseFragment {
 	@Override
 	public void setListener() {
 		icon_user_head.setOnClickListener(this);
-		mPullRefreshScrollView
-				.setOnRefreshListener(new OnRefreshListener2<ScrollView>() {
-
-					@Override
-					public void onPullDownToRefresh(
-							PullToRefreshBase<ScrollView> refreshView) {
-						// 下拉刷新(从第一页开始装载数据)
-						mPullRefreshScrollView.onRefreshComplete();
-					}
-
-					@Override
-					public void onPullUpToRefresh(
-							PullToRefreshBase<ScrollView> refreshView) {
-						// 上拉加载更多(加载下一页数据)
-						mPullRefreshScrollView.onRefreshComplete();
-					}
-				});
+		head_right_title.setOnClickListener(this);
+		mPullRefreshScrollView.setOnRefreshListener(this);
 	}
 
 	@Override
@@ -218,9 +203,24 @@ public class DesignerSiteManageFragment extends BaseFragment {
 		case R.id.icon_user_head:
 			((MainActivity) getActivity()).getSlidingPaneLayout().openPane();
 			break;
+		case R.id.head_right_title:
+
+			break;
 		default:
 			break;
 		}
+	}
+
+	@Override
+	public void onPullDownToRefresh(PullToRefreshBase<ScrollView> refreshView) {
+		// 下拉刷新(从第一页开始装载数据)
+		mPullRefreshScrollView.onRefreshComplete();
+	}
+
+	@Override
+	public void onPullUpToRefresh(PullToRefreshBase<ScrollView> refreshView) {
+		// 上拉加载更多(加载下一页数据)
+		mPullRefreshScrollView.onRefreshComplete();
 	}
 
 	class HeadViewHold {

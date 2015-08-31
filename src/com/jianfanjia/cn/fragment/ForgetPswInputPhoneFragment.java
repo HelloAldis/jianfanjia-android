@@ -21,8 +21,7 @@ import com.jianfanjia.cn.tools.NetTool;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 public class ForgetPswInputPhoneFragment extends BaseFragment {
-	private static final String TAG = RegInputPhoneFragment.class.getClass()
-			.getName();
+	private static final String TAG = RegInputPhoneFragment.class.getName();
 	private FragmentListener fragemntListener = null;
 	private EditText mUserName = null;// 用户名输入框
 	private EditText mPassword = null;// 密码输入框

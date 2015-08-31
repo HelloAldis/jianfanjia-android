@@ -31,8 +31,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
  * 
  */
 public class FrgPswInputVerificationFragment extends BaseFragment {
-	private static final String TAG = FrgPswInputVerificationFragment.class
-			.getClass().getName();
+	private static final String TAG = FrgPswInputVerificationFragment.class.getName();
 	private FragmentListener fragemntListener = null;
 	private Button nextView = null;// 下一步
 	private TextView backView = null;// 返回

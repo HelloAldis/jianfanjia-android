@@ -23,8 +23,7 @@ import com.jianfanjia.cn.interf.FragmentListener;
  */
 public class RegChooseRoleFragment extends BaseFragment implements
 		OnTouchListener {
-	private static final String TAG = RegChooseRoleFragment.class.getClass()
-			.getName();
+	private static final String TAG = RegChooseRoleFragment.class.getName();
 	private FragmentListener fragemntListener = null;
 	private ImageView designerView = null;// 设计师身份
 	private ImageView owerView = null;// 业主身份
@@ -88,14 +87,16 @@ public class RegChooseRoleFragment extends BaseFragment implements
 				owerView.setImageResource(R.drawable.btn_register_user1_normal);
 				designerView
 						.setImageResource(R.drawable.btn_register_designer2_pressed);
-				MyApplication.getInstance().getRegisterInfo().setUserType(Constant.IDENTITY_DESIGNER);
+				MyApplication.getInstance().getRegisterInfo()
+						.setUserType(Constant.IDENTITY_DESIGNER);
 				nextView.setEnabled(true);
 				break;
 			case R.id.choose_ower:
 				designerView
 						.setImageResource(R.drawable.btn_register_designer2_normal);
 				owerView.setImageResource(R.drawable.btn_register_user1_pressed);
-				MyApplication.getInstance().getRegisterInfo().setUserType(Constant.IDENTITY_OWNER);
+				MyApplication.getInstance().getRegisterInfo()
+						.setUserType(Constant.IDENTITY_OWNER);
 				nextView.setEnabled(true);
 				break;
 			default:

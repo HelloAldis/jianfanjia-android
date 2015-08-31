@@ -2,10 +2,8 @@ package com.jianfanjia.cn.fragment;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import android.view.View;
 import android.widget.ListView;
-
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.PayNotifyAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
@@ -20,7 +18,6 @@ import com.jianfanjia.cn.bean.NotifyPayInfo;
  * 
  */
 public class FuKuanNotifyFragment extends BaseFragment {
-
 	private ListView listView;
 	private List<NotifyPayInfo> payList = new ArrayList<NotifyPayInfo>();
 	private NotifyPayInfo payInfo = null;
@@ -39,7 +36,6 @@ public class FuKuanNotifyFragment extends BaseFragment {
 		payAdapter = new PayNotifyAdapter(getActivity(), payList);
 		listView.setAdapter(payAdapter);
 	}
-
 
 	@Override
 	public void setListener() {

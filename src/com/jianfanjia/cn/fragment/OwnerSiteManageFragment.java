@@ -5,7 +5,6 @@ import java.util.List;
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -20,7 +19,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
-
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.MyViewPageAdapter;
@@ -52,9 +50,9 @@ import com.loopj.android.http.JsonHttpResponseHandler;
  * @date 2015-8-26 上午11:14:00
  * 
  */
-public class OwnerSiteManageFragment extends BaseFragment {
-	private static final String TAG = OwnerSiteManageFragment.class.getClass()
-			.getName();
+public class OwnerSiteManageFragment extends BaseFragment implements
+		OnRefreshListener2<ScrollView> {
+	private static final String TAG = OwnerSiteManageFragment.class.getName();
 	private PullToRefreshScrollView mPullRefreshScrollView = null;
 	private ScrollView mScrollView = null;
 	private ArrayList<SectionInfo> sectionInfos;
@@ -164,7 +162,8 @@ public class OwnerSiteManageFragment extends BaseFragment {
 			initItem(siteHead, i);
 			list.add(siteHead);
 		}
-		MyViewPageAdapter pageAdapter = new MyViewPageAdapter(getActivity(), list);
+		MyViewPageAdapter pageAdapter = new MyViewPageAdapter(getActivity(),
+				list);
 		viewPager.setAdapter(pageAdapter);
 		viewPager.setOnPageChangeListener(new OnPageChangeListener() {
 			@Override
@@ -252,23 +251,7 @@ public class OwnerSiteManageFragment extends BaseFragment {
 	@Override
 	public void setListener() {
 		icon_user_head.setOnClickListener(this);
-		mPullRefreshScrollView
-				.setOnRefreshListener(new OnRefreshListener2<ScrollView>() {
-
-					@Override
-					public void onPullDownToRefresh(
-							PullToRefreshBase<ScrollView> refreshView) {
-						// 下拉刷新(从第一页开始装载数据)
-						mPullRefreshScrollView.onRefreshComplete();
-					}
-
-					@Override
-					public void onPullUpToRefresh(
-							PullToRefreshBase<ScrollView> refreshView) {
-						// 上拉加载更多(加载下一页数据)
-						// mPullRefreshScrollView.onRefreshComplete();
-					}
-				});
+		mPullRefreshScrollView.setOnRefreshListener(this);
 	}
 
 	@Override
@@ -280,6 +263,18 @@ public class OwnerSiteManageFragment extends BaseFragment {
 		default:
 			break;
 		}
+	}
+
+	@Override
+	public void onPullDownToRefresh(PullToRefreshBase<ScrollView> refreshView) {
+		// 下拉刷新(从第一页开始装载数据)
+		mPullRefreshScrollView.onRefreshComplete();
+	}
+
+	@Override
+	public void onPullUpToRefresh(PullToRefreshBase<ScrollView> refreshView) {
+		// 上拉加载更多(加载下一页数据)
+		mPullRefreshScrollView.onRefreshComplete();
 	}
 
 	class HeadViewHold {

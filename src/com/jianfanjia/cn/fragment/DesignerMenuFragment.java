@@ -18,8 +18,7 @@ import com.jianfanjia.cn.base.BaseFragment;
  */
 public class DesignerMenuFragment extends BaseFragment implements
 		OnCheckedChangeListener {
-	private static final String TAG = DesignerMenuFragment.class.getClass()
-			.getName();
+	private static final String TAG = DesignerMenuFragment.class.getName();
 	private static final int HOME = 0;
 	private static final int NOTIFY = 1;
 	private static final int MYOWNER = 2;
@@ -27,7 +26,7 @@ public class DesignerMenuFragment extends BaseFragment implements
 	private static final int SETTING = 4;
 	private static final int HELP = 5;
 	private RadioGroup mTabRg = null;
-	private OwnerSiteManageFragment siteManageFragment = null;
+	private DesignerSiteManageFragment designerSiteManageFragment = null;
 	private NotifyFragment notifyFragment = null;
 	private OwnerFragment owerFragment = null;
 	private DesignerSiteFragment designerSiteFragment = null;
@@ -77,11 +76,12 @@ public class DesignerMenuFragment extends BaseFragment implements
 		hideFragments(transaction);
 		switch (index) {
 		case HOME:
-			if (siteManageFragment != null) {
-				transaction.show(siteManageFragment);
+			if (designerSiteManageFragment != null) {
+				transaction.show(designerSiteManageFragment);
 			} else {
-				siteManageFragment = new OwnerSiteManageFragment();
-				transaction.add(R.id.slidingpane_content, siteManageFragment);
+				designerSiteManageFragment = new DesignerSiteManageFragment();
+				transaction.add(R.id.slidingpane_content,
+						designerSiteManageFragment);
 			}
 			break;
 		case NOTIFY:
@@ -132,8 +132,8 @@ public class DesignerMenuFragment extends BaseFragment implements
 
 	// 当fragment已被实例化，相当于发生过切换，就隐藏起来
 	private void hideFragments(FragmentTransaction ft) {
-		if (siteManageFragment != null) {
-			ft.hide(siteManageFragment);
+		if (designerSiteManageFragment != null) {
+			ft.hide(designerSiteManageFragment);
 		}
 		if (notifyFragment != null) {
 			ft.hide(notifyFragment);

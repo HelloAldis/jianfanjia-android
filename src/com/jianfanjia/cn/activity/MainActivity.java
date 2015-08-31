@@ -26,14 +26,9 @@ import com.jianfanjia.cn.view.PagerEnabledSlidingPaneLayout;
  * 
  */
 public class MainActivity extends BaseActivity implements PanelSlideListener {
-	private static final String TAG = MainActivity.class.getClass().getName();
+	private static final String TAG = MainActivity.class.getName();
 	private PagerEnabledSlidingPaneLayout slidingPaneLayout = null;
-	private FrameLayout slidingpane_menu = null;
 	private FrameLayout slidingpane_content = null;
-	private OwnerMenuFragment ownerMenuFragment = null;
-	private DesignerMenuFragment designerMenuFragment = null;
-	private OwnerSiteManageFragment ownerSiteManageFragment = null;
-	private DesignerSiteManageFragment designerSiteManageFragment = null;
 	private String userIdentity = null;
 
 	@Override
@@ -46,23 +41,24 @@ public class MainActivity extends BaseActivity implements PanelSlideListener {
 		userIdentity = sharedPrefer.getValue(Constant.USERTYPE, null);
 		LogTool.d(TAG, "userIdentity=" + userIdentity);
 		slidingPaneLayout = (PagerEnabledSlidingPaneLayout) findViewById(R.id.slidingpanellayout);
-		slidingpane_menu = (FrameLayout) findViewById(R.id.slidingpane_menu);
 		slidingpane_content = (FrameLayout) findViewById(R.id.slidingpane_content);
-		ownerMenuFragment = new OwnerMenuFragment();
-		designerMenuFragment = new DesignerMenuFragment();
-		ownerSiteManageFragment = new OwnerSiteManageFragment();
-		designerSiteManageFragment = new DesignerSiteManageFragment();
 		FragmentTransaction transaction = fragmentManager.beginTransaction();
 		if (!TextUtils.isEmpty(userIdentity)) {
 			if (userIdentity.equals(Constant.IDENTITY_OWNER)) {
+				OwnerMenuFragment ownerMenuFragment = new OwnerMenuFragment();
+				OwnerSiteManageFragment ownerSiteManageFragment = new OwnerSiteManageFragment();
 				transaction.replace(R.id.slidingpane_menu, ownerMenuFragment);
 				transaction.replace(R.id.slidingpane_content,
 						ownerSiteManageFragment);
 			} else if (userIdentity.equals(Constant.IDENTITY_DESIGNER)) {
+				DesignerMenuFragment designerMenuFragment = new DesignerMenuFragment();
+				DesignerSiteManageFragment designerSiteManageFragment = new DesignerSiteManageFragment();
 				transaction
 						.replace(R.id.slidingpane_menu, designerMenuFragment);
 				transaction.replace(R.id.slidingpane_content,
 						designerSiteManageFragment);
+			} else {
+
 			}
 			transaction.commit();
 		}
@@ -75,9 +71,6 @@ public class MainActivity extends BaseActivity implements PanelSlideListener {
 
 	@Override
 	public void onPanelSlide(View panel, float slideOffset) {
-		// slidingpane_menu.setScaleY(slideOffset / 2 + 0.5F);
-		// slidingpane_menu.setScaleX(slideOffset / 2 + 0.5F);
-		// slidingpane_menu.setAlpha(slideOffset);
 		slidingpane_content.setScaleX(1 - slideOffset / 5);
 		slidingpane_content.setScaleY(1 - slideOffset / 5);
 	}
@@ -95,7 +88,7 @@ public class MainActivity extends BaseActivity implements PanelSlideListener {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		Log.d(this.getClass().getName(), "---onDestroy()");
+		Log.d(TAG, "---onDestroy()");
 		// PushManager.getInstance().stopService(getApplicationContext());//
 		// 完全终止SDK的服务
 	}

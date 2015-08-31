@@ -31,7 +31,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
  * 
  */
 public class LoginActivity extends BaseActivity implements OnClickListener {
-	private static final String TAG = LoginActivity.class.getClass().getName();
+	private static final String TAG = LoginActivity.class.getName();
 	private CustomProgressDialog progressDialog = null;
 	private EditText mEtUserName;// 用户名输入框
 	private EditText mEtPassword;// 用户密码输入框
@@ -50,8 +50,8 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 
 	@Override
 	public void initView() {
-		progressDialog = new CustomProgressDialog(LoginActivity.this, "正在加载中",
-				R.style.dialog);
+		progressDialog = new CustomProgressDialog(LoginActivity.this,
+				"正在登录中...", R.style.dialog);
 		mEtUserName = (EditText) findViewById(R.id.et_username);
 		mEtPassword = (EditText) findViewById(R.id.et_password);
 		mBtnLogin = (Button) findViewById(R.id.btn_login);
