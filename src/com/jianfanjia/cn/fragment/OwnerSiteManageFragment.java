@@ -51,7 +51,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	private ArrayList<SectionItemInfo> sectionItemInfos;
 	private SectionInfo sectionInfo;
 	private ProcessInfo processInfo;
-	private int currentPro = 2;
+	private int currentPro = 0;
 	private ViewPager viewPager;
 	private ImageView icon_user_head = null;
 	private ListView detailNodeListView;
@@ -63,10 +63,11 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		if (MyApplication.getInstance().getProcessInfo() == null) {
+		processInfo = MyApplication.getInstance().getProcessInfo();
+		if (processInfo == null) {
 			getOwnerProcess();
 		} else {
-			initData();
+			setData();
 		}
 		pro = getResources().getStringArray(R.array.site_procedure);
 	}
@@ -120,17 +121,19 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 				});
 	}
 
-	private void initData() {
-		processInfo = MyApplication.getInstance().getProcessInfo();
+	private void setData() {
 		if (processInfo != null) {
+			currentPro = MyApplication.getInstance().getPositionByItemName(
+					processInfo.getGoing_on());
 			sectionInfos = processInfo.getSections();
 			sectionInfo = sectionInfos.get(currentPro);
 			sectionItemInfos = sectionInfo.getItems();
 		}
+
 	}
 
 	private void handlerSuccess() {
-		initData();
+		setData();
 		sectionItemAdapter.setSectionItemInfos(sectionItemInfos);
 		sectionItemAdapter.notifyDataSetChanged();
 	}
@@ -316,5 +319,4 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	public int getLayoutId() {
 		return R.layout.fragment_owner_site_manage;
 	}
-
 }

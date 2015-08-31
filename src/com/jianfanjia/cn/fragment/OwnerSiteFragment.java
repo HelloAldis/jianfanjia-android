@@ -2,6 +2,7 @@ package com.jianfanjia.cn.fragment;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import org.apache.http.Header;
 import org.json.JSONException;
@@ -19,7 +20,6 @@ import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
-import com.jianfanjia.cn.bean.SiteInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.tools.JsonParser;
@@ -37,7 +37,6 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 public class OwnerSiteFragment extends BaseFragment {
 	private static final String TAG = "OwnerSiteFragment";
 	private ProcessInfo processInfo;// 工地信息类
-	private SiteInfo siteInfo;// 工地信息类
 	private RequirementInfo requirementInfo;// 实体信息类
 	private DatePickerDialog datePickerDialog;// 时间选择对话框
 	private Calendar calendar = Calendar.getInstance();
@@ -103,9 +102,10 @@ public class OwnerSiteFragment extends BaseFragment {
 						makeTextLong("getRequirement");
 						try {
 							if (response.has(Constant.DATA)) {
-								requirementInfo = JsonParser.jsonToBean(
+								processInfo = JsonParser.jsonToBean(
 										response.get(Constant.DATA).toString(),
-										RequirementInfo.class);
+										ProcessInfo.class);
+								MyApplication.getInstance().setProcessInfo(processInfo);
 								handlerSuccess();
 								makeTextLong(response.toString());
 							} else if (response.has(Constant.ERROR_MSG)) {
@@ -136,9 +136,8 @@ public class OwnerSiteFragment extends BaseFragment {
 				});
 
 	}
-
-	// 初始化数据
-	private void initData() {
+	
+	private void setData(){
 		if (requirementInfo != null) {
 			String city = requirementInfo.getProvince()
 					+ requirementInfo.getCity() + requirementInfo.getDistrict();
@@ -158,6 +157,29 @@ public class OwnerSiteFragment extends BaseFragment {
 		}
 	}
 
+	// 初始化数据
+	private void initData() {
+		if(processInfo != null){
+			String city = processInfo.getProvince()
+					+ processInfo.getCity() + processInfo.getDistrict();
+			cityView.setText(city);
+			villageNameView.setText(processInfo.getCell());
+			houseStyleView.setText(getResources().getStringArray(
+					R.array.house_type)[Integer.parseInt(processInfo
+					.getHouse_type())]);
+			decorateAreaView.setText(processInfo.getHouse_area());
+			loveStyleView.setText(getResources().getStringArray(
+					R.array.dec_style)[Integer.parseInt(processInfo
+					.getDec_style())]);
+			decorateStyleView.setText(getResources().getStringArray(
+					R.array.work_type)[Integer.parseInt(processInfo
+					.getWork_type())]);
+			decorateBudgetView.setText(processInfo.getTotal_price());
+			startDateView.setText(new Date(processInfo.getStart_at()).toString());
+			totalDateView.setText(processInfo.getDuration());
+		}
+	}
+
 	private void getRequirement() {
 		JianFanJiaApiClient.get_Requirement(getApplication(),
 				new JsonHttpResponseHandler() {
@@ -174,7 +196,7 @@ public class OwnerSiteFragment extends BaseFragment {
 								requirementInfo = JsonParser.jsonToBean(
 										response.get(Constant.DATA).toString(),
 										RequirementInfo.class);
-								handlerSuccess();
+								setData();
 							} else if (response.has(Constant.ERROR_MSG)) {
 								makeTextLong(response.get(Constant.ERROR_MSG)
 										.toString());
@@ -205,10 +227,10 @@ public class OwnerSiteFragment extends BaseFragment {
 
 	// 获取需求成功
 	private void handlerSuccess() {
-		if (requirementInfo == null) {
+		if (processInfo == null) {
 			// 获取错误，加载错误视图
 		} else {
-			initData();
+			
 		}
 	}
 
@@ -232,6 +254,9 @@ public class OwnerSiteFragment extends BaseFragment {
 					calendar.get(Calendar.DAY_OF_MONTH));
 			datePickerDialog.show();
 			break;
+		case R.id.btn_confirm:
+			getSiteInfo();
+			break;
 		default:
 			break;
 		}
@@ -249,7 +274,6 @@ public class OwnerSiteFragment extends BaseFragment {
 			startDateView.setText(date);
 			requirementInfo.setDuration("60");
 			requirementInfo.setStart_at(calendar1.getTimeInMillis());
-			getSiteInfo();
 		}
 	};
 

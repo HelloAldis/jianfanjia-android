@@ -79,9 +79,29 @@ public class MyApplication extends BaseApplication {
 		this.userType = userType;
 	}
 
-	public String getStringById(String string) {
-		int StringId = getResources().getIdentifier(string, "string",
+	/**
+	 * @description 根据英文的name,拿到中文的name
+	 * @param string
+	 * @return
+	 */
+	public String getStringById(String name) {
+		int StringId = getResources().getIdentifier(name, "string",
 				getPackageName());
 		return getResources().getString(StringId);
+	}
+
+	/**
+	 * @description 根据name,拿到当前的进行工序的位置
+	 * @param name
+	 * @return 默认返回0，当前工序为第一个工序
+	 */
+	public int getPositionByItemName(String name) {
+		String[] items = getResources().getStringArray(R.array.site_data);
+		for (int i = 0; i < items.length; i++) {
+			if (items[i].equals(name)) {
+				return i;
+			}
+		}
+		return 0;
 	}
 }
