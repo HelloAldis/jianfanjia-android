@@ -51,5 +51,5 @@ public class ProcessInfo extends RequirementInfo {
 	public void setSections(ArrayList<SectionInfo> sections) {
 		this.sections = sections;
 	}
-	
+
 }
