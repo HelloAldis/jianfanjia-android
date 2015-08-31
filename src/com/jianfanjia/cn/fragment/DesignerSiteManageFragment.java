@@ -113,7 +113,7 @@ public class DesignerSiteManageFragment extends BaseFragment implements
 				Log.i(TAG, "arg0:" + arg0);
 			}
 		});
-		//
+
 		// scrollLayout = (ScrollLayout) view
 		// .findViewById(R.id.site_scroller_layout);
 		// scrollLayout.setmCurScreen(currentPro);
