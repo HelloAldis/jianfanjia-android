@@ -83,7 +83,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 					@Override
 					public void onSuccess(int statusCode, Header[] headers,
 							JSONObject response) {
-						makeTextLong("getProcessInfo");
+						LogTool.d(TAG, "response:" + response.toString());
 						try {
 							if (response.has(Constant.DATA)) {
 								processInfo = JsonParser.jsonToBean(response
@@ -92,7 +92,6 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 								MyApplication.getInstance().setProcessInfo(
 										processInfo);
 								handlerSuccess();
-								makeTextLong(response.toString());
 							} else if (response.has(Constant.ERROR_MSG)) {
 								makeTextLong(response.get(Constant.ERROR_MSG)
 										.toString());
@@ -129,7 +128,6 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 			sectionInfo = sectionInfos.get(currentPro);
 			sectionItemInfos = sectionInfo.getItems();
 		}
-
 	}
 
 	private void handlerSuccess() {
@@ -180,10 +178,6 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	}
 
 	private void initItem(View siteHead, int position) {
-		View lineView = (View) siteHead.findViewById(R.id.lineView);
-		if (position == 0) {
-			lineView.setVisibility(View.INVISIBLE);
-		}
 		TextView proName = (TextView) siteHead
 				.findViewById(R.id.site_head_procedure_name);
 		proName.setText(pro[position]);

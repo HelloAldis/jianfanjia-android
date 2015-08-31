@@ -22,7 +22,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical" >
 
             <RelativeLayout
@@ -64,21 +64,33 @@
                 android:id="@+id/viewPager"
                 android:layout_width="match_parent"
                 android:layout_height="130dp"
-                android:layout_marginLeft="-20dip"
                 android:background="#ffffff"
                 android:fadingEdge="none" />
 
-            <com.jianfanjia.cn.view.MyListView
-                android:id="@+id/site__listview"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:cacheColorHint="#ffffff"
-                android:clipToPadding="false"
-                android:divider="@null"
-                android:fadingEdge="none"
-                android:fastScrollEnabled="false"
-                android:listSelector="@android:color/transparent"
-                android:scrollbars="none" />
+                android:layout_height="match_parent" >
+
+                <View
+                    android:id="@+id/view_0"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="40dp"
+                    android:background="#A6A6A6" />
+
+                <com.jianfanjia.cn.view.MyListView
+                    android:id="@+id/site__listview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="33dp"
+                    android:cacheColorHint="#ffffff"
+                    android:clipToPadding="false"
+                    android:divider="@null"
+                    android:fadingEdge="none"
+                    android:fastScrollEnabled="false"
+                    android:listSelector="@android:color/transparent"
+                    android:scrollbars="none" />
+            </FrameLayout>
         </LinearLayout>
     </com.jianfanjia.cn.pulltorefresh.library.PullToRefreshScrollView>
 

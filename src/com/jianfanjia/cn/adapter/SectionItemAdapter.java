@@ -5,8 +5,6 @@ import android.content.Context;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -17,13 +15,10 @@ import com.jianfanjia.cn.bean.SectionItemInfo;
 
 public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 	private int lastClickItem = 0;// 记录上一次点击的条目
-	private Animation animation;
 
 	public SectionItemAdapter(Context context,
 			List<SectionItemInfo> sectionItemInfos) {
 		super(context, sectionItemInfos);
-		animation = AnimationUtils.loadAnimation(context,
-				R.anim.fragment_list_right_enter);
 	}
 
 	public int getLastClickItem() {
@@ -132,7 +127,6 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 		}
 		viewHolder.bigOpenLayout.setVisibility(View.GONE);
 		viewHolder.smallcloseLayout.setVisibility(View.VISIBLE);
-		viewHolder.smallcloseLayout.startAnimation(animation);
 		viewHolder.openComment.setOnClickListener(new OnClickListener() {
 
 			@Override
