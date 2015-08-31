@@ -37,7 +37,8 @@ import com.jianfanjia.cn.view.ScrollLayout;
  * @date 2015-8-28 上午11:10:21
  * 
  */
-public class DesignerSiteManageFragment extends BaseFragment {
+public class DesignerSiteManageFragment extends BaseFragment implements
+		OnRefreshListener2<ScrollView> {
 	private static final String TAG = DesignerSiteManageFragment.class
 			.getName();
 	private PullToRefreshScrollView mPullRefreshScrollView = null;
@@ -191,23 +192,7 @@ public class DesignerSiteManageFragment extends BaseFragment {
 	@Override
 	public void setListener() {
 		icon_user_head.setOnClickListener(this);
-		mPullRefreshScrollView
-				.setOnRefreshListener(new OnRefreshListener2<ScrollView>() {
-
-					@Override
-					public void onPullDownToRefresh(
-							PullToRefreshBase<ScrollView> refreshView) {
-						// 下拉刷新(从第一页开始装载数据)
-						mPullRefreshScrollView.onRefreshComplete();
-					}
-
-					@Override
-					public void onPullUpToRefresh(
-							PullToRefreshBase<ScrollView> refreshView) {
-						// 上拉加载更多(加载下一页数据)
-						mPullRefreshScrollView.onRefreshComplete();
-					}
-				});
+		mPullRefreshScrollView.setOnRefreshListener(this);
 	}
 
 	@Override
@@ -219,6 +204,18 @@ public class DesignerSiteManageFragment extends BaseFragment {
 		default:
 			break;
 		}
+	}
+
+	@Override
+	public void onPullDownToRefresh(PullToRefreshBase<ScrollView> refreshView) {
+		// 下拉刷新(从第一页开始装载数据)
+		mPullRefreshScrollView.onRefreshComplete();
+	}
+
+	@Override
+	public void onPullUpToRefresh(PullToRefreshBase<ScrollView> refreshView) {
+		// 上拉加载更多(加载下一页数据)
+		mPullRefreshScrollView.onRefreshComplete();
 	}
 
 	class HeadViewHold {
