@@ -50,7 +50,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 
 	@Override
 	public void initView() {
-		progressDialog = new CustomProgressDialog(LoginActivity.this, "正在加载中",
+		progressDialog = new CustomProgressDialog(LoginActivity.this, "正在登录中",
 				R.style.dialog);
 		mEtUserName = (EditText) findViewById(R.id.et_username);
 		mEtPassword = (EditText) findViewById(R.id.et_password);
