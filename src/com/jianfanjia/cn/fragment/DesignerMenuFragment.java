@@ -37,6 +37,7 @@ public class DesignerMenuFragment extends BaseFragment implements
 	@Override
 	public void initView(View view) {
 		mTabRg = (RadioGroup) view.findViewById(R.id.tab_rg_menu);
+		setTabSelection(HOME);
 	}
 
 	@Override
