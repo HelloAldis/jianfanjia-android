@@ -1,5 +1,7 @@
 package com.jianfanjia.cn.adapter;
 
+import java.util.List;
+
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,62 +16,59 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.bean.NodeInfo;
 import com.jianfanjia.cn.bean.ProcedureInfo;
+import com.jianfanjia.cn.bean.SectionInfo;
+import com.jianfanjia.cn.bean.SectionItemInfo;
 
-public class NoteListAdapter extends BaseAdapter {
-	private LayoutInflater mInflater;
-	private Context context;
+public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 	private int lastClickItem = 0;// 记录上一次点击的条目
-	private ProcedureInfo procedureInfo;
 	private Animation animation;
 
-	public NoteListAdapter(ProcedureInfo procedureInfo, Context context) {
-		this.procedureInfo = procedureInfo;
-		this.context = context;
-		this.mInflater = LayoutInflater.from(context);
+	public SectionItemAdapter(Context context,List<SectionItemInfo> sectionItemInfos) {
+		super(context, sectionItemInfos);
 		animation = AnimationUtils.loadAnimation(context,
 				R.anim.fragment_list_right_enter);
 	}
 
-	public ProcedureInfo getProcedureInfo() {
-		return procedureInfo;
-	}
-
-	public void setProcedureInfo(ProcedureInfo procedureInfo) {
-		this.procedureInfo = procedureInfo;
-	}
-
-	@Override
-	public int getCount() {
-		return procedureInfo.getNodeList().size();
-	}
-
-	@Override
-	public Object getItem(int position) {
-		return procedureInfo.getNodeList().get(position);
-	}
-
-	@Override
-	public long getItemId(int position) {
-		return position;
-	}
-
 	public int getLastClickItem() {
 		return lastClickItem;
+	}
+	
+	public List<SectionItemInfo> getSectionItemInfos() {
+		return list;
+	}
+
+	public void setSectionItemInfos(List<SectionItemInfo> sectionItemInfos) {
+		this.list = sectionItemInfos;
 	}
 
 	public void setLastClickItem(int lastClickItem) {
 		this.lastClickItem = lastClickItem;
 	}
 
+	class ViewHolder {
+		RelativeLayout smallcloseLayout;
+		RelativeLayout bigOpenLayout;
+		TextView closeNodeName;
+		TextView openNodeName;
+		TextView openUploadPic;
+		TextView openComment;
+		TextView openUploadTime;
+		TextView finishTime;
+		TextView openFinishStatus;
+		ImageView finishStatusIcon;
+	}
+
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
+	public View initView(int position, View convertView) {
+		// TODO Auto-generated method stub
 		ViewHolder viewHolder = null;
-		final NodeInfo nodeInfo = procedureInfo.getNodeList().get(position);
-		Log.i(this.getClass().getName(), nodeInfo.getNodeName());
+		final SectionItemInfo nodeInfo = list.get(position);
+		Log.i(this.getClass().getName(), nodeInfo.getName());
 		if (convertView == null) {
-			convertView = mInflater.inflate(R.layout.site_listview_item, null);
+			convertView = layoutInflater.inflate(R.layout.site_listview_item, null);
 			viewHolder = new ViewHolder();
 			viewHolder.smallcloseLayout = (RelativeLayout) convertView
 					.findViewById(R.id.site_listview_item_content_small);
@@ -95,9 +94,9 @@ public class NoteListAdapter extends BaseAdapter {
 		} else {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
-		viewHolder.closeNodeName.setText(nodeInfo.getNodeName());
-		viewHolder.openNodeName.setText(nodeInfo.getNodeName());
-		switch (nodeInfo.getFinishStatus()) {
+		viewHolder.closeNodeName.setText(MyApplication.getInstance().getStringById(nodeInfo.getName()));
+		viewHolder.openNodeName.setText(MyApplication.getInstance().getStringById(nodeInfo.getName()));
+		switch (Integer.parseInt(nodeInfo.getStatus())) {
 		case NodeInfo.FINISH:
 			viewHolder.finishStatusIcon
 					.setImageResource(R.drawable.site_listview_item_finish_circle);
@@ -153,18 +152,5 @@ public class NoteListAdapter extends BaseAdapter {
 			}
 		});
 		return convertView;
-	}
-
-	class ViewHolder {
-		RelativeLayout smallcloseLayout;
-		RelativeLayout bigOpenLayout;
-		TextView closeNodeName;
-		TextView openNodeName;
-		TextView openUploadPic;
-		TextView openComment;
-		TextView openUploadTime;
-		TextView finishTime;
-		TextView openFinishStatus;
-		ImageView finishStatusIcon;
 	}
 }

@@ -1,5 +1,8 @@
 package com.jianfanjia.cn.config;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import android.os.Environment;
 
 /**
@@ -37,4 +40,7 @@ public class Constant {
 	public static final int CAIGOU_NOTIFY = 1;// 采购提醒
 	public static final int FUKUAN_NOTIFY = 2;// 付款提醒
 	public static final int YANQI_NOTIFY = 3;// 延期提醒
+	
+	public static Map<String,String> process_en_to_china = new HashMap<String, String>();
+	
 }

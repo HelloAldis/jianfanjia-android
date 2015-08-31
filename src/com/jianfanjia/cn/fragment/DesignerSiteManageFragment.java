@@ -18,7 +18,7 @@ import android.widget.TextView;
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.MyViewPageAdapter;
-import com.jianfanjia.cn.adapter.NoteListAdapter;
+import com.jianfanjia.cn.adapter.SectionItemAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.ProcedureInfo;
 import com.jianfanjia.cn.bean.SiteInfo;
@@ -49,7 +49,7 @@ public class DesignerSiteManageFragment extends BaseFragment {
 	private ViewPager viewPager;
 	private ImageView icon_user_head = null;
 	private ListView detailNodeListView;
-	private NoteListAdapter mNoteListAdapter;
+	private SectionItemAdapter mNoteListAdapter;
 	private ScrollLayout scrollLayout;
 	private String[] pro = null;
 	private int size;
@@ -77,7 +77,7 @@ public class DesignerSiteManageFragment extends BaseFragment {
 		mScrollView = mPullRefreshScrollView.getRefreshableView();
 		icon_user_head = (ImageView) view.findViewById(R.id.icon_user_head);
 		initScrollLayout(view);
-		initListView(view, procedureList.get(currentPro));
+//		initListView(view, procedureList.get(currentPro));
 	}
 
 	private void initScrollLayout(View view) {
@@ -125,7 +125,7 @@ public class DesignerSiteManageFragment extends BaseFragment {
 		// mNoteListAdapter.notifyDataSetChanged();
 		// }
 		// });
-		initListView(view, procedureList.get(currentPro));
+//		initListView(view, procedureList.get(currentPro));
 	}
 
 	private void initItem(View siteHead, int position) {
@@ -144,7 +144,7 @@ public class DesignerSiteManageFragment extends BaseFragment {
 				.findViewById(R.id.site_head_procedure_icon);
 	}
 
-	private void initListView(View view, ProcedureInfo procedure) {
+	/*private void initListView(View view, ProcedureInfo procedure) {
 		detailNodeListView = (ListView) view.findViewById(R.id.site__listview);
 		mNoteListAdapter = new NoteListAdapter(procedure, getActivity());
 		detailNodeListView.setAdapter(mNoteListAdapter);
@@ -188,7 +188,7 @@ public class DesignerSiteManageFragment extends BaseFragment {
 			}
 		});
 
-	}
+	}*/
 
 	@Override
 	public void setListener() {
