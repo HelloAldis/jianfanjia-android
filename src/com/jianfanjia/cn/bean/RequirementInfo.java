@@ -22,7 +22,7 @@ public class RequirementInfo implements Serializable {
 	private String dec_style;
 	private String work_type;
 	private String total_price;
-	private Date start_at;
+	private long start_at;
 	private String duration;
 
 	public String getFinal_designerid() {
@@ -105,11 +105,11 @@ public class RequirementInfo implements Serializable {
 		this.total_price = total_price;
 	}
 
-	public Date getStart_at() {
+	public long getStart_at() {
 		return start_at;
 	}
 
-	public void setStart_at(Date start_at) {
+	public void setStart_at(long start_at) {
 		this.start_at = start_at;
 	}
 

@@ -245,7 +245,7 @@ public class OwnerSiteFragment extends BaseFragment {
 			String date = simpleDateFormat.format(calendar1.getTime());
 			startDateView.setText(date);
 			requirementInfo.setTotal_price("60");
-			requirementInfo.setStart_at(calendar1.getTime());
+			requirementInfo.setStart_at(calendar1.getTimeInMillis());
 			getSiteInfo();
 		}
 	};

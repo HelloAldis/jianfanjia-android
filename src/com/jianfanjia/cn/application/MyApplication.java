@@ -1,5 +1,11 @@
 package com.jianfanjia.cn.application;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+
+import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseApplication;
 import com.jianfanjia.cn.bean.LoginUserBean;
 import com.jianfanjia.cn.bean.RegisterInfo;
@@ -19,12 +25,24 @@ public class MyApplication extends BaseApplication {
 	private String userType;// 判断用户类型
 	private RegisterInfo registerInfo = new RegisterInfo();// 注册实体信息
 	private SiteInfo siteInfo;
+	private List<String> site_data;//静态的工序列表
 
 	@Override
 	public void onCreate() {
 		super.onCreate();
 		instance = this;
+		site_data = Arrays.asList(getResources().getStringArray(R.array.site_data));
 	}
+	
+	public List<String> getSite_data() {
+		return site_data;
+	}
+
+	public void setSite_data(List<String> site_data) {
+		this.site_data = site_data;
+	}
+
+
 
 	public boolean isLogin() {
 		return isLogin;
