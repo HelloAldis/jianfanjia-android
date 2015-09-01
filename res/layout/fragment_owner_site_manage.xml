@@ -68,6 +68,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dip"
+                    android:layout_marginLeft="40dp"
                     android:layout_marginTop="42dp"
                     android:background="#A6A6A6" />
 
