@@ -53,7 +53,7 @@
                 android:layout_centerHorizontal="true"
                 android:contentDescription="@null"
                 android:scaleType="centerCrop"
-                android:src="@drawable/icon_home_checked1" />
+                android:src="@drawable/icon_sidebar_default_user" />
 
             <TextView
                 android:id="@+id/owner_detail_name"
@@ -81,7 +81,6 @@
                 android:layout_below="@+id/owner_detail_name"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="12dp"
-                android:text="@string/work_city"
                 android:textColor="@color/main_color_orange" />
 
             <LinearLayout

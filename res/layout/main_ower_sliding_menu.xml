@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="282dp"
+    android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
     <ImageView
@@ -65,7 +65,7 @@
 
         <TextView
             android:id="@+id/ower_sliding_site"
-            style="@style/site_listview_item_text_style_title"
+            
             android:layout_marginTop="@dimen/space_16"
             android:text="@string/my_decoration_site"
             android:textColor="@color/font_white" />
