@@ -86,6 +86,11 @@ public class MainActivity extends BaseActivity implements PanelSlideListener {
 	}
 
 	@Override
+	public void onBackPressed() {
+		
+	}
+
+	@Override
 	protected void onDestroy() {
 		super.onDestroy();
 		Log.d(TAG, "---onDestroy()");

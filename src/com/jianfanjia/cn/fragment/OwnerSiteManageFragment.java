@@ -182,12 +182,16 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 
 			@Override
 			public void onPageSelected(int arg0) {
-				if (currentPro != arg0) {
-					currentPro = arg0;
-					sectionInfo = sectionInfos.get(currentPro);
-					sectionItemInfos = sectionInfo.getItems();
-					sectionItemAdapter.setSectionItemInfos(sectionItemInfos);
-					sectionItemAdapter.notifyDataSetChanged();
+				if (sectionInfos != null) {
+					if (currentPro != arg0) {
+						currentPro = arg0;
+						sectionInfo = sectionInfos.get(currentPro);
+						sectionItemInfos = sectionInfo.getItems();
+						sectionItemAdapter
+								.setSectionItemInfos(sectionItemInfos);
+						sectionItemAdapter.setLastClickItem(-1);
+						sectionItemAdapter.notifyDataSetChanged();
+					}
 				}
 			}
 		});
@@ -261,6 +265,8 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 					}
 
 				}
+				sectionItemAdapter.setLastClickItem(position);
+				sectionItemAdapter.notifyDataSetChanged();
 			}
 		});
 

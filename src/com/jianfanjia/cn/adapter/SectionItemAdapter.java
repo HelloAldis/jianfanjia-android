@@ -5,16 +5,21 @@ import android.content.Context;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
-import com.jianfanjia.cn.bean.NodeInfo;
+import com.jianfanjia.cn.bean.CommentInfo;
 import com.jianfanjia.cn.bean.SectionItemInfo;
+import com.jianfanjia.cn.config.Constant;
 
 public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
-	private int lastClickItem = -1;// 璁板綍涓婁竴娆＄偣鍑荤殑鏉＄洰
+
+	private int lastClickItem = -1;// 记录点击的位置
+	private List<String> imageUrlList;// 该节点的图片list
+	private List<CommentInfo> commentInfoList;// 该节点的评论list
 
 	public SectionItemAdapter(Context context,
 			List<SectionItemInfo> sectionItemInfos) {
@@ -48,13 +53,16 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 		TextView finishTime;
 		TextView openFinishStatus;
 		ImageView finishStatusIcon;
+		GridView gridView;
 	}
 
 	@Override
 	public View initView(int position, View convertView) {
 		ViewHolder viewHolder = null;
-		final SectionItemInfo nodeInfo = list.get(position);
-		Log.i(this.getClass().getName(), nodeInfo.getName());
+		final SectionItemInfo sectionItemInfo = list.get(position);
+		imageUrlList = sectionItemInfo.getImages();
+		commentInfoList = sectionItemInfo.getComments();
+		Log.i(this.getClass().getName(), sectionItemInfo.getName());
 		if (convertView == null) {
 			convertView = layoutInflater.inflate(R.layout.site_listview_item,
 					null);
@@ -79,56 +87,48 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 					.findViewById(R.id.site_list_item_content_expand_node_finish_status);
 			viewHolder.finishStatusIcon = (ImageView) convertView
 					.findViewById(R.id.site_listview_item_status);
+			viewHolder.gridView = (GridView) convertView
+					.findViewById(R.id.site_list_item_gridview);
 			convertView.setTag(viewHolder);
 		} else {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
 		viewHolder.closeNodeName.setText(MyApplication.getInstance()
-				.getStringById(nodeInfo.getName()));
+				.getStringById(sectionItemInfo.getName()));
 		viewHolder.openNodeName.setText(MyApplication.getInstance()
-				.getStringById(nodeInfo.getName()));
-		switch (Integer.parseInt(nodeInfo.getStatus())) {
-		case NodeInfo.FINISH:
+				.getStringById(sectionItemInfo.getName()));
+		switch (Integer.parseInt(sectionItemInfo.getStatus())) {
+		case Constant.FINISH:
 			viewHolder.finishStatusIcon
-					.setImageResource(R.drawable.site_listview_item_finish_circle);
+					.setImageResource(R.drawable.icon_home_finish);
 			viewHolder.openFinishStatus.setText(context.getResources()
 					.getString(R.string.site_example_node_finish));
 			viewHolder.finishTime.setVisibility(View.VISIBLE);
 			break;
-		case NodeInfo.NOT_START:
+		case Constant.NOT_START:
 			viewHolder.finishStatusIcon
 					.setImageResource(R.drawable.site_listview_item_notstart_circle);
 			viewHolder.finishTime.setVisibility(View.GONE);
+			viewHolder.openFinishStatus.setText("");
 			break;
-		case NodeInfo.WORKING:
+		case Constant.WORKING:
 			viewHolder.finishTime.setVisibility(View.GONE);
 			viewHolder.finishStatusIcon
-					.setImageResource(R.drawable.site_listview_item_working_circle);
-			// 鏍规嵁鐢ㄦ埛鐨勪笉鍚岃缃笉鍚岀殑鏄剧ず
-			/*
-			 * if(AppContext.getInstance().getLoginUser().getUserIdentity() ==
-			 * UserInfo.IDENTITY_COMMON_USER){
-			 * viewHolder.openFinishStatus.setText
-			 * (context.getResources().getString
-			 * (R.string.site_example_node_working)); }else{
-			 * viewHolder.openFinishStatus
-			 * .setText(context.getResources().getString
-			 * (R.string.site_example_node_confirm_finish)); //璁捐甯堢‘璁ゅ畬宸ユ搷浣?
-			 * viewHolder.openFinishStatus.setOnClickListener(new
-			 * OnClickListener() {
-			 * 
-			 * @Override public void onClick(View v) {
-			 * v.setOnClickListener(null);
-			 * NodeInfo.setFinishStatus(NodeInfo.FINISH); } }); }
-			 */
+					.setImageResource(R.drawable.icon_home_working);
+			viewHolder.openFinishStatus.setText(context.getResources()
+					.getString(R.string.site_example_node_working));
 			break;
 		default:
 			break;
 		}
-		if(position == lastClickItem){
+		// 未开工的点击无法展开
+		// if (Integer.parseInt(sectionItemInfo.getStatus()) !=
+		// Constant.NOT_START && position == lastClickItem) {
+		if (position == lastClickItem) {
 			viewHolder.bigOpenLayout.setVisibility(View.VISIBLE);
 			viewHolder.smallcloseLayout.setVisibility(View.GONE);
-		}else{
+		} else {
+			Log.i(this.getClass().getName(), "not_start");
 			viewHolder.bigOpenLayout.setVisibility(View.GONE);
 			viewHolder.smallcloseLayout.setVisibility(View.VISIBLE);
 		}
