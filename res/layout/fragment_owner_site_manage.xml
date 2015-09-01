@@ -60,19 +60,29 @@
                     android:textSize="18sp" />
             </RelativeLayout>
 
-            <com.jianfanjia.cn.view.ProcessViewPager
-                android:id="@+id/viewPager"
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="130dp"
-                android:background="#ffffff"
-                android:fadingEdge="none" />
+                android:background="#ffffff" >
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dip"
+                    android:layout_marginTop="42dp"
+                    android:background="#A6A6A6" />
+
+                <com.jianfanjia.cn.view.ProcessViewPager
+                    android:id="@+id/viewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fadingEdge="none" />
+            </FrameLayout>
 
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" >
 
                 <View
-                    android:id="@+id/view_0"
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="40dp"
