@@ -16,10 +16,10 @@ import com.jianfanjia.cn.bean.SectionItemInfo;
 import com.jianfanjia.cn.config.Constant;
 
 public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
-	
+
 	private int lastClickItem = -1;// 记录点击的位置
-	private List<String> imageUrlList;//该节点的图片list
-	private List<CommentInfo> commentInfoList;//该节点的评论list
+	private List<String> imageUrlList;// 该节点的图片list
+	private List<CommentInfo> commentInfoList;// 该节点的评论list
 
 	public SectionItemAdapter(Context context,
 			List<SectionItemInfo> sectionItemInfos) {
@@ -87,7 +87,8 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 					.findViewById(R.id.site_list_item_content_expand_node_finish_status);
 			viewHolder.finishStatusIcon = (ImageView) convertView
 					.findViewById(R.id.site_listview_item_status);
-			viewHolder.gridView = (GridView)convertView.findViewById(R.id.site_list_item_gridview);
+			viewHolder.gridView = (GridView) convertView
+					.findViewById(R.id.site_list_item_gridview);
 			convertView.setTag(viewHolder);
 		} else {
 			viewHolder = (ViewHolder) convertView.getTag();
@@ -120,13 +121,14 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 		default:
 			break;
 		}
-		//未开工的点击无法展开
-//		if (Integer.parseInt(sectionItemInfo.getStatus()) != Constant.NOT_START && position == lastClickItem) {
-		if(position == lastClickItem) {
+		// 未开工的点击无法展开
+		// if (Integer.parseInt(sectionItemInfo.getStatus()) !=
+		// Constant.NOT_START && position == lastClickItem) {
+		if (position == lastClickItem) {
 			viewHolder.bigOpenLayout.setVisibility(View.VISIBLE);
 			viewHolder.smallcloseLayout.setVisibility(View.GONE);
 		} else {
-			Log.i(this.getClass().getName(),"not_start");
+			Log.i(this.getClass().getName(), "not_start");
 			viewHolder.bigOpenLayout.setVisibility(View.GONE);
 			viewHolder.smallcloseLayout.setVisibility(View.VISIBLE);
 		}

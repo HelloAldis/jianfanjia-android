@@ -54,6 +54,16 @@ public class JianFanJiaApiClient {
 	}
 
 	/**
+	 * 用户登出
+	 * 
+	 * @param context
+	 * @param handler
+	 */
+	public static void logout(Context context, AsyncHttpResponseHandler handler) {
+		HttpRestClient.get(context, Url.SIGNOUT_URL, handler);
+	}
+
+	/**
 	 * @author zhanghao
 	 * @param phone
 	 * @param handler
@@ -83,7 +93,7 @@ public class JianFanJiaApiClient {
 			AsyncHttpResponseHandler handler) {
 		HttpRestClient.get(context, Url.REQUIREMENT, handler);
 	}
-	
+
 	/**
 	 * @author zhanghao
 	 * @decription 业主配置工地
@@ -91,7 +101,8 @@ public class JianFanJiaApiClient {
 	 * @param requirementInfo
 	 * @param handler
 	 */
-	public static void post_Owner_Process(Context context,RequirementInfo requirementInfo,AsyncHttpResponseHandler handler){
+	public static void post_Owner_Process(Context context,
+			RequirementInfo requirementInfo, AsyncHttpResponseHandler handler) {
 		StringEntity entity;
 		try {
 			entity = new StringEntity(JsonParser.beanToJson(requirementInfo));
@@ -138,29 +149,29 @@ public class JianFanJiaApiClient {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * @author zhanghao
-	 * @description 业主获取个人信息 
+	 * @description 业主获取个人信息
 	 * @param context
 	 * @param hanlder
 	 */
 	public static void get_Owner_Info(Context context,
-			AsyncHttpResponseHandler hanlder){
+			AsyncHttpResponseHandler hanlder) {
 		HttpRestClient.get(context, Url.GET_OWER_INFO, hanlder);
 	}
-	
+
 	/**
 	 * @author zhanghao
-	 * @description 设计师获取个人信息 
+	 * @description 设计师获取个人信息
 	 * @param context
 	 * @param hanlder
 	 */
 	public static void get_Designer_Info(Context context,
-			AsyncHttpResponseHandler hanlder){
+			AsyncHttpResponseHandler hanlder) {
 		HttpRestClient.get(context, Url.GET_DESIGNER_INFO, hanlder);
 	}
-	
+
 	/**
 	 * @author zhanghao
 	 * @description 业主获取我的设计师
@@ -168,10 +179,10 @@ public class JianFanJiaApiClient {
 	 * @param hanlder
 	 */
 	public static void get_Owner_Designer(Context context,
-			AsyncHttpResponseHandler hanlder){
+			AsyncHttpResponseHandler hanlder) {
 		HttpRestClient.get(context, Url.GET_OWER_DESIGNER, hanlder);
 	}
-	
+
 	/**
 	 * @author zhanghao
 	 * @description 设计师获取我的业主
@@ -179,10 +190,10 @@ public class JianFanJiaApiClient {
 	 * @param hanlder
 	 */
 	public static void get_Designer_Owner(Context context,
-			AsyncHttpResponseHandler hanlder){
+			AsyncHttpResponseHandler hanlder) {
 		HttpRestClient.get(context, Url.GET_DESIGNER_OWNER, hanlder);
 	}
-	
+
 	/**
 	 * @author zhanghao
 	 * @description 设计师获取我的工地
@@ -190,10 +201,10 @@ public class JianFanJiaApiClient {
 	 * @param hanlder
 	 */
 	public static void get_Designer_Process_List(Context context,
-			AsyncHttpResponseHandler hanlder){
+			AsyncHttpResponseHandler hanlder) {
 		HttpRestClient.get(context, Url.GET_DESIGNER_PROCESS, hanlder);
 	}
-	
+
 	/**
 	 * @author zhanghao
 	 * @description 业主获取我的工地
@@ -201,11 +212,10 @@ public class JianFanJiaApiClient {
 	 * @param hanlder
 	 */
 	public static void get_Owner_Process(Context context,
-			AsyncHttpResponseHandler hanlder){
+			AsyncHttpResponseHandler hanlder) {
 		HttpRestClient.get(context, Url.PROCESS, hanlder);
 	}
-	
-	
+
 	// 拿到所有的模拟工地数据
 	public static ArrayList<SiteInfo> getAllSites(Context context) {
 		ArrayList<SiteInfo> allSites = null;

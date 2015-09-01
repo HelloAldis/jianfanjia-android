@@ -56,6 +56,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	private int currentPro = 0;
 	private ViewPager viewPager;
 	private ImageView icon_user_head = null;
+	private TextView head_right_title = null;
 	private ListView detailNodeListView;
 	private SectionItemAdapter sectionItemAdapter;
 	private MyViewPageAdapter myViewPageAdapter;
@@ -152,6 +153,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		mPullRefreshScrollView.setMode(Mode.PULL_FROM_START);
 		mScrollView = mPullRefreshScrollView.getRefreshableView();
 		icon_user_head = (ImageView) view.findViewById(R.id.icon_user_head);
+		head_right_title = (TextView) view.findViewById(R.id.head_right_title);
 		initScrollLayout(view);
 		initListView(view, sectionItemInfos);
 	}
@@ -180,12 +182,13 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 
 			@Override
 			public void onPageSelected(int arg0) {
-				if(sectionInfos != null){
+				if (sectionInfos != null) {
 					if (currentPro != arg0) {
 						currentPro = arg0;
 						sectionInfo = sectionInfos.get(currentPro);
 						sectionItemInfos = sectionInfo.getItems();
-						sectionItemAdapter.setSectionItemInfos(sectionItemInfos);
+						sectionItemAdapter
+								.setSectionItemInfos(sectionItemInfos);
 						sectionItemAdapter.setLastClickItem(-1);
 						sectionItemAdapter.notifyDataSetChanged();
 					}
@@ -227,6 +230,41 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
+				View lastClickItem = parent.getChildAt(sectionItemAdapter
+						.getLastClickItem());
+				if (position != sectionItemAdapter.getLastClickItem()) {
+					/*
+					 * lastClickItem.findViewById(
+					 * R.id.site_listview_item_content_expand)
+					 * .setVisibility(View.GONE); lastClickItem.findViewById(
+					 * R.id.site_listview_item_content_small)
+					 * .setVisibility(View.VISIBLE);
+					 * view.findViewById(R.id.site_listview_item_content_expand)
+					 * .setVisibility(View.VISIBLE);
+					 * view.findViewById(R.id.site_listview_item_content_small)
+					 * .setVisibility(View.GONE);
+					 */
+					sectionItemAdapter.setLastClickItem(position);
+					sectionItemAdapter.notifyDataSetChanged();
+				} else {
+					int visible = view.findViewById(
+							R.id.site_listview_item_content_expand)
+							.getVisibility();
+					if (visible == View.GONE) {
+						view.findViewById(
+								R.id.site_listview_item_content_expand)
+								.setVisibility(View.VISIBLE);
+						view.findViewById(R.id.site_listview_item_content_small)
+								.setVisibility(View.GONE);
+					} else {
+						view.findViewById(
+								R.id.site_listview_item_content_expand)
+								.setVisibility(View.GONE);
+						view.findViewById(R.id.site_listview_item_content_small)
+								.setVisibility(View.VISIBLE);
+					}
+
+				}
 				sectionItemAdapter.setLastClickItem(position);
 				sectionItemAdapter.notifyDataSetChanged();
 			}
@@ -237,6 +275,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	@Override
 	public void setListener() {
 		icon_user_head.setOnClickListener(this);
+		head_right_title.setOnClickListener(this);
 		mPullRefreshScrollView.setOnRefreshListener(this);
 	}
 
@@ -245,6 +284,9 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		switch (v.getId()) {
 		case R.id.icon_user_head:
 			((MainActivity) getActivity()).getSlidingPaneLayout().openPane();
+			break;
+		case R.id.head_right_title:
+
 			break;
 		default:
 			break;

@@ -1,12 +1,16 @@
 package com.jianfanjia.cn.fragment;
 
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.TextView;
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseFragment;
+import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.tools.LogTool;
 
 /**
  * 
@@ -32,10 +36,20 @@ public class OwnerMenuFragment extends BaseFragment implements
 	private OwnerSiteFragment ownerSiteFragment = null;
 	private SettingFragment settingFragment = null;
 	private HelpFrgment helpFragment = null;
+	private String mUserName;// ”√ªß√˚
+	private TextView nameText = null;
+	private TextView phoneText = null;
 
 	@Override
 	public void initView(View view) {
+		mUserName = shared.getValue(Constant.ACCOUNT, null);
+		LogTool.d(TAG, "mUserName=" + mUserName);
+		nameText = (TextView) view.findViewById(R.id.name_text);
+		phoneText = (TextView) view.findViewById(R.id.phone_text);
 		mTabRg = (RadioGroup) view.findViewById(R.id.tab_rg_menu);
+		if (!TextUtils.isEmpty(mUserName)) {
+			phoneText.setText("’À∫≈:" + mUserName);
+		}
 	}
 
 	@Override

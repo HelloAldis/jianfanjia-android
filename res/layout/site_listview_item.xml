@@ -70,8 +70,8 @@
             android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
             android:orientation="horizontal" >
-            
-             <com.jianfanjia.cn.view.MyGridView
+
+            <com.jianfanjia.cn.view.MyGridView
                 android:id="@+id/site_list_item_gridview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -89,8 +89,8 @@
             style="@style/site_listview_item_text_style_small"
             android:layout_alignBottom="@+id/site_list_item_content_expand_node_upload_picture"
             android:layout_alignTop="@+id/site_list_item_content_expand_node_upload_picture"
-            android:gravity="center_vertical"
             android:layout_below="@+id/site_list_item_content_expand_node_picture_layout"
+            android:gravity="center_vertical"
             android:text="@string/site_example_node_time"
             android:textColor="@color/main_color_grey" />
 
@@ -100,18 +100,18 @@
             android:layout_below="@+id/site_list_item_content_expand_node_picture_layout"
             android:layout_marginRight="24dp"
             android:layout_toLeftOf="@+id/site_list_item_content_expand_node_assess"
+            android:drawableLeft="@drawable/btn_icon_upload_pic_normal"
             android:text="@string/site_example_node_upload_picture"
-            android:textColor="@color/main_color_grey"
-            android:drawableLeft="@drawable/btn_icon_upload_pic_normal" />
+            android:textColor="@color/main_color_grey" />
 
         <TextView
             android:id="@+id/site_list_item_content_expand_node_assess"
             style="@style/site_listview_item_text_style_small"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/site_list_item_content_expand_node_picture_layout"
+            android:drawableLeft="@drawable/btn_icon_comment_normal"
             android:text="@string/site_example_node_assess"
-            android:textColor="@color/main_color_grey"
-            android:drawableLeft="@drawable/btn_icon_comment_normal" />
+            android:textColor="@color/main_color_grey" />
     </RelativeLayout>
 
 </RelativeLayout>

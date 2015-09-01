@@ -7,15 +7,14 @@
     <RelativeLayout
         android:id="@+id/my_setting_head_layout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/space_48"
-         >
+        android:layout_height="@dimen/space_48" >
 
         <ImageView
             android:id="@+id/my_designer_head"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginLeft="@dimen/space_8"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/space_8"
             android:contentDescription="@null"
             android:scaleType="centerCrop"
             android:src="@drawable/icon_home_default_user" />
@@ -52,13 +51,14 @@
                     android:layout_centerVertical="true"
                     android:text="@string/message_push"
                     android:textColor="@color/main_color_black" />
-                
-                <ToggleButton android:id="@+id/mespush_toggle"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
+
+                <ToggleButton
+                    android:id="@+id/mespush_toggle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/btn_setting_msg_selector"/>
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/btn_setting_msg_selector" />
             </RelativeLayout>
 
             <View style="@style/divier_line" />
