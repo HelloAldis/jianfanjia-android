@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -25,6 +26,7 @@ import com.jianfanjia.cn.tools.SharedPrefer;
  */
 public abstract class BaseFragment extends Fragment implements OnClickListener {
 	protected FragmentManager fragmentManager = null;
+	protected LocalBroadcastManager localBroadcastManager = null;
 	protected LayoutInflater inflater = null;
 	protected SharedPrefer shared = null;
 	protected JsonParser jsonParser = null;
@@ -43,6 +45,8 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 		LogTool.d(this.getClass().getName(), "onCreateView");
 		this.inflater = inflater;
 		fragmentManager = getFragmentManager();
+		localBroadcastManager = LocalBroadcastManager
+				.getInstance(getActivity());
 		View view = inflateView(getLayoutId());
 		initView(view);
 		setListener();
