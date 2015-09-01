@@ -40,7 +40,10 @@ public class Url {
 	public static final String GET_DESIGNER_OWNER = "designer/user";
 	// 获取设计师的工地列表
 	public static final String GET_DESIGNER_PROCESS = "designer/process/list";
-
+	// 设计师获取我的方案
+	public static final String GET_DESIGNER_PLAN = "designer/plan";
+	// 设计师提交方案
+	public static final String SUBMIT_DESIGNER_PLAN = "designer/plan";
 	// 上传图片到装修流程
 	public static final String POST_PROCESS_IMAGE = "process/image";
 	// 评价装修流程
