@@ -226,7 +226,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 				View lastClickItem = parent.getChildAt(sectionItemAdapter
 						.getLastClickItem());
 				if (position != sectionItemAdapter.getLastClickItem()) {
-					lastClickItem.findViewById(
+					/*lastClickItem.findViewById(
 							R.id.site_listview_item_content_expand)
 							.setVisibility(View.GONE);
 					lastClickItem.findViewById(
@@ -235,8 +235,9 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 					view.findViewById(R.id.site_listview_item_content_expand)
 							.setVisibility(View.VISIBLE);
 					view.findViewById(R.id.site_listview_item_content_small)
-							.setVisibility(View.GONE);
+							.setVisibility(View.GONE);*/
 					sectionItemAdapter.setLastClickItem(position);
+					sectionItemAdapter.notifyDataSetChanged();
 				} else {
 					int visible = view.findViewById(
 							R.id.site_listview_item_content_expand)
@@ -254,6 +255,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 						view.findViewById(R.id.site_listview_item_content_small)
 								.setVisibility(View.VISIBLE);
 					}
+
 				}
 			}
 		});

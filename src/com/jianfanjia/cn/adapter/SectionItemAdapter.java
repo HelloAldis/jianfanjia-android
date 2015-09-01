@@ -14,7 +14,7 @@ import com.jianfanjia.cn.bean.NodeInfo;
 import com.jianfanjia.cn.bean.SectionItemInfo;
 
 public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
-	private int lastClickItem = 0;// 记录上一次点击的条目
+	private int lastClickItem = -1;// 记录上一次点击的条目
 
 	public SectionItemAdapter(Context context,
 			List<SectionItemInfo> sectionItemInfos) {
@@ -125,8 +125,13 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 		default:
 			break;
 		}
-		viewHolder.bigOpenLayout.setVisibility(View.GONE);
-		viewHolder.smallcloseLayout.setVisibility(View.VISIBLE);
+		if(position == lastClickItem){
+			viewHolder.bigOpenLayout.setVisibility(View.VISIBLE);
+			viewHolder.smallcloseLayout.setVisibility(View.GONE);
+		}else{
+			viewHolder.bigOpenLayout.setVisibility(View.GONE);
+			viewHolder.smallcloseLayout.setVisibility(View.VISIBLE);
+		}
 		viewHolder.openComment.setOnClickListener(new OnClickListener() {
 
 			@Override
