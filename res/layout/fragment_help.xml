@@ -8,12 +8,13 @@
         android:id="@+id/my_setting_head_layout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_48"
+        android:background="@color/head_layout_bg"
          >
 
         <ImageView
             android:id="@+id/my_designer_head"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/space_8"
             android:contentDescription="@null"
             android:scaleType="centerCrop"
@@ -26,6 +27,10 @@
             android:layout_centerInParent="true"
             android:text="@string/my_help"
             android:textColor="@color/main_color_black" />
+        
+        <View style="@style/divier_line"
+            android:background="@color/horzontal_line_color"
+            android:layout_alignParentBottom="true"/>
     </RelativeLayout>
 
 </RelativeLayout>

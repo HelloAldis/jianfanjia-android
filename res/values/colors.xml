@@ -14,6 +14,7 @@
     <color name="site_item_selected_bg">#ff9800</color>
 
     <!-- 字体色值 -->
+    <color name="head_layout_bg">#E5fbfbfb</color>
     <color name="font_white">#ffffff</color>
     <color name="log_and_res_hint">#d8d8d8</color>
     <color name="log_and_res_broder">#d8d8d8</color>
