@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -27,6 +28,7 @@ import com.jianfanjia.cn.bean.SectionInfo;
 import com.jianfanjia.cn.bean.SectionItemInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
+import com.jianfanjia.cn.interf.SwitchFragmentListener;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
@@ -47,6 +49,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 public class OwnerSiteManageFragment extends BaseFragment implements
 		OnRefreshListener2<ScrollView> {
 	private static final String TAG = OwnerSiteManageFragment.class.getName();
+	private SwitchFragmentListener listener;
 	private PullToRefreshScrollView mPullRefreshScrollView = null;
 	private ScrollView mScrollView = null;
 	private ArrayList<SectionInfo> sectionInfos;
@@ -63,6 +66,16 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	private String[] pro = null;
 	private int size;
 	private List<View> list = new ArrayList<View>();
+
+	@Override
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
+		try {
+			listener = (SwitchFragmentListener) activity;
+		} catch (ClassCastException e) {
+			e.printStackTrace();
+		}
+	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -286,7 +299,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 			((MainActivity) getActivity()).getSlidingPaneLayout().openPane();
 			break;
 		case R.id.head_right_title:
-
+			listener.switchFragment(3);
 			break;
 		default:
 			break;
@@ -351,4 +364,5 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	public int getLayoutId() {
 		return R.layout.fragment_owner_site_manage;
 	}
+
 }

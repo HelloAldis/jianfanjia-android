@@ -3,6 +3,7 @@ package com.jianfanjia.cn.fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
@@ -10,6 +11,7 @@ import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.interf.FragmentCallBack;
 import com.jianfanjia.cn.tools.LogTool;
 
 /**
@@ -21,7 +23,7 @@ import com.jianfanjia.cn.tools.LogTool;
  * 
  */
 public class OwnerMenuFragment extends BaseFragment implements
-		OnCheckedChangeListener {
+		OnCheckedChangeListener, FragmentCallBack {
 	private static final String TAG = OwnerMenuFragment.class.getName();
 	private static final int HOME = 0;
 	private static final int NOTIFY = 1;
@@ -168,5 +170,14 @@ public class OwnerMenuFragment extends BaseFragment implements
 	@Override
 	public int getLayoutId() {
 		return R.layout.fragment_owner_menu;
+	}
+
+	@Override
+	public void callBack(int index) {
+		View v = mTabRg.getChildAt(index);
+		RadioButton rb = (RadioButton) v.findViewById(R.id.tab_rb_4);
+		LogTool.d(TAG, "rb:" + rb);
+		rb.setChecked(true);
+		setTabSelection(index);
 	}
 }

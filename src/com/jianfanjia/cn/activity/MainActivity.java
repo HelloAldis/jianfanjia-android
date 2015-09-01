@@ -1,6 +1,7 @@
 package com.jianfanjia.cn.activity;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SlidingPaneLayout;
 import android.support.v4.widget.SlidingPaneLayout.PanelSlideListener;
@@ -14,6 +15,8 @@ import com.jianfanjia.cn.fragment.DesignerMenuFragment;
 import com.jianfanjia.cn.fragment.DesignerSiteManageFragment;
 import com.jianfanjia.cn.fragment.OwnerMenuFragment;
 import com.jianfanjia.cn.fragment.OwnerSiteManageFragment;
+import com.jianfanjia.cn.interf.FragmentCallBack;
+import com.jianfanjia.cn.interf.SwitchFragmentListener;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.PagerEnabledSlidingPaneLayout;
 
@@ -25,11 +28,23 @@ import com.jianfanjia.cn.view.PagerEnabledSlidingPaneLayout;
  * @date 2015-8-18 ÏÂÎç1:28:28
  * 
  */
-public class MainActivity extends BaseActivity implements PanelSlideListener {
+public class MainActivity extends BaseActivity implements PanelSlideListener,
+		SwitchFragmentListener {
 	private static final String TAG = MainActivity.class.getName();
+	private FragmentCallBack callback = null;
 	private PagerEnabledSlidingPaneLayout slidingPaneLayout = null;
 	private FrameLayout slidingpane_content = null;
 	private String userIdentity = null;
+
+	@Override
+	public void onAttachFragment(Fragment fragment) {
+		super.onAttachFragment(fragment);
+		try {
+			callback = (FragmentCallBack) fragment;
+		} catch (ClassCastException e) {
+			LogTool.d(TAG, "e:" + e);
+		}
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -112,6 +127,12 @@ public class MainActivity extends BaseActivity implements PanelSlideListener {
 	@Override
 	public int getLayoutId() {
 		return R.layout.activity_main;
+	}
+
+	@Override
+	public void switchFragment(int index) {
+		LogTool.d(TAG, "index:" + index);
+		callback.callBack(index);
 	}
 
 }
