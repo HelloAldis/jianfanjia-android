@@ -180,12 +180,15 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 
 			@Override
 			public void onPageSelected(int arg0) {
-				if (currentPro != arg0) {
-					currentPro = arg0;
-					sectionInfo = sectionInfos.get(currentPro);
-					sectionItemInfos = sectionInfo.getItems();
-					sectionItemAdapter.setSectionItemInfos(sectionItemInfos);
-					sectionItemAdapter.notifyDataSetChanged();
+				if(sectionInfos != null){
+					if (currentPro != arg0) {
+						currentPro = arg0;
+						sectionInfo = sectionInfos.get(currentPro);
+						sectionItemInfos = sectionInfo.getItems();
+						sectionItemAdapter.setSectionItemInfos(sectionItemInfos);
+						sectionItemAdapter.setLastClickItem(-1);
+						sectionItemAdapter.notifyDataSetChanged();
+					}
 				}
 			}
 		});
@@ -224,40 +227,8 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				View lastClickItem = parent.getChildAt(sectionItemAdapter
-						.getLastClickItem());
-				if (position != sectionItemAdapter.getLastClickItem()) {
-					/*lastClickItem.findViewById(
-							R.id.site_listview_item_content_expand)
-							.setVisibility(View.GONE);
-					lastClickItem.findViewById(
-							R.id.site_listview_item_content_small)
-							.setVisibility(View.VISIBLE);
-					view.findViewById(R.id.site_listview_item_content_expand)
-							.setVisibility(View.VISIBLE);
-					view.findViewById(R.id.site_listview_item_content_small)
-							.setVisibility(View.GONE);*/
-					sectionItemAdapter.setLastClickItem(position);
-					sectionItemAdapter.notifyDataSetChanged();
-				} else {
-					int visible = view.findViewById(
-							R.id.site_listview_item_content_expand)
-							.getVisibility();
-					if (visible == View.GONE) {
-						view.findViewById(
-								R.id.site_listview_item_content_expand)
-								.setVisibility(View.VISIBLE);
-						view.findViewById(R.id.site_listview_item_content_small)
-								.setVisibility(View.GONE);
-					} else {
-						view.findViewById(
-								R.id.site_listview_item_content_expand)
-								.setVisibility(View.GONE);
-						view.findViewById(R.id.site_listview_item_content_small)
-								.setVisibility(View.VISIBLE);
-					}
-
-				}
+				sectionItemAdapter.setLastClickItem(position);
+				sectionItemAdapter.notifyDataSetChanged();
 			}
 		});
 

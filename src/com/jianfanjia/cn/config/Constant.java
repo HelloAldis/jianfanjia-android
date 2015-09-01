@@ -41,6 +41,9 @@ public class Constant {
 	public static final int FUKUAN_NOTIFY = 2;// 付款提醒
 	public static final int YANQI_NOTIFY = 3;// 延期提醒
 	
-	public static Map<String,String> process_en_to_china = new HashMap<String, String>();
-	
+	public static final int NOT_START=0;//未开工
+	public static final int WORKING = 1;//正在进行中
+	public static final int FINISH = 2;//已完工
+	public static final int OWNER_APPLY_DELAY = 3;//业主申请延期中
+	public static final int DESIGNER_APPLY_DELAY = 4;//设计师申请延期中
 }

@@ -22,7 +22,7 @@ public class SectionItemInfo implements Serializable {
 
 	private ArrayList<CommentInfo> comments;
 
-	private ArrayList<ImageInfo> images;
+	private ArrayList<String> images;
 
 	public String get_id() {
 		return _id;
@@ -56,11 +56,11 @@ public class SectionItemInfo implements Serializable {
 		this.comments = comments;
 	}
 
-	public ArrayList<ImageInfo> getImages() {
+	public ArrayList<String> getImages() {
 		return images;
 	}
 
-	public void setImages(ArrayList<ImageInfo> images) {
+	public void setImages(ArrayList<String> images) {
 		this.images = images;
 	}
 }
