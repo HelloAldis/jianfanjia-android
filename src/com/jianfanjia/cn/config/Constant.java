@@ -19,6 +19,14 @@ public class Constant {
 		public static final boolean DEVELOPER_MODE = false;
 	}
 
+	// 侧滑菜单
+	public static final int HOME = 0;
+	public static final int NOTIFY = 1;
+	public static final int MY = 2;
+	public static final int MYSITE = 3;
+	public static final int SETTING = 4;
+	public static final int HELP = 5;
+
 	// 用户身份
 	public static final String IDENTITY_OWNER = "1";// 业主
 	public static final String IDENTITY_DESIGNER = "2";// 设计师

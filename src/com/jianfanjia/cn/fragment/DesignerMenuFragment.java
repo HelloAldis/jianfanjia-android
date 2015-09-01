@@ -3,6 +3,7 @@ package com.jianfanjia.cn.fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.RadioGroup.OnCheckedChangeListener;
@@ -10,6 +11,7 @@ import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.interf.FragmentCallBack;
 import com.jianfanjia.cn.tools.LogTool;
 
 /**
@@ -21,14 +23,8 @@ import com.jianfanjia.cn.tools.LogTool;
  * 
  */
 public class DesignerMenuFragment extends BaseFragment implements
-		OnCheckedChangeListener {
+		OnCheckedChangeListener, FragmentCallBack {
 	private static final String TAG = DesignerMenuFragment.class.getName();
-	private static final int HOME = 0;
-	private static final int NOTIFY = 1;
-	private static final int MYOWNER = 2;
-	private static final int MYSITE = 3;
-	private static final int SETTING = 4;
-	private static final int HELP = 5;
 	private RadioGroup mTabRg = null;
 	private DesignerSiteManageFragment designerSiteManageFragment = null;
 	private NotifyFragment notifyFragment = null;
@@ -62,22 +58,22 @@ public class DesignerMenuFragment extends BaseFragment implements
 		((MainActivity) getActivity()).getSlidingPaneLayout().closePane();
 		switch (checkedId) {
 		case R.id.tab_rb_1:
-			setTabSelection(HOME);
+			setTabSelection(Constant.HOME);
 			break;
 		case R.id.tab_rb_2:
-			setTabSelection(NOTIFY);
+			setTabSelection(Constant.NOTIFY);
 			break;
 		case R.id.tab_rb_3:
-			setTabSelection(MYOWNER);
+			setTabSelection(Constant.MY);
 			break;
 		case R.id.tab_rb_4:
-			setTabSelection(MYSITE);
+			setTabSelection(Constant.MYSITE);
 			break;
 		case R.id.tab_rb_5:
-			setTabSelection(SETTING);
+			setTabSelection(Constant.SETTING);
 			break;
 		case R.id.tab_rb_6:
-			setTabSelection(HELP);
+			setTabSelection(Constant.HELP);
 			break;
 		default:
 			break;
@@ -89,7 +85,7 @@ public class DesignerMenuFragment extends BaseFragment implements
 		FragmentTransaction transaction = fragmentManager.beginTransaction();
 		hideFragments(transaction);
 		switch (index) {
-		case HOME:
+		case Constant.HOME:
 			if (designerSiteManageFragment != null) {
 				transaction.show(designerSiteManageFragment);
 			} else {
@@ -98,7 +94,7 @@ public class DesignerMenuFragment extends BaseFragment implements
 						designerSiteManageFragment);
 			}
 			break;
-		case NOTIFY:
+		case Constant.NOTIFY:
 			if (notifyFragment != null) {
 				transaction.show(notifyFragment);
 			} else {
@@ -106,7 +102,7 @@ public class DesignerMenuFragment extends BaseFragment implements
 				transaction.add(R.id.slidingpane_content, notifyFragment);
 			}
 			break;
-		case MYOWNER:
+		case Constant.MY:
 			if (owerFragment != null) {
 				transaction.show(owerFragment);
 			} else {
@@ -114,7 +110,7 @@ public class DesignerMenuFragment extends BaseFragment implements
 				transaction.add(R.id.slidingpane_content, owerFragment);
 			}
 			break;
-		case MYSITE:
+		case Constant.MYSITE:
 			if (designerSiteFragment != null) {
 				transaction.show(designerSiteFragment);
 			} else {
@@ -122,7 +118,7 @@ public class DesignerMenuFragment extends BaseFragment implements
 				transaction.add(R.id.slidingpane_content, designerSiteFragment);
 			}
 			break;
-		case SETTING:
+		case Constant.SETTING:
 			if (settingFragment != null) {
 				transaction.show(settingFragment);
 			} else {
@@ -130,7 +126,7 @@ public class DesignerMenuFragment extends BaseFragment implements
 				transaction.add(R.id.slidingpane_content, settingFragment);
 			}
 			break;
-		case HELP:
+		case Constant.HELP:
 			if (helpFragment != null) {
 				transaction.show(helpFragment);
 			} else {
@@ -169,5 +165,14 @@ public class DesignerMenuFragment extends BaseFragment implements
 	@Override
 	public int getLayoutId() {
 		return R.layout.fragment_designer_menu;
+	}
+
+	@Override
+	public void callBack(int index) {
+		View v = mTabRg.getChildAt(index);
+		RadioButton rb = (RadioButton) v.findViewById(R.id.tab_rb_4);
+		LogTool.d(TAG, "rb:" + rb);
+		rb.setChecked(true);
+		setTabSelection(index);
 	}
 }

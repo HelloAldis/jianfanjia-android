@@ -299,7 +299,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 			((MainActivity) getActivity()).getSlidingPaneLayout().openPane();
 			break;
 		case R.id.head_right_title:
-			listener.switchFragment(3);
+			listener.switchFragment(Constant.MYSITE);
 			break;
 		default:
 			break;

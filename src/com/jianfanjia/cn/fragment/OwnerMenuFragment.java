@@ -25,12 +25,6 @@ import com.jianfanjia.cn.tools.LogTool;
 public class OwnerMenuFragment extends BaseFragment implements
 		OnCheckedChangeListener, FragmentCallBack {
 	private static final String TAG = OwnerMenuFragment.class.getName();
-	private static final int HOME = 0;
-	private static final int NOTIFY = 1;
-	private static final int MYDESIGNER = 2;
-	private static final int MYSITE = 3;
-	private static final int SETTING = 4;
-	private static final int HELP = 5;
 	private RadioGroup mTabRg = null;
 	private OwnerSiteManageFragment siteManageFragment = null;
 	private NotifyFragment notifyFragment = null;
@@ -64,22 +58,22 @@ public class OwnerMenuFragment extends BaseFragment implements
 		((MainActivity) getActivity()).getSlidingPaneLayout().closePane();
 		switch (checkedId) {
 		case R.id.tab_rb_1:
-			setTabSelection(HOME);
+			setTabSelection(Constant.HOME);
 			break;
 		case R.id.tab_rb_2:
-			setTabSelection(NOTIFY);
+			setTabSelection(Constant.NOTIFY);
 			break;
 		case R.id.tab_rb_3:
-			setTabSelection(MYDESIGNER);
+			setTabSelection(Constant.MY);
 			break;
 		case R.id.tab_rb_4:
-			setTabSelection(MYSITE);
+			setTabSelection(Constant.MYSITE);
 			break;
 		case R.id.tab_rb_5:
-			setTabSelection(SETTING);
+			setTabSelection(Constant.SETTING);
 			break;
 		case R.id.tab_rb_6:
-			setTabSelection(HELP);
+			setTabSelection(Constant.HELP);
 			break;
 		default:
 			break;
@@ -91,7 +85,7 @@ public class OwnerMenuFragment extends BaseFragment implements
 		FragmentTransaction transaction = fragmentManager.beginTransaction();
 		hideFragments(transaction);
 		switch (index) {
-		case HOME:
+		case Constant.HOME:
 			if (siteManageFragment != null) {
 				transaction.show(siteManageFragment);
 			} else {
@@ -99,7 +93,7 @@ public class OwnerMenuFragment extends BaseFragment implements
 				transaction.add(R.id.slidingpane_content, siteManageFragment);
 			}
 			break;
-		case NOTIFY:
+		case Constant.NOTIFY:
 			if (notifyFragment != null) {
 				transaction.show(notifyFragment);
 			} else {
@@ -107,7 +101,7 @@ public class OwnerMenuFragment extends BaseFragment implements
 				transaction.add(R.id.slidingpane_content, notifyFragment);
 			}
 			break;
-		case MYDESIGNER:
+		case Constant.MY:
 			if (designerFragment != null) {
 				transaction.show(designerFragment);
 			} else {
@@ -115,7 +109,7 @@ public class OwnerMenuFragment extends BaseFragment implements
 				transaction.add(R.id.slidingpane_content, designerFragment);
 			}
 			break;
-		case MYSITE:
+		case Constant.MYSITE:
 			if (ownerSiteFragment != null) {
 				transaction.show(ownerSiteFragment);
 			} else {
@@ -123,7 +117,7 @@ public class OwnerMenuFragment extends BaseFragment implements
 				transaction.add(R.id.slidingpane_content, ownerSiteFragment);
 			}
 			break;
-		case SETTING:
+		case Constant.SETTING:
 			if (settingFragment != null) {
 				transaction.show(settingFragment);
 			} else {
@@ -131,7 +125,7 @@ public class OwnerMenuFragment extends BaseFragment implements
 				transaction.add(R.id.slidingpane_content, settingFragment);
 			}
 			break;
-		case HELP:
+		case Constant.HELP:
 			if (helpFragment != null) {
 				transaction.show(helpFragment);
 			} else {

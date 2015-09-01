@@ -2,6 +2,8 @@ package com.jianfanjia.cn.fragment;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -20,7 +22,9 @@ import com.jianfanjia.cn.adapter.SectionItemAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.ProcedureInfo;
 import com.jianfanjia.cn.bean.SiteInfo;
+import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
+import com.jianfanjia.cn.interf.SwitchFragmentListener;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
@@ -39,6 +43,7 @@ public class DesignerSiteManageFragment extends BaseFragment implements
 		OnRefreshListener2<ScrollView> {
 	private static final String TAG = DesignerSiteManageFragment.class
 			.getName();
+	private SwitchFragmentListener listener;
 	private PullToRefreshScrollView mPullRefreshScrollView = null;
 	private ScrollView mScrollView = null;
 	private ArrayList<ProcedureInfo> procedureList;
@@ -54,6 +59,16 @@ public class DesignerSiteManageFragment extends BaseFragment implements
 	private String[] pro = null;
 	private int size;
 	private List<View> list = new ArrayList<View>();
+
+	@Override
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
+		try {
+			listener = (SwitchFragmentListener) activity;
+		} catch (ClassCastException e) {
+			e.printStackTrace();
+		}
+	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -183,7 +198,7 @@ public class DesignerSiteManageFragment extends BaseFragment implements
 			((MainActivity) getActivity()).getSlidingPaneLayout().openPane();
 			break;
 		case R.id.head_right_title:
-
+			listener.switchFragment(Constant.MYSITE);
 			break;
 		default:
 			break;
