@@ -67,6 +67,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		processInfo = MyApplication.getInstance().getProcessInfo();
+		LogTool.d(TAG, "processInfo=" + processInfo);
 		if (processInfo == null) {
 			getOwnerProcess();
 		} else {
