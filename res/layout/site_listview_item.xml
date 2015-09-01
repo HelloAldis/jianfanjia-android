@@ -25,7 +25,7 @@
 
         <TextView
             android:id="@+id/site_list_item_content_small_node_name"
-            style="@style/site_listview_item_text_style_big"
+            style="@style/site_listview_item_text_style_middle"
             android:text="@string/site_example_node_name"
             android:textColor="@color/main_color_black" />
 
@@ -49,7 +49,7 @@
 
         <TextView
             android:id="@+id/site_list_item_content_expand_node_name"
-            style="@style/site_listview_item_text_style_big"
+            style="@style/site_listview_item_text_style_middle"
             android:text="@string/site_example_node_name"
             android:textColor="@color/main_color_black" />
 

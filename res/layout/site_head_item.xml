@@ -28,19 +28,15 @@
 
             <TextView
                 android:id="@+id/site_head_procedure_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:textColor="@color/main_color_black"
-                android:textSize="18sp" />
+                style="@style/site_listview_item_text_style_middle"/>
 
             <TextView
                 android:id="@+id/site_head_procedure_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:textColor="@color/main_color_grey"
-                android:textSize="14sp" />
+                style="@style/site_listview_item_text_style_small" />
         </LinearLayout>
     </RelativeLayout>
 

@@ -14,7 +14,8 @@ import com.jianfanjia.cn.base.BaseFragment;
  * 
  */
 public class DesignerFragment extends BaseFragment {
-
+	
+	
 	@Override
 	public void initView(View view) {
 		// TODO Auto-generated method stub
