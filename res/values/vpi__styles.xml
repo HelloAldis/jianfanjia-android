@@ -35,15 +35,14 @@
         <item name="android:paddingTop">9dp</item>
         <item name="android:paddingBottom">8.5dp</item>
         <item name="android:textAppearance">@style/TextAppearance.TabPageIndicator</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">14sp</item>
         <item name="android:maxLines">1</item>
     </style>
 
     <style name="TextAppearance.TabPageIndicator" parent="Widget">
-        <item name="android:textStyle">bold</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/font_style_colors</item>
-    </style>
+    </style> <!-- <item name="android:textStyle">bold</item> -->
 
     <style name="Widget.IconPageIndicator" parent="Widget">
         <item name="android:layout_marginLeft">6dp</item>
