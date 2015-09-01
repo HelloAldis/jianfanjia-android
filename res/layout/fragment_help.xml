@@ -18,7 +18,7 @@
             android:contentDescription="@null"
             android:scaleType="centerCrop"
             android:layout_centerVertical="true"
-            android:src="@drawable/site_listview_item_finish_circle" />
+            android:src="@drawable/icon_home_default_user" />
 
         <TextView
             android:id="@+id/my_help_title"

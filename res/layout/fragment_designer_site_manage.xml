@@ -37,7 +37,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/space_8"
                     android:contentDescription="@null"
-                    android:src="@drawable/site_listview_item_finish_circle" />
+                    android:src="@drawable/icon_home_default_designer" />
 
                 <TextView
                     android:id="@+id/head_center_title"

@@ -15,7 +15,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/site_listview_item_finish_circle" />
+            android:src="@drawable/icon_sidebar_default_designer" />
 
         <TextView
             android:id="@+id/name_text"
