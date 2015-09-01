@@ -57,7 +57,7 @@
         <item name="android:shadowRadius">1.0</item>
         <item name="android:shadowDx">0.5</item>
         <item name="android:shadowDy">0.5</item>
-        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textSize">@dimen/text_size_11</item>
     </style>
 
     <style name="button_login_style">

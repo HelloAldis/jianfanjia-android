@@ -54,20 +54,16 @@
 
             <TextView
                 android:id="@+id/forget_password"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:text="@string/forget_pwd"
                 android:textColor="@color/font_reg_color1"
-                android:textSize="14sp" />
+                style="@style/site_listview_item_text_style_small" />
 
             <TextView
                 android:id="@+id/register"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:text="@string/register"
                 android:textColor="@color/font_reg_color1"
-                android:textSize="14sp" />
+                style="@style/site_listview_item_text_style_small" />
         </RelativeLayout>
 
         <Button

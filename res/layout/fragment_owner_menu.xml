@@ -12,10 +12,10 @@
 
         <ImageView
             android:id="@+id/img_head"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/site_listview_item_finish_circle" />
+            android:src="@drawable/icon_sidebar_default_user" />
 
         <TextView
             android:id="@+id/name_text"
