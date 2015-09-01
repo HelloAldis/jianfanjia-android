@@ -50,7 +50,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/space_24"
             android:layout_marginTop="@dimen/space_24"
-            android:contentDescription="@null" />
+            android:contentDescription="@null"
+            android:src="@drawable/icon_logo" />
 
         <TextView
             style="@style/site_listview_item_text_style_middle"
