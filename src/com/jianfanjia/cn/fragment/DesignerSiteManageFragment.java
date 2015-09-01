@@ -3,6 +3,10 @@ package com.jianfanjia.cn.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.http.Header;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -29,7 +33,9 @@ import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshScrollView;
+import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.ScrollLayout;
+import com.loopj.android.http.JsonHttpResponseHandler;
 
 /**
  * 
@@ -80,6 +86,7 @@ public class DesignerSiteManageFragment extends BaseFragment implements
 		size = procedureList.size();
 		pro = getResources().getStringArray(R.array.site_procedure);
 		Log.i(TAG, "pro =" + procedureList.get(currentPro).getNodeList().size());
+		getMySite();
 	}
 
 	@Override
@@ -203,6 +210,29 @@ public class DesignerSiteManageFragment extends BaseFragment implements
 		default:
 			break;
 		}
+	}
+
+	private void getMySite() {
+		JianFanJiaApiClient.get_Designer_Process_List(getActivity(),
+				new JsonHttpResponseHandler() {
+					@Override
+					public void onStart() {
+						LogTool.d(TAG, "onStart()");
+					}
+
+					@Override
+					public void onSuccess(int statusCode, Header[] headers,
+							JSONObject response) {
+						LogTool.d(TAG, "JSONObject response:" + response);
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							String responseString, Throwable throwable) {
+						LogTool.d(TAG, "throwable:" + throwable);
+						makeTextLong(getString(R.string.tip_login_error_for_network));
+					};
+				});
 	}
 
 	@Override

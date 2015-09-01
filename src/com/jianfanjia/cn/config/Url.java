@@ -35,21 +35,24 @@ public class Url {
 	public static final String GET_OWER_INFO = "user/info";
 	// ----------------------------------------------------设计师----------------------------------------------------------
 	// 获取设计师的个人资料
-	public static final String GET_DESIGNER_INFO = "designer/info";
+	public static final String GET_DESIGNER_INFO = HTTPROOT + "designer/info";
 	// 获取设计师的业主
-	public static final String GET_DESIGNER_OWNER = "designer/user";
+	public static final String GET_DESIGNER_OWNER = HTTPROOT + "designer/user";
 	// 获取设计师的工地列表
-	public static final String GET_DESIGNER_PROCESS = "designer/process/list";
+	public static final String GET_DESIGNER_PROCESS = HTTPROOT
+			+ "designer/process/list";
 	// 设计师获取我的方案
-	public static final String GET_DESIGNER_PLAN = "designer/plan";
+	public static final String GET_DESIGNER_PLAN = HTTPROOT + "designer/plan";
 	// 设计师提交方案
-	public static final String SUBMIT_DESIGNER_PLAN = "designer/plan";
+	public static final String SUBMIT_DESIGNER_PLAN = HTTPROOT
+			+ "designer/plan";
 	// 上传图片到装修流程
-	public static final String POST_PROCESS_IMAGE = "process/image";
+	public static final String POST_PROCESS_IMAGE = HTTPROOT + "process/image";
 	// 评价装修流程
-	public static final String POST_PROCESS_COMMENT = "process/comment";
+	public static final String POST_PROCESS_COMMENT = HTTPROOT
+			+ "process/comment";
 
 	// 获取图片
-	public static final String GET_IMAGE = "image/";
+	public static final String GET_IMAGE = HTTPROOT + "image/";
 
 }
