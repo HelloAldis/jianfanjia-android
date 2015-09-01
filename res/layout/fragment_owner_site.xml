@@ -220,7 +220,7 @@
                     android:id="@+id/my_site_startdate"
                     style="@style/site_listview_item_text_style_middle"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="4dp"
+                    android:layout_marginRight="8dp"
                     android:layout_toLeftOf="@+id/startdate_select_goto"
                     android:text="@string/my_site_startdate_example"
                     android:textColor="@color/main_color_grey" />
@@ -249,7 +249,7 @@
                     android:id="@+id/my_site_totaldate"
                     style="@style/site_listview_item_text_style_middle"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="4dp"
+                    android:layout_marginRight="8dp"
                     android:layout_toLeftOf="@+id/totaldate_select_goto"
                     android:text="@string/my_site_totaldate_example"
                     android:textColor="@color/main_color_grey" />
