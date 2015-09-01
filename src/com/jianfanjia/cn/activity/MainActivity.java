@@ -87,7 +87,11 @@ public class MainActivity extends BaseActivity implements PanelSlideListener {
 
 	@Override
 	public void onBackPressed() {
-		
+		if (slidingPaneLayout.isOpen()) {
+			slidingPaneLayout.closePane();
+		} else {
+			slidingPaneLayout.openPane();
+		}
 	}
 
 	@Override
