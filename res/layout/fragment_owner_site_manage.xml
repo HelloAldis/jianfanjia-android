@@ -41,23 +41,19 @@
 
                 <TextView
                     android:id="@+id/head_center_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/site_listview_item_text_style_title"
                     android:layout_centerInParent="true"
                     android:text="@string/app_name"
-                    android:textColor="@color/main_color_black"
-                    android:textSize="22sp" />
+                    android:textColor="@color/main_color_black" />
 
                 <TextView
                     android:id="@+id/head_right_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/site_listview_item_text_style_middle"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/space_8"
                     android:text="工地配置"
-                    android:textColor="@color/main_color_black"
-                    android:textSize="18sp" />
+                    android:textColor="@color/main_color_black" />
             </RelativeLayout>
 
             <FrameLayout

@@ -14,7 +14,7 @@
 
         <TextView
             android:id="@+id/list_item_site_villagename"
-            style="@style/site_listview_item_text_style_big"
+            style="@style/site_listview_item_text_style_middle"
             android:ellipsize="end"
             android:gravity="left"
             android:maxWidth="100dp"

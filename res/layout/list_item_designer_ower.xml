@@ -16,14 +16,14 @@
 
         <TextView
             android:id="@+id/list_item_site_currentpro"
-            style="@style/site_listview_item_text_style_middle"
+            style="@style/site_listview_item_text_style_small"
             android:layout_alignParentRight="true"
             android:text="@string/my_site_villagename_example"
             android:textColor="@color/main_color_grey" />
 
         <TextView
             android:id="@+id/list_item_site_address"
-            style="@style/site_listview_item_text_style_middle"
+            style="@style/site_listview_item_text_style_small"
             android:layout_below="@+id/list_item_site_owername"
             android:layout_marginLeft="@dimen/space_8"
             android:layout_marginTop="@dimen/space_8"
@@ -34,7 +34,7 @@
 
         <TextView
             android:id="@+id/list_item_site_owername"
-            style="@style/site_listview_item_text_style_big"
+            style="@style/site_listview_item_text_style_middle"
             android:layout_marginLeft="@dimen/space_8"
             android:layout_toRightOf="@+id/list_item_site_owerhead"
             android:text="@string/my_site_villagename_example"

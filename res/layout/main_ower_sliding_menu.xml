@@ -43,14 +43,14 @@
 
         <TextView
             android:id="@+id/ower_sliding_fisrtpage"
-            style="@style/site_listview_item_text_style_big"
+            style="@style/site_listview_item_text_style_title"
             android:layout_marginTop="@dimen/space_32"
             android:text="@string/fisrt_page"
             android:textColor="@color/font_white" />
 
             <TextView
                 android:id="@+id/ower_sliding_tip"
-                style="@style/site_listview_item_text_style_big"
+                style="@style/site_listview_item_text_style_title"
                 android:text="@string/my_tip"
                 android:textColor="@color/font_white"
                 android:layout_marginTop="@dimen/space_16"
@@ -58,28 +58,28 @@
 
         <TextView
             android:id="@+id/ower_sliding_designer"
-            style="@style/site_listview_item_text_style_big"
+            style="@style/site_listview_item_text_style_title"
             android:layout_marginTop="@dimen/space_16"
             android:text="@string/designer"
             android:textColor="@color/font_white" />
 
         <TextView
             android:id="@+id/ower_sliding_site"
-            style="@style/site_listview_item_text_style_big"
+            style="@style/site_listview_item_text_style_title"
             android:layout_marginTop="@dimen/space_16"
             android:text="@string/my_decoration_site"
             android:textColor="@color/font_white" />
 
         <TextView
             android:id="@+id/ower_sliding_setting"
-            style="@style/site_listview_item_text_style_big"
+            style="@style/site_listview_item_text_style_title"
             android:layout_marginTop="@dimen/space_16"
             android:text="@string/my_setting"
             android:textColor="@color/font_white" />
 
         <TextView
             android:id="@+id/ower_sliding_help"
-            style="@style/site_listview_item_text_style_big"
+            style="@style/site_listview_item_text_style_title"
             android:layout_marginTop="@dimen/space_16"
             android:text="@string/my_help"
             android:textColor="@color/font_white" />

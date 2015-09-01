@@ -60,7 +60,7 @@
                     android:textColor="@color/main_color_grey" />
 
                 <TextView
-                    style="@style/site_listview_item_text_style_big"
+                    style="@style/site_listview_item_text_style_middle"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:text="@string/my_site_city"
@@ -74,7 +74,7 @@
                 style="@style/my_item_layout_style" >
 
                 <TextView
-                    style="@style/site_listview_item_text_style_big"
+                    style="@style/site_listview_item_text_style_middle"
                     android:layout_centerVertical="true"
                     android:text="@string/my_site_villagename"
                     android:textColor="@color/main_color_black" />
@@ -95,7 +95,7 @@
                 style="@style/my_item_layout_style" >
 
                 <TextView
-                    style="@style/site_listview_item_text_style_big"
+                    style="@style/site_listview_item_text_style_middle"
                     android:layout_centerVertical="true"
                     android:text="@string/my_site_housestyle"
                     android:textColor="@color/main_color_black" />
@@ -116,7 +116,7 @@
                 style="@style/my_item_layout_style" >
 
                 <TextView
-                    style="@style/site_listview_item_text_style_big"
+                    style="@style/site_listview_item_text_style_middle"
                     android:layout_centerVertical="true"
                     android:text="@string/my_site_housesize"
                     android:textColor="@color/main_color_black" />
@@ -137,7 +137,7 @@
                 style="@style/my_item_layout_style" >
 
                 <TextView
-                    style="@style/site_listview_item_text_style_big"
+                    style="@style/site_listview_item_text_style_middle"
                     android:layout_centerVertical="true"
                     android:text="@string/my_site_lovestyle"
                     android:textColor="@color/main_color_black" />
@@ -158,7 +158,7 @@
                 style="@style/my_item_layout_style" >
 
                 <TextView
-                    style="@style/site_listview_item_text_style_big"
+                    style="@style/site_listview_item_text_style_middle"
                     android:layout_centerVertical="true"
                     android:text="@string/my_site_decoratestyle"
                     android:textColor="@color/main_color_black" />
@@ -179,7 +179,7 @@
                 style="@style/my_item_layout_style" >
 
                 <TextView
-                    style="@style/site_listview_item_text_style_big"
+                    style="@style/site_listview_item_text_style_middle"
                     android:layout_centerVertical="true"
                     android:text="@string/my_site_decoratebudget"
                     android:textColor="@color/main_color_black" />
@@ -204,7 +204,7 @@
                 style="@style/my_item_layout_style" >
 
                 <TextView
-                    style="@style/site_listview_item_text_style_big"
+                    style="@style/site_listview_item_text_style_middle"
                     android:layout_centerVertical="true"
                     android:text="@string/my_site_startdate"
                     android:textColor="@color/main_color_black" />
@@ -233,7 +233,7 @@
                 style="@style/my_item_layout_style" >
 
                 <TextView
-                    style="@style/site_listview_item_text_style_big"
+                    style="@style/site_listview_item_text_style_middle"
                     android:layout_centerVertical="true"
                     android:text="@string/my_site_totaldate"
                     android:textColor="@color/main_color_black" />
@@ -267,6 +267,7 @@
                 android:background="@drawable/btn_selector"
                 android:gravity="center"
                 android:text="@string/confirm"
+                android:textSize="17sp"
                 android:textColor="@color/font_white" />
         </LinearLayout>
     </ScrollView>

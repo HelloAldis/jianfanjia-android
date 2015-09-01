@@ -47,7 +47,7 @@
                 style="@style/my_item_layout_style" >
 
                 <TextView
-                    style="@style/site_listview_item_text_style_big"
+                    style="@style/site_listview_item_text_style_middle"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:text="@string/message_push"
@@ -68,7 +68,7 @@
                 style="@style/my_item_layout_style" >
 
                 <TextView
-                    style="@style/site_listview_item_text_style_big"
+                    style="@style/site_listview_item_text_style_middle"
                     android:layout_centerVertical="true"
                     android:text="@string/share"
                     android:textColor="@color/main_color_black" />
@@ -87,7 +87,7 @@
                 style="@style/my_item_layout_style" >
 
                 <TextView
-                    style="@style/site_listview_item_text_style_big"
+                    style="@style/site_listview_item_text_style_middle"
                     android:layout_centerVertical="true"
                     android:text="@string/current_version"
                     android:textColor="@color/main_color_black" />
@@ -108,7 +108,7 @@
                 style="@style/my_item_layout_style" >
 
                 <TextView
-                    style="@style/site_listview_item_text_style_big"
+                    style="@style/site_listview_item_text_style_middle"
                     android:layout_centerVertical="true"
                     android:text="@string/clear_cache"
                     android:textColor="@color/main_color_black" />
@@ -133,7 +133,7 @@
                 style="@style/my_item_layout_style" >
 
                 <TextView
-                    style="@style/site_listview_item_text_style_big"
+                    style="@style/site_listview_item_text_style_middle"
                     android:layout_centerVertical="true"
                     android:text="@string/feedback"
                     android:textColor="@color/main_color_black" />
@@ -152,7 +152,7 @@
                 style="@style/my_item_layout_style" >
 
                 <TextView
-                    style="@style/site_listview_item_text_style_big"
+                    style="@style/site_listview_item_text_style_middle"
                     android:layout_centerVertical="true"
                     android:text="@string/about"
                     android:textColor="@color/main_color_black" />
@@ -175,7 +175,7 @@
                 style="@style/my_item_layout_style" >
 
                 <TextView
-                    style="@style/site_listview_item_text_style_big"
+                    style="@style/site_listview_item_text_style_middle"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:text="@string/logout"

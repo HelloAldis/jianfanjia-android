@@ -11,7 +11,7 @@
 
         <TextView
             android:id="@+id/about_back"
-            style="@style/site_listview_item_text_style_big"
+            style="@style/site_listview_item_text_style_middle"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/space_16"
             android:drawableLeft="@drawable/icon_register_back"
@@ -41,7 +41,7 @@
         android:orientation="vertical" >
 
         <TextView
-            style="@style/site_listview_item_text_style_big"
+            style="@style/site_listview_item_text_style_middle"
             android:text="@string/about_my"
             android:textColor="@color/main_color_black" />
 
@@ -53,13 +53,13 @@
             android:contentDescription="@null" />
 
         <TextView
-            style="@style/site_listview_item_text_style_big"
+            style="@style/site_listview_item_text_style_middle"
             android:layout_marginTop="@dimen/space_8"
             android:text="@string/about_content"
             android:textColor="@color/main_color_black" />
 
         <TextView android:id="@+id/about_version"
-            style="@style/site_listview_item_text_style_big"
+            style="@style/site_listview_item_text_style_middle"
             android:layout_marginTop="@dimen/space_8"
             android:text="@string/about_version"
             android:textColor="@color/main_color_black" />
@@ -74,13 +74,13 @@
         android:orientation="vertical" >
 
         <TextView
-            style="@style/site_listview_item_text_style_big"
+            style="@style/site_listview_item_text_style_middle"
             android:layout_marginTop="@dimen/space_8"
             android:text="@string/company"
             android:textColor="@color/main_color_black" />
 
         <TextView
-            style="@style/site_listview_item_text_style_big"
+            style="@style/site_listview_item_text_style_middle"
             android:layout_marginTop="@dimen/space_8"
             android:text="@string/compant_net"
             android:textColor="@color/main_color_black" />
