@@ -35,7 +35,7 @@
 
     <ScrollView
         android:id="@+id/ownerinfo_scrollview"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_below="@+id/ownerinfo_head_layout"
         android:layout_marginTop="@dimen/space_8" >
@@ -64,8 +64,8 @@
 
                 <ImageView
                     android:id="@+id/head_icon"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:layout_marginRight="@dimen/space_8"
                     android:layout_toLeftOf="@+id/head_goto"
                     android:contentDescription="@null"

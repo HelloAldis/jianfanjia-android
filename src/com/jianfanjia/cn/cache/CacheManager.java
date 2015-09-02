@@ -11,7 +11,6 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import android.content.Context;
 import android.util.Log;
-import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.tools.NetTool;
 
 public class CacheManager {
@@ -144,7 +143,7 @@ public class CacheManager {
 		if (NetTool.isNetworkAvailable(context)) {
 			if (CacheManager.isCacheDataFailure(context, cacheFile)) {
 				Log.i(TAG, "ª∫¥Ê”––ß");
-				object = (Object) CacheManager.readObject(context,
+				object = CacheManager.readObject(context,
 						cacheFile);
 				return object;
 			} else {
@@ -152,7 +151,7 @@ public class CacheManager {
 				return null;
 			}
 		} else {
-			object = (Object) CacheManager.readObject(context,
+			object = CacheManager.readObject(context,
 					cacheFile);
 			return object;
 		}
