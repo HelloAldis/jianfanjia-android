@@ -38,6 +38,8 @@ public class Constant {
 	public static final String PASSWORD = "password";// 密码
 	public static final String USERTYPE = "usertype";// 用户类型
 	public static final String USERIMAGE_ID = "userimageid";// 用户头像id
+	
+	public static final String FINAL_DESIGNER_ID ="final_designerid";//业主的设计师id
 
 	public static final String DATA = "data";// 获取成功的数据
 	public static final String ERROR_MSG = "err_msg";// 获取数据失败的返回信息
