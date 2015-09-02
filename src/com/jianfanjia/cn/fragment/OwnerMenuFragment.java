@@ -31,7 +31,6 @@ public class OwnerMenuFragment extends BaseFragment implements
 	private DesignerFragment designerFragment = null;
 	private OwnerSiteFragment ownerSiteFragment = null;
 	private SettingFragment settingFragment = null;
-	private HelpFrgment helpFragment = null;
 	private String mUserName;// ”√ªß√˚
 	private String mAccount;// ’À∫≈
 	private TextView nameText = null;
@@ -78,9 +77,6 @@ public class OwnerMenuFragment extends BaseFragment implements
 			break;
 		case R.id.tab_rb_5:
 			setTabSelection(Constant.SETTING);
-			break;
-		case R.id.tab_rb_6:
-			setTabSelection(Constant.HELP);
 			break;
 		default:
 			break;
@@ -132,14 +128,6 @@ public class OwnerMenuFragment extends BaseFragment implements
 				transaction.add(R.id.slidingpane_content, settingFragment);
 			}
 			break;
-		case Constant.HELP:
-			if (helpFragment != null) {
-				transaction.show(helpFragment);
-			} else {
-				helpFragment = new HelpFrgment();
-				transaction.add(R.id.slidingpane_content, helpFragment);
-			}
-			break;
 		default:
 			break;
 		}
@@ -162,9 +150,6 @@ public class OwnerMenuFragment extends BaseFragment implements
 		}
 		if (settingFragment != null) {
 			ft.hide(settingFragment);
-		}
-		if (helpFragment != null) {
-			ft.hide(helpFragment);
 		}
 	}
 

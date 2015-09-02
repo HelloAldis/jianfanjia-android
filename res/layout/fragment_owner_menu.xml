@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,19 +23,19 @@
 
             <TextView
                 android:id="@+id/name_text"
+                style="@style/site_listview_item_text_style_middle"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/space_8"
                 android:text="@string/my_example_name"
                 android:textColor="@android:color/white"
-                android:textStyle="bold" 
-                style="@style/site_listview_item_text_style_middle"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/phone_text"
+                style="@style/site_listview_item_text_style_small"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/space_8"
-                android:textColor="@android:color/white"
-                style="@style/site_listview_item_text_style_small"/>
+                android:textColor="@android:color/white" />
         </LinearLayout>
 
         <RadioGroup
@@ -104,18 +103,6 @@
                 android:layout_marginTop="6dip"
                 android:padding="10dip"
                 android:text="@string/my_setting"
-                android:textColor="@color/menu_item_font_color"
-                android:textSize="17sp" />
-
-            <RadioButton
-                android:id="@+id/tab_rb_6"
-                style="@style/tab_rb_style"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="6dip"
-                android:padding="10dip"
-                android:text="@string/my_help"
                 android:textColor="@color/menu_item_font_color"
                 android:textSize="17sp" />
         </RadioGroup>
