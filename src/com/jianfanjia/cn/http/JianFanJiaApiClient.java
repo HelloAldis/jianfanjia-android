@@ -196,7 +196,7 @@ public class JianFanJiaApiClient {
 
 	/**
 	 * @author zhanghao
-	 * @description 设计师获取我的工地
+	 * @description 设计师获取我的工地列表
 	 * @param context
 	 * @param hanlder
 	 */

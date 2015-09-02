@@ -3,6 +3,10 @@ package com.jianfanjia.cn.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.http.Header;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -15,6 +19,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+
+import com.jianfanjia.cn.activity.LoginActivity;
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.MyViewPageAdapter;
@@ -29,7 +35,10 @@ import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshScrollView;
+import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.ScrollLayout;
+import com.jianfanjia.cn.view.dialog.CustomProgressDialog;
+import com.loopj.android.http.JsonHttpResponseHandler;
 
 /**
  * 
@@ -43,6 +52,7 @@ public class DesignerSiteManageFragment extends BaseFragment implements
 		OnRefreshListener2<ScrollView> {
 	private static final String TAG = DesignerSiteManageFragment.class
 			.getName();
+	private CustomProgressDialog progressDialog = null;
 	private SwitchFragmentListener listener;
 	private PullToRefreshScrollView mPullRefreshScrollView = null;
 	private ScrollView mScrollView = null;
@@ -73,13 +83,11 @@ public class DesignerSiteManageFragment extends BaseFragment implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		site = JianFanJiaApiClient.getAllSites(getActivity(), "18107218595",
-				"1").get(0);// 默认拿到第一个工地
-		currentPro = site.getCurrentPro();
-		procedureList = site.getProcedures();
-		size = procedureList.size();
+		progressDialog = new CustomProgressDialog(getActivity(), "正在加载中",
+				R.style.dialog);
 		pro = getResources().getStringArray(R.array.site_procedure);
-		Log.i(TAG, "pro =" + procedureList.get(currentPro).getNodeList().size());
+		Log.i(TAG, "pro =" + pro);
+		getMySiteList();
 	}
 
 	@Override
@@ -96,13 +104,11 @@ public class DesignerSiteManageFragment extends BaseFragment implements
 
 	private void initScrollLayout(View view) {
 		viewPager = (ViewPager) view.findViewById(R.id.viewPager);
-		// scrollLayout = (ScrollLayout) view
-		// .findViewById(R.id.site_scroller_layout);
 		LayoutParams lp = new LayoutParams(LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT);
 		for (int i = 0; i < pro.length; i++) {
 			View siteHead = inflater.inflate(R.layout.site_head_item, null);
-			initItem(siteHead, i);
+			// initItem(siteHead, i);
 			// scrollLayout.addView(siteHead, lp);
 			list.add(siteHead);
 		}
@@ -141,17 +147,17 @@ public class DesignerSiteManageFragment extends BaseFragment implements
 		// initListView(view, procedureList.get(currentPro));
 	}
 
-	private void initItem(View siteHead, int position) {
-		TextView proName = (TextView) siteHead
-				.findViewById(R.id.site_head_procedure_name);
-		proName.setText(pro[position]);
-		TextView proDate = (TextView) siteHead
-				.findViewById(R.id.site_head_procedure_date);
-		proDate.setText(procedureList.get(position >= size ? 0 : position)
-				.getDate());
-		ImageView icon = (ImageView) siteHead
-				.findViewById(R.id.site_head_procedure_icon);
-	}
+	// private void initItem(View siteHead, int position) {
+	// TextView proName = (TextView) siteHead
+	// .findViewById(R.id.site_head_procedure_name);
+	// proName.setText(pro[position]);
+	// TextView proDate = (TextView) siteHead
+	// .findViewById(R.id.site_head_procedure_date);
+	// proDate.setText(procedureList.get(position >= size ? 0 : position)
+	// .getDate());
+	// ImageView icon = (ImageView) siteHead
+	// .findViewById(R.id.site_head_procedure_icon);
+	// }
 
 	/*
 	 * private void initListView(View view, ProcedureInfo procedure) {
@@ -203,6 +209,41 @@ public class DesignerSiteManageFragment extends BaseFragment implements
 		default:
 			break;
 		}
+	}
+
+	private void getMySiteList() {
+		JianFanJiaApiClient.get_Designer_Process_List(getActivity(),
+				new JsonHttpResponseHandler() {
+					@Override
+					public void onStart() {
+						LogTool.d(TAG, "onStart()");
+						progressDialog.show();
+					}
+
+					@Override
+					public void onSuccess(int statusCode, Header[] headers,
+							JSONObject response) {
+						LogTool.d(TAG, "JSONObject response:" + response);
+						progressDialog.dismiss();
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							Throwable throwable, JSONObject errorResponse) {
+						LogTool.d(TAG,
+								"Throwable throwable:" + throwable.toString());
+						progressDialog.dismiss();
+						makeTextLong(getString(R.string.tip_login_error_for_network));
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							String responseString, Throwable throwable) {
+						LogTool.d(TAG, "throwable:" + throwable);
+						progressDialog.dismiss();
+						makeTextLong(getString(R.string.tip_login_error_for_network));
+					};
+				});
 	}
 
 	@Override
