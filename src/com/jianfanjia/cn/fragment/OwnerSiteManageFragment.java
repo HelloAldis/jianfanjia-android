@@ -37,6 +37,7 @@ import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshScrollView;
 import com.jianfanjia.cn.tools.DateFormatTool;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.tools.NetTool;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 /**
@@ -81,17 +82,20 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		if (!CacheManager.isCacheDataFailure(getActivity(),
-				Constant.PROCESSINFO_CACHE)) {
+		if(NetTool.isNetworkAvailable(getActivity())){
+			if (!CacheManager.isCacheDataFailure(getActivity(),
+					Constant.PROCESSINFO_CACHE)) {
+				processInfo = (ProcessInfo) CacheManager.readObject(getActivity(),
+						Constant.PROCESSINFO_CACHE);
+			}else{
+				getOwnerProcess();
+			}
+		}else{
 			processInfo = (ProcessInfo) CacheManager.readObject(getActivity(),
 					Constant.PROCESSINFO_CACHE);
-		} else {
-
 		}
 		LogTool.d(TAG, "processInfo=" + processInfo);
-		if (processInfo == null) {
-			getOwnerProcess();
-		} else {
+		if (processInfo != null) {
 			setData();
 		}
 		pro = getResources().getStringArray(R.array.site_procedure);
@@ -160,6 +164,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	private void handlerSuccess() {
 		setData();
 		sectionItemAdapter.setSectionItemInfos(sectionItemInfos);
+		sectionItemAdapter.setLastClickItem(-1);
 		sectionItemAdapter.notifyDataSetChanged();
 		for (int i = 0; i < pro.length; i++) {
 			View siteHead = list.get(i);
@@ -252,41 +257,6 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				View lastClickItem = parent.getChildAt(sectionItemAdapter
-						.getLastClickItem());
-				if (position != sectionItemAdapter.getLastClickItem()) {
-					/*
-					 * lastClickItem.findViewById(
-					 * R.id.site_listview_item_content_expand)
-					 * .setVisibility(View.GONE); lastClickItem.findViewById(
-					 * R.id.site_listview_item_content_small)
-					 * .setVisibility(View.VISIBLE);
-					 * view.findViewById(R.id.site_listview_item_content_expand)
-					 * .setVisibility(View.VISIBLE);
-					 * view.findViewById(R.id.site_listview_item_content_small)
-					 * .setVisibility(View.GONE);
-					 */
-					sectionItemAdapter.setLastClickItem(position);
-					sectionItemAdapter.notifyDataSetChanged();
-				} else {
-					int visible = view.findViewById(
-							R.id.site_listview_item_content_expand)
-							.getVisibility();
-					if (visible == View.GONE) {
-						view.findViewById(
-								R.id.site_listview_item_content_expand)
-								.setVisibility(View.VISIBLE);
-						view.findViewById(R.id.site_listview_item_content_small)
-								.setVisibility(View.GONE);
-					} else {
-						view.findViewById(
-								R.id.site_listview_item_content_expand)
-								.setVisibility(View.GONE);
-						view.findViewById(R.id.site_listview_item_content_small)
-								.setVisibility(View.VISIBLE);
-					}
-
-				}
 				sectionItemAdapter.setLastClickItem(position);
 				sectionItemAdapter.notifyDataSetChanged();
 			}
