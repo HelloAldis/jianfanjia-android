@@ -15,7 +15,7 @@ public class Url {
 	public static final String HTTPROOT = "http://" + SEVER_IP + ":"
 			+ SEVER_PORT + "/api/v1/";
 	public static final String ID = "id";
-	//
+	// ÉÏ´«cid
 	public static final String BIND_URL = HTTPROOT + "device/bind";
 	// µÇÂ¼
 	public static final String LOGIN_URL = HTTPROOT + "login";
