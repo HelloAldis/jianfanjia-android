@@ -10,12 +10,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.bean.Message;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.fragment.DesignerMenuFragment;
 import com.jianfanjia.cn.fragment.DesignerSiteManageFragment;
 import com.jianfanjia.cn.fragment.OwnerMenuFragment;
 import com.jianfanjia.cn.fragment.OwnerSiteManageFragment;
 import com.jianfanjia.cn.interf.FragmentCallBack;
+import com.jianfanjia.cn.interf.PushMsgReceiveListener;
 import com.jianfanjia.cn.interf.SwitchFragmentListener;
 import com.jianfanjia.cn.layout.PagerEnabledSlidingPaneLayout;
 import com.jianfanjia.cn.tools.LogTool;
@@ -29,7 +31,7 @@ import com.jianfanjia.cn.tools.LogTool;
  * 
  */
 public class MainActivity extends BaseActivity implements PanelSlideListener,
-		SwitchFragmentListener {
+		SwitchFragmentListener, PushMsgReceiveListener {
 	private static final String TAG = MainActivity.class.getName();
 	private FragmentCallBack callback = null;
 	private PagerEnabledSlidingPaneLayout slidingPaneLayout = null;
@@ -49,6 +51,7 @@ public class MainActivity extends BaseActivity implements PanelSlideListener,
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		listenerManeger.addPushMsgReceiveListener(this);
 	}
 
 	@Override
@@ -133,6 +136,11 @@ public class MainActivity extends BaseActivity implements PanelSlideListener,
 	public void switchFragment(int index) {
 		LogTool.d(TAG, "index:" + index);
 		callback.callBack(index);
+	}
+
+	@Override
+	public void onReceiveMsg(Message message) {
+		LogTool.d(TAG, "message=" + message);
 	}
 
 }

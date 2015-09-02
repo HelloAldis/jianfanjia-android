@@ -61,7 +61,7 @@ public class PushMsgReceiver extends BroadcastReceiver {
 			String cid = bundle.getString("clientid");
 			LogTool.d(TAG, "cid:" + cid);
 			if (null != cid) {
-				uploadClientID(context, "", cid);
+				uploadClientID(context, cid);
 			}
 			break;
 		case PushConsts.THIRDPART_FEEDBACK:
@@ -99,8 +99,8 @@ public class PushMsgReceiver extends BroadcastReceiver {
 	 * @param account
 	 * @param clientId
 	 */
-	private void uploadClientID(Context context, String account, String clientId) {
-		JianFanJiaApiClient.uploadRegisterId(context, account, clientId,
+	private void uploadClientID(Context context, String clientId) {
+		JianFanJiaApiClient.uploadRegisterId(context, clientId,
 				new JsonHttpResponseHandler() {
 					@Override
 					public void onStart() {

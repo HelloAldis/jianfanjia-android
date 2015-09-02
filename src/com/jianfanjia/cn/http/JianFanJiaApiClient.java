@@ -36,14 +36,13 @@ public class JianFanJiaApiClient {
 	 * @param clientId
 	 * @param handler
 	 */
-	public static void uploadRegisterId(Context context, String account,
-			String clientId, AsyncHttpResponseHandler handler) {
+	public static void uploadRegisterId(Context context, String clientId,
+			AsyncHttpResponseHandler handler) {
 		JSONObject jsonParams = new JSONObject();
 		try {
-			jsonParams.put("account", account);
 			jsonParams.put("cid", clientId);
 			StringEntity entity = new StringEntity(jsonParams.toString());
-			HttpRestClient.post(context, Url.LOGIN_URL, entity,
+			HttpRestClient.post(context, Url.BIND_URL, entity,
 					"application/json", handler);
 		} catch (JSONException e) {
 			e.printStackTrace();
