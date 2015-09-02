@@ -28,10 +28,10 @@ import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.interf.IconPagerAdapter;
 import com.jianfanjia.cn.interf.PageIndicator;
+import com.jianfanjia.cn.layout.IcsLinearLayout;
 
 /**
  * This widget implements the dynamic action bar tab behavior that can change

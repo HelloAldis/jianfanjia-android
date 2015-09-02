@@ -37,7 +37,6 @@ import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshScrollView;
 import com.jianfanjia.cn.tools.DateFormatTool;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.tools.NetTool;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 /**
@@ -82,10 +81,12 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		if(!CacheManager.isCacheDataFailure(getActivity(), Constant.PROCESSINFO_CACHE)){
-			processInfo = (ProcessInfo)CacheManager.readObject(getActivity(), Constant.PROCESSINFO_CACHE);
-		}else{
-			
+		if (!CacheManager.isCacheDataFailure(getActivity(),
+				Constant.PROCESSINFO_CACHE)) {
+			processInfo = (ProcessInfo) CacheManager.readObject(getActivity(),
+					Constant.PROCESSINFO_CACHE);
+		} else {
+
 		}
 		LogTool.d(TAG, "processInfo=" + processInfo);
 		if (processInfo == null) {
@@ -113,8 +114,10 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 								processInfo = JsonParser.jsonToBean(response
 										.get(Constant.DATA).toString(),
 										ProcessInfo.class);
-								//数据请求成功保存在缓存中
-								CacheManager.saveObject(getActivity(),processInfo, Constant.PROCESSINFO_CACHE);
+								// 数据请求成功保存在缓存中
+								CacheManager
+										.saveObject(getActivity(), processInfo,
+												Constant.PROCESSINFO_CACHE);
 								handlerSuccess();
 							} else if (response.has(Constant.ERROR_MSG)) {
 								makeTextLong(response.get(Constant.ERROR_MSG)
