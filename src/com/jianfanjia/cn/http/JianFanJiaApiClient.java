@@ -85,6 +85,17 @@ public class JianFanJiaApiClient {
 	}
 
 	/**
+	 * ¼ì²é°æ±¾
+	 * 
+	 * @param context
+	 * @param handler
+	 */
+	public static void checkVersion(Context context,
+			AsyncHttpResponseHandler handler) {
+		HttpRestClient.get(context, Url.UPDATE_VERSION_URL, handler);
+	}
+
+	/**
 	 * @author zhanghao
 	 * @param phone
 	 * @param handler

@@ -87,7 +87,7 @@ public class SettingFragment extends BaseFragment implements
 
 	// ¼ì²é°æ±¾
 	private void checkVersion() {
-		JianFanJiaApiClient.logout(getActivity(),
+		JianFanJiaApiClient.checkVersion(getActivity(),
 				new JsonHttpResponseHandler() {
 					@Override
 					public void onStart() {
