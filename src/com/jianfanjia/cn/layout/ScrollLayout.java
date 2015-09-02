@@ -1,4 +1,4 @@
-package com.jianfanjia.cn.view;
+package com.jianfanjia.cn.layout;
 
 import android.content.Context;
 import android.graphics.Canvas;

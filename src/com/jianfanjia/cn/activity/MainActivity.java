@@ -17,8 +17,8 @@ import com.jianfanjia.cn.fragment.OwnerMenuFragment;
 import com.jianfanjia.cn.fragment.OwnerSiteManageFragment;
 import com.jianfanjia.cn.interf.FragmentCallBack;
 import com.jianfanjia.cn.interf.SwitchFragmentListener;
+import com.jianfanjia.cn.layout.PagerEnabledSlidingPaneLayout;
 import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.view.PagerEnabledSlidingPaneLayout;
 
 /**
  * 

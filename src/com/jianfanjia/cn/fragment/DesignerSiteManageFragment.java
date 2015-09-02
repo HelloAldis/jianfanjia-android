@@ -2,11 +2,8 @@ package com.jianfanjia.cn.fragment;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.http.Header;
-import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -19,8 +16,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
-
-import com.jianfanjia.cn.activity.LoginActivity;
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.MyViewPageAdapter;
@@ -31,12 +26,12 @@ import com.jianfanjia.cn.bean.SiteInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.interf.SwitchFragmentListener;
+import com.jianfanjia.cn.layout.ScrollLayout;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshScrollView;
 import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.view.ScrollLayout;
 import com.jianfanjia.cn.view.dialog.CustomProgressDialog;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
