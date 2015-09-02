@@ -15,7 +15,7 @@ public class Url {
 	public static final String HTTPROOT = "http://" + SEVER_IP + ":"
 			+ SEVER_PORT + "/api/v1/";
 	public static final String ID = "id";
-	// 上传cid
+	//
 	public static final String BIND_URL = HTTPROOT + "device/bind";
 	// 登录
 	public static final String LOGIN_URL = HTTPROOT + "login";
@@ -35,8 +35,8 @@ public class Url {
 	// 业主发送工地配置和配置工地
 	public static final String PROCESS = HTTPROOT + "user/process";
 	// 获取业主的设计师
-	public static final String GET_OWER_DESIGNER = "designer/" + ID
-			+ "/basicinfo";
+	public static final String GET_OWER_DESIGNER = HTTPROOT +"designer/" + ID
+			+"/basicinfo";
 	// 获取业主的个人资料
 	public static final String GET_OWER_INFO = "user/info";
 	// ----------------------------------------------------设计师----------------------------------------------------------

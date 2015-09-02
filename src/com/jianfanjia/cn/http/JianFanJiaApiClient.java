@@ -173,6 +173,18 @@ public class JianFanJiaApiClient {
 
 	/**
 	 * @author zhanghao
+	 * @param designerid
+	 * @param hanlder
+	 */
+	public static void getDesignerInfoById(Context context, String designerid,
+			AsyncHttpResponseHandler hanlder) {
+		String getdesignerUrl = Url.GET_OWER_DESIGNER.replace(Url.ID,
+				designerid);
+		HttpRestClient.get(context, getdesignerUrl, hanlder);
+	}
+
+	/**
+	 * @author zhanghao
 	 * @description 业主获取个人信息
 	 * @param context
 	 * @param hanlder
@@ -191,17 +203,6 @@ public class JianFanJiaApiClient {
 	public static void get_Designer_Info(Context context,
 			AsyncHttpResponseHandler hanlder) {
 		HttpRestClient.get(context, Url.GET_DESIGNER_INFO, hanlder);
-	}
-
-	/**
-	 * @author zhanghao
-	 * @description 业主获取我的设计师
-	 * @param context
-	 * @param hanlder
-	 */
-	public static void get_Owner_Designer(Context context,
-			AsyncHttpResponseHandler hanlder) {
-		HttpRestClient.get(context, Url.GET_OWER_DESIGNER, hanlder);
 	}
 
 	/**

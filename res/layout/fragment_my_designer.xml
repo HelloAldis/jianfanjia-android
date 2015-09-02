@@ -4,7 +4,7 @@
     android:layout_height="match_parent" >
 
     <ImageView
-        android:id="@+id/ower_sliding_bg"
+        android:id="@+id/designer_bg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:contentDescription="@null"
@@ -54,7 +54,7 @@
                 android:contentDescription="@null"
                 android:scaleType="centerCrop"
                 android:src="@drawable/icon_sidebar_default_designer" />
-
+            
             <TextView
                 android:id="@+id/my_designer_name"
                 style="@style/site_listview_item_text_style_middle"
@@ -68,11 +68,12 @@
                 android:id="@+id/my_designer_sex_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/my_designer_name"
                 android:layout_alignBottom="@+id/my_designer_name"
                 android:layout_marginLeft="8dp"
                 android:layout_toRightOf="@+id/my_designer_name"
                 android:contentDescription="@null"
-                android:scaleType="centerCrop"
+                android:scaleType="fitCenter"
                 android:src="@drawable/icon_designer_user_man" />
 
             <ImageView
@@ -155,7 +156,7 @@
                     android:id="@+id/my_designer_city"
                     style="@style/site_listview_item_text_style_middle"
                     android:layout_alignBottom="@+id/work_city"
-                    android:layout_marginLeft="2dp"
+                    android:layout_marginLeft="4dp"
                     android:layout_toRightOf="@+id/work_city"
                     android:text="@string/my_example_name"
                     android:textColor="@color/font_white" />
@@ -172,7 +173,7 @@
                     android:id="@+id/my_designer_style"
                     style="@style/site_listview_item_text_style_middle"
                     android:layout_alignBottom="@+id/good_at_style"
-                    android:layout_marginLeft="2dp"
+                    android:layout_marginLeft="4dp"
                     android:layout_toRightOf="@+id/good_at_style"
                     android:text="@string/my_example_name"
                     android:textColor="@color/font_white" />
@@ -189,7 +190,7 @@
                     android:id="@+id/my_designer_budget"
                     style="@style/site_listview_item_text_style_middle"
                     android:layout_alignBottom="@+id/designer_budget"
-                    android:layout_marginLeft="2dp"
+                    android:layout_marginLeft="4dp"
                     android:layout_toRightOf="@+id/designer_budget"
                     android:text="@string/my_example_name"
                     android:textColor="@color/font_white" />
