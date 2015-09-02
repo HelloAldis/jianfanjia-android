@@ -7,15 +7,16 @@ import android.os.Environment;
 
 /**
  * 鏁版嵁鍒犻櫎宸ュ叿绫?
+ * 
  * @author FireAnt锛坔ttp://my.oschina.net/LittleDY锛?
  * @version 鍒涘缓鏃堕棿锛?2014骞?10鏈?27鏃? 涓婂崍10:18:22
  * 
  */
 public class DataCleanManager {
-	
+
 	/**
-	 * 清理应用内所有的文件
-	 * (/data/data/com.xxx.xxx/cache)
+	 * 清理应用内所有的文件 (/data/data/com.xxx.xxx/cache)
+	 * 
 	 * @param context
 	 */
 	public static void cleanInternalCache(Context context) {
@@ -24,8 +25,8 @@ public class DataCleanManager {
 	}
 
 	/**
-	 * 清理应用内所以的缓存数据库
-	 * (/data/data/com.xxx.xxx/databases)
+	 * 清理应用内所以的缓存数据库 (/data/data/com.xxx.xxx/databases)
+	 * 
 	 * @param context
 	 */
 	public static void cleanDatabases(Context context) {
@@ -34,17 +35,18 @@ public class DataCleanManager {
 	}
 
 	/**
-	 * 清理应用内所有的shared_prefs文件
-	 * (/data/data/com.xxx.xxx/shared_prefs)
+	 * 清理应用内所有的shared_prefs文件 (/data/data/com.xxx.xxx/shared_prefs)
+	 * 
 	 * @param context
 	 */
 	public static void cleanSharedPreference(Context context) {
 		deleteFilesByDirectory(new File("/data/data/"
 				+ context.getPackageName() + "/shared_prefs"));
 	}
-	
+
 	/**
 	 * 根据数据库名字清理缓存
+	 * 
 	 * @param context
 	 * @param dbName
 	 */
@@ -54,6 +56,7 @@ public class DataCleanManager {
 
 	/**
 	 * 清除/data/data/com.xxx.xxx/files下的内容
+	 * 
 	 * @param context
 	 */
 	public static void cleanFiles(Context context) {
@@ -62,6 +65,7 @@ public class DataCleanManager {
 
 	/**
 	 * 清除外部cache下的内容(/mnt/sdcard/android/data/com.xxx.xxx/cache)
+	 * 
 	 * @param context
 	 */
 	public static void cleanExternalCache(Context context) {
@@ -73,14 +77,16 @@ public class DataCleanManager {
 
 	/**
 	 * 清除自定义路径下的文件，使用需小心，请不要误删。而且只支持目录下的文件删除
+	 * 
 	 * @param filePath
 	 */
 	public static void cleanCustomCache(String filePath) {
 		deleteFilesByDirectory(new File(filePath));
 	}
-	
+
 	/**
 	 * 清除自定义路径下的文件，使用需小心，请不要误删。而且只支持目录下的文件删除
+	 * 
 	 * @param filePath
 	 */
 	public static void cleanCustomCache(File file) {
@@ -89,6 +95,7 @@ public class DataCleanManager {
 
 	/**
 	 * 清除本应用所有的数据
+	 * 
 	 * @param context
 	 * @param filepath
 	 */
@@ -104,7 +111,8 @@ public class DataCleanManager {
 	}
 
 	/**
-	 * 删除方法 这里只会删除某个文件夹下的文件，如果传入的directory是个文件，将不做处理 
+	 * 删除方法 这里只会删除某个文件夹下的文件，如果传入的directory是个文件，将不做处理
+	 * 
 	 * @param directory
 	 */
 	private static void deleteFilesByDirectory(File directory) {
@@ -112,7 +120,7 @@ public class DataCleanManager {
 			for (File child : directory.listFiles()) {
 				if (child.isDirectory()) {
 					deleteFilesByDirectory(child);
-				} 
+				}
 				child.delete();
 			}
 		}

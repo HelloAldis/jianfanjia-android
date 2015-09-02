@@ -9,9 +9,7 @@ import java.io.InvalidClassException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-
 import com.jianfanjia.cn.tools.NetTool;
-
 import android.content.Context;
 
 public class CacheManager {
@@ -63,7 +61,7 @@ public class CacheManager {
 	 * @throws IOException
 	 */
 	public static Serializable readObject(Context context, String file) {
-		if (!isExistDataCache(context, file)){
+		if (!isExistDataCache(context, file)) {
 			return null;
 		}
 		FileInputStream fis = null;
@@ -106,7 +104,7 @@ public class CacheManager {
 			return false;
 		boolean exist = false;
 		File data = context.getFileStreamPath(cachefile);
-		if (data.exists()){
+		if (data.exists()) {
 			exist = true;
 		}
 		return exist;
@@ -122,9 +120,10 @@ public class CacheManager {
 		}
 		boolean failure = true;
 		long existTime = System.currentTimeMillis() - data.lastModified();
-		if(NetTool.getNetworkType() == NetTool.NETTYPE_WIFI){
+		if (NetTool.getNetworkType() == NetTool.NETTYPE_WIFI) {
 			failure = existTime > wifi_cache_time ? true : false;
-		}else if(NetTool.getNetworkType() == NetTool.NETTYPE_CMNET || NetTool.getNetworkType() == NetTool.NETTYPE_CMWAP){
+		} else if (NetTool.getNetworkType() == NetTool.NETTYPE_CMNET
+				|| NetTool.getNetworkType() == NetTool.NETTYPE_CMWAP) {
 			failure = existTime > other_cache_time ? true : false;
 		}
 		return failure;
