@@ -82,15 +82,17 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		if(!CacheManager.isCacheDataFailure(getActivity(), Constant.PROCESSINFO_CACHE)){
+		if(!NetTool.isNetworkAvailable(getActivity())){
 			processInfo = (ProcessInfo)CacheManager.readObject(getActivity(), Constant.PROCESSINFO_CACHE);
 		}else{
-			
+			if(!CacheManager.isCacheDataFailure(getActivity(), Constant.PROCESSINFO_CACHE)){
+				processInfo = (ProcessInfo)CacheManager.readObject(getActivity(), Constant.PROCESSINFO_CACHE);
+			}else{
+				getOwnerProcess();
+			}
 		}
 		LogTool.d(TAG, "processInfo=" + processInfo);
-		if (processInfo == null) {
-			getOwnerProcess();
-		} else {
+		if (processInfo != null) {
 			setData();
 		}
 		pro = getResources().getStringArray(R.array.site_procedure);
@@ -113,8 +115,10 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 								processInfo = JsonParser.jsonToBean(response
 										.get(Constant.DATA).toString(),
 										ProcessInfo.class);
-								//数据请求成功保存在缓存中
-								CacheManager.saveObject(getActivity(),processInfo, Constant.PROCESSINFO_CACHE);
+								// 数据请求成功保存在缓存中
+								CacheManager
+										.saveObject(getActivity(), processInfo,
+												Constant.PROCESSINFO_CACHE);
 								handlerSuccess();
 							} else if (response.has(Constant.ERROR_MSG)) {
 								makeTextLong(response.get(Constant.ERROR_MSG)
