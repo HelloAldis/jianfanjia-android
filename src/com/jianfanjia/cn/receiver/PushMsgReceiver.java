@@ -48,7 +48,7 @@ public class PushMsgReceiver extends BroadcastReceiver {
 			if (payload != null) {
 				String data = new String(payload);
 				LogTool.d(TAG, "receiver payload : " + data);
-				parseMessage(data);
+				// parseMessage(data);
 			}
 			break;
 		case PushConsts.GET_CLIENTID:
