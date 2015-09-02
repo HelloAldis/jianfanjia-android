@@ -12,31 +12,23 @@ import java.io.Serializable;
  */
 public class Message implements Serializable {
 	private static final long serialVersionUID = -1386644478824610283L;
-	private String msgType;
-	private String msgContent;
-	private String date;
+	private String type;
+	private String content;
 
-	public String getMsgType() {
-		return msgType;
+	public String getType() {
+		return type;
 	}
 
-	public void setMsgType(String msgType) {
-		this.msgType = msgType;
+	public void setType(String type) {
+		this.type = type;
 	}
 
-	public String getMsgContent() {
-		return msgContent;
+	public String getContent() {
+		return content;
 	}
 
-	public void setMsgContent(String msgContent) {
-		this.msgContent = msgContent;
+	public void setContent(String content) {
+		this.content = content;
 	}
 
-	public String getDate() {
-		return date;
-	}
-
-	public void setDate(String date) {
-		this.date = date;
-	}
 }
