@@ -63,6 +63,7 @@ public class MyApplication extends BaseApplication {
 		sharedPrefer.setValue(Constant.ACCOUNT, userBean.getPhone());
 		sharedPrefer.setValue(Constant.USERTYPE, userBean.getUsertype());
 		sharedPrefer.setValue(Constant.PASSWORD, userBean.getPass());
+		sharedPrefer.setValue(Constant.USERNAME, userBean.getUsername());
 		sharedPrefer.setValue(Constant.USERIMAGE_ID, userBean.getImageId());
 	}
 
@@ -107,20 +108,23 @@ public class MyApplication extends BaseApplication {
 		}
 		return 0;
 	}
-	
+
 	/**
 	 * ÄÃµ½°æ±¾ºÅ
+	 * 
 	 * @return
 	 */
-	  public static int getVersionCode() {
-	        int versionCode = 0;
-	        try {
-	            versionCode = MyApplication.getInstance().getPackageManager()
-	                    .getPackageInfo(MyApplication.getInstance().getPackageName(),
-	                            0).versionCode;
-	        } catch (PackageManager.NameNotFoundException ex) {
-	            versionCode = 0;
-	        }
-	        return versionCode;
-	    }
+	public static int getVersionCode() {
+		int versionCode = 0;
+		try {
+			versionCode = MyApplication
+					.getInstance()
+					.getPackageManager()
+					.getPackageInfo(
+							MyApplication.getInstance().getPackageName(), 0).versionCode;
+		} catch (PackageManager.NameNotFoundException ex) {
+			versionCode = 0;
+		}
+		return versionCode;
+	}
 }

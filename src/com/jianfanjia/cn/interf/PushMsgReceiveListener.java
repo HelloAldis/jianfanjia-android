@@ -1,5 +1,7 @@
 package com.jianfanjia.cn.interf;
 
+import com.jianfanjia.cn.bean.Message;
+
 public interface PushMsgReceiveListener {
-	void receiveMsgCallback();
+	void onReceiveMsg(Message message);
 }
