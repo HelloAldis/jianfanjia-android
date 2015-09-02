@@ -82,15 +82,15 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		if(NetTool.isNetworkAvailable(getActivity())){
+		if (NetTool.isNetworkAvailable(getActivity())) {
 			if (!CacheManager.isCacheDataFailure(getActivity(),
 					Constant.PROCESSINFO_CACHE)) {
-				processInfo = (ProcessInfo) CacheManager.readObject(getActivity(),
-						Constant.PROCESSINFO_CACHE);
-			}else{
+				processInfo = (ProcessInfo) CacheManager.readObject(
+						getActivity(), Constant.PROCESSINFO_CACHE);
+			} else {
 				getOwnerProcess();
 			}
-		}else{
+		} else {
 			processInfo = (ProcessInfo) CacheManager.readObject(getActivity(),
 					Constant.PROCESSINFO_CACHE);
 		}
