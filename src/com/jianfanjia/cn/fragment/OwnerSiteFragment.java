@@ -92,7 +92,7 @@ public class OwnerSiteFragment extends BaseFragment {
 	}
 
 	private void getSiteInfo() {
-//		makeTextLong(JsonParser.beanToJson(requirementInfo));
+		makeTextLong(JsonParser.beanToJson(requirementInfo));
 		JianFanJiaApiClient.post_Owner_Process(getApplication(),
 				requirementInfo, new JsonHttpResponseHandler() {
 					@Override
