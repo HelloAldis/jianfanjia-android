@@ -52,7 +52,6 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	private static final String TAG = OwnerSiteManageFragment.class.getName();
 	private SwitchFragmentListener listener;
 	private PullToRefreshScrollView mPullRefreshScrollView = null;
-	private ScrollView mScrollView = null;
 	private ArrayList<SectionInfo> sectionInfos;
 	private ArrayList<SectionItemInfo> sectionItemInfos;
 	private SectionInfo sectionInfo;
@@ -65,7 +64,6 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	private SectionItemAdapter sectionItemAdapter;
 	private MyViewPageAdapter myViewPageAdapter;
 	private String[] pro = null;
-	private int size;
 	private List<View> list = new ArrayList<View>();
 
 	@Override
@@ -103,6 +101,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 					@Override
 					public void onSuccess(int statusCode, Header[] headers,
 							JSONObject response) {
+						mPullRefreshScrollView.onRefreshComplete();
 						LogTool.d(TAG, "response:" + response.toString());
 						try {
 							if (response.has(Constant.DATA)) {
@@ -133,6 +132,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 							Throwable throwable, JSONObject errorResponse) {
 						LogTool.d(TAG,
 								"Throwable throwable:" + throwable.toString());
+						mPullRefreshScrollView.onRefreshComplete();
 						makeTextLong(getString(R.string.tip_login_error_for_network));
 					}
 
@@ -140,6 +140,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 					public void onFailure(int statusCode, Header[] headers,
 							String responseString, Throwable throwable) {
 						LogTool.d(TAG, "throwable:" + throwable);
+						mPullRefreshScrollView.onRefreshComplete();
 						makeTextLong(getString(R.string.tip_login_error_for_network));
 					};
 				});
@@ -172,7 +173,6 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		mPullRefreshScrollView = (PullToRefreshScrollView) view
 				.findViewById(R.id.pull_refresh_scrollview);
 		mPullRefreshScrollView.setMode(Mode.PULL_FROM_START);
-		mScrollView = mPullRefreshScrollView.getRefreshableView();
 		icon_user_head = (ImageView) view.findViewById(R.id.icon_user_head);
 		head_right_title = (TextView) view.findViewById(R.id.head_right_title);
 		initScrollLayout(view);
@@ -282,7 +282,8 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	@Override
 	public void onPullDownToRefresh(PullToRefreshBase<ScrollView> refreshView) {
 		// 下拉刷新(从第一页开始装载数据)
-		mPullRefreshScrollView.onRefreshComplete();
+		//加载数据
+		getOwnerProcess();
 	}
 
 	@Override

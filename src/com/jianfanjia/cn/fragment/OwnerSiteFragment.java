@@ -6,6 +6,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.DatePickerDialog;
+import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.ImageView;
@@ -17,11 +18,13 @@ import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
+import com.jianfanjia.cn.cache.CacheManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.tools.DateFormatTool;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.tools.NetTool;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 /**
@@ -76,8 +79,9 @@ public class OwnerSiteFragment extends BaseFragment {
 				.findViewById(R.id.my_startdate_layout);
 		totalDateLayout = (RelativeLayout) view
 				.findViewById(R.id.my_totaldate_layout);
-		
-		processInfo = MyApplication.getInstance().getProcessInfo();
+
+		processInfo = (ProcessInfo) CacheManager.readObject(getActivity(),
+				Constant.PROCESSINFO_CACHE);
 		if (processInfo == null) {
 			getRequirement();
 		} else {
@@ -87,8 +91,8 @@ public class OwnerSiteFragment extends BaseFragment {
 
 	private void getSiteInfo() {
 		makeTextLong(JsonParser.beanToJson(requirementInfo));
-		JianFanJiaApiClient.post_Owner_Process(getApplication(), requirementInfo,
-				new JsonHttpResponseHandler() {
+		JianFanJiaApiClient.post_Owner_Process(getApplication(),
+				requirementInfo, new JsonHttpResponseHandler() {
 					@Override
 					public void onStart() {
 						LogTool.d(TAG, "onStart()");
@@ -100,10 +104,12 @@ public class OwnerSiteFragment extends BaseFragment {
 						makeTextLong("getRequirement");
 						try {
 							if (response.has(Constant.DATA)) {
-								processInfo = JsonParser.jsonToBean(
-										response.get(Constant.DATA).toString(),
+								processInfo = JsonParser.jsonToBean(response
+										.get(Constant.DATA).toString(),
 										ProcessInfo.class);
-								MyApplication.getInstance().setProcessInfo(processInfo);
+								CacheManager.saveObject(getActivity(), processInfo, Constant.PROCESSINFO_CACHE);
+								//配置完工地保存我的设计师id
+								shared.setValue(Constant.FINAL_DESIGNER_ID,processInfo.getFinal_designerid());
 								handlerSuccess();
 								makeTextLong(response.toString());
 							} else if (response.has(Constant.ERROR_MSG)) {
@@ -134,8 +140,8 @@ public class OwnerSiteFragment extends BaseFragment {
 				});
 
 	}
-	
-	private void setData(){
+
+	private void setData() {
 		if (requirementInfo != null) {
 			String city = requirementInfo.getProvince()
 					+ requirementInfo.getCity() + requirementInfo.getDistrict();
@@ -157,9 +163,9 @@ public class OwnerSiteFragment extends BaseFragment {
 
 	// 初始化数据
 	private void initData() {
-		if(processInfo != null){
-			String city = processInfo.getProvince()
-					+ processInfo.getCity() + processInfo.getDistrict();
+		if (processInfo != null) {
+			String city = processInfo.getProvince() + processInfo.getCity()
+					+ processInfo.getDistrict();
 			cityView.setText(city);
 			villageNameView.setText(processInfo.getCell());
 			houseStyleView.setText(getResources().getStringArray(
@@ -173,7 +179,8 @@ public class OwnerSiteFragment extends BaseFragment {
 					R.array.work_type)[Integer.parseInt(processInfo
 					.getWork_type())]);
 			decorateBudgetView.setText(processInfo.getTotal_price());
-			startDateView.setText(DateFormatTool.covertLongToString(processInfo.getStart_at(), "yyyy-MM-dd"));
+			startDateView.setText(DateFormatTool.covertLongToString(
+					processInfo.getStart_at(), "yyyy-MM-dd"));
 			totalDateView.setText(processInfo.getDuration());
 			startDateLayout.setEnabled(false);
 			totalDateLayout.setEnabled(false);
@@ -230,7 +237,7 @@ public class OwnerSiteFragment extends BaseFragment {
 		if (processInfo == null) {
 			// 获取错误，加载错误视图
 		} else {
-			
+
 		}
 	}
 
@@ -268,7 +275,8 @@ public class OwnerSiteFragment extends BaseFragment {
 		public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
 			Calendar calendar1 = Calendar.getInstance();
 			calendar1.set(arg1, arg2, arg3);
-			startDateView.setText(DateFormatTool.covertLongToString(calendar1.getTimeInMillis(),"yyyy-MM-dd"));
+			startDateView.setText(DateFormatTool.covertLongToString(
+					calendar1.getTimeInMillis(), "yyyy-MM-dd"));
 			requirementInfo.setDuration("60");
 			requirementInfo.setStart_at(calendar1.getTimeInMillis());
 		}
