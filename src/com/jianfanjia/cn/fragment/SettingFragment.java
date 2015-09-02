@@ -33,12 +33,14 @@ public class SettingFragment extends BaseFragment implements
 	private RelativeLayout aboutFragment = null;
 	private ToggleButton toggleButton;
 	private RelativeLayout logoutLayout = null;
+	private RelativeLayout helpLayout = null;
 	private RelativeLayout current_version_layout = null;
 
 	@Override
 	public void initView(View view) {
 		feedbackFragment = (RelativeLayout) view
 				.findViewById(R.id.feedback_layout);
+		helpLayout = (RelativeLayout) view.findViewById(R.id.help_layout);
 		aboutFragment = (RelativeLayout) view.findViewById(R.id.about_layout);
 		toggleButton = (ToggleButton) view.findViewById(R.id.mespush_toggle);
 		logoutLayout = (RelativeLayout) view.findViewById(R.id.logout_layout);
@@ -50,6 +52,7 @@ public class SettingFragment extends BaseFragment implements
 	public void setListener() {
 		feedbackFragment.setOnClickListener(this);
 		aboutFragment.setOnClickListener(this);
+		helpLayout.setOnClickListener(this);
 		toggleButton.setOnCheckedChangeListener(this);
 		logoutLayout.setOnClickListener(this);
 		current_version_layout.setOnClickListener(this);
@@ -63,6 +66,8 @@ public class SettingFragment extends BaseFragment implements
 			break;
 		case R.id.about_layout:
 			startActivity(AboutActivity.class);
+			break;
+		case R.id.help_layout:
 			break;
 		case R.id.logout_layout:
 			logout();

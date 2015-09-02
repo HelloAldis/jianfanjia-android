@@ -125,6 +125,10 @@ public class PushMsgReceiver extends BroadcastReceiver {
 					public void onSuccess(int statusCode, Header[] headers,
 							JSONObject response) {
 						LogTool.d(TAG, "JSONObject response:" + response);
+						List<PushMsgReceiveListener> listeners = ListenerManeger.msgListeners;
+						for (PushMsgReceiveListener listener : listeners) {
+							LogTool.d(TAG, "listener:" + listener);
+						}
 					}
 
 					@Override
