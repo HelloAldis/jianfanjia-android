@@ -187,7 +187,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:text="@string/logout"
-                    android:textColor="@color/main_color_black" />
+                    android:textColor="@color/main_color_orange" />
             </RelativeLayout>
 
             <View style="@style/divier_line" />

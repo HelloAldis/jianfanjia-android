@@ -2,6 +2,9 @@ package com.jianfanjia.cn.application;
 
 import java.util.Arrays;
 import java.util.List;
+
+import android.content.pm.PackageManager;
+
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseApplication;
 import com.jianfanjia.cn.bean.LoginUserBean;
@@ -104,4 +107,20 @@ public class MyApplication extends BaseApplication {
 		}
 		return 0;
 	}
+	
+	/**
+	 * ÄÃµ½°æ±¾ºÅ
+	 * @return
+	 */
+	  public static int getVersionCode() {
+	        int versionCode = 0;
+	        try {
+	            versionCode = MyApplication.getInstance().getPackageManager()
+	                    .getPackageInfo(MyApplication.getInstance().getPackageName(),
+	                            0).versionCode;
+	        } catch (PackageManager.NameNotFoundException ex) {
+	            versionCode = 0;
+	        }
+	        return versionCode;
+	    }
 }
