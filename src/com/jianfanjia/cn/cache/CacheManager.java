@@ -145,7 +145,7 @@ public class CacheManager {
 			if (CacheManager.isCacheDataFailure(context, cacheFile)) {
 				Log.i(TAG, "缓存有效");
 				object = (Object) CacheManager.readObject(context,
-						Constant.PROCESSINFO_CACHE);
+						cacheFile);
 				return object;
 			} else {
 				Log.i(TAG, "缓存无效");
@@ -153,7 +153,7 @@ public class CacheManager {
 			}
 		} else {
 			object = (Object) CacheManager.readObject(context,
-					Constant.PROCESSINFO_CACHE);
+					cacheFile);
 			return object;
 		}
 	}

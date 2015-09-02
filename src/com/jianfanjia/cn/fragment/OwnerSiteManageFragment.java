@@ -282,7 +282,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	@Override
 	public void onPullDownToRefresh(PullToRefreshBase<ScrollView> refreshView) {
 		// 下拉刷新(从第一页开始装载数据)
-		//加载数据
+		// 加载数据
 		getOwnerProcess();
 	}
 
