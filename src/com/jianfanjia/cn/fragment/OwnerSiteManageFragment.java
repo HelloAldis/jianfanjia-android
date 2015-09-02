@@ -82,15 +82,17 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		if(NetTool.isNetworkAvailable(getActivity())){
-			if (!CacheManager.isCacheDataFailure(getActivity(),
+		if (NetTool.isNetworkAvailable(getActivity())) {
+			if (CacheManager.isCacheDataFailure(getActivity(),
 					Constant.PROCESSINFO_CACHE)) {
-				processInfo = (ProcessInfo) CacheManager.readObject(getActivity(),
-						Constant.PROCESSINFO_CACHE);
-			}else{
+				Log.i(TAG, "缓存有效");
+				processInfo = (ProcessInfo) CacheManager.readObject(
+						getActivity(), Constant.PROCESSINFO_CACHE);
+			} else {
+				Log.i(TAG, "缓存无效");
 				getOwnerProcess();
 			}
-		}else{
+		} else {
 			processInfo = (ProcessInfo) CacheManager.readObject(getActivity(),
 					Constant.PROCESSINFO_CACHE);
 		}

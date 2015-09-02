@@ -11,6 +11,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import com.jianfanjia.cn.tools.NetTool;
 import android.content.Context;
+import android.util.Log;
 
 public class CacheManager {
 
@@ -116,15 +117,16 @@ public class CacheManager {
 	public static boolean isCacheDataFailure(Context context, String cachefile) {
 		File data = context.getFileStreamPath(cachefile);
 		if (!data.exists()) {
+			Log.i("CacheManager", "文件不存在");
 			return false;
 		}
-		boolean failure = true;
+		boolean failure = false;
 		long existTime = System.currentTimeMillis() - data.lastModified();
 		if (NetTool.getNetworkType() == NetTool.NETTYPE_WIFI) {
-			failure = existTime > wifi_cache_time ? true : false;
+			failure = existTime > wifi_cache_time ? false : true;
 		} else if (NetTool.getNetworkType() == NetTool.NETTYPE_CMNET
 				|| NetTool.getNetworkType() == NetTool.NETTYPE_CMWAP) {
-			failure = existTime > other_cache_time ? true : false;
+			failure = existTime > other_cache_time ? false : true;
 		}
 		return failure;
 	}
