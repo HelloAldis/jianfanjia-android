@@ -96,6 +96,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 			processInfo = (ProcessInfo) CacheManager.readObject(getActivity(),
 					Constant.PROCESSINFO_CACHE);
 		}
+
 		LogTool.d(TAG, "processInfo=" + processInfo);
 		if (processInfo != null) {
 			setData();

@@ -24,6 +24,8 @@ public class Url {
 	public static final String UPDATE_PASS_URL = HTTPROOT + "update_pass";
 	// 登出
 	public static final String SIGNOUT_URL = HTTPROOT + "signout";
+	// 检查版本
+	public static final String UPDATE_VERSION_URL = HTTPROOT + "signout";
 	// --------------------------------------------------业主-----------------------------------------------------------
 	// 业主获取需求
 	public static final String REQUIREMENT = HTTPROOT + "user/requirement";
