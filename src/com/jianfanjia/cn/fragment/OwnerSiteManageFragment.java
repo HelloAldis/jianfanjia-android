@@ -37,8 +37,6 @@ import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshScrollView;
 import com.jianfanjia.cn.tools.DateFormatTool;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.tools.NetTool;
-import com.jianfanjia.cn.tools.SharedPrefer;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 /**
@@ -54,7 +52,6 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	private static final String TAG = OwnerSiteManageFragment.class.getName();
 	private SwitchFragmentListener listener;
 	private PullToRefreshScrollView mPullRefreshScrollView = null;
-	private ScrollView mScrollView = null;
 	private ArrayList<SectionInfo> sectionInfos;
 	private ArrayList<SectionItemInfo> sectionItemInfos;
 	private SectionInfo sectionInfo;
@@ -67,7 +64,6 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	private SectionItemAdapter sectionItemAdapter;
 	private MyViewPageAdapter myViewPageAdapter;
 	private String[] pro = null;
-	private int size;
 	private List<View> list = new ArrayList<View>();
 
 	@Override
@@ -83,24 +79,13 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		if (NetTool.isNetworkAvailable(getActivity())) {
-			if (CacheManager.isCacheDataFailure(getActivity(),
-					Constant.PROCESSINFO_CACHE)) {
-				Log.i(TAG, "缓存有效");
-				processInfo = (ProcessInfo) CacheManager.readObject(
-						getActivity(), Constant.PROCESSINFO_CACHE);
-			} else {
-				Log.i(TAG, "缓存无效");
-				getOwnerProcess();
-			}
-		} else {
-			processInfo = (ProcessInfo) CacheManager.readObject(getActivity(),
-					Constant.PROCESSINFO_CACHE);
-		}
-
+		processInfo = (ProcessInfo) CacheManager.getObjectByFile(getActivity(),
+				Constant.PROCESSINFO_CACHE);
 		LogTool.d(TAG, "processInfo=" + processInfo);
 		if (processInfo != null) {
 			setData();
+		} else {
+			getOwnerProcess();
 		}
 		pro = getResources().getStringArray(R.array.site_procedure);
 	}
@@ -116,6 +101,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 					@Override
 					public void onSuccess(int statusCode, Header[] headers,
 							JSONObject response) {
+						mPullRefreshScrollView.onRefreshComplete();
 						LogTool.d(TAG, "response:" + response.toString());
 						try {
 							if (response.has(Constant.DATA)) {
@@ -126,8 +112,6 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 								CacheManager
 										.saveObject(getActivity(), processInfo,
 												Constant.PROCESSINFO_CACHE);
-								//保存业主的设计师id
-								shared.setValue(Constant.FINAL_DESIGNER_ID,processInfo.getFinal_designerid());
 								handlerSuccess();
 							} else if (response.has(Constant.ERROR_MSG)) {
 								makeTextLong(response.get(Constant.ERROR_MSG)
@@ -145,6 +129,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 							Throwable throwable, JSONObject errorResponse) {
 						LogTool.d(TAG,
 								"Throwable throwable:" + throwable.toString());
+						mPullRefreshScrollView.onRefreshComplete();
 						makeTextLong(getString(R.string.tip_login_error_for_network));
 					}
 
@@ -152,6 +137,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 					public void onFailure(int statusCode, Header[] headers,
 							String responseString, Throwable throwable) {
 						LogTool.d(TAG, "throwable:" + throwable);
+						mPullRefreshScrollView.onRefreshComplete();
 						makeTextLong(getString(R.string.tip_login_error_for_network));
 					};
 				});
@@ -184,7 +170,6 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		mPullRefreshScrollView = (PullToRefreshScrollView) view
 				.findViewById(R.id.pull_refresh_scrollview);
 		mPullRefreshScrollView.setMode(Mode.PULL_FROM_START);
-		mScrollView = mPullRefreshScrollView.getRefreshableView();
 		icon_user_head = (ImageView) view.findViewById(R.id.icon_user_head);
 		head_right_title = (TextView) view.findViewById(R.id.head_right_title);
 		initScrollLayout(view);
@@ -294,7 +279,8 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	@Override
 	public void onPullDownToRefresh(PullToRefreshBase<ScrollView> refreshView) {
 		// 下拉刷新(从第一页开始装载数据)
-		mPullRefreshScrollView.onRefreshComplete();
+		//加载数据
+		getOwnerProcess();
 	}
 
 	@Override

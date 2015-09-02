@@ -9,9 +9,6 @@ import java.io.InvalidClassException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-
-import com.jianfanjia.cn.bean.ProcessInfo;
-import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.LoadDataListener;
 import com.jianfanjia.cn.tools.NetTool;
 import android.content.Context;
