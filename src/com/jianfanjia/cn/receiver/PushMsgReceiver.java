@@ -100,6 +100,15 @@ public class PushMsgReceiver extends BroadcastReceiver {
 	}
 
 	/**
+	 * 消息提醒
+	 * 
+	 * @param message
+	 */
+	private void showNotify(Message message) {
+
+	}
+
+	/**
 	 * 上传clientid
 	 * 
 	 * @param context
