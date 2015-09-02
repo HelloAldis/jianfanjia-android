@@ -9,6 +9,10 @@ import java.io.InvalidClassException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+
+import com.jianfanjia.cn.bean.ProcessInfo;
+import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.interf.LoadDataListener;
 import com.jianfanjia.cn.tools.NetTool;
 import android.content.Context;
 import android.util.Log;
@@ -52,6 +56,30 @@ public class CacheManager {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	/**
+	 * 通用的加载数据方式
+	 * @param context
+	 * @param file
+	 * @return
+	 */
+	public static Serializable getSerializableByFile(Context context,String file,LoadDataListener loadDataListener){
+		if (NetTool.isNetworkAvailable(context)) {
+			if (CacheManager.isCacheDataFailure(context,
+					file)) {
+				Log.i("CacheManager", "缓存有效");
+				return CacheManager.readObject(
+						context, file);
+			} else {
+				Log.i("CacheManager", "缓存无效");
+				loadDataListener.loadData();
+			}
+		} else {
+			return CacheManager.readObject(context,
+					file);
+		}
+		return null;
 	}
 
 	/**
