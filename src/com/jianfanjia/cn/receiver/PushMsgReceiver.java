@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import com.igexin.sdk.PushConsts;
 import com.igexin.sdk.PushManager;
+import com.jianfanjia.cn.bean.Message;
 import com.jianfanjia.cn.tools.LogTool;
 
 /**
@@ -62,6 +63,15 @@ public class PushMsgReceiver extends BroadcastReceiver {
 		default:
 			break;
 		}
+	}
+
+	/**
+	 * 解析推送透传消息
+	 * 
+	 * @param message
+	 */
+	private void parseMessage(Message message) {
+
 	}
 
 }
