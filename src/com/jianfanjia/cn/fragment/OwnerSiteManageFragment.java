@@ -112,6 +112,9 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 								CacheManager
 										.saveObject(getActivity(), processInfo,
 												Constant.PROCESSINFO_CACHE);
+								// 保存业主的设计师id
+								shared.setValue(Constant.FINAL_DESIGNER_ID,
+										processInfo.getFinal_designerid());
 								handlerSuccess();
 							} else if (response.has(Constant.ERROR_MSG)) {
 								makeTextLong(response.get(Constant.ERROR_MSG)
