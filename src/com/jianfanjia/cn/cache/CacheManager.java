@@ -100,6 +100,7 @@ public class CacheManager {
 			ois = new ObjectInputStream(fis);
 			return (Serializable) ois.readObject();
 		} catch (FileNotFoundException e) {
+			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
 			// 反序列话失败，删除缓存文件
