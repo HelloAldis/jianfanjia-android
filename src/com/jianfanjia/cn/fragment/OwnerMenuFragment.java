@@ -33,18 +33,25 @@ public class OwnerMenuFragment extends BaseFragment implements
 	private SettingFragment settingFragment = null;
 	private HelpFrgment helpFragment = null;
 	private String mUserName;// 用户名
+	private String mAccount;// 账号
 	private TextView nameText = null;
 	private TextView phoneText = null;
 
 	@Override
 	public void initView(View view) {
-		mUserName = shared.getValue(Constant.ACCOUNT, null);
-		LogTool.d(TAG, "mUserName=" + mUserName);
+		mUserName = shared.getValue(Constant.USERNAME, null);
+		mAccount = shared.getValue(Constant.ACCOUNT, null);
+		LogTool.d(TAG, " mAccount=" + mAccount);
 		nameText = (TextView) view.findViewById(R.id.name_text);
 		phoneText = (TextView) view.findViewById(R.id.phone_text);
 		mTabRg = (RadioGroup) view.findViewById(R.id.tab_rg_menu);
 		if (!TextUtils.isEmpty(mUserName)) {
-			phoneText.setText("账号:" + mUserName);
+			nameText.setText(mUserName);
+		} else {
+			nameText.setText("业主");
+		}
+		if (!TextUtils.isEmpty(mAccount)) {
+			phoneText.setText("账号:" + mAccount);
 		}
 	}
 
