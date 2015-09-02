@@ -21,4 +21,10 @@ public class ListenerManeger {
 		}
 	}
 
+	public void removePushMsgReceiveListener(PushMsgReceiveListener listener) {
+		if (msgListeners.contains(listener)) {
+			msgListeners.remove(listener);
+		}
+	}
+
 }
