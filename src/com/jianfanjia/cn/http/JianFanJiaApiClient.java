@@ -216,6 +216,17 @@ public class JianFanJiaApiClient {
 		HttpRestClient.get(context, Url.PROCESS, hanlder);
 	}
 
+	/**
+	 * 版本更新
+	 * 
+	 * @param context
+	 * @param hanlder
+	 */
+	public static void updateVersion(Context context,
+			AsyncHttpResponseHandler hanlder) {
+		HttpRestClient.get(context, Url.UPDATE_VERSION_URL, hanlder);
+	}
+
 	// 拿到所有的模拟工地数据
 	public static ArrayList<SiteInfo> getAllSites(Context context) {
 		ArrayList<SiteInfo> allSites = null;

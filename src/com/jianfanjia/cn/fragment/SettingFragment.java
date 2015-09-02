@@ -33,6 +33,7 @@ public class SettingFragment extends BaseFragment implements
 	private RelativeLayout aboutFragment = null;
 	private ToggleButton toggleButton;
 	private RelativeLayout logoutLayout = null;
+	private RelativeLayout current_version_layout = null;
 
 	@Override
 	public void initView(View view) {
@@ -41,6 +42,8 @@ public class SettingFragment extends BaseFragment implements
 		aboutFragment = (RelativeLayout) view.findViewById(R.id.about_layout);
 		toggleButton = (ToggleButton) view.findViewById(R.id.mespush_toggle);
 		logoutLayout = (RelativeLayout) view.findViewById(R.id.logout_layout);
+		current_version_layout = (RelativeLayout) view
+				.findViewById(R.id.current_version_layout);
 	}
 
 	@Override
@@ -49,6 +52,7 @@ public class SettingFragment extends BaseFragment implements
 		aboutFragment.setOnClickListener(this);
 		toggleButton.setOnCheckedChangeListener(this);
 		logoutLayout.setOnClickListener(this);
+		current_version_layout.setOnClickListener(this);
 	}
 
 	@Override
@@ -63,6 +67,9 @@ public class SettingFragment extends BaseFragment implements
 		case R.id.logout_layout:
 			logout();
 			break;
+		case R.id.current_version_layout:
+			checkVersion();
+			break;
 		default:
 			break;
 		}
@@ -73,6 +80,12 @@ public class SettingFragment extends BaseFragment implements
 
 	}
 
+	// ¼ì²é°æ±¾
+	private void checkVersion() {
+
+	}
+
+	// µÇ³ö
 	private void logout() {
 		JianFanJiaApiClient.logout(getActivity(),
 				new JsonHttpResponseHandler() {
