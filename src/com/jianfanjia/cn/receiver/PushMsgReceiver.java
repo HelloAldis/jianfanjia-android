@@ -1,16 +1,20 @@
 package com.jianfanjia.cn.receiver;
 
+import java.util.List;
 import org.apache.http.Header;
 import org.json.JSONObject;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import com.igexin.sdk.PushConsts;
 import com.igexin.sdk.PushManager;
 import com.jianfanjia.cn.bean.Message;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.inter.manager.ListenerManeger;
+import com.jianfanjia.cn.interf.PushMsgReceiveListener;
+import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -46,6 +50,7 @@ public class PushMsgReceiver extends BroadcastReceiver {
 			if (payload != null) {
 				String data = new String(payload);
 				LogTool.d(TAG, "receiver payload : " + data);
+				parseMessage(data);
 			}
 			break;
 		case PushConsts.GET_CLIENTID:
@@ -53,7 +58,7 @@ public class PushMsgReceiver extends BroadcastReceiver {
 			// 第三方应用需要将CID上传到第三方服务器，并且将当前用户帐号和CID进行关联，以便日后通过用户帐号查找CID进行消息推送
 			String cid = bundle.getString("clientid");
 			LogTool.d(TAG, "cid:" + cid);
-			if (null != cid) {
+			if (!TextUtils.isEmpty(cid)) {
 				uploadClientID(context, cid);
 			}
 			break;
@@ -81,8 +86,17 @@ public class PushMsgReceiver extends BroadcastReceiver {
 	 * 
 	 * @param message
 	 */
-	private void parseMessage(Message message) {
-
+	private void parseMessage(String jsonStr) {
+		try {
+			Message message = JsonParser.jsonToBean(jsonStr, Message.class);
+			List<PushMsgReceiveListener> listeners = ListenerManeger.msgListeners;
+			for (PushMsgReceiveListener listener : listeners) {
+				LogTool.d(TAG, "listener:" + listener);
+				listener.onReceiveMsg(message);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**

@@ -6,7 +6,7 @@ import com.jianfanjia.cn.interf.PushMsgReceiveListener;
 
 public class ListenerManeger {
 	private static ListenerManeger listenerManeger;
-	private static List<PushMsgReceiveListener> msgListeners = new ArrayList<PushMsgReceiveListener>();
+	public static List<PushMsgReceiveListener> msgListeners = new ArrayList<PushMsgReceiveListener>();
 
 	public static ListenerManeger getListenerManeger() {
 		if (null == listenerManeger) {
