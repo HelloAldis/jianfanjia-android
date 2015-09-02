@@ -29,6 +29,28 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
  * 
  */
 public class JianFanJiaApiClient {
+	/**
+	 * 上传个推clientid
+	 * 
+	 * @param context
+	 * @param clientId
+	 * @param handler
+	 */
+	public static void uploadRegisterId(Context context, String account,
+			String clientId, AsyncHttpResponseHandler handler) {
+		JSONObject jsonParams = new JSONObject();
+		try {
+			jsonParams.put("account", account);
+			jsonParams.put("cid", clientId);
+			StringEntity entity = new StringEntity(jsonParams.toString());
+			HttpRestClient.post(context, Url.LOGIN_URL, entity,
+					"application/json", handler);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * @author zhanghao
