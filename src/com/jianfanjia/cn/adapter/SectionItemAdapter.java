@@ -127,10 +127,6 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 		if (position == lastClickItem) {
 			viewHolder.bigOpenLayout.setVisibility(View.VISIBLE);
 			viewHolder.smallcloseLayout.setVisibility(View.GONE);
-		} else {
-			Log.i(this.getClass().getName(), "not_start");
-			viewHolder.bigOpenLayout.setVisibility(View.GONE);
-			viewHolder.smallcloseLayout.setVisibility(View.VISIBLE);
 		}
 		viewHolder.openComment.setOnClickListener(new OnClickListener() {
 
