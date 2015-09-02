@@ -8,13 +8,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import com.google.gson.Gson;
 import com.igexin.sdk.PushConsts;
 import com.igexin.sdk.PushManager;
 import com.jianfanjia.cn.bean.Message;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.inter.manager.ListenerManeger;
 import com.jianfanjia.cn.interf.PushMsgReceiveListener;
-import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -28,12 +28,10 @@ import com.loopj.android.http.JsonHttpResponseHandler;
  */
 public class PushMsgReceiver extends BroadcastReceiver {
 	private static final String TAG = "PushMsgReceiver";
-	private ListenerManeger listenerManeger = null;
+	private Gson gson = new Gson();
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		listenerManeger = ListenerManeger.getListenerManeger();
-		// -------------------------------------------------------------------
 		Bundle bundle = intent.getExtras();
 		LogTool.d(TAG, "onReceive() action=" + bundle.getInt("action"));
 		switch (bundle.getInt(PushConsts.CMD_ACTION)) {
@@ -88,7 +86,7 @@ public class PushMsgReceiver extends BroadcastReceiver {
 	 */
 	private void parseMessage(String jsonStr) {
 		try {
-			Message message = JsonParser.jsonToBean(jsonStr, Message.class);
+			Message message = gson.fromJson(jsonStr, Message.class);
 			List<PushMsgReceiveListener> listeners = ListenerManeger.msgListeners;
 			for (PushMsgReceiveListener listener : listeners) {
 				LogTool.d(TAG, "listener:" + listener);

@@ -1,16 +1,6 @@
 package com.jianfanjia.cn.tools;
 
-import java.lang.reflect.Type;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import android.annotation.SuppressLint;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonPrimitive;
-import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSerializer;
 
 /**
  * 
@@ -24,20 +14,8 @@ public class JsonParser {
 
 	private static Gson gson;
 
-	static {
-		gson = new GsonBuilder()
-				.registerTypeHierarchyAdapter(Date.class,
-						new JsonSerializer<Date>() {
-							@Override
-							@SuppressLint("SimpleDateFormat")
-							public JsonElement serialize(Date src,
-									Type typeOfSrc,
-									JsonSerializationContext context) {
-								SimpleDateFormat format = new SimpleDateFormat(
-										"yyyy-MM-dd hh:MM:ss z");
-								return new JsonPrimitive(format.format(src));
-							}
-						}).setDateFormat("yyyy-MM-dd hh:MM:ss z").create();
+	public JsonParser() {
+		gson = new Gson();
 	}
 
 	/**

@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.inter.manager.ListenerManeger;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.SharedPrefer;
@@ -30,6 +31,7 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 	protected LayoutInflater inflater = null;
 	protected SharedPrefer shared = null;
 	protected JsonParser jsonParser = null;
+	protected ListenerManeger listenerManeger = null;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,7 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 		LogTool.d(this.getClass().getName(), "onCreate");
 		shared = new SharedPrefer(getActivity(), Constant.SHARED_MAIN);
 		jsonParser = new JsonParser();
+		listenerManeger = ListenerManeger.getListenerManeger();
 	}
 
 	@Override
