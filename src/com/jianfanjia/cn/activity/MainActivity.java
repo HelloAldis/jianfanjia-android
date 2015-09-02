@@ -9,6 +9,8 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
+
+import com.igexin.sdk.PushManager;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.Message;
 import com.jianfanjia.cn.config.Constant;
@@ -52,6 +54,7 @@ public class MainActivity extends BaseActivity implements PanelSlideListener,
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		listenerManeger.addPushMsgReceiveListener(this);
+		PushManager.getInstance().initialize(getApplicationContext());
 	}
 
 	@Override
@@ -116,8 +119,7 @@ public class MainActivity extends BaseActivity implements PanelSlideListener,
 	protected void onDestroy() {
 		super.onDestroy();
 		Log.d(TAG, "---onDestroy()");
-		// PushManager.getInstance().stopService(getApplicationContext());//
-		// 完全终止SDK的服务
+		PushManager.getInstance().stopService(getApplicationContext());// 完全终止SDK的服务
 	}
 
 	/**

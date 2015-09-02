@@ -9,11 +9,9 @@ import android.os.Bundle;
 import com.igexin.sdk.PushConsts;
 import com.igexin.sdk.PushManager;
 import com.jianfanjia.cn.bean.Message;
-import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.inter.manager.ListenerManeger;
 import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.tools.SharedPrefer;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 /**
@@ -26,16 +24,11 @@ import com.loopj.android.http.JsonHttpResponseHandler;
  */
 public class PushMsgReceiver extends BroadcastReceiver {
 	private static final String TAG = "PushMsgReceiver";
-	private SharedPrefer sharedPrefer = null;
 	private ListenerManeger listenerManeger = null;
-	private String account = null;
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		sharedPrefer = new SharedPrefer(context, Constant.SHARED_MAIN);
 		listenerManeger = ListenerManeger.getListenerManeger();
-		account = sharedPrefer.getValue(Constant.ACCOUNT, null);
-		LogTool.d(TAG, "account=" + account);
 		// -------------------------------------------------------------------
 		Bundle bundle = intent.getExtras();
 		LogTool.d(TAG, "onReceive() action=" + bundle.getInt("action"));
