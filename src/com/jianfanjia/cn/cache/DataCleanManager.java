@@ -14,7 +14,7 @@ import android.os.Environment;
 public class DataCleanManager {
 	
 	/**
-	 * 娓呴櫎鏈簲鐢ㄥ唴閮ㄧ紦瀛?
+	 * 清理应用内所有的文件
 	 * (/data/data/com.xxx.xxx/cache)
 	 * @param context
 	 */
@@ -24,7 +24,7 @@ public class DataCleanManager {
 	}
 
 	/**
-	 * 娓呮鏈簲鐢ㄦ墍鏈夋暟鎹簱
+	 * 清理应用内所以的缓存数据库
 	 * (/data/data/com.xxx.xxx/databases)
 	 * @param context
 	 */
@@ -34,7 +34,7 @@ public class DataCleanManager {
 	}
 
 	/**
-	 * 娓呴櫎鏈簲鐢⊿haredPreference
+	 * 清理应用内所有的shared_prefs文件
 	 * (/data/data/com.xxx.xxx/shared_prefs)
 	 * @param context
 	 */
@@ -44,7 +44,7 @@ public class DataCleanManager {
 	}
 	
 	/**
-	 * 鎸夊悕瀛楁竻闄ゆ湰搴旂敤鏁版嵁搴?
+	 * 根据数据库名字清理缓存
 	 * @param context
 	 * @param dbName
 	 */
@@ -53,7 +53,7 @@ public class DataCleanManager {
 	}
 
 	/**
-	 * 娓呴櫎/data/data/com.xxx.xxx/files涓嬬殑鍐呭
+	 * 清除/data/data/com.xxx.xxx/files下的内容
 	 * @param context
 	 */
 	public static void cleanFiles(Context context) {
@@ -61,7 +61,7 @@ public class DataCleanManager {
 	}
 
 	/**
-	 * 娓呴櫎澶栭儴cache涓嬬殑鍐呭(/mnt/sdcard/android/data/com.xxx.xxx/cache)
+	 * 清除外部cache下的内容(/mnt/sdcard/android/data/com.xxx.xxx/cache)
 	 * @param context
 	 */
 	public static void cleanExternalCache(Context context) {
@@ -72,7 +72,7 @@ public class DataCleanManager {
 	}
 
 	/**
-	 * 娓呴櫎鑷畾涔夎矾寰勪笅鐨勬枃浠讹紝浣跨敤闇?灏忓績锛岃涓嶈璇垹銆傝?屼笖鍙敮鎸佺洰褰曚笅鐨勬枃浠跺垹闄?
+	 * 清除自定义路径下的文件，使用需小心，请不要误删。而且只支持目录下的文件删除
 	 * @param filePath
 	 */
 	public static void cleanCustomCache(String filePath) {
@@ -80,7 +80,7 @@ public class DataCleanManager {
 	}
 	
 	/**
-	 * 娓呴櫎鑷畾涔夎矾寰勪笅鐨勬枃浠讹紝浣跨敤闇?灏忓績锛岃涓嶈璇垹銆傝?屼笖鍙敮鎸佺洰褰曚笅鐨勬枃浠跺垹闄?
+	 * 清除自定义路径下的文件，使用需小心，请不要误删。而且只支持目录下的文件删除
 	 * @param filePath
 	 */
 	public static void cleanCustomCache(File file) {
@@ -88,7 +88,7 @@ public class DataCleanManager {
 	}
 
 	/**
-	 * 娓呴櫎鏈簲鐢ㄦ墍鏈夌殑鏁版嵁
+	 * 清除本应用所有的数据
 	 * @param context
 	 * @param filepath
 	 */
@@ -104,7 +104,7 @@ public class DataCleanManager {
 	}
 
 	/**
-	 * 鍒犻櫎鏂规硶 杩欓噷鍙細鍒犻櫎鏌愪釜鏂囦欢澶逛笅鐨勬枃浠讹紝濡傛灉浼犲叆鐨刣irectory鏄釜鏂囦欢锛屽皢涓嶅仛澶勭悊 
+	 * 删除方法 这里只会删除某个文件夹下的文件，如果传入的directory是个文件，将不做处理 
 	 * @param directory
 	 */
 	private static void deleteFilesByDirectory(File directory) {
