@@ -8,7 +8,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:contentDescription="@null"
-        android:scaleType="centerCrop"
+        android:scaleType="fitXY"
+        android:background="@drawable/bg_loading_720"
         android:src="@drawable/bg_cover_sidebar" />
 
     <RelativeLayout
@@ -18,7 +19,7 @@
         android:background="@android:color/transparent" >
 
         <ImageView
-            android:id="@+id/my_designer_head"
+            android:id="@+id/owner_head"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/space_8"

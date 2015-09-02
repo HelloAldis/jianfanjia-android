@@ -4,6 +4,7 @@ import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -15,10 +16,12 @@ import com.jianfanjia.cn.bean.DesignerInfo;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.cache.CacheManager;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.config.Url;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
  * 
@@ -32,6 +35,8 @@ public class DesignerFragment extends BaseFragment {
 
 	protected static final String TAG = "DesignerFragment";
 	private ImageView bgView;//设计师背景
+	private ImageView headView;//设计师头像
+	private ImageView ownerHeadView;//业主的头像
 	private TextView nameView;// 姓名
 	private ImageView sexView;// 性别
 	private ImageView authView;//是否为认证设计师
@@ -41,10 +46,18 @@ public class DesignerFragment extends BaseFragment {
 	private TextView goodAtView;// 擅长
 	private TextView budgetView;// 设计费
 	private DesignerInfo designerInfo;//设计师信息
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+	}
 
 	@Override
 	public void initView(View view) {
+		ownerHeadView = (ImageView)view.findViewById(R.id.owner_head);
 		bgView = (ImageView)view.findViewById(R.id.designer_bg);
+		headView = (ImageView)view.findViewById(R.id.my_designer_head_icon);
 		nameView = (TextView)view.findViewById(R.id.my_designer_name);
 		sexView = (ImageView)view.findViewById(R.id.my_designer_sex_icon);
 		authView = (ImageView)view.findViewById(R.id.my_designer_verify);
@@ -53,6 +66,7 @@ public class DesignerFragment extends BaseFragment {
 		cityView = (TextView)view.findViewById(R.id.my_designer_city);
 		goodAtView = (TextView)view.findViewById(R.id.my_designer_style);
 		budgetView = (TextView)view.findViewById(R.id.my_designer_budget);
+		
 		
 		designerInfo = (DesignerInfo)CacheManager.getObjectByFile(getActivity(), Constant.DESIGNERINFO_CACHE);
 		String designerid = shared.getValue(Constant.FINAL_DESIGNER_ID,null);
@@ -85,6 +99,20 @@ public class DesignerFragment extends BaseFragment {
 			}
 			String dec_style = decBuffer.toString();
 			goodAtView.setText(dec_style.subSequence(0,dec_style.length()-2));
+			
+			if(designerInfo.getBig_imageid() != null){
+				Log.i(TAG, Url.GET_IMAGE + designerInfo.getBig_imageid());
+				ImageLoader.getInstance().displayImage(Url.GET_IMAGE + designerInfo.getBig_imageid(), bgView);
+			}else{
+				bgView.setImageResource(R.drawable.bg_login_720);
+			}
+			if(designerInfo.getImageId() != null){
+				Log.i(TAG, Url.GET_IMAGE + designerInfo.getImageId());
+				ImageLoader.getInstance().displayImage(Url.GET_IMAGE + designerInfo.getImageId(), headView);
+			}else{
+				headView.setImageResource(R.drawable.icon_sidebar_default_designer);
+			}
+			
 		}
 		
 	}

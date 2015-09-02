@@ -28,15 +28,16 @@ public class Url {
 	// 登出
 	public static final String SIGNOUT_URL = HTTPROOT + "signout";
 	// 检查版本
-	public static final String UPDATE_VERSION_URL = HTTPROOT + "signout";
+	public static final String UPDATE_VERSION_URL = HTTPROOT
+			+ "device/android_build_version";
 	// --------------------------------------------------业主-----------------------------------------------------------
 	// 业主获取需求
 	public static final String REQUIREMENT = HTTPROOT + "user/requirement";
 	// 业主发送工地配置和配置工地
 	public static final String PROCESS = HTTPROOT + "user/process";
 	// 获取业主的设计师
-	public static final String GET_OWER_DESIGNER = HTTPROOT +"designer/" + ID
-			+"/basicinfo";
+	public static final String GET_OWER_DESIGNER = HTTPROOT + "designer/" + ID
+			+ "/basicinfo";
 	// 获取业主的个人资料
 	public static final String GET_OWER_INFO = "user/info";
 	// ----------------------------------------------------设计师----------------------------------------------------------
