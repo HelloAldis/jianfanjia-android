@@ -52,7 +52,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/space_8"
-                    android:text="工地配置"
+                    android:text="切换工地"
                     android:textColor="@color/main_color_black" />
             </RelativeLayout>
 

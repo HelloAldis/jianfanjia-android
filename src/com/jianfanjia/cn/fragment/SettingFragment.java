@@ -16,6 +16,7 @@ import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.view.dialog.CustomProgressDialog;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 /**
@@ -29,6 +30,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 public class SettingFragment extends BaseFragment implements
 		OnCheckedChangeListener {
 	private static final String TAG = SettingFragment.class.getName();
+	private CustomProgressDialog progressDialog = null;
 	private RelativeLayout feedbackFragment = null;
 	private RelativeLayout aboutFragment = null;
 	private ToggleButton toggleButton;
@@ -38,6 +40,8 @@ public class SettingFragment extends BaseFragment implements
 
 	@Override
 	public void initView(View view) {
+		progressDialog = new CustomProgressDialog(getActivity(), "获取新版本",
+				R.style.dialog);
 		feedbackFragment = (RelativeLayout) view
 				.findViewById(R.id.feedback_layout);
 		helpLayout = (RelativeLayout) view.findViewById(R.id.help_layout);
@@ -87,17 +91,19 @@ public class SettingFragment extends BaseFragment implements
 
 	// 检查版本
 	private void checkVersion() {
-		JianFanJiaApiClient.logout(getActivity(),
+		JianFanJiaApiClient.checkVersion(getActivity(),
 				new JsonHttpResponseHandler() {
 					@Override
 					public void onStart() {
 						LogTool.d(TAG, "onStart()");
+						progressDialog.show();
 					}
 
 					@Override
 					public void onSuccess(int statusCode, Header[] headers,
 							JSONObject response) {
 						LogTool.d(TAG, "JSONObject response:" + response);
+						progressDialog.dismiss();
 					}
 
 					@Override
@@ -106,6 +112,7 @@ public class SettingFragment extends BaseFragment implements
 						LogTool.d(TAG,
 								"Throwable throwable:" + throwable.toString());
 						makeTextLong(getString(R.string.tip_login_error_for_network));
+						progressDialog.dismiss();
 					}
 
 					@Override
@@ -113,6 +120,7 @@ public class SettingFragment extends BaseFragment implements
 							String responseString, Throwable throwable) {
 						LogTool.d(TAG, "throwable:" + throwable);
 						makeTextLong(getString(R.string.tip_login_error_for_network));
+						progressDialog.dismiss();
 					};
 				});
 	}
