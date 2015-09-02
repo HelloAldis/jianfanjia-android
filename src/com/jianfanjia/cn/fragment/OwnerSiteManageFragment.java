@@ -37,7 +37,6 @@ import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshScrollView;
 import com.jianfanjia.cn.tools.DateFormatTool;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.tools.NetTool;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 /**
@@ -82,24 +81,13 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		if (NetTool.isNetworkAvailable(getActivity())) {
-			if (CacheManager.isCacheDataFailure(getActivity(),
-					Constant.PROCESSINFO_CACHE)) {
-				Log.i(TAG, "缓存有效");
-				processInfo = (ProcessInfo) CacheManager.readObject(
-						getActivity(), Constant.PROCESSINFO_CACHE);
-			} else {
-				Log.i(TAG, "缓存无效");
-				getOwnerProcess();
-			}
-		} else {
-			processInfo = (ProcessInfo) CacheManager.readObject(getActivity(),
-					Constant.PROCESSINFO_CACHE);
-		}
-
+		processInfo = (ProcessInfo) CacheManager.getObjectByFile(getActivity(),
+				Constant.PROCESSINFO_CACHE);
 		LogTool.d(TAG, "processInfo=" + processInfo);
 		if (processInfo != null) {
 			setData();
+		} else {
+			getOwnerProcess();
 		}
 		pro = getResources().getStringArray(R.array.site_procedure);
 	}

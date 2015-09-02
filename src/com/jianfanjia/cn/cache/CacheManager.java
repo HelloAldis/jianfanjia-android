@@ -11,11 +11,11 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import android.content.Context;
 import android.util.Log;
-import com.jianfanjia.cn.interf.LoadDataListener;
+import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.tools.NetTool;
 
 public class CacheManager {
-
+	private static final String TAG = "CacheManager";
 	// wifi环境下缓存时间
 	private static long wifi_cache_time = 5 * 60 * 1000;
 	// 数据连接保存时间
@@ -53,29 +53,6 @@ public class CacheManager {
 				e.printStackTrace();
 			}
 		}
-	}
-
-	/**
-	 * 通用的加载数据方式
-	 * 
-	 * @param context
-	 * @param file
-	 * @return
-	 */
-	public static Serializable getSerializableByFile(Context context,
-			String file, LoadDataListener loadDataListener) {
-		if (NetTool.isNetworkAvailable(context)) {
-			if (CacheManager.isCacheDataFailure(context, file)) {
-				Log.i("CacheManager", "缓存有效");
-				return CacheManager.readObject(context, file);
-			} else {
-				Log.i("CacheManager", "缓存无效");
-				loadDataListener.loadData();
-			}
-		} else {
-			return CacheManager.readObject(context, file);
-		}
-		return null;
 	}
 
 	/**
@@ -142,7 +119,7 @@ public class CacheManager {
 	public static boolean isCacheDataFailure(Context context, String cachefile) {
 		File data = context.getFileStreamPath(cachefile);
 		if (!data.exists()) {
-			Log.i("CacheManager", "文件不存在");
+			Log.i(TAG, "文件不存在");
 			return false;
 		}
 		boolean failure = false;
@@ -154,5 +131,30 @@ public class CacheManager {
 			failure = existTime > other_cache_time ? false : true;
 		}
 		return failure;
+	}
+
+	/**
+	 * 
+	 * @param context
+	 * @param cacheFile
+	 * @return
+	 */
+	public static Object getObjectByFile(Context context, String cacheFile) {
+		Object object = null;
+		if (NetTool.isNetworkAvailable(context)) {
+			if (CacheManager.isCacheDataFailure(context, cacheFile)) {
+				Log.i(TAG, "缓存有效");
+				object = (Object) CacheManager.readObject(context,
+						Constant.PROCESSINFO_CACHE);
+				return object;
+			} else {
+				Log.i(TAG, "缓存无效");
+				return null;
+			}
+		} else {
+			object = (Object) CacheManager.readObject(context,
+					Constant.PROCESSINFO_CACHE);
+			return object;
+		}
 	}
 }
