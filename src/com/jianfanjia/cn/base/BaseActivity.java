@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.inter.manager.ListenerManeger;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.SharedPrefer;
@@ -34,6 +35,7 @@ public abstract class BaseActivity extends FragmentActivity {
 	protected JsonParser jsonParser = null;
 	protected ImageLoader imageLoader = null;
 	protected DisplayImageOptions options = null;
+	protected ListenerManeger listenerManeger = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +68,7 @@ public abstract class BaseActivity extends FragmentActivity {
 				.showImageOnFail(R.drawable.empty_photo).cacheInMemory(true)
 				.cacheOnDisk(true).considerExifParams(true)
 				.bitmapConfig(Bitmap.Config.RGB_565).build();
+		listenerManeger = ListenerManeger.getListenerManeger();
 	}
 
 	private void initParams() {

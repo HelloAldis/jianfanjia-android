@@ -7,6 +7,7 @@ import android.os.Bundle;
 import com.igexin.sdk.PushConsts;
 import com.igexin.sdk.PushManager;
 import com.jianfanjia.cn.bean.Message;
+import com.jianfanjia.cn.inter.manager.ListenerManeger;
 import com.jianfanjia.cn.tools.LogTool;
 
 /**
@@ -19,9 +20,12 @@ import com.jianfanjia.cn.tools.LogTool;
  */
 public class PushMsgReceiver extends BroadcastReceiver {
 	private static final String TAG = "PushMsgReceiver";
+	private ListenerManeger listenerManeger;
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
+		listenerManeger = ListenerManeger.getListenerManeger();
+		// -------------------------------------------------------------------
 		Bundle bundle = intent.getExtras();
 		LogTool.d(TAG, "onReceive() action=" + bundle.getInt("action"));
 		switch (bundle.getInt(PushConsts.CMD_ACTION)) {
