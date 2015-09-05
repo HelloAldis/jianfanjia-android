@@ -15,8 +15,10 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
+import com.jianfanjia.cn.interf.DialogListener;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.dialog.CustomProgressDialog;
+import com.jianfanjia.cn.view.dialog.HintDialog;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 /**
@@ -28,9 +30,10 @@ import com.loopj.android.http.JsonHttpResponseHandler;
  * 
  */
 public class SettingFragment extends BaseFragment implements
-		OnCheckedChangeListener {
+		OnCheckedChangeListener, DialogListener {
 	private static final String TAG = SettingFragment.class.getName();
 	private CustomProgressDialog progressDialog = null;
+	private HintDialog hintDialog = null;
 	private RelativeLayout feedbackFragment = null;
 	private RelativeLayout aboutFragment = null;
 	private ToggleButton toggleButton;
@@ -42,6 +45,8 @@ public class SettingFragment extends BaseFragment implements
 	public void initView(View view) {
 		progressDialog = new CustomProgressDialog(getActivity(), "获取新版本",
 				R.style.dialog);
+		hintDialog = new HintDialog(getActivity(), R.layout.hint_dialog,
+				"退出登录", "确定要退出吗？", R.style.dialog);
 		feedbackFragment = (RelativeLayout) view
 				.findViewById(R.id.feedback_layout);
 		helpLayout = (RelativeLayout) view.findViewById(R.id.help_layout);
@@ -60,6 +65,7 @@ public class SettingFragment extends BaseFragment implements
 		toggleButton.setOnCheckedChangeListener(this);
 		logoutLayout.setOnClickListener(this);
 		current_version_layout.setOnClickListener(this);
+		hintDialog.setListener(this);
 	}
 
 	@Override
@@ -74,7 +80,7 @@ public class SettingFragment extends BaseFragment implements
 		case R.id.help_layout:
 			break;
 		case R.id.logout_layout:
-			logout();
+			hintDialog.show();
 			break;
 		case R.id.current_version_layout:
 			checkVersion();
@@ -87,6 +93,17 @@ public class SettingFragment extends BaseFragment implements
 	@Override
 	public void onCheckedChanged(CompoundButton arg0, boolean check) {
 
+	}
+
+	@Override
+	public void onPositiveButtonClick() {
+		hintDialog.dismiss();
+		logout();
+	}
+
+	@Override
+	public void onNegativeButtonClick() {
+		hintDialog.dismiss();
 	}
 
 	// 检查版本
@@ -125,7 +142,7 @@ public class SettingFragment extends BaseFragment implements
 				});
 	}
 
-	// 登出
+	// 退出登录
 	private void logout() {
 		JianFanJiaApiClient.logout(getActivity(),
 				new JsonHttpResponseHandler() {
