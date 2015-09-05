@@ -8,6 +8,7 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.RelativeLayout;
 import android.widget.ToggleButton;
+import com.igexin.sdk.PushManager;
 import com.jianfanjia.cn.activity.AboutActivity;
 import com.jianfanjia.cn.activity.FeedBackActivity;
 import com.jianfanjia.cn.activity.LoginActivity;
@@ -159,6 +160,8 @@ public class SettingFragment extends BaseFragment implements
 							if (response.has(Constant.SUCCESS_MSG)) {
 								makeTextLong(response.get(Constant.SUCCESS_MSG)
 										.toString());
+								PushManager.getInstance().stopService(
+										getActivity());// 完全终止SDK的服务
 								startActivity(LoginActivity.class);
 								getActivity().finish();
 							} else if (response.has(Constant.ERROR_MSG)) {

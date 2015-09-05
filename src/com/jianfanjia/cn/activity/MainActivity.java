@@ -119,7 +119,6 @@ public class MainActivity extends BaseActivity implements PanelSlideListener,
 		super.onDestroy();
 		Log.d(TAG, "---onDestroy()");
 		listenerManeger.removePushMsgReceiveListener(this);
-		PushManager.getInstance().stopService(getApplicationContext());// 完全终止SDK的服务
 	}
 
 	/**
