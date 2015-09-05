@@ -1,20 +1,14 @@
 package com.jianfanjia.cn.activity;
 
 import org.apache.http.Header;
-import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.bean.LoginUserBean;
-import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
-import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -30,11 +24,23 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 		OnClickListener {
 	private static final String TAG = UserByOwnerInfoActivity.class.getName();
 	private TextView ownerinfo_back = null;
+	private RelativeLayout headLayout = null;
+	private TextView nameText = null;
+	private TextView sexText = null;
+	private TextView phoneText = null;
+	private TextView addressText = null;
+	private TextView homeText = null;
 	private Button btn_confirm = null;
 
 	@Override
 	public void initView() {
 		ownerinfo_back = (TextView) this.findViewById(R.id.ownerinfo_back);
+		headLayout = (RelativeLayout) this.findViewById(R.id.head_layout);
+		nameText = (TextView) this.findViewById(R.id.nameText);
+		sexText = (TextView) this.findViewById(R.id.sexText);
+		phoneText = (TextView) this.findViewById(R.id.phoneText);
+		addressText = (TextView) this.findViewById(R.id.addressText);
+		homeText = (TextView) this.findViewById(R.id.homeText);
 		btn_confirm = (Button) this.findViewById(R.id.btn_confirm);
 		get_Owner_Info();
 	}
@@ -42,6 +48,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 	@Override
 	public void setListener() {
 		ownerinfo_back.setOnClickListener(this);
+		headLayout.setOnClickListener(this);
 		btn_confirm.setOnClickListener(this);
 	}
 
@@ -50,6 +57,8 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 		switch (v.getId()) {
 		case R.id.ownerinfo_back:
 			finish();
+			break;
+		case R.id.head_layout:
 			break;
 		case R.id.btn_confirm:
 			break;
