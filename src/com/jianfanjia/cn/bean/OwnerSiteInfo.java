@@ -10,13 +10,13 @@ import java.io.Serializable;
  * @date 2015-8-19 下午4:20:58
  * 
  */
-public class OwnerSiteInfo implements Serializable{
+public class OwnerSiteInfo implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	private String userPhone;// 业主电话
 
 	private String designerPhone;// 设计师电话
