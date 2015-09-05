@@ -74,8 +74,10 @@ public class OwnerSiteFragment extends BaseFragment {
 		startDateView = (TextView) view.findViewById(R.id.my_site_startdate);
 		totalDateView = (TextView) view.findViewById(R.id.my_site_totaldate);
 		confirmView = (TextView) view.findViewById(R.id.my_site_confirm);
-		startDateGoto = (ImageView)view.findViewById(R.id.startdate_select_goto);
-		totalDateGoto = (ImageView)view.findViewById(R.id.totaldate_select_goto);
+		startDateGoto = (ImageView) view
+				.findViewById(R.id.startdate_select_goto);
+		totalDateGoto = (ImageView) view
+				.findViewById(R.id.totaldate_select_goto);
 
 		startDateLayout = (RelativeLayout) view
 				.findViewById(R.id.my_startdate_layout);
@@ -109,9 +111,12 @@ public class OwnerSiteFragment extends BaseFragment {
 								processInfo = JsonParser.jsonToBean(response
 										.get(Constant.DATA).toString(),
 										ProcessInfo.class);
-								CacheManager.saveObject(getActivity(), processInfo, Constant.PROCESSINFO_CACHE);
-								//配置完工地保存我的设计师id
-								shared.setValue(Constant.FINAL_DESIGNER_ID,processInfo.getFinal_designerid());
+								CacheManager
+										.saveObject(getActivity(), processInfo,
+												Constant.PROCESSINFO_CACHE);
+								// 配置完工地保存我的设计师id
+								shared.setValue(Constant.FINAL_DESIGNER_ID,
+										processInfo.getFinal_designerid());
 								handlerSuccess();
 								makeTextLong("配置成功");
 							} else if (response.has(Constant.ERROR_MSG)) {

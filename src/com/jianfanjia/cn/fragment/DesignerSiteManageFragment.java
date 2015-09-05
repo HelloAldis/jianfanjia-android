@@ -2,8 +2,6 @@ package com.jianfanjia.cn.fragment;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.http.Header;
-import org.json.JSONObject;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -24,16 +22,12 @@ import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.ProcedureInfo;
 import com.jianfanjia.cn.bean.SiteInfo;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.interf.SwitchFragmentListener;
 import com.jianfanjia.cn.layout.ScrollLayout;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshScrollView;
-import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.view.dialog.CustomProgressDialog;
-import com.loopj.android.http.JsonHttpResponseHandler;
 
 /**
  * 
@@ -47,7 +41,6 @@ public class DesignerSiteManageFragment extends BaseFragment implements
 		OnRefreshListener2<ScrollView> {
 	private static final String TAG = DesignerSiteManageFragment.class
 			.getName();
-	private CustomProgressDialog progressDialog = null;
 	private SwitchFragmentListener listener;
 	private PullToRefreshScrollView mPullRefreshScrollView = null;
 	private ScrollView mScrollView = null;
@@ -78,11 +71,8 @@ public class DesignerSiteManageFragment extends BaseFragment implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		progressDialog = new CustomProgressDialog(getActivity(), "正在加载中",
-				R.style.dialog);
 		pro = getResources().getStringArray(R.array.site_procedure);
 		Log.i(TAG, "pro =" + pro);
-		getMySiteList();
 	}
 
 	@Override
@@ -204,41 +194,6 @@ public class DesignerSiteManageFragment extends BaseFragment implements
 		default:
 			break;
 		}
-	}
-
-	private void getMySiteList() {
-		JianFanJiaApiClient.get_Designer_Process_List(getActivity(),
-				new JsonHttpResponseHandler() {
-					@Override
-					public void onStart() {
-						LogTool.d(TAG, "onStart()");
-						progressDialog.show();
-					}
-
-					@Override
-					public void onSuccess(int statusCode, Header[] headers,
-							JSONObject response) {
-						LogTool.d(TAG, "JSONObject response:" + response);
-						progressDialog.dismiss();
-					}
-
-					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							Throwable throwable, JSONObject errorResponse) {
-						LogTool.d(TAG,
-								"Throwable throwable:" + throwable.toString());
-						progressDialog.dismiss();
-						makeTextLong(getString(R.string.tip_login_error_for_network));
-					}
-
-					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							String responseString, Throwable throwable) {
-						LogTool.d(TAG, "throwable:" + throwable);
-						progressDialog.dismiss();
-						makeTextLong(getString(R.string.tip_login_error_for_network));
-					};
-				});
 	}
 
 	@Override

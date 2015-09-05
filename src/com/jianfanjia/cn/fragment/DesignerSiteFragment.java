@@ -2,6 +2,9 @@ package com.jianfanjia.cn.fragment;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.http.Header;
+import org.json.JSONObject;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -11,6 +14,10 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.DesignerSiteInfoAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.DesignerSiteInfo;
+import com.jianfanjia.cn.http.JianFanJiaApiClient;
+import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.view.dialog.CustomProgressDialog;
+import com.loopj.android.http.JsonHttpResponseHandler;
 
 /**
  * 
@@ -22,11 +29,20 @@ import com.jianfanjia.cn.bean.DesignerSiteInfo;
  */
 public class DesignerSiteFragment extends BaseFragment implements
 		OnItemClickListener {
+	private static final String TAG = DesignerSiteFragment.class.getName();
+	private CustomProgressDialog progressDialog = null;
 	private ImageView headView;
 	private ListView siteListView;
 	private List<DesignerSiteInfo> caigouList = new ArrayList<DesignerSiteInfo>();
 	private DesignerSiteInfo designerSiteInfo = null;
 	private DesignerSiteInfoAdapter designerSiteInfoAdapter = null;
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		progressDialog = new CustomProgressDialog(getActivity(), "正在加载中",
+				R.style.dialog);
+	}
 
 	@Override
 	public void initView(View view) {
@@ -45,6 +61,7 @@ public class DesignerSiteFragment extends BaseFragment implements
 		designerSiteInfoAdapter = new DesignerSiteInfoAdapter(getActivity(),
 				caigouList);
 		siteListView.setAdapter(designerSiteInfoAdapter);
+		getMySiteList();
 	}
 
 	@Override
@@ -68,6 +85,41 @@ public class DesignerSiteFragment extends BaseFragment implements
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
 
+	}
+
+	private void getMySiteList() {
+		JianFanJiaApiClient.get_Designer_Process_List(getActivity(),
+				new JsonHttpResponseHandler() {
+					@Override
+					public void onStart() {
+						LogTool.d(TAG, "onStart()");
+						progressDialog.show();
+					}
+
+					@Override
+					public void onSuccess(int statusCode, Header[] headers,
+							JSONObject response) {
+						LogTool.d(TAG, "JSONObject response:" + response);
+						progressDialog.dismiss();
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							Throwable throwable, JSONObject errorResponse) {
+						LogTool.d(TAG,
+								"Throwable throwable:" + throwable.toString());
+						progressDialog.dismiss();
+						makeTextLong(getString(R.string.tip_login_error_for_network));
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							String responseString, Throwable throwable) {
+						LogTool.d(TAG, "throwable:" + throwable);
+						progressDialog.dismiss();
+						makeTextLong(getString(R.string.tip_login_error_for_network));
+					};
+				});
 	}
 
 	@Override

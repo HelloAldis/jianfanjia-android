@@ -38,10 +38,10 @@ public class Url {
 	// 获取业主的设计师
 	public static final String GET_OWER_DESIGNER = HTTPROOT + "designer/" + ID
 			+ "/basicinfo";
-	// 获取业主的个人资料
-	public static final String GET_OWER_INFO = "user/info";
+	// 业主获取自己的个人资料
+	public static final String GET_OWER_INFO = HTTPROOT + "user/info";
 	// ----------------------------------------------------设计师----------------------------------------------------------
-	// 获取设计师的个人资料
+	// 设计师获取个人信息
 	public static final String GET_DESIGNER_INFO = HTTPROOT + "designer/info";
 	// 获取设计师的业主
 	public static final String GET_DESIGNER_OWNER = HTTPROOT + "designer/user";

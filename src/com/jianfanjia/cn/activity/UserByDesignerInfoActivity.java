@@ -11,6 +11,8 @@ import com.jianfanjia.cn.base.BaseActivity;
  * 
  */
 public class UserByDesignerInfoActivity extends BaseActivity {
+	private static final String TAG = UserByDesignerInfoActivity.class
+			.getName();
 
 	@Override
 	public void initView() {

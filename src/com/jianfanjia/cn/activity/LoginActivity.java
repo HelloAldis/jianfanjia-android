@@ -145,6 +145,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 										.jsonToBean(response.get(Constant.DATA)
 												.toString(),
 												LoginUserBean.class);
+								LogTool.d(TAG, "loginUserBean:" + loginUserBean);
 								loginUserBean.setPass(mPassword);
 								MyApplication.getInstance().saveLoginUserInfo(
 										loginUserBean);

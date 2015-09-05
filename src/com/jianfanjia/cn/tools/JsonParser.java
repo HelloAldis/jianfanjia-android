@@ -12,12 +12,6 @@ import com.google.gson.Gson;
  */
 public class JsonParser {
 
-	private static Gson gson;
-
-	public JsonParser() {
-		gson = new Gson();
-	}
-
 	/**
 	 * json转化为javabean对象
 	 * 
@@ -26,7 +20,14 @@ public class JsonParser {
 	 * @return
 	 */
 	public static <T> T jsonToBean(String json, Class<T> beanClass) {
-		return gson.fromJson(json, beanClass);
+		T t = null;
+		try {
+			Gson gson = new Gson();
+			t = gson.fromJson(json, beanClass);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return t;
 	}
 
 	/**
@@ -36,7 +37,13 @@ public class JsonParser {
 	 * @return
 	 */
 	public static String beanToJson(Object object) {
-		String jsonObject = gson.toJson(object);
+		String jsonObject = null;
+		try {
+			Gson gson = new Gson();
+			jsonObject = gson.toJson(object);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return jsonObject;
 	}
 
