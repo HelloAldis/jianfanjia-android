@@ -18,7 +18,7 @@ public class LoginUserBean implements Serializable {
 	private String pass;
 	private String imageId;
 	private String id;
-	
+
 	public String getPass() {
 		return pass;
 	}

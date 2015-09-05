@@ -11,10 +11,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.inter.manager.ListenerManeger;
-import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.SharedPrefer;
 
@@ -30,7 +28,6 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 	protected LocalBroadcastManager localBroadcastManager = null;
 	protected LayoutInflater inflater = null;
 	protected SharedPrefer shared = null;
-	protected JsonParser jsonParser = null;
 	protected ListenerManeger listenerManeger = null;
 
 	@Override
@@ -38,7 +35,6 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		LogTool.d(this.getClass().getName(), "onCreate");
 		shared = new SharedPrefer(getActivity(), Constant.SHARED_MAIN);
-		jsonParser = new JsonParser();
 		listenerManeger = ListenerManeger.getListenerManeger();
 	}
 
@@ -55,7 +51,6 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 		setListener();
 		return view;
 	}
-	
 
 	@Override
 	public void onResume() {

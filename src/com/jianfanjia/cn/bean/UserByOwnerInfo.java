@@ -12,35 +12,36 @@ import java.io.Serializable;
  */
 public class UserByOwnerInfo implements Serializable {
 	private static final long serialVersionUID = 8954526830558571075L;
-	private String _id;
 
-	private String accessToken;
+	private boolean is_block;
 
-	private String pass;// 用户密码
+	private String sex;// 我的性别
 
 	private String phone;// 用户电话，用来做key,每个用户一个电话
 
-	private String communication_type;
+	private String accessToken;
+
+	private int score;
 
 	private int __v;
 
 	private String imageId;// 用户头像
 
-	private String address;// 用户头像
-
-	private String district;
-
 	private String city;// 用户所在城市
 
-	private String province;
+	private String pass;// 用户密码
 
-	private String sex;// 我的性别
+	private String communication_type;
 
 	private String username;// 用户姓名
 
-	private boolean is_block;
+	private String _id;
 
-	private int score;
+	private String address;// 用户头像
+
+	private String province;
+
+	private String district;
 
 	public String getCity() {
 		return city;
