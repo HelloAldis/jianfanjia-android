@@ -85,7 +85,8 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 						LogTool.d(TAG, "JSONObject response:" + response);
 						try {
 							if (response.has(Constant.DATA)) {
-								makeTextShort(getString(R.string.login_success));
+								LogTool.d(TAG, "response.get(Constant.DATA)="
+										+ response.get(Constant.DATA));
 								UserByOwnerInfo info = JsonParser.jsonToBean(
 										response.get(Constant.DATA).toString(),
 										UserByOwnerInfo.class);

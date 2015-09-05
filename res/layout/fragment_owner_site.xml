@@ -267,8 +267,8 @@
                 android:background="@drawable/btn_selector"
                 android:gravity="center"
                 android:text="@string/confirm"
-                android:textSize="17sp"
-                android:textColor="@color/font_white" />
+                android:textColor="@color/font_white"
+                android:textSize="17sp" />
         </LinearLayout>
     </ScrollView>
 
