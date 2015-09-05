@@ -1,5 +1,7 @@
 package com.jianfanjia.cn.config;
 
+import com.jianfanjia.cn.activity.R;
+
 import android.os.Environment;
 
 /**
@@ -65,5 +67,7 @@ public class Constant {
 	public static final String DESIGNER_FINISH_AUTH_TYPE = "2";//设计师完成认证
 	
 	public static final String CURRENT_LIST ="current_list";//首页展开的第一道工序
+	
+	public static final String HOME_ADD_PIC = "drawable://"+R.drawable.btn_icon_home_add;
 
 }

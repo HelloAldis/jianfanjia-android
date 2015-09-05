@@ -198,7 +198,6 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	private void setHeadView(String name) {
 		boolean isHeadViewShow = false;
 		for(String sectionName : checkSection){
-			Log.i(TAG, sectionName+ "--"+ sectionInfo.getName());
 			if(sectionName.equals(sectionInfo.getName())){
 				isHeadViewShow = true;
 				break;
@@ -210,7 +209,6 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		}else{
 			listHeadView.setVisibility(View.GONE);
 		}
-				
 	}
 
 	private void updateData(){

@@ -32,57 +32,64 @@
             android:layout_alignParentBottom="true"
             android:background="@color/horzontal_line_color" />
     </RelativeLayout>
-    
-    <ListView
-        android:id="@+id/comment_listview"
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/space_8"
-        android:layout_marginBottom="@dimen/space_8"
-        android:layout_below="@+id/comment_head_layout"
         android:layout_above="@+id/add_comment_layout"
-        android:cacheColorHint="#ffffff"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="@dimen/space_1"
-        android:listSelector="@android:color/transparent"
-        android:scrollbars="none" />
+        android:layout_below="@+id/comment_head_layout"
+        android:layout_marginBottom="@dimen/space_8"
+        android:layout_marginTop="@dimen/space_8" >
+
+        <ListView
+            android:id="@+id/comment_listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:cacheColorHint="#ffffff"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="@dimen/space_1"
+            android:listSelector="@android:color/transparent"
+            android:overScrollMode="always"
+            android:scrollbars="none"
+            android:stackFromBottom="true" />
+    </RelativeLayout>
+
+    <View
+        style="@style/divier_line"
+        android:layout_above="@+id/add_comment_layout"
+        android:background="@color/horzontal_line_color" />
 
     <RelativeLayout
         android:id="@+id/add_comment_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:background="@color/font_white"
-        android:padding="@dimen/space_8"
-        >
+        android:padding="@dimen/space_8" >
 
-        <View
-            style="@style/divier_line"
-            android:layout_alignParentTop="true"
-            android:background="@color/horzontal_line_color" />
-
-        <EditText android:id="@+id/add_comment"
+        <EditText
+            android:id="@+id/add_comment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/space_8"
-            android:hint="@string/add_comment"
-            android:textColorHint="@color/horzontal_line_color"
-            android:layout_toLeftOf="@+id/btn_send"
             android:layout_alignParentBottom="true"
-            android:minHeight="40dp"
             android:layout_marginRight="@dimen/space_8"
-            android:background="@drawable/edit_comment_bg"/>
-        
+            android:layout_toLeftOf="@+id/btn_send"
+            android:background="@drawable/edit_comment_bg"
+            android:hint="@string/add_comment"
+            android:minHeight="40dp"
+            android:padding="@dimen/space_8"
+            android:textColorHint="@color/horzontal_line_color" />
+
         <Button
             android:id="@+id/btn_send"
-            android:layout_height="40dp"
             android:layout_width="96dp"
-            android:layout_alignParentBottom="true"
+            android:layout_height="40dp"
+            android:layout_alignBottom="@+id/add_comment"
             android:layout_alignParentRight="true"
             android:background="@drawable/btn_selector"
-            android:text="@string/send" 
+            android:text="@string/send"
             android:textColor="@color/font_white"
-            android:textSize="16sp"/>
+            android:textSize="16sp" />
     </RelativeLayout>
 
 </RelativeLayout>

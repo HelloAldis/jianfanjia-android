@@ -222,6 +222,7 @@
                     style="@style/site_listview_item_text_style_middle"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="8dp"
+                    android:layout_alignWithParentIfMissing="true"
                     android:layout_toLeftOf="@+id/startdate_select_goto"
                     android:textColor="@color/main_color_grey" />
             </RelativeLayout>
@@ -251,6 +252,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="8dp"
                     android:layout_toLeftOf="@+id/totaldate_select_goto"
+                    android:layout_alignWithParentIfMissing="true"
                     android:text="@string/my_site_totaldate_example"
                     android:textColor="@color/main_color_grey" />
             </RelativeLayout>
@@ -267,8 +269,8 @@
                 android:background="@drawable/btn_selector"
                 android:gravity="center"
                 android:text="@string/confirm"
-                android:textSize="17sp"
-                android:textColor="@color/font_white" />
+                android:textColor="@color/font_white"
+                android:textSize="17sp" />
         </LinearLayout>
     </ScrollView>
 

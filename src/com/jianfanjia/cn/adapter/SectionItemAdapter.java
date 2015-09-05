@@ -1,7 +1,9 @@
 package com.jianfanjia.cn.adapter;
 
+import java.util.ArrayList;
 import java.util.List;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -9,17 +11,21 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.jianfanjia.cn.activity.CheckActivity;
+import com.jianfanjia.cn.activity.CommentActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.bean.CommentInfo;
+import com.jianfanjia.cn.bean.GridItem;
 import com.jianfanjia.cn.bean.SectionItemInfo;
 import com.jianfanjia.cn.config.Constant;
 
 public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 
 	private int lastClickItem = -1;// 记录点击的位置
-	private List<String> imageUrlList;// 该节点的图片list
-	private List<CommentInfo> commentInfoList;// 该节点的评论list
+	private SiteGridViewAdapter siteGridViewAdapter;
+	private List<GridItem> gridItem = new ArrayList<GridItem>();
 
 	public SectionItemAdapter(Context context,
 			List<SectionItemInfo> sectionItemInfos) {
@@ -60,8 +66,8 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 	public View initView(int position, View convertView) {
 		ViewHolder viewHolder = null;
 		final SectionItemInfo sectionItemInfo = list.get(position);
-		imageUrlList = sectionItemInfo.getImages();
-		commentInfoList = sectionItemInfo.getComments();
+		List<String> imageUrlList = sectionItemInfo.getImages();
+		List<CommentInfo> commentInfoList = sectionItemInfo.getComments();
 		Log.i(this.getClass().getName(), sectionItemInfo.getName());
 		if (convertView == null) {
 			convertView = layoutInflater.inflate(R.layout.site_listview_item,
@@ -93,6 +99,7 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 		} else {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
+
 		viewHolder.closeNodeName.setText(MyApplication.getInstance()
 				.getStringById(sectionItemInfo.getName()));
 		viewHolder.openNodeName.setText(MyApplication.getInstance()
@@ -121,21 +128,42 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 		default:
 			break;
 		}
+		
+		if(imageUrlList.size() > 0){
+			viewHolder.openUploadPic.setText(imageUrlList.size()+"");
+			viewHolder.openUploadPic.setCompoundDrawablesWithIntrinsicBounds(context.getResources().getDrawable(R.drawable.btn_icon_upload_pic_pressed), null, null, null);
+		}else{
+			viewHolder.openUploadPic.setCompoundDrawablesWithIntrinsicBounds(context.getResources().getDrawable(R.drawable.btn_icon_upload_pic_normal), null, null, null);
+			viewHolder.openUploadPic.setText(R.string.upload_pic);
+		}
+		
+		if(commentInfoList.size() > 0){
+			viewHolder.openComment.setText(commentInfoList.size()+"");
+			viewHolder.openComment.setCompoundDrawablesWithIntrinsicBounds(context.getResources().getDrawable(R.drawable.btn_icon_comment_pressed), null, null, null);
+		}else{
+			viewHolder.openComment.setText(R.string.comment);
+			viewHolder.openComment.setCompoundDrawablesWithIntrinsicBounds(context.getResources().getDrawable(R.drawable.btn_icon_comment_normal), null, null, null);
+		}
+		
 		// 未开工的点击无法展开
 		// if (Integer.parseInt(sectionItemInfo.getStatus()) !=
 		// Constant.NOT_START && position == lastClickItem) {
 		if (position == lastClickItem) {
 			viewHolder.bigOpenLayout.setVisibility(View.VISIBLE);
 			viewHolder.smallcloseLayout.setVisibility(View.GONE);
-		}else{
+			// 设置上传照片
+			setImageData(imageUrlList, viewHolder.gridView);
+		} else {
 			viewHolder.bigOpenLayout.setVisibility(View.GONE);
 			viewHolder.smallcloseLayout.setVisibility(View.VISIBLE);
 		}
+		
 		viewHolder.openComment.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				// MyApplication.getInstance().showToast("鎵撳紑璇勮");
+				Intent intent = new Intent(context, CommentActivity.class);
+				context.startActivity(intent);
 			}
 		});
 		viewHolder.openUploadPic.setOnClickListener(new OnClickListener() {
@@ -147,4 +175,33 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 		});
 		return convertView;
 	}
+
+	/**
+	 * @des 设置item里gridview的照片
+	 * @param imageUrlList
+	 * @param gridView
+	 */
+	private void setImageData(List<String> imageUrlList, GridView gridView) {
+		Log.i(this.getClass().getName(),"size ="+imageUrlList.size());
+
+		gridItem.clear();
+		gridView.setAdapter(null);
+
+		//最多上传9张照片
+		if (imageUrlList.size() < 9  && !imageUrlList.contains(Constant.HOME_ADD_PIC)) {
+			Log.i(this.getClass().getName(),"addImage");
+			imageUrlList.add(Constant.HOME_ADD_PIC);
+		}
+		for (int i = 0; i < imageUrlList.size(); i++) {
+			GridItem item = new GridItem();
+			item.setPath(imageUrlList.get(i));
+			gridItem.add(item);
+		}
+		Log.i(this.getClass().getName(),"grid =" + gridItem.size());
+
+		siteGridViewAdapter = new SiteGridViewAdapter(context, gridItem);
+		gridView.setAdapter(siteGridViewAdapter);
+
+	}
+
 }
