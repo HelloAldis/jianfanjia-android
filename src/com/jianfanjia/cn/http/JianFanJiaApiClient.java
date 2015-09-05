@@ -138,7 +138,7 @@ public class JianFanJiaApiClient {
 		StringEntity entity;
 		try {
 			entity = new StringEntity(JsonParser.beanToJson(requirementInfo));
-			HttpRestClient.post(context, Url.REGISTER_URL, entity,
+			HttpRestClient.post(context, Url.PROCESS, entity,
 					"application/json", handler);
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block

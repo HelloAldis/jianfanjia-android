@@ -14,7 +14,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
@@ -24,7 +23,6 @@ import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.tools.DateFormatTool;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.tools.NetTool;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 /**
@@ -53,6 +51,8 @@ public class OwnerSiteFragment extends BaseFragment {
 	private TextView startDateView;// 开工日期
 	private TextView totalDateView;// 总工期
 	private TextView confirmView;// 确认按钮
+	private ImageView startDateGoto;
+	private ImageView totalDateGoto;
 
 	private RelativeLayout startDateLayout;
 	private RelativeLayout totalDateLayout;
@@ -74,6 +74,8 @@ public class OwnerSiteFragment extends BaseFragment {
 		startDateView = (TextView) view.findViewById(R.id.my_site_startdate);
 		totalDateView = (TextView) view.findViewById(R.id.my_site_totaldate);
 		confirmView = (TextView) view.findViewById(R.id.my_site_confirm);
+		startDateGoto = (ImageView)view.findViewById(R.id.startdate_select_goto);
+		totalDateGoto = (ImageView)view.findViewById(R.id.totaldate_select_goto);
 
 		startDateLayout = (RelativeLayout) view
 				.findViewById(R.id.my_startdate_layout);
@@ -111,7 +113,7 @@ public class OwnerSiteFragment extends BaseFragment {
 								//配置完工地保存我的设计师id
 								shared.setValue(Constant.FINAL_DESIGNER_ID,processInfo.getFinal_designerid());
 								handlerSuccess();
-								makeTextLong(response.toString());
+								makeTextLong("配置成功");
 							} else if (response.has(Constant.ERROR_MSG)) {
 								makeTextLong(response.get(Constant.ERROR_MSG)
 										.toString());
@@ -182,6 +184,9 @@ public class OwnerSiteFragment extends BaseFragment {
 			startDateView.setText(DateFormatTool.covertLongToString(
 					processInfo.getStart_at(), "yyyy-MM-dd"));
 			totalDateView.setText(processInfo.getDuration());
+			startDateGoto.setVisibility(View.GONE);
+			totalDateGoto.setVisibility(View.GONE);
+			confirmView.setEnabled(false);
 			startDateLayout.setEnabled(false);
 			totalDateLayout.setEnabled(false);
 		}
@@ -261,7 +266,8 @@ public class OwnerSiteFragment extends BaseFragment {
 					calendar.get(Calendar.DAY_OF_MONTH));
 			datePickerDialog.show();
 			break;
-		case R.id.btn_confirm:
+		case R.id.my_site_confirm:
+			Log.i(TAG, "confirm");
 			getSiteInfo();
 			break;
 		default:

@@ -223,7 +223,6 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="8dp"
                     android:layout_toLeftOf="@+id/startdate_select_goto"
-                    android:text="@string/my_site_startdate_example"
                     android:textColor="@color/main_color_grey" />
             </RelativeLayout>
 
