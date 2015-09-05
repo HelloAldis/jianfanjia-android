@@ -3,12 +3,14 @@ package com.jianfanjia.cn.fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.UserByOwnerInfoActivity;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.FragmentCallBack;
@@ -26,6 +28,7 @@ public class OwnerMenuFragment extends BaseFragment implements
 		OnCheckedChangeListener, FragmentCallBack {
 	private static final String TAG = OwnerMenuFragment.class.getName();
 	private RadioGroup mTabRg = null;
+	private ImageView img_head = null;
 	private OwnerSiteManageFragment siteManageFragment = null;
 	private NotifyFragment notifyFragment = null;
 	private DesignerFragment designerFragment = null;
@@ -44,6 +47,7 @@ public class OwnerMenuFragment extends BaseFragment implements
 		nameText = (TextView) view.findViewById(R.id.name_text);
 		phoneText = (TextView) view.findViewById(R.id.phone_text);
 		mTabRg = (RadioGroup) view.findViewById(R.id.tab_rg_menu);
+		img_head = (ImageView) view.findViewById(R.id.img_head);
 		if (!TextUtils.isEmpty(mUserName)) {
 			nameText.setText(mUserName);
 		} else {
@@ -57,6 +61,18 @@ public class OwnerMenuFragment extends BaseFragment implements
 	@Override
 	public void setListener() {
 		mTabRg.setOnCheckedChangeListener(this);
+		img_head.setOnClickListener(this);
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.img_head:
+			startActivity(UserByOwnerInfoActivity.class);
+			break;
+		default:
+			break;
+		}
 	}
 
 	@Override

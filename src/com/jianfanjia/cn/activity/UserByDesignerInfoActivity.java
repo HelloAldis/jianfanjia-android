@@ -4,13 +4,13 @@ import com.jianfanjia.cn.base.BaseActivity;
 
 /**
  * 
- * @ClassName: UserInfoActivity
- * @Description:用户个人信息
+ * @ClassName: UserByDesignerInfoActivity
+ * @Description:用户个人信息(设计师)
  * @author fengliang
- * @date 2015-8-18 下午12:11:49
+ * @date 2015-9-5 下午2:01:42
  * 
  */
-public class UserInfoActivity extends BaseActivity {
+public class UserByDesignerInfoActivity extends BaseActivity {
 
 	@Override
 	public void initView() {
@@ -26,8 +26,7 @@ public class UserInfoActivity extends BaseActivity {
 
 	@Override
 	public int getLayoutId() {
-		// TODO Auto-generated method stub
-		return 0;
+		return R.layout.activity_designer_info;
 	}
 
 }

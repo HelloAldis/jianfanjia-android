@@ -6,7 +6,7 @@ import com.jianfanjia.cn.base.BaseActivity;
 
 /**
  * 
- * @ClassName: OwnerDetailActivity
+ * @ClassName:OwnerInfoActivity
  * @Description:业主信息
  * @author fengliang
  * @date 2015-9-5 上午11:26:30
