@@ -20,8 +20,8 @@
         android:layout_margin="20dip"
         android:layout_toRightOf="@+id/site_listview_item_status"
         android:background="@drawable/list_item_text_bg1"
-        android:padding="8dp"
-        android:visibility="gone" >
+        android:padding="12dp"
+         >
 
         <TextView
             android:id="@+id/site_list_item_content_small_node_name"
@@ -32,9 +32,10 @@
         <TextView
             android:id="@+id/site_list_item_content_small_node_finishtime"
             style="@style/site_listview_item_text_style_small"
-            android:layout_alignBottom="@+id/site_list_item_content_small_node_name"
             android:layout_alignParentRight="true"
-            android:textColor="@color/main_color_black" />
+            android:layout_alignBaseline="@+id/site_list_item_content_small_node_name"
+            android:textColor="@color/main_color_black"
+            />
     </RelativeLayout>
 
     <RelativeLayout
@@ -45,7 +46,8 @@
         android:layout_margin="20dip"
         android:layout_toRightOf="@+id/site_listview_item_status"
         android:background="@drawable/list_item_text_bg1"
-        android:padding="8dp" >
+       	android:padding="12dp"
+		android:visibility="gone">
 
         <TextView
             android:id="@+id/site_list_item_content_expand_node_name"
@@ -57,7 +59,7 @@
             android:id="@+id/site_list_item_content_expand_node_finish_status"
             style="@style/site_listview_item_text_style_small"
             android:layout_alignParentRight="true"
-            android:layout_alignTop="@+id/site_list_item_content_expand_node_name"
+            android:layout_alignBaseline="@+id/site_list_item_content_expand_node_name"
             android:text="@string/site_example_node_finish"
             android:textColor="@color/main_color_black" />
 
@@ -83,25 +85,26 @@
                 android:stretchMode="columnWidth"
                 android:verticalSpacing="10dp" />
         </LinearLayout>
-
+        
         <TextView
             android:id="@+id/site_list_item_content_expand_node_time"
             style="@style/site_listview_item_text_style_small"
             android:layout_alignBottom="@+id/site_list_item_content_expand_node_upload_picture"
             android:layout_alignTop="@+id/site_list_item_content_expand_node_upload_picture"
-            android:layout_below="@+id/site_list_item_content_expand_node_picture_layout"
-            android:gravity="center_vertical"
+            android:gravity="center"
+            android:layout_alignBaseline="@+id/site_list_item_content_expand_node_upload_picture"
             android:text="@string/site_example_node_time"
             android:textColor="@color/main_color_grey" />
 
         <TextView
             android:id="@+id/site_list_item_content_expand_node_upload_picture"
             style="@style/site_listview_item_text_style_small"
-            android:layout_below="@+id/site_list_item_content_expand_node_picture_layout"
             android:layout_marginRight="24dp"
             android:layout_toLeftOf="@+id/site_list_item_content_expand_node_assess"
+            android:layout_below="@+id/site_list_item_content_expand_node_picture_layout"
             android:drawableLeft="@drawable/btn_icon_upload_pic_normal"
             android:text="@string/site_example_node_upload_picture"
+            android:gravity="center_vertical"
             android:textColor="@color/main_color_grey" />
 
         <TextView
@@ -111,6 +114,7 @@
             android:layout_below="@+id/site_list_item_content_expand_node_picture_layout"
             android:drawableLeft="@drawable/btn_icon_comment_normal"
             android:text="@string/site_example_node_assess"
+            android:gravity="center_vertical"
             android:textColor="@color/main_color_grey" />
     </RelativeLayout>
 

@@ -55,6 +55,7 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 		setListener();
 		return view;
 	}
+	
 
 	@Override
 	public void onResume() {
