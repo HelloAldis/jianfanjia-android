@@ -29,6 +29,7 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 	protected LayoutInflater inflater = null;
 	protected SharedPrefer shared = null;
 	protected ListenerManeger listenerManeger = null;
+	protected boolean isOpen = false;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,7 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 	public void onResume() {
 		super.onResume();
 		LogTool.d(this.getClass().getName(), "onResume");
+		isOpen = shared.getValue(Constant.ISOPEN, false);
 	}
 
 	@Override

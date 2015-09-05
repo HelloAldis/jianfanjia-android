@@ -35,6 +35,7 @@ public class Constant {
 	public static final String IDENTITY_OWNER = "1";// 业主
 	public static final String IDENTITY_DESIGNER = "2";// 设计师
 
+	public static final String ISOPEN = "isOpen";// 消息推送是否开启
 	public static final String ISFIRST = "isFirst";// 是否是首次打开程序
 	public static final String ACCOUNT = "account";// 账号
 	public static final String PASSWORD = "password";// 密码
@@ -62,12 +63,13 @@ public class Constant {
 	public static final String SEX_MAN = "0";
 	public static final String SEX_WOMEN = "1";
 
-	public static final String DESIGNER_NOT_AUTH_TYPE = "0";//设计师未认证
-	public static final String DESIGNER_NOW_AUTH_TYPE = "1";//设计师正在审核中
-	public static final String DESIGNER_FINISH_AUTH_TYPE = "2";//设计师完成认证
-	
-	public static final String CURRENT_LIST ="current_list";//首页展开的第一道工序
-	
-	public static final String HOME_ADD_PIC = "drawable://"+R.drawable.btn_icon_home_add;
+	public static final String DESIGNER_NOT_AUTH_TYPE = "0";// 设计师未认证
+	public static final String DESIGNER_NOW_AUTH_TYPE = "1";// 设计师正在审核中
+	public static final String DESIGNER_FINISH_AUTH_TYPE = "2";// 设计师完成认证
+
+	public static final String CURRENT_LIST = "current_list";// 首页展开的第一道工序
+
+	public static final String HOME_ADD_PIC = "drawable://"
+			+ R.drawable.btn_icon_home_add;
 
 }

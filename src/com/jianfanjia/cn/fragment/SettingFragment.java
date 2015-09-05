@@ -92,8 +92,31 @@ public class SettingFragment extends BaseFragment implements
 	}
 
 	@Override
-	public void onCheckedChanged(CompoundButton arg0, boolean check) {
+	public void onResume() {
+		super.onResume();
+		LogTool.d(TAG, "onResume()   " + isOpen);
+		if (isOpen) {
+			toggleButton.setChecked(true);
+		} else {
+			toggleButton.setChecked(false);
+		}
+	}
 
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		LogTool.d(TAG, "onDestroy()");
+	}
+
+	@Override
+	public void onCheckedChanged(CompoundButton arg0, boolean check) {
+		LogTool.d(TAG, "check:" + check);
+		shared.setValue(Constant.ISOPEN, check);
+		if (check) {
+
+		} else {
+
+		}
 	}
 
 	@Override
