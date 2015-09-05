@@ -10,6 +10,7 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.UserByDesignerInfoActivity;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.FragmentCallBack;
@@ -67,7 +68,7 @@ public class DesignerMenuFragment extends BaseFragment implements
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.img_head:
-
+			startActivity(UserByDesignerInfoActivity.class);
 			break;
 		default:
 			break;
