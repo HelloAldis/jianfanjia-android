@@ -50,11 +50,11 @@
         <item>竣工</item>
     </string-array>
     <string-array name="site_procedure_check">
-        <item>水电阶段验收</item>
-        <item>泥木阶段验收</item>
-        <item>油漆阶段验收</item>
-        <item>安装阶段验收</item>
-        <item>竣工阶段验收</item>
+        <item>shui_dian</item>
+        <item>ni_mu</item>
+        <item>you_qi</item>
+        <item>an_zhuang</item>
+        <item>jun_gong</item>
     </string-array>
     <string-array name="site_data">
         <item>kai_gong</item>

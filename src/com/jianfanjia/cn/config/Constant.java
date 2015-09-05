@@ -60,8 +60,10 @@ public class Constant {
 	public static final String SEX_MAN = "0";
 	public static final String SEX_WOMEN = "1";
 
-	public static final String DESIGNER_NOT_AUTH_TYPE = "0";
-	public static final String DESIGNER_NOW_AUTH_TYPE = "1";
-	public static final String DESIGNER_FINISH_AUTH_TYPE = "2";
+	public static final String DESIGNER_NOT_AUTH_TYPE = "0";//设计师未认证
+	public static final String DESIGNER_NOW_AUTH_TYPE = "1";//设计师正在审核中
+	public static final String DESIGNER_FINISH_AUTH_TYPE = "2";//设计师完成认证
+	
+	public static final String CURRENT_LIST ="current_list";//首页展开的第一道工序
 
 }

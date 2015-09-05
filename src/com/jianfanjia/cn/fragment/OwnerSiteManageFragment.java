@@ -6,6 +6,7 @@ import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.app.Activity;
+import android.location.Address;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -15,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import com.jianfanjia.cn.activity.MainActivity;
@@ -56,15 +58,21 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	private ArrayList<SectionItemInfo> sectionItemInfos;
 	private SectionInfo sectionInfo;
 	private ProcessInfo processInfo;
-	private int currentPro = 0;
+	private int currentPro = -1;//当前进行工序
+	private int currentList = -1;//当前展开第一道工序
 	private ViewPager viewPager;
 	private ImageView icon_user_head = null;
 	private TextView head_right_title = null;
 	private ListView detailNodeListView;
 	private SectionItemAdapter sectionItemAdapter;
 	private MyViewPageAdapter myViewPageAdapter;
+	private String[] checkSection = null;
 	private String[] pro = null;
 	private List<View> list = new ArrayList<View>();
+
+	private RelativeLayout listHeadView;// list头视图
+	private TextView openCheckNode;// 打开验收节点名称
+	private TextView closeCheckNode;// 折叠验收节点名称
 
 	@Override
 	public void onAttach(Activity activity) {
@@ -79,15 +87,19 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		if(savedInstanceState != null){
+			currentList = savedInstanceState.getInt(Constant.CURRENT_LIST,-1);
+		}
 		processInfo = (ProcessInfo) CacheManager.getObjectByFile(getActivity(),
 				Constant.PROCESSINFO_CACHE);
 		LogTool.d(TAG, "processInfo=" + processInfo);
 		if (processInfo != null) {
-			setData();
+			initData();
 		} else {
 			getOwnerProcess();
 		}
 		pro = getResources().getStringArray(R.array.site_procedure);
+		checkSection = getResources().getStringArray(R.array.site_procedure_check);
 	}
 
 	private void getOwnerProcess() {
@@ -108,19 +120,18 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 								processInfo = JsonParser.jsonToBean(response
 										.get(Constant.DATA).toString(),
 										ProcessInfo.class);
-								if(processInfo != null){
+								if (processInfo != null) {
 									// 数据请求成功保存在缓存中
-									CacheManager
-											.saveObject(getActivity(), processInfo,
-													Constant.PROCESSINFO_CACHE);
+									CacheManager.saveObject(getActivity(),
+											processInfo,
+											Constant.PROCESSINFO_CACHE);
 									// 保存业主的设计师id
 									shared.setValue(Constant.FINAL_DESIGNER_ID,
 											processInfo.getFinal_designerid());
 									handlerSuccess();
-								}else{
-									//请求成功没有数据，返回默认数据
-									
-									
+								} else {
+									// 请求成功没有数据，返回默认数据
+
 								}
 							} else if (response.has(Constant.ERROR_MSG)) {
 								makeTextLong(response.get(Constant.ERROR_MSG)
@@ -151,22 +162,53 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 					};
 				});
 	}
-
-	private void setData() {
+	
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		//保存当前展开的第几道工序
+		outState.putInt(Constant.CURRENT_LIST, currentList);
+		super.onSaveInstanceState(outState);
+	}
+	
+	//初始化数据
+	private void initData() {
 		if (processInfo != null) {
 			currentPro = MyApplication.getInstance().getPositionByItemName(
 					processInfo.getGoing_on());
+			if(currentList == -1){
+				currentList = currentPro;
+			}
 			sectionInfos = processInfo.getSections();
-			sectionInfo = sectionInfos.get(currentPro);
+			sectionInfo = sectionInfos.get(currentList);
 			sectionItemInfos = sectionInfo.getItems();
+			
+			boolean isHeadViewShow = false;
+			for(String sectionName : checkSection){
+				Log.i(TAG, sectionName+ "--"+ sectionInfo.getName());
+				if(sectionName.equals(sectionInfo.getName())){
+					isHeadViewShow = true;
+					break;
+				}
+			};
+			
+			if(isHeadViewShow){
+				detailNodeListView.addHeaderView(listHeadView);
+			}else{
+				detailNodeListView.removeHeaderView(listHeadView);
+			}
+			
+			sectionItemAdapter = new SectionItemAdapter(getActivity(),
+					sectionItemInfos);
+			detailNodeListView.setAdapter(sectionItemAdapter);
 		}
+	}
+	
+	private void updateData(){
+		
 	}
 
 	private void handlerSuccess() {
-		setData();
-		sectionItemAdapter.setSectionItemInfos(sectionItemInfos);
-		sectionItemAdapter.setLastClickItem(-1);
-		sectionItemAdapter.notifyDataSetChanged();
+		updateData();
 		for (int i = 0; i < pro.length; i++) {
 			View siteHead = list.get(i);
 			initItem(siteHead, i);
@@ -182,7 +224,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		icon_user_head = (ImageView) view.findViewById(R.id.icon_user_head);
 		head_right_title = (TextView) view.findViewById(R.id.head_right_title);
 		initScrollLayout(view);
-		initListView(view, sectionItemInfos);
+		initListView(view);
 	}
 
 	private void initScrollLayout(View view) {
@@ -245,13 +287,9 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 				MyApplication.getInstance().getPackageName()));
 	}
 
-	private void initListView(View view,
-			ArrayList<SectionItemInfo> sectionItemInfos) {
+	private void initListView(View view) {
+		initHeadView();
 		detailNodeListView = (ListView) view.findViewById(R.id.site__listview);
-		// initCheck(detailNodeListView, sectionInfo);
-		sectionItemAdapter = new SectionItemAdapter(getActivity(),
-				sectionItemInfos);
-		detailNodeListView.setAdapter(sectionItemAdapter);
 		detailNodeListView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -261,6 +299,20 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 				sectionItemAdapter.notifyDataSetChanged();
 			}
 		});
+
+	}
+
+	private void initHeadView() {
+		listHeadView = (RelativeLayout) inflater.inflate(
+				R.layout.site_listview_head, null);
+		openCheckNode = (TextView) listHeadView
+				.findViewById(R.id.site_list_item_content_expand_node_name);
+		closeCheckNode = (TextView) listHeadView
+				.findViewById(R.id.site_list_item_content_small_node_name);
+		listHeadView.findViewById(R.id.site_list_head_check)
+				.setOnClickListener(this);
+		listHeadView.findViewById(R.id.site_list_head_delay)
+				.setOnClickListener(this);
 
 	}
 
@@ -280,6 +332,10 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		case R.id.head_right_title:
 			listener.switchFragment(Constant.MYSITE);
 			break;
+		case R.id.site_list_head_check:
+			break;
+		case R.id.site_list_head_delay:
+			break;
 		default:
 			break;
 		}
@@ -297,48 +353,6 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		// 上拉加载更多(加载下一页数据)
 		mPullRefreshScrollView.onRefreshComplete();
 	}
-
-	class HeadViewHold {
-		ImageView headIcon;
-		TextView headTile;
-		TextView headDate;
-	}
-
-	/*
-	 * // 设置工序验收 private void initCheck(ListView detailNodeListView,
-	 * ProcedureInfo procedure) { if (procedure.isProIsRequestCheck()) { View
-	 * view = mLayoutInflater.inflate(R.layout.site_listview_head, null);
-	 * TextView openCheckNode = (TextView) view
-	 * .findViewById(R.id.site_list_item_content_expand_node_name); TextView
-	 * closeCheckNode = (TextView) view
-	 * .findViewById(R.id.site_list_item_content_small_node_name);
-	 * openCheckNode.setText(procedure.getName() + "阶段验收");
-	 * closeCheckNode.setText(procedure.getName() + "阶段验收");
-	 * detailNodeListView.addHeaderView(view); } }
-	 */
-
-	/*
-	 * private void setHead(final int position,View view,ProcedureInfo
-	 * procedure){ if(procedure.isProIsFinish()){
-	 * view.findViewById(R.id.site_head_procedure_icon
-	 * ).setBackgroundResource(R.drawable.site_viewpager_item_selected_bg);
-	 * }else{
-	 * view.findViewById(R.id.site_head_procedure_icon).setBackgroundResource
-	 * (R.drawable.site_viewpager_item_normal_bg); } TextView name =
-	 * (TextView)view.findViewById(R.id.site_head_procedure_name);
-	 * name.setText(procedure.getName()); TextView date =
-	 * (TextView)view.findViewById(R.id.site_head_procedure_date);
-	 * date.setText(procedure.getDate()); view.setOnClickListener(new
-	 * OnClickListener() {
-	 * 
-	 * @Override public void onClick(View v) {
-	 * mViewPager.setCurrentItem(position); } }); }
-	 * 
-	 * //根据当前所在工序初始化显示的工序头列表，因为是循环显示的，所以有个归零的状态 private void
-	 * initHeadShowList(int firstItem) { int temp = firstItem; for(int i=
-	 * 0;i<4;i++){ if(temp >= procedureList.size()){ temp = 0; }
-	 * headShowProcedure.add(procedureList.get(temp)); temp++; } }
-	 */
 
 	@Override
 	public int getLayoutId() {
