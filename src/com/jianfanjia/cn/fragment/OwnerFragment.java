@@ -7,7 +7,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
-import com.jianfanjia.cn.activity.OwnerDetailActivity;
+import com.jianfanjia.cn.activity.OwnerInfoActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.MyOwerInfoAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
@@ -65,7 +65,7 @@ public class OwnerFragment extends BaseFragment implements OnItemClickListener {
 
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
-		startActivity(OwnerDetailActivity.class);
+		startActivity(OwnerInfoActivity.class);
 	}
 
 	@Override

@@ -110,6 +110,7 @@
     <string name="my_help">帮助</string>
     <string name="my_ower">我的业主</string>
     <string name="owner_detail">业主详情</string>
+    <string name="designer_detail">设计师详情</string>
     <string name="my_site">我的工地</string>
     <string name="my_example_name">Jeff</string>
     <string name="my_example_account">账号：12244444</string>
@@ -124,8 +125,8 @@
     <string name="list_item_comment_pubtime_example">30分钟前</string>
     <string name="add_comment">添加评论</string>
     <string name="add_feedback">请添加您想说的内容</string>
+    <string name="userinfo">个人信息</string>
     <string name="comment">评论</string>
-    <string name="userinfo">个人资料</string>
     <string name="check">阶段验收</string>
     <string name="back">返回</string>
     <string name="send">发送</string>

@@ -9,9 +9,9 @@ package com.jianfanjia.cn.config;
  * 
  */
 public class Url {
-	public static String SEVER_IP = "www.jianfanjia.com";
-//	public static String SEVER_IP = "192.168.1.107";
-	public static String SEVER_PORT = "8080";
+	// public static String SEVER_IP = "www.jianfanjia.com";
+	public static String SEVER_IP = "192.168.1.107";
+	public static String SEVER_PORT = "80";
 	public static final String HTTPROOT = "http://" + SEVER_IP + ":"
 			+ SEVER_PORT + "/api/v1/";
 	public static final String ID = "id";

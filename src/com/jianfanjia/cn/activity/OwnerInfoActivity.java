@@ -4,7 +4,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.jianfanjia.cn.base.BaseActivity;
 
-public class OwnerDetailActivity extends BaseActivity {
+/**
+ * 
+ * @ClassName: OwnerDetailActivity
+ * @Description:业主信息
+ * @author fengliang
+ * @date 2015-9-5 上午11:26:30
+ * 
+ */
+public class OwnerInfoActivity extends BaseActivity {
 	private TextView backView;// 返回视图
 	private ImageView ownerHeadView;// 用户头像视图
 	private ImageView ownerSexView;// 用户性别视图
