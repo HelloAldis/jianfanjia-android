@@ -6,7 +6,6 @@ import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.app.Activity;
-import android.location.Address;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -334,7 +333,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 
 	//≥ı ºªØlistview head ”Õº
 	private void initHeadView(ListView listView) {
-		View view = (RelativeLayout) inflater.inflate(
+		View view = inflater.inflate(
 				R.layout.site_listview_head, null);
 		listHeadView = (RelativeLayout)view.findViewById(R.id.site_listview_item_container);
 		openCheckNode = (TextView) listHeadView

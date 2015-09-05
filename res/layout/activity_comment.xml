@@ -33,27 +33,6 @@
             android:background="@color/horzontal_line_color" />
     </RelativeLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/add_comment_layout"
-        android:layout_below="@+id/comment_head_layout"
-        android:layout_marginBottom="@dimen/space_8"
-        android:layout_marginTop="@dimen/space_8" >
-
-        <ListView
-            android:id="@+id/comment_listview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:cacheColorHint="#ffffff"
-            android:divider="@android:color/transparent"
-            android:dividerHeight="@dimen/space_1"
-            android:listSelector="@android:color/transparent"
-            android:overScrollMode="always"
-            android:scrollbars="none"
-            android:stackFromBottom="true" />
-    </RelativeLayout>
-
     <View
         style="@style/divier_line"
         android:layout_above="@+id/add_comment_layout"
@@ -62,7 +41,7 @@
     <RelativeLayout
         android:id="@+id/add_comment_layout"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="56dp"
         android:layout_alignParentBottom="true"
         android:background="@color/font_white"
         android:padding="@dimen/space_8" >
@@ -90,6 +69,27 @@
             android:text="@string/send"
             android:textColor="@color/font_white"
             android:textSize="16sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/add_comment_layout"
+        android:layout_below="@+id/comment_head_layout"
+        android:layout_marginBottom="@dimen/space_8"
+        android:layout_marginTop="@dimen/space_8" >
+
+        <ListView
+            android:id="@+id/comment_listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:cacheColorHint="#ffffff"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="@dimen/space_1"
+            android:listSelector="@android:color/transparent"
+            android:overScrollMode="always"
+            android:scrollbars="none"
+            android:stackFromBottom="true" />
     </RelativeLayout>
 
 </RelativeLayout>
