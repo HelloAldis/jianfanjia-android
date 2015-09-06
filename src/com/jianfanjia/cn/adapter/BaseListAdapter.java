@@ -1,4 +1,4 @@
- package com.jianfanjia.cn.adapter;
+package com.jianfanjia.cn.adapter;
 
 import java.util.List;
 import android.content.Context;
@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
  * 
@@ -20,11 +22,20 @@ public abstract class BaseListAdapter<T> extends BaseAdapter {
 	protected Context context;
 	protected LayoutInflater layoutInflater;
 	protected List<T> list;
+	protected ImageLoader imageLoader;
+	protected DisplayImageOptions options;
 
 	public BaseListAdapter(Context context, List<T> list) {
 		this.context = context;
 		this.list = list;
 		layoutInflater = LayoutInflater.from(context);
+		imageLoader = ImageLoader.getInstance();
+		// options = new DisplayImageOptions.Builder()
+		// .showImageOnLoading(R.drawable.empty_photo)
+		// .showImageForEmptyUri(R.drawable.empty_photo)
+		// .showImageOnFail(R.drawable.empty_photo).cacheInMemory(true)
+		// .cacheOnDisk(true).considerExifParams(true)
+		// .bitmapConfig(Bitmap.Config.RGB_565).build();
 	}
 
 	@Override

@@ -1,18 +1,15 @@
 package com.jianfanjia.cn.adapter;
 
 import java.util.List;
-
 import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.MyOwnerInfo;
 import com.jianfanjia.cn.bean.Requirement;
 import com.jianfanjia.cn.bean.User;
 import com.jianfanjia.cn.config.Url;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
  * @class MyOwerInfoAdapter
@@ -52,8 +49,7 @@ public class MyOwerInfoAdapter extends BaseListAdapter<MyOwnerInfo> {
 		viewHolder.itemAdressView.setText(requirement.getCell());
 		viewHolder.itemStageView.setText(requirement.getWork_type());
 		if (user.getImageid() != null) {
-			ImageLoader.getInstance().displayImage(
-					Url.GET_IMAGE + user.getImageid(),
+			imageLoader.displayImage(Url.GET_IMAGE + user.getImageid(),
 					viewHolder.itemOwerHeadView);
 		} else {
 			viewHolder.itemOwerHeadView
