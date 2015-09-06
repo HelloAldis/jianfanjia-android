@@ -56,7 +56,7 @@ public class DesignerSiteInfoAdapter extends BaseListAdapter<DesignerSiteInfo> {
 		viewHolder.itemVillageView.setText(designerSiteInfo.getCell());
 		if (user.getImageid() != null) {
 			ImageLoader.getInstance().displayImage(
-					Url.IMGROOT + user.getImageid(),
+					Url.GET_IMAGE + user.getImageid(),
 					viewHolder.itemOwerHeadView);
 		} else {
 			viewHolder.itemOwerHeadView

@@ -53,7 +53,7 @@ public class MyOwerInfoAdapter extends BaseListAdapter<MyOwnerInfo> {
 		viewHolder.itemStageView.setText(requirement.getWork_type());
 		if (user.getImageid() != null) {
 			ImageLoader.getInstance().displayImage(
-					Url.IMGROOT + user.getImageid(),
+					Url.GET_IMAGE + user.getImageid(),
 					viewHolder.itemOwerHeadView);
 		} else {
 			viewHolder.itemOwerHeadView
