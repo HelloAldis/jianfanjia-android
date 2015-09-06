@@ -37,7 +37,7 @@ public class UserByOwnerInfo implements Serializable {
 
 	private String _id;
 
-	private String address;// ÓÃ»§Í·Ïñ
+	private String address;
 
 	private String province;
 
