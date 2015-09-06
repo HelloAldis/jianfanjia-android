@@ -54,25 +54,6 @@ public class OwnerFragment extends BaseFragment implements OnItemClickListener {
 		headView = (ImageView) view.findViewById(R.id.my_ower_head);
 		ownerListView = (ListView) view.findViewById(R.id.my_ower_listview);
 		headView = (ImageView) view.findViewById(R.id.my_ower_head);
-//		for (int i = 0; i < 3; i++) {
-//			myOwerInfo = new MyOwnerInfo();
-		/*	myOwerInfo.setName("zhanghao" + i);
-			myOwerInfo.setAddress("湖北省武汉市洪山区观澜花园" + i);
-			myOwerInfo.setStage("方案阶段");
-			myOwerInfo.setImageUrl(null);*/
-//			caigouList.add(myOwerInfo);
-//		}
-//		myOwerInfoAdapter = new MyOwerInfoAdapter(getActivity(), caigouList);
-//		ownerListView.setAdapter(myOwerInfoAdapter);
-		// for (int i = 0; i < 3; i++) {
-		// myOwerInfo = new MyOwnerInfo();
-		// myOwerInfo.setName("zhanghao" + i);
-		// myOwerInfo.setAddress("湖北省武汉市洪山区观澜花园" + i);
-		// myOwerInfo.setStage("方案阶段");
-		// myOwerInfo.setImageUrl(null);
-		// ownerList.add(myOwerInfo);
-		// }
-
 		get_Designer_Owner();
 	}
 
