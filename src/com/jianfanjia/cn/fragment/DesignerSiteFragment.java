@@ -3,6 +3,7 @@ package com.jianfanjia.cn.fragment;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.http.Header;
+import org.json.JSONException;
 import org.json.JSONObject;
 import android.os.Bundle;
 import android.view.View;
@@ -10,10 +11,12 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
+import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.DesignerSiteInfoAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.DesignerSiteInfo;
+import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
@@ -90,11 +93,28 @@ public class DesignerSiteFragment extends BaseFragment implements
 							JSONObject response) {
 						LogTool.d(TAG, "JSONObject response:" + response);
 						progressDialog.dismiss();
-						caigouList = JsonParser.getDesignerSiteList(response
-								.toString());
-						designerSiteInfoAdapter = new DesignerSiteInfoAdapter(
-								getActivity(), caigouList);
-						siteListView.setAdapter(designerSiteInfoAdapter);
+						try {
+							if (response.has(Constant.DATA)) {
+								caigouList = JsonParser
+										.jsonToList(
+												response.get(Constant.DATA)
+														.toString(),
+												new TypeToken<List<DesignerSiteInfo>>() {
+												}.getType());
+								LogTool.d(TAG, "caigouList:" + caigouList);
+								designerSiteInfoAdapter = new DesignerSiteInfoAdapter(
+										getActivity(), caigouList);
+								siteListView
+										.setAdapter(designerSiteInfoAdapter);
+							} else if (response.has(Constant.ERROR_MSG)) {
+								makeTextLong(response.get(Constant.ERROR_MSG)
+										.toString());
+							}
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+							makeTextLong(getString(R.string.tip_login_error_for_network));
+						}
 					}
 
 					@Override
