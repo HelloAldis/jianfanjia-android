@@ -2,31 +2,26 @@ package com.jianfanjia.cn.fragment;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
-
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.AdapterView.OnItemClickListener;
-
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.OwnerInfoActivity;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.adapter.DesignerSiteInfoAdapter;
 import com.jianfanjia.cn.adapter.MyOwerInfoAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
-import com.jianfanjia.cn.bean.DesignerSiteInfo;
 import com.jianfanjia.cn.bean.MyOwnerInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.view.dialog.CustomProgressDialog;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 /**
@@ -77,9 +72,12 @@ public class OwnerFragment extends BaseFragment implements OnItemClickListener {
 
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
-		// startActivity(OwnerInfoActivity.class);
 		MyOwnerInfo myOwerInfo = ownerList.get(position);
-		LogTool.d(TAG, "_id=" + myOwerInfo.get_id());
+		String ownerId = myOwerInfo.get_id();
+		LogTool.d(TAG, "ownerId=" + ownerId);
+		Intent intent = new Intent(getActivity(), OwnerInfoActivity.class);
+		intent.putExtra("ownerId", ownerId);
+		startActivity(intent);
 	}
 
 	private void get_Designer_Owner() {

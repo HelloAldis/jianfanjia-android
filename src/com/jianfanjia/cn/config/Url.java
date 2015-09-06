@@ -61,9 +61,11 @@ public class Url {
 	// 评价装修流程
 	public static final String POST_PROCESS_COMMENT = HTTPROOT
 			+ "process/comment";
-
 	// 用户获取某个装修流程
 	public static final String GET_ONE_PROCESS = HTTPROOT + "process/";
+	// 用户获取业主个人信息
+	public static final String GET_ONE_OWNER_INFO = HTTPROOT + "user/" + ID
+			+ "/info";
 	// 获取图片
 	public static final String GET_IMAGE = HTTPROOT + "image/";
 

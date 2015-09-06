@@ -239,6 +239,18 @@ public class JianFanJiaApiClient {
 	}
 
 	/**
+	 * 设计师获取业主个人信息
+	 * 
+	 * @param context
+	 * @param hanlder
+	 */
+	public static void getOwnerInfoById(Context context, String ownerid,
+			AsyncHttpResponseHandler hanlder) {
+		String getdesignerUrl = Url.GET_ONE_OWNER_INFO.replace(Url.ID, ownerid);
+		HttpRestClient.get(context, getdesignerUrl, hanlder);
+	}
+
+	/**
 	 * @author zhanghao
 	 * @description 业主获取我的工地
 	 * @param context

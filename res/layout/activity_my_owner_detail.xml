@@ -7,9 +7,9 @@
         android:id="@+id/owner_detail_bg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/bg_loading_720"
         android:contentDescription="@null"
         android:scaleType="fitXY"
-		android:background="@drawable/bg_loading_720"
         android:src="@drawable/bg_cover_sidebar" />
 
     <RelativeLayout
