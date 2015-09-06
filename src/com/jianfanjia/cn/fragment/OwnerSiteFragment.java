@@ -21,6 +21,7 @@ import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.cache.CacheManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
+import com.jianfanjia.cn.tools.DateFormatTool;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.StringUtils;
@@ -187,8 +188,8 @@ public class OwnerSiteFragment extends BaseFragment {
 					R.array.work_type)[Integer.parseInt(processInfo
 					.getWork_type())]);
 			decorateBudgetView.setText(processInfo.getTotal_price());
-			startDateView.setText(StringUtils.covertLongToString(
-					processInfo.getStart_at()));
+			startDateView.setText(DateFormatTool.covertLongToString(
+					processInfo.getStart_at(),"yyyy-MM-dd"));
 			totalDateView.setText(processInfo.getDuration());
 			startDateGoto.setVisibility(View.GONE);
 			totalDateGoto.setVisibility(View.GONE);
@@ -287,9 +288,12 @@ public class OwnerSiteFragment extends BaseFragment {
 		public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
 			Calendar calendar1 = Calendar.getInstance();
 			calendar1.set(arg1, arg2, arg3);
-			startDateView.setText(StringUtils.getDateString(calendar1.getTime()));
-			requirementInfo.setDuration("60");
-			requirementInfo.setStart_at(calendar1.getTimeInMillis());
+			startDateView.setText(DateFormatTool.covertLongToString(
+					calendar1.getTimeInMillis(),"yyyy-MM-dd"));
+			if(requirementInfo != null){
+				requirementInfo.setDuration("60");
+				requirementInfo.setStart_at(calendar1.getTimeInMillis());
+			}
 		}
 	};
 
