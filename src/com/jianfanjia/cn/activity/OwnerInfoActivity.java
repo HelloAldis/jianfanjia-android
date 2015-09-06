@@ -74,7 +74,7 @@ public class OwnerInfoActivity extends BaseActivity implements OnClickListener {
 	@Override
 	public void onClick(View view) {
 		switch (view.getId()) {
-		case R.id.btn_login:
+		case R.id.owner_detail_back:
 			finish();
 			break;
 		default:
