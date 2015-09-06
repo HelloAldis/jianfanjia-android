@@ -15,6 +15,7 @@ import com.jianfanjia.cn.adapter.DesignerSiteInfoAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.DesignerSiteInfo;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
+import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.dialog.CustomProgressDialog;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -34,7 +35,6 @@ public class DesignerSiteFragment extends BaseFragment implements
 	private ImageView headView;
 	private ListView siteListView;
 	private List<DesignerSiteInfo> caigouList = new ArrayList<DesignerSiteInfo>();
-	private DesignerSiteInfo designerSiteInfo = null;
 	private DesignerSiteInfoAdapter designerSiteInfoAdapter = null;
 
 	@Override
@@ -49,18 +49,6 @@ public class DesignerSiteFragment extends BaseFragment implements
 		headView = (ImageView) view.findViewById(R.id.designer_site_head);
 		siteListView = (ListView) view
 				.findViewById(R.id.designer_site_listview);
-		for (int i = 0; i < 3; i++) {
-			designerSiteInfo = new DesignerSiteInfo();
-			designerSiteInfo.setName("zhanghao" + i);
-			designerSiteInfo.setAddress("湖北省武汉市洪山区观澜花园" + i);
-			designerSiteInfo.setStage("方案阶段");
-			designerSiteInfo.setImageUrl(null);
-			designerSiteInfo.setVillageName("关南小区");
-			caigouList.add(designerSiteInfo);
-		}
-		designerSiteInfoAdapter = new DesignerSiteInfoAdapter(getActivity(),
-				caigouList);
-		siteListView.setAdapter(designerSiteInfoAdapter);
 		getMySiteList();
 	}
 
@@ -87,6 +75,7 @@ public class DesignerSiteFragment extends BaseFragment implements
 
 	}
 
+	// 获取装修工地
 	private void getMySiteList() {
 		JianFanJiaApiClient.get_Designer_Process_List(getActivity(),
 				new JsonHttpResponseHandler() {
@@ -101,6 +90,11 @@ public class DesignerSiteFragment extends BaseFragment implements
 							JSONObject response) {
 						LogTool.d(TAG, "JSONObject response:" + response);
 						progressDialog.dismiss();
+						caigouList = JsonParser.getDesignerSiteList(response
+								.toString());
+						designerSiteInfoAdapter = new DesignerSiteInfoAdapter(
+								getActivity(), caigouList);
+						siteListView.setAdapter(designerSiteInfoAdapter);
 					}
 
 					@Override

@@ -13,54 +13,74 @@ import java.io.Serializable;
 public class DesignerSiteInfo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private String imageUrl;// 业主头像
+	private String userid;// 设计师id
 
-	private String name;// 业主姓名
+	private String goingon;// 所处阶段
 
-	private String villageName;// 小区名称
+	private String district;
 
-	private String address;// 工地地址
+	private String siteid;// 工地id
 
-	private String stage;// 所处阶段
+	private String cell;// 小区名称
 
-	public String getImageUrl() {
-		return imageUrl;
+	private String city;
+
+	private OwnerInfo info;
+
+	public String getUserid() {
+		return userid;
 	}
 
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
+	public void setUserid(String userid) {
+		this.userid = userid;
 	}
 
-	public String getName() {
-		return name;
+	public String getDistrict() {
+		return district;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setDistrict(String district) {
+		this.district = district;
 	}
 
-	public String getAddress() {
-		return address;
+	public String getSiteid() {
+		return siteid;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
+	public void setSiteid(String siteid) {
+		this.siteid = siteid;
 	}
 
-	public String getStage() {
-		return stage;
+	public String getCell() {
+		return cell;
 	}
 
-	public void setStage(String stage) {
-		this.stage = stage;
+	public void setCell(String cell) {
+		this.cell = cell;
 	}
 
-	public String getVillageName() {
-		return villageName;
+	public String getCity() {
+		return city;
 	}
 
-	public void setVillageName(String villageName) {
-		this.villageName = villageName;
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public OwnerInfo getInfo() {
+		return info;
+	}
+
+	public void setInfo(OwnerInfo info) {
+		this.info = info;
+	}
+
+	public String getGoingon() {
+		return goingon;
+	}
+
+	public void setGoingon(String goingon) {
+		this.goingon = goingon;
 	}
 
 }

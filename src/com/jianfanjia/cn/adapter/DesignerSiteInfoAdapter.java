@@ -1,14 +1,13 @@
 package com.jianfanjia.cn.adapter;
 
 import java.util.List;
-
 import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.DesignerSiteInfo;
+import com.jianfanjia.cn.bean.OwnerInfo;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
@@ -48,19 +47,21 @@ public class DesignerSiteInfoAdapter extends BaseListAdapter<DesignerSiteInfo> {
 		} else {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
-		viewHolder.itemNameView.setText(designerSiteInfo.getName());
-		viewHolder.itemAdressView.setText(designerSiteInfo.getAddress());
-		viewHolder.itemStageView.setText(designerSiteInfo.getStage());
+		OwnerInfo ownerInfo = designerSiteInfo.getInfo();
+		viewHolder.itemNameView.setText(ownerInfo.getName());
+		viewHolder.itemAdressView.setText(designerSiteInfo.getDistrict());
+		viewHolder.itemStageView.setText(designerSiteInfo.getGoingon());
 		// viewHolder.itemCurrentView »¹Ã»ÅÐ¶Ï
-		viewHolder.itemVillageView.setText(designerSiteInfo.getVillageName());
-		if (designerSiteInfo.getImageUrl() != null) {
-			ImageLoader.getInstance()
-					.displayImage(designerSiteInfo.getImageUrl(),
-							viewHolder.itemOwerHeadView);
-		} else {
-			viewHolder.itemOwerHeadView
-					.setImageResource(R.drawable.site_listview_item_finish_circle);
-		}
+		viewHolder.itemVillageView.setText(designerSiteInfo.getCell());
+		viewHolder.itemOwerHeadView
+				.setImageResource(R.drawable.site_listview_item_finish_circle);
+		// if (ownerInfo.getImageid() != null) {
+		// ImageLoader.getInstance().displayImage(ownerInfo.getImageid(),
+		// viewHolder.itemOwerHeadView);
+		// } else {
+		// viewHolder.itemOwerHeadView
+		// .setImageResource(R.drawable.site_listview_item_finish_circle);
+		// }
 		return convertView;
 	}
 

@@ -1,6 +1,12 @@
 package com.jianfanjia.cn.tools;
 
+import java.util.ArrayList;
+import java.util.List;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import com.google.gson.Gson;
+import com.jianfanjia.cn.bean.DesignerSiteInfo;
+import com.jianfanjia.cn.bean.OwnerInfo;
 
 /**
  * 
@@ -11,6 +17,7 @@ import com.google.gson.Gson;
  * 
  */
 public class JsonParser {
+	private static final String TAG = JsonParser.class.getName();
 
 	/**
 	 * json转化为javabean对象
@@ -47,4 +54,35 @@ public class JsonParser {
 		return jsonObject;
 	}
 
+	// 设计师获取工地列表
+	public static List<DesignerSiteInfo> getDesignerSiteList(String jsonStr) {
+		List<DesignerSiteInfo> list = new ArrayList<DesignerSiteInfo>();
+		try {
+			JSONObject obj = new JSONObject(jsonStr);
+			JSONArray array = obj.getJSONArray("data");
+			LogTool.d(TAG, "array:" + array);
+			for (int i = 0; i < array.length(); i++) {
+				DesignerSiteInfo info = new DesignerSiteInfo();
+				JSONObject tempObj = array.getJSONObject(i);
+				info.setSiteid(tempObj.getString("_id"));
+				info.setCity(tempObj.getString("city"));
+				info.setDistrict(tempObj.getString("district"));
+				info.setCell(tempObj.getString("cell"));
+				info.setUserid(tempObj.getString("userid"));
+				info.setGoingon(tempObj.getString("going_on"));
+				JSONObject userObj = tempObj.getJSONObject("user");
+				OwnerInfo ownerInfo = new OwnerInfo();
+				ownerInfo.setOwnerid(userObj.getString("_id"));
+				ownerInfo.setImageid(userObj.getString("imageid"));
+				ownerInfo.setPhone(userObj.getString("phone"));
+				ownerInfo.setName(userObj.getString("username"));
+				info.setInfo(ownerInfo);
+				list.add(info);
+			}
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }
