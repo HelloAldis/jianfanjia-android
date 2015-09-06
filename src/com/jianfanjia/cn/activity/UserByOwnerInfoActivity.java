@@ -1,6 +1,7 @@
 package com.jianfanjia.cn.activity;
 
 import org.apache.http.Header;
+import org.json.JSONException;
 import org.json.JSONObject;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -9,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.UserByOwnerInfo;
+import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
@@ -81,9 +83,31 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 					public void onSuccess(int statusCode, Header[] headers,
 							JSONObject response) {
 						LogTool.d(TAG, "JSONObject response:" + response);
-						UserByOwnerInfo info = JsonParser
-								.getUserByOwnerInfo(response.toString());
-						LogTool.d(TAG, "info:" + info);
+						try {
+							if (response.has(Constant.DATA)) {
+								UserByOwnerInfo info = JsonParser.jsonToBean(
+										response.get(Constant.DATA).toString(),
+										UserByOwnerInfo.class);
+								if (null != info) {
+									nameText.setText(info.getUsername());
+									String sexInfo = info.getSex();
+									if (sexInfo.equals("1")) {
+										sexText.setText("ÄÐ");
+									} else {
+										sexText.setText("Å®");
+									}
+									phoneText.setText(info.getPhone());
+									addressText.setText(info.getDistrict());
+									homeText.setText(info.getAddress());
+								}
+							} else if (response.has(Constant.ERROR_MSG)) {
+								makeTextLong(response.get(Constant.ERROR_MSG)
+										.toString());
+							}
+						} catch (JSONException e) {
+							e.printStackTrace();
+							makeTextLong(getString(R.string.tip_login_error_for_network));
+						}
 					}
 
 					@Override

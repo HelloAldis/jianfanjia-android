@@ -7,7 +7,6 @@ import org.json.JSONObject;
 import com.google.gson.Gson;
 import com.jianfanjia.cn.bean.DesignerSiteInfo;
 import com.jianfanjia.cn.bean.OwnerInfo;
-import com.jianfanjia.cn.bean.UserByOwnerInfo;
 
 /**
  * 
@@ -53,30 +52,6 @@ public class JsonParser {
 			e.printStackTrace();
 		}
 		return jsonObject;
-	}
-
-	// 业主获取自己的个人资料
-	public static UserByOwnerInfo getUserByOwnerInfo(String jsonStr) {
-		try {
-			UserByOwnerInfo info = new UserByOwnerInfo();
-			JSONObject obj = new JSONObject(jsonStr);
-			JSONObject dataObj = obj.getJSONObject("data");
-			LogTool.d(TAG, "dataObj:" + dataObj);
-			info.setSex(dataObj.getString("sex"));
-			info.setPhone(dataObj.getString("phone"));
-			info.setImageId(dataObj.getString("imageid"));
-			info.setCity(dataObj.getString("city"));
-			info.setCommunication_type(dataObj.getString("communication_type"));
-			info.setUsername(dataObj.getString("username"));
-			info.setAddress(dataObj.getString("address"));
-			info.setProvince(dataObj.getString("province"));
-			info.setDistrict(dataObj.getString("district"));
-			LogTool.d(TAG, "info:" + info.getAddress());
-			return info;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
 	}
 
 	// 设计师获取工地列表
