@@ -43,7 +43,6 @@ public class OwnerFragment extends BaseFragment implements OnItemClickListener {
 	private ImageView headView;
 	private ListView ownerListView;
 	private List<MyOwnerInfo> ownerList = new ArrayList<MyOwnerInfo>();
-	private MyOwnerInfo myOwerInfo = null;
 	private MyOwerInfoAdapter myOwerInfoAdapter = null;
 
 	@Override
@@ -100,7 +99,9 @@ public class OwnerFragment extends BaseFragment implements OnItemClickListener {
 
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
-		startActivity(OwnerInfoActivity.class);
+		// startActivity(OwnerInfoActivity.class);
+		MyOwnerInfo myOwerInfo = ownerList.get(position);
+		LogTool.d(TAG, "_id=" + myOwerInfo.get_id());
 	}
 
 	private void get_Designer_Owner() {
