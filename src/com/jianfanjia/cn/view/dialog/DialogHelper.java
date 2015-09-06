@@ -1,9 +1,8 @@
 package com.jianfanjia.cn.view.dialog;
 
-import com.jianfanjia.cn.activity.R;
-
 import android.app.Activity;
-import android.content.Context;
+
+import com.jianfanjia.cn.activity.R;
 
 public class DialogHelper {
 	
