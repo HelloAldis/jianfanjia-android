@@ -182,7 +182,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 			setHeadView(sectionInfo.getName());
 			
 			sectionItemAdapter = new SectionItemAdapter(getActivity(),
-					sectionItemInfos);
+					sectionItemInfos,currentList);
 			detailNodeListView.setAdapter(sectionItemAdapter);
 		}
 	}
@@ -273,6 +273,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 						sectionItemAdapter
 								.setSectionItemInfos(sectionItemInfos);
 						sectionItemAdapter.setLastClickItem(-1);
+						sectionItemAdapter.setCurrentPro(currentList);
 						sectionItemAdapter.notifyDataSetChanged();
 						
 					}

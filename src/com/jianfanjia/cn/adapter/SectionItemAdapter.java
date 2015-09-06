@@ -2,8 +2,10 @@ package com.jianfanjia.cn.adapter;
 
 import java.util.ArrayList;
 import java.util.List;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -25,10 +27,20 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 	private int lastClickItem = -1;// 记录点击的位置
 	private SiteGridViewAdapter siteGridViewAdapter;
 	private List<GridItem> gridItem = new ArrayList<GridItem>();
-
+	private int currentPro = -1;//记录第一个当前展开的工序
+	
 	public SectionItemAdapter(Context context,
-			List<SectionItemInfo> sectionItemInfos) {
+			List<SectionItemInfo> sectionItemInfos,int currentPro) {
 		super(context, sectionItemInfos);
+		this.currentPro = currentPro;
+	}
+	
+	public int getCurrentPro() {
+		return currentPro;
+	}
+	
+	public void setCurrentPro(int currentPro) {
+		this.currentPro = currentPro;
 	}
 
 	public int getLastClickItem() {
@@ -62,7 +74,7 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 	}
 
 	@Override
-	public View initView(int position, View convertView) {
+	public View initView(final int position, View convertView) {
 		ViewHolder viewHolder = null;
 		final SectionItemInfo sectionItemInfo = list.get(position);
 		List<String> imageUrlList = sectionItemInfo.getImages();
@@ -159,10 +171,13 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 		
 		viewHolder.openComment.setOnClickListener(new OnClickListener() {
 
-			@Override
+			@SuppressLint("NewApi") @Override
 			public void onClick(View v) {
 				Intent intent = new Intent(context, CommentActivity.class);
-				context.startActivity(intent);
+				Bundle bundle = new Bundle();
+				bundle.putInt(Constant.CURRENT_LIST,currentPro);
+				bundle.putInt(Constant.CURRENT_Item,position);
+				context.startActivity(intent,bundle);
 			}
 		});
 		viewHolder.openUploadPic.setOnClickListener(new OnClickListener() {
