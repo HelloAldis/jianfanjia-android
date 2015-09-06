@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -60,7 +61,7 @@ public class StringUtils {
 	}
 
 	public static String getDateString(Date date) {
-		return dateFormater.get().format(date);
+		return dateFormater2.get().format(date);
 	}
 
 	public static String friendly_time2(String sdate) {
@@ -410,6 +411,17 @@ public class StringUtils {
 	public static String getDataTime(String format) {
 		SimpleDateFormat df = new SimpleDateFormat(format);
 		return df.format(new Date());
+	}
+	
+	/**
+	 * @decription 转化时间为字符串
+	 * @param times
+	 * @param pattern
+	 * @return
+	 */
+	public static String covertLongToString(long times){
+		Date date = new Date(times);
+		return dateFormater2.get().format(date);
 	}
 
 }

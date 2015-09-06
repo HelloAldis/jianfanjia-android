@@ -30,16 +30,17 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  * @date 2015年7月24日 上午11:46:40
  * 
  */
-public abstract class BaseActivity extends FragmentActivity implements DialogControl{
+public abstract class BaseActivity extends FragmentActivity implements
+		DialogControl {
 	protected LayoutInflater inflater = null;
 	protected FragmentManager fragmentManager = null;
 	protected SharedPrefer sharedPrefer = null;
 	protected ImageLoader imageLoader = null;
 	protected DisplayImageOptions options = null;
 	protected ListenerManeger listenerManeger = null;
-	
+
 	private boolean _isVisible;
-    private WaitDialog _waitDialog;
+	private WaitDialog _waitDialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -134,11 +135,13 @@ public abstract class BaseActivity extends FragmentActivity implements DialogCon
 			intent.putExtras(bundle);
 		}
 		startActivity(intent);
+		overridePendingTransition(R.anim.fragment_list_right_enter, R.anim.fragment_slide_left_exit);
 	}
 
 	// 通过Action跳转界面
 	protected void startActivity(String action) {
 		startActivity(action, null);
+		overridePendingTransition(R.anim.fragment_list_right_enter, R.anim.fragment_slide_left_exit);
 	}
 
 	// 含有Bundle通过Action跳转界面
@@ -149,43 +152,44 @@ public abstract class BaseActivity extends FragmentActivity implements DialogCon
 			intent.putExtras(bundle);
 		}
 		startActivity(intent);
+		overridePendingTransition(R.anim.fragment_list_right_enter, R.anim.fragment_slide_left_exit);
+	}
+
+	@Override
+	public WaitDialog showWaitDialog() {
+		return showWaitDialog(R.string.loading);
 	}
 	
-	 @Override
-	    public WaitDialog showWaitDialog() {
-	        return showWaitDialog(R.string.loading);
-	    }
+	@Override
+	public WaitDialog showWaitDialog(int resid) {
+		return showWaitDialog(getString(resid));
+	}
 
-	    @Override
-	    public WaitDialog showWaitDialog(int resid) {
-	        return showWaitDialog(getString(resid));
-	    }
+	@Override
+	public WaitDialog showWaitDialog(String message) {
+		if (_isVisible) {
+			if (_waitDialog == null) {
+				_waitDialog = DialogHelper.getWaitDialog(this, message);
+			}
+			if (_waitDialog != null) {
+				_waitDialog.setMessage(message);
+				_waitDialog.show();
+			}
+			return _waitDialog;
+		}
+		return null;
+	}
 
-	    @Override
-	    public WaitDialog showWaitDialog(String message) {
-	        if (_isVisible) {
-	            if (_waitDialog == null) {
-	                _waitDialog = DialogHelper.getWaitDialog(this, message);
-	            }
-	            if (_waitDialog != null) {
-	                _waitDialog.setMessage(message);
-	                _waitDialog.show();
-	            }
-	            return _waitDialog;
-	        }
-	        return null;
-	    }
-
-	    @Override
-	    public void hideWaitDialog() {
-	        if (_isVisible && _waitDialog != null) {
-	            try {
-	                _waitDialog.dismiss();
-	                _waitDialog = null;
-	            } catch (Exception ex) {
-	                ex.printStackTrace();
-	            }
-	        }
-	    }
+	@Override
+	public void hideWaitDialog() {
+		if (_isVisible && _waitDialog != null) {
+			try {
+				_waitDialog.dismiss();
+				_waitDialog = null;
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+	}
 
 }

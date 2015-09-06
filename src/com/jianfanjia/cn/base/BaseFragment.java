@@ -118,33 +118,36 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 			intent.putExtras(bundle);
 		}
 		startActivity(intent);
+		getActivity().overridePendingTransition(R.anim.fragment_list_right_enter, R.anim.fragment_slide_left_exit);
 	}
 	
-	  protected void hideWaitDialog() {
-	        FragmentActivity activity = getActivity();
-	        if (activity instanceof DialogControl) {
-	            ((DialogControl) activity).hideWaitDialog();
-	        }
-	    }
+	protected void hideWaitDialog() {
+		FragmentActivity activity = getActivity();
+		if (activity instanceof DialogControl) {
+			((DialogControl) activity).hideWaitDialog();
+		}
+	}
 
-	    protected WaitDialog showWaitDialog() {
-	        return showWaitDialog(R.string.loading);
-	    }
+	protected WaitDialog showWaitDialog() {
+		return showWaitDialog(R.string.loading);
+	}
 
-	    protected WaitDialog showWaitDialog(int resid) {
-	        FragmentActivity activity = getActivity();
-	        if (activity instanceof DialogControl) {
-	            return ((DialogControl) activity).showWaitDialog(resid);
-	        }
-	        return null;
-	    }
+	protected WaitDialog showWaitDialog(int resid) {
+		FragmentActivity activity = getActivity();
+		if (activity instanceof DialogControl) {
+			return ((DialogControl) activity).showWaitDialog(resid);
+		}
+		return null;
+	}
 
-	    protected WaitDialog showWaitDialog(String str) {
-	        FragmentActivity activity = getActivity();
-	        if (activity instanceof DialogControl) {
-	            return ((DialogControl) activity).showWaitDialog(str);
-	        }
-	        return null;
-	    }
+	protected WaitDialog showWaitDialog(String str) {
+		FragmentActivity activity = getActivity();
+		if (activity instanceof DialogControl) {
+			return ((DialogControl) activity).showWaitDialog(str);
+		}
+		return null;
+	}
+
+	 
 
 }

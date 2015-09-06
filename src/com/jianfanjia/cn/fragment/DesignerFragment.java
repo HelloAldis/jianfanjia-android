@@ -134,12 +134,14 @@ public class DesignerFragment extends BaseFragment {
 				new JsonHttpResponseHandler() {
 					@Override
 					public void onStart() {
+						showWaitDialog();
 						LogTool.d(TAG, "onStart()");
 					}
 
 					@Override
 					public void onSuccess(int statusCode, Header[] headers,
 							JSONObject response) {
+						hideWaitDialog();
 						LogTool.d(TAG, "response:" + response.toString());
 						try {
 							if (response.has(Constant.DATA)) {
@@ -165,6 +167,7 @@ public class DesignerFragment extends BaseFragment {
 					@Override
 					public void onFailure(int statusCode, Header[] headers,
 							Throwable throwable, JSONObject errorResponse) {
+						hideWaitDialog();
 						LogTool.d(TAG,
 								"Throwable throwable:" + throwable.toString());
 						makeTextLong(getString(R.string.tip_login_error_for_network));
@@ -173,6 +176,7 @@ public class DesignerFragment extends BaseFragment {
 					@Override
 					public void onFailure(int statusCode, Header[] headers,
 							String responseString, Throwable throwable) {
+						hideWaitDialog();
 						LogTool.d(TAG, "throwable:" + throwable);
 						makeTextLong(getString(R.string.tip_login_error_for_network));
 					};

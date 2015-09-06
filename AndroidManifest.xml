@@ -55,6 +55,7 @@
         <activity android:name="com.jianfanjia.cn.activity.DesignerInfoActivity" />
         <activity android:name="com.jianfanjia.cn.activity.UserByOwnerInfoActivity" />
         <activity android:name="com.jianfanjia.cn.activity.UserByDesignerInfoActivity" />
+        <activity android:name="com.jianfanjia.cn.activity.ShareActivity" />
         <activity
             android:name="com.jianfanjia.cn.activity.WelcomeActivity"
             android:label="@string/app_name"

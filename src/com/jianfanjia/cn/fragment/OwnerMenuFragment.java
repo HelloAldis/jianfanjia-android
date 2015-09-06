@@ -174,6 +174,7 @@ public class OwnerMenuFragment extends BaseFragment implements
 		return R.layout.fragment_owner_menu;
 	}
 
+	
 	@Override
 	public void callBack(int index) {
 		View v = mTabRg.getChildAt(index);

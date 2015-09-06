@@ -174,5 +174,9 @@
     <string name="company">武汉家易装科技有限公司</string>
     <string name="compant_net">Copyright © 2015-2025 jianfanjia.com</string>
     <!-- activity_about -->
+    
+    <!-- activity_share -->
+    <string name="share_tip">长按二维码保存，分享到您喜欢的位置</string>
+    <!-- activity_share -->
 
 </resources>

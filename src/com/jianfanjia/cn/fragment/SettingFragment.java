@@ -16,6 +16,7 @@ import com.jianfanjia.cn.activity.AboutActivity;
 import com.jianfanjia.cn.activity.FeedBackActivity;
 import com.jianfanjia.cn.activity.LoginActivity;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.ShareActivity;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.config.Constant;
@@ -44,6 +45,7 @@ public class SettingFragment extends BaseFragment implements
 	private RelativeLayout logoutLayout = null;
 	private RelativeLayout helpLayout = null;
 	private RelativeLayout current_version_layout = null;
+	private RelativeLayout shareLayout = null;
 	private TextView currentVersion;
 
 	@Override
@@ -56,6 +58,7 @@ public class SettingFragment extends BaseFragment implements
 		aboutFragment = (RelativeLayout) view.findViewById(R.id.about_layout);
 		toggleButton = (ToggleButton) view.findViewById(R.id.mespush_toggle);
 		logoutLayout = (RelativeLayout) view.findViewById(R.id.logout_layout);
+		shareLayout = (RelativeLayout) view.findViewById(R.id.share_layout);
 		current_version_layout = (RelativeLayout) view
 				.findViewById(R.id.current_version_layout);
 		currentVersion = (TextView) view.findViewById(R.id.current_version);
@@ -70,6 +73,7 @@ public class SettingFragment extends BaseFragment implements
 		toggleButton.setOnCheckedChangeListener(this);
 		logoutLayout.setOnClickListener(this);
 		current_version_layout.setOnClickListener(this);
+		shareLayout.setOnClickListener(this);
 		hintDialog.setListener(this);
 	}
 
@@ -89,6 +93,9 @@ public class SettingFragment extends BaseFragment implements
 			break;
 		case R.id.current_version_layout:
 			checkVersion();
+			break;
+		case R.id.share_layout:
+			startActivity(ShareActivity.class);
 			break;
 		default:
 			break;
