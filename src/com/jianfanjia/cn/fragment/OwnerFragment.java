@@ -13,6 +13,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 import com.google.gson.reflect.TypeToken;
+import com.jianfanjia.cn.activity.OwnerInfoActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.MyOwerInfoAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
