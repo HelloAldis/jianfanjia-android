@@ -2,13 +2,19 @@ package com.jianfanjia.cn.activity;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.GridView;
 import android.widget.TextView;
+
 import com.jianfanjia.cn.adapter.MyGridViewAdapter;
+import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.GridItem;
+import com.jianfanjia.cn.config.Constant;
 
 /**
  * 
@@ -25,6 +31,19 @@ public class CheckActivity extends BaseActivity implements OnClickListener {
 			R.drawable.ic_launcher, R.drawable.ic_launcher,
 			R.drawable.ic_launcher, R.drawable.ic_launcher };
 	private List<GridItem> gridList = new ArrayList<GridItem>();
+	private int currentList;//当前的工序
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		Intent intent = getIntent();
+		Bundle bundle = intent.getExtras();
+		if(bundle != null){
+			currentList = bundle.getInt(Constant.CURRENT_LIST,0);
+		}
+		makeTextLong(""+currentList);
+	}
 
 	@Override
 	public void initView() {

@@ -1,9 +1,13 @@
 package com.jianfanjia.cn.fragment;
 
+import java.io.File;
+
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.DialogInterface;
+import android.support.v4.view.MenuCompat;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -22,10 +26,14 @@ import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.interf.DialogListener;
+import com.jianfanjia.cn.tools.FileUtil;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.CustomProgressDialog;
 import com.jianfanjia.cn.view.dialog.HintDialog;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 /**
  * 
@@ -46,12 +54,14 @@ public class SettingFragment extends BaseFragment implements
 	private RelativeLayout helpLayout = null;
 	private RelativeLayout current_version_layout = null;
 	private RelativeLayout shareLayout = null;
+	private RelativeLayout clearCacheLayout = null;
 	private TextView currentVersion;
+	private TextView cacheSizeView;
 
 	@Override
 	public void initView(View view) {
 		hintDialog = new HintDialog(getActivity(), R.layout.hint_dialog,
-				"退出登录", "确定要退出吗？", R.style.dialog);
+				"退出登录", "确定要退出吗？", R.style.common_dialog);
 		feedbackFragment = (RelativeLayout) view
 				.findViewById(R.id.feedback_layout);
 		helpLayout = (RelativeLayout) view.findViewById(R.id.help_layout);
@@ -61,8 +71,12 @@ public class SettingFragment extends BaseFragment implements
 		shareLayout = (RelativeLayout) view.findViewById(R.id.share_layout);
 		current_version_layout = (RelativeLayout) view
 				.findViewById(R.id.current_version_layout);
+		clearCacheLayout = (RelativeLayout) view.findViewById(R.id.clear_cache_layout);
+		cacheSizeView = (TextView) view.findViewById(R.id.cache_size);
 		currentVersion = (TextView) view.findViewById(R.id.current_version);
 		currentVersion.setText(MyApplication.getVersionName());
+		
+		caculateCacheSize();
 	}
 
 	@Override
@@ -74,6 +88,7 @@ public class SettingFragment extends BaseFragment implements
 		logoutLayout.setOnClickListener(this);
 		current_version_layout.setOnClickListener(this);
 		shareLayout.setOnClickListener(this);
+		clearCacheLayout.setOnClickListener(this);
 		hintDialog.setListener(this);
 	}
 
@@ -96,11 +111,52 @@ public class SettingFragment extends BaseFragment implements
 			break;
 		case R.id.share_layout:
 			startActivity(ShareActivity.class);
+		case R.id.clear_cache_layout:
+			onClickCleanCache();
 			break;
 		default:
 			break;
 		}
 	}
+	
+	 /**
+     * 计算缓存的大小
+     */
+    private void caculateCacheSize() {
+        long fileSize = 0;
+        String cacheSize = "0KB";
+        File filesDir = getActivity().getFilesDir();
+        File cacheDir = getActivity().getCacheDir();
+
+        fileSize += FileUtil.getDirSize(filesDir);
+        fileSize += FileUtil.getDirSize(cacheDir);
+        // 2.2版本才有将应用缓存转移到sd卡的功能
+        if (MyApplication.isMethodsCompat(android.os.Build.VERSION_CODES.FROYO)) {
+            File externalCacheDir = getActivity()
+                    .getExternalCacheDir();
+            fileSize += FileUtil.getDirSize(externalCacheDir);
+        }
+        if (fileSize > 0)
+            cacheSize = FileUtil.formatFileSize(fileSize);
+        cacheSizeView.setText(cacheSize);
+    }
+    
+    private void onClickCleanCache() {
+        CommonDialog dialog = new CommonDialog(getActivity());
+        dialog.setTitle("是否清空缓存？");
+        dialog.setPositiveButton(R.string.ok,
+                new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    	MyApplication.getInstance().clearAppCache();
+                        cacheSizeView.setText("0KB");
+                        dialog.dismiss();
+                    }
+                });
+        dialog.setNegativeButton(R.string.no, null);
+        dialog.show();
+    }
 
 	@Override
 	public void onResume() {

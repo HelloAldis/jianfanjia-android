@@ -13,19 +13,19 @@ import java.io.Serializable;
 public class DesignerSiteInfo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private String userid;// 设计师id
-
-	private String goingon;// 所处阶段
-
-	private String district;
-
-	private String siteid;// 工地id
-
-	private String cell;// 小区名称
+	private String _id;// 工地id
 
 	private String city;
 
-	private OwnerInfo info;
+	private String district;
+
+	private String cell;// 小区名称
+
+	private String userid;// 设计师id
+
+	private String going_on;// 所处阶段
+
+	private User user;
 
 	public String getUserid() {
 		return userid;
@@ -41,14 +41,6 @@ public class DesignerSiteInfo implements Serializable {
 
 	public void setDistrict(String district) {
 		this.district = district;
-	}
-
-	public String getSiteid() {
-		return siteid;
-	}
-
-	public void setSiteid(String siteid) {
-		this.siteid = siteid;
 	}
 
 	public String getCell() {
@@ -67,20 +59,28 @@ public class DesignerSiteInfo implements Serializable {
 		this.city = city;
 	}
 
-	public OwnerInfo getInfo() {
-		return info;
+	public String get_id() {
+		return _id;
 	}
 
-	public void setInfo(OwnerInfo info) {
-		this.info = info;
+	public void set_id(String _id) {
+		this._id = _id;
 	}
 
-	public String getGoingon() {
-		return goingon;
+	public String getGoing_on() {
+		return going_on;
 	}
 
-	public void setGoingon(String goingon) {
-		this.goingon = goingon;
+	public void setGoing_on(String going_on) {
+		this.going_on = going_on;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }

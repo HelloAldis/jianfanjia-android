@@ -47,10 +47,10 @@ public class DesignerSiteInfoAdapter extends BaseListAdapter<DesignerSiteInfo> {
 		} else {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
-		OwnerInfo ownerInfo = designerSiteInfo.getInfo();
-		viewHolder.itemNameView.setText(ownerInfo.getName());
-		viewHolder.itemAdressView.setText(designerSiteInfo.getDistrict());
-		viewHolder.itemStageView.setText(designerSiteInfo.getGoingon());
+//		OwnerInfo ownerInfo = designerSiteInfo.getInfo();
+//		viewHolder.itemNameView.setText(ownerInfo.getName());
+//		viewHolder.itemAdressView.setText(designerSiteInfo.getDistrict());
+//		viewHolder.itemStageView.setText(designerSiteInfo.getGoingon());
 		// viewHolder.itemCurrentView »¹Ã»ÅÐ¶Ï
 		viewHolder.itemVillageView.setText(designerSiteInfo.getCell());
 		viewHolder.itemOwerHeadView

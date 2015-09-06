@@ -43,7 +43,7 @@ public class MyOwerInfoAdapter extends BaseListAdapter<MyOwnerInfo> {
 		} else {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
-		viewHolder.itemNameView.setText(myOwerInfo.getName());
+		/*viewHolder.itemNameView.setText(myOwerInfo.getName());
 		viewHolder.itemAdressView.setText(myOwerInfo.getAddress());
 		viewHolder.itemStageView.setText(myOwerInfo.getStage());
 		if (myOwerInfo.getImageUrl() != null) {
@@ -52,7 +52,7 @@ public class MyOwerInfoAdapter extends BaseListAdapter<MyOwnerInfo> {
 		} else {
 			viewHolder.itemOwerHeadView
 					.setImageResource(R.drawable.site_listview_item_finish_circle);
-		}
+		}*/
 		return convertView;
 	}
 

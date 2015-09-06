@@ -3,6 +3,8 @@ package com.jianfanjia.cn.fragment;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.http.Header;
+import org.json.JSONException;
+import org.json.JSONException;
 import org.json.JSONObject;
 import android.os.Bundle;
 import android.view.View;
@@ -10,10 +12,14 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.DesignerSiteInfoAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.DesignerSiteInfo;
+import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
@@ -31,17 +37,14 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 public class DesignerSiteFragment extends BaseFragment implements
 		OnItemClickListener {
 	private static final String TAG = DesignerSiteFragment.class.getName();
-	private CustomProgressDialog progressDialog = null;
 	private ImageView headView;
 	private ListView siteListView;
-	private List<DesignerSiteInfo> caigouList = new ArrayList<DesignerSiteInfo>();
+	private List<DesignerSiteInfo> siteList = new ArrayList<DesignerSiteInfo>();
 	private DesignerSiteInfoAdapter designerSiteInfoAdapter = null;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		progressDialog = new CustomProgressDialog(getActivity(), "正在加载中",
-				R.style.dialog);
 	}
 
 	@Override
@@ -72,7 +75,8 @@ public class DesignerSiteFragment extends BaseFragment implements
 
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
-
+		DesignerSiteInfo siteInfo = siteList.get(position);
+		LogTool.d(TAG, "_id=" + siteInfo.get_id());
 	}
 
 	// 获取装修工地
@@ -82,19 +86,36 @@ public class DesignerSiteFragment extends BaseFragment implements
 					@Override
 					public void onStart() {
 						LogTool.d(TAG, "onStart()");
-						progressDialog.show();
+						showWaitDialog();
 					}
 
 					@Override
 					public void onSuccess(int statusCode, Header[] headers,
 							JSONObject response) {
 						LogTool.d(TAG, "JSONObject response:" + response);
-						progressDialog.dismiss();
-						caigouList = JsonParser.getDesignerSiteList(response
-								.toString());
-						designerSiteInfoAdapter = new DesignerSiteInfoAdapter(
-								getActivity(), caigouList);
-						siteListView.setAdapter(designerSiteInfoAdapter);
+						hideWaitDialog();
+						try {
+							if (response.has(Constant.DATA)) {
+								siteList = JsonParser
+										.jsonToList(
+												response.get(Constant.DATA)
+														.toString(),
+												new TypeToken<List<DesignerSiteInfo>>() {
+												}.getType());
+								LogTool.d(TAG, "siteList:" + siteList);
+								designerSiteInfoAdapter = new DesignerSiteInfoAdapter(
+										getActivity(), siteList);
+								siteListView
+										.setAdapter(designerSiteInfoAdapter);
+							} else if (response.has(Constant.ERROR_MSG)) {
+								makeTextLong(response.get(Constant.ERROR_MSG)
+										.toString());
+							}
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+							makeTextLong(getString(R.string.tip_login_error_for_network));
+						}
 					}
 
 					@Override
@@ -102,7 +123,7 @@ public class DesignerSiteFragment extends BaseFragment implements
 							Throwable throwable, JSONObject errorResponse) {
 						LogTool.d(TAG,
 								"Throwable throwable:" + throwable.toString());
-						progressDialog.dismiss();
+						hideWaitDialog();
 						makeTextLong(getString(R.string.tip_login_error_for_network));
 					}
 
@@ -110,7 +131,7 @@ public class DesignerSiteFragment extends BaseFragment implements
 					public void onFailure(int statusCode, Header[] headers,
 							String responseString, Throwable throwable) {
 						LogTool.d(TAG, "throwable:" + throwable);
-						progressDialog.dismiss();
+						hideWaitDialog();
 						makeTextLong(getString(R.string.tip_login_error_for_network));
 					};
 				});
