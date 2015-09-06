@@ -9,7 +9,7 @@ package com.jianfanjia.cn.config;
  * 
  */
 public class Url {
-	// public static String SEVER_IP = "www.jianfanjia.com";
+//	 public static String SEVER_IP = "www.jianfanjia.com";
 	public static String SEVER_IP = "192.168.1.107";
 
 	public static String SEVER_PORT = "80";
