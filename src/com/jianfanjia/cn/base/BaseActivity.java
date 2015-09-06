@@ -159,7 +159,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 	public WaitDialog showWaitDialog() {
 		return showWaitDialog(R.string.loading);
 	}
-	
+
 	@Override
 	public WaitDialog showWaitDialog(int resid) {
 		return showWaitDialog(getString(resid));

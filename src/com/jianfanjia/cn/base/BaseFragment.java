@@ -128,16 +128,15 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 		}
 	}
 
-	protected WaitDialog showWaitDialog() {
-		return showWaitDialog(R.string.loading);
-	}
-
 	protected WaitDialog showWaitDialog(int resid) {
 		FragmentActivity activity = getActivity();
 		if (activity instanceof DialogControl) {
 			return ((DialogControl) activity).showWaitDialog(resid);
 		}
 		return null;
+	}
+	protected WaitDialog showWaitDialog() {
+		return showWaitDialog(R.string.loading);
 	}
 
 	protected WaitDialog showWaitDialog(String str) {
@@ -147,7 +146,5 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 		}
 		return null;
 	}
-
-	 
 
 }
