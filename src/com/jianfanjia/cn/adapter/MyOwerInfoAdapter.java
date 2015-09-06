@@ -9,6 +9,9 @@ import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.MyOwnerInfo;
+import com.jianfanjia.cn.bean.Requirement;
+import com.jianfanjia.cn.bean.User;
+import com.jianfanjia.cn.config.Url;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
@@ -43,16 +46,19 @@ public class MyOwerInfoAdapter extends BaseListAdapter<MyOwnerInfo> {
 		} else {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
-		/*viewHolder.itemNameView.setText(myOwerInfo.getName());
-		viewHolder.itemAdressView.setText(myOwerInfo.getAddress());
-		viewHolder.itemStageView.setText(myOwerInfo.getStage());
-		if (myOwerInfo.getImageUrl() != null) {
-			ImageLoader.getInstance().displayImage(myOwerInfo.getImageUrl(),
+		User user = myOwerInfo.getUser();
+		Requirement requirement = myOwerInfo.getRequirement();
+		viewHolder.itemNameView.setText(user.getUsername());
+		viewHolder.itemAdressView.setText(requirement.getCell());
+		viewHolder.itemStageView.setText(requirement.getWork_type());
+		if (user.getImageid() != null) {
+			ImageLoader.getInstance().displayImage(
+					Url.IMGROOT + user.getImageid(),
 					viewHolder.itemOwerHeadView);
 		} else {
 			viewHolder.itemOwerHeadView
 					.setImageResource(R.drawable.site_listview_item_finish_circle);
-		}*/
+		}
 		return convertView;
 	}
 
