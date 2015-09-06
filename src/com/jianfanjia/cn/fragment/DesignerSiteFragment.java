@@ -20,7 +20,6 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.view.dialog.CustomProgressDialog;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 /**

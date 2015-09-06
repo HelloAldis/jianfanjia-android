@@ -7,7 +7,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.DialogInterface;
-import android.support.v4.view.MenuCompat;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -29,11 +28,8 @@ import com.jianfanjia.cn.interf.DialogListener;
 import com.jianfanjia.cn.tools.FileUtil;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
-import com.jianfanjia.cn.view.dialog.CustomProgressDialog;
 import com.jianfanjia.cn.view.dialog.HintDialog;
 import com.loopj.android.http.JsonHttpResponseHandler;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 /**
  * 
@@ -111,6 +107,7 @@ public class SettingFragment extends BaseFragment implements
 			break;
 		case R.id.share_layout:
 			startActivity(ShareActivity.class);
+			break;
 		case R.id.clear_cache_layout:
 			onClickCleanCache();
 			break;
@@ -141,6 +138,9 @@ public class SettingFragment extends BaseFragment implements
         cacheSizeView.setText(cacheSize);
     }
     
+    /**
+     * Çå¿Õ»º´æ
+     */
     private void onClickCleanCache() {
         CommonDialog dialog = new CommonDialog(getActivity());
         dialog.setTitle("ÊÇ·ñÇå¿Õ»º´æ£¿");

@@ -15,18 +15,14 @@ import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 
 import com.google.gson.reflect.TypeToken;
-import com.jianfanjia.cn.activity.OwnerInfoActivity;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.adapter.DesignerSiteInfoAdapter;
 import com.jianfanjia.cn.adapter.MyOwerInfoAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
-import com.jianfanjia.cn.bean.DesignerSiteInfo;
 import com.jianfanjia.cn.bean.MyOwnerInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.view.dialog.CustomProgressDialog;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 /**

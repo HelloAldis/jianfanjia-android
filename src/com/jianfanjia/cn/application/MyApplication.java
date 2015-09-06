@@ -2,8 +2,6 @@ package com.jianfanjia.cn.application;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Properties;
-
 import android.content.pm.PackageManager;
 
 import com.jianfanjia.cn.activity.R;
