@@ -38,7 +38,7 @@ public class WelcomeActivity extends BaseActivity {
 
 		@Override
 		public void run() {
-			startActivity(LoginActivity.class);
+			startActivity(NavigateActivity.class);
 			finish();
 		}
 

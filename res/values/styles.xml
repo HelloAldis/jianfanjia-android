@@ -85,7 +85,7 @@
 
     <style name="button_enter_style">
         <item name="android:layout_width">@dimen/space_100</item>
-        <item name="android:layout_height">@dimen/space_48</item>
+        <item name="android:layout_height">@dimen/space_32</item>
         <item name="android:background">@drawable/btn_selector</item>
         <item name="android:textColor">@color/font_white</item>
         <item name="android:textSize">@dimen/text_size_17</item>

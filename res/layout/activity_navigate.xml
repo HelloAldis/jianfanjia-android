@@ -8,21 +8,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <LinearLayout
-        android:id="@+id/viewGroup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal" >
-    </LinearLayout>
-
     <Button
         android:id="@+id/enterMain"
         style="@style/button_enter_style"
-        android:layout_above="@id/viewGroup"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="50dip"
-        android:text="@string/enter" />
+        android:layout_marginBottom="80dip"
+        android:text="@string/enter"
+        android:visibility="gone" />
 
 </RelativeLayout>
