@@ -34,7 +34,6 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 public class DesignerSiteFragment extends BaseFragment implements
 		OnItemClickListener {
 	private static final String TAG = DesignerSiteFragment.class.getName();
-	private CustomProgressDialog progressDialog = null;
 	private ImageView headView;
 	private ListView siteListView;
 	private List<DesignerSiteInfo> siteList = new ArrayList<DesignerSiteInfo>();
@@ -43,8 +42,6 @@ public class DesignerSiteFragment extends BaseFragment implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		progressDialog = new CustomProgressDialog(getActivity(), "正在加载中",
-				R.style.dialog);
 	}
 
 	@Override
@@ -86,14 +83,14 @@ public class DesignerSiteFragment extends BaseFragment implements
 					@Override
 					public void onStart() {
 						LogTool.d(TAG, "onStart()");
-						progressDialog.show();
+						showWaitDialog();
 					}
 
 					@Override
 					public void onSuccess(int statusCode, Header[] headers,
 							JSONObject response) {
 						LogTool.d(TAG, "JSONObject response:" + response);
-						progressDialog.dismiss();
+						hideWaitDialog();
 						try {
 							if (response.has(Constant.DATA)) {
 								siteList = JsonParser
@@ -123,7 +120,7 @@ public class DesignerSiteFragment extends BaseFragment implements
 							Throwable throwable, JSONObject errorResponse) {
 						LogTool.d(TAG,
 								"Throwable throwable:" + throwable.toString());
-						progressDialog.dismiss();
+						hideWaitDialog();
 						makeTextLong(getString(R.string.tip_login_error_for_network));
 					}
 
@@ -131,7 +128,7 @@ public class DesignerSiteFragment extends BaseFragment implements
 					public void onFailure(int statusCode, Header[] headers,
 							String responseString, Throwable throwable) {
 						LogTool.d(TAG, "throwable:" + throwable);
-						progressDialog.dismiss();
+						hideWaitDialog();
 						makeTextLong(getString(R.string.tip_login_error_for_network));
 					};
 				});

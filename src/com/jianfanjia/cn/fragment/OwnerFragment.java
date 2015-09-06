@@ -39,7 +39,6 @@ import com.loopj.android.http.JsonHttpResponseHandler;
  */
 public class OwnerFragment extends BaseFragment implements OnItemClickListener {
 	private static final String TAG = OwnerFragment.class.getName();
-	private CustomProgressDialog progressDialog = null;
 	private ImageView headView;
 	private ListView ownerListView;
 	private List<MyOwnerInfo> ownerList = new ArrayList<MyOwnerInfo>();
@@ -48,8 +47,6 @@ public class OwnerFragment extends BaseFragment implements OnItemClickListener {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		progressDialog = new CustomProgressDialog(getActivity(), "正在加载中",
-				R.style.dialog);
 	}
 
 	@Override
@@ -57,15 +54,6 @@ public class OwnerFragment extends BaseFragment implements OnItemClickListener {
 		headView = (ImageView) view.findViewById(R.id.my_ower_head);
 		ownerListView = (ListView) view.findViewById(R.id.my_ower_listview);
 		headView = (ImageView) view.findViewById(R.id.my_ower_head);
-		// for (int i = 0; i < 3; i++) {
-		// myOwerInfo = new MyOwnerInfo();
-		// myOwerInfo.setName("zhanghao" + i);
-		// myOwerInfo.setAddress("湖北省武汉市洪山区观澜花园" + i);
-		// myOwerInfo.setStage("方案阶段");
-		// myOwerInfo.setImageUrl(null);
-		// ownerList.add(myOwerInfo);
-		// }
-
 		get_Designer_Owner();
 	}
 
@@ -100,14 +88,14 @@ public class OwnerFragment extends BaseFragment implements OnItemClickListener {
 					@Override
 					public void onStart() {
 						LogTool.d(TAG, "onStart()");
-						progressDialog.show();
+						showWaitDialog();
 					}
 
 					@Override
 					public void onSuccess(int statusCode, Header[] headers,
 							JSONObject response) {
 						LogTool.d(TAG, "JSONObject response:" + response);
-						progressDialog.dismiss();
+						hideWaitDialog();
 						try {
 							if (response.has(Constant.DATA)) {
 								ownerList = JsonParser.jsonToList(
@@ -134,7 +122,7 @@ public class OwnerFragment extends BaseFragment implements OnItemClickListener {
 							Throwable throwable, JSONObject errorResponse) {
 						LogTool.d(TAG,
 								"Throwable throwable:" + throwable.toString());
-						progressDialog.dismiss();
+						hideWaitDialog();
 						makeTextLong(getString(R.string.tip_login_error_for_network));
 					}
 
@@ -142,7 +130,7 @@ public class OwnerFragment extends BaseFragment implements OnItemClickListener {
 					public void onFailure(int statusCode, Header[] headers,
 							String responseString, Throwable throwable) {
 						LogTool.d(TAG, "throwable:" + throwable);
-						progressDialog.dismiss();
+						hideWaitDialog();
 						makeTextLong(getString(R.string.tip_login_error_for_network));
 					};
 				});

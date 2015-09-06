@@ -9,7 +9,7 @@ public class DialogHelper {
 	public static WaitDialog getWaitDialog(Activity activity, int message) {
 		WaitDialog dialog = null;
 		try {
-			dialog = new WaitDialog(activity, R.style.dialog);
+			dialog = new WaitDialog(activity, R.style.progress_dialog);
 			dialog.setMessage(message);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -20,7 +20,7 @@ public class DialogHelper {
 	public static WaitDialog getWaitDialog(Activity activity, String message) {
 		WaitDialog dialog = null;
 		try {
-			dialog = new WaitDialog(activity, R.style.dialog);
+			dialog = new WaitDialog(activity, R.style.progress_dialog);
 			dialog.setMessage(message);
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -32,7 +32,7 @@ public class DialogHelper {
 			String message) {
 		WaitDialog dialog = null;
 		try {
-			dialog = new WaitDialog(activity, R.style.dialog);
+			dialog = new WaitDialog(activity, R.style.progress_dialog);
 			dialog.setMessage(message);
 			dialog.setCancelable(true);
 		} catch (Exception ex) {

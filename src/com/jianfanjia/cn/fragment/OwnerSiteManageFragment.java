@@ -18,6 +18,8 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+
+import com.jianfanjia.cn.activity.CheckActivity;
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.MyViewPageAdapter;
@@ -368,6 +370,9 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 			listener.switchFragment(Constant.MYSITE);
 			break;
 		case R.id.site_list_head_check:
+			Bundle bundle = new Bundle();
+			bundle.putInt(Constant.CURRENT_LIST,currentList);
+			startActivity(CheckActivity.class, bundle);
 			break;
 		case R.id.site_list_head_delay:
 			break;

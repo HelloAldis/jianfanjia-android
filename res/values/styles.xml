@@ -2,13 +2,14 @@
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
     <style name="AppBaseTheme" parent="android:Theme.Light">
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.        -->
+            backward-compatibility can go here.
+        -->
     </style>
 
     <!-- Application theme. -->
@@ -69,6 +70,19 @@
     </style>
     <!-- login activity -->
 
+    <style name="dialog_button">
+        <item name="android:textColor">@color/font_white</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:background">@drawable/btn_selector</item>
+        <item name="android:visibility">gone</item>
+        <item name="android:layout_width">0.0dip</item>
+        <item name="android:layout_height">48.0dip</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:layout_weight">1.0</item>
+        <item name="android:textSize">@dimen/text_size_17</item>
+    </style>
+
     <style name="button_enter_style">
         <item name="android:layout_width">@dimen/space_100</item>
         <item name="android:layout_height">@dimen/space_48</item>
@@ -117,9 +131,11 @@
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
-   <!--  <style name="site_listview_item_text_style_big" parent="my_item_layout_text_style_base">
+    <!--
+    <style name="site_listview_item_text_style_big" parent="my_item_layout_text_style_base">
         <item name="android:textSize">@dimen/text_size_14</item>
-    </style> -->
+    </style>
+    -->
 
     <style name="site_listview_item_text_style_title" parent="my_item_layout_text_style_base">
         <item name="android:textSize">@dimen/text_size_17</item>
@@ -135,7 +151,7 @@
         <item name="android:paddingRight">@dimen/space_24</item>
     </style>
 
-    <style name="dialog" parent="@android:style/Theme.Dialog">
+    <style name="progress_dialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowFrame">@null</item>
         <!-- 边框 -->
         <item name="android:windowIsFloating">true</item>
@@ -144,7 +160,22 @@
         <!-- 半透明 -->
         <item name="android:windowNoTitle">true</item>
         <!-- 无标题 -->
-        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!-- 背景透明 -->
+        <item name="android:backgroundDimEnabled">false</item>
+        <!-- 模糊 -->
+    </style>
+
+    <style name="common_dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <!-- 边框 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 是否浮现在activity之上 -->
+        <item name="android:windowIsTranslucent">false</item>
+        <!-- 半透明 -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 无标题 -->
+        <item name="android:windowBackground">@drawable/dialog_background</item>
         <!-- 背景透明 -->
         <item name="android:backgroundDimEnabled">false</item>
         <!-- 模糊 -->
@@ -156,27 +187,32 @@
 
 
 
-　　                                        <item name="android:indeterminateDrawable">@drawable/progress_large_shape</item>
+
+　　                                                <item name="android:indeterminateDrawable">@drawable/progress_large_shape</item>
 
 
 
 
-　　                                        <item name="android:minWidth">60dip</item>
+
+　　                                                <item name="android:minWidth">60dip</item>
 
 
 
 
-　　                                        <item name="android:maxWidth">60dip</item>
+
+　　                                                <item name="android:maxWidth">60dip</item>
 
 
 
 
-　　                                         <item name="android:minHeight">60dip</item>
+
+　　                                                 <item name="android:minHeight">60dip</item>
 
 
 
 
-　　                                         <item name="android:maxHeight">60dip</item>
+
+　　                                                 <item name="android:maxHeight">60dip</item>
     </style>
 
 </resources>
