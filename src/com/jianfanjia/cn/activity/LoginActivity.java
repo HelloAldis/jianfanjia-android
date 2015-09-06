@@ -32,7 +32,6 @@ import com.loopj.android.http.JsonHttpResponseHandler;
  */
 public class LoginActivity extends BaseActivity implements OnClickListener {
 	private static final String TAG = LoginActivity.class.getName();
-	private CustomProgressDialog progressDialog = null;
 	private EditText mEtUserName;// 用户名输入框
 	private EditText mEtPassword;// 用户密码输入框
 	private Button mBtnLogin;// 登录按钮
@@ -50,8 +49,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 
 	@Override
 	public void initView() {
-		progressDialog = new CustomProgressDialog(LoginActivity.this,
-				"正在登录中...", R.style.dialog);
 		mEtUserName = (EditText) findViewById(R.id.et_username);
 		mEtPassword = (EditText) findViewById(R.id.et_password);
 		mBtnLogin = (Button) findViewById(R.id.btn_login);
@@ -130,7 +127,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 					@Override
 					public void onStart() {
 						LogTool.d(TAG, "onStart()");
-						progressDialog.show();
+						showWaitDialog(R.string.loging);
 					}
 
 					@Override
@@ -139,7 +136,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 						LogTool.d(TAG, "JSONObject response:" + response);
 						try {
 							if (response.has(Constant.DATA)) {
-								progressDialog.dismiss();
+								hideWaitDialog();
 								makeTextShort(getString(R.string.login_success));
 								LoginUserBean loginUserBean = JsonParser
 										.jsonToBean(response.get(Constant.DATA)
@@ -152,7 +149,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 								startActivity(MainActivity.class);
 								finish();
 							} else if (response.has(Constant.ERROR_MSG)) {
-								progressDialog.dismiss();
+								hideWaitDialog();
 								makeTextLong(response.get(Constant.ERROR_MSG)
 										.toString());
 							}
@@ -168,7 +165,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 							Throwable throwable, JSONObject errorResponse) {
 						LogTool.d(TAG,
 								"Throwable throwable:" + throwable.toString());
-						progressDialog.dismiss();
+						hideWaitDialog();
 						makeTextLong(getString(R.string.tip_login_error_for_network));
 					}
 
@@ -176,7 +173,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 					public void onFailure(int statusCode, Header[] headers,
 							String responseString, Throwable throwable) {
 						LogTool.d(TAG, "throwable:" + throwable);
-						progressDialog.dismiss();
+						hideWaitDialog();
 						makeTextLong(getString(R.string.tip_login_error_for_network));
 					};
 				});

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
@@ -11,10 +12,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.inter.manager.ListenerManeger;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.SharedPrefer;
+import com.jianfanjia.cn.view.dialog.DialogControl;
+import com.jianfanjia.cn.view.dialog.WaitDialog;
 
 /**
  * @version 1.0
@@ -114,5 +119,32 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 		}
 		startActivity(intent);
 	}
+	
+	  protected void hideWaitDialog() {
+	        FragmentActivity activity = getActivity();
+	        if (activity instanceof DialogControl) {
+	            ((DialogControl) activity).hideWaitDialog();
+	        }
+	    }
+
+	    protected WaitDialog showWaitDialog() {
+	        return showWaitDialog(R.string.loading);
+	    }
+
+	    protected WaitDialog showWaitDialog(int resid) {
+	        FragmentActivity activity = getActivity();
+	        if (activity instanceof DialogControl) {
+	            return ((DialogControl) activity).showWaitDialog(resid);
+	        }
+	        return null;
+	    }
+
+	    protected WaitDialog showWaitDialog(String str) {
+	        FragmentActivity activity = getActivity();
+	        if (activity instanceof DialogControl) {
+	            return ((DialogControl) activity).showWaitDialog(str);
+	        }
+	        return null;
+	    }
 
 }

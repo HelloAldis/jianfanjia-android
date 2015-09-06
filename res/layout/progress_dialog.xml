@@ -6,6 +6,7 @@
     android:orientation="vertical" >
 
     <ProgressBar
+        android:id="@+id/waiting_pb"
         style="@style/myProgressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -13,7 +14,7 @@
         android:indeterminateDuration="700" />
 
     <TextView
-        android:id="@+id/loadingTv"
+        android:id="@+id/waiting_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"

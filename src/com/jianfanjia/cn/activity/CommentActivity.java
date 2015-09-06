@@ -2,6 +2,8 @@ package com.jianfanjia.cn.activity;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -27,6 +29,12 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
 	private CommentInfoAdapter commentInfoAdapter;// ∆¿¬€¡–±Ìadapter
 	private List<CommentInfo> commentInfoList;
 	private CommentInfo commentInfo;
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+	}
 
 	@Override
 	public void initView() {

@@ -102,7 +102,7 @@
                     android:textColor="@color/main_color_black" />
 
                 <TextView
-                    android:id="@+id/my_site_housestyle"
+                    android:id="@+id/current_version"
                     style="@style/site_listview_item_text_style_middle"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"

@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
+import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.config.Constant;
@@ -107,12 +108,14 @@ public class FrgPswInputVerificationFragment extends BaseFragment {
 				new JsonHttpResponseHandler() {
 					@Override
 					public void onStart() {
+						showWaitDialog(R.string.submiting);
 						LogTool.d(TAG, "onStart()");
 					}
 
 					@Override
 					public void onSuccess(int statusCode, Header[] headers,
 							JSONObject response) {
+						hideWaitDialog();
 						LogTool.d(TAG, "JSONObject response:" + response);
 						try {
 							if (response.has(Constant.SUCCESS_MSG)) {
@@ -126,6 +129,7 @@ public class FrgPswInputVerificationFragment extends BaseFragment {
 						} catch (JSONException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
+							hideWaitDialog();
 							makeTextLong(getString(R.string.tip_login_error_for_network));
 						}
 					}
@@ -133,6 +137,7 @@ public class FrgPswInputVerificationFragment extends BaseFragment {
 					@Override
 					public void onFailure(int statusCode, Header[] headers,
 							String responseString, Throwable throwable) {
+						hideWaitDialog();
 						LogTool.d(TAG, "throwable:" + throwable);
 						makeTextLong(getString(R.string.tip_login_error_for_network));
 					};

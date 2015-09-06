@@ -66,5 +66,5 @@ public class LoginUserBean implements Serializable {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-
+	
 }

@@ -71,7 +71,7 @@ public class JsonParser {
 			info.setAddress(dataObj.getString("address"));
 			info.setProvince(dataObj.getString("province"));
 			info.setDistrict(dataObj.getString("district"));
-			LogTool.d(TAG, "info:" + info);
+			LogTool.d(TAG, "info:" + info.getAddress());
 			return info;
 		} catch (Exception e) {
 			e.printStackTrace();

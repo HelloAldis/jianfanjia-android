@@ -4,6 +4,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
+import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
 
 /**
@@ -15,10 +16,13 @@ import com.jianfanjia.cn.base.BaseActivity;
  */
 public class AboutActivity extends BaseActivity implements OnClickListener {
 	private TextView backView;// 返回视图
+	private TextView currentVersion;//当前版本
 
 	@Override
 	public void initView() {
 		backView = (TextView) findViewById(R.id.about_back);
+		currentVersion = (TextView) findViewById(R.id.about_version);
+		currentVersion.setText(MyApplication.getVersionName());
 	}
 
 	@Override

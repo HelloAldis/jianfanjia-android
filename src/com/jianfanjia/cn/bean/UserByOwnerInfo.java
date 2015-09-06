@@ -91,11 +91,6 @@ public class UserByOwnerInfo implements Serializable {
 		this.sex = sex;
 	}
 
-	@Override
-	public String toString() {
-		return null;
-	}
-
 	public String get_id() {
 		return _id;
 	}

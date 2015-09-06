@@ -3,16 +3,20 @@ package com.jianfanjia.cn.fragment;
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.ToggleButton;
+
 import com.igexin.sdk.PushManager;
 import com.jianfanjia.cn.activity.AboutActivity;
 import com.jianfanjia.cn.activity.FeedBackActivity;
 import com.jianfanjia.cn.activity.LoginActivity;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
@@ -33,7 +37,6 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 public class SettingFragment extends BaseFragment implements
 		OnCheckedChangeListener, DialogListener {
 	private static final String TAG = SettingFragment.class.getName();
-	private CustomProgressDialog progressDialog = null;
 	private HintDialog hintDialog = null;
 	private RelativeLayout feedbackFragment = null;
 	private RelativeLayout aboutFragment = null;
@@ -41,11 +44,10 @@ public class SettingFragment extends BaseFragment implements
 	private RelativeLayout logoutLayout = null;
 	private RelativeLayout helpLayout = null;
 	private RelativeLayout current_version_layout = null;
+	private TextView currentVersion;
 
 	@Override
 	public void initView(View view) {
-		progressDialog = new CustomProgressDialog(getActivity(), "获取新版本",
-				R.style.dialog);
 		hintDialog = new HintDialog(getActivity(), R.layout.hint_dialog,
 				"退出登录", "确定要退出吗？", R.style.dialog);
 		feedbackFragment = (RelativeLayout) view
@@ -56,6 +58,8 @@ public class SettingFragment extends BaseFragment implements
 		logoutLayout = (RelativeLayout) view.findViewById(R.id.logout_layout);
 		current_version_layout = (RelativeLayout) view
 				.findViewById(R.id.current_version_layout);
+		currentVersion = (TextView) view.findViewById(R.id.current_version);
+		currentVersion.setText(MyApplication.getVersionName());
 	}
 
 	@Override
@@ -137,23 +141,25 @@ public class SettingFragment extends BaseFragment implements
 					@Override
 					public void onStart() {
 						LogTool.d(TAG, "onStart()");
-						progressDialog.show();
+						showWaitDialog("获取新版本");
 					}
 
 					@Override
 					public void onSuccess(int statusCode, Header[] headers,
 							JSONObject response) {
 						LogTool.d(TAG, "JSONObject response:" + response);
-						progressDialog.dismiss();
+						hideWaitDialog();
+//						progressDialog.dismiss();
 					}
 
 					@Override
 					public void onFailure(int statusCode, Header[] headers,
 							Throwable throwable, JSONObject errorResponse) {
+						hideWaitDialog();
 						LogTool.d(TAG,
 								"Throwable throwable:" + throwable.toString());
 						makeTextLong(getString(R.string.tip_login_error_for_network));
-						progressDialog.dismiss();
+//						progressDialog.dismiss();
 					}
 
 					@Override
@@ -161,7 +167,8 @@ public class SettingFragment extends BaseFragment implements
 							String responseString, Throwable throwable) {
 						LogTool.d(TAG, "throwable:" + throwable);
 						makeTextLong(getString(R.string.tip_login_error_for_network));
-						progressDialog.dismiss();
+						hideWaitDialog();
+//						progressDialog.dismiss();
 					};
 				});
 	}

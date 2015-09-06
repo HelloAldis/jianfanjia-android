@@ -10,11 +10,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Window;
 import android.widget.Toast;
+
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.inter.manager.ListenerManeger;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.SharedPrefer;
+import com.jianfanjia.cn.view.dialog.DialogControl;
+import com.jianfanjia.cn.view.dialog.DialogHelper;
+import com.jianfanjia.cn.view.dialog.WaitDialog;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -26,13 +30,16 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  * @date 2015年7月24日 上午11:46:40
  * 
  */
-public abstract class BaseActivity extends FragmentActivity {
+public abstract class BaseActivity extends FragmentActivity implements DialogControl{
 	protected LayoutInflater inflater = null;
 	protected FragmentManager fragmentManager = null;
 	protected SharedPrefer sharedPrefer = null;
 	protected ImageLoader imageLoader = null;
 	protected DisplayImageOptions options = null;
 	protected ListenerManeger listenerManeger = null;
+	
+	private boolean _isVisible;
+    private WaitDialog _waitDialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +72,7 @@ public abstract class BaseActivity extends FragmentActivity {
 				.cacheOnDisk(true).considerExifParams(true)
 				.bitmapConfig(Bitmap.Config.RGB_565).build();
 		listenerManeger = ListenerManeger.getListenerManeger();
+		_isVisible = true;
 	}
 
 	private void initParams() {
@@ -142,5 +150,42 @@ public abstract class BaseActivity extends FragmentActivity {
 		}
 		startActivity(intent);
 	}
+	
+	 @Override
+	    public WaitDialog showWaitDialog() {
+	        return showWaitDialog(R.string.loading);
+	    }
+
+	    @Override
+	    public WaitDialog showWaitDialog(int resid) {
+	        return showWaitDialog(getString(resid));
+	    }
+
+	    @Override
+	    public WaitDialog showWaitDialog(String message) {
+	        if (_isVisible) {
+	            if (_waitDialog == null) {
+	                _waitDialog = DialogHelper.getWaitDialog(this, message);
+	            }
+	            if (_waitDialog != null) {
+	                _waitDialog.setMessage(message);
+	                _waitDialog.show();
+	            }
+	            return _waitDialog;
+	        }
+	        return null;
+	    }
+
+	    @Override
+	    public void hideWaitDialog() {
+	        if (_isVisible && _waitDialog != null) {
+	            try {
+	                _waitDialog.dismiss();
+	                _waitDialog = null;
+	            } catch (Exception ex) {
+	                ex.printStackTrace();
+	            }
+	        }
+	    }
 
 }

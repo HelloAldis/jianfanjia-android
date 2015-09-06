@@ -37,7 +37,7 @@ public class CustomProgressDialog extends ProgressDialog {
 
 	private void init() {
 		setContentView(R.layout.progress_dialog);
-		TextView mLoadingTv = (TextView) findViewById(R.id.loadingTv);
+		TextView mLoadingTv = (TextView) findViewById(R.id.waiting_tv);
 		mLoadingTv.setText(title);
 	}
 

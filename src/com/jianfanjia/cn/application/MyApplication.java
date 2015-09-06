@@ -127,4 +127,19 @@ public class MyApplication extends BaseApplication {
 		}
 		return versionCode;
 	}
+	
+	  public static String getVersionName() {
+	        String name = "";
+	        try {
+	            name = MyApplication
+	                    .getInstance()
+	                    .getPackageManager()
+	                    .getPackageInfo(MyApplication
+	    	                    .getInstance().getPackageName(),
+	                            0).versionName;
+	        } catch (PackageManager.NameNotFoundException ex) {
+	            name = "";
+	        }
+	        return name;
+	    }
 }
