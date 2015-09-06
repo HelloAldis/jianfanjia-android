@@ -35,6 +35,7 @@ public class Constant {
 	public static final String IDENTITY_OWNER = "1";// 业主
 	public static final String IDENTITY_DESIGNER = "2";// 设计师
 
+	public static final String DESIGNER_SITE_ID = "siteId";// 设计师当前切换工地id
 	public static final String ISOPEN = "isOpen";// 消息推送是否开启
 	public static final String ISFIRST = "isFirst";// 是否是首次打开程序
 	public static final String ACCOUNT = "account";// 账号
@@ -72,5 +73,5 @@ public class Constant {
 
 	public static final String CURRENT_LIST = "current_list";// 首页展开的第一道工序
 
-	public static final String CURRENT_Item ="current_item";//当前节点
+	public static final String CURRENT_Item = "current_item";// 当前节点
 }

@@ -13,44 +13,74 @@ import java.io.Serializable;
 public class MyOwnerInfo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private String imageUrl;// 业主头像
+	private String designerid;
 
-	private String name;// 业主姓名
+	private String userid;
 
-	private String address;// 工地地址
+	private String requirementid;
 
-	private String stage;// 所处阶段
+	private String status;
 
-	public String getImageUrl() {
-		return imageUrl;
+	private String _id;
+
+	private User user;
+
+	private Requirement requirement;
+
+	public String getDesignerid() {
+		return designerid;
 	}
 
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
+	public void setDesignerid(String designerid) {
+		this.designerid = designerid;
 	}
 
-	public String getName() {
-		return name;
+	public String getUserid() {
+		return userid;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setUserid(String userid) {
+		this.userid = userid;
 	}
 
-	public String getAddress() {
-		return address;
+	public String getRequirementid() {
+		return requirementid;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
+	public void setRequirementid(String requirementid) {
+		this.requirementid = requirementid;
 	}
 
-	public String getStage() {
-		return stage;
+	public String getStatus() {
+		return status;
 	}
 
-	public void setStage(String stage) {
-		this.stage = stage;
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String get_id() {
+		return _id;
+	}
+
+	public void set_id(String _id) {
+		this._id = _id;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Requirement getRequirement() {
+		return requirement;
+	}
+
+	public void setRequirement(Requirement requirement) {
+		this.requirement = requirement;
 	}
 
 }

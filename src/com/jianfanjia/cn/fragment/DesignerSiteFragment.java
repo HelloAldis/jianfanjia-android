@@ -37,7 +37,7 @@ public class DesignerSiteFragment extends BaseFragment implements
 	private CustomProgressDialog progressDialog = null;
 	private ImageView headView;
 	private ListView siteListView;
-	private List<DesignerSiteInfo> caigouList = new ArrayList<DesignerSiteInfo>();
+	private List<DesignerSiteInfo> siteList = new ArrayList<DesignerSiteInfo>();
 	private DesignerSiteInfoAdapter designerSiteInfoAdapter = null;
 
 	@Override
@@ -75,7 +75,8 @@ public class DesignerSiteFragment extends BaseFragment implements
 
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
-
+		DesignerSiteInfo siteInfo = siteList.get(position);
+		LogTool.d(TAG, "_id=" + siteInfo.get_id());
 	}
 
 	// 获取装修工地
@@ -95,15 +96,15 @@ public class DesignerSiteFragment extends BaseFragment implements
 						progressDialog.dismiss();
 						try {
 							if (response.has(Constant.DATA)) {
-								caigouList = JsonParser
+								siteList = JsonParser
 										.jsonToList(
 												response.get(Constant.DATA)
 														.toString(),
 												new TypeToken<List<DesignerSiteInfo>>() {
 												}.getType());
-								LogTool.d(TAG, "caigouList:" + caigouList);
+								LogTool.d(TAG, "siteList:" + siteList);
 								designerSiteInfoAdapter = new DesignerSiteInfoAdapter(
-										getActivity(), caigouList);
+										getActivity(), siteList);
 								siteListView
 										.setAdapter(designerSiteInfoAdapter);
 							} else if (response.has(Constant.ERROR_MSG)) {
