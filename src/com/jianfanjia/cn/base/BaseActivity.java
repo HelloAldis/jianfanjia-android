@@ -135,11 +135,13 @@ public abstract class BaseActivity extends FragmentActivity implements
 			intent.putExtras(bundle);
 		}
 		startActivity(intent);
+		overridePendingTransition(R.anim.fragment_list_right_enter, R.anim.fragment_slide_left_exit);
 	}
 
 	// 通过Action跳转界面
 	protected void startActivity(String action) {
 		startActivity(action, null);
+		overridePendingTransition(R.anim.fragment_list_right_enter, R.anim.fragment_slide_left_exit);
 	}
 
 	// 含有Bundle通过Action跳转界面
@@ -150,6 +152,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 			intent.putExtras(bundle);
 		}
 		startActivity(intent);
+		overridePendingTransition(R.anim.fragment_list_right_enter, R.anim.fragment_slide_left_exit);
 	}
 
 	@Override

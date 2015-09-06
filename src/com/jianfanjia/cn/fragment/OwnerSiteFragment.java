@@ -23,6 +23,7 @@ import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.tools.DateFormatTool;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.tools.StringUtils;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 /**
@@ -186,8 +187,8 @@ public class OwnerSiteFragment extends BaseFragment {
 					R.array.work_type)[Integer.parseInt(processInfo
 					.getWork_type())]);
 			decorateBudgetView.setText(processInfo.getTotal_price());
-			startDateView.setText(DateFormatTool.covertLongToString(
-					processInfo.getStart_at(), "yyyy-MM-dd"));
+			startDateView.setText(StringUtils.covertLongToString(
+					processInfo.getStart_at()));
 			totalDateView.setText(processInfo.getDuration());
 			startDateGoto.setVisibility(View.GONE);
 			totalDateGoto.setVisibility(View.GONE);
@@ -286,8 +287,7 @@ public class OwnerSiteFragment extends BaseFragment {
 		public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
 			Calendar calendar1 = Calendar.getInstance();
 			calendar1.set(arg1, arg2, arg3);
-			startDateView.setText(DateFormatTool.covertLongToString(
-					calendar1.getTimeInMillis(), "yyyy-MM-dd"));
+			startDateView.setText(StringUtils.getDateString(calendar1.getTime()));
 			requirementInfo.setDuration("60");
 			requirementInfo.setStart_at(calendar1.getTimeInMillis());
 		}
