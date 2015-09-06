@@ -11,7 +11,6 @@ import android.widget.GridView;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.adapter.MyGridViewAdapter;
-import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.GridItem;
 import com.jianfanjia.cn.config.Constant;
