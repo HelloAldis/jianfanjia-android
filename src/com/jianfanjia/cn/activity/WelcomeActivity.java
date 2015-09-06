@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.WindowManager;
 import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.tools.LogTool;
 
 /**
  * 
@@ -15,12 +17,15 @@ import com.jianfanjia.cn.base.BaseActivity;
  */
 public class WelcomeActivity extends BaseActivity {
 	private Handler handler = new Handler();
+	private int first = 0;// 用于判断导航界面是否显示
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		first = sharedPrefer.getValue(Constant.ISFIRST, 0);
+		LogTool.d(this.getClass().getName(), "first=" + first);
 	}
 
 	@Override
@@ -38,8 +43,13 @@ public class WelcomeActivity extends BaseActivity {
 
 		@Override
 		public void run() {
-			startActivity(NavigateActivity.class);
-			finish();
+			if (first == 1) {
+				startActivity(LoginActivity.class);
+				finish();
+			} else {
+				startActivity(NavigateActivity.class);
+				finish();
+			}
 		}
 
 	};

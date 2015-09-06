@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import com.jianfanjia.cn.adapter.ViewPageAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.config.Constant;
 
 /**
  * 
@@ -54,6 +55,7 @@ public class NavigateActivity extends BaseActivity implements OnClickListener,
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.enterMain:
+			sharedPrefer.setValue(Constant.ISFIRST, 1);
 			startActivity(LoginActivity.class);
 			finish();
 			break;
