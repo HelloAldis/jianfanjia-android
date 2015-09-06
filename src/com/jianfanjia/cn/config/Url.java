@@ -17,9 +17,6 @@ public class Url {
 	public static final String HTTPROOT = "http://" + SEVER_IP + ":"
 			+ SEVER_PORT + "/api/v1/";
 
-	public static final String IMGROOT = "http://" + SEVER_IP + ":"
-			+ SEVER_PORT + "/api/v1/image/";
-
 	public static final String ID = "id";
 	//
 	public static final String BIND_URL = HTTPROOT + "device/bind";
@@ -65,6 +62,8 @@ public class Url {
 	public static final String POST_PROCESS_COMMENT = HTTPROOT
 			+ "process/comment";
 
+	// 用户获取某个装修流程
+	public static final String GET_ONE_PROCESS = HTTPROOT + "process/";
 	// 获取图片
 	public static final String GET_IMAGE = HTTPROOT + "image/";
 

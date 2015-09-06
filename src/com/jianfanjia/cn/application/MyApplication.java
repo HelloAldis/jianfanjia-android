@@ -3,7 +3,6 @@ package com.jianfanjia.cn.application;
 import java.util.Arrays;
 import java.util.List;
 import android.content.pm.PackageManager;
-
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseApplication;
 import com.jianfanjia.cn.bean.LoginUserBean;
@@ -152,19 +151,18 @@ public class MyApplication extends BaseApplication {
 		int currentVersion = android.os.Build.VERSION.SDK_INT;
 		return currentVersion >= VersionCode;
 	}
-	
-	 /**
-     * 清除app缓存
-     */
-    public void clearAppCache() {
-        DataCleanManager.cleanDatabases(this);
-        // 清除数据缓存
-        DataCleanManager.cleanInternalCache(this);
-        //
-        // 2.2版本才有将应用缓存转移到sd卡的功能
-        if (isMethodsCompat(android.os.Build.VERSION_CODES.FROYO)) {
-            DataCleanManager.cleanCustomCache(
-                    getExternalCacheDir());
-        }
-    }
+
+	/**
+	 * 清除app缓存
+	 */
+	public void clearAppCache() {
+		DataCleanManager.cleanDatabases(this);
+		// 清除数据缓存
+		DataCleanManager.cleanInternalCache(this);
+		//
+		// 2.2版本才有将应用缓存转移到sd卡的功能
+		if (isMethodsCompat(android.os.Build.VERSION_CODES.FROYO)) {
+			DataCleanManager.cleanCustomCache(getExternalCacheDir());
+		}
+	}
 }

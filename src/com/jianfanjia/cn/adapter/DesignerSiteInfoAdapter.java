@@ -9,7 +9,6 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.DesignerSiteInfo;
 import com.jianfanjia.cn.bean.User;
 import com.jianfanjia.cn.config.Url;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
  * @class DesignerSiteInfoAdapter
@@ -55,8 +54,7 @@ public class DesignerSiteInfoAdapter extends BaseListAdapter<DesignerSiteInfo> {
 		// viewHolder.itemCurrentView »¹Ã»ÅÐ¶Ï
 		viewHolder.itemVillageView.setText(designerSiteInfo.getCell());
 		if (user.getImageid() != null) {
-			ImageLoader.getInstance().displayImage(
-					Url.IMGROOT + user.getImageid(),
+			imageLoader.displayImage(Url.GET_IMAGE + user.getImageid(),
 					viewHolder.itemOwerHeadView);
 		} else {
 			viewHolder.itemOwerHeadView
