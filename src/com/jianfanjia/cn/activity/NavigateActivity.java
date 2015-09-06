@@ -26,7 +26,6 @@ public class NavigateActivity extends BaseActivity implements OnClickListener,
 	private Button enterBtn = null;
 	private List<View> list = new ArrayList<View>();
 	private ViewPageAdapter adapter = null;
-	private ImageView[] tips;
 	private int currentItem = 0; // 当前图片的索引号
 	private static final int imgId[] = { R.drawable.navigate_1,
 			R.drawable.navigate_2, R.drawable.navigate_3, R.drawable.navigate_4 };
