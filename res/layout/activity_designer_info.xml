@@ -92,6 +92,7 @@
                     android:textColor="@color/main_color_black" />
 
                 <TextView
+                    android:id="@+id/nameText"
                     style="@style/site_listview_item_text_style_small"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/space_8"
@@ -119,6 +120,7 @@
                     android:textColor="@color/main_color_black" />
 
                 <TextView
+                    android:id="@+id/sexText"
                     style="@style/site_listview_item_text_style_small"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/space_8"
@@ -146,6 +148,7 @@
                     android:textColor="@color/main_color_black" />
 
                 <TextView
+                    android:id="@+id/phoneText"
                     style="@style/site_listview_item_text_style_small"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/space_8"
@@ -173,6 +176,7 @@
                     android:textColor="@color/main_color_black" />
 
                 <TextView
+                    android:id="@+id/addressText"
                     style="@style/site_listview_item_text_style_small"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/space_8"
@@ -200,6 +204,7 @@
                     android:textColor="@color/main_color_black" />
 
                 <TextView
+                    android:id="@+id/homeText"
                     style="@style/site_listview_item_text_style_small"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/space_8"

@@ -3,6 +3,8 @@ package com.jianfanjia.cn.activity;
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -77,16 +79,36 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 												.toString(),
 												UserByDesignerInfo.class);
 								if (null != info) {
-									nameText.setText(info.getUsername());
-									String sexInfo = info.getSex();
-									if (sexInfo.equals("1")) {
-										sexText.setText("男");
+									if (!TextUtils.isEmpty(info.getUsername())) {
+										nameText.setText(info.getUsername());
 									} else {
-										sexText.setText("女");
+										nameText.setText("设计师");
 									}
-									phoneText.setText(info.getPhone());
-									addressText.setText(info.getDistrict());
-									homeText.setText(info.getAddress());
+									String sexInfo = info.getSex();
+									if (!TextUtils.isEmpty(sexInfo)) {
+										if (sexInfo.equals("1")) {
+											sexText.setText("男");
+										} else {
+											sexText.setText("女");
+										}
+									} else {
+										sexText.setText("无");
+									}
+									if (!TextUtils.isEmpty(info.getPhone())) {
+										phoneText.setText(info.getPhone());
+									} else {
+										phoneText.setText("无");
+									}
+									if (!TextUtils.isEmpty(info.getDistrict())) {
+										addressText.setText(info.getDistrict());
+									} else {
+										addressText.setText("无");
+									}
+									if (!TextUtils.isEmpty(info.getAddress())) {
+										homeText.setText(info.getAddress());
+									} else {
+										homeText.setText("无");
+									}
 								}
 							} else if (response.has(Constant.ERROR_MSG)) {
 								makeTextLong(response.get(Constant.ERROR_MSG)
