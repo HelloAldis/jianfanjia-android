@@ -9,6 +9,7 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.bean.Message;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.tools.LogTool;
@@ -23,7 +24,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
  * 
  */
 public class OwnerInfoActivity extends BaseActivity implements OnClickListener {
-	private static final String TAG = LoginActivity.class.getName();
+	private static final String TAG = OwnerInfoActivity.class.getName();
 	private TextView backView;// 返回视图
 	private ImageView ownerHeadView;// 用户头像视图
 	private ImageView ownerSexView;// 用户性别视图
@@ -123,6 +124,12 @@ public class OwnerInfoActivity extends BaseActivity implements OnClickListener {
 						makeTextLong(getString(R.string.tip_login_error_for_network));
 					};
 				});
+	}
+
+	@Override
+	public void onReceiveMsg(Message message) {
+		LogTool.d(TAG, "message=" + message);
+		showNotify(message);
 	}
 
 	@Override

@@ -42,6 +42,7 @@ public class FeedBackActivity extends BaseActivity implements OnClickListener {
 	@Override
 	public void onReceiveMsg(Message message) {
 		LogTool.d(TAG, "message=" + message);
+		showNotify(message);
 	}
 
 	@Override

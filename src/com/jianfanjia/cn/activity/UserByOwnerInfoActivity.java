@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.bean.Message;
 import com.jianfanjia.cn.bean.UserByOwnerInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
@@ -133,6 +134,12 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 						makeTextLong(getString(R.string.tip_login_error_for_network));
 					};
 				});
+	}
+
+	@Override
+	public void onReceiveMsg(Message message) {
+		LogTool.d(TAG, "message=" + message);
+		showNotify(message);
 	}
 
 	@Override

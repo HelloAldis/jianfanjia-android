@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.bean.Message;
 import com.jianfanjia.cn.bean.UserByDesignerInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
@@ -127,6 +128,12 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 		default:
 			break;
 		}
+	}
+
+	@Override
+	public void onReceiveMsg(Message message) {
+		LogTool.d(TAG, "message=" + message);
+		showNotify(message);
 	}
 
 	@Override

@@ -1,7 +1,6 @@
 package com.jianfanjia.cn.activity;
 
 import java.io.IOException;
-
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.View;
@@ -9,11 +8,11 @@ import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.bean.Message;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.tools.FileUtil;
 import com.jianfanjia.cn.tools.ImageUtils;
+import com.jianfanjia.cn.tools.LogTool;
 
 /**
  * @class ShareActivity
@@ -23,8 +22,9 @@ import com.jianfanjia.cn.tools.ImageUtils;
  * 
  */
 public class ShareActivity extends BaseActivity implements OnClickListener {
+	private static final String TAG = ShareActivity.class.getName();
 	private TextView backView;// 返回视图
-	private ImageView mIvCode;//当前版本
+	private ImageView mIvCode;// 当前版本
 
 	@Override
 	public void initView() {
@@ -36,17 +36,21 @@ public class ShareActivity extends BaseActivity implements OnClickListener {
 	public void setListener() {
 		backView.setOnClickListener(this);
 		mIvCode.setOnLongClickListener(new OnLongClickListener() {
-			
+
 			@Override
 			public boolean onLongClick(View v) {
-				Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.icon_jianfanjia_qr);
+				Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
+						R.drawable.icon_jianfanjia_qr);
 				try {
-					ImageUtils.saveImageToSD(ShareActivity.this,Constant.COMMON_PATH + "myqr.jpg", bitmap, 100);
-					makeTextLong(getResources().getString(R.string.save_image_success));
+					ImageUtils.saveImageToSD(ShareActivity.this,
+							Constant.COMMON_PATH + "myqr.jpg", bitmap, 100);
+					makeTextLong(getResources().getString(
+							R.string.save_image_success));
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-					makeTextLong(getResources().getString(R.string.save_image_failure));
+					makeTextLong(getResources().getString(
+							R.string.save_image_failure));
 				}
 				return true;
 			}
@@ -62,6 +66,12 @@ public class ShareActivity extends BaseActivity implements OnClickListener {
 		default:
 			break;
 		}
+	}
+
+	@Override
+	public void onReceiveMsg(Message message) {
+		LogTool.d(TAG, "message=" + message);
+		showNotify(message);
 	}
 
 	@Override

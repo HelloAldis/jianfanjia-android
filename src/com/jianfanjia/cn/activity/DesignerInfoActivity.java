@@ -1,6 +1,8 @@
 package com.jianfanjia.cn.activity;
 
 import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.bean.Message;
+import com.jianfanjia.cn.tools.LogTool;
 
 /**
  * 
@@ -11,6 +13,7 @@ import com.jianfanjia.cn.base.BaseActivity;
  * 
  */
 public class DesignerInfoActivity extends BaseActivity {
+	private static final String TAG = DesignerInfoActivity.class.getName();
 
 	@Override
 	public void initView() {
@@ -27,5 +30,11 @@ public class DesignerInfoActivity extends BaseActivity {
 	@Override
 	public int getLayoutId() {
 		return R.layout.activity_my_designer_detail;
+	}
+
+	@Override
+	public void onReceiveMsg(Message message) {
+		LogTool.d(TAG, "message=" + message);
+		showNotify(message);
 	}
 }
