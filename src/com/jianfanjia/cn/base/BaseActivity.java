@@ -15,6 +15,7 @@ import com.jianfanjia.cn.bean.Message;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.inter.manager.ListenerManeger;
 import com.jianfanjia.cn.interf.ConfirmListener;
+import com.jianfanjia.cn.interf.DialogListener;
 import com.jianfanjia.cn.interf.PushMsgReceiveListener;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.SharedPrefer;
@@ -214,10 +215,15 @@ public abstract class BaseActivity extends FragmentActivity implements
 	protected void showNotify(Message message) {
 		final NotifyDialog notifyDialog = new NotifyDialog(this,
 				R.layout.notify_dialog, message, R.style.progress_dialog);
-		notifyDialog.setListener(new ConfirmListener() {
+		notifyDialog.setListener(new DialogListener() {
 
 			@Override
-			public void confirm() {
+			public void onPositiveButtonClick() {
+				notifyDialog.dismiss();
+			}
+
+			@Override
+			public void onNegativeButtonClick() {
 				notifyDialog.dismiss();
 			}
 

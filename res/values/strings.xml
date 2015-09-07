@@ -27,6 +27,8 @@
     <string name="comfirm">确认</string>
     <string name="no">取消</string>
     <string name="ok">确定</string>
+    <string name="agree">同意</string>
+    <string name="refuse">拒绝</string>
     <string name="hint_username">请输入手机号码</string>
     <string name="hint_password">请输入密码</string>
     <string name="forget_pwd">忘记密码</string>
@@ -163,7 +165,7 @@
     <string name="user_phone">手机号</string>
     <string name="user_address">所在地</string>
     <string name="user_home">居住地址</string>
-	<string name="not_edit">未填写</string>
+    <string name="not_edit">未填写</string>
     <!-- activity userinfo -->
 
 
@@ -175,7 +177,8 @@
     <string name="company">武汉家易装科技有限公司</string>
     <string name="compant_net">Copyright © 2015-2025 jianfanjia.com</string>
     <!-- activity_about -->
-    
+
+
     <!-- activity_share -->
     <string name="share_tip">长按二维码保存，分享到您喜欢的位置</string>
     <string name="save_image_success">图片已保存至相册中</string>

@@ -15,12 +15,30 @@
         android:textColor="#344a5d"
         android:textSize="@dimen/text_size_22" />
 
-    <Button
-        android:id="@+id/btn_confirm"
-        style="@style/button_confirm_style"
+    <LinearLayout
+        android:id="@+id/btnLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:text="@string/comfirm" />
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/btn_agree"
+            style="@style/dialog_button_ok"
+            android:layout_margin="5dip"
+            android:layout_weight="1"
+            android:text="@string/agree"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/btn_refuse"
+            style="@style/dialog_button_cancel"
+            android:layout_margin="5dip"
+            android:layout_weight="1"
+            android:text="@string/refuse"
+            android:visibility="visible" />
+    </LinearLayout>
 
     <View
         android:id="@+id/titleLine"
@@ -36,7 +54,7 @@
         android:id="@+id/contentTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/btn_confirm"
+        android:layout_above="@id/btnLayout"
         android:layout_below="@id/titleLine"
         android:layout_centerHorizontal="true"
         android:text="尊敬的业主,你即将进入下一轮建材购买阶段，请注意及时补充材料。"
