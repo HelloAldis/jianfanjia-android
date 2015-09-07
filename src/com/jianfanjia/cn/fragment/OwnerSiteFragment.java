@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.ProcessInfo;
@@ -277,6 +278,10 @@ public class OwnerSiteFragment extends BaseFragment {
 			Log.i(TAG, "confirm");
 			getSiteInfo();
 			break;
+		case R.id.ower_site_head:
+			((MainActivity)getActivity()).getSlidingPaneLayout().openPane();
+			break;
+			
 		default:
 			break;
 		}
