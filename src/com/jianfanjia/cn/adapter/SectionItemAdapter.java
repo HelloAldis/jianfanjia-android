@@ -176,8 +176,10 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 				Intent intent = new Intent(context, CommentActivity.class);
 				Bundle bundle = new Bundle();
 				bundle.putInt(Constant.CURRENT_LIST,currentPro);
+				Log.i(this.getClass().getName(),"positon = "+position);
 				bundle.putInt(Constant.CURRENT_Item,position);
-				context.startActivity(intent,bundle);
+				intent.putExtras(bundle);
+				context.startActivity(intent);
 			}
 		});
 		viewHolder.openUploadPic.setOnClickListener(new OnClickListener() {

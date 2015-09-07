@@ -3,7 +3,18 @@ package com.jianfanjia.cn.activity;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.http.Header;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import u.aly.bu;
+
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -13,6 +24,15 @@ import android.widget.TextView;
 import com.jianfanjia.cn.adapter.CommentInfoAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.CommentInfo;
+import com.jianfanjia.cn.bean.CommitCommentInfo;
+import com.jianfanjia.cn.bean.ProcessInfo;
+import com.jianfanjia.cn.bean.UserByDesignerInfo;
+import com.jianfanjia.cn.cache.CacheManager;
+import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.http.JianFanJiaApiClient;
+import com.jianfanjia.cn.tools.JsonParser;
+import com.jianfanjia.cn.tools.LogTool;
+import com.loopj.android.http.JsonHttpResponseHandler;
 
 /**
  * @class CommentActivity
@@ -22,6 +42,7 @@ import com.jianfanjia.cn.bean.CommentInfo;
  * 
  */
 public class CommentActivity extends BaseActivity implements OnClickListener {
+	protected static final String TAG = "CommentActivity";
 	private TextView backView;// 返回视图
 	private ListView listView;// 评论列表
 	private Button sendCommentView;// 发送评论
@@ -29,28 +50,64 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
 	private CommentInfoAdapter commentInfoAdapter;// 评论列表adapter
 	private List<CommentInfo> commentInfoList;
 	private CommentInfo commentInfo;
+	private int currentList;// 当前工序
+	private int currentItem;// 当前节点
+	private ProcessInfo processInfo;
+	private String section;
+	private String item;
 	
+	private TextWatcher textWatcher = new TextWatcher() {
+		
+		@Override
+		public void onTextChanged(CharSequence s, int start, int before, int count) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+		@Override
+		public void beforeTextChanged(CharSequence s, int start, int count,
+				int after) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+		@Override
+		public void afterTextChanged(Editable s) {
+			if(!TextUtils.isEmpty(s.toString())){
+				sendCommentView.setEnabled(true);
+			}
+		}
+	};
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
+		Intent intent = getIntent();
+		Bundle bundle = intent.getExtras();
+		if (bundle != null) {
+			currentList = bundle.getInt(Constant.CURRENT_LIST, 0);
+			currentItem = bundle.getInt(Constant.CURRENT_Item, 0);
+		}
+		if((processInfo = (ProcessInfo) CacheManager.getObjectByFile(this,
+				Constant.PROCESSINFO_CACHE)) != null){
+			section = processInfo.getSections().get(currentList).getName();
+			item = processInfo.getSections().get(currentList).getItems().get(currentItem).getName();
+			commentInfoList = processInfo.getSections().get(currentList).getItems().get(currentItem).getComments();
+			Log.i(this.getClass().getName(),"itemsize ="+currentItem);
+		}
 		super.onCreate(savedInstanceState);
 	}
+	
+	
 
 	@Override
 	public void initView() {
 		backView = (TextView) findViewById(R.id.comment_back);
 		listView = (ListView) findViewById(R.id.comment_listview);
 		etAddCommentView = (EditText) findViewById(R.id.add_comment);
+		etAddCommentView.addTextChangedListener(textWatcher);
 		sendCommentView = (Button) findViewById(R.id.btn_send);
-		commentInfoList = new ArrayList<CommentInfo>();
-		for (int i = 0; i < 4; i++) {
-			commentInfo = new CommentInfo();
-			commentInfo.setContent("这个设计方案还不错，这个风格很漂亮，我很喜欢");
-			commentInfo.setUserName("zhanghao" + i);
-			commentInfo.setUserIdentity("设计师");
-			commentInfo.setTime("2015-8-27");
-			commentInfoList.add(commentInfo);
-		}
+		sendCommentView.setEnabled(false);
 		commentInfoAdapter = new CommentInfoAdapter(this, commentInfoList);
 		listView.setAdapter(commentInfoAdapter);
 	}
@@ -67,10 +124,68 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
 		case R.id.comment_back:
 			finish();
 			break;
+		case R.id.btn_send:
+			commitComment();
+			break;
 		default:
 			break;
 		}
 	}
+
+	private void commitComment() {
+		String content = etAddCommentView.getEditableText().toString();
+		if(!TextUtils.isEmpty(content)){
+			CommitCommentInfo commitCommentInfo = new CommitCommentInfo();
+			commitCommentInfo.setContent(content);
+			commitCommentInfo.set_id(processInfo.get_id());
+			commitCommentInfo.setSection(section);
+			commitCommentInfo.setItem(item);
+			
+			JianFanJiaApiClient.comment(this, commitCommentInfo, new JsonHttpResponseHandler() {
+					@Override
+					public void onStart() {
+						LogTool.d(TAG, "onStart()");
+					}
+
+					@Override
+					public void onSuccess(int statusCode, Header[] headers,
+							JSONObject response) {
+						LogTool.d(TAG, "JSONObject response:" + response);
+						try {
+							if (response.has(Constant.SUCCESS_MSG)) {
+								makeTextLong(getString(R.string.comment_success));
+								etAddCommentView.getEditableText().clear();
+								sendCommentView.setEnabled(false);
+							} else if (response.has(Constant.ERROR_MSG)) {
+								makeTextLong(response.get(Constant.ERROR_MSG)
+										.toString());
+							}
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+							makeTextLong(getString(R.string.tip_login_error_for_network));
+						}
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							Throwable throwable, JSONObject errorResponse) {
+						LogTool.d(TAG,
+								"Throwable throwable:" + throwable.toString());
+						makeTextLong(getString(R.string.tip_login_error_for_network));
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							String responseString, Throwable throwable) {
+						LogTool.d(TAG, "throwable:" + throwable);
+						makeTextLong(getString(R.string.tip_login_error_for_network));
+					};
+				});
+		}
+	}
+
+
 
 	@Override
 	public int getLayoutId() {

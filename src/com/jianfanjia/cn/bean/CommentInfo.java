@@ -13,30 +13,34 @@ import java.io.Serializable;
 public class CommentInfo implements Serializable {
 	private static final long serialVersionUID = 6340039239493931968L;
 
-	private String userImageUrl;// 评论人头像
-
-	private String userName;// 评论人姓名
+	private String id;// 评论id
+	
+	private String by;//评论人id
 
 	private String content;// 评论内容
 
-	private String userIdentity;// 评论人身份
+	private String usertype;// 评论人身份
+	
+	private String userName;//评论人姓名
+	
+	private String userImageUrl;//评论人头像url
+	
+	private long date;// 评论时间
 
-	private String time;// 评论时间
-
-	public String getUserImageUrl() {
-		return userImageUrl;
+	public String getId() {
+		return id;
 	}
 
-	public void setUserImageUrl(String userImageUrl) {
-		this.userImageUrl = userImageUrl;
+	public void setId(String id) {
+		this.id = id;
 	}
 
-	public String getUserName() {
-		return userName;
+	public String getBy() {
+		return by;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setBy(String by) {
+		this.by = by;
 	}
 
 	public String getContent() {
@@ -47,20 +51,41 @@ public class CommentInfo implements Serializable {
 		this.content = content;
 	}
 
-	public String getUserIdentity() {
-		return userIdentity;
+	public String getUsertype() {
+		return usertype;
 	}
 
-	public void setUserIdentity(String userIdentity) {
-		this.userIdentity = userIdentity;
+	public void setUsertype(String usertype) {
+		this.usertype = usertype;
 	}
 
-	public String getTime() {
-		return time;
+	public long getDate() {
+		return date;
 	}
 
-	public void setTime(String time) {
-		this.time = time;
+	public void setDate(long date) {
+		this.date = date;
 	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getUserImageUrl() {
+		return userImageUrl;
+	}
+
+	public void setUserImageUrl(String userImageUrl) {
+		this.userImageUrl = userImageUrl;
+	}
+
+	
+	
+	
+
 
 }

@@ -82,7 +82,7 @@
                 <View
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="40dp"
+                    android:layout_marginLeft="45dp"
                     android:background="#A6A6A6" />
 
                 <com.jianfanjia.cn.view.MyListView

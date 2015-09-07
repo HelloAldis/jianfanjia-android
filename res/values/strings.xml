@@ -184,5 +184,7 @@
     <string name="save_image_success">图片已保存至相册中</string>
     <string name="save_image_failure">图片保存失败</string>
     <!-- activity_share -->
+    
+    <string name="comment_success">评论成功</string>
 
 </resources>
