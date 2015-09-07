@@ -198,9 +198,9 @@ public class SettingFragment extends BaseFragment implements
 		LogTool.d(TAG, "check:" + check);
 		shared.setValue(Constant.ISOPEN, check);
 		if (check) {
-
+			// TODO
 		} else {
-
+			// TODO
 		}
 	}
 
