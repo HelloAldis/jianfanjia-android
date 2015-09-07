@@ -28,6 +28,7 @@ import com.jianfanjia.cn.interf.DialogListener;
 import com.jianfanjia.cn.tools.FileUtil;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
+import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.cn.view.dialog.HintDialog;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -40,9 +41,8 @@ import com.loopj.android.http.JsonHttpResponseHandler;
  * 
  */
 public class SettingFragment extends BaseFragment implements
-		OnCheckedChangeListener, DialogListener {
+		OnCheckedChangeListener{
 	private static final String TAG = SettingFragment.class.getName();
-	private HintDialog hintDialog = null;
 	private RelativeLayout feedbackFragment = null;
 	private RelativeLayout aboutFragment = null;
 	private ToggleButton toggleButton;
@@ -56,8 +56,6 @@ public class SettingFragment extends BaseFragment implements
 
 	@Override
 	public void initView(View view) {
-		hintDialog = new HintDialog(getActivity(), R.layout.hint_dialog,
-				"退出登录", "确定要退出吗？", R.style.common_dialog);
 		feedbackFragment = (RelativeLayout) view
 				.findViewById(R.id.feedback_layout);
 		helpLayout = (RelativeLayout) view.findViewById(R.id.help_layout);
@@ -85,7 +83,6 @@ public class SettingFragment extends BaseFragment implements
 		current_version_layout.setOnClickListener(this);
 		shareLayout.setOnClickListener(this);
 		clearCacheLayout.setOnClickListener(this);
-		hintDialog.setListener(this);
 	}
 
 	@Override
@@ -100,7 +97,7 @@ public class SettingFragment extends BaseFragment implements
 		case R.id.help_layout:
 			break;
 		case R.id.logout_layout:
-			hintDialog.show();
+			onClickExit();
 			break;
 		case R.id.current_version_layout:
 			checkVersion();
@@ -116,7 +113,24 @@ public class SettingFragment extends BaseFragment implements
 		}
 	}
 	
-	 /**
+	 private void onClickExit() {
+		 CommonDialog dialog = DialogHelper.getPinterestDialogCancelable(getActivity());
+	        dialog.setTitle("退出登录");
+	        dialog.setMessage("确定退出登录吗？");
+	        dialog.setPositiveButton(R.string.ok,
+	                new DialogInterface.OnClickListener() {
+
+	                    @Override
+	                    public void onClick(DialogInterface dialog, int which) {
+	                    	logout();
+	                        dialog.dismiss();
+	                    }
+	                });
+	        dialog.setNegativeButton(R.string.no, null);
+	        dialog.show();		
+	}
+
+	/**
      * 计算缓存的大小
      */
     private void caculateCacheSize() {
@@ -142,8 +156,9 @@ public class SettingFragment extends BaseFragment implements
      * 清空缓存
      */
     private void onClickCleanCache() {
-        CommonDialog dialog = new CommonDialog(getActivity());
-        dialog.setTitle("是否清空缓存？");
+        CommonDialog dialog = DialogHelper.getPinterestDialogCancelable(getActivity());
+        dialog.setTitle("清空缓存？");
+        dialog.setMessage("确定清空缓存吗？");
         dialog.setPositiveButton(R.string.ok,
                 new DialogInterface.OnClickListener() {
 
@@ -185,18 +200,6 @@ public class SettingFragment extends BaseFragment implements
 
 		}
 	}
-
-	@Override
-	public void onPositiveButtonClick() {
-		hintDialog.dismiss();
-		logout();
-	}
-
-	@Override
-	public void onNegativeButtonClick() {
-		hintDialog.dismiss();
-	}
-
 	// 检查版本
 	private void checkVersion() {
 		JianFanJiaApiClient.checkVersion(getActivity(),

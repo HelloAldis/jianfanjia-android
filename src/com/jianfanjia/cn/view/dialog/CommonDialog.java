@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
@@ -24,6 +26,7 @@ import com.jianfanjia.cn.activity.R;
 public class CommonDialog extends Dialog {
 	public DialogInterface.OnClickListener listener;
 	protected View barDivider;
+	protected View btnDivider;
 	protected FrameLayout container;
 	protected View content;
 	private final int contentPadding;
@@ -68,6 +71,7 @@ public class CommonDialog extends Dialog {
 		headerVw = (TextView) content.findViewById(R.id.common_title);
 		container = (FrameLayout) content.findViewById(R.id.content_container);
 		barDivider = content.findViewById(R.id.button_bar_divider);
+		btnDivider = content.findViewById(R.id.button_divider);
 		positiveBt = (Button) content.findViewById(R.id.positive_bt);
 		negativeBt = (Button) content.findViewById(R.id.negative_bt);
 		super.setContentView(content);
@@ -97,7 +101,7 @@ public class CommonDialog extends Dialog {
 		container.setPadding(padding, padding, padding, padding);
 		FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
 				LayoutParams.MATCH_PARENT,
-				LayoutParams.MATCH_PARENT);
+				LayoutParams.WRAP_CONTENT);
 		container.addView(view, lp);
 	}
 
@@ -131,6 +135,30 @@ public class CommonDialog extends Dialog {
 			DialogInterface.OnClickListener listener) {
 		setNegativeButton(getContext().getString(negative), listener);
 	}
+	
+	public void setMessage(String message) {
+		ScrollView scrollView = new ScrollView(getContext());
+		scrollView.setLayoutParams(new FrameLayout.LayoutParams(
+				LayoutParams.MATCH_PARENT,
+				LayoutParams.WRAP_CONTENT));
+		TextView tvMessage = new TextView(getContext());
+		tvMessage.setLayoutParams(new FrameLayout.LayoutParams(
+				LayoutParams.MATCH_PARENT,
+				LayoutParams.WRAP_CONTENT));
+		tvMessage.setPadding(contentPadding, contentPadding, contentPadding,
+				contentPadding);
+		tvMessage.setLineSpacing(0.0F, 1.3F);
+		tvMessage.setText(message);
+		tvMessage.setTextSize(14);
+		tvMessage.setTextColor(getContext().getResources().getColor(
+				R.color.back_color));
+
+		ScrollView.LayoutParams lp = new ScrollView.LayoutParams(
+				LayoutParams.MATCH_PARENT,
+				LayoutParams.WRAP_CONTENT);
+		scrollView.addView(tvMessage, lp);
+		setContent(scrollView, 0);
+	}
 
 	public void setNegativeButton(String text,
 			final DialogInterface.OnClickListener listener) {
@@ -147,8 +175,11 @@ public class CommonDialog extends Dialog {
 				}
 			});
 			negativeBt.setVisibility(View.VISIBLE);
+			if (positiveBt.getVisibility() == View.VISIBLE)
+				btnDivider.setVisibility(View.VISIBLE);
 		} else {
 			negativeBt.setVisibility(View.GONE);
+			btnDivider.setVisibility(View.GONE);
 		}
 		if (positiveBt.getVisibility() == View.VISIBLE
 				|| negativeBt.getVisibility() == View.VISIBLE)
@@ -177,8 +208,11 @@ public class CommonDialog extends Dialog {
 				}
 			});
 			positiveBt.setVisibility(View.VISIBLE);
+			if (negativeBt.getVisibility() == View.VISIBLE)
+				btnDivider.setVisibility(View.VISIBLE);
 		} else {
 			positiveBt.setVisibility(View.GONE);
+			btnDivider.setVisibility(View.GONE);
 		}
 		if (positiveBt.getVisibility() == View.VISIBLE
 				|| negativeBt.getVisibility() == View.VISIBLE)

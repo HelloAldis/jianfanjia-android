@@ -89,16 +89,21 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 										response.get(Constant.DATA).toString(),
 										UserByOwnerInfo.class);
 								if (null != info) {
-									nameText.setText(info.getUsername());
+									nameText.setText(info.getUsername() == null ? getString(R.string.ower) : info.getUsername());
 									String sexInfo = info.getSex();
-									if (sexInfo.equals("1")) {
-										sexText.setText("ÄÐ");
-									} else {
-										sexText.setText("Å®");
+									if(sexInfo != null){
+										if (sexInfo.equals("1")) {
+											sexText.setText("ÄÐ");
+										} else {
+											sexText.setText("Å®");
+										}
+									}else{
+										sexText
+										.setText(getString(R.string.not_edit));
 									}
 									phoneText.setText(info.getPhone());
-									addressText.setText(info.getDistrict());
-									homeText.setText(info.getAddress());
+									addressText.setText(info.getDistrict() == null ? getString(R.string.not_edit) : info.getDistrict());
+									homeText.setText(info.getAddress() == null ? getString(R.string.not_edit) : info.getAddress());
 								}
 							} else if (response.has(Constant.ERROR_MSG)) {
 								makeTextLong(response.get(Constant.ERROR_MSG)

@@ -18,10 +18,10 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-
 import com.jianfanjia.cn.activity.CheckActivity;
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.adapter.InfinitePagerAdapter;
 import com.jianfanjia.cn.adapter.MyViewPageAdapter;
 import com.jianfanjia.cn.adapter.SectionItemAdapter;
 import com.jianfanjia.cn.application.MyApplication;
@@ -29,6 +29,7 @@ import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.SectionInfo;
 import com.jianfanjia.cn.bean.SectionItemInfo;
+import com.jianfanjia.cn.bean.ViewPagerItem;
 import com.jianfanjia.cn.cache.CacheManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
@@ -59,21 +60,22 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	private ArrayList<SectionItemInfo> sectionItemInfos;
 	private SectionInfo sectionInfo;
 	private ProcessInfo processInfo;
-	private int currentPro = -1;//当前进行工序
-	private int currentList = -1;//当前展开第一道工序
+	private int currentPro = -1;// 当前进行工序
+	private int currentList = -1;// 当前展开第一道工序
 	private ViewPager viewPager;
 	private ImageView icon_user_head = null;
 	private TextView head_right_title = null;
 	private ListView detailNodeListView;
 	private SectionItemAdapter sectionItemAdapter;
-	private MyViewPageAdapter myViewPageAdapter;
+	private InfinitePagerAdapter infinitePagerAdapter = null;
+	private MyViewPageAdapter myViewPageAdapter = null;
 	private String[] checkSection = null;
-	private String[] pro = null;
-	private List<View> list = new ArrayList<View>();
+	private String[] proTitle = null;
+	private List<ViewPagerItem> list = new ArrayList<ViewPagerItem>();
 
 	private RelativeLayout listHeadView;// list头视图
-	private RelativeLayout smallHeadLayout;//折叠layout
-	private RelativeLayout expandHeadLayout;//打开layout
+	private RelativeLayout smallHeadLayout;// 折叠layout
+	private RelativeLayout expandHeadLayout;// 打开layout
 	private TextView openCheckNode;// 打开验收节点名称
 	private TextView closeCheckNode;// 折叠验收节点名称
 
@@ -90,15 +92,15 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		if(savedInstanceState != null){
-			currentList = savedInstanceState.getInt(Constant.CURRENT_LIST,-1);
+		if (savedInstanceState != null) {
+			currentList = savedInstanceState.getInt(Constant.CURRENT_LIST, -1);
 		}
-		pro = getResources().getStringArray(R.array.site_procedure);
-		checkSection = getResources().getStringArray(R.array.site_procedure_check);
+		proTitle = getResources().getStringArray(R.array.site_procedure);
+		checkSection = getResources().getStringArray(
+				R.array.site_procedure_check);
 		processInfo = (ProcessInfo) CacheManager.getObjectByFile(getActivity(),
 				Constant.PROCESSINFO_CACHE);
 		LogTool.d(TAG, "processInfo=" + processInfo);
-	
 	}
 
 	private void getOwnerProcess() {
@@ -139,7 +141,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 						} catch (JSONException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
-							makeTextLong(getString(R.string.tip_login_error_for_network));
+							makeTextLong(getApplication().getString(R.string.tip_login_error_for_network));
 						}
 					}
 
@@ -149,7 +151,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 						LogTool.d(TAG,
 								"Throwable throwable:" + throwable.toString());
 						mPullRefreshScrollView.onRefreshComplete();
-						makeTextLong(getString(R.string.tip_login_error_for_network));
+						makeTextLong(getApplication().getString(R.string.tip_login_error_for_network));
 					}
 
 					@Override
@@ -157,71 +159,69 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 							String responseString, Throwable throwable) {
 						LogTool.d(TAG, "throwable:" + throwable);
 						mPullRefreshScrollView.onRefreshComplete();
-						makeTextLong(getString(R.string.tip_login_error_for_network));
+						makeTextLong(getApplication().getString(R.string.tip_login_error_for_network));
 					};
 				});
 	}
-	
+
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
-		//保存当前展开的第几道工序
+		// 保存当前展开的第几道工序
 		outState.putInt(Constant.CURRENT_LIST, currentList);
 		super.onSaveInstanceState(outState);
 	}
-	
-	//初始化数据
+
+	// 初始化数据
 	private void initData() {
 		if (processInfo != null) {
 			currentPro = MyApplication.getInstance().getPositionByItemName(
 					processInfo.getGoing_on());
-			if(currentList == -1){
+			if (currentList == -1) {
 				currentList = currentPro;
 			}
 			sectionInfos = processInfo.getSections();
 			sectionInfo = sectionInfos.get(currentList);
 			sectionItemInfos = sectionInfo.getItems();
-			
+
 			setHeadView(sectionInfo.getName());
-			
+
 			sectionItemAdapter = new SectionItemAdapter(getActivity(),
-					sectionItemInfos,currentList);
+					sectionItemInfos, currentList);
 			detailNodeListView.setAdapter(sectionItemAdapter);
 		}
 	}
-	
+
 	@Override
 	public void onResume() {
-		// TODO Auto-generated method stub
 		super.onResume();
 		viewPager.setCurrentItem(currentList);
 	}
-	
+
 	private void setHeadView(String name) {
 		boolean isHeadViewShow = false;
-		for(String sectionName : checkSection){
-			if(sectionName.equals(sectionInfo.getName())){
+		for (String sectionName : checkSection) {
+			if (sectionName.equals(sectionInfo.getName())) {
 				isHeadViewShow = true;
 				break;
 			}
-		};
-		
-		if(isHeadViewShow){
+		}
+		if (isHeadViewShow) {
 			listHeadView.setVisibility(View.VISIBLE);
-		}else{
+		} else {
 			listHeadView.setVisibility(View.GONE);
 		}
 	}
 
-	private void updateData(){
+	private void updateData() {
 		initData();
 	}
 
 	private void handlerSuccess() {
 		updateData();
-		for (int i = 0; i < pro.length; i++) {
-			View siteHead = list.get(i);
-			initItem(siteHead, i);
-		}
+		// for (int i = 0; i < pro.length; i++) {
+		// View siteHead = list.get(i);
+		// initItem(siteHead, i);
+		// }
 		myViewPageAdapter.notifyDataSetChanged();
 	}
 
@@ -234,7 +234,6 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		head_right_title = (TextView) view.findViewById(R.id.head_right_title);
 		initScrollLayout(view);
 		initListView(view);
-		
 		if (processInfo != null) {
 			initData();
 		} else {
@@ -244,13 +243,18 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 
 	private void initScrollLayout(View view) {
 		viewPager = (ViewPager) view.findViewById(R.id.viewPager);
-		for (int i = 0; i < pro.length; i++) {
-			View siteHead = inflater.inflate(R.layout.site_head_item, null);
-			initItem(siteHead, i);
-			list.add(siteHead);
+		for (int i = 0; i < proTitle.length; i++) {
+			ViewPagerItem viewPagerItem = new ViewPagerItem();
+			viewPagerItem.setResId(getResources().getIdentifier(
+					"icon_home_normal" + (i + 1), "drawable",
+					MyApplication.getInstance().getPackageName()));
+			viewPagerItem.setTitle(proTitle[i]);
+			// initItem(siteHead, i);
+			list.add(viewPagerItem);
 		}
 		myViewPageAdapter = new MyViewPageAdapter(getActivity(), list);
-		viewPager.setAdapter(myViewPageAdapter);
+		infinitePagerAdapter = new InfinitePagerAdapter(myViewPageAdapter);
+		viewPager.setAdapter(infinitePagerAdapter);
 		viewPager.setOnPageChangeListener(new OnPageChangeListener() {
 			@Override
 			public void onPageScrollStateChanged(int arg0) {
@@ -277,7 +281,6 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 						sectionItemAdapter.setLastClickItem(-1);
 						sectionItemAdapter.setCurrentPro(currentList);
 						sectionItemAdapter.notifyDataSetChanged();
-						
 					}
 				}
 			}
@@ -288,7 +291,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		Log.i(TAG, "initItem" + position);
 		TextView proName = (TextView) siteHead
 				.findViewById(R.id.site_head_procedure_name);
-		proName.setText(pro[position]);
+		proName.setText(proTitle[position]);
 		TextView proDate = (TextView) siteHead
 				.findViewById(R.id.site_head_procedure_date);
 		if (sectionInfos != null) {
@@ -313,20 +316,20 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				if(position == 0){
-					//点击listview head头视图，先判断头视图是否显示，是否有对比验收
-					if(listHeadView.getVisibility() == View.VISIBLE){
-						if(expandHeadLayout.getVisibility() == View.VISIBLE){
+				if (position == 0) {
+					// 点击listview head头视图，先判断头视图是否显示，是否有对比验收
+					if (listHeadView.getVisibility() == View.VISIBLE) {
+						if (expandHeadLayout.getVisibility() == View.VISIBLE) {
 							expandHeadLayout.setVisibility(View.GONE);
 							smallHeadLayout.setVisibility(View.VISIBLE);
-						}else{
+						} else {
 							expandHeadLayout.setVisibility(View.VISIBLE);
 							smallHeadLayout.setVisibility(View.GONE);
 						}
 					}
-				}else{
-					//点击listview item项
-					sectionItemAdapter.setLastClickItem(position-1);
+				} else {
+					// 点击listview item项
+					sectionItemAdapter.setLastClickItem(position - 1);
 					sectionItemAdapter.notifyDataSetChanged();
 				}
 			}
@@ -334,11 +337,11 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 
 	}
 
-	//初始化listview head视图
+	// 初始化listview head视图
 	private void initHeadView(ListView listView) {
-		View view = inflater.inflate(
-				R.layout.site_listview_head, null);
-		listHeadView = (RelativeLayout)view.findViewById(R.id.site_listview_item_container);
+		View view = inflater.inflate(R.layout.site_listview_head, null);
+		listHeadView = (RelativeLayout) view
+				.findViewById(R.id.site_listview_item_container);
 		openCheckNode = (TextView) listHeadView
 				.findViewById(R.id.site_list_item_content_expand_node_name);
 		closeCheckNode = (TextView) listHeadView
@@ -347,8 +350,10 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 				.setOnClickListener(this);
 		listHeadView.findViewById(R.id.site_list_head_delay)
 				.setOnClickListener(this);
-		smallHeadLayout = (RelativeLayout)listHeadView.findViewById(R.id.site_listview_item_content_small);
-		expandHeadLayout = (RelativeLayout)listHeadView.findViewById(R.id.site_listview_item_content_expand);
+		smallHeadLayout = (RelativeLayout) listHeadView
+				.findViewById(R.id.site_listview_item_content_small);
+		expandHeadLayout = (RelativeLayout) listHeadView
+				.findViewById(R.id.site_listview_item_content_expand);
 		listView.addHeaderView(view);
 
 	}
@@ -371,7 +376,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 			break;
 		case R.id.site_list_head_check:
 			Bundle bundle = new Bundle();
-			bundle.putInt(Constant.CURRENT_LIST,currentList);
+			bundle.putInt(Constant.CURRENT_LIST, currentList);
 			startActivity(CheckActivity.class, bundle);
 			break;
 		case R.id.site_list_head_delay:

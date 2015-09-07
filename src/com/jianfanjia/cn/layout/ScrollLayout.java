@@ -1,9 +1,18 @@
 package com.jianfanjia.cn.layout;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+
+import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.application.MyApplication;
+import com.jianfanjia.cn.tools.DateFormatTool;
+
 import android.content.Context;
 import android.graphics.Canvas;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
@@ -11,7 +20,9 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
+import android.widget.ImageView;
 import android.widget.Scroller;
+import android.widget.TextView;
 
 /**
  * @version 1.0
@@ -32,6 +43,12 @@ public class ScrollLayout extends ViewGroup {
 	private float mLastMotionX;
 	private float mLastMotionY;
 	private OnViewChangeListener mOnViewChangeListener;
+	
+	private Deque<View> views = new ArrayDeque<View>();
+	
+	private String[] pro = null;
+	
+	private LayoutInflater inflater;
 
 	private int perChildWidth;
 
@@ -51,6 +68,34 @@ public class ScrollLayout extends ViewGroup {
 		mScroller = new Scroller(context);
 		mCurScreen = mDefaultScreen;
 		mTouchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
+		pro = getResources().getStringArray(R.array.site_procedure);
+		inflater = LayoutInflater.from(context);
+		
+		initView();
+	}
+
+	private void initView() {
+		for (int i = 0; i < pro.length; i++) {
+			View siteHead = inflater.inflate(R.layout.site_head_item, null);
+			initItem(siteHead, i);
+			views.add(siteHead);
+		}
+	}
+	
+	private void addView(){
+		
+	}
+	
+	private void initItem(View siteHead, int position) {
+		Log.i(TAG, "initItem" + position);
+		TextView proName = (TextView) siteHead
+				.findViewById(R.id.site_head_procedure_name);
+		proName.setText(pro[position]);
+		ImageView icon = (ImageView) siteHead
+				.findViewById(R.id.site_head_procedure_icon);
+		icon.setImageResource(getResources().getIdentifier(
+				"icon_home_normal" + (position + 1), "drawable",
+				MyApplication.getInstance().getPackageName()));
 	}
 
 	@Override
@@ -66,11 +111,6 @@ public class ScrollLayout extends ViewGroup {
 				childLeft += childWidth;
 			}
 		}
-	}
-
-	@Override
-	protected void onDraw(Canvas canvas) {
-		super.onDraw(canvas);
 	}
 
 	@Override
