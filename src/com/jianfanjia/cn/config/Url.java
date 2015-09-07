@@ -66,6 +66,12 @@ public class Url {
 	// 用户获取业主个人信息
 	public static final String GET_ONE_OWNER_INFO = HTTPROOT + "user/" + ID
 			+ "/info";
+	// 用户同意改期
+	public static final String AGREE_RESCHDULE = HTTPROOT
+			+ "process/reschedule/ok";
+	//用户拒绝改期
+	public static final String REFUSE_RESCHDULE = HTTPROOT
+			+ "process/reschedule/reject";
 	// 获取图片
 	public static final String GET_IMAGE = HTTPROOT + "image/";
 

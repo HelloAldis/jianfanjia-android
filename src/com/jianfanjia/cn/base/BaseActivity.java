@@ -1,5 +1,7 @@
 package com.jianfanjia.cn.base;
 
+import org.apache.http.Header;
+import org.json.JSONObject;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -13,8 +15,8 @@ import android.widget.Toast;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.Message;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.inter.manager.ListenerManeger;
-import com.jianfanjia.cn.interf.ConfirmListener;
 import com.jianfanjia.cn.interf.DialogListener;
 import com.jianfanjia.cn.interf.PushMsgReceiveListener;
 import com.jianfanjia.cn.tools.LogTool;
@@ -23,6 +25,7 @@ import com.jianfanjia.cn.view.dialog.DialogControl;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.cn.view.dialog.NotifyDialog;
 import com.jianfanjia.cn.view.dialog.WaitDialog;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -230,4 +233,71 @@ public abstract class BaseActivity extends FragmentActivity implements
 		});
 		notifyDialog.show();
 	}
+
+	// 用户同意改期
+	private void agreeReschedule(String processid) {
+		JianFanJiaApiClient.agreeReschedule(this, processid,
+				new JsonHttpResponseHandler() {
+					@Override
+					public void onStart() {
+						LogTool.d(this.getClass().getName(), "onStart()");
+					}
+
+					@Override
+					public void onSuccess(int statusCode, Header[] headers,
+							JSONObject response) {
+						LogTool.d(this.getClass().getName(),
+								"JSONObject response:" + response);
+
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							Throwable throwable, JSONObject errorResponse) {
+						LogTool.d(this.getClass().getName(),
+								"Throwable throwable:" + throwable.toString());
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							String responseString, Throwable throwable) {
+						LogTool.d(this.getClass().getName(), "throwable:"
+								+ throwable);
+					};
+				});
+	}
+
+	// 用户拒绝改期
+	private void refuseReschedule(String processid) {
+		JianFanJiaApiClient.refuseReschedule(this, processid,
+				new JsonHttpResponseHandler() {
+					@Override
+					public void onStart() {
+						LogTool.d(this.getClass().getName(), "onStart()");
+					}
+
+					@Override
+					public void onSuccess(int statusCode, Header[] headers,
+							JSONObject response) {
+						LogTool.d(this.getClass().getName(),
+								"JSONObject response:" + response);
+
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							Throwable throwable, JSONObject errorResponse) {
+						LogTool.d(this.getClass().getName(),
+								"Throwable throwable:" + throwable.toString());
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							String responseString, Throwable throwable) {
+						LogTool.d(this.getClass().getName(), "throwable:"
+								+ throwable);
+					};
+				});
+	}
+
 }

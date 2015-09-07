@@ -262,6 +262,50 @@ public class JianFanJiaApiClient {
 	}
 
 	/**
+	 * 用户同意改期
+	 * 
+	 * @param context
+	 * @param processid
+	 * @param handler
+	 */
+	public static void agreeReschedule(Context context, String processid,
+			AsyncHttpResponseHandler handler) {
+		JSONObject jsonParams = new JSONObject();
+		try {
+			jsonParams.put("processid", processid);
+			StringEntity entity = new StringEntity(jsonParams.toString());
+			HttpRestClient.post(context, Url.AGREE_RESCHDULE, entity,
+					"application/json", handler);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * 用户拒绝改期
+	 * 
+	 * @param context
+	 * @param processid
+	 * @param handler
+	 */
+	public static void refuseReschedule(Context context, String processid,
+			AsyncHttpResponseHandler handler) {
+		JSONObject jsonParams = new JSONObject();
+		try {
+			jsonParams.put("processid", processid);
+			StringEntity entity = new StringEntity(jsonParams.toString());
+			HttpRestClient.post(context, Url.REFUSE_RESCHDULE, entity,
+					"application/json", handler);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
 	 * 版本更新
 	 * 
 	 * @param context
