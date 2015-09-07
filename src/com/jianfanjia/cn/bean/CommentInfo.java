@@ -11,18 +11,17 @@ import java.io.Serializable;
  * 
  */
 public class CommentInfo implements Serializable {
-	
 	private static final long serialVersionUID = 6340039239493931968L;
-	
-	private String userImageUrl;//评论人头像
-	
-	private String userName;//评论人姓名
-	
-	private String content;//评论内容
-	
-	private String userIdentity;//评论人身份
-	
-	private String time;//评论时间
+
+	private String userImageUrl;// 评论人头像
+
+	private String userName;// 评论人姓名
+
+	private String content;// 评论内容
+
+	private String userIdentity;// 评论人身份
+
+	private String time;// 评论时间
 
 	public String getUserImageUrl() {
 		return userImageUrl;
@@ -63,5 +62,5 @@ public class CommentInfo implements Serializable {
 	public void setTime(String time) {
 		this.time = time;
 	}
-	
+
 }
