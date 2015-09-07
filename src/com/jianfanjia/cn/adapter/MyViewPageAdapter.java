@@ -42,10 +42,13 @@ public class MyViewPageAdapter extends PagerAdapter {
 				R.layout.site_head_item, container, false);
 		ImageView imageView = (ImageView) view
 				.findViewById(R.id.site_head_procedure_icon);
-		TextView textView = (TextView) view
+		TextView titleView = (TextView) view
 				.findViewById(R.id.site_head_procedure_name);
+		TextView dateView = (TextView) view
+				.findViewById(R.id.site_head_procedure_date);
 		imageView.setImageResource(list.get(position).getResId());
-		textView.setText(list.get(position).getTitle());
+		titleView.setText(list.get(position).getTitle());
+		dateView.setText(list.get(position).getDate());
 		container.addView(view, 0);
 		return view;
 	}
