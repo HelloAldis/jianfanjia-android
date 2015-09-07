@@ -12,10 +12,6 @@ import java.io.Serializable;
 public class NotifyDelayInfo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	public static final int AGREE = 1;// 同意
-
-	public static final int DISAGREE = 2;// 不同意
-
 	private String title;// 提醒标题
 
 	private String content;// 提醒内容

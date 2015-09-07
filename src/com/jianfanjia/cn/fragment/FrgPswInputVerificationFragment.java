@@ -3,7 +3,6 @@ package com.jianfanjia.cn.fragment;
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.app.Activity;
 import android.text.TextUtils;
 import android.view.View;
@@ -11,7 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
@@ -31,7 +29,8 @@ import com.loopj.android.http.JsonHttpResponseHandler;
  * 
  */
 public class FrgPswInputVerificationFragment extends BaseFragment {
-	private static final String TAG = FrgPswInputVerificationFragment.class.getName();
+	private static final String TAG = FrgPswInputVerificationFragment.class
+			.getName();
 	private FragmentListener fragemntListener = null;
 	private Button nextView = null;// 下一步
 	private TextView backView = null;// 返回

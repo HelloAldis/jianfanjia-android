@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 
 /**
  * A {@link ViewPager} that allows pseudo-infinite paging with a wrap-around
@@ -44,6 +45,12 @@ public class InfiniteViewPager extends ViewPager {
 		} else {
 			return 0;
 		}
+	}
+
+	@Override
+	public boolean dispatchTouchEvent(MotionEvent ev) {
+		this.getParent().requestDisallowInterceptTouchEvent(true);
+		return super.dispatchTouchEvent(ev);
 	}
 
 }

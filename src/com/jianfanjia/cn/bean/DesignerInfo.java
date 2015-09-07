@@ -12,34 +12,31 @@ import java.util.ArrayList;
  * 
  */
 public class DesignerInfo extends LoginUserBean {
-	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 
 	private String big_imageid;
-	
+
 	private String address;
-	
+
 	private String district;
-	
+
 	private String city;
-	
+
 	private String sex;
-	
+
 	private String order_count;
-	
+
 	private String product_count;
-	
+
 	private String province;
-	
+
 	private ArrayList<String> dec_styles;
-	
-	private String auth_type;//认证状态
-	
+
+	private String auth_type;// 认证状态
+
 	private String design_fee_range;
-	
+
 	public String getDesign_fee_range() {
 		return design_fee_range;
 	}
