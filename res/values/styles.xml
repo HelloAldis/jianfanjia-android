@@ -175,7 +175,7 @@
         <!-- 无标题 -->
         <item name="android:windowBackground">@android:color/transparent</item>
         <!-- 背景透明 -->
-        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:backgroundDimEnabled">true</item>
         <!-- 模糊 -->
     </style>
 
@@ -188,7 +188,7 @@
         <!-- 半透明 -->
         <item name="android:windowNoTitle">true</item>
         <!-- 无标题 -->
-        <item name="android:windowBackground">@drawable/dialog_background</item>
+        <item name="android:windowBackground">@drawable/notify_dialog_bg</item>
         <!-- 背景透明 -->
         <item name="android:backgroundDimEnabled">true</item>
         <!-- 模糊 -->
