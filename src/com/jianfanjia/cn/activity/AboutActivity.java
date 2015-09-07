@@ -6,6 +6,8 @@ import android.widget.TextView;
 
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.bean.Message;
+import com.jianfanjia.cn.tools.LogTool;
 
 /**
  * @class AboutActivity
@@ -15,8 +17,9 @@ import com.jianfanjia.cn.base.BaseActivity;
  * 
  */
 public class AboutActivity extends BaseActivity implements OnClickListener {
+	private static final String TAG = AboutActivity.class.getName();
 	private TextView backView;// 返回视图
-	private TextView currentVersion;//当前版本
+	private TextView currentVersion;// 当前版本
 
 	@Override
 	public void initView() {
@@ -39,6 +42,11 @@ public class AboutActivity extends BaseActivity implements OnClickListener {
 		default:
 			break;
 		}
+	}
+
+	@Override
+	public void onReceiveMsg(Message message) {
+		LogTool.d(TAG, "message=" + message);
 	}
 
 	@Override

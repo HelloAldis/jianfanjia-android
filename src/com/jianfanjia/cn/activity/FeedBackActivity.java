@@ -4,6 +4,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.bean.Message;
+import com.jianfanjia.cn.tools.LogTool;
 
 /**
  * @class FeedBackActivity
@@ -13,6 +15,7 @@ import com.jianfanjia.cn.base.BaseActivity;
  * 
  */
 public class FeedBackActivity extends BaseActivity implements OnClickListener {
+	private static final String TAG = FeedBackActivity.class.getName();
 	private TextView backView;// ∑µªÿ ”Õº
 
 	@Override
@@ -34,6 +37,11 @@ public class FeedBackActivity extends BaseActivity implements OnClickListener {
 		default:
 			break;
 		}
+	}
+
+	@Override
+	public void onReceiveMsg(Message message) {
+		LogTool.d(TAG, "message=" + message);
 	}
 
 	@Override

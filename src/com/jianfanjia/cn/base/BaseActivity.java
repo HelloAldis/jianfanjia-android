@@ -10,14 +10,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Window;
 import android.widget.Toast;
-
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.bean.Message;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.inter.manager.ListenerManeger;
+import com.jianfanjia.cn.interf.PushMsgReceiveListener;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.SharedPrefer;
 import com.jianfanjia.cn.view.dialog.DialogControl;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
+import com.jianfanjia.cn.view.dialog.NotifyDialog;
 import com.jianfanjia.cn.view.dialog.WaitDialog;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -31,7 +33,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  * 
  */
 public abstract class BaseActivity extends FragmentActivity implements
-		DialogControl {
+		DialogControl, PushMsgReceiveListener {
 	protected LayoutInflater inflater = null;
 	protected FragmentManager fragmentManager = null;
 	protected SharedPrefer sharedPrefer = null;
@@ -73,6 +75,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 				.cacheOnDisk(true).considerExifParams(true)
 				.bitmapConfig(Bitmap.Config.RGB_565).build();
 		listenerManeger = ListenerManeger.getListenerManeger();
+		listenerManeger.addPushMsgReceiveListener(this);
 		_isVisible = true;
 	}
 
@@ -81,6 +84,12 @@ public abstract class BaseActivity extends FragmentActivity implements
 	}
 
 	private void initDao() {
+
+	}
+
+	@Override
+	public void onReceiveMsg(Message message) {
+		// TODO Auto-generated method stub
 
 	}
 
@@ -112,6 +121,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 	protected void onDestroy() {
 		super.onDestroy();
 		Log.d(this.getClass().getName(), "onDestroy()");
+		listenerManeger.removePushMsgReceiveListener(this);
 	}
 
 	protected void makeTextShort(String text) {
@@ -135,13 +145,15 @@ public abstract class BaseActivity extends FragmentActivity implements
 			intent.putExtras(bundle);
 		}
 		startActivity(intent);
-		overridePendingTransition(R.anim.fragment_list_right_enter, R.anim.fragment_slide_left_exit);
+		overridePendingTransition(R.anim.fragment_list_right_enter,
+				R.anim.fragment_slide_left_exit);
 	}
 
 	// 通过Action跳转界面
 	protected void startActivity(String action) {
 		startActivity(action, null);
-		overridePendingTransition(R.anim.fragment_list_right_enter, R.anim.fragment_slide_left_exit);
+		overridePendingTransition(R.anim.fragment_list_right_enter,
+				R.anim.fragment_slide_left_exit);
 	}
 
 	// 含有Bundle通过Action跳转界面
@@ -152,7 +164,8 @@ public abstract class BaseActivity extends FragmentActivity implements
 			intent.putExtras(bundle);
 		}
 		startActivity(intent);
-		overridePendingTransition(R.anim.fragment_list_right_enter, R.anim.fragment_slide_left_exit);
+		overridePendingTransition(R.anim.fragment_list_right_enter,
+				R.anim.fragment_slide_left_exit);
 	}
 
 	@Override
@@ -192,4 +205,14 @@ public abstract class BaseActivity extends FragmentActivity implements
 		}
 	}
 
+	/**
+	 * 消息提醒
+	 * 
+	 * @param message
+	 */
+	protected void showNotify(Message message) {
+		NotifyDialog notifyDialog = new NotifyDialog(this, "提醒", "ggggggggggg",
+				R.style.progress_dialog);
+		notifyDialog.show();
+	}
 }
