@@ -191,7 +191,6 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 
 	@Override
 	public void onResume() {
-		// TODO Auto-generated method stub
 		super.onResume();
 		viewPager.setCurrentItem(currentList);
 	}
@@ -204,8 +203,6 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 				break;
 			}
 		}
-		;
-
 		if (isHeadViewShow) {
 			listHeadView.setVisibility(View.VISIBLE);
 		} else {
@@ -278,7 +275,6 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 						sectionItemAdapter.setLastClickItem(-1);
 						sectionItemAdapter.setCurrentPro(currentList);
 						sectionItemAdapter.notifyDataSetChanged();
-
 					}
 				}
 			}
