@@ -271,8 +271,8 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 			@Override
 			public void onPageSelected(int arg0) {
 				if (sectionInfos != null) {
-					if (currentList != arg0) {
-						currentList = arg0;
+					if (currentList != arg0 % 7) {
+						currentList = arg0 % 7;
 						sectionInfo = sectionInfos.get(currentList);
 						setHeadView(sectionInfo.getName());
 						sectionItemInfos = sectionInfo.getItems();
