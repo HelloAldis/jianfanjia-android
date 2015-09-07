@@ -29,7 +29,6 @@ import com.jianfanjia.cn.tools.FileUtil;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
-import com.jianfanjia.cn.view.dialog.HintDialog;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 /**
