@@ -2,13 +2,13 @@
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
     <style name="AppBaseTheme" parent="android:Theme.Light">
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
+            backward-compatibility can go here.
         -->
     </style>
 
@@ -82,8 +82,8 @@
         <item name="android:layout_weight">1.0</item>
         <item name="android:textSize">@dimen/text_size_17</item>
     </style>
-    
-      <style name="dialog_button_cancel">
+
+    <style name="dialog_button_cancel">
         <item name="android:textColor">@color/main_color_black</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_gravity">center_vertical</item>
@@ -147,7 +147,7 @@
     <!--
     <style name="site_listview_item_text_style_big" parent="my_item_layout_text_style_base">
         <item name="android:textSize">@dimen/text_size_14</item>
-    </style>
+    </style>
     -->
 
     <style name="site_listview_item_text_style_title" parent="my_item_layout_text_style_base">
@@ -196,10 +196,9 @@
 
     <!-- ProgressBar  style -->
     <style name="myProgressBarStyleLarge">
-
-
-　　                                                <item name="android:indeterminateDrawable">@drawable/progress_large_shape</item>
-
+        <item name="android:indeterminate">true</item>
+        <item name="android:indeterminateDrawable">@drawable/progress_large_shape</item>
+        <item name="android:indeterminateOnly">true</item>
     </style>
 
 </resources>

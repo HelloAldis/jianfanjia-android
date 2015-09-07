@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:indeterminateDuration="700" />
+        android:indeterminateDuration="1000" />
 
     <TextView
         android:id="@+id/waiting_tv"
@@ -19,6 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="@string/loging"
+        android:textColor="@color/font_white"
         android:textSize="16sp" />
 
 </LinearLayout>
