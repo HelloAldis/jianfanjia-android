@@ -141,7 +141,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 						} catch (JSONException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
-							makeTextLong(getString(R.string.tip_login_error_for_network));
+							makeTextLong(getApplication().getString(R.string.tip_login_error_for_network));
 						}
 					}
 
@@ -151,7 +151,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 						LogTool.d(TAG,
 								"Throwable throwable:" + throwable.toString());
 						mPullRefreshScrollView.onRefreshComplete();
-						makeTextLong(getString(R.string.tip_login_error_for_network));
+						makeTextLong(getApplication().getString(R.string.tip_login_error_for_network));
 					}
 
 					@Override
@@ -159,7 +159,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 							String responseString, Throwable throwable) {
 						LogTool.d(TAG, "throwable:" + throwable);
 						mPullRefreshScrollView.onRefreshComplete();
-						makeTextLong(getString(R.string.tip_login_error_for_network));
+						makeTextLong(getApplication().getString(R.string.tip_login_error_for_network));
 					};
 				});
 	}

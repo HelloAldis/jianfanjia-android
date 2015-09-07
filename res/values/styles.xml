@@ -70,11 +70,24 @@
     </style>
     <!-- login activity -->
 
-    <style name="dialog_button">
+    <style name="dialog_button_ok">
         <item name="android:textColor">@color/font_white</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_gravity">center_vertical</item>
-        <item name="android:background">@drawable/btn_selector</item>
+        <item name="android:background">@drawable/site_listview_head_yellow_bg</item>
+        <item name="android:visibility">gone</item>
+        <item name="android:layout_width">0.0dip</item>
+        <item name="android:layout_height">48.0dip</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:layout_weight">1.0</item>
+        <item name="android:textSize">@dimen/text_size_17</item>
+    </style>
+    
+      <style name="dialog_button_cancel">
+        <item name="android:textColor">@color/main_color_black</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:background">@drawable/site_listview_head_white_bg</item>
         <item name="android:visibility">gone</item>
         <item name="android:layout_width">0.0dip</item>
         <item name="android:layout_height">48.0dip</item>
@@ -177,7 +190,7 @@
         <!-- 无标题 -->
         <item name="android:windowBackground">@drawable/dialog_background</item>
         <!-- 背景透明 -->
-        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:backgroundDimEnabled">true</item>
         <!-- 模糊 -->
     </style>
 
@@ -185,34 +198,8 @@
     <style name="myProgressBarStyleLarge">
 
 
-
-
-
 　　                                                <item name="android:indeterminateDrawable">@drawable/progress_large_shape</item>
 
-
-
-
-
-　　                                                <item name="android:minWidth">60dip</item>
-
-
-
-
-
-　　                                                <item name="android:maxWidth">60dip</item>
-
-
-
-
-
-　　                                                 <item name="android:minHeight">60dip</item>
-
-
-
-
-
-　　                                                 <item name="android:maxHeight">60dip</item>
     </style>
 
 </resources>
