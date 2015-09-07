@@ -3,16 +3,20 @@ package com.jianfanjia.cn.adapter;
 import java.util.List;
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.bean.ViewPagerItem;
 
 public class MyViewPageAdapter extends PagerAdapter {
 	private static final String TAG = "MyViewPageAdapter";
 	private Context context;
-	private List<View> list;
+	private List<ViewPagerItem> list;
 
-	public MyViewPageAdapter(Context context, List<View> list) {
+	public MyViewPageAdapter(Context context, List<ViewPagerItem> list) {
 		this.context = context;
 		this.list = list;
 	}
@@ -29,29 +33,21 @@ public class MyViewPageAdapter extends PagerAdapter {
 
 	@Override
 	public void destroyItem(ViewGroup container, int position, Object object) {
-		((ViewPager) container).removeView(list.get(position));
+		container.removeView((View) object);
 	}
 
 	@Override
 	public Object instantiateItem(ViewGroup container, final int position) {
-		try {
-			if (list.get(position).getParent() == null) {
-				container.addView(list.get(position));
-			} else {
-				((ViewGroup) list.get(position).getParent()).removeView(list
-						.get(position));
-				container.addView(list.get(position));
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return list.get(position);
-	}
-
-	@Override
-	public float getPageWidth(int position) {
-		return 0.25f;
+		View view = LayoutInflater.from(context).inflate(
+				R.layout.site_head_item, container, false);
+		ImageView imageView = (ImageView) view
+				.findViewById(R.id.site_head_procedure_icon);
+		TextView textView = (TextView) view
+				.findViewById(R.id.site_head_procedure_name);
+		imageView.setImageResource(list.get(position).getResId());
+		textView.setText(list.get(position).getTitle());
+		container.addView(view, 0);
+		return view;
 	}
 
 }

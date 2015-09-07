@@ -18,9 +18,11 @@ import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.MyViewPageAdapter;
 import com.jianfanjia.cn.adapter.SectionItemAdapter;
+import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.ProcedureInfo;
 import com.jianfanjia.cn.bean.SiteInfo;
+import com.jianfanjia.cn.bean.ViewPagerItem;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.SwitchFragmentListener;
 import com.jianfanjia.cn.layout.ScrollLayout;
@@ -56,7 +58,7 @@ public class DesignerSiteManageFragment extends BaseFragment implements
 	private ScrollLayout scrollLayout;
 	private String[] pro = null;
 	private int size;
-	private List<View> list = new ArrayList<View>();
+	private List<ViewPagerItem> list = new ArrayList<ViewPagerItem>();
 
 	@Override
 	public void onAttach(Activity activity) {
@@ -92,10 +94,12 @@ public class DesignerSiteManageFragment extends BaseFragment implements
 		LayoutParams lp = new LayoutParams(LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT);
 		for (int i = 0; i < pro.length; i++) {
-			View siteHead = inflater.inflate(R.layout.site_head_item, null);
-			// initItem(siteHead, i);
-			// scrollLayout.addView(siteHead, lp);
-			list.add(siteHead);
+			ViewPagerItem viewPagerItem = new ViewPagerItem();
+			viewPagerItem.setResId(getResources().getIdentifier(
+					"icon_home_normal" + (i + 1), "drawable",
+					MyApplication.getInstance().getPackageName()));
+			viewPagerItem.setTitle(pro[i]);
+			list.add(viewPagerItem);
 		}
 		MyViewPageAdapter pageAdapter = new MyViewPageAdapter(getActivity(),
 				list);
