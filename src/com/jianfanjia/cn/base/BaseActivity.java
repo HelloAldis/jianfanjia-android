@@ -76,7 +76,6 @@ public abstract class BaseActivity extends FragmentActivity implements
 				.cacheOnDisk(true).considerExifParams(true)
 				.bitmapConfig(Bitmap.Config.RGB_565).build();
 		listenerManeger = ListenerManeger.getListenerManeger();
-		listenerManeger.addPushMsgReceiveListener(this);
 		_isVisible = true;
 	}
 
@@ -98,6 +97,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 	protected void onStart() {
 		super.onStart();
 		LogTool.d(this.getClass().getName(), "onStart()");
+		listenerManeger.addPushMsgReceiveListener(this);
 	}
 
 	@Override
@@ -116,13 +116,13 @@ public abstract class BaseActivity extends FragmentActivity implements
 	protected void onStop() {
 		super.onStop();
 		LogTool.d(this.getClass().getName(), "onStop()");
+		listenerManeger.removePushMsgReceiveListener(this);
 	}
 
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
 		Log.d(this.getClass().getName(), "onDestroy()");
-		listenerManeger.removePushMsgReceiveListener(this);
 	}
 
 	protected void makeTextShort(String text) {
