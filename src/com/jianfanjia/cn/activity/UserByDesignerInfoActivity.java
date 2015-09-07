@@ -3,13 +3,11 @@ package com.jianfanjia.cn.activity;
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.UserByDesignerInfo;
 import com.jianfanjia.cn.config.Constant;
@@ -26,10 +24,10 @@ import com.loopj.android.http.JsonHttpResponseHandler;
  * @date 2015-9-5 ÏÂÎç2:01:42
  * 
  */
-public class UserByDesignerInfoActivity extends BaseActivity implements OnClickListener{
+public class UserByDesignerInfoActivity extends BaseActivity implements
+		OnClickListener {
 	private static final String TAG = UserByDesignerInfoActivity.class
 			.getName();
-	
 	private TextView ownerinfo_back = null;
 	private RelativeLayout headLayout = null;
 	private TextView nameText = null;
@@ -115,7 +113,7 @@ public class UserByDesignerInfoActivity extends BaseActivity implements OnClickL
 					};
 				});
 	}
-	
+
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {

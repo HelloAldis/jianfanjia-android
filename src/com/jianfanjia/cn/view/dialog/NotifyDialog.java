@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.bean.Message;
 import com.jianfanjia.cn.interf.ConfirmListener;
 
 /**
@@ -19,29 +20,37 @@ import com.jianfanjia.cn.interf.ConfirmListener;
 public class NotifyDialog extends Dialog implements
 		android.view.View.OnClickListener {
 	private ConfirmListener listener;
-	private String title;
-	private String content;
+	private int layoutId;
+	private Message message;
 
 	public NotifyDialog(Context context) {
 		super(context);
 		// TODO Auto-generated constructor stub
 	}
 
-	public NotifyDialog(Context context, String title, String content, int theme) {
+	public NotifyDialog(Context context, int layoutId, Message message,
+			int theme) {
 		super(context, theme);
-		this.title = title;
-		this.content = content;
+		this.layoutId = layoutId;
+		this.message = message;
 		init();
 	}
 
 	private void init() {
-		setContentView(R.layout.notify_dialog);
+		setContentView(layoutId);
 		TextView titleTv = (TextView) findViewById(R.id.titleTv);
 		TextView contentTv = (TextView) findViewById(R.id.contentTv);
 		Button confirm = (Button) findViewById(R.id.btn_confirm);
 		confirm.setOnClickListener(this);
-		titleTv.setText(title);
-		contentTv.setText(content);
+		String type = message.getType();
+		if (type.equals("0")) {
+			titleTv.setText("延期提醒");
+		} else if (type.equals("1")) {
+			titleTv.setText("采购提醒");
+		} else if (type.equals("2")) {
+			titleTv.setText("付款提醒");
+		}
+		contentTv.setText(message.getContent());
 	}
 
 	@Override
