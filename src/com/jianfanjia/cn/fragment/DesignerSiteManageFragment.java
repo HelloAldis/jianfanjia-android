@@ -97,26 +97,26 @@ public class DesignerSiteManageFragment extends BaseFragment implements
 			// scrollLayout.addView(siteHead, lp);
 			list.add(siteHead);
 		}
-		MyViewPageAdapter pageAdapter = new MyViewPageAdapter(getActivity(),
-				list);
-		viewPager.setAdapter(pageAdapter);
-		viewPager.setOnPageChangeListener(new OnPageChangeListener() {
-			@Override
-			public void onPageScrollStateChanged(int arg0) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void onPageScrolled(int arg0, float arg1, int arg2) {
-				Log.i(TAG, "arg0:" + arg0 + "  arg1:" + arg1 + "  arg2:" + arg2);
-			}
-
-			@Override
-			public void onPageSelected(int arg0) {
-				Log.i(TAG, "arg0:" + arg0);
-			}
-		});
+		// MyViewPageAdapter pageAdapter = new MyViewPageAdapter(getActivity(),
+		// list);
+		// viewPager.setAdapter(pageAdapter);
+		// viewPager.setOnPageChangeListener(new OnPageChangeListener() {
+		// @Override
+		// public void onPageScrollStateChanged(int arg0) {
+		// // TODO Auto-generated method stub
+		//
+		// }
+		//
+		// @Override
+		// public void onPageScrolled(int arg0, float arg1, int arg2) {
+		// Log.i(TAG, "arg0:" + arg0 + "  arg1:" + arg1 + "  arg2:" + arg2);
+		// }
+		//
+		// @Override
+		// public void onPageSelected(int arg0) {
+		// Log.i(TAG, "arg0:" + arg0);
+		// }
+		// });
 
 		// scrollLayout = (ScrollLayout) view
 		// .findViewById(R.id.site_scroller_layout);

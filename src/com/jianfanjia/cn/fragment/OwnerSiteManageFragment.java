@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.jianfanjia.cn.activity.CheckActivity;
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.adapter.InfinitePagerAdapter;
 import com.jianfanjia.cn.adapter.MyViewPageAdapter;
 import com.jianfanjia.cn.adapter.SectionItemAdapter;
 import com.jianfanjia.cn.application.MyApplication;
@@ -28,6 +29,7 @@ import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.SectionInfo;
 import com.jianfanjia.cn.bean.SectionItemInfo;
+import com.jianfanjia.cn.bean.ViewPagerItem;
 import com.jianfanjia.cn.cache.CacheManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
@@ -65,10 +67,11 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	private TextView head_right_title = null;
 	private ListView detailNodeListView;
 	private SectionItemAdapter sectionItemAdapter;
-	private MyViewPageAdapter myViewPageAdapter;
+	private InfinitePagerAdapter infinitePagerAdapter = null;
+	private MyViewPageAdapter myViewPageAdapter = null;
 	private String[] checkSection = null;
-	private String[] pro = null;
-	private List<View> list = new ArrayList<View>();
+	private String[] proTitle = null;
+	private List<ViewPagerItem> list = new ArrayList<ViewPagerItem>();
 
 	private RelativeLayout listHeadView;// listÕ∑ ”Õº
 	private RelativeLayout smallHeadLayout;// ’€µ˛layout
@@ -92,13 +95,12 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		if (savedInstanceState != null) {
 			currentList = savedInstanceState.getInt(Constant.CURRENT_LIST, -1);
 		}
-		pro = getResources().getStringArray(R.array.site_procedure);
+		proTitle = getResources().getStringArray(R.array.site_procedure);
 		checkSection = getResources().getStringArray(
 				R.array.site_procedure_check);
 		processInfo = (ProcessInfo) CacheManager.getObjectByFile(getActivity(),
 				Constant.PROCESSINFO_CACHE);
 		LogTool.d(TAG, "processInfo=" + processInfo);
-
 	}
 
 	private void getOwnerProcess() {
@@ -216,10 +218,10 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 
 	private void handlerSuccess() {
 		updateData();
-		for (int i = 0; i < pro.length; i++) {
-			View siteHead = list.get(i);
-			initItem(siteHead, i);
-		}
+		// for (int i = 0; i < pro.length; i++) {
+		// View siteHead = list.get(i);
+		// initItem(siteHead, i);
+		// }
 		myViewPageAdapter.notifyDataSetChanged();
 	}
 
@@ -232,7 +234,6 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		head_right_title = (TextView) view.findViewById(R.id.head_right_title);
 		initScrollLayout(view);
 		initListView(view);
-
 		if (processInfo != null) {
 			initData();
 		} else {
@@ -242,13 +243,18 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 
 	private void initScrollLayout(View view) {
 		viewPager = (ViewPager) view.findViewById(R.id.viewPager);
-		for (int i = 0; i < pro.length; i++) {
-			View siteHead = inflater.inflate(R.layout.site_head_item, null);
-			initItem(siteHead, i);
-			list.add(siteHead);
+		for (int i = 0; i < proTitle.length; i++) {
+			ViewPagerItem viewPagerItem = new ViewPagerItem();
+			viewPagerItem.setResId(getResources().getIdentifier(
+					"icon_home_normal" + (i + 1), "drawable",
+					MyApplication.getInstance().getPackageName()));
+			viewPagerItem.setTitle(proTitle[i]);
+			// initItem(siteHead, i);
+			list.add(viewPagerItem);
 		}
 		myViewPageAdapter = new MyViewPageAdapter(getActivity(), list);
-		viewPager.setAdapter(myViewPageAdapter);
+		infinitePagerAdapter = new InfinitePagerAdapter(myViewPageAdapter);
+		viewPager.setAdapter(infinitePagerAdapter);
 		viewPager.setOnPageChangeListener(new OnPageChangeListener() {
 			@Override
 			public void onPageScrollStateChanged(int arg0) {
@@ -285,7 +291,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		Log.i(TAG, "initItem" + position);
 		TextView proName = (TextView) siteHead
 				.findViewById(R.id.site_head_procedure_name);
-		proName.setText(pro[position]);
+		proName.setText(proTitle[position]);
 		TextView proDate = (TextView) siteHead
 				.findViewById(R.id.site_head_procedure_date);
 		if (sectionInfos != null) {
