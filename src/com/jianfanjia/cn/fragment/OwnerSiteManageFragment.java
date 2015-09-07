@@ -103,65 +103,20 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		LogTool.d(TAG, "processInfo=" + processInfo);
 	}
 
-	private void getOwnerProcess() {
-		JianFanJiaApiClient.get_Owner_Process(getApplication(),
-				new JsonHttpResponseHandler() {
-					@Override
-					public void onStart() {
-						LogTool.d(TAG, "onStart()");
-					}
-
-					@Override
-					public void onSuccess(int statusCode, Header[] headers,
-							JSONObject response) {
-						mPullRefreshScrollView.onRefreshComplete();
-						LogTool.d(TAG, "response:" + response.toString());
-						try {
-							if (response.has(Constant.DATA)) {
-								processInfo = JsonParser.jsonToBean(response
-										.get(Constant.DATA).toString(),
-										ProcessInfo.class);
-								if (processInfo != null) {
-									// 数据请求成功保存在缓存中
-									CacheManager.saveObject(getActivity(),
-											processInfo,
-											Constant.PROCESSINFO_CACHE);
-									// 保存业主的设计师id
-									shared.setValue(Constant.FINAL_DESIGNER_ID,
-											processInfo.getFinal_designerid());
-									handlerSuccess();
-								} else {
-									// 请求成功没有数据，返回默认数据
-
-								}
-							} else if (response.has(Constant.ERROR_MSG)) {
-								makeTextLong(response.get(Constant.ERROR_MSG)
-										.toString());
-							}
-						} catch (JSONException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-							makeTextLong(getApplication().getString(R.string.tip_login_error_for_network));
-						}
-					}
-
-					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							Throwable throwable, JSONObject errorResponse) {
-						LogTool.d(TAG,
-								"Throwable throwable:" + throwable.toString());
-						mPullRefreshScrollView.onRefreshComplete();
-						makeTextLong(getApplication().getString(R.string.tip_login_error_for_network));
-					}
-
-					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							String responseString, Throwable throwable) {
-						LogTool.d(TAG, "throwable:" + throwable);
-						mPullRefreshScrollView.onRefreshComplete();
-						makeTextLong(getApplication().getString(R.string.tip_login_error_for_network));
-					};
-				});
+	@Override
+	public void initView(View view) {
+		mPullRefreshScrollView = (PullToRefreshScrollView) view
+				.findViewById(R.id.pull_refresh_scrollview);
+		mPullRefreshScrollView.setMode(Mode.PULL_FROM_START);
+		icon_user_head = (ImageView) view.findViewById(R.id.icon_user_head);
+		head_right_title = (TextView) view.findViewById(R.id.head_right_title);
+		initScrollLayout(view);
+		initListView(view);
+		if (processInfo != null) {
+			initData();
+		} else {
+			getOwnerProcess();
+		}
 	}
 
 	@Override
@@ -182,9 +137,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 			sectionInfos = processInfo.getSections();
 			sectionInfo = sectionInfos.get(currentList);
 			sectionItemInfos = sectionInfo.getItems();
-
 			setHeadView(sectionInfo.getName());
-
 			sectionItemAdapter = new SectionItemAdapter(getActivity(),
 					sectionItemInfos, currentList);
 			detailNodeListView.setAdapter(sectionItemAdapter);
@@ -225,22 +178,6 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		myViewPageAdapter.notifyDataSetChanged();
 	}
 
-	@Override
-	public void initView(View view) {
-		mPullRefreshScrollView = (PullToRefreshScrollView) view
-				.findViewById(R.id.pull_refresh_scrollview);
-		mPullRefreshScrollView.setMode(Mode.PULL_FROM_START);
-		icon_user_head = (ImageView) view.findViewById(R.id.icon_user_head);
-		head_right_title = (TextView) view.findViewById(R.id.head_right_title);
-		initScrollLayout(view);
-		initListView(view);
-		if (processInfo != null) {
-			initData();
-		} else {
-			getOwnerProcess();
-		}
-	}
-
 	private void initScrollLayout(View view) {
 		viewPager = (ViewPager) view.findViewById(R.id.viewPager);
 		for (int i = 0; i < proTitle.length; i++) {
@@ -249,6 +186,13 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 					"icon_home_normal" + (i + 1), "drawable",
 					MyApplication.getInstance().getPackageName()));
 			viewPagerItem.setTitle(proTitle[i]);
+			// if (sectionInfos != null) {
+			// viewPagerItem.setDate(DateFormatTool.covertLongToString(
+			// sectionInfos.get(i).getStart_at(), "M.dd")
+			// + "-"
+			// + DateFormatTool.covertLongToString(sectionInfos.get(i)
+			// .getEnd_at(), "M.dd"));
+			// }
 			// initItem(siteHead, i);
 			list.add(viewPagerItem);
 		}
@@ -355,7 +299,6 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		expandHeadLayout = (RelativeLayout) listHeadView
 				.findViewById(R.id.site_listview_item_content_expand);
 		listView.addHeaderView(view);
-
 	}
 
 	@Override
@@ -397,6 +340,70 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	public void onPullUpToRefresh(PullToRefreshBase<ScrollView> refreshView) {
 		// 上拉加载更多(加载下一页数据)
 		mPullRefreshScrollView.onRefreshComplete();
+	}
+
+	private void getOwnerProcess() {
+		JianFanJiaApiClient.get_Owner_Process(getApplication(),
+				new JsonHttpResponseHandler() {
+					@Override
+					public void onStart() {
+						LogTool.d(TAG, "onStart()");
+					}
+
+					@Override
+					public void onSuccess(int statusCode, Header[] headers,
+							JSONObject response) {
+						mPullRefreshScrollView.onRefreshComplete();
+						LogTool.d(TAG, "response:" + response.toString());
+						try {
+							if (response.has(Constant.DATA)) {
+								processInfo = JsonParser.jsonToBean(response
+										.get(Constant.DATA).toString(),
+										ProcessInfo.class);
+								if (processInfo != null) {
+									// 数据请求成功保存在缓存中
+									CacheManager.saveObject(getActivity(),
+											processInfo,
+											Constant.PROCESSINFO_CACHE);
+									// 保存业主的设计师id
+									shared.setValue(Constant.FINAL_DESIGNER_ID,
+											processInfo.getFinal_designerid());
+									handlerSuccess();
+								} else {
+									// 请求成功没有数据，返回默认数据
+
+								}
+							} else if (response.has(Constant.ERROR_MSG)) {
+								makeTextLong(response.get(Constant.ERROR_MSG)
+										.toString());
+							}
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+							makeTextLong(getApplication().getString(
+									R.string.tip_login_error_for_network));
+						}
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							Throwable throwable, JSONObject errorResponse) {
+						LogTool.d(TAG,
+								"Throwable throwable:" + throwable.toString());
+						mPullRefreshScrollView.onRefreshComplete();
+						makeTextLong(getApplication().getString(
+								R.string.tip_login_error_for_network));
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							String responseString, Throwable throwable) {
+						LogTool.d(TAG, "throwable:" + throwable);
+						mPullRefreshScrollView.onRefreshComplete();
+						makeTextLong(getApplication().getString(
+								R.string.tip_login_error_for_network));
+					};
+				});
 	}
 
 	@Override

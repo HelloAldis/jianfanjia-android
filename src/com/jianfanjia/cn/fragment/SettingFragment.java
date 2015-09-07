@@ -18,6 +18,7 @@ import com.igexin.sdk.PushManager;
 import com.jianfanjia.cn.activity.AboutActivity;
 import com.jianfanjia.cn.activity.FeedBackActivity;
 import com.jianfanjia.cn.activity.LoginActivity;
+import com.jianfanjia.cn.activity.NavigateActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.ShareActivity;
 import com.jianfanjia.cn.application.MyApplication;
@@ -95,6 +96,7 @@ public class SettingFragment extends BaseFragment implements
 			startActivity(AboutActivity.class);
 			break;
 		case R.id.help_layout:
+			startActivity(NavigateActivity.class);
 			break;
 		case R.id.logout_layout:
 			onClickExit();
@@ -196,9 +198,9 @@ public class SettingFragment extends BaseFragment implements
 		LogTool.d(TAG, "check:" + check);
 		shared.setValue(Constant.ISOPEN, check);
 		if (check) {
-
+			// TODO
 		} else {
-
+			// TODO
 		}
 	}
 
