@@ -41,7 +41,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
  * 
  */
 public class SettingFragment extends BaseFragment implements
-		OnCheckedChangeListener{
+		OnCheckedChangeListener {
 	private static final String TAG = SettingFragment.class.getName();
 	private RelativeLayout feedbackFragment = null;
 	private RelativeLayout aboutFragment = null;
@@ -65,11 +65,12 @@ public class SettingFragment extends BaseFragment implements
 		shareLayout = (RelativeLayout) view.findViewById(R.id.share_layout);
 		current_version_layout = (RelativeLayout) view
 				.findViewById(R.id.current_version_layout);
-		clearCacheLayout = (RelativeLayout) view.findViewById(R.id.clear_cache_layout);
+		clearCacheLayout = (RelativeLayout) view
+				.findViewById(R.id.clear_cache_layout);
 		cacheSizeView = (TextView) view.findViewById(R.id.cache_size);
 		currentVersion = (TextView) view.findViewById(R.id.current_version);
 		currentVersion.setText(MyApplication.getVersionName());
-		
+
 		caculateCacheSize();
 	}
 
@@ -112,66 +113,67 @@ public class SettingFragment extends BaseFragment implements
 			break;
 		}
 	}
-	
-	 private void onClickExit() {
-		 CommonDialog dialog = DialogHelper.getPinterestDialogCancelable(getActivity());
-	        dialog.setTitle("退出登录");
-	        dialog.setMessage("确定退出登录吗？");
-	        dialog.setPositiveButton(R.string.ok,
-	                new DialogInterface.OnClickListener() {
 
-	                    @Override
-	                    public void onClick(DialogInterface dialog, int which) {
-	                    	logout();
-	                        dialog.dismiss();
-	                    }
-	                });
-	        dialog.setNegativeButton(R.string.no, null);
-	        dialog.show();		
+	private void onClickExit() {
+		CommonDialog dialog = DialogHelper
+				.getPinterestDialogCancelable(getActivity());
+		dialog.setTitle("退出登录");
+		dialog.setMessage("确定退出登录吗？");
+		dialog.setPositiveButton(R.string.ok,
+				new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						logout();
+						dialog.dismiss();
+					}
+				});
+		dialog.setNegativeButton(R.string.no, null);
+		dialog.show();
 	}
 
 	/**
-     * 计算缓存的大小
-     */
-    private void caculateCacheSize() {
-        long fileSize = 0;
-        String cacheSize = "0KB";
-        File filesDir = getActivity().getFilesDir();
-        File cacheDir = getActivity().getCacheDir();
+	 * 计算缓存的大小
+	 */
+	private void caculateCacheSize() {
+		long fileSize = 0;
+		String cacheSize = "0KB";
+		File filesDir = getActivity().getFilesDir();
+		File cacheDir = getActivity().getCacheDir();
 
-        fileSize += FileUtil.getDirSize(filesDir);
-        fileSize += FileUtil.getDirSize(cacheDir);
-        // 2.2版本才有将应用缓存转移到sd卡的功能
-        if (MyApplication.isMethodsCompat(android.os.Build.VERSION_CODES.FROYO)) {
-            File externalCacheDir = getActivity()
-                    .getExternalCacheDir();
-            fileSize += FileUtil.getDirSize(externalCacheDir);
-        }
-        if (fileSize > 0)
-            cacheSize = FileUtil.formatFileSize(fileSize);
-        cacheSizeView.setText(cacheSize);
-    }
-    
-    /**
-     * 清空缓存
-     */
-    private void onClickCleanCache() {
-        CommonDialog dialog = DialogHelper.getPinterestDialogCancelable(getActivity());
-        dialog.setTitle("清空缓存？");
-        dialog.setMessage("确定清空缓存吗？");
-        dialog.setPositiveButton(R.string.ok,
-                new DialogInterface.OnClickListener() {
+		fileSize += FileUtil.getDirSize(filesDir);
+		fileSize += FileUtil.getDirSize(cacheDir);
+		// 2.2版本才有将应用缓存转移到sd卡的功能
+		if (MyApplication.isMethodsCompat(android.os.Build.VERSION_CODES.FROYO)) {
+			File externalCacheDir = getActivity().getExternalCacheDir();
+			fileSize += FileUtil.getDirSize(externalCacheDir);
+		}
+		if (fileSize > 0)
+			cacheSize = FileUtil.formatFileSize(fileSize);
+		cacheSizeView.setText(cacheSize);
+	}
 
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                    	MyApplication.getInstance().clearAppCache();
-                        cacheSizeView.setText("0KB");
-                        dialog.dismiss();
-                    }
-                });
-        dialog.setNegativeButton(R.string.no, null);
-        dialog.show();
-    }
+	/**
+	 * 清空缓存
+	 */
+	private void onClickCleanCache() {
+		CommonDialog dialog = DialogHelper
+				.getPinterestDialogCancelable(getActivity());
+		dialog.setTitle("清空缓存？");
+		dialog.setMessage("确定清空缓存吗？");
+		dialog.setPositiveButton(R.string.ok,
+				new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						MyApplication.getInstance().clearAppCache();
+						cacheSizeView.setText("0KB");
+						dialog.dismiss();
+					}
+				});
+		dialog.setNegativeButton(R.string.no, null);
+		dialog.show();
+	}
 
 	@Override
 	public void onResume() {
@@ -200,6 +202,7 @@ public class SettingFragment extends BaseFragment implements
 
 		}
 	}
+
 	// 检查版本
 	private void checkVersion() {
 		JianFanJiaApiClient.checkVersion(getActivity(),
@@ -215,7 +218,6 @@ public class SettingFragment extends BaseFragment implements
 							JSONObject response) {
 						LogTool.d(TAG, "JSONObject response:" + response);
 						hideWaitDialog();
-//						progressDialog.dismiss();
 					}
 
 					@Override
@@ -225,7 +227,6 @@ public class SettingFragment extends BaseFragment implements
 						LogTool.d(TAG,
 								"Throwable throwable:" + throwable.toString());
 						makeTextLong(getString(R.string.tip_login_error_for_network));
-//						progressDialog.dismiss();
 					}
 
 					@Override
@@ -234,7 +235,6 @@ public class SettingFragment extends BaseFragment implements
 						LogTool.d(TAG, "throwable:" + throwable);
 						makeTextLong(getString(R.string.tip_login_error_for_network));
 						hideWaitDialog();
-//						progressDialog.dismiss();
 					};
 				});
 	}
