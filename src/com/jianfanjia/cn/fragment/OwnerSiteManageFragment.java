@@ -106,7 +106,6 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 				Constant.PROCESSINFO_CACHE);
 		LogTool.d(TAG, "processInfo=" + processInfo);
 		
-		throw new NullPointerException("ø’÷∏’Î¥ÌŒÛ");
 	}
 
 	@Override

@@ -160,6 +160,7 @@ public class AppException extends Exception implements UncaughtExceptionHandler 
                         Looper.prepare();
                         Toast.makeText(mContext, "很抱歉，应用出现异常，即将退出",Toast.LENGTH_LONG).show();
                         Looper.loop();
+                        System.exit(-1);
                     }
                 }.start();
             }
