@@ -34,6 +34,13 @@ public class JsonParser {
 		return t;
 	}
 
+	/**
+	 * json转化为list
+	 * 
+	 * @param jsonString
+	 * @param typeOfT
+	 * @return
+	 */
 	public static <T> List<T> jsonToList(String jsonString, Type typeOfT) {
 		List<T> list = new ArrayList<T>();
 		try {
@@ -61,36 +68,4 @@ public class JsonParser {
 		return jsonObject;
 	}
 
-	// 设计师获取工地列表
-	// public static List<DesignerSiteInfo> getDesignerSiteList(String jsonStr)
-	// {
-	// List<DesignerSiteInfo> list = new ArrayList<DesignerSiteInfo>();
-	// try {
-	// JSONObject obj = new JSONObject(jsonStr);
-	// JSONArray array = obj.getJSONArray("data");
-	// LogTool.d(TAG, "array:" + array);
-	// for (int i = 0; i < array.length(); i++) {
-	// DesignerSiteInfo info = new DesignerSiteInfo();
-	// JSONObject tempObj = array.getJSONObject(i);
-	// info.setSiteid(tempObj.getString("_id"));
-	// info.setCity(tempObj.getString("city"));
-	// info.setDistrict(tempObj.getString("district"));
-	// info.setCell(tempObj.getString("cell"));
-	// info.setUserid(tempObj.getString("userid"));
-	// info.setGoingon(tempObj.getString("going_on"));
-	// JSONObject userObj = tempObj.getJSONObject("user");
-	// User ownerInfo = new User();
-	// ownerInfo.setOwnerid(userObj.getString("_id"));
-	// ownerInfo.setImageid(userObj.getString("imageid"));
-	// ownerInfo.setPhone(userObj.getString("phone"));
-	// ownerInfo.setName(userObj.getString("username"));
-	// info.setInfo(ownerInfo);
-	// list.add(info);
-	// }
-	// return list;
-	// } catch (Exception e) {
-	// e.printStackTrace();
-	// }
-	// return null;
-	// }
 }
