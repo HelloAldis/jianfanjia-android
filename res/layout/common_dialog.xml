@@ -16,7 +16,7 @@
         android:textColor="#344a5d" />
     
     <View
-        android:id="@+id/button_bar_divider"
+        android:id="@+id/title_bar_divider"
         style="@style/divier_line"
         android:background="@color/main_color_orange"
         android:visibility="visible" />
@@ -25,8 +25,8 @@
         android:id="@+id/content_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/space_8" />
-
+        android:padding="@dimen/space_12" />
+    
     <LinearLayout
         android:id="@+id/button_bar"
         android:layout_width="fill_parent"

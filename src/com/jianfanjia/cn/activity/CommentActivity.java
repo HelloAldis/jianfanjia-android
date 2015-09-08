@@ -134,6 +134,7 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
 
 	private void commitComment() {
 		String content = etAddCommentView.getEditableText().toString();
+		Log.i(TAG, content);
 		if(!TextUtils.isEmpty(content)){
 			CommitCommentInfo commitCommentInfo = new CommitCommentInfo();
 			commitCommentInfo.setContent(content);

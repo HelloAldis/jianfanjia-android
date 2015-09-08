@@ -1,11 +1,13 @@
 package com.jianfanjia.cn.fragment;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -41,6 +43,8 @@ import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshScrollView;
 import com.jianfanjia.cn.tools.DateFormatTool;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.tools.StringUtils;
+import com.jianfanjia.cn.view.dialog.DateWheelDialog;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 /**
@@ -186,13 +190,15 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 					"icon_home_normal" + (i + 1), "drawable",
 					MyApplication.getInstance().getPackageName()));
 			viewPagerItem.setTitle(proTitle[i]);
-			// if (sectionInfos != null) {
-			// viewPagerItem.setDate(DateFormatTool.covertLongToString(
-			// sectionInfos.get(i).getStart_at(), "M.dd")
-			// + "-"
-			// + DateFormatTool.covertLongToString(sectionInfos.get(i)
-			// .getEnd_at(), "M.dd"));
-			// }
+			if (sectionInfos != null) {
+				viewPagerItem.setDate(DateFormatTool.covertLongToString(
+						sectionInfos.get(i).getStart_at(), "M.dd")
+						+ "-"
+						+ DateFormatTool.covertLongToString(sectionInfos.get(i)
+								.getEnd_at(), "M.dd"));
+			} else {
+
+			}
 			// initItem(siteHead, i);
 			list.add(viewPagerItem);
 		}
@@ -323,6 +329,19 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 			startActivity(CheckActivity.class, bundle);
 			break;
 		case R.id.site_list_head_delay:
+			DateWheelDialog dateWheelDialog = new DateWheelDialog(getActivity(),Calendar.getInstance());
+			dateWheelDialog.setTitle("—°‘Ò ±º‰");
+			dateWheelDialog.setPositiveButton(R.string.ok,
+					new DialogInterface.OnClickListener() {
+
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							makeTextLong(StringUtils.getDateString(((DateWheelDialog)dialog).getChooseCalendar().getTime()));
+							dialog.dismiss();
+						}
+					});
+			dateWheelDialog.setNegativeButton(R.string.no, null);
+			dateWheelDialog.show();
 			break;
 		default:
 			break;
@@ -348,6 +367,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 					@Override
 					public void onStart() {
 						LogTool.d(TAG, "onStart()");
+						showWaitDialog();
 					}
 
 					@Override
@@ -357,6 +377,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 						LogTool.d(TAG, "response:" + response.toString());
 						try {
 							if (response.has(Constant.DATA)) {
+								hideWaitDialog();
 								processInfo = JsonParser.jsonToBean(response
 										.get(Constant.DATA).toString(),
 										ProcessInfo.class);
@@ -374,6 +395,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 
 								}
 							} else if (response.has(Constant.ERROR_MSG)) {
+								hideWaitDialog();
 								makeTextLong(response.get(Constant.ERROR_MSG)
 										.toString());
 							}
@@ -390,6 +412,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 							Throwable throwable, JSONObject errorResponse) {
 						LogTool.d(TAG,
 								"Throwable throwable:" + throwable.toString());
+						hideWaitDialog();
 						mPullRefreshScrollView.onRefreshComplete();
 						makeTextLong(getApplication().getString(
 								R.string.tip_login_error_for_network));
@@ -399,6 +422,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 					public void onFailure(int statusCode, Header[] headers,
 							String responseString, Throwable throwable) {
 						LogTool.d(TAG, "throwable:" + throwable);
+						hideWaitDialog();
 						mPullRefreshScrollView.onRefreshComplete();
 						makeTextLong(getApplication().getString(
 								R.string.tip_login_error_for_network));

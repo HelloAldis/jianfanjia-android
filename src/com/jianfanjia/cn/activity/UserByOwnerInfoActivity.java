@@ -3,6 +3,8 @@ package com.jianfanjia.cn.activity;
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.content.DialogInterface;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -15,6 +17,10 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.view.dialog.CommonWheelDialog;
+import com.jianfanjia.cn.view.wheel.ArrayWheelAdapter;
+import com.jianfanjia.cn.view.wheel.OnWheelChangedListener;
+import com.jianfanjia.cn.view.wheel.WheelView;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 /**
@@ -36,6 +42,18 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 	private TextView addressText = null;
 	private TextView homeText = null;
 	private Button btn_confirm = null;
+	private RelativeLayout addressLayout;
+	
+	private CommonWheelDialog commonWheelDialog;
+	
+	public static String[] provices = {"湖北","湖南","安徽"};
+	public static String[] cities= {"武汉","长沙","合肥"};
+	public static String[] areas = {"武昌","汉口","长沙县","常州","青山","江夏","汉阳"};
+	
+	private String provice;
+	private String city;
+	private String area;
+
 
 	@Override
 	public void initView() {
@@ -47,7 +65,10 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 		addressText = (TextView) this.findViewById(R.id.addressText);
 		homeText = (TextView) this.findViewById(R.id.homeText);
 		btn_confirm = (Button) this.findViewById(R.id.btn_confirm);
+		addressLayout = (RelativeLayout) this.findViewById(R.id.address_layout);
 		get_Owner_Info();
+		
+		commonWheelDialog = new CommonWheelDialog(this);
 	}
 
 	@Override
@@ -55,6 +76,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 		ownerinfo_back.setOnClickListener(this);
 		headLayout.setOnClickListener(this);
 		btn_confirm.setOnClickListener(this);
+		addressLayout.setOnClickListener(this);
 	}
 
 	@Override
@@ -67,9 +89,46 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 			break;
 		case R.id.btn_confirm:
 			break;
+		case R.id.address_layout:
+			showWheelDialog();
+			break;
 		default:
 			break;
 		}
+	}
+
+	private void showWheelDialog() {
+		commonWheelDialog.setWheelAdapter1(new ArrayWheelAdapter<String>(provices));
+		commonWheelDialog.setWheelAdapter2(new ArrayWheelAdapter<String>(cities));
+		commonWheelDialog.setWheelAdapter3(new ArrayWheelAdapter<String>(areas));
+		commonWheelDialog.setWheelChangeListen(new OnWheelChangedListener() {
+			
+			@Override
+			public void onChanged(WheelView wheel, int oldValue, int newValue) {
+				if(wheel == commonWheelDialog.getWheelView1()){
+					commonWheelDialog.getWheelView1().setCurrentItem(newValue);
+					provice = provices[commonWheelDialog.getWheelView1().getCurrentItem()];
+				}else if(wheel == commonWheelDialog.getWheelView2()){
+					commonWheelDialog.getWheelView2().setCurrentItem(newValue);
+					city= cities[commonWheelDialog.getWheelView2().getCurrentItem()];
+				}else if(wheel == commonWheelDialog.getWheelView3()){
+					commonWheelDialog.getWheelView3().setCurrentItem(newValue);
+					area = areas[commonWheelDialog.getWheelView3().getCurrentItem()];
+				}
+			}
+		});
+		commonWheelDialog.setTitle("选择地区");
+		commonWheelDialog.setPositiveButton(R.string.ok,
+				new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						addressText.setText(provice + city + area);
+						dialog.dismiss();
+					}
+				});
+		commonWheelDialog.setNegativeButton(R.string.no, null);
+		commonWheelDialog.show();
 	}
 
 	private void get_Owner_Info() {

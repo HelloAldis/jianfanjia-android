@@ -1,24 +1,17 @@
 package com.jianfanjia.cn.http;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import org.apache.http.entity.StringEntity;
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.content.Context;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import android.util.Log;
+
 import com.jianfanjia.cn.bean.CommitCommentInfo;
-import com.jianfanjia.cn.bean.ProcedureInfo;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
-import com.jianfanjia.cn.bean.SiteInfo;
-import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url;
 import com.jianfanjia.cn.tools.JsonParser;
-import com.jianfanjia.cn.tools.StringUtils;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
 /**
@@ -42,7 +35,7 @@ public class JianFanJiaApiClient {
 		JSONObject jsonParams = new JSONObject();
 		try {
 			jsonParams.put("cid", clientId);
-			StringEntity entity = new StringEntity(jsonParams.toString());
+			StringEntity entity = new StringEntity(jsonParams.toString(),"utf-8");
 			HttpRestClient.post(context, Url.BIND_URL, entity,
 					"application/json", handler);
 		} catch (JSONException e) {
@@ -65,7 +58,7 @@ public class JianFanJiaApiClient {
 		try {
 			jsonParams.put("phone", username);
 			jsonParams.put("pass", password);
-			StringEntity entity = new StringEntity(jsonParams.toString());
+			StringEntity entity = new StringEntity(jsonParams.toString(),"utf-8");
 			HttpRestClient.post(context, Url.LOGIN_URL, entity,
 					"application/json", handler);
 		} catch (JSONException e) {
@@ -106,7 +99,7 @@ public class JianFanJiaApiClient {
 		JSONObject jsonParams = new JSONObject();
 		try {
 			jsonParams.put("phone", phone);
-			StringEntity entity = new StringEntity(jsonParams.toString());
+			StringEntity entity = new StringEntity(jsonParams.toString(),"utf-8");
 			HttpRestClient.post(context, Url.GET_CODE_URL, entity,
 					"application/json", handler);
 		} catch (JSONException e) {
@@ -138,7 +131,7 @@ public class JianFanJiaApiClient {
 			RequirementInfo requirementInfo, AsyncHttpResponseHandler handler) {
 		StringEntity entity;
 		try {
-			entity = new StringEntity(JsonParser.beanToJson(requirementInfo));
+			entity = new StringEntity(JsonParser.beanToJson(requirementInfo),"utf-8");
 			HttpRestClient.post(context, Url.PROCESS, entity,
 					"application/json", handler);
 		} catch (UnsupportedEncodingException e) {
@@ -156,7 +149,7 @@ public class JianFanJiaApiClient {
 			AsyncHttpResponseHandler handler) {
 		StringEntity entity;
 		try {
-			entity = new StringEntity(JsonParser.beanToJson(registerInfo));
+			entity = new StringEntity(JsonParser.beanToJson(registerInfo),"utf-8");
 			HttpRestClient.post(context, Url.REGISTER_URL, entity,
 					"application/json", handler);
 		} catch (UnsupportedEncodingException e) {
@@ -174,7 +167,7 @@ public class JianFanJiaApiClient {
 			AsyncHttpResponseHandler hanlder) {
 		StringEntity entity;
 		try {
-			entity = new StringEntity(phone);
+			entity = new StringEntity(phone,"utf-8");
 			HttpRestClient.post(context, Url.REGISTER_URL, entity,
 					"application/json", hanlder);
 		} catch (UnsupportedEncodingException e) {
@@ -274,7 +267,7 @@ public class JianFanJiaApiClient {
 		JSONObject jsonParams = new JSONObject();
 		try {
 			jsonParams.put("processid", processid);
-			StringEntity entity = new StringEntity(jsonParams.toString());
+			StringEntity entity = new StringEntity(jsonParams.toString(),"utf-8");
 			HttpRestClient.post(context, Url.AGREE_RESCHDULE, entity,
 					"application/json", handler);
 		} catch (JSONException e) {
@@ -296,7 +289,7 @@ public class JianFanJiaApiClient {
 		JSONObject jsonParams = new JSONObject();
 		try {
 			jsonParams.put("processid", processid);
-			StringEntity entity = new StringEntity(jsonParams.toString());
+			StringEntity entity = new StringEntity(jsonParams.toString(),"utf-8");
 			HttpRestClient.post(context, Url.REFUSE_RESCHDULE, entity,
 					"application/json", handler);
 		} catch (JSONException e) {
@@ -316,25 +309,84 @@ public class JianFanJiaApiClient {
 			AsyncHttpResponseHandler hanlder) {
 		HttpRestClient.get(context, Url.UPDATE_VERSION_URL, hanlder);
 	}
-	
+
 	/**
 	 * 评论装修流程
+	 * 
 	 * @author zhanghao
 	 * @param commitCommentInfo
 	 * @param handler
 	 */
-	public static void comment(Context context, CommitCommentInfo commitCommentInfo,
+	public static void comment(Context context,
+			CommitCommentInfo commitCommentInfo,
 			AsyncHttpResponseHandler handler) {
 		StringEntity entity;
 		try {
-			entity = new StringEntity(JsonParser.beanToJson(commitCommentInfo));
+			Log.i("jianfanjiaApi", JsonParser.beanToJson(commitCommentInfo));
+			entity = new StringEntity(JsonParser.beanToJson(commitCommentInfo),"utf-8");
 			HttpRestClient.post(context, Url.POST_PROCESS_COMMENT, entity,
-					"application/json", handler);
+					"application/json;charset=utf-8", handler);
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
+	/**
+	 * 用户上传图片到装修流程
+	 * 
+	 * @param context
+	 * @param siteId
+	 * @param section
+	 * @param item
+	 * @param imageId
+	 * @param handler
+	 */
+	public static void submitImageToProcess(Context context, String siteId,
+			String section, String item, String imageId,
+			AsyncHttpResponseHandler handler) {
+		JSONObject jsonParams = new JSONObject();
+		try {
+			jsonParams.put("_id", siteId);
+			jsonParams.put("section", section);
+			jsonParams.put("item", item);
+			jsonParams.put("imageid", imageId);
+			StringEntity entity = new StringEntity(jsonParams.toString());
+			HttpRestClient.post(context, Url.POST_PROCESS_IMAGE, entity,
+					"application/json", handler);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+	}
 
+	/**
+	 * 设计师提交验收图片
+	 * 
+	 * @param context
+	 * @param siteId
+	 * @param section
+	 * @param key
+	 * @param imageId
+	 * @param handler
+	 */
+	public static void submitYanShouImage(Context context, String siteId,
+			String section, String key, String imageId,
+			AsyncHttpResponseHandler handler) {
+		JSONObject jsonParams = new JSONObject();
+		try {
+			jsonParams.put("_id", siteId);
+			jsonParams.put("section", section);
+			jsonParams.put("key", key);
+			jsonParams.put("imageid", imageId);
+			StringEntity entity = new StringEntity(jsonParams.toString());
+			HttpRestClient.post(context, Url.SUBMIT_YAHSHOU_IMAGE, entity,
+					"application/json", handler);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+	}
 }

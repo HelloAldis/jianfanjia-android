@@ -25,7 +25,7 @@ import com.jianfanjia.cn.activity.R;
 
 public class CommonDialog extends Dialog {
 	public DialogInterface.OnClickListener listener;
-	protected View barDivider;
+	protected View titleDivider;
 	protected View btnDivider;
 	protected FrameLayout container;
 	protected View content;
@@ -67,10 +67,10 @@ public class CommonDialog extends Dialog {
 		setCancelable(false);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		content = LayoutInflater.from(context).inflate(
-				R.layout.dialog_common, null);
+				R.layout.common_dialog, null);
 		headerVw = (TextView) content.findViewById(R.id.common_title);
 		container = (FrameLayout) content.findViewById(R.id.content_container);
-		barDivider = content.findViewById(R.id.button_bar_divider);
+		titleDivider = content.findViewById(R.id.title_bar_divider);
 		btnDivider = content.findViewById(R.id.button_divider);
 		positiveBt = (Button) content.findViewById(R.id.positive_bt);
 		negativeBt = (Button) content.findViewById(R.id.negative_bt);
@@ -183,9 +183,9 @@ public class CommonDialog extends Dialog {
 		}
 		if (positiveBt.getVisibility() == View.VISIBLE
 				|| negativeBt.getVisibility() == View.VISIBLE)
-			barDivider.setVisibility(View.VISIBLE);
+			titleDivider.setVisibility(View.VISIBLE);
 		else
-			barDivider.setVisibility(View.GONE);
+			titleDivider.setVisibility(View.GONE);
 	}
 
 	public void setPositiveButton(int positive,
@@ -216,9 +216,9 @@ public class CommonDialog extends Dialog {
 		}
 		if (positiveBt.getVisibility() == View.VISIBLE
 				|| negativeBt.getVisibility() == View.VISIBLE)
-			barDivider.setVisibility(View.VISIBLE);
+			titleDivider.setVisibility(View.VISIBLE);
 		else
-			barDivider.setVisibility(View.GONE);
+			titleDivider.setVisibility(View.GONE);
 	}
 
 	@Override
