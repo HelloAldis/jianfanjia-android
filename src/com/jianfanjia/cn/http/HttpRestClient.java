@@ -1,6 +1,5 @@
 package com.jianfanjia.cn.http;
 
-import java.util.Locale;
 import org.apache.http.HttpEntity;
 import android.content.Context;
 import com.loopj.android.http.AsyncHttpClient;
@@ -17,11 +16,6 @@ import com.loopj.android.http.RequestParams;
  */
 public class HttpRestClient {
 	private static AsyncHttpClient client = new AsyncHttpClient();
-
-	// static {
-	// client.addHeader("Content-Type", "application/json;charset=utf-8");
-	// client.addHeader("Accept-Language", Locale.getDefault().toString());
-	// }
 
 	// -----------------------------get-------------------------------------
 	public static void get(String url, AsyncHttpResponseHandler responseHandler) {
