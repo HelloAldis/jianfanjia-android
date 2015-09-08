@@ -18,10 +18,10 @@ import com.loopj.android.http.RequestParams;
 public class HttpRestClient {
 	private static AsyncHttpClient client = new AsyncHttpClient();
 
-	static {
-		client.addHeader("Content-Type", "application/json;charset=utf-8");
-		client.addHeader("Accept-Language", Locale.getDefault().toString());
-	}
+	// static {
+	// client.addHeader("Content-Type", "application/json;charset=utf-8");
+	// client.addHeader("Accept-Language", Locale.getDefault().toString());
+	// }
 
 	// -----------------------------get-------------------------------------
 	public static void get(String url, AsyncHttpResponseHandler responseHandler) {
@@ -63,23 +63,4 @@ public class HttpRestClient {
 		client.post(context, url, params, responseHandler);
 	}
 
-	// -----------------------------put-------------------------------------
-	public static void put(String url, AsyncHttpResponseHandler responseHandler) {
-		client.put(url, responseHandler);
-	}
-
-	public static void put(String url, RequestParams params,
-			AsyncHttpResponseHandler responseHandler) {
-		client.put(url, params, responseHandler);
-	}
-
-	public static void put(Context context, String url, RequestParams params,
-			AsyncHttpResponseHandler responseHandler) {
-		client.put(context, url, params, responseHandler);
-	}
-
-	public static void put(Context context, String url, HttpEntity entity,
-			String contentType, AsyncHttpResponseHandler responseHandler) {
-		client.put(context, url, entity, contentType, responseHandler);
-	}
 }
