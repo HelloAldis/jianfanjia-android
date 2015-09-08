@@ -1,24 +1,15 @@
 package com.jianfanjia.cn.http;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import org.apache.http.entity.StringEntity;
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.content.Context;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.bean.CommitCommentInfo;
-import com.jianfanjia.cn.bean.ProcedureInfo;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
-import com.jianfanjia.cn.bean.SiteInfo;
-import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url;
 import com.jianfanjia.cn.tools.JsonParser;
-import com.jianfanjia.cn.tools.StringUtils;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
 /**
@@ -316,14 +307,16 @@ public class JianFanJiaApiClient {
 			AsyncHttpResponseHandler hanlder) {
 		HttpRestClient.get(context, Url.UPDATE_VERSION_URL, hanlder);
 	}
-	
+
 	/**
 	 * 评论装修流程
+	 * 
 	 * @author zhanghao
 	 * @param commitCommentInfo
 	 * @param handler
 	 */
-	public static void comment(Context context, CommitCommentInfo commitCommentInfo,
+	public static void comment(Context context,
+			CommitCommentInfo commitCommentInfo,
 			AsyncHttpResponseHandler handler) {
 		StringEntity entity;
 		try {
@@ -335,6 +328,5 @@ public class JianFanJiaApiClient {
 			e.printStackTrace();
 		}
 	}
-
 
 }
