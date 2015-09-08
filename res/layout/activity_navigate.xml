@@ -8,13 +8,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <Button
-        android:id="@+id/enterMain"
-        style="@style/button_enter_style"
+    <LinearLayout
+        android:id="@+id/btnLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="80dip"
-        android:text="@string/enter"
-        android:visibility="gone" />
+        android:visibility="gone" >
+
+        <Button
+            android:id="@+id/btnRegister"
+            style="@style/dialog_button_2"
+            android:layout_margin="10dip"
+            android:layout_weight="1"
+            android:text="@string/register" />
+
+        <Button
+            android:id="@+id/btnLogin"
+            style="@style/dialog_button_1"
+            android:layout_margin="10dip"
+            android:layout_weight="1"
+            android:text="@string/login" />
+    </LinearLayout>
 
 </RelativeLayout>
