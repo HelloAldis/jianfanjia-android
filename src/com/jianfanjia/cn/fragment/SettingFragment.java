@@ -194,9 +194,9 @@ public class SettingFragment extends BaseFragment implements
 		LogTool.d(TAG, "check:" + check);
 		shared.setValue(Constant.ISOPEN, check);
 		if (check) {
-			// TODO
+			PushManager.getInstance().turnOnPush(getActivity());
 		} else {
-			// TODO
+			PushManager.getInstance().turnOffPush(getActivity());
 		}
 	}
 
