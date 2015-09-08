@@ -69,7 +69,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.comment_back:
+		case R.id.check_pic_back:
 			finish();
 			break;
 		default:
