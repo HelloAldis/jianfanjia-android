@@ -154,7 +154,6 @@ public class AppException extends Exception implements UncaughtExceptionHandler 
             if (!success) {
                 return false;
             } else {
-                // 显示异常信息&发�?�报�?
                 new Thread() {
                     @Override
                     public void run() {
