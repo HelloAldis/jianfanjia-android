@@ -17,10 +17,8 @@ import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.tools.FileUtil;
 import com.jianfanjia.cn.tools.StringUtils;
-import com.jianfanjia.cn.view.dialog.CommonDialog;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -28,18 +26,10 @@ import android.os.Build;
 import android.os.Looper;
 import android.widget.Toast;
 
-/**
- * 搴旂敤绋嬪簭寮傚父锛氱敤浜庢崟鑾峰紓甯稿拰鎻愮ず閿欒淇℃伅
- * 
- * @author FireAnt锛坔ttp://my.oschina.net/LittleDY锛?
- * @author kymjs (kymjs123@gmali.com)
- * @created 2014骞?9鏈?25鏃? 涓嬪崍5:34:05
- * 
- */
 @SuppressWarnings("serial")
 public class AppException extends Exception implements UncaughtExceptionHandler {
 
-    /** 瀹氫箟寮傚父绫诲瀷 */
+    /** 异常类型 */
     public final static byte TYPE_NETWORK = 0x01;
     public final static byte TYPE_SOCKET = 0x02;
     public final static byte TYPE_HTTP_CODE = 0x03;
@@ -50,11 +40,10 @@ public class AppException extends Exception implements UncaughtExceptionHandler 
     public final static byte TYPE_JSON = 0x08;
     public final static byte TYPE_FILENOTFOUND = 0x09;
 
-    private byte type;// 寮傚父鐨勭被鍨?
-    // 寮傚父鐨勭姸鎬佺爜锛岃繖閲屼竴鑸槸缃戠粶璇锋眰鐨勭姸鎬佺爜
+    private byte type;// 异常类型
+    // 异常代码
     private int code;
 
-    /** 绯荤粺榛樿鐨刄ncaughtException澶勭悊绫? */
     private MyApplication mContext;
 
     private AppException(Context context) {
@@ -91,12 +80,12 @@ public class AppException extends Exception implements UncaughtExceptionHandler 
         return new AppException(TYPE_FILENOTFOUND, 0, e);
     }
 
-    // io寮傚父
+    // io异常
     public static AppException io(Exception e) {
         return io(e, 0);
     }
 
-    // io寮傚父
+    // io异常
     public static AppException io(Exception e, int code) {
         if (e instanceof UnknownHostException || e instanceof ConnectException) {
             return new AppException(TYPE_NETWORK, code, e);
@@ -114,7 +103,7 @@ public class AppException extends Exception implements UncaughtExceptionHandler 
         return new AppException(TYPE_JSON, 0, e);
     }
 
-    // 缃戠粶璇锋眰寮傚父
+    // 网络异常
     public static AppException network(Exception e) {
         if (e instanceof UnknownHostException || e instanceof ConnectException) {
             return new AppException(TYPE_NETWORK, 0, e);
@@ -131,7 +120,7 @@ public class AppException extends Exception implements UncaughtExceptionHandler 
     }
 
     /**
-     * 鑾峰彇APP寮傚父宕╂簝澶勭悊瀵硅薄
+     * 拿到app异常处理类
      * 
      * @param context
      * @return
@@ -148,10 +137,10 @@ public class AppException extends Exception implements UncaughtExceptionHandler 
     }
 
     /**
-     * 鑷畾涔夊紓甯稿鐞?:鏀堕泦閿欒淇℃伅&鍙戦?侀敊璇姤鍛?
+     * 处理异常的方法
      * 
      * @param ex
-     * @return true:澶勭悊浜嗚寮傚父淇℃伅;鍚﹀垯杩斿洖false
+     * @return true:可以处理，false:无法处理
      */
     private boolean handleException(final Throwable ex) {
         if (ex == null || mContext == null) {
@@ -187,12 +176,12 @@ public class AppException extends Exception implements UncaughtExceptionHandler 
         }
         PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(
                 file, append)));
-        // 瀵煎嚭鍙戠敓寮傚父鐨勬椂闂?
+        // 打印异常时间
         pw.println(StringUtils.getDataTime("yyyy-MM-dd-HH-mm"));
-        // 瀵煎嚭鎵嬫満淇℃伅
+        // 打印手机应用信息
         dumpPhoneInfo(pw);
         pw.println();
-        // 瀵煎嚭寮傚父鐨勮皟鐢ㄦ爤淇℃伅
+        // 打印异常内容
         ex.printStackTrace(pw);
         pw.println();
         pw.close();
