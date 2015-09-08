@@ -23,6 +23,7 @@ public class HttpRestClient {
 		client.addHeader("Accept-Language", Locale.getDefault().toString());
 	}
 
+	// -----------------------------get-------------------------------------
 	public static void get(String url, AsyncHttpResponseHandler responseHandler) {
 		client.get(url, responseHandler);
 	}
@@ -30,10 +31,6 @@ public class HttpRestClient {
 	public static void get(Context context, String url,
 			AsyncHttpResponseHandler responseHandler) {
 		client.get(context, url, responseHandler);
-	}
-
-	public static void post(String url, AsyncHttpResponseHandler responseHandler) {
-		client.post(url, responseHandler);
 	}
 
 	public static void get(String url, RequestParams params,
@@ -44,6 +41,11 @@ public class HttpRestClient {
 	public static void get(Context context, String url, RequestParams params,
 			AsyncHttpResponseHandler responseHandler) {
 		client.get(context, url, params, responseHandler);
+	}
+
+	// -----------------------------post-------------------------------------
+	public static void post(String url, AsyncHttpResponseHandler responseHandler) {
+		client.post(url, responseHandler);
 	}
 
 	public static void post(String url, RequestParams params,
@@ -59,5 +61,25 @@ public class HttpRestClient {
 	public static void post(Context context, String url, RequestParams params,
 			AsyncHttpResponseHandler responseHandler) {
 		client.post(context, url, params, responseHandler);
+	}
+
+	// -----------------------------put-------------------------------------
+	public static void put(String url, AsyncHttpResponseHandler responseHandler) {
+		client.put(url, responseHandler);
+	}
+
+	public static void put(String url, RequestParams params,
+			AsyncHttpResponseHandler responseHandler) {
+		client.put(url, params, responseHandler);
+	}
+
+	public static void put(Context context, String url, RequestParams params,
+			AsyncHttpResponseHandler responseHandler) {
+		client.put(context, url, params, responseHandler);
+	}
+
+	public static void put(Context context, String url, HttpEntity entity,
+			String contentType, AsyncHttpResponseHandler responseHandler) {
+		client.put(context, url, entity, contentType, responseHandler);
 	}
 }

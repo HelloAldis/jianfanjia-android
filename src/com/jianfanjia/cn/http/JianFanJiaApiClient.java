@@ -1,6 +1,9 @@
 package com.jianfanjia.cn.http;
 
+import java.io.File;
 import java.io.UnsupportedEncodingException;
+
+import org.apache.http.entity.FileEntity;
 import org.apache.http.entity.StringEntity;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -324,6 +327,23 @@ public class JianFanJiaApiClient {
 			HttpRestClient.post(context, Url.POST_PROCESS_COMMENT, entity,
 					"application/json", handler);
 		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * 用户上传图片
+	 * 
+	 * @param context
+	 * @param hanlder
+	 */
+	public static void uploadImage(Context context, String imgPath,
+			AsyncHttpResponseHandler hanlder) {
+		FileEntity entity;
+		try {
+			entity = new FileEntity(new File(imgPath), "binary/octet-stream");
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
