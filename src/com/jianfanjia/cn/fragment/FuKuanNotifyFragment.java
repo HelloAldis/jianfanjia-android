@@ -8,6 +8,7 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.PayNotifyAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.NotifyPayInfo;
+import com.jianfanjia.cn.tools.LogTool;
 
 /**
  * 
@@ -35,6 +36,18 @@ public class FuKuanNotifyFragment extends BaseFragment {
 		}
 		payAdapter = new PayNotifyAdapter(getActivity(), payList);
 		listView.setAdapter(payAdapter);
+	}
+
+	@Override
+	public void setUserVisibleHint(boolean isVisibleToUser) {
+		super.setUserVisibleHint(isVisibleToUser);
+		if (isVisibleToUser) {
+			// fragment可见时加载数据
+			LogTool.d(this.getClass().getName(), "1111111111111111");
+		} else {
+			// 不可见时不执行操作
+			LogTool.d(this.getClass().getName(), "222222222222222");
+		}
 	}
 
 	@Override
