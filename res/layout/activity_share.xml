@@ -20,7 +20,7 @@
             android:textColor="@color/back_color" />
         
         <TextView
-            android:id="@+id/my_designer_title"
+            android:id="@+id/share_title"
             style="@style/site_listview_item_text_style_title"
             android:layout_centerInParent="true"
             android:text="@string/share_title"

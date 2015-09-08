@@ -25,7 +25,7 @@ public class AboutActivity extends BaseActivity implements OnClickListener {
 	public void initView() {
 		backView = (TextView) findViewById(R.id.about_back);
 		currentVersion = (TextView) findViewById(R.id.about_version);
-		currentVersion.setText(MyApplication.getVersionName());
+		currentVersion.setText(MyApplication.getInstance().getVersionName());
 	}
 
 	@Override

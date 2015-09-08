@@ -65,7 +65,7 @@ public class SettingFragment extends BaseFragment implements
 				.findViewById(R.id.clear_cache_layout);
 		cacheSizeView = (TextView) view.findViewById(R.id.cache_size);
 		currentVersion = (TextView) view.findViewById(R.id.current_version);
-		currentVersion.setText(MyApplication.getVersionName());
+		currentVersion.setText(MyApplication.getInstance().getVersionName());
 
 		caculateCacheSize();
 	}
