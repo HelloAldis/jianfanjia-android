@@ -16,6 +16,8 @@ public class Constant {
 	public static final String SHARED_MAIN = "jianfanjia";
 	public static final String LOG_PATH = Environment
 			.getExternalStorageDirectory() + "/JianFanJia/MyLog/mylog.txt";// log存放路径
+	public static final String ERROR_LOG_PATH = Environment
+			.getExternalStorageDirectory() + "/JianFanJia/MyLog/errorlog.txt";// log存放路径
 	
 	public static final String COMMON_PATH = Environment
 			.getExternalStorageDirectory() + "/JianFanJia/";// 公共的路径

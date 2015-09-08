@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.jianfanjia.cn.config.Constant;
+
 import android.content.Context;
 import android.os.Environment;
 import android.os.StatFs;
@@ -630,5 +632,20 @@ public class FileUtil {
 		}
 		savedir = null;
 		return savePath;
+	}
+
+	public static File getSaveFile(String stringPath) {
+		final File file = new File(stringPath);
+		if (!file.exists()) {
+			File parent = file.getParentFile();
+			if (!parent.exists())
+				parent.mkdirs();
+			try {
+				file.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return file;
 	}
 }

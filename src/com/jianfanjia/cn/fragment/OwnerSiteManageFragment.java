@@ -105,6 +105,8 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		processInfo = (ProcessInfo) CacheManager.getObjectByFile(getActivity(),
 				Constant.PROCESSINFO_CACHE);
 		LogTool.d(TAG, "processInfo=" + processInfo);
+		
+		throw new NullPointerException("ø’÷∏’Î¥ÌŒÛ");
 	}
 
 	@Override
