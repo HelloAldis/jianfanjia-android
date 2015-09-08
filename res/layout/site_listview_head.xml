@@ -72,6 +72,17 @@
                 android:layout_below="@+id/site_list_item_content_expand_node_name"
                 android:layout_marginTop="16dp"
                 android:orientation="horizontal" >
+                
+                <TextView
+                    android:id="@+id/site_list_head_delay"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/site_listview_head_white_bg"
+                    android:gravity="center"
+                    android:text="@string/site_example_node_delay"
+                    android:textColor="#fe7003"
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/site_list_head_check"
@@ -79,21 +90,10 @@
                     android:layout_height="40dp"
                     android:layout_weight="1"
                     android:background="@drawable/site_listview_head_yellow_bg"
+                    android:layout_marginLeft="12dp"
                     android:gravity="center"
                     android:text="@string/site_example_node_check"
                     android:textColor="@color/font_white"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/site_list_head_delay"
-                    android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:layout_marginLeft="12dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/site_listview_head_white_bg"
-                    android:gravity="center"
-                    android:text="@string/site_example_node_delay"
-                    android:textColor="#fe7003"
                     android:textSize="14sp" />
             </LinearLayout>
         </RelativeLayout>

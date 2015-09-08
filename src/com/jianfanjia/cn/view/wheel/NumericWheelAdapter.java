@@ -71,6 +71,7 @@ public  class NumericWheelAdapter implements WheelAdapter {
 	}
 	
 
+	@Override
 	public String getItem(int index) {
 		if (index >= 0 && index < getItemsCount()) {
 			int value = minValue + index;
@@ -79,10 +80,12 @@ public  class NumericWheelAdapter implements WheelAdapter {
 		return null;
 	}
 
+	@Override
 	public int getItemsCount() {
 		return maxValue - minValue + 1;
 	}
 	
+	@Override
 	public int getMaximumLength() {
 		int max = Math.max(Math.abs(maxValue), Math.abs(minValue));
 		int maxLen = Integer.toString(max).length();
@@ -95,6 +98,7 @@ public  class NumericWheelAdapter implements WheelAdapter {
 	/* (non-Javadoc)
 	 * @see com.yichenliu.WheelView.WheelAdapter#getFirstItem()
 	 */
+	@Override
 	public Object getFirstItem() {
 		
 		return minValue;
@@ -103,6 +107,7 @@ public  class NumericWheelAdapter implements WheelAdapter {
 	/* (non-Javadoc)
 	 * @see com.yichenliu.WheelView.WheelAdapter#getLastItem()
 	 */
+	@Override
 	public Object getLastItem() {
 		
 		return maxValue;

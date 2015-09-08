@@ -1,15 +1,14 @@
 package com.jianfanjia.cn.fragment;
 
-import java.net.URLDecoder;
 import java.util.Calendar;
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.util.Log;
 import android.view.View;
-import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -26,6 +25,7 @@ import com.jianfanjia.cn.tools.DateFormatTool;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.StringUtils;
+import com.jianfanjia.cn.view.dialog.DateWheelDialog;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 /**
@@ -268,11 +268,23 @@ public class OwnerSiteFragment extends BaseFragment {
 		int viewId = v.getId();
 		switch (viewId) {
 		case R.id.my_startdate_layout:
-			datePickerDialog = new DatePickerDialog(getActivity(),
-					dateSetListener, calendar.get(Calendar.YEAR),
-					calendar.get(Calendar.MONTH),
-					calendar.get(Calendar.DAY_OF_MONTH));
-			datePickerDialog.show();
+			DateWheelDialog dateWheelDialog = new DateWheelDialog(getActivity(),Calendar.getInstance());
+			dateWheelDialog.setTitle("—°‘Ò ±º‰");
+			dateWheelDialog.setPositiveButton(R.string.ok,
+					new DialogInterface.OnClickListener() {
+
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							makeTextLong(StringUtils.getDateString(((DateWheelDialog)dialog).getChooseCalendar().getTime()));
+							startDateView.setText(StringUtils.getDateString(((DateWheelDialog)dialog).getChooseCalendar().getTime()));
+							if(requirementInfo != null){
+								requirementInfo.setStart_at(((DateWheelDialog)dialog).getChooseCalendar().getTimeInMillis());
+							}
+							dialog.dismiss();
+						}
+					});
+			dateWheelDialog.setNegativeButton(R.string.no, null);
+			dateWheelDialog.show();
 			break;
 		case R.id.my_site_confirm:
 			Log.i(TAG, "confirm");
@@ -286,21 +298,6 @@ public class OwnerSiteFragment extends BaseFragment {
 			break;
 		}
 	}
-
-	private DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-
-		@Override
-		public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
-			Calendar calendar1 = Calendar.getInstance();
-			calendar1.set(arg1, arg2, arg3);
-			startDateView.setText(DateFormatTool.covertLongToString(
-					calendar1.getTimeInMillis(),"yyyy-MM-dd"));
-			if(requirementInfo != null){
-				requirementInfo.setDuration("60");
-				requirementInfo.setStart_at(calendar1.getTimeInMillis());
-			}
-		}
-	};
 
 	@Override
 	public int getLayoutId() {

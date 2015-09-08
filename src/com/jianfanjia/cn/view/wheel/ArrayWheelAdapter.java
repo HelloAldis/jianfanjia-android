@@ -47,6 +47,7 @@ public class ArrayWheelAdapter<T> implements WheelAdapter {
 		this(items, DEFAULT_LENGTH);
 	}
 
+	@Override
 	public String getItem(int index) {
 		if (index >= 0 && index < items.length) {
 			return items[index].toString();
@@ -54,10 +55,12 @@ public class ArrayWheelAdapter<T> implements WheelAdapter {
 		return null;
 	}
 
+	@Override
 	public int getItemsCount() {
 		return items.length;
 	}
 
+	@Override
 	public int getMaximumLength() {
 		return length;
 	}
@@ -65,6 +68,7 @@ public class ArrayWheelAdapter<T> implements WheelAdapter {
 	/* (non-Javadoc)
 	 * @see com.yichenliu.WheelView.WheelAdapter#getFirstItem()
 	 */
+	@Override
 	public Object getFirstItem() {
 		
 		return items[0];
@@ -73,6 +77,7 @@ public class ArrayWheelAdapter<T> implements WheelAdapter {
 	/* (non-Javadoc)
 	 * @see com.yichenliu.WheelView.WheelAdapter#getLastItem()
 	 */
+	@Override
 	public Object getLastItem() {
 		
 		return items[items.length];

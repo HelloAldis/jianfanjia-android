@@ -920,6 +920,7 @@ public class WheelView extends View {
 
 	// gesture listener
 	private SimpleOnGestureListener gestureListener = new SimpleOnGestureListener() {
+		@Override
 		public boolean onDown(MotionEvent e) {
 			if (isScrollingPerformed) {
 				scroller.forceFinished(true);
@@ -929,6 +930,7 @@ public class WheelView extends View {
 			return false;
 		}
 
+		@Override
 		public boolean onScroll(MotionEvent e1, MotionEvent e2,
 				float distanceX, float distanceY) {
 			startScrolling();
@@ -936,6 +938,7 @@ public class WheelView extends View {
 			return true;
 		}
 
+		@Override
 		public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
 				float velocityY) {
 			lastScrollY = currentItem * getItemHeight() + scrollingOffset;
@@ -974,6 +977,7 @@ public class WheelView extends View {
 
 	// animation handler
 	private Handler animationHandler = new Handler() {
+		@Override
 		public void handleMessage(Message msg) {
 			scroller.computeScrollOffset();
 			int currY = scroller.getCurrY();
