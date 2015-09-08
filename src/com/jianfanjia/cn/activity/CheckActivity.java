@@ -24,9 +24,10 @@ import com.jianfanjia.cn.config.Constant;
 public class CheckActivity extends BaseActivity implements OnClickListener {
 	private TextView backView = null;// 返回视图
 	private GridView gridView = null;
-	private static final int ICON[] = { R.drawable.ic_launcher,
-			R.drawable.ic_launcher, R.drawable.ic_launcher,
-			R.drawable.ic_launcher, R.drawable.ic_launcher };
+	private static final int ICON[] = { R.drawable.pix_default,
+			R.drawable.pix_default, R.drawable.pix_default,
+			R.drawable.pix_default, R.drawable.pix_default,
+			R.drawable.pix_default };
 	private List<GridItem> gridList = new ArrayList<GridItem>();
 	private int currentList;// 当前的工序
 
