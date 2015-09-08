@@ -2,7 +2,6 @@ package com.jianfanjia.cn.http;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
-import org.apache.http.entity.FileEntity;
 import org.apache.http.entity.StringEntity;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,6 +13,7 @@ import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Url;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 /**
  * 
@@ -349,11 +349,11 @@ public class JianFanJiaApiClient {
 	 */
 	public static void uploadImage(Context context, String imgPath,
 			AsyncHttpResponseHandler handler) {
-		FileEntity entity;
 		try {
-			entity = new FileEntity(new File(imgPath), "multipart/form-data");
-			HttpRestClient.post(context, Url.UPLOAD_IMAGE, entity,
-					"multipart/form-data", handler);
+			File file = new File(imgPath);
+			RequestParams params = new RequestParams();
+			params.put("Filedata", file);
+			HttpRestClient.post(context, Url.UPLOAD_IMAGE, params, handler);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
