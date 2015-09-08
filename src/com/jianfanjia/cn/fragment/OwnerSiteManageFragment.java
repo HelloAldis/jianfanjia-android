@@ -186,13 +186,15 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 					"icon_home_normal" + (i + 1), "drawable",
 					MyApplication.getInstance().getPackageName()));
 			viewPagerItem.setTitle(proTitle[i]);
-			// if (sectionInfos != null) {
-			// viewPagerItem.setDate(DateFormatTool.covertLongToString(
-			// sectionInfos.get(i).getStart_at(), "M.dd")
-			// + "-"
-			// + DateFormatTool.covertLongToString(sectionInfos.get(i)
-			// .getEnd_at(), "M.dd"));
-			// }
+			if (sectionInfos != null) {
+				viewPagerItem.setDate(DateFormatTool.covertLongToString(
+						sectionInfos.get(i).getStart_at(), "M.dd")
+						+ "-"
+						+ DateFormatTool.covertLongToString(sectionInfos.get(i)
+								.getEnd_at(), "M.dd"));
+			} else {
+
+			}
 			// initItem(siteHead, i);
 			list.add(viewPagerItem);
 		}
