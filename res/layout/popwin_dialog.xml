@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    android:orientation="vertical"
+    android:background="@color/main_layout_bg" >
+    
+     <Button
+        android:id="@+id/btn_open_album"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/space_48"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+        android:background="@drawable/btn_selector"
+        android:text="@string/open_album"
+        android:textColor="@color/white"
+        android:textSize="14sp" />
+    
+      <Button
+        android:id="@+id/btn_open_camera"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/space_48"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+        android:layout_marginTop="20dip"
+        android:background="@drawable/btn_selector"
+        android:text="@string/open_camera"
+        android:textColor="@color/white"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/btn_cancel"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/space_48"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+        android:layout_marginTop="20dip"
+        android:background="@drawable/btn_selector"
+        android:text="@string/no"
+        android:textColor="@color/white"
+        android:textSize="14sp" />
+    
+    
+
+</LinearLayout>

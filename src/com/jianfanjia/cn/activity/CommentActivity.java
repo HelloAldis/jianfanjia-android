@@ -81,7 +81,7 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
 		Bundle bundle = intent.getExtras();
 		if (bundle != null) {
 			currentList = bundle.getInt(Constant.CURRENT_LIST, 0);
-			currentItem = bundle.getInt(Constant.CURRENT_Item, 0);
+			currentItem = bundle.getInt(Constant.CURRENT_ITEM, 0);
 		}
 		if((processInfo = (ProcessInfo) CacheManager.getObjectByFile(this,
 				Constant.PROCESSINFO_CACHE)) != null){

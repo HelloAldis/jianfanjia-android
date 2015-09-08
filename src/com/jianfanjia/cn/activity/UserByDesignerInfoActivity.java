@@ -4,7 +4,9 @@ import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Intent;
 import android.text.TextUtils;
+import android.view.ActionMode;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -29,6 +31,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
  */
 public class UserByDesignerInfoActivity extends BaseActivity implements
 		OnClickListener {
+	
 	private static final String TAG = UserByDesignerInfoActivity.class
 			.getName();
 	private TextView ownerinfo_back = null;
@@ -39,6 +42,8 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 	private TextView addressText = null;
 	private TextView homeText = null;
 	private Button btn_confirm = null;
+	private RelativeLayout userNameRelativeLayout = null;
+	private RelativeLayout homeRelativeLayout = null;
 
 	@Override
 	public void initView() {
@@ -50,6 +55,9 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 		addressText = (TextView) this.findViewById(R.id.addressText);
 		homeText = (TextView) this.findViewById(R.id.homeText);
 		btn_confirm = (Button) this.findViewById(R.id.btn_confirm);
+		
+		userNameRelativeLayout = (RelativeLayout) this.findViewById(R.id.name_layout);
+		homeRelativeLayout = (RelativeLayout) this.findViewById(R.id.home_layout);
 		get_Designer_Info();
 	}
 
@@ -58,6 +66,8 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 		ownerinfo_back.setOnClickListener(this);
 		headLayout.setOnClickListener(this);
 		btn_confirm.setOnClickListener(this);
+		userNameRelativeLayout.setOnClickListener(this);
+		homeRelativeLayout.setOnClickListener(this);
 	}
 
 	private void get_Designer_Info() {
@@ -147,6 +157,14 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 			break;
 		case R.id.btn_confirm:
 			break;
+		case R.id.name_layout:
+			Intent name = new Intent(UserByDesignerInfoActivity.this,EditInfoActivity.class);
+			startActivityForResult(name, Constant.REQUESTCODE_EDIT_USERNAME);
+			break;
+		case R.id.address_layout:
+			Intent address = new Intent(UserByDesignerInfoActivity.this,EditInfoActivity.class);
+			startActivityForResult(address, Constant.REQUESTCODE_EDIT_ADDRESS);
+			break;
 		default:
 			break;
 		}
@@ -161,6 +179,12 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 	@Override
 	public int getLayoutId() {
 		return R.layout.activity_designer_info;
+	}
+	
+	@Override
+	protected void onActivityResult(int arg0, int arg1, Intent arg2) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(arg0, arg1, arg2);
 	}
 
 }

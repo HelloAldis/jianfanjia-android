@@ -77,7 +77,9 @@ public class Constant {
 			+ R.drawable.btn_icon_home_add;
 
 	public static final String CURRENT_LIST = "current_list";// 首页展开的第一道工序
-
-	public static final String CURRENT_Item = "current_item";// 当前节点
+	public static final String CURRENT_ITEM = "current_item";// 当前节点
+	
+	public static final int REQUESTCODE_EDIT_USERNAME = 0;
+	public static final int REQUESTCODE_EDIT_ADDRESS = 1;
 	
 }

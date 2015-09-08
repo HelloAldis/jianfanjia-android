@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.GridView;
@@ -20,6 +21,7 @@ import com.jianfanjia.cn.bean.CommentInfo;
 import com.jianfanjia.cn.bean.GridItem;
 import com.jianfanjia.cn.bean.SectionItemInfo;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.view.AddPhotoPopWindow;
 
 public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 	private int lastClickItem = -1;// 记录点击的位置
@@ -188,7 +190,7 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 				Bundle bundle = new Bundle();
 				bundle.putInt(Constant.CURRENT_LIST, currentPro);
 				Log.i(this.getClass().getName(), "positon = " + position);
-				bundle.putInt(Constant.CURRENT_Item, position);
+				bundle.putInt(Constant.CURRENT_ITEM, position);
 				intent.putExtras(bundle);
 				context.startActivity(intent);
 			}
@@ -197,7 +199,17 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 
 			@Override
 			public void onClick(View v) {
-				// AppContext.showToast("涓婁紶鐓х墖");
+				AddPhotoPopWindow addPhotoPopWindow = new AddPhotoPopWindow(context,new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						
+					}
+				});
+				addPhotoPopWindow.showAtLocation(v,
+						Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+				
 			}
 		});
 		return convertView;

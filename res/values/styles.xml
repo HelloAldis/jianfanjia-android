@@ -200,5 +200,11 @@
         <item name="android:indeterminateDrawable">@drawable/progress_large_shape</item>
         <item name="android:indeterminateOnly">true</item>
     </style>
+    
+    <!-- popub_windows -->
+    <style name="popub_anim" parent="@android:style/Animation.Dialog" mce_bogus="1">
+        <item name="android:windowEnterAnimation">@anim/popub_slide_in_from_bottom</item>
+        <item name="android:windowExitAnimation">@anim/popub_slide_out_to_bottom</item>
+    </style> 
 
 </resources>

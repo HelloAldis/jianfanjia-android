@@ -5,6 +5,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -43,6 +44,8 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 	private TextView homeText = null;
 	private Button btn_confirm = null;
 	private RelativeLayout addressLayout;
+	private RelativeLayout userNameRelativeLayout = null;
+	private RelativeLayout homeRelativeLayout = null;
 	
 	private CommonWheelDialog commonWheelDialog;
 	
@@ -65,7 +68,10 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 		addressText = (TextView) this.findViewById(R.id.addressText);
 		homeText = (TextView) this.findViewById(R.id.homeText);
 		btn_confirm = (Button) this.findViewById(R.id.btn_confirm);
-		addressLayout = (RelativeLayout) this.findViewById(R.id.address_layout);
+		addressLayout = (RelativeLayout) this.findViewById(R.id.home_layout);
+		userNameRelativeLayout = (RelativeLayout) this.findViewById(R.id.name_layout);
+		homeRelativeLayout = (RelativeLayout) this.findViewById(R.id.home_layout);
+		
 		get_Owner_Info();
 		
 		commonWheelDialog = new CommonWheelDialog(this);
@@ -77,6 +83,8 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 		headLayout.setOnClickListener(this);
 		btn_confirm.setOnClickListener(this);
 		addressLayout.setOnClickListener(this);
+		homeRelativeLayout.setOnClickListener(this);
+		userNameRelativeLayout.setOnClickListener(this);
 	}
 
 	@Override
@@ -91,6 +99,14 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 			break;
 		case R.id.address_layout:
 			showWheelDialog();
+			break;
+		case R.id.name_layout:
+			Intent name = new Intent(UserByOwnerInfoActivity.this,EditInfoActivity.class);
+			startActivityForResult(name, Constant.REQUESTCODE_EDIT_USERNAME);
+			break;
+		case R.id.home_layout:
+			Intent address = new Intent(UserByOwnerInfoActivity.this,EditInfoActivity.class);
+			startActivity(address);
 			break;
 		default:
 			break;
