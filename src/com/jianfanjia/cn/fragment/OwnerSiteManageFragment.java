@@ -1,11 +1,13 @@
 package com.jianfanjia.cn.fragment;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -41,6 +43,8 @@ import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshScrollView;
 import com.jianfanjia.cn.tools.DateFormatTool;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.tools.StringUtils;
+import com.jianfanjia.cn.view.dialog.DateWheelDialog;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 /**
@@ -325,6 +329,19 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 			startActivity(CheckActivity.class, bundle);
 			break;
 		case R.id.site_list_head_delay:
+			DateWheelDialog dateWheelDialog = new DateWheelDialog(getActivity(),Calendar.getInstance());
+			dateWheelDialog.setTitle("—°‘Ò ±º‰");
+			dateWheelDialog.setPositiveButton(R.string.ok,
+					new DialogInterface.OnClickListener() {
+
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							makeTextLong(StringUtils.getDateString(((DateWheelDialog)dialog).getChooseCalendar().getTime()));
+							dialog.dismiss();
+						}
+					});
+			dateWheelDialog.setNegativeButton(R.string.no, null);
+			dateWheelDialog.show();
 			break;
 		default:
 			break;

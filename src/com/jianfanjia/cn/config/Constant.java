@@ -77,4 +77,5 @@ public class Constant {
 	public static final String CURRENT_LIST = "current_list";// 首页展开的第一道工序
 
 	public static final String CURRENT_Item = "current_item";// 当前节点
+	
 }

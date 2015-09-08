@@ -8,6 +8,8 @@ import org.apache.http.entity.StringEntity;
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.content.Context;
+import android.util.Log;
+
 import com.jianfanjia.cn.bean.CommitCommentInfo;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
@@ -36,7 +38,7 @@ public class JianFanJiaApiClient {
 		JSONObject jsonParams = new JSONObject();
 		try {
 			jsonParams.put("cid", clientId);
-			StringEntity entity = new StringEntity(jsonParams.toString());
+			StringEntity entity = new StringEntity(jsonParams.toString(),"utf-8");
 			HttpRestClient.post(context, Url.BIND_URL, entity,
 					"application/json", handler);
 		} catch (JSONException e) {
@@ -59,7 +61,7 @@ public class JianFanJiaApiClient {
 		try {
 			jsonParams.put("phone", username);
 			jsonParams.put("pass", password);
-			StringEntity entity = new StringEntity(jsonParams.toString());
+			StringEntity entity = new StringEntity(jsonParams.toString(),"utf-8");
 			HttpRestClient.post(context, Url.LOGIN_URL, entity,
 					"application/json", handler);
 		} catch (JSONException e) {
@@ -100,7 +102,7 @@ public class JianFanJiaApiClient {
 		JSONObject jsonParams = new JSONObject();
 		try {
 			jsonParams.put("phone", phone);
-			StringEntity entity = new StringEntity(jsonParams.toString());
+			StringEntity entity = new StringEntity(jsonParams.toString(),"utf-8");
 			HttpRestClient.post(context, Url.GET_CODE_URL, entity,
 					"application/json", handler);
 		} catch (JSONException e) {
@@ -132,7 +134,7 @@ public class JianFanJiaApiClient {
 			RequirementInfo requirementInfo, AsyncHttpResponseHandler handler) {
 		StringEntity entity;
 		try {
-			entity = new StringEntity(JsonParser.beanToJson(requirementInfo));
+			entity = new StringEntity(JsonParser.beanToJson(requirementInfo),"utf-8");
 			HttpRestClient.post(context, Url.PROCESS, entity,
 					"application/json", handler);
 		} catch (UnsupportedEncodingException e) {
@@ -150,7 +152,7 @@ public class JianFanJiaApiClient {
 			AsyncHttpResponseHandler handler) {
 		StringEntity entity;
 		try {
-			entity = new StringEntity(JsonParser.beanToJson(registerInfo));
+			entity = new StringEntity(JsonParser.beanToJson(registerInfo),"utf-8");
 			HttpRestClient.post(context, Url.REGISTER_URL, entity,
 					"application/json", handler);
 		} catch (UnsupportedEncodingException e) {
@@ -168,7 +170,7 @@ public class JianFanJiaApiClient {
 			AsyncHttpResponseHandler hanlder) {
 		StringEntity entity;
 		try {
-			entity = new StringEntity(phone);
+			entity = new StringEntity(phone,"utf-8");
 			HttpRestClient.post(context, Url.REGISTER_URL, entity,
 					"application/json", hanlder);
 		} catch (UnsupportedEncodingException e) {
@@ -268,7 +270,7 @@ public class JianFanJiaApiClient {
 		JSONObject jsonParams = new JSONObject();
 		try {
 			jsonParams.put("processid", processid);
-			StringEntity entity = new StringEntity(jsonParams.toString());
+			StringEntity entity = new StringEntity(jsonParams.toString(),"utf-8");
 			HttpRestClient.post(context, Url.AGREE_RESCHDULE, entity,
 					"application/json", handler);
 		} catch (JSONException e) {
@@ -290,7 +292,7 @@ public class JianFanJiaApiClient {
 		JSONObject jsonParams = new JSONObject();
 		try {
 			jsonParams.put("processid", processid);
-			StringEntity entity = new StringEntity(jsonParams.toString());
+			StringEntity entity = new StringEntity(jsonParams.toString(),"utf-8");
 			HttpRestClient.post(context, Url.REFUSE_RESCHDULE, entity,
 					"application/json", handler);
 		} catch (JSONException e) {
@@ -323,9 +325,10 @@ public class JianFanJiaApiClient {
 			AsyncHttpResponseHandler handler) {
 		StringEntity entity;
 		try {
-			entity = new StringEntity(JsonParser.beanToJson(commitCommentInfo));
+			Log.i("jianfanjiaApi", JsonParser.beanToJson(commitCommentInfo));
+			entity = new StringEntity(JsonParser.beanToJson(commitCommentInfo),"utf-8");
 			HttpRestClient.post(context, Url.POST_PROCESS_COMMENT, entity,
-					"application/json", handler);
+					"application/json;charset=utf-8", handler);
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
