@@ -350,7 +350,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 					@Override
 					public void onStart() {
 						LogTool.d(TAG, "onStart()");
-						showWaitDialog(R.string.loding);
+						showWaitDialog();
 					}
 
 					@Override

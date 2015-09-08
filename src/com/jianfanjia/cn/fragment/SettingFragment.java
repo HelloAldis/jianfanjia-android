@@ -1,11 +1,9 @@
 package com.jianfanjia.cn.fragment;
 
 import java.io.File;
-
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.content.DialogInterface;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -13,7 +11,6 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
-
 import com.igexin.sdk.PushManager;
 import com.jianfanjia.cn.activity.AboutActivity;
 import com.jianfanjia.cn.activity.FeedBackActivity;
@@ -25,7 +22,6 @@ import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
-import com.jianfanjia.cn.interf.DialogListener;
 import com.jianfanjia.cn.tools.FileUtil;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.dialog.CommonDialog;

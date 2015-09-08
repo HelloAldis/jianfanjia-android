@@ -13,6 +13,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 import com.google.gson.reflect.TypeToken;
+import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.OwnerInfoActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.MyOwerInfoAdapter;
@@ -63,7 +64,7 @@ public class OwnerFragment extends BaseFragment implements OnItemClickListener {
 		int viewId = v.getId();
 		switch (viewId) {
 		case R.id.my_ower_head:
-
+			((MainActivity) getActivity()).getSlidingPaneLayout().openPane();
 			break;
 		default:
 			break;

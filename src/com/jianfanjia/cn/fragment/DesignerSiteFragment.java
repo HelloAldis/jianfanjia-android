@@ -12,6 +12,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 import com.google.gson.reflect.TypeToken;
+import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.DesignerSiteInfoAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
@@ -61,8 +62,8 @@ public class DesignerSiteFragment extends BaseFragment implements
 	public void onClick(View v) {
 		int viewId = v.getId();
 		switch (viewId) {
-		case R.id.my_ower_head:
-
+		case R.id.designer_site_head:
+			((MainActivity) getActivity()).getSlidingPaneLayout().openPane();
 			break;
 		default:
 			break;
