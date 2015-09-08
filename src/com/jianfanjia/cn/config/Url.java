@@ -56,6 +56,9 @@ public class Url {
 	// 设计师提交方案
 	public static final String SUBMIT_DESIGNER_PLAN = HTTPROOT
 			+ "designer/plan";
+	//用户上传图片
+	public static final String UPLOAD_IMAGE = HTTPROOT
+			+ "image/upload";
 	// 设计师提交验收图片
 	public static final String SUBMIT_YAHSHOU_IMAGE = HTTPROOT
 			+ "process/ysimage";

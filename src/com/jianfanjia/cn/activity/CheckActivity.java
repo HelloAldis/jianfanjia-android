@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
 import com.jianfanjia.cn.adapter.MyGridViewAdapter;
@@ -28,6 +29,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 	private static final String TAG = CheckActivity.class.getName();
 	private TextView backView = null;// ∑µªÿ ”Õº
 	private GridView gridView = null;
+	private Button btn_confirm_check = null;
 	private static final int ICON[] = { R.drawable.pix_default,
 			R.drawable.pix_default, R.drawable.pix_default,
 			R.drawable.pix_default, R.drawable.pix_default,
@@ -50,6 +52,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 	public void initView() {
 		backView = (TextView) findViewById(R.id.check_pic_back);
 		gridView = (GridView) findViewById(R.id.mygridview);
+		btn_confirm_check = (Button) findViewById(R.id.btn_confirm_check);
 		gridView.setFocusable(false);
 		initData();
 	}
@@ -68,6 +71,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 	@Override
 	public void setListener() {
 		backView.setOnClickListener(this);
+		btn_confirm_check.setOnClickListener(this);
 	}
 
 	@Override
@@ -75,6 +79,9 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 		switch (v.getId()) {
 		case R.id.check_pic_back:
 			finish();
+			break;
+		case R.id.btn_confirm_check:
+			upload();
 			break;
 		default:
 			break;
@@ -84,6 +91,10 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 	@Override
 	public void onUpload(int position) {
 		LogTool.d(TAG, "position:" + position);
+
+	}
+
+	private void upload() {
 
 	}
 
