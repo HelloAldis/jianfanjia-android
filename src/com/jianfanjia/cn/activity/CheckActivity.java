@@ -86,7 +86,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 			finish();
 			break;
 		case R.id.btn_confirm_check:
-			upload(Constant.COMMON_PATH + "myqr.jpg");
+			upload(Constant.COMMON_PATH + "myqr.jpg");// ≤‚ ‘
 			break;
 		default:
 			break;
