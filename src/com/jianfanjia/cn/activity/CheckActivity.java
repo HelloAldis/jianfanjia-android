@@ -50,7 +50,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 		if (bundle != null) {
 			currentList = bundle.getInt(Constant.CURRENT_LIST, 0);
 		}
-		makeTextLong("" + currentList);
+		LogTool.d(TAG, "currentList:" + currentList);
 	}
 
 	@Override
