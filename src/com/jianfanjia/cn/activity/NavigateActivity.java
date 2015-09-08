@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+
 import com.jianfanjia.cn.adapter.ViewPageAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.config.Constant;
@@ -23,7 +25,9 @@ import com.jianfanjia.cn.config.Constant;
 public class NavigateActivity extends BaseActivity implements OnClickListener,
 		OnPageChangeListener {
 	private ViewPager viewPager = null;
-	private Button enterBtn = null;
+	private LinearLayout btnLayout = null;
+	private Button btnRegister = null;
+	private Button btnLogin = null;
 	private List<View> list = new ArrayList<View>();
 	private ViewPageAdapter adapter = null;
 	private int currentItem = 0; // 当前图片的索引号
@@ -33,7 +37,9 @@ public class NavigateActivity extends BaseActivity implements OnClickListener,
 	@Override
 	public void initView() {
 		viewPager = (ViewPager) findViewById(R.id.viewPager);
-		enterBtn = (Button) findViewById(R.id.enterMain);
+		btnLayout = (LinearLayout) findViewById(R.id.btnLayout);
+		btnRegister = (Button) findViewById(R.id.btnRegister);
+		btnLogin = (Button) findViewById(R.id.btnLogin);
 		// 导航测试资源
 		for (int i = 0; i < imgId.length; i++) {
 			ImageView view = new ImageView(this);
@@ -47,14 +53,19 @@ public class NavigateActivity extends BaseActivity implements OnClickListener,
 	@Override
 	public void setListener() {
 		viewPager.setOnPageChangeListener(this);
-		enterBtn.setOnClickListener(this);
+		btnRegister.setOnClickListener(this);
+		btnLogin.setOnClickListener(this);
 	}
 
 	@Override
 	public void onClick(View v) {
+		sharedPrefer.setValue(Constant.ISFIRST, 1);
 		switch (v.getId()) {
-		case R.id.enterMain:
-			sharedPrefer.setValue(Constant.ISFIRST, 1);
+		case R.id.btnRegister:
+			startActivity(RegisterActivity.class);
+			finish();
+			break;
+		case R.id.btnLogin:
 			startActivity(LoginActivity.class);
 			finish();
 			break;
@@ -79,9 +90,9 @@ public class NavigateActivity extends BaseActivity implements OnClickListener,
 	public void onPageSelected(int arg0) {
 		currentItem = arg0;
 		if (currentItem == list.size() - 1) {
-			enterBtn.setVisibility(View.VISIBLE);
+			btnLayout.setVisibility(View.VISIBLE);
 		} else {
-			enterBtn.setVisibility(View.GONE);
+			btnLayout.setVisibility(View.GONE);
 		}
 	}
 

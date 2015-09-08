@@ -1,13 +1,11 @@
 package com.jianfanjia.cn.adapter;
 
 import java.util.List;
-
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.CommentInfo;
 import com.jianfanjia.cn.config.Constant;
@@ -30,7 +28,7 @@ public class CommentInfoAdapter extends BaseListAdapter<CommentInfo> {
 	public View initView(int position, View convertView) {
 		ViewHolder viewHolder = null;
 		CommentInfo commentInfo = list.get(position);
-		Log.i(this.getClass().getName(),commentInfo.getContent());
+		Log.i(this.getClass().getName(), commentInfo.getContent());
 		if (convertView == null) {
 			convertView = layoutInflater.inflate(R.layout.list_item_comment,
 					null);
@@ -49,10 +47,16 @@ public class CommentInfoAdapter extends BaseListAdapter<CommentInfo> {
 		} else {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
-		viewHolder.itemNameView.setText(commentInfo.getUserName() == null ? "null" : "zhanghao");
+		viewHolder.itemNameView
+				.setText(commentInfo.getUserName() == null ? "null"
+						: "zhanghao");
 		viewHolder.itemContentView.setText(commentInfo.getContent());
-		viewHolder.itemTimeView.setText(StringUtils.covertLongToString(commentInfo.getDate()));
-		viewHolder.itemIdentityView.setText(commentInfo.getUsertype() == Constant.IDENTITY_OWNER ? context.getString(R.string.ower) : context.getString(R.string.designer));
+		viewHolder.itemTimeView.setText(StringUtils
+				.covertLongToString(commentInfo.getDate()));
+		viewHolder.itemIdentityView
+				.setText(commentInfo.getUsertype() == Constant.IDENTITY_OWNER ? context
+						.getString(R.string.ower) : context
+						.getString(R.string.designer));
 		if (commentInfo.getUserImageUrl() != null) {
 			ImageLoader.getInstance().displayImage(
 					commentInfo.getUserImageUrl(), viewHolder.itemHeadView);
