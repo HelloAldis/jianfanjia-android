@@ -350,6 +350,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 					@Override
 					public void onStart() {
 						LogTool.d(TAG, "onStart()");
+						showWaitDialog(R.string.loding);
 					}
 
 					@Override
@@ -359,6 +360,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 						LogTool.d(TAG, "response:" + response.toString());
 						try {
 							if (response.has(Constant.DATA)) {
+								hideWaitDialog();
 								processInfo = JsonParser.jsonToBean(response
 										.get(Constant.DATA).toString(),
 										ProcessInfo.class);
@@ -376,6 +378,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 
 								}
 							} else if (response.has(Constant.ERROR_MSG)) {
+								hideWaitDialog();
 								makeTextLong(response.get(Constant.ERROR_MSG)
 										.toString());
 							}
@@ -392,6 +395,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 							Throwable throwable, JSONObject errorResponse) {
 						LogTool.d(TAG,
 								"Throwable throwable:" + throwable.toString());
+						hideWaitDialog();
 						mPullRefreshScrollView.onRefreshComplete();
 						makeTextLong(getApplication().getString(
 								R.string.tip_login_error_for_network));
@@ -401,6 +405,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 					public void onFailure(int statusCode, Header[] headers,
 							String responseString, Throwable throwable) {
 						LogTool.d(TAG, "throwable:" + throwable);
+						hideWaitDialog();
 						mPullRefreshScrollView.onRefreshComplete();
 						makeTextLong(getApplication().getString(
 								R.string.tip_login_error_for_network));
