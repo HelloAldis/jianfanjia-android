@@ -329,4 +329,32 @@ public class JianFanJiaApiClient {
 		}
 	}
 
+	/**
+	 * 用户上传图片到装修流程
+	 * 
+	 * @param context
+	 * @param siteId
+	 * @param section
+	 * @param item
+	 * @param imageId
+	 * @param handler
+	 */
+	public static void submitImageToProcess(Context context, String siteId,
+			String section, String item, String imageId,
+			AsyncHttpResponseHandler handler) {
+		JSONObject jsonParams = new JSONObject();
+		try {
+			jsonParams.put("_id", siteId);
+			jsonParams.put("section", section);
+			jsonParams.put("item", item);
+			jsonParams.put("imageid", imageId);
+			StringEntity entity = new StringEntity(jsonParams.toString());
+			HttpRestClient.post(context, Url.POST_PROCESS_IMAGE, entity,
+					"application/json", handler);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+	}
 }
