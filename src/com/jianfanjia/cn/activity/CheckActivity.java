@@ -2,11 +2,9 @@ package com.jianfanjia.cn.activity;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -14,8 +12,6 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
-
-import com.igexin.sdk.PushManager;
 import com.jianfanjia.cn.adapter.MyGridViewAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.GridItem;
@@ -105,6 +101,49 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 
 	private void upload(String imgPath) {
 		JianFanJiaApiClient.uploadImage(CheckActivity.this, imgPath,
+				new JsonHttpResponseHandler() {
+					@Override
+					public void onStart() {
+						LogTool.d(TAG, "onStart()");
+					}
+
+					@Override
+					public void onSuccess(int statusCode, Header[] headers,
+							JSONObject response) {
+						LogTool.d(TAG, "JSONObject response:" + response);
+						try {
+							if (response.has(Constant.DATA)) {
+								JSONObject obj = new JSONObject(response
+										.toString());
+								String imageid = obj.getString("data");
+								LogTool.d(TAG, "imageid:" + imageid);
+								submitImageToProgress(imageid);
+							} else if (response.has(Constant.ERROR_MSG)) {
+
+							}
+						} catch (JSONException e) {
+							e.printStackTrace();
+						}
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							Throwable throwable, JSONObject errorResponse) {
+						LogTool.d(TAG, "Throwable throwable:" + throwable);
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							String responseString, Throwable throwable) {
+						LogTool.d(TAG, "statusCode:" + statusCode
+								+ " throwable:" + throwable);
+					};
+				});
+	}
+
+	private void submitImageToProgress(String imageid) {
+		JianFanJiaApiClient.submitImageToProcess(CheckActivity.this,
+				"55e3b1c0765e1e1f20c4fc15", "kai_gong", "xcjd", imageid,
 				new JsonHttpResponseHandler() {
 					@Override
 					public void onStart() {
