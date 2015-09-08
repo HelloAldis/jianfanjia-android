@@ -2,13 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/black" >
+    android:background="@color/main_layout_bg" >
 
     <RelativeLayout
         android:id="@+id/about_head_layout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_48"
-        android:background="@android:color/transparent" >
+        android:background="@color/head_layout_bg" >
 
         <TextView
             android:id="@+id/about_back"
@@ -18,6 +18,18 @@
             android:drawableLeft="@drawable/icon_register_back"
             android:drawablePadding="4dp"
             android:textColor="@color/back_color" />
+        
+        <TextView
+            android:id="@+id/my_designer_title"
+            style="@style/site_listview_item_text_style_title"
+            android:layout_centerInParent="true"
+            android:text="@string/share_title"
+            android:textColor="@color/main_color_black" />
+
+        <View
+            style="@style/divier_line"
+            android:layout_alignParentBottom="true"
+            android:background="@color/horzontal_line_color" />
     </RelativeLayout>
 
     <ImageView
@@ -37,6 +49,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="24dp"
         android:text="@string/share_tip"
-        android:textColor="@color/font_white" />
+        android:textColor="@color/main_color_black" />
 
 </RelativeLayout>

@@ -5,10 +5,7 @@ import java.util.Deque;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
-import com.jianfanjia.cn.tools.DateFormatTool;
-
 import android.content.Context;
-import android.graphics.Canvas;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.util.Log;
