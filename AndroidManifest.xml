@@ -43,14 +43,22 @@
         <activity
             android:name="com.jianfanjia.cn.activity.MainActivity"
             android:theme="@style/Theme.PageIndicatorDefaults" />
-        <activity android:name="com.jianfanjia.cn.activity.RegisterActivity" />
-        <activity android:name="com.jianfanjia.cn.activity.NavigateActivity" />
-        <activity android:name="com.jianfanjia.cn.activity.ForgetPswActivity" />
+        <activity
+            android:name="com.jianfanjia.cn.activity.RegisterActivity"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+        <activity
+            android:name="com.jianfanjia.cn.activity.NavigateActivity"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+        <activity
+            android:name="com.jianfanjia.cn.activity.ForgetPswActivity"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity android:name="com.jianfanjia.cn.activity.FeedBackActivity" />
         <activity android:name="com.jianfanjia.cn.activity.AboutActivity" />
         <activity android:name="com.jianfanjia.cn.activity.CommentActivity" />
         <activity android:name="com.jianfanjia.cn.activity.CheckActivity" />
-        <activity android:name="com.jianfanjia.cn.activity.LoginActivity" />
+        <activity
+            android:name="com.jianfanjia.cn.activity.LoginActivity"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity android:name="com.jianfanjia.cn.activity.OwnerInfoActivity" />
         <activity android:name="com.jianfanjia.cn.activity.DesignerInfoActivity" />
         <activity android:name="com.jianfanjia.cn.activity.UserByOwnerInfoActivity" />
