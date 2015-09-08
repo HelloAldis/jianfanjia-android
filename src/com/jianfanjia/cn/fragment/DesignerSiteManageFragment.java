@@ -16,6 +16,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.adapter.InfinitePagerAdapter;
 import com.jianfanjia.cn.adapter.MyViewPageAdapter;
 import com.jianfanjia.cn.adapter.SectionItemAdapter;
 import com.jianfanjia.cn.application.MyApplication;
@@ -55,8 +56,10 @@ public class DesignerSiteManageFragment extends BaseFragment implements
 	private TextView head_right_title = null;
 	private ListView detailNodeListView;
 	private SectionItemAdapter mNoteListAdapter;
+	private InfinitePagerAdapter infinitePagerAdapter = null;
+	private MyViewPageAdapter myViewPageAdapter = null;
 	private ScrollLayout scrollLayout;
-	private String[] pro = null;
+	private String[] proTitle = null;
 	private int size;
 	private List<ViewPagerItem> list = new ArrayList<ViewPagerItem>();
 
@@ -73,8 +76,8 @@ public class DesignerSiteManageFragment extends BaseFragment implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		pro = getResources().getStringArray(R.array.site_procedure);
-		Log.i(TAG, "pro =" + pro);
+		proTitle = getResources().getStringArray(R.array.site_procedure);
+		Log.i(TAG, "proTitle=" + proTitle);
 	}
 
 	@Override
@@ -91,49 +94,17 @@ public class DesignerSiteManageFragment extends BaseFragment implements
 
 	private void initScrollLayout(View view) {
 		viewPager = (ViewPager) view.findViewById(R.id.viewPager);
-		LayoutParams lp = new LayoutParams(LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT);
-		for (int i = 0; i < pro.length; i++) {
+		for (int i = 0; i < proTitle.length; i++) {
 			ViewPagerItem viewPagerItem = new ViewPagerItem();
 			viewPagerItem.setResId(getResources().getIdentifier(
 					"icon_home_normal" + (i + 1), "drawable",
 					MyApplication.getInstance().getPackageName()));
-			viewPagerItem.setTitle(pro[i]);
+			viewPagerItem.setTitle(proTitle[i]);
 			list.add(viewPagerItem);
 		}
-		// MyViewPageAdapter pageAdapter = new MyViewPageAdapter(getActivity(),
-		// list);
-		// viewPager.setAdapter(pageAdapter);
-		// viewPager.setOnPageChangeListener(new OnPageChangeListener() {
-		// @Override
-		// public void onPageScrollStateChanged(int arg0) {
-		// // TODO Auto-generated method stub
-		//
-		// }
-		//
-		// @Override
-		// public void onPageScrolled(int arg0, float arg1, int arg2) {
-		// Log.i(TAG, "arg0:" + arg0 + "  arg1:" + arg1 + "  arg2:" + arg2);
-		// }
-		//
-		// @Override
-		// public void onPageSelected(int arg0) {
-		// Log.i(TAG, "arg0:" + arg0);
-		// }
-		// });
-
-		// scrollLayout = (ScrollLayout) view
-		// .findViewById(R.id.site_scroller_layout);
-		// scrollLayout.setmCurScreen(currentPro);
-		// scrollLayout.SetOnViewChangeListener(new OnViewChangeListener() {
-		//
-		// @Override
-		// public void OnViewChange(int view) {
-		// mNoteListAdapter.setProcedureInfo(procedureList.get(view));
-		// mNoteListAdapter.notifyDataSetChanged();
-		// }
-		// });
-		// initListView(view, procedureList.get(currentPro));
+		myViewPageAdapter = new MyViewPageAdapter(getActivity(), list);
+		infinitePagerAdapter = new InfinitePagerAdapter(myViewPageAdapter);
+		viewPager.setAdapter(infinitePagerAdapter);
 	}
 
 	// private void initItem(View siteHead, int position) {

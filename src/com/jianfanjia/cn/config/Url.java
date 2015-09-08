@@ -56,7 +56,10 @@ public class Url {
 	// 设计师提交方案
 	public static final String SUBMIT_DESIGNER_PLAN = HTTPROOT
 			+ "designer/plan";
-	// 上传图片到装修流程
+	// 设计师提交验收图片
+	public static final String SUBMIT_YAHSHOU_IMAGE = HTTPROOT
+			+ "process/ysimage";
+	// 用户上传图片到装修流程
 	public static final String POST_PROCESS_IMAGE = HTTPROOT + "process/image";
 	// 评价装修流程
 	public static final String POST_PROCESS_COMMENT = HTTPROOT
@@ -69,7 +72,7 @@ public class Url {
 	// 用户同意改期
 	public static final String AGREE_RESCHDULE = HTTPROOT
 			+ "process/reschedule/ok";
-	//用户拒绝改期
+	// 用户拒绝改期
 	public static final String REFUSE_RESCHDULE = HTTPROOT
 			+ "process/reschedule/reject";
 	// 获取图片

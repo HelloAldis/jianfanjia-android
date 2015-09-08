@@ -40,13 +40,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	private String mPassword;// √‹¬Î
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-				WindowManager.LayoutParams.FLAG_FULLSCREEN);
-	}
-
-	@Override
 	public void initView() {
 		mEtUserName = (EditText) findViewById(R.id.et_username);
 		mEtPassword = (EditText) findViewById(R.id.et_password);
