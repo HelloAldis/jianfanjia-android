@@ -357,4 +357,33 @@ public class JianFanJiaApiClient {
 			e.printStackTrace();
 		}
 	}
+
+	/**
+	 * 设计师提交验收图片
+	 * 
+	 * @param context
+	 * @param siteId
+	 * @param section
+	 * @param key
+	 * @param imageId
+	 * @param handler
+	 */
+	public static void submitYanShouImage(Context context, String siteId,
+			String section, String key, String imageId,
+			AsyncHttpResponseHandler handler) {
+		JSONObject jsonParams = new JSONObject();
+		try {
+			jsonParams.put("_id", siteId);
+			jsonParams.put("section", section);
+			jsonParams.put("key", key);
+			jsonParams.put("imageid", imageId);
+			StringEntity entity = new StringEntity(jsonParams.toString());
+			HttpRestClient.post(context, Url.SUBMIT_YAHSHOU_IMAGE, entity,
+					"application/json", handler);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+	}
 }

@@ -12,6 +12,8 @@ import com.jianfanjia.cn.adapter.MyGridViewAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.GridItem;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.interf.UploadListener;
+import com.jianfanjia.cn.tools.LogTool;
 
 /**
  * 
@@ -21,7 +23,9 @@ import com.jianfanjia.cn.config.Constant;
  * @date 2015-8-28 œ¬ŒÁ2:25:36
  * 
  */
-public class CheckActivity extends BaseActivity implements OnClickListener {
+public class CheckActivity extends BaseActivity implements OnClickListener,
+		UploadListener {
+	private static final String TAG = CheckActivity.class.getName();
 	private TextView backView = null;// ∑µªÿ ”Õº
 	private GridView gridView = null;
 	private static final int ICON[] = { R.drawable.pix_default,
@@ -57,7 +61,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener {
 			gridList.add(item);
 		}
 		MyGridViewAdapter adapter = new MyGridViewAdapter(CheckActivity.this,
-				gridList);
+				gridList, this);
 		gridView.setAdapter(adapter);
 	}
 
@@ -78,7 +82,14 @@ public class CheckActivity extends BaseActivity implements OnClickListener {
 	}
 
 	@Override
+	public void onUpload(int position) {
+		LogTool.d(TAG, "position:" + position);
+
+	}
+
+	@Override
 	public int getLayoutId() {
 		return R.layout.activity_check_pic;
 	}
+
 }
