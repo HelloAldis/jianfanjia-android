@@ -8,38 +8,25 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.PopupWindow;
-
 import com.jianfanjia.cn.activity.R;
 
-public class AddPhotoPopWindow extends PopupWindow {
-
+public class AddPhotoPopWindow extends PopupWindow implements OnClickListener {
 	private Button open_camera;
 	private Button open_album;
 	private Button cancel;
 	private LayoutInflater inflater;
 	private View menuView;
 
-	public AddPhotoPopWindow(Context context, OnClickListener onClickListener) {
+	public AddPhotoPopWindow(Context context) {
 		super(context);
-		// TODO Auto-generated constructor stub
 		inflater = LayoutInflater.from(context);
-
 		menuView = inflater.inflate(R.layout.popwin_dialog, null);
-
 		open_camera = (Button) menuView.findViewById(R.id.btn_open_camera);
 		open_album = (Button) menuView.findViewById(R.id.btn_open_album);
 		cancel = (Button) menuView.findViewById(R.id.btn_cancel);
-		open_camera.setOnClickListener(onClickListener);
-		open_album.setOnClickListener(onClickListener);
-		cancel.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				dismiss();
-			}
-		});
-
+		open_camera.setOnClickListener(this);
+		open_album.setOnClickListener(this);
+		cancel.setOnClickListener(this);
 		// 设置SelectPicPopupWindow的View
 		this.setContentView(menuView);
 		// 设置SelectPicPopupWindow弹出窗体的宽
@@ -54,6 +41,21 @@ public class AddPhotoPopWindow extends PopupWindow {
 		ColorDrawable dw = new ColorDrawable(0xb0000000);
 		// 设置SelectPicPopupWindow弹出窗体的背景
 		this.setBackgroundDrawable(dw);
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.btn_open_camera:
+			break;
+		case R.id.btn_open_album:
+			break;
+		case R.id.btn_cancel:
+			dismiss();
+			break;
+		default:
+			break;
+		}
 
 	}
 

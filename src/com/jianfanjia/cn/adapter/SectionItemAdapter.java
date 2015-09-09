@@ -21,9 +21,11 @@ import com.jianfanjia.cn.bean.CommentInfo;
 import com.jianfanjia.cn.bean.GridItem;
 import com.jianfanjia.cn.bean.SectionItemInfo;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.interf.ItemClickCallBack;
 import com.jianfanjia.cn.view.AddPhotoPopWindow;
 
 public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
+	private ItemClickCallBack callBack;
 	private int lastClickItem = -1;// 记录点击的位置
 	private SiteGridViewAdapter siteGridViewAdapter;
 	private List<GridItem> gridItem = new ArrayList<GridItem>();
@@ -33,6 +35,14 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 			List<SectionItemInfo> sectionItemInfos, int currentPro) {
 		super(context, sectionItemInfos);
 		this.currentPro = currentPro;
+	}
+
+	public SectionItemAdapter(Context context,
+			List<SectionItemInfo> sectionItemInfos, int currentPro,
+			ItemClickCallBack callBack) {
+		super(context, sectionItemInfos);
+		this.currentPro = currentPro;
+		this.callBack = callBack;
 	}
 
 	public int getCurrentPro() {
@@ -57,20 +67,6 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 
 	public void setLastClickItem(int lastClickItem) {
 		this.lastClickItem = lastClickItem;
-	}
-
-	class ViewHolder {
-		RelativeLayout smallcloseLayout;
-		RelativeLayout bigOpenLayout;
-		TextView closeNodeName;
-		TextView openNodeName;
-		TextView openUploadPic;
-		TextView openComment;
-		TextView openUploadTime;
-		TextView finishTime;
-		TextView openFinishStatus;
-		ImageView finishStatusIcon;
-		GridView gridView;
 	}
 
 	@Override
@@ -199,18 +195,7 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 
 			@Override
 			public void onClick(View v) {
-				AddPhotoPopWindow addPhotoPopWindow = new AddPhotoPopWindow(
-						context, new OnClickListener() {
-
-							@Override
-							public void onClick(View v) {
-								// TODO Auto-generated method stub
-
-							}
-						});
-				addPhotoPopWindow.showAtLocation(v, Gravity.BOTTOM
-						| Gravity.CENTER_HORIZONTAL, 0, 0);
-
+				callBack.click(position);
 			}
 		});
 		return convertView;
@@ -245,4 +230,17 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 
 	}
 
+	private static class ViewHolder {
+		RelativeLayout smallcloseLayout;
+		RelativeLayout bigOpenLayout;
+		TextView closeNodeName;
+		TextView openNodeName;
+		TextView openUploadPic;
+		TextView openComment;
+		TextView openUploadTime;
+		TextView finishTime;
+		TextView openFinishStatus;
+		ImageView finishStatusIcon;
+		GridView gridView;
+	}
 }

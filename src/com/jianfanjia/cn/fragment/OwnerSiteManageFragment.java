@@ -15,6 +15,7 @@ import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -42,6 +43,7 @@ import com.jianfanjia.cn.cache.CacheManager;
 import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
+import com.jianfanjia.cn.interf.ItemClickCallBack;
 import com.jianfanjia.cn.interf.SwitchFragmentListener;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.Mode;
@@ -51,6 +53,7 @@ import com.jianfanjia.cn.tools.DateFormatTool;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.StringUtils;
+import com.jianfanjia.cn.view.AddPhotoPopWindow;
 import com.jianfanjia.cn.view.dialog.DateWheelDialog;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -63,9 +66,10 @@ import com.loopj.android.http.JsonHttpResponseHandler;
  * 
  */
 public class OwnerSiteManageFragment extends BaseFragment implements
-		OnRefreshListener2<ScrollView> {
+		OnRefreshListener2<ScrollView>, ItemClickCallBack {
 	private static final String TAG = OwnerSiteManageFragment.class.getName();
 	private SwitchFragmentListener listener;
+	private LinearLayout layoutAll = null;
 	private PullToRefreshScrollView mPullRefreshScrollView = null;
 	private ArrayList<SectionInfo> sectionInfos;
 	private ArrayList<SectionItemInfo> sectionItemInfos;
@@ -137,9 +141,10 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		checkSection = getResources().getStringArray(
 				R.array.site_procedure_check);
 		DataManager.getInstance().addObserver(this);
-		String ownerProcessid = shared.getValue(Constant.PROCESSINFO_ID,null);
-		if(ownerProcessid != null){
-			processInfo = DataManager.getInstance().getProcessInfo(ownerProcessid);
+		String ownerProcessid = shared.getValue(Constant.PROCESSINFO_ID, null);
+		if (ownerProcessid != null) {
+			processInfo = DataManager.getInstance().getProcessInfo(
+					ownerProcessid);
 		}
 		LogTool.d(TAG, "processInfo=" + processInfo);
 
@@ -147,6 +152,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 
 	@Override
 	public void initView(View view) {
+		layoutAll = (LinearLayout) view.findViewById(R.id.layoutAll);
 		mPullRefreshScrollView = (PullToRefreshScrollView) view
 				.findViewById(R.id.pull_refresh_scrollview);
 		mPullRefreshScrollView.setMode(Mode.PULL_FROM_START);
@@ -158,14 +164,14 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		if (processInfo != null) {
 			initData();
 		} else {
-//			getOwnerProcess();
+			// getOwnerProcess();
 			DataManager.getInstance().requestOwnerProcessInfo();
 		}
 	}
-	
+
 	public void update(Observable observable, Object data) {
-		if(data != null){
-			processInfo = (ProcessInfo)data;
+		if (data != null) {
+			processInfo = (ProcessInfo) data;
 			initData();
 		}
 	}
@@ -190,7 +196,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 			sectionItemInfos = sectionInfo.getItems();
 			setHeadView(sectionInfo.getName());
 			sectionItemAdapter = new SectionItemAdapter(getActivity(),
-					sectionItemInfos, currentList);
+					sectionItemInfos, currentList, this);
 			detailNodeListView.setAdapter(sectionItemAdapter);
 		}
 	}
@@ -463,6 +469,15 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		default:
 			break;
 		}
+	}
+
+	@Override
+	public void click(int position) {
+		LogTool.d(TAG, "position=================" + position);
+		AddPhotoPopWindow addPhotoPopWindow = new AddPhotoPopWindow(
+				getActivity());
+		addPhotoPopWindow.showAtLocation(layoutAll, Gravity.BOTTOM
+				| Gravity.CENTER_HORIZONTAL, 0, 0);
 	}
 
 	@Override
