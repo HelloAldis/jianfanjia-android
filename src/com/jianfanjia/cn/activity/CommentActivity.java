@@ -135,7 +135,6 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
 			commitCommentInfo.set_id(processInfo.get_id());
 			commitCommentInfo.setSection(section);
 			commitCommentInfo.setItem(item);
-
 			JianFanJiaApiClient.comment(this, commitCommentInfo,
 					new JsonHttpResponseHandler() {
 						@Override
@@ -181,6 +180,10 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
 						};
 					});
 		}
+	}
+
+	private void handlerSuccess() {
+
 	}
 
 	@Override

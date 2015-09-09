@@ -15,7 +15,7 @@
         <TextView
             android:id="@+id/list_item_comment_pubtime"
             style="@style/site_listview_item_text_style_small"
-            android:layout_alignBottom="@+id/list_item_comment_username"
+            android:layout_alignBaseline="@+id/list_item_comment_username"
             android:layout_alignParentRight="true"
             android:text="@string/list_item_comment_pubtime_example"
             android:textColor="@color/main_color_grey" />
@@ -34,7 +34,7 @@
         <TextView
             android:id="@+id/list_item_comment_userrole"
             style="@style/site_listview_item_text_style_small"
-            android:layout_alignBottom="@+id/list_item_comment_username"
+            android:layout_alignBaseline="@+id/list_item_comment_username"
             android:layout_marginLeft="@dimen/space_8"
             android:layout_toRightOf="@+id/list_item_comment_username"
             android:text="@string/ower"

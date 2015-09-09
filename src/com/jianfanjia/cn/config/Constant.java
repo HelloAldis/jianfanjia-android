@@ -49,6 +49,8 @@ public class Constant {
 	public static final String USERIMAGE_ID = "userimageid";// 用户头像id
 
 	public static final String FINAL_DESIGNER_ID = "final_designerid";// 业主的设计师id
+	public static final String PROCESSINFO_ID = "processinfo_id";// 当前工地id
+	public static final String PROCESSINFO_LIST = "processinfo_list";// 当前工地id
 
 	public static final String DATA = "data";// 获取成功的数据
 	public static final String ERROR_MSG = "err_msg";// 获取数据失败的返回信息
@@ -74,6 +76,12 @@ public class Constant {
 
 	public static final String HOME_ADD_PIC = "drawable://"
 			+ R.drawable.btn_icon_home_add;
+	
+	public static final String DEFALUT_OWNER_PIC = "drawable://"
+			+ R.drawable.icon_sidebar_default_user;
+	
+	public static final String DEFALUT_DESIGNER_PIC = "drawable://"
+			+ R.drawable.icon_sidebar_default_user;
 
 	public static final String CURRENT_LIST = "current_list";// 首页展开的第一道工序
 	public static final String CURRENT_ITEM = "current_item";// 当前节点

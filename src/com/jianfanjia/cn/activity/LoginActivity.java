@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.LoginUserBean;
+import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.tools.JsonParser;
@@ -133,8 +134,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 												.toString(),
 												LoginUserBean.class);
 								LogTool.d(TAG, "loginUserBean:" + loginUserBean);
-								loginUserBean.setPass(mPassword);
-								MyApplication.getInstance().saveLoginUserInfo(
+								DataManager.getInstance().saveLoginUserInfo(
 										loginUserBean);
 								startActivity(MainActivity.class);
 								finish();

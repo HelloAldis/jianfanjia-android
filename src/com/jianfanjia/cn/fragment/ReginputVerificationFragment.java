@@ -18,6 +18,7 @@ import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.LoginUserBean;
 import com.jianfanjia.cn.bean.RegisterInfo;
+import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.interf.FragmentListener;
@@ -127,7 +128,7 @@ public class ReginputVerificationFragment extends BaseFragment {
 										.jsonToBean(response.get(Constant.DATA)
 												.toString(),
 												LoginUserBean.class);
-								MyApplication.getInstance().saveLoginUserInfo(
+								DataManager.getInstance().saveLoginUserInfo(
 										loginUserBean);
 								startActivity(MainActivity.class);
 								getActivity().finish();
