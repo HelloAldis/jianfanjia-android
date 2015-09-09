@@ -15,8 +15,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.widget.ImageView;
-
-import com.jianfanjia.cn.R;
+import com.jianfanjia.cn.activity.R;
 
 /**
  * 圆形ImageView组件

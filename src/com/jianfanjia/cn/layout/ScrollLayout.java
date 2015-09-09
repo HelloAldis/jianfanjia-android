@@ -2,7 +2,6 @@ package com.jianfanjia.cn.layout;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
-
 import android.content.Context;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
@@ -18,8 +17,7 @@ import android.view.animation.Interpolator;
 import android.widget.ImageView;
 import android.widget.Scroller;
 import android.widget.TextView;
-
-import com.jianfanjia.cn.R;
+import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
 
 /**
@@ -41,11 +39,11 @@ public class ScrollLayout extends ViewGroup {
 	private float mLastMotionX;
 	private float mLastMotionY;
 	private OnViewChangeListener mOnViewChangeListener;
-	
+
 	private Deque<View> views = new ArrayDeque<View>();
-	
+
 	private String[] pro = null;
-	
+
 	private LayoutInflater inflater;
 
 	private int perChildWidth;
@@ -68,7 +66,7 @@ public class ScrollLayout extends ViewGroup {
 		mTouchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
 		pro = getResources().getStringArray(R.array.site_procedure);
 		inflater = LayoutInflater.from(context);
-		
+
 		initView();
 	}
 
@@ -79,11 +77,11 @@ public class ScrollLayout extends ViewGroup {
 			views.add(siteHead);
 		}
 	}
-	
-	private void addView(){
-		
+
+	private void addView() {
+
 	}
-	
+
 	private void initItem(View siteHead, int position) {
 		Log.i(TAG, "initItem" + position);
 		TextView proName = (TextView) siteHead

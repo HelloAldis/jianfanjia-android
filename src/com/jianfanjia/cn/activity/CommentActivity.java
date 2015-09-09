@@ -196,6 +196,7 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
 	private void handlerSuccess() {
 		DataManager.getInstance().requestOwnerProcessInfo();
 	}
+
 	
 	public void update(Observable observable, Object data) {
 		if(data != null){

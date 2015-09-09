@@ -96,7 +96,6 @@ public class DataManager extends Observable {
 								// 通知页面刷新
 								setChanged();
 								notifyObservers(processInfo);
-
 							} else if (response.has(Constant.ERROR_MSG)) {
 								MyApplication.getInstance().makeTextLong(
 										response.get(Constant.ERROR_MSG)
@@ -162,6 +161,8 @@ public class DataManager extends Observable {
 									processInfos.put(processInfo.get_id(),
 											processInfo);
 									// 保存工地流程在本地
+									processInfos.put(processInfo.get_id(),
+											processInfo);
 									sharedPrefer.setValue(processInfo.get_id(),
 											processInfo);
 								}
@@ -172,6 +173,7 @@ public class DataManager extends Observable {
 								// 通知页面刷新
 								setChanged();
 								notifyObservers(processLists);
+								// 保存工地流程
 							} else if (response.has(Constant.ERROR_MSG)) {
 								MyApplication.getInstance().makeTextLong(
 										response.get(Constant.ERROR_MSG)

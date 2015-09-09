@@ -15,11 +15,11 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.igexin.sdk.PushManager;
-import com.jianfanjia.cn.R;
 import com.jianfanjia.cn.activity.AboutActivity;
 import com.jianfanjia.cn.activity.FeedBackActivity;
 import com.jianfanjia.cn.activity.LoginActivity;
 import com.jianfanjia.cn.activity.NavigateActivity;
+import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.ShareActivity;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;

@@ -14,8 +14,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.jianfanjia.cn.R;
 import com.jianfanjia.cn.activity.MainActivity;
+import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
@@ -191,7 +191,7 @@ public class OwnerSiteFragment extends BaseFragment {
 					.getWork_type())]);
 			decorateBudgetView.setText(processInfo.getTotal_price());
 			startDateView.setText(DateFormatTool.covertLongToString(
-					processInfo.getStart_at(),"yyyy-MM-dd"));
+					processInfo.getStart_at(), "yyyy-MM-dd"));
 			totalDateView.setText(processInfo.getDuration());
 			startDateGoto.setVisibility(View.GONE);
 			totalDateGoto.setVisibility(View.GONE);
@@ -269,17 +269,25 @@ public class OwnerSiteFragment extends BaseFragment {
 		int viewId = v.getId();
 		switch (viewId) {
 		case R.id.my_startdate_layout:
-			DateWheelDialog dateWheelDialog = new DateWheelDialog(getActivity(),Calendar.getInstance());
+			DateWheelDialog dateWheelDialog = new DateWheelDialog(
+					getActivity(), Calendar.getInstance());
 			dateWheelDialog.setTitle("—°‘Ò ±º‰");
 			dateWheelDialog.setPositiveButton(R.string.ok,
 					new DialogInterface.OnClickListener() {
 
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							makeTextLong(StringUtils.getDateString(((DateWheelDialog)dialog).getChooseCalendar().getTime()));
-							startDateView.setText(StringUtils.getDateString(((DateWheelDialog)dialog).getChooseCalendar().getTime()));
-							if(requirementInfo != null){
-								requirementInfo.setStart_at(((DateWheelDialog)dialog).getChooseCalendar().getTimeInMillis());
+							makeTextLong(StringUtils
+									.getDateString(((DateWheelDialog) dialog)
+											.getChooseCalendar().getTime()));
+							startDateView.setText(StringUtils
+									.getDateString(((DateWheelDialog) dialog)
+											.getChooseCalendar().getTime()));
+							if (requirementInfo != null) {
+								requirementInfo
+										.setStart_at(((DateWheelDialog) dialog)
+												.getChooseCalendar()
+												.getTimeInMillis());
 							}
 							dialog.dismiss();
 						}
@@ -292,9 +300,9 @@ public class OwnerSiteFragment extends BaseFragment {
 			getSiteInfo();
 			break;
 		case R.id.ower_site_head:
-			((MainActivity)getActivity()).getSlidingPaneLayout().openPane();
+			((MainActivity) getActivity()).getSlidingPaneLayout().openPane();
 			break;
-			
+
 		default:
 			break;
 		}

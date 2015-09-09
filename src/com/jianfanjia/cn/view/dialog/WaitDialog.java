@@ -9,12 +9,12 @@ import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 
-import com.jianfanjia.cn.R;
+import com.jianfanjia.cn.activity.R;
 
 public class WaitDialog extends Dialog {
 
 	private TextView _messageTv;
-	
+
 	public WaitDialog(Context context) {
 		super(context);
 		init(context);
@@ -25,7 +25,8 @@ public class WaitDialog extends Dialog {
 		init(context);
 	}
 
-	protected WaitDialog(Context context, boolean cancelable,DialogInterface.OnCancelListener listener) {
+	protected WaitDialog(Context context, boolean cancelable,
+			DialogInterface.OnCancelListener listener) {
 		super(context, cancelable, listener);
 		init(context);
 	}
@@ -35,10 +36,11 @@ public class WaitDialog extends Dialog {
 			dialog.dismiss();
 			return false;
 		} else {
+
 			return true;
 		}
 	}
-	
+
 	@Override
 	public void onBackPressed() {
 		super.onBackPressed();
@@ -62,7 +64,8 @@ public class WaitDialog extends Dialog {
 	private void init(Context context) {
 		setCancelable(false);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		View view = LayoutInflater.from(context).inflate(R.layout.progress_dialog, null);
+		View view = LayoutInflater.from(context).inflate(
+				R.layout.progress_dialog, null);
 		_messageTv = (TextView) view.findViewById(R.id.waiting_tv);
 		setContentView(view);
 	}
@@ -95,8 +98,8 @@ public class WaitDialog extends Dialog {
 	public void setMessage(String message) {
 		_messageTv.setText(message);
 	}
-	
+
 	public void hideMessage() {
-	    _messageTv.setVisibility(View.GONE);
+		_messageTv.setVisibility(View.GONE);
 	}
 }

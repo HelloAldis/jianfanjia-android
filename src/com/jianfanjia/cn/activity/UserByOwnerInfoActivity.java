@@ -3,7 +3,6 @@ package com.jianfanjia.cn.activity;
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.text.TextUtils;
@@ -12,8 +11,6 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.jianfanjia.cn.R;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.Message;
 import com.jianfanjia.cn.bean.UserByOwnerInfo;
@@ -49,17 +46,16 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 	private RelativeLayout addressLayout;
 	private RelativeLayout userNameRelativeLayout = null;
 	private RelativeLayout homeRelativeLayout = null;
-	
+
 	private CommonWheelDialog commonWheelDialog;
-	
-	public static String[] provices = {"湖北","湖南","安徽"};
-	public static String[] cities= {"武汉","长沙","合肥"};
-	public static String[] areas = {"武昌","汉口","长沙县","常州","青山","江夏","汉阳"};
-	
+
+	public static String[] provices = { "湖北", "湖南", "安徽" };
+	public static String[] cities = { "武汉", "长沙", "合肥" };
+	public static String[] areas = { "武昌", "汉口", "长沙县", "常州", "青山", "江夏", "汉阳" };
+
 	private String provice;
 	private String city;
 	private String area;
-
 
 	@Override
 	public void initView() {
@@ -72,11 +68,13 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 		homeText = (TextView) this.findViewById(R.id.homeText);
 		btn_confirm = (Button) this.findViewById(R.id.btn_confirm);
 		addressLayout = (RelativeLayout) this.findViewById(R.id.home_layout);
-		userNameRelativeLayout = (RelativeLayout) this.findViewById(R.id.name_layout);
-		homeRelativeLayout = (RelativeLayout) this.findViewById(R.id.home_layout);
-		
+		userNameRelativeLayout = (RelativeLayout) this
+				.findViewById(R.id.name_layout);
+		homeRelativeLayout = (RelativeLayout) this
+				.findViewById(R.id.home_layout);
+
 		get_Owner_Info();
-		
+
 		commonWheelDialog = new CommonWheelDialog(this);
 	}
 
@@ -104,13 +102,17 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 			showWheelDialog();
 			break;
 		case R.id.name_layout:
-			Intent name = new Intent(UserByOwnerInfoActivity.this,EditInfoActivity.class);
-			name.putExtra(Constant.EDIT_TYPE,Constant.REQUESTCODE_EDIT_USERNAME);
+			Intent name = new Intent(UserByOwnerInfoActivity.this,
+					EditInfoActivity.class);
+			name.putExtra(Constant.EDIT_TYPE,
+					Constant.REQUESTCODE_EDIT_USERNAME);
 			startActivityForResult(name, Constant.REQUESTCODE_EDIT_USERNAME);
 			break;
 		case R.id.home_layout:
-			Intent address = new Intent(UserByOwnerInfoActivity.this,EditInfoActivity.class);
-			address.putExtra(Constant.EDIT_TYPE,Constant.REQUESTCODE_EDIT_ADDRESS);
+			Intent address = new Intent(UserByOwnerInfoActivity.this,
+					EditInfoActivity.class);
+			address.putExtra(Constant.EDIT_TYPE,
+					Constant.REQUESTCODE_EDIT_ADDRESS);
 			startActivityForResult(address, Constant.REQUESTCODE_EDIT_ADDRESS);
 			break;
 		default:
@@ -119,22 +121,28 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 	}
 
 	private void showWheelDialog() {
-		commonWheelDialog.setWheelAdapter1(new ArrayWheelAdapter<String>(provices));
-		commonWheelDialog.setWheelAdapter2(new ArrayWheelAdapter<String>(cities));
-		commonWheelDialog.setWheelAdapter3(new ArrayWheelAdapter<String>(areas));
+		commonWheelDialog.setWheelAdapter1(new ArrayWheelAdapter<String>(
+				provices));
+		commonWheelDialog
+				.setWheelAdapter2(new ArrayWheelAdapter<String>(cities));
+		commonWheelDialog
+				.setWheelAdapter3(new ArrayWheelAdapter<String>(areas));
 		commonWheelDialog.setWheelChangeListen(new OnWheelChangedListener() {
-			
+
 			@Override
 			public void onChanged(WheelView wheel, int oldValue, int newValue) {
-				if(wheel == commonWheelDialog.getWheelView1()){
+				if (wheel == commonWheelDialog.getWheelView1()) {
 					commonWheelDialog.getWheelView1().setCurrentItem(newValue);
-					provice = provices[commonWheelDialog.getWheelView1().getCurrentItem()];
-				}else if(wheel == commonWheelDialog.getWheelView2()){
+					provice = provices[commonWheelDialog.getWheelView1()
+							.getCurrentItem()];
+				} else if (wheel == commonWheelDialog.getWheelView2()) {
 					commonWheelDialog.getWheelView2().setCurrentItem(newValue);
-					city= cities[commonWheelDialog.getWheelView2().getCurrentItem()];
-				}else if(wheel == commonWheelDialog.getWheelView3()){
+					city = cities[commonWheelDialog.getWheelView2()
+							.getCurrentItem()];
+				} else if (wheel == commonWheelDialog.getWheelView3()) {
 					commonWheelDialog.getWheelView3().setCurrentItem(newValue);
-					area = areas[commonWheelDialog.getWheelView3().getCurrentItem()];
+					area = areas[commonWheelDialog.getWheelView3()
+							.getCurrentItem()];
 				}
 			}
 		});
@@ -226,17 +234,17 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 	public int getLayoutId() {
 		return R.layout.activity_owner_info;
 	}
-	
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
-		if(resultCode == RESULT_OK){
+		if (resultCode == RESULT_OK) {
 			String content = data.getStringExtra(Constant.EDIT_CONTENT);
-			if(!TextUtils.isEmpty(content)){
-				if(requestCode == Constant.REQUESTCODE_EDIT_USERNAME){
+			if (!TextUtils.isEmpty(content)) {
+				if (requestCode == Constant.REQUESTCODE_EDIT_USERNAME) {
 					nameText.setText(content);
-				}else if(requestCode == Constant.REQUESTCODE_EDIT_ADDRESS){
+				} else if (requestCode == Constant.REQUESTCODE_EDIT_ADDRESS) {
 					homeText.setText(content);
 				}
 			}
