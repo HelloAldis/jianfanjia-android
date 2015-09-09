@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * 
  * @ClassName: MyOwerInfo
- * @Description: 我的业主信息类（设计师）
+ * @Description: 我的业主个人信息类（设计师）
  * @author zhanghao
  * @date 2015-8-26 下午19:33
  * 
@@ -13,51 +13,35 @@ import java.io.Serializable;
 public class MyOwnerInfo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private String designerid;
-
-	private String userid;
-
-	private String requirementid;
-
-	private String status;
-
 	private String _id;
 
-	private User user;
+	private String accessToken;
 
-	private Requirement requirement;
+	private String pass;
 
-	public String getDesignerid() {
-		return designerid;
-	}
+	private String phone;
 
-	public void setDesignerid(String designerid) {
-		this.designerid = designerid;
-	}
+	private String __v;
 
-	public String getUserid() {
-		return userid;
-	}
+	private String address;
 
-	public void setUserid(String userid) {
-		this.userid = userid;
-	}
+	private String district;
 
-	public String getRequirementid() {
-		return requirementid;
-	}
+	private String city;
 
-	public void setRequirementid(String requirementid) {
-		this.requirementid = requirementid;
-	}
+	private String sex;
 
-	public String getStatus() {
-		return status;
-	}
+	private String username;
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
+	private String communication_type;
+
+	private String imageid;
+
+	private String province;
+
+	private boolean is_block;
+
+	private int score;
 
 	public String get_id() {
 		return _id;
@@ -67,20 +51,116 @@ public class MyOwnerInfo implements Serializable {
 		this._id = _id;
 	}
 
-	public User getUser() {
-		return user;
+	public String getAccessToken() {
+		return accessToken;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setAccessToken(String accessToken) {
+		this.accessToken = accessToken;
 	}
 
-	public Requirement getRequirement() {
-		return requirement;
+	public String getPass() {
+		return pass;
 	}
 
-	public void setRequirement(Requirement requirement) {
-		this.requirement = requirement;
+	public void setPass(String pass) {
+		this.pass = pass;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String get__v() {
+		return __v;
+	}
+
+	public void set__v(String __v) {
+		this.__v = __v;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getDistrict() {
+		return district;
+	}
+
+	public void setDistrict(String district) {
+		this.district = district;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getSex() {
+		return sex;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getCommunication_type() {
+		return communication_type;
+	}
+
+	public void setCommunication_type(String communication_type) {
+		this.communication_type = communication_type;
+	}
+
+	public String getImageid() {
+		return imageid;
+	}
+
+	public void setImageid(String imageid) {
+		this.imageid = imageid;
+	}
+
+	public String getProvince() {
+		return province;
+	}
+
+	public void setProvince(String province) {
+		this.province = province;
+	}
+
+	public boolean isIs_block() {
+		return is_block;
+	}
+
+	public void setIs_block(boolean is_block) {
+		this.is_block = is_block;
+	}
+
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
 	}
 
 }
