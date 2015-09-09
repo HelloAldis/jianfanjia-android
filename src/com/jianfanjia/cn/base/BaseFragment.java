@@ -1,5 +1,8 @@
 package com.jianfanjia.cn.base;
 
+import java.util.Observable;
+import java.util.Observer;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,8 +15,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
-import com.jianfanjia.cn.R;
+import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.inter.manager.ListenerManeger;
 import com.jianfanjia.cn.tools.LogTool;
@@ -28,7 +30,8 @@ import com.jianfanjia.cn.view.dialog.WaitDialog;
  * @date 2015-8-19 16:02:18
  * 
  */
-public abstract class BaseFragment extends Fragment implements OnClickListener {
+public abstract class BaseFragment extends Fragment implements OnClickListener,
+		Observer {
 	protected FragmentManager fragmentManager = null;
 	protected LocalBroadcastManager localBroadcastManager = null;
 	protected LayoutInflater inflater = null;
@@ -154,6 +157,9 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 			return ((DialogControl) activity).showWaitDialog(str);
 		}
 		return null;
+	}
+
+	public void update(Observable observable, Object data) {
 	}
 
 }

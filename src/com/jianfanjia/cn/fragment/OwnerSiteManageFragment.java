@@ -3,32 +3,35 @@ package com.jianfanjia.cn.fragment;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-
+import java.util.Observable;
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-
-import com.jianfanjia.cn.R;
 import com.jianfanjia.cn.activity.CheckActivity;
 import com.jianfanjia.cn.activity.MainActivity;
+import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.InfinitePagerAdapter;
 import com.jianfanjia.cn.adapter.MyViewPageAdapter;
 import com.jianfanjia.cn.adapter.SectionItemAdapter;
+import com.jianfanjia.cn.adapter.ViewPageAdapter;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.ProcessInfo;
@@ -36,6 +39,7 @@ import com.jianfanjia.cn.bean.SectionInfo;
 import com.jianfanjia.cn.bean.SectionItemInfo;
 import com.jianfanjia.cn.bean.ViewPagerItem;
 import com.jianfanjia.cn.cache.CacheManager;
+import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.interf.SwitchFragmentListener;
@@ -69,7 +73,11 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	private ProcessInfo processInfo;
 	private int currentPro = -1;// 当前进行工序
 	private int currentList = -1;// 当前展开第一道工序
-	private ViewPager viewPager;
+	private ViewPager bannerViewPager;
+	private ViewGroup group = null;
+	private ImageView[] tips;
+	private List<View> bannerList = new ArrayList<View>();
+	private ViewPager processViewPager;
 	private ImageView icon_user_head = null;
 	private TextView head_right_title = null;
 	private ListView detailNodeListView;
@@ -85,6 +93,29 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	private RelativeLayout expandHeadLayout;// 打开layout
 	private TextView openCheckNode;// 打开验收节点名称
 	private TextView closeCheckNode;// 折叠验收节点名称
+
+	private static final int CHANGE_PHOTO = 1;
+	private static final int CHANGE_TIME = 5000;// 图片自动切换时间
+	private static final int BANNER_ICON[] = { R.drawable.bg_home_banner1,
+			R.drawable.bg_home_banner2, R.drawable.bg_home_banner3,
+			R.drawable.bg_home_banner4 };
+
+	private Handler handler = new Handler() {
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+			case CHANGE_PHOTO:
+				int index = bannerViewPager.getCurrentItem();
+				if (index == bannerList.size() - 1) {
+					index = -1;
+				}
+				bannerViewPager.setCurrentItem(index + 1);
+				handler.sendEmptyMessageDelayed(CHANGE_PHOTO, CHANGE_TIME);
+				break;
+			default:
+				break;
+			}
+		}
+	};
 
 	@Override
 	public void onAttach(Activity activity) {
@@ -105,10 +136,13 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		proTitle = getResources().getStringArray(R.array.site_procedure);
 		checkSection = getResources().getStringArray(
 				R.array.site_procedure_check);
-		processInfo = (ProcessInfo) CacheManager.getObjectByFile(getActivity(),
-				Constant.PROCESSINFO_CACHE);
+		DataManager.getInstance().addObserver(this);
+		String ownerProcessid = shared.getValue(Constant.PROCESSINFO_ID,null);
+		if(ownerProcessid != null){
+			processInfo = DataManager.getInstance().getProcessInfo(ownerProcessid);
+		}
 		LogTool.d(TAG, "processInfo=" + processInfo);
-		
+
 	}
 
 	@Override
@@ -118,12 +152,21 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		mPullRefreshScrollView.setMode(Mode.PULL_FROM_START);
 		icon_user_head = (ImageView) view.findViewById(R.id.icon_user_head);
 		head_right_title = (TextView) view.findViewById(R.id.head_right_title);
+		initBannerView(view);
 		initScrollLayout(view);
 		initListView(view);
 		if (processInfo != null) {
 			initData();
 		} else {
-			getOwnerProcess();
+//			getOwnerProcess();
+			DataManager.getInstance().requestOwnerProcessInfo();
+		}
+	}
+	
+	public void update(Observable observable, Object data) {
+		if(data != null){
+			processInfo = (ProcessInfo)data;
+			initData();
 		}
 	}
 
@@ -155,7 +198,73 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	@Override
 	public void onResume() {
 		super.onResume();
-		viewPager.setCurrentItem(currentList);
+		processViewPager.setCurrentItem(currentList);
+	}
+
+	private void initBannerView(View view) {
+		bannerViewPager = (ViewPager) view.findViewById(R.id.bannerViewPager);
+		group = (ViewGroup) view.findViewById(R.id.viewGroup);
+		for (int i = 0; i < BANNER_ICON.length; i++) {
+			ImageView imageView = new ImageView(getActivity());
+			imageView.setBackgroundResource(BANNER_ICON[i]);
+			bannerList.add(imageView);
+		}
+		// 将点点加入到ViewGroup中
+		tips = new ImageView[bannerList.size()];
+		for (int i = 0; i < tips.length; i++) {
+			ImageView imageView = new ImageView(getActivity());
+			imageView.setLayoutParams(new LinearLayout.LayoutParams(10, 10));
+			tips[i] = imageView;
+			if (i == 0) {
+				tips[i].setBackgroundResource(R.drawable.new_gallery_dianpu_selected);
+			} else {
+				tips[i].setBackgroundResource(R.drawable.new_gallery_dianpu_normal);
+			}
+
+			LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+					new ViewGroup.LayoutParams(20, 20));
+			layoutParams.leftMargin = 15;
+			layoutParams.rightMargin = 15;
+			group.addView(imageView, layoutParams);
+		}
+		ViewPageAdapter pageAdapter = new ViewPageAdapter(getActivity(),
+				bannerList);
+		bannerViewPager.setOnPageChangeListener(new OnPageChangeListener() {
+			@Override
+			public void onPageScrollStateChanged(int arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onPageScrolled(int arg0, float arg1, int arg2) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onPageSelected(int arg0) {
+				setImageBackground(arg0 % bannerList.size());
+			}
+		});
+		bannerViewPager.setAdapter(pageAdapter);
+		bannerViewPager.setCurrentItem(0);
+		handler.sendEmptyMessageDelayed(CHANGE_PHOTO, CHANGE_TIME);
+	}
+
+	/**
+	 * 设置选中的索引的背景
+	 * 
+	 * @param selectItems
+	 */
+	private void setImageBackground(int selectItems) {
+		for (int i = 0; i < tips.length; i++) {
+			if (i == selectItems) {
+				tips[i].setBackgroundResource(R.drawable.new_gallery_dianpu_selected);
+			} else {
+				tips[i].setBackgroundResource(R.drawable.new_gallery_dianpu_normal);
+			}
+		}
 	}
 
 	private void setHeadView(String name) {
@@ -187,7 +296,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	}
 
 	private void initScrollLayout(View view) {
-		viewPager = (ViewPager) view.findViewById(R.id.viewPager);
+		processViewPager = (ViewPager) view.findViewById(R.id.processViewPager);
 		for (int i = 0; i < proTitle.length; i++) {
 			ViewPagerItem viewPagerItem = new ViewPagerItem();
 			viewPagerItem.setResId(getResources().getIdentifier(
@@ -208,8 +317,8 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		}
 		myViewPageAdapter = new MyViewPageAdapter(getActivity(), list);
 		infinitePagerAdapter = new InfinitePagerAdapter(myViewPageAdapter);
-		viewPager.setAdapter(infinitePagerAdapter);
-		viewPager.setOnPageChangeListener(new OnPageChangeListener() {
+		processViewPager.setAdapter(infinitePagerAdapter);
+		processViewPager.setOnPageChangeListener(new OnPageChangeListener() {
 			@Override
 			public void onPageScrollStateChanged(int arg0) {
 				// TODO Auto-generated method stub
@@ -264,6 +373,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 
 	private void initListView(View view) {
 		detailNodeListView = (ListView) view.findViewById(R.id.site__listview);
+		detailNodeListView.setFocusable(false);
 		initHeadView(detailNodeListView);
 		detailNodeListView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -333,14 +443,17 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 			startActivity(CheckActivity.class, bundle);
 			break;
 		case R.id.site_list_head_delay:
-			DateWheelDialog dateWheelDialog = new DateWheelDialog(getActivity(),Calendar.getInstance());
+			DateWheelDialog dateWheelDialog = new DateWheelDialog(
+					getActivity(), Calendar.getInstance());
 			dateWheelDialog.setTitle("选择时间");
 			dateWheelDialog.setPositiveButton(R.string.ok,
 					new DialogInterface.OnClickListener() {
 
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							makeTextLong(StringUtils.getDateString(((DateWheelDialog)dialog).getChooseCalendar().getTime()));
+							makeTextLong(StringUtils
+									.getDateString(((DateWheelDialog) dialog)
+											.getChooseCalendar().getTime()));
 							dialog.dismiss();
 						}
 					});

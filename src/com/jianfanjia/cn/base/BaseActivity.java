@@ -1,8 +1,10 @@
 package com.jianfanjia.cn.base;
 
+import java.util.Observable;
+import java.util.Observer;
+
 import org.apache.http.Header;
 import org.json.JSONObject;
-
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -13,7 +15,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Window;
 import android.widget.Toast;
-
 import com.jianfanjia.cn.R;
 import com.jianfanjia.cn.bean.Message;
 import com.jianfanjia.cn.config.Constant;
@@ -40,7 +41,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  * 
  */
 public abstract class BaseActivity extends FragmentActivity implements
-		DialogControl, PushMsgReceiveListener {
+		DialogControl, PushMsgReceiveListener,Observer {
 	protected LayoutInflater inflater = null;
 	protected FragmentManager fragmentManager = null;
 	protected SharedPrefer sharedPrefer = null;
@@ -300,6 +301,9 @@ public abstract class BaseActivity extends FragmentActivity implements
 								+ throwable);
 					};
 				});
+	}
+	
+	public void update(Observable observable, Object data) {
 	}
 
 }

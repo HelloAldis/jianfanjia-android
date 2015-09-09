@@ -1,35 +1,30 @@
 package com.jianfanjia.cn.cache;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import java.util.Observable;
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.content.Context;
-
 import com.google.gson.reflect.TypeToken;
-import com.jianfanjia.cn.R;
+import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.bean.DesignerSiteInfo;
 import com.jianfanjia.cn.bean.LoginUserBean;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
-import com.jianfanjia.cn.interf.LoadCallBack;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.NetTool;
 import com.jianfanjia.cn.tools.SharedPrefer;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
-public class DataManager {
-
-	protected static final String TAG = "DataManeger";
+public class DataManager extends Observable {
+	private static final String TAG = "DataManeger";
 	private boolean isLogin;// 是否登录
 	protected SharedPrefer sharedPrefer = null;
 	private static DataManager instance;
@@ -49,6 +44,7 @@ public class DataManager {
 		sharedPrefer = new SharedPrefer(context, Constant.SHARED_MAIN);
 	}
 
+	//根据id拿到工地流程，通用的
 	public ProcessInfo getProcessInfo(String id) {
 		ProcessInfo processInfo = processInfos.get(id);
 		if (processInfo == null && !NetTool.isNetworkAvailable(context)) {
@@ -56,16 +52,17 @@ public class DataManager {
 		}
 		return processInfo;
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	public List<ProcessInfo> getProcessInfoList(){
-		if(processLists == null){
-			processLists = (ArrayList<ProcessInfo>)sharedPrefer.getValue(Constant.PROCESSINFO_LIST);
+	public List<ProcessInfo> getProcessInfoList() {
+		if (processLists == null) {
+			processLists = (ArrayList<ProcessInfo>) sharedPrefer
+					.getValue(Constant.PROCESSINFO_LIST);
 		}
 		return processLists;
 	}
 
-	public void requestOwnerProcessInfo(final LoadCallBack loadCallBack) {
+	public void requestOwnerProcessInfo() {
 		JianFanJiaApiClient.get_Owner_Process(context,
 				new JsonHttpResponseHandler() {
 					@Override
@@ -83,18 +80,23 @@ public class DataManager {
 								ProcessInfo processInfo = JsonParser
 										.jsonToBean(response.get(Constant.DATA)
 												.toString(), ProcessInfo.class);
-								// 保存工地流程
+								// 保存工地流程到本地
 								sharedPrefer.setValue(processInfo.get_id(),
 										processInfo);
+								// 保存工地流程在内存中
 								processInfos.put(processInfo.get_id(),
 										processInfo);
-								sharedPrefer.setValue(Constant.PROCESSINFO_ID, processInfo.get_id());
+								// 保存工地id在本地
+								sharedPrefer.setValue(Constant.PROCESSINFO_ID,
+										processInfo.get_id());
 								// 保存业主的设计师id
 								sharedPrefer.setValue(
 										Constant.FINAL_DESIGNER_ID,
 										processInfo.getFinal_designerid());
-								//加载成功回调
-								loadCallBack.loadSuccess();
+								// 通知页面刷新
+								setChanged();
+								notifyObservers(processInfo);
+
 							} else if (response.has(Constant.ERROR_MSG)) {
 								MyApplication.getInstance().makeTextLong(
 										response.get(Constant.ERROR_MSG)
@@ -133,7 +135,7 @@ public class DataManager {
 				});
 	}
 
-	public void getDesignerProcessInfo(final LoadCallBack loadCallBack) {
+	public void getDesignerProcessInfo() {
 		JianFanJiaApiClient.get_Designer_Info(context,
 				new JsonHttpResponseHandler() {
 					@Override
@@ -154,16 +156,22 @@ public class DataManager {
 														.toString(),
 												new TypeToken<List<DesignerSiteInfo>>() {
 												}.getType());
-								
-								for(ProcessInfo processInfo : processLists){
-									processInfos.put(processInfo.get_id(),processInfo);
-									sharedPrefer.setValue(processInfo.get_id(),processInfo);
+
+								for (ProcessInfo processInfo : processLists) {
+									// 保存工地流程在内存中
+									processInfos.put(processInfo.get_id(),
+											processInfo);
+									// 保存工地流程在本地
+									sharedPrefer.setValue(processInfo.get_id(),
+											processInfo);
 								}
-								// 保存工地流程
-								sharedPrefer.setValue(Constant.PROCESSINFO_LIST,
-										processLists);
-								// 加载成功回调
-								loadCallBack.loadSuccess();
+								// 保存整个工地流程在本地
+								sharedPrefer
+										.setValue(Constant.PROCESSINFO_LIST,
+												processLists);
+								// 通知页面刷新
+								setChanged();
+								notifyObservers(processLists);
 							} else if (response.has(Constant.ERROR_MSG)) {
 								MyApplication.getInstance().makeTextLong(
 										response.get(Constant.ERROR_MSG)

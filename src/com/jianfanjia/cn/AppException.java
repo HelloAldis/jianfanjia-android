@@ -24,7 +24,6 @@ import com.jianfanjia.cn.tools.StringUtils;
 
 @SuppressWarnings("serial")
 public class AppException extends Exception implements UncaughtExceptionHandler {
-
 	/** “Ï≥£¿‡–Õ */
 	public final static byte TYPE_NETWORK = 0x01;
 	public final static byte TYPE_SOCKET = 0x02;
