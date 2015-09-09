@@ -9,9 +9,7 @@ import java.lang.Thread.UncaughtExceptionHandler;
 import java.net.ConnectException;
 import java.net.SocketException;
 import java.net.UnknownHostException;
-
 import org.apache.http.HttpException;
-
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -19,7 +17,6 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Build;
 import android.os.Looper;
 import android.widget.Toast;
-
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.tools.FileUtil;
