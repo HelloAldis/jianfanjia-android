@@ -54,6 +54,7 @@ public class DesignerSiteInfoAdapter extends BaseListAdapter<DesignerSiteInfo> {
 		viewHolder.itemStageView.setText(MyApplication.getInstance()
 				.getStringById(designerSiteInfo.getGoing_on()));
 		// viewHolder.itemCurrentView 还没判断
+		// viewHolder.itemCurrentView.setText("当前工地");
 		viewHolder.itemVillageView.setText(designerSiteInfo.getCell());
 		if (user.getImageid() != null) {
 			imageLoader.displayImage(Url.GET_IMAGE + user.getImageid(),

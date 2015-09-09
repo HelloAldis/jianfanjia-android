@@ -224,7 +224,7 @@ public class JianFanJiaApiClient {
 	 */
 	public static void get_Designer_Owner(Context context,
 			AsyncHttpResponseHandler hanlder) {
-		HttpRestClient.get(context, Url.GET_DESIGNER_OWNER, hanlder);
+		HttpRestClient.get(context, Url.GET_DESIGNER_PROCESS, hanlder);
 	}
 
 	/**
