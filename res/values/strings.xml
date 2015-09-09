@@ -76,6 +76,7 @@
     <string name="retract">收起</string>
 
     <!-- my_site information -->
+    <string name="my_current_site">当前工地</string>
     <string name="my_site_city">所在城市</string>
     <string name="my_site_city_example">湖北武汉洪山区</string>
     <string name="my_site_villagename">小区名称</string>
