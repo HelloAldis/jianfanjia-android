@@ -46,8 +46,8 @@
         android:hint="@string/add_feedback"
         android:minLines="10"
         android:padding="@dimen/space_8"
-        android:textSize="@dimen/text_size_14"
-        android:textColorHint="@color/horzontal_line_color" />
+        android:textColorHint="@color/horzontal_line_color"
+        android:textSize="@dimen/text_size_14" />
 
     <Button
         android:id="@+id/btn_commit"

@@ -28,7 +28,7 @@ public class ShareActivity extends BaseActivity implements OnClickListener {
 
 	@Override
 	public void initView() {
-		backView = (TextView) findViewById(R.id.about_back);
+		backView = (TextView) findViewById(R.id.share_back);
 		mIvCode = (ImageView) findViewById(R.id.share_qr);
 	}
 
@@ -60,7 +60,7 @@ public class ShareActivity extends BaseActivity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.about_back:
+		case R.id.share_back:
 			finish();
 			break;
 		default:
