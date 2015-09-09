@@ -49,8 +49,13 @@ public class Constant {
 	public static final String USERIMAGE_ID = "userimageid";// 用户头像id
 
 	public static final String FINAL_DESIGNER_ID = "final_designerid";// 业主的设计师id
+	public static final String FINAL_OWNER_ID = "final_owner_id";// 业主id
 	public static final String PROCESSINFO_ID = "processinfo_id";// 当前工地id
 	public static final String PROCESSINFO_LIST = "processinfo_list";// 当前工地id
+	public static final String OWNER_INFO = "owner_info";// 当前业主信息
+	public static final String DESIGNER_INFO = "designer_info";// 当前设计师信息
+	
+
 
 	public static final String DATA = "data";// 获取成功的数据
 	public static final String ERROR_MSG = "err_msg";// 获取数据失败的返回信息

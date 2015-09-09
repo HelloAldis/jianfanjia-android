@@ -8,7 +8,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.CommentInfo;
+import com.jianfanjia.cn.bean.DesignerInfo;
+import com.jianfanjia.cn.bean.UserByDesignerInfo;
+import com.jianfanjia.cn.bean.UserByOwnerInfo;
+import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.config.Url;
 import com.jianfanjia.cn.tools.StringUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -47,23 +52,37 @@ public class CommentInfoAdapter extends BaseListAdapter<CommentInfo> {
 		} else {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
-		viewHolder.itemNameView
-				.setText(commentInfo.getUserName() == null ? "null"
-						: "zhanghao");
+		
 		viewHolder.itemContentView.setText(commentInfo.getContent());
 		viewHolder.itemTimeView.setText(StringUtils
 				.covertLongToString(commentInfo.getDate()));
 		viewHolder.itemIdentityView
 				.setText(commentInfo.getUsertype() == Constant.IDENTITY_OWNER ? context
-						.getString(R.string.ower) : context
-						.getString(R.string.designer));
-		if (commentInfo.getUserImageUrl() != null) {
-			ImageLoader.getInstance().displayImage(
-					commentInfo.getUserImageUrl(), viewHolder.itemHeadView);
-		} else {
-			viewHolder.itemHeadView
-					.setImageResource(R.drawable.site_listview_item_finish_circle);
+						.getString(R.string.designer) : context
+						.getString(R.string.ower));
+		if(commentInfo.getUsertype().equals(Constant.IDENTITY_DESIGNER)){
+			String designerId = DataManager.getInstance().sharedPrefer.getValue(Constant.FINAL_DESIGNER_ID,null);
+			if(designerId != null){
+				UserByDesignerInfo designerInfo = DataManager.getInstance().getDesignerInfo(designerId);
+				if(designerInfo != null){
+					viewHolder.itemNameView.setText(designerInfo.getUsername() == null ? context.getString(R.string.designer) : designerInfo.getUsername());
+					String imageId = designerInfo.getImageid();
+					ImageLoader.getInstance().displayImage(imageId == null ? Constant.DEFALUT_DESIGNER_PIC : (Url.GET_IMAGE + imageId),viewHolder.itemHeadView);
+				}
+			}
+		}else{
+			String ownerId = DataManager.getInstance().sharedPrefer.getValue(Constant.FINAL_OWNER_ID,null);
+			if(ownerId != null){
+				UserByOwnerInfo ownerInfo = DataManager.getInstance().getOwnerInfo(ownerId);
+				if(ownerInfo != null){
+					viewHolder.itemNameView.setText(ownerInfo.getUsername() == null ? context.getString(R.string.ower) : ownerInfo.getUsername());
+					String imageId = ownerInfo.getImageId();
+					ImageLoader.getInstance().displayImage(imageId == null ? Constant.DEFALUT_OWNER_PIC : (Url.GET_IMAGE + imageId),viewHolder.itemHeadView);
+				}
+			}
+			
 		}
+		
 		return convertView;
 	}
 

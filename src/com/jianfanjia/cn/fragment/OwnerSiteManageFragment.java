@@ -137,12 +137,15 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		checkSection = getResources().getStringArray(
 				R.array.site_procedure_check);
 		DataManager.getInstance().addObserver(this);
+		LogTool.d(TAG, "processInfo=" + processInfo);
+
+	}
+	
+	private void initProcessInfo(){
 		String ownerProcessid = shared.getValue(Constant.PROCESSINFO_ID,null);
 		if(ownerProcessid != null){
 			processInfo = DataManager.getInstance().getProcessInfo(ownerProcessid);
 		}
-		LogTool.d(TAG, "processInfo=" + processInfo);
-
 	}
 
 	@Override
@@ -155,6 +158,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		initBannerView(view);
 		initScrollLayout(view);
 		initListView(view);
+		initProcessInfo();
 		if (processInfo != null) {
 			initData();
 		} else {
@@ -164,9 +168,12 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	}
 	
 	public void update(Observable observable, Object data) {
-		if(data != null){
-			processInfo = (ProcessInfo)data;
-			initData();
+		mPullRefreshScrollView.onRefreshComplete();
+		if(DataManager.SUCCESS.equals(data)){
+			initProcessInfo();
+			if(processInfo != null){
+				initData();
+			}
 		}
 	}
 
@@ -469,7 +476,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	public void onPullDownToRefresh(PullToRefreshBase<ScrollView> refreshView) {
 		// 下拉刷新(从第一页开始装载数据)
 		// 加载数据
-		getOwnerProcess();
+		DataManager.getInstance().requestOwnerProcessInfo();
 	}
 
 	@Override
