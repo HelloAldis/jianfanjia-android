@@ -80,22 +80,21 @@ public class DataManager extends Observable {
 								ProcessInfo processInfo = JsonParser
 										.jsonToBean(response.get(Constant.DATA)
 												.toString(), ProcessInfo.class);
-								// 保存工地流程到本地
-								sharedPrefer.setValue(processInfo.get_id(),
-										processInfo);
-								// 保存工地流程在内存中
-								processInfos.put(processInfo.get_id(),
-										processInfo);
-								// 保存工地id在本地
-								sharedPrefer.setValue(Constant.PROCESSINFO_ID,
-										processInfo.get_id());
-								// 保存业主的设计师id
-								sharedPrefer.setValue(
-										Constant.FINAL_DESIGNER_ID,
-										processInfo.getFinal_designerid());
-								// 通知页面刷新
-								setChanged();
-								notifyObservers(processInfo);
+								if (null != processInfo) {
+									sharedPrefer.setValue(processInfo.get_id(),
+											processInfo);// 保存工地流程到本地
+									processInfos.put(processInfo.get_id(),
+											processInfo);// 保存工地流程在内存中
+									sharedPrefer.setValue(
+											Constant.PROCESSINFO_ID,
+											processInfo.get_id()); // 保存工地id在本地
+									sharedPrefer.setValue(
+											Constant.FINAL_DESIGNER_ID,
+											processInfo.getFinal_designerid()); // 保存业主的设计师id
+									// 通知页面刷新
+									setChanged();
+									notifyObservers(processInfo);
+								}
 							} else if (response.has(Constant.ERROR_MSG)) {
 								MyApplication.getInstance().makeTextLong(
 										response.get(Constant.ERROR_MSG)
