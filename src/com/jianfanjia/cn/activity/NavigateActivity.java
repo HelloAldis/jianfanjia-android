@@ -25,6 +25,7 @@ import com.jianfanjia.cn.config.Constant;
 public class NavigateActivity extends BaseActivity implements OnClickListener,
 		OnPageChangeListener {
 	private ViewPager viewPager = null;
+	private ImageView btn_welcome_off = null;
 	private LinearLayout btnLayout = null;
 	private Button btnRegister = null;
 	private Button btnLogin = null;
@@ -37,6 +38,7 @@ public class NavigateActivity extends BaseActivity implements OnClickListener,
 	@Override
 	public void initView() {
 		viewPager = (ViewPager) findViewById(R.id.viewPager);
+		btn_welcome_off = (ImageView) findViewById(R.id.btn_welcome_off);
 		btnLayout = (LinearLayout) findViewById(R.id.btnLayout);
 		btnRegister = (Button) findViewById(R.id.btnRegister);
 		btnLogin = (Button) findViewById(R.id.btnLogin);
@@ -53,6 +55,7 @@ public class NavigateActivity extends BaseActivity implements OnClickListener,
 	@Override
 	public void setListener() {
 		viewPager.setOnPageChangeListener(this);
+		btn_welcome_off.setOnClickListener(this);
 		btnRegister.setOnClickListener(this);
 		btnLogin.setOnClickListener(this);
 	}
@@ -61,6 +64,10 @@ public class NavigateActivity extends BaseActivity implements OnClickListener,
 	public void onClick(View v) {
 		sharedPrefer.setValue(Constant.ISFIRST, 1);
 		switch (v.getId()) {
+		case R.id.btn_welcome_off:
+			startActivity(LoginActivity.class);
+			finish();
+			break;
 		case R.id.btnRegister:
 			startActivity(RegisterActivity.class);
 			finish();
