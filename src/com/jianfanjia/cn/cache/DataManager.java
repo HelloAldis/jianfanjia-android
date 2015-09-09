@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import android.content.Context;
+
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
@@ -24,7 +27,8 @@ import com.jianfanjia.cn.tools.SharedPrefer;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 public class DataManager {
-	private static final String TAG = "DataManeger";
+
+	protected static final String TAG = "DataManeger";
 	private boolean isLogin;// ÊÇ·ñµÇÂ¼
 	protected SharedPrefer sharedPrefer = null;
 	private static DataManager instance;
