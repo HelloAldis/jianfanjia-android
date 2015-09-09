@@ -28,6 +28,9 @@ public class Constant {
 		public static final boolean DEVELOPER_MODE = false;
 	}
 
+	public static final int REQUESTCODE_CAMERA = 1;// 拍照
+	public static final int REQUESTCODE__LOCATION = 2;// 本地相册选取
+	public static final int REQUESTCODE__CROP = 3;// 裁剪
 	// 侧滑菜单
 	public static final int HOME = 0;
 	public static final int NOTIFY = 1;
@@ -81,10 +84,10 @@ public class Constant {
 
 	public static final String HOME_ADD_PIC = "drawable://"
 			+ R.drawable.btn_icon_home_add;
-	
+
 	public static final String DEFALUT_OWNER_PIC = "drawable://"
 			+ R.drawable.icon_sidebar_default_user;
-	
+
 	public static final String DEFALUT_DESIGNER_PIC = "drawable://"
 			+ R.drawable.icon_sidebar_default_user;
 

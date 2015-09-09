@@ -7,7 +7,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.GridItem;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class SiteGridViewAdapter extends BaseListAdapter<GridItem> {
 
@@ -28,7 +27,7 @@ public class SiteGridViewAdapter extends BaseListAdapter<GridItem> {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		ImageLoader.getInstance().displayImage(item.getPath(), holder.img);
+		imageLoader.displayImage(item.getPath(), holder.img);
 		return convertView;
 	}
 
