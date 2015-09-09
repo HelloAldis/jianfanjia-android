@@ -2,12 +2,12 @@ package com.jianfanjia.cn.adapter;
 
 import java.util.List;
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.bean.MyOwnerInfo;
-import com.jianfanjia.cn.bean.Requirement;
+import com.jianfanjia.cn.bean.DesignerSiteInfo;
 import com.jianfanjia.cn.bean.User;
 import com.jianfanjia.cn.config.Url;
 
@@ -17,16 +17,16 @@ import com.jianfanjia.cn.config.Url;
  * @date 2015-8-26 15:57
  * @param <NotifyCaiGouInfo>
  */
-public class MyOwerInfoAdapter extends BaseListAdapter<MyOwnerInfo> {
+public class MyOwerInfoAdapter extends BaseListAdapter<DesignerSiteInfo> {
 
-	public MyOwerInfoAdapter(Context context, List<MyOwnerInfo> caigouList) {
+	public MyOwerInfoAdapter(Context context, List<DesignerSiteInfo> caigouList) {
 		super(context, caigouList);
 	}
 
 	@Override
 	public View initView(int position, View convertView) {
 		ViewHolder viewHolder = null;
-		MyOwnerInfo myOwerInfo = list.get(position);
+		DesignerSiteInfo info = list.get(position);
 		if (convertView == null) {
 			convertView = layoutInflater.inflate(
 					R.layout.list_item_designer_ower, null);
@@ -43,13 +43,13 @@ public class MyOwerInfoAdapter extends BaseListAdapter<MyOwnerInfo> {
 		} else {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
-		User user = myOwerInfo.getUser();
-		Requirement requirement = myOwerInfo.getRequirement();
+		User user = info.getUser();
 		viewHolder.itemNameView.setText(user.getUsername());
-		viewHolder.itemAdressView.setText(requirement.getCell());
-		viewHolder.itemStageView.setText(requirement.getWork_type());
-		if (user.getImageid() != null) {
-			imageLoader.displayImage(Url.GET_IMAGE + user.getImageid(),
+		viewHolder.itemAdressView.setText(info.getCell());
+		viewHolder.itemStageView.setText(info.getGoing_on());
+		String imageId = user.getImageid();
+		if (!TextUtils.isEmpty(imageId)) {
+			imageLoader.displayImage(Url.GET_IMAGE + imageId,
 					viewHolder.itemOwerHeadView);
 		} else {
 			viewHolder.itemOwerHeadView
