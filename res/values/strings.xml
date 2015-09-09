@@ -33,6 +33,7 @@
     <string name="hint_password">请输入密码</string>
     <string name="forget_pwd">忘记密码</string>
     <string name="register">用户注册</string>
+    <string name="loginByUser">用户登录</string>
     <string name="tip_please_input_username">请输入账号</string>
     <string name="tip_please_input_password">请输入密码</string>
     <string name="progress_login">正在登录…</string>
@@ -187,7 +188,6 @@
     <!-- activity_share -->
 
     <string name="comment_success">评论成功</string>
-    
     <string name="open_camera">照相机</string>
     <string name="open_album">相册</string>
 
