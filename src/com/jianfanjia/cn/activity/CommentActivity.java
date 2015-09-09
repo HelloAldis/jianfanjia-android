@@ -154,6 +154,7 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
 								makeTextLong(getString(R.string.comment_success));
 								etAddCommentView.getEditableText().clear();
 								sendCommentView.setEnabled(false);
+								handlerSuccess();
 							} else if (response.has(Constant.ERROR_MSG)) {
 								makeTextLong(response.get(Constant.ERROR_MSG)
 										.toString());
@@ -181,6 +182,11 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
 					};
 				});
 		}
+	}
+	
+
+	private void handlerSuccess() {
+		
 	}
 
 

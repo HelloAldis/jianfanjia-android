@@ -22,10 +22,7 @@ import com.jianfanjia.cn.config.Constant;
  */
 public class MyApplication extends BaseApplication {
 	private static MyApplication instance;
-	private boolean isLogin;// 判断用户是否登录
-	private String userType;// 判断用户类型
 	private RegisterInfo registerInfo = new RegisterInfo();// 注册实体信息
-	private ProcessInfo processInfo;// 工地信息
 	private List<String> site_data;// 静态的工序列表
 
 	@Override
@@ -47,44 +44,12 @@ public class MyApplication extends BaseApplication {
 		this.site_data = site_data;
 	}
 
-	public boolean isLogin() {
-		return isLogin;
-	}
-
-	public void setLogin(boolean isLogin) {
-		this.isLogin = isLogin;
-	}
-
 	public static MyApplication getInstance() {
 		return instance;
 	}
 
 	public RegisterInfo getRegisterInfo() {
 		return registerInfo;
-	}
-
-	public void saveLoginUserInfo(LoginUserBean userBean) {
-		sharedPrefer.setValue(Constant.ACCOUNT, userBean.getPhone());
-		sharedPrefer.setValue(Constant.USERTYPE, userBean.getUsertype());
-		sharedPrefer.setValue(Constant.PASSWORD, userBean.getPass());
-		sharedPrefer.setValue(Constant.USERNAME, userBean.getUsername());
-		sharedPrefer.setValue(Constant.USERIMAGE_ID, userBean.getImageId());
-	}
-
-	public ProcessInfo getProcessInfo() {
-		return processInfo;
-	}
-
-	public void setProcessInfo(ProcessInfo processInfo) {
-		this.processInfo = processInfo;
-	}
-
-	public String getUserType() {
-		return userType;
-	}
-
-	public void setUserType(String userType) {
-		this.userType = userType;
 	}
 
 	/**

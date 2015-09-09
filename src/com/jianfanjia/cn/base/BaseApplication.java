@@ -5,6 +5,8 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Build;
 import android.os.StrictMode;
+import android.widget.Toast;
+
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.tools.SharedPrefer;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
@@ -57,6 +59,14 @@ public class BaseApplication extends Application {
 
 		// Initialize ImageLoader with configuration.
 		ImageLoader.getInstance().init(config.build());
+	}
+	
+	public void makeTextShort(String text) {
+		Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+	}
+
+	public void makeTextLong(String text) {
+		Toast.makeText(this, text, Toast.LENGTH_LONG).show();
 	}
 
 }
