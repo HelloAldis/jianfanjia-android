@@ -9,9 +9,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.MediaStore;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
@@ -44,6 +47,7 @@ import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
+import com.jianfanjia.cn.interf.PopWindowCallBack;
 import com.jianfanjia.cn.interf.SwitchFragmentListener;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.Mode;
@@ -66,7 +70,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
  * 
  */
 public class OwnerSiteManageFragment extends BaseFragment implements
-		OnRefreshListener2<ScrollView>, ItemClickCallBack {
+		OnRefreshListener2<ScrollView>, ItemClickCallBack, PopWindowCallBack {
 	private static final String TAG = OwnerSiteManageFragment.class.getName();
 	private SwitchFragmentListener listener;
 	private LinearLayout layoutAll = null;
@@ -475,7 +479,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	public void click(int position) {
 		LogTool.d(TAG, "position=================" + position);
 		AddPhotoPopWindow addPhotoPopWindow = new AddPhotoPopWindow(
-				getActivity());
+				getActivity(), this);
 		addPhotoPopWindow.showAtLocation(layoutAll, Gravity.BOTTOM
 				| Gravity.CENTER_HORIZONTAL, 0, 0);
 	}
@@ -560,6 +564,48 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 								R.string.tip_login_error_for_network));
 					};
 				});
+	}
+
+	@Override
+	public void takecamera() {
+		Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		startActivityForResult(cameraIntent, Constant.REQUESTCODE_CAMERA);
+	}
+
+	@Override
+	public void takePhoto() {
+		Intent albumIntent = new Intent(Intent.ACTION_GET_CONTENT);
+		albumIntent.setType("image/*");
+		startActivityForResult(albumIntent, Constant.REQUESTCODE__LOCATION);
+	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		switch (requestCode) {
+		case Constant.REQUESTCODE_CAMERA:// 拍照
+			LogTool.d(TAG, "data:" + data);
+			if (data != null) {
+				Uri mImageUri = data.getData();
+				LogTool.d(TAG, "mImageUri:" + mImageUri);
+
+			}
+			break;
+		case Constant.REQUESTCODE__LOCATION:// 本地选取
+			LogTool.d(TAG, "data:" + data);
+			if (data != null) {
+				Uri uri = data.getData();
+				if (null != uri) {
+
+				}
+			}
+			break;
+		case Constant.REQUESTCODE__CROP:
+
+			break;
+		default:
+			break;
+		}
 	}
 
 	@Override
