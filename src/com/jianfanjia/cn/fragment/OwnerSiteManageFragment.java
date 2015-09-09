@@ -3,11 +3,9 @@ package com.jianfanjia.cn.fragment;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -22,7 +20,6 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-
 import com.jianfanjia.cn.R;
 import com.jianfanjia.cn.activity.CheckActivity;
 import com.jianfanjia.cn.activity.MainActivity;
@@ -108,7 +105,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		processInfo = (ProcessInfo) CacheManager.getObjectByFile(getActivity(),
 				Constant.PROCESSINFO_CACHE);
 		LogTool.d(TAG, "processInfo=" + processInfo);
-		
+
 	}
 
 	@Override
@@ -333,14 +330,17 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 			startActivity(CheckActivity.class, bundle);
 			break;
 		case R.id.site_list_head_delay:
-			DateWheelDialog dateWheelDialog = new DateWheelDialog(getActivity(),Calendar.getInstance());
+			DateWheelDialog dateWheelDialog = new DateWheelDialog(
+					getActivity(), Calendar.getInstance());
 			dateWheelDialog.setTitle("—°‘Ò ±º‰");
 			dateWheelDialog.setPositiveButton(R.string.ok,
 					new DialogInterface.OnClickListener() {
 
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							makeTextLong(StringUtils.getDateString(((DateWheelDialog)dialog).getChooseCalendar().getTime()));
+							makeTextLong(StringUtils
+									.getDateString(((DateWheelDialog) dialog)
+											.getChooseCalendar().getTime()));
 							dialog.dismiss();
 						}
 					});
