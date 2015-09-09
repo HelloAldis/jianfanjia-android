@@ -34,16 +34,11 @@ public class DesignerMenuFragment extends BaseFragment implements
 	private OwnerFragment owerFragment = null;
 	private DesignerSiteFragment designerSiteFragment = null;
 	private SettingFragment settingFragment = null;
-	private String mUserName;// ”√ªß√˚
-	private String mAccount;// ’À∫≈
 	private TextView nameText = null;
 	private TextView phoneText = null;
 
 	@Override
 	public void initView(View view) {
-		mUserName = shared.getValue(Constant.USERNAME, null);
-		mAccount = shared.getValue(Constant.ACCOUNT, null);
-		LogTool.d(TAG, " mAccount=" + mAccount);
 		img_head = (ImageView) view.findViewById(R.id.img_head);
 		nameText = (TextView) view.findViewById(R.id.name_text);
 		phoneText = (TextView) view.findViewById(R.id.phone_text);

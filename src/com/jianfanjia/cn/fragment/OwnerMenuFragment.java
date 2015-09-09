@@ -34,16 +34,11 @@ public class OwnerMenuFragment extends BaseFragment implements
 	private DesignerFragment designerFragment = null;
 	private OwnerSiteFragment ownerSiteFragment = null;
 	private SettingFragment settingFragment = null;
-	private String mUserName;// ”√ªß√˚
-	private String mAccount;// ’À∫≈
 	private TextView nameText = null;
 	private TextView phoneText = null;
 
 	@Override
 	public void initView(View view) {
-		mUserName = shared.getValue(Constant.USERNAME, null);
-		mAccount = shared.getValue(Constant.ACCOUNT, null);
-		LogTool.d(TAG, " mAccount=" + mAccount);
 		nameText = (TextView) view.findViewById(R.id.name_text);
 		phoneText = (TextView) view.findViewById(R.id.phone_text);
 		mTabRg = (RadioGroup) view.findViewById(R.id.tab_rg_menu);
@@ -174,7 +169,6 @@ public class OwnerMenuFragment extends BaseFragment implements
 		return R.layout.fragment_owner_menu;
 	}
 
-	
 	@Override
 	public void callBack(int index) {
 		View v = mTabRg.getChildAt(index);

@@ -33,6 +33,8 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 	protected LayoutInflater inflater = null;
 	protected SharedPrefer shared = null;
 	protected ListenerManeger listenerManeger = null;
+	protected String mUserName;// ”√ªß√˚
+	protected String mAccount;// ’À∫≈
 	protected boolean isOpen = false;
 
 	@Override
@@ -62,6 +64,10 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 		super.onResume();
 		LogTool.d(this.getClass().getName(), "onResume");
 		isOpen = shared.getValue(Constant.ISOPEN, false);
+		mUserName = shared.getValue(Constant.USERNAME, null);
+		mAccount = shared.getValue(Constant.ACCOUNT, null);
+		LogTool.d(this.getClass().getName(), "mUserName:" + mUserName
+				+ " mAccount:" + mAccount);
 	}
 
 	@Override
