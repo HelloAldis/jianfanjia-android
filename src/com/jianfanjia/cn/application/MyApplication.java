@@ -2,9 +2,7 @@ package com.jianfanjia.cn.application;
 
 import java.util.Arrays;
 import java.util.List;
-
 import android.content.pm.PackageManager;
-
 import com.jianfanjia.cn.AppException;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseApplication;
@@ -35,9 +33,9 @@ public class MyApplication extends BaseApplication {
 		instance = this;
 		site_data = Arrays.asList(getResources().getStringArray(
 				R.array.site_data));
-		
+
 		Thread.setDefaultUncaughtExceptionHandler(AppException
-	                .getAppExceptionHandler(this));
+				.getAppExceptionHandler(this));
 	}
 
 	public List<String> getSite_data() {
@@ -122,9 +120,8 @@ public class MyApplication extends BaseApplication {
 	public int getVersionCode() {
 		int versionCode = 0;
 		try {
-			versionCode = getPackageManager()
-					.getPackageInfo(
-							getPackageName(), 0).versionCode;
+			versionCode = getPackageManager().getPackageInfo(getPackageName(),
+					0).versionCode;
 		} catch (PackageManager.NameNotFoundException ex) {
 			versionCode = 0;
 		}
@@ -134,9 +131,7 @@ public class MyApplication extends BaseApplication {
 	public String getVersionName() {
 		String name = "";
 		try {
-			name = getPackageManager()
-					.getPackageInfo(
-							getPackageName(), 0).versionName;
+			name = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
 		} catch (PackageManager.NameNotFoundException ex) {
 			name = "";
 		}

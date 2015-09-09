@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.inter.manager.ListenerManeger;
@@ -118,9 +117,11 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 			intent.putExtras(bundle);
 		}
 		startActivity(intent);
-		getActivity().overridePendingTransition(R.anim.fragment_list_right_enter, R.anim.fragment_slide_left_exit);
+		getActivity().overridePendingTransition(
+				R.anim.fragment_list_right_enter,
+				R.anim.fragment_slide_left_exit);
 	}
-	
+
 	protected void hideWaitDialog() {
 		FragmentActivity activity = getActivity();
 		if (activity instanceof DialogControl) {
@@ -135,6 +136,7 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 		}
 		return null;
 	}
+
 	protected WaitDialog showWaitDialog() {
 		return showWaitDialog(R.string.loading);
 	}
