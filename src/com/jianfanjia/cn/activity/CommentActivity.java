@@ -22,7 +22,6 @@ import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.CommentInfo;
 import com.jianfanjia.cn.bean.CommitCommentInfo;
 import com.jianfanjia.cn.bean.ProcessInfo;
-import com.jianfanjia.cn.cache.CacheManager;
 import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
@@ -78,6 +77,7 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
 		DataManager.getInstance().addObserver(this);
 		Intent intent = getIntent();
 		Bundle bundle = intent.getExtras();
@@ -85,14 +85,14 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
 			currentList = bundle.getInt(Constant.CURRENT_LIST, 0);
 			currentItem = bundle.getInt(Constant.CURRENT_ITEM, 0);
 		}
-		super.onCreate(savedInstanceState);
 		getCommentList();
+		commentInfoAdapter = new CommentInfoAdapter(this, commentInfoList);
+		listView.setAdapter(commentInfoAdapter);
 	}
 	
 	private void getCommentList(){
 		String ownerProcessid = sharedPrefer.getValue(Constant.PROCESSINFO_ID,null);
 		if(ownerProcessid != null){
-			Log.i(TAG, "processInfo != null");
 			processInfo = DataManager.getInstance().getProcessInfo(ownerProcessid);
 		}
 		if(processInfo != null){
@@ -103,8 +103,6 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
 					.getItems().get(currentItem).getComments();
 			Log.i(this.getClass().getName(), "itemsize =" + currentItem);
 		}
-		commentInfoAdapter = new CommentInfoAdapter(this, commentInfoList);
-		listView.setAdapter(commentInfoAdapter);
 	}
 
 	@Override
@@ -162,6 +160,7 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
 									makeTextLong(getString(R.string.comment_success));
 									etAddCommentView.getEditableText().clear();
 									sendCommentView.setEnabled(false);
+									handlerSuccess();
 								} else if (response.has(Constant.ERROR_MSG)) {
 									makeTextLong(response.get(
 											Constant.ERROR_MSG).toString());
@@ -199,12 +198,9 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
 
 	
 	public void update(Observable observable, Object data) {
-		if(data != null){
-			processInfo = (ProcessInfo)data;
-			section = processInfo.getSections().get(currentList).getName();
-			item = processInfo.getSections().get(currentList).getItems().get(currentItem).getName();
-			commentInfoList = processInfo.getSections().get(currentList).getItems().get(currentItem).getComments();
-			Log.i(this.getClass().getName(),"itemsize ="+currentItem);
+		if(DataManager.SUCCESS.equals(data)){
+			getCommentList();
+			commentInfoAdapter.setList(commentInfoList);
 			commentInfoAdapter.notifyDataSetChanged();
 		}
 	}

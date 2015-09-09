@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.GridView;
@@ -22,11 +21,11 @@ import com.jianfanjia.cn.bean.GridItem;
 import com.jianfanjia.cn.bean.SectionItemInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
-import com.jianfanjia.cn.view.AddPhotoPopWindow;
 
 public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 	private ItemClickCallBack callBack;
 	private int lastClickItem = -1;// 记录点击的位置
+	private int sign = -1;
 	private SiteGridViewAdapter siteGridViewAdapter;
 	private List<GridItem> gridItem = new ArrayList<GridItem>();
 	private int currentPro = -1;// 记录第一个当前展开的工序
@@ -136,7 +135,7 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 			break;
 		}
 
-		if (imageUrlList.size() > 0) {
+		if (null != imageUrlList && imageUrlList.size() > 0) {
 			viewHolder.openUploadPic.setText(imageUrlList.size() + "");
 			viewHolder.openUploadPic.setCompoundDrawablesWithIntrinsicBounds(
 					context.getResources().getDrawable(
@@ -150,7 +149,7 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 			viewHolder.openUploadPic.setText(R.string.upload_pic);
 		}
 
-		if (commentInfoList.size() > 0) {
+		if (null != commentInfoList && commentInfoList.size() > 0) {
 			viewHolder.openComment.setText(commentInfoList.size() + "");
 			viewHolder.openComment.setCompoundDrawablesWithIntrinsicBounds(
 					context.getResources().getDrawable(
@@ -168,10 +167,17 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 		// if (Integer.parseInt(sectionItemInfo.getStatus()) !=
 		// Constant.NOT_START && position == lastClickItem) {
 		if (position == lastClickItem) {
-			viewHolder.bigOpenLayout.setVisibility(View.VISIBLE);
-			viewHolder.smallcloseLayout.setVisibility(View.GONE);
-			// 设置上传照片
-			setImageData(imageUrlList, viewHolder.gridView);
+			if (sign == lastClickItem) {
+				viewHolder.bigOpenLayout.setVisibility(View.GONE);
+				viewHolder.smallcloseLayout.setVisibility(View.VISIBLE);
+				sign = -1;
+			} else {
+				viewHolder.bigOpenLayout.setVisibility(View.VISIBLE);
+				viewHolder.smallcloseLayout.setVisibility(View.GONE);
+				// 设置上传照片
+				// setImageData(imageUrlList, viewHolder.gridView);
+				sign = lastClickItem;
+			}
 		} else {
 			viewHolder.bigOpenLayout.setVisibility(View.GONE);
 			viewHolder.smallcloseLayout.setVisibility(View.VISIBLE);
@@ -208,10 +214,8 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 	 */
 	private void setImageData(List<String> imageUrlList, GridView gridView) {
 		Log.i(this.getClass().getName(), "size =" + imageUrlList.size());
-
 		gridItem.clear();
 		gridView.setAdapter(null);
-
 		// 最多上传9张照片
 		if (imageUrlList.size() < 9
 				&& !imageUrlList.contains(Constant.HOME_ADD_PIC)) {
@@ -224,7 +228,6 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 			gridItem.add(item);
 		}
 		Log.i(this.getClass().getName(), "grid =" + gridItem.size());
-
 		siteGridViewAdapter = new SiteGridViewAdapter(context, gridItem);
 		gridView.setAdapter(siteGridViewAdapter);
 

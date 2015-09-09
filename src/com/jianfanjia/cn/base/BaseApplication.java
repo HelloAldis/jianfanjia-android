@@ -23,7 +23,7 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
  */
 public class BaseApplication extends Application {
 	
-	protected SharedPrefer sharedPrefer = null;
+	public SharedPrefer sharedPrefer = null;
 
 	@TargetApi(Build.VERSION_CODES.GINGERBREAD)
 	@SuppressWarnings("unused")

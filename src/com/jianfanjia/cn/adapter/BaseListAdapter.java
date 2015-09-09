@@ -37,6 +37,10 @@ public abstract class BaseListAdapter<T> extends BaseAdapter {
 		// .cacheOnDisk(true).considerExifParams(true)
 		// .bitmapConfig(Bitmap.Config.RGB_565).build();
 	}
+	
+	public void setList(List<T> list) {
+		this.list = list;
+	}
 
 	@Override
 	public int getCount() {
