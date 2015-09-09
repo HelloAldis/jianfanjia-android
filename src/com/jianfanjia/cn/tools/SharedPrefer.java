@@ -1,7 +1,13 @@
 package com.jianfanjia.cn.tools;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import android.content.Context;
 import android.content.SharedPreferences;
+import org.apache.mina.util.Base64;
 import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
 
@@ -102,6 +108,28 @@ public class SharedPrefer {
 		setValue(this.context.getString(resKey), value);
 	}
 
+	// Object
+	public void setValue(String key, Object value) {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		ObjectOutputStream oos = null;
+		try {
+			oos = new ObjectOutputStream(baos);
+			oos.writeObject(value);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		// 将Product对象放到OutputStream中
+		// 将Product对象转换成byte数组，并将其进行base64编码
+		String str = new String(Base64.encodeBase64(baos.toByteArray()));
+		// 将编码后的字符串写到base64.xml文件中
+		edit.putString(key, str);
+		edit.commit();
+	}
+
+	public void setValue(int resKey, Object value) {
+		setValue(this.context.getString(resKey), value);
+	}
+
 	// Get
 
 	// Boolean
@@ -147,6 +175,24 @@ public class SharedPrefer {
 
 	public String getValue(int resKey, String defaultValue) {
 		return getValue(this.context.getString(resKey), defaultValue);
+	}
+
+	// Object
+	public Object getValue(String key) {
+		String base64Str = sp.getString(key, "");
+		// 对Base64格式的字符串进行解码
+		byte[] base64Bytes = Base64.decodeBase64(base64Str.getBytes());
+		ByteArrayInputStream bais = new ByteArrayInputStream(base64Bytes);
+		try {
+			ObjectInputStream ois = new ObjectInputStream(bais);
+			// 从ObjectInputStream中读取对象
+			Object object = ois.readObject();
+			return object;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	// Delete
