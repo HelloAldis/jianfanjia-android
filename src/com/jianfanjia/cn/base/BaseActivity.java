@@ -1,5 +1,8 @@
 package com.jianfanjia.cn.base;
 
+import java.util.Observable;
+import java.util.Observer;
+
 import org.apache.http.Header;
 import org.json.JSONObject;
 import android.content.Context;
@@ -38,7 +41,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  * 
  */
 public abstract class BaseActivity extends FragmentActivity implements
-		DialogControl, PushMsgReceiveListener {
+		DialogControl, PushMsgReceiveListener,Observer {
 	protected LayoutInflater inflater = null;
 	protected FragmentManager fragmentManager = null;
 	protected SharedPrefer sharedPrefer = null;
@@ -298,6 +301,9 @@ public abstract class BaseActivity extends FragmentActivity implements
 								+ throwable);
 					};
 				});
+	}
+	
+	public void update(Observable observable, Object data) {
 	}
 
 }

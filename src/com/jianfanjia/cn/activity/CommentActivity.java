@@ -1,6 +1,7 @@
 package com.jianfanjia.cn.activity;
 
 import java.util.List;
+import java.util.Observable;
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,6 +23,7 @@ import com.jianfanjia.cn.bean.CommentInfo;
 import com.jianfanjia.cn.bean.CommitCommentInfo;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.cache.CacheManager;
+import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.tools.LogTool;
@@ -76,14 +78,24 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
+		DataManager.getInstance().addObserver(this);
 		Intent intent = getIntent();
 		Bundle bundle = intent.getExtras();
 		if (bundle != null) {
 			currentList = bundle.getInt(Constant.CURRENT_LIST, 0);
 			currentItem = bundle.getInt(Constant.CURRENT_ITEM, 0);
 		}
-		if ((processInfo = (ProcessInfo) CacheManager.getObjectByFile(this,
-				Constant.PROCESSINFO_CACHE)) != null) {
+		super.onCreate(savedInstanceState);
+		getCommentList();
+	}
+	
+	private void getCommentList(){
+		String ownerProcessid = sharedPrefer.getValue(Constant.PROCESSINFO_ID,null);
+		if(ownerProcessid != null){
+			Log.i(TAG, "processInfo != null");
+			processInfo = DataManager.getInstance().getProcessInfo(ownerProcessid);
+		}
+		if(processInfo != null){
 			section = processInfo.getSections().get(currentList).getName();
 			item = processInfo.getSections().get(currentList).getItems()
 					.get(currentItem).getName();
@@ -91,7 +103,8 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
 					.getItems().get(currentItem).getComments();
 			Log.i(this.getClass().getName(), "itemsize =" + currentItem);
 		}
-		super.onCreate(savedInstanceState);
+		commentInfoAdapter = new CommentInfoAdapter(this, commentInfoList);
+		listView.setAdapter(commentInfoAdapter);
 	}
 
 	@Override
@@ -102,8 +115,6 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
 		etAddCommentView.addTextChangedListener(textWatcher);
 		sendCommentView = (Button) findViewById(R.id.btn_send);
 		sendCommentView.setEnabled(false);
-		commentInfoAdapter = new CommentInfoAdapter(this, commentInfoList);
-		listView.setAdapter(commentInfoAdapter);
 	}
 
 	@Override
@@ -183,7 +194,19 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
 	}
 
 	private void handlerSuccess() {
+		DataManager.getInstance().requestOwnerProcessInfo();
+	}
 
+	
+	public void update(Observable observable, Object data) {
+		if(data != null){
+			processInfo = (ProcessInfo)data;
+			section = processInfo.getSections().get(currentList).getName();
+			item = processInfo.getSections().get(currentList).getItems().get(currentItem).getName();
+			commentInfoList = processInfo.getSections().get(currentList).getItems().get(currentItem).getComments();
+			Log.i(this.getClass().getName(),"itemsize ="+currentItem);
+			commentInfoAdapter.notifyDataSetChanged();
+		}
 	}
 
 	@Override

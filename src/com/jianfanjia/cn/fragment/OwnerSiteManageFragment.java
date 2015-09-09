@@ -3,6 +3,7 @@ package com.jianfanjia.cn.fragment;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Observable;
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,6 +39,7 @@ import com.jianfanjia.cn.bean.SectionInfo;
 import com.jianfanjia.cn.bean.SectionItemInfo;
 import com.jianfanjia.cn.bean.ViewPagerItem;
 import com.jianfanjia.cn.cache.CacheManager;
+import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.interf.SwitchFragmentListener;
@@ -134,8 +136,11 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		proTitle = getResources().getStringArray(R.array.site_procedure);
 		checkSection = getResources().getStringArray(
 				R.array.site_procedure_check);
-		processInfo = (ProcessInfo) CacheManager.getObjectByFile(getActivity(),
-				Constant.PROCESSINFO_CACHE);
+		DataManager.getInstance().addObserver(this);
+		String ownerProcessid = shared.getValue(Constant.PROCESSINFO_ID,null);
+		if(ownerProcessid != null){
+			processInfo = DataManager.getInstance().getProcessInfo(ownerProcessid);
+		}
 		LogTool.d(TAG, "processInfo=" + processInfo);
 
 	}
@@ -153,7 +158,15 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		if (processInfo != null) {
 			initData();
 		} else {
-			getOwnerProcess();
+//			getOwnerProcess();
+			DataManager.getInstance().requestOwnerProcessInfo();
+		}
+	}
+	
+	public void update(Observable observable, Object data) {
+		if(data != null){
+			processInfo = (ProcessInfo)data;
+			initData();
 		}
 	}
 
