@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.R;
 import com.jianfanjia.cn.bean.Message;
 import com.jianfanjia.cn.interf.DialogListener;
 

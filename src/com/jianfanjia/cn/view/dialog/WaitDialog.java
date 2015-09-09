@@ -1,7 +1,5 @@
 package com.jianfanjia.cn.view.dialog;
 
-import com.jianfanjia.cn.activity.R;
-
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -10,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
+
+import com.jianfanjia.cn.R;
 
 public class WaitDialog extends Dialog {
 

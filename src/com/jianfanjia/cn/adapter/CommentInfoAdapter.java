@@ -1,12 +1,14 @@
 package com.jianfanjia.cn.adapter;
 
 import java.util.List;
+
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.jianfanjia.cn.activity.R;
+
+import com.jianfanjia.cn.R;
 import com.jianfanjia.cn.bean.CommentInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.tools.StringUtils;

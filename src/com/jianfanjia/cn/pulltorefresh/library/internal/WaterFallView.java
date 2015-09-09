@@ -16,7 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
-import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.R;
 
 @TargetApi(Build.VERSION_CODES.GINGERBREAD)
 public class WaterFallView extends ScrollView implements View.OnClickListener {

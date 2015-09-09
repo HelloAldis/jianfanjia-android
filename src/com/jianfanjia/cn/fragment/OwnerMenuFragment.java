@@ -9,7 +9,7 @@ import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 import com.jianfanjia.cn.activity.MainActivity;
-import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.R;
 import com.jianfanjia.cn.activity.UserByOwnerInfoActivity;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.config.Constant;

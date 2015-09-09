@@ -5,7 +5,7 @@ import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.R;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.bean.DesignerSiteInfo;
 import com.jianfanjia.cn.bean.User;
@@ -53,6 +53,7 @@ public class DesignerSiteInfoAdapter extends BaseListAdapter<DesignerSiteInfo> {
 		viewHolder.itemAdressView.setText(designerSiteInfo.getDistrict());
 		viewHolder.itemStageView.setText(MyApplication.getInstance()
 				.getStringById(designerSiteInfo.getGoing_on()));
+		// viewHolder.itemCurrentView 还没判断
 		// viewHolder.itemCurrentView.setText("当前工地");
 		viewHolder.itemVillageView.setText(designerSiteInfo.getCell());
 		if (user.getImageid() != null) {

@@ -1,12 +1,14 @@
 package com.jianfanjia.cn.adapter;
 
 import java.util.List;
+
 import android.content.Context;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.jianfanjia.cn.activity.R;
+
+import com.jianfanjia.cn.R;
 import com.jianfanjia.cn.bean.GridItem;
 import com.jianfanjia.cn.interf.UploadListener;
 

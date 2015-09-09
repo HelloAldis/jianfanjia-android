@@ -9,7 +9,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.PopupWindow;
 
-import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.R;
 
 public class AddPhotoPopWindow extends PopupWindow {
 

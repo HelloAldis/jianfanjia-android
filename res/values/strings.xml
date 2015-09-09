@@ -162,7 +162,7 @@
 
     <!-- activity userinfo -->
     <string name="user_head">头像</string>
-    <string name="user_name">名称</string>
+    <string name="user_name">姓名</string>
     <string name="user_sex">性别</string>
     <string name="user_phone">手机号</string>
     <string name="user_address">所在地</string>
@@ -191,5 +191,10 @@
     <string name="comment_success">评论成功</string>
     <string name="open_camera">照相机</string>
     <string name="open_album">相册</string>
+    
+    <!-- edit activity -->
+    <string name="input_name">请输入昵称</string>
+    <string name="input_home">请输入家庭地址</string>
+    <!-- edit activity -->
 
 </resources>

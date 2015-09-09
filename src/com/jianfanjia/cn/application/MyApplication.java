@@ -2,9 +2,10 @@ package com.jianfanjia.cn.application;
 
 import java.util.Arrays;
 import java.util.List;
+
 import android.content.pm.PackageManager;
-import com.jianfanjia.cn.AppException;
-import com.jianfanjia.cn.activity.R;
+
+import com.jianfanjia.cn.R;
 import com.jianfanjia.cn.base.BaseApplication;
 import com.jianfanjia.cn.bean.LoginUserBean;
 import com.jianfanjia.cn.bean.ProcessInfo;
@@ -34,8 +35,8 @@ public class MyApplication extends BaseApplication {
 		site_data = Arrays.asList(getResources().getStringArray(
 				R.array.site_data));
 
-		Thread.setDefaultUncaughtExceptionHandler(AppException
-				.getAppExceptionHandler(this));
+		/*Thread.setDefaultUncaughtExceptionHandler(AppException
+				.getAppExceptionHandler(this));*/
 	}
 
 	public List<String> getSite_data() {

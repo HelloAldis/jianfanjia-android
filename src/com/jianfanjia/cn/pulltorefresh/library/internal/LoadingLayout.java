@@ -35,7 +35,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.R;
 import com.jianfanjia.cn.pulltorefresh.library.ILoadingLayout;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.Orientation;

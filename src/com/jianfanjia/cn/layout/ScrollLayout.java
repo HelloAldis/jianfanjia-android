@@ -3,8 +3,6 @@ package com.jianfanjia.cn.layout;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.application.MyApplication;
 import android.content.Context;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
@@ -20,6 +18,9 @@ import android.view.animation.Interpolator;
 import android.widget.ImageView;
 import android.widget.Scroller;
 import android.widget.TextView;
+
+import com.jianfanjia.cn.R;
+import com.jianfanjia.cn.application.MyApplication;
 
 /**
  * @version 1.0

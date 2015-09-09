@@ -1,8 +1,8 @@
 package com.jianfanjia.cn.config;
 
-import com.jianfanjia.cn.activity.R;
-
 import android.os.Environment;
+
+import com.jianfanjia.cn.R;
 
 /**
  * 
@@ -79,7 +79,10 @@ public class Constant {
 	public static final String CURRENT_LIST = "current_list";// 首页展开的第一道工序
 	public static final String CURRENT_ITEM = "current_item";// 当前节点
 	
+	//editactivity
 	public static final int REQUESTCODE_EDIT_USERNAME = 0;
 	public static final int REQUESTCODE_EDIT_ADDRESS = 1;
+	public static final String EDIT_TYPE = "inputType";
+	public static final String EDIT_CONTENT = "content";
 	
 }

@@ -35,7 +35,7 @@ import android.view.animation.Interpolator;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
-import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.R;
 import com.jianfanjia.cn.pulltorefresh.library.internal.FlipLoadingLayout;
 import com.jianfanjia.cn.pulltorefresh.library.internal.LoadingLayout;
 import com.jianfanjia.cn.pulltorefresh.library.internal.RotateLoadingLayout;

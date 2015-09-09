@@ -3,6 +3,8 @@ package com.jianfanjia.cn.activity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
+
+import com.jianfanjia.cn.R;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.Message;
 import com.jianfanjia.cn.tools.LogTool;
