@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.bean.DesignerSiteInfo;
 import com.jianfanjia.cn.bean.User;
 import com.jianfanjia.cn.config.Url;
@@ -50,7 +51,8 @@ public class DesignerSiteInfoAdapter extends BaseListAdapter<DesignerSiteInfo> {
 		User user = designerSiteInfo.getUser();
 		viewHolder.itemNameView.setText(user.getUsername());
 		viewHolder.itemAdressView.setText(designerSiteInfo.getDistrict());
-		viewHolder.itemStageView.setText(designerSiteInfo.getGoing_on());
+		viewHolder.itemStageView.setText(MyApplication.getInstance()
+				.getStringById(designerSiteInfo.getGoing_on()));
 		// viewHolder.itemCurrentView »¹Ã»ÅÐ¶Ï
 		viewHolder.itemVillageView.setText(designerSiteInfo.getCell());
 		if (user.getImageid() != null) {

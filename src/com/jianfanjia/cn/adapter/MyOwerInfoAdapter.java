@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.bean.DesignerSiteInfo;
 import com.jianfanjia.cn.bean.User;
 import com.jianfanjia.cn.config.Url;
@@ -46,7 +47,8 @@ public class MyOwerInfoAdapter extends BaseListAdapter<DesignerSiteInfo> {
 		User user = info.getUser();
 		viewHolder.itemNameView.setText(user.getUsername());
 		viewHolder.itemAdressView.setText(info.getCell());
-		viewHolder.itemStageView.setText(info.getGoing_on());
+		viewHolder.itemStageView.setText(MyApplication.getInstance()
+				.getStringById(info.getGoing_on()));
 		String imageId = user.getImageid();
 		if (!TextUtils.isEmpty(imageId)) {
 			imageLoader.displayImage(Url.GET_IMAGE + imageId,

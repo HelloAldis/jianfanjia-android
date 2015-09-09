@@ -199,17 +199,18 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 
 			@Override
 			public void onClick(View v) {
-				AddPhotoPopWindow addPhotoPopWindow = new AddPhotoPopWindow(context,new OnClickListener() {
-					
-					@Override
-					public void onClick(View v) {
-						// TODO Auto-generated method stub
-						
-					}
-				});
-				addPhotoPopWindow.showAtLocation(v,
-						Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
-				
+				AddPhotoPopWindow addPhotoPopWindow = new AddPhotoPopWindow(
+						context, new OnClickListener() {
+
+							@Override
+							public void onClick(View v) {
+								// TODO Auto-generated method stub
+
+							}
+						});
+				addPhotoPopWindow.showAtLocation(v, Gravity.BOTTOM
+						| Gravity.CENTER_HORIZONTAL, 0, 0);
+
 			}
 		});
 		return convertView;
