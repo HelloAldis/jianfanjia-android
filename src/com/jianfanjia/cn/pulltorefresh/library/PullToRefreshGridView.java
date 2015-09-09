@@ -23,7 +23,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.GridView;
 
-import com.jianfanjia.cn.R;
+import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.pulltorefresh.library.internal.EmptyViewMethodAccessor;
 
 public class PullToRefreshGridView extends

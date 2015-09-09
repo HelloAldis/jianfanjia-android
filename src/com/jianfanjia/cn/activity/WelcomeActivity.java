@@ -3,8 +3,6 @@ package com.jianfanjia.cn.activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.WindowManager;
-
-import com.jianfanjia.cn.R;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.tools.LogTool;

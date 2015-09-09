@@ -1,8 +1,7 @@
 package com.jianfanjia.cn.config;
 
 import android.os.Environment;
-
-import com.jianfanjia.cn.R;
+import com.jianfanjia.cn.activity.R;
 
 /**
  * 
@@ -18,7 +17,7 @@ public class Constant {
 			.getExternalStorageDirectory() + "/JianFanJia/MyLog/mylog.txt";// log存放路径
 	public static final String ERROR_LOG_PATH = Environment
 			.getExternalStorageDirectory() + "/JianFanJia/MyLog/errorlog.txt";// log存放路径
-	
+
 	public static final String COMMON_PATH = Environment
 			.getExternalStorageDirectory() + "/JianFanJia/";// 公共的路径
 
@@ -78,11 +77,11 @@ public class Constant {
 
 	public static final String CURRENT_LIST = "current_list";// 首页展开的第一道工序
 	public static final String CURRENT_ITEM = "current_item";// 当前节点
-	
-	//editactivity
+
+	// editactivity
 	public static final int REQUESTCODE_EDIT_USERNAME = 0;
 	public static final int REQUESTCODE_EDIT_ADDRESS = 1;
 	public static final String EDIT_TYPE = "inputType";
 	public static final String EDIT_CONTENT = "content";
-	
+
 }

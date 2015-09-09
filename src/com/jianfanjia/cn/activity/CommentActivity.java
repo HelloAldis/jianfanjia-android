@@ -1,11 +1,9 @@
 package com.jianfanjia.cn.activity;
 
 import java.util.List;
-
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -18,8 +16,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import com.jianfanjia.cn.R;
 import com.jianfanjia.cn.adapter.CommentInfoAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.CommentInfo;
@@ -52,25 +48,26 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
 	private ProcessInfo processInfo;
 	private String section;
 	private String item;
-	
+
 	private TextWatcher textWatcher = new TextWatcher() {
-		
+
 		@Override
-		public void onTextChanged(CharSequence s, int start, int before, int count) {
+		public void onTextChanged(CharSequence s, int start, int before,
+				int count) {
 			// TODO Auto-generated method stub
-			
+
 		}
-		
+
 		@Override
 		public void beforeTextChanged(CharSequence s, int start, int count,
 				int after) {
 			// TODO Auto-generated method stub
-			
+
 		}
-		
+
 		@Override
 		public void afterTextChanged(Editable s) {
-			if(!TextUtils.isEmpty(s.toString())){
+			if (!TextUtils.isEmpty(s.toString())) {
 				sendCommentView.setEnabled(true);
 			}
 		}
@@ -85,17 +82,17 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
 			currentList = bundle.getInt(Constant.CURRENT_LIST, 0);
 			currentItem = bundle.getInt(Constant.CURRENT_ITEM, 0);
 		}
-		if((processInfo = (ProcessInfo) CacheManager.getObjectByFile(this,
-				Constant.PROCESSINFO_CACHE)) != null){
+		if ((processInfo = (ProcessInfo) CacheManager.getObjectByFile(this,
+				Constant.PROCESSINFO_CACHE)) != null) {
 			section = processInfo.getSections().get(currentList).getName();
-			item = processInfo.getSections().get(currentList).getItems().get(currentItem).getName();
-			commentInfoList = processInfo.getSections().get(currentList).getItems().get(currentItem).getComments();
-			Log.i(this.getClass().getName(),"itemsize ="+currentItem);
+			item = processInfo.getSections().get(currentList).getItems()
+					.get(currentItem).getName();
+			commentInfoList = processInfo.getSections().get(currentList)
+					.getItems().get(currentItem).getComments();
+			Log.i(this.getClass().getName(), "itemsize =" + currentItem);
 		}
 		super.onCreate(savedInstanceState);
 	}
-	
-	
 
 	@Override
 	public void initView() {
@@ -132,58 +129,59 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
 	private void commitComment() {
 		String content = etAddCommentView.getEditableText().toString();
 		Log.i(TAG, content);
-		if(!TextUtils.isEmpty(content)){
+		if (!TextUtils.isEmpty(content)) {
 			CommitCommentInfo commitCommentInfo = new CommitCommentInfo();
 			commitCommentInfo.setContent(content);
 			commitCommentInfo.set_id(processInfo.get_id());
 			commitCommentInfo.setSection(section);
 			commitCommentInfo.setItem(item);
-			
-			JianFanJiaApiClient.comment(this, commitCommentInfo, new JsonHttpResponseHandler() {
-					@Override
-					public void onStart() {
-						LogTool.d(TAG, "onStart()");
-					}
 
-					@Override
-					public void onSuccess(int statusCode, Header[] headers,
-							JSONObject response) {
-						LogTool.d(TAG, "JSONObject response:" + response);
-						try {
-							if (response.has(Constant.SUCCESS_MSG)) {
-								makeTextLong(getString(R.string.comment_success));
-								etAddCommentView.getEditableText().clear();
-								sendCommentView.setEnabled(false);
-							} else if (response.has(Constant.ERROR_MSG)) {
-								makeTextLong(response.get(Constant.ERROR_MSG)
-										.toString());
+			JianFanJiaApiClient.comment(this, commitCommentInfo,
+					new JsonHttpResponseHandler() {
+						@Override
+						public void onStart() {
+							LogTool.d(TAG, "onStart()");
+						}
+
+						@Override
+						public void onSuccess(int statusCode, Header[] headers,
+								JSONObject response) {
+							LogTool.d(TAG, "JSONObject response:" + response);
+							try {
+								if (response.has(Constant.SUCCESS_MSG)) {
+									makeTextLong(getString(R.string.comment_success));
+									etAddCommentView.getEditableText().clear();
+									sendCommentView.setEnabled(false);
+								} else if (response.has(Constant.ERROR_MSG)) {
+									makeTextLong(response.get(
+											Constant.ERROR_MSG).toString());
+								}
+							} catch (JSONException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+								makeTextLong(getString(R.string.tip_login_error_for_network));
 							}
-						} catch (JSONException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+						}
+
+						@Override
+						public void onFailure(int statusCode, Header[] headers,
+								Throwable throwable, JSONObject errorResponse) {
+							LogTool.d(
+									TAG,
+									"Throwable throwable:"
+											+ throwable.toString());
 							makeTextLong(getString(R.string.tip_login_error_for_network));
 						}
-					}
 
-					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							Throwable throwable, JSONObject errorResponse) {
-						LogTool.d(TAG,
-								"Throwable throwable:" + throwable.toString());
-						makeTextLong(getString(R.string.tip_login_error_for_network));
-					}
-
-					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							String responseString, Throwable throwable) {
-						LogTool.d(TAG, "throwable:" + throwable);
-						makeTextLong(getString(R.string.tip_login_error_for_network));
-					};
-				});
+						@Override
+						public void onFailure(int statusCode, Header[] headers,
+								String responseString, Throwable throwable) {
+							LogTool.d(TAG, "throwable:" + throwable);
+							makeTextLong(getString(R.string.tip_login_error_for_network));
+						};
+					});
 		}
 	}
-
-
 
 	@Override
 	public int getLayoutId() {

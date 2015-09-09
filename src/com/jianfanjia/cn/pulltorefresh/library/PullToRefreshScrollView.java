@@ -23,7 +23,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ScrollView;
 
-import com.jianfanjia.cn.R;
+import com.jianfanjia.cn.activity.R;
 
 public class PullToRefreshScrollView extends PullToRefreshBase<ScrollView> {
 

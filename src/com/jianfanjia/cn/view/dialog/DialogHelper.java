@@ -3,7 +3,7 @@ package com.jianfanjia.cn.view.dialog;
 import android.app.Activity;
 import android.content.Context;
 
-import com.jianfanjia.cn.R;
+import com.jianfanjia.cn.activity.R;
 
 public class DialogHelper {
 	

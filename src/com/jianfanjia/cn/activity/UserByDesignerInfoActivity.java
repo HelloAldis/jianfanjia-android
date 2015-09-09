@@ -3,7 +3,6 @@ package com.jianfanjia.cn.activity;
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
@@ -11,8 +10,6 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.jianfanjia.cn.R;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.Message;
 import com.jianfanjia.cn.bean.UserByDesignerInfo;
@@ -32,7 +29,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
  */
 public class UserByDesignerInfoActivity extends BaseActivity implements
 		OnClickListener {
-	
+
 	private static final String TAG = UserByDesignerInfoActivity.class
 			.getName();
 	private TextView ownerinfo_back = null;
@@ -56,9 +53,11 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 		addressText = (TextView) this.findViewById(R.id.addressText);
 		homeText = (TextView) this.findViewById(R.id.homeText);
 		btn_confirm = (Button) this.findViewById(R.id.btn_confirm);
-		
-		userNameRelativeLayout = (RelativeLayout) this.findViewById(R.id.name_layout);
-		homeRelativeLayout = (RelativeLayout) this.findViewById(R.id.home_layout);
+
+		userNameRelativeLayout = (RelativeLayout) this
+				.findViewById(R.id.name_layout);
+		homeRelativeLayout = (RelativeLayout) this
+				.findViewById(R.id.home_layout);
 		get_Designer_Info();
 	}
 
@@ -159,13 +158,17 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 		case R.id.btn_confirm:
 			break;
 		case R.id.name_layout:
-			Intent name = new Intent(UserByDesignerInfoActivity.this,EditInfoActivity.class);
-			name.putExtra(Constant.EDIT_TYPE,Constant.REQUESTCODE_EDIT_USERNAME);
+			Intent name = new Intent(UserByDesignerInfoActivity.this,
+					EditInfoActivity.class);
+			name.putExtra(Constant.EDIT_TYPE,
+					Constant.REQUESTCODE_EDIT_USERNAME);
 			startActivityForResult(name, Constant.REQUESTCODE_EDIT_USERNAME);
 			break;
 		case R.id.address_layout:
-			Intent address = new Intent(UserByDesignerInfoActivity.this,EditInfoActivity.class);
-			address.putExtra(Constant.EDIT_TYPE,Constant.REQUESTCODE_EDIT_ADDRESS);
+			Intent address = new Intent(UserByDesignerInfoActivity.this,
+					EditInfoActivity.class);
+			address.putExtra(Constant.EDIT_TYPE,
+					Constant.REQUESTCODE_EDIT_ADDRESS);
 			startActivityForResult(address, Constant.REQUESTCODE_EDIT_ADDRESS);
 			break;
 		default:
@@ -183,17 +186,17 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 	public int getLayoutId() {
 		return R.layout.activity_designer_info;
 	}
-	
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
-		if(resultCode == RESULT_OK){
+		if (resultCode == RESULT_OK) {
 			String content = data.getStringExtra(Constant.EDIT_CONTENT);
-			if(!TextUtils.isEmpty(content)){
-				if(requestCode == Constant.REQUESTCODE_EDIT_USERNAME){
+			if (!TextUtils.isEmpty(content)) {
+				if (requestCode == Constant.REQUESTCODE_EDIT_USERNAME) {
 					nameText.setText(content);
-				}else if(requestCode == Constant.REQUESTCODE_EDIT_ADDRESS){
+				} else if (requestCode == Constant.REQUESTCODE_EDIT_ADDRESS) {
 					homeText.setText(content);
 				}
 			}

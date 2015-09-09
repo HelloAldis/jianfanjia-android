@@ -2,12 +2,9 @@ package com.jianfanjia.cn.activity;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
-
-import com.jianfanjia.cn.R;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.fragment.ForgetPswInputPhoneFragment;
 import com.jianfanjia.cn.fragment.FrgPswInputVerificationFragment;
@@ -81,7 +78,7 @@ public class ForgetPswActivity extends BaseActivity implements FragmentListener 
 	public int getLayoutId() {
 		return R.layout.activity_forget_psw;
 	}
-	
+
 	@Override
 	public void onBackPressed() {
 		super.onBackPressed();

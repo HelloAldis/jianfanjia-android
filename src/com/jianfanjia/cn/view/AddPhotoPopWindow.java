@@ -9,7 +9,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.PopupWindow;
 
-import com.jianfanjia.cn.R;
+import com.jianfanjia.cn.activity.R;
 
 public class AddPhotoPopWindow extends PopupWindow {
 
@@ -19,7 +19,7 @@ public class AddPhotoPopWindow extends PopupWindow {
 	private LayoutInflater inflater;
 	private View menuView;
 
-	public AddPhotoPopWindow(Context context,OnClickListener onClickListener) {
+	public AddPhotoPopWindow(Context context, OnClickListener onClickListener) {
 		super(context);
 		// TODO Auto-generated constructor stub
 		inflater = LayoutInflater.from(context);
@@ -32,7 +32,7 @@ public class AddPhotoPopWindow extends PopupWindow {
 		open_camera.setOnClickListener(onClickListener);
 		open_album.setOnClickListener(onClickListener);
 		cancel.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
