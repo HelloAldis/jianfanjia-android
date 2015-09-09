@@ -6,11 +6,14 @@ import org.json.JSONObject;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.jianfanjia.cn.R;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.Message;
 import com.jianfanjia.cn.bean.UserByOwnerInfo;
@@ -102,11 +105,13 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 			break;
 		case R.id.name_layout:
 			Intent name = new Intent(UserByOwnerInfoActivity.this,EditInfoActivity.class);
+			name.putExtra(Constant.EDIT_TYPE,Constant.REQUESTCODE_EDIT_USERNAME);
 			startActivityForResult(name, Constant.REQUESTCODE_EDIT_USERNAME);
 			break;
 		case R.id.home_layout:
 			Intent address = new Intent(UserByOwnerInfoActivity.this,EditInfoActivity.class);
-			startActivity(address);
+			address.putExtra(Constant.EDIT_TYPE,Constant.REQUESTCODE_EDIT_ADDRESS);
+			startActivityForResult(address, Constant.REQUESTCODE_EDIT_ADDRESS);
 			break;
 		default:
 			break;
@@ -220,6 +225,22 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 	@Override
 	public int getLayoutId() {
 		return R.layout.activity_owner_info;
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+		if(resultCode == RESULT_OK){
+			String content = data.getStringExtra(Constant.EDIT_CONTENT);
+			if(!TextUtils.isEmpty(content)){
+				if(requestCode == Constant.REQUESTCODE_EDIT_USERNAME){
+					nameText.setText(content);
+				}else if(requestCode == Constant.REQUESTCODE_EDIT_ADDRESS){
+					homeText.setText(content);
+				}
+			}
+		}
 	}
 
 }

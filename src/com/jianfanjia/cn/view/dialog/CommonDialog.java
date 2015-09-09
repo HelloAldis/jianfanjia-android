@@ -20,7 +20,7 @@ import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.R;
 
 public class CommonDialog extends Dialog {
 	public DialogInterface.OnClickListener listener;

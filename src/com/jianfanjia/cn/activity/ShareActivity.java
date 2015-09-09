@@ -1,6 +1,7 @@
 package com.jianfanjia.cn.activity;
 
 import java.io.IOException;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.View;
@@ -8,6 +9,8 @@ import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.jianfanjia.cn.R;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.Message;
 import com.jianfanjia.cn.config.Constant;
@@ -28,7 +31,7 @@ public class ShareActivity extends BaseActivity implements OnClickListener {
 
 	@Override
 	public void initView() {
-		backView = (TextView) findViewById(R.id.about_back);
+		backView = (TextView) findViewById(R.id.share_back);
 		mIvCode = (ImageView) findViewById(R.id.share_qr);
 	}
 
@@ -60,7 +63,7 @@ public class ShareActivity extends BaseActivity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.about_back:
+		case R.id.share_back:
 			finish();
 			break;
 		default:

@@ -1,6 +1,5 @@
 package com.jianfanjia.cn.layout;
 
-import com.jianfanjia.cn.activity.R;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
@@ -16,6 +15,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.widget.ImageView;
+
+import com.jianfanjia.cn.R;
 
 /**
  * 圆形ImageView组件

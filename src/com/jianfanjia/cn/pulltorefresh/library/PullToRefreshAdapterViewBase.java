@@ -32,7 +32,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 
-import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.R;
 import com.jianfanjia.cn.pulltorefresh.library.internal.EmptyViewMethodAccessor;
 import com.jianfanjia.cn.pulltorefresh.library.internal.IndicatorLayout;
 

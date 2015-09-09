@@ -2,9 +2,11 @@ package com.jianfanjia.cn.fragment;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -12,13 +14,14 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
+
 import com.google.gson.reflect.TypeToken;
+import com.jianfanjia.cn.R;
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.OwnerInfoActivity;
-import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.MyOwerInfoAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
-import com.jianfanjia.cn.bean.MyOwnerInfo;
+import com.jianfanjia.cn.bean.DesignerSiteInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.tools.JsonParser;
@@ -37,7 +40,7 @@ public class OwnerFragment extends BaseFragment implements OnItemClickListener {
 	private static final String TAG = OwnerFragment.class.getName();
 	private ImageView headView;
 	private ListView ownerListView;
-	private List<MyOwnerInfo> ownerList = new ArrayList<MyOwnerInfo>();
+	private List<DesignerSiteInfo> ownerList = new ArrayList<DesignerSiteInfo>();
 	private MyOwerInfoAdapter myOwerInfoAdapter = null;
 
 	@Override
@@ -73,8 +76,8 @@ public class OwnerFragment extends BaseFragment implements OnItemClickListener {
 
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
-		MyOwnerInfo myOwerInfo = ownerList.get(position);
-		String ownerId = myOwerInfo.get_id();
+		DesignerSiteInfo info = ownerList.get(position);
+		String ownerId = info.get_id();
 		LogTool.d(TAG, "ownerId=" + ownerId);
 		Intent intent = new Intent(getActivity(), OwnerInfoActivity.class);
 		intent.putExtra("ownerId", ownerId);
@@ -97,10 +100,12 @@ public class OwnerFragment extends BaseFragment implements OnItemClickListener {
 						hideWaitDialog();
 						try {
 							if (response.has(Constant.DATA)) {
-								ownerList = JsonParser.jsonToList(
-										response.get(Constant.DATA).toString(),
-										new TypeToken<List<MyOwnerInfo>>() {
-										}.getType());
+								ownerList = JsonParser
+										.jsonToList(
+												response.get(Constant.DATA)
+														.toString(),
+												new TypeToken<List<DesignerSiteInfo>>() {
+												}.getType());
 								LogTool.d(TAG, "ownerList:" + ownerList);
 								myOwerInfoAdapter = new MyOwerInfoAdapter(
 										getActivity(), ownerList);

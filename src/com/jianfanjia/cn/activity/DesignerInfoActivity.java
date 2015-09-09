@@ -1,5 +1,6 @@
 package com.jianfanjia.cn.activity;
 
+import com.jianfanjia.cn.R;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.Message;
 import com.jianfanjia.cn.tools.LogTool;
