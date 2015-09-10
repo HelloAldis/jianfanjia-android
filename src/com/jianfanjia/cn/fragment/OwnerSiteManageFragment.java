@@ -4,9 +4,14 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Observable;
+import org.apache.http.Header;
+import org.json.JSONException;
+import org.json.JSONObject;
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -41,6 +46,7 @@ import com.jianfanjia.cn.bean.SectionItemInfo;
 import com.jianfanjia.cn.bean.ViewPagerItem;
 import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
 import com.jianfanjia.cn.interf.SwitchFragmentListener;
@@ -53,6 +59,7 @@ import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.StringUtils;
 import com.jianfanjia.cn.view.AddPhotoPopWindow;
 import com.jianfanjia.cn.view.dialog.DateWheelDialog;
+import com.loopj.android.http.JsonHttpResponseHandler;
 
 /**
  * 
@@ -95,11 +102,15 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	private TextView openCheckNode;// 打开验收节点名称
 	private TextView closeCheckNode;// 折叠验收节点名称
 
+	private boolean isOpen = false;
+
 	private static final int CHANGE_PHOTO = 1;
 	private static final int CHANGE_TIME = 5000;// 图片自动切换时间
 	private static final int BANNER_ICON[] = { R.drawable.bg_home_banner1,
 			R.drawable.bg_home_banner2, R.drawable.bg_home_banner3,
 			R.drawable.bg_home_banner4 };
+
+	private String processInfoId = null;
 
 	private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
@@ -350,7 +361,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 						sectionItemInfos = sectionInfo.getItems();
 						sectionItemAdapter
 								.setSectionItemInfos(sectionItemInfos);
-						sectionItemAdapter.setLastClickItem(-1);
+						sectionItemAdapter.setLastClickItem(-1, isOpen);
 						sectionItemAdapter.setCurrentPro(currentList);
 						sectionItemAdapter.notifyDataSetChanged();
 					}
@@ -402,8 +413,20 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 					}
 				} else {
 					// 点击listview item项
-					sectionItemAdapter.setLastClickItem(position - 1);
-					sectionItemAdapter.notifyDataSetChanged();
+					// sectionItemAdapter.setLastClickItem(position - 1);
+					// sectionItemAdapter.notifyDataSetChanged();
+					SectionItemInfo sectionItemInfo = sectionItemInfos
+							.get(position - 1);
+					processInfoId = sectionItemInfo.getName();
+					LogTool.d(TAG,
+							"=============================================="
+									+ sectionItemInfo.getName());
+					if (isOpen) {
+						isOpen = false;
+					} else {
+						isOpen = true;
+					}
+					sectionItemAdapter.setLastClickItem(position - 1, isOpen);
 				}
 			}
 		});
@@ -476,7 +499,6 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 
 	@Override
 	public void click(int position) {
-		LogTool.d(TAG, "position=================" + position);
 		AddPhotoPopWindow addPhotoPopWindow = new AddPhotoPopWindow(
 				getActivity(), this);
 		addPhotoPopWindow.showAtLocation(layoutAll, Gravity.BOTTOM
@@ -518,15 +540,19 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 			if (data != null) {
 				Uri mImageUri = data.getData();
 				LogTool.d(TAG, "mImageUri:" + mImageUri);
+				if (mImageUri != null) {
 
+				}
 			}
 			break;
 		case Constant.REQUESTCODE__LOCATION:// 本地选取
-			LogTool.d(TAG, "data:" + data);
 			if (data != null) {
 				Uri uri = data.getData();
+				LogTool.d(TAG, "uri:" + uri);
 				if (null != uri) {
-
+					String path = getPicture(uri);
+					LogTool.d(TAG, "path:" + path);
+					upload(path);//
 				}
 			}
 			break;
@@ -536,6 +562,101 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		default:
 			break;
 		}
+	}
+
+	// 获取相册图片路径
+	private String getPicture(Uri uri) {
+		try {
+			ContentResolver resolver = getActivity().getContentResolver();
+			String[] proj = { MediaStore.Images.Media.DATA };
+			Cursor cursor = resolver.query(uri, proj, null, null, null);
+			int column_index = cursor
+					.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+			cursor.moveToFirst();
+			String path = cursor.getString(column_index);
+			return path;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	private void upload(String imgPath) {
+		JianFanJiaApiClient.uploadImage(getActivity(), imgPath,
+				new JsonHttpResponseHandler() {
+					@Override
+					public void onStart() {
+						LogTool.d(TAG, "onStart()");
+					}
+
+					@Override
+					public void onSuccess(int statusCode, Header[] headers,
+							JSONObject response) {
+						LogTool.d(TAG, "JSONObject response:" + response);
+						try {
+							if (response.has(Constant.DATA)) {
+								JSONObject obj = new JSONObject(response
+										.toString());
+								String imageid = obj.getString("data");
+								LogTool.d(TAG, "imageid:" + imageid);
+								submitImageToProgress(processInfo.get_id(),
+										sectionInfo.getName(), processInfoId,
+										imageid);
+							} else if (response.has(Constant.ERROR_MSG)) {
+
+							}
+						} catch (JSONException e) {
+							e.printStackTrace();
+						}
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							Throwable throwable, JSONObject errorResponse) {
+						LogTool.d(TAG, "Throwable throwable:" + throwable);
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							String responseString, Throwable throwable) {
+						LogTool.d(TAG, "statusCode:" + statusCode
+								+ " throwable:" + throwable);
+					};
+				});
+	}
+
+	private void submitImageToProgress(String siteId, String processId,
+			String processInfoId, String imageid) {
+		LogTool.d(TAG, "siteId:" + siteId + " processId:" + processId
+				+ " processInfoId:" + processInfoId + " imageid:" + imageid);
+		JianFanJiaApiClient.submitImageToProcess(getActivity(), siteId,
+				processId, processInfoId, imageid,
+				new JsonHttpResponseHandler() {
+					@Override
+					public void onStart() {
+						LogTool.d(TAG, "onStart()");
+					}
+
+					@Override
+					public void onSuccess(int statusCode, Header[] headers,
+							JSONObject response) {
+						LogTool.d(TAG, "JSONObject response:" + response);
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							Throwable throwable, JSONObject errorResponse) {
+						LogTool.d(TAG, "Throwable throwable:" + throwable);
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							String responseString, Throwable throwable) {
+						LogTool.d(TAG, "statusCode:" + statusCode
+								+ " throwable:" + throwable);
+					};
+				});
 	}
 
 	@Override

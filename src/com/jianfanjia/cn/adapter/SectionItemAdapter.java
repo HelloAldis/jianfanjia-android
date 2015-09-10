@@ -198,8 +198,6 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 	 * @param gridView
 	 */
 	private void setImageData(final List<String> imageUrlList, GridView gridView) {
-		gridItem.clear();
-		gridView.setAdapter(null);
 		siteGridViewAdapter = new SiteGridViewAdapter(context, imageUrlList);
 		gridView.setAdapter(siteGridViewAdapter);
 		gridView.setOnItemClickListener(new OnItemClickListener() {
