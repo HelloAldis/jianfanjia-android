@@ -152,7 +152,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 				R.array.site_procedure_check);
 		DataManager.getInstance().addObserver(this);
 	}
-	
+
 	@Override
 	public void initView(View view) {
 		layoutAll = (LinearLayout) view.findViewById(R.id.layoutAll);

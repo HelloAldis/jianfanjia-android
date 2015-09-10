@@ -64,7 +64,7 @@
 
         <LinearLayout
             android:id="@+id/site_list_item_content_expand_node_picture_layout"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/site_list_item_content_expand_node_name"
             android:layout_gravity="center_vertical"
@@ -74,8 +74,8 @@
 
             <com.jianfanjia.cn.view.MyGridView
                 android:id="@+id/site_list_item_gridview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_margin="10dip"
                 android:horizontalSpacing="10dp"
                 android:listSelector="@drawable/grid_item_selector"
@@ -88,22 +88,11 @@
         <TextView
             android:id="@+id/site_list_item_content_expand_node_time"
             style="@style/site_listview_item_text_style_small"
-            android:layout_alignBaseline="@+id/site_list_item_content_expand_node_upload_picture"
-            android:layout_alignBottom="@+id/site_list_item_content_expand_node_upload_picture"
-            android:layout_alignTop="@+id/site_list_item_content_expand_node_upload_picture"
+            android:layout_alignBaseline="@+id/site_list_item_content_expand_node_assess"
+            android:layout_alignBottom="@+id/site_list_item_content_expand_node_assess"
+            android:layout_alignTop="@+id/site_list_item_content_expand_node_assess"
             android:gravity="center"
             android:text="@string/site_example_node_time"
-            android:textColor="@color/main_color_grey" />
-
-        <TextView
-            android:id="@+id/site_list_item_content_expand_node_upload_picture"
-            style="@style/site_listview_item_text_style_small"
-            android:layout_below="@+id/site_list_item_content_expand_node_picture_layout"
-            android:layout_marginRight="24dp"
-            android:layout_toLeftOf="@+id/site_list_item_content_expand_node_assess"
-            android:drawableLeft="@drawable/btn_icon_upload_pic_normal"
-            android:gravity="center_vertical"
-            android:text="@string/site_example_node_upload_picture"
             android:textColor="@color/main_color_grey" />
 
         <TextView

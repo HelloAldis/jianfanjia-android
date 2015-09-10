@@ -1,11 +1,15 @@
 package com.jianfanjia.cn.adapter;
 
 import java.util.List;
+
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+
+import com.jianfanjia.cn.activity.R;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -30,14 +34,14 @@ public abstract class BaseListAdapter<T> extends BaseAdapter {
 		this.list = list;
 		layoutInflater = LayoutInflater.from(context);
 		imageLoader = ImageLoader.getInstance();
-		// options = new DisplayImageOptions.Builder()
-		// .showImageOnLoading(R.drawable.empty_photo)
-		// .showImageForEmptyUri(R.drawable.empty_photo)
-		// .showImageOnFail(R.drawable.empty_photo).cacheInMemory(true)
-		// .cacheOnDisk(true).considerExifParams(true)
-		// .bitmapConfig(Bitmap.Config.RGB_565).build();
+		options = new DisplayImageOptions.Builder()
+				.showImageOnLoading(R.drawable.pix_default)
+				.showImageForEmptyUri(R.drawable.pix_default)
+				.showImageOnFail(R.drawable.pix_default).cacheInMemory(true)
+				.cacheOnDisk(true).considerExifParams(true)
+				.bitmapConfig(Bitmap.Config.RGB_565).build();
 	}
-	
+
 	public void setList(List<T> list) {
 		this.list = list;
 	}

@@ -313,6 +313,7 @@ public class DataManager extends Observable {
 									sharedPrefer.setValue(
 											Constant.PROCESSINFO_REFLECT,
 											processReflects);
+									// 通知页面刷新
 								}
 								setChanged();
 								notifyObservers(SUCCESS);
@@ -496,7 +497,6 @@ public class DataManager extends Observable {
 									}
 									// 如果有工地，加载默认的工地
 									if (processReflects.size() > 0) {
-										Log.i(TAG, "requestProcessInfoById");
 										requestProcessInfoById(processReflects
 												.get(getDefaultPro())
 												.getProcessId());

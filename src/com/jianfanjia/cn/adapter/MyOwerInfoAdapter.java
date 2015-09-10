@@ -52,7 +52,7 @@ public class MyOwerInfoAdapter extends BaseListAdapter<DesignerSiteInfo> {
 		String imageId = user.getImageid();
 		if (!TextUtils.isEmpty(imageId)) {
 			imageLoader.displayImage(Url.GET_IMAGE + imageId,
-					viewHolder.itemOwerHeadView);
+					viewHolder.itemOwerHeadView, options);
 		} else {
 			viewHolder.itemOwerHeadView
 					.setImageResource(R.drawable.site_listview_item_finish_circle);

@@ -165,7 +165,7 @@ public class DesignerSiteManageFragment extends BaseFragment implements
 					}
 				} else {
 					// µã»÷listview itemÏî
-					sectionItemAdapter.setLastClickItem(position - 1);
+					sectionItemAdapter.setLastClickItem(position - 1,false);
 					sectionItemAdapter.notifyDataSetChanged();
 				}
 			}
