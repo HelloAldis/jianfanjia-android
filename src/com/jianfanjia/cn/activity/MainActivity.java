@@ -70,11 +70,11 @@ public class MainActivity extends BaseActivity implements PanelSlideListener,
 						ownerSiteManageFragment);
 			} else if (userIdentity.equals(Constant.IDENTITY_DESIGNER)) {
 				DesignerMenuFragment designerMenuFragment = new DesignerMenuFragment();
-				DesignerSiteManageFragment designerSiteManageFragment = new DesignerSiteManageFragment();
+				OwnerSiteManageFragment ownerSiteManageFragment = new OwnerSiteManageFragment();
 				transaction
 						.replace(R.id.slidingpane_menu, designerMenuFragment);
 				transaction.replace(R.id.slidingpane_content,
-						designerSiteManageFragment);
+						ownerSiteManageFragment);
 			} else {
 
 			}

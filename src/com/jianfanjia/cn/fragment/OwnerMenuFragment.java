@@ -13,9 +13,12 @@ import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.UserByOwnerInfoActivity;
 import com.jianfanjia.cn.base.BaseFragment;
+import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.config.Url;
 import com.jianfanjia.cn.interf.FragmentCallBack;
 import com.jianfanjia.cn.tools.LogTool;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
  * 
@@ -52,6 +55,14 @@ public class OwnerMenuFragment extends BaseFragment implements
 		if (!TextUtils.isEmpty(mAccount)) {
 			phoneText.setText("ук╨е:" + mAccount);
 		}
+		ImageLoader.getInstance().displayImage(mUserImageId,img_head);
+	}
+	
+	@Override
+	public void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		
 	}
 
 	@Override

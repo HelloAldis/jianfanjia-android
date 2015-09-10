@@ -417,4 +417,19 @@ public class JianFanJiaApiClient {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * 根据id拿到工地信息
+	 * 
+	 * @param context
+	 * @param processid
+	 * @param handler
+	 */
+	public static void get_ProcessInfo_By_Id(Context context, String processid,
+			AsyncHttpResponseHandler handler) {
+		String getProcessUrl = Url.GET_PROCESSINFO_BYID.replace(Url.ID,
+				processid);
+		HttpRestClient.get(context,getProcessUrl, handler);
+	}
+	
 }

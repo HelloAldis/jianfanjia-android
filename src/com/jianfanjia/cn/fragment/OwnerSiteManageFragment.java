@@ -8,8 +8,10 @@ import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -42,7 +44,6 @@ import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.SectionInfo;
 import com.jianfanjia.cn.bean.SectionItemInfo;
 import com.jianfanjia.cn.bean.ViewPagerItem;
-import com.jianfanjia.cn.cache.CacheManager;
 import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
@@ -54,7 +55,6 @@ import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshScrollView;
 import com.jianfanjia.cn.tools.DateFormatTool;
-import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.StringUtils;
 import com.jianfanjia.cn.view.AddPhotoPopWindow;
@@ -101,12 +101,18 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	private RelativeLayout expandHeadLayout;// 打开layout
 	private TextView openCheckNode;// 打开验收节点名称
 	private TextView closeCheckNode;// 折叠验收节点名称
+	private TextView openDelay;//延期按钮
+	private TextView openCheck;//对比验收按钮
+
+	private boolean isOpen = false;
 
 	private static final int CHANGE_PHOTO = 1;
 	private static final int CHANGE_TIME = 5000;// 图片自动切换时间
 	private static final int BANNER_ICON[] = { R.drawable.bg_home_banner1,
 			R.drawable.bg_home_banner2, R.drawable.bg_home_banner3,
 			R.drawable.bg_home_banner4 };
+
+	private String processInfoId = null;
 
 	private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
@@ -145,18 +151,8 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		checkSection = getResources().getStringArray(
 				R.array.site_procedure_check);
 		DataManager.getInstance().addObserver(this);
-		LogTool.d(TAG, "processInfo=" + processInfo);
-
 	}
 	
-	private void initProcessInfo(){
-		String ownerProcessid = shared.getValue(Constant.PROCESSINFO_ID, null);
-		if (ownerProcessid != null) {
-			processInfo = DataManager.getInstance().getProcessInfo(
-					ownerProcessid);
-		}
-	}
-
 	@Override
 	public void initView(View view) {
 		layoutAll = (LinearLayout) view.findViewById(R.id.layoutAll);
@@ -172,16 +168,19 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		if (processInfo != null) {
 			initData();
 		} else {
-			// getOwnerProcess();
-			DataManager.getInstance().requestOwnerProcessInfo();
+			DataManager.getInstance().requestProcessInfo();
 		}
+	}
+	
+	private void initProcessInfo(){
+		processInfo = DataManager.getInstance().getDefaultProcessInfo();
 	}
 
 	public void update(Observable observable, Object data) {
 		mPullRefreshScrollView.onRefreshComplete();
-		if(DataManager.SUCCESS.equals(data)){
+		if (DataManager.SUCCESS.equals(data)) {
 			initProcessInfo();
-			if(processInfo != null){
+			if (processInfo != null) {
 				initData();
 			}
 		}
@@ -205,7 +204,8 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 			sectionInfos = processInfo.getSections();
 			sectionInfo = sectionInfos.get(currentList);
 			sectionItemInfos = sectionInfo.getItems();
-			setHeadView(sectionInfo.getName());
+			setCheckHeadView(sectionInfo.getName());
+			setScrollHeadTime();
 			sectionItemAdapter = new SectionItemAdapter(getActivity(),
 					sectionItemInfos, currentList, this);
 			detailNodeListView.setAdapter(sectionItemAdapter);
@@ -284,7 +284,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		}
 	}
 
-	private void setHeadView(String name) {
+	private void setCheckHeadView(String name) {
 		boolean isHeadViewShow = false;
 		for (String sectionName : checkSection) {
 			if (sectionName.equals(sectionInfo.getName())) {
@@ -299,19 +299,6 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		}
 	}
 
-	private void updateData() {
-		initData();
-	}
-
-	private void handlerSuccess() {
-		updateData();
-		// for (int i = 0; i < pro.length; i++) {
-		// View siteHead = list.get(i);
-		// initItem(siteHead, i);
-		// }
-		myViewPageAdapter.notifyDataSetChanged();
-	}
-
 	private void initScrollLayout(View view) {
 		processViewPager = (ViewPager) view.findViewById(R.id.processViewPager);
 		for (int i = 0; i < proTitle.length; i++) {
@@ -320,16 +307,6 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 					"icon_home_normal" + (i + 1), "drawable",
 					MyApplication.getInstance().getPackageName()));
 			viewPagerItem.setTitle(proTitle[i]);
-			if (sectionInfos != null) {
-				viewPagerItem.setDate(DateFormatTool.covertLongToString(
-						sectionInfos.get(i).getStart_at(), "M.dd")
-						+ "-"
-						+ DateFormatTool.covertLongToString(sectionInfos.get(i)
-								.getEnd_at(), "M.dd"));
-			} else {
-
-			}
-			// initItem(siteHead, i);
 			list.add(viewPagerItem);
 		}
 		myViewPageAdapter = new MyViewPageAdapter(getActivity(), list);
@@ -339,6 +316,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 			@Override
 			public void onPageScrollStateChanged(int arg0) {
 				// TODO Auto-generated method stub
+				
 
 			}
 
@@ -354,38 +332,38 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 					if (currentList != arg0 % 7) {
 						currentList = arg0 % 7;
 						sectionInfo = sectionInfos.get(currentList);
-						setHeadView(sectionInfo.getName());
+						setCheckHeadView(sectionInfo.getName());
 						sectionItemInfos = sectionInfo.getItems();
 						sectionItemAdapter
 								.setSectionItemInfos(sectionItemInfos);
-						sectionItemAdapter.setLastClickItem(-1);
+						sectionItemAdapter.setLastClickItem(-1, isOpen);
 						sectionItemAdapter.setCurrentPro(currentList);
 						sectionItemAdapter.notifyDataSetChanged();
 					}
 				}
 			}
+
+			
 		});
 	}
-
-	private void initItem(View siteHead, int position) {
-		Log.i(TAG, "initItem" + position);
-		TextView proName = (TextView) siteHead
-				.findViewById(R.id.site_head_procedure_name);
-		proName.setText(proTitle[position]);
-		TextView proDate = (TextView) siteHead
-				.findViewById(R.id.site_head_procedure_date);
-		if (sectionInfos != null) {
-			proDate.setText(DateFormatTool.covertLongToString(
-					sectionInfos.get(position).getStart_at(), "M.dd")
-					+ "-"
-					+ DateFormatTool.covertLongToString(
-							sectionInfos.get(position).getEnd_at(), "M.dd"));
-		}
-		ImageView icon = (ImageView) siteHead
-				.findViewById(R.id.site_head_procedure_icon);
-		icon.setImageResource(getResources().getIdentifier(
-				"icon_home_normal" + (position + 1), "drawable",
-				MyApplication.getInstance().getPackageName()));
+	
+	private void setScrollHeadTime() {
+		/*if (sectionInfos != null) {
+			for (int i = 0; i < proTitle.length; i++) {
+				ViewPagerItem viewPagerItem = list.get(i);
+				Log.i(TAG, DateFormatTool.covertLongToString(sectionInfos.get(i).getStart_at(), "M.dd")
+						+ "-"
+						+ DateFormatTool.covertLongToString(sectionInfos.get(i)
+								.getEnd_at(), "M.dd"));
+				viewPagerItem.setDate(DateFormatTool.covertLongToString(
+						sectionInfos.get(i).getStart_at(), "M.dd")
+						+ "-"
+						+ DateFormatTool.covertLongToString(sectionInfos.get(i)
+								.getEnd_at(), "M.dd"));
+			}
+			myViewPageAdapter.notifyDataSetChanged();
+			infinitePagerAdapter.notifyDataSetChanged();
+		} */
 	}
 
 	private void initListView(View view) {
@@ -410,8 +388,20 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 					}
 				} else {
 					// 点击listview item项
-					sectionItemAdapter.setLastClickItem(position - 1);
-					sectionItemAdapter.notifyDataSetChanged();
+					// sectionItemAdapter.setLastClickItem(position - 1);
+					// sectionItemAdapter.notifyDataSetChanged();
+					SectionItemInfo sectionItemInfo = sectionItemInfos
+							.get(position - 1);
+					processInfoId = sectionItemInfo.getName();
+					LogTool.d(TAG,
+							"=============================================="
+									+ sectionItemInfo.getName());
+					if (isOpen) {
+						isOpen = false;
+					} else {
+						isOpen = true;
+					}
+					sectionItemAdapter.setLastClickItem(position - 1, isOpen);
 				}
 			}
 		});
@@ -427,14 +417,20 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 				.findViewById(R.id.site_list_item_content_expand_node_name);
 		closeCheckNode = (TextView) listHeadView
 				.findViewById(R.id.site_list_item_content_small_node_name);
-		listHeadView.findViewById(R.id.site_list_head_check)
-				.setOnClickListener(this);
-		listHeadView.findViewById(R.id.site_list_head_delay)
-				.setOnClickListener(this);
+		openCheck = (TextView) listHeadView.findViewById(R.id.site_list_head_check);
+		openCheck.setOnClickListener(this);
+		openDelay = (TextView) listHeadView.findViewById(R.id.site_list_head_delay);
+		openDelay.setOnClickListener(this);
 		smallHeadLayout = (RelativeLayout) listHeadView
 				.findViewById(R.id.site_listview_item_content_small);
 		expandHeadLayout = (RelativeLayout) listHeadView
 				.findViewById(R.id.site_listview_item_content_expand);
+		//根据不同的用户类型显示不同的文字
+		if(mUserType.equals(Constant.IDENTITY_DESIGNER)){
+			openCheck.setText(getString(R.string.upload_pic));
+		}else if(mUserType.equals(Constant.IDENTITY_OWNER)){
+			openCheck.setText(getString(R.string.site_example_node_check));
+		}
 		listView.addHeaderView(view);
 	}
 
@@ -484,7 +480,6 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 
 	@Override
 	public void click(int position) {
-		LogTool.d(TAG, "position=================" + position);
 		AddPhotoPopWindow addPhotoPopWindow = new AddPhotoPopWindow(
 				getActivity(), this);
 		addPhotoPopWindow.showAtLocation(layoutAll, Gravity.BOTTOM
@@ -495,82 +490,13 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	public void onPullDownToRefresh(PullToRefreshBase<ScrollView> refreshView) {
 		// 下拉刷新(从第一页开始装载数据)
 		// 加载数据
-		DataManager.getInstance().requestOwnerProcessInfo();
+		DataManager.getInstance().requestProcessInfo();
 	}
 
 	@Override
 	public void onPullUpToRefresh(PullToRefreshBase<ScrollView> refreshView) {
 		// 上拉加载更多(加载下一页数据)
 		mPullRefreshScrollView.onRefreshComplete();
-	}
-
-	private void getOwnerProcess() {
-		JianFanJiaApiClient.get_Owner_Process(getApplication(),
-				new JsonHttpResponseHandler() {
-					@Override
-					public void onStart() {
-						LogTool.d(TAG, "onStart()");
-						showWaitDialog();
-					}
-
-					@Override
-					public void onSuccess(int statusCode, Header[] headers,
-							JSONObject response) {
-						mPullRefreshScrollView.onRefreshComplete();
-						LogTool.d(TAG, "response:" + response.toString());
-						try {
-							if (response.has(Constant.DATA)) {
-								hideWaitDialog();
-								processInfo = JsonParser.jsonToBean(response
-										.get(Constant.DATA).toString(),
-										ProcessInfo.class);
-								if (processInfo != null) {
-									// 数据请求成功保存在缓存中
-									CacheManager.saveObject(getActivity(),
-											processInfo,
-											Constant.PROCESSINFO_CACHE);
-									// 保存业主的设计师id
-									shared.setValue(Constant.FINAL_DESIGNER_ID,
-											processInfo.getFinal_designerid());
-									handlerSuccess();
-								} else {
-									// 请求成功没有数据，返回默认数据
-
-								}
-							} else if (response.has(Constant.ERROR_MSG)) {
-								hideWaitDialog();
-								makeTextLong(response.get(Constant.ERROR_MSG)
-										.toString());
-							}
-						} catch (JSONException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-							makeTextLong(getApplication().getString(
-									R.string.tip_login_error_for_network));
-						}
-					}
-
-					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							Throwable throwable, JSONObject errorResponse) {
-						LogTool.d(TAG,
-								"Throwable throwable:" + throwable.toString());
-						hideWaitDialog();
-						mPullRefreshScrollView.onRefreshComplete();
-						makeTextLong(getApplication().getString(
-								R.string.tip_login_error_for_network));
-					}
-
-					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							String responseString, Throwable throwable) {
-						LogTool.d(TAG, "throwable:" + throwable);
-						hideWaitDialog();
-						mPullRefreshScrollView.onRefreshComplete();
-						makeTextLong(getApplication().getString(
-								R.string.tip_login_error_for_network));
-					};
-				});
 	}
 
 	@Override
@@ -595,15 +521,19 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 			if (data != null) {
 				Uri mImageUri = data.getData();
 				LogTool.d(TAG, "mImageUri:" + mImageUri);
+				if (mImageUri != null) {
 
+				}
 			}
 			break;
 		case Constant.REQUESTCODE__LOCATION:// 本地选取
-			LogTool.d(TAG, "data:" + data);
 			if (data != null) {
 				Uri uri = data.getData();
+				LogTool.d(TAG, "uri:" + uri);
 				if (null != uri) {
-
+					String path = getPicture(uri);
+					LogTool.d(TAG, "path:" + path);
+					upload(path);//
 				}
 			}
 			break;
@@ -613,6 +543,101 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		default:
 			break;
 		}
+	}
+
+	// 获取相册图片路径
+	private String getPicture(Uri uri) {
+		try {
+			ContentResolver resolver = getActivity().getContentResolver();
+			String[] proj = { MediaStore.Images.Media.DATA };
+			Cursor cursor = resolver.query(uri, proj, null, null, null);
+			int column_index = cursor
+					.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+			cursor.moveToFirst();
+			String path = cursor.getString(column_index);
+			return path;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	private void upload(String imgPath) {
+		JianFanJiaApiClient.uploadImage(getActivity(), imgPath,
+				new JsonHttpResponseHandler() {
+					@Override
+					public void onStart() {
+						LogTool.d(TAG, "onStart()");
+					}
+
+					@Override
+					public void onSuccess(int statusCode, Header[] headers,
+							JSONObject response) {
+						LogTool.d(TAG, "JSONObject response:" + response);
+						try {
+							if (response.has(Constant.DATA)) {
+								JSONObject obj = new JSONObject(response
+										.toString());
+								String imageid = obj.getString("data");
+								LogTool.d(TAG, "imageid:" + imageid);
+								submitImageToProgress(processInfo.get_id(),
+										sectionInfo.getName(), processInfoId,
+										imageid);
+							} else if (response.has(Constant.ERROR_MSG)) {
+
+							}
+						} catch (JSONException e) {
+							e.printStackTrace();
+						}
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							Throwable throwable, JSONObject errorResponse) {
+						LogTool.d(TAG, "Throwable throwable:" + throwable);
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							String responseString, Throwable throwable) {
+						LogTool.d(TAG, "statusCode:" + statusCode
+								+ " throwable:" + throwable);
+					};
+				});
+	}
+
+	private void submitImageToProgress(String siteId, String processId,
+			String processInfoId, String imageid) {
+		LogTool.d(TAG, "siteId:" + siteId + " processId:" + processId
+				+ " processInfoId:" + processInfoId + " imageid:" + imageid);
+		JianFanJiaApiClient.submitImageToProcess(getActivity(), siteId,
+				processId, processInfoId, imageid,
+				new JsonHttpResponseHandler() {
+					@Override
+					public void onStart() {
+						LogTool.d(TAG, "onStart()");
+					}
+
+					@Override
+					public void onSuccess(int statusCode, Header[] headers,
+							JSONObject response) {
+						LogTool.d(TAG, "JSONObject response:" + response);
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							Throwable throwable, JSONObject errorResponse) {
+						LogTool.d(TAG, "Throwable throwable:" + throwable);
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							String responseString, Throwable throwable) {
+						LogTool.d(TAG, "statusCode:" + statusCode
+								+ " throwable:" + throwable);
+					};
+				});
 	}
 
 	@Override

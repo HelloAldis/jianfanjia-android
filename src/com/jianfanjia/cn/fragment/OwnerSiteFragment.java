@@ -20,6 +20,7 @@ import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.cache.CacheManager;
+import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.tools.DateFormatTool;
@@ -41,8 +42,6 @@ public class OwnerSiteFragment extends BaseFragment {
 	private static final String TAG = "OwnerSiteFragment";
 	private ProcessInfo processInfo;// 工地信息类
 	private RequirementInfo requirementInfo;// 实体信息类
-	private DatePickerDialog datePickerDialog;// 时间选择对话框
-	private Calendar calendar = Calendar.getInstance();
 
 	private ImageView headBackView;// 返回头像
 	private TextView cityView;// 所在城市
@@ -88,8 +87,7 @@ public class OwnerSiteFragment extends BaseFragment {
 		totalDateLayout = (RelativeLayout) view
 				.findViewById(R.id.my_totaldate_layout);
 
-		processInfo = (ProcessInfo) CacheManager.readObject(getActivity(),
-				Constant.PROCESSINFO_CACHE);
+		processInfo = DataManager.getInstance().getDefaultProcessInfo();
 		if (processInfo == null) {
 			getRequirement();
 		} else {
@@ -97,7 +95,8 @@ public class OwnerSiteFragment extends BaseFragment {
 		}
 	}
 
-	private void getSiteInfo() {
+	//配置工地信息
+	private void postProcessInfo() {
 		makeTextLong(JsonParser.beanToJson(requirementInfo));
 		JianFanJiaApiClient.post_Owner_Process(getApplication(),
 				requirementInfo, new JsonHttpResponseHandler() {
@@ -112,15 +111,6 @@ public class OwnerSiteFragment extends BaseFragment {
 						makeTextLong("getRequirement");
 						try {
 							if (response.has(Constant.DATA)) {
-								processInfo = JsonParser.jsonToBean(response
-										.get(Constant.DATA).toString(),
-										ProcessInfo.class);
-								CacheManager
-										.saveObject(getActivity(), processInfo,
-												Constant.PROCESSINFO_CACHE);
-								// 配置完工地保存我的设计师id
-								shared.setValue(Constant.FINAL_DESIGNER_ID,
-										processInfo.getFinal_designerid());
 								handlerSuccess();
 								makeTextLong("配置成功");
 							} else if (response.has(Constant.ERROR_MSG)) {
@@ -151,6 +141,12 @@ public class OwnerSiteFragment extends BaseFragment {
 				});
 
 	}
+	
+	// 获取需求成功
+	private void handlerSuccess() {
+		confirmView.setEnabled(false);
+	}
+
 
 	private void setData() {
 		if (requirementInfo != null) {
@@ -174,7 +170,6 @@ public class OwnerSiteFragment extends BaseFragment {
 
 	// 初始化数据
 	private void initData() {
-		if (processInfo != null) {
 			String city = processInfo.getProvince() + processInfo.getCity()
 					+ processInfo.getDistrict();
 			cityView.setText(city);
@@ -198,7 +193,6 @@ public class OwnerSiteFragment extends BaseFragment {
 			confirmView.setEnabled(false);
 			startDateLayout.setEnabled(false);
 			totalDateLayout.setEnabled(false);
-		}
 	}
 
 	private void getRequirement() {
@@ -246,14 +240,6 @@ public class OwnerSiteFragment extends BaseFragment {
 				});
 	}
 
-	// 获取需求成功
-	private void handlerSuccess() {
-		if (processInfo == null) {
-			// 获取错误，加载错误视图
-		} else {
-
-		}
-	}
 
 	@Override
 	public void setListener() {
@@ -288,6 +274,7 @@ public class OwnerSiteFragment extends BaseFragment {
 										.setStart_at(((DateWheelDialog) dialog)
 												.getChooseCalendar()
 												.getTimeInMillis());
+								requirementInfo.setDuration("60");
 							}
 							dialog.dismiss();
 						}
@@ -297,11 +284,12 @@ public class OwnerSiteFragment extends BaseFragment {
 			break;
 		case R.id.my_site_confirm:
 			Log.i(TAG, "confirm");
-			getSiteInfo();
+			postProcessInfo();
 			break;
 		case R.id.ower_site_head:
 			((MainActivity) getActivity()).getSlidingPaneLayout().openPane();
 			break;
+			
 
 		default:
 			break;

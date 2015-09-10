@@ -76,7 +76,6 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		DataManager.getInstance().addObserver(this);
 		Intent intent = getIntent();
@@ -91,11 +90,8 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
 	}
 	
 	private void getCommentList(){
-		String ownerProcessid = sharedPrefer.getValue(Constant.PROCESSINFO_ID,null);
-		if(ownerProcessid != null){
-			processInfo = DataManager.getInstance().getProcessInfo(ownerProcessid);
-		}
-		if(processInfo != null){
+		processInfo = DataManager.getInstance().getDefaultProcessInfo();
+		if (processInfo != null) {
 			section = processInfo.getSections().get(currentList).getName();
 			item = processInfo.getSections().get(currentList).getItems()
 					.get(currentItem).getName();
@@ -103,6 +99,7 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
 					.getItems().get(currentItem).getComments();
 			Log.i(this.getClass().getName(), "itemsize =" + currentItem);
 		}
+		
 	}
 
 	@Override
@@ -193,12 +190,11 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
 	}
 
 	private void handlerSuccess() {
-		DataManager.getInstance().requestOwnerProcessInfo();
+		DataManager.getInstance().requestProcessInfo();
 	}
 
-	
 	public void update(Observable observable, Object data) {
-		if(DataManager.SUCCESS.equals(data)){
+		if (DataManager.SUCCESS.equals(data)) {
 			getCommentList();
 			commentInfoAdapter.setList(commentInfoList);
 			commentInfoAdapter.notifyDataSetChanged();
