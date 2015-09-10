@@ -57,8 +57,6 @@ public class Constant {
 	public static final String PROCESSINFO_LIST = "processinfo_list";// 当前工地id
 	public static final String OWNER_INFO = "owner_info";// 当前业主信息
 	public static final String DESIGNER_INFO = "designer_info";// 当前设计师信息
-	
-
 
 	public static final String DATA = "data";// 获取成功的数据
 	public static final String ERROR_MSG = "err_msg";// 获取数据失败的返回信息

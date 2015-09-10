@@ -6,17 +6,18 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.bean.GridItem;
+import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.config.Url;
 
-public class SiteGridViewAdapter extends BaseListAdapter<GridItem> {
+public class SiteGridViewAdapter extends BaseListAdapter<String> {
 
-	public SiteGridViewAdapter(Context context, List<GridItem> list) {
+	public SiteGridViewAdapter(Context context, List<String> list) {
 		super(context, list);
 	}
 
 	@Override
 	public View initView(final int position, View convertView) {
-		GridItem item = list.get(position);
+		String imgUrl = list.get(position);
 		ViewHolder holder = null;
 		if (convertView == null) {
 			convertView = layoutInflater.inflate(R.layout.my_grid_item, null);
@@ -27,7 +28,13 @@ public class SiteGridViewAdapter extends BaseListAdapter<GridItem> {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		imageLoader.displayImage(item.getPath(), holder.img);
+		if (imgUrl.equals(Constant.HOME_ADD_PIC)) {
+			imageLoader.displayImage(imgUrl, holder.img, options);
+		} else {
+			imageLoader.displayImage(Url.GET_IMAGE + imgUrl, holder.img,
+					options);
+		}
+
 		return convertView;
 	}
 

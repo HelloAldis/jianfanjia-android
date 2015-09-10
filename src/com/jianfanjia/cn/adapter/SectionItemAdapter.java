@@ -2,13 +2,14 @@ package com.jianfanjia.cn.adapter;
 
 import java.util.ArrayList;
 import java.util.List;
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -23,9 +24,10 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
 
 public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
+	private static final int IMG_COUNT = 9;
 	private ItemClickCallBack callBack;
 	private int lastClickItem = -1;// 记录点击的位置
-	private int sign = -1;
+	private boolean isPos = false;
 	private SiteGridViewAdapter siteGridViewAdapter;
 	private List<GridItem> gridItem = new ArrayList<GridItem>();
 	private int currentPro = -1;// 记录第一个当前展开的工序
@@ -52,20 +54,14 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 		this.currentPro = currentPro;
 	}
 
-	public int getLastClickItem() {
-		return lastClickItem;
-	}
-
-	public List<SectionItemInfo> getSectionItemInfos() {
-		return list;
-	}
-
 	public void setSectionItemInfos(List<SectionItemInfo> sectionItemInfos) {
 		this.list = sectionItemInfos;
 	}
 
-	public void setLastClickItem(int lastClickItem) {
-		this.lastClickItem = lastClickItem;
+	public void setLastClickItem(int position, boolean isPos) {
+		this.lastClickItem = position;
+		this.isPos = isPos;
+		notifyDataSetChanged();
 	}
 
 	@Override
@@ -87,8 +83,6 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 					.findViewById(R.id.site_list_item_content_small_node_name);
 			viewHolder.openNodeName = (TextView) convertView
 					.findViewById(R.id.site_list_item_content_expand_node_name);
-			viewHolder.openUploadPic = (TextView) convertView
-					.findViewById(R.id.site_list_item_content_expand_node_upload_picture);
 			viewHolder.finishTime = (TextView) convertView
 					.findViewById(R.id.site_list_item_content_small_node_finishtime);
 			viewHolder.openUploadTime = (TextView) convertView
@@ -136,17 +130,19 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 		}
 
 		if (null != imageUrlList && imageUrlList.size() > 0) {
-			viewHolder.openUploadPic.setText(imageUrlList.size() + "");
-			viewHolder.openUploadPic.setCompoundDrawablesWithIntrinsicBounds(
-					context.getResources().getDrawable(
-							R.drawable.btn_icon_upload_pic_pressed), null,
-					null, null);
+			if (imageUrlList.size() < IMG_COUNT
+					&& !imageUrlList.contains(Constant.HOME_ADD_PIC)) {// 最多上传9张照片
+				Log.i(this.getClass().getName(), "addImage");
+				imageUrlList.add(Constant.HOME_ADD_PIC);
+			} else {
+				for (String str : imageUrlList) {
+					if (str.equals(Constant.HOME_ADD_PIC)) {
+						list.remove(str);
+					}
+				}
+			}
 		} else {
-			viewHolder.openUploadPic.setCompoundDrawablesWithIntrinsicBounds(
-					context.getResources().getDrawable(
-							R.drawable.btn_icon_upload_pic_normal), null, null,
-					null);
-			viewHolder.openUploadPic.setText(R.string.upload_pic);
+			imageUrlList.add(Constant.HOME_ADD_PIC);
 		}
 
 		if (null != commentInfoList && commentInfoList.size() > 0) {
@@ -167,25 +163,21 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 		// if (Integer.parseInt(sectionItemInfo.getStatus()) !=
 		// Constant.NOT_START && position == lastClickItem) {
 		if (position == lastClickItem) {
-			if (sign == lastClickItem) {
+			if (isPos) {
 				viewHolder.bigOpenLayout.setVisibility(View.GONE);
 				viewHolder.smallcloseLayout.setVisibility(View.VISIBLE);
-				sign = -1;
 			} else {
 				viewHolder.bigOpenLayout.setVisibility(View.VISIBLE);
 				viewHolder.smallcloseLayout.setVisibility(View.GONE);
-				// 设置上传照片
-				// setImageData(imageUrlList, viewHolder.gridView);
-				sign = lastClickItem;
 			}
 		} else {
 			viewHolder.bigOpenLayout.setVisibility(View.GONE);
 			viewHolder.smallcloseLayout.setVisibility(View.VISIBLE);
 		}
-
+		// 设置上传照片
+		setImageData(imageUrlList, viewHolder.gridView);
 		viewHolder.openComment.setOnClickListener(new OnClickListener() {
 
-			@SuppressLint("NewApi")
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(context, CommentActivity.class);
@@ -197,13 +189,6 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 				context.startActivity(intent);
 			}
 		});
-		viewHolder.openUploadPic.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				callBack.click(position);
-			}
-		});
 		return convertView;
 	}
 
@@ -212,25 +197,26 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 	 * @param imageUrlList
 	 * @param gridView
 	 */
-	private void setImageData(List<String> imageUrlList, GridView gridView) {
-		Log.i(this.getClass().getName(), "size =" + imageUrlList.size());
+	private void setImageData(final List<String> imageUrlList, GridView gridView) {
 		gridItem.clear();
 		gridView.setAdapter(null);
-		// 最多上传9张照片
-		if (imageUrlList.size() < 9
-				&& !imageUrlList.contains(Constant.HOME_ADD_PIC)) {
-			Log.i(this.getClass().getName(), "addImage");
-			imageUrlList.add(Constant.HOME_ADD_PIC);
-		}
-		for (int i = 0; i < imageUrlList.size(); i++) {
-			GridItem item = new GridItem();
-			item.setPath(imageUrlList.get(i));
-			gridItem.add(item);
-		}
-		Log.i(this.getClass().getName(), "grid =" + gridItem.size());
-		siteGridViewAdapter = new SiteGridViewAdapter(context, gridItem);
+		siteGridViewAdapter = new SiteGridViewAdapter(context, imageUrlList);
 		gridView.setAdapter(siteGridViewAdapter);
+		gridView.setOnItemClickListener(new OnItemClickListener() {
 
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				String data = imageUrlList.get(position);
+				if (data.equals(Constant.HOME_ADD_PIC)) {
+					Log.i(this.getClass().getName(), "clic add_pic");
+					callBack.click(position);
+				} else {
+					Log.i(this.getClass().getName(), "clic img");
+				}
+			}
+
+		});
 	}
 
 	private static class ViewHolder {
