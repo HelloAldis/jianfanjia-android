@@ -246,6 +246,9 @@ public class DataManager extends Observable {
 								ProcessInfo processInfo = JsonParser
 										.jsonToBean(response.get(Constant.DATA)
 												.toString(), ProcessInfo.class);
+								LogTool.d(TAG,
+										"processInfo===================="
+												+ processInfo);
 								if (null != processInfo) {
 									sharedPrefer.setValue(processInfo.get_id(),
 											processInfo);// 保存工地流程到本地
@@ -259,7 +262,7 @@ public class DataManager extends Observable {
 											processInfo.getFinal_designerid()); // 保存业主的设计师id
 									// 通知页面刷新
 									setChanged();
-									notifyObservers(processInfo);
+									notifyObservers(SUCCESS);
 								}
 							} else if (response.has(Constant.ERROR_MSG)) {
 								// 通知页面刷新

@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Observable;
-import org.apache.http.Header;
-import org.json.JSONException;
-import org.json.JSONObject;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -42,10 +39,8 @@ import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.SectionInfo;
 import com.jianfanjia.cn.bean.SectionItemInfo;
 import com.jianfanjia.cn.bean.ViewPagerItem;
-import com.jianfanjia.cn.cache.CacheManager;
 import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
 import com.jianfanjia.cn.interf.SwitchFragmentListener;
@@ -54,12 +49,10 @@ import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshScrollView;
 import com.jianfanjia.cn.tools.DateFormatTool;
-import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.StringUtils;
 import com.jianfanjia.cn.view.AddPhotoPopWindow;
 import com.jianfanjia.cn.view.dialog.DateWheelDialog;
-import com.loopj.android.http.JsonHttpResponseHandler;
 
 /**
  * 
@@ -145,16 +138,16 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		checkSection = getResources().getStringArray(
 				R.array.site_procedure_check);
 		DataManager.getInstance().addObserver(this);
-		LogTool.d(TAG, "processInfo=" + processInfo);
-
 	}
-	
-	private void initProcessInfo(){
+
+	private void initProcessInfo() {
 		String ownerProcessid = shared.getValue(Constant.PROCESSINFO_ID, null);
+		LogTool.d(TAG, "ownerProcessid=" + ownerProcessid);
 		if (ownerProcessid != null) {
 			processInfo = DataManager.getInstance().getProcessInfo(
 					ownerProcessid);
 		}
+		LogTool.d(TAG, "processInfo=" + processInfo);
 	}
 
 	@Override
@@ -172,16 +165,15 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		if (processInfo != null) {
 			initData();
 		} else {
-			// getOwnerProcess();
 			DataManager.getInstance().requestOwnerProcessInfo();
 		}
 	}
 
 	public void update(Observable observable, Object data) {
 		mPullRefreshScrollView.onRefreshComplete();
-		if(DataManager.SUCCESS.equals(data)){
+		if (DataManager.SUCCESS.equals(data)) {
 			initProcessInfo();
-			if(processInfo != null){
+			if (processInfo != null) {
 				initData();
 			}
 		}
@@ -502,75 +494,6 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	public void onPullUpToRefresh(PullToRefreshBase<ScrollView> refreshView) {
 		// 上拉加载更多(加载下一页数据)
 		mPullRefreshScrollView.onRefreshComplete();
-	}
-
-	private void getOwnerProcess() {
-		JianFanJiaApiClient.get_Owner_Process(getApplication(),
-				new JsonHttpResponseHandler() {
-					@Override
-					public void onStart() {
-						LogTool.d(TAG, "onStart()");
-						showWaitDialog();
-					}
-
-					@Override
-					public void onSuccess(int statusCode, Header[] headers,
-							JSONObject response) {
-						mPullRefreshScrollView.onRefreshComplete();
-						LogTool.d(TAG, "response:" + response.toString());
-						try {
-							if (response.has(Constant.DATA)) {
-								hideWaitDialog();
-								processInfo = JsonParser.jsonToBean(response
-										.get(Constant.DATA).toString(),
-										ProcessInfo.class);
-								if (processInfo != null) {
-									// 数据请求成功保存在缓存中
-									CacheManager.saveObject(getActivity(),
-											processInfo,
-											Constant.PROCESSINFO_CACHE);
-									// 保存业主的设计师id
-									shared.setValue(Constant.FINAL_DESIGNER_ID,
-											processInfo.getFinal_designerid());
-									handlerSuccess();
-								} else {
-									// 请求成功没有数据，返回默认数据
-
-								}
-							} else if (response.has(Constant.ERROR_MSG)) {
-								hideWaitDialog();
-								makeTextLong(response.get(Constant.ERROR_MSG)
-										.toString());
-							}
-						} catch (JSONException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-							makeTextLong(getApplication().getString(
-									R.string.tip_login_error_for_network));
-						}
-					}
-
-					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							Throwable throwable, JSONObject errorResponse) {
-						LogTool.d(TAG,
-								"Throwable throwable:" + throwable.toString());
-						hideWaitDialog();
-						mPullRefreshScrollView.onRefreshComplete();
-						makeTextLong(getApplication().getString(
-								R.string.tip_login_error_for_network));
-					}
-
-					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							String responseString, Throwable throwable) {
-						LogTool.d(TAG, "throwable:" + throwable);
-						hideWaitDialog();
-						mPullRefreshScrollView.onRefreshComplete();
-						makeTextLong(getApplication().getString(
-								R.string.tip_login_error_for_network));
-					};
-				});
 	}
 
 	@Override
