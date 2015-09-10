@@ -55,7 +55,7 @@ public class MyOwerInfoAdapter extends BaseListAdapter<DesignerSiteInfo> {
 					viewHolder.itemOwerHeadView, options);
 		} else {
 			viewHolder.itemOwerHeadView
-					.setImageResource(R.drawable.site_listview_item_finish_circle);
+					.setImageResource(R.drawable.icon_sidebar_default_user);
 		}
 		return convertView;
 	}

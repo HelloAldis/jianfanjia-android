@@ -95,6 +95,7 @@
     <string name="my_site_startdate_example">2015-8-17</string>
     <string name="my_site_totaldate">总工期</string>
     <string name="my_site_totaldate_example">60天</string>
+    <string name="current_process">当前工地</string>
 
     <!-- my_designer_information -->
     <string name="my_designer_name">Jeff Zhang</string>

@@ -177,7 +177,8 @@ public class DesignerMenuFragment extends BaseFragment implements
 	@Override
 	public void callBack(int index) {
 		View v = mTabRg.getChildAt(index);
-		RadioButton rb = (RadioButton) v.findViewById(R.id.tab_rb_4);
+		int viewId = getResources().getIdentifier("tab_rb_"+(index+1), "id", getActivity().getPackageName());
+		RadioButton rb = (RadioButton) v.findViewById(viewId);
 		LogTool.d(TAG, "rb:" + rb);
 		rb.setChecked(true);
 		setTabSelection(index);

@@ -11,6 +11,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.R;
@@ -52,13 +53,27 @@ public class DataManager extends Observable {
 		return instance;
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<DesignerSiteInfo> getDesignerProcessLists() {
+		if (designerProcessLists == null) {
+			return (List<DesignerSiteInfo>) sharedPrefer
+					.getValue(Constant.DESIGNER_PROCESS_LIST);
+		}
+		return designerProcessLists;
+	}
+
 	private DataManager() {
 		context = MyApplication.getInstance();
 		sharedPrefer = new SharedPrefer(context, Constant.SHARED_MAIN);
 	}
 
 	public int getDefaultPro() {
-		return sharedPrefer.getValue(Constant.DEFAULT_PROCESS, 0);// 默认的工地为0
+		if(getUserType().equals(Constant.IDENTITY_DESIGNER)){
+			return sharedPrefer.getValue(Constant.DEFAULT_PROCESS, 0);// 默认的工地为0
+		}else if(getUserType().equals(Constant.IDENTITY_OWNER)){
+			return 0;
+		}
+		return 0;
 	}
 
 	public void setDefaultPro(int defaultPro) {
@@ -162,7 +177,7 @@ public class DataManager extends Observable {
 	}
 
 	private void getDesignerInfoById(String designerId) {
-		
+
 		JianFanJiaApiClient.getDesignerInfoById(context, designerId,
 				new JsonHttpResponseHandler() {
 					@Override
@@ -173,7 +188,8 @@ public class DataManager extends Observable {
 					@Override
 					public void onSuccess(int statusCode, Header[] headers,
 							JSONObject response) {
-						LogTool.d("getDesignerInfoById", "JSONObject response:" + response);
+						LogTool.d("getDesignerInfoById", "JSONObject response:"
+								+ response);
 						try {
 							if (response.has(Constant.DATA)) {
 								designerInfo = JsonParser.jsonToBean(response
@@ -233,26 +249,50 @@ public class DataManager extends Observable {
 	}
 
 	public ProcessInfo getDefaultProcessInfo() {
-		if (getUserType().equals(Constant.IDENTITY_OWNER)) {
-			if (getProcessInfos().size() == 0){
-				return null;
+		return getProcessInfo(getDefaultProcessId()); // 业主只有1个工地
+	}
+
+	public String getDefaultDesignerId() {
+		if (processReflects.size() == 0) {
+			@SuppressWarnings("unchecked")
+			List<ProcessReflect> reflects = (List<ProcessReflect>) sharedPrefer
+					.getValue(Constant.PROCESSINFO_REFLECT);
+			if (reflects != null) {
+				processReflects = reflects;
 			}
-			return getProcessInfos().get(0); // 业主只有1个工地
-		} else if (getUserType().equals(Constant.IDENTITY_DESIGNER)) {
-			if (getProcessInfos().size() == 0){
-				return null;
-			}
-			return getProcessInfos().get(getDefaultPro());
+		}else{
+			return processReflects.get(getDefaultPro()).getProcessId();
 		}
 		return null;
 	}
 
-	public String getDefaultDesignerId() {
-		return getDefaultProcessInfo().getFinal_designerid();
-	}
-
 	public String getDefaultOwnerId() {
-		return getDefaultProcessInfo().getUserid();
+		if (processReflects.size() == 0) {
+			@SuppressWarnings("unchecked")
+			List<ProcessReflect> reflects = (List<ProcessReflect>) sharedPrefer
+					.getValue(Constant.PROCESSINFO_REFLECT);
+			if (reflects != null) {
+				processReflects = reflects;
+			}
+		}else{
+			return processReflects.get(getDefaultPro()).getOwnerId();
+		}
+		return null;
+	}
+	
+	public String getDefaultProcessId(){
+		if (processReflects.size() == 0) {
+			@SuppressWarnings("unchecked")
+			List<ProcessReflect> reflects = (List<ProcessReflect>) sharedPrefer
+					.getValue(Constant.PROCESSINFO_REFLECT);
+			if (reflects != null) {
+				processReflects = reflects;
+			}
+		}else{
+			return processReflects.get(getDefaultPro()).getProcessId();
+		}
+		return null;
+		
 	}
 
 	@SuppressWarnings("unchecked")
@@ -268,7 +308,8 @@ public class DataManager extends Observable {
 		for (ProcessReflect processReflect : processReflects) {
 			ProcessInfo processInfo = getProcessInfo(processReflect
 					.getProcessId());
-			if (processInfo != null){
+			Log.i(TAG, "refle" + processInfo);
+			if (processInfo != null) {
 				processInfos.add(processInfo);
 			}
 		}
