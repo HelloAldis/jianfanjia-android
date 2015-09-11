@@ -56,8 +56,6 @@ import com.jianfanjia.cn.view.AddPhotoPopWindow;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.DateWheelDialog;
 
-//github.com/adminJyz/jianfanjia-android.git
-
 /**
  * 
  * @ClassName: OwnerSiteManageFragment
@@ -154,7 +152,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		proTitle = getResources().getStringArray(R.array.site_procedure);
 		checkSection = getResources().getStringArray(
 				R.array.site_procedure_check);
-		DataManager.getInstance().addObserver(this);
+		dataManager.addObserver(this);
 	}
 
 	@Override
@@ -173,7 +171,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		if (processInfo != null) {
 			initData();
 		} else {
-			DataManager.getInstance().requestProcessInfo();
+			dataManager.requestProcessInfo();
 		}
 	}
 
@@ -258,7 +256,6 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 			} else {
 				tips[i].setBackgroundResource(R.drawable.new_gallery_dianpu_normal);
 			}
-
 			LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
 					new ViewGroup.LayoutParams(20, 20));
 			layoutParams.leftMargin = 15;
@@ -583,6 +580,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		LogTool.d(TAG, "msg===========" + msg);
 		if ("success".equals(msg)) {
 			LogTool.d(TAG, "--------------------------------------------------");
+			dataManager.requestProcessInfo();
 		}
 	}
 
