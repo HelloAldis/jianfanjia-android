@@ -6,6 +6,7 @@ import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -18,6 +19,7 @@ import com.igexin.sdk.PushManager;
 import com.jianfanjia.cn.activity.AboutActivity;
 import com.jianfanjia.cn.activity.FeedBackActivity;
 import com.jianfanjia.cn.activity.LoginActivity;
+import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.NavigateActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.ShareActivity;
@@ -27,6 +29,7 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.tools.FileUtil;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -52,9 +55,13 @@ public class SettingFragment extends BaseFragment implements
 	private RelativeLayout clearCacheLayout = null;
 	private TextView currentVersion;
 	private TextView cacheSizeView;
+	
+	private MainHeadView mainHeadView;
 
 	@Override
 	public void initView(View view) {
+		initMainHead(view);
+		
 		feedbackFragment = (RelativeLayout) view
 				.findViewById(R.id.feedback_layout);
 		helpLayout = (RelativeLayout) view.findViewById(R.id.help_layout);
@@ -71,6 +78,17 @@ public class SettingFragment extends BaseFragment implements
 		currentVersion.setText(MyApplication.getInstance().getVersionName());
 
 		caculateCacheSize();
+	}
+	
+	@SuppressLint("ResourceAsColor") 
+	private void initMainHead(View view) {
+		mainHeadView = (MainHeadView) view.findViewById(R.id.ower_site_head_layout);
+		mainHeadView.setHeadImage(mUserImageId);
+		mainHeadView.setBackListener(this);
+		mainHeadView.setRightTitleVisable(View.GONE);
+		mainHeadView.setMianTitle(getResources().getString(R.string.my_site));
+		mainHeadView.setBackgroundColor(R.color.head_layout_bg);
+		mainHeadView.setDividerVisable(View.VISIBLE);
 	}
 
 	@Override
@@ -108,6 +126,9 @@ public class SettingFragment extends BaseFragment implements
 			break;
 		case R.id.clear_cache_layout:
 			onClickCleanCache();
+			break;
+		case R.id.head_icon:
+			((MainActivity)getActivity()).getSlidingPaneLayout().openPane();
 			break;
 		default:
 			break;

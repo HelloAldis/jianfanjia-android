@@ -3,35 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_layout_bg" >
-
-    <RelativeLayout
+    
+    <com.jianfanjia.cn.view.MainHeadView
         android:id="@+id/designer_site_head_layout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/space_48"
-        android:background="@color/head_layout_bg" >
-
-        <ImageView
-            android:id="@+id/designer_site_head"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/space_8"
-            android:contentDescription="@null"
-            android:scaleType="centerCrop"
-            android:src="@drawable/icon_home_default_designer" />
-
-        <TextView
-            android:id="@+id/designer_site_title"
-            style="@style/site_listview_item_text_style_title"
-            android:layout_centerInParent="true"
-            android:text="@string/my_decoration_site"
-            android:textColor="@color/main_color_black" />
-
-        <View
-            style="@style/divier_line"
-            android:layout_alignParentBottom="true"
-            android:background="@color/horzontal_line_color" />
-    </RelativeLayout>
+        android:layout_height="wrap_content"
+        android:background="@color/head_layout_bg" />
 
     <ListView
         android:id="@+id/designer_site_listview"

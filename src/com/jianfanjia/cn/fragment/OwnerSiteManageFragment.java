@@ -86,8 +86,6 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	private List<View> bannerList = new ArrayList<View>();
 
 	private ViewPager processViewPager;
-	private ImageView icon_user_head = null;
-	private TextView head_right_title = null;
 	private ListView detailNodeListView;
 	private SectionItemAdapter sectionItemAdapter;
 	private InfinitePagerAdapter infinitePagerAdapter = null;
@@ -164,8 +162,6 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		mPullRefreshScrollView = (PullToRefreshScrollView) view
 				.findViewById(R.id.pull_refresh_scrollview);
 		mPullRefreshScrollView.setMode(Mode.PULL_FROM_START);
-		icon_user_head = (ImageView) view.findViewById(R.id.icon_user_head);
-		head_right_title = (TextView) view.findViewById(R.id.head_right_title);
 		initMainHead(view);
 		initBannerView(view);
 		initScrollLayout(view);
@@ -174,7 +170,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		if (processInfo != null) {
 			initData();
 		} else {
-			dataManager.requestProcessInfo();
+			DataManager.getInstance().getProcessList();
 		}
 	}
 
@@ -521,7 +517,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	public void onPullDownToRefresh(PullToRefreshBase<ScrollView> refreshView) {
 		// 下拉刷新(从第一页开始装载数据)
 		// 加载数据
-		DataManager.getInstance().requestProcessInfo();
+		DataManager.getInstance().getProcessList();
 	}
 
 	@Override
@@ -593,7 +589,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		LogTool.d(TAG, "msg===========" + msg);
 		if ("success".equals(msg)) {
 			LogTool.d(TAG, "--------------------------------------------------");
-			dataManager.requestProcessInfo();
+			dataManager.getProcessList();
 		}
 	}
 

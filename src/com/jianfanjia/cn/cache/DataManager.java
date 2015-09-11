@@ -77,32 +77,30 @@ public class DataManager extends Observable {
 	}
 
 	public UserByOwnerInfo getOwnerInfo(String ownerId) {
+		if(ownerId == null) return null;
 		if (ownerInfo == null) {
 			if (!NetTool.isNetworkAvailable(context)) {
 				ownerInfo = (UserByOwnerInfo) sharedPrefer
-						.getValue(Constant.OWNER_INFO);
-			} else {
-				if (ownerId != null) {
-					getOwnerInfoById(ownerId);
-				}
+						.getValue(ownerId);
+			}else{
+				getOwnerInfoById(ownerId);
 			}
 		}
 		return ownerInfo;
 	}
 
-	public void requestProcessInfo() {
+	public void getProcessList() {
 		requestProcessList();
 	}
 
 	public UserByDesignerInfo getDesignerInfo(String designerId) {
+		if(designerId == null)  return null;
 		if (designerInfo == null) {
 			if (!NetTool.isNetworkAvailable(context)) {
 				designerInfo = (UserByDesignerInfo) sharedPrefer
-						.getValue(Constant.DESIGNER_INFO);
-			} else {
-				if (designerId != null) {
-					getDesignerInfoById(designerId);
-				}
+						.getValue(designerId);
+			}else{
+				getDesignerInfoById(designerId);
 			}
 		}
 		return designerInfo;
@@ -125,7 +123,7 @@ public class DataManager extends Observable {
 								ownerInfo = JsonParser.jsonToBean(
 										response.get(Constant.DATA).toString(),
 										UserByOwnerInfo.class);
-								sharedPrefer.setValue(Constant.OWNER_INFO,
+								sharedPrefer.setValue(ownerInfo.get_id(),
 										ownerInfo);
 								setChanged();
 								notifyObservers(SUCCESS);
@@ -185,7 +183,7 @@ public class DataManager extends Observable {
 										.get(Constant.DATA).toString(),
 										UserByDesignerInfo.class);
 
-								sharedPrefer.setValue(Constant.DESIGNER_INFO,
+								sharedPrefer.setValue(designerInfo.get_id(),
 										designerInfo);
 								setChanged();
 								notifyObservers(SUCCESS);
@@ -405,15 +403,9 @@ public class DataManager extends Observable {
 											processReflects);
 
 									// 默认的工地大于当前获取的工地数，重设工地
-									if (getUserType().equals(
-											Constant.IDENTITY_OWNER)) {
-										setDefaultPro(0);
-									} else if (getUserType().equals(
-											Constant.IDENTITY_OWNER)) {
-										if (getDefaultPro() > processReflects
-												.size() - 1) {
+									if (getDefaultPro() > processReflects
+											.size() - 1) {
 											setDefaultPro(0);
-										}
 									}
 									// 如果有工地，加载默认的工地
 									if (processReflects.size() > 0) {
