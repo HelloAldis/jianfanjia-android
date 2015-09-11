@@ -4,14 +4,17 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Observable;
+
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -22,14 +25,18 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupWindow;
+import android.widget.PopupWindow.OnDismissListener;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+
 import com.jianfanjia.cn.activity.CheckActivity;
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
@@ -102,6 +109,8 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	private TextView closeCheckNode;// 折叠验收节点名称
 	private TextView openDelay;// 延期按钮
 	private TextView openCheck;// 对比验收按钮
+
+	private AddPhotoPopWindow popupWindow;
 
 	private boolean isOpen = false;
 
@@ -475,11 +484,17 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 
 	@Override
 	public void click(int position) {
-		AddPhotoPopWindow addPhotoPopWindow = new AddPhotoPopWindow(
-				getActivity(), this);
-		addPhotoPopWindow.showAtLocation(layoutAll, Gravity.BOTTOM
-				| Gravity.CENTER_HORIZONTAL, 0, 0);
+		showPopWindow(getView());
 	}
+
+	private void showPopWindow(View view){
+		if(popupWindow == null){
+			popupWindow = new AddPhotoPopWindow(
+					getActivity(), this);
+		}
+		popupWindow.show(view);
+	}
+
 
 	@Override
 	public void onPullDownToRefresh(PullToRefreshBase<ScrollView> refreshView) {

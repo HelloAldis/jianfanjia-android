@@ -190,8 +190,8 @@
     <!-- activity_share -->
 
     <string name="comment_success">评论成功</string>
-    <string name="open_camera">照相机</string>
-    <string name="open_album">相册</string>
+    <string name="open_camera">拍照</string>
+    <string name="open_album">从相册中选择</string>
 
     <!-- edit activity -->
     <string name="input_name">请输入昵称</string>
