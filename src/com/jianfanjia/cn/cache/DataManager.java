@@ -5,14 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
-
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.content.Context;
 import android.util.Log;
-
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
@@ -68,9 +65,9 @@ public class DataManager extends Observable {
 	}
 
 	public int getDefaultPro() {
-		if(getUserType().equals(Constant.IDENTITY_DESIGNER)){
+		if (getUserType().equals(Constant.IDENTITY_DESIGNER)) {
 			return sharedPrefer.getValue(Constant.DEFAULT_PROCESS, 0);// 默认的工地为0
-		}else if(getUserType().equals(Constant.IDENTITY_OWNER)){
+		} else if (getUserType().equals(Constant.IDENTITY_OWNER)) {
 			return 0;
 		}
 		return 0;
@@ -260,7 +257,7 @@ public class DataManager extends Observable {
 			if (reflects != null) {
 				processReflects = reflects;
 			}
-		}else{
+		} else {
 			return processReflects.get(getDefaultPro()).getProcessId();
 		}
 		return null;
@@ -274,13 +271,13 @@ public class DataManager extends Observable {
 			if (reflects != null) {
 				processReflects = reflects;
 			}
-		}else{
+		} else {
 			return processReflects.get(getDefaultPro()).getOwnerId();
 		}
 		return null;
 	}
-	
-	public String getDefaultProcessId(){
+
+	public String getDefaultProcessId() {
 		if (processReflects.size() == 0) {
 			@SuppressWarnings("unchecked")
 			List<ProcessReflect> reflects = (List<ProcessReflect>) sharedPrefer
@@ -288,11 +285,11 @@ public class DataManager extends Observable {
 			if (reflects != null) {
 				processReflects = reflects;
 			}
-		}else{
+		} else {
 			return processReflects.get(getDefaultPro()).getProcessId();
 		}
 		return null;
-		
+
 	}
 
 	@SuppressWarnings("unchecked")
@@ -367,7 +364,6 @@ public class DataManager extends Observable {
 												.toString());
 							}
 						} catch (JSONException e) {
-							// TODO Auto-generated catch block
 							// 通知页面刷新
 							setChanged();
 							notifyObservers(FAILURE);
@@ -444,7 +440,6 @@ public class DataManager extends Observable {
 												.toString());
 							}
 						} catch (JSONException e) {
-							// TODO Auto-generated catch block
 							// 通知页面刷新
 							setChanged();
 							notifyObservers(FAILURE);
@@ -558,7 +553,6 @@ public class DataManager extends Observable {
 												.toString());
 							}
 						} catch (JSONException e) {
-							// TODO Auto-generated catch block
 							// 通知页面刷新
 							setChanged();
 							notifyObservers(FAILURE);

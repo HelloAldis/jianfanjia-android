@@ -1,5 +1,9 @@
 package com.jianfanjia.cn.fragment;
 
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -9,6 +13,7 @@ import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -515,7 +520,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 				Uri mImageUri = data.getData();
 				LogTool.d(TAG, "mImageUri:" + mImageUri);
 				if (mImageUri != null) {
-
+					startPhotoZoom(mImageUri);
 				}
 			}
 			break;
@@ -524,14 +529,24 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 				Uri uri = data.getData();
 				LogTool.d(TAG, "uri:" + uri);
 				if (null != uri) {
-					String path = getPicture(uri);
-					LogTool.d(TAG, "path:" + path);
-					uploadManager.getImageIdByUpload(path, this);
+					startPhotoZoom(uri);
 				}
 			}
 			break;
 		case Constant.REQUESTCODE__CROP:
-
+			if (data != null) {
+				Bundle extras = data.getExtras();
+				if (extras != null) {
+					// 得到返回来的数据，是bitmap类型的数据
+					Bitmap bitmap = extras.getParcelable("data");
+					LogTool.d(TAG, "avatar - bitmap = " + bitmap);
+					String imgPath = savaPicture(bitmap);
+					LogTool.d(TAG, "imgPath=============" + imgPath);
+					if (!TextUtils.isEmpty(imgPath)) {
+						uploadManager.getImageIdByUpload(imgPath, this);
+					}
+				}
+			}
 			break;
 		default:
 			break;
@@ -545,6 +560,59 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 			uploadManager.submitImgToProgress(processInfo.get_id(),
 					sectionInfo.getName(), processInfoId, imageId);
 		}
+	}
+
+	private String savaPicture(Bitmap bitmap) {
+		String pictureDir = null;
+		FileOutputStream fos = null;
+		BufferedOutputStream bos = null;
+		ByteArrayOutputStream baos = null;
+		try {
+			baos = new ByteArrayOutputStream();
+			bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+			byte[] byteArray = baos.toByteArray();
+			File dir = new File(Constant.IMAG_PATH);
+			if (!dir.exists()) {
+				dir.mkdirs();
+			}
+			File file = new File(Constant.IMAG_PATH, System.currentTimeMillis()
+					+ ".jpg");
+			file.delete();
+			if (!file.exists()) {
+				file.createNewFile();
+			}
+			fos = new FileOutputStream(file);
+			bos = new BufferedOutputStream(fos);
+			bos.write(byteArray);
+			pictureDir = file.getPath();
+			LogTool.d(this.getClass().getName(), "pictureDir:" + pictureDir);
+			return pictureDir;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (baos != null) {
+				try {
+					baos.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			if (bos != null) {
+				try {
+					bos.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			if (fos != null) {
+				try {
+					fos.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return pictureDir;
 	}
 
 	// 获取相册图片路径
@@ -563,6 +631,26 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	/**
+	 * 裁剪图片方法实现
+	 * 
+	 * @param uri
+	 */
+	private void startPhotoZoom(Uri uri) {
+		Intent intent = new Intent("com.android.camera.action.CROP");
+		intent.setDataAndType(uri, "image/*");
+		// 下面这个crop=true是设置在开启的Intent中设置显示的VIEW可裁剪
+		intent.putExtra("crop", "true");
+		// aspectX aspectY 是宽高的比例
+		intent.putExtra("aspectX", 1);
+		intent.putExtra("aspectY", 1);
+		// outputX outputY 是裁剪图片宽高
+		intent.putExtra("outputX", 150);
+		intent.putExtra("outputY", 150);
+		intent.putExtra("return-data", true);
+		startActivityForResult(intent, Constant.REQUESTCODE__CROP);
 	}
 
 	@Override

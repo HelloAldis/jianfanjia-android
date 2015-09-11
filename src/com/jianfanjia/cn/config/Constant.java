@@ -17,7 +17,8 @@ public class Constant {
 			.getExternalStorageDirectory() + "/JianFanJia/MyLog/mylog.txt";// log存放路径
 	public static final String ERROR_LOG_PATH = Environment
 			.getExternalStorageDirectory() + "/JianFanJia/MyLog/errorlog.txt";// log存放路径
-
+	public static final String IMAG_PATH = Environment
+			.getExternalStorageDirectory() + "/JianFanJia/Pic/";// 保存照片
 	public static final String COMMON_PATH = Environment
 			.getExternalStorageDirectory() + "/JianFanJia/";// 公共的路径
 
