@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
-import com.jianfanjia.cn.bean.DesignerSiteInfo;
+import com.jianfanjia.cn.bean.Process;
 import com.jianfanjia.cn.bean.User;
 import com.jianfanjia.cn.config.Url;
 
@@ -18,16 +18,16 @@ import com.jianfanjia.cn.config.Url;
  * @date 2015-8-26 15:57
  * @param <NotifyCaiGouInfo>
  */
-public class MyOwerInfoAdapter extends BaseListAdapter<DesignerSiteInfo> {
+public class MyOwerInfoAdapter extends BaseListAdapter<Process> {
 
-	public MyOwerInfoAdapter(Context context, List<DesignerSiteInfo> caigouList) {
+	public MyOwerInfoAdapter(Context context, List<Process> caigouList) {
 		super(context, caigouList);
 	}
 
 	@Override
 	public View initView(int position, View convertView) {
 		ViewHolder viewHolder = null;
-		DesignerSiteInfo info = list.get(position);
+		Process info = list.get(position);
 		if (convertView == null) {
 			convertView = layoutInflater.inflate(
 					R.layout.list_item_designer_ower, null);

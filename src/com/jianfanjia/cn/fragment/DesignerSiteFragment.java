@@ -1,11 +1,6 @@
 package com.jianfanjia.cn.fragment;
 
-import java.util.ArrayList;
 import java.util.List;
-import org.apache.http.Header;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,19 +8,15 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
-import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.DesignerSiteInfoAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
-import com.jianfanjia.cn.bean.DesignerSiteInfo;
+import com.jianfanjia.cn.bean.Process;
 import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.interf.SwitchFragmentListener;
-import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
-import com.loopj.android.http.JsonHttpResponseHandler;
 
 /**
  * 
@@ -40,7 +31,7 @@ public class DesignerSiteFragment extends BaseFragment implements
 	private static final String TAG = DesignerSiteFragment.class.getName();
 	private ImageView headView;
 	private ListView siteListView;
-	private List<DesignerSiteInfo> siteList;
+	private List<Process> siteList;
 	private DesignerSiteInfoAdapter designerSiteInfoAdapter = null;
 	private SwitchFragmentListener listener;
 
@@ -94,7 +85,7 @@ public class DesignerSiteFragment extends BaseFragment implements
 
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
-		DesignerSiteInfo siteInfo = siteList.get(position);
+		Process siteInfo = siteList.get(position);
 		LogTool.d(TAG, "_id=" + siteInfo.get_id());
 		DataManager.getInstance().setDefaultPro(position);
 		if(listener != null){

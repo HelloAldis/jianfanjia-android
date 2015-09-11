@@ -10,8 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.jianfanjia.cn.config.Constant;
-
 import android.content.Context;
 import android.os.Environment;
 import android.os.StatFs;

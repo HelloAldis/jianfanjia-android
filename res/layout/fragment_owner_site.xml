@@ -4,34 +4,11 @@
     android:layout_height="match_parent"
     android:background="@color/main_layout_bg" >
 
-    <RelativeLayout
+    <com.jianfanjia.cn.view.MainHeadView
         android:id="@+id/ower_site_head_layout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/space_48"
-        android:background="@color/head_layout_bg" >
-
-        <ImageView
-            android:id="@+id/ower_site_head"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/space_8"
-            android:contentDescription="@null"
-            android:scaleType="centerCrop"
-            android:src="@drawable/icon_home_default_user" />
-
-        <TextView
-            android:id="@+id/ower_site_title"
-            style="@style/site_listview_item_text_style_title"
-            android:layout_centerInParent="true"
-            android:text="@string/my_site"
-            android:textColor="@color/main_color_black" />
-
-        <View
-            style="@style/divier_line"
-            android:layout_alignParentBottom="true"
-            android:background="@color/horzontal_line_color" />
-    </RelativeLayout>
+        android:layout_height="wrap_content"
+        android:background="@color/head_layout_bg" />
 
     <ScrollView
         android:id="@+id/scrollview"
@@ -220,9 +197,9 @@
                 <TextView
                     android:id="@+id/my_site_startdate"
                     style="@style/site_listview_item_text_style_middle"
+                    android:layout_alignWithParentIfMissing="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="8dp"
-                    android:layout_alignWithParentIfMissing="true"
                     android:layout_toLeftOf="@+id/startdate_select_goto"
                     android:textColor="@color/main_color_grey" />
             </RelativeLayout>
@@ -249,10 +226,10 @@
                 <TextView
                     android:id="@+id/my_site_totaldate"
                     style="@style/site_listview_item_text_style_middle"
+                    android:layout_alignWithParentIfMissing="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="8dp"
                     android:layout_toLeftOf="@+id/totaldate_select_goto"
-                    android:layout_alignWithParentIfMissing="true"
                     android:text="@string/my_site_totaldate_example"
                     android:textColor="@color/main_color_grey" />
             </RelativeLayout>

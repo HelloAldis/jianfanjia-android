@@ -5,11 +5,8 @@ import java.util.List;
 import android.content.pm.PackageManager;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseApplication;
-import com.jianfanjia.cn.bean.LoginUserBean;
-import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.cache.DataCleanManager;
-import com.jianfanjia.cn.config.Constant;
 
 /**
  * @version 1.0

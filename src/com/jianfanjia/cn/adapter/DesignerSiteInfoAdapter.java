@@ -7,7 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
-import com.jianfanjia.cn.bean.DesignerSiteInfo;
+import com.jianfanjia.cn.bean.Process;
 import com.jianfanjia.cn.bean.User;
 import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.config.Url;
@@ -18,17 +18,17 @@ import com.jianfanjia.cn.config.Url;
  * @date 2015-8-26 ÏÂÎç20:05
  * 
  */
-public class DesignerSiteInfoAdapter extends BaseListAdapter<DesignerSiteInfo> {
+public class DesignerSiteInfoAdapter extends BaseListAdapter<Process> {
 
 	public DesignerSiteInfoAdapter(Context context,
-			List<DesignerSiteInfo> caigouList) {
+			List<Process> caigouList) {
 		super(context, caigouList);
 	}
 
 	@Override
 	public View initView(int position, View convertView) {
 		ViewHolder viewHolder = null;
-		DesignerSiteInfo designerSiteInfo = list.get(position);
+		Process designerSiteInfo = list.get(position);
 		if (convertView == null) {
 			convertView = layoutInflater.inflate(
 					R.layout.list_item_designer_site, null);

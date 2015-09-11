@@ -21,7 +21,7 @@ import com.jianfanjia.cn.activity.OwnerInfoActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.MyOwerInfoAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
-import com.jianfanjia.cn.bean.DesignerSiteInfo;
+import com.jianfanjia.cn.bean.Process;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.tools.JsonParser;
@@ -40,7 +40,7 @@ public class OwnerFragment extends BaseFragment implements OnItemClickListener {
 	private static final String TAG = OwnerFragment.class.getName();
 	private ImageView headView;
 	private ListView ownerListView;
-	private List<DesignerSiteInfo> ownerList = new ArrayList<DesignerSiteInfo>();
+	private List<Process> ownerList = new ArrayList<Process>();
 	private MyOwerInfoAdapter myOwerInfoAdapter = null;
 
 	@Override
@@ -76,7 +76,7 @@ public class OwnerFragment extends BaseFragment implements OnItemClickListener {
 
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
-		DesignerSiteInfo info = ownerList.get(position);
+		Process info = ownerList.get(position);
 		String ownerId = info.get_id();
 		LogTool.d(TAG, "ownerId=" + ownerId);
 		Intent intent = new Intent(getActivity(), OwnerInfoActivity.class);
@@ -104,7 +104,7 @@ public class OwnerFragment extends BaseFragment implements OnItemClickListener {
 										.jsonToList(
 												response.get(Constant.DATA)
 														.toString(),
-												new TypeToken<List<DesignerSiteInfo>>() {
+												new TypeToken<List<Process>>() {
 												}.getType());
 								LogTool.d(TAG, "ownerList:" + ownerList);
 								myOwerInfoAdapter = new MyOwerInfoAdapter(

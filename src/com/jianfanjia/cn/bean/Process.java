@@ -5,12 +5,12 @@ import java.io.Serializable;
 /**
  * 
  * @ClassName: DesignerSiteInfo
- * @Description: 我的工地信息类（设计师）
+ * @Description: 工地基本信息
  * @author zhanghao
  * @date 2015-8-26 下午20:03
  * 
  */
-public class DesignerSiteInfo implements Serializable {
+public class Process implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String _id;// 工地id
@@ -21,11 +21,21 @@ public class DesignerSiteInfo implements Serializable {
 
 	private String cell;// 小区名称
 
-	private String userid;// 设计师id
+	private String userid;// 业主id
 
 	private String going_on;// 所处阶段
+	
+	private String final_designerid;//设计师id
 
 	private User user;
+	
+	public String getFinal_designerid() {
+		return final_designerid;
+	}
+
+	public void setFinal_designerid(String final_designerid) {
+		this.final_designerid = final_designerid;
+	}
 
 	public String getUserid() {
 		return userid;

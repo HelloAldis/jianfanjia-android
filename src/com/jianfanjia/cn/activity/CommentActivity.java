@@ -193,6 +193,7 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
 		DataManager.getInstance().requestProcessInfo();
 	}
 
+	@Override
 	public void update(Observable observable, Object data) {
 		if (DataManager.SUCCESS.equals(data)) {
 			getCommentList();

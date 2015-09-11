@@ -45,6 +45,12 @@
                     android:gravity="center"
                     android:orientation="horizontal" />
 
+                <com.jianfanjia.cn.view.MainHeadView
+                    android:id="@+id/main_head"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <!--
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/space_48"
@@ -73,8 +79,9 @@
                         android:layout_centerVertical="true"
                         android:layout_marginRight="@dimen/space_8"
                         android:text="工地配置"
-                        android:textColor="@color/main_color_black" />
+                        android:textColor="@color/main_color_black" /> 
                 </RelativeLayout>
+                -->
             </FrameLayout>
 
             <com.jianfanjia.cn.view.ProcessViewPager

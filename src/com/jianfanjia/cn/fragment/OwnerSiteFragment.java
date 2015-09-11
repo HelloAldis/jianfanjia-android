@@ -6,7 +6,7 @@ import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.DatePickerDialog;
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.util.Log;
 import android.view.View;
@@ -19,7 +19,6 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
-import com.jianfanjia.cn.cache.CacheManager;
 import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
@@ -27,6 +26,7 @@ import com.jianfanjia.cn.tools.DateFormatTool;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.StringUtils;
+import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.DateWheelDialog;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -59,10 +59,13 @@ public class OwnerSiteFragment extends BaseFragment {
 
 	private RelativeLayout startDateLayout;
 	private RelativeLayout totalDateLayout;
+	
+	private MainHeadView mainHeadView;
 
 	@Override
 	public void initView(View view) {
-		headBackView = (ImageView) view.findViewById(R.id.ower_site_head);
+		initMainHead(view);
+		
 		cityView = (TextView) view.findViewById(R.id.my_site_city);
 		villageNameView = (TextView) view
 				.findViewById(R.id.my_site_villagename);
@@ -93,6 +96,17 @@ public class OwnerSiteFragment extends BaseFragment {
 		} else {
 			initData();
 		}
+	}
+	
+	@SuppressLint("ResourceAsColor") 
+	private void initMainHead(View view) {
+		mainHeadView = (MainHeadView) view.findViewById(R.id.main_head);
+		mainHeadView.setHeadImage(mUserImageId);
+		mainHeadView.setBackListener(this);
+		mainHeadView.setRightTitleVisable(View.GONE);
+		mainHeadView.setMianTitle(getResources().getString(R.string.my_site));
+		mainHeadView.setBackgroundColor(R.color.head_layout_bg);
+		mainHeadView.setDividerVisable(View.VISIBLE);
 	}
 
 	//配置工地信息
@@ -286,7 +300,7 @@ public class OwnerSiteFragment extends BaseFragment {
 			Log.i(TAG, "confirm");
 			postProcessInfo();
 			break;
-		case R.id.ower_site_head:
+		case R.id.icon_head:
 			((MainActivity) getActivity()).getSlidingPaneLayout().openPane();
 			break;
 			

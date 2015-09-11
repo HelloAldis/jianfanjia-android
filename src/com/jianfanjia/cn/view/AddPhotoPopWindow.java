@@ -1,12 +1,10 @@
 package com.jianfanjia.cn.view;
 
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
@@ -14,11 +12,8 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-import android.widget.PopupWindow.OnDismissListener;
-
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
-import com.nostra13.universalimageloader.utils.L;
 
 public class AddPhotoPopWindow extends PopupWindow implements OnClickListener {
 	private PopWindowCallBack callback;
@@ -65,6 +60,7 @@ public class AddPhotoPopWindow extends PopupWindow implements OnClickListener {
 		this.setOnDismissListener(new OnDismissListener() {
 
 			// 在dismiss中恢复透明度
+			@Override
 			public void onDismiss() {
 				lp.alpha = 1f;
 				window.setAttributes(lp);

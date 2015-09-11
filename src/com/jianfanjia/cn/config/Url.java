@@ -50,7 +50,7 @@ public class Url {
 	public static final String GET_DESIGNER_OWNER = HTTPROOT + "designer/user";
 	// 获取设计师的工地列表
 	public static final String GET_DESIGNER_PROCESS = HTTPROOT
-			+ "designer/process/list";
+			+ "/process/list";
 	// 设计师获取我的方案
 	public static final String GET_DESIGNER_PLAN = HTTPROOT + "designer/plan";
 	// 设计师提交方案

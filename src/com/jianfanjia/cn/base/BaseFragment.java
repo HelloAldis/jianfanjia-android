@@ -22,6 +22,7 @@ import com.jianfanjia.cn.inter.manager.ListenerManeger;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.SharedPrefer;
 import com.jianfanjia.cn.tools.UploadManager;
+import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.DialogControl;
 import com.jianfanjia.cn.view.dialog.WaitDialog;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -125,8 +126,7 @@ public abstract class BaseFragment extends Fragment implements OnClickListener,
 
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	protected void makeTextShort(String text) {
@@ -182,6 +182,7 @@ public abstract class BaseFragment extends Fragment implements OnClickListener,
 		return null;
 	}
 
+	@Override
 	public void update(Observable observable, Object data) {
 	}
 

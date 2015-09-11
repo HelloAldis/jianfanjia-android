@@ -58,7 +58,6 @@ public class CommentInfoAdapter extends BaseListAdapter<CommentInfo> {
 		if (commentInfo.getUsertype().equals(Constant.IDENTITY_DESIGNER)) {
 			String designerId = DataManager.getInstance()
 					.getDefaultDesignerId();
-			Log.i("designerId", designerId);
 			viewHolder.itemIdentityView.setText(context
 					.getString(R.string.designer));
 			if (designerId != null) {

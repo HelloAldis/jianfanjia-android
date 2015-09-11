@@ -4,39 +4,29 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Observable;
-import org.apache.http.Header;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.Activity;
-import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
+import android.provider.MediaStore.MediaColumns;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.TextUtils;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.PopupWindow;
-import android.widget.PopupWindow.OnDismissListener;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-
 import com.jianfanjia.cn.activity.CheckActivity;
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
@@ -56,13 +46,16 @@ import com.jianfanjia.cn.interf.GetImageListener;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
 import com.jianfanjia.cn.interf.SwitchFragmentListener;
+import com.jianfanjia.cn.interf.UploadImageListener;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshScrollView;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.tools.PhotoUtils;
 import com.jianfanjia.cn.tools.StringUtils;
 import com.jianfanjia.cn.view.AddPhotoPopWindow;
+import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.DateWheelDialog;
 
 /**
@@ -75,7 +68,7 @@ import com.jianfanjia.cn.view.dialog.DateWheelDialog;
  */
 public class OwnerSiteManageFragment extends BaseFragment implements
 		OnRefreshListener2<ScrollView>, ItemClickCallBack, PopWindowCallBack,
-		GetImageListener {
+		GetImageListener, UploadImageListener {
 	private static final String TAG = OwnerSiteManageFragment.class.getName();
 	private SwitchFragmentListener listener;
 	private LinearLayout layoutAll = null;
@@ -109,6 +102,8 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	private TextView closeCheckNode;// 折叠验收节点名称
 	private TextView openDelay;// 延期按钮
 	private TextView openCheck;// 对比验收按钮
+	
+	private MainHeadView mainHeadView;
 
 	private AddPhotoPopWindow popupWindow;
 
@@ -123,6 +118,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	private String processInfoId = null;
 
 	private Handler handler = new Handler() {
+		@Override
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case CHANGE_PHOTO:
@@ -169,6 +165,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		mPullRefreshScrollView.setMode(Mode.PULL_FROM_START);
 		icon_user_head = (ImageView) view.findViewById(R.id.icon_user_head);
 		head_right_title = (TextView) view.findViewById(R.id.head_right_title);
+		initMainHead(view);
 		initBannerView(view);
 		initScrollLayout(view);
 		initListView(view);
@@ -180,10 +177,26 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		}
 	}
 
+	private void initMainHead(View view) {
+		mainHeadView = (MainHeadView) view.findViewById(R.id.main_head);
+		mainHeadView.setHeadImage(mUserImageId);
+		mainHeadView.setBackListener(this);
+		mainHeadView.setRightTextListener(this);
+		mainHeadView.setRightTitleVisable(View.VISIBLE);
+		if(mUserType.equals(Constant.IDENTITY_OWNER)){
+			mainHeadView.setMianTitle("");
+			mainHeadView.setRightTitle("配置工地");
+		}else if(mUserType.equals(Constant.IDENTITY_DESIGNER)){
+			mainHeadView.setMianTitle("");
+			mainHeadView.setRightTitle("切换工地");
+		}
+	}
+
 	private void initProcessInfo() {
 		processInfo = DataManager.getInstance().getDefaultProcessInfo();
 	}
 
+	@Override
 	public void update(Observable observable, Object data) {
 		mPullRefreshScrollView.onRefreshComplete();
 		if (DataManager.SUCCESS.equals(data)) {
@@ -440,15 +453,15 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 
 	@Override
 	public void setListener() {
-		icon_user_head.setOnClickListener(this);
-		head_right_title.setOnClickListener(this);
+//		icon_user_head.setOnClickListener(this);
+//		head_right_title.setOnClickListener(this);
 		mPullRefreshScrollView.setOnRefreshListener(this);
 	}
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.icon_user_head:
+		case R.id.icon_head:
 			((MainActivity) getActivity()).getSlidingPaneLayout().openPane();
 			break;
 		case R.id.head_right_title:
@@ -487,14 +500,12 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		showPopWindow(getView());
 	}
 
-	private void showPopWindow(View view){
-		if(popupWindow == null){
-			popupWindow = new AddPhotoPopWindow(
-					getActivity(), this);
+	private void showPopWindow(View view) {
+		if (popupWindow == null) {
+			popupWindow = new AddPhotoPopWindow(getActivity(), this);
 		}
 		popupWindow.show(view);
 	}
-
 
 	@Override
 	public void onPullDownToRefresh(PullToRefreshBase<ScrollView> refreshView) {
@@ -532,7 +543,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 				Uri mImageUri = data.getData();
 				LogTool.d(TAG, "mImageUri:" + mImageUri);
 				if (mImageUri != null) {
-
+					startPhotoZoom(mImageUri);
 				}
 			}
 			break;
@@ -541,14 +552,24 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 				Uri uri = data.getData();
 				LogTool.d(TAG, "uri:" + uri);
 				if (null != uri) {
-					String path = getPicture(uri);
-					LogTool.d(TAG, "path:" + path);
-					uploadManager.getImageIdByUpload(path, this);
+					startPhotoZoom(uri);
 				}
 			}
 			break;
 		case Constant.REQUESTCODE__CROP:
-
+			if (data != null) {
+				Bundle extras = data.getExtras();
+				if (extras != null) {
+					// 得到返回来的数据，是bitmap类型的数据
+					Bitmap bitmap = extras.getParcelable("data");
+					LogTool.d(TAG, "avatar - bitmap = " + bitmap);
+					String imgPath = PhotoUtils.savaPicture(bitmap);
+					LogTool.d(TAG, "imgPath=============" + imgPath);
+					if (!TextUtils.isEmpty(imgPath)) {
+						uploadManager.getImageIdByUpload(imgPath, this);
+					}
+				}
+			}
 			break;
 		default:
 			break;
@@ -560,7 +581,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		LogTool.d(TAG, "imageId:" + imageId);
 		if (!TextUtils.isEmpty(imageId)) {
 			uploadManager.submitImgToProgress(processInfo.get_id(),
-					sectionInfo.getName(), processInfoId, imageId);
+					sectionInfo.getName(), processInfoId, imageId, this);
 		}
 	}
 
@@ -568,10 +589,10 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	private String getPicture(Uri uri) {
 		try {
 			ContentResolver resolver = getActivity().getContentResolver();
-			String[] proj = { MediaStore.Images.Media.DATA };
+			String[] proj = { MediaColumns.DATA };
 			Cursor cursor = resolver.query(uri, proj, null, null, null);
 			int column_index = cursor
-					.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+					.getColumnIndexOrThrow(MediaColumns.DATA);
 			cursor.moveToFirst();
 			String path = cursor.getString(column_index);
 			return path;
@@ -579,7 +600,32 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+	}
+
+	@Override
+	public void onFailure() {
+		// TODO Auto-generated method stub
+
+	}
+
+	/**
+	 * 裁剪图片方法实现
+	 * 
+	 * @param uri
+	 */
+	private void startPhotoZoom(Uri uri) {
+		Intent intent = new Intent("com.android.camera.action.CROP");
+		intent.setDataAndType(uri, "image/*");
+		// 下面这个crop=true是设置在开启的Intent中设置显示的VIEW可裁剪
+		intent.putExtra("crop", "true");
+		// aspectX aspectY 是宽高的比例
+		intent.putExtra("aspectX", 1);
+		intent.putExtra("aspectY", 1);
+		// outputX outputY 是裁剪图片宽高
+		intent.putExtra("outputX", 150);
+		intent.putExtra("outputY", 150);
+		intent.putExtra("return-data", true);
+		startActivityForResult(intent, Constant.REQUESTCODE__CROP);
 	}
 
 	@Override

@@ -92,6 +92,7 @@ public class DesignerSiteManageFragment extends BaseFragment implements
 			R.drawable.bg_home_banner4 };
 
 	private Handler handler = new Handler() {
+		@Override
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case CHANGE_PHOTO:
