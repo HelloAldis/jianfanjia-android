@@ -56,7 +56,6 @@ public class OwnerMenuFragment extends BaseFragment implements
 
 	@Override
 	public void onResume() {
-		// TODO Auto-generated method stub
 		super.onResume();
 	}
 

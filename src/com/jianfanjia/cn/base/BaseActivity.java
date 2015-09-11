@@ -23,6 +23,7 @@ import com.jianfanjia.cn.interf.DialogListener;
 import com.jianfanjia.cn.interf.PushMsgReceiveListener;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.SharedPrefer;
+import com.jianfanjia.cn.tools.UploadManager;
 import com.jianfanjia.cn.view.dialog.DialogControl;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.cn.view.dialog.NotifyDialog;
@@ -47,7 +48,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 	protected ImageLoader imageLoader = null;
 	protected DisplayImageOptions options = null;
 	protected ListenerManeger listenerManeger = null;
-
+	protected UploadManager uploadManager = null;
 	private boolean _isVisible;
 	private WaitDialog _waitDialog;
 
@@ -82,6 +83,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 				.cacheOnDisk(true).considerExifParams(true)
 				.bitmapConfig(Bitmap.Config.RGB_565).build();
 		listenerManeger = ListenerManeger.getListenerManeger();
+		uploadManager = UploadManager.getUploadManager(this);
 		_isVisible = true;
 	}
 

@@ -21,6 +21,7 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.inter.manager.ListenerManeger;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.SharedPrefer;
+import com.jianfanjia.cn.tools.UploadManager;
 import com.jianfanjia.cn.view.dialog.DialogControl;
 import com.jianfanjia.cn.view.dialog.WaitDialog;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -42,6 +43,7 @@ public abstract class BaseFragment extends Fragment implements OnClickListener,
 	protected ImageLoader imageLoader = null;
 	protected DisplayImageOptions options = null;
 	protected ListenerManeger listenerManeger = null;
+	protected UploadManager uploadManager = null;
 	protected String mUserName;// 用户名
 	protected String mAccount;// 账号
 	protected String mUserImageId;// 头像
@@ -61,6 +63,7 @@ public abstract class BaseFragment extends Fragment implements OnClickListener,
 				.bitmapConfig(Bitmap.Config.RGB_565).build();
 		shared = new SharedPrefer(getActivity(), Constant.SHARED_MAIN);
 		listenerManeger = ListenerManeger.getListenerManeger();
+		uploadManager = UploadManager.getUploadManager(getActivity());
 	}
 
 	@Override
