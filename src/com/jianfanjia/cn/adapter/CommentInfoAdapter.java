@@ -8,7 +8,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.CommentInfo;
-import com.jianfanjia.cn.bean.DesignerInfo;
 import com.jianfanjia.cn.bean.UserByDesignerInfo;
 import com.jianfanjia.cn.bean.UserByOwnerInfo;
 import com.jianfanjia.cn.cache.DataManager;
@@ -90,10 +89,10 @@ public class CommentInfoAdapter extends BaseListAdapter<CommentInfo> {
 									.getString(R.string.ower) : ownerInfo
 									.getUsername());
 					String imageId = ownerInfo.getImageId();
-					ImageLoader.getInstance().displayImage(
+					imageLoader.displayImage(
 							imageId == null ? Constant.DEFALUT_OWNER_PIC
 									: (Url.GET_IMAGE + imageId),
-							viewHolder.itemHeadView);
+							viewHolder.itemHeadView, options);
 				}
 			}
 

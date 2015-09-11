@@ -56,9 +56,9 @@ public class DesignerSiteInfoAdapter extends BaseListAdapter<DesignerSiteInfo> {
 				.getStringById(designerSiteInfo.getGoing_on()));
 		// viewHolder.itemCurrentView 还没判断
 		// viewHolder.itemCurrentView.setText("当前工地");
-		if(DataManager.getInstance().getDefaultPro() == position){
+		if (DataManager.getInstance().getDefaultPro() == position) {
 			viewHolder.itemCurrentView.setVisibility(View.VISIBLE);
-		}else{
+		} else {
 			viewHolder.itemCurrentView.setVisibility(View.GONE);
 		}
 		viewHolder.itemVillageView.setText(designerSiteInfo.getCell());
