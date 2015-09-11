@@ -125,10 +125,8 @@ public class DataManager extends Observable {
 								ownerInfo = JsonParser.jsonToBean(
 										response.get(Constant.DATA).toString(),
 										UserByOwnerInfo.class);
-
 								sharedPrefer.setValue(Constant.OWNER_INFO,
 										ownerInfo);
-
 								setChanged();
 								notifyObservers(SUCCESS);
 							} else if (response.has(Constant.ERROR_MSG)) {
@@ -169,7 +167,6 @@ public class DataManager extends Observable {
 	}
 
 	private void getDesignerInfoById(String designerId) {
-
 		JianFanJiaApiClient.getDesignerInfoById(context, designerId,
 				new JsonHttpResponseHandler() {
 					@Override
