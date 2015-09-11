@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Observable;
-
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -27,7 +26,6 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-
 import com.jianfanjia.cn.activity.CheckActivity;
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
@@ -43,7 +41,6 @@ import com.jianfanjia.cn.bean.SectionItemInfo;
 import com.jianfanjia.cn.bean.ViewPagerItem;
 import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.interf.GetImageListener;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
 import com.jianfanjia.cn.interf.SwitchFragmentListener;
@@ -58,6 +55,7 @@ import com.jianfanjia.cn.tools.StringUtils;
 import com.jianfanjia.cn.view.AddPhotoPopWindow;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.DateWheelDialog;
+
 //github.com/adminJyz/jianfanjia-android.git
 
 /**
@@ -70,7 +68,7 @@ import com.jianfanjia.cn.view.dialog.DateWheelDialog;
  */
 public class OwnerSiteManageFragment extends BaseFragment implements
 		OnRefreshListener2<ScrollView>, ItemClickCallBack, PopWindowCallBack,
-		GetImageListener, UploadImageListener {
+		UploadImageListener {
 	private static final String TAG = OwnerSiteManageFragment.class.getName();
 	private SwitchFragmentListener listener;
 	private LinearLayout layoutAll = null;
@@ -104,7 +102,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	private TextView closeCheckNode;// 折叠验收节点名称
 	private TextView openDelay;// 延期按钮
 	private TextView openCheck;// 对比验收按钮
-	
+
 	private MainHeadView mainHeadView;
 
 	private AddPhotoPopWindow popupWindow;
@@ -185,10 +183,10 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		mainHeadView.setBackListener(this);
 		mainHeadView.setRightTextListener(this);
 		mainHeadView.setRightTitleVisable(View.VISIBLE);
-		if(mUserType.equals(Constant.IDENTITY_OWNER)){
+		if (mUserType.equals(Constant.IDENTITY_OWNER)) {
 			mainHeadView.setMianTitle("");
 			mainHeadView.setRightTitle("配置工地");
-		}else if(mUserType.equals(Constant.IDENTITY_DESIGNER)){
+		} else if (mUserType.equals(Constant.IDENTITY_DESIGNER)) {
 			mainHeadView.setMianTitle("");
 			mainHeadView.setRightTitle("切换工地");
 		}
@@ -455,8 +453,8 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 
 	@Override
 	public void setListener() {
-//		icon_user_head.setOnClickListener(this);
-//		head_right_title.setOnClickListener(this);
+		// icon_user_head.setOnClickListener(this);
+		// head_right_title.setOnClickListener(this);
 		mPullRefreshScrollView.setOnRefreshListener(this);
 	}
 
@@ -568,7 +566,9 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 					String imgPath = PhotoUtils.savaPicture(bitmap);
 					LogTool.d(TAG, "imgPath=============" + imgPath);
 					if (!TextUtils.isEmpty(imgPath)) {
-						uploadManager.getImageIdByUpload(imgPath, this);
+						uploadManager.uploadProcedureImage(imgPath,
+								processInfo.get_id(), sectionInfo.getName(),
+								processInfoId, this);
 					}
 				}
 			}
@@ -579,16 +579,8 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	}
 
 	@Override
-	public void getImageId(String imageId) {
-		LogTool.d(TAG, "imageId:" + imageId);
-		if (!TextUtils.isEmpty(imageId)) {
-			uploadManager.submitImgToProgress(processInfo.get_id(),
-					sectionInfo.getName(), processInfoId, imageId, this);
-		}
-	}
-
-	@Override
 	public void onSuccess(String msg) {
+		LogTool.d(TAG, "msg===========" + msg);
 		if ("success".equals(msg)) {
 			LogTool.d(TAG, "--------------------------------------------------");
 		}
@@ -596,8 +588,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 
 	@Override
 	public void onFailure() {
-		// TODO Auto-generated method stub
-
+		LogTool.d(TAG, "==============================================");
 	}
 
 	/**
