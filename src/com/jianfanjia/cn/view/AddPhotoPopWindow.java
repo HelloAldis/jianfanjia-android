@@ -1,15 +1,24 @@
 package com.jianfanjia.cn.view;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.PopupWindow.OnDismissListener;
+
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
+import com.nostra13.universalimageloader.utils.L;
 
 public class AddPhotoPopWindow extends PopupWindow implements OnClickListener {
 	private PopWindowCallBack callback;
@@ -18,11 +27,15 @@ public class AddPhotoPopWindow extends PopupWindow implements OnClickListener {
 	private Button cancel;
 	private LayoutInflater inflater;
 	private View menuView;
+	private LinearLayout buttonLayout;
+	private Activity activity;
+	private WindowManager.LayoutParams lp;
+	private Window window;
 
-	public AddPhotoPopWindow(Context context, PopWindowCallBack callback) {
-		super(context);
+	public AddPhotoPopWindow(Activity activity, PopWindowCallBack callback) {
+		super(activity);
 		this.callback = callback;
-		inflater = LayoutInflater.from(context);
+		inflater = LayoutInflater.from(activity);
 		menuView = inflater.inflate(R.layout.popwin_dialog, null);
 		open_camera = (Button) menuView.findViewById(R.id.btn_open_camera);
 		open_album = (Button) menuView.findViewById(R.id.btn_open_album);
@@ -41,9 +54,33 @@ public class AddPhotoPopWindow extends PopupWindow implements OnClickListener {
 		// 设置SelectPicPopupWindow弹出窗体动画效果
 		this.setAnimationStyle(R.style.popub_anim);
 		// 实例化一个ColorDrawable颜色为半透明
-		ColorDrawable dw = new ColorDrawable(0xb0000000);
+		ColorDrawable dw = new ColorDrawable(0x80000000);
 		// 设置SelectPicPopupWindow弹出窗体的背景
 		this.setBackgroundDrawable(dw);
+		// 产生背景变暗效果
+		lp = activity.getWindow().getAttributes();
+		window = activity.getWindow();
+		this.setOutsideTouchable(true);
+		this.setFocusable(true);
+		this.setOnDismissListener(new OnDismissListener() {
+
+			// 在dismiss中恢复透明度
+			public void onDismiss() {
+				lp.alpha = 1f;
+				window.setAttributes(lp);
+			}
+		});
+	}
+	
+	//设置半透明
+	private void setShade(){
+		lp.alpha = 0.4f;
+		window.setAttributes(lp);
+	}
+
+	public void show(View view) {
+		setShade();
+		showAtLocation(view, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
 	}
 
 	@Override

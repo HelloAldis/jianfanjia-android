@@ -20,7 +20,6 @@ import android.provider.MediaStore;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.TextUtils;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -103,6 +102,8 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	private TextView closeCheckNode;// 折叠验收节点名称
 	private TextView openDelay;// 延期按钮
 	private TextView openCheck;// 对比验收按钮
+
+	private AddPhotoPopWindow popupWindow;
 
 	private boolean isOpen = false;
 
@@ -476,10 +477,14 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 
 	@Override
 	public void click(int position) {
-		AddPhotoPopWindow addPhotoPopWindow = new AddPhotoPopWindow(
-				getActivity(), this);
-		addPhotoPopWindow.showAtLocation(layoutAll, Gravity.BOTTOM
-				| Gravity.CENTER_HORIZONTAL, 0, 0);
+		showPopWindow(getView());
+	}
+
+	private void showPopWindow(View view) {
+		if (popupWindow == null) {
+			popupWindow = new AddPhotoPopWindow(getActivity(), this);
+		}
+		popupWindow.show(view);
 	}
 
 	@Override
