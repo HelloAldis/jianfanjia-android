@@ -40,7 +40,6 @@ import com.loopj.android.http.JsonHttpResponseHandler;
  */
 public class OwnerFragment extends BaseFragment implements OnItemClickListener {
 	private static final String TAG = OwnerFragment.class.getName();
-	private ImageView headView;
 	private ListView ownerListView;
 	private List<Process> ownerList = new ArrayList<Process>();
 	private MyOwerInfoAdapter myOwerInfoAdapter = null;
@@ -72,7 +71,6 @@ public class OwnerFragment extends BaseFragment implements OnItemClickListener {
 
 	@Override
 	public void setListener() {
-		headView.setOnClickListener(this);
 		ownerListView.setOnItemClickListener(this);
 	}
 

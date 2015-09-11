@@ -32,7 +32,6 @@ import com.jianfanjia.cn.view.MainHeadView;
 public class DesignerSiteFragment extends BaseFragment implements
 		OnItemClickListener {
 	private static final String TAG = DesignerSiteFragment.class.getName();
-	private ImageView headView;
 	private ListView siteListView;
 	private List<Process> siteList;
 	private DesignerSiteInfoAdapter designerSiteInfoAdapter = null;
@@ -84,7 +83,6 @@ public class DesignerSiteFragment extends BaseFragment implements
 
 	@Override
 	public void setListener() {
-		headView.setOnClickListener(this);
 		siteListView.setOnItemClickListener(this);
 	}
 
