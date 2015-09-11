@@ -191,7 +191,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	}
 
 	private void initProcessInfo() {
-		processInfo = DataManager.getInstance().getDefaultProcessInfo();
+		processInfo = dataManager.getDefaultProcessInfo();
 	}
 
 	@Override
@@ -399,9 +399,6 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 						}
 					}
 				} else {
-					// µã»÷listview itemÏî
-					// sectionItemAdapter.setLastClickItem(position - 1);
-					// sectionItemAdapter.notifyDataSetChanged();
 					SectionItemInfo sectionItemInfo = sectionItemInfos
 							.get(position - 1);
 					processInfoId = sectionItemInfo.getName();

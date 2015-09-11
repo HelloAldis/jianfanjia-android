@@ -2,9 +2,6 @@ package com.jianfanjia.cn.activity;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.http.Header;
-import org.json.JSONException;
-import org.json.JSONObject;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -16,10 +13,8 @@ import com.jianfanjia.cn.adapter.MyGridViewAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.GridItem;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.interf.UploadListener;
 import com.jianfanjia.cn.tools.LogTool;
-import com.loopj.android.http.JsonHttpResponseHandler;
 
 /**
  * 
@@ -86,7 +81,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 			finish();
 			break;
 		case R.id.btn_confirm_check:
-			upload(Constant.COMMON_PATH + "myqr.jpg");// ≤‚ ‘
+
 			break;
 		default:
 			break;
@@ -97,78 +92,6 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 	public void onUpload(int position) {
 		LogTool.d(TAG, "position:" + position);
 
-	}
-
-	private void upload(String imgPath) {
-		JianFanJiaApiClient.uploadImage(CheckActivity.this, imgPath,
-				new JsonHttpResponseHandler() {
-					@Override
-					public void onStart() {
-						LogTool.d(TAG, "onStart()");
-					}
-
-					@Override
-					public void onSuccess(int statusCode, Header[] headers,
-							JSONObject response) {
-						LogTool.d(TAG, "JSONObject response:" + response);
-						try {
-							if (response.has(Constant.DATA)) {
-								JSONObject obj = new JSONObject(response
-										.toString());
-								String imageid = obj.getString("data");
-								LogTool.d(TAG, "imageid:" + imageid);
-								submitImageToProgress(imageid);
-							} else if (response.has(Constant.ERROR_MSG)) {
-
-							}
-						} catch (JSONException e) {
-							e.printStackTrace();
-						}
-					}
-
-					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							Throwable throwable, JSONObject errorResponse) {
-						LogTool.d(TAG, "Throwable throwable:" + throwable);
-					}
-
-					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							String responseString, Throwable throwable) {
-						LogTool.d(TAG, "statusCode:" + statusCode
-								+ " throwable:" + throwable);
-					};
-				});
-	}
-
-	private void submitImageToProgress(String imageid) {
-		JianFanJiaApiClient.submitImageToProcess(CheckActivity.this,
-				"55e3b1c0765e1e1f20c4fc15", "kai_gong", "xcjd", imageid,
-				new JsonHttpResponseHandler() {
-					@Override
-					public void onStart() {
-						LogTool.d(TAG, "onStart()");
-					}
-
-					@Override
-					public void onSuccess(int statusCode, Header[] headers,
-							JSONObject response) {
-						LogTool.d(TAG, "JSONObject response:" + response);
-					}
-
-					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							Throwable throwable, JSONObject errorResponse) {
-						LogTool.d(TAG, "Throwable throwable:" + throwable);
-					}
-
-					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							String responseString, Throwable throwable) {
-						LogTool.d(TAG, "statusCode:" + statusCode
-								+ " throwable:" + throwable);
-					};
-				});
 	}
 
 	@Override
