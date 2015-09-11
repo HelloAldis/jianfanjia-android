@@ -16,6 +16,7 @@ import android.provider.MediaStore;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -45,10 +46,12 @@ import com.jianfanjia.cn.interf.ItemClickCallBack;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
 import com.jianfanjia.cn.interf.SwitchFragmentListener;
 import com.jianfanjia.cn.interf.UploadImageListener;
+import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshScrollView;
+import com.jianfanjia.cn.tools.DateFormatTool;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.PhotoUtils;
 import com.jianfanjia.cn.tools.StringUtils;
@@ -327,7 +330,15 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 			viewPagerItem.setTitle(proTitle[i]);
 			list.add(viewPagerItem);
 		}
-		myViewPageAdapter = new MyViewPageAdapter(getActivity(), list);
+		myViewPageAdapter = new MyViewPageAdapter(getActivity(), list,
+				new ViewPagerClickListener() {
+
+					@Override
+					public void onClickItem(int potition) {
+						Log.i(TAG, "potition------->" + potition);
+					}
+
+				});
 		infinitePagerAdapter = new InfinitePagerAdapter(myViewPageAdapter);
 		processViewPager.setAdapter(infinitePagerAdapter);
 		processViewPager.setOnPageChangeListener(new OnPageChangeListener() {
@@ -364,18 +375,25 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	}
 
 	private void setScrollHeadTime() {
-		/*
-		 * if (sectionInfos != null) { for (int i = 0; i < proTitle.length; i++)
-		 * { ViewPagerItem viewPagerItem = list.get(i); Log.i(TAG,
-		 * DateFormatTool.covertLongToString(sectionInfos.get(i).getStart_at(),
-		 * "M.dd") + "-" + DateFormatTool.covertLongToString(sectionInfos.get(i)
-		 * .getEnd_at(), "M.dd"));
-		 * viewPagerItem.setDate(DateFormatTool.covertLongToString(
-		 * sectionInfos.get(i).getStart_at(), "M.dd") + "-" +
-		 * DateFormatTool.covertLongToString(sectionInfos.get(i) .getEnd_at(),
-		 * "M.dd")); } myViewPageAdapter.notifyDataSetChanged();
-		 * infinitePagerAdapter.notifyDataSetChanged(); }
-		 */
+		if (sectionInfos != null) {
+			for (int i = 0; i < proTitle.length; i++) {
+				ViewPagerItem viewPagerItem = list.get(i);
+				Log.i(TAG,
+						DateFormatTool.covertLongToString(sectionInfos.get(i)
+								.getStart_at(), "M.dd")
+								+ "-"
+								+ DateFormatTool
+										.covertLongToString(sectionInfos.get(i)
+												.getEnd_at(), "M.dd"));
+				viewPagerItem.setDate(DateFormatTool.covertLongToString(
+						sectionInfos.get(i).getStart_at(), "M.dd")
+						+ "-"
+						+ DateFormatTool.covertLongToString(sectionInfos.get(i)
+								.getEnd_at(), "M.dd"));
+			}
+			myViewPageAdapter.notifyDataSetChanged();
+			infinitePagerAdapter.notifyDataSetChanged();
+		}
 	}
 
 	private void initListView(View view) {
@@ -402,9 +420,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 					SectionItemInfo sectionItemInfo = sectionItemInfos
 							.get(position - 1);
 					processInfoId = sectionItemInfo.getName();
-					LogTool.d(TAG,
-							"=============================================="
-									+ sectionItemInfo.getName());
+					LogTool.d(TAG, "processInfoId===" + processInfoId);
 					if (isOpen) {
 						isOpen = false;
 					} else {
