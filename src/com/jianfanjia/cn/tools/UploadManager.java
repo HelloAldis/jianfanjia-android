@@ -27,7 +27,7 @@ public class UploadManager {
 	}
 
 	/**
-	 * 用户上传图片
+	 * 用户上传图片获取imageid
 	 * 
 	 * @param imagePath
 	 */
