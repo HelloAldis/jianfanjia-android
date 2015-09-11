@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Observable;
-import org.apache.http.Header;
-import org.json.JSONException;
-import org.json.JSONObject;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
@@ -19,6 +16,7 @@ import android.os.Message;
 import android.provider.MediaStore;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +43,7 @@ import com.jianfanjia.cn.bean.SectionItemInfo;
 import com.jianfanjia.cn.bean.ViewPagerItem;
 import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.http.JianFanJiaApiClient;
+import com.jianfanjia.cn.interf.GetImageListener;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
 import com.jianfanjia.cn.interf.SwitchFragmentListener;
@@ -57,7 +55,6 @@ import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.StringUtils;
 import com.jianfanjia.cn.view.AddPhotoPopWindow;
 import com.jianfanjia.cn.view.dialog.DateWheelDialog;
-import com.loopj.android.http.JsonHttpResponseHandler;
 
 /**
  * 
@@ -68,7 +65,8 @@ import com.loopj.android.http.JsonHttpResponseHandler;
  * 
  */
 public class OwnerSiteManageFragment extends BaseFragment implements
-		OnRefreshListener2<ScrollView>, ItemClickCallBack, PopWindowCallBack {
+		OnRefreshListener2<ScrollView>, ItemClickCallBack, PopWindowCallBack,
+		GetImageListener {
 	private static final String TAG = OwnerSiteManageFragment.class.getName();
 	private SwitchFragmentListener listener;
 	private LinearLayout layoutAll = null;
@@ -528,7 +526,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 				if (null != uri) {
 					String path = getPicture(uri);
 					LogTool.d(TAG, "path:" + path);
-					upload(path);//
+					uploadManager.getImageIdByUpload(path, this);
 				}
 			}
 			break;
@@ -537,6 +535,15 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 			break;
 		default:
 			break;
+		}
+	}
+
+	@Override
+	public void getImageId(String imageId) {
+		LogTool.d(TAG, "imageId:" + imageId);
+		if (!TextUtils.isEmpty(imageId)) {
+			uploadManager.submitImgToProgress(processInfo.get_id(),
+					sectionInfo.getName(), processInfoId, imageId);
 		}
 	}
 
@@ -556,83 +563,6 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 			e.printStackTrace();
 		}
 		return null;
-	}
-
-	private void upload(String imgPath) {
-		JianFanJiaApiClient.uploadImage(getActivity(), imgPath,
-				new JsonHttpResponseHandler() {
-					@Override
-					public void onStart() {
-						LogTool.d(TAG, "onStart()");
-					}
-
-					@Override
-					public void onSuccess(int statusCode, Header[] headers,
-							JSONObject response) {
-						LogTool.d(TAG, "JSONObject response:" + response);
-						try {
-							if (response.has(Constant.DATA)) {
-								JSONObject obj = new JSONObject(response
-										.toString());
-								String imageid = obj.getString("data");
-								LogTool.d(TAG, "imageid:" + imageid);
-								submitImageToProgress(processInfo.get_id(),
-										sectionInfo.getName(), processInfoId,
-										imageid);
-							} else if (response.has(Constant.ERROR_MSG)) {
-
-							}
-						} catch (JSONException e) {
-							e.printStackTrace();
-						}
-					}
-
-					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							Throwable throwable, JSONObject errorResponse) {
-						LogTool.d(TAG, "Throwable throwable:" + throwable);
-					}
-
-					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							String responseString, Throwable throwable) {
-						LogTool.d(TAG, "statusCode:" + statusCode
-								+ " throwable:" + throwable);
-					};
-				});
-	}
-
-	private void submitImageToProgress(String siteId, String processId,
-			String processInfoId, String imageid) {
-		LogTool.d(TAG, "siteId:" + siteId + " processId:" + processId
-				+ " processInfoId:" + processInfoId + " imageid:" + imageid);
-		JianFanJiaApiClient.submitImageToProcess(getActivity(), siteId,
-				processId, processInfoId, imageid,
-				new JsonHttpResponseHandler() {
-					@Override
-					public void onStart() {
-						LogTool.d(TAG, "onStart()");
-					}
-
-					@Override
-					public void onSuccess(int statusCode, Header[] headers,
-							JSONObject response) {
-						LogTool.d(TAG, "JSONObject response:" + response);
-					}
-
-					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							Throwable throwable, JSONObject errorResponse) {
-						LogTool.d(TAG, "Throwable throwable:" + throwable);
-					}
-
-					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							String responseString, Throwable throwable) {
-						LogTool.d(TAG, "statusCode:" + statusCode
-								+ " throwable:" + throwable);
-					};
-				});
 	}
 
 	@Override
