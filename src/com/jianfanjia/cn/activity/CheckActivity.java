@@ -209,4 +209,15 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 		startActivityForResult(intent, Constant.REQUESTCODE__CROP);
 	}
 
+	/**
+	 * 根据工序名获取验收图片
+	 * 
+	 * @param sectionId
+	 * @return
+	 */
+	private List<GridItem> getCheckedImageById(String sectionId) {
+		List<GridItem> gridList = new ArrayList<GridItem>();
+		return gridList;
+
+	}
 }
