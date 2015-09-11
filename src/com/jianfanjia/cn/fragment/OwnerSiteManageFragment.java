@@ -1,9 +1,5 @@
 package com.jianfanjia.cn.fragment;
 
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -49,11 +45,13 @@ import com.jianfanjia.cn.interf.GetImageListener;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
 import com.jianfanjia.cn.interf.SwitchFragmentListener;
+import com.jianfanjia.cn.interf.UploadImageListener;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshScrollView;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.tools.PhotoUtils;
 import com.jianfanjia.cn.tools.StringUtils;
 import com.jianfanjia.cn.view.AddPhotoPopWindow;
 import com.jianfanjia.cn.view.dialog.DateWheelDialog;
@@ -68,7 +66,7 @@ import com.jianfanjia.cn.view.dialog.DateWheelDialog;
  */
 public class OwnerSiteManageFragment extends BaseFragment implements
 		OnRefreshListener2<ScrollView>, ItemClickCallBack, PopWindowCallBack,
-		GetImageListener {
+		GetImageListener, UploadImageListener {
 	private static final String TAG = OwnerSiteManageFragment.class.getName();
 	private SwitchFragmentListener listener;
 	private LinearLayout layoutAll = null;
@@ -543,7 +541,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 					// 得到返回来的数据，是bitmap类型的数据
 					Bitmap bitmap = extras.getParcelable("data");
 					LogTool.d(TAG, "avatar - bitmap = " + bitmap);
-					String imgPath = savaPicture(bitmap);
+					String imgPath = PhotoUtils.savaPicture(bitmap);
 					LogTool.d(TAG, "imgPath=============" + imgPath);
 					if (!TextUtils.isEmpty(imgPath)) {
 						uploadManager.getImageIdByUpload(imgPath, this);
@@ -561,61 +559,21 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		LogTool.d(TAG, "imageId:" + imageId);
 		if (!TextUtils.isEmpty(imageId)) {
 			uploadManager.submitImgToProgress(processInfo.get_id(),
-					sectionInfo.getName(), processInfoId, imageId);
+					sectionInfo.getName(), processInfoId, imageId, this);
 		}
 	}
 
-	private String savaPicture(Bitmap bitmap) {
-		String pictureDir = null;
-		FileOutputStream fos = null;
-		BufferedOutputStream bos = null;
-		ByteArrayOutputStream baos = null;
-		try {
-			baos = new ByteArrayOutputStream();
-			bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-			byte[] byteArray = baos.toByteArray();
-			File dir = new File(Constant.IMAG_PATH);
-			if (!dir.exists()) {
-				dir.mkdirs();
-			}
-			File file = new File(Constant.IMAG_PATH, System.currentTimeMillis()
-					+ ".jpg");
-			file.delete();
-			if (!file.exists()) {
-				file.createNewFile();
-			}
-			fos = new FileOutputStream(file);
-			bos = new BufferedOutputStream(fos);
-			bos.write(byteArray);
-			pictureDir = file.getPath();
-			LogTool.d(this.getClass().getName(), "pictureDir:" + pictureDir);
-			return pictureDir;
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			if (baos != null) {
-				try {
-					baos.close();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-			if (bos != null) {
-				try {
-					bos.close();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-			if (fos != null) {
-				try {
-					fos.close();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
+	@Override
+	public void onSuccess(String msg) {
+		if ("success".equals(msg)) {
+			LogTool.d(TAG, "--------------------------------------------------");
 		}
-		return pictureDir;
+	}
+
+	@Override
+	public void onFailure() {
+		// TODO Auto-generated method stub
+
 	}
 
 	/**
