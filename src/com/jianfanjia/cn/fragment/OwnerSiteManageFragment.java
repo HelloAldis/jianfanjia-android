@@ -324,6 +324,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 					"icon_home_normal" + (i + 1), "drawable",
 					MyApplication.getInstance().getPackageName()));
 			viewPagerItem.setTitle(proTitle[i]);
+			viewPagerItem.setDate("");
 			list.add(viewPagerItem);
 		}
 		myViewPageAdapter = new MyViewPageAdapter(getActivity(), list,
