@@ -29,7 +29,6 @@ import com.loopj.android.http.JsonHttpResponseHandler;
  */
 public class UserByDesignerInfoActivity extends BaseActivity implements
 		OnClickListener {
-
 	private static final String TAG = UserByDesignerInfoActivity.class
 			.getName();
 	private TextView ownerinfo_back = null;
