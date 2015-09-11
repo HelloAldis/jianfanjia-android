@@ -72,7 +72,7 @@ public class CommentInfoAdapter extends BaseListAdapter<CommentInfo> {
 					ImageLoader.getInstance().displayImage(
 							imageId == null ? Constant.DEFALUT_DESIGNER_PIC
 									: (Url.GET_IMAGE + imageId),
-							viewHolder.itemHeadView);
+							viewHolder.itemHeadView, options);
 				}
 			}
 		} else {

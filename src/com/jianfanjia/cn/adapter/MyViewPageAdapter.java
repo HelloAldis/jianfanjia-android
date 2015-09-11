@@ -6,19 +6,29 @@ import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.ViewPagerItem;
+import com.jianfanjia.cn.interf.ViewPagerClickListener;
 
 public class MyViewPageAdapter extends PagerAdapter {
 	private static final String TAG = "MyViewPageAdapter";
 	private Context context;
 	private List<ViewPagerItem> list;
+	private ViewPagerClickListener itemClickListener;
 
 	public MyViewPageAdapter(Context context, List<ViewPagerItem> list) {
 		this.context = context;
 		this.list = list;
+	}
+
+	public MyViewPageAdapter(Context context, List<ViewPagerItem> list,
+			ViewPagerClickListener itemClickListener) {
+		this.context = context;
+		this.list = list;
+		this.itemClickListener = itemClickListener;
 	}
 
 	@Override
@@ -50,6 +60,13 @@ public class MyViewPageAdapter extends PagerAdapter {
 		titleView.setText(list.get(position).getTitle());
 		dateView.setText(list.get(position).getDate());
 		container.addView(view, 0);
+		view.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				itemClickListener.onClickItem(position);
+			}
+		});
 		return view;
 	}
 

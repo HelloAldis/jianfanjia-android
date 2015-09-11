@@ -405,7 +405,7 @@ public class DataManager extends Observable {
 									// 默认的工地大于当前获取的工地数，重设工地
 									if (getDefaultPro() > processReflects
 											.size() - 1) {
-										setDefaultPro(0);
+											setDefaultPro(0);
 									}
 									// 如果有工地，加载默认的工地
 									if (processReflects.size() > 0) {

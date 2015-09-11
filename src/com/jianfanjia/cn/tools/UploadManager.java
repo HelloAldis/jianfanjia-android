@@ -6,7 +6,6 @@ import org.json.JSONObject;
 import android.content.Context;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
-import com.jianfanjia.cn.interf.GetImageListener;
 import com.jianfanjia.cn.interf.UploadImageListener;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -27,12 +26,17 @@ public class UploadManager {
 	}
 
 	/**
-	 * 用户上传图片获取imageid
+	 * 用户上传图片到装修流程
 	 * 
 	 * @param imagePath
+	 * @param siteId
+	 * @param processId
+	 * @param processInfoId
+	 * @param uploadImageListener
 	 */
-	public void getImageIdByUpload(String imagePath,
-			final GetImageListener getImageListener) {
+	public void uploadProcedureImage(String imagePath, final String siteId,
+			final String processId, final String processInfoId,
+			final UploadImageListener uploadImageListener) {
 		JianFanJiaApiClient.uploadImage(context, imagePath,
 				new JsonHttpResponseHandler() {
 					@Override
@@ -50,7 +54,11 @@ public class UploadManager {
 										.toString());
 								String imageid = obj.getString("data");
 								LogTool.d(TAG, "imageid:" + imageid);
-								getImageListener.getImageId(imageid);
+								if (null != imageid) {
+									submitImgToProgress(siteId, processId,
+											processInfoId, imageid,
+											uploadImageListener);
+								}
 							} else if (response.has(Constant.ERROR_MSG)) {
 
 							}
@@ -75,13 +83,61 @@ public class UploadManager {
 	}
 
 	/**
-	 * 用户上传图片到装修流程
+	 * 设计师提交验收图片
 	 * 
+	 * @param imagePath
 	 * @param siteId
 	 * @param processId
-	 * @param processInfoId
-	 * @param imageid
+	 * @param key
+	 * @param uploadImageListener
 	 */
+	public void uploadCheckImage(String imagePath, final String siteId,
+			final String processId, final String key,
+			final UploadImageListener uploadImageListener) {
+		JianFanJiaApiClient.uploadImage(context, imagePath,
+				new JsonHttpResponseHandler() {
+					@Override
+					public void onStart() {
+						LogTool.d(TAG, "onStart()");
+					}
+
+					@Override
+					public void onSuccess(int statusCode, Header[] headers,
+							JSONObject response) {
+						LogTool.d(TAG, "JSONObject response:" + response);
+						try {
+							if (response.has(Constant.DATA)) {
+								JSONObject obj = new JSONObject(response
+										.toString());
+								String imageid = obj.getString("data");
+								LogTool.d(TAG, "imageid:" + imageid);
+								if (null != imageid) {
+									submitCheckedImg(siteId, processId, key,
+											imageid, uploadImageListener);
+								}
+							} else if (response.has(Constant.ERROR_MSG)) {
+
+							}
+						} catch (JSONException e) {
+							e.printStackTrace();
+						}
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							Throwable throwable, JSONObject errorResponse) {
+						LogTool.d(TAG, "Throwable throwable:" + throwable);
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							String responseString, Throwable throwable) {
+						LogTool.d(TAG, "statusCode:" + statusCode
+								+ " throwable:" + throwable);
+					};
+				});
+	}
+
 	public void submitImgToProgress(String siteId, String processId,
 			String processInfoId, String imageid,
 			final UploadImageListener uploadImageListener) {
@@ -99,10 +155,11 @@ public class UploadManager {
 							JSONObject response) {
 						LogTool.d(TAG, "JSONObject response:" + response);
 						try {
-							if (response.has(Constant.DATA)) {
+							if (response.has(Constant.SUCCESS_MSG)) {
 								JSONObject obj = new JSONObject(response
 										.toString());
-								String msg = obj.getString(Constant.DATA);
+								String msg = obj
+										.getString(Constant.SUCCESS_MSG);
 								LogTool.d(TAG, "msg:" + msg);
 								uploadImageListener.onSuccess(msg);
 							} else if (response.has(Constant.ERROR_MSG)) {
@@ -130,14 +187,6 @@ public class UploadManager {
 				});
 	}
 
-	/**
-	 * 设计师提交验收图片
-	 * 
-	 * @param siteId
-	 * @param processId
-	 * @param key
-	 * @param imageid
-	 */
 	public void submitCheckedImg(String siteId, String processId, String key,
 			String imageId, final UploadImageListener uploadImageListener) {
 		JianFanJiaApiClient.submitYanShouImage(context, siteId, processId, key,

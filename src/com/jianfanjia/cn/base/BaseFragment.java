@@ -22,7 +22,6 @@ import com.jianfanjia.cn.inter.manager.ListenerManeger;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.SharedPrefer;
 import com.jianfanjia.cn.tools.UploadManager;
-import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.DialogControl;
 import com.jianfanjia.cn.view.dialog.WaitDialog;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -38,6 +37,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 public abstract class BaseFragment extends Fragment implements OnClickListener,
 		Observer {
 	protected FragmentManager fragmentManager = null;
+	protected DataManager dataManager = null;
 	protected LocalBroadcastManager localBroadcastManager = null;
 	protected LayoutInflater inflater = null;
 	protected SharedPrefer shared = null;
@@ -55,6 +55,7 @@ public abstract class BaseFragment extends Fragment implements OnClickListener,
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		LogTool.d(this.getClass().getName(), "onCreate");
+		dataManager = DataManager.getInstance();
 		imageLoader = ImageLoader.getInstance();
 		options = new DisplayImageOptions.Builder()
 				.showImageOnLoading(R.drawable.pix_default)
@@ -126,7 +127,7 @@ public abstract class BaseFragment extends Fragment implements OnClickListener,
 
 	@Override
 	public void onClick(View v) {
-		
+
 	}
 
 	protected void makeTextShort(String text) {

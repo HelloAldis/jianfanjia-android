@@ -589,7 +589,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		LogTool.d(TAG, "msg===========" + msg);
 		if ("success".equals(msg)) {
 			LogTool.d(TAG, "--------------------------------------------------");
-			dataManager.requestProcessInfo();
+			dataManager.getProcessList();
 		}
 	}
 
