@@ -19,7 +19,6 @@ import android.os.Message;
 import android.provider.MediaStore;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,7 +53,6 @@ import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshScrollView;
-import com.jianfanjia.cn.tools.DateFormatTool;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.StringUtils;
 import com.jianfanjia.cn.view.AddPhotoPopWindow;
@@ -85,8 +83,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	private ViewGroup group = null;
 	private ImageView[] tips;
 	private List<View> bannerList = new ArrayList<View>();
-	
-	
+
 	private ViewPager processViewPager;
 	private ImageView icon_user_head = null;
 	private TextView head_right_title = null;
@@ -103,8 +100,8 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	private RelativeLayout expandHeadLayout;// 打开layout
 	private TextView openCheckNode;// 打开验收节点名称
 	private TextView closeCheckNode;// 折叠验收节点名称
-	private TextView openDelay;//延期按钮
-	private TextView openCheck;//对比验收按钮
+	private TextView openDelay;// 延期按钮
+	private TextView openCheck;// 对比验收按钮
 
 	private boolean isOpen = false;
 
@@ -173,8 +170,8 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 			DataManager.getInstance().requestProcessInfo();
 		}
 	}
-	
-	private void initProcessInfo(){
+
+	private void initProcessInfo() {
 		processInfo = DataManager.getInstance().getDefaultProcessInfo();
 	}
 
@@ -318,7 +315,6 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 			@Override
 			public void onPageScrollStateChanged(int arg0) {
 				// TODO Auto-generated method stub
-				
 
 			}
 
@@ -345,27 +341,22 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 				}
 			}
 
-			
 		});
 	}
-	
+
 	private void setScrollHeadTime() {
-		/*if (sectionInfos != null) {
-			for (int i = 0; i < proTitle.length; i++) {
-				ViewPagerItem viewPagerItem = list.get(i);
-				Log.i(TAG, DateFormatTool.covertLongToString(sectionInfos.get(i).getStart_at(), "M.dd")
-						+ "-"
-						+ DateFormatTool.covertLongToString(sectionInfos.get(i)
-								.getEnd_at(), "M.dd"));
-				viewPagerItem.setDate(DateFormatTool.covertLongToString(
-						sectionInfos.get(i).getStart_at(), "M.dd")
-						+ "-"
-						+ DateFormatTool.covertLongToString(sectionInfos.get(i)
-								.getEnd_at(), "M.dd"));
-			}
-			myViewPageAdapter.notifyDataSetChanged();
-			infinitePagerAdapter.notifyDataSetChanged();
-		} */
+		/*
+		 * if (sectionInfos != null) { for (int i = 0; i < proTitle.length; i++)
+		 * { ViewPagerItem viewPagerItem = list.get(i); Log.i(TAG,
+		 * DateFormatTool.covertLongToString(sectionInfos.get(i).getStart_at(),
+		 * "M.dd") + "-" + DateFormatTool.covertLongToString(sectionInfos.get(i)
+		 * .getEnd_at(), "M.dd"));
+		 * viewPagerItem.setDate(DateFormatTool.covertLongToString(
+		 * sectionInfos.get(i).getStart_at(), "M.dd") + "-" +
+		 * DateFormatTool.covertLongToString(sectionInfos.get(i) .getEnd_at(),
+		 * "M.dd")); } myViewPageAdapter.notifyDataSetChanged();
+		 * infinitePagerAdapter.notifyDataSetChanged(); }
+		 */
 	}
 
 	private void initListView(View view) {
@@ -419,18 +410,20 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 				.findViewById(R.id.site_list_item_content_expand_node_name);
 		closeCheckNode = (TextView) listHeadView
 				.findViewById(R.id.site_list_item_content_small_node_name);
-		openCheck = (TextView) listHeadView.findViewById(R.id.site_list_head_check);
+		openCheck = (TextView) listHeadView
+				.findViewById(R.id.site_list_head_check);
 		openCheck.setOnClickListener(this);
-		openDelay = (TextView) listHeadView.findViewById(R.id.site_list_head_delay);
+		openDelay = (TextView) listHeadView
+				.findViewById(R.id.site_list_head_delay);
 		openDelay.setOnClickListener(this);
 		smallHeadLayout = (RelativeLayout) listHeadView
 				.findViewById(R.id.site_listview_item_content_small);
 		expandHeadLayout = (RelativeLayout) listHeadView
 				.findViewById(R.id.site_listview_item_content_expand);
-		//根据不同的用户类型显示不同的文字
-		if(mUserType.equals(Constant.IDENTITY_DESIGNER)){
+		// 根据不同的用户类型显示不同的文字
+		if (mUserType.equals(Constant.IDENTITY_DESIGNER)) {
 			openCheck.setText(getString(R.string.upload_pic));
-		}else if(mUserType.equals(Constant.IDENTITY_OWNER)){
+		} else if (mUserType.equals(Constant.IDENTITY_OWNER)) {
 			openCheck.setText(getString(R.string.site_example_node_check));
 		}
 		listView.addHeaderView(view);
