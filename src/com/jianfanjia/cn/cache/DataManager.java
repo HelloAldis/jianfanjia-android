@@ -77,12 +77,12 @@ public class DataManager extends Observable {
 	}
 
 	public UserByOwnerInfo getOwnerInfo(String ownerId) {
-		if(ownerId == null) return null;
+		if (ownerId == null)
+			return null;
 		if (ownerInfo == null) {
 			if (!NetTool.isNetworkAvailable(context)) {
-				ownerInfo = (UserByOwnerInfo) sharedPrefer
-						.getValue(ownerId);
-			}else{
+				ownerInfo = (UserByOwnerInfo) sharedPrefer.getValue(ownerId);
+			} else {
 				getOwnerInfoById(ownerId);
 			}
 		}
@@ -94,12 +94,13 @@ public class DataManager extends Observable {
 	}
 
 	public UserByDesignerInfo getDesignerInfo(String designerId) {
-		if(designerId == null)  return null;
+		if (designerId == null)
+			return null;
 		if (designerInfo == null) {
 			if (!NetTool.isNetworkAvailable(context)) {
 				designerInfo = (UserByDesignerInfo) sharedPrefer
 						.getValue(designerId);
-			}else{
+			} else {
 				getDesignerInfoById(designerId);
 			}
 		}
@@ -182,7 +183,6 @@ public class DataManager extends Observable {
 								designerInfo = JsonParser.jsonToBean(response
 										.get(Constant.DATA).toString(),
 										UserByDesignerInfo.class);
-
 								sharedPrefer.setValue(designerInfo.get_id(),
 										designerInfo);
 								setChanged();
@@ -390,7 +390,6 @@ public class DataManager extends Observable {
 												process.get_id(), process
 														.getUserid(), process
 														.getFinal_designerid());
-
 										// 重新添加工地列表
 										processReflects.add(processReflect);
 									}
@@ -401,11 +400,10 @@ public class DataManager extends Observable {
 									sharedPrefer.setValue(
 											Constant.PROCESSINFO_REFLECT,
 											processReflects);
-
 									// 默认的工地大于当前获取的工地数，重设工地
 									if (getDefaultPro() > processReflects
 											.size() - 1) {
-											setDefaultPro(0);
+										setDefaultPro(0);
 									}
 									// 如果有工地，加载默认的工地
 									if (processReflects.size() > 0) {
@@ -416,9 +414,7 @@ public class DataManager extends Observable {
 										setChanged();
 										notifyObservers(SUCCESS);
 									}
-
 								}
-
 								// 保存工地流程
 							} else if (response.has(Constant.ERROR_MSG)) {
 								// 通知页面刷新

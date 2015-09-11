@@ -77,7 +77,7 @@ public class SettingFragment extends BaseFragment implements
 
 	private void initMainHead(View view) {
 		mainHeadView = (MainHeadView) view
-				.findViewById(R.id.ower_site_head_layout);
+				.findViewById(R.id.my_setting_head_layout);
 		mainHeadView.setHeadImage(mUserImageId);
 		mainHeadView.setBackListener(this);
 		mainHeadView.setRightTitleVisable(View.GONE);
