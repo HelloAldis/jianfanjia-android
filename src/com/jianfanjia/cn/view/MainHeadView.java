@@ -87,5 +87,9 @@ public class MainHeadView extends RelativeLayout{
 		rigthTitle.setOnClickListener(onClickListener);
 	}
 	
+	public void setMainTextColor(int resColor){
+		mainTitle.setTextColor(resColor);
+	}
+	
 	
 }

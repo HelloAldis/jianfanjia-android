@@ -4,6 +4,7 @@ import java.io.File;
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -75,6 +76,7 @@ public class SettingFragment extends BaseFragment implements
 		caculateCacheSize();
 	}
 
+	@SuppressLint("ResourceAsColor") 
 	private void initMainHead(View view) {
 		mainHeadView = (MainHeadView) view
 				.findViewById(R.id.my_setting_head_layout);
@@ -122,7 +124,7 @@ public class SettingFragment extends BaseFragment implements
 		case R.id.clear_cache_layout:
 			onClickCleanCache();
 			break;
-		case R.id.head_icon:
+		case R.id.icon_head:
 			((MainActivity) getActivity()).getSlidingPaneLayout().openPane();
 			break;
 		default:
