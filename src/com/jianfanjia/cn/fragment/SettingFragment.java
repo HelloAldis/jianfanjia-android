@@ -1,12 +1,9 @@
 package com.jianfanjia.cn.fragment;
 
 import java.io.File;
-
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -14,7 +11,6 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
-
 import com.igexin.sdk.PushManager;
 import com.jianfanjia.cn.activity.AboutActivity;
 import com.jianfanjia.cn.activity.FeedBackActivity;
@@ -55,13 +51,12 @@ public class SettingFragment extends BaseFragment implements
 	private RelativeLayout clearCacheLayout = null;
 	private TextView currentVersion;
 	private TextView cacheSizeView;
-	
+
 	private MainHeadView mainHeadView;
 
 	@Override
 	public void initView(View view) {
 		initMainHead(view);
-		
 		feedbackFragment = (RelativeLayout) view
 				.findViewById(R.id.feedback_layout);
 		helpLayout = (RelativeLayout) view.findViewById(R.id.help_layout);
@@ -79,10 +74,9 @@ public class SettingFragment extends BaseFragment implements
 
 		caculateCacheSize();
 	}
-	
-	@SuppressLint("ResourceAsColor") 
+
 	private void initMainHead(View view) {
-		mainHeadView = (MainHeadView) view.findViewById(R.id.ower_site_head_layout);
+		mainHeadView = (MainHeadView) view.findViewById(R.id.my_setting_head_layout);
 		mainHeadView.setHeadImage(mUserImageId);
 		mainHeadView.setBackListener(this);
 		mainHeadView.setRightTitleVisable(View.GONE);
@@ -127,8 +121,8 @@ public class SettingFragment extends BaseFragment implements
 		case R.id.clear_cache_layout:
 			onClickCleanCache();
 			break;
-		case R.id.head_icon:
-			((MainActivity)getActivity()).getSlidingPaneLayout().openPane();
+		case R.id.icon_head:
+			((MainActivity) getActivity()).getSlidingPaneLayout().openPane();
 			break;
 		default:
 			break;

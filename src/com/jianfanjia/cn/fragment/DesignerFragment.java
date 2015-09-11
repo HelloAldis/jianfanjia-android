@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.DesignerInfo;
@@ -20,8 +22,10 @@ import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
+import com.jianfanjia.cn.layout.CircleImageView;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.view.MainHeadView;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -36,8 +40,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 public class DesignerFragment extends BaseFragment implements Observer{
 	protected static final String TAG = "DesignerFragment";
 	private ImageView bgView;// 设计师背景
-	private ImageView headView;// 设计师头像
-	private ImageView ownerHeadView;// 业主的头像
+	private CircleImageView headView;//
 	private TextView nameView;// 姓名
 	private ImageView sexView;// 性别
 	private ImageView authView;// 是否为认证设计师
@@ -47,6 +50,8 @@ public class DesignerFragment extends BaseFragment implements Observer{
 	private TextView goodAtView;// 擅长
 	private TextView budgetView;// 设计费
 	private UserByDesignerInfo designerInfo;
+	
+	private MainHeadView mainHeadView;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -57,9 +62,9 @@ public class DesignerFragment extends BaseFragment implements Observer{
 
 	@Override
 	public void initView(View view) {
-		ownerHeadView = (ImageView) view.findViewById(R.id.owner_head);
+		initMainHead(view);
 		bgView = (ImageView) view.findViewById(R.id.designer_bg);
-		headView = (ImageView) view.findViewById(R.id.my_designer_head_icon);
+		headView = (CircleImageView) view.findViewById(R.id.my_designer_head_icon);
 		nameView = (TextView) view.findViewById(R.id.my_designer_name);
 		sexView = (ImageView) view.findViewById(R.id.my_designer_sex_icon);
 		authView = (ImageView) view.findViewById(R.id.my_designer_verify);
@@ -72,11 +77,21 @@ public class DesignerFragment extends BaseFragment implements Observer{
 		budgetView = (TextView) view.findViewById(R.id.my_designer_budget);
 		
 		String designerId = DataManager.getInstance().getDefaultDesignerId();
-		Log.i(TAG, designerId);
-		designerInfo = DataManager.getInstance().getDesignerInfo(DataManager.getInstance().getDefaultDesignerId());
+		designerInfo = DataManager.getInstance().getDesignerInfo(designerId);
 		if(designerInfo != null){
 			setData();
 		}
+	}
+	
+	private void initMainHead(View view) {
+		mainHeadView = (MainHeadView) view.findViewById(R.id.my_designer_head_layout);
+		mainHeadView.setHeadImage(mUserImageId);
+		mainHeadView.setBackListener(this);
+		mainHeadView.setRightTitleVisable(View.GONE);
+		mainHeadView.setMianTitle(getResources().getString(R.string.my_designer));
+		mainHeadView.setBackgroundTransparent();
+		mainHeadView.setMainTextColor(getResources().getColor(R.color.font_white));
+		mainHeadView.setDividerVisable(View.GONE);
 	}
 
 	private void setData() {
@@ -89,8 +104,8 @@ public class DesignerFragment extends BaseFragment implements Observer{
 			authView.setVisibility(designerInfo.getAuth_type().equals(
 					Constant.DESIGNER_FINISH_AUTH_TYPE) ? View.VISIBLE
 					: View.GONE);
-			productSumView.setText(designerInfo.getProduct_count());
-			appointmentSum.setText(designerInfo.getOrder_count());
+			productSumView.setText(designerInfo.getProduct_count()+"");
+			appointmentSum.setText(designerInfo.getOrder_count()+"");
 			cityView.setText(designerInfo.getCity());
 			budgetView.setText(getResources().getStringArray(
 					R.array.design_fee_range)[Integer.parseInt(designerInfo
@@ -126,62 +141,8 @@ public class DesignerFragment extends BaseFragment implements Observer{
 
 	}
 
-	/*private void getDesignerInfo(String designerid) {
-		Log.i(TAG, "getDesignerInfo");
-		JianFanJiaApiClient.getDesignerInfoById(getApplication(), designerid,
-				new JsonHttpResponseHandler() {
-					@Override
-					public void onStart() {
-						showWaitDialog();
-						LogTool.d(TAG, "onStart()");
-					}
-
-					@Override
-					public void onSuccess(int statusCode, Header[] headers,
-							JSONObject response) {
-						hideWaitDialog();
-						LogTool.d(TAG, "response:" + response.toString());
-						try {
-							if (response.has(Constant.DATA)) {
-								designerInfo = JsonParser.jsonToBean(response
-										.get(Constant.DATA).toString(),
-										DesignerInfo.class);
-								// 数据请求成功保存在缓存中
-								CacheManager.saveObject(getActivity(),
-										designerInfo,
-										Constant.DESIGNERINFO_CACHE);
-								handlerSuccess();
-							} else if (response.has(Constant.ERROR_MSG)) {
-								makeTextLong(response.get(Constant.ERROR_MSG)
-										.toString());
-							}
-						} catch (JSONException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-							makeTextLong(getString(R.string.tip_login_error_for_network));
-						}
-					}
-
-					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							Throwable throwable, JSONObject errorResponse) {
-						hideWaitDialog();
-						LogTool.d(TAG,
-								"Throwable throwable:" + throwable.toString());
-						makeTextLong(getString(R.string.tip_login_error_for_network));
-					}
-
-					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							String responseString, Throwable throwable) {
-						hideWaitDialog();
-						LogTool.d(TAG, "throwable:" + throwable);
-						makeTextLong(getString(R.string.tip_login_error_for_network));
-					};
-				});
-	}
-*/
 	private void handlerSuccess() {
+		designerInfo = DataManager.getInstance().getDesignerInfo(DataManager.getInstance().getDefaultDesignerId());
 		setData();
 	}
 	
@@ -191,6 +152,18 @@ public class DesignerFragment extends BaseFragment implements Observer{
 		super.update(observable, data);
 		if(DataManager.SUCCESS.equals(data)){
 			handlerSuccess();
+		}
+	}
+	
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		switch (v.getId()) {
+		case R.id.icon_head:
+			((MainActivity)getActivity()).getSlidingPaneLayout().openPane();
+			break;
+		default:
+			break;
 		}
 	}
 
