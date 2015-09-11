@@ -14,7 +14,6 @@ import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.Message;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.fragment.DesignerMenuFragment;
-import com.jianfanjia.cn.fragment.DesignerSiteManageFragment;
 import com.jianfanjia.cn.fragment.OwnerMenuFragment;
 import com.jianfanjia.cn.fragment.OwnerSiteManageFragment;
 import com.jianfanjia.cn.interf.FragmentCallBack;
