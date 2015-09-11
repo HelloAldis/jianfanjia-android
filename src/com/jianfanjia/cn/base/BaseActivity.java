@@ -76,9 +76,9 @@ public abstract class BaseActivity extends FragmentActivity implements
 		fragmentManager = this.getSupportFragmentManager();
 		imageLoader = ImageLoader.getInstance();
 		options = new DisplayImageOptions.Builder()
-				.showImageOnLoading(R.drawable.empty_photo)
-				.showImageForEmptyUri(R.drawable.empty_photo)
-				.showImageOnFail(R.drawable.empty_photo).cacheInMemory(true)
+				.showImageOnLoading(R.drawable.pix_default)
+				.showImageForEmptyUri(R.drawable.pix_default)
+				.showImageOnFail(R.drawable.pix_default).cacheInMemory(true)
 				.cacheOnDisk(true).considerExifParams(true)
 				.bitmapConfig(Bitmap.Config.RGB_565).build();
 		listenerManeger = ListenerManeger.getListenerManeger();

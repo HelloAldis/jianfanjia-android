@@ -12,12 +12,9 @@ import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.UserByDesignerInfoActivity;
 import com.jianfanjia.cn.base.BaseFragment;
-import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Url;
 import com.jianfanjia.cn.interf.FragmentCallBack;
 import com.jianfanjia.cn.tools.LogTool;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
  * 
@@ -54,7 +51,7 @@ public class DesignerMenuFragment extends BaseFragment implements
 		if (!TextUtils.isEmpty(mAccount)) {
 			phoneText.setText("ук╨е:" + mAccount);
 		}
-		ImageLoader.getInstance().displayImage(mUserImageId,img_head);
+		imageLoader.displayImage(mUserImageId, img_head, options);
 	}
 
 	@Override
@@ -177,7 +174,8 @@ public class DesignerMenuFragment extends BaseFragment implements
 	@Override
 	public void callBack(int index) {
 		View v = mTabRg.getChildAt(index);
-		int viewId = getResources().getIdentifier("tab_rb_"+(index+1), "id", getActivity().getPackageName());
+		int viewId = getResources().getIdentifier("tab_rb_" + (index + 1),
+				"id", getActivity().getPackageName());
 		RadioButton rb = (RadioButton) v.findViewById(viewId);
 		LogTool.d(TAG, "rb:" + rb);
 		rb.setChecked(true);

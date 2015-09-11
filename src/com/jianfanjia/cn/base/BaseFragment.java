@@ -2,9 +2,9 @@ package com.jianfanjia.cn.base;
 
 import java.util.Observable;
 import java.util.Observer;
-
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -23,6 +23,8 @@ import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.SharedPrefer;
 import com.jianfanjia.cn.view.dialog.DialogControl;
 import com.jianfanjia.cn.view.dialog.WaitDialog;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
  * @version 1.0
@@ -37,17 +39,26 @@ public abstract class BaseFragment extends Fragment implements OnClickListener,
 	protected LocalBroadcastManager localBroadcastManager = null;
 	protected LayoutInflater inflater = null;
 	protected SharedPrefer shared = null;
+	protected ImageLoader imageLoader = null;
+	protected DisplayImageOptions options = null;
 	protected ListenerManeger listenerManeger = null;
 	protected String mUserName;// 用户名
 	protected String mAccount;// 账号
 	protected String mUserImageId;// 头像
-	protected String mUserType;//用户类型
+	protected String mUserType;// 用户类型
 	protected boolean isOpen = false;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		LogTool.d(this.getClass().getName(), "onCreate");
+		imageLoader = ImageLoader.getInstance();
+		options = new DisplayImageOptions.Builder()
+				.showImageOnLoading(R.drawable.pix_default)
+				.showImageForEmptyUri(R.drawable.pix_default)
+				.showImageOnFail(R.drawable.pix_default).cacheInMemory(true)
+				.cacheOnDisk(true).considerExifParams(true)
+				.bitmapConfig(Bitmap.Config.RGB_565).build();
 		shared = new SharedPrefer(getActivity(), Constant.SHARED_MAIN);
 		listenerManeger = ListenerManeger.getListenerManeger();
 	}
@@ -73,7 +84,7 @@ public abstract class BaseFragment extends Fragment implements OnClickListener,
 		mUserImageId = DataManager.getInstance().getUserImagePath();
 		mUserType = DataManager.getInstance().getUserType();
 		LogTool.d(this.getClass().getName(), "mUserName:" + mUserName
-				+ " mAccount:" + mAccount +" userImageId" + mUserImageId);		
+				+ " mAccount:" + mAccount + " userImageId" + mUserImageId);
 	}
 
 	@Override
