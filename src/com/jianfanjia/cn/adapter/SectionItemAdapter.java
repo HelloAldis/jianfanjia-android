@@ -70,7 +70,6 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 		final SectionItemInfo sectionItemInfo = list.get(position);
 		List<String> imageUrlList = sectionItemInfo.getImages();
 		List<CommentInfo> commentInfoList = sectionItemInfo.getComments();
-		Log.i(this.getClass().getName(), sectionItemInfo.getName());
 		if (convertView == null) {
 			convertView = layoutInflater.inflate(R.layout.site_listview_item,
 					null);
@@ -116,7 +115,8 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 			viewHolder.finishStatusIcon
 					.setImageResource(R.drawable.site_listview_item_notstart_circle);
 			viewHolder.finishTime.setVisibility(View.GONE);
-			viewHolder.openFinishStatus.setText("");
+			viewHolder.openFinishStatus.setText(context.getResources()
+					.getString(R.string.site_example_node_not_start));
 			break;
 		case Constant.WORKING:
 			viewHolder.finishTime.setVisibility(View.GONE);
