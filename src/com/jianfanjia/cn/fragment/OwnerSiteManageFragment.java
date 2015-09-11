@@ -12,6 +12,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -586,20 +587,6 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		}
 	}
 
-	// 获取相册图片路径
-	private String getPicture(Uri uri) {
-		try {
-			ContentResolver resolver = getActivity().getContentResolver();
-			String[] proj = { MediaColumns.DATA };
-			Cursor cursor = resolver.query(uri, proj, null, null, null);
-			int column_index = cursor
-					.getColumnIndexOrThrow(MediaColumns.DATA);
-			cursor.moveToFirst();
-			String path = cursor.getString(column_index);
-			return path;
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 	@Override
 	public void onSuccess(String msg) {
 		if ("success".equals(msg)) {
