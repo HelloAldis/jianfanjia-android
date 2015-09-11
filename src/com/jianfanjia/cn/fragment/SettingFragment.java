@@ -4,6 +4,7 @@ import java.io.File;
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -75,8 +76,10 @@ public class SettingFragment extends BaseFragment implements
 		caculateCacheSize();
 	}
 
+	@SuppressLint("ResourceAsColor") 
 	private void initMainHead(View view) {
-		mainHeadView = (MainHeadView) view.findViewById(R.id.my_setting_head_layout);
+		mainHeadView = (MainHeadView) view
+				.findViewById(R.id.my_setting_head_layout);
 		mainHeadView.setHeadImage(mUserImageId);
 		mainHeadView.setBackListener(this);
 		mainHeadView.setRightTitleVisable(View.GONE);
