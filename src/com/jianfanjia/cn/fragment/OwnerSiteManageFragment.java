@@ -9,10 +9,8 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Observable;
 import android.app.Activity;
-import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -613,24 +611,6 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 			}
 		}
 		return pictureDir;
-	}
-
-	// 获取相册图片路径
-	private String getPicture(Uri uri) {
-		try {
-			ContentResolver resolver = getActivity().getContentResolver();
-			String[] proj = { MediaStore.Images.Media.DATA };
-			Cursor cursor = resolver.query(uri, proj, null, null, null);
-			int column_index = cursor
-					.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-			cursor.moveToFirst();
-			String path = cursor.getString(column_index);
-			return path;
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
 	}
 
 	/**
