@@ -35,7 +35,7 @@ public class MyGridViewAdapter extends BaseListAdapter<GridItem> {
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-		holder.img.setBackgroundResource(item.getImgId());
+		holder.img.setImageResource(item.getImgId());
 		holder.img.setOnClickListener(new OnClickListener() {
 
 			@Override
