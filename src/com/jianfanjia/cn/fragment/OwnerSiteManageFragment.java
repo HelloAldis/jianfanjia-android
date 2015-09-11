@@ -85,6 +85,8 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	private ViewGroup group = null;
 	private ImageView[] tips;
 	private List<View> bannerList = new ArrayList<View>();
+	
+	
 	private ViewPager processViewPager;
 	private ImageView icon_user_head = null;
 	private TextView head_right_title = null;
