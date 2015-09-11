@@ -4,16 +4,15 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Observable;
+
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.provider.MediaStore;
-import android.provider.MediaStore.MediaColumns;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.TextUtils;
@@ -27,6 +26,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+
 import com.jianfanjia.cn.activity.CheckActivity;
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
@@ -57,6 +57,7 @@ import com.jianfanjia.cn.tools.StringUtils;
 import com.jianfanjia.cn.view.AddPhotoPopWindow;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.DateWheelDialog;
+//github.com/adminJyz/jianfanjia-android.git
 
 /**
  * 
@@ -599,6 +600,10 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+	@Override
+	public void onSuccess(String msg) {
+		if ("success".equals(msg)) {
+			LogTool.d(TAG, "--------------------------------------------------");
 		}
 	}
 

@@ -7,6 +7,7 @@ import android.content.Context;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.interf.GetImageListener;
+import com.jianfanjia.cn.interf.UploadImageListener;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 public class UploadManager {
@@ -26,7 +27,7 @@ public class UploadManager {
 	}
 
 	/**
-	 * 用户上传图片
+	 * 用户上传图片获取imageid
 	 * 
 	 * @param imagePath
 	 */
@@ -82,7 +83,8 @@ public class UploadManager {
 	 * @param imageid
 	 */
 	public void submitImgToProgress(String siteId, String processId,
-			String processInfoId, String imageid) {
+			String processInfoId, String imageid,
+			final UploadImageListener uploadImageListener) {
 		LogTool.d(TAG, "siteId:" + siteId + " processId:" + processId
 				+ " processInfoId:" + processInfoId + " imageid:" + imageid);
 		JianFanJiaApiClient.submitImageToProcess(context, siteId, processId,
@@ -96,12 +98,26 @@ public class UploadManager {
 					public void onSuccess(int statusCode, Header[] headers,
 							JSONObject response) {
 						LogTool.d(TAG, "JSONObject response:" + response);
+						try {
+							if (response.has(Constant.DATA)) {
+								JSONObject obj = new JSONObject(response
+										.toString());
+								String msg = obj.getString(Constant.DATA);
+								LogTool.d(TAG, "msg:" + msg);
+								uploadImageListener.onSuccess(msg);
+							} else if (response.has(Constant.ERROR_MSG)) {
+
+							}
+						} catch (JSONException e) {
+							e.printStackTrace();
+						}
 					}
 
 					@Override
 					public void onFailure(int statusCode, Header[] headers,
 							Throwable throwable, JSONObject errorResponse) {
 						LogTool.d(TAG, "Throwable throwable:" + throwable);
+						uploadImageListener.onFailure();
 					}
 
 					@Override
@@ -109,6 +125,7 @@ public class UploadManager {
 							String responseString, Throwable throwable) {
 						LogTool.d(TAG, "statusCode:" + statusCode
 								+ " throwable:" + throwable);
+						uploadImageListener.onFailure();
 					};
 				});
 	}
@@ -122,7 +139,7 @@ public class UploadManager {
 	 * @param imageid
 	 */
 	public void submitCheckedImg(String siteId, String processId, String key,
-			String imageId) {
+			String imageId, final UploadImageListener uploadImageListener) {
 		JianFanJiaApiClient.submitYanShouImage(context, siteId, processId, key,
 				imageId, new JsonHttpResponseHandler() {
 					@Override
@@ -134,12 +151,26 @@ public class UploadManager {
 					public void onSuccess(int statusCode, Header[] headers,
 							JSONObject response) {
 						LogTool.d(TAG, "JSONObject response:" + response);
+						try {
+							if (response.has(Constant.DATA)) {
+								JSONObject obj = new JSONObject(response
+										.toString());
+								String msg = obj.getString(Constant.DATA);
+								LogTool.d(TAG, "msg:" + msg);
+								uploadImageListener.onSuccess(msg);
+							} else if (response.has(Constant.ERROR_MSG)) {
+
+							}
+						} catch (JSONException e) {
+							e.printStackTrace();
+						}
 					}
 
 					@Override
 					public void onFailure(int statusCode, Header[] headers,
 							Throwable throwable, JSONObject errorResponse) {
 						LogTool.d(TAG, "Throwable throwable:" + throwable);
+						uploadImageListener.onFailure();
 					}
 
 					@Override
@@ -147,6 +178,7 @@ public class UploadManager {
 							String responseString, Throwable throwable) {
 						LogTool.d(TAG, "statusCode:" + statusCode
 								+ " throwable:" + throwable);
+						uploadImageListener.onFailure();
 					};
 				});
 	}

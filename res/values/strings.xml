@@ -69,6 +69,7 @@
     <string name="site_example_node_delay">预计延期</string>
     <string name="site_example_node_working">正在施工</string>
     <string name="site_example_node_finish">已完工</string>
+    <string name="site_example_node_not_start">未开工</string>
     <string name="site_example_node_confirm_finish">确认完工</string>
     <string name="site_example_node_upload_picture">上传照片</string>
     <string name="site_example_node_assess">评价</string>
