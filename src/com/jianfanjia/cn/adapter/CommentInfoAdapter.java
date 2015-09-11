@@ -52,37 +52,53 @@ public class CommentInfoAdapter extends BaseListAdapter<CommentInfo> {
 		} else {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
-		
+
 		viewHolder.itemContentView.setText(commentInfo.getContent());
 		viewHolder.itemTimeView.setText(StringUtils
 				.covertLongToString(commentInfo.getDate()));
-		viewHolder.itemIdentityView
-				.setText(commentInfo.getUsertype() == Constant.IDENTITY_OWNER ? context
-						.getString(R.string.designer) : context
-						.getString(R.string.ower));
-		if(commentInfo.getUsertype().equals(Constant.IDENTITY_DESIGNER)){
-			String designerId = DataManager.getInstance().sharedPrefer.getValue(Constant.FINAL_DESIGNER_ID,null);
-			if(designerId != null){
-				UserByDesignerInfo designerInfo = DataManager.getInstance().getDesignerInfo(designerId);
-				if(designerInfo != null){
-					viewHolder.itemNameView.setText(designerInfo.getUsername() == null ? context.getString(R.string.designer) : designerInfo.getUsername());
+		if (commentInfo.getUsertype().equals(Constant.IDENTITY_DESIGNER)) {
+			String designerId = DataManager.getInstance()
+					.getDefaultDesignerId();
+			Log.i("designerId", designerId);
+			viewHolder.itemIdentityView.setText(context
+					.getString(R.string.designer));
+			if (designerId != null) {
+				UserByDesignerInfo designerInfo = DataManager.getInstance()
+						.getDesignerInfo(designerId);
+				if (designerInfo != null) {
+					viewHolder.itemNameView
+							.setText(designerInfo.getUsername() == null ? context
+									.getString(R.string.designer)
+									: designerInfo.getUsername());
 					String imageId = designerInfo.getImageid();
-					ImageLoader.getInstance().displayImage(imageId == null ? Constant.DEFALUT_DESIGNER_PIC : (Url.GET_IMAGE + imageId),viewHolder.itemHeadView);
+					ImageLoader.getInstance().displayImage(
+							imageId == null ? Constant.DEFALUT_DESIGNER_PIC
+									: (Url.GET_IMAGE + imageId),
+							viewHolder.itemHeadView);
 				}
 			}
-		}else{
-			String ownerId = DataManager.getInstance().sharedPrefer.getValue(Constant.FINAL_OWNER_ID,null);
-			if(ownerId != null){
-				UserByOwnerInfo ownerInfo = DataManager.getInstance().getOwnerInfo(ownerId);
-				if(ownerInfo != null){
-					viewHolder.itemNameView.setText(ownerInfo.getUsername() == null ? context.getString(R.string.ower) : ownerInfo.getUsername());
+		} else {
+			String ownerId = DataManager.getInstance().getDefaultOwnerId();
+			if (ownerId != null) {
+				UserByOwnerInfo ownerInfo = DataManager.getInstance()
+						.getOwnerInfo(ownerId);
+				viewHolder.itemIdentityView.setText(context
+						.getString(R.string.ower));
+				if (ownerInfo != null) {
+					viewHolder.itemNameView
+							.setText(ownerInfo.getUsername() == null ? context
+									.getString(R.string.ower) : ownerInfo
+									.getUsername());
 					String imageId = ownerInfo.getImageId();
-					ImageLoader.getInstance().displayImage(imageId == null ? Constant.DEFALUT_OWNER_PIC : (Url.GET_IMAGE + imageId),viewHolder.itemHeadView);
+					ImageLoader.getInstance().displayImage(
+							imageId == null ? Constant.DEFALUT_OWNER_PIC
+									: (Url.GET_IMAGE + imageId),
+							viewHolder.itemHeadView);
 				}
 			}
-			
+
 		}
-		
+
 		return convertView;
 	}
 

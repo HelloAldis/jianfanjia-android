@@ -9,6 +9,7 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.bean.DesignerSiteInfo;
 import com.jianfanjia.cn.bean.User;
+import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.config.Url;
 
 /**
@@ -55,13 +56,18 @@ public class DesignerSiteInfoAdapter extends BaseListAdapter<DesignerSiteInfo> {
 				.getStringById(designerSiteInfo.getGoing_on()));
 		// viewHolder.itemCurrentView 还没判断
 		// viewHolder.itemCurrentView.setText("当前工地");
+		if(DataManager.getInstance().getDefaultPro() == position){
+			viewHolder.itemCurrentView.setVisibility(View.VISIBLE);
+		}else{
+			viewHolder.itemCurrentView.setVisibility(View.GONE);
+		}
 		viewHolder.itemVillageView.setText(designerSiteInfo.getCell());
 		if (user.getImageid() != null) {
 			imageLoader.displayImage(Url.GET_IMAGE + user.getImageid(),
 					viewHolder.itemOwerHeadView, options);
 		} else {
 			viewHolder.itemOwerHeadView
-					.setImageResource(R.drawable.site_listview_item_finish_circle);
+					.setImageResource(R.drawable.icon_sidebar_default_user);
 		}
 		return convertView;
 	}

@@ -12,9 +12,12 @@ import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.UserByDesignerInfoActivity;
 import com.jianfanjia.cn.base.BaseFragment;
+import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.config.Url;
 import com.jianfanjia.cn.interf.FragmentCallBack;
 import com.jianfanjia.cn.tools.LogTool;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
  * 
@@ -29,7 +32,7 @@ public class DesignerMenuFragment extends BaseFragment implements
 	private static final String TAG = DesignerMenuFragment.class.getName();
 	private RadioGroup mTabRg = null;
 	private ImageView img_head = null;
-	private DesignerSiteManageFragment designerSiteManageFragment = null;
+	private OwnerSiteManageFragment ownerSiteManageFragment = null;
 	private NotifyFragment notifyFragment = null;
 	private OwnerFragment owerFragment = null;
 	private DesignerSiteFragment designerSiteFragment = null;
@@ -51,6 +54,7 @@ public class DesignerMenuFragment extends BaseFragment implements
 		if (!TextUtils.isEmpty(mAccount)) {
 			phoneText.setText("账号:" + mAccount);
 		}
+		ImageLoader.getInstance().displayImage(mUserImageId,img_head);
 	}
 
 	@Override
@@ -100,12 +104,12 @@ public class DesignerMenuFragment extends BaseFragment implements
 		hideFragments(transaction);
 		switch (index) {
 		case Constant.HOME:
-			if (designerSiteManageFragment != null) {
-				transaction.show(designerSiteManageFragment);
+			if (ownerSiteManageFragment != null) {
+				transaction.show(ownerSiteManageFragment);
 			} else {
-				designerSiteManageFragment = new DesignerSiteManageFragment();
+				ownerSiteManageFragment = new OwnerSiteManageFragment();
 				transaction.add(R.id.slidingpane_content,
-						designerSiteManageFragment);
+						ownerSiteManageFragment);
 			}
 			break;
 		case Constant.NOTIFY:
@@ -148,8 +152,8 @@ public class DesignerMenuFragment extends BaseFragment implements
 
 	// 当fragment已被实例化，相当于发生过切换，就隐藏起来
 	private void hideFragments(FragmentTransaction ft) {
-		if (designerSiteManageFragment != null) {
-			ft.hide(designerSiteManageFragment);
+		if (ownerSiteManageFragment != null) {
+			ft.hide(ownerSiteManageFragment);
 		}
 		if (notifyFragment != null) {
 			ft.hide(notifyFragment);
@@ -173,7 +177,8 @@ public class DesignerMenuFragment extends BaseFragment implements
 	@Override
 	public void callBack(int index) {
 		View v = mTabRg.getChildAt(index);
-		RadioButton rb = (RadioButton) v.findViewById(R.id.tab_rb_4);
+		int viewId = getResources().getIdentifier("tab_rb_"+(index+1), "id", getActivity().getPackageName());
+		RadioButton rb = (RadioButton) v.findViewById(viewId);
 		LogTool.d(TAG, "rb:" + rb);
 		rb.setChecked(true);
 		setTabSelection(index);

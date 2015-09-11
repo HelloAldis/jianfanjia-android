@@ -5,6 +5,8 @@ import java.util.List;
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,8 +19,10 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.DesignerSiteInfoAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.DesignerSiteInfo;
+import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
+import com.jianfanjia.cn.interf.SwitchFragmentListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -36,12 +40,24 @@ public class DesignerSiteFragment extends BaseFragment implements
 	private static final String TAG = DesignerSiteFragment.class.getName();
 	private ImageView headView;
 	private ListView siteListView;
-	private List<DesignerSiteInfo> siteList = new ArrayList<DesignerSiteInfo>();
+	private List<DesignerSiteInfo> siteList;
 	private DesignerSiteInfoAdapter designerSiteInfoAdapter = null;
+	private SwitchFragmentListener listener;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+	}
+	
+	@Override
+	public void onAttach(Activity activity) {
+		// TODO Auto-generated method stub
+		super.onAttach(activity);
+		try {
+			listener = (SwitchFragmentListener) activity;
+		} catch (ClassCastException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -49,7 +65,13 @@ public class DesignerSiteFragment extends BaseFragment implements
 		headView = (ImageView) view.findViewById(R.id.designer_site_head);
 		siteListView = (ListView) view
 				.findViewById(R.id.designer_site_listview);
-		getMySiteList();
+		siteList = DataManager.getInstance().getDesignerProcessLists();
+		if(siteList != null){
+			designerSiteInfoAdapter = new DesignerSiteInfoAdapter(
+					getActivity(), siteList);
+			siteListView
+					.setAdapter(designerSiteInfoAdapter);
+		}
 	}
 
 	@Override
@@ -74,64 +96,10 @@ public class DesignerSiteFragment extends BaseFragment implements
 	public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
 		DesignerSiteInfo siteInfo = siteList.get(position);
 		LogTool.d(TAG, "_id=" + siteInfo.get_id());
-	}
-
-	// 获取装修工地
-	private void getMySiteList() {
-		JianFanJiaApiClient.get_Designer_Process_List(getActivity(),
-				new JsonHttpResponseHandler() {
-					@Override
-					public void onStart() {
-						LogTool.d(TAG, "onStart()");
-						showWaitDialog();
-					}
-
-					@Override
-					public void onSuccess(int statusCode, Header[] headers,
-							JSONObject response) {
-						LogTool.d(TAG, "JSONObject response:" + response);
-						hideWaitDialog();
-						try {
-							if (response.has(Constant.DATA)) {
-								siteList = JsonParser
-										.jsonToList(
-												response.get(Constant.DATA)
-														.toString(),
-												new TypeToken<List<DesignerSiteInfo>>() {
-												}.getType());
-								LogTool.d(TAG, "siteList:" + siteList);
-								designerSiteInfoAdapter = new DesignerSiteInfoAdapter(
-										getActivity(), siteList);
-								siteListView
-										.setAdapter(designerSiteInfoAdapter);
-							} else if (response.has(Constant.ERROR_MSG)) {
-								makeTextLong(response.get(Constant.ERROR_MSG)
-										.toString());
-							}
-						} catch (JSONException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-							makeTextLong(getString(R.string.tip_login_error_for_network));
-						}
-					}
-
-					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							Throwable throwable, JSONObject errorResponse) {
-						LogTool.d(TAG,
-								"Throwable throwable:" + throwable.toString());
-						hideWaitDialog();
-						makeTextLong(getString(R.string.tip_login_error_for_network));
-					}
-
-					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							String responseString, Throwable throwable) {
-						LogTool.d(TAG, "throwable:" + throwable);
-						hideWaitDialog();
-						makeTextLong(getString(R.string.tip_login_error_for_network));
-					};
-				});
+		DataManager.getInstance().setDefaultPro(position);
+		if(listener != null){
+			listener.switchFragment(Constant.HOME);
+		}
 	}
 
 	@Override

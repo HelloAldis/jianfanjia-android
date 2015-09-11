@@ -103,6 +103,8 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	private RelativeLayout expandHeadLayout;// 打开layout
 	private TextView openCheckNode;// 打开验收节点名称
 	private TextView closeCheckNode;// 折叠验收节点名称
+	private TextView openDelay;//延期按钮
+	private TextView openCheck;//对比验收按钮
 
 	private boolean isOpen = false;
 
@@ -153,16 +155,6 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		DataManager.getInstance().addObserver(this);
 	}
 
-	private void initProcessInfo() {
-		String ownerProcessid = shared.getValue(Constant.PROCESSINFO_ID, null);
-		LogTool.d(TAG, "ownerProcessid=" + ownerProcessid);
-		if (ownerProcessid != null) {
-			processInfo = DataManager.getInstance().getProcessInfo(
-					ownerProcessid);
-		}
-		LogTool.d(TAG, "processInfo=" + processInfo);
-	}
-
 	@Override
 	public void initView(View view) {
 		layoutAll = (LinearLayout) view.findViewById(R.id.layoutAll);
@@ -178,8 +170,12 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		if (processInfo != null) {
 			initData();
 		} else {
-			DataManager.getInstance().requestOwnerProcessInfo();
+			DataManager.getInstance().requestProcessInfo();
 		}
+	}
+	
+	private void initProcessInfo(){
+		processInfo = DataManager.getInstance().getDefaultProcessInfo();
 	}
 
 	public void update(Observable observable, Object data) {
@@ -210,7 +206,8 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 			sectionInfos = processInfo.getSections();
 			sectionInfo = sectionInfos.get(currentList);
 			sectionItemInfos = sectionInfo.getItems();
-			setHeadView(sectionInfo.getName());
+			setCheckHeadView(sectionInfo.getName());
+			setScrollHeadTime();
 			sectionItemAdapter = new SectionItemAdapter(getActivity(),
 					sectionItemInfos, currentList, this);
 			detailNodeListView.setAdapter(sectionItemAdapter);
@@ -289,7 +286,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		}
 	}
 
-	private void setHeadView(String name) {
+	private void setCheckHeadView(String name) {
 		boolean isHeadViewShow = false;
 		for (String sectionName : checkSection) {
 			if (sectionName.equals(sectionInfo.getName())) {
@@ -304,19 +301,6 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		}
 	}
 
-	private void updateData() {
-		initData();
-	}
-
-	private void handlerSuccess() {
-		updateData();
-		// for (int i = 0; i < pro.length; i++) {
-		// View siteHead = list.get(i);
-		// initItem(siteHead, i);
-		// }
-		myViewPageAdapter.notifyDataSetChanged();
-	}
-
 	private void initScrollLayout(View view) {
 		processViewPager = (ViewPager) view.findViewById(R.id.processViewPager);
 		for (int i = 0; i < proTitle.length; i++) {
@@ -325,16 +309,6 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 					"icon_home_normal" + (i + 1), "drawable",
 					MyApplication.getInstance().getPackageName()));
 			viewPagerItem.setTitle(proTitle[i]);
-			if (sectionInfos != null) {
-				viewPagerItem.setDate(DateFormatTool.covertLongToString(
-						sectionInfos.get(i).getStart_at(), "M.dd")
-						+ "-"
-						+ DateFormatTool.covertLongToString(sectionInfos.get(i)
-								.getEnd_at(), "M.dd"));
-			} else {
-
-			}
-			// initItem(siteHead, i);
 			list.add(viewPagerItem);
 		}
 		myViewPageAdapter = new MyViewPageAdapter(getActivity(), list);
@@ -344,6 +318,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 			@Override
 			public void onPageScrollStateChanged(int arg0) {
 				// TODO Auto-generated method stub
+				
 
 			}
 
@@ -359,7 +334,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 					if (currentList != arg0 % 7) {
 						currentList = arg0 % 7;
 						sectionInfo = sectionInfos.get(currentList);
-						setHeadView(sectionInfo.getName());
+						setCheckHeadView(sectionInfo.getName());
 						sectionItemInfos = sectionInfo.getItems();
 						sectionItemAdapter
 								.setSectionItemInfos(sectionItemInfos);
@@ -369,28 +344,28 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 					}
 				}
 			}
+
+			
 		});
 	}
-
-	private void initItem(View siteHead, int position) {
-		Log.i(TAG, "initItem" + position);
-		TextView proName = (TextView) siteHead
-				.findViewById(R.id.site_head_procedure_name);
-		proName.setText(proTitle[position]);
-		TextView proDate = (TextView) siteHead
-				.findViewById(R.id.site_head_procedure_date);
-		if (sectionInfos != null) {
-			proDate.setText(DateFormatTool.covertLongToString(
-					sectionInfos.get(position).getStart_at(), "M.dd")
-					+ "-"
-					+ DateFormatTool.covertLongToString(
-							sectionInfos.get(position).getEnd_at(), "M.dd"));
-		}
-		ImageView icon = (ImageView) siteHead
-				.findViewById(R.id.site_head_procedure_icon);
-		icon.setImageResource(getResources().getIdentifier(
-				"icon_home_normal" + (position + 1), "drawable",
-				MyApplication.getInstance().getPackageName()));
+	
+	private void setScrollHeadTime() {
+		/*if (sectionInfos != null) {
+			for (int i = 0; i < proTitle.length; i++) {
+				ViewPagerItem viewPagerItem = list.get(i);
+				Log.i(TAG, DateFormatTool.covertLongToString(sectionInfos.get(i).getStart_at(), "M.dd")
+						+ "-"
+						+ DateFormatTool.covertLongToString(sectionInfos.get(i)
+								.getEnd_at(), "M.dd"));
+				viewPagerItem.setDate(DateFormatTool.covertLongToString(
+						sectionInfos.get(i).getStart_at(), "M.dd")
+						+ "-"
+						+ DateFormatTool.covertLongToString(sectionInfos.get(i)
+								.getEnd_at(), "M.dd"));
+			}
+			myViewPageAdapter.notifyDataSetChanged();
+			infinitePagerAdapter.notifyDataSetChanged();
+		} */
 	}
 
 	private void initListView(View view) {
@@ -444,14 +419,20 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 				.findViewById(R.id.site_list_item_content_expand_node_name);
 		closeCheckNode = (TextView) listHeadView
 				.findViewById(R.id.site_list_item_content_small_node_name);
-		listHeadView.findViewById(R.id.site_list_head_check)
-				.setOnClickListener(this);
-		listHeadView.findViewById(R.id.site_list_head_delay)
-				.setOnClickListener(this);
+		openCheck = (TextView) listHeadView.findViewById(R.id.site_list_head_check);
+		openCheck.setOnClickListener(this);
+		openDelay = (TextView) listHeadView.findViewById(R.id.site_list_head_delay);
+		openDelay.setOnClickListener(this);
 		smallHeadLayout = (RelativeLayout) listHeadView
 				.findViewById(R.id.site_listview_item_content_small);
 		expandHeadLayout = (RelativeLayout) listHeadView
 				.findViewById(R.id.site_listview_item_content_expand);
+		//根据不同的用户类型显示不同的文字
+		if(mUserType.equals(Constant.IDENTITY_DESIGNER)){
+			openCheck.setText(getString(R.string.upload_pic));
+		}else if(mUserType.equals(Constant.IDENTITY_OWNER)){
+			openCheck.setText(getString(R.string.site_example_node_check));
+		}
 		listView.addHeaderView(view);
 	}
 
@@ -511,7 +492,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	public void onPullDownToRefresh(PullToRefreshBase<ScrollView> refreshView) {
 		// 下拉刷新(从第一页开始装载数据)
 		// 加载数据
-		DataManager.getInstance().requestOwnerProcessInfo();
+		DataManager.getInstance().requestProcessInfo();
 	}
 
 	@Override

@@ -16,6 +16,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Toast;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.inter.manager.ListenerManeger;
 import com.jianfanjia.cn.tools.LogTool;
@@ -39,6 +40,8 @@ public abstract class BaseFragment extends Fragment implements OnClickListener,
 	protected ListenerManeger listenerManeger = null;
 	protected String mUserName;// 用户名
 	protected String mAccount;// 账号
+	protected String mUserImageId;// 头像
+	protected String mUserType;//用户类型
 	protected boolean isOpen = false;
 
 	@Override
@@ -58,9 +61,19 @@ public abstract class BaseFragment extends Fragment implements OnClickListener,
 		localBroadcastManager = LocalBroadcastManager
 				.getInstance(getActivity());
 		View view = inflateView(getLayoutId());
+		initUserInfo();
 		initView(view);
 		setListener();
 		return view;
+	}
+
+	private void initUserInfo() {
+		mUserName = DataManager.getInstance().getUserName();
+		mAccount = DataManager.getInstance().getAccount();
+		mUserImageId = DataManager.getInstance().getUserImagePath();
+		mUserType = DataManager.getInstance().getUserType();
+		LogTool.d(this.getClass().getName(), "mUserName:" + mUserName
+				+ " mAccount:" + mAccount +" userImageId" + mUserImageId);		
 	}
 
 	@Override
@@ -68,10 +81,6 @@ public abstract class BaseFragment extends Fragment implements OnClickListener,
 		super.onResume();
 		LogTool.d(this.getClass().getName(), "onResume");
 		isOpen = shared.getValue(Constant.ISOPEN, false);
-		mUserName = shared.getValue(Constant.USERNAME, null);
-		mAccount = shared.getValue(Constant.ACCOUNT, null);
-		LogTool.d(this.getClass().getName(), "mUserName:" + mUserName
-				+ " mAccount:" + mAccount);
 	}
 
 	@Override

@@ -12,11 +12,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.AdapterView.OnItemClickListener;
+
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.InfinitePagerAdapter;
@@ -26,8 +30,10 @@ import com.jianfanjia.cn.adapter.ViewPageAdapter;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.ProcedureInfo;
+import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.SiteInfo;
 import com.jianfanjia.cn.bean.ViewPagerItem;
+import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.SwitchFragmentListener;
 import com.jianfanjia.cn.layout.ScrollLayout;
@@ -63,13 +69,21 @@ public class DesignerSiteManageFragment extends BaseFragment implements
 	private ImageView icon_user_head = null;
 	private TextView head_right_title = null;
 	private ListView detailNodeListView;
-	private SectionItemAdapter mNoteListAdapter;
+	private SectionItemAdapter sectionItemAdapter;
 	private InfinitePagerAdapter infinitePagerAdapter = null;
 	private MyViewPageAdapter myViewPageAdapter = null;
 	private ScrollLayout scrollLayout;
 	private String[] proTitle = null;
 	private int size;
 	private List<ViewPagerItem> list = new ArrayList<ViewPagerItem>();
+	
+	private RelativeLayout listHeadView;// list头视图
+	private RelativeLayout smallHeadLayout;// 折叠layout
+	private RelativeLayout expandHeadLayout;// 打开layout
+	private TextView openCheckNode;// 打开验收节点名称
+	private TextView closeCheckNode;// 折叠验收节点名称
+	
+	private ProcessInfo processInfo;
 
 	private static final int CHANGE_PHOTO = 1;
 	private static final int CHANGE_TIME = 5000;// 图片自动切换时间
@@ -120,8 +134,63 @@ public class DesignerSiteManageFragment extends BaseFragment implements
 		icon_user_head = (ImageView) view.findViewById(R.id.icon_user_head);
 		head_right_title = (TextView) view.findViewById(R.id.head_right_title);
 		initBannerView(view);
+		initProcessInfo();
 		initScrollLayout(view);
-		// initListView(view, procedureList.get(currentPro));
+		initListView(view);
+	}
+	
+	private void initProcessInfo(){
+		processInfo = DataManager.getInstance().getDefaultProcessInfo();
+	}
+	
+	private void initListView(View view) {
+		detailNodeListView = (ListView) view.findViewById(R.id.site__listview);
+		detailNodeListView.setFocusable(false);
+		initHeadView(detailNodeListView);
+		detailNodeListView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				if (position == 0) {
+					// 点击listview head头视图，先判断头视图是否显示，是否有对比验收
+					if (listHeadView.getVisibility() == View.VISIBLE) {
+						if (expandHeadLayout.getVisibility() == View.VISIBLE) {
+							expandHeadLayout.setVisibility(View.GONE);
+							smallHeadLayout.setVisibility(View.VISIBLE);
+						} else {
+							expandHeadLayout.setVisibility(View.VISIBLE);
+							smallHeadLayout.setVisibility(View.GONE);
+						}
+					}
+				} else {
+					// 点击listview item项
+					sectionItemAdapter.setLastClickItem(position - 1,false);
+					sectionItemAdapter.notifyDataSetChanged();
+				}
+			}
+		});
+
+	}
+
+	// 初始化listview head视图
+	private void initHeadView(ListView listView) {
+		View view = inflater.inflate(R.layout.site_listview_head, null);
+		listHeadView = (RelativeLayout) view
+				.findViewById(R.id.site_listview_item_container);
+		openCheckNode = (TextView) listHeadView
+				.findViewById(R.id.site_list_item_content_expand_node_name);
+		closeCheckNode = (TextView) listHeadView
+				.findViewById(R.id.site_list_item_content_small_node_name);
+		listHeadView.findViewById(R.id.site_list_head_check)
+				.setOnClickListener(this);
+		listHeadView.findViewById(R.id.site_list_head_delay)
+				.setOnClickListener(this);
+		smallHeadLayout = (RelativeLayout) listHeadView
+				.findViewById(R.id.site_listview_item_content_small);
+		expandHeadLayout = (RelativeLayout) listHeadView
+				.findViewById(R.id.site_listview_item_content_expand);
+		listView.addHeaderView(view);
 	}
 
 	private void initBannerView(View view) {
@@ -204,49 +273,6 @@ public class DesignerSiteManageFragment extends BaseFragment implements
 		infinitePagerAdapter = new InfinitePagerAdapter(myViewPageAdapter);
 		viewPager.setAdapter(infinitePagerAdapter);
 	}
-
-	// private void initItem(View siteHead, int position) {
-	// TextView proName = (TextView) siteHead
-	// .findViewById(R.id.site_head_procedure_name);
-	// proName.setText(pro[position]);
-	// TextView proDate = (TextView) siteHead
-	// .findViewById(R.id.site_head_procedure_date);
-	// proDate.setText(procedureList.get(position >= size ? 0 : position)
-	// .getDate());
-	// ImageView icon = (ImageView) siteHead
-	// .findViewById(R.id.site_head_procedure_icon);
-	// }
-
-	/*
-	 * private void initListView(View view, ProcedureInfo procedure) {
-	 * detailNodeListView = (ListView) view.findViewById(R.id.site__listview);
-	 * mNoteListAdapter = new NoteListAdapter(procedure, getActivity());
-	 * detailNodeListView.setAdapter(mNoteListAdapter);
-	 * detailNodeListView.setOnItemClickListener(new OnItemClickListener() {
-	 * 
-	 * @Override public void onItemClick(AdapterView<?> parent, View view, int
-	 * position, long id) { View lastClickItem =
-	 * parent.getChildAt(mNoteListAdapter .getLastClickItem()); if (position !=
-	 * mNoteListAdapter.getLastClickItem()) { lastClickItem.findViewById(
-	 * R.id.site_listview_item_content_expand) .setVisibility(View.GONE);
-	 * lastClickItem.findViewById( R.id.site_listview_item_content_small)
-	 * .setVisibility(View.VISIBLE);
-	 * view.findViewById(R.id.site_listview_item_content_expand)
-	 * .setVisibility(View.VISIBLE);
-	 * view.findViewById(R.id.site_listview_item_content_small)
-	 * .setVisibility(View.GONE); mNoteListAdapter.setLastClickItem(position); }
-	 * else { int visible = view.findViewById(
-	 * R.id.site_listview_item_content_expand) .getVisibility(); if (visible ==
-	 * View.GONE) { view.findViewById( R.id.site_listview_item_content_expand)
-	 * .setVisibility(View.VISIBLE);
-	 * view.findViewById(R.id.site_listview_item_content_small)
-	 * .setVisibility(View.GONE); } else { view.findViewById(
-	 * R.id.site_listview_item_content_expand) .setVisibility(View.GONE);
-	 * view.findViewById(R.id.site_listview_item_content_small)
-	 * .setVisibility(View.VISIBLE); } } } });
-	 * 
-	 * }
-	 */
 
 	@Override
 	public void setListener() {
