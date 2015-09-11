@@ -1,5 +1,8 @@
 package com.jianfanjia.cn.fragment;
 
+import java.util.Observable;
+import java.util.Observer;
+
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -11,7 +14,9 @@ import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.DesignerInfo;
+import com.jianfanjia.cn.bean.UserByDesignerInfo;
 import com.jianfanjia.cn.cache.CacheManager;
+import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
@@ -28,7 +33,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  * @date 2015-8-26 下午3:41:31
  * 
  */
-public class DesignerFragment extends BaseFragment {
+public class DesignerFragment extends BaseFragment implements Observer{
 	protected static final String TAG = "DesignerFragment";
 	private ImageView bgView;// 设计师背景
 	private ImageView headView;// 设计师头像
@@ -41,12 +46,13 @@ public class DesignerFragment extends BaseFragment {
 	private TextView cityView;// 服务城市
 	private TextView goodAtView;// 擅长
 	private TextView budgetView;// 设计费
-	private DesignerInfo designerInfo;// 设计师信息
+	private UserByDesignerInfo designerInfo;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		DataManager.getInstance().addObserver(this);
 	}
 
 	@Override
@@ -64,17 +70,11 @@ public class DesignerFragment extends BaseFragment {
 		cityView = (TextView) view.findViewById(R.id.my_designer_city);
 		goodAtView = (TextView) view.findViewById(R.id.my_designer_style);
 		budgetView = (TextView) view.findViewById(R.id.my_designer_budget);
-
-		designerInfo = (DesignerInfo) CacheManager.getObjectByFile(
-				getActivity(), Constant.DESIGNERINFO_CACHE);
-		String designerid = shared.getValue(Constant.FINAL_DESIGNER_ID, null);
-		if (designerInfo == null) {
-			if (designerid != null) {
-				getDesignerInfo(designerid);
-			} else {
-				// loadNoDataLayout
-			}
-		} else {
+		
+		String designerId = DataManager.getInstance().getDefaultDesignerId();
+		Log.i(TAG, designerId);
+		designerInfo = DataManager.getInstance().getDesignerInfo(DataManager.getInstance().getDefaultDesignerId());
+		if(designerInfo != null){
 			setData();
 		}
 	}
@@ -114,10 +114,10 @@ public class DesignerFragment extends BaseFragment {
 			} else {
 				bgView.setImageResource(R.drawable.bg_login_720);
 			}
-			if (designerInfo.getImageId() != null) {
-				Log.i(TAG, Url.GET_IMAGE + designerInfo.getImageId());
+			if (designerInfo.getImageid() != null) {
+				Log.i(TAG, Url.GET_IMAGE + designerInfo.getImageid());
 				ImageLoader.getInstance().displayImage(
-						Url.GET_IMAGE + designerInfo.getImageId(), headView);
+						Url.GET_IMAGE + designerInfo.getImageid(), headView);
 			} else {
 				headView.setImageResource(R.drawable.icon_sidebar_default_designer);
 			}
@@ -126,7 +126,7 @@ public class DesignerFragment extends BaseFragment {
 
 	}
 
-	private void getDesignerInfo(String designerid) {
+	/*private void getDesignerInfo(String designerid) {
 		Log.i(TAG, "getDesignerInfo");
 		JianFanJiaApiClient.getDesignerInfoById(getApplication(), designerid,
 				new JsonHttpResponseHandler() {
@@ -180,9 +180,18 @@ public class DesignerFragment extends BaseFragment {
 					};
 				});
 	}
-
+*/
 	private void handlerSuccess() {
 		setData();
+	}
+	
+	@Override
+	public void update(Observable observable, Object data) {
+		// TODO Auto-generated method stub
+		super.update(observable, data);
+		if(DataManager.SUCCESS.equals(data)){
+			handlerSuccess();
+		}
 	}
 
 	@Override

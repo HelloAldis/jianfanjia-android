@@ -190,7 +190,7 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
 	}
 
 	private void handlerSuccess() {
-		DataManager.getInstance().requestProcessInfo();
+		DataManager.getInstance().getProcessList();
 	}
 
 	@Override

@@ -1,6 +1,8 @@
 package com.jianfanjia.cn.fragment;
 
 import java.util.List;
+
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
@@ -17,6 +19,7 @@ import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.SwitchFragmentListener;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.view.MainHeadView;
 
 /**
  * 
@@ -34,10 +37,23 @@ public class DesignerSiteFragment extends BaseFragment implements
 	private List<Process> siteList;
 	private DesignerSiteInfoAdapter designerSiteInfoAdapter = null;
 	private SwitchFragmentListener listener;
+	
+	private MainHeadView mainHeadView;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+	}
+	
+	@SuppressLint("ResourceAsColor") 
+	private void initMainHead(View view) {
+		mainHeadView = (MainHeadView) view.findViewById(R.id.designer_site_head_layout);
+		mainHeadView.setHeadImage(mUserImageId);
+		mainHeadView.setBackListener(this);
+		mainHeadView.setRightTitleVisable(View.GONE);
+		mainHeadView.setMianTitle(getResources().getString(R.string.my_decoration_site));
+		mainHeadView.setBackgroundColor(R.color.head_layout_bg);
+		mainHeadView.setDividerVisable(View.VISIBLE);
 	}
 	
 	@Override
@@ -53,7 +69,8 @@ public class DesignerSiteFragment extends BaseFragment implements
 
 	@Override
 	public void initView(View view) {
-		headView = (ImageView) view.findViewById(R.id.designer_site_head);
+		
+		initMainHead(view);
 		siteListView = (ListView) view
 				.findViewById(R.id.designer_site_listview);
 		siteList = DataManager.getInstance().getDesignerProcessLists();
@@ -75,7 +92,7 @@ public class DesignerSiteFragment extends BaseFragment implements
 	public void onClick(View v) {
 		int viewId = v.getId();
 		switch (viewId) {
-		case R.id.designer_site_head:
+		case R.id.icon_head:
 			((MainActivity) getActivity()).getSlidingPaneLayout().openPane();
 			break;
 		default:

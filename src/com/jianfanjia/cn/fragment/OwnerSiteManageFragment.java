@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Observable;
-
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,6 +16,7 @@ import android.provider.MediaStore;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -27,7 +27,6 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-
 import com.jianfanjia.cn.activity.CheckActivity;
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
@@ -43,22 +42,22 @@ import com.jianfanjia.cn.bean.SectionItemInfo;
 import com.jianfanjia.cn.bean.ViewPagerItem;
 import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.interf.GetImageListener;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
 import com.jianfanjia.cn.interf.SwitchFragmentListener;
 import com.jianfanjia.cn.interf.UploadImageListener;
+import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshScrollView;
+import com.jianfanjia.cn.tools.DateFormatTool;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.PhotoUtils;
 import com.jianfanjia.cn.tools.StringUtils;
 import com.jianfanjia.cn.view.AddPhotoPopWindow;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.DateWheelDialog;
-//github.com/adminJyz/jianfanjia-android.git
 
 /**
  * 
@@ -70,7 +69,7 @@ import com.jianfanjia.cn.view.dialog.DateWheelDialog;
  */
 public class OwnerSiteManageFragment extends BaseFragment implements
 		OnRefreshListener2<ScrollView>, ItemClickCallBack, PopWindowCallBack,
-		GetImageListener, UploadImageListener {
+		UploadImageListener {
 	private static final String TAG = OwnerSiteManageFragment.class.getName();
 	private SwitchFragmentListener listener;
 	private LinearLayout layoutAll = null;
@@ -87,8 +86,6 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	private List<View> bannerList = new ArrayList<View>();
 
 	private ViewPager processViewPager;
-	private ImageView icon_user_head = null;
-	private TextView head_right_title = null;
 	private ListView detailNodeListView;
 	private SectionItemAdapter sectionItemAdapter;
 	private InfinitePagerAdapter infinitePagerAdapter = null;
@@ -104,7 +101,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	private TextView closeCheckNode;// 折叠验收节点名称
 	private TextView openDelay;// 延期按钮
 	private TextView openCheck;// 对比验收按钮
-	
+
 	private MainHeadView mainHeadView;
 
 	private AddPhotoPopWindow popupWindow;
@@ -156,7 +153,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		proTitle = getResources().getStringArray(R.array.site_procedure);
 		checkSection = getResources().getStringArray(
 				R.array.site_procedure_check);
-		DataManager.getInstance().addObserver(this);
+		dataManager.addObserver(this);
 	}
 
 	@Override
@@ -165,8 +162,6 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		mPullRefreshScrollView = (PullToRefreshScrollView) view
 				.findViewById(R.id.pull_refresh_scrollview);
 		mPullRefreshScrollView.setMode(Mode.PULL_FROM_START);
-		icon_user_head = (ImageView) view.findViewById(R.id.icon_user_head);
-		head_right_title = (TextView) view.findViewById(R.id.head_right_title);
 		initMainHead(view);
 		initBannerView(view);
 		initScrollLayout(view);
@@ -175,7 +170,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		if (processInfo != null) {
 			initData();
 		} else {
-			DataManager.getInstance().requestProcessInfo();
+			DataManager.getInstance().getProcessList();
 		}
 	}
 
@@ -185,17 +180,17 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		mainHeadView.setBackListener(this);
 		mainHeadView.setRightTextListener(this);
 		mainHeadView.setRightTitleVisable(View.VISIBLE);
-		if(mUserType.equals(Constant.IDENTITY_OWNER)){
+		if (mUserType.equals(Constant.IDENTITY_OWNER)) {
 			mainHeadView.setMianTitle("");
 			mainHeadView.setRightTitle("配置工地");
-		}else if(mUserType.equals(Constant.IDENTITY_DESIGNER)){
+		} else if (mUserType.equals(Constant.IDENTITY_DESIGNER)) {
 			mainHeadView.setMianTitle("");
 			mainHeadView.setRightTitle("切换工地");
 		}
 	}
 
 	private void initProcessInfo() {
-		processInfo = DataManager.getInstance().getDefaultProcessInfo();
+		processInfo = dataManager.getDefaultProcessInfo();
 	}
 
 	@Override
@@ -260,7 +255,6 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 			} else {
 				tips[i].setBackgroundResource(R.drawable.new_gallery_dianpu_normal);
 			}
-
 			LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
 					new ViewGroup.LayoutParams(20, 20));
 			layoutParams.leftMargin = 15;
@@ -332,7 +326,15 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 			viewPagerItem.setTitle(proTitle[i]);
 			list.add(viewPagerItem);
 		}
-		myViewPageAdapter = new MyViewPageAdapter(getActivity(), list);
+		myViewPageAdapter = new MyViewPageAdapter(getActivity(), list,
+				new ViewPagerClickListener() {
+
+					@Override
+					public void onClickItem(int potition) {
+						Log.i(TAG, "potition------->" + potition);
+					}
+
+				});
 		infinitePagerAdapter = new InfinitePagerAdapter(myViewPageAdapter);
 		processViewPager.setAdapter(infinitePagerAdapter);
 		processViewPager.setOnPageChangeListener(new OnPageChangeListener() {
@@ -369,18 +371,25 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	}
 
 	private void setScrollHeadTime() {
-		/*
-		 * if (sectionInfos != null) { for (int i = 0; i < proTitle.length; i++)
-		 * { ViewPagerItem viewPagerItem = list.get(i); Log.i(TAG,
-		 * DateFormatTool.covertLongToString(sectionInfos.get(i).getStart_at(),
-		 * "M.dd") + "-" + DateFormatTool.covertLongToString(sectionInfos.get(i)
-		 * .getEnd_at(), "M.dd"));
-		 * viewPagerItem.setDate(DateFormatTool.covertLongToString(
-		 * sectionInfos.get(i).getStart_at(), "M.dd") + "-" +
-		 * DateFormatTool.covertLongToString(sectionInfos.get(i) .getEnd_at(),
-		 * "M.dd")); } myViewPageAdapter.notifyDataSetChanged();
-		 * infinitePagerAdapter.notifyDataSetChanged(); }
-		 */
+		if (sectionInfos != null) {
+			for (int i = 0; i < proTitle.length; i++) {
+				ViewPagerItem viewPagerItem = list.get(i);
+				Log.i(TAG,
+						DateFormatTool.covertLongToString(sectionInfos.get(i)
+								.getStart_at(), "M.dd")
+								+ "-"
+								+ DateFormatTool
+										.covertLongToString(sectionInfos.get(i)
+												.getEnd_at(), "M.dd"));
+				viewPagerItem.setDate(DateFormatTool.covertLongToString(
+						sectionInfos.get(i).getStart_at(), "M.dd")
+						+ "-"
+						+ DateFormatTool.covertLongToString(sectionInfos.get(i)
+								.getEnd_at(), "M.dd"));
+			}
+			myViewPageAdapter.notifyDataSetChanged();
+			infinitePagerAdapter.notifyDataSetChanged();
+		}
 	}
 
 	private void initListView(View view) {
@@ -404,15 +413,10 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 						}
 					}
 				} else {
-					// 点击listview item项
-					// sectionItemAdapter.setLastClickItem(position - 1);
-					// sectionItemAdapter.notifyDataSetChanged();
 					SectionItemInfo sectionItemInfo = sectionItemInfos
 							.get(position - 1);
 					processInfoId = sectionItemInfo.getName();
-					LogTool.d(TAG,
-							"=============================================="
-									+ sectionItemInfo.getName());
+					LogTool.d(TAG, "processInfoId===" + processInfoId);
 					if (isOpen) {
 						isOpen = false;
 					} else {
@@ -455,8 +459,8 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 
 	@Override
 	public void setListener() {
-//		icon_user_head.setOnClickListener(this);
-//		head_right_title.setOnClickListener(this);
+		// icon_user_head.setOnClickListener(this);
+		// head_right_title.setOnClickListener(this);
 		mPullRefreshScrollView.setOnRefreshListener(this);
 	}
 
@@ -513,7 +517,7 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	public void onPullDownToRefresh(PullToRefreshBase<ScrollView> refreshView) {
 		// 下拉刷新(从第一页开始装载数据)
 		// 加载数据
-		DataManager.getInstance().requestProcessInfo();
+		DataManager.getInstance().getProcessList();
 	}
 
 	@Override
@@ -568,7 +572,9 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 					String imgPath = PhotoUtils.savaPicture(bitmap);
 					LogTool.d(TAG, "imgPath=============" + imgPath);
 					if (!TextUtils.isEmpty(imgPath)) {
-						uploadManager.getImageIdByUpload(imgPath, this);
+						uploadManager.uploadProcedureImage(imgPath,
+								processInfo.get_id(), sectionInfo.getName(),
+								processInfoId, this);
 					}
 				}
 			}
@@ -579,25 +585,17 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 	}
 
 	@Override
-	public void getImageId(String imageId) {
-		LogTool.d(TAG, "imageId:" + imageId);
-		if (!TextUtils.isEmpty(imageId)) {
-			uploadManager.submitImgToProgress(processInfo.get_id(),
-					sectionInfo.getName(), processInfoId, imageId, this);
-		}
-	}
-
-	@Override
 	public void onSuccess(String msg) {
+		LogTool.d(TAG, "msg===========" + msg);
 		if ("success".equals(msg)) {
 			LogTool.d(TAG, "--------------------------------------------------");
+			dataManager.requestProcessInfo();
 		}
 	}
 
 	@Override
 	public void onFailure() {
-		// TODO Auto-generated method stub
-
+		LogTool.d(TAG, "==============================================");
 	}
 
 	/**

@@ -43,7 +43,6 @@ public class OwnerSiteFragment extends BaseFragment {
 	private ProcessInfo processInfo;// 工地信息类
 	private RequirementInfo requirementInfo;// 实体信息类
 
-	private ImageView headBackView;// 返回头像
 	private TextView cityView;// 所在城市
 	private TextView villageNameView;// 小区名字
 	private TextView houseStyleView;// 户型
@@ -65,7 +64,6 @@ public class OwnerSiteFragment extends BaseFragment {
 	@Override
 	public void initView(View view) {
 		initMainHead(view);
-		
 		cityView = (TextView) view.findViewById(R.id.my_site_city);
 		villageNameView = (TextView) view
 				.findViewById(R.id.my_site_villagename);
@@ -100,7 +98,7 @@ public class OwnerSiteFragment extends BaseFragment {
 	
 	@SuppressLint("ResourceAsColor") 
 	private void initMainHead(View view) {
-		mainHeadView = (MainHeadView) view.findViewById(R.id.main_head);
+		mainHeadView = (MainHeadView) view.findViewById(R.id.ower_site_head_layout);
 		mainHeadView.setHeadImage(mUserImageId);
 		mainHeadView.setBackListener(this);
 		mainHeadView.setRightTitleVisable(View.GONE);
@@ -258,7 +256,6 @@ public class OwnerSiteFragment extends BaseFragment {
 	@Override
 	public void setListener() {
 		confirmView.setOnClickListener(this);
-		headBackView.setOnClickListener(this);
 		startDateLayout.setOnClickListener(this);
 		totalDateLayout.setOnClickListener(this);
 	}
@@ -303,8 +300,6 @@ public class OwnerSiteFragment extends BaseFragment {
 		case R.id.icon_head:
 			((MainActivity) getActivity()).getSlidingPaneLayout().openPane();
 			break;
-			
-
 		default:
 			break;
 		}

@@ -7,6 +7,7 @@ import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -26,6 +27,7 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.view.MainHeadView;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 /**
@@ -42,6 +44,8 @@ public class OwnerFragment extends BaseFragment implements OnItemClickListener {
 	private ListView ownerListView;
 	private List<Process> ownerList = new ArrayList<Process>();
 	private MyOwerInfoAdapter myOwerInfoAdapter = null;
+	
+	private MainHeadView mainHeadView;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -50,10 +54,20 @@ public class OwnerFragment extends BaseFragment implements OnItemClickListener {
 
 	@Override
 	public void initView(View view) {
-		headView = (ImageView) view.findViewById(R.id.my_ower_head);
 		ownerListView = (ListView) view.findViewById(R.id.my_ower_listview);
-		headView = (ImageView) view.findViewById(R.id.my_ower_head);
+		initMainHead(view);
 		get_Designer_Owner();
+	}
+	
+	@SuppressLint("ResourceAsColor") 
+	private void initMainHead(View view) {
+		mainHeadView = (MainHeadView) view.findViewById(R.id.my_ower_head_layout);
+		mainHeadView.setHeadImage(mUserImageId);
+		mainHeadView.setBackListener(this);
+		mainHeadView.setRightTitleVisable(View.GONE);
+		mainHeadView.setMianTitle(getResources().getString(R.string.my_ower));
+		mainHeadView.setBackgroundColor(R.color.head_layout_bg);
+		mainHeadView.setDividerVisable(View.VISIBLE);
 	}
 
 	@Override
@@ -66,7 +80,7 @@ public class OwnerFragment extends BaseFragment implements OnItemClickListener {
 	public void onClick(View v) {
 		int viewId = v.getId();
 		switch (viewId) {
-		case R.id.my_ower_head:
+		case R.id.icon_head:
 			((MainActivity) getActivity()).getSlidingPaneLayout().openPane();
 			break;
 		default:
