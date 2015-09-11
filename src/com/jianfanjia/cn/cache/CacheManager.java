@@ -143,16 +143,14 @@ public class CacheManager {
 		if (NetTool.isNetworkAvailable(context)) {
 			if (CacheManager.isCacheDataFailure(context, cacheFile)) {
 				Log.i(TAG, "缓存有效");
-				object = CacheManager.readObject(context,
-						cacheFile);
+				object = CacheManager.readObject(context, cacheFile);
 				return object;
 			} else {
 				Log.i(TAG, "缓存无效");
 				return null;
 			}
 		} else {
-			object = CacheManager.readObject(context,
-					cacheFile);
+			object = CacheManager.readObject(context, cacheFile);
 			return object;
 		}
 	}

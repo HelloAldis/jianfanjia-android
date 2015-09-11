@@ -6,10 +6,11 @@ import android.content.Context;
 import android.os.Environment;
 
 /**
- * æ•°æ®åˆ é™¤å·¥å…·ç±?
  * 
- * @author FireAntï¼ˆhttp://my.oschina.net/LittleDYï¼?
- * @version åˆ›å»ºæ—¶é—´ï¼?2014å¹?10æœ?27æ—? ä¸Šåˆ10:18:22
+ * @ClassName: DataCleanManager
+ * @Description: TODO
+ * @author fengliang
+ * @date 2015-9-11 ÏÂÎç6:03:26
  * 
  */
 public class DataCleanManager {
