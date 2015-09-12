@@ -48,13 +48,13 @@
             android:text="@string/my_example_name"
             android:textColor="@color/main_color_black" />
 
-        <ImageView
+        <com.jianfanjia.cn.layout.CircleImageView
             android:id="@+id/list_item_comment_userhead"
             android:layout_width="68dp"
             android:layout_height="68dp"
             android:contentDescription="@null"
             android:scaleType="centerCrop"
-            android:src="@drawable/site_listview_item_finish_circle" />
+            />
     </RelativeLayout>
 
 </RelativeLayout>

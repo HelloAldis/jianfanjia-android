@@ -46,7 +46,7 @@
             android:layout_height="68dp"
             android:contentDescription="@null"
             android:scaleType="centerCrop"
-            android:src="@drawable/site_listview_item_finish_circle" />
+             />
     </RelativeLayout>
 
 </RelativeLayout>
