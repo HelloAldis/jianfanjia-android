@@ -9,6 +9,8 @@ import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.content.Context;
+import android.util.Log;
+
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
@@ -478,7 +480,7 @@ public class DataManager extends Observable {
 		sharedPrefer.setValue(Constant.ACCOUNT, userBean.getPhone());
 		sharedPrefer.setValue(Constant.USERTYPE, userBean.getUsertype());
 		sharedPrefer.setValue(Constant.USERNAME, userBean.getUsername());
-		sharedPrefer.setValue(Constant.USERIMAGE_ID, userBean.getImageId());
+		sharedPrefer.setValue(Constant.USERIMAGE_ID, userBean.getImageid());
 		sharedPrefer.setValue(Constant.USER_ID, userBean.get_id());
 	}
 

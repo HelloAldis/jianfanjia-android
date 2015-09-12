@@ -16,7 +16,7 @@ public class LoginUserBean implements Serializable {
 	private String usertype;
 	private String phone;
 	private String pass;
-	private String imageId;
+	private String imageid;
 	private String _id;
 
 	public String getPass() {
@@ -27,12 +27,12 @@ public class LoginUserBean implements Serializable {
 		this.pass = pass;
 	}
 
-	public String getImageId() {
-		return imageId;
+	public String getImageid() {
+		return imageid;
 	}
 
-	public void setImageId(String imageId) {
-		this.imageId = imageId;
+	public void setImageid(String imageid) {
+		this.imageid = imageid;
 	}
 
 	public String get_id() {

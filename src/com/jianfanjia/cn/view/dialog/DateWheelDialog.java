@@ -20,6 +20,7 @@ public class DateWheelDialog extends CommonDialog implements OnWheelChangedListe
 	private Calendar chooseCalendar;//—°‘Ò ±º‰
 	
 	int minYear;
+	int maxYear;
 	
 	private LayoutInflater inflater;
 	private WheelView wheelView1;

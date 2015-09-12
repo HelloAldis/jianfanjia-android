@@ -3,9 +3,6 @@ package com.jianfanjia.cn.fragment;
 import java.util.Observable;
 import java.util.Observer;
 
-import org.apache.http.Header;
-import org.json.JSONException;
-import org.json.JSONObject;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,18 +12,12 @@ import android.widget.TextView;
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseFragment;
-import com.jianfanjia.cn.bean.DesignerInfo;
 import com.jianfanjia.cn.bean.UserByDesignerInfo;
-import com.jianfanjia.cn.cache.CacheManager;
 import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url;
-import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.layout.CircleImageView;
-import com.jianfanjia.cn.tools.JsonParser;
-import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
-import com.loopj.android.http.JsonHttpResponseHandler;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
