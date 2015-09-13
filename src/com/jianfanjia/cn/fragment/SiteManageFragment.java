@@ -583,6 +583,7 @@ public class SiteManageFragment extends BaseFragment implements
 		dialog.show();
 	}
 
+	// 提交改期
 	private void postReschedule(String processId, String userId,
 			String designerId, String section, String newDate) {
 		LogTool.d(TAG, "processId:" + processId + " userId:" + userId
@@ -617,6 +618,7 @@ public class SiteManageFragment extends BaseFragment implements
 				});
 	}
 
+	// 确认完工装修流程小节点
 	private void confirmProcessItemDone(String siteId, String section,
 			String item) {
 		LogTool.d(TAG, "siteId:" + siteId + " section:" + section + " item:"
