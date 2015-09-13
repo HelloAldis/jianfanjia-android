@@ -21,7 +21,8 @@ import com.jianfanjia.cn.tools.LogTool;
  * @date 2015-8-27 下午8:22
  * 
  */
-public class ShareActivity extends BaseActivity implements OnClickListener {
+public class ShareActivity extends BaseActivity implements OnClickListener,
+		OnLongClickListener {
 	private static final String TAG = ShareActivity.class.getName();
 	private TextView backView;// 返回视图
 	private ImageView mIvCode;// 当前版本
@@ -35,26 +36,7 @@ public class ShareActivity extends BaseActivity implements OnClickListener {
 	@Override
 	public void setListener() {
 		backView.setOnClickListener(this);
-		mIvCode.setOnLongClickListener(new OnLongClickListener() {
-
-			@Override
-			public boolean onLongClick(View v) {
-				Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
-						R.drawable.icon_jianfanjia_qr);
-				try {
-					ImageUtils.saveImageToSD(ShareActivity.this,
-							Constant.COMMON_PATH + "myqr.jpg", bitmap, 100);
-					makeTextLong(getResources().getString(
-							R.string.save_image_success));
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-					makeTextLong(getResources().getString(
-							R.string.save_image_failure));
-				}
-				return true;
-			}
-		});
+		mIvCode.setOnLongClickListener(this);
 	}
 
 	@Override
@@ -77,6 +59,22 @@ public class ShareActivity extends BaseActivity implements OnClickListener {
 	@Override
 	public int getLayoutId() {
 		return R.layout.activity_share;
+	}
+
+	@Override
+	public boolean onLongClick(View v) {
+		Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
+				R.drawable.icon_jianfanjia_qr);
+		try {
+			ImageUtils.saveImageToSD(ShareActivity.this, Constant.COMMON_PATH
+					+ "myqr.jpg", bitmap, 100);
+			makeTextLong(getResources().getString(R.string.save_image_success));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			makeTextLong(getResources().getString(R.string.save_image_failure));
+		}
+		return true;
 	}
 
 }
