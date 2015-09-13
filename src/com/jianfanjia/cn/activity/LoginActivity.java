@@ -145,7 +145,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 						} catch (JSONException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
-							makeTextLong(getString(R.string.tip_login_error_for_network));
+							makeTextLong(getString(R.string.load_failure));
 						}
 					}
 
@@ -155,7 +155,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 						LogTool.d(TAG,
 								"Throwable throwable:" + throwable.toString());
 						hideWaitDialog();
-						makeTextLong(getString(R.string.tip_login_error_for_network));
+						makeTextLong(getString(R.string.tip_no_internet));
 					}
 
 					@Override
@@ -163,7 +163,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 							String responseString, Throwable throwable) {
 						LogTool.d(TAG, "throwable:" + throwable);
 						hideWaitDialog();
-						makeTextLong(getString(R.string.tip_login_error_for_network));
+						makeTextLong(getString(R.string.tip_no_internet));
 					};
 				});
 	}

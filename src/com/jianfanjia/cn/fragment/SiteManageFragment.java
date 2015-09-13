@@ -593,6 +593,7 @@ public class SiteManageFragment extends BaseFragment implements
 					@Override
 					public void onSuccess(int statusCode, Header[] headers,
 							JSONObject response) {
+						DataManager.getInstance().getDesignerProcessLists();
 						LogTool.d(TAG, "JSONObject response:" + response);
 					}
 

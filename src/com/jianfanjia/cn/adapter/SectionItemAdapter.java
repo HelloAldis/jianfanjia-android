@@ -123,6 +123,8 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 			viewHolder.openFinishStatus.setText(context.getResources()
 					.getString(R.string.site_example_node_finish));
 			viewHolder.finishTime.setVisibility(View.VISIBLE);
+			viewHolder.confirmFinishStatus.setVisibility(View.GONE);
+			viewHolder.openFinishStatus.setVisibility(View.VISIBLE);
 			break;
 		case Constant.NOT_START:
 			viewHolder.finishStatusIcon
@@ -130,6 +132,8 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 			viewHolder.finishTime.setVisibility(View.GONE);
 			viewHolder.openFinishStatus.setText(context.getResources()
 					.getString(R.string.site_example_node_not_start));
+			viewHolder.confirmFinishStatus.setVisibility(View.GONE);
+			viewHolder.openFinishStatus.setVisibility(View.VISIBLE);
 			break;
 		case Constant.WORKING:
 			viewHolder.finishTime.setVisibility(View.GONE);
@@ -245,25 +249,6 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 			}
 
 		});
-	}
-
-	// 设计师进行确认完工操作
-	private void confirmFisish() {
-		CommonDialog dialog = DialogHelper
-				.getPinterestDialogCancelable(context);
-		dialog.setTitle("确认完工");
-		dialog.setMessage("确定完工吗？");
-		dialog.setPositiveButton(R.string.ok,
-				new DialogInterface.OnClickListener() {
-
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						MyApplication.getInstance().clearAppCache();
-						dialog.dismiss();
-					}
-				});
-		dialog.setNegativeButton(R.string.no, null);
-		dialog.show();
 	}
 
 	private static class ViewHolder {
