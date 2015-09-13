@@ -15,7 +15,7 @@ import com.jianfanjia.cn.bean.Message;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.fragment.DesignerMenuFragment;
 import com.jianfanjia.cn.fragment.OwnerMenuFragment;
-import com.jianfanjia.cn.fragment.OwnerSiteManageFragment;
+import com.jianfanjia.cn.fragment.SiteManageFragment;
 import com.jianfanjia.cn.interf.FragmentCallBack;
 import com.jianfanjia.cn.interf.SwitchFragmentListener;
 import com.jianfanjia.cn.layout.PagerEnabledSlidingPaneLayout;
@@ -63,13 +63,13 @@ public class MainActivity extends BaseActivity implements PanelSlideListener,
 		if (!TextUtils.isEmpty(userIdentity)) {
 			if (userIdentity.equals(Constant.IDENTITY_OWNER)) {
 				OwnerMenuFragment ownerMenuFragment = new OwnerMenuFragment();
-				OwnerSiteManageFragment ownerSiteManageFragment = new OwnerSiteManageFragment();
+				SiteManageFragment ownerSiteManageFragment = new SiteManageFragment();
 				transaction.replace(R.id.slidingpane_menu, ownerMenuFragment);
 				transaction.replace(R.id.slidingpane_content,
 						ownerSiteManageFragment);
 			} else if (userIdentity.equals(Constant.IDENTITY_DESIGNER)) {
 				DesignerMenuFragment designerMenuFragment = new DesignerMenuFragment();
-				OwnerSiteManageFragment ownerSiteManageFragment = new OwnerSiteManageFragment();
+				SiteManageFragment ownerSiteManageFragment = new SiteManageFragment();
 				transaction
 						.replace(R.id.slidingpane_menu, designerMenuFragment);
 				transaction.replace(R.id.slidingpane_content,

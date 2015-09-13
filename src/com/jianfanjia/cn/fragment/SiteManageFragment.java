@@ -68,10 +68,10 @@ import com.jianfanjia.cn.view.dialog.DateWheelDialog;
  * @date 2015-8-26 ионГ11:14:00
  * 
  */
-public class OwnerSiteManageFragment extends BaseFragment implements
+public class SiteManageFragment extends BaseFragment implements
 		OnRefreshListener2<ScrollView>, ItemClickCallBack, PopWindowCallBack,
 		UploadImageListener {
-	private static final String TAG = OwnerSiteManageFragment.class.getName();
+	private static final String TAG = SiteManageFragment.class.getName();
 	private SwitchFragmentListener listener;
 	private LinearLayout layoutAll = null;
 	private PullToRefreshScrollView mPullRefreshScrollView = null;
