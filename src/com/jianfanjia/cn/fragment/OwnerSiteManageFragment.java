@@ -1,5 +1,6 @@
 package com.jianfanjia.cn.fragment;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -546,13 +547,15 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		switch (requestCode) {
 		case Constant.REQUESTCODE_CAMERA:// 拍照
 			LogTool.d(TAG, "data:" + data);
-			if (data != null) {
-				Uri mImageUri = data.getData();
-				LogTool.d(TAG, "mImageUri:" + mImageUri);
-				if (mImageUri != null) {
-					startPhotoZoom(mImageUri);
-				}
-			}
+			// if (data != null) {
+			// Uri mImageUri = data.getData();
+			// LogTool.d(TAG, "mImageUri:" + mImageUri);
+			// if (mImageUri != null) {
+			// startPhotoZoom(mImageUri);
+			// }
+			// }
+			startPhotoZoom(Uri.fromFile(new File(Constant.IMAG_PATH,
+					Constant.TEMP_IMG)));
 			break;
 		case Constant.REQUESTCODE__LOCATION:// 本地选取
 			if (data != null) {
@@ -613,8 +616,8 @@ public class OwnerSiteManageFragment extends BaseFragment implements
 		intent.putExtra("aspectX", 1);
 		intent.putExtra("aspectY", 1);
 		// outputX outputY 是裁剪图片宽高
-		intent.putExtra("outputX", 150);
-		intent.putExtra("outputY", 150);
+		intent.putExtra("outputX", 300);
+		intent.putExtra("outputY", 300);
 		intent.putExtra("return-data", true);
 		startActivityForResult(intent, Constant.REQUESTCODE__CROP);
 	}
