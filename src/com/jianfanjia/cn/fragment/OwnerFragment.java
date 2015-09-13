@@ -5,7 +5,6 @@ import java.util.List;
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -54,7 +53,6 @@ public class OwnerFragment extends BaseFragment implements OnItemClickListener {
 		get_Designer_Owner();
 	}
 
-	@SuppressLint("ResourceAsColor")
 	private void initMainHead(View view) {
 		mainHeadView = (MainHeadView) view
 				.findViewById(R.id.my_ower_head_layout);
