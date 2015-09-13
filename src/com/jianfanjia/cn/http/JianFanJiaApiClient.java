@@ -308,6 +308,17 @@ public class JianFanJiaApiClient {
 	}
 
 	/**
+	 * 用户获取我的改期提醒
+	 * 
+	 * @param context
+	 * @param hanlder
+	 */
+	public static void rescheduleAll(Context context,
+			AsyncHttpResponseHandler hanlder) {
+		HttpRestClient.get(context, Url.GET_RESCHDULE_ALL, hanlder);
+	}
+
+	/**
 	 * 版本更新
 	 * 
 	 * @param context
@@ -417,7 +428,57 @@ public class JianFanJiaApiClient {
 			e.printStackTrace();
 		}
 	}
-	
+
+	/**
+	 * 设计师删除验收图片
+	 * 
+	 * @param context
+	 * @param siteId
+	 * @param key
+	 * @param handler
+	 */
+	public static void deleteYanShouImage(Context context, String siteId,
+			String key, AsyncHttpResponseHandler handler) {
+		JSONObject jsonParams = new JSONObject();
+		try {
+			jsonParams.put("_id", siteId);
+			jsonParams.put("key", key);
+			StringEntity entity = new StringEntity(jsonParams.toString());
+			HttpRestClient.post(context, Url.DELETE_YAHSHOU_IMAGE, entity,
+					"application/json", handler);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * 用户完工装修流程小节点
+	 * 
+	 * @param context
+	 * @param siteId
+	 * @param section
+	 * @param item
+	 * @param handler
+	 */
+	public static void processItemDone(Context context, String siteId,
+			String section, String item, AsyncHttpResponseHandler handler) {
+		JSONObject jsonParams = new JSONObject();
+		try {
+			jsonParams.put("_id", siteId);
+			jsonParams.put("section", section);
+			jsonParams.put("item", item);
+			StringEntity entity = new StringEntity(jsonParams.toString());
+			HttpRestClient.post(context, Url.POST_PROCESS_DONE_ITEM, entity,
+					"application/json", handler);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+	}
+
 	/**
 	 * 根据id拿到工地信息
 	 * 
@@ -429,7 +490,7 @@ public class JianFanJiaApiClient {
 			AsyncHttpResponseHandler handler) {
 		String getProcessUrl = Url.GET_PROCESSINFO_BYID.replace(Url.ID,
 				processid);
-		HttpRestClient.get(context,getProcessUrl, handler);
+		HttpRestClient.get(context, getProcessUrl, handler);
 	}
-	
+
 }

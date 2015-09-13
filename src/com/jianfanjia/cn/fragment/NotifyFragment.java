@@ -2,11 +2,9 @@ package com.jianfanjia.cn.fragment;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import android.annotation.SuppressLint;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.MyFragmentPagerAdapter;
@@ -29,7 +27,7 @@ public class NotifyFragment extends BaseFragment {
 	private MyFragmentPagerAdapter adapter = null;
 	private ViewPager mPager = null;// 页卡内容
 	private List<SelectItem> listViews = new ArrayList<SelectItem>(); // Tab页面列表
-	
+
 	private MainHeadView mainHeadView;
 
 	@Override
@@ -46,23 +44,24 @@ public class NotifyFragment extends BaseFragment {
 		// TODO Auto-generated method stub
 
 	}
-	
+
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.icon_head:
-			((MainActivity)getActivity()).getSlidingPaneLayout().openPane();
+			((MainActivity) getActivity()).getSlidingPaneLayout().openPane();
 			break;
 
 		default:
 			break;
 		}
 	}
-	
-	@SuppressLint("ResourceAsColor") 
+
+	@SuppressLint("ResourceAsColor")
 	private void initMainHead(View view) {
-		mainHeadView = (MainHeadView) view.findViewById(R.id.notify_head_layout);
+		mainHeadView = (MainHeadView) view
+				.findViewById(R.id.notify_head_layout);
 		mainHeadView.setHeadImage(mUserImageId);
 		mainHeadView.setBackListener(this);
 		mainHeadView.setRightTitleVisable(View.GONE);
@@ -70,7 +69,6 @@ public class NotifyFragment extends BaseFragment {
 		mainHeadView.setBackgroundTransparent();
 		mainHeadView.setDividerVisable(View.GONE);
 	}
-	
 
 	private void initItem() {
 		SelectItem caigouItem = new SelectItem(new CaiGouNotifyFragment(),

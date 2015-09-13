@@ -29,7 +29,7 @@ public class DesignerMenuFragment extends BaseFragment implements
 	private static final String TAG = DesignerMenuFragment.class.getName();
 	private RadioGroup mTabRg = null;
 	private ImageView img_head = null;
-	private OwnerSiteManageFragment ownerSiteManageFragment = null;
+	private SiteManageFragment siteManageFragment = null;
 	private NotifyFragment notifyFragment = null;
 	private OwnerFragment owerFragment = null;
 	private DesignerSiteFragment designerSiteFragment = null;
@@ -101,12 +101,11 @@ public class DesignerMenuFragment extends BaseFragment implements
 		hideFragments(transaction);
 		switch (index) {
 		case Constant.HOME:
-			if (ownerSiteManageFragment != null) {
-				transaction.show(ownerSiteManageFragment);
+			if (siteManageFragment != null) {
+				transaction.show(siteManageFragment);
 			} else {
-				ownerSiteManageFragment = new OwnerSiteManageFragment();
-				transaction.add(R.id.slidingpane_content,
-						ownerSiteManageFragment);
+				siteManageFragment = new SiteManageFragment();
+				transaction.add(R.id.slidingpane_content, siteManageFragment);
 			}
 			break;
 		case Constant.NOTIFY:
@@ -149,8 +148,8 @@ public class DesignerMenuFragment extends BaseFragment implements
 
 	// 当fragment已被实例化，相当于发生过切换，就隐藏起来
 	private void hideFragments(FragmentTransaction ft) {
-		if (ownerSiteManageFragment != null) {
-			ft.hide(ownerSiteManageFragment);
+		if (siteManageFragment != null) {
+			ft.hide(siteManageFragment);
 		}
 		if (notifyFragment != null) {
 			ft.hide(notifyFragment);

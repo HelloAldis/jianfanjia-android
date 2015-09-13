@@ -29,7 +29,7 @@ public class OwnerMenuFragment extends BaseFragment implements
 	private static final String TAG = OwnerMenuFragment.class.getName();
 	private RadioGroup mTabRg = null;
 	private ImageView img_head = null;
-	private OwnerSiteManageFragment siteManageFragment = null;
+	private SiteManageFragment siteManageFragment = null;
 	private NotifyFragment notifyFragment = null;
 	private DesignerFragment designerFragment = null;
 	private OwnerSiteFragment ownerSiteFragment = null;
@@ -109,7 +109,7 @@ public class OwnerMenuFragment extends BaseFragment implements
 			if (siteManageFragment != null) {
 				transaction.show(siteManageFragment);
 			} else {
-				siteManageFragment = new OwnerSiteManageFragment();
+				siteManageFragment = new SiteManageFragment();
 				transaction.add(R.id.slidingpane_content, siteManageFragment);
 			}
 			break;

@@ -27,16 +27,9 @@ public class CaiGouNotifyFragment extends BaseFragment {
 	@Override
 	public void initView(View view) {
 		listView = (ListView) view.findViewById(R.id.tip_caigou__listview);
-		for (int i = 0; i < 3; i++) {
-			caiGouInfo = new NotifyCaiGouInfo();
-			caiGouInfo.setContent("¸´ºÏ°å" + i);
-			caiGouInfo.setTitle("ÌáÐÑ²É¹º½¨²Ä" + i);
-			caiGouInfo.setTime("2015-8-26");
-			caiGouInfo.setStage("ÄàÄ¾½×¶Î>Ä¾¹¤½×¶Î");
-			caigouList.add(caiGouInfo);
-		}
-		caiGouAdapter = new CaiGouNotifyAdapter(getActivity(), caigouList);
-		listView.setAdapter(caiGouAdapter);
+		
+		// caiGouAdapter = new CaiGouNotifyAdapter(getActivity(), caigouList);
+		// listView.setAdapter(caiGouAdapter);
 	}
 
 	@Override
