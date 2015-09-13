@@ -20,6 +20,7 @@ import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.bean.CommentInfo;
 import com.jianfanjia.cn.bean.GridItem;
 import com.jianfanjia.cn.bean.SectionItemInfo;
+import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
 
@@ -32,10 +33,15 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 	private List<GridItem> gridItem = new ArrayList<GridItem>();
 	private int currentPro = -1;// 记录第一个当前展开的工序
 
+	private DataManager dataManager;
+	private String userType;
+
 	public SectionItemAdapter(Context context,
 			List<SectionItemInfo> sectionItemInfos, int currentPro) {
 		super(context, sectionItemInfos);
 		this.currentPro = currentPro;
+		dataManager = DataManager.getInstance();
+		userType = dataManager.getUserType();
 	}
 
 	public SectionItemAdapter(Context context,
@@ -44,6 +50,8 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 		super(context, sectionItemInfos);
 		this.currentPro = currentPro;
 		this.callBack = callBack;
+		dataManager = DataManager.getInstance();
+		userType = dataManager.getUserType();
 	}
 
 	public int getCurrentPro() {
@@ -90,6 +98,8 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 					.findViewById(R.id.site_list_item_content_expand_node_assess);
 			viewHolder.openFinishStatus = (TextView) convertView
 					.findViewById(R.id.site_list_item_content_expand_node_finish_status);
+			viewHolder.confirmFinishStatus = (TextView) convertView
+					.findViewById(R.id.site_list_item_content_expand_node_confirm_finish);
 			viewHolder.finishStatusIcon = (ImageView) convertView
 					.findViewById(R.id.site_listview_item_status);
 			viewHolder.gridView = (GridView) convertView
@@ -122,8 +132,17 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 			viewHolder.finishTime.setVisibility(View.GONE);
 			viewHolder.finishStatusIcon
 					.setImageResource(R.drawable.icon_home_working);
-			viewHolder.openFinishStatus.setText(context.getResources()
-					.getString(R.string.site_example_node_working));
+			if (userType.equals(Constant.IDENTITY_OWNER)) {
+				viewHolder.openFinishStatus.setVisibility(View.VISIBLE);
+				viewHolder.confirmFinishStatus.setVisibility(View.GONE);
+				viewHolder.openFinishStatus.setText(context.getResources()
+						.getString(R.string.site_example_node_working));
+			} else if (userType.equals(Constant.IDENTITY_DESIGNER)) {
+				viewHolder.openFinishStatus.setVisibility(View.GONE);
+				viewHolder.confirmFinishStatus.setVisibility(View.VISIBLE);
+				viewHolder.openFinishStatus.setText(context.getResources()
+						.getString(R.string.site_example_node_confirm_finish));
+			}
 			break;
 		default:
 			break;
@@ -176,6 +195,15 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 		}
 		// 设置上传照片
 		setImageData(imageUrlList, viewHolder.gridView);
+
+		viewHolder.confirmFinishStatus
+				.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						callBack.click(position, Constant.CONFIRM_ITEM);
+					}
+				});
 		viewHolder.openComment.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -207,10 +235,9 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 					int position, long id) {
 				String data = imageUrlList.get(position);
 				if (data.equals(Constant.HOME_ADD_PIC)) {
-					Log.i(this.getClass().getName(), "clic add_pic");
-					callBack.click(position);
+					callBack.click(position, Constant.ADD_ITEM);
 				} else {
-					Log.i(this.getClass().getName(), "clic img");
+					callBack.click(position, Constant.IMG_ITEM);
 				}
 			}
 
@@ -227,6 +254,7 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 		TextView openUploadTime;
 		TextView finishTime;
 		TextView openFinishStatus;
+		TextView confirmFinishStatus;
 		ImageView finishStatusIcon;
 		GridView gridView;
 	}

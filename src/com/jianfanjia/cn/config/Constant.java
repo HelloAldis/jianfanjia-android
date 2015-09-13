@@ -31,8 +31,15 @@ public class Constant {
 	}
 
 	public static final int REQUESTCODE_CAMERA = 1;// 拍照
-	public static final int REQUESTCODE__LOCATION = 2;// 本地相册选取
-	public static final int REQUESTCODE__CROP = 3;// 裁剪
+	public static final int REQUESTCODE_LOCATION = 2;// 本地相册选取
+	public static final int REQUESTCODE_CROP = 3;// 裁剪
+
+	// item点击项
+	public static final int CONFIRM_ITEM = 1;
+	public static final int ADD_ITEM = 2;
+	public static final int IMG_ITEM = 3;
+	public static final int COMMENT_ITEM = 4;
+
 	// 侧滑菜单
 	public static final int HOME = 0;
 	public static final int NOTIFY = 1;

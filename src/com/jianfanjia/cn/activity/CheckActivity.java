@@ -127,7 +127,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 	public void takePhoto() {
 		Intent albumIntent = new Intent(Intent.ACTION_GET_CONTENT);
 		albumIntent.setType("image/*");
-		startActivityForResult(albumIntent, Constant.REQUESTCODE__LOCATION);
+		startActivityForResult(albumIntent, Constant.REQUESTCODE_LOCATION);
 	}
 
 	@Override
@@ -144,7 +144,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 				}
 			}
 			break;
-		case Constant.REQUESTCODE__LOCATION:// 本地选取
+		case Constant.REQUESTCODE_LOCATION:// 本地选取
 			if (data != null) {
 				Uri uri = data.getData();
 				LogTool.d(TAG, "uri:" + uri);
@@ -153,7 +153,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 				}
 			}
 			break;
-		case Constant.REQUESTCODE__CROP:
+		case Constant.REQUESTCODE_CROP:
 			if (data != null) {
 				Bundle extras = data.getExtras();
 				if (extras != null) {
@@ -206,7 +206,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 		intent.putExtra("outputX", 150);
 		intent.putExtra("outputY", 150);
 		intent.putExtra("return-data", true);
-		startActivityForResult(intent, Constant.REQUESTCODE__CROP);
+		startActivityForResult(intent, Constant.REQUESTCODE_CROP);
 	}
 
 	/**

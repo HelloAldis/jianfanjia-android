@@ -461,8 +461,6 @@ public class SiteManageFragment extends BaseFragment implements
 
 	@Override
 	public void setListener() {
-		// icon_user_head.setOnClickListener(this);
-		// head_right_title.setOnClickListener(this);
 		mPullRefreshScrollView.setOnRefreshListener(this);
 	}
 
@@ -503,11 +501,6 @@ public class SiteManageFragment extends BaseFragment implements
 		}
 	}
 
-	@Override
-	public void click(int position) {
-		showPopWindow(getView());
-	}
-
 	private void showPopWindow(View view) {
 		if (popupWindow == null) {
 			popupWindow = new AddPhotoPopWindow(getActivity(), this);
@@ -529,6 +522,22 @@ public class SiteManageFragment extends BaseFragment implements
 	}
 
 	@Override
+	public void click(int position, int itemType) {
+		LogTool.d(TAG, "itemType:" + itemType);
+		switch (itemType) {
+		case Constant.CONFIRM_ITEM:
+			break;
+		case Constant.ADD_ITEM:
+			showPopWindow(getView());
+			break;
+		case Constant.IMG_ITEM:
+			break;
+		default:
+			break;
+		}
+	}
+
+	@Override
 	public void takecamera() {
 		Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 		startActivityForResult(cameraIntent, Constant.REQUESTCODE_CAMERA);
@@ -538,7 +547,7 @@ public class SiteManageFragment extends BaseFragment implements
 	public void takePhoto() {
 		Intent albumIntent = new Intent(Intent.ACTION_GET_CONTENT);
 		albumIntent.setType("image/*");
-		startActivityForResult(albumIntent, Constant.REQUESTCODE__LOCATION);
+		startActivityForResult(albumIntent, Constant.REQUESTCODE_LOCATION);
 	}
 
 	@Override
@@ -557,7 +566,7 @@ public class SiteManageFragment extends BaseFragment implements
 			// startPhotoZoom(Uri.fromFile(new File(Constant.IMAG_PATH,
 			// Constant.TEMP_IMG)));
 			break;
-		case Constant.REQUESTCODE__LOCATION:// 本地选取
+		case Constant.REQUESTCODE_LOCATION:// 本地选取
 			if (data != null) {
 				Uri uri = data.getData();
 				LogTool.d(TAG, "uri:" + uri);
@@ -566,7 +575,7 @@ public class SiteManageFragment extends BaseFragment implements
 				}
 			}
 			break;
-		case Constant.REQUESTCODE__CROP:
+		case Constant.REQUESTCODE_CROP:
 			if (data != null) {
 				Bundle extras = data.getExtras();
 				if (extras != null) {
@@ -619,7 +628,7 @@ public class SiteManageFragment extends BaseFragment implements
 		intent.putExtra("outputX", 200);
 		intent.putExtra("outputY", 200);
 		intent.putExtra("return-data", true);
-		startActivityForResult(intent, Constant.REQUESTCODE__CROP);
+		startActivityForResult(intent, Constant.REQUESTCODE_CROP);
 	}
 
 	@Override
