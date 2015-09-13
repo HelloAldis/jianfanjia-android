@@ -454,6 +454,32 @@ public class JianFanJiaApiClient {
 	}
 
 	/**
+	 * 用户完工装修流程小节点
+	 * 
+	 * @param context
+	 * @param siteId
+	 * @param section
+	 * @param item
+	 * @param handler
+	 */
+	public static void processItemDone(Context context, String siteId,
+			String section, String item, AsyncHttpResponseHandler handler) {
+		JSONObject jsonParams = new JSONObject();
+		try {
+			jsonParams.put("_id", siteId);
+			jsonParams.put("section", section);
+			jsonParams.put("item", item);
+			StringEntity entity = new StringEntity(jsonParams.toString());
+			HttpRestClient.post(context, Url.POST_PROCESS_DONE_ITEM, entity,
+					"application/json", handler);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
 	 * 根据id拿到工地信息
 	 * 
 	 * @param context

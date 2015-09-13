@@ -85,9 +85,10 @@ public class Url {
 			+ "process/reschedule/all";
 	// 获取图片
 	public static final String GET_IMAGE = HTTPROOT + "image/";
-
 	// 根据工地id获取某个工地
 	public static final String GET_PROCESSINFO_BYID = HTTPROOT + "process/"
 			+ ID;
-
+	// 用户完工装修流程小节点
+	public static final String POST_PROCESS_DONE_ITEM = HTTPROOT
+			+ "process/done_item";
 }
