@@ -4,11 +4,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Observable;
-
 import org.apache.http.Header;
-import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -32,7 +29,6 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-
 import com.jianfanjia.cn.activity.CheckActivity;
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
@@ -113,8 +109,8 @@ public class SiteManageFragment extends BaseFragment implements
 	private TextView openCheck;// 对比验收按钮
 
 	private MainHeadView mainHeadView;
-
 	private AddPhotoPopWindow popupWindow;
+	private Bitmap photo = null;
 
 	private boolean isOpen = false;
 
@@ -618,14 +614,20 @@ public class SiteManageFragment extends BaseFragment implements
 		case Constant.REQUESTCODE_CAMERA:// 拍照
 			LogTool.d(TAG, "data:" + data);
 			if (data != null) {
-				Uri mImageUri = data.getData();
-				LogTool.d(TAG, "mImageUri:" + mImageUri);
-				if (mImageUri != null) {
-					startPhotoZoom(mImageUri);
+				Bundle bundle = data.getExtras();
+				Bitmap bitmap = (Bitmap) bundle.get("data");
+				LogTool.d(TAG, "bitmap:" + bitmap);
+				Uri mImageUri = null;
+				if (null != data.getData()) {
+					mImageUri = data.getData();
+				} else {
+					mImageUri = Uri.parse(MediaStore.Images.Media.insertImage(
+							getActivity().getContentResolver(), bitmap, null,
+							null));
 				}
+				LogTool.d(TAG, "mImageUri:" + mImageUri);
+				startPhotoZoom(mImageUri);
 			}
-			// startPhotoZoom(Uri.fromFile(new File(Constant.IMAG_PATH,
-			// Constant.TEMP_IMG)));
 			break;
 		case Constant.REQUESTCODE_LOCATION:// 本地选取
 			if (data != null) {
