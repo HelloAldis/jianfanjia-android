@@ -135,10 +135,8 @@ public class DataManager extends Observable {
 							}
 						} catch (JSONException e) {
 							e.printStackTrace();
-							MyApplication
-									.getInstance()
-									.makeTextLong(
-											context.getString(R.string.load_failure));
+							MyApplication.getInstance().makeTextLong(
+									context.getString(R.string.load_failure));
 						}
 					}
 
@@ -147,20 +145,16 @@ public class DataManager extends Observable {
 							Throwable throwable, JSONObject errorResponse) {
 						LogTool.d(TAG,
 								"Throwable throwable:" + throwable.toString());
-						MyApplication
-								.getInstance()
-								.makeTextLong(
-										context.getString(R.string.tip_no_internet));
+						MyApplication.getInstance().makeTextLong(
+								context.getString(R.string.tip_no_internet));
 					}
 
 					@Override
 					public void onFailure(int statusCode, Header[] headers,
 							String responseString, Throwable throwable) {
 						LogTool.d(TAG, "throwable:" + throwable);
-						MyApplication
-								.getInstance()
-								.makeTextLong(
-										context.getString(R.string.tip_no_internet));
+						MyApplication.getInstance().makeTextLong(
+								context.getString(R.string.tip_no_internet));
 					};
 				});
 	}
@@ -194,10 +188,8 @@ public class DataManager extends Observable {
 							}
 						} catch (JSONException e) {
 							e.printStackTrace();
-							MyApplication
-									.getInstance()
-									.makeTextLong(
-											context.getString(R.string.load_failure));
+							MyApplication.getInstance().makeTextLong(
+									context.getString(R.string.load_failure));
 						}
 					}
 
@@ -206,20 +198,16 @@ public class DataManager extends Observable {
 							Throwable throwable, JSONObject errorResponse) {
 						LogTool.d(TAG,
 								"Throwable throwable:" + throwable.toString());
-						MyApplication
-								.getInstance()
-								.makeTextLong(
-										context.getString(R.string.tip_no_internet));
+						MyApplication.getInstance().makeTextLong(
+								context.getString(R.string.tip_no_internet));
 					}
 
 					@Override
 					public void onFailure(int statusCode, Header[] headers,
 							String responseString, Throwable throwable) {
 						LogTool.d(TAG, "throwable:" + throwable);
-						MyApplication
-								.getInstance()
-								.makeTextLong(
-										context.getString(R.string.tip_no_internet));
+						MyApplication.getInstance().makeTextLong(
+								context.getString(R.string.tip_no_internet));
 					};
 				});
 	}
@@ -322,10 +310,8 @@ public class DataManager extends Observable {
 							setChanged();
 							notifyObservers(FAILURE);
 							e.printStackTrace();
-							MyApplication
-									.getInstance()
-									.makeTextLong(
-											context.getString(R.string.load_failure));
+							MyApplication.getInstance().makeTextLong(
+									context.getString(R.string.load_failure));
 						}
 					}
 
@@ -337,10 +323,8 @@ public class DataManager extends Observable {
 						// 通知页面刷新
 						setChanged();
 						notifyObservers(FAILURE);
-						MyApplication
-								.getInstance()
-								.makeTextLong(
-										context.getString(R.string.tip_no_internet));
+						MyApplication.getInstance().makeTextLong(
+								context.getString(R.string.tip_no_internet));
 					}
 
 					@Override
@@ -350,10 +334,8 @@ public class DataManager extends Observable {
 						// 通知页面刷新
 						setChanged();
 						notifyObservers(FAILURE);
-						MyApplication
-								.getInstance()
-								.makeTextLong(
-										context.getString(R.string.tip_no_internet));
+						MyApplication.getInstance().makeTextLong(
+								context.getString(R.string.tip_no_internet));
 					}
 				});
 	}
@@ -429,10 +411,8 @@ public class DataManager extends Observable {
 							setChanged();
 							notifyObservers(FAILURE);
 							e.printStackTrace();
-							MyApplication
-									.getInstance()
-									.makeTextLong(
-											context.getString(R.string.load_failure));
+							MyApplication.getInstance().makeTextLong(
+									context.getString(R.string.load_failure));
 						}
 					}
 
@@ -444,10 +424,8 @@ public class DataManager extends Observable {
 						// 通知页面刷新
 						setChanged();
 						notifyObservers(FAILURE);
-						MyApplication
-								.getInstance()
-								.makeTextLong(
-										context.getString(R.string.tip_no_internet));
+						MyApplication.getInstance().makeTextLong(
+								context.getString(R.string.tip_no_internet));
 					}
 
 					@Override
@@ -457,10 +435,8 @@ public class DataManager extends Observable {
 						// 通知页面刷新
 						setChanged();
 						notifyObservers(FAILURE);
-						MyApplication
-								.getInstance()
-								.makeTextLong(
-										context.getString(R.string.tip_no_internet));
+						MyApplication.getInstance().makeTextLong(
+								context.getString(R.string.tip_no_internet));
 					}
 				});
 
