@@ -62,14 +62,14 @@
                     android:text="@string/user_head"
                     android:textColor="@color/main_color_black" />
 
-                <ImageView
+                <com.jianfanjia.cn.layout.CircleImageView
                     android:id="@+id/head_icon"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_marginRight="@dimen/space_8"
                     android:layout_toLeftOf="@+id/head_goto"
                     android:contentDescription="@null"
-                    android:src="@drawable/icon_item_default_user" />
+                    android:scaleType="centerCrop" />
 
                 <ImageView
                     android:id="@+id/head_goto"

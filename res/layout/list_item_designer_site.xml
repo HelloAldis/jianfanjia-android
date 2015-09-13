@@ -65,7 +65,7 @@
             android:layout_alignParentRight="true"
             android:contentDescription="@null"
             android:scaleType="centerCrop"
-            android:src="@drawable/site_listview_item_finish_circle" />
+             />
     </RelativeLayout>
 
 </RelativeLayout>

@@ -30,7 +30,7 @@ public class MainHeadView extends RelativeLayout{
 		mainTitle = (TextView) mainLayout.findViewById(R.id.head_center_title);
 		rigthTitle = (TextView) mainLayout.findViewById(R.id.head_right_title);
 		divider = mainLayout.findViewById(R.id.head_divier);
-		addView(mainHead,new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT));
+		addView(mainHead,new LayoutParams(android.view.ViewGroup.LayoutParams.MATCH_PARENT,android.view.ViewGroup.LayoutParams.WRAP_CONTENT));
 	}
 
 	public MainHeadView(Context context, AttributeSet attrs) {

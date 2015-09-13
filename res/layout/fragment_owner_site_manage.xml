@@ -49,39 +49,6 @@
                     android:id="@+id/main_head"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
-
-                <!--
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/space_48"
-                    android:background="@android:color/transparent" >
-
-                    <ImageView
-                        android:id="@+id/icon_user_head"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="@dimen/space_8"
-                        android:contentDescription="@null"
-                        android:src="@drawable/icon_home_default_user" />
-
-                    <TextView
-                        android:id="@+id/head_center_title"
-                        style="@style/site_listview_item_text_style_title"
-                        android:layout_centerInParent="true"
-                        android:text="@string/app_name"
-                        android:textColor="@color/main_color_black" />
-
-                    <TextView
-                        android:id="@+id/head_right_title"
-                        style="@style/site_listview_item_text_style_middle"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="@dimen/space_8"
-                        android:text="工地配置"
-                        android:textColor="@color/main_color_black" /> 
-                </RelativeLayout>
-                -->
             </FrameLayout>
 
             <com.jianfanjia.cn.view.ProcessViewPager

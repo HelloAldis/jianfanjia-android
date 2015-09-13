@@ -60,7 +60,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 
 	@Override
 	public void initView() {
-		view = (View) inflater.inflate(R.layout.activity_check_pic, null);
+		view = inflater.inflate(R.layout.activity_check_pic, null);
 		backView = (TextView) findViewById(R.id.check_pic_back);
 		gridView = (GridView) findViewById(R.id.mygridview);
 		btn_confirm_check = (Button) findViewById(R.id.btn_confirm_check);
