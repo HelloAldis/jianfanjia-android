@@ -18,6 +18,7 @@ import android.provider.MediaStore;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.TextUtils;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -171,7 +172,7 @@ public class SiteManageFragment extends BaseFragment implements
 		initBannerView(view);
 		initScrollLayout(view);
 		initListView(view);
-		
+
 	}
 
 	private void initMainHead(View view) {
@@ -521,6 +522,12 @@ public class SiteManageFragment extends BaseFragment implements
 	@Override
 	public void onPullDownToRefresh(PullToRefreshBase<ScrollView> refreshView) {
 		// 下拉刷新(从第一页开始装载数据)
+		String label = DateUtils.formatDateTime(getActivity(),
+				System.currentTimeMillis(), DateUtils.FORMAT_SHOW_TIME
+						| DateUtils.FORMAT_SHOW_DATE
+						| DateUtils.FORMAT_ABBREV_ALL);
+		// Update the LastUpdatedLabel
+		refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
 		// 加载数据
 		DataManager.getInstance().getProcessList();
 	}
