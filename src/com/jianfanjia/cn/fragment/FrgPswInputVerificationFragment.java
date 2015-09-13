@@ -70,7 +70,7 @@ public class FrgPswInputVerificationFragment extends BaseFragment {
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.btn_next:
+		case R.id.btn_commit:
 			String verif = mEdVerif.getText().toString().trim();
 			if (checkInput(verif)) {
 				MyApplication.getInstance().getRegisterInfo().setCode(verif);
@@ -119,8 +119,7 @@ public class FrgPswInputVerificationFragment extends BaseFragment {
 						LogTool.d(TAG, "JSONObject response:" + response);
 						try {
 							if (response.has(Constant.SUCCESS_MSG)) {
-								makeTextLong(response.get(Constant.SUCCESS_MSG)
-										.toString());
+								makeTextLong(getString(R.string.update_psw_success));
 								getActivity().finish();
 							} else if (response.has(Constant.ERROR_MSG)) {
 								makeTextLong(response.get(Constant.ERROR_MSG)
@@ -130,8 +129,17 @@ public class FrgPswInputVerificationFragment extends BaseFragment {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 							hideWaitDialog();
-							makeTextLong(getString(R.string.tip_login_error_for_network));
+							makeTextLong(getString(R.string.load_failure));
 						}
+					}
+					
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							Throwable throwable, JSONObject errorResponse) {
+						LogTool.d(TAG,
+								"Throwable throwable:" + throwable.toString());
+						hideWaitDialog();
+						makeTextLong(getString(R.string.tip_no_internet));
 					}
 
 					@Override
@@ -139,7 +147,7 @@ public class FrgPswInputVerificationFragment extends BaseFragment {
 							String responseString, Throwable throwable) {
 						hideWaitDialog();
 						LogTool.d(TAG, "throwable:" + throwable);
-						makeTextLong(getString(R.string.tip_login_error_for_network));
+						makeTextLong(getString(R.string.tip_no_internet));
 					};
 				});
 	}

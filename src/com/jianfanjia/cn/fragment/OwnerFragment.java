@@ -50,7 +50,7 @@ public class OwnerFragment extends BaseFragment implements OnItemClickListener {
 		super.onCreate(savedInstanceState);
 	}
 
-	@Override
+	@Override 
 	public void initView(View view) {
 		ownerListView = (ListView) view.findViewById(R.id.my_ower_listview);
 		initMainHead(view);
@@ -128,7 +128,7 @@ public class OwnerFragment extends BaseFragment implements OnItemClickListener {
 						} catch (JSONException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
-							makeTextLong(getString(R.string.tip_login_error_for_network));
+							makeTextLong(getString(R.string.load_failure));
 						}
 					}
 
@@ -138,7 +138,7 @@ public class OwnerFragment extends BaseFragment implements OnItemClickListener {
 						LogTool.d(TAG,
 								"Throwable throwable:" + throwable.toString());
 						hideWaitDialog();
-						makeTextLong(getString(R.string.tip_login_error_for_network));
+						makeTextLong(getString(R.string.tip_no_internet));
 					}
 
 					@Override
@@ -146,7 +146,7 @@ public class OwnerFragment extends BaseFragment implements OnItemClickListener {
 							String responseString, Throwable throwable) {
 						LogTool.d(TAG, "throwable:" + throwable);
 						hideWaitDialog();
-						makeTextLong(getString(R.string.tip_login_error_for_network));
+						makeTextLong(getString(R.string.tip_no_internet));
 					};
 				});
 	}

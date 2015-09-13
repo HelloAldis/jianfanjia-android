@@ -123,7 +123,7 @@ public class ReginputVerificationFragment extends BaseFragment {
 						LogTool.d(TAG, "JSONObject response:" + response);
 						try {
 							if (response.has(Constant.DATA)) {
-								makeTextShort(getString(R.string.login_success));
+								makeTextShort(getString(R.string.register_success));
 								LoginUserBean loginUserBean = JsonParser
 										.jsonToBean(response.get(Constant.DATA)
 												.toString(),
@@ -139,7 +139,7 @@ public class ReginputVerificationFragment extends BaseFragment {
 						} catch (JSONException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
-							makeTextLong(getString(R.string.tip_login_error_for_network));
+							makeTextLong(getString(R.string.register_failure));
 						}
 					}
 
@@ -148,14 +148,14 @@ public class ReginputVerificationFragment extends BaseFragment {
 							Throwable throwable, JSONObject errorResponse) {
 						LogTool.d(TAG,
 								"Throwable throwable:" + throwable.toString());
-						makeTextLong(getString(R.string.tip_login_error_for_network));
+						makeTextLong(getString(R.string.tip_no_internet));
 					}
 
 					@Override
 					public void onFailure(int statusCode, Header[] headers,
 							String responseString, Throwable throwable) {
 						LogTool.d(TAG, "throwable:" + throwable);
-						makeTextLong(getString(R.string.tip_login_error_for_network));
+						makeTextLong(getString(R.string.tip_no_internet));
 					};
 				});
 	}
