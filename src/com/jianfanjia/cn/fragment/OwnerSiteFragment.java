@@ -1,11 +1,9 @@
 package com.jianfanjia.cn.fragment;
 
 import java.util.Calendar;
-
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.util.Log;
@@ -13,7 +11,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseFragment;
@@ -58,7 +55,7 @@ public class OwnerSiteFragment extends BaseFragment {
 
 	private RelativeLayout startDateLayout;
 	private RelativeLayout totalDateLayout;
-	
+
 	private MainHeadView mainHeadView;
 
 	@Override
@@ -95,10 +92,11 @@ public class OwnerSiteFragment extends BaseFragment {
 			initData();
 		}
 	}
-	
-	@SuppressLint("ResourceAsColor") 
+
+	@SuppressLint("ResourceAsColor")
 	private void initMainHead(View view) {
-		mainHeadView = (MainHeadView) view.findViewById(R.id.ower_site_head_layout);
+		mainHeadView = (MainHeadView) view
+				.findViewById(R.id.ower_site_head_layout);
 		mainHeadView.setHeadImage(mUserImageId);
 		mainHeadView.setBackListener(this);
 		mainHeadView.setRightTitleVisable(View.GONE);
@@ -107,7 +105,7 @@ public class OwnerSiteFragment extends BaseFragment {
 		mainHeadView.setDividerVisable(View.VISIBLE);
 	}
 
-	//配置工地信息
+	// 配置工地信息
 	private void postProcessInfo() {
 		makeTextLong(JsonParser.beanToJson(requirementInfo));
 		JianFanJiaApiClient.post_Owner_Process(getApplication(),
@@ -153,12 +151,11 @@ public class OwnerSiteFragment extends BaseFragment {
 				});
 
 	}
-	
+
 	// 获取需求成功
 	private void handlerSuccess() {
 		confirmView.setEnabled(false);
 	}
-
 
 	private void setData() {
 		if (requirementInfo != null) {
@@ -182,29 +179,29 @@ public class OwnerSiteFragment extends BaseFragment {
 
 	// 初始化数据
 	private void initData() {
-			String city = processInfo.getProvince() + processInfo.getCity()
-					+ processInfo.getDistrict();
-			cityView.setText(city);
-			villageNameView.setText(processInfo.getCell());
-			houseStyleView.setText(getResources().getStringArray(
-					R.array.house_type)[Integer.parseInt(processInfo
-					.getHouse_type())]);
-			decorateAreaView.setText(processInfo.getHouse_area());
-			loveStyleView.setText(getResources().getStringArray(
-					R.array.dec_style)[Integer.parseInt(processInfo
-					.getDec_style())]);
-			decorateStyleView.setText(getResources().getStringArray(
-					R.array.work_type)[Integer.parseInt(processInfo
-					.getWork_type())]);
-			decorateBudgetView.setText(processInfo.getTotal_price());
-			startDateView.setText(DateFormatTool.covertLongToString(
-					processInfo.getStart_at(), "yyyy-MM-dd"));
-			totalDateView.setText(processInfo.getDuration());
-			startDateGoto.setVisibility(View.GONE);
-			totalDateGoto.setVisibility(View.GONE);
-			confirmView.setEnabled(false);
-			startDateLayout.setEnabled(false);
-			totalDateLayout.setEnabled(false);
+		String city = processInfo.getProvince() + processInfo.getCity()
+				+ processInfo.getDistrict();
+		cityView.setText(city);
+		villageNameView.setText(processInfo.getCell());
+		houseStyleView.setText(getResources()
+				.getStringArray(R.array.house_type)[Integer
+				.parseInt(processInfo.getHouse_type())]);
+		decorateAreaView.setText(processInfo.getHouse_area());
+		loveStyleView
+				.setText(getResources().getStringArray(R.array.dec_style)[Integer
+						.parseInt(processInfo.getDec_style())]);
+		decorateStyleView
+				.setText(getResources().getStringArray(R.array.work_type)[Integer
+						.parseInt(processInfo.getWork_type())]);
+		decorateBudgetView.setText(processInfo.getTotal_price());
+		startDateView.setText(DateFormatTool.covertLongToString(
+				processInfo.getStart_at(), "yyyy-MM-dd"));
+		totalDateView.setText(processInfo.getDuration());
+		startDateGoto.setVisibility(View.GONE);
+		totalDateGoto.setVisibility(View.GONE);
+		confirmView.setEnabled(false);
+		startDateLayout.setEnabled(false);
+		totalDateLayout.setEnabled(false);
 	}
 
 	private void getRequirement() {
@@ -251,7 +248,6 @@ public class OwnerSiteFragment extends BaseFragment {
 					};
 				});
 	}
-
 
 	@Override
 	public void setListener() {
