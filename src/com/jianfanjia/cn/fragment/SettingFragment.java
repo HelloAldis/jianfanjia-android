@@ -15,9 +15,9 @@ import android.widget.ToggleButton;
 import com.igexin.sdk.PushManager;
 import com.jianfanjia.cn.activity.AboutActivity;
 import com.jianfanjia.cn.activity.FeedBackActivity;
+import com.jianfanjia.cn.activity.HelpActivity;
 import com.jianfanjia.cn.activity.LoginActivity;
 import com.jianfanjia.cn.activity.MainActivity;
-import com.jianfanjia.cn.activity.NavigateActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.ShareActivity;
 import com.jianfanjia.cn.application.MyApplication;
@@ -76,14 +76,15 @@ public class SettingFragment extends BaseFragment implements
 		caculateCacheSize();
 	}
 
-	@SuppressLint("ResourceAsColor") 
+	@SuppressLint("ResourceAsColor")
 	private void initMainHead(View view) {
 		mainHeadView = (MainHeadView) view
 				.findViewById(R.id.my_setting_head_layout);
 		mainHeadView.setHeadImage(mUserImageId);
 		mainHeadView.setBackListener(this);
 		mainHeadView.setRightTitleVisable(View.GONE);
-		mainHeadView.setMianTitle(getResources().getString(R.string.my_setting));
+		mainHeadView
+				.setMianTitle(getResources().getString(R.string.my_setting));
 		mainHeadView.setBackgroundColor(R.color.head_layout_bg);
 		mainHeadView.setDividerVisable(View.VISIBLE);
 	}
@@ -110,7 +111,7 @@ public class SettingFragment extends BaseFragment implements
 			startActivity(AboutActivity.class);
 			break;
 		case R.id.help_layout:
-			startActivity(NavigateActivity.class);
+			startActivity(HelpActivity.class);
 			break;
 		case R.id.logout_layout:
 			onClickExit();
