@@ -110,7 +110,6 @@ public class SiteManageFragment extends BaseFragment implements
 
 	private MainHeadView mainHeadView;
 	private AddPhotoPopWindow popupWindow;
-	private Bitmap photo = null;
 
 	private boolean isOpen = false;
 
@@ -493,10 +492,15 @@ public class SiteManageFragment extends BaseFragment implements
 
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							makeTextLong(StringUtils
-									.getDateString(((DateWheelDialog) dialog)
-											.getChooseCalendar().getTime()));
 							dialog.dismiss();
+							String dateStr = StringUtils
+									.getDateString(((DateWheelDialog) dialog)
+											.getChooseCalendar().getTime());
+							LogTool.d(TAG, "dateStr:" + dateStr);
+							postReschedule(processInfo.get_id(),
+									processInfo.getUserid(),
+									processInfo.getFinal_designerid(),
+									sectionInfo.getName(), dateStr);
 						}
 					});
 			dateWheelDialog.setNegativeButton(R.string.no, null);
@@ -576,6 +580,42 @@ public class SiteManageFragment extends BaseFragment implements
 		dialog.show();
 	}
 
+	// 提交改期
+	private void postReschedule(String processId, String userId,
+			String designerId, String section, String newDate) {
+		LogTool.d(TAG, "processId:" + processId + " userId:" + userId
+				+ " designerId:" + designerId + " section:" + section
+				+ " newDate:" + newDate);
+		JianFanJiaApiClient.postReschedule(getActivity(), processId, userId,
+				designerId, section, newDate, new JsonHttpResponseHandler() {
+					@Override
+					public void onStart() {
+						LogTool.d(TAG, "onStart()");
+					}
+
+					@Override
+					public void onSuccess(int statusCode, Header[] headers,
+							JSONObject response) {
+						DataManager.getInstance().getDesignerProcessLists();
+						LogTool.d(TAG, "JSONObject response:" + response);
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							Throwable throwable, JSONObject errorResponse) {
+						LogTool.d(TAG, "Throwable throwable:" + throwable);
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							String responseString, Throwable throwable) {
+						LogTool.d(TAG, "statusCode:" + statusCode
+								+ " throwable:" + throwable);
+					};
+				});
+	}
+
+	// 确认完工装修流程小节点
 	private void confirmProcessItemDone(String siteId, String section,
 			String item) {
 		LogTool.d(TAG, "siteId:" + siteId + " section:" + section + " item:"

@@ -3,7 +3,6 @@ package com.jianfanjia.cn.adapter;
 import java.util.ArrayList;
 import java.util.List;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,8 +23,6 @@ import com.jianfanjia.cn.bean.SectionItemInfo;
 import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
-import com.jianfanjia.cn.view.dialog.CommonDialog;
-import com.jianfanjia.cn.view.dialog.DialogHelper;
 
 public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 	private static final int IMG_COUNT = 9;

@@ -5,6 +5,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -16,8 +20,11 @@ import com.jianfanjia.cn.bean.Message;
 import com.jianfanjia.cn.bean.UserByOwnerInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
+import com.jianfanjia.cn.interf.PopWindowCallBack;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.tools.PhotoUtils;
+import com.jianfanjia.cn.view.AddPhotoPopWindow;
 import com.jianfanjia.cn.view.dialog.CommonWheelDialog;
 import com.jianfanjia.cn.view.wheel.ArrayWheelAdapter;
 import com.jianfanjia.cn.view.wheel.OnWheelChangedListener;
@@ -33,10 +40,11 @@ import com.loopj.android.http.JsonHttpResponseHandler;
  * 
  */
 public class UserByOwnerInfoActivity extends BaseActivity implements
-		OnClickListener {
+		OnClickListener, PopWindowCallBack {
 	private static final String TAG = UserByOwnerInfoActivity.class.getName();
-	private TextView ownerinfo_back = null;
+	private RelativeLayout infoLayout = null;
 	private RelativeLayout headLayout = null;
+	private TextView ownerinfo_back = null;
 	private TextView nameText = null;
 	private TextView sexText = null;
 	private TextView phoneText = null;
@@ -57,8 +65,11 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 	private String city;
 	private String area;
 
+	private AddPhotoPopWindow popupWindow = null;
+
 	@Override
 	public void initView() {
+		infoLayout = (RelativeLayout) findViewById(R.id.infoLayout);
 		ownerinfo_back = (TextView) this.findViewById(R.id.ownerinfo_back);
 		headLayout = (RelativeLayout) this.findViewById(R.id.head_layout);
 		nameText = (TextView) this.findViewById(R.id.nameText);
@@ -95,6 +106,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 			finish();
 			break;
 		case R.id.head_layout:
+			showPopWindow(infoLayout);
 			break;
 		case R.id.btn_confirm:
 			break;
@@ -224,6 +236,101 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 				});
 	}
 
+	private void showPopWindow(View view) {
+		if (popupWindow == null) {
+			popupWindow = new AddPhotoPopWindow(UserByOwnerInfoActivity.this,
+					this);
+		}
+		popupWindow.show(view);
+	}
+
+	@Override
+	public void takecamera() {
+		Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		startActivityForResult(cameraIntent, Constant.REQUESTCODE_CAMERA);
+	}
+
+	@Override
+	public void takePhoto() {
+		Intent albumIntent = new Intent(Intent.ACTION_GET_CONTENT);
+		albumIntent.setType("image/*");
+		startActivityForResult(albumIntent, Constant.REQUESTCODE_LOCATION);
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		switch (requestCode) {
+		case Constant.REQUESTCODE_EDIT_USERNAME:
+			break;
+		case Constant.REQUESTCODE_EDIT_ADDRESS:
+			break;
+		case Constant.REQUESTCODE_CAMERA:// 拍照
+			LogTool.d(TAG, "data:" + data);
+			if (data != null) {
+				Bundle bundle = data.getExtras();
+				Bitmap bitmap = (Bitmap) bundle.get("data");
+				LogTool.d(TAG, "bitmap:" + bitmap);
+				Uri mImageUri = null;
+				if (null != data.getData()) {
+					mImageUri = data.getData();
+				} else {
+					mImageUri = Uri.parse(MediaStore.Images.Media.insertImage(
+							getContentResolver(), bitmap, null, null));
+				}
+				LogTool.d(TAG, "mImageUri:" + mImageUri);
+				startPhotoZoom(mImageUri);
+			}
+			break;
+		case Constant.REQUESTCODE_LOCATION:// 本地选取
+			if (data != null) {
+				Uri uri = data.getData();
+				LogTool.d(TAG, "uri:" + uri);
+				if (null != uri) {
+					startPhotoZoom(uri);
+				}
+			}
+			break;
+		case Constant.REQUESTCODE_CROP:
+			if (data != null) {
+				Bundle extras = data.getExtras();
+				if (extras != null) {
+					// 得到返回来的数据，是bitmap类型的数据
+					Bitmap bitmap = extras.getParcelable("data");
+					LogTool.d(TAG, "avatar - bitmap = " + bitmap);
+					String imgPath = PhotoUtils.savaPicture(bitmap);
+					LogTool.d(TAG, "imgPath=============" + imgPath);
+					if (!TextUtils.isEmpty(imgPath)) {
+
+					}
+				}
+			}
+			break;
+		default:
+			break;
+		}
+	}
+
+	/**
+	 * 裁剪图片方法实现
+	 * 
+	 * @param uri
+	 */
+	private void startPhotoZoom(Uri uri) {
+		Intent intent = new Intent("com.android.camera.action.CROP");
+		intent.setDataAndType(uri, "image/*");
+		// 下面这个crop=true是设置在开启的Intent中设置显示的VIEW可裁剪
+		intent.putExtra("crop", "true");
+		// aspectX aspectY 是宽高的比例
+		intent.putExtra("aspectX", 1);
+		intent.putExtra("aspectY", 1);
+		// outputX outputY 是裁剪图片宽高
+		intent.putExtra("outputX", 200);
+		intent.putExtra("outputY", 200);
+		intent.putExtra("return-data", true);
+		startActivityForResult(intent, Constant.REQUESTCODE_CROP);
+	}
+
 	@Override
 	public void onReceiveMsg(Message message) {
 		LogTool.d(TAG, "message=" + message);
@@ -233,22 +340,6 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 	@Override
 	public int getLayoutId() {
 		return R.layout.activity_owner_info;
-	}
-
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// TODO Auto-generated method stub
-		super.onActivityResult(requestCode, resultCode, data);
-		if (resultCode == RESULT_OK) {
-			String content = data.getStringExtra(Constant.EDIT_CONTENT);
-			if (!TextUtils.isEmpty(content)) {
-				if (requestCode == Constant.REQUESTCODE_EDIT_USERNAME) {
-					nameText.setText(content);
-				} else if (requestCode == Constant.REQUESTCODE_EDIT_ADDRESS) {
-					homeText.setText(content);
-				}
-			}
-		}
 	}
 
 }

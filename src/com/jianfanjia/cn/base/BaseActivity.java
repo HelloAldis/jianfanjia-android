@@ -150,6 +150,8 @@ public abstract class BaseActivity extends FragmentActivity implements
 	// 通过Class跳转界面
 	protected void startActivity(Class<?> cls) {
 		startActivity(cls, null);
+		overridePendingTransition(R.anim.fragment_list_right_enter,
+				R.anim.fragment_slide_left_exit);
 	}
 
 	// 含有Bundle通过Class跳转界面

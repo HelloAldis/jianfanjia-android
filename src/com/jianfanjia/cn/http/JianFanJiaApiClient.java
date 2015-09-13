@@ -11,6 +11,7 @@ import com.jianfanjia.cn.bean.CommitCommentInfo;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Url;
+import com.jianfanjia.cn.tools.DateFormatTool;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -259,6 +260,39 @@ public class JianFanJiaApiClient {
 	public static void get_Owner_Process(Context context,
 			AsyncHttpResponseHandler hanlder) {
 		HttpRestClient.get(context, Url.PROCESS, hanlder);
+	}
+
+	/**
+	 * 用户提交改期
+	 * 
+	 * @param context
+	 * @param processId
+	 * @param userId
+	 * @param designerId
+	 * @param section
+	 * @param newDate
+	 * @param handler
+	 */
+	public static void postReschedule(Context context, String processId,
+			String userId, String designerId, String section, String newDate,
+			AsyncHttpResponseHandler handler) {
+		JSONObject jsonParams = new JSONObject();
+		try {
+			jsonParams.put("processid", processId);
+			jsonParams.put("userid", userId);
+			jsonParams.put("designerid", designerId);
+			jsonParams.put("section", section);
+			jsonParams.put("new_date",
+					DateFormatTool.covertStringToLong(newDate));
+			Log.i("JianFanJiaApiClient", "jsonParams：" + jsonParams.toString());
+			StringEntity entity = new StringEntity(jsonParams.toString());
+			HttpRestClient.post(context, Url.POST_RESCHDULE, entity,
+					"application/json", handler);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
