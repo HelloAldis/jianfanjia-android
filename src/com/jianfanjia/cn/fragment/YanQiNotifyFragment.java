@@ -2,13 +2,17 @@ package com.jianfanjia.cn.fragment;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.http.Header;
+import org.json.JSONObject;
 import android.view.View;
 import android.widget.ListView;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.DelayNotifyAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.NotifyDelayInfo;
+import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.tools.LogTool;
+import com.loopj.android.http.JsonHttpResponseHandler;
 
 /**
  * 
@@ -19,6 +23,7 @@ import com.jianfanjia.cn.tools.LogTool;
  * 
  */
 public class YanQiNotifyFragment extends BaseFragment {
+	private static final String TAG = YanQiNotifyFragment.class.getName();
 	private ListView listView = null;
 	private List<NotifyDelayInfo> caigouList = new ArrayList<NotifyDelayInfo>();
 	private NotifyDelayInfo caiGouInfo = null;
@@ -46,6 +51,7 @@ public class YanQiNotifyFragment extends BaseFragment {
 		if (isVisibleToUser) {
 			// fragment可见时加载数据
 			LogTool.d(this.getClass().getName(), "1111111111111111");
+			getRescheduleAll();
 		} else {
 			// 不可见时不执行操作
 			LogTool.d(this.getClass().getName(), "222222222222222");
@@ -56,6 +62,42 @@ public class YanQiNotifyFragment extends BaseFragment {
 	public void setListener() {
 		// TODO Auto-generated method stub
 
+	}
+
+	private void getRescheduleAll() {
+		JianFanJiaApiClient.rescheduleAll(getActivity(),
+				new JsonHttpResponseHandler() {
+					@Override
+					public void onStart() {
+						LogTool.d(TAG, "onStart()");
+						showWaitDialog();
+					}
+
+					@Override
+					public void onSuccess(int statusCode, Header[] headers,
+							JSONObject response) {
+						LogTool.d(TAG, "JSONObject response:" + response);
+						hideWaitDialog();
+
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							Throwable throwable, JSONObject errorResponse) {
+						LogTool.d(TAG,
+								"Throwable throwable:" + throwable.toString());
+						hideWaitDialog();
+						makeTextLong(getString(R.string.tip_login_error_for_network));
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							String responseString, Throwable throwable) {
+						LogTool.d(TAG, "throwable:" + throwable);
+						hideWaitDialog();
+						makeTextLong(getString(R.string.tip_login_error_for_network));
+					};
+				});
 	}
 
 	@Override

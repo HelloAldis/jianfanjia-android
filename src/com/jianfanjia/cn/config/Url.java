@@ -79,7 +79,7 @@ public class Url {
 			+ "process/reschedule/reject";
 	// 用户获取我的改期提醒
 	public static final String GET_RESCHDULE_ALL = HTTPROOT
-			+ "process/reschedule/all";
+		+ "process/reschedule/all";
 	// 获取图片
 	public static final String GET_IMAGE = HTTPROOT + "image/";
 	

@@ -308,6 +308,17 @@ public class JianFanJiaApiClient {
 	}
 
 	/**
+	 * 用户获取我的改期提醒
+	 * 
+	 * @param context
+	 * @param hanlder
+	 */
+	public static void rescheduleAll(Context context,
+			AsyncHttpResponseHandler hanlder) {
+		HttpRestClient.get(context, Url.GET_RESCHDULE_ALL, hanlder);
+	}
+
+	/**
 	 * 版本更新
 	 * 
 	 * @param context
@@ -417,7 +428,7 @@ public class JianFanJiaApiClient {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * 根据id拿到工地信息
 	 * 
@@ -429,7 +440,7 @@ public class JianFanJiaApiClient {
 			AsyncHttpResponseHandler handler) {
 		String getProcessUrl = Url.GET_PROCESSINFO_BYID.replace(Url.ID,
 				processid);
-		HttpRestClient.get(context,getProcessUrl, handler);
+		HttpRestClient.get(context, getProcessUrl, handler);
 	}
-	
+
 }
