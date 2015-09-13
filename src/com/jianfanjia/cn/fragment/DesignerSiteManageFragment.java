@@ -9,18 +9,16 @@ import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
-
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.InfinitePagerAdapter;
@@ -29,14 +27,11 @@ import com.jianfanjia.cn.adapter.SectionItemAdapter;
 import com.jianfanjia.cn.adapter.ViewPageAdapter;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
-import com.jianfanjia.cn.bean.ProcedureInfo;
 import com.jianfanjia.cn.bean.ProcessInfo;
-import com.jianfanjia.cn.bean.SiteInfo;
 import com.jianfanjia.cn.bean.ViewPagerItem;
 import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.SwitchFragmentListener;
-import com.jianfanjia.cn.layout.ScrollLayout;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
@@ -56,11 +51,6 @@ public class DesignerSiteManageFragment extends BaseFragment implements
 			.getName();
 	private SwitchFragmentListener listener;
 	private PullToRefreshScrollView mPullRefreshScrollView = null;
-	private ScrollView mScrollView = null;
-	private ArrayList<ProcedureInfo> procedureList;
-	private SiteInfo site;
-	private int currentPro;
-	private LayoutInflater mLayoutInflater;
 	private ViewPager bannerViewPager;
 	private ViewGroup group = null;
 	private ImageView[] tips;
@@ -72,17 +62,15 @@ public class DesignerSiteManageFragment extends BaseFragment implements
 	private SectionItemAdapter sectionItemAdapter;
 	private InfinitePagerAdapter infinitePagerAdapter = null;
 	private MyViewPageAdapter myViewPageAdapter = null;
-	private ScrollLayout scrollLayout;
 	private String[] proTitle = null;
-	private int size;
 	private List<ViewPagerItem> list = new ArrayList<ViewPagerItem>();
-	
+
 	private RelativeLayout listHeadView;// list头视图
 	private RelativeLayout smallHeadLayout;// 折叠layout
 	private RelativeLayout expandHeadLayout;// 打开layout
 	private TextView openCheckNode;// 打开验收节点名称
 	private TextView closeCheckNode;// 折叠验收节点名称
-	
+
 	private ProcessInfo processInfo;
 
 	private static final int CHANGE_PHOTO = 1;
@@ -131,7 +119,6 @@ public class DesignerSiteManageFragment extends BaseFragment implements
 		mPullRefreshScrollView = (PullToRefreshScrollView) view
 				.findViewById(R.id.pull_refresh_scrollview);
 		mPullRefreshScrollView.setMode(Mode.PULL_FROM_START);
-		mScrollView = mPullRefreshScrollView.getRefreshableView();
 		icon_user_head = (ImageView) view.findViewById(R.id.icon_user_head);
 		head_right_title = (TextView) view.findViewById(R.id.head_right_title);
 		initBannerView(view);
@@ -139,11 +126,11 @@ public class DesignerSiteManageFragment extends BaseFragment implements
 		initScrollLayout(view);
 		initListView(view);
 	}
-	
-	private void initProcessInfo(){
+
+	private void initProcessInfo() {
 		processInfo = DataManager.getInstance().getDefaultProcessInfo();
 	}
-	
+
 	private void initListView(View view) {
 		detailNodeListView = (ListView) view.findViewById(R.id.site__listview);
 		detailNodeListView.setFocusable(false);
@@ -166,7 +153,7 @@ public class DesignerSiteManageFragment extends BaseFragment implements
 					}
 				} else {
 					// 点击listview item项
-					sectionItemAdapter.setLastClickItem(position - 1,false);
+					sectionItemAdapter.setLastClickItem(position - 1, false);
 					sectionItemAdapter.notifyDataSetChanged();
 				}
 			}
