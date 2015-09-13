@@ -4,6 +4,9 @@ import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
@@ -19,6 +22,7 @@ import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.tools.PhotoUtils;
 import com.jianfanjia.cn.view.AddPhotoPopWindow;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -206,16 +210,75 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		if (resultCode == RESULT_OK) {
-			String content = data.getStringExtra(Constant.EDIT_CONTENT);
-			if (!TextUtils.isEmpty(content)) {
-				if (requestCode == Constant.REQUESTCODE_EDIT_USERNAME) {
-					nameText.setText(content);
-				} else if (requestCode == Constant.REQUESTCODE_EDIT_ADDRESS) {
-					homeText.setText(content);
+		switch (requestCode) {
+		case Constant.REQUESTCODE_EDIT_USERNAME:
+			break;
+		case Constant.REQUESTCODE_EDIT_ADDRESS:
+			break;
+		case Constant.REQUESTCODE_CAMERA:// 拍照
+			LogTool.d(TAG, "data:" + data);
+			if (data != null) {
+				Bundle bundle = data.getExtras();
+				Bitmap bitmap = (Bitmap) bundle.get("data");
+				LogTool.d(TAG, "bitmap:" + bitmap);
+				Uri mImageUri = null;
+				if (null != data.getData()) {
+					mImageUri = data.getData();
+				} else {
+					mImageUri = Uri.parse(MediaStore.Images.Media.insertImage(
+							getContentResolver(), bitmap, null, null));
+				}
+				LogTool.d(TAG, "mImageUri:" + mImageUri);
+				startPhotoZoom(mImageUri);
+			}
+			break;
+		case Constant.REQUESTCODE_LOCATION:// 本地选取
+			if (data != null) {
+				Uri uri = data.getData();
+				LogTool.d(TAG, "uri:" + uri);
+				if (null != uri) {
+					startPhotoZoom(uri);
 				}
 			}
+			break;
+		case Constant.REQUESTCODE_CROP:
+			if (data != null) {
+				Bundle extras = data.getExtras();
+				if (extras != null) {
+					// 得到返回来的数据，是bitmap类型的数据
+					Bitmap bitmap = extras.getParcelable("data");
+					LogTool.d(TAG, "avatar - bitmap = " + bitmap);
+					String imgPath = PhotoUtils.savaPicture(bitmap);
+					LogTool.d(TAG, "imgPath=============" + imgPath);
+					if (!TextUtils.isEmpty(imgPath)) {
+
+					}
+				}
+			}
+			break;
+		default:
+			break;
 		}
+	}
+
+	/**
+	 * 裁剪图片方法实现
+	 * 
+	 * @param uri
+	 */
+	private void startPhotoZoom(Uri uri) {
+		Intent intent = new Intent("com.android.camera.action.CROP");
+		intent.setDataAndType(uri, "image/*");
+		// 下面这个crop=true是设置在开启的Intent中设置显示的VIEW可裁剪
+		intent.putExtra("crop", "true");
+		// aspectX aspectY 是宽高的比例
+		intent.putExtra("aspectX", 1);
+		intent.putExtra("aspectY", 1);
+		// outputX outputY 是裁剪图片宽高
+		intent.putExtra("outputX", 200);
+		intent.putExtra("outputY", 200);
+		intent.putExtra("return-data", true);
+		startActivityForResult(intent, Constant.REQUESTCODE_CROP);
 	}
 
 	@Override

@@ -33,6 +33,11 @@ public class Constant {
 	public static final int REQUESTCODE_CAMERA = 1;// 拍照
 	public static final int REQUESTCODE_LOCATION = 2;// 本地相册选取
 	public static final int REQUESTCODE_CROP = 3;// 裁剪
+	// editactivity
+	public static final int REQUESTCODE_EDIT_USERNAME = 4;
+	public static final int REQUESTCODE_EDIT_ADDRESS = 5;
+	public static final String EDIT_TYPE = "inputType";
+	public static final String EDIT_CONTENT = "content";
 
 	// item点击项
 	public static final int CONFIRM_ITEM = 1;
@@ -103,11 +108,5 @@ public class Constant {
 
 	public static final String CURRENT_LIST = "current_list";// 首页展开的第一道工序
 	public static final String CURRENT_ITEM = "current_item";// 当前节点
-
-	// editactivity
-	public static final int REQUESTCODE_EDIT_USERNAME = 0;
-	public static final int REQUESTCODE_EDIT_ADDRESS = 1;
-	public static final String EDIT_TYPE = "inputType";
-	public static final String EDIT_CONTENT = "content";
 
 }
