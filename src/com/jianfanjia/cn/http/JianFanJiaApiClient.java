@@ -262,6 +262,37 @@ public class JianFanJiaApiClient {
 	}
 
 	/**
+	 * 用户提交改期
+	 * 
+	 * @param context
+	 * @param processId
+	 * @param userId
+	 * @param designerId
+	 * @param section
+	 * @param newDate
+	 * @param handler
+	 */
+	public static void postReschedule(Context context, String processId,
+			String userId, String designerId, String section, String newDate,
+			AsyncHttpResponseHandler handler) {
+		JSONObject jsonParams = new JSONObject();
+		try {
+			jsonParams.put("processid", processId);
+			jsonParams.put("userid", userId);
+			jsonParams.put("designerid", designerId);
+			jsonParams.put("section", section);
+			jsonParams.put("new_date", newDate);
+			StringEntity entity = new StringEntity(jsonParams.toString());
+			HttpRestClient.post(context, Url.POST_RESCHDULE, entity,
+					"application/json", handler);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
 	 * 用户同意改期
 	 * 
 	 * @param context

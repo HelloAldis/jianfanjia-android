@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Observable;
+
 import org.apache.http.Header;
 import org.json.JSONObject;
+
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -29,6 +31,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+
 import com.jianfanjia.cn.activity.CheckActivity;
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
@@ -492,10 +495,12 @@ public class SiteManageFragment extends BaseFragment implements
 
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							makeTextLong(StringUtils
-									.getDateString(((DateWheelDialog) dialog)
-											.getChooseCalendar().getTime()));
 							dialog.dismiss();
+							String dateStr = StringUtils
+									.getDateString(((DateWheelDialog) dialog)
+											.getChooseCalendar().getTime());
+							LogTool.d(TAG, "dateStr:" + dateStr);
+
 						}
 					});
 			dateWheelDialog.setNegativeButton(R.string.no, null);
@@ -573,6 +578,40 @@ public class SiteManageFragment extends BaseFragment implements
 				});
 		dialog.setNegativeButton(R.string.no, null);
 		dialog.show();
+	}
+
+	private void postReschedule(String processId, String userId,
+			String designerId, String section, String newDate) {
+		LogTool.d(TAG, "processId:" + processId + " userId:" + userId
+				+ " designerId:" + designerId + " section:" + section
+				+ " newDate:" + newDate);
+		JianFanJiaApiClient.postReschedule(getActivity(), processId, userId,
+				designerId, section, newDate, new JsonHttpResponseHandler() {
+					@Override
+					public void onStart() {
+						LogTool.d(TAG, "onStart()");
+					}
+
+					@Override
+					public void onSuccess(int statusCode, Header[] headers,
+							JSONObject response) {
+						DataManager.getInstance().getDesignerProcessLists();
+						LogTool.d(TAG, "JSONObject response:" + response);
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							Throwable throwable, JSONObject errorResponse) {
+						LogTool.d(TAG, "Throwable throwable:" + throwable);
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							String responseString, Throwable throwable) {
+						LogTool.d(TAG, "statusCode:" + statusCode
+								+ " throwable:" + throwable);
+					};
+				});
 	}
 
 	private void confirmProcessItemDone(String siteId, String section,
