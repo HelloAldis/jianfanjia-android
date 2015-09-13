@@ -2,13 +2,11 @@ package com.jianfanjia.cn.fragment;
 
 import java.util.Observable;
 import java.util.Observer;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseFragment;
@@ -28,7 +26,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  * @date 2015-8-26 下午3:41:31
  * 
  */
-public class DesignerFragment extends BaseFragment implements Observer{
+public class DesignerFragment extends BaseFragment implements Observer {
 	protected static final String TAG = "DesignerFragment";
 	private ImageView bgView;// 设计师背景
 	private CircleImageView headView;//
@@ -41,12 +39,11 @@ public class DesignerFragment extends BaseFragment implements Observer{
 	private TextView goodAtView;// 擅长
 	private TextView budgetView;// 设计费
 	private UserByDesignerInfo designerInfo;
-	
+
 	private MainHeadView mainHeadView;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		DataManager.getInstance().addObserver(this);
 	}
@@ -55,7 +52,8 @@ public class DesignerFragment extends BaseFragment implements Observer{
 	public void initView(View view) {
 		initMainHead(view);
 		bgView = (ImageView) view.findViewById(R.id.designer_bg);
-		headView = (CircleImageView) view.findViewById(R.id.my_designer_head_icon);
+		headView = (CircleImageView) view
+				.findViewById(R.id.my_designer_head_icon);
 		nameView = (TextView) view.findViewById(R.id.my_designer_name);
 		sexView = (ImageView) view.findViewById(R.id.my_designer_sex_icon);
 		authView = (ImageView) view.findViewById(R.id.my_designer_verify);
@@ -66,22 +64,25 @@ public class DesignerFragment extends BaseFragment implements Observer{
 		cityView = (TextView) view.findViewById(R.id.my_designer_city);
 		goodAtView = (TextView) view.findViewById(R.id.my_designer_style);
 		budgetView = (TextView) view.findViewById(R.id.my_designer_budget);
-		
+
 		String designerId = DataManager.getInstance().getDefaultDesignerId();
 		designerInfo = DataManager.getInstance().getDesignerInfo(designerId);
-		if(designerInfo != null){
+		if (designerInfo != null) {
 			setData();
 		}
 	}
-	
+
 	private void initMainHead(View view) {
-		mainHeadView = (MainHeadView) view.findViewById(R.id.my_designer_head_layout);
+		mainHeadView = (MainHeadView) view
+				.findViewById(R.id.my_designer_head_layout);
 		mainHeadView.setHeadImage(mUserImageId);
 		mainHeadView.setBackListener(this);
 		mainHeadView.setRightTitleVisable(View.GONE);
-		mainHeadView.setMianTitle(getResources().getString(R.string.my_designer));
+		mainHeadView.setMianTitle(getResources()
+				.getString(R.string.my_designer));
 		mainHeadView.setBackgroundTransparent();
-		mainHeadView.setMainTextColor(getResources().getColor(R.color.font_white));
+		mainHeadView.setMainTextColor(getResources().getColor(
+				R.color.font_white));
 		mainHeadView.setDividerVisable(View.GONE);
 	}
 
@@ -95,8 +96,8 @@ public class DesignerFragment extends BaseFragment implements Observer{
 			authView.setVisibility(designerInfo.getAuth_type().equals(
 					Constant.DESIGNER_FINISH_AUTH_TYPE) ? View.VISIBLE
 					: View.GONE);
-			productSumView.setText(designerInfo.getProduct_count()+"");
-			appointmentSum.setText(designerInfo.getOrder_count()+"");
+			productSumView.setText(designerInfo.getProduct_count() + "");
+			appointmentSum.setText(designerInfo.getOrder_count() + "");
 			cityView.setText(designerInfo.getCity());
 			budgetView.setText(getResources().getStringArray(
 					R.array.design_fee_range)[Integer.parseInt(designerInfo
@@ -127,31 +128,28 @@ public class DesignerFragment extends BaseFragment implements Observer{
 			} else {
 				headView.setImageResource(R.drawable.icon_sidebar_default_designer);
 			}
-
 		}
-
 	}
 
 	private void handlerSuccess() {
-		designerInfo = DataManager.getInstance().getDesignerInfo(DataManager.getInstance().getDefaultDesignerId());
+		designerInfo = DataManager.getInstance().getDesignerInfo(
+				DataManager.getInstance().getDefaultDesignerId());
 		setData();
 	}
-	
+
 	@Override
 	public void update(Observable observable, Object data) {
-		// TODO Auto-generated method stub
 		super.update(observable, data);
-		if(DataManager.SUCCESS.equals(data)){
+		if (DataManager.SUCCESS.equals(data)) {
 			handlerSuccess();
 		}
 	}
-	
+
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.icon_head:
-			((MainActivity)getActivity()).getSlidingPaneLayout().openPane();
+			((MainActivity) getActivity()).getSlidingPaneLayout().openPane();
 			break;
 		default:
 			break;

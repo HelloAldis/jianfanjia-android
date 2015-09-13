@@ -2,11 +2,9 @@ package com.jianfanjia.cn.fragment;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,7 +12,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.OwnerInfoActivity;
@@ -42,7 +39,7 @@ public class OwnerFragment extends BaseFragment implements OnItemClickListener {
 	private ListView ownerListView;
 	private List<Process> ownerList = new ArrayList<Process>();
 	private MyOwerInfoAdapter myOwerInfoAdapter = null;
-	
+
 	private MainHeadView mainHeadView;
 
 	@Override
@@ -56,10 +53,11 @@ public class OwnerFragment extends BaseFragment implements OnItemClickListener {
 		initMainHead(view);
 		get_Designer_Owner();
 	}
-	
-	@SuppressLint("ResourceAsColor") 
+
+	@SuppressLint("ResourceAsColor")
 	private void initMainHead(View view) {
-		mainHeadView = (MainHeadView) view.findViewById(R.id.my_ower_head_layout);
+		mainHeadView = (MainHeadView) view
+				.findViewById(R.id.my_ower_head_layout);
 		mainHeadView.setHeadImage(mUserImageId);
 		mainHeadView.setBackListener(this);
 		mainHeadView.setRightTitleVisable(View.GONE);
@@ -111,12 +109,10 @@ public class OwnerFragment extends BaseFragment implements OnItemClickListener {
 						hideWaitDialog();
 						try {
 							if (response.has(Constant.DATA)) {
-								ownerList = JsonParser
-										.jsonToList(
-												response.get(Constant.DATA)
-														.toString(),
-												new TypeToken<List<Process>>() {
-												}.getType());
+								ownerList = JsonParser.jsonToList(
+										response.get(Constant.DATA).toString(),
+										new TypeToken<List<Process>>() {
+										}.getType());
 								LogTool.d(TAG, "ownerList:" + ownerList);
 								myOwerInfoAdapter = new MyOwerInfoAdapter(
 										getActivity(), ownerList);
