@@ -430,6 +430,30 @@ public class JianFanJiaApiClient {
 	}
 
 	/**
+	 * 设计师删除验收图片
+	 * 
+	 * @param context
+	 * @param siteId
+	 * @param key
+	 * @param handler
+	 */
+	public static void deleteYanShouImage(Context context, String siteId,
+			String key, AsyncHttpResponseHandler handler) {
+		JSONObject jsonParams = new JSONObject();
+		try {
+			jsonParams.put("_id", siteId);
+			jsonParams.put("key", key);
+			StringEntity entity = new StringEntity(jsonParams.toString());
+			HttpRestClient.post(context, Url.DELETE_YAHSHOU_IMAGE, entity,
+					"application/json", handler);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
 	 * 根据id拿到工地信息
 	 * 
 	 * @param context

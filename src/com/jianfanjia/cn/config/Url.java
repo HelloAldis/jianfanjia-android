@@ -61,6 +61,9 @@ public class Url {
 	// 设计师提交验收图片
 	public static final String SUBMIT_YAHSHOU_IMAGE = HTTPROOT
 			+ "process/ysimage";
+	// 设计师删除验收图片
+	public static final String DELETE_YAHSHOU_IMAGE = HTTPROOT
+			+ "process/ysimage";
 	// 用户上传图片到装修流程
 	public static final String POST_PROCESS_IMAGE = HTTPROOT + "process/image";
 	// 评价装修流程
@@ -79,11 +82,12 @@ public class Url {
 			+ "process/reschedule/reject";
 	// 用户获取我的改期提醒
 	public static final String GET_RESCHDULE_ALL = HTTPROOT
-		+ "process/reschedule/all";
+			+ "process/reschedule/all";
 	// 获取图片
 	public static final String GET_IMAGE = HTTPROOT + "image/";
-	
-	//根据工地id获取某个工地
-	public static final String GET_PROCESSINFO_BYID =  HTTPROOT + "process/"+ID;
+
+	// 根据工地id获取某个工地
+	public static final String GET_PROCESSINFO_BYID = HTTPROOT + "process/"
+			+ ID;
 
 }
