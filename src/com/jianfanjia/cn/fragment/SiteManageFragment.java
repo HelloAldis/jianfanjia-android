@@ -4,10 +4,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Observable;
-
 import org.apache.http.Header;
 import org.json.JSONObject;
-
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -31,7 +29,6 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-
 import com.jianfanjia.cn.activity.CheckActivity;
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
@@ -113,7 +110,6 @@ public class SiteManageFragment extends BaseFragment implements
 
 	private MainHeadView mainHeadView;
 	private AddPhotoPopWindow popupWindow;
-	private Bitmap photo = null;
 
 	private boolean isOpen = false;
 

@@ -5,6 +5,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -16,8 +17,10 @@ import com.jianfanjia.cn.bean.Message;
 import com.jianfanjia.cn.bean.UserByOwnerInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
+import com.jianfanjia.cn.interf.PopWindowCallBack;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.view.AddPhotoPopWindow;
 import com.jianfanjia.cn.view.dialog.CommonWheelDialog;
 import com.jianfanjia.cn.view.wheel.ArrayWheelAdapter;
 import com.jianfanjia.cn.view.wheel.OnWheelChangedListener;
@@ -33,10 +36,11 @@ import com.loopj.android.http.JsonHttpResponseHandler;
  * 
  */
 public class UserByOwnerInfoActivity extends BaseActivity implements
-		OnClickListener {
+		OnClickListener, PopWindowCallBack {
 	private static final String TAG = UserByOwnerInfoActivity.class.getName();
-	private TextView ownerinfo_back = null;
+	private RelativeLayout infoLayout = null;
 	private RelativeLayout headLayout = null;
+	private TextView ownerinfo_back = null;
 	private TextView nameText = null;
 	private TextView sexText = null;
 	private TextView phoneText = null;
@@ -57,8 +61,11 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 	private String city;
 	private String area;
 
+	private AddPhotoPopWindow popupWindow = null;
+
 	@Override
 	public void initView() {
+		infoLayout = (RelativeLayout) findViewById(R.id.infoLayout);
 		ownerinfo_back = (TextView) this.findViewById(R.id.ownerinfo_back);
 		headLayout = (RelativeLayout) this.findViewById(R.id.head_layout);
 		nameText = (TextView) this.findViewById(R.id.nameText);
@@ -95,6 +102,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 			finish();
 			break;
 		case R.id.head_layout:
+			showPopWindow(infoLayout);
 			break;
 		case R.id.btn_confirm:
 			break;
@@ -224,20 +232,29 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 				});
 	}
 
-	@Override
-	public void onReceiveMsg(Message message) {
-		LogTool.d(TAG, "message=" + message);
-		showNotify(message);
+	private void showPopWindow(View view) {
+		if (popupWindow == null) {
+			popupWindow = new AddPhotoPopWindow(UserByOwnerInfoActivity.this,
+					this);
+		}
+		popupWindow.show(view);
 	}
 
 	@Override
-	public int getLayoutId() {
-		return R.layout.activity_owner_info;
+	public void takecamera() {
+		Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		startActivityForResult(cameraIntent, Constant.REQUESTCODE_CAMERA);
+	}
+
+	@Override
+	public void takePhoto() {
+		Intent albumIntent = new Intent(Intent.ACTION_GET_CONTENT);
+		albumIntent.setType("image/*");
+		startActivityForResult(albumIntent, Constant.REQUESTCODE_LOCATION);
 	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
 		if (resultCode == RESULT_OK) {
 			String content = data.getStringExtra(Constant.EDIT_CONTENT);
@@ -249,6 +266,17 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 				}
 			}
 		}
+	}
+
+	@Override
+	public void onReceiveMsg(Message message) {
+		LogTool.d(TAG, "message=" + message);
+		showNotify(message);
+	}
+
+	@Override
+	public int getLayoutId() {
+		return R.layout.activity_owner_info;
 	}
 
 }
