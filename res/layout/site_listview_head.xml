@@ -2,7 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content" >
-	<!-- 外面套一层是为了让listview 头视图隐藏后，头部高度为0 -->
+
+    <!-- 外面套一层是为了让listview 头视图隐藏后，头部高度为0 -->
+
     <RelativeLayout
         android:id="@+id/site_listview_item_container"
         android:layout_width="match_parent"
@@ -12,7 +14,7 @@
             android:id="@+id/site_listview_item_status"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="12dp"
             android:contentDescription="@null"
             android:scaleType="center"
             android:src="@drawable/site_listview_item_notstart_circle" />
@@ -22,7 +24,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_margin="20dip"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="14dp"
+            android:layout_marginTop="8dp"
             android:layout_toRightOf="@+id/site_listview_item_status"
             android:background="@drawable/list_item_text_bg1"
             android:padding="12dp" >

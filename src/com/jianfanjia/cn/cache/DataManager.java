@@ -138,7 +138,7 @@ public class DataManager extends Observable {
 							MyApplication
 									.getInstance()
 									.makeTextLong(
-											context.getString(R.string.tip_login_error_for_network));
+											context.getString(R.string.load_failure));
 						}
 					}
 
@@ -150,7 +150,7 @@ public class DataManager extends Observable {
 						MyApplication
 								.getInstance()
 								.makeTextLong(
-										context.getString(R.string.tip_login_error_for_network));
+										context.getString(R.string.tip_no_internet));
 					}
 
 					@Override
@@ -160,7 +160,7 @@ public class DataManager extends Observable {
 						MyApplication
 								.getInstance()
 								.makeTextLong(
-										context.getString(R.string.tip_login_error_for_network));
+										context.getString(R.string.tip_no_internet));
 					};
 				});
 	}
@@ -197,7 +197,7 @@ public class DataManager extends Observable {
 							MyApplication
 									.getInstance()
 									.makeTextLong(
-											context.getString(R.string.tip_login_error_for_network));
+											context.getString(R.string.load_failure));
 						}
 					}
 
@@ -209,7 +209,7 @@ public class DataManager extends Observable {
 						MyApplication
 								.getInstance()
 								.makeTextLong(
-										context.getString(R.string.tip_login_error_for_network));
+										context.getString(R.string.tip_no_internet));
 					}
 
 					@Override
@@ -219,7 +219,7 @@ public class DataManager extends Observable {
 						MyApplication
 								.getInstance()
 								.makeTextLong(
-										context.getString(R.string.tip_login_error_for_network));
+										context.getString(R.string.tip_no_internet));
 					};
 				});
 	}
@@ -325,7 +325,7 @@ public class DataManager extends Observable {
 							MyApplication
 									.getInstance()
 									.makeTextLong(
-											context.getString(R.string.tip_login_error_for_network));
+											context.getString(R.string.load_failure));
 						}
 					}
 
@@ -340,7 +340,7 @@ public class DataManager extends Observable {
 						MyApplication
 								.getInstance()
 								.makeTextLong(
-										context.getString(R.string.tip_login_error_for_network));
+										context.getString(R.string.tip_no_internet));
 					}
 
 					@Override
@@ -353,7 +353,7 @@ public class DataManager extends Observable {
 						MyApplication
 								.getInstance()
 								.makeTextLong(
-										context.getString(R.string.tip_login_error_for_network));
+										context.getString(R.string.tip_no_internet));
 					}
 				});
 	}
@@ -432,7 +432,7 @@ public class DataManager extends Observable {
 							MyApplication
 									.getInstance()
 									.makeTextLong(
-											context.getString(R.string.tip_login_error_for_network));
+											context.getString(R.string.load_failure));
 						}
 					}
 
@@ -447,7 +447,7 @@ public class DataManager extends Observable {
 						MyApplication
 								.getInstance()
 								.makeTextLong(
-										context.getString(R.string.tip_login_error_for_network));
+										context.getString(R.string.tip_no_internet));
 					}
 
 					@Override
@@ -460,7 +460,7 @@ public class DataManager extends Observable {
 						MyApplication
 								.getInstance()
 								.makeTextLong(
-										context.getString(R.string.tip_login_error_for_network));
+										context.getString(R.string.tip_no_internet));
 					}
 				});
 

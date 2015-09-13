@@ -42,6 +42,7 @@
     <string name="tip_login_error_for_network">对不起,无法登录</string>
     <string name="tip_no_internet">当前没有可用的网络链接</string>
     <string name="hint_update_password">请输入重置密码</string>
+    <string name="load_failure">解析异常</string>
     <!-- login_activity -->
 
 
@@ -59,6 +60,9 @@
     <string name="input_phone">请输入你的手机号</string>
     <string name="verifica_phone">验证手机号</string>
     <string name="verification_code_sended">验证码已发送到：</string>
+    <string name="register_failure">注册失败</string>
+    <string name="register_success">注册成功</string>
+    <string name="update_psw_success">修改密码成功</string>
     <!-- register_activity -->
 
 

@@ -83,7 +83,7 @@ public class SettingFragment extends BaseFragment implements
 		mainHeadView.setHeadImage(mUserImageId);
 		mainHeadView.setBackListener(this);
 		mainHeadView.setRightTitleVisable(View.GONE);
-		mainHeadView.setMianTitle(getResources().getString(R.string.my_site));
+		mainHeadView.setMianTitle(getResources().getString(R.string.my_setting));
 		mainHeadView.setBackgroundColor(R.color.head_layout_bg);
 		mainHeadView.setDividerVisable(View.VISIBLE);
 	}

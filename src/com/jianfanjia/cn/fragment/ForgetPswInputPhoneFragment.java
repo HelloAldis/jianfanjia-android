@@ -68,7 +68,6 @@ public class ForgetPswInputPhoneFragment extends BaseFragment {
 			mUserNameStr = mUserName.getText().toString().trim();
 			mPasswordStr = mPassword.getText().toString().trim();
 			if (checkInput(mUserNameStr, mUserNameStr)) {
-				fragemntListener.onNext();
 				MyApplication.getInstance().getRegisterInfo()
 						.setPhone(mUserNameStr);
 				MyApplication.getInstance().getRegisterInfo()
@@ -124,8 +123,9 @@ public class ForgetPswInputPhoneFragment extends BaseFragment {
 						LogTool.d(TAG, "JSONObject response:" + response);
 						try {
 							if (response.has(Constant.SUCCESS_MSG)) {
-								makeTextLong(response.get(Constant.SUCCESS_MSG)
-										.toString());
+//								makeTextLong(response.get(Constant.SUCCESS_MSG)
+//										.toString());
+								fragemntListener.onNext();
 							} else if (response.has(Constant.ERROR_MSG)) {
 								makeTextLong(response.get(Constant.ERROR_MSG)
 										.toString());
@@ -133,7 +133,7 @@ public class ForgetPswInputPhoneFragment extends BaseFragment {
 						} catch (JSONException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
-							makeTextLong(getString(R.string.tip_login_error_for_network));
+							makeTextLong(getString(R.string.load_failure));
 						}
 					}
 
@@ -141,7 +141,7 @@ public class ForgetPswInputPhoneFragment extends BaseFragment {
 					public void onFailure(int statusCode, Header[] headers,
 							String responseString, Throwable throwable) {
 						LogTool.d(TAG, "throwable:" + throwable);
-						makeTextLong(getString(R.string.tip_login_error_for_network));
+						makeTextLong(getString(R.string.tip_no_internet));
 					};
 				});
 	}
