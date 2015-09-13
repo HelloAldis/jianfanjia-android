@@ -1,10 +1,14 @@
 package com.jianfanjia.cn.fragment;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Observable;
+
+import org.apache.http.Header;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -28,6 +32,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+
 import com.jianfanjia.cn.activity.CheckActivity;
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
@@ -43,6 +48,7 @@ import com.jianfanjia.cn.bean.SectionItemInfo;
 import com.jianfanjia.cn.bean.ViewPagerItem;
 import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
 import com.jianfanjia.cn.interf.SwitchFragmentListener;
@@ -58,7 +64,10 @@ import com.jianfanjia.cn.tools.PhotoUtils;
 import com.jianfanjia.cn.tools.StringUtils;
 import com.jianfanjia.cn.view.AddPhotoPopWindow;
 import com.jianfanjia.cn.view.MainHeadView;
+import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DateWheelDialog;
+import com.jianfanjia.cn.view.dialog.DialogHelper;
+import com.loopj.android.http.JsonHttpResponseHandler;
 
 /**
  * 
@@ -526,6 +535,7 @@ public class SiteManageFragment extends BaseFragment implements
 		LogTool.d(TAG, "itemType:" + itemType);
 		switch (itemType) {
 		case Constant.CONFIRM_ITEM:
+			confirmDialog();
 			break;
 		case Constant.ADD_ITEM:
 			showPopWindow(getView());
@@ -548,6 +558,57 @@ public class SiteManageFragment extends BaseFragment implements
 		Intent albumIntent = new Intent(Intent.ACTION_GET_CONTENT);
 		albumIntent.setType("image/*");
 		startActivityForResult(albumIntent, Constant.REQUESTCODE_LOCATION);
+	}
+
+	private void confirmDialog() {
+		CommonDialog dialog = DialogHelper
+				.getPinterestDialogCancelable(getActivity());
+		dialog.setTitle("确认完工");
+		dialog.setMessage("确认完工吗？");
+		dialog.setPositiveButton(R.string.ok,
+				new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+						confirmProcessItemDone(processInfo.get_id(),
+								sectionInfo.getName(), processInfoId);
+					}
+				});
+		dialog.setNegativeButton(R.string.no, null);
+		dialog.show();
+	}
+
+	private void confirmProcessItemDone(String siteId, String section,
+			String item) {
+		LogTool.d(TAG, "siteId:" + siteId + " section:" + section + " item:"
+				+ item);
+		JianFanJiaApiClient.processItemDone(getActivity(), siteId, section,
+				item, new JsonHttpResponseHandler() {
+					@Override
+					public void onStart() {
+						LogTool.d(TAG, "onStart()");
+					}
+
+					@Override
+					public void onSuccess(int statusCode, Header[] headers,
+							JSONObject response) {
+						LogTool.d(TAG, "JSONObject response:" + response);
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							Throwable throwable, JSONObject errorResponse) {
+						LogTool.d(TAG, "Throwable throwable:" + throwable);
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							String responseString, Throwable throwable) {
+						LogTool.d(TAG, "statusCode:" + statusCode
+								+ " throwable:" + throwable);
+					};
+				});
 	}
 
 	@Override
