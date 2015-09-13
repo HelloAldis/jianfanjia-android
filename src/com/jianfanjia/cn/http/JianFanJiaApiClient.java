@@ -11,6 +11,7 @@ import com.jianfanjia.cn.bean.CommitCommentInfo;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Url;
+import com.jianfanjia.cn.tools.DateFormatTool;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -281,7 +282,9 @@ public class JianFanJiaApiClient {
 			jsonParams.put("userid", userId);
 			jsonParams.put("designerid", designerId);
 			jsonParams.put("section", section);
-			jsonParams.put("new_date", newDate);
+			jsonParams.put("new_date",
+					DateFormatTool.covertStringToLong(newDate));
+			Log.i("JianFanJiaApiClient", "jsonParams£º" + jsonParams.toString());
 			StringEntity entity = new StringEntity(jsonParams.toString());
 			HttpRestClient.post(context, Url.POST_RESCHDULE, entity,
 					"application/json", handler);
