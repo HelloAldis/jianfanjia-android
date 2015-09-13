@@ -1,6 +1,8 @@
 package com.jianfanjia.cn.fragment;
 
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -29,7 +31,7 @@ import com.jianfanjia.cn.view.MainHeadView;
  * 
  */
 public class DesignerSiteFragment extends BaseFragment implements
-		OnItemClickListener {
+		OnItemClickListener,Observer {
 	private static final String TAG = DesignerSiteFragment.class.getName();
 	private ListView siteListView;
 	private List<Process> siteList;
@@ -62,6 +64,20 @@ public class DesignerSiteFragment extends BaseFragment implements
 			listener = (SwitchFragmentListener) activity;
 		} catch (ClassCastException e) {
 			e.printStackTrace();
+		}
+	}
+	
+	@Override
+	public void update(Observable observable, Object data) {
+		// TODO Auto-generated method stub
+		super.update(observable, data);
+		if(DataManager.SUCCESS.equals(data)){
+			if(siteList != null){
+				designerSiteInfoAdapter = new DesignerSiteInfoAdapter(
+						getActivity(), siteList);
+				siteListView
+						.setAdapter(designerSiteInfoAdapter);
+			}
 		}
 	}
 

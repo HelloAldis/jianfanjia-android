@@ -172,12 +172,7 @@ public class SiteManageFragment extends BaseFragment implements
 		initBannerView(view);
 		initScrollLayout(view);
 		initListView(view);
-		initProcessInfo();
-		if (processInfo != null) {
-			initData();
-		} else {
-			DataManager.getInstance().getProcessList();
-		}
+		
 	}
 
 	private void initMainHead(View view) {
@@ -239,6 +234,12 @@ public class SiteManageFragment extends BaseFragment implements
 	@Override
 	public void onResume() {
 		super.onResume();
+		initProcessInfo();
+		if (processInfo != null) {
+			initData();
+		} else {
+			DataManager.getInstance().getProcessList();
+		}
 		processViewPager.setCurrentItem(currentList);
 	}
 

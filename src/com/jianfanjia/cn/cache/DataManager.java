@@ -51,9 +51,11 @@ public class DataManager extends Observable {
 
 	@SuppressWarnings("unchecked")
 	public List<Process> getDesignerProcessLists() {
-		if (designerProcessLists == null) {
-			return (List<Process>) sharedPrefer
+		if (!NetTool.isNetworkAvailable(context)) {
+			designerProcessLists = (List<Process>) sharedPrefer
 					.getValue(Constant.DESIGNER_PROCESS_LIST);
+		} else {
+			requestProcessList();
 		}
 		return designerProcessLists;
 	}
@@ -124,8 +126,10 @@ public class DataManager extends Observable {
 								ownerInfo = JsonParser.jsonToBean(
 										response.get(Constant.DATA).toString(),
 										UserByOwnerInfo.class);
-								sharedPrefer.setValue(ownerInfo.get_id(),
-										ownerInfo);
+								if(ownerInfo != null){
+									sharedPrefer.setValue(ownerInfo.get_id(),
+											ownerInfo);
+								}
 								setChanged();
 								notifyObservers(SUCCESS);
 							} else if (response.has(Constant.ERROR_MSG)) {
@@ -135,10 +139,8 @@ public class DataManager extends Observable {
 							}
 						} catch (JSONException e) {
 							e.printStackTrace();
-							MyApplication
-									.getInstance()
-									.makeTextLong(
-											context.getString(R.string.load_failure));
+							MyApplication.getInstance().makeTextLong(
+									context.getString(R.string.load_failure));
 						}
 					}
 
@@ -147,20 +149,16 @@ public class DataManager extends Observable {
 							Throwable throwable, JSONObject errorResponse) {
 						LogTool.d(TAG,
 								"Throwable throwable:" + throwable.toString());
-						MyApplication
-								.getInstance()
-								.makeTextLong(
-										context.getString(R.string.tip_no_internet));
+						MyApplication.getInstance().makeTextLong(
+								context.getString(R.string.tip_no_internet));
 					}
 
 					@Override
 					public void onFailure(int statusCode, Header[] headers,
 							String responseString, Throwable throwable) {
 						LogTool.d(TAG, "throwable:" + throwable);
-						MyApplication
-								.getInstance()
-								.makeTextLong(
-										context.getString(R.string.tip_no_internet));
+						MyApplication.getInstance().makeTextLong(
+								context.getString(R.string.tip_no_internet));
 					};
 				});
 	}
@@ -183,8 +181,10 @@ public class DataManager extends Observable {
 								designerInfo = JsonParser.jsonToBean(response
 										.get(Constant.DATA).toString(),
 										UserByDesignerInfo.class);
-								sharedPrefer.setValue(designerInfo.get_id(),
-										designerInfo);
+								if (designerInfo != null) {
+									sharedPrefer.setValue(
+											designerInfo.get_id(), designerInfo);
+								}
 								setChanged();
 								notifyObservers(SUCCESS);
 							} else if (response.has(Constant.ERROR_MSG)) {
@@ -194,10 +194,8 @@ public class DataManager extends Observable {
 							}
 						} catch (JSONException e) {
 							e.printStackTrace();
-							MyApplication
-									.getInstance()
-									.makeTextLong(
-											context.getString(R.string.load_failure));
+							MyApplication.getInstance().makeTextLong(
+									context.getString(R.string.load_failure));
 						}
 					}
 
@@ -206,20 +204,16 @@ public class DataManager extends Observable {
 							Throwable throwable, JSONObject errorResponse) {
 						LogTool.d(TAG,
 								"Throwable throwable:" + throwable.toString());
-						MyApplication
-								.getInstance()
-								.makeTextLong(
-										context.getString(R.string.tip_no_internet));
+						MyApplication.getInstance().makeTextLong(
+								context.getString(R.string.tip_no_internet));
 					}
 
 					@Override
 					public void onFailure(int statusCode, Header[] headers,
 							String responseString, Throwable throwable) {
 						LogTool.d(TAG, "throwable:" + throwable);
-						MyApplication
-								.getInstance()
-								.makeTextLong(
-										context.getString(R.string.tip_no_internet));
+						MyApplication.getInstance().makeTextLong(
+								context.getString(R.string.tip_no_internet));
 					};
 				});
 	}
@@ -322,10 +316,8 @@ public class DataManager extends Observable {
 							setChanged();
 							notifyObservers(FAILURE);
 							e.printStackTrace();
-							MyApplication
-									.getInstance()
-									.makeTextLong(
-											context.getString(R.string.load_failure));
+							MyApplication.getInstance().makeTextLong(
+									context.getString(R.string.load_failure));
 						}
 					}
 
@@ -337,10 +329,8 @@ public class DataManager extends Observable {
 						// 通知页面刷新
 						setChanged();
 						notifyObservers(FAILURE);
-						MyApplication
-								.getInstance()
-								.makeTextLong(
-										context.getString(R.string.tip_no_internet));
+						MyApplication.getInstance().makeTextLong(
+								context.getString(R.string.tip_no_internet));
 					}
 
 					@Override
@@ -350,10 +340,8 @@ public class DataManager extends Observable {
 						// 通知页面刷新
 						setChanged();
 						notifyObservers(FAILURE);
-						MyApplication
-								.getInstance()
-								.makeTextLong(
-										context.getString(R.string.tip_no_internet));
+						MyApplication.getInstance().makeTextLong(
+								context.getString(R.string.tip_no_internet));
 					}
 				});
 	}
@@ -429,10 +417,8 @@ public class DataManager extends Observable {
 							setChanged();
 							notifyObservers(FAILURE);
 							e.printStackTrace();
-							MyApplication
-									.getInstance()
-									.makeTextLong(
-											context.getString(R.string.load_failure));
+							MyApplication.getInstance().makeTextLong(
+									context.getString(R.string.load_failure));
 						}
 					}
 
@@ -444,10 +430,8 @@ public class DataManager extends Observable {
 						// 通知页面刷新
 						setChanged();
 						notifyObservers(FAILURE);
-						MyApplication
-								.getInstance()
-								.makeTextLong(
-										context.getString(R.string.tip_no_internet));
+						MyApplication.getInstance().makeTextLong(
+								context.getString(R.string.tip_no_internet));
 					}
 
 					@Override
@@ -457,10 +441,8 @@ public class DataManager extends Observable {
 						// 通知页面刷新
 						setChanged();
 						notifyObservers(FAILURE);
-						MyApplication
-								.getInstance()
-								.makeTextLong(
-										context.getString(R.string.tip_no_internet));
+						MyApplication.getInstance().makeTextLong(
+								context.getString(R.string.tip_no_internet));
 					}
 				});
 

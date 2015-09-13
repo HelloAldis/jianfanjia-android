@@ -99,7 +99,6 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
 					.getItems().get(currentItem).getComments();
 			Log.i(this.getClass().getName(), "itemsize =" + currentItem);
 		}
-		
 	}
 
 	@Override
@@ -165,7 +164,7 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
 							} catch (JSONException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
-								makeTextLong(getString(R.string.tip_login_error_for_network));
+								makeTextLong(getString(R.string.load_failure));
 							}
 						}
 
@@ -176,14 +175,14 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
 									TAG,
 									"Throwable throwable:"
 											+ throwable.toString());
-							makeTextLong(getString(R.string.tip_login_error_for_network));
+							makeTextLong(getString(R.string.tip_no_internet));
 						}
 
 						@Override
 						public void onFailure(int statusCode, Header[] headers,
 								String responseString, Throwable throwable) {
 							LogTool.d(TAG, "throwable:" + throwable);
-							makeTextLong(getString(R.string.tip_login_error_for_network));
+							makeTextLong(getString(R.string.tip_no_internet));
 						};
 					});
 		}
