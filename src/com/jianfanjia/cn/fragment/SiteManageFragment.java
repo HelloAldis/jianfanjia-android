@@ -554,6 +554,8 @@ public class SiteManageFragment extends BaseFragment implements
 			break;
 		case Constant.IMG_ITEM:
 			break;
+		case Constant.COMMENT_ITEM:
+			break;
 		default:
 			break;
 		}
