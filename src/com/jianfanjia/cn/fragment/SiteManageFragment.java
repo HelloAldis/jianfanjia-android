@@ -203,8 +203,8 @@ public class SiteManageFragment extends BaseFragment implements
 
 	@Override
 	public void onLoadFailure() {
-		mPullRefreshScrollView.onRefreshComplete();
 		super.onLoadFailure();
+		mPullRefreshScrollView.onRefreshComplete();
 	}
 
 	private void initMainHead(View view) {
