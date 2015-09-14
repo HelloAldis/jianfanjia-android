@@ -334,12 +334,12 @@ public abstract class BaseActivity extends FragmentActivity implements
 	protected void registerNetReceiver() {
 		IntentFilter intentFilter = new IntentFilter();
 		intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
-		localBroadcastManager.registerReceiver(netStateReceiver, intentFilter);
+		registerReceiver(netStateReceiver, intentFilter);
 	}
 
 	// 取消网络监听广播
 	protected void unregisterNetReceiver() {
-		localBroadcastManager.unregisterReceiver(netStateReceiver);
+		unregisterReceiver(netStateReceiver);
 	}
 
 }
