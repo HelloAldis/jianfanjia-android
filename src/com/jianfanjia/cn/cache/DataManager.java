@@ -126,7 +126,7 @@ public class DataManager extends Observable {
 								ownerInfo = JsonParser.jsonToBean(
 										response.get(Constant.DATA).toString(),
 										UserByOwnerInfo.class);
-								if(ownerInfo != null){
+								if (ownerInfo != null) {
 									sharedPrefer.setValue(ownerInfo.get_id(),
 											ownerInfo);
 								}

@@ -1,7 +1,6 @@
 package com.jianfanjia.cn.cache;
 
 import java.io.File;
-
 import android.content.Context;
 import android.os.Environment;
 
