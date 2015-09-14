@@ -607,8 +607,8 @@ public class SiteManageFragment extends BaseFragment implements
 					@Override
 					public void onSuccess(int statusCode, Header[] headers,
 							JSONObject response) {
-						refreshData();
 						LogTool.d(TAG, "JSONObject response:" + response);
+						refreshData();
 					}
 
 					@Override
