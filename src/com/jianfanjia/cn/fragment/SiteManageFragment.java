@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Observable;
 import org.apache.http.Header;
+import org.json.JSONException;
 import org.json.JSONObject;
 import android.app.Activity;
 import android.content.DialogInterface;
@@ -603,8 +604,8 @@ public class SiteManageFragment extends BaseFragment implements
 					@Override
 					public void onSuccess(int statusCode, Header[] headers,
 							JSONObject response) {
-						DataManager.getInstance().getDesignerProcessLists();
 						LogTool.d(TAG, "JSONObject response:" + response);
+						// DataManager.getInstance().getDesignerProcessLists();
 					}
 
 					@Override
@@ -637,8 +638,21 @@ public class SiteManageFragment extends BaseFragment implements
 					@Override
 					public void onSuccess(int statusCode, Header[] headers,
 							JSONObject response) {
-						DataManager.getInstance().getDesignerProcessLists();
 						LogTool.d(TAG, "JSONObject response:" + response);
+						try {
+							if (response.has(Constant.SUCCESS_MSG)) {
+								makeTextLong(response.get(Constant.SUCCESS_MSG)
+										.toString());
+								DataManager.getInstance()
+										.getDesignerProcessLists();
+							} else if (response.has(Constant.ERROR_MSG)) {
+								makeTextLong(response.get(Constant.ERROR_MSG)
+										.toString());
+							}
+						} catch (JSONException e) {
+							e.printStackTrace();
+							makeTextLong(getString(R.string.tip_login_error_for_network));
+						}
 					}
 
 					@Override
