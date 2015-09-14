@@ -72,7 +72,6 @@ public abstract class BaseActivity extends FragmentActivity implements
 		LogTool.d(this.getClass().getName(), "onCreate()");
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(getLayoutId());
-		dataManager = DataManager.getInstance();
 		init();
 		initDao();
 		initParams();
@@ -89,6 +88,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 	private void init() {
 		inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		sharedPrefer = new SharedPrefer(this, Constant.SHARED_MAIN);
+		dataManager = DataManager.getInstance();
 		fragmentManager = this.getSupportFragmentManager();
 		imageLoader = ImageLoader.getInstance();
 		options = new DisplayImageOptions.Builder()
