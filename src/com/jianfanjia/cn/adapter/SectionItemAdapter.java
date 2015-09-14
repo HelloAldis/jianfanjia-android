@@ -224,8 +224,9 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
+					final int position, long id) {
 				String data = imageUrlList.get(position);
+				Log.i(this.getClass().getName(), "data:" + data);
 				if (data.equals(Constant.HOME_ADD_PIC)) {
 					callBack.click(position, Constant.ADD_ITEM);
 				} else {

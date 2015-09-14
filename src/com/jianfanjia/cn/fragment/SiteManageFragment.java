@@ -572,6 +572,7 @@ public class SiteManageFragment extends BaseFragment implements
 			showPopWindow(getView());
 			break;
 		case Constant.IMG_ITEM:
+
 			break;
 		case Constant.COMMENT_ITEM:
 			Bundle bundle = new Bundle();
