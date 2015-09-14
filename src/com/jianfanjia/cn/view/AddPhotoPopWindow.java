@@ -67,9 +67,9 @@ public class AddPhotoPopWindow extends PopupWindow implements OnClickListener {
 			}
 		});
 	}
-	
-	//设置半透明
-	private void setShade(){
+
+	// 设置半透明
+	private void setShade() {
 		lp.alpha = 0.4f;
 		window.setAttributes(lp);
 	}
@@ -96,7 +96,6 @@ public class AddPhotoPopWindow extends PopupWindow implements OnClickListener {
 		default:
 			break;
 		}
-
 	}
 
 }

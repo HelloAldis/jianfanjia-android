@@ -2,13 +2,13 @@
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
     <style name="AppBaseTheme" parent="android:Theme.Light">
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
+            backward-compatibility can go here.
         -->
     </style>
 
@@ -171,7 +171,7 @@
     <!--
     <style name="site_listview_item_text_style_big" parent="my_item_layout_text_style_base">
         <item name="android:textSize">@dimen/text_size_14</item>
-    </style>
+    </style>
     -->
 
     <style name="site_listview_item_text_style_title" parent="my_item_layout_text_style_base">
@@ -229,6 +229,21 @@
     <style name="popub_anim" mce_bogus="1" parent="@android:style/Animation.Dialog">
         <item name="android:windowEnterAnimation">@anim/popub_slide_in_from_bottom</item>
         <item name="android:windowExitAnimation">@anim/popub_slide_out_to_bottom</item>
+    </style>
+    <!-- activity animation -->
+    <style name="activity_styleprize">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@style/AnimationActivity</item>
+    </style>
+
+    <style name="AnimationActivity" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/fragment_slide_right_enter</item>
+        <item name="android:activityOpenExitAnimation">@anim/fragment_slide_right_exit</item>
+        <item name="android:activityCloseEnterAnimation">@anim/fragment_slide_left_enter</item>
+        <item name="android:activityCloseExitAnimation">@anim/fragment_slide_left_exit</item>
     </style>
 
 </resources>

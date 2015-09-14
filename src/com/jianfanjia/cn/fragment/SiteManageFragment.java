@@ -621,7 +621,6 @@ public class SiteManageFragment extends BaseFragment implements
 							JSONObject response) {
 						refreshData();
 						LogTool.d(TAG, "JSONObject response:" + response);
-						// DataManager.getInstance().getDesignerProcessLists();
 					}
 
 					@Override
