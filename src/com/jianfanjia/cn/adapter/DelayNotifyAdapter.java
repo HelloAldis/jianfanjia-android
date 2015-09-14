@@ -5,7 +5,9 @@ import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.bean.NotifyDelayInfo;
+import com.jianfanjia.cn.tools.DateFormatTool;
 
 /**
  * @class DelayNotifyAdapter
@@ -41,10 +43,12 @@ public class DelayNotifyAdapter extends BaseListAdapter<NotifyDelayInfo> {
 		} else {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
-		viewHolder.itemNameView.setText(caiGouInfo.getTitle());
-		viewHolder.itemContentView.setText(caiGouInfo.getContent());
-		viewHolder.itemNodeView.setText(caiGouInfo.getStage());
-		viewHolder.itemPubTimeView.setText(caiGouInfo.getTime());
+		// viewHolder.itemNameView.setText(caiGouInfo.getTitle());
+		// viewHolder.itemContentView.setText(caiGouInfo.getContent());
+		viewHolder.itemNodeView.setText(MyApplication.getInstance()
+				.getStringById(caiGouInfo.getSection()));
+		viewHolder.itemPubTimeView.setText(DateFormatTool
+				.toLocalTimeString(caiGouInfo.getRequest_date()));
 		// if (caiGouInfo.getIsagree() == NotifyDelayInfo.AGREE) {
 		// viewHolder.itemAgressView.setTextColor(context.getResources()
 		// .getColor(R.color.font_green));

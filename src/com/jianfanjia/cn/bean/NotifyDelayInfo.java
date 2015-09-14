@@ -12,54 +12,104 @@ import java.io.Serializable;
 public class NotifyDelayInfo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private String title;// 提醒标题
+	private String _id;
 
-	private String content;// 提醒内容
+	private String status;
 
-	private String time;// 提醒时间
+	private String designerid;
 
-	private String stage;// 提醒阶段
+	private long request_date;
 
-	private int isagree;// 同意状态
+	private int __v;
 
-	public String getTitle() {
-		return title;
+	private String userid;
+
+	private String request_role;
+
+	private long new_date;
+
+	private String section;
+
+	private String processid;
+
+	public String get_id() {
+		return _id;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void set_id(String _id) {
+		this._id = _id;
 	}
 
-	public String getContent() {
-		return content;
+	public String getStatus() {
+		return status;
 	}
 
-	public void setContent(String content) {
-		this.content = content;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
-	public String getTime() {
-		return time;
+	public String getDesignerid() {
+		return designerid;
 	}
 
-	public void setTime(String time) {
-		this.time = time;
+	public void setDesignerid(String designerid) {
+		this.designerid = designerid;
 	}
 
-	public String getStage() {
-		return stage;
+	public long getRequest_date() {
+		return request_date;
 	}
 
-	public void setStage(String stage) {
-		this.stage = stage;
+	public void setRequest_date(long request_date) {
+		this.request_date = request_date;
 	}
 
-	public int getIsagree() {
-		return isagree;
+	public int get__v() {
+		return __v;
 	}
 
-	public void setIsagree(int isagree) {
-		this.isagree = isagree;
+	public void set__v(int __v) {
+		this.__v = __v;
+	}
+
+	public String getUserid() {
+		return userid;
+	}
+
+	public void setUserid(String userid) {
+		this.userid = userid;
+	}
+
+	public String getRequest_role() {
+		return request_role;
+	}
+
+	public void setRequest_role(String request_role) {
+		this.request_role = request_role;
+	}
+
+	public long getNew_date() {
+		return new_date;
+	}
+
+	public void setNew_date(long new_date) {
+		this.new_date = new_date;
+	}
+
+	public String getSection() {
+		return section;
+	}
+
+	public void setSection(String section) {
+		this.section = section;
+	}
+
+	public String getProcessid() {
+		return processid;
+	}
+
+	public void setProcessid(String processid) {
+		this.processid = processid;
 	}
 
 }

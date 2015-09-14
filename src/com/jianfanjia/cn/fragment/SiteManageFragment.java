@@ -78,6 +78,7 @@ public class SiteManageFragment extends BaseFragment implements
 	private SwitchFragmentListener listener;
 	private LinearLayout layoutAll = null;
 	private PullToRefreshScrollView mPullRefreshScrollView = null;
+	private ScrollView scrollView = null;
 	private ArrayList<SectionInfo> sectionInfos;
 	private ArrayList<SectionItemInfo> sectionItemInfos;
 	private SectionInfo sectionInfo;
@@ -177,6 +178,7 @@ public class SiteManageFragment extends BaseFragment implements
 		mPullRefreshScrollView = (PullToRefreshScrollView) view
 				.findViewById(R.id.pull_refresh_scrollview);
 		mPullRefreshScrollView.setMode(Mode.PULL_FROM_START);
+		scrollView = mPullRefreshScrollView.getRefreshableView();
 		initMainHead(view);
 		initBannerView(view);
 		initScrollLayout(view);

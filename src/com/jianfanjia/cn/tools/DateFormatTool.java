@@ -32,4 +32,8 @@ public class DateFormatTool {
 		return 0L;
 	}
 
+	public static String toLocalTimeString(long time) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		return sdf.format(System.currentTimeMillis());
+	}
 }
