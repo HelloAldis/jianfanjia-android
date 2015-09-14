@@ -22,6 +22,7 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.ShareActivity;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
+import com.jianfanjia.cn.cache.DataCleanManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.tools.FileUtil;
@@ -277,9 +278,11 @@ public class SettingFragment extends BaseFragment implements
 										.toString());
 								PushManager.getInstance().stopService(
 										getActivity());// 完全终止SDK的服务
+								dataManager.setLogin(false);
+								DataCleanManager.cleanSharedPafrenceByName(
+										getActivity(), Constant.SHARED_MAIN);// 清理掉用户相关的sharepre
 								startActivity(LoginActivity.class);
 								getActivity().finish();
-								dataManager.setLogin(false);
 							} else if (response.has(Constant.ERROR_MSG)) {
 								makeTextLong(response.get(Constant.ERROR_MSG)
 										.toString());

@@ -330,6 +330,11 @@ public class SiteManageFragment extends BaseFragment implements
 			}
 		}
 		if (isHeadViewShow) {
+			String checkText = getResources().getStringArray(
+					R.array.site_check_name)[MyApplication.getInstance()
+					.getPositionByItemName(name)];
+			openCheckNode.setText(checkText);
+			closeCheckNode.setText(checkText);
 			listHeadView.setVisibility(View.VISIBLE);
 		} else {
 			listHeadView.setVisibility(View.GONE);
@@ -407,6 +412,13 @@ public class SiteManageFragment extends BaseFragment implements
 						+ "-"
 						+ DateFormatTool.covertLongToString(sectionInfos.get(i)
 								.getEnd_at(), "M.dd"));
+				if (i <= currentPro) {
+					int drawableId = getResources().getIdentifier("icon_home_checked"+i, "drawable", getApplication().getPackageName());
+					viewPagerItem.setResId(drawableId);
+				}else{
+					int drawableId = getResources().getIdentifier("icon_home_normal"+i, "drawable", getApplication().getPackageName());
+					viewPagerItem.setResId(drawableId);
+				}
 			}
 			myViewPageAdapter.notifyDataSetChanged();
 			infinitePagerAdapter.notifyDataSetChanged();

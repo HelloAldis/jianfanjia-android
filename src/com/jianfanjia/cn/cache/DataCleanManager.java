@@ -43,6 +43,11 @@ public class DataCleanManager {
 		deleteFilesByDirectory(new File("/data/data/"
 				+ context.getPackageName() + "/shared_prefs"));
 	}
+	
+	public static void cleanSharedPafrenceByName(Context context,String fileName){
+		deleteFilesByDirectory(new File("/data/data/"
+				+ context.getPackageName() + "/shared_prefs/" + fileName));
+	}
 
 	/**
 	 * 根据数据库名字清理缓存
