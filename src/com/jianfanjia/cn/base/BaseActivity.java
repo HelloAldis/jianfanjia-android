@@ -15,6 +15,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.Window;
 import android.widget.Toast;
 import com.jianfanjia.cn.activity.R;
@@ -25,11 +26,13 @@ import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.inter.manager.ListenerManeger;
 import com.jianfanjia.cn.interf.DialogListener;
 import com.jianfanjia.cn.interf.NetStateListener;
+import com.jianfanjia.cn.interf.PopWindowCallBack;
 import com.jianfanjia.cn.interf.PushMsgReceiveListener;
 import com.jianfanjia.cn.receiver.NetStateReceiver;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.SharedPrefer;
 import com.jianfanjia.cn.tools.UploadManager;
+import com.jianfanjia.cn.view.AddPhotoPopWindow;
 import com.jianfanjia.cn.view.dialog.DialogControl;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.cn.view.dialog.NotifyDialog;
@@ -47,7 +50,8 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  * 
  */
 public abstract class BaseActivity extends FragmentActivity implements
-		DialogControl, PushMsgReceiveListener, Observer, NetStateListener {
+		DialogControl, PushMsgReceiveListener, Observer, NetStateListener,
+		PopWindowCallBack {
 	protected LayoutInflater inflater = null;
 	protected FragmentManager fragmentManager = null;
 	protected SharedPrefer sharedPrefer = null;
@@ -57,6 +61,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 	protected UploadManager uploadManager = null;
 	protected LocalBroadcastManager localBroadcastManager = null;
 	protected NetStateReceiver netStateReceiver = null;
+	protected AddPhotoPopWindow popupWindow = null;
 	private boolean _isVisible;
 	private WaitDialog _waitDialog;
 	protected DataManager dataManager;
@@ -201,6 +206,25 @@ public abstract class BaseActivity extends FragmentActivity implements
 			intent.putExtras(bundle);
 		}
 		startActivity(intent);
+	}
+
+	protected void showPopWindow(View view) {
+		if (popupWindow == null) {
+			popupWindow = new AddPhotoPopWindow(this, this);
+		}
+		popupWindow.show(view);
+	}
+
+	@Override
+	public void takecamera() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void takePhoto() {
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override

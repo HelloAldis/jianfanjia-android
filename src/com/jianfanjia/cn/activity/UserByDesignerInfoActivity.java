@@ -19,11 +19,9 @@ import com.jianfanjia.cn.bean.Message;
 import com.jianfanjia.cn.bean.UserByDesignerInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
-import com.jianfanjia.cn.interf.PopWindowCallBack;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.PhotoUtils;
-import com.jianfanjia.cn.view.AddPhotoPopWindow;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 /**
@@ -35,7 +33,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
  * 
  */
 public class UserByDesignerInfoActivity extends BaseActivity implements
-		OnClickListener, PopWindowCallBack {
+		OnClickListener{
 	private static final String TAG = UserByDesignerInfoActivity.class
 			.getName();
 	private RelativeLayout designerInfoLayout = null;
@@ -49,8 +47,6 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 	private Button btn_confirm = null;
 	private RelativeLayout userNameRelativeLayout = null;
 	private RelativeLayout homeRelativeLayout = null;
-
-	private AddPhotoPopWindow popupWindow = null;
 
 	@Override
 	public void initView() {
@@ -186,14 +182,7 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 		}
 	}
 
-	private void showPopWindow(View view) {
-		if (popupWindow == null) {
-			popupWindow = new AddPhotoPopWindow(
-					UserByDesignerInfoActivity.this, this);
-		}
-		popupWindow.show(view);
-	}
-
+	
 	@Override
 	public void takecamera() {
 		Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);

@@ -3,7 +3,6 @@ package com.jianfanjia.cn.fragment;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Observable;
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -48,7 +47,6 @@ import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
-import com.jianfanjia.cn.interf.PopWindowCallBack;
 import com.jianfanjia.cn.interf.SwitchFragmentListener;
 import com.jianfanjia.cn.interf.UploadImageListener;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
@@ -60,7 +58,6 @@ import com.jianfanjia.cn.tools.DateFormatTool;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.PhotoUtils;
 import com.jianfanjia.cn.tools.StringUtils;
-import com.jianfanjia.cn.view.AddPhotoPopWindow;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DateWheelDialog;
@@ -76,8 +73,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
  * 
  */
 public class SiteManageFragment extends BaseFragment implements
-		OnRefreshListener2<ScrollView>, ItemClickCallBack, PopWindowCallBack,
-		UploadImageListener {
+		OnRefreshListener2<ScrollView>, ItemClickCallBack, UploadImageListener {
 	private static final String TAG = SiteManageFragment.class.getName();
 	private SwitchFragmentListener listener;
 	private LinearLayout layoutAll = null;
@@ -111,7 +107,6 @@ public class SiteManageFragment extends BaseFragment implements
 	private TextView openCheck;// 对比验收按钮
 
 	private MainHeadView mainHeadView;
-	private AddPhotoPopWindow popupWindow;
 
 	private boolean isOpen = false;
 
@@ -133,7 +128,8 @@ public class SiteManageFragment extends BaseFragment implements
 					index = -1;
 				}
 				bannerViewPager.setCurrentItem(index + 1);
-				bannerhandler.sendEmptyMessageDelayed(CHANGE_PHOTO, CHANGE_TIME);
+				bannerhandler
+						.sendEmptyMessageDelayed(CHANGE_PHOTO, CHANGE_TIME);
 				break;
 			default:
 				break;
@@ -165,8 +161,8 @@ public class SiteManageFragment extends BaseFragment implements
 	private void initProcessInfo() {
 		processInfo = dataManager.getDefaultProcessInfo();
 	}
-	
-	private void refreshData(){
+
+	private void refreshData() {
 		if (dataManager.getDefaultProcessId() == null) {
 			dataManager.requestProcessList(handler);
 		} else {
@@ -207,7 +203,7 @@ public class SiteManageFragment extends BaseFragment implements
 	}
 
 	@Override
-	public void onLoadFailure(){
+	public void onLoadFailure() {
 		mPullRefreshScrollView.onRefreshComplete();
 		super.onLoadFailure();
 	}
@@ -528,13 +524,6 @@ public class SiteManageFragment extends BaseFragment implements
 		}
 	}
 
-	private void showPopWindow(View view) {
-		if (popupWindow == null) {
-			popupWindow = new AddPhotoPopWindow(getActivity(), this);
-		}
-		popupWindow.show(view);
-	}
-
 	@Override
 	public void onPullDownToRefresh(PullToRefreshBase<ScrollView> refreshView) {
 		// 下拉刷新(从第一页开始装载数据)
@@ -738,7 +727,7 @@ public class SiteManageFragment extends BaseFragment implements
 			break;
 		}
 	}
-	
+
 	@Override
 	public void onSuccess(String msg) {
 		LogTool.d(TAG, "msg===========" + msg);

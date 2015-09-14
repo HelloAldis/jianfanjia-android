@@ -19,9 +19,11 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.inter.manager.ListenerManeger;
+import com.jianfanjia.cn.interf.PopWindowCallBack;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.SharedPrefer;
 import com.jianfanjia.cn.tools.UploadManager;
+import com.jianfanjia.cn.view.AddPhotoPopWindow;
 import com.jianfanjia.cn.view.dialog.DialogControl;
 import com.jianfanjia.cn.view.dialog.WaitDialog;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -34,7 +36,8 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  * @date 2015-8-19 16:02:18
  * 
  */
-public abstract class BaseFragment extends Fragment implements OnClickListener {
+public abstract class BaseFragment extends Fragment implements OnClickListener,
+		PopWindowCallBack {
 	protected FragmentManager fragmentManager = null;
 	protected DataManager dataManager = null;
 	protected LocalBroadcastManager localBroadcastManager = null;
@@ -44,6 +47,7 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 	protected DisplayImageOptions options = null;
 	protected ListenerManeger listenerManeger = null;
 	protected UploadManager uploadManager = null;
+	protected AddPhotoPopWindow popupWindow = null;
 	protected String mUserName;// 用户名
 	protected String mAccount;// 账号
 	protected String mUserImageId;// 头像
@@ -176,6 +180,25 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 			intent.putExtras(bundle);
 		}
 		startActivity(intent);
+	}
+
+	protected void showPopWindow(View view) {
+		if (popupWindow == null) {
+			popupWindow = new AddPhotoPopWindow(getActivity(), this);
+		}
+		popupWindow.show(view);
+	}
+
+	@Override
+	public void takecamera() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void takePhoto() {
+		// TODO Auto-generated method stub
+
 	}
 
 	protected void hideWaitDialog() {

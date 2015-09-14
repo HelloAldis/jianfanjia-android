@@ -17,12 +17,10 @@ import com.jianfanjia.cn.adapter.MyGridViewAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.GridItem;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.interf.PopWindowCallBack;
 import com.jianfanjia.cn.interf.UploadImageListener;
 import com.jianfanjia.cn.interf.UploadListener;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.PhotoUtils;
-import com.jianfanjia.cn.view.AddPhotoPopWindow;
 
 /**
  * 
@@ -33,7 +31,7 @@ import com.jianfanjia.cn.view.AddPhotoPopWindow;
  * 
  */
 public class CheckActivity extends BaseActivity implements OnClickListener,
-		UploadListener, PopWindowCallBack, UploadImageListener {
+		UploadListener, UploadImageListener {
 	private static final String TAG = CheckActivity.class.getName();
 	private TextView backView = null;// 返回视图
 	private GridView gridView = null;
@@ -45,7 +43,6 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 	private List<GridItem> gridList = new ArrayList<GridItem>();
 	private int currentList;// 当前的工序
 	private View view = null;
-	private AddPhotoPopWindow popupWindow;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -103,13 +100,6 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 	public void onUpload(int position) {
 		LogTool.d(TAG, "position:" + position);
 		showPopWindow(view);
-	}
-
-	private void showPopWindow(View view) {
-		if (popupWindow == null) {
-			popupWindow = new AddPhotoPopWindow(CheckActivity.this, this);
-		}
-		popupWindow.show(view);
 	}
 
 	@Override
