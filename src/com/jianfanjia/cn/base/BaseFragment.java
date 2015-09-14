@@ -151,9 +151,6 @@ public abstract class BaseFragment extends Fragment implements OnClickListener,
 			intent.putExtras(bundle);
 		}
 		startActivity(intent);
-		getActivity().overridePendingTransition(
-				R.anim.fragment_list_right_enter,
-				R.anim.fragment_slide_left_exit);
 	}
 
 	protected void hideWaitDialog() {

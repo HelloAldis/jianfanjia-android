@@ -58,41 +58,51 @@
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
             android:name="com.jianfanjia.cn.activity.FeedBackActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/activity_styleprize" />
         <activity
             android:name="com.jianfanjia.cn.activity.AboutActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/activity_styleprize" />
         <activity
             android:name="com.jianfanjia.cn.activity.CommentActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/activity_styleprize" />
         <activity
             android:name="com.jianfanjia.cn.activity.CheckActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/activity_styleprize" />
         <activity
             android:name="com.jianfanjia.cn.activity.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
             android:name="com.jianfanjia.cn.activity.OwnerInfoActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/activity_styleprize" />
         <activity
             android:name="com.jianfanjia.cn.activity.DesignerInfoActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/activity_styleprize" />
         <activity
             android:name="com.jianfanjia.cn.activity.UserByOwnerInfoActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/activity_styleprize" />
         <activity
             android:name="com.jianfanjia.cn.activity.UserByDesignerInfoActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/activity_styleprize" />
         <activity
             android:name="com.jianfanjia.cn.activity.ShareActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/activity_styleprize" />
         <activity
             android:name="com.jianfanjia.cn.activity.EditInfoActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.jianfanjia.cn.activity.HelpActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/activity_styleprize" />
         <activity
             android:name="com.jianfanjia.cn.activity.WelcomeActivity"
             android:label="@string/app_name"
