@@ -20,7 +20,6 @@ import com.jianfanjia.cn.bean.SectionItemInfo;
 import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
-import com.jianfanjia.cn.tools.LogTool;
 
 public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 	private static final int IMG_COUNT = 9;
@@ -219,7 +218,6 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 	 * @param gridView
 	 */
 	private void setImageData(final List<String> imageUrlList, GridView gridView) {
-		Log.i(this.getClass().getName(), "imageUrlList:" + imageUrlList.size());
 		siteGridViewAdapter = new SiteGridViewAdapter(context, imageUrlList);
 		gridView.setAdapter(siteGridViewAdapter);
 		gridView.setOnItemClickListener(new OnItemClickListener() {
