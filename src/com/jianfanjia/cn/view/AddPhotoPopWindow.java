@@ -16,16 +16,16 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
 
 public class AddPhotoPopWindow extends PopupWindow implements OnClickListener {
-	private PopWindowCallBack callback;
-	private Button open_camera;
-	private Button open_album;
-	private Button cancel;
-	private LayoutInflater inflater;
-	private View menuView;
-	private LinearLayout buttonLayout;
-	private Activity activity;
-	private WindowManager.LayoutParams lp;
-	private Window window;
+	private PopWindowCallBack callback = null;
+	private Button open_camera = null;
+	private Button open_album = null;
+	private Button cancel = null;
+	private LayoutInflater inflater = null;
+	private View menuView = null;
+	private LinearLayout buttonLayout = null;
+	private Activity activity = null;
+	private WindowManager.LayoutParams lp = null;
+	private Window window = null;
 
 	public AddPhotoPopWindow(Activity activity, PopWindowCallBack callback) {
 		super(activity);

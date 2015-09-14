@@ -24,10 +24,11 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  * 
  */
 public class CommentInfoAdapter extends BaseListAdapter<CommentInfo> {
-	
+
 	private Handler handler;
 
-	public CommentInfoAdapter(Context context, List<CommentInfo> caigouList,Handler handler) {
+	public CommentInfoAdapter(Context context, List<CommentInfo> caigouList,
+			Handler handler) {
 		super(context, caigouList);
 		this.handler = handler;
 	}
@@ -77,8 +78,9 @@ public class CommentInfoAdapter extends BaseListAdapter<CommentInfo> {
 							imageId == null ? Constant.DEFALUT_DESIGNER_PIC
 									: (Url.GET_IMAGE + imageId),
 							viewHolder.itemHeadView, options);
-				}else{
-					DataManager.getInstance().getDesignerInfoById(designerId, handler);
+				} else {
+					DataManager.getInstance().getDesignerInfoById(designerId,
+							handler);
 				}
 			}
 		} else {
@@ -98,17 +100,17 @@ public class CommentInfoAdapter extends BaseListAdapter<CommentInfo> {
 							imageId == null ? Constant.DEFALUT_OWNER_PIC
 									: (Url.GET_IMAGE + imageId),
 							viewHolder.itemHeadView, options);
-				}else{
-					DataManager.getInstance().getOwnerInfoById(ownerId, handler);
+				} else {
+					DataManager.getInstance()
+							.getOwnerInfoById(ownerId, handler);
 				}
 			}
-
 		}
 
 		return convertView;
 	}
 
-	class ViewHolder {
+	private static class ViewHolder {
 		TextView itemNameView;// 评论人名称
 		TextView itemTimeView;// 评论时间
 		TextView itemContentView;// 评论内容

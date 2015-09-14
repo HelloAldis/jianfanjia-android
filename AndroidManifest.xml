@@ -67,7 +67,8 @@
         <activity
             android:name="com.jianfanjia.cn.activity.CommentActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/activity_styleprize" />
+            android:theme="@style/activity_styleprize"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name="com.jianfanjia.cn.activity.CheckActivity"
             android:screenOrientation="portrait"

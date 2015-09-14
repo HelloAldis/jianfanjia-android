@@ -1,7 +1,7 @@
 package com.jianfanjia.cn.activity;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,21 +37,21 @@ import com.loopj.android.http.JsonHttpResponseHandler;
  * 
  */
 public class CommentActivity extends BaseActivity implements OnClickListener {
-	protected static final String TAG = "CommentActivity";
-	private TextView backView;// 返回视图
-	private ListView listView;// 评论列表
-	private Button sendCommentView;// 发送评论
-	private EditText etAddCommentView;// 添加评论
-	private CommentInfoAdapter commentInfoAdapter;// 评论列表adapter
-	private List<CommentInfo> commentInfoList;
-	private CommentInfo commentInfo;
+	protected static final String TAG = CommentActivity.class.getName();
+	private TextView backView = null;// 返回视图
+	private ListView listView = null;// 评论列表
+	private Button sendCommentView = null;// 发送评论
+	private EditText etAddCommentView = null;// 添加评论
+	private CommentInfoAdapter commentInfoAdapter = null;// 评论列表adapter
+	private List<CommentInfo> commentInfoList = new ArrayList<CommentInfo>();
+	private CommentInfo commentInfo = null;
 	private int currentList;// 当前工序
 	private int currentItem;// 当前节点
-	private ProcessInfo processInfo;
-	private String section;
-	private String item;
-	
-	protected Handler handler = new Handler(){
+	private ProcessInfo processInfo = null;
+	private String section = null;
+	private String item = null;
+
+	protected Handler handler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
 			case Constant.LOAD_SUCCESS:
@@ -63,19 +63,19 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
 			default:
 				break;
 			}
-			
+
 		};
 	};
-	
-	public void onLoadSuccess(){
+
+	public void onLoadSuccess() {
 		LogTool.d(this.getClass().getName(), "onSuccess");
 		hideWaitDialog();
 		getCommentList();
 		commentInfoAdapter.setList(commentInfoList);
 		commentInfoAdapter.notifyDataSetChanged();
 	}
-	
-	public void onLoadFailure(){
+
+	public void onLoadFailure() {
 		LogTool.d(this.getClass().getName(), "onFailure");
 		hideWaitDialog();
 	}
@@ -114,11 +114,12 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
 			currentItem = bundle.getInt(Constant.CURRENT_ITEM, 0);
 		}
 		getCommentList();
-		commentInfoAdapter = new CommentInfoAdapter(this, commentInfoList,handler);
+		commentInfoAdapter = new CommentInfoAdapter(this, commentInfoList,
+				handler);
 		listView.setAdapter(commentInfoAdapter);
 	}
-	
-	private void getCommentList(){
+
+	private void getCommentList() {
 		processInfo = DataManager.getInstance().getDefaultProcessInfo();
 		if (processInfo != null) {
 			section = processInfo.getSections().get(currentList).getName();
@@ -221,11 +222,10 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
 	}
 
 	private void handlerSuccess() {
-//		DataManager.getInstance().getProcessList();
 		refreshData();
 	}
-	
-	private void refreshData(){
+
+	private void refreshData() {
 		if (dataManager.getDefaultProcessId() == null) {
 			dataManager.requestProcessList(handler);
 		} else {

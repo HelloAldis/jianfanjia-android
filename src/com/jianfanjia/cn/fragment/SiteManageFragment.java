@@ -203,8 +203,8 @@ public class SiteManageFragment extends BaseFragment implements
 
 	@Override
 	public void onLoadFailure() {
-		mPullRefreshScrollView.onRefreshComplete();
 		super.onLoadFailure();
+		mPullRefreshScrollView.onRefreshComplete();
 	}
 
 	private void initMainHead(View view) {
@@ -565,6 +565,8 @@ public class SiteManageFragment extends BaseFragment implements
 			showPopWindow(getView());
 			break;
 		case Constant.IMG_ITEM:
+			break;
+		case Constant.COMMENT_ITEM:
 			break;
 		default:
 			break;
