@@ -586,6 +586,20 @@ public class SiteManageFragment extends BaseFragment implements
 	}
 
 	@Override
+	public void click(List<String> imageUrlList, int itemType) {
+		LogTool.d(TAG, "itemType:" + itemType);
+		switch (itemType) {
+		case Constant.IMG_ITEM:
+			for (String str : imageUrlList) {
+				LogTool.d(TAG, " str:" + str);
+			}
+			break;
+		default:
+			break;
+		}
+	}
+
+	@Override
 	public void takecamera() {
 		Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 		startActivityForResult(cameraIntent, Constant.REQUESTCODE_CAMERA);
