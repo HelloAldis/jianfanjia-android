@@ -410,6 +410,13 @@ public class SiteManageFragment extends BaseFragment implements
 						+ "-"
 						+ DateFormatTool.covertLongToString(sectionInfos.get(i)
 								.getEnd_at(), "M.dd"));
+				if (i <= currentPro) {
+					int drawableId = getResources().getIdentifier("icon_home_checked"+i, "drawable", getApplication().getPackageName());
+					viewPagerItem.setResId(drawableId);
+				}else{
+					int drawableId = getResources().getIdentifier("icon_home_normal"+i, "drawable", getApplication().getPackageName());
+					viewPagerItem.setResId(drawableId);
+				}
 			}
 			myViewPageAdapter.notifyDataSetChanged();
 			infinitePagerAdapter.notifyDataSetChanged();
