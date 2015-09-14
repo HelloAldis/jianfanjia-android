@@ -94,12 +94,12 @@ public class MainActivity extends BaseActivity implements PanelSlideListener,
 
 	@Override
 	public void onPanelOpened(View panel) {
-
+		Log.d(TAG, "---onPanelOpened()");
 	}
 
 	@Override
 	public void onPanelClosed(View panel) {
-
+		Log.d(TAG, "---onPanelClosed()");
 	}
 
 	@Override
