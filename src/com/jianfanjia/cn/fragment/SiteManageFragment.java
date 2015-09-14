@@ -31,6 +31,7 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import com.jianfanjia.cn.activity.CheckActivity;
+import com.jianfanjia.cn.activity.CommentActivity;
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.InfinitePagerAdapter;
@@ -66,8 +67,8 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 
 /**
  * 
- * @ClassName: OwnerSiteManageFragment
- * @Description: 业主工地管理
+ * @ClassName:SiteManageFragment
+ * @Description:工地管理
  * @author fengliang
  * @date 2015-8-26 上午11:14:00
  * 
@@ -245,7 +246,7 @@ public class SiteManageFragment extends BaseFragment implements
 			setCheckHeadView(sectionInfo.getName());
 			setScrollHeadTime();
 			sectionItemAdapter = new SectionItemAdapter(getActivity(),
-					sectionItemInfos, currentList, this);
+					sectionItemInfos, this);
 			detailNodeListView.setAdapter(sectionItemAdapter);
 		}
 	}
@@ -399,7 +400,8 @@ public class SiteManageFragment extends BaseFragment implements
 	private void setScrollHeadTime() {
 		if (sectionInfos != null) {
 			for (int i = 0; i < proTitle.length; i++) {
-				ViewPagerItem viewPagerItem = myViewPageAdapter.getList().get(i);
+				ViewPagerItem viewPagerItem = myViewPageAdapter.getList()
+						.get(i);
 				Log.i(TAG,
 						DateFormatTool.covertLongToString(sectionInfos.get(i)
 								.getStart_at(), "M.dd")
@@ -413,11 +415,14 @@ public class SiteManageFragment extends BaseFragment implements
 						+ DateFormatTool.covertLongToString(sectionInfos.get(i)
 								.getEnd_at(), "M.dd"));
 				if (i <= currentPro) {
-					Log.i(TAG, "drawableId");
-					int drawableId = getResources().getIdentifier("icon_home_checked"+(i+1), "drawable", getApplication().getPackageName());
+					int drawableId = getResources().getIdentifier(
+							"icon_home_checked" + (i + 1), "drawable",
+							getApplication().getPackageName());
 					viewPagerItem.setResId(drawableId);
-				}else{
-					int drawableId = getResources().getIdentifier("icon_home_normal"+(i+1), "drawable", getApplication().getPackageName());
+				} else {
+					int drawableId = getResources().getIdentifier(
+							"icon_home_normal" + (i + 1), "drawable",
+							getApplication().getPackageName());
 					viewPagerItem.setResId(drawableId);
 				}
 			}
@@ -558,7 +563,7 @@ public class SiteManageFragment extends BaseFragment implements
 
 	@Override
 	public void click(int position, int itemType) {
-		LogTool.d(TAG, "itemType:" + itemType);
+		LogTool.d(TAG, "position:" + position + "itemType:" + itemType);
 		switch (itemType) {
 		case Constant.CONFIRM_ITEM:
 			confirmDialog();
@@ -567,8 +572,27 @@ public class SiteManageFragment extends BaseFragment implements
 			showPopWindow(getView());
 			break;
 		case Constant.IMG_ITEM:
+
 			break;
 		case Constant.COMMENT_ITEM:
+			Bundle bundle = new Bundle();
+			bundle.putInt(Constant.CURRENT_LIST, currentPro);
+			bundle.putInt(Constant.CURRENT_ITEM, position);
+			startActivity(CommentActivity.class, bundle);
+			break;
+		default:
+			break;
+		}
+	}
+
+	@Override
+	public void click(List<String> imageUrlList, int itemType) {
+		LogTool.d(TAG, "itemType:" + itemType);
+		switch (itemType) {
+		case Constant.IMG_ITEM:
+			for (String str : imageUrlList) {
+				LogTool.d(TAG, " str:" + str);
+			}
 			break;
 		default:
 			break;

@@ -71,8 +71,7 @@
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name="com.jianfanjia.cn.activity.CheckActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/activity_styleprize" />
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.jianfanjia.cn.activity.LoginActivity"
             android:screenOrientation="portrait"
@@ -87,12 +86,10 @@
             android:theme="@style/activity_styleprize" />
         <activity
             android:name="com.jianfanjia.cn.activity.UserByOwnerInfoActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/activity_styleprize" />
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.jianfanjia.cn.activity.UserByDesignerInfoActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/activity_styleprize" />
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.jianfanjia.cn.activity.ShareActivity"
             android:screenOrientation="portrait"
@@ -103,6 +100,10 @@
             android:theme="@style/activity_styleprize" />
         <activity
             android:name="com.jianfanjia.cn.activity.HelpActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/activity_styleprize" />
+        <activity
+            android:name="com.jianfanjia.cn.activity.PhotoBrowseActivity"
             android:screenOrientation="portrait"
             android:theme="@style/activity_styleprize" />
         <activity
