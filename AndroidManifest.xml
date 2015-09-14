@@ -98,7 +98,8 @@
             android:theme="@style/activity_styleprize" />
         <activity
             android:name="com.jianfanjia.cn.activity.EditInfoActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/activity_styleprize" />
         <activity
             android:name="com.jianfanjia.cn.activity.HelpActivity"
             android:screenOrientation="portrait"

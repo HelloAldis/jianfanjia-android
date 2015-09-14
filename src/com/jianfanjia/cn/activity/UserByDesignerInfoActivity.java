@@ -38,7 +38,7 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 		OnClickListener, PopWindowCallBack {
 	private static final String TAG = UserByDesignerInfoActivity.class
 			.getName();
-	private RelativeLayout infoLayout = null;
+	private RelativeLayout designerInfoLayout = null;
 	private TextView ownerinfo_back = null;
 	private RelativeLayout headLayout = null;
 	private TextView nameText = null;
@@ -54,7 +54,7 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 
 	@Override
 	public void initView() {
-		infoLayout = (RelativeLayout) findViewById(R.id.infoLayout);
+		designerInfoLayout = (RelativeLayout) findViewById(R.id.designerInfoLayout);
 		ownerinfo_back = (TextView) this.findViewById(R.id.ownerinfo_back);
 		headLayout = (RelativeLayout) this.findViewById(R.id.head_layout);
 		nameText = (TextView) this.findViewById(R.id.nameText);
@@ -163,7 +163,7 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 			finish();
 			break;
 		case R.id.head_layout:
-			showPopWindow(infoLayout);
+			showPopWindow(designerInfoLayout);
 			break;
 		case R.id.btn_confirm:
 			break;
