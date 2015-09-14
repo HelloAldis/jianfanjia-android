@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.Message;
-import com.jianfanjia.cn.bean.MyOwnerInfo;
+import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.tools.JsonParser;
@@ -100,9 +100,9 @@ public class OwnerInfoActivity extends BaseActivity implements OnClickListener {
 						LogTool.d(TAG, "JSONObject response:" + response);
 						try {
 							if (response.has(Constant.DATA)) {
-								MyOwnerInfo myOwnerInfo = JsonParser
+								OwnerInfo myOwnerInfo = JsonParser
 										.jsonToBean(response.get(Constant.DATA)
-												.toString(), MyOwnerInfo.class);
+												.toString(), OwnerInfo.class);
 								Log.i(TAG, "myOwnerInfo£½" + myOwnerInfo);
 								if (null != myOwnerInfo) {
 

@@ -10,12 +10,10 @@ import java.io.Serializable;
  * @date 2015-9-6 обнГ3:44:09
  * 
  */
-public class UserByDesignerInfo implements Serializable {
+public class MyDesignerInfo implements Serializable {
 	private static final long serialVersionUID = 8059290088434087451L;
 
 	private String _id;
-
-	private String phone;
 
 	private String __v;
 
@@ -83,14 +81,6 @@ public class UserByDesignerInfo implements Serializable {
 
 	public void set_id(String _id) {
 		this._id = _id;
-	}
-
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
 	}
 
 	public String get__v() {

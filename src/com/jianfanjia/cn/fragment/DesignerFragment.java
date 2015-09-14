@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseFragment;
-import com.jianfanjia.cn.bean.UserByDesignerInfo;
+import com.jianfanjia.cn.bean.MyDesignerInfo;
 import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url;
@@ -38,7 +38,7 @@ public class DesignerFragment extends BaseFragment{
 	private TextView cityView;// 服务城市
 	private TextView goodAtView;// 擅长
 	private TextView budgetView;// 设计费
-	private UserByDesignerInfo designerInfo;
+	private MyDesignerInfo designerInfo;
 
 	private MainHeadView mainHeadView;
 

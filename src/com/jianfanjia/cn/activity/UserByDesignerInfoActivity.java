@@ -16,7 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.Message;
-import com.jianfanjia.cn.bean.UserByDesignerInfo;
+import com.jianfanjia.cn.bean.MyDesignerInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.tools.JsonParser;
@@ -89,10 +89,10 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 						LogTool.d(TAG, "JSONObject response:" + response);
 						try {
 							if (response.has(Constant.DATA)) {
-								UserByDesignerInfo info = JsonParser
+								MyDesignerInfo info = JsonParser
 										.jsonToBean(response.get(Constant.DATA)
 												.toString(),
-												UserByDesignerInfo.class);
+												MyDesignerInfo.class);
 								if (null != info) {
 									if (!TextUtils.isEmpty(info.getUsername())) {
 										nameText.setText(info.getUsername());
@@ -109,11 +109,11 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 									} else {
 										sexText.setText("нч");
 									}
-									if (!TextUtils.isEmpty(info.getPhone())) {
+									/*if (!TextUtils.isEmpty(info.getPhone())) {
 										phoneText.setText(info.getPhone());
 									} else {
 										phoneText.setText("нч");
-									}
+									}*/
 									if (!TextUtils.isEmpty(info.getDistrict())) {
 										addressText.setText(info.getDistrict());
 									} else {

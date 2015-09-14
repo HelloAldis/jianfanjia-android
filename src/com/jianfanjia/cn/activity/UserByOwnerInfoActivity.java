@@ -17,7 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.Message;
-import com.jianfanjia.cn.bean.UserByOwnerInfo;
+import com.jianfanjia.cn.bean.MyOwnerInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.tools.JsonParser;
@@ -182,9 +182,9 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 						LogTool.d(TAG, "JSONObject response:" + response);
 						try {
 							if (response.has(Constant.DATA)) {
-								UserByOwnerInfo info = JsonParser.jsonToBean(
+								MyOwnerInfo info = JsonParser.jsonToBean(
 										response.get(Constant.DATA).toString(),
-										UserByOwnerInfo.class);
+										MyOwnerInfo.class);
 								if (null != info) {
 									nameText.setText(info.getUsername() == null ? getString(R.string.ower)
 											: info.getUsername());
@@ -198,7 +198,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 									} else {
 										sexText.setText(getString(R.string.not_edit));
 									}
-									phoneText.setText(info.getPhone());
+//									phoneText.setText(info.getPhone());
 									addressText
 											.setText(info.getDistrict() == null ? getString(R.string.not_edit)
 													: info.getDistrict());
