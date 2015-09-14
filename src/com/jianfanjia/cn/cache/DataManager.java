@@ -14,12 +14,14 @@ import android.util.Log;
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
+import com.jianfanjia.cn.bean.DesignerInfo;
 import com.jianfanjia.cn.bean.LoginUserBean;
+import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.bean.Process;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.ProcessReflect;
-import com.jianfanjia.cn.bean.UserByDesignerInfo;
-import com.jianfanjia.cn.bean.UserByOwnerInfo;
+import com.jianfanjia.cn.bean.MyDesignerInfo;
+import com.jianfanjia.cn.bean.MyOwnerInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
@@ -41,14 +43,21 @@ public class DataManager {
 	private Map<String, ProcessInfo> processInfos = new HashMap<String, ProcessInfo>();
 	private List<ProcessReflect> processReflects = new ArrayList<ProcessReflect>();
 	private List<Process> designerProcessLists;
-	private UserByOwnerInfo ownerInfo;// 当前业主
-	private UserByDesignerInfo designerInfo;// 当前设计师
+	private MyOwnerInfo myOwnerInfo;//我的业主信息
+	private MyDesignerInfo myDesignerInfo;// 我的设计师信息
+	private OwnerInfo ownerInfo;//业主的个人信息
+	private DesignerInfo designerInfo;//设计师的个人信息
 
 	public static DataManager getInstance() {
 		if (instance == null) {
 			instance = new DataManager();
 		}
 		return instance;
+	}
+	
+	private DataManager() {
+		context = MyApplication.getInstance();
+		sharedPrefer = new SharedPrefer(context, Constant.SHARED_MAIN);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -59,12 +68,6 @@ public class DataManager {
 		}
 		return designerProcessLists;
 	}
-
-	private DataManager() {
-		context = MyApplication.getInstance();
-		sharedPrefer = new SharedPrefer(context, Constant.SHARED_MAIN);
-	}
-	
 
 	public int getDefaultPro() {
 		if (getUserType().equals(Constant.IDENTITY_DESIGNER)) {
@@ -78,28 +81,36 @@ public class DataManager {
 	public void setDefaultPro(int defaultPro) {
 		sharedPrefer.setValue(Constant.DEFAULT_PROCESS, defaultPro);
 	}
-
-	public UserByOwnerInfo getOwnerInfo(String ownerId) {
-		if (ownerId == null)
-			return null;
-		if (ownerInfo == null) {
-			if (!NetTool.isNetworkAvailable(context)) {
-				ownerInfo = (UserByOwnerInfo) sharedPrefer.getValue(ownerId);
-			}
+	
+	//设计师用户获取个人资料
+	public DesignerInfo getDesignerInfo(){
+		if(designerInfo == null && !NetTool.isNetworkAvailable(context)){
+			designerInfo = (DesignerInfo)sharedPrefer.getValue(Constant.DESIGNER_INFO);
 		}
-		return ownerInfo;
+		return designerInfo;
 	}
 
-	public UserByDesignerInfo getDesignerInfo(String designerId) {
+	public MyOwnerInfo getOwnerInfo(String ownerId) {
+		if (ownerId == null)
+			return null;
+		if (myOwnerInfo == null) {
+			if (!NetTool.isNetworkAvailable(context)) {
+				myOwnerInfo = (MyOwnerInfo) sharedPrefer.getValue(ownerId);
+			}
+		}
+		return myOwnerInfo;
+	}
+
+	public MyDesignerInfo getDesignerInfo(String designerId) {
 		if (designerId == null)
 			return null;
-		if (designerInfo == null) {
+		if (myDesignerInfo == null) {
 			if (!NetTool.isNetworkAvailable(context)) {
-				designerInfo = (UserByDesignerInfo) sharedPrefer
+				myDesignerInfo = (MyDesignerInfo) sharedPrefer
 						.getValue(designerId);
 			}
 		}
-		return designerInfo;
+		return myDesignerInfo;
 	}
 
 	public void getOwnerInfoById(String ownerId, final Handler handler) {
@@ -116,12 +127,12 @@ public class DataManager {
 						LogTool.d(TAG, "JSONObject response:" + response);
 						try {
 							if (response.has(Constant.DATA)) {
-								ownerInfo = JsonParser.jsonToBean(
+								myOwnerInfo = JsonParser.jsonToBean(
 										response.get(Constant.DATA).toString(),
-										UserByOwnerInfo.class);
-								if (ownerInfo != null) {
-									sharedPrefer.setValue(ownerInfo.get_id(),
-											ownerInfo);
+										MyOwnerInfo.class);
+								if (myOwnerInfo != null) {
+									sharedPrefer.setValue(myOwnerInfo.get_id(),
+											myOwnerInfo);
 								}
 								handler.sendEmptyMessage(Constant.LOAD_SUCCESS);
 							} else if (response.has(Constant.ERROR_MSG)) {
@@ -174,12 +185,12 @@ public class DataManager {
 								+ response);
 						try {
 							if (response.has(Constant.DATA)) {
-								designerInfo = JsonParser.jsonToBean(response
+								myDesignerInfo = JsonParser.jsonToBean(response
 										.get(Constant.DATA).toString(),
-										UserByDesignerInfo.class);
-								if (designerInfo != null) {
+										MyDesignerInfo.class);
+								if (myDesignerInfo != null) {
 									sharedPrefer.setValue(
-											designerInfo.get_id(), designerInfo);
+											myDesignerInfo.get_id(), myDesignerInfo);
 								}
 								handler.sendEmptyMessage(Constant.LOAD_SUCCESS);
 							} else if (response.has(Constant.ERROR_MSG)) {
@@ -274,7 +285,6 @@ public class DataManager {
 			return processReflects.get(getDefaultPro()).getProcessId();
 		}
 		return null;
-
 	}
 
 	public void requestProcessInfoById(String processId, final Handler handler) {

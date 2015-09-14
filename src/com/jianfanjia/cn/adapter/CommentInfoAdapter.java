@@ -9,8 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.CommentInfo;
-import com.jianfanjia.cn.bean.UserByDesignerInfo;
-import com.jianfanjia.cn.bean.UserByOwnerInfo;
+import com.jianfanjia.cn.bean.MyDesignerInfo;
+import com.jianfanjia.cn.bean.MyOwnerInfo;
 import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url;
@@ -66,7 +66,7 @@ public class CommentInfoAdapter extends BaseListAdapter<CommentInfo> {
 			viewHolder.itemIdentityView.setText(context
 					.getString(R.string.designer));
 			if (designerId != null) {
-				UserByDesignerInfo designerInfo = DataManager.getInstance()
+				MyDesignerInfo designerInfo = DataManager.getInstance()
 						.getDesignerInfo(designerId);
 				if (designerInfo != null) {
 					viewHolder.itemNameView
@@ -86,7 +86,7 @@ public class CommentInfoAdapter extends BaseListAdapter<CommentInfo> {
 		} else {
 			String ownerId = DataManager.getInstance().getDefaultOwnerId();
 			if (ownerId != null) {
-				UserByOwnerInfo ownerInfo = DataManager.getInstance()
+				MyOwnerInfo ownerInfo = DataManager.getInstance()
 						.getOwnerInfo(ownerId);
 				viewHolder.itemIdentityView.setText(context
 						.getString(R.string.ower));

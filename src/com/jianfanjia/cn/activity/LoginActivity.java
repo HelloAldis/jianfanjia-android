@@ -138,7 +138,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 								DataManager.getInstance().saveLoginUserInfo(
 										loginUserBean);
 								startActivity(MainActivity.class);
-								dataManager.setLogin(true);
+//								dataManager.setLogin(true);
 								finish();
 							} else if (response.has(Constant.ERROR_MSG)) {
 								hideWaitDialog();

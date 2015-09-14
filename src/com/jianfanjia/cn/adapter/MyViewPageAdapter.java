@@ -30,6 +30,10 @@ public class MyViewPageAdapter extends PagerAdapter {
 		this.list = list;
 		this.itemClickListener = itemClickListener;
 	}
+	
+	public List<ViewPagerItem> getList() {
+		return list;
+	}
 
 	@Override
 	public int getCount() {

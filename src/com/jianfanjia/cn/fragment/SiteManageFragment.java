@@ -397,7 +397,7 @@ public class SiteManageFragment extends BaseFragment implements
 	private void setScrollHeadTime() {
 		if (sectionInfos != null) {
 			for (int i = 0; i < proTitle.length; i++) {
-				ViewPagerItem viewPagerItem = list.get(i);
+				ViewPagerItem viewPagerItem = myViewPageAdapter.getList().get(i);
 				Log.i(TAG,
 						DateFormatTool.covertLongToString(sectionInfos.get(i)
 								.getStart_at(), "M.dd")
@@ -411,14 +411,14 @@ public class SiteManageFragment extends BaseFragment implements
 						+ DateFormatTool.covertLongToString(sectionInfos.get(i)
 								.getEnd_at(), "M.dd"));
 				if (i <= currentPro) {
-					int drawableId = getResources().getIdentifier("icon_home_checked"+i, "drawable", getApplication().getPackageName());
+					Log.i(TAG, "drawableId");
+					int drawableId = getResources().getIdentifier("icon_home_checked"+(i+1), "drawable", getApplication().getPackageName());
 					viewPagerItem.setResId(drawableId);
 				}else{
-					int drawableId = getResources().getIdentifier("icon_home_normal"+i, "drawable", getApplication().getPackageName());
+					int drawableId = getResources().getIdentifier("icon_home_normal"+(i+1), "drawable", getApplication().getPackageName());
 					viewPagerItem.setResId(drawableId);
 				}
 			}
-			myViewPageAdapter.notifyDataSetChanged();
 			infinitePagerAdapter.notifyDataSetChanged();
 		}
 	}

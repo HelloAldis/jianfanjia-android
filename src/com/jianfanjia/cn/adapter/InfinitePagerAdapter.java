@@ -75,4 +75,9 @@ public class InfinitePagerAdapter extends PagerAdapter {
 	public float getPageWidth(int position) {
 		return 0.25f;
 	}
+
+	@Override
+	public void notifyDataSetChanged() {
+		adapter.notifyDataSetChanged();
+	}
 }
