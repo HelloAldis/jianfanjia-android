@@ -191,7 +191,6 @@ public class SiteManageFragment extends BaseFragment implements
 
 	@Override
 	public void onLoadSuccess() {
-		// TODO Auto-generated method stub
 		super.onLoadSuccess();
 		mPullRefreshScrollView.onRefreshComplete();
 		initProcessInfo();

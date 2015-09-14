@@ -20,6 +20,7 @@ import android.view.Window;
 import android.widget.Toast;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.Message;
+import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
@@ -65,6 +66,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 	private boolean _isVisible;
 	private WaitDialog _waitDialog;
 	protected DataManager dataManager;
+	protected ProcessInfo processInfo = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -105,7 +107,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 	}
 
 	private void initParams() {
-
+		processInfo = dataManager.getDefaultProcessInfo();
 	}
 
 	private void initDao() {
@@ -277,11 +279,13 @@ public abstract class BaseActivity extends FragmentActivity implements
 			@Override
 			public void onPositiveButtonClick() {
 				notifyDialog.dismiss();
+				agreeReschedule(processInfo.get_id());
 			}
 
 			@Override
 			public void onNegativeButtonClick() {
 				notifyDialog.dismiss();
+				refuseReschedule(processInfo.get_id());
 			}
 
 		});

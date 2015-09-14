@@ -33,7 +33,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
  * 
  */
 public class UserByDesignerInfoActivity extends BaseActivity implements
-		OnClickListener{
+		OnClickListener {
 	private static final String TAG = UserByDesignerInfoActivity.class
 			.getName();
 	private RelativeLayout designerInfoLayout = null;
@@ -182,7 +182,6 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 		}
 	}
 
-	
 	@Override
 	public void takecamera() {
 		Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
