@@ -84,6 +84,22 @@ public abstract class BaseFragment extends Fragment implements OnClickListener,
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		LogTool.d(this.getClass().getName(), "onCreate");
+		init();
+	}
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		LogTool.d(this.getClass().getName(), "onCreateView");
+		this.inflater = inflater;
+		View view = inflateView(getLayoutId());
+		initUserInfo();
+		initView(view);
+		setListener();
+		return view;
+	}
+
+	private void init() {
 		dataManager = DataManager.getInstance();
 		imageLoader = ImageLoader.getInstance();
 		options = new DisplayImageOptions.Builder()
@@ -95,21 +111,9 @@ public abstract class BaseFragment extends Fragment implements OnClickListener,
 		shared = new SharedPrefer(getActivity(), Constant.SHARED_MAIN);
 		listenerManeger = ListenerManeger.getListenerManeger();
 		uploadManager = UploadManager.getUploadManager(getActivity());
-	}
-
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		LogTool.d(this.getClass().getName(), "onCreateView");
-		this.inflater = inflater;
 		fragmentManager = getFragmentManager();
 		localBroadcastManager = LocalBroadcastManager
 				.getInstance(getActivity());
-		View view = inflateView(getLayoutId());
-		initUserInfo();
-		initView(view);
-		setListener();
-		return view;
 	}
 
 	private void initUserInfo() {
