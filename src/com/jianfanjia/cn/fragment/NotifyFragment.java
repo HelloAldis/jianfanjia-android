@@ -47,12 +47,10 @@ public class NotifyFragment extends BaseFragment {
 
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.icon_head:
 			((MainActivity) getActivity()).getSlidingPaneLayout().openPane();
 			break;
-
 		default:
 			break;
 		}
@@ -76,6 +74,7 @@ public class NotifyFragment extends BaseFragment {
 		SelectItem fukuanItem = new SelectItem(new FuKuanNotifyFragment(),
 				"付款提醒");
 		SelectItem yanqiItem = new SelectItem(new YanQiNotifyFragment(), "延期提醒");
+		listViews.clear();
 		listViews.add(caigouItem);
 		listViews.add(fukuanItem);
 		listViews.add(yanqiItem);
