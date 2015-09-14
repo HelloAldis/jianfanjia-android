@@ -130,6 +130,7 @@ public class ReginputVerificationFragment extends BaseFragment {
 												LoginUserBean.class);
 								DataManager.getInstance().saveLoginUserInfo(
 										loginUserBean);
+								dataManager.setLogin(true);
 								startActivity(MainActivity.class);
 								getActivity().finish();
 							} else if (response.has(Constant.ERROR_MSG)) {

@@ -4,6 +4,7 @@ import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -123,6 +124,9 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 							JSONObject response) {
 						LogTool.d(TAG, "JSONObject response:" + response);
 						try {
+							for(Header header : headers){
+								Log.i(TAG, header.getName() + "----" + header.getValue());
+							}
 							if (response.has(Constant.DATA)) {
 								hideWaitDialog();
 								makeTextShort(getString(R.string.login_success));
@@ -134,6 +138,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 								DataManager.getInstance().saveLoginUserInfo(
 										loginUserBean);
 								startActivity(MainActivity.class);
+								dataManager.setLogin(true);
 								finish();
 							} else if (response.has(Constant.ERROR_MSG)) {
 								hideWaitDialog();

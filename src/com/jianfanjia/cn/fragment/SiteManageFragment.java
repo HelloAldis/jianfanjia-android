@@ -328,6 +328,11 @@ public class SiteManageFragment extends BaseFragment implements
 			}
 		}
 		if (isHeadViewShow) {
+			String checkText = getResources().getStringArray(
+					R.array.site_check_name)[MyApplication.getInstance()
+					.getPositionByItemName(name)];
+			openCheckNode.setText(checkText);
+			closeCheckNode.setText(checkText);
 			listHeadView.setVisibility(View.VISIBLE);
 		} else {
 			listHeadView.setVisibility(View.GONE);
