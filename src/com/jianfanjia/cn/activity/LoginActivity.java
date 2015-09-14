@@ -74,8 +74,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 			break;
 		case R.id.register:
 			startActivity(RegisterActivity.class);
-			overridePendingTransition(R.anim.fragment_slide_right_enter,
-					R.anim.fragment_slide_left_exit);
 			break;
 		case R.id.forget_password:
 			startActivity(ForgetPswActivity.class);

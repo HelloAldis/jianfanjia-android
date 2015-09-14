@@ -1,7 +1,5 @@
 package com.jianfanjia.cn.base;
 
-import java.util.Observable;
-import java.util.Observer;
 import org.apache.http.Header;
 import org.json.JSONObject;
 import android.content.Context;
@@ -15,21 +13,25 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.Window;
 import android.widget.Toast;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.Message;
+import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.inter.manager.ListenerManeger;
 import com.jianfanjia.cn.interf.DialogListener;
 import com.jianfanjia.cn.interf.NetStateListener;
+import com.jianfanjia.cn.interf.PopWindowCallBack;
 import com.jianfanjia.cn.interf.PushMsgReceiveListener;
 import com.jianfanjia.cn.receiver.NetStateReceiver;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.SharedPrefer;
 import com.jianfanjia.cn.tools.UploadManager;
+import com.jianfanjia.cn.view.AddPhotoPopWindow;
 import com.jianfanjia.cn.view.dialog.DialogControl;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.cn.view.dialog.NotifyDialog;
@@ -47,7 +49,8 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  * 
  */
 public abstract class BaseActivity extends FragmentActivity implements
-		DialogControl, PushMsgReceiveListener, Observer, NetStateListener {
+		DialogControl, PushMsgReceiveListener, NetStateListener,
+		PopWindowCallBack {
 	protected LayoutInflater inflater = null;
 	protected FragmentManager fragmentManager = null;
 	protected SharedPrefer sharedPrefer = null;
@@ -57,9 +60,11 @@ public abstract class BaseActivity extends FragmentActivity implements
 	protected UploadManager uploadManager = null;
 	protected LocalBroadcastManager localBroadcastManager = null;
 	protected NetStateReceiver netStateReceiver = null;
+	protected AddPhotoPopWindow popupWindow = null;
 	private boolean _isVisible;
 	private WaitDialog _waitDialog;
 	protected DataManager dataManager;
+	protected ProcessInfo processInfo = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +72,6 @@ public abstract class BaseActivity extends FragmentActivity implements
 		LogTool.d(this.getClass().getName(), "onCreate()");
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(getLayoutId());
-		dataManager = DataManager.getInstance();
 		init();
 		initDao();
 		initParams();
@@ -84,6 +88,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 	private void init() {
 		inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		sharedPrefer = new SharedPrefer(this, Constant.SHARED_MAIN);
+		dataManager = DataManager.getInstance();
 		fragmentManager = this.getSupportFragmentManager();
 		imageLoader = ImageLoader.getInstance();
 		options = new DisplayImageOptions.Builder()
@@ -100,7 +105,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 	}
 
 	private void initParams() {
-
+		processInfo = dataManager.getDefaultProcessInfo();
 	}
 
 	private void initDao() {
@@ -109,12 +114,6 @@ public abstract class BaseActivity extends FragmentActivity implements
 
 	@Override
 	public void onReceiveMsg(Message message) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void update(Observable arg0, Object arg1) {
 		// TODO Auto-generated method stub
 
 	}
@@ -203,6 +202,25 @@ public abstract class BaseActivity extends FragmentActivity implements
 		startActivity(intent);
 	}
 
+	protected void showPopWindow(View view) {
+		if (popupWindow == null) {
+			popupWindow = new AddPhotoPopWindow(this, this);
+		}
+		popupWindow.show(view);
+	}
+
+	@Override
+	public void takecamera() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void takePhoto() {
+		// TODO Auto-generated method stub
+
+	}
+
 	@Override
 	public WaitDialog showWaitDialog() {
 		return showWaitDialog(R.string.loading);
@@ -253,11 +271,13 @@ public abstract class BaseActivity extends FragmentActivity implements
 			@Override
 			public void onPositiveButtonClick() {
 				notifyDialog.dismiss();
+				agreeReschedule(processInfo.get_id());
 			}
 
 			@Override
 			public void onNegativeButtonClick() {
 				notifyDialog.dismiss();
+				refuseReschedule(processInfo.get_id());
 			}
 
 		});
@@ -334,12 +354,12 @@ public abstract class BaseActivity extends FragmentActivity implements
 	protected void registerNetReceiver() {
 		IntentFilter intentFilter = new IntentFilter();
 		intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
-		localBroadcastManager.registerReceiver(netStateReceiver, intentFilter);
+		registerReceiver(netStateReceiver, intentFilter);
 	}
 
 	// 取消网络监听广播
 	protected void unregisterNetReceiver() {
-		localBroadcastManager.unregisterReceiver(netStateReceiver);
+		unregisterReceiver(netStateReceiver);
 	}
 
 }

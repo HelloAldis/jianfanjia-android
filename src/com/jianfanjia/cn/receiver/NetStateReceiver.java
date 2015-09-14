@@ -38,10 +38,8 @@ public class NetStateReceiver extends BroadcastReceiver {
 					.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
 			if (Mobile.getState().equals(State.DISCONNECTED)
 					&& Wifi.getState().equals(State.DISCONNECTED)) {
-				Log.i(TAG, "网络已断开");
 				listener.onDisConnect();
 			} else {
-				Log.i(TAG, "网络已连接");
 				listener.onConnect();
 			}
 		}

@@ -1,12 +1,11 @@
 package com.jianfanjia.cn.base;
 
-import java.util.Observable;
-import java.util.Observer;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -20,9 +19,11 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.inter.manager.ListenerManeger;
+import com.jianfanjia.cn.interf.PopWindowCallBack;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.SharedPrefer;
 import com.jianfanjia.cn.tools.UploadManager;
+import com.jianfanjia.cn.view.AddPhotoPopWindow;
 import com.jianfanjia.cn.view.dialog.DialogControl;
 import com.jianfanjia.cn.view.dialog.WaitDialog;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -35,8 +36,8 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  * @date 2015-8-19 16:02:18
  * 
  */
-public abstract class BaseFragment extends Fragment implements OnClickListener
-		{
+public abstract class BaseFragment extends Fragment implements OnClickListener,
+		PopWindowCallBack {
 	protected FragmentManager fragmentManager = null;
 	protected DataManager dataManager = null;
 	protected LocalBroadcastManager localBroadcastManager = null;
@@ -46,13 +47,15 @@ public abstract class BaseFragment extends Fragment implements OnClickListener
 	protected DisplayImageOptions options = null;
 	protected ListenerManeger listenerManeger = null;
 	protected UploadManager uploadManager = null;
+	protected AddPhotoPopWindow popupWindow = null;
 	protected String mUserName;// 用户名
 	protected String mAccount;// 账号
 	protected String mUserImageId;// 头像
 	protected String mUserType;// 用户类型
 	protected boolean isOpen = false;
-	protected Handler handler = new Handler(){
-		public void handleMessage(android.os.Message msg) {
+
+	protected Handler handler = new Handler() {
+		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case Constant.LOAD_SUCCESS:
 				onLoadSuccess();
@@ -63,25 +66,40 @@ public abstract class BaseFragment extends Fragment implements OnClickListener
 			default:
 				break;
 			}
-			
+
 		};
 	};
-	
-	public void onLoadSuccess(){
+
+	public void onLoadSuccess() {
 		LogTool.d(this.getClass().getName(), "onSuccess");
 		hideWaitDialog();
 	}
-	
-	public void onLoadFailure(){
+
+	public void onLoadFailure() {
 		LogTool.d(this.getClass().getName(), "onFailure");
 		hideWaitDialog();
 	}
-
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		LogTool.d(this.getClass().getName(), "onCreate");
+		init();
+	}
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		LogTool.d(this.getClass().getName(), "onCreateView");
+		this.inflater = inflater;
+		View view = inflateView(getLayoutId());
+		initUserInfo();
+		initView(view);
+		setListener();
+		return view;
+	}
+
+	private void init() {
 		dataManager = DataManager.getInstance();
 		imageLoader = ImageLoader.getInstance();
 		options = new DisplayImageOptions.Builder()
@@ -93,21 +111,9 @@ public abstract class BaseFragment extends Fragment implements OnClickListener
 		shared = new SharedPrefer(getActivity(), Constant.SHARED_MAIN);
 		listenerManeger = ListenerManeger.getListenerManeger();
 		uploadManager = UploadManager.getUploadManager(getActivity());
-	}
-
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		LogTool.d(this.getClass().getName(), "onCreateView");
-		this.inflater = inflater;
 		fragmentManager = getFragmentManager();
 		localBroadcastManager = LocalBroadcastManager
 				.getInstance(getActivity());
-		View view = inflateView(getLayoutId());
-		initUserInfo();
-		initView(view);
-		setListener();
-		return view;
 	}
 
 	private void initUserInfo() {
@@ -178,6 +184,25 @@ public abstract class BaseFragment extends Fragment implements OnClickListener
 			intent.putExtras(bundle);
 		}
 		startActivity(intent);
+	}
+
+	protected void showPopWindow(View view) {
+		if (popupWindow == null) {
+			popupWindow = new AddPhotoPopWindow(getActivity(), this);
+		}
+		popupWindow.show(view);
+	}
+
+	@Override
+	public void takecamera() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void takePhoto() {
+		// TODO Auto-generated method stub
+
 	}
 
 	protected void hideWaitDialog() {

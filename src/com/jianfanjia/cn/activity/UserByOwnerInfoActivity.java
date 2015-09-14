@@ -20,11 +20,9 @@ import com.jianfanjia.cn.bean.Message;
 import com.jianfanjia.cn.bean.UserByOwnerInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
-import com.jianfanjia.cn.interf.PopWindowCallBack;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.PhotoUtils;
-import com.jianfanjia.cn.view.AddPhotoPopWindow;
 import com.jianfanjia.cn.view.dialog.CommonWheelDialog;
 import com.jianfanjia.cn.view.wheel.ArrayWheelAdapter;
 import com.jianfanjia.cn.view.wheel.OnWheelChangedListener;
@@ -40,7 +38,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
  * 
  */
 public class UserByOwnerInfoActivity extends BaseActivity implements
-		OnClickListener, PopWindowCallBack {
+		OnClickListener {
 	private static final String TAG = UserByOwnerInfoActivity.class.getName();
 	private RelativeLayout infoLayout = null;
 	private RelativeLayout headLayout = null;
@@ -64,8 +62,6 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 	private String provice;
 	private String city;
 	private String area;
-
-	private AddPhotoPopWindow popupWindow = null;
 
 	@Override
 	public void initView() {
@@ -234,14 +230,6 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 						makeTextLong(getString(R.string.tip_login_error_for_network));
 					};
 				});
-	}
-
-	private void showPopWindow(View view) {
-		if (popupWindow == null) {
-			popupWindow = new AddPhotoPopWindow(UserByOwnerInfoActivity.this,
-					this);
-		}
-		popupWindow.show(view);
 	}
 
 	@Override
