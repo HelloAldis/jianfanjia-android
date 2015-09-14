@@ -141,4 +141,14 @@ public class MainActivity extends BaseActivity implements PanelSlideListener,
 		showNotify(message);
 	}
 
+	@Override
+	public void onConnect() {
+		LogTool.d(TAG, "onConnect()");
+	}
+
+	@Override
+	public void onDisConnect() {
+		LogTool.d(TAG, "onDisConnect()");
+	}
+
 }

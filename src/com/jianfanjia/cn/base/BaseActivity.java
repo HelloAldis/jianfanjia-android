@@ -6,10 +6,13 @@ import org.apache.http.Header;
 import org.json.JSONObject;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Window;
@@ -20,7 +23,9 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.inter.manager.ListenerManeger;
 import com.jianfanjia.cn.interf.DialogListener;
+import com.jianfanjia.cn.interf.NetStateListener;
 import com.jianfanjia.cn.interf.PushMsgReceiveListener;
+import com.jianfanjia.cn.receiver.NetStateReceiver;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.SharedPrefer;
 import com.jianfanjia.cn.tools.UploadManager;
@@ -41,7 +46,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  * 
  */
 public abstract class BaseActivity extends FragmentActivity implements
-		DialogControl, PushMsgReceiveListener, Observer {
+		DialogControl, PushMsgReceiveListener, Observer, NetStateListener {
 	protected LayoutInflater inflater = null;
 	protected FragmentManager fragmentManager = null;
 	protected SharedPrefer sharedPrefer = null;
@@ -49,6 +54,8 @@ public abstract class BaseActivity extends FragmentActivity implements
 	protected DisplayImageOptions options = null;
 	protected ListenerManeger listenerManeger = null;
 	protected UploadManager uploadManager = null;
+	protected LocalBroadcastManager localBroadcastManager = null;
+	protected NetStateReceiver netStateReceiver = null;
 	private boolean _isVisible;
 	private WaitDialog _waitDialog;
 
@@ -82,8 +89,10 @@ public abstract class BaseActivity extends FragmentActivity implements
 				.showImageOnFail(R.drawable.pix_default).cacheInMemory(true)
 				.cacheOnDisk(true).considerExifParams(true)
 				.bitmapConfig(Bitmap.Config.RGB_565).build();
+		localBroadcastManager = LocalBroadcastManager.getInstance(this);
 		listenerManeger = ListenerManeger.getListenerManeger();
 		uploadManager = UploadManager.getUploadManager(this);
+		netStateReceiver = new NetStateReceiver(this);
 		_isVisible = true;
 	}
 
@@ -108,6 +117,18 @@ public abstract class BaseActivity extends FragmentActivity implements
 	}
 
 	@Override
+	public void onConnect() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onDisConnect() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
 	protected void onStart() {
 		super.onStart();
 		LogTool.d(this.getClass().getName(), "onStart()");
@@ -118,6 +139,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 	protected void onResume() {
 		super.onResume();
 		Log.d(this.getClass().getName(), "onResume()");
+		registerNetReceiver();
 	}
 
 	@Override
@@ -137,6 +159,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 	protected void onDestroy() {
 		super.onDestroy();
 		Log.d(this.getClass().getName(), "onDestroy()");
+		unregisterNetReceiver();
 	}
 
 	protected void makeTextShort(String text) {
@@ -302,6 +325,18 @@ public abstract class BaseActivity extends FragmentActivity implements
 								+ throwable);
 					};
 				});
+	}
+
+	// 注册网络监听广播
+	protected void registerNetReceiver() {
+		IntentFilter intentFilter = new IntentFilter();
+		intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+		localBroadcastManager.registerReceiver(netStateReceiver, intentFilter);
+	}
+
+	// 取消网络监听广播
+	protected void unregisterNetReceiver() {
+		localBroadcastManager.unregisterReceiver(netStateReceiver);
 	}
 
 }
