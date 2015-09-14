@@ -12,12 +12,15 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.bean.DesignerInfo;
 import com.jianfanjia.cn.bean.Message;
 import com.jianfanjia.cn.bean.MyDesignerInfo;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.config.Url;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
@@ -45,8 +48,10 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 	private TextView addressText = null;
 	private TextView homeText = null;
 	private Button btn_confirm = null;
+	private ImageView headImageView = null;
 	private RelativeLayout userNameRelativeLayout = null;
 	private RelativeLayout homeRelativeLayout = null;
+	private DesignerInfo designerInfo;
 
 	@Override
 	public void initView() {
@@ -59,11 +64,52 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 		addressText = (TextView) this.findViewById(R.id.addressText);
 		homeText = (TextView) this.findViewById(R.id.homeText);
 		btn_confirm = (Button) this.findViewById(R.id.btn_confirm);
+		headImageView = (ImageView) this.findViewById(R.id.head_icon);
 		userNameRelativeLayout = (RelativeLayout) this
 				.findViewById(R.id.name_layout);
 		homeRelativeLayout = (RelativeLayout) this
 				.findViewById(R.id.home_layout);
-		get_Designer_Info();
+		
+		designerInfo = dataManager.getDesignerInfo();
+		if(designerInfo == null){
+			get_Designer_Info();
+		}else{
+			setData();
+		}
+	}
+
+	private void setData() {
+		imageLoader.displayImage(designerInfo.getImageid() == null? Constant.DEFALUT_OWNER_PIC : (Url.GET_IMAGE + designerInfo.getImageid()),headImageView);
+		if (!TextUtils.isEmpty(designerInfo.getUsername())) {
+			nameText.setText(designerInfo.getUsername());
+		} else {
+			nameText.setText("设计师");
+		}
+		String sexInfo = designerInfo.getSex();
+		if (!TextUtils.isEmpty(sexInfo)) {
+			if (sexInfo.equals("1")) {
+				sexText.setText("男");
+			} else {
+				sexText.setText("女");
+			}
+		} else {
+			sexText.setText(getString(R.string.not_edit));
+		}
+		if (!TextUtils.isEmpty(designerInfo.getPhone())) {
+			phoneText.setText(designerInfo.getPhone());
+		} else {
+			phoneText.setText(getString(R.string.not_edit));
+		}
+		if (!TextUtils.isEmpty(designerInfo.getDistrict())) {
+			addressText.setText(designerInfo.getDistrict());
+		} else {
+			addressText.setText(getString(R.string.not_edit));
+		}
+		if (!TextUtils.isEmpty(designerInfo.getAddress())) {
+			homeText.setText(designerInfo.getAddress());
+		} else {
+			homeText.setText(getString(R.string.not_edit));
+		}
 	}
 
 	@Override
@@ -73,6 +119,49 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 		btn_confirm.setOnClickListener(this);
 		userNameRelativeLayout.setOnClickListener(this);
 		homeRelativeLayout.setOnClickListener(this);
+	}
+	
+	//修改设计师个人资料
+	private void put_Designer_Info(){
+		JianFanJiaApiClient.put_DesignerInfo(this, designerInfo,
+				new JsonHttpResponseHandler() {
+			@Override
+			public void onStart() {
+				LogTool.d(TAG, "onStart()");
+			}
+
+			@Override
+			public void onSuccess(int statusCode, Header[] headers,
+					JSONObject response) {
+				LogTool.d(TAG, "JSONObject response:" + response);
+				try {
+					if (response.has(Constant.SUCCESS_MSG)) {
+						makeTextLong("修改成功");
+					} else if (response.has(Constant.ERROR_MSG)) {
+						makeTextLong(response.get(Constant.ERROR_MSG)
+								.toString());
+					}
+				} catch (JSONException e) {
+					e.printStackTrace();
+					makeTextLong(getString(R.string.load_failure));
+				}
+			}
+
+			@Override
+			public void onFailure(int statusCode, Header[] headers,
+					Throwable throwable, JSONObject errorResponse) {
+				LogTool.d(TAG,
+						"Throwable throwable:" + throwable.toString());
+				makeTextLong(getString(R.string.tip_no_internet));
+			}
+
+			@Override
+			public void onFailure(int statusCode, Header[] headers,
+					String responseString, Throwable throwable) {
+				LogTool.d(TAG, "throwable:" + throwable);
+				makeTextLong(getString(R.string.tip_no_internet));
+			};
+		});
 	}
 
 	private void get_Designer_Info() {
@@ -89,41 +178,13 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 						LogTool.d(TAG, "JSONObject response:" + response);
 						try {
 							if (response.has(Constant.DATA)) {
-								MyDesignerInfo info = JsonParser
+								designerInfo = JsonParser
 										.jsonToBean(response.get(Constant.DATA)
 												.toString(),
-												MyDesignerInfo.class);
-								if (null != info) {
-									if (!TextUtils.isEmpty(info.getUsername())) {
-										nameText.setText(info.getUsername());
-									} else {
-										nameText.setText("设计师");
-									}
-									String sexInfo = info.getSex();
-									if (!TextUtils.isEmpty(sexInfo)) {
-										if (sexInfo.equals("1")) {
-											sexText.setText("男");
-										} else {
-											sexText.setText("女");
-										}
-									} else {
-										sexText.setText("无");
-									}
-									/*if (!TextUtils.isEmpty(info.getPhone())) {
-										phoneText.setText(info.getPhone());
-									} else {
-										phoneText.setText("无");
-									}*/
-									if (!TextUtils.isEmpty(info.getDistrict())) {
-										addressText.setText(info.getDistrict());
-									} else {
-										addressText.setText("无");
-									}
-									if (!TextUtils.isEmpty(info.getAddress())) {
-										homeText.setText(info.getAddress());
-									} else {
-										homeText.setText("无");
-									}
+												DesignerInfo.class);
+								if (null != designerInfo) {
+									dataManager.setDesignerInfo(designerInfo);
+									setData();
 								}
 							} else if (response.has(Constant.ERROR_MSG)) {
 								makeTextLong(response.get(Constant.ERROR_MSG)
@@ -131,7 +192,7 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 							}
 						} catch (JSONException e) {
 							e.printStackTrace();
-							makeTextLong(getString(R.string.tip_login_error_for_network));
+							makeTextLong(getString(R.string.load_failure));
 						}
 					}
 
@@ -140,14 +201,14 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 							Throwable throwable, JSONObject errorResponse) {
 						LogTool.d(TAG,
 								"Throwable throwable:" + throwable.toString());
-						makeTextLong(getString(R.string.tip_login_error_for_network));
+						makeTextLong(getString(R.string.tip_no_internet));
 					}
 
 					@Override
 					public void onFailure(int statusCode, Header[] headers,
 							String responseString, Throwable throwable) {
 						LogTool.d(TAG, "throwable:" + throwable);
-						makeTextLong(getString(R.string.tip_login_error_for_network));
+						makeTextLong(getString(R.string.tip_no_internet));
 					};
 				});
 	}
@@ -200,6 +261,7 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 		super.onActivityResult(requestCode, resultCode, data);
 		switch (requestCode) {
 		case Constant.REQUESTCODE_EDIT_USERNAME:
+			
 			break;
 		case Constant.REQUESTCODE_EDIT_ADDRESS:
 			break;

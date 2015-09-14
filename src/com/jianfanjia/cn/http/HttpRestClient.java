@@ -56,5 +56,15 @@ public class HttpRestClient {
 			AsyncHttpResponseHandler responseHandler) {
 		client.post(context, url, params, responseHandler);
 	}
+	
+	public static void put(Context context, String url, HttpEntity entity,
+			String contentType, AsyncHttpResponseHandler responseHandler) {
+		client.put(context, url, entity, contentType, responseHandler);
+	}
+
+	public static void put(Context context, String url, RequestParams params,
+			AsyncHttpResponseHandler responseHandler) {
+		client.put(context, url, params, responseHandler);
+	}
 
 }

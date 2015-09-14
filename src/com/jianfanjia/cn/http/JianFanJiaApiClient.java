@@ -8,6 +8,8 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.util.Log;
 import com.jianfanjia.cn.bean.CommitCommentInfo;
+import com.jianfanjia.cn.bean.DesignerInfo;
+import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Url;
@@ -525,6 +527,45 @@ public class JianFanJiaApiClient {
 		String getProcessUrl = Url.GET_PROCESSINFO_BYID.replace(Url.ID,
 				processid);
 		HttpRestClient.get(context, getProcessUrl, handler);
+	}
+
+	/**
+	 * 修改业主个人信息
+	 * @param context
+	 * @param ownerInfo
+	 * @param handler
+	 */
+	public static void put_OwnerInfo(Context context, OwnerInfo ownerInfo,
+			AsyncHttpResponseHandler handler) {
+		StringEntity entity;
+		try {
+			entity = new StringEntity(JsonParser.beanToJson(ownerInfo), "utf-8");
+
+			HttpRestClient.put(context, Url.GET_OWER_INFO, entity,
+					"application/json", handler);
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * 修改设计师个人信息
+	 * @param context
+	 * @param designerInfo
+	 * @param handler
+	 */
+	public static void put_DesignerInfo(Context context, DesignerInfo designerInfo,
+			AsyncHttpResponseHandler handler) {
+		StringEntity entity;
+		try {
+			entity = new StringEntity(JsonParser.beanToJson(designerInfo), "utf-8");
+			HttpRestClient.put(context, Url.GET_DESIGNER_INFO, entity,
+					"application/json", handler);
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

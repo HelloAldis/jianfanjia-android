@@ -68,6 +68,29 @@ public class DataManager {
 		}
 		return designerProcessLists;
 	}
+	
+	//通过业主id拿到工地信息
+	public ProcessInfo getProcessInfoByOwnerId(String ownerId){
+		if (processReflects.size() == 0) {
+			@SuppressWarnings("unchecked")
+			List<ProcessReflect> reflects = (List<ProcessReflect>) sharedPrefer
+					.getValue(Constant.PROCESSINFO_REFLECT);
+			if (reflects != null) {
+				processReflects = reflects;
+			}
+		}
+		String processInfoId = null;
+		for(int i= 0;i< processReflects.size();i++){
+			processInfoId = processReflects.get(i).getProcessId();
+			if(ownerId.equals(processReflects.get(i).getOwnerId())){
+				break;
+			}
+		}
+		if(processInfoId != null){
+			return getProcessInfo(processInfoId);
+		}
+		return null;
+	}
 
 	public int getDefaultPro() {
 		if (getUserType().equals(Constant.IDENTITY_DESIGNER)) {
@@ -88,6 +111,24 @@ public class DataManager {
 			designerInfo = (DesignerInfo)sharedPrefer.getValue(Constant.DESIGNER_INFO);
 		}
 		return designerInfo;
+	}
+	
+	//业主用户获取个人资料
+	public OwnerInfo getOwnerInfo(){
+		if(ownerInfo == null && !NetTool.isNetworkAvailable(context)){
+			ownerInfo = (OwnerInfo)sharedPrefer.getValue(Constant.OWNER_INFO);
+		}
+		return ownerInfo;
+	}
+	
+	public void setOwnerInfo(OwnerInfo ownerInfo) {
+		sharedPrefer.setValue(Constant.OWNER_INFO, ownerInfo);
+		this.ownerInfo = ownerInfo;
+	}
+
+	public void setDesignerInfo(DesignerInfo designerInfo) {
+		sharedPrefer.setValue(Constant.DESIGNER_INFO, designerInfo);
+		this.designerInfo = designerInfo;
 	}
 
 	public MyOwnerInfo getOwnerInfo(String ownerId) {

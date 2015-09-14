@@ -13,12 +13,15 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.Message;
 import com.jianfanjia.cn.bean.MyOwnerInfo;
+import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.config.Url;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
@@ -48,10 +51,13 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 	private TextView phoneText = null;
 	private TextView addressText = null;
 	private TextView homeText = null;
+	private ImageView headImageView = null;
 	private Button btn_confirm = null;
 	private RelativeLayout addressLayout;
 	private RelativeLayout userNameRelativeLayout = null;
 	private RelativeLayout homeRelativeLayout = null;
+	
+	private OwnerInfo ownerInfo;
 
 	private CommonWheelDialog commonWheelDialog;
 
@@ -75,14 +81,42 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 		homeText = (TextView) this.findViewById(R.id.homeText);
 		btn_confirm = (Button) this.findViewById(R.id.btn_confirm);
 		addressLayout = (RelativeLayout) this.findViewById(R.id.home_layout);
+		headImageView = (ImageView) this.findViewById(R.id.head_icon);
 		userNameRelativeLayout = (RelativeLayout) this
 				.findViewById(R.id.name_layout);
 		homeRelativeLayout = (RelativeLayout) this
 				.findViewById(R.id.home_layout);
 
-		get_Owner_Info();
+		ownerInfo = dataManager.getOwnerInfo();
+		if(ownerInfo == null){
+			get_Owner_Info();
+		}else{
+			setData();
+		}
 
 		commonWheelDialog = new CommonWheelDialog(this);
+	}
+
+	private void setData() {
+		imageLoader.displayImage(ownerInfo.getImageid() == null? Constant.DEFALUT_OWNER_PIC : (Url.GET_IMAGE + ownerInfo.getImageid()),headImageView);
+		nameText.setText(ownerInfo.getUsername() == null ? getString(R.string.ower)
+				: ownerInfo.getUsername());
+		String sexInfo = ownerInfo.getSex();
+		if (sexInfo != null) {
+			if (sexInfo.equals("1")) {
+				sexText.setText("男");
+			} else {
+				sexText.setText("女");
+			}
+		} else {
+			sexText.setText(getString(R.string.not_edit));
+		}
+		phoneText.setText(ownerInfo.getPhone());
+		addressText
+				.setText(ownerInfo.getDistrict() == null ? getString(R.string.not_edit)
+						: ownerInfo.getDistrict());
+		homeText.setText(ownerInfo.getAddress() == null ? getString(R.string.not_edit)
+				: ownerInfo.getAddress());		
 	}
 
 	@Override
@@ -167,6 +201,49 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 		commonWheelDialog.setNegativeButton(R.string.no, null);
 		commonWheelDialog.show();
 	}
+	
+	//修改设计师个人资料
+	private void put_Owner_Info(){
+		JianFanJiaApiClient.put_OwnerInfo(this, ownerInfo,
+				new JsonHttpResponseHandler() {
+			@Override
+			public void onStart() {
+				LogTool.d(TAG, "onStart()");
+			}
+
+			@Override
+			public void onSuccess(int statusCode, Header[] headers,
+					JSONObject response) {
+				LogTool.d(TAG, "JSONObject response:" + response);
+				try {
+					if (response.has(Constant.SUCCESS_MSG)) {
+						makeTextLong("修改成功");
+					} else if (response.has(Constant.ERROR_MSG)) {
+						makeTextLong(response.get(Constant.ERROR_MSG)
+								.toString());
+					}
+				} catch (JSONException e) {
+					e.printStackTrace();
+					makeTextLong(getString(R.string.load_failure));
+				}
+			}
+
+			@Override
+			public void onFailure(int statusCode, Header[] headers,
+					Throwable throwable, JSONObject errorResponse) {
+				LogTool.d(TAG,
+						"Throwable throwable:" + throwable.toString());
+				makeTextLong(getString(R.string.tip_no_internet));
+			}
+
+			@Override
+			public void onFailure(int statusCode, Header[] headers,
+					String responseString, Throwable throwable) {
+				LogTool.d(TAG, "throwable:" + throwable);
+				makeTextLong(getString(R.string.tip_no_internet));
+			};
+		});
+	}
 
 	private void get_Owner_Info() {
 		JianFanJiaApiClient.get_Owner_Info(UserByOwnerInfoActivity.this,
@@ -182,28 +259,12 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 						LogTool.d(TAG, "JSONObject response:" + response);
 						try {
 							if (response.has(Constant.DATA)) {
-								MyOwnerInfo info = JsonParser.jsonToBean(
+								ownerInfo = JsonParser.jsonToBean(
 										response.get(Constant.DATA).toString(),
-										MyOwnerInfo.class);
-								if (null != info) {
-									nameText.setText(info.getUsername() == null ? getString(R.string.ower)
-											: info.getUsername());
-									String sexInfo = info.getSex();
-									if (sexInfo != null) {
-										if (sexInfo.equals("1")) {
-											sexText.setText("男");
-										} else {
-											sexText.setText("女");
-										}
-									} else {
-										sexText.setText(getString(R.string.not_edit));
-									}
-//									phoneText.setText(info.getPhone());
-									addressText
-											.setText(info.getDistrict() == null ? getString(R.string.not_edit)
-													: info.getDistrict());
-									homeText.setText(info.getAddress() == null ? getString(R.string.not_edit)
-											: info.getAddress());
+										OwnerInfo.class);
+								if (null != ownerInfo) {
+									dataManager.setOwnerInfo(ownerInfo);
+									setData();
 								}
 							} else if (response.has(Constant.ERROR_MSG)) {
 								makeTextLong(response.get(Constant.ERROR_MSG)
