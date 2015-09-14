@@ -28,21 +28,21 @@ import com.loopj.android.http.JsonHttpResponseHandler;
  */
 public class OwnerInfoActivity extends BaseActivity implements OnClickListener {
 	private static final String TAG = OwnerInfoActivity.class.getName();
-	private TextView backView;// 返回视图
-	private ImageView ownerHeadView;// 用户头像视图
-	private ImageView ownerSexView;// 用户性别视图
-	private TextView proStageView;// 工地所处阶段视图
-	private TextView ownerNameView;// 用户名视图
-	private TextView cityView;// 所在城市
-	private TextView villageNameView;// 小区名字
-	private TextView houseStyleView;// 户型
-	private TextView decorateAreaView;// 装修面积
-	private TextView loveStyleView;// 喜欢的风格
-	private TextView decorateStyleView;// 装修类型
-	private TextView decorateBudgetView;// 装修预算
-	private TextView startDateView;// 开工日期
-	private TextView totalDateView;// 总工期
-	private TextView confirmView;// 确认按钮
+	private TextView backView = null;// 返回视图
+	private ImageView ownerHeadView = null;// 用户头像视图
+	private ImageView ownerSexView = null;// 用户性别视图
+	private TextView proStageView = null;// 工地所处阶段视图
+	private TextView ownerNameView = null;// 用户名视图
+	private TextView cityView = null;// 所在城市
+	private TextView villageNameView = null;// 小区名字
+	private TextView houseStyleView = null;// 户型
+	private TextView decorateAreaView = null;// 装修面积
+	private TextView loveStyleView = null;// 喜欢的风格
+	private TextView decorateStyleView = null;// 装修类型
+	private TextView decorateBudgetView = null;// 装修预算
+	private TextView startDateView = null;// 开工日期
+	private TextView totalDateView = null;// 总工期
+	private TextView confirmView = null;// 确认按钮
 	private String ownerId = null;
 
 	@Override
@@ -100,9 +100,9 @@ public class OwnerInfoActivity extends BaseActivity implements OnClickListener {
 						LogTool.d(TAG, "JSONObject response:" + response);
 						try {
 							if (response.has(Constant.DATA)) {
-								OwnerInfo myOwnerInfo = JsonParser
-										.jsonToBean(response.get(Constant.DATA)
-												.toString(), OwnerInfo.class);
+								OwnerInfo myOwnerInfo = JsonParser.jsonToBean(
+										response.get(Constant.DATA).toString(),
+										OwnerInfo.class);
 								Log.i(TAG, "myOwnerInfo＝" + myOwnerInfo);
 								if (null != myOwnerInfo) {
 
