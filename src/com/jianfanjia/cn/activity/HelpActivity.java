@@ -1,9 +1,13 @@
 package com.jianfanjia.cn.activity;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -20,12 +24,14 @@ import com.jianfanjia.cn.base.BaseActivity;
  * 
  */
 public class HelpActivity extends BaseActivity {
+	private static final String TAG = HelpActivity.class.getName();
 	private ViewPager viewPager;
 	private ViewGroup group = null;
 	private ImageView[] tips;
 	private List<View> bannerList = new ArrayList<View>();
 	private static final int IMG_ID[] = { R.drawable.navigate_1,
 			R.drawable.navigate_2, R.drawable.navigate_3, R.drawable.navigate_4 };
+	private Bitmap bitmap = null;
 
 	@Override
 	public void initView() {
@@ -33,7 +39,12 @@ public class HelpActivity extends BaseActivity {
 		group = (ViewGroup) findViewById(R.id.viewGroup);
 		for (int i = 0; i < IMG_ID.length; i++) {
 			ImageView imageView = new ImageView(HelpActivity.this);
-			imageView.setBackgroundResource(IMG_ID[i]);
+			InputStream is = this.getResources().openRawResource(IMG_ID[i]);
+			BitmapFactory.Options options = new BitmapFactory.Options();
+			options.inJustDecodeBounds = false;
+			options.inSampleSize = 2;
+			bitmap = BitmapFactory.decodeStream(is, null, options);
+			imageView.setImageBitmap(bitmap);
 			bannerList.add(imageView);
 		}
 		// 将点点加入到ViewGroup中
@@ -95,6 +106,16 @@ public class HelpActivity extends BaseActivity {
 			} else {
 				tips[i].setBackgroundResource(R.drawable.new_gallery_dianpu_normal);
 			}
+		}
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		Log.d(TAG, "---onDestroy()");
+		if (!bitmap.isRecycled()) {
+			bitmap.recycle(); // 回收图片所占的内存
+			System.gc(); // 提醒系统及时回收
 		}
 	}
 
