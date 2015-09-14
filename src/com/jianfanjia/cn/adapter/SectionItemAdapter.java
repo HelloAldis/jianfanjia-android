@@ -3,8 +3,6 @@ package com.jianfanjia.cn.adapter;
 import java.util.ArrayList;
 import java.util.List;
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -14,7 +12,6 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import com.jianfanjia.cn.activity.CommentActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.bean.CommentInfo;
@@ -37,18 +34,15 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 	private String userType;
 
 	public SectionItemAdapter(Context context,
-			List<SectionItemInfo> sectionItemInfos, int currentPro) {
+			List<SectionItemInfo> sectionItemInfos) {
 		super(context, sectionItemInfos);
-		this.currentPro = currentPro;
 		dataManager = DataManager.getInstance();
 		userType = dataManager.getUserType();
 	}
 
 	public SectionItemAdapter(Context context,
-			List<SectionItemInfo> sectionItemInfos, int currentPro,
-			ItemClickCallBack callBack) {
+			List<SectionItemInfo> sectionItemInfos, ItemClickCallBack callBack) {
 		super(context, sectionItemInfos);
-		this.currentPro = currentPro;
 		this.callBack = callBack;
 		dataManager = DataManager.getInstance();
 		userType = dataManager.getUserType();
@@ -212,13 +206,7 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(context, CommentActivity.class);
-				Bundle bundle = new Bundle();
-				bundle.putInt(Constant.CURRENT_LIST, currentPro);
-				Log.i(this.getClass().getName(), "positon = " + position);
-				bundle.putInt(Constant.CURRENT_ITEM, position);
-				intent.putExtras(bundle);
-				context.startActivity(intent);
+				callBack.click(position, Constant.COMMENT_ITEM);
 			}
 		});
 		return convertView;
