@@ -1,7 +1,5 @@
 package com.jianfanjia.cn.base;
 
-import java.util.Observable;
-import java.util.Observer;
 import org.apache.http.Header;
 import org.json.JSONObject;
 import android.content.Context;
@@ -51,7 +49,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  * 
  */
 public abstract class BaseActivity extends FragmentActivity implements
-		DialogControl, PushMsgReceiveListener, Observer, NetStateListener,
+		DialogControl, PushMsgReceiveListener, NetStateListener,
 		PopWindowCallBack {
 	protected LayoutInflater inflater = null;
 	protected FragmentManager fragmentManager = null;
@@ -116,12 +114,6 @@ public abstract class BaseActivity extends FragmentActivity implements
 
 	@Override
 	public void onReceiveMsg(Message message) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void update(Observable arg0, Object arg1) {
 		// TODO Auto-generated method stub
 
 	}
