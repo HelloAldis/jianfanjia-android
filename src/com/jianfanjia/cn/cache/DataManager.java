@@ -10,7 +10,6 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.os.Handler;
 import android.util.Log;
-
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
@@ -32,7 +31,7 @@ import com.jianfanjia.cn.tools.SharedPrefer;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 public class DataManager {
-	private static final String TAG = "DataManeger";
+	private static final String TAG = DataManager.class.getName();
 	public static final String SUCCESS = "success";
 	public static final String FAILURE = "failure";
 
@@ -43,10 +42,10 @@ public class DataManager {
 	private Map<String, ProcessInfo> processInfos = new HashMap<String, ProcessInfo>();
 	private List<ProcessReflect> processReflects = new ArrayList<ProcessReflect>();
 	private List<Process> designerProcessLists;
-	private MyOwnerInfo myOwnerInfo;//我的业主信息
+	private MyOwnerInfo myOwnerInfo;// 我的业主信息
 	private MyDesignerInfo myDesignerInfo;// 我的设计师信息
-	private OwnerInfo ownerInfo;//业主的个人信息
-	private DesignerInfo designerInfo;//设计师的个人信息
+	private OwnerInfo ownerInfo;// 业主的个人信息
+	private DesignerInfo designerInfo;// 设计师的个人信息
 
 	public static DataManager getInstance() {
 		if (instance == null) {
@@ -54,7 +53,7 @@ public class DataManager {
 		}
 		return instance;
 	}
-	
+
 	private DataManager() {
 		context = MyApplication.getInstance();
 		sharedPrefer = new SharedPrefer(context, Constant.SHARED_MAIN);
@@ -68,9 +67,9 @@ public class DataManager {
 		}
 		return designerProcessLists;
 	}
-	
-	//通过业主id拿到工地信息
-	public ProcessInfo getProcessInfoByOwnerId(String ownerId){
+
+	// 通过业主id拿到工地信息
+	public ProcessInfo getProcessInfoByOwnerId(String ownerId) {
 		if (processReflects.size() == 0) {
 			@SuppressWarnings("unchecked")
 			List<ProcessReflect> reflects = (List<ProcessReflect>) sharedPrefer
@@ -80,13 +79,13 @@ public class DataManager {
 			}
 		}
 		String processInfoId = null;
-		for(int i= 0;i< processReflects.size();i++){
+		for (int i = 0; i < processReflects.size(); i++) {
 			processInfoId = processReflects.get(i).getProcessId();
-			if(ownerId.equals(processReflects.get(i).getOwnerId())){
+			if (ownerId.equals(processReflects.get(i).getOwnerId())) {
 				break;
 			}
 		}
-		if(processInfoId != null){
+		if (processInfoId != null) {
 			return getProcessInfo(processInfoId);
 		}
 		return null;
@@ -104,23 +103,24 @@ public class DataManager {
 	public void setDefaultPro(int defaultPro) {
 		sharedPrefer.setValue(Constant.DEFAULT_PROCESS, defaultPro);
 	}
-	
-	//设计师用户获取个人资料
-	public DesignerInfo getDesignerInfo(){
-		if(designerInfo == null && !NetTool.isNetworkAvailable(context)){
-			designerInfo = (DesignerInfo)sharedPrefer.getValue(Constant.DESIGNER_INFO);
+
+	// 设计师用户获取个人资料
+	public DesignerInfo getDesignerInfo() {
+		if (designerInfo == null && !NetTool.isNetworkAvailable(context)) {
+			designerInfo = (DesignerInfo) sharedPrefer
+					.getValue(Constant.DESIGNER_INFO);
 		}
 		return designerInfo;
 	}
-	
-	//业主用户获取个人资料
-	public OwnerInfo getOwnerInfo(){
-		if(ownerInfo == null && !NetTool.isNetworkAvailable(context)){
-			ownerInfo = (OwnerInfo)sharedPrefer.getValue(Constant.OWNER_INFO);
+
+	// 业主用户获取个人资料
+	public OwnerInfo getOwnerInfo() {
+		if (ownerInfo == null && !NetTool.isNetworkAvailable(context)) {
+			ownerInfo = (OwnerInfo) sharedPrefer.getValue(Constant.OWNER_INFO);
 		}
 		return ownerInfo;
 	}
-	
+
 	public void setOwnerInfo(OwnerInfo ownerInfo) {
 		sharedPrefer.setValue(Constant.OWNER_INFO, ownerInfo);
 		this.ownerInfo = ownerInfo;
@@ -168,8 +168,8 @@ public class DataManager {
 						LogTool.d(TAG, "JSONObject response:" + response);
 						try {
 							if (response.has(Constant.DATA)) {
-								myOwnerInfo = JsonParser.jsonToBean(
-										response.get(Constant.DATA).toString(),
+								myOwnerInfo = JsonParser.jsonToBean(response
+										.get(Constant.DATA).toString(),
 										MyOwnerInfo.class);
 								if (myOwnerInfo != null) {
 									sharedPrefer.setValue(myOwnerInfo.get_id(),
@@ -231,7 +231,8 @@ public class DataManager {
 										MyDesignerInfo.class);
 								if (myDesignerInfo != null) {
 									sharedPrefer.setValue(
-											myDesignerInfo.get_id(), myDesignerInfo);
+											myDesignerInfo.get_id(),
+											myDesignerInfo);
 								}
 								handler.sendEmptyMessage(Constant.LOAD_SUCCESS);
 							} else if (response.has(Constant.ERROR_MSG)) {
@@ -416,7 +417,8 @@ public class DataManager {
 										new TypeToken<List<Process>>() {
 										}.getType());
 								if (designerProcessLists != null) {
-									Log.i(TAG, "designerProcessLists size =" + designerProcessLists.size());
+									Log.i(TAG, "designerProcessLists size ="
+											+ designerProcessLists.size());
 									processReflects.clear();
 									// 把之前的数据清空
 									ProcessReflect processReflect = null;
@@ -492,7 +494,7 @@ public class DataManager {
 	}
 
 	public boolean isLogin() {
-		return sharedPrefer.getValue(Constant.USER_IS_LOGIN, false);//默认是没登录
+		return sharedPrefer.getValue(Constant.USER_IS_LOGIN, false);// 默认是没登录
 	}
 
 	public void setLogin(boolean isLogin) {

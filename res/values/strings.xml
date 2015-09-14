@@ -155,6 +155,7 @@
 
     <!-- activity owner detail -->
     <string name="owner_detail_city">所在城市：</string>
+    <string name="owner_detail_cell">所在小区：</string>
     <string name="owner_detail_site">工地地址：</string>
     <string name="owner_detail_housestyle">装修户型：</string>
     <string name="owner_detail_decoratearea">装修面积：</string>

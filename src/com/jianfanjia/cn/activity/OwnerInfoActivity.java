@@ -12,8 +12,10 @@ import android.widget.TextView;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.Message;
 import com.jianfanjia.cn.bean.OwnerInfo;
+import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
+import com.jianfanjia.cn.tools.DateFormatTool;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -66,7 +68,22 @@ public class OwnerInfoActivity extends BaseActivity implements OnClickListener {
 		totalDateView = (TextView) findViewById(R.id.my_site_totaldate);
 		confirmView = (TextView) findViewById(R.id.my_site_confirm);
 		if (null != ownerId) {
-			get_one_owner_info(ownerId);
+			// get_one_owner_info(ownerId);
+			ProcessInfo processInfo = dataManager
+					.getProcessInfoByOwnerId(ownerId);
+			LogTool.d(TAG, "processInfo:" + processInfo);
+			if (null != processInfo) {
+				cityView.setText(processInfo.getCity());
+				villageNameView.setText(processInfo.getCell());
+				houseStyleView.setText(processInfo.getHouse_type());
+				decorateAreaView.setText(processInfo.getHouse_area());
+				loveStyleView.setText(processInfo.getDec_style());
+				decorateStyleView.setText(processInfo.getWork_type());
+				decorateBudgetView.setText(processInfo.getTotal_price());
+				startDateView.setText(DateFormatTool
+						.toLocalTimeString(processInfo.getStart_at()));
+				totalDateView.setText(processInfo.getDuration());
+			}
 		}
 	}
 
