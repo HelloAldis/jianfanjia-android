@@ -9,6 +9,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import android.content.Context;
 import android.os.Handler;
+import android.util.Log;
+
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
@@ -38,7 +40,7 @@ public class DataManager {
 	private Context context;
 	private Map<String, ProcessInfo> processInfos = new HashMap<String, ProcessInfo>();
 	private List<ProcessReflect> processReflects = new ArrayList<ProcessReflect>();
-	private List<Process> designerProcessLists = new ArrayList<Process>();
+	private List<Process> designerProcessLists;
 	private UserByOwnerInfo ownerInfo;// 当前业主
 	private UserByDesignerInfo designerInfo;// 当前设计师
 
@@ -62,6 +64,7 @@ public class DataManager {
 		context = MyApplication.getInstance();
 		sharedPrefer = new SharedPrefer(context, Constant.SHARED_MAIN);
 	}
+	
 
 	public int getDefaultPro() {
 		if (getUserType().equals(Constant.IDENTITY_DESIGNER)) {
@@ -362,6 +365,7 @@ public class DataManager {
 										new TypeToken<List<Process>>() {
 										}.getType());
 								if (designerProcessLists != null) {
+									Log.i(TAG, "designerProcessLists size =" + designerProcessLists.size());
 									processReflects.clear();
 									// 把之前的数据清空
 									ProcessReflect processReflect = null;
@@ -437,11 +441,11 @@ public class DataManager {
 	}
 
 	public boolean isLogin() {
-		return isLogin;
+		return sharedPrefer.getValue(Constant.USER_IS_LOGIN, false);//默认是没登录
 	}
 
 	public void setLogin(boolean isLogin) {
-		this.isLogin = isLogin;
+		sharedPrefer.setValue(Constant.USER_IS_LOGIN, isLogin);
 	}
 
 	public void saveLoginUserInfo(LoginUserBean userBean) {

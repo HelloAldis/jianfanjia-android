@@ -279,6 +279,7 @@ public class SettingFragment extends BaseFragment implements
 										getActivity());// 完全终止SDK的服务
 								startActivity(LoginActivity.class);
 								getActivity().finish();
+								dataManager.setLogin(false);
 							} else if (response.has(Constant.ERROR_MSG)) {
 								makeTextLong(response.get(Constant.ERROR_MSG)
 										.toString());
