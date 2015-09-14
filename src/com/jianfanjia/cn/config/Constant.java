@@ -108,5 +108,9 @@ public class Constant {
 
 	public static final String CURRENT_LIST = "current_list";// 首页展开的第一道工序
 	public static final String CURRENT_ITEM = "current_item";// 当前节点
+	
+	public static final int LOAD_SUCCESS = 0;//数据加载成功
+	public static final int LOAD_FAILURE = 1;//数据加载失败
+	
 
 }

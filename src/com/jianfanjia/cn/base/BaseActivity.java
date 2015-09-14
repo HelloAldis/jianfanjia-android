@@ -16,6 +16,7 @@ import android.view.Window;
 import android.widget.Toast;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.Message;
+import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.inter.manager.ListenerManeger;
@@ -51,6 +52,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 	protected UploadManager uploadManager = null;
 	private boolean _isVisible;
 	private WaitDialog _waitDialog;
+	protected DataManager dataManager;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +60,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 		LogTool.d(this.getClass().getName(), "onCreate()");
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(getLayoutId());
+		dataManager = DataManager.getInstance();
 		init();
 		initDao();
 		initParams();
@@ -150,8 +153,6 @@ public abstract class BaseActivity extends FragmentActivity implements
 	// 通过Class跳转界面
 	protected void startActivity(Class<?> cls) {
 		startActivity(cls, null);
-		overridePendingTransition(R.anim.fragment_list_right_enter,
-				R.anim.fragment_slide_left_exit);
 	}
 
 	// 含有Bundle通过Class跳转界面
@@ -162,15 +163,11 @@ public abstract class BaseActivity extends FragmentActivity implements
 			intent.putExtras(bundle);
 		}
 		startActivity(intent);
-		overridePendingTransition(R.anim.fragment_list_right_enter,
-				R.anim.fragment_slide_left_exit);
 	}
 
 	// 通过Action跳转界面
 	protected void startActivity(String action) {
 		startActivity(action, null);
-		overridePendingTransition(R.anim.fragment_list_right_enter,
-				R.anim.fragment_slide_left_exit);
 	}
 
 	// 含有Bundle通过Action跳转界面
@@ -181,8 +178,6 @@ public abstract class BaseActivity extends FragmentActivity implements
 			intent.putExtras(bundle);
 		}
 		startActivity(intent);
-		overridePendingTransition(R.anim.fragment_list_right_enter,
-				R.anim.fragment_slide_left_exit);
 	}
 
 	@Override

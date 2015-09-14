@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -49,6 +50,35 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
 	private ProcessInfo processInfo;
 	private String section;
 	private String item;
+	
+	protected Handler handler = new Handler(){
+		public void handleMessage(android.os.Message msg) {
+			switch (msg.what) {
+			case Constant.LOAD_SUCCESS:
+				onLoadSuccess();
+				break;
+			case Constant.LOAD_FAILURE:
+				onLoadFailure();
+				break;
+			default:
+				break;
+			}
+			
+		};
+	};
+	
+	public void onLoadSuccess(){
+		LogTool.d(this.getClass().getName(), "onSuccess");
+		hideWaitDialog();
+		getCommentList();
+		commentInfoAdapter.setList(commentInfoList);
+		commentInfoAdapter.notifyDataSetChanged();
+	}
+	
+	public void onLoadFailure(){
+		LogTool.d(this.getClass().getName(), "onFailure");
+		hideWaitDialog();
+	}
 
 	private TextWatcher textWatcher = new TextWatcher() {
 
@@ -77,7 +107,6 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		DataManager.getInstance().addObserver(this);
 		Intent intent = getIntent();
 		Bundle bundle = intent.getExtras();
 		if (bundle != null) {
@@ -85,7 +114,7 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
 			currentItem = bundle.getInt(Constant.CURRENT_ITEM, 0);
 		}
 		getCommentList();
-		commentInfoAdapter = new CommentInfoAdapter(this, commentInfoList);
+		commentInfoAdapter = new CommentInfoAdapter(this, commentInfoList,handler);
 		listView.setAdapter(commentInfoAdapter);
 	}
 	
@@ -145,6 +174,7 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
 						@Override
 						public void onStart() {
 							LogTool.d(TAG, "onStart()");
+							showWaitDialog();
 						}
 
 						@Override
@@ -175,6 +205,7 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
 									TAG,
 									"Throwable throwable:"
 											+ throwable.toString());
+							hideWaitDialog();
 							makeTextLong(getString(R.string.tip_no_internet));
 						}
 
@@ -182,6 +213,7 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
 						public void onFailure(int statusCode, Header[] headers,
 								String responseString, Throwable throwable) {
 							LogTool.d(TAG, "throwable:" + throwable);
+							hideWaitDialog();
 							makeTextLong(getString(R.string.tip_no_internet));
 						};
 					});
@@ -189,15 +221,16 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
 	}
 
 	private void handlerSuccess() {
-		DataManager.getInstance().getProcessList();
+//		DataManager.getInstance().getProcessList();
+		refreshData();
 	}
-
-	@Override
-	public void update(Observable observable, Object data) {
-		if (DataManager.SUCCESS.equals(data)) {
-			getCommentList();
-			commentInfoAdapter.setList(commentInfoList);
-			commentInfoAdapter.notifyDataSetChanged();
+	
+	private void refreshData(){
+		if (dataManager.getDefaultProcessId() == null) {
+			dataManager.requestProcessList(handler);
+		} else {
+			dataManager.requestProcessInfoById(
+					dataManager.getDefaultProcessId(), handler);
 		}
 	}
 

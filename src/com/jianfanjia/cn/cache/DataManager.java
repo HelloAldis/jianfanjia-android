@@ -9,6 +9,7 @@ import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.content.Context;
+import android.os.Handler;
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
@@ -27,7 +28,7 @@ import com.jianfanjia.cn.tools.NetTool;
 import com.jianfanjia.cn.tools.SharedPrefer;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
-public class DataManager extends Observable {
+public class DataManager {
 	private static final String TAG = "DataManeger";
 	public static final String SUCCESS = "success";
 	public static final String FAILURE = "failure";
@@ -54,8 +55,6 @@ public class DataManager extends Observable {
 		if (!NetTool.isNetworkAvailable(context)) {
 			designerProcessLists = (List<Process>) sharedPrefer
 					.getValue(Constant.DESIGNER_PROCESS_LIST);
-		} else {
-			requestProcessList();
 		}
 		return designerProcessLists;
 	}
@@ -84,15 +83,9 @@ public class DataManager extends Observable {
 		if (ownerInfo == null) {
 			if (!NetTool.isNetworkAvailable(context)) {
 				ownerInfo = (UserByOwnerInfo) sharedPrefer.getValue(ownerId);
-			} else {
-				getOwnerInfoById(ownerId);
 			}
 		}
 		return ownerInfo;
-	}
-
-	public void getProcessList() {
-		requestProcessList();
 	}
 
 	public UserByDesignerInfo getDesignerInfo(String designerId) {
@@ -102,14 +95,12 @@ public class DataManager extends Observable {
 			if (!NetTool.isNetworkAvailable(context)) {
 				designerInfo = (UserByDesignerInfo) sharedPrefer
 						.getValue(designerId);
-			} else {
-				getDesignerInfoById(designerId);
 			}
 		}
 		return designerInfo;
 	}
 
-	private void getOwnerInfoById(String ownerId) {
+	public void getOwnerInfoById(String ownerId, final Handler handler) {
 		JianFanJiaApiClient.getOwnerInfoById(context, ownerId,
 				new JsonHttpResponseHandler() {
 					@Override
@@ -126,18 +117,19 @@ public class DataManager extends Observable {
 								ownerInfo = JsonParser.jsonToBean(
 										response.get(Constant.DATA).toString(),
 										UserByOwnerInfo.class);
-								if(ownerInfo != null){
+								if (ownerInfo != null) {
 									sharedPrefer.setValue(ownerInfo.get_id(),
 											ownerInfo);
 								}
-								setChanged();
-								notifyObservers(SUCCESS);
+								handler.sendEmptyMessage(Constant.LOAD_SUCCESS);
 							} else if (response.has(Constant.ERROR_MSG)) {
+								handler.sendEmptyMessage(Constant.LOAD_FAILURE);
 								MyApplication.getInstance().makeTextLong(
 										response.get(Constant.ERROR_MSG)
 												.toString());
 							}
 						} catch (JSONException e) {
+							handler.sendEmptyMessage(Constant.LOAD_FAILURE);
 							e.printStackTrace();
 							MyApplication.getInstance().makeTextLong(
 									context.getString(R.string.load_failure));
@@ -149,6 +141,7 @@ public class DataManager extends Observable {
 							Throwable throwable, JSONObject errorResponse) {
 						LogTool.d(TAG,
 								"Throwable throwable:" + throwable.toString());
+						handler.sendEmptyMessage(Constant.LOAD_FAILURE);
 						MyApplication.getInstance().makeTextLong(
 								context.getString(R.string.tip_no_internet));
 					}
@@ -157,13 +150,14 @@ public class DataManager extends Observable {
 					public void onFailure(int statusCode, Header[] headers,
 							String responseString, Throwable throwable) {
 						LogTool.d(TAG, "throwable:" + throwable);
+						handler.sendEmptyMessage(Constant.LOAD_FAILURE);
 						MyApplication.getInstance().makeTextLong(
 								context.getString(R.string.tip_no_internet));
 					};
 				});
 	}
 
-	private void getDesignerInfoById(String designerId) {
+	public void getDesignerInfoById(String designerId, final Handler handler) {
 		JianFanJiaApiClient.getDesignerInfoById(context, designerId,
 				new JsonHttpResponseHandler() {
 					@Override
@@ -185,14 +179,15 @@ public class DataManager extends Observable {
 									sharedPrefer.setValue(
 											designerInfo.get_id(), designerInfo);
 								}
-								setChanged();
-								notifyObservers(SUCCESS);
+								handler.sendEmptyMessage(Constant.LOAD_SUCCESS);
 							} else if (response.has(Constant.ERROR_MSG)) {
+								handler.sendEmptyMessage(Constant.LOAD_FAILURE);
 								MyApplication.getInstance().makeTextLong(
 										response.get(Constant.ERROR_MSG)
 												.toString());
 							}
 						} catch (JSONException e) {
+							handler.sendEmptyMessage(Constant.LOAD_FAILURE);
 							e.printStackTrace();
 							MyApplication.getInstance().makeTextLong(
 									context.getString(R.string.load_failure));
@@ -204,6 +199,8 @@ public class DataManager extends Observable {
 							Throwable throwable, JSONObject errorResponse) {
 						LogTool.d(TAG,
 								"Throwable throwable:" + throwable.toString());
+						handler.sendEmptyMessage(Constant.LOAD_FAILURE);
+
 						MyApplication.getInstance().makeTextLong(
 								context.getString(R.string.tip_no_internet));
 					}
@@ -212,6 +209,8 @@ public class DataManager extends Observable {
 					public void onFailure(int statusCode, Header[] headers,
 							String responseString, Throwable throwable) {
 						LogTool.d(TAG, "throwable:" + throwable);
+						handler.sendEmptyMessage(Constant.LOAD_FAILURE);
+
 						MyApplication.getInstance().makeTextLong(
 								context.getString(R.string.tip_no_internet));
 					};
@@ -276,7 +275,7 @@ public class DataManager extends Observable {
 
 	}
 
-	public void requestProcessInfoById(String processId) {
+	public void requestProcessInfoById(String processId, final Handler handler) {
 		JianFanJiaApiClient.get_ProcessInfo_By_Id(context, processId,
 				new JsonHttpResponseHandler() {
 					@Override
@@ -301,20 +300,17 @@ public class DataManager extends Observable {
 									processInfos.put(processInfo.get_id(),
 											processInfo);// 保存工地流程在内存中
 								}
-								setChanged();
-								notifyObservers(SUCCESS);
+								handler.sendEmptyMessage(Constant.LOAD_SUCCESS);
 							} else if (response.has(Constant.ERROR_MSG)) {
 								// 通知页面刷新
-								setChanged();
-								notifyObservers(FAILURE);
+								handler.sendEmptyMessage(Constant.LOAD_FAILURE);
 								MyApplication.getInstance().makeTextLong(
 										response.get(Constant.ERROR_MSG)
 												.toString());
 							}
 						} catch (JSONException e) {
 							// 通知页面刷新
-							setChanged();
-							notifyObservers(FAILURE);
+							handler.sendEmptyMessage(Constant.LOAD_FAILURE);
 							e.printStackTrace();
 							MyApplication.getInstance().makeTextLong(
 									context.getString(R.string.load_failure));
@@ -327,8 +323,7 @@ public class DataManager extends Observable {
 						LogTool.d(TAG,
 								"Throwable throwable:" + throwable.toString());
 						// 通知页面刷新
-						setChanged();
-						notifyObservers(FAILURE);
+						handler.sendEmptyMessage(Constant.LOAD_FAILURE);
 						MyApplication.getInstance().makeTextLong(
 								context.getString(R.string.tip_no_internet));
 					}
@@ -338,8 +333,7 @@ public class DataManager extends Observable {
 							String responseString, Throwable throwable) {
 						LogTool.d(TAG, "throwable:" + throwable);
 						// 通知页面刷新
-						setChanged();
-						notifyObservers(FAILURE);
+						handler.sendEmptyMessage(Constant.LOAD_FAILURE);
 						MyApplication.getInstance().makeTextLong(
 								context.getString(R.string.tip_no_internet));
 					}
@@ -349,7 +343,7 @@ public class DataManager extends Observable {
 	/**
 	 * 加载工地列表
 	 */
-	public void requestProcessList() {
+	public void requestProcessList(final Handler handler) {
 		JianFanJiaApiClient.get_Designer_Process_List(context,
 				new JsonHttpResponseHandler() {
 					@Override
@@ -397,25 +391,22 @@ public class DataManager extends Observable {
 									if (processReflects.size() > 0) {
 										requestProcessInfoById(processReflects
 												.get(getDefaultPro())
-												.getProcessId());
+												.getProcessId(), handler);
 									} else {
-										setChanged();
-										notifyObservers(SUCCESS);
+										handler.sendEmptyMessage(Constant.LOAD_SUCCESS);
 									}
 								}
 								// 保存工地流程
 							} else if (response.has(Constant.ERROR_MSG)) {
 								// 通知页面刷新
-								setChanged();
-								notifyObservers(FAILURE);
+								handler.sendEmptyMessage(Constant.LOAD_FAILURE);
 								MyApplication.getInstance().makeTextLong(
 										response.get(Constant.ERROR_MSG)
 												.toString());
 							}
 						} catch (JSONException e) {
 							// 通知页面刷新
-							setChanged();
-							notifyObservers(FAILURE);
+							handler.sendEmptyMessage(Constant.LOAD_FAILURE);
 							e.printStackTrace();
 							MyApplication.getInstance().makeTextLong(
 									context.getString(R.string.load_failure));
@@ -428,8 +419,7 @@ public class DataManager extends Observable {
 						LogTool.d(TAG,
 								"Throwable throwable:" + throwable.toString());
 						// 通知页面刷新
-						setChanged();
-						notifyObservers(FAILURE);
+						handler.sendEmptyMessage(Constant.LOAD_FAILURE);
 						MyApplication.getInstance().makeTextLong(
 								context.getString(R.string.tip_no_internet));
 					}
@@ -439,8 +429,7 @@ public class DataManager extends Observable {
 							String responseString, Throwable throwable) {
 						LogTool.d(TAG, "throwable:" + throwable);
 						// 通知页面刷新
-						setChanged();
-						notifyObservers(FAILURE);
+						handler.sendEmptyMessage(Constant.LOAD_FAILURE);
 						MyApplication.getInstance().makeTextLong(
 								context.getString(R.string.tip_no_internet));
 					}

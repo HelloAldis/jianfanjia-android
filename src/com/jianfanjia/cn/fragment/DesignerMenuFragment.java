@@ -73,7 +73,12 @@ public class DesignerMenuFragment extends BaseFragment implements
 
 	@Override
 	public void onCheckedChanged(RadioGroup group, int checkedId) {
-		((MainActivity) getActivity()).getSlidingPaneLayout().closePane();
+		handler.postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				((MainActivity) getActivity()).getSlidingPaneLayout().closePane();
+			}
+		}, 200);
 		switch (checkedId) {
 		case R.id.tab_rb_1:
 			setTabSelection(Constant.HOME);
@@ -102,7 +107,7 @@ public class DesignerMenuFragment extends BaseFragment implements
 		switch (index) {
 		case Constant.HOME:
 			if (siteManageFragment != null) {
-				transaction.show(siteManageFragment);
+				transaction.attach(siteManageFragment);
 			} else {
 				siteManageFragment = new SiteManageFragment();
 				transaction.add(R.id.slidingpane_content, siteManageFragment);
@@ -110,7 +115,7 @@ public class DesignerMenuFragment extends BaseFragment implements
 			break;
 		case Constant.NOTIFY:
 			if (notifyFragment != null) {
-				transaction.show(notifyFragment);
+				transaction.attach(notifyFragment);
 			} else {
 				notifyFragment = new NotifyFragment();
 				transaction.add(R.id.slidingpane_content, notifyFragment);
@@ -118,7 +123,7 @@ public class DesignerMenuFragment extends BaseFragment implements
 			break;
 		case Constant.MY:
 			if (owerFragment != null) {
-				transaction.show(owerFragment);
+				transaction.attach(owerFragment);
 			} else {
 				owerFragment = new OwnerFragment();
 				transaction.add(R.id.slidingpane_content, owerFragment);
@@ -126,7 +131,7 @@ public class DesignerMenuFragment extends BaseFragment implements
 			break;
 		case Constant.MYSITE:
 			if (designerSiteFragment != null) {
-				transaction.show(designerSiteFragment);
+				transaction.attach(designerSiteFragment);
 			} else {
 				designerSiteFragment = new DesignerSiteFragment();
 				transaction.add(R.id.slidingpane_content, designerSiteFragment);
@@ -134,7 +139,7 @@ public class DesignerMenuFragment extends BaseFragment implements
 			break;
 		case Constant.SETTING:
 			if (settingFragment != null) {
-				transaction.show(settingFragment);
+				transaction.attach(settingFragment);
 			} else {
 				settingFragment = new SettingFragment();
 				transaction.add(R.id.slidingpane_content, settingFragment);
@@ -149,19 +154,19 @@ public class DesignerMenuFragment extends BaseFragment implements
 	// 当fragment已被实例化，相当于发生过切换，就隐藏起来
 	private void hideFragments(FragmentTransaction ft) {
 		if (siteManageFragment != null) {
-			ft.hide(siteManageFragment);
+			ft.detach(siteManageFragment);
 		}
 		if (notifyFragment != null) {
-			ft.hide(notifyFragment);
+			ft.detach(notifyFragment);
 		}
 		if (owerFragment != null) {
-			ft.hide(owerFragment);
+			ft.detach(owerFragment);
 		}
 		if (designerSiteFragment != null) {
-			ft.hide(designerSiteFragment);
+			ft.detach(designerSiteFragment);
 		}
 		if (settingFragment != null) {
-			ft.hide(settingFragment);
+			ft.detach(settingFragment);
 		}
 	}
 
