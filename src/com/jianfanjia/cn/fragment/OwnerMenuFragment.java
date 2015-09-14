@@ -81,7 +81,8 @@ public class OwnerMenuFragment extends BaseFragment implements
 		handler.postDelayed(new Runnable() {
 			@Override
 			public void run() {
-				((MainActivity) getActivity()).getSlidingPaneLayout().closePane();
+				((MainActivity) getActivity()).getSlidingPaneLayout()
+						.closePane();
 			}
 		}, 200);
 		switch (checkedId) {
