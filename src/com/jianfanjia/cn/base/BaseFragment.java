@@ -1,12 +1,11 @@
 package com.jianfanjia.cn.base;
 
-import java.util.Observable;
-import java.util.Observer;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -35,8 +34,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  * @date 2015-8-19 16:02:18
  * 
  */
-public abstract class BaseFragment extends Fragment implements OnClickListener
-		{
+public abstract class BaseFragment extends Fragment implements OnClickListener {
 	protected FragmentManager fragmentManager = null;
 	protected DataManager dataManager = null;
 	protected LocalBroadcastManager localBroadcastManager = null;
@@ -51,8 +49,9 @@ public abstract class BaseFragment extends Fragment implements OnClickListener
 	protected String mUserImageId;// 头像
 	protected String mUserType;// 用户类型
 	protected boolean isOpen = false;
-	protected Handler handler = new Handler(){
-		public void handleMessage(android.os.Message msg) {
+
+	protected Handler handler = new Handler() {
+		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case Constant.LOAD_SUCCESS:
 				onLoadSuccess();
@@ -63,20 +62,19 @@ public abstract class BaseFragment extends Fragment implements OnClickListener
 			default:
 				break;
 			}
-			
+
 		};
 	};
-	
-	public void onLoadSuccess(){
+
+	public void onLoadSuccess() {
 		LogTool.d(this.getClass().getName(), "onSuccess");
 		hideWaitDialog();
 	}
-	
-	public void onLoadFailure(){
+
+	public void onLoadFailure() {
 		LogTool.d(this.getClass().getName(), "onFailure");
 		hideWaitDialog();
 	}
-
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
