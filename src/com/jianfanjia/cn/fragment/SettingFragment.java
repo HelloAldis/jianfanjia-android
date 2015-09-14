@@ -44,16 +44,16 @@ public class SettingFragment extends BaseFragment implements
 	private static final String TAG = SettingFragment.class.getName();
 	private RelativeLayout feedbackFragment = null;
 	private RelativeLayout aboutFragment = null;
-	private ToggleButton toggleButton;
+	private ToggleButton toggleButton = null;
 	private RelativeLayout logoutLayout = null;
 	private RelativeLayout helpLayout = null;
 	private RelativeLayout current_version_layout = null;
 	private RelativeLayout shareLayout = null;
 	private RelativeLayout clearCacheLayout = null;
-	private TextView currentVersion;
-	private TextView cacheSizeView;
+	private TextView currentVersion = null;
+	private TextView cacheSizeView = null;
 
-	private MainHeadView mainHeadView;
+	private MainHeadView mainHeadView = null;
 
 	@Override
 	public void initView(View view) {
