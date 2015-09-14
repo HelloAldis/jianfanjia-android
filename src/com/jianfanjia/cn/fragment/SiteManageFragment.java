@@ -123,7 +123,7 @@ public class SiteManageFragment extends BaseFragment implements
 
 	private String processInfoId = null;
 
-	private Handler handler = new Handler() {
+	private Handler bannerhandler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
@@ -133,7 +133,7 @@ public class SiteManageFragment extends BaseFragment implements
 					index = -1;
 				}
 				bannerViewPager.setCurrentItem(index + 1);
-				handler.sendEmptyMessageDelayed(CHANGE_PHOTO, CHANGE_TIME);
+				bannerhandler.sendEmptyMessageDelayed(CHANGE_PHOTO, CHANGE_TIME);
 				break;
 			default:
 				break;
@@ -160,7 +160,19 @@ public class SiteManageFragment extends BaseFragment implements
 		proTitle = getResources().getStringArray(R.array.site_procedure);
 		checkSection = getResources().getStringArray(
 				R.array.site_procedure_check);
-		dataManager.addObserver(this);
+	}
+
+	private void initProcessInfo() {
+		processInfo = dataManager.getDefaultProcessInfo();
+	}
+	
+	private void refreshData(){
+		if (dataManager.getDefaultProcessId() == null) {
+			dataManager.requestProcessList(handler);
+		} else {
+			dataManager.requestProcessInfoById(
+					dataManager.getDefaultProcessId(), handler);
+		}
 	}
 
 	@Override
@@ -173,7 +185,31 @@ public class SiteManageFragment extends BaseFragment implements
 		initBannerView(view);
 		initScrollLayout(view);
 		initListView(view);
+		initProcessInfo();
+		if (processInfo != null) {
+			initData();
+		} else {
+			refreshData();
+		}
+	}
 
+	@Override
+	public void onLoadSuccess() {
+		// TODO Auto-generated method stub
+		super.onLoadSuccess();
+		mPullRefreshScrollView.onRefreshComplete();
+		initProcessInfo();
+		if (processInfo != null) {
+			initData();
+		} else {
+			// loadempty
+		}
+	}
+
+	@Override
+	public void onLoadFailure(){
+		mPullRefreshScrollView.onRefreshComplete();
+		super.onLoadFailure();
 	}
 
 	private void initMainHead(View view) {
@@ -188,21 +224,6 @@ public class SiteManageFragment extends BaseFragment implements
 		} else if (mUserType.equals(Constant.IDENTITY_DESIGNER)) {
 			mainHeadView.setMianTitle("");
 			mainHeadView.setRightTitle("切换工地");
-		}
-	}
-
-	private void initProcessInfo() {
-		processInfo = dataManager.getDefaultProcessInfo();
-	}
-
-	@Override
-	public void update(Observable observable, Object data) {
-		mPullRefreshScrollView.onRefreshComplete();
-		if (DataManager.SUCCESS.equals(data)) {
-			initProcessInfo();
-			if (processInfo != null) {
-				initData();
-			}
 		}
 	}
 
@@ -235,12 +256,6 @@ public class SiteManageFragment extends BaseFragment implements
 	@Override
 	public void onResume() {
 		super.onResume();
-		initProcessInfo();
-		if (processInfo != null) {
-			initData();
-		} else {
-			DataManager.getInstance().getProcessList();
-		}
 		processViewPager.setCurrentItem(currentList);
 	}
 
@@ -291,7 +306,7 @@ public class SiteManageFragment extends BaseFragment implements
 		});
 		bannerViewPager.setAdapter(pageAdapter);
 		bannerViewPager.setCurrentItem(0);
-		handler.sendEmptyMessageDelayed(CHANGE_PHOTO, CHANGE_TIME);
+		bannerhandler.sendEmptyMessageDelayed(CHANGE_PHOTO, CHANGE_TIME);
 	}
 
 	/**
@@ -530,7 +545,7 @@ public class SiteManageFragment extends BaseFragment implements
 		// Update the LastUpdatedLabel
 		refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
 		// 加载数据
-		DataManager.getInstance().getProcessList();
+		dataManager.requestProcessList(handler);
 	}
 
 	@Override
@@ -604,8 +619,8 @@ public class SiteManageFragment extends BaseFragment implements
 					@Override
 					public void onSuccess(int statusCode, Header[] headers,
 							JSONObject response) {
+						refreshData();
 						LogTool.d(TAG, "JSONObject response:" + response);
-						// DataManager.getInstance().getDesignerProcessLists();
 					}
 
 					@Override
@@ -638,6 +653,7 @@ public class SiteManageFragment extends BaseFragment implements
 					@Override
 					public void onSuccess(int statusCode, Header[] headers,
 							JSONObject response) {
+						refreshData();
 						LogTool.d(TAG, "JSONObject response:" + response);
 						try {
 							if (response.has(Constant.SUCCESS_MSG)) {
@@ -722,13 +738,13 @@ public class SiteManageFragment extends BaseFragment implements
 			break;
 		}
 	}
-
+	
 	@Override
 	public void onSuccess(String msg) {
 		LogTool.d(TAG, "msg===========" + msg);
 		if ("success".equals(msg)) {
 			LogTool.d(TAG, "--------------------------------------------------");
-			dataManager.getProcessList();
+			refreshData();
 		}
 	}
 

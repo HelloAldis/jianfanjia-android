@@ -26,7 +26,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  * @date 2015-8-26 下午3:41:31
  * 
  */
-public class DesignerFragment extends BaseFragment implements Observer {
+public class DesignerFragment extends BaseFragment{
 	protected static final String TAG = "DesignerFragment";
 	private ImageView bgView;// 设计师背景
 	private CircleImageView headView;//
@@ -45,7 +45,6 @@ public class DesignerFragment extends BaseFragment implements Observer {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		DataManager.getInstance().addObserver(this);
 	}
 
 	@Override
@@ -69,7 +68,22 @@ public class DesignerFragment extends BaseFragment implements Observer {
 		designerInfo = DataManager.getInstance().getDesignerInfo(designerId);
 		if (designerInfo != null) {
 			setData();
+		}else{
+			if(designerId != null){
+				dataManager.getDesignerInfoById(designerId, handler);
+			}else{
+				//loadempty
+			}
 		}
+	}
+	
+	@Override
+	public void onLoadSuccess() {
+		// TODO Auto-generated method stub
+		super.onLoadSuccess();
+		designerInfo = DataManager.getInstance().getDesignerInfo(
+				DataManager.getInstance().getDefaultDesignerId());
+		setData();
 	}
 
 	private void initMainHead(View view) {
@@ -128,20 +142,6 @@ public class DesignerFragment extends BaseFragment implements Observer {
 			} else {
 				headView.setImageResource(R.drawable.icon_sidebar_default_designer);
 			}
-		}
-	}
-
-	private void handlerSuccess() {
-		designerInfo = DataManager.getInstance().getDesignerInfo(
-				DataManager.getInstance().getDefaultDesignerId());
-		setData();
-	}
-
-	@Override
-	public void update(Observable observable, Object data) {
-		super.update(observable, data);
-		if (DataManager.SUCCESS.equals(data)) {
-			handlerSuccess();
 		}
 	}
 

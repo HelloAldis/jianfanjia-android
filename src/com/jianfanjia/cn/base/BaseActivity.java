@@ -19,6 +19,7 @@ import android.view.Window;
 import android.widget.Toast;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.Message;
+import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.inter.manager.ListenerManeger;
@@ -58,6 +59,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 	protected NetStateReceiver netStateReceiver = null;
 	private boolean _isVisible;
 	private WaitDialog _waitDialog;
+	protected DataManager dataManager;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +67,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 		LogTool.d(this.getClass().getName(), "onCreate()");
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(getLayoutId());
+		dataManager = DataManager.getInstance();
 		init();
 		initDao();
 		initParams();

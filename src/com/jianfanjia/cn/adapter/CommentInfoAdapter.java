@@ -2,6 +2,7 @@ package com.jianfanjia.cn.adapter;
 
 import java.util.List;
 import android.content.Context;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -23,9 +24,12 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  * 
  */
 public class CommentInfoAdapter extends BaseListAdapter<CommentInfo> {
+	
+	private Handler handler;
 
-	public CommentInfoAdapter(Context context, List<CommentInfo> caigouList) {
+	public CommentInfoAdapter(Context context, List<CommentInfo> caigouList,Handler handler) {
 		super(context, caigouList);
+		this.handler = handler;
 	}
 
 	@Override
@@ -73,6 +77,8 @@ public class CommentInfoAdapter extends BaseListAdapter<CommentInfo> {
 							imageId == null ? Constant.DEFALUT_DESIGNER_PIC
 									: (Url.GET_IMAGE + imageId),
 							viewHolder.itemHeadView, options);
+				}else{
+					DataManager.getInstance().getDesignerInfoById(designerId, handler);
 				}
 			}
 		} else {
@@ -92,6 +98,8 @@ public class CommentInfoAdapter extends BaseListAdapter<CommentInfo> {
 							imageId == null ? Constant.DEFALUT_OWNER_PIC
 									: (Url.GET_IMAGE + imageId),
 							viewHolder.itemHeadView, options);
+				}else{
+					DataManager.getInstance().getOwnerInfoById(ownerId, handler);
 				}
 			}
 

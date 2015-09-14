@@ -7,6 +7,7 @@ import java.util.Observer;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -31,7 +32,7 @@ import com.jianfanjia.cn.view.MainHeadView;
  * 
  */
 public class DesignerSiteFragment extends BaseFragment implements
-		OnItemClickListener,Observer {
+		OnItemClickListener{
 	private static final String TAG = DesignerSiteFragment.class.getName();
 	private ListView siteListView;
 	private List<Process> siteList;
@@ -68,32 +69,44 @@ public class DesignerSiteFragment extends BaseFragment implements
 	}
 	
 	@Override
-	public void update(Observable observable, Object data) {
-		// TODO Auto-generated method stub
-		super.update(observable, data);
-		if(DataManager.SUCCESS.equals(data)){
-			if(siteList != null){
-				designerSiteInfoAdapter = new DesignerSiteInfoAdapter(
-						getActivity(), siteList);
-				siteListView
-						.setAdapter(designerSiteInfoAdapter);
-			}
-		}
-	}
-
-	@Override
 	public void initView(View view) {
 		
 		initMainHead(view);
 		siteListView = (ListView) view
 				.findViewById(R.id.designer_site_listview);
-		siteList = DataManager.getInstance().getDesignerProcessLists();
+		siteList = dataManager.getDesignerProcessLists();
+		if(siteList != null){
+			Log.i(TAG, "siteList. = " + siteList.size());
+			designerSiteInfoAdapter = new DesignerSiteInfoAdapter(
+					getActivity(), siteList);
+			siteListView
+					.setAdapter(designerSiteInfoAdapter);
+		}else{
+			dataManager.requestProcessList(handler);
+			showWaitDialog();
+		}
+	}
+	
+	@Override
+	public void onLoadSuccess() {
+		// TODO Auto-generated method stub
+		super.onLoadSuccess();
+		siteList = dataManager.getDesignerProcessLists();
 		if(siteList != null){
 			designerSiteInfoAdapter = new DesignerSiteInfoAdapter(
 					getActivity(), siteList);
 			siteListView
 					.setAdapter(designerSiteInfoAdapter);
+		}else{
+			//load empty
 		}
+		
+	}
+	
+	@Override
+	public void onLoadFailure() {
+		// TODO Auto-generated method stub
+		super.onLoadFailure();
 	}
 
 	@Override
@@ -117,7 +130,7 @@ public class DesignerSiteFragment extends BaseFragment implements
 	public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
 		Process siteInfo = siteList.get(position);
 		LogTool.d(TAG, "_id=" + siteInfo.get_id());
-		DataManager.getInstance().setDefaultPro(position);
+		dataManager.setDefaultPro(position);
 		if(listener != null){
 			listener.switchFragment(Constant.HOME);
 		}
