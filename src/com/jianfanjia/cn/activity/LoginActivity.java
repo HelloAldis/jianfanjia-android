@@ -30,13 +30,13 @@ import com.loopj.android.http.JsonHttpResponseHandler;
  */
 public class LoginActivity extends BaseActivity implements OnClickListener {
 	private static final String TAG = LoginActivity.class.getName();
-	private EditText mEtUserName;// 用户名输入框
-	private EditText mEtPassword;// 用户密码输入框
-	private Button mBtnLogin;// 登录按钮
-	private TextView mForgetPswView;
-	private TextView mRegisterView;// 导航到用户注册
-	private String mUserName;// 用户名
-	private String mPassword;// 密码
+	private EditText mEtUserName = null;// 用户名输入框
+	private EditText mEtPassword = null;// 用户密码输入框
+	private Button mBtnLogin = null;// 登录按钮
+	private TextView mForgetPswView = null;
+	private TextView mRegisterView = null;// 导航到用户注册
+	private String mUserName = null;// 用户名
+	private String mPassword = null;// 密码
 
 	@Override
 	public void initView() {
@@ -124,8 +124,10 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 							JSONObject response) {
 						LogTool.d(TAG, "JSONObject response:" + response);
 						try {
-							for(Header header : headers){
-								Log.i(TAG, header.getName() + "----" + header.getValue());
+							for (Header header : headers) {
+								Log.i(TAG,
+										header.getName() + "----"
+												+ header.getValue());
 							}
 							if (response.has(Constant.DATA)) {
 								hideWaitDialog();
@@ -138,7 +140,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 								DataManager.getInstance().saveLoginUserInfo(
 										loginUserBean);
 								startActivity(MainActivity.class);
-//								dataManager.setLogin(true);
+								// dataManager.setLogin(true);
 								finish();
 							} else if (response.has(Constant.ERROR_MSG)) {
 								hideWaitDialog();
