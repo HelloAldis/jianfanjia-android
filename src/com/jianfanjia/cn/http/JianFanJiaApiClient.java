@@ -531,6 +531,7 @@ public class JianFanJiaApiClient {
 
 	/**
 	 * 修改业主个人信息
+	 * 
 	 * @param context
 	 * @param ownerInfo
 	 * @param handler
@@ -540,7 +541,6 @@ public class JianFanJiaApiClient {
 		StringEntity entity;
 		try {
 			entity = new StringEntity(JsonParser.beanToJson(ownerInfo), "utf-8");
-
 			HttpRestClient.put(context, Url.GET_OWER_INFO, entity,
 					"application/json", handler);
 		} catch (UnsupportedEncodingException e) {
@@ -548,18 +548,20 @@ public class JianFanJiaApiClient {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * 修改设计师个人信息
+	 * 
 	 * @param context
 	 * @param designerInfo
 	 * @param handler
 	 */
-	public static void put_DesignerInfo(Context context, DesignerInfo designerInfo,
-			AsyncHttpResponseHandler handler) {
+	public static void put_DesignerInfo(Context context,
+			DesignerInfo designerInfo, AsyncHttpResponseHandler handler) {
 		StringEntity entity;
 		try {
-			entity = new StringEntity(JsonParser.beanToJson(designerInfo), "utf-8");
+			entity = new StringEntity(JsonParser.beanToJson(designerInfo),
+					"utf-8");
 			HttpRestClient.put(context, Url.GET_DESIGNER_INFO, entity,
 					"application/json", handler);
 		} catch (UnsupportedEncodingException e) {
