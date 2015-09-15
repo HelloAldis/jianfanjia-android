@@ -96,6 +96,31 @@ public class JianFanJiaApiClient {
 	}
 
 	/**
+	 * ”√ªß∑¥¿°
+	 * 
+	 * @param context
+	 * @param content
+	 * @param platform
+	 * @param handler
+	 */
+	public static void feedBack(Context context, String content,
+			String platform, AsyncHttpResponseHandler handler) {
+		JSONObject jsonParams = new JSONObject();
+		try {
+			jsonParams.put("content", content);
+			jsonParams.put("platform", platform);
+			StringEntity entity = new StringEntity(jsonParams.toString(),
+					"utf-8");
+			HttpRestClient.post(context, Url.FEEDBACK_URL, entity,
+					"application/json", handler);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
 	 * @author zhanghao
 	 * @param phone
 	 * @param handler
