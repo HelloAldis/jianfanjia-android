@@ -11,10 +11,9 @@
         android:background="@color/head_layout_bg" >
 
         <com.jianfanjia.cn.view.MainHeadView
-        android:id="@+id/notify_head_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-         />
+            android:id="@+id/notify_head_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
         <!-- tabpage -->
 
         <com.jianfanjia.cn.view.TabPageIndicator
