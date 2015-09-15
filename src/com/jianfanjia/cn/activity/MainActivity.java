@@ -108,7 +108,6 @@ public class MainActivity extends BaseActivity implements PanelSlideListener,
 		if (slidingPaneLayout.isOpen()) {
 			moveTaskToBack(false);
 			Global.isAppBack = true;
-			finish();
 		} else {
 			slidingPaneLayout.openPane();
 		}
@@ -141,7 +140,13 @@ public class MainActivity extends BaseActivity implements PanelSlideListener,
 	@Override
 	public void onReceiveMsg(Message message) {
 		LogTool.d(TAG, "message=" + message);
-		showNotify(message);
+		if (Global.isAppBack) {
+			LogTool.d(TAG, "后台运行");
+			sendNotifycation(message);
+		} else {
+			LogTool.d(TAG, "前台运行");
+			showNotify(message);
+		}
 	}
 
 	@Override

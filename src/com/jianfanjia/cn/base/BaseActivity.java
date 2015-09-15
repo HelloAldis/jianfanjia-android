@@ -165,13 +165,13 @@ public abstract class BaseActivity extends FragmentActivity implements
 	protected void onStop() {
 		super.onStop();
 		LogTool.d(this.getClass().getName(), "onStop()");
-		listenerManeger.removePushMsgReceiveListener(this);
 	}
 
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		Log.d(this.getClass().getName(), "onDestroy()");
+		LogTool.d(this.getClass().getName(), "onDestroy()");
+		listenerManeger.removePushMsgReceiveListener(this);
 		unregisterNetReceiver();
 	}
 
@@ -282,13 +282,13 @@ public abstract class BaseActivity extends FragmentActivity implements
 			@Override
 			public void onPositiveButtonClick() {
 				notifyDialog.dismiss();
-				agreeReschedule(processInfo.get_id());
+				// agreeReschedule(processInfo.get_id());
 			}
 
 			@Override
 			public void onNegativeButtonClick() {
 				notifyDialog.dismiss();
-				refuseReschedule(processInfo.get_id());
+				// refuseReschedule(processInfo.get_id());
 			}
 
 		});
@@ -382,9 +382,18 @@ public abstract class BaseActivity extends FragmentActivity implements
 		NotificationCompat.Builder builder = new NotificationCompat.Builder(
 				this);
 		builder.setSmallIcon(R.drawable.ic_launcher);
-		builder.setTicker("提醒");
-		builder.setContentTitle("消息提醒");
-		builder.setContentText("你有新的消息提醒,请注意查看！");
+		String type = message.getType();
+		if (type.equals("0")) {
+			builder.setTicker("延期提醒");
+			builder.setContentTitle("延期提醒");
+		} else if (type.equals("1")) {
+			builder.setTicker("采购提醒");
+			builder.setContentTitle("采购提醒");
+		} else if (type.equals("2")) {
+			builder.setTicker("付款提醒");
+			builder.setContentTitle("付款提醒");
+		}
+		builder.setContentText(message.getContent());
 		builder.setNumber(0);
 		builder.setAutoCancel(true);
 		Intent intent = new Intent(this, MainActivity.class);
