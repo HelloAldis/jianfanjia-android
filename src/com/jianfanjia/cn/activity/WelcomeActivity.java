@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.WindowManager;
 import com.jianfanjia.cn.AppConfig;
+import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.cache.DataCleanManager;
 import com.jianfanjia.cn.config.Constant;
@@ -19,7 +20,6 @@ import com.jianfanjia.cn.tools.LogTool;
  * 
  */
 public class WelcomeActivity extends BaseActivity {
-	private Handler handler = new Handler();
 	private int first = 0;// 用于判断导航界面是否显示
 	private boolean isLoginExpire;// 是否登录过去
 	private boolean isLogin;// 是否登录过
@@ -82,12 +82,11 @@ public class WelcomeActivity extends BaseActivity {
 					if (!isLoginExpire) {// 登录未过期，添加cookies到httpclient记录身份
 						// Log.i(this.getClass().getName(),
 						// appConfig.getCookies());
-						DataCleanManager.cleanSharedPafrenceByName(
-								WelcomeActivity.this, Constant.SHARED_MAIN);// 清理掉缓存的用户数据
 						startActivity(MainActivity.class);
 						finish();
 					} else {
 						Log.i(this.getClass().getName(), "已经过期");
+						MyApplication.getInstance().clearCookie();
 						dataManager.login(dataManager.getAccount(),dataManager.getPassword(), handler);
 						startActivity(LoginActivity.class);
 						finish();

@@ -168,6 +168,7 @@ public class SiteManageFragment extends BaseFragment implements
 		if (dataManager.getDefaultProcessId() == null) {
 			dataManager.requestProcessList(handler);
 		} else {
+			Log.i(TAG, "proId = " + dataManager.getDefaultProcessId());
 			dataManager.requestProcessInfoById(
 					dataManager.getDefaultProcessId(), handler);
 		}

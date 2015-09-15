@@ -48,6 +48,7 @@ public class DataManager {
 	private List<Process> designerProcessLists;
 	private MyOwnerInfo myOwnerInfo;// 我的业主信息
 	private MyDesignerInfo myDesignerInfo;// 我的设计师信息
+	
 	private OwnerInfo ownerInfo;// 业主的个人信息
 	private DesignerInfo designerInfo;// 设计师的个人信息
 
@@ -615,6 +616,14 @@ public class DataManager {
 			userImagePath = Url.GET_IMAGE + imageId;
 		}
 		return userImagePath;
+	}
+	
+	public void cleanData(){
+		processInfos.clear();
+		processReflects.clear();
+		designerProcessLists = null;
+		myOwnerInfo = null;
+		myDesignerInfo = null;
 	}
 
 }

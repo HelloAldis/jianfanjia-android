@@ -6,6 +6,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
+import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -221,7 +222,7 @@ public class SettingFragment extends BaseFragment implements
 	@Override
 	public void onCheckedChanged(CompoundButton arg0, boolean check) {
 		LogTool.d(TAG, "check:" + check);
-		shared.setValue(Constant.ISOPEN, check);
+		sharedPrefer.setValue(Constant.ISOPEN, check);
 		if (check) {
 			PushManager.getInstance().turnOnPush(getActivity());
 		} else {
@@ -284,10 +285,13 @@ public class SettingFragment extends BaseFragment implements
 										.toString());
 								PushManager.getInstance().stopService(
 										getActivity());// 完全终止SDK的服务
-								dataManager.setLogin(false);
-								DataCleanManager.cleanSharedPreference(
-										getActivity());// 清理掉用户相关的sharepre
+//								DataCleanManager.cleanSharedPafrenceByName(getActivity(), Constant.SHARED_MAIN);// 清理掉用户相关的sharepre
 //								shared.remove()
+								dataManager.sharedPrefer.setValue(Constant.PROCESSINFO_REFLECT, null);
+								dataManager.sharedPrefer.setValue(Constant.DESIGNER_PROCESS_LIST, null);
+								Log.i(TAG, dataManager.getAccount());
+								dataManager.setLogin(false);
+								dataManager.cleanData();
 								MyApplication.getInstance().clearCookie();//清理掉cookie
 								startActivity(LoginActivity.class);
 								getActivity().finish();
@@ -298,7 +302,7 @@ public class SettingFragment extends BaseFragment implements
 						} catch (JSONException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
-							makeTextLong(getString(R.string.tip_login_error_for_network));
+							makeTextLong(getString(R.string.load_failure));
 						}
 					}
 
@@ -307,14 +311,14 @@ public class SettingFragment extends BaseFragment implements
 							Throwable throwable, JSONObject errorResponse) {
 						LogTool.d(TAG,
 								"Throwable throwable:" + throwable.toString());
-						makeTextLong(getString(R.string.tip_login_error_for_network));
+						makeTextLong(getString(R.string.tip_no_internet));
 					}
 
 					@Override
 					public void onFailure(int statusCode, Header[] headers,
 							String responseString, Throwable throwable) {
 						LogTool.d(TAG, "throwable:" + throwable);
-						makeTextLong(getString(R.string.tip_login_error_for_network));
+						makeTextLong(getString(R.string.tip_no_internet));
 					};
 				});
 	}

@@ -45,7 +45,7 @@ public abstract class BaseFragment extends Fragment implements OnClickListener,
 	protected AppConfig appConfig = null;
 	protected LocalBroadcastManager localBroadcastManager = null;
 	protected LayoutInflater inflater = null;
-	protected SharedPrefer shared = null;
+	protected SharedPrefer sharedPrefer = null;
 	protected ImageLoader imageLoader = null;
 	protected DisplayImageOptions options = null;
 	protected ListenerManeger listenerManeger = null;
@@ -112,7 +112,7 @@ public abstract class BaseFragment extends Fragment implements OnClickListener,
 				.showImageOnFail(R.drawable.pix_default).cacheInMemory(true)
 				.cacheOnDisk(true).considerExifParams(true)
 				.bitmapConfig(Bitmap.Config.RGB_565).build();
-		shared = new SharedPrefer(getActivity(), Constant.SHARED_MAIN);
+		sharedPrefer = dataManager.sharedPrefer;
 		listenerManeger = ListenerManeger.getListenerManeger();
 		uploadManager = UploadManager.getUploadManager(getActivity());
 		fragmentManager = getFragmentManager();
@@ -121,10 +121,10 @@ public abstract class BaseFragment extends Fragment implements OnClickListener,
 	}
 
 	private void initUserInfo() {
-		mUserName = DataManager.getInstance().getUserName();
-		mAccount = DataManager.getInstance().getAccount();
-		mUserImageId = DataManager.getInstance().getUserImagePath();
-		mUserType = DataManager.getInstance().getUserType();
+		mUserName = dataManager.getUserName();
+		mAccount = dataManager.getAccount();
+		mUserImageId = dataManager.getUserImagePath();
+		mUserType = dataManager.getUserType();
 		LogTool.d(this.getClass().getName(), "mUserName:" + mUserName
 				+ " mAccount:" + mAccount + " userImageId" + mUserImageId);
 	}
@@ -133,7 +133,7 @@ public abstract class BaseFragment extends Fragment implements OnClickListener,
 	public void onResume() {
 		super.onResume();
 		LogTool.d(this.getClass().getName(), "onResume");
-		isOpen = shared.getValue(Constant.ISOPEN, false);
+		isOpen = sharedPrefer.getValue(Constant.ISOPEN, false);
 	}
 
 	@Override

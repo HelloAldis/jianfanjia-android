@@ -128,7 +128,7 @@ public class DataCleanManager {
 					deleteFilesByDirectory(child);
 				}
 				boolean isDeleteSuccess = child.delete();
-				Log.i("isDeleteSuccess","" + isDeleteSuccess);
+				Log.i("isDeleteSuccess",child.getName() + isDeleteSuccess);
 			}
 		}
 	}

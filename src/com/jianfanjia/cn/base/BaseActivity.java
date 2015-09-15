@@ -122,9 +122,9 @@ public abstract class BaseActivity extends FragmentActivity implements
 
 	private void init() {
 		inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		sharedPrefer = new SharedPrefer(this, Constant.SHARED_MAIN);
 		nManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 		dataManager = DataManager.getInstance();
+		sharedPrefer = dataManager.sharedPrefer;
 		appConfig = AppConfig.getInstance(this);
 		fragmentManager = this.getSupportFragmentManager();
 		imageLoader = ImageLoader.getInstance();
