@@ -15,6 +15,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import com.jianfanjia.cn.AppConfig;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.config.Constant;
@@ -40,6 +42,7 @@ public abstract class BaseFragment extends Fragment implements OnClickListener,
 		PopWindowCallBack {
 	protected FragmentManager fragmentManager = null;
 	protected DataManager dataManager = null;
+	protected AppConfig appConfig = null;
 	protected LocalBroadcastManager localBroadcastManager = null;
 	protected LayoutInflater inflater = null;
 	protected SharedPrefer shared = null;
@@ -100,6 +103,7 @@ public abstract class BaseFragment extends Fragment implements OnClickListener,
 	}
 
 	private void init() {
+		appConfig = AppConfig.getInstance(getActivity());
 		dataManager = DataManager.getInstance();
 		imageLoader = ImageLoader.getInstance();
 		options = new DisplayImageOptions.Builder()

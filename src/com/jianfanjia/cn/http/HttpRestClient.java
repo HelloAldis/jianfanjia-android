@@ -17,6 +17,14 @@ import com.loopj.android.http.RequestParams;
 public class HttpRestClient {
 	private static AsyncHttpClient client = new AsyncHttpClient();
 
+	static {
+		client.setConnectTimeout(5);
+	}
+	
+	public static AsyncHttpClient getHttpClient(){
+		return client;
+	}
+
 	// -----------------------------get-------------------------------------
 	public static void get(String url, AsyncHttpResponseHandler responseHandler) {
 		client.get(url, responseHandler);
@@ -56,7 +64,7 @@ public class HttpRestClient {
 			AsyncHttpResponseHandler responseHandler) {
 		client.post(context, url, params, responseHandler);
 	}
-	
+
 	public static void put(Context context, String url, HttpEntity entity,
 			String contentType, AsyncHttpResponseHandler responseHandler) {
 		client.put(context, url, entity, contentType, responseHandler);
@@ -65,6 +73,10 @@ public class HttpRestClient {
 	public static void put(Context context, String url, RequestParams params,
 			AsyncHttpResponseHandler responseHandler) {
 		client.put(context, url, params, responseHandler);
+	}
+
+	public static void setCookie(String cookie) {
+		client.addHeader("Cookie", cookie);
 	}
 
 }

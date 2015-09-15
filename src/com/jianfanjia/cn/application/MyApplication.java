@@ -2,11 +2,18 @@ package com.jianfanjia.cn.application;
 
 import java.util.Arrays;
 import java.util.List;
+
+import org.apache.http.cookie.Cookie;
+
 import android.content.pm.PackageManager;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseApplication;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.cache.DataCleanManager;
+import com.jianfanjia.cn.http.HttpRestClient;
+import com.jianfanjia.cn.http.JianFanJiaApiClient;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.PersistentCookieStore;
 
 /**
  * @version 1.0
@@ -19,6 +26,7 @@ public class MyApplication extends BaseApplication {
 	private static MyApplication instance;
 	private RegisterInfo registerInfo = new RegisterInfo();// 注册实体信息
 	private List<String> site_data;// 静态的工序列表
+	private PersistentCookieStore cookieStore;//cookie实例化
 
 	@Override
 	public void onCreate() {
@@ -26,7 +34,9 @@ public class MyApplication extends BaseApplication {
 		instance = this;
 		site_data = Arrays.asList(getResources().getStringArray(
 				R.array.site_data));
-
+		
+		cookieStore = new PersistentCookieStore(this);//记录cookie
+		saveCookie(HttpRestClient.getHttpClient());
 		/*
 		 * Thread.setDefaultUncaughtExceptionHandler(AppException
 		 * .getAppExceptionHandler(this));
@@ -125,4 +135,12 @@ public class MyApplication extends BaseApplication {
 			DataCleanManager.cleanCustomCache(getExternalCacheDir());
 		}
 	}
+	
+	public void saveCookie(AsyncHttpClient client) {  
+        client.setCookieStore(cookieStore);  
+    }  
+      
+    public void clearCookie(){  
+        cookieStore.clear();  
+    }  
 }

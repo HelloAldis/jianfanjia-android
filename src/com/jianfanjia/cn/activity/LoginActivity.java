@@ -1,6 +1,12 @@
 package com.jianfanjia.cn.activity;
 
+import java.util.Calendar;
+
 import org.apache.http.Header;
+import org.apache.http.client.CookieStore;
+import org.apache.http.client.protocol.ClientContext;
+import org.apache.http.cookie.Cookie;
+import org.apache.http.protocol.HttpContext;
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.text.TextUtils;
@@ -10,15 +16,20 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.jianfanjia.cn.AppConfig;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.LoginUserBean;
 import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.http.HttpRestClient;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.NetTool;
+import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.PersistentCookieStore;
 
 /**
  * 
@@ -124,10 +135,8 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 							JSONObject response) {
 						LogTool.d(TAG, "JSONObject response:" + response);
 						try {
-							for(Header header : headers){
-								Log.i(TAG, header.getName() + "----" + header.getValue());
-							}
 							if (response.has(Constant.DATA)) {
+								appConfig.savaLastLoginTime(Calendar.getInstance().getTimeInMillis());
 								hideWaitDialog();
 								makeTextShort(getString(R.string.login_success));
 								LoginUserBean loginUserBean = JsonParser
@@ -138,7 +147,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 								DataManager.getInstance().saveLoginUserInfo(
 										loginUserBean);
 								startActivity(MainActivity.class);
-//								dataManager.setLogin(true);
+								dataManager.setLogin(true);
 								finish();
 							} else if (response.has(Constant.ERROR_MSG)) {
 								hideWaitDialog();
