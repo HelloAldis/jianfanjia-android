@@ -33,6 +33,8 @@ public class Url {
 	// 检查版本
 	public static final String UPDATE_VERSION_URL = HTTPROOT
 			+ "device/android_build_version";
+	// 用户反馈 feedback
+	public static final String FEEDBACK_URL = HTTPROOT + "feedback";
 	// --------------------------------------------------业主-----------------------------------------------------------
 	// 业主获取需求
 	public static final String REQUIREMENT = HTTPROOT + "user/requirement";
@@ -75,8 +77,7 @@ public class Url {
 	public static final String GET_ONE_OWNER_INFO = HTTPROOT + "user/" + ID
 			+ "/info";
 	// 用户提交改期
-	public static final String POST_RESCHDULE = HTTPROOT
-			+ "process/reschedule";
+	public static final String POST_RESCHDULE = HTTPROOT + "process/reschedule";
 	// 用户同意改期
 	public static final String AGREE_RESCHDULE = HTTPROOT
 			+ "process/reschedule/ok";

@@ -1,6 +1,7 @@
 package com.jianfanjia.cn.receiver;
 
 import java.util.List;
+
 import org.apache.http.Header;
 import org.json.JSONObject;
 import android.content.BroadcastReceiver;
@@ -27,7 +28,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
  * 
  */
 public class PushMsgReceiver extends BroadcastReceiver {
-	private static final String TAG = "PushMsgReceiver";
+	private static final String TAG = PushMsgReceiver.class.getName();
 	private Gson gson = new Gson();
 
 	@Override

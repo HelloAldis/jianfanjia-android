@@ -10,45 +10,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.bean.Message;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.tools.LogTool;
 
 public class EditInfoActivity extends BaseActivity implements OnClickListener {
-
+	private static final String TAG = EditInfoActivity.class.getName();
 	private TextView backView;
 	private EditText editInfoView;
 	private Button confirmView;
 	private Intent intent;
 	private int type;//  ‰»Î¿‡–Õ
-
-	private TextWatcher textWatcher = new TextWatcher() {
-
-		@Override
-		public void onTextChanged(CharSequence s, int start, int before,
-				int count) {
-			// TODO Auto-generated method stub
-
-		}
-
-		@Override
-		public void beforeTextChanged(CharSequence s, int start, int count,
-				int after) {
-			// TODO Auto-generated method stub
-
-		}
-
-		@Override
-		public void afterTextChanged(Editable s) {
-			if (!TextUtils.isEmpty(s.toString().trim())) {
-				confirmView.setEnabled(true);
-			}
-		}
-	};
-
-	@Override
-	public int getLayoutId() {
-		// TODO Auto-generated method stub
-		return R.layout.activity_edit_info;
-	}
 
 	@Override
 	public void initView() {
@@ -76,8 +48,7 @@ public class EditInfoActivity extends BaseActivity implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-		int viewId = v.getId();
-		switch (viewId) {
+		switch (v.getId()) {
 		case R.id.edit_back:
 			finish();
 			break;
@@ -92,7 +63,41 @@ public class EditInfoActivity extends BaseActivity implements OnClickListener {
 		default:
 			break;
 		}
+	}
 
+	private TextWatcher textWatcher = new TextWatcher() {
+
+		@Override
+		public void onTextChanged(CharSequence s, int start, int before,
+				int count) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void beforeTextChanged(CharSequence s, int start, int count,
+				int after) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void afterTextChanged(Editable s) {
+			if (!TextUtils.isEmpty(s.toString().trim())) {
+				confirmView.setEnabled(true);
+			}
+		}
+	};
+
+	@Override
+	public void onReceiveMsg(Message message) {
+		LogTool.d(TAG, "message=" + message);
+		showNotify(message);
+	}
+
+	@Override
+	public int getLayoutId() {
+		return R.layout.activity_edit_info;
 	}
 
 }

@@ -47,7 +47,7 @@
         <activity
             android:name="com.jianfanjia.cn.activity.RegisterActivity"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+            android:theme="@style/activity_styleprize" />
         <activity
             android:name="com.jianfanjia.cn.activity.NavigateActivity"
             android:screenOrientation="portrait"
@@ -55,7 +55,7 @@
         <activity
             android:name="com.jianfanjia.cn.activity.ForgetPswActivity"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+            android:theme="@style/activity_styleprize" />
         <activity
             android:name="com.jianfanjia.cn.activity.FeedBackActivity"
             android:screenOrientation="portrait"
@@ -75,7 +75,8 @@
         <activity
             android:name="com.jianfanjia.cn.activity.LoginActivity"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name="com.jianfanjia.cn.activity.OwnerInfoActivity"
             android:screenOrientation="portrait"

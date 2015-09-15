@@ -1,9 +1,6 @@
 package com.jianfanjia.cn.fragment;
 
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
@@ -17,7 +14,6 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.DesignerSiteInfoAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.Process;
-import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.SwitchFragmentListener;
 import com.jianfanjia.cn.tools.LogTool;
@@ -32,34 +28,17 @@ import com.jianfanjia.cn.view.MainHeadView;
  * 
  */
 public class DesignerSiteFragment extends BaseFragment implements
-		OnItemClickListener{
+		OnItemClickListener {
 	private static final String TAG = DesignerSiteFragment.class.getName();
 	private ListView siteListView;
 	private List<Process> siteList;
 	private DesignerSiteInfoAdapter designerSiteInfoAdapter = null;
 	private SwitchFragmentListener listener;
-	
+
 	private MainHeadView mainHeadView;
 
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-	}
-	
-	@SuppressLint("ResourceAsColor") 
-	private void initMainHead(View view) {
-		mainHeadView = (MainHeadView) view.findViewById(R.id.designer_site_head_layout);
-		mainHeadView.setHeadImage(mUserImageId);
-		mainHeadView.setBackListener(this);
-		mainHeadView.setRightTitleVisable(View.GONE);
-		mainHeadView.setMianTitle(getResources().getString(R.string.my_decoration_site));
-		mainHeadView.setBackgroundColor(R.color.head_layout_bg);
-		mainHeadView.setDividerVisable(View.VISIBLE);
-	}
-	
-	@Override
 	public void onAttach(Activity activity) {
-		// TODO Auto-generated method stub
 		super.onAttach(activity);
 		try {
 			listener = (SwitchFragmentListener) activity;
@@ -67,42 +46,55 @@ public class DesignerSiteFragment extends BaseFragment implements
 			e.printStackTrace();
 		}
 	}
-	
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+	}
+
 	@Override
 	public void initView(View view) {
-		
 		initMainHead(view);
 		siteListView = (ListView) view
 				.findViewById(R.id.designer_site_listview);
 		siteList = dataManager.getDesignerProcessLists();
-		if(siteList != null){
+		if (siteList != null) {
 			Log.i(TAG, "siteList. = " + siteList.size());
 			designerSiteInfoAdapter = new DesignerSiteInfoAdapter(
 					getActivity(), siteList);
-			siteListView
-					.setAdapter(designerSiteInfoAdapter);
-		}else{
+			siteListView.setAdapter(designerSiteInfoAdapter);
+		} else {
 			dataManager.requestProcessList(handler);
 			showWaitDialog();
 		}
 	}
-	
+
+	@SuppressLint("ResourceAsColor")
+	private void initMainHead(View view) {
+		mainHeadView = (MainHeadView) view
+				.findViewById(R.id.designer_site_head_layout);
+		mainHeadView.setHeadImage(mUserImageId);
+		mainHeadView.setBackListener(this);
+		mainHeadView.setRightTitleVisable(View.GONE);
+		mainHeadView.setMianTitle(getResources().getString(
+				R.string.my_decoration_site));
+		mainHeadView.setBackgroundColor(R.color.head_layout_bg);
+		mainHeadView.setDividerVisable(View.VISIBLE);
+	}
+
 	@Override
 	public void onLoadSuccess() {
-		// TODO Auto-generated method stub
 		super.onLoadSuccess();
 		siteList = dataManager.getDesignerProcessLists();
-		if(siteList != null){
+		if (siteList != null) {
 			designerSiteInfoAdapter = new DesignerSiteInfoAdapter(
 					getActivity(), siteList);
-			siteListView
-					.setAdapter(designerSiteInfoAdapter);
-		}else{
-			//load empty
+			siteListView.setAdapter(designerSiteInfoAdapter);
+		} else {
+			// load empty
 		}
-		
 	}
-	
+
 	@Override
 	public void onLoadFailure() {
 		// TODO Auto-generated method stub
@@ -116,8 +108,7 @@ public class DesignerSiteFragment extends BaseFragment implements
 
 	@Override
 	public void onClick(View v) {
-		int viewId = v.getId();
-		switch (viewId) {
+		switch (v.getId()) {
 		case R.id.icon_head:
 			((MainActivity) getActivity()).getSlidingPaneLayout().openPane();
 			break;
@@ -131,7 +122,7 @@ public class DesignerSiteFragment extends BaseFragment implements
 		Process siteInfo = siteList.get(position);
 		LogTool.d(TAG, "_id=" + siteInfo.get_id());
 		dataManager.setDefaultPro(position);
-		if(listener != null){
+		if (listener != null) {
 			listener.switchFragment(Constant.HOME);
 		}
 	}

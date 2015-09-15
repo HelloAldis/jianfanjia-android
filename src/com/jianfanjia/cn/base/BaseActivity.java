@@ -2,27 +2,33 @@ package com.jianfanjia.cn.base;
 
 import org.apache.http.Header;
 import org.json.JSONObject;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.widget.Toast;
-
 import com.jianfanjia.cn.AppConfig;
+import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.Message;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.inter.manager.ListenerManeger;
 import com.jianfanjia.cn.interf.DialogListener;
@@ -55,6 +61,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 		PopWindowCallBack {
 	protected LayoutInflater inflater = null;
 	protected FragmentManager fragmentManager = null;
+	protected NotificationManager nManager = null;
 	protected SharedPrefer sharedPrefer = null;
 	protected ImageLoader imageLoader = null;
 	protected DisplayImageOptions options = null;
@@ -63,6 +70,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 	protected LocalBroadcastManager localBroadcastManager = null;
 	protected NetStateReceiver netStateReceiver = null;
 	protected AddPhotoPopWindow popupWindow = null;
+	protected static final int NotificationID = 1;
 	private boolean _isVisible;
 	private WaitDialog _waitDialog;
 	protected DataManager dataManager;
@@ -91,6 +99,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 	private void init() {
 		inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		sharedPrefer = new SharedPrefer(this, Constant.SHARED_MAIN);
+		nManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 		dataManager = DataManager.getInstance();
 		appConfig = AppConfig.getInstance(this);
 		fragmentManager = this.getSupportFragmentManager();
@@ -144,7 +153,8 @@ public abstract class BaseActivity extends FragmentActivity implements
 	@Override
 	protected void onResume() {
 		super.onResume();
-		Log.d(this.getClass().getName(), "onResume()");
+		LogTool.d(this.getClass().getName(), "onResume()");
+		Global.isAppBack = false;
 		registerNetReceiver();
 	}
 
@@ -158,13 +168,13 @@ public abstract class BaseActivity extends FragmentActivity implements
 	protected void onStop() {
 		super.onStop();
 		LogTool.d(this.getClass().getName(), "onStop()");
-		listenerManeger.removePushMsgReceiveListener(this);
 	}
 
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		Log.d(this.getClass().getName(), "onDestroy()");
+		LogTool.d(this.getClass().getName(), "onDestroy()");
+		listenerManeger.removePushMsgReceiveListener(this);
 		unregisterNetReceiver();
 	}
 
@@ -275,13 +285,13 @@ public abstract class BaseActivity extends FragmentActivity implements
 			@Override
 			public void onPositiveButtonClick() {
 				notifyDialog.dismiss();
-				agreeReschedule(processInfo.get_id());
+				// agreeReschedule(processInfo.get_id());
 			}
 
 			@Override
 			public void onNegativeButtonClick() {
 				notifyDialog.dismiss();
-				refuseReschedule(processInfo.get_id());
+				// refuseReschedule(processInfo.get_id());
 			}
 
 		});
@@ -366,4 +376,38 @@ public abstract class BaseActivity extends FragmentActivity implements
 		unregisterReceiver(netStateReceiver);
 	}
 
+	/**
+	 * Notification
+	 * 
+	 * @param message
+	 */
+	protected void sendNotifycation(Message message) {
+		NotificationCompat.Builder builder = new NotificationCompat.Builder(
+				this);
+		builder.setSmallIcon(R.drawable.ic_launcher);
+		String type = message.getType();
+		if (type.equals("0")) {
+			builder.setTicker("延期提醒");
+			builder.setContentTitle("延期提醒");
+		} else if (type.equals("1")) {
+			builder.setTicker("采购提醒");
+			builder.setContentTitle("采购提醒");
+		} else if (type.equals("2")) {
+			builder.setTicker("付款提醒");
+			builder.setContentTitle("付款提醒");
+		}
+		builder.setContentText(message.getContent());
+		builder.setNumber(0);
+		builder.setAutoCancel(true);
+		Intent intent = new Intent(this, MainActivity.class);
+		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+				| Intent.FLAG_ACTIVITY_NEW_TASK);
+		PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
+				intent, PendingIntent.FLAG_UPDATE_CURRENT);
+		builder.setContentIntent(pendingIntent);
+		Notification notification = builder.build();
+		notification.sound = Uri.parse("android.resource://" + getPackageName()
+				+ "/" + R.raw.message);
+		nManager.notify(NotificationID, notification);
+	}
 }

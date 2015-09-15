@@ -1,10 +1,7 @@
 package com.jianfanjia.cn.activity;
 
-import java.util.Calendar;
-
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.WindowManager;
 
 import com.jianfanjia.cn.AppConfig;
@@ -25,8 +22,8 @@ import com.jianfanjia.cn.tools.LogTool;
 public class WelcomeActivity extends BaseActivity {
 	private Handler handler = new Handler();
 	private int first = 0;// 用于判断导航界面是否显示
-	private boolean isLogin;//是否登录过
 	private boolean isLoginExpire;//是否登录过去
+	private boolean isLogin;// 是否登录过
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -56,14 +53,13 @@ public class WelcomeActivity extends BaseActivity {
 		@Override
 		public void run() {
 			if (first == 1) {
-				if(!isLogin){
+				if (!isLogin) {
 					startActivity(LoginActivity.class);
 					finish();
 				}else{
 					if(!isLoginExpire){//登录未过期，添加cookies到httpclient记录身份
 //						Log.i(this.getClass().getName(), appConfig.getCookies());
 						DataCleanManager.cleanSharedPafrenceByName(WelcomeActivity.this, Constant.SHARED_MAIN);//清理掉缓存的用户数据
-						HttpRestClient.setCookie(appConfig.getCookies());
 						startActivity(MainActivity.class);
 						finish();
 					}else{

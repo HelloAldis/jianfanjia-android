@@ -133,25 +133,6 @@ public class ReginputVerificationFragment extends BaseFragment {
 						LogTool.d(TAG, "JSONObject response:" + response);
 						try {
 							if (response.has(Constant.DATA)) {
-								PersistentCookieStore myCookieStore = new PersistentCookieStore(getApplication());
-								AsyncHttpClient client = HttpRestClient.getHttpClient();
-								client.setCookieStore(myCookieStore);
-				                HttpContext httpContext = client.getHttpContext();
-				                CookieStore cookies = (CookieStore) httpContext
-				                        .getAttribute(ClientContext.COOKIE_STORE);
-				                if(cookies != null){
-				                	String tmpcookies = "";
-				                    for (Cookie c : cookies.getCookies()) {
-				                        Log.i(TAG,
-				                                "cookie:" + c.getName() + " " + c.getValue());
-				                        tmpcookies += (c.getName() + "=" + c.getValue()) + ";";
-				                    }
-				                    appConfig.saveCookies(tmpcookies);
-				                    appConfig.savaLastLoginTime(Calendar.getInstance().getTimeInMillis());
-				                    HttpRestClient.setCookie(tmpcookies);
-				                }else{
-				                	Log.i(TAG, "cookies is null");
-				                }
 								makeTextShort(getString(R.string.register_success));
 								LoginUserBean loginUserBean = JsonParser
 										.jsonToBean(response.get(Constant.DATA)

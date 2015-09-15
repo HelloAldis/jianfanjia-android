@@ -15,6 +15,8 @@ public class Constant {
 	public static final String SHARED_MAIN = "jianfanjia";
 	public static final String LOG_PATH = Environment
 			.getExternalStorageDirectory() + "/JianFanJia/MyLog/mylog.txt";// log存放路径
+	public static final String APK_PATH = Environment
+			.getExternalStorageDirectory() + "/JianFanJia/Apk/";// 下载apk存放路径
 	public static final String ERROR_LOG_PATH = Environment
 			.getExternalStorageDirectory() + "/JianFanJia/MyLog/errorlog.txt";// log存放路径
 	public static final String IMAG_PATH = Environment
@@ -65,7 +67,7 @@ public class Constant {
 	public static final String USERTYPE = "usertype";// 用户类型
 	public static final String USERIMAGE_ID = "userimageid";// 用户头像id
 	public static final String USER_ID = "userid";// 用户id
-	public static final String USER_IS_LOGIN = "user_is_login";//用户是否登录
+	public static final String USER_IS_LOGIN = "user_is_login";// 用户是否登录
 
 	public static final String FINAL_DESIGNER_ID = "final_designerid";// 业主的设计师id
 	public static final String FINAL_OWNER_ID = "final_owner_id";// 业主id
@@ -116,4 +118,5 @@ public class Constant {
 	public static final String COOKIES_CONFIG = "cookies_config";//cookies配置
 	public static final String LAST_LOGIN_TIME = "last_login_time";//上次登录时间
 	public static final long LOGIN_EXPIRE = 24 * 60 * 60 * 1000L;//登录过期时间为24小时
+
 }

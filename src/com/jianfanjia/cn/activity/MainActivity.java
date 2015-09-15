@@ -1,7 +1,6 @@
 package com.jianfanjia.cn.activity;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SlidingPaneLayout;
@@ -14,6 +13,7 @@ import com.igexin.sdk.PushManager;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.Message;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.fragment.DesignerMenuFragment;
 import com.jianfanjia.cn.fragment.OwnerMenuFragment;
 import com.jianfanjia.cn.fragment.SiteManageFragment;
@@ -107,7 +107,7 @@ public class MainActivity extends BaseActivity implements PanelSlideListener,
 	public void onBackPressed() {
 		if (slidingPaneLayout.isOpen()) {
 			moveTaskToBack(false);
-			finish();
+			Global.isAppBack = true;
 		} else {
 			slidingPaneLayout.openPane();
 		}
@@ -140,7 +140,13 @@ public class MainActivity extends BaseActivity implements PanelSlideListener,
 	@Override
 	public void onReceiveMsg(Message message) {
 		LogTool.d(TAG, "message=" + message);
-		showNotify(message);
+		if (Global.isAppBack) {
+			LogTool.d(TAG, "后台运行");
+			sendNotifycation(message);
+		} else {
+			LogTool.d(TAG, "前台运行");
+			showNotify(message);
+		}
 	}
 
 	@Override

@@ -51,17 +51,6 @@ public class ShareActivity extends BaseActivity implements OnClickListener,
 	}
 
 	@Override
-	public void onReceiveMsg(Message message) {
-		LogTool.d(TAG, "message=" + message);
-		showNotify(message);
-	}
-
-	@Override
-	public int getLayoutId() {
-		return R.layout.activity_share;
-	}
-
-	@Override
 	public boolean onLongClick(View v) {
 		Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
 				R.drawable.icon_jianfanjia_qr);
@@ -75,6 +64,17 @@ public class ShareActivity extends BaseActivity implements OnClickListener,
 			makeTextLong(getResources().getString(R.string.save_image_failure));
 		}
 		return true;
+	}
+
+	@Override
+	public void onReceiveMsg(Message message) {
+		LogTool.d(TAG, "message=" + message);
+		showNotify(message);
+	}
+
+	@Override
+	public int getLayoutId() {
+		return R.layout.activity_share;
 	}
 
 }
