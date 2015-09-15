@@ -31,8 +31,9 @@ public class NavigateActivity extends BaseActivity implements OnClickListener,
 	private List<View> list = new ArrayList<View>();
 	private ViewPageAdapter adapter = null;
 	private int currentItem = 0; // 当前图片的索引号
-	private static final int imgId[] = { R.drawable.navigate_1,
-			R.drawable.navigate_2, R.drawable.navigate_3, R.drawable.navigate_4 };
+	private static final int imgId[] = { R.drawable.pic_welcome1,
+			R.drawable.pic_welcome2, R.drawable.pic_welcome3,
+			R.drawable.pic_welcome4 };
 
 	@Override
 	public void initView() {

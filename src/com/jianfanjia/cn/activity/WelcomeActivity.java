@@ -3,12 +3,10 @@ package com.jianfanjia.cn.activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.WindowManager;
-
 import com.jianfanjia.cn.AppConfig;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.cache.DataCleanManager;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.http.HttpRestClient;
 import com.jianfanjia.cn.tools.LogTool;
 
 /**
@@ -22,7 +20,7 @@ import com.jianfanjia.cn.tools.LogTool;
 public class WelcomeActivity extends BaseActivity {
 	private Handler handler = new Handler();
 	private int first = 0;// 用于判断导航界面是否显示
-	private boolean isLoginExpire;//是否登录过去
+	private boolean isLoginExpire;// 是否登录过去
 	private boolean isLogin;// 是否登录过
 
 	@Override
@@ -34,7 +32,7 @@ public class WelcomeActivity extends BaseActivity {
 		isLogin = dataManager.isLogin();
 		isLoginExpire = AppConfig.getInstance(this).isLoginExpire();
 		LogTool.d(this.getClass().getName(), "first=" + first);
-		DataCleanManager.cleanSharedPreference(this);//清理掉缓存的用户数据
+		DataCleanManager.cleanSharedPreference(this);// 清理掉缓存的用户数据
 	}
 
 	@Override
@@ -56,13 +54,15 @@ public class WelcomeActivity extends BaseActivity {
 				if (!isLogin) {
 					startActivity(LoginActivity.class);
 					finish();
-				}else{
-					if(!isLoginExpire){//登录未过期，添加cookies到httpclient记录身份
-//						Log.i(this.getClass().getName(), appConfig.getCookies());
-						DataCleanManager.cleanSharedPafrenceByName(WelcomeActivity.this, Constant.SHARED_MAIN);//清理掉缓存的用户数据
+				} else {
+					if (!isLoginExpire) {// 登录未过期，添加cookies到httpclient记录身份
+						// Log.i(this.getClass().getName(),
+						// appConfig.getCookies());
+						DataCleanManager.cleanSharedPafrenceByName(
+								WelcomeActivity.this, Constant.SHARED_MAIN);// 清理掉缓存的用户数据
 						startActivity(MainActivity.class);
 						finish();
-					}else{
+					} else {
 						startActivity(LoginActivity.class);
 						finish();
 					}

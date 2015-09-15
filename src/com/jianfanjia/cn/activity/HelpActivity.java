@@ -29,8 +29,9 @@ public class HelpActivity extends BaseActivity {
 	private ViewGroup group = null;
 	private ImageView[] tips;
 	private List<View> bannerList = new ArrayList<View>();
-	private static final int IMG_ID[] = { R.drawable.navigate_1,
-			R.drawable.navigate_2, R.drawable.navigate_3, R.drawable.navigate_4 };
+	private static final int IMG_ID[] = { R.drawable.pic_welcome1,
+			R.drawable.pic_welcome2, R.drawable.pic_welcome3,
+			R.drawable.pic_welcome4 };
 	private Bitmap bitmap = null;
 
 	@Override
