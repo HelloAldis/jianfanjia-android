@@ -18,7 +18,7 @@ import com.jianfanjia.cn.tools.LogTool;
 public class WelcomeActivity extends BaseActivity {
 	private Handler handler = new Handler();
 	private int first = 0;// 用于判断导航界面是否显示
-	private boolean isLogin;//是否登录过
+	private boolean isLogin;// 是否登录过
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +46,10 @@ public class WelcomeActivity extends BaseActivity {
 		@Override
 		public void run() {
 			if (first == 1) {
-				if(!isLogin){
+				if (!isLogin) {
 					startActivity(LoginActivity.class);
 					finish();
-				}else{
+				} else {
 					startActivity(MainActivity.class);
 					finish();
 				}
