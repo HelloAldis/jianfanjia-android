@@ -113,12 +113,6 @@ public class MainActivity extends BaseActivity implements PanelSlideListener,
 		}
 	}
 
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-		Log.d(TAG, "---onDestroy()");
-	}
-
 	/**
 	 * @return the slidingPaneLayout
 	 */
