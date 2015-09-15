@@ -46,6 +46,7 @@ public class SettingFragment extends BaseFragment implements
 	private RelativeLayout feedbackFragment = null;
 	private RelativeLayout aboutFragment = null;
 	private ToggleButton toggleButton = null;
+	private RelativeLayout toggleRelativeLayout = null;
 	private RelativeLayout logoutLayout = null;
 	private RelativeLayout helpLayout = null;
 	private RelativeLayout current_version_layout = null;
@@ -64,6 +65,7 @@ public class SettingFragment extends BaseFragment implements
 		helpLayout = (RelativeLayout) view.findViewById(R.id.help_layout);
 		aboutFragment = (RelativeLayout) view.findViewById(R.id.about_layout);
 		toggleButton = (ToggleButton) view.findViewById(R.id.mespush_toggle);
+		toggleRelativeLayout = (RelativeLayout) view.findViewById(R.id.mespush_layout);
 		logoutLayout = (RelativeLayout) view.findViewById(R.id.logout_layout);
 		shareLayout = (RelativeLayout) view.findViewById(R.id.share_layout);
 		current_version_layout = (RelativeLayout) view
@@ -96,6 +98,7 @@ public class SettingFragment extends BaseFragment implements
 		aboutFragment.setOnClickListener(this);
 		helpLayout.setOnClickListener(this);
 		toggleButton.setOnCheckedChangeListener(this);
+		toggleRelativeLayout.setOnClickListener(this);
 		logoutLayout.setOnClickListener(this);
 		current_version_layout.setOnClickListener(this);
 		shareLayout.setOnClickListener(this);
@@ -128,6 +131,9 @@ public class SettingFragment extends BaseFragment implements
 			break;
 		case R.id.icon_head:
 			((MainActivity) getActivity()).getSlidingPaneLayout().openPane();
+			break;
+		case R.id.mespush_layout:
+			toggleButton.toggle();
 			break;
 		default:
 			break;
@@ -279,8 +285,10 @@ public class SettingFragment extends BaseFragment implements
 								PushManager.getInstance().stopService(
 										getActivity());// 完全终止SDK的服务
 								dataManager.setLogin(false);
-								DataCleanManager.cleanSharedPafrenceByName(
-										getActivity(), Constant.SHARED_MAIN);// 清理掉用户相关的sharepre
+//								DataCleanManager.cleanSharedPafrenceByName(
+//										getActivity(), Constant.SHARED_MAIN);// 清理掉用户相关的sharepre
+								DataCleanManager.cleanSharedPreference(getActivity());
+								MyApplication.getInstance().clearCookie();//清理掉cookie
 								startActivity(LoginActivity.class);
 								getActivity().finish();
 							} else if (response.has(Constant.ERROR_MSG)) {

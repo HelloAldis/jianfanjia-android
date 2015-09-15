@@ -21,6 +21,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.widget.Toast;
+import com.jianfanjia.cn.AppConfig;
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.Message;
@@ -74,6 +75,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 	private WaitDialog _waitDialog;
 	protected DataManager dataManager;
 	protected ProcessInfo processInfo = null;
+	protected AppConfig appConfig;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +101,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 		sharedPrefer = new SharedPrefer(this, Constant.SHARED_MAIN);
 		nManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 		dataManager = DataManager.getInstance();
+		appConfig = AppConfig.getInstance(this);
 		fragmentManager = this.getSupportFragmentManager();
 		imageLoader = ImageLoader.getInstance();
 		options = new DisplayImageOptions.Builder()

@@ -3,6 +3,8 @@ package com.jianfanjia.cn.activity;
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -15,8 +17,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.DesignerInfo;
+import com.jianfanjia.cn.bean.DesignerUpdateInfo;
 import com.jianfanjia.cn.bean.Message;
 import com.jianfanjia.cn.bean.MyDesignerInfo;
 import com.jianfanjia.cn.config.Constant;
@@ -25,6 +30,8 @@ import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.PhotoUtils;
+import com.jianfanjia.cn.view.dialog.CommonDialog;
+import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 /**
@@ -51,7 +58,9 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 	private ImageView headImageView = null;
 	private RelativeLayout userNameRelativeLayout = null;
 	private RelativeLayout homeRelativeLayout = null;
-	private DesignerInfo designerInfo;
+	private RelativeLayout sexLayout = null;
+	private DesignerInfo designerInfo = null;
+	private DesignerUpdateInfo designerUpdateInfo = null;
 
 	@Override
 	public void initView() {
@@ -69,6 +78,7 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 				.findViewById(R.id.name_layout);
 		homeRelativeLayout = (RelativeLayout) this
 				.findViewById(R.id.home_layout);
+		sexLayout = (RelativeLayout) this.findViewById(R.id.sex_layout);
 		
 		designerInfo = dataManager.getDesignerInfo();
 		if(designerInfo == null){
@@ -87,7 +97,7 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 		}
 		String sexInfo = designerInfo.getSex();
 		if (!TextUtils.isEmpty(sexInfo)) {
-			if (sexInfo.equals("1")) {
+			if (sexInfo.equals(Constant.SEX_MAN)) {
 				sexText.setText("男");
 			} else {
 				sexText.setText("女");
@@ -119,6 +129,7 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 		btn_confirm.setOnClickListener(this);
 		userNameRelativeLayout.setOnClickListener(this);
 		homeRelativeLayout.setOnClickListener(this);
+		sexLayout.setOnClickListener(this);
 	}
 	
 	//修改设计师个人资料
@@ -238,9 +249,29 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 					Constant.REQUESTCODE_EDIT_ADDRESS);
 			startActivityForResult(address, Constant.REQUESTCODE_EDIT_ADDRESS);
 			break;
+		case R.id.sex_layout:
+			showSexChooseDialog();
+			break;
 		default:
 			break;
 		}
+	}
+
+	private void showSexChooseDialog() {
+		CommonDialog commonDialog = DialogHelper.getPinterestDialogCancelable(this);
+		View contentView = inflater.inflate(R.layout.sex_choose, null);
+		commonDialog.setContent(contentView);
+		commonDialog.setTitle("选择性别");
+		commonDialog.setPositiveButton(R.string.ok,
+				new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+					}
+				});
+		commonDialog.setNegativeButton(R.string.no, null);
+		commonDialog.show();
 	}
 
 	@Override
