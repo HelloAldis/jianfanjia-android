@@ -12,11 +12,11 @@ import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -76,6 +76,30 @@ public abstract class BaseActivity extends FragmentActivity implements
 	protected DataManager dataManager;
 	protected ProcessInfo processInfo = null;
 	protected AppConfig appConfig;
+
+	protected Handler handler = new Handler() {
+		public void handleMessage(android.os.Message msg) {
+			switch (msg.what) {
+			case Constant.LOAD_SUCCESS:
+				onLoadSuccess();
+				break;
+			case Constant.LOAD_FAILURE:
+				onLoadFailure();
+				break;
+			default:
+				break;
+			}
+
+		};
+	};
+
+	protected void onLoadSuccess() {
+		hideWaitDialog();
+	}
+
+	protected void onLoadFailure() {
+		hideWaitDialog();
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

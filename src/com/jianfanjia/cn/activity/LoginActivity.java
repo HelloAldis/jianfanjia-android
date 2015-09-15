@@ -120,6 +120,15 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		}
 		return true;
 	}
+	
+	@Override
+	protected void onLoadSuccess() {
+		// TODO Auto-generated method stub
+		super.onLoadSuccess();
+		dataManager.savePassword(mPassword);//±£´æÃÜÂë
+		startActivity(MainActivity.class);
+		finish();
+	}
 
 	/**
 	 * µÇÂ¼
@@ -128,7 +137,8 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	 * @param password
 	 */
 	private void login(String name, String password) {
-		JianFanJiaApiClient.login(LoginActivity.this, name, password,
+		dataManager.login(name, password, handler);
+		/*JianFanJiaApiClient.login(LoginActivity.this, name, password,
 				new JsonHttpResponseHandler() {
 					@Override
 					public void onStart() {
@@ -188,7 +198,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 						hideWaitDialog();
 						makeTextLong(getString(R.string.tip_no_internet));
 					};
-				});
+				});*/
 	}
 
 	/**

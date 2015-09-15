@@ -3,6 +3,7 @@ package com.jianfanjia.cn.cache;
 import java.io.File;
 import android.content.Context;
 import android.os.Environment;
+import android.util.Log;
 
 /**
  * 
@@ -126,7 +127,8 @@ public class DataCleanManager {
 				if (child.isDirectory()) {
 					deleteFilesByDirectory(child);
 				}
-				child.delete();
+				boolean isDeleteSuccess = child.delete();
+				Log.i("isDeleteSuccess","" + isDeleteSuccess);
 			}
 		}
 	}

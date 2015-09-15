@@ -1,6 +1,7 @@
 package com.jianfanjia.cn.cache;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,9 @@ import android.content.Context;
 import android.os.Handler;
 import android.util.Log;
 import com.google.gson.reflect.TypeToken;
+import com.jianfanjia.cn.AppConfig;
+import com.jianfanjia.cn.activity.LoginActivity;
+import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.bean.DesignerInfo;
@@ -492,6 +496,62 @@ public class DataManager {
 				});
 
 	}
+	
+	public void login(String name,String password,final Handler handler){
+		JianFanJiaApiClient.login(context, name, password,
+				new JsonHttpResponseHandler() {
+					@Override
+					public void onStart() {
+						LogTool.d(TAG, "onStart()");
+					}
+
+					@Override
+					public void onSuccess(int statusCode, Header[] headers,
+							JSONObject response) {
+						LogTool.d(TAG, "JSONObject response:" + response);
+						try {
+							if (response.has(Constant.DATA)) {
+								AppConfig.getInstance(context).savaLastLoginTime(Calendar.getInstance().getTimeInMillis());
+								LoginUserBean loginUserBean = JsonParser
+										.jsonToBean(response.get(Constant.DATA)
+												.toString(),
+												LoginUserBean.class);
+								LogTool.d(TAG, "loginUserBean:" + loginUserBean);
+								saveLoginUserInfo(
+										loginUserBean);
+								setLogin(true);
+								handler.sendEmptyMessage(Constant.LOAD_SUCCESS);
+							} else if (response.has(Constant.ERROR_MSG)) {
+								handler.sendEmptyMessage(Constant.LOAD_FAILURE);
+								MyApplication.getInstance().makeTextLong(response.get(Constant.ERROR_MSG)
+										.toString());
+							}
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+							handler.sendEmptyMessage(Constant.LOAD_FAILURE);
+							MyApplication.getInstance().makeTextLong(context.getString(R.string.load_failure));
+						}
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							Throwable throwable, JSONObject errorResponse) {
+						LogTool.d(TAG,
+								"Throwable throwable:" + throwable.toString());
+						handler.sendEmptyMessage(Constant.LOAD_FAILURE);
+						MyApplication.getInstance().makeTextLong(context.getString(R.string.tip_no_internet));
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							String responseString, Throwable throwable) {
+						LogTool.d(TAG, "throwable:" + throwable);
+						handler.sendEmptyMessage(Constant.LOAD_FAILURE);
+						MyApplication.getInstance().makeTextLong(context.getString(R.string.tip_no_internet));
+					};
+				});
+	}
 
 	public boolean isLogin() {
 		return sharedPrefer.getValue(Constant.USER_IS_LOGIN, false);// Ä¬ÈÏÊÇÃ»µÇÂ¼
@@ -507,6 +567,14 @@ public class DataManager {
 		sharedPrefer.setValue(Constant.USERNAME, userBean.getUsername());
 		sharedPrefer.setValue(Constant.USERIMAGE_ID, userBean.getImageid());
 		sharedPrefer.setValue(Constant.USER_ID, userBean.get_id());
+	}
+	
+	public void savePassword(String pass){
+		sharedPrefer.setValue(Constant.PASSWORD, pass);
+	}
+	
+	public String getPassword(){
+		return sharedPrefer.getValue(Constant.PASSWORD, null);
 	}
 
 	public String getAccount() {

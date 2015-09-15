@@ -2,13 +2,12 @@ package com.jianfanjia.cn.activity;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.WindowManager;
-
 import com.jianfanjia.cn.AppConfig;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.cache.DataCleanManager;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.http.HttpRestClient;
 import com.jianfanjia.cn.tools.LogTool;
 
 /**
@@ -22,7 +21,7 @@ import com.jianfanjia.cn.tools.LogTool;
 public class WelcomeActivity extends BaseActivity {
 	private Handler handler = new Handler();
 	private int first = 0;// 用于判断导航界面是否显示
-	private boolean isLoginExpire;//是否登录过去
+	private boolean isLoginExpire;// 是否登录过去
 	private boolean isLogin;// 是否登录过
 
 	@Override
@@ -34,7 +33,7 @@ public class WelcomeActivity extends BaseActivity {
 		isLogin = dataManager.isLogin();
 		isLoginExpire = AppConfig.getInstance(this).isLoginExpire();
 		LogTool.d(this.getClass().getName(), "first=" + first);
-		DataCleanManager.cleanSharedPreference(this);//清理掉缓存的用户数据
+		DataCleanManager.cleanSharedPreference(this);// 清理掉缓存的用户数据
 	}
 
 	@Override
@@ -47,6 +46,28 @@ public class WelcomeActivity extends BaseActivity {
 		// TODO Auto-generated method stub
 
 	}
+	
+	/**
+	 * 登录成功，进入主页
+	 */
+	@Override
+	protected void onLoadSuccess() {
+		// TODO Auto-generated method stub
+		super.onLoadSuccess();
+		startActivity(MainActivity.class);
+		finish();
+	}
+	
+	/**
+	 * 登录失败，回到登录界面
+	 */
+	@Override
+	protected void onLoadFailure() {
+		// TODO Auto-generated method stub
+		super.onLoadFailure();
+		startActivity(LoginActivity.class);
+		finish();
+	}
 
 	private Runnable runnable = new Runnable() {
 
@@ -54,17 +75,17 @@ public class WelcomeActivity extends BaseActivity {
 		public void run() {
 			if (first == 1) {
 				if (!isLogin) {
+					Log.i(this.getClass().getName(), "没有登录");
 					startActivity(LoginActivity.class);
 					finish();
 				}else{
 					if(!isLoginExpire){//登录未过期，添加cookies到httpclient记录身份
-//						Log.i(this.getClass().getName(), appConfig.getCookies());
-						DataCleanManager.cleanSharedPafrenceByName(WelcomeActivity.this, Constant.SHARED_MAIN);//清理掉缓存的用户数据
+						Log.i(this.getClass().getName(), "没有过期");
 						startActivity(MainActivity.class);
 						finish();
-					}else{
-						startActivity(LoginActivity.class);
-						finish();
+					} else {
+						Log.i(this.getClass().getName(), "已经过期");
+						dataManager.login(dataManager.getAccount(),dataManager.getPassword(), handler);
 					}
 				}
 			} else {

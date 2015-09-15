@@ -51,22 +51,6 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
 	private String section = null;
 	private String item = null;
 
-	protected Handler handler = new Handler() {
-		public void handleMessage(android.os.Message msg) {
-			switch (msg.what) {
-			case Constant.LOAD_SUCCESS:
-				onLoadSuccess();
-				break;
-			case Constant.LOAD_FAILURE:
-				onLoadFailure();
-				break;
-			default:
-				break;
-			}
-
-		};
-	};
-
 	public void onLoadSuccess() {
 		LogTool.d(this.getClass().getName(), "onSuccess");
 		hideWaitDialog();

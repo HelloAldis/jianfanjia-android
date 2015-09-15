@@ -285,9 +285,9 @@ public class SettingFragment extends BaseFragment implements
 								PushManager.getInstance().stopService(
 										getActivity());// 完全终止SDK的服务
 								dataManager.setLogin(false);
-//								DataCleanManager.cleanSharedPafrenceByName(
-//										getActivity(), Constant.SHARED_MAIN);// 清理掉用户相关的sharepre
-								DataCleanManager.cleanSharedPreference(getActivity());
+								DataCleanManager.cleanSharedPreference(
+										getActivity());// 清理掉用户相关的sharepre
+//								shared.remove()
 								MyApplication.getInstance().clearCookie();//清理掉cookie
 								startActivity(LoginActivity.class);
 								getActivity().finish();
