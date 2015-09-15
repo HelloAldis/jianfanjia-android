@@ -78,14 +78,19 @@ public class WelcomeActivity extends BaseActivity {
 					Log.i(this.getClass().getName(), "没有登录");
 					startActivity(LoginActivity.class);
 					finish();
-				}else{
-					if(!isLoginExpire){//登录未过期，添加cookies到httpclient记录身份
-						Log.i(this.getClass().getName(), "没有过期");
+				} else {
+					if (!isLoginExpire) {// 登录未过期，添加cookies到httpclient记录身份
+						// Log.i(this.getClass().getName(),
+						// appConfig.getCookies());
+						DataCleanManager.cleanSharedPafrenceByName(
+								WelcomeActivity.this, Constant.SHARED_MAIN);// 清理掉缓存的用户数据
 						startActivity(MainActivity.class);
 						finish();
 					} else {
 						Log.i(this.getClass().getName(), "已经过期");
 						dataManager.login(dataManager.getAccount(),dataManager.getPassword(), handler);
+						startActivity(LoginActivity.class);
+						finish();
 					}
 				}
 			} else {
