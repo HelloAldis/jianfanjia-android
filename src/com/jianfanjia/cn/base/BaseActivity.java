@@ -150,7 +150,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 	@Override
 	protected void onResume() {
 		super.onResume();
-		Log.d(this.getClass().getName(), "onResume()");
+		LogTool.d(this.getClass().getName(), "onResume()");
 		Global.isAppBack = false;
 		registerNetReceiver();
 	}
