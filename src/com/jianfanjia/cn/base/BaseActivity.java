@@ -21,6 +21,7 @@ import com.jianfanjia.cn.bean.Message;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.inter.manager.ListenerManeger;
 import com.jianfanjia.cn.interf.DialogListener;
@@ -141,6 +142,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 	protected void onResume() {
 		super.onResume();
 		Log.d(this.getClass().getName(), "onResume()");
+		Global.isAppBack = false;
 		registerNetReceiver();
 	}
 
