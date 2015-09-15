@@ -27,7 +27,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
  * 
  */
 public class PushMsgReceiver extends BroadcastReceiver {
-	private static final String TAG = "PushMsgReceiver";
+	private static final String TAG = PushMsgReceiver.class.getName();
 	private Gson gson = new Gson();
 
 	@Override
