@@ -1,10 +1,8 @@
 package com.jianfanjia.cn.activity;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
@@ -39,14 +37,9 @@ public class HelpActivity extends BaseActivity {
 		viewPager = (ViewPager) findViewById(R.id.viewPager);
 		group = (ViewGroup) findViewById(R.id.viewGroup);
 		for (int i = 0; i < IMG_ID.length; i++) {
-			ImageView imageView = new ImageView(HelpActivity.this);
-			InputStream is = this.getResources().openRawResource(IMG_ID[i]);
-			BitmapFactory.Options options = new BitmapFactory.Options();
-			options.inJustDecodeBounds = false;
-			options.inSampleSize = 2;
-			bitmap = BitmapFactory.decodeStream(is, null, options);
-			imageView.setImageBitmap(bitmap);
-			bannerList.add(imageView);
+			ImageView view = new ImageView(this);
+			view.setBackgroundResource(IMG_ID[i]);
+			bannerList.add(view);
 		}
 		// 将点点加入到ViewGroup中
 		tips = new ImageView[bannerList.size()];
@@ -114,10 +107,6 @@ public class HelpActivity extends BaseActivity {
 	protected void onDestroy() {
 		super.onDestroy();
 		Log.d(TAG, "---onDestroy()");
-		if (!bitmap.isRecycled()) {
-			bitmap.recycle(); // 回收图片所占的内存
-			System.gc(); // 提醒系统及时回收
-		}
 	}
 
 	@Override
