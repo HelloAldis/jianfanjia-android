@@ -38,7 +38,7 @@ public class HelpActivity extends BaseActivity {
 		group = (ViewGroup) findViewById(R.id.viewGroup);
 		for (int i = 0; i < IMG_ID.length; i++) {
 			ImageView view = new ImageView(this);
-			view.setBackgroundResource(IMG_ID[i]);
+			view.setImageResource(IMG_ID[i]);
 			bannerList.add(view);
 		}
 		// 将点点加入到ViewGroup中

@@ -45,7 +45,7 @@ public class NavigateActivity extends BaseActivity implements OnClickListener,
 		// µ¼º½²âÊÔ×ÊÔ´
 		for (int i = 0; i < imgId.length; i++) {
 			ImageView view = new ImageView(this);
-			view.setBackgroundResource(imgId[i]);
+			view.setImageResource(imgId[i]);
 			list.add(view);
 		}
 		adapter = new ViewPageAdapter(NavigateActivity.this, list);
