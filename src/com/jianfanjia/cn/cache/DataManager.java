@@ -13,18 +13,16 @@ import android.os.Handler;
 import android.util.Log;
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.AppConfig;
-import com.jianfanjia.cn.activity.LoginActivity;
-import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.bean.DesignerInfo;
 import com.jianfanjia.cn.bean.LoginUserBean;
+import com.jianfanjia.cn.bean.MyDesignerInfo;
+import com.jianfanjia.cn.bean.MyOwnerInfo;
 import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.bean.Process;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.ProcessReflect;
-import com.jianfanjia.cn.bean.MyDesignerInfo;
-import com.jianfanjia.cn.bean.MyOwnerInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
@@ -48,7 +46,7 @@ public class DataManager {
 	private List<Process> designerProcessLists;
 	private MyOwnerInfo myOwnerInfo;// 我的业主信息
 	private MyDesignerInfo myDesignerInfo;// 我的设计师信息
-	
+
 	private OwnerInfo ownerInfo;// 业主的个人信息
 	private DesignerInfo designerInfo;// 设计师的个人信息
 
@@ -497,8 +495,8 @@ public class DataManager {
 				});
 
 	}
-	
-	public void login(String name,String password,final Handler handler){
+
+	public void login(String name, String password, final Handler handler) {
 		JianFanJiaApiClient.login(context, name, password,
 				new JsonHttpResponseHandler() {
 					@Override
@@ -512,26 +510,30 @@ public class DataManager {
 						LogTool.d(TAG, "JSONObject response:" + response);
 						try {
 							if (response.has(Constant.DATA)) {
-								AppConfig.getInstance(context).savaLastLoginTime(Calendar.getInstance().getTimeInMillis());
+								AppConfig.getInstance(context)
+										.savaLastLoginTime(
+												Calendar.getInstance()
+														.getTimeInMillis());
 								LoginUserBean loginUserBean = JsonParser
 										.jsonToBean(response.get(Constant.DATA)
 												.toString(),
 												LoginUserBean.class);
 								LogTool.d(TAG, "loginUserBean:" + loginUserBean);
-								saveLoginUserInfo(
-										loginUserBean);
+								saveLoginUserInfo(loginUserBean);
 								setLogin(true);
 								handler.sendEmptyMessage(Constant.LOAD_SUCCESS);
 							} else if (response.has(Constant.ERROR_MSG)) {
 								handler.sendEmptyMessage(Constant.LOAD_FAILURE);
-								MyApplication.getInstance().makeTextLong(response.get(Constant.ERROR_MSG)
-										.toString());
+								MyApplication.getInstance().makeTextLong(
+										response.get(Constant.ERROR_MSG)
+												.toString());
 							}
 						} catch (JSONException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 							handler.sendEmptyMessage(Constant.LOAD_FAILURE);
-							MyApplication.getInstance().makeTextLong(context.getString(R.string.load_failure));
+							MyApplication.getInstance().makeTextLong(
+									context.getString(R.string.load_failure));
 						}
 					}
 
@@ -541,7 +543,8 @@ public class DataManager {
 						LogTool.d(TAG,
 								"Throwable throwable:" + throwable.toString());
 						handler.sendEmptyMessage(Constant.LOAD_FAILURE);
-						MyApplication.getInstance().makeTextLong(context.getString(R.string.tip_no_internet));
+						MyApplication.getInstance().makeTextLong(
+								context.getString(R.string.tip_no_internet));
 					}
 
 					@Override
@@ -549,7 +552,8 @@ public class DataManager {
 							String responseString, Throwable throwable) {
 						LogTool.d(TAG, "throwable:" + throwable);
 						handler.sendEmptyMessage(Constant.LOAD_FAILURE);
-						MyApplication.getInstance().makeTextLong(context.getString(R.string.tip_no_internet));
+						MyApplication.getInstance().makeTextLong(
+								context.getString(R.string.tip_no_internet));
 					};
 				});
 	}
@@ -569,12 +573,12 @@ public class DataManager {
 		sharedPrefer.setValue(Constant.USERIMAGE_ID, userBean.getImageid());
 		sharedPrefer.setValue(Constant.USER_ID, userBean.get_id());
 	}
-	
-	public void savePassword(String pass){
+
+	public void savePassword(String pass) {
 		sharedPrefer.setValue(Constant.PASSWORD, pass);
 	}
-	
-	public String getPassword(){
+
+	public String getPassword() {
 		return sharedPrefer.getValue(Constant.PASSWORD, null);
 	}
 
@@ -617,8 +621,8 @@ public class DataManager {
 		}
 		return userImagePath;
 	}
-	
-	public void cleanData(){
+
+	public void cleanData() {
 		processInfos.clear();
 		processReflects.clear();
 		designerProcessLists = null;
