@@ -235,7 +235,7 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 							imageUrlList.remove(str);
 						}
 					}
-					callBack.click(imageUrlList, Constant.IMG_ITEM);
+					callBack.click(position, Constant.IMG_ITEM,imageUrlList);
 				}
 			}
 

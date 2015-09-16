@@ -11,12 +11,11 @@
         android:contentDescription="@null"
         android:scaleType="fitXY"
         android:src="@drawable/bg_cover_sidebar" />
-    
-     <com.jianfanjia.cn.view.MainHeadView
+
+    <com.jianfanjia.cn.view.MainHeadView
         android:id="@+id/my_designer_head_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-         />
+        android:layout_height="wrap_content" />
 
     <RelativeLayout
         android:id="@+id/my_designer_content_layout"
@@ -126,7 +125,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/my_designer_middle_layout"
-                android:layout_marginLeft="36dp"
+                android:layout_marginLeft="72dp"
                 android:paddingBottom="48dp" >
 
                 <TextView

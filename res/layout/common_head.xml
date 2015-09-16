@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/transparent" >
+    android:background="@android:color/transparent" xmlns:app="http://schemas.android.com/apk/res/com.jianfanjia.cn.activity">
 
     <RelativeLayout
         android:id="@+id/head_layout"
@@ -17,6 +17,8 @@
             android:layout_marginLeft="@dimen/space_8"
             android:contentDescription="@null"
             android:padding="@dimen/space_8"
+            app:border_width="2dp"
+            app:border_color="@color/white"
             android:src="@drawable/icon_home_default_user" />
 
         <TextView

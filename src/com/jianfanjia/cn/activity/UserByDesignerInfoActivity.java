@@ -15,6 +15,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -58,9 +61,11 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 	private ImageView headImageView = null;
 	private RelativeLayout userNameRelativeLayout = null;
 	private RelativeLayout homeRelativeLayout = null;
+	private RelativeLayout addressRelativeLayout = null;
 	private RelativeLayout sexLayout = null;
 	private DesignerInfo designerInfo = null;
 	private DesignerUpdateInfo designerUpdateInfo = null;
+	private String sex;
 
 	@Override
 	public void initView() {
@@ -78,18 +83,23 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 				.findViewById(R.id.name_layout);
 		homeRelativeLayout = (RelativeLayout) this
 				.findViewById(R.id.home_layout);
+		addressRelativeLayout = (RelativeLayout) this
+				.findViewById(R.id.address_layout);
 		sexLayout = (RelativeLayout) this.findViewById(R.id.sex_layout);
-		
-		designerInfo = dataManager.getDesignerInfo();
-		if(designerInfo == null){
+
+		// designerInfo = dataManager.getDesignerInfo();
+		if (designerInfo == null) {
 			get_Designer_Info();
-		}else{
+		} else {
 			setData();
 		}
 	}
 
 	private void setData() {
-		imageLoader.displayImage(designerInfo.getImageid() == null? Constant.DEFALUT_OWNER_PIC : (Url.GET_IMAGE + designerInfo.getImageid()),headImageView);
+		imageLoader.displayImage(
+				designerInfo.getImageid() == null ? Constant.DEFALUT_OWNER_PIC
+						: (Url.GET_IMAGE + designerInfo.getImageid()),
+				headImageView);
 		if (!TextUtils.isEmpty(designerInfo.getUsername())) {
 			nameText.setText(designerInfo.getUsername());
 		} else {
@@ -99,7 +109,7 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 		if (!TextUtils.isEmpty(sexInfo)) {
 			if (sexInfo.equals(Constant.SEX_MAN)) {
 				sexText.setText("男");
-			} else {
+			} else if (sexInfo.equals(Constant.SEX_WOMEN)) {
 				sexText.setText("女");
 			}
 		} else {
@@ -110,8 +120,10 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 		} else {
 			phoneText.setText(getString(R.string.not_edit));
 		}
-		if (!TextUtils.isEmpty(designerInfo.getDistrict())) {
-			addressText.setText(designerInfo.getDistrict());
+		String address = designerInfo.getProvince() + designerInfo.getCity()
+				+ designerInfo.getDistrict();
+		if (!TextUtils.isEmpty(address)) {
+			addressText.setText(address);
 		} else {
 			addressText.setText(getString(R.string.not_edit));
 		}
@@ -130,49 +142,50 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 		userNameRelativeLayout.setOnClickListener(this);
 		homeRelativeLayout.setOnClickListener(this);
 		sexLayout.setOnClickListener(this);
+		addressRelativeLayout.setOnClickListener(this);
 	}
-	
-	//修改设计师个人资料
-	private void put_Designer_Info(){
-		JianFanJiaApiClient.put_DesignerInfo(this, designerInfo,
+
+	// 修改设计师个人资料
+	private void put_Designer_Info() {
+		JianFanJiaApiClient.put_DesignerInfo(this, designerUpdateInfo,
 				new JsonHttpResponseHandler() {
-			@Override
-			public void onStart() {
-				LogTool.d(TAG, "onStart()");
-			}
-
-			@Override
-			public void onSuccess(int statusCode, Header[] headers,
-					JSONObject response) {
-				LogTool.d(TAG, "JSONObject response:" + response);
-				try {
-					if (response.has(Constant.SUCCESS_MSG)) {
-						makeTextLong("修改成功");
-					} else if (response.has(Constant.ERROR_MSG)) {
-						makeTextLong(response.get(Constant.ERROR_MSG)
-								.toString());
+					@Override
+					public void onStart() {
+						LogTool.d(TAG, "onStart()");
 					}
-				} catch (JSONException e) {
-					e.printStackTrace();
-					makeTextLong(getString(R.string.load_failure));
-				}
-			}
 
-			@Override
-			public void onFailure(int statusCode, Header[] headers,
-					Throwable throwable, JSONObject errorResponse) {
-				LogTool.d(TAG,
-						"Throwable throwable:" + throwable.toString());
-				makeTextLong(getString(R.string.tip_no_internet));
-			}
+					@Override
+					public void onSuccess(int statusCode, Header[] headers,
+							JSONObject response) {
+						LogTool.d(TAG, "JSONObject response:" + response);
+						try {
+							if (response.has(Constant.SUCCESS_MSG)) {
+								makeTextLong("修改成功");
+							} else if (response.has(Constant.ERROR_MSG)) {
+								makeTextLong(response.get(Constant.ERROR_MSG)
+										.toString());
+							}
+						} catch (JSONException e) {
+							e.printStackTrace();
+							makeTextLong(getString(R.string.load_failure));
+						}
+					}
 
-			@Override
-			public void onFailure(int statusCode, Header[] headers,
-					String responseString, Throwable throwable) {
-				LogTool.d(TAG, "throwable:" + throwable);
-				makeTextLong(getString(R.string.tip_no_internet));
-			};
-		});
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							Throwable throwable, JSONObject errorResponse) {
+						LogTool.d(TAG,
+								"Throwable throwable:" + throwable.toString());
+						makeTextLong(getString(R.string.tip_no_internet));
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							String responseString, Throwable throwable) {
+						LogTool.d(TAG, "throwable:" + throwable);
+						makeTextLong(getString(R.string.tip_no_internet));
+					};
+				});
 	}
 
 	private void get_Designer_Info() {
@@ -189,12 +202,14 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 						LogTool.d(TAG, "JSONObject response:" + response);
 						try {
 							if (response.has(Constant.DATA)) {
-								designerInfo = JsonParser
-										.jsonToBean(response.get(Constant.DATA)
-												.toString(),
-												DesignerInfo.class);
+								designerInfo = JsonParser.jsonToBean(response
+										.get(Constant.DATA).toString(),
+										DesignerInfo.class);
+								designerUpdateInfo = JsonParser.jsonToBean(
+										response.get(Constant.DATA).toString(),
+										DesignerUpdateInfo.class);
 								if (null != designerInfo) {
-									dataManager.setDesignerInfo(designerInfo);
+									// dataManager.setDesignerInfo(designerInfo);
 									setData();
 								}
 							} else if (response.has(Constant.ERROR_MSG)) {
@@ -234,6 +249,9 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 			showPopWindow(designerInfoLayout);
 			break;
 		case R.id.btn_confirm:
+			if (designerUpdateInfo != null) {
+				put_Designer_Info();
+			}
 			break;
 		case R.id.name_layout:
 			Intent name = new Intent(UserByDesignerInfoActivity.this,
@@ -242,7 +260,7 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 					Constant.REQUESTCODE_EDIT_USERNAME);
 			startActivityForResult(name, Constant.REQUESTCODE_EDIT_USERNAME);
 			break;
-		case R.id.address_layout:
+		case R.id.home_layout:
 			Intent address = new Intent(UserByDesignerInfoActivity.this,
 					EditInfoActivity.class);
 			address.putExtra(Constant.EDIT_TYPE,
@@ -257,9 +275,27 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 		}
 	}
 
+	// 显示选择性别对话框
 	private void showSexChooseDialog() {
-		CommonDialog commonDialog = DialogHelper.getPinterestDialogCancelable(this);
+		CommonDialog commonDialog = DialogHelper
+				.getPinterestDialogCancelable(this);
 		View contentView = inflater.inflate(R.layout.sex_choose, null);
+		RadioGroup radioGroup = (RadioGroup) contentView
+				.findViewById(R.id.sex_radioGroup);
+		radioGroup.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(RadioGroup group, int checkedId) {
+				if (group.getCheckedRadioButtonId() == R.id.sex_radio0) {
+					sex = Constant.SEX_MAN;
+				} else {
+					sex = Constant.SEX_WOMEN;
+				}
+			}
+		});
+		if (designerUpdateInfo != null) {
+			radioGroup.check(designerUpdateInfo.getSex().equals(
+					Constant.SEX_MAN) ? R.id.sex_radio0 : R.id.sex_radio1);
+		}
 		commonDialog.setContent(contentView);
 		commonDialog.setTitle("选择性别");
 		commonDialog.setPositiveButton(R.string.ok,
@@ -267,6 +303,11 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
+						if (designerUpdateInfo != null) {
+							designerUpdateInfo.setSex(sex);
+							sexText.setText(sex.equals(Constant.SEX_MAN) ? "男"
+									: "女");
+						}
 						dialog.dismiss();
 					}
 				});
@@ -292,9 +333,22 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 		super.onActivityResult(requestCode, resultCode, data);
 		switch (requestCode) {
 		case Constant.REQUESTCODE_EDIT_USERNAME:
-			
+			if (data != null) {
+				String name = data.getStringExtra(Constant.EDIT_CONTENT);
+				nameText.setText(name);
+				if (designerUpdateInfo != null) {
+					designerUpdateInfo.setUsername(name);
+				}
+			}
 			break;
 		case Constant.REQUESTCODE_EDIT_ADDRESS:
+			if (data != null) {
+				String address = data.getStringExtra(Constant.EDIT_CONTENT);
+				homeText.setText(address);
+				if (designerUpdateInfo != null) {
+					designerUpdateInfo.setAddress(address);
+				}
+			}
 			break;
 		case Constant.REQUESTCODE_CAMERA:// 拍照
 			LogTool.d(TAG, "data:" + data);
@@ -332,7 +386,6 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 					String imgPath = PhotoUtils.savaPicture(bitmap);
 					LogTool.d(TAG, "imgPath=============" + imgPath);
 					if (!TextUtils.isEmpty(imgPath)) {
-
 					}
 				}
 			}

@@ -26,6 +26,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -34,9 +35,11 @@ import com.jianfanjia.cn.activity.CheckActivity;
 import com.jianfanjia.cn.activity.CommentActivity;
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.ShowPicActivity;
 import com.jianfanjia.cn.adapter.InfinitePagerAdapter;
 import com.jianfanjia.cn.adapter.MyViewPageAdapter;
 import com.jianfanjia.cn.adapter.SectionItemAdapter;
+import com.jianfanjia.cn.adapter.ShowPicPagerAdapter;
 import com.jianfanjia.cn.adapter.ViewPageAdapter;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
@@ -281,6 +284,7 @@ public class SiteManageFragment extends BaseFragment implements
 					new ViewGroup.LayoutParams(20, 20));
 			layoutParams.leftMargin = 15;
 			layoutParams.rightMargin = 15;
+			layoutParams.bottomMargin = 10;
 			group.addView(imageView, layoutParams);
 		}
 		ViewPageAdapter pageAdapter = new ViewPageAdapter(getActivity(),
@@ -573,7 +577,7 @@ public class SiteManageFragment extends BaseFragment implements
 			showPopWindow(getView());
 			break;
 		case Constant.IMG_ITEM:
-
+			
 			break;
 		case Constant.COMMENT_ITEM:
 			Bundle bundle = new Bundle();
@@ -587,13 +591,18 @@ public class SiteManageFragment extends BaseFragment implements
 	}
 
 	@Override
-	public void click(List<String> imageUrlList, int itemType) {
+	public void click(int position,int itemType,List<String> imageUrlList) {
 		LogTool.d(TAG, "itemType:" + itemType);
 		switch (itemType) {
 		case Constant.IMG_ITEM:
-			for (String str : imageUrlList) {
+			/*for (String str : imageUrlList) {
 				LogTool.d(TAG, " str:" + str);
-			}
+			};*/
+			Bundle bundle0 = new Bundle();
+			bundle0.putStringArrayList(Constant.IMAGE_LIST, (ArrayList<String>)imageUrlList);
+			bundle0.putInt(Constant.CURRENT_POSITION, position);
+			startActivity(ShowPicActivity.class, bundle0);
+			
 			break;
 		default:
 			break;

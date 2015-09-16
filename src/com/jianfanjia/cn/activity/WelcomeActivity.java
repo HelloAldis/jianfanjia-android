@@ -33,7 +33,7 @@ public class WelcomeActivity extends BaseActivity {
 		isLogin = dataManager.isLogin();
 		isLoginExpire = AppConfig.getInstance(this).isLoginExpire();
 		LogTool.d(this.getClass().getName(), "first=" + first);
-		DataCleanManager.cleanSharedPreference(this);// 清理掉缓存的用户数据
+//		DataCleanManager.cleanSharedPreference(this);// 清理掉缓存的用户数据
 	}
 
 	@Override

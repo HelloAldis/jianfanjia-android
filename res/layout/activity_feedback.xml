@@ -47,7 +47,8 @@
         android:minLines="10"
         android:padding="@dimen/space_8"
         android:textColorHint="@color/horzontal_line_color"
-        android:textSize="@dimen/text_size_14" />
+        android:textSize="@dimen/text_size_14"
+        android:textColor="@color/main_color_black" />
 
     <Button
         android:id="@+id/btn_commit"

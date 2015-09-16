@@ -35,6 +35,56 @@ public class DesignerUpdateInfo implements Serializable {
 
 	private String[] dec_types;
 
+	private int work_year;
+
+	private String email;
+
+	private String bank;
+
+	private String bank_card;
+
+	private String university;
+
+	public int getWork_year() {
+		return work_year;
+	}
+
+	public void setWork_year(int work_year) {
+		this.work_year = work_year;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getBank() {
+		return bank;
+	}
+
+	public void setBank(String bank) {
+		this.bank = bank;
+	}
+
+	public String getBank_card() {
+		return bank_card;
+	}
+
+	public void setBank_card(String bank_card) {
+		this.bank_card = bank_card;
+	}
+
+	public String getUniversity() {
+		return university;
+	}
+
+	public void setUniversity(String university) {
+		this.university = university;
+	}
+
 	public String getPhilosophy() {
 		return philosophy;
 	}
@@ -154,7 +204,5 @@ public class DesignerUpdateInfo implements Serializable {
 	public void setDec_types(String[] dec_types) {
 		this.dec_types = dec_types;
 	}
-	
-	
 
 }

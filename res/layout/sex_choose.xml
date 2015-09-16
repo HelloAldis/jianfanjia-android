@@ -7,7 +7,7 @@
 
     <RadioGroup
         android:id="@+id/sex_radioGroup"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_centerInParent="true" >
@@ -17,8 +17,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:layout_gravity="left|center_vertical"
             android:text="男" />
+        
+        <View android:layout_width="80dp"
+            android:layout_height="1dp"
+            android:background="@color/transparent"/>
 
         <RadioButton
             android:id="@+id/sex_radio1"

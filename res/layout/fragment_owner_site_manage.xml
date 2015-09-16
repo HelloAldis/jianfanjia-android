@@ -38,6 +38,12 @@
                     android:layout_height="match_parent"
                     android:background="#ffffff"
                     android:fadingEdge="none" />
+                
+                <ImageView android:contentDescription="@null"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/cover_home_banner"/>
 
                 <LinearLayout
                     android:id="@+id/viewGroup"
@@ -69,7 +75,7 @@
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="45dp"
-                    android:background="#A6A6A6" />
+                    android:background="@color/line_color" />
 
                 <com.jianfanjia.cn.view.MyListView
                     android:id="@+id/site__listview"

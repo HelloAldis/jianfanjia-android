@@ -5,7 +5,11 @@ import java.util.List;
 
 import org.apache.http.cookie.Cookie;
 
+import u.aly.cx;
+
 import android.content.pm.PackageManager;
+import android.util.Log;
+
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseApplication;
 import com.jianfanjia.cn.bean.RegisterInfo;
@@ -137,7 +141,10 @@ public class MyApplication extends BaseApplication {
 	}
 	
 	public void saveCookie(AsyncHttpClient client) {  
-        client.setCookieStore(cookieStore);  
+        client.setCookieStore(cookieStore); 
+        for(Cookie cookie : cookieStore.getCookies()){
+        	Log.i("COOKIE", cookie.getName() + " " + cookie.getValue());
+        }
     }  
       
     public void clearCookie(){  
