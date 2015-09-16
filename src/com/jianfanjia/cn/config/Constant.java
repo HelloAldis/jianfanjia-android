@@ -41,18 +41,14 @@ public class Constant {
 	public static final String EDIT_TYPE = "inputType";
 	public static final String EDIT_CONTENT = "content";
 
+	public static final int REQUESTCODE_CONFIG_SITE = 6;// 配置工地
+	public static final int REQUESTCODE_CHANGE_SITE = 7;// 切换工地
+
 	// item点击项
 	public static final int CONFIRM_ITEM = 1;
 	public static final int ADD_ITEM = 2;
 	public static final int IMG_ITEM = 3;
 	public static final int COMMENT_ITEM = 4;
-
-	// 侧滑菜单
-	public static final int HOME = 0;
-	public static final int NOTIFY = 1;
-	public static final int MY = 2;
-	public static final int MYSITE = 3;
-	public static final int SETTING = 4;
 
 	// 用户身份
 	public static final String IDENTITY_OWNER = "1";// 业主
@@ -83,9 +79,12 @@ public class Constant {
 	public static final String SUCCESS_MSG = "msg";// 获取数据成功的返回信息
 
 	// 提醒类型
-	public static final int CAIGOU_NOTIFY = 1;// 采购提醒
-	public static final int FUKUAN_NOTIFY = 2;// 付款提醒
-	public static final int YANQI_NOTIFY = 3;// 延期提醒
+	public static final String CAIGOU_NOTIFY = "1";// 采购提醒
+	public static final String FUKUAN_NOTIFY = "2";// 付款提醒
+	public static final String YANQI_NOTIFY = "3";// 延期提醒
+
+	public final static int SENDBACKNOTICATION = 10;
+	public final static int SENDNOTICATION = 20;
 
 	public static final int NOT_START = 0;// 未开工
 	public static final int WORKING = 1;// 正在进行中
@@ -111,12 +110,9 @@ public class Constant {
 
 	public static final String CURRENT_LIST = "current_list";// 首页展开的第一道工序
 	public static final String CURRENT_ITEM = "current_item";// 当前节点
-	
-	public static final int LOAD_SUCCESS = 0;//数据加载成功
-	public static final int LOAD_FAILURE = 1;//数据加载失败
-	
-	public static final String COOKIES_CONFIG = "cookies_config";//cookies配置
-	public static final String LAST_LOGIN_TIME = "last_login_time";//上次登录时间
-	public static final long LOGIN_EXPIRE = 24 * 60 * 60 * 1000L;//登录过期时间为24小时
+
+	public static final String COOKIES_CONFIG = "cookies_config";// cookies配置
+	public static final String LAST_LOGIN_TIME = "last_login_time";// 上次登录时间
+	public static final long LOGIN_EXPIRE = 24 * 60 * 60 * 1000L;// 登录过期时间为24小时
 
 }

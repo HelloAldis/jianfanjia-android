@@ -1,21 +1,24 @@
 package com.jianfanjia.cn.receiver;
 
-import java.util.List;
-
 import org.apache.http.Header;
 import org.json.JSONObject;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.igexin.sdk.PushConsts;
 import com.igexin.sdk.PushManager;
-import com.jianfanjia.cn.bean.Message;
+import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.bean.NotifyMessage;
+import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
-import com.jianfanjia.cn.inter.manager.ListenerManeger;
-import com.jianfanjia.cn.interf.PushMsgReceiveListener;
 import com.jianfanjia.cn.tools.LogTool;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -87,11 +90,22 @@ public class PushMsgReceiver extends BroadcastReceiver {
 	 */
 	private void parseMessage(String jsonStr) {
 		try {
-			Message message = gson.fromJson(jsonStr, Message.class);
-			List<PushMsgReceiveListener> listeners = ListenerManeger.msgListeners;
-			for (PushMsgReceiveListener listener : listeners) {
-				LogTool.d(TAG, "listener:" + listener);
-				listener.onReceiveMsg(message);
+			NotifyMessage message = gson.fromJson(jsonStr, NotifyMessage.class);
+			Log.i(TAG, "message:" + message);
+			Message msg = Message.obtain();
+			Bundle bundle = new Bundle();
+			bundle.putSerializable("Notify", message);
+			msg.setData(bundle);
+			BaseActivity activity = BaseActivity.getCurrentActivity();
+			Log.i(TAG, "任务activity->" + activity);
+			if (Global.isAppBack) {
+				Log.i(TAG, "----app后台运行中-----");
+				msg.what = Constant.SENDBACKNOTICATION;
+				BaseActivity.sendMessage(msg);
+			} else {
+				Log.i(TAG, "----app前台运行中-----");
+				msg.what = Constant.SENDNOTICATION;
+				BaseActivity.sendMessage(msg);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

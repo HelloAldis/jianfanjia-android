@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
@@ -17,8 +18,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.bean.Message;
-import com.jianfanjia.cn.bean.MyOwnerInfo;
+import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url;
@@ -56,7 +56,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 	private RelativeLayout addressLayout;
 	private RelativeLayout userNameRelativeLayout = null;
 	private RelativeLayout homeRelativeLayout = null;
-	
+
 	private OwnerInfo ownerInfo;
 
 	private CommonWheelDialog commonWheelDialog;
@@ -88,9 +88,9 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 				.findViewById(R.id.home_layout);
 
 		ownerInfo = dataManager.getOwnerInfo();
-		if(ownerInfo == null){
+		if (ownerInfo == null) {
 			get_Owner_Info();
-		}else{
+		} else {
 			setData();
 		}
 
@@ -98,7 +98,10 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 	}
 
 	private void setData() {
-		imageLoader.displayImage(ownerInfo.getImageid() == null? Constant.DEFALUT_OWNER_PIC : (Url.GET_IMAGE + ownerInfo.getImageid()),headImageView);
+		imageLoader.displayImage(
+				ownerInfo.getImageid() == null ? Constant.DEFALUT_OWNER_PIC
+						: (Url.GET_IMAGE + ownerInfo.getImageid()),
+				headImageView);
 		nameText.setText(ownerInfo.getUsername() == null ? getString(R.string.ower)
 				: ownerInfo.getUsername());
 		String sexInfo = ownerInfo.getSex();
@@ -116,7 +119,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 				.setText(ownerInfo.getDistrict() == null ? getString(R.string.not_edit)
 						: ownerInfo.getDistrict());
 		homeText.setText(ownerInfo.getAddress() == null ? getString(R.string.not_edit)
-				: ownerInfo.getAddress());		
+				: ownerInfo.getAddress());
 	}
 
 	@Override
@@ -201,48 +204,48 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 		commonWheelDialog.setNegativeButton(R.string.no, null);
 		commonWheelDialog.show();
 	}
-	
-	//修改设计师个人资料
-	private void put_Owner_Info(){
+
+	// 修改设计师个人资料
+	private void put_Owner_Info() {
 		JianFanJiaApiClient.put_OwnerInfo(this, ownerInfo,
 				new JsonHttpResponseHandler() {
-			@Override
-			public void onStart() {
-				LogTool.d(TAG, "onStart()");
-			}
-
-			@Override
-			public void onSuccess(int statusCode, Header[] headers,
-					JSONObject response) {
-				LogTool.d(TAG, "JSONObject response:" + response);
-				try {
-					if (response.has(Constant.SUCCESS_MSG)) {
-						makeTextLong("修改成功");
-					} else if (response.has(Constant.ERROR_MSG)) {
-						makeTextLong(response.get(Constant.ERROR_MSG)
-								.toString());
+					@Override
+					public void onStart() {
+						LogTool.d(TAG, "onStart()");
 					}
-				} catch (JSONException e) {
-					e.printStackTrace();
-					makeTextLong(getString(R.string.load_failure));
-				}
-			}
 
-			@Override
-			public void onFailure(int statusCode, Header[] headers,
-					Throwable throwable, JSONObject errorResponse) {
-				LogTool.d(TAG,
-						"Throwable throwable:" + throwable.toString());
-				makeTextLong(getString(R.string.tip_no_internet));
-			}
+					@Override
+					public void onSuccess(int statusCode, Header[] headers,
+							JSONObject response) {
+						LogTool.d(TAG, "JSONObject response:" + response);
+						try {
+							if (response.has(Constant.SUCCESS_MSG)) {
+								makeTextLong("修改成功");
+							} else if (response.has(Constant.ERROR_MSG)) {
+								makeTextLong(response.get(Constant.ERROR_MSG)
+										.toString());
+							}
+						} catch (JSONException e) {
+							e.printStackTrace();
+							makeTextLong(getString(R.string.load_failure));
+						}
+					}
 
-			@Override
-			public void onFailure(int statusCode, Header[] headers,
-					String responseString, Throwable throwable) {
-				LogTool.d(TAG, "throwable:" + throwable);
-				makeTextLong(getString(R.string.tip_no_internet));
-			};
-		});
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							Throwable throwable, JSONObject errorResponse) {
+						LogTool.d(TAG,
+								"Throwable throwable:" + throwable.toString());
+						makeTextLong(getString(R.string.tip_no_internet));
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							String responseString, Throwable throwable) {
+						LogTool.d(TAG, "throwable:" + throwable);
+						makeTextLong(getString(R.string.tip_no_internet));
+					};
+				});
 	}
 
 	private void get_Owner_Info() {
@@ -381,14 +384,25 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 	}
 
 	@Override
-	public void onReceiveMsg(Message message) {
-		LogTool.d(TAG, "message=" + message);
-		showNotify(message);
+	public int getLayoutId() {
+		return R.layout.activity_owner_info;
 	}
 
 	@Override
-	public int getLayoutId() {
-		return R.layout.activity_owner_info;
+	public void processMessage(Message msg) {
+		Bundle bundle = msg.getData();
+		NotifyMessage message = (NotifyMessage) bundle
+				.getSerializable("Notify");
+		switch (msg.what) {
+		case Constant.SENDBACKNOTICATION:
+			sendNotifycation(message);
+			break;
+		case Constant.SENDNOTICATION:
+			showNotify(message);
+			break;
+		default:
+			break;
+		}
 	}
 
 }

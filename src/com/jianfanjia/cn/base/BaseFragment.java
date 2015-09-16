@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -15,12 +13,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import com.jianfanjia.cn.AppConfig;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.cache.DataManager;
-import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.inter.manager.ListenerManeger;
+import com.jianfanjia.cn.interf.LoadDataListener;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.SharedPrefer;
@@ -39,7 +36,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  * 
  */
 public abstract class BaseFragment extends Fragment implements OnClickListener,
-		PopWindowCallBack {
+		PopWindowCallBack, LoadDataListener {
 	protected FragmentManager fragmentManager = null;
 	protected DataManager dataManager = null;
 	protected AppConfig appConfig = null;
@@ -51,37 +48,10 @@ public abstract class BaseFragment extends Fragment implements OnClickListener,
 	protected ListenerManeger listenerManeger = null;
 	protected UploadManager uploadManager = null;
 	protected AddPhotoPopWindow popupWindow = null;
-	protected String mUserName;// 用户名
-	protected String mAccount;// 账号
-	protected String mUserImageId;// 头像
-	protected String mUserType;// 用户类型
-	protected boolean isOpen = false;
-
-	protected Handler handler = new Handler() {
-		public void handleMessage(Message msg) {
-			switch (msg.what) {
-			case Constant.LOAD_SUCCESS:
-				onLoadSuccess();
-				break;
-			case Constant.LOAD_FAILURE:
-				onLoadFailure();
-				break;
-			default:
-				break;
-			}
-
-		};
-	};
-
-	public void onLoadSuccess() {
-		LogTool.d(this.getClass().getName(), "onSuccess");
-		hideWaitDialog();
-	}
-
-	public void onLoadFailure() {
-		LogTool.d(this.getClass().getName(), "onFailure");
-		hideWaitDialog();
-	}
+	protected String mUserName = null;// 用户名
+	protected String mAccount = null;// 账号
+	protected String mUserImageId = null;// 头像
+	protected String mUserType = null;// 用户类型
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -104,7 +74,7 @@ public abstract class BaseFragment extends Fragment implements OnClickListener,
 
 	private void init() {
 		appConfig = AppConfig.getInstance(getActivity());
-		dataManager = DataManager.getInstance();
+		dataManager = DataManager.getInstance(getActivity(), this);
 		imageLoader = ImageLoader.getInstance();
 		options = new DisplayImageOptions.Builder()
 				.showImageOnLoading(R.drawable.pix_default)
@@ -130,10 +100,19 @@ public abstract class BaseFragment extends Fragment implements OnClickListener,
 	}
 
 	@Override
+	public void loadSuccess() {
+		hideWaitDialog();
+	}
+
+	@Override
+	public void loadFailture() {
+		hideWaitDialog();
+	}
+
+	@Override
 	public void onResume() {
 		super.onResume();
 		LogTool.d(this.getClass().getName(), "onResume");
-		isOpen = sharedPrefer.getValue(Constant.ISOPEN, false);
 	}
 
 	@Override

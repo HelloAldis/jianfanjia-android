@@ -7,7 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
+import android.os.Message;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -22,8 +22,8 @@ import com.jianfanjia.cn.adapter.CommentInfoAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.CommentInfo;
 import com.jianfanjia.cn.bean.CommitCommentInfo;
+import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.bean.ProcessInfo;
-import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.tools.LogTool;
@@ -57,11 +57,6 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
 		getCommentList();
 		commentInfoAdapter.setList(commentInfoList);
 		commentInfoAdapter.notifyDataSetChanged();
-	}
-
-	public void onLoadFailure() {
-		LogTool.d(this.getClass().getName(), "onFailure");
-		hideWaitDialog();
 	}
 
 	private TextWatcher textWatcher = new TextWatcher() {
@@ -104,7 +99,7 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
 	}
 
 	private void getCommentList() {
-		processInfo = DataManager.getInstance().getDefaultProcessInfo();
+		processInfo = dataManager.getDefaultProcessInfo();
 		if (processInfo != null) {
 			section = processInfo.getSections().get(currentList).getName();
 			item = processInfo.getSections().get(currentList).getItems()
@@ -211,16 +206,33 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
 
 	private void refreshData() {
 		if (dataManager.getDefaultProcessId() == null) {
-			dataManager.requestProcessList(handler);
+			dataManager.requestProcessList();
 		} else {
-			dataManager.requestProcessInfoById(
-					dataManager.getDefaultProcessId(), handler);
+			dataManager.requestProcessInfoById(dataManager
+					.getDefaultProcessId());
 		}
 	}
 
 	@Override
 	public int getLayoutId() {
 		return R.layout.activity_comment;
+	}
+
+	@Override
+	public void processMessage(Message msg) {
+		Bundle bundle = msg.getData();
+		NotifyMessage message = (NotifyMessage) bundle
+				.getSerializable("Notify");
+		switch (msg.what) {
+		case Constant.SENDBACKNOTICATION:
+			sendNotifycation(message);
+			break;
+		case Constant.SENDNOTICATION:
+			showNotify(message);
+			break;
+		default:
+			break;
+		}
 	}
 
 }

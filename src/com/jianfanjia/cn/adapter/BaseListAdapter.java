@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.cache.DataManager;
+import com.jianfanjia.cn.interf.LoadDataListener;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -22,12 +24,14 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  * 
  * @param <T>
  */
-public abstract class BaseListAdapter<T> extends BaseAdapter {
+public abstract class BaseListAdapter<T> extends BaseAdapter implements
+		LoadDataListener {
 	protected Context context;
 	protected LayoutInflater layoutInflater;
 	protected List<T> list;
 	protected ImageLoader imageLoader;
 	protected DisplayImageOptions options;
+	protected DataManager dataManager;
 
 	public BaseListAdapter(Context context, List<T> list) {
 		this.context = context;
@@ -40,6 +44,7 @@ public abstract class BaseListAdapter<T> extends BaseAdapter {
 				.showImageOnFail(R.drawable.pix_default).cacheInMemory(true)
 				.cacheOnDisk(true).considerExifParams(true)
 				.bitmapConfig(Bitmap.Config.RGB_565).build();
+		dataManager = DataManager.getInstance(context, this);
 	}
 
 	public void setList(List<T> list) {

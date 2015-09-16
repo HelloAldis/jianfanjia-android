@@ -3,12 +3,12 @@ package com.jianfanjia.cn.activity;
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
@@ -17,13 +17,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.DesignerInfo;
 import com.jianfanjia.cn.bean.DesignerUpdateInfo;
-import com.jianfanjia.cn.bean.Message;
-import com.jianfanjia.cn.bean.MyDesignerInfo;
+import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
@@ -79,17 +76,20 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 		homeRelativeLayout = (RelativeLayout) this
 				.findViewById(R.id.home_layout);
 		sexLayout = (RelativeLayout) this.findViewById(R.id.sex_layout);
-		
+
 		designerInfo = dataManager.getDesignerInfo();
-		if(designerInfo == null){
+		if (designerInfo == null) {
 			get_Designer_Info();
-		}else{
+		} else {
 			setData();
 		}
 	}
 
 	private void setData() {
-		imageLoader.displayImage(designerInfo.getImageid() == null? Constant.DEFALUT_OWNER_PIC : (Url.GET_IMAGE + designerInfo.getImageid()),headImageView);
+		imageLoader.displayImage(
+				designerInfo.getImageid() == null ? Constant.DEFALUT_OWNER_PIC
+						: (Url.GET_IMAGE + designerInfo.getImageid()),
+				headImageView);
 		if (!TextUtils.isEmpty(designerInfo.getUsername())) {
 			nameText.setText(designerInfo.getUsername());
 		} else {
@@ -131,48 +131,48 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 		homeRelativeLayout.setOnClickListener(this);
 		sexLayout.setOnClickListener(this);
 	}
-	
-	//修改设计师个人资料
-	private void put_Designer_Info(){
+
+	// 修改设计师个人资料
+	private void put_Designer_Info() {
 		JianFanJiaApiClient.put_DesignerInfo(this, designerInfo,
 				new JsonHttpResponseHandler() {
-			@Override
-			public void onStart() {
-				LogTool.d(TAG, "onStart()");
-			}
-
-			@Override
-			public void onSuccess(int statusCode, Header[] headers,
-					JSONObject response) {
-				LogTool.d(TAG, "JSONObject response:" + response);
-				try {
-					if (response.has(Constant.SUCCESS_MSG)) {
-						makeTextLong("修改成功");
-					} else if (response.has(Constant.ERROR_MSG)) {
-						makeTextLong(response.get(Constant.ERROR_MSG)
-								.toString());
+					@Override
+					public void onStart() {
+						LogTool.d(TAG, "onStart()");
 					}
-				} catch (JSONException e) {
-					e.printStackTrace();
-					makeTextLong(getString(R.string.load_failure));
-				}
-			}
 
-			@Override
-			public void onFailure(int statusCode, Header[] headers,
-					Throwable throwable, JSONObject errorResponse) {
-				LogTool.d(TAG,
-						"Throwable throwable:" + throwable.toString());
-				makeTextLong(getString(R.string.tip_no_internet));
-			}
+					@Override
+					public void onSuccess(int statusCode, Header[] headers,
+							JSONObject response) {
+						LogTool.d(TAG, "JSONObject response:" + response);
+						try {
+							if (response.has(Constant.SUCCESS_MSG)) {
+								makeTextLong("修改成功");
+							} else if (response.has(Constant.ERROR_MSG)) {
+								makeTextLong(response.get(Constant.ERROR_MSG)
+										.toString());
+							}
+						} catch (JSONException e) {
+							e.printStackTrace();
+							makeTextLong(getString(R.string.load_failure));
+						}
+					}
 
-			@Override
-			public void onFailure(int statusCode, Header[] headers,
-					String responseString, Throwable throwable) {
-				LogTool.d(TAG, "throwable:" + throwable);
-				makeTextLong(getString(R.string.tip_no_internet));
-			};
-		});
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							Throwable throwable, JSONObject errorResponse) {
+						LogTool.d(TAG,
+								"Throwable throwable:" + throwable.toString());
+						makeTextLong(getString(R.string.tip_no_internet));
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							String responseString, Throwable throwable) {
+						LogTool.d(TAG, "throwable:" + throwable);
+						makeTextLong(getString(R.string.tip_no_internet));
+					};
+				});
 	}
 
 	private void get_Designer_Info() {
@@ -189,10 +189,9 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 						LogTool.d(TAG, "JSONObject response:" + response);
 						try {
 							if (response.has(Constant.DATA)) {
-								designerInfo = JsonParser
-										.jsonToBean(response.get(Constant.DATA)
-												.toString(),
-												DesignerInfo.class);
+								designerInfo = JsonParser.jsonToBean(response
+										.get(Constant.DATA).toString(),
+										DesignerInfo.class);
 								if (null != designerInfo) {
 									dataManager.setDesignerInfo(designerInfo);
 									setData();
@@ -258,7 +257,8 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 	}
 
 	private void showSexChooseDialog() {
-		CommonDialog commonDialog = DialogHelper.getPinterestDialogCancelable(this);
+		CommonDialog commonDialog = DialogHelper
+				.getPinterestDialogCancelable(this);
 		View contentView = inflater.inflate(R.layout.sex_choose, null);
 		commonDialog.setContent(contentView);
 		commonDialog.setTitle("选择性别");
@@ -292,7 +292,7 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 		super.onActivityResult(requestCode, resultCode, data);
 		switch (requestCode) {
 		case Constant.REQUESTCODE_EDIT_USERNAME:
-			
+
 			break;
 		case Constant.REQUESTCODE_EDIT_ADDRESS:
 			break;
@@ -363,14 +363,25 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 	}
 
 	@Override
-	public void onReceiveMsg(Message message) {
-		LogTool.d(TAG, "message=" + message);
-		showNotify(message);
+	public int getLayoutId() {
+		return R.layout.activity_designer_info;
 	}
 
 	@Override
-	public int getLayoutId() {
-		return R.layout.activity_designer_info;
+	public void processMessage(Message msg) {
+		Bundle bundle = msg.getData();
+		NotifyMessage message = (NotifyMessage) bundle
+				.getSerializable("Notify");
+		switch (msg.what) {
+		case Constant.SENDBACKNOTICATION:
+			sendNotifycation(message);
+			break;
+		case Constant.SENDNOTICATION:
+			showNotify(message);
+			break;
+		default:
+			break;
+		}
 	}
 
 }

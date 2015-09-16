@@ -1,17 +1,8 @@
 package com.jianfanjia.cn.activity;
 
-import java.util.Calendar;
-
-import org.apache.http.Header;
-import org.apache.http.client.CookieStore;
-import org.apache.http.client.protocol.ClientContext;
-import org.apache.http.cookie.Cookie;
-import org.apache.http.protocol.HttpContext;
-import org.json.JSONException;
-import org.json.JSONObject;
 import android.graphics.Rect;
+import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
@@ -19,20 +10,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.jianfanjia.cn.AppConfig;
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.bean.LoginUserBean;
-import com.jianfanjia.cn.cache.DataManager;
-import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.http.HttpRestClient;
-import com.jianfanjia.cn.http.JianFanJiaApiClient;
-import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.NetTool;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.PersistentCookieStore;
 
 /**
  * 
@@ -120,14 +100,18 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		}
 		return true;
 	}
-	
+
 	@Override
-	protected void onLoadSuccess() {
-		// TODO Auto-generated method stub
-		super.onLoadSuccess();
-		dataManager.savePassword(mPassword);//±£¥Ê√‹¬Î
+	public void loadSuccess() {
+		super.loadSuccess();
+		dataManager.savePassword(mPassword);// ±£¥Ê√‹¬Î
 		startActivity(MainActivity.class);
 		finish();
+	}
+
+	@Override
+	public void loadFailture() {
+		super.loadFailture();
 	}
 
 	/**
@@ -177,6 +161,12 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	@Override
 	public int getLayoutId() {
 		return R.layout.activity_login;
+	}
+
+	@Override
+	public void processMessage(Message msg) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

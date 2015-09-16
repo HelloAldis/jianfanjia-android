@@ -2,6 +2,8 @@ package com.jianfanjia.cn.activity;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View;
@@ -106,6 +108,12 @@ public class NavigateActivity extends BaseActivity implements OnClickListener,
 	@Override
 	public int getLayoutId() {
 		return R.layout.activity_navigate;
+	}
+
+	@Override
+	public void processMessage(Message msg) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

@@ -48,7 +48,7 @@ public class MyOwerInfoAdapter extends BaseListAdapter<Process> {
 		viewHolder.itemNameView.setText(user.getUsername());
 		viewHolder.itemAdressView.setText(info.getCell());
 		viewHolder.itemStageView.setText(MyApplication.getInstance()
-				.getStringById(info.getGoing_on()));
+				.getStringById(info.getGoing_on())+"阶段");
 		String imageId = user.getImageid();
 		if (!TextUtils.isEmpty(imageId)) {
 			imageLoader.displayImage(Url.GET_IMAGE + imageId,
@@ -65,6 +65,18 @@ public class MyOwerInfoAdapter extends BaseListAdapter<Process> {
 		TextView itemAdressView;// 业主工地地址
 		TextView itemStageView;// 所处阶段
 		ImageView itemOwerHeadView;// 业主头像
+	}
+
+	@Override
+	public void loadSuccess() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void loadFailture() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -3,10 +3,11 @@ package com.jianfanjia.cn.fragment;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
-import android.app.Activity;
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -30,9 +31,12 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+
 import com.jianfanjia.cn.activity.CheckActivity;
 import com.jianfanjia.cn.activity.CommentActivity;
+import com.jianfanjia.cn.activity.DesignerSiteActivity;
 import com.jianfanjia.cn.activity.MainActivity;
+import com.jianfanjia.cn.activity.OwnerSiteActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.InfinitePagerAdapter;
 import com.jianfanjia.cn.adapter.MyViewPageAdapter;
@@ -44,11 +48,9 @@ import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.SectionInfo;
 import com.jianfanjia.cn.bean.SectionItemInfo;
 import com.jianfanjia.cn.bean.ViewPagerItem;
-import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
-import com.jianfanjia.cn.interf.SwitchFragmentListener;
 import com.jianfanjia.cn.interf.UploadImageListener;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
@@ -76,8 +78,6 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 public class SiteManageFragment extends BaseFragment implements
 		OnRefreshListener2<ScrollView>, ItemClickCallBack, UploadImageListener {
 	private static final String TAG = SiteManageFragment.class.getName();
-	private SwitchFragmentListener listener;
-	private LinearLayout layoutAll = null;
 	private PullToRefreshScrollView mPullRefreshScrollView = null;
 	private ScrollView scrollView = null;
 	private ArrayList<SectionInfo> sectionInfos;
@@ -140,16 +140,6 @@ public class SiteManageFragment extends BaseFragment implements
 	};
 
 	@Override
-	public void onAttach(Activity activity) {
-		super.onAttach(activity);
-		try {
-			listener = (SwitchFragmentListener) activity;
-		} catch (ClassCastException e) {
-			e.printStackTrace();
-		}
-	}
-
-	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		if (savedInstanceState != null) {
@@ -166,17 +156,16 @@ public class SiteManageFragment extends BaseFragment implements
 
 	private void refreshData() {
 		if (dataManager.getDefaultProcessId() == null) {
-			dataManager.requestProcessList(handler);
+			dataManager.requestProcessList();
 		} else {
 			Log.i(TAG, "proId = " + dataManager.getDefaultProcessId());
-			dataManager.requestProcessInfoById(
-					dataManager.getDefaultProcessId(), handler);
+			dataManager.requestProcessInfoById(dataManager
+					.getDefaultProcessId());
 		}
 	}
 
 	@Override
 	public void initView(View view) {
-		layoutAll = (LinearLayout) view.findViewById(R.id.layoutAll);
 		mPullRefreshScrollView = (PullToRefreshScrollView) view
 				.findViewById(R.id.pull_refresh_scrollview);
 		mPullRefreshScrollView.setMode(Mode.PULL_FROM_START);
@@ -194,8 +183,8 @@ public class SiteManageFragment extends BaseFragment implements
 	}
 
 	@Override
-	public void onLoadSuccess() {
-		super.onLoadSuccess();
+	public void loadSuccess() {
+		super.loadSuccess();
 		mPullRefreshScrollView.onRefreshComplete();
 		initProcessInfo();
 		if (processInfo != null) {
@@ -206,8 +195,8 @@ public class SiteManageFragment extends BaseFragment implements
 	}
 
 	@Override
-	public void onLoadFailure() {
-		super.onLoadFailure();
+	public void loadFailture() {
+		super.loadFailture();
 		mPullRefreshScrollView.onRefreshComplete();
 	}
 
@@ -508,7 +497,17 @@ public class SiteManageFragment extends BaseFragment implements
 			((MainActivity) getActivity()).getSlidingPaneLayout().openPane();
 			break;
 		case R.id.head_right_title:
-			listener.switchFragment(Constant.MYSITE);
+			if (mUserType.equals(Constant.IDENTITY_OWNER)) {
+				Intent configIntent = new Intent(getActivity(),
+						OwnerSiteActivity.class);
+				startActivityForResult(configIntent,
+						Constant.REQUESTCODE_CONFIG_SITE);
+			} else if (mUserType.equals(Constant.IDENTITY_DESIGNER)) {
+				Intent changeIntent = new Intent(getActivity(),
+						DesignerSiteActivity.class);
+				startActivityForResult(changeIntent,
+						Constant.REQUESTCODE_CHANGE_SITE);
+			}
 			break;
 		case R.id.site_list_head_check:
 			Bundle bundle = new Bundle();
@@ -553,7 +552,7 @@ public class SiteManageFragment extends BaseFragment implements
 		// Update the LastUpdatedLabel
 		refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
 		// º”‘ÿ ˝æ›
-		dataManager.requestProcessList(handler);
+		dataManager.requestProcessList();
 	}
 
 	@Override
@@ -688,8 +687,7 @@ public class SiteManageFragment extends BaseFragment implements
 							if (response.has(Constant.SUCCESS_MSG)) {
 								makeTextLong(response.get(Constant.SUCCESS_MSG)
 										.toString());
-								DataManager.getInstance()
-										.getDesignerProcessLists();
+								dataManager.getDesignerProcessLists();
 							} else if (response.has(Constant.ERROR_MSG)) {
 								makeTextLong(response.get(Constant.ERROR_MSG)
 										.toString());
@@ -759,6 +757,40 @@ public class SiteManageFragment extends BaseFragment implements
 						uploadManager.uploadProcedureImage(imgPath,
 								processInfo.get_id(), sectionInfo.getName(),
 								processInfoId, this);
+					}
+				}
+			}
+			break;
+		case Constant.REQUESTCODE_CONFIG_SITE:
+			if (data != null) {
+				Bundle bundle = data.getExtras();
+				if (bundle != null) {
+					String temStr = (String) bundle.get("Key");
+					LogTool.d(TAG, "temStr" + temStr);
+					if (null != temStr) {
+						initProcessInfo();
+						if (processInfo != null) {
+							initData();
+						} else {
+							// loadempty
+						}
+					}
+				}
+			}
+			break;
+		case Constant.REQUESTCODE_CHANGE_SITE:
+			if (data != null) {
+				Bundle bundle = data.getExtras();
+				if (bundle != null) {
+					String processId = (String) bundle.get("ProcessId");
+					LogTool.d(TAG, "processId=" + processId);
+					if (null != processId) {
+						initProcessInfo();
+						if (processInfo != null) {
+							initData();
+						} else {
+							// loadempty
+						}
 					}
 				}
 			}

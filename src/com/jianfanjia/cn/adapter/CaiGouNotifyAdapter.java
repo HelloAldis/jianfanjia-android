@@ -54,4 +54,16 @@ public class CaiGouNotifyAdapter extends BaseListAdapter<NotifyCaiGouInfo> {
 		TextView itemPubTimeView;// 发布时间
 	}
 
+	@Override
+	public void loadSuccess() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void loadFailture() {
+		// TODO Auto-generated method stub
+
+	}
+
 }

@@ -14,6 +14,7 @@ import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.NotifyDelayInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
+import com.jianfanjia.cn.interf.SwitchFragmentListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -26,7 +27,8 @@ import com.loopj.android.http.JsonHttpResponseHandler;
  * @date 2015-8-26 ÏÂÎç1:09:52
  * 
  */
-public class YanQiNotifyFragment extends BaseFragment {
+public class YanQiNotifyFragment extends BaseFragment implements
+		SwitchFragmentListener {
 	private static final String TAG = YanQiNotifyFragment.class.getName();
 	private ListView listView = null;
 	private List<NotifyDelayInfo> delayList = new ArrayList<NotifyDelayInfo>();
@@ -115,6 +117,12 @@ public class YanQiNotifyFragment extends BaseFragment {
 	@Override
 	public int getLayoutId() {
 		return R.layout.fragment_yanqi_notify;
+	}
+
+	@Override
+	public void switchTab(int index) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

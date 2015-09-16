@@ -8,6 +8,7 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.CaiGouNotifyAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.NotifyCaiGouInfo;
+import com.jianfanjia.cn.interf.SwitchFragmentListener;
 import com.jianfanjia.cn.tools.LogTool;
 
 /**
@@ -18,7 +19,8 @@ import com.jianfanjia.cn.tools.LogTool;
  * @date 2015-8-26 ÏÂÎç1:07:52
  * 
  */
-public class CaiGouNotifyFragment extends BaseFragment {
+public class CaiGouNotifyFragment extends BaseFragment implements
+		SwitchFragmentListener {
 	private ListView listView;
 	private List<NotifyCaiGouInfo> caigouList = new ArrayList<NotifyCaiGouInfo>();
 	private NotifyCaiGouInfo caiGouInfo = null;
@@ -27,7 +29,7 @@ public class CaiGouNotifyFragment extends BaseFragment {
 	@Override
 	public void initView(View view) {
 		listView = (ListView) view.findViewById(R.id.tip_caigou__listview);
-		
+
 		// caiGouAdapter = new CaiGouNotifyAdapter(getActivity(), caigouList);
 		// listView.setAdapter(caiGouAdapter);
 	}
@@ -53,6 +55,12 @@ public class CaiGouNotifyFragment extends BaseFragment {
 	@Override
 	public int getLayoutId() {
 		return R.layout.fragment_caigou_notify;
+	}
+
+	@Override
+	public void switchTab(int index) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

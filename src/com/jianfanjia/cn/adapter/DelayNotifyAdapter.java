@@ -69,4 +69,16 @@ public class DelayNotifyAdapter extends BaseListAdapter<NotifyDelayInfo> {
 		TextView itemAgressView;//  «∑ÒÕ¨“‚
 	}
 
+	@Override
+	public void loadSuccess() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void loadFailture() {
+		// TODO Auto-generated method stub
+
+	}
+
 }

@@ -1,7 +1,7 @@
 package com.jianfanjia.cn.activity;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.os.Message;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SlidingPaneLayout;
 import android.support.v4.widget.SlidingPaneLayout.PanelSlideListener;
@@ -9,16 +9,15 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
+
 import com.igexin.sdk.PushManager;
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.bean.Message;
+import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.fragment.DesignerMenuFragment;
 import com.jianfanjia.cn.fragment.OwnerMenuFragment;
 import com.jianfanjia.cn.fragment.SiteManageFragment;
-import com.jianfanjia.cn.interf.FragmentCallBack;
-import com.jianfanjia.cn.interf.SwitchFragmentListener;
 import com.jianfanjia.cn.layout.PagerEnabledSlidingPaneLayout;
 import com.jianfanjia.cn.tools.LogTool;
 
@@ -30,23 +29,11 @@ import com.jianfanjia.cn.tools.LogTool;
  * @date 2015-8-18 下午1:28:28
  * 
  */
-public class MainActivity extends BaseActivity implements PanelSlideListener,
-		SwitchFragmentListener {
+public class MainActivity extends BaseActivity implements PanelSlideListener {
 	private static final String TAG = MainActivity.class.getName();
-	private FragmentCallBack callback = null;
 	private PagerEnabledSlidingPaneLayout slidingPaneLayout = null;
 	private FrameLayout slidingpane_content = null;
 	private String userIdentity = null;
-
-	@Override
-	public void onAttachFragment(Fragment fragment) {
-		super.onAttachFragment(fragment);
-		try {
-			callback = (FragmentCallBack) fragment;
-		} catch (ClassCastException e) {
-			LogTool.d(TAG, "e:" + e);
-		}
-	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -106,9 +93,11 @@ public class MainActivity extends BaseActivity implements PanelSlideListener,
 	@Override
 	public void onBackPressed() {
 		if (slidingPaneLayout.isOpen()) {
+			Log.d(TAG, "---111111111111");
 			moveTaskToBack(false);
 			Global.isAppBack = true;
 		} else {
+			Log.d(TAG, "---2222222222222");
 			slidingPaneLayout.openPane();
 		}
 	}
@@ -126,24 +115,6 @@ public class MainActivity extends BaseActivity implements PanelSlideListener,
 	}
 
 	@Override
-	public void switchFragment(int index) {
-		LogTool.d(TAG, "index:" + index);
-		callback.callBack(index);
-	}
-
-	@Override
-	public void onReceiveMsg(Message message) {
-		LogTool.d(TAG, "message=" + message);
-		if (Global.isAppBack) {
-			LogTool.d(TAG, "后台运行");
-			sendNotifycation(message);
-		} else {
-			LogTool.d(TAG, "前台运行");
-			showNotify(message);
-		}
-	}
-
-	@Override
 	public void onConnect() {
 		LogTool.d(TAG, "onConnect()");
 	}
@@ -153,4 +124,21 @@ public class MainActivity extends BaseActivity implements PanelSlideListener,
 		LogTool.d(TAG, "onDisConnect()");
 	}
 
+	@Override
+	public void processMessage(Message msg) {
+		Log.i(TAG, "接收到推送消息");
+		Bundle bundle = msg.getData();
+		NotifyMessage message = (NotifyMessage) bundle
+				.getSerializable("Notify");
+		switch (msg.what) {
+		case Constant.SENDBACKNOTICATION:
+			sendNotifycation(message);
+			break;
+		case Constant.SENDNOTICATION:
+			showNotify(message);
+			break;
+		default:
+			break;
+		}
+	}
 }

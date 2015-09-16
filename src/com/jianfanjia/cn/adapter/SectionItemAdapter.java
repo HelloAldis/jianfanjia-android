@@ -17,7 +17,6 @@ import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.bean.CommentInfo;
 import com.jianfanjia.cn.bean.GridItem;
 import com.jianfanjia.cn.bean.SectionItemInfo;
-import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
 
@@ -29,14 +28,11 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 	private SiteGridViewAdapter siteGridViewAdapter;
 	private List<GridItem> gridItem = new ArrayList<GridItem>();
 	private int currentPro = -1;// 记录第一个当前展开的工序
-
-	private DataManager dataManager;
 	private String userType;
 
 	public SectionItemAdapter(Context context,
 			List<SectionItemInfo> sectionItemInfos) {
 		super(context, sectionItemInfos);
-		dataManager = DataManager.getInstance();
 		userType = dataManager.getUserType();
 	}
 
@@ -44,7 +40,6 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 			List<SectionItemInfo> sectionItemInfos, ItemClickCallBack callBack) {
 		super(context, sectionItemInfos);
 		this.callBack = callBack;
-		dataManager = DataManager.getInstance();
 		userType = dataManager.getUserType();
 	}
 
@@ -255,5 +250,17 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 		TextView confirmFinishStatus;
 		ImageView finishStatusIcon;
 		GridView gridView;
+	}
+
+	@Override
+	public void loadSuccess() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void loadFailture() {
+		// TODO Auto-generated method stub
+
 	}
 }

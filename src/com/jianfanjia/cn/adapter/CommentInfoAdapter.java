@@ -61,12 +61,11 @@ public class CommentInfoAdapter extends BaseListAdapter<CommentInfo> {
 		viewHolder.itemTimeView.setText(StringUtils
 				.covertLongToString(commentInfo.getDate()));
 		if (commentInfo.getUsertype().equals(Constant.IDENTITY_DESIGNER)) {
-			String designerId = DataManager.getInstance()
-					.getDefaultDesignerId();
+			String designerId = dataManager.getDefaultDesignerId();
 			viewHolder.itemIdentityView.setText(context
 					.getString(R.string.designer));
 			if (designerId != null) {
-				MyDesignerInfo designerInfo = DataManager.getInstance()
+				MyDesignerInfo designerInfo = dataManager
 						.getDesignerInfo(designerId);
 				if (designerInfo != null) {
 					viewHolder.itemNameView
@@ -79,15 +78,13 @@ public class CommentInfoAdapter extends BaseListAdapter<CommentInfo> {
 									: (Url.GET_IMAGE + imageId),
 							viewHolder.itemHeadView, options);
 				} else {
-					DataManager.getInstance().getDesignerInfoById(designerId,
-							handler);
+					dataManager.getDesignerInfoById(designerId);
 				}
 			}
 		} else {
-			String ownerId = DataManager.getInstance().getDefaultOwnerId();
+			String ownerId = dataManager.getDefaultOwnerId();
 			if (ownerId != null) {
-				MyOwnerInfo ownerInfo = DataManager.getInstance()
-						.getOwnerInfo(ownerId);
+				MyOwnerInfo ownerInfo = dataManager.getOwnerInfo(ownerId);
 				viewHolder.itemIdentityView.setText(context
 						.getString(R.string.ower));
 				if (ownerInfo != null) {
@@ -101,8 +98,7 @@ public class CommentInfoAdapter extends BaseListAdapter<CommentInfo> {
 									: (Url.GET_IMAGE + imageId),
 							viewHolder.itemHeadView, options);
 				} else {
-					DataManager.getInstance()
-							.getOwnerInfoById(ownerId, handler);
+					dataManager.getOwnerInfoById(ownerId);
 				}
 			}
 		}
@@ -116,6 +112,18 @@ public class CommentInfoAdapter extends BaseListAdapter<CommentInfo> {
 		TextView itemContentView;// 评论内容
 		TextView itemIdentityView;// 评论人身份
 		ImageView itemHeadView;// 评论人头像
+	}
+
+	@Override
+	public void loadSuccess() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void loadFailture() {
+		// TODO Auto-generated method stub
+
 	}
 
 }
