@@ -2,6 +2,8 @@ package com.jianfanjia.cn.activity;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -87,6 +89,12 @@ public class ForgetPswActivity extends BaseActivity implements FragmentListener 
 		} else {
 			finish();
 		}
+	}
+
+	@Override
+	public void processMessage(Message msg) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

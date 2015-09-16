@@ -1,13 +1,12 @@
 package com.jianfanjia.cn.activity;
 
 import android.os.Bundle;
-import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.WindowManager;
 import com.jianfanjia.cn.AppConfig;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.cache.DataCleanManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.tools.LogTool;
 
@@ -33,7 +32,6 @@ public class WelcomeActivity extends BaseActivity {
 		isLogin = dataManager.isLogin();
 		isLoginExpire = AppConfig.getInstance(this).isLoginExpire();
 		LogTool.d(this.getClass().getName(), "first=" + first);
-//		DataCleanManager.cleanSharedPreference(this);// 清理掉缓存的用户数据
 	}
 
 	@Override
@@ -46,25 +44,17 @@ public class WelcomeActivity extends BaseActivity {
 		// TODO Auto-generated method stub
 
 	}
-	
-	/**
-	 * 登录成功，进入主页
-	 */
+
 	@Override
-	protected void onLoadSuccess() {
-		// TODO Auto-generated method stub
-		super.onLoadSuccess();
+	public void loadSuccess() {
+		super.loadSuccess();
 		startActivity(MainActivity.class);
 		finish();
 	}
-	
-	/**
-	 * 登录失败，回到登录界面
-	 */
+
 	@Override
-	protected void onLoadFailure() {
-		// TODO Auto-generated method stub
-		super.onLoadFailure();
+	public void loadFailture() {
+		super.loadFailture();
 		startActivity(LoginActivity.class);
 		finish();
 	}
@@ -87,7 +77,8 @@ public class WelcomeActivity extends BaseActivity {
 					} else {
 						Log.i(this.getClass().getName(), "已经过期");
 						MyApplication.getInstance().clearCookie();
-						dataManager.login(dataManager.getAccount(),dataManager.getPassword(), handler);
+						dataManager.login(dataManager.getAccount(),
+								dataManager.getPassword(), handler);
 						startActivity(LoginActivity.class);
 						finish();
 					}
@@ -109,6 +100,12 @@ public class WelcomeActivity extends BaseActivity {
 	@Override
 	public int getLayoutId() {
 		return R.layout.activity_welcome;
+	}
+
+	@Override
+	public void processMessage(Message msg) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

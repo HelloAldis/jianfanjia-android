@@ -41,18 +41,14 @@ public class Constant {
 	public static final String EDIT_TYPE = "inputType";
 	public static final String EDIT_CONTENT = "content";
 
+	public static final int REQUESTCODE_CONFIG_SITE = 6;// 配置工地
+	public static final int REQUESTCODE_CHANGE_SITE = 7;// 切换工地
+
 	// item点击项
 	public static final int CONFIRM_ITEM = 1;
 	public static final int ADD_ITEM = 2;
 	public static final int IMG_ITEM = 3;
 	public static final int COMMENT_ITEM = 4;
-
-	// 侧滑菜单
-	public static final int HOME = 0;
-	public static final int NOTIFY = 1;
-	public static final int MY = 2;
-	public static final int MYSITE = 3;
-	public static final int SETTING = 4;
 
 	// 用户身份
 	public static final String IDENTITY_OWNER = "1";// 业主
@@ -83,9 +79,12 @@ public class Constant {
 	public static final String SUCCESS_MSG = "msg";// 获取数据成功的返回信息
 
 	// 提醒类型
-	public static final int CAIGOU_NOTIFY = 1;// 采购提醒
-	public static final int FUKUAN_NOTIFY = 2;// 付款提醒
-	public static final int YANQI_NOTIFY = 3;// 延期提醒
+	public static final String CAIGOU_NOTIFY = "1";// 采购提醒
+	public static final String FUKUAN_NOTIFY = "2";// 付款提醒
+	public static final String YANQI_NOTIFY = "3";// 延期提醒
+
+	public final static int SENDBACKNOTICATION = 10;
+	public final static int SENDNOTICATION = 20;
 
 	public static final int NOT_START = 0;// 未开工
 	public static final int WORKING = 1;// 正在进行中

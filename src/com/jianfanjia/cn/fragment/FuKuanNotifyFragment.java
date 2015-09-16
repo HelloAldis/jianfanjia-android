@@ -8,6 +8,7 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.PayNotifyAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.NotifyPayInfo;
+import com.jianfanjia.cn.interf.SwitchFragmentListener;
 import com.jianfanjia.cn.tools.LogTool;
 
 /**
@@ -18,7 +19,8 @@ import com.jianfanjia.cn.tools.LogTool;
  * @date 2015-8-26 ÏÂÎç1:08:44
  * 
  */
-public class FuKuanNotifyFragment extends BaseFragment {
+public class FuKuanNotifyFragment extends BaseFragment implements
+		SwitchFragmentListener {
 	private ListView listView;
 	private List<NotifyPayInfo> payList = new ArrayList<NotifyPayInfo>();
 	private NotifyPayInfo payInfo = null;
@@ -53,6 +55,12 @@ public class FuKuanNotifyFragment extends BaseFragment {
 	@Override
 	public int getLayoutId() {
 		return R.layout.fragment_fukuan_notify;
+	}
+
+	@Override
+	public void switchTab(int index) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

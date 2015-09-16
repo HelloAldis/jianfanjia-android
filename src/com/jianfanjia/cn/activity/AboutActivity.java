@@ -1,12 +1,14 @@
 package com.jianfanjia.cn.activity;
 
+import android.os.Bundle;
+import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.bean.Message;
-import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.bean.NotifyMessage;
+import com.jianfanjia.cn.config.Constant;
 
 /**
  * @class AboutActivity
@@ -44,14 +46,25 @@ public class AboutActivity extends BaseActivity implements OnClickListener {
 	}
 
 	@Override
-	public void onReceiveMsg(Message message) {
-		LogTool.d(TAG, "message=" + message);
-		showNotify(message);
+	public int getLayoutId() {
+		return R.layout.activity_about;
 	}
 
 	@Override
-	public int getLayoutId() {
-		return R.layout.activity_about;
+	public void processMessage(Message msg) {
+		Bundle bundle = msg.getData();
+		NotifyMessage message = (NotifyMessage) bundle
+				.getSerializable("Notify");
+		switch (msg.what) {
+		case Constant.SENDBACKNOTICATION:
+			sendNotifycation(message);
+			break;
+		case Constant.SENDNOTICATION:
+			showNotify(message);
+			break;
+		default:
+			break;
+		}
 	}
 
 }

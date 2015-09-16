@@ -4,13 +4,15 @@ import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.content.Intent;
+import android.os.Bundle;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.bean.Message;
+import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.config.Constant;
@@ -153,14 +155,25 @@ public class OwnerInfoActivity extends BaseActivity implements OnClickListener {
 	}
 
 	@Override
-	public void onReceiveMsg(Message message) {
-		LogTool.d(TAG, "message=" + message);
-		showNotify(message);
+	public int getLayoutId() {
+		return R.layout.activity_my_owner_detail;
 	}
 
 	@Override
-	public int getLayoutId() {
-		return R.layout.activity_my_owner_detail;
+	public void processMessage(Message msg) {
+		Bundle bundle = msg.getData();
+		NotifyMessage message = (NotifyMessage) bundle
+				.getSerializable("Notify");
+		switch (msg.what) {
+		case Constant.SENDBACKNOTICATION:
+			sendNotifycation(message);
+			break;
+		case Constant.SENDNOTICATION:
+			showNotify(message);
+			break;
+		default:
+			break;
+		}
 	}
 
 }

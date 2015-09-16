@@ -20,8 +20,7 @@ import com.jianfanjia.cn.config.Url;
  */
 public class DesignerSiteInfoAdapter extends BaseListAdapter<Process> {
 
-	public DesignerSiteInfoAdapter(Context context,
-			List<Process> caigouList) {
+	public DesignerSiteInfoAdapter(Context context, List<Process> caigouList) {
 		super(context, caigouList);
 	}
 
@@ -53,10 +52,10 @@ public class DesignerSiteInfoAdapter extends BaseListAdapter<Process> {
 		viewHolder.itemNameView.setText(user.getUsername());
 		viewHolder.itemAdressView.setText(designerSiteInfo.getDistrict());
 		viewHolder.itemStageView.setText(MyApplication.getInstance()
-				.getStringById(designerSiteInfo.getGoing_on()));
+				.getStringById(designerSiteInfo.getGoing_on()) + "阶段");
 		// viewHolder.itemCurrentView 还没判断
 		// viewHolder.itemCurrentView.setText("当前工地");
-		if (DataManager.getInstance().getDefaultPro() == position) {
+		if (dataManager.getDefaultPro() == position) {
 			viewHolder.itemCurrentView.setVisibility(View.VISIBLE);
 		} else {
 			viewHolder.itemCurrentView.setVisibility(View.GONE);
@@ -79,6 +78,18 @@ public class DesignerSiteInfoAdapter extends BaseListAdapter<Process> {
 		TextView itemStageView;// 所处阶段
 		ImageView itemOwerHeadView;// 业主头像
 		TextView itemCurrentView;// 是否是当前工地
+	}
+
+	@Override
+	public void loadSuccess() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void loadFailture() {
+		// TODO Auto-generated method stub
+
 	}
 
 }

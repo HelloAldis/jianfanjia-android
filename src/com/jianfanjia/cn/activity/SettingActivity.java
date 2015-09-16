@@ -1,29 +1,24 @@
-package com.jianfanjia.cn.fragment;
+package com.jianfanjia.cn.activity;
 
 import java.io.File;
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
-import android.annotation.SuppressLint;
 import android.content.DialogInterface;
+import android.os.Bundle;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 import com.igexin.sdk.PushManager;
-import com.jianfanjia.cn.activity.AboutActivity;
-import com.jianfanjia.cn.activity.FeedBackActivity;
-import com.jianfanjia.cn.activity.HelpActivity;
-import com.jianfanjia.cn.activity.LoginActivity;
-import com.jianfanjia.cn.activity.MainActivity;
-import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.ShareActivity;
 import com.jianfanjia.cn.application.MyApplication;
-import com.jianfanjia.cn.base.BaseFragment;
-import com.jianfanjia.cn.cache.DataCleanManager;
+import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.tools.FileUtil;
@@ -35,15 +30,15 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 
 /**
  * 
- * @ClassName: SettingFragment
+ * @ClassName: SettingActivity
  * @Description: 设置
  * @author fengliang
- * @date 2015-8-26 下午3:58:10
+ * @date 2015-9-16 上午9:33:07
  * 
  */
-public class SettingFragment extends BaseFragment implements
+public class SettingActivity extends BaseActivity implements OnClickListener,
 		OnCheckedChangeListener {
-	private static final String TAG = SettingFragment.class.getName();
+	private static final String TAG = SettingActivity.class.getName();
 	private RelativeLayout feedbackFragment = null;
 	private RelativeLayout aboutFragment = null;
 	private ToggleButton toggleButton = null;
@@ -59,32 +54,26 @@ public class SettingFragment extends BaseFragment implements
 	private MainHeadView mainHeadView = null;
 
 	@Override
-	public void initView(View view) {
-		initMainHead(view);
-		feedbackFragment = (RelativeLayout) view
-				.findViewById(R.id.feedback_layout);
-		helpLayout = (RelativeLayout) view.findViewById(R.id.help_layout);
-		aboutFragment = (RelativeLayout) view.findViewById(R.id.about_layout);
-		toggleButton = (ToggleButton) view.findViewById(R.id.mespush_toggle);
-		toggleRelativeLayout = (RelativeLayout) view.findViewById(R.id.mespush_layout);
-		logoutLayout = (RelativeLayout) view.findViewById(R.id.logout_layout);
-		shareLayout = (RelativeLayout) view.findViewById(R.id.share_layout);
-		current_version_layout = (RelativeLayout) view
-				.findViewById(R.id.current_version_layout);
-		clearCacheLayout = (RelativeLayout) view
-				.findViewById(R.id.clear_cache_layout);
-		cacheSizeView = (TextView) view.findViewById(R.id.cache_size);
-		currentVersion = (TextView) view.findViewById(R.id.current_version);
+	public void initView() {
+		initMainHeadView();
+		feedbackFragment = (RelativeLayout) findViewById(R.id.feedback_layout);
+		helpLayout = (RelativeLayout) findViewById(R.id.help_layout);
+		aboutFragment = (RelativeLayout) findViewById(R.id.about_layout);
+		toggleButton = (ToggleButton) findViewById(R.id.mespush_toggle);
+		toggleRelativeLayout = (RelativeLayout) findViewById(R.id.mespush_layout);
+		logoutLayout = (RelativeLayout) findViewById(R.id.logout_layout);
+		shareLayout = (RelativeLayout) findViewById(R.id.share_layout);
+		current_version_layout = (RelativeLayout) findViewById(R.id.current_version_layout);
+		clearCacheLayout = (RelativeLayout) findViewById(R.id.clear_cache_layout);
+		cacheSizeView = (TextView) findViewById(R.id.cache_size);
+		currentVersion = (TextView) findViewById(R.id.current_version);
 		currentVersion.setText(MyApplication.getInstance().getVersionName());
-
 		caculateCacheSize();
 	}
 
-	@SuppressLint("ResourceAsColor")
-	private void initMainHead(View view) {
-		mainHeadView = (MainHeadView) view
-				.findViewById(R.id.my_setting_head_layout);
-		mainHeadView.setHeadImage(mUserImageId);
+	private void initMainHeadView() {
+		mainHeadView = (MainHeadView) findViewById(R.id.my_setting_head_layout);
+		// mainHeadView.setHeadImage(mUserImageId);
 		mainHeadView.setBackListener(this);
 		mainHeadView.setRightTitleVisable(View.GONE);
 		mainHeadView
@@ -104,6 +93,17 @@ public class SettingFragment extends BaseFragment implements
 		current_version_layout.setOnClickListener(this);
 		shareLayout.setOnClickListener(this);
 		clearCacheLayout.setOnClickListener(this);
+	}
+
+	@Override
+	public void onCheckedChanged(CompoundButton arg0, boolean check) {
+		LogTool.d(TAG, "check:" + check);
+		sharedPrefer.setValue(Constant.ISOPEN, check);
+		if (check) {
+			PushManager.getInstance().turnOnPush(SettingActivity.this);
+		} else {
+			PushManager.getInstance().turnOffPush(SettingActivity.this);
+		}
 	}
 
 	@Override
@@ -131,7 +131,7 @@ public class SettingFragment extends BaseFragment implements
 			onClickCleanCache();
 			break;
 		case R.id.icon_head:
-			((MainActivity) getActivity()).getSlidingPaneLayout().openPane();
+
 			break;
 		case R.id.mespush_layout:
 			toggleButton.toggle();
@@ -143,7 +143,7 @@ public class SettingFragment extends BaseFragment implements
 
 	private void onClickExit() {
 		CommonDialog dialog = DialogHelper
-				.getPinterestDialogCancelable(getActivity());
+				.getPinterestDialogCancelable(SettingActivity.this);
 		dialog.setTitle("退出登录");
 		dialog.setMessage("确定退出登录吗？");
 		dialog.setPositiveButton(R.string.ok,
@@ -165,14 +165,14 @@ public class SettingFragment extends BaseFragment implements
 	private void caculateCacheSize() {
 		long fileSize = 0;
 		String cacheSize = "0KB";
-		File filesDir = getActivity().getFilesDir();
-		File cacheDir = getActivity().getCacheDir();
+		File filesDir = getFilesDir();
+		File cacheDir = getCacheDir();
 
 		fileSize += FileUtil.getDirSize(filesDir);
 		fileSize += FileUtil.getDirSize(cacheDir);
 		// 2.2版本才有将应用缓存转移到sd卡的功能
 		if (MyApplication.isMethodsCompat(android.os.Build.VERSION_CODES.FROYO)) {
-			File externalCacheDir = getActivity().getExternalCacheDir();
+			File externalCacheDir = getExternalCacheDir();
 			fileSize += FileUtil.getDirSize(externalCacheDir);
 		}
 		if (fileSize > 0)
@@ -185,7 +185,7 @@ public class SettingFragment extends BaseFragment implements
 	 */
 	private void onClickCleanCache() {
 		CommonDialog dialog = DialogHelper
-				.getPinterestDialogCancelable(getActivity());
+				.getPinterestDialogCancelable(SettingActivity.this);
 		dialog.setTitle("清空缓存？");
 		dialog.setMessage("确定清空缓存吗？");
 		dialog.setPositiveButton(R.string.ok,
@@ -219,20 +219,9 @@ public class SettingFragment extends BaseFragment implements
 		LogTool.d(TAG, "onDestroy()");
 	}
 
-	@Override
-	public void onCheckedChanged(CompoundButton arg0, boolean check) {
-		LogTool.d(TAG, "check:" + check);
-		sharedPrefer.setValue(Constant.ISOPEN, check);
-		if (check) {
-			PushManager.getInstance().turnOnPush(getActivity());
-		} else {
-			PushManager.getInstance().turnOffPush(getActivity());
-		}
-	}
-
 	// 检查版本
 	private void checkVersion() {
-		JianFanJiaApiClient.checkVersion(getActivity(),
+		JianFanJiaApiClient.checkVersion(SettingActivity.this,
 				new JsonHttpResponseHandler() {
 					@Override
 					public void onStart() {
@@ -268,7 +257,7 @@ public class SettingFragment extends BaseFragment implements
 
 	// 退出登录
 	private void logout() {
-		JianFanJiaApiClient.logout(getActivity(),
+		JianFanJiaApiClient.logout(SettingActivity.this,
 				new JsonHttpResponseHandler() {
 					@Override
 					public void onStart() {
@@ -284,16 +273,20 @@ public class SettingFragment extends BaseFragment implements
 								makeTextLong(response.get(Constant.SUCCESS_MSG)
 										.toString());
 								PushManager.getInstance().stopService(
-										getActivity());// 完全终止SDK的服务
-//								DataCleanManager.cleanSharedPafrenceByName(getActivity(), Constant.SHARED_MAIN);// 清理掉用户相关的sharepre
-								dataManager.sharedPrefer.setValue(Constant.PROCESSINFO_REFLECT, null);
-								dataManager.sharedPrefer.setValue(Constant.DESIGNER_PROCESS_LIST, null);
+										SettingActivity.this);// 完全终止SDK的服务
+								// DataCleanManager.cleanSharedPafrenceByName(getActivity(),
+								// Constant.SHARED_MAIN);// 清理掉用户相关的sharepre
+								// shared.remove()
+								dataManager.sharedPrefer.setValue(
+										Constant.PROCESSINFO_REFLECT, null);
+								dataManager.sharedPrefer.setValue(
+										Constant.DESIGNER_PROCESS_LIST, null);
 								Log.i(TAG, dataManager.getAccount());
 								dataManager.setLogin(false);
 								dataManager.cleanData();
-								MyApplication.getInstance().clearCookie();//清理掉cookie
+								MyApplication.getInstance().clearCookie();// 清理掉cookie
+								exit();
 								startActivity(LoginActivity.class);
-								getActivity().finish();
 							} else if (response.has(Constant.ERROR_MSG)) {
 								makeTextLong(response.get(Constant.ERROR_MSG)
 										.toString());
@@ -324,7 +317,24 @@ public class SettingFragment extends BaseFragment implements
 
 	@Override
 	public int getLayoutId() {
-		return R.layout.fragment_setting;
+		return R.layout.activity_setting;
+	}
+
+	@Override
+	public void processMessage(Message msg) {
+		Bundle bundle = msg.getData();
+		NotifyMessage message = (NotifyMessage) bundle
+				.getSerializable("Notify");
+		switch (msg.what) {
+		case Constant.SENDBACKNOTICATION:
+			sendNotifycation(message);
+			break;
+		case Constant.SENDNOTICATION:
+			showNotify(message);
+			break;
+		default:
+			break;
+		}
 	}
 
 }

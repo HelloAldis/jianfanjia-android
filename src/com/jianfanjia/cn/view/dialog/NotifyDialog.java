@@ -7,7 +7,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.bean.Message;
+import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.interf.DialogListener;
 
 /**
@@ -22,14 +22,14 @@ public class NotifyDialog extends Dialog implements
 		android.view.View.OnClickListener {
 	private DialogListener listener;
 	private int layoutId;
-	private Message message;
+	private NotifyMessage message;
 
 	public NotifyDialog(Context context) {
 		super(context);
 		// TODO Auto-generated constructor stub
 	}
 
-	public NotifyDialog(Context context, int layoutId, Message message,
+	public NotifyDialog(Context context, int layoutId, NotifyMessage message,
 			int theme) {
 		super(context, theme);
 		this.layoutId = layoutId;

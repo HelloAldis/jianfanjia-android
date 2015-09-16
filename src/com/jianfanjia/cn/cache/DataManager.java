@@ -26,6 +26,7 @@ import com.jianfanjia.cn.bean.ProcessReflect;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
+import com.jianfanjia.cn.interf.LoadDataListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.NetTool;
@@ -38,6 +39,7 @@ public class DataManager {
 	public static final String FAILURE = "failure";
 	private static DataManager instance;
 	private Context context;
+	private LoadDataListener listener;
 
 	private boolean isLogin;// 是否登录
 	public SharedPrefer sharedPrefer = null;
@@ -50,15 +52,17 @@ public class DataManager {
 	private OwnerInfo ownerInfo;// 业主的个人信息
 	private DesignerInfo designerInfo;// 设计师的个人信息
 
-	public static DataManager getInstance() {
+	public static DataManager getInstance(Context context,
+			LoadDataListener listener) {
 		if (instance == null) {
-			instance = new DataManager();
+			instance = new DataManager(context, listener);
 		}
 		return instance;
 	}
 
-	private DataManager() {
-		context = MyApplication.getInstance();
+	private DataManager(Context context, LoadDataListener listener) {
+		this.context = context;
+		this.listener = listener;
 		sharedPrefer = new SharedPrefer(context, Constant.SHARED_MAIN);
 	}
 
@@ -157,7 +161,7 @@ public class DataManager {
 		return myDesignerInfo;
 	}
 
-	public void getOwnerInfoById(String ownerId, final Handler handler) {
+	public void getOwnerInfoById(String ownerId) {
 		JianFanJiaApiClient.getOwnerInfoById(context, ownerId,
 				new JsonHttpResponseHandler() {
 					@Override
@@ -178,15 +182,15 @@ public class DataManager {
 									sharedPrefer.setValue(myOwnerInfo.get_id(),
 											myOwnerInfo);
 								}
-								handler.sendEmptyMessage(Constant.LOAD_SUCCESS);
+								listener.loadSuccess();
 							} else if (response.has(Constant.ERROR_MSG)) {
-								handler.sendEmptyMessage(Constant.LOAD_FAILURE);
+								listener.loadFailture();
 								MyApplication.getInstance().makeTextLong(
 										response.get(Constant.ERROR_MSG)
 												.toString());
 							}
 						} catch (JSONException e) {
-							handler.sendEmptyMessage(Constant.LOAD_FAILURE);
+							listener.loadFailture();
 							e.printStackTrace();
 							MyApplication.getInstance().makeTextLong(
 									context.getString(R.string.load_failure));
@@ -198,7 +202,7 @@ public class DataManager {
 							Throwable throwable, JSONObject errorResponse) {
 						LogTool.d(TAG,
 								"Throwable throwable:" + throwable.toString());
-						handler.sendEmptyMessage(Constant.LOAD_FAILURE);
+						listener.loadFailture();
 						MyApplication.getInstance().makeTextLong(
 								context.getString(R.string.tip_no_internet));
 					}
@@ -207,14 +211,14 @@ public class DataManager {
 					public void onFailure(int statusCode, Header[] headers,
 							String responseString, Throwable throwable) {
 						LogTool.d(TAG, "throwable:" + throwable);
-						handler.sendEmptyMessage(Constant.LOAD_FAILURE);
+						listener.loadFailture();
 						MyApplication.getInstance().makeTextLong(
 								context.getString(R.string.tip_no_internet));
 					};
 				});
 	}
 
-	public void getDesignerInfoById(String designerId, final Handler handler) {
+	public void getDesignerInfoById(String designerId) {
 		JianFanJiaApiClient.getDesignerInfoById(context, designerId,
 				new JsonHttpResponseHandler() {
 					@Override
@@ -237,15 +241,15 @@ public class DataManager {
 											myDesignerInfo.get_id(),
 											myDesignerInfo);
 								}
-								handler.sendEmptyMessage(Constant.LOAD_SUCCESS);
+								listener.loadSuccess();
 							} else if (response.has(Constant.ERROR_MSG)) {
-								handler.sendEmptyMessage(Constant.LOAD_FAILURE);
+								listener.loadFailture();
 								MyApplication.getInstance().makeTextLong(
 										response.get(Constant.ERROR_MSG)
 												.toString());
 							}
 						} catch (JSONException e) {
-							handler.sendEmptyMessage(Constant.LOAD_FAILURE);
+							listener.loadFailture();
 							e.printStackTrace();
 							MyApplication.getInstance().makeTextLong(
 									context.getString(R.string.load_failure));
@@ -257,8 +261,7 @@ public class DataManager {
 							Throwable throwable, JSONObject errorResponse) {
 						LogTool.d(TAG,
 								"Throwable throwable:" + throwable.toString());
-						handler.sendEmptyMessage(Constant.LOAD_FAILURE);
-
+						listener.loadFailture();
 						MyApplication.getInstance().makeTextLong(
 								context.getString(R.string.tip_no_internet));
 					}
@@ -267,8 +270,7 @@ public class DataManager {
 					public void onFailure(int statusCode, Header[] headers,
 							String responseString, Throwable throwable) {
 						LogTool.d(TAG, "throwable:" + throwable);
-						handler.sendEmptyMessage(Constant.LOAD_FAILURE);
-
+						listener.loadFailture();
 						MyApplication.getInstance().makeTextLong(
 								context.getString(R.string.tip_no_internet));
 					};
@@ -332,7 +334,7 @@ public class DataManager {
 		return null;
 	}
 
-	public void requestProcessInfoById(String processId, final Handler handler) {
+	public void requestProcessInfoById(String processId) {
 		JianFanJiaApiClient.get_ProcessInfo_By_Id(context, processId,
 				new JsonHttpResponseHandler() {
 					@Override
@@ -357,17 +359,17 @@ public class DataManager {
 									processInfos.put(processInfo.get_id(),
 											processInfo);// 保存工地流程在内存中
 								}
-								handler.sendEmptyMessage(Constant.LOAD_SUCCESS);
+								listener.loadSuccess();
 							} else if (response.has(Constant.ERROR_MSG)) {
 								// 通知页面刷新
-								handler.sendEmptyMessage(Constant.LOAD_FAILURE);
+								listener.loadFailture();
 								MyApplication.getInstance().makeTextLong(
 										response.get(Constant.ERROR_MSG)
 												.toString());
 							}
 						} catch (JSONException e) {
 							// 通知页面刷新
-							handler.sendEmptyMessage(Constant.LOAD_FAILURE);
+							listener.loadFailture();
 							e.printStackTrace();
 							MyApplication.getInstance().makeTextLong(
 									context.getString(R.string.load_failure));
@@ -380,7 +382,7 @@ public class DataManager {
 						LogTool.d(TAG,
 								"Throwable throwable:" + throwable.toString());
 						// 通知页面刷新
-						handler.sendEmptyMessage(Constant.LOAD_FAILURE);
+						listener.loadFailture();
 						MyApplication.getInstance().makeTextLong(
 								context.getString(R.string.tip_no_internet));
 					}
@@ -390,7 +392,7 @@ public class DataManager {
 							String responseString, Throwable throwable) {
 						LogTool.d(TAG, "throwable:" + throwable);
 						// 通知页面刷新
-						handler.sendEmptyMessage(Constant.LOAD_FAILURE);
+						listener.loadFailture();
 						MyApplication.getInstance().makeTextLong(
 								context.getString(R.string.tip_no_internet));
 					}
@@ -400,7 +402,7 @@ public class DataManager {
 	/**
 	 * 加载工地列表
 	 */
-	public void requestProcessList(final Handler handler) {
+	public void requestProcessList() {
 		JianFanJiaApiClient.get_Designer_Process_List(context,
 				new JsonHttpResponseHandler() {
 					@Override
@@ -450,22 +452,22 @@ public class DataManager {
 									if (processReflects.size() > 0) {
 										requestProcessInfoById(processReflects
 												.get(getDefaultPro())
-												.getProcessId(), handler);
+												.getProcessId());
 									} else {
-										handler.sendEmptyMessage(Constant.LOAD_SUCCESS);
+										listener.loadSuccess();
 									}
 								}
 								// 保存工地流程
 							} else if (response.has(Constant.ERROR_MSG)) {
 								// 通知页面刷新
-								handler.sendEmptyMessage(Constant.LOAD_FAILURE);
+								listener.loadFailture();
 								MyApplication.getInstance().makeTextLong(
 										response.get(Constant.ERROR_MSG)
 												.toString());
 							}
 						} catch (JSONException e) {
 							// 通知页面刷新
-							handler.sendEmptyMessage(Constant.LOAD_FAILURE);
+							listener.loadFailture();
 							e.printStackTrace();
 							MyApplication.getInstance().makeTextLong(
 									context.getString(R.string.load_failure));
@@ -478,7 +480,7 @@ public class DataManager {
 						LogTool.d(TAG,
 								"Throwable throwable:" + throwable.toString());
 						// 通知页面刷新
-						handler.sendEmptyMessage(Constant.LOAD_FAILURE);
+						listener.loadFailture();
 						MyApplication.getInstance().makeTextLong(
 								context.getString(R.string.tip_no_internet));
 					}
@@ -488,7 +490,7 @@ public class DataManager {
 							String responseString, Throwable throwable) {
 						LogTool.d(TAG, "throwable:" + throwable);
 						// 通知页面刷新
-						handler.sendEmptyMessage(Constant.LOAD_FAILURE);
+						listener.loadFailture();
 						MyApplication.getInstance().makeTextLong(
 								context.getString(R.string.tip_no_internet));
 					}
@@ -521,17 +523,16 @@ public class DataManager {
 								LogTool.d(TAG, "loginUserBean:" + loginUserBean);
 								saveLoginUserInfo(loginUserBean);
 								setLogin(true);
-								handler.sendEmptyMessage(Constant.LOAD_SUCCESS);
+								listener.loadSuccess();
 							} else if (response.has(Constant.ERROR_MSG)) {
-								handler.sendEmptyMessage(Constant.LOAD_FAILURE);
+								listener.loadFailture();
 								MyApplication.getInstance().makeTextLong(
 										response.get(Constant.ERROR_MSG)
 												.toString());
 							}
 						} catch (JSONException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
-							handler.sendEmptyMessage(Constant.LOAD_FAILURE);
+							listener.loadFailture();
 							MyApplication.getInstance().makeTextLong(
 									context.getString(R.string.load_failure));
 						}
@@ -542,7 +543,7 @@ public class DataManager {
 							Throwable throwable, JSONObject errorResponse) {
 						LogTool.d(TAG,
 								"Throwable throwable:" + throwable.toString());
-						handler.sendEmptyMessage(Constant.LOAD_FAILURE);
+						listener.loadFailture();
 						MyApplication.getInstance().makeTextLong(
 								context.getString(R.string.tip_no_internet));
 					}
@@ -551,7 +552,7 @@ public class DataManager {
 					public void onFailure(int statusCode, Header[] headers,
 							String responseString, Throwable throwable) {
 						LogTool.d(TAG, "throwable:" + throwable);
-						handler.sendEmptyMessage(Constant.LOAD_FAILURE);
+						listener.loadFailture();
 						MyApplication.getInstance().makeTextLong(
 								context.getString(R.string.tip_no_internet));
 					};

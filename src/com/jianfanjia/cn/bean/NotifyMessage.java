@@ -4,13 +4,13 @@ import java.io.Serializable;
 
 /**
  * 
- * @ClassName: Message
+ * @ClassName: NotifyMessage
  * @Description: 推送消息
  * @author fengliang
  * @date 2015-9-2 上午9:58:19
  * 
  */
-public class Message implements Serializable {
+public class NotifyMessage implements Serializable {
 	private static final long serialVersionUID = -1386644478824610283L;
 	private String type;
 	private String content;

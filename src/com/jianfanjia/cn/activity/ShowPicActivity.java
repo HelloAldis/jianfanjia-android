@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
@@ -96,6 +97,11 @@ public class ShowPicActivity extends BaseActivity implements
 	public void onPageSelected(int arg0) {
 		currentPosition = arg0;
 		setTipText();
+	}
+
+	@Override
+	public void processMessage(Message msg) {
+		
 	}
 	
 }

@@ -1,5 +1,6 @@
 package com.jianfanjia.cn.base;
 
+import java.util.LinkedList;
 import org.apache.http.Header;
 import org.json.JSONObject;
 import android.app.Notification;
@@ -13,6 +14,7 @@ import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.NotificationCompat;
@@ -22,9 +24,9 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Toast;
 import com.jianfanjia.cn.AppConfig;
-import com.jianfanjia.cn.activity.MainActivity;
+import com.jianfanjia.cn.activity.NotifyActivity;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.bean.Message;
+import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.config.Constant;
@@ -32,9 +34,9 @@ import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.inter.manager.ListenerManeger;
 import com.jianfanjia.cn.interf.DialogListener;
+import com.jianfanjia.cn.interf.LoadDataListener;
 import com.jianfanjia.cn.interf.NetStateListener;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
-import com.jianfanjia.cn.interf.PushMsgReceiveListener;
 import com.jianfanjia.cn.receiver.NetStateReceiver;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.SharedPrefer;
@@ -57,8 +59,9 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  * 
  */
 public abstract class BaseActivity extends FragmentActivity implements
-		DialogControl, PushMsgReceiveListener, NetStateListener,
-		PopWindowCallBack {
+		DialogControl, NetStateListener, PopWindowCallBack, LoadDataListener {
+	// Activity的集合，将开启的Activity记录于此，退出程序时，逐个关闭Activity
+	protected static LinkedList<BaseActivity> queue = new LinkedList<BaseActivity>();
 	protected LayoutInflater inflater = null;
 	protected FragmentManager fragmentManager = null;
 	protected NotificationManager nManager = null;
@@ -77,28 +80,33 @@ public abstract class BaseActivity extends FragmentActivity implements
 	protected ProcessInfo processInfo = null;
 	protected AppConfig appConfig;
 
-	protected Handler handler = new Handler() {
-		public void handleMessage(android.os.Message msg) {
+	protected boolean isOpen = false;
+
+	public static Handler handler = new Handler() {
+
+		public void handleMessage(Message msg) {
 			switch (msg.what) {
-			case Constant.LOAD_SUCCESS:
-				onLoadSuccess();
-				break;
-			case Constant.LOAD_FAILURE:
-				onLoadFailure();
-				break;
+			// case Constant.LOAD_SUCCESS:
+			// onLoadSuccess();
+			// break;
+			// case Constant.LOAD_FAILURE:
+			// onLoadFailure();
+			// break;
 			default:
+				if (!queue.isEmpty()) {
+					queue.getLast().processMessage(msg);
+				}
 				break;
 			}
-
 		};
 	};
 
-	protected void onLoadSuccess() {
-		hideWaitDialog();
+	public static void sendMessage(Message msg) {
+		handler.sendMessage(msg);
 	}
 
-	protected void onLoadFailure() {
-		hideWaitDialog();
+	public static void sendEmptyMessage(int what) {
+		handler.sendEmptyMessage(what);
 	}
 
 	@Override
@@ -112,6 +120,11 @@ public abstract class BaseActivity extends FragmentActivity implements
 		initParams();
 		initView();
 		setListener();
+		if (!queue.contains(this)) {
+			queue.add(this);
+		}
+		LogTool.d(this.getClass().getName(),
+				"Current Activity number=" + queue.size());
 	}
 
 	public abstract int getLayoutId();
@@ -120,10 +133,12 @@ public abstract class BaseActivity extends FragmentActivity implements
 
 	public abstract void setListener();
 
+	public abstract void processMessage(Message msg);
+
 	private void init() {
 		inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		nManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-		dataManager = DataManager.getInstance();
+		dataManager = DataManager.getInstance(this, this);
 		sharedPrefer = dataManager.sharedPrefer;
 		appConfig = AppConfig.getInstance(this);
 		fragmentManager = this.getSupportFragmentManager();
@@ -150,9 +165,13 @@ public abstract class BaseActivity extends FragmentActivity implements
 	}
 
 	@Override
-	public void onReceiveMsg(Message message) {
-		// TODO Auto-generated method stub
+	public void loadSuccess() {
+		hideWaitDialog();
+	}
 
+	@Override
+	public void loadFailture() {
+		hideWaitDialog();
 	}
 
 	@Override
@@ -171,14 +190,19 @@ public abstract class BaseActivity extends FragmentActivity implements
 	protected void onStart() {
 		super.onStart();
 		LogTool.d(this.getClass().getName(), "onStart()");
-		listenerManeger.addPushMsgReceiveListener(this);
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
 		LogTool.d(this.getClass().getName(), "onResume()");
+		isOpen = sharedPrefer.getValue(Constant.ISOPEN, false);
 		Global.isAppBack = false;
+		if (queue.contains(this)) {
+			queue.remove(this);
+			queue.add(this);
+		}
+		LogTool.d(this.getClass().getName(), "Base  onResume() queue:" + queue);
 		registerNetReceiver();
 	}
 
@@ -198,8 +222,30 @@ public abstract class BaseActivity extends FragmentActivity implements
 	protected void onDestroy() {
 		super.onDestroy();
 		LogTool.d(this.getClass().getName(), "onDestroy()");
-		listenerManeger.removePushMsgReceiveListener(this);
 		unregisterNetReceiver();
+	}
+
+	public static BaseActivity getActivity(int index) {
+		if (index < 0 || index >= queue.size())
+			throw new IllegalArgumentException("out of queue");
+		return queue.get(index);
+	}
+
+	public static BaseActivity getCurrentActivity() {
+		return queue.getLast();
+	}
+
+	@Override
+	public void finish() {
+		super.finish();
+		if (!queue.isEmpty()) {
+			queue.removeLast();
+		}
+	}
+
+	public static void exit() {// 销毁Activity
+		while (queue.size() > 0)
+			queue.getLast().finish();
 	}
 
 	protected void makeTextShort(String text) {
@@ -296,32 +342,6 @@ public abstract class BaseActivity extends FragmentActivity implements
 		}
 	}
 
-	/**
-	 * 消息提醒
-	 * 
-	 * @param message
-	 */
-	protected void showNotify(Message message) {
-		final NotifyDialog notifyDialog = new NotifyDialog(this,
-				R.layout.notify_dialog, message, R.style.progress_dialog);
-		notifyDialog.setListener(new DialogListener() {
-
-			@Override
-			public void onPositiveButtonClick() {
-				notifyDialog.dismiss();
-				// agreeReschedule(processInfo.get_id());
-			}
-
-			@Override
-			public void onNegativeButtonClick() {
-				notifyDialog.dismiss();
-				// refuseReschedule(processInfo.get_id());
-			}
-
-		});
-		notifyDialog.show();
-	}
-
 	// 用户同意改期
 	private void agreeReschedule(String processid) {
 		JianFanJiaApiClient.agreeReschedule(this, processid,
@@ -401,29 +421,55 @@ public abstract class BaseActivity extends FragmentActivity implements
 	}
 
 	/**
+	 * 消息提醒
+	 * 
+	 * @param message
+	 */
+	protected void showNotify(NotifyMessage message) {
+		final NotifyDialog notifyDialog = new NotifyDialog(this,
+				R.layout.notify_dialog, message, R.style.progress_dialog);
+		notifyDialog.setListener(new DialogListener() {
+
+			@Override
+			public void onPositiveButtonClick() {
+				notifyDialog.dismiss();
+				// agreeReschedule(processInfo.get_id());
+			}
+
+			@Override
+			public void onNegativeButtonClick() {
+				notifyDialog.dismiss();
+				// refuseReschedule(processInfo.get_id());
+			}
+
+		});
+		notifyDialog.show();
+	}
+
+	/**
 	 * Notification
 	 * 
 	 * @param message
 	 */
-	protected void sendNotifycation(Message message) {
+	protected void sendNotifycation(NotifyMessage message) {
 		NotificationCompat.Builder builder = new NotificationCompat.Builder(
 				this);
 		builder.setSmallIcon(R.drawable.ic_launcher);
 		String type = message.getType();
-		if (type.equals("0")) {
-			builder.setTicker("延期提醒");
-			builder.setContentTitle("延期提醒");
-		} else if (type.equals("1")) {
+		if (type.equals(Constant.CAIGOU_NOTIFY)) {
 			builder.setTicker("采购提醒");
 			builder.setContentTitle("采购提醒");
-		} else if (type.equals("2")) {
+		} else if (type.equals(Constant.FUKUAN_NOTIFY)) {
 			builder.setTicker("付款提醒");
 			builder.setContentTitle("付款提醒");
+		} else if (type.equals(Constant.YANQI_NOTIFY)) {
+			builder.setTicker("延期提醒");
+			builder.setContentTitle("延期提醒");
 		}
 		builder.setContentText(message.getContent());
 		builder.setNumber(0);
 		builder.setAutoCancel(true);
-		Intent intent = new Intent(this, MainActivity.class);
+		Intent intent = new Intent(this, NotifyActivity.class);
 		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
 				| Intent.FLAG_ACTIVITY_NEW_TASK);
 		PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,

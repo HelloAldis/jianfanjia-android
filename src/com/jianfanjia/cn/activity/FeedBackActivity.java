@@ -3,6 +3,8 @@ package com.jianfanjia.cn.activity;
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
+import android.os.Bundle;
+import android.os.Message;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -12,7 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.bean.Message;
+import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.tools.LogTool;
@@ -130,14 +132,24 @@ public class FeedBackActivity extends BaseActivity implements OnClickListener {
 	};
 
 	@Override
-	public void onReceiveMsg(Message message) {
-		LogTool.d(TAG, "message=" + message);
-		showNotify(message);
-	}
-
-	@Override
 	public int getLayoutId() {
 		return R.layout.activity_feedback;
 	}
 
+	@Override
+	public void processMessage(Message msg) {
+		Bundle bundle = msg.getData();
+		NotifyMessage message = (NotifyMessage) bundle
+				.getSerializable("Notify");
+		switch (msg.what) {
+		case Constant.SENDBACKNOTICATION:
+			sendNotifycation(message);
+			break;
+		case Constant.SENDNOTICATION:
+			showNotify(message);
+			break;
+		default:
+			break;
+		}
+	}
 }

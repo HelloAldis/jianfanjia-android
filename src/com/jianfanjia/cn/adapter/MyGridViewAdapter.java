@@ -54,4 +54,16 @@ public class MyGridViewAdapter extends BaseListAdapter<GridItem> {
 		public ImageView img = null;
 		public TextView name_tv = null;
 	}
+
+	@Override
+	public void loadSuccess() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void loadFailture() {
+		// TODO Auto-generated method stub
+
+	}
 }

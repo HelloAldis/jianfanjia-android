@@ -42,4 +42,16 @@ public class SiteGridViewAdapter extends BaseListAdapter<String> {
 		public ImageView img = null;
 		public TextView name_tv = null;
 	}
+
+	@Override
+	public void loadSuccess() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void loadFailture() {
+		// TODO Auto-generated method stub
+
+	}
 }

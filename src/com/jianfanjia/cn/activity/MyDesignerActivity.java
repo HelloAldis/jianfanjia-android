@@ -1,17 +1,15 @@
-package com.jianfanjia.cn.fragment;
+package com.jianfanjia.cn.activity;
 
-import java.util.Observable;
-import java.util.Observer;
 import android.os.Bundle;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.jianfanjia.cn.activity.MainActivity;
-import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.base.BaseFragment;
+import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.MyDesignerInfo;
-import com.jianfanjia.cn.cache.DataManager;
+import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url;
 import com.jianfanjia.cn.layout.CircleImageView;
@@ -20,14 +18,14 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
  * 
- * @ClassName: DesignerFragment
- * @Description:设计师
+ * @ClassName: MyDesignerActivity
+ * @Description: 我的设计师
  * @author fengliang
- * @date 2015-8-26 下午3:41:31
+ * @date 2015-9-11 上午9:56:20
  * 
  */
-public class DesignerFragment extends BaseFragment{
-	protected static final String TAG = "DesignerFragment";
+public class MyDesignerActivity extends BaseActivity implements OnClickListener {
+	private static final String TAG = MyDesignerActivity.class.getName();
 	private ImageView bgView;// 设计师背景
 	private CircleImageView headView;//
 	private TextView nameView;// 姓名
@@ -43,54 +41,36 @@ public class DesignerFragment extends BaseFragment{
 	private MainHeadView mainHeadView;
 
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-	}
+	public void initView() {
+		initMainHead();
+		bgView = (ImageView) findViewById(R.id.designer_bg);
+		headView = (CircleImageView) findViewById(R.id.my_designer_head_icon);
+		nameView = (TextView) findViewById(R.id.my_designer_name);
+		sexView = (ImageView) findViewById(R.id.my_designer_sex_icon);
+		authView = (ImageView) findViewById(R.id.my_designer_verify);
+		productSumView = (TextView) findViewById(R.id.my_designer_product_sum);
+		appointmentSum = (TextView) findViewById(R.id.my_designer_appointment_sum);
+		cityView = (TextView) findViewById(R.id.my_designer_city);
+		goodAtView = (TextView) findViewById(R.id.my_designer_style);
+		budgetView = (TextView) findViewById(R.id.my_designer_budget);
 
-	@Override
-	public void initView(View view) {
-		initMainHead(view);
-		bgView = (ImageView) view.findViewById(R.id.designer_bg);
-		headView = (CircleImageView) view
-				.findViewById(R.id.my_designer_head_icon);
-		nameView = (TextView) view.findViewById(R.id.my_designer_name);
-		sexView = (ImageView) view.findViewById(R.id.my_designer_sex_icon);
-		authView = (ImageView) view.findViewById(R.id.my_designer_verify);
-		productSumView = (TextView) view
-				.findViewById(R.id.my_designer_product_sum);
-		appointmentSum = (TextView) view
-				.findViewById(R.id.my_designer_appointment_sum);
-		cityView = (TextView) view.findViewById(R.id.my_designer_city);
-		goodAtView = (TextView) view.findViewById(R.id.my_designer_style);
-		budgetView = (TextView) view.findViewById(R.id.my_designer_budget);
-
-		String designerId = DataManager.getInstance().getDefaultDesignerId();
-		designerInfo = DataManager.getInstance().getDesignerInfo(designerId);
+		String designerId = dataManager.getDefaultDesignerId();
+		designerInfo = dataManager.getDesignerInfo(designerId);
 		if (designerInfo != null) {
 			setData();
-		}else{
-			if(designerId != null){
-				dataManager.getDesignerInfoById(designerId, handler);
-			}else{
-				//loadempty
+		} else {
+			if (designerId != null) {
+				dataManager.getDesignerInfoById(designerId);
+			} else {
+				// loadempty
 			}
 		}
 	}
-	
-	@Override
-	public void onLoadSuccess() {
-		// TODO Auto-generated method stub
-		super.onLoadSuccess();
-		designerInfo = DataManager.getInstance().getDesignerInfo(
-				DataManager.getInstance().getDefaultDesignerId());
-		setData();
-	}
 
-	private void initMainHead(View view) {
-		mainHeadView = (MainHeadView) view
-				.findViewById(R.id.my_designer_head_layout);
-		mainHeadView.setHeadImage(mUserImageId);
-		mainHeadView.setBackListener(this);
+	private void initMainHead() {
+		mainHeadView = (MainHeadView) findViewById(R.id.my_designer_head_layout);
+		// mainHeadView.setHeadImage(mUserImageId);
+		// mainHeadView.setBackListener(this);
 		mainHeadView.setRightTitleVisable(View.GONE);
 		mainHeadView.setMianTitle(getResources()
 				.getString(R.string.my_designer));
@@ -98,6 +78,31 @@ public class DesignerFragment extends BaseFragment{
 		mainHeadView.setMainTextColor(getResources().getColor(
 				R.color.font_white));
 		mainHeadView.setDividerVisable(View.GONE);
+	}
+
+	@Override
+	public void loadSuccess() {
+		super.loadSuccess();
+		designerInfo = dataManager.getDesignerInfo(dataManager
+				.getDefaultDesignerId());
+		setData();
+	}
+
+	@Override
+	public void loadFailture() {
+		super.loadFailture();
+	}
+
+	@Override
+	public void setListener() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+
 	}
 
 	private void setData() {
@@ -126,7 +131,7 @@ public class DesignerFragment extends BaseFragment{
 			}
 			String dec_style = decBuffer.toString();
 			goodAtView
-					.setText(dec_style.subSequence(0, dec_style.length() - 1));
+					.setText(dec_style.subSequence(0, dec_style.length() - 2));
 
 			if (designerInfo.getBig_imageid() != null) {
 				Log.i(TAG, Url.GET_IMAGE + designerInfo.getBig_imageid());
@@ -138,7 +143,8 @@ public class DesignerFragment extends BaseFragment{
 			if (designerInfo.getImageid() != null) {
 				Log.i(TAG, Url.GET_IMAGE + designerInfo.getImageid());
 				ImageLoader.getInstance().displayImage(
-						Url.GET_IMAGE + designerInfo.getImageid(), headView);
+						Url.GET_IMAGE + designerInfo.getImageid(), headView,
+						options);
 			} else {
 				headView.setImageResource(R.drawable.icon_sidebar_default_designer);
 			}
@@ -146,24 +152,25 @@ public class DesignerFragment extends BaseFragment{
 	}
 
 	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.icon_head:
-			((MainActivity) getActivity()).getSlidingPaneLayout().openPane();
+	public int getLayoutId() {
+		return R.layout.activity_my_designer;
+	}
+
+	@Override
+	public void processMessage(Message msg) {
+		Bundle bundle = msg.getData();
+		NotifyMessage message = (NotifyMessage) bundle
+				.getSerializable("Notify");
+		switch (msg.what) {
+		case Constant.SENDBACKNOTICATION:
+			sendNotifycation(message);
+			break;
+		case Constant.SENDNOTICATION:
+			showNotify(message);
 			break;
 		default:
 			break;
 		}
-	}
-
-	@Override
-	public void setListener() {
-
-	}
-
-	@Override
-	public int getLayoutId() {
-		return R.layout.fragment_my_designer;
 	}
 
 }

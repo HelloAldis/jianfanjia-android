@@ -3,12 +3,12 @@ package com.jianfanjia.cn.activity;
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
@@ -20,13 +20,10 @@ import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.DesignerInfo;
 import com.jianfanjia.cn.bean.DesignerUpdateInfo;
-import com.jianfanjia.cn.bean.Message;
-import com.jianfanjia.cn.bean.MyDesignerInfo;
+import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
@@ -87,7 +84,7 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 				.findViewById(R.id.address_layout);
 		sexLayout = (RelativeLayout) this.findViewById(R.id.sex_layout);
 
-		// designerInfo = dataManager.getDesignerInfo();
+//		 designerInfo = dataManager.getDesignerInfo();
 		if (designerInfo == null) {
 			get_Designer_Info();
 		} else {
@@ -416,14 +413,25 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 	}
 
 	@Override
-	public void onReceiveMsg(Message message) {
-		LogTool.d(TAG, "message=" + message);
-		showNotify(message);
+	public int getLayoutId() {
+		return R.layout.activity_designer_info;
 	}
 
 	@Override
-	public int getLayoutId() {
-		return R.layout.activity_designer_info;
+	public void processMessage(Message msg) {
+		Bundle bundle = msg.getData();
+		NotifyMessage message = (NotifyMessage) bundle
+				.getSerializable("Notify");
+		switch (msg.what) {
+		case Constant.SENDBACKNOTICATION:
+			sendNotifycation(message);
+			break;
+		case Constant.SENDNOTICATION:
+			showNotify(message);
+			break;
+		default:
+			break;
+		}
 	}
 
 }

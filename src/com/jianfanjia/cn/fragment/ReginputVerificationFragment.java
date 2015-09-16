@@ -1,41 +1,28 @@
 package com.jianfanjia.cn.fragment;
 
-import java.util.Calendar;
-
 import org.apache.http.Header;
-import org.apache.http.client.CookieStore;
-import org.apache.http.client.protocol.ClientContext;
-import org.apache.http.cookie.Cookie;
-import org.apache.http.protocol.HttpContext;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.app.Activity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.LoginUserBean;
 import com.jianfanjia.cn.bean.RegisterInfo;
-import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.http.HttpRestClient;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.interf.FragmentListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.NetTool;
-import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.PersistentCookieStore;
 
 /**
  * @version 1.0
@@ -138,8 +125,7 @@ public class ReginputVerificationFragment extends BaseFragment {
 										.jsonToBean(response.get(Constant.DATA)
 												.toString(),
 												LoginUserBean.class);
-								DataManager.getInstance().saveLoginUserInfo(
-										loginUserBean);
+								dataManager.saveLoginUserInfo(loginUserBean);
 								dataManager.setLogin(true);
 								startActivity(MainActivity.class);
 								getActivity().finish();

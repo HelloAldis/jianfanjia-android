@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
@@ -20,8 +21,7 @@ import android.widget.TextView;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.bean.Message;
-import com.jianfanjia.cn.bean.MyOwnerInfo;
+import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.bean.OwnerUpdateInfo;
 import com.jianfanjia.cn.config.Constant;
@@ -63,7 +63,6 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 	private RelativeLayout userNameRelativeLayout = null;
 	private RelativeLayout homeRelativeLayout = null;
 	private RelativeLayout sexRelativeLayout = null;
-
 	private String sex;
 
 	private OwnerInfo ownerInfo;
@@ -461,14 +460,25 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 	}
 
 	@Override
-	public void onReceiveMsg(Message message) {
-		LogTool.d(TAG, "message=" + message);
-		showNotify(message);
+	public int getLayoutId() {
+		return R.layout.activity_owner_info;
 	}
 
 	@Override
-	public int getLayoutId() {
-		return R.layout.activity_owner_info;
+	public void processMessage(Message msg) {
+		Bundle bundle = msg.getData();
+		NotifyMessage message = (NotifyMessage) bundle
+				.getSerializable("Notify");
+		switch (msg.what) {
+		case Constant.SENDBACKNOTICATION:
+			sendNotifycation(message);
+			break;
+		case Constant.SENDNOTICATION:
+			showNotify(message);
+			break;
+		default:
+			break;
+		}
 	}
 
 }
