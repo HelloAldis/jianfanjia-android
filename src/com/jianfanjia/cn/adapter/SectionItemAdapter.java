@@ -28,7 +28,7 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 	private SiteGridViewAdapter siteGridViewAdapter;
 	private List<GridItem> gridItem = new ArrayList<GridItem>();
 	private String userType;
-	private int section_status;//节点的状态
+	private int section_status;// 节点的状态
 
 	public SectionItemAdapter(Context context,
 			List<SectionItemInfo> sectionItemInfos) {
@@ -174,23 +174,23 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 		// 未开工的点击无法展开
 		// if (Integer.parseInt(sectionItemInfo.getStatus()) !=
 		// Constant.NOT_START && position == lastClickItem) {
-//		if(section_status != Constant.NOT_START){
-			if (position == lastClickItem) {
-				if (isPos) {
-					viewHolder.bigOpenLayout.setVisibility(View.GONE);
-					viewHolder.smallcloseLayout.setVisibility(View.VISIBLE);
-				} else {
-					viewHolder.bigOpenLayout.setVisibility(View.VISIBLE);
-					viewHolder.smallcloseLayout.setVisibility(View.GONE);
-				}
-			} else {
+		// if(section_status != Constant.NOT_START){
+		if (position == lastClickItem) {
+			if (isPos) {
 				viewHolder.bigOpenLayout.setVisibility(View.GONE);
 				viewHolder.smallcloseLayout.setVisibility(View.VISIBLE);
+			} else {
+				viewHolder.bigOpenLayout.setVisibility(View.VISIBLE);
+				viewHolder.smallcloseLayout.setVisibility(View.GONE);
 			}
-//		}else{
-//			viewHolder.bigOpenLayout.setVisibility(View.GONE);
-//			viewHolder.smallcloseLayout.setVisibility(View.VISIBLE);
-//		}
+		} else {
+			viewHolder.bigOpenLayout.setVisibility(View.GONE);
+			viewHolder.smallcloseLayout.setVisibility(View.VISIBLE);
+		}
+		// }else{
+		// viewHolder.bigOpenLayout.setVisibility(View.GONE);
+		// viewHolder.smallcloseLayout.setVisibility(View.VISIBLE);
+		// }
 		// 设置上传照片
 		setImageData(imageUrlList, viewHolder.gridView);
 
