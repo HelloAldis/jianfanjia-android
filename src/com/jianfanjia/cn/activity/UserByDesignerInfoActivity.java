@@ -8,14 +8,12 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Message;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.RelativeLayout;
@@ -23,7 +21,6 @@ import android.widget.TextView;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.DesignerInfo;
 import com.jianfanjia.cn.bean.DesignerUpdateInfo;
-import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
@@ -84,7 +81,7 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 				.findViewById(R.id.address_layout);
 		sexLayout = (RelativeLayout) this.findViewById(R.id.sex_layout);
 
-//		 designerInfo = dataManager.getDesignerInfo();
+		// designerInfo = dataManager.getDesignerInfo();
 		if (designerInfo == null) {
 			get_Designer_Info();
 		} else {
@@ -415,23 +412,6 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 	@Override
 	public int getLayoutId() {
 		return R.layout.activity_designer_info;
-	}
-
-	@Override
-	public void processMessage(Message msg) {
-		Bundle bundle = msg.getData();
-		NotifyMessage message = (NotifyMessage) bundle
-				.getSerializable("Notify");
-		switch (msg.what) {
-		case Constant.SENDBACKNOTICATION:
-			sendNotifycation(message);
-			break;
-		case Constant.SENDNOTICATION:
-			showNotify(message);
-			break;
-		default:
-			break;
-		}
 	}
 
 }

@@ -1,30 +1,22 @@
 package com.jianfanjia.cn.base;
 
-import java.util.LinkedList;
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
-import android.app.Notification;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.NotificationCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.widget.Toast;
 import com.jianfanjia.cn.AppConfig;
-import com.jianfanjia.cn.activity.NotifyActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.bean.ProcessInfo;
@@ -37,6 +29,7 @@ import com.jianfanjia.cn.interf.DialogListener;
 import com.jianfanjia.cn.interf.NetStateListener;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
 import com.jianfanjia.cn.receiver.NetStateReceiver;
+import com.jianfanjia.cn.tools.ActivityManager;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.SharedPrefer;
 import com.jianfanjia.cn.tools.UploadManager;
@@ -59,8 +52,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  */
 public abstract class BaseActivity extends FragmentActivity implements
 		DialogControl, NetStateListener, PopWindowCallBack {
-	// Activity的集合，将开启的Activity记录于此，退出程序时，逐个关闭Activity
-	protected static LinkedList<BaseActivity> queue = new LinkedList<BaseActivity>();
+	protected ActivityManager activityManager = null;
 	protected LayoutInflater inflater = null;
 	protected FragmentManager fragmentManager = null;
 	protected NotificationManager nManager = null;
@@ -71,7 +63,6 @@ public abstract class BaseActivity extends FragmentActivity implements
 	protected UploadManager uploadManager = null;
 	protected NetStateReceiver netStateReceiver = null;
 	protected AddPhotoPopWindow popupWindow = null;
-	protected static final int NotificationID = 1;
 	private boolean _isVisible;
 	private WaitDialog _waitDialog;
 	protected DataManager dataManager;
@@ -80,31 +71,6 @@ public abstract class BaseActivity extends FragmentActivity implements
 
 	protected String userIdentity = null;
 	protected boolean isOpen = false;
-
-	public static Handler handler = new Handler() {
-
-		public void handleMessage(Message msg) {
-			switch (msg.what) {
-			case Constant.EXCEPTION:
-				break;
-			case Constant.ERROR:
-				break;
-			default:
-				if (!queue.isEmpty()) {
-					queue.getLast().processMessage(msg);
-				}
-				break;
-			}
-		};
-	};
-
-	public static void sendMessage(Message msg) {
-		handler.sendMessage(msg);
-	}
-
-	public static void sendEmptyMessage(int what) {
-		handler.sendEmptyMessage(what);
-	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -117,11 +83,6 @@ public abstract class BaseActivity extends FragmentActivity implements
 		initParams();
 		initView();
 		setListener();
-		if (!queue.contains(this)) {
-			queue.add(this);
-		}
-		LogTool.d(this.getClass().getName(),
-				"Current Activity number=" + queue.size());
 	}
 
 	public abstract int getLayoutId();
@@ -130,9 +91,8 @@ public abstract class BaseActivity extends FragmentActivity implements
 
 	public abstract void setListener();
 
-	public abstract void processMessage(Message msg);
-
 	private void init() {
+		activityManager = ActivityManager.getInstance();
 		inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		nManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 		dataManager = DataManager.getInstance();
@@ -150,6 +110,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 		uploadManager = UploadManager.getUploadManager(this);
 		netStateReceiver = new NetStateReceiver(this);
 		_isVisible = true;
+		activityManager.addActivity(this);
 	}
 
 	private void initParams() {
@@ -161,16 +122,6 @@ public abstract class BaseActivity extends FragmentActivity implements
 	private void initDao() {
 
 	}
-
-	// @Override
-	// public void loadSuccess() {
-	// hideWaitDialog();
-	// }
-	//
-	// @Override
-	// public void loadFailture() {
-	// hideWaitDialog();
-	// }
 
 	@Override
 	public void onConnect() {
@@ -196,11 +147,6 @@ public abstract class BaseActivity extends FragmentActivity implements
 		LogTool.d(this.getClass().getName(), "onResume()");
 		isOpen = sharedPrefer.getValue(Constant.ISOPEN, false);
 		Global.isAppBack = false;
-		if (queue.contains(this)) {
-			queue.remove(this);
-			queue.add(this);
-		}
-		LogTool.d(this.getClass().getName(), "Base  onResume() queue:" + queue);
 		registerNetReceiver();
 	}
 
@@ -221,29 +167,6 @@ public abstract class BaseActivity extends FragmentActivity implements
 		super.onDestroy();
 		LogTool.d(this.getClass().getName(), "onDestroy()");
 		unregisterNetReceiver();
-	}
-
-	public static BaseActivity getActivity(int index) {
-		if (index < 0 || index >= queue.size())
-			throw new IllegalArgumentException("out of queue");
-		return queue.get(index);
-	}
-
-	public static BaseActivity getCurrentActivity() {
-		return queue.getLast();
-	}
-
-	@Override
-	public void finish() {
-		super.finish();
-		if (!queue.isEmpty()) {
-			queue.removeLast();
-		}
-	}
-
-	public static void exit() {// 销毁Activity
-		while (queue.size() > 0)
-			queue.getLast().finish();
 	}
 
 	protected void makeTextShort(String text) {
@@ -477,39 +400,4 @@ public abstract class BaseActivity extends FragmentActivity implements
 		notifyDialog.show();
 	}
 
-	/**
-	 * Notification
-	 * 
-	 * @param message
-	 */
-	protected void sendNotifycation(NotifyMessage message) {
-		NotificationCompat.Builder builder = new NotificationCompat.Builder(
-				this);
-		builder.setSmallIcon(R.drawable.ic_launcher);
-		String type = message.getType();
-		if (type.equals(Constant.CAIGOU_NOTIFY)) {
-			builder.setTicker("采购提醒");
-			builder.setContentTitle("采购提醒");
-		} else if (type.equals(Constant.FUKUAN_NOTIFY)) {
-			builder.setTicker("付款提醒");
-			builder.setContentTitle("付款提醒");
-		} else if (type.equals(Constant.YANQI_NOTIFY)) {
-			builder.setTicker("延期提醒");
-			builder.setContentTitle("延期提醒");
-		}
-		builder.setContentText(message.getContent());
-		builder.setNumber(0);
-		builder.setAutoCancel(true);
-		Intent intent = new Intent(this, NotifyActivity.class);
-		intent.putExtra("Type", type);
-		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-				| Intent.FLAG_ACTIVITY_NEW_TASK);
-		PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
-				intent, PendingIntent.FLAG_UPDATE_CURRENT);
-		builder.setContentIntent(pendingIntent);
-		Notification notification = builder.build();
-		notification.sound = Uri.parse("android.resource://" + getPackageName()
-				+ "/" + R.raw.message);
-		nManager.notify(NotificationID, notification);
-	}
 }

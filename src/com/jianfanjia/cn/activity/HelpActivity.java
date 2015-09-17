@@ -3,8 +3,6 @@ package com.jianfanjia.cn.activity;
 import java.util.ArrayList;
 import java.util.List;
 import android.graphics.Bitmap;
-import android.os.Bundle;
-import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
@@ -14,8 +12,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import com.jianfanjia.cn.adapter.ViewPageAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.bean.NotifyMessage;
-import com.jianfanjia.cn.config.Constant;
 
 /**
  * 
@@ -118,20 +114,4 @@ public class HelpActivity extends BaseActivity {
 		return R.layout.activity_help;
 	}
 
-	@Override
-	public void processMessage(Message msg) {
-		Bundle bundle = msg.getData();
-		NotifyMessage message = (NotifyMessage) bundle
-				.getSerializable("Notify");
-		switch (msg.what) {
-		case Constant.SENDBACKNOTICATION:
-			sendNotifycation(message);
-			break;
-		case Constant.SENDNOTICATION:
-			showNotify(message);
-			break;
-		default:
-			break;
-		}
-	}
 }

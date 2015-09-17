@@ -1,7 +1,6 @@
 package com.jianfanjia.cn.activity;
 
 import android.graphics.Rect;
-import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -162,12 +161,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener,
 	@Override
 	public int getLayoutId() {
 		return R.layout.activity_login;
-	}
-
-	@Override
-	public void processMessage(Message msg) {
-		// TODO Auto-generated method stub
-
 	}
 
 }

@@ -78,6 +78,8 @@ public class Constant {
 	public static final String ERROR_MSG = "err_msg";// 获取数据失败的返回信息
 	public static final String SUCCESS_MSG = "msg";// 获取数据成功的返回信息
 
+	public static final int NotificationID = 1;
+
 	// 提醒类型
 	public static final String CAIGOU_NOTIFY = "1";// 采购提醒
 	public static final String FUKUAN_NOTIFY = "2";// 付款提醒
@@ -112,14 +114,14 @@ public class Constant {
 
 	public static final String CURRENT_LIST = "current_list";// 首页展开的第一道工序
 	public static final String CURRENT_ITEM = "current_item";// 当前节点
-	public static final String CURRENT_POSITION = "current_position";//当前位置
+	public static final String CURRENT_POSITION = "current_position";// 当前位置
 	public static final String IMAGE_LIST = "image_list";
-	
-	public static final int LOAD_SUCCESS = 0;//数据加载成功
-	public static final int LOAD_FAILURE = 1;//数据加载失败
-	
-	public static final String COOKIES_CONFIG = "cookies_config";//cookies配置
-	public static final String LAST_LOGIN_TIME = "last_login_time";//上次登录时间
-	public static final long LOGIN_EXPIRE = 24 * 60 * 60 * 1000L;//登录过期时间为24小时
+
+	public static final int LOAD_SUCCESS = 0;// 数据加载成功
+	public static final int LOAD_FAILURE = 1;// 数据加载失败
+
+	public static final String COOKIES_CONFIG = "cookies_config";// cookies配置
+	public static final String LAST_LOGIN_TIME = "last_login_time";// 上次登录时间
+	public static final long LOGIN_EXPIRE = 24 * 60 * 60 * 1000L;// 登录过期时间为24小时
 
 }

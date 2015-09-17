@@ -1,7 +1,6 @@
 package com.jianfanjia.cn.activity;
 
 import android.os.Bundle;
-import android.os.Message;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SlidingPaneLayout;
 import android.support.v4.widget.SlidingPaneLayout.PanelSlideListener;
@@ -11,9 +10,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import com.igexin.sdk.PushManager;
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.fragment.DesignerMenuFragment;
 import com.jianfanjia.cn.fragment.OwnerMenuFragment;
 import com.jianfanjia.cn.fragment.SiteManageFragment;
@@ -91,14 +88,12 @@ public class MainActivity extends BaseActivity implements PanelSlideListener {
 	public void onBackPressed() {
 		if (slidingPaneLayout.isOpen()) {
 			slidingPaneLayout.closePane();
-			// moveTaskToBack(false);
-			// Global.isAppBack = true;
 		} else {
 			if ((System.currentTimeMillis() - mExitTime) > 2000) {// 如果两次按键时间间隔大于2000毫秒，则不退出
 				makeTextLong("再按一次退出程序");
 				mExitTime = System.currentTimeMillis();// 更新mExitTime
 			} else {
-				exit();
+				activityManager.exit();
 			}
 		}
 	}
@@ -125,21 +120,4 @@ public class MainActivity extends BaseActivity implements PanelSlideListener {
 		LogTool.d(TAG, "onDisConnect()");
 	}
 
-	@Override
-	public void processMessage(Message msg) {
-		Log.i(TAG, "接收到推送消息");
-		Bundle bundle = msg.getData();
-		NotifyMessage message = (NotifyMessage) bundle
-				.getSerializable("Notify");
-		switch (msg.what) {
-		case Constant.SENDBACKNOTICATION:
-			sendNotifycation(message);
-			break;
-		case Constant.SENDNOTICATION:
-			showNotify(message);
-			break;
-		default:
-			break;
-		}
-	}
 }

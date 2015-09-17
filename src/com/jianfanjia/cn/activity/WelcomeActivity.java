@@ -2,10 +2,8 @@ package com.jianfanjia.cn.activity;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 import android.view.WindowManager;
-
 import com.jianfanjia.cn.AppConfig;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
@@ -101,12 +99,6 @@ public class WelcomeActivity extends BaseActivity implements LoadDataListener {
 	@Override
 	public int getLayoutId() {
 		return R.layout.activity_welcome;
-	}
-
-	@Override
-	public void processMessage(Message msg) {
-		// TODO Auto-generated method stub
-
 	}
 
 }

@@ -7,7 +7,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Message;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -22,7 +21,6 @@ import com.jianfanjia.cn.adapter.CommentInfoAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.CommentInfo;
 import com.jianfanjia.cn.bean.CommitCommentInfo;
-import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
@@ -52,14 +50,6 @@ public class CommentActivity extends BaseActivity implements OnClickListener,
 	private ProcessInfo processInfo = null;
 	private String section = null;
 	private String item = null;
-
-	public void onLoadSuccess() {
-		LogTool.d(this.getClass().getName(), "onSuccess");
-		hideWaitDialog();
-		getCommentList();
-		commentInfoAdapter.setList(commentInfoList);
-		commentInfoAdapter.notifyDataSetChanged();
-	}
 
 	private TextWatcher textWatcher = new TextWatcher() {
 
@@ -95,8 +85,7 @@ public class CommentActivity extends BaseActivity implements OnClickListener,
 			currentItem = bundle.getInt(Constant.CURRENT_ITEM, 0);
 		}
 		getCommentList();
-		commentInfoAdapter = new CommentInfoAdapter(this, commentInfoList,
-				handler);
+		commentInfoAdapter = new CommentInfoAdapter(this, commentInfoList);
 		listView.setAdapter(commentInfoAdapter);
 	}
 
@@ -221,26 +210,12 @@ public class CommentActivity extends BaseActivity implements OnClickListener,
 	}
 
 	@Override
-	public void processMessage(Message msg) {
-		Bundle bundle = msg.getData();
-		NotifyMessage message = (NotifyMessage) bundle
-				.getSerializable("Notify");
-		switch (msg.what) {
-		case Constant.SENDBACKNOTICATION:
-			sendNotifycation(message);
-			break;
-		case Constant.SENDNOTICATION:
-			showNotify(message);
-			break;
-		default:
-			break;
-		}
-	}
-
-	@Override
 	public void loadSuccess() {
-		// TODO Auto-generated method stub
-
+		LogTool.d(this.getClass().getName(), "onSuccess");
+		hideWaitDialog();
+		getCommentList();
+		commentInfoAdapter.setList(commentInfoList);
+		commentInfoAdapter.notifyDataSetChanged();
 	}
 
 	@Override

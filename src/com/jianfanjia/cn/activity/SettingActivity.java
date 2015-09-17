@@ -5,8 +5,6 @@ import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.content.DialogInterface;
-import android.os.Bundle;
-import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -18,7 +16,6 @@ import android.widget.ToggleButton;
 import com.igexin.sdk.PushManager;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.tools.FileUtil;
@@ -283,7 +280,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener,
 								dataManager.setLogin(false);
 								dataManager.cleanData();
 								MyApplication.getInstance().clearCookie();// «Â¿ÌµÙcookie
-								exit();
+								activityManager.exit();
 								startActivity(LoginActivity.class);
 							} else if (response.has(Constant.ERROR_MSG)) {
 								makeTextLong(response.get(Constant.ERROR_MSG)
@@ -316,23 +313,6 @@ public class SettingActivity extends BaseActivity implements OnClickListener,
 	@Override
 	public int getLayoutId() {
 		return R.layout.activity_setting;
-	}
-
-	@Override
-	public void processMessage(Message msg) {
-		Bundle bundle = msg.getData();
-		NotifyMessage message = (NotifyMessage) bundle
-				.getSerializable("Notify");
-		switch (msg.what) {
-		case Constant.SENDBACKNOTICATION:
-			sendNotifycation(message);
-			break;
-		case Constant.SENDNOTICATION:
-			showNotify(message);
-			break;
-		default:
-			break;
-		}
 	}
 
 }

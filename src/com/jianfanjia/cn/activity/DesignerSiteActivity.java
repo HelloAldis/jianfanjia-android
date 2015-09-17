@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.os.Bundle;
-import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -13,7 +11,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import com.jianfanjia.cn.adapter.DesignerSiteInfoAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.bean.Process;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.LoadDataListener;
@@ -51,7 +48,7 @@ public class DesignerSiteActivity extends BaseActivity implements
 		}
 	}
 
-	@SuppressLint("ResourceAsColor") 
+	@SuppressLint("ResourceAsColor")
 	private void initMainHeadView() {
 		mainHeadView = (MainHeadView) findViewById(R.id.designer_site_head_layout);
 		mainHeadView.setBackListener(this);
@@ -109,23 +106,6 @@ public class DesignerSiteActivity extends BaseActivity implements
 	@Override
 	public int getLayoutId() {
 		return R.layout.activity_designer_site;
-	}
-
-	@Override
-	public void processMessage(Message msg) {
-		Bundle bundle = msg.getData();
-		NotifyMessage message = (NotifyMessage) bundle
-				.getSerializable("Notify");
-		switch (msg.what) {
-		case Constant.SENDBACKNOTICATION:
-			sendNotifycation(message);
-			break;
-		case Constant.SENDNOTICATION:
-			showNotify(message);
-			break;
-		default:
-			break;
-		}
 	}
 
 }

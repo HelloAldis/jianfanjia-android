@@ -144,6 +144,9 @@
     <string name="back">返回</string>
     <string name="send">发送</string>
     <string name="confirm_upload">确认上传</string>
+    <string name="caigouText">采购提醒</string>
+    <string name="fukuanText">付款提醒</string>
+    <string name="yanqiText">延期提醒</string>
 
     <!-- activity_upload_pic -->
     <string name="upload_pic">上传照片</string>
