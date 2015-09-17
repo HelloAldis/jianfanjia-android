@@ -588,11 +588,11 @@ public class SiteManageFragment extends BaseFragment implements
 	public void click(int position, int itemType, List<String> imageUrlList) {
 		switch (itemType) {
 		case Constant.IMG_ITEM:
-			Bundle bundle0 = new Bundle();
-			bundle0.putStringArrayList(Constant.IMAGE_LIST,
+			Bundle bundle = new Bundle();
+			bundle.putStringArrayList(Constant.IMAGE_LIST,
 					(ArrayList<String>) imageUrlList);
-			bundle0.putInt(Constant.CURRENT_POSITION, position);
-			startActivity(ShowPicActivity.class, bundle0);
+			bundle.putInt(Constant.CURRENT_POSITION, position);
+			startActivity(ShowPicActivity.class, bundle);
 			break;
 		default:
 			break;
