@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import com.jianfanjia.cn.adapter.ViewPageAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.tools.LogTool;
 
 /**
  * 
@@ -104,9 +105,27 @@ public class HelpActivity extends BaseActivity {
 	}
 
 	@Override
+	protected void onResume() {
+		super.onResume();
+		LogTool.d(TAG, "---onResume()");
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		LogTool.d(TAG, "---onPause()");
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+		LogTool.d(TAG, "---onStop()");
+	}
+
+	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		Log.d(TAG, "---onDestroy()");
+		LogTool.d(TAG, "---onDestroy()");
 	}
 
 	@Override

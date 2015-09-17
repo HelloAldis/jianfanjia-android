@@ -209,6 +209,18 @@ public class SettingActivity extends BaseActivity implements OnClickListener,
 	}
 
 	@Override
+	protected void onPause() {
+		super.onPause();
+		LogTool.d(TAG, "---onPause()");
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+		LogTool.d(TAG, "---onStop()");
+	}
+
+	@Override
 	public void onDestroy() {
 		super.onDestroy();
 		LogTool.d(TAG, "onDestroy()");

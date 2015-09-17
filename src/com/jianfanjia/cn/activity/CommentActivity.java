@@ -207,6 +207,30 @@ public class CommentActivity extends BaseActivity implements OnClickListener,
 	}
 
 	@Override
+	protected void onResume() {
+		super.onResume();
+		LogTool.d(TAG, "---onResume()");
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		LogTool.d(TAG, "---onPause()");
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+		LogTool.d(TAG, "---onStop()");
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		LogTool.d(TAG, "---onDestroy()");
+	}
+
+	@Override
 	public int getLayoutId() {
 		return R.layout.activity_comment;
 	}
