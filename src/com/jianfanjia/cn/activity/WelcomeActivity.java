@@ -51,14 +51,14 @@ public class WelcomeActivity extends BaseActivity implements LoadDataListener {
 
 	@Override
 	public void loadSuccess() {
-		 startActivity(MainActivity.class);
-		 finish();
+		startActivity(MainActivity.class);
+		finish();
 	}
 
 	@Override
 	public void loadFailture() {
-		 startActivity(LoginActivity.class);
-		 finish();
+		startActivity(LoginActivity.class);
+		finish();
 	}
 
 	private Runnable runnable = new Runnable() {
@@ -72,21 +72,18 @@ public class WelcomeActivity extends BaseActivity implements LoadDataListener {
 					finish();
 				} else {
 					if (!isLoginExpire) {// 登录未过期，添加cookies到httpclient记录身份
-						// Log.i(this.getClass().getName(),
-						// appConfig.getCookies());
+						Log.i(this.getClass().getName(), "未过期");
 						startActivity(MainActivity.class);
 						finish();
 					} else {
 						Log.i(this.getClass().getName(), "已经过期");
 						MyApplication.getInstance().clearCookie();
-						dataManager.login(dataManager.getAccount(),
-								dataManager.getPassword(),WelcomeActivity.this);
-						startActivity(LoginActivity.class);
-						finish();
+						dataManager
+								.login(dataManager.getAccount(),
+										dataManager.getPassword(),
+										WelcomeActivity.this);
 					}
 				}
-				startActivity(LoginActivity.class);
-				finish();
 			} else {
 				startActivity(NavigateActivity.class);
 				finish();

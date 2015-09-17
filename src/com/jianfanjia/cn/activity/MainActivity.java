@@ -32,6 +32,7 @@ public class MainActivity extends BaseActivity implements PanelSlideListener {
 	private static final String TAG = MainActivity.class.getName();
 	private PagerEnabledSlidingPaneLayout slidingPaneLayout = null;
 	private FrameLayout slidingpane_content = null;
+	private long mExitTime = 0L;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -89,10 +90,16 @@ public class MainActivity extends BaseActivity implements PanelSlideListener {
 	@Override
 	public void onBackPressed() {
 		if (slidingPaneLayout.isOpen()) {
-			moveTaskToBack(false);
-			Global.isAppBack = true;
+			slidingPaneLayout.closePane();
+			// moveTaskToBack(false);
+			// Global.isAppBack = true;
 		} else {
-			slidingPaneLayout.openPane();
+			if ((System.currentTimeMillis() - mExitTime) > 2000) {// 如果两次按键时间间隔大于2000毫秒，则不退出
+				makeTextLong("再按一次退出程序");
+				mExitTime = System.currentTimeMillis();// 更新mExitTime
+			} else {
+				exit();
+			}
 		}
 	}
 
