@@ -5,7 +5,6 @@ import android.content.Context;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.interf.DialogListener;
@@ -21,7 +20,6 @@ import com.jianfanjia.cn.interf.DialogListener;
 public class NotifyDialog extends Dialog implements
 		android.view.View.OnClickListener {
 	private DialogListener listener;
-	private int layoutId;
 	private NotifyMessage message;
 
 	public NotifyDialog(Context context) {
@@ -29,16 +27,16 @@ public class NotifyDialog extends Dialog implements
 		// TODO Auto-generated constructor stub
 	}
 
-	public NotifyDialog(Context context, int layoutId, NotifyMessage message,
-			int theme) {
+	public NotifyDialog(Context context, NotifyMessage message, int theme,
+			DialogListener listener) {
 		super(context, theme);
-		this.layoutId = layoutId;
 		this.message = message;
+		this.listener = listener;
 		init();
 	}
 
 	private void init() {
-		setContentView(layoutId);
+		setContentView(R.layout.notify_dialog);
 		TextView titleTv = (TextView) findViewById(R.id.titleTv);
 		TextView contentTv = (TextView) findViewById(R.id.contentTv);
 		Button agree = (Button) findViewById(R.id.btn_agree);
@@ -60,16 +58,14 @@ public class NotifyDialog extends Dialog implements
 	public void onClick(View V) {
 		switch (V.getId()) {
 		case R.id.btn_agree:
+			dismiss();
 			listener.onPositiveButtonClick();
 			break;
 		case R.id.btn_refuse:
+			dismiss();
 			listener.onNegativeButtonClick();
 			break;
 		}
-	}
-
-	public void setListener(DialogListener listener) {
-		this.listener = listener;
 	}
 
 }

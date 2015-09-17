@@ -2,6 +2,7 @@ package com.jianfanjia.cn.base;
 
 import java.util.LinkedList;
 import org.apache.http.Header;
+import org.json.JSONException;
 import org.json.JSONObject;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -350,7 +351,22 @@ public abstract class BaseActivity extends FragmentActivity implements
 							JSONObject response) {
 						LogTool.d(this.getClass().getName(),
 								"JSONObject response:" + response);
-
+						try {
+							if (response.has(Constant.DATA)) {
+								makeTextLong(response.get(Constant.DATA)
+										.toString());
+							} else if (response.has(Constant.SUCCESS_MSG)) {
+								makeTextLong(response.get(Constant.SUCCESS_MSG)
+										.toString());
+							} else if (response.has(Constant.ERROR_MSG)) {
+								makeTextLong(response.get(Constant.ERROR_MSG)
+										.toString());
+							}
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+							makeTextLong(getString(R.string.tip_login_error_for_network));
+						}
 					}
 
 					@Override
@@ -383,7 +399,22 @@ public abstract class BaseActivity extends FragmentActivity implements
 							JSONObject response) {
 						LogTool.d(this.getClass().getName(),
 								"JSONObject response:" + response);
-
+						try {
+							if (response.has(Constant.DATA)) {
+								makeTextLong(response.get(Constant.DATA)
+										.toString());
+							} else if (response.has(Constant.SUCCESS_MSG)) {
+								makeTextLong(response.get(Constant.SUCCESS_MSG)
+										.toString());
+							} else if (response.has(Constant.ERROR_MSG)) {
+								makeTextLong(response.get(Constant.ERROR_MSG)
+										.toString());
+							}
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+							makeTextLong(getString(R.string.tip_login_error_for_network));
+						}
 					}
 
 					@Override
@@ -420,23 +451,20 @@ public abstract class BaseActivity extends FragmentActivity implements
 	 * @param message
 	 */
 	protected void showNotify(NotifyMessage message) {
-		final NotifyDialog notifyDialog = new NotifyDialog(this,
-				R.layout.notify_dialog, message, R.style.progress_dialog);
-		notifyDialog.setListener(new DialogListener() {
+		final NotifyDialog notifyDialog = new NotifyDialog(this, message,
+				R.style.progress_dialog, new DialogListener() {
 
-			@Override
-			public void onPositiveButtonClick() {
-				notifyDialog.dismiss();
-				// agreeReschedule(processInfo.get_id());
-			}
+					@Override
+					public void onPositiveButtonClick() {
+						agreeReschedule(processInfo.get_id());
+					}
 
-			@Override
-			public void onNegativeButtonClick() {
-				notifyDialog.dismiss();
-				// refuseReschedule(processInfo.get_id());
-			}
+					@Override
+					public void onNegativeButtonClick() {
+						refuseReschedule(processInfo.get_id());
+					}
 
-		});
+				});
 		notifyDialog.show();
 	}
 
