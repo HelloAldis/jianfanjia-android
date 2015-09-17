@@ -38,10 +38,12 @@
 
                 <ToggleButton
                     android:id="@+id/mespush_toggle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="40dp"
+                    android:layout_height="24dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:textOn=""
+                    android:textOff=""
                     android:background="@drawable/btn_setting_msg_selector" />
             </RelativeLayout>
 
