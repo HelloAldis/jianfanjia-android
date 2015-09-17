@@ -73,7 +73,7 @@ public class MainHeadView extends RelativeLayout {
 	}*/
 	
 	public void setDividerVisable(int visibility) {
-		if (visibility != View.GONE || visibility != View.VISIBLE)
+		if (visibility != View.GONE && visibility != View.VISIBLE)
 			return;
 		divider.setVisibility(visibility);
 	}
