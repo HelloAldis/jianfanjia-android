@@ -464,6 +464,12 @@ public abstract class BaseActivity extends FragmentActivity implements
 						refuseReschedule(processInfo.get_id());
 					}
 
+					@Override
+					public void onConfirmButtonClick() {
+						// TODO Auto-generated method stub
+
+					}
+
 				});
 		notifyDialog.show();
 	}
