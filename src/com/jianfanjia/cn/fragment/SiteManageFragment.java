@@ -3,11 +3,9 @@ package com.jianfanjia.cn.fragment;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -31,7 +29,6 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-
 import com.jianfanjia.cn.activity.CheckActivity;
 import com.jianfanjia.cn.activity.CommentActivity;
 import com.jianfanjia.cn.activity.DesignerSiteActivity;
@@ -51,6 +48,7 @@ import com.jianfanjia.cn.bean.ViewPagerItem;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
+import com.jianfanjia.cn.interf.LoadDataListener;
 import com.jianfanjia.cn.interf.UploadImageListener;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
@@ -76,7 +74,8 @@ import com.loopj.android.http.JsonHttpResponseHandler;
  * 
  */
 public class SiteManageFragment extends BaseFragment implements
-		OnRefreshListener2<ScrollView>, ItemClickCallBack, UploadImageListener {
+		OnRefreshListener2<ScrollView>, ItemClickCallBack, UploadImageListener,
+		LoadDataListener {
 	private static final String TAG = SiteManageFragment.class.getName();
 	private PullToRefreshScrollView mPullRefreshScrollView = null;
 	private ScrollView scrollView = null;
@@ -156,11 +155,11 @@ public class SiteManageFragment extends BaseFragment implements
 
 	private void refreshData() {
 		if (dataManager.getDefaultProcessId() == null) {
-			dataManager.requestProcessList();
+			dataManager.requestProcessList(this);
 		} else {
 			Log.i(TAG, "proId = " + dataManager.getDefaultProcessId());
-			dataManager.requestProcessInfoById(dataManager
-					.getDefaultProcessId());
+			dataManager.requestProcessInfoById(
+					dataManager.getDefaultProcessId(), this);
 		}
 	}
 
@@ -180,24 +179,6 @@ public class SiteManageFragment extends BaseFragment implements
 		} else {
 			refreshData();
 		}
-	}
-
-	@Override
-	public void loadSuccess() {
-		super.loadSuccess();
-		mPullRefreshScrollView.onRefreshComplete();
-		initProcessInfo();
-		if (processInfo != null) {
-			initData();
-		} else {
-			// loadempty
-		}
-	}
-
-	@Override
-	public void loadFailture() {
-		super.loadFailture();
-		mPullRefreshScrollView.onRefreshComplete();
 	}
 
 	private void initMainHead(View view) {
@@ -552,7 +533,7 @@ public class SiteManageFragment extends BaseFragment implements
 		// Update the LastUpdatedLabel
 		refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
 		// º”‘ÿ ˝æ›
-		dataManager.requestProcessList();
+		dataManager.requestProcessList(this);
 	}
 
 	@Override
@@ -583,6 +564,22 @@ public class SiteManageFragment extends BaseFragment implements
 		default:
 			break;
 		}
+	}
+
+	@Override
+	public void loadSuccess() {
+		mPullRefreshScrollView.onRefreshComplete();
+		initProcessInfo();
+		if (processInfo != null) {
+			initData();
+		} else {
+			// loadempty
+		}
+	}
+
+	@Override
+	public void loadFailture() {
+		mPullRefreshScrollView.onRefreshComplete();
 	}
 
 	@Override

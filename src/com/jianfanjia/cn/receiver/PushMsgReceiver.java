@@ -2,7 +2,6 @@ package com.jianfanjia.cn.receiver;
 
 import org.apache.http.Header;
 import org.json.JSONObject;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -10,7 +9,6 @@ import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
-
 import com.google.gson.Gson;
 import com.igexin.sdk.PushConsts;
 import com.igexin.sdk.PushManager;
@@ -99,11 +97,9 @@ public class PushMsgReceiver extends BroadcastReceiver {
 			BaseActivity activity = BaseActivity.getCurrentActivity();
 			Log.i(TAG, "任务activity->" + activity);
 			if (Global.isAppBack) {
-				Log.i(TAG, "----app后台运行中-----");
 				msg.what = Constant.SENDBACKNOTICATION;
 				BaseActivity.sendMessage(msg);
 			} else {
-				Log.i(TAG, "----app前台运行中-----");
 				msg.what = Constant.SENDNOTICATION;
 				BaseActivity.sendMessage(msg);
 			}

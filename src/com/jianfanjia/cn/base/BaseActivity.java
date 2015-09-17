@@ -18,7 +18,6 @@ import android.os.Message;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -34,7 +33,6 @@ import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.inter.manager.ListenerManeger;
 import com.jianfanjia.cn.interf.DialogListener;
-import com.jianfanjia.cn.interf.LoadDataListener;
 import com.jianfanjia.cn.interf.NetStateListener;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
 import com.jianfanjia.cn.receiver.NetStateReceiver;
@@ -59,7 +57,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  * 
  */
 public abstract class BaseActivity extends FragmentActivity implements
-		DialogControl, NetStateListener, PopWindowCallBack, LoadDataListener {
+		DialogControl, NetStateListener, PopWindowCallBack {
 	// Activity的集合，将开启的Activity记录于此，退出程序时，逐个关闭Activity
 	protected static LinkedList<BaseActivity> queue = new LinkedList<BaseActivity>();
 	protected LayoutInflater inflater = null;
@@ -70,7 +68,6 @@ public abstract class BaseActivity extends FragmentActivity implements
 	protected DisplayImageOptions options = null;
 	protected ListenerManeger listenerManeger = null;
 	protected UploadManager uploadManager = null;
-	protected LocalBroadcastManager localBroadcastManager = null;
 	protected NetStateReceiver netStateReceiver = null;
 	protected AddPhotoPopWindow popupWindow = null;
 	protected static final int NotificationID = 1;
@@ -86,12 +83,10 @@ public abstract class BaseActivity extends FragmentActivity implements
 
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
-			// case Constant.LOAD_SUCCESS:
-			// onLoadSuccess();
-			// break;
-			// case Constant.LOAD_FAILURE:
-			// onLoadFailure();
-			// break;
+			case Constant.EXCEPTION:
+				break;
+			case Constant.ERROR:
+				break;
 			default:
 				if (!queue.isEmpty()) {
 					queue.getLast().processMessage(msg);
@@ -138,7 +133,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 	private void init() {
 		inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		nManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-		dataManager = DataManager.getInstance(this, this);
+		dataManager = DataManager.getInstance();
 		sharedPrefer = dataManager.sharedPrefer;
 		appConfig = AppConfig.getInstance(this);
 		fragmentManager = this.getSupportFragmentManager();
@@ -149,7 +144,6 @@ public abstract class BaseActivity extends FragmentActivity implements
 				.showImageOnFail(R.drawable.pix_default).cacheInMemory(true)
 				.cacheOnDisk(true).considerExifParams(true)
 				.bitmapConfig(Bitmap.Config.RGB_565).build();
-		localBroadcastManager = LocalBroadcastManager.getInstance(this);
 		listenerManeger = ListenerManeger.getListenerManeger();
 		uploadManager = UploadManager.getUploadManager(this);
 		netStateReceiver = new NetStateReceiver(this);
@@ -164,15 +158,15 @@ public abstract class BaseActivity extends FragmentActivity implements
 
 	}
 
-	@Override
-	public void loadSuccess() {
-		hideWaitDialog();
-	}
-
-	@Override
-	public void loadFailture() {
-		hideWaitDialog();
-	}
+	// @Override
+	// public void loadSuccess() {
+	// hideWaitDialog();
+	// }
+	//
+	// @Override
+	// public void loadFailture() {
+	// hideWaitDialog();
+	// }
 
 	@Override
 	public void onConnect() {

@@ -9,7 +9,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
-
 import com.igexin.sdk.PushManager;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.NotifyMessage;
@@ -93,11 +92,9 @@ public class MainActivity extends BaseActivity implements PanelSlideListener {
 	@Override
 	public void onBackPressed() {
 		if (slidingPaneLayout.isOpen()) {
-			Log.d(TAG, "---111111111111");
 			moveTaskToBack(false);
 			Global.isAppBack = true;
 		} else {
-			Log.d(TAG, "---2222222222222");
 			slidingPaneLayout.openPane();
 		}
 	}
