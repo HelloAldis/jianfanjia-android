@@ -15,18 +15,24 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.RadioGroup.OnCheckedChangeListener;
+
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.bean.OwnerInfo;
+import com.jianfanjia.cn.bean.OwnerUpdateInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.PhotoUtils;
+import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.CommonWheelDialog;
+import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.cn.view.wheel.ArrayWheelAdapter;
 import com.jianfanjia.cn.view.wheel.OnWheelChangedListener;
 import com.jianfanjia.cn.view.wheel.WheelView;
@@ -56,8 +62,12 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 	private RelativeLayout addressLayout;
 	private RelativeLayout userNameRelativeLayout = null;
 	private RelativeLayout homeRelativeLayout = null;
+	private RelativeLayout sexRelativeLayout = null;
+	private String sex;
 
 	private OwnerInfo ownerInfo;
+
+	private OwnerUpdateInfo ownerUpdateInfo;
 
 	private CommonWheelDialog commonWheelDialog;
 
@@ -80,12 +90,13 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 		addressText = (TextView) this.findViewById(R.id.addressText);
 		homeText = (TextView) this.findViewById(R.id.homeText);
 		btn_confirm = (Button) this.findViewById(R.id.btn_confirm);
-		addressLayout = (RelativeLayout) this.findViewById(R.id.home_layout);
+		addressLayout = (RelativeLayout) this.findViewById(R.id.address_layout);
 		headImageView = (ImageView) this.findViewById(R.id.head_icon);
 		userNameRelativeLayout = (RelativeLayout) this
 				.findViewById(R.id.name_layout);
 		homeRelativeLayout = (RelativeLayout) this
 				.findViewById(R.id.home_layout);
+		sexRelativeLayout = (RelativeLayout) this.findViewById(R.id.sex_layout);
 
 		ownerInfo = dataManager.getOwnerInfo();
 		if (ownerInfo == null) {
@@ -106,9 +117,9 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 				: ownerInfo.getUsername());
 		String sexInfo = ownerInfo.getSex();
 		if (sexInfo != null) {
-			if (sexInfo.equals("1")) {
+			if (sexInfo.equals(Constant.SEX_MAN)) {
 				sexText.setText("男");
-			} else {
+			} else if(sexInfo.equals(Constant.SEX_WOMEN)){
 				sexText.setText("女");
 			}
 		} else {
@@ -130,6 +141,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 		addressLayout.setOnClickListener(this);
 		homeRelativeLayout.setOnClickListener(this);
 		userNameRelativeLayout.setOnClickListener(this);
+		sexRelativeLayout.setOnClickListener(this);
 	}
 
 	@Override
@@ -142,6 +154,9 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 			showPopWindow(infoLayout);
 			break;
 		case R.id.btn_confirm:
+			if (ownerUpdateInfo != null) {
+				put_Owner_Info();
+			}
 			break;
 		case R.id.address_layout:
 			showWheelDialog();
@@ -160,9 +175,53 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 					Constant.REQUESTCODE_EDIT_ADDRESS);
 			startActivityForResult(address, Constant.REQUESTCODE_EDIT_ADDRESS);
 			break;
+		case R.id.sex_layout:
+			showSexChooseDialog();
+			break;
 		default:
 			break;
 		}
+	}
+
+	// 显示选择性别对话框
+	private void showSexChooseDialog() {
+		CommonDialog commonDialog = DialogHelper
+				.getPinterestDialogCancelable(this);
+		View contentView = inflater.inflate(R.layout.sex_choose, null);
+		RadioGroup radioGroup = (RadioGroup) contentView
+				.findViewById(R.id.sex_radioGroup);
+		radioGroup.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(RadioGroup group, int checkedId) {
+				if (group.getCheckedRadioButtonId() == R.id.sex_radio0) {
+					sex = Constant.SEX_MAN;
+				} else {
+					sex = Constant.SEX_WOMEN;
+				}
+			}
+		});
+		if (ownerUpdateInfo != null) {
+			radioGroup
+					.check(ownerUpdateInfo.getSex().equals(Constant.SEX_MAN) ? R.id.sex_radio0
+							: R.id.sex_radio1);
+		}
+		commonDialog.setContent(contentView);
+		commonDialog.setTitle("选择性别");
+		commonDialog.setPositiveButton(R.string.ok,
+				new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						if (ownerUpdateInfo != null) {
+							ownerUpdateInfo.setSex(sex);
+							sexText.setText(sex.equals(Constant.SEX_MAN) ? "男"
+									: "女");
+						}
+						dialog.dismiss();
+					}
+				});
+		commonDialog.setNegativeButton(R.string.no, null);
+		commonDialog.show();
 	}
 
 	private void showWheelDialog() {
@@ -265,8 +324,11 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 								ownerInfo = JsonParser.jsonToBean(
 										response.get(Constant.DATA).toString(),
 										OwnerInfo.class);
+								ownerUpdateInfo = JsonParser.jsonToBean(
+										response.get(Constant.DATA).toString(),
+										OwnerUpdateInfo.class);
 								if (null != ownerInfo) {
-									dataManager.setOwnerInfo(ownerInfo);
+									// dataManager.setOwnerInfo(ownerInfo);
 									setData();
 								}
 							} else if (response.has(Constant.ERROR_MSG)) {
@@ -275,7 +337,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 							}
 						} catch (JSONException e) {
 							e.printStackTrace();
-							makeTextLong(getString(R.string.tip_login_error_for_network));
+							makeTextLong(getString(R.string.load_failure));
 						}
 					}
 
@@ -284,14 +346,14 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 							Throwable throwable, JSONObject errorResponse) {
 						LogTool.d(TAG,
 								"Throwable throwable:" + throwable.toString());
-						makeTextLong(getString(R.string.tip_login_error_for_network));
+						makeTextLong(getString(R.string.tip_no_internet));
 					}
 
 					@Override
 					public void onFailure(int statusCode, Header[] headers,
 							String responseString, Throwable throwable) {
 						LogTool.d(TAG, "throwable:" + throwable);
-						makeTextLong(getString(R.string.tip_login_error_for_network));
+						makeTextLong(getString(R.string.tip_no_internet));
 					};
 				});
 	}
@@ -314,8 +376,22 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 		super.onActivityResult(requestCode, resultCode, data);
 		switch (requestCode) {
 		case Constant.REQUESTCODE_EDIT_USERNAME:
+			if (data != null) {
+				String name = data.getStringExtra(Constant.EDIT_CONTENT);
+				nameText.setText(name);
+				if (ownerUpdateInfo != null) {
+					ownerUpdateInfo.setUsername(name);
+				}
+			}
 			break;
 		case Constant.REQUESTCODE_EDIT_ADDRESS:
+			if (data != null) {
+				String address = data.getStringExtra(Constant.EDIT_CONTENT);
+				homeText.setText(address);
+				if (ownerUpdateInfo != null) {
+					ownerUpdateInfo.setAddress(address);
+				}
+			}
 			break;
 		case Constant.REQUESTCODE_CAMERA:// 拍照
 			LogTool.d(TAG, "data:" + data);

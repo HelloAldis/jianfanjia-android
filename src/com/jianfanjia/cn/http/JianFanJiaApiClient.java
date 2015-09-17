@@ -9,6 +9,7 @@ import android.content.Context;
 import android.util.Log;
 import com.jianfanjia.cn.bean.CommitCommentInfo;
 import com.jianfanjia.cn.bean.DesignerInfo;
+import com.jianfanjia.cn.bean.DesignerUpdateInfo;
 import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
@@ -582,7 +583,7 @@ public class JianFanJiaApiClient {
 	 * @param handler
 	 */
 	public static void put_DesignerInfo(Context context,
-			DesignerInfo designerInfo, AsyncHttpResponseHandler handler) {
+			DesignerUpdateInfo designerInfo, AsyncHttpResponseHandler handler) {
 		StringEntity entity;
 		try {
 			entity = new StringEntity(JsonParser.beanToJson(designerInfo),

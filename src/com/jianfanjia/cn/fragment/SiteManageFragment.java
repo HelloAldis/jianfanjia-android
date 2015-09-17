@@ -35,6 +35,7 @@ import com.jianfanjia.cn.activity.DesignerSiteActivity;
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.OwnerSiteActivity;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.ShowPicActivity;
 import com.jianfanjia.cn.adapter.InfinitePagerAdapter;
 import com.jianfanjia.cn.adapter.MyViewPageAdapter;
 import com.jianfanjia.cn.adapter.SectionItemAdapter;
@@ -59,7 +60,6 @@ import com.jianfanjia.cn.tools.DateFormatTool;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.PhotoUtils;
 import com.jianfanjia.cn.tools.StringUtils;
-import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DateWheelDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
@@ -78,7 +78,6 @@ public class SiteManageFragment extends BaseFragment implements
 		LoadDataListener {
 	private static final String TAG = SiteManageFragment.class.getName();
 	private PullToRefreshScrollView mPullRefreshScrollView = null;
-	private ScrollView scrollView = null;
 	private ArrayList<SectionInfo> sectionInfos;
 	private ArrayList<SectionItemInfo> sectionItemInfos;
 	private SectionInfo sectionInfo;
@@ -107,7 +106,10 @@ public class SiteManageFragment extends BaseFragment implements
 	private TextView openDelay;// 延期按钮
 	private TextView openCheck;// 对比验收按钮
 
-	private MainHeadView mainHeadView;
+	// private MainHeadView mainHeadView;
+	private TextView titleCenter;
+	private TextView titleRight;
+	private ImageView titleImage;
 
 	private boolean isOpen = false;
 
@@ -168,7 +170,6 @@ public class SiteManageFragment extends BaseFragment implements
 		mPullRefreshScrollView = (PullToRefreshScrollView) view
 				.findViewById(R.id.pull_refresh_scrollview);
 		mPullRefreshScrollView.setMode(Mode.PULL_FROM_START);
-		scrollView = mPullRefreshScrollView.getRefreshableView();
 		initMainHead(view);
 		initBannerView(view);
 		initScrollLayout(view);
@@ -182,17 +183,17 @@ public class SiteManageFragment extends BaseFragment implements
 	}
 
 	private void initMainHead(View view) {
-		mainHeadView = (MainHeadView) view.findViewById(R.id.main_head);
-		mainHeadView.setHeadImage(mUserImageId);
-		mainHeadView.setBackListener(this);
-		mainHeadView.setRightTextListener(this);
-		mainHeadView.setRightTitleVisable(View.VISIBLE);
+		titleCenter = (TextView) view.findViewById(R.id.head_center_title);
+		titleRight = (TextView) view.findViewById(R.id.head_right_title);
+		titleImage = (ImageView) view.findViewById(R.id.icon_head);
+		titleImage.setOnClickListener(this);
+		titleRight.setOnClickListener(this);
 		if (mUserType.equals(Constant.IDENTITY_OWNER)) {
-			mainHeadView.setMianTitle("");
-			mainHeadView.setRightTitle("配置工地");
+			titleCenter.setText("");
+			titleRight.setText("配置工地");
 		} else if (mUserType.equals(Constant.IDENTITY_DESIGNER)) {
-			mainHeadView.setMianTitle("");
-			mainHeadView.setRightTitle("切换工地");
+			titleCenter.setText("");
+			titleRight.setText("切换工地");
 		}
 	}
 
@@ -251,6 +252,7 @@ public class SiteManageFragment extends BaseFragment implements
 					new ViewGroup.LayoutParams(20, 20));
 			layoutParams.leftMargin = 15;
 			layoutParams.rightMargin = 15;
+			layoutParams.bottomMargin = 10;
 			group.addView(imageView, layoutParams);
 		}
 		ViewPageAdapter pageAdapter = new ViewPageAdapter(getActivity(),
@@ -583,13 +585,14 @@ public class SiteManageFragment extends BaseFragment implements
 	}
 
 	@Override
-	public void click(List<String> imageUrlList, int itemType) {
-		LogTool.d(TAG, "itemType:" + itemType);
+	public void click(int position, int itemType, List<String> imageUrlList) {
 		switch (itemType) {
 		case Constant.IMG_ITEM:
-			for (String str : imageUrlList) {
-				LogTool.d(TAG, " str:" + str);
-			}
+			Bundle bundle0 = new Bundle();
+			bundle0.putStringArrayList(Constant.IMAGE_LIST,
+					(ArrayList<String>) imageUrlList);
+			bundle0.putInt(Constant.CURRENT_POSITION, position);
+			startActivity(ShowPicActivity.class, bundle0);
 			break;
 		default:
 			break;

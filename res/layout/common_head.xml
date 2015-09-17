@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/com.jianfanjia.cn.activity"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/transparent" >
@@ -9,15 +10,22 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_48" >
 
-        <com.jianfanjia.cn.layout.CircleImageView
-            android:id="@+id/icon_head"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+        <RelativeLayout
+            android:id="@+id/head_back_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/space_8"
-            android:contentDescription="@null"
-            android:padding="@dimen/space_8"
-            android:src="@drawable/icon_home_default_user" />
+            android:padding="@dimen/space_8" >
+
+            <TextView
+                android:id="@+id/head_back"
+                style="@style/site_listview_item_text_style_middle"
+                android:layout_centerVertical="true"
+                android:drawableLeft="@drawable/icon_register_back"
+                android:drawablePadding="4dp"
+                android:text="@string/back"
+                android:textColor="@color/back_color" />
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/head_center_title"

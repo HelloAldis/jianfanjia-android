@@ -73,12 +73,10 @@ public class SettingActivity extends BaseActivity implements OnClickListener,
 
 	private void initMainHeadView() {
 		mainHeadView = (MainHeadView) findViewById(R.id.my_setting_head_layout);
-		// mainHeadView.setHeadImage(mUserImageId);
 		mainHeadView.setBackListener(this);
-		mainHeadView.setRightTitleVisable(View.GONE);
 		mainHeadView
 				.setMianTitle(getResources().getString(R.string.my_setting));
-		mainHeadView.setBackgroundColor(R.color.head_layout_bg);
+		mainHeadView.setLayoutBackground(R.color.head_layout_bg);
 		mainHeadView.setDividerVisable(View.VISIBLE);
 	}
 
@@ -130,8 +128,8 @@ public class SettingActivity extends BaseActivity implements OnClickListener,
 		case R.id.clear_cache_layout:
 			onClickCleanCache();
 			break;
-		case R.id.icon_head:
-
+		case R.id.head_back_layout:
+			finish();
 			break;
 		case R.id.mespush_layout:
 			toggleButton.toggle();

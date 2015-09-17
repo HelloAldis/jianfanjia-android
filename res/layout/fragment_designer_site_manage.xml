@@ -27,14 +27,19 @@
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="130dp" >
+                android:layout_height="wrap_content" >
 
                 <com.jianfanjia.cn.view.ProcessViewPager
                     android:id="@+id/bannerViewPager"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:background="#ffffff"
                     android:fadingEdge="none" />
+                
+                <ImageView android:contentDescription="@null"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/cover_home_banner"/>
 
                 <LinearLayout
                     android:id="@+id/viewGroup"
@@ -79,7 +84,7 @@
             <com.jianfanjia.cn.view.ProcessViewPager
                 android:id="@+id/viewPager"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
+                android:layout_height="wrap_content"
                 android:background="#ffffff"
                 android:fadingEdge="none" />
 
@@ -91,7 +96,7 @@
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="40dp"
-                    android:background="#A6A6A6" />
+                    android:background="@color/line_color" />
 
                 <com.jianfanjia.cn.view.MyListView
                     android:id="@+id/site__listview"
