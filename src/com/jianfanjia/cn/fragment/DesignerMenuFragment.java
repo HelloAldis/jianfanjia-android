@@ -3,6 +3,7 @@ package com.jianfanjia.cn.fragment;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.jianfanjia.cn.activity.DesignerSiteActivity;
 import com.jianfanjia.cn.activity.MyOwnerActivity;
@@ -22,7 +23,9 @@ import com.jianfanjia.cn.base.BaseFragment;
  */
 public class DesignerMenuFragment extends BaseFragment {
 	private static final String TAG = DesignerMenuFragment.class.getName();
+	private RelativeLayout notifyLayout = null;
 	private ImageView img_head = null;
+	private ImageView notifyIcon = null;
 	private TextView nameText = null;
 	private TextView phoneText = null;
 	private TextView tab_rb_1 = null;
@@ -32,6 +35,8 @@ public class DesignerMenuFragment extends BaseFragment {
 
 	@Override
 	public void initView(View view) {
+		notifyLayout = (RelativeLayout) view.findViewById(R.id.notifyLayout);
+		notifyIcon = (ImageView) view.findViewById(R.id.notifyIcon);
 		img_head = (ImageView) view.findViewById(R.id.img_head);
 		nameText = (TextView) view.findViewById(R.id.name_text);
 		phoneText = (TextView) view.findViewById(R.id.phone_text);
@@ -53,7 +58,7 @@ public class DesignerMenuFragment extends BaseFragment {
 	@Override
 	public void setListener() {
 		img_head.setOnClickListener(this);
-		tab_rb_1.setOnClickListener(this);
+		notifyLayout.setOnClickListener(this);
 		tab_rb_2.setOnClickListener(this);
 		tab_rb_3.setOnClickListener(this);
 		tab_rb_4.setOnClickListener(this);
@@ -65,7 +70,7 @@ public class DesignerMenuFragment extends BaseFragment {
 		case R.id.img_head:
 			startActivity(UserByDesignerInfoActivity.class);
 			break;
-		case R.id.tab_rb_1:
+		case R.id.notifyLayout:
 			startActivity(NotifyActivity.class);
 			break;
 		case R.id.tab_rb_2:
