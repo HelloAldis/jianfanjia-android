@@ -136,7 +136,7 @@ public class MyDesignerActivity extends BaseActivity implements
 			}
 			String dec_style = decBuffer.toString();
 			goodAtView
-					.setText(dec_style.subSequence(0, dec_style.length() - 2));
+					.setText(dec_style.subSequence(0, dec_style.length() - 1));
 
 			if (designerInfo.getBig_imageid() != null) {
 				Log.i(TAG, Url.GET_IMAGE + designerInfo.getBig_imageid());
