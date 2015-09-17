@@ -3,20 +3,26 @@ package com.jianfanjia.cn.base;
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.NotificationCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.widget.Toast;
 import com.jianfanjia.cn.AppConfig;
+import com.jianfanjia.cn.activity.NotifyActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.bean.ProcessInfo;
@@ -28,6 +34,7 @@ import com.jianfanjia.cn.inter.manager.ListenerManeger;
 import com.jianfanjia.cn.interf.DialogListener;
 import com.jianfanjia.cn.interf.NetStateListener;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
+import com.jianfanjia.cn.interf.PushMsgReceiveListener;
 import com.jianfanjia.cn.receiver.NetStateReceiver;
 import com.jianfanjia.cn.tools.ActivityManager;
 import com.jianfanjia.cn.tools.LogTool;
@@ -51,7 +58,8 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  * 
  */
 public abstract class BaseActivity extends FragmentActivity implements
-		DialogControl, NetStateListener, PopWindowCallBack {
+		DialogControl, NetStateListener, PopWindowCallBack,
+		PushMsgReceiveListener {
 	protected ActivityManager activityManager = null;
 	protected LayoutInflater inflater = null;
 	protected FragmentManager fragmentManager = null;
@@ -222,6 +230,12 @@ public abstract class BaseActivity extends FragmentActivity implements
 
 	@Override
 	public void takePhoto() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onReceiveMsg(NotifyMessage message) {
 		// TODO Auto-generated method stub
 
 	}
@@ -400,4 +414,39 @@ public abstract class BaseActivity extends FragmentActivity implements
 		notifyDialog.show();
 	}
 
+	/**
+	 * Notification
+	 * 
+	 * @param message
+	 */
+	protected void sendNotifycation(NotifyMessage message) {
+		NotificationCompat.Builder builder = new NotificationCompat.Builder(
+				this);
+		builder.setSmallIcon(R.drawable.ic_launcher);
+		String type = message.getType();
+		if (type.equals(Constant.CAIGOU_NOTIFY)) {
+			builder.setTicker(getResources().getText(R.string.caigouText));
+			builder.setContentTitle(getResources().getText(R.string.caigouText));
+		} else if (type.equals(Constant.FUKUAN_NOTIFY)) {
+			builder.setTicker(getResources().getText(R.string.fukuanText));
+			builder.setContentTitle(getResources().getText(R.string.fukuanText));
+		} else if (type.equals(Constant.YANQI_NOTIFY)) {
+			builder.setTicker(getResources().getText(R.string.yanqiText));
+			builder.setContentTitle(getResources().getText(R.string.yanqiText));
+		}
+		builder.setContentText(message.getContent());
+		builder.setWhen(System.currentTimeMillis());
+		builder.setAutoCancel(true);
+		Intent intent = new Intent(this, NotifyActivity.class);
+		intent.putExtra("Type", type);
+		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+				| Intent.FLAG_ACTIVITY_NEW_TASK);
+		PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
+				intent, PendingIntent.FLAG_UPDATE_CURRENT);
+		builder.setContentIntent(pendingIntent);
+		Notification notification = builder.build();
+		notification.sound = Uri.parse("android.resource://" + getPackageName()
+				+ "/" + R.raw.message);
+		nManager.notify(Constant.NotificationID, notification);
+	}
 }

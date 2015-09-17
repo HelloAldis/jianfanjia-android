@@ -7,10 +7,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.MyDesignerInfo;
+import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url;
 import com.jianfanjia.cn.interf.LoadDataListener;
 import com.jianfanjia.cn.layout.CircleImageView;
+import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -151,6 +153,38 @@ public class MyDesignerActivity extends BaseActivity implements
 				headView.setImageResource(R.drawable.icon_sidebar_default_designer);
 			}
 		}
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		LogTool.d(TAG, "---onResume()");
+		listenerManeger.addPushMsgReceiveListener(this);
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		LogTool.d(TAG, "---onPause()");
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+		LogTool.d(TAG, "---onStop()");
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		LogTool.d(TAG, "---onDestroy()");
+		listenerManeger.removePushMsgReceiveListener(this);
+	}
+
+	@Override
+	public void onReceiveMsg(NotifyMessage message) {
+		LogTool.d(TAG, "message=" + message);
+		sendNotifycation(message);
 	}
 
 	@Override

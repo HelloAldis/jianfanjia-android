@@ -21,6 +21,7 @@ import com.jianfanjia.cn.adapter.CommentInfoAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.CommentInfo;
 import com.jianfanjia.cn.bean.CommitCommentInfo;
+import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
@@ -71,7 +72,7 @@ public class CommentActivity extends BaseActivity implements OnClickListener,
 		public void afterTextChanged(Editable s) {
 			if (!TextUtils.isEmpty(s.toString())) {
 				sendCommentView.setEnabled(true);
-			}else{
+			} else {
 				sendCommentView.setEnabled(false);
 			}
 		}
@@ -204,6 +205,38 @@ public class CommentActivity extends BaseActivity implements OnClickListener,
 			dataManager.requestProcessInfoById(
 					dataManager.getDefaultProcessId(), this);
 		}
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		LogTool.d(TAG, "---onResume()");
+		listenerManeger.addPushMsgReceiveListener(this);
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		LogTool.d(TAG, "---onPause()");
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+		LogTool.d(TAG, "---onStop()");
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		LogTool.d(TAG, "---onDestroy()");
+		listenerManeger.removePushMsgReceiveListener(this);
+	}
+
+	@Override
+	public void onReceiveMsg(NotifyMessage message) {
+		LogTool.d(TAG, "message=" + message);
+		sendNotifycation(message);
 	}
 
 	@Override

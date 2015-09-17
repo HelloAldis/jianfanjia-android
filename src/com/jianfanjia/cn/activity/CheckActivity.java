@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.jianfanjia.cn.adapter.MyGridViewAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.GridItem;
+import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.UploadImageListener;
 import com.jianfanjia.cn.interf.UploadListener;
@@ -103,8 +104,29 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 	}
 
 	@Override
-	public int getLayoutId() {
-		return R.layout.activity_check_pic;
+	protected void onResume() {
+		super.onResume();
+		LogTool.d(TAG, "---onResume()");
+		listenerManeger.addPushMsgReceiveListener(this);
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		LogTool.d(TAG, "---onPause()");
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+		LogTool.d(TAG, "---onStop()");
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		LogTool.d(TAG, "---onDestroy()");
+		listenerManeger.removePushMsgReceiveListener(this);
 	}
 
 	@Override
@@ -209,6 +231,17 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 		List<GridItem> gridList = new ArrayList<GridItem>();
 		return gridList;
 
+	}
+
+	@Override
+	public void onReceiveMsg(NotifyMessage message) {
+		LogTool.d(TAG, "message=" + message);
+		sendNotifycation(message);
+	}
+
+	@Override
+	public int getLayoutId() {
+		return R.layout.activity_check_pic;
 	}
 
 }

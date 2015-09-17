@@ -1,26 +1,21 @@
 package com.jianfanjia.cn.receiver;
 
+import java.util.List;
 import org.apache.http.Header;
 import org.json.JSONObject;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import com.google.gson.Gson;
 import com.igexin.sdk.PushConsts;
 import com.igexin.sdk.PushManager;
-import com.jianfanjia.cn.activity.NotifyActivity;
-import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.NotifyMessage;
-import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
+import com.jianfanjia.cn.inter.manager.ListenerManeger;
+import com.jianfanjia.cn.interf.PushMsgReceiveListener;
 import com.jianfanjia.cn.tools.LogTool;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -94,7 +89,11 @@ public class PushMsgReceiver extends BroadcastReceiver {
 		try {
 			NotifyMessage message = gson.fromJson(jsonStr, NotifyMessage.class);
 			Log.i(TAG, "message:" + message);
-			sendNotifycation(context, message);
+			List<PushMsgReceiveListener> listeners = ListenerManeger.msgListeners;
+			for (PushMsgReceiveListener listener : listeners) {
+				LogTool.d(TAG, "listener:" + listener);
+				listener.onReceiveMsg(message);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -136,48 +135,4 @@ public class PushMsgReceiver extends BroadcastReceiver {
 				});
 	}
 
-	/**
-	 * Notification
-	 * 
-	 * @param message
-	 */
-	protected void sendNotifycation(Context context, NotifyMessage message) {
-		NotificationManager nManager = (NotificationManager) context
-				.getSystemService(Context.NOTIFICATION_SERVICE);
-		NotificationCompat.Builder builder = new NotificationCompat.Builder(
-				context);
-		builder.setSmallIcon(R.drawable.ic_launcher);
-		String type = message.getType();
-		if (type.equals(Constant.CAIGOU_NOTIFY)) {
-			builder.setTicker(context.getResources().getText(
-					R.string.caigouText));
-			builder.setContentTitle(context.getResources().getText(
-					R.string.caigouText));
-		} else if (type.equals(Constant.FUKUAN_NOTIFY)) {
-			builder.setTicker(context.getResources().getText(
-					R.string.fukuanText));
-			builder.setContentTitle(context.getResources().getText(
-					R.string.fukuanText));
-		} else if (type.equals(Constant.YANQI_NOTIFY)) {
-			builder.setTicker(context.getResources()
-					.getText(R.string.yanqiText));
-			builder.setContentTitle(context.getResources().getText(
-					R.string.yanqiText));
-		}
-		builder.setContentText(message.getContent());
-		builder.setWhen(System.currentTimeMillis());
-		builder.setPriority(Notification.PRIORITY_DEFAULT);
-		builder.setAutoCancel(true);
-		Intent intent = new Intent(context, NotifyActivity.class);
-		intent.putExtra("Type", type);
-		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-				| Intent.FLAG_ACTIVITY_NEW_TASK);
-		PendingIntent pendingIntent = PendingIntent.getActivity(context, 0,
-				intent, PendingIntent.FLAG_UPDATE_CURRENT);
-		builder.setContentIntent(pendingIntent);
-		Notification notification = builder.build();
-		notification.sound = Uri.parse("android.resource://"
-				+ context.getPackageName() + "/" + R.raw.message);
-		nManager.notify(Constant.NotificationID, notification);
-	}
 }
