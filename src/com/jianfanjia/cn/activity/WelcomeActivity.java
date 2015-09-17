@@ -1,10 +1,9 @@
 package com.jianfanjia.cn.activity;
 
 import android.os.Bundle;
-import android.os.Message;
+import android.os.Handler;
 import android.util.Log;
 import android.view.WindowManager;
-
 import com.jianfanjia.cn.AppConfig;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
@@ -21,6 +20,7 @@ import com.jianfanjia.cn.tools.LogTool;
  * 
  */
 public class WelcomeActivity extends BaseActivity implements LoadDataListener {
+	private Handler handler = new Handler();
 	private int first = 0;// 用于判断导航界面是否显示
 	private boolean isLoginExpire;// 是否登录过去
 	private boolean isLogin;// 是否登录过
@@ -38,7 +38,7 @@ public class WelcomeActivity extends BaseActivity implements LoadDataListener {
 
 	@Override
 	public void initView() {
-		handler.postDelayed(runnable, 2000);
+		handler.postDelayed(runnable, 3000);
 	}
 
 	@Override
@@ -49,14 +49,14 @@ public class WelcomeActivity extends BaseActivity implements LoadDataListener {
 
 	@Override
 	public void loadSuccess() {
-		 startActivity(MainActivity.class);
-		 finish();
+		startActivity(MainActivity.class);
+		finish();
 	}
 
 	@Override
 	public void loadFailture() {
-		 startActivity(LoginActivity.class);
-		 finish();
+		startActivity(LoginActivity.class);
+		finish();
 	}
 
 	private Runnable runnable = new Runnable() {
@@ -70,21 +70,18 @@ public class WelcomeActivity extends BaseActivity implements LoadDataListener {
 					finish();
 				} else {
 					if (!isLoginExpire) {// 登录未过期，添加cookies到httpclient记录身份
-						// Log.i(this.getClass().getName(),
-						// appConfig.getCookies());
+						Log.i(this.getClass().getName(), "未过期");
 						startActivity(MainActivity.class);
 						finish();
 					} else {
 						Log.i(this.getClass().getName(), "已经过期");
 						MyApplication.getInstance().clearCookie();
-						dataManager.login(dataManager.getAccount(),
-								dataManager.getPassword(),WelcomeActivity.this);
-						startActivity(LoginActivity.class);
-						finish();
+						dataManager
+							.login(dataManager.getAccount(),
+									dataManager.getPassword(),
+									WelcomeActivity.this);
 					}
 				}
-				startActivity(LoginActivity.class);
-				finish();
 			} else {
 				startActivity(NavigateActivity.class);
 				finish();
@@ -102,12 +99,6 @@ public class WelcomeActivity extends BaseActivity implements LoadDataListener {
 	@Override
 	public int getLayoutId() {
 		return R.layout.activity_welcome;
-	}
-
-	@Override
-	public void processMessage(Message msg) {
-		// TODO Auto-generated method stub
-
 	}
 
 }
