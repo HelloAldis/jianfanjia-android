@@ -1,6 +1,7 @@
 package com.jianfanjia.cn.activity;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Message;
 import android.view.WindowManager;
 import com.jianfanjia.cn.AppConfig;
@@ -18,6 +19,7 @@ import com.jianfanjia.cn.tools.LogTool;
  * 
  */
 public class WelcomeActivity extends BaseActivity implements LoadDataListener {
+	private Handler handler = new Handler();
 	private int first = 0;// 用于判断导航界面是否显示
 	private boolean isLoginExpire;// 是否登录过去
 	private boolean isLogin;// 是否登录过

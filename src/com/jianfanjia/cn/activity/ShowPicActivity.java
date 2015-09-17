@@ -2,28 +2,21 @@ package com.jianfanjia.cn.activity;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.util.Log;
-import android.view.ViewParent;
 import android.widget.TextView;
-
 import com.jianfanjia.cn.adapter.ShowPicPagerAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.bean.CommentInfo;
-import com.jianfanjia.cn.bean.ProcessInfo;
-import com.jianfanjia.cn.cache.DataManager;
+import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.tools.LogTool;
 
 public class ShowPicActivity extends BaseActivity implements
 		ViewPagerClickListener, OnPageChangeListener {
-
 	private ViewPager viewPager;
 	private ShowPicPagerAdapter showPicPagerAdapter;
 	private TextView tipView;
@@ -34,7 +27,6 @@ public class ShowPicActivity extends BaseActivity implements
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		Intent intent = getIntent();
 		Bundle bundle = intent.getExtras();
@@ -72,7 +64,6 @@ public class ShowPicActivity extends BaseActivity implements
 
 	@Override
 	public int getLayoutId() {
-		// TODO Auto-generated method stub
 		return R.layout.activity_showpic;
 	}
 
@@ -101,7 +92,19 @@ public class ShowPicActivity extends BaseActivity implements
 
 	@Override
 	public void processMessage(Message msg) {
-		
+		Bundle bundle = msg.getData();
+		NotifyMessage message = (NotifyMessage) bundle
+				.getSerializable("Notify");
+		switch (msg.what) {
+		case Constant.SENDBACKNOTICATION:
+			sendNotifycation(message);
+			break;
+		case Constant.SENDNOTICATION:
+			showNotify(message);
+			break;
+		default:
+			break;
+		}
 	}
-	
+
 }

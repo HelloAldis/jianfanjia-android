@@ -464,6 +464,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 		builder.setNumber(0);
 		builder.setAutoCancel(true);
 		Intent intent = new Intent(this, NotifyActivity.class);
+		intent.putExtra("Type", type);
 		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
 				| Intent.FLAG_ACTIVITY_NEW_TASK);
 		PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
