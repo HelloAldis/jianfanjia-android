@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.igexin.sdk.PushManager;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.interf.LoadDataListener;
 import com.jianfanjia.cn.tools.LogTool;
@@ -114,6 +116,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener,
 
 	@Override
 	public void loadSuccess() {
+		PushManager.getInstance().initialize(getApplicationContext());
 		dataManager.savePassword(mPassword);// ±£¥Ê√‹¬Î
 		startActivity(MainActivity.class);
 		finish();

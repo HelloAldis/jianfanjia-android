@@ -8,7 +8,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
-import com.igexin.sdk.PushManager;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.fragment.DesignerMenuFragment;
@@ -34,7 +33,7 @@ public class MainActivity extends BaseActivity implements PanelSlideListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		PushManager.getInstance().initialize(getApplicationContext());
+
 	}
 
 	@Override
