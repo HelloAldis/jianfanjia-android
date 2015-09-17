@@ -165,7 +165,8 @@ public class PushMsgReceiver extends BroadcastReceiver {
 					R.string.yanqiText));
 		}
 		builder.setContentText(message.getContent());
-		builder.setNumber(0);
+		builder.setWhen(System.currentTimeMillis());
+		builder.setPriority(Notification.PRIORITY_DEFAULT);
 		builder.setAutoCancel(true);
 		Intent intent = new Intent(context, NotifyActivity.class);
 		intent.putExtra("Type", type);
