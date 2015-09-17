@@ -78,6 +78,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 	protected ProcessInfo processInfo = null;
 	protected AppConfig appConfig;
 
+	protected String userIdentity = null;
 	protected boolean isOpen = false;
 
 	public static Handler handler = new Handler() {
@@ -152,6 +153,8 @@ public abstract class BaseActivity extends FragmentActivity implements
 	}
 
 	private void initParams() {
+		userIdentity = sharedPrefer.getValue(Constant.USERTYPE, null);
+		LogTool.d(this.getClass().getName(), "userIdentity=" + userIdentity);
 		processInfo = dataManager.getDefaultProcessInfo();
 	}
 

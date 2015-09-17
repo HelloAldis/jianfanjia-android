@@ -32,8 +32,6 @@ public class MainActivity extends BaseActivity implements PanelSlideListener {
 	private static final String TAG = MainActivity.class.getName();
 	private PagerEnabledSlidingPaneLayout slidingPaneLayout = null;
 	private FrameLayout slidingpane_content = null;
-	private FrameLayout slidingpane_menu = null;
-	private String userIdentity = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +41,8 @@ public class MainActivity extends BaseActivity implements PanelSlideListener {
 
 	@Override
 	public void initView() {
-		userIdentity = sharedPrefer.getValue(Constant.USERTYPE, null);
-		LogTool.d(TAG, "userIdentity=" + userIdentity);
 		slidingPaneLayout = (PagerEnabledSlidingPaneLayout) findViewById(R.id.slidingpanellayout);
 		slidingpane_content = (FrameLayout) findViewById(R.id.slidingpane_content);
-		slidingpane_menu = (FrameLayout) findViewById(R.id.slidingpane_menu);
 		FragmentTransaction transaction = fragmentManager.beginTransaction();
 		if (!TextUtils.isEmpty(userIdentity)) {
 			if (userIdentity.equals(Constant.IDENTITY_OWNER)) {
