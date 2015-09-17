@@ -562,7 +562,7 @@ public class SiteManageFragment extends BaseFragment implements
 			break;
 		case Constant.COMMENT_ITEM:
 			Bundle bundle = new Bundle();
-			bundle.putInt(Constant.CURRENT_LIST, currentPro);
+			bundle.putInt(Constant.CURRENT_LIST, currentList);
 			bundle.putInt(Constant.CURRENT_ITEM, position);
 			startActivity(CommentActivity.class, bundle);
 			break;
