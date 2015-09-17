@@ -2,8 +2,11 @@ package com.jianfanjia.cn.activity;
 
 import android.os.Bundle;
 import android.os.Message;
+import android.util.Log;
 import android.view.WindowManager;
+
 import com.jianfanjia.cn.AppConfig;
+import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.LoadDataListener;
@@ -46,14 +49,14 @@ public class WelcomeActivity extends BaseActivity implements LoadDataListener {
 
 	@Override
 	public void loadSuccess() {
-		// startActivity(MainActivity.class);
-		// finish();
+		 startActivity(MainActivity.class);
+		 finish();
 	}
 
 	@Override
 	public void loadFailture() {
-		// startActivity(LoginActivity.class);
-		// finish();
+		 startActivity(LoginActivity.class);
+		 finish();
 	}
 
 	private Runnable runnable = new Runnable() {
@@ -61,25 +64,25 @@ public class WelcomeActivity extends BaseActivity implements LoadDataListener {
 		@Override
 		public void run() {
 			if (first == 1) {
-				// if (!isLogin) {
-				// Log.i(this.getClass().getName(), "没有登录");
-				// startActivity(LoginActivity.class);
-				// finish();
-				// } else {
-				// if (!isLoginExpire) {// 登录未过期，添加cookies到httpclient记录身份
-				// // Log.i(this.getClass().getName(),
-				// // appConfig.getCookies());
-				// startActivity(MainActivity.class);
-				// finish();
-				// } else {
-				// Log.i(this.getClass().getName(), "已经过期");
-				// MyApplication.getInstance().clearCookie();
-				// dataManager.login(dataManager.getAccount(),
-				// dataManager.getPassword());
-				// startActivity(LoginActivity.class);
-				// finish();
-				// }
-				// }
+				if (!isLogin) {
+					Log.i(this.getClass().getName(), "没有登录");
+					startActivity(LoginActivity.class);
+					finish();
+				} else {
+					if (!isLoginExpire) {// 登录未过期，添加cookies到httpclient记录身份
+						// Log.i(this.getClass().getName(),
+						// appConfig.getCookies());
+						startActivity(MainActivity.class);
+						finish();
+					} else {
+						Log.i(this.getClass().getName(), "已经过期");
+						MyApplication.getInstance().clearCookie();
+						dataManager.login(dataManager.getAccount(),
+								dataManager.getPassword(),WelcomeActivity.this);
+						startActivity(LoginActivity.class);
+						finish();
+					}
+				}
 				startActivity(LoginActivity.class);
 				finish();
 			} else {
