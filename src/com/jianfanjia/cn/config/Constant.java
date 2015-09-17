@@ -118,5 +118,7 @@ public class Constant {
 	public static final String COOKIES_CONFIG = "cookies_config";// cookies配置
 	public static final String LAST_LOGIN_TIME = "last_login_time";// 上次登录时间
 	public static final long LOGIN_EXPIRE = 24 * 60 * 60 * 1000L;// 登录过期时间为24小时
+	
+	public static final String DOWNLOAD_URL = "download_url";//下载链接
 
 }

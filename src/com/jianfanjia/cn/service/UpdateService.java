@@ -45,7 +45,13 @@ public class UpdateService extends Service {
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		LogTool.d(this.getClass().getName(), "onStartCommand()");
-		download("", Constant.APK_PATH, "");
+		if(intent != null){
+			String download_url = intent.getStringExtra(Constant.DOWNLOAD_URL);
+			if(download_url != null){
+				String fileName = download_url.substring(download_url.lastIndexOf("/"));
+				download(download_url, Constant.APK_PATH, fileName);
+			}
+		}
 		return super.onStartCommand(intent, flags, startId);
 	}
 
@@ -81,9 +87,9 @@ public class UpdateService extends Service {
 				String process = (int) ((bytesWritten * 1.0 / totalSize) * 100)
 						+ "%";
 				LogTool.d(this.getClass().getName(), "process:" + process);
-				// builder.setContentInfo((int) ((bytesWritten / (float)
-				// totalSize) * 100)
-				// + "%");
+				 builder.setContentInfo((int) ((bytesWritten / (float)
+				 totalSize) * 100)
+				 + "%");
 				nManager.notify(NotificationID, builder.build());
 			}
 

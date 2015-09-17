@@ -40,7 +40,7 @@
     <string name="login_success">登录成功</string>
     <string name="login_failure">用户名或密码错误</string>
     <string name="tip_login_error_for_network">对不起,无法登录</string>
-    <string name="tip_no_internet">当前没有可用的网络链接</string>
+    <string name="tip_no_internet">网络异常</string>
     <string name="hint_update_password">请输入重置密码</string>
     <string name="load_failure">解析异常</string>
     <!-- login_activity -->

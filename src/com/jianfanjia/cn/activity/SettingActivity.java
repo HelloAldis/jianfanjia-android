@@ -5,6 +5,7 @@ import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -16,9 +17,12 @@ import android.widget.ToggleButton;
 import com.igexin.sdk.PushManager;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.bean.UpdateVersion;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
+import com.jianfanjia.cn.service.UpdateService;
 import com.jianfanjia.cn.tools.FileUtil;
+import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
@@ -197,21 +201,71 @@ public class SettingActivity extends BaseActivity implements OnClickListener,
 		dialog.show();
 	}
 
+	/**
+	 * 获取最新版本
+	 */
+	public void showNewVersion(String message,final UpdateVersion updateVersion) {
+		CommonDialog dialog = DialogHelper
+				.getPinterestDialogCancelable(SettingActivity.this);
+		dialog.setTitle("版本更新");
+		dialog.setMessage(message);
+		dialog.setPositiveButton(R.string.ok,
+				new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						startUpdateService(updateVersion.getDownload_url());
+						dialog.dismiss();
+					}
+
+				});
+		dialog.setNegativeButton(R.string.no, null);
+		dialog.show();
+	}
+
+
+	private void startUpdateService(String download_url) {
+		if(download_url == null) return;
+		Intent intent = new Intent(this,UpdateService.class);
+		intent.putExtra(Constant.DOWNLOAD_URL, download_url);
+		startService(intent);
+	}
+	
 	@Override
 	public void onResume() {
 		super.onResume();
-		LogTool.d(TAG, "onResume()   " + isOpen);
+		LogTool.d(TAG, "---onResume()");
 		if (isOpen) {
 			toggleButton.setChecked(true);
 		} else {
 			toggleButton.setChecked(false);
 		}
+		listenerManeger.addPushMsgReceiveListener(this);
 	}
 
 	@Override
-	public void onDestroy() {
+	protected void onPause() {
+		super.onPause();
+		LogTool.d(TAG, "---onPause()");
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+		LogTool.d(TAG, "---onStop()");
+	}
+
+	@Override
+	protected void onDestroy() {
 		super.onDestroy();
-		LogTool.d(TAG, "onDestroy()");
+		LogTool.d(TAG, "---onDestroy()");
+		listenerManeger.removePushMsgReceiveListener(this);
+	}
+
+	@Override
+	public void onReceiveMsg(NotifyMessage message) {
+		LogTool.d(TAG, "message=" + message);
+		sendNotifycation(message);
 	}
 
 	// 检查版本
@@ -221,7 +275,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener,
 					@Override
 					public void onStart() {
 						LogTool.d(TAG, "onStart()");
-						showWaitDialog("获取新版本");
+						showWaitDialog("检查新版本");
 					}
 
 					@Override
@@ -229,6 +283,24 @@ public class SettingActivity extends BaseActivity implements OnClickListener,
 							JSONObject response) {
 						LogTool.d(TAG, "JSONObject response:" + response);
 						hideWaitDialog();
+						try {
+							if (response.get(Constant.DATA) != null) {
+								UpdateVersion updateVersion = (UpdateVersion) JsonParser
+										.jsonToBean(response.get(Constant.DATA)
+												.toString(),
+												UpdateVersion.class);
+								if(updateVersion != null){
+									if(Integer.parseInt(updateVersion.getVersion_code()) > MyApplication.getInstance().getVersionCode()){
+										showNewVersion("有新的版本啦，版本号：" + updateVersion.getVersion_name(),updateVersion);
+									}else{
+										makeTextLong("当前已经是最新版本啦！");
+									}
+								}
+							}
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}
 
 					@Override
@@ -237,14 +309,14 @@ public class SettingActivity extends BaseActivity implements OnClickListener,
 						hideWaitDialog();
 						LogTool.d(TAG,
 								"Throwable throwable:" + throwable.toString());
-						makeTextLong(getString(R.string.tip_login_error_for_network));
+						makeTextLong(getString(R.string.tip_no_internet));
 					}
 
 					@Override
 					public void onFailure(int statusCode, Header[] headers,
 							String responseString, Throwable throwable) {
 						LogTool.d(TAG, "throwable:" + throwable);
-						makeTextLong(getString(R.string.tip_login_error_for_network));
+						makeTextLong(getString(R.string.tip_no_internet));
 						hideWaitDialog();
 					};
 				});

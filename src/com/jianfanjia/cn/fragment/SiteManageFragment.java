@@ -146,11 +146,8 @@ public class SiteManageFragment extends BaseFragment implements
 		if (savedInstanceState != null) {
 			currentList = savedInstanceState.getInt(Constant.CURRENT_LIST, -1);
 		}
-		proTitle = getResources().getStringArray(R.array.site_procedure);
-		checkSection = getResources().getStringArray(
-				R.array.site_procedure_check);
 	}
-
+	
 	private void initProcessInfo() {
 		processInfo = dataManager.getDefaultProcessInfo();
 	}
@@ -167,6 +164,10 @@ public class SiteManageFragment extends BaseFragment implements
 
 	@Override
 	public void initView(View view) {
+		proTitle = getResources().getStringArray(R.array.site_procedure);
+		checkSection = getResources().getStringArray(
+				R.array.site_procedure_check);
+		
 		mPullRefreshScrollView = (PullToRefreshScrollView) view
 				.findViewById(R.id.pull_refresh_scrollview);
 		mPullRefreshScrollView.setMode(Mode.PULL_FROM_START);
