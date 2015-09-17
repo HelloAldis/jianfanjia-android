@@ -24,6 +24,13 @@
         android:orientation="horizontal" >
 
         <Button
+            android:id="@+id/btn_ok"
+            style="@style/dialog_button_ok"
+            android:layout_margin="5dip"
+            android:text="@string/ok"
+            android:visibility="gone" />
+
+        <Button
             android:id="@+id/btn_agree"
             style="@style/dialog_button_ok"
             android:layout_margin="5dip"

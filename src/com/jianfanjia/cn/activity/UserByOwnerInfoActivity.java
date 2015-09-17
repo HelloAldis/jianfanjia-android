@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Message;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
@@ -16,12 +15,10 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.RadioGroup.OnCheckedChangeListener;
-
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.bean.OwnerUpdateInfo;
 import com.jianfanjia.cn.config.Constant;
@@ -119,7 +116,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 		if (sexInfo != null) {
 			if (sexInfo.equals(Constant.SEX_MAN)) {
 				sexText.setText("ÄÐ");
-			} else if(sexInfo.equals(Constant.SEX_WOMEN)){
+			} else if (sexInfo.equals(Constant.SEX_WOMEN)) {
 				sexText.setText("Å®");
 			}
 		} else {
@@ -462,23 +459,6 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 	@Override
 	public int getLayoutId() {
 		return R.layout.activity_owner_info;
-	}
-
-	@Override
-	public void processMessage(Message msg) {
-		Bundle bundle = msg.getData();
-		NotifyMessage message = (NotifyMessage) bundle
-				.getSerializable("Notify");
-		switch (msg.what) {
-		case Constant.SENDBACKNOTICATION:
-			sendNotifycation(message);
-			break;
-		case Constant.SENDNOTICATION:
-			showNotify(message);
-			break;
-		default:
-			break;
-		}
 	}
 
 }

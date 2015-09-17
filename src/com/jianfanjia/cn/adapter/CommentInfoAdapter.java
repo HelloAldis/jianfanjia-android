@@ -2,7 +2,6 @@ package com.jianfanjia.cn.adapter;
 
 import java.util.List;
 import android.content.Context;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -24,8 +23,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  */
 public class CommentInfoAdapter extends BaseListAdapter<CommentInfo> {
 
-	public CommentInfoAdapter(Context context, List<CommentInfo> caigouList,
-			Handler handler) {
+	public CommentInfoAdapter(Context context, List<CommentInfo> caigouList) {
 		super(context, caigouList);
 	}
 

@@ -5,9 +5,9 @@ import android.content.Context;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.NotifyMessage;
+import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.DialogListener;
 
 /**
@@ -21,7 +21,6 @@ import com.jianfanjia.cn.interf.DialogListener;
 public class NotifyDialog extends Dialog implements
 		android.view.View.OnClickListener {
 	private DialogListener listener;
-	private int layoutId;
 	private NotifyMessage message;
 
 	public NotifyDialog(Context context) {
@@ -29,29 +28,40 @@ public class NotifyDialog extends Dialog implements
 		// TODO Auto-generated constructor stub
 	}
 
-	public NotifyDialog(Context context, int layoutId, NotifyMessage message,
-			int theme) {
+	public NotifyDialog(Context context, NotifyMessage message, int theme,
+			DialogListener listener) {
 		super(context, theme);
-		this.layoutId = layoutId;
 		this.message = message;
+		this.listener = listener;
 		init();
 	}
 
 	private void init() {
-		setContentView(layoutId);
+		setContentView(R.layout.notify_dialog);
 		TextView titleTv = (TextView) findViewById(R.id.titleTv);
 		TextView contentTv = (TextView) findViewById(R.id.contentTv);
+		Button ok = (Button) findViewById(R.id.btn_ok);
 		Button agree = (Button) findViewById(R.id.btn_agree);
 		Button refuse = (Button) findViewById(R.id.btn_refuse);
+		ok.setOnClickListener(this);
 		agree.setOnClickListener(this);
 		refuse.setOnClickListener(this);
 		String type = message.getType();
-		if (type.equals("0")) {
-			titleTv.setText("延期提醒");
-		} else if (type.equals("1")) {
+		if (type.equals(Constant.CAIGOU_NOTIFY)) {
 			titleTv.setText("采购提醒");
-		} else if (type.equals("2")) {
+			ok.setVisibility(View.VISIBLE);
+			agree.setVisibility(View.GONE);
+			refuse.setVisibility(View.GONE);
+		} else if (type.equals(Constant.FUKUAN_NOTIFY)) {
 			titleTv.setText("付款提醒");
+			ok.setVisibility(View.VISIBLE);
+			agree.setVisibility(View.GONE);
+			refuse.setVisibility(View.GONE);
+		} else if (type.equals(Constant.YANQI_NOTIFY)) {
+			titleTv.setText("延期提醒");
+			ok.setVisibility(View.GONE);
+			agree.setVisibility(View.VISIBLE);
+			refuse.setVisibility(View.VISIBLE);
 		}
 		contentTv.setText(message.getContent());
 	}
@@ -59,17 +69,19 @@ public class NotifyDialog extends Dialog implements
 	@Override
 	public void onClick(View V) {
 		switch (V.getId()) {
+		case R.id.btn_ok:
+			dismiss();
+			listener.onConfirmButtonClick();
+			break;
 		case R.id.btn_agree:
+			dismiss();
 			listener.onPositiveButtonClick();
 			break;
 		case R.id.btn_refuse:
+			dismiss();
 			listener.onNegativeButtonClick();
 			break;
 		}
-	}
-
-	public void setListener(DialogListener listener) {
-		this.listener = listener;
 	}
 
 }

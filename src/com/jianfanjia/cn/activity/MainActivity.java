@@ -1,7 +1,6 @@
 package com.jianfanjia.cn.activity;
 
 import android.os.Bundle;
-import android.os.Message;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SlidingPaneLayout;
 import android.support.v4.widget.SlidingPaneLayout.PanelSlideListener;
@@ -9,11 +8,8 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
-import com.igexin.sdk.PushManager;
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.fragment.DesignerMenuFragment;
 import com.jianfanjia.cn.fragment.OwnerMenuFragment;
 import com.jianfanjia.cn.fragment.SiteManageFragment;
@@ -32,22 +28,18 @@ public class MainActivity extends BaseActivity implements PanelSlideListener {
 	private static final String TAG = MainActivity.class.getName();
 	private PagerEnabledSlidingPaneLayout slidingPaneLayout = null;
 	private FrameLayout slidingpane_content = null;
-	private FrameLayout slidingpane_menu = null;
-	private String userIdentity = null;
+	private long mExitTime = 0L;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		PushManager.getInstance().initialize(getApplicationContext());
+
 	}
 
 	@Override
 	public void initView() {
-		userIdentity = sharedPrefer.getValue(Constant.USERTYPE, null);
-		LogTool.d(TAG, "userIdentity=" + userIdentity);
 		slidingPaneLayout = (PagerEnabledSlidingPaneLayout) findViewById(R.id.slidingpanellayout);
 		slidingpane_content = (FrameLayout) findViewById(R.id.slidingpane_content);
-		slidingpane_menu = (FrameLayout) findViewById(R.id.slidingpane_menu);
 		FragmentTransaction transaction = fragmentManager.beginTransaction();
 		if (!TextUtils.isEmpty(userIdentity)) {
 			if (userIdentity.equals(Constant.IDENTITY_OWNER)) {
@@ -94,10 +86,14 @@ public class MainActivity extends BaseActivity implements PanelSlideListener {
 	@Override
 	public void onBackPressed() {
 		if (slidingPaneLayout.isOpen()) {
-			moveTaskToBack(false);
-			Global.isAppBack = true;
+			slidingPaneLayout.closePane();
 		} else {
-			slidingPaneLayout.openPane();
+			if ((System.currentTimeMillis() - mExitTime) > 2000) {// 如果两次按键时间间隔大于2000毫秒，则不退出
+				makeTextLong("再按一次退出程序");
+				mExitTime = System.currentTimeMillis();// 更新mExitTime
+			} else {
+				activityManager.exit();
+			}
 		}
 	}
 
@@ -123,21 +119,4 @@ public class MainActivity extends BaseActivity implements PanelSlideListener {
 		LogTool.d(TAG, "onDisConnect()");
 	}
 
-	@Override
-	public void processMessage(Message msg) {
-		Log.i(TAG, "接收到推送消息");
-		Bundle bundle = msg.getData();
-		NotifyMessage message = (NotifyMessage) bundle
-				.getSerializable("Notify");
-		switch (msg.what) {
-		case Constant.SENDBACKNOTICATION:
-			sendNotifycation(message);
-			break;
-		case Constant.SENDNOTICATION:
-			showNotify(message);
-			break;
-		default:
-			break;
-		}
-	}
 }

@@ -1,8 +1,6 @@
 package com.jianfanjia.cn.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.os.Message;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -12,7 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.config.Constant;
 
 public class EditInfoActivity extends BaseActivity implements OnClickListener {
@@ -93,23 +90,6 @@ public class EditInfoActivity extends BaseActivity implements OnClickListener {
 	@Override
 	public int getLayoutId() {
 		return R.layout.activity_edit_info;
-	}
-
-	@Override
-	public void processMessage(Message msg) {
-		Bundle bundle = msg.getData();
-		NotifyMessage message = (NotifyMessage) bundle
-				.getSerializable("Notify");
-		switch (msg.what) {
-		case Constant.SENDBACKNOTICATION:
-			sendNotifycation(message);
-			break;
-		case Constant.SENDNOTICATION:
-			showNotify(message);
-			break;
-		default:
-			break;
-		}
 	}
 
 }

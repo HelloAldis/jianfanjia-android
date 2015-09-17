@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Message;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
@@ -17,7 +16,6 @@ import android.widget.TextView;
 import com.jianfanjia.cn.adapter.MyGridViewAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.GridItem;
-import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.UploadImageListener;
 import com.jianfanjia.cn.interf.UploadListener;
@@ -213,20 +211,4 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 
 	}
 
-	@Override
-	public void processMessage(Message msg) {
-		Bundle bundle = msg.getData();
-		NotifyMessage message = (NotifyMessage) bundle
-				.getSerializable("Notify");
-		switch (msg.what) {
-		case Constant.SENDBACKNOTICATION:
-			sendNotifycation(message);
-			break;
-		case Constant.SENDNOTICATION:
-			showNotify(message);
-			break;
-		default:
-			break;
-		}
-	}
 }

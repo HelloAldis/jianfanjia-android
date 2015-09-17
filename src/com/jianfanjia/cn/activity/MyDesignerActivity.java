@@ -1,7 +1,5 @@
 package com.jianfanjia.cn.activity;
 
-import android.os.Bundle;
-import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -9,7 +7,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.MyDesignerInfo;
-import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url;
 import com.jianfanjia.cn.interf.LoadDataListener;
@@ -159,23 +156,6 @@ public class MyDesignerActivity extends BaseActivity implements
 	@Override
 	public int getLayoutId() {
 		return R.layout.activity_my_designer;
-	}
-
-	@Override
-	public void processMessage(Message msg) {
-		Bundle bundle = msg.getData();
-		NotifyMessage message = (NotifyMessage) bundle
-				.getSerializable("Notify");
-		switch (msg.what) {
-		case Constant.SENDBACKNOTICATION:
-			sendNotifycation(message);
-			break;
-		case Constant.SENDNOTICATION:
-			showNotify(message);
-			break;
-		default:
-			break;
-		}
 	}
 
 }

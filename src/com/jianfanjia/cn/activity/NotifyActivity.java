@@ -2,17 +2,14 @@ package com.jianfanjia.cn.activity;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import android.os.Bundle;
-import android.os.Message;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
-
 import com.jianfanjia.cn.adapter.MyFragmentPagerAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.bean.SelectItem;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.fragment.CaiGouNotifyFragment;
@@ -39,6 +36,7 @@ public class NotifyActivity extends BaseActivity implements OnClickListener {
 	private MyFragmentPagerAdapter adapter = null;
 	private ViewPager mPager = null;// 页卡内容
 	private List<SelectItem> listViews = new ArrayList<SelectItem>(); // Tab页面列表
+	private int initialPosition = 0;
 
 	@Override
 	public void onAttachFragment(Fragment fragment) {
@@ -56,7 +54,21 @@ public class NotifyActivity extends BaseActivity implements OnClickListener {
 		mPageIndicator = (TabPageIndicator) this
 				.findViewById(R.id.page_indicator);
 		mPager = (ViewPager) this.findViewById(R.id.vPager);
-		initItem();
+		Intent intent = this.getIntent();
+		String notifyType = intent.getStringExtra("Type");
+		LogTool.d(TAG, "notifyType=" + notifyType);
+		if (!TextUtils.isEmpty(notifyType)) {
+			if (notifyType.equals(Constant.CAIGOU_NOTIFY)) {
+				initialPosition = 0;
+			} else if (notifyType.equals(Constant.FUKUAN_NOTIFY)) {
+				initialPosition = 1;
+			} else if (notifyType.equals(Constant.YANQI_NOTIFY)) {
+				initialPosition = 2;
+			}
+		} else {
+			initialPosition = 0;
+		}
+		initItem(initialPosition);
 	}
 
 	private void initMainHeadView() {
@@ -85,7 +97,7 @@ public class NotifyActivity extends BaseActivity implements OnClickListener {
 		}
 	}
 
-	private void initItem() {
+	private void initItem(int initialPosition) {
 		SelectItem caigouItem = new SelectItem(new CaiGouNotifyFragment(),
 				"采购提醒");
 		SelectItem fukuanItem = new SelectItem(new FuKuanNotifyFragment(),
@@ -97,7 +109,7 @@ public class NotifyActivity extends BaseActivity implements OnClickListener {
 		adapter = new MyFragmentPagerAdapter(fragmentManager, listViews);
 		mPager.setAdapter(adapter);
 		mPager.setOffscreenPageLimit(1);
-		mPageIndicator.setViewPager(mPager, 0);
+		mPageIndicator.setViewPager(mPager, initialPosition);
 		mPageIndicator
 				.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
@@ -121,23 +133,6 @@ public class NotifyActivity extends BaseActivity implements OnClickListener {
 	@Override
 	public int getLayoutId() {
 		return R.layout.activity_notify;
-	}
-
-	@Override
-	public void processMessage(Message msg) {
-		Bundle bundle = msg.getData();
-		NotifyMessage message = (NotifyMessage) bundle
-				.getSerializable("Notify");
-		switch (msg.what) {
-		case Constant.SENDBACKNOTICATION:
-			sendNotifycation(message);
-			break;
-		case Constant.SENDNOTICATION:
-			showNotify(message);
-			break;
-		default:
-			break;
-		}
 	}
 
 }
