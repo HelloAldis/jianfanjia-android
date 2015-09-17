@@ -91,7 +91,6 @@ public class NotifyActivity extends BaseActivity implements OnClickListener {
 		case R.id.head_back_layout:
 			finish();
 			break;
-
 		default:
 			break;
 		}
