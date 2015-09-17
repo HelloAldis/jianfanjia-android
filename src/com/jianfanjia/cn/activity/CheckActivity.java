@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.jianfanjia.cn.adapter.MyGridViewAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.GridItem;
+import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.UploadImageListener;
 import com.jianfanjia.cn.interf.UploadListener;
@@ -106,6 +107,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 	protected void onResume() {
 		super.onResume();
 		LogTool.d(TAG, "---onResume()");
+		listenerManeger.addPushMsgReceiveListener(this);
 	}
 
 	@Override
@@ -124,6 +126,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 	protected void onDestroy() {
 		super.onDestroy();
 		LogTool.d(TAG, "---onDestroy()");
+		listenerManeger.removePushMsgReceiveListener(this);
 	}
 
 	@Override
@@ -228,6 +231,12 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 		List<GridItem> gridList = new ArrayList<GridItem>();
 		return gridList;
 
+	}
+
+	@Override
+	public void onReceiveMsg(NotifyMessage message) {
+		LogTool.d(TAG, "message=" + message);
+		sendNotifycation(message);
 	}
 
 	@Override

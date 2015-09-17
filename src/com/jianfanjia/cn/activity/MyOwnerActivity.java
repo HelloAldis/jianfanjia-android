@@ -14,6 +14,7 @@ import android.widget.ListView;
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.adapter.MyOwerInfoAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.bean.Process;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
@@ -139,6 +140,7 @@ public class MyOwnerActivity extends BaseActivity implements OnClickListener,
 	protected void onResume() {
 		super.onResume();
 		LogTool.d(TAG, "---onResume()");
+		listenerManeger.addPushMsgReceiveListener(this);
 	}
 
 	@Override
@@ -157,6 +159,13 @@ public class MyOwnerActivity extends BaseActivity implements OnClickListener,
 	protected void onDestroy() {
 		super.onDestroy();
 		LogTool.d(TAG, "---onDestroy()");
+		listenerManeger.removePushMsgReceiveListener(this);
+	}
+
+	@Override
+	public void onReceiveMsg(NotifyMessage message) {
+		LogTool.d(TAG, "message=" + message);
+		sendNotifycation(message);
 	}
 
 	@Override

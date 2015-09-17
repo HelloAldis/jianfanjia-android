@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.tools.LogTool;
@@ -132,6 +133,7 @@ public class FeedBackActivity extends BaseActivity implements OnClickListener {
 	protected void onResume() {
 		super.onResume();
 		LogTool.d(TAG, "---onResume()");
+		listenerManeger.addPushMsgReceiveListener(this);
 	}
 
 	@Override
@@ -150,6 +152,13 @@ public class FeedBackActivity extends BaseActivity implements OnClickListener {
 	protected void onDestroy() {
 		super.onDestroy();
 		LogTool.d(TAG, "---onDestroy()");
+		listenerManeger.removePushMsgReceiveListener(this);
+	}
+
+	@Override
+	public void onReceiveMsg(NotifyMessage message) {
+		LogTool.d(TAG, "message=" + message);
+		sendNotifycation(message);
 	}
 
 	@Override

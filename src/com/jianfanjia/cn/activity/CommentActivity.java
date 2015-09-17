@@ -21,6 +21,7 @@ import com.jianfanjia.cn.adapter.CommentInfoAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.CommentInfo;
 import com.jianfanjia.cn.bean.CommitCommentInfo;
+import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
@@ -210,6 +211,7 @@ public class CommentActivity extends BaseActivity implements OnClickListener,
 	protected void onResume() {
 		super.onResume();
 		LogTool.d(TAG, "---onResume()");
+		listenerManeger.addPushMsgReceiveListener(this);
 	}
 
 	@Override
@@ -228,6 +230,13 @@ public class CommentActivity extends BaseActivity implements OnClickListener,
 	protected void onDestroy() {
 		super.onDestroy();
 		LogTool.d(TAG, "---onDestroy()");
+		listenerManeger.removePushMsgReceiveListener(this);
+	}
+
+	@Override
+	public void onReceiveMsg(NotifyMessage message) {
+		LogTool.d(TAG, "message=" + message);
+		sendNotifycation(message);
 	}
 
 	@Override

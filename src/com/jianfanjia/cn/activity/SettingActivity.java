@@ -16,6 +16,7 @@ import android.widget.ToggleButton;
 import com.igexin.sdk.PushManager;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.tools.FileUtil;
@@ -200,12 +201,13 @@ public class SettingActivity extends BaseActivity implements OnClickListener,
 	@Override
 	public void onResume() {
 		super.onResume();
-		LogTool.d(TAG, "onResume()   " + isOpen);
+		LogTool.d(TAG, "---onResume()");
 		if (isOpen) {
 			toggleButton.setChecked(true);
 		} else {
 			toggleButton.setChecked(false);
 		}
+		listenerManeger.addPushMsgReceiveListener(this);
 	}
 
 	@Override
@@ -221,9 +223,16 @@ public class SettingActivity extends BaseActivity implements OnClickListener,
 	}
 
 	@Override
-	public void onDestroy() {
+	protected void onDestroy() {
 		super.onDestroy();
-		LogTool.d(TAG, "onDestroy()");
+		LogTool.d(TAG, "---onDestroy()");
+		listenerManeger.removePushMsgReceiveListener(this);
+	}
+
+	@Override
+	public void onReceiveMsg(NotifyMessage message) {
+		LogTool.d(TAG, "message=" + message);
+		sendNotifycation(message);
 	}
 
 	// ¼ì²é°æ±¾

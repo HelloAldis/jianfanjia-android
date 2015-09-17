@@ -9,6 +9,7 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.widget.TextView;
 import com.jianfanjia.cn.adapter.ShowPicPagerAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.tools.LogTool;
@@ -87,6 +88,7 @@ public class ShowPicActivity extends BaseActivity implements
 	protected void onResume() {
 		super.onResume();
 		LogTool.d(TAG, "---onResume()");
+		listenerManeger.addPushMsgReceiveListener(this);
 	}
 
 	@Override
@@ -105,6 +107,13 @@ public class ShowPicActivity extends BaseActivity implements
 	protected void onDestroy() {
 		super.onDestroy();
 		LogTool.d(TAG, "---onDestroy()");
+		listenerManeger.removePushMsgReceiveListener(this);
+	}
+
+	@Override
+	public void onReceiveMsg(NotifyMessage message) {
+		LogTool.d(TAG, "message=" + message);
+		sendNotifycation(message);
 	}
 
 	@Override
