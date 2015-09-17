@@ -11,7 +11,6 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.CommentInfo;
 import com.jianfanjia.cn.bean.MyDesignerInfo;
 import com.jianfanjia.cn.bean.MyOwnerInfo;
-import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url;
 import com.jianfanjia.cn.tools.StringUtils;
@@ -25,12 +24,9 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  */
 public class CommentInfoAdapter extends BaseListAdapter<CommentInfo> {
 
-	private Handler handler;
-
 	public CommentInfoAdapter(Context context, List<CommentInfo> caigouList,
 			Handler handler) {
 		super(context, caigouList);
-		this.handler = handler;
 	}
 
 	@Override
@@ -78,7 +74,7 @@ public class CommentInfoAdapter extends BaseListAdapter<CommentInfo> {
 									: (Url.GET_IMAGE + imageId),
 							viewHolder.itemHeadView, options);
 				} else {
-					dataManager.getDesignerInfoById(designerId);
+					dataManager.getDesignerInfoById(designerId, this);
 				}
 			}
 		} else {
@@ -98,7 +94,7 @@ public class CommentInfoAdapter extends BaseListAdapter<CommentInfo> {
 									: (Url.GET_IMAGE + imageId),
 							viewHolder.itemHeadView, options);
 				} else {
-					dataManager.getOwnerInfoById(ownerId);
+					dataManager.getOwnerInfoById(ownerId, this);
 				}
 			}
 		}

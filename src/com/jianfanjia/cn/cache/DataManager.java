@@ -9,7 +9,6 @@ import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.content.Context;
-import android.os.Handler;
 import android.util.Log;
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.AppConfig;
@@ -39,7 +38,6 @@ public class DataManager {
 	public static final String FAILURE = "failure";
 	private static DataManager instance;
 	private Context context;
-	private LoadDataListener listener;
 
 	private boolean isLogin;// 是否登录
 	public SharedPrefer sharedPrefer = null;
@@ -52,17 +50,15 @@ public class DataManager {
 	private OwnerInfo ownerInfo;// 业主的个人信息
 	private DesignerInfo designerInfo;// 设计师的个人信息
 
-	public static DataManager getInstance(Context context,
-			LoadDataListener listener) {
+	public static DataManager getInstance() {
 		if (instance == null) {
-			instance = new DataManager(context, listener);
+			instance = new DataManager();
 		}
 		return instance;
 	}
 
-	private DataManager(Context context, LoadDataListener listener) {
-		this.context = context;
-		this.listener = listener;
+	private DataManager() {
+		context = MyApplication.getInstance();
 		sharedPrefer = new SharedPrefer(context, Constant.SHARED_MAIN);
 	}
 
@@ -161,7 +157,7 @@ public class DataManager {
 		return myDesignerInfo;
 	}
 
-	public void getOwnerInfoById(String ownerId) {
+	public void getOwnerInfoById(String ownerId, final LoadDataListener listener) {
 		JianFanJiaApiClient.getOwnerInfoById(context, ownerId,
 				new JsonHttpResponseHandler() {
 					@Override
@@ -218,7 +214,8 @@ public class DataManager {
 				});
 	}
 
-	public void getDesignerInfoById(String designerId) {
+	public void getDesignerInfoById(String designerId,
+			final LoadDataListener listener) {
 		JianFanJiaApiClient.getDesignerInfoById(context, designerId,
 				new JsonHttpResponseHandler() {
 					@Override
@@ -334,7 +331,8 @@ public class DataManager {
 		return null;
 	}
 
-	public void requestProcessInfoById(String processId) {
+	public void requestProcessInfoById(String processId,
+			final LoadDataListener listener) {
 		JianFanJiaApiClient.get_ProcessInfo_By_Id(context, processId,
 				new JsonHttpResponseHandler() {
 					@Override
@@ -402,7 +400,7 @@ public class DataManager {
 	/**
 	 * 加载工地列表
 	 */
-	public void requestProcessList() {
+	public void requestProcessList(final LoadDataListener listener) {
 		JianFanJiaApiClient.get_Designer_Process_List(context,
 				new JsonHttpResponseHandler() {
 					@Override
@@ -452,7 +450,7 @@ public class DataManager {
 									if (processReflects.size() > 0) {
 										requestProcessInfoById(processReflects
 												.get(getDefaultPro())
-												.getProcessId());
+												.getProcessId(), listener);
 									} else {
 										listener.loadSuccess();
 									}
@@ -498,7 +496,8 @@ public class DataManager {
 
 	}
 
-	public void login(String name, String password, final Handler handler) {
+	public void login(String name, String password,
+			final LoadDataListener listener) {
 		JianFanJiaApiClient.login(context, name, password,
 				new JsonHttpResponseHandler() {
 					@Override

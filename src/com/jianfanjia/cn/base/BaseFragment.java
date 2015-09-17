@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -17,7 +16,6 @@ import com.jianfanjia.cn.AppConfig;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.inter.manager.ListenerManeger;
-import com.jianfanjia.cn.interf.LoadDataListener;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.SharedPrefer;
@@ -36,11 +34,10 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  * 
  */
 public abstract class BaseFragment extends Fragment implements OnClickListener,
-		PopWindowCallBack, LoadDataListener {
+		PopWindowCallBack {
 	protected FragmentManager fragmentManager = null;
 	protected DataManager dataManager = null;
 	protected AppConfig appConfig = null;
-	protected LocalBroadcastManager localBroadcastManager = null;
 	protected LayoutInflater inflater = null;
 	protected SharedPrefer sharedPrefer = null;
 	protected ImageLoader imageLoader = null;
@@ -74,7 +71,7 @@ public abstract class BaseFragment extends Fragment implements OnClickListener,
 
 	private void init() {
 		appConfig = AppConfig.getInstance(getActivity());
-		dataManager = DataManager.getInstance(getActivity(), this);
+		dataManager = DataManager.getInstance();
 		imageLoader = ImageLoader.getInstance();
 		options = new DisplayImageOptions.Builder()
 				.showImageOnLoading(R.drawable.pix_default)
@@ -86,8 +83,6 @@ public abstract class BaseFragment extends Fragment implements OnClickListener,
 		listenerManeger = ListenerManeger.getListenerManeger();
 		uploadManager = UploadManager.getUploadManager(getActivity());
 		fragmentManager = getFragmentManager();
-		localBroadcastManager = LocalBroadcastManager
-				.getInstance(getActivity());
 	}
 
 	private void initUserInfo() {
@@ -99,14 +94,28 @@ public abstract class BaseFragment extends Fragment implements OnClickListener,
 				+ " mAccount:" + mAccount + " userImageId" + mUserImageId);
 	}
 
-	@Override
-	public void loadSuccess() {
-		hideWaitDialog();
+	// @Override
+	// public void loadSuccess() {
+	// hideWaitDialog();
+	// }
+	//
+	// @Override
+	// public void loadFailture() {
+	// hideWaitDialog();
+	// }
+
+	public abstract int getLayoutId();
+
+	public abstract void initView(View view);
+
+	public abstract void setListener();
+
+	protected View inflateView(int resId) {
+		return this.inflater.inflate(resId, null);
 	}
 
-	@Override
-	public void loadFailture() {
-		hideWaitDialog();
+	public Context getApplication() {
+		return getActivity().getApplication();
 	}
 
 	@Override
@@ -125,20 +134,6 @@ public abstract class BaseFragment extends Fragment implements OnClickListener,
 	public void onDestroy() {
 		super.onDestroy();
 		LogTool.d(this.getClass().getName(), "onDestroy");
-	}
-
-	public Context getApplication() {
-		return getActivity().getApplication();
-	}
-
-	public abstract int getLayoutId();
-
-	public abstract void initView(View view);
-
-	public abstract void setListener();
-
-	protected View inflateView(int resId) {
-		return this.inflater.inflate(resId, null);
 	}
 
 	@Override

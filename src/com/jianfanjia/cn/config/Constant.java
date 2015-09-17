@@ -50,7 +50,7 @@ public class Constant {
 	public static final int IMG_ITEM = 3;
 	public static final int COMMENT_ITEM = 4;
 
-	// 用户身份
+	// 用户身份type
 	public static final String IDENTITY_OWNER = "1";// 业主
 	public static final String IDENTITY_DESIGNER = "2";// 设计师
 
@@ -85,6 +85,8 @@ public class Constant {
 
 	public final static int SENDBACKNOTICATION = 10;
 	public final static int SENDNOTICATION = 20;
+	public final static int EXCEPTION = 30;
+	public final static int ERROR = 40;
 
 	public static final int NOT_START = 0;// 未开工
 	public static final int WORKING = 1;// 正在进行中

@@ -1,14 +1,12 @@
 package com.jianfanjia.cn.adapter;
 
 import java.util.List;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.interf.LoadDataListener;
@@ -44,7 +42,7 @@ public abstract class BaseListAdapter<T> extends BaseAdapter implements
 				.showImageOnFail(R.drawable.pix_default).cacheInMemory(true)
 				.cacheOnDisk(true).considerExifParams(true)
 				.bitmapConfig(Bitmap.Config.RGB_565).build();
-		dataManager = DataManager.getInstance(context, this);
+		dataManager = DataManager.getInstance();
 	}
 
 	public void setList(List<T> list) {

@@ -26,6 +26,7 @@ import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
+import com.jianfanjia.cn.interf.LoadDataListener;
 import com.jianfanjia.cn.tools.LogTool;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -36,7 +37,8 @@ import com.loopj.android.http.JsonHttpResponseHandler;
  * @date 2015-8-27 10:11
  * 
  */
-public class CommentActivity extends BaseActivity implements OnClickListener {
+public class CommentActivity extends BaseActivity implements OnClickListener,
+		LoadDataListener {
 	protected static final String TAG = CommentActivity.class.getName();
 	private TextView backView = null;// 返回视图
 	private ListView listView = null;// 评论列表
@@ -206,10 +208,10 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
 
 	private void refreshData() {
 		if (dataManager.getDefaultProcessId() == null) {
-			dataManager.requestProcessList();
+			dataManager.requestProcessList(this);
 		} else {
-			dataManager.requestProcessInfoById(dataManager
-					.getDefaultProcessId());
+			dataManager.requestProcessInfoById(
+					dataManager.getDefaultProcessId(), this);
 		}
 	}
 
@@ -233,6 +235,18 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
 		default:
 			break;
 		}
+	}
+
+	@Override
+	public void loadSuccess() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void loadFailture() {
+		// TODO Auto-generated method stub
+
 	}
 
 }

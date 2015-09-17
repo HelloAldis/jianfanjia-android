@@ -16,6 +16,7 @@ import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.bean.Process;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.interf.LoadDataListener;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
 
@@ -28,7 +29,7 @@ import com.jianfanjia.cn.view.MainHeadView;
  * 
  */
 public class DesignerSiteActivity extends BaseActivity implements
-		OnClickListener, OnItemClickListener {
+		OnClickListener, OnItemClickListener, LoadDataListener {
 	private static final String TAG = DesignerSiteActivity.class.getName();
 	private MainHeadView mainHeadView = null;
 	private ListView siteListView = null;
@@ -45,7 +46,7 @@ public class DesignerSiteActivity extends BaseActivity implements
 					DesignerSiteActivity.this, siteList);
 			siteListView.setAdapter(designerSiteInfoAdapter);
 		} else {
-			dataManager.requestProcessList();
+			dataManager.requestProcessList(this);
 			showWaitDialog();
 		}
 	}
@@ -90,7 +91,6 @@ public class DesignerSiteActivity extends BaseActivity implements
 
 	@Override
 	public void loadSuccess() {
-		super.loadSuccess();
 		siteList = dataManager.getDesignerProcessLists();
 		if (siteList != null) {
 			designerSiteInfoAdapter = new DesignerSiteInfoAdapter(
@@ -103,7 +103,7 @@ public class DesignerSiteActivity extends BaseActivity implements
 
 	@Override
 	public void loadFailture() {
-		super.loadFailture();
+
 	}
 
 	@Override

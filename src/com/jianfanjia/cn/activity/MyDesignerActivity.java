@@ -12,6 +12,7 @@ import com.jianfanjia.cn.bean.MyDesignerInfo;
 import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url;
+import com.jianfanjia.cn.interf.LoadDataListener;
 import com.jianfanjia.cn.layout.CircleImageView;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -24,7 +25,8 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  * @date 2015-9-11 上午9:56:20
  * 
  */
-public class MyDesignerActivity extends BaseActivity implements OnClickListener {
+public class MyDesignerActivity extends BaseActivity implements
+		OnClickListener, LoadDataListener {
 	private static final String TAG = MyDesignerActivity.class.getName();
 	private ImageView bgView;// 设计师背景
 	private CircleImageView headView;//
@@ -60,7 +62,7 @@ public class MyDesignerActivity extends BaseActivity implements OnClickListener 
 			setData();
 		} else {
 			if (designerId != null) {
-				dataManager.getDesignerInfoById(designerId);
+				dataManager.getDesignerInfoById(designerId, this);
 			} else {
 				// loadempty
 			}
@@ -80,7 +82,6 @@ public class MyDesignerActivity extends BaseActivity implements OnClickListener 
 
 	@Override
 	public void loadSuccess() {
-		super.loadSuccess();
 		designerInfo = dataManager.getDesignerInfo(dataManager
 				.getDefaultDesignerId());
 		setData();
@@ -88,7 +89,7 @@ public class MyDesignerActivity extends BaseActivity implements OnClickListener 
 
 	@Override
 	public void loadFailture() {
-		super.loadFailture();
+
 	}
 
 	@Override

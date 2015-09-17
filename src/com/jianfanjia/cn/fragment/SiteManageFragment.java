@@ -3,11 +3,9 @@ package com.jianfanjia.cn.fragment;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -27,12 +25,10 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-
 import com.jianfanjia.cn.activity.CheckActivity;
 import com.jianfanjia.cn.activity.CommentActivity;
 import com.jianfanjia.cn.activity.DesignerSiteActivity;
@@ -43,7 +39,6 @@ import com.jianfanjia.cn.activity.ShowPicActivity;
 import com.jianfanjia.cn.adapter.InfinitePagerAdapter;
 import com.jianfanjia.cn.adapter.MyViewPageAdapter;
 import com.jianfanjia.cn.adapter.SectionItemAdapter;
-import com.jianfanjia.cn.adapter.ShowPicPagerAdapter;
 import com.jianfanjia.cn.adapter.ViewPageAdapter;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
@@ -54,6 +49,7 @@ import com.jianfanjia.cn.bean.ViewPagerItem;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
+import com.jianfanjia.cn.interf.LoadDataListener;
 import com.jianfanjia.cn.interf.UploadImageListener;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
@@ -64,7 +60,6 @@ import com.jianfanjia.cn.tools.DateFormatTool;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.PhotoUtils;
 import com.jianfanjia.cn.tools.StringUtils;
-import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DateWheelDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
@@ -79,10 +74,10 @@ import com.loopj.android.http.JsonHttpResponseHandler;
  * 
  */
 public class SiteManageFragment extends BaseFragment implements
-		OnRefreshListener2<ScrollView>, ItemClickCallBack, UploadImageListener {
+		OnRefreshListener2<ScrollView>, ItemClickCallBack, UploadImageListener,
+		LoadDataListener {
 	private static final String TAG = SiteManageFragment.class.getName();
 	private PullToRefreshScrollView mPullRefreshScrollView = null;
-	private ScrollView scrollView = null;
 	private ArrayList<SectionInfo> sectionInfos;
 	private ArrayList<SectionItemInfo> sectionItemInfos;
 	private SectionInfo sectionInfo;
@@ -111,7 +106,7 @@ public class SiteManageFragment extends BaseFragment implements
 	private TextView openDelay;// 延期按钮
 	private TextView openCheck;// 对比验收按钮
 
-//	private MainHeadView mainHeadView;
+	// private MainHeadView mainHeadView;
 	private TextView titleCenter;
 	private TextView titleRight;
 	private ImageView titleImage;
@@ -162,11 +157,11 @@ public class SiteManageFragment extends BaseFragment implements
 
 	private void refreshData() {
 		if (dataManager.getDefaultProcessId() == null) {
-			dataManager.requestProcessList();
+			dataManager.requestProcessList(this);
 		} else {
 			Log.i(TAG, "proId = " + dataManager.getDefaultProcessId());
-			dataManager.requestProcessInfoById(dataManager
-					.getDefaultProcessId());
+			dataManager.requestProcessInfoById(
+					dataManager.getDefaultProcessId(), this);
 		}
 	}
 
@@ -175,7 +170,6 @@ public class SiteManageFragment extends BaseFragment implements
 		mPullRefreshScrollView = (PullToRefreshScrollView) view
 				.findViewById(R.id.pull_refresh_scrollview);
 		mPullRefreshScrollView.setMode(Mode.PULL_FROM_START);
-		scrollView = mPullRefreshScrollView.getRefreshableView();
 		initMainHead(view);
 		initBannerView(view);
 		initScrollLayout(view);
@@ -186,24 +180,6 @@ public class SiteManageFragment extends BaseFragment implements
 		} else {
 			refreshData();
 		}
-	}
-
-	@Override
-	public void loadSuccess() {
-		super.loadSuccess();
-		mPullRefreshScrollView.onRefreshComplete();
-		initProcessInfo();
-		if (processInfo != null) {
-			initData();
-		} else {
-			// loadempty
-		}
-	}
-
-	@Override
-	public void loadFailture() {
-		super.loadFailture();
-		mPullRefreshScrollView.onRefreshComplete();
 	}
 
 	private void initMainHead(View view) {
@@ -559,7 +535,7 @@ public class SiteManageFragment extends BaseFragment implements
 		// Update the LastUpdatedLabel
 		refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
 		// 加载数据
-		dataManager.requestProcessList();
+		dataManager.requestProcessList(this);
 	}
 
 	@Override
@@ -579,7 +555,7 @@ public class SiteManageFragment extends BaseFragment implements
 			showPopWindow(getView());
 			break;
 		case Constant.IMG_ITEM:
-			
+
 			break;
 		case Constant.COMMENT_ITEM:
 			Bundle bundle = new Bundle();
@@ -593,18 +569,30 @@ public class SiteManageFragment extends BaseFragment implements
 	}
 
 	@Override
-	public void click(int position,int itemType,List<String> imageUrlList) {
-		LogTool.d(TAG, "itemType:" + itemType);
+	public void loadSuccess() {
+		mPullRefreshScrollView.onRefreshComplete();
+		initProcessInfo();
+		if (processInfo != null) {
+			initData();
+		} else {
+			// loadempty
+		}
+	}
+
+	@Override
+	public void loadFailture() {
+		mPullRefreshScrollView.onRefreshComplete();
+	}
+
+	@Override
+	public void click(int position, int itemType, List<String> imageUrlList) {
 		switch (itemType) {
 		case Constant.IMG_ITEM:
-			/*for (String str : imageUrlList) {
-				LogTool.d(TAG, " str:" + str);
-			};*/
 			Bundle bundle0 = new Bundle();
-			bundle0.putStringArrayList(Constant.IMAGE_LIST, (ArrayList<String>)imageUrlList);
+			bundle0.putStringArrayList(Constant.IMAGE_LIST,
+					(ArrayList<String>) imageUrlList);
 			bundle0.putInt(Constant.CURRENT_POSITION, position);
 			startActivity(ShowPicActivity.class, bundle0);
-			
 			break;
 		default:
 			break;
