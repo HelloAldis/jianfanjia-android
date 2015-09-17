@@ -22,6 +22,9 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  * 
  */
 public class CommentInfoAdapter extends BaseListAdapter<CommentInfo> {
+	
+	private boolean isLoadDesignerInfo = false;
+	private boolean isLoadOwnerInfo = false;
 
 	public CommentInfoAdapter(Context context, List<CommentInfo> caigouList) {
 		super(context, caigouList);
@@ -72,7 +75,10 @@ public class CommentInfoAdapter extends BaseListAdapter<CommentInfo> {
 									: (Url.GET_IMAGE + imageId),
 							viewHolder.itemHeadView, options);
 				} else {
-					dataManager.getDesignerInfoById(designerId, this);
+					if(!isLoadDesignerInfo){
+						dataManager.getDesignerInfoById(designerId, this);
+						isLoadDesignerInfo = true;
+					}
 				}
 			}
 		} else {
@@ -92,7 +98,10 @@ public class CommentInfoAdapter extends BaseListAdapter<CommentInfo> {
 									: (Url.GET_IMAGE + imageId),
 							viewHolder.itemHeadView, options);
 				} else {
-					dataManager.getOwnerInfoById(ownerId, this);
+					if(!isLoadOwnerInfo){
+						dataManager.getOwnerInfoById(ownerId, this);
+						isLoadOwnerInfo = true;
+					}
 				}
 			}
 		}
@@ -110,14 +119,14 @@ public class CommentInfoAdapter extends BaseListAdapter<CommentInfo> {
 
 	@Override
 	public void loadSuccess() {
-		// TODO Auto-generated method stub
-
+		notifyDataSetChanged();
 	}
 
 	@Override
 	public void loadFailture() {
 		// TODO Auto-generated method stub
-
+		isLoadDesignerInfo = false;
+		isLoadOwnerInfo = false;
 	}
 
 }

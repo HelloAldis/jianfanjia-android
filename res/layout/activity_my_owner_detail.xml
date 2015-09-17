@@ -10,7 +10,7 @@
         android:background="@drawable/bg_loading_720"
         android:contentDescription="@null"
         android:scaleType="fitXY"
-        android:src="@drawable/bg_cover_sidebar" />
+        />
 
     <RelativeLayout
         android:id="@+id/owner_detail_head_layout"
@@ -22,7 +22,7 @@
             android:id="@+id/owner_detail_back"
             style="@style/site_listview_item_text_style_middle"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/space_16"
+            android:layout_marginLeft="@dimen/space_8"
             android:drawableLeft="@drawable/icon_register_back"
             android:drawablePadding="4dp"
             android:text="@string/back"
@@ -89,7 +89,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/pro_stage"
-                android:layout_marginLeft="24dp"
+                android:layout_marginLeft="48dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginTop="24dp"
                 android:orientation="vertical" >

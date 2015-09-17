@@ -89,6 +89,7 @@ public class DesignerSiteActivity extends BaseActivity implements
 
 	@Override
 	public void loadSuccess() {
+		hideWaitDialog();
 		siteList = dataManager.getDesignerProcessLists();
 		if (siteList != null) {
 			designerSiteInfoAdapter = new DesignerSiteInfoAdapter(
@@ -101,7 +102,7 @@ public class DesignerSiteActivity extends BaseActivity implements
 
 	@Override
 	public void loadFailture() {
-
+		hideWaitDialog();
 	}
 
 	@Override
