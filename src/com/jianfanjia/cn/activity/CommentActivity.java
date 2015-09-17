@@ -71,7 +71,7 @@ public class CommentActivity extends BaseActivity implements OnClickListener,
 		public void afterTextChanged(Editable s) {
 			if (!TextUtils.isEmpty(s.toString())) {
 				sendCommentView.setEnabled(true);
-			}else{
+			} else {
 				sendCommentView.setEnabled(false);
 			}
 		}
