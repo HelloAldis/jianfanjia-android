@@ -23,9 +23,8 @@ import com.jianfanjia.cn.tools.NetTool;
  * @author fengliang
  * @date 2015-8-18 下午12:11:23
  * 
- */
-public class LoginActivity extends BaseActivity implements OnClickListener,
-		LoadDataListener {
+ */         
+public class LoginActivity extends BaseActivity implements OnClickListener,LoadDataListener{
 	private static final String TAG = LoginActivity.class.getName();
 	private RelativeLayout loginLayout = null;
 	private EditText mEtUserName = null;// 用户名输入框

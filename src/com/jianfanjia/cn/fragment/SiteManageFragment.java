@@ -219,6 +219,7 @@ public class SiteManageFragment extends BaseFragment implements
 			setScrollHeadTime();
 			sectionItemAdapter = new SectionItemAdapter(getActivity(),
 					sectionItemInfos, this);
+			sectionItemAdapter.setSection_status(sectionInfo.getStatus());
 			detailNodeListView.setAdapter(sectionItemAdapter);
 		}
 	}
@@ -360,8 +361,9 @@ public class SiteManageFragment extends BaseFragment implements
 						sectionItemInfos = sectionInfo.getItems();
 						sectionItemAdapter
 								.setSectionItemInfos(sectionItemInfos);
+						sectionItemAdapter.setSection_status(sectionInfo.getStatus());
+//						sectionItemAdapter.setPosition(currentList);
 						sectionItemAdapter.setLastClickItem(-1, isOpen);
-						sectionItemAdapter.setCurrentPro(currentList);
 						sectionItemAdapter.notifyDataSetChanged();
 					}
 				}
@@ -433,6 +435,7 @@ public class SiteManageFragment extends BaseFragment implements
 					} else {
 						isOpen = true;
 					}
+//					sectionItemAdapter.setCurrentClickItem(position -1);
 					sectionItemAdapter.setLastClickItem(position - 1, isOpen);
 				}
 			}

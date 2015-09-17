@@ -27,8 +27,8 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 	private boolean isPos = false;
 	private SiteGridViewAdapter siteGridViewAdapter;
 	private List<GridItem> gridItem = new ArrayList<GridItem>();
-	private int currentPro = -1;// 记录第一个当前展开的工序
 	private String userType;
+	private int section_status;//节点的状态
 
 	public SectionItemAdapter(Context context,
 			List<SectionItemInfo> sectionItemInfos) {
@@ -43,12 +43,12 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 		userType = dataManager.getUserType();
 	}
 
-	public int getCurrentPro() {
-		return currentPro;
+	public int getSection_status() {
+		return section_status;
 	}
 
-	public void setCurrentPro(int currentPro) {
-		this.currentPro = currentPro;
+	public void setSection_status(int section_status) {
+		this.section_status = section_status;
 	}
 
 	public void setSectionItemInfos(List<SectionItemInfo> sectionItemInfos) {
@@ -174,18 +174,23 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 		// 未开工的点击无法展开
 		// if (Integer.parseInt(sectionItemInfo.getStatus()) !=
 		// Constant.NOT_START && position == lastClickItem) {
-		if (position == lastClickItem) {
-			if (isPos) {
+//		if(section_status != Constant.NOT_START){
+			if (position == lastClickItem) {
+				if (isPos) {
+					viewHolder.bigOpenLayout.setVisibility(View.GONE);
+					viewHolder.smallcloseLayout.setVisibility(View.VISIBLE);
+				} else {
+					viewHolder.bigOpenLayout.setVisibility(View.VISIBLE);
+					viewHolder.smallcloseLayout.setVisibility(View.GONE);
+				}
+			} else {
 				viewHolder.bigOpenLayout.setVisibility(View.GONE);
 				viewHolder.smallcloseLayout.setVisibility(View.VISIBLE);
-			} else {
-				viewHolder.bigOpenLayout.setVisibility(View.VISIBLE);
-				viewHolder.smallcloseLayout.setVisibility(View.GONE);
 			}
-		} else {
-			viewHolder.bigOpenLayout.setVisibility(View.GONE);
-			viewHolder.smallcloseLayout.setVisibility(View.VISIBLE);
-		}
+//		}else{
+//			viewHolder.bigOpenLayout.setVisibility(View.GONE);
+//			viewHolder.smallcloseLayout.setVisibility(View.VISIBLE);
+//		}
 		// 设置上传照片
 		setImageData(imageUrlList, viewHolder.gridView);
 

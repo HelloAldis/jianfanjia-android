@@ -22,6 +22,7 @@ import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.bean.Process;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.ProcessReflect;
+import com.jianfanjia.cn.bean.SectionInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
@@ -287,6 +288,14 @@ public class DataManager {
 
 	public ProcessInfo getDefaultProcessInfo() {
 		return getProcessInfo(getDefaultProcessId());
+	}
+	
+	public SectionInfo getDefaultSectionInfoByPosition(int position){
+		ProcessInfo processInfo = getDefaultProcessInfo();
+		if(processInfo != null){
+			return processInfo.getSections().get(position);
+		}
+		return null;
 	}
 
 	public String getDefaultDesignerId() {
