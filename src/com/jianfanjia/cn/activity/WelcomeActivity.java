@@ -40,7 +40,7 @@ public class WelcomeActivity extends BaseActivity implements LoadDataListener {
 
 	@Override
 	public void initView() {
-		handler.postDelayed(runnable, 2000);
+		handler.postDelayed(runnable, 3000);
 	}
 
 	@Override
