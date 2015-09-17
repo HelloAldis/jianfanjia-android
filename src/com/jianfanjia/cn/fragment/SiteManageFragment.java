@@ -111,7 +111,10 @@ public class SiteManageFragment extends BaseFragment implements
 	private TextView openDelay;// 延期按钮
 	private TextView openCheck;// 对比验收按钮
 
-	private MainHeadView mainHeadView;
+//	private MainHeadView mainHeadView;
+	private TextView titleCenter;
+	private TextView titleRight;
+	private ImageView titleImage;
 
 	private boolean isOpen = false;
 
@@ -204,17 +207,17 @@ public class SiteManageFragment extends BaseFragment implements
 	}
 
 	private void initMainHead(View view) {
-		mainHeadView = (MainHeadView) view.findViewById(R.id.main_head);
-		mainHeadView.setHeadImage(mUserImageId);
-		mainHeadView.setBackListener(this);
-		mainHeadView.setRightTextListener(this);
-		mainHeadView.setRightTitleVisable(View.VISIBLE);
+		titleCenter = (TextView) view.findViewById(R.id.head_center_title);
+		titleRight = (TextView) view.findViewById(R.id.head_right_title);
+		titleImage = (ImageView) view.findViewById(R.id.icon_head);
+		titleImage.setOnClickListener(this);
+		titleRight.setOnClickListener(this);
 		if (mUserType.equals(Constant.IDENTITY_OWNER)) {
-			mainHeadView.setMianTitle("");
-			mainHeadView.setRightTitle("配置工地");
+			titleCenter.setText("");
+			titleRight.setText("配置工地");
 		} else if (mUserType.equals(Constant.IDENTITY_DESIGNER)) {
-			mainHeadView.setMianTitle("");
-			mainHeadView.setRightTitle("切换工地");
+			titleCenter.setText("");
+			titleRight.setText("切换工地");
 		}
 	}
 

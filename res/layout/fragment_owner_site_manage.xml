@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/com.jianfanjia.cn.activity"
     android:id="@+id/layoutAll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -38,12 +39,13 @@
                     android:layout_height="match_parent"
                     android:background="#ffffff"
                     android:fadingEdge="none" />
-                
-                <ImageView android:contentDescription="@null"
+
+                <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:contentDescription="@null"
                     android:scaleType="fitXY"
-                    android:src="@drawable/cover_home_banner"/>
+                    android:src="@drawable/cover_home_banner" />
 
                 <LinearLayout
                     android:id="@+id/viewGroup"
@@ -53,10 +55,46 @@
                     android:gravity="center"
                     android:orientation="horizontal" />
 
-                <com.jianfanjia.cn.view.MainHeadView
-                    android:id="@+id/main_head"
+                <RelativeLayout
+                    android:id="@+id/head_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="@dimen/space_48"
+                    android:background="@color/transparent" >
+
+                    <com.jianfanjia.cn.layout.CircleImageView
+                        android:id="@+id/icon_head"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/space_8"
+                        android:contentDescription="@null"
+                        android:padding="@dimen/space_8"
+                        android:src="@drawable/icon_home_default_user"
+                        app:border_color="@color/white"
+                        app:border_width="2dp" />
+
+                    <TextView
+                        android:id="@+id/head_center_title"
+                        style="@style/site_listview_item_text_style_title"
+                        android:layout_centerInParent="true"
+                        android:text="@string/my_site"
+                        android:textColor="@color/font_white" />
+
+                    <TextView
+                        android:id="@+id/head_right_title"
+                        style="@style/site_listview_item_text_style_middle"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/space_8"
+                        android:textColor="@color/font_white" />
+
+                    <View
+                        android:id="@+id/head_divier"
+                        style="@style/divier_line"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/horzontal_line_color"
+                        android:visibility="gone" />
+                </RelativeLayout>
             </FrameLayout>
 
             <com.jianfanjia.cn.view.ProcessViewPager
@@ -64,8 +102,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
                 android:background="#ffffff"
-                android:paddingRight="20dp"
-                android:fadingEdge="none" />
+                android:fadingEdge="none"
+                android:paddingRight="20dp" />
 
             <FrameLayout
                 android:layout_width="match_parent"

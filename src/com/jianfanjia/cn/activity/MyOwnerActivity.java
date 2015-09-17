@@ -50,11 +50,9 @@ public class MyOwnerActivity extends BaseActivity implements OnClickListener,
 
 	private void initMainHeadView() {
 		mainHeadView = (MainHeadView) findViewById(R.id.my_ower_head_layout);
-		// mainHeadView.setHeadImage(mUserImageId);
-		// mainHeadView.setBackListener(this);
-		mainHeadView.setRightTitleVisable(View.GONE);
+		mainHeadView.setBackListener(this);
 		mainHeadView.setMianTitle(getResources().getString(R.string.my_ower));
-		mainHeadView.setBackgroundColor(R.color.head_layout_bg);
+		mainHeadView.setLayoutBackground(R.color.head_layout_bg);
 		mainHeadView.setDividerVisable(View.VISIBLE);
 	}
 
@@ -65,8 +63,14 @@ public class MyOwnerActivity extends BaseActivity implements OnClickListener,
 
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
+		switch (v.getId()) {
+		case R.id.head_back_layout:
+			finish();
+			break;
 
+		default:
+			break;
+		}
 	}
 
 	@Override

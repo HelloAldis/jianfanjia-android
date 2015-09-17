@@ -61,9 +61,7 @@ public class NotifyActivity extends BaseActivity implements OnClickListener {
 
 	private void initMainHeadView() {
 		mainHeadView = (MainHeadView) findViewById(R.id.notify_head_layout);
-		// mainHeadView.setHeadImage(mUserImageId);
-		// mainHeadView.setBackListener(this);
-		mainHeadView.setRightTitleVisable(View.GONE);
+		mainHeadView.setBackListener(this);
 		mainHeadView.setMianTitle(getResources().getString(R.string.my_tip));
 		mainHeadView.setBackgroundTransparent();
 		mainHeadView.setDividerVisable(View.GONE);
@@ -77,8 +75,14 @@ public class NotifyActivity extends BaseActivity implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
+		switch (v.getId()) {
+		case R.id.head_back_layout:
+			finish();
+			break;
 
+		default:
+			break;
+		}
 	}
 
 	private void initItem() {
