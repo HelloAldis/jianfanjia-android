@@ -50,11 +50,11 @@ public class CommentInfoAdapter extends BaseListAdapter<CommentInfo> {
 		} else {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
-
 		viewHolder.itemContentView.setText(commentInfo.getContent());
 		viewHolder.itemTimeView.setText(StringUtils
 				.covertLongToString(commentInfo.getDate()));
-		if (commentInfo.getUsertype().equals(Constant.IDENTITY_DESIGNER)) {
+		String usertype = commentInfo.getUsertype();
+		if (usertype.equals(Constant.IDENTITY_DESIGNER)) {
 			String designerId = dataManager.getDefaultDesignerId();
 			viewHolder.itemIdentityView.setText(context
 					.getString(R.string.designer));
