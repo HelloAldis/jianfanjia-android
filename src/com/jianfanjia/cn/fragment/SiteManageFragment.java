@@ -147,7 +147,7 @@ public class SiteManageFragment extends BaseFragment implements
 			currentList = savedInstanceState.getInt(Constant.CURRENT_LIST, -1);
 		}
 	}
-	
+
 	private void initProcessInfo() {
 		processInfo = dataManager.getDefaultProcessInfo();
 	}
@@ -167,7 +167,7 @@ public class SiteManageFragment extends BaseFragment implements
 		proTitle = getResources().getStringArray(R.array.site_procedure);
 		checkSection = getResources().getStringArray(
 				R.array.site_procedure_check);
-		
+
 		mPullRefreshScrollView = (PullToRefreshScrollView) view
 				.findViewById(R.id.pull_refresh_scrollview);
 		mPullRefreshScrollView.setMode(Mode.PULL_FROM_START);
@@ -362,8 +362,9 @@ public class SiteManageFragment extends BaseFragment implements
 						sectionItemInfos = sectionInfo.getItems();
 						sectionItemAdapter
 								.setSectionItemInfos(sectionItemInfos);
-						sectionItemAdapter.setSection_status(sectionInfo.getStatus());
-//						sectionItemAdapter.setPosition(currentList);
+						sectionItemAdapter.setSection_status(sectionInfo
+								.getStatus());
+						// sectionItemAdapter.setPosition(currentList);
 						sectionItemAdapter.setLastClickItem(-1, isOpen);
 						sectionItemAdapter.notifyDataSetChanged();
 					}
@@ -436,7 +437,7 @@ public class SiteManageFragment extends BaseFragment implements
 					} else {
 						isOpen = true;
 					}
-//					sectionItemAdapter.setCurrentClickItem(position -1);
+					// sectionItemAdapter.setCurrentClickItem(position -1);
 					sectionItemAdapter.setLastClickItem(position - 1, isOpen);
 				}
 			}
