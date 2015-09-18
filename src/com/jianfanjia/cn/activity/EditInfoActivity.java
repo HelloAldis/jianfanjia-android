@@ -118,7 +118,8 @@ public class EditInfoActivity extends BaseActivity implements OnClickListener {
 	@Override
 	public void onReceiveMsg(NotifyMessage message) {
 		LogTool.d(TAG, "message=" + message);
-		sendNotifycation(message);
+		// sendNotifycation(message);
+		showNotify(message);
 	}
 
 	@Override

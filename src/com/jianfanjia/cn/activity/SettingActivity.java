@@ -205,7 +205,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener,
 	/**
 	 * 获取最新版本
 	 */
-	public void showNewVersion(String message,final UpdateVersion updateVersion) {
+	public void showNewVersion(String message, final UpdateVersion updateVersion) {
 		CommonDialog dialog = DialogHelper
 				.getPinterestDialogCancelable(SettingActivity.this);
 		dialog.setTitle("版本更新");
@@ -224,14 +224,14 @@ public class SettingActivity extends BaseActivity implements OnClickListener,
 		dialog.show();
 	}
 
-
 	private void startUpdateService(String download_url) {
-		if(download_url == null) return;
-		Intent intent = new Intent(this,UpdateService.class);
+		if (download_url == null)
+			return;
+		Intent intent = new Intent(this, UpdateService.class);
 		intent.putExtra(Constant.DOWNLOAD_URL, download_url);
 		startService(intent);
 	}
-	
+
 	@Override
 	public void onResume() {
 		super.onResume();
@@ -266,7 +266,8 @@ public class SettingActivity extends BaseActivity implements OnClickListener,
 	@Override
 	public void onReceiveMsg(NotifyMessage message) {
 		LogTool.d(TAG, "message=" + message);
-		sendNotifycation(message);
+		// sendNotifycation(message);
+		showNotify(message);
 	}
 
 	// 检查版本
@@ -290,10 +291,16 @@ public class SettingActivity extends BaseActivity implements OnClickListener,
 										.jsonToBean(response.get(Constant.DATA)
 												.toString(),
 												UpdateVersion.class);
-								if(updateVersion != null){
-									if(Integer.parseInt(updateVersion.getVersion_code()) > MyApplication.getInstance().getVersionCode()){
-										showNewVersion("有新的版本啦，版本号：" + updateVersion.getVersion_name(),updateVersion);
-									}else{
+								if (updateVersion != null) {
+									if (Integer.parseInt(updateVersion
+											.getVersion_code()) > MyApplication
+											.getInstance().getVersionCode()) {
+										showNewVersion(
+												"有新的版本啦，版本号："
+														+ updateVersion
+																.getVersion_name(),
+												updateVersion);
+									} else {
 										makeTextLong("当前已经是最新版本啦！");
 									}
 								}
