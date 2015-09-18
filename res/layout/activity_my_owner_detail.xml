@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_24" >
 
-            <ImageView
+            <com.jianfanjia.cn.layout.CircleImageView
                 android:id="@+id/owner_detail_head_icon"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
@@ -69,11 +69,12 @@
                 android:id="@+id/owner_detail_sex_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/owner_detail_name"
                 android:layout_alignBottom="@+id/owner_detail_name"
                 android:layout_marginLeft="8dp"
                 android:layout_toRightOf="@+id/owner_detail_name"
                 android:contentDescription="@null"
-                android:scaleType="centerCrop"
+                android:scaleType="fitCenter"
                 android:src="@drawable/icon_designer_user_man" />
 
             <TextView

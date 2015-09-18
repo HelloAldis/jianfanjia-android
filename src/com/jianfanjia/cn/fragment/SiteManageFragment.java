@@ -198,13 +198,6 @@ public class SiteManageFragment extends BaseFragment implements
 		}
 	}
 
-	@Override
-	public void onSaveInstanceState(Bundle outState) {
-		// 保存当前展开的第几道工序
-		outState.putInt(Constant.CURRENT_LIST, currentList);
-		super.onSaveInstanceState(outState);
-	}
-
 	// 初始化数据
 	private void initData() {
 		if (processInfo != null) {
@@ -222,6 +215,7 @@ public class SiteManageFragment extends BaseFragment implements
 					sectionItemInfos, this);
 			sectionItemAdapter.setSection_status(sectionInfo.getStatus());
 			detailNodeListView.setAdapter(sectionItemAdapter);
+//			processViewPager.setCurrentItem(currentList);
 		}
 	}
 
@@ -229,6 +223,13 @@ public class SiteManageFragment extends BaseFragment implements
 	public void onResume() {
 		super.onResume();
 		processViewPager.setCurrentItem(currentList);
+	}
+	
+	@Override
+	public void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		sharedPrefer.setValue(Constant.CURRENT_LIST, currentList);
 	}
 
 	private void initBannerView(View view) {
