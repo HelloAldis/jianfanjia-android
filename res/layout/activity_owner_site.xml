@@ -34,7 +34,6 @@
                     style="@style/site_listview_item_text_style_middle"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:text="@string/my_site_city_example"
                     android:textColor="@color/main_color_grey" />
 
                 <TextView
@@ -62,7 +61,6 @@
                     style="@style/site_listview_item_text_style_middle"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:text="@string/my_site_villagename_example"
                     android:textColor="@color/main_color_grey" />
             </RelativeLayout>
 
@@ -83,7 +81,6 @@
                     style="@style/site_listview_item_text_style_middle"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:text="@string/my_site_housestyle_example"
                     android:textColor="@color/main_color_grey" />
             </RelativeLayout>
 
@@ -104,7 +101,6 @@
                     style="@style/site_listview_item_text_style_middle"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:text="@string/my_site_housesize_example"
                     android:textColor="@color/main_color_grey" />
             </RelativeLayout>
 
@@ -125,7 +121,6 @@
                     style="@style/site_listview_item_text_style_middle"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:text="@string/my_site_lovestyle_example"
                     android:textColor="@color/main_color_grey" />
             </RelativeLayout>
 
@@ -146,7 +141,6 @@
                     style="@style/site_listview_item_text_style_middle"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:text="@string/my_site_decoratestyle_example"
                     android:textColor="@color/main_color_grey" />
             </RelativeLayout>
 
@@ -167,7 +161,6 @@
                     style="@style/site_listview_item_text_style_middle"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:text="@string/my_site_decoratebudget_example"
                     android:textColor="@color/main_color_grey" />
             </RelativeLayout>
 
@@ -192,14 +185,14 @@
                     style="@style/my_item_layout_image_style"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:contentDescription="@null" />
+                    android:contentDescription="@null"
+                    android:paddingLeft="8dp" />
 
                 <TextView
                     android:id="@+id/my_site_startdate"
                     style="@style/site_listview_item_text_style_middle"
                     android:layout_alignWithParentIfMissing="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="8dp"
                     android:layout_toLeftOf="@+id/startdate_select_goto"
                     android:textColor="@color/main_color_grey" />
             </RelativeLayout>
@@ -221,16 +214,16 @@
                     style="@style/my_item_layout_image_style"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:contentDescription="@null" />
+                    android:contentDescription="@null" 
+                    android:paddingLeft="8dp"/>
 
                 <TextView
                     android:id="@+id/my_site_totaldate"
                     style="@style/site_listview_item_text_style_middle"
                     android:layout_alignWithParentIfMissing="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="8dp"
-                    android:layout_toLeftOf="@+id/totaldate_select_goto"
                     android:text="@string/my_site_totaldate_example"
+                    android:layout_toLeftOf="@+id/totaldate_select_goto"
                     android:textColor="@color/main_color_grey" />
             </RelativeLayout>
 
