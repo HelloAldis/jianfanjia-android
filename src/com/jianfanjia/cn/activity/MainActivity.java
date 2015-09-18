@@ -127,7 +127,8 @@ public class MainActivity extends BaseActivity implements PanelSlideListener {
 	@Override
 	public void onReceiveMsg(NotifyMessage message) {
 		LogTool.d(TAG, "message=" + message);
-		sendNotifycation(message);
+		// sendNotifycation(message);
+		showNotify(message);
 	}
 
 	/**

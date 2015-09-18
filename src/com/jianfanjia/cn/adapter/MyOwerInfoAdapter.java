@@ -48,7 +48,7 @@ public class MyOwerInfoAdapter extends BaseListAdapter<Process> {
 		viewHolder.itemNameView.setText(user.getUsername());
 		viewHolder.itemAdressView.setText(info.getCell());
 		viewHolder.itemStageView.setText(MyApplication.getInstance()
-				.getStringById(info.getGoing_on())+"½×¶Î");
+				.getStringById(info.getGoing_on()) + "½×¶Î");
 		String imageId = user.getImageid();
 		if (!TextUtils.isEmpty(imageId)) {
 			imageLoader.displayImage(Url.GET_IMAGE + imageId,
@@ -70,13 +70,13 @@ public class MyOwerInfoAdapter extends BaseListAdapter<Process> {
 	@Override
 	public void loadSuccess() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void loadFailture() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

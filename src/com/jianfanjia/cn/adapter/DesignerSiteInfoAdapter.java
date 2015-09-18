@@ -9,7 +9,6 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.bean.Process;
 import com.jianfanjia.cn.bean.User;
-import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.config.Url;
 
 /**

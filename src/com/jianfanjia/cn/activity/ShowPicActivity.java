@@ -113,7 +113,8 @@ public class ShowPicActivity extends BaseActivity implements
 	@Override
 	public void onReceiveMsg(NotifyMessage message) {
 		LogTool.d(TAG, "message=" + message);
-		sendNotifycation(message);
+		// sendNotifycation(message);
+		showNotify(message);
 	}
 
 	@Override
