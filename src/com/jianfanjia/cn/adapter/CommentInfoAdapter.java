@@ -13,7 +13,6 @@ import com.jianfanjia.cn.bean.MyOwnerInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url;
 import com.jianfanjia.cn.tools.StringUtils;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
  * @class CommentInfoAdapter
@@ -22,7 +21,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  * 
  */
 public class CommentInfoAdapter extends BaseListAdapter<CommentInfo> {
-	
+
 	private boolean isLoadDesignerInfo = false;
 	private boolean isLoadOwnerInfo = false;
 
@@ -70,12 +69,12 @@ public class CommentInfoAdapter extends BaseListAdapter<CommentInfo> {
 									.getString(R.string.designer)
 									: designerInfo.getUsername());
 					String imageId = designerInfo.getImageid();
-					ImageLoader.getInstance().displayImage(
+					imageLoader.displayImage(
 							imageId == null ? Constant.DEFALUT_DESIGNER_PIC
 									: (Url.GET_IMAGE + imageId),
 							viewHolder.itemHeadView, options);
 				} else {
-					if(!isLoadDesignerInfo){
+					if (!isLoadDesignerInfo) {
 						dataManager.getDesignerInfoById(designerId, this);
 						isLoadDesignerInfo = true;
 					}
@@ -98,7 +97,7 @@ public class CommentInfoAdapter extends BaseListAdapter<CommentInfo> {
 									: (Url.GET_IMAGE + imageId),
 							viewHolder.itemHeadView, options);
 				} else {
-					if(!isLoadOwnerInfo){
+					if (!isLoadOwnerInfo) {
 						dataManager.getOwnerInfoById(ownerId, this);
 						isLoadOwnerInfo = true;
 					}
