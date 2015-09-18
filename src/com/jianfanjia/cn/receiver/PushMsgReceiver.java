@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 import com.igexin.sdk.PushConsts;
 import com.igexin.sdk.PushManager;
 import com.jianfanjia.cn.bean.NotifyMessage;
+import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.inter.manager.ListenerManeger;
 import com.jianfanjia.cn.interf.PushMsgReceiveListener;
@@ -30,9 +31,13 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 public class PushMsgReceiver extends BroadcastReceiver {
 	private static final String TAG = PushMsgReceiver.class.getName();
 	private Gson gson = new Gson();
+	private boolean isLogin;// ÊÇ·ñµÇÂ¼¹ý
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
+		isLogin = DataManager.getInstance().isLogin();
+		LogTool.d(TAG, "isLogin=" + isLogin);
+		// -------------------------------
 		Bundle bundle = intent.getExtras();
 		LogTool.d(TAG, "onReceive() action=" + bundle.getInt("action"));
 		switch (bundle.getInt(PushConsts.CMD_ACTION)) {
