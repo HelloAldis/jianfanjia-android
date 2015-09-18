@@ -21,7 +21,6 @@ import com.jianfanjia.cn.tools.StringUtils;
  * 
  */
 public class CommentInfoAdapter extends BaseListAdapter<CommentInfo> {
-
 	private boolean isLoadDesignerInfo = false;
 	private boolean isLoadOwnerInfo = false;
 
