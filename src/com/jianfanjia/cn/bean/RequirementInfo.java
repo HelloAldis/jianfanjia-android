@@ -11,6 +11,9 @@ import java.io.Serializable;
  */
 public class RequirementInfo implements Serializable {
 	private static final long serialVersionUID = 1L;
+	private String _id;
+	private String requirementid;
+	private String final_planid;
 	private String final_designerid;
 	private String province;
 	private String city;
@@ -23,6 +26,30 @@ public class RequirementInfo implements Serializable {
 	private String total_price;
 	private long start_at;
 	private String duration;
+	
+	public String get_id() {
+		return _id;
+	}
+
+	public void set_id(String _id) {
+		this._id = _id;
+	}
+	
+	public String getRequirementid() {
+		return requirementid;
+	}
+
+	public void setRequirementid(String requirementid) {
+		this.requirementid = requirementid;
+	}
+
+	public String getFinal_planid() {
+		return final_planid;
+	}
+
+	public void setFinal_planid(String final_planid) {
+		this.final_planid = final_planid;
+	}
 
 	public String getFinal_designerid() {
 		return final_designerid;

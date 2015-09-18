@@ -157,7 +157,11 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 			dateWheelDialog.show();
 			break;
 		case R.id.my_site_confirm:
-			postProcessInfo();
+			if(requirementInfo != null && requirementInfo.getStart_at() != 0){
+				postProcessInfo();
+			}else{
+				makeTextLong("请配置开工日期");
+			}
 			break;
 		case R.id.head_back_layout:
 			finish();
@@ -183,6 +187,9 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 								requirementInfo = JsonParser.jsonToBean(
 										response.get(Constant.DATA).toString(),
 										RequirementInfo.class);
+								if(requirementInfo != null){
+									requirementInfo.setRequirementid(requirementInfo.get_id());
+								}
 								setData();
 							} else if (response.has(Constant.ERROR_MSG)) {
 								makeTextLong(response.get(Constant.ERROR_MSG)
@@ -191,7 +198,7 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 						} catch (JSONException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
-							makeTextLong(getString(R.string.tip_login_error_for_network));
+							makeTextLong(getString(R.string.load_failure));
 						}
 					}
 
@@ -200,21 +207,20 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 							Throwable throwable, JSONObject errorResponse) {
 						LogTool.d(TAG,
 								"Throwable throwable:" + throwable.toString());
-						makeTextLong(getString(R.string.tip_login_error_for_network));
+						makeTextLong(getString(R.string.tip_no_internet));
 					}
 
 					@Override
 					public void onFailure(int statusCode, Header[] headers,
 							String responseString, Throwable throwable) {
 						LogTool.d(TAG, "throwable:" + throwable);
-						makeTextLong(getString(R.string.tip_login_error_for_network));
+						makeTextLong(getString(R.string.tip_no_internet));
 					};
 				});
 	}
 
 	// 配置工地信息
 	private void postProcessInfo() {
-		makeTextLong(JsonParser.beanToJson(requirementInfo));
 		JianFanJiaApiClient.post_Owner_Process(getApplication(),
 				requirementInfo, new JsonHttpResponseHandler() {
 					@Override

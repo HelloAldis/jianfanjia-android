@@ -12,21 +12,11 @@ import java.util.ArrayList;
 public class ProcessInfo extends RequirementInfo {
 	private static final long serialVersionUID = 1L;
 
-	private String _id;
-
 	private String userid;
 
 	private String going_on;
 
 	private ArrayList<SectionInfo> sections;
-
-	public String get_id() {
-		return _id;
-	}
-
-	public void set_id(String _id) {
-		this._id = _id;
-	}
 
 	public String getUserid() {
 		return userid;
