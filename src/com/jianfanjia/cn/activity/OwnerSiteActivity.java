@@ -157,7 +157,7 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 			dateWheelDialog.show();
 			break;
 		case R.id.my_site_confirm:
-			if(requirementInfo != null && requirementInfo.getStart_at() != 0){
+			if(requirementInfo != null && requirementInfo.getStart_at() != -1){//没有需求数据或者没有设置开工日期，就无法提交
 				postProcessInfo();
 			}else{
 				makeTextLong("请配置开工日期");

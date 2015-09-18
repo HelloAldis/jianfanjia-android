@@ -49,6 +49,8 @@ public abstract class BaseFragment extends Fragment implements OnClickListener,
 	protected String mAccount = null;// 账号
 	protected String mUserImageId = null;// 头像
 	protected String mUserType = null;// 用户类型
+	private View view;
+		
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -62,11 +64,17 @@ public abstract class BaseFragment extends Fragment implements OnClickListener,
 			Bundle savedInstanceState) {
 		LogTool.d(this.getClass().getName(), "onCreateView");
 		this.inflater = inflater;
-		View view = inflateView(getLayoutId());
+		view = inflateView(getLayoutId());
+		return view;
+	}
+	
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onActivityCreated(savedInstanceState);
 		initUserInfo();
 		initView(view);
 		setListener();
-		return view;
 	}
 
 	private void init() {

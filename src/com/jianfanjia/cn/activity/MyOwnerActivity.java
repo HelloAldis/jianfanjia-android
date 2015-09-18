@@ -78,7 +78,7 @@ public class MyOwnerActivity extends BaseActivity implements OnClickListener,
 		LogTool.d(TAG, "ownerId=" + ownerId);
 		Intent intent = new Intent(MyOwnerActivity.this,
 				OwnerInfoActivity.class);
-		intent.putExtra("ownerId", ownerId);
+		intent.putExtra("owner", info.getUser());
 		startActivity(intent);
 	}
 
