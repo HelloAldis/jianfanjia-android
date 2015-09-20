@@ -1,29 +1,21 @@
 package com.jianfanjia.cn.activity;
 
-import org.apache.http.Header;
-import org.json.JSONException;
-import org.json.JSONObject;
 import android.content.Intent;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.NotifyMessage;
-import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.User;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url;
-import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.http.LoadClientHelper;
 import com.jianfanjia.cn.http.request.OwnerInfoRequest;
 import com.jianfanjia.cn.tools.DateFormatTool;
-import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
-import com.loopj.android.http.JsonHttpResponseHandler;
 
 /**
  * 
@@ -57,8 +49,7 @@ public class OwnerInfoActivity extends BaseActivity implements OnClickListener {
 	@Override
 	public void initView() {
 		Intent intent = this.getIntent();
-		ownerInfo = (User)intent.getSerializableExtra("owner");
-		LogTool.d(TAG, "ownerId:" + ownerId);
+		ownerInfo = (User) intent.getSerializableExtra("owner");
 		ownerHeadView = (ImageView) findViewById(R.id.owner_detail_head_icon);
 		ownerSexView = (ImageView) findViewById(R.id.owner_detail_sex_icon);
 		proStageView = (TextView) findViewById(R.id.pro_stage);
@@ -77,16 +68,20 @@ public class OwnerInfoActivity extends BaseActivity implements OnClickListener {
 		if (null != ownerInfo) {
 			// get_one_owner_info(ownerId);
 			ownerId = ownerInfo.get_id();
-			processInfo = dataManager
-					.getProcessInfoByOwnerId(ownerId);
+			processInfo = dataManager.getProcessInfoByOwnerId(ownerId);
 			LogTool.d(TAG, "processInfo:" + processInfo);
 			if (null != processInfo) {
 				setData();
-			}else{
-				LoadClientHelper.getOwnerInfoById(this, new OwnerInfoRequest(this, ownerId), this);
+			} else {
+				LoadClientHelper.getOwnerInfoById(this, new OwnerInfoRequest(
+						this, ownerId), this);
 			}
-			
-			imageLoader.displayImage(ownerInfo.getImageid() != null ? Url.GET_IMAGE + ownerInfo.getImageid() : Constant.DEFALUT_OWNER_PIC, ownerHeadView);
+
+			imageLoader.displayImage(
+					ownerInfo.getImageid() != null ? Url.GET_IMAGE
+							+ ownerInfo.getImageid()
+							: Constant.DEFALUT_OWNER_PIC, ownerHeadView,
+					options);
 			if (!TextUtils.isEmpty(ownerInfo.getUsername())) {
 				ownerNameView.setText(ownerInfo.getUsername());
 			} else {
@@ -94,22 +89,22 @@ public class OwnerInfoActivity extends BaseActivity implements OnClickListener {
 			}
 		}
 	}
-	
+
 	private void setData() {
 		String city = processInfo.getProvince() + processInfo.getCity()
 				+ processInfo.getDistrict();
 		cityView.setText(city);
 		villageNameView.setText(processInfo.getCell());
-		houseStyleView.setText(getResources().getStringArray(
-				R.array.house_type)[Integer.parseInt(processInfo
-				.getHouse_type())]);
+		houseStyleView.setText(getResources()
+				.getStringArray(R.array.house_type)[Integer
+				.parseInt(processInfo.getHouse_type())]);
 		decorateAreaView.setText(processInfo.getHouse_area());
-		loveStyleView.setText(getResources().getStringArray(
-				R.array.dec_style)[Integer.parseInt(processInfo
-				.getDec_style())]);
-		decorateStyleView.setText(getResources().getStringArray(
-				R.array.work_type)[Integer.parseInt(processInfo
-				.getWork_type())]);
+		loveStyleView
+				.setText(getResources().getStringArray(R.array.dec_style)[Integer
+						.parseInt(processInfo.getDec_style())]);
+		decorateStyleView
+				.setText(getResources().getStringArray(R.array.work_type)[Integer
+						.parseInt(processInfo.getWork_type())]);
 		decorateBudgetView.setText(processInfo.getTotal_price());
 		startDateView.setText(DateFormatTool.covertLongToString(
 				processInfo.getStart_at(), "yyyy-MM-dd"));
@@ -120,8 +115,7 @@ public class OwnerInfoActivity extends BaseActivity implements OnClickListener {
 	public void loadSuccess() {
 		// TODO Auto-generated method stub
 		super.loadSuccess();
-		processInfo = dataManager
-				.getProcessInfoByOwnerId(ownerId);
+		processInfo = dataManager.getProcessInfoByOwnerId(ownerId);
 		LogTool.d(TAG, "processInfo:" + processInfo);
 		if (null != processInfo) {
 			setData();

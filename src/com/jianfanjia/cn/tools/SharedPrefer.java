@@ -123,7 +123,7 @@ public class SharedPrefer {
 			edit.commit();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}finally{
+		} finally {
 			try {
 				baos.close();
 				oos.close();
@@ -191,15 +191,21 @@ public class SharedPrefer {
 		// 对Base64格式的字符串进行解码
 		byte[] base64Bytes = Base64.decodeBase64(base64Str.getBytes());
 		ByteArrayInputStream bais = new ByteArrayInputStream(base64Bytes);
+		ObjectInputStream ois = null;
 		try {
-			ObjectInputStream ois = new ObjectInputStream(bais);
+			ois = new ObjectInputStream(bais);
 			// 从ObjectInputStream中读取对象
 			Object object = ois.readObject();
-			ois.close();
 			return object;
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			try {
+				ois.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
