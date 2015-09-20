@@ -3,18 +3,9 @@ package com.jianfanjia.cn.http;
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.content.Context;
-import android.util.Log;
-
-import com.igexin.sdk.PushManager;
-import com.jianfanjia.cn.activity.LoginActivity;
-import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.SettingActivity;
-import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseResponse;
 import com.jianfanjia.cn.bean.LoginUserBean;
-import com.jianfanjia.cn.cache.DataCleanManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.request.CommitCommentRequest;
 import com.jianfanjia.cn.http.request.DesignerInfoRequest;
@@ -33,24 +24,24 @@ import com.jianfanjia.cn.tools.LogTool;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 public class LoadClientHelper {
-
-	protected static final String TAG = "LoadClientHelper";
+	private static final String TAG = "LoadClientHelper";
 
 	/**
 	 * 用户登录
+	 * 
 	 * @param context
 	 * @param loginRequest
 	 * @param listener
 	 */
-	public static void login(final Context context, final LoginRequest loginRequest,
-			final LoadDataListener listener) {
+	public static void login(final Context context,
+			final LoginRequest loginRequest, final LoadDataListener listener) {
 		JianFanJiaApiClient.login(context, loginRequest.getUsername(),
 				loginRequest.getPassword(), new JsonHttpResponseHandler() {
 					@Override
 					public void onStart() {
 						LogTool.d(TAG, "onStart()");
 						loginRequest.pre();
-						if(listener != null){
+						if (listener != null) {
 							listener.preLoad();
 						}
 					}
@@ -62,7 +53,7 @@ public class LoadClientHelper {
 						LogTool.d(TAG, "JSONObject response:" + response);
 						BaseResponse baseResponse = new BaseResponse();
 						try {
-							if (response.has(Constant.DATA) 
+							if (response.has(Constant.DATA)
 									&& response.get(Constant.DATA) != null) {
 								LoginUserBean loginUserBean = JsonParser
 										.jsonToBean(response.get(Constant.DATA)
@@ -105,81 +96,84 @@ public class LoadClientHelper {
 
 	/**
 	 * 用户登出
+	 * 
 	 * @param context
 	 * @param logoutRequest
 	 * @param listener
 	 */
-	public static void logout(final Context context, final LogoutRequest logoutRequest,final LoadDataListener listener){
-		JianFanJiaApiClient.logout(context,
-				new JsonHttpResponseHandler() {
-					@Override
-					public void onStart() {
-						LogTool.d(TAG, "onStart()");
-						if(listener != null){
-							listener.preLoad();
-						}
-					}
+	public static void logout(final Context context,
+			final LogoutRequest logoutRequest, final LoadDataListener listener) {
+		JianFanJiaApiClient.logout(context, new JsonHttpResponseHandler() {
+			@Override
+			public void onStart() {
+				LogTool.d(TAG, "onStart()");
+				if (listener != null) {
+					listener.preLoad();
+				}
+			}
 
-					@Override
-					public void onSuccess(int statusCode, Header[] headers,
-							JSONObject response) {
-						LogTool.d(TAG, "response:" + response.toString());
-						BaseResponse baseResponse = new BaseResponse();
-						try {
-							if (response.has(Constant.SUCCESS_MSG)) {
-								baseResponse.setMsg(response.get(Constant.SUCCESS_MSG).toString());
-								logoutRequest.onSuccess(baseResponse);
-								if (listener != null) {
-									listener.loadSuccess();
-								}
-							} else if (response.has(Constant.ERROR_MSG)) {
-								// 通知页面刷新
-								baseResponse.setErr_msg(response.get(
-										Constant.ERROR_MSG).toString());
-								logoutRequest.onFailure(baseResponse);
-								if(listener != null){
-									listener.loadFailture();
-								}
-							}
-						} catch (JSONException e) {
-							e.printStackTrace();
-							if(listener != null){
-								listener.loadFailture();
-							}
+			@Override
+			public void onSuccess(int statusCode, Header[] headers,
+					JSONObject response) {
+				LogTool.d(TAG, "response:" + response.toString());
+				BaseResponse baseResponse = new BaseResponse();
+				try {
+					if (response.has(Constant.SUCCESS_MSG)) {
+						baseResponse.setMsg(response.get(Constant.SUCCESS_MSG)
+								.toString());
+						logoutRequest.onSuccess(baseResponse);
+						if (listener != null) {
+							listener.loadSuccess();
 						}
-					}
-
-					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							Throwable throwable, JSONObject errorResponse) {
-						LogTool.d(TAG,
-								"Throwable throwable:" + throwable.toString());
-						if(listener != null){
+					} else if (response.has(Constant.ERROR_MSG)) {
+						// 通知页面刷新
+						baseResponse.setErr_msg(response
+								.get(Constant.ERROR_MSG).toString());
+						logoutRequest.onFailure(baseResponse);
+						if (listener != null) {
 							listener.loadFailture();
 						}
 					}
+				} catch (JSONException e) {
+					e.printStackTrace();
+					if (listener != null) {
+						listener.loadFailture();
+					}
+				}
+			}
 
-					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							String responseString, Throwable throwable) {
-						LogTool.d(TAG, "throwable:" + throwable);
-						if(listener != null){
-							listener.loadFailture();
-						}
-					};
-				});
+			@Override
+			public void onFailure(int statusCode, Header[] headers,
+					Throwable throwable, JSONObject errorResponse) {
+				LogTool.d(TAG, "Throwable throwable:" + throwable.toString());
+				if (listener != null) {
+					listener.loadFailture();
+				}
+			}
+
+			@Override
+			public void onFailure(int statusCode, Header[] headers,
+					String responseString, Throwable throwable) {
+				LogTool.d(TAG, "throwable:" + throwable);
+				if (listener != null) {
+					listener.loadFailture();
+				}
+			};
+		});
 	}
-	
+
 	/**
 	 * 加载工地列表
 	 */
-	public static void requestProcessList(final Context context,final ProcessListRequest proListRequest,final LoadDataListener listener) {
+	public static void requestProcessList(final Context context,
+			final ProcessListRequest proListRequest,
+			final LoadDataListener listener) {
 		JianFanJiaApiClient.get_Designer_Process_List(context,
 				new JsonHttpResponseHandler() {
 					@Override
 					public void onStart() {
 						LogTool.d(TAG, "onStart()");
-						if(listener != null){
+						if (listener != null) {
 							listener.preLoad();
 						}
 					}
@@ -190,9 +184,10 @@ public class LoadClientHelper {
 						LogTool.d(TAG, "response:" + response.toString());
 						BaseResponse baseResponse = new BaseResponse();
 						try {
-							if (response.has(Constant.DATA) 
+							if (response.has(Constant.DATA)
 									&& response.get(Constant.DATA) != null) {
-								baseResponse.setData(response.get(Constant.DATA).toString());
+								baseResponse.setData(response
+										.get(Constant.DATA).toString());
 								proListRequest.onSuccess(baseResponse);
 								if (listener != null) {
 									listener.loadSuccess();
@@ -203,13 +198,13 @@ public class LoadClientHelper {
 								baseResponse.setErr_msg(response.get(
 										Constant.ERROR_MSG).toString());
 								proListRequest.onFailure(baseResponse);
-								if(listener != null){
+								if (listener != null) {
 									listener.loadFailture();
 								}
 							}
 						} catch (JSONException e) {
 							// 通知页面刷新
-							if(listener != null){
+							if (listener != null) {
 								listener.loadFailture();
 							}
 							e.printStackTrace();
@@ -222,7 +217,7 @@ public class LoadClientHelper {
 						LogTool.d(TAG,
 								"Throwable throwable:" + throwable.toString());
 						// 通知页面刷新
-						if(listener != null){
+						if (listener != null) {
 							listener.loadFailture();
 						}
 					}
@@ -232,28 +227,31 @@ public class LoadClientHelper {
 							String responseString, Throwable throwable) {
 						LogTool.d(TAG, "throwable:" + throwable);
 						// 通知页面刷新
-						if(listener != null){
+						if (listener != null) {
 							listener.loadFailture();
 						}
 					}
 				});
 
 	}
-	
+
 	/**
 	 * 加载某个工地信息
+	 * 
 	 * @param context
 	 * @param processInfoRequest
 	 * @param listener
 	 */
-	public static void requestProcessInfoById(final Context context,final ProcessInfoRequest processInfoRequest,
+	public static void requestProcessInfoById(final Context context,
+			final ProcessInfoRequest processInfoRequest,
 			final LoadDataListener listener) {
-		JianFanJiaApiClient.get_ProcessInfo_By_Id(context, processInfoRequest.getProcessId(),
+		JianFanJiaApiClient.get_ProcessInfo_By_Id(context,
+				processInfoRequest.getProcessId(),
 				new JsonHttpResponseHandler() {
 					@Override
 					public void onStart() {
 						LogTool.d(TAG, "onStart()");
-						if(listener != null){
+						if (listener != null) {
 							listener.preLoad();
 						}
 					}
@@ -264,9 +262,10 @@ public class LoadClientHelper {
 						LogTool.d(TAG, "response:" + response.toString());
 						BaseResponse baseResponse = new BaseResponse();
 						try {
-							if (response.has(Constant.DATA) 
+							if (response.has(Constant.DATA)
 									&& response.get(Constant.DATA) != null) {
-								baseResponse.setData(response.get(Constant.DATA).toString());
+								baseResponse.setData(response
+										.get(Constant.DATA).toString());
 								processInfoRequest.onSuccess(baseResponse);
 								if (listener != null) {
 									listener.loadSuccess();
@@ -276,13 +275,13 @@ public class LoadClientHelper {
 								baseResponse.setErr_msg(response.get(
 										Constant.ERROR_MSG).toString());
 								processInfoRequest.onFailure(baseResponse);
-								if(listener != null){
+								if (listener != null) {
 									listener.loadFailture();
 								}
 							}
 						} catch (JSONException e) {
 							// 通知页面刷新
-							if(listener != null){
+							if (listener != null) {
 								listener.loadFailture();
 							}
 						}
@@ -294,7 +293,7 @@ public class LoadClientHelper {
 						LogTool.d(TAG,
 								"Throwable throwable:" + throwable.toString());
 						// 通知页面刷新
-						if(listener != null){
+						if (listener != null) {
 							listener.loadFailture();
 						}
 					}
@@ -304,26 +303,29 @@ public class LoadClientHelper {
 							String responseString, Throwable throwable) {
 						LogTool.d(TAG, "throwable:" + throwable);
 						// 通知页面刷新
-						if(listener != null){
+						if (listener != null) {
 							listener.loadFailture();
 						}
 					}
 				});
 	}
-	
+
 	/**
 	 * 加载某个业主信息
+	 * 
 	 * @param context
 	 * @param ownerInfoRequest
 	 * @param listener
 	 */
-	public static void getOwnerInfoById(final Context context,final OwnerInfoRequest ownerInfoRequest,final LoadDataListener listener) {
-		JianFanJiaApiClient.getOwnerInfoById(context, ownerInfoRequest.getOwnerId(),
-				new JsonHttpResponseHandler() {
+	public static void getOwnerInfoById(final Context context,
+			final OwnerInfoRequest ownerInfoRequest,
+			final LoadDataListener listener) {
+		JianFanJiaApiClient.getOwnerInfoById(context,
+				ownerInfoRequest.getOwnerId(), new JsonHttpResponseHandler() {
 					@Override
 					public void onStart() {
 						LogTool.d(TAG, "onStart()");
-						if(listener != null){
+						if (listener != null) {
 							listener.preLoad();
 						}
 					}
@@ -334,9 +336,10 @@ public class LoadClientHelper {
 						LogTool.d(TAG, "response:" + response.toString());
 						BaseResponse baseResponse = new BaseResponse();
 						try {
-							if (response.has(Constant.DATA) 
+							if (response.has(Constant.DATA)
 									&& response.get(Constant.DATA) != null) {
-								baseResponse.setData(response.get(Constant.DATA).toString());
+								baseResponse.setData(response
+										.get(Constant.DATA).toString());
 								ownerInfoRequest.onSuccess(baseResponse);
 								if (listener != null) {
 									listener.loadSuccess();
@@ -346,13 +349,13 @@ public class LoadClientHelper {
 								baseResponse.setErr_msg(response.get(
 										Constant.ERROR_MSG).toString());
 								ownerInfoRequest.onFailure(baseResponse);
-								if(listener != null){
+								if (listener != null) {
 									listener.loadFailture();
 								}
 							}
 						} catch (JSONException e) {
 							e.printStackTrace();
-							if(listener != null){
+							if (listener != null) {
 								listener.loadFailture();
 							}
 						}
@@ -363,7 +366,7 @@ public class LoadClientHelper {
 							Throwable throwable, JSONObject errorResponse) {
 						LogTool.d(TAG,
 								"Throwable throwable:" + throwable.toString());
-						if(listener != null){
+						if (listener != null) {
 							listener.loadFailture();
 						}
 					}
@@ -372,7 +375,7 @@ public class LoadClientHelper {
 					public void onFailure(int statusCode, Header[] headers,
 							String responseString, Throwable throwable) {
 						LogTool.d(TAG, "throwable:" + throwable);
-						if(listener != null){
+						if (listener != null) {
 							listener.loadFailture();
 						}
 					};
@@ -381,18 +384,21 @@ public class LoadClientHelper {
 
 	/**
 	 * 记载某个设计师信息
+	 * 
 	 * @param context
 	 * @param designerInfoRequest
 	 * @param listener
 	 */
-	public static void getDesignerInfoById(final Context context,final DesignerInfoRequest designerInfoRequest,final LoadDataListener listener
-			) {
-		JianFanJiaApiClient.getDesignerInfoById(context, designerInfoRequest.getDesignerId(),
+	public static void getDesignerInfoById(final Context context,
+			final DesignerInfoRequest designerInfoRequest,
+			final LoadDataListener listener) {
+		JianFanJiaApiClient.getDesignerInfoById(context,
+				designerInfoRequest.getDesignerId(),
 				new JsonHttpResponseHandler() {
 					@Override
 					public void onStart() {
 						LogTool.d(TAG, "onStart()");
-						if(listener != null){
+						if (listener != null) {
 							listener.preLoad();
 						}
 					}
@@ -404,9 +410,10 @@ public class LoadClientHelper {
 								+ response);
 						BaseResponse baseResponse = new BaseResponse();
 						try {
-							if (response.has(Constant.DATA) 
+							if (response.has(Constant.DATA)
 									&& response.get(Constant.DATA) != null) {
-								baseResponse.setData(response.get(Constant.DATA).toString());
+								baseResponse.setData(response
+										.get(Constant.DATA).toString());
 								designerInfoRequest.onSuccess(baseResponse);
 								if (listener != null) {
 									listener.loadSuccess();
@@ -416,13 +423,13 @@ public class LoadClientHelper {
 								baseResponse.setErr_msg(response.get(
 										Constant.ERROR_MSG).toString());
 								designerInfoRequest.onFailure(baseResponse);
-								if(listener != null){
+								if (listener != null) {
 									listener.loadFailture();
 								}
 							}
 						} catch (JSONException e) {
 							e.printStackTrace();
-							if(listener != null){
+							if (listener != null) {
 								listener.loadFailture();
 							}
 						}
@@ -433,7 +440,7 @@ public class LoadClientHelper {
 							Throwable throwable, JSONObject errorResponse) {
 						LogTool.d(TAG,
 								"Throwable throwable:" + throwable.toString());
-						if(listener != null){
+						if (listener != null) {
 							listener.loadFailture();
 						}
 					}
@@ -442,7 +449,7 @@ public class LoadClientHelper {
 					public void onFailure(int statusCode, Header[] headers,
 							String responseString, Throwable throwable) {
 						LogTool.d(TAG, "throwable:" + throwable);
-						if(listener != null){
+						if (listener != null) {
 							listener.loadFailture();
 						}
 					};
@@ -451,17 +458,21 @@ public class LoadClientHelper {
 
 	/**
 	 * 提交某个评论
+	 * 
 	 * @param context
 	 * @param commitCommentRequest
 	 * @param listener
 	 */
-	public static void postCommentInfo(final Context context,final CommitCommentRequest commitCommentRequest,final LoadDataListener listener){
-		JianFanJiaApiClient.comment(context, commitCommentRequest.getCommitCommentInfo(),
+	public static void postCommentInfo(final Context context,
+			final CommitCommentRequest commitCommentRequest,
+			final LoadDataListener listener) {
+		JianFanJiaApiClient.comment(context,
+				commitCommentRequest.getCommitCommentInfo(),
 				new JsonHttpResponseHandler() {
 					@Override
 					public void onStart() {
 						LogTool.d(TAG, "onStart()");
-						if(listener != null){
+						if (listener != null) {
 							listener.preLoad();
 						}
 					}
@@ -473,7 +484,8 @@ public class LoadClientHelper {
 						BaseResponse baseResponse = new BaseResponse();
 						try {
 							if (response.has(Constant.SUCCESS_MSG)) {
-								baseResponse.setMsg(response.get(Constant.SUCCESS_MSG).toString());
+								baseResponse.setMsg(response.get(
+										Constant.SUCCESS_MSG).toString());
 								commitCommentRequest.onSuccess(baseResponse);
 								if (listener != null) {
 									listener.loadSuccess();
@@ -483,82 +495,13 @@ public class LoadClientHelper {
 								baseResponse.setErr_msg(response.get(
 										Constant.ERROR_MSG).toString());
 								commitCommentRequest.onFailure(baseResponse);
-								if(listener != null){
-									listener.loadFailture();
-								}
-							}
-						} catch (JSONException e) {
-							e.printStackTrace();
-							if(listener != null){
-								listener.loadFailture();
-							}
-						}
-					}
-
-					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							Throwable throwable, JSONObject errorResponse) {
-						LogTool.d(
-								TAG,
-								"Throwable throwable:"
-										+ throwable.toString());
-						if(listener != null){
-							listener.loadFailture();
-						}
-					}
-
-					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							String responseString, Throwable throwable) {
-						LogTool.d(TAG, "throwable:" + throwable);
-						if(listener != null){
-							listener.loadFailture();
-						}
-					};
-				});
-	}
-
-	/**
-	 * 加载设计师用户的用户信息
-	 * @param context
-	 * @param userByDesignerInfoRequest
-	 * @param listener
-	 */
-	public static void getUserInfoByDesigner(final Context context,final UserByDesignerInfoRequest userByDesignerInfoRequest,final LoadDataListener listener) {
-		JianFanJiaApiClient.get_Designer_Info(context,
-				new JsonHttpResponseHandler() {
-					@Override
-					public void onStart() {
-						LogTool.d(TAG, "onStart()");
-						if(listener != null){
-							listener.preLoad();
-						}
-					}
-
-					@Override
-					public void onSuccess(int statusCode, Header[] headers,
-							JSONObject response) {
-						LogTool.d(TAG, "response:" + response.toString());
-						BaseResponse baseResponse = new BaseResponse();
-						try {
-							if (response.has(Constant.DATA) && response.get(Constant.DATA) != null) {
-								baseResponse.setData(response.get(Constant.DATA).toString());
-								userByDesignerInfoRequest.onSuccess(baseResponse);
 								if (listener != null) {
-									listener.loadSuccess();
-								}
-							} else if (response.has(Constant.ERROR_MSG)) {
-								// 通知页面刷新
-								baseResponse.setErr_msg(response.get(
-										Constant.ERROR_MSG).toString());
-								userByDesignerInfoRequest.onFailure(baseResponse);
-								if(listener != null){
 									listener.loadFailture();
 								}
 							}
 						} catch (JSONException e) {
 							e.printStackTrace();
-							if(listener != null){
+							if (listener != null) {
 								listener.loadFailture();
 							}
 						}
@@ -569,7 +512,7 @@ public class LoadClientHelper {
 							Throwable throwable, JSONObject errorResponse) {
 						LogTool.d(TAG,
 								"Throwable throwable:" + throwable.toString());
-						if(listener != null){
+						if (listener != null) {
 							listener.loadFailture();
 						}
 					}
@@ -578,26 +521,29 @@ public class LoadClientHelper {
 					public void onFailure(int statusCode, Header[] headers,
 							String responseString, Throwable throwable) {
 						LogTool.d(TAG, "throwable:" + throwable);
-						if(listener != null){
+						if (listener != null) {
 							listener.loadFailture();
 						}
 					};
 				});
 	}
-	
+
 	/**
-	 * 加载业主用户的用户信息
+	 * 加载设计师用户的用户信息
+	 * 
 	 * @param context
-	 * @param userByOwnerInfoRequest
+	 * @param userByDesignerInfoRequest
 	 * @param listener
 	 */
-	public static void getUserInfoByOwner(final Context context,final UserByOwnerInfoRequest userByOwnerInfoRequest,final LoadDataListener listener) {
-		JianFanJiaApiClient.get_Owner_Info(context,
+	public static void getUserInfoByDesigner(final Context context,
+			final UserByDesignerInfoRequest userByDesignerInfoRequest,
+			final LoadDataListener listener) {
+		JianFanJiaApiClient.get_Designer_Info(context,
 				new JsonHttpResponseHandler() {
 					@Override
 					public void onStart() {
 						LogTool.d(TAG, "onStart()");
-						if(listener != null){
+						if (listener != null) {
 							listener.preLoad();
 						}
 					}
@@ -608,8 +554,84 @@ public class LoadClientHelper {
 						LogTool.d(TAG, "response:" + response.toString());
 						BaseResponse baseResponse = new BaseResponse();
 						try {
-							if (response.has(Constant.DATA) && response.get(Constant.DATA) != null) {
-								baseResponse.setData(response.get(Constant.DATA).toString());
+							if (response.has(Constant.DATA)
+									&& response.get(Constant.DATA) != null) {
+								baseResponse.setData(response
+										.get(Constant.DATA).toString());
+								userByDesignerInfoRequest
+										.onSuccess(baseResponse);
+								if (listener != null) {
+									listener.loadSuccess();
+								}
+							} else if (response.has(Constant.ERROR_MSG)) {
+								// 通知页面刷新
+								baseResponse.setErr_msg(response.get(
+										Constant.ERROR_MSG).toString());
+								userByDesignerInfoRequest
+										.onFailure(baseResponse);
+								if (listener != null) {
+									listener.loadFailture();
+								}
+							}
+						} catch (JSONException e) {
+							e.printStackTrace();
+							if (listener != null) {
+								listener.loadFailture();
+							}
+						}
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							Throwable throwable, JSONObject errorResponse) {
+						LogTool.d(TAG,
+								"Throwable throwable:" + throwable.toString());
+						if (listener != null) {
+							listener.loadFailture();
+						}
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							String responseString, Throwable throwable) {
+						LogTool.d(TAG, "throwable:" + throwable);
+						if (listener != null) {
+							listener.loadFailture();
+						}
+					};
+				});
+	}
+
+	/**
+	 * 加载业主用户的用户信息
+	 * 
+	 * @param context
+	 * @param userByOwnerInfoRequest
+	 * @param listener
+	 */
+	public static void getUserInfoByOwner(final Context context,
+			final UserByOwnerInfoRequest userByOwnerInfoRequest,
+			final LoadDataListener listener) {
+		JianFanJiaApiClient.get_Owner_Info(context,
+				new JsonHttpResponseHandler() {
+					@Override
+					public void onStart() {
+						LogTool.d(TAG, "onStart()");
+						if (listener != null) {
+							listener.preLoad();
+						}
+					}
+
+					@Override
+					public void onSuccess(int statusCode, Header[] headers,
+							JSONObject response) {
+						LogTool.d(TAG, "response:" + response.toString());
+						BaseResponse baseResponse = new BaseResponse();
+						try {
+							if (response.has(Constant.DATA)
+									&& response.get(Constant.DATA) != null) {
+								baseResponse.setData(response
+										.get(Constant.DATA).toString());
 								userByOwnerInfoRequest.onSuccess(baseResponse);
 								if (listener != null) {
 									listener.loadSuccess();
@@ -619,13 +641,13 @@ public class LoadClientHelper {
 								baseResponse.setErr_msg(response.get(
 										Constant.ERROR_MSG).toString());
 								userByOwnerInfoRequest.onFailure(baseResponse);
-								if(listener != null){
+								if (listener != null) {
 									listener.loadFailture();
 								}
 							}
 						} catch (JSONException e) {
 							e.printStackTrace();
-							if(listener != null){
+							if (listener != null) {
 								listener.loadFailture();
 							}
 						}
@@ -636,7 +658,7 @@ public class LoadClientHelper {
 							Throwable throwable, JSONObject errorResponse) {
 						LogTool.d(TAG,
 								"Throwable throwable:" + throwable.toString());
-						if(listener != null){
+						if (listener != null) {
 							listener.loadFailture();
 						}
 					}
@@ -645,7 +667,7 @@ public class LoadClientHelper {
 					public void onFailure(int statusCode, Header[] headers,
 							String responseString, Throwable throwable) {
 						LogTool.d(TAG, "throwable:" + throwable);
-						if(listener != null){
+						if (listener != null) {
 							listener.loadFailture();
 						}
 					};
@@ -654,17 +676,21 @@ public class LoadClientHelper {
 
 	/**
 	 * 更新业主个人信息
+	 * 
 	 * @param context
 	 * @param userByOwnerInfoUpdateRequest
 	 * @param listener
 	 */
-	public static void postOwnerUpdateInfo(final Context context,final UserByOwnerInfoUpdateRequest userByOwnerInfoUpdateRequest,final LoadDataListener listener) {
-		JianFanJiaApiClient.put_OwnerInfo(context, userByOwnerInfoUpdateRequest.getOwnerUpdateInfo(),
+	public static void postOwnerUpdateInfo(final Context context,
+			final UserByOwnerInfoUpdateRequest userByOwnerInfoUpdateRequest,
+			final LoadDataListener listener) {
+		JianFanJiaApiClient.put_OwnerInfo(context,
+				userByOwnerInfoUpdateRequest.getOwnerUpdateInfo(),
 				new JsonHttpResponseHandler() {
 					@Override
 					public void onStart() {
 						LogTool.d(TAG, "onStart()");
-						if(listener != null){
+						if (listener != null) {
 							listener.preLoad();
 						}
 					}
@@ -676,8 +702,10 @@ public class LoadClientHelper {
 						BaseResponse baseResponse = new BaseResponse();
 						try {
 							if (response.has(Constant.SUCCESS_MSG)) {
-								baseResponse.setMsg(response.get(Constant.SUCCESS_MSG).toString());
-								userByOwnerInfoUpdateRequest.onSuccess(baseResponse);
+								baseResponse.setMsg(response.get(
+										Constant.SUCCESS_MSG).toString());
+								userByOwnerInfoUpdateRequest
+										.onSuccess(baseResponse);
 								if (listener != null) {
 									listener.loadSuccess();
 								}
@@ -685,14 +713,15 @@ public class LoadClientHelper {
 								// 通知页面刷新
 								baseResponse.setErr_msg(response.get(
 										Constant.ERROR_MSG).toString());
-								userByOwnerInfoUpdateRequest.onFailure(baseResponse);
-								if(listener != null){
+								userByOwnerInfoUpdateRequest
+										.onFailure(baseResponse);
+								if (listener != null) {
 									listener.loadFailture();
 								}
 							}
 						} catch (JSONException e) {
 							e.printStackTrace();
-							if(listener != null){
+							if (listener != null) {
 								listener.loadFailture();
 							}
 						}
@@ -703,7 +732,7 @@ public class LoadClientHelper {
 							Throwable throwable, JSONObject errorResponse) {
 						LogTool.d(TAG,
 								"Throwable throwable:" + throwable.toString());
-						if(listener != null){
+						if (listener != null) {
 							listener.loadFailture();
 						}
 					}
@@ -712,26 +741,31 @@ public class LoadClientHelper {
 					public void onFailure(int statusCode, Header[] headers,
 							String responseString, Throwable throwable) {
 						LogTool.d(TAG, "throwable:" + throwable);
-						if(listener != null){
+						if (listener != null) {
 							listener.loadFailture();
 						}
 					};
 				});
 	}
-	
+
 	/**
 	 * 更新设计师个人信息
+	 * 
 	 * @param context
 	 * @param userByDesignerInfoUpdateRequest
 	 * @param listener
 	 */
-	public static void postDesignerUpdateInfo(final Context context,final UserByDesignerInfoUpdateRequest userByDesignerInfoUpdateRequest,final LoadDataListener listener) {
-		JianFanJiaApiClient.put_DesignerInfo(context, userByDesignerInfoUpdateRequest.getDesignerUpdateInfo(),
+	public static void postDesignerUpdateInfo(
+			final Context context,
+			final UserByDesignerInfoUpdateRequest userByDesignerInfoUpdateRequest,
+			final LoadDataListener listener) {
+		JianFanJiaApiClient.put_DesignerInfo(context,
+				userByDesignerInfoUpdateRequest.getDesignerUpdateInfo(),
 				new JsonHttpResponseHandler() {
 					@Override
 					public void onStart() {
 						LogTool.d(TAG, "onStart()");
-						if(listener != null){
+						if (listener != null) {
 							listener.preLoad();
 						}
 					}
@@ -743,8 +777,10 @@ public class LoadClientHelper {
 						BaseResponse baseResponse = new BaseResponse();
 						try {
 							if (response.has(Constant.SUCCESS_MSG)) {
-								baseResponse.setMsg(response.get(Constant.SUCCESS_MSG).toString());
-								userByDesignerInfoUpdateRequest.onSuccess(baseResponse);
+								baseResponse.setMsg(response.get(
+										Constant.SUCCESS_MSG).toString());
+								userByDesignerInfoUpdateRequest
+										.onSuccess(baseResponse);
 								if (listener != null) {
 									listener.loadSuccess();
 								}
@@ -752,14 +788,15 @@ public class LoadClientHelper {
 								// 通知页面刷新
 								baseResponse.setErr_msg(response.get(
 										Constant.ERROR_MSG).toString());
-								userByDesignerInfoUpdateRequest.onFailure(baseResponse);
-								if(listener != null){
+								userByDesignerInfoUpdateRequest
+										.onFailure(baseResponse);
+								if (listener != null) {
 									listener.loadFailture();
 								}
 							}
 						} catch (JSONException e) {
 							e.printStackTrace();
-							if(listener != null){
+							if (listener != null) {
 								listener.loadFailture();
 							}
 						}
@@ -770,7 +807,7 @@ public class LoadClientHelper {
 							Throwable throwable, JSONObject errorResponse) {
 						LogTool.d(TAG,
 								"Throwable throwable:" + throwable.toString());
-						if(listener != null){
+						if (listener != null) {
 							listener.loadFailture();
 						}
 					}
@@ -779,7 +816,7 @@ public class LoadClientHelper {
 					public void onFailure(int statusCode, Header[] headers,
 							String responseString, Throwable throwable) {
 						LogTool.d(TAG, "throwable:" + throwable);
-						if(listener != null){
+						if (listener != null) {
 							listener.loadFailture();
 						}
 					};
