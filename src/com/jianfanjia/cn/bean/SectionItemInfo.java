@@ -63,4 +63,5 @@ public class SectionItemInfo implements Serializable {
 	public void setImages(ArrayList<String> images) {
 		this.images = images;
 	}
+
 }

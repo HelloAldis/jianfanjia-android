@@ -26,7 +26,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import com.jianfanjia.cn.activity.CheckActivity;
@@ -78,38 +77,29 @@ public class SiteManageFragment extends BaseFragment implements
 		LoadDataListener {
 	private static final String TAG = SiteManageFragment.class.getName();
 	private PullToRefreshScrollView mPullRefreshScrollView = null;
-	private ArrayList<SectionInfo> sectionInfos;
-	private ArrayList<SectionItemInfo> sectionItemInfos;
-	private SectionInfo sectionInfo;
-	private ProcessInfo processInfo;
+	private List<SectionInfo> sectionInfos = new ArrayList<SectionInfo>();
+	private List<SectionItemInfo> sectionItemInfos = new ArrayList<SectionItemInfo>();// 工序节点列表
+	private SectionInfo sectionInfo = null;
+	private ProcessInfo processInfo = null;
 	private int currentPro = -1;// 当前进行工序
 	private int currentList = -1;// 当前展开第一道工序
-	private ViewPager bannerViewPager;
+	private ViewPager bannerViewPager = null;
 	private ViewGroup group = null;
 	private ImageView[] tips;
 	private List<View> bannerList = new ArrayList<View>();
 
-	private ViewPager processViewPager;
-	private ListView detailNodeListView;
-	private SectionItemAdapter sectionItemAdapter;
+	private ViewPager processViewPager = null;
+	private ListView detailNodeListView = null;
+	private SectionItemAdapter sectionItemAdapter = null;
 	private InfinitePagerAdapter infinitePagerAdapter = null;
 	private MyViewPageAdapter myViewPageAdapter = null;
 	private String[] checkSection = null;
 	private String[] proTitle = null;
 	private List<ViewPagerItem> list = new ArrayList<ViewPagerItem>();
 
-	private RelativeLayout listHeadView;// list头视图
-	private RelativeLayout smallHeadLayout;// 折叠layout
-	private RelativeLayout expandHeadLayout;// 打开layout
-	private TextView openCheckNode;// 打开验收节点名称
-	private TextView closeCheckNode;// 折叠验收节点名称
-	private TextView openDelay;// 延期按钮
-	private TextView openCheck;// 对比验收按钮
-
-	// private MainHeadView mainHeadView;
-	private TextView titleCenter;
-	private TextView titleRight;
-	private ImageView titleImage;
+	private TextView titleCenter = null;
+	private TextView titleRight = null;
+	private ImageView titleImage = null;
 
 	private boolean isOpen = false;
 
@@ -209,13 +199,12 @@ public class SiteManageFragment extends BaseFragment implements
 			sectionInfos = processInfo.getSections();
 			sectionInfo = sectionInfos.get(currentList);
 			sectionItemInfos = sectionInfo.getItems();
-			setCheckHeadView(sectionInfo.getName());
 			setScrollHeadTime();
 			sectionItemAdapter = new SectionItemAdapter(getActivity(),
 					sectionItemInfos, this);
 			sectionItemAdapter.setSection_status(sectionInfo.getStatus());
 			detailNodeListView.setAdapter(sectionItemAdapter);
-//			processViewPager.setCurrentItem(currentList);
+			processViewPager.setCurrentItem(currentList);
 		}
 	}
 
@@ -224,10 +213,9 @@ public class SiteManageFragment extends BaseFragment implements
 		super.onResume();
 		processViewPager.setCurrentItem(currentList);
 	}
-	
+
 	@Override
 	public void onPause() {
-		// TODO Auto-generated method stub
 		super.onPause();
 		sharedPrefer.setValue(Constant.CURRENT_LIST, currentList);
 	}
@@ -298,26 +286,6 @@ public class SiteManageFragment extends BaseFragment implements
 		}
 	}
 
-	private void setCheckHeadView(String name) {
-		boolean isHeadViewShow = false;
-		for (String sectionName : checkSection) {
-			if (sectionName.equals(sectionInfo.getName())) {
-				isHeadViewShow = true;
-				break;
-			}
-		}
-		if (isHeadViewShow) {
-			String checkText = getResources().getStringArray(
-					R.array.site_check_name)[MyApplication.getInstance()
-					.getPositionByItemName(name)];
-			openCheckNode.setText(checkText);
-			closeCheckNode.setText(checkText);
-			listHeadView.setVisibility(View.VISIBLE);
-		} else {
-			listHeadView.setVisibility(View.GONE);
-		}
-	}
-
 	private void initScrollLayout(View view) {
 		processViewPager = (ViewPager) view.findViewById(R.id.processViewPager);
 		for (int i = 0; i < proTitle.length; i++) {
@@ -359,8 +327,12 @@ public class SiteManageFragment extends BaseFragment implements
 					if (currentList != arg0 % 7) {
 						currentList = arg0 % 7;
 						sectionInfo = sectionInfos.get(currentList);
-						setCheckHeadView(sectionInfo.getName());
 						sectionItemInfos = sectionInfo.getItems();
+						LogTool.d(TAG, "sectionItemInfos--------------"
+								+ sectionItemInfos);
+						for (SectionItemInfo info : sectionItemInfos) {
+							LogTool.d(TAG, "info Name()=====" + info.getName());
+						}
 						sectionItemAdapter
 								.setSectionItemInfos(sectionItemInfos);
 						sectionItemAdapter.setSection_status(sectionInfo
@@ -411,67 +383,25 @@ public class SiteManageFragment extends BaseFragment implements
 	private void initListView(View view) {
 		detailNodeListView = (ListView) view.findViewById(R.id.site__listview);
 		detailNodeListView.setFocusable(false);
-		initHeadView(detailNodeListView);
 		detailNodeListView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				if (position == 0) {
-					// 点击listview head头视图，先判断头视图是否显示，是否有对比验收
-					if (listHeadView.getVisibility() == View.VISIBLE) {
-						if (expandHeadLayout.getVisibility() == View.VISIBLE) {
-							expandHeadLayout.setVisibility(View.GONE);
-							smallHeadLayout.setVisibility(View.VISIBLE);
-						} else {
-							expandHeadLayout.setVisibility(View.VISIBLE);
-							smallHeadLayout.setVisibility(View.GONE);
-						}
-					}
+				SectionItemInfo sectionItemInfo = sectionItemInfos
+						.get(position);
+				processInfoId = sectionItemInfo.getName();
+				LogTool.d(TAG, "processInfoId=" + processInfoId);
+				if (isOpen) {
+					isOpen = false;
 				} else {
-					SectionItemInfo sectionItemInfo = sectionItemInfos
-							.get(position - 1);
-					processInfoId = sectionItemInfo.getName();
-					LogTool.d(TAG, "processInfoId===" + processInfoId);
-					if (isOpen) {
-						isOpen = false;
-					} else {
-						isOpen = true;
-					}
-					// sectionItemAdapter.setCurrentClickItem(position -1);
-					sectionItemAdapter.setLastClickItem(position - 1, isOpen);
+					isOpen = true;
 				}
+				sectionItemAdapter.setLastClickItem(position, isOpen);
+				sectionItemAdapter.notifyDataSetChanged();
 			}
 		});
 
-	}
-
-	// 初始化listview head视图
-	private void initHeadView(ListView listView) {
-		View view = inflater.inflate(R.layout.site_listview_head, null);
-		listHeadView = (RelativeLayout) view
-				.findViewById(R.id.site_listview_item_container);
-		openCheckNode = (TextView) listHeadView
-				.findViewById(R.id.site_list_item_content_expand_node_name);
-		closeCheckNode = (TextView) listHeadView
-				.findViewById(R.id.site_list_item_content_small_node_name);
-		openCheck = (TextView) listHeadView
-				.findViewById(R.id.site_list_head_check);
-		openCheck.setOnClickListener(this);
-		openDelay = (TextView) listHeadView
-				.findViewById(R.id.site_list_head_delay);
-		openDelay.setOnClickListener(this);
-		smallHeadLayout = (RelativeLayout) listHeadView
-				.findViewById(R.id.site_listview_item_content_small);
-		expandHeadLayout = (RelativeLayout) listHeadView
-				.findViewById(R.id.site_listview_item_content_expand);
-		// 根据不同的用户类型显示不同的文字
-		if (mUserType.equals(Constant.IDENTITY_DESIGNER)) {
-			openCheck.setText(getString(R.string.upload_pic));
-		} else if (mUserType.equals(Constant.IDENTITY_OWNER)) {
-			openCheck.setText(getString(R.string.site_example_node_check));
-		}
-		listView.addHeaderView(view);
 	}
 
 	@Override
@@ -497,34 +427,6 @@ public class SiteManageFragment extends BaseFragment implements
 				startActivityForResult(changeIntent,
 						Constant.REQUESTCODE_CHANGE_SITE);
 			}
-			break;
-		case R.id.site_list_head_check:
-			Bundle bundle = new Bundle();
-			bundle.putInt(Constant.CURRENT_LIST, currentList);
-			startActivity(CheckActivity.class, bundle);
-			break;
-		case R.id.site_list_head_delay:
-			DateWheelDialog dateWheelDialog = new DateWheelDialog(
-					getActivity(), Calendar.getInstance());
-			dateWheelDialog.setTitle("选择时间");
-			dateWheelDialog.setPositiveButton(R.string.ok,
-					new DialogInterface.OnClickListener() {
-
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							dialog.dismiss();
-							String dateStr = StringUtils
-									.getDateString(((DateWheelDialog) dialog)
-											.getChooseCalendar().getTime());
-							LogTool.d(TAG, "dateStr:" + dateStr);
-							postReschedule(processInfo.get_id(),
-									processInfo.getUserid(),
-									processInfo.getFinal_designerid(),
-									sectionInfo.getName(), dateStr);
-						}
-					});
-			dateWheelDialog.setNegativeButton(R.string.no, null);
-			dateWheelDialog.show();
 			break;
 		default:
 			break;
@@ -561,13 +463,20 @@ public class SiteManageFragment extends BaseFragment implements
 			showPopWindow(getView());
 			break;
 		case Constant.IMG_ITEM:
-
 			break;
 		case Constant.COMMENT_ITEM:
 			Bundle bundle = new Bundle();
 			bundle.putInt(Constant.CURRENT_LIST, currentList);
 			bundle.putInt(Constant.CURRENT_ITEM, position);
 			startActivity(CommentActivity.class, bundle);
+			break;
+		case Constant.DELAY_ITEM:
+			delayDialog();
+			break;
+		case Constant.CHECK_ITEM:
+			Bundle checkBundle = new Bundle();
+			checkBundle.putInt(Constant.CURRENT_LIST, currentList);
+			startActivity(CheckActivity.class, checkBundle);
 			break;
 		default:
 			break;
@@ -616,6 +525,30 @@ public class SiteManageFragment extends BaseFragment implements
 		Intent albumIntent = new Intent(Intent.ACTION_GET_CONTENT);
 		albumIntent.setType("image/*");
 		startActivityForResult(albumIntent, Constant.REQUESTCODE_LOCATION);
+	}
+
+	private void delayDialog() {
+		DateWheelDialog dateWheelDialog = new DateWheelDialog(getActivity(),
+				Calendar.getInstance());
+		dateWheelDialog.setTitle("选择时间");
+		dateWheelDialog.setPositiveButton(R.string.ok,
+				new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+						String dateStr = StringUtils
+								.getDateString(((DateWheelDialog) dialog)
+										.getChooseCalendar().getTime());
+						LogTool.d(TAG, "dateStr:" + dateStr);
+						postReschedule(processInfo.get_id(),
+								processInfo.getUserid(),
+								processInfo.getFinal_designerid(),
+								sectionInfo.getName(), dateStr);
+					}
+				});
+		dateWheelDialog.setNegativeButton(R.string.no, null);
+		dateWheelDialog.show();
 	}
 
 	private void confirmDialog() {
@@ -785,6 +718,11 @@ public class SiteManageFragment extends BaseFragment implements
 			}
 			break;
 		case Constant.REQUESTCODE_CHANGE_SITE:
+			LogTool.d(TAG, "22222222222222222222222222222222222222222");
+			if (((MainActivity) getActivity()).getSlidingPaneLayout().isOpen()) {
+				((MainActivity) getActivity()).getSlidingPaneLayout()
+						.closePane();
+			}
 			if (data != null) {
 				Bundle bundle = data.getExtras();
 				if (bundle != null) {
