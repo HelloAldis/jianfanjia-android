@@ -2,7 +2,6 @@ package com.jianfanjia.cn.adapter;
 
 import java.util.List;
 import android.content.Context;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -50,13 +49,8 @@ public class MyOwerInfoAdapter extends BaseListAdapter<Process> {
 		viewHolder.itemStageView.setText(MyApplication.getInstance()
 				.getStringById(info.getGoing_on()) + "½×¶Î");
 		String imageId = user.getImageid();
-		if (!TextUtils.isEmpty(imageId)) {
-			imageLoader.displayImage(Url.GET_IMAGE + imageId,
-					viewHolder.itemOwerHeadView, options);
-		} else {
-			viewHolder.itemOwerHeadView
-					.setImageResource(R.drawable.icon_sidebar_default_user);
-		}
+		imageLoader.displayImage(Url.GET_IMAGE + imageId,
+				viewHolder.itemOwerHeadView, options);
 		return convertView;
 	}
 
