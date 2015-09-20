@@ -18,7 +18,7 @@ public class HttpRestClient {
 	private static AsyncHttpClient client = new AsyncHttpClient();
 
 	static {
-		client.setConnectTimeout(20000);
+		client.setConnectTimeout(10);
 	}
 
 	public static AsyncHttpClient getHttpClient() {
