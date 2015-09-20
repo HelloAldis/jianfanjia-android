@@ -514,6 +514,7 @@ public class SiteManageFragment extends BaseFragment implements
 			Bundle checkBundle = new Bundle();
 			checkBundle.putInt(Constant.CURRENT_LIST, currentList);
 			startActivity(CheckActivity.class, checkBundle);
+			getActivity().finish();
 			break;
 		default:
 			break;

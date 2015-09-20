@@ -1,14 +1,8 @@
 package com.jianfanjia.cn.cache;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import android.content.Context;
-import android.util.Log;
-
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
@@ -19,7 +13,6 @@ import com.jianfanjia.cn.bean.MyOwnerInfo;
 import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.bean.Process;
 import com.jianfanjia.cn.bean.ProcessInfo;
-import com.jianfanjia.cn.bean.ProcessReflect;
 import com.jianfanjia.cn.bean.SectionInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url;
@@ -28,7 +21,6 @@ import com.jianfanjia.cn.tools.NetTool;
 import com.jianfanjia.cn.tools.SharedPrefer;
 
 public class DataManagerNew {
-
 	private static final String TAG = DataManagerNew.class.getName();
 	public static final String SUCCESS = "success";
 	public static final String FAILURE = "failure";
@@ -49,7 +41,7 @@ public class DataManagerNew {
 		}
 		return instance;
 	}
-	
+
 	public void setOwnerInfo(OwnerInfo ownerInfo) {
 		this.ownerInfo = ownerInfo;
 		sharedPrefer.setValue(Constant.OWNER_INFO, ownerInfo);
@@ -76,7 +68,7 @@ public class DataManagerNew {
 		}
 		return ownerInfo;
 	}
-	
+
 	// 通过业主id拿到工地信息
 	public ProcessInfo getProcessInfoByOwnerId(String ownerId) {
 		if (processLists == null || processLists.size() == 0) {
@@ -96,13 +88,13 @@ public class DataManagerNew {
 	}
 
 	public ProcessInfo getDefaultProcessInfo() {
-		if(getProcessInfo() != null){
+		if (getProcessInfo() != null) {
 			return getProcessInfo();
-		}else{
-			String processId =  getDefaultProcessId();
-			if(!NetTool.isNetworkAvailable(context) &&  processId != null){
+		} else {
+			String processId = getDefaultProcessId();
+			if (!NetTool.isNetworkAvailable(context) && processId != null) {
 				return getProcessInfoById(processId);
-			}else{
+			} else {
 				return null;
 			}
 		}
@@ -119,7 +111,7 @@ public class DataManagerNew {
 	public String getDefaultDesignerId() {
 		if (processLists == null || processLists.size() == 0) {
 			processLists = getProcessListsByCache();
-			if (processLists != null  && processLists.size() != 0) {
+			if (processLists != null && processLists.size() != 0) {
 				return processLists.get(getDefaultPro()).getFinal_designerid();
 			} else {
 				return null;
@@ -132,7 +124,7 @@ public class DataManagerNew {
 	public String getDefaultOwnerId() {
 		if (processLists == null || processLists.size() == 0) {
 			processLists = getProcessListsByCache();
-			if (processLists != null  && processLists.size() != 0) {
+			if (processLists != null && processLists.size() != 0) {
 				return processLists.get(getDefaultPro()).getUserid();
 			} else {
 				return null;
@@ -145,7 +137,7 @@ public class DataManagerNew {
 	public String getDefaultProcessId() {
 		if (processLists == null || processLists.size() == 0) {
 			processLists = getProcessListsByCache();
-			if (processLists != null  && processLists.size() != 0) {
+			if (processLists != null && processLists.size() != 0) {
 				return processLists.get(getDefaultPro()).get_id();
 			} else {
 				return null;
@@ -316,7 +308,7 @@ public class DataManagerNew {
 		}
 		return userImagePath;
 	}
-	
+
 	public void cleanData() {
 		processLists = null;
 		myOwnerInfo = null;

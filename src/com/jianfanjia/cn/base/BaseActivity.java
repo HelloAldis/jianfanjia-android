@@ -3,7 +3,6 @@ package com.jianfanjia.cn.base;
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -26,7 +25,6 @@ import com.jianfanjia.cn.activity.NotifyActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.bean.ProcessInfo;
-import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
@@ -61,7 +59,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  */
 public abstract class BaseActivity extends FragmentActivity implements
 		DialogControl, NetStateListener, PopWindowCallBack,
-		PushMsgReceiveListener,LoadDataListener {
+		PushMsgReceiveListener, LoadDataListener {
 	protected ActivityManager activityManager = null;
 	protected LayoutInflater inflater = null;
 	protected FragmentManager fragmentManager = null;
@@ -239,26 +237,26 @@ public abstract class BaseActivity extends FragmentActivity implements
 		// TODO Auto-generated method stub
 
 	}
-	
+
 	@Override
 	public void loadSuccess() {
 		// TODO Auto-generated method stub
 		hideWaitDialog();
 	}
-	
+
 	@Override
 	public void preLoad() {
 		// TODO Auto-generated method stub
 		showWaitDialog();
 	}
-	
+
 	@Override
 	public void loadFailture() {
 		// TODO Auto-generated method stub
 		hideWaitDialog();
 		makeTextLong(getString(R.string.tip_no_internet));
 	}
-	
+
 	@Override
 	public WaitDialog showWaitDialog() {
 		return showWaitDialog(R.string.loading);
@@ -416,14 +414,14 @@ public abstract class BaseActivity extends FragmentActivity implements
 
 					@Override
 					public void onPositiveButtonClick() {
-						if(processInfo != null){
+						if (processInfo != null) {
 							agreeReschedule(processInfo.get_id());
 						}
 					}
 
 					@Override
 					public void onNegativeButtonClick() {
-						if(processInfo != null){
+						if (processInfo != null) {
 							refuseReschedule(processInfo.get_id());
 						}
 					}

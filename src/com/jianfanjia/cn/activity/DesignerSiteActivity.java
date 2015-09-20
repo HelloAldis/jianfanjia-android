@@ -46,7 +46,8 @@ public class DesignerSiteActivity extends BaseActivity implements
 					DesignerSiteActivity.this, siteList);
 			siteListView.setAdapter(designerSiteInfoAdapter);
 		} else {
-			LoadClientHelper.requestProcessList(this, new ProcessListRequest(this), this);
+			LoadClientHelper.requestProcessList(this, new ProcessListRequest(
+					this), this);
 		}
 	}
 

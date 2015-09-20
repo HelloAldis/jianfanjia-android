@@ -22,7 +22,7 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
  * 
  */
 public class BaseApplication extends Application {
-	
+
 	public SharedPrefer sharedPrefer = null;
 
 	@TargetApi(Build.VERSION_CODES.GINGERBREAD)
@@ -38,7 +38,7 @@ public class BaseApplication extends Application {
 					.detectAll().penaltyDeath().build());
 		}
 		initImageLoader(getApplicationContext());
-		
+
 		sharedPrefer = new SharedPrefer(this, Constant.SHARED_MAIN);
 	}
 
@@ -60,7 +60,7 @@ public class BaseApplication extends Application {
 		// Initialize ImageLoader with configuration.
 		ImageLoader.getInstance().init(config.build());
 	}
-	
+
 	public void makeTextShort(String text) {
 		Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
 	}

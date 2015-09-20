@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 import com.jianfanjia.cn.AppConfig;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.inter.manager.ListenerManeger;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
@@ -51,7 +50,6 @@ public abstract class BaseFragment extends Fragment implements OnClickListener,
 	protected String mUserImageId = null;// 头像
 	protected String mUserType = null;// 用户类型
 	private View view;
-		
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -68,7 +66,7 @@ public abstract class BaseFragment extends Fragment implements OnClickListener,
 		view = inflateView(getLayoutId());
 		return view;
 	}
-	
+
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub

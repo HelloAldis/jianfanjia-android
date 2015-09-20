@@ -1,11 +1,11 @@
 package com.jianfanjia.cn.base;
 
 public class BaseResponse {
-	
+
 	private Object data;
-	
+
 	private String err_msg;
-	
+
 	private String msg;
 
 	public Object getData() {
@@ -31,7 +31,5 @@ public class BaseResponse {
 	public void setMsg(String msg) {
 		this.msg = msg;
 	}
-	
-	
 
 }
