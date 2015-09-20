@@ -22,9 +22,14 @@ import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.DesignerInfo;
 import com.jianfanjia.cn.bean.DesignerUpdateInfo;
 import com.jianfanjia.cn.bean.NotifyMessage;
+import com.jianfanjia.cn.bean.OwnerUpdateInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
+import com.jianfanjia.cn.http.LoadClientHelper;
+import com.jianfanjia.cn.http.request.UserByDesignerInfoRequest;
+import com.jianfanjia.cn.http.request.UserByDesignerInfoUpdateRequest;
+import com.jianfanjia.cn.interf.LoadDataListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.PhotoUtils;
@@ -142,96 +147,52 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 
 	// 修改设计师个人资料
 	private void put_Designer_Info() {
-		JianFanJiaApiClient.put_DesignerInfo(this, designerUpdateInfo,
-				new JsonHttpResponseHandler() {
-					@Override
-					public void onStart() {
-						LogTool.d(TAG, "onStart()");
-					}
+		LoadClientHelper.postDesignerUpdateInfo(this, new UserByDesignerInfoUpdateRequest(this,designerUpdateInfo),new LoadDataListener() {
+			
+			@Override
+			public void preLoad() {
+				// TODO Auto-generated method stub
+				showWaitDialog();
+			}
+			
+			@Override
+			public void loadSuccess() {
+				// TODO Auto-generated method stub
+				hideWaitDialog();
+				makeTextLong("修改成功");
+			}
+			
+			@Override
+			public void loadFailture() {
+				hideWaitDialog();
+				makeTextLong(getString(R.string.tip_no_internet));
+			}
+		});
+	}
+	
+	@Override
+	public void loadSuccess() {
+		// TODO Auto-generated method stub
+		super.loadSuccess();
+		designerInfo = dataManager.getDesignerInfo();
+		if (null != designerInfo) {
+			// dataManager.setDesignerInfo(designerInfo);
+			setData();
+			setDesignerUpdateInfo();
+		}
+	}
 
-					@Override
-					public void onSuccess(int statusCode, Header[] headers,
-							JSONObject response) {
-						LogTool.d(TAG, "JSONObject response:" + response);
-						try {
-							if (response.has(Constant.SUCCESS_MSG)) {
-								makeTextLong("修改成功");
-							} else if (response.has(Constant.ERROR_MSG)) {
-								makeTextLong(response.get(Constant.ERROR_MSG)
-										.toString());
-							}
-						} catch (JSONException e) {
-							e.printStackTrace();
-							makeTextLong(getString(R.string.load_failure));
-						}
-					}
-
-					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							Throwable throwable, JSONObject errorResponse) {
-						LogTool.d(TAG,
-								"Throwable throwable:" + throwable.toString());
-						makeTextLong(getString(R.string.tip_no_internet));
-					}
-
-					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							String responseString, Throwable throwable) {
-						LogTool.d(TAG, "throwable:" + throwable);
-						makeTextLong(getString(R.string.tip_no_internet));
-					};
-				});
+	private void setDesignerUpdateInfo() {
+		designerUpdateInfo = new DesignerUpdateInfo();
+		designerUpdateInfo.setAddress(designerInfo.getAddress());
+		designerUpdateInfo.setCity(designerInfo.getCity());
+		designerUpdateInfo.setDistrict(designerInfo.getDistrict());
+		designerUpdateInfo.setSex(designerInfo.getSex());
+		designerUpdateInfo.setUsername(designerInfo.getUsername());
 	}
 
 	private void get_Designer_Info() {
-		JianFanJiaApiClient.get_Designer_Info(UserByDesignerInfoActivity.this,
-				new JsonHttpResponseHandler() {
-					@Override
-					public void onStart() {
-						LogTool.d(TAG, "onStart()");
-					}
-
-					@Override
-					public void onSuccess(int statusCode, Header[] headers,
-							JSONObject response) {
-						LogTool.d(TAG, "JSONObject response:" + response);
-						try {
-							if (response.has(Constant.DATA)) {
-								designerInfo = JsonParser.jsonToBean(response
-										.get(Constant.DATA).toString(),
-										DesignerInfo.class);
-								designerUpdateInfo = JsonParser.jsonToBean(
-										response.get(Constant.DATA).toString(),
-										DesignerUpdateInfo.class);
-								if (null != designerInfo) {
-									// dataManager.setDesignerInfo(designerInfo);
-									setData();
-								}
-							} else if (response.has(Constant.ERROR_MSG)) {
-								makeTextLong(response.get(Constant.ERROR_MSG)
-										.toString());
-							}
-						} catch (JSONException e) {
-							e.printStackTrace();
-							makeTextLong(getString(R.string.load_failure));
-						}
-					}
-
-					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							Throwable throwable, JSONObject errorResponse) {
-						LogTool.d(TAG,
-								"Throwable throwable:" + throwable.toString());
-						makeTextLong(getString(R.string.tip_no_internet));
-					}
-
-					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							String responseString, Throwable throwable) {
-						LogTool.d(TAG, "throwable:" + throwable);
-						makeTextLong(getString(R.string.tip_no_internet));
-					};
-				});
+		LoadClientHelper.getUserInfoByDesigner(this,new UserByDesignerInfoRequest(this), this);
 	}
 
 	@Override
@@ -288,8 +249,13 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 			}
 		});
 		if (designerUpdateInfo != null) {
-			radioGroup.check(designerUpdateInfo.getSex().equals(
-					Constant.SEX_MAN) ? R.id.sex_radio0 : R.id.sex_radio1);
+			if(designerUpdateInfo.getSex() != null){
+				radioGroup.check(designerUpdateInfo.getSex().equals(
+						Constant.SEX_MAN) ? R.id.sex_radio0 : R.id.sex_radio1);
+			}else{
+				radioGroup.check(R.id.sex_radio0);
+				sex = Constant.SEX_MAN;
+			}
 		}
 		commonDialog.setContent(contentView);
 		commonDialog.setTitle("选择性别");

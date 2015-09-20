@@ -20,8 +20,8 @@ public class HttpRestClient {
 	static {
 		client.setConnectTimeout(10);
 	}
-	
-	public static AsyncHttpClient getHttpClient(){
+
+	public static AsyncHttpClient getHttpClient() {
 		return client;
 	}
 
@@ -77,6 +77,14 @@ public class HttpRestClient {
 
 	public static void setCookie(String cookie) {
 		client.addHeader("Cookie", cookie);
+	}
+	
+	public static void cancelRequest(Context context,boolean isCancelRunning){
+		client.cancelRequests(context, isCancelRunning);
+	}
+	
+	public static void cancelAllRequest(boolean isCancelRunning){
+		client.cancelAllRequests(isCancelRunning);
 	}
 
 }

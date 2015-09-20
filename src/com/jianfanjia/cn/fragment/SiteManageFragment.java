@@ -48,6 +48,9 @@ import com.jianfanjia.cn.bean.SectionItemInfo;
 import com.jianfanjia.cn.bean.ViewPagerItem;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
+import com.jianfanjia.cn.http.LoadClientHelper;
+import com.jianfanjia.cn.http.request.ProcessInfoRequest;
+import com.jianfanjia.cn.http.request.ProcessListRequest;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
 import com.jianfanjia.cn.interf.LoadDataListener;
 import com.jianfanjia.cn.interf.UploadImageListener;
@@ -147,18 +150,45 @@ public class SiteManageFragment extends BaseFragment implements
 			currentList = savedInstanceState.getInt(Constant.CURRENT_LIST, -1);
 		}
 	}
-	
+
 	private void initProcessInfo() {
 		processInfo = dataManager.getDefaultProcessInfo();
 	}
 
 	private void refreshData() {
 		if (dataManager.getDefaultProcessId() == null) {
-			dataManager.requestProcessList(this);
+			LoadClientHelper.requestProcessList(getActivity(),
+					new ProcessListRequest(getActivity()),
+					new LoadDataListener() {
+
+						@Override
+						public void preLoad() {
+							// TODO Auto-generated method stub
+
+						}
+
+						@Override
+						public void loadSuccess() {
+							loadCurrentProcess();
+						}
+
+						@Override
+						public void loadFailture() {
+							makeTextLong("网络异常");
+						}
+					});
 		} else {
 			Log.i(TAG, "proId = " + dataManager.getDefaultProcessId());
-			dataManager.requestProcessInfoById(
-					dataManager.getDefaultProcessId(), this);
+			loadCurrentProcess();
+		}
+	}
+
+	private void loadCurrentProcess() {
+		if (dataManager.getDefaultProcessId() != null) {
+			LoadClientHelper.requestProcessInfoById(
+					getActivity(),
+					new ProcessInfoRequest(getActivity(), dataManager
+							.getDefaultProcessId()), SiteManageFragment.this);
 		}
 	}
 
@@ -167,7 +197,7 @@ public class SiteManageFragment extends BaseFragment implements
 		proTitle = getResources().getStringArray(R.array.site_procedure);
 		checkSection = getResources().getStringArray(
 				R.array.site_procedure_check);
-		
+
 		mPullRefreshScrollView = (PullToRefreshScrollView) view
 				.findViewById(R.id.pull_refresh_scrollview);
 		mPullRefreshScrollView.setMode(Mode.PULL_FROM_START);
@@ -201,6 +231,7 @@ public class SiteManageFragment extends BaseFragment implements
 	// 初始化数据
 	private void initData() {
 		if (processInfo != null) {
+			titleCenter.setText(processInfo.getCell() == null ? "" : processInfo.getCell());//设置标题头
 			currentPro = MyApplication.getInstance().getPositionByItemName(
 					processInfo.getGoing_on());
 			if (currentList == -1) {
@@ -215,7 +246,7 @@ public class SiteManageFragment extends BaseFragment implements
 					sectionItemInfos, this);
 			sectionItemAdapter.setSection_status(sectionInfo.getStatus());
 			detailNodeListView.setAdapter(sectionItemAdapter);
-//			processViewPager.setCurrentItem(currentList);
+			// processViewPager.setCurrentItem(currentList);
 		}
 	}
 
@@ -224,7 +255,7 @@ public class SiteManageFragment extends BaseFragment implements
 		super.onResume();
 		processViewPager.setCurrentItem(currentList);
 	}
-	
+
 	@Override
 	public void onPause() {
 		// TODO Auto-generated method stub
@@ -363,8 +394,9 @@ public class SiteManageFragment extends BaseFragment implements
 						sectionItemInfos = sectionInfo.getItems();
 						sectionItemAdapter
 								.setSectionItemInfos(sectionItemInfos);
-						sectionItemAdapter.setSection_status(sectionInfo.getStatus());
-//						sectionItemAdapter.setPosition(currentList);
+						sectionItemAdapter.setSection_status(sectionInfo
+								.getStatus());
+						// sectionItemAdapter.setPosition(currentList);
 						sectionItemAdapter.setLastClickItem(-1, isOpen);
 						sectionItemAdapter.notifyDataSetChanged();
 					}
@@ -437,7 +469,7 @@ public class SiteManageFragment extends BaseFragment implements
 					} else {
 						isOpen = true;
 					}
-//					sectionItemAdapter.setCurrentClickItem(position -1);
+					// sectionItemAdapter.setCurrentClickItem(position -1);
 					sectionItemAdapter.setLastClickItem(position - 1, isOpen);
 				}
 			}
@@ -540,7 +572,12 @@ public class SiteManageFragment extends BaseFragment implements
 		// Update the LastUpdatedLabel
 		refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
 		// 加载数据
-		dataManager.requestProcessList(this);
+		/*
+		 * LoadClientHelper.requestProcessInfoById(getActivity(),new
+		 * ProcessInfoRequest(getActivity(), dataManager.getDefaultProcessId())
+		 * , this);
+		 */
+		refreshData();
 	}
 
 	@Override
@@ -567,6 +604,7 @@ public class SiteManageFragment extends BaseFragment implements
 			bundle.putInt(Constant.CURRENT_LIST, currentList);
 			bundle.putInt(Constant.CURRENT_ITEM, position);
 			startActivity(CommentActivity.class, bundle);
+			getActivity().finish();
 			break;
 		default:
 			break;
@@ -586,7 +624,13 @@ public class SiteManageFragment extends BaseFragment implements
 
 	@Override
 	public void loadFailture() {
+		makeTextLong("网络异常");
 		mPullRefreshScrollView.onRefreshComplete();
+	}
+
+	@Override
+	public void preLoad() {
+		// TODO Auto-generated method stub
 	}
 
 	@Override
@@ -653,7 +697,7 @@ public class SiteManageFragment extends BaseFragment implements
 					public void onSuccess(int statusCode, Header[] headers,
 							JSONObject response) {
 						LogTool.d(TAG, "JSONObject response:" + response);
-						refreshData();
+						loadCurrentProcess();
 					}
 
 					@Override
@@ -692,7 +736,7 @@ public class SiteManageFragment extends BaseFragment implements
 							if (response.has(Constant.SUCCESS_MSG)) {
 								makeTextLong(response.get(Constant.SUCCESS_MSG)
 										.toString());
-								dataManager.getDesignerProcessLists();
+								loadCurrentProcess();
 							} else if (response.has(Constant.ERROR_MSG)) {
 								makeTextLong(response.get(Constant.ERROR_MSG)
 										.toString());
@@ -778,6 +822,7 @@ public class SiteManageFragment extends BaseFragment implements
 							initData();
 						} else {
 							// loadempty
+							loadCurrentProcess();
 						}
 					}
 				}
@@ -789,13 +834,10 @@ public class SiteManageFragment extends BaseFragment implements
 				if (bundle != null) {
 					String processId = (String) bundle.get("ProcessId");
 					LogTool.d(TAG, "processId=" + processId);
-					if (null != processId) {
-						initProcessInfo();
-						if (processInfo != null) {
-							initData();
-						} else {
-							// loadempty
-						}
+					if (null != processId
+							&& dataManager.getDefaultProcessId() != processId) {
+						// loadempty
+						loadCurrentProcess();
 					}
 				}
 			}
@@ -810,7 +852,7 @@ public class SiteManageFragment extends BaseFragment implements
 		LogTool.d(TAG, "msg===========" + msg);
 		if ("success".equals(msg)) {
 			LogTool.d(TAG, "--------------------------------------------------");
-			refreshData();
+			loadCurrentProcess();
 		}
 	}
 

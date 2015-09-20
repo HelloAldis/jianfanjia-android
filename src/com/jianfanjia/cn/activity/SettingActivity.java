@@ -19,8 +19,12 @@ import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.UpdateVersion;
 import com.jianfanjia.cn.bean.NotifyMessage;
+import com.jianfanjia.cn.cache.DataCleanManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
+import com.jianfanjia.cn.http.LoadClientHelper;
+import com.jianfanjia.cn.http.request.LogoutRequest;
+import com.jianfanjia.cn.interf.LoadDataListener;
 import com.jianfanjia.cn.service.UpdateService;
 import com.jianfanjia.cn.tools.FileUtil;
 import com.jianfanjia.cn.tools.JsonParser;
@@ -332,62 +336,31 @@ public class SettingActivity extends BaseActivity implements OnClickListener,
 
 	// 退出登录
 	private void logout() {
-		JianFanJiaApiClient.logout(SettingActivity.this,
-				new JsonHttpResponseHandler() {
-					@Override
-					public void onStart() {
-						LogTool.d(TAG, "onStart()");
-					}
-
-					@Override
-					public void onSuccess(int statusCode, Header[] headers,
-							JSONObject response) {
-						LogTool.d(TAG, "JSONObject response:" + response);
-						try {
-							if (response.has(Constant.SUCCESS_MSG)) {
-								makeTextLong(response.get(Constant.SUCCESS_MSG)
-										.toString());
-								PushManager.getInstance().stopService(
-										SettingActivity.this);// 完全终止SDK的服务
-								// DataCleanManager.cleanSharedPafrenceByName(getActivity(),
-								// Constant.SHARED_MAIN);// 清理掉用户相关的sharepre
-								// shared.remove()
-								dataManager.sharedPrefer.setValue(
-										Constant.PROCESSINFO_REFLECT, null);
-								dataManager.sharedPrefer.setValue(
-										Constant.DESIGNER_PROCESS_LIST, null);
-								Log.i(TAG, dataManager.getAccount());
-								dataManager.setLogin(false);
-								dataManager.cleanData();
-								MyApplication.getInstance().clearCookie();// 清理掉cookie
-								activityManager.exit();
-								startActivity(LoginActivity.class);
-							} else if (response.has(Constant.ERROR_MSG)) {
-								makeTextLong(response.get(Constant.ERROR_MSG)
-										.toString());
-							}
-						} catch (JSONException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-							makeTextLong(getString(R.string.load_failure));
-						}
-					}
-
-					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							Throwable throwable, JSONObject errorResponse) {
-						LogTool.d(TAG,
-								"Throwable throwable:" + throwable.toString());
-						makeTextLong(getString(R.string.tip_no_internet));
-					}
-
-					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							String responseString, Throwable throwable) {
-						LogTool.d(TAG, "throwable:" + throwable);
-						makeTextLong(getString(R.string.tip_no_internet));
-					};
-				});
+		LoadClientHelper.logout(this, new LogoutRequest(this), new LoadDataListener() {
+			
+			@Override
+			public void preLoad() {
+				// TODO Auto-generated method stub
+				showWaitDialog();
+			}
+			
+			@Override
+			public void loadSuccess() {
+				hideWaitDialog();
+				makeTextLong("退出成功");
+				PushManager.getInstance().stopService(
+						SettingActivity.this);// 完全终止SDK的服务
+				activityManager.exit();
+				startActivity(LoginActivity.class);
+			}
+			
+			@Override
+			public void loadFailture() {
+				hideWaitDialog();
+				// TODO Auto-generated method stub
+				makeTextLong(getString(R.string.tip_no_internet));
+			}
+		});
 	}
 
 	@Override

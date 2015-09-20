@@ -10,6 +10,8 @@ import com.jianfanjia.cn.bean.MyDesignerInfo;
 import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url;
+import com.jianfanjia.cn.http.LoadClientHelper;
+import com.jianfanjia.cn.http.request.DesignerInfoRequest;
 import com.jianfanjia.cn.interf.LoadDataListener;
 import com.jianfanjia.cn.layout.CircleImageView;
 import com.jianfanjia.cn.tools.LogTool;
@@ -56,12 +58,13 @@ public class MyDesignerActivity extends BaseActivity implements
 		budgetView = (TextView) findViewById(R.id.my_designer_budget);
 
 		String designerId = dataManager.getDefaultDesignerId();
-		designerInfo = dataManager.getDesignerInfo(designerId);
+		designerInfo = dataManager.getMyDesignerInfoById(designerId);
 		if (designerInfo != null) {
 			setData();
 		} else {
 			if (designerId != null) {
-				dataManager.getDesignerInfoById(designerId, this);
+				LoadClientHelper.getDesignerInfoById(this,
+						new DesignerInfoRequest(this, designerId), this);
 			} else {
 				// loadempty
 			}
@@ -81,14 +84,10 @@ public class MyDesignerActivity extends BaseActivity implements
 
 	@Override
 	public void loadSuccess() {
-		designerInfo = dataManager.getDesignerInfo(dataManager
+		super.loadSuccess();
+		designerInfo = dataManager.getMyDesignerInfoById(dataManager
 				.getDefaultDesignerId());
 		setData();
-	}
-
-	@Override
-	public void loadFailture() {
-
 	}
 
 	@Override

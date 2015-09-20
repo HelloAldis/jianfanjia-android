@@ -9,9 +9,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.igexin.sdk.PushManager;
 import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.http.LoadClientHelper;
+import com.jianfanjia.cn.http.request.LoginRequest;
 import com.jianfanjia.cn.interf.LoadDataListener;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.NetTool;
@@ -24,7 +24,7 @@ import com.jianfanjia.cn.tools.NetTool;
  * @date 2015-8-18 下午12:11:23
  * 
  */         
-public class LoginActivity extends BaseActivity implements OnClickListener,LoadDataListener{
+public class LoginActivity extends BaseActivity implements OnClickListener{
 	private static final String TAG = LoginActivity.class.getName();
 	private RelativeLayout loginLayout = null;
 	private EditText mEtUserName = null;// 用户名输入框
@@ -110,20 +110,16 @@ public class LoginActivity extends BaseActivity implements OnClickListener,LoadD
 	 * @param password
 	 */
 	private void login(String name, String password) {
-		dataManager.login(name, password, this);
+//		dataManager.login(name, password, this);
+		LoginRequest loginRequest = new LoginRequest(this, name, password);
+		LoadClientHelper.login(this, loginRequest, this);
 	}
 
 	@Override
 	public void loadSuccess() {
-		PushManager.getInstance().initialize(getApplicationContext());
-		dataManager.savePassword(mPassword);// 保存密码
+		super.loadSuccess();
 		startActivity(MainActivity.class);
 		finish();
-	}
-
-	@Override
-	public void loadFailture() {
-
 	}
 
 	/**

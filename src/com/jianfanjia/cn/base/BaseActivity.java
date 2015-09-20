@@ -27,11 +27,13 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.cache.DataManager;
+import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.inter.manager.ListenerManeger;
 import com.jianfanjia.cn.interf.DialogListener;
+import com.jianfanjia.cn.interf.LoadDataListener;
 import com.jianfanjia.cn.interf.NetStateListener;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
 import com.jianfanjia.cn.interf.PushMsgReceiveListener;
@@ -59,7 +61,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  */
 public abstract class BaseActivity extends FragmentActivity implements
 		DialogControl, NetStateListener, PopWindowCallBack,
-		PushMsgReceiveListener {
+		PushMsgReceiveListener,LoadDataListener {
 	protected ActivityManager activityManager = null;
 	protected LayoutInflater inflater = null;
 	protected FragmentManager fragmentManager = null;
@@ -73,8 +75,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 	protected AddPhotoPopWindow popupWindow = null;
 	private boolean _isVisible;
 	private WaitDialog _waitDialog;
-	protected DataManager dataManager;
-	protected ProcessInfo processInfo = null;
+	protected DataManagerNew dataManager;
 	protected AppConfig appConfig;
 
 	protected String userIdentity = null;
@@ -103,7 +104,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 		activityManager = ActivityManager.getInstance();
 		inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		nManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-		dataManager = DataManager.getInstance();
+		dataManager = DataManagerNew.getInstance();
 		sharedPrefer = dataManager.sharedPrefer;
 		appConfig = AppConfig.getInstance(this);
 		fragmentManager = this.getSupportFragmentManager();
@@ -124,7 +125,6 @@ public abstract class BaseActivity extends FragmentActivity implements
 	private void initParams() {
 		userIdentity = sharedPrefer.getValue(Constant.USERTYPE, null);
 		LogTool.d(this.getClass().getName(), "userIdentity=" + userIdentity);
-		processInfo = dataManager.getDefaultProcessInfo();
 	}
 
 	private void initDao() {
@@ -239,7 +239,26 @@ public abstract class BaseActivity extends FragmentActivity implements
 		// TODO Auto-generated method stub
 
 	}
-
+	
+	@Override
+	public void loadSuccess() {
+		// TODO Auto-generated method stub
+		hideWaitDialog();
+	}
+	
+	@Override
+	public void preLoad() {
+		// TODO Auto-generated method stub
+		showWaitDialog();
+	}
+	
+	@Override
+	public void loadFailture() {
+		// TODO Auto-generated method stub
+		hideWaitDialog();
+		makeTextLong(getString(R.string.tip_no_internet));
+	}
+	
 	@Override
 	public WaitDialog showWaitDialog() {
 		return showWaitDialog(R.string.loading);
@@ -391,17 +410,22 @@ public abstract class BaseActivity extends FragmentActivity implements
 	 * @param message
 	 */
 	protected void showNotify(NotifyMessage message) {
+		final ProcessInfo processInfo = dataManager.getDefaultProcessInfo();
 		final NotifyDialog notifyDialog = new NotifyDialog(this, message,
 				R.style.progress_dialog, new DialogListener() {
 
 					@Override
 					public void onPositiveButtonClick() {
-						agreeReschedule(processInfo.get_id());
+						if(processInfo != null){
+							agreeReschedule(processInfo.get_id());
+						}
 					}
 
 					@Override
 					public void onNegativeButtonClick() {
-						refuseReschedule(processInfo.get_id());
+						if(processInfo != null){
+							refuseReschedule(processInfo.get_id());
+						}
 					}
 
 					@Override
@@ -422,7 +446,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 	protected void sendNotifycation(NotifyMessage message) {
 		NotificationCompat.Builder builder = new NotificationCompat.Builder(
 				this);
-		builder.setSmallIcon(R.drawable.ic_launcher);
+		builder.setSmallIcon(R.drawable.icon_logo);
 		String type = message.getType();
 		if (type.equals(Constant.CAIGOU_NOTIFY)) {
 			builder.setTicker(getResources().getText(R.string.caigouText));

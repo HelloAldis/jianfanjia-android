@@ -1,6 +1,7 @@
 package com.jianfanjia.cn.activity;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import org.apache.http.Header;
 import org.json.JSONException;
@@ -25,6 +26,8 @@ import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
+import com.jianfanjia.cn.http.LoadClientHelper;
+import com.jianfanjia.cn.http.request.CommitCommentRequest;
 import com.jianfanjia.cn.interf.LoadDataListener;
 import com.jianfanjia.cn.tools.LogTool;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -46,11 +49,13 @@ public class CommentActivity extends BaseActivity implements OnClickListener,
 	private CommentInfoAdapter commentInfoAdapter = null;// 评论列表adapter
 	private List<CommentInfo> commentInfoList = new ArrayList<CommentInfo>();
 	private CommentInfo commentInfo = null;
+	private CommitCommentInfo commitCommentInfo = null;
 	private int currentList;// 当前工序
 	private int currentItem;// 当前节点
-	private ProcessInfo processInfo = null;
+	private ProcessInfo processInfo;
 	private String section = null;
 	private String item = null;
+	private String content = null;
 
 	private TextWatcher textWatcher = new TextWatcher() {
 
@@ -124,10 +129,15 @@ public class CommentActivity extends BaseActivity implements OnClickListener,
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.comment_back:
+			startActivity(MainActivity.class);
 			finish();
 			break;
 		case R.id.btn_send:
-			commitComment();
+			content = etAddCommentView.getEditableText().toString();
+			if (!TextUtils.isEmpty(content)) {
+				commitComment();
+				etAddCommentView.setText("");//清楚输入框内容
+			}
 			break;
 		default:
 			break;
@@ -135,76 +145,21 @@ public class CommentActivity extends BaseActivity implements OnClickListener,
 	}
 
 	private void commitComment() {
-		String content = etAddCommentView.getEditableText().toString();
-		Log.i(TAG, content);
-		if (!TextUtils.isEmpty(content)) {
-			CommitCommentInfo commitCommentInfo = new CommitCommentInfo();
-			commitCommentInfo.setContent(content);
-			commitCommentInfo.set_id(processInfo.get_id());
-			commitCommentInfo.setSection(section);
-			commitCommentInfo.setItem(item);
-			JianFanJiaApiClient.comment(this, commitCommentInfo,
-					new JsonHttpResponseHandler() {
-						@Override
-						public void onStart() {
-							LogTool.d(TAG, "onStart()");
-							showWaitDialog();
-						}
+		commitCommentInfo = new CommitCommentInfo();
+		commitCommentInfo.setContent(content);
+		commitCommentInfo.set_id(processInfo.get_id());
+		commitCommentInfo.setSection(section);
+		commitCommentInfo.setItem(item);
+		LoadClientHelper.postCommentInfo(this, new CommitCommentRequest(this,
+				commitCommentInfo), this);
 
-						@Override
-						public void onSuccess(int statusCode, Header[] headers,
-								JSONObject response) {
-							LogTool.d(TAG, "JSONObject response:" + response);
-							try {
-								if (response.has(Constant.SUCCESS_MSG)) {
-									makeTextLong(getString(R.string.comment_success));
-									etAddCommentView.getEditableText().clear();
-									sendCommentView.setEnabled(false);
-									handlerSuccess();
-								} else if (response.has(Constant.ERROR_MSG)) {
-									makeTextLong(response.get(
-											Constant.ERROR_MSG).toString());
-								}
-							} catch (JSONException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-								makeTextLong(getString(R.string.load_failure));
-							}
-						}
-
-						@Override
-						public void onFailure(int statusCode, Header[] headers,
-								Throwable throwable, JSONObject errorResponse) {
-							LogTool.d(
-									TAG,
-									"Throwable throwable:"
-											+ throwable.toString());
-							hideWaitDialog();
-							makeTextLong(getString(R.string.tip_no_internet));
-						}
-
-						@Override
-						public void onFailure(int statusCode, Header[] headers,
-								String responseString, Throwable throwable) {
-							LogTool.d(TAG, "throwable:" + throwable);
-							hideWaitDialog();
-							makeTextLong(getString(R.string.tip_no_internet));
-						};
-					});
-		}
 	}
-
-	private void handlerSuccess() {
-		refreshData();
-	}
-
+	
 	private void refreshData() {
-		if (dataManager.getDefaultProcessId() == null) {
-			dataManager.requestProcessList(this);
-		} else {
-			dataManager.requestProcessInfoById(
-					dataManager.getDefaultProcessId(), this);
-		}
+		/*
+		 * if (dataManager.getDefaultProcessId() == null) {
+		 * LoadClientHelper.requestProcessInfoById(this, , listener) }
+		 */
 	}
 
 	@Override
@@ -247,17 +202,21 @@ public class CommentActivity extends BaseActivity implements OnClickListener,
 
 	@Override
 	public void loadSuccess() {
-		LogTool.d(this.getClass().getName(), "onSuccess");
-		hideWaitDialog();
-		getCommentList();
-		commentInfoAdapter.setList(commentInfoList);
+		super.loadSuccess();
+		CommentInfo commentInfo = getCommentInfo();
+		commentInfoAdapter.addItem(commentInfo);
 		commentInfoAdapter.notifyDataSetChanged();
 	}
 
-	@Override
-	public void loadFailture() {
-		// TODO Auto-generated method stub
-
+	private CommentInfo getCommentInfo() {
+		commentInfo = new CommentInfo();
+		commentInfo.setBy(dataManager.getUserId());
+		commentInfo.setContent(commitCommentInfo.getContent());
+		commentInfo.setUserImageUrl(dataManager.getUserImagePath());
+		commentInfo.setDate(Calendar.getInstance().getTimeInMillis());
+		commentInfo.setUserName(dataManager.getUserName());
+		commentInfo.setUsertype(dataManager.getUserType());
+		return commentInfo;
 	}
 
 }

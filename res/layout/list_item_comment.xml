@@ -27,8 +27,10 @@
             android:layout_marginLeft="@dimen/space_8"
             android:layout_marginTop="@dimen/space_8"
             android:layout_toRightOf="@+id/list_item_comment_userhead"
-            android:maxWidth="@dimen/space_100"
+            android:layout_toLeftOf="@+id/list_item_comment_pubtime"
+            android:layout_marginRight="@dimen/space_8"
             android:text="@string/my_site_villagename_example"
+            android:gravity="left"
             android:textColor="@color/main_color_grey" />
 
         <TextView

@@ -8,6 +8,8 @@ import com.jianfanjia.cn.AppConfig;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.http.LoadClientHelper;
+import com.jianfanjia.cn.http.request.LoginRequest;
 import com.jianfanjia.cn.interf.LoadDataListener;
 import com.jianfanjia.cn.tools.LogTool;
 
@@ -49,6 +51,7 @@ public class WelcomeActivity extends BaseActivity implements LoadDataListener {
 
 	@Override
 	public void loadSuccess() {
+		super.loadSuccess();
 		startActivity(MainActivity.class);
 		finish();
 	}
@@ -76,9 +79,9 @@ public class WelcomeActivity extends BaseActivity implements LoadDataListener {
 					} else {
 						Log.i(this.getClass().getName(), "已经过期");
 						MyApplication.getInstance().clearCookie();
-						dataManager
-								.login(dataManager.getAccount(),
-										dataManager.getPassword(),
+						LoadClientHelper
+								.login(WelcomeActivity.this,new LoginRequest(WelcomeActivity.this,dataManager.getAccount(),
+										dataManager.getPassword()),
 										WelcomeActivity.this);
 					}
 				}

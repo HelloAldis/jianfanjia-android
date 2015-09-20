@@ -14,6 +14,8 @@ import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.bean.Process;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.http.LoadClientHelper;
+import com.jianfanjia.cn.http.request.ProcessListRequest;
 import com.jianfanjia.cn.interf.LoadDataListener;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
@@ -38,14 +40,13 @@ public class DesignerSiteActivity extends BaseActivity implements
 	public void initView() {
 		initMainHeadView();
 		siteListView = (ListView) findViewById(R.id.designer_site_listview);
-		siteList = dataManager.getDesignerProcessLists();
+		siteList = dataManager.getProcessLists();
 		if (siteList != null) {
 			designerSiteInfoAdapter = new DesignerSiteInfoAdapter(
 					DesignerSiteActivity.this, siteList);
 			siteListView.setAdapter(designerSiteInfoAdapter);
 		} else {
-			dataManager.requestProcessList(this);
-			showWaitDialog();
+			LoadClientHelper.requestProcessList(this, new ProcessListRequest(this), this);
 		}
 	}
 
@@ -89,8 +90,8 @@ public class DesignerSiteActivity extends BaseActivity implements
 
 	@Override
 	public void loadSuccess() {
-		hideWaitDialog();
-		siteList = dataManager.getDesignerProcessLists();
+		super.loadSuccess();
+		siteList = dataManager.getProcessLists();
 		if (siteList != null) {
 			designerSiteInfoAdapter = new DesignerSiteInfoAdapter(
 					DesignerSiteActivity.this, siteList);
@@ -98,11 +99,6 @@ public class DesignerSiteActivity extends BaseActivity implements
 		} else {
 			// load empty
 		}
-	}
-
-	@Override
-	public void loadFailture() {
-		hideWaitDialog();
 	}
 
 	@Override

@@ -8,9 +8,9 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.util.Log;
 import com.jianfanjia.cn.bean.CommitCommentInfo;
-import com.jianfanjia.cn.bean.DesignerInfo;
 import com.jianfanjia.cn.bean.DesignerUpdateInfo;
 import com.jianfanjia.cn.bean.OwnerInfo;
+import com.jianfanjia.cn.bean.OwnerUpdateInfo;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Url;
@@ -562,7 +562,7 @@ public class JianFanJiaApiClient {
 	 * @param ownerInfo
 	 * @param handler
 	 */
-	public static void put_OwnerInfo(Context context, OwnerInfo ownerInfo,
+	public static void put_OwnerInfo(Context context, OwnerUpdateInfo ownerInfo,
 			AsyncHttpResponseHandler handler) {
 		StringEntity entity;
 		try {
