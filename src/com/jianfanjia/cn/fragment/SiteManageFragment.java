@@ -160,11 +160,13 @@ public class SiteManageFragment extends BaseFragment implements
 						@Override
 						public void loadSuccess() {
 							loadCurrentProcess();
+							mPullRefreshScrollView.onRefreshComplete();
 						}
 
 						@Override
 						public void loadFailture() {
 							makeTextLong("Õ¯¬Á“Ï≥£");
+							mPullRefreshScrollView.onRefreshComplete();
 						}
 					});
 		} else {
