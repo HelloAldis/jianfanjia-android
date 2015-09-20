@@ -9,8 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.igexin.sdk.PushManager;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.interf.LoadDataListener;
 import com.jianfanjia.cn.tools.LogTool;
@@ -23,8 +21,9 @@ import com.jianfanjia.cn.tools.NetTool;
  * @author fengliang
  * @date 2015-8-18 下午12:11:23
  * 
- */         
-public class LoginActivity extends BaseActivity implements OnClickListener,LoadDataListener{
+ */
+public class LoginActivity extends BaseActivity implements OnClickListener,
+		LoadDataListener {
 	private static final String TAG = LoginActivity.class.getName();
 	private RelativeLayout loginLayout = null;
 	private EditText mEtUserName = null;// 用户名输入框
@@ -115,7 +114,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener,LoadD
 
 	@Override
 	public void loadSuccess() {
-		PushManager.getInstance().initialize(getApplicationContext());
 		dataManager.savePassword(mPassword);// 保存密码
 		startActivity(MainActivity.class);
 		finish();
