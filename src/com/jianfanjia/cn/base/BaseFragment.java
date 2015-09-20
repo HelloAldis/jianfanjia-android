@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.jianfanjia.cn.AppConfig;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.cache.DataManager;
+import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.inter.manager.ListenerManeger;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
 import com.jianfanjia.cn.tools.LogTool;
@@ -36,7 +37,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 public abstract class BaseFragment extends Fragment implements OnClickListener,
 		PopWindowCallBack {
 	protected FragmentManager fragmentManager = null;
-	protected DataManager dataManager = null;
+	protected DataManagerNew dataManager = null;
 	protected AppConfig appConfig = null;
 	protected LayoutInflater inflater = null;
 	protected SharedPrefer sharedPrefer = null;
@@ -79,7 +80,7 @@ public abstract class BaseFragment extends Fragment implements OnClickListener,
 
 	private void init() {
 		appConfig = AppConfig.getInstance(getActivity());
-		dataManager = DataManager.getInstance();
+		dataManager = DataManagerNew.getInstance();
 		imageLoader = ImageLoader.getInstance();
 		options = new DisplayImageOptions.Builder()
 				.showImageOnLoading(R.drawable.pix_default)

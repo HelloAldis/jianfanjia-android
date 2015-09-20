@@ -67,7 +67,7 @@ public class SectionItemAdapterBack extends BaseAdapter {
 				.cacheOnDisk(true).considerExifParams(true)
 				.bitmapConfig(Bitmap.Config.RGB_565).build();
 		dataManager = DataManager.getInstance();
-		sectionInfo = dataManager.getDefaultSectionInfoByPosition(position);
+//		sectionInfo = dataManager.getDefaultSectionInfoByPosition(position);
 		setList();
 		this.callBack = callBack;
 		userType = dataManager.getUserType();
@@ -117,7 +117,7 @@ public class SectionItemAdapterBack extends BaseAdapter {
 	}
 
 	public void setPosition(int position) {
-		sectionInfo = dataManager.getDefaultSectionInfoByPosition(position);
+//		sectionInfo = dataManager.getDefaultSectionInfoByPosition(position);
 		section_status = sectionInfo.getStatus();
 		setList();
 	}

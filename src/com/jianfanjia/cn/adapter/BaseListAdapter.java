@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.cache.DataManager;
+import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.interf.LoadDataListener;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -29,7 +30,7 @@ public abstract class BaseListAdapter<T> extends BaseAdapter implements
 	protected List<T> list;
 	protected ImageLoader imageLoader;
 	protected DisplayImageOptions options;
-	protected DataManager dataManager;
+	protected DataManagerNew dataManager;
 
 	public BaseListAdapter(Context context, List<T> list) {
 		this.context = context;
@@ -42,7 +43,7 @@ public abstract class BaseListAdapter<T> extends BaseAdapter implements
 				.showImageOnFail(R.drawable.pix_default).cacheInMemory(true)
 				.cacheOnDisk(true).considerExifParams(true)
 				.bitmapConfig(Bitmap.Config.RGB_565).build();
-		dataManager = DataManager.getInstance();
+		dataManager = DataManagerNew.getInstance();
 	}
 
 	public void setList(List<T> list) {
@@ -67,6 +68,12 @@ public abstract class BaseListAdapter<T> extends BaseAdapter implements
 	public void addItem(T t) {
 		list.add(t);
 		notifyDataSetChanged();
+	}
+	
+	@Override
+	public void preLoad() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override

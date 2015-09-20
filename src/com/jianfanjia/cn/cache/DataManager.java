@@ -43,7 +43,7 @@ public class DataManager {
 	public SharedPrefer sharedPrefer = null;
 	private Map<String, ProcessInfo> processInfos = new HashMap<String, ProcessInfo>();
 	private List<ProcessReflect> processReflects = new ArrayList<ProcessReflect>();
-	private List<Process> designerProcessLists;
+	private List<Process> processLists;
 	private MyOwnerInfo myOwnerInfo;// 我的业主信息
 	private MyDesignerInfo myDesignerInfo;// 我的设计师信息
 
@@ -65,10 +65,19 @@ public class DataManager {
 	@SuppressWarnings("unchecked")
 	public List<Process> getDesignerProcessLists() {
 		if (!NetTool.isNetworkAvailable(context)) {
-			designerProcessLists = (List<Process>) sharedPrefer
+			processLists = (List<Process>) sharedPrefer
 					.getValue(Constant.DESIGNER_PROCESS_LIST);
 		}
-		return designerProcessLists;
+		return processLists;
+	}
+	
+	
+	public List<Process> getProcessLists() {
+		return processLists;
+	}
+
+	public void setProcessLists(List<Process> processLists) {
+		this.processLists = processLists;
 	}
 
 	// 通过业主id拿到工地信息
@@ -288,10 +297,10 @@ public class DataManager {
 	public ProcessInfo getDefaultProcessInfo() {
 		return getProcessInfo(getDefaultProcessId());
 	}
-	
-	public SectionInfo getDefaultSectionInfoByPosition(int position){
+
+	public SectionInfo getDefaultSectionInfoByPosition(int position) {
 		ProcessInfo processInfo = getDefaultProcessInfo();
-		if(processInfo != null){
+		if (processInfo != null) {
 			return processInfo.getSections().get(position);
 		}
 		return null;
@@ -423,17 +432,17 @@ public class DataManager {
 						try {
 							if (response.has(Constant.DATA)
 									&& response.get(Constant.DATA) != null) {
-								designerProcessLists = JsonParser.jsonToList(
-										response.get(Constant.DATA).toString(),
+								processLists = JsonParser.jsonToList(response
+										.get(Constant.DATA).toString(),
 										new TypeToken<List<Process>>() {
 										}.getType());
-								if (designerProcessLists != null) {
+								if (processLists != null) {
 									Log.i(TAG, "designerProcessLists size ="
-											+ designerProcessLists.size());
+											+ processLists.size());
 									processReflects.clear();
 									// 把之前的数据清空
 									ProcessReflect processReflect = null;
-									for (Process process : designerProcessLists) {
+									for (Process process : processLists) {
 										// 保存工地流程在内存中
 										processReflect = new ProcessReflect(
 												process.get_id(), process
@@ -445,7 +454,7 @@ public class DataManager {
 									// 保存整个工地流程映射在本地
 									sharedPrefer.setValue(
 											Constant.DESIGNER_PROCESS_LIST,
-											designerProcessLists);
+											processLists);
 									sharedPrefer.setValue(
 											Constant.PROCESSINFO_REFLECT,
 											processReflects);
@@ -574,6 +583,21 @@ public class DataManager {
 		sharedPrefer.setValue(Constant.USER_IS_LOGIN, isLogin);
 	}
 
+	public void savaLastLoginTime(long loginTime) {
+		sharedPrefer.setValue(Constant.LAST_LOGIN_TIME, loginTime);
+	}
+
+	// 是否登录信息已过期
+	public boolean isLoginExpire() {
+		long currentTime = Calendar.getInstance().getTimeInMillis();// 当前时间
+		long loginLoginTime = sharedPrefer.getValue(Constant.LAST_LOGIN_TIME,
+				currentTime);
+		if (currentTime - loginLoginTime > Constant.LOGIN_EXPIRE) {
+			return true;
+		}
+		return false;
+	}
+
 	public void saveLoginUserInfo(LoginUserBean userBean) {
 		sharedPrefer.setValue(Constant.ACCOUNT, userBean.getPhone());
 		sharedPrefer.setValue(Constant.USERTYPE, userBean.getUsertype());
@@ -633,7 +657,7 @@ public class DataManager {
 	public void cleanData() {
 		processInfos.clear();
 		processReflects.clear();
-		designerProcessLists = null;
+		processLists = null;
 		myOwnerInfo = null;
 		myDesignerInfo = null;
 	}

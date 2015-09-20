@@ -78,5 +78,13 @@ public class HttpRestClient {
 	public static void setCookie(String cookie) {
 		client.addHeader("Cookie", cookie);
 	}
+	
+	public static void cancelRequest(Context context,boolean isCancelRunning){
+		client.cancelRequests(context, isCancelRunning);
+	}
+	
+	public static void cancelAllRequest(boolean isCancelRunning){
+		client.cancelAllRequests(isCancelRunning);
+	}
 
 }

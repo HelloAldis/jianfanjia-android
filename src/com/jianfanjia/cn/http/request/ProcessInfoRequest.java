@@ -1,0 +1,56 @@
+package com.jianfanjia.cn.http.request;
+
+import java.util.Calendar;
+
+import android.content.Context;
+
+import com.jianfanjia.cn.base.BaseRequest;
+import com.jianfanjia.cn.base.BaseResponse;
+import com.jianfanjia.cn.bean.LoginUserBean;
+import com.jianfanjia.cn.bean.ProcessInfo;
+import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.tools.JsonParser;
+
+public class ProcessInfoRequest extends BaseRequest {
+	
+	private String processId;
+	
+	public ProcessInfoRequest(Context context,String processId) {
+		super(context);
+		this.processId = processId;
+	}
+	
+	@Override
+	public void all() {
+		// TODO Auto-generated method stub
+		super.all();
+		
+	}
+	
+	@Override
+	public void pre() {
+		// TODO Auto-generated method stub
+		super.pre();
+	}
+	
+	@Override
+	public void onSuccess(BaseResponse baseResponse) {
+		super.onSuccess(baseResponse);
+		String data = baseResponse.getData().toString();
+		if(data != null){
+			ProcessInfo processInfo = JsonParser
+					.jsonToBean(data, ProcessInfo.class);
+			dataManager.setProcessInfo(processInfo);
+		}
+	}
+
+	public String getProcessId() {
+		return processId;
+	}
+
+	public void setProcessId(String processId) {
+		this.processId = processId;
+	}
+	
+	
+}

@@ -1,5 +1,7 @@
 package com.jianfanjia.cn.activity;
 
+import java.lang.reflect.Method;
+
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,6 +27,10 @@ import com.jianfanjia.cn.bean.OwnerUpdateInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
+import com.jianfanjia.cn.http.LoadClientHelper;
+import com.jianfanjia.cn.http.request.UserByOwnerInfoRequest;
+import com.jianfanjia.cn.http.request.UserByOwnerInfoUpdateRequest;
+import com.jianfanjia.cn.interf.LoadDataListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.PhotoUtils;
@@ -199,9 +205,13 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 			}
 		});
 		if (ownerUpdateInfo != null) {
-			radioGroup
-					.check(ownerUpdateInfo.getSex().equals(Constant.SEX_MAN) ? R.id.sex_radio0
-							: R.id.sex_radio1);
+			if(ownerUpdateInfo.getSex() != null){
+				radioGroup.check(ownerUpdateInfo.getSex().equals(
+						Constant.SEX_MAN) ? R.id.sex_radio0 : R.id.sex_radio1);
+			}else{
+				radioGroup.check(R.id.sex_radio0);
+				sex = Constant.SEX_MAN;
+			}
 		}
 		commonDialog.setContent(contentView);
 		commonDialog.setTitle("选择性别");
@@ -264,96 +274,53 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 
 	// 修改设计师个人资料
 	private void put_Owner_Info() {
-		JianFanJiaApiClient.put_OwnerInfo(this, ownerInfo,
-				new JsonHttpResponseHandler() {
-					@Override
-					public void onStart() {
-						LogTool.d(TAG, "onStart()");
-					}
-
-					@Override
-					public void onSuccess(int statusCode, Header[] headers,
-							JSONObject response) {
-						LogTool.d(TAG, "JSONObject response:" + response);
-						try {
-							if (response.has(Constant.SUCCESS_MSG)) {
-								makeTextLong("修改成功");
-							} else if (response.has(Constant.ERROR_MSG)) {
-								makeTextLong(response.get(Constant.ERROR_MSG)
-										.toString());
-							}
-						} catch (JSONException e) {
-							e.printStackTrace();
-							makeTextLong(getString(R.string.load_failure));
-						}
-					}
-
-					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							Throwable throwable, JSONObject errorResponse) {
-						LogTool.d(TAG,
-								"Throwable throwable:" + throwable.toString());
-						makeTextLong(getString(R.string.tip_no_internet));
-					}
-
-					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							String responseString, Throwable throwable) {
-						LogTool.d(TAG, "throwable:" + throwable);
-						makeTextLong(getString(R.string.tip_no_internet));
-					};
-				});
+		LoadClientHelper.postOwnerUpdateInfo(this, new UserByOwnerInfoUpdateRequest(this, ownerUpdateInfo), new LoadDataListener() {
+			
+			@Override
+			public void preLoad() {
+				// TODO Auto-generated method stub
+				showWaitDialog();
+			}
+			
+			@Override
+			public void loadSuccess() {
+				// TODO Auto-generated method stub
+				hideWaitDialog();
+				makeTextLong("修改成功");
+			}
+			
+			@Override
+			public void loadFailture() {
+				// TODO Auto-generated method stub
+				hideWaitDialog();
+				makeTextLong(getString(R.string.tip_no_internet));
+			}
+		});
+	}
+	
+	@Override
+	public void loadSuccess() {
+		// TODO Auto-generated method stub
+		super.loadSuccess();
+		ownerInfo = dataManager.getOwnerInfo();
+		if (null != ownerInfo) {
+			// dataManager.setOwnerInfo(ownerInfo);
+			setOwnerUpdateInfo();
+			setData();
+		}
+	}
+	
+	private void setOwnerUpdateInfo() {
+		ownerUpdateInfo = new OwnerUpdateInfo();
+		ownerUpdateInfo.setAddress(ownerInfo.getAddress());
+		ownerUpdateInfo.setCity(ownerInfo.getCity());
+		ownerUpdateInfo.setDistrict(ownerInfo.getDistrict());
+		ownerUpdateInfo.setSex(ownerInfo.getSex());
+		ownerUpdateInfo.setUsername(ownerInfo.getUsername());
 	}
 
 	private void get_Owner_Info() {
-		JianFanJiaApiClient.get_Owner_Info(UserByOwnerInfoActivity.this,
-				new JsonHttpResponseHandler() {
-					@Override
-					public void onStart() {
-						LogTool.d(TAG, "onStart()");
-					}
-
-					@Override
-					public void onSuccess(int statusCode, Header[] headers,
-							JSONObject response) {
-						LogTool.d(TAG, "JSONObject response:" + response);
-						try {
-							if (response.has(Constant.DATA)) {
-								ownerInfo = JsonParser.jsonToBean(
-										response.get(Constant.DATA).toString(),
-										OwnerInfo.class);
-								ownerUpdateInfo = JsonParser.jsonToBean(
-										response.get(Constant.DATA).toString(),
-										OwnerUpdateInfo.class);
-								if (null != ownerInfo) {
-									// dataManager.setOwnerInfo(ownerInfo);
-									setData();
-								}
-							} else if (response.has(Constant.ERROR_MSG)) {
-								makeTextLong(response.get(Constant.ERROR_MSG)
-										.toString());
-							}
-						} catch (JSONException e) {
-							e.printStackTrace();
-							makeTextLong(getString(R.string.load_failure));
-						}
-					}
-
-					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							Throwable throwable, JSONObject errorResponse) {
-						LogTool.d(TAG,
-								"Throwable throwable:" + throwable.toString());
-						makeTextLong(getString(R.string.tip_no_internet));
-					}
-
-					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							String responseString, Throwable throwable) {
-						LogTool.d(TAG, "throwable:" + throwable);
-						makeTextLong(getString(R.string.tip_no_internet));
-					};
-				});
+		LoadClientHelper.getUserInfoByOwner(this, new UserByOwnerInfoRequest(this), this);
 	}
 
 	@Override

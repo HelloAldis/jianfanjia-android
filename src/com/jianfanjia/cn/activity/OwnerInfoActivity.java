@@ -4,6 +4,7 @@ import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -13,8 +14,12 @@ import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.bean.ProcessInfo;
+import com.jianfanjia.cn.bean.User;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.config.Url;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
+import com.jianfanjia.cn.http.LoadClientHelper;
+import com.jianfanjia.cn.http.request.OwnerInfoRequest;
 import com.jianfanjia.cn.tools.DateFormatTool;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
@@ -46,14 +51,16 @@ public class OwnerInfoActivity extends BaseActivity implements OnClickListener {
 	private TextView totalDateView = null;// 总工期
 	private TextView confirmView = null;// 确认按钮
 	private String ownerId = null;
+	private User ownerInfo = null;
+	private ProcessInfo processInfo = null;
 
 	@Override
 	public void initView() {
 		Intent intent = this.getIntent();
-		ownerId = intent.getStringExtra("ownerId");
+		ownerInfo = (User)intent.getSerializableExtra("owner");
 		LogTool.d(TAG, "ownerId:" + ownerId);
 		ownerHeadView = (ImageView) findViewById(R.id.owner_detail_head_icon);
-		ownerHeadView = (ImageView) findViewById(R.id.owner_detail_sex_icon);
+		ownerSexView = (ImageView) findViewById(R.id.owner_detail_sex_icon);
 		proStageView = (TextView) findViewById(R.id.pro_stage);
 		ownerNameView = (TextView) findViewById(R.id.owner_detail_name);
 		backView = (TextView) findViewById(R.id.owner_detail_back);
@@ -67,31 +74,57 @@ public class OwnerInfoActivity extends BaseActivity implements OnClickListener {
 		startDateView = (TextView) findViewById(R.id.my_site_startdate);
 		totalDateView = (TextView) findViewById(R.id.my_site_totaldate);
 		confirmView = (TextView) findViewById(R.id.my_site_confirm);
-		if (null != ownerId) {
+		if (null != ownerInfo) {
 			// get_one_owner_info(ownerId);
-			ProcessInfo processInfo = dataManager
+			ownerId = ownerInfo.get_id();
+			processInfo = dataManager
 					.getProcessInfoByOwnerId(ownerId);
 			LogTool.d(TAG, "processInfo:" + processInfo);
 			if (null != processInfo) {
-				String city = processInfo.getProvince() + processInfo.getCity()
-						+ processInfo.getDistrict();
-				cityView.setText(city);
-				villageNameView.setText(processInfo.getCell());
-				houseStyleView.setText(getResources().getStringArray(
-						R.array.house_type)[Integer.parseInt(processInfo
-						.getHouse_type())]);
-				decorateAreaView.setText(processInfo.getHouse_area());
-				loveStyleView.setText(getResources().getStringArray(
-						R.array.dec_style)[Integer.parseInt(processInfo
-						.getDec_style())]);
-				decorateStyleView.setText(getResources().getStringArray(
-						R.array.work_type)[Integer.parseInt(processInfo
-						.getWork_type())]);
-				decorateBudgetView.setText(processInfo.getTotal_price());
-				startDateView.setText(DateFormatTool.covertLongToString(
-						processInfo.getStart_at(), "yyyy-MM-dd"));
-				totalDateView.setText(processInfo.getDuration());
+				setData();
+			}else{
+				LoadClientHelper.getOwnerInfoById(this, new OwnerInfoRequest(this, ownerId), this);
 			}
+			
+			imageLoader.displayImage(ownerInfo.getImageid() != null ? Url.GET_IMAGE + ownerInfo.getImageid() : Constant.DEFALUT_OWNER_PIC, ownerHeadView);
+			if (!TextUtils.isEmpty(ownerInfo.getUsername())) {
+				ownerNameView.setText(ownerInfo.getUsername());
+			} else {
+				ownerNameView.setText(getString(R.string.ower));
+			}
+		}
+	}
+	
+	private void setData() {
+		String city = processInfo.getProvince() + processInfo.getCity()
+				+ processInfo.getDistrict();
+		cityView.setText(city);
+		villageNameView.setText(processInfo.getCell());
+		houseStyleView.setText(getResources().getStringArray(
+				R.array.house_type)[Integer.parseInt(processInfo
+				.getHouse_type())]);
+		decorateAreaView.setText(processInfo.getHouse_area());
+		loveStyleView.setText(getResources().getStringArray(
+				R.array.dec_style)[Integer.parseInt(processInfo
+				.getDec_style())]);
+		decorateStyleView.setText(getResources().getStringArray(
+				R.array.work_type)[Integer.parseInt(processInfo
+				.getWork_type())]);
+		decorateBudgetView.setText(processInfo.getTotal_price());
+		startDateView.setText(DateFormatTool.covertLongToString(
+				processInfo.getStart_at(), "yyyy-MM-dd"));
+		totalDateView.setText(processInfo.getDuration());
+	}
+
+	@Override
+	public void loadSuccess() {
+		// TODO Auto-generated method stub
+		super.loadSuccess();
+		processInfo = dataManager
+				.getProcessInfoByOwnerId(ownerId);
+		LogTool.d(TAG, "processInfo:" + processInfo);
+		if (null != processInfo) {
+			setData();
 		}
 	}
 
@@ -109,55 +142,6 @@ public class OwnerInfoActivity extends BaseActivity implements OnClickListener {
 		default:
 			break;
 		}
-	}
-
-	private void get_one_owner_info(String ownerId) {
-		JianFanJiaApiClient.getOwnerInfoById(OwnerInfoActivity.this, ownerId,
-				new JsonHttpResponseHandler() {
-					@Override
-					public void onStart() {
-						LogTool.d(TAG, "onStart()");
-					}
-
-					@Override
-					public void onSuccess(int statusCode, Header[] headers,
-							JSONObject response) {
-						LogTool.d(TAG, "JSONObject response:" + response);
-						try {
-							if (response.has(Constant.DATA)) {
-								OwnerInfo myOwnerInfo = JsonParser.jsonToBean(
-										response.get(Constant.DATA).toString(),
-										OwnerInfo.class);
-								Log.i(TAG, "myOwnerInfo＝" + myOwnerInfo);
-								if (null != myOwnerInfo) {
-
-								}
-							} else if (response.has(Constant.ERROR_MSG)) {
-								makeTextLong(response.get(Constant.ERROR_MSG)
-										.toString());
-							}
-						} catch (JSONException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-							makeTextLong(getString(R.string.tip_login_error_for_network));
-						}
-					}
-
-					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							Throwable throwable, JSONObject errorResponse) {
-						LogTool.d(TAG,
-								"Throwable throwable:" + throwable.toString());
-						makeTextLong(getString(R.string.tip_login_error_for_network));
-					}
-
-					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							String responseString, Throwable throwable) {
-						LogTool.d(TAG, "throwable:" + throwable);
-						makeTextLong(getString(R.string.tip_login_error_for_network));
-					};
-				});
 	}
 
 	@Override

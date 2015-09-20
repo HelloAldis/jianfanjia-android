@@ -71,7 +71,7 @@
                         android:padding="@dimen/space_8"
                         android:src="@drawable/icon_home_default_user"
                         app:border_color="@color/white"
-                        app:border_width="2dp" />
+                        app:border_width="2px" />
 
                     <TextView
                         android:id="@+id/head_center_title"

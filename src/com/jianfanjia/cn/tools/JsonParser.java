@@ -42,7 +42,7 @@ public class JsonParser {
 	 * @return
 	 */
 	public static <T> List<T> jsonToList(String jsonString, Type typeOfT) {
-		List<T> list = new ArrayList<T>();
+		List<T> list = null;
 		try {
 			Gson gson = new Gson();
 			list = gson.fromJson(jsonString, typeOfT);

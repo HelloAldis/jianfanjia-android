@@ -115,15 +115,23 @@ public class SharedPrefer {
 		try {
 			oos = new ObjectOutputStream(baos);
 			oos.writeObject(value);
+			// 将Product对象放到OutputStream中
+			// 将Product对象转换成byte数组，并将其进行base64编码
+			String str = new String(Base64.encodeBase64(baos.toByteArray()));
+			// 将编码后的字符串写到base64.xml文件中
+			edit.putString(key, str);
+			edit.commit();
 		} catch (IOException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				baos.close();
+				oos.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-		// 将Product对象放到OutputStream中
-		// 将Product对象转换成byte数组，并将其进行base64编码
-		String str = new String(Base64.encodeBase64(baos.toByteArray()));
-		// 将编码后的字符串写到base64.xml文件中
-		edit.putString(key, str);
-		edit.commit();
 	}
 
 	public void setValue(int resKey, Object value) {
@@ -187,6 +195,7 @@ public class SharedPrefer {
 			ObjectInputStream ois = new ObjectInputStream(bais);
 			// 从ObjectInputStream中读取对象
 			Object object = ois.readObject();
+			ois.close();
 			return object;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
