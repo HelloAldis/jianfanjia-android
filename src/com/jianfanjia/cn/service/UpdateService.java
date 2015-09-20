@@ -45,10 +45,11 @@ public class UpdateService extends Service {
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		LogTool.d(this.getClass().getName(), "onStartCommand()");
-		if(intent != null){
+		if (intent != null) {
 			String download_url = intent.getStringExtra(Constant.DOWNLOAD_URL);
-			if(download_url != null){
-				String fileName = download_url.substring(download_url.lastIndexOf("/"));
+			if (download_url != null) {
+				String fileName = download_url.substring(download_url
+						.lastIndexOf("/"));
 				download(download_url, Constant.APK_PATH, fileName);
 			}
 		}
@@ -70,7 +71,7 @@ public class UpdateService extends Service {
 				LogTool.d(this.getClass().getName(), "onStart()");
 				builder = new NotificationCompat.Builder(
 						getApplicationContext());
-				builder.setSmallIcon(R.drawable.ic_launcher);
+				builder.setSmallIcon(R.drawable.icon_logo);
 				builder.setTicker("正在下载新版本");
 				builder.setContentTitle("简繁家");
 				builder.setContentText("正在下载,请稍后...");
@@ -87,9 +88,8 @@ public class UpdateService extends Service {
 				String process = (int) ((bytesWritten * 1.0 / totalSize) * 100)
 						+ "%";
 				LogTool.d(this.getClass().getName(), "process:" + process);
-				 builder.setContentInfo((int) ((bytesWritten / (float)
-				 totalSize) * 100)
-				 + "%");
+				builder.setContentInfo((int) ((bytesWritten / (float) totalSize) * 100)
+						+ "%");
 				nManager.notify(NotificationID, builder.build());
 			}
 

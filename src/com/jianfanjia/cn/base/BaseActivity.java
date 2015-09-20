@@ -422,7 +422,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 	protected void sendNotifycation(NotifyMessage message) {
 		NotificationCompat.Builder builder = new NotificationCompat.Builder(
 				this);
-		builder.setSmallIcon(R.drawable.ic_launcher);
+		builder.setSmallIcon(R.drawable.icon_logo);
 		String type = message.getType();
 		if (type.equals(Constant.CAIGOU_NOTIFY)) {
 			builder.setTicker(getResources().getText(R.string.caigouText));
