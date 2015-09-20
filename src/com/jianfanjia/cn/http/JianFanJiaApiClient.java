@@ -8,7 +8,6 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.util.Log;
 import com.jianfanjia.cn.bean.CommitCommentInfo;
-import com.jianfanjia.cn.bean.DesignerInfo;
 import com.jianfanjia.cn.bean.DesignerUpdateInfo;
 import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.bean.RegisterInfo;
