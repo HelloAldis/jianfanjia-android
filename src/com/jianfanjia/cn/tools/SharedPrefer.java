@@ -125,10 +125,13 @@ public class SharedPrefer {
 			e.printStackTrace();
 		} finally {
 			try {
-				baos.close();
-				oos.close();
+				if (baos != null) {
+					baos.close();
+				}
+				if (oos != null) {
+					oos.close();
+				}
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -201,10 +204,13 @@ public class SharedPrefer {
 			e.printStackTrace();
 		} finally {
 			try {
-				bais.close();
-				ois.close();
+				if (bais != null) {
+					bais.close();
+				}
+				if (ois != null) {
+					ois.close();
+				}
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
