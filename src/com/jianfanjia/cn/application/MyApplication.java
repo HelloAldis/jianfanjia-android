@@ -2,20 +2,14 @@ package com.jianfanjia.cn.application;
 
 import java.util.Arrays;
 import java.util.List;
-
 import org.apache.http.cookie.Cookie;
-
-import u.aly.cx;
-
 import android.content.pm.PackageManager;
 import android.util.Log;
-
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseApplication;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.cache.DataCleanManager;
 import com.jianfanjia.cn.http.HttpRestClient;
-import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.PersistentCookieStore;
 
@@ -30,7 +24,7 @@ public class MyApplication extends BaseApplication {
 	private static MyApplication instance;
 	private RegisterInfo registerInfo = new RegisterInfo();// 注册实体信息
 	private List<String> site_data;// 静态的工序列表
-	private PersistentCookieStore cookieStore;//cookie实例化
+	private PersistentCookieStore cookieStore;// cookie实例化
 
 	@Override
 	public void onCreate() {
@@ -38,8 +32,8 @@ public class MyApplication extends BaseApplication {
 		instance = this;
 		site_data = Arrays.asList(getResources().getStringArray(
 				R.array.site_data));
-		
-		cookieStore = new PersistentCookieStore(this);//记录cookie
+
+		cookieStore = new PersistentCookieStore(this);// 记录cookie
 		saveCookie(HttpRestClient.getHttpClient());
 		/*
 		 * Thread.setDefaultUncaughtExceptionHandler(AppException
@@ -139,15 +133,15 @@ public class MyApplication extends BaseApplication {
 			DataCleanManager.cleanCustomCache(getExternalCacheDir());
 		}
 	}
-	
-	public void saveCookie(AsyncHttpClient client) {  
-        client.setCookieStore(cookieStore); 
-        for(Cookie cookie : cookieStore.getCookies()){
-        	Log.i("COOKIE", cookie.getName() + " " + cookie.getValue());
-        }
-    }  
-      
-    public void clearCookie(){  
-        cookieStore.clear();  
-    }  
+
+	public void saveCookie(AsyncHttpClient client) {
+		client.setCookieStore(cookieStore);
+		for (Cookie cookie : cookieStore.getCookies()) {
+			Log.i("COOKIE", cookie.getName() + " " + cookie.getValue());
+		}
+	}
+
+	public void clearCookie() {
+		cookieStore.clear();
+	}
 }
