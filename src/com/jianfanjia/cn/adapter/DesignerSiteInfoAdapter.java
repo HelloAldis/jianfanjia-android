@@ -60,13 +60,10 @@ public class DesignerSiteInfoAdapter extends BaseListAdapter<Process> {
 			viewHolder.itemCurrentView.setVisibility(View.GONE);
 		}
 		viewHolder.itemVillageView.setText(designerSiteInfo.getCell());
-		if (user.getImageid() != null) {
-			imageLoader.displayImage(Url.GET_IMAGE + user.getImageid(),
-					viewHolder.itemOwerHeadView, options);
-		} else {
-			viewHolder.itemOwerHeadView
-					.setImageResource(R.drawable.icon_sidebar_default_user);
-		}
+
+		imageLoader.displayImage(Url.GET_IMAGE + user.getImageid(),
+				viewHolder.itemOwerHeadView, options);
+
 		return convertView;
 	}
 

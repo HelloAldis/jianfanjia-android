@@ -36,7 +36,7 @@ public class MainActivity extends BaseActivity implements PanelSlideListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+		PushManager.getInstance().initialize(getApplicationContext());
 	}
 
 	@Override

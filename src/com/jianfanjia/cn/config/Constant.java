@@ -49,6 +49,8 @@ public class Constant {
 	public static final int ADD_ITEM = 2;
 	public static final int IMG_ITEM = 3;
 	public static final int COMMENT_ITEM = 4;
+	public static final int DELAY_ITEM = 5;
+	public static final int CHECK_ITEM = 6;
 
 	// 用户身份type
 	public static final String IDENTITY_OWNER = "1";// 业主
@@ -118,7 +120,7 @@ public class Constant {
 	public static final String COOKIES_CONFIG = "cookies_config";// cookies配置
 	public static final String LAST_LOGIN_TIME = "last_login_time";// 上次登录时间
 	public static final long LOGIN_EXPIRE = 24 * 60 * 60 * 1000L;// 登录过期时间为24小时
-	
-	public static final String DOWNLOAD_URL = "download_url";//下载链接
+
+	public static final String DOWNLOAD_URL = "download_url";// 下载链接
 
 }
