@@ -86,13 +86,17 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 		addressRelativeLayout = (RelativeLayout) this
 				.findViewById(R.id.address_layout);
 		sexLayout = (RelativeLayout) this.findViewById(R.id.sex_layout);
-
+		setConfimEnable(false);
 		// designerInfo = dataManager.getDesignerInfo();
 		if (designerInfo == null) {
 			get_Designer_Info();
 		} else {
 			setData();
 		}
+	}
+	
+	private void setConfimEnable(boolean enabled){
+		btn_confirm.setEnabled(enabled);
 	}
 
 	private void setData() {
@@ -160,6 +164,7 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 				// TODO Auto-generated method stub
 				hideWaitDialog();
 				makeTextLong("修改成功");
+				setConfimEnable(false);
 			}
 			
 			@Override
@@ -265,9 +270,12 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						if (designerUpdateInfo != null) {
-							designerUpdateInfo.setSex(sex);
-							sexText.setText(sex.equals(Constant.SEX_MAN) ? "男"
-									: "女");
+							if(designerUpdateInfo.getSex().equals(sex)){
+								designerUpdateInfo.setSex(sex);
+								setConfimEnable(true);
+								sexText.setText(sex.equals(Constant.SEX_MAN) ? "男"
+										: "女");
+							}
 						}
 						dialog.dismiss();
 					}
@@ -298,7 +306,10 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 				String name = data.getStringExtra(Constant.EDIT_CONTENT);
 				nameText.setText(name);
 				if (designerUpdateInfo != null) {
-					designerUpdateInfo.setUsername(name);
+					if(name.equals(designerUpdateInfo.getUsername())){
+						designerUpdateInfo.setUsername(name);
+						setConfimEnable(true);
+					}
 				}
 			}
 			break;
@@ -307,7 +318,10 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 				String address = data.getStringExtra(Constant.EDIT_CONTENT);
 				homeText.setText(address);
 				if (designerUpdateInfo != null) {
-					designerUpdateInfo.setAddress(address);
+					if(designerUpdateInfo.getAddress().equals(address)){
+						setConfimEnable(true);
+						designerUpdateInfo.setAddress(address);
+					}
 				}
 			}
 			break;

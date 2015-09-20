@@ -101,7 +101,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 		homeRelativeLayout = (RelativeLayout) this
 				.findViewById(R.id.home_layout);
 		sexRelativeLayout = (RelativeLayout) this.findViewById(R.id.sex_layout);
-
+		setConfimEnable(false);
 		ownerInfo = dataManager.getOwnerInfo();
 		if (ownerInfo == null) {
 			get_Owner_Info();
@@ -110,6 +110,10 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 		}
 
 		commonWheelDialog = new CommonWheelDialog(this);
+	}
+	
+	private void setConfimEnable(boolean enabled){
+		btn_confirm.setEnabled(enabled);
 	}
 
 	private void setData() {
@@ -163,7 +167,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 			}
 			break;
 		case R.id.address_layout:
-			showWheelDialog();
+//			showWheelDialog();
 			break;
 		case R.id.name_layout:
 			Intent name = new Intent(UserByOwnerInfoActivity.this,
@@ -221,9 +225,12 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						if (ownerUpdateInfo != null) {
-							ownerUpdateInfo.setSex(sex);
-							sexText.setText(sex.equals(Constant.SEX_MAN) ? "ÄÐ"
-									: "Å®");
+							if(ownerUpdateInfo.getSex().equals(sex)){
+								ownerUpdateInfo.setSex(sex);
+								setConfimEnable(true);
+								sexText.setText(sex.equals(Constant.SEX_MAN) ? "ÄÐ"
+										: "Å®");
+							}
 						}
 						dialog.dismiss();
 					}
@@ -345,7 +352,10 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 				String name = data.getStringExtra(Constant.EDIT_CONTENT);
 				nameText.setText(name);
 				if (ownerUpdateInfo != null) {
-					ownerUpdateInfo.setUsername(name);
+					if(!name.equals(ownerUpdateInfo.getUsername())){
+						ownerUpdateInfo.setUsername(name);
+						setConfimEnable(true);
+					}
 				}
 			}
 			break;
@@ -354,7 +364,10 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 				String address = data.getStringExtra(Constant.EDIT_CONTENT);
 				homeText.setText(address);
 				if (ownerUpdateInfo != null) {
-					ownerUpdateInfo.setAddress(address);
+					if(ownerUpdateInfo.getAddress().equals(address)){
+						setConfimEnable(true);
+						ownerUpdateInfo.setAddress(address);
+					}
 				}
 			}
 			break;

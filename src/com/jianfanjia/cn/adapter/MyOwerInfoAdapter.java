@@ -9,6 +9,7 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.bean.Process;
 import com.jianfanjia.cn.bean.User;
+import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url;
 
 /**
@@ -49,8 +50,12 @@ public class MyOwerInfoAdapter extends BaseListAdapter<Process> {
 		viewHolder.itemStageView.setText(MyApplication.getInstance()
 				.getStringById(info.getGoing_on()) + "½×¶Î");
 		String imageId = user.getImageid();
-		imageLoader.displayImage(Url.GET_IMAGE + imageId,
-				viewHolder.itemOwerHeadView, options);
+		if(imageId != null){
+			imageLoader.displayImage(Url.GET_IMAGE + imageId,
+					viewHolder.itemOwerHeadView, options);
+		}else{
+			imageLoader.displayImage(Constant.DEFALUT_OWNER_PIC, viewHolder.itemOwerHeadView, options);
+		}
 		return convertView;
 	}
 

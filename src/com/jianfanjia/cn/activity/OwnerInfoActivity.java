@@ -49,7 +49,6 @@ public class OwnerInfoActivity extends BaseActivity implements OnClickListener {
 	private TextView decorateBudgetView = null;// 装修预算
 	private TextView startDateView = null;// 开工日期
 	private TextView totalDateView = null;// 总工期
-	private TextView confirmView = null;// 确认按钮
 	private String ownerId = null;
 	private User ownerInfo = null;
 	private ProcessInfo processInfo = null;
@@ -73,10 +72,8 @@ public class OwnerInfoActivity extends BaseActivity implements OnClickListener {
 		decorateBudgetView = (TextView) findViewById(R.id.my_site_decorationbudget);
 		startDateView = (TextView) findViewById(R.id.my_site_startdate);
 		totalDateView = (TextView) findViewById(R.id.my_site_totaldate);
-		confirmView = (TextView) findViewById(R.id.my_site_confirm);
-		if (null != ownerInfo) {
+		if (null != ownerInfo && (ownerId = ownerInfo.get_id()) != null) {
 			// get_one_owner_info(ownerId);
-			ownerId = ownerInfo.get_id();
 			processInfo = dataManager
 					.getProcessInfoByOwnerId(ownerId);
 			LogTool.d(TAG, "processInfo:" + processInfo);

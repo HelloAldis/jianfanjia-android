@@ -9,6 +9,7 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.bean.Process;
 import com.jianfanjia.cn.bean.User;
+import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url;
 
 /**
@@ -60,9 +61,13 @@ public class DesignerSiteInfoAdapter extends BaseListAdapter<Process> {
 			viewHolder.itemCurrentView.setVisibility(View.GONE);
 		}
 		viewHolder.itemVillageView.setText(designerSiteInfo.getCell());
-
-		imageLoader.displayImage(Url.GET_IMAGE + user.getImageid(),
-				viewHolder.itemOwerHeadView, options);
+		String imageId = user.getImageid();
+		if(imageId != null){
+			imageLoader.displayImage(Url.GET_IMAGE + imageId,
+					viewHolder.itemOwerHeadView, options);
+		}else{
+			imageLoader.displayImage(Constant.DEFALUT_OWNER_PIC, viewHolder.itemOwerHeadView, options);
+		}
 
 		return convertView;
 	}
