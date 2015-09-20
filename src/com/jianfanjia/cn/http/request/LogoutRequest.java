@@ -3,6 +3,7 @@ package com.jianfanjia.cn.http.request;
 import java.util.Calendar;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.jianfanjia.cn.activity.SettingActivity;
 import com.jianfanjia.cn.application.MyApplication;
@@ -34,11 +35,10 @@ public class LogoutRequest extends BaseRequest {
 	@Override
 	public void onSuccess(BaseResponse baseResponse) {
 		if(baseResponse.getMsg() != null){
-			dataManager.sharedPrefer.setValue(
-					Constant.DESIGNER_PROCESS_LIST, null);
+			dataManager.sharedPrefer.clear();
 			 DataCleanManager.cleanSharedPafrenceByName(context,
 			 Constant.SHARED_MAIN);// 清理掉用户相关的sharepre
-			dataManager.setLogin(false);
+			 dataManager.setLogin(false);
 			dataManager.cleanData();
 			MyApplication.getInstance().clearCookie();
 		}
