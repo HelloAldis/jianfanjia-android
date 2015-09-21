@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.interf.LoadDataListener;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -69,11 +68,11 @@ public abstract class BaseListAdapter<T> extends BaseAdapter implements
 		list.add(t);
 		notifyDataSetChanged();
 	}
-	
+
 	@Override
 	public void preLoad() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override

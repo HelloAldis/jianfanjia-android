@@ -163,7 +163,8 @@ public class UploadManager {
 								LogTool.d(TAG, "msg:" + msg);
 								uploadImageListener.onSuccess(msg);
 							} else if (response.has(Constant.ERROR_MSG)) {
-
+								uploadImageListener.onSuccess(response
+										.getString(Constant.ERROR_MSG));
 							}
 						} catch (JSONException e) {
 							e.printStackTrace();
