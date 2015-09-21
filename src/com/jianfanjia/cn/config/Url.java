@@ -95,4 +95,7 @@ public class Url {
 	// 用户完工装修流程小节点
 	public static final String POST_PROCESS_DONE_ITEM = HTTPROOT
 			+ "process/done_item";
+	
+	//拿到某个方案信息
+	public static final String GET_PLAN = HTTPROOT + "plan/" + ID;
 }

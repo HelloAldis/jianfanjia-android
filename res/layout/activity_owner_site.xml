@@ -169,6 +169,28 @@
             <View
                 style="@style/divier_line"
                 android:layout_marginTop="16dp" />
+            
+             
+
+            <RelativeLayout
+                android:id="@+id/my_totaldate_layout"
+                style="@style/my_item_layout_style" >
+
+                <TextView
+                    style="@style/site_listview_item_text_style_middle"
+                    android:layout_centerVertical="true"
+                    android:text="@string/my_site_totaldate"
+                    android:textColor="@color/main_color_black" />
+
+                <TextView
+                    android:id="@+id/my_site_totaldate"
+                    style="@style/site_listview_item_text_style_middle"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:textColor="@color/main_color_grey" />
+            </RelativeLayout>
+            
+            <View style="@style/divier_line" />
 
             <RelativeLayout
                 android:id="@+id/my_startdate_layout"
@@ -197,35 +219,7 @@
                     android:textColor="@color/main_color_grey" />
             </RelativeLayout>
 
-            <View style="@style/divier_line" />
-
-            <RelativeLayout
-                android:id="@+id/my_totaldate_layout"
-                style="@style/my_item_layout_style" >
-
-                <TextView
-                    style="@style/site_listview_item_text_style_middle"
-                    android:layout_centerVertical="true"
-                    android:text="@string/my_site_totaldate"
-                    android:textColor="@color/main_color_black" />
-
-                <ImageView
-                    android:id="@+id/totaldate_select_goto"
-                    style="@style/my_item_layout_image_style"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:contentDescription="@null" 
-                    android:paddingLeft="8dp"/>
-
-                <TextView
-                    android:id="@+id/my_site_totaldate"
-                    style="@style/site_listview_item_text_style_middle"
-                    android:layout_alignWithParentIfMissing="true"
-                    android:layout_centerVertical="true"
-                    android:text="@string/my_site_totaldate_example"
-                    android:layout_toLeftOf="@+id/totaldate_select_goto"
-                    android:textColor="@color/main_color_grey" />
-            </RelativeLayout>
+           
 
             <View style="@style/divier_line" />
 

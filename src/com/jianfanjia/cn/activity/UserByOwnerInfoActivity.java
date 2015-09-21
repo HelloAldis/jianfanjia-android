@@ -212,6 +212,8 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 			if (!TextUtils.isEmpty(ownerUpdateInfo.getSex())) {
 				radioGroup.check(ownerUpdateInfo.getSex().equals(
 						Constant.SEX_MAN) ? R.id.sex_radio0 : R.id.sex_radio1);
+				sex = ownerUpdateInfo.getSex().equals(
+						Constant.SEX_MAN) ? Constant.SEX_MAN : Constant.SEX_WOMEN;
 			} else {
 				radioGroup.check(R.id.sex_radio0);
 				sex = Constant.SEX_MAN;

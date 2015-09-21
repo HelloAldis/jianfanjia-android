@@ -16,6 +16,7 @@ import com.jianfanjia.cn.bean.MyOwnerInfo;
 import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.bean.Process;
 import com.jianfanjia.cn.bean.ProcessInfo;
+import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.bean.SectionInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url;
@@ -38,6 +39,8 @@ public class DataManagerNew {
 	private MyDesignerInfo myDesignerInfo;// 我的设计师信息
 	private OwnerInfo ownerInfo;// 业主的个人信息
 	private DesignerInfo designerInfo;// 设计师的个人信息
+	private String totalDuration;//总工期
+	private RequirementInfo requirementInfo;//需求信息
 
 	public static DataManagerNew getInstance() {
 		if (instance == null) {
@@ -50,6 +53,22 @@ public class DataManagerNew {
 		context = MyApplication.getInstance();
 		sharedPreferdata = new SharedPrefer(context, Constant.SHARED_DATA);
 		sharedPreferuser = new SharedPrefer(context, Constant.SHARED_USER);
+	}
+	
+	public RequirementInfo getRequirementInfo() {
+		return requirementInfo;
+	}
+
+	public void setRequirementInfo(RequirementInfo requirementInfo) {
+		this.requirementInfo = requirementInfo;
+	}
+
+	public String getTotalDuration() {
+		return totalDuration;
+	}
+
+	public void setTotalDuration(String totalDuration) {
+		this.totalDuration = totalDuration;
 	}
 
 	public void setOwnerInfo(OwnerInfo ownerInfo) {

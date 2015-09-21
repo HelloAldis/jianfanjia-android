@@ -594,5 +594,11 @@ public class JianFanJiaApiClient {
 			e.printStackTrace();
 		}
 	}
+	
+	public static void get_TotalDuration(Context context,String planId,AsyncHttpResponseHandler handler){
+		String getTotalDurationUrl = Url.GET_PLAN.replace(Url.ID,
+				planId);
+		HttpRestClient.get(context, getTotalDurationUrl, handler);
+	}
 
 }
