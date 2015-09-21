@@ -4,8 +4,11 @@ import java.io.File;
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
+import android.app.DownloadManager;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.CompoundButton;
@@ -216,6 +219,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener,
 
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
+						// downloadVersion(updateVersion.getDownload_url());
 						startUpdateService(updateVersion.getDownload_url());
 						dialog.dismiss();
 					}
@@ -333,32 +337,53 @@ public class SettingActivity extends BaseActivity implements OnClickListener,
 
 	// 退出登录
 	private void logout() {
-		LoadClientHelper.logout(this, new LogoutRequest(this), new LoadDataListener() {
-			
-			@Override
-			public void preLoad() {
-				// TODO Auto-generated method stub
-				showWaitDialog();
-			}
-			
-			@Override
-			public void loadSuccess() {
-				hideWaitDialog();
-				makeTextLong("退出成功");
-				PushManager.getInstance().stopService(
-						SettingActivity.this);// 完全终止SDK的服务
-				activityManager.exit();
-				startActivity(LoginActivity.class);
-				finish();
-			}
-			
-			@Override
-			public void loadFailture() {
-				hideWaitDialog();
-				// TODO Auto-generated method stub
-				makeTextLong(getString(R.string.tip_no_internet));
-			}
-		});
+		LoadClientHelper.logout(this, new LogoutRequest(this),
+				new LoadDataListener() {
+
+					@Override
+					public void preLoad() {
+						// TODO Auto-generated method stub
+						showWaitDialog();
+					}
+
+					@Override
+					public void loadSuccess() {
+						hideWaitDialog();
+						makeTextLong("退出成功");
+						PushManager.getInstance().stopService(
+								SettingActivity.this);// 完全终止SDK的服务
+						activityManager.exit();
+						startActivity(LoginActivity.class);
+						finish();
+					}
+
+					@Override
+					public void loadFailture() {
+						hideWaitDialog();
+						// TODO Auto-generated method stub
+						makeTextLong(getString(R.string.tip_no_internet));
+					}
+				});
+	}
+
+	private void downloadVersion(String apkPath) {
+		Uri uri = Uri.parse(apkPath);
+		DownloadManager.Request request = new DownloadManager.Request(uri);
+		// 设置下载路径和文件名
+		request.setDestinationInExternalPublicDir("download", "jianfanjia.apk");
+		request.setTitle("简繁家");
+		request.setDescription("正在下载简繁家新版本");
+		request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+		request.setMimeType("application/vnd.android.package-archive");
+		// 设置为可被媒体扫描器找到
+		request.allowScanningByMediaScanner();
+		// 设置为可见和可管理
+		request.setVisibleInDownloadsUi(true);
+		long refernece = downloadManager.enqueue(request);
+		// 把当前下载的ID保存起来
+		SharedPreferences sPreferences = getSharedPreferences("downloadplato",
+				0);
+		sPreferences.edit().putLong("plato", refernece).commit();
 	}
 
 	@Override
