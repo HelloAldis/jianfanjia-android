@@ -83,6 +83,7 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 		LogTool.d(TAG, "processInfo:" + processInfo);
 		if (processInfo == null) {
 			if (requirementInfo == null) {
+				LogTool.d(TAG, "getRequirement()");
 				getRequirement();
 			} else {
 				getTotalDuration();

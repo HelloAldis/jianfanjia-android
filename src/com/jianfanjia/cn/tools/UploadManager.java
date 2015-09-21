@@ -252,7 +252,7 @@ public class UploadManager {
 								String imageid = obj.getString("data");
 								LogTool.d(TAG, "imageid:" + imageid);
 								if (null != imageid) {
-
+									
 								}
 							} else if (response.has(Constant.ERROR_MSG)) {
 
