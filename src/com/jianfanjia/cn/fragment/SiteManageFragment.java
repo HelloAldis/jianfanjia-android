@@ -818,8 +818,8 @@ public class SiteManageFragment extends BaseFragment implements
 		intent.putExtra("aspectX", 1);
 		intent.putExtra("aspectY", 1);
 		// outputX outputY ÊÇ²Ã¼ôÍ¼Æ¬¿í¸ß
-		intent.putExtra("outputX", 250);
-		intent.putExtra("outputY", 250);
+		intent.putExtra("outputX", 400);
+		intent.putExtra("outputY", 400);
 		intent.putExtra("return-data", true);
 		startActivityForResult(intent, Constant.REQUESTCODE_CROP);
 	}
