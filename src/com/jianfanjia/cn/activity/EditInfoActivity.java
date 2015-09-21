@@ -2,6 +2,7 @@ package com.jianfanjia.cn.activity;
 
 import android.content.Intent;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
@@ -21,6 +22,8 @@ public class EditInfoActivity extends BaseActivity implements OnClickListener {
 	private Button confirmView;
 	private Intent intent;
 	private int type;//  ‰»Î¿‡–Õ
+	InputFilter[] namefilters = {new InputFilter.LengthFilter(20)};
+	InputFilter[] addressfilters = {new InputFilter.LengthFilter(100)};
 
 	@Override
 	public void initView() {
@@ -34,8 +37,10 @@ public class EditInfoActivity extends BaseActivity implements OnClickListener {
 		type = intent.getIntExtra(Constant.EDIT_TYPE, 0);
 		if (type == Constant.REQUESTCODE_EDIT_USERNAME) {
 			editInfoView.setHint(R.string.input_name);
+			editInfoView.setFilters(namefilters);
 		} else {
 			editInfoView.setHint(R.string.input_home);
+			editInfoView.setFilters(addressfilters);
 		}
 
 	}

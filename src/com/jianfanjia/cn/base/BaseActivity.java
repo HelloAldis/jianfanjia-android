@@ -64,7 +64,6 @@ public abstract class BaseActivity extends FragmentActivity implements
 	protected LayoutInflater inflater = null;
 	protected FragmentManager fragmentManager = null;
 	protected NotificationManager nManager = null;
-	protected SharedPrefer sharedPrefer = null;
 	protected ImageLoader imageLoader = null;
 	protected DisplayImageOptions options = null;
 	protected ListenerManeger listenerManeger = null;
@@ -103,7 +102,6 @@ public abstract class BaseActivity extends FragmentActivity implements
 		inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		nManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 		dataManager = DataManagerNew.getInstance();
-		sharedPrefer = dataManager.sharedPrefer;
 		appConfig = AppConfig.getInstance(this);
 		fragmentManager = this.getSupportFragmentManager();
 		imageLoader = ImageLoader.getInstance();
@@ -121,7 +119,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 	}
 
 	private void initParams() {
-		userIdentity = sharedPrefer.getValue(Constant.USERTYPE, null);
+		userIdentity = dataManager.getUserType();
 		LogTool.d(this.getClass().getName(), "userIdentity=" + userIdentity);
 	}
 
@@ -151,7 +149,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 	protected void onResume() {
 		super.onResume();
 		LogTool.d(this.getClass().getName(), "onResume()");
-		isOpen = sharedPrefer.getValue(Constant.ISOPEN, false);
+		isOpen = dataManager.isPushOpen();
 		Global.isAppBack = false;
 		registerNetReceiver();
 	}

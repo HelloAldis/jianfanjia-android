@@ -33,7 +33,7 @@ public class DesignerSiteActivity extends BaseActivity implements
 	private static final String TAG = DesignerSiteActivity.class.getName();
 	private MainHeadView mainHeadView = null;
 	private ListView siteListView = null;
-	private List<Process> siteList = new ArrayList<Process>();
+	private List<Process> siteList;
 	private DesignerSiteInfoAdapter designerSiteInfoAdapter = null;
 
 	@Override

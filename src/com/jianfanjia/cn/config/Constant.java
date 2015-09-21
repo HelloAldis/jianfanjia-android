@@ -12,7 +12,8 @@ import com.jianfanjia.cn.activity.R;
  * 
  */
 public class Constant {
-	public static final String SHARED_MAIN = "jianfanjia";
+	public static final String SHARED_DATA = "jianfanjia_data";
+	public static final String SHARED_USER = "jianfanjia_user";
 	public static final String LOG_PATH = Environment
 			.getExternalStorageDirectory() + "/JianFanJia/MyLog/mylog.txt";// log´æ·ÅÂ·¾¶
 	public static final String APK_PATH = Environment

@@ -40,7 +40,7 @@ public class DataManager {
 	private static DataManager instance;
 	private Context context;
 
-	public SharedPrefer sharedPrefer = null;
+	private SharedPrefer sharedPrefer = null;
 	private Map<String, ProcessInfo> processInfos = new HashMap<String, ProcessInfo>();
 	private List<ProcessReflect> processReflects = new ArrayList<ProcessReflect>();
 	private List<Process> processLists;
@@ -59,7 +59,7 @@ public class DataManager {
 
 	private DataManager() {
 		context = MyApplication.getInstance();
-		sharedPrefer = new SharedPrefer(context, Constant.SHARED_MAIN);
+		sharedPrefer = new SharedPrefer(context, Constant.SHARED_DATA);
 	}
 
 	@SuppressWarnings("unchecked")

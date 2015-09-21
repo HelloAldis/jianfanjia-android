@@ -62,7 +62,7 @@ public class NavigateActivity extends BaseActivity implements OnClickListener,
 
 	@Override
 	public void onClick(View v) {
-		sharedPrefer.setValue(Constant.ISFIRST, 1);
+		dataManager.setFisrt(false);
 		switch (v.getId()) {
 		case R.id.btn_welcome_off:
 			startActivity(LoginActivity.class);

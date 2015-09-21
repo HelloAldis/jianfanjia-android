@@ -298,7 +298,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 				makeTextLong("ÐÞ¸Ä³É¹¦");
 				setConfimEnable(false);
 				if(!TextUtils.isEmpty(ownerUpdateInfo.getUsername()) || ownerUpdateInfo.getUsername() != dataManager.getUserName()){
-					dataManager.sharedPrefer.setValue(Constant.USERNAME, ownerUpdateInfo.getUsername());
+					dataManager.setUserName(ownerUpdateInfo.getUsername());
 					sendBroadcast(new Intent(Constant.INTENT_ACTION_USERINFO_CHANGE));
 				}
 				updateOwnerInfo();

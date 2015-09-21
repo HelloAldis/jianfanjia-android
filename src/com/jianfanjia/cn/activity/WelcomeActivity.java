@@ -23,7 +23,7 @@ import com.jianfanjia.cn.tools.LogTool;
  */
 public class WelcomeActivity extends BaseActivity implements LoadDataListener {
 	private Handler handler = new Handler();
-	private int first = 0;// 用于判断导航界面是否显示
+	private boolean first;// 用于判断导航界面是否显示
 	private boolean isLoginExpire;// 是否登录过去
 	private boolean isLogin;// 是否登录过
 
@@ -32,7 +32,7 @@ public class WelcomeActivity extends BaseActivity implements LoadDataListener {
 		super.onCreate(savedInstanceState);
 		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
-		first = sharedPrefer.getValue(Constant.ISFIRST, 0);
+		first = dataManager.isFirst();
 		isLogin = dataManager.isLogin();
 		isLoginExpire = AppConfig.getInstance(this).isLoginExpire();
 		LogTool.d(this.getClass().getName(), "first=" + first);
@@ -66,7 +66,7 @@ public class WelcomeActivity extends BaseActivity implements LoadDataListener {
 
 		@Override
 		public void run() {
-			if (first == 1) {
+			if (!first) {
 				if (!isLogin) {
 					Log.i(this.getClass().getName(), "没有登录");
 					startActivity(LoginActivity.class);
