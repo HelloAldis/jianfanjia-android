@@ -233,4 +233,48 @@ public class UploadManager {
 				});
 	}
 
+	public void uploadImage(String imgPath) {
+		JianFanJiaApiClient.uploadImage(context, imgPath,
+				new JsonHttpResponseHandler() {
+					@Override
+					public void onStart() {
+						LogTool.d(TAG, "onStart()");
+					}
+
+					@Override
+					public void onSuccess(int statusCode, Header[] headers,
+							JSONObject response) {
+						LogTool.d(TAG, "JSONObject response:" + response);
+						try {
+							if (response.has(Constant.DATA)) {
+								JSONObject obj = new JSONObject(response
+										.toString());
+								String imageid = obj.getString("data");
+								LogTool.d(TAG, "imageid:" + imageid);
+								if (null != imageid) {
+
+								}
+							} else if (response.has(Constant.ERROR_MSG)) {
+
+							}
+						} catch (JSONException e) {
+							e.printStackTrace();
+						}
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							Throwable throwable, JSONObject errorResponse) {
+						LogTool.d(TAG, "Throwable throwable:" + throwable);
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							String responseString, Throwable throwable) {
+						LogTool.d(TAG, "statusCode:" + statusCode
+								+ " throwable:" + throwable);
+					};
+				});
+	}
+
 }

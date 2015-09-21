@@ -192,7 +192,6 @@ public class SiteManageFragment extends BaseFragment implements
 		proTitle = getResources().getStringArray(R.array.site_procedure);
 		checkSection = getResources().getStringArray(
 				R.array.site_procedure_check);
-
 		mPullRefreshScrollView = (PullToRefreshScrollView) view
 				.findViewById(R.id.pull_refresh_scrollview);
 		mPullRefreshScrollView.setMode(Mode.PULL_FROM_START);
@@ -573,8 +572,9 @@ public class SiteManageFragment extends BaseFragment implements
 
 	@Override
 	public void takePhoto() {
-		Intent albumIntent = new Intent(Intent.ACTION_GET_CONTENT);
-		albumIntent.setType("image/*");
+		Intent albumIntent = new Intent(Intent.ACTION_PICK, null);
+		albumIntent.setDataAndType(
+				MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
 		startActivityForResult(albumIntent, Constant.REQUESTCODE_LOCATION);
 	}
 
@@ -709,13 +709,12 @@ public class SiteManageFragment extends BaseFragment implements
 		switch (requestCode) {
 		case Constant.REQUESTCODE_CAMERA:// 拍照
 			if (mTmpFile != null) {
-				String picPath = mTmpFile.getPath();
-				LogTool.d(TAG, "picPath:" + picPath);
-				uploadManager.uploadProcedureImage(picPath,
-						processInfo.get_id(), sectionInfo.getName(),
-						processInfoId, this);
+				Uri uri = Uri.fromFile(mTmpFile);
+				LogTool.d(TAG, "uri:" + uri);
+				if (null != uri) {
+					startPhotoZoom(uri);
+				}
 			}
-
 			break;
 		case Constant.REQUESTCODE_LOCATION:// 本地选取
 			if (data != null) {
@@ -819,8 +818,8 @@ public class SiteManageFragment extends BaseFragment implements
 		intent.putExtra("aspectX", 1);
 		intent.putExtra("aspectY", 1);
 		// outputX outputY 是裁剪图片宽高
-		intent.putExtra("outputX", 200);
-		intent.putExtra("outputY", 200);
+		intent.putExtra("outputX", 300);
+		intent.putExtra("outputY", 300);
 		intent.putExtra("return-data", true);
 		startActivityForResult(intent, Constant.REQUESTCODE_CROP);
 	}
