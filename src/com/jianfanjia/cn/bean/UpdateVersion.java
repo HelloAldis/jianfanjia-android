@@ -1,13 +1,17 @@
 package com.jianfanjia.cn.bean;
 
-public class UpdateVersion {
-	
+import java.io.Serializable;
+
+public class UpdateVersion implements Serializable {
+
+	private static final long serialVersionUID = 8703607686714247167L;
+
 	private String version_name;
-	
+
 	private String version_code;
-	
+
 	private String download_url;
-	
+
 	public String getVersion_name() {
 		return version_name;
 	}
@@ -31,6 +35,5 @@ public class UpdateVersion {
 	public void setDownload_url(String download_url) {
 		this.download_url = download_url;
 	}
-	
 
 }
