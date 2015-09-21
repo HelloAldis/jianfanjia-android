@@ -167,7 +167,7 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 				makeTextLong("ÐÞ¸Ä³É¹¦");
 				setConfimEnable(false);
 				if(!TextUtils.isEmpty(designerUpdateInfo.getUsername()) || designerUpdateInfo.getUsername() != dataManager.getUserName()){
-					dataManager.sharedPrefer.setValue(Constant.USERNAME, designerUpdateInfo.getUsername());
+					dataManager.setUserName(designerUpdateInfo.getUsername());
 					sendBroadcast(new Intent(Constant.INTENT_ACTION_USERINFO_CHANGE));
 				}
 				updateUpdateInfo();

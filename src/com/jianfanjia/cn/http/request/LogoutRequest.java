@@ -34,7 +34,6 @@ public class LogoutRequest extends BaseRequest {
 	@Override
 	public void onSuccess(BaseResponse baseResponse) {
 		if (baseResponse.getMsg() != null) {
-			dataManager.sharedPrefer.clear();
 			dataManager.setLogin(false);
 			dataManager.cleanData();
 			MyApplication.getInstance().clearCookie();

@@ -46,7 +46,7 @@
         android:textSize="@dimen/text_size_14"
         android:textColor="@color/main_color_black"
         android:textColorHint="@color/main_color_grey"
-         />
+        />
 
     <Button
         android:id="@+id/btn_commit"

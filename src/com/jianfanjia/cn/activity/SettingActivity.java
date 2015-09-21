@@ -100,7 +100,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener,
 	@Override
 	public void onCheckedChanged(CompoundButton arg0, boolean check) {
 		LogTool.d(TAG, "check:" + check);
-		sharedPrefer.setValue(Constant.ISOPEN, check);
+		dataManager.setPushOpen(check);
 		if (check) {
 			PushManager.getInstance().turnOnPush(SettingActivity.this);
 		} else {

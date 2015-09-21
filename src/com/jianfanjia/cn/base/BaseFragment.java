@@ -39,7 +39,7 @@ public abstract class BaseFragment extends Fragment implements OnClickListener,
 	protected DataManagerNew dataManager = null;
 	protected AppConfig appConfig = null;
 	protected LayoutInflater inflater = null;
-	protected SharedPrefer sharedPrefer = null;
+//	protected SharedPrefer sharedPrefer = null;
 	protected ImageLoader imageLoader = null;
 	protected DisplayImageOptions options = null;
 	protected ListenerManeger listenerManeger = null;
@@ -86,7 +86,7 @@ public abstract class BaseFragment extends Fragment implements OnClickListener,
 				.showImageOnFail(R.drawable.pix_default).cacheInMemory(true)
 				.cacheOnDisk(true).considerExifParams(true)
 				.bitmapConfig(Bitmap.Config.RGB_565).build();
-		sharedPrefer = dataManager.sharedPrefer;
+//		sharedPrefer = dataManager.sharedPreferdata;
 		listenerManeger = ListenerManeger.getListenerManeger();
 		uploadManager = UploadManager.getUploadManager(getActivity());
 		fragmentManager = getFragmentManager();
