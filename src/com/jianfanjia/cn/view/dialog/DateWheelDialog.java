@@ -3,9 +3,11 @@ package com.jianfanjia.cn.view.dialog;
 import java.util.Calendar;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.view.wheel.NumericWheelAdapter;
@@ -124,5 +126,5 @@ public class DateWheelDialog extends CommonDialog implements OnWheelChangedListe
 		    chooseCalendar.set(Calendar.DAY_OF_MONTH, wheelView3.getCurrentItem() + 1);  
 		}
 	} 
-
+	
 }

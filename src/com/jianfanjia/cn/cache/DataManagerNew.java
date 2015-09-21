@@ -313,6 +313,9 @@ public class DataManagerNew {
 		processLists = null;
 		myOwnerInfo = null;
 		myDesignerInfo = null;
+		designerInfo = null;
+		ownerInfo = null;
+		processInfo = null;
 	}
 
 }

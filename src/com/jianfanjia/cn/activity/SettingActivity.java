@@ -352,6 +352,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener,
 						SettingActivity.this);// 完全终止SDK的服务
 				activityManager.exit();
 				startActivity(LoginActivity.class);
+				finish();
 			}
 			
 			@Override
