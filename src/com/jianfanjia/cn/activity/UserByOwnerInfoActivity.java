@@ -14,6 +14,7 @@ import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.textservice.SentenceSuggestionsInfo;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
@@ -107,6 +108,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 			get_Owner_Info();
 		} else {
 			setData();
+			setOwnerUpdateInfo();
 		}
 
 		commonWheelDialog = new CommonWheelDialog(this);
@@ -121,10 +123,10 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 				ownerInfo.getImageid() == null ? Constant.DEFALUT_OWNER_PIC
 						: (Url.GET_IMAGE + ownerInfo.getImageid()),
 				headImageView);
-		nameText.setText(ownerInfo.getUsername() == null ? getString(R.string.ower)
+		nameText.setText(TextUtils.isEmpty(ownerInfo.getUsername())? getString(R.string.ower)
 				: ownerInfo.getUsername());
 		String sexInfo = ownerInfo.getSex();
-		if (sexInfo != null) {
+		if (!TextUtils.isEmpty(sexInfo)) {
 			if (sexInfo.equals(Constant.SEX_MAN)) {
 				sexText.setText("ÄÐ");
 			} else if (sexInfo.equals(Constant.SEX_WOMEN)) {
@@ -133,11 +135,11 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 		} else {
 			sexText.setText(getString(R.string.not_edit));
 		}
-		phoneText.setText(ownerInfo.getPhone());
+		phoneText.setText(TextUtils.isEmpty(ownerInfo.getPhone()) ? getString(R.string.not_edit) : ownerInfo.getPhone());
 		addressText
-				.setText(ownerInfo.getDistrict() == null ? getString(R.string.not_edit)
+				.setText(TextUtils.isEmpty(ownerInfo.getDistrict())? getString(R.string.not_edit)
 						: ownerInfo.getDistrict());
-		homeText.setText(ownerInfo.getAddress() == null ? getString(R.string.not_edit)
+		homeText.setText(TextUtils.isEmpty(ownerInfo.getAddress()) ? getString(R.string.not_edit)
 				: ownerInfo.getAddress());
 	}
 
@@ -146,7 +148,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 		ownerinfo_back.setOnClickListener(this);
 		headLayout.setOnClickListener(this);
 		btn_confirm.setOnClickListener(this);
-		addressLayout.setOnClickListener(this);
+//		addressLayout.setOnClickListener(this);
 		homeRelativeLayout.setOnClickListener(this);
 		userNameRelativeLayout.setOnClickListener(this);
 		sexRelativeLayout.setOnClickListener(this);
@@ -209,7 +211,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 			}
 		});
 		if (ownerUpdateInfo != null) {
-			if(ownerUpdateInfo.getSex() != null){
+			if(!TextUtils.isEmpty(ownerUpdateInfo.getSex())){
 				radioGroup.check(ownerUpdateInfo.getSex().equals(
 						Constant.SEX_MAN) ? R.id.sex_radio0 : R.id.sex_radio1);
 			}else{
@@ -225,7 +227,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						if (ownerUpdateInfo != null) {
-							if(ownerUpdateInfo.getSex().equals(sex)){
+							if(ownerUpdateInfo.getSex() == null || !ownerUpdateInfo.getSex().equals(sex)){
 								ownerUpdateInfo.setSex(sex);
 								setConfimEnable(true);
 								sexText.setText(sex.equals(Constant.SEX_MAN) ? "ÄÐ"
@@ -294,6 +296,13 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 				// TODO Auto-generated method stub
 				hideWaitDialog();
 				makeTextLong("ÐÞ¸Ä³É¹¦");
+				setConfimEnable(false);
+				if(!TextUtils.isEmpty(ownerUpdateInfo.getUsername()) || ownerUpdateInfo.getUsername() != dataManager.getUserName()){
+					dataManager.sharedPrefer.setValue(Constant.USERNAME, ownerUpdateInfo.getUsername());
+					sendBroadcast(new Intent(Constant.INTENT_ACTION_USERINFO_CHANGE));
+				}
+				updateOwnerInfo();
+				dataManager.setOwnerInfo(ownerInfo);
 			}
 			
 			@Override
@@ -305,6 +314,14 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 		});
 	}
 	
+	protected void updateOwnerInfo() {
+		ownerInfo.setAddress(ownerUpdateInfo.getAddress());
+		ownerInfo.setCity(ownerUpdateInfo.getCity());
+		ownerInfo.setDistrict(ownerUpdateInfo.getDistrict());
+		ownerInfo.setSex(ownerUpdateInfo.getSex());
+		ownerInfo.setUsername(ownerUpdateInfo.getUsername());
+	}
+
 	@Override
 	public void loadSuccess() {
 		// TODO Auto-generated method stub
@@ -352,7 +369,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 				String name = data.getStringExtra(Constant.EDIT_CONTENT);
 				nameText.setText(name);
 				if (ownerUpdateInfo != null) {
-					if(!name.equals(ownerUpdateInfo.getUsername())){
+					if(TextUtils.isEmpty(ownerUpdateInfo.getUsername()) || !name.equals(ownerUpdateInfo.getUsername())){
 						ownerUpdateInfo.setUsername(name);
 						setConfimEnable(true);
 					}
@@ -364,7 +381,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 				String address = data.getStringExtra(Constant.EDIT_CONTENT);
 				homeText.setText(address);
 				if (ownerUpdateInfo != null) {
-					if(ownerUpdateInfo.getAddress().equals(address)){
+					if(TextUtils.isEmpty(ownerUpdateInfo.getAddress()) || !ownerUpdateInfo.getAddress().equals(address)){
 						setConfimEnable(true);
 						ownerUpdateInfo.setAddress(address);
 					}

@@ -87,11 +87,12 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 				.findViewById(R.id.address_layout);
 		sexLayout = (RelativeLayout) this.findViewById(R.id.sex_layout);
 		setConfimEnable(false);
-		// designerInfo = dataManager.getDesignerInfo();
+		designerInfo = dataManager.getDesignerInfo();
 		if (designerInfo == null) {
 			get_Designer_Info();
 		} else {
 			setData();
+			setDesignerUpdateInfo();
 		}
 	}
 	
@@ -146,7 +147,7 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 		userNameRelativeLayout.setOnClickListener(this);
 		homeRelativeLayout.setOnClickListener(this);
 		sexLayout.setOnClickListener(this);
-		addressRelativeLayout.setOnClickListener(this);
+//		addressRelativeLayout.setOnClickListener(this);
 	}
 
 	// 修改设计师个人资料
@@ -165,14 +166,31 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 				hideWaitDialog();
 				makeTextLong("修改成功");
 				setConfimEnable(false);
+				if(!TextUtils.isEmpty(designerUpdateInfo.getUsername()) || designerUpdateInfo.getUsername() != dataManager.getUserName()){
+					dataManager.sharedPrefer.setValue(Constant.USERNAME, designerUpdateInfo.getUsername());
+					sendBroadcast(new Intent(Constant.INTENT_ACTION_USERINFO_CHANGE));
+				}
+				updateUpdateInfo();
+				dataManager.setDesignerInfo(designerInfo);
 			}
 			
+			
+
 			@Override
 			public void loadFailture() {
 				hideWaitDialog();
 				makeTextLong(getString(R.string.tip_no_internet));
 			}
 		});
+	}
+	
+	private void updateUpdateInfo() {
+		// TODO Auto-generated method stub
+		designerInfo.setAddress(designerUpdateInfo.getAddress());
+		designerInfo.setCity(designerUpdateInfo.getCity());
+		designerInfo.setDistrict(designerUpdateInfo.getDistrict());
+		designerInfo.setSex(designerUpdateInfo.getSex());
+		designerInfo.setUsername(designerUpdateInfo.getUsername());
 	}
 	
 	@Override
@@ -254,9 +272,11 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 			}
 		});
 		if (designerUpdateInfo != null) {
-			if(designerUpdateInfo.getSex() != null){
+			if(!TextUtils.isEmpty(designerUpdateInfo.getSex())){
 				radioGroup.check(designerUpdateInfo.getSex().equals(
 						Constant.SEX_MAN) ? R.id.sex_radio0 : R.id.sex_radio1);
+				sex = designerUpdateInfo.getSex().equals(
+						Constant.SEX_MAN) ? Constant.SEX_MAN : Constant.SEX_WOMEN;
 			}else{
 				radioGroup.check(R.id.sex_radio0);
 				sex = Constant.SEX_MAN;
@@ -270,7 +290,7 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						if (designerUpdateInfo != null) {
-							if(designerUpdateInfo.getSex().equals(sex)){
+							if(TextUtils.isEmpty(designerUpdateInfo.getSex()) || !designerUpdateInfo.getSex().equals(sex)){
 								designerUpdateInfo.setSex(sex);
 								setConfimEnable(true);
 								sexText.setText(sex.equals(Constant.SEX_MAN) ? "男"
@@ -306,7 +326,7 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 				String name = data.getStringExtra(Constant.EDIT_CONTENT);
 				nameText.setText(name);
 				if (designerUpdateInfo != null) {
-					if(name.equals(designerUpdateInfo.getUsername())){
+					if(TextUtils.isEmpty(designerUpdateInfo.getUsername()) || !name.equals(designerUpdateInfo.getUsername())){
 						designerUpdateInfo.setUsername(name);
 						setConfimEnable(true);
 					}
@@ -318,7 +338,7 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 				String address = data.getStringExtra(Constant.EDIT_CONTENT);
 				homeText.setText(address);
 				if (designerUpdateInfo != null) {
-					if(designerUpdateInfo.getAddress().equals(address)){
+					if(TextUtils.isEmpty(designerUpdateInfo.getAddress()) || !designerUpdateInfo.getAddress().equals(address)){
 						setConfimEnable(true);
 						designerUpdateInfo.setAddress(address);
 					}

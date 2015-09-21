@@ -1,5 +1,10 @@
 package com.jianfanjia.cn.fragment;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,6 +17,7 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SettingActivity;
 import com.jianfanjia.cn.activity.UserByOwnerInfoActivity;
 import com.jianfanjia.cn.base.BaseFragment;
+import com.jianfanjia.cn.config.Constant;
 
 /**
  * 
@@ -32,6 +38,24 @@ public class OwnerMenuFragment extends BaseFragment {
 	private TextView tab_rb_2 = null;
 	private TextView tab_rb_3 = null;
 	private TextView tab_rb_4 = null;
+	
+	private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			String action = intent.getAction();
+			if (action.equals(Constant.INTENT_ACTION_USERINFO_CHANGE)) {
+				mUserName = dataManager.getUserName();
+				if (!TextUtils.isEmpty(mUserName)) {
+					nameText.setText(mUserName);
+				} else {
+					nameText.setText("ÒµÖ÷");
+				}
+			}else if(action.equals(Constant.INTENT_ACTION_USER_IMAGE_CHANGE)){
+				
+			}
+		}
+	};
 
 	@Override
 	public void initView(View view) {
@@ -54,10 +78,27 @@ public class OwnerMenuFragment extends BaseFragment {
 		}
 		imageLoader.displayImage(mUserImageId, img_head, options);
 	}
+	
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onActivityCreated(savedInstanceState);
+		IntentFilter filter = new IntentFilter(
+				Constant.INTENT_ACTION_USERINFO_CHANGE);
+		filter.addAction(Constant.INTENT_ACTION_USER_IMAGE_CHANGE);
+		getActivity().registerReceiver(mReceiver, filter);
+	}
 
 	@Override
 	public void onResume() {
 		super.onResume();
+	}
+	
+	@Override
+	public void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		getActivity().unregisterReceiver(mReceiver);
 	}
 
 	@Override

@@ -66,6 +66,7 @@ public class Constant {
 	public static final String USERIMAGE_ID = "userimageid";// 用户头像id
 	public static final String USER_ID = "userid";// 用户id
 	public static final String USER_IS_LOGIN = "user_is_login";// 用户是否登录
+	public static final String USERINFO_UPDATE = "userinfo_is update";//用户信息是否更新
 
 	public static final String FINAL_DESIGNER_ID = "final_designerid";// 业主的设计师id
 	public static final String FINAL_OWNER_ID = "final_owner_id";// 业主id
@@ -122,5 +123,8 @@ public class Constant {
 	public static final long LOGIN_EXPIRE = 24 * 60 * 60 * 1000L;// 登录过期时间为24小时
 
 	public static final String DOWNLOAD_URL = "download_url";// 下载链接
+	
+	public static final String INTENT_ACTION_USERINFO_CHANGE = "INTENT_ACTION_USERINFO_CHANGE";//用户修改个人信息
+	public static final String INTENT_ACTION_USER_IMAGE_CHANGE = "INTENT_ACTION_USER_IMAGE_CHANGE";//用户修改头像
 
 }

@@ -240,7 +240,7 @@ public class DataManagerNew {
 	public void setLogin(boolean isLogin) {
 		sharedPrefer.setValue(Constant.USER_IS_LOGIN, isLogin);
 	}
-
+	
 	public void savaLastLoginTime(long loginTime) {
 		sharedPrefer.setValue(Constant.LAST_LOGIN_TIME, loginTime);
 	}
