@@ -1,9 +1,6 @@
 package com.jianfanjia.cn.activity;
 
 import java.io.File;
-import org.apache.http.Header;
-import org.json.JSONException;
-import org.json.JSONObject;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -25,7 +22,6 @@ import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.bean.OwnerUpdateInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url;
-import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.http.LoadClientHelper;
 import com.jianfanjia.cn.http.request.UserByOwnerInfoRequest;
 import com.jianfanjia.cn.http.request.UserByOwnerInfoUpdateRequest;
@@ -40,7 +36,6 @@ import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.cn.view.wheel.ArrayWheelAdapter;
 import com.jianfanjia.cn.view.wheel.OnWheelChangedListener;
 import com.jianfanjia.cn.view.wheel.WheelView;
-import com.loopj.android.http.JsonHttpResponseHandler;
 
 /**
  * 
@@ -439,50 +434,6 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 		default:
 			break;
 		}
-	}
-
-	public void submitImage(String imgPath) {
-		JianFanJiaApiClient.uploadImage(UserByOwnerInfoActivity.this, imgPath,
-				new JsonHttpResponseHandler() {
-					@Override
-					public void onStart() {
-						LogTool.d(TAG, "onStart()");
-					}
-
-					@Override
-					public void onSuccess(int statusCode, Header[] headers,
-							JSONObject response) {
-						LogTool.d(TAG, "JSONObject response:" + response);
-						try {
-							if (response.has(Constant.DATA)) {
-								JSONObject obj = new JSONObject(response
-										.toString());
-								String imageid = obj.getString("data");
-								LogTool.d(TAG, "imageid:" + imageid);
-								if (null != imageid) {
-
-								}
-							} else if (response.has(Constant.ERROR_MSG)) {
-
-							}
-						} catch (JSONException e) {
-							e.printStackTrace();
-						}
-					}
-
-					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							Throwable throwable, JSONObject errorResponse) {
-						LogTool.d(TAG, "Throwable throwable:" + throwable);
-					}
-
-					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							String responseString, Throwable throwable) {
-						LogTool.d(TAG, "statusCode:" + statusCode
-								+ " throwable:" + throwable);
-					};
-				});
 	}
 
 	@Override
