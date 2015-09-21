@@ -4,16 +4,23 @@ import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.content.Context;
+import android.text.TextUtils;
+
+import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseResponse;
 import com.jianfanjia.cn.bean.LoginUserBean;
+import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.request.CommitCommentRequest;
 import com.jianfanjia.cn.http.request.DesignerInfoRequest;
 import com.jianfanjia.cn.http.request.LoginRequest;
 import com.jianfanjia.cn.http.request.LogoutRequest;
 import com.jianfanjia.cn.http.request.OwnerInfoRequest;
+import com.jianfanjia.cn.http.request.PostRequirementRequest;
 import com.jianfanjia.cn.http.request.ProcessInfoRequest;
 import com.jianfanjia.cn.http.request.ProcessListRequest;
+import com.jianfanjia.cn.http.request.GetRequirementRequest;
+import com.jianfanjia.cn.http.request.TotalDurationRequest;
 import com.jianfanjia.cn.http.request.UserByDesignerInfoRequest;
 import com.jianfanjia.cn.http.request.UserByDesignerInfoUpdateRequest;
 import com.jianfanjia.cn.http.request.UserByOwnerInfoRequest;
@@ -790,6 +797,222 @@ public class LoadClientHelper {
 										Constant.ERROR_MSG).toString());
 								userByDesignerInfoUpdateRequest
 										.onFailure(baseResponse);
+								if (listener != null) {
+									listener.loadFailture();
+								}
+							}
+						} catch (JSONException e) {
+							e.printStackTrace();
+							if (listener != null) {
+								listener.loadFailture();
+							}
+						}
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							Throwable throwable, JSONObject errorResponse) {
+						LogTool.d(TAG,
+								"Throwable throwable:" + throwable.toString());
+						if (listener != null) {
+							listener.loadFailture();
+						}
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							String responseString, Throwable throwable) {
+						LogTool.d(TAG, "throwable:" + throwable);
+						if (listener != null) {
+							listener.loadFailture();
+						}
+					};
+				});
+	}
+
+	/**
+	 * 获得方案的总工期
+	 * 
+	 * @param context
+	 * @param totalDurationRequest
+	 * @param listener
+	 */
+	public static void getPlanTotalDuration(final Context context,
+			final TotalDurationRequest totalDurationRequest,
+			final LoadDataListener listener) {
+		JianFanJiaApiClient.get_TotalDuration(context,
+				totalDurationRequest.getPlanId(),
+				new JsonHttpResponseHandler() {
+					@Override
+					public void onStart() {
+						LogTool.d(TAG, "onStart()");
+						if (listener != null) {
+							listener.preLoad();
+						}
+					}
+
+					@Override
+					public void onSuccess(int statusCode, Header[] headers,
+							JSONObject response) {
+						LogTool.d(TAG, "response:" + response.toString());
+						BaseResponse baseResponse = new BaseResponse();
+						try {
+							if (response.has(Constant.DATA)
+									&& response.get(Constant.DATA) != null) {
+								baseResponse.setData(response
+										.get(Constant.DATA).toString());
+								totalDurationRequest.onSuccess(baseResponse);
+								if (listener != null) {
+									listener.loadSuccess();
+								}
+							} else if (response.has(Constant.ERROR_MSG)) {
+								// 通知页面刷新
+								baseResponse.setErr_msg(response.get(
+										Constant.ERROR_MSG).toString());
+								totalDurationRequest.onFailure(baseResponse);
+								if (listener != null) {
+									listener.loadFailture();
+								}
+							}
+						} catch (JSONException e) {
+							e.printStackTrace();
+							if (listener != null) {
+								listener.loadFailture();
+							}
+						}
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							Throwable throwable, JSONObject errorResponse) {
+						LogTool.d(TAG,
+								"Throwable throwable:" + throwable.toString());
+						if (listener != null) {
+							listener.loadFailture();
+						}
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							String responseString, Throwable throwable) {
+						LogTool.d(TAG, "throwable:" + throwable);
+						if (listener != null) {
+							listener.loadFailture();
+						}
+					};
+				});
+
+	}
+
+	/**
+	 * 拿到需求
+	 * @param context
+	 * @param requirementRequest
+	 * @param listener
+	 */
+	public static void get_Requirement(final Context context,
+			final GetRequirementRequest requirementRequest,
+			final LoadDataListener listener) {
+		JianFanJiaApiClient.get_Requirement(context,
+				new JsonHttpResponseHandler() {
+					@Override
+					public void onStart() {
+						LogTool.d(TAG, "onStart()");
+						if (listener != null) {
+							listener.preLoad();
+						}
+					}
+
+					@Override
+					public void onSuccess(int statusCode, Header[] headers,
+							JSONObject response) {
+						LogTool.d(TAG, "response:" + response.toString());
+						BaseResponse baseResponse = new BaseResponse();
+						try {
+							if (response.has(Constant.DATA)
+									&& response.get(Constant.DATA) != null) {
+								baseResponse.setData(response
+										.get(Constant.DATA).toString());
+								requirementRequest.onSuccess(baseResponse);
+								if (listener != null) {
+									listener.loadSuccess();
+								}
+							} else if (response.has(Constant.ERROR_MSG)) {
+								// 通知页面刷新
+								baseResponse.setErr_msg(response.get(
+										Constant.ERROR_MSG).toString());
+								requirementRequest.onFailure(baseResponse);
+								if (listener != null) {
+									listener.loadFailture();
+								}
+							}
+						} catch (JSONException e) {
+							e.printStackTrace();
+							if (listener != null) {
+								listener.loadFailture();
+							}
+						}
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							Throwable throwable, JSONObject errorResponse) {
+						LogTool.d(TAG,
+								"Throwable throwable:" + throwable.toString());
+						if (listener != null) {
+							listener.loadFailture();
+						}
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							String responseString, Throwable throwable) {
+						LogTool.d(TAG, "throwable:" + throwable);
+						if (listener != null) {
+							listener.loadFailture();
+						}
+					};
+				});
+	}
+
+	/**
+	 * 配置需求
+	 * @param context
+	 * @param postRequirementRequest
+	 * @param listener
+	 */
+	public static void post_Requirement(final Context context,
+			final PostRequirementRequest postRequirementRequest,
+			final LoadDataListener listener){
+		JianFanJiaApiClient.post_Owner_Process(context,
+				postRequirementRequest.getRequirementInfo(), new JsonHttpResponseHandler() {
+					@Override
+					public void onStart() {
+						LogTool.d(TAG, "onStart()");
+						if (listener != null) {
+							listener.preLoad();
+						}
+					}
+
+					@Override
+					public void onSuccess(int statusCode, Header[] headers,
+							JSONObject response) {
+						LogTool.d(TAG, "response:" + response.toString());
+						BaseResponse baseResponse = new BaseResponse();
+						try {
+							if (response.has(Constant.DATA)
+									&& response.get(Constant.DATA) != null) {
+								baseResponse.setData(response
+										.get(Constant.DATA).toString());
+								postRequirementRequest.onSuccess(baseResponse);
+								if (listener != null) {
+									listener.loadSuccess();
+								}
+							} else if (response.has(Constant.ERROR_MSG)) {
+								// 通知页面刷新
+								baseResponse.setErr_msg(response.get(
+										Constant.ERROR_MSG).toString());
+								postRequirementRequest.onFailure(baseResponse);
 								if (listener != null) {
 									listener.loadFailture();
 								}

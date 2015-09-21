@@ -1,10 +1,6 @@
 package com.jianfanjia.cn.activity;
 
-import java.lang.reflect.Method;
-
-import org.apache.http.Header;
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.io.File;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -14,7 +10,6 @@ import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.textservice.SentenceSuggestionsInfo;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
@@ -27,12 +22,12 @@ import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.bean.OwnerUpdateInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url;
-import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.http.LoadClientHelper;
 import com.jianfanjia.cn.http.request.UserByOwnerInfoRequest;
 import com.jianfanjia.cn.http.request.UserByOwnerInfoUpdateRequest;
 import com.jianfanjia.cn.interf.LoadDataListener;
-import com.jianfanjia.cn.tools.JsonParser;
+import com.jianfanjia.cn.interf.UploadImageListener;
+import com.jianfanjia.cn.tools.FileUtil;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.PhotoUtils;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
@@ -41,7 +36,6 @@ import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.cn.view.wheel.ArrayWheelAdapter;
 import com.jianfanjia.cn.view.wheel.OnWheelChangedListener;
 import com.jianfanjia.cn.view.wheel.WheelView;
-import com.loopj.android.http.JsonHttpResponseHandler;
 
 /**
  * 
@@ -52,7 +46,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
  * 
  */
 public class UserByOwnerInfoActivity extends BaseActivity implements
-		OnClickListener {
+		OnClickListener, UploadImageListener {
 	private static final String TAG = UserByOwnerInfoActivity.class.getName();
 	private RelativeLayout infoLayout = null;
 	private RelativeLayout headLayout = null;
@@ -76,13 +70,15 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 
 	private CommonWheelDialog commonWheelDialog;
 
-	public static String[] provices = { "湖北", "湖南", "安徽" };
-	public static String[] cities = { "武汉", "长沙", "合肥" };
-	public static String[] areas = { "武昌", "汉口", "长沙县", "常州", "青山", "江夏", "汉阳" };
+	private static String[] provices = { "湖北", "湖南", "安徽" };
+	private static String[] cities = { "武汉", "长沙", "合肥" };
+	private static String[] areas = { "武昌", "汉口", "长沙县", "常州", "青山", "江夏", "汉阳" };
 
 	private String provice;
 	private String city;
 	private String area;
+
+	private File mTmpFile = null;
 
 	@Override
 	public void initView() {
@@ -113,8 +109,8 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 
 		commonWheelDialog = new CommonWheelDialog(this);
 	}
-	
-	private void setConfimEnable(boolean enabled){
+
+	private void setConfimEnable(boolean enabled) {
 		btn_confirm.setEnabled(enabled);
 	}
 
@@ -123,7 +119,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 				ownerInfo.getImageid() == null ? Constant.DEFALUT_OWNER_PIC
 						: (Url.GET_IMAGE + ownerInfo.getImageid()),
 				headImageView);
-		nameText.setText(TextUtils.isEmpty(ownerInfo.getUsername())? getString(R.string.ower)
+		nameText.setText(TextUtils.isEmpty(ownerInfo.getUsername()) ? getString(R.string.ower)
 				: ownerInfo.getUsername());
 		String sexInfo = ownerInfo.getSex();
 		if (!TextUtils.isEmpty(sexInfo)) {
@@ -135,9 +131,11 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 		} else {
 			sexText.setText(getString(R.string.not_edit));
 		}
-		phoneText.setText(TextUtils.isEmpty(ownerInfo.getPhone()) ? getString(R.string.not_edit) : ownerInfo.getPhone());
+		phoneText
+				.setText(TextUtils.isEmpty(ownerInfo.getPhone()) ? getString(R.string.not_edit)
+						: ownerInfo.getPhone());
 		addressText
-				.setText(TextUtils.isEmpty(ownerInfo.getDistrict())? getString(R.string.not_edit)
+				.setText(TextUtils.isEmpty(ownerInfo.getDistrict()) ? getString(R.string.not_edit)
 						: ownerInfo.getDistrict());
 		homeText.setText(TextUtils.isEmpty(ownerInfo.getAddress()) ? getString(R.string.not_edit)
 				: ownerInfo.getAddress());
@@ -148,7 +146,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 		ownerinfo_back.setOnClickListener(this);
 		headLayout.setOnClickListener(this);
 		btn_confirm.setOnClickListener(this);
-//		addressLayout.setOnClickListener(this);
+		// addressLayout.setOnClickListener(this);
 		homeRelativeLayout.setOnClickListener(this);
 		userNameRelativeLayout.setOnClickListener(this);
 		sexRelativeLayout.setOnClickListener(this);
@@ -169,7 +167,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 			}
 			break;
 		case R.id.address_layout:
-//			showWheelDialog();
+			// showWheelDialog();
 			break;
 		case R.id.name_layout:
 			Intent name = new Intent(UserByOwnerInfoActivity.this,
@@ -211,10 +209,12 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 			}
 		});
 		if (ownerUpdateInfo != null) {
-			if(!TextUtils.isEmpty(ownerUpdateInfo.getSex())){
+			if (!TextUtils.isEmpty(ownerUpdateInfo.getSex())) {
 				radioGroup.check(ownerUpdateInfo.getSex().equals(
 						Constant.SEX_MAN) ? R.id.sex_radio0 : R.id.sex_radio1);
-			}else{
+				sex = ownerUpdateInfo.getSex().equals(
+						Constant.SEX_MAN) ? Constant.SEX_MAN : Constant.SEX_WOMEN;
+			} else {
 				radioGroup.check(R.id.sex_radio0);
 				sex = Constant.SEX_MAN;
 			}
@@ -227,7 +227,8 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						if (ownerUpdateInfo != null) {
-							if(ownerUpdateInfo.getSex() == null || !ownerUpdateInfo.getSex().equals(sex)){
+							if (ownerUpdateInfo.getSex() == null
+									|| !ownerUpdateInfo.getSex().equals(sex)) {
 								ownerUpdateInfo.setSex(sex);
 								setConfimEnable(true);
 								sexText.setText(sex.equals(Constant.SEX_MAN) ? "男"
@@ -283,37 +284,43 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 
 	// 修改设计师个人资料
 	private void put_Owner_Info() {
-		LoadClientHelper.postOwnerUpdateInfo(this, new UserByOwnerInfoUpdateRequest(this, ownerUpdateInfo), new LoadDataListener() {
-			
-			@Override
-			public void preLoad() {
-				// TODO Auto-generated method stub
-				showWaitDialog();
-			}
-			
-			@Override
-			public void loadSuccess() {
-				// TODO Auto-generated method stub
-				hideWaitDialog();
-				makeTextLong("修改成功");
-				setConfimEnable(false);
-				if(!TextUtils.isEmpty(ownerUpdateInfo.getUsername()) || ownerUpdateInfo.getUsername() != dataManager.getUserName()){
-					dataManager.setUserName(ownerUpdateInfo.getUsername());
-					sendBroadcast(new Intent(Constant.INTENT_ACTION_USERINFO_CHANGE));
-				}
-				updateOwnerInfo();
-				dataManager.setOwnerInfo(ownerInfo);
-			}
-			
-			@Override
-			public void loadFailture() {
-				// TODO Auto-generated method stub
-				hideWaitDialog();
-				makeTextLong(getString(R.string.tip_no_internet));
-			}
-		});
+		LoadClientHelper.postOwnerUpdateInfo(this,
+				new UserByOwnerInfoUpdateRequest(this, ownerUpdateInfo),
+				new LoadDataListener() {
+
+					@Override
+					public void preLoad() {
+						// TODO Auto-generated method stub
+						showWaitDialog();
+					}
+
+					@Override
+					public void loadSuccess() {
+						// TODO Auto-generated method stub
+						hideWaitDialog();
+						makeTextLong("修改成功");
+						setConfimEnable(false);
+						if (!TextUtils.isEmpty(ownerUpdateInfo.getUsername())
+								|| ownerUpdateInfo.getUsername() != dataManager
+										.getUserName()) {
+							dataManager.setUserName(ownerUpdateInfo
+									.getUsername());
+							sendBroadcast(new Intent(
+									Constant.INTENT_ACTION_USERINFO_CHANGE));
+						}
+						updateOwnerInfo();
+						dataManager.setOwnerInfo(ownerInfo);
+					}
+
+					@Override
+					public void loadFailture() {
+						// TODO Auto-generated method stub
+						hideWaitDialog();
+						makeTextLong(getString(R.string.tip_no_internet));
+					}
+				});
 	}
-	
+
 	protected void updateOwnerInfo() {
 		ownerInfo.setAddress(ownerUpdateInfo.getAddress());
 		ownerInfo.setCity(ownerUpdateInfo.getCity());
@@ -324,7 +331,6 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 
 	@Override
 	public void loadSuccess() {
-		// TODO Auto-generated method stub
 		super.loadSuccess();
 		ownerInfo = dataManager.getOwnerInfo();
 		if (null != ownerInfo) {
@@ -333,7 +339,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 			setData();
 		}
 	}
-	
+
 	private void setOwnerUpdateInfo() {
 		ownerUpdateInfo = new OwnerUpdateInfo();
 		ownerUpdateInfo.setAddress(ownerInfo.getAddress());
@@ -344,19 +350,23 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 	}
 
 	private void get_Owner_Info() {
-		LoadClientHelper.getUserInfoByOwner(this, new UserByOwnerInfoRequest(this), this);
+		LoadClientHelper.getUserInfoByOwner(this, new UserByOwnerInfoRequest(
+				this), this);
 	}
 
 	@Override
 	public void takecamera() {
 		Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		mTmpFile = FileUtil.createTmpFile(UserByOwnerInfoActivity.this);
+		cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mTmpFile));
 		startActivityForResult(cameraIntent, Constant.REQUESTCODE_CAMERA);
 	}
 
 	@Override
 	public void takePhoto() {
-		Intent albumIntent = new Intent(Intent.ACTION_GET_CONTENT);
-		albumIntent.setType("image/*");
+		Intent albumIntent = new Intent(Intent.ACTION_PICK, null);
+		albumIntent.setDataAndType(
+				MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
 		startActivityForResult(albumIntent, Constant.REQUESTCODE_LOCATION);
 	}
 
@@ -369,7 +379,8 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 				String name = data.getStringExtra(Constant.EDIT_CONTENT);
 				nameText.setText(name);
 				if (ownerUpdateInfo != null) {
-					if(TextUtils.isEmpty(ownerUpdateInfo.getUsername()) || !name.equals(ownerUpdateInfo.getUsername())){
+					if (TextUtils.isEmpty(ownerUpdateInfo.getUsername())
+							|| !name.equals(ownerUpdateInfo.getUsername())) {
 						ownerUpdateInfo.setUsername(name);
 						setConfimEnable(true);
 					}
@@ -381,7 +392,8 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 				String address = data.getStringExtra(Constant.EDIT_CONTENT);
 				homeText.setText(address);
 				if (ownerUpdateInfo != null) {
-					if(TextUtils.isEmpty(ownerUpdateInfo.getAddress()) || !ownerUpdateInfo.getAddress().equals(address)){
+					if (TextUtils.isEmpty(ownerUpdateInfo.getAddress())
+							|| !ownerUpdateInfo.getAddress().equals(address)) {
 						setConfimEnable(true);
 						ownerUpdateInfo.setAddress(address);
 					}
@@ -389,20 +401,12 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 			}
 			break;
 		case Constant.REQUESTCODE_CAMERA:// 拍照
-			LogTool.d(TAG, "data:" + data);
-			if (data != null) {
-				Bundle bundle = data.getExtras();
-				Bitmap bitmap = (Bitmap) bundle.get("data");
-				LogTool.d(TAG, "bitmap:" + bitmap);
-				Uri mImageUri = null;
-				if (null != data.getData()) {
-					mImageUri = data.getData();
-				} else {
-					mImageUri = Uri.parse(MediaStore.Images.Media.insertImage(
-							getContentResolver(), bitmap, null, null));
+			if (mTmpFile != null) {
+				Uri uri = Uri.fromFile(mTmpFile);
+				LogTool.d(TAG, "uri:" + uri);
+				if (null != uri) {
+					startPhotoZoom(uri);
 				}
-				LogTool.d(TAG, "mImageUri:" + mImageUri);
-				startPhotoZoom(mImageUri);
 			}
 			break;
 		case Constant.REQUESTCODE_LOCATION:// 本地选取
@@ -424,13 +428,32 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 					String imgPath = PhotoUtils.savaPicture(bitmap);
 					LogTool.d(TAG, "imgPath=============" + imgPath);
 					if (!TextUtils.isEmpty(imgPath)) {
-
+						uploadManager.uploadImage(imgPath);
 					}
 				}
 			}
 			break;
 		default:
 			break;
+		}
+	}
+
+	@Override
+	public void onSuccess(String msg) {
+		LogTool.d(TAG, "msg===========" + msg);
+		if ("success".equals(msg)) {
+			LogTool.d(TAG, "--------------------------------------------------");
+			if (mTmpFile != null && mTmpFile.exists()) {
+				mTmpFile.delete();
+			}
+		}
+	}
+
+	@Override
+	public void onFailure() {
+		LogTool.d(TAG, "==============================================");
+		if (mTmpFile != null && mTmpFile.exists()) {
+			mTmpFile.delete();
 		}
 	}
 
@@ -448,8 +471,8 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 		intent.putExtra("aspectX", 1);
 		intent.putExtra("aspectY", 1);
 		// outputX outputY 是裁剪图片宽高
-		intent.putExtra("outputX", 200);
-		intent.putExtra("outputY", 200);
+		intent.putExtra("outputX", 300);
+		intent.putExtra("outputY", 300);
 		intent.putExtra("return-data", true);
 		startActivityForResult(intent, Constant.REQUESTCODE_CROP);
 	}
