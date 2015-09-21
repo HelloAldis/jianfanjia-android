@@ -39,10 +39,10 @@ public class FuKuanNotifyFragment extends BaseFragment implements
 		super.setUserVisibleHint(isVisibleToUser);
 		if (isVisibleToUser) {
 			// fragment可见时加载数据
-			LogTool.d(this.getClass().getName(), "1111111111111111");
+			LogTool.d(this.getClass().getName(), "FuKuanNotifyFragment 可见");
 		} else {
 			// 不可见时不执行操作
-			LogTool.d(this.getClass().getName(), "222222222222222");
+			LogTool.d(this.getClass().getName(), "FuKuanNotifyFragment 不可见");
 		}
 	}
 

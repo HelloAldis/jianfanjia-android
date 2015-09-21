@@ -26,7 +26,6 @@ public class CaiGouNotifyFragment extends BaseFragment implements
 		SwitchFragmentListener, OnItemLongClickListener {
 	private ListView caigouListView;
 	private List<NotifyMessage> caigouList = new ArrayList<NotifyMessage>();
-	private NotifyMessage notifyMessage = null;
 	private CaiGouNotifyAdapter caiGouAdapter = null;
 
 	@Override
@@ -42,18 +41,18 @@ public class CaiGouNotifyFragment extends BaseFragment implements
 		super.setUserVisibleHint(isVisibleToUser);
 		if (isVisibleToUser) {
 			// fragment可见时加载数据
-			LogTool.d(this.getClass().getName(), "1111111111111111");
+			LogTool.d(this.getClass().getName(), "CaiGouNotifyFragment 可见");
 			initData();
 		} else {
 			// 不可见时不执行操作
-			LogTool.d(this.getClass().getName(), "222222222222222");
+			LogTool.d(this.getClass().getName(), "CaiGouNotifyFragment 不可见");
 		}
 	}
 
 	private void initData() {
 		try {
 			caigouList = daoManager.quary();
-			LogTool.d(this.getClass().getName(), "caigouList===" + caigouList);
+			LogTool.d(this.getClass().getName(), "caigouList:" + caigouList);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -68,8 +67,9 @@ public class CaiGouNotifyFragment extends BaseFragment implements
 	@Override
 	public boolean onItemLongClick(AdapterView<?> arg0, View v, int position,
 			long id) {
-		// TODO Auto-generated method stub
-		return false;
+		NotifyMessage notifyMessage = caigouList.get(position);
+		LogTool.d(this.getClass().getName(), "notifyMessage:" + notifyMessage);
+		return true;
 	}
 
 	@Override
