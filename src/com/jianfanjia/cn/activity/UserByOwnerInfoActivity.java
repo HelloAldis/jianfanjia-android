@@ -1,5 +1,9 @@
 package com.jianfanjia.cn.activity;
 
+import java.io.File;
+import org.apache.http.Header;
+import org.json.JSONException;
+import org.json.JSONObject;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -21,10 +25,13 @@ import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.bean.OwnerUpdateInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url;
+import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.http.LoadClientHelper;
 import com.jianfanjia.cn.http.request.UserByOwnerInfoRequest;
 import com.jianfanjia.cn.http.request.UserByOwnerInfoUpdateRequest;
 import com.jianfanjia.cn.interf.LoadDataListener;
+import com.jianfanjia.cn.interf.UploadImageListener;
+import com.jianfanjia.cn.tools.FileUtil;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.PhotoUtils;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
@@ -33,6 +40,7 @@ import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.cn.view.wheel.ArrayWheelAdapter;
 import com.jianfanjia.cn.view.wheel.OnWheelChangedListener;
 import com.jianfanjia.cn.view.wheel.WheelView;
+import com.loopj.android.http.JsonHttpResponseHandler;
 
 /**
  * 
@@ -43,7 +51,7 @@ import com.jianfanjia.cn.view.wheel.WheelView;
  * 
  */
 public class UserByOwnerInfoActivity extends BaseActivity implements
-		OnClickListener {
+		OnClickListener, UploadImageListener {
 	private static final String TAG = UserByOwnerInfoActivity.class.getName();
 	private RelativeLayout infoLayout = null;
 	private RelativeLayout headLayout = null;
@@ -74,6 +82,8 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 	private String provice;
 	private String city;
 	private String area;
+
+	private File mTmpFile = null;
 
 	@Override
 	public void initView() {
@@ -324,7 +334,6 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 
 	@Override
 	public void loadSuccess() {
-		// TODO Auto-generated method stub
 		super.loadSuccess();
 		ownerInfo = dataManager.getOwnerInfo();
 		if (null != ownerInfo) {
@@ -351,6 +360,8 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 	@Override
 	public void takecamera() {
 		Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		mTmpFile = FileUtil.createTmpFile(UserByOwnerInfoActivity.this);
+		cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mTmpFile));
 		startActivityForResult(cameraIntent, Constant.REQUESTCODE_CAMERA);
 	}
 
@@ -393,20 +404,12 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 			}
 			break;
 		case Constant.REQUESTCODE_CAMERA:// 拍照
-			LogTool.d(TAG, "data:" + data);
-			if (data != null) {
-				Bundle bundle = data.getExtras();
-				Bitmap bitmap = (Bitmap) bundle.get("data");
-				LogTool.d(TAG, "bitmap:" + bitmap);
-				Uri mImageUri = null;
-				if (null != data.getData()) {
-					mImageUri = data.getData();
-				} else {
-					mImageUri = Uri.parse(MediaStore.Images.Media.insertImage(
-							getContentResolver(), bitmap, null, null));
+			if (mTmpFile != null) {
+				Uri uri = Uri.fromFile(mTmpFile);
+				LogTool.d(TAG, "uri:" + uri);
+				if (null != uri) {
+					startPhotoZoom(uri);
 				}
-				LogTool.d(TAG, "mImageUri:" + mImageUri);
-				startPhotoZoom(mImageUri);
 			}
 			break;
 		case Constant.REQUESTCODE_LOCATION:// 本地选取
@@ -428,13 +431,76 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 					String imgPath = PhotoUtils.savaPicture(bitmap);
 					LogTool.d(TAG, "imgPath=============" + imgPath);
 					if (!TextUtils.isEmpty(imgPath)) {
-
+						uploadManager.uploadImage(imgPath);
 					}
 				}
 			}
 			break;
 		default:
 			break;
+		}
+	}
+
+	public void submitImage(String imgPath) {
+		JianFanJiaApiClient.uploadImage(UserByOwnerInfoActivity.this, imgPath,
+				new JsonHttpResponseHandler() {
+					@Override
+					public void onStart() {
+						LogTool.d(TAG, "onStart()");
+					}
+
+					@Override
+					public void onSuccess(int statusCode, Header[] headers,
+							JSONObject response) {
+						LogTool.d(TAG, "JSONObject response:" + response);
+						try {
+							if (response.has(Constant.DATA)) {
+								JSONObject obj = new JSONObject(response
+										.toString());
+								String imageid = obj.getString("data");
+								LogTool.d(TAG, "imageid:" + imageid);
+								if (null != imageid) {
+
+								}
+							} else if (response.has(Constant.ERROR_MSG)) {
+
+							}
+						} catch (JSONException e) {
+							e.printStackTrace();
+						}
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							Throwable throwable, JSONObject errorResponse) {
+						LogTool.d(TAG, "Throwable throwable:" + throwable);
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							String responseString, Throwable throwable) {
+						LogTool.d(TAG, "statusCode:" + statusCode
+								+ " throwable:" + throwable);
+					};
+				});
+	}
+
+	@Override
+	public void onSuccess(String msg) {
+		LogTool.d(TAG, "msg===========" + msg);
+		if ("success".equals(msg)) {
+			LogTool.d(TAG, "--------------------------------------------------");
+			if (mTmpFile != null && mTmpFile.exists()) {
+				mTmpFile.delete();
+			}
+		}
+	}
+
+	@Override
+	public void onFailure() {
+		LogTool.d(TAG, "==============================================");
+		if (mTmpFile != null && mTmpFile.exists()) {
+			mTmpFile.delete();
 		}
 	}
 
@@ -452,8 +518,8 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 		intent.putExtra("aspectX", 1);
 		intent.putExtra("aspectY", 1);
 		// outputX outputY 是裁剪图片宽高
-		intent.putExtra("outputX", 200);
-		intent.putExtra("outputY", 200);
+		intent.putExtra("outputX", 250);
+		intent.putExtra("outputY", 250);
 		intent.putExtra("return-data", true);
 		startActivityForResult(intent, Constant.REQUESTCODE_CROP);
 	}

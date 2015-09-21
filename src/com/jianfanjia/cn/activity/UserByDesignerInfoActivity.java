@@ -1,5 +1,6 @@
 package com.jianfanjia.cn.activity;
 
+import java.io.File;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -25,6 +26,8 @@ import com.jianfanjia.cn.http.LoadClientHelper;
 import com.jianfanjia.cn.http.request.UserByDesignerInfoRequest;
 import com.jianfanjia.cn.http.request.UserByDesignerInfoUpdateRequest;
 import com.jianfanjia.cn.interf.LoadDataListener;
+import com.jianfanjia.cn.interf.UploadImageListener;
+import com.jianfanjia.cn.tools.FileUtil;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.PhotoUtils;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
@@ -39,7 +42,7 @@ import com.jianfanjia.cn.view.dialog.DialogHelper;
  * 
  */
 public class UserByDesignerInfoActivity extends BaseActivity implements
-		OnClickListener {
+		OnClickListener, UploadImageListener {
 	private static final String TAG = UserByDesignerInfoActivity.class
 			.getName();
 	private RelativeLayout designerInfoLayout = null;
@@ -59,6 +62,7 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 	private DesignerInfo designerInfo = null;
 	private DesignerUpdateInfo designerUpdateInfo = null;
 	private String sex;
+	private File mTmpFile = null;
 
 	@Override
 	public void initView() {
@@ -182,7 +186,6 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 	}
 
 	private void updateUpdateInfo() {
-		// TODO Auto-generated method stub
 		designerInfo.setAddress(designerUpdateInfo.getAddress());
 		designerInfo.setCity(designerUpdateInfo.getCity());
 		designerInfo.setDistrict(designerUpdateInfo.getDistrict());
@@ -192,7 +195,6 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 
 	@Override
 	public void loadSuccess() {
-		// TODO Auto-generated method stub
 		super.loadSuccess();
 		designerInfo = dataManager.getDesignerInfo();
 		if (null != designerInfo) {
@@ -306,6 +308,8 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 	@Override
 	public void takecamera() {
 		Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		mTmpFile = FileUtil.createTmpFile(UserByDesignerInfoActivity.this);
+		cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mTmpFile));
 		startActivityForResult(cameraIntent, Constant.REQUESTCODE_CAMERA);
 	}
 
@@ -348,20 +352,12 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 			}
 			break;
 		case Constant.REQUESTCODE_CAMERA:// 拍照
-			LogTool.d(TAG, "data:" + data);
-			if (data != null) {
-				Bundle bundle = data.getExtras();
-				Bitmap bitmap = (Bitmap) bundle.get("data");
-				LogTool.d(TAG, "bitmap:" + bitmap);
-				Uri mImageUri = null;
-				if (null != data.getData()) {
-					mImageUri = data.getData();
-				} else {
-					mImageUri = Uri.parse(MediaStore.Images.Media.insertImage(
-							getContentResolver(), bitmap, null, null));
+			if (mTmpFile != null) {
+				Uri uri = Uri.fromFile(mTmpFile);
+				LogTool.d(TAG, "uri:" + uri);
+				if (null != uri) {
+					startPhotoZoom(uri);
 				}
-				LogTool.d(TAG, "mImageUri:" + mImageUri);
-				startPhotoZoom(mImageUri);
 			}
 			break;
 		case Constant.REQUESTCODE_LOCATION:// 本地选取
@@ -383,12 +379,32 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 					String imgPath = PhotoUtils.savaPicture(bitmap);
 					LogTool.d(TAG, "imgPath=============" + imgPath);
 					if (!TextUtils.isEmpty(imgPath)) {
+						uploadManager.uploadImage(imgPath);
 					}
 				}
 			}
 			break;
 		default:
 			break;
+		}
+	}
+
+	@Override
+	public void onSuccess(String msg) {
+		LogTool.d(TAG, "msg===========" + msg);
+		if ("success".equals(msg)) {
+			LogTool.d(TAG, "--------------------------------------------------");
+			if (mTmpFile != null && mTmpFile.exists()) {
+				mTmpFile.delete();
+			}
+		}
+	}
+
+	@Override
+	public void onFailure() {
+		LogTool.d(TAG, "==============================================");
+		if (mTmpFile != null && mTmpFile.exists()) {
+			mTmpFile.delete();
 		}
 	}
 
@@ -406,8 +422,8 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 		intent.putExtra("aspectX", 1);
 		intent.putExtra("aspectY", 1);
 		// outputX outputY 是裁剪图片宽高
-		intent.putExtra("outputX", 200);
-		intent.putExtra("outputY", 200);
+		intent.putExtra("outputX", 250);
+		intent.putExtra("outputY", 250);
 		intent.putExtra("return-data", true);
 		startActivityForResult(intent, Constant.REQUESTCODE_CROP);
 	}
