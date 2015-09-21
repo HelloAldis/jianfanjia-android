@@ -1,5 +1,6 @@
 package com.jianfanjia.cn.fragment;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -59,6 +60,7 @@ import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshScrollView;
 import com.jianfanjia.cn.tools.DateFormatTool;
+import com.jianfanjia.cn.tools.FileUtil;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.PhotoUtils;
 import com.jianfanjia.cn.tools.StringUtils;
@@ -113,6 +115,7 @@ public class SiteManageFragment extends BaseFragment implements
 			R.drawable.bg_home_banner4 };
 
 	private String processInfoId = null;
+	private File mTmpFile = null;
 
 	private Handler bannerhandler = new Handler() {
 		@Override
@@ -563,6 +566,8 @@ public class SiteManageFragment extends BaseFragment implements
 	@Override
 	public void takecamera() {
 		Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		mTmpFile = FileUtil.createTmpFile(getActivity());
+		cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mTmpFile));
 		startActivityForResult(cameraIntent, Constant.REQUESTCODE_CAMERA);
 	}
 
@@ -703,22 +708,14 @@ public class SiteManageFragment extends BaseFragment implements
 		super.onActivityResult(requestCode, resultCode, data);
 		switch (requestCode) {
 		case Constant.REQUESTCODE_CAMERA:// 拍照
-			LogTool.d(TAG, "data:" + data);
-			if (data != null) {
-				Bundle bundle = data.getExtras();
-				Bitmap bitmap = (Bitmap) bundle.get("data");
-				LogTool.d(TAG, "bitmap:" + bitmap);
-				Uri mImageUri = null;
-				if (null != data.getData()) {
-					mImageUri = data.getData();
-				} else {
-					mImageUri = Uri.parse(MediaStore.Images.Media.insertImage(
-							getActivity().getContentResolver(), bitmap, null,
-							null));
-				}
-				LogTool.d(TAG, "mImageUri:" + mImageUri);
-				startPhotoZoom(mImageUri);
+			if (mTmpFile != null) {
+				String picPath = mTmpFile.getPath();
+				LogTool.d(TAG, "picPath:" + picPath);
+				uploadManager.uploadProcedureImage(picPath,
+						processInfo.get_id(), sectionInfo.getName(),
+						processInfoId, this);
 			}
+
 			break;
 		case Constant.REQUESTCODE_LOCATION:// 本地选取
 			if (data != null) {
@@ -793,6 +790,9 @@ public class SiteManageFragment extends BaseFragment implements
 		LogTool.d(TAG, "msg===========" + msg);
 		if ("success".equals(msg)) {
 			LogTool.d(TAG, "--------------------------------------------------");
+			if (mTmpFile != null && mTmpFile.exists()) {
+				mTmpFile.delete();
+			}
 			loadCurrentProcess();
 		}
 	}
@@ -800,6 +800,9 @@ public class SiteManageFragment extends BaseFragment implements
 	@Override
 	public void onFailure() {
 		LogTool.d(TAG, "==============================================");
+		if (mTmpFile != null && mTmpFile.exists()) {
+			mTmpFile.delete();
+		}
 	}
 
 	/**
