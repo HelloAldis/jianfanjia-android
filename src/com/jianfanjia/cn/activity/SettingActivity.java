@@ -6,7 +6,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.CompoundButton;
@@ -17,9 +16,8 @@ import android.widget.ToggleButton;
 import com.igexin.sdk.PushManager;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.bean.UpdateVersion;
 import com.jianfanjia.cn.bean.NotifyMessage;
-import com.jianfanjia.cn.cache.DataCleanManager;
+import com.jianfanjia.cn.bean.UpdateVersion;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.http.LoadClientHelper;
@@ -336,31 +334,32 @@ public class SettingActivity extends BaseActivity implements OnClickListener,
 
 	// 退出登录
 	private void logout() {
-		LoadClientHelper.logout(this, new LogoutRequest(this), new LoadDataListener() {
-			
-			@Override
-			public void preLoad() {
-				// TODO Auto-generated method stub
-				showWaitDialog();
-			}
-			
-			@Override
-			public void loadSuccess() {
-				hideWaitDialog();
-				makeTextLong("退出成功");
-				PushManager.getInstance().stopService(
-						SettingActivity.this);// 完全终止SDK的服务
-				activityManager.exit();
-				startActivity(LoginActivity.class);
-			}
-			
-			@Override
-			public void loadFailture() {
-				hideWaitDialog();
-				// TODO Auto-generated method stub
-				makeTextLong(getString(R.string.tip_no_internet));
-			}
-		});
+		LoadClientHelper.logout(this, new LogoutRequest(this),
+				new LoadDataListener() {
+
+					@Override
+					public void preLoad() {
+						// TODO Auto-generated method stub
+						showWaitDialog();
+					}
+
+					@Override
+					public void loadSuccess() {
+						hideWaitDialog();
+						makeTextLong("退出成功");
+						PushManager.getInstance().stopService(
+								SettingActivity.this);// 完全终止SDK的服务
+						activityManager.exit();
+						startActivity(LoginActivity.class);
+					}
+
+					@Override
+					public void loadFailture() {
+						hideWaitDialog();
+						// TODO Auto-generated method stub
+						makeTextLong(getString(R.string.tip_no_internet));
+					}
+				});
 	}
 
 	@Override
