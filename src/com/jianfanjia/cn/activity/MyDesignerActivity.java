@@ -40,6 +40,7 @@ public class MyDesignerActivity extends BaseActivity implements
 	private TextView goodAtView;// 擅长
 	private TextView budgetView;// 设计费
 	private MyDesignerInfo designerInfo;
+	private String designerId;
 
 	private MainHeadView mainHeadView;
 
@@ -57,16 +58,14 @@ public class MyDesignerActivity extends BaseActivity implements
 		goodAtView = (TextView) findViewById(R.id.my_designer_style);
 		budgetView = (TextView) findViewById(R.id.my_designer_budget);
 
-		String designerId = dataManager.getDefaultDesignerId();
-		designerInfo = dataManager.getMyDesignerInfoById(designerId);
-		if (designerInfo != null) {
-			setData();
-		} else {
-			if (designerId != null) {
+		designerId = dataManager.getDefaultDesignerId();
+		if (designerId != null) {
+			designerInfo = dataManager.getMyDesignerInfoById(designerId);
+			if (designerInfo != null) {
+				setData();
+			} else {
 				LoadClientHelper.getDesignerInfoById(this,
 						new DesignerInfoRequest(this, designerId), this);
-			} else {
-				// loadempty
 			}
 		}
 	}
@@ -85,9 +84,12 @@ public class MyDesignerActivity extends BaseActivity implements
 	@Override
 	public void loadSuccess() {
 		super.loadSuccess();
-		designerInfo = dataManager.getMyDesignerInfoById(dataManager
-				.getDefaultDesignerId());
-		setData();
+		designerInfo = dataManager.getMyDesignerInfoById(designerId);
+		if (designerInfo != null) {
+			setData();
+		} else {
+			// loadempty
+		}
 	}
 
 	@Override

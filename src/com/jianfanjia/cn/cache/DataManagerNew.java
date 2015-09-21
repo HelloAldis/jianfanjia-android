@@ -311,8 +311,11 @@ public class DataManagerNew {
 
 	public void cleanData() {
 		processLists = null;
+		processInfo = null;
 		myOwnerInfo = null;
 		myDesignerInfo = null;
+		ownerInfo = null;
+		designerInfo = null;
 	}
 
 }
