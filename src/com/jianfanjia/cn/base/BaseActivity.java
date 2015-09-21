@@ -3,6 +3,7 @@ package com.jianfanjia.cn.base;
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
+import android.app.DownloadManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -61,6 +62,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 		DialogControl, NetStateListener, PopWindowCallBack,
 		PushMsgReceiveListener, LoadDataListener {
 	protected ActivityManager activityManager = null;
+	protected DownloadManager downloadManager = null;
 	protected DAOManager daoManager = null;
 	protected LayoutInflater inflater = null;
 	protected FragmentManager fragmentManager = null;
@@ -100,6 +102,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 
 	private void init() {
 		activityManager = ActivityManager.getInstance();
+		downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
 		daoManager = DAOManager.getInstance(this);
 		inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		nManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
