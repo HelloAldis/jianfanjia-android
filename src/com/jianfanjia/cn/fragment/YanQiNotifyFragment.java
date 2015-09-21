@@ -2,15 +2,13 @@ package com.jianfanjia.cn.fragment;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
-
-import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.DelayNotifyAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
@@ -18,7 +16,6 @@ import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.interf.SwitchFragmentListener;
-import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -31,17 +28,16 @@ import com.loopj.android.http.JsonHttpResponseHandler;
  * 
  */
 public class YanQiNotifyFragment extends BaseFragment implements
-		SwitchFragmentListener {
+		SwitchFragmentListener, OnItemLongClickListener {
 	private static final String TAG = YanQiNotifyFragment.class.getName();
-	private ListView listView = null;
+	private ListView yanqiListView = null;
 	private List<NotifyMessage> delayList = new ArrayList<NotifyMessage>();
 	private NotifyMessage notifyMessage = null;
 	private DelayNotifyAdapter delayAdapter = null;
 
 	@Override
 	public void initView(View view) {
-		LogTool.d(TAG, "initView()");
-		listView = (ListView) view.findViewById(R.id.tip_delay__listview);
+		yanqiListView = (ListView) view.findViewById(R.id.tip_delay__listview);
 	}
 
 	@Override
@@ -59,8 +55,14 @@ public class YanQiNotifyFragment extends BaseFragment implements
 
 	@Override
 	public void setListener() {
-		// TODO Auto-generated method stub
+		yanqiListView.setOnItemLongClickListener(this);
+	}
 
+	@Override
+	public boolean onItemLongClick(AdapterView<?> arg0, View v, int position,
+			long id) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	private void getRescheduleAll() {
@@ -79,14 +81,14 @@ public class YanQiNotifyFragment extends BaseFragment implements
 						hideWaitDialog();
 						try {
 							if (response.has(Constant.DATA)) {
-//								delayList = JsonParser.jsonToList(
-//										response.get(Constant.DATA).toString(),
-//										new TypeToken<List<NotifyDelayInfo>>() {
-//										}.getType());
-//								LogTool.d(TAG, "delayList:" + delayList);
-//								delayAdapter = new DelayNotifyAdapter(
-//										getActivity(), delayList);
-//								listView.setAdapter(delayAdapter);
+								// delayList = JsonParser.jsonToList(
+								// response.get(Constant.DATA).toString(),
+								// new TypeToken<List<NotifyDelayInfo>>() {
+								// }.getType());
+								// LogTool.d(TAG, "delayList:" + delayList);
+								// delayAdapter = new DelayNotifyAdapter(
+								// getActivity(), delayList);
+								// listView.setAdapter(delayAdapter);
 							} else if (response.has(Constant.ERROR_MSG)) {
 								makeTextLong(response.get(Constant.ERROR_MSG)
 										.toString());

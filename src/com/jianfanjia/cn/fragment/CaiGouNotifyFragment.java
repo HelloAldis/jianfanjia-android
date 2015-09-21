@@ -3,10 +3,10 @@ package com.jianfanjia.cn.fragment;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
-
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.CaiGouNotifyAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
@@ -23,17 +23,18 @@ import com.jianfanjia.cn.tools.LogTool;
  * 
  */
 public class CaiGouNotifyFragment extends BaseFragment implements
-		SwitchFragmentListener {
-	private ListView listView;
+		SwitchFragmentListener, OnItemLongClickListener {
+	private ListView caigouListView;
 	private List<NotifyMessage> caigouList = new ArrayList<NotifyMessage>();
 	private NotifyMessage notifyMessage = null;
 	private CaiGouNotifyAdapter caiGouAdapter = null;
 
 	@Override
 	public void initView(View view) {
-		listView = (ListView) view.findViewById(R.id.tip_caigou__listview);
+		caigouListView = (ListView) view
+				.findViewById(R.id.tip_caigou__listview);
 		caiGouAdapter = new CaiGouNotifyAdapter(getActivity(), caigouList);
-		listView.setAdapter(caiGouAdapter);
+		caigouListView.setAdapter(caiGouAdapter);
 	}
 
 	@Override
@@ -61,8 +62,14 @@ public class CaiGouNotifyFragment extends BaseFragment implements
 
 	@Override
 	public void setListener() {
-		// TODO Auto-generated method stub
+		caigouListView.setOnItemLongClickListener(this);
+	}
 
+	@Override
+	public boolean onItemLongClick(AdapterView<?> arg0, View v, int position,
+			long id) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	@Override

@@ -2,10 +2,10 @@ package com.jianfanjia.cn.fragment;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import android.view.View;
+import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.AdapterView;
 import android.widget.ListView;
-
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.PayNotifyAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
@@ -22,15 +22,14 @@ import com.jianfanjia.cn.tools.LogTool;
  * 
  */
 public class FuKuanNotifyFragment extends BaseFragment implements
-		SwitchFragmentListener {
-	private ListView listView;
+		SwitchFragmentListener, OnItemLongClickListener {
+	private ListView fukuanListView;
 	private List<NotifyMessage> payList = new ArrayList<NotifyMessage>();
 	private PayNotifyAdapter payAdapter = null;
 
 	@Override
 	public void initView(View view) {
-		listView = (ListView) view.findViewById(R.id.tip_pay__listview);
-
+		fukuanListView = (ListView) view.findViewById(R.id.tip_pay__listview);
 		// payAdapter = new PayNotifyAdapter(getActivity(), payList);
 		// listView.setAdapter(payAdapter);
 	}
@@ -49,8 +48,14 @@ public class FuKuanNotifyFragment extends BaseFragment implements
 
 	@Override
 	public void setListener() {
-		// TODO Auto-generated method stub
+		fukuanListView.setOnItemLongClickListener(this);
+	}
 
+	@Override
+	public boolean onItemLongClick(AdapterView<?> arg0, View v, int position,
+			long id) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	@Override
