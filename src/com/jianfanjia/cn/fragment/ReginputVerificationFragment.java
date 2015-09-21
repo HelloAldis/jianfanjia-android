@@ -1,5 +1,7 @@
 package com.jianfanjia.cn.fragment;
 
+import java.util.Calendar;
+
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -127,6 +129,7 @@ public class ReginputVerificationFragment extends BaseFragment {
 												LoginUserBean.class);
 								dataManager.saveLoginUserInfo(loginUserBean);
 								dataManager.setLogin(true);
+								dataManager.savaLastLoginTime(Calendar.getInstance().getTimeInMillis());
 								startActivity(MainActivity.class);
 								getActivity().finish();
 							} else if (response.has(Constant.ERROR_MSG)) {

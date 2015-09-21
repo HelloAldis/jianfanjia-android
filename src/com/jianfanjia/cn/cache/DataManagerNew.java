@@ -1,7 +1,10 @@
 package com.jianfanjia.cn.cache;
 
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import android.content.Context;
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.R;
@@ -30,9 +33,9 @@ public class DataManagerNew {
 	private SharedPrefer sharedPreferdata = null;
 	private SharedPrefer sharedPreferuser = null;
 	private List<Process> processLists;
+	private Map<String, ProcessInfo> processMap = new HashMap<String, ProcessInfo>();
 	private MyOwnerInfo myOwnerInfo;// 我的业主信息
 	private MyDesignerInfo myDesignerInfo;// 我的设计师信息
-	private ProcessInfo processInfo;// 当前工地信息
 	private OwnerInfo ownerInfo;// 业主的个人信息
 	private DesignerInfo designerInfo;// 设计师的个人信息
 
@@ -46,7 +49,7 @@ public class DataManagerNew {
 	private DataManagerNew() {
 		context = MyApplication.getInstance();
 		sharedPreferdata = new SharedPrefer(context, Constant.SHARED_DATA);
-		sharedPreferuser = new SharedPrefer(context,Constant.SHARED_USER);
+		sharedPreferuser = new SharedPrefer(context, Constant.SHARED_USER);
 	}
 
 	public void setOwnerInfo(OwnerInfo ownerInfo) {
@@ -71,39 +74,18 @@ public class DataManagerNew {
 	// 业主用户获取个人资料
 	public OwnerInfo getOwnerInfo() {
 		if (ownerInfo == null && !NetTool.isNetworkAvailable(context)) {
-			ownerInfo = (OwnerInfo) sharedPreferdata.getValue(Constant.OWNER_INFO);
+			ownerInfo = (OwnerInfo) sharedPreferdata
+					.getValue(Constant.OWNER_INFO);
 		}
 		return ownerInfo;
 	}
 
-	// 通过业主id拿到工地信息
-	public ProcessInfo getProcessInfoByOwnerId(String ownerId) {
-		if (processLists == null || processLists.size() == 0) {
-			processLists = getProcessListsByCache();
-		}
-		String processInfoId = null;
-		for (int i = 0; i < processLists.size(); i++) {
-			processInfoId = processLists.get(i).get_id();
-			if (ownerId.equals(processLists.get(i).getUserid())) {
-				break;
-			}
-		}
-		if (processInfoId != null) {
-			return getProcessInfoById(processInfoId);
-		}
-		return null;
-	}
-
 	public ProcessInfo getDefaultProcessInfo() {
-		if (getProcessInfo() != null) {
-			return getProcessInfo();
+		String processId = getDefaultProcessId();
+		if (processId != null) {
+			return getProcessInfoById(processId);
 		} else {
-			String processId = getDefaultProcessId();
-			if (!NetTool.isNetworkAvailable(context) && processId != null) {
-				return getProcessInfoById(processId);
-			} else {
-				return null;
-			}
+			return null;
 		}
 	}
 
@@ -163,7 +145,8 @@ public class DataManagerNew {
 	}
 
 	public void saveProcessLists(String jsonProcessLists) {
-		sharedPreferdata.setValue(Constant.DESIGNER_PROCESS_LIST, jsonProcessLists);
+		sharedPreferdata.setValue(Constant.DESIGNER_PROCESS_LIST,
+				jsonProcessLists);
 	}
 
 	public List<Process> getProcessListsByCache() {
@@ -175,10 +158,6 @@ public class DataManagerNew {
 					}.getType());
 		}
 		return processLists;
-	}
-
-	public ProcessInfo getProcessInfo() {
-		return processInfo;
 	}
 
 	public int getDefaultPro() {
@@ -195,17 +174,21 @@ public class DataManagerNew {
 	}
 
 	/**
-	 * 缓存中拿工地信息
+	 * 拿工地信息
 	 * 
 	 * @param processId
 	 * @return
 	 */
 	public ProcessInfo getProcessInfoById(String processId) {
-		return (ProcessInfo) sharedPreferdata.getValue(processId);
+		ProcessInfo processInfo = processMap.get(processId);
+		if(!NetTool.isNetworkAvailable(context) && processInfo == null){
+			return (ProcessInfo) sharedPreferdata.getValue(processId);
+		}
+		return processInfo;
 	}
 
 	public void setProcessInfo(ProcessInfo processInfo) {
-		this.processInfo = processInfo;
+		processMap.put(processInfo.get_id(), processInfo);
 		sharedPreferdata.setValue(processInfo.get_id(), processInfo);
 	}
 
@@ -242,7 +225,7 @@ public class DataManagerNew {
 	public void setLogin(boolean isLogin) {
 		sharedPreferdata.setValue(Constant.USER_IS_LOGIN, isLogin);
 	}
-	
+
 	public void savaLastLoginTime(long loginTime) {
 		sharedPreferdata.setValue(Constant.LAST_LOGIN_TIME, loginTime);
 	}
@@ -250,27 +233,27 @@ public class DataManagerNew {
 	// 是否登录信息已过期
 	public boolean isLoginExpire() {
 		long currentTime = Calendar.getInstance().getTimeInMillis();// 当前时间
-		long loginLoginTime = sharedPreferdata.getValue(Constant.LAST_LOGIN_TIME,
-				currentTime);
+		long loginLoginTime = sharedPreferdata.getValue(
+				Constant.LAST_LOGIN_TIME, currentTime);
 		if (currentTime - loginLoginTime > Constant.LOGIN_EXPIRE) {
 			return true;
 		}
 		return false;
 	}
-	
-	public boolean isPushOpen(){
+
+	public boolean isPushOpen() {
 		return sharedPreferuser.getValue(Constant.ISOPEN, true);
 	}
-	
-	public void setPushOpen(boolean isOpen){
+
+	public void setPushOpen(boolean isOpen) {
 		sharedPreferuser.setValue(Constant.ISOPEN, isOpen);
 	}
-	
-	public boolean isFirst(){
-		return sharedPreferuser.getValue(Constant.ISFIRST,false);
+
+	public boolean isFirst() {
+		return sharedPreferuser.getValue(Constant.ISFIRST, false);
 	}
-	
-	public void setFisrt(boolean isFirst){
+
+	public void setFisrt(boolean isFirst) {
 		sharedPreferuser.setValue(Constant.ISFIRST, isFirst);
 	}
 
@@ -282,8 +265,8 @@ public class DataManagerNew {
 		sharedPreferuser.setValue(Constant.USER_ID, userBean.get_id());
 		sharedPreferuser.setValue(Constant.PASSWORD, userBean.getPass());
 	}
-	
-	public void setUserName(String userName){
+
+	public void setUserName(String userName) {
 		sharedPreferuser.setValue(Constant.USERNAME, userName);
 	}
 
@@ -333,11 +316,11 @@ public class DataManagerNew {
 
 	public void cleanData() {
 		processLists = null;
-		processInfo = null;
 		myOwnerInfo = null;
 		myDesignerInfo = null;
 		ownerInfo = null;
 		designerInfo = null;
+		processMap.clear();
 		sharedPreferdata.clear();
 	}
 
