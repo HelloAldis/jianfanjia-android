@@ -2,16 +2,19 @@ package com.jianfanjia.cn.fragment;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import android.view.View;
 import android.widget.ListView;
+
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.DelayNotifyAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
-import com.jianfanjia.cn.bean.NotifyDelayInfo;
+import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.interf.SwitchFragmentListener;
@@ -31,8 +34,8 @@ public class YanQiNotifyFragment extends BaseFragment implements
 		SwitchFragmentListener {
 	private static final String TAG = YanQiNotifyFragment.class.getName();
 	private ListView listView = null;
-	private List<NotifyDelayInfo> delayList = new ArrayList<NotifyDelayInfo>();
-	private NotifyDelayInfo dalayInfo = null;
+	private List<NotifyMessage> delayList = new ArrayList<NotifyMessage>();
+	private NotifyMessage notifyMessage = null;
 	private DelayNotifyAdapter delayAdapter = null;
 
 	@Override
@@ -76,14 +79,14 @@ public class YanQiNotifyFragment extends BaseFragment implements
 						hideWaitDialog();
 						try {
 							if (response.has(Constant.DATA)) {
-								delayList = JsonParser.jsonToList(
-										response.get(Constant.DATA).toString(),
-										new TypeToken<List<NotifyDelayInfo>>() {
-										}.getType());
-								LogTool.d(TAG, "delayList:" + delayList);
-								delayAdapter = new DelayNotifyAdapter(
-										getActivity(), delayList);
-								listView.setAdapter(delayAdapter);
+//								delayList = JsonParser.jsonToList(
+//										response.get(Constant.DATA).toString(),
+//										new TypeToken<List<NotifyDelayInfo>>() {
+//										}.getType());
+//								LogTool.d(TAG, "delayList:" + delayList);
+//								delayAdapter = new DelayNotifyAdapter(
+//										getActivity(), delayList);
+//								listView.setAdapter(delayAdapter);
 							} else if (response.has(Constant.ERROR_MSG)) {
 								makeTextLong(response.get(Constant.ERROR_MSG)
 										.toString());
@@ -122,7 +125,7 @@ public class YanQiNotifyFragment extends BaseFragment implements
 	@Override
 	public void switchTab(int index) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

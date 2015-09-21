@@ -6,8 +6,8 @@ import android.view.View;
 import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
-import com.jianfanjia.cn.bean.NotifyDelayInfo;
-import com.jianfanjia.cn.tools.DateFormatTool;
+import com.jianfanjia.cn.bean.NotifyMessage;
+import com.jianfanjia.cn.config.Constant;
 
 /**
  * @class DelayNotifyAdapter
@@ -15,16 +15,16 @@ import com.jianfanjia.cn.tools.DateFormatTool;
  * @date 2015-8-26 15:57
  * @param <NotifyCaiGouInfo>
  */
-public class DelayNotifyAdapter extends BaseListAdapter<NotifyDelayInfo> {
+public class DelayNotifyAdapter extends BaseListAdapter<NotifyMessage> {
 
-	public DelayNotifyAdapter(Context context, List<NotifyDelayInfo> caigouList) {
-		super(context, caigouList);
+	public DelayNotifyAdapter(Context context, List<NotifyMessage> delayList) {
+		super(context, delayList);
 	}
 
 	@Override
 	public View initView(int position, View convertView) {
 		ViewHolder viewHolder = null;
-		NotifyDelayInfo caiGouInfo = list.get(position);
+		NotifyMessage message = list.get(position);
 		if (convertView == null) {
 			convertView = layoutInflater.inflate(R.layout.list_item_tip_delay,
 					null);
@@ -44,11 +44,18 @@ public class DelayNotifyAdapter extends BaseListAdapter<NotifyDelayInfo> {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
 		// viewHolder.itemNameView.setText(caiGouInfo.getTitle());
-		// viewHolder.itemContentView.setText(caiGouInfo.getContent());
+		String type = message.getType();
+		if (type.equals(Constant.CAIGOU_NOTIFY)) {
+
+		} else if (type.equals(Constant.FUKUAN_NOTIFY)) {
+
+		} else if (type.equals(Constant.YANQI_NOTIFY)) {
+
+		}
+		viewHolder.itemContentView.setText(message.getContent());
 		viewHolder.itemNodeView.setText(MyApplication.getInstance()
-				.getStringById(caiGouInfo.getSection()));
-		viewHolder.itemPubTimeView.setText(DateFormatTool
-				.toLocalTimeString(caiGouInfo.getRequest_date()));
+				.getStringById(message.getStage()));
+		viewHolder.itemPubTimeView.setText(message.getTime());
 		// if (caiGouInfo.getIsagree() == NotifyDelayInfo.AGREE) {
 		// viewHolder.itemAgressView.setTextColor(context.getResources()
 		// .getColor(R.color.font_green));

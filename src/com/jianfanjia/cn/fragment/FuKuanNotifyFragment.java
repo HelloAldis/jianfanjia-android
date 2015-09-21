@@ -2,12 +2,14 @@ package com.jianfanjia.cn.fragment;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import android.view.View;
 import android.widget.ListView;
+
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.PayNotifyAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
-import com.jianfanjia.cn.bean.NotifyPayInfo;
+import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.interf.SwitchFragmentListener;
 import com.jianfanjia.cn.tools.LogTool;
 
@@ -22,8 +24,7 @@ import com.jianfanjia.cn.tools.LogTool;
 public class FuKuanNotifyFragment extends BaseFragment implements
 		SwitchFragmentListener {
 	private ListView listView;
-	private List<NotifyPayInfo> payList = new ArrayList<NotifyPayInfo>();
-	private NotifyPayInfo payInfo = null;
+	private List<NotifyMessage> payList = new ArrayList<NotifyMessage>();
 	private PayNotifyAdapter payAdapter = null;
 
 	@Override

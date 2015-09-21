@@ -32,6 +32,9 @@ public class NotifyMessage implements Serializable {
 	@DatabaseField
 	private String stage;// ½×¶Î
 
+	@DatabaseField
+	private String status;// ×´Ì¬
+
 	public NotifyMessage() {
 
 	}
@@ -66,6 +69,14 @@ public class NotifyMessage implements Serializable {
 
 	public void setStage(String stage) {
 		this.stage = stage;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 }

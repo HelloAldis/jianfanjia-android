@@ -1,11 +1,13 @@
 package com.jianfanjia.cn.adapter;
 
 import java.util.List;
+
 import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
+
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.bean.NotifyPayInfo;
+import com.jianfanjia.cn.bean.NotifyMessage;
 
 /**
  * @class CaiGouNotifyAdapter.clase
@@ -13,16 +15,16 @@ import com.jianfanjia.cn.bean.NotifyPayInfo;
  * @date 2015-8-26 15:57
  * @param <NotifypayInfo>
  */
-public class PayNotifyAdapter extends BaseListAdapter<NotifyPayInfo> {
+public class PayNotifyAdapter extends BaseListAdapter<NotifyMessage> {
 
-	public PayNotifyAdapter(Context context, List<NotifyPayInfo> caigouList) {
+	public PayNotifyAdapter(Context context, List<NotifyMessage> caigouList) {
 		super(context, caigouList);
 	}
 
 	@Override
 	public View initView(int position, View convertView) {
 		ViewHolder viewHolder = null;
-		NotifyPayInfo payInfo = list.get(position);
+		NotifyMessage messgae = list.get(position);
 		if (convertView == null) {
 			convertView = layoutInflater.inflate(R.layout.list_item_tip_pay,
 					null);
@@ -37,9 +39,9 @@ public class PayNotifyAdapter extends BaseListAdapter<NotifyPayInfo> {
 		} else {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
-		viewHolder.itemNameView.setText(payInfo.getTitle());
-		viewHolder.itemNodeView.setText(payInfo.getStage());
-		viewHolder.itemPubTimeView.setText(payInfo.getTime());
+		viewHolder.itemNameView.setText("");
+		viewHolder.itemNodeView.setText(messgae.getStage());
+		viewHolder.itemPubTimeView.setText(messgae.getTime());
 		return convertView;
 	}
 
