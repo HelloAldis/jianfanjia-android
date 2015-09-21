@@ -1,8 +1,5 @@
 package com.jianfanjia.cn.activity;
 
-import org.apache.http.Header;
-import org.json.JSONException;
-import org.json.JSONObject;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -22,20 +19,16 @@ import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.DesignerInfo;
 import com.jianfanjia.cn.bean.DesignerUpdateInfo;
 import com.jianfanjia.cn.bean.NotifyMessage;
-import com.jianfanjia.cn.bean.OwnerUpdateInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url;
-import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.http.LoadClientHelper;
 import com.jianfanjia.cn.http.request.UserByDesignerInfoRequest;
 import com.jianfanjia.cn.http.request.UserByDesignerInfoUpdateRequest;
 import com.jianfanjia.cn.interf.LoadDataListener;
-import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.PhotoUtils;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
-import com.loopj.android.http.JsonHttpResponseHandler;
 
 /**
  * 
@@ -95,8 +88,8 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 			setDesignerUpdateInfo();
 		}
 	}
-	
-	private void setConfimEnable(boolean enabled){
+
+	private void setConfimEnable(boolean enabled) {
 		btn_confirm.setEnabled(enabled);
 	}
 
@@ -147,43 +140,47 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 		userNameRelativeLayout.setOnClickListener(this);
 		homeRelativeLayout.setOnClickListener(this);
 		sexLayout.setOnClickListener(this);
-//		addressRelativeLayout.setOnClickListener(this);
+		// addressRelativeLayout.setOnClickListener(this);
 	}
 
 	// 修改设计师个人资料
 	private void put_Designer_Info() {
-		LoadClientHelper.postDesignerUpdateInfo(this, new UserByDesignerInfoUpdateRequest(this,designerUpdateInfo),new LoadDataListener() {
-			
-			@Override
-			public void preLoad() {
-				// TODO Auto-generated method stub
-				showWaitDialog();
-			}
-			
-			@Override
-			public void loadSuccess() {
-				// TODO Auto-generated method stub
-				hideWaitDialog();
-				makeTextLong("修改成功");
-				setConfimEnable(false);
-				if(!TextUtils.isEmpty(designerUpdateInfo.getUsername()) || designerUpdateInfo.getUsername() != dataManager.getUserName()){
-					dataManager.setUserName(designerUpdateInfo.getUsername());
-					sendBroadcast(new Intent(Constant.INTENT_ACTION_USERINFO_CHANGE));
-				}
-				updateUpdateInfo();
-				dataManager.setDesignerInfo(designerInfo);
-			}
-			
-			
+		LoadClientHelper.postDesignerUpdateInfo(this,
+				new UserByDesignerInfoUpdateRequest(this, designerUpdateInfo),
+				new LoadDataListener() {
 
-			@Override
-			public void loadFailture() {
-				hideWaitDialog();
-				makeTextLong(getString(R.string.tip_no_internet));
-			}
-		});
+					@Override
+					public void preLoad() {
+						// TODO Auto-generated method stub
+						showWaitDialog();
+					}
+
+					@Override
+					public void loadSuccess() {
+						// TODO Auto-generated method stub
+						hideWaitDialog();
+						makeTextLong("修改成功");
+						setConfimEnable(false);
+						if (!TextUtils.isEmpty(designerUpdateInfo.getUsername())
+								|| designerUpdateInfo.getUsername() != dataManager
+										.getUserName()) {
+							dataManager.setUserName(designerUpdateInfo
+									.getUsername());
+							sendBroadcast(new Intent(
+									Constant.INTENT_ACTION_USERINFO_CHANGE));
+						}
+						updateUpdateInfo();
+						dataManager.setDesignerInfo(designerInfo);
+					}
+
+					@Override
+					public void loadFailture() {
+						hideWaitDialog();
+						makeTextLong(getString(R.string.tip_no_internet));
+					}
+				});
 	}
-	
+
 	private void updateUpdateInfo() {
 		// TODO Auto-generated method stub
 		designerInfo.setAddress(designerUpdateInfo.getAddress());
@@ -192,7 +189,7 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 		designerInfo.setSex(designerUpdateInfo.getSex());
 		designerInfo.setUsername(designerUpdateInfo.getUsername());
 	}
-	
+
 	@Override
 	public void loadSuccess() {
 		// TODO Auto-generated method stub
@@ -215,7 +212,8 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 	}
 
 	private void get_Designer_Info() {
-		LoadClientHelper.getUserInfoByDesigner(this,new UserByDesignerInfoRequest(this), this);
+		LoadClientHelper.getUserInfoByDesigner(this,
+				new UserByDesignerInfoRequest(this), this);
 	}
 
 	@Override
@@ -272,12 +270,12 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 			}
 		});
 		if (designerUpdateInfo != null) {
-			if(!TextUtils.isEmpty(designerUpdateInfo.getSex())){
+			if (!TextUtils.isEmpty(designerUpdateInfo.getSex())) {
 				radioGroup.check(designerUpdateInfo.getSex().equals(
 						Constant.SEX_MAN) ? R.id.sex_radio0 : R.id.sex_radio1);
-				sex = designerUpdateInfo.getSex().equals(
-						Constant.SEX_MAN) ? Constant.SEX_MAN : Constant.SEX_WOMEN;
-			}else{
+				sex = designerUpdateInfo.getSex().equals(Constant.SEX_MAN) ? Constant.SEX_MAN
+						: Constant.SEX_WOMEN;
+			} else {
 				radioGroup.check(R.id.sex_radio0);
 				sex = Constant.SEX_MAN;
 			}
@@ -290,7 +288,8 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						if (designerUpdateInfo != null) {
-							if(TextUtils.isEmpty(designerUpdateInfo.getSex()) || !designerUpdateInfo.getSex().equals(sex)){
+							if (TextUtils.isEmpty(designerUpdateInfo.getSex())
+									|| !designerUpdateInfo.getSex().equals(sex)) {
 								designerUpdateInfo.setSex(sex);
 								setConfimEnable(true);
 								sexText.setText(sex.equals(Constant.SEX_MAN) ? "男"
@@ -326,7 +325,8 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 				String name = data.getStringExtra(Constant.EDIT_CONTENT);
 				nameText.setText(name);
 				if (designerUpdateInfo != null) {
-					if(TextUtils.isEmpty(designerUpdateInfo.getUsername()) || !name.equals(designerUpdateInfo.getUsername())){
+					if (TextUtils.isEmpty(designerUpdateInfo.getUsername())
+							|| !name.equals(designerUpdateInfo.getUsername())) {
 						designerUpdateInfo.setUsername(name);
 						setConfimEnable(true);
 					}
@@ -338,7 +338,8 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 				String address = data.getStringExtra(Constant.EDIT_CONTENT);
 				homeText.setText(address);
 				if (designerUpdateInfo != null) {
-					if(TextUtils.isEmpty(designerUpdateInfo.getAddress()) || !designerUpdateInfo.getAddress().equals(address)){
+					if (TextUtils.isEmpty(designerUpdateInfo.getAddress())
+							|| !designerUpdateInfo.getAddress().equals(address)) {
 						setConfimEnable(true);
 						designerUpdateInfo.setAddress(address);
 					}

@@ -192,7 +192,6 @@ public class SiteManageFragment extends BaseFragment implements
 		proTitle = getResources().getStringArray(R.array.site_procedure);
 		checkSection = getResources().getStringArray(
 				R.array.site_procedure_check);
-
 		mPullRefreshScrollView = (PullToRefreshScrollView) view
 				.findViewById(R.id.pull_refresh_scrollview);
 		mPullRefreshScrollView.setMode(Mode.PULL_FROM_START);
@@ -573,8 +572,9 @@ public class SiteManageFragment extends BaseFragment implements
 
 	@Override
 	public void takePhoto() {
-		Intent albumIntent = new Intent(Intent.ACTION_GET_CONTENT);
-		albumIntent.setType("image/*");
+		Intent albumIntent = new Intent(Intent.ACTION_PICK, null);
+		albumIntent.setDataAndType(
+				MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
 		startActivityForResult(albumIntent, Constant.REQUESTCODE_LOCATION);
 	}
 
