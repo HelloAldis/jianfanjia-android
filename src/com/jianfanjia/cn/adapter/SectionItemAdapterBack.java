@@ -23,8 +23,10 @@ import com.jianfanjia.cn.bean.GridItem;
 import com.jianfanjia.cn.bean.SectionInfo;
 import com.jianfanjia.cn.bean.SectionItemInfo;
 import com.jianfanjia.cn.cache.DataManager;
+import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
+import com.jianfanjia.cn.tools.LogTool;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -46,7 +48,7 @@ public class SectionItemAdapterBack extends BaseAdapter {
 	protected List<SectionItemInfo> list = new ArrayList<SectionItemInfo>();
 	protected ImageLoader imageLoader;
 	protected DisplayImageOptions options;
-	protected DataManager dataManager;
+	protected DataManagerNew dataManager;
 	private boolean isHasCheck;// 是否有验收
 
 	/*
@@ -66,8 +68,8 @@ public class SectionItemAdapterBack extends BaseAdapter {
 				.showImageOnFail(R.drawable.pix_default).cacheInMemory(true)
 				.cacheOnDisk(true).considerExifParams(true)
 				.bitmapConfig(Bitmap.Config.RGB_565).build();
-		dataManager = DataManager.getInstance();
-//		sectionInfo = dataManager.getDefaultSectionInfoByPosition(position);
+		dataManager = DataManagerNew.getInstance();
+		sectionInfo = dataManager.getDefaultSectionInfoByPosition(position);
 		setList();
 		this.callBack = callBack;
 		userType = dataManager.getUserType();
@@ -83,13 +85,16 @@ public class SectionItemAdapterBack extends BaseAdapter {
 			sectionItemInfo.setName(context.getResources().getStringArray(
 					R.array.site_check_name)[MyApplication.getInstance()
 					.getPositionByItemName(sectionInfo.getName())]);
-			list.add(0, sectionItemInfo);
+			sectionItemInfo.setOpen(false);
+			list.add(sectionItemInfo);
 		} else {
 			isHasCheck = false;
 		}
 		for (SectionItemInfo sectionItemInfo : sectionInfo.getItems()) {
+			sectionItemInfo.setOpen(false);
 			list.add(sectionItemInfo);
 		}
+		Log.d(this.getClass().getName(),"list.size() =" +  list.size());
 	}
 
 	@Override
@@ -112,22 +117,32 @@ public class SectionItemAdapterBack extends BaseAdapter {
 		}
 	}
 
-	public int getSection_status() {
-		return sectionInfo.getStatus();
-	}
-
 	public void setPosition(int position) {
-//		sectionInfo = dataManager.getDefaultSectionInfoByPosition(position);
+		sectionInfo = dataManager.getDefaultSectionInfoByPosition(position);
 		section_status = sectionInfo.getStatus();
 		setList();
 	}
-
-	public void setSectionItemInfos(List<SectionItemInfo> sectionItemInfos) {
-		this.list = sectionItemInfos;
+	
+	public void clearCurrentPosition(){
+		this.currentClickItem = -1;
+		this.lastClickItem = -1;
 	}
 
 	public void setCurrentClickItem(int position) {
 		this.currentClickItem = position;
+		if (currentClickItem != lastClickItem) {
+			if (lastClickItem != -1) {
+				list.get(lastClickItem).setOpen(false);
+			}
+			list.get(currentClickItem).setOpen(true);
+			lastClickItem = currentClickItem;
+		} else {
+			if (list.get(currentClickItem).isOpen()) {
+				list.get(currentClickItem).setOpen(false);
+			} else {
+				list.get(currentClickItem).setOpen(true);
+			}
+		}
 		// this.isPos = isPos;
 		notifyDataSetChanged();
 	}
@@ -138,6 +153,7 @@ public class SectionItemAdapterBack extends BaseAdapter {
 	}
 
 	public View initView(final int position, View convertView) {
+		LogTool.d(this.getClass().getName(), "position = " + position);
 		ViewHolder viewHolder = null;
 		ViewHolder2 viewHolderf = null;
 		int type = getItemViewType(position);
@@ -292,19 +308,10 @@ public class SectionItemAdapterBack extends BaseAdapter {
 			// if (Integer.parseInt(sectionItemInfo.getStatus()) !=
 			// Constant.NOT_START && position == lastClickItem) {
 			if (section_status != Constant.NOT_START) {
-				if (position == currentClickItem) {
-					if (!isPos) {
-						viewHolder.bigOpenLayout.setVisibility(View.VISIBLE);
-						viewHolder.smallcloseLayout.setVisibility(View.GONE);
-						isPos = true;
-					} else {
-						viewHolder.bigOpenLayout.setVisibility(View.GONE);
-						viewHolder.smallcloseLayout.setVisibility(View.VISIBLE);
-						isPos = false;
-					}
-				}
-				if (currentClickItem != lastClickItem
-						&& position == lastClickItem) {
+				if (sectionItemInfo.isOpen()) {
+					viewHolder.bigOpenLayout.setVisibility(View.VISIBLE);
+					viewHolder.smallcloseLayout.setVisibility(View.GONE);
+				} else {
 					viewHolder.bigOpenLayout.setVisibility(View.GONE);
 					viewHolder.smallcloseLayout.setVisibility(View.VISIBLE);
 				}
@@ -333,22 +340,18 @@ public class SectionItemAdapterBack extends BaseAdapter {
 
 			break;
 		case CHECK_VIEW:
+			final SectionItemInfo sectionItemInfo1 = list.get(position);
+			viewHolderf.closeNodeName.setText(sectionItemInfo1.getName());
+			viewHolderf.openNodeName.setText(sectionItemInfo1.getName());
 			if (section_status != Constant.NOT_START) {
-				if (position == currentClickItem) {
-					if (!isPos) {
-						viewHolderf.bigOpenLayout.setVisibility(View.VISIBLE);
-						viewHolderf.smallcloseLayout.setVisibility(View.GONE);
-						isPos = true;
-					} else {
-						viewHolderf.bigOpenLayout.setVisibility(View.GONE);
-						viewHolderf.smallcloseLayout.setVisibility(View.VISIBLE);
-						isPos = false;
-					}
-				}
-				if (currentClickItem != lastClickItem
-						&& position == lastClickItem) {
+				if (sectionItemInfo1.isOpen()) {
+					viewHolderf.bigOpenLayout.setVisibility(View.VISIBLE);
+					viewHolderf.smallcloseLayout.setVisibility(View.GONE);
+					isPos = true;
+				} else {
 					viewHolderf.bigOpenLayout.setVisibility(View.GONE);
 					viewHolderf.smallcloseLayout.setVisibility(View.VISIBLE);
+					isPos = false;
 				}
 			} else {
 				viewHolderf.bigOpenLayout.setVisibility(View.GONE);

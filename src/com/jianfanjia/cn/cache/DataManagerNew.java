@@ -107,7 +107,7 @@ public class DataManagerNew {
 			return null;
 		}
 	}
-
+	
 	public SectionInfo getDefaultSectionInfoByPosition(int position) {
 		ProcessInfo processInfo = getDefaultProcessInfo();
 		if (processInfo != null) {

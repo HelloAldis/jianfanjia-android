@@ -39,6 +39,7 @@ import com.jianfanjia.cn.activity.ShowPicActivity;
 import com.jianfanjia.cn.adapter.InfinitePagerAdapter;
 import com.jianfanjia.cn.adapter.MyViewPageAdapter;
 import com.jianfanjia.cn.adapter.SectionItemAdapter;
+import com.jianfanjia.cn.adapter.SectionItemAdapterBack;
 import com.jianfanjia.cn.adapter.ViewPageAdapter;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
@@ -95,7 +96,7 @@ public class SiteManageFragment extends BaseFragment implements
 
 	private ViewPager processViewPager = null;
 	private ListView detailNodeListView = null;
-	private SectionItemAdapter sectionItemAdapter = null;
+	private SectionItemAdapterBack sectionItemAdapter = null;
 	private InfinitePagerAdapter infinitePagerAdapter = null;
 	private MyViewPageAdapter myViewPageAdapter = null;
 	private String[] checkSection = null;
@@ -236,9 +237,9 @@ public class SiteManageFragment extends BaseFragment implements
 			sectionInfo = sectionInfos.get(currentList);
 			sectionItemInfos = sectionInfo.getItems();
 			setScrollHeadTime();
-			sectionItemAdapter = new SectionItemAdapter(getActivity(),
-					sectionItemInfos, this);
-			sectionItemAdapter.setSection_status(sectionInfo.getStatus());
+			sectionItemAdapter = new SectionItemAdapterBack(getActivity(),
+					currentList, this);
+//			sectionItemAdapter.setSection_status(sectionInfo.getStatus());
 			detailNodeListView.setAdapter(sectionItemAdapter);
 			processViewPager.setCurrentItem(currentList);
 		}
@@ -369,12 +370,12 @@ public class SiteManageFragment extends BaseFragment implements
 						for (SectionItemInfo info : sectionItemInfos) {
 							LogTool.d(TAG, "info Name()=====" + info.getName());
 						}
-						sectionItemAdapter
-								.setSectionItemInfos(sectionItemInfos);
-						sectionItemAdapter.setSection_status(sectionInfo
-								.getStatus());
-						// sectionItemAdapter.setPosition(currentList);
-						sectionItemAdapter.setLastClickItem(-1, isOpen);
+//						sectionItemAdapter
+//								.setSectionItemInfos(sectionItemInfos);
+//						sectionItemAdapter.setSection_status(sectionInfo
+//								.getStatus());
+						 sectionItemAdapter.setPosition(currentList);
+						sectionItemAdapter.clearCurrentPosition();
 						sectionItemAdapter.notifyDataSetChanged();
 					}
 				}
@@ -424,17 +425,17 @@ public class SiteManageFragment extends BaseFragment implements
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				SectionItemInfo sectionItemInfo = sectionItemInfos
+				/*SectionItemInfo sectionItemInfo = sectionItemInfos
 						.get(position);
 				processInfoId = sectionItemInfo.getName();
-				LogTool.d(TAG, "processInfoId=" + processInfoId);
 				if (isOpen) {
 					isOpen = false;
 				} else {
 					isOpen = true;
-				}
-				sectionItemAdapter.setLastClickItem(position, isOpen);
-				sectionItemAdapter.notifyDataSetChanged();
+				}*/
+				LogTool.d(TAG, "position=" + position);
+				sectionItemAdapter.setCurrentClickItem(position);
+//				sectionItemAdapter.notifyDataSetChanged();
 			}
 		});
 

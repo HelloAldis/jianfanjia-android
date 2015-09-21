@@ -13,6 +13,8 @@ import java.util.ArrayList;
 public class SectionItemInfo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	
+	private boolean isOpen;
 
 	private String _id;
 
@@ -64,4 +66,12 @@ public class SectionItemInfo implements Serializable {
 		this.images = images;
 	}
 
+	public boolean isOpen() {
+		return isOpen;
+	}
+
+	public void setOpen(boolean isOpen) {
+		this.isOpen = isOpen;
+	}
+	
 }
