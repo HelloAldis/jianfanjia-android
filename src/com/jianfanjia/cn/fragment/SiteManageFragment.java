@@ -254,7 +254,7 @@ public class SiteManageFragment extends BaseFragment implements
 	@Override
 	public void onPause() {
 		super.onPause();
-//		sharedPrefer.setValue(Constant.CURRENT_LIST, currentList);
+		// sharedPrefer.setValue(Constant.CURRENT_LIST, currentList);
 	}
 
 	private void initBannerView(View view) {

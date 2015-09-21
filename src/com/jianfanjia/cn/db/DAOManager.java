@@ -5,7 +5,7 @@ import java.util.List;
 import android.content.Context;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
-import com.jianfanjia.cn.bean.NotifyCaiGouInfo;
+import com.jianfanjia.cn.bean.NotifyMessage;
 
 /**
  * 
@@ -18,7 +18,7 @@ import com.jianfanjia.cn.bean.NotifyCaiGouInfo;
 public class DAOManager {
 	private static DAOManager manager = null;
 	private DBHelper helper;
-	private Dao<NotifyCaiGouInfo, Integer> dao;
+	private Dao<NotifyMessage, Integer> dao;
 
 	public DAOManager(Context context) {
 		helper = OpenHelperManager.getHelper(context, DBHelper.class);
@@ -55,10 +55,10 @@ public class DAOManager {
 	 * @param notifys
 	 * @throws SQLException
 	 */
-	public void add(List<NotifyCaiGouInfo> notifys) throws SQLException {
+	public void add(List<NotifyMessage> notifys) throws SQLException {
 		if (notifys != null) {
-			for (NotifyCaiGouInfo caigouInfo : notifys) {
-				dao.create(caigouInfo);
+			for (NotifyMessage message : notifys) {
+				dao.create(message);
 			}
 		}
 	}
@@ -66,36 +66,36 @@ public class DAOManager {
 	/**
 	 * Ôö
 	 * 
-	 * @param caigouInfo
+	 * @param message
 	 * @throws SQLException
 	 */
-	public void add(NotifyCaiGouInfo caigouInfo) throws SQLException {
-		if (caigouInfo != null) {
-			dao.create(caigouInfo);
+	public void add(NotifyMessage message) throws SQLException {
+		if (message != null) {
+			dao.create(message);
 		}
 	}
 
 	/**
 	 * É¾
 	 * 
-	 * @param caigouInfo
+	 * @param message
 	 * @throws SQLException
 	 */
-	public void delete(NotifyCaiGouInfo caigouInfo) throws SQLException {
-		if (caigouInfo != null) {
-			dao.delete(caigouInfo);
+	public void delete(NotifyMessage message) throws SQLException {
+		if (message != null) {
+			dao.delete(message);
 		}
 	}
 
 	/**
 	 * ¸Ä
 	 * 
-	 * @param caigouInfo
+	 * @param message
 	 * @throws SQLException
 	 */
-	public void update(NotifyCaiGouInfo caigouInfo) throws SQLException {
-		if (caigouInfo != null) {
-			dao.update(caigouInfo);
+	public void update(NotifyMessage message) throws SQLException {
+		if (message != null) {
+			dao.update(message);
 		}
 	}
 
@@ -105,8 +105,8 @@ public class DAOManager {
 	 * @return
 	 * @throws SQLException
 	 */
-	public List<NotifyCaiGouInfo> quary() throws SQLException {
-		List<NotifyCaiGouInfo> list = null;
+	public List<NotifyMessage> quary() throws SQLException {
+		List<NotifyMessage> list = null;
 		list = dao.queryForAll();
 		return list;
 	}

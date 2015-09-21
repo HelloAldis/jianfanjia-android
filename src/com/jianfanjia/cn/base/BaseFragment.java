@@ -15,10 +15,10 @@ import android.widget.Toast;
 import com.jianfanjia.cn.AppConfig;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.cache.DataManagerNew;
+import com.jianfanjia.cn.db.DAOManager;
 import com.jianfanjia.cn.inter.manager.ListenerManeger;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
 import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.tools.SharedPrefer;
 import com.jianfanjia.cn.tools.UploadManager;
 import com.jianfanjia.cn.view.AddPhotoPopWindow;
 import com.jianfanjia.cn.view.dialog.DialogControl;
@@ -36,10 +36,11 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 public abstract class BaseFragment extends Fragment implements OnClickListener,
 		PopWindowCallBack {
 	protected FragmentManager fragmentManager = null;
+	protected DAOManager daoManager = null;
 	protected DataManagerNew dataManager = null;
 	protected AppConfig appConfig = null;
 	protected LayoutInflater inflater = null;
-//	protected SharedPrefer sharedPrefer = null;
+	// protected SharedPrefer sharedPrefer = null;
 	protected ImageLoader imageLoader = null;
 	protected DisplayImageOptions options = null;
 	protected ListenerManeger listenerManeger = null;
@@ -79,6 +80,7 @@ public abstract class BaseFragment extends Fragment implements OnClickListener,
 	private void init() {
 		appConfig = AppConfig.getInstance(getActivity());
 		dataManager = DataManagerNew.getInstance();
+		daoManager = DAOManager.getInstance(getActivity());
 		imageLoader = ImageLoader.getInstance();
 		options = new DisplayImageOptions.Builder()
 				.showImageOnLoading(R.drawable.pix_default)
@@ -86,7 +88,7 @@ public abstract class BaseFragment extends Fragment implements OnClickListener,
 				.showImageOnFail(R.drawable.pix_default).cacheInMemory(true)
 				.cacheOnDisk(true).considerExifParams(true)
 				.bitmapConfig(Bitmap.Config.RGB_565).build();
-//		sharedPrefer = dataManager.sharedPreferdata;
+		// sharedPrefer = dataManager.sharedPreferdata;
 		listenerManeger = ListenerManeger.getListenerManeger();
 		uploadManager = UploadManager.getUploadManager(getActivity());
 		fragmentManager = getFragmentManager();

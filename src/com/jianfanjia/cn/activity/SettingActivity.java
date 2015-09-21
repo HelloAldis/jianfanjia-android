@@ -54,7 +54,6 @@ public class SettingActivity extends BaseActivity implements OnClickListener,
 	private RelativeLayout clearCacheLayout = null;
 	private TextView currentVersion = null;
 	private TextView cacheSizeView = null;
-
 	private MainHeadView mainHeadView = null;
 
 	@Override

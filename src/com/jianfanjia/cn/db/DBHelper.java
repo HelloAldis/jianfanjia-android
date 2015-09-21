@@ -7,7 +7,7 @@ import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
-import com.jianfanjia.cn.bean.NotifyCaiGouInfo;
+import com.jianfanjia.cn.bean.NotifyMessage;
 
 /**
  * 
@@ -20,7 +20,7 @@ import com.jianfanjia.cn.bean.NotifyCaiGouInfo;
 public class DBHelper extends OrmLiteSqliteOpenHelper {
 	private static final String DBNAME = "JIANFANJIA.db";
 	private static final int DBVERSION = 1;
-	private Dao<NotifyCaiGouInfo, Integer> dao;
+	private Dao<NotifyMessage, Integer> dao;
 
 	public DBHelper(Context context) {
 		super(context, DBNAME, null, DBVERSION);
@@ -29,7 +29,7 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db, ConnectionSource connectionSource) {
 		try {
-			TableUtils.createTable(connectionSource, NotifyCaiGouInfo.class);
+			TableUtils.createTable(connectionSource, NotifyMessage.class);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -39,8 +39,7 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
 	public void onUpgrade(SQLiteDatabase db, ConnectionSource connectionSource,
 			int arg2, int arg3) {
 		try {
-			TableUtils
-					.dropTable(connectionSource, NotifyCaiGouInfo.class, true);
+			TableUtils.dropTable(connectionSource, NotifyMessage.class, true);
 			onCreate(db, connectionSource);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -58,10 +57,10 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
 	 * 
 	 * @return
 	 */
-	public Dao<NotifyCaiGouInfo, Integer> getHelperDao() {
+	public Dao<NotifyMessage, Integer> getHelperDao() {
 		if (dao == null) {
 			try {
-				dao = getDao(NotifyCaiGouInfo.class);
+				dao = getDao(NotifyMessage.class);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
