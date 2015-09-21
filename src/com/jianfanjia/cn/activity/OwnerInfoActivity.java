@@ -44,7 +44,6 @@ public class OwnerInfoActivity extends BaseActivity implements OnClickListener {
 	private TextView decorateBudgetView = null;// 装修预算
 	private TextView startDateView = null;// 开工日期
 	private TextView totalDateView = null;// 总工期
-	private String ownerId = null;
 	private User ownerInfo = null;
 	private Process process = null;
 	private ProcessInfo processInfo = null;
