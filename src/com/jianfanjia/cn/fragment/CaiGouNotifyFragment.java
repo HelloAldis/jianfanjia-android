@@ -11,6 +11,7 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.CaiGouNotifyAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.NotifyMessage;
+import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.SwitchFragmentListener;
 import com.jianfanjia.cn.tools.LogTool;
 
@@ -51,7 +52,7 @@ public class CaiGouNotifyFragment extends BaseFragment implements
 
 	private void initData() {
 		try {
-			caigouList = daoManager.quary();
+			caigouList = daoManager.listByType(Constant.CAIGOU_NOTIFY);
 			LogTool.d(this.getClass().getName(), "caigouList:" + caigouList);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

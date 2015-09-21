@@ -110,4 +110,17 @@ public class DAOManager {
 		list = dao.queryForAll();
 		return list;
 	}
+
+	/**
+	 * 通过消息类型查
+	 * 
+	 * @param type
+	 * @return
+	 * @throws SQLException
+	 */
+	public List<NotifyMessage> listByType(String type) throws SQLException {
+		List<NotifyMessage> list = dao.queryBuilder().where().eq("type", type)
+				.query();
+		return list;
+	}
 }
