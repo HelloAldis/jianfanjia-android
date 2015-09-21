@@ -40,7 +40,7 @@ public class PayNotifyAdapter extends BaseListAdapter<NotifyMessage> {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
 		viewHolder.itemNameView.setText("");
-		viewHolder.itemNodeView.setText(messgae.getStage());
+		viewHolder.itemNodeView.setText(messgae.getSection());
 		viewHolder.itemPubTimeView.setText(messgae.getTime());
 		return convertView;
 	}

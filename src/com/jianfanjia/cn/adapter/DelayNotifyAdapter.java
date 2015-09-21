@@ -54,7 +54,7 @@ public class DelayNotifyAdapter extends BaseListAdapter<NotifyMessage> {
 		}
 		viewHolder.itemContentView.setText(message.getContent());
 		viewHolder.itemNodeView.setText(MyApplication.getInstance()
-				.getStringById(message.getStage()));
+				.getStringById(message.getSection()));
 		viewHolder.itemPubTimeView.setText(message.getTime());
 		// if (caiGouInfo.getIsagree() == NotifyDelayInfo.AGREE) {
 		// viewHolder.itemAgressView.setTextColor(context.getResources()

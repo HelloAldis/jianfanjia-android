@@ -43,7 +43,7 @@ public class CaiGouNotifyAdapter extends BaseListAdapter<NotifyMessage> {
 		}
 		viewHolder.itemNameView.setText("");
 		viewHolder.itemContentView.setText(message.getContent());
-		String stage = message.getStage();
+		String stage = message.getSection();
 		if (!TextUtils.isEmpty(stage)) {
 			viewHolder.itemNodeView.setText(MyApplication.getInstance()
 					.getStringById(stage));
