@@ -39,7 +39,7 @@ public class BaseApplication extends Application {
 		}
 		initImageLoader(getApplicationContext());
 
-		sharedPrefer = new SharedPrefer(this, Constant.SHARED_MAIN);
+		sharedPrefer = new SharedPrefer(this, Constant.SHARED_DATA);
 	}
 
 	public static void initImageLoader(Context context) {

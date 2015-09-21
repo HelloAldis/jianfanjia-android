@@ -10,19 +10,16 @@ import java.io.Serializable;
  * @date 2015-9-7 обнГ7:12
  * 
  */
-public class CommitCommentInfo implements Serializable{
+public class CommitCommentInfo implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	private String _id;
-	
+
 	private String section;
-	
+
 	private String item;
-	
+
 	private String content;
 
 	public String get_id() {

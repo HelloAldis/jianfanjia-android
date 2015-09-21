@@ -1,8 +1,6 @@
 package com.jianfanjia.cn.activity;
 
-import org.apache.http.Header;
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.io.File;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -22,20 +20,18 @@ import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.DesignerInfo;
 import com.jianfanjia.cn.bean.DesignerUpdateInfo;
 import com.jianfanjia.cn.bean.NotifyMessage;
-import com.jianfanjia.cn.bean.OwnerUpdateInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url;
-import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.http.LoadClientHelper;
 import com.jianfanjia.cn.http.request.UserByDesignerInfoRequest;
 import com.jianfanjia.cn.http.request.UserByDesignerInfoUpdateRequest;
 import com.jianfanjia.cn.interf.LoadDataListener;
-import com.jianfanjia.cn.tools.JsonParser;
+import com.jianfanjia.cn.interf.UploadImageListener;
+import com.jianfanjia.cn.tools.FileUtil;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.PhotoUtils;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
-import com.loopj.android.http.JsonHttpResponseHandler;
 
 /**
  * 
@@ -46,7 +42,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
  * 
  */
 public class UserByDesignerInfoActivity extends BaseActivity implements
-		OnClickListener {
+		OnClickListener, UploadImageListener {
 	private static final String TAG = UserByDesignerInfoActivity.class
 			.getName();
 	private RelativeLayout designerInfoLayout = null;
@@ -66,6 +62,7 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 	private DesignerInfo designerInfo = null;
 	private DesignerUpdateInfo designerUpdateInfo = null;
 	private String sex;
+	private File mTmpFile = null;
 
 	@Override
 	public void initView() {
@@ -87,15 +84,16 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 				.findViewById(R.id.address_layout);
 		sexLayout = (RelativeLayout) this.findViewById(R.id.sex_layout);
 		setConfimEnable(false);
-		// designerInfo = dataManager.getDesignerInfo();
+		designerInfo = dataManager.getDesignerInfo();
 		if (designerInfo == null) {
 			get_Designer_Info();
 		} else {
 			setData();
+			setDesignerUpdateInfo();
 		}
 	}
-	
-	private void setConfimEnable(boolean enabled){
+
+	private void setConfimEnable(boolean enabled) {
 		btn_confirm.setEnabled(enabled);
 	}
 
@@ -146,38 +144,57 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 		userNameRelativeLayout.setOnClickListener(this);
 		homeRelativeLayout.setOnClickListener(this);
 		sexLayout.setOnClickListener(this);
-		addressRelativeLayout.setOnClickListener(this);
+		// addressRelativeLayout.setOnClickListener(this);
 	}
 
 	// 修改设计师个人资料
 	private void put_Designer_Info() {
-		LoadClientHelper.postDesignerUpdateInfo(this, new UserByDesignerInfoUpdateRequest(this,designerUpdateInfo),new LoadDataListener() {
-			
-			@Override
-			public void preLoad() {
-				// TODO Auto-generated method stub
-				showWaitDialog();
-			}
-			
-			@Override
-			public void loadSuccess() {
-				// TODO Auto-generated method stub
-				hideWaitDialog();
-				makeTextLong("修改成功");
-				setConfimEnable(false);
-			}
-			
-			@Override
-			public void loadFailture() {
-				hideWaitDialog();
-				makeTextLong(getString(R.string.tip_no_internet));
-			}
-		});
+		LoadClientHelper.postDesignerUpdateInfo(this,
+				new UserByDesignerInfoUpdateRequest(this, designerUpdateInfo),
+				new LoadDataListener() {
+
+					@Override
+					public void preLoad() {
+						// TODO Auto-generated method stub
+						showWaitDialog();
+					}
+
+					@Override
+					public void loadSuccess() {
+						// TODO Auto-generated method stub
+						hideWaitDialog();
+						makeTextLong("修改成功");
+						setConfimEnable(false);
+						if (!TextUtils.isEmpty(designerUpdateInfo.getUsername())
+								|| designerUpdateInfo.getUsername() != dataManager
+										.getUserName()) {
+							dataManager.setUserName(designerUpdateInfo
+									.getUsername());
+							sendBroadcast(new Intent(
+									Constant.INTENT_ACTION_USERINFO_CHANGE));
+						}
+						updateUpdateInfo();
+						dataManager.setDesignerInfo(designerInfo);
+					}
+
+					@Override
+					public void loadFailture() {
+						hideWaitDialog();
+						makeTextLong(getString(R.string.tip_no_internet));
+					}
+				});
 	}
-	
+
+	private void updateUpdateInfo() {
+		designerInfo.setAddress(designerUpdateInfo.getAddress());
+		designerInfo.setCity(designerUpdateInfo.getCity());
+		designerInfo.setDistrict(designerUpdateInfo.getDistrict());
+		designerInfo.setSex(designerUpdateInfo.getSex());
+		designerInfo.setUsername(designerUpdateInfo.getUsername());
+	}
+
 	@Override
 	public void loadSuccess() {
-		// TODO Auto-generated method stub
 		super.loadSuccess();
 		designerInfo = dataManager.getDesignerInfo();
 		if (null != designerInfo) {
@@ -197,7 +214,8 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 	}
 
 	private void get_Designer_Info() {
-		LoadClientHelper.getUserInfoByDesigner(this,new UserByDesignerInfoRequest(this), this);
+		LoadClientHelper.getUserInfoByDesigner(this,
+				new UserByDesignerInfoRequest(this), this);
 	}
 
 	@Override
@@ -254,10 +272,12 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 			}
 		});
 		if (designerUpdateInfo != null) {
-			if(designerUpdateInfo.getSex() != null){
+			if (!TextUtils.isEmpty(designerUpdateInfo.getSex())) {
 				radioGroup.check(designerUpdateInfo.getSex().equals(
 						Constant.SEX_MAN) ? R.id.sex_radio0 : R.id.sex_radio1);
-			}else{
+				sex = designerUpdateInfo.getSex().equals(Constant.SEX_MAN) ? Constant.SEX_MAN
+						: Constant.SEX_WOMEN;
+			} else {
 				radioGroup.check(R.id.sex_radio0);
 				sex = Constant.SEX_MAN;
 			}
@@ -270,7 +290,8 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						if (designerUpdateInfo != null) {
-							if(designerUpdateInfo.getSex().equals(sex)){
+							if (TextUtils.isEmpty(designerUpdateInfo.getSex())
+									|| !designerUpdateInfo.getSex().equals(sex)) {
 								designerUpdateInfo.setSex(sex);
 								setConfimEnable(true);
 								sexText.setText(sex.equals(Constant.SEX_MAN) ? "男"
@@ -287,13 +308,16 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 	@Override
 	public void takecamera() {
 		Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		mTmpFile = FileUtil.createTmpFile(UserByDesignerInfoActivity.this);
+		cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mTmpFile));
 		startActivityForResult(cameraIntent, Constant.REQUESTCODE_CAMERA);
 	}
 
 	@Override
 	public void takePhoto() {
-		Intent albumIntent = new Intent(Intent.ACTION_GET_CONTENT);
-		albumIntent.setType("image/*");
+		Intent albumIntent = new Intent(Intent.ACTION_PICK, null);
+		albumIntent.setDataAndType(
+				MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
 		startActivityForResult(albumIntent, Constant.REQUESTCODE_LOCATION);
 	}
 
@@ -306,7 +330,8 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 				String name = data.getStringExtra(Constant.EDIT_CONTENT);
 				nameText.setText(name);
 				if (designerUpdateInfo != null) {
-					if(name.equals(designerUpdateInfo.getUsername())){
+					if (TextUtils.isEmpty(designerUpdateInfo.getUsername())
+							|| !name.equals(designerUpdateInfo.getUsername())) {
 						designerUpdateInfo.setUsername(name);
 						setConfimEnable(true);
 					}
@@ -318,7 +343,8 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 				String address = data.getStringExtra(Constant.EDIT_CONTENT);
 				homeText.setText(address);
 				if (designerUpdateInfo != null) {
-					if(designerUpdateInfo.getAddress().equals(address)){
+					if (TextUtils.isEmpty(designerUpdateInfo.getAddress())
+							|| !designerUpdateInfo.getAddress().equals(address)) {
 						setConfimEnable(true);
 						designerUpdateInfo.setAddress(address);
 					}
@@ -326,20 +352,12 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 			}
 			break;
 		case Constant.REQUESTCODE_CAMERA:// 拍照
-			LogTool.d(TAG, "data:" + data);
-			if (data != null) {
-				Bundle bundle = data.getExtras();
-				Bitmap bitmap = (Bitmap) bundle.get("data");
-				LogTool.d(TAG, "bitmap:" + bitmap);
-				Uri mImageUri = null;
-				if (null != data.getData()) {
-					mImageUri = data.getData();
-				} else {
-					mImageUri = Uri.parse(MediaStore.Images.Media.insertImage(
-							getContentResolver(), bitmap, null, null));
+			if (mTmpFile != null) {
+				Uri uri = Uri.fromFile(mTmpFile);
+				LogTool.d(TAG, "uri:" + uri);
+				if (null != uri) {
+					startPhotoZoom(uri);
 				}
-				LogTool.d(TAG, "mImageUri:" + mImageUri);
-				startPhotoZoom(mImageUri);
 			}
 			break;
 		case Constant.REQUESTCODE_LOCATION:// 本地选取
@@ -361,12 +379,32 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 					String imgPath = PhotoUtils.savaPicture(bitmap);
 					LogTool.d(TAG, "imgPath=============" + imgPath);
 					if (!TextUtils.isEmpty(imgPath)) {
+						uploadManager.uploadImage(imgPath);
 					}
 				}
 			}
 			break;
 		default:
 			break;
+		}
+	}
+
+	@Override
+	public void onSuccess(String msg) {
+		LogTool.d(TAG, "msg===========" + msg);
+		if ("success".equals(msg)) {
+			LogTool.d(TAG, "--------------------------------------------------");
+			if (mTmpFile != null && mTmpFile.exists()) {
+				mTmpFile.delete();
+			}
+		}
+	}
+
+	@Override
+	public void onFailure() {
+		LogTool.d(TAG, "==============================================");
+		if (mTmpFile != null && mTmpFile.exists()) {
+			mTmpFile.delete();
 		}
 	}
 
@@ -383,9 +421,10 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 		// aspectX aspectY 是宽高的比例
 		intent.putExtra("aspectX", 1);
 		intent.putExtra("aspectY", 1);
+		intent.putExtra("scale", true);
 		// outputX outputY 是裁剪图片宽高
-		intent.putExtra("outputX", 200);
-		intent.putExtra("outputY", 200);
+		intent.putExtra("outputX", 300);
+		intent.putExtra("outputY", 300);
 		intent.putExtra("return-data", true);
 		startActivityForResult(intent, Constant.REQUESTCODE_CROP);
 	}

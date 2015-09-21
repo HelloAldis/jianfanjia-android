@@ -1,5 +1,6 @@
 package com.jianfanjia.cn.activity;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -40,6 +41,7 @@ public class MyDesignerActivity extends BaseActivity implements
 	private TextView goodAtView;// 擅长
 	private TextView budgetView;// 设计费
 	private MyDesignerInfo designerInfo;
+	private String designerId;
 
 	private MainHeadView mainHeadView;
 
@@ -57,16 +59,14 @@ public class MyDesignerActivity extends BaseActivity implements
 		goodAtView = (TextView) findViewById(R.id.my_designer_style);
 		budgetView = (TextView) findViewById(R.id.my_designer_budget);
 
-		String designerId = dataManager.getDefaultDesignerId();
-		designerInfo = dataManager.getMyDesignerInfoById(designerId);
-		if (designerInfo != null) {
-			setData();
-		} else {
-			if (designerId != null) {
+		designerId = dataManager.getDefaultDesignerId();
+		if (designerId != null) {
+			designerInfo = dataManager.getMyDesignerInfoById(designerId);
+			if (designerInfo != null) {
+				setData();
+			} else {
 				LoadClientHelper.getDesignerInfoById(this,
 						new DesignerInfoRequest(this, designerId), this);
-			} else {
-				// loadempty
 			}
 		}
 	}
@@ -85,9 +85,12 @@ public class MyDesignerActivity extends BaseActivity implements
 	@Override
 	public void loadSuccess() {
 		super.loadSuccess();
-		designerInfo = dataManager.getMyDesignerInfoById(dataManager
-				.getDefaultDesignerId());
-		setData();
+		designerInfo = dataManager.getMyDesignerInfoById(designerId);
+		if (designerInfo != null) {
+			setData();
+		} else {
+			// loadempty
+		}
 	}
 
 	@Override
@@ -110,20 +113,26 @@ public class MyDesignerActivity extends BaseActivity implements
 
 	private void setData() {
 		if (designerInfo != null) {
-			nameView.setText(designerInfo.getUsername() == null ? getString(R.string.designer)
+			nameView.setText(TextUtils.isEmpty(designerInfo.getUsername()) ? getString(R.string.designer)
 					: designerInfo.getUsername());
-			sexView.setImageResource(designerInfo.getSex().equals(
-					Constant.SEX_MAN) ? R.drawable.icon_designer_user_man
-					: R.drawable.icon_designer_user_woman);
+			if(!TextUtils.isEmpty(designerInfo.getSex())){
+				sexView.setImageResource(designerInfo.getSex().equals(
+						Constant.SEX_MAN) ? R.drawable.icon_designer_user_man
+						: R.drawable.icon_designer_user_woman);
+			}else{
+				sexView.setVisibility(View.GONE);
+			}
 			authView.setVisibility(designerInfo.getAuth_type().equals(
 					Constant.DESIGNER_FINISH_AUTH_TYPE) ? View.VISIBLE
 					: View.GONE);
 			productSumView.setText(designerInfo.getProduct_count() + "");
 			appointmentSum.setText(designerInfo.getOrder_count() + "");
 			cityView.setText(designerInfo.getCity());
-			budgetView.setText(getResources().getStringArray(
-					R.array.design_fee_range)[Integer.parseInt(designerInfo
-					.getDesign_fee_range())]);
+			if (!TextUtils.isEmpty(designerInfo.getDesign_fee_range())) {
+				budgetView.setText(getResources().getStringArray(
+						R.array.design_fee_range)[Integer.parseInt(designerInfo
+						.getDesign_fee_range())]);
+			}
 			// 解析擅长风格
 			String[] dec_styles = getResources().getStringArray(
 					R.array.dec_style);

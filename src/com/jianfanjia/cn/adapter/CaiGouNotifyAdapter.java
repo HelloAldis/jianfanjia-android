@@ -2,10 +2,12 @@ package com.jianfanjia.cn.adapter;
 
 import java.util.List;
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.bean.NotifyCaiGouInfo;
+import com.jianfanjia.cn.application.MyApplication;
+import com.jianfanjia.cn.bean.NotifyMessage;
 
 /**
  * @class CaiGouNotifyAdapter
@@ -13,17 +15,16 @@ import com.jianfanjia.cn.bean.NotifyCaiGouInfo;
  * @date 2015-8-26 15:57
  * @param <NotifyCaiGouInfo>
  */
-public class CaiGouNotifyAdapter extends BaseListAdapter<NotifyCaiGouInfo> {
+public class CaiGouNotifyAdapter extends BaseListAdapter<NotifyMessage> {
 
-	public CaiGouNotifyAdapter(Context context,
-			List<NotifyCaiGouInfo> caigouList) {
+	public CaiGouNotifyAdapter(Context context, List<NotifyMessage> caigouList) {
 		super(context, caigouList);
 	}
 
 	@Override
 	public View initView(int position, View convertView) {
 		ViewHolder viewHolder = null;
-		NotifyCaiGouInfo caiGouInfo = list.get(position);
+		NotifyMessage message = list.get(position);
 		if (convertView == null) {
 			convertView = layoutInflater.inflate(R.layout.list_item_tip_caigou,
 					null);
@@ -40,10 +41,14 @@ public class CaiGouNotifyAdapter extends BaseListAdapter<NotifyCaiGouInfo> {
 		} else {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
-		viewHolder.itemNameView.setText(caiGouInfo.getTitle());
-		viewHolder.itemContentView.setText(caiGouInfo.getContent());
-		viewHolder.itemNodeView.setText(caiGouInfo.getStage());
-		viewHolder.itemPubTimeView.setText(caiGouInfo.getTime());
+		viewHolder.itemNameView.setText("");
+		viewHolder.itemContentView.setText(message.getContent());
+		String stage = message.getSection();
+		if (!TextUtils.isEmpty(stage)) {
+			viewHolder.itemNodeView.setText(MyApplication.getInstance()
+					.getStringById(stage));
+		}
+		viewHolder.itemPubTimeView.setText(message.getTime());
 		return convertView;
 	}
 

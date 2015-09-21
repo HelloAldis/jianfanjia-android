@@ -6,9 +6,14 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+
+import com.jianfanjia.cn.config.Constant;
 
 import android.content.Context;
 import android.os.Environment;
@@ -23,7 +28,7 @@ import android.util.Log;
  * @created 2012-3-21
  */
 public class FileUtil {
-    /**
+	/**
 	 * 写文本文�? 在Android系统中，文件保存�? /data/data/PACKAGE_NAME/files 目录�?
 	 * 
 	 * @param context
@@ -371,14 +376,14 @@ public class FileUtil {
 			status = false;
 		return status;
 	}
-	
+
 	/**
 	 * �?查是否安装外置的SD�?
 	 * 
 	 * @return
 	 */
 	public static boolean checkExternalSDExists() {
-		
+
 		Map<String, String> evn = System.getenv();
 		return evn.containsKey("SECONDARY_STORAGE");
 	}
@@ -392,7 +397,7 @@ public class FileUtil {
 	public static boolean deleteDirectory(String fileName) {
 		boolean status;
 		SecurityManager checker = new SecurityManager();
-		
+
 		if (!fileName.equals("")) {
 
 			File path = Environment.getExternalStorageDirectory();
@@ -501,9 +506,10 @@ public class FileUtil {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * 清空�?个文件夹
+	 * 
 	 * @param files
 	 */
 	public static void clearFileWithPath(String filePath) {
@@ -526,19 +532,19 @@ public class FileUtil {
 	 * @return
 	 */
 	public static String getSDRoot() {
-		
+
 		return Environment.getExternalStorageDirectory().getAbsolutePath();
 	}
-	
+
 	/**
 	 * 获取手机外置SD卡的根目�?
 	 * 
 	 * @return
 	 */
 	public static String getExternalSDRoot() {
-		
+
 		Map<String, String> evn = System.getenv();
-		
+
 		return evn.get("SECONDARY_STORAGE");
 	}
 
@@ -563,9 +569,10 @@ public class FileUtil {
 		}
 		return allDir;
 	}
-	
+
 	/**
 	 * 获取�?个文件夹下的�?有文�?
+	 * 
 	 * @param root
 	 * @return
 	 */
@@ -578,7 +585,7 @@ public class FileUtil {
 		for (File f : files) {
 			if (f.isFile())
 				allDir.add(f);
-			else 
+			else
 				listPath(f.getAbsolutePath());
 		}
 		return allDir;
@@ -615,15 +622,17 @@ public class FileUtil {
 		int end = absolutePath.length();
 		return absolutePath.substring(start, end);
 	}
-	
+
 	/**
 	 * 获取应用程序缓存文件夹下的指定目�?
+	 * 
 	 * @param context
 	 * @param dir
 	 * @return
 	 */
 	public static String getAppCache(Context context, String dir) {
-		String savePath = context.getCacheDir().getAbsolutePath() + "/" + dir + "/";
+		String savePath = context.getCacheDir().getAbsolutePath() + "/" + dir
+				+ "/";
 		File savedir = new File(savePath);
 		if (!savedir.exists()) {
 			savedir.mkdirs();
@@ -646,4 +655,46 @@ public class FileUtil {
 		}
 		return file;
 	}
+
+	// public static File createTmpFile(Context context) {
+	// String state = Environment.getExternalStorageState();
+	// if (state.equals(Environment.MEDIA_MOUNTED)) {
+	// // �ѹ���
+	// File pic = Environment
+	// .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+	// String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss",
+	// Locale.CHINA).format(new Date());
+	// String fileName = "jyz_image_" + timeStamp + "";
+	// File tmpFile = new File(pic, fileName + ".jpg");
+	// return tmpFile;
+	// } else {
+	// File cacheDir = context.getCacheDir();
+	// String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss",
+	// Locale.CHINA).format(new Date());
+	// String fileName = "jyz_image_" + timeStamp + "";
+	// File tmpFile = new File(cacheDir, fileName + ".jpg");
+	// return tmpFile;
+	// }
+	//
+	// }
+
+	public static File createTmpFile(Context context) {
+		File fileParent = new File(Constant.IMAG_PATH);
+		if (!fileParent.exists()) {
+			fileParent.mkdirs();
+		}
+		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.CHINA)
+				.format(new Date());
+		String fileName = "jyz_image_" + timeStamp + "";
+		File tmpFile = new File(fileParent, fileName + ".jpg");
+		if (!tmpFile.exists()) {
+			try {
+				tmpFile.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return tmpFile;
+	}
+
 }

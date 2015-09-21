@@ -1,6 +1,7 @@
 package com.jianfanjia.cn.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -9,11 +10,13 @@ import android.widget.TextView;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.bean.ProcessInfo;
+import com.jianfanjia.cn.bean.Process;
 import com.jianfanjia.cn.bean.User;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url;
 import com.jianfanjia.cn.http.LoadClientHelper;
 import com.jianfanjia.cn.http.request.OwnerInfoRequest;
+import com.jianfanjia.cn.http.request.ProcessInfoRequest;
 import com.jianfanjia.cn.tools.DateFormatTool;
 import com.jianfanjia.cn.tools.LogTool;
 
@@ -41,14 +44,22 @@ public class OwnerInfoActivity extends BaseActivity implements OnClickListener {
 	private TextView decorateBudgetView = null;// 装修预算
 	private TextView startDateView = null;// 开工日期
 	private TextView totalDateView = null;// 总工期
-	private String ownerId = null;
 	private User ownerInfo = null;
+	private Process process = null;
 	private ProcessInfo processInfo = null;
+	private String processId = null;
 
 	@Override
 	public void initView() {
 		Intent intent = this.getIntent();
-		ownerInfo = (User) intent.getSerializableExtra("owner");
+		process = (Process) intent.getSerializableExtra(MyOwnerActivity.PROCESS);
+		if(process != null){
+			ownerInfo = process.getUser();
+			processId = process.get_id();
+			if(processId != null){
+				processInfo = dataManager.getProcessInfoById(process.get_id());
+			}
+		}
 		ownerHeadView = (ImageView) findViewById(R.id.owner_detail_head_icon);
 		ownerSexView = (ImageView) findViewById(R.id.owner_detail_sex_icon);
 		proStageView = (TextView) findViewById(R.id.pro_stage);
@@ -63,19 +74,8 @@ public class OwnerInfoActivity extends BaseActivity implements OnClickListener {
 		decorateBudgetView = (TextView) findViewById(R.id.my_site_decorationbudget);
 		startDateView = (TextView) findViewById(R.id.my_site_startdate);
 		totalDateView = (TextView) findViewById(R.id.my_site_totaldate);
-		if (null != ownerInfo && (ownerId = ownerInfo.get_id()) != null) {
+		if (null != ownerInfo) {
 			// get_one_owner_info(ownerId);
-			processInfo = dataManager
-					.getProcessInfoByOwnerId(ownerId);
-			ownerId = ownerInfo.get_id();
-			LogTool.d(TAG, "processInfo:" + processInfo);
-			if (null != processInfo) {
-				setData();
-			} else {
-				LoadClientHelper.getOwnerInfoById(this, new OwnerInfoRequest(
-						this, ownerId), this);
-			}
-
 			imageLoader.displayImage(
 					ownerInfo.getImageid() != null ? Url.GET_IMAGE
 							+ ownerInfo.getImageid()
@@ -87,6 +87,15 @@ public class OwnerInfoActivity extends BaseActivity implements OnClickListener {
 				ownerNameView.setText(getString(R.string.ower));
 			}
 		}
+		
+		LogTool.d(TAG, "processInfo:" + processInfo);
+		if (null != processInfo) {
+			setData();
+		} else {
+			LoadClientHelper.requestProcessInfoById(this,new ProcessInfoRequest(
+					this, processId), this);
+		}
+
 	}
 
 	private void setData() {
@@ -114,7 +123,7 @@ public class OwnerInfoActivity extends BaseActivity implements OnClickListener {
 	public void loadSuccess() {
 		// TODO Auto-generated method stub
 		super.loadSuccess();
-		processInfo = dataManager.getProcessInfoByOwnerId(ownerId);
+		processInfo = dataManager.getProcessInfoById(processId);
 		LogTool.d(TAG, "processInfo:" + processInfo);
 		if (null != processInfo) {
 			setData();

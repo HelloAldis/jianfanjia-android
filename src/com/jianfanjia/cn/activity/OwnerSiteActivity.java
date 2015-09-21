@@ -6,6 +6,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -17,6 +18,11 @@ import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
+import com.jianfanjia.cn.http.LoadClientHelper;
+import com.jianfanjia.cn.http.request.GetRequirementRequest;
+import com.jianfanjia.cn.http.request.PostRequirementRequest;
+import com.jianfanjia.cn.http.request.TotalDurationRequest;
+import com.jianfanjia.cn.interf.LoadDataListener;
 import com.jianfanjia.cn.tools.DateFormatTool;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
@@ -49,7 +55,6 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 	private TextView totalDateView;// 总工期
 	private TextView confirmView;// 确认按钮
 	private ImageView startDateGoto;
-	private ImageView totalDateGoto;
 
 	private RelativeLayout startDateLayout;
 	private RelativeLayout totalDateLayout;
@@ -70,16 +75,32 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 		totalDateView = (TextView) findViewById(R.id.my_site_totaldate);
 		confirmView = (TextView) findViewById(R.id.my_site_confirm);
 		startDateGoto = (ImageView) findViewById(R.id.startdate_select_goto);
-		totalDateGoto = (ImageView) findViewById(R.id.totaldate_select_goto);
 		startDateLayout = (RelativeLayout) findViewById(R.id.my_startdate_layout);
 		totalDateLayout = (RelativeLayout) findViewById(R.id.my_totaldate_layout);
 
 		processInfo = dataManager.getDefaultProcessInfo();
+		requirementInfo = dataManager.getRequirementInfo();
 		LogTool.d(TAG, "processInfo:" + processInfo);
 		if (processInfo == null) {
-			getRequirement();
+			if (requirementInfo == null) {
+				LogTool.d(TAG, "getRequirement()");
+				getRequirement();
+			} else {
+				getTotalDuration();
+			}
 		} else {
 			initData();
+		}
+	}
+
+	private void getTotalDuration() {
+		String planId = requirementInfo.getFinal_planid();
+		if (dataManager.getTotalDuration() != null) {
+			requirementInfo.setDuration(dataManager.getTotalDuration());
+		} else {
+			if (!TextUtils.isEmpty(planId)) {
+				loadTotalDuration(planId);
+			}
 		}
 	}
 
@@ -112,7 +133,6 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 				processInfo.getStart_at(), "yyyy-MM-dd"));
 		totalDateView.setText(processInfo.getDuration());
 		startDateGoto.setVisibility(View.GONE);
-		totalDateGoto.setVisibility(View.GONE);
 		confirmView.setEnabled(false);
 		startDateLayout.setEnabled(false);
 		totalDateLayout.setEnabled(false);
@@ -122,7 +142,6 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 	public void setListener() {
 		confirmView.setOnClickListener(this);
 		startDateLayout.setOnClickListener(this);
-		totalDateLayout.setOnClickListener(this);
 	}
 
 	@Override
@@ -148,7 +167,6 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 										.setStart_at(((DateWheelDialog) dialog)
 												.getChooseCalendar()
 												.getTimeInMillis());
-								requirementInfo.setDuration("60");
 							}
 							dialog.dismiss();
 						}
@@ -157,9 +175,9 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 			dateWheelDialog.show();
 			break;
 		case R.id.my_site_confirm:
-			if(requirementInfo != null && requirementInfo.getStart_at() != -1){//没有需求数据或者没有设置开工日期，就无法提交
+			if (requirementInfo != null && requirementInfo.getStart_at() != -1) {// 没有需求数据或者没有设置开工日期，就无法提交
 				postProcessInfo();
-			}else{
+			} else {
 				makeTextLong("请配置开工日期");
 			}
 			break;
@@ -172,106 +190,80 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 	}
 
 	private void getRequirement() {
-		JianFanJiaApiClient.get_Requirement(getApplication(),
-				new JsonHttpResponseHandler() {
+		LoadClientHelper.get_Requirement(this, new GetRequirementRequest(this),
+				new LoadDataListener() {
+
 					@Override
-					public void onStart() {
-						LogTool.d(TAG, "onStart()");
+					public void preLoad() {
+						// TODO Auto-generated method stub
+						showWaitDialog();
 					}
 
 					@Override
-					public void onSuccess(int statusCode, Header[] headers,
-							JSONObject response) {
-						try {
-							if (response.has(Constant.DATA)) {
-								requirementInfo = JsonParser.jsonToBean(
-										response.get(Constant.DATA).toString(),
-										RequirementInfo.class);
-								if(requirementInfo != null){
-									requirementInfo.setRequirementid(requirementInfo.get_id());
-								}
-								setData();
-							} else if (response.has(Constant.ERROR_MSG)) {
-								makeTextLong(response.get(Constant.ERROR_MSG)
-										.toString());
-							}
-						} catch (JSONException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-							makeTextLong(getString(R.string.load_failure));
+					public void loadSuccess() {
+						// TODO Auto-generated method stub
+						hideWaitDialog();
+						requirementInfo = dataManager.getRequirementInfo();
+						if (requirementInfo != null) {
+							setData();
+							getTotalDuration();
 						}
 					}
 
 					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							Throwable throwable, JSONObject errorResponse) {
-						LogTool.d(TAG,
-								"Throwable throwable:" + throwable.toString());
+					public void loadFailture() {
+						// TODO Auto-generated method stub
 						makeTextLong(getString(R.string.tip_no_internet));
+						hideWaitDialog();
 					}
-
-					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							String responseString, Throwable throwable) {
-						LogTool.d(TAG, "throwable:" + throwable);
-						makeTextLong(getString(R.string.tip_no_internet));
-					};
 				});
+
 	}
 
-	// 配置工地信息
-	private void postProcessInfo() {
-		JianFanJiaApiClient.post_Owner_Process(getApplication(),
-				requirementInfo, new JsonHttpResponseHandler() {
+	protected void loadTotalDuration(String planId) {
+		LoadClientHelper.getPlanTotalDuration(OwnerSiteActivity.this,
+				new TotalDurationRequest(OwnerSiteActivity.this, planId),
+				new LoadDataListener() {
+
 					@Override
-					public void onStart() {
-						LogTool.d(TAG, "onStart()");
+					public void preLoad() {
+						// TODO Auto-generated method stub
+
 					}
 
 					@Override
-					public void onSuccess(int statusCode, Header[] headers,
-							JSONObject response) {
-						makeTextLong("getRequirement");
-						try {
-							if (response.has(Constant.DATA)) {
-								makeTextLong("配置成功");
-								handlerSuccess();
-							} else if (response.has(Constant.ERROR_MSG)) {
-								makeTextLong(response.get(Constant.ERROR_MSG)
-										.toString());
-							}
-						} catch (JSONException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-							makeTextLong(getString(R.string.tip_login_error_for_network));
+					public void loadSuccess() {
+						// TODO Auto-generated method stub
+						if (dataManager.getTotalDuration() != null) {
+							requirementInfo.setDuration(dataManager
+									.getTotalDuration());
 						}
 					}
 
 					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							Throwable throwable, JSONObject errorResponse) {
-						LogTool.d(TAG,
-								"Throwable throwable:" + throwable.toString());
-						makeTextLong(getString(R.string.tip_login_error_for_network));
+					public void loadFailture() {
+						// TODO Auto-generated method stub
+						makeTextLong(getString(R.string.tip_no_internet));
 					}
-
-					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							String responseString, Throwable throwable) {
-						LogTool.d(TAG, "throwable:" + throwable);
-						makeTextLong(getString(R.string.tip_login_error_for_network));
-					};
 				});
-
 	}
 
-	// 获取需求成功
-	private void handlerSuccess() {
+	@Override
+	public void loadSuccess() {
+		// TODO Auto-generated method stub
+		super.loadSuccess();
+		makeTextLong("配置成功");
 		confirmView.setEnabled(false);
 		Intent intent = new Intent();
 		intent.putExtra("Key", "1");
 		setResult(Constant.REQUESTCODE_CONFIG_SITE, intent);
 		finish();
+	}
+
+	// 配置工地信息
+	private void postProcessInfo() {
+		LoadClientHelper.post_Requirement(this, new PostRequirementRequest(
+				this, requirementInfo), this);
 	}
 
 	private void setData() {

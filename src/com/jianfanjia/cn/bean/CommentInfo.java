@@ -14,17 +14,17 @@ public class CommentInfo implements Serializable {
 	private static final long serialVersionUID = 6340039239493931968L;
 
 	private String id;// 评论id
-	
-	private String by;//评论人id
+
+	private String by;// 评论人id
 
 	private String content;// 评论内容
 
 	private String usertype;// 评论人身份
-	
-	private String userName;//评论人姓名
-	
-	private String userImageUrl;//评论人头像url
-	
+
+	private String userName;// 评论人姓名
+
+	private String userImageUrl;// 评论人头像url
+
 	private long date;// 评论时间
 
 	public String getId() {
@@ -82,10 +82,5 @@ public class CommentInfo implements Serializable {
 	public void setUserImageUrl(String userImageUrl) {
 		this.userImageUrl = userImageUrl;
 	}
-
-	
-	
-	
-
 
 }

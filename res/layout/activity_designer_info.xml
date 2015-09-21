@@ -87,6 +87,7 @@
                 style="@style/my_item_layout_style" >
 
                 <TextView
+                    android:id="@+id/name"
                     style="@style/site_listview_item_text_style_middle"
                     android:layout_centerVertical="true"
                     android:text="@string/user_name"
@@ -97,6 +98,11 @@
                     style="@style/site_listview_item_text_style_small"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/space_8"
+                    android:layout_toRightOf="@+id/name"
+                    android:layout_marginLeft="@dimen/space_48"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:gravity="right"
                     android:layout_toLeftOf="@+id/name_goto"
                     android:textColor="@color/main_color_black" />
 
@@ -199,6 +205,7 @@
                 style="@style/my_item_layout_style" >
 
                 <TextView
+                    android:id="@+id/home"
                     style="@style/site_listview_item_text_style_middle"
                     android:layout_centerVertical="true"
                     android:text="@string/user_home"
@@ -209,7 +216,12 @@
                     style="@style/site_listview_item_text_style_small"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/space_8"
+                    android:layout_toRightOf="@+id/home"
+                    android:layout_marginLeft="@dimen/space_48"
                     android:layout_toLeftOf="@+id/home_goto"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:gravity="right"
                     android:textColor="@color/main_color_black" />
 
                 <ImageView

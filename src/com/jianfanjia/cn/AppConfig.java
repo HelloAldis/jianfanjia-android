@@ -10,7 +10,7 @@ public class AppConfig {
 	private SharedPrefer sharedPrefer;
 
 	private AppConfig(Context context) {
-		sharedPrefer = new SharedPrefer(context, Constant.SHARED_MAIN);
+		sharedPrefer = new SharedPrefer(context, Constant.SHARED_DATA);
 	}
 
 	public static AppConfig getInstance(Context context) {

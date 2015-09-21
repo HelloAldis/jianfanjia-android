@@ -28,6 +28,7 @@ import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.db.DAOManager;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.inter.manager.ListenerManeger;
 import com.jianfanjia.cn.interf.DialogListener;
@@ -38,7 +39,6 @@ import com.jianfanjia.cn.interf.PushMsgReceiveListener;
 import com.jianfanjia.cn.receiver.NetStateReceiver;
 import com.jianfanjia.cn.tools.ActivityManager;
 import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.tools.SharedPrefer;
 import com.jianfanjia.cn.tools.UploadManager;
 import com.jianfanjia.cn.view.AddPhotoPopWindow;
 import com.jianfanjia.cn.view.dialog.DialogControl;
@@ -61,10 +61,10 @@ public abstract class BaseActivity extends FragmentActivity implements
 		DialogControl, NetStateListener, PopWindowCallBack,
 		PushMsgReceiveListener, LoadDataListener {
 	protected ActivityManager activityManager = null;
+	protected DAOManager daoManager = null;
 	protected LayoutInflater inflater = null;
 	protected FragmentManager fragmentManager = null;
 	protected NotificationManager nManager = null;
-	protected SharedPrefer sharedPrefer = null;
 	protected ImageLoader imageLoader = null;
 	protected DisplayImageOptions options = null;
 	protected ListenerManeger listenerManeger = null;
@@ -100,10 +100,10 @@ public abstract class BaseActivity extends FragmentActivity implements
 
 	private void init() {
 		activityManager = ActivityManager.getInstance();
+		daoManager = DAOManager.getInstance(this);
 		inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		nManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 		dataManager = DataManagerNew.getInstance();
-		sharedPrefer = dataManager.sharedPrefer;
 		appConfig = AppConfig.getInstance(this);
 		fragmentManager = this.getSupportFragmentManager();
 		imageLoader = ImageLoader.getInstance();
@@ -121,7 +121,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 	}
 
 	private void initParams() {
-		userIdentity = sharedPrefer.getValue(Constant.USERTYPE, null);
+		userIdentity = dataManager.getUserType();
 		LogTool.d(this.getClass().getName(), "userIdentity=" + userIdentity);
 	}
 
@@ -151,7 +151,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 	protected void onResume() {
 		super.onResume();
 		LogTool.d(this.getClass().getName(), "onResume()");
-		isOpen = sharedPrefer.getValue(Constant.ISOPEN, false);
+		isOpen = dataManager.isPushOpen();
 		Global.isAppBack = false;
 		registerNetReceiver();
 	}

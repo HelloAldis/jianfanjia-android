@@ -1,5 +1,6 @@
 package com.jianfanjia.cn.fragment;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -59,6 +60,7 @@ import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshScrollView;
 import com.jianfanjia.cn.tools.DateFormatTool;
+import com.jianfanjia.cn.tools.FileUtil;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.PhotoUtils;
 import com.jianfanjia.cn.tools.StringUtils;
@@ -113,6 +115,7 @@ public class SiteManageFragment extends BaseFragment implements
 			R.drawable.bg_home_banner4 };
 
 	private String processInfoId = null;
+	private File mTmpFile = null;
 
 	private Handler bannerhandler = new Handler() {
 		@Override
@@ -189,7 +192,6 @@ public class SiteManageFragment extends BaseFragment implements
 		proTitle = getResources().getStringArray(R.array.site_procedure);
 		checkSection = getResources().getStringArray(
 				R.array.site_procedure_check);
-
 		mPullRefreshScrollView = (PullToRefreshScrollView) view
 				.findViewById(R.id.pull_refresh_scrollview);
 		mPullRefreshScrollView.setMode(Mode.PULL_FROM_START);
@@ -251,7 +253,7 @@ public class SiteManageFragment extends BaseFragment implements
 	@Override
 	public void onPause() {
 		super.onPause();
-		sharedPrefer.setValue(Constant.CURRENT_LIST, currentList);
+		// sharedPrefer.setValue(Constant.CURRENT_LIST, currentList);
 	}
 
 	private void initBannerView(View view) {
@@ -563,13 +565,16 @@ public class SiteManageFragment extends BaseFragment implements
 	@Override
 	public void takecamera() {
 		Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		mTmpFile = FileUtil.createTmpFile(getActivity());
+		cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mTmpFile));
 		startActivityForResult(cameraIntent, Constant.REQUESTCODE_CAMERA);
 	}
 
 	@Override
 	public void takePhoto() {
-		Intent albumIntent = new Intent(Intent.ACTION_GET_CONTENT);
-		albumIntent.setType("image/*");
+		Intent albumIntent = new Intent(Intent.ACTION_PICK, null);
+		albumIntent.setDataAndType(
+				MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
 		startActivityForResult(albumIntent, Constant.REQUESTCODE_LOCATION);
 	}
 
@@ -703,21 +708,12 @@ public class SiteManageFragment extends BaseFragment implements
 		super.onActivityResult(requestCode, resultCode, data);
 		switch (requestCode) {
 		case Constant.REQUESTCODE_CAMERA:// 拍照
-			LogTool.d(TAG, "data:" + data);
-			if (data != null) {
-				Bundle bundle = data.getExtras();
-				Bitmap bitmap = (Bitmap) bundle.get("data");
-				LogTool.d(TAG, "bitmap:" + bitmap);
-				Uri mImageUri = null;
-				if (null != data.getData()) {
-					mImageUri = data.getData();
-				} else {
-					mImageUri = Uri.parse(MediaStore.Images.Media.insertImage(
-							getActivity().getContentResolver(), bitmap, null,
-							null));
+			if (mTmpFile != null) {
+				Uri uri = Uri.fromFile(mTmpFile);
+				LogTool.d(TAG, "uri:" + uri);
+				if (null != uri) {
+					startPhotoZoom(uri);
 				}
-				LogTool.d(TAG, "mImageUri:" + mImageUri);
-				startPhotoZoom(mImageUri);
 			}
 			break;
 		case Constant.REQUESTCODE_LOCATION:// 本地选取
@@ -793,6 +789,9 @@ public class SiteManageFragment extends BaseFragment implements
 		LogTool.d(TAG, "msg===========" + msg);
 		if ("success".equals(msg)) {
 			LogTool.d(TAG, "--------------------------------------------------");
+			if (mTmpFile != null && mTmpFile.exists()) {
+				mTmpFile.delete();
+			}
 			loadCurrentProcess();
 		}
 	}
@@ -800,6 +799,9 @@ public class SiteManageFragment extends BaseFragment implements
 	@Override
 	public void onFailure() {
 		LogTool.d(TAG, "==============================================");
+		if (mTmpFile != null && mTmpFile.exists()) {
+			mTmpFile.delete();
+		}
 	}
 
 	/**
@@ -815,9 +817,10 @@ public class SiteManageFragment extends BaseFragment implements
 		// aspectX aspectY 是宽高的比例
 		intent.putExtra("aspectX", 1);
 		intent.putExtra("aspectY", 1);
+		intent.putExtra("scale", true);
 		// outputX outputY 是裁剪图片宽高
-		intent.putExtra("outputX", 200);
-		intent.putExtra("outputY", 200);
+		intent.putExtra("outputX", 300);
+		intent.putExtra("outputY", 300);
 		intent.putExtra("return-data", true);
 		startActivityForResult(intent, Constant.REQUESTCODE_CROP);
 	}

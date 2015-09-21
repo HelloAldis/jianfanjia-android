@@ -6,7 +6,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.CompoundButton;
@@ -17,9 +16,8 @@ import android.widget.ToggleButton;
 import com.igexin.sdk.PushManager;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.bean.UpdateVersion;
 import com.jianfanjia.cn.bean.NotifyMessage;
-import com.jianfanjia.cn.cache.DataCleanManager;
+import com.jianfanjia.cn.bean.UpdateVersion;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.http.LoadClientHelper;
@@ -56,7 +54,6 @@ public class SettingActivity extends BaseActivity implements OnClickListener,
 	private RelativeLayout clearCacheLayout = null;
 	private TextView currentVersion = null;
 	private TextView cacheSizeView = null;
-
 	private MainHeadView mainHeadView = null;
 
 	@Override
@@ -102,7 +99,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener,
 	@Override
 	public void onCheckedChanged(CompoundButton arg0, boolean check) {
 		LogTool.d(TAG, "check:" + check);
-		sharedPrefer.setValue(Constant.ISOPEN, check);
+		dataManager.setPushOpen(check);
 		if (check) {
 			PushManager.getInstance().turnOnPush(SettingActivity.this);
 		} else {

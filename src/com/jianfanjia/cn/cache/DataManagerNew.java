@@ -1,7 +1,10 @@
 package com.jianfanjia.cn.cache;
 
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import android.content.Context;
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.R;
@@ -13,6 +16,7 @@ import com.jianfanjia.cn.bean.MyOwnerInfo;
 import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.bean.Process;
 import com.jianfanjia.cn.bean.ProcessInfo;
+import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.bean.SectionInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url;
@@ -27,13 +31,16 @@ public class DataManagerNew {
 	private static DataManagerNew instance;
 	private Context context;
 
-	public SharedPrefer sharedPrefer = null;
+	private SharedPrefer sharedPreferdata = null;
+	private SharedPrefer sharedPreferuser = null;
 	private List<Process> processLists;
+	private Map<String, ProcessInfo> processMap = new HashMap<String, ProcessInfo>();
 	private MyOwnerInfo myOwnerInfo;// 我的业主信息
 	private MyDesignerInfo myDesignerInfo;// 我的设计师信息
-	private ProcessInfo processInfo;// 当前工地信息
 	private OwnerInfo ownerInfo;// 业主的个人信息
 	private DesignerInfo designerInfo;// 设计师的个人信息
+	private String totalDuration;//总工期
+	private RequirementInfo requirementInfo;//需求信息
 
 	public static DataManagerNew getInstance() {
 		if (instance == null) {
@@ -42,20 +49,42 @@ public class DataManagerNew {
 		return instance;
 	}
 
+	private DataManagerNew() {
+		context = MyApplication.getInstance();
+		sharedPreferdata = new SharedPrefer(context, Constant.SHARED_DATA);
+		sharedPreferuser = new SharedPrefer(context, Constant.SHARED_USER);
+	}
+	
+	public RequirementInfo getRequirementInfo() {
+		return requirementInfo;
+	}
+
+	public void setRequirementInfo(RequirementInfo requirementInfo) {
+		this.requirementInfo = requirementInfo;
+	}
+
+	public String getTotalDuration() {
+		return totalDuration;
+	}
+
+	public void setTotalDuration(String totalDuration) {
+		this.totalDuration = totalDuration;
+	}
+
 	public void setOwnerInfo(OwnerInfo ownerInfo) {
 		this.ownerInfo = ownerInfo;
-		sharedPrefer.setValue(Constant.OWNER_INFO, ownerInfo);
+		sharedPreferdata.setValue(Constant.OWNER_INFO, ownerInfo);
 	}
 
 	public void setDesignerInfo(DesignerInfo designerInfo) {
 		this.designerInfo = designerInfo;
-		sharedPrefer.setValue(Constant.DESIGNER_INFO, designerInfo);
+		sharedPreferdata.setValue(Constant.DESIGNER_INFO, designerInfo);
 	}
 
 	// 设计师用户获取个人资料
 	public DesignerInfo getDesignerInfo() {
 		if (designerInfo == null && !NetTool.isNetworkAvailable(context)) {
-			designerInfo = (DesignerInfo) sharedPrefer
+			designerInfo = (DesignerInfo) sharedPreferdata
 					.getValue(Constant.DESIGNER_INFO);
 		}
 		return designerInfo;
@@ -64,39 +93,18 @@ public class DataManagerNew {
 	// 业主用户获取个人资料
 	public OwnerInfo getOwnerInfo() {
 		if (ownerInfo == null && !NetTool.isNetworkAvailable(context)) {
-			ownerInfo = (OwnerInfo) sharedPrefer.getValue(Constant.OWNER_INFO);
+			ownerInfo = (OwnerInfo) sharedPreferdata
+					.getValue(Constant.OWNER_INFO);
 		}
 		return ownerInfo;
 	}
 
-	// 通过业主id拿到工地信息
-	public ProcessInfo getProcessInfoByOwnerId(String ownerId) {
-		if (processLists == null || processLists.size() == 0) {
-			processLists = getProcessListsByCache();
-		}
-		String processInfoId = null;
-		for (int i = 0; i < processLists.size(); i++) {
-			processInfoId = processLists.get(i).get_id();
-			if (ownerId.equals(processLists.get(i).getUserid())) {
-				break;
-			}
-		}
-		if (processInfoId != null) {
-			return getProcessInfoById(processInfoId);
-		}
-		return null;
-	}
-
 	public ProcessInfo getDefaultProcessInfo() {
-		if (getProcessInfo() != null) {
-			return getProcessInfo();
+		String processId = getDefaultProcessId();
+		if (processId != null) {
+			return getProcessInfoById(processId);
 		} else {
-			String processId = getDefaultProcessId();
-			if (!NetTool.isNetworkAvailable(context) && processId != null) {
-				return getProcessInfoById(processId);
-			} else {
-				return null;
-			}
+			return null;
 		}
 	}
 
@@ -147,11 +155,6 @@ public class DataManagerNew {
 		}
 	}
 
-	private DataManagerNew() {
-		context = MyApplication.getInstance();
-		sharedPrefer = new SharedPrefer(context, Constant.SHARED_MAIN);
-	}
-
 	public List<Process> getProcessLists() {
 		return processLists;
 	}
@@ -161,11 +164,12 @@ public class DataManagerNew {
 	}
 
 	public void saveProcessLists(String jsonProcessLists) {
-		sharedPrefer.setValue(Constant.DESIGNER_PROCESS_LIST, jsonProcessLists);
+		sharedPreferdata.setValue(Constant.DESIGNER_PROCESS_LIST,
+				jsonProcessLists);
 	}
 
 	public List<Process> getProcessListsByCache() {
-		String jsonProcessList = sharedPrefer.getValue(
+		String jsonProcessList = sharedPreferdata.getValue(
 				Constant.DESIGNER_PROCESS_LIST, null);
 		if (jsonProcessList != null) {
 			processLists = JsonParser.jsonToList(jsonProcessList,
@@ -175,13 +179,9 @@ public class DataManagerNew {
 		return processLists;
 	}
 
-	public ProcessInfo getProcessInfo() {
-		return processInfo;
-	}
-
 	public int getDefaultPro() {
 		if (getUserType().equals(Constant.IDENTITY_DESIGNER)) {
-			return sharedPrefer.getValue(Constant.DEFAULT_PROCESS, 0);// 默认的工地为0
+			return sharedPreferdata.getValue(Constant.DEFAULT_PROCESS, 0);// 默认的工地为0
 		} else if (getUserType().equals(Constant.IDENTITY_OWNER)) {
 			return 0;
 		}
@@ -189,26 +189,30 @@ public class DataManagerNew {
 	}
 
 	public void setDefaultPro(int defaultPro) {
-		sharedPrefer.setValue(Constant.DEFAULT_PROCESS, defaultPro);
+		sharedPreferdata.setValue(Constant.DEFAULT_PROCESS, defaultPro);
 	}
 
 	/**
-	 * 缓存中拿工地信息
+	 * 拿工地信息
 	 * 
 	 * @param processId
 	 * @return
 	 */
 	public ProcessInfo getProcessInfoById(String processId) {
-		return (ProcessInfo) sharedPrefer.getValue(processId);
+		ProcessInfo processInfo = processMap.get(processId);
+		if(!NetTool.isNetworkAvailable(context) && processInfo == null){
+			return (ProcessInfo) sharedPreferdata.getValue(processId);
+		}
+		return processInfo;
 	}
 
 	public void setProcessInfo(ProcessInfo processInfo) {
-		this.processInfo = processInfo;
-		sharedPrefer.setValue(processInfo.get_id(), processInfo);
+		processMap.put(processInfo.get_id(), processInfo);
+		sharedPreferdata.setValue(processInfo.get_id(), processInfo);
 	}
 
 	public MyOwnerInfo getMyOwnerInfoById(String ownerId) {
-		return (MyOwnerInfo) sharedPrefer.getValue(ownerId);
+		return (MyOwnerInfo) sharedPreferdata.getValue(ownerId);
 	}
 
 	public MyOwnerInfo getMyOwnerInfo() {
@@ -217,7 +221,7 @@ public class DataManagerNew {
 
 	public void setMyOwnerInfo(MyOwnerInfo myOwnerInfo) {
 		this.myOwnerInfo = myOwnerInfo;
-		sharedPrefer.setValue(myOwnerInfo.get_id(), myOwnerInfo);
+		sharedPreferdata.setValue(myOwnerInfo.get_id(), myOwnerInfo);
 	}
 
 	public MyDesignerInfo getMyDesignerInfo() {
@@ -226,64 +230,84 @@ public class DataManagerNew {
 
 	public void setMyDesignerInfo(MyDesignerInfo myDesignerInfo) {
 		this.myDesignerInfo = myDesignerInfo;
-		sharedPrefer.setValue(myDesignerInfo.get_id(), myDesignerInfo);
+		sharedPreferdata.setValue(myDesignerInfo.get_id(), myDesignerInfo);
 	}
 
 	public MyDesignerInfo getMyDesignerInfoById(String designerId) {
-		return (MyDesignerInfo) sharedPrefer.getValue(designerId);
+		return (MyDesignerInfo) sharedPreferdata.getValue(designerId);
 	}
 
 	public boolean isLogin() {
-		return sharedPrefer.getValue(Constant.USER_IS_LOGIN, false);// 默认是没登录
+		return sharedPreferdata.getValue(Constant.USER_IS_LOGIN, false);// 默认是没登录
 	}
 
 	public void setLogin(boolean isLogin) {
-		sharedPrefer.setValue(Constant.USER_IS_LOGIN, isLogin);
+		sharedPreferdata.setValue(Constant.USER_IS_LOGIN, isLogin);
 	}
 
 	public void savaLastLoginTime(long loginTime) {
-		sharedPrefer.setValue(Constant.LAST_LOGIN_TIME, loginTime);
+		sharedPreferdata.setValue(Constant.LAST_LOGIN_TIME, loginTime);
 	}
 
 	// 是否登录信息已过期
 	public boolean isLoginExpire() {
 		long currentTime = Calendar.getInstance().getTimeInMillis();// 当前时间
-		long loginLoginTime = sharedPrefer.getValue(Constant.LAST_LOGIN_TIME,
-				currentTime);
+		long loginLoginTime = sharedPreferdata.getValue(
+				Constant.LAST_LOGIN_TIME, currentTime);
 		if (currentTime - loginLoginTime > Constant.LOGIN_EXPIRE) {
 			return true;
 		}
 		return false;
 	}
 
+	public boolean isPushOpen() {
+		return sharedPreferuser.getValue(Constant.ISOPEN, true);
+	}
+
+	public void setPushOpen(boolean isOpen) {
+		sharedPreferuser.setValue(Constant.ISOPEN, isOpen);
+	}
+
+	public boolean isFirst() {
+		return sharedPreferuser.getValue(Constant.ISFIRST, false);
+	}
+
+	public void setFisrt(boolean isFirst) {
+		sharedPreferuser.setValue(Constant.ISFIRST, isFirst);
+	}
+
 	public void saveLoginUserInfo(LoginUserBean userBean) {
-		sharedPrefer.setValue(Constant.ACCOUNT, userBean.getPhone());
-		sharedPrefer.setValue(Constant.USERTYPE, userBean.getUsertype());
-		sharedPrefer.setValue(Constant.USERNAME, userBean.getUsername());
-		sharedPrefer.setValue(Constant.USERIMAGE_ID, userBean.getImageid());
-		sharedPrefer.setValue(Constant.USER_ID, userBean.get_id());
-		sharedPrefer.setValue(Constant.PASSWORD, userBean.getPass());
+		sharedPreferuser.setValue(Constant.ACCOUNT, userBean.getPhone());
+		sharedPreferuser.setValue(Constant.USERTYPE, userBean.getUsertype());
+		sharedPreferuser.setValue(Constant.USERNAME, userBean.getUsername());
+		sharedPreferuser.setValue(Constant.USERIMAGE_ID, userBean.getImageid());
+		sharedPreferuser.setValue(Constant.USER_ID, userBean.get_id());
+		sharedPreferuser.setValue(Constant.PASSWORD, userBean.getPass());
+	}
+
+	public void setUserName(String userName) {
+		sharedPreferuser.setValue(Constant.USERNAME, userName);
 	}
 
 	public String getPassword() {
-		return sharedPrefer.getValue(Constant.PASSWORD, null);
+		return sharedPreferuser.getValue(Constant.PASSWORD, null);
 	}
 
 	public String getAccount() {
-		return sharedPrefer.getValue(Constant.ACCOUNT, null);
+		return sharedPreferuser.getValue(Constant.ACCOUNT, null);
 	}
 
 	public String getUserType() {
-		String userType = sharedPrefer.getValue(Constant.USERTYPE, "1");
+		String userType = sharedPreferuser.getValue(Constant.USERTYPE, "1");
 		return userType;
 	}
 
 	public String getUserId() {
-		return sharedPrefer.getValue(Constant.USER_ID, null);
+		return sharedPreferuser.getValue(Constant.USER_ID, null);
 	}
 
 	public String getUserName() {
-		String userName = sharedPrefer.getValue(Constant.USERNAME, null);
+		String userName = sharedPreferuser.getValue(Constant.USERNAME, null);
 		if (userName == null) {
 			if (getUserType().equals(Constant.IDENTITY_OWNER)) {
 				return context.getString(R.string.ower);
@@ -296,7 +320,7 @@ public class DataManagerNew {
 
 	public String getUserImagePath() {
 		String userImagePath = null;
-		String imageId = sharedPrefer.getValue(Constant.USERIMAGE_ID, null);
+		String imageId = sharedPreferuser.getValue(Constant.USERIMAGE_ID, null);
 		if (imageId == null) {
 			if (getUserType().equals(Constant.IDENTITY_OWNER)) {
 				userImagePath = Constant.DEFALUT_OWNER_PIC;
@@ -313,9 +337,10 @@ public class DataManagerNew {
 		processLists = null;
 		myOwnerInfo = null;
 		myDesignerInfo = null;
-		designerInfo = null;
 		ownerInfo = null;
-		processInfo = null;
+		designerInfo = null;
+		processMap.clear();
+		sharedPreferdata.clear();
 	}
 
 }

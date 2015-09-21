@@ -1,10 +1,13 @@
 package com.jianfanjia.cn.db;
 
+import java.sql.SQLException;
 import android.content.Context;
-import com.css.cn.util.MyDBHelper;
-import com.jianfanjia.cn.bean.NotifyCaiGouInfo;
-import com.jianfanjia.cn.bean.NotifyDelayInfo;
-import com.jianfanjia.cn.bean.NotifyPayInfo;
+import android.database.sqlite.SQLiteDatabase;
+import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
+import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.support.ConnectionSource;
+import com.j256.ormlite.table.TableUtils;
+import com.jianfanjia.cn.bean.NotifyMessage;
 
 /**
  * 
@@ -14,13 +17,54 @@ import com.jianfanjia.cn.bean.NotifyPayInfo;
  * @date 2015-8-18 下午3:09:13
  * 
  */
-public class DBHelper extends MyDBHelper {
+public class DBHelper extends OrmLiteSqliteOpenHelper {
 	private static final String DBNAME = "JIANFANJIA.db";
 	private static final int DBVERSION = 1;
-	private static final Class<?>[] clazz = { NotifyCaiGouInfo.class,
-			NotifyPayInfo.class, NotifyDelayInfo.class };
+	private Dao<NotifyMessage, Integer> dao;
 
 	public DBHelper(Context context) {
-		super(context, DBNAME, null, DBVERSION, clazz);
+		super(context, DBNAME, null, DBVERSION);
+	}
+
+	@Override
+	public void onCreate(SQLiteDatabase db, ConnectionSource connectionSource) {
+		try {
+			TableUtils.createTable(connectionSource, NotifyMessage.class);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void onUpgrade(SQLiteDatabase db, ConnectionSource connectionSource,
+			int arg2, int arg3) {
+		try {
+			TableUtils.dropTable(connectionSource, NotifyMessage.class, true);
+			onCreate(db, connectionSource);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void close() {
+		super.close();
+		dao = null;
+	}
+
+	/**
+	 * 获取Dao操作类
+	 * 
+	 * @return
+	 */
+	public Dao<NotifyMessage, Integer> getHelperDao() {
+		if (dao == null) {
+			try {
+				dao = getDao(NotifyMessage.class);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return dao;
 	}
 }

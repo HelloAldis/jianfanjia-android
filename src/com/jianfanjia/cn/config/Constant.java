@@ -12,7 +12,8 @@ import com.jianfanjia.cn.activity.R;
  * 
  */
 public class Constant {
-	public static final String SHARED_MAIN = "jianfanjia";
+	public static final String SHARED_DATA = "jianfanjia_data";
+	public static final String SHARED_USER = "jianfanjia_user";
 	public static final String LOG_PATH = Environment
 			.getExternalStorageDirectory() + "/JianFanJia/MyLog/mylog.txt";// log存放路径
 	public static final String APK_PATH = Environment
@@ -66,6 +67,7 @@ public class Constant {
 	public static final String USERIMAGE_ID = "userimageid";// 用户头像id
 	public static final String USER_ID = "userid";// 用户id
 	public static final String USER_IS_LOGIN = "user_is_login";// 用户是否登录
+	public static final String USERINFO_UPDATE = "userinfo_is update";// 用户信息是否更新
 
 	public static final String FINAL_DESIGNER_ID = "final_designerid";// 业主的设计师id
 	public static final String FINAL_OWNER_ID = "final_owner_id";// 业主id
@@ -83,9 +85,9 @@ public class Constant {
 	public static final int NotificationID = 1;
 
 	// 提醒类型
+	public static final String YANQI_NOTIFY = "0";// 延期提醒
 	public static final String CAIGOU_NOTIFY = "1";// 采购提醒
 	public static final String FUKUAN_NOTIFY = "2";// 付款提醒
-	public static final String YANQI_NOTIFY = "3";// 延期提醒
 
 	public static final int NOT_START = 0;// 未开工
 	public static final int WORKING = 1;// 正在进行中
@@ -122,5 +124,8 @@ public class Constant {
 	public static final long LOGIN_EXPIRE = 24 * 60 * 60 * 1000L;// 登录过期时间为24小时
 
 	public static final String DOWNLOAD_URL = "download_url";// 下载链接
+
+	public static final String INTENT_ACTION_USERINFO_CHANGE = "INTENT_ACTION_USERINFO_CHANGE";// 用户修改个人信息
+	public static final String INTENT_ACTION_USER_IMAGE_CHANGE = "INTENT_ACTION_USER_IMAGE_CHANGE";// 用户修改头像
 
 }
