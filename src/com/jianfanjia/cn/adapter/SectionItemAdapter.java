@@ -40,7 +40,7 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 		super(context, sectionItemInfos);
 		userType = dataManager.getUserType();
 	}
-	
+
 	public SectionItemAdapter(Context context,
 			List<SectionItemInfo> sectionItemInfos, ItemClickCallBack callBack) {
 		super(context, sectionItemInfos);
@@ -64,29 +64,17 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 
 	@Override
 	public int getItemViewType(int position) {
-		// if (isHasCheck(section)) {
 		if (position == 0) {
 			return CHECK_VIEW;
 		} else {
 			return SECTION_ITME_VIEW;
 		}
-		// } else {
-		// return SECTION_ITME_VIEW;
-		// }
 	}
 
 	@Override
 	public int getViewTypeCount() {
 		return VIEW_TYPE;
 	}
-
-	// private boolean isHasCheck(String section) {
-	// if (!section.equals("kai_gong") && !section.equals("chai_gai")
-	// && !section.equals("jun_gong")) {
-	// return true;
-	// }
-	// return false;
-	// }
 
 	@Override
 	public View initView(final int position, View convertView) {
