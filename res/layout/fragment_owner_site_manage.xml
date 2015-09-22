@@ -102,8 +102,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
                 android:background="#ffffff"
-                android:fadingEdge="none"
-                android:paddingRight="20dp" />
+                android:fadingEdge="none" />
 
             <FrameLayout
                 android:layout_width="match_parent"

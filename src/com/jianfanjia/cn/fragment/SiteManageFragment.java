@@ -36,7 +36,6 @@ import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.OwnerSiteActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.ShowPicActivity;
-import com.jianfanjia.cn.adapter.InfinitePagerAdapter;
 import com.jianfanjia.cn.adapter.MyViewPageAdapter;
 import com.jianfanjia.cn.adapter.SectionItemAdapterBack;
 import com.jianfanjia.cn.adapter.ViewPageAdapter;
@@ -81,6 +80,7 @@ public class SiteManageFragment extends BaseFragment implements
 		LoadDataListener {
 	private static final String TAG = SiteManageFragment.class.getName();
 	private PullToRefreshScrollView mPullRefreshScrollView = null;
+	private static final int TOTAL_PROCESS = 7;// 7µÀ¹¤Ðò
 	private List<SectionInfo> sectionInfos;
 	private SectionInfo sectionInfo = null;
 	private ProcessInfo processInfo = null;
@@ -94,11 +94,10 @@ public class SiteManageFragment extends BaseFragment implements
 	private ViewPager processViewPager = null;
 	private ListView detailNodeListView = null;
 	private SectionItemAdapterBack sectionItemAdapter = null;
-	private InfinitePagerAdapter infinitePagerAdapter = null;
 	private MyViewPageAdapter myViewPageAdapter = null;
 	private String[] checkSection = null;
 	private String[] proTitle = null;
-	private List<ViewPagerItem> list = new ArrayList<ViewPagerItem>();
+	private List<ViewPagerItem> processList = new ArrayList<ViewPagerItem>();
 
 	private TextView titleCenter = null;
 	private TextView titleRight = null;
@@ -140,6 +139,7 @@ public class SiteManageFragment extends BaseFragment implements
 		if (savedInstanceState != null) {
 			currentList = savedInstanceState.getInt(Constant.CURRENT_LIST, -1);
 		}
+		initProcessInfo();
 	}
 
 	private void initProcessInfo() {
@@ -197,7 +197,6 @@ public class SiteManageFragment extends BaseFragment implements
 		initBannerView(view);
 		initScrollLayout(view);
 		initListView(view);
-		initProcessInfo();
 		if (processInfo != null) {
 			initData();
 		} else {
@@ -282,7 +281,7 @@ public class SiteManageFragment extends BaseFragment implements
 			layoutParams.bottomMargin = 10;
 			group.addView(imageView, layoutParams);
 		}
-		ViewPageAdapter pageAdapter = new ViewPageAdapter(getActivity(),
+		ViewPageAdapter bannerAdapter = new ViewPageAdapter(getActivity(),
 				bannerList);
 		bannerViewPager.setOnPageChangeListener(new OnPageChangeListener() {
 			@Override
@@ -302,7 +301,7 @@ public class SiteManageFragment extends BaseFragment implements
 				setImageBackground(arg0 % bannerList.size());
 			}
 		});
-		bannerViewPager.setAdapter(pageAdapter);
+		bannerViewPager.setAdapter(bannerAdapter);
 		bannerViewPager.setCurrentItem(0);
 		bannerhandler.sendEmptyMessageDelayed(CHANGE_PHOTO, CHANGE_TIME);
 	}
@@ -331,9 +330,19 @@ public class SiteManageFragment extends BaseFragment implements
 					MyApplication.getInstance().getPackageName()));
 			viewPagerItem.setTitle(proTitle[i]);
 			viewPagerItem.setDate("");
-			list.add(viewPagerItem);
+			processList.add(viewPagerItem);
 		}
-		myViewPageAdapter = new MyViewPageAdapter(getActivity(), list,
+		for (int i = 0; i < 3; i++) {
+			ViewPagerItem viewPagerItem = new ViewPagerItem();
+			viewPagerItem.setResId(getResources().getIdentifier(
+					"icon_home_normal" + (i + 1), "drawable",
+					MyApplication.getInstance().getPackageName()));
+			viewPagerItem.setTitle("");
+			viewPagerItem.setDate("");
+			processList.add(viewPagerItem);
+		}
+		// --------------------------
+		myViewPageAdapter = new MyViewPageAdapter(getActivity(), processList,
 				new ViewPagerClickListener() {
 
 					@Override
@@ -342,8 +351,7 @@ public class SiteManageFragment extends BaseFragment implements
 					}
 
 				});
-		infinitePagerAdapter = new InfinitePagerAdapter(myViewPageAdapter);
-		processViewPager.setAdapter(infinitePagerAdapter);
+		processViewPager.setAdapter(myViewPageAdapter);
 		processViewPager.setOnPageChangeListener(new OnPageChangeListener() {
 			@Override
 			public void onPageScrollStateChanged(int arg0) {
@@ -360,16 +368,16 @@ public class SiteManageFragment extends BaseFragment implements
 			@Override
 			public void onPageSelected(int arg0) {
 				if (sectionInfos != null) {
-					if (currentList != arg0 % 7) {
-						currentList = arg0 % 7;
+					if (arg0 < TOTAL_PROCESS) {
+						currentList = arg0;
 						sectionInfo = sectionInfos.get(currentList);
+						Log.i(TAG, "sectionInfo---->" + sectionInfo.getName());
 						sectionItemAdapter.setPosition(currentList);
 						sectionItemAdapter.clearCurrentPosition();
 						sectionItemAdapter.notifyDataSetChanged();
 					}
 				}
 			}
-
 		});
 	}
 
@@ -402,7 +410,7 @@ public class SiteManageFragment extends BaseFragment implements
 					viewPagerItem.setResId(drawableId);
 				}
 			}
-			infinitePagerAdapter.notifyDataSetChanged();
+			myViewPageAdapter.notifyDataSetChanged();
 		}
 	}
 
