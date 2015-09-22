@@ -171,8 +171,6 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 										.getUserName()) {
 							dataManager.setUserName(designerUpdateInfo
 									.getUsername());
-							sendBroadcast(new Intent(
-									Constant.INTENT_ACTION_USERINFO_CHANGE));
 						}
 						updateUpdateInfo();
 						dataManager.setDesignerInfo(designerInfo);
