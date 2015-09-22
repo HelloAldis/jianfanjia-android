@@ -1,5 +1,6 @@
 package com.jianfanjia.cn.activity;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import android.content.Intent;
@@ -20,6 +21,7 @@ import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.UploadImageListener;
 import com.jianfanjia.cn.interf.UploadListener;
+import com.jianfanjia.cn.tools.FileUtil;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.PhotoUtils;
 
@@ -44,6 +46,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 	private List<GridItem> gridList = new ArrayList<GridItem>();
 	private int currentList;// 当前的工序
 	private View view = null;
+	private File mTmpFile = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -132,13 +135,16 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 	@Override
 	public void takecamera() {
 		Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		mTmpFile = FileUtil.createTmpFile(CheckActivity.this);
+		cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mTmpFile));
 		startActivityForResult(cameraIntent, Constant.REQUESTCODE_CAMERA);
 	}
 
 	@Override
 	public void takePhoto() {
 		Intent albumIntent = new Intent(Intent.ACTION_GET_CONTENT);
-		albumIntent.setType("image/*");
+		albumIntent.setDataAndType(
+				MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
 		startActivityForResult(albumIntent, Constant.REQUESTCODE_LOCATION);
 	}
 
@@ -147,12 +153,11 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 		super.onActivityResult(requestCode, resultCode, data);
 		switch (requestCode) {
 		case Constant.REQUESTCODE_CAMERA:// 拍照
-			LogTool.d(TAG, "data:" + data);
-			if (data != null) {
-				Uri mImageUri = data.getData();
-				LogTool.d(TAG, "mImageUri:" + mImageUri);
-				if (mImageUri != null) {
-					startPhotoZoom(mImageUri);
+			if (mTmpFile != null) {
+				Uri uri = Uri.fromFile(mTmpFile);
+				LogTool.d(TAG, "uri:" + uri);
+				if (null != uri) {
+					startPhotoZoom(uri);
 				}
 			}
 			break;
@@ -215,8 +220,8 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 		intent.putExtra("aspectX", 1);
 		intent.putExtra("aspectY", 1);
 		// outputX outputY 是裁剪图片宽高
-		intent.putExtra("outputX", 150);
-		intent.putExtra("outputY", 150);
+		intent.putExtra("outputX", 300);
+		intent.putExtra("outputY", 300);
 		intent.putExtra("return-data", true);
 		startActivityForResult(intent, Constant.REQUESTCODE_CROP);
 	}

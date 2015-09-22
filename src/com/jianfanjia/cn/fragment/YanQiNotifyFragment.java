@@ -3,12 +3,10 @@ package com.jianfanjia.cn.fragment;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
-
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.DelayNotifyAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
@@ -35,7 +33,6 @@ public class YanQiNotifyFragment extends BaseFragment implements
 	@Override
 	public void initView(View view) {
 		yanqiListView = (ListView) view.findViewById(R.id.tip_delay__listview);
-		delayAdapter = new DelayNotifyAdapter(getActivity(), delayList);
 		yanqiListView.setAdapter(delayAdapter);
 	}
 
@@ -56,6 +53,7 @@ public class YanQiNotifyFragment extends BaseFragment implements
 		try {
 			delayList = daoManager.listByType(Constant.YANQI_NOTIFY);
 			LogTool.d(this.getClass().getName(), "delayList:" + delayList);
+			delayAdapter = new DelayNotifyAdapter(getActivity(), delayList);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
