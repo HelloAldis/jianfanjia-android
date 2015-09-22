@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.NotifyMessage;
+import com.jianfanjia.cn.tools.DateFormatTool;
 
 /**
  * @class CaiGouNotifyAdapter.clase
@@ -24,7 +25,7 @@ public class PayNotifyAdapter extends BaseListAdapter<NotifyMessage> {
 	@Override
 	public View initView(int position, View convertView) {
 		ViewHolder viewHolder = null;
-		NotifyMessage messgae = list.get(position);
+		NotifyMessage message = list.get(position);
 		if (convertView == null) {
 			convertView = layoutInflater.inflate(R.layout.list_item_tip_pay,
 					null);
@@ -40,8 +41,9 @@ public class PayNotifyAdapter extends BaseListAdapter<NotifyMessage> {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
 		viewHolder.itemNameView.setText("");
-		viewHolder.itemNodeView.setText(messgae.getSection());
-		viewHolder.itemPubTimeView.setText(messgae.getTime());
+		viewHolder.itemNodeView.setText(message.getSection());
+		viewHolder.itemPubTimeView.setText(DateFormatTool
+				.toLocalTimeString(message.getTime()));
 		return convertView;
 	}
 
