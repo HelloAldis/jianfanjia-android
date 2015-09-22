@@ -261,7 +261,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 		makeTextLong(getString(R.string.tip_no_internet));
 	}
 
-	//设置错误视图
+	// 设置错误视图
 	protected void setErrorView() {
 		// TODO Auto-generated method stub
 	}
