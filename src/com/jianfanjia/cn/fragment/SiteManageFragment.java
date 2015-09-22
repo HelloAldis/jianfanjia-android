@@ -243,6 +243,7 @@ public class SiteManageFragment extends BaseFragment implements
 	@Override
 	public void onResume() {
 		super.onResume();
+		imageLoader.displayImage(mUserImageId, titleImage, options);
 		processViewPager.setCurrentItem(currentList);
 		if (sectionItemAdapter != null) {
 			sectionItemAdapter.notifyDataSetChanged();
