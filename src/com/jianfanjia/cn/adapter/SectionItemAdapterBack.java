@@ -324,14 +324,22 @@ public class SectionItemAdapterBack extends BaseAdapter {
 
 						@Override
 						public void onClick(View v) {
-							callBack.click(position, Constant.CONFIRM_ITEM);
+							if(isHasCheck){
+								callBack.click(position - 1, Constant.CONFIRM_ITEM);
+							}else{
+								callBack.click(position, Constant.CONFIRM_ITEM);
+							}
 						}
 					});
 			viewHolder.openComment.setOnClickListener(new OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
-					callBack.click(position, Constant.COMMENT_ITEM);
+					if(isHasCheck){
+						callBack.click(position - 1, Constant.COMMENT_ITEM);
+					}else{
+						callBack.click(position, Constant.COMMENT_ITEM);
+					}
 				}
 			});
 
@@ -344,11 +352,9 @@ public class SectionItemAdapterBack extends BaseAdapter {
 				if (sectionItemInfo1.isOpen()) {
 					viewHolderf.bigOpenLayout.setVisibility(View.VISIBLE);
 					viewHolderf.smallcloseLayout.setVisibility(View.GONE);
-					isPos = true;
 				} else {
 					viewHolderf.bigOpenLayout.setVisibility(View.GONE);
 					viewHolderf.smallcloseLayout.setVisibility(View.VISIBLE);
-					isPos = false;
 				}
 			} else {
 				viewHolderf.bigOpenLayout.setVisibility(View.GONE);

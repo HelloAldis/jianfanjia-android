@@ -133,8 +133,8 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 		decorateBudgetView.setText(processInfo.getTotal_price());
 		startDateView.setText(DateFormatTool.covertLongToString(
 				processInfo.getStart_at(), "yyyy-MM-dd"));
-		totalDateView.setText(processInfo.getDuration());
 		startDateGoto.setVisibility(View.GONE);
+		totalDateView.setText(processInfo.getDuration());
 		confirmView.setEnabled(false);
 		startDateLayout.setEnabled(false);
 		totalDateLayout.setEnabled(false);
