@@ -34,9 +34,9 @@ import com.jianfanjia.cn.view.MainHeadView;
 public class OwnerInfoActivity extends BaseActivity implements OnClickListener {
 	private static final String TAG = OwnerInfoActivity.class.getName();
 
-	private RelativeLayout contentLayout;//内容视图
-	private View errorView;//错误视图
-	private MainHeadView mainHeadView;//头视图
+	private RelativeLayout contentLayout;// 内容视图
+	private View errorView;// 错误视图
+	private MainHeadView mainHeadView;// 头视图
 	private ImageView bgView;
 	private ImageView ownerHeadView = null;// 用户头像视图
 	private ImageView ownerSexView = null;// 用户性别视图
