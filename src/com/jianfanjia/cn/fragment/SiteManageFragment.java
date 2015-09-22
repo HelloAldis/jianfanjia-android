@@ -43,6 +43,7 @@ import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.SectionInfo;
+import com.jianfanjia.cn.bean.SectionItemInfo;
 import com.jianfanjia.cn.bean.ViewPagerItem;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
@@ -416,18 +417,20 @@ public class SiteManageFragment extends BaseFragment implements
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
+				List<SectionItemInfo> itemList = sectionInfo.getItems();
+				LogTool.d(TAG, "itemList==" + itemList);
 				if (!sectionInfo.getName().equals("kai_gong")
 						&& !sectionInfo.getName().equals("chai_gai")) {
-					if (position == 0) {
-						processInfoName = sectionInfo.getItems().get(position)
-								.getName();
-					} else {
-						processInfoName = sectionInfo.getItems()
-								.get(position - 1).getName();
+					if (null != itemList && itemList.size() > 0) {
+						if (position == 0) {
+							processInfoName = itemList.get(position).getName();
+						} else {
+							processInfoName = itemList.get(position - 1)
+									.getName();
+						}
 					}
 				} else {
-					processInfoName = sectionInfo.getItems().get(position)
-							.getName();
+					processInfoName = itemList.get(position).getName();
 				}
 				LogTool.d(TAG, "position=" + position + "  processInfoName="
 						+ processInfoName);
