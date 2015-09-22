@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="@color/main_layout_bg" >
 
     <ImageView
         android:id="@+id/owner_detail_bg"
@@ -10,31 +11,12 @@
         android:background="@drawable/bg_loading_720"
         android:contentDescription="@null"
         android:scaleType="fitXY"
-        />
-
-    <RelativeLayout
+        android:visibility="gone" />
+    
+    <com.jianfanjia.cn.view.MainHeadView
         android:id="@+id/owner_detail_head_layout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/space_48"
-        android:background="@android:color/transparent" >
-
-        <TextView
-            android:id="@+id/owner_detail_back"
-            style="@style/site_listview_item_text_style_middle"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/space_8"
-            android:drawableLeft="@drawable/icon_register_back"
-            android:drawablePadding="4dp"
-            android:text="@string/back"
-            android:textColor="@color/back_color" />
-
-        <TextView
-            android:id="@+id/owner_detail_title"
-            style="@style/site_listview_item_text_style_title"
-            android:layout_centerInParent="true"
-            android:text="@string/owner_detail"
-            android:textColor="@color/font_white" />
-    </RelativeLayout>
+        android:layout_height="wrap_content" />
 
     <RelativeLayout
         android:id="@+id/owner_detail_content_layout"
@@ -302,5 +284,13 @@
             </LinearLayout>
         </RelativeLayout>
     </RelativeLayout>
+    
+    <include android:id="@+id/error_view"
+        layout="@layout/view_error_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/owner_detail_head_layout"
+        android:layout_marginTop="@dimen/space_8"
+        />
 
 </RelativeLayout>

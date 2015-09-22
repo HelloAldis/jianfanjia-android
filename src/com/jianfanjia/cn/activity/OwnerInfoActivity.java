@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.NotifyMessage;
@@ -20,6 +21,7 @@ import com.jianfanjia.cn.http.request.OwnerInfoRequest;
 import com.jianfanjia.cn.http.request.ProcessInfoRequest;
 import com.jianfanjia.cn.tools.DateFormatTool;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.view.MainHeadView;
 
 /**
  * 
@@ -31,7 +33,11 @@ import com.jianfanjia.cn.tools.LogTool;
  */
 public class OwnerInfoActivity extends BaseActivity implements OnClickListener {
 	private static final String TAG = OwnerInfoActivity.class.getName();
-	private TextView backView = null;// 返回视图
+
+	private RelativeLayout contentLayout;//内容视图
+	private View errorView;//错误视图
+	private MainHeadView mainHeadView;//头视图
+	private ImageView bgView;
 	private ImageView ownerHeadView = null;// 用户头像视图
 	private ImageView ownerSexView = null;// 用户性别视图
 	private TextView proStageView = null;// 工地所处阶段视图
@@ -53,19 +59,25 @@ public class OwnerInfoActivity extends BaseActivity implements OnClickListener {
 	@Override
 	public void initView() {
 		Intent intent = this.getIntent();
-		process = (Process) intent.getSerializableExtra(MyOwnerActivity.PROCESS);
-		if(process != null){
+		process = (Process) intent
+				.getSerializableExtra(MyOwnerActivity.PROCESS);
+		if (process != null) {
 			ownerInfo = process.getUser();
 			processId = process.get_id();
-			if(processId != null){
+			if (processId != null) {
 				processInfo = dataManager.getProcessInfoById(process.get_id());
 			}
 		}
+
+		initMainHead();
+		errorView = findViewById(R.id.error_view);
+		contentLayout = (RelativeLayout) findViewById(R.id.owner_detail_content_layout);
+
+		bgView = (ImageView) findViewById(R.id.owner_detail_bg);
 		ownerHeadView = (ImageView) findViewById(R.id.owner_detail_head_icon);
 		ownerSexView = (ImageView) findViewById(R.id.owner_detail_sex_icon);
 		proStageView = (TextView) findViewById(R.id.pro_stage);
 		ownerNameView = (TextView) findViewById(R.id.owner_detail_name);
-		backView = (TextView) findViewById(R.id.owner_detail_back);
 		cityView = (TextView) findViewById(R.id.my_site_city);
 		villageNameView = (TextView) findViewById(R.id.my_site_villagename);
 		houseStyleView = (TextView) findViewById(R.id.my_site_housestyle);
@@ -88,18 +100,44 @@ public class OwnerInfoActivity extends BaseActivity implements OnClickListener {
 				ownerNameView.setText(getString(R.string.ower));
 			}
 		}
-		
+
 		LogTool.d(TAG, "processInfo:" + processInfo);
 		if (null != processInfo) {
 			setData();
 		} else {
-			LoadClientHelper.requestProcessInfoById(this,new DesignerOwnerInfoRequest(
-					this, processId), this);
+			LoadClientHelper.requestProcessInfoById(this,
+					new DesignerOwnerInfoRequest(this, processId), this);
 		}
 
 	}
 
+	// 有数据就改变展示的样式
+	private void setViewChange() {
+		mainHeadView.setBackgroundTransparent();
+		mainHeadView.setMainTextColor(getResources().getColor(
+				R.color.font_white));
+		mainHeadView.setDividerVisable(View.GONE);
+		contentLayout.setVisibility(View.VISIBLE);
+		bgView.setVisibility(View.VISIBLE);
+		errorView.setVisibility(View.GONE);
+	}
+
+	@Override
+	public void setErrorView() {
+		((TextView) errorView.findViewById(R.id.tv_error)).setText("暂无业主详情数据");
+	}
+
+	private void initMainHead() {
+		mainHeadView = (MainHeadView) findViewById(R.id.owner_detail_head_layout);
+		mainHeadView.setBackListener(this);
+		mainHeadView.setMianTitle(getResources()
+				.getString(R.string.my_designer));
+
+	}
+
 	private void setData() {
+		setViewChange();
+
 		String city = processInfo.getProvince() + processInfo.getCity()
 				+ processInfo.getDistrict();
 		cityView.setText(city);
@@ -133,13 +171,12 @@ public class OwnerInfoActivity extends BaseActivity implements OnClickListener {
 
 	@Override
 	public void setListener() {
-		backView.setOnClickListener(this);
 	}
 
 	@Override
 	public void onClick(View view) {
 		switch (view.getId()) {
-		case R.id.owner_detail_back:
+		case R.id.head_back_layout:
 			finish();
 			break;
 		default:

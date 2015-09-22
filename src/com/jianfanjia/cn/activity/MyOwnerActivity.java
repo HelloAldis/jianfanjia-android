@@ -7,8 +7,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import android.content.Intent;
 import android.view.View;
+import android.view.ViewStub;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import com.google.gson.reflect.TypeToken;
@@ -41,6 +43,7 @@ public class MyOwnerActivity extends BaseActivity implements OnClickListener,
 	public static final String PROCESS = "process";
 	private ListView ownerListView = null;
 	private List<Process> ownerList;
+	private TextView errorText;
 	private MyOwerInfoAdapter myOwerInfoAdapter = null;
 	private MainHeadView mainHeadView = null;
 
@@ -50,14 +53,21 @@ public class MyOwnerActivity extends BaseActivity implements OnClickListener,
 		ownerListView = (ListView) findViewById(R.id.my_ower_listview);
 //		get_Designer_Owner();
 		ownerList = dataManager.getProcessLists();
-		if (ownerList != null) {
-			myOwerInfoAdapter = new MyOwerInfoAdapter(
-					MyOwnerActivity.this, ownerList);
-			ownerListView.setAdapter(myOwerInfoAdapter);
-		} else {
+		if(ownerList == null){
 			LoadClientHelper.requestProcessList(this, new ProcessListRequest(
 					this), this);
 		}
+		myOwerInfoAdapter = new MyOwerInfoAdapter(
+					MyOwnerActivity.this, ownerList);
+		ownerListView.setAdapter(myOwerInfoAdapter);
+		setEmptyView();
+	}
+	
+	private void setEmptyView() {
+		ViewStub mViewStub = (ViewStub)findViewById(R.id.empty);
+		errorText = (TextView)mViewStub.inflate().findViewById(R.id.tv_error);
+		errorText.setText("暂无业主数据");
+		ownerListView.setEmptyView(mViewStub);		
 	}
 
 	private void initMainHeadView() {
@@ -88,13 +98,8 @@ public class MyOwnerActivity extends BaseActivity implements OnClickListener,
 	public void loadSuccess() {
 		super.loadSuccess();
 		ownerList = dataManager.getProcessLists();
-		if (ownerList != null) {
-			myOwerInfoAdapter = new MyOwerInfoAdapter(
-					MyOwnerActivity.this, ownerList);
-			ownerListView.setAdapter(myOwerInfoAdapter);
-		} else {
-			// load empty
-		}
+		myOwerInfoAdapter.setList(ownerList);
+		myOwerInfoAdapter.notifyDataSetChanged();
 	}
 
 	@Override

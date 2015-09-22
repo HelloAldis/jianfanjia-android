@@ -6,9 +6,12 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewStub;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.TextView;
+
 import com.jianfanjia.cn.adapter.DesignerSiteInfoAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.NotifyMessage;
@@ -34,6 +37,7 @@ public class DesignerSiteActivity extends BaseActivity implements
 	private MainHeadView mainHeadView = null;
 	private ListView siteListView = null;
 	private List<Process> siteList;
+	private TextView errorText;
 	private DesignerSiteInfoAdapter designerSiteInfoAdapter = null;
 
 	@Override
@@ -41,14 +45,21 @@ public class DesignerSiteActivity extends BaseActivity implements
 		initMainHeadView();
 		siteListView = (ListView) findViewById(R.id.designer_site_listview);
 		siteList = dataManager.getProcessLists();
-		if (siteList != null) {
-			designerSiteInfoAdapter = new DesignerSiteInfoAdapter(
-					DesignerSiteActivity.this, siteList);
-			siteListView.setAdapter(designerSiteInfoAdapter);
-		} else {
+		if (siteList == null) {
 			LoadClientHelper.requestProcessList(this, new ProcessListRequest(
 					this), this);
 		}
+		designerSiteInfoAdapter = new DesignerSiteInfoAdapter(
+				DesignerSiteActivity.this, siteList);
+		siteListView.setAdapter(designerSiteInfoAdapter);
+		setEmptyView();
+	}
+
+	private void setEmptyView() {
+		ViewStub mViewStub = (ViewStub)findViewById(R.id.empty);
+		errorText = (TextView)mViewStub.inflate().findViewById(R.id.tv_error);
+		errorText.setText("暂无工地数据");
+		siteListView.setEmptyView(mViewStub);		
 	}
 
 	@SuppressLint("ResourceAsColor")
@@ -93,13 +104,8 @@ public class DesignerSiteActivity extends BaseActivity implements
 	public void loadSuccess() {
 		super.loadSuccess();
 		siteList = dataManager.getProcessLists();
-		if (siteList != null) {
-			designerSiteInfoAdapter = new DesignerSiteInfoAdapter(
-					DesignerSiteActivity.this, siteList);
-			siteListView.setAdapter(designerSiteInfoAdapter);
-		} else {
-			// load empty
-		}
+		designerSiteInfoAdapter.setList(siteList);
+		designerSiteInfoAdapter.notifyDataSetChanged();
 	}
 
 	@Override
