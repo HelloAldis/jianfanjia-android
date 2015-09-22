@@ -29,7 +29,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
-
 import com.jianfanjia.cn.activity.CheckActivity;
 import com.jianfanjia.cn.activity.CommentActivity;
 import com.jianfanjia.cn.activity.DesignerSiteActivity;
@@ -761,7 +760,6 @@ public class SiteManageFragment extends BaseFragment implements
 			}
 			break;
 		case Constant.REQUESTCODE_CHANGE_SITE:
-			LogTool.d(TAG, "22222222222222222222222222222222222222222");
 			if (((MainActivity) getActivity()).getSlidingPaneLayout().isOpen()) {
 				((MainActivity) getActivity()).getSlidingPaneLayout()
 						.closePane();
