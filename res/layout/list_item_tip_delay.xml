@@ -15,7 +15,7 @@
         <TextView
             android:id="@+id/list_item_tip_delay_name"
             style="@style/site_listview_item_text_style_small"
-            android:text="@string/list_item_comment_pubtime_example"
+            android:text="@string/list_item_yanqi_example"
             android:textColor="@color/main_color_black" />
 
         <TextView
@@ -24,7 +24,7 @@
             android:layout_alignParentRight="true"
             android:text="@string/list_item_comment_pubtime_example"
             android:textColor="@color/main_color_red" />
-        
+
         <TextView
             android:id="@+id/list_item_tip_delay_content"
             style="@style/site_listview_item_text_style_middle"
@@ -33,7 +33,6 @@
             android:layout_marginTop="@dimen/space_16"
             android:text="@string/my_site_villagename_example"
             android:textColor="@color/main_color_orange" />
-        
 
         <TextView
             android:id="@+id/list_item_tip_delay_node"
