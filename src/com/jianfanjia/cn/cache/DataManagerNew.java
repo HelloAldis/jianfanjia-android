@@ -20,7 +20,6 @@ import com.jianfanjia.cn.bean.SectionInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url;
 import com.jianfanjia.cn.tools.JsonParser;
-import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.NetTool;
 import com.jianfanjia.cn.tools.SharedPrefer;
 
@@ -341,7 +340,6 @@ public class DataManagerNew {
 	public String getUserImagePath() {
 		String userImagePath = null;
 		String imageId = sharedPreferuser.getValue(Constant.USERIMAGE_ID, null);
-		LogTool.d(TAG, "imageId:" + imageId);
 		if (imageId == null) {
 			if (getUserType().equals(Constant.IDENTITY_OWNER)) {
 				userImagePath = Constant.DEFALUT_OWNER_PIC;
@@ -351,7 +349,6 @@ public class DataManagerNew {
 		} else {
 			userImagePath = Url.GET_IMAGE + imageId;
 		}
-		LogTool.d(TAG, "userImagePath:" + userImagePath);
 		return userImagePath;
 	}
 
