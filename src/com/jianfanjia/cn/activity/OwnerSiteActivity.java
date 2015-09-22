@@ -257,7 +257,12 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 		// TODO Auto-generated method stub
 		super.loadSuccess();
 		makeTextLong("≈‰÷√≥…π¶");
-		confirmView.setEnabled(false);
+		processInfo = dataManager.getDefaultProcessInfo();
+		if(processInfo != null){
+			initData();
+		}else{
+			//loadempty
+		}
 		Intent intent = new Intent();
 		intent.putExtra("Key", "1");
 		setResult(Constant.REQUESTCODE_CONFIG_SITE, intent);

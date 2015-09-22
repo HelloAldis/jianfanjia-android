@@ -4,7 +4,6 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import android.content.Context;
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.R;
@@ -21,6 +20,7 @@ import com.jianfanjia.cn.bean.SectionInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url;
 import com.jianfanjia.cn.tools.JsonParser;
+import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.NetTool;
 import com.jianfanjia.cn.tools.SharedPrefer;
 
@@ -39,8 +39,9 @@ public class DataManagerNew {
 	private MyDesignerInfo myDesignerInfo;// 我的设计师信息
 	private OwnerInfo ownerInfo;// 业主的个人信息
 	private DesignerInfo designerInfo;// 设计师的个人信息
-	private String totalDuration;//总工期
-	private RequirementInfo requirementInfo;//需求信息
+	private String totalDuration;// 总工期
+	private RequirementInfo requirementInfo;// 需求信息
+	private ProcessInfo currentProcessInfo;//当前工地信息
 
 	public static DataManagerNew getInstance() {
 		if (instance == null) {
@@ -54,7 +55,7 @@ public class DataManagerNew {
 		sharedPreferdata = new SharedPrefer(context, Constant.SHARED_DATA);
 		sharedPreferuser = new SharedPrefer(context, Constant.SHARED_USER);
 	}
-	
+
 	public RequirementInfo getRequirementInfo() {
 		return requirementInfo;
 	}
@@ -98,16 +99,23 @@ public class DataManagerNew {
 		}
 		return ownerInfo;
 	}
+	
+	public void setCurrentProcessInfo(ProcessInfo currentProcessInfo) {
+		this.currentProcessInfo = currentProcessInfo;
+	}
 
 	public ProcessInfo getDefaultProcessInfo() {
-		String processId = getDefaultProcessId();
-		if (processId != null) {
-			return getProcessInfoById(processId);
-		} else {
-			return null;
+		if(currentProcessInfo == null){
+			String processId = getDefaultProcessId();
+			if (processId != null) {
+				return getProcessInfoById(processId);
+			} else {
+				return null;
+			}
 		}
+		return currentProcessInfo;
 	}
-	
+
 	public SectionInfo getDefaultSectionInfoByPosition(int position) {
 		ProcessInfo processInfo = getDefaultProcessInfo();
 		if (processInfo != null) {
@@ -200,13 +208,13 @@ public class DataManagerNew {
 	 */
 	public ProcessInfo getProcessInfoById(String processId) {
 		ProcessInfo processInfo = processMap.get(processId);
-		if(!NetTool.isNetworkAvailable(context) && processInfo == null){
+		if (!NetTool.isNetworkAvailable(context) && processInfo == null) {
 			return (ProcessInfo) sharedPreferdata.getValue(processId);
 		}
 		return processInfo;
 	}
 
-	public void setProcessInfo(ProcessInfo processInfo) {
+	public void saveProcessInfo(ProcessInfo processInfo) {
 		processMap.put(processInfo.get_id(), processInfo);
 		sharedPreferdata.setValue(processInfo.get_id(), processInfo);
 	}
@@ -259,6 +267,14 @@ public class DataManagerNew {
 		}
 		return false;
 	}
+	
+	public boolean isConfigPro(){
+		return sharedPreferdata.getValue(Constant.ISCONFIG_PROCESS, false);
+	}
+	
+	public void setConfigPro(boolean isConfig){
+		sharedPreferdata.setValue(Constant.ISCONFIG_PROCESS, isConfig);
+	}
 
 	public boolean isPushOpen() {
 		return sharedPreferuser.getValue(Constant.ISOPEN, true);
@@ -274,6 +290,10 @@ public class DataManagerNew {
 
 	public void setFisrt(boolean isFirst) {
 		sharedPreferuser.setValue(Constant.ISFIRST, isFirst);
+	}
+
+	public void setUserImagePath(String imgId) {
+		sharedPreferuser.setValue(Constant.USERIMAGE_ID, Url.GET_IMAGE + imgId);
 	}
 
 	public void saveLoginUserInfo(LoginUserBean userBean) {
@@ -321,6 +341,7 @@ public class DataManagerNew {
 	public String getUserImagePath() {
 		String userImagePath = null;
 		String imageId = sharedPreferuser.getValue(Constant.USERIMAGE_ID, null);
+		LogTool.d(TAG, "imageId:" + imageId);
 		if (imageId == null) {
 			if (getUserType().equals(Constant.IDENTITY_OWNER)) {
 				userImagePath = Constant.DEFALUT_OWNER_PIC;
@@ -330,6 +351,7 @@ public class DataManagerNew {
 		} else {
 			userImagePath = Url.GET_IMAGE + imageId;
 		}
+		LogTool.d(TAG, "userImagePath:" + userImagePath);
 		return userImagePath;
 	}
 
@@ -341,6 +363,7 @@ public class DataManagerNew {
 		designerInfo = null;
 		requirementInfo = null;
 		totalDuration = null;
+		currentProcessInfo = null;
 		processMap.clear();
 		sharedPreferdata.clear();
 	}

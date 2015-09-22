@@ -11,47 +11,20 @@ import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.tools.JsonParser;
 
-public class ProcessInfoRequest extends BaseRequest {
+public class DesignerOwnerInfoRequest extends ProcessInfoRequest {
 	
-	private String processId;
-	
-	public ProcessInfoRequest(Context context,String processId) {
-		super(context);
-		this.processId = processId;
-	}
-	
-	@Override
-	public void all() {
-		// TODO Auto-generated method stub
-		super.all();
-		
-	}
-	
-	@Override
-	public void pre() {
-		// TODO Auto-generated method stub
-		super.pre();
+	public DesignerOwnerInfoRequest(Context context,String processId) {
+		super(context,processId);
 	}
 	
 	@Override
 	public void onSuccess(BaseResponse baseResponse) {
-		super.onSuccess(baseResponse);
 		String data = baseResponse.getData().toString();
 		if(data != null){
 			ProcessInfo processInfo = JsonParser
 					.jsonToBean(data, ProcessInfo.class);
-			dataManager.setCurrentProcessInfo(processInfo);
 			dataManager.saveProcessInfo(processInfo);
 		}
 	}
-
-	public String getProcessId() {
-		return processId;
-	}
-
-	public void setProcessId(String processId) {
-		this.processId = processId;
-	}
-	
 	
 }

@@ -531,7 +531,7 @@ public class SiteManageFragment extends BaseFragment implements
 
 	@Override
 	public void loadFailture() {
-		makeTextLong("ÍøÂçÒì³£");
+		makeTextLong(getString(R.string.tip_no_internet));
 		mPullRefreshScrollView.onRefreshComplete();
 	}
 

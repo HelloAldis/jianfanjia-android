@@ -15,6 +15,7 @@ import com.jianfanjia.cn.bean.User;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url;
 import com.jianfanjia.cn.http.LoadClientHelper;
+import com.jianfanjia.cn.http.request.DesignerOwnerInfoRequest;
 import com.jianfanjia.cn.http.request.OwnerInfoRequest;
 import com.jianfanjia.cn.http.request.ProcessInfoRequest;
 import com.jianfanjia.cn.tools.DateFormatTool;
@@ -92,7 +93,7 @@ public class OwnerInfoActivity extends BaseActivity implements OnClickListener {
 		if (null != processInfo) {
 			setData();
 		} else {
-			LoadClientHelper.requestProcessInfoById(this,new ProcessInfoRequest(
+			LoadClientHelper.requestProcessInfoById(this,new DesignerOwnerInfoRequest(
 					this, processId), this);
 		}
 
