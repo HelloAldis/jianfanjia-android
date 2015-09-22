@@ -44,7 +44,6 @@ import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.SectionInfo;
-import com.jianfanjia.cn.bean.SectionItemInfo;
 import com.jianfanjia.cn.bean.ViewPagerItem;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
@@ -113,7 +112,7 @@ public class SiteManageFragment extends BaseFragment implements
 			R.drawable.bg_home_banner2, R.drawable.bg_home_banner3,
 			R.drawable.bg_home_banner4 };
 
-	private String processInfoId = null;
+	private String processInfoName = null;
 	private File mTmpFile = null;
 
 	private Handler bannerhandler = new Handler() {
@@ -245,7 +244,7 @@ public class SiteManageFragment extends BaseFragment implements
 	public void onResume() {
 		super.onResume();
 		processViewPager.setCurrentItem(currentList);
-		if(sectionItemAdapter != null){
+		if (sectionItemAdapter != null) {
 			sectionItemAdapter.notifyDataSetChanged();
 		}
 	}
@@ -414,14 +413,17 @@ public class SiteManageFragment extends BaseFragment implements
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				/*
-				 * SectionItemInfo sectionItemInfo = sectionItemInfos
-				 * .get(position); processInfoId = sectionItemInfo.getName(); if
-				 * (isOpen) { isOpen = false; } else { isOpen = true; }
-				 */
-				LogTool.d(TAG, "position=" + position);
+				if (!sectionInfo.getName().equals("kai_gong")
+						&& !sectionInfo.getName().equals("chai_gai")) {
+					processInfoName = sectionInfo.getItems().get(position - 1)
+							.getName();
+				} else {
+					processInfoName = sectionInfo.getItems().get(position)
+							.getName();
+				}
+				LogTool.d(TAG, "position=" + position + "  processInfoName="
+						+ processInfoName);
 				sectionItemAdapter.setCurrentClickItem(position);
-				// sectionItemAdapter.notifyDataSetChanged();
 			}
 		});
 
@@ -600,7 +602,7 @@ public class SiteManageFragment extends BaseFragment implements
 					public void onClick(DialogInterface dialog, int which) {
 						dialog.dismiss();
 						confirmProcessItemDone(processInfo.get_id(),
-								sectionInfo.getName(), processInfoId);
+								sectionInfo.getName(), processInfoName);
 					}
 				});
 		dialog.setNegativeButton(R.string.no, null);
@@ -712,8 +714,11 @@ public class SiteManageFragment extends BaseFragment implements
 			}
 			break;
 		case Constant.REQUESTCODE_CROP:
+			LogTool.d(TAG, "11111111111111111111111");
 			if (data != null) {
+				LogTool.d(TAG, "222222222222222222222");
 				Bundle extras = data.getExtras();
+				LogTool.d(TAG, "333333333333333333");
 				if (extras != null) {
 					// 得到返回来的数据，是bitmap类型的数据
 					Bitmap bitmap = extras.getParcelable("data");
@@ -725,7 +730,7 @@ public class SiteManageFragment extends BaseFragment implements
 					if (!TextUtils.isEmpty(imgPath)) {
 						uploadManager.uploadProcedureImage(imgPath,
 								processInfo.get_id(), sectionInfo.getName(),
-								processInfoId, this);
+								processInfoName, this);
 					}
 				}
 			}
