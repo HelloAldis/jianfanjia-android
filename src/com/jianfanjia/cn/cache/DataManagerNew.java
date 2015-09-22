@@ -41,7 +41,8 @@ public class DataManagerNew {
 	private DesignerInfo designerInfo;// 设计师的个人信息
 	private String totalDuration;// 总工期
 	private RequirementInfo requirementInfo;// 需求信息
-
+	private ProcessInfo currentProcessInfo;//当前工地信息
+	
 	public static DataManagerNew getInstance() {
 		if (instance == null) {
 			instance = new DataManagerNew();
@@ -98,14 +99,21 @@ public class DataManagerNew {
 		}
 		return ownerInfo;
 	}
+	
+	public void setCurrentProcessInfo(ProcessInfo currentProcessInfo) {
+		this.currentProcessInfo = currentProcessInfo;
+	}
 
 	public ProcessInfo getDefaultProcessInfo() {
-		String processId = getDefaultProcessId();
-		if (processId != null) {
-			return getProcessInfoById(processId);
-		} else {
-			return null;
+		if(currentProcessInfo == null){
+			String processId = getDefaultProcessId();
+			if (processId != null) {
+				return getProcessInfoById(processId);
+			} else {
+				return null;
+			}
 		}
+		return currentProcessInfo;
 	}
 
 	public SectionInfo getDefaultSectionInfoByPosition(int position) {
@@ -206,7 +214,7 @@ public class DataManagerNew {
 		return processInfo;
 	}
 
-	public void setProcessInfo(ProcessInfo processInfo) {
+	public void saveProcessInfo(ProcessInfo processInfo) {
 		processMap.put(processInfo.get_id(), processInfo);
 		sharedPreferdata.setValue(processInfo.get_id(), processInfo);
 	}
@@ -258,6 +266,14 @@ public class DataManagerNew {
 			return true;
 		}
 		return false;
+	}
+	
+	public boolean isConfigPro(){
+		return sharedPreferdata.getValue(Constant.ISCONFIG_PROCESS, false);
+	}
+	
+	public void setConfigPro(boolean isConfig){
+		sharedPreferdata.setValue(Constant.ISCONFIG_PROCESS, isConfig);
 	}
 
 	public boolean isPushOpen() {
@@ -347,6 +363,7 @@ public class DataManagerNew {
 		designerInfo = null;
 		requirementInfo = null;
 		totalDuration = null;
+		currentProcessInfo = null;
 		processMap.clear();
 		sharedPreferdata.clear();
 	}
