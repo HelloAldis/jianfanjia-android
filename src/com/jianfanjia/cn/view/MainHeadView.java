@@ -24,7 +24,7 @@ public class MainHeadView extends RelativeLayout {
 		super(context, attrs, defStyle);
 		inflater = LayoutInflater.from(context);
 		mainHead = inflater.inflate(R.layout.common_head, null);
-		mainLayout = (RelativeLayout) mainHead.findViewById(R.id.head_layout);
+		mainLayout = (RelativeLayout) mainHead.findViewById(R.id.main_head_layout);
 //		headImageView = (CircleImageView) mainLayout
 //				.findViewById(R.id.icon_head);
 		mainTitle = (TextView) mainLayout.findViewById(R.id.head_center_title);

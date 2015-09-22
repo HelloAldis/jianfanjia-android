@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.NotifyMessage;
@@ -55,6 +56,8 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 	private TextView totalDateView;// 总工期
 	private TextView confirmView;// 确认按钮
 	private ImageView startDateGoto;
+	private ScrollView scrollView;// 工地数据view
+	private View errorView;// 错误view
 
 	private RelativeLayout startDateLayout;
 	private RelativeLayout totalDateLayout;
@@ -64,6 +67,8 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 	@Override
 	public void initView() {
 		initMainHeadView();
+		scrollView = (ScrollView) findViewById(R.id.scrollview);
+		errorView = findViewById(R.id.error_view);
 		cityView = (TextView) findViewById(R.id.my_site_city);
 		villageNameView = (TextView) findViewById(R.id.my_site_villagename);
 		houseStyleView = (TextView) findViewById(R.id.my_site_housestyle);
@@ -97,9 +102,12 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 		String planId = requirementInfo.getFinal_planid();
 		if (dataManager.getTotalDuration() != null) {
 			requirementInfo.setDuration(dataManager.getTotalDuration());
+			setData();
 		} else {
 			if (!TextUtils.isEmpty(planId)) {
 				loadTotalDuration(planId);
+			} else {
+				setErrorView();
 			}
 		}
 	}
@@ -114,6 +122,8 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 
 	// 初始化数据
 	private void initData() {
+		setViewChange();
+
 		String city = processInfo.getProvince() + processInfo.getCity()
 				+ processInfo.getDistrict();
 		cityView.setText(city);
@@ -131,11 +141,23 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 		decorateBudgetView.setText(processInfo.getTotal_price());
 		startDateView.setText(DateFormatTool.covertLongToString(
 				processInfo.getStart_at(), "yyyy-MM-dd"));
-		totalDateView.setText(processInfo.getDuration());
 		startDateGoto.setVisibility(View.GONE);
+		totalDateView.setText(processInfo.getDuration());
 		confirmView.setEnabled(false);
 		startDateLayout.setEnabled(false);
 		totalDateLayout.setEnabled(false);
+	}
+
+	//显示有数据的layout
+	private void setViewChange() {
+		// TODO Auto-generated method stub
+		scrollView.setVisibility(View.VISIBLE);
+		errorView.setVisibility(View.GONE);
+	}
+	
+	//显示错误试图
+	public void setErrorView() {
+		((TextView) errorView.findViewById(R.id.tv_error)).setText("暂无工地数据");
 	}
 
 	@Override
@@ -205,8 +227,9 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 						hideWaitDialog();
 						requirementInfo = dataManager.getRequirementInfo();
 						if (requirementInfo != null) {
-							setData();
 							getTotalDuration();
+						} else {
+							setErrorView();
 						}
 					}
 
@@ -215,6 +238,7 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 						// TODO Auto-generated method stub
 						makeTextLong(getString(R.string.tip_no_internet));
 						hideWaitDialog();
+						setErrorView();
 					}
 				});
 
@@ -228,7 +252,6 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 					@Override
 					public void preLoad() {
 						// TODO Auto-generated method stub
-
 					}
 
 					@Override
@@ -237,6 +260,9 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 						if (dataManager.getTotalDuration() != null) {
 							requirementInfo.setDuration(dataManager
 									.getTotalDuration());
+							setData();
+						} else {
+							setErrorView();
 						}
 					}
 
@@ -244,6 +270,7 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 					public void loadFailture() {
 						// TODO Auto-generated method stub
 						makeTextLong(getString(R.string.tip_no_internet));
+						setErrorView();
 					}
 				});
 	}
@@ -253,7 +280,13 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 		// TODO Auto-generated method stub
 		super.loadSuccess();
 		makeTextLong("配置成功");
-		confirmView.setEnabled(false);
+		processInfo = dataManager.getDefaultProcessInfo();
+		if (processInfo != null) {
+			initData();
+		} else {
+			// loadempty
+			setErrorView();
+		}
 		Intent intent = new Intent();
 		intent.putExtra("Key", "1");
 		setResult(Constant.REQUESTCODE_CONFIG_SITE, intent);
@@ -268,6 +301,8 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 
 	private void setData() {
 		if (requirementInfo != null) {
+			setViewChange();
+
 			String city = requirementInfo.getProvince()
 					+ requirementInfo.getCity() + requirementInfo.getDistrict();
 			cityView.setText(city);
@@ -283,6 +318,7 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 					R.array.work_type)[Integer.parseInt(requirementInfo
 					.getWork_type())]);
 			decorateBudgetView.setText(requirementInfo.getTotal_price());
+			totalDateView.setText(dataManager.getTotalDuration());
 		}
 	}
 

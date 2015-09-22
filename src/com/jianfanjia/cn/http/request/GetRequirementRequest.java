@@ -40,7 +40,7 @@ public class GetRequirementRequest extends BaseRequest {
 		if(data != null){
 			RequirementInfo requirementInfo = JsonParser.jsonToBean(data,
 					RequirementInfo.class);
-			if(requirementInfo.get_id() != null){
+			if(requirementInfo != null && requirementInfo.get_id() != null){
 				requirementInfo.setRequirementid(requirementInfo.get_id());
 			}
 			dataManager.setRequirementInfo(requirementInfo);

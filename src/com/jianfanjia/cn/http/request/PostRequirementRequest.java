@@ -42,9 +42,12 @@ public class PostRequirementRequest extends BaseRequest {
 	public void onSuccess(BaseResponse baseResponse) {
 		String data = baseResponse.getData().toString();
 		if(data != null){
-			/*ProcessInfo processInfo = JsonParser
+			ProcessInfo processInfo = JsonParser
 					.jsonToBean(data, ProcessInfo.class);
-			dataManager.setProcessInfo(processInfo);*/
+			if(processInfo != null){
+				dataManager.saveProcessInfo(processInfo);
+				dataManager.setCurrentProcessInfo(processInfo);
+			}
 		}
 	}
 

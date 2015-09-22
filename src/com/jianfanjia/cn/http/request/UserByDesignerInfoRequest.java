@@ -35,7 +35,9 @@ public class UserByDesignerInfoRequest extends BaseRequest{
 		if(data != null){
 			DesignerInfo designerInfo = JsonParser.jsonToBean(data,
 					DesignerInfo.class);
-			dataManager.setDesignerInfo(designerInfo);
+			if(designerInfo != null){
+				dataManager.setDesignerInfo(designerInfo);
+			}
 		}
 	}
 

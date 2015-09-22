@@ -26,8 +26,10 @@ public class ProcessListRequest extends BaseRequest {
 			processLists = JsonParser.jsonToList(data,
 					new TypeToken<List<Process>>() {
 					}.getType());
-			dataManager.setProcessLists(processLists);
-			dataManager.saveProcessLists(data);
+			if(processLists != null){
+				dataManager.setProcessLists(processLists);
+				dataManager.saveProcessLists(data);
+			}
 		}
 	}
 	

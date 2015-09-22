@@ -21,5 +21,16 @@
         android:dividerHeight="@dimen/space_8"
         android:listSelector="@android:color/transparent"
         android:scrollbars="none" />
+    
+    <ViewStub android:id="@+id/empty" 
+       android:layout_width="fill_parent" 
+	   android:layout_height="fill_parent" 
+	   android:layout_below="@+id/designer_site_head_layout"
+       android:layout_marginTop="@dimen/space_8"
+       android:layout_gravity="center" 
+       android:layout="@layout/view_error_layout" 
+	/>   
+    
+    
 
 </RelativeLayout>

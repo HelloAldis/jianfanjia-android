@@ -4,42 +4,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_layout_bg" >
-
-    <RelativeLayout
-        android:id="@+id/ownerinfo_head_layout"
+    
+    <com.jianfanjia.cn.view.MainHeadView
+        android:id="@+id/designerinfo_head_layout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/space_48"
-        android:background="@color/head_layout_bg" >
-
-        <TextView
-            android:id="@+id/ownerinfo_back"
-            style="@style/site_listview_item_text_style_middle"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/space_8"
-            android:drawableLeft="@drawable/icon_register_back"
-            android:drawablePadding="4dp"
-            android:text="@string/back"
-            android:textColor="@color/back_color" />
-
-        <TextView
-            android:id="@+id/ownerinfo_title"
-            style="@style/site_listview_item_text_style_title"
-            android:layout_centerInParent="true"
-            android:text="@string/userinfo"
-            android:textColor="@color/main_color_black" />
-
-        <View
-            style="@style/divier_line"
-            android:layout_alignParentBottom="true"
-            android:background="@color/horzontal_line_color" />
-    </RelativeLayout>
+        android:layout_height="wrap_content" />
 
     <ScrollView
-        android:id="@+id/ownerinfo_scrollview"
+        android:id="@+id/designerinfo_scrollview"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_below="@+id/ownerinfo_head_layout"
-        android:layout_marginTop="@dimen/space_8" >
+        android:layout_below="@+id/designerinfo_head_layout"
+        android:layout_marginTop="@dimen/space_8"
+        android:visibility="gone" >
 
         <LinearLayout
             android:id="@+id/rootview"
@@ -241,5 +218,13 @@
                 android:text="@string/comfirm" />
         </LinearLayout>
     </ScrollView>
+    
+     <include android:id="@+id/error_view"
+        layout="@layout/view_error_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/designerinfo_head_layout"
+        android:layout_marginTop="@dimen/space_8"
+        />
 
 </RelativeLayout>

@@ -36,9 +36,7 @@ import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.OwnerSiteActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.ShowPicActivity;
-import com.jianfanjia.cn.adapter.InfinitePagerAdapter;
 import com.jianfanjia.cn.adapter.MyViewPageAdapter;
-import com.jianfanjia.cn.adapter.SectionItemAdapter;
 import com.jianfanjia.cn.adapter.SectionItemAdapterBack;
 import com.jianfanjia.cn.adapter.ViewPageAdapter;
 import com.jianfanjia.cn.application.MyApplication;
@@ -83,8 +81,8 @@ public class SiteManageFragment extends BaseFragment implements
 		LoadDataListener {
 	private static final String TAG = SiteManageFragment.class.getName();
 	private PullToRefreshScrollView mPullRefreshScrollView = null;
-	private List<SectionInfo> sectionInfos = new ArrayList<SectionInfo>();
-	private List<SectionItemInfo> sectionItemInfos = new ArrayList<SectionItemInfo>();// 工序节点列表
+	private static final int TOTAL_PROCESS = 7;// 7道工序
+	private List<SectionInfo> sectionInfos;
 	private SectionInfo sectionInfo = null;
 	private ProcessInfo processInfo = null;
 	private int currentPro = -1;// 当前进行工序
@@ -97,11 +95,10 @@ public class SiteManageFragment extends BaseFragment implements
 	private ViewPager processViewPager = null;
 	private ListView detailNodeListView = null;
 	private SectionItemAdapterBack sectionItemAdapter = null;
-	private InfinitePagerAdapter infinitePagerAdapter = null;
 	private MyViewPageAdapter myViewPageAdapter = null;
 	private String[] checkSection = null;
 	private String[] proTitle = null;
-	private List<ViewPagerItem> list = new ArrayList<ViewPagerItem>();
+	private List<ViewPagerItem> processList = new ArrayList<ViewPagerItem>();
 
 	private TextView titleCenter = null;
 	private TextView titleRight = null;
@@ -115,7 +112,7 @@ public class SiteManageFragment extends BaseFragment implements
 			R.drawable.bg_home_banner2, R.drawable.bg_home_banner3,
 			R.drawable.bg_home_banner4 };
 
-	private String processInfoId = null;
+	private String processInfoName = null;
 	private File mTmpFile = null;
 
 	private Handler bannerhandler = new Handler() {
@@ -143,6 +140,7 @@ public class SiteManageFragment extends BaseFragment implements
 		if (savedInstanceState != null) {
 			currentList = savedInstanceState.getInt(Constant.CURRENT_LIST, -1);
 		}
+		initProcessInfo();
 	}
 
 	private void initProcessInfo() {
@@ -200,7 +198,6 @@ public class SiteManageFragment extends BaseFragment implements
 		initBannerView(view);
 		initScrollLayout(view);
 		initListView(view);
-		initProcessInfo();
 		if (processInfo != null) {
 			initData();
 		} else {
@@ -235,11 +232,9 @@ public class SiteManageFragment extends BaseFragment implements
 			}
 			sectionInfos = processInfo.getSections();
 			sectionInfo = sectionInfos.get(currentList);
-			sectionItemInfos = sectionInfo.getItems();
 			setScrollHeadTime();
 			sectionItemAdapter = new SectionItemAdapterBack(getActivity(),
 					currentList, this);
-//			sectionItemAdapter.setSection_status(sectionInfo.getStatus());
 			detailNodeListView.setAdapter(sectionItemAdapter);
 			processViewPager.setCurrentItem(currentList);
 		}
@@ -248,7 +243,11 @@ public class SiteManageFragment extends BaseFragment implements
 	@Override
 	public void onResume() {
 		super.onResume();
+		imageLoader.displayImage(mUserImageId, titleImage, options);
 		processViewPager.setCurrentItem(currentList);
+		if (sectionItemAdapter != null) {
+			sectionItemAdapter.notifyDataSetChanged();
+		}
 	}
 
 	@Override
@@ -283,7 +282,7 @@ public class SiteManageFragment extends BaseFragment implements
 			layoutParams.bottomMargin = 10;
 			group.addView(imageView, layoutParams);
 		}
-		ViewPageAdapter pageAdapter = new ViewPageAdapter(getActivity(),
+		ViewPageAdapter bannerAdapter = new ViewPageAdapter(getActivity(),
 				bannerList);
 		bannerViewPager.setOnPageChangeListener(new OnPageChangeListener() {
 			@Override
@@ -303,7 +302,7 @@ public class SiteManageFragment extends BaseFragment implements
 				setImageBackground(arg0 % bannerList.size());
 			}
 		});
-		bannerViewPager.setAdapter(pageAdapter);
+		bannerViewPager.setAdapter(bannerAdapter);
 		bannerViewPager.setCurrentItem(0);
 		bannerhandler.sendEmptyMessageDelayed(CHANGE_PHOTO, CHANGE_TIME);
 	}
@@ -332,55 +331,64 @@ public class SiteManageFragment extends BaseFragment implements
 					MyApplication.getInstance().getPackageName()));
 			viewPagerItem.setTitle(proTitle[i]);
 			viewPagerItem.setDate("");
-			list.add(viewPagerItem);
+			processList.add(viewPagerItem);
 		}
-		myViewPageAdapter = new MyViewPageAdapter(getActivity(), list,
+		for (int i = 0; i < 3; i++) {
+			ViewPagerItem viewPagerItem = new ViewPagerItem();
+			viewPagerItem.setResId(getResources().getIdentifier(
+					"icon_home_normal" + (i + 1), "drawable",
+					MyApplication.getInstance().getPackageName()));
+			viewPagerItem.setTitle("");
+			viewPagerItem.setDate("");
+			processList.add(viewPagerItem);
+		}
+		// --------------------------
+		myViewPageAdapter = new MyViewPageAdapter(getActivity(), processList,
 				new ViewPagerClickListener() {
 
 					@Override
 					public void onClickItem(int potition) {
 						Log.i(TAG, "potition------->" + potition);
+						if (sectionInfos != null) {
+							if (currentList != potition % 7) {
+								currentList = potition % 7;
+								sectionInfo = sectionInfos.get(currentList);
+								sectionItemAdapter.setPosition(currentList);
+								sectionItemAdapter.clearCurrentPosition();
+								sectionItemAdapter.notifyDataSetChanged();
+							}
+						}
+						Log.i(TAG, "potition=" + potition);
+						processViewPager.setCurrentItem(potition);
 					}
 
 				});
-		infinitePagerAdapter = new InfinitePagerAdapter(myViewPageAdapter);
-		processViewPager.setAdapter(infinitePagerAdapter);
+		processViewPager.setAdapter(myViewPageAdapter);
 		processViewPager.setOnPageChangeListener(new OnPageChangeListener() {
 			@Override
 			public void onPageScrollStateChanged(int arg0) {
 				// TODO Auto-generated method stub
-
 			}
+			
 
 			@Override
 			public void onPageScrolled(int arg0, float arg1, int arg2) {
 				// TODO Auto-generated method stub
-
 			}
 
 			@Override
 			public void onPageSelected(int arg0) {
 				if (sectionInfos != null) {
-					if (currentList != arg0 % 7) {
-						currentList = arg0 % 7;
+					if (arg0 < TOTAL_PROCESS) {
+						currentList = arg0;
 						sectionInfo = sectionInfos.get(currentList);
-						sectionItemInfos = sectionInfo.getItems();
-						LogTool.d(TAG, "sectionItemInfos--------------"
-								+ sectionItemInfos);
-						for (SectionItemInfo info : sectionItemInfos) {
-							LogTool.d(TAG, "info Name()=====" + info.getName());
-						}
-//						sectionItemAdapter
-//								.setSectionItemInfos(sectionItemInfos);
-//						sectionItemAdapter.setSection_status(sectionInfo
-//								.getStatus());
-						 sectionItemAdapter.setPosition(currentList);
+						Log.i(TAG, "sectionInfo---->" + sectionInfo.getName());
+						sectionItemAdapter.setPosition(currentList);
 						sectionItemAdapter.clearCurrentPosition();
 						sectionItemAdapter.notifyDataSetChanged();
 					}
 				}
 			}
-
 		});
 	}
 
@@ -389,13 +397,6 @@ public class SiteManageFragment extends BaseFragment implements
 			for (int i = 0; i < proTitle.length; i++) {
 				ViewPagerItem viewPagerItem = myViewPageAdapter.getList()
 						.get(i);
-				Log.i(TAG,
-						DateFormatTool.covertLongToString(sectionInfos.get(i)
-								.getStart_at(), "M.dd")
-								+ "-"
-								+ DateFormatTool
-										.covertLongToString(sectionInfos.get(i)
-												.getEnd_at(), "M.dd"));
 				viewPagerItem.setDate(DateFormatTool.covertLongToString(
 						sectionInfos.get(i).getStart_at(), "M.dd")
 						+ "-"
@@ -413,7 +414,7 @@ public class SiteManageFragment extends BaseFragment implements
 					viewPagerItem.setResId(drawableId);
 				}
 			}
-			infinitePagerAdapter.notifyDataSetChanged();
+			myViewPageAdapter.notifyDataSetChanged();
 		}
 	}
 
@@ -425,17 +426,24 @@ public class SiteManageFragment extends BaseFragment implements
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				/*SectionItemInfo sectionItemInfo = sectionItemInfos
-						.get(position);
-				processInfoId = sectionItemInfo.getName();
-				if (isOpen) {
-					isOpen = false;
+				List<SectionItemInfo> itemList = sectionInfo.getItems();
+				LogTool.d(TAG, "itemList==" + itemList);
+				if (!sectionInfo.getName().equals("kai_gong")
+						&& !sectionInfo.getName().equals("chai_gai")) {
+					if (null != itemList && itemList.size() > 0) {
+						if (position == 0) {
+							processInfoName = itemList.get(position).getName();
+						} else {
+							processInfoName = itemList.get(position - 1)
+									.getName();
+						}
+					}
 				} else {
-					isOpen = true;
-				}*/
-				LogTool.d(TAG, "position=" + position);
+					processInfoName = itemList.get(position).getName();
+				}
+				LogTool.d(TAG, "position=" + position + "  processInfoName="
+						+ processInfoName);
 				sectionItemAdapter.setCurrentClickItem(position);
-//				sectionItemAdapter.notifyDataSetChanged();
 			}
 		});
 
@@ -519,7 +527,6 @@ public class SiteManageFragment extends BaseFragment implements
 			Bundle checkBundle = new Bundle();
 			checkBundle.putInt(Constant.CURRENT_LIST, currentList);
 			startActivity(CheckActivity.class, checkBundle);
-			getActivity().finish();
 			break;
 		default:
 			break;
@@ -539,7 +546,7 @@ public class SiteManageFragment extends BaseFragment implements
 
 	@Override
 	public void loadFailture() {
-		makeTextLong("网络异常");
+		makeTextLong(getString(R.string.tip_no_internet));
 		mPullRefreshScrollView.onRefreshComplete();
 	}
 
@@ -615,7 +622,7 @@ public class SiteManageFragment extends BaseFragment implements
 					public void onClick(DialogInterface dialog, int which) {
 						dialog.dismiss();
 						confirmProcessItemDone(processInfo.get_id(),
-								sectionInfo.getName(), processInfoId);
+								sectionInfo.getName(), processInfoName);
 					}
 				});
 		dialog.setNegativeButton(R.string.no, null);
@@ -734,11 +741,11 @@ public class SiteManageFragment extends BaseFragment implements
 					Bitmap bitmap = extras.getParcelable("data");
 					LogTool.d(TAG, "avatar - bitmap = " + bitmap);
 					String imgPath = PhotoUtils.savaPicture(bitmap);
-					LogTool.d(TAG, "imgPath=============" + imgPath);
+					LogTool.d(TAG, "imgPath===" + imgPath);
 					if (!TextUtils.isEmpty(imgPath)) {
 						uploadManager.uploadProcedureImage(imgPath,
 								processInfo.get_id(), sectionInfo.getName(),
-								processInfoId, this);
+								processInfoName, this);
 					}
 				}
 			}
@@ -762,7 +769,6 @@ public class SiteManageFragment extends BaseFragment implements
 			}
 			break;
 		case Constant.REQUESTCODE_CHANGE_SITE:
-			LogTool.d(TAG, "22222222222222222222222222222222222222222");
 			if (((MainActivity) getActivity()).getSlidingPaneLayout().isOpen()) {
 				((MainActivity) getActivity()).getSlidingPaneLayout()
 						.closePane();

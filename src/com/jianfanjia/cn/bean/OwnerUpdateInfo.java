@@ -2,18 +2,22 @@ package com.jianfanjia.cn.bean;
 
 import java.io.Serializable;
 
-public class OwnerUpdateInfo implements Serializable{
-	
+public class OwnerUpdateInfo implements Serializable {
+
+	private static final long serialVersionUID = -6301075637921125877L;
+
+	private String imageid;
+
 	private String sex;
-	
+
 	private String city;
-	
+
 	private String district;
-	
+
 	private String address;
-	
+
 	private String username;
-	
+
 	public String getUsername() {
 		return username;
 	}
@@ -53,7 +57,13 @@ public class OwnerUpdateInfo implements Serializable{
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	
-	
+
+	public String getImageid() {
+		return imageid;
+	}
+
+	public void setImageid(String imageid) {
+		this.imageid = imageid;
+	}
 
 }

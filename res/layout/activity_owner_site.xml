@@ -15,7 +15,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/ower_site_head_layout"
-        android:layout_marginTop="@dimen/space_8" >
+        android:layout_marginTop="@dimen/space_8"
+        android:visibility="gone" >
 
         <LinearLayout
             android:id="@+id/rootview"
@@ -169,8 +170,6 @@
             <View
                 style="@style/divier_line"
                 android:layout_marginTop="16dp" />
-            
-             
 
             <RelativeLayout
                 android:id="@+id/my_totaldate_layout"
@@ -185,11 +184,11 @@
                 <TextView
                     android:id="@+id/my_site_totaldate"
                     style="@style/site_listview_item_text_style_middle"
-                    android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
                     android:textColor="@color/main_color_grey" />
             </RelativeLayout>
-            
+
             <View style="@style/divier_line" />
 
             <RelativeLayout
@@ -219,8 +218,6 @@
                     android:textColor="@color/main_color_grey" />
             </RelativeLayout>
 
-           
-
             <View style="@style/divier_line" />
 
             <TextView
@@ -237,5 +234,13 @@
                 android:textSize="17sp" />
         </LinearLayout>
     </ScrollView>
+    
+    <include android:id="@+id/error_view"
+        layout="@layout/view_error_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/ower_site_head_layout"
+        android:layout_marginTop="@dimen/space_8"
+        />
 
 </RelativeLayout>

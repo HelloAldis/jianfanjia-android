@@ -3,7 +3,6 @@ package com.jianfanjia.cn.adapter;
 import java.util.ArrayList;
 import java.util.List;
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,52 +21,32 @@ import com.jianfanjia.cn.bean.CommentInfo;
 import com.jianfanjia.cn.bean.GridItem;
 import com.jianfanjia.cn.bean.SectionInfo;
 import com.jianfanjia.cn.bean.SectionItemInfo;
-import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
-import com.jianfanjia.cn.tools.LogTool;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class SectionItemAdapterBack extends BaseAdapter {
 	private static final int IMG_COUNT = 9;
 	private static final int CHECK_VIEW = 0;
 	private static final int SECTION_ITME_VIEW = 1;
-	private ItemClickCallBack callBack;
+	private ItemClickCallBack callBack = null;
 	private int lastClickItem = -1;// 记录上次点击的位置
 	private int currentClickItem = -1;// 记录当前点击位置
-	private boolean isPos = false;
 	private SiteGridViewAdapter siteGridViewAdapter;
 	private List<GridItem> gridItem = new ArrayList<GridItem>();
 	private String userType;
 	private int section_status;// 节点的状态
 	private SectionInfo sectionInfo;
-	protected Context context;
-	protected LayoutInflater layoutInflater;
-	protected List<SectionItemInfo> list = new ArrayList<SectionItemInfo>();
-	protected ImageLoader imageLoader;
-	protected DisplayImageOptions options;
-	protected DataManagerNew dataManager;
+	private Context context;
+	private LayoutInflater layoutInflater;
+	private List<SectionItemInfo> list = new ArrayList<SectionItemInfo>();
+	private DataManagerNew dataManager;
 	private boolean isHasCheck;// 是否有验收
-
-	/*
-	 * public SectionItemAdapterBack(Context context, List<SectionItemInfo>
-	 * sectionItemInfos) { super(context, sectionItemInfos); userType =
-	 * dataManager.getUserType(); }
-	 */
 
 	public SectionItemAdapterBack(Context context, int position,
 			ItemClickCallBack callBack) {
 		this.context = context;
 		layoutInflater = LayoutInflater.from(context);
-		imageLoader = ImageLoader.getInstance();
-		options = new DisplayImageOptions.Builder()
-				.showImageOnLoading(R.drawable.pix_default)
-				.showImageForEmptyUri(R.drawable.pix_default)
-				.showImageOnFail(R.drawable.pix_default).cacheInMemory(true)
-				.cacheOnDisk(true).considerExifParams(true)
-				.bitmapConfig(Bitmap.Config.RGB_565).build();
 		dataManager = DataManagerNew.getInstance();
 		sectionInfo = dataManager.getDefaultSectionInfoByPosition(position);
 		setList();
@@ -94,18 +73,16 @@ public class SectionItemAdapterBack extends BaseAdapter {
 			sectionItemInfo.setOpen(false);
 			list.add(sectionItemInfo);
 		}
-		Log.d(this.getClass().getName(),"list.size() =" +  list.size());
+		Log.d(this.getClass().getName(), "list.size() =" + list.size());
 	}
 
 	@Override
 	public int getViewTypeCount() {
-		// TODO Auto-generated method stub
 		return 2;
 	}
 
 	@Override
 	public int getItemViewType(int position) {
-		// TODO Auto-generated method stub
 		if (isHasCheck) {
 			if (position == 0) {
 				return CHECK_VIEW;
@@ -122,8 +99,8 @@ public class SectionItemAdapterBack extends BaseAdapter {
 		section_status = sectionInfo.getStatus();
 		setList();
 	}
-	
-	public void clearCurrentPosition(){
+
+	public void clearCurrentPosition() {
 		this.currentClickItem = -1;
 		this.lastClickItem = -1;
 	}
@@ -143,8 +120,15 @@ public class SectionItemAdapterBack extends BaseAdapter {
 				list.get(currentClickItem).setOpen(true);
 			}
 		}
-		// this.isPos = isPos;
 		notifyDataSetChanged();
+	}
+
+	public boolean isHasCheck() {
+		return isHasCheck;
+	}
+
+	public void setHasCheck(boolean isHasCheck) {
+		this.isHasCheck = isHasCheck;
 	}
 
 	@Override
@@ -153,7 +137,6 @@ public class SectionItemAdapterBack extends BaseAdapter {
 	}
 
 	public View initView(final int position, View convertView) {
-		LogTool.d(this.getClass().getName(), "position = " + position);
 		ViewHolder viewHolder = null;
 		ViewHolder2 viewHolderf = null;
 		int type = getItemViewType(position);
@@ -327,14 +310,23 @@ public class SectionItemAdapterBack extends BaseAdapter {
 
 						@Override
 						public void onClick(View v) {
-							callBack.click(position, Constant.CONFIRM_ITEM);
+							if (isHasCheck) {
+								callBack.click(position - 1,
+										Constant.CONFIRM_ITEM);
+							} else {
+								callBack.click(position, Constant.CONFIRM_ITEM);
+							}
 						}
 					});
 			viewHolder.openComment.setOnClickListener(new OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
-					callBack.click(position, Constant.COMMENT_ITEM);
+					if (isHasCheck) {
+						callBack.click(position - 1, Constant.COMMENT_ITEM);
+					} else {
+						callBack.click(position, Constant.COMMENT_ITEM);
+					}
 				}
 			});
 
@@ -347,16 +339,37 @@ public class SectionItemAdapterBack extends BaseAdapter {
 				if (sectionItemInfo1.isOpen()) {
 					viewHolderf.bigOpenLayout.setVisibility(View.VISIBLE);
 					viewHolderf.smallcloseLayout.setVisibility(View.GONE);
-					isPos = true;
 				} else {
 					viewHolderf.bigOpenLayout.setVisibility(View.GONE);
 					viewHolderf.smallcloseLayout.setVisibility(View.VISIBLE);
-					isPos = false;
 				}
 			} else {
 				viewHolderf.bigOpenLayout.setVisibility(View.GONE);
 				viewHolderf.smallcloseLayout.setVisibility(View.VISIBLE);
 			}
+			// 根据不同的用户类型显示不同的文字
+			if (userType.equals(Constant.IDENTITY_DESIGNER)) {
+				viewHolderf.openCheck.setText(context
+						.getString(R.string.upload_pic));
+			} else if (userType.equals(Constant.IDENTITY_OWNER)) {
+				viewHolderf.openCheck.setText(context
+						.getString(R.string.site_example_node_check));
+			}
+
+			viewHolderf.openDelay.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					callBack.click(position, Constant.DELAY_ITEM);
+				}
+			});
+			viewHolderf.openCheck.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					callBack.click(position, Constant.CHECK_ITEM);
+				}
+			});
 			break;
 		default:
 			break;

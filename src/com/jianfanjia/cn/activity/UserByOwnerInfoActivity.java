@@ -13,6 +13,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
+import android.widget.ScrollView;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -26,10 +27,11 @@ import com.jianfanjia.cn.http.LoadClientHelper;
 import com.jianfanjia.cn.http.request.UserByOwnerInfoRequest;
 import com.jianfanjia.cn.http.request.UserByOwnerInfoUpdateRequest;
 import com.jianfanjia.cn.interf.LoadDataListener;
-import com.jianfanjia.cn.interf.UploadImageListener;
+import com.jianfanjia.cn.interf.UploadPortraitListener;
 import com.jianfanjia.cn.tools.FileUtil;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.PhotoUtils;
+import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.CommonWheelDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
@@ -46,11 +48,12 @@ import com.jianfanjia.cn.view.wheel.WheelView;
  * 
  */
 public class UserByOwnerInfoActivity extends BaseActivity implements
-		OnClickListener, UploadImageListener {
+		OnClickListener, UploadPortraitListener {
 	private static final String TAG = UserByOwnerInfoActivity.class.getName();
-	private RelativeLayout infoLayout = null;
 	private RelativeLayout headLayout = null;
-	private TextView ownerinfo_back = null;
+	private RelativeLayout ownerInfoLayout = null;
+	private ScrollView scrollView = null;
+	private View errorView = null;
 	private TextView nameText = null;
 	private TextView sexText = null;
 	private TextView phoneText = null;
@@ -62,28 +65,33 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 	private RelativeLayout userNameRelativeLayout = null;
 	private RelativeLayout homeRelativeLayout = null;
 	private RelativeLayout sexRelativeLayout = null;
-	private String sex;
+	private String sex = null;
+	
+	private MainHeadView mainHeadView;
 
-	private OwnerInfo ownerInfo;
+	private OwnerInfo ownerInfo = null;
 
-	private OwnerUpdateInfo ownerUpdateInfo;
+	private OwnerUpdateInfo ownerUpdateInfo = null;
 
-	private CommonWheelDialog commonWheelDialog;
+	private CommonWheelDialog commonWheelDialog = null;
 
 	private static String[] provices = { "湖北", "湖南", "安徽" };
 	private static String[] cities = { "武汉", "长沙", "合肥" };
 	private static String[] areas = { "武昌", "汉口", "长沙县", "常州", "青山", "江夏", "汉阳" };
 
-	private String provice;
-	private String city;
-	private String area;
+	private String provice = null;
+	private String city = null;
+	private String area = null;
 
 	private File mTmpFile = null;
+	private String imageId = null;
 
 	@Override
 	public void initView() {
-		infoLayout = (RelativeLayout) findViewById(R.id.infoLayout);
-		ownerinfo_back = (TextView) this.findViewById(R.id.ownerinfo_back);
+		initMainHead();
+		ownerInfoLayout = (RelativeLayout) this.findViewById(R.id.ownerinfoLayout);
+		scrollView = (ScrollView) this.findViewById(R.id.ownerinfo_scrollview);
+		errorView = this.findViewById(R.id.error_view);
 		headLayout = (RelativeLayout) this.findViewById(R.id.head_layout);
 		nameText = (TextView) this.findViewById(R.id.nameText);
 		sexText = (TextView) this.findViewById(R.id.sexText);
@@ -110,15 +118,35 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 		commonWheelDialog = new CommonWheelDialog(this);
 	}
 
+	private void initMainHead() {
+		mainHeadView = (MainHeadView) findViewById(R.id.ownerinfo_head_layout);
+		mainHeadView.setBackListener(this);
+		mainHeadView.setMianTitle(getResources()
+				.getString(R.string.userinfo));		
+	}
+
 	private void setConfimEnable(boolean enabled) {
 		btn_confirm.setEnabled(enabled);
 	}
+	
+	public void setViewChange(){
+		errorView.setVisibility(View.GONE);
+		scrollView.setVisibility(View.VISIBLE);
+	}
+	
+	@Override
+	public void setErrorView(){
+		((TextView) errorView.findViewById(R.id.tv_error)).setText("暂无个人信息数据");
+	}
 
 	private void setData() {
-		imageLoader.displayImage(
-				ownerInfo.getImageid() == null ? Constant.DEFALUT_OWNER_PIC
-						: (Url.GET_IMAGE + ownerInfo.getImageid()),
-				headImageView);
+		setViewChange();
+		
+		imageLoader
+				.displayImage(
+						TextUtils.isEmpty(ownerInfo.getImageid()) ? Constant.DEFALUT_OWNER_PIC
+								: (Url.GET_IMAGE + ownerInfo.getImageid()),
+						headImageView, options);
 		nameText.setText(TextUtils.isEmpty(ownerInfo.getUsername()) ? getString(R.string.ower)
 				: ownerInfo.getUsername());
 		String sexInfo = ownerInfo.getSex();
@@ -143,7 +171,6 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 
 	@Override
 	public void setListener() {
-		ownerinfo_back.setOnClickListener(this);
 		headLayout.setOnClickListener(this);
 		btn_confirm.setOnClickListener(this);
 		// addressLayout.setOnClickListener(this);
@@ -155,11 +182,11 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.ownerinfo_back:
+		case R.id.head_back_layout:
 			finish();
 			break;
 		case R.id.head_layout:
-			showPopWindow(infoLayout);
+			showPopWindow(ownerInfoLayout);
 			break;
 		case R.id.btn_confirm:
 			if (ownerUpdateInfo != null) {
@@ -212,8 +239,8 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 			if (!TextUtils.isEmpty(ownerUpdateInfo.getSex())) {
 				radioGroup.check(ownerUpdateInfo.getSex().equals(
 						Constant.SEX_MAN) ? R.id.sex_radio0 : R.id.sex_radio1);
-				sex = ownerUpdateInfo.getSex().equals(
-						Constant.SEX_MAN) ? Constant.SEX_MAN : Constant.SEX_WOMEN;
+				sex = ownerUpdateInfo.getSex().equals(Constant.SEX_MAN) ? Constant.SEX_MAN
+						: Constant.SEX_WOMEN;
 			} else {
 				radioGroup.check(R.id.sex_radio0);
 				sex = Constant.SEX_MAN;
@@ -290,13 +317,11 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 
 					@Override
 					public void preLoad() {
-						// TODO Auto-generated method stub
 						showWaitDialog();
 					}
 
 					@Override
 					public void loadSuccess() {
-						// TODO Auto-generated method stub
 						hideWaitDialog();
 						makeTextLong("修改成功");
 						setConfimEnable(false);
@@ -305,8 +330,6 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 										.getUserName()) {
 							dataManager.setUserName(ownerUpdateInfo
 									.getUsername());
-							sendBroadcast(new Intent(
-									Constant.INTENT_ACTION_USERINFO_CHANGE));
 						}
 						updateOwnerInfo();
 						dataManager.setOwnerInfo(ownerInfo);
@@ -314,7 +337,6 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 
 					@Override
 					public void loadFailture() {
-						// TODO Auto-generated method stub
 						hideWaitDialog();
 						makeTextLong(getString(R.string.tip_no_internet));
 					}
@@ -322,6 +344,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 	}
 
 	protected void updateOwnerInfo() {
+		ownerInfo.setImageid(imageId);
 		ownerInfo.setAddress(ownerUpdateInfo.getAddress());
 		ownerInfo.setCity(ownerUpdateInfo.getCity());
 		ownerInfo.setDistrict(ownerUpdateInfo.getDistrict());
@@ -334,14 +357,16 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 		super.loadSuccess();
 		ownerInfo = dataManager.getOwnerInfo();
 		if (null != ownerInfo) {
-			// dataManager.setOwnerInfo(ownerInfo);
 			setOwnerUpdateInfo();
 			setData();
+		}else{
+			setErrorView();
 		}
 	}
 
 	private void setOwnerUpdateInfo() {
 		ownerUpdateInfo = new OwnerUpdateInfo();
+		ownerUpdateInfo.setImageid(ownerInfo.getImageid());
 		ownerUpdateInfo.setAddress(ownerInfo.getAddress());
 		ownerUpdateInfo.setCity(ownerInfo.getCity());
 		ownerUpdateInfo.setDistrict(ownerInfo.getDistrict());
@@ -426,9 +451,9 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 					Bitmap bitmap = extras.getParcelable("data");
 					LogTool.d(TAG, "avatar - bitmap = " + bitmap);
 					String imgPath = PhotoUtils.savaPicture(bitmap);
-					LogTool.d(TAG, "imgPath=============" + imgPath);
+					LogTool.d(TAG, "imgPath==" + imgPath);
 					if (!TextUtils.isEmpty(imgPath)) {
-						uploadManager.uploadImage(imgPath);
+						uploadManager.uploadPortrait(imgPath, this);
 					}
 				}
 			}
@@ -439,22 +464,20 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 	}
 
 	@Override
-	public void onSuccess(String msg) {
-		LogTool.d(TAG, "msg===========" + msg);
-		if ("success".equals(msg)) {
-			LogTool.d(TAG, "--------------------------------------------------");
-			if (mTmpFile != null && mTmpFile.exists()) {
-				mTmpFile.delete();
-			}
+	public void getImageId(String imageid) {
+		LogTool.d(TAG, "imageid=" + imageid);
+		imageId = imageid;
+		dataManager.setUserImagePath(imageId);
+		imageLoader.displayImage(
+				TextUtils.isEmpty(imageId) ? Constant.DEFALUT_OWNER_PIC
+						: (Url.GET_IMAGE + imageId), headImageView, options);
+		if (ownerUpdateInfo != null) {
+			ownerUpdateInfo.setImageid(imageId);
 		}
-	}
-
-	@Override
-	public void onFailure() {
-		LogTool.d(TAG, "==============================================");
 		if (mTmpFile != null && mTmpFile.exists()) {
 			mTmpFile.delete();
 		}
+		setConfimEnable(true);
 	}
 
 	/**

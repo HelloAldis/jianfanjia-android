@@ -42,9 +42,9 @@
                     android:layout_height="24dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:textOn=""
+                    android:background="@drawable/btn_setting_msg_selector"
                     android:textOff=""
-                    android:background="@drawable/btn_setting_msg_selector" />
+                    android:textOn="" />
             </RelativeLayout>
 
             <View style="@style/divier_line" />

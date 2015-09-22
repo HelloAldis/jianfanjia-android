@@ -69,6 +69,7 @@ public class Constant {
 	public static final String USER_ID = "userid";// 用户id
 	public static final String USER_IS_LOGIN = "user_is_login";// 用户是否登录
 	public static final String USERINFO_UPDATE = "userinfo_is update";// 用户信息是否更新
+	public static final String ISCONFIG_PROCESS = "is_config_process";//是否配置过工地
 
 	public static final String FINAL_DESIGNER_ID = "final_designerid";// 业主的设计师id
 	public static final String FINAL_OWNER_ID = "final_owner_id";// 业主id
