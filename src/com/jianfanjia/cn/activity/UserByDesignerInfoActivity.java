@@ -98,10 +98,11 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 	}
 
 	private void setData() {
-		imageLoader.displayImage(
-				designerInfo.getImageid() == null ? Constant.DEFALUT_OWNER_PIC
-						: (Url.GET_IMAGE + designerInfo.getImageid()),
-				headImageView, options);
+		imageLoader
+				.displayImage(
+						TextUtils.isEmpty(designerInfo.getImageid()) ? Constant.DEFALUT_OWNER_PIC
+								: (Url.GET_IMAGE + designerInfo.getImageid()),
+						headImageView, options);
 		if (!TextUtils.isEmpty(designerInfo.getUsername())) {
 			nameText.setText(designerInfo.getUsername());
 		} else {

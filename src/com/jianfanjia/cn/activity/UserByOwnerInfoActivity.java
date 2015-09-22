@@ -115,10 +115,11 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 	}
 
 	private void setData() {
-		imageLoader.displayImage(
-				ownerInfo.getImageid() == null ? Constant.DEFALUT_OWNER_PIC
-						: (Url.GET_IMAGE + ownerInfo.getImageid()),
-				headImageView, options);
+		imageLoader
+				.displayImage(
+						TextUtils.isEmpty(ownerInfo.getImageid()) ? Constant.DEFALUT_OWNER_PIC
+								: (Url.GET_IMAGE + ownerInfo.getImageid()),
+						headImageView, options);
 		nameText.setText(TextUtils.isEmpty(ownerInfo.getUsername()) ? getString(R.string.ower)
 				: ownerInfo.getUsername());
 		String sexInfo = ownerInfo.getSex();
