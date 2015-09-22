@@ -86,6 +86,7 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 				LogTool.d(TAG, "getRequirement()");
 				getRequirement();
 			} else {
+				setData();
 				getTotalDuration();
 			}
 		} else {
@@ -97,6 +98,7 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 		String planId = requirementInfo.getFinal_planid();
 		if (dataManager.getTotalDuration() != null) {
 			requirementInfo.setDuration(dataManager.getTotalDuration());
+			totalDateView.setText(dataManager.getTotalDuration());
 		} else {
 			if (!TextUtils.isEmpty(planId)) {
 				loadTotalDuration(planId);
@@ -236,6 +238,8 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 						// TODO Auto-generated method stub
 						if (dataManager.getTotalDuration() != null) {
 							requirementInfo.setDuration(dataManager
+									.getTotalDuration());
+							totalDateView.setText(dataManager
 									.getTotalDuration());
 						}
 					}

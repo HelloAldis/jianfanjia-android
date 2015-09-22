@@ -94,7 +94,7 @@ public class SectionItemAdapterBack extends BaseAdapter {
 			sectionItemInfo.setOpen(false);
 			list.add(sectionItemInfo);
 		}
-		Log.d(this.getClass().getName(),"list.size() =" +  list.size());
+		Log.d(this.getClass().getName(), "list.size() =" + list.size());
 	}
 
 	@Override
@@ -122,8 +122,8 @@ public class SectionItemAdapterBack extends BaseAdapter {
 		section_status = sectionInfo.getStatus();
 		setList();
 	}
-	
-	public void clearCurrentPosition(){
+
+	public void clearCurrentPosition() {
 		this.currentClickItem = -1;
 		this.lastClickItem = -1;
 	}
@@ -357,6 +357,29 @@ public class SectionItemAdapterBack extends BaseAdapter {
 				viewHolderf.bigOpenLayout.setVisibility(View.GONE);
 				viewHolderf.smallcloseLayout.setVisibility(View.VISIBLE);
 			}
+			// 根据不同的用户类型显示不同的文字
+			if (userType.equals(Constant.IDENTITY_DESIGNER)) {
+				viewHolderf.openCheck.setText(context
+						.getString(R.string.upload_pic));
+			} else if (userType.equals(Constant.IDENTITY_OWNER)) {
+				viewHolderf.openCheck.setText(context
+						.getString(R.string.site_example_node_check));
+			}
+
+			viewHolderf.openDelay.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					callBack.click(position, Constant.DELAY_ITEM);
+				}
+			});
+			viewHolderf.openCheck.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					callBack.click(position, Constant.CHECK_ITEM);
+				}
+			});
 			break;
 		default:
 			break;
