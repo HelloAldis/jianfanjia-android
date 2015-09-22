@@ -4,7 +4,6 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import android.content.Context;
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.R;
@@ -39,8 +38,8 @@ public class DataManagerNew {
 	private MyDesignerInfo myDesignerInfo;// 我的设计师信息
 	private OwnerInfo ownerInfo;// 业主的个人信息
 	private DesignerInfo designerInfo;// 设计师的个人信息
-	private String totalDuration;//总工期
-	private RequirementInfo requirementInfo;//需求信息
+	private String totalDuration;// 总工期
+	private RequirementInfo requirementInfo;// 需求信息
 
 	public static DataManagerNew getInstance() {
 		if (instance == null) {
@@ -54,7 +53,7 @@ public class DataManagerNew {
 		sharedPreferdata = new SharedPrefer(context, Constant.SHARED_DATA);
 		sharedPreferuser = new SharedPrefer(context, Constant.SHARED_USER);
 	}
-	
+
 	public RequirementInfo getRequirementInfo() {
 		return requirementInfo;
 	}
@@ -107,7 +106,7 @@ public class DataManagerNew {
 			return null;
 		}
 	}
-	
+
 	public SectionInfo getDefaultSectionInfoByPosition(int position) {
 		ProcessInfo processInfo = getDefaultProcessInfo();
 		if (processInfo != null) {
@@ -200,7 +199,7 @@ public class DataManagerNew {
 	 */
 	public ProcessInfo getProcessInfoById(String processId) {
 		ProcessInfo processInfo = processMap.get(processId);
-		if(!NetTool.isNetworkAvailable(context) && processInfo == null){
+		if (!NetTool.isNetworkAvailable(context) && processInfo == null) {
 			return (ProcessInfo) sharedPreferdata.getValue(processId);
 		}
 		return processInfo;
@@ -274,6 +273,10 @@ public class DataManagerNew {
 
 	public void setFisrt(boolean isFirst) {
 		sharedPreferuser.setValue(Constant.ISFIRST, isFirst);
+	}
+
+	public void setUserImagePath(String imgId) {
+		sharedPreferuser.setValue(Constant.USERIMAGE_ID, Url.GET_IMAGE + imgId);
 	}
 
 	public void saveLoginUserInfo(LoginUserBean userBean) {

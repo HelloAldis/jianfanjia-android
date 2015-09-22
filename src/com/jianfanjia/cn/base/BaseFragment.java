@@ -50,6 +50,7 @@ public abstract class BaseFragment extends Fragment implements OnClickListener,
 	protected String mAccount = null;// 账号
 	protected String mUserImageId = null;// 头像
 	protected String mUserType = null;// 用户类型
+	protected String mImageId = null;
 	private View view;
 
 	@Override
@@ -70,7 +71,6 @@ public abstract class BaseFragment extends Fragment implements OnClickListener,
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
 		initUserInfo();
 		initView(view);
@@ -102,16 +102,6 @@ public abstract class BaseFragment extends Fragment implements OnClickListener,
 		LogTool.d(this.getClass().getName(), "mUserName:" + mUserName
 				+ " mAccount:" + mAccount + " userImageId" + mUserImageId);
 	}
-
-	// @Override
-	// public void loadSuccess() {
-	// hideWaitDialog();
-	// }
-	//
-	// @Override
-	// public void loadFailture() {
-	// hideWaitDialog();
-	// }
 
 	public abstract int getLayoutId();
 

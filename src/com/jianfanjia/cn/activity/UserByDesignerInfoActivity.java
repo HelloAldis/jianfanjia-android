@@ -454,6 +454,7 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 	public void getImageId(String imageid) {
 		LogTool.d(TAG, "imageid=" + imageid);
 		imageId = imageid;
+		dataManager.setUserImagePath(imageId);
 		imageLoader.displayImage(
 				TextUtils.isEmpty(imageId) ? Constant.DEFALUT_OWNER_PIC
 						: (Url.GET_IMAGE + imageId), headImageView, options);
