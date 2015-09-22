@@ -386,13 +386,6 @@ public class SiteManageFragment extends BaseFragment implements
 			for (int i = 0; i < proTitle.length; i++) {
 				ViewPagerItem viewPagerItem = myViewPageAdapter.getList()
 						.get(i);
-				Log.i(TAG,
-						DateFormatTool.covertLongToString(sectionInfos.get(i)
-								.getStart_at(), "M.dd")
-								+ "-"
-								+ DateFormatTool
-										.covertLongToString(sectionInfos.get(i)
-												.getEnd_at(), "M.dd"));
 				viewPagerItem.setDate(DateFormatTool.covertLongToString(
 						sectionInfos.get(i).getStart_at(), "M.dd")
 						+ "-"
