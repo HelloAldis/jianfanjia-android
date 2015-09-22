@@ -247,8 +247,8 @@ public class SiteManageFragment extends BaseFragment implements
 	@Override
 	public void onResume() {
 		super.onResume();
-//		processViewPager.setCurrentItem(currentList);
-		if(sectionItemAdapter != null){
+		// processViewPager.setCurrentItem(currentList);
+		if (sectionItemAdapter != null) {
 			sectionItemAdapter.notifyDataSetChanged();
 		}
 	}
@@ -367,15 +367,10 @@ public class SiteManageFragment extends BaseFragment implements
 						currentList = arg0 % 7;
 						sectionInfo = sectionInfos.get(currentList);
 						sectionItemInfos = sectionInfo.getItems();
-						LogTool.d(TAG, "sectionItemInfos--------------"
-								+ sectionItemInfos);
+						LogTool.d(TAG, "sectionItemInfos=" + sectionItemInfos);
 						for (SectionItemInfo info : sectionItemInfos) {
 							LogTool.d(TAG, "info Name()=====" + info.getName());
 						}
-						// sectionItemAdapter
-						// .setSectionItemInfos(sectionItemInfos);
-						// sectionItemAdapter.setSection_status(sectionInfo
-						// .getStatus());
 						sectionItemAdapter.setPosition(currentList);
 						sectionItemAdapter.clearCurrentPosition();
 						sectionItemAdapter.notifyDataSetChanged();
@@ -427,14 +422,12 @@ public class SiteManageFragment extends BaseFragment implements
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				/*
-				 * SectionItemInfo sectionItemInfo = sectionItemInfos
-				 * .get(position); processInfoId = sectionItemInfo.getName(); if
-				 * (isOpen) { isOpen = false; } else { isOpen = true; }
-				 */
-				LogTool.d(TAG, "position=" + position);
+				SectionItemInfo sectionItemInfo = sectionItemInfos
+						.get(position);
+				processInfoId = sectionItemInfo.getName();
+				LogTool.d(TAG, "position=" + position + "  processInfoId="
+						+ processInfoId);
 				sectionItemAdapter.setCurrentClickItem(position);
-				// sectionItemAdapter.notifyDataSetChanged();
 			}
 		});
 
@@ -725,8 +718,11 @@ public class SiteManageFragment extends BaseFragment implements
 			}
 			break;
 		case Constant.REQUESTCODE_CROP:
+			LogTool.d(TAG, "11111111111111111111111");
 			if (data != null) {
+				LogTool.d(TAG, "222222222222222222222");
 				Bundle extras = data.getExtras();
+				LogTool.d(TAG, "333333333333333333");
 				if (extras != null) {
 					// 得到返回来的数据，是bitmap类型的数据
 					Bitmap bitmap = extras.getParcelable("data");
