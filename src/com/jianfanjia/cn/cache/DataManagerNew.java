@@ -41,8 +41,8 @@ public class DataManagerNew {
 	private DesignerInfo designerInfo;// 设计师的个人信息
 	private String totalDuration;// 总工期
 	private RequirementInfo requirementInfo;// 需求信息
-	private ProcessInfo currentProcessInfo;//当前工地信息
-	
+	private ProcessInfo currentProcessInfo;// 当前工地信息
+
 	public static DataManagerNew getInstance() {
 		if (instance == null) {
 			instance = new DataManagerNew();
@@ -99,13 +99,13 @@ public class DataManagerNew {
 		}
 		return ownerInfo;
 	}
-	
+
 	public void setCurrentProcessInfo(ProcessInfo currentProcessInfo) {
 		this.currentProcessInfo = currentProcessInfo;
 	}
 
 	public ProcessInfo getDefaultProcessInfo() {
-		if(currentProcessInfo == null){
+		if (currentProcessInfo == null) {
 			String processId = getDefaultProcessId();
 			if (processId != null) {
 				return getProcessInfoById(processId);
@@ -267,12 +267,12 @@ public class DataManagerNew {
 		}
 		return false;
 	}
-	
-	public boolean isConfigPro(){
+
+	public boolean isConfigPro() {
 		return sharedPreferdata.getValue(Constant.ISCONFIG_PROCESS, false);
 	}
-	
-	public void setConfigPro(boolean isConfig){
+
+	public void setConfigPro(boolean isConfig) {
 		sharedPreferdata.setValue(Constant.ISCONFIG_PROCESS, isConfig);
 	}
 
@@ -293,7 +293,7 @@ public class DataManagerNew {
 	}
 
 	public void setUserImagePath(String imgId) {
-		sharedPreferuser.setValue(Constant.USERIMAGE_ID, Url.GET_IMAGE + imgId);
+		sharedPreferuser.setValue(Constant.USERIMAGE_ID, imgId);
 	}
 
 	public void saveLoginUserInfo(LoginUserBean userBean) {

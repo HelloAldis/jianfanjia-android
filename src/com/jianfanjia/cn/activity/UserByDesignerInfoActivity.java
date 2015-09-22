@@ -207,7 +207,7 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 
 	private void setDesignerUpdateInfo() {
 		designerUpdateInfo = new DesignerUpdateInfo();
-		designerUpdateInfo.setImgId(designerInfo.getImageid());
+		designerUpdateInfo.setImageid(designerInfo.getImageid());
 		designerUpdateInfo.setAddress(designerInfo.getAddress());
 		designerUpdateInfo.setCity(designerInfo.getCity());
 		designerUpdateInfo.setDistrict(designerInfo.getDistrict());
@@ -459,7 +459,7 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 				TextUtils.isEmpty(imageId) ? Constant.DEFALUT_OWNER_PIC
 						: (Url.GET_IMAGE + imageId), headImageView, options);
 		if (designerUpdateInfo != null) {
-			designerUpdateInfo.setImgId(imageId);
+			designerUpdateInfo.setImageid(imageId);
 		}
 		if (mTmpFile != null && mTmpFile.exists()) {
 			mTmpFile.delete();

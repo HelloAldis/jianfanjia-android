@@ -6,7 +6,7 @@ public class OwnerUpdateInfo implements Serializable {
 
 	private static final long serialVersionUID = -6301075637921125877L;
 
-	private String imgId;
+	private String imageid;
 
 	private String sex;
 
@@ -58,12 +58,12 @@ public class OwnerUpdateInfo implements Serializable {
 		this.address = address;
 	}
 
-	public String getImgId() {
-		return imgId;
+	public String getImageid() {
+		return imageid;
 	}
 
-	public void setImgId(String imgId) {
-		this.imgId = imgId;
+	public void setImageid(String imageid) {
+		this.imageid = imageid;
 	}
 
 }

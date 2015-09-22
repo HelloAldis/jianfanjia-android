@@ -305,8 +305,6 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 										.getUserName()) {
 							dataManager.setUserName(ownerUpdateInfo
 									.getUsername());
-							sendBroadcast(new Intent(
-									Constant.INTENT_ACTION_USERINFO_CHANGE));
 						}
 						updateOwnerInfo();
 						dataManager.setOwnerInfo(ownerInfo);
@@ -341,7 +339,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 
 	private void setOwnerUpdateInfo() {
 		ownerUpdateInfo = new OwnerUpdateInfo();
-		ownerUpdateInfo.setImgId(ownerInfo.getImageid());
+		ownerUpdateInfo.setImageid(ownerInfo.getImageid());
 		ownerUpdateInfo.setAddress(ownerInfo.getAddress());
 		ownerUpdateInfo.setCity(ownerInfo.getCity());
 		ownerUpdateInfo.setDistrict(ownerInfo.getDistrict());
@@ -447,7 +445,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 				TextUtils.isEmpty(imageId) ? Constant.DEFALUT_OWNER_PIC
 						: (Url.GET_IMAGE + imageId), headImageView, options);
 		if (ownerUpdateInfo != null) {
-			ownerUpdateInfo.setImgId(imageId);
+			ownerUpdateInfo.setImageid(imageId);
 		}
 		if (mTmpFile != null && mTmpFile.exists()) {
 			mTmpFile.delete();
