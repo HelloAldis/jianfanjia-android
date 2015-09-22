@@ -27,7 +27,7 @@ public class NotifyMessage implements Serializable {
 	private String content;// 内容
 
 	@DatabaseField
-	private String time;// 日期
+	private long time;// 日期
 
 	@DatabaseField
 	private String section;// 阶段
@@ -55,14 +55,6 @@ public class NotifyMessage implements Serializable {
 		this.content = content;
 	}
 
-	public String getTime() {
-		return time;
-	}
-
-	public void setTime(String time) {
-		this.time = time;
-	}
-
 	public String getStatus() {
 		return status;
 	}
@@ -77,6 +69,14 @@ public class NotifyMessage implements Serializable {
 
 	public void setSection(String section) {
 		this.section = section;
+	}
+
+	public long getTime() {
+		return time;
+	}
+
+	public void setTime(long time) {
+		this.time = time;
 	}
 
 }

@@ -43,6 +43,7 @@ import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.SectionInfo;
+import com.jianfanjia.cn.bean.SectionItemInfo;
 import com.jianfanjia.cn.bean.ViewPagerItem;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
@@ -80,6 +81,7 @@ public class SiteManageFragment extends BaseFragment implements
 		LoadDataListener {
 	private static final String TAG = SiteManageFragment.class.getName();
 	private PullToRefreshScrollView mPullRefreshScrollView = null;
+	private static final int TOTAL_PROCESS = 7;// 7µÀ¹¤Ðò
 	private List<SectionInfo> sectionInfos;
 	private SectionInfo sectionInfo = null;
 	private ProcessInfo processInfo = null;
@@ -93,11 +95,10 @@ public class SiteManageFragment extends BaseFragment implements
 	private ViewPager processViewPager = null;
 	private ListView detailNodeListView = null;
 	private SectionItemAdapterBack sectionItemAdapter = null;
-	private InfinitePagerAdapter infinitePagerAdapter = null;
 	private MyViewPageAdapter myViewPageAdapter = null;
 	private String[] checkSection = null;
 	private String[] proTitle = null;
-	private List<ViewPagerItem> list = new ArrayList<ViewPagerItem>();
+	private List<ViewPagerItem> processList = new ArrayList<ViewPagerItem>();
 
 	private TextView titleCenter = null;
 	private TextView titleRight = null;
@@ -197,7 +198,6 @@ public class SiteManageFragment extends BaseFragment implements
 		initBannerView(view);
 		initScrollLayout(view);
 		initListView(view);
-		initProcessInfo();
 		if (processInfo != null) {
 			initData();
 		} else {
@@ -282,7 +282,7 @@ public class SiteManageFragment extends BaseFragment implements
 			layoutParams.bottomMargin = 10;
 			group.addView(imageView, layoutParams);
 		}
-		ViewPageAdapter pageAdapter = new ViewPageAdapter(getActivity(),
+		ViewPageAdapter bannerAdapter = new ViewPageAdapter(getActivity(),
 				bannerList);
 		bannerViewPager.setOnPageChangeListener(new OnPageChangeListener() {
 			@Override
@@ -302,7 +302,7 @@ public class SiteManageFragment extends BaseFragment implements
 				setImageBackground(arg0 % bannerList.size());
 			}
 		});
-		bannerViewPager.setAdapter(pageAdapter);
+		bannerViewPager.setAdapter(bannerAdapter);
 		bannerViewPager.setCurrentItem(0);
 		bannerhandler.sendEmptyMessageDelayed(CHANGE_PHOTO, CHANGE_TIME);
 	}
@@ -331,9 +331,19 @@ public class SiteManageFragment extends BaseFragment implements
 					MyApplication.getInstance().getPackageName()));
 			viewPagerItem.setTitle(proTitle[i]);
 			viewPagerItem.setDate("");
-			list.add(viewPagerItem);
+			processList.add(viewPagerItem);
 		}
-		myViewPageAdapter = new MyViewPageAdapter(getActivity(), list,
+		for (int i = 0; i < 3; i++) {
+			ViewPagerItem viewPagerItem = new ViewPagerItem();
+			viewPagerItem.setResId(getResources().getIdentifier(
+					"icon_home_normal" + (i + 1), "drawable",
+					MyApplication.getInstance().getPackageName()));
+			viewPagerItem.setTitle("");
+			viewPagerItem.setDate("");
+			processList.add(viewPagerItem);
+		}
+		// --------------------------
+		myViewPageAdapter = new MyViewPageAdapter(getActivity(), processList,
 				new ViewPagerClickListener() {
 
 					@Override
@@ -348,11 +358,12 @@ public class SiteManageFragment extends BaseFragment implements
 								sectionItemAdapter.notifyDataSetChanged();
 							}
 						}
+						Log.i(TAG, "potition=" + potition);
+						processViewPager.setCurrentItem(potition);
 					}
 
 				});
-		infinitePagerAdapter = new InfinitePagerAdapter(myViewPageAdapter);
-		processViewPager.setAdapter(infinitePagerAdapter);
+		processViewPager.setAdapter(myViewPageAdapter);
 		processViewPager.setOnPageChangeListener(new OnPageChangeListener() {
 			@Override
 			public void onPageScrollStateChanged(int arg0) {
@@ -368,9 +379,10 @@ public class SiteManageFragment extends BaseFragment implements
 			@Override
 			public void onPageSelected(int arg0) {
 				if (sectionInfos != null) {
-					if (currentList != arg0 % 7) {
-						currentList = arg0 % 7;
+					if (arg0 < TOTAL_PROCESS) {
+						currentList = arg0;
 						sectionInfo = sectionInfos.get(currentList);
+						Log.i(TAG, "sectionInfo---->" + sectionInfo.getName());
 						sectionItemAdapter.setPosition(currentList);
 						sectionItemAdapter.clearCurrentPosition();
 						sectionItemAdapter.notifyDataSetChanged();
@@ -385,13 +397,6 @@ public class SiteManageFragment extends BaseFragment implements
 			for (int i = 0; i < proTitle.length; i++) {
 				ViewPagerItem viewPagerItem = myViewPageAdapter.getList()
 						.get(i);
-				Log.i(TAG,
-						DateFormatTool.covertLongToString(sectionInfos.get(i)
-								.getStart_at(), "M.dd")
-								+ "-"
-								+ DateFormatTool
-										.covertLongToString(sectionInfos.get(i)
-												.getEnd_at(), "M.dd"));
 				viewPagerItem.setDate(DateFormatTool.covertLongToString(
 						sectionInfos.get(i).getStart_at(), "M.dd")
 						+ "-"
@@ -409,7 +414,7 @@ public class SiteManageFragment extends BaseFragment implements
 					viewPagerItem.setResId(drawableId);
 				}
 			}
-			infinitePagerAdapter.notifyDataSetChanged();
+			myViewPageAdapter.notifyDataSetChanged();
 		}
 	}
 
@@ -421,18 +426,20 @@ public class SiteManageFragment extends BaseFragment implements
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
+				List<SectionItemInfo> itemList = sectionInfo.getItems();
+				LogTool.d(TAG, "itemList==" + itemList);
 				if (!sectionInfo.getName().equals("kai_gong")
 						&& !sectionInfo.getName().equals("chai_gai")) {
-					if (position == 0) {
-						processInfoName = sectionInfo.getItems().get(position)
-								.getName();
-					} else {
-						processInfoName = sectionInfo.getItems()
-								.get(position - 1).getName();
+					if (null != itemList && itemList.size() > 0) {
+						if (position == 0) {
+							processInfoName = itemList.get(position).getName();
+						} else {
+							processInfoName = itemList.get(position - 1)
+									.getName();
+						}
 					}
 				} else {
-					processInfoName = sectionInfo.getItems().get(position)
-							.getName();
+					processInfoName = itemList.get(position).getName();
 				}
 				LogTool.d(TAG, "position=" + position + "  processInfoName="
 						+ processInfoName);

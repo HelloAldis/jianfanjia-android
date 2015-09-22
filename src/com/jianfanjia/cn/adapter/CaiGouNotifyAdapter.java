@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.bean.NotifyMessage;
+import com.jianfanjia.cn.tools.DateFormatTool;
 
 /**
  * @class CaiGouNotifyAdapter
@@ -48,7 +49,8 @@ public class CaiGouNotifyAdapter extends BaseListAdapter<NotifyMessage> {
 			viewHolder.itemNodeView.setText(MyApplication.getInstance()
 					.getStringById(stage));
 		}
-		viewHolder.itemPubTimeView.setText(message.getTime());
+		viewHolder.itemPubTimeView.setText(DateFormatTool
+				.toLocalTimeString(message.getTime()));
 		return convertView;
 	}
 
