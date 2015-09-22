@@ -118,7 +118,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 		imageLoader.displayImage(
 				ownerInfo.getImageid() == null ? Constant.DEFALUT_OWNER_PIC
 						: (Url.GET_IMAGE + ownerInfo.getImageid()),
-				headImageView);
+				headImageView, options);
 		nameText.setText(TextUtils.isEmpty(ownerInfo.getUsername()) ? getString(R.string.ower)
 				: ownerInfo.getUsername());
 		String sexInfo = ownerInfo.getSex();
