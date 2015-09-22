@@ -66,7 +66,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 	private RelativeLayout homeRelativeLayout = null;
 	private RelativeLayout sexRelativeLayout = null;
 	private String sex = null;
-	
+
 	private MainHeadView mainHeadView;
 
 	private OwnerInfo ownerInfo = null;
@@ -89,7 +89,8 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 	@Override
 	public void initView() {
 		initMainHead();
-		ownerInfoLayout = (RelativeLayout) this.findViewById(R.id.ownerinfoLayout);
+		ownerInfoLayout = (RelativeLayout) this
+				.findViewById(R.id.ownerinfoLayout);
 		scrollView = (ScrollView) this.findViewById(R.id.ownerinfo_scrollview);
 		errorView = this.findViewById(R.id.error_view);
 		headLayout = (RelativeLayout) this.findViewById(R.id.head_layout);
@@ -121,27 +122,25 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 	private void initMainHead() {
 		mainHeadView = (MainHeadView) findViewById(R.id.ownerinfo_head_layout);
 		mainHeadView.setBackListener(this);
-		mainHeadView.setMianTitle(getResources()
-				.getString(R.string.userinfo));		
+		mainHeadView.setMianTitle(getResources().getString(R.string.userinfo));
 	}
 
 	private void setConfimEnable(boolean enabled) {
 		btn_confirm.setEnabled(enabled);
 	}
-	
-	public void setViewChange(){
+
+	public void setViewChange() {
 		errorView.setVisibility(View.GONE);
 		scrollView.setVisibility(View.VISIBLE);
 	}
-	
+
 	@Override
-	public void setErrorView(){
+	public void setErrorView() {
 		((TextView) errorView.findViewById(R.id.tv_error)).setText("暂无个人信息数据");
 	}
 
 	private void setData() {
 		setViewChange();
-		
 		imageLoader
 				.displayImage(
 						TextUtils.isEmpty(ownerInfo.getImageid()) ? Constant.DEFALUT_OWNER_PIC
@@ -359,7 +358,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 		if (null != ownerInfo) {
 			setOwnerUpdateInfo();
 			setData();
-		}else{
+		} else {
 			setErrorView();
 		}
 	}

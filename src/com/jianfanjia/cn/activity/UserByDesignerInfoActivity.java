@@ -67,14 +67,16 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 	private String sex = null;
 	private File mTmpFile = null;
 	private String imageId = null;
-	
+
 	private MainHeadView mainHeadView;
 
 	@Override
 	public void initView() {
 		initMainHead();
-		designerInfoLayout = (RelativeLayout) this.findViewById(R.id.designerInfoLayout);
-		scrollView = (ScrollView) this.findViewById(R.id.designerinfo_scrollview);
+		designerInfoLayout = (RelativeLayout) this
+				.findViewById(R.id.designerInfoLayout);
+		scrollView = (ScrollView) this
+				.findViewById(R.id.designerinfo_scrollview);
 		errorView = this.findViewById(R.id.error_view);
 		headLayout = (RelativeLayout) this.findViewById(R.id.head_layout);
 		nameText = (TextView) this.findViewById(R.id.nameText);
@@ -104,17 +106,16 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 	private void initMainHead() {
 		mainHeadView = (MainHeadView) findViewById(R.id.designerinfo_head_layout);
 		mainHeadView.setBackListener(this);
-		mainHeadView.setMianTitle(getResources()
-				.getString(R.string.userinfo));
+		mainHeadView.setMianTitle(getResources().getString(R.string.userinfo));
 	}
-	
-	public void setViewChange(){
+
+	public void setViewChange() {
 		errorView.setVisibility(View.GONE);
 		scrollView.setVisibility(View.VISIBLE);
 	}
-	
+
 	@Override
-	public void setErrorView(){
+	public void setErrorView() {
 		((TextView) errorView.findViewById(R.id.tv_error)).setText("暂无个人信息数据");
 	}
 
@@ -123,9 +124,7 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 	}
 
 	private void setData() {
-		
 		setViewChange();
-		
 		imageLoader
 				.displayImage(
 						TextUtils.isEmpty(designerInfo.getImageid()) ? Constant.DEFALUT_OWNER_PIC
@@ -164,7 +163,7 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 			homeText.setText(getString(R.string.not_edit));
 		}
 	}
-	
+
 	@Override
 	public void setListener() {
 		headLayout.setOnClickListener(this);
@@ -226,7 +225,7 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 		if (null != designerInfo) {
 			setData();
 			setDesignerUpdateInfo();
-		}else{
+		} else {
 			setErrorView();
 		}
 	}
