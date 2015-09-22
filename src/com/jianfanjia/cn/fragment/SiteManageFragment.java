@@ -516,7 +516,6 @@ public class SiteManageFragment extends BaseFragment implements
 			Bundle checkBundle = new Bundle();
 			checkBundle.putInt(Constant.CURRENT_LIST, currentList);
 			startActivity(CheckActivity.class, checkBundle);
-			getActivity().finish();
 			break;
 		default:
 			break;
@@ -759,7 +758,6 @@ public class SiteManageFragment extends BaseFragment implements
 			}
 			break;
 		case Constant.REQUESTCODE_CHANGE_SITE:
-			LogTool.d(TAG, "22222222222222222222222222222222222222222");
 			if (((MainActivity) getActivity()).getSlidingPaneLayout().isOpen()) {
 				((MainActivity) getActivity()).getSlidingPaneLayout()
 						.closePane();
