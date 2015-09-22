@@ -169,8 +169,6 @@
             <View
                 style="@style/divier_line"
                 android:layout_marginTop="16dp" />
-            
-             
 
             <RelativeLayout
                 android:id="@+id/my_totaldate_layout"
@@ -185,11 +183,11 @@
                 <TextView
                     android:id="@+id/my_site_totaldate"
                     style="@style/site_listview_item_text_style_middle"
-                    android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
                     android:textColor="@color/main_color_grey" />
             </RelativeLayout>
-            
+
             <View style="@style/divier_line" />
 
             <RelativeLayout
@@ -218,8 +216,6 @@
                     android:layout_toLeftOf="@+id/startdate_select_goto"
                     android:textColor="@color/main_color_grey" />
             </RelativeLayout>
-
-           
 
             <View style="@style/divier_line" />
 
