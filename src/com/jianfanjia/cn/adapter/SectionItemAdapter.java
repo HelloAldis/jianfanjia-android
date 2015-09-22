@@ -40,7 +40,7 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 		super(context, sectionItemInfos);
 		userType = dataManager.getUserType();
 	}
-	
+
 	public SectionItemAdapter(Context context,
 			List<SectionItemInfo> sectionItemInfos, ItemClickCallBack callBack) {
 		super(context, sectionItemInfos);
