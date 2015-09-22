@@ -3,9 +3,10 @@ package com.jianfanjia.cn.fragment;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.PayNotifyAdapter;
@@ -30,10 +31,16 @@ public class FuKuanNotifyFragment extends BaseFragment implements
 	private PayNotifyAdapter payAdapter = null;
 
 	@Override
-	public void initView(View view) {
-		fukuanListView = (ListView) view.findViewById(R.id.tip_pay__listview);
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		setUserVisibleHint(true);
 		payAdapter = new PayNotifyAdapter(getActivity(), payList);
 		fukuanListView.setAdapter(payAdapter);
+	}
+
+	@Override
+	public void initView(View view) {
+		fukuanListView = (ListView) view.findViewById(R.id.tip_pay__listview);
 	}
 
 	@Override

@@ -31,6 +31,7 @@ public class YanQiNotifyFragment extends BaseFragment implements
 	private NotifyMessage notifyMessage = null;
 	private DelayNotifyAdapter delayAdapter = null;
 
+	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		setUserVisibleHint(true);

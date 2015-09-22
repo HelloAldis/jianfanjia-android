@@ -3,6 +3,7 @@ package com.jianfanjia.cn.fragment;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
@@ -30,11 +31,17 @@ public class CaiGouNotifyFragment extends BaseFragment implements
 	private CaiGouNotifyAdapter caiGouAdapter = null;
 
 	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		setUserVisibleHint(true);
+		caiGouAdapter = new CaiGouNotifyAdapter(getActivity(), caigouList);
+		caigouListView.setAdapter(caiGouAdapter);
+	}
+
+	@Override
 	public void initView(View view) {
 		caigouListView = (ListView) view
 				.findViewById(R.id.tip_caigou__listview);
-		caiGouAdapter = new CaiGouNotifyAdapter(getActivity(), caigouList);
-		caigouListView.setAdapter(caiGouAdapter);
 	}
 
 	@Override
