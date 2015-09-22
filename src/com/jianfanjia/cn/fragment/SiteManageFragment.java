@@ -44,7 +44,6 @@ import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.SectionInfo;
-import com.jianfanjia.cn.bean.SectionItemInfo;
 import com.jianfanjia.cn.bean.ViewPagerItem;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
@@ -82,8 +81,7 @@ public class SiteManageFragment extends BaseFragment implements
 		LoadDataListener {
 	private static final String TAG = SiteManageFragment.class.getName();
 	private PullToRefreshScrollView mPullRefreshScrollView = null;
-	private List<SectionInfo> sectionInfos = new ArrayList<SectionInfo>();
-	private List<SectionItemInfo> sectionItemInfos = new ArrayList<SectionItemInfo>();// 工序节点列表
+	private List<SectionInfo> sectionInfos;
 	private SectionInfo sectionInfo = null;
 	private ProcessInfo processInfo = null;
 	private int currentPro = -1;// 当前进行工序
@@ -114,7 +112,7 @@ public class SiteManageFragment extends BaseFragment implements
 			R.drawable.bg_home_banner2, R.drawable.bg_home_banner3,
 			R.drawable.bg_home_banner4 };
 
-	private String processInfoId = null;
+	private String processInfoName = null;
 	private File mTmpFile = null;
 
 	private Handler bannerhandler = new Handler() {
@@ -234,11 +232,9 @@ public class SiteManageFragment extends BaseFragment implements
 			}
 			sectionInfos = processInfo.getSections();
 			sectionInfo = sectionInfos.get(currentList);
-			sectionItemInfos = sectionInfo.getItems();
 			setScrollHeadTime();
 			sectionItemAdapter = new SectionItemAdapterBack(getActivity(),
 					currentList, this);
-			// sectionItemAdapter.setSection_status(sectionInfo.getStatus());
 			detailNodeListView.setAdapter(sectionItemAdapter);
 			processViewPager.setCurrentItem(currentList);
 		}
@@ -247,7 +243,7 @@ public class SiteManageFragment extends BaseFragment implements
 	@Override
 	public void onResume() {
 		super.onResume();
-		// processViewPager.setCurrentItem(currentList);
+		processViewPager.setCurrentItem(currentList);
 		if (sectionItemAdapter != null) {
 			sectionItemAdapter.notifyDataSetChanged();
 		}
@@ -366,11 +362,6 @@ public class SiteManageFragment extends BaseFragment implements
 					if (currentList != arg0 % 7) {
 						currentList = arg0 % 7;
 						sectionInfo = sectionInfos.get(currentList);
-						sectionItemInfos = sectionInfo.getItems();
-						LogTool.d(TAG, "sectionItemInfos=" + sectionItemInfos);
-						for (SectionItemInfo info : sectionItemInfos) {
-							LogTool.d(TAG, "info Name()=====" + info.getName());
-						}
 						sectionItemAdapter.setPosition(currentList);
 						sectionItemAdapter.clearCurrentPosition();
 						sectionItemAdapter.notifyDataSetChanged();
@@ -422,11 +413,16 @@ public class SiteManageFragment extends BaseFragment implements
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				SectionItemInfo sectionItemInfo = sectionItemInfos
-						.get(position);
-				processInfoId = sectionItemInfo.getName();
-				LogTool.d(TAG, "position=" + position + "  processInfoId="
-						+ processInfoId);
+				if (!sectionInfo.getName().equals("kai_gong")
+						&& !sectionInfo.getName().equals("chai_gai")) {
+					processInfoName = sectionInfo.getItems().get(position - 1)
+							.getName();
+				} else {
+					processInfoName = sectionInfo.getItems().get(position)
+							.getName();
+				}
+				LogTool.d(TAG, "position=" + position + "  processInfoName="
+						+ processInfoName);
 				sectionItemAdapter.setCurrentClickItem(position);
 			}
 		});
@@ -606,7 +602,7 @@ public class SiteManageFragment extends BaseFragment implements
 					public void onClick(DialogInterface dialog, int which) {
 						dialog.dismiss();
 						confirmProcessItemDone(processInfo.get_id(),
-								sectionInfo.getName(), processInfoId);
+								sectionInfo.getName(), processInfoName);
 					}
 				});
 		dialog.setNegativeButton(R.string.no, null);
@@ -734,7 +730,7 @@ public class SiteManageFragment extends BaseFragment implements
 					if (!TextUtils.isEmpty(imgPath)) {
 						uploadManager.uploadProcedureImage(imgPath,
 								processInfo.get_id(), sectionInfo.getName(),
-								processInfoId, this);
+								processInfoName, this);
 					}
 				}
 			}
