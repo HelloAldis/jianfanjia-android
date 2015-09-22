@@ -42,12 +42,12 @@ public class SectionItemAdapterBack extends BaseAdapter {
 	private String userType;
 	private int section_status;// 节点的状态
 	private SectionInfo sectionInfo;
-	protected Context context;
-	protected LayoutInflater layoutInflater;
-	protected List<SectionItemInfo> list = new ArrayList<SectionItemInfo>();
-	protected ImageLoader imageLoader;
-	protected DisplayImageOptions options;
-	protected DataManagerNew dataManager;
+	private Context context;
+	private LayoutInflater layoutInflater;
+	private List<SectionItemInfo> list = new ArrayList<SectionItemInfo>();
+	private ImageLoader imageLoader;
+	private DisplayImageOptions options;
+	private DataManagerNew dataManager;
 	private boolean isHasCheck;// 是否有验收
 
 	public SectionItemAdapterBack(Context context, int position,
@@ -137,13 +137,20 @@ public class SectionItemAdapterBack extends BaseAdapter {
 		notifyDataSetChanged();
 	}
 
+	public boolean isHasCheck() {
+		return isHasCheck;
+	}
+
+	public void setHasCheck(boolean isHasCheck) {
+		this.isHasCheck = isHasCheck;
+	}
+
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		return initView(position, convertView);
 	}
 
 	public View initView(final int position, View convertView) {
-		LogTool.d(this.getClass().getName(), "position = " + position);
 		ViewHolder viewHolder = null;
 		ViewHolder2 viewHolderf = null;
 		int type = getItemViewType(position);
@@ -317,14 +324,22 @@ public class SectionItemAdapterBack extends BaseAdapter {
 
 						@Override
 						public void onClick(View v) {
-							callBack.click(position, Constant.CONFIRM_ITEM);
+							if(isHasCheck){
+								callBack.click(position - 1, Constant.CONFIRM_ITEM);
+							}else{
+								callBack.click(position, Constant.CONFIRM_ITEM);
+							}
 						}
 					});
 			viewHolder.openComment.setOnClickListener(new OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
-					callBack.click(position, Constant.COMMENT_ITEM);
+					if(isHasCheck){
+						callBack.click(position - 1, Constant.COMMENT_ITEM);
+					}else{
+						callBack.click(position, Constant.COMMENT_ITEM);
+					}
 				}
 			});
 
@@ -337,11 +352,9 @@ public class SectionItemAdapterBack extends BaseAdapter {
 				if (sectionItemInfo1.isOpen()) {
 					viewHolderf.bigOpenLayout.setVisibility(View.VISIBLE);
 					viewHolderf.smallcloseLayout.setVisibility(View.GONE);
-					isPos = true;
 				} else {
 					viewHolderf.bigOpenLayout.setVisibility(View.GONE);
 					viewHolderf.smallcloseLayout.setVisibility(View.VISIBLE);
-					isPos = false;
 				}
 			} else {
 				viewHolderf.bigOpenLayout.setVisibility(View.GONE);
