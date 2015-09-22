@@ -22,7 +22,6 @@ import com.jianfanjia.cn.bean.CommentInfo;
 import com.jianfanjia.cn.bean.GridItem;
 import com.jianfanjia.cn.bean.SectionInfo;
 import com.jianfanjia.cn.bean.SectionItemInfo;
-import com.jianfanjia.cn.cache.DataManager;
 import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
@@ -99,13 +98,11 @@ public class SectionItemAdapterBack extends BaseAdapter {
 
 	@Override
 	public int getViewTypeCount() {
-		// TODO Auto-generated method stub
 		return 2;
 	}
 
 	@Override
 	public int getItemViewType(int position) {
-		// TODO Auto-generated method stub
 		if (isHasCheck) {
 			if (position == 0) {
 				return CHECK_VIEW;
