@@ -100,7 +100,7 @@ public abstract class BaseFragment extends Fragment implements OnClickListener,
 		mUserImageId = dataManager.getUserImagePath();
 		mUserType = dataManager.getUserType();
 		LogTool.d(this.getClass().getName(), "mUserName:" + mUserName
-				+ " mAccount:" + mAccount + " userImageId" + mUserImageId);
+				+ " mAccount:" + mAccount + " userImageId:" + mUserImageId);
 	}
 
 	public abstract int getLayoutId();
@@ -121,6 +121,7 @@ public abstract class BaseFragment extends Fragment implements OnClickListener,
 	public void onResume() {
 		super.onResume();
 		LogTool.d(this.getClass().getName(), "onResume");
+		initUserInfo();
 	}
 
 	@Override

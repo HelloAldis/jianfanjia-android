@@ -47,7 +47,6 @@ public class OwnerMenuFragment extends BaseFragment {
 	}
 
 	private void initInfo() {
-		mUserName = dataManager.getUserName();
 		if (!TextUtils.isEmpty(mUserName)) {
 			nameText.setText(mUserName);
 		} else {
