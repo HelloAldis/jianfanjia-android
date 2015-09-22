@@ -415,8 +415,13 @@ public class SiteManageFragment extends BaseFragment implements
 					int position, long id) {
 				if (!sectionInfo.getName().equals("kai_gong")
 						&& !sectionInfo.getName().equals("chai_gai")) {
-					processInfoName = sectionInfo.getItems().get(position - 1)
-							.getName();
+					if (position == 0) {
+						processInfoName = sectionInfo.getItems().get(position)
+								.getName();
+					} else {
+						processInfoName = sectionInfo.getItems()
+								.get(position - 1).getName();
+					}
 				} else {
 					processInfoName = sectionInfo.getItems().get(position)
 							.getName();
