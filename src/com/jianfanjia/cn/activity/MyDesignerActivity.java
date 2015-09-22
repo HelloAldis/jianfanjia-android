@@ -1,10 +1,12 @@
 package com.jianfanjia.cn.activity;
 
+import android.annotation.SuppressLint;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.MyDesignerInfo;
@@ -42,12 +44,16 @@ public class MyDesignerActivity extends BaseActivity implements
 	private TextView budgetView;// 设计费
 	private MyDesignerInfo designerInfo;
 	private String designerId;
+	private RelativeLayout contentLayout;
+	private View errorView;
 
 	private MainHeadView mainHeadView;
 
 	@Override
 	public void initView() {
 		initMainHead();
+		contentLayout = (RelativeLayout) findViewById(R.id.my_designer_content_layout);
+		errorView = findViewById(R.id.error_view);
 		bgView = (ImageView) findViewById(R.id.designer_bg);
 		headView = (CircleImageView) findViewById(R.id.my_designer_head_icon);
 		nameView = (TextView) findViewById(R.id.my_designer_name);
@@ -68,6 +74,8 @@ public class MyDesignerActivity extends BaseActivity implements
 				LoadClientHelper.getDesignerInfoById(this,
 						new DesignerInfoRequest(this, designerId), this);
 			}
+		} else {
+			setErrorView();
 		}
 	}
 
@@ -76,10 +84,7 @@ public class MyDesignerActivity extends BaseActivity implements
 		mainHeadView.setBackListener(this);
 		mainHeadView.setMianTitle(getResources()
 				.getString(R.string.my_designer));
-		mainHeadView.setBackgroundTransparent();
-		mainHeadView.setMainTextColor(getResources().getColor(
-				R.color.font_white));
-		mainHeadView.setDividerVisable(View.GONE);
+		
 	}
 
 	@Override
@@ -90,7 +95,13 @@ public class MyDesignerActivity extends BaseActivity implements
 			setData();
 		} else {
 			// loadempty
+			setErrorView();
 		}
+	}
+
+	@Override
+	public void setErrorView() {
+		((TextView) errorView.findViewById(R.id.tv_error)).setText("暂无设计师数据");
 	}
 
 	@Override
@@ -113,13 +124,16 @@ public class MyDesignerActivity extends BaseActivity implements
 
 	private void setData() {
 		if (designerInfo != null) {
+			
+			setViewChange();
+			
 			nameView.setText(TextUtils.isEmpty(designerInfo.getUsername()) ? getString(R.string.designer)
 					: designerInfo.getUsername());
-			if(!TextUtils.isEmpty(designerInfo.getSex())){
+			if (!TextUtils.isEmpty(designerInfo.getSex())) {
 				sexView.setImageResource(designerInfo.getSex().equals(
 						Constant.SEX_MAN) ? R.drawable.icon_designer_user_man
 						: R.drawable.icon_designer_user_woman);
-			}else{
+			} else {
 				sexView.setVisibility(View.GONE);
 			}
 			authView.setVisibility(designerInfo.getAuth_type().equals(
@@ -161,6 +175,17 @@ public class MyDesignerActivity extends BaseActivity implements
 				headView.setImageResource(R.drawable.icon_sidebar_default_designer);
 			}
 		}
+	}
+
+	//有数据就改变展示的样式
+	private void setViewChange() {
+		mainHeadView.setBackgroundTransparent();
+		mainHeadView.setMainTextColor(getResources().getColor(
+				R.color.font_white));
+		mainHeadView.setDividerVisable(View.GONE);
+		contentLayout.setVisibility(View.VISIBLE);
+		bgView.setVisibility(View.VISIBLE);
+		errorView.setVisibility(View.GONE);		
 	}
 
 	@Override

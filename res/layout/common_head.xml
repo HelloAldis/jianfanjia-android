@@ -5,7 +5,7 @@
     android:background="@android:color/transparent" >
 
     <RelativeLayout
-        android:id="@+id/head_layout"
+        android:id="@+id/main_head_layout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_48" >
 

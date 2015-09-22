@@ -257,7 +257,13 @@ public abstract class BaseActivity extends FragmentActivity implements
 	public void loadFailture() {
 		// TODO Auto-generated method stub
 		hideWaitDialog();
+		setErrorView();
 		makeTextLong(getString(R.string.tip_no_internet));
+	}
+
+	//设置错误视图
+	protected void setErrorView() {
+		// TODO Auto-generated method stub
 	}
 
 	@Override

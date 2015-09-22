@@ -171,8 +171,7 @@
     <!--
     <style name="site_listview_item_text_style_big" parent="my_item_layout_text_style_base">
         <item name="android:textSize">@dimen/text_size_14</item>
-    </style>
-    -->
+    </style>    -->
 
     <style name="site_listview_item_text_style_title" parent="my_item_layout_text_style_base">
         <item name="android:textSize">@dimen/text_size_17</item>

@@ -13,6 +13,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
+import android.widget.ScrollView;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -30,6 +31,7 @@ import com.jianfanjia.cn.interf.UploadPortraitListener;
 import com.jianfanjia.cn.tools.FileUtil;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.PhotoUtils;
+import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.CommonWheelDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
@@ -48,9 +50,10 @@ import com.jianfanjia.cn.view.wheel.WheelView;
 public class UserByOwnerInfoActivity extends BaseActivity implements
 		OnClickListener, UploadPortraitListener {
 	private static final String TAG = UserByOwnerInfoActivity.class.getName();
-	private RelativeLayout infoLayout = null;
 	private RelativeLayout headLayout = null;
-	private TextView ownerinfo_back = null;
+	private RelativeLayout ownerInfoLayout = null;
+	private ScrollView scrollView = null;
+	private View errorView = null;
 	private TextView nameText = null;
 	private TextView sexText = null;
 	private TextView phoneText = null;
@@ -63,6 +66,8 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 	private RelativeLayout homeRelativeLayout = null;
 	private RelativeLayout sexRelativeLayout = null;
 	private String sex = null;
+	
+	private MainHeadView mainHeadView;
 
 	private OwnerInfo ownerInfo = null;
 
@@ -83,8 +88,10 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 
 	@Override
 	public void initView() {
-		infoLayout = (RelativeLayout) findViewById(R.id.infoLayout);
-		ownerinfo_back = (TextView) this.findViewById(R.id.ownerinfo_back);
+		initMainHead();
+		ownerInfoLayout = (RelativeLayout) this.findViewById(R.id.ownerinfoLayout);
+		scrollView = (ScrollView) this.findViewById(R.id.ownerinfo_scrollview);
+		errorView = this.findViewById(R.id.error_view);
 		headLayout = (RelativeLayout) this.findViewById(R.id.head_layout);
 		nameText = (TextView) this.findViewById(R.id.nameText);
 		sexText = (TextView) this.findViewById(R.id.sexText);
@@ -111,11 +118,30 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 		commonWheelDialog = new CommonWheelDialog(this);
 	}
 
+	private void initMainHead() {
+		mainHeadView = (MainHeadView) findViewById(R.id.ownerinfo_head_layout);
+		mainHeadView.setBackListener(this);
+		mainHeadView.setMianTitle(getResources()
+				.getString(R.string.userinfo));		
+	}
+
 	private void setConfimEnable(boolean enabled) {
 		btn_confirm.setEnabled(enabled);
 	}
+	
+	public void setViewChange(){
+		errorView.setVisibility(View.GONE);
+		scrollView.setVisibility(View.VISIBLE);
+	}
+	
+	@Override
+	public void setErrorView(){
+		((TextView) errorView.findViewById(R.id.tv_error)).setText("暂无个人信息数据");
+	}
 
 	private void setData() {
+		setViewChange();
+		
 		imageLoader
 				.displayImage(
 						TextUtils.isEmpty(ownerInfo.getImageid()) ? Constant.DEFALUT_OWNER_PIC
@@ -145,7 +171,6 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 
 	@Override
 	public void setListener() {
-		ownerinfo_back.setOnClickListener(this);
 		headLayout.setOnClickListener(this);
 		btn_confirm.setOnClickListener(this);
 		// addressLayout.setOnClickListener(this);
@@ -157,11 +182,11 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.ownerinfo_back:
+		case R.id.head_back_layout:
 			finish();
 			break;
 		case R.id.head_layout:
-			showPopWindow(infoLayout);
+			showPopWindow(ownerInfoLayout);
 			break;
 		case R.id.btn_confirm:
 			if (ownerUpdateInfo != null) {
@@ -334,6 +359,8 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 		if (null != ownerInfo) {
 			setOwnerUpdateInfo();
 			setData();
+		}else{
+			setErrorView();
 		}
 	}
 

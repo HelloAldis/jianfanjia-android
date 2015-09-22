@@ -44,8 +44,10 @@ public class PostRequirementRequest extends BaseRequest {
 		if(data != null){
 			ProcessInfo processInfo = JsonParser
 					.jsonToBean(data, ProcessInfo.class);
-			dataManager.saveProcessInfo(processInfo);
-			dataManager.setCurrentProcessInfo(processInfo);
+			if(processInfo != null){
+				dataManager.saveProcessInfo(processInfo);
+				dataManager.setCurrentProcessInfo(processInfo);
+			}
 		}
 	}
 

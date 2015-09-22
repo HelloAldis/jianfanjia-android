@@ -31,7 +31,9 @@ public class UserByOwnerInfoRequest extends BaseRequest {
 		String data = baseResponse.getData().toString();
 		if (data != null) {
 			OwnerInfo ownerInfo = JsonParser.jsonToBean(data, OwnerInfo.class);
-			dataManager.setOwnerInfo(ownerInfo);
+			if(ownerInfo != null){
+				dataManager.setOwnerInfo(ownerInfo);
+			}
 		}
 	}
 

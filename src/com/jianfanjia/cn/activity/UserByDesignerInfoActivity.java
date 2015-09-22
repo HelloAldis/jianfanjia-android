@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.DesignerInfo;
@@ -30,6 +31,7 @@ import com.jianfanjia.cn.interf.UploadPortraitListener;
 import com.jianfanjia.cn.tools.FileUtil;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.PhotoUtils;
+import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
 
@@ -46,7 +48,8 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 	private static final String TAG = UserByDesignerInfoActivity.class
 			.getName();
 	private RelativeLayout designerInfoLayout = null;
-	private TextView ownerinfo_back = null;
+	private ScrollView scrollView = null;
+	private View errorView = null;
 	private RelativeLayout headLayout = null;
 	private TextView nameText = null;
 	private TextView sexText = null;
@@ -64,11 +67,15 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 	private String sex = null;
 	private File mTmpFile = null;
 	private String imageId = null;
+	
+	private MainHeadView mainHeadView;
 
 	@Override
 	public void initView() {
-		designerInfoLayout = (RelativeLayout) findViewById(R.id.designerInfoLayout);
-		ownerinfo_back = (TextView) this.findViewById(R.id.ownerinfo_back);
+		initMainHead();
+		designerInfoLayout = (RelativeLayout) this.findViewById(R.id.designerInfoLayout);
+		scrollView = (ScrollView) this.findViewById(R.id.designerinfo_scrollview);
+		errorView = this.findViewById(R.id.error_view);
 		headLayout = (RelativeLayout) this.findViewById(R.id.head_layout);
 		nameText = (TextView) this.findViewById(R.id.nameText);
 		sexText = (TextView) this.findViewById(R.id.sexText);
@@ -94,11 +101,31 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 		}
 	}
 
+	private void initMainHead() {
+		mainHeadView = (MainHeadView) findViewById(R.id.designerinfo_head_layout);
+		mainHeadView.setBackListener(this);
+		mainHeadView.setMianTitle(getResources()
+				.getString(R.string.userinfo));
+	}
+	
+	public void setViewChange(){
+		errorView.setVisibility(View.GONE);
+		scrollView.setVisibility(View.VISIBLE);
+	}
+	
+	@Override
+	public void setErrorView(){
+		((TextView) errorView.findViewById(R.id.tv_error)).setText("暂无个人信息数据");
+	}
+
 	private void setConfimEnable(boolean enabled) {
 		btn_confirm.setEnabled(enabled);
 	}
 
 	private void setData() {
+		
+		setViewChange();
+		
 		imageLoader
 				.displayImage(
 						TextUtils.isEmpty(designerInfo.getImageid()) ? Constant.DEFALUT_OWNER_PIC
@@ -137,10 +164,9 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 			homeText.setText(getString(R.string.not_edit));
 		}
 	}
-
+	
 	@Override
 	public void setListener() {
-		ownerinfo_back.setOnClickListener(this);
 		headLayout.setOnClickListener(this);
 		btn_confirm.setOnClickListener(this);
 		userNameRelativeLayout.setOnClickListener(this);
@@ -200,6 +226,8 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 		if (null != designerInfo) {
 			setData();
 			setDesignerUpdateInfo();
+		}else{
+			setErrorView();
 		}
 	}
 
@@ -221,7 +249,7 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.ownerinfo_back:
+		case R.id.head_back_layout:
 			finish();
 			break;
 		case R.id.head_layout:

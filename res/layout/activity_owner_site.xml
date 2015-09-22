@@ -15,7 +15,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/ower_site_head_layout"
-        android:layout_marginTop="@dimen/space_8" >
+        android:layout_marginTop="@dimen/space_8"
+        android:visibility="gone" >
 
         <LinearLayout
             android:id="@+id/rootview"
@@ -233,5 +234,13 @@
                 android:textSize="17sp" />
         </LinearLayout>
     </ScrollView>
+    
+    <include android:id="@+id/error_view"
+        layout="@layout/view_error_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/ower_site_head_layout"
+        android:layout_marginTop="@dimen/space_8"
+        />
 
 </RelativeLayout>

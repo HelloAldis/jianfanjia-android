@@ -23,7 +23,9 @@ public class DesignerOwnerInfoRequest extends ProcessInfoRequest {
 		if(data != null){
 			ProcessInfo processInfo = JsonParser
 					.jsonToBean(data, ProcessInfo.class);
-			dataManager.saveProcessInfo(processInfo);
+			if(processInfo != null){
+				dataManager.saveProcessInfo(processInfo);
+			}
 		}
 	}
 	

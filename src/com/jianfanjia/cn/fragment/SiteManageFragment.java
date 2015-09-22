@@ -36,7 +36,6 @@ import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.OwnerSiteActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.ShowPicActivity;
-import com.jianfanjia.cn.adapter.InfinitePagerAdapter;
 import com.jianfanjia.cn.adapter.MyViewPageAdapter;
 import com.jianfanjia.cn.adapter.SectionItemAdapterBack;
 import com.jianfanjia.cn.adapter.ViewPageAdapter;
@@ -140,6 +139,7 @@ public class SiteManageFragment extends BaseFragment implements
 		if (savedInstanceState != null) {
 			currentList = savedInstanceState.getInt(Constant.CURRENT_LIST, -1);
 		}
+		initProcessInfo();
 	}
 
 	private void initProcessInfo() {
@@ -339,6 +339,15 @@ public class SiteManageFragment extends BaseFragment implements
 					@Override
 					public void onClickItem(int potition) {
 						Log.i(TAG, "potition------->" + potition);
+						if (sectionInfos != null) {
+							if (currentList != potition % 7) {
+								currentList = potition % 7;
+								sectionInfo = sectionInfos.get(currentList);
+								sectionItemAdapter.setPosition(currentList);
+								sectionItemAdapter.clearCurrentPosition();
+								sectionItemAdapter.notifyDataSetChanged();
+							}
+						}
 					}
 
 				});
@@ -348,13 +357,12 @@ public class SiteManageFragment extends BaseFragment implements
 			@Override
 			public void onPageScrollStateChanged(int arg0) {
 				// TODO Auto-generated method stub
-
 			}
+			
 
 			@Override
 			public void onPageScrolled(int arg0, float arg1, int arg2) {
 				// TODO Auto-generated method stub
-
 			}
 
 			@Override
@@ -369,7 +377,6 @@ public class SiteManageFragment extends BaseFragment implements
 					}
 				}
 			}
-
 		});
 	}
 

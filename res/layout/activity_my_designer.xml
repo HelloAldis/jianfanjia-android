@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="@color/main_layout_bg" >
 
     <ImageView
         android:id="@+id/designer_bg"
@@ -10,7 +11,8 @@
         android:background="@drawable/bg_loading_720"
         android:contentDescription="@null"
         android:scaleType="fitXY"
-        android:src="@drawable/bg_cover_sidebar" />
+        android:src="@drawable/bg_cover_sidebar"
+        android:visibility="gone" />
 
     <com.jianfanjia.cn.view.MainHeadView
         android:id="@+id/my_designer_head_layout"
@@ -21,7 +23,8 @@
         android:id="@+id/my_designer_content_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/my_designer_head_layout" >
+        android:layout_below="@+id/my_designer_head_layout"
+        android:visibility="gone" >
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -179,5 +182,13 @@
             </RelativeLayout>
         </RelativeLayout>
     </RelativeLayout>
+    
+    <include android:id="@+id/error_view"
+        layout="@layout/view_error_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/my_designer_head_layout"
+        android:layout_marginTop="@dimen/space_8"
+        />
 
 </RelativeLayout>
