@@ -5,6 +5,8 @@ import java.io.Serializable;
 public class DesignerUpdateInfo implements Serializable {
 	private static final long serialVersionUID = 8059290088434087451L;
 
+	private String imgId;
+
 	private String philosophy;
 
 	private String achievement;
@@ -203,6 +205,14 @@ public class DesignerUpdateInfo implements Serializable {
 
 	public void setDec_types(String[] dec_types) {
 		this.dec_types = dec_types;
+	}
+
+	public String getImgId() {
+		return imgId;
+	}
+
+	public void setImgId(String imgId) {
+		this.imgId = imgId;
 	}
 
 }

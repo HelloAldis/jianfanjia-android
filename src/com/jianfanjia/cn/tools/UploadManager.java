@@ -4,9 +4,12 @@ import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.content.Context;
+import android.text.TextUtils;
+
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.interf.UploadImageListener;
+import com.jianfanjia.cn.interf.UploadPortraitListener;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 public class UploadManager {
@@ -233,7 +236,13 @@ public class UploadManager {
 				});
 	}
 
-	public void uploadImage(String imgPath) {
+	/**
+	 * 上传个人头像
+	 * 
+	 * @param imgPath
+	 */
+	public void uploadPortrait(String imgPath,
+			final UploadPortraitListener listener) {
 		JianFanJiaApiClient.uploadImage(context, imgPath,
 				new JsonHttpResponseHandler() {
 					@Override
@@ -251,8 +260,8 @@ public class UploadManager {
 										.toString());
 								String imageid = obj.getString("data");
 								LogTool.d(TAG, "imageid:" + imageid);
-								if (null != imageid) {
-									
+								if (!TextUtils.isEmpty(imageid)) {
+									listener.getImageId(imageid);
 								}
 							} else if (response.has(Constant.ERROR_MSG)) {
 
@@ -276,5 +285,4 @@ public class UploadManager {
 					};
 				});
 	}
-
 }

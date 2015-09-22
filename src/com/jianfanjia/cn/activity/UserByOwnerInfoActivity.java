@@ -26,7 +26,7 @@ import com.jianfanjia.cn.http.LoadClientHelper;
 import com.jianfanjia.cn.http.request.UserByOwnerInfoRequest;
 import com.jianfanjia.cn.http.request.UserByOwnerInfoUpdateRequest;
 import com.jianfanjia.cn.interf.LoadDataListener;
-import com.jianfanjia.cn.interf.UploadImageListener;
+import com.jianfanjia.cn.interf.UploadPortraitListener;
 import com.jianfanjia.cn.tools.FileUtil;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.PhotoUtils;
@@ -46,7 +46,7 @@ import com.jianfanjia.cn.view.wheel.WheelView;
  * 
  */
 public class UserByOwnerInfoActivity extends BaseActivity implements
-		OnClickListener, UploadImageListener {
+		OnClickListener, UploadPortraitListener {
 	private static final String TAG = UserByOwnerInfoActivity.class.getName();
 	private RelativeLayout infoLayout = null;
 	private RelativeLayout headLayout = null;
@@ -62,23 +62,24 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 	private RelativeLayout userNameRelativeLayout = null;
 	private RelativeLayout homeRelativeLayout = null;
 	private RelativeLayout sexRelativeLayout = null;
-	private String sex;
+	private String sex = null;
 
-	private OwnerInfo ownerInfo;
+	private OwnerInfo ownerInfo = null;
 
-	private OwnerUpdateInfo ownerUpdateInfo;
+	private OwnerUpdateInfo ownerUpdateInfo = null;
 
-	private CommonWheelDialog commonWheelDialog;
+	private CommonWheelDialog commonWheelDialog = null;
 
 	private static String[] provices = { "湖北", "湖南", "安徽" };
 	private static String[] cities = { "武汉", "长沙", "合肥" };
 	private static String[] areas = { "武昌", "汉口", "长沙县", "常州", "青山", "江夏", "汉阳" };
 
-	private String provice;
-	private String city;
-	private String area;
+	private String provice = null;
+	private String city = null;
+	private String area = null;
 
 	private File mTmpFile = null;
+	private String imageId = null;
 
 	@Override
 	public void initView() {
@@ -291,13 +292,11 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 
 					@Override
 					public void preLoad() {
-						// TODO Auto-generated method stub
 						showWaitDialog();
 					}
 
 					@Override
 					public void loadSuccess() {
-						// TODO Auto-generated method stub
 						hideWaitDialog();
 						makeTextLong("修改成功");
 						setConfimEnable(false);
@@ -315,7 +314,6 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 
 					@Override
 					public void loadFailture() {
-						// TODO Auto-generated method stub
 						hideWaitDialog();
 						makeTextLong(getString(R.string.tip_no_internet));
 					}
@@ -323,6 +321,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 	}
 
 	protected void updateOwnerInfo() {
+		ownerInfo.setImageid(imageId);
 		ownerInfo.setAddress(ownerUpdateInfo.getAddress());
 		ownerInfo.setCity(ownerUpdateInfo.getCity());
 		ownerInfo.setDistrict(ownerUpdateInfo.getDistrict());
@@ -335,7 +334,6 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 		super.loadSuccess();
 		ownerInfo = dataManager.getOwnerInfo();
 		if (null != ownerInfo) {
-			// dataManager.setOwnerInfo(ownerInfo);
 			setOwnerUpdateInfo();
 			setData();
 		}
@@ -343,6 +341,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 
 	private void setOwnerUpdateInfo() {
 		ownerUpdateInfo = new OwnerUpdateInfo();
+		ownerUpdateInfo.setImgId(ownerInfo.getImageid());
 		ownerUpdateInfo.setAddress(ownerInfo.getAddress());
 		ownerUpdateInfo.setCity(ownerInfo.getCity());
 		ownerUpdateInfo.setDistrict(ownerInfo.getDistrict());
@@ -427,9 +426,9 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 					Bitmap bitmap = extras.getParcelable("data");
 					LogTool.d(TAG, "avatar - bitmap = " + bitmap);
 					String imgPath = PhotoUtils.savaPicture(bitmap);
-					LogTool.d(TAG, "imgPath=============" + imgPath);
+					LogTool.d(TAG, "imgPath==" + imgPath);
 					if (!TextUtils.isEmpty(imgPath)) {
-						uploadManager.uploadImage(imgPath);
+						uploadManager.uploadPortrait(imgPath, this);
 					}
 				}
 			}
@@ -440,22 +439,19 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 	}
 
 	@Override
-	public void onSuccess(String msg) {
-		LogTool.d(TAG, "msg===========" + msg);
-		if ("success".equals(msg)) {
-			LogTool.d(TAG, "--------------------------------------------------");
-			if (mTmpFile != null && mTmpFile.exists()) {
-				mTmpFile.delete();
-			}
+	public void getImageId(String imageid) {
+		LogTool.d(TAG, "imageid=" + imageid);
+		imageId = imageid;
+		imageLoader.displayImage(
+				TextUtils.isEmpty(imageId) ? Constant.DEFALUT_OWNER_PIC
+						: (Url.GET_IMAGE + imageId), headImageView, options);
+		if (ownerUpdateInfo != null) {
+			ownerUpdateInfo.setImgId(imageId);
 		}
-	}
-
-	@Override
-	public void onFailure() {
-		LogTool.d(TAG, "==============================================");
 		if (mTmpFile != null && mTmpFile.exists()) {
 			mTmpFile.delete();
 		}
+		setConfimEnable(true);
 	}
 
 	/**
