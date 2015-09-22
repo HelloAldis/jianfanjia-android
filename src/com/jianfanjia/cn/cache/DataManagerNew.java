@@ -42,7 +42,7 @@ public class DataManagerNew {
 	private String totalDuration;// 总工期
 	private RequirementInfo requirementInfo;// 需求信息
 	private ProcessInfo currentProcessInfo;//当前工地信息
-
+	
 	public static DataManagerNew getInstance() {
 		if (instance == null) {
 			instance = new DataManagerNew();

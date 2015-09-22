@@ -3,7 +3,6 @@ package com.jianfanjia.cn.adapter;
 import java.util.ArrayList;
 import java.util.List;
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,9 +24,6 @@ import com.jianfanjia.cn.bean.SectionItemInfo;
 import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
-import com.jianfanjia.cn.tools.LogTool;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class SectionItemAdapterBack extends BaseAdapter {
 	private static final int IMG_COUNT = 9;
@@ -36,7 +32,6 @@ public class SectionItemAdapterBack extends BaseAdapter {
 	private ItemClickCallBack callBack = null;
 	private int lastClickItem = -1;// 记录上次点击的位置
 	private int currentClickItem = -1;// 记录当前点击位置
-	private boolean isPos = false;
 	private SiteGridViewAdapter siteGridViewAdapter;
 	private List<GridItem> gridItem = new ArrayList<GridItem>();
 	private String userType;
@@ -45,8 +40,6 @@ public class SectionItemAdapterBack extends BaseAdapter {
 	private Context context;
 	private LayoutInflater layoutInflater;
 	private List<SectionItemInfo> list = new ArrayList<SectionItemInfo>();
-	private ImageLoader imageLoader;
-	private DisplayImageOptions options;
 	private DataManagerNew dataManager;
 	private boolean isHasCheck;// 是否有验收
 
@@ -54,13 +47,6 @@ public class SectionItemAdapterBack extends BaseAdapter {
 			ItemClickCallBack callBack) {
 		this.context = context;
 		layoutInflater = LayoutInflater.from(context);
-		imageLoader = ImageLoader.getInstance();
-		options = new DisplayImageOptions.Builder()
-				.showImageOnLoading(R.drawable.pix_default)
-				.showImageForEmptyUri(R.drawable.pix_default)
-				.showImageOnFail(R.drawable.pix_default).cacheInMemory(true)
-				.cacheOnDisk(true).considerExifParams(true)
-				.bitmapConfig(Bitmap.Config.RGB_565).build();
 		dataManager = DataManagerNew.getInstance();
 		sectionInfo = dataManager.getDefaultSectionInfoByPosition(position);
 		setList();
@@ -324,9 +310,10 @@ public class SectionItemAdapterBack extends BaseAdapter {
 
 						@Override
 						public void onClick(View v) {
-							if(isHasCheck){
-								callBack.click(position - 1, Constant.CONFIRM_ITEM);
-							}else{
+							if (isHasCheck) {
+								callBack.click(position - 1,
+										Constant.CONFIRM_ITEM);
+							} else {
 								callBack.click(position, Constant.CONFIRM_ITEM);
 							}
 						}
@@ -335,9 +322,9 @@ public class SectionItemAdapterBack extends BaseAdapter {
 
 				@Override
 				public void onClick(View v) {
-					if(isHasCheck){
+					if (isHasCheck) {
 						callBack.click(position - 1, Constant.COMMENT_ITEM);
-					}else{
+					} else {
 						callBack.click(position, Constant.COMMENT_ITEM);
 					}
 				}

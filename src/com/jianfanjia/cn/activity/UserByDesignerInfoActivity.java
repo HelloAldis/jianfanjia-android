@@ -26,7 +26,7 @@ import com.jianfanjia.cn.http.LoadClientHelper;
 import com.jianfanjia.cn.http.request.UserByDesignerInfoRequest;
 import com.jianfanjia.cn.http.request.UserByDesignerInfoUpdateRequest;
 import com.jianfanjia.cn.interf.LoadDataListener;
-import com.jianfanjia.cn.interf.UploadImageListener;
+import com.jianfanjia.cn.interf.UploadPortraitListener;
 import com.jianfanjia.cn.tools.FileUtil;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.PhotoUtils;
@@ -42,7 +42,7 @@ import com.jianfanjia.cn.view.dialog.DialogHelper;
  * 
  */
 public class UserByDesignerInfoActivity extends BaseActivity implements
-		OnClickListener, UploadImageListener {
+		OnClickListener, UploadPortraitListener {
 	private static final String TAG = UserByDesignerInfoActivity.class
 			.getName();
 	private RelativeLayout designerInfoLayout = null;
@@ -61,8 +61,9 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 	private RelativeLayout sexLayout = null;
 	private DesignerInfo designerInfo = null;
 	private DesignerUpdateInfo designerUpdateInfo = null;
-	private String sex;
+	private String sex = null;
 	private File mTmpFile = null;
+	private String imageId = null;
 
 	@Override
 	public void initView() {
@@ -98,10 +99,11 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 	}
 
 	private void setData() {
-		imageLoader.displayImage(
-				designerInfo.getImageid() == null ? Constant.DEFALUT_OWNER_PIC
-						: (Url.GET_IMAGE + designerInfo.getImageid()),
-				headImageView);
+		imageLoader
+				.displayImage(
+						TextUtils.isEmpty(designerInfo.getImageid()) ? Constant.DEFALUT_OWNER_PIC
+								: (Url.GET_IMAGE + designerInfo.getImageid()),
+						headImageView, options);
 		if (!TextUtils.isEmpty(designerInfo.getUsername())) {
 			nameText.setText(designerInfo.getUsername());
 		} else {
@@ -161,7 +163,6 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 
 					@Override
 					public void loadSuccess() {
-						// TODO Auto-generated method stub
 						hideWaitDialog();
 						makeTextLong("ÐÞ¸Ä³É¹¦");
 						setConfimEnable(false);
@@ -186,6 +187,7 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 	}
 
 	private void updateUpdateInfo() {
+		designerInfo.setImageid(imageId);
 		designerInfo.setAddress(designerUpdateInfo.getAddress());
 		designerInfo.setCity(designerUpdateInfo.getCity());
 		designerInfo.setDistrict(designerUpdateInfo.getDistrict());
@@ -198,7 +200,6 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 		super.loadSuccess();
 		designerInfo = dataManager.getDesignerInfo();
 		if (null != designerInfo) {
-			// dataManager.setDesignerInfo(designerInfo);
 			setData();
 			setDesignerUpdateInfo();
 		}
@@ -206,6 +207,7 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 
 	private void setDesignerUpdateInfo() {
 		designerUpdateInfo = new DesignerUpdateInfo();
+		designerUpdateInfo.setImgId(designerInfo.getImageid());
 		designerUpdateInfo.setAddress(designerInfo.getAddress());
 		designerUpdateInfo.setCity(designerInfo.getCity());
 		designerUpdateInfo.setDistrict(designerInfo.getDistrict());
@@ -379,32 +381,13 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 					String imgPath = PhotoUtils.savaPicture(bitmap);
 					LogTool.d(TAG, "imgPath=============" + imgPath);
 					if (!TextUtils.isEmpty(imgPath)) {
-						uploadManager.uploadImage(imgPath);
+						uploadManager.uploadPortrait(imgPath, this);
 					}
 				}
 			}
 			break;
 		default:
 			break;
-		}
-	}
-
-	@Override
-	public void onSuccess(String msg) {
-		LogTool.d(TAG, "msg===========" + msg);
-		if ("success".equals(msg)) {
-			LogTool.d(TAG, "--------------------------------------------------");
-			if (mTmpFile != null && mTmpFile.exists()) {
-				mTmpFile.delete();
-			}
-		}
-	}
-
-	@Override
-	public void onFailure() {
-		LogTool.d(TAG, "==============================================");
-		if (mTmpFile != null && mTmpFile.exists()) {
-			mTmpFile.delete();
 		}
 	}
 
@@ -465,6 +448,23 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 	@Override
 	public int getLayoutId() {
 		return R.layout.activity_designer_info;
+	}
+
+	@Override
+	public void getImageId(String imageid) {
+		LogTool.d(TAG, "imageid=" + imageid);
+		imageId = imageid;
+		dataManager.setUserImagePath(imageId);
+		imageLoader.displayImage(
+				TextUtils.isEmpty(imageId) ? Constant.DEFALUT_OWNER_PIC
+						: (Url.GET_IMAGE + imageId), headImageView, options);
+		if (designerUpdateInfo != null) {
+			designerUpdateInfo.setImgId(imageId);
+		}
+		if (mTmpFile != null && mTmpFile.exists()) {
+			mTmpFile.delete();
+		}
+		setConfimEnable(true);
 	}
 
 }
