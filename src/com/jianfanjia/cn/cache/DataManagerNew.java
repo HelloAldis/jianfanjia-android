@@ -339,6 +339,8 @@ public class DataManagerNew {
 		myDesignerInfo = null;
 		ownerInfo = null;
 		designerInfo = null;
+		requirementInfo = null;
+		totalDuration = null;
 		processMap.clear();
 		sharedPreferdata.clear();
 	}
