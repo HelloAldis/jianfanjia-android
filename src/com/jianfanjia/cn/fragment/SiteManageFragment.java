@@ -729,7 +729,9 @@ public class SiteManageFragment extends BaseFragment implements
 					Bitmap bitmap = extras.getParcelable("data");
 					LogTool.d(TAG, "avatar - bitmap = " + bitmap);
 					String imgPath = PhotoUtils.savaPicture(bitmap);
-					LogTool.d(TAG, "imgPath=============" + imgPath);
+					LogTool.d(TAG,
+							"imgPath================================================"
+									+ imgPath);
 					if (!TextUtils.isEmpty(imgPath)) {
 						uploadManager.uploadProcedureImage(imgPath,
 								processInfo.get_id(), sectionInfo.getName(),

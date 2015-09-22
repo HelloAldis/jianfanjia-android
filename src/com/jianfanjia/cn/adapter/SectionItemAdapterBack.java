@@ -33,7 +33,7 @@ public class SectionItemAdapterBack extends BaseAdapter {
 	private static final int IMG_COUNT = 9;
 	private static final int CHECK_VIEW = 0;
 	private static final int SECTION_ITME_VIEW = 1;
-	private ItemClickCallBack callBack;
+	private ItemClickCallBack callBack = null;
 	private int lastClickItem = -1;// 记录上次点击的位置
 	private int currentClickItem = -1;// 记录当前点击位置
 	private boolean isPos = false;
@@ -49,12 +49,6 @@ public class SectionItemAdapterBack extends BaseAdapter {
 	protected DisplayImageOptions options;
 	protected DataManagerNew dataManager;
 	private boolean isHasCheck;// 是否有验收
-
-	/*
-	 * public SectionItemAdapterBack(Context context, List<SectionItemInfo>
-	 * sectionItemInfos) { super(context, sectionItemInfos); userType =
-	 * dataManager.getUserType(); }
-	 */
 
 	public SectionItemAdapterBack(Context context, int position,
 			ItemClickCallBack callBack) {
@@ -140,7 +134,6 @@ public class SectionItemAdapterBack extends BaseAdapter {
 				list.get(currentClickItem).setOpen(true);
 			}
 		}
-		// this.isPos = isPos;
 		notifyDataSetChanged();
 	}
 
