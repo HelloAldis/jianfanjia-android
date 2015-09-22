@@ -248,7 +248,10 @@ public class SiteManageFragment extends BaseFragment implements
 	@Override
 	public void onResume() {
 		super.onResume();
-		processViewPager.setCurrentItem(currentList);
+//		processViewPager.setCurrentItem(currentList);
+		if(sectionItemAdapter != null){
+			sectionItemAdapter.notifyDataSetChanged();
+		}
 	}
 
 	@Override
@@ -516,7 +519,6 @@ public class SiteManageFragment extends BaseFragment implements
 			Bundle checkBundle = new Bundle();
 			checkBundle.putInt(Constant.CURRENT_LIST, currentList);
 			startActivity(CheckActivity.class, checkBundle);
-			getActivity().finish();
 			break;
 		default:
 			break;
