@@ -719,19 +719,14 @@ public class SiteManageFragment extends BaseFragment implements
 			}
 			break;
 		case Constant.REQUESTCODE_CROP:
-			LogTool.d(TAG, "11111111111111111111111");
 			if (data != null) {
-				LogTool.d(TAG, "222222222222222222222");
 				Bundle extras = data.getExtras();
-				LogTool.d(TAG, "333333333333333333");
 				if (extras != null) {
 					// 得到返回来的数据，是bitmap类型的数据
 					Bitmap bitmap = extras.getParcelable("data");
 					LogTool.d(TAG, "avatar - bitmap = " + bitmap);
 					String imgPath = PhotoUtils.savaPicture(bitmap);
-					LogTool.d(TAG,
-							"imgPath================================================"
-									+ imgPath);
+					LogTool.d(TAG, "imgPath===" + imgPath);
 					if (!TextUtils.isEmpty(imgPath)) {
 						uploadManager.uploadProcedureImage(imgPath,
 								processInfo.get_id(), sectionInfo.getName(),
