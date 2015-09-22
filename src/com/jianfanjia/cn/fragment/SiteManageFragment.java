@@ -82,8 +82,7 @@ public class SiteManageFragment extends BaseFragment implements
 		LoadDataListener {
 	private static final String TAG = SiteManageFragment.class.getName();
 	private PullToRefreshScrollView mPullRefreshScrollView = null;
-	private List<SectionInfo> sectionInfos = new ArrayList<SectionInfo>();
-	private List<SectionItemInfo> sectionItemInfos = new ArrayList<SectionItemInfo>();// 工序节点列表
+	private List<SectionInfo> sectionInfos;
 	private SectionInfo sectionInfo = null;
 	private ProcessInfo processInfo = null;
 	private int currentPro = -1;// 当前进行工序
@@ -234,11 +233,9 @@ public class SiteManageFragment extends BaseFragment implements
 			}
 			sectionInfos = processInfo.getSections();
 			sectionInfo = sectionInfos.get(currentList);
-			sectionItemInfos = sectionInfo.getItems();
 			setScrollHeadTime();
 			sectionItemAdapter = new SectionItemAdapterBack(getActivity(),
 					currentList, this);
-			// sectionItemAdapter.setSection_status(sectionInfo.getStatus());
 			detailNodeListView.setAdapter(sectionItemAdapter);
 			processViewPager.setCurrentItem(currentList);
 		}
@@ -247,7 +244,7 @@ public class SiteManageFragment extends BaseFragment implements
 	@Override
 	public void onResume() {
 		super.onResume();
-//		processViewPager.setCurrentItem(currentList);
+		processViewPager.setCurrentItem(currentList);
 		if(sectionItemAdapter != null){
 			sectionItemAdapter.notifyDataSetChanged();
 		}
@@ -366,16 +363,6 @@ public class SiteManageFragment extends BaseFragment implements
 					if (currentList != arg0 % 7) {
 						currentList = arg0 % 7;
 						sectionInfo = sectionInfos.get(currentList);
-						sectionItemInfos = sectionInfo.getItems();
-						LogTool.d(TAG, "sectionItemInfos--------------"
-								+ sectionItemInfos);
-						for (SectionItemInfo info : sectionItemInfos) {
-							LogTool.d(TAG, "info Name()=====" + info.getName());
-						}
-						// sectionItemAdapter
-						// .setSectionItemInfos(sectionItemInfos);
-						// sectionItemAdapter.setSection_status(sectionInfo
-						// .getStatus());
 						sectionItemAdapter.setPosition(currentList);
 						sectionItemAdapter.clearCurrentPosition();
 						sectionItemAdapter.notifyDataSetChanged();
