@@ -29,7 +29,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
-
 import com.jianfanjia.cn.activity.CheckActivity;
 import com.jianfanjia.cn.activity.CommentActivity;
 import com.jianfanjia.cn.activity.DesignerSiteActivity;
