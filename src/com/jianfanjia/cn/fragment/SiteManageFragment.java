@@ -29,6 +29,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+
 import com.jianfanjia.cn.activity.CheckActivity;
 import com.jianfanjia.cn.activity.CommentActivity;
 import com.jianfanjia.cn.activity.DesignerSiteActivity;
@@ -38,7 +39,6 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.ShowPicActivity;
 import com.jianfanjia.cn.adapter.InfinitePagerAdapter;
 import com.jianfanjia.cn.adapter.MyViewPageAdapter;
-import com.jianfanjia.cn.adapter.SectionItemAdapter;
 import com.jianfanjia.cn.adapter.SectionItemAdapterBack;
 import com.jianfanjia.cn.adapter.ViewPageAdapter;
 import com.jianfanjia.cn.application.MyApplication;
@@ -239,7 +239,7 @@ public class SiteManageFragment extends BaseFragment implements
 			setScrollHeadTime();
 			sectionItemAdapter = new SectionItemAdapterBack(getActivity(),
 					currentList, this);
-//			sectionItemAdapter.setSection_status(sectionInfo.getStatus());
+			// sectionItemAdapter.setSection_status(sectionInfo.getStatus());
 			detailNodeListView.setAdapter(sectionItemAdapter);
 			processViewPager.setCurrentItem(currentList);
 		}
@@ -370,11 +370,11 @@ public class SiteManageFragment extends BaseFragment implements
 						for (SectionItemInfo info : sectionItemInfos) {
 							LogTool.d(TAG, "info Name()=====" + info.getName());
 						}
-//						sectionItemAdapter
-//								.setSectionItemInfos(sectionItemInfos);
-//						sectionItemAdapter.setSection_status(sectionInfo
-//								.getStatus());
-						 sectionItemAdapter.setPosition(currentList);
+						// sectionItemAdapter
+						// .setSectionItemInfos(sectionItemInfos);
+						// sectionItemAdapter.setSection_status(sectionInfo
+						// .getStatus());
+						sectionItemAdapter.setPosition(currentList);
 						sectionItemAdapter.clearCurrentPosition();
 						sectionItemAdapter.notifyDataSetChanged();
 					}
@@ -425,17 +425,14 @@ public class SiteManageFragment extends BaseFragment implements
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				/*SectionItemInfo sectionItemInfo = sectionItemInfos
-						.get(position);
-				processInfoId = sectionItemInfo.getName();
-				if (isOpen) {
-					isOpen = false;
-				} else {
-					isOpen = true;
-				}*/
+				/*
+				 * SectionItemInfo sectionItemInfo = sectionItemInfos
+				 * .get(position); processInfoId = sectionItemInfo.getName(); if
+				 * (isOpen) { isOpen = false; } else { isOpen = true; }
+				 */
 				LogTool.d(TAG, "position=" + position);
 				sectionItemAdapter.setCurrentClickItem(position);
-//				sectionItemAdapter.notifyDataSetChanged();
+				// sectionItemAdapter.notifyDataSetChanged();
 			}
 		});
 
