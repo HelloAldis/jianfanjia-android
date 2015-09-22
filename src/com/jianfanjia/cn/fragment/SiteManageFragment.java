@@ -347,7 +347,8 @@ public class SiteManageFragment extends BaseFragment implements
 
 					@Override
 					public void onClickItem(int potition) {
-						Log.i(TAG, "potition------->" + potition);
+						Log.i(TAG, "potition=" + potition);
+						processViewPager.setCurrentItem(potition);
 					}
 
 				});
