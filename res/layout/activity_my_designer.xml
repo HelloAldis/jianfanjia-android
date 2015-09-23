@@ -182,13 +182,13 @@
             </RelativeLayout>
         </RelativeLayout>
     </RelativeLayout>
-    
-    <include android:id="@+id/error_view"
-        layout="@layout/view_error_layout"
+
+    <include
+        android:id="@+id/error_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/my_designer_head_layout"
         android:layout_marginTop="@dimen/space_8"
-        />
+        layout="@layout/view_error_layout" />
 
 </RelativeLayout>
