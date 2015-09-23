@@ -15,7 +15,6 @@ import com.jianfanjia.cn.bean.Process;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.bean.SectionInfo;
-import com.jianfanjia.cn.bean.SectionItemInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url;
 import com.jianfanjia.cn.tools.JsonParser;
@@ -38,7 +37,7 @@ public class DataManagerNew {
 	private String totalDuration;// 总工期
 	private RequirementInfo requirementInfo;// 需求信息
 	private ProcessInfo currentProcessInfo;// 当前工地信息p
-	private String currentUploadImageId;//当前上传的imageId;
+	private String currentUploadImageId;// 当前上传的imageId;
 
 	public static DataManagerNew getInstance() {
 		if (instance == null) {
@@ -52,7 +51,7 @@ public class DataManagerNew {
 		sharedPreferdata = new SharedPrefer(context, Constant.SHARED_DATA);
 		sharedPreferuser = new SharedPrefer(context, Constant.SHARED_USER);
 	}
-	
+
 	public String getCurrentUploadImageId() {
 		return currentUploadImageId;
 	}
@@ -76,7 +75,7 @@ public class DataManagerNew {
 	public void setTotalDuration(String totalDuration) {
 		this.totalDuration = totalDuration;
 	}
-	
+
 	public OwnerInfo getOwnerInfoById(String ownerId) {
 		return (OwnerInfo) sharedPreferdata.getValue(ownerId);
 	}
@@ -92,32 +91,33 @@ public class DataManagerNew {
 	public void setOwnerInfo(OwnerInfo ownerInfo) {
 		sharedPreferdata.setValue(ownerInfo.get_id(), ownerInfo);
 	}
-	
-	public Object getOwnerOrDesignerByIdAndType(String userType,String _id){
-		if(userType.equals(Constant.IDENTITY_DESIGNER)){
+
+	public Object getOwnerOrDesignerByIdAndType(String userType, String _id) {
+		if (userType.equals(Constant.IDENTITY_DESIGNER)) {
 			return getDesignerInfoById(_id);
-		}else if(userType.equals(Constant.IDENTITY_OWNER)){
+		} else if (userType.equals(Constant.IDENTITY_OWNER)) {
 			return getOwnerInfoById(_id);
 		}
 		return null;
 	}
-	
+
 	// 设计师用户获取个人资料
 	public DesignerInfo getDesignerInfo() {
 		return getDesignerInfoById(getUserId());
-		/*if (designerInfo == null && !NetTool.isNetworkAvailable(context)) {
-			designerInfo = getDesignerInfoById(getUserId());
-		}
-		return designerInfo;*/
+		/*
+		 * if (designerInfo == null && !NetTool.isNetworkAvailable(context)) {
+		 * designerInfo = getDesignerInfoById(getUserId()); } return
+		 * designerInfo;
+		 */
 	}
 
 	// 业主用户获取个人资料
 	public OwnerInfo getOwnerInfo() {
 		return getOwnerInfoById(getUserId());
-		/*if (ownerInfo == null && !NetTool.isNetworkAvailable(context)) {
-			ownerInfo = getOwnerInfoById(getUserId());
-		}
-		return ownerInfo;*/
+		/*
+		 * if (ownerInfo == null && !NetTool.isNetworkAvailable(context)) {
+		 * ownerInfo = getOwnerInfoById(getUserId()); } return ownerInfo;
+		 */
 	}
 
 	public void setCurrentProcessInfo(ProcessInfo currentProcessInfo) {
@@ -143,7 +143,7 @@ public class DataManagerNew {
 		}
 		return null;
 	}
-	
+
 	public String getDefaultDesignerId() {
 		if (processLists == null || processLists.size() == 0) {
 			processLists = getProcessListsByCache();
