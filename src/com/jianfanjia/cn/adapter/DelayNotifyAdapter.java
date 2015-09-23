@@ -48,7 +48,7 @@ public class DelayNotifyAdapter extends BaseListAdapter<NotifyMessage> {
 		// viewHolder.itemNameView.setText(caiGouInfo.getTitle());
 		String status = message.getStatus();
 		if (!TextUtils.isEmpty(status)) {
-			if (status.equals("1")) {
+			if (status.equals(Constant.CHECK_AGREE)) {
 				viewHolder.itemAgressView.setText("已同意");
 			} else {
 				viewHolder.itemAgressView.setText("已拒绝");

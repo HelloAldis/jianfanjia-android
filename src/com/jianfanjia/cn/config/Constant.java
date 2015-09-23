@@ -92,6 +92,9 @@ public class Constant {
 	public static final String FUKUAN_NOTIFY = "2";// 付款提醒
 	public static final String CONFIRM_CHECK_NOTIFY = "3";// 确认验收提醒
 
+	public static final String CHECK_REFUSE = "0";// 验收拒绝
+	public static final String CHECK_AGREE = "1";// 验收同意
+
 	public static final int NOT_START = 0;// 未开工
 	public static final int WORKING = 1;// 正在进行中
 	public static final int FINISH = 2;// 已完工
