@@ -87,10 +87,6 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 		btn_confirm = (TextView) findViewById(R.id.btn_confirm);
 		if (!TextUtils.isEmpty(userIdentity)) {
 			if (userIdentity.equals(Constant.IDENTITY_OWNER)) {
-				if (processInfoStatus == Constant.STATUS_FINISH) {
-					LogTool.d(TAG, "2222222222222222");
-					btn_confirm.setEnabled(false);
-				}
 				check_pic_edit.setVisibility(View.GONE);
 				btn_confirm.setText(this.getResources().getString(
 						R.string.confirm_done));
@@ -106,6 +102,9 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 		check_pic_title.setText(MyApplication.getInstance().getStringById(
 				sectionInfoName)
 				+ "½×¶ÎÑéÊÕ");
+		if (processInfoStatus == Constant.STATUS_FINISH) {
+			btn_confirm.setEnabled(false);
+		}
 		List<GridItem> picList = getCheckedImageById(sectionInfoName);
 		adapter = new MyGridViewAdapter(CheckActivity.this, picList, this);
 		gridView.setAdapter(adapter);
