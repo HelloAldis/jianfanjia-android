@@ -43,7 +43,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 	private GridView gridView = null;
 	private Button btn_confirm_check = null;
 	private MyGridViewAdapter adapter = null;
-	private List<GridItem> gridList = new ArrayList<GridItem>();
+	private List<GridItem> checkGridList = new ArrayList<GridItem>();
 	private int currentList;// 当前的工序
 	private String processInfoId = null;// 工地id
 	private String sectionInfoName = null;// 工序名称
@@ -80,7 +80,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 		check_pic_title.setText(MyApplication.getInstance().getStringById(
 				sectionInfoName)
 				+ "阶段验收");
-		List<GridItem> picList = getCheckedImageById(sectionInfoName);
+		List<GridItem> picList = getCheckedImageById("an_zhuang");
 		adapter = new MyGridViewAdapter(CheckActivity.this, picList, this);
 		gridView.setAdapter(adapter);
 	}
@@ -203,9 +203,6 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 		LogTool.d(TAG, "msg===========" + msg);
 		if ("success".equals(msg)) {
 			LogTool.d(TAG, "--------------------------------------------------");
-			GridItem item = new GridItem();
-			item.setImgId("56024240e63b6a2527ce3113");
-			adapter.addItem(item);
 		}
 
 	}
