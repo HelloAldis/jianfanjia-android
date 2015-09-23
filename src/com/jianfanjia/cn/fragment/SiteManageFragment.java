@@ -752,53 +752,75 @@ public class SiteManageFragment extends BaseFragment implements
 					String imgPath = PhotoUtils.savaPicture(bitmap);
 					LogTool.d(TAG, "imgPath===" + imgPath);
 					if (!TextUtils.isEmpty(imgPath)) {
-						/*uploadManager.uploadProcedureImage(imgPath,
-								processInfo.get_id(), sectionInfo.getName(),
-								processInfoName, this);*/
-						LoadClientHelper.upload_Image(getActivity(),new UploadPicRequest(getActivity(),imgPath), new LoadDataListener() {
-							
-							@Override
-							public void preLoad() {
-								// TODO Auto-generated method stub
-								
-							}
-							
-							@Override
-							public void loadSuccess() {
-								// TODO Auto-generated method stub
-								String itemName = sectionItemAdapter.getCurrentItem();
-								AddPicToSectionItemRequest addSectionItemRequest = new AddPicToSectionItemRequest(getActivity(), processInfo.get_id(), sectionInfo.getName(), itemName, dataManager.getCurrentUploadImageId());
-								LoadClientHelper.submitImgToProgress(getActivity(), addSectionItemRequest, new LoadDataListener() {
-									
+						/*
+						 * uploadManager.uploadProcedureImage(imgPath,
+						 * processInfo.get_id(), sectionInfo.getName(),
+						 * processInfoName, this);
+						 */
+						LoadClientHelper.upload_Image(getActivity(),
+								new UploadPicRequest(getActivity(), imgPath),
+								new LoadDataListener() {
+
 									@Override
 									public void preLoad() {
 										// TODO Auto-generated method stub
-										
+
 									}
-									
+
 									@Override
 									public void loadSuccess() {
 										// TODO Auto-generated method stub
-										/*processInfo = dataManager.getDefaultProcessInfo();
-										if (processInfo != null) {
-											initData();
-										} */
-										sectionItemAdapter.setPosition(currentList);
+										String itemName = sectionItemAdapter
+												.getCurrentItem();
+										AddPicToSectionItemRequest addSectionItemRequest = new AddPicToSectionItemRequest(
+												getActivity(),
+												processInfo.get_id(),
+												sectionInfo.getName(),
+												itemName,
+												dataManager
+														.getCurrentUploadImageId());
+										LoadClientHelper.submitImgToProgress(
+												getActivity(),
+												addSectionItemRequest,
+												new LoadDataListener() {
+
+													@Override
+													public void preLoad() {
+														// TODO Auto-generated
+														// method stub
+
+													}
+
+													@Override
+													public void loadSuccess() {
+														// TODO Auto-generated
+														// method stub
+														/*
+														 * processInfo =
+														 * dataManager
+														 * .getDefaultProcessInfo
+														 * (); if (processInfo
+														 * != null) {
+														 * initData(); }
+														 */
+														sectionItemAdapter
+																.setPosition(currentList);
+													}
+
+													@Override
+													public void loadFailture() {
+														// TODO Auto-generated
+														// method stub
+													}
+												});
 									}
-									
+
 									@Override
 									public void loadFailture() {
 										// TODO Auto-generated method stub
+
 									}
 								});
-							}
-							
-							@Override
-							public void loadFailture() {
-								// TODO Auto-generated method stub
-								
-							}
-						});
 					}
 				}
 			}
