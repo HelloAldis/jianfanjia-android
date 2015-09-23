@@ -100,4 +100,7 @@ public class Url {
 	// 设计师确认可以开始验收
 	public static final String CONFIRM_CHECK_BY_DESIGNER = HTTPROOT
 			+ "process/can_ys";
+	// 业主确认对比验收完成
+	public static final String CONFIRM_CHECK_DONE_BY_OWNER = HTTPROOT
+			+ "process/done_section";
 }
