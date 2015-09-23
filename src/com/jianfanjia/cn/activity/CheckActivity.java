@@ -97,7 +97,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 		check_pic_title.setText(MyApplication.getInstance().getStringById(
 				sectionInfoName)
 				+ "½×¶ÎÑéÊÕ");
-		List<GridItem> picList = getCheckedImageById("an_zhuang");
+		List<GridItem> picList = getCheckedImageById(sectionInfoName);
 		adapter = new MyGridViewAdapter(CheckActivity.this, picList, this);
 		gridView.setAdapter(adapter);
 	}

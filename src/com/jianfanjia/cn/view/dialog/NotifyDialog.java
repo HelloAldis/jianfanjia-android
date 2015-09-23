@@ -33,10 +33,10 @@ public class NotifyDialog extends Dialog implements
 		super(context, theme);
 		this.message = message;
 		this.listener = listener;
-		init();
+		init(context);
 	}
 
-	private void init() {
+	private void init(Context context) {
 		setContentView(R.layout.notify_dialog);
 		TextView titleTv = (TextView) findViewById(R.id.titleTv);
 		TextView contentTv = (TextView) findViewById(R.id.contentTv);
@@ -48,22 +48,26 @@ public class NotifyDialog extends Dialog implements
 		refuse.setOnClickListener(this);
 		String type = message.getType();
 		if (type.equals(Constant.CAIGOU_NOTIFY)) {
-			titleTv.setText("采购提醒");
+			titleTv.setText(context.getResources().getString(
+					R.string.caigouText));
 			ok.setVisibility(View.VISIBLE);
 			agree.setVisibility(View.GONE);
 			refuse.setVisibility(View.GONE);
 		} else if (type.equals(Constant.FUKUAN_NOTIFY)) {
-			titleTv.setText("付款提醒");
+			titleTv.setText(context.getResources().getString(
+					R.string.fukuanText));
 			ok.setVisibility(View.VISIBLE);
 			agree.setVisibility(View.GONE);
 			refuse.setVisibility(View.GONE);
 		} else if (type.equals(Constant.YANQI_NOTIFY)) {
-			titleTv.setText("延期提醒");
+			titleTv.setText(context.getResources()
+					.getString(R.string.yanqiText));
 			ok.setVisibility(View.GONE);
 			agree.setVisibility(View.VISIBLE);
 			refuse.setVisibility(View.VISIBLE);
 		} else {
-			titleTv.setText("验收提醒");
+			titleTv.setText(context.getResources().getString(
+					R.string.yanshouText));
 			ok.setVisibility(View.VISIBLE);
 			agree.setVisibility(View.GONE);
 			refuse.setVisibility(View.GONE);

@@ -64,6 +64,7 @@
         android:layout_above="@id/btnLayout"
         android:layout_below="@id/titleLine"
         android:layout_centerHorizontal="true"
+        android:layout_margin="3dip"
         android:text="尊敬的业主,你即将进入下一轮建材购买阶段，请注意及时补充材料。"
         android:textColor="#7c8489"
         android:textSize="@dimen/text_size_18" />
