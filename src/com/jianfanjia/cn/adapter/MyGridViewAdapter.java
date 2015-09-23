@@ -42,8 +42,8 @@ public class MyGridViewAdapter extends BaseListAdapter<GridItem> {
 			if (imgId.equals(Constant.HOME_ADD_PIC)) {
 				imageLoader.displayImage(imgId, holder.img, options);
 			} else {
-				imageLoader.displayImage(Url.GET_IMAGE + imgId,
-						holder.img, options);
+				imageLoader.displayImage(Url.GET_IMAGE + imgId, holder.img,
+						options);
 			}
 		} else {
 			imageLoader.displayImage(imgId, holder.img, options);
