@@ -2,8 +2,6 @@ package com.jianfanjia.cn.adapter;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import u.aly.da;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,7 +18,6 @@ import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.bean.CommentInfo;
-import com.jianfanjia.cn.bean.GridItem;
 import com.jianfanjia.cn.bean.SectionInfo;
 import com.jianfanjia.cn.bean.SectionItemInfo;
 import com.jianfanjia.cn.cache.DataManagerNew;
@@ -277,11 +274,12 @@ public class SectionItemAdapterBack extends BaseAdapter {
 			default:
 				break;
 			}
-			
-			//设置最新动态的时间
+
+			// 设置最新动态的时间
 			long date = sectionItemInfo.getDate();
-			if(date != 0l){
-				viewHolder.openUploadTime.setText(StringUtils.covertLongToString(date));
+			if (date != 0l) {
+				viewHolder.openUploadTime.setText(StringUtils
+						.covertLongToString(date));
 			}
 
 			if (null != imageUrlList && imageUrlList.size() > 0) {
@@ -315,8 +313,6 @@ public class SectionItemAdapterBack extends BaseAdapter {
 			}
 
 			// 未开工的点击无法展开
-			// if (Integer.parseInt(sectionItemInfo.getStatus()) !=
-			// Constant.NOT_START && position == lastClickItem) {
 			if (section_status != Constant.NOT_START) {
 				if (sectionItemInfo.isOpen()) {
 					viewHolder.bigOpenLayout.setVisibility(View.VISIBLE);

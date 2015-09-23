@@ -86,10 +86,6 @@ public class Constant {
 
 	public static final int NotificationID = 1;
 
-	// 工序状态
-	public static final int STATUS_NO = 1;// 未开工
-	public static final int STATUS_FINISH = 2;// 完成
-
 	// 提醒类型
 	public static final String YANQI_NOTIFY = "0";// 延期提醒
 	public static final String CAIGOU_NOTIFY = "1";// 采购提醒
@@ -99,6 +95,7 @@ public class Constant {
 	public static final String CHECK_REFUSE = "0";// 验收拒绝
 	public static final String CHECK_AGREE = "1";// 验收同意
 
+	// 工序状态
 	public static final int NOT_START = 0;// 未开工
 	public static final int WORKING = 1;// 正在进行中
 	public static final int FINISH = 2;// 已完工
