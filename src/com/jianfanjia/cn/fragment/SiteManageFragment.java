@@ -48,8 +48,10 @@ import com.jianfanjia.cn.bean.ViewPagerItem;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.http.LoadClientHelper;
+import com.jianfanjia.cn.http.request.AddPicToSectionItemRequest;
 import com.jianfanjia.cn.http.request.ProcessInfoRequest;
 import com.jianfanjia.cn.http.request.ProcessListRequest;
+import com.jianfanjia.cn.http.request.UploadPicRequest;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
 import com.jianfanjia.cn.interf.LoadDataListener;
 import com.jianfanjia.cn.interf.UploadImageListener;
@@ -63,6 +65,7 @@ import com.jianfanjia.cn.tools.FileUtil;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.PhotoUtils;
 import com.jianfanjia.cn.tools.StringUtils;
+import com.jianfanjia.cn.tools.TDevice;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DateWheelDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
@@ -99,6 +102,7 @@ public class SiteManageFragment extends BaseFragment implements
 	private String[] checkSection = null;
 	private String[] proTitle = null;
 	private List<ViewPagerItem> processList = new ArrayList<ViewPagerItem>();
+	private List<String> imageList;
 
 	private TextView titleCenter = null;
 	private TextView titleRight = null;
@@ -112,6 +116,9 @@ public class SiteManageFragment extends BaseFragment implements
 			R.drawable.bg_home_banner2, R.drawable.bg_home_banner3,
 			R.drawable.bg_home_banner4 };
 
+	private String processInfoId = null;// 工地id
+	private String sectionInfoName = null;// 工序名称
+	private int processInfoStatus = -1;// 工序状态
 	private String processInfoName = null;
 	private File mTmpFile = null;
 
@@ -253,7 +260,6 @@ public class SiteManageFragment extends BaseFragment implements
 	@Override
 	public void onPause() {
 		super.onPause();
-		// sharedPrefer.setValue(Constant.CURRENT_LIST, currentList);
 	}
 
 	private void initBannerView(View view) {
@@ -335,9 +341,7 @@ public class SiteManageFragment extends BaseFragment implements
 		}
 		for (int i = 0; i < 3; i++) {
 			ViewPagerItem viewPagerItem = new ViewPagerItem();
-			viewPagerItem.setResId(getResources().getIdentifier(
-					"icon_home_normal" + (i + 1), "drawable",
-					MyApplication.getInstance().getPackageName()));
+			viewPagerItem.setResId(R.drawable.icon8_home_normal);
 			viewPagerItem.setTitle("");
 			viewPagerItem.setDate("");
 			processList.add(viewPagerItem);
@@ -348,18 +352,15 @@ public class SiteManageFragment extends BaseFragment implements
 
 					@Override
 					public void onClickItem(int potition) {
-						Log.i(TAG, "potition------->" + potition);
+						Log.i(TAG, "potition=" + potition);
 						if (sectionInfos != null) {
-							if (currentList != potition % 7) {
-								currentList = potition % 7;
+							if (potition < TOTAL_PROCESS) {
+								currentList = potition;
 								sectionInfo = sectionInfos.get(currentList);
 								sectionItemAdapter.setPosition(currentList);
-								sectionItemAdapter.clearCurrentPosition();
-								sectionItemAdapter.notifyDataSetChanged();
+								processViewPager.setCurrentItem(potition);
 							}
 						}
-						Log.i(TAG, "potition=" + potition);
-						processViewPager.setCurrentItem(potition);
 					}
 
 				});
@@ -369,7 +370,6 @@ public class SiteManageFragment extends BaseFragment implements
 			public void onPageScrollStateChanged(int arg0) {
 				// TODO Auto-generated method stub
 			}
-			
 
 			@Override
 			public void onPageScrolled(int arg0, float arg1, int arg2) {
@@ -382,10 +382,8 @@ public class SiteManageFragment extends BaseFragment implements
 					if (arg0 < TOTAL_PROCESS) {
 						currentList = arg0;
 						sectionInfo = sectionInfos.get(currentList);
-						Log.i(TAG, "sectionInfo---->" + sectionInfo.getName());
+						Log.i(TAG, "sectionInfo=" + sectionInfo.getName());
 						sectionItemAdapter.setPosition(currentList);
-						sectionItemAdapter.clearCurrentPosition();
-						sectionItemAdapter.notifyDataSetChanged();
 					}
 				}
 			}
@@ -426,8 +424,15 @@ public class SiteManageFragment extends BaseFragment implements
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
+				if (null != processInfo) {
+					processInfoId = processInfo.get_id();
+					LogTool.d(TAG, "processInfoId=" + processInfoId);
+				}
+				sectionInfoName = sectionInfo.getName();
+				processInfoStatus = sectionInfo.getStatus();
+				LogTool.d(TAG, "sectionInfoName=" + sectionInfoName
+						+ " processInfoStatus:" + processInfoStatus);
 				List<SectionItemInfo> itemList = sectionInfo.getItems();
-				LogTool.d(TAG, "itemList==" + itemList);
 				if (!sectionInfo.getName().equals("kai_gong")
 						&& !sectionInfo.getName().equals("chai_gai")) {
 					if (null != itemList && itemList.size() > 0) {
@@ -441,9 +446,9 @@ public class SiteManageFragment extends BaseFragment implements
 				} else {
 					processInfoName = itemList.get(position).getName();
 				}
-				LogTool.d(TAG, "position=" + position + "  processInfoName="
+				LogTool.d(TAG, "position:" + position + "  processInfoName:"
 						+ processInfoName);
-				sectionItemAdapter.setCurrentClickItem(position);
+				sectionItemAdapter.setCurrentOpenItem(position);
 			}
 		});
 
@@ -509,9 +514,6 @@ public class SiteManageFragment extends BaseFragment implements
 		case Constant.CONFIRM_ITEM:
 			confirmDialog();
 			break;
-		case Constant.ADD_ITEM:
-			showPopWindow(getView());
-			break;
 		case Constant.IMG_ITEM:
 			break;
 		case Constant.COMMENT_ITEM:
@@ -526,6 +528,9 @@ public class SiteManageFragment extends BaseFragment implements
 		case Constant.CHECK_ITEM:
 			Bundle checkBundle = new Bundle();
 			checkBundle.putInt(Constant.CURRENT_LIST, currentList);
+			checkBundle.putString(Constant.SITE_ID, processInfoId);
+			checkBundle.putString(Constant.PROCESS_NAME, sectionInfoName);
+			checkBundle.putInt(Constant.PROCESS_STATUS, processInfoStatus);
 			startActivity(CheckActivity.class, checkBundle);
 			break;
 		default:
@@ -564,6 +569,10 @@ public class SiteManageFragment extends BaseFragment implements
 					(ArrayList<String>) imageUrlList);
 			bundle.putInt(Constant.CURRENT_POSITION, position);
 			startActivity(ShowPicActivity.class, bundle);
+			break;
+		case Constant.ADD_ITEM:
+			imageList = imageUrlList;
+			showPopWindow(getView());
 			break;
 		default:
 			break;
@@ -743,9 +752,53 @@ public class SiteManageFragment extends BaseFragment implements
 					String imgPath = PhotoUtils.savaPicture(bitmap);
 					LogTool.d(TAG, "imgPath===" + imgPath);
 					if (!TextUtils.isEmpty(imgPath)) {
-						uploadManager.uploadProcedureImage(imgPath,
+						/*uploadManager.uploadProcedureImage(imgPath,
 								processInfo.get_id(), sectionInfo.getName(),
-								processInfoName, this);
+								processInfoName, this);*/
+						LoadClientHelper.upload_Image(getActivity(),new UploadPicRequest(getActivity(),imgPath), new LoadDataListener() {
+							
+							@Override
+							public void preLoad() {
+								// TODO Auto-generated method stub
+								
+							}
+							
+							@Override
+							public void loadSuccess() {
+								// TODO Auto-generated method stub
+								String itemName = sectionItemAdapter.getCurrentItem();
+								AddPicToSectionItemRequest addSectionItemRequest = new AddPicToSectionItemRequest(getActivity(), processInfo.get_id(), sectionInfo.getName(), itemName, dataManager.getCurrentUploadImageId());
+								LoadClientHelper.submitImgToProgress(getActivity(), addSectionItemRequest, new LoadDataListener() {
+									
+									@Override
+									public void preLoad() {
+										// TODO Auto-generated method stub
+										
+									}
+									
+									@Override
+									public void loadSuccess() {
+										// TODO Auto-generated method stub
+										/*processInfo = dataManager.getDefaultProcessInfo();
+										if (processInfo != null) {
+											initData();
+										} */
+										sectionItemAdapter.setPosition(currentList);
+									}
+									
+									@Override
+									public void loadFailture() {
+										// TODO Auto-generated method stub
+									}
+								});
+							}
+							
+							@Override
+							public void loadFailture() {
+								// TODO Auto-generated method stub
+								
+							}
+						});
 					}
 				}
 			}
@@ -799,7 +852,14 @@ public class SiteManageFragment extends BaseFragment implements
 			if (mTmpFile != null && mTmpFile.exists()) {
 				mTmpFile.delete();
 			}
-			loadCurrentProcess();
+			// loadCurrentProcess();
+			// sectionInfo.getItems()
+			if (dataManager.getCurrentUploadImageId() != null
+					&& imageList != null) {
+				imageList.add(imageList.size() - 1,
+						dataManager.getCurrentUploadImageId());
+				sectionItemAdapter.notifyDataSetChanged();
+			}
 		}
 	}
 
@@ -826,8 +886,8 @@ public class SiteManageFragment extends BaseFragment implements
 		intent.putExtra("aspectY", 1);
 		intent.putExtra("scale", true);
 		// outputX outputY 是裁剪图片宽高
-		intent.putExtra("outputX", 300);
-		intent.putExtra("outputY", 300);
+		intent.putExtra("outputX", TDevice.getScreenWidth());
+		intent.putExtra("outputY", TDevice.getScreenWidth());
 		intent.putExtra("return-data", true);
 		startActivityForResult(intent, Constant.REQUESTCODE_CROP);
 	}

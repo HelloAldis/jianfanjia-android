@@ -11,6 +11,7 @@ import com.jianfanjia.cn.base.BaseResponse;
 import com.jianfanjia.cn.bean.LoginUserBean;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.http.request.AddPicToSectionItemRequest;
 import com.jianfanjia.cn.http.request.CommitCommentRequest;
 import com.jianfanjia.cn.http.request.DesignerInfoRequest;
 import com.jianfanjia.cn.http.request.LoginRequest;
@@ -21,11 +22,13 @@ import com.jianfanjia.cn.http.request.ProcessInfoRequest;
 import com.jianfanjia.cn.http.request.ProcessListRequest;
 import com.jianfanjia.cn.http.request.GetRequirementRequest;
 import com.jianfanjia.cn.http.request.TotalDurationRequest;
+import com.jianfanjia.cn.http.request.UploadPicRequest;
 import com.jianfanjia.cn.http.request.UserByDesignerInfoRequest;
 import com.jianfanjia.cn.http.request.UserByDesignerInfoUpdateRequest;
 import com.jianfanjia.cn.http.request.UserByOwnerInfoRequest;
 import com.jianfanjia.cn.http.request.UserByOwnerInfoUpdateRequest;
 import com.jianfanjia.cn.interf.LoadDataListener;
+import com.jianfanjia.cn.interf.UploadImageListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -51,6 +54,7 @@ public class LoadClientHelper {
 						if (listener != null) {
 							listener.preLoad();
 						}
+						loginRequest.pre();
 					}
 
 					@Override
@@ -117,6 +121,7 @@ public class LoadClientHelper {
 				if (listener != null) {
 					listener.preLoad();
 				}
+				logoutRequest.pre();
 			}
 
 			@Override
@@ -183,6 +188,7 @@ public class LoadClientHelper {
 						if (listener != null) {
 							listener.preLoad();
 						}
+						proListRequest.pre();
 					}
 
 					@Override
@@ -261,6 +267,7 @@ public class LoadClientHelper {
 						if (listener != null) {
 							listener.preLoad();
 						}
+						processInfoRequest.pre();
 					}
 
 					@Override
@@ -335,6 +342,7 @@ public class LoadClientHelper {
 						if (listener != null) {
 							listener.preLoad();
 						}
+						ownerInfoRequest.pre();
 					}
 
 					@Override
@@ -408,6 +416,7 @@ public class LoadClientHelper {
 						if (listener != null) {
 							listener.preLoad();
 						}
+						designerInfoRequest.pre();
 					}
 
 					@Override
@@ -482,6 +491,7 @@ public class LoadClientHelper {
 						if (listener != null) {
 							listener.preLoad();
 						}
+						commitCommentRequest.pre();
 					}
 
 					@Override
@@ -553,6 +563,7 @@ public class LoadClientHelper {
 						if (listener != null) {
 							listener.preLoad();
 						}
+						userByDesignerInfoRequest.pre();
 					}
 
 					@Override
@@ -627,6 +638,7 @@ public class LoadClientHelper {
 						if (listener != null) {
 							listener.preLoad();
 						}
+						userByOwnerInfoRequest.pre();
 					}
 
 					@Override
@@ -700,6 +712,7 @@ public class LoadClientHelper {
 						if (listener != null) {
 							listener.preLoad();
 						}
+						userByOwnerInfoUpdateRequest.pre();
 					}
 
 					@Override
@@ -775,6 +788,7 @@ public class LoadClientHelper {
 						if (listener != null) {
 							listener.preLoad();
 						}
+						userByDesignerInfoUpdateRequest.pre();
 					}
 
 					@Override
@@ -849,6 +863,7 @@ public class LoadClientHelper {
 						if (listener != null) {
 							listener.preLoad();
 						}
+						totalDurationRequest.pre();
 					}
 
 					@Override
@@ -921,6 +936,7 @@ public class LoadClientHelper {
 						if (listener != null) {
 							listener.preLoad();
 						}
+						requirementRequest.pre();
 					}
 
 					@Override
@@ -992,6 +1008,7 @@ public class LoadClientHelper {
 						if (listener != null) {
 							listener.preLoad();
 						}
+						postRequirementRequest.pre();
 					}
 
 					@Override
@@ -1039,6 +1056,138 @@ public class LoadClientHelper {
 					public void onFailure(int statusCode, Header[] headers,
 							String responseString, Throwable throwable) {
 						LogTool.d(TAG, "throwable:" + throwable);
+						if (listener != null) {
+							listener.loadFailture();
+						}
+					};
+				});
+	}
+	
+	public static void upload_Image(final Context context,
+			final UploadPicRequest uploadPicRequest,
+			final LoadDataListener listener){
+		JianFanJiaApiClient.uploadImage(context, uploadPicRequest.getImagePath(),
+				new JsonHttpResponseHandler() {
+					@Override
+					public void onStart() {
+						LogTool.d(TAG, "onStart()");
+						if(listener != null){
+							listener.preLoad();
+						}
+						uploadPicRequest.pre();
+					}
+
+					@Override
+					public void onSuccess(int statusCode, Header[] headers,
+							JSONObject response) {
+						LogTool.d(TAG, "response:" + response.toString());
+						BaseResponse baseResponse = new BaseResponse();
+						try {
+							if (response.has(Constant.DATA)
+									&& response.get(Constant.DATA) != null) {
+								baseResponse.setData(response
+										.get(Constant.DATA).toString());
+								uploadPicRequest.onSuccess(baseResponse);
+								if (listener != null) {
+									listener.loadSuccess();
+								}
+							} else if (response.has(Constant.ERROR_MSG)) {
+								// 通知页面刷新
+								baseResponse.setErr_msg(response.get(
+										Constant.ERROR_MSG).toString());
+								uploadPicRequest.onFailure(baseResponse);
+								if (listener != null) {
+									listener.loadFailture();
+								}
+							}
+						} catch (JSONException e) {
+							e.printStackTrace();
+							if (listener != null) {
+								listener.loadFailture();
+							}
+						}
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							Throwable throwable, JSONObject errorResponse) {
+						LogTool.d(TAG, "Throwable throwable:" + throwable);
+						if (listener != null) {
+							listener.loadFailture();
+						}
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							String responseString, Throwable throwable) {
+						LogTool.d(TAG, "statusCode:" + statusCode
+								+ " throwable:" + throwable);
+						if (listener != null) {
+							listener.loadFailture();
+						}
+					};
+				});
+	}
+	
+	public static void submitImgToProgress(final Context context,final AddPicToSectionItemRequest addPicToSectionItemRequest,final LoadDataListener listener) {
+		LogTool.d(TAG, "siteId:" + addPicToSectionItemRequest.getProcessId() + " section:" + addPicToSectionItemRequest.getSection()
+				+ " item:" + addPicToSectionItemRequest.getItem() + " imageid:" + addPicToSectionItemRequest.getImageId());
+		JianFanJiaApiClient.submitImageToProcess(context, addPicToSectionItemRequest.getProcessId(), addPicToSectionItemRequest.getSection(),
+				addPicToSectionItemRequest.getItem(), addPicToSectionItemRequest.getImageId(), 
+				new JsonHttpResponseHandler() {
+					@Override
+					public void onStart() {
+						LogTool.d(TAG, "onStart()");
+						if(listener != null){
+							listener.preLoad();
+						}
+						addPicToSectionItemRequest.pre();
+					}
+
+					@Override
+					public void onSuccess(int statusCode, Header[] headers,
+							JSONObject response) {
+						LogTool.d(TAG, "response:" + response.toString());
+						BaseResponse baseResponse = new BaseResponse();
+						try {
+							if (response.has(Constant.SUCCESS_MSG)) {
+								baseResponse.setMsg(response.get(Constant.SUCCESS_MSG)
+										.toString());
+								addPicToSectionItemRequest.onSuccess(baseResponse);
+								if (listener != null) {
+									listener.loadSuccess();
+								}
+							} else if (response.has(Constant.ERROR_MSG)) {
+								// 通知页面刷新
+								baseResponse.setErr_msg(response.get(
+										Constant.ERROR_MSG).toString());
+								addPicToSectionItemRequest.onFailure(baseResponse);
+								if (listener != null) {
+									listener.loadFailture();
+								}
+							}
+						} catch (JSONException e) {
+							e.printStackTrace();
+							if (listener != null) {
+								listener.loadFailture();
+							}
+						}
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							Throwable throwable, JSONObject errorResponse) {
+						LogTool.d(TAG, "Throwable throwable:" + throwable);
+						if (listener != null) {
+							listener.loadFailture();
+						}
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							String responseString, Throwable throwable) {
+						LogTool.d(TAG, "statusCode:" + statusCode
+								+ " throwable:" + throwable);
 						if (listener != null) {
 							listener.loadFailture();
 						}

@@ -5,7 +5,6 @@ import android.content.Context;
 import com.jianfanjia.cn.base.BaseRequest;
 import com.jianfanjia.cn.base.BaseResponse;
 import com.jianfanjia.cn.bean.DesignerInfo;
-import com.jianfanjia.cn.bean.MyOwnerInfo;
 import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.tools.JsonParser;
 

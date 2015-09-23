@@ -29,6 +29,7 @@ import com.jianfanjia.cn.http.request.UserByDesignerInfoUpdateRequest;
 import com.jianfanjia.cn.interf.LoadDataListener;
 import com.jianfanjia.cn.interf.UploadPortraitListener;
 import com.jianfanjia.cn.tools.FileUtil;
+import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.PhotoUtils;
 import com.jianfanjia.cn.view.MainHeadView;
@@ -184,6 +185,7 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 					public void preLoad() {
 						// TODO Auto-generated method stub
 						showWaitDialog();
+						LogTool.d(TAG, JsonParser.beanToJson(designerUpdateInfo));
 					}
 
 					@Override
@@ -210,7 +212,7 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 	}
 
 	private void updateUpdateInfo() {
-		designerInfo.setImageid(imageId);
+		designerInfo.setImageid(designerUpdateInfo.getImageid());
 		designerInfo.setAddress(designerUpdateInfo.getAddress());
 		designerInfo.setCity(designerUpdateInfo.getCity());
 		designerInfo.setDistrict(designerUpdateInfo.getDistrict());

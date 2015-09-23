@@ -21,7 +21,7 @@ public class SectionInfo implements Serializable {
 	private long end_at;
 
 	private String name;
-
+	
 	private int status;
 
 	private ArrayList<SectionItemInfo> items;
@@ -83,5 +83,16 @@ public class SectionInfo implements Serializable {
 	public void setYs(CheckInfo ys) {
 		this.ys = ys;
 	}
-
+	
+	public SectionItemInfo getSectionItemInfoByName(String itemName){
+		if(items != null){
+			for(SectionItemInfo sectionitem : items){
+				if(sectionitem.getName().equals(itemName)){
+					return sectionitem;
+				}
+			}
+		}
+		return null;
+	}
+	
 }

@@ -2,6 +2,8 @@ package com.jianfanjia.cn.bean;
 
 import java.util.ArrayList;
 
+import com.jianfanjia.cn.tools.LogTool;
+
 /**
  * @class ProcessInfo
  * @Decription 此类是工地信息类
@@ -40,6 +42,34 @@ public class ProcessInfo extends RequirementInfo {
 
 	public void setSections(ArrayList<SectionInfo> sections) {
 		this.sections = sections;
+	}
+	
+	public SectionInfo getSectionInfoByName(String sectionName){
+		LogTool.d("SectionInfo", sectionName);
+		if(sections != null){
+			for(SectionInfo sectionInfo : sections){
+				if(sectionInfo.getName().equals(sectionName)){
+					return sectionInfo;
+				}
+			}
+		}
+		return null;
+	}
+	
+	public void addImageToItem(String section,String item,String imageId){
+		if(sections != null){
+			for(SectionInfo sectionInfo : sections){
+				if(sectionInfo.getName().equals(section)){
+					LogTool.d("SectionInfo", section);
+					for(SectionItemInfo sectionItemInfo : sectionInfo.getItems()){
+						if(sectionItemInfo.getName().equals(item)){
+							LogTool.d("SectionItem", item);
+							sectionItemInfo.addImageToItem(imageId);
+						}
+					}
+				}
+			}
+		}
 	}
 
 }

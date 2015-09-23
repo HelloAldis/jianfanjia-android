@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.bean.DesignerInfo;
 import com.jianfanjia.cn.bean.MyDesignerInfo;
 import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.config.Constant;
@@ -42,7 +43,7 @@ public class MyDesignerActivity extends BaseActivity implements
 	private TextView cityView;// 服务城市
 	private TextView goodAtView;// 擅长
 	private TextView budgetView;// 设计费
-	private MyDesignerInfo designerInfo;
+	private DesignerInfo designerInfo;
 	private String designerId;
 	private RelativeLayout contentLayout;
 	private View errorView;
@@ -67,7 +68,7 @@ public class MyDesignerActivity extends BaseActivity implements
 
 		designerId = dataManager.getDefaultDesignerId();
 		if (designerId != null) {
-			designerInfo = dataManager.getMyDesignerInfoById(designerId);
+			designerInfo = dataManager.getDesignerInfoById(designerId);
 			if (designerInfo != null) {
 				setData();
 			} else {
@@ -90,7 +91,7 @@ public class MyDesignerActivity extends BaseActivity implements
 	@Override
 	public void loadSuccess() {
 		super.loadSuccess();
-		designerInfo = dataManager.getMyDesignerInfoById(designerId);
+		designerInfo = dataManager.getDesignerInfoById(designerId);
 		if (designerInfo != null) {
 			setData();
 		} else {

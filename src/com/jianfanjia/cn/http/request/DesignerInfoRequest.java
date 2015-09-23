@@ -6,6 +6,7 @@ import android.content.Context;
 
 import com.jianfanjia.cn.base.BaseRequest;
 import com.jianfanjia.cn.base.BaseResponse;
+import com.jianfanjia.cn.bean.DesignerInfo;
 import com.jianfanjia.cn.bean.MyDesignerInfo;
 import com.jianfanjia.cn.tools.JsonParser;
 
@@ -36,10 +37,10 @@ public class DesignerInfoRequest extends BaseRequest {
 		super.onSuccess(baseResponse);
 		String data = baseResponse.getData().toString();
 		if(data != null){
-			MyDesignerInfo designerInfo = JsonParser
-					.jsonToBean(data, MyDesignerInfo.class);
+			DesignerInfo designerInfo = JsonParser
+					.jsonToBean(data, DesignerInfo.class);
 			if(designerInfo != null){
-				dataManager.setMyDesignerInfo(designerInfo);
+				dataManager.setDesignerInfo(designerInfo);
 			}
 		}
 	}

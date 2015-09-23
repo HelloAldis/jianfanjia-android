@@ -10,13 +10,12 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.bean.DesignerInfo;
 import com.jianfanjia.cn.bean.LoginUserBean;
-import com.jianfanjia.cn.bean.MyDesignerInfo;
-import com.jianfanjia.cn.bean.MyOwnerInfo;
 import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.bean.Process;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.bean.SectionInfo;
+import com.jianfanjia.cn.bean.SectionItemInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url;
 import com.jianfanjia.cn.tools.JsonParser;
@@ -34,13 +33,12 @@ public class DataManagerNew {
 	private SharedPrefer sharedPreferuser = null;
 	private List<Process> processLists;
 	private Map<String, ProcessInfo> processMap = new HashMap<String, ProcessInfo>();
-	private MyOwnerInfo myOwnerInfo;// 我的业主信息
-	private MyDesignerInfo myDesignerInfo;// 我的设计师信息
 	private OwnerInfo ownerInfo;// 业主的个人信息
 	private DesignerInfo designerInfo;// 设计师的个人信息
 	private String totalDuration;// 总工期
 	private RequirementInfo requirementInfo;// 需求信息
-	private ProcessInfo currentProcessInfo;// 当前工地信息
+	private ProcessInfo currentProcessInfo;// 当前工地信息p
+	private String currentUploadImageId;//当前上传的imageId;
 
 	public static DataManagerNew getInstance() {
 		if (instance == null) {
@@ -53,6 +51,14 @@ public class DataManagerNew {
 		context = MyApplication.getInstance();
 		sharedPreferdata = new SharedPrefer(context, Constant.SHARED_DATA);
 		sharedPreferuser = new SharedPrefer(context, Constant.SHARED_USER);
+	}
+	
+	public String getCurrentUploadImageId() {
+		return currentUploadImageId;
+	}
+
+	public void setCurrentUploadImageId(String currentUploadImageId) {
+		this.currentUploadImageId = currentUploadImageId;
 	}
 
 	public RequirementInfo getRequirementInfo() {
@@ -70,33 +76,48 @@ public class DataManagerNew {
 	public void setTotalDuration(String totalDuration) {
 		this.totalDuration = totalDuration;
 	}
-
-	public void setOwnerInfo(OwnerInfo ownerInfo) {
-		this.ownerInfo = ownerInfo;
-		sharedPreferdata.setValue(Constant.OWNER_INFO, ownerInfo);
+	
+	public OwnerInfo getOwnerInfoById(String ownerId) {
+		return (OwnerInfo) sharedPreferdata.getValue(ownerId);
 	}
 
 	public void setDesignerInfo(DesignerInfo designerInfo) {
-		this.designerInfo = designerInfo;
-		sharedPreferdata.setValue(Constant.DESIGNER_INFO, designerInfo);
+		sharedPreferdata.setValue(designerInfo.get_id(), designerInfo);
 	}
 
+	public DesignerInfo getDesignerInfoById(String designerId) {
+		return (DesignerInfo) sharedPreferdata.getValue(designerId);
+	}
+
+	public void setOwnerInfo(OwnerInfo ownerInfo) {
+		sharedPreferdata.setValue(ownerInfo.get_id(), ownerInfo);
+	}
+	
+	public Object getOwnerOrDesignerByIdAndType(String userType,String _id){
+		if(userType.equals(Constant.IDENTITY_DESIGNER)){
+			return getDesignerInfoById(_id);
+		}else if(userType.equals(Constant.IDENTITY_OWNER)){
+			return getOwnerInfoById(_id);
+		}
+		return null;
+	}
+	
 	// 设计师用户获取个人资料
 	public DesignerInfo getDesignerInfo() {
-		if (designerInfo == null && !NetTool.isNetworkAvailable(context)) {
-			designerInfo = (DesignerInfo) sharedPreferdata
-					.getValue(Constant.DESIGNER_INFO);
+		return getDesignerInfoById(getUserId());
+		/*if (designerInfo == null && !NetTool.isNetworkAvailable(context)) {
+			designerInfo = getDesignerInfoById(getUserId());
 		}
-		return designerInfo;
+		return designerInfo;*/
 	}
 
 	// 业主用户获取个人资料
 	public OwnerInfo getOwnerInfo() {
-		if (ownerInfo == null && !NetTool.isNetworkAvailable(context)) {
-			ownerInfo = (OwnerInfo) sharedPreferdata
-					.getValue(Constant.OWNER_INFO);
+		return getOwnerInfoById(getUserId());
+		/*if (ownerInfo == null && !NetTool.isNetworkAvailable(context)) {
+			ownerInfo = getOwnerInfoById(getUserId());
 		}
-		return ownerInfo;
+		return ownerInfo;*/
 	}
 
 	public void setCurrentProcessInfo(ProcessInfo currentProcessInfo) {
@@ -122,7 +143,7 @@ public class DataManagerNew {
 		}
 		return null;
 	}
-
+	
 	public String getDefaultDesignerId() {
 		if (processLists == null || processLists.size() == 0) {
 			processLists = getProcessListsByCache();
@@ -216,32 +237,6 @@ public class DataManagerNew {
 	public void saveProcessInfo(ProcessInfo processInfo) {
 		processMap.put(processInfo.get_id(), processInfo);
 		sharedPreferdata.setValue(processInfo.get_id(), processInfo);
-	}
-
-	public MyOwnerInfo getMyOwnerInfoById(String ownerId) {
-		return (MyOwnerInfo) sharedPreferdata.getValue(ownerId);
-	}
-
-	public MyOwnerInfo getMyOwnerInfo() {
-		return myOwnerInfo;
-	}
-
-	public void setMyOwnerInfo(MyOwnerInfo myOwnerInfo) {
-		this.myOwnerInfo = myOwnerInfo;
-		sharedPreferdata.setValue(myOwnerInfo.get_id(), myOwnerInfo);
-	}
-
-	public MyDesignerInfo getMyDesignerInfo() {
-		return myDesignerInfo;
-	}
-
-	public void setMyDesignerInfo(MyDesignerInfo myDesignerInfo) {
-		this.myDesignerInfo = myDesignerInfo;
-		sharedPreferdata.setValue(myDesignerInfo.get_id(), myDesignerInfo);
-	}
-
-	public MyDesignerInfo getMyDesignerInfoById(String designerId) {
-		return (MyDesignerInfo) sharedPreferdata.getValue(designerId);
 	}
 
 	public boolean isLogin() {
@@ -354,8 +349,6 @@ public class DataManagerNew {
 
 	public void cleanData() {
 		processLists = null;
-		myOwnerInfo = null;
-		myDesignerInfo = null;
 		ownerInfo = null;
 		designerInfo = null;
 		requirementInfo = null;

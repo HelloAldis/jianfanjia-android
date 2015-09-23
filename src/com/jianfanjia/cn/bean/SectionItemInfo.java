@@ -3,6 +3,8 @@ package com.jianfanjia.cn.bean;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import com.jianfanjia.cn.tools.LogTool;
+
 /**
  * @class SectionItemInfo.class
  * @author zhanghao
@@ -21,6 +23,8 @@ public class SectionItemInfo implements Serializable {
 	private String name;
 
 	private String status;
+	
+	private long date;
 
 	private ArrayList<CommentInfo> comments;
 
@@ -72,6 +76,27 @@ public class SectionItemInfo implements Serializable {
 
 	public void setOpen(boolean isOpen) {
 		this.isOpen = isOpen;
+	}
+	
+	public long getDate() {
+		return date;
+	}
+
+	public void setDate(long date) {
+		this.date = date;
+	}
+
+	public void addImageToItem(String imageId){
+		LogTool.d("addImage", imageId);
+		if(images != null){
+			images.add(imageId);
+		}
+	}
+	
+	public void addCommentToItem(CommentInfo commentInfo){
+		if(comments != null){
+			comments.add(commentInfo);
+		}
 	}
 	
 }

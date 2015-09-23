@@ -1,6 +1,7 @@
 package com.jianfanjia.cn.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * @class CheckInfo.class
@@ -9,6 +10,54 @@ import java.io.Serializable;
  * @date 2015-8-31 ÉÏÎç11:55
  */
 public class CheckInfo implements Serializable {
+	
 	private static final long serialVersionUID = 1L;
+	
+	private long date;
+	
+	private ArrayList<Imageid> images;
+	
+	public long getDate() {
+		return date;
+	}
+
+	public void setDate(long date) {
+		this.date = date;
+	}
+
+	public ArrayList<Imageid> getImages() {
+		return images;
+	}
+
+	public void setImages(ArrayList<Imageid> images) {
+		this.images = images;
+	}
+	
+	public void addImageId(Imageid imageid){
+		if(images != null){
+			images.add(imageid);
+		}
+	}
+
+	public class Imageid{
+		
+		private String key;
+		private String imageId;
+		
+		public String getKey() {
+			return key;
+		}
+		public void setKey(String key) {
+			this.key = key;
+		}
+		public String getImageId() {
+			return imageId;
+		}
+		public void setImageId(String imageId) {
+			this.imageId = imageId;
+		}
+		
+		
+	}
 
 }

@@ -115,7 +115,6 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 			setData();
 			setOwnerUpdateInfo();
 		}
-
 		commonWheelDialog = new CommonWheelDialog(this);
 	}
 
@@ -343,7 +342,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 	}
 
 	protected void updateOwnerInfo() {
-		ownerInfo.setImageid(imageId);
+		ownerInfo.setImageid(ownerUpdateInfo.getImageid());
 		ownerInfo.setAddress(ownerUpdateInfo.getAddress());
 		ownerInfo.setCity(ownerUpdateInfo.getCity());
 		ownerInfo.setDistrict(ownerUpdateInfo.getDistrict());

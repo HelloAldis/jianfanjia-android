@@ -6,6 +6,7 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.interf.UploadImageListener;
@@ -16,6 +17,7 @@ public class UploadManager {
 	private static final String TAG = UploadManager.class.getName();
 	private Context context;
 	private static UploadManager uploadManager;
+	private DataManagerNew dataManager;
 
 	public static UploadManager getUploadManager(Context context) {
 		if (null == uploadManager) {
@@ -26,6 +28,7 @@ public class UploadManager {
 
 	public UploadManager(Context context) {
 		this.context = context;
+		dataManager = DataManagerNew.getInstance();
 	}
 
 	/**
@@ -58,6 +61,7 @@ public class UploadManager {
 								String imageid = obj.getString("data");
 								LogTool.d(TAG, "imageid:" + imageid);
 								if (null != imageid) {
+									dataManager.setCurrentUploadImageId(imageid);
 									submitImgToProgress(siteId, processId,
 											processInfoId, imageid,
 											uploadImageListener);
@@ -115,6 +119,7 @@ public class UploadManager {
 								String imageid = obj.getString("data");
 								LogTool.d(TAG, "imageid:" + imageid);
 								if (null != imageid) {
+									dataManager.setCurrentUploadImageId(imageid);
 									submitCheckedImg(siteId, processId, key,
 											imageid, uploadImageListener);
 								}
@@ -166,6 +171,7 @@ public class UploadManager {
 								LogTool.d(TAG, "msg:" + msg);
 								uploadImageListener.onSuccess(msg);
 							} else if (response.has(Constant.ERROR_MSG)) {
+								dataManager.setCurrentUploadImageId(null);//附加失败，清楚上传的Imageid
 								uploadImageListener.onSuccess(response
 										.getString(Constant.ERROR_MSG));
 							}
@@ -179,6 +185,7 @@ public class UploadManager {
 							Throwable throwable, JSONObject errorResponse) {
 						LogTool.d(TAG, "Throwable throwable:" + throwable);
 						uploadImageListener.onFailure();
+						dataManager.setCurrentUploadImageId(null);
 					}
 
 					@Override
@@ -187,6 +194,7 @@ public class UploadManager {
 						LogTool.d(TAG, "statusCode:" + statusCode
 								+ " throwable:" + throwable);
 						uploadImageListener.onFailure();
+						dataManager.setCurrentUploadImageId(null);
 					};
 				});
 	}
@@ -205,14 +213,15 @@ public class UploadManager {
 							JSONObject response) {
 						LogTool.d(TAG, "JSONObject response:" + response);
 						try {
-							if (response.has(Constant.DATA)) {
+							if (response.has(Constant.SUCCESS_MSG)) {
 								JSONObject obj = new JSONObject(response
 										.toString());
-								String msg = obj.getString(Constant.DATA);
+								String msg = obj
+										.getString(Constant.SUCCESS_MSG);
 								LogTool.d(TAG, "msg:" + msg);
 								uploadImageListener.onSuccess(msg);
 							} else if (response.has(Constant.ERROR_MSG)) {
-
+								dataManager.setCurrentUploadImageId(null);
 							}
 						} catch (JSONException e) {
 							e.printStackTrace();
@@ -224,6 +233,7 @@ public class UploadManager {
 							Throwable throwable, JSONObject errorResponse) {
 						LogTool.d(TAG, "Throwable throwable:" + throwable);
 						uploadImageListener.onFailure();
+						dataManager.setCurrentUploadImageId(null);
 					}
 
 					@Override
@@ -232,6 +242,7 @@ public class UploadManager {
 						LogTool.d(TAG, "statusCode:" + statusCode
 								+ " throwable:" + throwable);
 						uploadImageListener.onFailure();
+						dataManager.setCurrentUploadImageId(null);
 					};
 				});
 	}

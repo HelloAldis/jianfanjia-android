@@ -9,7 +9,6 @@ import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseRequest;
 import com.jianfanjia.cn.base.BaseResponse;
 import com.jianfanjia.cn.bean.LoginUserBean;
-import com.jianfanjia.cn.bean.MyOwnerInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.cache.DataCleanManager;
 import com.jianfanjia.cn.config.Constant;

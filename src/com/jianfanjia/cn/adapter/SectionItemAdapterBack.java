@@ -2,6 +2,8 @@ package com.jianfanjia.cn.adapter;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import u.aly.da;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,6 +26,7 @@ import com.jianfanjia.cn.bean.SectionItemInfo;
 import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
+import com.jianfanjia.cn.tools.StringUtils;
 
 public class SectionItemAdapterBack extends BaseAdapter {
 	private static final int IMG_COUNT = 9;
@@ -33,13 +36,13 @@ public class SectionItemAdapterBack extends BaseAdapter {
 	private int lastClickItem = -1;// 记录上次点击的位置
 	private int currentClickItem = -1;// 记录当前点击位置
 	private SiteGridViewAdapter siteGridViewAdapter;
-	private List<GridItem> gridItem = new ArrayList<GridItem>();
 	private String userType;
 	private int section_status;// 节点的状态
 	private SectionInfo sectionInfo;
 	private Context context;
 	private LayoutInflater layoutInflater;
 	private List<SectionItemInfo> list = new ArrayList<SectionItemInfo>();
+	private List<String> imageUrlList = new ArrayList<String>();
 	private DataManagerNew dataManager;
 	private boolean isHasCheck;// 是否有验收
 
@@ -48,15 +51,21 @@ public class SectionItemAdapterBack extends BaseAdapter {
 		this.context = context;
 		layoutInflater = LayoutInflater.from(context);
 		dataManager = DataManagerNew.getInstance();
-		sectionInfo = dataManager.getDefaultSectionInfoByPosition(position);
-		setList();
 		this.callBack = callBack;
 		userType = dataManager.getUserType();
+		setPosition(position);
 	}
 
-	private void setList() {
+	public void setPosition(int position) {
+		sectionInfo = dataManager.getDefaultSectionInfoByPosition(position);
+		section_status = sectionInfo.getStatus();
+		initList();
+	}
+
+	private void initList() {
 		section_status = sectionInfo.getStatus();
 		list.clear();
+		clearCurrentPosition();
 		if (!sectionInfo.getName().equals("kai_gong")
 				&& !sectionInfo.getName().equals("chai_gai")) {
 			isHasCheck = true;
@@ -64,40 +73,17 @@ public class SectionItemAdapterBack extends BaseAdapter {
 			sectionItemInfo.setName(context.getResources().getStringArray(
 					R.array.site_check_name)[MyApplication.getInstance()
 					.getPositionByItemName(sectionInfo.getName())]);
-			sectionItemInfo.setOpen(false);
+			sectionItemInfo.setDate(sectionInfo.getYs().getDate());
 			list.add(sectionItemInfo);
 		} else {
 			isHasCheck = false;
 		}
+
 		for (SectionItemInfo sectionItemInfo : sectionInfo.getItems()) {
-			sectionItemInfo.setOpen(false);
 			list.add(sectionItemInfo);
 		}
-		Log.d(this.getClass().getName(), "list.size() =" + list.size());
-	}
 
-	@Override
-	public int getViewTypeCount() {
-		return 2;
-	}
-
-	@Override
-	public int getItemViewType(int position) {
-		if (isHasCheck) {
-			if (position == 0) {
-				return CHECK_VIEW;
-			} else {
-				return SECTION_ITME_VIEW;
-			}
-		} else {
-			return SECTION_ITME_VIEW;
-		}
-	}
-
-	public void setPosition(int position) {
-		sectionInfo = dataManager.getDefaultSectionInfoByPosition(position);
-		section_status = sectionInfo.getStatus();
-		setList();
+		setLastOpen();
 	}
 
 	public void clearCurrentPosition() {
@@ -105,7 +91,13 @@ public class SectionItemAdapterBack extends BaseAdapter {
 		this.lastClickItem = -1;
 	}
 
-	public void setCurrentClickItem(int position) {
+	public void setCurrentOpenItem(int position) {
+		imageUrlList.clear();
+		if (list.get(position).getImages() != null) {
+			for (String iamgeId : list.get(position).getImages()) {
+				imageUrlList.add(iamgeId);
+			}
+		}
 		this.currentClickItem = position;
 		if (currentClickItem != lastClickItem) {
 			if (lastClickItem != -1) {
@@ -121,6 +113,34 @@ public class SectionItemAdapterBack extends BaseAdapter {
 			}
 		}
 		notifyDataSetChanged();
+	}
+
+	public void setLastOpen() {
+		if (list != null && list.size() > 0) {
+			long max = list.get(0).getDate();
+			for (int i = 0; i < list.size(); i++) {
+				if (max < list.get(i).getDate()) {
+					max = list.get(i).getDate();
+				}
+			}
+			for (int i = 0; i < list.size(); i++) {
+				if (list.get(i).getDate() == max) {
+					setCurrentOpenItem(i);
+				}
+			}
+		}
+	}
+
+	public int getCurrentClickItem() {
+		return currentClickItem;
+	}
+
+	public String getCurrentItem() {
+		if (isHasCheck) {
+			return sectionInfo.getItems().get(currentClickItem - 1).getName();
+		} else {
+			return sectionInfo.getItems().get(currentClickItem).getName();
+		}
 	}
 
 	public boolean isHasCheck() {
@@ -208,10 +228,9 @@ public class SectionItemAdapterBack extends BaseAdapter {
 			}
 		}
 
+		final SectionItemInfo sectionItemInfo = list.get(position);
 		switch (type) {
 		case SECTION_ITME_VIEW:
-			final SectionItemInfo sectionItemInfo = list.get(position);
-			List<String> imageUrlList = sectionItemInfo.getImages();
 			List<CommentInfo> commentInfoList = sectionItemInfo.getComments();
 			viewHolder.closeNodeName.setText(MyApplication.getInstance()
 					.getStringById(sectionItemInfo.getName()));
@@ -255,6 +274,12 @@ public class SectionItemAdapterBack extends BaseAdapter {
 				break;
 			default:
 				break;
+			}
+			
+			//设置最新动态的时间
+			long date = sectionItemInfo.getDate();
+			if(date != 0l){
+				viewHolder.openUploadTime.setText(StringUtils.covertLongToString(date));
 			}
 
 			if (null != imageUrlList && imageUrlList.size() > 0) {
@@ -332,11 +357,10 @@ public class SectionItemAdapterBack extends BaseAdapter {
 
 			break;
 		case CHECK_VIEW:
-			final SectionItemInfo sectionItemInfo1 = list.get(position);
-			viewHolderf.closeNodeName.setText(sectionItemInfo1.getName());
-			viewHolderf.openNodeName.setText(sectionItemInfo1.getName());
+			viewHolderf.closeNodeName.setText(sectionItemInfo.getName());
+			viewHolderf.openNodeName.setText(sectionItemInfo.getName());
 			if (section_status != Constant.NOT_START) {
-				if (sectionItemInfo1.isOpen()) {
+				if (sectionItemInfo.isOpen()) {
 					viewHolderf.bigOpenLayout.setVisibility(View.VISIBLE);
 					viewHolderf.smallcloseLayout.setVisibility(View.GONE);
 				} else {
@@ -394,7 +418,7 @@ public class SectionItemAdapterBack extends BaseAdapter {
 				String data = imageUrlList.get(position);
 				Log.i(this.getClass().getName(), "data:" + data);
 				if (data.equals(Constant.HOME_ADD_PIC)) {
-					callBack.click(position, Constant.ADD_ITEM);
+					callBack.click(position, Constant.ADD_ITEM, imageUrlList);
 				} else {
 					for (String str : imageUrlList) {
 						if (str.equals(Constant.HOME_ADD_PIC)) {
@@ -437,6 +461,24 @@ public class SectionItemAdapterBack extends BaseAdapter {
 	@Override
 	public int getCount() {
 		return list.size();
+	}
+
+	@Override
+	public int getViewTypeCount() {
+		return 2;
+	}
+
+	@Override
+	public int getItemViewType(int position) {
+		if (isHasCheck) {
+			if (position == 0) {
+				return CHECK_VIEW;
+			} else {
+				return SECTION_ITME_VIEW;
+			}
+		} else {
+			return SECTION_ITME_VIEW;
+		}
 	}
 
 	@Override

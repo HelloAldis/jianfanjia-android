@@ -8,13 +8,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.CommentInfo;
-import com.jianfanjia.cn.bean.MyDesignerInfo;
-import com.jianfanjia.cn.bean.MyOwnerInfo;
+import com.jianfanjia.cn.bean.DesignerInfo;
+import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url;
 import com.jianfanjia.cn.http.LoadClientHelper;
 import com.jianfanjia.cn.http.request.DesignerInfoRequest;
 import com.jianfanjia.cn.http.request.OwnerInfoRequest;
+import com.jianfanjia.cn.tools.JsonParser;
+import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.StringUtils;
 
 /**
@@ -63,8 +65,8 @@ public class CommentInfoAdapter extends BaseListAdapter<CommentInfo> {
 			viewHolder.itemIdentityView.setText(context
 					.getString(R.string.designer));
 			if (designerId != null) {
-				MyDesignerInfo designerInfo = dataManager
-						.getMyDesignerInfoById(designerId);
+				DesignerInfo designerInfo = dataManager
+						.getDesignerInfoById(designerId);
 				if (designerInfo != null) {
 					viewHolder.itemNameView
 							.setText(designerInfo.getUsername() == null ? context
@@ -78,9 +80,6 @@ public class CommentInfoAdapter extends BaseListAdapter<CommentInfo> {
 				} else {
 					imageLoader.displayImage(Constant.DEFALUT_DESIGNER_PIC,
 							viewHolder.itemHeadView);
-					viewHolder.itemNameView
-					.setText(context
-							.getString(R.string.designer));
 					if (!isLoadDesignerInfo) {
 						LoadClientHelper.getDesignerInfoById(context,
 								new DesignerInfoRequest(context, designerId),
@@ -88,25 +87,26 @@ public class CommentInfoAdapter extends BaseListAdapter<CommentInfo> {
 						isLoadDesignerInfo = true;
 					}
 				}
-			}else{
+			} else {
 				imageLoader.displayImage(Constant.DEFALUT_DESIGNER_PIC,
 						viewHolder.itemHeadView);
-				viewHolder.itemNameView
-				.setText(context
-						.getString(R.string.designer));
 			}
-		} else {
+		} else if (usertype.equals(Constant.IDENTITY_OWNER)) {
 			String ownerId = dataManager.getDefaultOwnerId();
+			viewHolder.itemIdentityView.setText(context
+					.getString(R.string.ower));
 			if (ownerId != null) {
-				MyOwnerInfo ownerInfo = dataManager.getMyOwnerInfoById(ownerId);
-				viewHolder.itemIdentityView.setText(context
-						.getString(R.string.ower));
+				OwnerInfo ownerInfo = dataManager.getOwnerInfoById(ownerId);
 				if (ownerInfo != null) {
+					LogTool.d("ownerInfo",
+							"ownerInfo =" + JsonParser.beanToJson(ownerInfo));
+
 					viewHolder.itemNameView
 							.setText(ownerInfo.getUsername() == null ? context
 									.getString(R.string.ower) : ownerInfo
 									.getUsername());
-					String imageId = ownerInfo.getImageId();
+					String imageId = ownerInfo.getImageid();
+					LogTool.d("imageId", "ownerImageId =" + imageId);
 					imageLoader.displayImage(
 							imageId == null ? Constant.DEFALUT_OWNER_PIC
 									: (Url.GET_IMAGE + imageId),
@@ -114,8 +114,6 @@ public class CommentInfoAdapter extends BaseListAdapter<CommentInfo> {
 				} else {
 					imageLoader.displayImage(Constant.DEFALUT_OWNER_PIC,
 							viewHolder.itemHeadView);
-					viewHolder.itemNameView.setText(context
-							.getString(R.string.ower));
 					if (!isLoadOwnerInfo) {
 						LoadClientHelper.getOwnerInfoById(context,
 								new OwnerInfoRequest(context, ownerId), this);
@@ -125,11 +123,8 @@ public class CommentInfoAdapter extends BaseListAdapter<CommentInfo> {
 			} else {
 				imageLoader.displayImage(Constant.DEFALUT_OWNER_PIC,
 						viewHolder.itemHeadView);
-				viewHolder.itemNameView.setText(context
-						.getString(R.string.ower));
 			}
 		}
-
 		return convertView;
 	}
 

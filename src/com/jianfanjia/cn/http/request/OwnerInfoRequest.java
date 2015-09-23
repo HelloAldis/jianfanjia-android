@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.jianfanjia.cn.base.BaseRequest;
 import com.jianfanjia.cn.base.BaseResponse;
-import com.jianfanjia.cn.bean.MyOwnerInfo;
+import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.tools.JsonParser;
 
 public class OwnerInfoRequest extends BaseRequest{
@@ -35,10 +35,10 @@ public class OwnerInfoRequest extends BaseRequest{
 		super.onSuccess(baseResponse);
 		String data = baseResponse.getData().toString();
 		if(data != null){
-			MyOwnerInfo myOwnerInfo = JsonParser.jsonToBean(data,
-					MyOwnerInfo.class);
-			if(myOwnerInfo != null){
-				dataManager.setMyOwnerInfo(myOwnerInfo);
+			OwnerInfo ownerInfo = JsonParser.jsonToBean(data,
+					OwnerInfo.class);
+			if(ownerInfo != null){
+				dataManager.setOwnerInfo(ownerInfo);
 			}
 		}
 	}
