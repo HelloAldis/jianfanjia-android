@@ -15,7 +15,6 @@ import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.GridView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -51,12 +50,13 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 	private TextView check_pic_title = null;
 	private TextView check_pic_edit = null;
 	private GridView gridView = null;
-	private Button btn_confirm = null;
+	private TextView btn_confirm = null;
 	private MyGridViewAdapter adapter = null;
 	private List<GridItem> checkGridList = new ArrayList<GridItem>();
 	private int currentList;// 当前的工序
 	private String processInfoId = null;// 工地id
 	private String sectionInfoName = null;// 工序名称
+	private int processInfoStatus = -1;// 工序状态
 	private String key = null;
 	private File mTmpFile = null;
 
@@ -69,9 +69,11 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 			currentList = bundle.getInt(Constant.CURRENT_LIST, 0);
 			processInfoId = bundle.getString(Constant.SITE_ID);
 			sectionInfoName = bundle.getString(Constant.PROCESS_NAME);
+			processInfoStatus = bundle.getInt(Constant.PROCESS_STATUS, 0);
 		}
 		LogTool.d(TAG, "currentList:" + currentList + " processInfoId:"
-				+ processInfoId + " sectionInfoName:" + sectionInfoName);
+				+ processInfoId + " sectionInfoName:" + sectionInfoName
+				+ " processInfoStatus:" + processInfoStatus);
 		initData();
 	}
 
@@ -82,9 +84,13 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 		check_pic_title = (TextView) findViewById(R.id.check_pic_title);
 		check_pic_edit = (TextView) findViewById(R.id.check_pic_edit);
 		gridView = (GridView) findViewById(R.id.mygridview);
-		btn_confirm = (Button) findViewById(R.id.btn_confirm);
+		btn_confirm = (TextView) findViewById(R.id.btn_confirm);
 		if (!TextUtils.isEmpty(userIdentity)) {
 			if (userIdentity.equals(Constant.IDENTITY_OWNER)) {
+				if (processInfoStatus == Constant.STATUS_FINISH) {
+					LogTool.d(TAG, "2222222222222222");
+					btn_confirm.setEnabled(false);
+				}
 				check_pic_edit.setVisibility(View.GONE);
 				btn_confirm.setText(this.getResources().getString(
 						R.string.confirm_done));

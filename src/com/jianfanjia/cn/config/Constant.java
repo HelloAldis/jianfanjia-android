@@ -86,6 +86,10 @@ public class Constant {
 
 	public static final int NotificationID = 1;
 
+	// 工序状态
+	public static final int STATUS_NO = 1;// 未开工
+	public static final int STATUS_FINISH = 2;// 完成
+
 	// 提醒类型
 	public static final String YANQI_NOTIFY = "0";// 延期提醒
 	public static final String CAIGOU_NOTIFY = "1";// 采购提醒
@@ -123,6 +127,7 @@ public class Constant {
 	public static final String IMAGE_LIST = "image_list";
 	public static final String SITE_ID = "site_id";
 	public static final String PROCESS_NAME = "process_name";
+	public static final String PROCESS_STATUS = "process_status";
 
 	public static final int LOAD_SUCCESS = 0;// 数据加载成功
 	public static final int LOAD_FAILURE = 1;// 数据加载失败

@@ -534,6 +534,7 @@ public class SiteManageFragment extends BaseFragment implements
 			checkBundle.putInt(Constant.CURRENT_LIST, currentList);
 			checkBundle.putString(Constant.SITE_ID, processInfoId);
 			checkBundle.putString(Constant.PROCESS_NAME, sectionInfoName);
+			checkBundle.putInt(Constant.PROCESS_STATUS, processInfoStatus);
 			startActivity(CheckActivity.class, checkBundle);
 			break;
 		default:

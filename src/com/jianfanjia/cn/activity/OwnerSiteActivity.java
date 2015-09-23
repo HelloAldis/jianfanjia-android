@@ -148,14 +148,13 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 		totalDateLayout.setEnabled(false);
 	}
 
-	//显示有数据的layout
+	// 显示有数据的layout
 	private void setViewChange() {
-		// TODO Auto-generated method stub
 		scrollView.setVisibility(View.VISIBLE);
 		errorView.setVisibility(View.GONE);
 	}
-	
-	//显示错误试图
+
+	// 显示错误试图
 	public void setErrorView() {
 		((TextView) errorView.findViewById(R.id.tv_error)).setText("暂无工地数据");
 	}
@@ -217,13 +216,11 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 
 					@Override
 					public void preLoad() {
-						// TODO Auto-generated method stub
 						showWaitDialog();
 					}
 
 					@Override
 					public void loadSuccess() {
-						// TODO Auto-generated method stub
 						hideWaitDialog();
 						requirementInfo = dataManager.getRequirementInfo();
 						if (requirementInfo != null) {
@@ -235,7 +232,6 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 
 					@Override
 					public void loadFailture() {
-						// TODO Auto-generated method stub
 						makeTextLong(getString(R.string.tip_no_internet));
 						hideWaitDialog();
 						setErrorView();
@@ -256,7 +252,6 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 
 					@Override
 					public void loadSuccess() {
-						// TODO Auto-generated method stub
 						if (dataManager.getTotalDuration() != null) {
 							requirementInfo.setDuration(dataManager
 									.getTotalDuration());
@@ -268,7 +263,6 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 
 					@Override
 					public void loadFailture() {
-						// TODO Auto-generated method stub
 						makeTextLong(getString(R.string.tip_no_internet));
 						setErrorView();
 					}
@@ -277,7 +271,6 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 
 	@Override
 	public void loadSuccess() {
-		// TODO Auto-generated method stub
 		super.loadSuccess();
 		makeTextLong("配置成功");
 		processInfo = dataManager.getDefaultProcessInfo();
