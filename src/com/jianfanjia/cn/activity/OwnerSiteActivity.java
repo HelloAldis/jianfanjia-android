@@ -1,9 +1,6 @@
 package com.jianfanjia.cn.activity;
 
 import java.util.Calendar;
-import org.apache.http.Header;
-import org.json.JSONException;
-import org.json.JSONObject;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.text.TextUtils;
@@ -18,19 +15,16 @@ import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.http.LoadClientHelper;
 import com.jianfanjia.cn.http.request.GetRequirementRequest;
 import com.jianfanjia.cn.http.request.PostRequirementRequest;
 import com.jianfanjia.cn.http.request.TotalDurationRequest;
 import com.jianfanjia.cn.interf.LoadDataListener;
 import com.jianfanjia.cn.tools.DateFormatTool;
-import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.StringUtils;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.DateWheelDialog;
-import com.loopj.android.http.JsonHttpResponseHandler;
 
 /**
  * 
