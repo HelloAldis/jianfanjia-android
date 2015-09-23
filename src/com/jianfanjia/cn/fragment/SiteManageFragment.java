@@ -335,9 +335,7 @@ public class SiteManageFragment extends BaseFragment implements
 		}
 		for (int i = 0; i < 3; i++) {
 			ViewPagerItem viewPagerItem = new ViewPagerItem();
-			viewPagerItem.setResId(getResources().getIdentifier(
-					"icon_home_normal" + (i + 1), "drawable",
-					MyApplication.getInstance().getPackageName()));
+			viewPagerItem.setResId(R.drawable.icon8_home_normal);
 			viewPagerItem.setTitle("");
 			viewPagerItem.setDate("");
 			processList.add(viewPagerItem);
@@ -425,7 +423,8 @@ public class SiteManageFragment extends BaseFragment implements
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				List<SectionItemInfo> itemList = sectionInfo.getItems();
-				LogTool.d(TAG, "itemList==" + itemList);
+				LogTool.d(TAG,
+						"itemList==" + itemList + "   " + sectionInfo.getName());
 				if (!sectionInfo.getName().equals("kai_gong")
 						&& !sectionInfo.getName().equals("chai_gai")) {
 					if (null != itemList && itemList.size() > 0) {
