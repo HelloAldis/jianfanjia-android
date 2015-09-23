@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.apache.http.Header;
 import org.json.JSONObject;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
@@ -30,6 +31,8 @@ import com.jianfanjia.cn.interf.UploadListener;
 import com.jianfanjia.cn.tools.FileUtil;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.PhotoUtils;
+import com.jianfanjia.cn.view.dialog.CommonDialog;
+import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 /**
@@ -120,9 +123,9 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 		case R.id.btn_confirm:
 			if (!TextUtils.isEmpty(userIdentity)) {
 				if (userIdentity.equals(Constant.IDENTITY_OWNER)) {
-					confirmCheckDoneByOwner(processInfoId, sectionInfoName);
+					onClickCheckDone();
 				} else if (userIdentity.equals(Constant.IDENTITY_DESIGNER)) {
-					confirmCanCheckByDesigner(processInfoId, sectionInfoName);
+					onClickCheckConfirm();
 				}
 			}
 			break;
@@ -257,6 +260,43 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 		intent.putExtra("outputY", 300);
 		intent.putExtra("return-data", true);
 		startActivityForResult(intent, Constant.REQUESTCODE_CROP);
+	}
+
+	private void onClickCheckDone() {
+		CommonDialog dialog = DialogHelper
+				.getPinterestDialogCancelable(CheckActivity.this);
+		dialog.setTitle("确认完工");
+		dialog.setMessage("确定完工吗？");
+		dialog.setPositiveButton(R.string.ok,
+				new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+						confirmCheckDoneByOwner(processInfoId, sectionInfoName);
+					}
+				});
+		dialog.setNegativeButton(R.string.no, null);
+		dialog.show();
+	}
+
+	private void onClickCheckConfirm() {
+		CommonDialog dialog = DialogHelper
+				.getPinterestDialogCancelable(CheckActivity.this);
+		dialog.setTitle("确认验收");
+		dialog.setMessage("确定验收吗？");
+		dialog.setPositiveButton(R.string.ok,
+				new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+						confirmCanCheckByDesigner(processInfoId,
+								sectionInfoName);
+					}
+				});
+		dialog.setNegativeButton(R.string.no, null);
+		dialog.show();
 	}
 
 	// 设计师确认可以开始验收

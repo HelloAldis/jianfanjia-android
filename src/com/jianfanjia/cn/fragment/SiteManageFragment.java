@@ -114,6 +114,7 @@ public class SiteManageFragment extends BaseFragment implements
 
 	private String processInfoId = null;// 工地id
 	private String sectionInfoName = null;// 工序名称
+	private int processInfoStatus = -1;// 工序状态
 	private String processInfoName = null;
 	private File mTmpFile = null;
 
@@ -429,7 +430,9 @@ public class SiteManageFragment extends BaseFragment implements
 					LogTool.d(TAG, "processInfoId=" + processInfoId);
 				}
 				sectionInfoName = sectionInfo.getName();
-				LogTool.d(TAG, "sectionInfoName=" + sectionInfoName);
+				processInfoStatus = sectionInfo.getStatus();
+				LogTool.d(TAG, "sectionInfoName=" + sectionInfoName
+						+ " processInfoStatus:" + processInfoStatus);
 				List<SectionItemInfo> itemList = sectionInfo.getItems();
 				if (!sectionInfo.getName().equals("kai_gong")
 						&& !sectionInfo.getName().equals("chai_gai")) {
