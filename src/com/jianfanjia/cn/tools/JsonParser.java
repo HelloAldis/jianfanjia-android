@@ -1,7 +1,6 @@
 package com.jianfanjia.cn.tools;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 import com.google.gson.Gson;
 
@@ -47,6 +46,7 @@ public class JsonParser {
 			Gson gson = new Gson();
 			list = gson.fromJson(jsonString, typeOfT);
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return list;
 	}

@@ -69,7 +69,7 @@ public class Constant {
 	public static final String USER_ID = "userid";// 用户id
 	public static final String USER_IS_LOGIN = "user_is_login";// 用户是否登录
 	public static final String USERINFO_UPDATE = "userinfo_is update";// 用户信息是否更新
-	public static final String ISCONFIG_PROCESS = "is_config_process";//是否配置过工地
+	public static final String ISCONFIG_PROCESS = "is_config_process";// 是否配置过工地
 
 	public static final String FINAL_DESIGNER_ID = "final_designerid";// 业主的设计师id
 	public static final String FINAL_OWNER_ID = "final_owner_id";// 业主id
@@ -86,10 +86,18 @@ public class Constant {
 
 	public static final int NotificationID = 1;
 
+	// 工序状态
+	public static final int STATUS_NO = 1;// 未开工
+	public static final int STATUS_FINISH = 2;// 完成
+
 	// 提醒类型
 	public static final String YANQI_NOTIFY = "0";// 延期提醒
 	public static final String CAIGOU_NOTIFY = "1";// 采购提醒
 	public static final String FUKUAN_NOTIFY = "2";// 付款提醒
+	public static final String CONFIRM_CHECK_NOTIFY = "3";// 确认验收提醒
+
+	public static final String CHECK_REFUSE = "0";// 验收拒绝
+	public static final String CHECK_AGREE = "1";// 验收同意
 
 	public static final int NOT_START = 0;// 未开工
 	public static final int WORKING = 1;// 正在进行中
@@ -117,6 +125,9 @@ public class Constant {
 	public static final String CURRENT_ITEM = "current_item";// 当前节点
 	public static final String CURRENT_POSITION = "current_position";// 当前位置
 	public static final String IMAGE_LIST = "image_list";
+	public static final String SITE_ID = "site_id";
+	public static final String PROCESS_NAME = "process_name";
+	public static final String PROCESS_STATUS = "process_status";
 
 	public static final int LOAD_SUCCESS = 0;// 数据加载成功
 	public static final int LOAD_FAILURE = 1;// 数据加载失败

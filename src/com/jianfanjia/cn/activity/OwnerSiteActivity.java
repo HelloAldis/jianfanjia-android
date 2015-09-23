@@ -1,9 +1,6 @@
 package com.jianfanjia.cn.activity;
 
 import java.util.Calendar;
-import org.apache.http.Header;
-import org.json.JSONException;
-import org.json.JSONObject;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.text.TextUtils;
@@ -18,19 +15,16 @@ import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.http.LoadClientHelper;
 import com.jianfanjia.cn.http.request.GetRequirementRequest;
 import com.jianfanjia.cn.http.request.PostRequirementRequest;
 import com.jianfanjia.cn.http.request.TotalDurationRequest;
 import com.jianfanjia.cn.interf.LoadDataListener;
 import com.jianfanjia.cn.tools.DateFormatTool;
-import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.StringUtils;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.DateWheelDialog;
-import com.loopj.android.http.JsonHttpResponseHandler;
 
 /**
  * 
@@ -148,14 +142,13 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 		totalDateLayout.setEnabled(false);
 	}
 
-	//显示有数据的layout
+	// 显示有数据的layout
 	private void setViewChange() {
-		// TODO Auto-generated method stub
 		scrollView.setVisibility(View.VISIBLE);
 		errorView.setVisibility(View.GONE);
 	}
-	
-	//显示错误试图
+
+	// 显示错误试图
 	public void setErrorView() {
 		((TextView) errorView.findViewById(R.id.tv_error)).setText("暂无工地数据");
 	}
@@ -217,13 +210,11 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 
 					@Override
 					public void preLoad() {
-						// TODO Auto-generated method stub
 						showWaitDialog();
 					}
 
 					@Override
 					public void loadSuccess() {
-						// TODO Auto-generated method stub
 						hideWaitDialog();
 						requirementInfo = dataManager.getRequirementInfo();
 						if (requirementInfo != null) {
@@ -235,7 +226,6 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 
 					@Override
 					public void loadFailture() {
-						// TODO Auto-generated method stub
 						makeTextLong(getString(R.string.tip_no_internet));
 						hideWaitDialog();
 						setErrorView();
@@ -256,7 +246,6 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 
 					@Override
 					public void loadSuccess() {
-						// TODO Auto-generated method stub
 						if (dataManager.getTotalDuration() != null) {
 							requirementInfo.setDuration(dataManager
 									.getTotalDuration());
@@ -268,7 +257,6 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 
 					@Override
 					public void loadFailture() {
-						// TODO Auto-generated method stub
 						makeTextLong(getString(R.string.tip_no_internet));
 						setErrorView();
 					}
@@ -277,7 +265,6 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 
 	@Override
 	public void loadSuccess() {
-		// TODO Auto-generated method stub
 		super.loadSuccess();
 		makeTextLong("配置成功");
 		processInfo = dataManager.getDefaultProcessInfo();

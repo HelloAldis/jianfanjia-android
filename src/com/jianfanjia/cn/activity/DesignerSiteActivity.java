@@ -1,6 +1,5 @@
 package com.jianfanjia.cn.activity;
 
-import java.util.ArrayList;
 import java.util.List;
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -11,7 +10,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import com.jianfanjia.cn.adapter.DesignerSiteInfoAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.NotifyMessage;
@@ -56,10 +54,10 @@ public class DesignerSiteActivity extends BaseActivity implements
 	}
 
 	private void setEmptyView() {
-		ViewStub mViewStub = (ViewStub)findViewById(R.id.empty);
-		errorText = (TextView)mViewStub.inflate().findViewById(R.id.tv_error);
+		ViewStub mViewStub = (ViewStub) findViewById(R.id.empty);
+		errorText = (TextView) mViewStub.inflate().findViewById(R.id.tv_error);
 		errorText.setText("暂无工地数据");
-		siteListView.setEmptyView(mViewStub);		
+		siteListView.setEmptyView(mViewStub);
 	}
 
 	@SuppressLint("ResourceAsColor")

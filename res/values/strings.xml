@@ -145,9 +145,11 @@
     <string name="back">返回</string>
     <string name="send">发送</string>
     <string name="confirm_upload">确认上传</string>
+    <string name="confirm_done">确认完成</string>
     <string name="caigouText">采购提醒</string>
     <string name="fukuanText">付款提醒</string>
     <string name="yanqiText">延期提醒</string>
+    <string name="yanshouText">验收提醒</string>
     <string name="list_item_caigou_example">您即将进入下一轮建材购买阶段,需要购买的是</string>
     <string name="list_item_fukuan_example">您即将进入下一轮付款环节,请您及时与设计师联系</string>
     <string name="list_item_yanqi_example">对方已申请延期验收至</string>

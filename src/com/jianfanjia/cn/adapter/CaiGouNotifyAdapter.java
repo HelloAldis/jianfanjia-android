@@ -42,7 +42,7 @@ public class CaiGouNotifyAdapter extends BaseListAdapter<NotifyMessage> {
 		} else {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
-		viewHolder.itemNameView.setText("");
+		viewHolder.itemNameView.setText("您即将进入下一轮建材购买阶段,需要购买的是");
 		viewHolder.itemContentView.setText(message.getContent());
 		String stage = message.getSection();
 		if (!TextUtils.isEmpty(stage)) {

@@ -22,7 +22,7 @@
             android:id="@+id/list_item_tip_delay_status"
             style="@style/site_listview_item_text_style_small"
             android:layout_alignParentRight="true"
-            android:text="@string/list_item_comment_pubtime_example"
+            android:text="已同意"
             android:textColor="@color/main_color_red" />
 
         <TextView
