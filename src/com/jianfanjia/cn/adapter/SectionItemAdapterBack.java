@@ -74,12 +74,14 @@ public class SectionItemAdapterBack extends BaseAdapter {
 					R.array.site_check_name)[MyApplication.getInstance()
 					.getPositionByItemName(sectionInfo.getName())]);
 			sectionItemInfo.setDate(sectionInfo.getYs().getDate());
+			sectionItemInfo.setOpen(false);
 			list.add(sectionItemInfo);
 		} else {
 			isHasCheck = false;
 		}
 
 		for (SectionItemInfo sectionItemInfo : sectionInfo.getItems()) {
+			sectionItemInfo.setOpen(false);
 			list.add(sectionItemInfo);
 		}
 
