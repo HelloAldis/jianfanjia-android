@@ -455,15 +455,19 @@ public abstract class BaseActivity extends FragmentActivity implements
 				this);
 		builder.setSmallIcon(R.drawable.icon_logo);
 		String type = message.getType();
-		if (type.equals(Constant.CAIGOU_NOTIFY)) {
-			builder.setTicker(getResources().getText(R.string.caigouText));
-			builder.setContentTitle(getResources().getText(R.string.caigouText));
+		if (type.equals(Constant.YANQI_NOTIFY)) {
+			builder.setTicker(getResources().getText(R.string.yanqiText));
+			builder.setContentTitle(getResources().getText(R.string.yanqiText));
 		} else if (type.equals(Constant.FUKUAN_NOTIFY)) {
 			builder.setTicker(getResources().getText(R.string.fukuanText));
 			builder.setContentTitle(getResources().getText(R.string.fukuanText));
-		} else if (type.equals(Constant.YANQI_NOTIFY)) {
-			builder.setTicker(getResources().getText(R.string.yanqiText));
-			builder.setContentTitle(getResources().getText(R.string.yanqiText));
+		} else if (type.equals(Constant.CAIGOU_NOTIFY)) {
+			builder.setTicker(getResources().getText(R.string.caigouText));
+			builder.setContentTitle(getResources().getText(R.string.caigouText));
+		} else {
+			builder.setTicker(getResources().getText(R.string.yanshouText));
+			builder.setContentTitle(getResources()
+					.getText(R.string.yanshouText));
 		}
 		builder.setContentText(message.getContent());
 		builder.setWhen(System.currentTimeMillis());

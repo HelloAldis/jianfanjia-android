@@ -62,6 +62,11 @@ public class NotifyDialog extends Dialog implements
 			ok.setVisibility(View.GONE);
 			agree.setVisibility(View.VISIBLE);
 			refuse.setVisibility(View.VISIBLE);
+		} else {
+			titleTv.setText("—È ’Ã·–—");
+			ok.setVisibility(View.VISIBLE);
+			agree.setVisibility(View.GONE);
+			refuse.setVisibility(View.GONE);
 		}
 		contentTv.setText(message.getContent());
 	}
