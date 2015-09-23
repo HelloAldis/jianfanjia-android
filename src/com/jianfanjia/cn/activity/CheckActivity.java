@@ -41,14 +41,11 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 	private TextView backView = null;// 返回视图
 	private GridView gridView = null;
 	private Button btn_confirm_check = null;
-	private static final int ICON[] = { R.drawable.pix_default,
-			R.drawable.btn_icon_home_add, R.drawable.pix_default,
-			R.drawable.btn_icon_home_add, R.drawable.pix_default,
-			R.drawable.btn_icon_home_add };
 	private List<GridItem> gridList = new ArrayList<GridItem>();
 	private int currentList;// 当前的工序
 	private String processInfoId = null;// 工地id
 	private String sectionInfoName = null;// 工序名称
+	private String key = null;
 	private View view = null;
 	private File mTmpFile = null;
 
@@ -106,6 +103,8 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 	@Override
 	public void onUpload(int position) {
 		LogTool.d(TAG, "position:" + position);
+		key = position + "";
+		LogTool.d(TAG, "key:" + key);
 		showPopWindow(view);
 	}
 
@@ -183,8 +182,8 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 					String imgPath = PhotoUtils.savaPicture(bitmap);
 					LogTool.d(TAG, "imgPath=============" + imgPath);
 					if (!TextUtils.isEmpty(imgPath)) {
-						uploadManager.uploadCheckImage(imgPath, "", "", "",
-								this);
+						uploadManager.uploadCheckImage(imgPath, processInfoId,
+								sectionInfoName, key, this);
 					}
 				}
 			}
