@@ -453,7 +453,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 	protected void sendNotifycation(NotifyMessage message) {
 		NotificationCompat.Builder builder = new NotificationCompat.Builder(
 				this);
-		builder.setSmallIcon(R.drawable.icon_logo);
+		builder.setSmallIcon(R.drawable.icon_notify);
 		String type = message.getType();
 		if (type.equals(Constant.YANQI_NOTIFY)) {
 			builder.setTicker(getResources().getText(R.string.yanqiText));

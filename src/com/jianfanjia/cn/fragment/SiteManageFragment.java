@@ -348,18 +348,17 @@ public class SiteManageFragment extends BaseFragment implements
 
 					@Override
 					public void onClickItem(int potition) {
-						Log.i(TAG, "potition------->" + potition);
+						Log.i(TAG, "potition=" + potition);
 						if (sectionInfos != null) {
-							if (currentList != potition % 7) {
-								currentList = potition % 7;
+							if (potition < TOTAL_PROCESS) {
+								currentList = potition;
 								sectionInfo = sectionInfos.get(currentList);
 								sectionItemAdapter.setPosition(currentList);
 								sectionItemAdapter.clearCurrentPosition();
 								sectionItemAdapter.notifyDataSetChanged();
+								processViewPager.setCurrentItem(potition);
 							}
 						}
-						Log.i(TAG, "potition=" + potition);
-						processViewPager.setCurrentItem(potition);
 					}
 
 				});
@@ -369,7 +368,6 @@ public class SiteManageFragment extends BaseFragment implements
 			public void onPageScrollStateChanged(int arg0) {
 				// TODO Auto-generated method stub
 			}
-			
 
 			@Override
 			public void onPageScrolled(int arg0, float arg1, int arg2) {
@@ -382,7 +380,7 @@ public class SiteManageFragment extends BaseFragment implements
 					if (arg0 < TOTAL_PROCESS) {
 						currentList = arg0;
 						sectionInfo = sectionInfos.get(currentList);
-						Log.i(TAG, "sectionInfo---->" + sectionInfo.getName());
+						Log.i(TAG, "sectionInfo=" + sectionInfo.getName());
 						sectionItemAdapter.setPosition(currentList);
 						sectionItemAdapter.clearCurrentPosition();
 						sectionItemAdapter.notifyDataSetChanged();
@@ -441,7 +439,7 @@ public class SiteManageFragment extends BaseFragment implements
 				} else {
 					processInfoName = itemList.get(position).getName();
 				}
-				LogTool.d(TAG, "position=" + position + "  processInfoName="
+				LogTool.d(TAG, "position:" + position + "  processInfoName:"
 						+ processInfoName);
 				sectionItemAdapter.setCurrentClickItem(position);
 			}

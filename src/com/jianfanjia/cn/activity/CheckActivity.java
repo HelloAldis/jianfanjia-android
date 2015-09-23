@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import android.content.Intent;
+import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
 import com.jianfanjia.cn.adapter.MyGridViewAdapter;
+import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.GridItem;
 import com.jianfanjia.cn.bean.NotifyMessage;
@@ -70,13 +72,9 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 	}
 
 	private void initData() {
-		for (int i = 0; i < ICON.length; i++) {
-			GridItem item = new GridItem();
-			item.setImgId(ICON[i]);
-			gridList.add(item);
-		}
+		List<GridItem> picList = getCheckedImageById("shui_dian");
 		MyGridViewAdapter adapter = new MyGridViewAdapter(CheckActivity.this,
-				gridList, this);
+				picList, this);
 		gridView.setAdapter(adapter);
 	}
 
@@ -229,13 +227,26 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 	/**
 	 * 根据工序名获取验收图片
 	 * 
-	 * @param sectionId
+	 * @param sectionName
 	 * @return
 	 */
-	private List<GridItem> getCheckedImageById(String sectionId) {
-		List<GridItem> gridList = new ArrayList<GridItem>();
-		return gridList;
-
+	private List<GridItem> getCheckedImageById(String sectionName) {
+		try {
+			List<GridItem> gridList = new ArrayList<GridItem>();
+			int arrId = getResources().getIdentifier(sectionName, "array",
+					MyApplication.getInstance().getPackageName());
+			TypedArray ta = getResources().obtainTypedArray(arrId);
+			for (int i = 0; i < ta.length(); i++) {
+				GridItem item = new GridItem();
+				item.setPath("");
+				item.setImgId(ta.getResourceId(i, 0));
+				gridList.add(item);
+			}
+			return gridList;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	@Override
