@@ -594,10 +594,34 @@ public class JianFanJiaApiClient {
 			e.printStackTrace();
 		}
 	}
-	
-	public static void get_TotalDuration(Context context,String planId,AsyncHttpResponseHandler handler){
-		String getTotalDurationUrl = Url.GET_PLAN.replace(Url.ID,
-				planId);
+
+	/**
+	 * 设计师确认可以开始验收
+	 * 
+	 * @param context
+	 * @param siteid
+	 * @param processid
+	 * @param handler
+	 */
+	public static void confirm_canCheckBydesigner(Context context,
+			String siteid, String processid, AsyncHttpResponseHandler handler) {
+		JSONObject jsonParams = new JSONObject();
+		try {
+			jsonParams.put("_id", siteid);
+			jsonParams.put("section", processid);
+			StringEntity entity = new StringEntity(jsonParams.toString());
+			HttpRestClient.post(context, Url.CONFIRM_CHECK_BY_DESIGNER, entity,
+					"application/json", handler);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void get_TotalDuration(Context context, String planId,
+			AsyncHttpResponseHandler handler) {
+		String getTotalDurationUrl = Url.GET_PLAN.replace(Url.ID, planId);
 		HttpRestClient.get(context, getTotalDurationUrl, handler);
 	}
 
