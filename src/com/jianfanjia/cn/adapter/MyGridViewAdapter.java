@@ -37,16 +37,16 @@ public class MyGridViewAdapter extends BaseListAdapter<GridItem> {
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-
+		String imgId = item.getImgId();
 		if (position % 2 != 0) {
-			if (item.getImgId().equals(Constant.HOME_ADD_PIC)) {
-				imageLoader.displayImage(item.getImgId(), holder.img, options);
+			if (imgId.equals(Constant.HOME_ADD_PIC)) {
+				imageLoader.displayImage(imgId, holder.img, options);
 			} else {
-				imageLoader.displayImage(Url.GET_IMAGE + item.getImgId(),
+				imageLoader.displayImage(Url.GET_IMAGE + imgId,
 						holder.img, options);
 			}
 		} else {
-			imageLoader.displayImage(item.getImgId(), holder.img, options);
+			imageLoader.displayImage(imgId, holder.img, options);
 		}
 		holder.img.setOnClickListener(new OnClickListener() {
 
