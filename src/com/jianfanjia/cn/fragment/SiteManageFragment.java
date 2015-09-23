@@ -112,6 +112,8 @@ public class SiteManageFragment extends BaseFragment implements
 			R.drawable.bg_home_banner2, R.drawable.bg_home_banner3,
 			R.drawable.bg_home_banner4 };
 
+	private String processInfoId = null;// 工地id
+	private String sectionInfoName = null;// 工序名称
 	private String processInfoName = null;
 	private File mTmpFile = null;
 
@@ -422,9 +424,13 @@ public class SiteManageFragment extends BaseFragment implements
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
+				if (null != processInfo) {
+					processInfoId = processInfo.get_id();
+					LogTool.d(TAG, "processInfoId=" + processInfoId);
+				}
+				sectionInfoName = sectionInfo.getName();
+				LogTool.d(TAG, "sectionInfoName=" + sectionInfoName);
 				List<SectionItemInfo> itemList = sectionInfo.getItems();
-				LogTool.d(TAG,
-						"itemList==" + itemList + "   " + sectionInfo.getName());
 				if (!sectionInfo.getName().equals("kai_gong")
 						&& !sectionInfo.getName().equals("chai_gai")) {
 					if (null != itemList && itemList.size() > 0) {
