@@ -39,6 +39,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 		UploadListener, UploadImageListener {
 	private static final String TAG = CheckActivity.class.getName();
 	private TextView backView = null;// 返回视图
+	private TextView check_pic_title = null;
 	private GridView gridView = null;
 	private Button btn_confirm_check = null;
 	private List<GridItem> gridList = new ArrayList<GridItem>();
@@ -68,12 +69,16 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 	public void initView() {
 		view = inflater.inflate(R.layout.activity_check_pic, null);
 		backView = (TextView) findViewById(R.id.check_pic_back);
+		check_pic_title = (TextView) findViewById(R.id.check_pic_title);
 		gridView = (GridView) findViewById(R.id.mygridview);
 		btn_confirm_check = (Button) findViewById(R.id.btn_confirm_check);
 		gridView.setFocusable(false);
 	}
 
 	private void initData() {
+		check_pic_title.setText(MyApplication.getInstance().getStringById(
+				sectionInfoName)
+				+ "阶段验收");
 		List<GridItem> picList = getCheckedImageById(sectionInfoName);
 		MyGridViewAdapter adapter = new MyGridViewAdapter(CheckActivity.this,
 				picList, this);
