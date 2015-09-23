@@ -40,7 +40,7 @@ public class PayNotifyAdapter extends BaseListAdapter<NotifyMessage> {
 		} else {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
-		viewHolder.itemNameView.setText("");
+		viewHolder.itemNameView.setText("您即将进入下一轮付款环节,请您及时与设计师联系");
 		viewHolder.itemNodeView.setText(message.getSection());
 		viewHolder.itemPubTimeView.setText(DateFormatTool
 				.toLocalTimeString(message.getTime()));

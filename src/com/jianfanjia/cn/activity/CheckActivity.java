@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.http.Header;
+import org.json.JSONException;
 import org.json.JSONObject;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -317,6 +318,19 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 					public void onSuccess(int statusCode, Header[] headers,
 							JSONObject response) {
 						LogTool.d(TAG, "JSONObject response:" + response);
+						try {
+							if (response.has(Constant.SUCCESS_MSG)) {
+								JSONObject obj = new JSONObject(response
+										.toString());
+								String msg = obj
+										.getString(Constant.SUCCESS_MSG);
+								makeTextLong(msg);
+							} else if (response.has(Constant.ERROR_MSG)) {
+
+							}
+						} catch (JSONException e) {
+							e.printStackTrace();
+						}
 					}
 
 					@Override
@@ -347,6 +361,19 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 					public void onSuccess(int statusCode, Header[] headers,
 							JSONObject response) {
 						LogTool.d(TAG, "JSONObject response:" + response);
+						try {
+							if (response.has(Constant.SUCCESS_MSG)) {
+								JSONObject obj = new JSONObject(response
+										.toString());
+								String msg = obj
+										.getString(Constant.SUCCESS_MSG);
+								makeTextLong(msg);
+							} else if (response.has(Constant.ERROR_MSG)) {
+
+							}
+						} catch (JSONException e) {
+							e.printStackTrace();
+						}
 					}
 
 					@Override
