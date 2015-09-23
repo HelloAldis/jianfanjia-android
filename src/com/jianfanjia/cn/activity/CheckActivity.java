@@ -42,6 +42,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 	private TextView check_pic_title = null;
 	private GridView gridView = null;
 	private Button btn_confirm_check = null;
+	private MyGridViewAdapter adapter = null;
 	private List<GridItem> gridList = new ArrayList<GridItem>();
 	private int currentList;// 当前的工序
 	private String processInfoId = null;// 工地id
@@ -80,8 +81,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 				sectionInfoName)
 				+ "阶段验收");
 		List<GridItem> picList = getCheckedImageById(sectionInfoName);
-		MyGridViewAdapter adapter = new MyGridViewAdapter(CheckActivity.this,
-				picList, this);
+		adapter = new MyGridViewAdapter(CheckActivity.this, picList, this);
 		gridView.setAdapter(adapter);
 	}
 
@@ -203,6 +203,9 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 		LogTool.d(TAG, "msg===========" + msg);
 		if ("success".equals(msg)) {
 			LogTool.d(TAG, "--------------------------------------------------");
+			GridItem item = new GridItem();
+			item.setImgId("56024240e63b6a2527ce3113");
+			adapter.addItem(item);
 		}
 
 	}
@@ -246,9 +249,9 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 					MyApplication.getInstance().getPackageName());
 			TypedArray ta = getResources().obtainTypedArray(arrId);
 			for (int i = 0; i < ta.length(); i++) {
+				LogTool.d(TAG, "res id:" + ta.getResourceId(i, 0));
 				GridItem item = new GridItem();
-				item.setPath("");
-				item.setImgId(ta.getResourceId(i, 0));
+				item.setImgId("drawable://" + ta.getResourceId(i, 0));
 				gridList.add(item);
 			}
 			return gridList;

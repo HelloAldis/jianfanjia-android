@@ -121,5 +121,63 @@
     <string name="mbdjaz">面板灯具安装</string>
     <string name="jun_gong">竣工</string>
     <!-- 服务器返回工地英文解析 -->
+    <!-- 水电阶段验收图片 -->
+    <string-array name="shui_dian">
+        <item>@drawable/shui_dian1</item>
+        <item>@drawable/btn_icon_home_add</item>
+        <item>@drawable/shui_dian2</item>
+        <item>@drawable/btn_icon_home_add</item>
+    </string-array>
+    <!-- 泥木阶段验收图片 -->
+    <string-array name="ni_mu">
+        <item>@drawable/ni_mu1</item>
+        <item>@drawable/btn_icon_home_add</item>
+        <item>@drawable/ni_mu2</item>
+        <item>@drawable/btn_icon_home_add</item>
+        <item>@drawable/ni_mu3</item>
+        <item>@drawable/btn_icon_home_add</item>
+        <item>@drawable/ni_mu4</item>
+        <item>@drawable/btn_icon_home_add</item>
+        <item>@drawable/ni_mu5</item>
+        <item>@drawable/btn_icon_home_add</item>
+        <item>@drawable/ni_mu6</item>
+        <item>@drawable/btn_icon_home_add</item>
+        <item>@drawable/ni_mu7</item>
+        <item>@drawable/btn_icon_home_add</item>
+    </string-array>
+
+    <!-- 油漆阶段验收图片 -->
+    <string-array name="you_qi">
+        <item>@drawable/you_qi1</item>
+        <item>@drawable/btn_icon_home_add</item>
+        <item>@drawable/you_qi2</item>
+        <item>@drawable/btn_icon_home_add</item>
+    </string-array>
+
+    <!-- 安装阶段验收图片 -->
+    <string-array name="an_zhuang">
+        <item>@drawable/an_zhuang1</item>
+        <item>@drawable/btn_icon_home_add</item>
+        <item>@drawable/an_zhuang2</item>
+        <item>@drawable/btn_icon_home_add</item>
+        <item>@drawable/an_zhuang3</item>
+        <item>@drawable/btn_icon_home_add</item>
+        <item>@drawable/an_zhuang4</item>
+        <item>@drawable/btn_icon_home_add</item>
+        <item>@drawable/an_zhuang5</item>
+        <item>@drawable/btn_icon_home_add</item>
+        <item>@drawable/an_zhuang6</item>
+        <item>@drawable/btn_icon_home_add</item>
+        <item>@drawable/an_zhuang7</item>
+        <item>@drawable/btn_icon_home_add</item>
+        <item>@drawable/an_zhuang8</item>
+        <item>@drawable/btn_icon_home_add</item>
+        <item>@drawable/an_zhuang9</item>
+        <item>@drawable/btn_icon_home_add</item>
+        <item>@drawable/an_zhuang10</item>
+        <item>@drawable/btn_icon_home_add</item>
+    </string-array>
+
+    <!-- 竣工阶段验收图片 -->
 
 </resources>

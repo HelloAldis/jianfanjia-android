@@ -8,6 +8,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.GridItem;
+import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.config.Url;
 import com.jianfanjia.cn.interf.UploadListener;
 
 public class MyGridViewAdapter extends BaseListAdapter<GridItem> {
@@ -35,7 +37,12 @@ public class MyGridViewAdapter extends BaseListAdapter<GridItem> {
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-		holder.img.setImageResource(item.getImgId());
+
+		// if (position % 2 != 0) {
+		imageLoader.displayImage(item.getImgId(), holder.img, options);
+		// } else {
+		// holder.img.setImageResource(Integer.parseInt(item.getImgId()));
+		// }
 		holder.img.setOnClickListener(new OnClickListener() {
 
 			@Override

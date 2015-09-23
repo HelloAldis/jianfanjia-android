@@ -205,10 +205,11 @@ public class UploadManager {
 							JSONObject response) {
 						LogTool.d(TAG, "JSONObject response:" + response);
 						try {
-							if (response.has(Constant.DATA)) {
+							if (response.has(Constant.SUCCESS_MSG)) {
 								JSONObject obj = new JSONObject(response
 										.toString());
-								String msg = obj.getString(Constant.DATA);
+								String msg = obj
+										.getString(Constant.SUCCESS_MSG);
 								LogTool.d(TAG, "msg:" + msg);
 								uploadImageListener.onSuccess(msg);
 							} else if (response.has(Constant.ERROR_MSG)) {

@@ -12,22 +12,14 @@ import java.io.Serializable;
  */
 public class GridItem implements Serializable {
 	private static final long serialVersionUID = 5204218970824963589L;
-	private String path;
-	private int imgId;
+	private String imgId;
 
-	public int getImgId() {
+	public String getImgId() {
 		return imgId;
 	}
 
-	public void setImgId(int imgId) {
+	public void setImgId(String imgId) {
 		this.imgId = imgId;
 	}
 
-	public String getPath() {
-		return path;
-	}
-
-	public void setPath(String path) {
-		this.path = path;
-	}
 }
