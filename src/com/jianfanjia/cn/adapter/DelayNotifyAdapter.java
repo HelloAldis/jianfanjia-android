@@ -2,6 +2,7 @@ package com.jianfanjia.cn.adapter;
 
 import java.util.List;
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
@@ -45,28 +46,19 @@ public class DelayNotifyAdapter extends BaseListAdapter<NotifyMessage> {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
 		// viewHolder.itemNameView.setText(caiGouInfo.getTitle());
-		String type = message.getType();
-		if (type.equals(Constant.CAIGOU_NOTIFY)) {
-
-		} else if (type.equals(Constant.FUKUAN_NOTIFY)) {
-
-		} else if (type.equals(Constant.YANQI_NOTIFY)) {
-
+		String status = message.getStatus();
+		if (!TextUtils.isEmpty(status)) {
+			if (status.equals("1")) {
+				viewHolder.itemAgressView.setText("已同意");
+			} else {
+				viewHolder.itemAgressView.setText("已拒绝");
+			}
 		}
 		viewHolder.itemContentView.setText(message.getContent());
 		viewHolder.itemNodeView.setText(MyApplication.getInstance()
 				.getStringById(message.getSection()));
 		viewHolder.itemPubTimeView.setText(DateFormatTool
 				.toLocalTimeString(message.getTime()));
-		// if (caiGouInfo.getIsagree() == NotifyDelayInfo.AGREE) {
-		// viewHolder.itemAgressView.setTextColor(context.getResources()
-		// .getColor(R.color.font_green));
-		// viewHolder.itemAgressView.setText("已同意");
-		// } else {
-		// viewHolder.itemAgressView.setTextColor(context.getResources()
-		// .getColor(R.color.main_color_red));
-		// viewHolder.itemAgressView.setText("已拒绝");
-		// }
 		return convertView;
 	}
 
