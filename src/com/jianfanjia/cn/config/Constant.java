@@ -121,6 +121,8 @@ public class Constant {
 	public static final String CURRENT_ITEM = "current_item";// 当前节点
 	public static final String CURRENT_POSITION = "current_position";// 当前位置
 	public static final String IMAGE_LIST = "image_list";
+	public static final String SITE_ID = "site_id";
+	public static final String PROCESS_NAME = "process_name";
 
 	public static final int LOAD_SUCCESS = 0;// 数据加载成功
 	public static final int LOAD_FAILURE = 1;// 数据加载失败

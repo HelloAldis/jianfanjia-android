@@ -529,6 +529,8 @@ public class SiteManageFragment extends BaseFragment implements
 		case Constant.CHECK_ITEM:
 			Bundle checkBundle = new Bundle();
 			checkBundle.putInt(Constant.CURRENT_LIST, currentList);
+			checkBundle.putString(Constant.SITE_ID, processInfoId);
+			checkBundle.putString(Constant.PROCESS_NAME, sectionInfoName);
 			startActivity(CheckActivity.class, checkBundle);
 			break;
 		default:

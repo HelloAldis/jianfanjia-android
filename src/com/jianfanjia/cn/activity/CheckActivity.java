@@ -47,6 +47,8 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 			R.drawable.btn_icon_home_add };
 	private List<GridItem> gridList = new ArrayList<GridItem>();
 	private int currentList;// 当前的工序
+	private String processInfoId = null;// 工地id
+	private String sectionInfoName = null;// 工序名称
 	private View view = null;
 	private File mTmpFile = null;
 
@@ -57,8 +59,12 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 		Bundle bundle = intent.getExtras();
 		if (bundle != null) {
 			currentList = bundle.getInt(Constant.CURRENT_LIST, 0);
+			processInfoId = bundle.getString(Constant.SITE_ID);
+			sectionInfoName = bundle.getString(Constant.PROCESS_NAME);
 		}
-		LogTool.d(TAG, "currentList:" + currentList);
+		LogTool.d(TAG, "currentList:" + currentList + " processInfoId:"
+				+ processInfoId + " sectionInfoName:" + sectionInfoName);
+		initData();
 	}
 
 	@Override
@@ -68,11 +74,10 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 		gridView = (GridView) findViewById(R.id.mygridview);
 		btn_confirm_check = (Button) findViewById(R.id.btn_confirm_check);
 		gridView.setFocusable(false);
-		initData();
 	}
 
 	private void initData() {
-		List<GridItem> picList = getCheckedImageById("shui_dian");
+		List<GridItem> picList = getCheckedImageById(sectionInfoName);
 		MyGridViewAdapter adapter = new MyGridViewAdapter(CheckActivity.this,
 				picList, this);
 		gridView.setAdapter(adapter);
