@@ -19,13 +19,11 @@ public class ProcessListRequest extends BaseRequest {
 	
 	@Override
 	public void pre() {
-		// TODO Auto-generated method stub
 		super.pre();
 	}
 	
 	@Override
 	public void onSuccess(BaseResponse baseResponse) {
-		// TODO Auto-generated method stub
 		super.onSuccess(baseResponse);
 		String data = baseResponse.getData().toString();
 		if(data != null){
@@ -38,7 +36,6 @@ public class ProcessListRequest extends BaseRequest {
 			}
 		}
 	}
-	
 	
 
 }

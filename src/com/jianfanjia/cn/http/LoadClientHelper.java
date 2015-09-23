@@ -4,23 +4,19 @@ import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.content.Context;
-import android.text.TextUtils;
-
-import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseResponse;
 import com.jianfanjia.cn.bean.LoginUserBean;
-import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.request.AddPicToSectionItemRequest;
 import com.jianfanjia.cn.http.request.CommitCommentRequest;
 import com.jianfanjia.cn.http.request.DesignerInfoRequest;
+import com.jianfanjia.cn.http.request.GetRequirementRequest;
 import com.jianfanjia.cn.http.request.LoginRequest;
 import com.jianfanjia.cn.http.request.LogoutRequest;
 import com.jianfanjia.cn.http.request.OwnerInfoRequest;
 import com.jianfanjia.cn.http.request.PostRequirementRequest;
 import com.jianfanjia.cn.http.request.ProcessInfoRequest;
 import com.jianfanjia.cn.http.request.ProcessListRequest;
-import com.jianfanjia.cn.http.request.GetRequirementRequest;
 import com.jianfanjia.cn.http.request.TotalDurationRequest;
 import com.jianfanjia.cn.http.request.UploadPicRequest;
 import com.jianfanjia.cn.http.request.UserByDesignerInfoRequest;
@@ -28,13 +24,12 @@ import com.jianfanjia.cn.http.request.UserByDesignerInfoUpdateRequest;
 import com.jianfanjia.cn.http.request.UserByOwnerInfoRequest;
 import com.jianfanjia.cn.http.request.UserByOwnerInfoUpdateRequest;
 import com.jianfanjia.cn.interf.LoadDataListener;
-import com.jianfanjia.cn.interf.UploadImageListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 public class LoadClientHelper {
-	private static final String TAG = "LoadClientHelper";
+	private static final String TAG = LoadClientHelper.class.getName();
 
 	/**
 	 * 用户登录
@@ -921,6 +916,7 @@ public class LoadClientHelper {
 
 	/**
 	 * 拿到需求
+	 * 
 	 * @param context
 	 * @param requirementRequest
 	 * @param listener
@@ -993,15 +989,17 @@ public class LoadClientHelper {
 
 	/**
 	 * 配置需求
+	 * 
 	 * @param context
 	 * @param postRequirementRequest
 	 * @param listener
 	 */
 	public static void post_Requirement(final Context context,
 			final PostRequirementRequest postRequirementRequest,
-			final LoadDataListener listener){
+			final LoadDataListener listener) {
 		JianFanJiaApiClient.post_Owner_Process(context,
-				postRequirementRequest.getRequirementInfo(), new JsonHttpResponseHandler() {
+				postRequirementRequest.getRequirementInfo(),
+				new JsonHttpResponseHandler() {
 					@Override
 					public void onStart() {
 						LogTool.d(TAG, "onStart()");
@@ -1062,16 +1060,16 @@ public class LoadClientHelper {
 					};
 				});
 	}
-	
+
 	public static void upload_Image(final Context context,
 			final UploadPicRequest uploadPicRequest,
-			final LoadDataListener listener){
-		JianFanJiaApiClient.uploadImage(context, uploadPicRequest.getImagePath(),
-				new JsonHttpResponseHandler() {
+			final LoadDataListener listener) {
+		JianFanJiaApiClient.uploadImage(context,
+				uploadPicRequest.getImagePath(), new JsonHttpResponseHandler() {
 					@Override
 					public void onStart() {
 						LogTool.d(TAG, "onStart()");
-						if(listener != null){
+						if (listener != null) {
 							listener.preLoad();
 						}
 						uploadPicRequest.pre();
@@ -1128,17 +1126,24 @@ public class LoadClientHelper {
 					};
 				});
 	}
-	
-	public static void submitImgToProgress(final Context context,final AddPicToSectionItemRequest addPicToSectionItemRequest,final LoadDataListener listener) {
-		LogTool.d(TAG, "siteId:" + addPicToSectionItemRequest.getProcessId() + " section:" + addPicToSectionItemRequest.getSection()
-				+ " item:" + addPicToSectionItemRequest.getItem() + " imageid:" + addPicToSectionItemRequest.getImageId());
-		JianFanJiaApiClient.submitImageToProcess(context, addPicToSectionItemRequest.getProcessId(), addPicToSectionItemRequest.getSection(),
-				addPicToSectionItemRequest.getItem(), addPicToSectionItemRequest.getImageId(), 
+
+	public static void submitImgToProgress(final Context context,
+			final AddPicToSectionItemRequest addPicToSectionItemRequest,
+			final LoadDataListener listener) {
+		LogTool.d(TAG, "siteId:" + addPicToSectionItemRequest.getProcessId()
+				+ " section:" + addPicToSectionItemRequest.getSection()
+				+ " item:" + addPicToSectionItemRequest.getItem() + " imageid:"
+				+ addPicToSectionItemRequest.getImageId());
+		JianFanJiaApiClient.submitImageToProcess(context,
+				addPicToSectionItemRequest.getProcessId(),
+				addPicToSectionItemRequest.getSection(),
+				addPicToSectionItemRequest.getItem(),
+				addPicToSectionItemRequest.getImageId(),
 				new JsonHttpResponseHandler() {
 					@Override
 					public void onStart() {
 						LogTool.d(TAG, "onStart()");
-						if(listener != null){
+						if (listener != null) {
 							listener.preLoad();
 						}
 						addPicToSectionItemRequest.pre();
@@ -1151,9 +1156,10 @@ public class LoadClientHelper {
 						BaseResponse baseResponse = new BaseResponse();
 						try {
 							if (response.has(Constant.SUCCESS_MSG)) {
-								baseResponse.setMsg(response.get(Constant.SUCCESS_MSG)
-										.toString());
-								addPicToSectionItemRequest.onSuccess(baseResponse);
+								baseResponse.setMsg(response.get(
+										Constant.SUCCESS_MSG).toString());
+								addPicToSectionItemRequest
+										.onSuccess(baseResponse);
 								if (listener != null) {
 									listener.loadSuccess();
 								}
@@ -1161,7 +1167,8 @@ public class LoadClientHelper {
 								// 通知页面刷新
 								baseResponse.setErr_msg(response.get(
 										Constant.ERROR_MSG).toString());
-								addPicToSectionItemRequest.onFailure(baseResponse);
+								addPicToSectionItemRequest
+										.onFailure(baseResponse);
 								if (listener != null) {
 									listener.loadFailture();
 								}
