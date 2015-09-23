@@ -145,6 +145,7 @@
     <string name="back">返回</string>
     <string name="send">发送</string>
     <string name="confirm_upload">确认上传</string>
+    <string name="confirm_done">确认完成</string>
     <string name="caigouText">采购提醒</string>
     <string name="fukuanText">付款提醒</string>
     <string name="yanqiText">延期提醒</string>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/checkLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/site_content_bg" >
@@ -26,6 +27,15 @@
             android:text="@string/check"
             android:textColor="@color/main_color_black" />
 
+        <TextView
+            android:id="@+id/check_pic_edit"
+            style="@style/site_listview_item_text_style_middle"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/space_8"
+            android:text="@string/edit"
+            android:textColor="@color/back_color" />
+
         <View
             style="@style/divier_line"
             android:layout_alignParentBottom="true"
@@ -33,7 +43,7 @@
     </RelativeLayout>
 
     <Button
-        android:id="@+id/btn_confirm_check"
+        android:id="@+id/btn_confirm"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
@@ -46,7 +56,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/btn_confirm_check"
+        android:layout_above="@id/btn_confirm"
         android:layout_below="@id/check_pic_head_layout"
         android:scrollbars="none" >
 

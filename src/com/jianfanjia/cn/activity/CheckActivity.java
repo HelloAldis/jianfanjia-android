@@ -3,6 +3,8 @@ package com.jianfanjia.cn.activity;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.http.Header;
+import org.json.JSONObject;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
@@ -14,6 +16,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.jianfanjia.cn.adapter.MyGridViewAdapter;
 import com.jianfanjia.cn.application.MyApplication;
@@ -21,11 +24,13 @@ import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.GridItem;
 import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.interf.UploadImageListener;
 import com.jianfanjia.cn.interf.UploadListener;
 import com.jianfanjia.cn.tools.FileUtil;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.PhotoUtils;
+import com.loopj.android.http.JsonHttpResponseHandler;
 
 /**
  * 
@@ -38,17 +43,18 @@ import com.jianfanjia.cn.tools.PhotoUtils;
 public class CheckActivity extends BaseActivity implements OnClickListener,
 		UploadListener, UploadImageListener {
 	private static final String TAG = CheckActivity.class.getName();
+	private RelativeLayout checkLayout = null;
 	private TextView backView = null;// 返回视图
 	private TextView check_pic_title = null;
+	private TextView check_pic_edit = null;
 	private GridView gridView = null;
-	private Button btn_confirm_check = null;
+	private Button btn_confirm = null;
 	private MyGridViewAdapter adapter = null;
 	private List<GridItem> checkGridList = new ArrayList<GridItem>();
 	private int currentList;// 当前的工序
 	private String processInfoId = null;// 工地id
 	private String sectionInfoName = null;// 工序名称
 	private String key = null;
-	private View view = null;
 	private File mTmpFile = null;
 
 	@Override
@@ -68,11 +74,22 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 
 	@Override
 	public void initView() {
-		view = inflater.inflate(R.layout.activity_check_pic, null);
+		checkLayout = (RelativeLayout) findViewById(R.id.checkLayout);
 		backView = (TextView) findViewById(R.id.check_pic_back);
 		check_pic_title = (TextView) findViewById(R.id.check_pic_title);
+		check_pic_edit = (TextView) findViewById(R.id.check_pic_edit);
 		gridView = (GridView) findViewById(R.id.mygridview);
-		btn_confirm_check = (Button) findViewById(R.id.btn_confirm_check);
+		btn_confirm = (Button) findViewById(R.id.btn_confirm);
+		if (!TextUtils.isEmpty(userIdentity)) {
+			if (userIdentity.equals(Constant.IDENTITY_OWNER)) {
+				check_pic_edit.setVisibility(View.GONE);
+				btn_confirm.setText(this.getResources().getString(
+						R.string.confirm_done));
+			} else if (userIdentity.equals(Constant.IDENTITY_DESIGNER)) {
+				btn_confirm.setText(this.getResources().getString(
+						R.string.confirm_upload));
+			}
+		}
 		gridView.setFocusable(false);
 	}
 
@@ -88,7 +105,8 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 	@Override
 	public void setListener() {
 		backView.setOnClickListener(this);
-		btn_confirm_check.setOnClickListener(this);
+		check_pic_edit.setOnClickListener(this);
+		btn_confirm.setOnClickListener(this);
 	}
 
 	@Override
@@ -97,8 +115,16 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 		case R.id.check_pic_back:
 			finish();
 			break;
-		case R.id.btn_confirm_check:
-
+		case R.id.check_pic_edit:
+			break;
+		case R.id.btn_confirm:
+			if (!TextUtils.isEmpty(userIdentity)) {
+				if (userIdentity.equals(Constant.IDENTITY_OWNER)) {
+					confirmCheckDoneByOwner(processInfoId, sectionInfoName);
+				} else if (userIdentity.equals(Constant.IDENTITY_DESIGNER)) {
+					confirmCanCheckByDesigner(processInfoId, sectionInfoName);
+				}
+			}
 			break;
 		default:
 			break;
@@ -110,7 +136,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 		LogTool.d(TAG, "position:" + position);
 		key = position + "";
 		LogTool.d(TAG, "key:" + key);
-		showPopWindow(view);
+		showPopWindow(checkLayout);
 	}
 
 	@Override
@@ -231,6 +257,66 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 		intent.putExtra("outputY", 300);
 		intent.putExtra("return-data", true);
 		startActivityForResult(intent, Constant.REQUESTCODE_CROP);
+	}
+
+	// 设计师确认可以开始验收
+	private void confirmCanCheckByDesigner(String siteid, String processid) {
+		JianFanJiaApiClient.confirm_canCheckBydesigner(CheckActivity.this,
+				siteid, processid, new JsonHttpResponseHandler() {
+					@Override
+					public void onStart() {
+						LogTool.d(TAG, "onStart()");
+					}
+
+					@Override
+					public void onSuccess(int statusCode, Header[] headers,
+							JSONObject response) {
+						LogTool.d(TAG, "JSONObject response:" + response);
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							Throwable throwable, JSONObject errorResponse) {
+						LogTool.d(TAG, "Throwable throwable:" + throwable);
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							String responseString, Throwable throwable) {
+						LogTool.d(TAG, "statusCode:" + statusCode
+								+ " throwable:" + throwable);
+					};
+				});
+	}
+
+	// 业主确认对比验收完成
+	private void confirmCheckDoneByOwner(String siteid, String processid) {
+		JianFanJiaApiClient.confirm_CheckDoneByOwner(CheckActivity.this,
+				siteid, processid, new JsonHttpResponseHandler() {
+					@Override
+					public void onStart() {
+						LogTool.d(TAG, "onStart()");
+					}
+
+					@Override
+					public void onSuccess(int statusCode, Header[] headers,
+							JSONObject response) {
+						LogTool.d(TAG, "JSONObject response:" + response);
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							Throwable throwable, JSONObject errorResponse) {
+						LogTool.d(TAG, "Throwable throwable:" + throwable);
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							String responseString, Throwable throwable) {
+						LogTool.d(TAG, "statusCode:" + statusCode
+								+ " throwable:" + throwable);
+					};
+				});
 	}
 
 	/**
