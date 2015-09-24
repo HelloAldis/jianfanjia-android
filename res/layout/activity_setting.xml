@@ -27,7 +27,7 @@
 
             <RelativeLayout
                 android:id="@+id/mespush_layout"
-                style="@style/my_item_layout_style" >
+                style="@style/my_list_item_layout_style" >
 
                 <TextView
                     style="@style/site_listview_item_text_style_middle"
@@ -51,7 +51,7 @@
 
             <RelativeLayout
                 android:id="@+id/share_layout"
-                style="@style/my_item_layout_style" >
+                style="@style/my_list_item_layout_style" >
 
                 <TextView
                     style="@style/site_listview_item_text_style_middle"
@@ -70,7 +70,7 @@
 
             <RelativeLayout
                 android:id="@+id/current_version_layout"
-                style="@style/my_item_layout_style" >
+                style="@style/my_list_item_layout_style" >
 
                 <TextView
                     style="@style/site_listview_item_text_style_middle"
@@ -91,7 +91,7 @@
 
             <RelativeLayout
                 android:id="@+id/clear_cache_layout"
-                style="@style/my_item_layout_style" >
+                style="@style/my_list_item_layout_style" >
 
                 <TextView
                     style="@style/site_listview_item_text_style_middle"
@@ -116,7 +116,7 @@
 
             <RelativeLayout
                 android:id="@+id/feedback_layout"
-                style="@style/my_item_layout_style" >
+                style="@style/my_list_item_layout_style" >
 
                 <TextView
                     style="@style/site_listview_item_text_style_middle"
@@ -135,7 +135,7 @@
 
             <RelativeLayout
                 android:id="@+id/help_layout"
-                style="@style/my_item_layout_style" >
+                style="@style/my_list_item_layout_style" >
 
                 <TextView
                     style="@style/site_listview_item_text_style_middle"
@@ -154,7 +154,7 @@
 
             <RelativeLayout
                 android:id="@+id/about_layout"
-                style="@style/my_item_layout_style" >
+                style="@style/my_list_item_layout_style" >
 
                 <TextView
                     style="@style/site_listview_item_text_style_middle"
@@ -177,7 +177,7 @@
 
             <RelativeLayout
                 android:id="@+id/logout_layout"
-                style="@style/my_item_layout_style" >
+                style="@style/my_list_item_layout_style" >
 
                 <TextView
                     style="@style/site_listview_item_text_style_middle"

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_layout_bg" >
-    
+
     <com.jianfanjia.cn.view.MainHeadView
         android:id="@+id/designerinfo_head_layout"
         android:layout_width="match_parent"
@@ -28,7 +28,7 @@
 
             <RelativeLayout
                 android:id="@+id/head_layout"
-                style="@style/my_item_layout_style"
+                style="@style/my_list_item_layout_style"
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/space_16"
                 android:paddingTop="@dimen/space_16" >
@@ -61,7 +61,7 @@
 
             <RelativeLayout
                 android:id="@+id/name_layout"
-                style="@style/my_item_layout_style" >
+                style="@style/my_list_item_layout_style" >
 
                 <TextView
                     android:id="@+id/name"
@@ -74,13 +74,13 @@
                     android:id="@+id/nameText"
                     style="@style/site_listview_item_text_style_small"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/space_8"
-                    android:layout_toRightOf="@+id/name"
                     android:layout_marginLeft="@dimen/space_48"
-                    android:singleLine="true"
+                    android:layout_marginRight="@dimen/space_8"
+                    android:layout_toLeftOf="@+id/name_goto"
+                    android:layout_toRightOf="@+id/name"
                     android:ellipsize="end"
                     android:gravity="right"
-                    android:layout_toLeftOf="@+id/name_goto"
+                    android:singleLine="true"
                     android:textColor="@color/main_color_black" />
 
                 <ImageView
@@ -95,7 +95,7 @@
 
             <RelativeLayout
                 android:id="@+id/sex_layout"
-                style="@style/my_item_layout_style" >
+                style="@style/my_list_item_layout_style" >
 
                 <TextView
                     style="@style/site_listview_item_text_style_middle"
@@ -123,7 +123,7 @@
 
             <RelativeLayout
                 android:id="@+id/phone_layout"
-                style="@style/my_item_layout_style" >
+                style="@style/my_list_item_layout_style" >
 
                 <TextView
                     style="@style/site_listview_item_text_style_middle"
@@ -151,7 +151,7 @@
 
             <RelativeLayout
                 android:id="@+id/address_layout"
-                style="@style/my_item_layout_style" >
+                style="@style/my_list_item_layout_style" >
 
                 <TextView
                     style="@style/site_listview_item_text_style_middle"
@@ -179,7 +179,7 @@
 
             <RelativeLayout
                 android:id="@+id/home_layout"
-                style="@style/my_item_layout_style" >
+                style="@style/my_list_item_layout_style" >
 
                 <TextView
                     android:id="@+id/home"
@@ -192,13 +192,13 @@
                     android:id="@+id/homeText"
                     style="@style/site_listview_item_text_style_small"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/space_8"
-                    android:layout_toRightOf="@+id/home"
                     android:layout_marginLeft="@dimen/space_48"
+                    android:layout_marginRight="@dimen/space_8"
                     android:layout_toLeftOf="@+id/home_goto"
+                    android:layout_toRightOf="@+id/home"
                     android:ellipsize="end"
-                    android:singleLine="true"
                     android:gravity="right"
+                    android:singleLine="true"
                     android:textColor="@color/main_color_black" />
 
                 <ImageView
@@ -218,13 +218,13 @@
                 android:text="@string/comfirm" />
         </LinearLayout>
     </ScrollView>
-    
-     <include android:id="@+id/error_view"
-        layout="@layout/view_error_layout"
+
+    <include
+        android:id="@+id/error_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/designerinfo_head_layout"
         android:layout_marginTop="@dimen/space_8"
-        />
+        layout="@layout/view_error_layout" />
 
 </RelativeLayout>

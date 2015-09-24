@@ -185,7 +185,8 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 					public void preLoad() {
 						// TODO Auto-generated method stub
 						showWaitDialog();
-						LogTool.d(TAG, JsonParser.beanToJson(designerUpdateInfo));
+						LogTool.d(TAG,
+								JsonParser.beanToJson(designerUpdateInfo));
 					}
 
 					@Override

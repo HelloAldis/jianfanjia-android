@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal" >
-    
-      <ImageView
+
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/wheel"
@@ -17,9 +17,8 @@
         android:id="@+id/wheel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/space_8"
         android:orientation="horizontal"
-         >
+        android:padding="@dimen/space_8" >
 
         <com.jianfanjia.cn.view.wheel.WheelView
             android:id="@+id/wheel_item1"
@@ -37,10 +36,7 @@
             android:id="@+id/wheel_item3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-          	/>
+            android:layout_weight="1" />
     </LinearLayout>
-
-  
 
 </RelativeLayout>
