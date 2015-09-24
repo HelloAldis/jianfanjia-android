@@ -65,7 +65,7 @@ public class NotifyDialog extends Dialog implements
 			agree.setVisibility(View.GONE);
 			refuse.setVisibility(View.GONE);
 		} else if (type.equals(Constant.YANQI_NOTIFY)) {
-			if (TextUtils.isEmpty(status)) {
+			if (!TextUtils.isEmpty(status)) {
 				if (status.equals(Constant.YANQI_BE_DOING)) {
 					titleTv.setText(context.getResources().getString(
 							R.string.yanqiText));
