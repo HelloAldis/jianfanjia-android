@@ -67,6 +67,7 @@ public class MyGridViewAdapter extends BaseListAdapter<GridItem> {
 					}else{
 						holder.img.setOnClickListener(null);
 					}
+					holder.delete.setVisibility(View.GONE);
 				} else {
 					holder.delete.setOnClickListener(new OnClickListener() {
 						
@@ -80,6 +81,7 @@ public class MyGridViewAdapter extends BaseListAdapter<GridItem> {
 					});
 					imageLoader.displayImage(Url.GET_IMAGE + imgId, holder.img,
 							options);
+					holder.img.setOnClickListener(null);
 					if(isCanDelete()){
 						holder.delete.setVisibility(View.VISIBLE);
 					}else{

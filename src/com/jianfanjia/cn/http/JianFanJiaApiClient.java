@@ -647,18 +647,18 @@ public class JianFanJiaApiClient {
 	 * 设计师删除验收图片
 	 * 
 	 * @param context
-	 * @param siteid
-	 * @param processid
+	 * @param processId
+	 * @param section
 	 * @param key
 	 * @param handler
 	 */
 	public static void deleteYanshouImgByDesigner(Context context,
-			String siteid, String processid, String key,
+			String processId, String section, String key,
 			AsyncHttpResponseHandler handler) {
 		JSONObject jsonParams = new JSONObject();
 		try {
-			jsonParams.put("_id", siteid);
-			jsonParams.put("section", processid);
+			jsonParams.put("_id", processId);
+			jsonParams.put("section", section);
 			jsonParams.put("key", key);
 			StringEntity entity = new StringEntity(jsonParams.toString());
 			HttpRestClient.delete(context, Url.DELETE_YANSHOU_IMG_BY_DESIGNER,

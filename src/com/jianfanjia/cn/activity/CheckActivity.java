@@ -35,6 +35,7 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.http.LoadClientHelper;
 import com.jianfanjia.cn.http.request.AddPicToCheckRequest;
+import com.jianfanjia.cn.http.request.DeletePicRequest;
 import com.jianfanjia.cn.http.request.UploadPicRequest;
 import com.jianfanjia.cn.interf.LoadDataListener;
 import com.jianfanjia.cn.interf.UploadImageListener;
@@ -141,20 +142,23 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 		default:
 			break;
 		}
-		checkGridList = getCheckedImageById(sectionInfoName);
 		adapter = new MyGridViewAdapter(CheckActivity.this, checkGridList, this);
 		gridView.setAdapter(adapter);
 		initList();
 	}
 
 	private void initList() {
+		checkGridList.clear();
+		checkGridList = getCheckedImageById(sectionInfoName);
 		processInfo = dataManager.getDefaultProcessInfo();
 		if(processInfo != null){
 			ArrayList<Imageid> imageids = processInfo.getImageidsByName(sectionInfoName);
 			for(int i = 0;imageids != null && i< imageids.size();i++){
-				LogTool.d(TAG, imageids.get(i).getImageid());
 				String key = imageids.get(i).getKey();
-				checkGridList.get(Integer.parseInt(key) * 2 + 1).setImgId(imageids.get(i).getImageid());
+				if(imageids.get(i).getImageid() != null){
+					LogTool.d(TAG, imageids.get(i).getImageid());
+					checkGridList.get(Integer.parseInt(key) * 2 + 1).setImgId(imageids.get(i).getImageid());
+				}
 			}
 			adapter.setList(checkGridList);
 		}
@@ -166,6 +170,22 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 		check_pic_edit.setOnClickListener(this);
 		btn_confirm.setOnClickListener(this);
 	}
+	
+	public void changeEditStatus(){
+		if(currentState == FINISH_STATUS){
+			check_pic_edit.setText("编辑");
+			currentState = EDIT_STATUS;
+			adapter.setCanDelete(false);
+			btn_confirm.setEnabled(true);
+			adapter.notifyDataSetInvalidated();
+		}else{
+			btn_confirm.setEnabled(false);
+			check_pic_edit.setText("完成");
+			currentState = FINISH_STATUS;
+			adapter.setCanDelete(true);
+			adapter.notifyDataSetInvalidated();
+		}
+	}
 
 	@Override
 	public void onClick(View v) {
@@ -174,19 +194,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 			finish();
 			break;
 		case R.id.check_pic_edit:
-			if(currentState == FINISH_STATUS){
-				check_pic_edit.setText("编辑");
-				currentState = EDIT_STATUS;
-				adapter.setCanDelete(false);
-				btn_confirm.setEnabled(true);
-				adapter.notifyDataSetInvalidated();
-			}else{
-				btn_confirm.setEnabled(false);
-				check_pic_edit.setText("完成");
-				currentState = FINISH_STATUS;
-				adapter.setCanDelete(true);
-				adapter.notifyDataSetInvalidated();
-			}
+			changeEditStatus();
 			break;
 		case R.id.btn_confirm:
 			if (!TextUtils.isEmpty(userIdentity)) {
@@ -215,7 +223,17 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 	public void delete(int position) {
 		// TODO Auto-generated method stub
 		LogTool.d(TAG, "position:" + position);
+		key = position + "";
 		LogTool.d(TAG, "key:" + key);
+		LoadClientHelper.delete_Image(this, new DeletePicRequest(this, processInfoId, sectionInfoName, key), this);
+	}
+	
+	@Override
+	public void loadSuccess() {
+		// TODO Auto-generated method stub
+		super.loadSuccess();
+		initList();
+		changeEditStatus();
 	}
 
 	@Override

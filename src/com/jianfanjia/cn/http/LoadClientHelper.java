@@ -10,6 +10,7 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.request.AddPicToCheckRequest;
 import com.jianfanjia.cn.http.request.AddPicToSectionItemRequest;
 import com.jianfanjia.cn.http.request.CommitCommentRequest;
+import com.jianfanjia.cn.http.request.DeletePicRequest;
 import com.jianfanjia.cn.http.request.DesignerInfoRequest;
 import com.jianfanjia.cn.http.request.GetRequirementRequest;
 import com.jianfanjia.cn.http.request.LoginRequest;
@@ -1096,6 +1097,77 @@ public class LoadClientHelper {
 								baseResponse.setErr_msg(response.get(
 										Constant.ERROR_MSG).toString());
 								uploadPicRequest.onFailure(baseResponse);
+								if (listener != null) {
+									listener.loadFailture();
+								}
+							}
+						} catch (JSONException e) {
+							e.printStackTrace();
+							if (listener != null) {
+								listener.loadFailture();
+							}
+						}
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							Throwable throwable, JSONObject errorResponse) {
+						LogTool.d(TAG, "Throwable throwable:" + throwable);
+						if (listener != null) {
+							listener.loadFailture();
+						}
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							String responseString, Throwable throwable) {
+						LogTool.d(TAG, "statusCode:" + statusCode
+								+ " throwable:" + throwable);
+						if (listener != null) {
+							listener.loadFailture();
+						}
+					};
+				});
+	}
+	
+	/**
+	 * 删除验收图片
+	 * @param context
+	 * @param deletePicRequest
+	 * @param listener
+	 */
+	public static void delete_Image(final Context context,
+			final DeletePicRequest deletePicRequest,
+			final LoadDataListener listener) {
+		JianFanJiaApiClient.deleteYanshouImgByDesigner(context,deletePicRequest.getProcessId(), deletePicRequest.getSection(), deletePicRequest.getKey(),
+				new JsonHttpResponseHandler() {
+					@Override
+					public void onStart() {
+						LogTool.d(TAG, "onStart()");
+						if (listener != null) {
+							listener.preLoad();
+						}
+						deletePicRequest.pre();
+					}
+
+					@Override
+					public void onSuccess(int statusCode, Header[] headers,
+							JSONObject response) {
+						LogTool.d(TAG, "response:" + response.toString());
+						BaseResponse baseResponse = new BaseResponse();
+						try {
+							if (response.has(Constant.SUCCESS_MSG)) {
+								baseResponse.setMsg(response.get(
+										Constant.SUCCESS_MSG).toString());
+								deletePicRequest.onSuccess(baseResponse);
+								if (listener != null) {
+									listener.loadSuccess();
+								}
+							} else if (response.has(Constant.ERROR_MSG)) {
+								// 通知页面刷新
+								baseResponse.setErr_msg(response.get(
+										Constant.ERROR_MSG).toString());
+								deletePicRequest.onFailure(baseResponse);
 								if (listener != null) {
 									listener.loadFailture();
 								}

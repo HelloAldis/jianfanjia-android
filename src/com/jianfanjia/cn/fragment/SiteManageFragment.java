@@ -769,7 +769,6 @@ public class SiteManageFragment extends BaseFragment implements
 
 									@Override
 									public void loadSuccess() {
-										// TODO Auto-generated method stub
 										String itemName = sectionItemAdapter
 												.getCurrentItem();
 										AddPicToSectionItemRequest addSectionItemRequest = new AddPicToSectionItemRequest(
@@ -793,7 +792,6 @@ public class SiteManageFragment extends BaseFragment implements
 
 													@Override
 													public void loadSuccess() {
-
 														if (mTmpFile != null
 																&& mTmpFile
 																		.exists()) {
@@ -809,15 +807,11 @@ public class SiteManageFragment extends BaseFragment implements
 														 * != null) {
 														 * initData(); }
 														 */
-														sectionItemAdapter
-																.setPosition(currentList);
+														loadCurrentProcess();
 													}
 
 													@Override
 													public void loadFailture() {
-														// TODO Auto-generated
-														// method stub
-
 														if (mTmpFile != null
 																&& mTmpFile
 																		.exists()) {

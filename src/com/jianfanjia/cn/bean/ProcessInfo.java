@@ -77,13 +77,28 @@ public class ProcessInfo extends RequirementInfo {
 		if(sections != null){
 			for(SectionInfo sectionInfo : sections){
 				if(sectionInfo.getName().equals(section)){
-					if(section.equals("kai_gong") && section.equals("chai_gai")){
+					if(!section.equals("kai_gong") && !section.equals("chai_gai")){
 						LogTool.d("SectionInfo", section + "--" + key + imageId);
 						sectionInfo.getYs().addImageId(new Imageid(key,imageId));
 					}
 				}
 			}
 		}
+	}
+	
+	public boolean deleteCheckImage(String section,String key){
+		boolean flag = false;
+		if(sections != null){
+			for(SectionInfo sectionInfo : sections){
+				if(sectionInfo.getName().equals(section)){
+					if(!section.equals("kai_gong") && !section.equals("chai_gai")){
+						flag = sectionInfo.getYs().deleteImageIdBykey(key);
+						LogTool.d("SectionInfo", section + "--" + key + flag);
+					}
+				}
+			}
+		}
+		return flag;
 	}
 	
 	public ArrayList<Imageid> getImageidsByName(String section){
