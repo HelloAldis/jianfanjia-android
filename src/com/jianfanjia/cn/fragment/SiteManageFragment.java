@@ -424,14 +424,14 @@ public class SiteManageFragment extends BaseFragment implements
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				if (null != processInfo) {
-					processInfoId = processInfo.get_id();
-					LogTool.d(TAG, "processInfoId=" + processInfoId);
-				}
-				sectionInfoName = sectionInfo.getName();
-				processInfoStatus = sectionInfo.getStatus();
-				LogTool.d(TAG, "sectionInfoName=" + sectionInfoName
-						+ " processInfoStatus:" + processInfoStatus);
+//				if (null != processInfo) {
+//					processInfoId = processInfo.get_id();
+//					LogTool.d(TAG, "processInfoId=" + processInfoId);
+//				}
+//				sectionInfoName = sectionInfo.getName();
+//				processInfoStatus = sectionInfo.getStatus();
+//				LogTool.d(TAG, "sectionInfoName=" + sectionInfoName
+//						+ " processInfoStatus:" + processInfoStatus);
 				List<SectionItemInfo> itemList = sectionInfo.getItems();
 				if (!sectionInfo.getName().equals("kai_gong")
 						&& !sectionInfo.getName().equals("chai_gai")) {
@@ -446,9 +446,24 @@ public class SiteManageFragment extends BaseFragment implements
 				} else {
 					processInfoName = itemList.get(position).getName();
 				}
+				if(sectionItemAdapter.isHasCheck()){
+					boolean isCanClickYanshou = true;
+					for(SectionItemInfo sectionItemInfo : sectionInfo.getItems()){
+						if(Constant.FINISH != Integer.parseInt(sectionItemInfo.getStatus())){
+							isCanClickYanshou = false;
+							break;
+						}
+					}
+					if(position == 0){
+						if(isCanClickYanshou){
+							sectionItemAdapter.setCurrentOpenItem(position);
+						}
+					}
+				}else{
+					sectionItemAdapter.setCurrentOpenItem(position);
+				}
 				LogTool.d(TAG, "position:" + position + "  processInfoName:"
 						+ processInfoName);
-				sectionItemAdapter.setCurrentOpenItem(position);
 			}
 		});
 
@@ -631,7 +646,7 @@ public class SiteManageFragment extends BaseFragment implements
 					public void onClick(DialogInterface dialog, int which) {
 						dialog.dismiss();
 						confirmProcessItemDone(processInfo.get_id(),
-								sectionInfo.getName(), processInfoName);
+								sectionInfo.getName(), sectionItemAdapter.getCurrentItem());
 					}
 				});
 		dialog.setNegativeButton(R.string.no, null);

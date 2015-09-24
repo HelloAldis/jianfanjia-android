@@ -3,9 +3,6 @@ package com.jianfanjia.cn.activity;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import org.apache.http.Header;
-import org.json.JSONException;
-import org.json.JSONObject;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -25,12 +22,11 @@ import com.jianfanjia.cn.bean.CommitCommentInfo;
 import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.http.LoadClientHelper;
 import com.jianfanjia.cn.http.request.CommitCommentRequest;
 import com.jianfanjia.cn.interf.LoadDataListener;
 import com.jianfanjia.cn.tools.LogTool;
-import com.loopj.android.http.JsonHttpResponseHandler;
+import com.jianfanjia.cn.view.MainHeadView;
 
 /**
  * @class CommentActivity
@@ -56,6 +52,7 @@ public class CommentActivity extends BaseActivity implements OnClickListener,
 	private String section = null;
 	private String item = null;
 	private String content = null;
+	private MainHeadView mainHeadView = null;
 
 	private TextWatcher textWatcher = new TextWatcher() {
 
@@ -111,32 +108,40 @@ public class CommentActivity extends BaseActivity implements OnClickListener,
 
 	@Override
 	public void initView() {
-		backView = (TextView) findViewById(R.id.comment_back);
+		initMainHeadView();
 		listView = (ListView) findViewById(R.id.comment_listview);
 		etAddCommentView = (EditText) findViewById(R.id.add_comment);
 		etAddCommentView.addTextChangedListener(textWatcher);
 		sendCommentView = (Button) findViewById(R.id.btn_send);
 		sendCommentView.setEnabled(false);
 	}
+	
+	private void initMainHeadView() {
+		mainHeadView = (MainHeadView) findViewById(R.id.comment_head_layout);
+		mainHeadView.setBackListener(this);
+		mainHeadView
+				.setMianTitle(getResources().getString(R.string.comment));
+		mainHeadView.setLayoutBackground(R.color.head_layout_bg);
+		mainHeadView.setDividerVisable(View.VISIBLE);
+	}
 
 	@Override
 	public void setListener() {
-		backView.setOnClickListener(this);
 		sendCommentView.setOnClickListener(this);
 	}
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.comment_back:
-//			startActivity(MainActivity.class);
+		case R.id.head_back_layout:
+			// startActivity(MainActivity.class);
 			finish();
 			break;
 		case R.id.btn_send:
 			content = etAddCommentView.getEditableText().toString();
 			if (!TextUtils.isEmpty(content)) {
 				commitComment();
-				etAddCommentView.setText("");//清楚输入框内容
+				etAddCommentView.setText("");// 清楚输入框内容
 			}
 			break;
 		default:
@@ -154,7 +159,7 @@ public class CommentActivity extends BaseActivity implements OnClickListener,
 				commitCommentInfo), this);
 
 	}
-	
+
 	private void refreshData() {
 		/*
 		 * if (dataManager.getDefaultProcessId() == null) {
