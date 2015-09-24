@@ -95,6 +95,14 @@ public class Constant {
 	public static final String CHECK_REFUSE = "0";// 验收拒绝
 	public static final String CHECK_AGREE = "1";// 验收同意
 
+	// 延期提醒状态
+	public static final String NO_START = "0";// 未开工
+	public static final String DOING = "1";// 进行中
+	public static final String FINISHED = "2";// 已完成
+	public static final String YANQI_BE_DOING = "3";// 改期申请中
+	public static final String YANQI_AGREE = "4";// 改期同意
+	public static final String YANQI_REFUSE = "5";// 改期拒绝
+
 	// 工序状态
 	public static final int NOT_START = 0;// 未开工
 	public static final int WORKING = 1;// 正在进行中
@@ -111,6 +119,9 @@ public class Constant {
 
 	public static final String HOME_ADD_PIC = "drawable://"
 			+ R.drawable.btn_icon_home_add;
+	
+	public static final String HOME_DEFAULT_PIC = "drawable://"
+			+ R.drawable.btn_default_bg;
 
 	public static final String DEFALUT_OWNER_PIC = "drawable://"
 			+ R.drawable.icon_sidebar_default_user;

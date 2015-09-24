@@ -34,6 +34,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/space_8"
             android:text="@string/edit"
+            android:padding="@dimen/space_8"
             android:textColor="@color/back_color" />
 
         <View
