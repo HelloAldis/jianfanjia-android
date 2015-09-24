@@ -34,11 +34,11 @@ public class DateFormatTool {
 
 	public static String toLocalTimeString(long time) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-		return sdf.format(System.currentTimeMillis());
+		return sdf.format(time);
 	}
 
 	public static String longToString(long time) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		return sdf.format(System.currentTimeMillis());
+		return sdf.format(time);
 	}
 }

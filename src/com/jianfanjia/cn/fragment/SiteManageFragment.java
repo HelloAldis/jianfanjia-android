@@ -527,7 +527,7 @@ public class SiteManageFragment extends BaseFragment implements
 		LogTool.d(TAG, "position:" + position + "itemType:" + itemType);
 		switch (itemType) {
 		case Constant.CONFIRM_ITEM:
-			confirmDialog();
+			confirmFinishDialog();
 			break;
 		case Constant.IMG_ITEM:
 			break;
@@ -634,7 +634,7 @@ public class SiteManageFragment extends BaseFragment implements
 		dateWheelDialog.show();
 	}
 
-	private void confirmDialog() {
+	private void confirmFinishDialog() {
 		CommonDialog dialog = DialogHelper
 				.getPinterestDialogCancelable(getActivity());
 		dialog.setTitle("确认完工");
@@ -784,6 +784,7 @@ public class SiteManageFragment extends BaseFragment implements
 
 									@Override
 									public void loadSuccess() {
+										// TODO Auto-generated method stub
 										String itemName = sectionItemAdapter
 												.getCurrentItem();
 										AddPicToSectionItemRequest addSectionItemRequest = new AddPicToSectionItemRequest(
@@ -822,7 +823,8 @@ public class SiteManageFragment extends BaseFragment implements
 														 * != null) {
 														 * initData(); }
 														 */
-														loadCurrentProcess();
+														sectionItemAdapter
+																.setPosition(currentList);
 													}
 
 													@Override
@@ -929,8 +931,8 @@ public class SiteManageFragment extends BaseFragment implements
 		intent.putExtra("aspectY", 1);
 		intent.putExtra("scale", true);
 		// outputX outputY 是裁剪图片宽高
-		intent.putExtra("outputX", 300);
-		intent.putExtra("outputY", 300);
+		intent.putExtra("outputX", TDevice.getScreenWidth());
+		intent.putExtra("outputY", TDevice.getScreenWidth());
 		intent.putExtra("return-data", true);
 		startActivityForResult(intent, Constant.REQUESTCODE_CROP);
 	}

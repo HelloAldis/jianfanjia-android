@@ -134,8 +134,10 @@ public class CommentActivity extends BaseActivity implements OnClickListener,
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.head_back_layout:
-			// startActivity(MainActivity.class);
 			finish();
+	/*	case R.id.comment_back:
+			// startActivity(MainActivity.class);
+			finish();*/
 			break;
 		case R.id.btn_send:
 			content = etAddCommentView.getEditableText().toString();

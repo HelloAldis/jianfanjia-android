@@ -22,8 +22,8 @@ public class EditInfoActivity extends BaseActivity implements OnClickListener {
 	private Button confirmView;
 	private Intent intent;
 	private int type;//  ‰»Î¿‡–Õ
-	InputFilter[] namefilters = {new InputFilter.LengthFilter(20)};
-	InputFilter[] addressfilters = {new InputFilter.LengthFilter(100)};
+	InputFilter[] namefilters = { new InputFilter.LengthFilter(20) };
+	InputFilter[] addressfilters = { new InputFilter.LengthFilter(100) };
 
 	@Override
 	public void initView() {
@@ -42,7 +42,6 @@ public class EditInfoActivity extends BaseActivity implements OnClickListener {
 			editInfoView.setHint(R.string.input_home);
 			editInfoView.setFilters(addressfilters);
 		}
-
 	}
 
 	@Override
