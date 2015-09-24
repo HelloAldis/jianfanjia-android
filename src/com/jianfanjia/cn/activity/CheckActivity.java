@@ -3,13 +3,9 @@ package com.jianfanjia.cn.activity;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import u.aly.ad;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.TypedArray;
@@ -23,14 +19,13 @@ import android.view.View.OnClickListener;
 import android.widget.GridView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.jianfanjia.cn.adapter.MyGridViewAdapter;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.bean.CheckInfo.Imageid;
 import com.jianfanjia.cn.bean.GridItem;
 import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.bean.ProcessInfo;
-import com.jianfanjia.cn.bean.CheckInfo.Imageid;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.http.LoadClientHelper;
@@ -60,7 +55,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 	private static final String TAG = CheckActivity.class.getName();
 	public static final int EDIT_STATUS = 0;
 	public static final int FINISH_STATUS = 1;
-	
+
 	private RelativeLayout checkLayout = null;
 	private TextView backView = null;// 返回视图
 	private TextView check_pic_title = null;
@@ -82,7 +77,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		processInfo = dataManager.getDefaultProcessInfo();
-		if(processInfo != null){
+		if (processInfo != null) {
 			processInfoId = processInfo.get_id();
 		}
 		Intent intent = getIntent();
@@ -123,7 +118,6 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 	}
 
 	private void initData() {
-		
 		check_pic_title.setText(MyApplication.getInstance().getStringById(
 				sectionInfoName)
 				+ "阶段验收");
@@ -151,13 +145,15 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 		checkGridList.clear();
 		checkGridList = getCheckedImageById(sectionInfoName);
 		processInfo = dataManager.getDefaultProcessInfo();
-		if(processInfo != null){
-			ArrayList<Imageid> imageids = processInfo.getImageidsByName(sectionInfoName);
-			for(int i = 0;imageids != null && i< imageids.size();i++){
+		if (processInfo != null) {
+			ArrayList<Imageid> imageids = processInfo
+					.getImageidsByName(sectionInfoName);
+			for (int i = 0; imageids != null && i < imageids.size(); i++) {
 				String key = imageids.get(i).getKey();
-				if(imageids.get(i).getImageid() != null){
+				if (imageids.get(i).getImageid() != null) {
 					LogTool.d(TAG, imageids.get(i).getImageid());
-					checkGridList.get(Integer.parseInt(key) * 2 + 1).setImgId(imageids.get(i).getImageid());
+					checkGridList.get(Integer.parseInt(key) * 2 + 1).setImgId(
+							imageids.get(i).getImageid());
 				}
 			}
 			adapter.setList(checkGridList);
@@ -170,15 +166,15 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 		check_pic_edit.setOnClickListener(this);
 		btn_confirm.setOnClickListener(this);
 	}
-	
-	public void changeEditStatus(){
-		if(currentState == FINISH_STATUS){
+
+	public void changeEditStatus() {
+		if (currentState == FINISH_STATUS) {
 			check_pic_edit.setText("编辑");
 			currentState = EDIT_STATUS;
 			adapter.setCanDelete(false);
 			btn_confirm.setEnabled(true);
 			adapter.notifyDataSetInvalidated();
-		}else{
+		} else {
 			btn_confirm.setEnabled(false);
 			check_pic_edit.setText("完成");
 			currentState = FINISH_STATUS;
@@ -217,20 +213,18 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 		LogTool.d(TAG, "key:" + key);
 		showPopWindow(checkLayout);
 	}
-	
 
 	@Override
 	public void delete(int position) {
-		// TODO Auto-generated method stub
 		LogTool.d(TAG, "position:" + position);
 		key = position + "";
 		LogTool.d(TAG, "key:" + key);
-		LoadClientHelper.delete_Image(this, new DeletePicRequest(this, processInfoId, sectionInfoName, key), this);
+		LoadClientHelper.delete_Image(this, new DeletePicRequest(this,
+				processInfoId, sectionInfoName, key), this);
 	}
-	
+
 	@Override
 	public void loadSuccess() {
-		// TODO Auto-generated method stub
 		super.loadSuccess();
 		initList();
 		changeEditStatus();
@@ -310,8 +304,10 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 					String imgPath = PhotoUtils.savaPicture(bitmap);
 					LogTool.d(TAG, "imgPath=============" + imgPath);
 					if (!TextUtils.isEmpty(imgPath)) {
-				/*		uploadManager.uploadCheckImage(imgPath, processInfoId,
-								sectionInfoName, key, this);*/
+						/*
+						 * uploadManager.uploadCheckImage(imgPath,
+						 * processInfoId, sectionInfoName, key, this);
+						 */
 						LoadClientHelper.upload_Image(this,
 								new UploadPicRequest(this, imgPath),
 								new LoadDataListener() {
@@ -324,9 +320,10 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 
 									@Override
 									public void loadSuccess() {
-										// TODO Auto-generated method stub
-									/*	String itemName = 
-												adapter.getCurrentItem();*/
+										/*
+										 * String itemName =
+										 * adapter.getCurrentItem();
+										 */
 										AddPicToCheckRequest addPicToCheckRequest = new AddPicToCheckRequest(
 												CheckActivity.this,
 												processInfoId,
@@ -334,7 +331,9 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 												key,
 												dataManager
 														.getCurrentUploadImageId());
-										LoadClientHelper.submitCheckedImg(CheckActivity.this, addPicToCheckRequest, 
+										LoadClientHelper.submitCheckedImg(
+												CheckActivity.this,
+												addPicToCheckRequest,
 												new LoadDataListener() {
 
 													@Override
@@ -356,8 +355,11 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 														 * != null) {
 														 * initData(); }
 														 */
-														/*sectionItemAdapter
-																.setPosition(currentList);*/
+														/*
+														 * sectionItemAdapter
+														 * .setPosition
+														 * (currentList);
+														 */
 														initList();
 														adapter.notifyDataSetChanged();
 													}
@@ -579,6 +581,5 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 	public int getLayoutId() {
 		return R.layout.activity_check_pic;
 	}
-
 
 }
