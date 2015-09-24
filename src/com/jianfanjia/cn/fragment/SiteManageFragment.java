@@ -914,8 +914,8 @@ public class SiteManageFragment extends BaseFragment implements
 		intent.putExtra("aspectY", 1);
 		intent.putExtra("scale", true);
 		// outputX outputY ÊÇ²Ã¼ôÍ¼Æ¬¿í¸ß
-		intent.putExtra("outputX", TDevice.getScreenWidth());
-		intent.putExtra("outputY", TDevice.getScreenWidth());
+		intent.putExtra("outputX", 300);
+		intent.putExtra("outputY", 300);
 		intent.putExtra("return-data", true);
 		startActivityForResult(intent, Constant.REQUESTCODE_CROP);
 	}
