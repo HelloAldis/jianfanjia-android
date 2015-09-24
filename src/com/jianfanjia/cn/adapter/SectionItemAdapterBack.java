@@ -382,8 +382,6 @@ public class SectionItemAdapterBack extends BaseAdapter {
 						.getString(R.string.site_example_node_check));
 			}
 			int state = sectionInfo.getStatus();
-			Log.i(this.getClass().getName(), "CHECK_VIEW state:" + state + "  "
-					+ sectionInfo.getName());
 			switch (state) {
 			case Constant.FINISH:
 				viewHolderf.finishStatusIcon
