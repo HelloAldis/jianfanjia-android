@@ -36,4 +36,9 @@ public class DateFormatTool {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		return sdf.format(System.currentTimeMillis());
 	}
+
+	public static String longToString(long time) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		return sdf.format(System.currentTimeMillis());
+	}
 }

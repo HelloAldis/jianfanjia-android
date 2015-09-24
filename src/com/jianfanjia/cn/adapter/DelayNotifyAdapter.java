@@ -2,12 +2,11 @@ package com.jianfanjia.cn.adapter;
 
 import java.util.List;
 import android.content.Context;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
-import com.jianfanjia.cn.bean.NotifyMessage;
+import com.jianfanjia.cn.bean.NotifyDelayInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.tools.DateFormatTool;
 
@@ -17,16 +16,16 @@ import com.jianfanjia.cn.tools.DateFormatTool;
  * @date 2015-8-26 15:57
  * @param <NotifyCaiGouInfo>
  */
-public class DelayNotifyAdapter extends BaseListAdapter<NotifyMessage> {
+public class DelayNotifyAdapter extends BaseListAdapter<NotifyDelayInfo> {
 
-	public DelayNotifyAdapter(Context context, List<NotifyMessage> delayList) {
+	public DelayNotifyAdapter(Context context, List<NotifyDelayInfo> delayList) {
 		super(context, delayList);
 	}
 
 	@Override
 	public View initView(int position, View convertView) {
 		ViewHolder viewHolder = null;
-		NotifyMessage message = list.get(position);
+		NotifyDelayInfo info = list.get(position);
 		if (convertView == null) {
 			convertView = layoutInflater.inflate(R.layout.list_item_tip_delay,
 					null);
@@ -45,20 +44,32 @@ public class DelayNotifyAdapter extends BaseListAdapter<NotifyMessage> {
 		} else {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
-		// viewHolder.itemNameView.setText(caiGouInfo.getTitle());
-		String status = message.getStatus();
-		if (!TextUtils.isEmpty(status)) {
-			if (status.equals(Constant.CHECK_AGREE)) {
-				viewHolder.itemAgressView.setText("已同意");
-			} else {
-				viewHolder.itemAgressView.setText("已拒绝");
-			}
+		String requestRole = info.getRequest_role();
+		if (requestRole.equals(Constant.IDENTITY_OWNER)) {
+			viewHolder.itemNameView.setText("您已申请延期验收至");
+		} else if (requestRole.equals(Constant.IDENTITY_DESIGNER)) {
+			viewHolder.itemNameView.setText("您的设计师已申请延期验收至");
 		}
-		viewHolder.itemContentView.setText(message.getContent());
+		String status = info.getStatus();
+		if (status.equals(Constant.NO_START)) {
+			viewHolder.itemAgressView.setText("未开工");
+		} else if (status.equals(Constant.DOING)) {
+			viewHolder.itemAgressView.setText("进行中");
+		} else if (status.equals(Constant.FINISHED)) {
+			viewHolder.itemAgressView.setText("已完成");
+		} else if (status.equals(Constant.YANQI_BE_DOING)) {
+			viewHolder.itemAgressView.setText("改期申请中");
+		} else if (status.equals(Constant.YANQI_AGREE)) {
+			viewHolder.itemAgressView.setText("改期同意");
+		} else if (status.equals(Constant.YANQI_REFUSE)) {
+			viewHolder.itemAgressView.setText("改期拒绝");
+		}
+		viewHolder.itemContentView.setText(DateFormatTool.longToString(info
+				.getNew_date()));
 		viewHolder.itemNodeView.setText(MyApplication.getInstance()
-				.getStringById(message.getSection()) + "阶段");
+				.getStringById(info.getSection()) + "阶段");
 		viewHolder.itemPubTimeView.setText(DateFormatTool
-				.toLocalTimeString(message.getTime()));
+				.toLocalTimeString(info.getRequest_date()));
 		return convertView;
 	}
 
