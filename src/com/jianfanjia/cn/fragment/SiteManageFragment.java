@@ -528,8 +528,9 @@ public class SiteManageFragment extends BaseFragment implements
 		case Constant.CHECK_ITEM:
 			Bundle checkBundle = new Bundle();
 			checkBundle.putInt(Constant.CURRENT_LIST, currentList);
-			checkBundle.putString(Constant.PROCESS_NAME,sectionInfo.getName());
-			checkBundle.putInt(Constant.PROCESS_STATUS, sectionInfo.getStatus());
+			checkBundle.putString(Constant.PROCESS_NAME, sectionInfo.getName());
+			checkBundle
+					.putInt(Constant.PROCESS_STATUS, sectionInfo.getStatus());
 			startActivity(CheckActivity.class, checkBundle);
 			break;
 		default:
@@ -792,8 +793,10 @@ public class SiteManageFragment extends BaseFragment implements
 
 													@Override
 													public void loadSuccess() {
-														
-														if (mTmpFile != null && mTmpFile.exists()) {
+
+														if (mTmpFile != null
+																&& mTmpFile
+																		.exists()) {
 															mTmpFile.delete();
 														}
 														// TODO Auto-generated
@@ -814,8 +817,10 @@ public class SiteManageFragment extends BaseFragment implements
 													public void loadFailture() {
 														// TODO Auto-generated
 														// method stub
-														
-														if (mTmpFile != null && mTmpFile.exists()) {
+
+														if (mTmpFile != null
+																&& mTmpFile
+																		.exists()) {
 															mTmpFile.delete();
 														}
 													}

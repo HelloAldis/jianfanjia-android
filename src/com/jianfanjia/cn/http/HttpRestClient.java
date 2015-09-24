@@ -65,6 +65,22 @@ public class HttpRestClient {
 		client.post(context, url, params, responseHandler);
 	}
 
+	// -------------------------------delete----------------------------
+	public static void delete(String url,
+			AsyncHttpResponseHandler responseHandler) {
+		client.delete(url, responseHandler);
+	}
+
+	public static void delete(String url, RequestParams params,
+			AsyncHttpResponseHandler responseHandler) {
+		client.delete(url, params, responseHandler);
+	}
+
+	public static void delete(Context context, String url, HttpEntity entity,
+			String contentType, AsyncHttpResponseHandler responseHandler) {
+		client.delete(context, url, entity, contentType, responseHandler);
+	}
+
 	public static void put(Context context, String url, HttpEntity entity,
 			String contentType, AsyncHttpResponseHandler responseHandler) {
 		client.put(context, url, entity, contentType, responseHandler);
@@ -78,12 +94,12 @@ public class HttpRestClient {
 	public static void setCookie(String cookie) {
 		client.addHeader("Cookie", cookie);
 	}
-	
-	public static void cancelRequest(Context context,boolean isCancelRunning){
+
+	public static void cancelRequest(Context context, boolean isCancelRunning) {
 		client.cancelRequests(context, isCancelRunning);
 	}
-	
-	public static void cancelAllRequest(boolean isCancelRunning){
+
+	public static void cancelAllRequest(boolean isCancelRunning) {
 		client.cancelAllRequests(isCancelRunning);
 	}
 

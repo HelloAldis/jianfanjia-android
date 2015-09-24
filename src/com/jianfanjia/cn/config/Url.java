@@ -103,4 +103,7 @@ public class Url {
 	// 业主确认对比验收完成
 	public static final String CONFIRM_CHECK_DONE_BY_OWNER = HTTPROOT
 			+ "process/done_section";
+	// 设计师删除验收图片
+	public static final String DELETE_YANSHOU_IMG_BY_DESIGNER = HTTPROOT
+			+ "process/ysimage";
 }
