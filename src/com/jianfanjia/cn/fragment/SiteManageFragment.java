@@ -769,6 +769,7 @@ public class SiteManageFragment extends BaseFragment implements
 
 									@Override
 									public void loadSuccess() {
+										// TODO Auto-generated method stub
 										String itemName = sectionItemAdapter
 												.getCurrentItem();
 										AddPicToSectionItemRequest addSectionItemRequest = new AddPicToSectionItemRequest(
@@ -807,7 +808,8 @@ public class SiteManageFragment extends BaseFragment implements
 														 * != null) {
 														 * initData(); }
 														 */
-														loadCurrentProcess();
+														sectionItemAdapter
+																.setPosition(currentList);
 													}
 
 													@Override
@@ -914,8 +916,8 @@ public class SiteManageFragment extends BaseFragment implements
 		intent.putExtra("aspectY", 1);
 		intent.putExtra("scale", true);
 		// outputX outputY ÊÇ²Ã¼ôÍ¼Æ¬¿í¸ß
-		intent.putExtra("outputX", 300);
-		intent.putExtra("outputY", 300);
+		intent.putExtra("outputX", TDevice.getScreenWidth());
+		intent.putExtra("outputY", TDevice.getScreenWidth());
 		intent.putExtra("return-data", true);
 		startActivityForResult(intent, Constant.REQUESTCODE_CROP);
 	}
