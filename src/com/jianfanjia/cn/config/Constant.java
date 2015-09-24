@@ -149,4 +149,9 @@ public class Constant {
 	public static final String INTENT_ACTION_USERINFO_CHANGE = "INTENT_ACTION_USERINFO_CHANGE";// 用户修改个人信息
 	public static final String INTENT_ACTION_USER_IMAGE_CHANGE = "INTENT_ACTION_USER_IMAGE_CHANGE";// 用户修改头像
 
+	public static final String SHUI_DIAN = "shui_dian";
+	public static final String NI_MU = "ni_mu";
+	public static final String YOU_QI = "you_qi";
+	public static final String AN_ZHUANG = "an_zhuang";
+	public static final String JUN_GONG = "jun_gong";
 }
