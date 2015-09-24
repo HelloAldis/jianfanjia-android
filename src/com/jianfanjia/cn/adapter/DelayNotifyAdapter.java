@@ -46,9 +46,9 @@ public class DelayNotifyAdapter extends BaseListAdapter<NotifyDelayInfo> {
 		}
 		String requestRole = info.getRequest_role();
 		if (requestRole.equals(Constant.IDENTITY_OWNER)) {
-			viewHolder.itemNameView.setText("您已申请延期验收至");
+			viewHolder.itemNameView.setText("您已申请改期验收至");
 		} else if (requestRole.equals(Constant.IDENTITY_DESIGNER)) {
-			viewHolder.itemNameView.setText("您的设计师已申请延期验收至");
+			viewHolder.itemNameView.setText("您的设计师已申请改期验收至");
 		}
 		String status = info.getStatus();
 		if (status.equals(Constant.NO_START)) {
