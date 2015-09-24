@@ -219,6 +219,9 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 			}
 		}
 		
+		if (processInfoStatus == Constant.FINISH) {
+			btn_confirm.setEnabled(false);
+		}
 	}
 
 	@Override
