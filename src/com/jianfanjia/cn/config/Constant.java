@@ -119,7 +119,7 @@ public class Constant {
 
 	public static final String HOME_ADD_PIC = "drawable://"
 			+ R.drawable.btn_icon_home_add;
-	
+
 	public static final String HOME_DEFAULT_PIC = "drawable://"
 			+ R.drawable.btn_default_bg;
 
