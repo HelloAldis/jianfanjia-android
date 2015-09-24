@@ -65,8 +65,8 @@ public class CommonDialog extends Dialog {
 	protected void init(final Context context) {
 		setCancelable(false);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		content = LayoutInflater.from(context).inflate(
-				R.layout.common_dialog, null);
+		content = LayoutInflater.from(context).inflate(R.layout.common_dialog,
+				null);
 		headerVw = (TextView) content.findViewById(R.id.common_title);
 		container = (FrameLayout) content.findViewById(R.id.content_container);
 		titleDivider = content.findViewById(R.id.title_bar_divider);
@@ -99,8 +99,7 @@ public class CommonDialog extends Dialog {
 		container.removeAllViews();
 		container.setPadding(padding, padding, padding, padding);
 		FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
-				LayoutParams.MATCH_PARENT,
-				LayoutParams.WRAP_CONTENT);
+				LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 		container.addView(view, lp);
 	}
 
@@ -134,16 +133,14 @@ public class CommonDialog extends Dialog {
 			DialogInterface.OnClickListener listener) {
 		setNegativeButton(getContext().getString(negative), listener);
 	}
-	
+
 	public void setMessage(String message) {
 		ScrollView scrollView = new ScrollView(getContext());
 		scrollView.setLayoutParams(new FrameLayout.LayoutParams(
-				LayoutParams.MATCH_PARENT,
-				LayoutParams.WRAP_CONTENT));
+				LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
 		TextView tvMessage = new TextView(getContext());
 		tvMessage.setLayoutParams(new FrameLayout.LayoutParams(
-				LayoutParams.MATCH_PARENT,
-				LayoutParams.WRAP_CONTENT));
+				LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
 		tvMessage.setPadding(contentPadding, contentPadding, contentPadding,
 				contentPadding);
 		tvMessage.setLineSpacing(0.0F, 1.3F);
@@ -153,8 +150,7 @@ public class CommonDialog extends Dialog {
 				R.color.back_color));
 
 		ScrollView.LayoutParams lp = new ScrollView.LayoutParams(
-				LayoutParams.MATCH_PARENT,
-				LayoutParams.WRAP_CONTENT);
+				LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 		scrollView.addView(tvMessage, lp);
 		setContent(scrollView, 0);
 	}

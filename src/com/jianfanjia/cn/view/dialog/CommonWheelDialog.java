@@ -21,14 +21,12 @@ public class CommonWheelDialog extends CommonDialog {
 		super(context, flag, listener);
 		inflater = LayoutInflater.from(context);
 		initView();
-		// TODO Auto-generated constructor stub
 	}
 
 	public CommonWheelDialog(Context context, int defStyle) {
 		super(context, defStyle);
 		inflater = LayoutInflater.from(context);
 		initView();
-		// TODO Auto-generated constructor stub
 	}
 
 	public CommonWheelDialog(Context context) {

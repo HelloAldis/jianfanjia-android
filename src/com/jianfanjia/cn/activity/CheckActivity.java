@@ -84,11 +84,11 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 			currentList = bundle.getInt(Constant.CURRENT_LIST, 0);
 			sectionInfoName = bundle.getString(Constant.PROCESS_NAME);
 			processInfoStatus = bundle.getInt(Constant.PROCESS_STATUS, 0);
+			LogTool.d(TAG, "processInfoId:" + processInfoId
+					+ " sectionInfoName:" + sectionInfoName
+					+ " processInfoStatus:" + processInfoStatus);
+			initData();
 		}
-		LogTool.d(TAG, "currentList:" + currentList + " processInfoId:"
-				+ processInfoId + " sectionInfoName:" + sectionInfoName
-				+ " processInfoStatus:" + processInfoStatus);
-		initData();
 	}
 
 	@Override

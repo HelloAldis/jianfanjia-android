@@ -17,13 +17,15 @@ package com.jianfanjia.cn.view.wheel;
 
 /**
  * The simple Array wheel adapter
- * @param <T> the element type
+ * 
+ * @param <T>
+ *            the element type
  */
 public class ArrayWheelAdapter<T> implements WheelAdapter {
-	
+
 	/** The default items length */
 	public static final int DEFAULT_LENGTH = -1;
-	
+
 	// items
 	private T items[];
 	// length
@@ -31,17 +33,22 @@ public class ArrayWheelAdapter<T> implements WheelAdapter {
 
 	/**
 	 * Constructor
-	 * @param items the items
-	 * @param length the max items length
+	 * 
+	 * @param items
+	 *            the items
+	 * @param length
+	 *            the max items length
 	 */
 	public ArrayWheelAdapter(T items[], int length) {
 		this.items = items;
 		this.length = length;
 	}
-	
+
 	/**
 	 * Contructor
-	 * @param items the items
+	 * 
+	 * @param items
+	 *            the items
 	 */
 	public ArrayWheelAdapter(T items[]) {
 		this(items, DEFAULT_LENGTH);
@@ -65,24 +72,26 @@ public class ArrayWheelAdapter<T> implements WheelAdapter {
 		return length;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.yichenliu.WheelView.WheelAdapter#getFirstItem()
 	 */
 	@Override
 	public Object getFirstItem() {
-		
+
 		return items[0];
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.yichenliu.WheelView.WheelAdapter#getLastItem()
 	 */
 	@Override
 	public Object getLastItem() {
-		
+
 		return items[items.length];
 	}
-
-    
 
 }
