@@ -123,7 +123,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 		check_pic_title.setText(MyApplication.getInstance().getStringById(
 				sectionInfoName)
 				+ "½×¶ÎÑéÊÕ");
-		
+
 		switch (processInfoStatus) {
 		case Constant.NOT_START:
 			break;
@@ -171,12 +171,13 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 			if (userIdentity.equals(Constant.IDENTITY_OWNER)) {
 				btn_confirm.setText(this.getResources().getString(
 						R.string.confirm_done));
-				if(count < BusinessManager.getCheckPicCountBySection(sectionInfoName)){
+				if (count < BusinessManager
+						.getCheckPicCountBySection(sectionInfoName)) {
 					btn_confirm.setEnabled(false);
-				}else{
+				} else {
 					btn_confirm.setEnabled(true);
 					btn_confirm.setOnClickListener(new OnClickListener() {
-						
+
 						@Override
 						public void onClick(View v) {
 							// TODO Auto-generated method stub
@@ -187,21 +188,22 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 			} else if (userIdentity.equals(Constant.IDENTITY_DESIGNER)) {
 				btn_confirm.setText(this.getResources().getString(
 						R.string.confirm_upload));
-				if(count < BusinessManager.getCheckPicCountBySection(sectionInfoName)){
+				if (count < BusinessManager
+						.getCheckPicCountBySection(sectionInfoName)) {
 					btn_confirm.setText(this.getResources().getString(
-						R.string.confirm_upload));
+							R.string.confirm_upload));
 					btn_confirm.setOnClickListener(new OnClickListener() {
-						
+
 						@Override
 						public void onClick(View v) {
 							finish();
 						}
 					});
-				}else{
+				} else {
 					btn_confirm.setText(this.getResources().getString(
 							R.string.confirm_tip));
 					btn_confirm.setOnClickListener(new OnClickListener() {
-						
+
 						@Override
 						public void onClick(View v) {
 							onClickCheckConfirm();
@@ -210,7 +212,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 				}
 			}
 		}
-		if(processInfoStatus == Constant.FINISH){
+		if (processInfoStatus == Constant.FINISH) {
 			btn_confirm.setEnabled(false);
 		}
 	}
