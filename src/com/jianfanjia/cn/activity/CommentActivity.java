@@ -3,9 +3,6 @@ package com.jianfanjia.cn.activity;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import org.apache.http.Header;
-import org.json.JSONException;
-import org.json.JSONObject;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -25,12 +22,10 @@ import com.jianfanjia.cn.bean.CommitCommentInfo;
 import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.http.LoadClientHelper;
 import com.jianfanjia.cn.http.request.CommitCommentRequest;
 import com.jianfanjia.cn.interf.LoadDataListener;
 import com.jianfanjia.cn.tools.LogTool;
-import com.loopj.android.http.JsonHttpResponseHandler;
 
 /**
  * @class CommentActivity
@@ -129,14 +124,14 @@ public class CommentActivity extends BaseActivity implements OnClickListener,
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.comment_back:
-//			startActivity(MainActivity.class);
+			// startActivity(MainActivity.class);
 			finish();
 			break;
 		case R.id.btn_send:
 			content = etAddCommentView.getEditableText().toString();
 			if (!TextUtils.isEmpty(content)) {
 				commitComment();
-				etAddCommentView.setText("");//清楚输入框内容
+				etAddCommentView.setText("");// 清楚输入框内容
 			}
 			break;
 		default:
@@ -154,7 +149,7 @@ public class CommentActivity extends BaseActivity implements OnClickListener,
 				commitCommentInfo), this);
 
 	}
-	
+
 	private void refreshData() {
 		/*
 		 * if (dataManager.getDefaultProcessId() == null) {
