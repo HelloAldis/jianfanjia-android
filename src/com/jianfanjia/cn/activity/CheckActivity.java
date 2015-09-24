@@ -8,6 +8,8 @@ import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import u.aly.ad;
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.TypedArray;
@@ -55,6 +57,9 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 public class CheckActivity extends BaseActivity implements OnClickListener,
 		UploadListener, UploadImageListener {
 	private static final String TAG = CheckActivity.class.getName();
+	public static final int EDIT_STATUS = 0;
+	public static final int FINISH_STATUS = 1;
+	
 	private RelativeLayout checkLayout = null;
 	private TextView backView = null;// 返回视图
 	private TextView check_pic_title = null;
@@ -70,6 +75,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 	private String key = null;
 	private File mTmpFile = null;
 	private ProcessInfo processInfo;
+	private int currentState;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +113,9 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 			} else if (userIdentity.equals(Constant.IDENTITY_DESIGNER)) {
 				btn_confirm.setText(this.getResources().getString(
 						R.string.confirm_upload));
+				check_pic_edit.setVisibility(View.VISIBLE);
+				check_pic_edit.setText("编辑");
+				currentState = EDIT_STATUS;
 			}
 		}
 		gridView.setFocusable(false);
@@ -133,9 +142,9 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 			break;
 		}
 		checkGridList = getCheckedImageById(sectionInfoName);
-		initList();
 		adapter = new MyGridViewAdapter(CheckActivity.this, checkGridList, this);
 		gridView.setAdapter(adapter);
+		initList();
 	}
 
 	private void initList() {
@@ -147,6 +156,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 				String key = imageids.get(i).getKey();
 				checkGridList.get(Integer.parseInt(key) * 2 + 1).setImgId(imageids.get(i).getImageid());
 			}
+			adapter.setList(checkGridList);
 		}
 	}
 
@@ -164,6 +174,19 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 			finish();
 			break;
 		case R.id.check_pic_edit:
+			if(currentState == FINISH_STATUS){
+				check_pic_edit.setText("编辑");
+				currentState = EDIT_STATUS;
+				adapter.setCanDelete(false);
+				btn_confirm.setEnabled(true);
+				adapter.notifyDataSetInvalidated();
+			}else{
+				btn_confirm.setEnabled(false);
+				check_pic_edit.setText("完成");
+				currentState = FINISH_STATUS;
+				adapter.setCanDelete(true);
+				adapter.notifyDataSetInvalidated();
+			}
 			break;
 		case R.id.btn_confirm:
 			if (!TextUtils.isEmpty(userIdentity)) {
@@ -185,6 +208,14 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 		key = position + "";
 		LogTool.d(TAG, "key:" + key);
 		showPopWindow(checkLayout);
+	}
+	
+
+	@Override
+	public void delete(int position) {
+		// TODO Auto-generated method stub
+		LogTool.d(TAG, "position:" + position);
+		LogTool.d(TAG, "key:" + key);
 	}
 
 	@Override
@@ -530,5 +561,6 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 	public int getLayoutId() {
 		return R.layout.activity_check_pic;
 	}
+
 
 }

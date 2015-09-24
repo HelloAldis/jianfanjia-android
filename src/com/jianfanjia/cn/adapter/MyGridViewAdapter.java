@@ -14,6 +14,7 @@ import com.jianfanjia.cn.interf.UploadListener;
 
 public class MyGridViewAdapter extends BaseListAdapter<GridItem> {
 	private UploadListener listener;
+	private boolean isCanDelete;
 
 	public MyGridViewAdapter(Context context, List<GridItem> list) {
 		super(context, list);
@@ -23,6 +24,15 @@ public class MyGridViewAdapter extends BaseListAdapter<GridItem> {
 			UploadListener listener) {
 		super(context, list);
 		this.listener = listener;
+		isCanDelete = false;
+	}
+
+	public boolean isCanDelete() {
+		return isCanDelete;
+	}
+
+	public void setCanDelete(boolean isCanDelete) {
+		this.isCanDelete = isCanDelete;
 	}
 
 	@Override
@@ -33,37 +43,69 @@ public class MyGridViewAdapter extends BaseListAdapter<GridItem> {
 			convertView = layoutInflater.inflate(R.layout.my_grid_item, null);
 			holder = new ViewHolder();
 			holder.img = (ImageView) convertView.findViewById(R.id.img);
+			holder.delete = (ImageView) convertView.findViewById(R.id.delete);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		String imgId = item.getImgId();
 		if (position % 2 != 0) {
-			if (imgId.equals(Constant.HOME_ADD_PIC)) {
-				imageLoader.displayImage(imgId, holder.img, options);
-			} else {
-				imageLoader.displayImage(Url.GET_IMAGE + imgId, holder.img,
-						options);
+			if (dataManager.getUserType().equals(Constant.IDENTITY_DESIGNER)) {
+				if (imgId.equals(Constant.HOME_ADD_PIC)) {
+					imageLoader.displayImage(imgId, holder.img, options);
+					if(!isCanDelete()){
+						holder.img.setOnClickListener(new OnClickListener() {
+
+							@Override
+							public void onClick(View v) {
+								if (position % 2 != 0) {
+									listener.onUpload(position / 2);
+								}
+							}
+
+						});
+					}else{
+						holder.img.setOnClickListener(null);
+					}
+				} else {
+					holder.delete.setOnClickListener(new OnClickListener() {
+						
+						@Override
+						public void onClick(View v) {
+							// TODO Auto-generated method stub
+							if (position % 2 != 0) {
+								listener.delete(position / 2);
+							}
+						}
+					});
+					imageLoader.displayImage(Url.GET_IMAGE + imgId, holder.img,
+							options);
+					if(isCanDelete()){
+						holder.delete.setVisibility(View.VISIBLE);
+					}else{
+						holder.delete.setVisibility(View.GONE);
+					}
+				}
+			} else if (dataManager.getUserType()
+					.equals(Constant.IDENTITY_OWNER)) {
+				if (imgId.equals(Constant.HOME_DEFAULT_PIC)) {
+					imageLoader.displayImage(imgId, holder.img, options);
+				} else {
+					imageLoader.displayImage(Url.GET_IMAGE + imgId, holder.img,
+							options);
+				}
 			}
 		} else {
 			imageLoader.displayImage(imgId, holder.img, options);
 		}
-		holder.img.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				if (position % 2 != 0) {
-					listener.onUpload(position - 1);
-				}
-			}
-
-		});
+		
 
 		return convertView;
 	}
 
 	private static class ViewHolder {
 		public ImageView img = null;
+		public ImageView delete = null;
 		public TextView name_tv = null;
 	}
 

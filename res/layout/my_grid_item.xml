@@ -12,5 +12,15 @@
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
         android:scaleType="centerCrop" />
+    
+    <ImageView
+        android:id="@+id/delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:src="@drawable/icon_delete"
+        android:layout_alignParentRight="true"
+        android:padding="@dimen/space_8"
+        android:visibility="gone" />
 
 </com.jianfanjia.cn.layout.SquareLayout>
