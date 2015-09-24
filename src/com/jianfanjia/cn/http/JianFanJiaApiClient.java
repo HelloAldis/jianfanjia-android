@@ -652,8 +652,9 @@ public class JianFanJiaApiClient {
 	 * @param key
 	 * @param handler
 	 */
-	public static void deleteYanshouImgBydelete(Context context, String siteid,
-			String processid, String key, AsyncHttpResponseHandler handler) {
+	public static void deleteYanshouImgByDesigner(Context context,
+			String siteid, String processid, String key,
+			AsyncHttpResponseHandler handler) {
 		JSONObject jsonParams = new JSONObject();
 		try {
 			jsonParams.put("_id", siteid);
