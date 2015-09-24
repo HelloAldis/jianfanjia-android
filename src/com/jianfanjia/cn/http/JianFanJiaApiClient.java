@@ -643,6 +643,32 @@ public class JianFanJiaApiClient {
 		}
 	}
 
+	/**
+	 * 设计师删除验收图片
+	 * 
+	 * @param context
+	 * @param siteid
+	 * @param processid
+	 * @param key
+	 * @param handler
+	 */
+	public static void deleteYanshouImgBydelete(Context context, String siteid,
+			String processid, String key, AsyncHttpResponseHandler handler) {
+		JSONObject jsonParams = new JSONObject();
+		try {
+			jsonParams.put("_id", siteid);
+			jsonParams.put("section", processid);
+			jsonParams.put("key", key);
+			StringEntity entity = new StringEntity(jsonParams.toString());
+			HttpRestClient.delete(context, Url.DELETE_YANSHOU_IMG_BY_DESIGNER,
+					entity, "application/json", handler);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+	}
+
 	public static void get_TotalDuration(Context context, String planId,
 			AsyncHttpResponseHandler handler) {
 		String getTotalDurationUrl = Url.GET_PLAN.replace(Url.ID, planId);
