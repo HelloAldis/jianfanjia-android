@@ -77,13 +77,27 @@ public class ProcessInfo extends RequirementInfo {
 		if(sections != null){
 			for(SectionInfo sectionInfo : sections){
 				if(sectionInfo.getName().equals(section)){
-					LogTool.d("SectionInfo", section);
 					if(section.equals("kai_gong") && section.equals("chai_gai")){
+						LogTool.d("SectionInfo", section + "--" + key + imageId);
 						sectionInfo.getYs().addImageId(new Imageid(key,imageId));
 					}
 				}
 			}
 		}
+	}
+	
+	public ArrayList<Imageid> getImageidsByName(String section){
+		if(sections != null){
+			for(SectionInfo sectionInfo : sections){
+				if(sectionInfo.getName().equals(section)){
+					LogTool.d("SectionInfo", section);
+					if(!section.equals("kai_gong") && !section.equals("chai_gai")){
+						return sectionInfo.getYs().getImages();
+					}
+				}
+			}
+		}
+		return null;
 	}
 	
 	

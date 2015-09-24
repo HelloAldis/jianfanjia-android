@@ -53,7 +53,7 @@ public class MyGridViewAdapter extends BaseListAdapter<GridItem> {
 			@Override
 			public void onClick(View v) {
 				if (position % 2 != 0) {
-					listener.onUpload(position);
+					listener.onUpload(position - 1);
 				}
 			}
 
