@@ -127,6 +127,12 @@
         <item>@drawable/btn_icon_home_add</item>
         <item>@drawable/shui_dian2</item>
         <item>@drawable/btn_icon_home_add</item>
+        <item>@drawable/shui_dian3</item>
+        <item>@drawable/btn_icon_home_add</item>
+        <item>@drawable/shui_dian4</item>
+        <item>@drawable/btn_icon_home_add</item>
+        <item>@drawable/shui_dian5</item>
+        <item>@drawable/btn_icon_home_add</item>
     </string-array>
     <!-- 泥木阶段验收图片 -->
     <string-array name="ni_mu">
@@ -158,26 +164,12 @@
     <string-array name="an_zhuang">
         <item>@drawable/an_zhuang1</item>
         <item>@drawable/btn_icon_home_add</item>
-        <item>@drawable/an_zhuang2</item>
-        <item>@drawable/btn_icon_home_add</item>
-        <item>@drawable/an_zhuang3</item>
-        <item>@drawable/btn_icon_home_add</item>
-        <item>@drawable/an_zhuang4</item>
-        <item>@drawable/btn_icon_home_add</item>
-        <item>@drawable/an_zhuang5</item>
-        <item>@drawable/btn_icon_home_add</item>
-        <item>@drawable/an_zhuang6</item>
-        <item>@drawable/btn_icon_home_add</item>
-        <item>@drawable/an_zhuang7</item>
-        <item>@drawable/btn_icon_home_add</item>
-        <item>@drawable/an_zhuang8</item>
-        <item>@drawable/btn_icon_home_add</item>
-        <item>@drawable/an_zhuang9</item>
-        <item>@drawable/btn_icon_home_add</item>
-        <item>@drawable/an_zhuang10</item>
-        <item>@drawable/btn_icon_home_add</item>
     </string-array>
 
     <!-- 竣工阶段验收图片 -->
+    <string-array name="jun_gong">
+        <item>@drawable/jun_gong1</item>
+        <item>@drawable/btn_icon_home_add</item>
+    </string-array>
 
 </resources>
