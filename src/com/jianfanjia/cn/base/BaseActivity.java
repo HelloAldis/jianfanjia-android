@@ -243,19 +243,16 @@ public abstract class BaseActivity extends FragmentActivity implements
 
 	@Override
 	public void loadSuccess() {
-		// TODO Auto-generated method stub
 		hideWaitDialog();
 	}
 
 	@Override
 	public void preLoad() {
-		// TODO Auto-generated method stub
 		showWaitDialog();
 	}
 
 	@Override
 	public void loadFailture() {
-		// TODO Auto-generated method stub
 		hideWaitDialog();
 		setErrorView();
 		makeTextLong(getString(R.string.tip_no_internet));
