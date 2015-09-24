@@ -90,6 +90,8 @@ public class NotifyDialog extends Dialog implements
 			dismiss();
 			listener.onNegativeButtonClick();
 			break;
+		default:
+			break;
 		}
 	}
 
