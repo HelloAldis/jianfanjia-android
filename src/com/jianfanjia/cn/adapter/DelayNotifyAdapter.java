@@ -56,7 +56,7 @@ public class DelayNotifyAdapter extends BaseListAdapter<NotifyMessage> {
 		}
 		viewHolder.itemContentView.setText(message.getContent());
 		viewHolder.itemNodeView.setText(MyApplication.getInstance()
-				.getStringById(message.getSection()));
+				.getStringById(message.getSection()) + "½×¶Î");
 		viewHolder.itemPubTimeView.setText(DateFormatTool
 				.toLocalTimeString(message.getTime()));
 		return convertView;

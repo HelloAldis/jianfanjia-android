@@ -2,7 +2,6 @@ package com.jianfanjia.cn.adapter;
 
 import java.util.List;
 import android.content.Context;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
@@ -44,11 +43,8 @@ public class CaiGouNotifyAdapter extends BaseListAdapter<NotifyMessage> {
 		}
 		viewHolder.itemNameView.setText("您即将进入下一轮建材购买阶段,需要购买的是");
 		viewHolder.itemContentView.setText(message.getContent());
-		String stage = message.getSection();
-		if (!TextUtils.isEmpty(stage)) {
-			viewHolder.itemNodeView.setText(MyApplication.getInstance()
-					.getStringById(stage));
-		}
+		viewHolder.itemNodeView.setText(MyApplication.getInstance()
+				.getStringById(message.getSection()) + "阶段");
 		viewHolder.itemPubTimeView.setText(DateFormatTool
 				.toLocalTimeString(message.getTime()));
 		return convertView;

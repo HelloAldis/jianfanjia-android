@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.tools.DateFormatTool;
 
@@ -41,7 +42,8 @@ public class PayNotifyAdapter extends BaseListAdapter<NotifyMessage> {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
 		viewHolder.itemNameView.setText("您即将进入下一轮付款环节,请您及时与设计师联系");
-		viewHolder.itemNodeView.setText(message.getSection());
+		viewHolder.itemNodeView.setText(MyApplication.getInstance()
+				.getStringById(message.getSection()) + "阶段");
 		viewHolder.itemPubTimeView.setText(DateFormatTool
 				.toLocalTimeString(message.getTime()));
 		return convertView;
