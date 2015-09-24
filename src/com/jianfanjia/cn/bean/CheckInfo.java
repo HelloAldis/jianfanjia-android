@@ -39,18 +39,21 @@ public class CheckInfo implements Serializable {
 		}
 	}
 
-	public static class Imageid{
+	public static class Imageid implements Serializable{
 		
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
 		private String key;
-		private String imageId;
+		private String imageid;
 		
-		public Imageid(String key,String imageId){
+		public Imageid(String key,String imageid){
 			this.key = key;
-			this.imageId = imageId;
+			this.imageid = imageid;
 		}
 		
 		public Imageid(){
-			
 		}
 		
 		public String getKey() {
@@ -59,11 +62,13 @@ public class CheckInfo implements Serializable {
 		public void setKey(String key) {
 			this.key = key;
 		}
-		public String getImageId() {
-			return imageId;
+
+		public String getImageid() {
+			return imageid;
 		}
-		public void setImageId(String imageId) {
-			this.imageId = imageId;
+
+		public void setImageid(String imageid) {
+			this.imageid = imageid;
 		}
 		
 		

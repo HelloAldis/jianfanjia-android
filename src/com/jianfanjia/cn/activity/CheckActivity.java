@@ -3,9 +3,11 @@ package com.jianfanjia.cn.activity;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.TypedArray;
@@ -19,13 +21,20 @@ import android.view.View.OnClickListener;
 import android.widget.GridView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import com.jianfanjia.cn.adapter.MyGridViewAdapter;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.GridItem;
 import com.jianfanjia.cn.bean.NotifyMessage;
+import com.jianfanjia.cn.bean.ProcessInfo;
+import com.jianfanjia.cn.bean.CheckInfo.Imageid;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
+import com.jianfanjia.cn.http.LoadClientHelper;
+import com.jianfanjia.cn.http.request.AddPicToCheckRequest;
+import com.jianfanjia.cn.http.request.UploadPicRequest;
+import com.jianfanjia.cn.interf.LoadDataListener;
 import com.jianfanjia.cn.interf.UploadImageListener;
 import com.jianfanjia.cn.interf.UploadListener;
 import com.jianfanjia.cn.tools.FileUtil;
@@ -60,15 +69,19 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 	private int processInfoStatus = -1;// ¹¤Ðò×´Ì¬
 	private String key = null;
 	private File mTmpFile = null;
+	private ProcessInfo processInfo;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		processInfo = dataManager.getDefaultProcessInfo();
+		if(processInfo != null){
+			processInfoId = processInfo.get_id();
+		}
 		Intent intent = getIntent();
 		Bundle bundle = intent.getExtras();
 		if (bundle != null) {
 			currentList = bundle.getInt(Constant.CURRENT_LIST, 0);
-			processInfoId = bundle.getString(Constant.SITE_ID);
 			sectionInfoName = bundle.getString(Constant.PROCESS_NAME);
 			processInfoStatus = bundle.getInt(Constant.PROCESS_STATUS, 0);
 			LogTool.d(TAG, "processInfoId:" + processInfoId
@@ -100,6 +113,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 	}
 
 	private void initData() {
+		
 		check_pic_title.setText(MyApplication.getInstance().getStringById(
 				sectionInfoName)
 				+ "½×¶ÎÑéÊÕ");
@@ -118,9 +132,22 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 		default:
 			break;
 		}
-		List<GridItem> picList = getCheckedImageById(sectionInfoName);
-		adapter = new MyGridViewAdapter(CheckActivity.this, picList, this);
+		checkGridList = getCheckedImageById(sectionInfoName);
+		initList();
+		adapter = new MyGridViewAdapter(CheckActivity.this, checkGridList, this);
 		gridView.setAdapter(adapter);
+	}
+
+	private void initList() {
+		processInfo = dataManager.getDefaultProcessInfo();
+		if(processInfo != null){
+			ArrayList<Imageid> imageids = processInfo.getImageidsByName(sectionInfoName);
+			for(int i = 0;imageids != null && i< imageids.size();i++){
+				LogTool.d(TAG, imageids.get(i).getImageid());
+				String key = imageids.get(i).getKey();
+				checkGridList.get(Integer.parseInt(key) * 2 + 1).setImgId(imageids.get(i).getImageid());
+			}
+		}
 	}
 
 	@Override
@@ -234,8 +261,72 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 					String imgPath = PhotoUtils.savaPicture(bitmap);
 					LogTool.d(TAG, "imgPath=============" + imgPath);
 					if (!TextUtils.isEmpty(imgPath)) {
-						uploadManager.uploadCheckImage(imgPath, processInfoId,
-								sectionInfoName, key, this);
+				/*		uploadManager.uploadCheckImage(imgPath, processInfoId,
+								sectionInfoName, key, this);*/
+						LoadClientHelper.upload_Image(this,
+								new UploadPicRequest(this, imgPath),
+								new LoadDataListener() {
+
+									@Override
+									public void preLoad() {
+										// TODO Auto-generated method stub
+
+									}
+
+									@Override
+									public void loadSuccess() {
+										// TODO Auto-generated method stub
+									/*	String itemName = 
+												adapter.getCurrentItem();*/
+										AddPicToCheckRequest addPicToCheckRequest = new AddPicToCheckRequest(
+												CheckActivity.this,
+												processInfoId,
+												sectionInfoName,
+												key,
+												dataManager
+														.getCurrentUploadImageId());
+										LoadClientHelper.submitCheckedImg(CheckActivity.this, addPicToCheckRequest, 
+												new LoadDataListener() {
+
+													@Override
+													public void preLoad() {
+														// TODO Auto-generated
+														// method stub
+
+													}
+
+													@Override
+													public void loadSuccess() {
+														// TODO Auto-generated
+														// method stub
+														/*
+														 * processInfo =
+														 * dataManager
+														 * .getDefaultProcessInfo
+														 * (); if (processInfo
+														 * != null) {
+														 * initData(); }
+														 */
+														/*sectionItemAdapter
+																.setPosition(currentList);*/
+														initList();
+														adapter.notifyDataSetChanged();
+													}
+
+													@Override
+													public void loadFailture() {
+														// TODO Auto-generated
+														// method stub
+													}
+												});
+									}
+
+									@Override
+									public void loadFailture() {
+										// TODO Auto-generated method stub
+
+									}
+								});
 					}
 				}
 			}
