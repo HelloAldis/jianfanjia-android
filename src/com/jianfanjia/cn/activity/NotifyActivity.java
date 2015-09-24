@@ -102,7 +102,7 @@ public class NotifyActivity extends BaseActivity implements OnClickListener {
 				"采购提醒");
 		SelectItem fukuanItem = new SelectItem(new FuKuanNotifyFragment(),
 				"付款提醒");
-		SelectItem yanqiItem = new SelectItem(new YanQiNotifyFragment(), "延期提醒");
+		SelectItem yanqiItem = new SelectItem(new YanQiNotifyFragment(), "改期提醒");
 		listViews.add(caigouItem);
 		listViews.add(fukuanItem);
 		listViews.add(yanqiItem);
