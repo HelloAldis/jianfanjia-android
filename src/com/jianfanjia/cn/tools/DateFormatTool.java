@@ -39,6 +39,6 @@ public class DateFormatTool {
 
 	public static String longToString(long time) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		return sdf.format(System.currentTimeMillis());
+		return sdf.format(time);
 	}
 }
