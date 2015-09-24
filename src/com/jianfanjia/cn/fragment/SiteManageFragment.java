@@ -512,7 +512,7 @@ public class SiteManageFragment extends BaseFragment implements
 		LogTool.d(TAG, "position:" + position + "itemType:" + itemType);
 		switch (itemType) {
 		case Constant.CONFIRM_ITEM:
-			confirmDialog();
+			confirmFinishDialog();
 			break;
 		case Constant.IMG_ITEM:
 			break;
@@ -619,7 +619,7 @@ public class SiteManageFragment extends BaseFragment implements
 		dateWheelDialog.show();
 	}
 
-	private void confirmDialog() {
+	private void confirmFinishDialog() {
 		CommonDialog dialog = DialogHelper
 				.getPinterestDialogCancelable(getActivity());
 		dialog.setTitle("确认完工");
