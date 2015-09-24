@@ -165,6 +165,8 @@ public class SectionItemAdapterBack extends BaseAdapter {
 				convertView = layoutInflater.inflate(
 						R.layout.site_listview_head, null);
 				viewHolderf = new ViewHolder2();
+				viewHolderf.finishStatusIcon = (ImageView) convertView
+						.findViewById(R.id.site_listview_item_status);
 				viewHolderf.smallcloseLayout = (RelativeLayout) convertView
 						.findViewById(R.id.site_listview_item_content_small);
 				viewHolderf.bigOpenLayout = (RelativeLayout) convertView
@@ -280,7 +282,7 @@ public class SectionItemAdapterBack extends BaseAdapter {
 			if (date != 0l) {
 				viewHolder.openUploadTime.setText(StringUtils
 						.covertLongToString(date));
-			}else{
+			} else {
 				viewHolder.openUploadTime.setText("");
 			}
 
@@ -379,7 +381,19 @@ public class SectionItemAdapterBack extends BaseAdapter {
 				viewHolderf.openCheck.setText(context
 						.getString(R.string.site_example_node_check));
 			}
-
+			int state = sectionInfo.getStatus();
+			Log.i(this.getClass().getName(), "CHECK_VIEW state:" + state + "  "
+					+ sectionInfo.getName());
+			switch (state) {
+			case Constant.FINISH:
+				viewHolderf.finishStatusIcon
+						.setImageResource(R.drawable.icon_home_finish);
+				break;
+			default:
+				viewHolderf.finishStatusIcon
+						.setImageResource(R.drawable.site_listview_item_notstart_circle);
+				break;
+			}
 			viewHolderf.openDelay.setOnClickListener(new OnClickListener() {
 
 				@Override
@@ -456,6 +470,7 @@ public class SectionItemAdapterBack extends BaseAdapter {
 		TextView openCheck;
 		TextView openTip;
 		TextView closeTip;
+		ImageView finishStatusIcon;
 	}
 
 	@Override
