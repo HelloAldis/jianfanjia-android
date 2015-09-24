@@ -41,9 +41,6 @@ public class YanQiNotifyFragment extends BaseFragment implements
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		setUserVisibleHint(true);
-		delayAdapter = new DelayNotifyAdapter(getActivity(), delayList);
-		yanqiListView.setAdapter(delayAdapter);
 	}
 
 	@Override
