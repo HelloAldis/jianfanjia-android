@@ -5,7 +5,6 @@ import java.util.List;
 import android.graphics.Bitmap;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -29,9 +28,8 @@ public class HelpActivity extends BaseActivity {
 	private ViewGroup group = null;
 	private ImageView[] tips;
 	private List<View> bannerList = new ArrayList<View>();
-	private static final int IMG_ID[] = { R.drawable.pic_welcome1,
-			R.drawable.pic_welcome2, R.drawable.pic_welcome3,
-			R.drawable.pic_welcome4 };
+	private static final int IMG_ID[] = { R.drawable.p1, R.drawable.p2,
+			R.drawable.p3, R.drawable.p4 };
 	private Bitmap bitmap = null;
 
 	@Override
