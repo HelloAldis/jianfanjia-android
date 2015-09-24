@@ -26,6 +26,7 @@ import com.jianfanjia.cn.bean.CheckInfo.Imageid;
 import com.jianfanjia.cn.bean.GridItem;
 import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.bean.ProcessInfo;
+import com.jianfanjia.cn.cache.BusinessManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.http.LoadClientHelper;
@@ -122,6 +123,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 		check_pic_title.setText(MyApplication.getInstance().getStringById(
 				sectionInfoName)
 				+ "½×¶ÎÑéÊÕ");
+		
 		switch (processInfoStatus) {
 		case Constant.NOT_START:
 			break;
@@ -149,15 +151,67 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 		if (processInfo != null) {
 			ArrayList<Imageid> imageids = processInfo
 					.getImageidsByName(sectionInfoName);
+			int imagecount = 0;
 			for (int i = 0; imageids != null && i < imageids.size(); i++) {
 				String key = imageids.get(i).getKey();
 				if (imageids.get(i).getImageid() != null) {
 					LogTool.d(TAG, imageids.get(i).getImageid());
 					checkGridList.get(Integer.parseInt(key) * 2 + 1).setImgId(
 							imageids.get(i).getImageid());
+					imagecount++;
 				}
 			}
+			setConfimStatus(imagecount);
 			adapter.setList(checkGridList);
+		}
+	}
+
+	private void setConfimStatus(int count) {
+		if (!TextUtils.isEmpty(userIdentity)) {
+			if (userIdentity.equals(Constant.IDENTITY_OWNER)) {
+				btn_confirm.setText(this.getResources().getString(
+						R.string.confirm_done));
+				if(count < BusinessManager.getCheckPicCountBySection(sectionInfoName)){
+					btn_confirm.setEnabled(false);
+				}else{
+					btn_confirm.setEnabled(true);
+					btn_confirm.setOnClickListener(new OnClickListener() {
+						
+						@Override
+						public void onClick(View v) {
+							// TODO Auto-generated method stub
+							onClickCheckDone();
+						}
+					});
+				}
+			} else if (userIdentity.equals(Constant.IDENTITY_DESIGNER)) {
+				btn_confirm.setText(this.getResources().getString(
+						R.string.confirm_upload));
+				if(count < BusinessManager.getCheckPicCountBySection(sectionInfoName)){
+					btn_confirm.setText(this.getResources().getString(
+						R.string.confirm_upload));
+					btn_confirm.setOnClickListener(new OnClickListener() {
+						
+						@Override
+						public void onClick(View v) {
+							finish();
+						}
+					});
+				}else{
+					btn_confirm.setText(this.getResources().getString(
+							R.string.confirm_tip));
+					btn_confirm.setOnClickListener(new OnClickListener() {
+						
+						@Override
+						public void onClick(View v) {
+							onClickCheckConfirm();
+						}
+					});
+				}
+			}
+		}
+		if(processInfoStatus == Constant.FINISH){
+			btn_confirm.setEnabled(false);
 		}
 	}
 
@@ -165,7 +219,6 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 	public void setListener() {
 		backView.setOnClickListener(this);
 		check_pic_edit.setOnClickListener(this);
-		btn_confirm.setOnClickListener(this);
 	}
 
 	public void changeEditStatus() {
