@@ -2,6 +2,7 @@ package com.jianfanjia.cn.view.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -9,6 +10,7 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.DialogListener;
+import com.jianfanjia.cn.tools.LogTool;
 
 /**
  * 
@@ -20,6 +22,7 @@ import com.jianfanjia.cn.interf.DialogListener;
  */
 public class NotifyDialog extends Dialog implements
 		android.view.View.OnClickListener {
+	private static final String TAG = NotifyDialog.class.getName();
 	private DialogListener listener;
 	private NotifyMessage message;
 
@@ -46,6 +49,8 @@ public class NotifyDialog extends Dialog implements
 		ok.setOnClickListener(this);
 		agree.setOnClickListener(this);
 		refuse.setOnClickListener(this);
+		String status = message.getStatus();
+		LogTool.d(TAG, "status=" + status);
 		String type = message.getType();
 		if (type.equals(Constant.CAIGOU_NOTIFY)) {
 			titleTv.setText(context.getResources().getString(
@@ -60,11 +65,27 @@ public class NotifyDialog extends Dialog implements
 			agree.setVisibility(View.GONE);
 			refuse.setVisibility(View.GONE);
 		} else if (type.equals(Constant.YANQI_NOTIFY)) {
-			titleTv.setText(context.getResources()
-					.getString(R.string.yanqiText));
-			ok.setVisibility(View.GONE);
-			agree.setVisibility(View.VISIBLE);
-			refuse.setVisibility(View.VISIBLE);
+			if (TextUtils.isEmpty(status)) {
+				if (status.equals(Constant.YANQI_BE_DOING)) {
+					titleTv.setText(context.getResources().getString(
+							R.string.yanqiText));
+					ok.setVisibility(View.GONE);
+					agree.setVisibility(View.VISIBLE);
+					refuse.setVisibility(View.VISIBLE);
+				} else if (status.equals(Constant.YANQI_AGREE)) {
+					titleTv.setText(context.getResources().getString(
+							R.string.yanqiText));
+					ok.setVisibility(View.VISIBLE);
+					agree.setVisibility(View.GONE);
+					refuse.setVisibility(View.GONE);
+				} else if (status.equals(Constant.YANQI_REFUSE)) {
+					titleTv.setText(context.getResources().getString(
+							R.string.yanqiText));
+					ok.setVisibility(View.VISIBLE);
+					agree.setVisibility(View.GONE);
+					refuse.setVisibility(View.GONE);
+				}
+			}
 		} else {
 			titleTv.setText(context.getResources().getString(
 					R.string.yanshouText));
