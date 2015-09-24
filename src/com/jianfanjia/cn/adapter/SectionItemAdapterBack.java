@@ -280,6 +280,8 @@ public class SectionItemAdapterBack extends BaseAdapter {
 			if (date != 0l) {
 				viewHolder.openUploadTime.setText(StringUtils
 						.covertLongToString(date));
+			}else{
+				viewHolder.openUploadTime.setText("");
 			}
 
 			if (null != imageUrlList && imageUrlList.size() > 0) {

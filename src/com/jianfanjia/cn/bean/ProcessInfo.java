@@ -2,6 +2,7 @@ package com.jianfanjia.cn.bean;
 
 import java.util.ArrayList;
 
+import com.jianfanjia.cn.bean.CheckInfo.Imageid;
 import com.jianfanjia.cn.tools.LogTool;
 
 /**
@@ -71,5 +72,20 @@ public class ProcessInfo extends RequirementInfo {
 			}
 		}
 	}
+	
+	public void addImageToCheck(String section,String key,String imageId){
+		if(sections != null){
+			for(SectionInfo sectionInfo : sections){
+				if(sectionInfo.getName().equals(section)){
+					LogTool.d("SectionInfo", section);
+					if(section.equals("kai_gong") && section.equals("chai_gai")){
+						sectionInfo.getYs().addImageId(new Imageid(key,imageId));
+					}
+				}
+			}
+		}
+	}
+	
+	
 
 }

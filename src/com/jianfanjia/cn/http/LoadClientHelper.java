@@ -7,6 +7,7 @@ import android.content.Context;
 import com.jianfanjia.cn.base.BaseResponse;
 import com.jianfanjia.cn.bean.LoginUserBean;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.http.request.AddPicToCheckRequest;
 import com.jianfanjia.cn.http.request.AddPicToSectionItemRequest;
 import com.jianfanjia.cn.http.request.CommitCommentRequest;
 import com.jianfanjia.cn.http.request.DesignerInfoRequest;
@@ -24,6 +25,7 @@ import com.jianfanjia.cn.http.request.UserByDesignerInfoUpdateRequest;
 import com.jianfanjia.cn.http.request.UserByOwnerInfoRequest;
 import com.jianfanjia.cn.http.request.UserByOwnerInfoUpdateRequest;
 import com.jianfanjia.cn.interf.LoadDataListener;
+import com.jianfanjia.cn.interf.UploadImageListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -1168,6 +1170,74 @@ public class LoadClientHelper {
 								baseResponse.setErr_msg(response.get(
 										Constant.ERROR_MSG).toString());
 								addPicToSectionItemRequest
+										.onFailure(baseResponse);
+								if (listener != null) {
+									listener.loadFailture();
+								}
+							}
+						} catch (JSONException e) {
+							e.printStackTrace();
+							if (listener != null) {
+								listener.loadFailture();
+							}
+						}
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							Throwable throwable, JSONObject errorResponse) {
+						LogTool.d(TAG, "Throwable throwable:" + throwable);
+						if (listener != null) {
+							listener.loadFailture();
+						}
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							String responseString, Throwable throwable) {
+						LogTool.d(TAG, "statusCode:" + statusCode
+								+ " throwable:" + throwable);
+						if (listener != null) {
+							listener.loadFailture();
+						}
+					};
+				});
+	}
+	
+	public static void submitCheckedImg(final Context context,final AddPicToCheckRequest addPicToCheckRequest, final LoadDataListener listener) {
+		JianFanJiaApiClient.submitYanShouImage(context, addPicToCheckRequest.getProcessId(),
+				addPicToCheckRequest.getSection(),
+				addPicToCheckRequest.getKey(),
+				addPicToCheckRequest.getImageId(),
+				new JsonHttpResponseHandler() {
+					@Override
+					public void onStart() {
+						LogTool.d(TAG, "onStart()");
+						if (listener != null) {
+							listener.preLoad();
+						}
+						addPicToCheckRequest.pre();
+					}
+
+					@Override
+					public void onSuccess(int statusCode, Header[] headers,
+							JSONObject response) {
+						LogTool.d(TAG, "response:" + response.toString());
+						BaseResponse baseResponse = new BaseResponse();
+						try {
+							if (response.has(Constant.SUCCESS_MSG)) {
+								baseResponse.setMsg(response.get(
+										Constant.SUCCESS_MSG).toString());
+								addPicToCheckRequest
+										.onSuccess(baseResponse);
+								if (listener != null) {
+									listener.loadSuccess();
+								}
+							} else if (response.has(Constant.ERROR_MSG)) {
+								// 通知页面刷新
+								baseResponse.setErr_msg(response.get(
+										Constant.ERROR_MSG).toString());
+								addPicToCheckRequest
 										.onFailure(baseResponse);
 								if (listener != null) {
 									listener.loadFailture();

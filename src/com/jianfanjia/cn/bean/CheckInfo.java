@@ -39,10 +39,19 @@ public class CheckInfo implements Serializable {
 		}
 	}
 
-	public class Imageid{
+	public static class Imageid{
 		
 		private String key;
 		private String imageId;
+		
+		public Imageid(String key,String imageId){
+			this.key = key;
+			this.imageId = imageId;
+		}
+		
+		public Imageid(){
+			
+		}
 		
 		public String getKey() {
 			return key;
