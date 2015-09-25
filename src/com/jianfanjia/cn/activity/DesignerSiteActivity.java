@@ -19,6 +19,7 @@ import com.jianfanjia.cn.http.LoadClientHelper;
 import com.jianfanjia.cn.http.request.ProcessListRequest;
 import com.jianfanjia.cn.interf.LoadDataListener;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.tools.NetTool;
 import com.jianfanjia.cn.view.MainHeadView;
 
 /**
@@ -44,8 +45,12 @@ public class DesignerSiteActivity extends BaseActivity implements
 		siteListView = (ListView) findViewById(R.id.designer_site_listview);
 		siteList = dataManager.getProcessLists();
 		if (siteList == null) {
-			LoadClientHelper.requestProcessList(this, new ProcessListRequest(
-					this), this);
+			if(NetTool.isNetworkAvailable(this)){
+				LoadClientHelper.requestProcessList(this, new ProcessListRequest(
+						this), this);
+			}else{
+				siteList = dataManager.getProcessListsByCache();
+			}
 		}
 		designerSiteInfoAdapter = new DesignerSiteInfoAdapter(
 				DesignerSiteActivity.this, siteList);

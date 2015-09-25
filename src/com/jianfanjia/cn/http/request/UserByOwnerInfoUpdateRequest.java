@@ -4,9 +4,7 @@ import android.content.Context;
 
 import com.jianfanjia.cn.base.BaseRequest;
 import com.jianfanjia.cn.base.BaseResponse;
-import com.jianfanjia.cn.bean.DesignerInfo;
 import com.jianfanjia.cn.bean.OwnerUpdateInfo;
-import com.jianfanjia.cn.tools.JsonParser;
 
 public class UserByOwnerInfoUpdateRequest extends BaseRequest{
 	

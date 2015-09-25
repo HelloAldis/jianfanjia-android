@@ -758,10 +758,10 @@ public class ImageUtils {
 	public static String getPicture(Context ctx, Uri uri) {
 		try {
 			ContentResolver resolver = ctx.getContentResolver();
-			String[] proj = { MediaStore.Images.Media.DATA };
+			String[] proj = { MediaColumns.DATA };
 			Cursor cursor = resolver.query(uri, proj, null, null, null);
 			int column_index = cursor
-					.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+					.getColumnIndexOrThrow(MediaColumns.DATA);
 			cursor.moveToFirst();
 			String path = cursor.getString(column_index);
 			return path;

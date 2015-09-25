@@ -1,7 +1,6 @@
 package com.jianfanjia.cn.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -17,8 +16,6 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url;
 import com.jianfanjia.cn.http.LoadClientHelper;
 import com.jianfanjia.cn.http.request.DesignerOwnerInfoRequest;
-import com.jianfanjia.cn.http.request.OwnerInfoRequest;
-import com.jianfanjia.cn.http.request.ProcessInfoRequest;
 import com.jianfanjia.cn.tools.DateFormatTool;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;

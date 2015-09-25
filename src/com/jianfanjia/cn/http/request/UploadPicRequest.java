@@ -1,13 +1,10 @@
 package com.jianfanjia.cn.http.request;
 
-import java.util.Calendar;
-
 import android.content.Context;
 import android.text.TextUtils;
 
 import com.jianfanjia.cn.base.BaseRequest;
 import com.jianfanjia.cn.base.BaseResponse;
-import com.jianfanjia.cn.bean.LoginUserBean;
 
 public class UploadPicRequest extends BaseRequest {
 	

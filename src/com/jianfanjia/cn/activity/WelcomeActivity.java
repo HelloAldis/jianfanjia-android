@@ -7,7 +7,6 @@ import android.view.WindowManager;
 import com.jianfanjia.cn.AppConfig;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.LoadClientHelper;
 import com.jianfanjia.cn.http.request.LoginRequest;
 import com.jianfanjia.cn.interf.LoadDataListener;

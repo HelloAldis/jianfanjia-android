@@ -1,9 +1,7 @@
 package com.jianfanjia.cn.cache;
 
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import android.content.Context;
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.R;
@@ -18,7 +16,6 @@ import com.jianfanjia.cn.bean.SectionInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url;
 import com.jianfanjia.cn.tools.JsonParser;
-import com.jianfanjia.cn.tools.NetTool;
 import com.jianfanjia.cn.tools.SharedPrefer;
 
 public class DataManagerNew {
@@ -31,7 +28,6 @@ public class DataManagerNew {
 	private SharedPrefer sharedPreferdata = null;
 	private SharedPrefer sharedPreferuser = null;
 	private List<Process> processLists;
-	private Map<String, ProcessInfo> processMap = new HashMap<String, ProcessInfo>();
 	private OwnerInfo ownerInfo;// 业主的个人信息
 	private DesignerInfo designerInfo;// 设计师的个人信息
 	private String totalDuration;// 总工期
@@ -125,14 +121,6 @@ public class DataManagerNew {
 	}
 
 	public ProcessInfo getDefaultProcessInfo() {
-		if (currentProcessInfo == null) {
-			String processId = getDefaultProcessId();
-			if (processId != null) {
-				return getProcessInfoById(processId);
-			} else {
-				return null;
-			}
-		}
 		return currentProcessInfo;
 	}
 
@@ -227,15 +215,10 @@ public class DataManagerNew {
 	 * @return
 	 */
 	public ProcessInfo getProcessInfoById(String processId) {
-		ProcessInfo processInfo = processMap.get(processId);
-		if (!NetTool.isNetworkAvailable(context) && processInfo == null) {
-			return (ProcessInfo) sharedPreferdata.getValue(processId);
-		}
-		return processInfo;
+		return (ProcessInfo) sharedPreferdata.getValue(processId);
 	}
 
 	public void saveProcessInfo(ProcessInfo processInfo) {
-		processMap.put(processInfo.get_id(), processInfo);
 		sharedPreferdata.setValue(processInfo.get_id(), processInfo);
 	}
 
@@ -354,7 +337,6 @@ public class DataManagerNew {
 		requirementInfo = null;
 		totalDuration = null;
 		currentProcessInfo = null;
-		processMap.clear();
 		sharedPreferdata.clear();
 	}
 

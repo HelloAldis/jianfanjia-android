@@ -207,7 +207,7 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 					@Override
 					public void loadFailture() {
 						hideWaitDialog();
-						makeTextLong(getString(R.string.tip_no_internet));
+						makeTextLong(getString(R.string.tip_error_internet));
 					}
 				});
 	}

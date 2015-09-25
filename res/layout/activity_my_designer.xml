@@ -123,63 +123,18 @@
                         android:textColor="@color/main_color_grey" />
                 </LinearLayout>
             </LinearLayout>
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+           
+            <Button
+                android:id="@+id/btn_call_designer"
+                style="@style/button_login_style"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="@dimen/space_32"
+                android:layout_marginRight="@dimen/space_32"
                 android:layout_below="@+id/my_designer_middle_layout"
-                android:layout_marginLeft="36dp"
-                android:paddingBottom="48dp" >
+                android:layout_marginTop="48dp"
+                android:gravity="center"
+                android:text="@string/call_designer" />
 
-                <TextView
-                    android:id="@+id/work_city"
-                    style="@style/site_listview_item_text_style_middle"
-                    android:text="@string/work_city"
-                    android:textColor="@color/font_white" />
-
-                <TextView
-                    android:id="@+id/my_designer_city"
-                    style="@style/site_listview_item_text_style_middle"
-                    android:layout_alignBottom="@+id/work_city"
-                    android:layout_marginLeft="4dp"
-                    android:layout_toRightOf="@+id/work_city"
-                    android:text="@string/my_example_name"
-                    android:textColor="@color/font_white" />
-
-                <TextView
-                    android:id="@+id/good_at_style"
-                    style="@style/site_listview_item_text_style_middle"
-                    android:layout_below="@+id/work_city"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/good_at_style"
-                    android:textColor="@color/font_white" />
-
-                <TextView
-                    android:id="@+id/my_designer_style"
-                    style="@style/site_listview_item_text_style_middle"
-                    android:layout_alignBottom="@+id/good_at_style"
-                    android:layout_marginLeft="4dp"
-                    android:layout_toRightOf="@+id/good_at_style"
-                    android:text="@string/my_example_name"
-                    android:textColor="@color/font_white" />
-
-                <TextView
-                    android:id="@+id/designer_budget"
-                    style="@style/site_listview_item_text_style_middle"
-                    android:layout_below="@+id/good_at_style"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/designer_budget"
-                    android:textColor="@color/font_white" />
-
-                <TextView
-                    android:id="@+id/my_designer_budget"
-                    style="@style/site_listview_item_text_style_middle"
-                    android:layout_alignBottom="@+id/designer_budget"
-                    android:layout_marginLeft="4dp"
-                    android:layout_toRightOf="@+id/designer_budget"
-                    android:text="@string/my_example_name"
-                    android:textColor="@color/font_white" />
-            </RelativeLayout>
         </RelativeLayout>
     </RelativeLayout>
 
@@ -189,6 +144,7 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/my_designer_head_layout"
         android:layout_marginTop="@dimen/space_8"
-        layout="@layout/view_error_layout" />
+        layout="@layout/view_error_layout"
+        />
 
 </RelativeLayout>

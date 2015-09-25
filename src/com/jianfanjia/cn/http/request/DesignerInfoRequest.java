@@ -1,13 +1,10 @@
 package com.jianfanjia.cn.http.request;
 
-import java.util.Calendar;
-
 import android.content.Context;
 
 import com.jianfanjia.cn.base.BaseRequest;
 import com.jianfanjia.cn.base.BaseResponse;
 import com.jianfanjia.cn.bean.DesignerInfo;
-import com.jianfanjia.cn.bean.MyDesignerInfo;
 import com.jianfanjia.cn.tools.JsonParser;
 
 public class DesignerInfoRequest extends BaseRequest {

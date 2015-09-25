@@ -1,13 +1,9 @@
 package com.jianfanjia.cn.http.request;
 
-import java.util.Calendar;
-
 import android.content.Context;
 
-import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseRequest;
 import com.jianfanjia.cn.base.BaseResponse;
-import com.jianfanjia.cn.bean.LoginUserBean;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.tools.LogTool;
 

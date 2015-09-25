@@ -106,7 +106,7 @@ public class RegInputPhoneFragment extends BaseFragment {
 			return false;
 		}
 		if (!NetTool.isNetworkAvailable(getActivity())) {
-			makeTextShort(getResources().getString(R.string.tip_no_internet));
+			makeTextShort(getResources().getString(R.string.tip_error_internet));
 			return false;
 		}
 		return true;
@@ -151,14 +151,14 @@ public class RegInputPhoneFragment extends BaseFragment {
 							Throwable throwable, JSONObject errorResponse) {
 						LogTool.d(TAG,
 								"Throwable throwable:" + throwable.toString());
-						makeTextLong(getString(R.string.tip_no_internet));
+						makeTextLong(getString(R.string.tip_error_internet));
 					}
 
 					@Override
 					public void onFailure(int statusCode, Header[] headers,
 							String responseString, Throwable throwable) {
 						LogTool.d(TAG, "throwable:" + throwable);
-						makeTextLong(getString(R.string.tip_no_internet));
+						makeTextLong(getString(R.string.tip_error_internet));
 					};
 				});
 	}
