@@ -99,7 +99,6 @@ public class SiteManageFragment extends BaseFragment implements
 	private ListView detailNodeListView = null;
 	private SectionItemAdapterBack sectionItemAdapter = null;
 	private MyViewPageAdapter myViewPageAdapter = null;
-	private String[] checkSection = null;
 	private String[] proTitle = null;
 	private List<ViewPagerItem> processList = new ArrayList<ViewPagerItem>();
 	private List<String> imageList;
@@ -116,10 +115,6 @@ public class SiteManageFragment extends BaseFragment implements
 			R.drawable.bg_home_banner2, R.drawable.bg_home_banner3,
 			R.drawable.bg_home_banner4 };
 
-	private String processInfoId = null;// ¹¤µØid
-	private String sectionInfoName = null;// ¹¤ÐòÃû³Æ
-	private int processInfoStatus = -1;// ¹¤Ðò×´Ì¬
-	private String processInfoName = null;
 	private File mTmpFile = null;
 
 	private Handler bannerhandler = new Handler() {
@@ -174,7 +169,7 @@ public class SiteManageFragment extends BaseFragment implements
 
 						@Override
 						public void loadFailture() {
-							makeTextLong("ÍøÂçÒì³£");
+							makeTextLong(getString(R.string.tip_no_internet));
 							mPullRefreshScrollView.onRefreshComplete();
 						}
 					});
@@ -196,8 +191,6 @@ public class SiteManageFragment extends BaseFragment implements
 	@Override
 	public void initView(View view) {
 		proTitle = getResources().getStringArray(R.array.site_procedure);
-		checkSection = getResources().getStringArray(
-				R.array.site_procedure_check);
 		mPullRefreshScrollView = (PullToRefreshScrollView) view
 				.findViewById(R.id.pull_refresh_scrollview);
 		mPullRefreshScrollView.setMode(Mode.PULL_FROM_START);
@@ -424,46 +417,24 @@ public class SiteManageFragment extends BaseFragment implements
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-//				if (null != processInfo) {
-//					processInfoId = processInfo.get_id();
-//					LogTool.d(TAG, "processInfoId=" + processInfoId);
-//				}
-//				sectionInfoName = sectionInfo.getName();
-//				processInfoStatus = sectionInfo.getStatus();
-//				LogTool.d(TAG, "sectionInfoName=" + sectionInfoName
-//						+ " processInfoStatus:" + processInfoStatus);
-				List<SectionItemInfo> itemList = sectionInfo.getItems();
-				if (!sectionInfo.getName().equals("kai_gong")
-						&& !sectionInfo.getName().equals("chai_gai")) {
-					if (null != itemList && itemList.size() > 0) {
-						if (position == 0) {
-							processInfoName = itemList.get(position).getName();
-						} else {
-							processInfoName = itemList.get(position - 1)
-									.getName();
-						}
-					}
-				} else {
-					processInfoName = itemList.get(position).getName();
-				}
 				if(sectionItemAdapter.isHasCheck()){
-					boolean isCanClickYanshou = true;
-					for(SectionItemInfo sectionItemInfo : sectionInfo.getItems()){
-						if(Constant.FINISH != Integer.parseInt(sectionItemInfo.getStatus())){
-							isCanClickYanshou = false;
-							break;
-						}
-					}
 					if(position == 0){
+						boolean isCanClickYanshou = true;
+						for(SectionItemInfo sectionItemInfo : sectionInfo.getItems()){
+							if(Constant.FINISH != Integer.parseInt(sectionItemInfo.getStatus())){
+								isCanClickYanshou = false;
+								break;
+							}
+						}
 						if(isCanClickYanshou){
 							sectionItemAdapter.setCurrentOpenItem(position);
 						}
+					}else{
+						sectionItemAdapter.setCurrentOpenItem(position);
 					}
 				}else{
 					sectionItemAdapter.setCurrentOpenItem(position);
 				}
-				LogTool.d(TAG, "position:" + position + "  processInfoName:"
-						+ processInfoName);
 			}
 		});
 
@@ -698,17 +669,16 @@ public class SiteManageFragment extends BaseFragment implements
 					@Override
 					public void onStart() {
 						LogTool.d(TAG, "onStart()");
+						showWaitDialog();
 					}
 
 					@Override
 					public void onSuccess(int statusCode, Header[] headers,
 							JSONObject response) {
-						refreshData();
+						hideWaitDialog();
 						LogTool.d(TAG, "JSONObject response:" + response);
 						try {
 							if (response.has(Constant.SUCCESS_MSG)) {
-								makeTextLong(response.get(Constant.SUCCESS_MSG)
-										.toString());
 								loadCurrentProcess();
 							} else if (response.has(Constant.ERROR_MSG)) {
 								makeTextLong(response.get(Constant.ERROR_MSG)
@@ -716,7 +686,7 @@ public class SiteManageFragment extends BaseFragment implements
 							}
 						} catch (JSONException e) {
 							e.printStackTrace();
-							makeTextLong(getString(R.string.tip_login_error_for_network));
+							makeTextLong(getString(R.string.load_failure));
 						}
 					}
 
@@ -724,6 +694,8 @@ public class SiteManageFragment extends BaseFragment implements
 					public void onFailure(int statusCode, Header[] headers,
 							Throwable throwable, JSONObject errorResponse) {
 						LogTool.d(TAG, "Throwable throwable:" + throwable);
+						makeTextLong(getString(R.string.tip_no_internet));
+						hideWaitDialog();
 					}
 
 					@Override
@@ -731,6 +703,8 @@ public class SiteManageFragment extends BaseFragment implements
 							String responseString, Throwable throwable) {
 						LogTool.d(TAG, "statusCode:" + statusCode
 								+ " throwable:" + throwable);
+						makeTextLong(getString(R.string.tip_no_internet));
+						hideWaitDialog();
 					};
 				});
 	}
@@ -779,7 +753,7 @@ public class SiteManageFragment extends BaseFragment implements
 									@Override
 									public void preLoad() {
 										// TODO Auto-generated method stub
-
+										showWaitDialog();
 									}
 
 									@Override
@@ -803,11 +777,11 @@ public class SiteManageFragment extends BaseFragment implements
 													public void preLoad() {
 														// TODO Auto-generated
 														// method stub
-
 													}
 
 													@Override
 													public void loadSuccess() {
+														hideWaitDialog();
 														if (mTmpFile != null
 																&& mTmpFile
 																		.exists()) {
@@ -815,20 +789,14 @@ public class SiteManageFragment extends BaseFragment implements
 														}
 														// TODO Auto-generated
 														// method stub
-														/*
-														 * processInfo =
-														 * dataManager
-														 * .getDefaultProcessInfo
-														 * (); if (processInfo
-														 * != null) {
-														 * initData(); }
-														 */
-														sectionItemAdapter
-																.setPosition(currentList);
+														/*sectionItemAdapter
+																.setPosition(currentList);*/
+														loadCurrentProcess();
 													}
 
 													@Override
 													public void loadFailture() {
+														hideWaitDialog();
 														if (mTmpFile != null
 																&& mTmpFile
 																		.exists()) {
@@ -841,7 +809,8 @@ public class SiteManageFragment extends BaseFragment implements
 									@Override
 									public void loadFailture() {
 										// TODO Auto-generated method stub
-
+										hideWaitDialog();
+										makeTextLong(getString(R.string.tip_no_internet));
 									}
 								});
 					}
@@ -931,8 +900,8 @@ public class SiteManageFragment extends BaseFragment implements
 		intent.putExtra("aspectY", 1);
 		intent.putExtra("scale", true);
 		// outputX outputY ÊÇ²Ã¼ôÍ¼Æ¬¿í¸ß
-		intent.putExtra("outputX", TDevice.getScreenWidth());
-		intent.putExtra("outputY", TDevice.getScreenWidth());
+		intent.putExtra("outputX", 300);
+		intent.putExtra("outputY", 300);
 		intent.putExtra("return-data", true);
 		startActivityForResult(intent, Constant.REQUESTCODE_CROP);
 	}
