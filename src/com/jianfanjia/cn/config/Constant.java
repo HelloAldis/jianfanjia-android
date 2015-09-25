@@ -86,7 +86,10 @@ public class Constant {
 	public static final String ERROR_MSG = "err_msg";// 获取数据失败的返回信息
 	public static final String SUCCESS_MSG = "msg";// 获取数据成功的返回信息
 
-	public static final int NotificationID = 1;
+	// 提醒消息id
+	public static final int CAIGOU_NOTIFY_ID = 1;
+	public final static int FUKUAN_NOTIFY_ID = 2;
+	public final static int YANQI_NOTIFY_ID = 3;
 
 	// 提醒类型
 	public static final String YANQI_NOTIFY = "0";// 延期提醒
