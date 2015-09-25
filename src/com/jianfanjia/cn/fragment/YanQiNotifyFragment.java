@@ -143,6 +143,102 @@ public class YanQiNotifyFragment extends BaseFragment implements
 				});
 	}
 
+	// 用户同意改期
+	protected void agreeReschedule(String processid) {
+		JianFanJiaApiClient.agreeReschedule(getActivity(), processid,
+				new JsonHttpResponseHandler() {
+					@Override
+					public void onStart() {
+						LogTool.d(this.getClass().getName(), "onStart()");
+					}
+
+					@Override
+					public void onSuccess(int statusCode, Header[] headers,
+							JSONObject response) {
+						LogTool.d(this.getClass().getName(),
+								"JSONObject response:" + response);
+						try {
+							if (response.has(Constant.DATA)) {
+								makeTextLong(response.get(Constant.DATA)
+										.toString());
+							} else if (response.has(Constant.SUCCESS_MSG)) {
+								makeTextLong(response.get(Constant.SUCCESS_MSG)
+										.toString());
+							} else if (response.has(Constant.ERROR_MSG)) {
+								makeTextLong(response.get(Constant.ERROR_MSG)
+										.toString());
+							}
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+							makeTextLong(getString(R.string.tip_login_error_for_network));
+						}
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							Throwable throwable, JSONObject errorResponse) {
+						LogTool.d(this.getClass().getName(),
+								"Throwable throwable:" + throwable.toString());
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							String responseString, Throwable throwable) {
+						LogTool.d(this.getClass().getName(), "throwable:"
+								+ throwable);
+					};
+				});
+	}
+
+	// 用户拒绝改期
+	protected void refuseReschedule(String processid) {
+		JianFanJiaApiClient.refuseReschedule(getActivity(), processid,
+				new JsonHttpResponseHandler() {
+					@Override
+					public void onStart() {
+						LogTool.d(this.getClass().getName(), "onStart()");
+					}
+
+					@Override
+					public void onSuccess(int statusCode, Header[] headers,
+							JSONObject response) {
+						LogTool.d(this.getClass().getName(),
+								"JSONObject response:" + response);
+						try {
+							if (response.has(Constant.DATA)) {
+								makeTextLong(response.get(Constant.DATA)
+										.toString());
+							} else if (response.has(Constant.SUCCESS_MSG)) {
+								makeTextLong(response.get(Constant.SUCCESS_MSG)
+										.toString());
+							} else if (response.has(Constant.ERROR_MSG)) {
+								makeTextLong(response.get(Constant.ERROR_MSG)
+										.toString());
+							}
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+							makeTextLong(getString(R.string.tip_login_error_for_network));
+						}
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							Throwable throwable, JSONObject errorResponse) {
+						LogTool.d(this.getClass().getName(),
+								"Throwable throwable:" + throwable.toString());
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							String responseString, Throwable throwable) {
+						LogTool.d(this.getClass().getName(), "throwable:"
+								+ throwable);
+					};
+				});
+	}
+
 	@Override
 	public int getLayoutId() {
 		return R.layout.fragment_yanqi_notify;
