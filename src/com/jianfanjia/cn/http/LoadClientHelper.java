@@ -21,6 +21,7 @@ import com.jianfanjia.cn.http.request.ProcessInfoRequest;
 import com.jianfanjia.cn.http.request.ProcessListRequest;
 import com.jianfanjia.cn.http.request.TotalDurationRequest;
 import com.jianfanjia.cn.http.request.UploadPicRequest;
+import com.jianfanjia.cn.http.request.UploadPicRequestNew;
 import com.jianfanjia.cn.http.request.UserByDesignerInfoRequest;
 import com.jianfanjia.cn.http.request.UserByDesignerInfoUpdateRequest;
 import com.jianfanjia.cn.http.request.UserByOwnerInfoRequest;
@@ -1063,6 +1064,72 @@ public class LoadClientHelper {
 				});
 	}
 
+	public static void upload_Image(final Context context,
+			final UploadPicRequestNew uploadPicRequest,
+			final LoadDataListener listener) {
+		JianFanJiaApiClient.uploadImage(context,
+				uploadPicRequest.getBitmap(), new JsonHttpResponseHandler() {
+					@Override
+					public void onStart() {
+						LogTool.d(TAG, "onStart()");
+						if (listener != null) {
+							listener.preLoad();
+						}
+						uploadPicRequest.pre();
+					}
+
+					@Override
+					public void onSuccess(int statusCode, Header[] headers,
+							JSONObject response) {
+						LogTool.d(TAG, "response:" + response.toString());
+						BaseResponse baseResponse = new BaseResponse();
+						try {
+							if (response.has(Constant.DATA)
+									&& response.get(Constant.DATA) != null) {
+								baseResponse.setData(response
+										.get(Constant.DATA).toString());
+								uploadPicRequest.onSuccess(baseResponse);
+								if (listener != null) {
+									listener.loadSuccess();
+								}
+							} else if (response.has(Constant.ERROR_MSG)) {
+								// 通知页面刷新
+								baseResponse.setErr_msg(response.get(
+										Constant.ERROR_MSG).toString());
+								uploadPicRequest.onFailure(baseResponse);
+								if (listener != null) {
+									listener.loadFailture();
+								}
+							}
+						} catch (JSONException e) {
+							e.printStackTrace();
+							if (listener != null) {
+								listener.loadFailture();
+							}
+						}
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							Throwable throwable, JSONObject errorResponse) {
+						LogTool.d(TAG, "Throwable throwable:" + throwable);
+						if (listener != null) {
+							listener.loadFailture();
+						}
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							String responseString, Throwable throwable) {
+						LogTool.d(TAG, "statusCode:" + statusCode
+								+ " throwable:" + throwable);
+						if (listener != null) {
+							listener.loadFailture();
+						}
+					};
+				});
+	}
+	
 	public static void upload_Image(final Context context,
 			final UploadPicRequest uploadPicRequest,
 			final LoadDataListener listener) {

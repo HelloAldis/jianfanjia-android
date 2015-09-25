@@ -30,12 +30,16 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.http.LoadClientHelper;
 import com.jianfanjia.cn.http.request.AddPicToCheckRequest;
+import com.jianfanjia.cn.http.request.AddPicToSectionItemRequest;
 import com.jianfanjia.cn.http.request.DeletePicRequest;
 import com.jianfanjia.cn.http.request.UploadPicRequest;
+import com.jianfanjia.cn.http.request.UploadPicRequestNew;
 import com.jianfanjia.cn.interf.LoadDataListener;
 import com.jianfanjia.cn.interf.UploadImageListener;
 import com.jianfanjia.cn.interf.UploadListener;
 import com.jianfanjia.cn.tools.FileUtil;
+import com.jianfanjia.cn.tools.ImageUtil;
+import com.jianfanjia.cn.tools.ImageUtils;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.PhotoUtils;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
@@ -51,7 +55,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
  * 
  */
 public class CheckActivity extends BaseActivity implements OnClickListener,
-		UploadListener, UploadImageListener {
+		UploadListener {
 	private static final String TAG = CheckActivity.class.getName();
 	public static final int EDIT_STATUS = 0;
 	public static final int FINISH_STATUS = 1;
@@ -147,7 +151,12 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 		checkGridList.clear();
 		checkGridList = getCheckedImageById(sectionInfoName);
 		processInfo = dataManager.getDefaultProcessInfo();
+		if(processInfo == null){
+			processInfo = dataManager.getProcessInfoById(processInfoId);
+		}
 		if (processInfo != null) {
+			dataManager.setCurrentProcessInfo(processInfo);
+			LogTool.d(TAG, "processInfo != null");
 			ArrayList<Imageid> imageids = processInfo
 					.getImageidsByName(sectionInfoName);
 			int imagecount = 0;
@@ -316,9 +325,8 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 			if (mTmpFile != null) {
 				Uri uri = Uri.fromFile(mTmpFile);
 				LogTool.d(TAG, "uri:" + uri);
-				if (null != uri) {
-					startPhotoZoom(uri);
-				}
+//					startPhotoZoom(uri);
+					uploadImage(mTmpFile.getPath());
 			}
 			break;
 		case Constant.REQUESTCODE_LOCATION:// 本地选取
@@ -326,100 +334,8 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 				Uri uri = data.getData();
 				LogTool.d(TAG, "uri:" + uri);
 				if (null != uri) {
-					startPhotoZoom(uri);
-				}
-			}
-			break;
-		case Constant.REQUESTCODE_CROP:
-			if (data != null) {
-				Bundle extras = data.getExtras();
-				if (extras != null) {
-					// 得到返回来的数据，是bitmap类型的数据
-					Bitmap bitmap = extras.getParcelable("data");
-					LogTool.d(TAG, "avatar - bitmap = " + bitmap);
-					String imgPath = PhotoUtils.savaPicture(bitmap);
-					LogTool.d(TAG, "imgPath=============" + imgPath);
-					if (!TextUtils.isEmpty(imgPath)) {
-						/*
-						 * uploadManager.uploadCheckImage(imgPath,
-						 * processInfoId, sectionInfoName, key, this);
-						 */
-						LoadClientHelper.upload_Image(this,
-								new UploadPicRequest(this, imgPath),
-								new LoadDataListener() {
-
-									@Override
-									public void preLoad() {
-										// TODO Auto-generated method stub
-										showWaitDialog();
-									}
-
-									@Override
-									public void loadSuccess() {
-										// TODO Auto-generated method stub
-										/*
-										 * String itemName =
-										 * adapter.getCurrentItem();
-										 */
-										AddPicToCheckRequest addPicToCheckRequest = new AddPicToCheckRequest(
-												CheckActivity.this,
-												processInfoId,
-												sectionInfoName,
-												key,
-												dataManager
-														.getCurrentUploadImageId());
-										LoadClientHelper.submitCheckedImg(
-												CheckActivity.this,
-												addPicToCheckRequest,
-												new LoadDataListener() {
-
-													@Override
-													public void preLoad() {
-														// TODO Auto-generated
-														// method stub
-
-													}
-
-													@Override
-													public void loadSuccess() {
-														hideWaitDialog();
-														// TODO Auto-generated
-														// method stub
-														/*
-														 * processInfo =
-														 * dataManager
-														 * .getDefaultProcessInfo
-														 * (); if (processInfo
-														 * != null) {
-														 * initData(); }
-														 */
-														/*
-														 * sectionItemAdapter
-														 * .setPosition
-														 * (currentList);
-														 */
-														initList();
-														adapter.notifyDataSetChanged();
-													}
-
-													@Override
-													public void loadFailture() {
-														// TODO Auto-generated
-														// method stub
-														hideWaitDialog();
-														makeTextLong(getString(R.string.tip_error_internet));
-													}
-												});
-									}
-
-									@Override
-									public void loadFailture() {
-										// TODO Auto-generated method stub
-										hideWaitDialog();
-										makeTextLong(getString(R.string.tip_error_internet));
-									}
-								});
-					}
+//					startPhotoZoom(uri);
+					uploadImage(ImageUtils.getImagePath(uri, this));
 				}
 			}
 			break;
@@ -428,40 +344,62 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 		}
 	}
 
-	@Override
-	public void onSuccess(String msg) {
-		LogTool.d(TAG, "msg===========" + msg);
-		if ("success".equals(msg)) {
-			LogTool.d(TAG, "--------------------------------------------------");
-		}
+	private void uploadImage(String imagePath) {
+		Bitmap imageBitmap = ImageUtil.getImage(imagePath);
+		LoadClientHelper.upload_Image(this, new UploadPicRequestNew(this,
+				imageBitmap), new LoadDataListener() {
 
+			@Override
+			public void preLoad() {
+				// TODO Auto-generated method stub
+				showWaitDialog();
+			}
+
+			@Override
+			public void loadSuccess() {
+				// TODO Auto-generated method stub
+				AddPicToCheckRequest addPicToCheckRequest = new AddPicToCheckRequest(
+						CheckActivity.this, processInfoId, sectionInfoName,
+						key, dataManager.getCurrentUploadImageId());
+				LoadClientHelper.submitCheckedImg(CheckActivity.this,
+						addPicToCheckRequest, new LoadDataListener() {
+
+							@Override
+							public void preLoad() {
+								// TODO Auto-generated
+								// method stub
+
+							}
+
+							@Override
+							public void loadSuccess() {
+								hideWaitDialog();
+								// TODO Auto-generated
+								// method stub
+
+								initList();
+								adapter.notifyDataSetChanged();
+							}
+
+							@Override
+							public void loadFailture() {
+								// TODO Auto-generated
+								// method stub
+								hideWaitDialog();
+								makeTextLong(getString(R.string.tip_error_internet));
+							}
+						});
+			}
+
+			@Override
+			public void loadFailture() {
+				// TODO Auto-generated method stub
+				hideWaitDialog();
+				makeTextLong(getString(R.string.tip_error_internet));
+			}
+		});
 	}
 
-	@Override
-	public void onFailure() {
-		// TODO Auto-generated method stub
-
-	}
-
-	/**
-	 * 裁剪图片方法实现
-	 * 
-	 * @param uri
-	 */
-	private void startPhotoZoom(Uri uri) {
-		Intent intent = new Intent("com.android.camera.action.CROP");
-		intent.setDataAndType(uri, "image/*");
-		// 下面这个crop=true是设置在开启的Intent中设置显示的VIEW可裁剪
-		intent.putExtra("crop", "true");
-		// aspectX aspectY 是宽高的比例
-		intent.putExtra("aspectX", 1);
-		intent.putExtra("aspectY", 1);
-		// outputX outputY 是裁剪图片宽高
-		intent.putExtra("outputX", 300);
-		intent.putExtra("outputY", 300);
-		intent.putExtra("return-data", true);
-		startActivityForResult(intent, Constant.REQUESTCODE_CROP);
-	}
 
 	private void onClickCheckDone() {
 		CommonDialog dialog = DialogHelper

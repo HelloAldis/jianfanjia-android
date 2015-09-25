@@ -29,11 +29,10 @@ import com.jianfanjia.cn.view.MainHeadView;
  */
 public class OwnerInfoActivity extends BaseActivity implements OnClickListener {
 	private static final String TAG = OwnerInfoActivity.class.getName();
-
-	private RelativeLayout contentLayout;// 内容视图
-	private View errorView;// 错误视图
-	private MainHeadView mainHeadView;// 头视图
-	private ImageView bgView;
+	private RelativeLayout contentLayout = null;// 内容视图
+	private View errorView = null;// 错误视图
+	private MainHeadView mainHeadView = null;// 头视图
+	private ImageView bgView = null;
 	private ImageView ownerHeadView = null;// 用户头像视图
 	private ImageView ownerSexView = null;// 用户性别视图
 	private TextView proStageView = null;// 工地所处阶段视图
@@ -127,7 +126,7 @@ public class OwnerInfoActivity extends BaseActivity implements OnClickListener {
 		mainHeadView = (MainHeadView) findViewById(R.id.owner_detail_head_layout);
 		mainHeadView.setBackListener(this);
 		mainHeadView.setMianTitle(getResources()
-				.getString(R.string.my_designer));
+				.getString(R.string.owner_detail));
 
 	}
 
@@ -156,7 +155,6 @@ public class OwnerInfoActivity extends BaseActivity implements OnClickListener {
 
 	@Override
 	public void loadSuccess() {
-		// TODO Auto-generated method stub
 		super.loadSuccess();
 		processInfo = dataManager.getProcessInfoById(processId);
 		LogTool.d(TAG, "processInfo:" + processInfo);
