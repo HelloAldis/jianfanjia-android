@@ -232,7 +232,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 	public void loadFailture() {
 		hideWaitDialog();
 		setErrorView();
-		makeTextLong(getString(R.string.tip_no_internet));
+		makeTextLong(getString(R.string.tip_error_internet));
 	}
 
 	// 设置错误视图

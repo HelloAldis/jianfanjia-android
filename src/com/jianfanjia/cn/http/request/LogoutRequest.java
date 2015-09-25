@@ -1,17 +1,9 @@
 package com.jianfanjia.cn.http.request;
 
-import java.util.Calendar;
-
 import android.content.Context;
-import android.util.Log;
-
-import com.jianfanjia.cn.activity.SettingActivity;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseRequest;
 import com.jianfanjia.cn.base.BaseResponse;
-import com.jianfanjia.cn.bean.LoginUserBean;
-import com.jianfanjia.cn.cache.DataCleanManager;
-import com.jianfanjia.cn.config.Constant;
 
 public class LogoutRequest extends BaseRequest {
 

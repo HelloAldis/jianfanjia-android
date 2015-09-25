@@ -7,8 +7,6 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.layout.CircleImageView;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class MainHeadView extends RelativeLayout {
 	private LayoutInflater inflater;

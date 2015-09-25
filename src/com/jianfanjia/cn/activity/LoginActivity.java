@@ -2,7 +2,6 @@ package com.jianfanjia.cn.activity;
 
 import android.graphics.Rect;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
@@ -13,6 +12,8 @@ import android.widget.TextView;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.http.LoadClientHelper;
 import com.jianfanjia.cn.http.request.LoginRequest;
+import com.jianfanjia.cn.http.request.ProcessInfoRequest;
+import com.jianfanjia.cn.http.request.ProcessListRequest;
 import com.jianfanjia.cn.interf.LoadDataListener;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.NetTool;
@@ -98,10 +99,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener,
 			mEtPassword.requestFocus();
 			return false;
 		}
-		if (!NetTool.isNetworkAvailable(LoginActivity.this)) {
-			makeTextShort(getResources().getString(R.string.tip_no_internet));
-			return false;
-		}
 		return true;
 	}
 
@@ -113,15 +110,69 @@ public class LoginActivity extends BaseActivity implements OnClickListener,
 	 */
 	private void login(String name, String password) {
 		// dataManager.login(name, password, this);
-		LoginRequest loginRequest = new LoginRequest(this, name, password);
-		LoadClientHelper.login(this, loginRequest, this);
+		if(NetTool.isNetworkAvailable(this)){
+			LoginRequest loginRequest = new LoginRequest(this, name, password);
+			LoadClientHelper.login(this, loginRequest, this);
+		}else{
+			makeTextLong(getString(R.string.tip_internet_not));
+		}
 	}
 
 	@Override
 	public void loadSuccess() {
-		super.loadSuccess();
-		startActivity(MainActivity.class);
-		finish();
+		//登录成功，加载工地列表
+		LoadClientHelper.requestProcessList(this, new ProcessListRequest(this), new LoadDataListener() {
+			
+			@Override
+			public void preLoad() {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void loadSuccess() {
+				// 工地列表刷新成功，加载用户默认工地
+				String processId = dataManager.getDefaultProcessId();
+				if(processId != null){
+					LoadClientHelper.requestProcessInfoById(LoginActivity.this, new ProcessInfoRequest(LoginActivity.this, processId), new LoadDataListener() {
+						
+						@Override
+						public void preLoad() {
+							// TODO Auto-generated method stub
+							
+						}
+						
+						@Override
+						public void loadSuccess() {
+							// TODO Auto-generated method stub
+							hideWaitDialog();
+							startActivity(MainActivity.class);
+							finish();
+						}
+						
+						@Override
+						public void loadFailture() {
+							// TODO Auto-generated method stub
+							hideWaitDialog();
+							makeTextLong(getString(R.string.tip_error_internet));
+						}
+					});
+				}else{
+					hideWaitDialog();
+					startActivity(MainActivity.class);
+					finish();
+				}
+				
+			}
+			
+			@Override
+			public void loadFailture() {
+				// TODO Auto-generated method stub
+				hideWaitDialog();
+				makeTextLong(getString(R.string.tip_error_internet));
+			}
+		});
+		
 	}
 
 	/**

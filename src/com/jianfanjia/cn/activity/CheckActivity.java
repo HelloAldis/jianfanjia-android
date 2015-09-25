@@ -351,7 +351,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 									@Override
 									public void preLoad() {
 										// TODO Auto-generated method stub
-
+										showWaitDialog();
 									}
 
 									@Override
@@ -382,6 +382,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 
 													@Override
 													public void loadSuccess() {
+														hideWaitDialog();
 														// TODO Auto-generated
 														// method stub
 														/*
@@ -405,6 +406,8 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 													public void loadFailture() {
 														// TODO Auto-generated
 														// method stub
+														hideWaitDialog();
+														makeTextLong(getString(R.string.tip_error_internet));
 													}
 												});
 									}
@@ -412,7 +415,8 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 									@Override
 									public void loadFailture() {
 										// TODO Auto-generated method stub
-
+										hideWaitDialog();
+										makeTextLong(getString(R.string.tip_error_internet));
 									}
 								});
 					}
@@ -515,7 +519,6 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 										.toString());
 								String msg = obj
 										.getString(Constant.SUCCESS_MSG);
-								makeTextLong(msg);
 								btn_confirm.setEnabled(false);
 							} else if (response.has(Constant.ERROR_MSG)) {
 
@@ -559,7 +562,6 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 										.toString());
 								String msg = obj
 										.getString(Constant.SUCCESS_MSG);
-								makeTextLong(msg);
 								btn_confirm.setEnabled(false);
 							} else if (response.has(Constant.ERROR_MSG)) {
 

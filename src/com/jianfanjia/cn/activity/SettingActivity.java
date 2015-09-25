@@ -282,7 +282,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener,
 						hideWaitDialog();
 						try {
 							if (response.get(Constant.DATA) != null) {
-								UpdateVersion updateVersion = (UpdateVersion) JsonParser
+								UpdateVersion updateVersion = JsonParser
 										.jsonToBean(response.get(Constant.DATA)
 												.toString(),
 												UpdateVersion.class);
@@ -312,14 +312,14 @@ public class SettingActivity extends BaseActivity implements OnClickListener,
 						hideWaitDialog();
 						LogTool.d(TAG,
 								"Throwable throwable:" + throwable.toString());
-						makeTextLong(getString(R.string.tip_no_internet));
+						makeTextLong(getString(R.string.tip_error_internet));
 					}
 
 					@Override
 					public void onFailure(int statusCode, Header[] headers,
 							String responseString, Throwable throwable) {
 						LogTool.d(TAG, "throwable:" + throwable);
-						makeTextLong(getString(R.string.tip_no_internet));
+						makeTextLong(getString(R.string.tip_error_internet));
 						hideWaitDialog();
 					};
 				});
@@ -349,7 +349,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener,
 					@Override
 					public void loadFailture() {
 						hideWaitDialog();
-						makeTextLong(getString(R.string.tip_no_internet));
+						makeTextLong(getString(R.string.tip_error_internet));
 					}
 				});
 	}

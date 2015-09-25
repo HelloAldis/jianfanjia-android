@@ -92,7 +92,7 @@ public class FrgPswInputVerificationFragment extends BaseFragment {
 			return false;
 		}
 		if (!NetTool.isNetworkAvailable(getActivity())) {
-			makeTextShort(getResources().getString(R.string.tip_no_internet));
+			makeTextShort(getResources().getString(R.string.tip_error_internet));
 			return false;
 		}
 		return true;
@@ -139,7 +139,7 @@ public class FrgPswInputVerificationFragment extends BaseFragment {
 						LogTool.d(TAG,
 								"Throwable throwable:" + throwable.toString());
 						hideWaitDialog();
-						makeTextLong(getString(R.string.tip_no_internet));
+						makeTextLong(getString(R.string.tip_error_internet));
 					}
 
 					@Override
@@ -147,7 +147,7 @@ public class FrgPswInputVerificationFragment extends BaseFragment {
 							String responseString, Throwable throwable) {
 						hideWaitDialog();
 						LogTool.d(TAG, "throwable:" + throwable);
-						makeTextLong(getString(R.string.tip_no_internet));
+						makeTextLong(getString(R.string.tip_error_internet));
 					};
 				});
 	}

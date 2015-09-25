@@ -17,10 +17,12 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.LoadClientHelper;
 import com.jianfanjia.cn.http.request.GetRequirementRequest;
 import com.jianfanjia.cn.http.request.PostRequirementRequest;
+import com.jianfanjia.cn.http.request.ProcessListRequest;
 import com.jianfanjia.cn.http.request.TotalDurationRequest;
 import com.jianfanjia.cn.interf.LoadDataListener;
 import com.jianfanjia.cn.tools.DateFormatTool;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.tools.NetTool;
 import com.jianfanjia.cn.tools.StringUtils;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.DateWheelDialog;
@@ -37,6 +39,7 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 	private static final String TAG = OwnerSiteActivity.class.getName();
 	private ProcessInfo processInfo;// 工地信息类
 	private RequirementInfo requirementInfo;// 实体信息类
+	private String processId;
 
 	private TextView cityView;// 所在城市
 	private TextView villageNameView;// 小区名字
@@ -77,14 +80,22 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 		totalDateLayout = (RelativeLayout) findViewById(R.id.my_totaldate_layout);
 
 		processInfo = dataManager.getDefaultProcessInfo();
+		processId = dataManager.getDefaultProcessId();
 		requirementInfo = dataManager.getRequirementInfo();
 		LogTool.d(TAG, "processInfo:" + processInfo);
 		if (processInfo == null) {
-			if (requirementInfo == null) {
-				LogTool.d(TAG, "getRequirement()");
-				getRequirement();
-			} else {
-				getTotalDuration();
+			if(processId != null){
+				processInfo = dataManager.getProcessInfoById(processId);
+			}
+			if(processInfo == null){
+				if (requirementInfo == null) {
+					LogTool.d(TAG, "getRequirement()");
+					getRequirement();
+				} else {
+					getTotalDuration();
+				}
+			}else{
+				initData();
 			}
 		} else {
 			initData();
@@ -148,6 +159,7 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 	}
 
 	// 显示错误试图
+	@Override
 	public void setErrorView() {
 		((TextView) errorView.findViewById(R.id.tv_error)).setText("暂无工地数据");
 	}
@@ -204,6 +216,10 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 	}
 
 	private void getRequirement() {
+		if(!NetTool.isNetworkAvailable(this)){
+			makeTextLong(getString(R.string.tip_internet_not));
+			return;
+		}
 		LoadClientHelper.get_Requirement(this, new GetRequirementRequest(this),
 				new LoadDataListener() {
 
@@ -225,7 +241,7 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 
 					@Override
 					public void loadFailture() {
-						makeTextLong(getString(R.string.tip_no_internet));
+						makeTextLong(getString(R.string.tip_error_internet));
 						hideWaitDialog();
 						setErrorView();
 					}
@@ -234,6 +250,10 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 	}
 
 	protected void loadTotalDuration(String planId) {
+		if(!NetTool.isNetworkAvailable(this)){
+			makeTextLong(getString(R.string.tip_internet_not));
+			return;
+		}
 		LoadClientHelper.getPlanTotalDuration(OwnerSiteActivity.this,
 				new TotalDurationRequest(OwnerSiteActivity.this, planId),
 				new LoadDataListener() {
@@ -256,7 +276,7 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 
 					@Override
 					public void loadFailture() {
-						makeTextLong(getString(R.string.tip_no_internet));
+						makeTextLong(getString(R.string.tip_error_internet));
 						setErrorView();
 					}
 				});
@@ -264,19 +284,41 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 
 	@Override
 	public void loadSuccess() {
-		super.loadSuccess();
-		makeTextLong("配置成功");
 		processInfo = dataManager.getDefaultProcessInfo();
 		if (processInfo != null) {
-			initData();
+			LoadClientHelper.requestProcessList(this, new ProcessListRequest(this), new LoadDataListener() {
+				
+				@Override
+				public void preLoad() {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void loadSuccess() {
+					// TODO Auto-generated method stub
+					hideWaitDialog();
+					processInfo = dataManager.getDefaultProcessInfo();
+					makeTextLong("配置成功");
+					initData();
+					Intent intent = new Intent();
+					intent.putExtra("Key", "1");
+					setResult(Constant.REQUESTCODE_CONFIG_SITE, intent);
+					finish();
+				}
+				
+				@Override
+				public void loadFailture() {
+					// TODO Auto-generated method stub
+					hideWaitDialog();
+					setErrorView();
+				}
+			});
 		} else {
 			// loadempty
 			setErrorView();
 		}
-		Intent intent = new Intent();
-		intent.putExtra("Key", "1");
-		setResult(Constant.REQUESTCODE_CONFIG_SITE, intent);
-		finish();
+		
 	}
 
 	// 配置工地信息

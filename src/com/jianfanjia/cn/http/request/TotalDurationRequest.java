@@ -1,19 +1,13 @@
 package com.jianfanjia.cn.http.request;
 
-import java.util.Calendar;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
 import android.text.TextUtils;
 
-import com.google.gson.JsonObject;
 import com.jianfanjia.cn.base.BaseRequest;
 import com.jianfanjia.cn.base.BaseResponse;
-import com.jianfanjia.cn.bean.MyDesignerInfo;
-import com.jianfanjia.cn.http.JianFanJiaApiClient;
-import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 
 public class TotalDurationRequest extends BaseRequest {

@@ -1,9 +1,12 @@
 package com.jianfanjia.cn.activity;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -15,6 +18,7 @@ import com.jianfanjia.cn.http.LoadClientHelper;
 import com.jianfanjia.cn.http.request.DesignerInfoRequest;
 import com.jianfanjia.cn.interf.LoadDataListener;
 import com.jianfanjia.cn.layout.CircleImageView;
+import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -36,13 +40,11 @@ public class MyDesignerActivity extends BaseActivity implements
 	private ImageView authView;// 是否为认证设计师
 	private TextView productSumView;// 作品数
 	private TextView appointmentSum;// 预约数
-	private TextView cityView;// 服务城市
-	private TextView goodAtView;// 擅长
-	private TextView budgetView;// 设计费
 	private DesignerInfo designerInfo;
 	private String designerId;
 	private RelativeLayout contentLayout;
 	private View errorView;
+	private Button callDesignerView;
 
 	private MainHeadView mainHeadView;
 
@@ -58,10 +60,8 @@ public class MyDesignerActivity extends BaseActivity implements
 		authView = (ImageView) findViewById(R.id.my_designer_verify);
 		productSumView = (TextView) findViewById(R.id.my_designer_product_sum);
 		appointmentSum = (TextView) findViewById(R.id.my_designer_appointment_sum);
-		cityView = (TextView) findViewById(R.id.my_designer_city);
-		goodAtView = (TextView) findViewById(R.id.my_designer_style);
-		budgetView = (TextView) findViewById(R.id.my_designer_budget);
-
+		callDesignerView = (Button) findViewById(R.id.btn_call_designer);
+		
 		designerId = dataManager.getDefaultDesignerId();
 		if (designerId != null) {
 			designerInfo = dataManager.getDesignerInfoById(designerId);
@@ -104,7 +104,7 @@ public class MyDesignerActivity extends BaseActivity implements
 	@Override
 	public void setListener() {
 		// TODO Auto-generated method stub
-
+		callDesignerView.setOnClickListener(this);
 	}
 
 	@Override
@@ -113,7 +113,13 @@ public class MyDesignerActivity extends BaseActivity implements
 		case R.id.head_back_layout:
 			finish();
 			break;
-
+		case R.id.btn_call_designer:
+			String phone = designerInfo.getPhone();
+			if(!TextUtils.isEmpty(phone)){
+				LogTool.d(phone,phone);
+				Intent intent=new Intent(Intent.ACTION_CALL,Uri.parse("tel:"+ phone));
+				startActivity(intent);
+			}
 		default:
 			break;
 		}
@@ -138,23 +144,6 @@ public class MyDesignerActivity extends BaseActivity implements
 					: View.GONE);
 			productSumView.setText(designerInfo.getProduct_count() + "");
 			appointmentSum.setText(designerInfo.getOrder_count() + "");
-			cityView.setText(designerInfo.getCity());
-			if (!TextUtils.isEmpty(designerInfo.getDesign_fee_range())) {
-				budgetView.setText(getResources().getStringArray(
-						R.array.design_fee_range)[Integer.parseInt(designerInfo
-						.getDesign_fee_range())]);
-			}
-			// 解析擅长风格
-			String[] dec_styles = getResources().getStringArray(
-					R.array.dec_style);
-			StringBuffer decBuffer = new StringBuffer();
-			for (String item : designerInfo.getDec_styles()) {
-				decBuffer.append(dec_styles[Integer.parseInt(item)]);
-				decBuffer.append("，");
-			}
-			String dec_style = decBuffer.toString();
-			goodAtView
-					.setText(dec_style.subSequence(0, dec_style.length() - 1));
 
 			if (designerInfo.getBig_imageid() != null) {
 				Log.i(TAG, Url.GET_IMAGE + designerInfo.getBig_imageid());
@@ -171,6 +160,8 @@ public class MyDesignerActivity extends BaseActivity implements
 			} else {
 				headView.setImageResource(R.drawable.icon_sidebar_default_designer);
 			}
+			
+			
 		}
 	}
 

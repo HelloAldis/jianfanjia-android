@@ -63,9 +63,9 @@ import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshScrollView;
 import com.jianfanjia.cn.tools.DateFormatTool;
 import com.jianfanjia.cn.tools.FileUtil;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.tools.NetTool;
 import com.jianfanjia.cn.tools.PhotoUtils;
 import com.jianfanjia.cn.tools.StringUtils;
-import com.jianfanjia.cn.tools.TDevice;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DateWheelDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
@@ -88,6 +88,7 @@ public class SiteManageFragment extends BaseFragment implements
 	private List<SectionInfo> sectionInfos;
 	private SectionInfo sectionInfo = null;
 	private ProcessInfo processInfo = null;
+	private String processId = null;//默认的工地id
 	private int currentPro = -1;// 当前进行工序
 	private int currentList = -1;// 当前展开第一道工序
 	private ViewPager bannerViewPager = null;
@@ -106,8 +107,6 @@ public class SiteManageFragment extends BaseFragment implements
 	private TextView titleCenter = null;
 	private TextView titleRight = null;
 	private ImageView titleImage = null;
-
-	private boolean isOpen = false;
 
 	private static final int CHANGE_PHOTO = 1;
 	private static final int CHANGE_TIME = 5000;// 图片自动切换时间
@@ -139,17 +138,25 @@ public class SiteManageFragment extends BaseFragment implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		if (savedInstanceState != null) {
-			currentList = savedInstanceState.getInt(Constant.CURRENT_LIST, -1);
-		}
 		initProcessInfo();
 	}
 
 	private void initProcessInfo() {
 		processInfo = dataManager.getDefaultProcessInfo();
+		processId = dataManager.getDefaultProcessId();
+		if(processInfo == null){
+			if(NetTool.isNetworkAvailable(getActivity())){
+				loadCurrentProcess();
+			}else{
+				if(processId != null){
+					processInfo = dataManager.getProcessInfoById(processId);
+				}
+			}
+		}
+		
 	}
 
-	private void refreshData() {
+/*	private void refreshData() {
 		if (dataManager.getDefaultProcessId() == null) {
 			LoadClientHelper.requestProcessList(getActivity(),
 					new ProcessListRequest(getActivity()),
@@ -169,7 +176,7 @@ public class SiteManageFragment extends BaseFragment implements
 
 						@Override
 						public void loadFailture() {
-							makeTextLong(getString(R.string.tip_no_internet));
+							makeTextLong(getString(R.string.tip_error_internet));
 							mPullRefreshScrollView.onRefreshComplete();
 						}
 					});
@@ -177,10 +184,10 @@ public class SiteManageFragment extends BaseFragment implements
 			Log.i(TAG, "proId = " + dataManager.getDefaultProcessId());
 			loadCurrentProcess();
 		}
-	}
+	}*/
 
 	private void loadCurrentProcess() {
-		if (dataManager.getDefaultProcessId() != null) {
+		if (processId != null) {
 			LoadClientHelper.requestProcessInfoById(
 					getActivity(),
 					new ProcessInfoRequest(getActivity(), dataManager
@@ -198,11 +205,7 @@ public class SiteManageFragment extends BaseFragment implements
 		initBannerView(view);
 		initScrollLayout(view);
 		initListView(view);
-		if (processInfo != null) {
-			initData();
-		} else {
-			refreshData();
-		}
+		initData();
 	}
 
 	private void initMainHead(View view) {
@@ -227,9 +230,7 @@ public class SiteManageFragment extends BaseFragment implements
 					: processInfo.getCell());// 设置标题头
 			currentPro = MyApplication.getInstance().getPositionByItemName(
 					processInfo.getGoing_on());
-			if (currentList == -1) {
-				currentList = currentPro;
-			}
+			currentList = currentPro;
 			sectionInfos = processInfo.getSections();
 			sectionInfo = sectionInfos.get(currentList);
 			setScrollHeadTime();
@@ -237,6 +238,8 @@ public class SiteManageFragment extends BaseFragment implements
 					currentList, this);
 			detailNodeListView.setAdapter(sectionItemAdapter);
 			processViewPager.setCurrentItem(currentList);
+		}else{
+			
 		}
 	}
 
@@ -244,7 +247,6 @@ public class SiteManageFragment extends BaseFragment implements
 	public void onResume() {
 		super.onResume();
 		imageLoader.displayImage(mUserImageId, titleImage, options);
-		processViewPager.setCurrentItem(currentList);
 		if (sectionItemAdapter != null) {
 			sectionItemAdapter.notifyDataSetChanged();
 		}
@@ -486,7 +488,13 @@ public class SiteManageFragment extends BaseFragment implements
 		 * ProcessInfoRequest(getActivity(), dataManager.getDefaultProcessId())
 		 * , this);
 		 */
-		refreshData();
+//		refreshData();
+		processId = dataManager.getDefaultProcessId();
+		if(processId != null){
+			loadCurrentProcess();
+		}else{
+			mPullRefreshScrollView.onRefreshComplete();
+		}
 	}
 
 	@Override
@@ -529,17 +537,14 @@ public class SiteManageFragment extends BaseFragment implements
 	@Override
 	public void loadSuccess() {
 		mPullRefreshScrollView.onRefreshComplete();
-		initProcessInfo();
-		if (processInfo != null) {
-			initData();
-		} else {
-			// loadempty
-		}
+		processInfo = dataManager.getDefaultProcessInfo();
+		processId = dataManager.getDefaultProcessId();
+		initData();
 	}
 
 	@Override
 	public void loadFailture() {
-		makeTextLong(getString(R.string.tip_no_internet));
+		makeTextLong(getString(R.string.tip_error_internet));
 		mPullRefreshScrollView.onRefreshComplete();
 	}
 
@@ -697,7 +702,7 @@ public class SiteManageFragment extends BaseFragment implements
 					public void onFailure(int statusCode, Header[] headers,
 							Throwable throwable, JSONObject errorResponse) {
 						LogTool.d(TAG, "Throwable throwable:" + throwable);
-						makeTextLong(getString(R.string.tip_no_internet));
+						makeTextLong(getString(R.string.tip_error_internet));
 						hideWaitDialog();
 					}
 
@@ -706,7 +711,7 @@ public class SiteManageFragment extends BaseFragment implements
 							String responseString, Throwable throwable) {
 						LogTool.d(TAG, "statusCode:" + statusCode
 								+ " throwable:" + throwable);
-						makeTextLong(getString(R.string.tip_no_internet));
+						makeTextLong(getString(R.string.tip_error_internet));
 						hideWaitDialog();
 					};
 				});
@@ -785,24 +790,19 @@ public class SiteManageFragment extends BaseFragment implements
 													@Override
 													public void loadSuccess() {
 														hideWaitDialog();
+														loadCurrentProcess();
 														if (mTmpFile != null
 																&& mTmpFile
 																		.exists()) {
 															mTmpFile.delete();
 														}
-														// TODO Auto-generated
-														// method stub
-														/*
-														 * sectionItemAdapter
-														 * .setPosition
-														 * (currentList);
-														 */
 														loadCurrentProcess();
 													}
 
 													@Override
 													public void loadFailture() {
 														hideWaitDialog();
+														makeTextLong(getString(R.string.tip_error_internet));
 														if (mTmpFile != null
 																&& mTmpFile
 																		.exists()) {
@@ -816,7 +816,7 @@ public class SiteManageFragment extends BaseFragment implements
 									public void loadFailture() {
 										// TODO Auto-generated method stub
 										hideWaitDialog();
-										makeTextLong(getString(R.string.tip_no_internet));
+										makeTextLong(getString(R.string.tip_error_internet));
 									}
 								});
 					}
