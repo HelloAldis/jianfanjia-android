@@ -1,8 +1,5 @@
 package com.jianfanjia.cn.base;
 
-import org.apache.http.Header;
-import org.json.JSONException;
-import org.json.JSONObject;
 import android.app.DownloadManager;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -19,19 +16,13 @@ import android.view.Window;
 import android.widget.Toast;
 import com.jianfanjia.cn.AppConfig;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.bean.NotifyMessage;
-import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.cache.DataManagerNew;
-import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.db.DAOManager;
-import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.inter.manager.ListenerManeger;
-import com.jianfanjia.cn.interf.DialogListener;
 import com.jianfanjia.cn.interf.LoadDataListener;
 import com.jianfanjia.cn.interf.NetStateListener;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
-import com.jianfanjia.cn.interf.PushMsgReceiveListener;
 import com.jianfanjia.cn.receiver.NetStateReceiver;
 import com.jianfanjia.cn.tools.ActivityManager;
 import com.jianfanjia.cn.tools.LogTool;
@@ -39,9 +30,7 @@ import com.jianfanjia.cn.tools.UploadManager;
 import com.jianfanjia.cn.view.AddPhotoPopWindow;
 import com.jianfanjia.cn.view.dialog.DialogControl;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
-import com.jianfanjia.cn.view.dialog.NotifyDialog;
 import com.jianfanjia.cn.view.dialog.WaitDialog;
-import com.loopj.android.http.JsonHttpResponseHandler;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -54,8 +43,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  * 
  */
 public abstract class BaseActivity extends FragmentActivity implements
-		DialogControl, NetStateListener, PopWindowCallBack,
-		PushMsgReceiveListener, LoadDataListener {
+		DialogControl, NetStateListener, PopWindowCallBack, LoadDataListener {
 	protected ActivityManager activityManager = null;
 	protected DownloadManager downloadManager = null;
 	protected DAOManager daoManager = null;
@@ -231,12 +219,6 @@ public abstract class BaseActivity extends FragmentActivity implements
 	}
 
 	@Override
-	public void onReceiveMsg(NotifyMessage message) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void loadSuccess() {
 		hideWaitDialog();
 	}
@@ -295,102 +277,6 @@ public abstract class BaseActivity extends FragmentActivity implements
 		}
 	}
 
-	// 用户同意改期
-	private void agreeReschedule(String processid) {
-		JianFanJiaApiClient.agreeReschedule(this, processid,
-				new JsonHttpResponseHandler() {
-					@Override
-					public void onStart() {
-						LogTool.d(this.getClass().getName(), "onStart()");
-					}
-
-					@Override
-					public void onSuccess(int statusCode, Header[] headers,
-							JSONObject response) {
-						LogTool.d(this.getClass().getName(),
-								"JSONObject response:" + response);
-						try {
-							if (response.has(Constant.DATA)) {
-								makeTextLong(response.get(Constant.DATA)
-										.toString());
-							} else if (response.has(Constant.SUCCESS_MSG)) {
-								makeTextLong(response.get(Constant.SUCCESS_MSG)
-										.toString());
-							} else if (response.has(Constant.ERROR_MSG)) {
-								makeTextLong(response.get(Constant.ERROR_MSG)
-										.toString());
-							}
-						} catch (JSONException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-							makeTextLong(getString(R.string.tip_login_error_for_network));
-						}
-					}
-
-					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							Throwable throwable, JSONObject errorResponse) {
-						LogTool.d(this.getClass().getName(),
-								"Throwable throwable:" + throwable.toString());
-					}
-
-					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							String responseString, Throwable throwable) {
-						LogTool.d(this.getClass().getName(), "throwable:"
-								+ throwable);
-					};
-				});
-	}
-
-	// 用户拒绝改期
-	private void refuseReschedule(String processid) {
-		JianFanJiaApiClient.refuseReschedule(this, processid,
-				new JsonHttpResponseHandler() {
-					@Override
-					public void onStart() {
-						LogTool.d(this.getClass().getName(), "onStart()");
-					}
-
-					@Override
-					public void onSuccess(int statusCode, Header[] headers,
-							JSONObject response) {
-						LogTool.d(this.getClass().getName(),
-								"JSONObject response:" + response);
-						try {
-							if (response.has(Constant.DATA)) {
-								makeTextLong(response.get(Constant.DATA)
-										.toString());
-							} else if (response.has(Constant.SUCCESS_MSG)) {
-								makeTextLong(response.get(Constant.SUCCESS_MSG)
-										.toString());
-							} else if (response.has(Constant.ERROR_MSG)) {
-								makeTextLong(response.get(Constant.ERROR_MSG)
-										.toString());
-							}
-						} catch (JSONException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-							makeTextLong(getString(R.string.tip_login_error_for_network));
-						}
-					}
-
-					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							Throwable throwable, JSONObject errorResponse) {
-						LogTool.d(this.getClass().getName(),
-								"Throwable throwable:" + throwable.toString());
-					}
-
-					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							String responseString, Throwable throwable) {
-						LogTool.d(this.getClass().getName(), "throwable:"
-								+ throwable);
-					};
-				});
-	}
-
 	// 注册网络监听广播
 	protected void registerNetReceiver() {
 		IntentFilter intentFilter = new IntentFilter();
@@ -401,40 +287,6 @@ public abstract class BaseActivity extends FragmentActivity implements
 	// 取消网络监听广播
 	protected void unregisterNetReceiver() {
 		unregisterReceiver(netStateReceiver);
-	}
-
-	/**
-	 * 消息提醒
-	 * 
-	 * @param message
-	 */
-	protected void showNotify(NotifyMessage message) {
-		final ProcessInfo processInfo = dataManager.getDefaultProcessInfo();
-		final NotifyDialog notifyDialog = new NotifyDialog(this, message,
-				R.style.progress_dialog, new DialogListener() {
-
-					@Override
-					public void onPositiveButtonClick() {
-						if (processInfo != null) {
-							agreeReschedule(processInfo.get_id());
-						}
-					}
-
-					@Override
-					public void onNegativeButtonClick() {
-						if (processInfo != null) {
-							refuseReschedule(processInfo.get_id());
-						}
-					}
-
-					@Override
-					public void onConfirmButtonClick() {
-						// TODO Auto-generated method stub
-
-					}
-
-				});
-		notifyDialog.show();
 	}
 
 }

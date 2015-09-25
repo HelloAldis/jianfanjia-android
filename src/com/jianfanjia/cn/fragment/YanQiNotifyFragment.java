@@ -102,12 +102,14 @@ public class YanQiNotifyFragment extends BaseFragment implements
 
 											@Override
 											public void onAgree() {
-												LogTool.d(TAG, "11111111");
+												agreeReschedule(processInfo
+														.get_id());
 											}
 
 											@Override
 											public void onRefuse() {
-												LogTool.d(TAG, "333333333");
+												refuseReschedule(processInfo
+														.get_id());
 											}
 
 										});
