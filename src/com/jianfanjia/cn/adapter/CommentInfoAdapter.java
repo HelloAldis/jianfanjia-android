@@ -81,10 +81,17 @@ public class CommentInfoAdapter extends BaseListAdapter<CommentInfo> {
 					imageLoader.displayImage(Constant.DEFALUT_DESIGNER_PIC,
 							viewHolder.itemHeadView);
 					if (!isLoadDesignerInfo) {
-						LoadClientHelper.getDesignerInfoById(context,
-								new DesignerInfoRequest(context, designerId),
-								this);
-						isLoadDesignerInfo = true;
+						if(dataManager.getUserType().equals(usertype)){
+							LoadClientHelper.getDesignerInfoById(context,
+									new DesignerInfoRequest(context, designerId),
+									this);
+							isLoadDesignerInfo = true;
+						}else{
+							LoadClientHelper.getOwnerDesignerInfoById(context,
+									new DesignerInfoRequest(context, designerId),
+									this);
+							isLoadDesignerInfo = true;
+						}
 					}
 				}
 			} else {

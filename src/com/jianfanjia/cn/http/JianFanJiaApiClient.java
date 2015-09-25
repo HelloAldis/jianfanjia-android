@@ -281,6 +281,28 @@ public class JianFanJiaApiClient {
 		String getdesignerUrl = Url.GET_ONE_OWNER_INFO.replace(Url.ID, ownerid);
 		HttpRestClient.get(context, getdesignerUrl, hanlder);
 	}
+	
+	/**
+	 * 业主获取装修工地的设计师的信息
+	 * 
+	 * @param context
+	 * @param hanlder
+	 */
+	public static void getOwnerDesignerInfoById(Context context, String designerid,
+			AsyncHttpResponseHandler handler) {
+		JSONObject jsonParams = new JSONObject();
+		try {
+			jsonParams.put("designerid", designerid);
+			Log.i("JianFanJiaApiClient", "jsonParams：" + jsonParams.toString());
+			StringEntity entity = new StringEntity(jsonParams.toString());
+			HttpRestClient.post(context, Url.GET_OWER_DESIGNER_INFO, entity,
+					"application/json", handler);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * @author zhanghao

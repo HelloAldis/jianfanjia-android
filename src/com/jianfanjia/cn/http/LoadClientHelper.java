@@ -469,6 +469,82 @@ public class LoadClientHelper {
 					};
 				});
 	}
+	
+	/**
+	 * 业主获取设计师信息
+	 * 
+	 * @param context
+	 * @param designerInfoRequest
+	 * @param listener
+	 */
+	public static void getOwnerDesignerInfoById(final Context context,
+			final DesignerInfoRequest designerInfoRequest,
+			final LoadDataListener listener) {
+		JianFanJiaApiClient.getOwnerDesignerInfoById(context,
+				designerInfoRequest.getDesignerId(),
+				new JsonHttpResponseHandler() {
+					@Override
+					public void onStart() {
+						LogTool.d(TAG, "onStart()");
+						if (listener != null) {
+							listener.preLoad();
+						}
+						designerInfoRequest.pre();
+					}
+
+					@Override
+					public void onSuccess(int statusCode, Header[] headers,
+							JSONObject response) {
+						LogTool.d("getDesignerInfoById", "JSONObject response:"
+								+ response);
+						BaseResponse baseResponse = new BaseResponse();
+						try {
+							if (response.has(Constant.DATA)
+									&& response.get(Constant.DATA) != null) {
+								baseResponse.setData(response
+										.get(Constant.DATA).toString());
+								designerInfoRequest.onSuccess(baseResponse);
+								if (listener != null) {
+									listener.loadSuccess();
+								}
+							} else if (response.has(Constant.ERROR_MSG)) {
+								// 通知页面刷新
+								baseResponse.setErr_msg(response.get(
+										Constant.ERROR_MSG).toString());
+								designerInfoRequest.onFailure(baseResponse);
+								if (listener != null) {
+									listener.loadFailture();
+								}
+							}
+						} catch (JSONException e) {
+							e.printStackTrace();
+							if (listener != null) {
+								listener.loadFailture();
+							}
+						}
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							Throwable throwable, JSONObject errorResponse) {
+						LogTool.d(TAG,
+								"Throwable throwable:" + throwable.toString());
+						if (listener != null) {
+							listener.loadFailture();
+						}
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							String responseString, Throwable throwable) {
+						LogTool.d(TAG, "throwable:" + throwable);
+						if (listener != null) {
+							listener.loadFailture();
+						}
+					};
+				});
+	}
+
 
 	/**
 	 * 提交某个评论

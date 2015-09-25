@@ -68,7 +68,7 @@ public class MyDesignerActivity extends BaseActivity implements
 			if (designerInfo != null) {
 				setData();
 			} else {
-				LoadClientHelper.getDesignerInfoById(this,
+				LoadClientHelper.getOwnerDesignerInfoById(this,
 						new DesignerInfoRequest(this, designerId), this);
 			}
 		} else {

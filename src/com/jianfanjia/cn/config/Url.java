@@ -45,6 +45,8 @@ public class Url {
 			+ "/basicinfo";
 	// 业主获取自己的个人资料
 	public static final String GET_OWER_INFO = HTTPROOT + "user/info";
+	// 业主获取设计师的个人资料
+	public static final String GET_OWER_DESIGNER_INFO = HTTPROOT + "user/designer/info";
 	// ----------------------------------------------------设计师----------------------------------------------------------
 	// 设计师获取个人信息
 	public static final String GET_DESIGNER_INFO = HTTPROOT + "designer/info";

@@ -386,19 +386,21 @@ public class SectionItemAdapterBack extends BaseAdapter {
 			case Constant.FINISH:
 				viewHolderf.finishStatusIcon
 						.setImageResource(R.drawable.icon_home_finish);
+				viewHolderf.openDelay.setOnClickListener(null);
 				break;
 			default:
 				viewHolderf.finishStatusIcon
 						.setImageResource(R.drawable.site_listview_item_notstart_circle);
+				viewHolderf.openDelay.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						callBack.click(position, Constant.DELAY_ITEM);
+					}
+				});
 				break;
 			}
-			viewHolderf.openDelay.setOnClickListener(new OnClickListener() {
-
-				@Override
-				public void onClick(View v) {
-					callBack.click(position, Constant.DELAY_ITEM);
-				}
-			});
+		
 			viewHolderf.openCheck.setOnClickListener(new OnClickListener() {
 
 				@Override
