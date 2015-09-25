@@ -144,7 +144,7 @@ public class YanQiNotifyFragment extends BaseFragment implements
 	}
 
 	// 用户同意改期
-	protected void agreeReschedule(String processid) {
+	private void agreeReschedule(String processid) {
 		JianFanJiaApiClient.agreeReschedule(getActivity(), processid,
 				new JsonHttpResponseHandler() {
 					@Override
@@ -192,7 +192,7 @@ public class YanQiNotifyFragment extends BaseFragment implements
 	}
 
 	// 用户拒绝改期
-	protected void refuseReschedule(String processid) {
+	private void refuseReschedule(String processid) {
 		JianFanJiaApiClient.refuseReschedule(getActivity(), processid,
 				new JsonHttpResponseHandler() {
 					@Override
