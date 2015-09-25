@@ -52,7 +52,10 @@
                 android:clickable="true"
                 android:focusable="false"
                 android:gravity="center"
-                android:padding="5dip"
+                android:paddingBottom="5dip"
+                android:paddingLeft="10dip"
+                android:paddingRight="10dip"
+                android:paddingTop="5dip"
                 android:text="@string/agree"
                 android:textColor="@color/font_white" />
 
@@ -63,7 +66,10 @@
                 android:clickable="true"
                 android:focusable="false"
                 android:gravity="center"
-                android:padding="5dip"
+                android:paddingBottom="5dip"
+                android:paddingLeft="10dip"
+                android:paddingRight="10dip"
+                android:paddingTop="5dip"
                 android:text="@string/refuse"
                 android:textColor="@color/font_white" />
         </LinearLayout>

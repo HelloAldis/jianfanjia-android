@@ -164,6 +164,7 @@ public class YanQiNotifyFragment extends BaseFragment implements
 							} else if (response.has(Constant.SUCCESS_MSG)) {
 								makeTextLong(response.get(Constant.SUCCESS_MSG)
 										.toString());
+								getRescheduleAll();
 							} else if (response.has(Constant.ERROR_MSG)) {
 								makeTextLong(response.get(Constant.ERROR_MSG)
 										.toString());
@@ -212,6 +213,7 @@ public class YanQiNotifyFragment extends BaseFragment implements
 							} else if (response.has(Constant.SUCCESS_MSG)) {
 								makeTextLong(response.get(Constant.SUCCESS_MSG)
 										.toString());
+								getRescheduleAll();
 							} else if (response.has(Constant.ERROR_MSG)) {
 								makeTextLong(response.get(Constant.ERROR_MSG)
 										.toString());
