@@ -1,7 +1,10 @@
 package com.jianfanjia.cn.receiver;
 
+import java.util.List;
+
 import org.apache.http.Header;
 import org.json.JSONObject;
+
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -13,6 +16,7 @@ import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 import android.util.Log;
+
 import com.google.gson.Gson;
 import com.igexin.sdk.PushConsts;
 import com.igexin.sdk.PushManager;
@@ -23,6 +27,8 @@ import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.db.DAOManager;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
+import com.jianfanjia.cn.inter.manager.ListenerManeger;
+import com.jianfanjia.cn.interf.PushMsgReceiveListener;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.SystemUtils;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -37,11 +43,13 @@ import com.loopj.android.http.JsonHttpResponseHandler;
  */
 public class PushMsgReceiver extends BroadcastReceiver {
 	private static final String TAG = PushMsgReceiver.class.getName();
+	private ListenerManeger listenerManeger = null;
 	private DAOManager daoManager = null;
 	private Gson gson = new Gson();
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
+		listenerManeger = ListenerManeger.getListenerManeger();
 		daoManager = DAOManager.getInstance(context);
 		// -------------------------------
 		Bundle bundle = intent.getExtras();
@@ -101,15 +109,14 @@ public class PushMsgReceiver extends BroadcastReceiver {
 			NotifyMessage message = gson.fromJson(jsonStr, NotifyMessage.class);
 			Log.i(TAG, "message:" + message);
 			daoManager.add(message);
-			// List<PushMsgReceiveListener> listeners =
-			// ListenerManeger.msgListeners;
-			// for (PushMsgReceiveListener listener : listeners) {
-			// LogTool.d(TAG, "listener:" + listener);
-			// listener.onReceiveMsg(message);
-			// }
 			if (SystemUtils.isAppAlive(context, context.getPackageName())) {
 				LogTool.d(TAG, "the app process is alive");
-				sendNotifycation(context, message);
+				if (listenerManeger.receive(message)) {
+					Log.i(TAG, "111111111111111111111");
+				} else {
+					Log.i(TAG, "222222222222@@@@@@@");
+					sendNotifycation(context, message);
+				}
 			} else {
 				LogTool.d(TAG, "the app process is dead");
 				Intent launchIntent = context.getPackageManager()
