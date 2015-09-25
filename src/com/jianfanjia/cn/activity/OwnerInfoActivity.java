@@ -140,22 +140,21 @@ public class OwnerInfoActivity extends BaseActivity implements OnClickListener {
 		houseStyleView.setText(getResources()
 				.getStringArray(R.array.house_type)[Integer
 				.parseInt(processInfo.getHouse_type())]);
-		decorateAreaView.setText(processInfo.getHouse_area() + "£¨©O£©");
+		decorateAreaView.setText(processInfo.getHouse_area());
 		loveStyleView
 				.setText(getResources().getStringArray(R.array.dec_style)[Integer
 						.parseInt(processInfo.getDec_style())]);
 		decorateStyleView
 				.setText(getResources().getStringArray(R.array.work_type)[Integer
 						.parseInt(processInfo.getWork_type())]);
-		decorateBudgetView.setText(processInfo.getTotal_price() + "£¨ÍòÔª£©");
+		decorateBudgetView.setText(processInfo.getTotal_price());
 		startDateView.setText(DateFormatTool.covertLongToString(
 				processInfo.getStart_at(), "yyyy-MM-dd"));
-		totalDateView.setText(processInfo.getDuration() + "£¨Ìì£©");
+		totalDateView.setText(processInfo.getDuration());
 	}
 
 	@Override
 	public void loadSuccess() {
-		// TODO Auto-generated method stub
 		super.loadSuccess();
 		processInfo = dataManager.getProcessInfoById(processId);
 		LogTool.d(TAG, "processInfo:" + processInfo);
