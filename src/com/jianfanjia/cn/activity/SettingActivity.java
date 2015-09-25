@@ -219,9 +219,9 @@ public class SettingActivity extends BaseActivity implements OnClickListener,
 
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
 						// downloadVersion(updateVersion.getDownload_url());
 						startUpdateService(updateVersion.getDownload_url());
-						dialog.dismiss();
 					}
 
 				});
@@ -342,7 +342,6 @@ public class SettingActivity extends BaseActivity implements OnClickListener,
 
 					@Override
 					public void preLoad() {
-						// TODO Auto-generated method stub
 						showWaitDialog();
 					}
 
@@ -360,7 +359,6 @@ public class SettingActivity extends BaseActivity implements OnClickListener,
 					@Override
 					public void loadFailture() {
 						hideWaitDialog();
-						// TODO Auto-generated method stub
 						makeTextLong(getString(R.string.tip_no_internet));
 					}
 				});

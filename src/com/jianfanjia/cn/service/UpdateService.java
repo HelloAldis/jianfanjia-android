@@ -71,7 +71,7 @@ public class UpdateService extends Service {
 				LogTool.d(this.getClass().getName(), "onStart()");
 				builder = new NotificationCompat.Builder(
 						getApplicationContext());
-				builder.setSmallIcon(R.drawable.icon_logo);
+				builder.setSmallIcon(R.drawable.icon_notify);
 				builder.setTicker("正在下载新版本");
 				builder.setContentTitle("简繁家");
 				builder.setContentText("正在下载,请稍后...");
