@@ -32,10 +32,9 @@ public class ListenerManeger {
 	}
 
 	public ReceiveMsgListener getReceiveMsgListener(NotifyMessage message) {
-		ReceiveMsgListener listener = null;
 		Log.i(TAG, "ListenerManeger msgListeners:" + msgListeners);
-		for (ReceiveMsgListener receiveMsgListener : msgListeners) {
-			if (receiveMsgListener instanceof NotifyActivity) {
+		for (ReceiveMsgListener listener : msgListeners) {
+			if (listener instanceof NotifyActivity) {
 				return listener;
 			}
 		}

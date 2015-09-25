@@ -109,9 +109,11 @@ public class PushMsgReceiver extends BroadcastReceiver {
 				LogTool.d(TAG, "the app process is alive");
 				ReceiveMsgListener listener = listenerManeger
 						.getReceiveMsgListener(message);
-				Log.i(TAG, "listener" + listener);
+				Log.i(TAG, "listener:" + listener);
 				if (null != listener) {
-					Log.i(TAG, "111111111111111111111");
+					if (listener instanceof NotifyActivity) {
+						Log.i(TAG, "111111111111111111111");
+					}
 				} else {
 					Log.i(TAG, "22222222222222222222");
 					sendNotifycation(context, message);
