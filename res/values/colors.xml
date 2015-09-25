@@ -16,6 +16,7 @@
     <!-- 字体色值 -->
     <color name="head_layout_bg">#E5fbfbfb</color>
     <color name="font_white">#ffffff</color>
+    <color name="font_black">#000000</color>
     <color name="log_and_res_hint">#d8d8d8</color>
     <color name="log_and_res_broder">#d8d8d8</color>
     <color name="font_reg_color1">#f2f5f5</color>

@@ -46,9 +46,10 @@
 
             <TextView
                 android:id="@+id/list_item_tip_delay_agree"
-                style="@style/site_listview_item_text_style_small"
+                style="@style/dialog_button_ok"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginRight="10dip"
-                android:background="@drawable/btn_selector"
                 android:clickable="true"
                 android:focusable="false"
                 android:gravity="center"
@@ -57,12 +58,14 @@
                 android:paddingRight="10dip"
                 android:paddingTop="5dip"
                 android:text="@string/agree"
-                android:textColor="@color/font_white" />
+                android:textColor="@color/font_white"
+                android:textSize="@dimen/text_size_11" />
 
             <TextView
                 android:id="@+id/list_item_tip_delay_refuse"
-                style="@style/site_listview_item_text_style_small"
-                android:background="@drawable/btn_selector"
+                style="@style/dialog_button_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:clickable="true"
                 android:focusable="false"
                 android:gravity="center"
@@ -71,7 +74,8 @@
                 android:paddingRight="10dip"
                 android:paddingTop="5dip"
                 android:text="@string/refuse"
-                android:textColor="@color/font_white" />
+                android:textColor="@color/font_black"
+                android:textSize="@dimen/text_size_11" />
         </LinearLayout>
 
         <TextView

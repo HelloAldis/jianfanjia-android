@@ -66,16 +66,28 @@ public class DelayNotifyAdapter extends BaseListAdapter<NotifyDelayInfo> {
 		String status = info.getStatus();
 		if (status.equals(Constant.NO_START)) {
 			viewHolder.itemAgressView.setText("未开工");
+			viewHolder.itemAgreeText.setVisibility(View.VISIBLE);
+			viewHolder.itemRefuseText.setVisibility(View.VISIBLE);
 		} else if (status.equals(Constant.DOING)) {
 			viewHolder.itemAgressView.setText("进行中");
+			viewHolder.itemAgreeText.setVisibility(View.VISIBLE);
+			viewHolder.itemRefuseText.setVisibility(View.VISIBLE);
 		} else if (status.equals(Constant.FINISHED)) {
 			viewHolder.itemAgressView.setText("已完成");
+			viewHolder.itemAgreeText.setVisibility(View.GONE);
+			viewHolder.itemRefuseText.setVisibility(View.GONE);
 		} else if (status.equals(Constant.YANQI_BE_DOING)) {
 			viewHolder.itemAgressView.setText("改期申请中");
+			viewHolder.itemAgreeText.setVisibility(View.VISIBLE);
+			viewHolder.itemRefuseText.setVisibility(View.VISIBLE);
 		} else if (status.equals(Constant.YANQI_AGREE)) {
 			viewHolder.itemAgressView.setText("改期同意");
+			viewHolder.itemAgreeText.setVisibility(View.GONE);
+			viewHolder.itemRefuseText.setVisibility(View.GONE);
 		} else if (status.equals(Constant.YANQI_REFUSE)) {
 			viewHolder.itemAgressView.setText("改期拒绝");
+			viewHolder.itemAgreeText.setVisibility(View.GONE);
+			viewHolder.itemRefuseText.setVisibility(View.GONE);
 		}
 		viewHolder.itemContentView.setText(DateFormatTool.longToString(info
 				.getNew_date()));
