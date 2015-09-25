@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import com.jianfanjia.cn.adapter.MyFragmentPagerAdapter;
@@ -160,6 +161,7 @@ public class NotifyActivity extends BaseActivity implements OnClickListener,
 
 	@Override
 	public boolean receive(NotifyMessage message) {
+		Log.d(TAG, "message: " + message);
 		return true;
 	}
 
