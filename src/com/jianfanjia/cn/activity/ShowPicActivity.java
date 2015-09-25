@@ -9,7 +9,6 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.widget.TextView;
 import com.jianfanjia.cn.adapter.ShowPicPagerAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.tools.LogTool;
@@ -82,39 +81,6 @@ public class ShowPicActivity extends BaseActivity implements
 	public void onPageScrolled(int arg0, float arg1, int arg2) {
 		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	protected void onResume() {
-		super.onResume();
-		LogTool.d(TAG, "---onResume()");
-		listenerManeger.addPushMsgReceiveListener(this);
-	}
-
-	@Override
-	protected void onPause() {
-		super.onPause();
-		LogTool.d(TAG, "---onPause()");
-	}
-
-	@Override
-	protected void onStop() {
-		super.onStop();
-		LogTool.d(TAG, "---onStop()");
-	}
-
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-		LogTool.d(TAG, "---onDestroy()");
-		listenerManeger.removePushMsgReceiveListener(this);
-	}
-
-	@Override
-	public void onReceiveMsg(NotifyMessage message) {
-		LogTool.d(TAG, "message=" + message);
-		// sendNotifycation(message);
-		showNotify(message);
 	}
 
 	@Override

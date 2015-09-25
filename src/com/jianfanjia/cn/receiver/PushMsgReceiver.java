@@ -2,7 +2,6 @@ package com.jianfanjia.cn.receiver;
 
 import org.apache.http.Header;
 import org.json.JSONObject;
-
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;

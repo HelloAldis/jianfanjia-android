@@ -11,7 +11,6 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Constant;
@@ -349,39 +348,6 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 			decorateBudgetView.setText(requirementInfo.getTotal_price());
 			totalDateView.setText(dataManager.getTotalDuration());
 		}
-	}
-
-	@Override
-	protected void onResume() {
-		super.onResume();
-		LogTool.d(TAG, "---onResume()");
-		listenerManeger.addPushMsgReceiveListener(this);
-	}
-
-	@Override
-	protected void onPause() {
-		super.onPause();
-		LogTool.d(TAG, "---onPause()");
-	}
-
-	@Override
-	protected void onStop() {
-		super.onStop();
-		LogTool.d(TAG, "---onStop()");
-	}
-
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-		LogTool.d(TAG, "---onDestroy()");
-		listenerManeger.removePushMsgReceiveListener(this);
-	}
-
-	@Override
-	public void onReceiveMsg(NotifyMessage message) {
-		LogTool.d(TAG, "message=" + message);
-		// sendNotifycation(message);
-		showNotify(message);
 	}
 
 	@Override

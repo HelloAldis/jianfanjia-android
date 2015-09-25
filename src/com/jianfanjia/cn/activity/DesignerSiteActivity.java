@@ -12,7 +12,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import com.jianfanjia.cn.adapter.DesignerSiteInfoAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.bean.Process;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.LoadClientHelper;
@@ -109,39 +108,6 @@ public class DesignerSiteActivity extends BaseActivity implements
 		siteList = dataManager.getProcessLists();
 		designerSiteInfoAdapter.setList(siteList);
 		designerSiteInfoAdapter.notifyDataSetChanged();
-	}
-
-	@Override
-	protected void onResume() {
-		super.onResume();
-		LogTool.d(TAG, "---onResume()");
-		listenerManeger.addPushMsgReceiveListener(this);
-	}
-
-	@Override
-	protected void onPause() {
-		super.onPause();
-		LogTool.d(TAG, "---onPause()");
-	}
-
-	@Override
-	protected void onStop() {
-		super.onStop();
-		LogTool.d(TAG, "---onStop()");
-	}
-
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-		LogTool.d(TAG, "---onDestroy()");
-		listenerManeger.removePushMsgReceiveListener(this);
-	}
-
-	@Override
-	public void onReceiveMsg(NotifyMessage message) {
-		LogTool.d(TAG, "message=" + message);
-		// sendNotifycation(message);
-		showNotify(message);
 	}
 
 	@Override

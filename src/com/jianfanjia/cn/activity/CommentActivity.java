@@ -19,13 +19,11 @@ import com.jianfanjia.cn.adapter.CommentInfoAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.CommentInfo;
 import com.jianfanjia.cn.bean.CommitCommentInfo;
-import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.LoadClientHelper;
 import com.jianfanjia.cn.http.request.CommitCommentRequest;
 import com.jianfanjia.cn.interf.LoadDataListener;
-import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
 
 /**
@@ -115,12 +113,11 @@ public class CommentActivity extends BaseActivity implements OnClickListener,
 		sendCommentView = (Button) findViewById(R.id.btn_send);
 		sendCommentView.setEnabled(false);
 	}
-	
+
 	private void initMainHeadView() {
 		mainHeadView = (MainHeadView) findViewById(R.id.comment_head_layout);
 		mainHeadView.setBackListener(this);
-		mainHeadView
-				.setMianTitle(getResources().getString(R.string.comment));
+		mainHeadView.setMianTitle(getResources().getString(R.string.comment));
 		mainHeadView.setLayoutBackground(R.color.head_layout_bg);
 		mainHeadView.setDividerVisable(View.VISIBLE);
 	}
@@ -135,9 +132,10 @@ public class CommentActivity extends BaseActivity implements OnClickListener,
 		switch (v.getId()) {
 		case R.id.head_back_layout:
 			finish();
-	/*	case R.id.comment_back:
-			// startActivity(MainActivity.class);
-			finish();*/
+			/*
+			 * case R.id.comment_back: // startActivity(MainActivity.class);
+			 * finish();
+			 */
 			break;
 		case R.id.btn_send:
 			content = etAddCommentView.getEditableText().toString();
@@ -167,39 +165,6 @@ public class CommentActivity extends BaseActivity implements OnClickListener,
 		 * if (dataManager.getDefaultProcessId() == null) {
 		 * LoadClientHelper.requestProcessInfoById(this, , listener) }
 		 */
-	}
-
-	@Override
-	protected void onResume() {
-		super.onResume();
-		LogTool.d(TAG, "---onResume()");
-		listenerManeger.addPushMsgReceiveListener(this);
-	}
-
-	@Override
-	protected void onPause() {
-		super.onPause();
-		LogTool.d(TAG, "---onPause()");
-	}
-
-	@Override
-	protected void onStop() {
-		super.onStop();
-		LogTool.d(TAG, "---onStop()");
-	}
-
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-		LogTool.d(TAG, "---onDestroy()");
-		listenerManeger.removePushMsgReceiveListener(this);
-	}
-
-	@Override
-	public void onReceiveMsg(NotifyMessage message) {
-		LogTool.d(TAG, "message=" + message);
-		// sendNotifycation(message);
-		showNotify(message);
 	}
 
 	@Override

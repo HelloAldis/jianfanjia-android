@@ -17,6 +17,7 @@ import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.NotifyDelayInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
+import com.jianfanjia.cn.interf.DelayInfoListener;
 import com.jianfanjia.cn.interf.SwitchFragmentListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
@@ -96,7 +97,22 @@ public class YanQiNotifyFragment extends BaseFragment implements
 										}.getType());
 								LogTool.d(TAG, "delayList:" + delayList);
 								delayAdapter = new DelayNotifyAdapter(
-										getActivity(), delayList);
+										getActivity(), delayList,
+										new DelayInfoListener() {
+
+											@Override
+											public void onAgree() {
+												agreeReschedule(processInfo
+														.get_id());
+											}
+
+											@Override
+											public void onRefuse() {
+												refuseReschedule(processInfo
+														.get_id());
+											}
+
+										});
 								yanqiListView.setAdapter(delayAdapter);
 							} else if (response.has(Constant.ERROR_MSG)) {
 								makeTextLong(response.get(Constant.ERROR_MSG)
@@ -123,6 +139,104 @@ public class YanQiNotifyFragment extends BaseFragment implements
 						LogTool.d(TAG, "throwable:" + throwable);
 						hideWaitDialog();
 						makeTextLong(getString(R.string.tip_login_error_for_network));
+					};
+				});
+	}
+
+	// 用户同意改期
+	private void agreeReschedule(String processid) {
+		JianFanJiaApiClient.agreeReschedule(getActivity(), processid,
+				new JsonHttpResponseHandler() {
+					@Override
+					public void onStart() {
+						LogTool.d(this.getClass().getName(), "onStart()");
+					}
+
+					@Override
+					public void onSuccess(int statusCode, Header[] headers,
+							JSONObject response) {
+						LogTool.d(this.getClass().getName(),
+								"JSONObject response:" + response);
+						try {
+							if (response.has(Constant.DATA)) {
+								makeTextLong(response.get(Constant.DATA)
+										.toString());
+							} else if (response.has(Constant.SUCCESS_MSG)) {
+								makeTextLong(response.get(Constant.SUCCESS_MSG)
+										.toString());
+								getRescheduleAll();
+							} else if (response.has(Constant.ERROR_MSG)) {
+								makeTextLong(response.get(Constant.ERROR_MSG)
+										.toString());
+							}
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+							makeTextLong(getString(R.string.tip_login_error_for_network));
+						}
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							Throwable throwable, JSONObject errorResponse) {
+						LogTool.d(this.getClass().getName(),
+								"Throwable throwable:" + throwable.toString());
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							String responseString, Throwable throwable) {
+						LogTool.d(this.getClass().getName(), "throwable:"
+								+ throwable);
+					};
+				});
+	}
+
+	// 用户拒绝改期
+	private void refuseReschedule(String processid) {
+		JianFanJiaApiClient.refuseReschedule(getActivity(), processid,
+				new JsonHttpResponseHandler() {
+					@Override
+					public void onStart() {
+						LogTool.d(this.getClass().getName(), "onStart()");
+					}
+
+					@Override
+					public void onSuccess(int statusCode, Header[] headers,
+							JSONObject response) {
+						LogTool.d(this.getClass().getName(),
+								"JSONObject response:" + response);
+						try {
+							if (response.has(Constant.DATA)) {
+								makeTextLong(response.get(Constant.DATA)
+										.toString());
+							} else if (response.has(Constant.SUCCESS_MSG)) {
+								makeTextLong(response.get(Constant.SUCCESS_MSG)
+										.toString());
+								getRescheduleAll();
+							} else if (response.has(Constant.ERROR_MSG)) {
+								makeTextLong(response.get(Constant.ERROR_MSG)
+										.toString());
+							}
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+							makeTextLong(getString(R.string.tip_login_error_for_network));
+						}
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							Throwable throwable, JSONObject errorResponse) {
+						LogTool.d(this.getClass().getName(),
+								"Throwable throwable:" + throwable.toString());
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							String responseString, Throwable throwable) {
+						LogTool.d(this.getClass().getName(), "throwable:"
+								+ throwable);
 					};
 				});
 	}

@@ -8,9 +8,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.bean.NotifyMessage;
-import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.Process;
+import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.User;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url;
@@ -179,39 +178,6 @@ public class OwnerInfoActivity extends BaseActivity implements OnClickListener {
 		default:
 			break;
 		}
-	}
-
-	@Override
-	protected void onResume() {
-		super.onResume();
-		LogTool.d(TAG, "---onResume()");
-		listenerManeger.addPushMsgReceiveListener(this);
-	}
-
-	@Override
-	protected void onPause() {
-		super.onPause();
-		LogTool.d(TAG, "---onPause()");
-	}
-
-	@Override
-	protected void onStop() {
-		super.onStop();
-		LogTool.d(TAG, "---onStop()");
-	}
-
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-		LogTool.d(TAG, "---onDestroy()");
-		listenerManeger.removePushMsgReceiveListener(this);
-	}
-
-	@Override
-	public void onReceiveMsg(NotifyMessage message) {
-		LogTool.d(TAG, "message=" + message);
-		// sendNotifycation(message);
-		showNotify(message);
 	}
 
 	@Override

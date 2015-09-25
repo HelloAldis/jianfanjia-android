@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 import com.jianfanjia.cn.AppConfig;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.db.DAOManager;
 import com.jianfanjia.cn.inter.manager.ListenerManeger;
@@ -46,6 +47,7 @@ public abstract class BaseFragment extends Fragment implements OnClickListener,
 	protected ListenerManeger listenerManeger = null;
 	protected UploadManager uploadManager = null;
 	protected AddPhotoPopWindow popupWindow = null;
+	protected ProcessInfo processInfo = null;
 	protected String mUserName = null;// 用户名
 	protected String mAccount = null;// 账号
 	protected String mUserImageId = null;// 头像
@@ -101,6 +103,7 @@ public abstract class BaseFragment extends Fragment implements OnClickListener,
 		mUserType = dataManager.getUserType();
 		LogTool.d(this.getClass().getName(), "mUserName:" + mUserName
 				+ " mAccount:" + mAccount + " userImageId:" + mUserImageId);
+		processInfo = dataManager.getDefaultProcessInfo();
 	}
 
 	public abstract int getLayoutId();

@@ -1,7 +1,6 @@
 package com.jianfanjia.cn.activity;
 
 import org.apache.http.Header;
-import org.json.JSONException;
 import org.json.JSONObject;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -12,7 +11,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.tools.LogTool;
@@ -74,14 +72,12 @@ public class FeedBackActivity extends BaseActivity implements OnClickListener {
 						LogTool.d(TAG, "JSONObject response:" + response);
 						try {
 							if (response.has(Constant.SUCCESS_MSG)) {
-								makeTextLong(response.get(Constant.SUCCESS_MSG)
-										.toString());
+								makeTextLong(getString(R.string.submit_success));
 								finish();
 							} else if (response.has(Constant.ERROR_MSG)) {
-								makeTextLong(response.get(Constant.ERROR_MSG)
-										.toString());
+								makeTextLong(getString(R.string.submit_failture));
 							}
-						} catch (JSONException e) {
+						} catch (Exception e) {
 							e.printStackTrace();
 							makeTextLong(getString(R.string.tip_login_error_for_network));
 						}
@@ -128,39 +124,6 @@ public class FeedBackActivity extends BaseActivity implements OnClickListener {
 			}
 		}
 	};
-
-	@Override
-	protected void onResume() {
-		super.onResume();
-		LogTool.d(TAG, "---onResume()");
-		listenerManeger.addPushMsgReceiveListener(this);
-	}
-
-	@Override
-	protected void onPause() {
-		super.onPause();
-		LogTool.d(TAG, "---onPause()");
-	}
-
-	@Override
-	protected void onStop() {
-		super.onStop();
-		LogTool.d(TAG, "---onStop()");
-	}
-
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-		LogTool.d(TAG, "---onDestroy()");
-		listenerManeger.removePushMsgReceiveListener(this);
-	}
-
-	@Override
-	public void onReceiveMsg(NotifyMessage message) {
-		LogTool.d(TAG, "message=" + message);
-		// sendNotifycation(message);
-		showNotify(message);
-	}
 
 	@Override
 	public int getLayoutId() {

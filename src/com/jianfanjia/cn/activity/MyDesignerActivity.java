@@ -1,6 +1,5 @@
 package com.jianfanjia.cn.activity;
 
-import u.aly.bt;
 import android.content.Intent;
 import android.net.Uri;
 import android.text.TextUtils;
@@ -13,7 +12,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.DesignerInfo;
-import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url;
 import com.jianfanjia.cn.http.LoadClientHelper;
@@ -176,39 +174,6 @@ public class MyDesignerActivity extends BaseActivity implements
 		contentLayout.setVisibility(View.VISIBLE);
 		bgView.setVisibility(View.VISIBLE);
 		errorView.setVisibility(View.GONE);
-	}
-
-	@Override
-	protected void onResume() {
-		super.onResume();
-		LogTool.d(TAG, "---onResume()");
-		listenerManeger.addPushMsgReceiveListener(this);
-	}
-
-	@Override
-	protected void onPause() {
-		super.onPause();
-		LogTool.d(TAG, "---onPause()");
-	}
-
-	@Override
-	protected void onStop() {
-		super.onStop();
-		LogTool.d(TAG, "---onStop()");
-	}
-
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-		LogTool.d(TAG, "---onDestroy()");
-		listenerManeger.removePushMsgReceiveListener(this);
-	}
-
-	@Override
-	public void onReceiveMsg(NotifyMessage message) {
-		LogTool.d(TAG, "message=" + message);
-		// sendNotifycation(message);
-		showNotify(message);
 	}
 
 	@Override
