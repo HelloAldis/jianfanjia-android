@@ -117,7 +117,7 @@ public class MyDesignerActivity extends BaseActivity implements
 			String phone = designerInfo.getPhone();
 			if (!TextUtils.isEmpty(phone)) {
 				LogTool.d(phone, phone);
-				Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:"
+				Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"
 						+ phone));
 				startActivity(intent);
 			}
