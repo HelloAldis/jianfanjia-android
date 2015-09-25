@@ -42,6 +42,7 @@ public class YanQiNotifyFragment extends BaseFragment implements
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+		LogTool.d(TAG, "dataManager=" + dataManager);
 	}
 
 	@Override
@@ -102,14 +103,18 @@ public class YanQiNotifyFragment extends BaseFragment implements
 
 											@Override
 											public void onAgree() {
-												agreeReschedule(processInfo
-														.get_id());
+												if (null != processInfo) {
+													agreeReschedule(processInfo
+															.get_id());
+												}
 											}
 
 											@Override
 											public void onRefuse() {
-												refuseReschedule(processInfo
-														.get_id());
+												if (null != processInfo) {
+													refuseReschedule(processInfo
+															.get_id());
+												}
 											}
 
 										});
