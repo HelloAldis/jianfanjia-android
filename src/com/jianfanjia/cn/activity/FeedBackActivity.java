@@ -1,7 +1,6 @@
 package com.jianfanjia.cn.activity;
 
 import org.apache.http.Header;
-import org.json.JSONException;
 import org.json.JSONObject;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -74,14 +73,12 @@ public class FeedBackActivity extends BaseActivity implements OnClickListener {
 						LogTool.d(TAG, "JSONObject response:" + response);
 						try {
 							if (response.has(Constant.SUCCESS_MSG)) {
-								makeTextLong(response.get(Constant.SUCCESS_MSG)
-										.toString());
+								makeTextLong(getString(R.string.submit_success));
 								finish();
 							} else if (response.has(Constant.ERROR_MSG)) {
-								makeTextLong(response.get(Constant.ERROR_MSG)
-										.toString());
+								makeTextLong(getString(R.string.submit_failture));
 							}
-						} catch (JSONException e) {
+						} catch (Exception e) {
 							e.printStackTrace();
 							makeTextLong(getString(R.string.tip_login_error_for_network));
 						}

@@ -43,7 +43,9 @@
     <string name="tip_login_error_for_network">对不起,无法登录</string>
     <string name="tip_no_internet">网络异常</string>
     <string name="hint_update_password">请输入重置密码</string>
-    <string name="load_failure">解析异常</string>
+    <string name="load_failture">解析异常</string>
+    <string name="submit_success">提交成功</string>
+    <string name="submit_failture">提交失败</string>
     <!-- login_activity -->
 
 
