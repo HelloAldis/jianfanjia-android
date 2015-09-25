@@ -1,32 +1,21 @@
 package com.jianfanjia.cn.activity;
 
-import java.util.ArrayList;
 import java.util.List;
-import org.apache.http.Header;
-import org.json.JSONException;
-import org.json.JSONObject;
 import android.content.Intent;
 import android.view.View;
-import android.view.ViewStub;
 import android.view.View.OnClickListener;
+import android.view.ViewStub;
 import android.widget.AdapterView;
-import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import com.google.gson.reflect.TypeToken;
-import com.jianfanjia.cn.adapter.DesignerSiteInfoAdapter;
+import android.widget.TextView;
 import com.jianfanjia.cn.adapter.MyOwerInfoAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.bean.Process;
-import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.http.LoadClientHelper;
 import com.jianfanjia.cn.http.request.ProcessListRequest;
-import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
-import com.loopj.android.http.JsonHttpResponseHandler;
 
 /**
  * 
@@ -39,7 +28,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 public class MyOwnerActivity extends BaseActivity implements OnClickListener,
 		OnItemClickListener {
 	private static final String TAG = MyOwnerActivity.class.getName();
-	
+
 	public static final String PROCESS = "process";
 	private ListView ownerListView = null;
 	private List<Process> ownerList;
@@ -51,23 +40,23 @@ public class MyOwnerActivity extends BaseActivity implements OnClickListener,
 	public void initView() {
 		initMainHeadView();
 		ownerListView = (ListView) findViewById(R.id.my_ower_listview);
-//		get_Designer_Owner();
+		// get_Designer_Owner();
 		ownerList = dataManager.getProcessLists();
-		if(ownerList == null){
+		if (ownerList == null) {
 			LoadClientHelper.requestProcessList(this, new ProcessListRequest(
 					this), this);
 		}
-		myOwerInfoAdapter = new MyOwerInfoAdapter(
-					MyOwnerActivity.this, ownerList);
+		myOwerInfoAdapter = new MyOwerInfoAdapter(MyOwnerActivity.this,
+				ownerList);
 		ownerListView.setAdapter(myOwerInfoAdapter);
 		setEmptyView();
 	}
-	
+
 	private void setEmptyView() {
-		ViewStub mViewStub = (ViewStub)findViewById(R.id.empty);
-		errorText = (TextView)mViewStub.inflate().findViewById(R.id.tv_error);
+		ViewStub mViewStub = (ViewStub) findViewById(R.id.empty);
+		errorText = (TextView) mViewStub.inflate().findViewById(R.id.tv_error);
 		errorText.setText("暂无业主数据");
-		ownerListView.setEmptyView(mViewStub);		
+		ownerListView.setEmptyView(mViewStub);
 	}
 
 	private void initMainHeadView() {
@@ -93,7 +82,7 @@ public class MyOwnerActivity extends BaseActivity implements OnClickListener,
 			break;
 		}
 	}
-	
+
 	@Override
 	public void loadSuccess() {
 		super.loadSuccess();
@@ -111,39 +100,6 @@ public class MyOwnerActivity extends BaseActivity implements OnClickListener,
 				OwnerInfoActivity.class);
 		intent.putExtra(PROCESS, info);
 		startActivity(intent);
-	}
-
-	@Override
-	protected void onResume() {
-		super.onResume();
-		LogTool.d(TAG, "---onResume()");
-		listenerManeger.addPushMsgReceiveListener(this);
-	}
-
-	@Override
-	protected void onPause() {
-		super.onPause();
-		LogTool.d(TAG, "---onPause()");
-	}
-
-	@Override
-	protected void onStop() {
-		super.onStop();
-		LogTool.d(TAG, "---onStop()");
-	}
-
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-		LogTool.d(TAG, "---onDestroy()");
-		listenerManeger.removePushMsgReceiveListener(this);
-	}
-
-	@Override
-	public void onReceiveMsg(NotifyMessage message) {
-		LogTool.d(TAG, "message=" + message);
-		// sendNotifycation(message);
-		showNotify(message);
 	}
 
 	@Override

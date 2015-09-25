@@ -24,7 +24,6 @@ import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.CheckInfo.Imageid;
 import com.jianfanjia.cn.bean.GridItem;
-import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.cache.BusinessManager;
 import com.jianfanjia.cn.config.Constant;
@@ -185,7 +184,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 						}
 					});
 				}
-				if(processInfoStatus == Constant.FINISH){
+				if (processInfoStatus == Constant.FINISH) {
 					btn_confirm.setEnabled(false);
 				}
 			} else if (userIdentity.equals(Constant.IDENTITY_DESIGNER)) {
@@ -213,12 +212,12 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 						}
 					});
 				}
-				if(processInfoStatus == Constant.FINISH){
+				if (processInfoStatus == Constant.FINISH) {
 					btn_confirm.setEnabled(false);
 				}
 			}
 		}
-		
+
 		if (processInfoStatus == Constant.FINISH) {
 			btn_confirm.setEnabled(false);
 		}
@@ -291,32 +290,6 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 		super.loadSuccess();
 		initList();
 		changeEditStatus();
-	}
-
-	@Override
-	protected void onResume() {
-		super.onResume();
-		LogTool.d(TAG, "---onResume()");
-		listenerManeger.addPushMsgReceiveListener(this);
-	}
-
-	@Override
-	protected void onPause() {
-		super.onPause();
-		LogTool.d(TAG, "---onPause()");
-	}
-
-	@Override
-	protected void onStop() {
-		super.onStop();
-		LogTool.d(TAG, "---onStop()");
-	}
-
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-		LogTool.d(TAG, "---onDestroy()");
-		listenerManeger.removePushMsgReceiveListener(this);
 	}
 
 	@Override
@@ -634,13 +607,6 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 			e.printStackTrace();
 		}
 		return null;
-	}
-
-	@Override
-	public void onReceiveMsg(NotifyMessage message) {
-		LogTool.d(TAG, "message=" + message);
-		// sendNotifycation(message);
-		showNotify(message);
 	}
 
 	@Override
