@@ -787,67 +787,79 @@ public class SiteManageFragment extends BaseFragment implements
 				Uri uri = data.getData();
 				LogTool.d(TAG, "uri:" + uri);
 				if (null != uri) {
-//					startPhotoZoom(uri);
-					Bitmap imageBitmap = ImageUtil.getImage(ImageUtils.getImagePath(uri, getActivity()));
-					LoadClientHelper.upload_Image(getActivity(),
-							new UploadPicRequestNew(getActivity(), imageBitmap),
-							new LoadDataListener() {
+					// startPhotoZoom(uri);
+					Bitmap imageBitmap = ImageUtil.getImage(ImageUtils
+							.getImagePath(uri, getActivity()));
+					LoadClientHelper
+							.upload_Image(getActivity(),
+									new UploadPicRequestNew(getActivity(),
+											imageBitmap),
+									new LoadDataListener() {
 
-								@Override
-								public void preLoad() {
-									// TODO Auto-generated method stub
-									showWaitDialog();
-								}
+										@Override
+										public void preLoad() {
+											// TODO Auto-generated method stub
+											showWaitDialog();
+										}
 
-								@Override
-								public void loadSuccess() {
-									// TODO Auto-generated method stub
-									String itemName = sectionItemAdapter
-											.getCurrentItem();
-									AddPicToSectionItemRequest addSectionItemRequest = new AddPicToSectionItemRequest(
-											getActivity(), processInfo.get_id(),
-											sectionInfo.getName(), itemName,
-											dataManager.getCurrentUploadImageId());
-									LoadClientHelper.submitImgToProgress(
-											getActivity(), addSectionItemRequest,
-											new LoadDataListener() {
+										@Override
+										public void loadSuccess() {
+											// TODO Auto-generated method stub
+											String itemName = sectionItemAdapter
+													.getCurrentItem();
+											AddPicToSectionItemRequest addSectionItemRequest = new AddPicToSectionItemRequest(
+													getActivity(),
+													processInfo.get_id(),
+													sectionInfo.getName(),
+													itemName,
+													dataManager
+															.getCurrentUploadImageId());
+											LoadClientHelper
+													.submitImgToProgress(
+															getActivity(),
+															addSectionItemRequest,
+															new LoadDataListener() {
 
-												@Override
-												public void preLoad() {
-													// TODO Auto-generated
-													// method stub
-												}
+																@Override
+																public void preLoad() {
+																	// TODO
+																	// Auto-generated
+																	// method
+																	// stub
+																}
 
-												@Override
-												public void loadSuccess() {
-													hideWaitDialog();
-													loadCurrentProcess();
-													if (mTmpFile != null
-															&& mTmpFile.exists()) {
-														mTmpFile.delete();
-													}
-													loadCurrentProcess();
-												}
+																@Override
+																public void loadSuccess() {
+																	hideWaitDialog();
+																	loadCurrentProcess();
+																	if (mTmpFile != null
+																			&& mTmpFile
+																					.exists()) {
+																		mTmpFile.delete();
+																	}
+																	loadCurrentProcess();
+																}
 
-												@Override
-												public void loadFailture() {
-													hideWaitDialog();
-													makeTextLong(getString(R.string.tip_error_internet));
-													if (mTmpFile != null
-															&& mTmpFile.exists()) {
-														mTmpFile.delete();
-													}
-												}
-											});
-								}
+																@Override
+																public void loadFailture() {
+																	hideWaitDialog();
+																	makeTextLong(getString(R.string.tip_error_internet));
+																	if (mTmpFile != null
+																			&& mTmpFile
+																					.exists()) {
+																		mTmpFile.delete();
+																	}
+																}
+															});
+										}
 
-								@Override
-								public void loadFailture() {
-									// TODO Auto-generated method stub
-									hideWaitDialog();
-									makeTextLong(getString(R.string.tip_error_internet));
-								}
-							});
+										@Override
+										public void loadFailture() {
+											// TODO Auto-generated method stub
+											hideWaitDialog();
+											makeTextLong(getString(R.string.tip_error_internet));
+										}
+									});
 
 				}
 			}
@@ -867,71 +879,43 @@ public class SiteManageFragment extends BaseFragment implements
 						 * processInfo.get_id(), sectionInfo.getName(),
 						 * processInfoName, this);
 						 */
-						/*LoadClientHelper.upload_Image(getActivity(),
-								new UploadPicRequest(getActivity(), imgPath),
-								new LoadDataListener() {
-
-									@Override
-									public void preLoad() {
-										// TODO Auto-generated method stub
-										showWaitDialog();
-									}
-
-									@Override
-									public void loadSuccess() {
-										// TODO Auto-generated method stub
-										String itemName = sectionItemAdapter
-												.getCurrentItem();
-										AddPicToSectionItemRequest addSectionItemRequest = new AddPicToSectionItemRequest(
-												getActivity(),
-												processInfo.get_id(),
-												sectionInfo.getName(),
-												itemName,
-												dataManager
-														.getCurrentUploadImageId());
-										LoadClientHelper.submitImgToProgress(
-												getActivity(),
-												addSectionItemRequest,
-												new LoadDataListener() {
-
-													@Override
-													public void preLoad() {
-														// TODO Auto-generated
-														// method stub
-													}
-
-													@Override
-													public void loadSuccess() {
-														hideWaitDialog();
-														loadCurrentProcess();
-														if (mTmpFile != null
-																&& mTmpFile
-																		.exists()) {
-															mTmpFile.delete();
-														}
-														loadCurrentProcess();
-													}
-
-													@Override
-													public void loadFailture() {
-														hideWaitDialog();
-														makeTextLong(getString(R.string.tip_error_internet));
-														if (mTmpFile != null
-																&& mTmpFile
-																		.exists()) {
-															mTmpFile.delete();
-														}
-													}
-												});
-									}
-
-									@Override
-									public void loadFailture() {
-										// TODO Auto-generated method stub
-										hideWaitDialog();
-										makeTextLong(getString(R.string.tip_error_internet));
-									}
-								});*/
+						/*
+						 * LoadClientHelper.upload_Image(getActivity(), new
+						 * UploadPicRequest(getActivity(), imgPath), new
+						 * LoadDataListener() {
+						 * 
+						 * @Override public void preLoad() { // TODO
+						 * Auto-generated method stub showWaitDialog(); }
+						 * 
+						 * @Override public void loadSuccess() { // TODO
+						 * Auto-generated method stub String itemName =
+						 * sectionItemAdapter .getCurrentItem();
+						 * AddPicToSectionItemRequest addSectionItemRequest =
+						 * new AddPicToSectionItemRequest( getActivity(),
+						 * processInfo.get_id(), sectionInfo.getName(),
+						 * itemName, dataManager .getCurrentUploadImageId());
+						 * LoadClientHelper.submitImgToProgress( getActivity(),
+						 * addSectionItemRequest, new LoadDataListener() {
+						 * 
+						 * @Override public void preLoad() { // TODO
+						 * Auto-generated // method stub }
+						 * 
+						 * @Override public void loadSuccess() {
+						 * hideWaitDialog(); loadCurrentProcess(); if (mTmpFile
+						 * != null && mTmpFile .exists()) { mTmpFile.delete(); }
+						 * loadCurrentProcess(); }
+						 * 
+						 * @Override public void loadFailture() {
+						 * hideWaitDialog();
+						 * makeTextLong(getString(R.string.tip_error_internet));
+						 * if (mTmpFile != null && mTmpFile .exists()) {
+						 * mTmpFile.delete(); } } }); }
+						 * 
+						 * @Override public void loadFailture() { // TODO
+						 * Auto-generated method stub hideWaitDialog();
+						 * makeTextLong(getString(R.string.tip_error_internet));
+						 * } });
+						 */
 					}
 				}
 			}
