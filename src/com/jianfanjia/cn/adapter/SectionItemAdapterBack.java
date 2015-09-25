@@ -400,7 +400,7 @@ public class SectionItemAdapterBack extends BaseAdapter {
 				});
 				break;
 			}
-		
+
 			viewHolderf.openCheck.setOnClickListener(new OnClickListener() {
 
 				@Override
