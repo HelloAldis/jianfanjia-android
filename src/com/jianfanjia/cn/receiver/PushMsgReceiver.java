@@ -112,10 +112,9 @@ public class PushMsgReceiver extends BroadcastReceiver {
 				Log.i(TAG, "listener:" + listener);
 				if (null != listener) {
 					if (listener instanceof NotifyActivity) {
-						Log.i(TAG, "111111111111111111111");
+						listener.onReceive(message);
 					}
 				} else {
-					Log.i(TAG, "22222222222222222222");
 					sendNotifycation(context, message);
 				}
 			} else {
