@@ -61,7 +61,6 @@ public class MyDesignerActivity extends BaseActivity implements
 		productSumView = (TextView) findViewById(R.id.my_designer_product_sum);
 		appointmentSum = (TextView) findViewById(R.id.my_designer_appointment_sum);
 		callDesignerView = (Button) findViewById(R.id.btn_call_designer);
-
 		designerId = dataManager.getDefaultDesignerId();
 		if (designerId != null) {
 			designerInfo = dataManager.getDesignerInfoById(designerId);
@@ -81,7 +80,6 @@ public class MyDesignerActivity extends BaseActivity implements
 		mainHeadView.setBackListener(this);
 		mainHeadView.setMianTitle(getResources()
 				.getString(R.string.my_designer));
-
 	}
 
 	@Override
@@ -103,7 +101,6 @@ public class MyDesignerActivity extends BaseActivity implements
 
 	@Override
 	public void setListener() {
-		// TODO Auto-generated method stub
 		callDesignerView.setOnClickListener(this);
 	}
 
@@ -128,9 +125,7 @@ public class MyDesignerActivity extends BaseActivity implements
 
 	private void setData() {
 		if (designerInfo != null) {
-
 			setViewChange();
-
 			nameView.setText(TextUtils.isEmpty(designerInfo.getUsername()) ? getString(R.string.designer)
 					: designerInfo.getUsername());
 			if (!TextUtils.isEmpty(designerInfo.getSex())) {
@@ -145,7 +140,6 @@ public class MyDesignerActivity extends BaseActivity implements
 					: View.GONE);
 			productSumView.setText(designerInfo.getProduct_count() + "");
 			appointmentSum.setText(designerInfo.getOrder_count() + "");
-
 			if (designerInfo.getBig_imageid() != null) {
 				Log.i(TAG, Url.GET_IMAGE + designerInfo.getBig_imageid());
 				ImageLoader.getInstance().displayImage(
@@ -161,7 +155,6 @@ public class MyDesignerActivity extends BaseActivity implements
 			} else {
 				headView.setImageResource(R.drawable.icon_sidebar_default_designer);
 			}
-
 		}
 	}
 
