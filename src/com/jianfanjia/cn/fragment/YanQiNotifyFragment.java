@@ -17,6 +17,7 @@ import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.NotifyDelayInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
+import com.jianfanjia.cn.interf.DelayInfoListener;
 import com.jianfanjia.cn.interf.SwitchFragmentListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
@@ -96,7 +97,20 @@ public class YanQiNotifyFragment extends BaseFragment implements
 										}.getType());
 								LogTool.d(TAG, "delayList:" + delayList);
 								delayAdapter = new DelayNotifyAdapter(
-										getActivity(), delayList);
+										getActivity(), delayList,
+										new DelayInfoListener() {
+
+											@Override
+											public void onAgree() {
+												LogTool.d(TAG, "11111111");
+											}
+
+											@Override
+											public void onRefuse() {
+												LogTool.d(TAG, "333333333");
+											}
+
+										});
 								yanqiListView.setAdapter(delayAdapter);
 							} else if (response.has(Constant.ERROR_MSG)) {
 								makeTextLong(response.get(Constant.ERROR_MSG)
