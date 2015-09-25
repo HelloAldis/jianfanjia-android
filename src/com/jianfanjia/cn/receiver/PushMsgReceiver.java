@@ -23,6 +23,8 @@ import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.db.DAOManager;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
+import com.jianfanjia.cn.inter.manager.ListenerManeger;
+import com.jianfanjia.cn.interf.ReceiveMsgListener;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.SystemUtils;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -37,11 +39,13 @@ import com.loopj.android.http.JsonHttpResponseHandler;
  */
 public class PushMsgReceiver extends BroadcastReceiver {
 	private static final String TAG = PushMsgReceiver.class.getName();
+	private ListenerManeger listenerManeger = null;
 	private DAOManager daoManager = null;
 	private Gson gson = new Gson();
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
+		listenerManeger = ListenerManeger.getListenerManeger();
 		daoManager = DAOManager.getInstance(context);
 		// -------------------------------
 		Bundle bundle = intent.getExtras();
@@ -101,15 +105,17 @@ public class PushMsgReceiver extends BroadcastReceiver {
 			NotifyMessage message = gson.fromJson(jsonStr, NotifyMessage.class);
 			Log.i(TAG, "message:" + message);
 			daoManager.add(message);
-			// List<PushMsgReceiveListener> listeners =
-			// ListenerManeger.msgListeners;
-			// for (PushMsgReceiveListener listener : listeners) {
-			// LogTool.d(TAG, "listener:" + listener);
-			// listener.onReceiveMsg(message);
-			// }
 			if (SystemUtils.isAppAlive(context, context.getPackageName())) {
 				LogTool.d(TAG, "the app process is alive");
-				sendNotifycation(context, message);
+				ReceiveMsgListener listener = listenerManeger
+						.getReceiveMsgListener(message);
+				Log.i(TAG, "listener" + listener);
+				if (null != listener) {
+					Log.i(TAG, "111111111111111111111");
+				} else {
+					Log.i(TAG, "22222222222222222222");
+					sendNotifycation(context, message);
+				}
 			} else {
 				LogTool.d(TAG, "the app process is dead");
 				Intent launchIntent = context.getPackageManager()

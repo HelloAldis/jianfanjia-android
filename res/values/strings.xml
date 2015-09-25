@@ -172,12 +172,12 @@
     <string name="owner_detail_cell">所在小区：</string>
     <string name="owner_detail_site">工地地址：</string>
     <string name="owner_detail_housestyle">装修户型：</string>
-    <string name="owner_detail_decoratearea">装修面积：</string>
+    <string name="owner_detail_decoratearea">装修面积（㎡）：</string>
     <string name="owner_detail_lovestyle">风格喜好：</string>
     <string name="owner_detail_decoratestyle">装修类型：</string>
-    <string name="owner_detail_decoratebudget">装修预算：</string>
+    <string name="owner_detail_decoratebudget">装修预算（万元）：</string>
     <string name="owner_detail_startdate">开工日期：</string>
-    <string name="owner_detail_totaldate">总工期：</string>
+    <string name="owner_detail_totaldate">总工期（天）：</string>
     <!-- activity owner detail -->
 
 

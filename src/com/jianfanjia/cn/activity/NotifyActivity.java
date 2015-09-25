@@ -6,15 +6,18 @@ import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import com.jianfanjia.cn.adapter.MyFragmentPagerAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.bean.SelectItem;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.fragment.CaiGouNotifyFragment;
 import com.jianfanjia.cn.fragment.FuKuanNotifyFragment;
 import com.jianfanjia.cn.fragment.YanQiNotifyFragment;
+import com.jianfanjia.cn.interf.ReceiveMsgListener;
 import com.jianfanjia.cn.interf.SwitchFragmentListener;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
@@ -28,7 +31,8 @@ import com.jianfanjia.cn.view.TabPageIndicator;
  * @date 2015-9-11 ÉÏÎç9:49:10
  * 
  */
-public class NotifyActivity extends BaseActivity implements OnClickListener {
+public class NotifyActivity extends BaseActivity implements OnClickListener,
+		ReceiveMsgListener {
 	private static final String TAG = NotifyActivity.class.getName();
 	private SwitchFragmentListener listener = null;
 	private MainHeadView mainHeadView = null;
@@ -127,6 +131,37 @@ public class NotifyActivity extends BaseActivity implements OnClickListener {
 
 					}
 				});
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		LogTool.d(TAG, "---onResume()");
+		listenerManeger.addReceiveMsgListener(this);
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		LogTool.d(TAG, "---onPause()");
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+		LogTool.d(TAG, "---onStop()");
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		LogTool.d(TAG, "---onDestroy()");
+		listenerManeger.removeReceiveMsgListener(this);
+	}
+
+	@Override
+	public void onReceive(NotifyMessage message) {
+		Log.d(TAG, "message: " + message);
 	}
 
 	@Override

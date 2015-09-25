@@ -17,7 +17,6 @@ import android.widget.Toast;
 import com.jianfanjia.cn.AppConfig;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.cache.DataManagerNew;
-import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.db.DAOManager;
 import com.jianfanjia.cn.inter.manager.ListenerManeger;
 import com.jianfanjia.cn.interf.LoadDataListener;
@@ -138,7 +137,6 @@ public abstract class BaseActivity extends FragmentActivity implements
 		super.onResume();
 		LogTool.d(this.getClass().getName(), "onResume()");
 		isOpen = dataManager.isPushOpen();
-		Global.isAppBack = false;
 		registerNetReceiver();
 	}
 

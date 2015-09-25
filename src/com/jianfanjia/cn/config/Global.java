@@ -9,5 +9,5 @@ package com.jianfanjia.cn.config;
  * 
  */
 public class Global {
-	public static boolean isAppBack = false;// 判断App是否后台运行
+
 }

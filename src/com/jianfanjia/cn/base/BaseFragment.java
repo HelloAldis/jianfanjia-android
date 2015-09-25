@@ -104,6 +104,7 @@ public abstract class BaseFragment extends Fragment implements OnClickListener,
 		LogTool.d(this.getClass().getName(), "mUserName:" + mUserName
 				+ " mAccount:" + mAccount + " userImageId:" + mUserImageId);
 		processInfo = dataManager.getDefaultProcessInfo();
+		LogTool.d(this.getClass().getName(), "processInfo=" + processInfo);
 	}
 
 	public abstract int getLayoutId();

@@ -61,7 +61,7 @@ public class MyDesignerActivity extends BaseActivity implements
 		productSumView = (TextView) findViewById(R.id.my_designer_product_sum);
 		appointmentSum = (TextView) findViewById(R.id.my_designer_appointment_sum);
 		callDesignerView = (Button) findViewById(R.id.btn_call_designer);
-		
+
 		designerId = dataManager.getDefaultDesignerId();
 		if (designerId != null) {
 			designerInfo = dataManager.getDesignerInfoById(designerId);
@@ -115,9 +115,10 @@ public class MyDesignerActivity extends BaseActivity implements
 			break;
 		case R.id.btn_call_designer:
 			String phone = designerInfo.getPhone();
-			if(!TextUtils.isEmpty(phone)){
-				LogTool.d(phone,phone);
-				Intent intent=new Intent(Intent.ACTION_CALL,Uri.parse("tel:"+ phone));
+			if (!TextUtils.isEmpty(phone)) {
+				LogTool.d(phone, phone);
+				Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:"
+						+ phone));
 				startActivity(intent);
 			}
 		default:
@@ -160,8 +161,7 @@ public class MyDesignerActivity extends BaseActivity implements
 			} else {
 				headView.setImageResource(R.drawable.icon_sidebar_default_designer);
 			}
-			
-			
+
 		}
 	}
 

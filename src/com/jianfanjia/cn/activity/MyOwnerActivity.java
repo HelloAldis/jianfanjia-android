@@ -28,7 +28,6 @@ import com.jianfanjia.cn.view.MainHeadView;
 public class MyOwnerActivity extends BaseActivity implements OnClickListener,
 		OnItemClickListener {
 	private static final String TAG = MyOwnerActivity.class.getName();
-
 	public static final String PROCESS = "process";
 	private ListView ownerListView = null;
 	private List<Process> ownerList;
