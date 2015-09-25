@@ -125,8 +125,8 @@ public class OwnerInfoActivity extends BaseActivity implements OnClickListener {
 	private void initMainHead() {
 		mainHeadView = (MainHeadView) findViewById(R.id.owner_detail_head_layout);
 		mainHeadView.setBackListener(this);
-		mainHeadView.setMianTitle(getResources().getString(
-				R.string.owner_detail));
+		mainHeadView.setMianTitle(getResources()
+				.getString(R.string.owner_detail));
 	}
 
 	private void setData() {

@@ -2,10 +2,13 @@ package com.jianfanjia.cn.http;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
+
+import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.entity.StringEntity;
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.util.Log;
 import com.jianfanjia.cn.bean.CommitCommentInfo;
 import com.jianfanjia.cn.bean.DesignerUpdateInfo;
@@ -14,6 +17,7 @@ import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Url;
 import com.jianfanjia.cn.tools.DateFormatTool;
+import com.jianfanjia.cn.tools.ImageUtil;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -426,6 +430,24 @@ public class JianFanJiaApiClient {
 			RequestParams params = new RequestParams();
 			params.put("Filedata", file);
 			HttpRestClient.post(context, Url.UPLOAD_IMAGE, params, handler);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * 用户上传图片
+	 * 
+	 * @param context
+	 * @param hanlder
+	 */
+	public static void uploadImage(Context context, Bitmap bitmap,
+			AsyncHttpResponseHandler handler) {
+		ByteArrayEntity byteArrayEntity;
+		try {
+			byteArrayEntity = new ByteArrayEntity(ImageUtil.transformBitmapToBytes(bitmap));
+			HttpRestClient.post(context, Url.UPLOAD_IMAGE, byteArrayEntity,"image/jpeg" ,handler);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

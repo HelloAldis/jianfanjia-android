@@ -51,6 +51,7 @@ import com.jianfanjia.cn.http.LoadClientHelper;
 import com.jianfanjia.cn.http.request.AddPicToSectionItemRequest;
 import com.jianfanjia.cn.http.request.ProcessInfoRequest;
 import com.jianfanjia.cn.http.request.UploadPicRequest;
+import com.jianfanjia.cn.http.request.UploadPicRequestNew;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
 import com.jianfanjia.cn.interf.LoadDataListener;
 import com.jianfanjia.cn.interf.UploadImageListener;
@@ -61,6 +62,8 @@ import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.OnRefreshListen
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshScrollView;
 import com.jianfanjia.cn.tools.DateFormatTool;
 import com.jianfanjia.cn.tools.FileUtil;
+import com.jianfanjia.cn.tools.ImageUtil;
+import com.jianfanjia.cn.tools.ImageUtils;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.NetTool;
 import com.jianfanjia.cn.tools.PhotoUtils;
@@ -711,11 +714,72 @@ public class SiteManageFragment extends BaseFragment implements
 		switch (requestCode) {
 		case Constant.REQUESTCODE_CAMERA:// 拍照
 			if (mTmpFile != null) {
-				Uri uri = Uri.fromFile(mTmpFile);
-				LogTool.d(TAG, "uri:" + uri);
-				if (null != uri) {
-					startPhotoZoom(uri);
-				}
+				/*
+				 * Uri uri = Uri.fromFile(mTmpFile); LogTool.d(TAG, "uri:" +
+				 * uri); if (null != uri) { startPhotoZoom(uri); String imaPath
+				 * = }
+				 */
+				Bitmap imageBitmap = ImageUtil.getImage(mTmpFile.getPath());
+				LoadClientHelper.upload_Image(getActivity(),
+						new UploadPicRequestNew(getActivity(), imageBitmap),
+						new LoadDataListener() {
+
+							@Override
+							public void preLoad() {
+								// TODO Auto-generated method stub
+								showWaitDialog();
+							}
+
+							@Override
+							public void loadSuccess() {
+								// TODO Auto-generated method stub
+								String itemName = sectionItemAdapter
+										.getCurrentItem();
+								AddPicToSectionItemRequest addSectionItemRequest = new AddPicToSectionItemRequest(
+										getActivity(), processInfo.get_id(),
+										sectionInfo.getName(), itemName,
+										dataManager.getCurrentUploadImageId());
+								LoadClientHelper.submitImgToProgress(
+										getActivity(), addSectionItemRequest,
+										new LoadDataListener() {
+
+											@Override
+											public void preLoad() {
+												// TODO Auto-generated
+												// method stub
+											}
+
+											@Override
+											public void loadSuccess() {
+												hideWaitDialog();
+												loadCurrentProcess();
+												if (mTmpFile != null
+														&& mTmpFile.exists()) {
+													mTmpFile.delete();
+												}
+												loadCurrentProcess();
+											}
+
+											@Override
+											public void loadFailture() {
+												hideWaitDialog();
+												makeTextLong(getString(R.string.tip_error_internet));
+												if (mTmpFile != null
+														&& mTmpFile.exists()) {
+													mTmpFile.delete();
+												}
+											}
+										});
+							}
+
+							@Override
+							public void loadFailture() {
+								// TODO Auto-generated method stub
+								hideWaitDialog();
+								makeTextLong(getString(R.string.tip_error_internet));
+							}
+						});
+
 			}
 			break;
 		case Constant.REQUESTCODE_LOCATION:// 本地选取
@@ -723,7 +787,68 @@ public class SiteManageFragment extends BaseFragment implements
 				Uri uri = data.getData();
 				LogTool.d(TAG, "uri:" + uri);
 				if (null != uri) {
-					startPhotoZoom(uri);
+//					startPhotoZoom(uri);
+					Bitmap imageBitmap = ImageUtil.getImage(ImageUtils.getImagePath(uri, getActivity()));
+					LoadClientHelper.upload_Image(getActivity(),
+							new UploadPicRequestNew(getActivity(), imageBitmap),
+							new LoadDataListener() {
+
+								@Override
+								public void preLoad() {
+									// TODO Auto-generated method stub
+									showWaitDialog();
+								}
+
+								@Override
+								public void loadSuccess() {
+									// TODO Auto-generated method stub
+									String itemName = sectionItemAdapter
+											.getCurrentItem();
+									AddPicToSectionItemRequest addSectionItemRequest = new AddPicToSectionItemRequest(
+											getActivity(), processInfo.get_id(),
+											sectionInfo.getName(), itemName,
+											dataManager.getCurrentUploadImageId());
+									LoadClientHelper.submitImgToProgress(
+											getActivity(), addSectionItemRequest,
+											new LoadDataListener() {
+
+												@Override
+												public void preLoad() {
+													// TODO Auto-generated
+													// method stub
+												}
+
+												@Override
+												public void loadSuccess() {
+													hideWaitDialog();
+													loadCurrentProcess();
+													if (mTmpFile != null
+															&& mTmpFile.exists()) {
+														mTmpFile.delete();
+													}
+													loadCurrentProcess();
+												}
+
+												@Override
+												public void loadFailture() {
+													hideWaitDialog();
+													makeTextLong(getString(R.string.tip_error_internet));
+													if (mTmpFile != null
+															&& mTmpFile.exists()) {
+														mTmpFile.delete();
+													}
+												}
+											});
+								}
+
+								@Override
+								public void loadFailture() {
+									// TODO Auto-generated method stub
+									hideWaitDialog();
+									makeTextLong(getString(R.string.tip_error_internet));
+								}
+							});
+
 				}
 			}
 			break;
@@ -742,7 +867,7 @@ public class SiteManageFragment extends BaseFragment implements
 						 * processInfo.get_id(), sectionInfo.getName(),
 						 * processInfoName, this);
 						 */
-						LoadClientHelper.upload_Image(getActivity(),
+						/*LoadClientHelper.upload_Image(getActivity(),
 								new UploadPicRequest(getActivity(), imgPath),
 								new LoadDataListener() {
 
@@ -806,7 +931,7 @@ public class SiteManageFragment extends BaseFragment implements
 										hideWaitDialog();
 										makeTextLong(getString(R.string.tip_error_internet));
 									}
-								});
+								});*/
 					}
 				}
 			}

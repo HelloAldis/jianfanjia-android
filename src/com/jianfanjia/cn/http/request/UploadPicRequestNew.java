@@ -1,18 +1,19 @@
 package com.jianfanjia.cn.http.request;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.text.TextUtils;
 
 import com.jianfanjia.cn.base.BaseRequest;
 import com.jianfanjia.cn.base.BaseResponse;
 
-public class UploadPicRequest extends BaseRequest {
+public class UploadPicRequestNew extends BaseRequest {
 	
-	private String imagePath;
+	private Bitmap bitmap;
 	
-	public UploadPicRequest(Context context,String imagePath) {
+	public UploadPicRequestNew(Context context,Bitmap bitmap) {
 		super(context);
-		this.imagePath = imagePath;
+		this.bitmap = bitmap;
 	}
 
 	@Override
@@ -37,12 +38,12 @@ public class UploadPicRequest extends BaseRequest {
 		}
 	}
 
-	public String getImagePath() {
-		return imagePath;
+	public Bitmap getBitmap() {
+		return bitmap;
 	}
 
-	public void setImagePath(String imagePath) {
-		this.imagePath = imagePath;
+	public void setBitmap(Bitmap bitmap) {
+		this.bitmap = bitmap;
 	}
 
 }
