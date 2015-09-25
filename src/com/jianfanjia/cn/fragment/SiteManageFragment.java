@@ -417,22 +417,24 @@ public class SiteManageFragment extends BaseFragment implements
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				if(sectionItemAdapter.isHasCheck()){
-					if(position == 0){
+				if (sectionItemAdapter.isHasCheck()) {
+					if (position == 0) {
 						boolean isCanClickYanshou = true;
-						for(SectionItemInfo sectionItemInfo : sectionInfo.getItems()){
-							if(Constant.FINISH != Integer.parseInt(sectionItemInfo.getStatus())){
+						for (SectionItemInfo sectionItemInfo : sectionInfo
+								.getItems()) {
+							if (Constant.FINISH != Integer
+									.parseInt(sectionItemInfo.getStatus())) {
 								isCanClickYanshou = false;
 								break;
 							}
 						}
-						if(isCanClickYanshou){
+						if (isCanClickYanshou) {
 							sectionItemAdapter.setCurrentOpenItem(position);
 						}
-					}else{
+					} else {
 						sectionItemAdapter.setCurrentOpenItem(position);
 					}
-				}else{
+				} else {
 					sectionItemAdapter.setCurrentOpenItem(position);
 				}
 			}
@@ -617,7 +619,8 @@ public class SiteManageFragment extends BaseFragment implements
 					public void onClick(DialogInterface dialog, int which) {
 						dialog.dismiss();
 						confirmProcessItemDone(processInfo.get_id(),
-								sectionInfo.getName(), sectionItemAdapter.getCurrentItem());
+								sectionInfo.getName(),
+								sectionItemAdapter.getCurrentItem());
 					}
 				});
 		dialog.setNegativeButton(R.string.no, null);
@@ -686,7 +689,7 @@ public class SiteManageFragment extends BaseFragment implements
 							}
 						} catch (JSONException e) {
 							e.printStackTrace();
-							makeTextLong(getString(R.string.load_failure));
+							makeTextLong(getString(R.string.load_failture));
 						}
 					}
 
@@ -789,8 +792,11 @@ public class SiteManageFragment extends BaseFragment implements
 														}
 														// TODO Auto-generated
 														// method stub
-														/*sectionItemAdapter
-																.setPosition(currentList);*/
+														/*
+														 * sectionItemAdapter
+														 * .setPosition
+														 * (currentList);
+														 */
 														loadCurrentProcess();
 													}
 
