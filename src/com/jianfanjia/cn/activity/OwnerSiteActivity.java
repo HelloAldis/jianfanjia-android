@@ -84,17 +84,17 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 		requirementInfo = dataManager.getRequirementInfo();
 		LogTool.d(TAG, "processInfo:" + processInfo);
 		if (processInfo == null) {
-			if(processId != null){
+			if (processId != null) {
 				processInfo = dataManager.getProcessInfoById(processId);
 			}
-			if(processInfo == null){
+			if (processInfo == null) {
 				if (requirementInfo == null) {
 					LogTool.d(TAG, "getRequirement()");
 					getRequirement();
 				} else {
 					getTotalDuration();
 				}
-			}else{
+			} else {
 				initData();
 			}
 		} else {
@@ -216,7 +216,7 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 	}
 
 	private void getRequirement() {
-		if(!NetTool.isNetworkAvailable(this)){
+		if (!NetTool.isNetworkAvailable(this)) {
 			makeTextLong(getString(R.string.tip_internet_not));
 			return;
 		}
@@ -250,7 +250,7 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 	}
 
 	protected void loadTotalDuration(String planId) {
-		if(!NetTool.isNetworkAvailable(this)){
+		if (!NetTool.isNetworkAvailable(this)) {
 			makeTextLong(getString(R.string.tip_internet_not));
 			return;
 		}
@@ -286,17 +286,17 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 	public void loadSuccess() {
 		processInfo = dataManager.getDefaultProcessInfo();
 		if (processInfo != null) {
-			LoadClientHelper.requestProcessList(this, new ProcessListRequest(this), new LoadDataListener() {
-				
+			LoadClientHelper.requestProcessList(this, new ProcessListRequest(
+					this), new LoadDataListener() {
+
 				@Override
 				public void preLoad() {
 					// TODO Auto-generated method stub
-					
+
 				}
-				
+
 				@Override
 				public void loadSuccess() {
-					// TODO Auto-generated method stub
 					hideWaitDialog();
 					processInfo = dataManager.getDefaultProcessInfo();
 					makeTextLong("配置成功");
@@ -306,7 +306,7 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 					setResult(Constant.REQUESTCODE_CONFIG_SITE, intent);
 					finish();
 				}
-				
+
 				@Override
 				public void loadFailture() {
 					// TODO Auto-generated method stub
@@ -318,7 +318,7 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 			// loadempty
 			setErrorView();
 		}
-		
+
 	}
 
 	// 配置工地信息
