@@ -20,6 +20,7 @@ import com.jianfanjia.cn.tools.DateFormatTool;
  */
 public class DelayNotifyAdapter extends BaseListAdapter<NotifyDelayInfo> {
 	private DelayInfoListener listener;
+	private String userType;
 
 	public DelayNotifyAdapter(Context context, List<NotifyDelayInfo> delayList) {
 		super(context, delayList);
@@ -29,6 +30,7 @@ public class DelayNotifyAdapter extends BaseListAdapter<NotifyDelayInfo> {
 			DelayInfoListener listener) {
 		super(context, delayList);
 		this.listener = listener;
+		userType = dataManager.getUserType();
 	}
 
 	@Override
@@ -58,36 +60,88 @@ public class DelayNotifyAdapter extends BaseListAdapter<NotifyDelayInfo> {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
 		String requestRole = info.getRequest_role();
-		if (requestRole.equals(Constant.IDENTITY_OWNER)) {
-			viewHolder.itemNameView.setText("您已申请改期验收至");
-		} else if (requestRole.equals(Constant.IDENTITY_DESIGNER)) {
-			viewHolder.itemNameView.setText("您的设计师已申请改期验收至");
-		}
 		String status = info.getStatus();
 		if (status.equals(Constant.NO_START)) {
 			viewHolder.itemAgressView.setText("未开工");
-			viewHolder.itemAgreeText.setVisibility(View.VISIBLE);
-			viewHolder.itemRefuseText.setVisibility(View.VISIBLE);
+			viewHolder.itemAgreeText.setVisibility(View.GONE);
+			viewHolder.itemRefuseText.setVisibility(View.GONE);
 		} else if (status.equals(Constant.DOING)) {
 			viewHolder.itemAgressView.setText("进行中");
-			viewHolder.itemAgreeText.setVisibility(View.VISIBLE);
-			viewHolder.itemRefuseText.setVisibility(View.VISIBLE);
+			viewHolder.itemAgreeText.setVisibility(View.GONE);
+			viewHolder.itemRefuseText.setVisibility(View.GONE);
 		} else if (status.equals(Constant.FINISHED)) {
 			viewHolder.itemAgressView.setText("已完成");
 			viewHolder.itemAgreeText.setVisibility(View.GONE);
 			viewHolder.itemRefuseText.setVisibility(View.GONE);
 		} else if (status.equals(Constant.YANQI_BE_DOING)) {
 			viewHolder.itemAgressView.setText("改期申请中");
-			viewHolder.itemAgreeText.setVisibility(View.VISIBLE);
-			viewHolder.itemRefuseText.setVisibility(View.VISIBLE);
+			if (userType.equals(Constant.IDENTITY_DESIGNER)) {
+				if (requestRole.equals(Constant.IDENTITY_OWNER)) {
+					viewHolder.itemNameView.setText("您的业主已申请改期验收至");
+					viewHolder.itemAgreeText.setVisibility(View.VISIBLE);
+					viewHolder.itemRefuseText.setVisibility(View.VISIBLE);
+				} else if (requestRole.equals(Constant.IDENTITY_DESIGNER)) {
+					viewHolder.itemNameView.setText("您已申请改期验收至");
+					viewHolder.itemAgreeText.setVisibility(View.GONE);
+					viewHolder.itemRefuseText.setVisibility(View.GONE);
+				}
+			} else if (userType.equals(Constant.IDENTITY_OWNER)) {
+				if (requestRole.equals(Constant.IDENTITY_OWNER)) {
+					viewHolder.itemNameView.setText("您已申请改期验收至");
+					viewHolder.itemAgreeText.setVisibility(View.GONE);
+					viewHolder.itemRefuseText.setVisibility(View.GONE);
+				} else if (requestRole.equals(Constant.IDENTITY_DESIGNER)) {
+					viewHolder.itemNameView.setText("您的设计师已申请改期验收至");
+					viewHolder.itemAgreeText.setVisibility(View.VISIBLE);
+					viewHolder.itemRefuseText.setVisibility(View.VISIBLE);
+				}
+			}
 		} else if (status.equals(Constant.YANQI_AGREE)) {
 			viewHolder.itemAgressView.setText("改期同意");
-			viewHolder.itemAgreeText.setVisibility(View.GONE);
-			viewHolder.itemRefuseText.setVisibility(View.GONE);
+			if (userType.equals(Constant.IDENTITY_DESIGNER)) {
+				if (requestRole.equals(Constant.IDENTITY_OWNER)) {
+					viewHolder.itemNameView.setText("您的业主已申请改期验收至");
+					viewHolder.itemAgreeText.setVisibility(View.GONE);
+					viewHolder.itemRefuseText.setVisibility(View.GONE);
+				} else if (requestRole.equals(Constant.IDENTITY_DESIGNER)) {
+					viewHolder.itemNameView.setText("您已申请改期验收至");
+					viewHolder.itemAgreeText.setVisibility(View.GONE);
+					viewHolder.itemRefuseText.setVisibility(View.GONE);
+				}
+			} else if (userType.equals(Constant.IDENTITY_OWNER)) {
+				if (requestRole.equals(Constant.IDENTITY_OWNER)) {
+					viewHolder.itemNameView.setText("您已申请改期验收至");
+					viewHolder.itemAgreeText.setVisibility(View.GONE);
+					viewHolder.itemRefuseText.setVisibility(View.GONE);
+				} else if (requestRole.equals(Constant.IDENTITY_DESIGNER)) {
+					viewHolder.itemNameView.setText("您的设计师已申请改期验收至");
+					viewHolder.itemAgreeText.setVisibility(View.GONE);
+					viewHolder.itemRefuseText.setVisibility(View.GONE);
+				}
+			}
 		} else if (status.equals(Constant.YANQI_REFUSE)) {
 			viewHolder.itemAgressView.setText("改期拒绝");
-			viewHolder.itemAgreeText.setVisibility(View.GONE);
-			viewHolder.itemRefuseText.setVisibility(View.GONE);
+			if (userType.equals(Constant.IDENTITY_DESIGNER)) {
+				if (requestRole.equals(Constant.IDENTITY_OWNER)) {
+					viewHolder.itemNameView.setText("您的业主已申请改期验收至");
+					viewHolder.itemAgreeText.setVisibility(View.GONE);
+					viewHolder.itemRefuseText.setVisibility(View.GONE);
+				} else if (requestRole.equals(Constant.IDENTITY_DESIGNER)) {
+					viewHolder.itemNameView.setText("您已申请改期验收至");
+					viewHolder.itemAgreeText.setVisibility(View.GONE);
+					viewHolder.itemRefuseText.setVisibility(View.GONE);
+				}
+			} else if (userType.equals(Constant.IDENTITY_OWNER)) {
+				if (requestRole.equals(Constant.IDENTITY_OWNER)) {
+					viewHolder.itemNameView.setText("您已申请改期验收至");
+					viewHolder.itemAgreeText.setVisibility(View.GONE);
+					viewHolder.itemRefuseText.setVisibility(View.GONE);
+				} else if (requestRole.equals(Constant.IDENTITY_DESIGNER)) {
+					viewHolder.itemNameView.setText("您的设计师已申请改期验收至");
+					viewHolder.itemAgreeText.setVisibility(View.GONE);
+					viewHolder.itemRefuseText.setVisibility(View.GONE);
+				}
+			}
 		}
 		viewHolder.itemContentView.setText(DateFormatTool.longToString(info
 				.getNew_date()));
