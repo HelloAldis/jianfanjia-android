@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import com.jianfanjia.cn.adapter.MyFragmentPagerAdapter;
@@ -118,7 +117,7 @@ public class NotifyActivity extends BaseActivity implements OnClickListener,
 
 					@Override
 					public void onPageSelected(int pos) {
-
+						LogTool.d(TAG, "pos=" + pos);
 					}
 
 					@Override
@@ -161,7 +160,15 @@ public class NotifyActivity extends BaseActivity implements OnClickListener,
 
 	@Override
 	public void onReceive(NotifyMessage message) {
-		Log.d(TAG, "message: " + message);
+		LogTool.d(TAG, "message: " + message);
+		String msgType = message.getType();
+		if (msgType.equals(Constant.YANQI_NOTIFY)) {
+
+		} else if (msgType.equals(Constant.FUKUAN_NOTIFY)) {
+
+		} else if (msgType.equals(Constant.CAIGOU_NOTIFY)) {
+
+		}
 	}
 
 	@Override
