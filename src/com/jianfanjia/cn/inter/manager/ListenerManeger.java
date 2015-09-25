@@ -35,7 +35,7 @@ public class ListenerManeger {
 		Log.i(TAG, "ListenerManeger msgListeners:" + msgListeners);
 		for (ReceiveMsgListener listener : msgListeners) {
 			if (listener instanceof NotifyActivity) {
-				boolean result = listener.receive(message);
+				boolean result = listener.onReceive(message);
 				Log.i(TAG, "ListenerManeger result£º" + result);
 				return result;
 			}
