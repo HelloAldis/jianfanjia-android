@@ -24,6 +24,7 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.db.DAOManager;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.inter.manager.ListenerManeger;
+import com.jianfanjia.cn.interf.ReceiveMsgListener;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.SystemUtils;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -106,10 +107,13 @@ public class PushMsgReceiver extends BroadcastReceiver {
 			daoManager.add(message);
 			if (SystemUtils.isAppAlive(context, context.getPackageName())) {
 				LogTool.d(TAG, "the app process is alive");
-				if (listenerManeger.receive(message)) {
+				ReceiveMsgListener listener = listenerManeger
+						.getReceiveMsgListener(message);
+				Log.i(TAG, "listener" + listener);
+				if (null != listener) {
 					Log.i(TAG, "111111111111111111111");
 				} else {
-					Log.i(TAG, "222222222222@@@@@@@");
+					Log.i(TAG, "22222222222222222222");
 					sendNotifycation(context, message);
 				}
 			} else {

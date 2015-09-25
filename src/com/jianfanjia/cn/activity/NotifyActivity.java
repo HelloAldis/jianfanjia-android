@@ -160,9 +160,8 @@ public class NotifyActivity extends BaseActivity implements OnClickListener,
 	}
 
 	@Override
-	public boolean onReceive(NotifyMessage message) {
+	public void onReceive(NotifyMessage message) {
 		Log.d(TAG, "message: " + message);
-		return true;
 	}
 
 	@Override

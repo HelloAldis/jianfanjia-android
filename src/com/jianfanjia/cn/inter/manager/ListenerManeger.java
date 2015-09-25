@@ -31,15 +31,14 @@ public class ListenerManeger {
 		}
 	}
 
-	public boolean receive(NotifyMessage message) {
+	public ReceiveMsgListener getReceiveMsgListener(NotifyMessage message) {
+		ReceiveMsgListener listener = null;
 		Log.i(TAG, "ListenerManeger msgListeners:" + msgListeners);
-		for (ReceiveMsgListener listener : msgListeners) {
-			if (listener instanceof NotifyActivity) {
-				boolean result = listener.onReceive(message);
-				Log.i(TAG, "ListenerManeger result£º" + result);
-				return result;
+		for (ReceiveMsgListener receiveMsgListener : msgListeners) {
+			if (receiveMsgListener instanceof NotifyActivity) {
+				return listener;
 			}
 		}
-		return false;
+		return null;
 	}
 }
