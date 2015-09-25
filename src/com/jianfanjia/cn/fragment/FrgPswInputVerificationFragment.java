@@ -129,10 +129,10 @@ public class FrgPswInputVerificationFragment extends BaseFragment {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 							hideWaitDialog();
-							makeTextLong(getString(R.string.load_failure));
+							makeTextLong(getString(R.string.load_failture));
 						}
 					}
-					
+
 					@Override
 					public void onFailure(int statusCode, Header[] headers,
 							Throwable throwable, JSONObject errorResponse) {

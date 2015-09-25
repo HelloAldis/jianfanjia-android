@@ -123,8 +123,8 @@ public class ForgetPswInputPhoneFragment extends BaseFragment {
 						LogTool.d(TAG, "JSONObject response:" + response);
 						try {
 							if (response.has(Constant.SUCCESS_MSG)) {
-//								makeTextLong(response.get(Constant.SUCCESS_MSG)
-//										.toString());
+								// makeTextLong(response.get(Constant.SUCCESS_MSG)
+								// .toString());
 								fragemntListener.onNext();
 							} else if (response.has(Constant.ERROR_MSG)) {
 								makeTextLong(response.get(Constant.ERROR_MSG)
@@ -133,7 +133,7 @@ public class ForgetPswInputPhoneFragment extends BaseFragment {
 						} catch (JSONException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
-							makeTextLong(getString(R.string.load_failure));
+							makeTextLong(getString(R.string.load_failture));
 						}
 					}
 
