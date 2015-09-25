@@ -95,11 +95,11 @@
     <string name="my_site_lovestyle_example">现代简约</string>
     <string name="my_site_decoratestyle">装修类型</string>
     <string name="my_site_decoratestyle_example">半包</string>
-    <string name="my_site_decoratebudget">装修预算</string>
+    <string name="my_site_decoratebudget">装修预算（万元）</string>
     <string name="my_site_decoratebudget_example">20w</string>
     <string name="my_site_startdate">开工日期</string>
     <string name="my_site_startdate_example">2015-8-17</string>
-    <string name="my_site_totaldate">总工期</string>
+    <string name="my_site_totaldate">总工期（天）</string>
     <string name="my_site_totaldate_example">60天</string>
     <string name="current_process">当前工地</string>
 
