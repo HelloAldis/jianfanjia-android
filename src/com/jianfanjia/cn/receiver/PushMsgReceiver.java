@@ -3,21 +3,32 @@ package com.jianfanjia.cn.receiver;
 import java.util.List;
 import org.apache.http.Header;
 import org.json.JSONObject;
+
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import com.google.gson.Gson;
 import com.igexin.sdk.PushConsts;
 import com.igexin.sdk.PushManager;
+import com.jianfanjia.cn.activity.MainActivity;
+import com.jianfanjia.cn.activity.NotifyActivity;
+import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.NotifyMessage;
+import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.db.DAOManager;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.inter.manager.ListenerManeger;
 import com.jianfanjia.cn.interf.PushMsgReceiveListener;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.tools.SystemUtils;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 /**
@@ -94,10 +105,22 @@ public class PushMsgReceiver extends BroadcastReceiver {
 			NotifyMessage message = gson.fromJson(jsonStr, NotifyMessage.class);
 			Log.i(TAG, "message:" + message);
 			daoManager.add(message);
-			List<PushMsgReceiveListener> listeners = ListenerManeger.msgListeners;
-			for (PushMsgReceiveListener listener : listeners) {
-				LogTool.d(TAG, "listener:" + listener);
-				listener.onReceiveMsg(message);
+			// List<PushMsgReceiveListener> listeners =
+			// ListenerManeger.msgListeners;
+			// for (PushMsgReceiveListener listener : listeners) {
+			// LogTool.d(TAG, "listener:" + listener);
+			// listener.onReceiveMsg(message);
+			// }
+			if (SystemUtils.isAppAlive(context, context.getPackageName())) {
+				LogTool.d(TAG, "the app process is alive");
+				sendNotifycation(context, message);
+			} else {
+				LogTool.d(TAG, "the app process is dead");
+				Intent launchIntent = context.getPackageManager()
+						.getLaunchIntentForPackage(context.getPackageName());
+				launchIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+						| Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+				Bundle args = new Bundle();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -140,4 +163,53 @@ public class PushMsgReceiver extends BroadcastReceiver {
 				});
 	}
 
+	private void sendNotifycation(Context context, NotifyMessage message) {
+		int notifyId = -1;
+		NotificationManager nManager = (NotificationManager) context
+				.getSystemService(Context.NOTIFICATION_SERVICE);
+		NotificationCompat.Builder builder = new NotificationCompat.Builder(
+				context);
+		builder.setSmallIcon(R.drawable.icon_notify);
+		String type = message.getType();
+		if (type.equals(Constant.YANQI_NOTIFY)) {
+			notifyId = Constant.YANQI_NOTIFY_ID;
+			builder.setTicker(context.getResources()
+					.getText(R.string.yanqiText));
+			builder.setContentTitle(context.getResources().getText(
+					R.string.yanqiText));
+		} else if (type.equals(Constant.FUKUAN_NOTIFY)) {
+			notifyId = Constant.FUKUAN_NOTIFY_ID;
+			builder.setTicker(context.getResources().getText(
+					R.string.fukuanText));
+			builder.setContentTitle(context.getResources().getText(
+					R.string.fukuanText));
+		} else if (type.equals(Constant.CAIGOU_NOTIFY)) {
+			notifyId = Constant.CAIGOU_NOTIFY_ID;
+			builder.setTicker(context.getResources().getText(
+					R.string.caigouText));
+			builder.setContentTitle(context.getResources().getText(
+					R.string.caigouText));
+		} else {
+			builder.setTicker(context.getResources().getText(
+					R.string.yanshouText));
+			builder.setContentTitle(context.getResources().getText(
+					R.string.yanshouText));
+		}
+		builder.setContentText(message.getContent());
+		builder.setWhen(System.currentTimeMillis());
+		builder.setAutoCancel(true);
+		Intent mainIntent = new Intent(context, MainActivity.class);
+		mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+				| Intent.FLAG_ACTIVITY_NEW_TASK);
+		Intent notifyIntent = new Intent(context, NotifyActivity.class);
+		notifyIntent.putExtra("Type", type);
+		Intent[] intents = { mainIntent, notifyIntent };
+		PendingIntent pendingIntent = PendingIntent.getActivities(context, 0,
+				intents, PendingIntent.FLAG_UPDATE_CURRENT);
+		builder.setContentIntent(pendingIntent);
+		Notification notification = builder.build();
+		notification.sound = Uri.parse("android.resource://"
+				+ context.getPackageName() + "/" + R.raw.message);
+		nManager.notify(notifyId, notification);
+	}
 }

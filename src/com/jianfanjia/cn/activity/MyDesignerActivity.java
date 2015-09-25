@@ -1,6 +1,5 @@
 package com.jianfanjia.cn.activity;
 
-import android.annotation.SuppressLint;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -10,7 +9,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.DesignerInfo;
-import com.jianfanjia.cn.bean.MyDesignerInfo;
 import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url;
@@ -85,7 +83,7 @@ public class MyDesignerActivity extends BaseActivity implements
 		mainHeadView.setBackListener(this);
 		mainHeadView.setMianTitle(getResources()
 				.getString(R.string.my_designer));
-		
+
 	}
 
 	@Override
@@ -125,9 +123,9 @@ public class MyDesignerActivity extends BaseActivity implements
 
 	private void setData() {
 		if (designerInfo != null) {
-			
+
 			setViewChange();
-			
+
 			nameView.setText(TextUtils.isEmpty(designerInfo.getUsername()) ? getString(R.string.designer)
 					: designerInfo.getUsername());
 			if (!TextUtils.isEmpty(designerInfo.getSex())) {
@@ -178,7 +176,7 @@ public class MyDesignerActivity extends BaseActivity implements
 		}
 	}
 
-	//有数据就改变展示的样式
+	// 有数据就改变展示的样式
 	private void setViewChange() {
 		mainHeadView.setBackgroundTransparent();
 		mainHeadView.setMainTextColor(getResources().getColor(
@@ -186,7 +184,7 @@ public class MyDesignerActivity extends BaseActivity implements
 		mainHeadView.setDividerVisable(View.GONE);
 		contentLayout.setVisibility(View.VISIBLE);
 		bgView.setVisibility(View.VISIBLE);
-		errorView.setVisibility(View.GONE);		
+		errorView.setVisibility(View.GONE);
 	}
 
 	@Override
