@@ -50,7 +50,6 @@ import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.http.LoadClientHelper;
 import com.jianfanjia.cn.http.request.AddPicToSectionItemRequest;
 import com.jianfanjia.cn.http.request.ProcessInfoRequest;
-import com.jianfanjia.cn.http.request.ProcessListRequest;
 import com.jianfanjia.cn.http.request.UploadPicRequest;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
 import com.jianfanjia.cn.interf.LoadDataListener;
@@ -88,7 +87,7 @@ public class SiteManageFragment extends BaseFragment implements
 	private List<SectionInfo> sectionInfos;
 	private SectionInfo sectionInfo = null;
 	private ProcessInfo processInfo = null;
-	private String processId = null;//默认的工地id
+	private String processId = null;// 默认的工地id
 	private int currentPro = -1;// 当前进行工序
 	private int currentList = -1;// 当前展开第一道工序
 	private ViewPager bannerViewPager = null;
@@ -144,47 +143,36 @@ public class SiteManageFragment extends BaseFragment implements
 	private void initProcessInfo() {
 		processInfo = dataManager.getDefaultProcessInfo();
 		processId = dataManager.getDefaultProcessId();
-		if(processInfo == null){
-			if(NetTool.isNetworkAvailable(getActivity())){
+		if (processInfo == null) {
+			if (NetTool.isNetworkAvailable(getActivity())) {
 				loadCurrentProcess();
-			}else{
-				if(processId != null){
+			} else {
+				if (processId != null) {
 					processInfo = dataManager.getProcessInfoById(processId);
 				}
 			}
 		}
-		
+
 	}
 
-/*	private void refreshData() {
-		if (dataManager.getDefaultProcessId() == null) {
-			LoadClientHelper.requestProcessList(getActivity(),
-					new ProcessListRequest(getActivity()),
-					new LoadDataListener() {
-
-						@Override
-						public void preLoad() {
-							// TODO Auto-generated method stub
-
-						}
-
-						@Override
-						public void loadSuccess() {
-							loadCurrentProcess();
-							mPullRefreshScrollView.onRefreshComplete();
-						}
-
-						@Override
-						public void loadFailture() {
-							makeTextLong(getString(R.string.tip_error_internet));
-							mPullRefreshScrollView.onRefreshComplete();
-						}
-					});
-		} else {
-			Log.i(TAG, "proId = " + dataManager.getDefaultProcessId());
-			loadCurrentProcess();
-		}
-	}*/
+	/*
+	 * private void refreshData() { if (dataManager.getDefaultProcessId() ==
+	 * null) { LoadClientHelper.requestProcessList(getActivity(), new
+	 * ProcessListRequest(getActivity()), new LoadDataListener() {
+	 * 
+	 * @Override public void preLoad() { // TODO Auto-generated method stub
+	 * 
+	 * }
+	 * 
+	 * @Override public void loadSuccess() { loadCurrentProcess();
+	 * mPullRefreshScrollView.onRefreshComplete(); }
+	 * 
+	 * @Override public void loadFailture() {
+	 * makeTextLong(getString(R.string.tip_error_internet));
+	 * mPullRefreshScrollView.onRefreshComplete(); } }); } else { Log.i(TAG,
+	 * "proId = " + dataManager.getDefaultProcessId()); loadCurrentProcess(); }
+	 * }
+	 */
 
 	private void loadCurrentProcess() {
 		if (processId != null) {
@@ -238,8 +226,8 @@ public class SiteManageFragment extends BaseFragment implements
 					currentList, this);
 			detailNodeListView.setAdapter(sectionItemAdapter);
 			processViewPager.setCurrentItem(currentList);
-		}else{
-			
+		} else {
+
 		}
 	}
 
@@ -488,11 +476,11 @@ public class SiteManageFragment extends BaseFragment implements
 		 * ProcessInfoRequest(getActivity(), dataManager.getDefaultProcessId())
 		 * , this);
 		 */
-//		refreshData();
+		// refreshData();
 		processId = dataManager.getDefaultProcessId();
-		if(processId != null){
+		if (processId != null) {
 			loadCurrentProcess();
-		}else{
+		} else {
 			mPullRefreshScrollView.onRefreshComplete();
 		}
 	}
