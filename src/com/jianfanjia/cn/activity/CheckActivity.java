@@ -30,18 +30,14 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.http.LoadClientHelper;
 import com.jianfanjia.cn.http.request.AddPicToCheckRequest;
-import com.jianfanjia.cn.http.request.AddPicToSectionItemRequest;
 import com.jianfanjia.cn.http.request.DeletePicRequest;
-import com.jianfanjia.cn.http.request.UploadPicRequest;
 import com.jianfanjia.cn.http.request.UploadPicRequestNew;
 import com.jianfanjia.cn.interf.LoadDataListener;
-import com.jianfanjia.cn.interf.UploadImageListener;
 import com.jianfanjia.cn.interf.UploadListener;
 import com.jianfanjia.cn.tools.FileUtil;
 import com.jianfanjia.cn.tools.ImageUtil;
 import com.jianfanjia.cn.tools.ImageUtils;
 import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.tools.PhotoUtils;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -122,11 +118,9 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 	}
 
 	private void initData() {
-
 		check_pic_title.setText(MyApplication.getInstance().getStringById(
 				sectionInfoName)
 				+ "阶段验收");
-
 		switch (processInfoStatus) {
 		case Constant.NOT_START:
 			break;
@@ -151,7 +145,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 		checkGridList.clear();
 		checkGridList = getCheckedImageById(sectionInfoName);
 		processInfo = dataManager.getDefaultProcessInfo();
-		if(processInfo == null){
+		if (processInfo == null) {
 			processInfo = dataManager.getProcessInfoById(processInfoId);
 		}
 		if (processInfo != null) {
@@ -188,7 +182,6 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 
 						@Override
 						public void onClick(View v) {
-							// TODO Auto-generated method stub
 							onClickCheckDone();
 						}
 					});
@@ -325,8 +318,8 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 			if (mTmpFile != null) {
 				Uri uri = Uri.fromFile(mTmpFile);
 				LogTool.d(TAG, "uri:" + uri);
-//					startPhotoZoom(uri);
-					uploadImage(mTmpFile.getPath());
+				// startPhotoZoom(uri);
+				uploadImage(mTmpFile.getPath());
 			}
 			break;
 		case Constant.REQUESTCODE_LOCATION:// 本地选取
@@ -334,7 +327,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 				Uri uri = data.getData();
 				LogTool.d(TAG, "uri:" + uri);
 				if (null != uri) {
-//					startPhotoZoom(uri);
+					// startPhotoZoom(uri);
 					uploadImage(ImageUtils.getImagePath(uri, this));
 				}
 			}
@@ -351,13 +344,11 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 
 			@Override
 			public void preLoad() {
-				// TODO Auto-generated method stub
 				showWaitDialog();
 			}
 
 			@Override
 			public void loadSuccess() {
-				// TODO Auto-generated method stub
 				AddPicToCheckRequest addPicToCheckRequest = new AddPicToCheckRequest(
 						CheckActivity.this, processInfoId, sectionInfoName,
 						key, dataManager.getCurrentUploadImageId());
@@ -374,17 +365,12 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 							@Override
 							public void loadSuccess() {
 								hideWaitDialog();
-								// TODO Auto-generated
-								// method stub
-
 								initList();
 								adapter.notifyDataSetChanged();
 							}
 
 							@Override
 							public void loadFailture() {
-								// TODO Auto-generated
-								// method stub
 								hideWaitDialog();
 								makeTextLong(getString(R.string.tip_error_internet));
 							}
@@ -393,13 +379,11 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 
 			@Override
 			public void loadFailture() {
-				// TODO Auto-generated method stub
 				hideWaitDialog();
 				makeTextLong(getString(R.string.tip_error_internet));
 			}
 		});
 	}
-
 
 	private void onClickCheckDone() {
 		CommonDialog dialog = DialogHelper
