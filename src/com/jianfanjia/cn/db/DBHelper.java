@@ -20,7 +20,7 @@ import com.jianfanjia.cn.bean.NotifyMessage;
 public class DBHelper extends OrmLiteSqliteOpenHelper {
 	private static final String DBNAME = "JIANFANJIA.db";
 	private static final int DBVERSION = 1;
-	private Dao<NotifyMessage, Integer> dao;
+	private Dao<NotifyMessage, Integer> notifyMessageDao;
 
 	public DBHelper(Context context) {
 		super(context, DBNAME, null, DBVERSION);
@@ -52,7 +52,7 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
 	@Override
 	public void close() {
 		super.close();
-		dao = null;
+		notifyMessageDao = null;
 	}
 
 	/**
@@ -61,13 +61,13 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
 	 * @return
 	 */
 	public Dao<NotifyMessage, Integer> getHelperDao() {
-		if (dao == null) {
+		if (notifyMessageDao == null) {
 			try {
-				dao = getDao(NotifyMessage.class);
+				notifyMessageDao = getDao(NotifyMessage.class);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
-		return dao;
+		return notifyMessageDao;
 	}
 }

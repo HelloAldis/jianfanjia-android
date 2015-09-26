@@ -18,11 +18,11 @@ import com.jianfanjia.cn.bean.NotifyMessage;
 public class DAOManager {
 	private static DAOManager manager = null;
 	private DBHelper helper;
-	private Dao<NotifyMessage, Integer> dao;
+	private Dao<NotifyMessage, Integer> notifyMessageDao;
 
 	public DAOManager(Context context) {
 		helper = OpenHelperManager.getHelper(context, DBHelper.class);
-		dao = helper.getHelperDao();
+		notifyMessageDao = helper.getHelperDao();
 	}
 
 	/**
@@ -58,7 +58,7 @@ public class DAOManager {
 	public void add(List<NotifyMessage> notifys) throws SQLException {
 		if (notifys != null) {
 			for (NotifyMessage message : notifys) {
-				dao.create(message);
+				notifyMessageDao.create(message);
 			}
 		}
 	}
@@ -71,7 +71,7 @@ public class DAOManager {
 	 */
 	public void add(NotifyMessage message) throws SQLException {
 		if (message != null) {
-			dao.create(message);
+			notifyMessageDao.create(message);
 		}
 	}
 
@@ -83,7 +83,7 @@ public class DAOManager {
 	 */
 	public void delete(NotifyMessage message) throws SQLException {
 		if (message != null) {
-			dao.delete(message);
+			notifyMessageDao.delete(message);
 		}
 	}
 
@@ -95,7 +95,7 @@ public class DAOManager {
 	 */
 	public void update(NotifyMessage message) throws SQLException {
 		if (message != null) {
-			dao.update(message);
+			notifyMessageDao.update(message);
 		}
 	}
 
@@ -107,7 +107,7 @@ public class DAOManager {
 	 */
 	public List<NotifyMessage> quary() throws SQLException {
 		List<NotifyMessage> list = null;
-		list = dao.queryForAll();
+		list = notifyMessageDao.queryForAll();
 		return list;
 	}
 
@@ -119,8 +119,8 @@ public class DAOManager {
 	 * @throws SQLException
 	 */
 	public List<NotifyMessage> listByType(String type) throws SQLException {
-		List<NotifyMessage> list = dao.queryBuilder().where().eq("type", type)
-				.query();
+		List<NotifyMessage> list = notifyMessageDao.queryBuilder().where()
+				.eq("type", type).query();
 		return list;
 	}
 }
