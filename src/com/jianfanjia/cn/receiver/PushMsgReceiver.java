@@ -104,7 +104,7 @@ public class PushMsgReceiver extends BroadcastReceiver {
 		try {
 			NotifyMessage message = gson.fromJson(jsonStr, NotifyMessage.class);
 			Log.i(TAG, "message:" + message);
-			daoManager.add(message);
+			daoManager.add(message);// ≤Â»Î ˝æ›ø‚
 			if (SystemUtils.isAppAlive(context, context.getPackageName())) {
 				LogTool.d(TAG, "the app process is alive");
 				ReceiveMsgListener listener = listenerManeger
