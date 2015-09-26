@@ -725,13 +725,11 @@ public class SiteManageFragment extends BaseFragment implements
 
 							@Override
 							public void preLoad() {
-								// TODO Auto-generated method stub
 								showWaitDialog();
 							}
 
 							@Override
 							public void loadSuccess() {
-								// TODO Auto-generated method stub
 								String itemName = sectionItemAdapter
 										.getCurrentItem();
 								AddPicToSectionItemRequest addSectionItemRequest = new AddPicToSectionItemRequest(
@@ -773,7 +771,6 @@ public class SiteManageFragment extends BaseFragment implements
 
 							@Override
 							public void loadFailture() {
-								// TODO Auto-generated method stub
 								hideWaitDialog();
 								makeTextLong(getString(R.string.tip_error_internet));
 							}
@@ -797,13 +794,11 @@ public class SiteManageFragment extends BaseFragment implements
 
 										@Override
 										public void preLoad() {
-											// TODO Auto-generated method stub
 											showWaitDialog();
 										}
 
 										@Override
 										public void loadSuccess() {
-											// TODO Auto-generated method stub
 											String itemName = sectionItemAdapter
 													.getCurrentItem();
 											AddPicToSectionItemRequest addSectionItemRequest = new AddPicToSectionItemRequest(
@@ -854,12 +849,10 @@ public class SiteManageFragment extends BaseFragment implements
 
 										@Override
 										public void loadFailture() {
-											// TODO Auto-generated method stub
 											hideWaitDialog();
 											makeTextLong(getString(R.string.tip_error_internet));
 										}
 									});
-
 				}
 			}
 			break;

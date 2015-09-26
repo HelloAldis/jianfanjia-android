@@ -5,7 +5,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
-
 import android.content.ContentResolver;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -39,7 +38,6 @@ import android.provider.MediaStore.Images;
  * 
  */
 public class ImageUtil {
-
 	/* Options used internally. */
 	private static final int OPTIONS_NONE = 0x0;
 	private static final int OPTIONS_SCALE_UP = 0x1;
