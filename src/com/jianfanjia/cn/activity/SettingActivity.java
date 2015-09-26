@@ -342,6 +342,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener,
 						PushManager.getInstance().stopService(
 								SettingActivity.this);// 完全终止SDK的服务
 						activityManager.exit();
+						daoManager.close();
 						startActivity(LoginActivity.class);
 						finish();
 					}
