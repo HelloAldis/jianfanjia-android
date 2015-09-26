@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/font_white" >
+    android:background="@drawable/my_item_layout_bg" >
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -64,8 +64,7 @@
             android:layout_alignBottom="@+id/list_item_site_address"
             android:layout_alignParentRight="true"
             android:contentDescription="@null"
-            android:scaleType="centerCrop"
-             />
+            android:scaleType="centerCrop" />
     </RelativeLayout>
 
 </RelativeLayout>

@@ -44,10 +44,10 @@ public class DesignerSiteActivity extends BaseActivity implements
 		siteListView = (ListView) findViewById(R.id.designer_site_listview);
 		siteList = dataManager.getProcessLists();
 		if (siteList == null) {
-			if(NetTool.isNetworkAvailable(this)){
-				LoadClientHelper.requestProcessList(this, new ProcessListRequest(
-						this), this);
-			}else{
+			if (NetTool.isNetworkAvailable(this)) {
+				LoadClientHelper.requestProcessList(this,
+						new ProcessListRequest(this), this);
+			} else {
 				siteList = dataManager.getProcessListsByCache();
 			}
 		}
