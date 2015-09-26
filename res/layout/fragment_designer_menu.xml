@@ -70,7 +70,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="30dip"
-                    android:src="@drawable/tab_unread_bg"
+                    android:src="@drawable/mini_red_dot"
                     android:visibility="gone" />
             </RelativeLayout>
 
