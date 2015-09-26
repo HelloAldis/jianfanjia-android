@@ -30,6 +30,7 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
 	public void onCreate(SQLiteDatabase db, ConnectionSource connectionSource) {
 		try {
 			TableUtils.createTable(connectionSource, NotifyMessage.class);
+			// TableUtils.createTable(connectionSource, NotifyDelayInfo.class);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -40,6 +41,8 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
 			int arg2, int arg3) {
 		try {
 			TableUtils.dropTable(connectionSource, NotifyMessage.class, true);
+			// TableUtils.dropTable(connectionSource, NotifyDelayInfo.class,
+			// true);
 			onCreate(db, connectionSource);
 		} catch (SQLException e) {
 			e.printStackTrace();
