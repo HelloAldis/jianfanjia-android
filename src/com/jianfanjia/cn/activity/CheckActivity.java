@@ -1,6 +1,7 @@
 package com.jianfanjia.cn.activity;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.http.Header;
@@ -16,6 +17,8 @@ import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -32,6 +35,7 @@ import com.jianfanjia.cn.http.LoadClientHelper;
 import com.jianfanjia.cn.http.request.AddPicToCheckRequest;
 import com.jianfanjia.cn.http.request.DeletePicRequest;
 import com.jianfanjia.cn.http.request.UploadPicRequestNew;
+import com.jianfanjia.cn.interf.ItemClickCallBack;
 import com.jianfanjia.cn.interf.LoadDataListener;
 import com.jianfanjia.cn.interf.UploadListener;
 import com.jianfanjia.cn.tools.FileUtil;
@@ -51,10 +55,12 @@ import com.loopj.android.http.JsonHttpResponseHandler;
  * 
  */
 public class CheckActivity extends BaseActivity implements OnClickListener,
-		UploadListener {
+		UploadListener, ItemClickCallBack {
 	private static final String TAG = CheckActivity.class.getName();
 	public static final int EDIT_STATUS = 0;
 	public static final int FINISH_STATUS = 1;
+	public static final String SHOW_LIST = "show_list";
+	public static final String POSITION = "position";
 
 	private RelativeLayout checkLayout = null;
 	private TextView backView = null;// 返回视图
@@ -64,7 +70,9 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 	private TextView btn_confirm = null;
 	private MyGridViewAdapter adapter = null;
 	private List<GridItem> checkGridList = new ArrayList<GridItem>();
-	private int currentList;// 当前的工序
+	private List<String> showSamplePic = new ArrayList<String>();
+	private List<String> showProcessPic = new ArrayList<String>();
+	private List<Imageid> imageids = null;
 	private String processInfoId = null;// 工地id
 	private String sectionInfoName = null;// 工序名称
 	private int processInfoStatus = -1;// 工序状态
@@ -83,7 +91,6 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 		Intent intent = getIntent();
 		Bundle bundle = intent.getExtras();
 		if (bundle != null) {
-			currentList = bundle.getInt(Constant.CURRENT_LIST, 0);
 			sectionInfoName = bundle.getString(Constant.PROCESS_NAME);
 			processInfoStatus = bundle.getInt(Constant.PROCESS_STATUS, 0);
 			LogTool.d(TAG, "processInfoId:" + processInfoId
@@ -91,6 +98,21 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 					+ " processInfoStatus:" + processInfoStatus);
 			initData();
 		}
+		
+	}
+
+	private void initShowList() {
+		showProcessPic.clear();
+		showSamplePic.clear();
+		for (int i = 0; i < checkGridList.size(); i =i + 2) {
+			showSamplePic.add(checkGridList.get(i).getImgId());
+		}
+		for (int i = 1; i < checkGridList.size(); i =i +2) {
+			if (checkGridList.get(i).getImgId() != null) {
+				showProcessPic.add(checkGridList.get(i).getImgId());
+			}
+		}
+
 	}
 
 	@Override
@@ -136,7 +158,8 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 		default:
 			break;
 		}
-		adapter = new MyGridViewAdapter(CheckActivity.this, checkGridList, this);
+		adapter = new MyGridViewAdapter(CheckActivity.this, checkGridList,
+				this, this);
 		gridView.setAdapter(adapter);
 		initList();
 	}
@@ -151,8 +174,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 		if (processInfo != null) {
 			dataManager.setCurrentProcessInfo(processInfo);
 			LogTool.d(TAG, "processInfo != null");
-			ArrayList<Imageid> imageids = processInfo
-					.getImageidsByName(sectionInfoName);
+			imageids = processInfo.getImageidsByName(sectionInfoName);
 			int imagecount = 0;
 			for (int i = 0; imageids != null && i < imageids.size(); i++) {
 				String key = imageids.get(i).getKey();
@@ -166,6 +188,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 			setConfimStatus(imagecount);
 			adapter.setList(checkGridList);
 		}
+		initShowList();
 	}
 
 	private void setConfimStatus(int count) {
@@ -536,6 +559,36 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 	@Override
 	public int getLayoutId() {
 		return R.layout.activity_check_pic;
+	}
+
+	private void startShowActivity(int arg2) {
+		Bundle bundle = new Bundle();
+		if (arg2 % 2 == 0) {
+			bundle.putStringArrayList(SHOW_LIST,(ArrayList<String>)showSamplePic);
+			bundle.putInt(Constant.CURRENT_POSITION, arg2 / 2);
+		} else {
+			String currentImageId = checkGridList.get(arg2).getImgId();
+			for (int i = 0; i < showProcessPic.size(); i++) {
+				if(currentImageId.equals(showProcessPic.get(i))){
+					arg2 = i;
+				}
+			}
+			bundle.putStringArrayList(SHOW_LIST,(ArrayList<String>)showProcessPic);
+			bundle.putInt(Constant.CURRENT_POSITION, arg2 / 2);
+
+		}
+		startActivity(ShowCheckPicActivity.class, bundle);
+	}
+
+	@Override
+	public void click(int position, int itemType) {
+		startShowActivity(position);
+	}
+
+	@Override
+	public void click(int position, int itemType, List<String> imageUrlList) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

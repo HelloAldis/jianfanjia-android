@@ -10,21 +10,24 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.GridItem;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url;
+import com.jianfanjia.cn.interf.ItemClickCallBack;
 import com.jianfanjia.cn.interf.UploadListener;
 
 public class MyGridViewAdapter extends BaseListAdapter<GridItem> {
 	private UploadListener listener;
 	private boolean isCanDelete;
+	private ItemClickCallBack itemClickCallBack;
 
 	public MyGridViewAdapter(Context context, List<GridItem> list) {
 		super(context, list);
 	}
 
 	public MyGridViewAdapter(Context context, List<GridItem> list,
-			UploadListener listener) {
+			UploadListener listener,ItemClickCallBack itemClickCallBack) {
 		super(context, list);
 		this.listener = listener;
 		isCanDelete = false;
+		this.itemClickCallBack = itemClickCallBack;
 	}
 
 	public boolean isCanDelete() {
@@ -69,22 +72,29 @@ public class MyGridViewAdapter extends BaseListAdapter<GridItem> {
 					}
 					holder.delete.setVisibility(View.GONE);
 				} else {
-					holder.delete.setOnClickListener(new OnClickListener() {
-						
-						@Override
-						public void onClick(View v) {
-							// TODO Auto-generated method stub
-							if (position % 2 != 0) {
-								listener.delete(position / 2);
-							}
-						}
-					});
 					imageLoader.displayImage(Url.GET_IMAGE + imgId, holder.img,
 							options);
-					holder.img.setOnClickListener(null);
+					
 					if(isCanDelete()){
 						holder.delete.setVisibility(View.VISIBLE);
+						holder.delete.setOnClickListener(new OnClickListener() {
+							
+							@Override
+							public void onClick(View v) {
+								// TODO Auto-generated method stub
+								if (position % 2 != 0) {
+									listener.delete(position / 2);
+								}
+							}
+						});
 					}else{
+						holder.img.setOnClickListener(new OnClickListener() {
+							
+							@Override
+							public void onClick(View arg0) {
+								itemClickCallBack.click(position, Constant.IMG_ITEM);
+							}
+						});
 						holder.delete.setVisibility(View.GONE);
 					}
 				}
@@ -95,10 +105,19 @@ public class MyGridViewAdapter extends BaseListAdapter<GridItem> {
 				} else {
 					imageLoader.displayImage(Url.GET_IMAGE + imgId, holder.img,
 							options);
+					holder.img.setOnClickListener(new OnClickListener() {
+						
+						@Override
+						public void onClick(View arg0) {
+							itemClickCallBack.click(position, Constant.IMG_ITEM);
+						}
+					});
 				}
 			}
 		} else {
+			itemClickCallBack.click(position, Constant.IMG_ITEM);
 			imageLoader.displayImage(imgId, holder.img, options);
+			
 		}
 		
 
