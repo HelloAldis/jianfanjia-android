@@ -7,6 +7,14 @@ import com.j256.ormlite.dao.Dao;
 import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.db.DBHelper;
 
+/**
+ * 
+ * @ClassName: NotifyMessageDao
+ * @Description: TODO
+ * @author fengliang
+ * @date 2015年9月27日 下午9:28:54
+ *
+ */
 public class NotifyMessageDao implements BaseDao<NotifyMessage> {
 	private Context context;
 	private DBHelper helper;
