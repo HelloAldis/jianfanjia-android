@@ -94,7 +94,6 @@ public class MainActivity extends BaseActivity implements PanelSlideListener {
 				mExitTime = System.currentTimeMillis();// ¸üÐÂmExitTime
 			} else {
 				activityManager.exit();
-				daoManager.close();
 			}
 		}
 	}

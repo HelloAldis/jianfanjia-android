@@ -55,11 +55,11 @@ public class YanQiNotifyFragment extends BaseFragment implements
 		super.setUserVisibleHint(isVisibleToUser);
 		if (isVisibleToUser) {
 			// fragment可见时加载数据
-			LogTool.d(this.getClass().getName(), "YanQiNotifyFragment 可见");
+			LogTool.d(TAG, "YanQiNotifyFragment 可见");
 			getRescheduleAll();
 		} else {
 			// 不可见时不执行操作
-			LogTool.d(this.getClass().getName(), "YanQiNotifyFragment 不可见");
+			LogTool.d(TAG, "YanQiNotifyFragment 不可见");
 		}
 	}
 

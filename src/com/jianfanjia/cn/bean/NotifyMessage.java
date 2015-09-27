@@ -14,7 +14,6 @@ import com.j256.ormlite.table.DatabaseTable;
  */
 @DatabaseTable(tableName = "NotifyMessage")
 public class NotifyMessage implements Serializable {
-
 	private static final long serialVersionUID = -1386644478824610283L;
 
 	@DatabaseField(generatedId = true)
