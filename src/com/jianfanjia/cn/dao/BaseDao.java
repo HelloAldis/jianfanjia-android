@@ -12,4 +12,6 @@ public interface BaseDao<T> {
 	public abstract void update(T t);
 
 	public abstract List<T> query();
+
+	public abstract T findOneById(int id);
 }

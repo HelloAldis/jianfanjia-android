@@ -89,4 +89,16 @@ public class NotifyMessageDao implements BaseDao<NotifyMessage> {
 		}
 		return null;
 	}
+
+	@Override
+	public NotifyMessage findOneById(int id) {
+		NotifyMessage notifyMessage = null;
+		try {
+			notifyMessage = dao.queryForId(id);
+			return notifyMessage;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }
