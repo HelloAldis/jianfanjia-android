@@ -9,12 +9,10 @@ import com.jianfanjia.cn.base.BaseResponse;
 import com.jianfanjia.cn.bean.LoginUserBean;
 
 public class LoginRequest extends BaseRequest {
-	
 	private String username;
-	
 	private String password;
-	
-	public LoginRequest(Context context,String username,String password) {
+
+	public LoginRequest(Context context, String username, String password) {
 		super(context);
 		this.username = username;
 		this.password = password;
@@ -24,23 +22,24 @@ public class LoginRequest extends BaseRequest {
 	public void all() {
 		// TODO Auto-generated method stub
 		super.all();
-		
+
 	}
-	
+
 	@Override
 	public void pre() {
 		// TODO Auto-generated method stub
 		super.pre();
 	}
-	
+
 	@Override
 	public void onSuccess(BaseResponse baseResponse) {
-		LoginUserBean loginUserBean = (LoginUserBean)baseResponse.getData();
-		if(loginUserBean != null){
+		LoginUserBean loginUserBean = (LoginUserBean) baseResponse.getData();
+		if (loginUserBean != null) {
 			loginUserBean.setPass(password);
 			dataManager.saveLoginUserInfo(loginUserBean);
 			dataManager.setLogin(true);
-			dataManager.savaLastLoginTime(Calendar.getInstance().getTimeInMillis());
+			dataManager.savaLastLoginTime(Calendar.getInstance()
+					.getTimeInMillis());
 		}
 	}
 
@@ -59,5 +58,5 @@ public class LoginRequest extends BaseRequest {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
 }
