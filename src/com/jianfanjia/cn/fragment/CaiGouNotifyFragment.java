@@ -1,13 +1,14 @@
 package com.jianfanjia.cn.fragment;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
+
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.CaiGouNotifyAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
@@ -26,6 +27,7 @@ import com.jianfanjia.cn.tools.LogTool;
  */
 public class CaiGouNotifyFragment extends BaseFragment implements
 		SwitchFragmentListener, OnItemLongClickListener {
+	private static final String TAG = CaiGouNotifyFragment.class.getName();
 	private ListView caigouListView;
 	private List<NotifyMessage> caigouList = new ArrayList<NotifyMessage>();
 	private CaiGouNotifyAdapter caiGouAdapter = null;
@@ -49,22 +51,18 @@ public class CaiGouNotifyFragment extends BaseFragment implements
 		super.setUserVisibleHint(isVisibleToUser);
 		if (isVisibleToUser) {
 			// fragment可见时加载数据
-			LogTool.d(this.getClass().getName(), "CaiGouNotifyFragment 可见");
+			LogTool.d(TAG, "CaiGouNotifyFragment 可见");
 			initData();
 		} else {
 			// 不可见时不执行操作
-			LogTool.d(this.getClass().getName(), "CaiGouNotifyFragment 不可见");
+			LogTool.d(TAG, "CaiGouNotifyFragment 不可见");
 		}
 	}
 
 	private void initData() {
-		try {
-			caigouList = daoManager.listByType(Constant.CAIGOU_NOTIFY);
-			LogTool.d(this.getClass().getName(), "caigouList:" + caigouList);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		caigouList = notifyMessageDao
+				.getNotifyListByType(Constant.CAIGOU_NOTIFY);
+		LogTool.d(TAG, "caigouList:" + caigouList);
 	}
 
 	@Override
@@ -76,7 +74,7 @@ public class CaiGouNotifyFragment extends BaseFragment implements
 	public boolean onItemLongClick(AdapterView<?> arg0, View v, int position,
 			long id) {
 		NotifyMessage notifyMessage = caigouList.get(position);
-		LogTool.d(this.getClass().getName(), "notifyMessage:" + notifyMessage);
+		LogTool.d(TAG, "notifyMessage:" + notifyMessage);
 		return true;
 	}
 

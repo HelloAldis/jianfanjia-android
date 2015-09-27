@@ -17,13 +17,14 @@ import android.widget.Toast;
 import com.jianfanjia.cn.AppConfig;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.cache.DataManagerNew;
-import com.jianfanjia.cn.db.DAOManager;
+import com.jianfanjia.cn.dao.NotifyMessageDao;
 import com.jianfanjia.cn.inter.manager.ListenerManeger;
 import com.jianfanjia.cn.interf.LoadDataListener;
 import com.jianfanjia.cn.interf.NetStateListener;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
 import com.jianfanjia.cn.receiver.NetStateReceiver;
 import com.jianfanjia.cn.tools.ActivityManager;
+import com.jianfanjia.cn.tools.DaoManager;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.UploadManager;
 import com.jianfanjia.cn.view.AddPhotoPopWindow;
@@ -45,7 +46,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 		DialogControl, NetStateListener, PopWindowCallBack, LoadDataListener {
 	protected ActivityManager activityManager = null;
 	protected DownloadManager downloadManager = null;
-	protected DAOManager daoManager = null;
+	protected NotifyMessageDao notifyMessageDao = null;
 	protected LayoutInflater inflater = null;
 	protected FragmentManager fragmentManager = null;
 	protected NotificationManager nManager = null;
@@ -85,7 +86,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 	private void init() {
 		activityManager = ActivityManager.getInstance();
 		downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
-		daoManager = DAOManager.getInstance(this);
+		notifyMessageDao = DaoManager.getNotifyMessageDao(this);
 		inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		nManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 		dataManager = DataManagerNew.getInstance();

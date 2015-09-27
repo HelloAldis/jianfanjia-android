@@ -21,10 +21,11 @@ import com.jianfanjia.cn.activity.NotifyActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.db.DAOManager;
+import com.jianfanjia.cn.dao.NotifyMessageDao;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.inter.manager.ListenerManeger;
 import com.jianfanjia.cn.interf.ReceiveMsgListener;
+import com.jianfanjia.cn.tools.DaoManager;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.SystemUtils;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -40,13 +41,13 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 public class PushMsgReceiver extends BroadcastReceiver {
 	private static final String TAG = PushMsgReceiver.class.getName();
 	private ListenerManeger listenerManeger = null;
-	private DAOManager daoManager = null;
+	private NotifyMessageDao notifyMessageDao = null;
 	private Gson gson = new Gson();
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		listenerManeger = ListenerManeger.getListenerManeger();
-		daoManager = DAOManager.getInstance(context);
+		notifyMessageDao = DaoManager.getNotifyMessageDao(context);
 		// -------------------------------
 		Bundle bundle = intent.getExtras();
 		LogTool.d(TAG, "onReceive() action=" + bundle.getInt("action"));
@@ -104,7 +105,7 @@ public class PushMsgReceiver extends BroadcastReceiver {
 		try {
 			NotifyMessage message = gson.fromJson(jsonStr, NotifyMessage.class);
 			Log.i(TAG, "message:" + message);
-			daoManager.add(message);// ≤Â»Î ˝æ›ø‚
+			notifyMessageDao.save(message);
 			if (SystemUtils.isAppAlive(context, context.getPackageName())) {
 				LogTool.d(TAG, "the app process is alive");
 				ReceiveMsgListener listener = listenerManeger

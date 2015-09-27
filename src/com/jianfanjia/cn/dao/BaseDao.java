@@ -1,0 +1,15 @@
+package com.jianfanjia.cn.dao;
+
+import java.util.List;
+
+public interface BaseDao<T> {
+	public abstract void save(T t);
+
+	public abstract void save(List<T> list);
+
+	public abstract void delete(T t);
+
+	public abstract void update(T t);
+
+	public abstract List<T> query();
+}

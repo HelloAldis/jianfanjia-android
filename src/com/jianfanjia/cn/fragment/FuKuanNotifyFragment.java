@@ -1,13 +1,14 @@
 package com.jianfanjia.cn.fragment;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
+
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.PayNotifyAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
@@ -26,6 +27,7 @@ import com.jianfanjia.cn.tools.LogTool;
  */
 public class FuKuanNotifyFragment extends BaseFragment implements
 		SwitchFragmentListener, OnItemLongClickListener {
+	private static final String TAG = FuKuanNotifyFragment.class.getName();
 	private ListView fukuanListView = null;
 	private List<NotifyMessage> payList = new ArrayList<NotifyMessage>();
 	private PayNotifyAdapter payAdapter = null;
@@ -48,22 +50,17 @@ public class FuKuanNotifyFragment extends BaseFragment implements
 		super.setUserVisibleHint(isVisibleToUser);
 		if (isVisibleToUser) {
 			// fragment可见时加载数据
-			LogTool.d(this.getClass().getName(), "FuKuanNotifyFragment 可见");
+			LogTool.d(TAG, "FuKuanNotifyFragment 可见");
 			initData();
 		} else {
 			// 不可见时不执行操作
-			LogTool.d(this.getClass().getName(), "FuKuanNotifyFragment 不可见");
+			LogTool.d(TAG, "FuKuanNotifyFragment 不可见");
 		}
 	}
 
 	private void initData() {
-		try {
-			payList = daoManager.listByType(Constant.FUKUAN_NOTIFY);
-			LogTool.d(this.getClass().getName(), "payList:" + payList);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		payList = notifyMessageDao.getNotifyListByType(Constant.FUKUAN_NOTIFY);
+		LogTool.d(TAG, "payList:" + payList);
 	}
 
 	@Override

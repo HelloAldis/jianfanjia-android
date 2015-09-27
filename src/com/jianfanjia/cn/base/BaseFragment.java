@@ -12,13 +12,15 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
 import com.jianfanjia.cn.AppConfig;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.cache.DataManagerNew;
-import com.jianfanjia.cn.db.DAOManager;
+import com.jianfanjia.cn.dao.NotifyMessageDao;
 import com.jianfanjia.cn.inter.manager.ListenerManeger;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
+import com.jianfanjia.cn.tools.DaoManager;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.UploadManager;
 import com.jianfanjia.cn.view.AddPhotoPopWindow;
@@ -37,7 +39,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 public abstract class BaseFragment extends Fragment implements OnClickListener,
 		PopWindowCallBack {
 	protected FragmentManager fragmentManager = null;
-	protected DAOManager daoManager = null;
+	protected NotifyMessageDao notifyMessageDao = null;
 	protected DataManagerNew dataManager = null;
 	protected AppConfig appConfig = null;
 	protected LayoutInflater inflater = null;
@@ -82,7 +84,7 @@ public abstract class BaseFragment extends Fragment implements OnClickListener,
 	private void init() {
 		appConfig = AppConfig.getInstance(getActivity());
 		dataManager = DataManagerNew.getInstance();
-		daoManager = DAOManager.getInstance(getActivity());
+		notifyMessageDao = DaoManager.getNotifyMessageDao(getActivity());
 		imageLoader = ImageLoader.getInstance();
 		options = new DisplayImageOptions.Builder()
 				.showImageOnLoading(R.drawable.pix_default)
