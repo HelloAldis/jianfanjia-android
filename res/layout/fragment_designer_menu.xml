@@ -59,7 +59,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:padding="10dip"
-                    android:text="@string/my_tip"
+                    android:text="@string/tip"
                     android:textColor="@color/menu_item_font_color"
                     android:textSize="17sp" />
 
