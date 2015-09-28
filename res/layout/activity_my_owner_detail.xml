@@ -8,9 +8,17 @@
         android:id="@+id/owner_detail_bg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bg_loading_720"
         android:contentDescription="@null"
         android:scaleType="fitXY"
+        android:visibility="gone" />
+    
+    <ImageView
+        android:id="@+id/owner_detail_fg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@null"
+        android:scaleType="fitXY"
+        android:src="@drawable/bg_cover_sidebar"
         android:visibility="gone" />
 
     <com.jianfanjia.cn.view.MainHeadView
@@ -22,7 +30,8 @@
         android:id="@+id/owner_detail_content_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/owner_detail_head_layout" >
+        android:layout_below="@+id/owner_detail_head_layout"
+        android:background="@color/transparent" >
 
         <RelativeLayout
             android:layout_width="match_parent"

@@ -33,6 +33,7 @@ public class OwnerInfoActivity extends BaseActivity implements OnClickListener {
 	private View errorView = null;// 错误视图
 	private MainHeadView mainHeadView = null;// 头视图
 	private ImageView bgView = null;
+	private ImageView fgView = null;
 	private ImageView ownerHeadView = null;// 用户头像视图
 	private ImageView ownerSexView = null;// 用户性别视图
 	private TextView proStageView = null;// 工地所处阶段视图
@@ -67,7 +68,7 @@ public class OwnerInfoActivity extends BaseActivity implements OnClickListener {
 		initMainHead();
 		errorView = findViewById(R.id.error_view);
 		contentLayout = (RelativeLayout) findViewById(R.id.owner_detail_content_layout);
-
+		fgView = (ImageView) findViewById(R.id.owner_detail_fg);
 		bgView = (ImageView) findViewById(R.id.owner_detail_bg);
 		ownerHeadView = (ImageView) findViewById(R.id.owner_detail_head_icon);
 		ownerSexView = (ImageView) findViewById(R.id.owner_detail_sex_icon);
@@ -88,6 +89,11 @@ public class OwnerInfoActivity extends BaseActivity implements OnClickListener {
 					ownerInfo.getImageid() != null ? Url.GET_IMAGE
 							+ ownerInfo.getImageid()
 							: Constant.DEFALUT_OWNER_PIC, ownerHeadView,
+					options);
+			imageLoader.displayImage(
+					ownerInfo.getImageid() != null ? Url.GET_IMAGE
+							+ ownerInfo.getImageid()
+							: Constant.DEFALUT_OWNER_PIC, bgView,
 					options);
 			if (!TextUtils.isEmpty(ownerInfo.getUsername())) {
 				ownerNameView.setText(ownerInfo.getUsername());
@@ -114,6 +120,7 @@ public class OwnerInfoActivity extends BaseActivity implements OnClickListener {
 		mainHeadView.setDividerVisable(View.GONE);
 		contentLayout.setVisibility(View.VISIBLE);
 		bgView.setVisibility(View.VISIBLE);
+		fgView.setVisibility(View.VISIBLE);
 		errorView.setVisibility(View.GONE);
 	}
 
