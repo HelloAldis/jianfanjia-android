@@ -27,10 +27,12 @@ import com.jianfanjia.cn.bean.GridItem;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.cache.BusinessManager;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.fragment.SiteManageFragment;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.http.LoadClientHelper;
 import com.jianfanjia.cn.http.request.AddPicToCheckRequest;
 import com.jianfanjia.cn.http.request.DeletePicRequest;
+import com.jianfanjia.cn.http.request.ProcessInfoRequest;
 import com.jianfanjia.cn.http.request.UploadPicRequestNew;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
 import com.jianfanjia.cn.interf.LoadDataListener;
@@ -39,6 +41,7 @@ import com.jianfanjia.cn.tools.FileUtil;
 import com.jianfanjia.cn.tools.ImageUtil;
 import com.jianfanjia.cn.tools.ImageUtils;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.tools.NetTool;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -72,7 +75,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 	private List<Imageid> imageids = null;
 	private String processInfoId = null;// 工地id
 	private String sectionInfoName = null;// 工序名称
-	private int processInfoStatus = -1;// 工序状态
+	private int sectionInfoStatus = -1;// 工序状态
 	private String key = null;
 	private File mTmpFile = null;
 	private ProcessInfo processInfo;
@@ -81,21 +84,63 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		processInfo = dataManager.getDefaultProcessInfo();
+		/*processInfo = dataManager.getDefaultProcessInfo();
 		if (processInfo != null) {
 			processInfoId = processInfo.get_id();
-		}
+		}*/
 		Intent intent = getIntent();
 		Bundle bundle = intent.getExtras();
 		if (bundle != null) {
 			sectionInfoName = bundle.getString(Constant.PROCESS_NAME);
-			processInfoStatus = bundle.getInt(Constant.PROCESS_STATUS, 0);
+			sectionInfoStatus = bundle.getInt(Constant.PROCESS_STATUS, 0);
 			LogTool.d(TAG, "processInfoId:" + processInfoId
 					+ " sectionInfoName:" + sectionInfoName
-					+ " processInfoStatus:" + processInfoStatus);
-			initData();
+					+ " processInfoStatus:" + sectionInfoStatus);
+		}
+		if(NetTool.isNetworkAvailable(this)){
+			loadCurrentProcess();
+		}else{
+			processInfo = dataManager.getDefaultProcessInfo();
+			if (processInfo != null) {
+				processInfoId = processInfo.get_id();
+				initData();
+			}
 		}
 
+	}
+
+	private void loadCurrentProcess() {
+		LoadClientHelper.requestProcessInfoById(this, new ProcessInfoRequest(
+				this, dataManager.getDefaultProcessId()), new LoadDataListener() {
+					
+					@Override
+					public void preLoad() {
+						// TODO Auto-generated method stub
+						showWaitDialog();
+					}
+					
+					@Override
+					public void loadSuccess() {
+						// TODO Auto-generated method stub
+						hideWaitDialog();
+						processInfo = dataManager.getDefaultProcessInfo();
+						if (processInfo != null) {
+							processInfoId = processInfo.get_id();
+							initData();
+						}
+					}
+					
+					@Override
+					public void loadFailture() {
+						// TODO Auto-generated method stub
+						hideWaitDialog();
+						processInfo = dataManager.getDefaultProcessInfo();
+						if (processInfo != null) {
+							processInfoId = processInfo.get_id();
+							initData();
+						}
+					}
+				});
 	}
 
 	private void initShowList() {
@@ -140,7 +185,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 		check_pic_title.setText(MyApplication.getInstance().getStringById(
 				sectionInfoName)
 				+ "阶段验收");
-		switch (processInfoStatus) {
+		switch (sectionInfoStatus) {
 		case Constant.NOT_START:
 			break;
 		case Constant.WORKING:
@@ -206,7 +251,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 						}
 					});
 				}
-				if (processInfoStatus == Constant.FINISH) {
+				if (sectionInfoStatus == Constant.FINISH) {
 					btn_confirm.setEnabled(false);
 				}
 			} else if (userIdentity.equals(Constant.IDENTITY_DESIGNER)) {
@@ -234,13 +279,13 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 						}
 					});
 				}
-				if (processInfoStatus == Constant.FINISH) {
+				if (sectionInfoStatus == Constant.FINISH) {
 					btn_confirm.setEnabled(false);
 				}
 			}
 		}
 
-		if (processInfoStatus == Constant.FINISH) {
+		if (sectionInfoStatus == Constant.FINISH) {
 			btn_confirm.setEnabled(false);
 		}
 	}

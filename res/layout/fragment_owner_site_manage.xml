@@ -124,6 +124,7 @@
                     android:divider="@null"
                     android:fadingEdge="none"
                     android:fastScrollEnabled="false"
+                    android:layout_marginBottom = "16dp"
                     android:listSelector="@android:color/transparent"
                     android:scrollbars="none" />
             </FrameLayout>
