@@ -27,7 +27,6 @@ import com.jianfanjia.cn.bean.GridItem;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.cache.BusinessManager;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.fragment.SiteManageFragment;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.http.LoadClientHelper;
 import com.jianfanjia.cn.http.request.AddPicToCheckRequest;
@@ -84,10 +83,6 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		/*processInfo = dataManager.getDefaultProcessInfo();
-		if (processInfo != null) {
-			processInfoId = processInfo.get_id();
-		}*/
 		Intent intent = getIntent();
 		Bundle bundle = intent.getExtras();
 		if (bundle != null) {
@@ -97,48 +92,43 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 					+ " sectionInfoName:" + sectionInfoName
 					+ " processInfoStatus:" + sectionInfoStatus);
 		}
-		if(NetTool.isNetworkAvailable(this)){
+		if (NetTool.isNetworkAvailable(this)) {
 			loadCurrentProcess();
-		}else{
-			processInfo = dataManager.getDefaultProcessInfo();
-			if (processInfo != null) {
-				processInfoId = processInfo.get_id();
-				initData();
-			}
+		} else {
+			initProcessInfo();
 		}
-
+	}
+	
+	private void initProcessInfo(){
+		processInfo = dataManager.getDefaultProcessInfo();
+		if (processInfo != null) {
+			processInfoId = processInfo.get_id();
+			initData();
+		}
 	}
 
 	private void loadCurrentProcess() {
 		LoadClientHelper.requestProcessInfoById(this, new ProcessInfoRequest(
-				this, dataManager.getDefaultProcessId()), new LoadDataListener() {
-					
+				this, dataManager.getDefaultProcessId()),
+				new LoadDataListener() {
+
 					@Override
 					public void preLoad() {
 						// TODO Auto-generated method stub
 						showWaitDialog();
 					}
-					
+
 					@Override
 					public void loadSuccess() {
 						// TODO Auto-generated method stub
 						hideWaitDialog();
-						processInfo = dataManager.getDefaultProcessInfo();
-						if (processInfo != null) {
-							processInfoId = processInfo.get_id();
-							initData();
-						}
+						initProcessInfo();
 					}
-					
+
 					@Override
 					public void loadFailture() {
-						// TODO Auto-generated method stub
 						hideWaitDialog();
-						processInfo = dataManager.getDefaultProcessInfo();
-						if (processInfo != null) {
-							processInfoId = processInfo.get_id();
-							initData();
-						}
+						initProcessInfo();
 					}
 				});
 	}
