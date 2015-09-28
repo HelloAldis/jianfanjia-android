@@ -1,17 +1,23 @@
 package com.jianfanjia.cn.fragment;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import com.jianfanjia.cn.activity.DesignerSiteActivity;
+import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.MyOwnerActivity;
 import com.jianfanjia.cn.activity.NotifyActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SettingActivity;
 import com.jianfanjia.cn.activity.UserByDesignerInfoActivity;
 import com.jianfanjia.cn.base.BaseFragment;
+import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.tools.LogTool;
 
 /**
  * 
@@ -91,10 +97,41 @@ public class DesignerMenuFragment extends BaseFragment {
 			startActivity(MyOwnerActivity.class);
 			break;
 		case R.id.tab_rb_3:
-			startActivity(DesignerSiteActivity.class);
+			Intent changeIntent = new Intent(getActivity(),
+					DesignerSiteActivity.class);
+			startActivityForResult(changeIntent,
+					Constant.REQUESTCODE_CHANGE_SITE);
 			break;
 		case R.id.tab_rb_4:
 			startActivity(SettingActivity.class);
+			break;
+		default:
+			break;
+		}
+	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		switch (requestCode) {
+		case Constant.REQUESTCODE_CHANGE_SITE:
+			if (data != null) {
+				Bundle bundle = data.getExtras();
+				if (bundle != null) {
+					String processId = (String) bundle.get("ProcessId");
+					LogTool.d(TAG, "processId=" + processId);
+					if (null != processId
+							&& dataManager.getDefaultProcessId() != processId) {
+						if (((MainActivity) getActivity())
+								.getSlidingPaneLayout().isOpen()) {
+							((MainActivity) getActivity())
+									.getSlidingPaneLayout().closePane();
+						}
+						// loadempty
+						// loadCurrentProcess();
+					}
+				}
+			}
 			break;
 		default:
 			break;
