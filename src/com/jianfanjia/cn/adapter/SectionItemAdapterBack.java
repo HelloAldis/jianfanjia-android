@@ -45,8 +45,8 @@ public class SectionItemAdapterBack extends BaseAdapter {
 	private boolean isHasCheck;// 是否有验收
 	private List<SectionInfo> sectionInfos;
 
-	public SectionItemAdapterBack(Context context, int position,List<SectionInfo> sectionInfos,
-			ItemClickCallBack callBack) {
+	public SectionItemAdapterBack(Context context, int position,
+			List<SectionInfo> sectionInfos, ItemClickCallBack callBack) {
 		this.context = context;
 		layoutInflater = LayoutInflater.from(context);
 		dataManager = DataManagerNew.getInstance();
@@ -249,6 +249,10 @@ public class SectionItemAdapterBack extends BaseAdapter {
 				viewHolder.finishTime.setVisibility(View.VISIBLE);
 				viewHolder.confirmFinishStatus.setVisibility(View.GONE);
 				viewHolder.openFinishStatus.setVisibility(View.VISIBLE);
+				viewHolder.bigOpenLayout
+						.setBackgroundResource(R.drawable.list_item_text_bg2);
+				viewHolder.smallcloseLayout
+						.setBackgroundResource(R.drawable.list_item_text_bg2);
 				break;
 			case Constant.NOT_START:
 				viewHolder.finishStatusIcon
@@ -258,11 +262,19 @@ public class SectionItemAdapterBack extends BaseAdapter {
 						.getString(R.string.site_example_node_not_start));
 				viewHolder.confirmFinishStatus.setVisibility(View.GONE);
 				viewHolder.openFinishStatus.setVisibility(View.VISIBLE);
+				viewHolder.bigOpenLayout
+						.setBackgroundResource(R.drawable.list_item_text_bg1);
+				viewHolder.smallcloseLayout
+						.setBackgroundResource(R.drawable.list_item_text_bg1);
 				break;
 			case Constant.WORKING:
 				viewHolder.finishTime.setVisibility(View.GONE);
 				viewHolder.finishStatusIcon
 						.setImageResource(R.drawable.icon_home_working);
+				viewHolder.bigOpenLayout
+						.setBackgroundResource(R.drawable.list_item_text_bg2);
+				viewHolder.smallcloseLayout
+						.setBackgroundResource(R.drawable.list_item_text_bg2);
 				if (userType.equals(Constant.IDENTITY_OWNER)) {
 					viewHolder.openFinishStatus.setVisibility(View.VISIBLE);
 					viewHolder.confirmFinishStatus.setVisibility(View.GONE);
@@ -331,6 +343,7 @@ public class SectionItemAdapterBack extends BaseAdapter {
 			} else {
 				viewHolder.bigOpenLayout.setVisibility(View.GONE);
 				viewHolder.smallcloseLayout.setVisibility(View.VISIBLE);
+
 			}
 			// 设置上传照片
 			setImageData(imageUrlList, viewHolder.gridView);
@@ -372,9 +385,17 @@ public class SectionItemAdapterBack extends BaseAdapter {
 					viewHolderf.bigOpenLayout.setVisibility(View.GONE);
 					viewHolderf.smallcloseLayout.setVisibility(View.VISIBLE);
 				}
+				viewHolderf.bigOpenLayout
+						.setBackgroundResource(R.drawable.list_item_text_bg2);
+				viewHolderf.smallcloseLayout
+						.setBackgroundResource(R.drawable.list_item_text_bg2);
 			} else {
 				viewHolderf.bigOpenLayout.setVisibility(View.GONE);
 				viewHolderf.smallcloseLayout.setVisibility(View.VISIBLE);
+				viewHolderf.bigOpenLayout
+						.setBackgroundResource(R.drawable.list_item_text_bg1);
+				viewHolderf.smallcloseLayout
+						.setBackgroundResource(R.drawable.list_item_text_bg1);
 			}
 			// 根据不同的用户类型显示不同的文字
 			if (userType.equals(Constant.IDENTITY_DESIGNER)) {
