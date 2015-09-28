@@ -90,6 +90,7 @@ public class Constant {
 	public static final int CAIGOU_NOTIFY_ID = 1;
 	public final static int FUKUAN_NOTIFY_ID = 2;
 	public final static int YANQI_NOTIFY_ID = 3;
+	public final static int YANSHOU_NOTIFY_ID = 4;
 
 	// 提醒类型
 	public static final String YANQI_NOTIFY = "0";// 延期提醒

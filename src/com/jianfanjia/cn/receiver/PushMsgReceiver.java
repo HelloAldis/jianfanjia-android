@@ -16,6 +16,7 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.igexin.sdk.PushConsts;
 import com.igexin.sdk.PushManager;
+import com.jianfanjia.cn.activity.CheckActivity;
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.NotifyActivity;
 import com.jianfanjia.cn.activity.R;
@@ -108,16 +109,17 @@ public class PushMsgReceiver extends BroadcastReceiver {
 			notifyMessageDao.save(message);
 			if (SystemUtils.isAppAlive(context, context.getPackageName())) {
 				LogTool.d(TAG, "the app process is alive");
-				ReceiveMsgListener listener = listenerManeger
-						.getReceiveMsgListener(message);
-				Log.i(TAG, "listener:" + listener);
-				if (null != listener) {
-					if (listener instanceof NotifyActivity) {
-						listener.onReceive(message);
-					}
-				} else {
-					sendNotifycation(context, message);
-				}
+				sendNotifycation(context, message);
+				// ReceiveMsgListener listener = listenerManeger
+				// .getReceiveMsgListener(message);
+				// Log.i(TAG, "listener:" + listener);
+				// if (null != listener) {
+				// if (listener instanceof NotifyActivity) {
+				// listener.onReceive(message);
+				// }
+				// } else {
+				// sendNotifycation(context, message);
+				// }
 			} else {
 				LogTool.d(TAG, "the app process is dead");
 				Intent launchIntent = context.getPackageManager()
@@ -175,41 +177,75 @@ public class PushMsgReceiver extends BroadcastReceiver {
 				context);
 		builder.setSmallIcon(R.drawable.icon_notify);
 		String type = message.getType();
+		PendingIntent pendingIntent = null;
 		if (type.equals(Constant.YANQI_NOTIFY)) {
 			notifyId = Constant.YANQI_NOTIFY_ID;
 			builder.setTicker(context.getResources()
 					.getText(R.string.yanqiText));
 			builder.setContentTitle(context.getResources().getText(
 					R.string.yanqiText));
+			builder.setContentText(message.getContent());
+			builder.setWhen(System.currentTimeMillis());
+			builder.setAutoCancel(true);
+			Intent mainIntent = new Intent(context, MainActivity.class);
+			mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+					| Intent.FLAG_ACTIVITY_NEW_TASK);
+			Intent notifyIntent = new Intent(context, NotifyActivity.class);
+			notifyIntent.putExtra("Type", type);
+			Intent[] intents = { mainIntent, notifyIntent };
+			pendingIntent = PendingIntent.getActivities(context, 0, intents,
+					PendingIntent.FLAG_UPDATE_CURRENT);
 		} else if (type.equals(Constant.FUKUAN_NOTIFY)) {
 			notifyId = Constant.FUKUAN_NOTIFY_ID;
 			builder.setTicker(context.getResources().getText(
 					R.string.fukuanText));
 			builder.setContentTitle(context.getResources().getText(
 					R.string.fukuanText));
+			builder.setContentText(message.getContent());
+			builder.setWhen(System.currentTimeMillis());
+			builder.setAutoCancel(true);
+			Intent mainIntent = new Intent(context, MainActivity.class);
+			mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+					| Intent.FLAG_ACTIVITY_NEW_TASK);
+			Intent notifyIntent = new Intent(context, NotifyActivity.class);
+			notifyIntent.putExtra("Type", type);
+			Intent[] intents = { mainIntent, notifyIntent };
+			pendingIntent = PendingIntent.getActivities(context, 0, intents,
+					PendingIntent.FLAG_UPDATE_CURRENT);
 		} else if (type.equals(Constant.CAIGOU_NOTIFY)) {
 			notifyId = Constant.CAIGOU_NOTIFY_ID;
 			builder.setTicker(context.getResources().getText(
 					R.string.caigouText));
 			builder.setContentTitle(context.getResources().getText(
 					R.string.caigouText));
+			builder.setContentText(message.getContent());
+			builder.setWhen(System.currentTimeMillis());
+			builder.setAutoCancel(true);
+			Intent mainIntent = new Intent(context, MainActivity.class);
+			mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+					| Intent.FLAG_ACTIVITY_NEW_TASK);
+			Intent notifyIntent = new Intent(context, NotifyActivity.class);
+			notifyIntent.putExtra("Type", type);
+			Intent[] intents = { mainIntent, notifyIntent };
+			pendingIntent = PendingIntent.getActivities(context, 0, intents,
+					PendingIntent.FLAG_UPDATE_CURRENT);
 		} else {
+			notifyId = Constant.YANSHOU_NOTIFY_ID;
 			builder.setTicker(context.getResources().getText(
 					R.string.yanshouText));
 			builder.setContentTitle(context.getResources().getText(
 					R.string.yanshouText));
+			builder.setContentText(message.getContent());
+			builder.setWhen(System.currentTimeMillis());
+			builder.setAutoCancel(true);
+			Intent mainIntent = new Intent(context, MainActivity.class);
+			mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+					| Intent.FLAG_ACTIVITY_NEW_TASK);
+			Intent checkIntent = new Intent(context, CheckActivity.class);
+			Intent[] intents = { mainIntent, checkIntent };
+			pendingIntent = PendingIntent.getActivities(context, 0, intents,
+					PendingIntent.FLAG_UPDATE_CURRENT);
 		}
-		builder.setContentText(message.getContent());
-		builder.setWhen(System.currentTimeMillis());
-		builder.setAutoCancel(true);
-		Intent mainIntent = new Intent(context, MainActivity.class);
-		mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-				| Intent.FLAG_ACTIVITY_NEW_TASK);
-		Intent notifyIntent = new Intent(context, NotifyActivity.class);
-		notifyIntent.putExtra("Type", type);
-		Intent[] intents = { mainIntent, notifyIntent };
-		PendingIntent pendingIntent = PendingIntent.getActivities(context, 0,
-				intents, PendingIntent.FLAG_UPDATE_CURRENT);
 		builder.setContentIntent(pendingIntent);
 		Notification notification = builder.build();
 		notification.sound = Uri.parse("android.resource://"
