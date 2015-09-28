@@ -27,7 +27,6 @@ import com.jianfanjia.cn.bean.GridItem;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.cache.BusinessManager;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.fragment.SiteManageFragment;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.http.LoadClientHelper;
 import com.jianfanjia.cn.http.request.AddPicToCheckRequest;
@@ -128,7 +127,6 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 
 					@Override
 					public void loadFailture() {
-						// TODO Auto-generated method stub
 						hideWaitDialog();
 						processInfo = dataManager.getDefaultProcessInfo();
 						if (processInfo != null) {
