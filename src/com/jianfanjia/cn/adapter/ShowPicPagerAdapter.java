@@ -18,7 +18,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class ShowPicPagerAdapter extends PagerAdapter {
 	private List<String> images;
-	private Context context;
 	private LayoutInflater inflater;
 	private ViewPagerClickListener viewPagerClickListener;
 	private ImageLoader imageLoader;
@@ -27,7 +26,6 @@ public class ShowPicPagerAdapter extends PagerAdapter {
 	public ShowPicPagerAdapter(Context context, List<String> imageList,
 			ViewPagerClickListener viewPagerClickListener) {
 		this.images = imageList;
-		this.context = context;
 		this.inflater = LayoutInflater.from(context);
 		this.viewPagerClickListener = viewPagerClickListener;
 		imageLoader = ImageLoader.getInstance();
