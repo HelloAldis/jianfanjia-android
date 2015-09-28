@@ -18,6 +18,7 @@ import java.util.regex.Pattern;
  * @created 2012-3-21
  */
 public class StringUtils {
+
 	private final static Pattern emailer = Pattern
 			.compile("\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*");
 
@@ -411,14 +412,14 @@ public class StringUtils {
 		SimpleDateFormat df = new SimpleDateFormat(format);
 		return df.format(new Date());
 	}
-	
+
 	/**
 	 * @decription 转化时间为字符串
 	 * @param times
 	 * @param pattern
 	 * @return
 	 */
-	public static String covertLongToString(long times){
+	public static String covertLongToString(long times) {
 		Date date = new Date(times);
 		return dateFormater2.get().format(date);
 	}
