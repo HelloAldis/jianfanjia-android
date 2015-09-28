@@ -53,8 +53,6 @@ public class DesignerSiteInfoAdapter extends BaseListAdapter<Process> {
 		viewHolder.itemAdressView.setText(designerSiteInfo.getDistrict());
 		viewHolder.itemStageView.setText(MyApplication.getInstance()
 				.getStringById(designerSiteInfo.getGoing_on()) + "阶段");
-		// viewHolder.itemCurrentView 还没判断
-		// viewHolder.itemCurrentView.setText("当前工地");
 		if (dataManager.getDefaultPro() == position) {
 			viewHolder.itemCurrentView.setVisibility(View.VISIBLE);
 		} else {
@@ -62,11 +60,12 @@ public class DesignerSiteInfoAdapter extends BaseListAdapter<Process> {
 		}
 		viewHolder.itemVillageView.setText(designerSiteInfo.getCell());
 		String imageId = user.getImageid();
-		if(imageId != null){
+		if (imageId != null) {
 			imageLoader.displayImage(Url.GET_IMAGE + imageId,
 					viewHolder.itemOwerHeadView, options);
-		}else{
-			imageLoader.displayImage(Constant.DEFALUT_OWNER_PIC, viewHolder.itemOwerHeadView, options);
+		} else {
+			imageLoader.displayImage(Constant.DEFALUT_OWNER_PIC,
+					viewHolder.itemOwerHeadView, options);
 		}
 
 		return convertView;
