@@ -63,7 +63,7 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
 	 * 
 	 * @return
 	 */
-	public Dao<NotifyMessage, Integer> getHelperDao() {
+	public Dao<NotifyMessage, Integer> getNotifyMessageDao() {
 		if (notifyMessageDao == null) {
 			try {
 				notifyMessageDao = getDao(NotifyMessage.class);
