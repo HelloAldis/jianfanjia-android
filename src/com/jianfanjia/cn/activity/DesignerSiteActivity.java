@@ -1,6 +1,7 @@
 package com.jianfanjia.cn.activity;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -108,6 +109,16 @@ public class DesignerSiteActivity extends BaseActivity implements
 		siteList = dataManager.getProcessLists();
 		designerSiteInfoAdapter.setList(siteList);
 		designerSiteInfoAdapter.notifyDataSetChanged();
+	}
+
+	private List<Process> getSwapProcessList(List<Process> siteList) {
+		for (int i = 0; i < siteList.size(); i++) {
+			if (i == dataManager.getDefaultPro()) {
+				int index = siteList.indexOf(siteList.get(i));
+				Collections.swap(siteList, 0, index);
+			}
+		}
+		return siteList;
 	}
 
 	@Override
