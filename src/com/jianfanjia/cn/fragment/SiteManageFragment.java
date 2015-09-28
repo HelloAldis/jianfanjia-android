@@ -505,7 +505,6 @@ public class SiteManageFragment extends BaseFragment implements
 			break;
 		case Constant.CHECK_ITEM:
 			Bundle checkBundle = new Bundle();
-			checkBundle.putInt(Constant.CURRENT_LIST, currentList);
 			checkBundle.putString(Constant.PROCESS_NAME, sectionInfo.getName());
 			checkBundle
 					.putInt(Constant.PROCESS_STATUS, sectionInfo.getStatus());
