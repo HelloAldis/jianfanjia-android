@@ -184,9 +184,6 @@ public class PushMsgReceiver extends BroadcastReceiver {
 					.getText(R.string.yanqiText));
 			builder.setContentTitle(context.getResources().getText(
 					R.string.yanqiText));
-			builder.setContentText(message.getContent());
-			builder.setWhen(System.currentTimeMillis());
-			builder.setAutoCancel(true);
 			Intent mainIntent = new Intent(context, MainActivity.class);
 			mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
 					| Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -201,9 +198,6 @@ public class PushMsgReceiver extends BroadcastReceiver {
 					R.string.fukuanText));
 			builder.setContentTitle(context.getResources().getText(
 					R.string.fukuanText));
-			builder.setContentText(message.getContent());
-			builder.setWhen(System.currentTimeMillis());
-			builder.setAutoCancel(true);
 			Intent mainIntent = new Intent(context, MainActivity.class);
 			mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
 					| Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -218,9 +212,6 @@ public class PushMsgReceiver extends BroadcastReceiver {
 					R.string.caigouText));
 			builder.setContentTitle(context.getResources().getText(
 					R.string.caigouText));
-			builder.setContentText(message.getContent());
-			builder.setWhen(System.currentTimeMillis());
-			builder.setAutoCancel(true);
 			Intent mainIntent = new Intent(context, MainActivity.class);
 			mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
 					| Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -235,9 +226,6 @@ public class PushMsgReceiver extends BroadcastReceiver {
 					R.string.yanshouText));
 			builder.setContentTitle(context.getResources().getText(
 					R.string.yanshouText));
-			builder.setContentText(message.getContent());
-			builder.setWhen(System.currentTimeMillis());
-			builder.setAutoCancel(true);
 			Intent mainIntent = new Intent(context, MainActivity.class);
 			mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
 					| Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -246,6 +234,9 @@ public class PushMsgReceiver extends BroadcastReceiver {
 			pendingIntent = PendingIntent.getActivities(context, 0, intents,
 					PendingIntent.FLAG_UPDATE_CURRENT);
 		}
+		builder.setContentText(message.getContent());
+		builder.setWhen(System.currentTimeMillis());
+		builder.setAutoCancel(true);
 		builder.setContentIntent(pendingIntent);
 		Notification notification = builder.build();
 		notification.sound = Uri.parse("android.resource://"
