@@ -82,6 +82,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		processInfo = dataManager.getDefaultProcessInfo();
+		LogTool.d(TAG, "processInfo:" + processInfo);
 		if (processInfo != null) {
 			processInfoId = processInfo.get_id();
 		}

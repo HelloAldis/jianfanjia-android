@@ -20,6 +20,9 @@ import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.NotifyActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.NotifyMessage;
+import com.jianfanjia.cn.bean.ProcessInfo;
+import com.jianfanjia.cn.bean.SectionInfo;
+import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.dao.impl.NotifyMessageDao;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
@@ -42,11 +45,13 @@ public class PushMsgReceiver extends BroadcastReceiver {
 	private static final String TAG = PushMsgReceiver.class.getName();
 	private ListenerManeger listenerManeger = null;
 	private NotifyMessageDao notifyMessageDao = null;
+	private DataManagerNew dataManager;
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		listenerManeger = ListenerManeger.getListenerManeger();
 		notifyMessageDao = DaoManager.getNotifyMessageDao(context);
+		dataManager = DataManagerNew.getInstance();
 		// -------------------------------
 		Bundle bundle = intent.getExtras();
 		LogTool.d(TAG, "onReceive() action=" + bundle.getInt("action"));
@@ -224,6 +229,11 @@ public class PushMsgReceiver extends BroadcastReceiver {
 					PendingIntent.FLAG_UPDATE_CURRENT);
 		} else {
 			notifyId = Constant.YANSHOU_NOTIFY_ID;
+			ProcessInfo processInfo = dataManager.getDefaultProcessInfo();
+			SectionInfo sectionInfo = processInfo.getSectionInfoByName(message
+					.getSection());
+			LogTool.d(TAG, "processInfo:" + processInfo + " sectionInfo:"
+					+ sectionInfo);
 			builder.setTicker(context.getResources().getText(
 					R.string.yanshouText));
 			builder.setContentTitle(context.getResources().getText(
@@ -232,6 +242,10 @@ public class PushMsgReceiver extends BroadcastReceiver {
 			mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
 					| Intent.FLAG_ACTIVITY_NEW_TASK);
 			Intent checkIntent = new Intent(context, CheckActivity.class);
+			Bundle bundle = new Bundle();
+			bundle.putString(Constant.PROCESS_NAME, sectionInfo.getName());
+			bundle.putInt(Constant.PROCESS_STATUS, sectionInfo.getStatus());
+			checkIntent.putExtras(bundle);
 			Intent[] intents = { mainIntent, checkIntent };
 			pendingIntent = PendingIntent.getActivities(context, 0, intents,
 					PendingIntent.FLAG_UPDATE_CURRENT);
