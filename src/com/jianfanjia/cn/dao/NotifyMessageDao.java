@@ -86,7 +86,8 @@ public class NotifyMessageDao implements BaseDao<NotifyMessage> {
 	public List<NotifyMessage> getNotifyListByType(String type) {
 		List<NotifyMessage> list = null;
 		try {
-			list = dao.queryBuilder().where().eq("type", type).query();
+			list = dao.queryBuilder().orderBy("time", false).where()
+					.eq("type", type).query();
 			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();
