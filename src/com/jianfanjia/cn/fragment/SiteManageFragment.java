@@ -705,12 +705,8 @@ public class SiteManageFragment extends BaseFragment implements
 		switch (requestCode) {
 		case Constant.REQUESTCODE_CAMERA:// едуу
 			if (mTmpFile != null) {
-				/*
-				 * Uri uri = Uri.fromFile(mTmpFile); LogTool.d(TAG, "uri:" +
-				 * uri); if (null != uri) { startPhotoZoom(uri); String imaPath
-				 * = }
-				 */
 				Bitmap imageBitmap = ImageUtil.getImage(mTmpFile.getPath());
+				LogTool.d(TAG, "imageBitmap:" + imageBitmap);
 				if (null != imageBitmap) {
 					LoadClientHelper
 							.upload_Image(getActivity(),
