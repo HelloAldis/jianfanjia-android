@@ -21,10 +21,9 @@ import com.jianfanjia.cn.activity.NotifyActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.dao.NotifyMessageDao;
+import com.jianfanjia.cn.dao.impl.NotifyMessageDao;
 import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.inter.manager.ListenerManeger;
-import com.jianfanjia.cn.interf.ReceiveMsgListener;
 import com.jianfanjia.cn.tools.DaoManager;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
@@ -127,6 +126,9 @@ public class PushMsgReceiver extends BroadcastReceiver {
 				launchIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
 						| Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
 				Bundle args = new Bundle();
+				args.putString("Type", message.getType());
+				launchIntent.putExtra(Constant.EXTRA_BUNDLE, args);
+				context.startActivity(launchIntent);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

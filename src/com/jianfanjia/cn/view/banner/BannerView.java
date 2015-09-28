@@ -12,7 +12,7 @@ import android.view.View;
 
 public class BannerView extends InfiniteViewPager {
 	private boolean autoScroll = true;
-	
+
 	private Handler handler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
@@ -36,7 +36,7 @@ public class BannerView extends InfiniteViewPager {
 	private void initView(Context context) {
 		setViewPagerScrollSpeed(this);
 		setOnTouchListener(new OnTouchListener() {
-			
+
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
 				switch (event.getAction()) {
@@ -54,13 +54,14 @@ public class BannerView extends InfiniteViewPager {
 		});
 		handler.sendEmptyMessageDelayed(0, 6000);
 	}
-	
+
 	private void setViewPagerScrollSpeed(ViewPager viewPager) {
 		try {
 			Field mScroller = null;
 			mScroller = ViewPager.class.getDeclaredField("mScroller");
 			mScroller.setAccessible(true);
-			FixedSpeedScroller scroller = new FixedSpeedScroller(viewPager.getContext());
+			FixedSpeedScroller scroller = new FixedSpeedScroller(
+					viewPager.getContext());
 			mScroller.set(viewPager, scroller);
 		} catch (NoSuchFieldException e) {
 

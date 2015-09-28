@@ -17,7 +17,7 @@ import android.widget.Toast;
 import com.jianfanjia.cn.AppConfig;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.cache.DataManagerNew;
-import com.jianfanjia.cn.dao.NotifyMessageDao;
+import com.jianfanjia.cn.dao.impl.NotifyMessageDao;
 import com.jianfanjia.cn.inter.manager.ListenerManeger;
 import com.jianfanjia.cn.interf.LoadDataListener;
 import com.jianfanjia.cn.interf.NetStateListener;
