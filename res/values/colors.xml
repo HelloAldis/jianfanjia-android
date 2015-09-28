@@ -35,6 +35,6 @@
     <color name="btn_enable_unpress">#fe7003</color>
     <color name="btn_enable_press">#ccfe7003</color>
     <color name="error_bg">#f2f2f3</color>
-    <color name="bg_color">#d5d5d5</color>
+    <color name="bg_color">#e5e5e4</color>
 
 </resources>
