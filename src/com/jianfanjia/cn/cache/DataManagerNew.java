@@ -328,7 +328,7 @@ public class DataManagerNew {
 		requirementInfo = null;
 		totalDuration = null;
 		currentProcessInfo = null;
-//		sharedPreferdata.clear();
+		// sharedPreferdata.clear();
 		sharedPreferuser.clear();
 	}
 

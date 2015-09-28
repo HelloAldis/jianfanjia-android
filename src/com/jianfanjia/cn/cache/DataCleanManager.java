@@ -44,8 +44,9 @@ public class DataCleanManager {
 		deleteFilesByDirectory(new File("/data/data/"
 				+ context.getPackageName() + "/shared_prefs"));
 	}
-	
-	public static void cleanSharedPafrenceByName(Context context,String fileName){
+
+	public static void cleanSharedPafrenceByName(Context context,
+			String fileName) {
 		deleteFilesByDirectory(new File("/data/data/"
 				+ context.getPackageName() + "/shared_prefs/" + fileName));
 	}
@@ -128,7 +129,7 @@ public class DataCleanManager {
 					deleteFilesByDirectory(child);
 				}
 				boolean isDeleteSuccess = child.delete();
-				Log.i("isDeleteSuccess",child.getName() + isDeleteSuccess);
+				Log.i("isDeleteSuccess", child.getName() + isDeleteSuccess);
 			}
 		}
 	}
