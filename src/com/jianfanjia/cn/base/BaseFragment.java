@@ -12,12 +12,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import com.jianfanjia.cn.AppConfig;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.cache.DataManagerNew;
-import com.jianfanjia.cn.dao.NotifyMessageDao;
+import com.jianfanjia.cn.dao.impl.NotifyMessageDao;
 import com.jianfanjia.cn.inter.manager.ListenerManeger;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
 import com.jianfanjia.cn.tools.DaoManager;
