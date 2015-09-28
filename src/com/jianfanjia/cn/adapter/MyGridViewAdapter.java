@@ -115,7 +115,13 @@ public class MyGridViewAdapter extends BaseListAdapter<GridItem> {
 				}
 			}
 		} else {
-			itemClickCallBack.click(position, Constant.IMG_ITEM);
+			holder.img.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View arg0) {
+					itemClickCallBack.click(position, Constant.IMG_ITEM);
+				}
+			});
 			imageLoader.displayImage(imgId, holder.img, options);
 			
 		}

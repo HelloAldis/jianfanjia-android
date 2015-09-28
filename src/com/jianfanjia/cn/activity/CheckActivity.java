@@ -570,7 +570,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 			String currentImageId = checkGridList.get(arg2).getImgId();
 			for (int i = 0; i < showProcessPic.size(); i++) {
 				if(currentImageId.equals(showProcessPic.get(i))){
-					arg2 = i;
+					arg2 = i + 1;
 				}
 			}
 			bundle.putStringArrayList(SHOW_LIST,(ArrayList<String>)showProcessPic);
@@ -582,6 +582,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 
 	@Override
 	public void click(int position, int itemType) {
+		LogTool.d(TAG, "position = " + position);
 		startShowActivity(position);
 	}
 

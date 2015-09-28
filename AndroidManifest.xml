@@ -71,7 +71,8 @@
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name="com.jianfanjia.cn.activity.CheckActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/activity_styleprize" />
         <activity
             android:name="com.jianfanjia.cn.activity.LoginActivity"
             android:screenOrientation="portrait"
