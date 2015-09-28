@@ -156,8 +156,8 @@ public class SiteManageFragment extends BaseFragment implements
 				} else {
 					processInfo = dataManager.getProcessInfoById(processId);
 				}
-			}else{
-					processInfo = dataManager
+			} else {
+				processInfo = dataManager
 						.getProcessInfoById(Constant.DEFAULT_PROCESSINFO_ID);
 			}
 		}
@@ -204,8 +204,8 @@ public class SiteManageFragment extends BaseFragment implements
 	// 初始化数据
 	private void initData() {
 		if (processInfo != null) {
-			titleCenter.setText(processInfo.getCell() == null ? "" : processInfo
-					.getCell());// 设置标题头
+			titleCenter.setText(processInfo.getCell() == null ? ""
+					: processInfo.getCell());// 设置标题头
 			currentPro = MyApplication.getInstance().getPositionByItemName(
 					processInfo.getGoing_on());
 			if (currentList == -1 || lastPro != currentPro) {
@@ -372,12 +372,12 @@ public class SiteManageFragment extends BaseFragment implements
 			for (int i = 0; i < proTitle.length; i++) {
 				ViewPagerItem viewPagerItem = myViewPageAdapter.getList()
 						.get(i);
-				if(sectionInfos.get(i).getStart_at() > 0){
+				if (sectionInfos.get(i).getStart_at() > 0) {
 					viewPagerItem.setDate(DateFormatTool.covertLongToString(
 							sectionInfos.get(i).getStart_at(), "M.dd")
 							+ "-"
-							+ DateFormatTool.covertLongToString(sectionInfos.get(i)
-									.getEnd_at(), "M.dd"));
+							+ DateFormatTool.covertLongToString(sectionInfos
+									.get(i).getEnd_at(), "M.dd"));
 				}
 				if (sectionInfos.get(i).getStatus() != Constant.NOT_START) {
 					int drawableId = getResources().getIdentifier(
@@ -713,73 +713,7 @@ public class SiteManageFragment extends BaseFragment implements
 				 * = }
 				 */
 				Bitmap imageBitmap = ImageUtil.getImage(mTmpFile.getPath());
-				LoadClientHelper.upload_Image(getActivity(),
-						new UploadPicRequestNew(getActivity(), imageBitmap),
-						new LoadDataListener() {
-
-							@Override
-							public void preLoad() {
-								showWaitDialog();
-							}
-
-							@Override
-							public void loadSuccess() {
-								String itemName = sectionItemAdapter
-										.getCurrentItem();
-								AddPicToSectionItemRequest addSectionItemRequest = new AddPicToSectionItemRequest(
-										getActivity(), processInfo.get_id(),
-										sectionInfo.getName(), itemName,
-										dataManager.getCurrentUploadImageId());
-								LoadClientHelper.submitImgToProgress(
-										getActivity(), addSectionItemRequest,
-										new LoadDataListener() {
-
-											@Override
-											public void preLoad() {
-												// TODO Auto-generated
-												// method stub
-											}
-
-											@Override
-											public void loadSuccess() {
-												hideWaitDialog();
-												loadCurrentProcess();
-												if (mTmpFile != null
-														&& mTmpFile.exists()) {
-													mTmpFile.delete();
-												}
-												loadCurrentProcess();
-											}
-
-											@Override
-											public void loadFailture() {
-												hideWaitDialog();
-												makeTextLong(getString(R.string.tip_error_internet));
-												if (mTmpFile != null
-														&& mTmpFile.exists()) {
-													mTmpFile.delete();
-												}
-											}
-										});
-							}
-
-							@Override
-							public void loadFailture() {
-								hideWaitDialog();
-								makeTextLong(getString(R.string.tip_error_internet));
-							}
-						});
-
-			}
-			break;
-		case Constant.REQUESTCODE_LOCATION:// 本地选取
-			if (data != null) {
-				Uri uri = data.getData();
-				LogTool.d(TAG, "uri:" + uri);
-				if (null != uri) {
-					// startPhotoZoom(uri);
-					Bitmap imageBitmap = ImageUtil.getImage(ImageUtils
-							.getImagePath(uri, getActivity()));
+				if (null != imageBitmap) {
 					LoadClientHelper
 							.upload_Image(getActivity(),
 									new UploadPicRequestNew(getActivity(),
@@ -847,6 +781,84 @@ public class SiteManageFragment extends BaseFragment implements
 											makeTextLong(getString(R.string.tip_error_internet));
 										}
 									});
+
+				}
+			}
+			break;
+		case Constant.REQUESTCODE_LOCATION:// 本地选取
+			if (data != null) {
+				Uri uri = data.getData();
+				LogTool.d(TAG, "uri:" + uri);
+				if (null != uri) {
+					// startPhotoZoom(uri);
+					Bitmap imageBitmap = ImageUtil.getImage(ImageUtils
+							.getImagePath(uri, getActivity()));
+					if (null != imageBitmap) {
+						LoadClientHelper.upload_Image(getActivity(),
+								new UploadPicRequestNew(getActivity(),
+										imageBitmap), new LoadDataListener() {
+
+									@Override
+									public void preLoad() {
+										showWaitDialog();
+									}
+
+									@Override
+									public void loadSuccess() {
+										String itemName = sectionItemAdapter
+												.getCurrentItem();
+										AddPicToSectionItemRequest addSectionItemRequest = new AddPicToSectionItemRequest(
+												getActivity(),
+												processInfo.get_id(),
+												sectionInfo.getName(),
+												itemName,
+												dataManager
+														.getCurrentUploadImageId());
+										LoadClientHelper.submitImgToProgress(
+												getActivity(),
+												addSectionItemRequest,
+												new LoadDataListener() {
+
+													@Override
+													public void preLoad() {
+														// TODO
+														// Auto-generated
+														// method
+														// stub
+													}
+
+													@Override
+													public void loadSuccess() {
+														hideWaitDialog();
+														loadCurrentProcess();
+														if (mTmpFile != null
+																&& mTmpFile
+																		.exists()) {
+															mTmpFile.delete();
+														}
+														loadCurrentProcess();
+													}
+
+													@Override
+													public void loadFailture() {
+														hideWaitDialog();
+														makeTextLong(getString(R.string.tip_error_internet));
+														if (mTmpFile != null
+																&& mTmpFile
+																		.exists()) {
+															mTmpFile.delete();
+														}
+													}
+												});
+									}
+
+									@Override
+									public void loadFailture() {
+										hideWaitDialog();
+										makeTextLong(getString(R.string.tip_error_internet));
+									}
+								});
+					}
 				}
 			}
 			break;

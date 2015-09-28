@@ -1,7 +1,6 @@
 package com.jianfanjia.cn.activity;
 
 import java.io.File;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.http.Header;
@@ -17,8 +16,6 @@ import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -98,16 +95,16 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 					+ " processInfoStatus:" + processInfoStatus);
 			initData();
 		}
-		
+
 	}
 
 	private void initShowList() {
 		showProcessPic.clear();
 		showSamplePic.clear();
-		for (int i = 0; i < checkGridList.size(); i =i + 2) {
+		for (int i = 0; i < checkGridList.size(); i = i + 2) {
 			showSamplePic.add(checkGridList.get(i).getImgId());
 		}
-		for (int i = 1; i < checkGridList.size(); i =i +2) {
+		for (int i = 1; i < checkGridList.size(); i = i + 2) {
 			if (checkGridList.get(i).getImgId() != null) {
 				showProcessPic.add(checkGridList.get(i).getImgId());
 			}
@@ -362,50 +359,52 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 
 	private void uploadImage(String imagePath) {
 		Bitmap imageBitmap = ImageUtil.getImage(imagePath);
-		LoadClientHelper.upload_Image(this, new UploadPicRequestNew(this,
-				imageBitmap), new LoadDataListener() {
+		if (null != imageBitmap) {
+			LoadClientHelper.upload_Image(this, new UploadPicRequestNew(this,
+					imageBitmap), new LoadDataListener() {
 
-			@Override
-			public void preLoad() {
-				showWaitDialog();
-			}
+				@Override
+				public void preLoad() {
+					showWaitDialog();
+				}
 
-			@Override
-			public void loadSuccess() {
-				AddPicToCheckRequest addPicToCheckRequest = new AddPicToCheckRequest(
-						CheckActivity.this, processInfoId, sectionInfoName,
-						key, dataManager.getCurrentUploadImageId());
-				LoadClientHelper.submitCheckedImg(CheckActivity.this,
-						addPicToCheckRequest, new LoadDataListener() {
+				@Override
+				public void loadSuccess() {
+					AddPicToCheckRequest addPicToCheckRequest = new AddPicToCheckRequest(
+							CheckActivity.this, processInfoId, sectionInfoName,
+							key, dataManager.getCurrentUploadImageId());
+					LoadClientHelper.submitCheckedImg(CheckActivity.this,
+							addPicToCheckRequest, new LoadDataListener() {
 
-							@Override
-							public void preLoad() {
-								// TODO Auto-generated
-								// method stub
+								@Override
+								public void preLoad() {
+									// TODO Auto-generated
+									// method stub
 
-							}
+								}
 
-							@Override
-							public void loadSuccess() {
-								hideWaitDialog();
-								initList();
-								adapter.notifyDataSetChanged();
-							}
+								@Override
+								public void loadSuccess() {
+									hideWaitDialog();
+									initList();
+									adapter.notifyDataSetChanged();
+								}
 
-							@Override
-							public void loadFailture() {
-								hideWaitDialog();
-								makeTextLong(getString(R.string.tip_error_internet));
-							}
-						});
-			}
+								@Override
+								public void loadFailture() {
+									hideWaitDialog();
+									makeTextLong(getString(R.string.tip_error_internet));
+								}
+							});
+				}
 
-			@Override
-			public void loadFailture() {
-				hideWaitDialog();
-				makeTextLong(getString(R.string.tip_error_internet));
-			}
-		});
+				@Override
+				public void loadFailture() {
+					hideWaitDialog();
+					makeTextLong(getString(R.string.tip_error_internet));
+				}
+			});
+		}
 	}
 
 	private void onClickCheckDone() {
@@ -564,16 +563,18 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 	private void startShowActivity(int arg2) {
 		Bundle bundle = new Bundle();
 		if (arg2 % 2 == 0) {
-			bundle.putStringArrayList(Constant.IMAGE_LIST,(ArrayList<String>)showSamplePic);
+			bundle.putStringArrayList(Constant.IMAGE_LIST,
+					(ArrayList<String>) showSamplePic);
 			bundle.putInt(Constant.CURRENT_POSITION, arg2 / 2);
 		} else {
 			String currentImageId = checkGridList.get(arg2).getImgId();
 			for (int i = 0; i < showProcessPic.size(); i++) {
-				if(currentImageId.equals(showProcessPic.get(i))){
+				if (currentImageId.equals(showProcessPic.get(i))) {
 					arg2 = i;
 				}
 			}
-			bundle.putStringArrayList(Constant.IMAGE_LIST,(ArrayList<String>)showProcessPic);
+			bundle.putStringArrayList(Constant.IMAGE_LIST,
+					(ArrayList<String>) showProcessPic);
 			bundle.putInt(Constant.CURRENT_POSITION, arg2);
 
 		}
