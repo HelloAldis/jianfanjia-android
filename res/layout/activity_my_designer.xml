@@ -8,7 +8,14 @@
         android:id="@+id/designer_bg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bg_loading_720"
+        android:contentDescription="@null"
+        android:scaleType="fitXY"
+        android:visibility="gone" />
+    
+    <ImageView
+        android:id="@+id/designer_fg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:contentDescription="@null"
         android:scaleType="fitXY"
         android:src="@drawable/bg_cover_sidebar"
@@ -24,6 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/my_designer_head_layout"
+        android:background="@color/transparent"
         android:visibility="gone" >
 
         <RelativeLayout

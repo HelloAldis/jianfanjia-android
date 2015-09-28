@@ -34,6 +34,7 @@ public class MyDesignerActivity extends BaseActivity implements
 		OnClickListener, LoadDataListener {
 	private static final String TAG = MyDesignerActivity.class.getName();
 	private ImageView bgView;// 设计师背景
+	private ImageView fontView;//背景的贴层
 	private CircleImageView headView;//
 	private TextView nameView;// 姓名
 	private ImageView sexView;// 性别
@@ -54,6 +55,7 @@ public class MyDesignerActivity extends BaseActivity implements
 		contentLayout = (RelativeLayout) findViewById(R.id.my_designer_content_layout);
 		errorView = findViewById(R.id.error_view);
 		bgView = (ImageView) findViewById(R.id.designer_bg);
+		fontView = (ImageView) findViewById(R.id.designer_fg);
 		headView = (CircleImageView) findViewById(R.id.my_designer_head_icon);
 		nameView = (TextView) findViewById(R.id.my_designer_name);
 		sexView = (ImageView) findViewById(R.id.my_designer_sex_icon);
@@ -140,10 +142,10 @@ public class MyDesignerActivity extends BaseActivity implements
 					: View.GONE);
 			productSumView.setText(designerInfo.getProduct_count() + "");
 			appointmentSum.setText(designerInfo.getOrder_count() + "");
-			if (designerInfo.getBig_imageid() != null) {
-				Log.i(TAG, Url.GET_IMAGE + designerInfo.getBig_imageid());
+			if (designerInfo.getImageid() != null) {
+				Log.i(TAG, Url.GET_IMAGE + designerInfo.getImageid());
 				ImageLoader.getInstance().displayImage(
-						Url.GET_IMAGE + designerInfo.getBig_imageid(), bgView);
+						Url.GET_IMAGE + designerInfo.getImageid(), bgView);
 			} else {
 				bgView.setImageResource(R.drawable.bg_login_720);
 			}
@@ -167,6 +169,7 @@ public class MyDesignerActivity extends BaseActivity implements
 		contentLayout.setVisibility(View.VISIBLE);
 		bgView.setVisibility(View.VISIBLE);
 		errorView.setVisibility(View.GONE);
+		fontView.setVisibility(View.VISIBLE);
 	}
 
 	@Override
