@@ -13,7 +13,6 @@ import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 import android.util.Log;
-import com.google.gson.Gson;
 import com.igexin.sdk.PushConsts;
 import com.igexin.sdk.PushManager;
 import com.jianfanjia.cn.activity.CheckActivity;
@@ -27,6 +26,7 @@ import com.jianfanjia.cn.http.JianFanJiaApiClient;
 import com.jianfanjia.cn.inter.manager.ListenerManeger;
 import com.jianfanjia.cn.interf.ReceiveMsgListener;
 import com.jianfanjia.cn.tools.DaoManager;
+import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.SystemUtils;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -43,7 +43,6 @@ public class PushMsgReceiver extends BroadcastReceiver {
 	private static final String TAG = PushMsgReceiver.class.getName();
 	private ListenerManeger listenerManeger = null;
 	private NotifyMessageDao notifyMessageDao = null;
-	private Gson gson = new Gson();
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
@@ -104,7 +103,8 @@ public class PushMsgReceiver extends BroadcastReceiver {
 	 */
 	private void parseMessage(Context context, String jsonStr) {
 		try {
-			NotifyMessage message = gson.fromJson(jsonStr, NotifyMessage.class);
+			NotifyMessage message = JsonParser.jsonToBean(jsonStr,
+					NotifyMessage.class);
 			Log.i(TAG, "message:" + message);
 			notifyMessageDao.save(message);
 			if (SystemUtils.isAppAlive(context, context.getPackageName())) {
