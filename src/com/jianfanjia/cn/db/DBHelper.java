@@ -19,7 +19,7 @@ import com.jianfanjia.cn.bean.NotifyMessage;
 public class DBHelper extends OrmLiteSqliteOpenHelper {
 	private static final String DBNAME = "JIANFANJIA.db";
 	private static final int DBVERSION = 1;
-	private static DBHelper instance;
+	private static DBHelper helper;
 
 	public DBHelper(Context context) {
 		super(context, DBNAME, null, DBVERSION);
@@ -46,18 +46,19 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
 	}
 
 	public static synchronized DBHelper getHelper(Context context) {
-		if (instance == null) {
+		if (helper == null) {
 			synchronized (DBHelper.class) {
-				if (instance == null)
-					instance = new DBHelper(context);
+				if (helper == null)
+					helper = new DBHelper(context);
 			}
 		}
-		return instance;
+		return helper;
 	}
 
 	@Override
 	public void close() {
 		super.close();
+		helper = null;
 	}
 
 }
