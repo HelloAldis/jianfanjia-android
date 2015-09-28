@@ -17,7 +17,6 @@ import android.os.Message;
 import android.provider.MediaStore;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.View;
@@ -65,7 +64,6 @@ import com.jianfanjia.cn.tools.ImageUtil;
 import com.jianfanjia.cn.tools.ImageUtils;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.NetTool;
-import com.jianfanjia.cn.tools.PhotoUtils;
 import com.jianfanjia.cn.tools.StringUtils;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DateWheelDialog;
@@ -862,62 +860,6 @@ public class SiteManageFragment extends BaseFragment implements
 				}
 			}
 			break;
-		case Constant.REQUESTCODE_CROP:
-			if (data != null) {
-				Bundle extras = data.getExtras();
-				if (extras != null) {
-					// 得到返回来的数据，是bitmap类型的数据
-					Bitmap bitmap = extras.getParcelable("data");
-					LogTool.d(TAG, "avatar - bitmap = " + bitmap);
-					String imgPath = PhotoUtils.savaPicture(bitmap);
-					LogTool.d(TAG, "imgPath===" + imgPath);
-					if (!TextUtils.isEmpty(imgPath)) {
-						/*
-						 * uploadManager.uploadProcedureImage(imgPath,
-						 * processInfo.get_id(), sectionInfo.getName(),
-						 * processInfoName, this);
-						 */
-						/*
-						 * LoadClientHelper.upload_Image(getActivity(), new
-						 * UploadPicRequest(getActivity(), imgPath), new
-						 * LoadDataListener() {
-						 * 
-						 * @Override public void preLoad() { // TODO
-						 * Auto-generated method stub showWaitDialog(); }
-						 * 
-						 * @Override public void loadSuccess() { // TODO
-						 * Auto-generated method stub String itemName =
-						 * sectionItemAdapter .getCurrentItem();
-						 * AddPicToSectionItemRequest addSectionItemRequest =
-						 * new AddPicToSectionItemRequest( getActivity(),
-						 * processInfo.get_id(), sectionInfo.getName(),
-						 * itemName, dataManager .getCurrentUploadImageId());
-						 * LoadClientHelper.submitImgToProgress( getActivity(),
-						 * addSectionItemRequest, new LoadDataListener() {
-						 * 
-						 * @Override public void preLoad() { // TODO
-						 * Auto-generated // method stub }
-						 * 
-						 * @Override public void loadSuccess() {
-						 * hideWaitDialog(); loadCurrentProcess(); if (mTmpFile
-						 * != null && mTmpFile .exists()) { mTmpFile.delete(); }
-						 * loadCurrentProcess(); }
-						 * 
-						 * @Override public void loadFailture() {
-						 * hideWaitDialog();
-						 * makeTextLong(getString(R.string.tip_error_internet));
-						 * if (mTmpFile != null && mTmpFile .exists()) {
-						 * mTmpFile.delete(); } } }); }
-						 * 
-						 * @Override public void loadFailture() { // TODO
-						 * Auto-generated method stub hideWaitDialog();
-						 * makeTextLong(getString(R.string.tip_error_internet));
-						 * } });
-						 */
-					}
-				}
-			}
-			break;
 		case Constant.REQUESTCODE_CONFIG_SITE:
 			if (data != null) {
 				Bundle bundle = data.getExtras();
@@ -984,27 +926,6 @@ public class SiteManageFragment extends BaseFragment implements
 		if (mTmpFile != null && mTmpFile.exists()) {
 			mTmpFile.delete();
 		}
-	}
-
-	/**
-	 * 裁剪图片方法实现
-	 * 
-	 * @param uri
-	 */
-	private void startPhotoZoom(Uri uri) {
-		Intent intent = new Intent("com.android.camera.action.CROP");
-		intent.setDataAndType(uri, "image/*");
-		// 下面这个crop=true是设置在开启的Intent中设置显示的VIEW可裁剪
-		intent.putExtra("crop", "true");
-		// aspectX aspectY 是宽高的比例
-		intent.putExtra("aspectX", 1);
-		intent.putExtra("aspectY", 1);
-		intent.putExtra("scale", true);
-		// outputX outputY 是裁剪图片宽高
-		intent.putExtra("outputX", 300);
-		intent.putExtra("outputY", 300);
-		intent.putExtra("return-data", true);
-		startActivityForResult(intent, Constant.REQUESTCODE_CROP);
 	}
 
 	@Override
