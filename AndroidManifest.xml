@@ -72,7 +72,7 @@
         <activity
             android:name="com.jianfanjia.cn.activity.CheckActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/activity_styleprize" />
+             />
         <activity
             android:name="com.jianfanjia.cn.activity.LoginActivity"
             android:screenOrientation="portrait"
@@ -106,10 +106,6 @@
             android:theme="@style/activity_styleprize" />
         <activity
             android:name="com.jianfanjia.cn.activity.ShowPicActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/activity_styleprize" />
-         <activity
-            android:name="com.jianfanjia.cn.activity.ShowCheckPicActivity"
             android:screenOrientation="portrait"
             android:theme="@style/activity_styleprize" />
         <activity

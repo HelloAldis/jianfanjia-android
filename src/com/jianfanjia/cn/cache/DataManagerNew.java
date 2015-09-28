@@ -245,12 +245,12 @@ public class DataManagerNew {
 		return false;
 	}
 
-	public boolean isConfigPro() {
-		return sharedPreferdata.getValue(Constant.ISCONFIG_PROCESS, false);
+	public int getCurrentList() {
+		return sharedPreferdata.getValue(Constant.CURRENT_LIST, 0);
 	}
 
-	public void setConfigPro(boolean isConfig) {
-		sharedPreferdata.setValue(Constant.ISCONFIG_PROCESS, isConfig);
+	public void setCurrentList(int currentList) {
+		sharedPreferdata.setValue(Constant.CURRENT_LIST, currentList);
 	}
 
 	public boolean isPushOpen() {

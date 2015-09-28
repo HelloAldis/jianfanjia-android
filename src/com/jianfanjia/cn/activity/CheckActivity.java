@@ -564,20 +564,20 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 	private void startShowActivity(int arg2) {
 		Bundle bundle = new Bundle();
 		if (arg2 % 2 == 0) {
-			bundle.putStringArrayList(SHOW_LIST,(ArrayList<String>)showSamplePic);
+			bundle.putStringArrayList(Constant.IMAGE_LIST,(ArrayList<String>)showSamplePic);
 			bundle.putInt(Constant.CURRENT_POSITION, arg2 / 2);
 		} else {
 			String currentImageId = checkGridList.get(arg2).getImgId();
 			for (int i = 0; i < showProcessPic.size(); i++) {
 				if(currentImageId.equals(showProcessPic.get(i))){
-					arg2 = i + 1;
+					arg2 = i;
 				}
 			}
-			bundle.putStringArrayList(SHOW_LIST,(ArrayList<String>)showProcessPic);
-			bundle.putInt(Constant.CURRENT_POSITION, arg2 / 2);
+			bundle.putStringArrayList(Constant.IMAGE_LIST,(ArrayList<String>)showProcessPic);
+			bundle.putInt(Constant.CURRENT_POSITION, arg2);
 
 		}
-		startActivity(ShowCheckPicActivity.class, bundle);
+		startActivity(ShowPicActivity.class, bundle);
 	}
 
 	@Override

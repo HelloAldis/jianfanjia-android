@@ -90,6 +90,7 @@ public class Constant {
 	public static final int CAIGOU_NOTIFY_ID = 1;
 	public final static int FUKUAN_NOTIFY_ID = 2;
 	public final static int YANQI_NOTIFY_ID = 3;
+	public final static int YANSHOU_NOTIFY_ID = 4;
 
 	// 提醒类型
 	public static final String YANQI_NOTIFY = "0";// 延期提醒
@@ -133,6 +134,8 @@ public class Constant {
 
 	public static final String DEFALUT_DESIGNER_PIC = "drawable://"
 			+ R.drawable.icon_sidebar_default_user;
+	
+	public static final String DEFALUT_PIC_HEAD = "drawable://";
 
 	public static final String CURRENT_LIST = "current_list";// 首页展开的第一道工序
 	public static final String CURRENT_ITEM = "current_item";// 当前节点

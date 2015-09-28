@@ -92,6 +92,7 @@ public class SiteManageFragment extends BaseFragment implements
 	private String processId = null;// 默认的工地id
 	private int currentPro = -1;// 当前进行工序
 	private int currentList = -1;// 当前展开第一道工序
+	private int lastPro = -1;//上次进行的工序
 	private ViewPager bannerViewPager = null;
 	private ViewGroup group = null;
 	private ImageView[] tips;
@@ -139,6 +140,9 @@ public class SiteManageFragment extends BaseFragment implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		if(currentList == -1){
+			currentList = dataManager.getCurrentList();
+		}
 		initProcessInfo();
 	}
 
@@ -156,25 +160,6 @@ public class SiteManageFragment extends BaseFragment implements
 		}
 
 	}
-
-	/*
-	 * private void refreshData() { if (dataManager.getDefaultProcessId() ==
-	 * null) { LoadClientHelper.requestProcessList(getActivity(), new
-	 * ProcessListRequest(getActivity()), new LoadDataListener() {
-	 * 
-	 * @Override public void preLoad() { // TODO Auto-generated method stub
-	 * 
-	 * }
-	 * 
-	 * @Override public void loadSuccess() { loadCurrentProcess();
-	 * mPullRefreshScrollView.onRefreshComplete(); }
-	 * 
-	 * @Override public void loadFailture() {
-	 * makeTextLong(getString(R.string.tip_error_internet));
-	 * mPullRefreshScrollView.onRefreshComplete(); } }); } else { Log.i(TAG,
-	 * "proId = " + dataManager.getDefaultProcessId()); loadCurrentProcess(); }
-	 * }
-	 */
 
 	private void loadCurrentProcess() {
 		if (processId != null) {
@@ -220,7 +205,10 @@ public class SiteManageFragment extends BaseFragment implements
 					: processInfo.getCell());// 设置标题头
 			currentPro = MyApplication.getInstance().getPositionByItemName(
 					processInfo.getGoing_on());
-			currentList = currentPro;
+			if(currentList == -1 || lastPro != currentPro){
+				currentList = currentPro;
+				lastPro = currentPro;
+			}
 			sectionInfos = processInfo.getSections();
 			sectionInfo = sectionInfos.get(currentList);
 			setScrollHeadTime();
@@ -245,6 +233,9 @@ public class SiteManageFragment extends BaseFragment implements
 	@Override
 	public void onPause() {
 		super.onPause();
+		if(currentList != -1){
+			dataManager.setCurrentList(currentList);
+		}
 	}
 
 	private void initBannerView(View view) {
