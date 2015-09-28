@@ -95,11 +95,15 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 		if (NetTool.isNetworkAvailable(this)) {
 			loadCurrentProcess();
 		} else {
-			processInfo = dataManager.getDefaultProcessInfo();
-			if (processInfo != null) {
-				processInfoId = processInfo.get_id();
-				initData();
-			}
+			initProcessInfo();
+		}
+	}
+	
+	private void initProcessInfo(){
+		processInfo = dataManager.getDefaultProcessInfo();
+		if (processInfo != null) {
+			processInfoId = processInfo.get_id();
+			initData();
 		}
 	}
 
@@ -118,21 +122,13 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 					public void loadSuccess() {
 						// TODO Auto-generated method stub
 						hideWaitDialog();
-						processInfo = dataManager.getDefaultProcessInfo();
-						if (processInfo != null) {
-							processInfoId = processInfo.get_id();
-							initData();
-						}
+						initProcessInfo();
 					}
 
 					@Override
 					public void loadFailture() {
 						hideWaitDialog();
-						processInfo = dataManager.getDefaultProcessInfo();
-						if (processInfo != null) {
-							processInfoId = processInfo.get_id();
-							initData();
-						}
+						initProcessInfo();
 					}
 				});
 	}
