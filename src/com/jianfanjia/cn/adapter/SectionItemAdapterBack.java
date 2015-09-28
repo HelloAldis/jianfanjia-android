@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.bean.CommentInfo;
+import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.SectionInfo;
 import com.jianfanjia.cn.bean.SectionItemInfo;
 import com.jianfanjia.cn.cache.DataManagerNew;
@@ -42,19 +43,21 @@ public class SectionItemAdapterBack extends BaseAdapter {
 	private List<String> imageUrlList = new ArrayList<String>();
 	private DataManagerNew dataManager;
 	private boolean isHasCheck;// 是否有验收
+	private List<SectionInfo> sectionInfos;
 
-	public SectionItemAdapterBack(Context context, int position,
+	public SectionItemAdapterBack(Context context, int position,List<SectionInfo> sectionInfos,
 			ItemClickCallBack callBack) {
 		this.context = context;
 		layoutInflater = LayoutInflater.from(context);
 		dataManager = DataManagerNew.getInstance();
 		this.callBack = callBack;
 		userType = dataManager.getUserType();
+		this.sectionInfos = sectionInfos;
 		setPosition(position);
 	}
 
 	public void setPosition(int position) {
-		sectionInfo = dataManager.getDefaultSectionInfoByPosition(position);
+		sectionInfo = sectionInfos.get(position);
 		section_status = sectionInfo.getStatus();
 		initList();
 	}

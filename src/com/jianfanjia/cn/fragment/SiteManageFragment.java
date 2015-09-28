@@ -92,7 +92,7 @@ public class SiteManageFragment extends BaseFragment implements
 	private String processId = null;// 默认的工地id
 	private int currentPro = -1;// 当前进行工序
 	private int currentList = -1;// 当前展开第一道工序
-	private int lastPro = -1;//上次进行的工序
+	private int lastPro = -1;// 上次进行的工序
 	private ViewPager bannerViewPager = null;
 	private ViewGroup group = null;
 	private ImageView[] tips;
@@ -140,7 +140,7 @@ public class SiteManageFragment extends BaseFragment implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		if(currentList == -1){
+		if (currentList == -1) {
 			currentList = dataManager.getCurrentList();
 		}
 		initProcessInfo();
@@ -150,12 +150,15 @@ public class SiteManageFragment extends BaseFragment implements
 		processInfo = dataManager.getDefaultProcessInfo();
 		processId = dataManager.getDefaultProcessId();
 		if (processInfo == null) {
-			if (NetTool.isNetworkAvailable(getActivity())) {
-				loadCurrentProcess();
-			} else {
-				if (processId != null) {
+			if (processId != null) {
+				if (NetTool.isNetworkAvailable(getActivity())) {
+					loadCurrentProcess();
+				} else {
 					processInfo = dataManager.getProcessInfoById(processId);
 				}
+			}else{
+					processInfo = dataManager
+						.getProcessInfoById(Constant.DEFAULT_PROCESSINFO_ID);
 			}
 		}
 
@@ -201,11 +204,11 @@ public class SiteManageFragment extends BaseFragment implements
 	// 初始化数据
 	private void initData() {
 		if (processInfo != null) {
-			titleCenter.setText(processInfo.getCell() == null ? ""
-					: processInfo.getCell());// 设置标题头
+			titleCenter.setText(processInfo.getCell() == null ? "" : processInfo
+					.getCell());// 设置标题头
 			currentPro = MyApplication.getInstance().getPositionByItemName(
 					processInfo.getGoing_on());
-			if(currentList == -1 || lastPro != currentPro){
+			if (currentList == -1 || lastPro != currentPro) {
 				currentList = currentPro;
 				lastPro = currentPro;
 			}
@@ -213,11 +216,9 @@ public class SiteManageFragment extends BaseFragment implements
 			sectionInfo = sectionInfos.get(currentList);
 			setScrollHeadTime();
 			sectionItemAdapter = new SectionItemAdapterBack(getActivity(),
-					currentList, this);
+					currentList, sectionInfos, this);
 			detailNodeListView.setAdapter(sectionItemAdapter);
 			processViewPager.setCurrentItem(currentList);
-		} else {
-
 		}
 	}
 
@@ -233,7 +234,7 @@ public class SiteManageFragment extends BaseFragment implements
 	@Override
 	public void onPause() {
 		super.onPause();
-		if(currentList != -1){
+		if (currentList != -1) {
 			dataManager.setCurrentList(currentList);
 		}
 	}
@@ -371,12 +372,14 @@ public class SiteManageFragment extends BaseFragment implements
 			for (int i = 0; i < proTitle.length; i++) {
 				ViewPagerItem viewPagerItem = myViewPageAdapter.getList()
 						.get(i);
-				viewPagerItem.setDate(DateFormatTool.covertLongToString(
-						sectionInfos.get(i).getStart_at(), "M.dd")
-						+ "-"
-						+ DateFormatTool.covertLongToString(sectionInfos.get(i)
-								.getEnd_at(), "M.dd"));
-				if (i <= currentPro) {
+				if(sectionInfos.get(i).getStart_at() > 0){
+					viewPagerItem.setDate(DateFormatTool.covertLongToString(
+							sectionInfos.get(i).getStart_at(), "M.dd")
+							+ "-"
+							+ DateFormatTool.covertLongToString(sectionInfos.get(i)
+									.getEnd_at(), "M.dd"));
+				}
+				if (sectionInfos.get(i).getStatus() != Constant.NOT_START) {
 					int drawableId = getResources().getIdentifier(
 							"icon_home_checked" + (i + 1), "drawable",
 							getApplication().getPackageName());

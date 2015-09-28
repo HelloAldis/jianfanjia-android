@@ -1,15 +1,29 @@
 package com.jianfanjia.cn.application;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.apache.http.cookie.Cookie;
+
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.util.Log;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseApplication;
+import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.cache.DataCleanManager;
+import com.jianfanjia.cn.cache.DataManagerNew;
+import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.HttpRestClient;
+import com.jianfanjia.cn.tools.JsonParser;
+import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.tools.StringUtils;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.PersistentCookieStore;
 
@@ -23,15 +37,14 @@ import com.loopj.android.http.PersistentCookieStore;
 public class MyApplication extends BaseApplication {
 	private static MyApplication instance;
 	private RegisterInfo registerInfo = new RegisterInfo();// 注册实体信息
-	private List<String> site_data;// 静态的工序列表
 	private PersistentCookieStore cookieStore;// cookie实例化
 
 	@Override
 	public void onCreate() {
 		super.onCreate();
 		instance = this;
-		site_data = Arrays.asList(getResources().getStringArray(
-				R.array.site_data));
+		
+		saveDefaultProcess();//加载默认的工地信息
 
 		cookieStore = new PersistentCookieStore(this);// 记录cookie
 		saveCookie(HttpRestClient.getHttpClient());
@@ -41,12 +54,27 @@ public class MyApplication extends BaseApplication {
 		 */
 	}
 
-	public List<String> getSite_data() {
-		return site_data;
+	public void saveDefaultProcess() {
+		ProcessInfo processInfo = DataManagerNew.getInstance().getProcessInfoById(Constant.DEFAULT_PROCESSINFO_ID);
+		if(processInfo == null){
+			processInfo = getDefaultProcessInfo(this);
+			DataManagerNew.getInstance().saveProcessInfo(processInfo);
+			LogTool.d(this.getClass().getName(), "default_processIndo save success");
+		}
 	}
 
-	public void setSite_data(List<String> site_data) {
-		this.site_data = site_data;
+	// 拿到所有的模拟工地数据
+	public static ProcessInfo getDefaultProcessInfo(Context context) {
+		ProcessInfo processInfo = null;
+		try {
+			InputStream is = context.getAssets().open("default_processinfo.txt");
+			String jsonString = StringUtils.toConvertString(is);
+			processInfo = JsonParser.jsonToBean(jsonString, ProcessInfo.class);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return processInfo;
 	}
 
 	public static MyApplication getInstance() {
@@ -74,6 +102,9 @@ public class MyApplication extends BaseApplication {
 	 * @return 默认返回0，当前工序为第一个工序
 	 */
 	public int getPositionByItemName(String name) {
+		if(name == null){
+			return 0;
+		}
 		String[] items = getResources().getStringArray(R.array.site_data);
 		for (int i = 0; i < items.length; i++) {
 			if (items[i].equals(name)) {

@@ -100,20 +100,11 @@ public class DataManagerNew {
 	// 设计师用户获取个人资料
 	public DesignerInfo getDesignerInfo() {
 		return getDesignerInfoById(getUserId());
-		/*
-		 * if (designerInfo == null && !NetTool.isNetworkAvailable(context)) {
-		 * designerInfo = getDesignerInfoById(getUserId()); } return
-		 * designerInfo;
-		 */
 	}
 
 	// 业主用户获取个人资料
 	public OwnerInfo getOwnerInfo() {
 		return getOwnerInfoById(getUserId());
-		/*
-		 * if (ownerInfo == null && !NetTool.isNetworkAvailable(context)) {
-		 * ownerInfo = getOwnerInfoById(getUserId()); } return ownerInfo;
-		 */
 	}
 
 	public void setCurrentProcessInfo(ProcessInfo currentProcessInfo) {
@@ -231,7 +222,7 @@ public class DataManagerNew {
 	}
 
 	public void savaLastLoginTime(long loginTime) {
-		sharedPreferdata.setValue(Constant.LAST_LOGIN_TIME, loginTime);
+		sharedPreferuser.setValue(Constant.LAST_LOGIN_TIME, loginTime);
 	}
 
 	// 是否登录信息已过期
@@ -246,11 +237,11 @@ public class DataManagerNew {
 	}
 
 	public int getCurrentList() {
-		return sharedPreferdata.getValue(Constant.CURRENT_LIST, 0);
+		return sharedPreferuser.getValue(Constant.CURRENT_LIST, 0);
 	}
 
 	public void setCurrentList(int currentList) {
-		sharedPreferdata.setValue(Constant.CURRENT_LIST, currentList);
+		sharedPreferuser.setValue(Constant.CURRENT_LIST, currentList);
 	}
 
 	public boolean isPushOpen() {
@@ -262,11 +253,11 @@ public class DataManagerNew {
 	}
 
 	public boolean isFirst() {
-		return sharedPreferuser.getValue(Constant.ISFIRST, false);
+		return sharedPreferdata.getValue(Constant.ISFIRST, false);
 	}
 
 	public void setFisrt(boolean isFirst) {
-		sharedPreferuser.setValue(Constant.ISFIRST, isFirst);
+		sharedPreferdata.setValue(Constant.ISFIRST, isFirst);
 	}
 
 	public void setUserImagePath(String imgId) {
@@ -337,7 +328,8 @@ public class DataManagerNew {
 		requirementInfo = null;
 		totalDuration = null;
 		currentProcessInfo = null;
-		sharedPreferdata.clear();
+//		sharedPreferdata.clear();
+		sharedPreferuser.clear();
 	}
 
 }
