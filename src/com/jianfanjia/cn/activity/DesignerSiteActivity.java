@@ -1,5 +1,6 @@
 package com.jianfanjia.cn.activity;
 
+import java.util.ArrayList;
 import java.util.List;
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -34,7 +35,7 @@ public class DesignerSiteActivity extends BaseActivity implements
 	private static final String TAG = DesignerSiteActivity.class.getName();
 	private MainHeadView mainHeadView = null;
 	private ListView siteListView = null;
-	private List<Process> siteList;
+	private List<Process> siteList = new ArrayList<Process>();
 	private TextView errorText;
 	private DesignerSiteInfoAdapter designerSiteInfoAdapter = null;
 

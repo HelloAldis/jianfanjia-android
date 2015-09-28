@@ -874,10 +874,6 @@ public class SiteManageFragment extends BaseFragment implements
 			}
 			break;
 		case Constant.REQUESTCODE_CHANGE_SITE:
-			if (((MainActivity) getActivity()).getSlidingPaneLayout().isOpen()) {
-				((MainActivity) getActivity()).getSlidingPaneLayout()
-						.closePane();
-			}
 			if (data != null) {
 				Bundle bundle = data.getExtras();
 				if (bundle != null) {
