@@ -312,6 +312,12 @@ public class ImageUtil {
 			be = 1;
 		newOpts.inSampleSize = be;// 设置缩放比例
 		bitmap = BitmapFactory.decodeFile(srcPath, newOpts);
+		if(bitmap != null){
+			LogTool.d("fjg", "after scaled bitmap width:" + bitmap.getWidth());
+			LogTool.d("fjg", "after scaled bitmap height:" + bitmap.getHeight());
+			LogTool.d("fjg", "after scaled newOpts width:" + newOpts.outWidth);
+			LogTool.d("fjg", "after scaled newOpts height:" + newOpts.outHeight);
+		}
 		return bitmap;// 压缩好比例大小后再进行质量压缩
 	}
 
