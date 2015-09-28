@@ -85,7 +85,6 @@ public class DesignerSiteActivity extends BaseActivity implements
 		case R.id.head_back_layout:
 			finish();
 			break;
-
 		default:
 			break;
 		}
