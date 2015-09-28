@@ -20,6 +20,7 @@ import com.jianfanjia.cn.bean.NotifyMessage;
 public class DBHelper extends OrmLiteSqliteOpenHelper {
 	private static final String DBNAME = "JIANFANJIA.db";
 	private static final int DBVERSION = 1;
+	private static DBHelper instance;
 	private Dao<NotifyMessage, Integer> notifyMessageDao;
 
 	public DBHelper(Context context) {
@@ -30,7 +31,6 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
 	public void onCreate(SQLiteDatabase db, ConnectionSource connectionSource) {
 		try {
 			TableUtils.createTable(connectionSource, NotifyMessage.class);
-			// TableUtils.createTable(connectionSource, NotifyDelayInfo.class);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -41,18 +41,21 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
 			int arg2, int arg3) {
 		try {
 			TableUtils.dropTable(connectionSource, NotifyMessage.class, true);
-			// TableUtils.dropTable(connectionSource, NotifyDelayInfo.class,
-			// true);
 			onCreate(db, connectionSource);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
-	@Override
-	public void close() {
-		super.close();
-		notifyMessageDao = null;
+	public static synchronized DBHelper getHelper(Context context) {
+		if (instance == null) {
+			synchronized (DBHelper.class) {
+				if (instance == null)
+					instance = new DBHelper(context);
+			}
+		}
+
+		return instance;
 	}
 
 	/**
@@ -70,4 +73,11 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
 		}
 		return notifyMessageDao;
 	}
+
+	@Override
+	public void close() {
+		super.close();
+		notifyMessageDao = null;
+	}
+
 }

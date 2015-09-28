@@ -23,7 +23,7 @@ public class NotifyMessageDao implements BaseDao<NotifyMessage> {
 	public NotifyMessageDao(Context context) {
 		this.context = context;
 		try {
-			helper = new DBHelper(context);
+			helper = DBHelper.getHelper(context);
 			dao = helper.getDao(NotifyMessage.class);
 		} catch (SQLException e) {
 			e.printStackTrace();
