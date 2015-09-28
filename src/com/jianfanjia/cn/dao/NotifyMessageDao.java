@@ -13,7 +13,7 @@ import com.jianfanjia.cn.db.DBHelper;
  * @Description: TODO
  * @author fengliang
  * @date 2015年9月27日 下午9:28:54
- *
+ * 
  */
 public class NotifyMessageDao implements BaseDao<NotifyMessage> {
 	private Context context;
@@ -23,7 +23,7 @@ public class NotifyMessageDao implements BaseDao<NotifyMessage> {
 	public NotifyMessageDao(Context context) {
 		this.context = context;
 		try {
-			helper = DBHelper.getHelper(context);
+			helper = new DBHelper(context);
 			dao = helper.getDao(NotifyMessage.class);
 		} catch (SQLException e) {
 			e.printStackTrace();
