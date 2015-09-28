@@ -98,8 +98,8 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 			initProcessInfo();
 		}
 	}
-	
-	private void initProcessInfo(){
+
+	private void initProcessInfo() {
 		processInfo = dataManager.getDefaultProcessInfo();
 		if (processInfo != null) {
 			processInfoId = processInfo.get_id();
@@ -114,13 +114,11 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 
 					@Override
 					public void preLoad() {
-						// TODO Auto-generated method stub
 						showWaitDialog();
 					}
 
 					@Override
 					public void loadSuccess() {
-						// TODO Auto-generated method stub
 						hideWaitDialog();
 						initProcessInfo();
 					}
@@ -144,7 +142,6 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 				showProcessPic.add(checkGridList.get(i).getImgId());
 			}
 		}
-
 	}
 
 	@Override
@@ -373,7 +370,6 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 			if (mTmpFile != null) {
 				Uri uri = Uri.fromFile(mTmpFile);
 				LogTool.d(TAG, "uri:" + uri);
-				// startPhotoZoom(uri);
 				uploadImage(mTmpFile.getPath());
 			}
 			break;
@@ -382,7 +378,6 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 				Uri uri = data.getData();
 				LogTool.d(TAG, "uri:" + uri);
 				if (null != uri) {
-					// startPhotoZoom(uri);
 					uploadImage(ImageUtils.getImagePath(uri, this));
 				}
 			}
