@@ -78,10 +78,12 @@ public class WelcomeActivity extends BaseActivity implements LoadDataListener {
 					} else {
 						Log.i(this.getClass().getName(), "已经过期");
 						MyApplication.getInstance().clearCookie();
-						LoadClientHelper
-								.login(WelcomeActivity.this,new LoginRequest(WelcomeActivity.this,dataManager.getAccount(),
-										dataManager.getPassword()),
-										WelcomeActivity.this);
+						LoadClientHelper.login(
+								WelcomeActivity.this,
+								new LoginRequest(WelcomeActivity.this,
+										dataManager.getAccount(), dataManager
+												.getPassword()),
+								WelcomeActivity.this);
 					}
 				}
 			} else {
