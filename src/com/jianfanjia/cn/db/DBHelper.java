@@ -58,26 +58,9 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
 		return instance;
 	}
 
-	/**
-	 * 获取Dao操作类
-	 * 
-	 * @return
-	 */
-	public Dao<NotifyMessage, Integer> getNotifyDao() {
-		if (notifyMessageDao == null) {
-			try {
-				notifyMessageDao = getDao(NotifyMessage.class);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		return notifyMessageDao;
-	}
-
 	@Override
 	public void close() {
 		super.close();
-		notifyMessageDao = null;
 	}
 
 }
