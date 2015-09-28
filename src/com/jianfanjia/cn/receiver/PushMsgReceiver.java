@@ -127,6 +127,9 @@ public class PushMsgReceiver extends BroadcastReceiver {
 				launchIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
 						| Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
 				Bundle args = new Bundle();
+				args.putString("Type", message.getType());
+				launchIntent.putExtra(Constant.EXTRA_BUNDLE, args);
+				context.startActivity(launchIntent);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
