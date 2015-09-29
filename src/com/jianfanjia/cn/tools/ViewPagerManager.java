@@ -107,7 +107,6 @@ public class ViewPagerManager {
 	public void init(List<View> views) {
 		mViews = views;
 		set();
-
 	}
 
 	/** 设置ViewPager和指示器 **/
