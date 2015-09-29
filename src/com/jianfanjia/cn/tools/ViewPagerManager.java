@@ -7,8 +7,10 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnTouchListener;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
@@ -52,6 +54,7 @@ public class ViewPagerManager {
 	/** 指示器默认为圆形 **/
 	private ShapeType mShapeType;
 
+	private boolean autoScroll = false;
 	private static final int CHANGE_PHOTO = 1;
 	private static final int CHANGE_TIME = 5000;// 图片自动切换时间
 
@@ -120,6 +123,7 @@ public class ViewPagerManager {
 		mPagerAdapter = new ViewPageAdapter(mContext, mViews);
 		mViewPager.setAdapter(mPagerAdapter);
 		mViewPager.setOnPageChangeListener(pageChangeListener);
+		mViewPager.setOnTouchListener(touchListener);
 	}
 
 	/** 设置指示器 **/
@@ -172,8 +176,9 @@ public class ViewPagerManager {
 		}
 	}
 
-	public void setAutoSroll(boolean isAutoScroll) {
-		if (isAutoScroll) {
+	public void setAutoSroll(boolean autoScroll) {
+		this.autoScroll = autoScroll;
+		if (autoScroll) {
 			handler.sendEmptyMessageDelayed(CHANGE_PHOTO, CHANGE_TIME);
 		} else {
 			handler.removeMessages(CHANGE_PHOTO);
@@ -205,6 +210,25 @@ public class ViewPagerManager {
 		public void onPageScrollStateChanged(int arg0) {
 
 		}
+	};
+
+	private OnTouchListener touchListener = new OnTouchListener() {
+
+		@Override
+		public boolean onTouch(View v, MotionEvent event) {
+			switch (event.getAction()) {
+			case MotionEvent.ACTION_DOWN:
+				autoScroll = false;
+				handler.removeMessages(CHANGE_PHOTO);
+				break;
+			case MotionEvent.ACTION_UP:
+				autoScroll = true;
+				handler.sendEmptyMessageDelayed(CHANGE_PHOTO, CHANGE_TIME);
+				break;
+			}
+			return false;
+		}
+
 	};
 
 	// 定义一个枚举(用来指定指示器的形状)
