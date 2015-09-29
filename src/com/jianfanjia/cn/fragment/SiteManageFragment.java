@@ -164,10 +164,9 @@ public class SiteManageFragment extends BaseFragment implements
 
 	private void loadCurrentProcess() {
 		if (processId != null) {
-			LoadClientHelper.requestProcessInfoById(
-					getActivity(),
-					new ProcessInfoRequest(getActivity(), dataManager
-							.getDefaultProcessId()), SiteManageFragment.this);
+			LoadClientHelper.requestProcessInfoById(getActivity(),
+					new ProcessInfoRequest(getActivity(), processId),
+					SiteManageFragment.this);
 		}
 	}
 
