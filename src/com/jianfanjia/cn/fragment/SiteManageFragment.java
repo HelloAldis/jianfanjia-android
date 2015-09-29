@@ -703,7 +703,6 @@ public class SiteManageFragment extends BaseFragment implements
 				Uri uri = data.getData();
 				LogTool.d(TAG, "uri:" + uri);
 				if (null != uri) {
-					// startPhotoZoom(uri);
 					Bitmap imageBitmap = ImageUtil.getImage(ImageUtils
 							.getImagePath(uri, getActivity()));
 					if (null != imageBitmap) {
