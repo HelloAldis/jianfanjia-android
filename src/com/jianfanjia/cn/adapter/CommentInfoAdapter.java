@@ -79,24 +79,26 @@ public class CommentInfoAdapter extends BaseListAdapter<CommentInfo> {
 							viewHolder.itemHeadView, options);
 				} else {
 					imageLoader.displayImage(Constant.DEFALUT_DESIGNER_PIC,
-							viewHolder.itemHeadView);
+							viewHolder.itemHeadView, options);
 					if (!isLoadDesignerInfo) {
-						if(dataManager.getUserType().equals(usertype)){
-							LoadClientHelper.getDesignerInfoById(context,
-									new DesignerInfoRequest(context, designerId),
-									this);
+						if (dataManager.getUserType().equals(usertype)) {
+							LoadClientHelper
+									.getDesignerInfoById(context,
+											new DesignerInfoRequest(context,
+													designerId), this);
 							isLoadDesignerInfo = true;
-						}else{
-							LoadClientHelper.getOwnerDesignerInfoById(context,
-									new DesignerInfoRequest(context, designerId),
-									this);
+						} else {
+							LoadClientHelper
+									.getOwnerDesignerInfoById(context,
+											new DesignerInfoRequest(context,
+													designerId), this);
 							isLoadDesignerInfo = true;
 						}
 					}
 				}
 			} else {
 				imageLoader.displayImage(Constant.DEFALUT_DESIGNER_PIC,
-						viewHolder.itemHeadView);
+						viewHolder.itemHeadView, options);
 			}
 		} else if (usertype.equals(Constant.IDENTITY_OWNER)) {
 			String ownerId = dataManager.getDefaultOwnerId();
@@ -120,7 +122,7 @@ public class CommentInfoAdapter extends BaseListAdapter<CommentInfo> {
 							viewHolder.itemHeadView, options);
 				} else {
 					imageLoader.displayImage(Constant.DEFALUT_OWNER_PIC,
-							viewHolder.itemHeadView);
+							viewHolder.itemHeadView, options);
 					if (!isLoadOwnerInfo) {
 						LoadClientHelper.getOwnerInfoById(context,
 								new OwnerInfoRequest(context, ownerId), this);
@@ -129,7 +131,7 @@ public class CommentInfoAdapter extends BaseListAdapter<CommentInfo> {
 				}
 			} else {
 				imageLoader.displayImage(Constant.DEFALUT_OWNER_PIC,
-						viewHolder.itemHeadView);
+						viewHolder.itemHeadView, options);
 			}
 		}
 		return convertView;
@@ -150,7 +152,6 @@ public class CommentInfoAdapter extends BaseListAdapter<CommentInfo> {
 
 	@Override
 	public void loadFailture() {
-		// TODO Auto-generated method stub
 		isLoadDesignerInfo = false;
 		isLoadOwnerInfo = false;
 	}

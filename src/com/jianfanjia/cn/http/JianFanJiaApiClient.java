@@ -2,7 +2,6 @@ package com.jianfanjia.cn.http;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
-
 import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.entity.StringEntity;
 import org.json.JSONException;
@@ -281,15 +280,15 @@ public class JianFanJiaApiClient {
 		String getdesignerUrl = Url.GET_ONE_OWNER_INFO.replace(Url.ID, ownerid);
 		HttpRestClient.get(context, getdesignerUrl, hanlder);
 	}
-	
+
 	/**
 	 * 业主获取装修工地的设计师的信息
 	 * 
 	 * @param context
 	 * @param hanlder
 	 */
-	public static void getOwnerDesignerInfoById(Context context, String designerid,
-			AsyncHttpResponseHandler handler) {
+	public static void getOwnerDesignerInfoById(Context context,
+			String designerid, AsyncHttpResponseHandler handler) {
 		JSONObject jsonParams = new JSONObject();
 		try {
 			jsonParams.put("designerid", designerid);
@@ -457,7 +456,7 @@ public class JianFanJiaApiClient {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * 用户上传图片
 	 * 
@@ -468,10 +467,11 @@ public class JianFanJiaApiClient {
 			AsyncHttpResponseHandler handler) {
 		ByteArrayEntity byteArrayEntity;
 		try {
-			byteArrayEntity = new ByteArrayEntity(ImageUtil.transformBitmapToBytes(bitmap));
-			HttpRestClient.post(context, Url.UPLOAD_IMAGE, byteArrayEntity,"image/jpeg" ,handler);
+			byteArrayEntity = new ByteArrayEntity(
+					ImageUtil.transformBitmapToBytes(bitmap));
+			HttpRestClient.post(context, Url.UPLOAD_IMAGE, byteArrayEntity,
+					"image/jpeg", handler);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

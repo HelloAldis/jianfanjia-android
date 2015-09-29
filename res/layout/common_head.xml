@@ -45,8 +45,7 @@
             android:id="@+id/head_divier"
             style="@style/divier_line"
             android:layout_alignParentBottom="true"
-            android:background="@color/horzontal_line_color"
-            />
+            android:background="@color/horzontal_line_color" />
     </RelativeLayout>
 
 </RelativeLayout>

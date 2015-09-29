@@ -29,7 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
 
-                <com.jianfanjia.cn.view.ProcessViewPager
+                <com.jianfanjia.cn.view.MyViewPager
                     android:id="@+id/bannerViewPager"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -81,7 +81,7 @@
                 </RelativeLayout>
             </FrameLayout>
 
-            <com.jianfanjia.cn.view.ProcessViewPager
+            <com.jianfanjia.cn.view.MyViewPager
                 android:id="@+id/viewPager"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

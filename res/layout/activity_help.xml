@@ -4,18 +4,6 @@
     android:background="@drawable/bg_loading_720"
     android:orientation="vertical" >
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewPager"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <LinearLayout
-        android:id="@+id/viewGroup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="10dip"
-        android:gravity="center"
-        android:orientation="horizontal" />
+    <include layout="@layout/viewpager_main" />
 
 </RelativeLayout>
