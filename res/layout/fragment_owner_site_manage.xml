@@ -33,12 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="130dp" >
 
-                <com.jianfanjia.cn.view.ProcessViewPager
-                    android:id="@+id/bannerViewPager"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="#ffffff"
-                    android:fadingEdge="none" />
+                <include layout="@layout/viewpager_main" />
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -97,7 +92,7 @@
                 </RelativeLayout>
             </FrameLayout>
 
-            <com.jianfanjia.cn.view.ProcessViewPager
+            <com.jianfanjia.cn.view.MyViewPager
                 android:id="@+id/processViewPager"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"

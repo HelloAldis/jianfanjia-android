@@ -12,19 +12,15 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.provider.MediaStore;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -37,7 +33,6 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.ShowPicActivity;
 import com.jianfanjia.cn.adapter.MyViewPageAdapter;
 import com.jianfanjia.cn.adapter.SectionItemAdapterBack;
-import com.jianfanjia.cn.adapter.ViewPageAdapter;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.ProcessInfo;
@@ -65,6 +60,8 @@ import com.jianfanjia.cn.tools.ImageUtils;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.NetTool;
 import com.jianfanjia.cn.tools.StringUtils;
+import com.jianfanjia.cn.tools.ViewPagerManager;
+import com.jianfanjia.cn.tools.ViewPagerManager.ShapeType;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DateWheelDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
@@ -91,10 +88,6 @@ public class SiteManageFragment extends BaseFragment implements
 	private int currentPro = -1;// 当前进行工序
 	private int currentList = -1;// 当前展开第一道工序
 	private int lastPro = -1;// 上次进行的工序
-	private ViewPager bannerViewPager = null;
-	private ViewGroup group = null;
-	private ImageView[] tips;
-	private List<View> bannerList = new ArrayList<View>();
 
 	private ViewPager processViewPager = null;
 	private ListView detailNodeListView = null;
@@ -108,32 +101,11 @@ public class SiteManageFragment extends BaseFragment implements
 	private TextView titleRight = null;
 	private ImageView titleImage = null;
 
-	private static final int CHANGE_PHOTO = 1;
-	private static final int CHANGE_TIME = 5000;// 图片自动切换时间
 	private static final int BANNER_ICON[] = { R.drawable.bg_home_banner1,
 			R.drawable.bg_home_banner2, R.drawable.bg_home_banner3,
 			R.drawable.bg_home_banner4 };
 
 	private File mTmpFile = null;
-
-	private Handler bannerhandler = new Handler() {
-		@Override
-		public void handleMessage(Message msg) {
-			switch (msg.what) {
-			case CHANGE_PHOTO:
-				int index = bannerViewPager.getCurrentItem();
-				if (index == bannerList.size() - 1) {
-					index = -1;
-				}
-				bannerViewPager.setCurrentItem(index + 1);
-				bannerhandler
-						.sendEmptyMessageDelayed(CHANGE_PHOTO, CHANGE_TIME);
-				break;
-			default:
-				break;
-			}
-		}
-	};
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -179,7 +151,7 @@ public class SiteManageFragment extends BaseFragment implements
 				.findViewById(R.id.pull_refresh_scrollview);
 		mPullRefreshScrollView.setMode(Mode.PULL_FROM_START);
 		initMainHead(view);
-		initBannerView(view);
+		initBannerView();
 		initScrollLayout(view);
 		initListView(view);
 		initData();
@@ -238,70 +210,17 @@ public class SiteManageFragment extends BaseFragment implements
 		}
 	}
 
-	private void initBannerView(View view) {
-		bannerViewPager = (ViewPager) view.findViewById(R.id.bannerViewPager);
-		group = (ViewGroup) view.findViewById(R.id.viewGroup);
+	private void initBannerView() {
+		ViewPagerManager contoler = new ViewPagerManager(getActivity());
+		contoler.setmShapeType(ShapeType.OVAL);// 设置指示器的形状为矩形，默认是圆形
+		List<View> bannerList = new ArrayList<View>();
 		for (int i = 0; i < BANNER_ICON.length; i++) {
 			ImageView imageView = new ImageView(getActivity());
 			imageView.setBackgroundResource(BANNER_ICON[i]);
 			bannerList.add(imageView);
 		}
-		// 将点点加入到ViewGroup中
-		tips = new ImageView[bannerList.size()];
-		for (int i = 0; i < tips.length; i++) {
-			ImageView imageView = new ImageView(getActivity());
-			imageView.setLayoutParams(new LinearLayout.LayoutParams(10, 10));
-			tips[i] = imageView;
-			if (i == 0) {
-				tips[i].setBackgroundResource(R.drawable.new_gallery_dianpu_selected);
-			} else {
-				tips[i].setBackgroundResource(R.drawable.new_gallery_dianpu_normal);
-			}
-			LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-					new ViewGroup.LayoutParams(20, 20));
-			layoutParams.leftMargin = 15;
-			layoutParams.rightMargin = 15;
-			layoutParams.bottomMargin = 10;
-			group.addView(imageView, layoutParams);
-		}
-		ViewPageAdapter bannerAdapter = new ViewPageAdapter(getActivity(),
-				bannerList);
-		bannerViewPager.setOnPageChangeListener(new OnPageChangeListener() {
-			@Override
-			public void onPageScrollStateChanged(int arg0) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void onPageScrolled(int arg0, float arg1, int arg2) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void onPageSelected(int arg0) {
-				setImageBackground(arg0 % bannerList.size());
-			}
-		});
-		bannerViewPager.setAdapter(bannerAdapter);
-		bannerViewPager.setCurrentItem(0);
-		bannerhandler.sendEmptyMessageDelayed(CHANGE_PHOTO, CHANGE_TIME);
-	}
-
-	/**
-	 * 设置选中的索引的背景
-	 * 
-	 * @param selectItems
-	 */
-	private void setImageBackground(int selectItems) {
-		for (int i = 0; i < tips.length; i++) {
-			if (i == selectItems) {
-				tips[i].setBackgroundResource(R.drawable.new_gallery_dianpu_selected);
-			} else {
-				tips[i].setBackgroundResource(R.drawable.new_gallery_dianpu_normal);
-			}
-		}
+		contoler.init(bannerList);
+		contoler.setAutoSroll(true);
 	}
 
 	private void initScrollLayout(View view) {

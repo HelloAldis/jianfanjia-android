@@ -4,9 +4,6 @@
     android:background="@drawable/bg_loading_720"
     android:orientation="vertical" >
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewPager"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    <include layout="@layout/viewpager_main" />
 
 </RelativeLayout>

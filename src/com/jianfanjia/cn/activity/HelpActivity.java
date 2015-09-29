@@ -2,12 +2,11 @@ package com.jianfanjia.cn.activity;
 
 import java.util.ArrayList;
 import java.util.List;
-import android.support.v4.view.ViewPager;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View;
 import android.widget.ImageView;
-import com.jianfanjia.cn.adapter.ViewPageAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.tools.ViewPagerManager;
+import com.jianfanjia.cn.tools.ViewPagerManager.ShapeType;
 
 /**
  * 
@@ -19,41 +18,24 @@ import com.jianfanjia.cn.base.BaseActivity;
  */
 public class HelpActivity extends BaseActivity {
 	private static final String TAG = HelpActivity.class.getName();
-	private ViewPager viewPager = null;
-	private List<View> bannerList = new ArrayList<View>();
 	private static final int IMG_ID[] = { R.drawable.p1, R.drawable.p2,
 			R.drawable.p3, R.drawable.p4 };
 
 	@Override
 	public void initView() {
-		viewPager = (ViewPager) findViewById(R.id.viewPager);
+		init();
+	}
+
+	private void init() {
+		ViewPagerManager contoler = new ViewPagerManager(HelpActivity.this);
+		contoler.setmShapeType(ShapeType.OVAL);// 设置指示器的形状为矩形，默认是圆形
+		List<View> bannerList = new ArrayList<View>();
 		for (int i = 0; i < IMG_ID.length; i++) {
-			ImageView view = new ImageView(this);
-			view.setImageResource(IMG_ID[i]);
-			bannerList.add(view);
+			ImageView imageView = new ImageView(HelpActivity.this);
+			imageView.setBackgroundResource(IMG_ID[i]);
+			bannerList.add(imageView);
 		}
-		ViewPageAdapter pageAdapter = new ViewPageAdapter(HelpActivity.this,
-				bannerList);
-		viewPager.setOnPageChangeListener(new OnPageChangeListener() {
-			@Override
-			public void onPageScrollStateChanged(int arg0) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void onPageScrolled(int arg0, float arg1, int arg2) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void onPageSelected(int arg0) {
-
-			}
-		});
-		viewPager.setAdapter(pageAdapter);
-		viewPager.setCurrentItem(0);
+		contoler.init(bannerList);
 	}
 
 	@Override

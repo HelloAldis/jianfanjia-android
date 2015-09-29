@@ -7,15 +7,15 @@ import android.view.MotionEvent;
 
 /**
  * 
- * @ClassName: ProcessViewPager
+ * @ClassName:MyViewPager
  * @Description: 自定义ViewPager
  * @author fengliang
  * @date 2015-8-27 上午10:57:31
  * 
  */
-public class ProcessViewPager extends ViewPager {
+public class MyViewPager extends ViewPager {
 
-	public ProcessViewPager(Context context, AttributeSet attrs) {
+	public MyViewPager(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		// TODO Auto-generated constructor stub
 	}
