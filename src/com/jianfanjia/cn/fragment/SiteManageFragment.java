@@ -138,6 +138,7 @@ public class SiteManageFragment extends BaseFragment implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Log.i(TAG, "----onCreate()----");
 		if (currentList == -1) {
 			currentList = dataManager.getCurrentList();
 		}
