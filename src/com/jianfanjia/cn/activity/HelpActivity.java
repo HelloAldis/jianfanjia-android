@@ -36,6 +36,7 @@ public class HelpActivity extends BaseActivity {
 			bannerList.add(imageView);
 		}
 		contoler.init(bannerList);
+		contoler.setAutoSroll(false);
 	}
 
 	@Override
