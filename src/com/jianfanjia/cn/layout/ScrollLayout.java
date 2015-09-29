@@ -62,8 +62,8 @@ public class ScrollLayout extends ViewGroup {
 		super(context, attrs, defStyle);
 
 		mScroller = new Scroller(context);
-		mCurScreen = mDefaultScreen;
 		mTouchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
+		mCurScreen = mDefaultScreen;
 		pro = getResources().getStringArray(R.array.site_procedure);
 		inflater = LayoutInflater.from(context);
 

@@ -22,8 +22,10 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Shader.TileMode;
 import android.graphics.drawable.Drawable;
+import android.provider.BaseColumns;
 import android.provider.MediaStore;
 import android.provider.MediaStore.Images;
+import android.provider.MediaStore.MediaColumns;
 
 /**
  * @author sf
@@ -613,8 +615,8 @@ public class ImageUtil {
 		options.inDither = false;
 		options.inPreferredConfig = Bitmap.Config.ARGB_8888;
 		Cursor cursor = cr.query(MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
-				new String[] { MediaStore.Video.Media._ID },
-				MediaStore.Video.Media.DATA + "='" + dataPah + "'", null, null);
+				new String[] { BaseColumns._ID },
+				MediaColumns.DATA + "='" + dataPah + "'", null, null);
 		if (cursor == null || cursor.getCount() == 0) {
 			LogTool.d("MM_VideoImageView", "数据库中cursor为空");
 			if (cursor != null) {
@@ -624,7 +626,7 @@ public class ImageUtil {
 		}
 		cursor.moveToFirst();
 		String videoId = cursor.getString(cursor
-				.getColumnIndex(MediaStore.Video.Media._ID)); // image
+				.getColumnIndex(BaseColumns._ID)); // image
 																// id
 																// in
 																// image

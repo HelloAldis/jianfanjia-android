@@ -2,17 +2,12 @@ package com.jianfanjia.cn.application;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import org.apache.http.cookie.Cookie;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.util.Log;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseApplication;
 import com.jianfanjia.cn.bean.ProcessInfo;
@@ -139,6 +134,23 @@ public class MyApplication extends BaseApplication {
 		}
 		return name;
 	}
+	
+	/** 
+     * 根据手机的分辨率从 dp 的单位 转成为 px(像素) 
+     */  
+    public static int dip2px(Context context, float dpValue) {  
+        final float scale = context.getResources().getDisplayMetrics().density;  
+        return (int) (dpValue * scale + 0.5f);  
+    }  
+  
+    /** 
+     * 根据手机的分辨率从 px(像素) 的单位 转成为 dp 
+     */  
+    public static int px2dip(Context context, float pxValue) {  
+        final float scale = context.getResources().getDisplayMetrics().density;  
+        return (int) (pxValue / scale + 0.5f);  
+    }  
+    
 
 	/**
 	 * 判断当前版本是否兼容目标版本的方法
