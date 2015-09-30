@@ -3,11 +3,9 @@ package com.jianfanjia.cn.application;
 import java.io.IOException;
 import java.io.InputStream;
 import org.apache.http.cookie.Cookie;
-
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.util.Log;
-
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseApplication;
 import com.jianfanjia.cn.bean.ProcessInfo;
@@ -38,8 +36,8 @@ public class MyApplication extends BaseApplication {
 	public void onCreate() {
 		super.onCreate();
 		instance = this;
-		
-		saveDefaultProcess();//加载默认的工地信息
+
+		saveDefaultProcess();// 加载默认的工地信息
 
 		cookieStore = new PersistentCookieStore(this);// 记录cookie
 		saveCookie(HttpRestClient.getHttpClient());
@@ -50,11 +48,13 @@ public class MyApplication extends BaseApplication {
 	}
 
 	public void saveDefaultProcess() {
-		ProcessInfo processInfo = DataManagerNew.getInstance().getProcessInfoById(Constant.DEFAULT_PROCESSINFO_ID);
-		if(processInfo == null){
+		ProcessInfo processInfo = DataManagerNew.getInstance()
+				.getProcessInfoById(Constant.DEFAULT_PROCESSINFO_ID);
+		if (processInfo == null) {
 			processInfo = getDefaultProcessInfo(this);
 			DataManagerNew.getInstance().saveProcessInfo(processInfo);
-			LogTool.d(this.getClass().getName(), "default_processIndo save success");
+			LogTool.d(this.getClass().getName(),
+					"default_processIndo save success");
 		}
 	}
 
@@ -62,7 +62,8 @@ public class MyApplication extends BaseApplication {
 	public static ProcessInfo getDefaultProcessInfo(Context context) {
 		ProcessInfo processInfo = null;
 		try {
-			InputStream is = context.getAssets().open("default_processinfo.txt");
+			InputStream is = context.getAssets()
+					.open("default_processinfo.txt");
 			String jsonString = StringUtils.toConvertString(is);
 			processInfo = JsonParser.jsonToBean(jsonString, ProcessInfo.class);
 		} catch (IOException e) {
@@ -97,7 +98,7 @@ public class MyApplication extends BaseApplication {
 	 * @return 默认返回0，当前工序为第一个工序
 	 */
 	public int getPositionByItemName(String name) {
-		if(name == null){
+		if (name == null) {
 			return 0;
 		}
 		String[] items = getResources().getStringArray(R.array.site_data);
@@ -134,23 +135,22 @@ public class MyApplication extends BaseApplication {
 		}
 		return name;
 	}
-	
-	/** 
-     * 根据手机的分辨率从 dp 的单位 转成为 px(像素) 
-     */  
-    public static int dip2px(Context context, float dpValue) {  
-        final float scale = context.getResources().getDisplayMetrics().density;  
-        return (int) (dpValue * scale + 0.5f);  
-    }  
-  
-    /** 
-     * 根据手机的分辨率从 px(像素) 的单位 转成为 dp 
-     */  
-    public static int px2dip(Context context, float pxValue) {  
-        final float scale = context.getResources().getDisplayMetrics().density;  
-        return (int) (pxValue / scale + 0.5f);  
-    }  
-    
+
+	/**
+	 * 根据手机的分辨率从 dp 的单位 转成为 px(像素)
+	 */
+	public static int dip2px(Context context, float dpValue) {
+		final float scale = context.getResources().getDisplayMetrics().density;
+		return (int) (dpValue * scale + 0.5f);
+	}
+
+	/**
+	 * 根据手机的分辨率从 px(像素) 的单位 转成为 dp
+	 */
+	public static int px2dip(Context context, float pxValue) {
+		final float scale = context.getResources().getDisplayMetrics().density;
+		return (int) (pxValue / scale + 0.5f);
+	}
 
 	/**
 	 * 判断当前版本是否兼容目标版本的方法

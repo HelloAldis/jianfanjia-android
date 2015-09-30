@@ -75,7 +75,7 @@ public class Constant {
 
 	public static final String FINAL_DESIGNER_ID = "final_designerid";// 业主的设计师id
 	public static final String FINAL_OWNER_ID = "final_owner_id";// 业主id
-//	public static final String PROCESSINFO_ID = "processinfo_id";// 当前工地id
+	// public static final String PROCESSINFO_ID = "processinfo_id";// 当前工地id
 	public static final String PROCESSINFO_REFLECT = "processinfo_reflect";// 工地映射
 	public static final String OWNER_INFO = "owner_info";// 当前业主信息
 	public static final String DESIGNER_INFO = "designer_info";// 当前设计师信息
@@ -136,7 +136,7 @@ public class Constant {
 
 	public static final String DEFALUT_DESIGNER_PIC = "drawable://"
 			+ R.drawable.icon_sidebar_default_user;
-	
+
 	public static final String DEFALUT_PIC_HEAD = "drawable://";
 
 	public static final String CURRENT_LIST = "current_list";// 首页展开的第一道工序
