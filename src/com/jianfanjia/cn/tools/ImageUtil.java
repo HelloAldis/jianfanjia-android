@@ -314,7 +314,7 @@ public class ImageUtil {
 			be = 1;
 		newOpts.inSampleSize = be;// 设置缩放比例
 		bitmap = BitmapFactory.decodeFile(srcPath, newOpts);
-		if(bitmap != null){
+		if (bitmap != null) {
 			LogTool.d("fjg", "after scaled bitmap width:" + bitmap.getWidth());
 			LogTool.d("fjg", "after scaled bitmap height:" + bitmap.getHeight());
 			LogTool.d("fjg", "after scaled newOpts width:" + newOpts.outWidth);
@@ -395,7 +395,6 @@ public class ImageUtil {
 	}
 
 	public static Bitmap compressImage(Bitmap image) {
-
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		image.compress(Bitmap.CompressFormat.JPEG, 100, baos);// 质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
 		int options = 100;
@@ -447,7 +446,6 @@ public class ImageUtil {
 	 * @return
 	 */
 	public static Bitmap fitSizeImg(URI uri) {
-
 		if (uri == null)
 			return null;
 		File file = new File(uri);
@@ -615,8 +613,8 @@ public class ImageUtil {
 		options.inDither = false;
 		options.inPreferredConfig = Bitmap.Config.ARGB_8888;
 		Cursor cursor = cr.query(MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
-				new String[] { BaseColumns._ID },
-				MediaColumns.DATA + "='" + dataPah + "'", null, null);
+				new String[] { BaseColumns._ID }, MediaColumns.DATA + "='"
+						+ dataPah + "'", null, null);
 		if (cursor == null || cursor.getCount() == 0) {
 			LogTool.d("MM_VideoImageView", "数据库中cursor为空");
 			if (cursor != null) {
@@ -627,10 +625,10 @@ public class ImageUtil {
 		cursor.moveToFirst();
 		String videoId = cursor.getString(cursor
 				.getColumnIndex(BaseColumns._ID)); // image
-																// id
-																// in
-																// image
-																// table.s
+													// id
+													// in
+													// image
+													// table.s
 		if (videoId == null) {
 			if (cursor != null) {
 				cursor.close();
