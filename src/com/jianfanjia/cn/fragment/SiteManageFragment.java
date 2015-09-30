@@ -483,7 +483,6 @@ public class SiteManageFragment extends BaseFragment implements
 		
 		mTmpFile = UiHelper.getTempPath();
 		if(mTmpFile != null){
-			dataManager.setPicPath(mTmpFile.getAbsolutePath());
 			Intent cameraIntent = UiHelper.createShotIntent(mTmpFile);
 			startActivityForResult(cameraIntent, Constant.REQUESTCODE_CAMERA);
 		}else{
