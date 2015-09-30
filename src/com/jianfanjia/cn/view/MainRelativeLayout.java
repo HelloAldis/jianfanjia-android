@@ -10,11 +10,9 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
-import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
-import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.Scroller;
 
@@ -65,7 +63,7 @@ public class MainRelativeLayout extends RelativeLayout {
 		mScroller = new Scroller(getContext());
 		mTouchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
 		inflater = LayoutInflater.from(getContext());
-		mainLayout = (RelativeLayout)inflater.inflate(
+		mainLayout = (RelativeLayout) inflater.inflate(
 				R.layout.main_refresh_view, null);
 		addView(mainLayout);
 		bannerHeight = MyApplication.dip2px(getContext(), 130);
@@ -75,7 +73,7 @@ public class MainRelativeLayout extends RelativeLayout {
 
 	public void setHeadLayout(RelativeLayout relativeLayout) {
 		this.headLayout = relativeLayout;
-//		relativeLayout.setAlpha(0);
+		// relativeLayout.setAlpha(0);
 	}
 
 	@Override
@@ -114,7 +112,7 @@ public class MainRelativeLayout extends RelativeLayout {
 			mLastMotionY = y;
 			// -------------------------------------
 			mLastMotionX = x;
-//			headLayout.setAlpha((float) Math.abs(deltaY) / totalDiff);
+			// headLayout.setAlpha((float) Math.abs(deltaY) / totalDiff);
 			scrollBy(0, deltaY);
 			break;
 		case MotionEvent.ACTION_UP:
@@ -131,7 +129,7 @@ public class MainRelativeLayout extends RelativeLayout {
 			} else if (velocityY < -SNAP_VELOCITY) {
 				// Fling enough to move right
 				// Log.e(TAG, "snap right");
-//				snapToScreen(mCurScreen + 1);
+				// snapToScreen(mCurScreen + 1);
 			} else {
 				snapToDestination();
 			}
@@ -150,7 +148,7 @@ public class MainRelativeLayout extends RelativeLayout {
 	}
 
 	private void snapToScreen() {
-		
+
 	}
 
 	private void snapToDestination() {
@@ -167,10 +165,11 @@ public class MainRelativeLayout extends RelativeLayout {
 		if (mScroller.computeScrollOffset()) {
 			scrollTo(mScroller.getCurrX(), mScroller.getCurrY());
 			postInvalidate();
-//			headLayout.setAlpha((float)Math.abs(mScroller.getCurrY()) / totalDiff);
+			// headLayout.setAlpha((float)Math.abs(mScroller.getCurrY()) /
+			// totalDiff);
 		}
-		if(mScroller.isFinished()){
-//			bannerLayout.setVisibility(View.GONE);
+		if (mScroller.isFinished()) {
+			// bannerLayout.setVisibility(View.GONE);
 			bannerIsGone = true;
 		}
 	}
@@ -198,7 +197,7 @@ public class MainRelativeLayout extends RelativeLayout {
 			}
 			break;
 		case MotionEvent.ACTION_DOWN:
-			
+
 			LogTool.d("MainLayout", "ACTION_DOWN");
 			mLastMotionX = x;
 			mLastMotionY = y;

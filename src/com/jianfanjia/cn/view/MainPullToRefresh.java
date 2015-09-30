@@ -1,22 +1,15 @@
 package com.jianfanjia.cn.view;
 
 import android.content.Context;
-import android.content.res.TypedArray;
-import android.graphics.Bitmap.Config;
-import android.net.NetworkInfo.State;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
-
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
-import com.jianfanjia.cn.pulltorefresh.library.internal.LoadingLayout;
 import com.jianfanjia.cn.tools.LogTool;
 
 public class MainPullToRefresh extends PullToRefreshBase<RelativeLayout>{
