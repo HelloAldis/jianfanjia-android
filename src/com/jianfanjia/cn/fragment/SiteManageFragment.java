@@ -54,7 +54,6 @@ import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshScrollView;
 import com.jianfanjia.cn.tools.DateFormatTool;
-import com.jianfanjia.cn.tools.FileUtil;
 import com.jianfanjia.cn.tools.ImageUtil;
 import com.jianfanjia.cn.tools.ImageUtils;
 import com.jianfanjia.cn.tools.LogTool;
@@ -147,7 +146,8 @@ public class SiteManageFragment extends BaseFragment implements
 
 	@Override
 	public void initView(View view) {
-		proTitle = getApplication().getResources().getStringArray(R.array.site_procedure);
+		proTitle = getApplication().getResources().getStringArray(
+				R.array.site_procedure);
 		mPullRefreshScrollView = (PullToRefreshScrollView) view
 				.findViewById(R.id.pull_refresh_scrollview);
 		mPullRefreshScrollView.setMode(Mode.PULL_FROM_START);
@@ -228,9 +228,9 @@ public class SiteManageFragment extends BaseFragment implements
 		processViewPager = (ViewPager) view.findViewById(R.id.processViewPager);
 		for (int i = 0; i < proTitle.length; i++) {
 			ViewPagerItem viewPagerItem = new ViewPagerItem();
-			viewPagerItem.setResId(getApplication().getResources().getIdentifier(
-					"icon_home_normal" + (i + 1), "drawable",
-					getApplication().getPackageName()));
+			viewPagerItem.setResId(getApplication().getResources()
+					.getIdentifier("icon_home_normal" + (i + 1), "drawable",
+							getApplication().getPackageName()));
 			viewPagerItem.setTitle(proTitle[i]);
 			viewPagerItem.setDate("");
 			processList.add(viewPagerItem);
@@ -299,14 +299,16 @@ public class SiteManageFragment extends BaseFragment implements
 									.get(i).getEnd_at(), "M.dd"));
 				}
 				if (sectionInfos.get(i).getStatus() != Constant.NOT_START) {
-					int drawableId = getApplication().getResources().getIdentifier(
-							"icon_home_checked" + (i + 1), "drawable",
-							getApplication().getPackageName());
+					int drawableId = getApplication().getResources()
+							.getIdentifier("icon_home_checked" + (i + 1),
+									"drawable",
+									getApplication().getPackageName());
 					viewPagerItem.setResId(drawableId);
 				} else {
-					int drawableId = getApplication().getResources().getIdentifier(
-							"icon_home_normal" + (i + 1), "drawable",
-							getApplication().getPackageName());
+					int drawableId = getApplication().getResources()
+							.getIdentifier("icon_home_normal" + (i + 1),
+									"drawable",
+									getApplication().getPackageName());
 					viewPagerItem.setResId(drawableId);
 				}
 			}
@@ -476,17 +478,19 @@ public class SiteManageFragment extends BaseFragment implements
 
 	@Override
 	public void takecamera() {
-		/*Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-		mTmpFile = FileUtil.createTmpFile(getActivity());
-		cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mTmpFile));
-		startActivityForResult(cameraIntent, Constant.REQUESTCODE_CAMERA);*/
-		
+		/*
+		 * Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		 * mTmpFile = FileUtil.createTmpFile(getActivity());
+		 * cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT,
+		 * Uri.fromFile(mTmpFile)); startActivityForResult(cameraIntent,
+		 * Constant.REQUESTCODE_CAMERA);
+		 */
 		mTmpFile = UiHelper.getTempPath();
-		if(mTmpFile != null){
+		if (mTmpFile != null) {
 			dataManager.setPicPath(mTmpFile.getAbsolutePath());
 			Intent cameraIntent = UiHelper.createShotIntent(mTmpFile);
 			startActivityForResult(cameraIntent, Constant.REQUESTCODE_CAMERA);
-		}else{
+		} else {
 			makeTextLong("没有sd卡，无法打开相机");
 		}
 	}
@@ -638,7 +642,7 @@ public class SiteManageFragment extends BaseFragment implements
 				Bitmap imageBitmap = ImageUtil.getImage(mTmpFile.getPath());
 				LogTool.d(TAG, "imageBitmap:" + imageBitmap);
 				if (null != imageBitmap) {
-					
+
 					LoadClientHelper
 							.upload_Image(getActivity(),
 									new UploadPicRequestNew(getActivity(),
