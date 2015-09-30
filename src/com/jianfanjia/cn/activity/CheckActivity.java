@@ -41,6 +41,7 @@ import com.jianfanjia.cn.tools.ImageUtil;
 import com.jianfanjia.cn.tools.ImageUtils;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.NetTool;
+import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -348,10 +349,18 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 
 	@Override
 	public void takecamera() {
-		Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		/*Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 		mTmpFile = FileUtil.createTmpFile(CheckActivity.this);
 		cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mTmpFile));
-		startActivityForResult(cameraIntent, Constant.REQUESTCODE_CAMERA);
+		startActivityForResult(cameraIntent, Constant.REQUESTCODE_CAMERA);*/
+		
+		mTmpFile = UiHelper.getTempPath();
+		if(mTmpFile != null){
+			Intent cameraIntent = UiHelper.createShotIntent(mTmpFile);
+			startActivityForResult(cameraIntent, Constant.REQUESTCODE_CAMERA);
+		}else{
+			makeTextLong("没有sd卡，无法打开相机");
+		}
 	}
 
 	@Override
@@ -367,6 +376,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 		super.onActivityResult(requestCode, resultCode, data);
 		switch (requestCode) {
 		case Constant.REQUESTCODE_CAMERA:// 拍照
+			mTmpFile = new File(dataManager.getPicPath());
 			if (mTmpFile != null) {
 				Uri uri = Uri.fromFile(mTmpFile);
 				LogTool.d(TAG, "uri:" + uri);

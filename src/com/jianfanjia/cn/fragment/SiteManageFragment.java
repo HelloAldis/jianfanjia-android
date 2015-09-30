@@ -486,8 +486,7 @@ public class SiteManageFragment extends BaseFragment implements
 		 * Constant.REQUESTCODE_CAMERA);
 		 */
 		mTmpFile = UiHelper.getTempPath();
-		if (mTmpFile != null) {
-			dataManager.setPicPath(mTmpFile.getAbsolutePath());
+		if(mTmpFile != null){
 			Intent cameraIntent = UiHelper.createShotIntent(mTmpFile);
 			startActivityForResult(cameraIntent, Constant.REQUESTCODE_CAMERA);
 		} else {

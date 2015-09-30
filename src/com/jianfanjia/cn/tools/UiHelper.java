@@ -2,6 +2,7 @@ package com.jianfanjia.cn.tools;
 
 import java.io.File;
 
+import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.config.Constant;
 
 import android.content.Intent;
@@ -51,6 +52,7 @@ public class UiHelper {
 	 */
 	public static Intent createShotIntent(File tempFile) {
 		if (isCameraCanUse()) {
+			DataManagerNew.getInstance().setPicPath(tempFile.getAbsolutePath());
 			Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
 			Uri uri = Uri.fromFile(tempFile);
 			intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
