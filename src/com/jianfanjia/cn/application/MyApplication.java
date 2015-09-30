@@ -1,5 +1,6 @@
 package com.jianfanjia.cn.application;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import org.apache.http.cookie.Cookie;
@@ -21,6 +22,7 @@ import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.StringUtils;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.PersistentCookieStore;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
  * @version 1.0
@@ -167,9 +169,12 @@ public class MyApplication extends BaseApplication {
 	 * 清除app缓存
 	 */
 	public void clearAppCache() {
-		DataCleanManager.cleanDatabases(this);
+//		DataCleanManager.cleanDatabases(this);
 		// 清除数据缓存
-		DataCleanManager.cleanInternalCache(this);
+//		DataCleanManager.cleanInternalCache(this);
+		ImageLoader.getInstance().clearDiskCache();
+		DataCleanManager.deleteFilesByDirectory(new File(Constant.COMMON_PATH));
+		
 		//
 		// 2.2版本才有将应用缓存转移到sd卡的功能
 		if (isMethodsCompat(android.os.Build.VERSION_CODES.FROYO)) {

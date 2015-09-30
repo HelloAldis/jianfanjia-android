@@ -62,6 +62,7 @@ import com.jianfanjia.cn.tools.ImageUtils;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.NetTool;
 import com.jianfanjia.cn.tools.StringUtils;
+import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.MainPullToRefresh;
 import com.jianfanjia.cn.view.MainPullToRefresh.MainPullToRefreshListener;
 import com.jianfanjia.cn.view.MainRelativeLayout;
@@ -382,12 +383,12 @@ public class SiteManageFragmentBack extends BaseFragment implements
 									.get(i).getEnd_at(), "M.dd"));
 				}
 				if (sectionInfos.get(i).getStatus() != Constant.NOT_START) {
-					int drawableId = getResources().getIdentifier(
+					int drawableId = MyApplication.getInstance().getResources().getIdentifier(
 							"icon_home_checked" + (i + 1), "drawable",
 							getApplication().getPackageName());
 					viewPagerItem.setResId(drawableId);
 				} else {
-					int drawableId = getResources().getIdentifier(
+					int drawableId = MyApplication.getInstance().getResources().getIdentifier(
 							"icon_home_normal" + (i + 1), "drawable",
 							getApplication().getPackageName());
 					viewPagerItem.setResId(drawableId);
@@ -529,10 +530,17 @@ public class SiteManageFragmentBack extends BaseFragment implements
 
 	@Override
 	public void takecamera() {
-		Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		/*Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 		mTmpFile = FileUtil.createTmpFile(getActivity());
 		cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mTmpFile));
-		startActivityForResult(cameraIntent, Constant.REQUESTCODE_CAMERA);
+		startActivityForResult(cameraIntent, Constant.REQUESTCODE_CAMERA);*/
+		mTmpFile = UiHelper.getTempPath();
+		if(mTmpFile != null){
+			UiHelper.createShotIntent(mTmpFile);
+			dataManager.setPicPath(mTmpFile.getAbsolutePath());
+		}else{
+			makeTextLong("没有sd卡，无法打开相机");
+		}
 	}
 
 	@Override
@@ -677,6 +685,7 @@ public class SiteManageFragmentBack extends BaseFragment implements
 		super.onActivityResult(requestCode, resultCode, data);
 		switch (requestCode) {
 		case Constant.REQUESTCODE_CAMERA:// 拍照
+			mTmpFile = new File(dataManager.getPicPath());
 			if (mTmpFile != null) {
 				Bitmap imageBitmap = ImageUtil.getImage(mTmpFile.getPath());
 				LogTool.d(TAG, "imageBitmap:" + imageBitmap);

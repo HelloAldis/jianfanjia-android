@@ -60,6 +60,7 @@ import com.jianfanjia.cn.tools.ImageUtils;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.NetTool;
 import com.jianfanjia.cn.tools.StringUtils;
+import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.tools.ViewPagerManager;
 import com.jianfanjia.cn.tools.ViewPagerManager.ShapeType;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
@@ -146,7 +147,7 @@ public class SiteManageFragment extends BaseFragment implements
 
 	@Override
 	public void initView(View view) {
-		proTitle = getResources().getStringArray(R.array.site_procedure);
+		proTitle = getApplication().getResources().getStringArray(R.array.site_procedure);
 		mPullRefreshScrollView = (PullToRefreshScrollView) view
 				.findViewById(R.id.pull_refresh_scrollview);
 		mPullRefreshScrollView.setMode(Mode.PULL_FROM_START);
@@ -186,7 +187,7 @@ public class SiteManageFragment extends BaseFragment implements
 			sectionInfos = processInfo.getSections();
 			sectionInfo = sectionInfos.get(currentList);
 			setScrollHeadTime();
-			sectionItemAdapter = new SectionItemAdapterBack(getActivity(),
+			sectionItemAdapter = new SectionItemAdapterBack(getApplication(),
 					currentList, sectionInfos, this);
 			detailNodeListView.setAdapter(sectionItemAdapter);
 			processViewPager.setCurrentItem(currentList);
@@ -227,9 +228,9 @@ public class SiteManageFragment extends BaseFragment implements
 		processViewPager = (ViewPager) view.findViewById(R.id.processViewPager);
 		for (int i = 0; i < proTitle.length; i++) {
 			ViewPagerItem viewPagerItem = new ViewPagerItem();
-			viewPagerItem.setResId(getResources().getIdentifier(
+			viewPagerItem.setResId(getApplication().getResources().getIdentifier(
 					"icon_home_normal" + (i + 1), "drawable",
-					MyApplication.getInstance().getPackageName()));
+					getApplication().getPackageName()));
 			viewPagerItem.setTitle(proTitle[i]);
 			viewPagerItem.setDate("");
 			processList.add(viewPagerItem);
@@ -298,12 +299,12 @@ public class SiteManageFragment extends BaseFragment implements
 									.get(i).getEnd_at(), "M.dd"));
 				}
 				if (sectionInfos.get(i).getStatus() != Constant.NOT_START) {
-					int drawableId = getResources().getIdentifier(
+					int drawableId = getApplication().getResources().getIdentifier(
 							"icon_home_checked" + (i + 1), "drawable",
 							getApplication().getPackageName());
 					viewPagerItem.setResId(drawableId);
 				} else {
-					int drawableId = getResources().getIdentifier(
+					int drawableId = getApplication().getResources().getIdentifier(
 							"icon_home_normal" + (i + 1), "drawable",
 							getApplication().getPackageName());
 					viewPagerItem.setResId(drawableId);
@@ -475,10 +476,19 @@ public class SiteManageFragment extends BaseFragment implements
 
 	@Override
 	public void takecamera() {
-		Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		/*Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 		mTmpFile = FileUtil.createTmpFile(getActivity());
 		cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mTmpFile));
-		startActivityForResult(cameraIntent, Constant.REQUESTCODE_CAMERA);
+		startActivityForResult(cameraIntent, Constant.REQUESTCODE_CAMERA);*/
+		
+		mTmpFile = UiHelper.getTempPath();
+		if(mTmpFile != null){
+			dataManager.setPicPath(mTmpFile.getAbsolutePath());
+			Intent cameraIntent = UiHelper.createShotIntent(mTmpFile);
+			startActivityForResult(cameraIntent, Constant.REQUESTCODE_CAMERA);
+		}else{
+			makeTextLong("没有sd卡，无法打开相机");
+		}
 	}
 
 	@Override
@@ -623,10 +633,12 @@ public class SiteManageFragment extends BaseFragment implements
 		super.onActivityResult(requestCode, resultCode, data);
 		switch (requestCode) {
 		case Constant.REQUESTCODE_CAMERA:// 拍照
+			mTmpFile = new File(dataManager.getPicPath());
 			if (mTmpFile != null) {
 				Bitmap imageBitmap = ImageUtil.getImage(mTmpFile.getPath());
 				LogTool.d(TAG, "imageBitmap:" + imageBitmap);
 				if (null != imageBitmap) {
+					
 					LoadClientHelper
 							.upload_Image(getActivity(),
 									new UploadPicRequestNew(getActivity(),

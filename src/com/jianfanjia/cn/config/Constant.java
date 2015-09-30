@@ -25,7 +25,8 @@ public class Constant {
 	public static final String COMMON_PATH = Environment
 			.getExternalStorageDirectory() + "/JianFanJia/";// 公共的路径
 
-	public static final String TEMP_IMG = "temp_img.jpg";// 照片名称
+//	public static final String TEMP_IMG = "temp_img.jpg";// 照片名称
+	public static final String TEMP_IMG ="current_camera_temp_path";//拍照的临时存储文件路径
 
 	public static final String PROCESSINFO_CACHE = "processinfo_cache";// 工地信息缓存文件名
 	public static final String DESIGNERINFO_CACHE = "designerinfo_cache";// 设计师信息缓存文件名

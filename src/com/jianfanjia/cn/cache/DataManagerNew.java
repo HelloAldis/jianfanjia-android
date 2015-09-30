@@ -34,6 +34,7 @@ public class DataManagerNew {
 	private RequirementInfo requirementInfo;// 需求信息
 	private ProcessInfo currentProcessInfo;// 当前工地信息p
 	private String currentUploadImageId;// 当前上传的imageId;
+	private String picPath = null;
 
 	public static DataManagerNew getInstance() {
 		if (instance == null) {
@@ -46,6 +47,14 @@ public class DataManagerNew {
 		context = MyApplication.getInstance();
 		sharedPreferdata = new SharedPrefer(context, Constant.SHARED_DATA);
 		sharedPreferuser = new SharedPrefer(context, Constant.SHARED_USER);
+	}
+	
+	public String getPicPath() {
+		return sharedPreferdata.getValue(Constant.TEMP_IMG, null);
+	}
+
+	public void setPicPath(String picPath) {
+		this.sharedPreferdata.setValue(Constant.TEMP_IMG,picPath);
 	}
 
 	public String getCurrentUploadImageId() {

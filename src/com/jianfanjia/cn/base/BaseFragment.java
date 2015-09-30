@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 import com.jianfanjia.cn.AppConfig;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.dao.impl.NotifyMessageDao;
@@ -119,9 +120,9 @@ public abstract class BaseFragment extends Fragment implements OnClickListener,
 	}
 
 	public Context getApplication() {
-		return getActivity().getApplication();
+		return MyApplication.getInstance();
 	}
-
+	
 	@Override
 	public void onResume() {
 		super.onResume();

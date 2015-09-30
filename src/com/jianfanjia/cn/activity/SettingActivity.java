@@ -33,6 +33,7 @@ import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
  * 
@@ -166,13 +167,15 @@ public class SettingActivity extends BaseActivity implements OnClickListener,
 	 * 计算缓存的大小
 	 */
 	private void caculateCacheSize() {
+		
 		long fileSize = 0;
 		String cacheSize = "0KB";
-		File filesDir = getFilesDir();
-		File cacheDir = getCacheDir();
-
+		File filesDir = ImageLoader.getInstance().getDiskCache().getDirectory();
+		File file = new File(Constant.COMMON_PATH);
+		
 		fileSize += FileUtil.getDirSize(filesDir);
-		fileSize += FileUtil.getDirSize(cacheDir);
+		fileSize += FileUtil.getDirSize(file);
+		
 		// 2.2版本才有将应用缓存转移到sd卡的功能
 		if (MyApplication.isMethodsCompat(android.os.Build.VERSION_CODES.FROYO)) {
 			File externalCacheDir = getExternalCacheDir();

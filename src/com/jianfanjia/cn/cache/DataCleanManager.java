@@ -122,7 +122,7 @@ public class DataCleanManager {
 	 * 
 	 * @param directory
 	 */
-	private static void deleteFilesByDirectory(File directory) {
+	public static void deleteFilesByDirectory(File directory) {
 		if (directory != null && directory.exists() && directory.isDirectory()) {
 			for (File child : directory.listFiles()) {
 				if (child.isDirectory()) {
