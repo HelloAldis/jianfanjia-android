@@ -60,7 +60,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 	public static final int FINISH_STATUS = 1;
 	public static final String SHOW_LIST = "show_list";
 	public static final String POSITION = "position";
-
+	
 	private RelativeLayout checkLayout = null;
 	private TextView backView = null;// ∑µªÿ ”Õº
 	private TextView check_pic_title = null;

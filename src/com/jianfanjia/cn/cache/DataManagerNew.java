@@ -188,7 +188,7 @@ public class DataManagerNew {
 
 	public int getDefaultPro() {
 		if (getUserType().equals(Constant.IDENTITY_DESIGNER)) {
-			return sharedPreferdata.getValue(Constant.DEFAULT_PROCESS, 0);// 默认的工地为0
+			return sharedPreferuser.getValue(Constant.DEFAULT_PROCESS, 0);// 默认的工地为0
 		} else if (getUserType().equals(Constant.IDENTITY_OWNER)) {
 			return 0;
 		}
@@ -196,7 +196,7 @@ public class DataManagerNew {
 	}
 
 	public void setDefaultPro(int defaultPro) {
-		sharedPreferdata.setValue(Constant.DEFAULT_PROCESS, defaultPro);
+		sharedPreferuser.setValue(Constant.DEFAULT_PROCESS, defaultPro);
 	}
 
 	/**
@@ -253,7 +253,7 @@ public class DataManagerNew {
 	}
 
 	public boolean isFirst() {
-		return sharedPreferdata.getValue(Constant.ISFIRST, false);
+		return sharedPreferdata.getValue(Constant.ISFIRST, true);
 	}
 
 	public void setFisrt(boolean isFirst) {

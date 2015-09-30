@@ -53,7 +53,7 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout
 
 	static final String LOG_TAG = "PullToRefresh";
 
-	static final float FRICTION = 2.0f;
+	protected static final float FRICTION = 0.5f;
 
 	public static final int SMOOTH_SCROLL_DURATION_MS = 200;
 	public static final int SMOOTH_SCROLL_LONG_DURATION_MS = 325;
@@ -70,28 +70,28 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout
 	// Fields
 	// ===========================================================
 
-	private int mTouchSlop;
-	private float mLastMotionX, mLastMotionY;
-	private float mInitialMotionX, mInitialMotionY;
+	protected int mTouchSlop;
+	protected float mLastMotionX, mLastMotionY;
+	protected float mInitialMotionX, mInitialMotionY;
 
-	private boolean mIsBeingDragged = false;
-	private State mState = State.RESET;
-	private Mode mMode = Mode.getDefault();
+	protected boolean mIsBeingDragged = false;
+	protected State mState = State.RESET;
+	protected Mode mMode = Mode.getDefault();
 
-	private Mode mCurrentMode;
-	T mRefreshableView;
-	private FrameLayout mRefreshableViewWrapper;
+	protected Mode mCurrentMode;
+	protected T mRefreshableView;
+	protected FrameLayout mRefreshableViewWrapper;
 
-	private boolean mShowViewWhileRefreshing = true;
-	private boolean mScrollingWhileRefreshingEnabled = false;
-	private boolean mFilterTouchEvents = true;
-	private boolean mOverScrollEnabled = true;
-	private boolean mLayoutVisibilityChangesEnabled = true;
+	protected boolean mShowViewWhileRefreshing = true;
+	protected boolean mScrollingWhileRefreshingEnabled = false;
+	protected boolean mFilterTouchEvents = true;
+	protected boolean mOverScrollEnabled = true;
+	protected boolean mLayoutVisibilityChangesEnabled = true;
 
 	private Interpolator mScrollAnimationInterpolator;
 	private AnimationStyle mLoadingAnimationStyle = AnimationStyle.getDefault();
 
-	private LoadingLayout mHeaderLayout;
+	protected LoadingLayout mHeaderLayout;
 	private LoadingLayout mFooterLayout;
 
 	private OnRefreshListener<T> mOnRefreshListener;
@@ -230,7 +230,7 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout
 	}
 
 	@Override
-	public final boolean onInterceptTouchEvent(MotionEvent event) {
+	public boolean onInterceptTouchEvent(MotionEvent event) {
 
 		if (!isPullToRefreshEnabled()) {
 			return false;
@@ -319,7 +319,7 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout
 	}
 
 	@Override
-	public final boolean onTouchEvent(MotionEvent event) {
+	public boolean onTouchEvent(MotionEvent event) {
 
 		if (!isPullToRefreshEnabled()) {
 			return false;
@@ -568,7 +568,7 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout
 	 */
 	public abstract Orientation getPullToRefreshScrollDirection();
 
-	final void setState(State state, final boolean... params) {
+	protected void setState(State state, final boolean... params) {
 		mState = state;
 		if (DEBUG) {
 			Log.d(LOG_TAG, "State: " + mState.name());
@@ -1304,7 +1304,7 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout
 		}
 	}
 
-	private int getMaximumPullScroll() {
+	protected  int getMaximumPullScroll() {
 		switch (getPullToRefreshScrollDirection()) {
 		case HORIZONTAL:
 			return Math.round(getWidth() / FRICTION);
