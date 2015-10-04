@@ -1,14 +1,17 @@
 package com.jianfanjia.cn.activity;
 
 import java.io.File;
+
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import android.app.DownloadManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.Environment;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.CompoundButton;
@@ -16,6 +19,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
+
 import com.igexin.sdk.PushManager;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
@@ -167,15 +171,15 @@ public class SettingActivity extends BaseActivity implements OnClickListener,
 	 * 计算缓存的大小
 	 */
 	private void caculateCacheSize() {
-		
+
 		long fileSize = 0;
 		String cacheSize = "0KB";
 		File filesDir = ImageLoader.getInstance().getDiskCache().getDirectory();
 		File file = new File(Constant.COMMON_PATH);
-		
+
 		fileSize += FileUtil.getDirSize(filesDir);
 		fileSize += FileUtil.getDirSize(file);
-		
+
 		// 2.2版本才有将应用缓存转移到sd卡的功能
 		if (MyApplication.isMethodsCompat(android.os.Build.VERSION_CODES.FROYO)) {
 			File externalCacheDir = getExternalCacheDir();
@@ -361,7 +365,8 @@ public class SettingActivity extends BaseActivity implements OnClickListener,
 		Uri uri = Uri.parse(apkPath);
 		DownloadManager.Request request = new DownloadManager.Request(uri);
 		// 设置下载路径和文件名
-		request.setDestinationInExternalPublicDir("download", "jianfanjia.apk");
+		request.setDestinationInExternalPublicDir(
+				Environment.DIRECTORY_DOWNLOADS, "jianfanjia.apk");
 		request.setTitle("简繁家");
 		request.setDescription("正在下载简繁家新版本");
 		request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
