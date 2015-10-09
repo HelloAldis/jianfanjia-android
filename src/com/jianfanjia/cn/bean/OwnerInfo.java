@@ -5,9 +5,9 @@ import java.io.Serializable;
 /**
  * 
  * @ClassName: MyOwerInfo
- * @Description: 我的业主个人信息类（设计师）
+ * @Description: 鎴戠殑涓氫富涓汉淇℃伅绫伙紙璁捐甯堬級
  * @author zhanghao
- * @date 2015-8-26 下午19:33
+ * @date 2015-8-26 涓嬪崍19:33
  * 
  */
 public class OwnerInfo implements Serializable {

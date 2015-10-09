@@ -74,9 +74,9 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 /**
  * 
  * @ClassName:SiteManageFragment
- * @Description:¹¤µØ¹ÜÀí
+ * @Description:å·¥åœ°ç®¡ç†
  * @author fengliang
- * @date 2015-8-26 ÉÏÎç11:14:00
+ * @date 2015-8-26 ä¸Šåˆ11:14:00
  * 
  */
 public class SiteManageFragmentBack extends BaseFragment implements
@@ -86,14 +86,14 @@ public class SiteManageFragmentBack extends BaseFragment implements
 	private MainPullToRefresh mainPullToRefresh;
 	private MainRelativeLayout mainParentLayout;
 	private RelativeLayout headLayout;
-	private static final int TOTAL_PROCESS = 7;// 7µÀ¹¤Ğò
+	private static final int TOTAL_PROCESS = 7;// 7é“å·¥åº
 	private List<SectionInfo> sectionInfos;
 	private SectionInfo sectionInfo = null;
 	private ProcessInfo processInfo = null;
-	private String processId = null;// Ä¬ÈÏµÄ¹¤µØid
-	private int currentPro = -1;// µ±Ç°½øĞĞ¹¤Ğò
-	private int currentList = -1;// µ±Ç°Õ¹¿ªµÚÒ»µÀ¹¤Ğò
-	private int lastPro = -1;// ÉÏ´Î½øĞĞµÄ¹¤Ğò
+	private String processId = null;// é»˜è®¤çš„å·¥åœ°id
+	private int currentPro = -1;// å½“å‰è¿›è¡Œå·¥åº
+	private int currentList = -1;// å½“å‰å±•å¼€ç¬¬ä¸€é“å·¥åº
+	private int lastPro = -1;// ä¸Šæ¬¡è¿›è¡Œçš„å·¥åº
 	private ViewPager bannerViewPager = null;
 	private ViewGroup group = null;
 	private ImageView[] tips;
@@ -112,7 +112,7 @@ public class SiteManageFragmentBack extends BaseFragment implements
 	private ImageView titleImage = null;
 
 	private static final int CHANGE_PHOTO = 1;
-	private static final int CHANGE_TIME = 5000;// Í¼Æ¬×Ô¶¯ÇĞ»»Ê±¼ä
+	private static final int CHANGE_TIME = 5000;// å›¾ç‰‡è‡ªåŠ¨åˆ‡æ¢æ—¶é—´
 	private static final int BANNER_ICON[] = { R.drawable.bg_home_banner1,
 			R.drawable.bg_home_banner2, R.drawable.bg_home_banner3,
 			R.drawable.bg_home_banner4 };
@@ -197,18 +197,18 @@ public class SiteManageFragmentBack extends BaseFragment implements
 		titleRight.setOnClickListener(this);
 		if (mUserType.equals(Constant.IDENTITY_OWNER)) {
 			titleCenter.setText("");
-			titleRight.setText("ÅäÖÃ¹¤µØ");
+			titleRight.setText("é…ç½®å·¥åœ°");
 		} else if (mUserType.equals(Constant.IDENTITY_DESIGNER)) {
 			titleCenter.setText("");
-			titleRight.setText("ÇĞ»»¹¤µØ");
+			titleRight.setText("åˆ‡æ¢å·¥åœ°");
 		}
 	}
 
-	// ³õÊ¼»¯Êı¾İ
+	// åˆå§‹åŒ–æ•°æ®
 	private void initData() {
 		if (processInfo != null) {
 			titleCenter.setText(processInfo.getCell() == null ? ""
-					: processInfo.getCell());// ÉèÖÃ±êÌâÍ·
+					: processInfo.getCell());// è®¾ç½®æ ‡é¢˜å¤´
 			currentPro = MyApplication.getInstance().getPositionByItemName(
 					processInfo.getGoing_on());
 			if (currentList == -1 || lastPro != currentPro) {
@@ -250,7 +250,7 @@ public class SiteManageFragmentBack extends BaseFragment implements
 			imageView.setBackgroundResource(BANNER_ICON[i]);
 			bannerList.add(imageView);
 		}
-		// ½«µãµã¼ÓÈëµ½ViewGroupÖĞ
+		// å°†ç‚¹ç‚¹åŠ å…¥åˆ°ViewGroupä¸­
 		tips = new ImageView[bannerList.size()];
 		for (int i = 0; i < tips.length; i++) {
 			ImageView imageView = new ImageView(getActivity());
@@ -294,7 +294,7 @@ public class SiteManageFragmentBack extends BaseFragment implements
 	}
 
 	/**
-	 * ÉèÖÃÑ¡ÖĞµÄË÷ÒıµÄ±³¾°
+	 * è®¾ç½®é€‰ä¸­çš„ç´¢å¼•çš„èƒŒæ™¯
 	 * 
 	 * @param selectItems
 	 */
@@ -539,7 +539,7 @@ public class SiteManageFragmentBack extends BaseFragment implements
 			UiHelper.createShotIntent(mTmpFile);
 			dataManager.setPicPath(mTmpFile.getAbsolutePath());
 		}else{
-			makeTextLong("Ã»ÓĞsd¿¨£¬ÎŞ·¨´ò¿ªÏà»ú");
+			makeTextLong("æ²¡æœ‰sdå¡ï¼Œæ— æ³•æ‰“å¼€ç›¸æœº");
 		}
 	}
 
@@ -554,7 +554,7 @@ public class SiteManageFragmentBack extends BaseFragment implements
 	private void delayDialog() {
 		DateWheelDialog dateWheelDialog = new DateWheelDialog(getActivity(),
 				Calendar.getInstance());
-		dateWheelDialog.setTitle("Ñ¡ÔñÊ±¼ä");
+		dateWheelDialog.setTitle("é€‰æ‹©æ—¶é—´");
 		dateWheelDialog.setPositiveButton(R.string.ok,
 				new DialogInterface.OnClickListener() {
 
@@ -578,8 +578,8 @@ public class SiteManageFragmentBack extends BaseFragment implements
 	private void confirmFinishDialog() {
 		CommonDialog dialog = DialogHelper
 				.getPinterestDialogCancelable(getActivity());
-		dialog.setTitle("È·ÈÏÍê¹¤");
-		dialog.setMessage("È·ÈÏÍê¹¤Âğ£¿");
+		dialog.setTitle("ç¡®è®¤å®Œå·¥");
+		dialog.setMessage("ç¡®è®¤å®Œå·¥å—ï¼Ÿ");
 		dialog.setPositiveButton(R.string.ok,
 				new DialogInterface.OnClickListener() {
 
@@ -595,7 +595,7 @@ public class SiteManageFragmentBack extends BaseFragment implements
 		dialog.show();
 	}
 
-	// Ìá½»¸ÄÆÚ
+	// æäº¤æ”¹æœŸ
 	private void postReschedule(String processId, String userId,
 			String designerId, String section, String newDate) {
 		LogTool.d(TAG, "processId:" + processId + " userId:" + userId
@@ -630,7 +630,7 @@ public class SiteManageFragmentBack extends BaseFragment implements
 				});
 	}
 
-	// È·ÈÏÍê¹¤×°ĞŞÁ÷³ÌĞ¡½Úµã
+	// ç¡®è®¤å®Œå·¥è£…ä¿®æµç¨‹å°èŠ‚ç‚¹
 	private void confirmProcessItemDone(String siteId, String section,
 			String item) {
 		LogTool.d(TAG, "siteId:" + siteId + " section:" + section + " item:"
@@ -684,7 +684,7 @@ public class SiteManageFragmentBack extends BaseFragment implements
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		switch (requestCode) {
-		case Constant.REQUESTCODE_CAMERA:// ÅÄÕÕ
+		case Constant.REQUESTCODE_CAMERA:// æ‹ç…§
 			mTmpFile = new File(dataManager.getPicPath());
 			if (mTmpFile != null) {
 				Bitmap imageBitmap = ImageUtil.getImage(mTmpFile.getPath());
@@ -761,7 +761,7 @@ public class SiteManageFragmentBack extends BaseFragment implements
 				}
 			}
 			break;
-		case Constant.REQUESTCODE_LOCATION:// ±¾µØÑ¡È¡
+		case Constant.REQUESTCODE_LOCATION:// æœ¬åœ°é€‰å–
 			if (data != null) {
 				Uri uri = data.getData();
 				LogTool.d(TAG, "uri:" + uri);
@@ -914,14 +914,14 @@ public class SiteManageFragmentBack extends BaseFragment implements
 	@Override
 	public void onRefresh(PullToRefreshBase<RelativeLayout> refreshView) {
 		// TODO Auto-generated method stub
-		// ÏÂÀ­Ë¢ĞÂ(´ÓµÚÒ»Ò³¿ªÊ¼×°ÔØÊı¾İ)
+		// ä¸‹æ‹‰åˆ·æ–°(ä»ç¬¬ä¸€é¡µå¼€å§‹è£…è½½æ•°æ®)
 				String label = DateUtils.formatDateTime(getActivity(),
 						System.currentTimeMillis(), DateUtils.FORMAT_SHOW_TIME
 								| DateUtils.FORMAT_SHOW_DATE
 								| DateUtils.FORMAT_ABBREV_ALL);
 				// Update the LastUpdatedLabel
 				refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
-				// ¼ÓÔØÊı¾İ
+				// åŠ è½½æ•°æ®
 				/*
 				 * LoadClientHelper.requestProcessInfoById(getActivity(),new
 				 * ProcessInfoRequest(getActivity(), dataManager.getDefaultProcessId())

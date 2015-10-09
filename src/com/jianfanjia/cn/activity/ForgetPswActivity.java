@@ -13,9 +13,9 @@ import com.jianfanjia.cn.interf.FragmentListener;
 /**
  * 
  * @ClassName: ForgetPswActivity
- * @Description: Íü¼ÇÃÜÂë
+ * @Description: å¿˜è®°å¯†ç 
  * @author fengliang
- * @date 2015-8-25 ÏÂÎç5:29:34
+ * @date 2015-8-25 ä¸‹åˆ5:29:34
  * 
  */
 public class ForgetPswActivity extends BaseActivity implements FragmentListener {
@@ -25,7 +25,7 @@ public class ForgetPswActivity extends BaseActivity implements FragmentListener 
 	private FrgPswInputVerificationFragment frgPswInputVerificationFragment = null;
 	private List<Fragment> fragments = new ArrayList<Fragment>();
 
-	private int currentPage = 0;// ËùÔÚµÄFragmentÒ³ÃæµÄÎ»ÖÃ
+	private int currentPage = 0;// æ‰€åœ¨çš„Fragmenté¡µé¢çš„ä½ç½®
 
 	@Override
 	public void initView() {

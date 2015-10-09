@@ -21,9 +21,9 @@ import com.jianfanjia.cn.tools.LogTool;
 /**
  * 
  * @ClassName: MainActivity
- * @Description: Ö÷½çÃæ
+ * @Description: ä¸»ç•Œé¢
  * @author fengliang
- * @date 2015-8-18 ÏÂÎç1:28:28
+ * @date 2015-8-18 ä¸‹åˆ1:28:28
  * 
  */
 public class MainActivity extends BaseActivity implements PanelSlideListener {
@@ -94,9 +94,9 @@ public class MainActivity extends BaseActivity implements PanelSlideListener {
 		if (slidingPaneLayout.isOpen()) {
 			slidingPaneLayout.closePane();
 		} else {
-			if ((System.currentTimeMillis() - mExitTime) > 2000) {// Èç¹ûÁ½´Î°´¼üÊ±¼ä¼ä¸ô´óÓÚ2000ºÁÃë£¬Ôò²»ÍË³ö
-				makeTextLong("ÔÙ°´Ò»´ÎÍË³ö³ÌĞò");
-				mExitTime = System.currentTimeMillis();// ¸üĞÂmExitTime
+			if ((System.currentTimeMillis() - mExitTime) > 2000) {// å¦‚æœä¸¤æ¬¡æŒ‰é”®æ—¶é—´é—´éš”å¤§äº2000æ¯«ç§’ï¼Œåˆ™ä¸é€€å‡º
+				makeTextLong("å†æŒ‰ä¸€æ¬¡é€€å‡ºç¨‹åº");
+				mExitTime = System.currentTimeMillis();// æ›´æ–°mExitTime
 			} else {
 				activityManager.exit();
 			}

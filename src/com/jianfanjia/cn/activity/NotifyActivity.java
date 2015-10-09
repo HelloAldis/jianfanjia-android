@@ -25,9 +25,9 @@ import com.jianfanjia.cn.view.TabPageIndicator;
 /**
  * 
  * @ClassName: NotifyActivity
- * @Description: 提醒
+ * @Description: 鎻愰啋
  * @author fengliang
- * @date 2015-9-11 上午9:49:10
+ * @date 2015-9-11 涓婂崍9:49:10
  * 
  */
 public class NotifyActivity extends BaseActivity implements OnClickListener,
@@ -37,8 +37,8 @@ public class NotifyActivity extends BaseActivity implements OnClickListener,
 	private MainHeadView mainHeadView = null;
 	private TabPageIndicator mPageIndicator = null;
 	private MyFragmentPagerAdapter adapter = null;
-	private ViewPager mPager = null;// 页卡内容
-	private List<SelectItem> listViews = new ArrayList<SelectItem>(); // Tab页面列表
+	private ViewPager mPager = null;// 椤靛崱鍐呭
+	private List<SelectItem> listViews = new ArrayList<SelectItem>(); // Tab椤甸潰鍒楄〃
 	private int initialPosition = 0;
 
 	@Override
@@ -101,10 +101,10 @@ public class NotifyActivity extends BaseActivity implements OnClickListener,
 
 	private void initItem(int initialPosition) {
 		SelectItem caigouItem = new SelectItem(new CaiGouNotifyFragment(),
-				"采购提醒");
+				"閲囪喘鎻愰啋");
 		SelectItem fukuanItem = new SelectItem(new FuKuanNotifyFragment(),
-				"付款提醒");
-		SelectItem yanqiItem = new SelectItem(new YanQiNotifyFragment(), "改期提醒");
+				"浠樻鎻愰啋");
+		SelectItem yanqiItem = new SelectItem(new YanQiNotifyFragment(), "鏀规湡鎻愰啋");
 		listViews.add(caigouItem);
 		listViews.add(fukuanItem);
 		listViews.add(yanqiItem);

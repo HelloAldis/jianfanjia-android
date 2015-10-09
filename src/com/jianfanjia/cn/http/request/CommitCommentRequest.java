@@ -32,7 +32,7 @@ public class CommitCommentRequest extends BaseRequest {
 	@Override
 	public void onSuccess(BaseResponse baseResponse) {
 		if(baseResponse.getMsg() != null){
-			makeLongTextToast("ÆÀÂÛ³É¹¦");
+			makeLongTextToast("è¯„è®ºæˆåŠŸ");
 		}
 	}
 

@@ -14,16 +14,16 @@ import com.jianfanjia.cn.tools.ImageUtils;
 
 /**
  * @class ShareActivity
- * @Description 分享
+ * @Description 鍒嗕韩
  * @author zhanghao
- * @date 2015-8-27 下午8:22
+ * @date 2015-8-27 涓嬪崍8:22
  * 
  */
 public class ShareActivity extends BaseActivity implements OnClickListener,
 		OnLongClickListener {
 	private static final String TAG = ShareActivity.class.getName();
-	private TextView backView;// 返回视图
-	private ImageView mIvCode;// 当前版本
+	private TextView backView;// 杩斿洖瑙嗗浘
+	private ImageView mIvCode;// 褰撳墠鐗堟湰
 
 	@Override
 	public void initView() {

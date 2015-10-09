@@ -20,9 +20,9 @@ import com.jianfanjia.cn.view.MainHeadView;
 /**
  * 
  * @ClassName: MyOwnerActivity
- * @Description:我的业主
+ * @Description:鎴戠殑涓氫富
  * @author fengliang
- * @date 2015-9-16 上午9:31:59
+ * @date 2015-9-16 涓婂崍9:31:59
  * 
  */
 public class MyOwnerActivity extends BaseActivity implements OnClickListener,
@@ -54,7 +54,7 @@ public class MyOwnerActivity extends BaseActivity implements OnClickListener,
 	private void setEmptyView() {
 		ViewStub mViewStub = (ViewStub) findViewById(R.id.empty);
 		errorText = (TextView) mViewStub.inflate().findViewById(R.id.tv_error);
-		errorText.setText("暂无业主数据");
+		errorText.setText("鏆傛棤涓氫富鏁版嵁");
 		ownerListView.setEmptyView(mViewStub);
 	}
 

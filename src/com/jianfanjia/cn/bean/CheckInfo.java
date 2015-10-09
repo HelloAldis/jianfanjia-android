@@ -8,8 +8,8 @@ import com.jianfanjia.cn.tools.LogTool;
 /**
  * @class CheckInfo.class
  * @author zhanghao
- * @Decription 此类是验收信息实体类
- * @date 2015-8-31 上午11:55
+ * @Decription 姝ょ被鏄獙鏀朵俊鎭疄浣撶被
+ * @date 2015-8-31 涓婂崍11:55
  */
 public class CheckInfo implements Serializable {
 

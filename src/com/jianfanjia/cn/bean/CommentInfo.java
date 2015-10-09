@@ -5,27 +5,27 @@ import java.io.Serializable;
 /**
  * 
  * @ClassName: CommentInfo
- * @Description: ÆÀÂÛ
+ * @Description: è¯„è®º
  * @author fengliang
- * @date 2015-8-25 ÉÏÎç11:34:20
+ * @date 2015-8-25 ä¸Šåˆ11:34:20
  * 
  */
 public class CommentInfo implements Serializable {
 	private static final long serialVersionUID = 6340039239493931968L;
 
-	private String id;// ÆÀÂÛid
+	private String id;// è¯„è®ºid
 
-	private String by;// ÆÀÂÛÈËid
+	private String by;// è¯„è®ºäººid
 
-	private String content;// ÆÀÂÛÄÚÈİ
+	private String content;// è¯„è®ºå†…å®¹
 
-	private String usertype;// ÆÀÂÛÈËÉí·İ
+	private String usertype;// è¯„è®ºäººèº«ä»½
 
-	private String userName;// ÆÀÂÛÈËĞÕÃû
+	private String userName;// è¯„è®ºäººå§“å
 
-	private String userImageUrl;// ÆÀÂÛÈËÍ·Ïñurl
+	private String userImageUrl;// è¯„è®ºäººå¤´åƒurl
 
-	private long date;// ÆÀÂÛÊ±¼ä
+	private long date;// è¯„è®ºæ—¶é—´
 
 	public String getId() {
 		return id;

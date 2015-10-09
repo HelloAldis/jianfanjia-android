@@ -16,9 +16,9 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
 /**
  * @version 1.0
- * @Description ´ËÀàÊÇ»ù±¾Ó¦ÓÃ³ÌĞòÀà£¬×öÒ»Ğ©ÅäÖÃ¹¤×÷
+ * @Description æ­¤ç±»æ˜¯åŸºæœ¬åº”ç”¨ç¨‹åºç±»ï¼Œåšä¸€äº›é…ç½®å·¥ä½œ
  * @author zhanghao
- * @date 2015-8-20 ÏÂÎç1:43
+ * @date 2015-8-20 ä¸‹åˆ1:43
  * 
  */
 public class BaseApplication extends Application {

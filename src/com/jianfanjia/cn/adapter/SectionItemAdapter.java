@@ -26,14 +26,14 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 	private static final int SECTION_ITME_VIEW = 1;
 	private static final int IMG_COUNT = 9;
 	private ItemClickCallBack callBack;
-	private int lastClickItem = -1;// ¼ÇÂ¼ÉÏ´Îµã»÷µÄÎ»ÖÃ
-	private int currentClickItem = -1;// ¼ÇÂ¼µ±Ç°µã»÷Î»ÖÃ
+	private int lastClickItem = -1;// è®°å½•ä¸Šæ¬¡ç‚¹å‡»çš„ä½ç½®
+	private int currentClickItem = -1;// è®°å½•å½“å‰ç‚¹å‡»ä½ç½®
 	private boolean isPos = false;
 	private SiteGridViewAdapter siteGridViewAdapter;
 	private List<GridItem> gridItem = new ArrayList<GridItem>();
 	private String section;
 	private String userType;
-	private int section_status;// ½ÚµãµÄ×´Ì¬
+	private int section_status;// èŠ‚ç‚¹çš„çŠ¶æ€
 
 	public SectionItemAdapter(Context context,
 			List<SectionItemInfo> sectionItemInfos) {
@@ -200,7 +200,7 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 
 			if (null != imageUrlList && imageUrlList.size() > 0) {
 				if (imageUrlList.size() < IMG_COUNT
-						&& !imageUrlList.contains(Constant.HOME_ADD_PIC)) {// ×î¶àÉÏ´«9ÕÅÕÕÆ¬
+						&& !imageUrlList.contains(Constant.HOME_ADD_PIC)) {// æœ€å¤šä¸Šä¼ 9å¼ ç…§ç‰‡
 					Log.i(this.getClass().getName(), "addImage");
 					imageUrlList.add(Constant.HOME_ADD_PIC);
 				} else {
@@ -240,7 +240,7 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 				viewHolder.bigOpenLayout.setVisibility(View.GONE);
 				viewHolder.smallcloseLayout.setVisibility(View.VISIBLE);
 			}
-			// ÉèÖÃÉÏ´«ÕÕÆ¬
+			// è®¾ç½®ä¸Šä¼ ç…§ç‰‡
 			setImageData(imageUrlList, viewHolder.gridView);
 			viewHolder.confirmFinishStatus
 					.setOnClickListener(new OnClickListener() {
@@ -271,7 +271,7 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 				viewHolderf.bigOpenLayout.setVisibility(View.GONE);
 				viewHolderf.smallcloseLayout.setVisibility(View.VISIBLE);
 			}
-			// ¸ù¾İ²»Í¬µÄÓÃ»§ÀàĞÍÏÔÊ¾²»Í¬µÄÎÄ×Ö
+			// æ ¹æ®ä¸åŒçš„ç”¨æˆ·ç±»å‹æ˜¾ç¤ºä¸åŒçš„æ–‡å­—
 			if (userType.equals(Constant.IDENTITY_DESIGNER)) {
 				viewHolderf.openCheck.setText(context
 						.getString(R.string.upload_pic));
@@ -303,7 +303,7 @@ public class SectionItemAdapter extends BaseListAdapter<SectionItemInfo> {
 	}
 
 	/**
-	 * @des ÉèÖÃitemÀïgridviewµÄÕÕÆ¬
+	 * @des è®¾ç½®itemé‡Œgridviewçš„ç…§ç‰‡
 	 * @param imageUrlList
 	 * @param gridView
 	 */

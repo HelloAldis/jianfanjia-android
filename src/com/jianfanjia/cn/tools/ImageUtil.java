@@ -1,4 +1,4 @@
-﻿package com.jianfanjia.cn.tools;
+package com.jianfanjia.cn.tools;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -289,7 +289,7 @@ public class ImageUtil {
 	/**
 	 * 按图片大小(先压缩尺寸 在压缩质量)压缩图片
 	 * 
-	 * @param path
+	 * @param srcPath
 	 * @return
 	 */
 	public static Bitmap getImage(String srcPath) {
@@ -326,7 +326,7 @@ public class ImageUtil {
 	/**
 	 * 按图片大小(先压缩尺寸 在压缩质量)压缩图片
 	 * 
-	 * @param path
+	 * @param srcPath
 	 * @return
 	 */
 	public static Bitmap getImageForConcurrent(String srcPath) {
@@ -359,7 +359,7 @@ public class ImageUtil {
 	/**
 	 * 按图片大小(先压缩尺寸 在压缩质量)压缩图片
 	 * 
-	 * @param path
+	 * @param srcPath
 	 * @return
 	 */
 	public static Bitmap getScaledImageForConcurrent(String srcPath) {

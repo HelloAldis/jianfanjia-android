@@ -28,7 +28,7 @@ import com.jianfanjia.cn.view.MainHeadView;
 
 /**
  * @class CommentActivity
- * @Description ÏÔÊ¾ÆÀÂÛÁĞ±í
+ * @Description æ˜¾ç¤ºè¯„è®ºåˆ—è¡¨
  * @author zhanghao
  * @date 2015-8-27 10:11
  * 
@@ -36,16 +36,16 @@ import com.jianfanjia.cn.view.MainHeadView;
 public class CommentActivity extends BaseActivity implements OnClickListener,
 		LoadDataListener {
 	protected static final String TAG = CommentActivity.class.getName();
-	private TextView backView = null;// ·µ»ØÊÓÍ¼
-	private ListView listView = null;// ÆÀÂÛÁĞ±í
-	private Button sendCommentView = null;// ·¢ËÍÆÀÂÛ
-	private EditText etAddCommentView = null;// Ìí¼ÓÆÀÂÛ
-	private CommentInfoAdapter commentInfoAdapter = null;// ÆÀÂÛÁĞ±íadapter
+	private TextView backView = null;// è¿”å›è§†å›¾
+	private ListView listView = null;// è¯„è®ºåˆ—è¡¨
+	private Button sendCommentView = null;// å‘é€è¯„è®º
+	private EditText etAddCommentView = null;// æ·»åŠ è¯„è®º
+	private CommentInfoAdapter commentInfoAdapter = null;// è¯„è®ºåˆ—è¡¨adapter
 	private List<CommentInfo> commentInfoList = new ArrayList<CommentInfo>();
 	private CommentInfo commentInfo = null;
 	private CommitCommentInfo commitCommentInfo = null;
-	private int currentList;// µ±Ç°¹¤Ğò
-	private int currentItem;// µ±Ç°½Úµã
+	private int currentList;// å½“å‰å·¥åº
+	private int currentItem;// å½“å‰èŠ‚ç‚¹
 	private ProcessInfo processInfo;
 	private String section = null;
 	private String item = null;
@@ -141,7 +141,7 @@ public class CommentActivity extends BaseActivity implements OnClickListener,
 			content = etAddCommentView.getEditableText().toString();
 			if (!TextUtils.isEmpty(content)) {
 				commitComment();
-				etAddCommentView.setText("");// Çå³şÊäÈë¿òÄÚÈİ
+				etAddCommentView.setText("");// æ¸…æ¥šè¾“å…¥æ¡†å†…å®¹
 			}
 			break;
 		default:

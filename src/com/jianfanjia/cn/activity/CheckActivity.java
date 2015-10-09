@@ -49,9 +49,9 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 /**
  * 
  * @ClassName: CheckActivity
- * @Description: ÑéÊÕ
+ * @Description: éªŒæ”¶
  * @author fengliang
- * @date 2015-8-28 ÏÂÎç2:25:36
+ * @date 2015-8-28 ä¸‹åˆ2:25:36
  * 
  */
 public class CheckActivity extends BaseActivity implements OnClickListener,
@@ -63,7 +63,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 	public static final String POSITION = "position";
 	
 	private RelativeLayout checkLayout = null;
-	private TextView backView = null;// ·µ»ØÊÓÍ¼
+	private TextView backView = null;// è¿”å›è§†å›¾
 	private TextView check_pic_title = null;
 	private TextView check_pic_edit = null;
 	private GridView gridView = null;
@@ -73,9 +73,9 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 	private List<String> showSamplePic = new ArrayList<String>();
 	private List<String> showProcessPic = new ArrayList<String>();
 	private List<Imageid> imageids = null;
-	private String processInfoId = null;// ¹¤µØid
-	private String sectionInfoName = null;// ¹¤ĞòÃû³Æ
-	private int sectionInfoStatus = -1;// ¹¤Ğò×´Ì¬
+	private String processInfoId = null;// å·¥åœ°id
+	private String sectionInfoName = null;// å·¥åºåç§°
+	private int sectionInfoStatus = -1;// å·¥åºçŠ¶æ€
 	private String key = null;
 	private File mTmpFile = null;
 	private ProcessInfo processInfo;
@@ -162,7 +162,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 				btn_confirm.setText(this.getResources().getString(
 						R.string.confirm_upload));
 				check_pic_edit.setVisibility(View.VISIBLE);
-				check_pic_edit.setText("±à¼­");
+				check_pic_edit.setText("ç¼–è¾‘");
 				currentState = EDIT_STATUS;
 			}
 		}
@@ -172,7 +172,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 	private void initData() {
 		check_pic_title.setText(MyApplication.getInstance().getStringById(
 				sectionInfoName)
-				+ "½×¶ÎÑéÊÕ");
+				+ "é˜¶æ®µéªŒæ”¶");
 		switch (sectionInfoStatus) {
 		case Constant.NOT_START:
 			break;
@@ -286,14 +286,14 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 
 	public void changeEditStatus() {
 		if (currentState == FINISH_STATUS) {
-			check_pic_edit.setText("±à¼­");
+			check_pic_edit.setText("ç¼–è¾‘");
 			currentState = EDIT_STATUS;
 			adapter.setCanDelete(false);
 			btn_confirm.setEnabled(true);
 			adapter.notifyDataSetInvalidated();
 		} else {
 			btn_confirm.setEnabled(false);
-			check_pic_edit.setText("Íê³É");
+			check_pic_edit.setText("å®Œæˆ");
 			currentState = FINISH_STATUS;
 			adapter.setCanDelete(true);
 			adapter.notifyDataSetInvalidated();
@@ -359,7 +359,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 			Intent cameraIntent = UiHelper.createShotIntent(mTmpFile);
 			startActivityForResult(cameraIntent, Constant.REQUESTCODE_CAMERA);
 		}else{
-			makeTextLong("Ã»ÓĞsd¿¨£¬ÎŞ·¨´ò¿ªÏà»ú");
+			makeTextLong("æ²¡æœ‰sdå¡ï¼Œæ— æ³•æ‰“å¼€ç›¸æœº");
 		}
 	}
 
@@ -375,7 +375,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		switch (requestCode) {
-		case Constant.REQUESTCODE_CAMERA:// ÅÄÕÕ
+		case Constant.REQUESTCODE_CAMERA:// æ‹ç…§
 			mTmpFile = new File(dataManager.getPicPath());
 			if (mTmpFile != null) {
 				Uri uri = Uri.fromFile(mTmpFile);
@@ -383,7 +383,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 				uploadImage(mTmpFile.getPath());
 			}
 			break;
-		case Constant.REQUESTCODE_LOCATION:// ±¾µØÑ¡È¡
+		case Constant.REQUESTCODE_LOCATION:// æœ¬åœ°é€‰å–
 			if (data != null) {
 				Uri uri = data.getData();
 				LogTool.d(TAG, "uri:" + uri);
@@ -450,8 +450,8 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 	private void onClickCheckDone() {
 		CommonDialog dialog = DialogHelper
 				.getPinterestDialogCancelable(CheckActivity.this);
-		dialog.setTitle("È·ÈÏÍê¹¤");
-		dialog.setMessage("È·¶¨Íê¹¤Âğ£¿");
+		dialog.setTitle("ç¡®è®¤å®Œå·¥");
+		dialog.setMessage("ç¡®å®šå®Œå·¥å—ï¼Ÿ");
 		dialog.setPositiveButton(R.string.ok,
 				new DialogInterface.OnClickListener() {
 
@@ -468,8 +468,8 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 	private void onClickCheckConfirm() {
 		CommonDialog dialog = DialogHelper
 				.getPinterestDialogCancelable(CheckActivity.this);
-		dialog.setTitle("È·ÈÏÑéÊÕ");
-		dialog.setMessage("È·¶¨ÑéÊÕÂğ£¿");
+		dialog.setTitle("ç¡®è®¤éªŒæ”¶");
+		dialog.setMessage("ç¡®å®šéªŒæ”¶å—ï¼Ÿ");
 		dialog.setPositiveButton(R.string.ok,
 				new DialogInterface.OnClickListener() {
 
@@ -484,7 +484,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 		dialog.show();
 	}
 
-	// Éè¼ÆÊ¦È·ÈÏ¿ÉÒÔ¿ªÊ¼ÑéÊÕ
+	// è®¾è®¡å¸ˆç¡®è®¤å¯ä»¥å¼€å§‹éªŒæ”¶
 	private void confirmCanCheckByDesigner(String siteid, String processid) {
 		JianFanJiaApiClient.confirm_canCheckBydesigner(CheckActivity.this,
 				siteid, processid, new JsonHttpResponseHandler() {
@@ -527,7 +527,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 				});
 	}
 
-	// ÒµÖ÷È·ÈÏ¶Ô±ÈÑéÊÕÍê³É
+	// ä¸šä¸»ç¡®è®¤å¯¹æ¯”éªŒæ”¶å®Œæˆ
 	private void confirmCheckDoneByOwner(String siteid, String processid) {
 		JianFanJiaApiClient.confirm_CheckDoneByOwner(CheckActivity.this,
 				siteid, processid, new JsonHttpResponseHandler() {
@@ -571,7 +571,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 	}
 
 	/**
-	 * ¸ù¾İ¹¤ĞòÃû»ñÈ¡ÑéÊÕÍ¼Æ¬
+	 * æ ¹æ®å·¥åºåè·å–éªŒæ”¶å›¾ç‰‡
 	 * 
 	 * @param sectionName
 	 * @return

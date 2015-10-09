@@ -70,9 +70,9 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 /**
  * 
  * @ClassName:SiteManageFragment
- * @Description:¹¤µØ¹ÜÀí
+ * @Description:å·¥åœ°ç®¡ç†
  * @author fengliang
- * @date 2015-8-26 ÉÏÎç11:14:00
+ * @date 2015-8-26 ä¸Šåˆ11:14:00
  * 
  */
 public class SiteManageFragment extends BaseFragment implements
@@ -80,14 +80,14 @@ public class SiteManageFragment extends BaseFragment implements
 		LoadDataListener {
 	private static final String TAG = SiteManageFragment.class.getName();
 	private PullToRefreshScrollView mPullRefreshScrollView = null;
-	private static final int TOTAL_PROCESS = 7;// 7µÀ¹¤Ğò
+	private static final int TOTAL_PROCESS = 7;// 7é“å·¥åº
 	private List<SectionInfo> sectionInfos;
 	private SectionInfo sectionInfo = null;
 	private ProcessInfo processInfo = null;
-	private String processId = null;// Ä¬ÈÏµÄ¹¤µØid
-	private int currentPro = -1;// µ±Ç°½øĞĞ¹¤Ğò
-	private int currentList = -1;// µ±Ç°Õ¹¿ªµÚÒ»µÀ¹¤Ğò
-	private int lastPro = -1;// ÉÏ´Î½øĞĞµÄ¹¤Ğò
+	private String processId = null;// é»˜è®¤çš„å·¥åœ°id
+	private int currentPro = -1;// å½“å‰è¿›è¡Œå·¥åº
+	private int currentList = -1;// å½“å‰å±•å¼€ç¬¬ä¸€é“å·¥åº
+	private int lastPro = -1;// ä¸Šæ¬¡è¿›è¡Œçš„å·¥åº
 
 	private ViewPager processViewPager = null;
 	private ListView detailNodeListView = null;
@@ -166,18 +166,18 @@ public class SiteManageFragment extends BaseFragment implements
 		titleRight.setOnClickListener(this);
 		if (mUserType.equals(Constant.IDENTITY_OWNER)) {
 			titleCenter.setText("");
-			titleRight.setText("ÅäÖÃ¹¤µØ");
+			titleRight.setText("é…ç½®å·¥åœ°");
 		} else if (mUserType.equals(Constant.IDENTITY_DESIGNER)) {
 			titleCenter.setText("");
-			titleRight.setText("ÇĞ»»¹¤µØ");
+			titleRight.setText("åˆ‡æ¢å·¥åœ°");
 		}
 	}
 
-	// ³õÊ¼»¯Êı¾İ
+	// åˆå§‹åŒ–æ•°æ®
 	private void initData() {
 		if (processInfo != null) {
 			titleCenter.setText(processInfo.getCell() == null ? ""
-					: processInfo.getCell());// ÉèÖÃ±êÌâÍ·
+					: processInfo.getCell());// è®¾ç½®æ ‡é¢˜å¤´
 			currentPro = MyApplication.getInstance().getPositionByItemName(
 					processInfo.getGoing_on());
 			if (currentList == -1 || lastPro != currentPro) {
@@ -213,7 +213,7 @@ public class SiteManageFragment extends BaseFragment implements
 
 	private void initBannerView() {
 		ViewPagerManager contoler = new ViewPagerManager(getActivity());
-		contoler.setmShapeType(ShapeType.OVAL);// ÉèÖÃÖ¸Ê¾Æ÷µÄĞÎ×´Îª¾ØĞÎ£¬Ä¬ÈÏÊÇÔ²ĞÎ
+		contoler.setmShapeType(ShapeType.OVAL);// è®¾ç½®æŒ‡ç¤ºå™¨çš„å½¢çŠ¶ä¸ºçŸ©å½¢ï¼Œé»˜è®¤æ˜¯åœ†å½¢
 		List<View> bannerList = new ArrayList<View>();
 		for (int i = 0; i < BANNER_ICON.length; i++) {
 			ImageView imageView = new ImageView(getActivity());
@@ -380,14 +380,14 @@ public class SiteManageFragment extends BaseFragment implements
 
 	@Override
 	public void onPullDownToRefresh(PullToRefreshBase<ScrollView> refreshView) {
-		// ÏÂÀ­Ë¢ĞÂ(´ÓµÚÒ»Ò³¿ªÊ¼×°ÔØÊı¾İ)
+		// ä¸‹æ‹‰åˆ·æ–°(ä»ç¬¬ä¸€é¡µå¼€å§‹è£…è½½æ•°æ®)
 		String label = DateUtils.formatDateTime(getActivity(),
 				System.currentTimeMillis(), DateUtils.FORMAT_SHOW_TIME
 						| DateUtils.FORMAT_SHOW_DATE
 						| DateUtils.FORMAT_ABBREV_ALL);
 		// Update the LastUpdatedLabel
 		refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
-		// ¼ÓÔØÊı¾İ
+		// åŠ è½½æ•°æ®
 		/*
 		 * LoadClientHelper.requestProcessInfoById(getActivity(),new
 		 * ProcessInfoRequest(getActivity(), dataManager.getDefaultProcessId())
@@ -404,7 +404,7 @@ public class SiteManageFragment extends BaseFragment implements
 
 	@Override
 	public void onPullUpToRefresh(PullToRefreshBase<ScrollView> refreshView) {
-		// ÉÏÀ­¼ÓÔØ¸ü¶à(¼ÓÔØÏÂÒ»Ò³Êı¾İ)
+		// ä¸Šæ‹‰åŠ è½½æ›´å¤š(åŠ è½½ä¸‹ä¸€é¡µæ•°æ®)
 		mPullRefreshScrollView.onRefreshComplete();
 	}
 
@@ -490,7 +490,7 @@ public class SiteManageFragment extends BaseFragment implements
 			Intent cameraIntent = UiHelper.createShotIntent(mTmpFile);
 			startActivityForResult(cameraIntent, Constant.REQUESTCODE_CAMERA);
 		} else {
-			makeTextLong("Ã»ÓĞsd¿¨£¬ÎŞ·¨´ò¿ªÏà»ú");
+			makeTextLong("æ²¡æœ‰sdå¡ï¼Œæ— æ³•æ‰“å¼€ç›¸æœº");
 		}
 	}
 
@@ -505,7 +505,7 @@ public class SiteManageFragment extends BaseFragment implements
 	private void delayDialog() {
 		DateWheelDialog dateWheelDialog = new DateWheelDialog(getActivity(),
 				Calendar.getInstance());
-		dateWheelDialog.setTitle("Ñ¡ÔñÊ±¼ä");
+		dateWheelDialog.setTitle("é€‰æ‹©æ—¶é—´");
 		dateWheelDialog.setPositiveButton(R.string.ok,
 				new DialogInterface.OnClickListener() {
 
@@ -529,8 +529,8 @@ public class SiteManageFragment extends BaseFragment implements
 	private void confirmFinishDialog() {
 		CommonDialog dialog = DialogHelper
 				.getPinterestDialogCancelable(getActivity());
-		dialog.setTitle("È·ÈÏÍê¹¤");
-		dialog.setMessage("È·ÈÏÍê¹¤Âğ£¿");
+		dialog.setTitle("ç¡®è®¤å®Œå·¥");
+		dialog.setMessage("ç¡®è®¤å®Œå·¥å—ï¼Ÿ");
 		dialog.setPositiveButton(R.string.ok,
 				new DialogInterface.OnClickListener() {
 
@@ -546,7 +546,7 @@ public class SiteManageFragment extends BaseFragment implements
 		dialog.show();
 	}
 
-	// Ìá½»¸ÄÆÚ
+	// æäº¤æ”¹æœŸ
 	private void postReschedule(String processId, String userId,
 			String designerId, String section, String newDate) {
 		LogTool.d(TAG, "processId:" + processId + " userId:" + userId
@@ -581,7 +581,7 @@ public class SiteManageFragment extends BaseFragment implements
 				});
 	}
 
-	// È·ÈÏÍê¹¤×°ĞŞÁ÷³ÌĞ¡½Úµã
+	// ç¡®è®¤å®Œå·¥è£…ä¿®æµç¨‹å°èŠ‚ç‚¹
 	private void confirmProcessItemDone(String siteId, String section,
 			String item) {
 		LogTool.d(TAG, "siteId:" + siteId + " section:" + section + " item:"
@@ -635,7 +635,7 @@ public class SiteManageFragment extends BaseFragment implements
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		switch (requestCode) {
-		case Constant.REQUESTCODE_CAMERA:// ÅÄÕÕ
+		case Constant.REQUESTCODE_CAMERA:// æ‹ç…§
 			mTmpFile = new File(dataManager.getPicPath());
 			if (mTmpFile != null) {
 				Bitmap imageBitmap = ImageUtil.getImage(mTmpFile.getPath());
@@ -713,7 +713,7 @@ public class SiteManageFragment extends BaseFragment implements
 				}
 			}
 			break;
-		case Constant.REQUESTCODE_LOCATION:// ±¾µØÑ¡È¡
+		case Constant.REQUESTCODE_LOCATION:// æœ¬åœ°é€‰å–
 			if (data != null) {
 				Uri uri = data.getData();
 				LogTool.d(TAG, "uri:" + uri);

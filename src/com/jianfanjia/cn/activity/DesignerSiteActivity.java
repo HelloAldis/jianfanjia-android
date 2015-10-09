@@ -26,9 +26,9 @@ import com.jianfanjia.cn.view.MainHeadView;
 /**
  * 
  * @ClassName: DesignerSiteActivity
- * @Description: Éè¼ÆÊ¦¹¤µØ
+ * @Description: è®¾è®¡å¸ˆå·¥åœ°
  * @author fengliang
- * @date 2015-9-11 ÉÏÎç10:02:42
+ * @date 2015-9-11 ä¸Šåˆ10:02:42
  * 
  */
 public class DesignerSiteActivity extends BaseActivity implements
@@ -62,7 +62,7 @@ public class DesignerSiteActivity extends BaseActivity implements
 	private void setEmptyView() {
 		ViewStub mViewStub = (ViewStub) findViewById(R.id.empty);
 		errorText = (TextView) mViewStub.inflate().findViewById(R.id.tv_error);
-		errorText.setText("ÔİÎŞ¹¤µØÊı¾İ");
+		errorText.setText("æš‚æ— å·¥åœ°æ•°æ®");
 		siteListView.setEmptyView(mViewStub);
 	}
 

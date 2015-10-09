@@ -24,24 +24,24 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
  * @version 1.0
- * @Description ´ËÀàÊÇÎÒµÄÓ¦ÓÃ³ÌĞòÀà
+ * @Description æ­¤ç±»æ˜¯æˆ‘çš„åº”ç”¨ç¨‹åºç±»
  * @author Administrator
- * @date 2015-8-20 ÏÂÎç1:45
+ * @date 2015-8-20 ä¸‹åˆ1:45
  * 
  */
 public class MyApplication extends BaseApplication {
 	private static MyApplication instance;
-	private RegisterInfo registerInfo = new RegisterInfo();// ×¢²áÊµÌåĞÅÏ¢
-	private PersistentCookieStore cookieStore;// cookieÊµÀı»¯
+	private RegisterInfo registerInfo = new RegisterInfo();// æ³¨å†Œå®ä½“ä¿¡æ¯
+	private PersistentCookieStore cookieStore;// cookieå®ä¾‹åŒ–
 
 	@Override
 	public void onCreate() {
 		super.onCreate();
 		instance = this;
 
-		saveDefaultProcess();// ¼ÓÔØÄ¬ÈÏµÄ¹¤µØĞÅÏ¢
+		saveDefaultProcess();// åŠ è½½é»˜è®¤çš„å·¥åœ°ä¿¡æ¯
 
-		cookieStore = new PersistentCookieStore(this);// ¼ÇÂ¼cookie
+		cookieStore = new PersistentCookieStore(this);// è®°å½•cookie
 		saveCookie(HttpRestClient.getHttpClient());
 		/*
 		 * Thread.setDefaultUncaughtExceptionHandler(AppException
@@ -60,7 +60,7 @@ public class MyApplication extends BaseApplication {
 		}
 	}
 
-	// ÄÃµ½ËùÓĞµÄÄ£Äâ¹¤µØÊı¾İ
+	// æ‹¿åˆ°æ‰€æœ‰çš„æ¨¡æ‹Ÿå·¥åœ°æ•°æ®
 	public static ProcessInfo getDefaultProcessInfo(Context context) {
 		ProcessInfo processInfo = null;
 		try {
@@ -84,7 +84,7 @@ public class MyApplication extends BaseApplication {
 	}
 
 	/**
-	 * @description ¸ù¾İÓ¢ÎÄµÄname,ÄÃµ½ÖĞÎÄµÄname
+	 * @description æ ¹æ®è‹±æ–‡çš„name,æ‹¿åˆ°ä¸­æ–‡çš„name
 	 * @param string
 	 * @return
 	 */
@@ -95,9 +95,9 @@ public class MyApplication extends BaseApplication {
 	}
 
 	/**
-	 * @description ¸ù¾İname,ÄÃµ½µ±Ç°µÄ½øĞĞ¹¤ĞòµÄÎ»ÖÃ
+	 * @description æ ¹æ®name,æ‹¿åˆ°å½“å‰çš„è¿›è¡Œå·¥åºçš„ä½ç½®
 	 * @param name
-	 * @return Ä¬ÈÏ·µ»Ø0£¬µ±Ç°¹¤ĞòÎªµÚÒ»¸ö¹¤Ğò
+	 * @return é»˜è®¤è¿”å›0ï¼Œå½“å‰å·¥åºä¸ºç¬¬ä¸€ä¸ªå·¥åº
 	 */
 	public int getPositionByItemName(String name) {
 		if (name == null) {
@@ -113,7 +113,7 @@ public class MyApplication extends BaseApplication {
 	}
 
 	/**
-	 * ÄÃµ½°æ±¾ºÅ
+	 * æ‹¿åˆ°ç‰ˆæœ¬å·
 	 * 
 	 * @return
 	 */
@@ -139,7 +139,7 @@ public class MyApplication extends BaseApplication {
 	}
 
 	/**
-	 * ¸ù¾İÊÖ»úµÄ·Ö±æÂÊ´Ó dp µÄµ¥Î» ×ª³ÉÎª px(ÏñËØ)
+	 * æ ¹æ®æ‰‹æœºçš„åˆ†è¾¨ç‡ä» dp çš„å•ä½ è½¬æˆä¸º px(åƒç´ )
 	 */
 	public static int dip2px(Context context, float dpValue) {
 		final float scale = context.getResources().getDisplayMetrics().density;
@@ -147,7 +147,7 @@ public class MyApplication extends BaseApplication {
 	}
 
 	/**
-	 * ¸ù¾İÊÖ»úµÄ·Ö±æÂÊ´Ó px(ÏñËØ) µÄµ¥Î» ×ª³ÉÎª dp
+	 * æ ¹æ®æ‰‹æœºçš„åˆ†è¾¨ç‡ä» px(åƒç´ ) çš„å•ä½ è½¬æˆä¸º dp
 	 */
 	public static int px2dip(Context context, float pxValue) {
 		final float scale = context.getResources().getDisplayMetrics().density;
@@ -155,7 +155,7 @@ public class MyApplication extends BaseApplication {
 	}
 
 	/**
-	 * ÅĞ¶Ïµ±Ç°°æ±¾ÊÇ·ñ¼æÈİÄ¿±ê°æ±¾µÄ·½·¨
+	 * åˆ¤æ–­å½“å‰ç‰ˆæœ¬æ˜¯å¦å…¼å®¹ç›®æ ‡ç‰ˆæœ¬çš„æ–¹æ³•
 	 * 
 	 * @param VersionCode
 	 * @return
@@ -166,17 +166,17 @@ public class MyApplication extends BaseApplication {
 	}
 
 	/**
-	 * Çå³ıapp»º´æ
+	 * æ¸…é™¤appç¼“å­˜
 	 */
 	public void clearAppCache() {
 //		DataCleanManager.cleanDatabases(this);
-		// Çå³ıÊı¾İ»º´æ
+		// æ¸…é™¤æ•°æ®ç¼“å­˜
 //		DataCleanManager.cleanInternalCache(this);
 		ImageLoader.getInstance().clearDiskCache();
 		DataCleanManager.deleteFilesByDirectory(new File(Constant.COMMON_PATH));
 		
 		//
-		// 2.2°æ±¾²ÅÓĞ½«Ó¦ÓÃ»º´æ×ªÒÆµ½sd¿¨µÄ¹¦ÄÜ
+		// 2.2ç‰ˆæœ¬æ‰æœ‰å°†åº”ç”¨ç¼“å­˜è½¬ç§»åˆ°sdå¡çš„åŠŸèƒ½
 		if (isMethodsCompat(android.os.Build.VERSION_CODES.FROYO)) {
 			DataCleanManager.cleanCustomCache(getExternalCacheDir());
 		}

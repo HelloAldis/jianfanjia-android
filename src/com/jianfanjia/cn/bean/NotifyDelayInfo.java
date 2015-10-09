@@ -4,9 +4,9 @@ import java.io.Serializable;
 
 /**
  * @Class NotifyDelayInfo.class
- * @Decription ÑÓÆÚÌáĞÑÊµÌåÀà
+ * @Decription å»¶æœŸæé†’å®ä½“ç±»
  * @author zhanghao
- * @date 2015-8-26 ÏÂÎç18:00
+ * @date 2015-8-26 ä¸‹åˆ18:00
  * 
  */
 public class NotifyDelayInfo implements Serializable {

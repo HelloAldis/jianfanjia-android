@@ -30,18 +30,18 @@ public class SectionItemAdapterBack extends BaseAdapter {
 	private static final int CHECK_VIEW = 0;
 	private static final int SECTION_ITME_VIEW = 1;
 	private ItemClickCallBack callBack = null;
-	private int lastClickItem = -1;// ¼ÇÂ¼ÉÏ´Îµã»÷µÄÎ»ÖÃ
-	private int currentClickItem = -1;// ¼ÇÂ¼µ±Ç°µã»÷Î»ÖÃ
+	private int lastClickItem = -1;// è®°å½•ä¸Šæ¬¡ç‚¹å‡»çš„ä½ç½®
+	private int currentClickItem = -1;// è®°å½•å½“å‰ç‚¹å‡»ä½ç½®
 	private SiteGridViewAdapter siteGridViewAdapter;
 	private String userType;
-	private int section_status;// ½ÚµãµÄ×´Ì¬
+	private int section_status;// èŠ‚ç‚¹çš„çŠ¶æ€
 	private SectionInfo sectionInfo;
 	private Context context;
 	private LayoutInflater layoutInflater;
 	private List<SectionItemInfo> list = new ArrayList<SectionItemInfo>();
 	private List<String> imageUrlList = new ArrayList<String>();
 	private DataManagerNew dataManager;
-	private boolean isHasCheck;// ÊÇ·ñÓĞÑéÊÕ
+	private boolean isHasCheck;// æ˜¯å¦æœ‰éªŒæ”¶
 	private List<SectionInfo> sectionInfos;
 
 	public SectionItemAdapterBack(Context context, int position,
@@ -291,7 +291,7 @@ public class SectionItemAdapterBack extends BaseAdapter {
 				break;
 			}
 
-			// ÉèÖÃ×îĞÂ¶¯Ì¬µÄÊ±¼ä
+			// è®¾ç½®æœ€æ–°åŠ¨æ€çš„æ—¶é—´
 			long date = sectionItemInfo.getDate();
 			if (date != 0l) {
 				viewHolder.openUploadTime.setText(StringUtils
@@ -302,7 +302,7 @@ public class SectionItemAdapterBack extends BaseAdapter {
 
 			if (null != imageUrlList && imageUrlList.size() > 0) {
 				if (imageUrlList.size() < IMG_COUNT
-						&& !imageUrlList.contains(Constant.HOME_ADD_PIC)) {// ×î¶àÉÏ´«9ÕÅÕÕÆ¬
+						&& !imageUrlList.contains(Constant.HOME_ADD_PIC)) {// æœ€å¤šä¸Šä¼ 9å¼ ç…§ç‰‡
 					Log.i(this.getClass().getName(), "addImage");
 					imageUrlList.add(Constant.HOME_ADD_PIC);
 				} else {
@@ -330,7 +330,7 @@ public class SectionItemAdapterBack extends BaseAdapter {
 						null, null);
 			}
 
-			// Î´¿ª¹¤µÄµã»÷ÎŞ·¨Õ¹¿ª
+			// æœªå¼€å·¥çš„ç‚¹å‡»æ— æ³•å±•å¼€
 			if (section_status != Constant.NOT_START) {
 				if (sectionItemInfo.isOpen()) {
 					viewHolder.bigOpenLayout.setVisibility(View.VISIBLE);
@@ -344,7 +344,7 @@ public class SectionItemAdapterBack extends BaseAdapter {
 				viewHolder.smallcloseLayout.setVisibility(View.VISIBLE);
 
 			}
-			// ÉèÖÃÉÏ´«ÕÕÆ¬
+			// è®¾ç½®ä¸Šä¼ ç…§ç‰‡
 			setImageData(imageUrlList, viewHolder.gridView);
 
 			viewHolder.confirmFinishStatus
@@ -396,7 +396,7 @@ public class SectionItemAdapterBack extends BaseAdapter {
 				viewHolderf.smallcloseLayout
 						.setBackgroundResource(R.drawable.list_item_text_bg1);
 			}
-			// ¸ù¾İ²»Í¬µÄÓÃ»§ÀàĞÍÏÔÊ¾²»Í¬µÄÎÄ×Ö
+			// æ ¹æ®ä¸åŒçš„ç”¨æˆ·ç±»å‹æ˜¾ç¤ºä¸åŒçš„æ–‡å­—
 			if (userType.equals(Constant.IDENTITY_DESIGNER)) {
 				viewHolderf.openCheck.setText(context
 						.getString(R.string.upload_pic));
@@ -440,7 +440,7 @@ public class SectionItemAdapterBack extends BaseAdapter {
 	}
 
 	/**
-	 * @des ÉèÖÃitemÀïgridviewµÄÕÕÆ¬
+	 * @des è®¾ç½®itemé‡Œgridviewçš„ç…§ç‰‡
 	 * @param imageUrlList
 	 * @param gridView
 	 */

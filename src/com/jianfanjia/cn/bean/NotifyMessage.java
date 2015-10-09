@@ -7,9 +7,9 @@ import com.j256.ormlite.table.DatabaseTable;
 /**
  * 
  * @ClassName: NotifyMessage
- * @Description: ÍÆËÍÏûÏ¢
+ * @Description: æ¨é€æ¶ˆæ¯
  * @author fengliang
- * @date 2015-9-2 ÉÏÎç9:58:19
+ * @date 2015-9-2 ä¸Šåˆ9:58:19
  * 
  */
 @DatabaseTable(tableName = "NotifyMessage")
@@ -17,22 +17,22 @@ public class NotifyMessage implements Serializable {
 	private static final long serialVersionUID = -1386644478824610283L;
 
 	@DatabaseField(generatedId = true)
-	public int id;// ×ÔÔö³¤
+	public int id;// è‡ªå¢é•¿
 
 	@DatabaseField
-	private String type;// ÀàĞÍ
+	private String type;// ç±»å‹
 
 	@DatabaseField
-	private String content;// ÄÚÈİ
+	private String content;// å†…å®¹
 
 	@DatabaseField
-	private long time;// ÈÕÆÚ
+	private long time;// æ—¥æœŸ
 
 	@DatabaseField
-	private String section;// ½×¶Î
+	private String section;// é˜¶æ®µ
 
 	@DatabaseField
-	private String status;// ×´Ì¬
+	private String status;// çŠ¶æ€
 
 	public NotifyMessage() {
 

@@ -20,7 +20,7 @@ public class ShowPicActivity extends BaseActivity implements
 	private ShowPicPagerAdapter showPicPagerAdapter;
 	private TextView tipView;
 	private List<String> imageList = new ArrayList<String>();
-	private int currentPosition;// µ±Ç°µÚ¼¸ÕÅÕÕÆ¬
+	private int currentPosition;// å½“å‰ç¬¬å‡ å¼ ç…§ç‰‡
 	private int totalCount = 0;
 	private String tipText = null;
 

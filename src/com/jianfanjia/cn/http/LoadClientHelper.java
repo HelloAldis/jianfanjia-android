@@ -35,7 +35,7 @@ public class LoadClientHelper {
 	private static final String TAG = LoadClientHelper.class.getName();
 
 	/**
-	 * ÓÃ»§µÇÂ¼
+	 * ç”¨æˆ·ç™»å½•
 	 * 
 	 * @param context
 	 * @param loginRequest
@@ -104,7 +104,7 @@ public class LoadClientHelper {
 	}
 
 	/**
-	 * ÓÃ»§µÇ³ö
+	 * ç”¨æˆ·ç™»å‡º
 	 * 
 	 * @param context
 	 * @param logoutRequest
@@ -136,7 +136,7 @@ public class LoadClientHelper {
 							listener.loadSuccess();
 						}
 					} else if (response.has(Constant.ERROR_MSG)) {
-						// Í¨ÖªÒ³ÃæË¢ĞÂ
+						// é€šçŸ¥é¡µé¢åˆ·æ–°
 						baseResponse.setErr_msg(response
 								.get(Constant.ERROR_MSG).toString());
 						logoutRequest.onFailure(baseResponse);
@@ -173,7 +173,7 @@ public class LoadClientHelper {
 	}
 
 	/**
-	 * ¼ÓÔØ¹¤µØÁĞ±í
+	 * åŠ è½½å·¥åœ°åˆ—è¡¨
 	 */
 	public static void requestProcessList(final Context context,
 			final ProcessListRequest proListRequest,
@@ -203,9 +203,9 @@ public class LoadClientHelper {
 								if (listener != null) {
 									listener.loadSuccess();
 								}
-								// ±£´æ¹¤µØÁ÷³Ì
+								// ä¿å­˜å·¥åœ°æµç¨‹
 							} else if (response.has(Constant.ERROR_MSG)) {
-								// Í¨ÖªÒ³ÃæË¢ĞÂ
+								// é€šçŸ¥é¡µé¢åˆ·æ–°
 								baseResponse.setErr_msg(response.get(
 										Constant.ERROR_MSG).toString());
 								proListRequest.onFailure(baseResponse);
@@ -214,7 +214,7 @@ public class LoadClientHelper {
 								}
 							}
 						} catch (JSONException e) {
-							// Í¨ÖªÒ³ÃæË¢ĞÂ
+							// é€šçŸ¥é¡µé¢åˆ·æ–°
 							if (listener != null) {
 								listener.loadFailture();
 							}
@@ -227,7 +227,7 @@ public class LoadClientHelper {
 							Throwable throwable, JSONObject errorResponse) {
 						LogTool.d(TAG,
 								"Throwable throwable:" + throwable.toString());
-						// Í¨ÖªÒ³ÃæË¢ĞÂ
+						// é€šçŸ¥é¡µé¢åˆ·æ–°
 						if (listener != null) {
 							listener.loadFailture();
 						}
@@ -237,7 +237,7 @@ public class LoadClientHelper {
 					public void onFailure(int statusCode, Header[] headers,
 							String responseString, Throwable throwable) {
 						LogTool.d(TAG, "throwable:" + throwable);
-						// Í¨ÖªÒ³ÃæË¢ĞÂ
+						// é€šçŸ¥é¡µé¢åˆ·æ–°
 						if (listener != null) {
 							listener.loadFailture();
 						}
@@ -247,7 +247,7 @@ public class LoadClientHelper {
 	}
 
 	/**
-	 * ¼ÓÔØÄ³¸ö¹¤µØĞÅÏ¢
+	 * åŠ è½½æŸä¸ªå·¥åœ°ä¿¡æ¯
 	 * 
 	 * @param context
 	 * @param processInfoRequest
@@ -283,7 +283,7 @@ public class LoadClientHelper {
 									listener.loadSuccess();
 								}
 							} else if (response.has(Constant.ERROR_MSG)) {
-								// Í¨ÖªÒ³ÃæË¢ĞÂ
+								// é€šçŸ¥é¡µé¢åˆ·æ–°
 								baseResponse.setErr_msg(response.get(
 										Constant.ERROR_MSG).toString());
 								processInfoRequest.onFailure(baseResponse);
@@ -292,7 +292,7 @@ public class LoadClientHelper {
 								}
 							}
 						} catch (JSONException e) {
-							// Í¨ÖªÒ³ÃæË¢ĞÂ
+							// é€šçŸ¥é¡µé¢åˆ·æ–°
 							if (listener != null) {
 								listener.loadFailture();
 							}
@@ -304,7 +304,7 @@ public class LoadClientHelper {
 							Throwable throwable, JSONObject errorResponse) {
 						LogTool.d(TAG,
 								"Throwable throwable:" + throwable.toString());
-						// Í¨ÖªÒ³ÃæË¢ĞÂ
+						// é€šçŸ¥é¡µé¢åˆ·æ–°
 						if (listener != null) {
 							listener.loadFailture();
 						}
@@ -314,7 +314,7 @@ public class LoadClientHelper {
 					public void onFailure(int statusCode, Header[] headers,
 							String responseString, Throwable throwable) {
 						LogTool.d(TAG, "throwable:" + throwable);
-						// Í¨ÖªÒ³ÃæË¢ĞÂ
+						// é€šçŸ¥é¡µé¢åˆ·æ–°
 						if (listener != null) {
 							listener.loadFailture();
 						}
@@ -323,7 +323,7 @@ public class LoadClientHelper {
 	}
 
 	/**
-	 * ¼ÓÔØÄ³¸öÒµÖ÷ĞÅÏ¢
+	 * åŠ è½½æŸä¸ªä¸šä¸»ä¿¡æ¯
 	 * 
 	 * @param context
 	 * @param ownerInfoRequest
@@ -358,7 +358,7 @@ public class LoadClientHelper {
 									listener.loadSuccess();
 								}
 							} else if (response.has(Constant.ERROR_MSG)) {
-								// Í¨ÖªÒ³ÃæË¢ĞÂ
+								// é€šçŸ¥é¡µé¢åˆ·æ–°
 								baseResponse.setErr_msg(response.get(
 										Constant.ERROR_MSG).toString());
 								ownerInfoRequest.onFailure(baseResponse);
@@ -396,7 +396,7 @@ public class LoadClientHelper {
 	}
 
 	/**
-	 * ¼ÇÔØÄ³¸öÉè¼ÆÊ¦ĞÅÏ¢
+	 * è®°è½½æŸä¸ªè®¾è®¡å¸ˆä¿¡æ¯
 	 * 
 	 * @param context
 	 * @param designerInfoRequest
@@ -433,7 +433,7 @@ public class LoadClientHelper {
 									listener.loadSuccess();
 								}
 							} else if (response.has(Constant.ERROR_MSG)) {
-								// Í¨ÖªÒ³ÃæË¢ĞÂ
+								// é€šçŸ¥é¡µé¢åˆ·æ–°
 								baseResponse.setErr_msg(response.get(
 										Constant.ERROR_MSG).toString());
 								designerInfoRequest.onFailure(baseResponse);
@@ -471,7 +471,7 @@ public class LoadClientHelper {
 	}
 	
 	/**
-	 * ÒµÖ÷»ñÈ¡Éè¼ÆÊ¦ĞÅÏ¢
+	 * ä¸šä¸»è·å–è®¾è®¡å¸ˆä¿¡æ¯
 	 * 
 	 * @param context
 	 * @param designerInfoRequest
@@ -508,7 +508,7 @@ public class LoadClientHelper {
 									listener.loadSuccess();
 								}
 							} else if (response.has(Constant.ERROR_MSG)) {
-								// Í¨ÖªÒ³ÃæË¢ĞÂ
+								// é€šçŸ¥é¡µé¢åˆ·æ–°
 								baseResponse.setErr_msg(response.get(
 										Constant.ERROR_MSG).toString());
 								designerInfoRequest.onFailure(baseResponse);
@@ -547,7 +547,7 @@ public class LoadClientHelper {
 
 
 	/**
-	 * Ìá½»Ä³¸öÆÀÂÛ
+	 * æäº¤æŸä¸ªè¯„è®º
 	 * 
 	 * @param context
 	 * @param commitCommentRequest
@@ -582,7 +582,7 @@ public class LoadClientHelper {
 									listener.loadSuccess();
 								}
 							} else if (response.has(Constant.ERROR_MSG)) {
-								// Í¨ÖªÒ³ÃæË¢ĞÂ
+								// é€šçŸ¥é¡µé¢åˆ·æ–°
 								baseResponse.setErr_msg(response.get(
 										Constant.ERROR_MSG).toString());
 								commitCommentRequest.onFailure(baseResponse);
@@ -620,7 +620,7 @@ public class LoadClientHelper {
 	}
 
 	/**
-	 * ¼ÓÔØÉè¼ÆÊ¦ÓÃ»§µÄÓÃ»§ĞÅÏ¢
+	 * åŠ è½½è®¾è®¡å¸ˆç”¨æˆ·çš„ç”¨æˆ·ä¿¡æ¯
 	 * 
 	 * @param context
 	 * @param userByDesignerInfoRequest
@@ -656,7 +656,7 @@ public class LoadClientHelper {
 									listener.loadSuccess();
 								}
 							} else if (response.has(Constant.ERROR_MSG)) {
-								// Í¨ÖªÒ³ÃæË¢ĞÂ
+								// é€šçŸ¥é¡µé¢åˆ·æ–°
 								baseResponse.setErr_msg(response.get(
 										Constant.ERROR_MSG).toString());
 								userByDesignerInfoRequest
@@ -695,7 +695,7 @@ public class LoadClientHelper {
 	}
 
 	/**
-	 * ¼ÓÔØÒµÖ÷ÓÃ»§µÄÓÃ»§ĞÅÏ¢
+	 * åŠ è½½ä¸šä¸»ç”¨æˆ·çš„ç”¨æˆ·ä¿¡æ¯
 	 * 
 	 * @param context
 	 * @param userByOwnerInfoRequest
@@ -730,7 +730,7 @@ public class LoadClientHelper {
 									listener.loadSuccess();
 								}
 							} else if (response.has(Constant.ERROR_MSG)) {
-								// Í¨ÖªÒ³ÃæË¢ĞÂ
+								// é€šçŸ¥é¡µé¢åˆ·æ–°
 								baseResponse.setErr_msg(response.get(
 										Constant.ERROR_MSG).toString());
 								userByOwnerInfoRequest.onFailure(baseResponse);
@@ -768,7 +768,7 @@ public class LoadClientHelper {
 	}
 
 	/**
-	 * ¸üĞÂÒµÖ÷¸öÈËĞÅÏ¢
+	 * æ›´æ–°ä¸šä¸»ä¸ªäººä¿¡æ¯
 	 * 
 	 * @param context
 	 * @param userByOwnerInfoUpdateRequest
@@ -804,7 +804,7 @@ public class LoadClientHelper {
 									listener.loadSuccess();
 								}
 							} else if (response.has(Constant.ERROR_MSG)) {
-								// Í¨ÖªÒ³ÃæË¢ĞÂ
+								// é€šçŸ¥é¡µé¢åˆ·æ–°
 								baseResponse.setErr_msg(response.get(
 										Constant.ERROR_MSG).toString());
 								userByOwnerInfoUpdateRequest
@@ -843,7 +843,7 @@ public class LoadClientHelper {
 	}
 
 	/**
-	 * ¸üĞÂÉè¼ÆÊ¦¸öÈËĞÅÏ¢
+	 * æ›´æ–°è®¾è®¡å¸ˆä¸ªäººä¿¡æ¯
 	 * 
 	 * @param context
 	 * @param userByDesignerInfoUpdateRequest
@@ -880,7 +880,7 @@ public class LoadClientHelper {
 									listener.loadSuccess();
 								}
 							} else if (response.has(Constant.ERROR_MSG)) {
-								// Í¨ÖªÒ³ÃæË¢ĞÂ
+								// é€šçŸ¥é¡µé¢åˆ·æ–°
 								baseResponse.setErr_msg(response.get(
 										Constant.ERROR_MSG).toString());
 								userByDesignerInfoUpdateRequest
@@ -919,7 +919,7 @@ public class LoadClientHelper {
 	}
 
 	/**
-	 * »ñµÃ·½°¸µÄ×Ü¹¤ÆÚ
+	 * è·å¾—æ–¹æ¡ˆçš„æ€»å·¥æœŸ
 	 * 
 	 * @param context
 	 * @param totalDurationRequest
@@ -955,7 +955,7 @@ public class LoadClientHelper {
 									listener.loadSuccess();
 								}
 							} else if (response.has(Constant.ERROR_MSG)) {
-								// Í¨ÖªÒ³ÃæË¢ĞÂ
+								// é€šçŸ¥é¡µé¢åˆ·æ–°
 								baseResponse.setErr_msg(response.get(
 										Constant.ERROR_MSG).toString());
 								totalDurationRequest.onFailure(baseResponse);
@@ -994,7 +994,7 @@ public class LoadClientHelper {
 	}
 
 	/**
-	 * ÄÃµ½ĞèÇó
+	 * æ‹¿åˆ°éœ€æ±‚
 	 * 
 	 * @param context
 	 * @param requirementRequest
@@ -1029,7 +1029,7 @@ public class LoadClientHelper {
 									listener.loadSuccess();
 								}
 							} else if (response.has(Constant.ERROR_MSG)) {
-								// Í¨ÖªÒ³ÃæË¢ĞÂ
+								// é€šçŸ¥é¡µé¢åˆ·æ–°
 								baseResponse.setErr_msg(response.get(
 										Constant.ERROR_MSG).toString());
 								requirementRequest.onFailure(baseResponse);
@@ -1067,7 +1067,7 @@ public class LoadClientHelper {
 	}
 
 	/**
-	 * ÅäÖÃĞèÇó
+	 * é…ç½®éœ€æ±‚
 	 * 
 	 * @param context
 	 * @param postRequirementRequest
@@ -1103,7 +1103,7 @@ public class LoadClientHelper {
 									listener.loadSuccess();
 								}
 							} else if (response.has(Constant.ERROR_MSG)) {
-								// Í¨ÖªÒ³ÃæË¢ĞÂ
+								// é€šçŸ¥é¡µé¢åˆ·æ–°
 								baseResponse.setErr_msg(response.get(
 										Constant.ERROR_MSG).toString());
 								postRequirementRequest.onFailure(baseResponse);
@@ -1169,7 +1169,7 @@ public class LoadClientHelper {
 									listener.loadSuccess();
 								}
 							} else if (response.has(Constant.ERROR_MSG)) {
-								// Í¨ÖªÒ³ÃæË¢ĞÂ
+								// é€šçŸ¥é¡µé¢åˆ·æ–°
 								baseResponse.setErr_msg(response.get(
 										Constant.ERROR_MSG).toString());
 								uploadPicRequest.onFailure(baseResponse);
@@ -1235,7 +1235,7 @@ public class LoadClientHelper {
 									listener.loadSuccess();
 								}
 							} else if (response.has(Constant.ERROR_MSG)) {
-								// Í¨ÖªÒ³ÃæË¢ĞÂ
+								// é€šçŸ¥é¡µé¢åˆ·æ–°
 								baseResponse.setErr_msg(response.get(
 										Constant.ERROR_MSG).toString());
 								uploadPicRequest.onFailure(baseResponse);
@@ -1273,7 +1273,7 @@ public class LoadClientHelper {
 	}
 	
 	/**
-	 * É¾³ıÑéÊÕÍ¼Æ¬
+	 * åˆ é™¤éªŒæ”¶å›¾ç‰‡
 	 * @param context
 	 * @param deletePicRequest
 	 * @param listener
@@ -1306,7 +1306,7 @@ public class LoadClientHelper {
 									listener.loadSuccess();
 								}
 							} else if (response.has(Constant.ERROR_MSG)) {
-								// Í¨ÖªÒ³ÃæË¢ĞÂ
+								// é€šçŸ¥é¡µé¢åˆ·æ–°
 								baseResponse.setErr_msg(response.get(
 										Constant.ERROR_MSG).toString());
 								deletePicRequest.onFailure(baseResponse);
@@ -1380,7 +1380,7 @@ public class LoadClientHelper {
 									listener.loadSuccess();
 								}
 							} else if (response.has(Constant.ERROR_MSG)) {
-								// Í¨ÖªÒ³ÃæË¢ĞÂ
+								// é€šçŸ¥é¡µé¢åˆ·æ–°
 								baseResponse.setErr_msg(response.get(
 										Constant.ERROR_MSG).toString());
 								addPicToSectionItemRequest
@@ -1448,7 +1448,7 @@ public class LoadClientHelper {
 									listener.loadSuccess();
 								}
 							} else if (response.has(Constant.ERROR_MSG)) {
-								// Í¨ÖªÒ³ÃæË¢ĞÂ
+								// é€šçŸ¥é¡µé¢åˆ·æ–°
 								baseResponse.setErr_msg(response.get(
 										Constant.ERROR_MSG).toString());
 								addPicToCheckRequest

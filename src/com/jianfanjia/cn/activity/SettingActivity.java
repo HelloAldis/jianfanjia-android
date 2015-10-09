@@ -42,9 +42,9 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 /**
  * 
  * @ClassName: SettingActivity
- * @Description: ÉèÖÃ
+ * @Description: è®¾ç½®
  * @author fengliang
- * @date 2015-9-16 ÉÏÎç9:33:07
+ * @date 2015-9-16 ä¸Šåˆ9:33:07
  * 
  */
 public class SettingActivity extends BaseActivity implements OnClickListener,
@@ -152,8 +152,8 @@ public class SettingActivity extends BaseActivity implements OnClickListener,
 	private void onClickExit() {
 		CommonDialog dialog = DialogHelper
 				.getPinterestDialogCancelable(SettingActivity.this);
-		dialog.setTitle("ÍË³öµÇÂ¼");
-		dialog.setMessage("È·¶¨ÍË³öµÇÂ¼Âğ£¿");
+		dialog.setTitle("é€€å‡ºç™»å½•");
+		dialog.setMessage("ç¡®å®šé€€å‡ºç™»å½•å—ï¼Ÿ");
 		dialog.setPositiveButton(R.string.ok,
 				new DialogInterface.OnClickListener() {
 
@@ -168,7 +168,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener,
 	}
 
 	/**
-	 * ¼ÆËã»º´æµÄ´óĞ¡
+	 * è®¡ç®—ç¼“å­˜çš„å¤§å°
 	 */
 	private void caculateCacheSize() {
 
@@ -180,7 +180,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener,
 		fileSize += FileUtil.getDirSize(filesDir);
 		fileSize += FileUtil.getDirSize(file);
 
-		// 2.2°æ±¾²ÅÓĞ½«Ó¦ÓÃ»º´æ×ªÒÆµ½sd¿¨µÄ¹¦ÄÜ
+		// 2.2ç‰ˆæœ¬æ‰æœ‰å°†åº”ç”¨ç¼“å­˜è½¬ç§»åˆ°sdå¡çš„åŠŸèƒ½
 		if (MyApplication.isMethodsCompat(android.os.Build.VERSION_CODES.FROYO)) {
 			File externalCacheDir = getExternalCacheDir();
 			fileSize += FileUtil.getDirSize(externalCacheDir);
@@ -191,13 +191,13 @@ public class SettingActivity extends BaseActivity implements OnClickListener,
 	}
 
 	/**
-	 * Çå¿Õ»º´æ
+	 * æ¸…ç©ºç¼“å­˜
 	 */
 	private void onClickCleanCache() {
 		CommonDialog dialog = DialogHelper
 				.getPinterestDialogCancelable(SettingActivity.this);
-		dialog.setTitle("Çå¿Õ»º´æ£¿");
-		dialog.setMessage("È·¶¨Çå¿Õ»º´æÂğ£¿");
+		dialog.setTitle("æ¸…ç©ºç¼“å­˜ï¼Ÿ");
+		dialog.setMessage("ç¡®å®šæ¸…ç©ºç¼“å­˜å—ï¼Ÿ");
 		dialog.setPositiveButton(R.string.ok,
 				new DialogInterface.OnClickListener() {
 
@@ -213,12 +213,12 @@ public class SettingActivity extends BaseActivity implements OnClickListener,
 	}
 
 	/**
-	 * »ñÈ¡×îĞÂ°æ±¾
+	 * è·å–æœ€æ–°ç‰ˆæœ¬
 	 */
 	public void showNewVersion(String message, final UpdateVersion updateVersion) {
 		CommonDialog dialog = DialogHelper
 				.getPinterestDialogCancelable(SettingActivity.this);
-		dialog.setTitle("°æ±¾¸üĞÂ");
+		dialog.setTitle("ç‰ˆæœ¬æ›´æ–°");
 		dialog.setMessage(message);
 		dialog.setPositiveButton(R.string.ok,
 				new DialogInterface.OnClickListener() {
@@ -272,14 +272,14 @@ public class SettingActivity extends BaseActivity implements OnClickListener,
 		LogTool.d(TAG, "---onDestroy()");
 	}
 
-	// ¼ì²é°æ±¾
+	// æ£€æŸ¥ç‰ˆæœ¬
 	private void checkVersion() {
 		JianFanJiaApiClient.checkVersion(SettingActivity.this,
 				new JsonHttpResponseHandler() {
 					@Override
 					public void onStart() {
 						LogTool.d(TAG, "onStart()");
-						showWaitDialog("¼ì²éĞÂ°æ±¾");
+						showWaitDialog("æ£€æŸ¥æ–°ç‰ˆæœ¬");
 					}
 
 					@Override
@@ -298,12 +298,12 @@ public class SettingActivity extends BaseActivity implements OnClickListener,
 											.getVersion_code()) > MyApplication
 											.getInstance().getVersionCode()) {
 										showNewVersion(
-												"ÓĞĞÂµÄ°æ±¾À²£¬°æ±¾ºÅ£º"
+												"æœ‰æ–°çš„ç‰ˆæœ¬å•¦ï¼Œç‰ˆæœ¬å·ï¼š"
 														+ updateVersion
 																.getVersion_name(),
 												updateVersion);
 									} else {
-										makeTextLong("µ±Ç°ÒÑ¾­ÊÇ×îĞÂ°æ±¾À²£¡");
+										makeTextLong("å½“å‰å·²ç»æ˜¯æœ€æ–°ç‰ˆæœ¬å•¦ï¼");
 									}
 								}
 							}
@@ -332,7 +332,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener,
 				});
 	}
 
-	// ÍË³öµÇÂ¼
+	// é€€å‡ºç™»å½•
 	private void logout() {
 		LoadClientHelper.logout(this, new LogoutRequest(this),
 				new LoadDataListener() {
@@ -345,9 +345,9 @@ public class SettingActivity extends BaseActivity implements OnClickListener,
 					@Override
 					public void loadSuccess() {
 						hideWaitDialog();
-						makeTextLong("ÍË³ö³É¹¦");
+						makeTextLong("é€€å‡ºæˆåŠŸ");
 						PushManager.getInstance().stopService(
-								SettingActivity.this);// ÍêÈ«ÖÕÖ¹SDKµÄ·şÎñ
+								SettingActivity.this);// å®Œå…¨ç»ˆæ­¢SDKçš„æœåŠ¡
 						activityManager.exit();
 						startActivity(LoginActivity.class);
 						finish();
@@ -364,19 +364,19 @@ public class SettingActivity extends BaseActivity implements OnClickListener,
 	private void downloadVersion(String apkPath) {
 		Uri uri = Uri.parse(apkPath);
 		DownloadManager.Request request = new DownloadManager.Request(uri);
-		// ÉèÖÃÏÂÔØÂ·¾¶ºÍÎÄ¼şÃû
+		// è®¾ç½®ä¸‹è½½è·¯å¾„å’Œæ–‡ä»¶å
 		request.setDestinationInExternalPublicDir(
 				Environment.DIRECTORY_DOWNLOADS, "jianfanjia.apk");
-		request.setTitle("¼ò·±¼Ò");
-		request.setDescription("ÕıÔÚÏÂÔØ¼ò·±¼ÒĞÂ°æ±¾");
+		request.setTitle("ç®€ç¹å®¶");
+		request.setDescription("æ­£åœ¨ä¸‹è½½ç®€ç¹å®¶æ–°ç‰ˆæœ¬");
 		request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
 		request.setMimeType("application/vnd.android.package-archive");
-		// ÉèÖÃÎª¿É±»Ã½ÌåÉ¨ÃèÆ÷ÕÒµ½
+		// è®¾ç½®ä¸ºå¯è¢«åª’ä½“æ‰«æå™¨æ‰¾åˆ°
 		request.allowScanningByMediaScanner();
-		// ÉèÖÃÎª¿É¼ûºÍ¿É¹ÜÀí
+		// è®¾ç½®ä¸ºå¯è§å’Œå¯ç®¡ç†
 		request.setVisibleInDownloadsUi(true);
 		long refernece = downloadManager.enqueue(request);
-		// °Ñµ±Ç°ÏÂÔØµÄID±£´æÆğÀ´
+		// æŠŠå½“å‰ä¸‹è½½çš„IDä¿å­˜èµ·æ¥
 		SharedPreferences sPreferences = getSharedPreferences("downloadplato",
 				0);
 		sPreferences.edit().putLong("plato", refernece).commit();

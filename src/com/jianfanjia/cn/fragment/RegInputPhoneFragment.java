@@ -24,23 +24,23 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 
 /**
  * @version 1.0
- * @Description ÊäÈëÓÃ»§ÃûÃÜÂëµÄFragment
+ * @Description è¾“å…¥ç”¨æˆ·åå¯†ç çš„Fragment
  * @author zhanghao
- * @date 2015-8-21 ÉÏÎç9:15
+ * @date 2015-8-21 ä¸Šåˆ9:15
  * 
  */
 public class RegInputPhoneFragment extends BaseFragment {
 	private static final String TAG = RegInputPhoneFragment.class.getName();
 	private FragmentListener fragemntListener = null;
-	private EditText mUserName = null;// ÓÃ»§ÃûÊäÈë¿ò
-	private EditText mPassword = null;// ÃÜÂëÊäÈë¿ò
-	private Button nextView = null;// ÏÂÒ»²½
-	private TextView backView = null;// ·µ»Ø
-	private ImageView indicatorView = null;// Ö¸Ê¾Æ÷
-	private TextView proTipView = null;// ÌáÊ¾²Ù×÷
+	private EditText mUserName = null;// ç”¨æˆ·åè¾“å…¥æ¡†
+	private EditText mPassword = null;// å¯†ç è¾“å…¥æ¡†
+	private Button nextView = null;// ä¸‹ä¸€æ­¥
+	private TextView backView = null;// è¿”å›
+	private ImageView indicatorView = null;// æŒ‡ç¤ºå™¨
+	private TextView proTipView = null;// æç¤ºæ“ä½œ
 
-	private String mUserNameStr = null;// ÓÃ»§Ãû
-	private String mPasswordStr = null;// ÃÜÂë
+	private String mUserNameStr = null;// ç”¨æˆ·å
+	private String mPasswordStr = null;// å¯†ç 
 
 	@Override
 	public void onAttach(Activity activity) {
@@ -113,7 +113,7 @@ public class RegInputPhoneFragment extends BaseFragment {
 	}
 
 	/**
-	 * ·¢ËÍÑéÖ¤Âë
+	 * å‘é€éªŒè¯ç 
 	 * 
 	 * @param name
 	 * @param password

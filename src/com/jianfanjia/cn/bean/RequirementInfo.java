@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * @class RequirementInfo
- * @Description 此类是需求信息实体类
+ * @Description 姝ょ被鏄渶姹備俊鎭疄浣撶被
  * @author zhanghao
  * @date 2015-8-28 10:05
  * 

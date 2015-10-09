@@ -16,9 +16,9 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 /**
  * 
  * @ClassName: BaseListAdapter
- * @Description: adapter公共基类
+ * @Description: adapter鍏叡鍩虹被
  * @author fengliang
- * @date 2015-8-18 下午1:31:55
+ * @date 2015-8-18 涓嬪崍1:31:55
  * 
  * @param <T>
  */

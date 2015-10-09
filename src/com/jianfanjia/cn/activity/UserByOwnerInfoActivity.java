@@ -42,9 +42,9 @@ import com.jianfanjia.cn.view.wheel.WheelView;
 /**
  * 
  * @ClassName: UserByOwnerInfoActivity
- * @Description:ÓÃ»§¸öÈËĞÅÏ¢(ÒµÖ÷)
+ * @Description:ç”¨æˆ·ä¸ªäººä¿¡æ¯(ä¸šä¸»)
  * @author fengliang
- * @date 2015-8-18 ÏÂÎç12:11:49
+ * @date 2015-8-18 ä¸‹åˆ12:11:49
  * 
  */
 public class UserByOwnerInfoActivity extends BaseActivity implements
@@ -75,9 +75,9 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 
 	private CommonWheelDialog commonWheelDialog = null;
 
-	private static String[] provices = { "ºş±±", "ºşÄÏ", "°²»Õ" };
-	private static String[] cities = { "Îäºº", "³¤É³", "ºÏ·Ê" };
-	private static String[] areas = { "Îä²ı", "ºº¿Ú", "³¤É³ÏØ", "³£Öİ", "ÇàÉ½", "½­ÏÄ", "ººÑô" };
+	private static String[] provices = { "æ¹–åŒ—", "æ¹–å—", "å®‰å¾½" };
+	private static String[] cities = { "æ­¦æ±‰", "é•¿æ²™", "åˆè‚¥" };
+	private static String[] areas = { "æ­¦æ˜Œ", "æ±‰å£", "é•¿æ²™å¿", "å¸¸å·", "é’å±±", "æ±Ÿå¤", "æ±‰é˜³" };
 
 	private String provice = null;
 	private String city = null;
@@ -135,7 +135,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 
 	@Override
 	public void setErrorView() {
-		((TextView) errorView.findViewById(R.id.tv_error)).setText("ÔİÎŞ¸öÈËĞÅÏ¢Êı¾İ");
+		((TextView) errorView.findViewById(R.id.tv_error)).setText("æš‚æ— ä¸ªäººä¿¡æ¯æ•°æ®");
 	}
 
 	private void setData() {
@@ -150,9 +150,9 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 		String sexInfo = ownerInfo.getSex();
 		if (!TextUtils.isEmpty(sexInfo)) {
 			if (sexInfo.equals(Constant.SEX_MAN)) {
-				sexText.setText("ÄĞ");
+				sexText.setText("ç”·");
 			} else if (sexInfo.equals(Constant.SEX_WOMEN)) {
-				sexText.setText("Å®");
+				sexText.setText("å¥³");
 			}
 		} else {
 			sexText.setText(getString(R.string.not_edit));
@@ -216,7 +216,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 		}
 	}
 
-	// ÏÔÊ¾Ñ¡ÔñĞÔ±ğ¶Ô»°¿ò
+	// æ˜¾ç¤ºé€‰æ‹©æ€§åˆ«å¯¹è¯æ¡†
 	private void showSexChooseDialog() {
 		CommonDialog commonDialog = DialogHelper
 				.getPinterestDialogCancelable(this);
@@ -245,7 +245,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 			}
 		}
 		commonDialog.setContent(contentView);
-		commonDialog.setTitle("Ñ¡ÔñĞÔ±ğ");
+		commonDialog.setTitle("é€‰æ‹©æ€§åˆ«");
 		commonDialog.setPositiveButton(R.string.ok,
 				new DialogInterface.OnClickListener() {
 
@@ -256,8 +256,8 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 									|| !ownerUpdateInfo.getSex().equals(sex)) {
 								ownerUpdateInfo.setSex(sex);
 								setConfimEnable(true);
-								sexText.setText(sex.equals(Constant.SEX_MAN) ? "ÄĞ"
-										: "Å®");
+								sexText.setText(sex.equals(Constant.SEX_MAN) ? "ç”·"
+										: "å¥³");
 							}
 						}
 						dialog.dismiss();
@@ -293,7 +293,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 				}
 			}
 		});
-		commonWheelDialog.setTitle("Ñ¡ÔñµØÇø");
+		commonWheelDialog.setTitle("é€‰æ‹©åœ°åŒº");
 		commonWheelDialog.setPositiveButton(R.string.ok,
 				new DialogInterface.OnClickListener() {
 
@@ -307,7 +307,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 		commonWheelDialog.show();
 	}
 
-	// ĞŞ¸ÄÉè¼ÆÊ¦¸öÈË×ÊÁÏ
+	// ä¿®æ”¹è®¾è®¡å¸ˆä¸ªäººèµ„æ–™
 	private void put_Owner_Info() {
 		LoadClientHelper.postOwnerUpdateInfo(this,
 				new UserByOwnerInfoUpdateRequest(this, ownerUpdateInfo),
@@ -321,7 +321,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 					@Override
 					public void loadSuccess() {
 						hideWaitDialog();
-						makeTextLong("ĞŞ¸Ä³É¹¦");
+						makeTextLong("ä¿®æ”¹æˆåŠŸ");
 						setConfimEnable(false);
 						if (!TextUtils.isEmpty(ownerUpdateInfo.getUsername())
 								|| ownerUpdateInfo.getUsername() != dataManager
@@ -389,7 +389,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 			Intent cameraIntent = UiHelper.createShotIntent(mTmpFile);
 			startActivityForResult(cameraIntent, Constant.REQUESTCODE_CAMERA);
 		}else{
-			makeTextLong("Ã»ÓĞsd¿¨£¬ÎŞ·¨´ò¿ªÏà»ú");
+			makeTextLong("æ²¡æœ‰sdå¡ï¼Œæ— æ³•æ‰“å¼€ç›¸æœº");
 		}
 	}
 
@@ -431,7 +431,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 				}
 			}
 			break;
-		case Constant.REQUESTCODE_CAMERA:// ÅÄÕÕ
+		case Constant.REQUESTCODE_CAMERA:// æ‹ç…§
 			mTmpFile = new File(dataManager.getPicPath());
 			if (mTmpFile != null) {
 				Uri uri = Uri.fromFile(mTmpFile);
@@ -441,7 +441,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 				}
 			}
 			break;
-		case Constant.REQUESTCODE_LOCATION:// ±¾µØÑ¡È¡
+		case Constant.REQUESTCODE_LOCATION:// æœ¬åœ°é€‰å–
 			if (data != null) {
 				Uri uri = data.getData();
 				LogTool.d(TAG, "uri:" + uri);
@@ -454,7 +454,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 			if (data != null) {
 				Bundle extras = data.getExtras();
 				if (extras != null) {
-					// µÃµ½·µ»ØÀ´µÄÊı¾İ£¬ÊÇbitmapÀàĞÍµÄÊı¾İ
+					// å¾—åˆ°è¿”å›æ¥çš„æ•°æ®ï¼Œæ˜¯bitmapç±»å‹çš„æ•°æ®
 					Bitmap bitmap = extras.getParcelable("data");
 					LogTool.d(TAG, "avatar - bitmap = " + bitmap);
 					String imgPath = PhotoUtils.savaPicture(bitmap);
@@ -488,20 +488,20 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 	}
 
 	/**
-	 * ²Ã¼ôÍ¼Æ¬·½·¨ÊµÏÖ
+	 * è£å‰ªå›¾ç‰‡æ–¹æ³•å®ç°
 	 * 
 	 * @param uri
 	 */
 	private void startPhotoZoom(Uri uri) {
 		Intent intent = new Intent("com.android.camera.action.CROP");
 		intent.setDataAndType(uri, "image/*");
-		// ÏÂÃæÕâ¸öcrop=trueÊÇÉèÖÃÔÚ¿ªÆôµÄIntentÖĞÉèÖÃÏÔÊ¾µÄVIEW¿É²Ã¼ô
+		// ä¸‹é¢è¿™ä¸ªcrop=trueæ˜¯è®¾ç½®åœ¨å¼€å¯çš„Intentä¸­è®¾ç½®æ˜¾ç¤ºçš„VIEWå¯è£å‰ª
 		intent.putExtra("crop", "true");
-		// aspectX aspectY ÊÇ¿í¸ßµÄ±ÈÀı
+		// aspectX aspectY æ˜¯å®½é«˜çš„æ¯”ä¾‹
 		intent.putExtra("aspectX", 1);
 		intent.putExtra("aspectY", 1);
 		intent.putExtra("scale", true);
-		// outputX outputY ÊÇ²Ã¼ôÍ¼Æ¬¿í¸ß
+		// outputX outputY æ˜¯è£å‰ªå›¾ç‰‡å®½é«˜
 		intent.putExtra("outputX", 300);
 		intent.putExtra("outputY", 300);
 		intent.putExtra("return-data", true);

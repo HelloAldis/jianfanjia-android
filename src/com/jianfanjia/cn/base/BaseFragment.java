@@ -31,7 +31,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
  * @version 1.0
- * @Description Fragment»ùÀà
+ * @Description FragmentåŸºç±»
  * @author Administrator
  * @date 2015-8-19 16:02:18
  * 
@@ -50,10 +50,10 @@ public abstract class BaseFragment extends Fragment implements OnClickListener,
 	protected UploadManager uploadManager = null;
 	protected AddPhotoPopWindow popupWindow = null;
 	protected ProcessInfo processInfo = null;
-	protected String mUserName = null;// ÓÃ»§Ãû
-	protected String mAccount = null;// ÕËºÅ
-	protected String mUserImageId = null;// Í·Ïñ
-	protected String mUserType = null;// ÓÃ»§ÀàĞÍ
+	protected String mUserName = null;// ç”¨æˆ·å
+	protected String mAccount = null;// è´¦å·
+	protected String mUserImageId = null;// å¤´åƒ
+	protected String mUserType = null;// ç”¨æˆ·ç±»å‹
 	protected String mImageId = null;
 	private View view;
 
@@ -155,12 +155,12 @@ public abstract class BaseFragment extends Fragment implements OnClickListener,
 		Toast.makeText(getActivity(), text, Toast.LENGTH_LONG).show();
 	}
 
-	// Í¨¹ıClassÌø×ª½çÃæ
+	// é€šè¿‡Classè·³è½¬ç•Œé¢
 	protected void startActivity(Class<?> cls) {
 		startActivity(cls, null);
 	}
 
-	// º¬ÓĞBundleÍ¨¹ıClassÌø×ª½çÃæ
+	// å«æœ‰Bundleé€šè¿‡Classè·³è½¬ç•Œé¢
 	protected void startActivity(Class<?> cls, Bundle bundle) {
 		Intent intent = new Intent();
 		intent.setClass(getActivity(), cls);

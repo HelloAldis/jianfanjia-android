@@ -5,9 +5,9 @@ import java.io.Serializable;
 /**
  * 
  * @version 1.0
- * @Description: ´ËÀàÊÇ¹¤µØÊµÌåÀà
+ * @Description: æ­¤ç±»æ˜¯å·¥åœ°å®ä½“ç±»
  * @author zhanghao
- * @date 2015-8-19 ÏÂÎç4:20:58
+ * @date 2015-8-19 ä¸‹åˆ4:20:58
  * 
  */
 public class OwnerSiteInfo implements Serializable {
@@ -17,29 +17,29 @@ public class OwnerSiteInfo implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private String userPhone;// ÒµÖ÷µç»°
+	private String userPhone;// ä¸šä¸»ç”µè¯
 
-	private String designerPhone;// Éè¼ÆÊ¦µç»°
+	private String designerPhone;// è®¾è®¡å¸ˆç”µè¯
 
-	private String city;// ËùÔÚ³ÇÊĞ
+	private String city;// æ‰€åœ¨åŸå¸‚
 
-	private String district;// ËùÔÚÇø
+	private String district;// æ‰€åœ¨åŒº
 
-	private String villageName;// Ğ¡ÇøÃû³Æ
+	private String villageName;// å°åŒºåç§°
 
-	private String houseStyle;// »§ĞÍ
+	private String houseStyle;// æˆ·å‹
 
-	private String houseSize;// ·¿×ÓÃæ»ı
+	private String houseSize;// æˆ¿å­é¢ç§¯
 
-	private String loveStyle;// ·ç¸ñÏ²ºÃ
+	private String loveStyle;// é£æ ¼å–œå¥½
 
-	private String decorationStyle;// ×°ĞŞÀàĞÍ
+	private String decorationStyle;// è£…ä¿®ç±»å‹
 
-	private String decorationBudget;// ×°ĞŞÔ¤Ëã
+	private String decorationBudget;// è£…ä¿®é¢„ç®—
 
-	private String startDate;// ¿ª¹¤ÈÕÆÚ
+	private String startDate;// å¼€å·¥æ—¥æœŸ
 
-	private int totalDate;// ×Ü¹¤ÆÚ
+	private int totalDate;// æ€»å·¥æœŸ
 
 	public String getUserPhone() {
 		return userPhone;

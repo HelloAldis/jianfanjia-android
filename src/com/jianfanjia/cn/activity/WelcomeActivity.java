@@ -15,16 +15,16 @@ import com.jianfanjia.cn.tools.LogTool;
 /**
  * 
  * @ClassName: WelcomeActivity
- * @Description: »¶Ó­
+ * @Description: æ¬¢è¿
  * @author fengliang
- * @date 2015-8-29 ÉÏÎç9:30:21
+ * @date 2015-8-29 ä¸Šåˆ9:30:21
  * 
  */
 public class WelcomeActivity extends BaseActivity implements LoadDataListener {
 	private Handler handler = new Handler();
-	private boolean first;// ÓÃÓÚÅĞ¶Ïµ¼º½½çÃæÊÇ·ñÏÔÊ¾
-	private boolean isLoginExpire;// ÊÇ·ñµÇÂ¼¹ıÈ¥
-	private boolean isLogin;// ÊÇ·ñµÇÂ¼¹ı
+	private boolean first;// ç”¨äºåˆ¤æ–­å¯¼èˆªç•Œé¢æ˜¯å¦æ˜¾ç¤º
+	private boolean isLoginExpire;// æ˜¯å¦ç™»å½•è¿‡å»
+	private boolean isLogin;// æ˜¯å¦ç™»å½•è¿‡
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -67,16 +67,16 @@ public class WelcomeActivity extends BaseActivity implements LoadDataListener {
 		public void run() {
 			if (!first) {
 				if (!isLogin) {
-					Log.i(this.getClass().getName(), "Ã»ÓĞµÇÂ¼");
+					Log.i(this.getClass().getName(), "æ²¡æœ‰ç™»å½•");
 					startActivity(LoginActivity.class);
 					finish();
 				} else {
-					if (!isLoginExpire) {// µÇÂ¼Î´¹ıÆÚ£¬Ìí¼Ócookiesµ½httpclient¼ÇÂ¼Éí·İ
-						Log.i(this.getClass().getName(), "Î´¹ıÆÚ");
+					if (!isLoginExpire) {// ç™»å½•æœªè¿‡æœŸï¼Œæ·»åŠ cookiesåˆ°httpclientè®°å½•èº«ä»½
+						Log.i(this.getClass().getName(), "æœªè¿‡æœŸ");
 						startActivity(MainActivity.class);
 						finish();
 					} else {
-						Log.i(this.getClass().getName(), "ÒÑ¾­¹ıÆÚ");
+						Log.i(this.getClass().getName(), "å·²ç»è¿‡æœŸ");
 						MyApplication.getInstance().clearCookie();
 						LoadClientHelper.login(
 								WelcomeActivity.this,

@@ -22,31 +22,31 @@ import com.jianfanjia.cn.view.MainHeadView;
 /**
  * 
  * @ClassName:OwnerInfoActivity
- * @Description:ÒµÖ÷ĞÅÏ¢
+ * @Description:ä¸šä¸»ä¿¡æ¯
  * @author fengliang
- * @date 2015-9-5 ÉÏÎç11:26:30
+ * @date 2015-9-5 ä¸Šåˆ11:26:30
  * 
  */
 public class OwnerInfoActivity extends BaseActivity implements OnClickListener {
 	private static final String TAG = OwnerInfoActivity.class.getName();
-	private RelativeLayout contentLayout = null;// ÄÚÈİÊÓÍ¼
-	private View errorView = null;// ´íÎóÊÓÍ¼
-	private MainHeadView mainHeadView = null;// Í·ÊÓÍ¼
+	private RelativeLayout contentLayout = null;// å†…å®¹è§†å›¾
+	private View errorView = null;// é”™è¯¯è§†å›¾
+	private MainHeadView mainHeadView = null;// å¤´è§†å›¾
 	private ImageView bgView = null;
 	private ImageView fgView = null;
-	private ImageView ownerHeadView = null;// ÓÃ»§Í·ÏñÊÓÍ¼
-	private ImageView ownerSexView = null;// ÓÃ»§ĞÔ±ğÊÓÍ¼
-	private TextView proStageView = null;// ¹¤µØËù´¦½×¶ÎÊÓÍ¼
-	private TextView ownerNameView = null;// ÓÃ»§ÃûÊÓÍ¼
-	private TextView cityView = null;// ËùÔÚ³ÇÊĞ
-	private TextView villageNameView = null;// Ğ¡ÇøÃû×Ö
-	private TextView houseStyleView = null;// »§ĞÍ
-	private TextView decorateAreaView = null;// ×°ĞŞÃæ»ı
-	private TextView loveStyleView = null;// Ï²»¶µÄ·ç¸ñ
-	private TextView decorateStyleView = null;// ×°ĞŞÀàĞÍ
-	private TextView decorateBudgetView = null;// ×°ĞŞÔ¤Ëã
-	private TextView startDateView = null;// ¿ª¹¤ÈÕÆÚ
-	private TextView totalDateView = null;// ×Ü¹¤ÆÚ
+	private ImageView ownerHeadView = null;// ç”¨æˆ·å¤´åƒè§†å›¾
+	private ImageView ownerSexView = null;// ç”¨æˆ·æ€§åˆ«è§†å›¾
+	private TextView proStageView = null;// å·¥åœ°æ‰€å¤„é˜¶æ®µè§†å›¾
+	private TextView ownerNameView = null;// ç”¨æˆ·åè§†å›¾
+	private TextView cityView = null;// æ‰€åœ¨åŸå¸‚
+	private TextView villageNameView = null;// å°åŒºåå­—
+	private TextView houseStyleView = null;// æˆ·å‹
+	private TextView decorateAreaView = null;// è£…ä¿®é¢ç§¯
+	private TextView loveStyleView = null;// å–œæ¬¢çš„é£æ ¼
+	private TextView decorateStyleView = null;// è£…ä¿®ç±»å‹
+	private TextView decorateBudgetView = null;// è£…ä¿®é¢„ç®—
+	private TextView startDateView = null;// å¼€å·¥æ—¥æœŸ
+	private TextView totalDateView = null;// æ€»å·¥æœŸ
 	private User ownerInfo = null;
 	private Process process = null;
 	private ProcessInfo processInfo = null;
@@ -112,7 +112,7 @@ public class OwnerInfoActivity extends BaseActivity implements OnClickListener {
 
 	}
 
-	// ÓĞÊı¾İ¾Í¸Ä±äÕ¹Ê¾µÄÑùÊ½
+	// æœ‰æ•°æ®å°±æ”¹å˜å±•ç¤ºçš„æ ·å¼
 	private void setViewChange() {
 		mainHeadView.setBackgroundTransparent();
 		mainHeadView.setMainTextColor(getResources().getColor(
@@ -126,7 +126,7 @@ public class OwnerInfoActivity extends BaseActivity implements OnClickListener {
 
 	@Override
 	public void setErrorView() {
-		((TextView) errorView.findViewById(R.id.tv_error)).setText("ÔİÎŞÒµÖ÷ÏêÇéÊı¾İ");
+		((TextView) errorView.findViewById(R.id.tv_error)).setText("æš‚æ— ä¸šä¸»è¯¦æƒ…æ•°æ®");
 	}
 
 	private void initMainHead() {

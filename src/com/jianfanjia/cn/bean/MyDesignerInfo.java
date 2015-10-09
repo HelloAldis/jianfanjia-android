@@ -5,9 +5,9 @@ import java.io.Serializable;
 /**
  * 
  * @ClassName: UserByDesignerInfo
- * @Description:¸öÈËĞÅÏ¢(Éè¼ÆÊ¦)
+ * @Description:ä¸ªäººä¿¡æ¯(è®¾è®¡å¸ˆ)
  * @author fengliang
- * @date 2015-9-6 ÏÂÎç3:44:09
+ * @date 2015-9-6 ä¸‹åˆ3:44:09
  * 
  */
 public class MyDesignerInfo implements Serializable {

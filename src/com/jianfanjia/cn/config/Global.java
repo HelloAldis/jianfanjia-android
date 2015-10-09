@@ -3,9 +3,9 @@ package com.jianfanjia.cn.config;
 /**
  * 
  * @ClassName: Global
- * @Description: È«¾Ö±äÁ¿Àà
+ * @Description: å…¨å±€å˜é‡ç±»
  * @author fengliang
- * @date 2015-8-18 ÏÂÎç12:05:49
+ * @date 2015-8-18 ä¸‹åˆ12:05:49
  * 
  */
 public class Global {

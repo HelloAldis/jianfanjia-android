@@ -18,14 +18,14 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 
 /**
  * @class FeedBackActivity
- * @Description 用户反馈
+ * @Description 鐢ㄦ埛鍙嶉
  * @author zhanghao
  * @date 2015-8-27 10:11
  * 
  */
 public class FeedBackActivity extends BaseActivity implements OnClickListener {
 	private static final String TAG = FeedBackActivity.class.getName();
-	private TextView backView = null;// 返回视图
+	private TextView backView = null;// 杩斿洖瑙嗗浘
 	private EditText feedContentView = null;
 	private Button confirm = null;
 

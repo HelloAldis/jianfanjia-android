@@ -5,17 +5,17 @@ import com.jianfanjia.cn.tools.LogTool;
 
 /**
  * @version 1.0
- * @Decription ´ËÀàÊÇÒ»¸ö×¢²áÊµÌåÀà
+ * @Decription æ­¤ç±»æ˜¯ä¸€ä¸ªæ³¨å†Œå®ä½“ç±»
  * @author zhanghao
  * 
  * 
  */
 public class RegisterInfo implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private String phone;// ÊÖ»úºÅ
-	private String pass;// ÃÜÂë
-	private String code;// ÑéÖ¤Âë
-	private String type;// ÓÃ»§ÀàĞÍ
+	private String phone;// æ‰‹æœºå·
+	private String pass;// å¯†ç 
+	private String code;// éªŒè¯ç 
+	private String type;// ç”¨æˆ·ç±»å‹
 
 	public String getPhone() {
 		return phone;

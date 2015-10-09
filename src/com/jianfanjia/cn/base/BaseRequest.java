@@ -14,22 +14,22 @@ public class BaseRequest {
 		this.context = context;
 	}
 
-	// ÇëÇóÖ®Ç°µÄ×¼±¸²Ù×÷
+	// è¯·æ±‚ä¹‹å‰çš„å‡†å¤‡æ“ä½œ
 	protected void pre() {
 
 	}
 
-	// ¿ò¼ÜÇëÇó³É¹¦ºóµÄÍ¨ÓÃ´¦Àí
+	// æ¡†æ¶è¯·æ±‚æˆåŠŸåçš„é€šç”¨å¤„ç†
 	protected void all() {
 
 	}
 
-	// Êı¾İÕıÈ·ºóµÄ´¦Àí
+	// æ•°æ®æ­£ç¡®åçš„å¤„ç†
 	protected void onSuccess(BaseResponse baseResponse) {
 
 	}
 
-	// Êı¾İ´íÎóºóµÄ´¦Àí
+	// æ•°æ®é”™è¯¯åçš„å¤„ç†
 	public void onFailure(BaseResponse baseResponse) {
 		String err_msg = baseResponse.getErr_msg();
 		if (err_msg != null) {

@@ -41,20 +41,20 @@ public class CaiGouNotifyAdapter extends BaseListAdapter<NotifyMessage> {
 		} else {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
-		viewHolder.itemNameView.setText("Äú¼´½«½øÈëÏÂÒ»ÂÖ½¨²Ä¹ºÂò½×¶Î,ĞèÒª¹ºÂòµÄÊÇ");
+		viewHolder.itemNameView.setText("æ‚¨å³å°†è¿›å…¥ä¸‹ä¸€è½®å»ºæè´­ä¹°é˜¶æ®µ,éœ€è¦è´­ä¹°çš„æ˜¯");
 		viewHolder.itemContentView.setText(message.getContent());
 		viewHolder.itemNodeView.setText(MyApplication.getInstance()
-				.getStringById(message.getSection()) + "½×¶Î");
+				.getStringById(message.getSection()) + "é˜¶æ®µ");
 		viewHolder.itemPubTimeView.setText(DateFormatTool
 				.toLocalTimeString(message.getTime()));
 		return convertView;
 	}
 
 	private static class ViewHolder {
-		TextView itemNameView;// ²É¹º¹¤ĞòÊÓÍ¼
-		TextView itemContentView;// ²É¹ºÄÚÈİÊÓÍ¼
-		TextView itemNodeView;// ²É¹º½Úµã
-		TextView itemPubTimeView;// ·¢²¼Ê±¼ä
+		TextView itemNameView;// é‡‡è´­å·¥åºè§†å›¾
+		TextView itemContentView;// é‡‡è´­å†…å®¹è§†å›¾
+		TextView itemNodeView;// é‡‡è´­èŠ‚ç‚¹
+		TextView itemPubTimeView;// å‘å¸ƒæ—¶é—´
 	}
 
 	@Override

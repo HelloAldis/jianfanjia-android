@@ -3,9 +3,9 @@ package com.jianfanjia.cn.config;
 /**
  * 
  * @ClassName: Url
- * @Description:·şÎñÆ÷µØÖ·¼°Ïà¹Ø½Ó¿ÚÀà
+ * @Description:æœåŠ¡å™¨åœ°å€åŠç›¸å…³æ¥å£ç±»
  * @author fengliang
- * @date 2015-8-18 ÏÂÎç12:06:07
+ * @date 2015-8-18 ä¸‹åˆ12:06:07
  * 
  */
 public class Url {
@@ -20,92 +20,92 @@ public class Url {
 	public static final String ID = "id";
 	//
 	public static final String BIND_URL = HTTPROOT + "device/bind";
-	// µÇÂ¼
+	// ç™»å½•
 	public static final String LOGIN_URL = HTTPROOT + "login";
-	// ×¢²á
+	// æ³¨å†Œ
 	public static final String REGISTER_URL = HTTPROOT + "signup";
-	// »ñÈ¡¶ÌĞÅÑéÖ¤Âë
+	// è·å–çŸ­ä¿¡éªŒè¯ç 
 	public static final String GET_CODE_URL = HTTPROOT + "send_verify_code";
-	// Íü¼ÇÃÜÂë
+	// å¿˜è®°å¯†ç 
 	public static final String UPDATE_PASS_URL = HTTPROOT + "update_pass";
-	// µÇ³ö
+	// ç™»å‡º
 	public static final String SIGNOUT_URL = HTTPROOT + "signout";
-	// ¼ì²é°æ±¾
+	// æ£€æŸ¥ç‰ˆæœ¬
 	public static final String UPDATE_VERSION_URL = HTTPROOT
 			+ "device/android_build_version";
-	// ÓÃ»§·´À¡ feedback
+	// ç”¨æˆ·åé¦ˆ feedback
 	public static final String FEEDBACK_URL = HTTPROOT + "feedback";
-	// --------------------------------------------------ÒµÖ÷-----------------------------------------------------------
-	// ÒµÖ÷»ñÈ¡ĞèÇó
+	// --------------------------------------------------ä¸šä¸»-----------------------------------------------------------
+	// ä¸šä¸»è·å–éœ€æ±‚
 	public static final String REQUIREMENT = HTTPROOT + "user/requirement";
-	// ÒµÖ÷·¢ËÍ¹¤µØÅäÖÃºÍÅäÖÃ¹¤µØ
+	// ä¸šä¸»å‘é€å·¥åœ°é…ç½®å’Œé…ç½®å·¥åœ°
 	public static final String PROCESS = HTTPROOT + "user/process";
-	// »ñÈ¡ÒµÖ÷µÄÉè¼ÆÊ¦
+	// è·å–ä¸šä¸»çš„è®¾è®¡å¸ˆ
 	public static final String GET_OWER_DESIGNER = HTTPROOT + "designer/" + ID
 			+ "/basicinfo";
-	// ÒµÖ÷»ñÈ¡×Ô¼ºµÄ¸öÈË×ÊÁÏ
+	// ä¸šä¸»è·å–è‡ªå·±çš„ä¸ªäººèµ„æ–™
 	public static final String GET_OWER_INFO = HTTPROOT + "user/info";
-	// ÒµÖ÷»ñÈ¡Éè¼ÆÊ¦µÄ¸öÈË×ÊÁÏ
+	// ä¸šä¸»è·å–è®¾è®¡å¸ˆçš„ä¸ªäººèµ„æ–™
 	public static final String GET_OWER_DESIGNER_INFO = HTTPROOT + "user/designer/info";
-	// ----------------------------------------------------Éè¼ÆÊ¦----------------------------------------------------------
-	// Éè¼ÆÊ¦»ñÈ¡¸öÈËĞÅÏ¢
+	// ----------------------------------------------------è®¾è®¡å¸ˆ----------------------------------------------------------
+	// è®¾è®¡å¸ˆè·å–ä¸ªäººä¿¡æ¯
 	public static final String GET_DESIGNER_INFO = HTTPROOT + "designer/info";
-	// »ñÈ¡Éè¼ÆÊ¦µÄÒµÖ÷
+	// è·å–è®¾è®¡å¸ˆçš„ä¸šä¸»
 	public static final String GET_DESIGNER_OWNER = HTTPROOT + "designer/user";
-	// »ñÈ¡Éè¼ÆÊ¦µÄ¹¤µØÁĞ±í
+	// è·å–è®¾è®¡å¸ˆçš„å·¥åœ°åˆ—è¡¨
 	public static final String GET_DESIGNER_PROCESS = HTTPROOT
 			+ "/process/list";
-	// Éè¼ÆÊ¦»ñÈ¡ÎÒµÄ·½°¸
+	// è®¾è®¡å¸ˆè·å–æˆ‘çš„æ–¹æ¡ˆ
 	public static final String GET_DESIGNER_PLAN = HTTPROOT + "designer/plan";
-	// Éè¼ÆÊ¦Ìá½»·½°¸
+	// è®¾è®¡å¸ˆæäº¤æ–¹æ¡ˆ
 	public static final String SUBMIT_DESIGNER_PLAN = HTTPROOT
 			+ "designer/plan";
-	// ÓÃ»§ÉÏ´«Í¼Æ¬
+	// ç”¨æˆ·ä¸Šä¼ å›¾ç‰‡
 	public static final String UPLOAD_IMAGE = HTTPROOT + "image/upload";
-	// Éè¼ÆÊ¦Ìá½»ÑéÊÕÍ¼Æ¬
+	// è®¾è®¡å¸ˆæäº¤éªŒæ”¶å›¾ç‰‡
 	public static final String SUBMIT_YAHSHOU_IMAGE = HTTPROOT
 			+ "process/ysimage";
-	// Éè¼ÆÊ¦É¾³ıÑéÊÕÍ¼Æ¬
+	// è®¾è®¡å¸ˆåˆ é™¤éªŒæ”¶å›¾ç‰‡
 	public static final String DELETE_YAHSHOU_IMAGE = HTTPROOT
 			+ "process/ysimage";
-	// ÓÃ»§ÉÏ´«Í¼Æ¬µ½×°ĞŞÁ÷³Ì
+	// ç”¨æˆ·ä¸Šä¼ å›¾ç‰‡åˆ°è£…ä¿®æµç¨‹
 	public static final String POST_PROCESS_IMAGE = HTTPROOT + "process/image";
-	// ÆÀ¼Û×°ĞŞÁ÷³Ì
+	// è¯„ä»·è£…ä¿®æµç¨‹
 	public static final String POST_PROCESS_COMMENT = HTTPROOT
 			+ "process/comment";
-	// ÓÃ»§»ñÈ¡Ä³¸ö×°ĞŞÁ÷³Ì
+	// ç”¨æˆ·è·å–æŸä¸ªè£…ä¿®æµç¨‹
 	public static final String GET_ONE_PROCESS = HTTPROOT + "process/";
-	// ÓÃ»§»ñÈ¡ÒµÖ÷¸öÈËĞÅÏ¢
+	// ç”¨æˆ·è·å–ä¸šä¸»ä¸ªäººä¿¡æ¯
 	public static final String GET_ONE_OWNER_INFO = HTTPROOT + "user/" + ID
 			+ "/info";
-	// ÓÃ»§Ìá½»¸ÄÆÚ
+	// ç”¨æˆ·æäº¤æ”¹æœŸ
 	public static final String POST_RESCHDULE = HTTPROOT + "process/reschedule";
-	// ÓÃ»§Í¬Òâ¸ÄÆÚ
+	// ç”¨æˆ·åŒæ„æ”¹æœŸ
 	public static final String AGREE_RESCHDULE = HTTPROOT
 			+ "process/reschedule/ok";
-	// ÓÃ»§¾Ü¾ø¸ÄÆÚ
+	// ç”¨æˆ·æ‹’ç»æ”¹æœŸ
 	public static final String REFUSE_RESCHDULE = HTTPROOT
 			+ "process/reschedule/reject";
-	// ÓÃ»§»ñÈ¡ÎÒµÄ¸ÄÆÚÌáĞÑ
+	// ç”¨æˆ·è·å–æˆ‘çš„æ”¹æœŸæé†’
 	public static final String GET_RESCHDULE_ALL = HTTPROOT
 			+ "process/reschedule/all";
-	// »ñÈ¡Í¼Æ¬
+	// è·å–å›¾ç‰‡
 	public static final String GET_IMAGE = HTTPROOT + "image/";
-	// ¸ù¾İ¹¤µØid»ñÈ¡Ä³¸ö¹¤µØ
+	// æ ¹æ®å·¥åœ°idè·å–æŸä¸ªå·¥åœ°
 	public static final String GET_PROCESSINFO_BYID = HTTPROOT + "process/"
 			+ ID;
-	// ÓÃ»§Íê¹¤×°ĞŞÁ÷³ÌĞ¡½Úµã
+	// ç”¨æˆ·å®Œå·¥è£…ä¿®æµç¨‹å°èŠ‚ç‚¹
 	public static final String POST_PROCESS_DONE_ITEM = HTTPROOT
 			+ "process/done_item";
-	// ÄÃµ½Ä³¸ö·½°¸ĞÅÏ¢
+	// æ‹¿åˆ°æŸä¸ªæ–¹æ¡ˆä¿¡æ¯
 	public static final String GET_PLAN = HTTPROOT + "plan/" + ID;
-	// Éè¼ÆÊ¦È·ÈÏ¿ÉÒÔ¿ªÊ¼ÑéÊÕ
+	// è®¾è®¡å¸ˆç¡®è®¤å¯ä»¥å¼€å§‹éªŒæ”¶
 	public static final String CONFIRM_CHECK_BY_DESIGNER = HTTPROOT
 			+ "process/can_ys";
-	// ÒµÖ÷È·ÈÏ¶Ô±ÈÑéÊÕÍê³É
+	// ä¸šä¸»ç¡®è®¤å¯¹æ¯”éªŒæ”¶å®Œæˆ
 	public static final String CONFIRM_CHECK_DONE_BY_OWNER = HTTPROOT
 			+ "process/done_section";
-	// Éè¼ÆÊ¦É¾³ıÑéÊÕÍ¼Æ¬
+	// è®¾è®¡å¸ˆåˆ é™¤éªŒæ”¶å›¾ç‰‡
 	public static final String DELETE_YANSHOU_IMG_BY_DESIGNER = HTTPROOT
 			+ "process/ysimage";
 }

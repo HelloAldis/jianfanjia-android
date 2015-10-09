@@ -24,14 +24,14 @@ import com.loopj.android.http.RequestParams;
 /**
  * 
  * @ClassName: JianFanJiaApi
- * @Description: http½Ó¿ÚÀà
+ * @Description: httpæ¥å£ç±»
  * @author zhanghao
- * @date 2015-8-19 ÏÂÎç2:17:12
+ * @date 2015-8-19 ä¸‹åˆ2:17:12
  * 
  */
 public class JianFanJiaApiClient {
 	/**
-	 * ÉÏ´«¸öÍÆclientid
+	 * ä¸Šä¼ ä¸ªæ¨clientid
 	 * 
 	 * @param context
 	 * @param clientId
@@ -78,7 +78,7 @@ public class JianFanJiaApiClient {
 	}
 
 	/**
-	 * ÓÃ»§µÇ³ö
+	 * ç”¨æˆ·ç™»å‡º
 	 * 
 	 * @param context
 	 * @param handler
@@ -88,7 +88,7 @@ public class JianFanJiaApiClient {
 	}
 
 	/**
-	 * ¼ì²é°æ±¾
+	 * æ£€æŸ¥ç‰ˆæœ¬
 	 * 
 	 * @param context
 	 * @param handler
@@ -99,7 +99,7 @@ public class JianFanJiaApiClient {
 	}
 
 	/**
-	 * ÓÃ»§·´À¡
+	 * ç”¨æˆ·åé¦ˆ
 	 * 
 	 * @param context
 	 * @param content
@@ -146,7 +146,7 @@ public class JianFanJiaApiClient {
 
 	/**
 	 * @author zhanghao
-	 * @Description »ñÈ¡ÒµÖ÷ĞèÇó
+	 * @Description è·å–ä¸šä¸»éœ€æ±‚
 	 * @param context
 	 * @param handler
 	 */
@@ -157,7 +157,7 @@ public class JianFanJiaApiClient {
 
 	/**
 	 * @author zhanghao
-	 * @decription ÒµÖ÷ÅäÖÃ¹¤µØ
+	 * @decription ä¸šä¸»é…ç½®å·¥åœ°
 	 * @param context
 	 * @param requirementInfo
 	 * @param handler
@@ -227,7 +227,7 @@ public class JianFanJiaApiClient {
 
 	/**
 	 * @author zhanghao
-	 * @description ÒµÖ÷»ñÈ¡¸öÈËĞÅÏ¢
+	 * @description ä¸šä¸»è·å–ä¸ªäººä¿¡æ¯
 	 * @param context
 	 * @param hanlder
 	 */
@@ -238,7 +238,7 @@ public class JianFanJiaApiClient {
 
 	/**
 	 * @author zhanghao
-	 * @description Éè¼ÆÊ¦»ñÈ¡¸öÈËĞÅÏ¢
+	 * @description è®¾è®¡å¸ˆè·å–ä¸ªäººä¿¡æ¯
 	 * @param context
 	 * @param hanlder
 	 */
@@ -249,7 +249,7 @@ public class JianFanJiaApiClient {
 
 	/**
 	 * @author zhanghao
-	 * @description Éè¼ÆÊ¦»ñÈ¡ÎÒµÄÒµÖ÷
+	 * @description è®¾è®¡å¸ˆè·å–æˆ‘çš„ä¸šä¸»
 	 * @param context
 	 * @param hanlder
 	 */
@@ -260,7 +260,7 @@ public class JianFanJiaApiClient {
 
 	/**
 	 * @author zhanghao
-	 * @description Éè¼ÆÊ¦»ñÈ¡ÎÒµÄ¹¤µØÁĞ±í
+	 * @description è®¾è®¡å¸ˆè·å–æˆ‘çš„å·¥åœ°åˆ—è¡¨
 	 * @param context
 	 * @param hanlder
 	 */
@@ -270,7 +270,7 @@ public class JianFanJiaApiClient {
 	}
 
 	/**
-	 * Éè¼ÆÊ¦»ñÈ¡ÒµÖ÷¸öÈËĞÅÏ¢
+	 * è®¾è®¡å¸ˆè·å–ä¸šä¸»ä¸ªäººä¿¡æ¯
 	 * 
 	 * @param context
 	 * @param hanlder
@@ -282,17 +282,17 @@ public class JianFanJiaApiClient {
 	}
 
 	/**
-	 * ÒµÖ÷»ñÈ¡×°ĞŞ¹¤µØµÄÉè¼ÆÊ¦µÄĞÅÏ¢
+	 * ä¸šä¸»è·å–è£…ä¿®å·¥åœ°çš„è®¾è®¡å¸ˆçš„ä¿¡æ¯
 	 * 
 	 * @param context
-	 * @param hanlder
+	 * @param handler
 	 */
 	public static void getOwnerDesignerInfoById(Context context,
 			String designerid, AsyncHttpResponseHandler handler) {
 		JSONObject jsonParams = new JSONObject();
 		try {
 			jsonParams.put("designerid", designerid);
-			Log.i("JianFanJiaApiClient", "jsonParams£º" + jsonParams.toString());
+			Log.i("JianFanJiaApiClient", "jsonParamsï¼š" + jsonParams.toString());
 			StringEntity entity = new StringEntity(jsonParams.toString());
 			HttpRestClient.post(context, Url.GET_OWER_DESIGNER_INFO, entity,
 					"application/json", handler);
@@ -305,7 +305,7 @@ public class JianFanJiaApiClient {
 
 	/**
 	 * @author zhanghao
-	 * @description ÒµÖ÷»ñÈ¡ÎÒµÄ¹¤µØ
+	 * @description ä¸šä¸»è·å–æˆ‘çš„å·¥åœ°
 	 * @param context
 	 * @param hanlder
 	 */
@@ -315,7 +315,7 @@ public class JianFanJiaApiClient {
 	}
 
 	/**
-	 * ÓÃ»§Ìá½»¸ÄÆÚ
+	 * ç”¨æˆ·æäº¤æ”¹æœŸ
 	 * 
 	 * @param context
 	 * @param processId
@@ -336,7 +336,7 @@ public class JianFanJiaApiClient {
 			jsonParams.put("section", section);
 			jsonParams.put("new_date",
 					DateFormatTool.covertStringToLong(newDate));
-			Log.i("JianFanJiaApiClient", "jsonParams£º" + jsonParams.toString());
+			Log.i("JianFanJiaApiClient", "jsonParamsï¼š" + jsonParams.toString());
 			StringEntity entity = new StringEntity(jsonParams.toString());
 			HttpRestClient.post(context, Url.POST_RESCHDULE, entity,
 					"application/json", handler);
@@ -348,7 +348,7 @@ public class JianFanJiaApiClient {
 	}
 
 	/**
-	 * ÓÃ»§Í¬Òâ¸ÄÆÚ
+	 * ç”¨æˆ·åŒæ„æ”¹æœŸ
 	 * 
 	 * @param context
 	 * @param processid
@@ -371,7 +371,7 @@ public class JianFanJiaApiClient {
 	}
 
 	/**
-	 * ÓÃ»§¾Ü¾ø¸ÄÆÚ
+	 * ç”¨æˆ·æ‹’ç»æ”¹æœŸ
 	 * 
 	 * @param context
 	 * @param processid
@@ -394,7 +394,7 @@ public class JianFanJiaApiClient {
 	}
 
 	/**
-	 * ÓÃ»§»ñÈ¡ÎÒµÄ¸ÄÆÚÌáĞÑ
+	 * ç”¨æˆ·è·å–æˆ‘çš„æ”¹æœŸæé†’
 	 * 
 	 * @param context
 	 * @param hanlder
@@ -405,7 +405,7 @@ public class JianFanJiaApiClient {
 	}
 
 	/**
-	 * °æ±¾¸üĞÂ
+	 * ç‰ˆæœ¬æ›´æ–°
 	 * 
 	 * @param context
 	 * @param hanlder
@@ -416,7 +416,7 @@ public class JianFanJiaApiClient {
 	}
 
 	/**
-	 * ÆÀÂÛ×°ĞŞÁ÷³Ì
+	 * è¯„è®ºè£…ä¿®æµç¨‹
 	 * 
 	 * @author zhanghao
 	 * @param commitCommentInfo
@@ -439,7 +439,7 @@ public class JianFanJiaApiClient {
 	}
 
 	/**
-	 * ÓÃ»§ÉÏ´«Í¼Æ¬
+	 * ç”¨æˆ·ä¸Šä¼ å›¾ç‰‡
 	 * 
 	 * @param context
 	 * @param hanlder
@@ -458,7 +458,7 @@ public class JianFanJiaApiClient {
 	}
 
 	/**
-	 * ÓÃ»§ÉÏ´«Í¼Æ¬
+	 * ç”¨æˆ·ä¸Šä¼ å›¾ç‰‡
 	 * 
 	 * @param context
 	 * @param hanlder
@@ -477,7 +477,7 @@ public class JianFanJiaApiClient {
 	}
 
 	/**
-	 * ÓÃ»§ÉÏ´«Í¼Æ¬µ½×°ĞŞÁ÷³Ì
+	 * ç”¨æˆ·ä¸Šä¼ å›¾ç‰‡åˆ°è£…ä¿®æµç¨‹
 	 * 
 	 * @param context
 	 * @param siteId
@@ -506,7 +506,7 @@ public class JianFanJiaApiClient {
 	}
 
 	/**
-	 * Éè¼ÆÊ¦Ìá½»ÑéÊÕÍ¼Æ¬
+	 * è®¾è®¡å¸ˆæäº¤éªŒæ”¶å›¾ç‰‡
 	 * 
 	 * @param context
 	 * @param siteId
@@ -535,7 +535,7 @@ public class JianFanJiaApiClient {
 	}
 
 	/**
-	 * Éè¼ÆÊ¦É¾³ıÑéÊÕÍ¼Æ¬
+	 * è®¾è®¡å¸ˆåˆ é™¤éªŒæ”¶å›¾ç‰‡
 	 * 
 	 * @param context
 	 * @param siteId
@@ -559,7 +559,7 @@ public class JianFanJiaApiClient {
 	}
 
 	/**
-	 * ÓÃ»§Íê¹¤×°ĞŞÁ÷³ÌĞ¡½Úµã
+	 * ç”¨æˆ·å®Œå·¥è£…ä¿®æµç¨‹å°èŠ‚ç‚¹
 	 * 
 	 * @param context
 	 * @param siteId
@@ -585,7 +585,7 @@ public class JianFanJiaApiClient {
 	}
 
 	/**
-	 * ¸ù¾İidÄÃµ½¹¤µØĞÅÏ¢
+	 * æ ¹æ®idæ‹¿åˆ°å·¥åœ°ä¿¡æ¯
 	 * 
 	 * @param context
 	 * @param processid
@@ -599,7 +599,7 @@ public class JianFanJiaApiClient {
 	}
 
 	/**
-	 * ĞŞ¸ÄÒµÖ÷¸öÈËĞÅÏ¢
+	 * ä¿®æ”¹ä¸šä¸»ä¸ªäººä¿¡æ¯
 	 * 
 	 * @param context
 	 * @param ownerInfo
@@ -619,7 +619,7 @@ public class JianFanJiaApiClient {
 	}
 
 	/**
-	 * ĞŞ¸ÄÉè¼ÆÊ¦¸öÈËĞÅÏ¢
+	 * ä¿®æ”¹è®¾è®¡å¸ˆä¸ªäººä¿¡æ¯
 	 * 
 	 * @param context
 	 * @param designerInfo
@@ -640,7 +640,7 @@ public class JianFanJiaApiClient {
 	}
 
 	/**
-	 * Éè¼ÆÊ¦È·ÈÏ¿ÉÒÔ¿ªÊ¼ÑéÊÕ
+	 * è®¾è®¡å¸ˆç¡®è®¤å¯ä»¥å¼€å§‹éªŒæ”¶
 	 * 
 	 * @param context
 	 * @param siteid
@@ -664,7 +664,7 @@ public class JianFanJiaApiClient {
 	}
 
 	/**
-	 * ÒµÖ÷È·ÈÏ¶Ô±ÈÑéÊÕÍê³É
+	 * ä¸šä¸»ç¡®è®¤å¯¹æ¯”éªŒæ”¶å®Œæˆ
 	 * 
 	 * @param context
 	 * @param siteid
@@ -688,7 +688,7 @@ public class JianFanJiaApiClient {
 	}
 
 	/**
-	 * Éè¼ÆÊ¦É¾³ıÑéÊÕÍ¼Æ¬
+	 * è®¾è®¡å¸ˆåˆ é™¤éªŒæ”¶å›¾ç‰‡
 	 * 
 	 * @param context
 	 * @param processId

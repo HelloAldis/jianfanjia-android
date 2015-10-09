@@ -5,27 +5,27 @@ import java.io.Serializable;
 /**
  * 
  * @ClassName: DesignerSiteInfo
- * @Description: ¹¤µØ»ù±¾ĞÅÏ¢
+ * @Description: å·¥åœ°åŸºæœ¬ä¿¡æ¯
  * @author zhanghao
- * @date 2015-8-26 ÏÂÎç20:03
+ * @date 2015-8-26 ä¸‹åˆ20:03
  * 
  */
 public class Process implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private String _id;// ¹¤µØid
+	private String _id;// å·¥åœ°id
 
 	private String city;
 
 	private String district;
 
-	private String cell;// Ğ¡ÇøÃû³Æ
+	private String cell;// å°åŒºåç§°
 
-	private String userid;// ÒµÖ÷id
+	private String userid;// ä¸šä¸»id
 
-	private String going_on;// Ëù´¦½×¶Î
+	private String going_on;// æ‰€å¤„é˜¶æ®µ
 	
-	private String final_designerid;//Éè¼ÆÊ¦id
+	private String final_designerid;//è®¾è®¡å¸ˆid
 
 	private User user;
 	

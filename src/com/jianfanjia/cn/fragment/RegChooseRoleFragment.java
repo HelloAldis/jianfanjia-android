@@ -16,21 +16,21 @@ import com.jianfanjia.cn.interf.FragmentListener;
 
 /**
  * @version 1.0
- * @Description ×¢²áÑ¡Ôñ½ÇÉ«Fragment
+ * @Description æ³¨å†Œé€‰æ‹©è§’è‰²Fragment
  * @author zhanghao
- * @date 2015-8-21 ÉÏÎç9:15
+ * @date 2015-8-21 ä¸Šåˆ9:15
  * 
  */
 public class RegChooseRoleFragment extends BaseFragment implements
 		OnTouchListener {
 	private static final String TAG = RegChooseRoleFragment.class.getName();
 	private FragmentListener fragemntListener = null;
-	private ImageView designerView = null;// Éè¼ÆÊ¦Éí·İ
-	private ImageView owerView = null;// ÒµÖ÷Éí·İ
-	private Button nextView = null;// ÏÂÒ»²½
-	private TextView backView = null;// ·µ»Ø
-	private ImageView indicatorView = null;// Ö¸Ê¾Æ÷
-	private TextView proTipView = null;// ÌáÊ¾²Ù×÷
+	private ImageView designerView = null;// è®¾è®¡å¸ˆèº«ä»½
+	private ImageView owerView = null;// ä¸šä¸»èº«ä»½
+	private Button nextView = null;// ä¸‹ä¸€æ­¥
+	private TextView backView = null;// è¿”å›
+	private ImageView indicatorView = null;// æŒ‡ç¤ºå™¨
+	private TextView proTipView = null;// æç¤ºæ“ä½œ
 
 	@Override
 	public void onAttach(Activity activity) {

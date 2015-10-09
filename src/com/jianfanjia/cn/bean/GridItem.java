@@ -7,7 +7,7 @@ import java.io.Serializable;
  * @ClassName: GridItem
  * @Description:
  * @author fengliang
- * @date 2015-8-28 ÏÂÎç5:06:27
+ * @date 2015-8-28 ä¸‹åˆ5:06:27
  * 
  */
 public class GridItem implements Serializable {

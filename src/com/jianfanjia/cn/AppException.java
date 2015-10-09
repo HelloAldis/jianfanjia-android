@@ -24,7 +24,7 @@ import com.jianfanjia.cn.tools.StringUtils;
 
 @SuppressWarnings("serial")
 public class AppException extends Exception implements UncaughtExceptionHandler {
-	/** Òì³£ÀàĞÍ */
+	/** å¼‚å¸¸ç±»å‹ */
 	public final static byte TYPE_NETWORK = 0x01;
 	public final static byte TYPE_SOCKET = 0x02;
 	public final static byte TYPE_HTTP_CODE = 0x03;
@@ -35,8 +35,8 @@ public class AppException extends Exception implements UncaughtExceptionHandler 
 	public final static byte TYPE_JSON = 0x08;
 	public final static byte TYPE_FILENOTFOUND = 0x09;
 
-	private byte type;// Òì³£ÀàĞÍ
-	// Òì³£´úÂë
+	private byte type;// å¼‚å¸¸ç±»å‹
+	// å¼‚å¸¸ä»£ç 
 	private int code;
 
 	private MyApplication mContext;
@@ -75,12 +75,12 @@ public class AppException extends Exception implements UncaughtExceptionHandler 
 		return new AppException(TYPE_FILENOTFOUND, 0, e);
 	}
 
-	// ioÒì³£
+	// ioå¼‚å¸¸
 	public static AppException io(Exception e) {
 		return io(e, 0);
 	}
 
-	// ioÒì³£
+	// ioå¼‚å¸¸
 	public static AppException io(Exception e, int code) {
 		if (e instanceof UnknownHostException || e instanceof ConnectException) {
 			return new AppException(TYPE_NETWORK, code, e);
@@ -98,7 +98,7 @@ public class AppException extends Exception implements UncaughtExceptionHandler 
 		return new AppException(TYPE_JSON, 0, e);
 	}
 
-	// ÍøÂçÒì³£
+	// ç½‘ç»œå¼‚å¸¸
 	public static AppException network(Exception e) {
 		if (e instanceof UnknownHostException || e instanceof ConnectException) {
 			return new AppException(TYPE_NETWORK, 0, e);
@@ -115,7 +115,7 @@ public class AppException extends Exception implements UncaughtExceptionHandler 
 	}
 
 	/**
-	 * ÄÃµ½appÒì³£´¦ÀíÀà
+	 * æ‹¿åˆ°appå¼‚å¸¸å¤„ç†ç±»
 	 * 
 	 * @param context
 	 * @return
@@ -130,17 +130,17 @@ public class AppException extends Exception implements UncaughtExceptionHandler 
 			android.os.Process.killProcess(android.os.Process.myPid());
 			System.exit(0);
 		} else {
-			// ÍË³ö³ÌĞò,×¢ÊÍÏÂÃæµÄÖØÆôÆô¶¯³ÌĞò´úÂë
+			// é€€å‡ºç¨‹åº,æ³¨é‡Šä¸‹é¢çš„é‡å¯å¯åŠ¨ç¨‹åºä»£ç 
 			android.os.Process.killProcess(android.os.Process.myPid());
 			System.exit(1);
 		}
 	}
 
 	/**
-	 * ´¦ÀíÒì³£µÄ·½·¨
+	 * å¤„ç†å¼‚å¸¸çš„æ–¹æ³•
 	 * 
 	 * @param ex
-	 * @return true:¿ÉÒÔ´¦Àí£¬false:ÎŞ·¨´¦Àí
+	 * @return true:å¯ä»¥å¤„ç†ï¼Œfalse:æ— æ³•å¤„ç†
 	 */
 	private boolean handleException(final Throwable ex) {
 		if (ex == null || mContext == null) {
@@ -158,7 +158,7 @@ public class AppException extends Exception implements UncaughtExceptionHandler 
 					@Override
 					public void run() {
 						Looper.prepare();
-						Toast.makeText(mContext, "ºÜ±§Ç¸£¬Ó¦ÓÃ³öÏÖÒì³££¬¼´½«ÍË³ö",
+						Toast.makeText(mContext, "å¾ˆæŠ±æ­‰ï¼Œåº”ç”¨å‡ºç°å¼‚å¸¸ï¼Œå³å°†é€€å‡º",
 								Toast.LENGTH_LONG).show();
 						Looper.loop();
 						System.exit(-1);
@@ -177,12 +177,12 @@ public class AppException extends Exception implements UncaughtExceptionHandler 
 		}
 		PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(
 				file, append)));
-		// ´òÓ¡Òì³£Ê±¼ä
+		// æ‰“å°å¼‚å¸¸æ—¶é—´
 		pw.println(StringUtils.getDataTime("yyyy-MM-dd-HH-mm"));
-		// ´òÓ¡ÊÖ»úÓ¦ÓÃĞÅÏ¢
+		// æ‰“å°æ‰‹æœºåº”ç”¨ä¿¡æ¯
 		dumpPhoneInfo(pw);
 		pw.println();
-		// ´òÓ¡Òì³£ÄÚÈİ
+		// æ‰“å°å¼‚å¸¸å†…å®¹
 		ex.printStackTrace(pw);
 		pw.println();
 		pw.close();
@@ -190,7 +190,7 @@ public class AppException extends Exception implements UncaughtExceptionHandler 
 	}
 
 	private void dumpPhoneInfo(PrintWriter pw) throws NameNotFoundException {
-		// åº”ç”¨çš„ç‰ˆæœ¬åç§°å’Œç‰ˆæœ¬å?
+		// æ´æ—‚æ•¤é¨å‹­å¢—éˆî„€æ‚•ç»‰æ¿æ‹°é—å Ÿæ¹°é™?
 		PackageManager pm = mContext.getPackageManager();
 		PackageInfo pi = pm.getPackageInfo(mContext.getPackageName(),
 				PackageManager.GET_ACTIVITIES);
@@ -200,24 +200,24 @@ public class AppException extends Exception implements UncaughtExceptionHandler 
 		pw.println(pi.versionCode);
 		pw.println();
 
-		// androidç‰ˆæœ¬å?
+		// androidé—å Ÿæ¹°é™?
 		pw.print("Jianfanjia Version: ");
 		pw.print(Build.VERSION.RELEASE);
 		pw.print("_");
 		pw.println(Build.VERSION.SDK_INT);
 		pw.println();
 
-		// æ‰‹æœºåˆ¶é? å•†
+		// éµå¬«æº€é’å •?çŠ²æ™¢
 		pw.print("Vendor: ");
 		pw.println(Build.MANUFACTURER);
 		pw.println();
 
-		// æ‰‹æœºå‹å·
+		// éµå¬«æº€é¨å¬ªå½¿
 		pw.print("Model: ");
 		pw.println(Build.MODEL);
 		pw.println();
 
-		// cpuæ¶æ„
+		// cpué‹èˆµç€¯
 		pw.print("CPU ABI: ");
 		pw.println(Build.CPU_ABI);
 		pw.println();

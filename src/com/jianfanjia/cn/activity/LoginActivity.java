@@ -21,22 +21,22 @@ import com.jianfanjia.cn.tools.NetTool;
 /**
  * 
  * @ClassName: LoginActivity
- * @Description: µÇÂ¼
+ * @Description: ç™»å½•
  * @author fengliang
- * @date 2015-8-18 ÏÂÎç12:11:23
+ * @date 2015-8-18 ä¸‹åˆ12:11:23
  * 
  */
 public class LoginActivity extends BaseActivity implements OnClickListener,
 		LoadDataListener {
 	private static final String TAG = LoginActivity.class.getName();
 	private RelativeLayout loginLayout = null;
-	private EditText mEtUserName = null;// ÓÃ»§ÃûÊäÈë¿ò
-	private EditText mEtPassword = null;// ÓÃ»§ÃÜÂëÊäÈë¿ò
-	private Button mBtnLogin = null;// µÇÂ¼°´Å¥
+	private EditText mEtUserName = null;// ç”¨æˆ·åè¾“å…¥æ¡†
+	private EditText mEtPassword = null;// ç”¨æˆ·å¯†ç è¾“å…¥æ¡†
+	private Button mBtnLogin = null;// ç™»å½•æŒ‰é’®
 	private TextView mForgetPswView = null;
-	private TextView mRegisterView = null;// µ¼º½µ½ÓÃ»§×¢²á
-	private String mUserName = null;// ÓÃ»§Ãû
-	private String mPassword = null;// ÃÜÂë
+	private TextView mRegisterView = null;// å¯¼èˆªåˆ°ç”¨æˆ·æ³¨å†Œ
+	private String mUserName = null;// ç”¨æˆ·å
+	private String mPassword = null;// å¯†ç 
 
 	@Override
 	public void initView() {
@@ -103,7 +103,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener,
 	}
 
 	/**
-	 * µÇÂ¼
+	 * ç™»å½•
 	 * 
 	 * @param name
 	 * @param password
@@ -120,7 +120,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener,
 
 	@Override
 	public void loadSuccess() {
-		//µÇÂ¼³É¹¦£¬¼ÓÔØ¹¤µØÁĞ±í
+		//ç™»å½•æˆåŠŸï¼ŒåŠ è½½å·¥åœ°åˆ—è¡¨
 		LoadClientHelper.requestProcessList(this, new ProcessListRequest(this), new LoadDataListener() {
 			
 			@Override
@@ -131,7 +131,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener,
 			
 			@Override
 			public void loadSuccess() {
-				// ¹¤µØÁĞ±íË¢ĞÂ³É¹¦£¬¼ÓÔØÓÃ»§Ä¬ÈÏ¹¤µØ
+				// å·¥åœ°åˆ—è¡¨åˆ·æ–°æˆåŠŸï¼ŒåŠ è½½ç”¨æˆ·é»˜è®¤å·¥åœ°
 				String processId = dataManager.getDefaultProcessId();
 				if(processId != null){
 					LoadClientHelper.requestProcessInfoById(LoginActivity.this, new ProcessInfoRequest(LoginActivity.this, processId), new LoadDataListener() {
@@ -177,9 +177,9 @@ public class LoginActivity extends BaseActivity implements OnClickListener,
 
 	/**
 	 * @param root
-	 *            ×îÍâ²ã²¼¾Ö£¬ĞèÒªµ÷ÕûµÄ²¼¾Ö
+	 *            æœ€å¤–å±‚å¸ƒå±€ï¼Œéœ€è¦è°ƒæ•´çš„å¸ƒå±€
 	 * @param scrollToView
-	 *            ±»¼üÅÌÕÚµ²µÄscrollToView£¬¹ö¶¯root,Ê¹scrollToViewÔÚroot¿ÉÊÓÇøÓòµÄµ×²¿
+	 *            è¢«é”®ç›˜é®æŒ¡çš„scrollToViewï¼Œæ»šåŠ¨root,ä½¿scrollToViewåœ¨rootå¯è§†åŒºåŸŸçš„åº•éƒ¨
 	 */
 	private void controlKeyboardLayout(final View root, final View scrollToView) {
 		root.getViewTreeObserver().addOnGlobalLayoutListener(
@@ -187,22 +187,22 @@ public class LoginActivity extends BaseActivity implements OnClickListener,
 					@Override
 					public void onGlobalLayout() {
 						Rect rect = new Rect();
-						// »ñÈ¡rootÔÚ´°ÌåµÄ¿ÉÊÓÇøÓò
+						// è·å–rootåœ¨çª—ä½“çš„å¯è§†åŒºåŸŸ
 						root.getWindowVisibleDisplayFrame(rect);
-						// »ñÈ¡rootÔÚ´°ÌåµÄ²»¿ÉÊÓÇøÓò¸ß¶È(±»ÆäËûViewÕÚµ²µÄÇøÓò¸ß¶È)
+						// è·å–rootåœ¨çª—ä½“çš„ä¸å¯è§†åŒºåŸŸé«˜åº¦(è¢«å…¶ä»–Viewé®æŒ¡çš„åŒºåŸŸé«˜åº¦)
 						int rootInvisibleHeight = root.getRootView()
 								.getHeight() - rect.bottom;
-						// Èô²»¿ÉÊÓÇøÓò¸ß¶È´óÓÚ100£¬Ôò¼üÅÌÏÔÊ¾
+						// è‹¥ä¸å¯è§†åŒºåŸŸé«˜åº¦å¤§äº100ï¼Œåˆ™é”®ç›˜æ˜¾ç¤º
 						if (rootInvisibleHeight > 100) {
 							int[] location = new int[2];
-							// »ñÈ¡scrollToViewÔÚ´°ÌåµÄ×ø±ê
+							// è·å–scrollToViewåœ¨çª—ä½“çš„åæ ‡
 							scrollToView.getLocationInWindow(location);
-							// ¼ÆËãroot¹ö¶¯¸ß¶È£¬Ê¹scrollToViewÔÚ¿É¼ûÇøÓò
+							// è®¡ç®—rootæ»šåŠ¨é«˜åº¦ï¼Œä½¿scrollToViewåœ¨å¯è§åŒºåŸŸ
 							int srollHeight = (location[1] + scrollToView
 									.getHeight()) - rect.bottom;
 							root.scrollTo(0, srollHeight);
 						} else {
-							// ¼üÅÌÒş²Ø
+							// é”®ç›˜éšè—
 							root.scrollTo(0, 0);
 						}
 					}

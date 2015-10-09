@@ -9,9 +9,9 @@ import com.loopj.android.http.RequestParams;
 /**
  * 
  * @ClassName: HttpRestClient
- * @Description: httpÇëÇóÀà
+ * @Description: HttpRestClient
  * @author fengliang
- * @date 2015-8-18 ÏÂÎç1:18:08
+ * @date 2015-8-18 ä¸‹åˆ1:18:08
  * 
  */
 public class HttpRestClient {

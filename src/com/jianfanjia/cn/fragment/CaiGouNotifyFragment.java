@@ -20,9 +20,9 @@ import com.jianfanjia.cn.tools.LogTool;
 /**
  * 
  * @ClassName: CaiGouNotifyFragment
- * @Description: ²É¹ºÌáĞÑ
+ * @Description: é‡‡è´­æé†’
  * @author fengliang
- * @date 2015-8-26 ÏÂÎç1:07:52
+ * @date 2015-8-26 ä¸‹åˆ1:07:52
  * 
  */
 public class CaiGouNotifyFragment extends BaseFragment implements
@@ -50,12 +50,12 @@ public class CaiGouNotifyFragment extends BaseFragment implements
 	public void setUserVisibleHint(boolean isVisibleToUser) {
 		super.setUserVisibleHint(isVisibleToUser);
 		if (isVisibleToUser) {
-			// fragment¿É¼ûÊ±¼ÓÔØÊı¾İ
-			LogTool.d(TAG, "CaiGouNotifyFragment ¿É¼û");
+			// fragmentå¯è§æ—¶åŠ è½½æ•°æ®
+			LogTool.d(TAG, "CaiGouNotifyFragment å¯è§");
 			initData();
 		} else {
-			// ²»¿É¼ûÊ±²»Ö´ĞĞ²Ù×÷
-			LogTool.d(TAG, "CaiGouNotifyFragment ²»¿É¼û");
+			// ä¸å¯è§æ—¶ä¸æ‰§è¡Œæ“ä½œ
+			LogTool.d(TAG, "CaiGouNotifyFragment ä¸å¯è§");
 		}
 	}
 

@@ -11,9 +11,9 @@ import com.jianfanjia.cn.tools.ViewPagerManager.ShapeType;
 /**
  * 
  * @ClassName: HelpActivity
- * @Description: °ïÖú
+ * @Description: å¸®åŠ©
  * @author fengliang
- * @date 2015-9-13 ÏÂÎç2:15:12
+ * @date 2015-9-13 ä¸‹åˆ2:15:12
  * 
  */
 public class HelpActivity extends BaseActivity {
@@ -28,7 +28,7 @@ public class HelpActivity extends BaseActivity {
 
 	private void init() {
 		ViewPagerManager contoler = new ViewPagerManager(HelpActivity.this);
-		contoler.setmShapeType(ShapeType.OVAL);// ÉèÖÃÖ¸Ê¾Æ÷µÄĞÎ×´Îª¾ØĞÎ£¬Ä¬ÈÏÊÇÔ²ĞÎ
+		contoler.setmShapeType(ShapeType.OVAL);// è®¾ç½®æŒ‡ç¤ºå™¨çš„å½¢çŠ¶ä¸ºçŸ©å½¢ï¼Œé»˜è®¤æ˜¯åœ†å½¢
 		List<View> bannerList = new ArrayList<View>();
 		for (int i = 0; i < IMG_ID.length; i++) {
 			ImageView imageView = new ImageView(HelpActivity.this);

@@ -8,8 +8,8 @@ import com.jianfanjia.cn.tools.LogTool;
 /**
  * @class SectionItemInfo.class
  * @author zhanghao
- * @Decription 此类是节点信息实体类
- * @date 2015-8-31 上午11:57
+ * @Decription 姝ょ被鏄妭鐐逛俊鎭疄浣撶被
+ * @date 2015-8-31 涓婂崍11:57
  * 
  */
 public class SectionItemInfo implements Serializable {

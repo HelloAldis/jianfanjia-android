@@ -19,7 +19,7 @@ public class EditInfoActivity extends BaseActivity implements OnClickListener {
 	private EditText editInfoView;
 	private Button confirmView;
 	private Intent intent;
-	private int type;// ÊäÈëÀàĞÍ
+	private int type;// è¾“å…¥ç±»å‹
 	InputFilter[] namefilters = { new InputFilter.LengthFilter(20) };
 	InputFilter[] addressfilters = { new InputFilter.LengthFilter(100) };
 

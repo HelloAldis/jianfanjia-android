@@ -22,7 +22,7 @@ import com.jianfanjia.cn.tools.StringUtils;
 /**
  * @class CommentInfoAdapter
  * @author zhanghao
- * @date 2015-8-27 ÉÏÎç10:50
+ * @date 2015-8-27 ä¸Šåˆ10:50
  * 
  */
 public class CommentInfoAdapter extends BaseListAdapter<CommentInfo> {
@@ -138,11 +138,11 @@ public class CommentInfoAdapter extends BaseListAdapter<CommentInfo> {
 	}
 
 	private static class ViewHolder {
-		TextView itemNameView;// ÆÀÂÛÈËÃû³Æ
-		TextView itemTimeView;// ÆÀÂÛÊ±¼ä
-		TextView itemContentView;// ÆÀÂÛÄÚÈİ
-		TextView itemIdentityView;// ÆÀÂÛÈËÉí·İ
-		ImageView itemHeadView;// ÆÀÂÛÈËÍ·Ïñ
+		TextView itemNameView;// è¯„è®ºäººåç§°
+		TextView itemTimeView;// è¯„è®ºæ—¶é—´
+		TextView itemContentView;// è¯„è®ºå†…å®¹
+		TextView itemIdentityView;// è¯„è®ºäººèº«ä»½
+		ImageView itemHeadView;// è¯„è®ºäººå¤´åƒ
 	}
 
 	@Override

@@ -5,9 +5,9 @@ import java.io.Serializable;
 /**
  * 
  * @ClassName: CollectInfo
- * @Description: 收藏信息
+ * @Description: 鏀惰棌淇℃伅
  * @author fengliang
- * @date 2015-8-18 下午3:56:05
+ * @date 2015-8-18 涓嬪崍3:56:05
  * 
  */
 public class CollectInfo implements Serializable {

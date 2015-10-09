@@ -1,3 +1,4 @@
+
 package com.jianfanjia.cn.fragment;
 
 import android.content.Intent;
@@ -22,9 +23,9 @@ import com.jianfanjia.cn.tools.LogTool;
 /**
  * 
  * @ClassName: DesignMenuFragment
- * @Description: Éè¼ÆÊ¦²à»¬À¸²Ëµ¥
+ * @Description: è®¾è®¡å¸ˆä¾§æ»‘æ èœå•
  * @author fengliang
- * @date 2015-8-28 ÉÏÎç10:40:10
+ * @date 2015-8-28 ä¸Šåˆ10:40:10
  * 
  */
 public class DesignerMenuFragment extends BaseFragment {
@@ -56,10 +57,10 @@ public class DesignerMenuFragment extends BaseFragment {
 		if (!TextUtils.isEmpty(mUserName)) {
 			nameText.setText(mUserName);
 		} else {
-			nameText.setText("Éè¼ÆÊ¦");
+			nameText.setText("è®¾è®¡å¸ˆ");
 		}
 		if (!TextUtils.isEmpty(mAccount)) {
-			phoneText.setText("ÕËºÅ:" + mAccount);
+			phoneText.setText("è´¦å·:" + mAccount);
 		}
 		imageLoader.displayImage(mUserImageId, img_head, options);
 	}

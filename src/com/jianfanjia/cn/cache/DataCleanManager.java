@@ -10,13 +10,13 @@ import android.util.Log;
  * @ClassName: DataCleanManager
  * @Description: TODO
  * @author fengliang
- * @date 2015-9-11 ÏÂÎç6:03:26
+ * @date 2015-9-11 ä¸‹åˆ6:03:26
  * 
  */
 public class DataCleanManager {
 
 	/**
-	 * ÇåÀíÓ¦ÓÃÄÚËùÓĞµÄÎÄ¼ş (/data/data/com.xxx.xxx/cache)
+	 * æ¸…ç†åº”ç”¨å†…æ‰€æœ‰çš„æ–‡ä»¶ (/data/data/com.xxx.xxx/cache)
 	 * 
 	 * @param context
 	 */
@@ -26,7 +26,7 @@ public class DataCleanManager {
 	}
 
 	/**
-	 * ÇåÀíÓ¦ÓÃÄÚËùÒÔµÄ»º´æÊı¾İ¿â (/data/data/com.xxx.xxx/databases)
+	 * æ¸…ç†åº”ç”¨å†…æ‰€ä»¥çš„ç¼“å­˜æ•°æ®åº“ (/data/data/com.xxx.xxx/databases)
 	 * 
 	 * @param context
 	 */
@@ -36,7 +36,7 @@ public class DataCleanManager {
 	}
 
 	/**
-	 * ÇåÀíÓ¦ÓÃÄÚËùÓĞµÄshared_prefsÎÄ¼ş (/data/data/com.xxx.xxx/shared_prefs)
+	 * æ¸…ç†åº”ç”¨å†…æ‰€æœ‰çš„shared_prefsæ–‡ä»¶ (/data/data/com.xxx.xxx/shared_prefs)
 	 * 
 	 * @param context
 	 */
@@ -52,7 +52,7 @@ public class DataCleanManager {
 	}
 
 	/**
-	 * ¸ù¾İÊı¾İ¿âÃû×ÖÇåÀí»º´æ
+	 * æ ¹æ®æ•°æ®åº“åå­—æ¸…ç†ç¼“å­˜
 	 * 
 	 * @param context
 	 * @param dbName
@@ -62,7 +62,7 @@ public class DataCleanManager {
 	}
 
 	/**
-	 * Çå³ı/data/data/com.xxx.xxx/filesÏÂµÄÄÚÈİ
+	 * æ¸…é™¤/data/data/com.xxx.xxx/filesä¸‹çš„å†…å®¹
 	 * 
 	 * @param context
 	 */
@@ -71,7 +71,7 @@ public class DataCleanManager {
 	}
 
 	/**
-	 * Çå³ıÍâ²¿cacheÏÂµÄÄÚÈİ(/mnt/sdcard/android/data/com.xxx.xxx/cache)
+	 * æ¸…é™¤å¤–éƒ¨cacheä¸‹çš„å†…å®¹(/mnt/sdcard/android/data/com.xxx.xxx/cache)
 	 * 
 	 * @param context
 	 */
@@ -83,7 +83,7 @@ public class DataCleanManager {
 	}
 
 	/**
-	 * Çå³ı×Ô¶¨ÒåÂ·¾¶ÏÂµÄÎÄ¼ş£¬Ê¹ÓÃĞèĞ¡ĞÄ£¬Çë²»ÒªÎóÉ¾¡£¶øÇÒÖ»Ö§³ÖÄ¿Â¼ÏÂµÄÎÄ¼şÉ¾³ı
+	 * æ¸…é™¤è‡ªå®šä¹‰è·¯å¾„ä¸‹çš„æ–‡ä»¶ï¼Œä½¿ç”¨éœ€å°å¿ƒï¼Œè¯·ä¸è¦è¯¯åˆ ã€‚è€Œä¸”åªæ”¯æŒç›®å½•ä¸‹çš„æ–‡ä»¶åˆ é™¤
 	 * 
 	 * @param filePath
 	 */
@@ -92,7 +92,7 @@ public class DataCleanManager {
 	}
 
 	/**
-	 * Çå³ı×Ô¶¨ÒåÂ·¾¶ÏÂµÄÎÄ¼ş£¬Ê¹ÓÃĞèĞ¡ĞÄ£¬Çë²»ÒªÎóÉ¾¡£¶øÇÒÖ»Ö§³ÖÄ¿Â¼ÏÂµÄÎÄ¼şÉ¾³ı
+	 * æ¸…é™¤è‡ªå®šä¹‰è·¯å¾„ä¸‹çš„æ–‡ä»¶ï¼Œä½¿ç”¨éœ€å°å¿ƒï¼Œè¯·ä¸è¦è¯¯åˆ ã€‚è€Œä¸”åªæ”¯æŒç›®å½•ä¸‹çš„æ–‡ä»¶åˆ é™¤
 	 * 
 	 * @param filePath
 	 */
@@ -101,7 +101,7 @@ public class DataCleanManager {
 	}
 
 	/**
-	 * Çå³ı±¾Ó¦ÓÃËùÓĞµÄÊı¾İ
+	 * æ¸…é™¤æœ¬åº”ç”¨æ‰€æœ‰çš„æ•°æ®
 	 * 
 	 * @param context
 	 * @param filepath
@@ -118,7 +118,7 @@ public class DataCleanManager {
 	}
 
 	/**
-	 * É¾³ı·½·¨ ÕâÀïÖ»»áÉ¾³ıÄ³¸öÎÄ¼ş¼ĞÏÂµÄÎÄ¼ş£¬Èç¹û´«ÈëµÄdirectoryÊÇ¸öÎÄ¼ş£¬½«²»×ö´¦Àí
+	 * åˆ é™¤æ–¹æ³• è¿™é‡Œåªä¼šåˆ é™¤æŸä¸ªæ–‡ä»¶å¤¹ä¸‹çš„æ–‡ä»¶ï¼Œå¦‚æœä¼ å…¥çš„directoryæ˜¯ä¸ªæ–‡ä»¶ï¼Œå°†ä¸åšå¤„ç†
 	 * 
 	 * @param directory
 	 */

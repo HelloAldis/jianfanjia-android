@@ -28,20 +28,20 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 
 /**
  * @version 1.0
- * @Description ×¢²áÑ¡Ôñ½ÇÉ«Fragment
+ * @Description æ³¨å†Œé€‰æ‹©è§’è‰²Fragment
  * @author zhanghao
- * @date 2015-8-21 ÉÏÎç9:15
+ * @date 2015-8-21 ä¸Šåˆ9:15
  * 
  */
 public class ReginputVerificationFragment extends BaseFragment {
 	private static final String TAG = ReginputVerificationFragment.class
 			.getName();
 	private FragmentListener fragemntListener = null;
-	private Button nextView = null;// ÏÂÒ»²½
-	private TextView backView = null;// ·µ»Ø
-	private EditText mEdVerif = null;// ÑéÖ¤ÂëÊäÈë¿ò
-	private ImageView indicatorView = null;// Ö¸Ê¾Æ÷
-	private TextView proTipView = null;// ÌáÊ¾²Ù×÷
+	private Button nextView = null;// ä¸‹ä¸€æ­¥
+	private TextView backView = null;// è¿”å›
+	private EditText mEdVerif = null;// éªŒè¯ç è¾“å…¥æ¡†
+	private ImageView indicatorView = null;// æŒ‡ç¤ºå™¨
+	private TextView proTipView = null;// æç¤ºæ“ä½œ
 
 	@Override
 	public void onAttach(Activity activity) {
@@ -104,7 +104,7 @@ public class ReginputVerificationFragment extends BaseFragment {
 	}
 
 	/**
-	 * ×¢²áÌá½»
+	 * æ³¨å†Œæäº¤
 	 * 
 	 * @param registerInfo
 	 */

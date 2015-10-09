@@ -24,9 +24,9 @@ public class AppConfig {
 		sharedPrefer.setValue(Constant.LAST_LOGIN_TIME, loginTime);
 	}
 
-	// ÊÇ·ñµÇÂ¼ÐÅÏ¢ÒÑ¹ýÆÚ
+	// æ˜¯å¦ç™»å½•ä¿¡æ¯å·²è¿‡æœŸ
 	public boolean isLoginExpire() {
-		long currentTime = Calendar.getInstance().getTimeInMillis();// µ±Ç°Ê±¼ä
+		long currentTime = Calendar.getInstance().getTimeInMillis();// å½“å‰æ—¶é—´
 		long loginLoginTime = sharedPrefer.getValue(Constant.LAST_LOGIN_TIME,
 				currentTime);
 		if (currentTime - loginLoginTime > Constant.LOGIN_EXPIRE) {

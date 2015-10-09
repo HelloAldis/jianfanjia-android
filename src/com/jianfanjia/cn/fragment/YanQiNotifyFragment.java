@@ -26,9 +26,9 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 /**
  * 
  * @ClassName: YanQiNotifyFragment
- * @Description: ÑÓÆÚÌáĞÑ
+ * @Description: å»¶æœŸæé†’
  * @author fengliang
- * @date 2015-8-26 ÏÂÎç1:09:52
+ * @date 2015-8-26 ä¸‹åˆ1:09:52
  * 
  */
 public class YanQiNotifyFragment extends BaseFragment implements
@@ -54,12 +54,12 @@ public class YanQiNotifyFragment extends BaseFragment implements
 	public void setUserVisibleHint(boolean isVisibleToUser) {
 		super.setUserVisibleHint(isVisibleToUser);
 		if (isVisibleToUser) {
-			// fragment¿É¼ûÊ±¼ÓÔØÊı¾İ
-			LogTool.d(TAG, "YanQiNotifyFragment ¿É¼û");
+			// fragmentå¯è§æ—¶åŠ è½½æ•°æ®
+			LogTool.d(TAG, "YanQiNotifyFragment å¯è§");
 			getRescheduleAll();
 		} else {
-			// ²»¿É¼ûÊ±²»Ö´ĞĞ²Ù×÷
-			LogTool.d(TAG, "YanQiNotifyFragment ²»¿É¼û");
+			// ä¸å¯è§æ—¶ä¸æ‰§è¡Œæ“ä½œ
+			LogTool.d(TAG, "YanQiNotifyFragment ä¸å¯è§");
 		}
 	}
 
@@ -75,7 +75,7 @@ public class YanQiNotifyFragment extends BaseFragment implements
 		return false;
 	}
 
-	// /ÓÃ»§»ñÈ¡ÎÒµÄ¸ÄÆÚÌáĞÑ
+	// /ç”¨æˆ·è·å–æˆ‘çš„æ”¹æœŸæé†’
 	private void getRescheduleAll() {
 		JianFanJiaApiClient.rescheduleAll(getActivity(),
 				new JsonHttpResponseHandler() {
@@ -148,7 +148,7 @@ public class YanQiNotifyFragment extends BaseFragment implements
 				});
 	}
 
-	// ÓÃ»§Í¬Òâ¸ÄÆÚ
+	// ç”¨æˆ·åŒæ„æ”¹æœŸ
 	private void agreeReschedule(String processid) {
 		JianFanJiaApiClient.agreeReschedule(getActivity(), processid,
 				new JsonHttpResponseHandler() {
@@ -197,7 +197,7 @@ public class YanQiNotifyFragment extends BaseFragment implements
 				});
 	}
 
-	// ÓÃ»§¾Ü¾ø¸ÄÆÚ
+	// ç”¨æˆ·æ‹’ç»æ”¹æœŸ
 	private void refuseReschedule(String processid) {
 		JianFanJiaApiClient.refuseReschedule(getActivity(), processid,
 				new JsonHttpResponseHandler() {

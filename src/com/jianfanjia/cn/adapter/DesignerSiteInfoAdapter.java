@@ -15,7 +15,7 @@ import com.jianfanjia.cn.config.Url;
 /**
  * @class DesignerSiteInfoAdapter
  * @author zhanghao
- * @date 2015-8-26 ÏÂÎç20:05
+ * @date 2015-8-26 ä¸‹åˆ20:05
  * 
  */
 public class DesignerSiteInfoAdapter extends BaseListAdapter<Process> {
@@ -52,7 +52,7 @@ public class DesignerSiteInfoAdapter extends BaseListAdapter<Process> {
 		viewHolder.itemNameView.setText(user.getUsername());
 		viewHolder.itemAdressView.setText(designerSiteInfo.getDistrict());
 		viewHolder.itemStageView.setText(MyApplication.getInstance()
-				.getStringById(designerSiteInfo.getGoing_on()) + "½×¶Î");
+				.getStringById(designerSiteInfo.getGoing_on()) + "é˜¶æ®µ");
 		if (dataManager.getDefaultPro() == position) {
 			viewHolder.itemCurrentView.setVisibility(View.VISIBLE);
 		} else {
@@ -72,12 +72,12 @@ public class DesignerSiteInfoAdapter extends BaseListAdapter<Process> {
 	}
 
 	private static class ViewHolder {
-		TextView itemNameView;// ÒµÖ÷Ãû³Æ
-		TextView itemVillageView;// Ğ¡ÇøÃû³Æ
-		TextView itemAdressView;// ÒµÖ÷¹¤µØµØÖ·
-		TextView itemStageView;// Ëù´¦½×¶Î
-		ImageView itemOwerHeadView;// ÒµÖ÷Í·Ïñ
-		TextView itemCurrentView;// ÊÇ·ñÊÇµ±Ç°¹¤µØ
+		TextView itemNameView;// ä¸šä¸»åç§°
+		TextView itemVillageView;// å°åŒºåç§°
+		TextView itemAdressView;// ä¸šä¸»å·¥åœ°åœ°å€
+		TextView itemStageView;// æ‰€å¤„é˜¶æ®µ
+		ImageView itemOwerHeadView;// ä¸šä¸»å¤´åƒ
+		TextView itemCurrentView;// æ˜¯å¦æ˜¯å½“å‰å·¥åœ°
 	}
 
 	@Override

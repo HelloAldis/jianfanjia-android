@@ -30,30 +30,30 @@ import com.jianfanjia.cn.view.dialog.DateWheelDialog;
 /**
  * 
  * @ClassName: OwnerSiteActivity
- * @Description: ÒµÖ÷¹¤µØ
+ * @Description: ä¸šä¸»å·¥åœ°
  * @author fengliang
- * @date 2015-9-16 ÉÏÎç9:44:53
+ * @date 2015-9-16 ä¸Šåˆ9:44:53
  * 
  */
 public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 	private static final String TAG = OwnerSiteActivity.class.getName();
-	private ProcessInfo processInfo;// ¹¤µØĞÅÏ¢Àà
-	private RequirementInfo requirementInfo;// ÊµÌåĞÅÏ¢Àà
+	private ProcessInfo processInfo;// å·¥åœ°ä¿¡æ¯ç±»
+	private RequirementInfo requirementInfo;// å®ä½“ä¿¡æ¯ç±»
 	private String processId;
 
-	private TextView cityView;// ËùÔÚ³ÇÊĞ
-	private TextView villageNameView;// Ğ¡ÇøÃû×Ö
-	private TextView houseStyleView;// »§ĞÍ
-	private TextView decorateAreaView;// ×°ĞŞÃæ»ı
-	private TextView loveStyleView;// Ï²»¶µÄ·ç¸ñ
-	private TextView decorateStyleView;// ×°ĞŞÀàĞÍ
-	private TextView decorateBudgetView;// ×°ĞŞÔ¤Ëã
-	private TextView startDateView;// ¿ª¹¤ÈÕÆÚ
-	private TextView totalDateView;// ×Ü¹¤ÆÚ
-	private TextView confirmView;// È·ÈÏ°´Å¥
+	private TextView cityView;// æ‰€åœ¨åŸå¸‚
+	private TextView villageNameView;// å°åŒºåå­—
+	private TextView houseStyleView;// æˆ·å‹
+	private TextView decorateAreaView;// è£…ä¿®é¢ç§¯
+	private TextView loveStyleView;// å–œæ¬¢çš„é£æ ¼
+	private TextView decorateStyleView;// è£…ä¿®ç±»å‹
+	private TextView decorateBudgetView;// è£…ä¿®é¢„ç®—
+	private TextView startDateView;// å¼€å·¥æ—¥æœŸ
+	private TextView totalDateView;// æ€»å·¥æœŸ
+	private TextView confirmView;// ç¡®è®¤æŒ‰é’®
 	private ImageView startDateGoto;
-	private ScrollView scrollView;// ¹¤µØÊı¾İview
-	private View errorView;// ´íÎóview
+	private ScrollView scrollView;// å·¥åœ°æ•°æ®view
+	private View errorView;// é”™è¯¯view
 
 	private RelativeLayout startDateLayout;
 	private RelativeLayout totalDateLayout;
@@ -124,7 +124,7 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 		mainHeadView.setDividerVisable(View.VISIBLE);
 	}
 
-	// ³õÊ¼»¯Êı¾İ
+	// åˆå§‹åŒ–æ•°æ®
 	private void initData() {
 		setViewChange();
 
@@ -152,16 +152,16 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 		totalDateLayout.setEnabled(false);
 	}
 
-	// ÏÔÊ¾ÓĞÊı¾İµÄlayout
+	// æ˜¾ç¤ºæœ‰æ•°æ®çš„layout
 	private void setViewChange() {
 		scrollView.setVisibility(View.VISIBLE);
 		errorView.setVisibility(View.GONE);
 	}
 
-	// ÏÔÊ¾´íÎóÊÔÍ¼
+	// æ˜¾ç¤ºé”™è¯¯è¯•å›¾
 	@Override
 	public void setErrorView() {
-		((TextView) errorView.findViewById(R.id.tv_error)).setText("ÔİÎŞ¹¤µØÊı¾İ");
+		((TextView) errorView.findViewById(R.id.tv_error)).setText("æš‚æ— å·¥åœ°æ•°æ®");
 	}
 
 	@Override
@@ -176,7 +176,7 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 		case R.id.my_startdate_layout:
 			DateWheelDialog dateWheelDialog = new DateWheelDialog(
 					OwnerSiteActivity.this, Calendar.getInstance());
-			dateWheelDialog.setTitle("Ñ¡ÔñÊ±¼ä");
+			dateWheelDialog.setTitle("é€‰æ‹©æ—¶é—´");
 			dateWheelDialog.setPositiveButton(R.string.ok,
 					new DialogInterface.OnClickListener() {
 
@@ -201,10 +201,10 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 			dateWheelDialog.show();
 			break;
 		case R.id.my_site_confirm:
-			if (requirementInfo != null && requirementInfo.getStart_at() != -1) {// Ã»ÓĞĞèÇóÊı¾İ»òÕßÃ»ÓĞÉèÖÃ¿ª¹¤ÈÕÆÚ£¬¾ÍÎŞ·¨Ìá½»
+			if (requirementInfo != null && requirementInfo.getStart_at() != -1) {// æ²¡æœ‰éœ€æ±‚æ•°æ®æˆ–è€…æ²¡æœ‰è®¾ç½®å¼€å·¥æ—¥æœŸï¼Œå°±æ— æ³•æäº¤
 				postProcessInfo();
 			} else {
-				makeTextLong("ÇëÅäÖÃ¿ª¹¤ÈÕÆÚ");
+				makeTextLong("è¯·é…ç½®å¼€å·¥æ—¥æœŸ");
 			}
 			break;
 		case R.id.head_back_layout:
@@ -299,7 +299,7 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 				public void loadSuccess() {
 					hideWaitDialog();
 					processInfo = dataManager.getDefaultProcessInfo();
-					makeTextLong("ÅäÖÃ³É¹¦");
+					makeTextLong("é…ç½®æˆåŠŸ");
 					initData();
 					Intent intent = new Intent();
 					intent.putExtra("Key", "1");
@@ -321,7 +321,7 @@ public class OwnerSiteActivity extends BaseActivity implements OnClickListener {
 
 	}
 
-	// ÅäÖÃ¹¤µØĞÅÏ¢
+	// é…ç½®å·¥åœ°ä¿¡æ¯
 	private void postProcessInfo() {
 		LoadClientHelper.post_Requirement(this, new PostRequirementRequest(
 				this, requirementInfo), this);

@@ -5,9 +5,9 @@ import java.io.Serializable;
 /**
  * 
  * @ClassName: LoginUserBean
- * @Description: µÇÂ¼ÓÃ»§
+ * @Description: ç™»å½•ç”¨æˆ·
  * @author fengliang
- * @date 2015-8-25 ÉÏÎç11:33:32
+ * @date 2015-8-25 ä¸Šåˆ11:33:32
  * 
  */
 public class LoginUserBean implements Serializable {

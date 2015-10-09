@@ -5,9 +5,9 @@ import java.io.Serializable;
 /**
  * 
  * @ClassName: CommitCommentInfo
- * @Description: 上传评论内容
+ * @Description: 涓婁紶璇勮鍐呭
  * @author zhanghao
- * @date 2015-9-7 下午7:12
+ * @date 2015-9-7 涓嬪崍7:12
  * 
  */
 public class CommitCommentInfo implements Serializable {

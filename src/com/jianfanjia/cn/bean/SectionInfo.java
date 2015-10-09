@@ -6,8 +6,8 @@ import java.util.ArrayList;
 /**
  * @class SectionInfo.class
  * @author zhanghao
- * @Decription 此类是工序信息实体类
- * @date 2015-8-31 上午11:50
+ * @Decription 姝ょ被鏄伐搴忎俊鎭疄浣撶被
+ * @date 2015-8-31 涓婂崍11:50
  * 
  */
 public class SectionInfo implements Serializable {

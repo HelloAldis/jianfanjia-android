@@ -15,9 +15,9 @@ import com.jianfanjia.cn.base.BaseActivity;
 /**
  * 
  * @ClassName: NavigateActivity
- * @Description: 引导
+ * @Description: 寮曞
  * @author fengliang
- * @date 2015-8-28 下午3:23:37
+ * @date 2015-8-28 涓嬪崍3:23:37
  * 
  */
 public class NavigateActivity extends BaseActivity implements OnClickListener,
@@ -29,7 +29,7 @@ public class NavigateActivity extends BaseActivity implements OnClickListener,
 	private Button btnLogin = null;
 	private List<View> list = new ArrayList<View>();
 	private ViewPageAdapter adapter = null;
-	private int currentItem = 0; // 当前图片的索引号
+	private int currentItem = 0; // 褰撳墠鍥剧墖鐨勭储寮曞彿
 	private static final int imgId[] = { R.drawable.p1, R.drawable.p2,
 			R.drawable.p3, R.drawable.p4 };
 
@@ -40,7 +40,7 @@ public class NavigateActivity extends BaseActivity implements OnClickListener,
 		btnLayout = (LinearLayout) findViewById(R.id.btnLayout);
 		btnRegister = (Button) findViewById(R.id.btnRegister);
 		btnLogin = (Button) findViewById(R.id.btnLogin);
-		// 导航测试资源
+		// 瀵艰埅娴嬭瘯璧勬簮
 		for (int i = 0; i < imgId.length; i++) {
 			ImageView view = new ImageView(this);
 			view.setImageResource(imgId[i]);

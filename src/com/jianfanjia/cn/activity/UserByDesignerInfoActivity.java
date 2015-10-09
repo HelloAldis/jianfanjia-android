@@ -39,9 +39,9 @@ import com.jianfanjia.cn.view.dialog.DialogHelper;
 /**
  * 
  * @ClassName: UserByDesignerInfoActivity
- * @Description:ÓÃ»§¸öÈËĞÅÏ¢(Éè¼ÆÊ¦)
+ * @Description:ç”¨æˆ·ä¸ªäººä¿¡æ¯(è®¾è®¡å¸ˆ)
  * @author fengliang
- * @date 2015-9-5 ÏÂÎç2:01:42
+ * @date 2015-9-5 ä¸‹åˆ2:01:42
  * 
  */
 public class UserByDesignerInfoActivity extends BaseActivity implements
@@ -117,7 +117,7 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 
 	@Override
 	public void setErrorView() {
-		((TextView) errorView.findViewById(R.id.tv_error)).setText("ÔİÎŞ¸öÈËĞÅÏ¢Êı¾İ");
+		((TextView) errorView.findViewById(R.id.tv_error)).setText("æš‚æ— ä¸ªäººä¿¡æ¯æ•°æ®");
 	}
 
 	private void setConfimEnable(boolean enabled) {
@@ -134,14 +134,14 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 		if (!TextUtils.isEmpty(designerInfo.getUsername())) {
 			nameText.setText(designerInfo.getUsername());
 		} else {
-			nameText.setText("Éè¼ÆÊ¦");
+			nameText.setText("è®¾è®¡å¸ˆ");
 		}
 		String sexInfo = designerInfo.getSex();
 		if (!TextUtils.isEmpty(sexInfo)) {
 			if (sexInfo.equals(Constant.SEX_MAN)) {
-				sexText.setText("ÄĞ");
+				sexText.setText("ç”·");
 			} else if (sexInfo.equals(Constant.SEX_WOMEN)) {
-				sexText.setText("Å®");
+				sexText.setText("å¥³");
 			}
 		} else {
 			sexText.setText(getString(R.string.not_edit));
@@ -175,7 +175,7 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 		// addressRelativeLayout.setOnClickListener(this);
 	}
 
-	// ĞŞ¸ÄÉè¼ÆÊ¦¸öÈË×ÊÁÏ
+	// ä¿®æ”¹è®¾è®¡å¸ˆä¸ªäººèµ„æ–™
 	private void put_Designer_Info() {
 		LoadClientHelper.postDesignerUpdateInfo(this,
 				new UserByDesignerInfoUpdateRequest(this, designerUpdateInfo),
@@ -192,7 +192,7 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 					@Override
 					public void loadSuccess() {
 						hideWaitDialog();
-						makeTextLong("ĞŞ¸Ä³É¹¦");
+						makeTextLong("ä¿®æ”¹æˆåŠŸ");
 						setConfimEnable(false);
 						if (!TextUtils.isEmpty(designerUpdateInfo.getUsername())
 								|| designerUpdateInfo.getUsername() != dataManager
@@ -284,7 +284,7 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 		}
 	}
 
-	// ÏÔÊ¾Ñ¡ÔñĞÔ±ğ¶Ô»°¿ò
+	// æ˜¾ç¤ºé€‰æ‹©æ€§åˆ«å¯¹è¯æ¡†
 	private void showSexChooseDialog() {
 		CommonDialog commonDialog = DialogHelper
 				.getPinterestDialogCancelable(this);
@@ -313,7 +313,7 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 			}
 		}
 		commonDialog.setContent(contentView);
-		commonDialog.setTitle("Ñ¡ÔñĞÔ±ğ");
+		commonDialog.setTitle("é€‰æ‹©æ€§åˆ«");
 		commonDialog.setPositiveButton(R.string.ok,
 				new DialogInterface.OnClickListener() {
 
@@ -324,8 +324,8 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 									|| !designerUpdateInfo.getSex().equals(sex)) {
 								designerUpdateInfo.setSex(sex);
 								setConfimEnable(true);
-								sexText.setText(sex.equals(Constant.SEX_MAN) ? "ÄĞ"
-										: "Å®");
+								sexText.setText(sex.equals(Constant.SEX_MAN) ? "ç”·"
+										: "å¥³");
 							}
 						}
 						dialog.dismiss();
@@ -347,7 +347,7 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 			Intent cameraIntent = UiHelper.createShotIntent(mTmpFile);
 			startActivityForResult(cameraIntent, Constant.REQUESTCODE_CAMERA);
 		}else{
-			makeTextLong("Ã»ÓĞsd¿¨£¬ÎŞ·¨´ò¿ªÏà»ú");
+			makeTextLong("æ²¡æœ‰sdå¡ï¼Œæ— æ³•æ‰“å¼€ç›¸æœº");
 		}
 	}
 
@@ -389,7 +389,7 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 				}
 			}
 			break;
-		case Constant.REQUESTCODE_CAMERA:// ÅÄÕÕ
+		case Constant.REQUESTCODE_CAMERA:// æ‹ç…§
 			mTmpFile = new File(dataManager.getPicPath());
 			if (mTmpFile != null) {
 				Uri uri = Uri.fromFile(mTmpFile);
@@ -399,7 +399,7 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 				}
 			}
 			break;
-		case Constant.REQUESTCODE_LOCATION:// ±¾µØÑ¡È¡
+		case Constant.REQUESTCODE_LOCATION:// æœ¬åœ°é€‰å–
 			if (data != null) {
 				Uri uri = data.getData();
 				LogTool.d(TAG, "uri:" + uri);
@@ -412,7 +412,7 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 			if (data != null) {
 				Bundle extras = data.getExtras();
 				if (extras != null) {
-					// µÃµ½·µ»ØÀ´µÄÊı¾İ£¬ÊÇbitmapÀàĞÍµÄÊı¾İ
+					// å¾—åˆ°è¿”å›æ¥çš„æ•°æ®ï¼Œæ˜¯bitmapç±»å‹çš„æ•°æ®
 					Bitmap bitmap = extras.getParcelable("data");
 					LogTool.d(TAG, "avatar - bitmap = " + bitmap);
 					String imgPath = PhotoUtils.savaPicture(bitmap);
@@ -429,20 +429,20 @@ public class UserByDesignerInfoActivity extends BaseActivity implements
 	}
 
 	/**
-	 * ²Ã¼ôÍ¼Æ¬·½·¨ÊµÏÖ
+	 * è£å‰ªå›¾ç‰‡æ–¹æ³•å®ç°
 	 * 
 	 * @param uri
 	 */
 	private void startPhotoZoom(Uri uri) {
 		Intent intent = new Intent("com.android.camera.action.CROP");
 		intent.setDataAndType(uri, "image/*");
-		// ÏÂÃæÕâ¸öcrop=trueÊÇÉèÖÃÔÚ¿ªÆôµÄIntentÖĞÉèÖÃÏÔÊ¾µÄVIEW¿É²Ã¼ô
+		// ä¸‹é¢è¿™ä¸ªcrop=trueæ˜¯è®¾ç½®åœ¨å¼€å¯çš„Intentä¸­è®¾ç½®æ˜¾ç¤ºçš„VIEWå¯è£å‰ª
 		intent.putExtra("crop", "true");
-		// aspectX aspectY ÊÇ¿í¸ßµÄ±ÈÀı
+		// aspectX aspectY æ˜¯å®½é«˜çš„æ¯”ä¾‹
 		intent.putExtra("aspectX", 1);
 		intent.putExtra("aspectY", 1);
 		intent.putExtra("scale", true);
-		// outputX outputY ÊÇ²Ã¼ôÍ¼Æ¬¿í¸ß
+		// outputX outputY æ˜¯è£å‰ªå›¾ç‰‡å®½é«˜
 		intent.putExtra("outputX", 300);
 		intent.putExtra("outputY", 300);
 		intent.putExtra("return-data", true);

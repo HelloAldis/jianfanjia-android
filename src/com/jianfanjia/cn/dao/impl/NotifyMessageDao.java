@@ -11,7 +11,7 @@ import com.jianfanjia.cn.dao.INotifyMessageDao;
  * @ClassName: NotifyMessageDao
  * @Description: TODO
  * @author fengliang
- * @date 2015Äê9ÔÂ27ÈÕ ÏÂÎç9:28:54
+ * @date 2015å¹´9æœˆ27æ—¥ ä¸‹åˆ9:28:54
  * 
  */
 public class NotifyMessageDao extends BaseDaoImpl<NotifyMessage> implements

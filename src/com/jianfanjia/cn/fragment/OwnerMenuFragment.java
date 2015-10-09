@@ -16,9 +16,9 @@ import com.jianfanjia.cn.base.BaseFragment;
 /**
  * 
  * @ClassName: OwnerMenuFragment
- * @Description: ÒµÖ÷²à»¬À¸²Ëµ¥
+ * @Description: ä¸šä¸»ä¾§æ»‘æ èœå•
  * @author fengliang
- * @date 2015-8-26 ÉÏÎç9:51:44
+ * @date 2015-8-26 ä¸Šåˆ9:51:44
  * 
  */
 public class OwnerMenuFragment extends BaseFragment {
@@ -50,10 +50,10 @@ public class OwnerMenuFragment extends BaseFragment {
 		if (!TextUtils.isEmpty(mUserName)) {
 			nameText.setText(mUserName);
 		} else {
-			nameText.setText("ÒµÖ÷");
+			nameText.setText("ä¸šä¸»");
 		}
 		if (!TextUtils.isEmpty(mAccount)) {
-			phoneText.setText("ÕËºÅ:" + mAccount);
+			phoneText.setText("è´¦å·:" + mAccount);
 		}
 		imageLoader.displayImage(mUserImageId, img_head, options);
 	}

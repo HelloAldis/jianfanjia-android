@@ -16,7 +16,7 @@ import com.jianfanjia.cn.tools.DateFormatTool;
  * @class DelayNotifyAdapter
  * @author zhanghao
  * @date 2015-8-26 15:57
- * @param <NotifyCaiGouInfo>
+ *
  */
 public class DelayNotifyAdapter extends BaseListAdapter<NotifyDelayInfo> {
 	private DelayInfoListener listener;
@@ -62,82 +62,82 @@ public class DelayNotifyAdapter extends BaseListAdapter<NotifyDelayInfo> {
 		String requestRole = info.getRequest_role();
 		String status = info.getStatus();
 		if (status.equals(Constant.NO_START)) {
-			viewHolder.itemAgressView.setText("Î´¿ª¹¤");
+			viewHolder.itemAgressView.setText("æœªå¼€å·¥");
 			viewHolder.itemAgreeText.setVisibility(View.GONE);
 			viewHolder.itemRefuseText.setVisibility(View.GONE);
 		} else if (status.equals(Constant.DOING)) {
-			viewHolder.itemAgressView.setText("½øĞĞÖĞ");
+			viewHolder.itemAgressView.setText("è¿›è¡Œä¸­");
 			viewHolder.itemAgreeText.setVisibility(View.GONE);
 			viewHolder.itemRefuseText.setVisibility(View.GONE);
 		} else if (status.equals(Constant.FINISHED)) {
-			viewHolder.itemAgressView.setText("ÒÑÍê³É");
+			viewHolder.itemAgressView.setText("å·²å®Œæˆ");
 			viewHolder.itemAgreeText.setVisibility(View.GONE);
 			viewHolder.itemRefuseText.setVisibility(View.GONE);
 		} else if (status.equals(Constant.YANQI_BE_DOING)) {
-			viewHolder.itemAgressView.setText("¸ÄÆÚÉêÇëÖĞ");
+			viewHolder.itemAgressView.setText("æ”¹æœŸç”³è¯·ä¸­");
 			if (userType.equals(Constant.IDENTITY_DESIGNER)) {
 				if (requestRole.equals(Constant.IDENTITY_OWNER)) {
-					viewHolder.itemNameView.setText("ÄúµÄÒµÖ÷ÒÑÉêÇë¸ÄÆÚÑéÊÕÖÁ");
+					viewHolder.itemNameView.setText("æ‚¨çš„ä¸šä¸»å·²ç”³è¯·æ”¹æœŸéªŒæ”¶è‡³");
 					viewHolder.itemAgreeText.setVisibility(View.VISIBLE);
 					viewHolder.itemRefuseText.setVisibility(View.VISIBLE);
 				} else if (requestRole.equals(Constant.IDENTITY_DESIGNER)) {
-					viewHolder.itemNameView.setText("ÄúÒÑÉêÇë¸ÄÆÚÑéÊÕÖÁ");
+					viewHolder.itemNameView.setText("æ‚¨å·²ç”³è¯·æ”¹æœŸéªŒæ”¶è‡³");
 					viewHolder.itemAgreeText.setVisibility(View.GONE);
 					viewHolder.itemRefuseText.setVisibility(View.GONE);
 				}
 			} else if (userType.equals(Constant.IDENTITY_OWNER)) {
 				if (requestRole.equals(Constant.IDENTITY_OWNER)) {
-					viewHolder.itemNameView.setText("ÄúÒÑÉêÇë¸ÄÆÚÑéÊÕÖÁ");
+					viewHolder.itemNameView.setText("æ‚¨å·²ç”³è¯·æ”¹æœŸéªŒæ”¶è‡³");
 					viewHolder.itemAgreeText.setVisibility(View.GONE);
 					viewHolder.itemRefuseText.setVisibility(View.GONE);
 				} else if (requestRole.equals(Constant.IDENTITY_DESIGNER)) {
-					viewHolder.itemNameView.setText("ÄúµÄÉè¼ÆÊ¦ÒÑÉêÇë¸ÄÆÚÑéÊÕÖÁ");
+					viewHolder.itemNameView.setText("æ‚¨çš„è®¾è®¡å¸ˆå·²ç”³è¯·æ”¹æœŸéªŒæ”¶è‡³");
 					viewHolder.itemAgreeText.setVisibility(View.VISIBLE);
 					viewHolder.itemRefuseText.setVisibility(View.VISIBLE);
 				}
 			}
 		} else if (status.equals(Constant.YANQI_AGREE)) {
-			viewHolder.itemAgressView.setText("¸ÄÆÚÍ¬Òâ");
+			viewHolder.itemAgressView.setText("æ”¹æœŸåŒæ„");
 			if (userType.equals(Constant.IDENTITY_DESIGNER)) {
 				if (requestRole.equals(Constant.IDENTITY_OWNER)) {
-					viewHolder.itemNameView.setText("ÄúµÄÒµÖ÷ÒÑÉêÇë¸ÄÆÚÑéÊÕÖÁ");
+					viewHolder.itemNameView.setText("æ‚¨çš„ä¸šä¸»å·²ç”³è¯·æ”¹æœŸéªŒæ”¶è‡³");
 					viewHolder.itemAgreeText.setVisibility(View.GONE);
 					viewHolder.itemRefuseText.setVisibility(View.GONE);
 				} else if (requestRole.equals(Constant.IDENTITY_DESIGNER)) {
-					viewHolder.itemNameView.setText("ÄúÒÑÉêÇë¸ÄÆÚÑéÊÕÖÁ");
+					viewHolder.itemNameView.setText("æ‚¨å·²ç”³è¯·æ”¹æœŸéªŒæ”¶è‡³");
 					viewHolder.itemAgreeText.setVisibility(View.GONE);
 					viewHolder.itemRefuseText.setVisibility(View.GONE);
 				}
 			} else if (userType.equals(Constant.IDENTITY_OWNER)) {
 				if (requestRole.equals(Constant.IDENTITY_OWNER)) {
-					viewHolder.itemNameView.setText("ÄúÒÑÉêÇë¸ÄÆÚÑéÊÕÖÁ");
+					viewHolder.itemNameView.setText("æ‚¨å·²ç”³è¯·æ”¹æœŸéªŒæ”¶è‡³");
 					viewHolder.itemAgreeText.setVisibility(View.GONE);
 					viewHolder.itemRefuseText.setVisibility(View.GONE);
 				} else if (requestRole.equals(Constant.IDENTITY_DESIGNER)) {
-					viewHolder.itemNameView.setText("ÄúµÄÉè¼ÆÊ¦ÒÑÉêÇë¸ÄÆÚÑéÊÕÖÁ");
+					viewHolder.itemNameView.setText("æ‚¨çš„è®¾è®¡å¸ˆå·²ç”³è¯·æ”¹æœŸéªŒæ”¶è‡³");
 					viewHolder.itemAgreeText.setVisibility(View.GONE);
 					viewHolder.itemRefuseText.setVisibility(View.GONE);
 				}
 			}
 		} else if (status.equals(Constant.YANQI_REFUSE)) {
-			viewHolder.itemAgressView.setText("¸ÄÆÚ¾Ü¾ø");
+			viewHolder.itemAgressView.setText("æ”¹æœŸæ‹’ç»");
 			if (userType.equals(Constant.IDENTITY_DESIGNER)) {
 				if (requestRole.equals(Constant.IDENTITY_OWNER)) {
-					viewHolder.itemNameView.setText("ÄúµÄÒµÖ÷ÒÑÉêÇë¸ÄÆÚÑéÊÕÖÁ");
+					viewHolder.itemNameView.setText("æ‚¨çš„ä¸šä¸»å·²ç”³è¯·æ”¹æœŸéªŒæ”¶è‡³");
 					viewHolder.itemAgreeText.setVisibility(View.GONE);
 					viewHolder.itemRefuseText.setVisibility(View.GONE);
 				} else if (requestRole.equals(Constant.IDENTITY_DESIGNER)) {
-					viewHolder.itemNameView.setText("ÄúÒÑÉêÇë¸ÄÆÚÑéÊÕÖÁ");
+					viewHolder.itemNameView.setText("æ‚¨å·²ç”³è¯·æ”¹æœŸéªŒæ”¶è‡³");
 					viewHolder.itemAgreeText.setVisibility(View.GONE);
 					viewHolder.itemRefuseText.setVisibility(View.GONE);
 				}
 			} else if (userType.equals(Constant.IDENTITY_OWNER)) {
 				if (requestRole.equals(Constant.IDENTITY_OWNER)) {
-					viewHolder.itemNameView.setText("ÄúÒÑÉêÇë¸ÄÆÚÑéÊÕÖÁ");
+					viewHolder.itemNameView.setText("æ‚¨å·²ç”³è¯·æ”¹æœŸéªŒæ”¶è‡³");
 					viewHolder.itemAgreeText.setVisibility(View.GONE);
 					viewHolder.itemRefuseText.setVisibility(View.GONE);
 				} else if (requestRole.equals(Constant.IDENTITY_DESIGNER)) {
-					viewHolder.itemNameView.setText("ÄúµÄÉè¼ÆÊ¦ÒÑÉêÇë¸ÄÆÚÑéÊÕÖÁ");
+					viewHolder.itemNameView.setText("æ‚¨çš„è®¾è®¡å¸ˆå·²ç”³è¯·æ”¹æœŸéªŒæ”¶è‡³");
 					viewHolder.itemAgreeText.setVisibility(View.GONE);
 					viewHolder.itemRefuseText.setVisibility(View.GONE);
 				}
@@ -146,7 +146,7 @@ public class DelayNotifyAdapter extends BaseListAdapter<NotifyDelayInfo> {
 		viewHolder.itemContentView.setText(DateFormatTool.longToString(info
 				.getNew_date()));
 		viewHolder.itemNodeView.setText(MyApplication.getInstance()
-				.getStringById(info.getSection()) + "½×¶Î");
+				.getStringById(info.getSection()) + "é˜¶æ®µ");
 		viewHolder.itemPubTimeView.setText(DateFormatTool
 				.toLocalTimeString(info.getRequest_date()));
 		viewHolder.itemAgreeText.setOnClickListener(new OnClickListener() {
@@ -169,13 +169,13 @@ public class DelayNotifyAdapter extends BaseListAdapter<NotifyDelayInfo> {
 	}
 
 	private static class ViewHolder {
-		TextView itemNameView;// ÑÓ³Ù±êÌâ
-		TextView itemContentView;// ÑÓ³ÙÄÚÈİ
-		TextView itemNodeView;// ÑÓ³Ù½Úµã
-		TextView itemPubTimeView;// ·¢²¼Ê±¼ä
-		TextView itemAgressView;// ÊÇ·ñÍ¬Òâ
-		TextView itemAgreeText;// Í¬Òâ
-		TextView itemRefuseText;// ¾Ü¾ø
+		TextView itemNameView;// å»¶è¿Ÿæ ‡é¢˜
+		TextView itemContentView;// å»¶è¿Ÿå†…å®¹
+		TextView itemNodeView;// å»¶è¿ŸèŠ‚ç‚¹
+		TextView itemPubTimeView;// å‘å¸ƒæ—¶é—´
+		TextView itemAgressView;// æ˜¯å¦åŒæ„
+		TextView itemAgreeText;// åŒæ„
+		TextView itemRefuseText;// æ‹’ç»
 	}
 
 	@Override

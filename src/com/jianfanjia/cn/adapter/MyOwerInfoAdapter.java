@@ -16,7 +16,7 @@ import com.jianfanjia.cn.config.Url;
  * @class MyOwerInfoAdapter
  * @author zhanghao
  * @date 2015-8-26 15:57
- * @param <NotifyCaiGouInfo>
+ *
  */
 public class MyOwerInfoAdapter extends BaseListAdapter<Process> {
 
@@ -48,7 +48,7 @@ public class MyOwerInfoAdapter extends BaseListAdapter<Process> {
 		viewHolder.itemNameView.setText(user.getUsername());
 		viewHolder.itemAdressView.setText(info.getCell());
 		viewHolder.itemStageView.setText(MyApplication.getInstance()
-				.getStringById(info.getGoing_on()) + "½×¶Î");
+				.getStringById(info.getGoing_on()) + "é˜¶æ®µ");
 		String imageId = user.getImageid();
 		if(imageId != null){
 			imageLoader.displayImage(Url.GET_IMAGE + imageId,
@@ -60,10 +60,10 @@ public class MyOwerInfoAdapter extends BaseListAdapter<Process> {
 	}
 
 	private static class ViewHolder {
-		TextView itemNameView;// ÒµÖ÷Ãû³Æ
-		TextView itemAdressView;// ÒµÖ÷¹¤µØµØÖ·
-		TextView itemStageView;// Ëù´¦½×¶Î
-		ImageView itemOwerHeadView;// ÒµÖ÷Í·Ïñ
+		TextView itemNameView;// ä¸šä¸»åç§°
+		TextView itemAdressView;// ä¸šä¸»å·¥åœ°åœ°å€
+		TextView itemStageView;// æ‰€å¤„é˜¶æ®µ
+		ImageView itemOwerHeadView;// ä¸šä¸»å¤´åƒ
 	}
 
 	@Override

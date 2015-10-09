@@ -41,18 +41,18 @@ public class PayNotifyAdapter extends BaseListAdapter<NotifyMessage> {
 		} else {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
-		viewHolder.itemNameView.setText("Äú¼´½«½øÈëÏÂÒ»ÂÖ¸¶¿î»·½Ú,ÇëÄú¼°Ê±ÓëÉè¼ÆÊ¦ÁªÏµ");
+		viewHolder.itemNameView.setText("æ‚¨å³å°†è¿›å…¥ä¸‹ä¸€è½®ä»˜æ¬¾ç¯èŠ‚,è¯·æ‚¨åŠæ—¶ä¸è®¾è®¡å¸ˆè”ç³»");
 		viewHolder.itemNodeView.setText(MyApplication.getInstance()
-				.getStringById(message.getSection()) + "½×¶Î");
+				.getStringById(message.getSection()) + "é˜¶æ®µ");
 		viewHolder.itemPubTimeView.setText(DateFormatTool
 				.toLocalTimeString(message.getTime()));
 		return convertView;
 	}
 
 	private static class ViewHolder {
-		TextView itemNameView;// ÑÓ³Ù¹¤Ğò
-		TextView itemNodeView;// ÑÓ³Ù½Úµã
-		TextView itemPubTimeView;// ·¢²¼Ê±¼ä
+		TextView itemNameView;// å»¶è¿Ÿå·¥åº
+		TextView itemNodeView;// å»¶è¿ŸèŠ‚ç‚¹
+		TextView itemPubTimeView;// å‘å¸ƒæ—¶é—´
 	}
 
 	@Override

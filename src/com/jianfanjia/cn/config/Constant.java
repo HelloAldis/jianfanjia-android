@@ -6,30 +6,30 @@ import com.jianfanjia.cn.activity.R;
 /**
  * 
  * @ClassName: Constant
- * @Description: ³£Á¿Àà
+ * @Description: å¸¸é‡ç±»
  * @author fengliang
- * @date 2015-8-18 ÏÂÎç12:05:25
+ * @date 2015-8-18 ä¸‹åˆ12:05:25
  * 
  */
 public class Constant {
 	public static final String SHARED_DATA = "jianfanjia_data";
 	public static final String SHARED_USER = "jianfanjia_user";
 	public static final String LOG_PATH = Environment
-			.getExternalStorageDirectory() + "/JianFanJia/MyLog/mylog.txt";// log´æ·ÅÂ·¾¶
+			.getExternalStorageDirectory() + "/JianFanJia/MyLog/mylog.txt";// logå­˜æ”¾è·¯å¾„
 	public static final String APK_PATH = Environment
-			.getExternalStorageDirectory() + "/JianFanJia/Apk/";// ÏÂÔØapk´æ·ÅÂ·¾¶
+			.getExternalStorageDirectory() + "/JianFanJia/Apk/";// ä¸‹è½½apkå­˜æ”¾è·¯å¾„
 	public static final String ERROR_LOG_PATH = Environment
-			.getExternalStorageDirectory() + "/JianFanJia/MyLog/errorlog.txt";// log´æ·ÅÂ·¾¶
+			.getExternalStorageDirectory() + "/JianFanJia/MyLog/errorlog.txt";// logå­˜æ”¾è·¯å¾„
 	public static final String IMAG_PATH = Environment
-			.getExternalStorageDirectory() + "/JianFanJia/Pic/";// ±£´æÕÕÆ¬
+			.getExternalStorageDirectory() + "/JianFanJia/Pic/";// ä¿å­˜ç…§ç‰‡
 	public static final String COMMON_PATH = Environment
-			.getExternalStorageDirectory() + "/JianFanJia/";// ¹«¹²µÄÂ·¾¶
+			.getExternalStorageDirectory() + "/JianFanJia/";// å…¬å…±çš„è·¯å¾„
 
-//	public static final String TEMP_IMG = "temp_img.jpg";// ÕÕÆ¬Ãû³Æ
-	public static final String TEMP_IMG ="current_camera_temp_path";//ÅÄÕÕµÄÁÙÊ±´æ´¢ÎÄ¼şÂ·¾¶
+//	public static final String TEMP_IMG = "temp_img.jpg";// ç…§ç‰‡åç§°
+	public static final String TEMP_IMG ="current_camera_temp_path";//æ‹ç…§çš„ä¸´æ—¶å­˜å‚¨æ–‡ä»¶è·¯å¾„
 
-	public static final String PROCESSINFO_CACHE = "processinfo_cache";// ¹¤µØĞÅÏ¢»º´æÎÄ¼şÃû
-	public static final String DESIGNERINFO_CACHE = "designerinfo_cache";// Éè¼ÆÊ¦ĞÅÏ¢»º´æÎÄ¼şÃû
+	public static final String PROCESSINFO_CACHE = "processinfo_cache";// å·¥åœ°ä¿¡æ¯ç¼“å­˜æ–‡ä»¶å
+	public static final String DESIGNERINFO_CACHE = "designerinfo_cache";// è®¾è®¡å¸ˆä¿¡æ¯ç¼“å­˜æ–‡ä»¶å
 
 	public static final String EXTRA_BUNDLE = "launchBundle";
 
@@ -37,19 +37,19 @@ public class Constant {
 		public static final boolean DEVELOPER_MODE = false;
 	}
 
-	public static final int REQUESTCODE_CAMERA = 1;// ÅÄÕÕ
-	public static final int REQUESTCODE_LOCATION = 2;// ±¾µØÏà²áÑ¡È¡
-	public static final int REQUESTCODE_CROP = 3;// ²Ã¼ô
+	public static final int REQUESTCODE_CAMERA = 1;// æ‹ç…§
+	public static final int REQUESTCODE_LOCATION = 2;// æœ¬åœ°ç›¸å†Œé€‰å–
+	public static final int REQUESTCODE_CROP = 3;// è£å‰ª
 	// editactivity
 	public static final int REQUESTCODE_EDIT_USERNAME = 4;
 	public static final int REQUESTCODE_EDIT_ADDRESS = 5;
 	public static final String EDIT_TYPE = "inputType";
 	public static final String EDIT_CONTENT = "content";
 
-	public static final int REQUESTCODE_CONFIG_SITE = 6;// ÅäÖÃ¹¤µØ
-	public static final int REQUESTCODE_CHANGE_SITE = 7;// ÇĞ»»¹¤µØ
+	public static final int REQUESTCODE_CONFIG_SITE = 6;// é…ç½®å·¥åœ°
+	public static final int REQUESTCODE_CHANGE_SITE = 7;// åˆ‡æ¢å·¥åœ°
 
-	// itemµã»÷Ïî
+	// itemç‚¹å‡»é¡¹
 	public static final int CONFIRM_ITEM = 1;
 	public static final int ADD_ITEM = 2;
 	public static final int IMG_ITEM = 3;
@@ -57,74 +57,74 @@ public class Constant {
 	public static final int DELAY_ITEM = 5;
 	public static final int CHECK_ITEM = 6;
 
-	// ÓÃ»§Éí·İtype
-	public static final String IDENTITY_OWNER = "1";// ÒµÖ÷
-	public static final String IDENTITY_DESIGNER = "2";// Éè¼ÆÊ¦
+	// ç”¨æˆ·èº«ä»½type
+	public static final String IDENTITY_OWNER = "1";// ä¸šä¸»
+	public static final String IDENTITY_DESIGNER = "2";// è®¾è®¡å¸ˆ
 
-	public static final String DESIGNER_SITE_ID = "siteId";// Éè¼ÆÊ¦µ±Ç°ÇĞ»»¹¤µØid
-	public static final String ISOPEN = "isOpen";// ÏûÏ¢ÍÆËÍÊÇ·ñ¿ªÆô
-	public static final String ISFIRST = "isFirst";// ÊÇ·ñÊÇÊ×´Î´ò¿ª³ÌĞò
-	public static final String ACCOUNT = "account";// ÕËºÅ
-	public static final String PASSWORD = "password";// ÃÜÂë
-	public static final String USERNAME = "username";// ÓÃ»§Ãû³Æ
-	public static final String USERTYPE = "usertype";// ÓÃ»§ÀàĞÍ
-	public static final String USERIMAGE_ID = "userimageid";// ÓÃ»§Í·Ïñid
-	public static final String USER_ID = "userid";// ÓÃ»§id
-	public static final String USER_IS_LOGIN = "user_is_login";// ÓÃ»§ÊÇ·ñµÇÂ¼
-	public static final String USERINFO_UPDATE = "userinfo_is update";// ÓÃ»§ĞÅÏ¢ÊÇ·ñ¸üĞÂ
-	public static final String ISCONFIG_PROCESS = "is_config_process";// ÊÇ·ñÅäÖÃ¹ı¹¤µØ
+	public static final String DESIGNER_SITE_ID = "siteId";// è®¾è®¡å¸ˆå½“å‰åˆ‡æ¢å·¥åœ°id
+	public static final String ISOPEN = "isOpen";// æ¶ˆæ¯æ¨é€æ˜¯å¦å¼€å¯
+	public static final String ISFIRST = "isFirst";// æ˜¯å¦æ˜¯é¦–æ¬¡æ‰“å¼€ç¨‹åº
+	public static final String ACCOUNT = "account";// è´¦å·
+	public static final String PASSWORD = "password";// å¯†ç 
+	public static final String USERNAME = "username";// ç”¨æˆ·åç§°
+	public static final String USERTYPE = "usertype";// ç”¨æˆ·ç±»å‹
+	public static final String USERIMAGE_ID = "userimageid";// ç”¨æˆ·å¤´åƒid
+	public static final String USER_ID = "userid";// ç”¨æˆ·id
+	public static final String USER_IS_LOGIN = "user_is_login";// ç”¨æˆ·æ˜¯å¦ç™»å½•
+	public static final String USERINFO_UPDATE = "userinfo_is update";// ç”¨æˆ·ä¿¡æ¯æ˜¯å¦æ›´æ–°
+	public static final String ISCONFIG_PROCESS = "is_config_process";// æ˜¯å¦é…ç½®è¿‡å·¥åœ°
 
-	public static final String FINAL_DESIGNER_ID = "final_designerid";// ÒµÖ÷µÄÉè¼ÆÊ¦id
-	public static final String FINAL_OWNER_ID = "final_owner_id";// ÒµÖ÷id
-	// public static final String PROCESSINFO_ID = "processinfo_id";// µ±Ç°¹¤µØid
-	public static final String PROCESSINFO_REFLECT = "processinfo_reflect";// ¹¤µØÓ³Éä
-	public static final String OWNER_INFO = "owner_info";// µ±Ç°ÒµÖ÷ĞÅÏ¢
-	public static final String DESIGNER_INFO = "designer_info";// µ±Ç°Éè¼ÆÊ¦ĞÅÏ¢
-	public static final String DEFAULT_PROCESS = "default_process";// µ±Ç°¹¤µØ
-	public static final String DESIGNER_PROCESS_LIST = "designer_process_list";// Éè¼ÆÊ¦¹¤µØÁĞ±í
-	public static final String DEFAULT_PROCESSINFO = "default_processinfo.txt";// Ä¬ÈÏ¹¤µØĞÅÏ¢
+	public static final String FINAL_DESIGNER_ID = "final_designerid";// ä¸šä¸»çš„è®¾è®¡å¸ˆid
+	public static final String FINAL_OWNER_ID = "final_owner_id";// ä¸šä¸»id
+	// public static final String PROCESSINFO_ID = "processinfo_id";// å½“å‰å·¥åœ°id
+	public static final String PROCESSINFO_REFLECT = "processinfo_reflect";// å·¥åœ°æ˜ å°„
+	public static final String OWNER_INFO = "owner_info";// å½“å‰ä¸šä¸»ä¿¡æ¯
+	public static final String DESIGNER_INFO = "designer_info";// å½“å‰è®¾è®¡å¸ˆä¿¡æ¯
+	public static final String DEFAULT_PROCESS = "default_process";// å½“å‰å·¥åœ°
+	public static final String DESIGNER_PROCESS_LIST = "designer_process_list";// è®¾è®¡å¸ˆå·¥åœ°åˆ—è¡¨
+	public static final String DEFAULT_PROCESSINFO = "default_processinfo.txt";// é»˜è®¤å·¥åœ°ä¿¡æ¯
 	public static final String DEFAULT_PROCESSINFO_ID = "1";
 
-	public static final String DATA = "data";// »ñÈ¡³É¹¦µÄÊı¾İ
-	public static final String ERROR_MSG = "err_msg";// »ñÈ¡Êı¾İÊ§°ÜµÄ·µ»ØĞÅÏ¢
-	public static final String SUCCESS_MSG = "msg";// »ñÈ¡Êı¾İ³É¹¦µÄ·µ»ØĞÅÏ¢
+	public static final String DATA = "data";// è·å–æˆåŠŸçš„æ•°æ®
+	public static final String ERROR_MSG = "err_msg";// è·å–æ•°æ®å¤±è´¥çš„è¿”å›ä¿¡æ¯
+	public static final String SUCCESS_MSG = "msg";// è·å–æ•°æ®æˆåŠŸçš„è¿”å›ä¿¡æ¯
 
-	// ÌáĞÑÏûÏ¢id
+	// æé†’æ¶ˆæ¯id
 	public static final int CAIGOU_NOTIFY_ID = 1;
 	public final static int FUKUAN_NOTIFY_ID = 2;
 	public final static int YANQI_NOTIFY_ID = 3;
 	public final static int YANSHOU_NOTIFY_ID = 4;
 
-	// ÌáĞÑÀàĞÍ
-	public static final String YANQI_NOTIFY = "0";// ÑÓÆÚÌáĞÑ
-	public static final String CAIGOU_NOTIFY = "1";// ²É¹ºÌáĞÑ
-	public static final String FUKUAN_NOTIFY = "2";// ¸¶¿îÌáĞÑ
-	public static final String CONFIRM_CHECK_NOTIFY = "3";// È·ÈÏÑéÊÕÌáĞÑ
+	// æé†’ç±»å‹
+	public static final String YANQI_NOTIFY = "0";// å»¶æœŸæé†’
+	public static final String CAIGOU_NOTIFY = "1";// é‡‡è´­æé†’
+	public static final String FUKUAN_NOTIFY = "2";// ä»˜æ¬¾æé†’
+	public static final String CONFIRM_CHECK_NOTIFY = "3";// ç¡®è®¤éªŒæ”¶æé†’
 
-	public static final String CHECK_REFUSE = "0";// ÑéÊÕ¾Ü¾ø
-	public static final String CHECK_AGREE = "1";// ÑéÊÕÍ¬Òâ
+	public static final String CHECK_REFUSE = "0";// éªŒæ”¶æ‹’ç»
+	public static final String CHECK_AGREE = "1";// éªŒæ”¶åŒæ„
 
-	// ÑÓÆÚÌáĞÑ×´Ì¬
-	public static final String NO_START = "0";// Î´¿ª¹¤
-	public static final String DOING = "1";// ½øĞĞÖĞ
-	public static final String FINISHED = "2";// ÒÑÍê³É
-	public static final String YANQI_BE_DOING = "3";// ¸ÄÆÚÉêÇëÖĞ
-	public static final String YANQI_AGREE = "4";// ¸ÄÆÚÍ¬Òâ
-	public static final String YANQI_REFUSE = "5";// ¸ÄÆÚ¾Ü¾ø
+	// å»¶æœŸæé†’çŠ¶æ€
+	public static final String NO_START = "0";// æœªå¼€å·¥
+	public static final String DOING = "1";// è¿›è¡Œä¸­
+	public static final String FINISHED = "2";// å·²å®Œæˆ
+	public static final String YANQI_BE_DOING = "3";// æ”¹æœŸç”³è¯·ä¸­
+	public static final String YANQI_AGREE = "4";// æ”¹æœŸåŒæ„
+	public static final String YANQI_REFUSE = "5";// æ”¹æœŸæ‹’ç»
 
-	// ¹¤Ğò×´Ì¬
-	public static final int NOT_START = 0;// Î´¿ª¹¤
-	public static final int WORKING = 1;// ÕıÔÚ½øĞĞÖĞ
-	public static final int FINISH = 2;// ÒÑÍê¹¤
-	public static final int OWNER_APPLY_DELAY = 3;// ÒµÖ÷ÉêÇëÑÓÆÚÖĞ
-	public static final int DESIGNER_APPLY_DELAY = 4;// Éè¼ÆÊ¦ÉêÇëÑÓÆÚÖĞ
+	// å·¥åºçŠ¶æ€
+	public static final int NOT_START = 0;// æœªå¼€å·¥
+	public static final int WORKING = 1;// æ­£åœ¨è¿›è¡Œä¸­
+	public static final int FINISH = 2;// å·²å®Œå·¥
+	public static final int OWNER_APPLY_DELAY = 3;// ä¸šä¸»ç”³è¯·å»¶æœŸä¸­
+	public static final int DESIGNER_APPLY_DELAY = 4;// è®¾è®¡å¸ˆç”³è¯·å»¶æœŸä¸­
 
 	public static final String SEX_MAN = "0";
 	public static final String SEX_WOMEN = "1";
 
-	public static final String DESIGNER_NOT_AUTH_TYPE = "0";// Éè¼ÆÊ¦Î´ÈÏÖ¤
-	public static final String DESIGNER_NOW_AUTH_TYPE = "1";// Éè¼ÆÊ¦ÕıÔÚÉóºËÖĞ
-	public static final String DESIGNER_FINISH_AUTH_TYPE = "2";// Éè¼ÆÊ¦Íê³ÉÈÏÖ¤
+	public static final String DESIGNER_NOT_AUTH_TYPE = "0";// è®¾è®¡å¸ˆæœªè®¤è¯
+	public static final String DESIGNER_NOW_AUTH_TYPE = "1";// è®¾è®¡å¸ˆæ­£åœ¨å®¡æ ¸ä¸­
+	public static final String DESIGNER_FINISH_AUTH_TYPE = "2";// è®¾è®¡å¸ˆå®Œæˆè®¤è¯
 
 	public static final String HOME_ADD_PIC = "drawable://"
 			+ R.drawable.btn_icon_home_add;
@@ -140,25 +140,25 @@ public class Constant {
 
 	public static final String DEFALUT_PIC_HEAD = "drawable://";
 
-	public static final String CURRENT_LIST = "current_list";// Ê×Ò³Õ¹¿ªµÄµÚÒ»µÀ¹¤Ğò
-	public static final String CURRENT_ITEM = "current_item";// µ±Ç°½Úµã
-	public static final String CURRENT_POSITION = "current_position";// µ±Ç°Î»ÖÃ
+	public static final String CURRENT_LIST = "current_list";// é¦–é¡µå±•å¼€çš„ç¬¬ä¸€é“å·¥åº
+	public static final String CURRENT_ITEM = "current_item";// å½“å‰èŠ‚ç‚¹
+	public static final String CURRENT_POSITION = "current_position";// å½“å‰ä½ç½®
 	public static final String IMAGE_LIST = "image_list";
 	public static final String SITE_ID = "site_id";
 	public static final String PROCESS_NAME = "process_name";
 	public static final String PROCESS_STATUS = "process_status";
 
-	public static final int LOAD_SUCCESS = 0;// Êı¾İ¼ÓÔØ³É¹¦
-	public static final int LOAD_FAILURE = 1;// Êı¾İ¼ÓÔØÊ§°Ü
+	public static final int LOAD_SUCCESS = 0;// æ•°æ®åŠ è½½æˆåŠŸ
+	public static final int LOAD_FAILURE = 1;// æ•°æ®åŠ è½½å¤±è´¥
 
-	public static final String COOKIES_CONFIG = "cookies_config";// cookiesÅäÖÃ
-	public static final String LAST_LOGIN_TIME = "last_login_time";// ÉÏ´ÎµÇÂ¼Ê±¼ä
-	public static final long LOGIN_EXPIRE = 24 * 60 * 60 * 1000L;// µÇÂ¼¹ıÆÚÊ±¼äÎª24Ğ¡Ê±
+	public static final String COOKIES_CONFIG = "cookies_config";// cookiesé…ç½®
+	public static final String LAST_LOGIN_TIME = "last_login_time";// ä¸Šæ¬¡ç™»å½•æ—¶é—´
+	public static final long LOGIN_EXPIRE = 24 * 60 * 60 * 1000L;// ç™»å½•è¿‡æœŸæ—¶é—´ä¸º24å°æ—¶
 
-	public static final String DOWNLOAD_URL = "download_url";// ÏÂÔØÁ´½Ó
+	public static final String DOWNLOAD_URL = "download_url";// ä¸‹è½½é“¾æ¥
 
-	public static final String INTENT_ACTION_USERINFO_CHANGE = "INTENT_ACTION_USERINFO_CHANGE";// ÓÃ»§ĞŞ¸Ä¸öÈËĞÅÏ¢
-	public static final String INTENT_ACTION_USER_IMAGE_CHANGE = "INTENT_ACTION_USER_IMAGE_CHANGE";// ÓÃ»§ĞŞ¸ÄÍ·Ïñ
+	public static final String INTENT_ACTION_USERINFO_CHANGE = "INTENT_ACTION_USERINFO_CHANGE";// ç”¨æˆ·ä¿®æ”¹ä¸ªäººä¿¡æ¯
+	public static final String INTENT_ACTION_USER_IMAGE_CHANGE = "INTENT_ACTION_USER_IMAGE_CHANGE";// ç”¨æˆ·ä¿®æ”¹å¤´åƒ
 
 	public static final String SHUI_DIAN = "shui_dian";
 	public static final String NI_MU = "ni_mu";

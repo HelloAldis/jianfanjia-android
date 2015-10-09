@@ -7,7 +7,7 @@ import com.jianfanjia.cn.tools.LogTool;
 
 /**
  * @class ProcessInfo
- * @Decription 此类是工地信息类
+ * @Decription 姝ょ被鏄伐鍦颁俊鎭被
  * @author zhanghao
  * @date 2015-8-28 15:30
  * 

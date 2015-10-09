@@ -3,7 +3,7 @@ package com.jianfanjia.cn.bean;
 import java.io.Serializable;
 
 /**
- * @des µ±Ç°µÄ¹¤µØÓ³Éä
+ * @des å½“å‰çš„å·¥åœ°æ˜ å°„
  * @author zhanghao
  * @date 2015-9-10
  * 

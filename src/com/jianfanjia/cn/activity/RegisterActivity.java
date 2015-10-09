@@ -14,9 +14,9 @@ import com.jianfanjia.cn.interf.FragmentListener;
 /**
  * 
  * @ClassName: RegisterActivity
- * @Description: ×¢²á½çÃæ
+ * @Description: æ³¨å†Œç•Œé¢
  * @author fengliang
- * @date 2015-8-18 ÏÂÎç12:11:35
+ * @date 2015-8-18 ä¸‹åˆ12:11:35
  * 
  */
 public class RegisterActivity extends BaseActivity implements FragmentListener {
@@ -26,7 +26,7 @@ public class RegisterActivity extends BaseActivity implements FragmentListener {
 	private ReginputVerificationFragment reginputVerificationFragment;
 	private List<Fragment> fragments = new ArrayList<Fragment>();
 
-	private int currentPage = 0;// ËùÔÚµÄFragmentÒ³ÃæµÄÎ»ÖÃ
+	private int currentPage = 0;// æ‰€åœ¨çš„Fragmenté¡µé¢çš„ä½ç½®
 
 	@Override
 	public void initView() {

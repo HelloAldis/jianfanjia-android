@@ -28,12 +28,12 @@ public class DataManagerNew {
 	private SharedPrefer sharedPreferdata = null;
 	private SharedPrefer sharedPreferuser = null;
 	private List<Process> processLists;
-	private OwnerInfo ownerInfo;// ÒµÖ÷µÄ¸öÈËÐÅÏ¢
-	private DesignerInfo designerInfo;// Éè¼ÆÊ¦µÄ¸öÈËÐÅÏ¢
-	private String totalDuration;// ×Ü¹¤ÆÚ
-	private RequirementInfo requirementInfo;// ÐèÇóÐÅÏ¢
-	private ProcessInfo currentProcessInfo;// µ±Ç°¹¤µØÐÅÏ¢p
-	private String currentUploadImageId;// µ±Ç°ÉÏ´«µÄimageId;
+	private OwnerInfo ownerInfo;// ä¸šä¸»çš„ä¸ªäººä¿¡æ¯
+	private DesignerInfo designerInfo;// è®¾è®¡å¸ˆçš„ä¸ªäººä¿¡æ¯
+	private String totalDuration;// æ€»å·¥æœŸ
+	private RequirementInfo requirementInfo;// éœ€æ±‚ä¿¡æ¯
+	private ProcessInfo currentProcessInfo;// å½“å‰å·¥åœ°ä¿¡æ¯p
+	private String currentUploadImageId;// å½“å‰ä¸Šä¼ çš„imageId;
 	private String picPath = null;
 
 	public static DataManagerNew getInstance() {
@@ -106,12 +106,12 @@ public class DataManagerNew {
 		return null;
 	}
 
-	// Éè¼ÆÊ¦ÓÃ»§»ñÈ¡¸öÈË×ÊÁÏ
+	// è®¾è®¡å¸ˆç”¨æˆ·èŽ·å–ä¸ªäººèµ„æ–™
 	public DesignerInfo getDesignerInfo() {
 		return getDesignerInfoById(getUserId());
 	}
 
-	// ÒµÖ÷ÓÃ»§»ñÈ¡¸öÈË×ÊÁÏ
+	// ä¸šä¸»ç”¨æˆ·èŽ·å–ä¸ªäººèµ„æ–™
 	public OwnerInfo getOwnerInfo() {
 		return getOwnerInfoById(getUserId());
 	}
@@ -197,7 +197,7 @@ public class DataManagerNew {
 
 	public int getDefaultPro() {
 		if (getUserType().equals(Constant.IDENTITY_DESIGNER)) {
-			return sharedPreferuser.getValue(Constant.DEFAULT_PROCESS, 0);// Ä¬ÈÏµÄ¹¤µØÎª0
+			return sharedPreferuser.getValue(Constant.DEFAULT_PROCESS, 0);// é»˜è®¤çš„å·¥åœ°ä¸º0
 		} else if (getUserType().equals(Constant.IDENTITY_OWNER)) {
 			return 0;
 		}
@@ -209,7 +209,7 @@ public class DataManagerNew {
 	}
 
 	/**
-	 * ÄÃ¹¤µØÐÅÏ¢
+	 * æ‹¿å·¥åœ°ä¿¡æ¯
 	 * 
 	 * @param processId
 	 * @return
@@ -223,7 +223,7 @@ public class DataManagerNew {
 	}
 
 	public boolean isLogin() {
-		return sharedPreferdata.getValue(Constant.USER_IS_LOGIN, false);// Ä¬ÈÏÊÇÃ»µÇÂ¼
+		return sharedPreferdata.getValue(Constant.USER_IS_LOGIN, false);// é»˜è®¤æ˜¯æ²¡ç™»å½•
 	}
 
 	public void setLogin(boolean isLogin) {
@@ -234,9 +234,9 @@ public class DataManagerNew {
 		sharedPreferuser.setValue(Constant.LAST_LOGIN_TIME, loginTime);
 	}
 
-	// ÊÇ·ñµÇÂ¼ÐÅÏ¢ÒÑ¹ýÆÚ
+	// æ˜¯å¦ç™»å½•ä¿¡æ¯å·²è¿‡æœŸ
 	public boolean isLoginExpire() {
-		long currentTime = Calendar.getInstance().getTimeInMillis();// µ±Ç°Ê±¼ä
+		long currentTime = Calendar.getInstance().getTimeInMillis();// å½“å‰æ—¶é—´
 		long loginLoginTime = sharedPreferdata.getValue(
 				Constant.LAST_LOGIN_TIME, currentTime);
 		if (currentTime - loginLoginTime > Constant.LOGIN_EXPIRE) {

@@ -8,15 +8,15 @@ import com.jianfanjia.cn.base.BaseActivity;
 
 /**
  * @class AboutActivity
- * @Description 关于我们
+ * @Description 鍏充簬鎴戜滑
  * @author zhanghao
- * @date 2015-8-27 下午8:22
+ * @date 2015-8-27 涓嬪崍8:22
  * 
  */
 public class AboutActivity extends BaseActivity implements OnClickListener {
 	private static final String TAG = AboutActivity.class.getName();
-	private TextView backView;// 返回视图
-	private TextView currentVersion;// 当前版本
+	private TextView backView;// 杩斿洖瑙嗗浘
+	private TextView currentVersion;// 褰撳墠鐗堟湰
 
 	@Override
 	public void initView() {

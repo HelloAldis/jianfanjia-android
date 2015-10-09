@@ -25,22 +25,22 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 /**
  * 
  * @ClassName: MyDesignerActivity
- * @Description: ÎÒµÄÉè¼ÆÊ¦
+ * @Description: æˆ‘çš„è®¾è®¡å¸ˆ
  * @author fengliang
- * @date 2015-9-11 ÉÏÎç9:56:20
+ * @date 2015-9-11 ä¸Šåˆ9:56:20
  * 
  */
 public class MyDesignerActivity extends BaseActivity implements
 		OnClickListener, LoadDataListener {
 	private static final String TAG = MyDesignerActivity.class.getName();
-	private ImageView bgView;// Éè¼ÆÊ¦±³¾°
-	private ImageView fontView;//±³¾°µÄÌù²ã
+	private ImageView bgView;// è®¾è®¡å¸ˆèƒŒæ™¯
+	private ImageView fontView;//èƒŒæ™¯çš„è´´å±‚
 	private CircleImageView headView;//
-	private TextView nameView;// ĞÕÃû
-	private ImageView sexView;// ĞÔ±ğ
-	private ImageView authView;// ÊÇ·ñÎªÈÏÖ¤Éè¼ÆÊ¦
-	private TextView productSumView;// ×÷Æ·Êı
-	private TextView appointmentSum;// Ô¤Ô¼Êı
+	private TextView nameView;// å§“å
+	private ImageView sexView;// æ€§åˆ«
+	private ImageView authView;// æ˜¯å¦ä¸ºè®¤è¯è®¾è®¡å¸ˆ
+	private TextView productSumView;// ä½œå“æ•°
+	private TextView appointmentSum;// é¢„çº¦æ•°
 	private DesignerInfo designerInfo;
 	private String designerId;
 	private RelativeLayout contentLayout;
@@ -98,7 +98,7 @@ public class MyDesignerActivity extends BaseActivity implements
 
 	@Override
 	public void setErrorView() {
-		((TextView) errorView.findViewById(R.id.tv_error)).setText("ÔİÎŞÉè¼ÆÊ¦Êı¾İ");
+		((TextView) errorView.findViewById(R.id.tv_error)).setText("æš‚æ— è®¾è®¡å¸ˆæ•°æ®");
 	}
 
 	@Override
@@ -160,7 +160,7 @@ public class MyDesignerActivity extends BaseActivity implements
 		}
 	}
 
-	// ÓĞÊı¾İ¾Í¸Ä±äÕ¹Ê¾µÄÑùÊ½
+	// æœ‰æ•°æ®å°±æ”¹å˜å±•ç¤ºçš„æ ·å¼
 	private void setViewChange() {
 		mainHeadView.setBackgroundTransparent();
 		mainHeadView.setMainTextColor(getResources().getColor(
