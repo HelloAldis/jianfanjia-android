@@ -77,8 +77,6 @@ public class ReginputVerificationFragment extends BaseFragment {
 			String verif = mEdVerif.getText().toString().trim();
 			if (checkInput(verif)) {
 				MyApplication.getInstance().getRegisterInfo().setCode(verif);
-				makeTextLong(MyApplication.getInstance().getRegisterInfo()
-						.toString());
 				register(MyApplication.getInstance().getRegisterInfo());
 			}
 			break;
