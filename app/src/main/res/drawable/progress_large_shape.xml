@@ -26,7 +26,7 @@
             <bitmap
                 android:antialias="true"
                 android:filter="true"
-                android:src="@drawable/icon_loading" />
+                android:src="@mipmap/icon_loading" />
         </rotate>
     </item>
 

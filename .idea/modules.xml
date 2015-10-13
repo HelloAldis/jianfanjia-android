@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/JianFanJia.iml" filepath="$PROJECT_DIR$/JianFanJia.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/jianfanjia-android.iml" filepath="$PROJECT_DIR$/jianfanjia-android.iml" />
     </modules>
   </component>
 </project>

@@ -1,26 +1,15 @@
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
 
-    <!--
-        Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
-    -->
-    <style name="AppBaseTheme" parent="android:Theme.Light">
-        <!--
-            Theme customizations available in newer API levels can go in
-            res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
-        -->
-    </style>
-
-    <!-- Application theme. -->
-    <style name="AppTheme" parent="AppBaseTheme">
-        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
     </style>
 
     <style name="tab_rb_style">
         <item name="android:gravity">center_horizontal|bottom</item>
         <item name="android:button">@null</item>
     </style>
+
     <!-- horizontal line_style -->
     <style name="divier_line">
         <item name="android:layout_width">fill_parent</item>
@@ -149,7 +138,7 @@
     <style name="my_item_layout_image_style">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@drawable/icon_setting_next</item>
+        <item name="android:background">@mipmap/icon_setting_next</item>
     </style>
 
     <!-- my_item_layout_text_style -->
@@ -171,7 +160,7 @@
     <!--
     <style name="site_listview_item_text_style_big" parent="my_item_layout_text_style_base">
         <item name="android:textSize">@dimen/text_size_14</item>
-    </style>
+    </style>
     -->
 
     <style name="site_listview_item_text_style_title" parent="my_item_layout_text_style_base">
@@ -240,21 +229,16 @@
         <item name="android:windowExitAnimation">@anim/popub_slide_out_to_bottom</item>
     </style>
     <!-- activity animation -->
-    <style name="activity_styleprize">
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:colorBackgroundCacheHint">@null</item>
+    <style name="activity_style" parent="@style/Theme.AppCompat.Light.NoActionBar">
         <item name="vpiIconPageIndicatorStyle">@style/Widget.IconPageIndicator</item>
         <item name="vpiTabPageIndicatorStyle">@style/Widget.TabPageIndicator</item>
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowAnimationStyle">@style/AnimationActivity</item>
     </style>
+
 
     <style name="AnimationActivity" parent="@android:style/Animation.Activity">
-        <item name="android:activityOpenEnterAnimation">@anim/slide_right_enter</item>
-        <item name="android:activityOpenExitAnimation">@anim/slide_right_exit</item>
-        <item name="android:activityCloseEnterAnimation">@anim/slide_left_enter</item>
-        <item name="android:activityCloseExitAnimation">@anim/slide_left_exit</item>
+        <item name="android:activityOpenEnterAnimation">@anim/fragment_slide_right_enter</item>
+        <item name="android:activityOpenExitAnimation">@anim/fragment_slide_right_exit</item>
+        <item name="android:activityCloseEnterAnimation">@anim/fragment_slide_left_enter</item>
+        <item name="android:activityCloseExitAnimation">@anim/fragment_slide_left_exit</item>
     </style>
-
 </resources>

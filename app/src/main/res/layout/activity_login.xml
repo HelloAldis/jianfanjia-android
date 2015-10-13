@@ -3,7 +3,7 @@
     android:id="@+id/loginLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_login" >
+    android:background="@mipmap/bg_login" >
 
     <ScrollView
         android:layout_width="match_parent"
@@ -23,7 +23,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="96dp"
                 android:contentDescription="@null"
-                android:src="@drawable/logo_loading" />
+                android:src="@mipmap/logo_loading" />
 
             <LinearLayout
                 android:id="@+id/login_layout"

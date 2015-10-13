@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main_layout_bg" >
+    android:background="@color/main_layout_bg"
+    android:orientation="vertical">
 
     <com.jianfanjia.cn.view.MainHeadView
         android:id="@+id/my_setting_head_layout"
@@ -15,19 +16,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/my_setting_head_layout"
-        android:layout_marginTop="@dimen/space_8" >
+        android:layout_marginTop="@dimen/space_8">
 
         <LinearLayout
             android:id="@+id/rootview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <View style="@style/divier_line" />
 
             <RelativeLayout
                 android:id="@+id/mespush_layout"
-                style="@style/my_list_item_layout_style" >
+                style="@style/my_list_item_layout_style">
 
                 <TextView
                     style="@style/site_listview_item_text_style_middle"
@@ -51,7 +52,7 @@
 
             <RelativeLayout
                 android:id="@+id/share_layout"
-                style="@style/my_list_item_layout_style" >
+                style="@style/my_list_item_layout_style">
 
                 <TextView
                     style="@style/site_listview_item_text_style_middle"
@@ -70,7 +71,7 @@
 
             <RelativeLayout
                 android:id="@+id/current_version_layout"
-                style="@style/my_list_item_layout_style" >
+                style="@style/my_list_item_layout_style">
 
                 <TextView
                     style="@style/site_listview_item_text_style_middle"
@@ -91,7 +92,7 @@
 
             <RelativeLayout
                 android:id="@+id/clear_cache_layout"
-                style="@style/my_list_item_layout_style" >
+                style="@style/my_list_item_layout_style">
 
                 <TextView
                     style="@style/site_listview_item_text_style_middle"
@@ -116,7 +117,7 @@
 
             <RelativeLayout
                 android:id="@+id/feedback_layout"
-                style="@style/my_list_item_layout_style" >
+                style="@style/my_list_item_layout_style">
 
                 <TextView
                     style="@style/site_listview_item_text_style_middle"
@@ -135,7 +136,7 @@
 
             <RelativeLayout
                 android:id="@+id/help_layout"
-                style="@style/my_list_item_layout_style" >
+                style="@style/my_list_item_layout_style">
 
                 <TextView
                     style="@style/site_listview_item_text_style_middle"
@@ -154,7 +155,7 @@
 
             <RelativeLayout
                 android:id="@+id/about_layout"
-                style="@style/my_list_item_layout_style" >
+                style="@style/my_list_item_layout_style">
 
                 <TextView
                     style="@style/site_listview_item_text_style_middle"
@@ -177,7 +178,7 @@
 
             <RelativeLayout
                 android:id="@+id/logout_layout"
-                style="@style/my_list_item_layout_style" >
+                style="@style/my_list_item_layout_style">
 
                 <TextView
                     style="@style/site_listview_item_text_style_middle"
@@ -191,4 +192,4 @@
         </LinearLayout>
     </ScrollView>
 
-</RelativeLayout>
+</LinearLayout>

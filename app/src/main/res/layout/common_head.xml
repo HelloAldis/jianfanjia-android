@@ -2,25 +2,25 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/transparent" >
+    android:background="@android:color/transparent">
 
     <RelativeLayout
         android:id="@+id/main_head_layout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/space_48" >
+        android:layout_height="@dimen/space_70">
 
         <RelativeLayout
             android:id="@+id/head_back_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:padding="@dimen/space_8" >
+            android:padding="@dimen/space_8">
 
             <TextView
                 android:id="@+id/head_back"
                 style="@style/site_listview_item_text_style_middle"
                 android:layout_centerVertical="true"
-                android:drawableLeft="@drawable/icon_register_back"
+                android:drawableLeft="@mipmap/icon_register_back"
                 android:drawablePadding="4dp"
                 android:text="@string/back"
                 android:textColor="@color/back_color" />
