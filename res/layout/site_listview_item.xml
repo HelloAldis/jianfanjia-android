@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants" >
+
+    <RelativeLayout
+        android:id="@+id/site_listview_item_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp" >
+
+        <ImageView
+            android:id="@+id/site_listview_item_status"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="10dip"
+            android:contentDescription="@null"
+            android:scaleType="center"
+            android:src="@drawable/site_listview_item_notstart_circle" />
+
+        <RelativeLayout
+            android:id="@+id/site_listview_item_content_small"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="14dp"
+            android:layout_toRightOf="@+id/site_listview_item_status"
+            android:background="@drawable/list_item_text_bg1"
+            android:padding="12dp" >
+
+            <TextView
+                android:id="@+id/site_list_item_content_small_node_name"
+                style="@style/site_listview_item_text_style_middle"
+                android:text="@string/site_example_node_name"
+                android:textColor="@color/main_color_black" />
+
+            <TextView
+                android:id="@+id/site_list_item_content_small_node_finishtime"
+                style="@style/site_listview_item_text_style_small"
+                android:layout_alignBaseline="@+id/site_list_item_content_small_node_name"
+                android:layout_alignParentRight="true"
+                android:textColor="@color/main_color_black" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/site_listview_item_content_expand"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="14dp"
+            android:layout_toRightOf="@+id/site_listview_item_status"
+            android:background="@drawable/list_item_text_bg1"
+            android:padding="12dp"
+            android:visibility="gone" >
+
+            <TextView
+                android:id="@+id/site_list_item_content_expand_node_name"
+                style="@style/site_listview_item_text_style_middle"
+                android:text="@string/site_example_node_name"
+                android:textColor="@color/main_color_black" />
+
+            <TextView
+                android:id="@+id/site_list_item_content_expand_node_finish_status"
+                style="@style/site_listview_item_text_style_small"
+                android:layout_alignBaseline="@+id/site_list_item_content_expand_node_name"
+                android:layout_alignParentRight="true"
+                android:text="@string/site_example_node_finish"
+                android:textColor="@color/main_color_black" />
+
+            <TextView
+                android:id="@+id/site_list_item_content_expand_node_confirm_finish"
+                style="@style/site_listview_item_text_style_small"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/btn_selector"
+                android:clickable="true"
+                android:focusable="false"
+                android:padding="5dip"
+                android:text="@string/site_example_node_confirm_finish"
+                android:textColor="@color/font_white"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/site_list_item_content_expand_node_picture_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/site_list_item_content_expand_node_name"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal" >
+
+                <com.jianfanjia.cn.view.MyGridView
+                    android:id="@+id/site_list_item_gridview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dip"
+                    android:horizontalSpacing="10dp"
+                    android:listSelector="@drawable/grid_item_selector"
+                    android:numColumns="3"
+                    android:scrollbars="none"
+                    android:stretchMode="columnWidth"
+                    android:verticalSpacing="10dp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/site_list_item_content_expand_node_time"
+                style="@style/site_listview_item_text_style_small"
+                android:layout_alignBaseline="@+id/site_list_item_content_expand_node_assess"
+                android:layout_alignBottom="@+id/site_list_item_content_expand_node_assess"
+                android:layout_alignTop="@+id/site_list_item_content_expand_node_assess"
+                android:gravity="center"
+                android:text="@string/site_example_node_time"
+                android:textColor="@color/main_color_grey" />
+
+            <TextView
+                android:id="@+id/site_list_item_content_expand_node_assess"
+                style="@style/site_listview_item_text_style_small"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/site_list_item_content_expand_node_picture_layout"
+                android:drawableLeft="@drawable/btn_icon_comment_normal"
+                android:gravity="center_vertical"
+                android:text="@string/site_example_node_assess"
+                android:textColor="@color/main_color_grey" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

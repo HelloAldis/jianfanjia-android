@@ -1,0 +1,15 @@
+[{
+	"id":1,
+	"account":"13972957965",
+	"name":"jame",
+	"pwd":"123456",
+	"userIdentity":0,
+	"city":"武汉",
+	"sex":1,
+	"appointment_count":20,
+	"product_count":30,
+	"good_at_style":"现代简约",
+	"des_budget":"面议",
+	"sites":[{"id":0},{"id":1}],
+	"owers":[{"account":15927163098},{"account":13476199441}]
+}]

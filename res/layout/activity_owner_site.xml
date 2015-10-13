@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_layout_bg" >
+
+    <com.jianfanjia.cn.view.MainHeadView
+        android:id="@+id/ower_site_head_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/head_layout_bg" />
+
+    <ScrollView
+        android:id="@+id/scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/ower_site_head_layout"
+        android:layout_marginTop="@dimen/space_8"
+        android:visibility="gone" >
+
+        <LinearLayout
+            android:id="@+id/rootview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <View style="@style/divier_line" />
+
+            <RelativeLayout
+                android:id="@+id/my_city_layout"
+                style="@style/my_item_layout_style" >
+
+                <TextView
+                    android:id="@+id/my_site_city"
+                    style="@style/site_listview_item_text_style_middle"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/main_color_grey" />
+
+                <TextView
+                    style="@style/site_listview_item_text_style_middle"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/my_site_city"
+                    android:textColor="@color/main_color_black" />
+            </RelativeLayout>
+
+            <View style="@style/divier_line" />
+
+            <RelativeLayout
+                android:id="@+id/my_villagename_layout"
+                style="@style/my_item_layout_style" >
+
+                <TextView
+                    style="@style/site_listview_item_text_style_middle"
+                    android:layout_centerVertical="true"
+                    android:text="@string/my_site_villagename"
+                    android:textColor="@color/main_color_black" />
+
+                <TextView
+                    android:id="@+id/my_site_villagename"
+                    style="@style/site_listview_item_text_style_middle"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/main_color_grey" />
+            </RelativeLayout>
+
+            <View style="@style/divier_line" />
+
+            <RelativeLayout
+                android:id="@+id/my_housestyle_layout"
+                style="@style/my_item_layout_style" >
+
+                <TextView
+                    style="@style/site_listview_item_text_style_middle"
+                    android:layout_centerVertical="true"
+                    android:text="@string/my_site_housestyle"
+                    android:textColor="@color/main_color_black" />
+
+                <TextView
+                    android:id="@+id/my_site_housestyle"
+                    style="@style/site_listview_item_text_style_middle"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/main_color_grey" />
+            </RelativeLayout>
+
+            <View style="@style/divier_line" />
+
+            <RelativeLayout
+                android:id="@+id/my_decorationArea_layout"
+                style="@style/my_item_layout_style" >
+
+                <TextView
+                    style="@style/site_listview_item_text_style_middle"
+                    android:layout_centerVertical="true"
+                    android:text="@string/my_site_housesize"
+                    android:textColor="@color/main_color_black" />
+
+                <TextView
+                    android:id="@+id/my_site_derationArea"
+                    style="@style/site_listview_item_text_style_middle"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/main_color_grey" />
+            </RelativeLayout>
+
+            <View style="@style/divier_line" />
+
+            <RelativeLayout
+                android:id="@+id/my_lovestyle_layout"
+                style="@style/my_item_layout_style" >
+
+                <TextView
+                    style="@style/site_listview_item_text_style_middle"
+                    android:layout_centerVertical="true"
+                    android:text="@string/my_site_lovestyle"
+                    android:textColor="@color/main_color_black" />
+
+                <TextView
+                    android:id="@+id/my_site_lovestyle"
+                    style="@style/site_listview_item_text_style_middle"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/main_color_grey" />
+            </RelativeLayout>
+
+            <View style="@style/divier_line" />
+
+            <RelativeLayout
+                android:id="@+id/my_decorationstyle_layout"
+                style="@style/my_item_layout_style" >
+
+                <TextView
+                    style="@style/site_listview_item_text_style_middle"
+                    android:layout_centerVertical="true"
+                    android:text="@string/my_site_decoratestyle"
+                    android:textColor="@color/main_color_black" />
+
+                <TextView
+                    android:id="@+id/my_site_decorationstyle"
+                    style="@style/site_listview_item_text_style_middle"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/main_color_grey" />
+            </RelativeLayout>
+
+            <View style="@style/divier_line" />
+
+            <RelativeLayout
+                android:id="@+id/my_decorationbudget_layout"
+                style="@style/my_item_layout_style" >
+
+                <TextView
+                    style="@style/site_listview_item_text_style_middle"
+                    android:layout_centerVertical="true"
+                    android:text="@string/my_site_decoratebudget"
+                    android:textColor="@color/main_color_black" />
+
+                <TextView
+                    android:id="@+id/my_site_decorationbudget"
+                    style="@style/site_listview_item_text_style_middle"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/main_color_grey" />
+            </RelativeLayout>
+
+            <View style="@style/divier_line" />
+
+            <View
+                style="@style/divier_line"
+                android:layout_marginTop="16dp" />
+
+            <RelativeLayout
+                android:id="@+id/my_totaldate_layout"
+                style="@style/my_item_layout_style" >
+
+                <TextView
+                    style="@style/site_listview_item_text_style_middle"
+                    android:layout_centerVertical="true"
+                    android:text="@string/my_site_totaldate"
+                    android:textColor="@color/main_color_black" />
+
+                <TextView
+                    android:id="@+id/my_site_totaldate"
+                    style="@style/site_listview_item_text_style_middle"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/main_color_grey" />
+            </RelativeLayout>
+
+            <View style="@style/divier_line" />
+
+            <RelativeLayout
+                android:id="@+id/my_startdate_layout"
+                style="@style/my_item_layout_style" >
+
+                <TextView
+                    style="@style/site_listview_item_text_style_middle"
+                    android:layout_centerVertical="true"
+                    android:text="@string/my_site_startdate"
+                    android:textColor="@color/main_color_black" />
+
+                <ImageView
+                    android:id="@+id/startdate_select_goto"
+                    style="@style/my_item_layout_image_style"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@null"
+                    android:layout_marginLeft="8dp" />
+
+                <TextView
+                    android:id="@+id/my_site_startdate"
+                    style="@style/site_listview_item_text_style_middle"
+                    android:layout_alignWithParentIfMissing="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/startdate_select_goto"
+                    android:textColor="@color/main_color_grey" />
+            </RelativeLayout>
+
+            <View style="@style/divier_line" />
+
+            <TextView
+                android:id="@+id/my_site_confirm"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_48"
+                android:layout_marginLeft="@dimen/space_24"
+                android:layout_marginRight="@dimen/space_24"
+                android:layout_marginTop="@dimen/space_24"
+                android:background="@drawable/btn_selector"
+                android:gravity="center"
+                android:text="@string/confirm"
+                android:textColor="@color/font_white"
+                android:textSize="17sp" />
+        </LinearLayout>
+    </ScrollView>
+
+    <include
+        android:id="@+id/error_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/ower_site_head_layout"
+        android:layout_marginTop="@dimen/space_8"
+        layout="@layout/view_error_layout" />
+
+</RelativeLayout>

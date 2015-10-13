@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:orientation="vertical" >
+
+    <Button
+        android:id="@+id/btn_open_album"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/space_48"
+        android:background="@drawable/my_item_layout_bg"
+        android:text="@string/open_album"
+        android:textColor="@color/main_color_black"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/btn_open_camera"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/space_48"
+        android:layout_marginTop="1px"
+        android:background="@drawable/my_item_layout_bg"
+        android:text="@string/open_camera"
+        android:textColor="@color/main_color_black"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/btn_cancel"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/space_48"
+        android:layout_marginTop="4dip"
+        android:background="@drawable/my_item_layout_bg"
+        android:text="@string/no"
+        android:textColor="@color/main_color_black"
+        android:textSize="14sp" />
+
+</LinearLayout>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent" >
+
+    <RelativeLayout
+        android:id="@+id/main_head_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_48" >
+
+        <RelativeLayout
+            android:id="@+id/head_back_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/space_8" >
+
+            <TextView
+                android:id="@+id/head_back"
+                style="@style/site_listview_item_text_style_middle"
+                android:layout_centerVertical="true"
+                android:drawableLeft="@drawable/icon_register_back"
+                android:drawablePadding="4dp"
+                android:text="@string/back"
+                android:textColor="@color/back_color" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/head_center_title"
+            style="@style/site_listview_item_text_style_title"
+            android:layout_centerInParent="true"
+            android:text="@string/my_site"
+            android:textColor="@color/main_color_black" />
+
+        <TextView
+            android:id="@+id/head_right_title"
+            style="@style/site_listview_item_text_style_middle"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/space_8"
+            android:textColor="@color/main_color_black" />
+
+        <View
+            android:id="@+id/head_divier"
+            style="@style/divier_line"
+            android:layout_alignParentBottom="true"
+            android:background="@color/horzontal_line_color" />
+    </RelativeLayout>
+
+</RelativeLayout>

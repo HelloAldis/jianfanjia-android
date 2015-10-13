@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="pro">省</string>
+    <string name="city">市</string>
+    <string name="district">区</string>
+
+    <string-array name="sex">
+        <item>男</item>
+        <item>女</item>
+    </string-array>
+    <string-array name="work_type">
+        <item>半包</item>
+        <item>全包</item>
+    </string-array>
+    <string-array name="dec_districts">
+        <item>汉口</item>
+        <item>汉阳</item>
+        <item>武昌</item>
+    </string-array>
+    <string-array name="dec_style">
+        <item>欧尚</item>
+        <item>中式</item>
+        <item>现代</item>
+        <item>地中海</item>
+        <item>美式</item>
+        <item>东南亚</item>
+    </string-array>
+    <string-array name="house_type">
+        <item>一居</item>
+        <item>二居</item>
+        <item>三居</item>
+        <item>四居</item>
+        <item>复式</item>
+        <item>别墅</item>
+    </string-array>
+    <string-array name="design_fee_range">
+        <item>50－100</item>
+        <item>100－200</item>
+        <item>200－300</item>
+        <item>300以上</item>
+    </string-array>
+    <string-array name="site_procedure">
+        <item>开工</item>
+        <item>拆改</item>
+        <item>水电</item>
+        <item>泥木</item>
+        <item>油漆</item>
+        <item>安装</item>
+        <item>竣工</item>
+    </string-array>
+    <string-array name="site_check_name">
+        <item>开工阶段验收</item>
+        <item>拆改阶段验收</item>
+        <item>水电阶段验收</item>
+        <item>泥木阶段验收</item>
+        <item>油漆阶段验收</item>
+        <item>安装阶段验收</item>
+        <item>竣工阶段验收</item>
+    </string-array>
+    <string-array name="site_procedure_check">
+        <item>shui_dian</item>
+        <item>ni_mu</item>
+        <item>you_qi</item>
+        <item>an_zhuang</item>
+        <item>jun_gong</item>
+    </string-array>
+    <string-array name="site_data">
+        <item>kai_gong</item>
+        <item>chai_gai</item>
+        <item>shui_dian</item>
+        <item>ni_mu</item>
+        <item>you_qi</item>
+        <item>an_zhuang</item>
+        <item>jun_gong</item>
+    </string-array>
+    <string-array name="process_status">
+        <item>未开工</item>
+        <item>进行中</item>
+        <item>已完成</item>
+        <item>业主申请延期中</item>
+        <item>设计师申请延期中</item>
+    </string-array>
+
+    <!-- 服务器返回工地英文解析 -->
+    <string name="kai_gong">开工</string>
+    <string name="xcjd">现场交底</string>
+    <string name="sgxcl">石膏线测量</string>
+    <string name="mdbcl">木地板测量</string>
+    <string name="cgdyccl">橱柜第一次测量</string>
+    <string name="qdzmjcl">墙地砖面积测量</string>
+    <string name="kgmbslcl">开关面板数量核算</string>
+    <string name="chai_gai">拆改</string>
+    <string name="cpbh">成品保护</string>
+    <string name="ztcg">主体拆改</string>
+    <string name="qpcc">墙皮铲除</string>
+    <string name="shui_dian">水电</string>
+    <string name="sdsg">水电施工</string>
+    <string name="ntsg">暖通施工</string>
+    <string name="ni_mu">泥木</string>
+    <string name="dmzp">地面找平</string>
+    <string name="ddsg">吊顶施工</string>
+    <string name="gtsg">柜体施工</string>
+    <string name="sgxaz">石膏线安装</string>
+    <string name="cwqfssg">厨卫全防水施工</string>
+    <string name="cwqdzsg">厨卫墙地砖施工</string>
+    <string name="ktytzsg">客厅阳台砖施工</string>
+    <string name="you_qi">油漆</string>
+    <string name="mqqsg">木器漆施工</string>
+    <string name="qmrjq">墙面乳胶漆</string>
+    <string name="an_zhuang">安装</string>
+    <string name="scaz">石材安装</string>
+    <string name="jjaz">洁具安装</string>
+    <string name="cwddaz">厨卫吊顶安装</string>
+    <string name="wjaz">五金安装</string>
+    <string name="cgscaz">橱柜、水槽安装开关</string>
+    <string name="yjzjaz">烟机灶具安装</string>
+    <string name="mdbmmaz">木地板、木门安装</string>
+    <string name="qzpt">墙纸铺贴</string>
+    <string name="snzl">室内整理</string>
+    <string name="mbdjaz">面板灯具安装</string>
+    <string name="jun_gong">竣工</string>
+    <!-- 服务器返回工地英文解析 -->
+    <!-- 水电阶段验收图片 -->
+    <string-array name="shui_dian">
+        <item>@drawable/shui_dian1</item>
+        <item>@drawable/btn_icon_home_add</item>
+        <item>@drawable/shui_dian2</item>
+        <item>@drawable/btn_icon_home_add</item>
+        <item>@drawable/shui_dian3</item>
+        <item>@drawable/btn_icon_home_add</item>
+        <item>@drawable/shui_dian4</item>
+        <item>@drawable/btn_icon_home_add</item>
+        <item>@drawable/shui_dian5</item>
+        <item>@drawable/btn_icon_home_add</item>
+    </string-array>
+    <!-- 泥木阶段验收图片 -->
+    <string-array name="ni_mu">
+        <item>@drawable/ni_mu1</item>
+        <item>@drawable/btn_icon_home_add</item>
+        <item>@drawable/ni_mu2</item>
+        <item>@drawable/btn_icon_home_add</item>
+        <item>@drawable/ni_mu3</item>
+        <item>@drawable/btn_icon_home_add</item>
+        <item>@drawable/ni_mu4</item>
+        <item>@drawable/btn_icon_home_add</item>
+        <item>@drawable/ni_mu5</item>
+        <item>@drawable/btn_icon_home_add</item>
+        <item>@drawable/ni_mu6</item>
+        <item>@drawable/btn_icon_home_add</item>
+        <item>@drawable/ni_mu7</item>
+        <item>@drawable/btn_icon_home_add</item>
+    </string-array>
+
+    <!-- 油漆阶段验收图片 -->
+    <string-array name="you_qi">
+        <item>@drawable/you_qi1</item>
+        <item>@drawable/btn_icon_home_add</item>
+        <item>@drawable/you_qi2</item>
+        <item>@drawable/btn_icon_home_add</item>
+    </string-array>
+
+    <!-- 安装阶段验收图片 -->
+    <string-array name="an_zhuang">
+        <item>@drawable/an_zhuang1</item>
+        <item>@drawable/btn_icon_home_add</item>
+    </string-array>
+
+    <!-- 竣工阶段验收图片 -->
+    <string-array name="jun_gong">
+        <item>@drawable/jun_gong1</item>
+        <item>@drawable/btn_icon_home_add</item>
+    </string-array>
+
+</resources>
