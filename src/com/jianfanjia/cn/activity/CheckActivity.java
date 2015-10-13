@@ -208,7 +208,8 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 			int imagecount = 0;
 			for (int i = 0; imageids != null && i < imageids.size(); i++) {
 				String key = imageids.get(i).getKey();
-				if (imageids.get(i).getImageid() != null) {
+				LogTool.d(TAG, "key =" + key);
+				if (!TextUtils.isEmpty(imageids.get(i).getImageid())) {
 					LogTool.d(TAG, imageids.get(i).getImageid());
 					checkGridList.get(Integer.parseInt(key) * 2 + 1).setImgId(
 							imageids.get(i).getImageid());
