@@ -1,6 +1,7 @@
 package com.jianfanjia.cn.activity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.CompoundButton;
@@ -9,11 +10,24 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.igexin.sdk.PushManager;
+import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.base.BaseResponse;
+import com.jianfanjia.cn.bean.UpdateVersion;
+import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.http.JianFanJiaClient;
+import com.jianfanjia.cn.interf.LoadDataListener;
+import com.jianfanjia.cn.service.UpdateService;
+import com.jianfanjia.cn.tools.FileUtil;
+import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
+import com.nostra13.universalimageloader.core.ImageLoader;
+
+import java.io.File;
 
 /**
  * Description:设置
@@ -96,13 +110,13 @@ public class SettingActivity extends BaseActivity implements OnClickListener, On
                 onClickExit();
                 break;
             case R.id.current_version_layout:
-
+                checkVersion();
                 break;
             case R.id.share_layout:
                 startActivity(ShareActivity.class);
                 break;
             case R.id.clear_cache_layout:
-
+                onClickCleanCache();
                 break;
             case R.id.head_back_layout:
                 finish();
@@ -114,6 +128,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener, On
                 break;
         }
     }
+
     private void onClickExit() {
         CommonDialog dialog = DialogHelper
                 .getPinterestDialogCancelable(SettingActivity.this);
@@ -131,10 +146,181 @@ public class SettingActivity extends BaseActivity implements OnClickListener, On
         dialog.setNegativeButton(R.string.no, null);
         dialog.show();
     }
+
+    /**
+     * 计算缓存的大小
+     */
+    private void caculateCacheSize() {
+        long fileSize = 0;
+        String cacheSize = "0KB";
+        File filesDir = ImageLoader.getInstance().getDiskCache().getDirectory();
+        File file = new File(Constant.COMMON_PATH);
+
+        fileSize += FileUtil.getDirSize(filesDir);
+        fileSize += FileUtil.getDirSize(file);
+
+        // 2.2版本才有将应用缓存转移到sd卡的功能
+        if (MyApplication.isMethodsCompat(android.os.Build.VERSION_CODES.FROYO)) {
+            File externalCacheDir = getExternalCacheDir();
+            fileSize += FileUtil.getDirSize(externalCacheDir);
+        }
+        if (fileSize > 0)
+            cacheSize = FileUtil.formatFileSize(fileSize);
+        cacheSizeView.setText(cacheSize);
+    }
+
+    /**
+     * 清空缓存
+     */
+    private void onClickCleanCache() {
+        CommonDialog dialog = DialogHelper
+                .getPinterestDialogCancelable(SettingActivity.this);
+        dialog.setTitle("清空缓存？");
+        dialog.setMessage("确定清空缓存吗？");
+        dialog.setPositiveButton(R.string.ok,
+                new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        MyApplication.getInstance().clearAppCache();
+                        cacheSizeView.setText("0KB");
+                        dialog.dismiss();
+                    }
+                });
+        dialog.setNegativeButton(R.string.no, null);
+        dialog.show();
+    }
+
+    /**
+     * 获取最新版本
+     */
+    public void showNewVersion(String message, final UpdateVersion updateVersion) {
+        CommonDialog dialog = DialogHelper
+                .getPinterestDialogCancelable(SettingActivity.this);
+        dialog.setTitle("版本更新");
+        dialog.setMessage(message);
+        dialog.setPositiveButton(R.string.ok,
+                new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        startUpdateService(updateVersion.getDownload_url());
+                    }
+
+                });
+        dialog.setNegativeButton(R.string.no, null);
+        dialog.show();
+    }
+
+    private void startUpdateService(String download_url) {
+        if (download_url == null)
+            return;
+        Intent intent = new Intent(this, UpdateService.class);
+        intent.putExtra(Constant.DOWNLOAD_URL, download_url);
+        startService(intent);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        LogTool.d(TAG, "---onResume()");
+        if (isOpen) {
+            toggleButton.setChecked(true);
+        } else {
+            toggleButton.setChecked(false);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        LogTool.d(TAG, "---onPause()");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        LogTool.d(TAG, "---onStop()");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        LogTool.d(TAG, "---onDestroy()");
+    }
+
+    // 检查版本
+    private void checkVersion() {
+        JianFanJiaClient.checkVersion(this, new LoadDataListener() {
+            @Override
+            public void preLoad() {
+                showWaitDialog("检查新版本");
+            }
+
+            @Override
+            public void loadSuccess(BaseResponse baseResponse) {
+                hideWaitDialog();
+                if (baseResponse.getData() != null) {
+                    UpdateVersion updateVersion = JsonParser
+                            .jsonToBean(baseResponse.getData()
+                                            .toString(),
+                                    UpdateVersion.class);
+                    if (updateVersion != null) {
+                        if (Integer.parseInt(updateVersion
+                                .getVersion_code()) > MyApplication
+                                .getInstance().getVersionCode()) {
+                            showNewVersion(
+                                    "有新的版本啦，版本号："
+                                            + updateVersion
+                                            .getVersion_name(),
+                                    updateVersion);
+                        } else {
+                            makeTextLong("当前已经是最新版本啦！");
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void loadFailture() {
+                makeTextLong(getString(R.string.tip_error_internet));
+                hideWaitDialog();
+            }
+        }
+
+                , this);
+    }
+
     // 退出登录
     private void logout() {
+        JianFanJiaClient.logout(this,
+                new LoadDataListener() {
 
+                    @Override
+                    public void preLoad() {
+                        showWaitDialog();
+                    }
+
+                    @Override
+                    public void loadSuccess(BaseResponse baseResponse) {
+                        hideWaitDialog();
+                        makeTextLong("退出成功");
+                        PushManager.getInstance().stopService(
+                                SettingActivity.this);// 完全终止SDK的服务
+                        activityManager.exit();
+                        startActivity(LoginActivity.class);
+                        finish();
+                    }
+
+                    @Override
+                    public void loadFailture() {
+                        hideWaitDialog();
+                        makeTextLong(getString(R.string.tip_error_internet));
+                    }
+                }, this);
     }
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_setting;

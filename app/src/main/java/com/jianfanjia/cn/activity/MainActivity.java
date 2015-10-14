@@ -26,10 +26,10 @@ public class MainActivity extends BaseActivity implements
     private static final int XUQIU = 1;
     private static final int MANAGE = 2;
     private static final int MY = 3;
-    private HomeFragment homeFragment=null;
-    private XuQiuFragment xuqiuFragment=null;
-    private ManageFragment manageFragment=null;
-    private MyFragment myFragment=null;
+    private HomeFragment homeFragment = null;
+    private XuQiuFragment xuqiuFragment = null;
+    private ManageFragment manageFragment = null;
+    private MyFragment myFragment = null;
     private long mExitTime = 0L;
 
 

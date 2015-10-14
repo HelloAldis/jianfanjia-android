@@ -2,13 +2,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/site_content_bg" >
+    android:background="@color/site_content_bg"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true">
 
     <RelativeLayout
         android:id="@+id/about_head_layout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/space_70"
-        android:background="@color/head_layout_bg" >
+        android:layout_height="@dimen/space_48"
+        android:background="@color/head_layout_bg">
 
         <TextView
             android:id="@+id/about_back"
@@ -39,7 +41,7 @@
         android:layout_below="@+id/about_head_layout"
         android:layout_marginTop="96dp"
         android:gravity="center_horizontal"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <TextView
             style="@style/site_listview_item_text_style_middle"
@@ -60,7 +62,8 @@
             android:text="@string/about_content"
             android:textColor="@color/main_color_black" />
 
-        <TextView android:id="@+id/about_version"
+        <TextView
+            android:id="@+id/about_version"
             style="@style/site_listview_item_text_style_middle"
             android:layout_marginTop="@dimen/space_8"
             android:text="@string/about_version"
@@ -73,7 +76,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="@dimen/space_24"
         android:gravity="center_horizontal"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <TextView
             style="@style/site_listview_item_text_style_middle"

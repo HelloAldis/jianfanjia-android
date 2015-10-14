@@ -3,10 +3,10 @@
     android:id="@+id/layoutAll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/site_content_bg"
+    android:background="@color/font_white"
     android:orientation="vertical">
-    <com.jianfanjia.cn.pulltorefresh.library.PullToRefreshScrollView
-        xmlns:ptr="http://schemas.android.com/apk/res-auto"
+
+    <com.jianfanjia.cn.pulltorefresh.library.PullToRefreshScrollView xmlns:ptr="http://schemas.android.com/apk/res-auto"
         android:id="@+id/pull_refresh_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -20,32 +20,52 @@
         android:smoothScrollbar="true"
         ptr:ptrAnimationStyle="flip"
         ptr:ptrHeaderTextAppearance="@android:attr/textAppearanceMedium"
-        ptr:ptrHeaderTextColor="#000000" >
+        ptr:ptrHeaderTextColor="#000000">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="150dp">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <include layout="@layout/viewpager_main" />
-    </FrameLayout>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp">
 
-    <com.jianfanjia.cn.view.MyListView
-        android:id="@+id/designer_listview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="16dp"
-        android:layout_marginLeft="33dp"
-        android:cacheColorHint="#ffffff"
-        android:clipToPadding="false"
-        android:divider="@null"
-        android:fadingEdge="none"
-        android:fastScrollEnabled="false"
-        android:listSelector="@android:color/transparent"
-        android:scrollbars="none" />
+                <include layout="@layout/viewpager_main" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/home_item_tip_text"
+                style="@style/site_listview_item_text_style_middle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/space_10"
+                android:text="为你匹配到的设计师"
+                android:textColor="@color/main_color_black" />
+
+
+            <com.jianfanjia.cn.view.MyViewPager
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginBottom="10dip"
+                android:layout_marginTop="10dip"
+                android:background="#ffffff"
+                android:fadingEdge="none" />
+
+            <com.jianfanjia.cn.view.MyListView
+                android:id="@+id/designer_listview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:cacheColorHint="#ffffff"
+                android:clipToPadding="false"
+                android:divider="@null"
+                android:dividerHeight="15dip"
+                android:fadingEdge="none"
+                android:fastScrollEnabled="false"
+                android:listSelector="@android:color/transparent"
+                android:scrollbars="none" />
         </LinearLayout>
     </com.jianfanjia.cn.pulltorefresh.library.PullToRefreshScrollView>
 </LinearLayout>

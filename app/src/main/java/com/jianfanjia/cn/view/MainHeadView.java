@@ -22,7 +22,7 @@ public class MainHeadView extends RelativeLayout {
     private RelativeLayout backLayout;
     //	private CircleImageView headImageView;
     private TextView mainTitle;
-    //	private TextView rigthTitle;
+    private TextView rigthTitle;
     private View divider;// 分割线
 
     public MainHeadView(Context context, AttributeSet attrs, int defStyle) {
@@ -33,7 +33,7 @@ public class MainHeadView extends RelativeLayout {
 //		headImageView = (CircleImageView) mainLayout
 //				.findViewById(R.id.icon_head);
         mainTitle = (TextView) mainLayout.findViewById(R.id.head_center_title);
-//		rigthTitle = (TextView) mainLayout.findViewById(R.id.head_right_title);
+        rigthTitle = (TextView) mainLayout.findViewById(R.id.head_right_title);
         divider = mainLayout.findViewById(R.id.head_divier);
         backLayout = (RelativeLayout) mainLayout.findViewById(R.id.head_back_layout);
         addView(mainHead, new LayoutParams(
@@ -57,11 +57,11 @@ public class MainHeadView extends RelativeLayout {
         mainTitle.setText(message);
     }
 
-	/*public void setRightTitle(String message) {
+    public void setRightTitle(String message) {
         if (message == null)
-			return;
-		rigthTitle.setText(message);
-	}*/
+            return;
+        rigthTitle.setText(message);
+    }
 
     public void setBackgroundTransparent() {
         mainLayout.setBackgroundResource(R.color.transparent);
@@ -71,11 +71,17 @@ public class MainHeadView extends RelativeLayout {
         mainLayout.setBackgroundResource(resColor);
     }
 
-	/*public void setRightTitleVisable(int visibility) {
+    public void setRightTitleVisable(int visibility) {
         if (visibility != View.GONE || visibility != View.VISIBLE)
-			return;
-		rigthTitle.setVisibility(visibility);
-	}*/
+            return;
+        rigthTitle.setVisibility(visibility);
+    }
+
+    public void setBackLayoutVisable(int visibility) {
+        if (visibility != View.GONE || visibility != View.VISIBLE)
+            return;
+        backLayout.setVisibility(visibility);
+    }
 
     public void setDividerVisable(int visibility) {
         if (visibility != View.GONE && visibility != View.VISIBLE)
@@ -99,11 +105,11 @@ public class MainHeadView extends RelativeLayout {
 //		}
     }
 
-	/*public void setRightTextListener(OnClickListener onClickListener) {
+    public void setRightTextListener(OnClickListener onClickListener) {
         if (onClickListener == null)
-			return;
-		rigthTitle.setOnClickListener(onClickListener);
-	}*/
+            return;
+        rigthTitle.setOnClickListener(onClickListener);
+    }
 
     public void setMainTextColor(int resColor) {
         mainTitle.setTextColor(resColor);

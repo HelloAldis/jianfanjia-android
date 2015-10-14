@@ -1,12 +1,19 @@
 package com.jianfanjia.cn.activity;
 
+import android.text.TextUtils;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.view.View.OnClickListener;
+
 import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.base.BaseResponse;
+import com.jianfanjia.cn.http.JianFanJiaClient;
+import com.jianfanjia.cn.interf.LoadDataListener;
+import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.tools.NetTool;
 
 /**
  * Description:登录
@@ -33,6 +40,15 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
         mBtnLogin = (Button) findViewById(R.id.btn_login);
         mForgetPswView = (TextView) findViewById(R.id.forget_password);
         mRegisterView = (TextView) findViewById(R.id.register);
+        mUserName = dataManager.getAccount();
+        mPassword = dataManager.getPassword();
+        LogTool.d(TAG, "mUserName=" + mUserName + " mPassword=" + mPassword);
+        if (!TextUtils.isEmpty(mUserName)) {
+            mEtUserName.setText(mUserName);
+        }
+        if (!TextUtils.isEmpty(mPassword)) {
+            mEtPassword.setText(mPassword);
+        }
     }
 
     @Override
@@ -48,7 +64,9 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
             case R.id.btn_login:
                 mUserName = mEtUserName.getText().toString().trim();
                 mPassword = mEtPassword.getText().toString().trim();
-
+                if (checkInput(mUserName, mPassword)) {
+                    login(mUserName, mPassword);
+                }
                 break;
             case R.id.register:
                 startActivity(RegisterActivity.class);
@@ -59,6 +77,91 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
             default:
                 break;
         }
+    }
+
+    private boolean checkInput(String name, String password) {
+        if (TextUtils.isEmpty(name)) {
+            makeTextShort(getResources().getString(
+                    R.string.tip_please_input_username));
+            mEtUserName.requestFocus();
+            return false;
+        }
+        if (TextUtils.isEmpty(password)) {
+            makeTextShort(getResources().getString(
+                    R.string.tip_please_input_password));
+            mEtPassword.requestFocus();
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * 登录
+     *
+     * @param name
+     * @param password
+     */
+    private void login(String name, String password) {
+        if (NetTool.isNetworkAvailable(this)) {
+            JianFanJiaClient.login(this, name, password, this, this);
+        } else {
+            makeTextLong(getString(R.string.tip_internet_not));
+        }
+    }
+
+    @Override
+    public void loadSuccess(BaseResponse baseResponse) {
+        //登录成功，加载工地列表
+        JianFanJiaClient.get_Process_List(this, new LoadDataListener() {
+
+            @Override
+            public void preLoad() {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void loadSuccess(BaseResponse baseResponse) {
+                // 工地列表刷新成功，加载用户默认工地
+                String processId = dataManager.getDefaultProcessId();
+                if (processId != null) {
+                    JianFanJiaClient.get_ProcessInfo_By_Id(LoginActivity.this, processId, new LoadDataListener() {
+
+                        @Override
+                        public void preLoad() {
+                            // TODO Auto-generated method stub
+
+                        }
+
+                        @Override
+                        public void loadSuccess(BaseResponse baseResponse) {
+                            hideWaitDialog();
+                            startActivity(MainActivity.class);
+                            finish();
+                        }
+
+                        @Override
+                        public void loadFailture() {
+                            hideWaitDialog();
+                            makeTextLong(getString(R.string.tip_error_internet));
+                        }
+                    }, this);
+                } else {
+                    hideWaitDialog();
+                    startActivity(MainActivity.class);
+                    finish();
+                }
+
+            }
+
+            @Override
+            public void loadFailture() {
+                // TODO Auto-generated method stub
+                hideWaitDialog();
+                makeTextLong(getString(R.string.tip_error_internet));
+            }
+        }, this);
+
     }
 
     @Override

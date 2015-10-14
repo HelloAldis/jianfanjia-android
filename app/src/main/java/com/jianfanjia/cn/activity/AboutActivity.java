@@ -2,6 +2,7 @@ package com.jianfanjia.cn.activity;
 
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.base.BaseActivity;
@@ -22,6 +23,7 @@ public class AboutActivity extends BaseActivity implements OnClickListener {
     public void initView() {
         backView = (TextView) findViewById(R.id.about_back);
         currentVersion = (TextView) findViewById(R.id.about_version);
+        setImmerseLayout((RelativeLayout) findViewById(R.id.about_head_layout));
     }
 
     @Override

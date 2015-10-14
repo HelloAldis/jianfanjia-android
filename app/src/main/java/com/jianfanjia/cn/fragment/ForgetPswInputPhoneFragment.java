@@ -9,8 +9,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
+import com.jianfanjia.cn.base.BaseResponse;
+import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.FragmentListener;
+import com.jianfanjia.cn.interf.LoadDataListener;
 import com.jianfanjia.cn.tools.NetTool;
 
 public class ForgetPswInputPhoneFragment extends BaseFragment {
@@ -61,7 +65,11 @@ public class ForgetPswInputPhoneFragment extends BaseFragment {
                 mUserNameStr = mUserName.getText().toString().trim();
                 mPasswordStr = mPassword.getText().toString().trim();
                 if (checkInput(mUserNameStr, mUserNameStr)) {
-
+                    MyApplication.getInstance().getRegisterInfo()
+                            .setPhone(mUserNameStr);
+                    MyApplication.getInstance().getRegisterInfo()
+                            .setPass(mPasswordStr);
+                    sendVerifyCode(mUserNameStr);
                 }
                 break;
             case R.id.goback:
@@ -92,14 +100,29 @@ public class ForgetPswInputPhoneFragment extends BaseFragment {
         return true;
     }
 
+
     /**
      * 发送验证码
      *
-     * @param name
-     * @param password
+     * @param phone
      */
-    private void sendVerifyCode(String name) {
+    private void sendVerifyCode(String phone) {
+        JianFanJiaClient.send_verification(getActivity(), phone, new LoadDataListener() {
+            @Override
+            public void preLoad() {
 
+            }
+
+            @Override
+            public void loadSuccess(BaseResponse baseResponse) {
+                fragemntListener.onNext();
+            }
+
+            @Override
+            public void loadFailture() {
+
+            }
+        }, this);
     }
 
     @Override

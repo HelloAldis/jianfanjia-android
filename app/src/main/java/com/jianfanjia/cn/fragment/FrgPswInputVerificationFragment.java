@@ -10,7 +10,12 @@ import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseFragment;
+import com.jianfanjia.cn.base.BaseResponse;
+import com.jianfanjia.cn.bean.RegisterInfo;
+import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.FragmentListener;
+import com.jianfanjia.cn.interf.LoadDataListener;
+import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.NetTool;
 
 /**
@@ -86,6 +91,30 @@ public class FrgPswInputVerificationFragment extends BaseFragment {
         return true;
     }
 
+    /**
+     * 注册提交
+     *
+     * @param registerInfo
+     */
+    private void register(RegisterInfo registerInfo) {
+        JianFanJiaClient.register(getActivity(), registerInfo, new LoadDataListener() {
+            @Override
+            public void preLoad() {
+                showWaitDialog(R.string.submiting);
+                LogTool.d(TAG, "onStart()");
+            }
+
+            @Override
+            public void loadSuccess(BaseResponse baseResponse) {
+                hideWaitDialog();
+            }
+
+            @Override
+            public void loadFailture() {
+                hideWaitDialog();
+            }
+        }, this);
+    }
 
     @Override
     public int getLayoutId() {

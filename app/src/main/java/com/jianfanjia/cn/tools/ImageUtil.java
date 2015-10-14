@@ -188,8 +188,8 @@ public class ImageUtil {
         int width = drawable.getIntrinsicWidth();
         int height = drawable.getIntrinsicHeight();
         Bitmap bitmap = Bitmap.createBitmap(width, height, drawable
-                .getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888
-                : Bitmap.Config.RGB_565);
+                .getOpacity() != PixelFormat.OPAQUE ? Config.ARGB_8888
+                : Config.RGB_565);
         Canvas canvas = new Canvas(bitmap);
         drawable.setBounds(0, 0, width, height);
         drawable.draw(canvas);
@@ -520,7 +520,7 @@ public class ImageUtil {
 			 * (or both) black.
 			 */
             Bitmap b2 = Bitmap.createBitmap(targetWidth, targetHeight,
-                    Bitmap.Config.ARGB_8888);
+                    Config.ARGB_8888);
             Canvas c = new Canvas(b2);
 
             int deltaXHalf = Math.max(0, deltaX / 2);
@@ -596,7 +596,7 @@ public class ImageUtil {
         Bitmap bitmap = null;
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inDither = false;
-        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+        options.inPreferredConfig = Config.ARGB_8888;
         Cursor cursor = cr.query(MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
                 new String[]{MediaStore.Video.Media._ID},
                 MediaStore.Video.Media.DATA + "='" + dataPah + "'", null, null);
