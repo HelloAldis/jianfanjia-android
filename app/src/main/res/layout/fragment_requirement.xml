@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.jianfanjia.cn.view.MainHeadView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/req_head" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/req_listview_wrap">
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/req_listView"
+            android:layout_gravity="center_horizontal"
+            android:paddingTop="24dp"
+            android:paddingBottom="24dp"
+            android:choiceMode="singleChoice"
+            style="@style/style_listview_base"
+            android:scrollingCache="false" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="60dp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/str_req_tip"
+        android:id="@+id/req_tip"
+        android:textColor="@color/main_color_grey"
+        android:textSize="@dimen/text_size_14" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:text="@string/str_req_pubReq"
+        android:id="@+id/button"
+        android:textColor="@color/font_white"
+        android:background="@drawable/btn_selector"
+        android:layout_marginTop="48dp"
+        android:layout_alignLeft="@+id/req_tip"
+        android:layout_alignRight="@+id/req_tip"
+         />
+    </RelativeLayout>
+</LinearLayout>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="str_cell">小区名称</string>
+    <string name="str_update_time">更新时间：</string>
+    <string name="str_req_tip">您还没有发布需求，请前往发布需求</string>
+    <string name="str_req_pubReq">发布需求</string>
+    <string name="str_publish_time">发布时间：</string>
+</resources>
