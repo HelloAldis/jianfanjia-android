@@ -11,6 +11,7 @@ import com.jianfanjia.cn.fragment.HomeFragment;
 import com.jianfanjia.cn.fragment.ManageFragment;
 import com.jianfanjia.cn.fragment.MyFragment;
 import com.jianfanjia.cn.fragment.XuQiuFragment;
+import com.jianfanjia.cn.fragment.XuQiuFragment_;
 
 /**
  * Description:主界面
@@ -88,7 +89,7 @@ public class MainActivity extends BaseActivity implements
                 if (xuqiuFragment != null) {
                     transaction.show(xuqiuFragment);
                 } else {
-                    xuqiuFragment = new XuQiuFragment();
+                    xuqiuFragment = XuQiuFragment_.builder().build();
                     transaction.add(R.id.tabLayout, xuqiuFragment);
                 }
                 break;

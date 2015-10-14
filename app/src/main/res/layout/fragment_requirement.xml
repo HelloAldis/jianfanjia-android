@@ -27,6 +27,7 @@
     </LinearLayout>
 
     <RelativeLayout
+        android:id="@+id/req_publish_wrap"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -44,7 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:text="@string/str_req_pubReq"
-        android:id="@+id/button"
+        android:id="@+id/req_publish"
         android:textColor="@color/font_white"
         android:background="@drawable/btn_selector"
         android:layout_marginTop="48dp"
