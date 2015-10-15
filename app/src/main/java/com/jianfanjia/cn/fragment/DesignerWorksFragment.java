@@ -5,6 +5,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
+import com.jianfanjia.cn.activity.DesignerCaseInfoActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.DesignerWorksAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
@@ -51,6 +52,7 @@ public class DesignerWorksFragment extends BaseFragment implements OnItemClickLi
     @Override
     public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
         makeTextLong("案例");
+        startActivity(DesignerCaseInfoActivity.class);
     }
 
     @Override
