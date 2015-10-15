@@ -207,6 +207,10 @@
             android:name=".DesignerInfoActivity"
             android:label="@string/title_activity_designer_info" >
         </activity>
+        <activity
+            android:name=".DesignerCaseInfoActivity"
+            android:label="@string/title_activity_designer_case_info" >
+        </activity>
     </application>
 
 </manifest>

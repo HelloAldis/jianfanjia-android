@@ -122,49 +122,45 @@
         android:layout_margin="@dimen/space_24"
         android:text="@string/strl_add_yixiang" />
 
-    <LinearLayout
-        android:id="@+id/tabLayout"
+
+    <RadioGroup
+        android:id="@+id/tab_rg_layout"
         android:layout_width="match_parent"
         android:layout_height="45dip"
         android:orientation="horizontal">
 
-        <LinearLayout
+        <RadioButton
+            android:id="@+id/tab_designer_info"
+            style="@style/tab_rb_style"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/layout_border"
-            android:orientation="vertical">
+            android:checked="true"
+            android:gravity="center"
+            android:text="设计师资料"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_14" />
 
-            <TextView
-                style="@style/site_listview_item_text_style_middle"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:text="设计师资料" />
-        </LinearLayout>
-
-        <LinearLayout
+        <RadioButton
+            android:id="@+id/tab_designer_works"
+            style="@style/tab_rb_style"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="-2dip"
             android:layout_weight="1"
             android:background="@drawable/layout_border"
-            android:orientation="vertical">
+            android:gravity="center"
+            android:text="设计师作品"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_14" />
+    </RadioGroup>
 
-            <TextView
-                style="@style/site_listview_item_text_style_middle"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:text="设计师作品" />
-        </LinearLayout>
-    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/contentLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#ff00ff"
         android:orientation="horizontal" />
 
 </LinearLayout>
