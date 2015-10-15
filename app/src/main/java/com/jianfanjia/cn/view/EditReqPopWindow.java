@@ -12,6 +12,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
 
@@ -31,9 +32,9 @@ public class EditReqPopWindow extends PopupWindow implements OnClickListener {
 		super(activity);
 		this.callback = callback;
 		inflater = LayoutInflater.from(activity);
-		menuView = inflater.inflate(R.layout.popwin_dialog, null);
-		open_camera = (Button) menuView.findViewById(R.id.btn_open_camera);
-		open_album = (Button) menuView.findViewById(R.id.btn_open_album);
+		menuView = inflater.inflate(R.layout.dialog_edit_req, null);
+		open_camera = (Button) menuView.findViewById(R.id.dialog_btn_edit_req);
+		open_album = (Button) menuView.findViewById(R.id.dialog_btn_delete_req);
 		cancel = (Button) menuView.findViewById(R.id.btn_cancel);
 		open_camera.setOnClickListener(this);
 		open_album.setOnClickListener(this);

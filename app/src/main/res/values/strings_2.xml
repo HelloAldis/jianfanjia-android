@@ -5,4 +5,19 @@
     <string name="str_req_tip">您还没有发布需求，请前往发布需求</string>
     <string name="str_req_pubReq">发布需求</string>
     <string name="str_publish_time">发布时间：</string>
+    <string name="str_edit_req">填写装修需求</string>
+    <string name="str_create">创建</string>
+    <string name="str_goto_pro">前往工地</string>
+    <string name="str_delete_req">删除需求</string>
+    <string name="str_street">所在街道</string>
+    <string name="str_city">所在城市</string>
+    <string name="str_edit_requirement">编辑需求</string>
+    <string name="str_housetype">户型</string>
+    <string name="str_decoratearea">装修面积</string>
+    <string name="str_sq_unit">㎡</string>
+    <string name="str_decoratetype">装修类型</string>
+    <string name="unit_million">万元</string>
+    <string name="str_decoratebudget">装修预算</string>
+    <string name="str_persons">计划常住人口</string>
+    <string name="str_lovestyle">风格喜好</string>
 </resources>

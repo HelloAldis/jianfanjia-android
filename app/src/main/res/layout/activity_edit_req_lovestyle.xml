@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
     <com.jianfanjia.cn.view.MainHeadView
-        android:id="@+id/view2"
+        android:id="@+id/act_edit_req_lovastyle_head"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal" />
@@ -15,9 +15,14 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <ListView
-            android:id="@+id/listView"
+        <GridView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:id="@+id/act_edit_req_lovestyle_gridview"
+            android:numColumns="3"
+            android:nestedScrollingEnabled="false"
+            android:clickable="false"
+            android:choiceMode="singleChoice"
+            android:horizontalSpacing="2dp" />
     </LinearLayout>
 </LinearLayout>

@@ -3,7 +3,10 @@ package com.jianfanjia.cn.activity;
 import com.jianfanjia.cn.base.BaseActivity;
 
 /**
- * Created by Administrator on 2015/10/15.
+ * Description: com.jianfanjia.cn.activity
+ * Author: zhanghao
+ * Email: jame.zhang@myjyz.com
+ * Date:2015-10-15 13:19
  */
 public class EditRequirementLovestyleActivity extends BaseActivity{
 

@@ -172,4 +172,49 @@
         <item>@mipmap/btn_icon_home_add</item>
     </string-array>
 
+    <!-- 武汉市的区 -->
+    <string-array name="arr_district">
+        <item>江岸区</item>
+        <item>江汉区</item>
+        <item>硚口区</item>
+        <item>汉阳区</item>
+        <item>武昌区</item>
+        <item>洪山区</item>
+        <item>青山区</item>
+    </string-array>
+
+    <!-- 户型 -->
+    <string-array name="arr_housetype">
+        <item>一室</item>
+        <item>两室</item>
+        <item>三室</item>
+        <item>四室</item>
+        <item>复式</item>
+        <item>别墅</item>
+        <item>LOFT</item>
+        <item>其他</item>
+    </string-array>
+
+    <!-- 几口人-->
+    <string-array name="arr_person">
+        <item>单身</item>
+        <item>两个人</item>
+        <item>三个人</item>
+        <item>四个人</item>
+    </string-array>
+
+    <!-- 装修类型 -->
+    <string-array name="arr_decoratestyle">
+        <item>半包</item>
+        <item>全包</item>
+        <item>设计</item>
+    </string-array>
+
+    <!-- 偏好设计师 -->
+    <string-array name="arr_love_designerstyle">
+        <item>不限</item>
+        <item>沟通型</item>
+        <item>聆听型</item>
+    </string-array>
+
 </resources>

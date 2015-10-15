@@ -117,6 +117,10 @@
             android:name=".WelcomeActivity"
             android:label="@string/title_activity_welcome"
           ></activity>
+        <activity android:name=".EditRequirementActivity_"
+            android:label="EditRequirementActivity"></activity>
+        <activity android:name=".EditRequirementItemActivity_"
+            android:label="EditRequirementItemActivity"></activity>
     </application>
 
 </manifest>
