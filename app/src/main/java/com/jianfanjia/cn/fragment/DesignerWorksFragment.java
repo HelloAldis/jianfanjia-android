@@ -50,7 +50,7 @@ public class DesignerWorksFragment extends BaseFragment implements OnItemClickLi
 
     @Override
     public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
-
+        makeTextLong("案例");
     }
 
     @Override

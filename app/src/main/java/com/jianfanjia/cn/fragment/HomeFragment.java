@@ -7,11 +7,13 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
 
+import com.jianfanjia.cn.activity.DesignerCaseInfoActivity;
 import com.jianfanjia.cn.activity.DesignerInfoActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.DesignerListAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.DesignerListInfo;
+import com.jianfanjia.cn.interf.ListItemClickListener;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
@@ -29,7 +31,7 @@ import java.util.List;
  * Date:15-10-11 14:30
  */
 public class HomeFragment extends BaseFragment implements
-        OnRefreshListener2<ScrollView> {
+        OnRefreshListener2<ScrollView>, ListItemClickListener {
     private static final String TAG = HomeFragment.class.getName();
     private PullToRefreshScrollView mPullRefreshScrollView = null;
     private ListView designer_listview = null;
@@ -81,7 +83,7 @@ public class HomeFragment extends BaseFragment implements
             info.setProduceInfo("100平米,三室二厅,现代简约");
             designerList.add(info);
         }
-        adapter = new DesignerListAdapter(getActivity(), designerList);
+        adapter = new DesignerListAdapter(getActivity(), designerList, this);
         designer_listview.setAdapter(adapter);
     }
 
@@ -106,6 +108,17 @@ public class HomeFragment extends BaseFragment implements
             default:
                 break;
         }
+    }
+
+    @Override
+    public void onMaxClick(int position) {
+        makeTextLong("点击案例图" + position);
+        startActivity(DesignerCaseInfoActivity.class);
+    }
+
+    @Override
+    public void onMinClick(int position) {
+        makeTextLong("点击设计师头像" + position);
     }
 
     @Override

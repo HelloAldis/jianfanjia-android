@@ -2,11 +2,13 @@ package com.jianfanjia.cn.adapter;
 
 import android.content.Context;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.DesignerListInfo;
+import com.jianfanjia.cn.interf.ListItemClickListener;
 
 import java.util.List;
 
@@ -17,14 +19,20 @@ import java.util.List;
  * Time: 14:03
  */
 public class DesignerListAdapter extends BaseListAdapter<DesignerListInfo> {
-
+    private ListItemClickListener listener;
 
     public DesignerListAdapter(Context context, List<DesignerListInfo> list) {
         super(context, list);
     }
 
+    public DesignerListAdapter(Context context, List<DesignerListInfo> list, ListItemClickListener listener) {
+        super(context, list);
+        this.listener = listener;
+    }
+
+
     @Override
-    public View initView(int position, View convertView) {
+    public View initView(final int position, View convertView) {
         ViewHolder viewHolder = null;
         DesignerListInfo info = list.get(position);
         if (convertView == null) {
@@ -47,6 +55,20 @@ public class DesignerListAdapter extends BaseListAdapter<DesignerListInfo> {
         viewHolder.itemHeadView.setImageResource(R.mipmap.pix_default);
         viewHolder.itemXiaoQuText.setText(info.getXiaoquInfo());
         viewHolder.itemProduceText.setText(info.getProduceInfo());
+        viewHolder.itemProductView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onMaxClick(position);
+            }
+        });
+
+        viewHolder.itemHeadView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onMinClick(position);
+            }
+        });
+
         return convertView;
     }
 
