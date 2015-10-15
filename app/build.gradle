@@ -2,10 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
 def AAVersion = '3.3.1'
 
-dependencies {
-    apt "org.androidannotations:androidannotations:$AAVersion"
-    compile "org.androidannotations:androidannotations-api:$AAVersion"
-}
+
 
 apt {
     arguments {
@@ -40,12 +37,14 @@ android {
     }
     sourceSets {
         main {
-            jniLibs.srcDirs =['libs']
+            jniLibs.srcDirs = ['libs']
         }
     }
 }
 
 dependencies {
+    apt "org.androidannotations:androidannotations:$AAVersion"
+    compile "org.androidannotations:androidannotations-api:$AAVersion"
     compile files('libs/ormlite-android-4.49-SNAPSHOT.jar')
     compile files('libs/ormlite-core-4.49-SNAPSHOT.jar')
     compile files('libs/universal-image-loader-1.9.4-SNAPSHOT.jar')
