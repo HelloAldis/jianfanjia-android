@@ -6,161 +6,174 @@
     android:orientation="vertical"
     tools:context="com.jianfanjia.cn.activity.DesignerInfoActivity">
 
-
-    <RelativeLayout
-        android:id="@+id/designerinfo_head_layout"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/space_48"
-        android:background="@color/head_layout_bg">
-
-        <TextView
-            android:id="@+id/feedback_back"
-            style="@style/site_listview_item_text_style_middle"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/space_8"
-            android:drawableLeft="@mipmap/icon_register_back"
-            android:drawablePadding="4dp"
-            android:text="@string/back"
-            android:textColor="@color/back_color" />
-
-        <TextView
-            android:id="@+id/feedback_title"
-            style="@style/site_listview_item_text_style_title"
-            android:layout_centerInParent="true"
-            android:textColor="@color/main_color_black" />
-
-        <View
-            style="@style/divier_line"
-            android:layout_alignParentBottom="true"
-            android:background="@color/horzontal_line_color" />
-    </RelativeLayout>
-
-
-    <com.jianfanjia.cn.layout.CircleImageView
-        android:id="@+id/designerinfo_head_img"
-        android:layout_width="70dip"
-        android:layout_height="70dip"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dip"
-        android:scaleType="centerCrop"
-        android:src="@mipmap/pix_default" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="0dip"
-        android:text="设计师" />
-
-    <LinearLayout
-        android:id="@+id/infoLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dip"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                style="@style/site_listview_item_text_style_middle"
-                android:layout_gravity="center_horizontal"
-                android:text="200K" />
-
-            <TextView
-                style="@style/site_listview_item_text_style_middle"
-                android:layout_gravity="center_horizontal"
-                android:text="浏览数" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                style="@style/site_listview_item_text_style_middle"
-                android:layout_gravity="center_horizontal"
-                android:text="20" />
-
-            <TextView
-                style="@style/site_listview_item_text_style_middle"
-                android:layout_gravity="center_horizontal"
-                android:text="作品数" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                style="@style/site_listview_item_text_style_middle"
-                android:layout_gravity="center_horizontal"
-                android:text="2" />
-
-            <TextView
-                style="@style/site_listview_item_text_style_middle"
-                android:layout_gravity="center_horizontal"
-                android:text="预约数" />
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/btn_add"
-        style="@style/button_add_style"
-        android:layout_below="@id/infoLayout"
-        android:layout_margin="@dimen/space_24"
-        android:text="@string/strl_add_yixiang" />
-
-
-    <RadioGroup
-        android:id="@+id/tab_rg_layout"
-        android:layout_width="match_parent"
-        android:layout_height="45dip"
-        android:orientation="horizontal">
-
-        <RadioButton
-            android:id="@+id/tab_designer_info"
-            style="@style/tab_rb_style"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/layout_border"
-            android:checked="true"
-            android:gravity="center"
-            android:text="设计师资料"
-            android:textColor="@color/text_color"
-            android:textSize="@dimen/text_size_14" />
-
-        <RadioButton
-            android:id="@+id/tab_designer_works"
-            style="@style/tab_rb_style"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="-2dip"
-            android:layout_weight="1"
-            android:background="@drawable/layout_border"
-            android:gravity="center"
-            android:text="设计师作品"
-            android:textColor="@color/text_color"
-            android:textSize="@dimen/text_size_14" />
-    </RadioGroup>
-
-
-    <LinearLayout
-        android:id="@+id/contentLayout"
+    <ScrollView
+        android:id="@+id/info_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal" />
+        android:fadingEdge="none"
+        android:fastScrollEnabled="false"
+        android:scrollbars="none">
 
+        <LinearLayout
+            android:id="@+id/rootview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/designerinfo_head_layout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_48"
+                android:background="@color/head_layout_bg">
+
+                <TextView
+                    android:id="@+id/feedback_back"
+                    style="@style/site_listview_item_text_style_middle"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/space_8"
+                    android:drawableLeft="@mipmap/icon_register_back"
+                    android:drawablePadding="4dp"
+                    android:text="@string/back"
+                    android:textColor="@color/back_color" />
+
+                <TextView
+                    android:id="@+id/feedback_title"
+                    style="@style/site_listview_item_text_style_title"
+                    android:layout_centerInParent="true"
+                    android:textColor="@color/main_color_black" />
+
+                <View
+                    style="@style/divier_line"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/horzontal_line_color" />
+            </RelativeLayout>
+
+
+            <com.jianfanjia.cn.layout.CircleImageView
+                android:id="@+id/designerinfo_head_img"
+                android:layout_width="70dip"
+                android:layout_height="70dip"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dip"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/pix_default" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="0dip"
+                android:text="设计师" />
+
+            <LinearLayout
+                android:id="@+id/infoLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dip"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/site_listview_item_text_style_middle"
+                        android:layout_gravity="center_horizontal"
+                        android:text="200K" />
+
+                    <TextView
+                        style="@style/site_listview_item_text_style_middle"
+                        android:layout_gravity="center_horizontal"
+                        android:text="浏览数" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/site_listview_item_text_style_middle"
+                        android:layout_gravity="center_horizontal"
+                        android:text="20" />
+
+                    <TextView
+                        style="@style/site_listview_item_text_style_middle"
+                        android:layout_gravity="center_horizontal"
+                        android:text="作品数" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/site_listview_item_text_style_middle"
+                        android:layout_gravity="center_horizontal"
+                        android:text="2" />
+
+                    <TextView
+                        style="@style/site_listview_item_text_style_middle"
+                        android:layout_gravity="center_horizontal"
+                        android:text="预约数" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_add"
+                style="@style/button_add_style"
+                android:layout_below="@id/infoLayout"
+                android:layout_margin="@dimen/space_24"
+                android:text="@string/strl_add_yixiang" />
+
+
+            <RadioGroup
+                android:id="@+id/tab_rg_layout"
+                android:layout_width="match_parent"
+                android:layout_height="45dip"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/tab_designer_info"
+                    style="@style/tab_rb_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/layout_border"
+                    android:checked="true"
+                    android:gravity="center"
+                    android:text="设计师资料"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/text_size_14" />
+
+                <RadioButton
+                    android:id="@+id/tab_designer_works"
+                    style="@style/tab_rb_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="-2dip"
+                    android:layout_weight="1"
+                    android:background="@drawable/layout_border"
+                    android:gravity="center"
+                    android:text="设计师作品"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/text_size_14" />
+            </RadioGroup>
+
+
+            <FrameLayout
+                android:id="@+id/contentLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
