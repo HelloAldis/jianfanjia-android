@@ -23,7 +23,7 @@ import org.androidannotations.annotations.ViewById;
  * Date:15-10-11 14:30
  */
 @EFragment(R.layout.fragment_requirement)
-public class XuQiuFragment extends BaseFragment implements OnClickListener{
+public class XuQiuFragment extends BaseFragment implements OnClickListener {
     private static final String TAG = XuQiuFragment.class.getName();
 
     @ViewById(R.id.req_head)
@@ -42,7 +42,7 @@ public class XuQiuFragment extends BaseFragment implements OnClickListener{
     protected LinearLayout req_listview_wrap;
 
     @AfterViews
-    protected void setVisiable(){
+    protected void setVisiable() {
         req_listview_wrap.setVisibility(View.GONE);
         req_publish_wrap.setVisibility(View.VISIBLE);
     }
@@ -51,8 +51,8 @@ public class XuQiuFragment extends BaseFragment implements OnClickListener{
     public void initView(View view) {
     }
 
-    @Click({R.id.req_publish,R.id.head_right_title})
-    protected void publish_requirement(){
+    @Click({R.id.req_publish, R.id.head_right_title})
+    protected void publish_requirement() {
         makeTextLong("发布需求");
     }
 
@@ -68,10 +68,12 @@ public class XuQiuFragment extends BaseFragment implements OnClickListener{
         mainHeadView.setBackLayoutVisable(View.GONE);
         mainHeadView.setDividerVisable(View.VISIBLE);
     }
+
     @Override
     public void setListener() {
 
     }
+
     @Override
     public void onClick(View v) {
         /*switch (v.getId()) {
@@ -82,6 +84,7 @@ public class XuQiuFragment extends BaseFragment implements OnClickListener{
                 break;
         }*/
     }
+
     @Override
     public int getLayoutId() {
         return R.layout.fragment_requirement;
