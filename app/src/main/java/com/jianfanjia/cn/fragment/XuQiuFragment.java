@@ -31,7 +31,7 @@ import java.util.List;
  * Date:15-10-11 14:30
  */
 @EFragment(R.layout.fragment_requirement)
-public class XuQiuFragment extends BaseFragment implements ItemClickCallBack {
+public class XuQiuFragment extends BaseFragment implements ItemClickCallBack{
     private static final String TAG = XuQiuFragment.class.getName();
 
     public static final int ITEM_EDIT = 0x00;
@@ -76,6 +76,8 @@ public class XuQiuFragment extends BaseFragment implements ItemClickCallBack {
         }
         requirementAdapter = new RequirementAdapter(getActivity(), requirementInfos, this);
         req_listView.setAdapter(requirementAdapter);
+        req_listview_wrap.setVisibility(View.GONE);
+        req_publish_wrap.setVisibility(View.VISIBLE);
     }
 
     @Override
