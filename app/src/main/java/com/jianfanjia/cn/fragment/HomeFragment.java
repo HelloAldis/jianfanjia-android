@@ -119,6 +119,7 @@ public class HomeFragment extends BaseFragment implements
     @Override
     public void onMinClick(int position) {
         makeTextLong("点击设计师头像" + position);
+        startActivity(DesignerInfoActivity.class);
     }
 
     @Override
