@@ -5,4 +5,5 @@
     <string name="str_req_tip">您还没有发布需求，请前往发布需求</string>
     <string name="str_req_pubReq">发布需求</string>
     <string name="str_publish_time">发布时间：</string>
+    <string name="strl_add_yixiang">添加意向</string>
 </resources>

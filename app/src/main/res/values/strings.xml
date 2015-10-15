@@ -241,5 +241,6 @@
     <string name="title_activity_show_pic">ShowPicActivity</string>
     <string name="title_activity_user_by_owner_info">UserByOwnerInfoActivity</string>
     <string name="title_activity_welcome">WelcomeActivity</string>
+    <string name="title_activity_designer_info">DesignerInfoActivity</string>
 
 </resources>

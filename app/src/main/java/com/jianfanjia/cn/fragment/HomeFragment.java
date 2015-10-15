@@ -1,19 +1,17 @@
 package com.jianfanjia.cn.fragment;
 
-import android.support.v4.view.ViewPager;
 import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
 
+import com.jianfanjia.cn.activity.DesignerInfoActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.DesignerListAdapter;
-import com.jianfanjia.cn.adapter.MyViewPageAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
-import com.jianfanjia.cn.bean.DesignerByMarchedInfo;
 import com.jianfanjia.cn.bean.DesignerListInfo;
-import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
@@ -37,7 +35,10 @@ public class HomeFragment extends BaseFragment implements
     private ListView designer_listview = null;
     private DesignerListAdapter adapter = null;
     private List<DesignerListInfo> designerList = new ArrayList<DesignerListInfo>();
-    private List<DesignerByMarchedInfo> designerByMarchedList = new ArrayList<DesignerByMarchedInfo>();
+    private LinearLayout designerLayout_1 = null;
+    private LinearLayout designerLayout_2 = null;
+    private LinearLayout designerLayout_3 = null;
+
 
     private static final int BANNER_ICON[] = {R.mipmap.bg_home_banner1,
             R.mipmap.bg_home_banner2, R.mipmap.bg_home_banner3,
@@ -47,7 +48,7 @@ public class HomeFragment extends BaseFragment implements
     public void initView(View view) {
         initBannerView();
         mPullRefreshScrollView = (PullToRefreshScrollView) view.findViewById(R.id.pull_refresh_scrollview);
-        mPullRefreshScrollView.setMode(Mode.BOTH);
+        mPullRefreshScrollView.setMode(Mode.PULL_FROM_START);
         designer_listview = (ListView) view.findViewById(R.id.designer_listview);
         designer_listview.setFocusable(false);
         initDesignerByMarchedList(view);
@@ -68,19 +69,9 @@ public class HomeFragment extends BaseFragment implements
     }
 
     private void initDesignerByMarchedList(View view) {
-        ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewPager);
-        for (int i = 0; i < 3; i++) {
-            DesignerByMarchedInfo info = new DesignerByMarchedInfo();
-            info.setDesignerName("设计师" + i);
-            designerByMarchedList.add(info);
-        }
-        MyViewPageAdapter myViewPageAdapter = new MyViewPageAdapter(getActivity(), designerByMarchedList, new ViewPagerClickListener() {
-            @Override
-            public void onClickItem(int potition) {
-                makeTextLong("设计师");
-            }
-        });
-        viewPager.setAdapter(myViewPageAdapter);
+        designerLayout_1 = (LinearLayout) view.findViewById(R.id.designerLayout_1);
+        designerLayout_2 = (LinearLayout) view.findViewById(R.id.designerLayout_2);
+        designerLayout_3 = (LinearLayout) view.findViewById(R.id.designerLayout_3);
     }
 
     private void initDesignerList() {
@@ -97,11 +88,24 @@ public class HomeFragment extends BaseFragment implements
     @Override
     public void setListener() {
         mPullRefreshScrollView.setOnRefreshListener(this);
+        designerLayout_1.setOnClickListener(this);
+        designerLayout_2.setOnClickListener(this);
+        designerLayout_3.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-
+        switch (v.getId()) {
+            case R.id.designerLayout_1:
+                startActivity(DesignerInfoActivity.class);
+                break;
+            case R.id.designerLayout_2:
+                break;
+            case R.id.designerLayout_3:
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
