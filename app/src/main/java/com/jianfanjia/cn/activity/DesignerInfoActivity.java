@@ -1,6 +1,10 @@
 package com.jianfanjia.cn.activity;
 
+import android.graphics.Color;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
@@ -26,6 +30,19 @@ public class DesignerInfoActivity extends BaseActivity implements
     @Override
     public void initView() {
         mTabRadioGroup = (RadioGroup) findViewById(R.id.tab_rg_layout);
+
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        CollapsingToolbarLayout collapsingToolbar =
+                (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        collapsingToolbar.setCollapsedTitleGravity(Gravity.CENTER_HORIZONTAL);
+        collapsingToolbar.setExpandedTitleTextAppearance(R.style.site_listview_item_text_style_big);
+        collapsingToolbar.setExpandedTitleColor(Color.BLACK);
+        collapsingToolbar.setTitle("设计师");
+
+
         setTabSelection(DESIGNER_INFO);
     }
 
