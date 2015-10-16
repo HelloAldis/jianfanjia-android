@@ -84,15 +84,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignBaseline="@+id/act_edit_req_street_title"
-                    android:layout_toRightOf="@+id/act_edit_req_street_title"
                     android:layout_centerVertical="true"
-                    android:paddingRight="@dimen/space_16"
-                    android:paddingLeft="@dimen/space_16"
+                    android:layout_toRightOf="@+id/act_edit_req_street_title"
+                    android:background="@null"
                     android:ellipsize="end"
-                    android:singleLine="true"
-                    android:maxLength="20"
                     android:gravity="right"
-                    android:background="@null" />
+                    android:maxLength="20"
+                    android:paddingLeft="@dimen/space_16"
+                    android:paddingRight="@dimen/space_16"
+                    android:singleLine="true" />
 
             </RelativeLayout>
 
@@ -105,8 +105,8 @@
                 style="@style/my_item_layout_style"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:orientation="horizontal"
                 android:gravity="center_vertical"
+                android:orientation="horizontal"
                 android:paddingRight="16dp">
 
                 <TextView
@@ -120,32 +120,31 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
+                    android:background="@null"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:maxLength="20"
                     android:paddingLeft="@dimen/space_16"
                     android:paddingRight="@dimen/space_16"
-                    android:maxLength="20"
-                    android:singleLine="true"
-                    android:gravity="center"
-                    android:ellipsize="end"
-                    android:background="@null" />
+                    android:singleLine="true" />
 
                 <TextView
                     android:id="@+id/act_edit_req_qi_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_qi"
-                    />
+                    android:text="@string/str_qi" />
 
                 <EditText
                     android:id="@+id/act_edit_req_qi_content"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:paddingLeft="@dimen/space_16"
-                    android:maxLength="10"
-                    android:singleLine="true"
-                    android:gravity="right"
+                    android:background="@null"
                     android:ellipsize="end"
-                    android:background="@null" />
+                    android:gravity="right"
+                    android:maxLength="10"
+                    android:paddingLeft="@dimen/space_16"
+                    android:singleLine="true" />
             </LinearLayout>
 
             <View
@@ -157,8 +156,8 @@
                 style="@style/my_item_layout_style"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:orientation="horizontal"
                 android:gravity="center_vertical"
+                android:orientation="horizontal"
                 android:paddingRight="16dp">
 
                 <TextView
@@ -172,33 +171,32 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:background="@null"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:maxLength="10"
                     android:paddingLeft="@dimen/space_16"
                     android:paddingRight="@dimen/space_16"
-                    android:maxLength="10"
-                    android:singleLine="true"
-                    android:gravity="center"
-                    android:ellipsize="end"
-                    android:background="@null" />
+                    android:singleLine="true" />
 
                 <TextView
                     android:id="@+id/act_edit_req_danyuan_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_danyuan"
-                    />
+                    android:text="@string/str_danyuan" />
 
                 <EditText
                     android:id="@+id/act_edit_req_danyuan_content"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:background="@null"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:maxLength="10"
                     android:paddingLeft="@dimen/space_16"
                     android:paddingRight="@dimen/space_16"
-                    android:maxLength="10"
-                    android:singleLine="true"
-                    android:gravity="center"
-                    android:ellipsize="end"
-                    android:background="@null" />
+                    android:singleLine="true" />
 
                 <TextView
                     android:id="@+id/act_edit_req_shi_title"
@@ -211,13 +209,13 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:paddingLeft="@dimen/space_16"
-                    android:maxLength="10"
-                    android:singleLine="true"
-                    android:gravity="right"
+                    android:background="@null"
                     android:ellipsize="end"
-                    android:textStyle="normal"
-                    android:background="@null" />
+                    android:gravity="right"
+                    android:maxLength="10"
+                    android:paddingLeft="@dimen/space_16"
+                    android:singleLine="true"
+                    android:textStyle="normal" />
             </LinearLayout>
 
             <View
@@ -290,14 +288,14 @@
                     android:layout_alignBaseline="@+id/act_edit_req_housearea_title"
                     android:layout_centerVertical="true"
                     android:layout_toLeftOf="@+id/act_edit_req_housearea_unit"
-                    android:paddingRight="@dimen/space_8"
-                    android:paddingLeft="@dimen/space_8"
+                    android:background="@null"
                     android:ellipsize="end"
-                    android:singleLine="true"
-                    android:maxLength="4"
                     android:gravity="right"
                     android:inputType="number"
-                    android:background="@null"/>
+                    android:maxLength="4"
+                    android:paddingLeft="@dimen/space_8"
+                    android:paddingRight="@dimen/space_8"
+                    android:singleLine="true" />
 
                 <TextView
                     android:id="@+id/act_edit_req_housearea_unit"
@@ -374,13 +372,13 @@
                     android:layout_alignBaseline="@+id/act_edit_req_decoratebudget_title"
                     android:layout_centerVertical="true"
                     android:layout_toLeftOf="@+id/act_edit_req_decoratebudget_unit"
-                    android:paddingRight="@dimen/space_8"
-                    android:paddingLeft="@dimen/space_8"
-                    android:singleLine="true"
-                    android:maxLength="4"
+                    android:background="@null"
                     android:gravity="right"
                     android:inputType="number"
-                    android:background="@null" />
+                    android:maxLength="4"
+                    android:paddingLeft="@dimen/space_8"
+                    android:paddingRight="@dimen/space_8"
+                    android:singleLine="true" />
 
                 <TextView
                     android:id="@+id/act_edit_req_decoratebudget_unit"

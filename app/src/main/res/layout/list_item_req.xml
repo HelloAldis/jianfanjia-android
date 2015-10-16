@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:id="@+id/ltm_req_layout">
+    android:id="@+id/ltm_req_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <RelativeLayout
+        android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:paddingTop="@dimen/space_8"
+        android:background="@color/font_white"
         android:paddingBottom="@dimen/space_8"
         android:paddingLeft="@dimen/space_16"
         android:paddingRight="@dimen/space_16"
-        android:id="@+id/relativeLayout"
-        android:background="@color/font_white"
-        >
+        android:paddingTop="@dimen/space_8">
 
         <com.jianfanjia.cn.layout.CircleImageView
+            android:id="@+id/ltm_req_owner_head"
             android:layout_width="68dp"
             android:layout_height="68dp"
-            android:id="@+id/ltm_req_owner_head"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
@@ -26,198 +26,198 @@
             android:src="@mipmap/icon_home_default_user" />
 
         <TextView
+            android:id="@+id/ltm_req_cell"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/str_cell"
-            android:id="@+id/ltm_req_cell"
             android:layout_alignTop="@+id/ltm_req_owner_head"
-            android:layout_toRightOf="@+id/ltm_req_owner_head"
             android:layout_marginLeft="@dimen/space_8"
-            />
+            android:layout_toRightOf="@+id/ltm_req_owner_head"
+            android:text="@string/str_cell" />
 
         <ImageButton
+            android:id="@+id/ltm_req_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/ltm_req_edit"
-            android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:scaleType="fitCenter"
-            android:padding="8dp"
-            android:layout_alignWithParentIfMissing="false"
+            android:layout_alignParentRight="true"
             android:layout_alignTop="@+id/ltm_req_cell"
-            android:background="@mipmap/icon_setting_next" />
+            android:layout_alignWithParentIfMissing="false"
+            android:background="@mipmap/icon_setting_next"
+            android:padding="8dp"
+            android:scaleType="fitCenter" />
 
         <TextView
+            android:id="@+id/ltm_req_starttime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/str_publish_time"
-            android:id="@+id/ltm_req_starttime"
-            android:layout_toRightOf="@+id/ltm_req_owner_head"
+            android:layout_below="@+id/ltm_req_cell"
             android:layout_marginLeft="@dimen/space_8"
             android:layout_marginTop="@dimen/space_8"
-            android:layout_below="@+id/ltm_req_cell" />
+            android:layout_toRightOf="@+id/ltm_req_owner_head"
+            android:text="@string/str_publish_time" />
 
         <TextView
+            android:id="@+id/ltm_req_updatetime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/str_update_time"
-            android:id="@+id/ltm_req_updatetime"
-            android:layout_below="@+id/ltm_req_starttime"
             android:layout_alignLeft="@+id/ltm_req_starttime"
             android:layout_alignStart="@+id/ltm_req_starttime"
-            android:layout_marginTop="4dp" />
+            android:layout_below="@+id/ltm_req_starttime"
+            android:layout_marginTop="4dp"
+            android:text="@string/str_update_time" />
 
         <TextView
+            android:id="@+id/ltm_req_starttime_cont"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Text"
-            android:id="@+id/ltm_req_starttime_cont"
             android:layout_above="@+id/ltm_req_updatetime"
             android:layout_alignLeft="@+id/ltm_req_updatetime_cont"
-            android:layout_alignStart="@+id/ltm_req_updatetime_cont" />
+            android:layout_alignStart="@+id/ltm_req_updatetime_cont"
+            android:text="New Text" />
 
         <TextView
+            android:id="@+id/ltm_req_updatetime_cont"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Text"
-            android:id="@+id/ltm_req_updatetime_cont"
             android:layout_alignTop="@+id/ltm_req_updatetime"
+            android:layout_toEndOf="@+id/ltm_req_updatetime"
             android:layout_toRightOf="@+id/ltm_req_updatetime"
-            android:layout_toEndOf="@+id/ltm_req_updatetime" />
+            android:text="New Text" />
 
     </RelativeLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/relativeLayout"
-        android:weightSum="3"
-        android:id="@+id/linearLayout"
+        android:background="@android:color/transparent"
+        android:orientation="horizontal"
+        android:paddingBottom="8dp"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
-        android:background="@android:color/transparent"
         android:paddingTop="8dp"
-        android:paddingBottom="8dp">
+        android:weightSum="3">
 
         <RelativeLayout
+            android:id="@+id/ltm_req_designer_layout0"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:id="@+id/ltm_req_designer_layout0">
+            android:layout_weight="1">
 
             <com.jianfanjia.cn.layout.CircleImageView
+                android:id="@+id/ltm_req_designer_head0"
                 android:layout_width="68dp"
                 android:layout_height="68dp"
-                android:id="@+id/ltm_req_designer_head0"
-                android:layout_centerHorizontal="true"
                 android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
                 android:scaleType="centerCrop"
                 android:src="@mipmap/icon_home_default_designer" />
 
             <TextView
+                android:id="@+id/ltm_req_designer_name0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="New Text"
-                android:id="@+id/ltm_req_designer_name0"
                 android:layout_below="@+id/ltm_req_designer_head0"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="8dp" />
+                android:layout_marginTop="8dp"
+                android:text="New Text" />
 
             <TextView
+                android:id="@+id/ltm_req_designer_status0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="New Text"
-                android:id="@+id/ltm_req_designer_status0"
-                android:layout_below="@+id/ltm_req_designer_name0"
                 android:layout_alignLeft="@+id/ltm_req_designer_name0"
                 android:layout_alignStart="@+id/ltm_req_designer_name0"
-                android:layout_marginTop="8dp" />
+                android:layout_below="@+id/ltm_req_designer_name0"
+                android:layout_marginTop="8dp"
+                android:text="New Text" />
 
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/ltm_req_designer_layout1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:id="@+id/ltm_req_designer_layout1">
+            android:layout_weight="1">
+
             <com.jianfanjia.cn.layout.CircleImageView
+                android:id="@+id/ltm_req_designer_head1"
                 android:layout_width="68dp"
                 android:layout_height="68dp"
-                android:id="@+id/ltm_req_designer_head1"
-                android:layout_centerHorizontal="true"
                 android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
                 android:scaleType="centerCrop"
-                android:src="@mipmap/icon_home_default_designer"
-                />
+                android:src="@mipmap/icon_home_default_designer" />
 
             <TextView
+                android:id="@+id/ltm_req_designer_name1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="New Text"
-                android:id="@+id/ltm_req_designer_name1"
                 android:layout_below="@+id/ltm_req_designer_head1"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="8dp" />
+                android:layout_marginTop="8dp"
+                android:text="New Text" />
 
             <TextView
+                android:id="@+id/ltm_req_designer_status1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="New Text"
-                android:id="@+id/ltm_req_designer_status1"
-                android:layout_below="@+id/ltm_req_designer_name1"
                 android:layout_alignLeft="@+id/ltm_req_designer_name1"
                 android:layout_alignStart="@+id/ltm_req_designer_name1"
-                android:layout_marginTop="8dp" />
+                android:layout_below="@+id/ltm_req_designer_name1"
+                android:layout_marginTop="8dp"
+                android:text="New Text" />
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/ltm_req_designer_layout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:id="@+id/ltm_req_designer_layout2">
+            android:layout_weight="1">
+
             <com.jianfanjia.cn.layout.CircleImageView
+                android:id="@+id/ltm_req_designer_head2"
                 android:layout_width="68dp"
                 android:layout_height="68dp"
-                android:id="@+id/ltm_req_designer_head2"
-                android:layout_centerHorizontal="true"
                 android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
                 android:scaleType="centerCrop"
-                android:src="@mipmap/icon_home_default_designer"/>
+                android:src="@mipmap/icon_home_default_designer" />
 
             <TextView
+                android:id="@+id/ltm_req_designer_name2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="New Text"
-                android:id="@+id/ltm_req_designer_name2"
                 android:layout_below="@+id/ltm_req_designer_head2"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="8dp" />
+                android:layout_marginTop="8dp"
+                android:text="New Text" />
 
             <TextView
+                android:id="@+id/ltm_req_designer_status2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="New Text"
-                android:id="@+id/ltm_req_designer_status2"
-                android:layout_below="@+id/ltm_req_designer_name2"
                 android:layout_alignLeft="@+id/ltm_req_designer_name2"
                 android:layout_alignStart="@+id/ltm_req_designer_name2"
-                android:layout_marginTop="8dp" />
+                android:layout_below="@+id/ltm_req_designer_name2"
+                android:layout_marginTop="8dp"
+                android:text="New Text" />
         </RelativeLayout>
     </LinearLayout>
 
     <TextView
+        android:id="@+id/ltm_req_gotopro"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:text="@string/str_goto_pro"
-        android:id="@+id/ltm_req_gotopro"
-        android:layout_below="@+id/linearLayout"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_below="@+id/linearLayout"
+        android:background="@color/font_white"
         android:gravity="center"
         android:paddingBottom="8dp"
         android:paddingTop="8dp"
-        android:background="@color/font_white"/>
+        android:text="@string/str_goto_pro" />
 
 
 </RelativeLayout>
