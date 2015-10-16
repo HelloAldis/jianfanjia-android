@@ -30,7 +30,6 @@
             android:id="@+id/head_center_title"
             style="@style/site_listview_item_text_style_title"
             android:layout_centerInParent="true"
-            android:text="@string/my_site"
             android:textColor="@color/main_color_black" />
 
         <TextView
@@ -39,7 +38,6 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/space_8"
-            android:text="创建"
             android:textColor="@color/main_color_black" />
 
         <View

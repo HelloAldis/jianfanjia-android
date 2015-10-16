@@ -13,16 +13,18 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="@dimen/space_8"
         android:orientation="vertical">
 
         <GridView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/act_edit_req_lovestyle_gridview"
-            android:numColumns="3"
+            android:numColumns="2"
             android:nestedScrollingEnabled="false"
             android:clickable="false"
             android:choiceMode="singleChoice"
-            android:horizontalSpacing="2dp" />
+            android:horizontalSpacing="4dp"
+            android:verticalSpacing="4dp"/>
     </LinearLayout>
 </LinearLayout>

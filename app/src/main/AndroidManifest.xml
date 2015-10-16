@@ -206,6 +206,9 @@
         <activity
             android:name=".EditRequirementItemActivity_"
             android:label="EditRequirementItemActivity"></activity>
+        <activity
+            android:name=".EditRequirementLovestyleActivity_"
+            android:label="EditRequirementLovestyleActivity"></activity>
         <service android:name="com.jianfanjia.cn.service.UpdateService" />
 
         <activity

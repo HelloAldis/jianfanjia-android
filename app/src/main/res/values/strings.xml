@@ -243,5 +243,6 @@
     <string name="str_lovedesistyle">偏好设计师类型</string>
     <string name="title_activity_designer_info">DesignerInfoActivity</string>
     <string name="title_activity_designer_case_info">DesignerCaseInfoActivity</string>
+    <string name="str_dong">栋</string>
 
 </resources>

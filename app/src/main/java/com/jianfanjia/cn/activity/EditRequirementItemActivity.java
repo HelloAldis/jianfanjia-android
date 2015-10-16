@@ -4,14 +4,24 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.ListView;
 
+import com.jianfanjia.cn.adapter.RequirementItemAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.interf.cutom_annotation.ReqItemFinderImp;
 import com.jianfanjia.cn.view.MainHeadView;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ItemClick;
 import org.androidannotations.annotations.ViewById;
-import org.androidannotations.annotations.res.StringArrayRes;
+
+import static com.jianfanjia.cn.activity.EditRequirementActivity.REQUIRECODE_CITY;
+import static com.jianfanjia.cn.activity.EditRequirementActivity.REQUIRECODE_DECORATETYPE;
+import static com.jianfanjia.cn.activity.EditRequirementActivity.REQUIRECODE_HOUSETYPE;
+import static com.jianfanjia.cn.activity.EditRequirementActivity.REQUIRECODE_LOVEDESISTYLE;
+import static com.jianfanjia.cn.activity.EditRequirementActivity.REQUIRECODE_PERSONS;
+import static com.jianfanjia.cn.activity.EditRequirementActivity.REQUIRE_DATA;
 
 /**
  * Description: com.jianfanjia.cn.activity
@@ -22,36 +32,61 @@ import org.androidannotations.annotations.res.StringArrayRes;
 @EActivity
 public class EditRequirementItemActivity extends BaseActivity {
 
+    //用来记录是展示那个列表
+    private int requestCode;
+
     @ViewById(R.id.act_edit_req_item_head)
     protected MainHeadView mainHeadView;
 
     @ViewById(R.id.act_edit_req_item_listview)
     protected ListView edit_req_item_listview;
 
-    @StringArrayRes(R.array.arr_district)
-    protected String[] arr_district;
-
-    @StringArrayRes(R.array.arr_decoratestyle)
-    protected String[] arr_decoratestyle;
-
-    @StringArrayRes(R.array.arr_housetype)
-    protected String[] arr_housetype;
-
-    @StringArrayRes(R.array.arr_person)
-    protected String[] arr_person;
-
-    @StringArrayRes(R.array.arr_love_designerstyle)
-    protected String[] arr_love_designerstyle;
+    @Bean
+    protected RequirementItemAdapter requirementItemAdapter;
 
     @AfterViews
-    protected void setMainHeadView() {
-        mainHeadView.setRightTitleVisable(View.GONE);
+    protected void setView() {
+        Intent data = getIntent();
+        requestCode = data.getIntExtra(REQUIRE_DATA, 0);
+        showHead(requestCode);
+
+        edit_req_item_listview.setAdapter(requirementItemAdapter);
+        requirementItemAdapter.changeShow(requestCode);
     }
 
-    @AfterViews
-    protected void setView(){
-        Intent data = getIntent();
+    /**
+     * 根据requestcode动态展示头部显示的文字
+     *
+     * @param requestcode
+     */
+    private void showHead(int requestcode) {
+        mainHeadView.setRightTitleVisable(View.GONE);
+        switch (requestcode) {
+            case REQUIRECODE_CITY:
+                mainHeadView.setMianTitle(getString(R.string.str_district));
+                break;
+            case REQUIRECODE_HOUSETYPE:
+                mainHeadView.setMianTitle(getString(R.string.str_housetype));
+                break;
+            case REQUIRECODE_PERSONS:
+                mainHeadView.setMianTitle(getString(R.string.str_persons));
+                break;
+            case REQUIRECODE_LOVEDESISTYLE:
+                mainHeadView.setMianTitle(getString(R.string.str_lovedesistyle));
+                break;
+            case REQUIRECODE_DECORATETYPE:
+                mainHeadView.setMianTitle(getString(R.string.str_decoratetype));
+                break;
+        }
 
+    }
+
+    @ItemClick(R.id.act_edit_req_item_listview)
+    void personListItemClicked(ReqItemFinderImp.ItemMap itemMap) {
+        Intent data = new Intent(this, EditRequirementActivity_.class);
+        data.putExtra(EditRequirementActivity.RESPONDE_DATA, itemMap);
+        setResult(RESULT_OK, data);
+        finish();
     }
 
     @Click({R.id.head_back})

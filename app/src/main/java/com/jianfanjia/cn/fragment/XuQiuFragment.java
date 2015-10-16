@@ -13,6 +13,7 @@ import com.jianfanjia.cn.adapter.RequirementAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
+import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.EditReqPopWindow;
 import com.jianfanjia.cn.view.MainHeadView;
 
@@ -61,13 +62,12 @@ public class XuQiuFragment extends BaseFragment implements ItemClickCallBack{
     @ViewById
     protected ListView req_listView;
 
-    @AfterViews
     protected void setVisiable() {
+        LogTool.d(getClass().getName(),"setVisiable()");
         req_listview_wrap.setVisibility(View.VISIBLE);
         req_publish_wrap.setVisibility(View.GONE);
     }
 
-    @AfterViews
     protected void initListView() {
         requirementInfos = new ArrayList<RequirementInfo>();
         for (int i = 0; i < 3; i++) {
@@ -97,11 +97,12 @@ public class XuQiuFragment extends BaseFragment implements ItemClickCallBack{
         mainHeadView
                 .setMianTitle(getResources().getString(R.string.xuqiu));
         mainHeadView.setRightTitle(getResources().getString(R.string.str_create));
-//        mainHeadView.setRightTextListener(this);
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
         mainHeadView.setRightTitleVisable(View.VISIBLE);
         mainHeadView.setBackLayoutVisable(View.GONE);
-        mainHeadView.setDividerVisable(View.VISIBLE);
+
+        setVisiable();
+        initListView();
     }
 
     @Override

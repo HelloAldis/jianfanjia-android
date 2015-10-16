@@ -30,8 +30,6 @@ public class MainHeadView extends RelativeLayout {
         inflater = LayoutInflater.from(context);
         mainHead = inflater.inflate(R.layout.common_head, null);
         mainLayout = (RelativeLayout) mainHead.findViewById(R.id.main_head_layout);
-//		headImageView = (CircleImageView) mainLayout
-//				.findViewById(R.id.icon_head);
         mainTitle = (TextView) mainLayout.findViewById(R.id.head_center_title);
         rigthTitle = (TextView) mainLayout.findViewById(R.id.head_right_title);
         divider = mainLayout.findViewById(R.id.head_divier);
@@ -89,20 +87,10 @@ public class MainHeadView extends RelativeLayout {
         divider.setVisibility(visibility);
     }
 
-    /*	public void setHeadImage(String imagePath) {
-            if (imagePath == null)
-                return;
-            ImageLoader.getInstance().displayImage(imagePath, headImageView);
-        }
-    */
     public void setBackListener(OnClickListener onClickListener) {
         if (onClickListener == null)
             return;
-//		if(headImageView.getVisibility() == View.VISIBLE){
-//			headImageView.setOnClickListener(onClickListener);
-//		}else{
         backLayout.setOnClickListener(onClickListener);
-//		}
     }
 
     public void setRightTextListener(OnClickListener onClickListener) {

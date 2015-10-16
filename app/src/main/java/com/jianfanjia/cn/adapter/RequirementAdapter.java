@@ -33,7 +33,7 @@ public class RequirementAdapter extends BaseListAdapter<RequirementInfo>{
     public View initView(final int position, View convertView) {
         ViewHolder viewHolder = null;
         if(convertView == null){
-            convertView = layoutInflater.inflate(R.layout.listitem_req,null,false);
+            convertView = layoutInflater.inflate(R.layout.list_item_req,null,false);
             viewHolder = new ViewHolder();
             viewHolder.ltm_req_cell = (TextView)convertView.findViewById(R.id.ltm_req_cell);
             viewHolder.ltm_req_edit = (ImageButton)convertView.findViewById(R.id.ltm_req_edit);

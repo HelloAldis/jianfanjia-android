@@ -6,6 +6,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.interf.cutom_annotation.ReqItemFinderImp;
 import com.jianfanjia.cn.view.MainHeadView;
 
 import org.androidannotations.annotations.AfterViews;
@@ -29,7 +30,8 @@ public class EditRequirementActivity extends BaseActivity {
     public static final int REQUIRECODE_LOVEDESISTYLE = 0x04;
     public static final int REQUIRECODE_DECORATETYPE = 0x05;
 
-    public static final String REQUIRECODE_DATA = "requirecode_data";
+    public static final String REQUIRE_DATA = "require_data";
+    public static final String RESPONDE_DATA = "response_data";
 
     @ViewById(R.id.act_edit_req_head)
     protected MainHeadView mainHeadView;
@@ -53,6 +55,7 @@ public class EditRequirementActivity extends BaseActivity {
     protected EditText act_edit_req_decoratebudget_content;//装修预算
 
     private Intent gotoItem;
+    private Intent gotoItemLove;
 
     @Click({R.id.head_back, R.id.act_edit_req_city, R.id.act_edit_req_housetype, R.id.act_edit_req_decoratetype,
             R.id.act_edit_req_persons, R.id.act_edit_req_lovestyle, R.id.act_edit_req_lovedesistyle})
@@ -63,27 +66,27 @@ public class EditRequirementActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.act_edit_req_city:
-                gotoItem.putExtra(REQUIRECODE_DATA, REQUIRECODE_CITY);
+                gotoItem.putExtra(REQUIRE_DATA, REQUIRECODE_CITY);
                 startActivityForResult(gotoItem, REQUIRECODE_CITY);
                 break;
             case R.id.act_edit_req_lovedesistyle:
-                gotoItem.putExtra(REQUIRECODE_DATA, REQUIRECODE_LOVEDESISTYLE);
+                gotoItem.putExtra(REQUIRE_DATA, REQUIRECODE_LOVEDESISTYLE);
                 startActivityForResult(gotoItem, REQUIRECODE_LOVEDESISTYLE);
                 break;
             case R.id.act_edit_req_persons:
-                gotoItem.putExtra(REQUIRECODE_DATA, REQUIRECODE_PERSONS);
+                gotoItem.putExtra(REQUIRE_DATA, REQUIRECODE_PERSONS);
                 startActivityForResult(gotoItem, REQUIRECODE_PERSONS);
                 break;
             case R.id.act_edit_req_lovestyle:
-                gotoItem.putExtra(REQUIRECODE_DATA, REQUIRECODE_LOVESTYLE);
-                startActivityForResult(gotoItem, REQUIRECODE_LOVESTYLE);
+                gotoItemLove.putExtra(REQUIRE_DATA, REQUIRECODE_LOVESTYLE);
+                startActivityForResult(gotoItemLove, REQUIRECODE_LOVESTYLE);
                 break;
             case R.id.act_edit_req_decoratetype:
-                gotoItem.putExtra(REQUIRECODE_DATA, REQUIRECODE_DECORATETYPE);
+                gotoItem.putExtra(REQUIRE_DATA, REQUIRECODE_DECORATETYPE);
                 startActivityForResult(gotoItem, REQUIRECODE_DECORATETYPE);
                 break;
             case R.id.act_edit_req_housetype:
-                gotoItem.putExtra(REQUIRECODE_DATA, REQUIRECODE_HOUSETYPE);
+                gotoItem.putExtra(REQUIRE_DATA, REQUIRECODE_HOUSETYPE);
                 startActivityForResult(gotoItem, REQUIRECODE_HOUSETYPE);
                 break;
         }
@@ -103,6 +106,7 @@ public class EditRequirementActivity extends BaseActivity {
     @Override
     public void initView() {
         gotoItem = new Intent(this, EditRequirementItemActivity_.class);
+        gotoItemLove = new Intent(this, EditRequirementLovestyleActivity_.class);
     }
 
     @Override
@@ -116,10 +120,29 @@ public class EditRequirementActivity extends BaseActivity {
         if (resultCode != RESULT_OK) {
             return;
         }
-        switch (requestCode) {
-            case REQUIRECODE_CITY:
-
-                break;
+        if (data != null) {
+            ReqItemFinderImp.ItemMap itemMap = (ReqItemFinderImp.ItemMap) data.getSerializableExtra(RESPONDE_DATA);
+            makeTextLong(itemMap.key);
+            switch (requestCode) {
+                case REQUIRECODE_CITY:
+                    act_edit_req_city_content.setText(itemMap.value);
+                    break;
+                case REQUIRECODE_LOVEDESISTYLE:
+                    act_edit_req_lovedesistyle_content.setText(itemMap.value);
+                    break;
+                case REQUIRECODE_PERSONS:
+                    act_edit_req_persons_content.setText(itemMap.value);
+                    break;
+                case REQUIRECODE_LOVESTYLE:
+                    act_edit_req_lovestyle_content.setText(itemMap.value);
+                    break;
+                case REQUIRECODE_DECORATETYPE:
+                    act_edit_req_decoratetype_content.setText(itemMap.value);
+                    break;
+                case REQUIRECODE_HOUSETYPE:
+                    act_edit_req_housetype_content.setText(itemMap.value);
+                    break;
+            }
         }
 
     }
