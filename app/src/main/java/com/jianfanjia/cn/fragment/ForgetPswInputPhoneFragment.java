@@ -11,10 +11,9 @@ import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
-import com.jianfanjia.cn.base.BaseResponse;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.FragmentListener;
-import com.jianfanjia.cn.interf.LoadDataListener;
+import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.NetTool;
 
 public class ForgetPswInputPhoneFragment extends BaseFragment {
@@ -107,19 +106,19 @@ public class ForgetPswInputPhoneFragment extends BaseFragment {
      * @param phone
      */
     private void sendVerifyCode(String phone) {
-        JianFanJiaClient.send_verification(getActivity(), phone, new LoadDataListener() {
+        JianFanJiaClient.send_verification(getActivity(), phone, new ApiUiUpdateListener() {
             @Override
             public void preLoad() {
 
             }
 
             @Override
-            public void loadSuccess(BaseResponse baseResponse) {
+            public void loadSuccess(Object data) {
                 fragemntListener.onNext();
             }
 
             @Override
-            public void loadFailture() {
+            public void loadFailture(String error_msg) {
 
             }
         }, this);

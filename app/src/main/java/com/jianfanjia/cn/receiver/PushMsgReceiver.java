@@ -18,7 +18,6 @@ import com.jianfanjia.cn.activity.CheckActivity;
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.NotifyActivity;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.base.BaseResponse;
 import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.SectionInfo;
@@ -26,7 +25,7 @@ import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.dao.impl.NotifyMessageDao;
 import com.jianfanjia.cn.http.JianFanJiaClient;
-import com.jianfanjia.cn.interf.LoadDataListener;
+import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.manager.ListenerManeger;
 import com.jianfanjia.cn.tools.DaoManager;
 import com.jianfanjia.cn.tools.JsonParser;
@@ -115,19 +114,19 @@ public class PushMsgReceiver extends BroadcastReceiver {
      * @param clientId
      */
     private void uploadClientID(Context context, String clientId) {
-        JianFanJiaClient.uploadRegisterId(context, clientId, new LoadDataListener() {
+        JianFanJiaClient.uploadRegisterId(context, clientId, new ApiUiUpdateListener() {
             @Override
             public void preLoad() {
 
             }
 
             @Override
-            public void loadSuccess(BaseResponse baseResponse) {
-                LogTool.d(TAG, "baseResponse:" +baseResponse.toString());
+            public void loadSuccess(Object data) {
+                LogTool.d(TAG, "baseResponse:" + data.toString());
             }
 
             @Override
-            public void loadFailture() {
+            public void loadFailture(String error_msg) {
 
             }
         }, this);

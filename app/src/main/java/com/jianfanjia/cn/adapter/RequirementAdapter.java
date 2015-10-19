@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.fragment.XuQiuFragment;
-import com.jianfanjia.cn.interf.ItemClickCallBack;
+import com.jianfanjia.cn.interf.ClickCallBack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,11 +22,11 @@ import java.util.List;
  */
 public class RequirementAdapter extends BaseListAdapter<RequirementInfo>{
 
-    private ItemClickCallBack itemClickCallBack;
+    private ClickCallBack clickCallBack;
 
-    public RequirementAdapter(Context context, List<RequirementInfo> list,ItemClickCallBack itemClickCallBack) {
+    public RequirementAdapter(Context context, List<RequirementInfo> list,ClickCallBack clickCallBack) {
         super(context, list);
-        this.itemClickCallBack = itemClickCallBack;
+        this.clickCallBack = clickCallBack;
     }
 
     @Override
@@ -56,7 +56,7 @@ public class RequirementAdapter extends BaseListAdapter<RequirementInfo>{
         viewHolder.ltm_req_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                itemClickCallBack.click(position, XuQiuFragment.ITEM_EDIT);
+                clickCallBack.click(position, XuQiuFragment.ITEM_EDIT);
             }
         });
         return convertView;

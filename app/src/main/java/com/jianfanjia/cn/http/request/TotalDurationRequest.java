@@ -7,7 +7,6 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.jianfanjia.cn.base.BaseRequest;
-import com.jianfanjia.cn.base.BaseResponse;
 import com.jianfanjia.cn.tools.LogTool;
 
 public class TotalDurationRequest extends BaseRequest {
@@ -30,13 +29,12 @@ public class TotalDurationRequest extends BaseRequest {
 	}
 
 	@Override
-	public void onSuccess(BaseResponse baseResponse) {
-		super.onSuccess(baseResponse);
-		String data = baseResponse.getData().toString();
+	public void onSuccess(Object data) {
+		super.onSuccess(data);
 		if (data != null) {
 			JSONObject jsonObject;
 			try {
-				jsonObject = new JSONObject(data);
+				jsonObject = new JSONObject((String)data);
 				String duration = jsonObject.get("duration").toString();
 				if(!TextUtils.isEmpty(duration)){
 					dataManager.setTotalDuration(duration);

@@ -21,7 +21,7 @@ import com.jianfanjia.cn.AppConfig;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.dao.impl.NotifyMessageDao;
-import com.jianfanjia.cn.interf.LoadDataListener;
+import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.NetStateListener;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
 import com.jianfanjia.cn.interf.manager.ListenerManeger;
@@ -44,7 +44,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  * Date:15-10-11 14:30
  */
 public abstract class BaseActivity extends AppCompatActivity implements
-        DialogControl, NetStateListener, PopWindowCallBack, LoadDataListener {
+        DialogControl, NetStateListener, PopWindowCallBack, ApiUiUpdateListener {
     protected ActivityManager activityManager = null;
     protected DownloadManager downloadManager = null;
     protected NotifyMessageDao notifyMessageDao = null;
@@ -235,16 +235,15 @@ public abstract class BaseActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void loadSuccess(BaseResponse baseResponse) {
+    public void loadSuccess(Object data) {
         hideWaitDialog();
     }
 
-
     @Override
-    public void loadFailture() {
+    public void loadFailture(String error_msg) {
         hideWaitDialog();
         setErrorView();
-        makeTextLong(getString(R.string.tip_error_internet));
+        makeTextLong(error_msg);
     }
 
     // 设置错误视图

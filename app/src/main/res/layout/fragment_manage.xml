@@ -11,5 +11,61 @@
         android:layout_height="wrap_content"
         android:background="@color/head_layout_bg" />
 
+    <com.jianfanjia.cn.pulltorefresh.library.PullToRefreshScrollView xmlns:ptr="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/pull_refresh_scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:cacheColorHint="#00000000"
+        android:fadingEdge="none"
+        android:fastScrollEnabled="false"
+        android:fillViewport="true"
+        android:footerDividersEnabled="false"
+        android:headerDividersEnabled="false"
+        android:scrollbars="none"
+        android:smoothScrollbar="true"
+        ptr:ptrAnimationStyle="flip"
+        ptr:ptrHeaderTextAppearance="@android:attr/textAppearanceMedium"
+        ptr:ptrHeaderTextColor="#000000">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+
+            <com.jianfanjia.cn.view.MyViewPager
+                android:id="@+id/processViewPager"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:background="#ffffff"
+                android:fadingEdge="none" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="45dp"
+                    android:background="@color/line_color" />
+
+                <com.jianfanjia.cn.view.MyListView
+                    android:id="@+id/site__listview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginLeft="33dp"
+                    android:cacheColorHint="#ffffff"
+                    android:clipToPadding="false"
+                    android:divider="@null"
+                    android:fadingEdge="none"
+                    android:fastScrollEnabled="false"
+                    android:listSelector="@android:color/transparent"
+                    android:scrollbars="none" />
+            </FrameLayout>
+        </LinearLayout>
+    </com.jianfanjia.cn.pulltorefresh.library.PullToRefreshScrollView>
 
 </LinearLayout>

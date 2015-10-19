@@ -5,7 +5,6 @@ import java.util.Calendar;
 import android.content.Context;
 
 import com.jianfanjia.cn.base.BaseRequest;
-import com.jianfanjia.cn.base.BaseResponse;
 import com.jianfanjia.cn.bean.LoginUserBean;
 import com.jianfanjia.cn.config.Url;
 import com.jianfanjia.cn.tools.JsonParser;
@@ -35,11 +34,10 @@ public class LoginRequest extends BaseRequest {
     }
 
     @Override
-    public void onSuccess(BaseResponse baseResponse) {
-        super.onSuccess(baseResponse);
-        String data = baseResponse.getData().toString();
+    public void onSuccess(Object data) {
+        super.onSuccess(data);
         if (data != null) {
-            LoginUserBean loginUserBean = JsonParser.jsonToBean(data, LoginUserBean.class);
+            LoginUserBean loginUserBean = JsonParser.jsonToBean((String)data, LoginUserBean.class);
             loginUserBean.setPass(password);
             dataManager.saveLoginUserInfo(loginUserBean);
             dataManager.setLogin(true);
