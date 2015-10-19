@@ -10,7 +10,7 @@ import android.widget.ScrollView;
 
 import com.jianfanjia.cn.activity.DesignerCaseInfoActivity;
 import com.jianfanjia.cn.activity.DesignerInfoActivity;
-import com.jianfanjia.cn.activity.EditRequirementActivity_;
+import com.jianfanjia.cn.activity.EditRequirementActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.DesignerListAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
@@ -58,7 +58,7 @@ public class HomeFragment extends BaseFragment implements
         mPullRefreshScrollView.setMode(Mode.PULL_FROM_START);
         marchedLayout = (LinearLayout) view.findViewById(R.id.marched_layout);
         noMarchedLayout = (LinearLayout) view.findViewById(R.id.no_marched_layout);
-        noMarchedLayout.setVisibility(View.GONE);
+        marchedLayout.setVisibility(View.GONE);
         addXuQiu = (Button) view.findViewById(R.id.btn_add);
         designer_listview = (ListView) view.findViewById(R.id.designer_listview);
         designer_listview.setFocusable(false);
@@ -116,7 +116,7 @@ public class HomeFragment extends BaseFragment implements
             case R.id.designerLayout_3:
                 break;
             case R.id.btn_add:
-                startActivity(EditRequirementActivity_.class);
+               startActivity(EditRequirementActivity.class);
                 break;
             default:
                 break;
