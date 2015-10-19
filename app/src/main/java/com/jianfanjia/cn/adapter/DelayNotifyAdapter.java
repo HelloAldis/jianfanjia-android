@@ -6,6 +6,7 @@ import android.view.View.OnClickListener;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.adapter.base.BaseListAdapter;
 import com.jianfanjia.cn.bean.NotifyDelayInfo;
 import com.jianfanjia.cn.tools.DateFormatTool;
 

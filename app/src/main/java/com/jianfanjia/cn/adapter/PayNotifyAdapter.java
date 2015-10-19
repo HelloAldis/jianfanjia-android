@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.application.MyApplication;
+import com.jianfanjia.cn.adapter.base.BaseListAdapter;
 import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.tools.DateFormatTool;
 

@@ -13,13 +13,13 @@ public class Url_New {
     public static String SEVER_PORT = "80";
 
     public static final String HTTPROOT = "http://" + SEVER_IP + ":"
-            + SEVER_PORT + "/api/v1/";
+            + SEVER_PORT + "/api/v2/app/";
 
     public static final String ID = "id";
     //
     public static final String BIND_URL = HTTPROOT + "device/bind";
     // 登录
-    public static final String LOGIN_URL = HTTPROOT + "login";
+    public static final String LOGIN_URL = HTTPROOT + "user_login";
     // 注册
     public static final String REGISTER_URL = HTTPROOT + "signup";
     // 获取短信验证码
@@ -34,45 +34,62 @@ public class Url_New {
     // 用户反馈 feedback
     public static final String FEEDBACK_URL = HTTPROOT + "feedback";
     // --------------------------------------------------业主-----------------------------------------------------------
+    //业主提交需求(post)
+    public static final String POST_REQUIREMENT = HTTPROOT + "user_add_requirement";
     // 业主获取需求
     public static final String REQUIREMENT = HTTPROOT + "user/requirement";
-    // 业主发送工地配置和配置工地
+    //业主获取需求列表(Get)
+    public static final String REQUIREMENT_LIST = HTTPROOT + "user_my_requirement_list";
+    //业主更新装修需求(Post)
+    public static final String REQUIREMENT_UPDATE = HTTPROOT + "user_update_requirement";
+    //业主获取自己可以预约的设计师列表(Post)
+    public static final String REQUIREMENT_ORDER_DESIGNER_LIST = HTTPROOT + "designers_user_can_order";
+
+    //业主获取我的意向设计师列表(Post)
+    public static final String FAVORITE_DESIGNER_LIST = HTTPROOT + "favorite/designer/list";
+    //业主添加设计师到意向列表（Post)
+    public static final String ADD_FAVORITE_DESIGNER = HTTPROOT + "favorite/designer/add";
+    //业主移除意向设计师列表的设计师(Post)
+    public static final String DELETE_FAVORITE_DESIGNER = HTTPROOT + "favorite/designer/delete";
+
+    //业主预约量房
+    public static final String USER_ORDER_DESIGNER = HTTPROOT + "user_order_designer";
+    //业主获取我预约的设计师
+    public static final String USER_ORDERD_DESIGNERS = HTTPROOT + "user_ordered_designers";
+    //业主确实设计师已量房
+    public static final String DESIGNER_HOUSE_CHECKED = HTTPROOT + "designer_house_checked";
+
+    //业主获取我的方案
+    public static final String USER_REQUIREMENT_PLANS = HTTPROOT + "user_requirement_plans";
+    //业主选定方案
+    public static final String USER_CHOOSE_PLAN = HTTPROOT + "user/plan/final";
+    //用户获取某个方案的信息
+    public static final String ONE_PLAN_INFO = HTTPROOT + "one_plan";
+
+    //用户获取合同
+    public static final String ONE_CONTRACT = HTTPROOT + "one_contract";
+
+    // 业主开启工地
     public static final String PROCESS = HTTPROOT + "user/process";
+
     // 获取业主的设计师
     public static final String GET_OWER_DESIGNER = HTTPROOT + "designer/" + ID
             + "/basicinfo";
-    // 业主获取自己的个人资料
+
+    // 业主获取自己的个人资料和修改个人资料
     public static final String GET_OWER_INFO = HTTPROOT + "user/info";
-    // 业主获取设计师的个人资料
-    public static final String GET_OWER_DESIGNER_INFO = HTTPROOT + "user/designer/info";
-    // ----------------------------------------------------设计师----------------------------------------------------------
-    // 设计师获取个人信息
-    public static final String GET_DESIGNER_INFO = HTTPROOT + "designer/info";
-    // 获取设计师的业主
-    public static final String GET_DESIGNER_OWNER = HTTPROOT + "designer/user";
-    // 获取设计师的工地列表
-    public static final String GET_DESIGNER_PROCESS = HTTPROOT
+
+    // 获取工地列表
+    public static final String GET_PROCESS_LIST = HTTPROOT
             + "/process/list";
-    // 设计师获取我的方案
-    public static final String GET_DESIGNER_PLAN = HTTPROOT + "designer/plan";
-    // 设计师提交方案
-    public static final String SUBMIT_DESIGNER_PLAN = HTTPROOT
-            + "designer/plan";
+
     // 用户上传图片
     public static final String UPLOAD_IMAGE = HTTPROOT + "image/upload";
-    // 设计师提交验收图片
-    public static final String SUBMIT_YAHSHOU_IMAGE = HTTPROOT
-            + "process/ysimage";
-    // 设计师删除验收图片
-    public static final String DELETE_YAHSHOU_IMAGE = HTTPROOT
-            + "process/ysimage";
     // 用户上传图片到装修流程
     public static final String POST_PROCESS_IMAGE = HTTPROOT + "process/image";
     // 评价装修流程
     public static final String POST_PROCESS_COMMENT = HTTPROOT
             + "process/comment";
-    // 用户获取某个装修流程
-    public static final String GET_ONE_PROCESS = HTTPROOT + "process/";
     // 用户获取业主个人信息
     public static final String GET_ONE_OWNER_INFO = HTTPROOT + "user/" + ID
             + "/info";
@@ -92,18 +109,7 @@ public class Url_New {
     // 根据工地id获取某个工地
     public static final String GET_PROCESSINFO_BYID = HTTPROOT + "process/"
             + ID;
-    // 用户完工装修流程小节点
-    public static final String POST_PROCESS_DONE_ITEM = HTTPROOT
-            + "process/done_item";
-    // 拿到某个方案信息
-    public static final String GET_PLAN = HTTPROOT + "plan/" + ID;
-    // 设计师确认可以开始验收
-    public static final String CONFIRM_CHECK_BY_DESIGNER = HTTPROOT
-            + "process/can_ys";
     // 业主确认对比验收完成
     public static final String CONFIRM_CHECK_DONE_BY_OWNER = HTTPROOT
             + "process/done_section";
-    // 设计师删除验收图片
-    public static final String DELETE_YANSHOU_IMG_BY_DESIGNER = HTTPROOT
-            + "process/ysimage";
 }

@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.adapter.base.BaseListAdapter;
 import com.jianfanjia.cn.bean.DesignerWorksInfo;
 
 import java.util.List;
