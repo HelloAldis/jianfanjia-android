@@ -3,7 +3,6 @@ package com.jianfanjia.cn.http.request;
 import android.content.Context;
 
 import com.jianfanjia.cn.base.BaseRequest;
-import com.jianfanjia.cn.base.BaseResponse;
 import com.jianfanjia.cn.bean.DesignerInfo;
 import com.jianfanjia.cn.config.Url;
 import com.jianfanjia.cn.tools.JsonParser;
@@ -29,11 +28,10 @@ public class UserByDesignerInfoRequest extends BaseRequest{
 	}
 	
 	@Override
-	public void onSuccess(BaseResponse baseResponse) {
-		super.onSuccess(baseResponse);
-		String data = baseResponse.getData().toString();
+	public void onSuccess(Object data) {
+		super.onSuccess(data);
 		if(data != null){
-			DesignerInfo designerInfo = JsonParser.jsonToBean(data,
+			DesignerInfo designerInfo = JsonParser.jsonToBean((String)data,
 					DesignerInfo.class);
 			if(designerInfo != null){
 				dataManager.setDesignerInfo(designerInfo);

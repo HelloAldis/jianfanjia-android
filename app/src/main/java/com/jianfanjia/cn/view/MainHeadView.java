@@ -76,7 +76,7 @@ public class MainHeadView extends RelativeLayout {
     }
 
     public void setBackLayoutVisable(int visibility) {
-        if (visibility != View.GONE || visibility != View.VISIBLE)
+        if (visibility != View.GONE && visibility != View.VISIBLE)
             return;
         backLayout.setVisibility(visibility);
     }

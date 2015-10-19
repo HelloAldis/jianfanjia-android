@@ -1,27 +1,29 @@
 package com.jianfanjia.cn.activity;
 
+import android.graphics.Rect;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.base.BaseResponse;
 import com.jianfanjia.cn.http.JianFanJiaClient;
-import com.jianfanjia.cn.interf.LoadDataListener;
+import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.NetTool;
 
 /**
- * Description:登录
- * Author：fengliang
- * Email：leo.feng@myjyz.com
- * Date:15-10-11 14:30
+ * @author fengliang
+ * @ClassName: LoginActivity
+ * @Description: 登录
+ * @date 2015-8-18 下午12:11:23
  */
-public class LoginActivity extends BaseActivity implements OnClickListener {
+public class LoginActivity extends BaseActivity implements OnClickListener,
+        ApiUiUpdateListener {
     private static final String TAG = LoginActivity.class.getName();
     private RelativeLayout loginLayout = null;
     private EditText mEtUserName = null;// 用户名输入框
@@ -49,6 +51,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
         if (!TextUtils.isEmpty(mPassword)) {
             mEtPassword.setText(mPassword);
         }
+        controlKeyboardLayout(loginLayout, mBtnLogin);
     }
 
     @Override
@@ -102,6 +105,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
      * @param password
      */
     private void login(String name, String password) {
+        // dataManager.login(name, password, this);
         if (NetTool.isNetworkAvailable(this)) {
             JianFanJiaClient.login(this, name, password, this, this);
         } else {
@@ -110,62 +114,48 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
     }
 
     @Override
-    public void loadSuccess(BaseResponse baseResponse) {
+    public void loadSuccess(Object data) {
         //登录成功，加载工地列表
-        JianFanJiaClient.get_Process_List(this, new LoadDataListener() {
+        super.loadSuccess(data);
+        startActivity(MainActivity.class);
+        finish();
+    }
 
-            @Override
-            public void preLoad() {
-                // TODO Auto-generated method stub
-
-            }
-
-            @Override
-            public void loadSuccess(BaseResponse baseResponse) {
-                // 工地列表刷新成功，加载用户默认工地
-                String processId = dataManager.getDefaultProcessId();
-                if (processId != null) {
-                    JianFanJiaClient.get_ProcessInfo_By_Id(LoginActivity.this, processId, new LoadDataListener() {
-
-                        @Override
-                        public void preLoad() {
-                            // TODO Auto-generated method stub
-
+    /**
+     * @param root         最外层布局，需要调整的布局
+     * @param scrollToView 被键盘遮挡的scrollToView，滚动root,使scrollToView在root可视区域的底部
+     */
+    private void controlKeyboardLayout(final View root, final View scrollToView) {
+        root.getViewTreeObserver().addOnGlobalLayoutListener(
+                new OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        Rect rect = new Rect();
+                        // 获取root在窗体的可视区域
+                        root.getWindowVisibleDisplayFrame(rect);
+                        // 获取root在窗体的不可视区域高度(被其他View遮挡的区域高度)
+                        int rootInvisibleHeight = root.getRootView()
+                                .getHeight() - rect.bottom;
+                        // 若不可视区域高度大于100，则键盘显示
+                        if (rootInvisibleHeight > 100) {
+                            int[] location = new int[2];
+                            // 获取scrollToView在窗体的坐标
+                            scrollToView.getLocationInWindow(location);
+                            // 计算root滚动高度，使scrollToView在可见区域
+                            int srollHeight = (location[1] + scrollToView
+                                    .getHeight()) - rect.bottom;
+                            root.scrollTo(0, srollHeight);
+                        } else {
+                            // 键盘隐藏
+                            root.scrollTo(0, 0);
                         }
-
-                        @Override
-                        public void loadSuccess(BaseResponse baseResponse) {
-                            hideWaitDialog();
-                            startActivity(MainActivity.class);
-                            finish();
-                        }
-
-                        @Override
-                        public void loadFailture() {
-                            hideWaitDialog();
-                            makeTextLong(getString(R.string.tip_error_internet));
-                        }
-                    }, this);
-                } else {
-                    hideWaitDialog();
-                    startActivity(MainActivity.class);
-                    finish();
-                }
-
-            }
-
-            @Override
-            public void loadFailture() {
-                // TODO Auto-generated method stub
-                hideWaitDialog();
-                makeTextLong(getString(R.string.tip_error_internet));
-            }
-        }, this);
-
+                    }
+                });
     }
 
     @Override
     public int getLayoutId() {
         return R.layout.activity_login;
     }
+
 }

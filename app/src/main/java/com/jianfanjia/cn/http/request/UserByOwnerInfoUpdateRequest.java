@@ -3,7 +3,6 @@ package com.jianfanjia.cn.http.request;
 import android.content.Context;
 
 import com.jianfanjia.cn.base.BaseRequest;
-import com.jianfanjia.cn.base.BaseResponse;
 import com.jianfanjia.cn.bean.OwnerUpdateInfo;
 import com.jianfanjia.cn.config.Url;
 
@@ -31,8 +30,8 @@ public class UserByOwnerInfoUpdateRequest extends BaseRequest{
 	}
 	
 	@Override
-	public void onSuccess(BaseResponse baseResponse) {
-		super.onSuccess(baseResponse);
+	public void onSuccess(Object data) {
+		super.onSuccess(data);
 		/*String data = baseResponse.getData().toString();
 		if(data != null){
 			DesignerInfo designerInfo = JsonParser.jsonToBean(data,

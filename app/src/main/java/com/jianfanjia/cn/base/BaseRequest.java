@@ -4,11 +4,17 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.jianfanjia.cn.cache.DataManagerNew;
-import com.jianfanjia.cn.interf.RequestInterfece;
+import com.jianfanjia.cn.interf.ApiDataUpdateListenter;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.Request;
 
-public abstract class BaseRequest implements RequestInterfece {
+/**
+ * Description: com.jianfanjia.cn.base
+ * Author: zhanghao
+ * Email: jame.zhang@myjyz.com
+ * Date:2015-10-14 10:19
+ */
+public abstract class BaseRequest implements ApiDataUpdateListenter {
     private static final MediaType MEDIA_TYPE_STREAM = MediaType.parse("application/octet-stream;charset=utf-8");
     private static final MediaType MEDIA_TYPE_STRING = MediaType.parse("text/plain;charset=utf-8");
     private static final MediaType MEDIA_TYPE_JSON = MediaType.parse("application/json;charset=utf-8");
@@ -61,14 +67,13 @@ public abstract class BaseRequest implements RequestInterfece {
 
     // 数据正确后的处理
     @Override
-    public void onSuccess(BaseResponse baseResponse) {
+    public void onSuccess(Object data) {
 
     }
 
     // 数据错误后的处理
     @Override
-    public void onFailure(BaseResponse baseResponse) {
-        String err_msg = baseResponse.getErr_msg();
+    public void onFailure(String error_msg) {
     }
 
     protected void makeLongTextToast(String message) {

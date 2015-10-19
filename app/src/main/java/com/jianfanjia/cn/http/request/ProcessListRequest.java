@@ -5,7 +5,6 @@ import android.content.Context;
 
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.base.BaseRequest;
-import com.jianfanjia.cn.base.BaseResponse;
 import com.jianfanjia.cn.bean.Process;
 import com.jianfanjia.cn.config.Url;
 import com.jianfanjia.cn.tools.JsonParser;
@@ -25,16 +24,15 @@ public class ProcessListRequest extends BaseRequest {
 	}
 	
 	@Override
-	public void onSuccess(BaseResponse baseResponse) {
-		super.onSuccess(baseResponse);
-		String data = baseResponse.getData().toString();
+	public void onSuccess(Object data) {
+		super.onSuccess(data);
 		if(data != null){
-			processLists = JsonParser.jsonToList(data,
+			processLists = JsonParser.jsonToList((String)data,
 					new TypeToken<List<Process>>() {
 					}.getType());
 			if(processLists != null){
 				dataManager.setProcessLists(processLists);
-				dataManager.saveProcessLists(data);
+				dataManager.saveProcessLists((String)data);
 			}
 		}
 	}

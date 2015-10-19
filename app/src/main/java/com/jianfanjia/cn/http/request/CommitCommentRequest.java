@@ -3,8 +3,6 @@ package com.jianfanjia.cn.http.request;
 import android.content.Context;
 
 import com.jianfanjia.cn.base.BaseRequest;
-import com.jianfanjia.cn.base.BaseResponse;
-import com.jianfanjia.cn.bean.CommitCommentInfo;
 import com.jianfanjia.cn.config.Url;
 
 public class CommitCommentRequest extends BaseRequest {
@@ -29,9 +27,8 @@ public class CommitCommentRequest extends BaseRequest {
 	}
 	
 	@Override
-	public void onSuccess(BaseResponse baseResponse) {
-		if(baseResponse.getMsg() != null){
-			makeLongTextToast("评论成功");
+	public void onSuccess(Object data) {
+		if(data != null){
 		}
 	}
 

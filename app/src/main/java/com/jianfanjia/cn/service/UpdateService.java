@@ -9,11 +9,10 @@ import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.base.BaseResponse;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.OkHttpClientManager;
 import com.jianfanjia.cn.http.coreprogress.listener.impl.UIProgressListener;
-import com.jianfanjia.cn.interf.LoadDataListener;
+import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.LogTool;
 
 import java.io.File;
@@ -87,7 +86,7 @@ public class UpdateService extends Service {
     // 下载最新apk
     private void download(String url, final String filePath,
                           final String fileName) {
-        OkHttpClientManager.getDownloadDelegate().downloadAsyn(url, fileName, filePath, new LoadDataListener() {
+        OkHttpClientManager.getDownloadDelegate().downloadAsyn(url, fileName, filePath, new ApiUiUpdateListener() {
             @Override
             public void preLoad() {
                 LogTool.d(this.getClass().getName(), "onStart()");
@@ -103,11 +102,11 @@ public class UpdateService extends Service {
             }
 
             @Override
-            public void loadSuccess(BaseResponse baseResponse) {
+            public void loadSuccess(Object data) {
                 LogTool.d(this.getClass().getName(), "onSuccess()");
-                if (baseResponse.getData() != null) {
-                    LogTool.d(this.getClass().getName(), baseResponse.getData().toString());
-                    File apkFile = new File(baseResponse.getData().toString());
+                if (data!= null) {
+                    LogTool.d(this.getClass().getName(), data.toString());
+                    File apkFile = new File(data.toString());
                     stopSelf();
                     nManager.cancel(NotificationID);
                     installApk(apkFile);
@@ -115,7 +114,7 @@ public class UpdateService extends Service {
             }
 
             @Override
-            public void loadFailture() {
+            public void loadFailture(String error_msg) {
                 nManager.cancel(NotificationID);
             }
         }, uiProgressListener, this);

@@ -3,7 +3,6 @@ package com.jianfanjia.cn.http.request;
 import android.content.Context;
 
 import com.jianfanjia.cn.base.BaseRequest;
-import com.jianfanjia.cn.base.BaseResponse;
 import com.jianfanjia.cn.config.Url;
 
 /**
@@ -16,7 +15,7 @@ public class NotifyOwnerCheckRequest extends BaseRequest{
     }
 
     @Override
-    public void onSuccess(BaseResponse baseResponse) {
-        super.onSuccess(baseResponse);
+    public void onSuccess(Object data) {
+        super.onSuccess(data);
     }
 }

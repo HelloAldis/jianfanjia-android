@@ -10,9 +10,9 @@ import android.widget.TextView;
 import com.jianfanjia.cn.activity.EditRequirementActivity_;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.RequirementAdapter;
-import com.jianfanjia.cn.base.BaseFragment;
+import com.jianfanjia.cn.base.BaseAnnotationFragment;
 import com.jianfanjia.cn.bean.RequirementInfo;
-import com.jianfanjia.cn.interf.ItemClickCallBack;
+import com.jianfanjia.cn.interf.ClickCallBack;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.EditReqPopWindow;
 import com.jianfanjia.cn.view.MainHeadView;
@@ -32,7 +32,7 @@ import java.util.List;
  * Date:15-10-11 14:30
  */
 @EFragment(R.layout.fragment_requirement)
-public class XuQiuFragment extends BaseFragment implements ItemClickCallBack {
+public class XuQiuFragment extends BaseAnnotationFragment implements ClickCallBack {
     private static final String TAG = XuQiuFragment.class.getName();
 
     public static final int ITEM_EDIT = 0x00;
@@ -43,6 +43,9 @@ public class XuQiuFragment extends BaseFragment implements ItemClickCallBack {
     private EditReqPopWindow editReqPopWindow;
     private RequirementAdapter requirementAdapter;
     private List<RequirementInfo> requirementInfos;
+
+    @ViewById(R.id.frag_req_rootview)
+    protected LinearLayout rootView;
 
     @ViewById(R.id.req_head)
     protected MainHeadView mainHeadView = null;
@@ -76,12 +79,9 @@ public class XuQiuFragment extends BaseFragment implements ItemClickCallBack {
         }
         requirementAdapter = new RequirementAdapter(getActivity(), requirementInfos, this);
         req_listView.setAdapter(requirementAdapter);
-        req_listview_wrap.setVisibility(View.GONE);
-        req_publish_wrap.setVisibility(View.VISIBLE);
     }
 
-    @Override
-    public void initView(View view) {
+    public void initPopView() {
         editReqPopWindow = new EditReqPopWindow(getActivity(), this);
     }
 
@@ -93,33 +93,22 @@ public class XuQiuFragment extends BaseFragment implements ItemClickCallBack {
 
     @AfterViews
     protected void initMainHeadView() {
-//        mainHeadView = view.findViewById()
         mainHeadView
                 .setMianTitle(getResources().getString(R.string.xuqiu));
         mainHeadView.setRightTitle(getResources().getString(R.string.str_create));
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
         mainHeadView.setRightTitleVisable(View.VISIBLE);
         mainHeadView.setBackLayoutVisable(View.GONE);
-
+        initPopView();
         setVisiable();
         initListView();
-    }
-
-    @Override
-    public void setListener() {
-
-    }
-
-    @Override
-    public int getLayoutId() {
-        return R.layout.fragment_requirement;
     }
 
     @Override
     public void click(int position, int itemType) {
         switch (itemType) {
             case ITEM_EDIT:
-                editReqPopWindow.show(getView());
+                editReqPopWindow.show(rootView);
                 break;
 
         }

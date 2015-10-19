@@ -33,10 +33,10 @@ import com.jianfanjia.cn.http.request.TotalDurationRequest;
 import com.jianfanjia.cn.http.request.UploadPicRequestNew;
 import com.jianfanjia.cn.http.request.UploadRegisterIdRequest;
 import com.jianfanjia.cn.http.request.UserByDesignerInfoRequest;
-import com.jianfanjia.cn.http.request.UserByDesignerInfoUpdateRequest;
+import com.jianfanjia.cn.http.request.UserByDesignerInfoUpdateRequestApi;
 import com.jianfanjia.cn.http.request.UserByOwnerInfoRequest;
-import com.jianfanjia.cn.http.request.UserByOwnerInfoUpdateRequest;
-import com.jianfanjia.cn.interf.LoadDataListener;
+import com.jianfanjia.cn.http.request.UserByOwnerInfoUpdateRequestApi;
+import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.DateFormatTool;
 import com.jianfanjia.cn.tools.ImageUtil;
 import com.jianfanjia.cn.tools.JsonParser;
@@ -63,7 +63,7 @@ public class JianFanJiaClient {
      * @param listener
      */
     public static void uploadRegisterId(Context context, String clientId,
-                                        LoadDataListener listener, Object tag) {
+                                        ApiUiUpdateListener listener, Object tag) {
         UploadRegisterIdRequest uploadRegisterIdRequest = new UploadRegisterIdRequest(context, clientId);
         JSONObject jsonParams = new JSONObject();
         try {
@@ -83,7 +83,7 @@ public class JianFanJiaClient {
      * @author zhanghao
      */
     public static void login(Context context, String username, String password,
-                             LoadDataListener listener, Object tag) {
+                             ApiUiUpdateListener listener, Object tag) {
         LoginRequest loginRequest = new LoginRequest(context, username, password);
         JSONObject jsonParams = new JSONObject();
         try {
@@ -102,7 +102,7 @@ public class JianFanJiaClient {
      * @param listener
      * @param tag
      */
-    public static void logout(Context context, LoadDataListener listener, Object tag) {
+    public static void logout(Context context, ApiUiUpdateListener listener, Object tag) {
 //		HttpRestClient.get(context, Url.SIGNOUT_URL, handler);
         LogoutRequest logoutRequest = new LogoutRequest(context);
         LogTool.d(TAG, "logout " + logoutRequest.getUrl());
@@ -118,7 +118,7 @@ public class JianFanJiaClient {
      * @param tag
      */
     public static void checkVersion(Context context,
-                                    LoadDataListener listener, Object tag) {
+                                    ApiUiUpdateListener listener, Object tag) {
         CheckVersionRequest checkVersionRequest = new CheckVersionRequest(context);
         LogTool.d(TAG, "checkVersion " + checkVersionRequest.getUrl());
         OkHttpClientManager.getInstance().getGetDelegate().getAsyn(checkVersionRequest, listener, tag);
@@ -133,7 +133,7 @@ public class JianFanJiaClient {
      * @param tag
      */
     public static void feedBack(Context context, String content, String platform,
-                                LoadDataListener listener, Object tag) {
+                                ApiUiUpdateListener listener, Object tag) {
         FeedBackRequest feedBackRequest = new FeedBackRequest(context);
         JSONObject jsonParams = new JSONObject();
         try {
@@ -154,7 +154,7 @@ public class JianFanJiaClient {
      * @author zhanghao
      */
     public static void send_verification(Context context, String phone,
-                                         LoadDataListener listener, Object tag) {
+                                         ApiUiUpdateListener listener, Object tag) {
         SendVerificationRequest sendVerificationRequest = new SendVerificationRequest(context);
         JSONObject jsonParams = new JSONObject();
         try {
@@ -205,7 +205,7 @@ public class JianFanJiaClient {
      * @author zhanghao
      */
     public static void register(Context context, RegisterInfo registerInfo,
-                                LoadDataListener listener, Object tag) {
+                                ApiUiUpdateListener listener, Object tag) {
         RegisterRequest registerRequest = new RegisterRequest(context);
         OkHttpClientManager.getInstance().getPostDelegate().postAsyn(registerRequest, JsonParser.beanToJson(registerInfo), listener, tag);
     }
@@ -218,7 +218,7 @@ public class JianFanJiaClient {
      * @author zhanghao
      */
     public static void getDesignerInfoById(Context context, String designerid,
-                                           LoadDataListener listener, Object tag) {
+                                           ApiUiUpdateListener listener, Object tag) {
         String getdesignerUrl = Url.GET_OWER_DESIGNER.replace(Url.ID,
                 designerid);
         DesignerInfoRequest designerInfoRequest = new DesignerInfoRequest(context);
@@ -234,7 +234,7 @@ public class JianFanJiaClient {
      * @description 业主获取个人信息
      */
     public static void get_Owner_Info(Context context,
-                                      LoadDataListener listener, Object tag) {
+                                      ApiUiUpdateListener listener, Object tag) {
         UserByOwnerInfoRequest userByOwnerInfoRequest = new UserByOwnerInfoRequest(context);
         OkHttpClientManager.getInstance().getGetDelegate().getAsyn(userByOwnerInfoRequest, listener, tag);
     }
@@ -246,7 +246,7 @@ public class JianFanJiaClient {
      * @description 设计师获取个人信息
      */
     public static void get_Designer_Info(Context context,
-                                         LoadDataListener listener, Object tag) {
+                                         ApiUiUpdateListener listener, Object tag) {
         UserByDesignerInfoRequest userByOwnerInfoRequest = new UserByDesignerInfoRequest(context);
         OkHttpClientManager.getInstance().getGetDelegate().getAsyn(userByOwnerInfoRequest, listener, tag);
     }
@@ -269,7 +269,7 @@ public class JianFanJiaClient {
      * @description 获取我的工地列表
      */
     public static void get_Process_List(Context context,
-                                        LoadDataListener listener, Object tag) {
+                                        ApiUiUpdateListener listener, Object tag) {
         ProcessListRequest processListRequest = new ProcessListRequest(context);
         OkHttpClientManager.getInstance().getGetDelegate().getAsyn(processListRequest, listener, tag);
     }
@@ -281,7 +281,7 @@ public class JianFanJiaClient {
      * @param listener
      */
     public static void getOwnerInfoById(Context context, String ownerid,
-                                        LoadDataListener listener, Object tag) {
+                                        ApiUiUpdateListener listener, Object tag) {
         String getdesignerUrl = Url.GET_ONE_OWNER_INFO.replace(Url.ID, ownerid);
         OwnerInfoRequest ownerInfoRequest = new OwnerInfoRequest(context);
         ownerInfoRequest.setUrl(getdesignerUrl);
@@ -295,7 +295,7 @@ public class JianFanJiaClient {
      * @param listener
      */
     public static void getOwnerDesignerInfoById(Context context,
-                                                String designerid, LoadDataListener listener, Object tag) {
+                                                String designerid, ApiUiUpdateListener listener, Object tag) {
         DesignerInfoRequest designerInfoRequest = new DesignerInfoRequest(context);
         designerInfoRequest.setUrl(Url.GET_OWER_DESIGNER_INFO);
         JSONObject jsonParams = new JSONObject();
@@ -321,7 +321,7 @@ public class JianFanJiaClient {
      */
     public static void postReschedule(Context context, String processId,
                                       String userId, String designerId, String section, String newDate,
-                                      LoadDataListener listener, Object tag) {
+                                      ApiUiUpdateListener listener, Object tag) {
         PostRescheduleRequest postRescheduleRequest = new PostRescheduleRequest(context);
         JSONObject jsonParams = new JSONObject();
         try {
@@ -346,7 +346,7 @@ public class JianFanJiaClient {
      * @param listener
      */
     public static void agreeReschedule(Context context, String processid,
-                                       LoadDataListener listener, Object tag) {
+                                       ApiUiUpdateListener listener, Object tag) {
         AgreeRescheduleRequest agreeRescheduleRequest = new AgreeRescheduleRequest(context);
         JSONObject jsonParams = new JSONObject();
         try {
@@ -366,7 +366,7 @@ public class JianFanJiaClient {
      * @param listener
      */
     public static void refuseReschedule(Context context, String processid,
-                                        LoadDataListener listener, Object tag) {
+                                        ApiUiUpdateListener listener, Object tag) {
         RefuseRescheduleRequest refuseRescheduleRequest = new RefuseRescheduleRequest(context);
         JSONObject jsonParams = new JSONObject();
         try {
@@ -385,7 +385,7 @@ public class JianFanJiaClient {
      * @param listener
      */
     public static void rescheduleAll(Context context,
-                                     LoadDataListener listener, Object tag) {
+                                     ApiUiUpdateListener listener, Object tag) {
 //        HttpRestClient.get(context, Url.GET_RESCHDULE_ALL, hanlder);
         GetAllRescheduleRequest getAllRescheduleRequest = new GetAllRescheduleRequest(context);
         OkHttpClientManager.getInstance().getGetDelegate().getAsyn(getAllRescheduleRequest, listener, tag);
@@ -400,7 +400,7 @@ public class JianFanJiaClient {
      */
     public static void comment(Context context,
                                CommitCommentInfo commitCommentInfo,
-                               LoadDataListener listener, Object tag) {
+                               ApiUiUpdateListener listener, Object tag) {
         CommitCommentRequest commitCommentRequest = new CommitCommentRequest(context);
         OkHttpClientManager.getInstance().getPostDelegate().postAsyn(commitCommentRequest, JsonParser.beanToJson(commitCommentInfo), listener, tag);
     }
@@ -432,7 +432,7 @@ public class JianFanJiaClient {
      * @param listener
      */
     public static void uploadImage(Context context, Bitmap bitmap,
-                                   LoadDataListener listener, Object tag) {
+                                   ApiUiUpdateListener listener, Object tag) {
         UploadPicRequestNew uploadPicRequest = new UploadPicRequestNew(context);
         OkHttpClientManager.getInstance().getPostDelegate().postAsyn(uploadPicRequest, ImageUtil.transformBitmapToBytes(bitmap), listener, tag);
     }
@@ -449,7 +449,7 @@ public class JianFanJiaClient {
      */
     public static void submitImageToProcess(Context context, String siteId,
                                             String section, String item, String imageId,
-                                            LoadDataListener listener, Object tag) {
+                                            ApiUiUpdateListener listener, Object tag) {
         AddPicToSectionItemRequest addPicToSectionItemRequest = new AddPicToSectionItemRequest(context, siteId, section, item, imageId);
         JSONObject jsonParams = new JSONObject();
         try {
@@ -476,7 +476,7 @@ public class JianFanJiaClient {
      */
     public static void submitYanShouImage(Context context, String siteId,
                                           String section, String key, String imageId,
-                                          LoadDataListener listener, Object tag) {
+                                          ApiUiUpdateListener listener, Object tag) {
         AddPicToCheckRequest addPicToCheckRequest = new AddPicToCheckRequest(context, siteId, section, key, imageId);
         JSONObject jsonParams = new JSONObject();
         try {
@@ -501,7 +501,7 @@ public class JianFanJiaClient {
      * @param listener
      */
     public static void processItemDone(Context context, String siteId,
-                                       String section, String item, LoadDataListener listener, Object tag) {
+                                       String section, String item, ApiUiUpdateListener listener, Object tag) {
         PostSectionFinishRequest postSectionFinishRequest = new PostSectionFinishRequest(context);
         JSONObject jsonParams = new JSONObject();
         try {
@@ -523,7 +523,7 @@ public class JianFanJiaClient {
      * @param listener
      */
     public static void get_ProcessInfo_By_Id(Context context, String processid,
-                                             LoadDataListener listener, Object tag) {
+                                             ApiUiUpdateListener listener, Object tag) {
         ProcessInfoRequest processInfoRequest = new ProcessInfoRequest(context, processid);
         String getProcessUrl = Url.GET_PROCESSINFO_BYID.replace(Url.ID,
                 processid);
@@ -540,8 +540,8 @@ public class JianFanJiaClient {
      * @param listener
      */
     public static void put_OwnerInfo(Context context,
-                                     OwnerUpdateInfo ownerInfo, LoadDataListener listener, Object tag) {
-        UserByOwnerInfoUpdateRequest userByOwnerInfoUpdateRequest = new UserByOwnerInfoUpdateRequest(context, ownerInfo);
+                                     OwnerUpdateInfo ownerInfo, ApiUiUpdateListener listener, Object tag) {
+        UserByOwnerInfoUpdateRequestApi userByOwnerInfoUpdateRequest = new UserByOwnerInfoUpdateRequestApi(context, ownerInfo);
         LogTool.d(TAG, "put_OwnerInfo -" + userByOwnerInfoUpdateRequest.getUrl() + JsonParser.beanToJson(ownerInfo));
         OkHttpClientManager.getInstance().getPostDelegate().postAsyn(userByOwnerInfoUpdateRequest, JsonParser.beanToJson(ownerInfo), listener, tag);
     }
@@ -554,8 +554,8 @@ public class JianFanJiaClient {
      * @param listener
      */
     public static void put_DesignerInfo(Context context,
-                                        DesignerUpdateInfo designerInfo, LoadDataListener listener, Object tag) {
-        UserByDesignerInfoUpdateRequest userByDesignerInfoUpdateRequest = new UserByDesignerInfoUpdateRequest(context, designerInfo);
+                                        DesignerUpdateInfo designerInfo, ApiUiUpdateListener listener, Object tag) {
+        UserByDesignerInfoUpdateRequestApi userByDesignerInfoUpdateRequest = new UserByDesignerInfoUpdateRequestApi(context, designerInfo);
         LogTool.d(TAG, "put_OwnerInfo -" + userByDesignerInfoUpdateRequest.getUrl());
         OkHttpClientManager.getInstance().getPostDelegate().postAsyn(userByDesignerInfoUpdateRequest, JsonParser.beanToJson(userByDesignerInfoUpdateRequest), listener, tag);
     }
@@ -570,7 +570,7 @@ public class JianFanJiaClient {
      * @param listener
      */
     public static void confirm_canCheckBydesigner(Context context,
-                                                  String processid, String section, LoadDataListener listener, Object tag) {
+                                                  String processid, String section, ApiUiUpdateListener listener, Object tag) {
         NotifyOwnerCheckRequest notifyOwnerCheckRequest = new NotifyOwnerCheckRequest(context);
         JSONObject jsonParams = new JSONObject();
         try {
@@ -593,7 +593,7 @@ public class JianFanJiaClient {
      * @param listener
      */
     public static void confirm_CheckDoneByOwner(Context context, String processid,
-                                                String section, LoadDataListener listener, Object tag) {
+                                                String section, ApiUiUpdateListener listener, Object tag) {
         OwnerFinishCheckRequest ownerFinishCheckRequest = new OwnerFinishCheckRequest(context);
         JSONObject jsonParams = new JSONObject();
         try {
@@ -619,7 +619,7 @@ public class JianFanJiaClient {
      */
     public static void deleteYanshouImgByDesigner(Context context,
                                                   String processId, String section, String key,
-                                                  LoadDataListener listener, Object tag) {
+                                                  ApiUiUpdateListener listener, Object tag) {
         DeletePicRequest deletePicRequest = new DeletePicRequest(context, processId, section, key);
         JSONObject jsonParams = new JSONObject();
         try {
@@ -642,7 +642,7 @@ public class JianFanJiaClient {
      * @param tag
      */
     public static void get_TotalDuration(Context context, String planId,
-                                         LoadDataListener listener, Object tag) {
+                                         ApiUiUpdateListener listener, Object tag) {
         TotalDurationRequest totalDurationRequest = new TotalDurationRequest(context);
         String getTotalDurationUrl = Url.GET_PLAN.replace(Url.ID, planId);
         totalDurationRequest.setUrl(getTotalDurationUrl);

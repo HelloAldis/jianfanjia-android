@@ -13,11 +13,10 @@ import android.widget.ToggleButton;
 import com.igexin.sdk.PushManager;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.base.BaseResponse;
 import com.jianfanjia.cn.bean.UpdateVersion;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaClient;
-import com.jianfanjia.cn.interf.LoadDataListener;
+import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.service.UpdateService;
 import com.jianfanjia.cn.tools.FileUtil;
 import com.jianfanjia.cn.tools.JsonParser;
@@ -252,19 +251,18 @@ public class SettingActivity extends BaseActivity implements OnClickListener, On
 
     // 检查版本
     private void checkVersion() {
-        JianFanJiaClient.checkVersion(this, new LoadDataListener() {
+        JianFanJiaClient.checkVersion(this, new ApiUiUpdateListener() {
             @Override
             public void preLoad() {
                 showWaitDialog("检查新版本");
             }
 
             @Override
-            public void loadSuccess(BaseResponse baseResponse) {
+            public void loadSuccess(Object data) {
                 hideWaitDialog();
-                if (baseResponse.getData() != null) {
+                if (data != null) {
                     UpdateVersion updateVersion = JsonParser
-                            .jsonToBean(baseResponse.getData()
-                                            .toString(),
+                            .jsonToBean(data.toString(),
                                     UpdateVersion.class);
                     if (updateVersion != null) {
                         if (Integer.parseInt(updateVersion
@@ -283,7 +281,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener, On
             }
 
             @Override
-            public void loadFailture() {
+            public void loadFailture(String error_msg) {
                 makeTextLong(getString(R.string.tip_error_internet));
                 hideWaitDialog();
             }
@@ -295,7 +293,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener, On
     // 退出登录
     private void logout() {
         JianFanJiaClient.logout(this,
-                new LoadDataListener() {
+                new ApiUiUpdateListener() {
 
                     @Override
                     public void preLoad() {
@@ -303,7 +301,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener, On
                     }
 
                     @Override
-                    public void loadSuccess(BaseResponse baseResponse) {
+                    public void loadSuccess(Object data) {
                         hideWaitDialog();
                         makeTextLong("退出成功");
                         PushManager.getInstance().stopService(
@@ -314,7 +312,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener, On
                     }
 
                     @Override
-                    public void loadFailture() {
+                    public void loadFailture(String error_msg) {
                         hideWaitDialog();
                         makeTextLong(getString(R.string.tip_error_internet));
                     }

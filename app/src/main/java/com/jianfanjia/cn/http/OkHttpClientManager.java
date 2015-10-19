@@ -10,12 +10,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.google.gson.Gson;
+import com.jianfanjia.cn.AppException;
 import com.jianfanjia.cn.base.BaseRequest;
 import com.jianfanjia.cn.base.BaseResponse;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.coreprogress.helper.ProgressHelper;
 import com.jianfanjia.cn.http.coreprogress.listener.impl.UIProgressListener;
-import com.jianfanjia.cn.interf.LoadDataListener;
+import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.LogTool;
 import com.squareup.okhttp.Call;
 import com.squareup.okhttp.Callback;
@@ -57,11 +58,14 @@ import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
 
 /**
- * Created by zhy on 15/8/17.
+ * Description: com.jianfanjia.cn.http
+ * Author: zhanghao
+ * Email: jame.zhang@myjyz.com
+ * Date:2015-10-15 15:17
  */
 public class OkHttpClientManager {
     private static final String TAG = "OkHttpClientManager";
-    public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+    public static final String SERVER_ERROR = "对不起，服务器出现异常";
 
     private static OkHttpClientManager mInstance;
     private OkHttpClient mOkHttpClient;
@@ -142,7 +146,7 @@ public class OkHttpClientManager {
         return getInstance()._getHttpsDelegate();
     }
 
-    private void deliveryResult(final LoadDataListener listener, final BaseRequest baseRequest) {
+    private void deliveryResult(final ApiUiUpdateListener listener, final BaseRequest baseRequest) {
         //UI thread
         if (listener != null) {
             listener.preLoad();
@@ -152,66 +156,67 @@ public class OkHttpClientManager {
         mOkHttpClient.newCall(baseRequest.getRequest()).enqueue(new Callback() {
             @Override
             public void onFailure(final Request request, final IOException e) {
-                sendFailedStringCallback(listener);
+                sendFailedStringCallback(listener,SERVER_ERROR);
             }
 
             @Override
             public void onResponse(final Response response) {
-                BaseResponse baseResponse = new BaseResponse();
                 try {
                     final String string = response.body().string();
                     JSONObject responseString = new JSONObject(string);
                     if (responseString.has(Constant.DATA)
                             && responseString.get(Constant.DATA) != null) {
                         LogTool.d("onResponse == ", "data :" + responseString.get(Constant.DATA).toString());
-                        baseResponse.setData(responseString.get(Constant.DATA).toString());
-                        baseRequest.onSuccess(baseResponse);
-                        sendSuccessResultCallback(listener, baseResponse);
-                    } else if (responseString.has(Constant.ERROR_MSG)) {
+                        String data = responseString.get(Constant.DATA).toString();
+                        baseRequest.onSuccess(data);
+                        sendSuccessResultCallback(listener, data);
+                    } else if (responseString.has(Constant.ERROR_MSG) && responseString.get(Constant.ERROR_MSG) != null) {
                         LogTool.d("onResponse == ", "errormsg :" + responseString.get(
                                 Constant.ERROR_MSG).toString());
-                        baseResponse.setErr_msg(responseString.get(
-                                Constant.ERROR_MSG).toString());
-                        baseRequest.onFailure(baseResponse);
-                        sendFailedStringCallback(listener);
-                    } else if (responseString.has(Constant.SUCCESS_MSG)) {
+                        String error_msg = responseString.get(
+                                Constant.ERROR_MSG).toString();
+                        baseRequest.onFailure(error_msg);
+                        sendFailedStringCallback(listener,error_msg);
+                    } else if (responseString.has(Constant.SUCCESS_MSG) && responseString.get(
+                            Constant.SUCCESS_MSG) != null) {
                         LogTool.d("onResponse == ", "msg :" + responseString.get(
                                 Constant.SUCCESS_MSG).toString());
-                        baseResponse.setMsg(responseString.get(Constant.SUCCESS_MSG).toString());
-                        baseRequest.onSuccess(baseResponse);
-                        sendSuccessResultCallback(listener, baseResponse);
+                        String msg = responseString.get(
+                                Constant.SUCCESS_MSG).toString();
+                        baseRequest.onSuccess(msg);
+                        sendSuccessResultCallback(listener, msg);
                     }
                 } catch (IOException e) {
-                    sendFailedStringCallback(listener);
+                    sendFailedStringCallback(listener,SERVER_ERROR );
                 } catch (com.google.gson.JsonParseException e)//Json解析的错误
                 {
-                    sendFailedStringCallback(listener);
+                    sendFailedStringCallback(listener,SERVER_ERROR );
                 } catch (JSONException e) {
-                    sendFailedStringCallback(listener);
+                    sendFailedStringCallback(listener,SERVER_ERROR );
 
                 }
             }
         });
     }
 
-    private void sendFailedStringCallback(final LoadDataListener listener) {
+    private void sendFailedStringCallback(final ApiUiUpdateListener listener, final String error_msg) {
         LogTool.d("onResponse ==", "loadFailture");
         mDelivery.post(new Runnable() {
             @Override
             public void run() {
                 if (listener != null) {
-                    listener.loadFailture();
+                    listener.loadFailture(error_msg);
                 }
             }
         });
     }
 
-    private void sendSuccessResultCallback(final LoadDataListener listener, final BaseResponse baseResponse) {
+    private void sendSuccessResultCallback(final ApiUiUpdateListener listener, final Object data) {
         mDelivery.post(new Runnable() {
             @Override
             public void run() {
                 if (listener != null) {
-                    listener.loadSuccess(baseResponse);
+                    listener.loadSuccess(data);
                 }
             }
         });
@@ -248,29 +253,29 @@ public class OkHttpClientManager {
         /**
          * 直接将bodyStr以写入请求体
          */
-        public void postAsyn(BaseRequest baseRequest, String bodyStr, final LoadDataListener loadDataListener) {
-            postAsyn(baseRequest, bodyStr, loadDataListener, null);
+        public void postAsyn(BaseRequest baseRequest, String bodyStr, final ApiUiUpdateListener apiUiUpdateListener) {
+            postAsyn(baseRequest, bodyStr, apiUiUpdateListener, null);
         }
 
-        public void postAsyn(BaseRequest baseRequest, String bodyStr, final LoadDataListener loadDataListener, Object tag) {
-            postAsynWithMediaType(baseRequest, bodyStr, MEDIA_TYPE_JSON, loadDataListener, tag);
+        public void postAsyn(BaseRequest baseRequest, String bodyStr, final ApiUiUpdateListener apiUiUpdateListener, Object tag) {
+            postAsynWithMediaType(baseRequest, bodyStr, MEDIA_TYPE_JSON, apiUiUpdateListener, tag);
         }
 
         /**
          * 直接将bodyBytes以写入请求体
          */
-        public void postAsyn(BaseRequest baseRequest, byte[] bodyBytes, final LoadDataListener loadDataListener) {
-            postAsyn(baseRequest, bodyBytes, loadDataListener, null);
+        public void postAsyn(BaseRequest baseRequest, byte[] bodyBytes, final ApiUiUpdateListener apiUiUpdateListener) {
+            postAsyn(baseRequest, bodyBytes, apiUiUpdateListener, null);
         }
 
-        public void postAsyn(BaseRequest baseRequest, byte[] bodyBytes, final LoadDataListener loadDataListener, Object tag) {
-            postAsynWithMediaType(baseRequest, bodyBytes, MEDIA_TYPE_IMAGE, loadDataListener, tag);
+        public void postAsyn(BaseRequest baseRequest, byte[] bodyBytes, final ApiUiUpdateListener apiUiUpdateListener, Object tag) {
+            postAsynWithMediaType(baseRequest, bodyBytes, MEDIA_TYPE_IMAGE, apiUiUpdateListener, tag);
         }
 
         /**
          * 直接将bodyStr以写入请求体
          */
-        public void postAsynWithMediaType(BaseRequest baseRequest, String bodyStr, MediaType type, final LoadDataListener listener, Object tag) {
+        public void postAsynWithMediaType(BaseRequest baseRequest, String bodyStr, MediaType type, final ApiUiUpdateListener listener, Object tag) {
             RequestBody body = RequestBody.create(type, bodyStr);
             baseRequest.setRequest(buildPostRequest(baseRequest.getUrl(), body, tag));
             deliveryResult(listener, baseRequest);
@@ -279,7 +284,7 @@ public class OkHttpClientManager {
         /**
          * 直接将bodyBytes以写入请求体
          */
-        public void postAsynWithMediaType(BaseRequest baseRequest, byte[] bodyBytes, MediaType type, LoadDataListener listener, Object tag) {
+        public void postAsynWithMediaType(BaseRequest baseRequest, byte[] bodyBytes, MediaType type, ApiUiUpdateListener listener, Object tag) {
             RequestBody body = RequestBody.create(type, bodyBytes);
             baseRequest.setRequest(buildPostRequest(baseRequest.getUrl(), body, tag));
             deliveryResult(listener, baseRequest);
@@ -337,12 +342,12 @@ public class OkHttpClientManager {
         /**
          * 通用的方法
          */
-        private void getAsyn(BaseRequest baseRequest, final LoadDataListener listener) {
+        private void getAsyn(BaseRequest baseRequest, final ApiUiUpdateListener listener) {
             deliveryResult(listener, baseRequest);
         }
 
 
-        public void getAsyn(BaseRequest baseRequest, final LoadDataListener listener, Object tag) {
+        public void getAsyn(BaseRequest baseRequest, final ApiUiUpdateListener listener, Object tag) {
             baseRequest.setRequest(buildGetRequest(baseRequest.getUrl(), tag));
             getAsyn(baseRequest, listener);
         }
@@ -398,7 +403,7 @@ public class OkHttpClientManager {
         /**
          * 异步基于post的文件上传:主方法
          */
-        public void postAsyn(BaseRequest baseRequest, String[] fileKeys, File[] files, Param[] params, LoadDataListener listener, Object tag) {
+        public void postAsyn(BaseRequest baseRequest, String[] fileKeys, File[] files, Param[] params, ApiUiUpdateListener listener, Object tag) {
             baseRequest.setRequest(buildMultipartFormRequest(baseRequest.getUrl(), files, fileKeys, params, tag));
             deliveryResult(listener, baseRequest);
         }
@@ -406,14 +411,14 @@ public class OkHttpClientManager {
         /**
          * 异步基于post的文件上传:单文件不带参数上传
          */
-        public void postAsyn(BaseRequest baseRequest, String fileKey, File file, LoadDataListener listener, Object tag) throws IOException {
+        public void postAsyn(BaseRequest baseRequest, String fileKey, File file, ApiUiUpdateListener listener, Object tag) throws IOException {
             postAsyn(baseRequest, new String[]{fileKey}, new File[]{file}, null, listener, tag);
         }
 
         /**
          * 异步基于post的文件上传，单文件且携带其他form参数上传
          */
-        public void postAsyn(BaseRequest baseRequest, String fileKey, File file, Param[] params, LoadDataListener listener, Object tag) {
+        public void postAsyn(BaseRequest baseRequest, String fileKey, File file, Param[] params, ApiUiUpdateListener listener, Object tag) {
             postAsyn(baseRequest, new String[]{fileKey}, new File[]{file}, params, listener, tag);
         }
 
@@ -545,7 +550,7 @@ public class OkHttpClientManager {
          * @param listener
          * @param uiProgressListener 用来显示下载进度信息的监听器
          */
-        public void downloadAsyn(final String url, final String filename, final String destFileDir, final LoadDataListener listener, UIProgressListener uiProgressListener, Object tag) {
+        public void downloadAsyn(final String url, final String filename, final String destFileDir, final ApiUiUpdateListener listener, UIProgressListener uiProgressListener, Object tag) {
             final Request request = new Request.Builder()
                     .url(url)
                     .tag(tag)
@@ -557,7 +562,7 @@ public class OkHttpClientManager {
             call.enqueue(new Callback() {
                 @Override
                 public void onFailure(final Request request, final IOException e) {
-                    sendFailedStringCallback(listener);
+                    sendFailedStringCallback(listener, SERVER_ERROR);
                 }
 
                 @Override
@@ -586,7 +591,7 @@ public class OkHttpClientManager {
 
                         sendSuccessResultCallback(listener, baseResponse);
                     } catch (IOException e) {
-                        sendFailedStringCallback(listener);
+                        sendFailedStringCallback(listener, SERVER_ERROR);
                     } finally {
                         try {
                             if (is != null) is.close();
@@ -603,7 +608,7 @@ public class OkHttpClientManager {
         }
 
 
-        public void downloadAsyn(final String url, final String filename, final String destFileDir, final LoadDataListener listener, UIProgressListener uiProgressListener) {
+        public void downloadAsyn(final String url, final String filename, final String destFileDir, final ApiUiUpdateListener listener, UIProgressListener uiProgressListener) {
             downloadAsyn(url, filename, destFileDir, listener, uiProgressListener, null);
         }
     }
