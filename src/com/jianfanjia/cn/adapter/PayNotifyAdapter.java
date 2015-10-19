@@ -41,7 +41,7 @@ public class PayNotifyAdapter extends BaseListAdapter<NotifyMessage> {
 		} else {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
-		viewHolder.itemNameView.setText(context.getString(R.string.list_item_fukuan_example));
+		viewHolder.itemNameView.setText(message.getContent());
 		viewHolder.itemNodeView.setText(MyApplication.getInstance()
 				.getStringById(message.getSection()) + "½×¶Î");
 		viewHolder.itemPubTimeView.setText(DateFormatTool
