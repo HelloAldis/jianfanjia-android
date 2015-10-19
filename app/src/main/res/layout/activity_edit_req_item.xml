@@ -23,7 +23,10 @@
         <ListView
             android:id="@+id/act_edit_req_item_listview"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:choiceMode="singleChoice"
+            style="@style/style_listview_base"/>
         <View
             style="@style/divier_line"
             android:background="@color/horzontal_line_color" />

@@ -1,7 +1,6 @@
 package com.jianfanjia.cn.base;
 
 import android.content.Context;
-import android.widget.Toast;
 
 import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.interf.ApiDataUpdateListenter;
@@ -74,14 +73,6 @@ public abstract class BaseRequest implements ApiDataUpdateListenter {
     // 数据错误后的处理
     @Override
     public void onFailure(String error_msg) {
-    }
-
-    protected void makeLongTextToast(String message) {
-        Toast.makeText(context, message, Toast.LENGTH_LONG).show();
-    }
-
-    protected void makeShortTextToast(String message) {
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
 
 

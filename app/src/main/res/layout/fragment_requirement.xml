@@ -16,7 +16,16 @@
         android:layout_height="match_parent"
         android:id="@+id/req_listview_wrap">
 
-        <ListView
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/req_listView"
+            android:layout_gravity="center_horizontal"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            />
+
+        <!--<ListView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/req_listView"
@@ -25,7 +34,7 @@
             android:paddingBottom="8dp"
             android:choiceMode="singleChoice"
             style="@style/style_listview_base"
-            android:scrollingCache="false" />
+            android:scrollingCache="false" />-->
     </LinearLayout>
 
     <RelativeLayout

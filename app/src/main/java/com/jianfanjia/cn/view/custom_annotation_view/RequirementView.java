@@ -8,9 +8,9 @@ import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.RequirementInfo;
+import com.jianfanjia.cn.tools.StringUtils;
 
 import org.androidannotations.annotations.EViewGroup;
-import org.androidannotations.annotations.RootContext;
 import org.androidannotations.annotations.ViewById;
 
 /**
@@ -22,9 +22,6 @@ import org.androidannotations.annotations.ViewById;
 @EViewGroup(R.layout.list_item_req)
 public class RequirementView extends FrameLayout {
 
-    @RootContext
-    Context context;
-
     public RequirementView(Context context) {
         super(context);
     }
@@ -32,9 +29,9 @@ public class RequirementView extends FrameLayout {
     @ViewById
     protected TextView ltm_req_cell;
     @ViewById
-    protected TextView ltm_req_publish_time;
+    protected TextView ltm_req_starttime_cont;
     @ViewById
-    protected TextView ltm_req_update_time;
+    protected TextView ltm_req_updatetime_cont;
     @ViewById
     protected ImageButton ltm_req_edit;
     @ViewById
@@ -61,7 +58,8 @@ public class RequirementView extends FrameLayout {
     protected TextView ltm_req_designer_status2;
 
     public void bind(RequirementInfo requirementInfo) {
-
+        ltm_req_cell.setText(requirementInfo.getCell());
+        ltm_req_starttime_cont.setText(StringUtils.covertLongToString(requirementInfo.getCreate_at()));
     }
 
 }

@@ -31,5 +31,33 @@ public abstract class RecyclerViewAdapterBase<T, V extends View> extends Recycle
 
     protected abstract V onCreateItemView(ViewGroup parent, int viewType);
 
+    public void addItem(List<T> ts){
+        clearItems();
+        for(int i = 0;i < ts.size();i++){
+            add(i,ts.get(i));
+        }
+    }
+
+    public void remove(int position) {
+        items.remove(position);
+        notifyItemRemoved(position);
+    }
+
+    private void add(int position,T t) {
+        items.add(t);
+        notifyItemInserted(position);
+    }
+
+    public void clearItems(){
+        items.clear();
+    }
+
+    public void deleteItem(T t){
+        if(items.contains(t)){
+            items.remove(t);
+            notifyDataSetChanged();
+        }
+    }
     // additional methods to manipulate the items
+
 }
