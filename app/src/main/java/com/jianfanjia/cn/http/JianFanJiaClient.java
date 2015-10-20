@@ -15,6 +15,7 @@ import com.jianfanjia.cn.http.request.AgreeRescheduleRequest;
 import com.jianfanjia.cn.http.request.CheckVersionRequest;
 import com.jianfanjia.cn.http.request.CommitCommentRequest;
 import com.jianfanjia.cn.http.request.DeletePicRequest;
+import com.jianfanjia.cn.http.request.DesignerHomePageRequest;
 import com.jianfanjia.cn.http.request.DesignerInfoRequest;
 import com.jianfanjia.cn.http.request.FeedBackRequest;
 import com.jianfanjia.cn.http.request.GetAllRescheduleRequest;
@@ -32,6 +33,7 @@ import com.jianfanjia.cn.http.request.ProcessInfoRequest;
 import com.jianfanjia.cn.http.request.ProcessListRequest;
 import com.jianfanjia.cn.http.request.RefuseRescheduleRequest;
 import com.jianfanjia.cn.http.request.RegisterRequest;
+import com.jianfanjia.cn.http.request.SearchDesignerProductRequest;
 import com.jianfanjia.cn.http.request.SendVerificationRequest;
 import com.jianfanjia.cn.http.request.TotalDurationRequest;
 import com.jianfanjia.cn.http.request.UploadPicRequestNew;
@@ -56,8 +58,7 @@ import org.json.JSONObject;
  * @date 2015-8-19 下午2:17:12
  */
 public class JianFanJiaClient {
-
-    public static final String TAG = "JianFanJiaClient.class";
+    public static final String TAG = JianFanJiaClient.class.getName();
 
     /**
      * 上传个推clientid
@@ -595,7 +596,6 @@ public class JianFanJiaClient {
             jsonParams.put("_id", processid);
             jsonParams.put("section", section);
             LogTool.d(TAG, "confirm_canCheckBydesigner -" + notifyOwnerCheckRequest.getUrl() + "----" + jsonParams.toString());
-
             OkHttpClientManager.getInstance().getPostDelegate().postAsyn(notifyOwnerCheckRequest, jsonParams.toString(), listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -618,7 +618,6 @@ public class JianFanJiaClient {
             jsonParams.put("_id", processid);
             jsonParams.put("section", section);
             LogTool.d(TAG, "confirm_CheckDoneByOwner -" + ownerFinishCheckRequest.getUrl() + "----" + jsonParams.toString());
-
             OkHttpClientManager.getInstance().getPostDelegate().postAsyn(ownerFinishCheckRequest, jsonParams.toString(), listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -689,4 +688,50 @@ public class JianFanJiaClient {
         }
 
     }
+
+    /**
+     * 获取设计师信息主页
+     *
+     * @param context
+     * @param designerid
+     * @param listener
+     * @param tag
+     */
+    public static void getDesignerHomePage(Context context, String designerid, ApiUiUpdateListener listener, Object tag) {
+        DesignerHomePageRequest homePageRequest = new DesignerHomePageRequest(context, designerid);
+        JSONObject jsonParams = new JSONObject();
+        try {
+            jsonParams.put("_id", designerid);
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(homePageRequest, jsonParams.toString(), listener, tag);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 获取设计师作品
+     *
+     * @param context
+     * @param designerid
+     * @param from
+     * @param limit
+     * @param listener
+     * @param tag
+     */
+    public static void getDesignerProduct(Context context, String designerid, int from, int limit, ApiUiUpdateListener listener, Object tag) {
+        SearchDesignerProductRequest productRequest = new SearchDesignerProductRequest(context, designerid, from, limit);
+        JSONObject jsonParams = new JSONObject();
+        try {
+            JSONObject params = new JSONObject();
+            params.put("designerid", designerid);
+            jsonParams.put("query", params);
+            jsonParams.put("from", from);
+            jsonParams.put("limit", limit);
+            LogTool.d(TAG, "jsonParams:" + jsonParams.toString());
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(productRequest, jsonParams.toString(), listener, tag);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
