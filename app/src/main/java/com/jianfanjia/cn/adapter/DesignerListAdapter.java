@@ -59,6 +59,8 @@ public class DesignerListAdapter extends BaseListAdapter<DesignerListInfo> {
 
         Product product = info.getProduct();
         viewHolder.itemXiaoQuText.setText(product.getCell());
+        String houseType = product.getHouse_type();
+        String decStyle = product.getDec_style();
         viewHolder.itemProduceText.setText(product.getHouse_area() + "㎡");
         imageLoader.displayImage(Url_New.GET_IMAGE + product.getImages().get(0).getImageid(), viewHolder.itemProductView, options);
         imageLoader.displayImage(Url_New.GET_IMAGE + info.getImageid(), viewHolder.itemHeadView, options);
