@@ -34,6 +34,8 @@ public class Url_New {
     // 用户反馈 feedback
     public static final String FEEDBACK_URL = HTTPROOT + "feedback";
     // --------------------------------------------------业主-----------------------------------------------------------
+    //业主获取移动端首页数据
+    public static final String HOME_PAGE_DISIGNERS = HTTPROOT + "home_page_designers";
     //业主提交需求(post)
     public static final String POST_REQUIREMENT = HTTPROOT + "user_add_requirement";
     // 业主获取需求
@@ -44,7 +46,6 @@ public class Url_New {
     public static final String REQUIREMENT_UPDATE = HTTPROOT + "user_update_requirement";
     //业主获取自己可以预约的设计师列表(Post)
     public static final String REQUIREMENT_ORDER_DESIGNER_LIST = HTTPROOT + "designers_user_can_order";
-
     //业主获取我的意向设计师列表(Post)
     public static final String FAVORITE_DESIGNER_LIST = HTTPROOT + "favorite/designer/list";
     //业主添加设计师到意向列表（Post)
