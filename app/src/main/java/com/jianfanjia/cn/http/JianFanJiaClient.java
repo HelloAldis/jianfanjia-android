@@ -7,6 +7,7 @@ import com.jianfanjia.cn.bean.CommitCommentInfo;
 import com.jianfanjia.cn.bean.DesignerUpdateInfo;
 import com.jianfanjia.cn.bean.OwnerUpdateInfo;
 import com.jianfanjia.cn.bean.RegisterInfo;
+import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Url;
 import com.jianfanjia.cn.http.request.AddPicToCheckRequest;
 import com.jianfanjia.cn.http.request.AddPicToSectionItemRequest;
@@ -23,6 +24,7 @@ import com.jianfanjia.cn.http.request.LogoutRequest;
 import com.jianfanjia.cn.http.request.NotifyOwnerCheckRequest;
 import com.jianfanjia.cn.http.request.OwnerFinishCheckRequest;
 import com.jianfanjia.cn.http.request.OwnerInfoRequest;
+import com.jianfanjia.cn.http.request.PostRequirementRequest;
 import com.jianfanjia.cn.http.request.PostSectionFinishRequest;
 import com.jianfanjia.cn.http.request.ProcessInfoRequest;
 import com.jianfanjia.cn.http.request.ProcessListRequest;
@@ -177,6 +179,19 @@ public class JianFanJiaClient {
         OkHttpClientManager.getInstance().getGetDelegate().getAsyn(getRequirementRequest,listener,tag);
     }
 
+    /**
+     * 发布需求
+     * @param context
+     * @param requirementInfo
+     * @param listener
+     * @param tag
+     */
+    public static void add_Requirement(Context context,RequirementInfo requirementInfo,ApiUiUpdateListener listener,Object tag){
+        PostRequirementRequest postRequirementRequest = new PostRequirementRequest(context,requirementInfo);
+        LogTool.d(TAG,"add_Requirement --" + postRequirementRequest.getUrl() + "--" + JsonParser.beanToJson(requirementInfo));
+        OkHttpClientManager.getInstance().getPostDelegate().postAsyn(postRequirementRequest,JsonParser.beanToJson(requirementInfo),listener,tag);
+    }
+
    /* *//**
      * @param context
      * @param requirementInfo
@@ -251,17 +266,6 @@ public class JianFanJiaClient {
         UserByDesignerInfoRequest userByOwnerInfoRequest = new UserByDesignerInfoRequest(context);
         OkHttpClientManager.getInstance().getGetDelegate().getAsyn(userByOwnerInfoRequest, listener, tag);
     }
-
-   /* *//**
-     * @param context
-     * @param hanlder
-     * @author zhanghao
-     * @description 设计师获取我的业主
-     *//*
-    public static void get_Designer_Owner(Context context,
-                                          AsyncHttpResponseHandler hanlder) {
-        HttpRestClient.get(context, Url.GET_DESIGNER_PROCESS, hanlder);
-    }*/
 
     /**
      * @param context

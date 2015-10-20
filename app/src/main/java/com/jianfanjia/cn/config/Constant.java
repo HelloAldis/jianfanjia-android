@@ -164,4 +164,5 @@ public class Constant {
     public static final String YOU_QI = "you_qi";
     public static final String AN_ZHUANG = "an_zhuang";
     public static final String JUN_GONG = "jun_gong";
+
 }

@@ -10,11 +10,13 @@ import java.util.List;
  * @date 2015-8-28 10:05
  */
 public class RequirementInfo implements Serializable {
+
     private static final long serialVersionUID = 1L;
+
     private String _id;
     private String userid;
-    private String province;
-    private String city;
+    private String province = "湖北省";
+    private String city = "武汉市";
     private String district;
     private String street;
     private String cell_phase;
@@ -31,8 +33,10 @@ public class RequirementInfo implements Serializable {
     private String family_description;
     private String status;
     private String communication_type;
-    private List<DesignerInfo> order_designerids;
-    private List<DesignerInfo> rec_designerids;
+    private List<String> order_designerids;
+    private List<String> rec_designerids;
+    private List<OrderDesignerInfo> rec_designers;//匹配的设计师
+    private List<OrderDesignerInfo> order_designers;//预约的设计师
 
     public String get_id() {
         return _id;
@@ -186,27 +190,43 @@ public class RequirementInfo implements Serializable {
         this.communication_type = communication_type;
     }
 
-    public List<DesignerInfo> getOrder_designerids() {
-        return order_designerids;
-    }
-
-    public void setOrder_designerids(List<DesignerInfo> order_designerids) {
-        this.order_designerids = order_designerids;
-    }
-
-    public List<DesignerInfo> getRec_designerids() {
-        return rec_designerids;
-    }
-
-    public void setRec_designerids(List<DesignerInfo> rec_designerids) {
-        this.rec_designerids = rec_designerids;
-    }
-
     public String getCell_phase() {
         return cell_phase;
     }
 
     public void setCell_phase(String cell_phase) {
         this.cell_phase = cell_phase;
+    }
+
+    public List<String> getOrder_designerids() {
+        return order_designerids;
+    }
+
+    public void setOrder_designerids(List<String> order_designerids) {
+        this.order_designerids = order_designerids;
+    }
+
+    public List<String> getRec_designerids() {
+        return rec_designerids;
+    }
+
+    public void setRec_designerids(List<String> rec_designerids) {
+        this.rec_designerids = rec_designerids;
+    }
+
+    public List<OrderDesignerInfo> getRec_designers() {
+        return rec_designers;
+    }
+
+    public void setRec_designers(List<OrderDesignerInfo> rec_designers) {
+        this.rec_designers = rec_designers;
+    }
+
+    public List<OrderDesignerInfo> getOrder_designers() {
+        return order_designers;
+    }
+
+    public void setOrder_designers(List<OrderDesignerInfo> order_designers) {
+        this.order_designers = order_designers;
     }
 }
