@@ -36,6 +36,10 @@ public class Url_New {
     // --------------------------------------------------业主-----------------------------------------------------------
     //业主获取移动端首页数据
     public static final String HOME_PAGE_DISIGNERS = HTTPROOT + "home_page_designers";
+    //获取设计师信息主页
+    public static final String DESIGNER_HOME_PAGE = HTTPROOT + "designer_home_page";
+    //获取设计师作品
+    public static final String SEARCH_DESIGNER_PRODUCT = HTTPROOT + "search_designer_product";
     //业主提交需求(post)
     public static final String POST_REQUIREMENT = HTTPROOT + "user_add_requirement";
     // 业主获取需求

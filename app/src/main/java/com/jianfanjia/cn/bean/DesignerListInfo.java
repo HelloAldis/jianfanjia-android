@@ -9,42 +9,40 @@ import java.io.Serializable;
  * Time: 14:05
  */
 public class DesignerListInfo implements Serializable {
-    private String imgPath;
-    private String headPath;
-    private String xiaoquInfo;
-    private String produceInfo;
+    private String _id;
+    private String imageid;
+    private String username;
+    private Product product;
 
-    public String getProduceInfo() {
-        return produceInfo;
+    public String get_id() {
+        return _id;
     }
 
-    public void setProduceInfo(String produceInfo) {
-        this.produceInfo = produceInfo;
+    public void set_id(String _id) {
+        this._id = _id;
     }
 
-    public String getHeadPath() {
-
-        return headPath;
+    public String getImageid() {
+        return imageid;
     }
 
-    public void setHeadPath(String headPath) {
-        this.headPath = headPath;
+    public void setImageid(String imageid) {
+        this.imageid = imageid;
     }
 
-    public String getImgPath() {
-
-        return imgPath;
+    public String getUsername() {
+        return username;
     }
 
-    public void setImgPath(String imgPath) {
-        this.imgPath = imgPath;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getXiaoquInfo() {
-        return xiaoquInfo;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setXiaoquInfo(String xiaoquInfo) {
-        this.xiaoquInfo = xiaoquInfo;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 }
