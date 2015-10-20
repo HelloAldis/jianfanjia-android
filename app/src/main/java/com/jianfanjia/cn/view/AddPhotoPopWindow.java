@@ -84,11 +84,11 @@ public class AddPhotoPopWindow extends PopupWindow implements OnClickListener {
 		switch (v.getId()) {
 		case R.id.btn_open_camera:
 			dismiss();
-			callback.takecamera();
+			callback.firstItemClick();
 			break;
 		case R.id.btn_open_album:
 			dismiss();
-			callback.takePhoto();
+			callback.secondItemClick();
 			break;
 		case R.id.btn_cancel:
 			dismiss();

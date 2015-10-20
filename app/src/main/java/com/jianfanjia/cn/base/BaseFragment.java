@@ -169,13 +169,13 @@ public abstract class BaseFragment extends Fragment
     }
 
     @Override
-    public void takecamera() {
+    public void firstItemClick() {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void takePhoto() {
+    public void secondItemClick() {
         // TODO Auto-generated method stub
 
     }

@@ -20,7 +20,8 @@
         android:smoothScrollbar="true"
         ptr:ptrAnimationStyle="flip"
         ptr:ptrHeaderTextAppearance="@android:attr/textAppearanceMedium"
-        ptr:ptrHeaderTextColor="#000000">
+        ptr:ptrHeaderTextColor="#000000"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"

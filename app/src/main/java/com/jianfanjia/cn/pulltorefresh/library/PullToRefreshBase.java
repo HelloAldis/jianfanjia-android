@@ -53,7 +53,7 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout
 
 	static final String LOG_TAG = "PullToRefresh";
 
-	protected static final float FRICTION = 0.5f;
+	protected static final float FRICTION = 2.5f;
 
 	public static final int SMOOTH_SCROLL_DURATION_MS = 200;
 	public static final int SMOOTH_SCROLL_LONG_DURATION_MS = 325;

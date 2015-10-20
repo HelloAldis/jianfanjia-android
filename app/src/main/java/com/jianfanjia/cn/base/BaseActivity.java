@@ -218,13 +218,13 @@ public abstract class BaseActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void takecamera() {
+    public void firstItemClick() {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void takePhoto() {
+    public void secondItemClick() {
         // TODO Auto-generated method stub
 
     }

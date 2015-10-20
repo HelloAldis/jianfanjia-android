@@ -239,4 +239,39 @@
         <item>@mipmap/hun_da</item>
     </string-array>
 
+    <string-array name="plan_status">
+        <item>已预约</item>
+        <item>已拒绝</item>
+        <item>已响应</item>
+        <item>有方案</item>
+        <item>未中标</item>
+        <item>已中标</item>
+    </string-array>
+
+    <string-array name="requirement_status">
+        <item>未预约</item>
+        <item>未响应</item>
+        <item>已响应</item>
+        <item>有方案</item>
+        <item>已选中</item>
+        <item>有工地</item>
+    </string-array>
+
+    <string-array name="edit_requirement_item">
+        <item>city</item>
+        <item>street</item>
+        <item>cell</item>
+        <item>qi</item>
+        <item>dong</item>
+        <item>danyuan</item>
+        <item>shi</item>
+        <item>housearea</item>
+        <item>decorationarea</item>
+        <item>city</item>
+        <item>city</item>
+        <item>city</item>
+        <item>city</item>
+    </string-array>
+
+
 </resources>

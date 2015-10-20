@@ -8,5 +8,6 @@ package com.jianfanjia.cn.config;
  */
 public class Global {
 
-    public static final String REQUIREMENT_INFO = "requirement_infp";
+    public static final String REQUIREMENT_INFO = "requirement_info";
+    public static final String REQUIREMENT_ID = "requirement_id";
 }

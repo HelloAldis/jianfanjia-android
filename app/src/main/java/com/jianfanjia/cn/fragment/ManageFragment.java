@@ -439,7 +439,7 @@ public class ManageFragment extends BaseFragment implements
 	}
 
 	@Override
-	public void takecamera() {
+	public void firstItemClick() {
 		/*
 		 * Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 		 * mTmpFile = FileUtil.createTmpFile(getActivity());
@@ -457,7 +457,7 @@ public class ManageFragment extends BaseFragment implements
 	}
 
 	@Override
-	public void takePhoto() {
+	public void secondItemClick() {
 		Intent albumIntent = new Intent(Intent.ACTION_PICK, null);
 		albumIntent.setDataAndType(
 				MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");

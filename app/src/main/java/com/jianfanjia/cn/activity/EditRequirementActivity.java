@@ -1,6 +1,7 @@
 package com.jianfanjia.cn.activity;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.view.View;
@@ -10,16 +11,20 @@ import android.widget.TextView;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.fragment.XuQiuFragment;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.cutom_annotation.ReqItemFinderImp;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
+import com.jianfanjia.cn.view.dialog.CommonDialog;
+import com.jianfanjia.cn.view.dialog.DialogHelper;
 
 import org.androidannotations.annotations.AfterTextChange;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.res.StringArrayRes;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -54,7 +59,7 @@ public class EditRequirementActivity extends BaseActivity {
     @ViewById
     protected TextView act_edit_req_housetype_content;//户型
     @ViewById
-    protected EditText act_edit_req_persons_content;//计划常住人口
+    protected TextView act_edit_req_persons_content;//计划常住人口
     @ViewById
     protected TextView act_edit_req_lovestyle_content;//风格喜好
     @ViewById
@@ -67,13 +72,36 @@ public class EditRequirementActivity extends BaseActivity {
     protected EditText act_edit_req_housearea_content;//装修面积
     @ViewById
     protected EditText act_edit_req_decoratebudget_content;//装修预算
+    @ViewById
+    protected EditText act_edit_req_cell_content;//小区
+    @ViewById
+    protected EditText act_edit_req_qi_content;//期
+    @ViewById
+    protected EditText act_edit_req_danyuan_content;//单元
+    @ViewById
+    protected EditText act_edit_req_dong_content;//栋
+    @ViewById
+    protected EditText act_edit_req_shi_content;//室
+
+    @StringArrayRes(R.array.arr_lovestyle)
+    protected String[] arr_lovestyle;
+    @StringArrayRes(R.array.arr_housetype)
+    protected String[] arr_housetype;
+    @StringArrayRes(R.array.arr_love_designerstyle)
+    protected String[] arr_love_designerstyle;
+    @StringArrayRes(R.array.arr_decoratestyle)
+    protected String[] arr_decoratestyle;
+
+    private int totalCount;
+    private int requestCode;
 
     private Intent gotoItem;
     private Intent gotoItemLove;
     private RequirementInfo requirementInfo;
+    private CommonDialog commonDialog;
 
     @AfterTextChange({R.id.act_edit_req_street_content, R.id.act_edit_req_cell_content, R.id.act_edit_req_qi_content, R.id.act_edit_req_danyuan_content, R.id.act_edit_req_dong_content,
-            R.id.act_edit_req_shi_content, R.id.act_edit_req_housearea_content, R.id.act_edit_req_decoratebudget_content, R.id.act_edit_req_persons_content})
+            R.id.act_edit_req_shi_content, R.id.act_edit_req_housearea_content, R.id.act_edit_req_decoratebudget_content})
     protected void afterTextChangedOnSomeTextViews(TextView tv, Editable text) {
         int viewId = tv.getId();
         String textContent = text.toString();
@@ -81,94 +109,98 @@ public class EditRequirementActivity extends BaseActivity {
             LogTool.d(getClass().getName() + "afterchange ", viewId + text.toString());
             switch (viewId) {
                 case R.id.act_edit_req_street_content:
-                    changeConfirmStatus("street");
+                    addItem("item1");
                     requirementInfo.setStreet(textContent);
                     break;
                 case R.id.act_edit_req_cell_content:
-                    changeConfirmStatus("cell");
+                    addItem("item2");
                     requirementInfo.setCell(textContent);
                     break;
                 case R.id.act_edit_req_qi_content:
-                    changeConfirmStatus("qi");
+                    addItem("item3");
                     requirementInfo.setCell_phase(textContent);
                     break;
                 case R.id.act_edit_req_danyuan_content:
-                    changeConfirmStatus("danyuan");
+                    addItem("item4");
                     requirementInfo.setCell_unit(textContent);
                     break;
                 case R.id.act_edit_req_dong_content:
-                    changeConfirmStatus("dong");
+                    addItem("item5");
                     requirementInfo.setCell_building(textContent);
                     break;
                 case R.id.act_edit_req_shi_content:
-                    changeConfirmStatus("shi");
+                    addItem("item6");
                     requirementInfo.setCell_detail_number(textContent);
                     break;
                 case R.id.act_edit_req_housearea_content:
-                    changeConfirmStatus("housearea");
+                    addItem("item7");
                     requirementInfo.setHouse_area(textContent);
                     break;
                 case R.id.act_edit_req_decoratebudget_content:
-                    changeConfirmStatus("decoratebudget");
+                    addItem("item8");
                     requirementInfo.setTotal_price(textContent);
-                    break;
-                case R.id.act_edit_req_persons_content:
-                    changeConfirmStatus("persons");
-                    requirementInfo.setFamily_description(textContent);
                     break;
             }
         } else {
             switch (viewId) {
                 case R.id.act_edit_req_street_content:
-                    setItems.remove("street");
-                    mainHeadView.setRigthTitleEnable(false);
+                    removeItem("item1");
                     break;
                 case R.id.act_edit_req_cell_content:
-                    setItems.remove("cell");
-                    mainHeadView.setRigthTitleEnable(false);
+                    removeItem("item2");
                     break;
                 case R.id.act_edit_req_qi_content:
-                    setItems.remove("qi");
-                    mainHeadView.setRigthTitleEnable(false);
+                    removeItem("item3");
                     break;
                 case R.id.act_edit_req_danyuan_content:
-                    setItems.remove("danyuan");
-                    mainHeadView.setRigthTitleEnable(false);
+                    removeItem("item4");
                     break;
                 case R.id.act_edit_req_dong_content:
-                    setItems.remove("dong");
-                    mainHeadView.setRigthTitleEnable(false);
+                    removeItem("item5");
                     break;
                 case R.id.act_edit_req_shi_content:
-                    setItems.remove("shi");
-                    mainHeadView.setRigthTitleEnable(false);
+                    removeItem("item6");
                     break;
                 case R.id.act_edit_req_housearea_content:
-                    setItems.remove("housearea");
-                    mainHeadView.setRigthTitleEnable(false);
+                    removeItem("item7");
                     break;
                 case R.id.act_edit_req_decoratebudget_content:
-                    setItems.remove("decoratebudget");
-                    mainHeadView.setRigthTitleEnable(false);
-                    break;
-                case R.id.act_edit_req_persons_content:
-                    setItems.remove("persons");
-                    mainHeadView.setRigthTitleEnable(false);
+                    removeItem("item8");
                     break;
             }
         }
     }
 
-    protected void changeConfirmStatus(String item) {
-        setItems.add(item);
-        LogTool.d(this.getClass().getName(), setItems.size() + " ==" + item);
-        if (setItems.size() == TOTAL_COUNT) {
-            mainHeadView.setRigthTitleEnable(true);
+    //控制确定按钮的显示
+    protected void removeItem(String item) {
+        if (setItems.contains(item)) {
+            setItems.remove(item);
+            mainHeadView.setRigthTitleEnable(false);
         }
     }
 
+    //控制确定按钮的显示
+    protected void addItem(String item) {
+        if (!setItems.contains(item)) {
+            setItems.add(item);
+            LogTool.d(this.getClass().getName(), setItems.size() + " ==" + item);
+            if (setItems.size() == TOTAL_COUNT) {
+                mainHeadView.setRigthTitleEnable(true);
+            }
+        }
+    }
+
+    //初始化确定按钮
+    protected void initItem() {
+        for (int i = 0; i < TOTAL_COUNT; i++) {
+            setItems.add("item" + (i + 1));
+        }
+        mainHeadView.setRigthTitleEnable(true);
+    }
+
+
     @Click({R.id.head_back, R.id.act_edit_req_city, R.id.act_edit_req_housetype, R.id.act_edit_req_decoratetype,
-            R.id.act_edit_req_lovestyle, R.id.act_edit_req_lovedesistyle})
+            R.id.act_edit_req_lovestyle, R.id.act_edit_req_persons, R.id.act_edit_req_lovedesistyle})
     protected void back(View clickView) {
         int viewId = clickView.getId();
         switch (viewId) {
@@ -187,6 +219,10 @@ public class EditRequirementActivity extends BaseActivity {
                 gotoItemLove.putExtra(REQUIRE_DATA, REQUIRECODE_LOVESTYLE);
                 startActivityForResult(gotoItemLove, REQUIRECODE_LOVESTYLE);
                 break;
+            case R.id.act_edit_req_persons:
+                gotoItem.putExtra(REQUIRE_DATA, REQUIRECODE_PERSONS);
+                startActivityForResult(gotoItem, REQUIRECODE_PERSONS);
+                break;
             case R.id.act_edit_req_decoratetype:
                 gotoItem.putExtra(REQUIRE_DATA, REQUIRECODE_DECORATETYPE);
                 startActivityForResult(gotoItem, REQUIRECODE_DECORATETYPE);
@@ -201,14 +237,39 @@ public class EditRequirementActivity extends BaseActivity {
     @Click(R.id.head_right_title)
     protected void confirm() {
         makeTextLong("确定");
-        JianFanJiaClient.add_Requirement(this,requirementInfo,this,this);
+        if(requestCode == XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT){
+            JianFanJiaClient.add_Requirement(this, requirementInfo, this, this);
+        }else {
+            JianFanJiaClient.update_Requirement(this,requirementInfo,this,this);
+        }
     }
 
     @Override
     public void loadSuccess(Object data) {
         super.loadSuccess(data);
-        LogTool.d(getClass().getName(),data.toString());
-        makeTextLong("发布成功");
+        showSuccessDialog();
+        LogTool.d(getClass().getName(), data.toString());
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                commonDialog.dismiss();
+                setResult(RESULT_OK);
+                finish();
+            }
+        }, 5000);
+    }
+
+    private void showSuccessDialog() {
+        commonDialog = DialogHelper
+                .getPinterestDialogCancelable(this);
+        if(requestCode == XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT){
+            commonDialog.setTitle("发布成功");
+            commonDialog.setMessage("您的需求以及发布成功啦！");
+        }else{
+            commonDialog.setTitle("更新成功");
+            commonDialog.setMessage("您的需求以及更新成功啦！");
+        }
+        commonDialog.show();
     }
 
     @AfterViews
@@ -223,11 +284,27 @@ public class EditRequirementActivity extends BaseActivity {
     private void initData() {
 
         Intent intent = getIntent();
-        requirementInfo = (RequirementInfo)intent.getSerializableExtra(Global.REQUIREMENT_INFO);
-        if(requirementInfo != null){
-
-        }else{
+        requirementInfo = (RequirementInfo) intent.getSerializableExtra(Global.REQUIREMENT_INFO);
+        if (requirementInfo != null) {
+            act_edit_req_city_content.setText(requirementInfo.getProvince() + requirementInfo.getCity() + requirementInfo.getDistrict());
+            act_edit_req_street_content.setText(requirementInfo.getStreet());
+            act_edit_req_cell_content.setText(requirementInfo.getCell());
+            act_edit_req_qi_content.setText(requirementInfo.getCell_phase());
+            act_edit_req_danyuan_content.setText(requirementInfo.getCell_unit());
+            act_edit_req_dong_content.setText(requirementInfo.getCell_building());
+            act_edit_req_shi_content.setText(requirementInfo.getCell_detail_number());
+            act_edit_req_decoratetype_content.setText(arr_decoratestyle[Integer.parseInt(requirementInfo.getWork_type())]);
+            act_edit_req_housearea_content.setText(requirementInfo.getHouse_area());
+            act_edit_req_housetype_content.setText(arr_housetype[Integer.parseInt(requirementInfo.getHouse_type())]);
+            act_edit_req_decoratebudget_content.setText(requirementInfo.getTotal_price());
+            act_edit_req_persons_content.setText(requirementInfo.getFamily_description());
+            act_edit_req_lovestyle_content.setText(arr_lovestyle[Integer.parseInt(requirementInfo.getDec_style())]);
+            act_edit_req_lovedesistyle_content.setText(arr_love_designerstyle[Integer.parseInt(requirementInfo.getCommunication_type())]);
+            initItem();
+            requestCode = XuQiuFragment.REQUESTCODE_EDIT_REQUIREMENT;
+        } else {
             requirementInfo = new RequirementInfo();
+            requestCode = XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT;
         }
 
     }
@@ -260,27 +337,32 @@ public class EditRequirementActivity extends BaseActivity {
             switch (requestCode) {
                 case REQUIRECODE_CITY:
                     act_edit_req_city_content.setText(itemMap.value);
-                    changeConfirmStatus("city");
+                    addItem("item9");
                     requirementInfo.setDistrict(itemMap.value);
                     break;
                 case REQUIRECODE_LOVEDESISTYLE:
                     act_edit_req_lovedesistyle_content.setText(itemMap.value);
-                    changeConfirmStatus("lovedesistyle");
+                    addItem("item10");
                     requirementInfo.setCommunication_type(itemMap.key);
                     break;
                 case REQUIRECODE_LOVESTYLE:
                     act_edit_req_lovestyle_content.setText(itemMap.value);
-                    changeConfirmStatus("lovestyle");
+                    addItem("item111");
                     requirementInfo.setDec_style(itemMap.key);
+                    break;
+                case REQUIRECODE_PERSONS:
+                    act_edit_req_persons_content.setText(itemMap.value);
+                    addItem("item12");
+                    requirementInfo.setFamily_description(itemMap.value);
                     break;
                 case REQUIRECODE_DECORATETYPE:
                     act_edit_req_decoratetype_content.setText(itemMap.value);
-                    changeConfirmStatus("decoratetype");
-                    requirementInfo.setDec_style(itemMap.key);
+                    addItem("item13");
+                    requirementInfo.setWork_type(itemMap.key);
                     break;
                 case REQUIRECODE_HOUSETYPE:
                     act_edit_req_housetype_content.setText(itemMap.value);
-                    changeConfirmStatus("housetype");
+                    addItem("item114");
                     requirementInfo.setHouse_type(itemMap.key);
                     break;
             }

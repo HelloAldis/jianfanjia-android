@@ -396,7 +396,7 @@
                     android:paddingLeft="@dimen/space_8"
                     android:paddingRight="@dimen/space_8"
                     android:singleLine="true"
-                    android:nextFocusDown="@+id/act_edit_req_persons_content"/>
+                    android:nextFocusDown="@+id/act_edit_req_street_content"/>
 
                 <TextView
                     android:id="@+id/act_edit_req_decoratebudget_unit"
@@ -433,21 +433,22 @@
                     android:text="@string/str_persons" />
 
 
-                <EditText
-                    android:id="@+id/act_edit_req_persons_content"
-                    android:layout_width="match_parent"
+                <ImageView
+                    android:id="@+id/act_edit_req_persons_goto"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@+id/act_edit_req_persons_title"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/act_edit_req_persons_title"
-                    android:background="@null"
-                    android:ellipsize="end"
-                    android:gravity="right"
-                    android:maxLength="20"
-                    android:nextFocusDown="@+id/act_edit_req_cell_content"
-                    android:paddingLeft="@dimen/space_16"
-                    android:paddingRight="@dimen/space_16"
-                    android:singleLine="true"
+                    android:src="@mipmap/icon_setting_next" />
+
+                <TextView
+                    android:id="@+id/act_edit_req_persons_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="16dp" />
                     />
             </RelativeLayout>
 
