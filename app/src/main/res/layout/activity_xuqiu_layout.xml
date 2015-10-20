@@ -15,91 +15,15 @@
         android:text="@string/str_marched_tip"
         android:textColor="@color/main_color_black" />
 
-
-    <LinearLayout
+    <com.jianfanjia.cn.view.MyGridView
+        android:id="@+id/marchGridview"
         android:layout_width="match_parent"
-        android:layout_height="100dip"
+        android:layout_height="match_parent"
         android:layout_margin="10dip"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:id="@+id/designerLayout_1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/font_white"
-            android:orientation="vertical">
-
-
-            <com.jianfanjia.cn.layout.CircleImageView
-                android:id="@+id/designer_head_img_1"
-                android:layout_width="70dip"
-                android:layout_height="70dip"
-                android:layout_gravity="center_horizontal"
-                android:scaleType="centerCrop"
-                android:src="@mipmap/pix_default" />
-
-            <TextView
-                android:id="@+id/designer_text_1"
-                style="@style/site_listview_item_text_style_small"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/space_10"
-                android:text="设计师"
-                android:textColor="@color/main_color_black" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/designerLayout_2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/font_white"
-            android:orientation="vertical">
-
-
-            <com.jianfanjia.cn.layout.CircleImageView
-                android:id="@+id/designer_head_img_2"
-                android:layout_width="70dip"
-                android:layout_height="70dip"
-                android:layout_gravity="center_horizontal"
-                android:scaleType="centerCrop"
-                android:src="@mipmap/pix_default" />
-
-            <TextView
-                android:id="@+id/designer_text_2"
-                style="@style/site_listview_item_text_style_small"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/space_10"
-                android:text="设计师"
-                android:textColor="@color/main_color_black" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/designerLayout_3"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/font_white"
-            android:orientation="vertical">
-
-
-            <com.jianfanjia.cn.layout.CircleImageView
-                android:id="@+id/designer_head_img_3"
-                android:layout_width="70dip"
-                android:layout_height="70dip"
-                android:layout_gravity="center_horizontal"
-                android:scaleType="centerCrop"
-                android:src="@mipmap/pix_default" />
-
-            <TextView
-                android:id="@+id/designer_text_3"
-                style="@style/site_listview_item_text_style_small"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/space_10"
-                android:text="设计师"
-                android:textColor="@color/main_color_black" />
-        </LinearLayout>
-
-    </LinearLayout>
-
+        android:horizontalSpacing="10dp"
+        android:listSelector="@drawable/grid_item_selector"
+        android:numColumns="3"
+        android:scrollbars="none"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="10dp" />
 </LinearLayout>
