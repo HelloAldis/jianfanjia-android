@@ -478,10 +478,10 @@ public class ManageFragment extends BaseFragment implements
 								.getDateString(((DateWheelDialog) dialog)
 										.getChooseCalendar().getTime());
 						LogTool.d(TAG, "dateStr:" + dateStr);
-						postReschedule(processInfo.get_id(),
+						/*postReschedule(processInfo.get_id(),
 								processInfo.getUserid(),
 								processInfo.getFinal_designerid(),
-								sectionInfo.getName(), dateStr);
+								sectionInfo.getName(), dateStr);*/
 					}
 				});
 		dateWheelDialog.setNegativeButton(R.string.no, null);

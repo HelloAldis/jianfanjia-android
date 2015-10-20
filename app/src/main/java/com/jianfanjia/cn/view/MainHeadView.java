@@ -99,9 +99,10 @@ public class MainHeadView extends RelativeLayout {
         rigthTitle.setOnClickListener(onClickListener);
     }
 
-    public void setMainTextColor(int resColor) {
-        mainTitle.setTextColor(resColor);
+    public void setRigthTitleEnable(boolean isAble){
+        rigthTitle.setEnabled(isAble);
     }
+
 
 }
 

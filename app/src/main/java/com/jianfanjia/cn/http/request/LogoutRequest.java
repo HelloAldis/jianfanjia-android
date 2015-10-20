@@ -4,13 +4,13 @@ import android.content.Context;
 
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseRequest;
-import com.jianfanjia.cn.config.Url;
+import com.jianfanjia.cn.config.Url_New;
 
 public class LogoutRequest extends BaseRequest {
 
 	public LogoutRequest(Context context) {
 		super(context);
-		url = Url.SIGNOUT_URL;
+		url = Url_New.SIGNOUT_URL;
 	}
 
 	@Override

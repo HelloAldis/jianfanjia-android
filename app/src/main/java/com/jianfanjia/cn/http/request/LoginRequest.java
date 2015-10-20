@@ -1,13 +1,13 @@
 package com.jianfanjia.cn.http.request;
 
-import java.util.Calendar;
-
 import android.content.Context;
 
 import com.jianfanjia.cn.base.BaseRequest;
 import com.jianfanjia.cn.bean.LoginUserBean;
-import com.jianfanjia.cn.config.Url;
+import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.tools.JsonParser;
+
+import java.util.Calendar;
 
 public class LoginRequest extends BaseRequest {
     private String username;
@@ -17,7 +17,7 @@ public class LoginRequest extends BaseRequest {
         super(context);
         this.username = username;
         this.password = password;
-        url = Url.LOGIN_URL;
+        url = Url_New.LOGIN_URL;
     }
 
     @Override

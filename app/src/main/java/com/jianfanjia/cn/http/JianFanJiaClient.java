@@ -17,6 +17,7 @@ import com.jianfanjia.cn.http.request.DeletePicRequest;
 import com.jianfanjia.cn.http.request.DesignerInfoRequest;
 import com.jianfanjia.cn.http.request.FeedBackRequest;
 import com.jianfanjia.cn.http.request.GetAllRescheduleRequest;
+import com.jianfanjia.cn.http.request.GetRequirementRequest;
 import com.jianfanjia.cn.http.request.LoginRequest;
 import com.jianfanjia.cn.http.request.LogoutRequest;
 import com.jianfanjia.cn.http.request.NotifyOwnerCheckRequest;
@@ -120,7 +121,7 @@ public class JianFanJiaClient {
     public static void checkVersion(Context context,
                                     ApiUiUpdateListener listener, Object tag) {
         CheckVersionRequest checkVersionRequest = new CheckVersionRequest(context);
-        LogTool.d(TAG, "checkVersion " + checkVersionRequest.getUrl());
+        LogTool.d(TAG, "checkVersion --" + checkVersionRequest.getUrl());
         OkHttpClientManager.getInstance().getGetDelegate().getAsyn(checkVersionRequest, listener, tag);
     }
 
@@ -165,16 +166,16 @@ public class JianFanJiaClient {
         }
     }
 
-  /*  *//**
+  /**
      * @param context
-     * @param handler
      * @author zhanghao
      * @Description 获取业主需求
-     *//*
-    public static void get_Requirement(Context context,
-                                       AsyncHttpResponseHandler handler) {
-        HttpRestClient.get(context, Url.REQUIREMENT, handler);
-    }*/
+     */
+    public static void get_Requirement_List(Context context,ApiUiUpdateListener listener,Object tag) {
+        GetRequirementRequest getRequirementRequest = new GetRequirementRequest(context);
+        LogTool.d(TAG,"get_Requirement_list --" + getRequirementRequest.getUrl());
+        OkHttpClientManager.getInstance().getGetDelegate().getAsyn(getRequirementRequest,listener,tag);
+    }
 
    /* *//**
      * @param context

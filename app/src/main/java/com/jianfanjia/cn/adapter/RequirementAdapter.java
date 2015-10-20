@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.adapter.base.BaseListAdapter;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.fragment.XuQiuFragment;
 import com.jianfanjia.cn.interf.ClickCallBack;
@@ -20,7 +21,7 @@ import java.util.List;
  * Email: jame.zhang@myjyz.com
  * Date:2015-10-15 13:19
  */
-public class RequirementAdapter extends BaseListAdapter<RequirementInfo>{
+public class RequirementAdapter extends BaseListAdapter<RequirementInfo> {
 
     private ClickCallBack clickCallBack;
 
