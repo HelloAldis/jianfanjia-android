@@ -12,30 +12,30 @@ import com.jianfanjia.cn.config.Url_New;
  * Time: 10:49
  */
 public class HomePageRequest extends BaseRequest {
-    private String from;
-    private String limit;
+    private int from;
+    private int limit;
 
-    public HomePageRequest(Context context, String from, String limit) {
+    public HomePageRequest(Context context, int from, int limit) {
         super(context);
         this.from = from;
         this.limit = limit;
         url = Url_New.HOME_PAGE_DISIGNERS;
     }
 
-    public String getLimit() {
-        return limit;
-    }
-
-    public void setLimit(String limit) {
-        this.limit = limit;
-    }
-
-    public String getFrom() {
+    public int getFrom() {
         return from;
     }
 
-    public void setFrom(String from) {
+    public void setFrom(int from) {
         this.from = from;
+    }
+
+    public int getLimit() {
+        return limit;
+    }
+
+    public void setLimit(int limit) {
+        this.limit = limit;
     }
 
     @Override

@@ -660,7 +660,7 @@ public class JianFanJiaClient {
      * @param listener
      * @param tag
      */
-    public static void getHomePageDesigners(Context context, String from, String limit, ApiUiUpdateListener listener, Object tag) {
+    public static void getHomePageDesigners(Context context, int from, int limit, ApiUiUpdateListener listener, Object tag) {
         HomePageRequest homePageRequest = new HomePageRequest(context, from, limit);
         JSONObject jsonParams = new JSONObject();
         try {
