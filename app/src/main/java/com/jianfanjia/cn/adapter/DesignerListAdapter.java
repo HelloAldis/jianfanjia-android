@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.BaseListAdapter;
 import com.jianfanjia.cn.bean.DesignerListInfo;
+import com.jianfanjia.cn.bean.Product;
 import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.interf.ListItemClickListener;
 
@@ -55,10 +56,12 @@ public class DesignerListAdapter extends BaseListAdapter<DesignerListInfo> {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        imageLoader.displayImage(Url_New.GET_IMAGE + info.getImageid(), viewHolder.itemProductView, options);
+
+        Product product = info.getProduct();
+        viewHolder.itemXiaoQuText.setText(product.getCell());
+        viewHolder.itemProduceText.setText(product.getHouse_area() + "㎡");
+        imageLoader.displayImage(Url_New.GET_IMAGE + product.getImages().get(0).getImageid(), viewHolder.itemProductView, options);
         imageLoader.displayImage(Url_New.GET_IMAGE + info.getImageid(), viewHolder.itemHeadView, options);
-        viewHolder.itemXiaoQuText.setText(info.getProduct().getCell());
-        viewHolder.itemProduceText.setText(info.getUsername());
         viewHolder.itemProductView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
