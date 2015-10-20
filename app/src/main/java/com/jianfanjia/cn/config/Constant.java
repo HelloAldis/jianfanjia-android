@@ -32,6 +32,8 @@ public class Constant {
 
     public static final String EXTRA_BUNDLE = "launchBundle";
 
+    public static final int LIMIT = 10;//分页 每次加载10条
+
     public static class Config {
         public static final boolean DEVELOPER_MODE = false;
     }
