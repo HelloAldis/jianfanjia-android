@@ -42,7 +42,6 @@ public class DesignerInfoActivity extends BaseActivity implements
         collapsingToolbar.setExpandedTitleColor(Color.BLACK);
         collapsingToolbar.setTitle("设计师");
 
-
         setTabSelection(DESIGNER_INFO);
     }
 
