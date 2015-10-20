@@ -21,7 +21,7 @@ public class Url_New {
     // 登录
     public static final String LOGIN_URL = HTTPROOT + "user_login";
     // 注册
-    public static final String REGISTER_URL = HTTPROOT + "signup";
+    public static final String REGISTER_URL = HTTPROOT + "user_signup";
     // 获取短信验证码
     public static final String GET_CODE_URL = HTTPROOT + "send_verify_code";
     // 忘记密码
