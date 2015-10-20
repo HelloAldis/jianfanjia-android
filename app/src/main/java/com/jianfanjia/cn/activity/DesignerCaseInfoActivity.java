@@ -1,6 +1,7 @@
 package com.jianfanjia.cn.activity;
 
 import android.widget.ListView;
+import android.support.v7.widget.Toolbar;
 
 import com.jianfanjia.cn.adapter.DesignerCaseAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
@@ -17,12 +18,16 @@ import java.util.List;
  */
 public class DesignerCaseInfoActivity extends BaseActivity {
     private static final String TAG = DesignerCaseInfoActivity.class.getName();
+    private Toolbar mToolbar = null;
     private ListView designer_case_listview = null;
     private DesignerCaseAdapter adapter = null;
     private List<DesignerCaseInfo> designerCaseList = new ArrayList<DesignerCaseInfo>();
 
     @Override
     public void initView() {
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar.setTitle("");
+        setSupportActionBar(mToolbar);
         designer_case_listview = (ListView) findViewById(R.id.designer_case_listview);
         designer_case_listview.setFocusable(false);
         initDesignerCasesList();

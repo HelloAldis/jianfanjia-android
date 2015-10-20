@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/font_white"
+    android:orientation="vertical">
+
+    <com.jianfanjia.cn.layout.CircleImageView
+        android:id="@+id/list_item_head_img"
+        android:layout_width="60dip"
+        android:layout_height="60dip"
+        android:layout_centerVertical="true"
+        android:layout_margin="10dip"
+        android:scaleType="centerCrop" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/list_item_head_img">
+
+        <LinearLayout
+            android:id="@+id/textLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/list_item_name_text"
+                style="@style/site_listview_item_text_style_middle"
+                android:text="张三"
+                android:textColor="@color/main_color_black" />
+
+            <TextView
+                android:id="@+id/list_item_march_text"
+                style="@style/site_listview_item_text_style_small"
+                android:text="匹配度:100%"
+                android:textColor="@color/main_color_grey" />
+        </LinearLayout>
+
+        <CheckBox
+            android:id="@+id/list_item_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="10dip" />
+    </RelativeLayout>
+
+</RelativeLayout>

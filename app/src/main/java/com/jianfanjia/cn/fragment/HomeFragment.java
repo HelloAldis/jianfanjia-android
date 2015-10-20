@@ -58,7 +58,7 @@ public class HomeFragment extends BaseFragment implements
         mPullRefreshScrollView.setMode(Mode.PULL_FROM_START);
         marchedLayout = (LinearLayout) view.findViewById(R.id.marched_layout);
         noMarchedLayout = (LinearLayout) view.findViewById(R.id.no_marched_layout);
-        marchedLayout.setVisibility(View.GONE);
+        noMarchedLayout.setVisibility(View.GONE);
         addXuQiu = (Button) view.findViewById(R.id.btn_add);
         designer_listview = (ListView) view.findViewById(R.id.designer_listview);
         designer_listview.setFocusable(false);
@@ -116,7 +116,7 @@ public class HomeFragment extends BaseFragment implements
             case R.id.designerLayout_3:
                 break;
             case R.id.btn_add:
-               startActivity(EditRequirementActivity.class);
+                startActivity(EditRequirementActivity.class);
                 break;
             default:
                 break;

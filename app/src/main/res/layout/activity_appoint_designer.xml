@@ -15,8 +15,8 @@
         android:id="@+id/setting_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/my_setting_head_layout"
-        android:layout_marginTop="@dimen/space_8">
+        android:layout_marginTop="@dimen/space_8"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -43,6 +43,7 @@
                         android:textSize="16sp" />
 
                     <TextView
+                        android:id="@+id/allText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -54,21 +55,21 @@
 
                 </RelativeLayout>
 
+                <View style="@style/divier_line" />
+
+
                 <com.jianfanjia.cn.view.MyListView
                     android:id="@+id/marched_designer_listview"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="10dip"
-                    android:layout_marginTop="10dip"
+                    android:background="@color/font_white"
                     android:cacheColorHint="#00000000"
                     android:clipToPadding="false"
-                    android:divider="@null"
-                    android:dividerHeight="15dip"
+                    android:divider="@color/horzontal_line_color"
+                    android:dividerHeight="1dip"
                     android:fadingEdge="none"
                     android:fastScrollEnabled="false"
-                    android:listSelector="@android:color/transparent"
-                    android:scrollbars="none"
-                    android:stackFromBottom="true" />
+                    android:scrollbars="none" />
             </LinearLayout>
 
             <!--意向设计师-->
@@ -76,6 +77,7 @@
                 android:id="@+id/intentionRootview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/space_8"
                 android:orientation="vertical">
 
                 <RelativeLayout
@@ -92,6 +94,7 @@
                         android:textSize="16sp" />
 
                     <TextView
+                        android:id="@+id/moreText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -103,21 +106,21 @@
 
                 </RelativeLayout>
 
+
+                <View style="@style/divier_line" />
+
                 <com.jianfanjia.cn.view.MyListView
                     android:id="@+id/intention_designer_listview"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="10dip"
-                    android:layout_marginTop="10dip"
+                    android:background="@color/font_white"
                     android:cacheColorHint="#00000000"
                     android:clipToPadding="false"
-                    android:divider="@null"
-                    android:dividerHeight="15dip"
+                    android:divider="@color/horzontal_line_color"
+                    android:dividerHeight="1dip"
                     android:fadingEdge="none"
                     android:fastScrollEnabled="false"
-                    android:listSelector="@android:color/transparent"
-                    android:scrollbars="none"
-                    android:stackFromBottom="true" />
+                    android:scrollbars="none" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
