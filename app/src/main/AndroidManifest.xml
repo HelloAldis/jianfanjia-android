@@ -218,6 +218,7 @@
         <activity
             android:name=".DesignerCaseInfoActivity"
             android:label="@string/title_activity_designer_case_info"></activity>
+        <activity android:name=".AppointDesignerActivity" />
         <activity android:name=".PingjiaActivity" />
         <activity android:name=".ContractActivity" />
         <activity android:name=".DesignerPlanActivity" />
