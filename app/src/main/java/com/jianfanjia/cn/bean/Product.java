@@ -12,6 +12,9 @@ import java.util.List;
 public class Product implements Serializable {
     private String _id;
     private String cell;
+    private String house_type;
+    private int house_area;
+    private String dec_style;
     private List<ImageInfo> images;
 
     public String get_id() {
@@ -36,5 +39,29 @@ public class Product implements Serializable {
 
     public void setImages(List<ImageInfo> images) {
         this.images = images;
+    }
+
+    public String getHouse_type() {
+        return house_type;
+    }
+
+    public void setHouse_type(String house_type) {
+        this.house_type = house_type;
+    }
+
+    public int getHouse_area() {
+        return house_area;
+    }
+
+    public void setHouse_area(int house_area) {
+        this.house_area = house_area;
+    }
+
+    public String getDec_style() {
+        return dec_style;
+    }
+
+    public void setDec_style(String dec_style) {
+        this.dec_style = dec_style;
     }
 }
