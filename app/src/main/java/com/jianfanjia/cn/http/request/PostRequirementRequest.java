@@ -3,9 +3,8 @@ package com.jianfanjia.cn.http.request;
 import android.content.Context;
 
 import com.jianfanjia.cn.base.BaseRequest;
-import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
-import com.jianfanjia.cn.tools.JsonParser;
+import com.jianfanjia.cn.config.Url_New;
 
 public class PostRequirementRequest extends BaseRequest {
 	
@@ -14,6 +13,7 @@ public class PostRequirementRequest extends BaseRequest {
 	public PostRequirementRequest(Context context,RequirementInfo requirementInfo) {
 		super(context);
 		this.requirementInfo = requirementInfo;
+		url = Url_New.POST_REQUIREMENT;
 	}
 
 	@Override
@@ -32,12 +32,7 @@ public class PostRequirementRequest extends BaseRequest {
 	@Override
 	public void onSuccess(Object data) {
 		if(data != null){
-			ProcessInfo processInfo = JsonParser
-					.jsonToBean((String)data, ProcessInfo.class);
-			if(processInfo != null){
-				dataManager.saveProcessInfo(processInfo);
-				dataManager.setCurrentProcessInfo(processInfo);
-			}
+
 		}
 	}
 

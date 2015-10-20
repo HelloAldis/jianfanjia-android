@@ -7,4 +7,6 @@ package com.jianfanjia.cn.config;
  * Date:15-10-11 12:47
  */
 public class Global {
+
+    public static final String REQUIREMENT_INFO = "requirement_infp";
 }
