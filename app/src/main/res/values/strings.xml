@@ -63,7 +63,7 @@
     <string name="choose_role">选择角色</string>
     <string name="input_phone">请输入你的手机号</string>
     <string name="verifica_phone">验证手机号</string>
-    <string name="verification_code_sended">验证码已发送到：</string>
+    <string name="verification_code_sended">验证码已发送到:</string>
     <string name="register_failure">注册失败</string>
     <string name="register_success">注册成功</string>
     <string name="update_psw_success">修改密码成功</string>
@@ -254,4 +254,5 @@
     cheese caerphilly cheddar cheesecake cream cheese manchego lancashire. Roquefort squirty cheese
     the big cheese.</string>
     <string name="checkin">Checkin</string>
+    <string name="title_activity_appoint_designer">AppointDesignerActivity</string>
 </resources>

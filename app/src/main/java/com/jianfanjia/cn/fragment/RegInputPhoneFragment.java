@@ -9,8 +9,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
+import com.jianfanjia.cn.http.JianFanJiaClient;
+import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.FragmentListener;
+import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.NetTool;
 
 /**
@@ -19,7 +23,7 @@ import com.jianfanjia.cn.tools.NetTool;
  * @Description 输入用户名密码的Fragment
  * @date 2015-8-21 上午9:15
  */
-public class RegInputPhoneFragment extends BaseFragment {
+public class RegInputPhoneFragment extends BaseFragment implements ApiUiUpdateListener {
     private static final String TAG = RegInputPhoneFragment.class.getName();
     private FragmentListener fragemntListener = null;
     private EditText mUserName = null;// 用户名输入框
@@ -66,8 +70,12 @@ public class RegInputPhoneFragment extends BaseFragment {
             case R.id.btn_next:
                 mUserNameStr = mUserName.getText().toString().trim();
                 mPasswordStr = mPassword.getText().toString().trim();
-                if (checkInput(mUserNameStr, mUserNameStr)) {
-
+                if (checkInput(mUserNameStr, mPasswordStr)) {
+                    MyApplication.getInstance().getRegisterInfo()
+                            .setPhone(mUserNameStr);
+                    MyApplication.getInstance().getRegisterInfo()
+                            .setPass(mPasswordStr);
+                    sendVerifyCode(mUserNameStr);
                 }
                 break;
             case R.id.goback:
@@ -105,7 +113,23 @@ public class RegInputPhoneFragment extends BaseFragment {
      * @param password
      */
     private void sendVerifyCode(String name) {
+        JianFanJiaClient.send_verification(getActivity(), name, this, this);
+    }
 
+    @Override
+    public void preLoad() {
+
+    }
+
+    @Override
+    public void loadSuccess(Object data) {
+        LogTool.d(TAG, "data:" + data);
+        fragemntListener.onNext();
+    }
+
+    @Override
+    public void loadFailture(String error_msg) {
+        makeTextLong(error_msg);
     }
 
     @Override

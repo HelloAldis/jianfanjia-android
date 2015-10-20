@@ -8,14 +8,23 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
+import com.jianfanjia.cn.bean.LoginUserBean;
 import com.jianfanjia.cn.bean.RegisterInfo;
+import com.jianfanjia.cn.http.JianFanJiaClient;
+import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.FragmentListener;
+import com.jianfanjia.cn.tools.JsonParser;
+import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.NetTool;
 
+import java.util.Calendar;
 
-public class ReginputVerificationFragment extends BaseFragment {
+
+public class ReginputVerificationFragment extends BaseFragment implements ApiUiUpdateListener {
     private static final String TAG = ReginputVerificationFragment.class
             .getName();
     private FragmentListener fragemntListener = null;
@@ -43,7 +52,7 @@ public class ReginputVerificationFragment extends BaseFragment {
         indicatorView = (ImageView) view.findViewById(R.id.indicator);
         indicatorView.setImageResource(R.mipmap.rounded_register3);
         proTipView = (TextView) view.findViewById(R.id.register_pro);
-        proTipView.setText(getString(R.string.verification_code_sended));
+        proTipView.setText(getString(R.string.verification_code_sended) + MyApplication.getInstance().getRegisterInfo().getPhone());
     }
 
     @Override
@@ -58,7 +67,8 @@ public class ReginputVerificationFragment extends BaseFragment {
             case R.id.btn_commit:
                 String verif = mEdVerif.getText().toString().trim();
                 if (checkInput(verif)) {
-
+                    MyApplication.getInstance().getRegisterInfo().setCode(verif);
+                    register(MyApplication.getInstance().getRegisterInfo());
                 }
                 break;
             case R.id.goback:
@@ -88,7 +98,30 @@ public class ReginputVerificationFragment extends BaseFragment {
      * @param registerInfo
      */
     private void register(RegisterInfo registerInfo) {
+        JianFanJiaClient.register(getActivity(), registerInfo, this, this);
+    }
 
+    @Override
+    public void preLoad() {
+
+    }
+
+    @Override
+    public void loadSuccess(Object data) {
+        LogTool.d(TAG, "data:" + data);
+        LoginUserBean loginUserBean = JsonParser
+                .jsonToBean(data.toString(),
+                        LoginUserBean.class);
+        dataManager.saveLoginUserInfo(loginUserBean);
+        dataManager.setLogin(true);
+        dataManager.savaLastLoginTime(Calendar.getInstance().getTimeInMillis());
+        startActivity(MainActivity.class);
+        getActivity().finish();
+    }
+
+    @Override
+    public void loadFailture(String error_msg) {
+        makeTextLong(error_msg);
     }
 
     @Override

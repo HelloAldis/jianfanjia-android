@@ -7,41 +7,12 @@
     tools:context="com.jianfanjia.cn.activity.DesignerCaseInfoActivity">
 
 
-    <RelativeLayout
-        android:id="@+id/designer_case_head_layout"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/space_48"
-        android:background="@color/head_layout_bg">
-
-        <TextView
-            android:id="@+id/feedback_back"
-            style="@style/site_listview_item_text_style_middle"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/space_8"
-            android:drawableLeft="@mipmap/icon_register_back"
-            android:drawablePadding="4dp"
-            android:text="@string/back"
-            android:textColor="@color/back_color" />
-
-        <TextView
-            android:id="@+id/feedback_title"
-            style="@style/site_listview_item_text_style_title"
-            android:layout_centerInParent="true"
-            android:textColor="@color/main_color_black" />
-
-        <View
-            style="@style/divier_line"
-            android:layout_alignParentBottom="true"
-            android:background="@color/horzontal_line_color" />
-    </RelativeLayout>
+    <include layout="@layout/top_title_layout" />
 
     <ScrollView
         android:id="@+id/case_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:cacheColorHint="#ffffff"
-        android:fadingEdge="none"
-        android:fastScrollEnabled="false"
         android:scrollbars="none">
 
         <LinearLayout
@@ -94,8 +65,7 @@
                 android:fadingEdge="none"
                 android:fastScrollEnabled="false"
                 android:listSelector="@android:color/transparent"
-                android:scrollbars="none"
-                android:stackFromBottom="true" />
+                android:scrollbars="none" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

@@ -2,6 +2,7 @@ package com.jianfanjia.cn.fragment;
 
 import android.text.format.DateUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -9,6 +10,7 @@ import android.widget.ScrollView;
 
 import com.jianfanjia.cn.activity.DesignerCaseInfoActivity;
 import com.jianfanjia.cn.activity.DesignerInfoActivity;
+import com.jianfanjia.cn.activity.EditRequirementActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.DesignerListAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
@@ -34,12 +36,15 @@ public class HomeFragment extends BaseFragment implements
         OnRefreshListener2<ScrollView>, ListItemClickListener {
     private static final String TAG = HomeFragment.class.getName();
     private PullToRefreshScrollView mPullRefreshScrollView = null;
-    private ListView designer_listview = null;
-    private DesignerListAdapter adapter = null;
-    private List<DesignerListInfo> designerList = new ArrayList<DesignerListInfo>();
+    private LinearLayout marchedLayout = null;
+    private LinearLayout noMarchedLayout = null;
     private LinearLayout designerLayout_1 = null;
     private LinearLayout designerLayout_2 = null;
     private LinearLayout designerLayout_3 = null;
+    private Button addXuQiu = null;
+    private ListView designer_listview = null;
+    private DesignerListAdapter adapter = null;
+    private List<DesignerListInfo> designerList = new ArrayList<DesignerListInfo>();
 
 
     private static final int BANNER_ICON[] = {R.mipmap.bg_home_banner1,
@@ -51,6 +56,10 @@ public class HomeFragment extends BaseFragment implements
         initBannerView();
         mPullRefreshScrollView = (PullToRefreshScrollView) view.findViewById(R.id.pull_refresh_scrollview);
         mPullRefreshScrollView.setMode(Mode.PULL_FROM_START);
+        marchedLayout = (LinearLayout) view.findViewById(R.id.marched_layout);
+        noMarchedLayout = (LinearLayout) view.findViewById(R.id.no_marched_layout);
+        noMarchedLayout.setVisibility(View.GONE);
+        addXuQiu = (Button) view.findViewById(R.id.btn_add);
         designer_listview = (ListView) view.findViewById(R.id.designer_listview);
         designer_listview.setFocusable(false);
         initDesignerByMarchedList(view);
@@ -93,6 +102,7 @@ public class HomeFragment extends BaseFragment implements
         designerLayout_1.setOnClickListener(this);
         designerLayout_2.setOnClickListener(this);
         designerLayout_3.setOnClickListener(this);
+        addXuQiu.setOnClickListener(this);
     }
 
     @Override
@@ -104,6 +114,9 @@ public class HomeFragment extends BaseFragment implements
             case R.id.designerLayout_2:
                 break;
             case R.id.designerLayout_3:
+                break;
+            case R.id.btn_add:
+                startActivity(EditRequirementActivity.class);
                 break;
             default:
                 break;

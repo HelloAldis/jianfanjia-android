@@ -73,7 +73,7 @@ public class XuQiuFragment extends BaseAnnotationFragment implements ClickCallBa
     protected RecyclerView req_listView;
 
     protected void setVisiable() {
-        LogTool.d(getClass().getName(),"setVisiable()");
+        LogTool.d(getClass().getName(), "setVisiable()");
         req_listview_wrap.setVisibility(View.VISIBLE);
         req_publish_wrap.setVisibility(View.GONE);
     }

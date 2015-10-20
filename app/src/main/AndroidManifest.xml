@@ -36,7 +36,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/icon_logo"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
         <!-- 个推SDK配置开始 -->
         <!-- 配置的第三方参数属性 -->
@@ -141,8 +141,7 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        </activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" />
@@ -210,6 +209,7 @@
         <activity
             android:name=".EditRequirementLovestyleActivity_"
             android:label="EditRequirementLovestyleActivity"></activity>
+
         <service android:name="com.jianfanjia.cn.service.UpdateService" />
 
         <activity
@@ -218,6 +218,9 @@
         <activity
             android:name=".DesignerCaseInfoActivity"
             android:label="@string/title_activity_designer_case_info"></activity>
+        <activity android:name=".PingjiaActivity" />
+        <activity android:name=".ContractActivity" />
+        <activity android:name=".DesignerPlanActivity" />
     </application>
 
 </manifest>

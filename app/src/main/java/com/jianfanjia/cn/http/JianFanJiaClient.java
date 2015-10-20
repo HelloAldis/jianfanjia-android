@@ -110,7 +110,6 @@ public class JianFanJiaClient {
         LogoutRequest logoutRequest = new LogoutRequest(context);
         LogTool.d(TAG, "logout " + logoutRequest.getUrl());
         OkHttpClientManager.getInstance().getGetDelegate().getAsyn(logoutRequest, listener, tag);
-
     }
 
     /**
@@ -168,15 +167,15 @@ public class JianFanJiaClient {
         }
     }
 
-  /**
+    /**
      * @param context
      * @author zhanghao
      * @Description 获取业主需求
      */
-    public static void get_Requirement_List(Context context,ApiUiUpdateListener listener,Object tag) {
+    public static void get_Requirement_List(Context context, ApiUiUpdateListener listener, Object tag) {
         GetRequirementRequest getRequirementRequest = new GetRequirementRequest(context);
-        LogTool.d(TAG,"get_Requirement_list --" + getRequirementRequest.getUrl());
-        OkHttpClientManager.getInstance().getGetDelegate().getAsyn(getRequirementRequest,listener,tag);
+        LogTool.d(TAG, "get_Requirement_list --" + getRequirementRequest.getUrl());
+        OkHttpClientManager.getInstance().getGetDelegate().getAsyn(getRequirementRequest, listener, tag);
     }
 
     /**
