@@ -19,6 +19,7 @@ import com.jianfanjia.cn.http.request.DesignerInfoRequest;
 import com.jianfanjia.cn.http.request.FeedBackRequest;
 import com.jianfanjia.cn.http.request.GetAllRescheduleRequest;
 import com.jianfanjia.cn.http.request.GetRequirementRequest;
+import com.jianfanjia.cn.http.request.HomePageRequest;
 import com.jianfanjia.cn.http.request.LoginRequest;
 import com.jianfanjia.cn.http.request.LogoutRequest;
 import com.jianfanjia.cn.http.request.NotifyOwnerCheckRequest;
@@ -667,4 +668,25 @@ public class JianFanJiaClient {
         OkHttpClientManager.getInstance().getGetDelegate().getAsyn(totalDurationRequest, listener, tag);
     }
 
+    /**
+     * 获取首页数据
+     *
+     * @param context
+     * @param from
+     * @param limit
+     * @param listener
+     * @param tag
+     */
+    public static void getHomePageDesigners(Context context, String from, String limit, ApiUiUpdateListener listener, Object tag) {
+        HomePageRequest homePageRequest = new HomePageRequest(context, from, limit);
+        JSONObject jsonParams = new JSONObject();
+        try {
+            jsonParams.put("from", from);
+            jsonParams.put("limit", limit);
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(homePageRequest, jsonParams.toString(), listener, tag);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
 }
