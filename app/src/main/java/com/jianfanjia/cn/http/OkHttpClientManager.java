@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.google.gson.Gson;
-import com.jianfanjia.cn.AppException;
 import com.jianfanjia.cn.base.BaseRequest;
 import com.jianfanjia.cn.base.BaseResponse;
 import com.jianfanjia.cn.config.Constant;
@@ -156,7 +155,7 @@ public class OkHttpClientManager {
         mOkHttpClient.newCall(baseRequest.getRequest()).enqueue(new Callback() {
             @Override
             public void onFailure(final Request request, final IOException e) {
-                sendFailedStringCallback(listener,SERVER_ERROR);
+                sendFailedStringCallback(listener, SERVER_ERROR);
             }
 
             @Override
@@ -176,7 +175,7 @@ public class OkHttpClientManager {
                         String error_msg = responseString.get(
                                 Constant.ERROR_MSG).toString();
                         baseRequest.onFailure(error_msg);
-                        sendFailedStringCallback(listener,error_msg);
+                        sendFailedStringCallback(listener, error_msg);
                     } else if (responseString.has(Constant.SUCCESS_MSG) && responseString.get(
                             Constant.SUCCESS_MSG) != null) {
                         LogTool.d("onResponse == ", "msg :" + responseString.get(
@@ -187,12 +186,12 @@ public class OkHttpClientManager {
                         sendSuccessResultCallback(listener, msg);
                     }
                 } catch (IOException e) {
-                    sendFailedStringCallback(listener,SERVER_ERROR );
+                    sendFailedStringCallback(listener, SERVER_ERROR);
                 } catch (com.google.gson.JsonParseException e)//Json解析的错误
                 {
-                    sendFailedStringCallback(listener,SERVER_ERROR );
+                    sendFailedStringCallback(listener, SERVER_ERROR);
                 } catch (JSONException e) {
-                    sendFailedStringCallback(listener,SERVER_ERROR );
+                    sendFailedStringCallback(listener, SERVER_ERROR);
 
                 }
             }
