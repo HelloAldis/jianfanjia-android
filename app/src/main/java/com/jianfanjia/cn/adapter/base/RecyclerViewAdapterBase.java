@@ -31,10 +31,10 @@ public abstract class RecyclerViewAdapterBase<T, V extends View> extends Recycle
 
     protected abstract V onCreateItemView(ViewGroup parent, int viewType);
 
-    public void addItem(List<T> ts){
+    public void addItem(List<T> ts) {
         clearItems();
-        for(int i = 0;i < ts.size();i++){
-            add(i,ts.get(i));
+        for (int i = 0; i < ts.size(); i++) {
+            add(i, ts.get(i));
         }
     }
 
@@ -43,17 +43,17 @@ public abstract class RecyclerViewAdapterBase<T, V extends View> extends Recycle
         notifyItemRemoved(position);
     }
 
-    private void add(int position,T t) {
+    private void add(int position, T t) {
         items.add(t);
         notifyItemInserted(position);
     }
 
-    public void clearItems(){
+    public void clearItems() {
         items.clear();
     }
 
-    public void deleteItem(T t){
-        if(items.contains(t)){
+    public void deleteItem(T t) {
+        if (items.contains(t)) {
             items.remove(t);
             notifyDataSetChanged();
         }

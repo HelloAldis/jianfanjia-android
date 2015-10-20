@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.adapter.base.BaseListAdapter;
 import com.jianfanjia.cn.bean.DesignerByAppointInfo;
 import com.jianfanjia.cn.tools.LogTool;
 
@@ -65,11 +66,11 @@ public class DesignerByAppointAdapter extends BaseListAdapter<DesignerByAppointI
 
             public void onClick(View v) {
                 if (isSelected.get(position)) {
-                    LogTool.d(TAG,"1111111111111111");
+                    LogTool.d(TAG, "1111111111111111");
                     isSelected.put(position, false);
                     setIsSelected(isSelected);
                 } else {
-                    LogTool.d(TAG,"222222222222222");
+                    LogTool.d(TAG, "222222222222222");
                     isSelected.put(position, true);
                     setIsSelected(isSelected);
                 }
