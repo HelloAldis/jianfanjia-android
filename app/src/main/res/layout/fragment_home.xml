@@ -55,8 +55,7 @@
                 android:fadingEdge="none"
                 android:fastScrollEnabled="false"
                 android:listSelector="@android:color/transparent"
-                android:scrollbars="none"
-                android:stackFromBottom="true" />
+                android:scrollbars="none" />
         </LinearLayout>
     </com.jianfanjia.cn.pulltorefresh.library.PullToRefreshScrollView>
 </LinearLayout>

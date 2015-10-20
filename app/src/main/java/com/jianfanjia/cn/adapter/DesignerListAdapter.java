@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.BaseListAdapter;
 import com.jianfanjia.cn.bean.DesignerListInfo;
+import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.interf.ListItemClickListener;
 
 import java.util.List;
@@ -20,6 +21,7 @@ import java.util.List;
  * Time: 14:03
  */
 public class DesignerListAdapter extends BaseListAdapter<DesignerListInfo> {
+    private static final String TAG = DesignerListAdapter.class.getName();
     private ListItemClickListener listener;
 
     public DesignerListAdapter(Context context, List<DesignerListInfo> list) {
@@ -52,10 +54,11 @@ public class DesignerListAdapter extends BaseListAdapter<DesignerListInfo> {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.itemProductView.setImageResource(R.mipmap.bg_home_banner2);
-        viewHolder.itemHeadView.setImageResource(R.mipmap.pix_default);
-        viewHolder.itemXiaoQuText.setText(info.getXiaoquInfo());
-        viewHolder.itemProduceText.setText(info.getProduceInfo());
+
+        imageLoader.displayImage(Url_New.GET_IMAGE + info.getImageid(), viewHolder.itemProductView, options);
+        imageLoader.displayImage(Url_New.GET_IMAGE + info.getImageid(), viewHolder.itemHeadView, options);
+        viewHolder.itemXiaoQuText.setText(info.getProduct().getCell());
+        viewHolder.itemProduceText.setText(info.getUsername());
         viewHolder.itemProductView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {

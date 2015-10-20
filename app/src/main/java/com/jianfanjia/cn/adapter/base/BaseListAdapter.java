@@ -30,6 +30,7 @@ public abstract class BaseListAdapter<T> extends BaseAdapter {
         this.context = context;
         this.list = list;
         layoutInflater = LayoutInflater.from(context);
+        imageLoader = ImageLoader.getInstance();
         options = new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.mipmap.pix_default)
                 .showImageForEmptyUri(R.mipmap.pix_default)
