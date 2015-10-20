@@ -7,6 +7,7 @@ import com.jianfanjia.cn.bean.CommitCommentInfo;
 import com.jianfanjia.cn.bean.DesignerUpdateInfo;
 import com.jianfanjia.cn.bean.OwnerUpdateInfo;
 import com.jianfanjia.cn.bean.RegisterInfo;
+import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Url;
 import com.jianfanjia.cn.http.request.AddPicToCheckRequest;
 import com.jianfanjia.cn.http.request.AddPicToSectionItemRequest;
@@ -23,12 +24,13 @@ import com.jianfanjia.cn.http.request.LogoutRequest;
 import com.jianfanjia.cn.http.request.NotifyOwnerCheckRequest;
 import com.jianfanjia.cn.http.request.OwnerFinishCheckRequest;
 import com.jianfanjia.cn.http.request.OwnerInfoRequest;
+import com.jianfanjia.cn.http.request.PostRequirementRequest;
+import com.jianfanjia.cn.http.request.PostRescheduleRequest;
 import com.jianfanjia.cn.http.request.PostSectionFinishRequest;
 import com.jianfanjia.cn.http.request.ProcessInfoRequest;
 import com.jianfanjia.cn.http.request.ProcessListRequest;
 import com.jianfanjia.cn.http.request.RefuseRescheduleRequest;
 import com.jianfanjia.cn.http.request.RegisterRequest;
-import com.jianfanjia.cn.http.request.PostRescheduleRequest;
 import com.jianfanjia.cn.http.request.SendVerificationRequest;
 import com.jianfanjia.cn.http.request.TotalDurationRequest;
 import com.jianfanjia.cn.http.request.UploadPicRequestNew;
@@ -175,6 +177,21 @@ public class JianFanJiaClient {
         LogTool.d(TAG, "get_Requirement_list --" + getRequirementRequest.getUrl());
         OkHttpClientManager.getInstance().getGetDelegate().getAsyn(getRequirementRequest, listener, tag);
     }
+
+    /**
+     * 发布需求
+     *
+     * @param context
+     * @param requirementInfo
+     * @param listener
+     * @param tag
+     */
+    public static void add_Requirement(Context context, RequirementInfo requirementInfo, ApiUiUpdateListener listener, Object tag) {
+        PostRequirementRequest postRequirementRequest = new PostRequirementRequest(context, requirementInfo);
+        LogTool.d(TAG, "add_Requirement --" + postRequirementRequest.getUrl() + "--" + JsonParser.beanToJson(requirementInfo));
+        OkHttpClientManager.getInstance().getPostDelegate().postAsyn(postRequirementRequest, JsonParser.beanToJson(requirementInfo), listener, tag);
+    }
+
 
    /* *//**
      * @param context
