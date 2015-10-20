@@ -15,11 +15,14 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.DesignerListAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.DesignerListInfo;
+import com.jianfanjia.cn.http.JianFanJiaClient;
+import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.ListItemClickListener;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshScrollView;
+import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.ViewPagerManager;
 import com.jianfanjia.cn.tools.ViewPagerManager.ShapeType;
 
@@ -33,7 +36,7 @@ import java.util.List;
  * Date:15-10-11 14:30
  */
 public class HomeFragment extends BaseFragment implements
-        OnRefreshListener2<ScrollView>, ListItemClickListener {
+        OnRefreshListener2<ScrollView>, ListItemClickListener, ApiUiUpdateListener {
     private static final String TAG = HomeFragment.class.getName();
     private PullToRefreshScrollView mPullRefreshScrollView = null;
     private LinearLayout marchedLayout = null;
@@ -121,6 +124,25 @@ public class HomeFragment extends BaseFragment implements
             default:
                 break;
         }
+    }
+
+    private void getHomePageDesigners(String from, String limit) {
+        JianFanJiaClient.getHomePageDesigners(getActivity(), from, limit, this, this);
+    }
+
+    @Override
+    public void preLoad() {
+
+    }
+
+    @Override
+    public void loadSuccess(Object data) {
+        LogTool.d(TAG, "data:" + data);
+    }
+
+    @Override
+    public void loadFailture(String error_msg) {
+        makeTextLong(error_msg);
     }
 
     @Override
