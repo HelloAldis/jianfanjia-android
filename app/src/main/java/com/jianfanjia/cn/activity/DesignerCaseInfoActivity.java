@@ -76,7 +76,7 @@ public class DesignerCaseInfoActivity extends BaseActivity implements ApiUiUpdat
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.designerinfo_head_img:
-                startActivity(DesignerInfoActivity.class);
+//                startActivity(DesignerInfoActivity.class);
                 break;
             default:
                 break;
