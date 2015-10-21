@@ -21,7 +21,6 @@
             android:background="@color/font_white"
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
-            app:expandedTitleGravity="center_horizontal"
             app:expandedTitleMarginBottom="80dip"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
