@@ -42,8 +42,8 @@ public class DesignerWorksAdapter extends BaseListAdapter<DesignerWorksInfo> {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.itemwWorksView.setImageResource(R.mipmap.bg_home_banner2);
-        viewHolder.itemXiaoQuText.setText(info.getXiaoquName());
-        viewHolder.itemProduceText.setText(info.getProduce());
+//        viewHolder.itemXiaoQuText.setText(info.getXiaoquName());
+//        viewHolder.itemProduceText.setText(info.getProduce());
         return convertView;
     }
 
