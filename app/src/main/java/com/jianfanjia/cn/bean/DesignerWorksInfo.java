@@ -1,6 +1,7 @@
 package com.jianfanjia.cn.bean;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Name: DesignerWorksInfo
@@ -9,15 +10,15 @@ import java.io.Serializable;
  * Time: 13:41
  */
 public class DesignerWorksInfo implements Serializable {
-    private Product product;
+    private List<Product> products;
     private String total;
 
-    public Product getProduct() {
-        return product;
+    public List<Product> getProducts() {
+        return products;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 
     public String getTotal() {
