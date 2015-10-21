@@ -14,7 +14,7 @@
     <TextView
         android:id="@+id/list_item_case_title_text"
         style="@style/listview_item_text_style_middle"
-        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="@dimen/space_10"
         android:layout_marginTop="@dimen/space_10"
         android:text="小区名称"
         android:textColor="@color/main_color_black" />
