@@ -3,6 +3,8 @@ package com.jianfanjia.cn.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -25,7 +27,7 @@ import java.util.List;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class DesignerCaseInfoActivity extends BaseActivity implements ApiUiUpdateListener {
+public class DesignerCaseInfoActivity extends BaseActivity implements ApiUiUpdateListener, OnClickListener {
     private static final String TAG = DesignerCaseInfoActivity.class.getName();
     private Toolbar mToolbar = null;
     private ListView designer_case_listview = null;
@@ -67,8 +69,20 @@ public class DesignerCaseInfoActivity extends BaseActivity implements ApiUiUpdat
 
     @Override
     public void setListener() {
-
+        designerinfo_head_img.setOnClickListener(this);
     }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.designerinfo_head_img:
+                startActivity(DesignerInfoActivity.class);
+                break;
+            default:
+                break;
+        }
+    }
+
 
     @Override
     public void preLoad() {
