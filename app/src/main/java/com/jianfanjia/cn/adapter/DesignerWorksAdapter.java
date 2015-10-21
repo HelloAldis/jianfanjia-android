@@ -7,7 +7,8 @@ import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.BaseListAdapter;
-import com.jianfanjia.cn.bean.DesignerWorksInfo;
+import com.jianfanjia.cn.bean.Product;
+import com.jianfanjia.cn.config.Url_New;
 
 import java.util.List;
 
@@ -17,16 +18,16 @@ import java.util.List;
  * Date: 2015-10-15
  * Time: 13:44
  */
-public class DesignerWorksAdapter extends BaseListAdapter<DesignerWorksInfo> {
+public class DesignerWorksAdapter extends BaseListAdapter<Product> {
 
-    public DesignerWorksAdapter(Context context, List<DesignerWorksInfo> list) {
+    public DesignerWorksAdapter(Context context, List<Product> list) {
         super(context, list);
     }
 
     @Override
     public View initView(int position, View convertView) {
         ViewHolder viewHolder = null;
-        DesignerWorksInfo info = list.get(position);
+        Product product = list.get(position);
         if (convertView == null) {
             convertView = layoutInflater.inflate(R.layout.list_item_designer_works,
                     null);
@@ -41,9 +42,9 @@ public class DesignerWorksAdapter extends BaseListAdapter<DesignerWorksInfo> {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.itemwWorksView.setImageResource(R.mipmap.bg_home_banner2);
-        viewHolder.itemXiaoQuText.setText(info.getXiaoquName());
-        viewHolder.itemProduceText.setText(info.getProduce());
+        imageLoader.displayImage(Url_New.GET_IMAGE + product.getImages().get(0).getImageid(), viewHolder.itemwWorksView, options);
+        viewHolder.itemXiaoQuText.setText(product.getCell());
+        viewHolder.itemProduceText.setText(product.getHouse_area() + "㎡");
         return convertView;
     }
 

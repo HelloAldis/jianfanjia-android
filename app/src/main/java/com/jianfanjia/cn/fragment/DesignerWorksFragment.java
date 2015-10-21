@@ -1,5 +1,6 @@
 package com.jianfanjia.cn.fragment;
 
+import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -9,9 +10,13 @@ import com.jianfanjia.cn.activity.DesignerCaseInfoActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.DesignerWorksAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
+import com.jianfanjia.cn.bean.DesignerInfo;
 import com.jianfanjia.cn.bean.DesignerWorksInfo;
+import com.jianfanjia.cn.bean.Product;
 import com.jianfanjia.cn.http.JianFanJiaClient;
+import com.jianfanjia.cn.interf.ActivityToFragmentInterface;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
+import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 
 import java.util.ArrayList;
@@ -23,11 +28,11 @@ import java.util.List;
  * @Description: 设计师作品
  * @date 2015-8-26 下午1:07:52
  */
-public class DesignerWorksFragment extends BaseFragment implements OnItemClickListener, ApiUiUpdateListener {
+public class DesignerWorksFragment extends BaseFragment implements OnItemClickListener, ApiUiUpdateListener, ActivityToFragmentInterface {
     private static final String TAG = DesignerWorksFragment.class.getName();
     private ListView designer_works_listview = null;
     private DesignerWorksAdapter adapter = null;
-    private List<DesignerWorksInfo> designerWorksList = new ArrayList<DesignerWorksInfo>();
+    private List<Product> productList = new ArrayList<Product>();
 
     @Override
     public void initView(View view) {
@@ -53,6 +58,11 @@ public class DesignerWorksFragment extends BaseFragment implements OnItemClickLi
         JianFanJiaClient.getDesignerProduct(getActivity(), designerid, from, limit, this, this);
     }
 
+    @Override
+    public void toTransmit(DesignerInfo designerInfo) {
+        String designerid = designerInfo.get_id();
+        getDesignerProduct(designerid, 0, 5);
+    }
 
     @Override
     public void setListener() {
@@ -61,8 +71,12 @@ public class DesignerWorksFragment extends BaseFragment implements OnItemClickLi
 
     @Override
     public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
-        makeTextLong("案例");
-        startActivity(DesignerCaseInfoActivity.class);
+        Product product = productList.get(position);
+        String productid = product.get_id();
+        LogTool.d(TAG, "productid:" + productid);
+        Bundle productBundle = new Bundle();
+        productBundle.putString("productId", productid);
+        startActivity(DesignerCaseInfoActivity.class, productBundle);
     }
 
     @Override
@@ -73,11 +87,18 @@ public class DesignerWorksFragment extends BaseFragment implements OnItemClickLi
     @Override
     public void loadSuccess(Object data) {
         LogTool.d(TAG, "data:" + data);
+        DesignerWorksInfo worksInfo = JsonParser.jsonToBean(data.toString(), DesignerWorksInfo.class);
+        LogTool.d(TAG, "worksInfo :" + worksInfo);
+        if (null != worksInfo) {
+            productList = worksInfo.getProducts();
+            adapter = new DesignerWorksAdapter(getActivity(), productList);
+            designer_works_listview.setAdapter(adapter);
+        }
     }
 
     @Override
     public void loadFailture(String error_msg) {
-
+        makeTextLong(error_msg);
     }
 
     @Override

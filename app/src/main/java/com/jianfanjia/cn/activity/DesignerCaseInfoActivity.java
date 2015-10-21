@@ -1,8 +1,11 @@
 package com.jianfanjia.cn.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -22,16 +25,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Description:设计师案例详情
+ * Description:设计师作品案例详情
  * Author：fengliang
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
 public class DesignerCaseInfoActivity extends BaseActivity implements ApiUiUpdateListener, OnClickListener {
     private static final String TAG = DesignerCaseInfoActivity.class.getName();
-    private Toolbar mToolbar = null;
+    private Toolbar toolbar = null;
+    private CollapsingToolbarLayout collapsingToolbar = null;
     private ListView designer_case_listview = null;
-    private TextView cellName = null;
     private TextView stylelText = null;
     private ImageView designerinfo_head_img = null;
     private TextView produceText = null;
@@ -42,12 +45,18 @@ public class DesignerCaseInfoActivity extends BaseActivity implements ApiUiUpdat
 
     @Override
     public void initView() {
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        mToolbar.setTitle("");
-        setSupportActionBar(mToolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(R.mipmap.icon_register_back);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        collapsingToolbar =
+                (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        collapsingToolbar.setExpandedTitleTextAppearance(R.style.site_listview_item_text_style_big);
+        collapsingToolbar.setExpandedTitleGravity(Gravity.CENTER_HORIZONTAL);
+        collapsingToolbar.setCollapsedTitleTextColor(Color.BLACK);
+        collapsingToolbar.setExpandedTitleColor(Color.BLACK);
         designer_case_listview = (ListView) findViewById(R.id.designer_case_listview);
         designer_case_listview.setFocusable(false);
-        cellName = (TextView) findViewById(R.id.cellName);
         stylelText = (TextView) findViewById(R.id.stylelName);
         designerinfo_head_img = (ImageView) findViewById(R.id.designerinfo_head_img);
         produceText = (TextView) findViewById(R.id.produceText);
@@ -70,13 +79,19 @@ public class DesignerCaseInfoActivity extends BaseActivity implements ApiUiUpdat
     @Override
     public void setListener() {
         designerinfo_head_img.setOnClickListener(this);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.designerinfo_head_img:
-                startActivity(DesignerInfoActivity.class);
+//                startActivity(DesignerInfoActivity.class);
                 break;
             default:
                 break;
@@ -101,7 +116,7 @@ public class DesignerCaseInfoActivity extends BaseActivity implements ApiUiUpdat
         DesignerCaseInfo designerCaseInfo = JsonParser.jsonToBean(response, DesignerCaseInfo.class);
         LogTool.d(TAG, "designerCaseInfo" + designerCaseInfo);
         if (null != designerCaseInfo) {
-            cellName.setText(designerCaseInfo.getCell());
+            collapsingToolbar.setTitle(designerCaseInfo.getCell());
             stylelText.setText(designerCaseInfo.getHouse_area() + "㎡");
             imageLoader.displayImage(Url_New.GET_IMAGE + designerCaseInfo.getDesigner().getImageid(), designerinfo_head_img, options);
             produceText.setText("设计简介:" + designerCaseInfo.getDescription());

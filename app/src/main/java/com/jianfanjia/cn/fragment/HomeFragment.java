@@ -1,5 +1,6 @@
 package com.jianfanjia.cn.fragment;
 
+import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.AdapterView;
@@ -21,6 +22,7 @@ import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.DesignerListInfo;
 import com.jianfanjia.cn.bean.HomeDesignersInfo;
 import com.jianfanjia.cn.bean.OrderDesignerInfo;
+import com.jianfanjia.cn.bean.Product;
 import com.jianfanjia.cn.bean.Requirement;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaClient;
@@ -121,8 +123,11 @@ public class HomeFragment extends BaseFragment implements
     public void onItemClick(AdapterView<?> parent, View view, int position,
                             long id) {
         OrderDesignerInfo orderDesignerInfo = designers.get(position);
-        LogTool.d(TAG, "orderDesignerInfo=" + orderDesignerInfo.getUsername());
-        startActivity(DesignerInfoActivity.class);
+        String designertid = orderDesignerInfo.get_id();
+        LogTool.d(TAG, "designertid:" + designertid);
+        Bundle designerBundle = new Bundle();
+        designerBundle.putString("designerId", designertid);
+        startActivity(DesignerInfoActivity.class, designerBundle);
     }
 
     private void getHomePageDesigners(int from, int limit) {
@@ -184,14 +189,23 @@ public class HomeFragment extends BaseFragment implements
 
     @Override
     public void onMaxClick(int position) {
-        makeTextLong("点击案例图" + position);
-        startActivity(DesignerCaseInfoActivity.class);
+        DesignerListInfo designerListInfo = designerList.get(position);
+        Product product = designerListInfo.getProduct();
+        String productid = product.get_id();
+        LogTool.d(TAG, "productid:" + productid);
+        Bundle productBundle = new Bundle();
+        productBundle.putString("productId", productid);
+        startActivity(DesignerCaseInfoActivity.class, productBundle);
     }
 
     @Override
     public void onMinClick(int position) {
-        makeTextLong("点击设计师头像" + position);
-        startActivity(DesignerInfoActivity.class);
+        DesignerListInfo designerListInfo = designerList.get(position);
+        String designertid = designerListInfo.get_id();
+        LogTool.d(TAG, "designertid:" + designertid);
+        Bundle designerBundle = new Bundle();
+        designerBundle.putString("designerId", designertid);
+        startActivity(DesignerInfoActivity.class, designerBundle);
     }
 
     @Override
