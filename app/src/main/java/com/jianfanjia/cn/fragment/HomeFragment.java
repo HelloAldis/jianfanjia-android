@@ -2,7 +2,10 @@ package com.jianfanjia.cn.fragment;
 
 import android.text.format.DateUtils;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -10,11 +13,16 @@ import android.widget.ScrollView;
 
 import com.jianfanjia.cn.activity.DesignerCaseInfoActivity;
 import com.jianfanjia.cn.activity.DesignerInfoActivity;
-import com.jianfanjia.cn.activity.EditRequirementActivity;
+import com.jianfanjia.cn.activity.EditRequirementActivity_;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.DesignerListAdapter;
+import com.jianfanjia.cn.adapter.MarchDesignerAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.DesignerListInfo;
+import com.jianfanjia.cn.bean.HomeDesignersInfo;
+import com.jianfanjia.cn.bean.OrderDesignerInfo;
+import com.jianfanjia.cn.bean.Requirement;
+import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.ListItemClickListener;
@@ -22,6 +30,7 @@ import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshScrollView;
+import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.ViewPagerManager;
 import com.jianfanjia.cn.tools.ViewPagerManager.ShapeType;
@@ -36,19 +45,21 @@ import java.util.List;
  * Date:15-10-11 14:30
  */
 public class HomeFragment extends BaseFragment implements
-        OnRefreshListener2<ScrollView>, ListItemClickListener, ApiUiUpdateListener {
+        OnRefreshListener2<ScrollView>, ListItemClickListener, ApiUiUpdateListener, OnItemClickListener {
     private static final String TAG = HomeFragment.class.getName();
     private PullToRefreshScrollView mPullRefreshScrollView = null;
     private LinearLayout marchedLayout = null;
     private LinearLayout noMarchedLayout = null;
-    private LinearLayout designerLayout_1 = null;
-    private LinearLayout designerLayout_2 = null;
-    private LinearLayout designerLayout_3 = null;
+    private GridView marchDesignerView = null;
+    private MarchDesignerAdapter marchDesignerAdapter = null;
+    private List<OrderDesignerInfo> designers = new ArrayList<OrderDesignerInfo>();
+
     private Button addXuQiu = null;
     private ListView designer_listview = null;
-    private DesignerListAdapter adapter = null;
+    private DesignerListAdapter designerAdapter = null;
     private List<DesignerListInfo> designerList = new ArrayList<DesignerListInfo>();
 
+    private int FROM = 0;
 
     private static final int BANNER_ICON[] = {R.mipmap.bg_home_banner1,
             R.mipmap.bg_home_banner2, R.mipmap.bg_home_banner3,
@@ -58,15 +69,14 @@ public class HomeFragment extends BaseFragment implements
     public void initView(View view) {
         initBannerView();
         mPullRefreshScrollView = (PullToRefreshScrollView) view.findViewById(R.id.pull_refresh_scrollview);
-        mPullRefreshScrollView.setMode(Mode.PULL_FROM_START);
+        mPullRefreshScrollView.setMode(Mode.BOTH);
         marchedLayout = (LinearLayout) view.findViewById(R.id.marched_layout);
         noMarchedLayout = (LinearLayout) view.findViewById(R.id.no_marched_layout);
-        noMarchedLayout.setVisibility(View.GONE);
         addXuQiu = (Button) view.findViewById(R.id.btn_add);
+        marchDesignerView = (GridView) view.findViewById(R.id.marchGridview);
         designer_listview = (ListView) view.findViewById(R.id.designer_listview);
         designer_listview.setFocusable(false);
-        initDesignerByMarchedList(view);
-        initDesignerList();
+        initHomePage();
     }
 
     private void initBannerView() {
@@ -82,66 +92,92 @@ public class HomeFragment extends BaseFragment implements
         contoler.setAutoSroll(true);
     }
 
-    private void initDesignerByMarchedList(View view) {
-        designerLayout_1 = (LinearLayout) view.findViewById(R.id.designerLayout_1);
-        designerLayout_2 = (LinearLayout) view.findViewById(R.id.designerLayout_2);
-        designerLayout_3 = (LinearLayout) view.findViewById(R.id.designerLayout_3);
-    }
-
-    private void initDesignerList() {
-        for (int i = 0; i < 5; i++) {
-            DesignerListInfo info = new DesignerListInfo();
-            info.setXiaoquInfo("小区名称" + 1);
-            info.setProduceInfo("100平米,三室二厅,现代简约");
-            designerList.add(info);
-        }
-        adapter = new DesignerListAdapter(getActivity(), designerList, this);
-        designer_listview.setAdapter(adapter);
+    private void initHomePage() {
+        getHomePageDesigners(FROM, Constant.LIMIT);
+        designerAdapter = new DesignerListAdapter(getActivity(), designerList, this);
+        designer_listview.setAdapter(designerAdapter);
     }
 
     @Override
     public void setListener() {
         mPullRefreshScrollView.setOnRefreshListener(this);
-        designerLayout_1.setOnClickListener(this);
-        designerLayout_2.setOnClickListener(this);
-        designerLayout_3.setOnClickListener(this);
         addXuQiu.setOnClickListener(this);
+        marchDesignerView.setOnItemClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.designerLayout_1:
-                startActivity(DesignerInfoActivity.class);
-                break;
-            case R.id.designerLayout_2:
-                break;
-            case R.id.designerLayout_3:
-                break;
             case R.id.btn_add:
-                startActivity(EditRequirementActivity.class);
+                startActivity(EditRequirementActivity_.class);
                 break;
             default:
                 break;
         }
     }
 
-    private void getHomePageDesigners(String from, String limit) {
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position,
+                            long id) {
+        OrderDesignerInfo orderDesignerInfo = designers.get(position);
+        LogTool.d(TAG, "orderDesignerInfo=" + orderDesignerInfo.getUsername());
+        startActivity(DesignerInfoActivity.class);
+    }
+
+    private void getHomePageDesigners(int from, int limit) {
         JianFanJiaClient.getHomePageDesigners(getActivity(), from, limit, this, this);
     }
 
     @Override
     public void preLoad() {
-
+        marchedLayout.setVisibility(View.GONE);
+        noMarchedLayout.setVisibility(View.GONE);
+        showWaitDialog(R.string.loding);
     }
 
     @Override
     public void loadSuccess(Object data) {
-        LogTool.d(TAG, "data:" + data);
+        LogTool.d(TAG, "data=============================" + data);
+        hideWaitDialog();
+        parseResponse(data.toString());
+        mPullRefreshScrollView.onRefreshComplete();
+        designerAdapter.notifyDataSetChanged();
+    }
+
+    private void parseResponse(String response) {
+        HomeDesignersInfo homeDesignersInfo = JsonParser.jsonToBean(response, HomeDesignersInfo.class);
+        LogTool.d(TAG, "homeDesignersInfo:" + homeDesignersInfo);
+        if (null != homeDesignersInfo) {
+            Requirement requirement = homeDesignersInfo.getRequirement();
+            LogTool.d(TAG, "requirement=" + requirement);
+            if (null != requirement) {
+                designers = requirement.getDesigners();
+                LogTool.d(TAG, "designers=" + designers);
+                if (null != designers && designers.size() > 0) {
+                    marchedLayout.setVisibility(View.VISIBLE);
+                    noMarchedLayout.setVisibility(View.GONE);
+                    marchDesignerAdapter = new MarchDesignerAdapter(getActivity(), designers);
+                    marchDesignerView.setAdapter(marchDesignerAdapter);
+                } else {
+                    marchedLayout.setVisibility(View.GONE);
+                    noMarchedLayout.setVisibility(View.GONE);
+                }
+            } else {
+                marchedLayout.setVisibility(View.GONE);
+                noMarchedLayout.setVisibility(View.VISIBLE);
+            }
+            designerList.addAll(homeDesignersInfo.getDesigners());
+            LogTool.d(TAG, "designerList:" + designerList.size());
+            designerAdapter.notifyDataSetChanged();
+        } else {
+
+        }
     }
 
     @Override
     public void loadFailture(String error_msg) {
+        hideWaitDialog();
+        mPullRefreshScrollView.onRefreshComplete();
         makeTextLong(error_msg);
     }
 
@@ -166,12 +202,17 @@ public class HomeFragment extends BaseFragment implements
                         | DateUtils.FORMAT_ABBREV_ALL);
         // Update the LastUpdatedLabel
         refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
-        mPullRefreshScrollView.onRefreshComplete();
+        FROM = 0;
+        designerList.clear();
+        designerAdapter.notifyDataSetChanged();
+        getHomePageDesigners(FROM, Constant.LIMIT);
     }
 
     @Override
     public void onPullUpToRefresh(PullToRefreshBase<ScrollView> refreshView) {
         mPullRefreshScrollView.onRefreshComplete();
+        FROM = designerList.size();
+        getHomePageDesigners(FROM, Constant.LIMIT);
     }
 
     @Override
