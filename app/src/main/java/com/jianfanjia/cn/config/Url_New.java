@@ -56,7 +56,8 @@ public class Url_New {
     public static final String ADD_FAVORITE_DESIGNER = HTTPROOT + "favorite/designer/add";
     //业主移除意向设计师列表的设计师(Post)
     public static final String DELETE_FAVORITE_DESIGNER = HTTPROOT + "favorite/designer/delete";
-
+    //获取某个作品主页
+    public static final String PRODUCT_HOME_PAGE = HTTPROOT + "product_home_page";
     //业主预约量房
     public static final String USER_ORDER_DESIGNER = HTTPROOT + "user_order_designer";
     //业主获取我预约的设计师
