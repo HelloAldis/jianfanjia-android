@@ -46,7 +46,7 @@ import jp.wasabeef.recyclerview.animators.FadeInUpAnimator;
  * Date:15-10-11 14:30
  */
 @EFragment(R.layout.fragment_requirement)
-public class XuQiuFragment extends BaseAnnotationFragment{
+public class XuQiuFragment extends BaseAnnotationFragment {
     private static final String TAG = XuQiuFragment.class.getName();
 
     public static final int REQUESTCODE_PUBLISH_REQUIREMENT = 1;
@@ -87,6 +87,8 @@ public class XuQiuFragment extends BaseAnnotationFragment{
     protected Intent gotoMyDesigner;
     protected Intent gotoEditRequirement;
 
+    private int lastVisibleItem;
+
     protected void setListVisiable() {
         LogTool.d(getClass().getName(), "setVisiable()");
         req_listview_wrap.setVisibility(View.VISIBLE);
@@ -100,17 +102,19 @@ public class XuQiuFragment extends BaseAnnotationFragment{
     }
 
     protected void initListView() {
+
+        final LinearLayoutManager mLayoutManager =  new LinearLayoutManager(getActivity());
         // 创建一个线性布局管理器
-        req_listView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        req_listView.setLayoutManager(mLayoutManager);
         req_listView.setItemAnimator(new FadeInUpAnimator(new DecelerateInterpolator(0.5F)));
         req_listView.addItemDecoration(new DividerItemDecoration(getActivity(),
                 DividerItemDecoration.VERTICAL_LIST));
         requirementAdapter = new RequirementNewAdapter(getActivity(), new ClickCallBack() {
             @Override
             public void click(int position, int itemType) {
-                switch (itemType){
+                switch (itemType) {
                     case ITEM_EDIT:
-                        gotoEditRequirement.putExtra(Global.REQUIREMENT_INFO,requirementInfos.get(position));
+                        gotoEditRequirement.putExtra(Global.REQUIREMENT_INFO, requirementInfos.get(position));
                         startActivityForResult(gotoEditRequirement, REQUESTCODE_PUBLISH_REQUIREMENT);
                         break;
                     case ITEM_GOTOPRO:
@@ -119,7 +123,7 @@ public class XuQiuFragment extends BaseAnnotationFragment{
                         startActivity(gotoMyDesigner);
                         break;
                     case ITEM_GOTOODERDESI:
-                        gotoOrderDesigner.putExtra(Global.REQUIREMENT_ID,requirementInfos.get(position).get_id());
+                        gotoOrderDesigner.putExtra(Global.REQUIREMENT_ID, requirementInfos.get(position).get_id());
                         startActivity(gotoOrderDesigner);
                         break;
                 }
@@ -132,7 +136,7 @@ public class XuQiuFragment extends BaseAnnotationFragment{
     @Click({R.id.req_publish, R.id.head_right_title})
     protected void publish_requirement() {
         makeTextLong("发布需求");
-        Intent intent = new Intent(getActivity(),EditRequirementActivity_.class);
+        Intent intent = new Intent(getActivity(), EditRequirementActivity_.class);
         startActivityForResult(intent, REQUESTCODE_PUBLISH_REQUIREMENT);
 //        requirementAdapter.remove(3);
     }
@@ -150,33 +154,31 @@ public class XuQiuFragment extends BaseAnnotationFragment{
         initdata();
     }
 
-    protected void initIntent(){
-        gotoEditRequirement = new Intent(getActivity(),EditRequirementActivity_.class);
-        gotoOrderDesigner = new Intent(getActivity(),AppointDesignerActivity.class);
+    protected void initIntent() {
+        gotoEditRequirement = new Intent(getActivity(), EditRequirementActivity_.class);
+        gotoOrderDesigner = new Intent(getActivity(), AppointDesignerActivity.class);
         gotoMyDesigner = new Intent(getActivity(), MyDesignerActivity.class);
     }
 
-    protected  void initdata(){
-        if(NetTool.isNetworkAvailable(getActivity())){
+    protected void initdata() {
+        if (NetTool.isNetworkAvailable(getActivity())) {
             JianFanJiaClient.get_Requirement_List(getActivity(), new ApiUiUpdateListener() {
                 @Override
                 public void preLoad() {
-                    showWaitDialog();
                 }
 
                 @Override
                 public void loadSuccess(Object data) {
-                    hideWaitDialog();
                     if (data != null) {
                         requirementInfos = JsonParser.jsonToList(data.toString(), new TypeToken<List<RequirementInfo>>() {
                         }.getType());
                         requirementAdapter.addItem(requirementInfos);
-                        if(requirementInfos.size() > 0){
+                        if (requirementInfos.size() > 0) {
                             setListVisiable();
-                            if(requirementInfos.size() >= Constant.ROST_REQUIREMTNE_TOTAL){
+                            if (requirementInfos.size() >= Constant.ROST_REQUIREMTNE_TOTAL) {
                                 mainHeadView.setRigthTitleEnable(false);
                             }
-                        }else{
+                        } else {
                             setPublishVisiable();
                         }
                     }
@@ -184,7 +186,6 @@ public class XuQiuFragment extends BaseAnnotationFragment{
 
                 @Override
                 public void loadFailture(String error_msg) {
-                    hideWaitDialog();
                     setPublishVisiable();
                 }
             }, this);
@@ -194,10 +195,10 @@ public class XuQiuFragment extends BaseAnnotationFragment{
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode != Activity.RESULT_OK) {
+        if (resultCode != Activity.RESULT_OK) {
             return;
         }
-        switch (requestCode){
+        switch (requestCode) {
             case REQUESTCODE_PUBLISH_REQUIREMENT:
                 initdata();
                 break;

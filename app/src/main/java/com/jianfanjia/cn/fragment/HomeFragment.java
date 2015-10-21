@@ -70,6 +70,7 @@ public class HomeFragment extends BaseFragment implements
         initBannerView();
         mPullRefreshScrollView = (PullToRefreshScrollView) view.findViewById(R.id.pull_refresh_scrollview);
         mPullRefreshScrollView.setMode(Mode.BOTH);
+        mPullRefreshScrollView.setOverScrollMode(PullToRefreshBase.OVER_SCROLL_NEVER);
         marchedLayout = (LinearLayout) view.findViewById(R.id.marched_layout);
         noMarchedLayout = (LinearLayout) view.findViewById(R.id.no_marched_layout);
         addXuQiu = (Button) view.findViewById(R.id.btn_add);

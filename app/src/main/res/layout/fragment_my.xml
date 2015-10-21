@@ -17,9 +17,16 @@
             android:orientation="vertical">
 
             <RelativeLayout
+                android:id="@+id/frag_my_info_layout"
                 android:layout_width="match_parent"
-                android:layout_height="150dip"
-                android:background="@mipmap/bg_home_banner1">
+                android:layout_height="wrap_content"
+                >
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitCenter"
+                    android:layout_centerInParent="true"
+                    android:src="@mipmap/bg_my"/>
 
                 <RelativeLayout
                     android:layout_width="fill_parent"
@@ -27,7 +34,8 @@
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
-                    android:layout_marginBottom="@dimen/space_16">
+                    android:paddingBottom="@dimen/space_16"
+                    android:paddingTop="@dimen/space_16">
 
 
                     <TextView

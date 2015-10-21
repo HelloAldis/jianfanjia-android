@@ -59,7 +59,6 @@ public class MyFavoriteDesignerActivity extends BaseActivity{
 
     @ItemClick(R.id.act_my_favorite_designer_listview)
     protected void clickItem(DesignerInfo designerInfo){
-
     }
 
     @Override

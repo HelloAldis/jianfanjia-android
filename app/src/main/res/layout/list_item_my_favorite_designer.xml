@@ -35,7 +35,10 @@
             android:id="@+id/ltm_myfavdesi_score"
             android:numStars="5"
             android:stepSize="0.5"
-            android:layout_alignBottom="@+id/ltm_myfavdesi_head"
+            style="@style/my_rationgbar"
+            android:isIndicator="true"
+            android:layout_marginTop="@dimen/space_8"
+            android:layout_below="@+id/ltm_myfavdesi_name"
             android:layout_alignLeft="@+id/ltm_myfavdesi_name"
             android:layout_alignStart="@+id/ltm_myfavdesi_name"
             />

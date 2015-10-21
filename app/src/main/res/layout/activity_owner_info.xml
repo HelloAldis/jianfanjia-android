@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ownerinfoLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_layout_bg" >
+
+    <com.jianfanjia.cn.view.MainHeadView
+        android:id="@+id/ownerinfo_head_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ScrollView
+        android:id="@+id/ownerinfo_scrollview"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/ownerinfo_head_layout"
+        android:layout_marginTop="@dimen/space_8" >
+
+        <LinearLayout
+            android:id="@+id/rootview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <View style="@style/divier_line" />
+
+            <RelativeLayout
+                android:id="@+id/head_layout"
+                style="@style/my_list_item_layout_style"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/space_16"
+                android:paddingTop="@dimen/space_16" >
+
+                <TextView
+                    style="@style/listview_item_text_style_middle"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/user_head"
+                    android:textColor="@color/main_color_black" />
+
+                <com.jianfanjia.cn.layout.CircleImageView
+                    android:id="@+id/head_icon"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginRight="@dimen/space_8"
+                    android:layout_toLeftOf="@+id/head_goto"
+                    android:contentDescription="@null"
+                    android:scaleType="centerCrop" />
+
+                <ImageView
+                    android:id="@+id/head_goto"
+                    style="@style/my_item_layout_image_style"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@null" />
+            </RelativeLayout>
+
+            <View style="@style/divier_line" />
+
+            <RelativeLayout
+                android:id="@+id/name_layout"
+                style="@style/my_list_item_layout_style" >
+
+                <TextView
+                    android:id="@+id/name"
+                    style="@style/listview_item_text_style_middle"
+                    android:layout_centerVertical="true"
+                    android:text="@string/user_name"
+                    android:textColor="@color/main_color_black" />
+
+                <TextView
+                    android:id="@+id/nameText"
+                    style="@style/listview_item_text_style_small"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/space_48"
+                    android:layout_marginRight="@dimen/space_8"
+                    android:layout_toLeftOf="@+id/name_goto"
+                    android:layout_toRightOf="@+id/name"
+                    android:ellipsize="end"
+                    android:gravity="right"
+                    android:singleLine="true"
+                    android:textColor="@color/main_color_black" />
+
+                <ImageView
+                    android:id="@+id/name_goto"
+                    style="@style/my_item_layout_image_style"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@null" />
+            </RelativeLayout>
+
+            <View style="@style/divier_line" />
+
+            <RelativeLayout
+                android:id="@+id/sex_layout"
+                style="@style/my_list_item_layout_style" >
+
+                <TextView
+                    style="@style/listview_item_text_style_middle"
+                    android:layout_centerVertical="true"
+                    android:text="@string/user_sex"
+                    android:textColor="@color/main_color_black" />
+
+                <TextView
+                    android:id="@+id/sexText"
+                    style="@style/listview_item_text_style_small"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/space_8"
+                    android:layout_toLeftOf="@+id/sex_goto"
+                    android:textColor="@color/main_color_black" />
+
+                <ImageView
+                    android:id="@+id/sex_goto"
+                    style="@style/my_item_layout_image_style"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@null" />
+            </RelativeLayout>
+
+            <View style="@style/divier_line" />
+
+            <RelativeLayout
+                android:id="@+id/phone_layout"
+                style="@style/my_list_item_layout_style" >
+
+                <TextView
+                    style="@style/listview_item_text_style_middle"
+                    android:layout_centerVertical="true"
+                    android:text="@string/user_phone"
+                    android:textColor="@color/main_color_black" />
+
+                <TextView
+                    android:id="@+id/phoneText"
+                    style="@style/listview_item_text_style_small"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/space_8"
+                    android:layout_toLeftOf="@+id/phone_goto"
+                    android:textColor="@color/main_color_black" />
+
+                <ImageView
+                    android:id="@+id/phone_goto"
+                    style="@style/my_item_layout_image_style"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@null" />
+            </RelativeLayout>
+
+            <View style="@style/divier_line" />
+
+            <RelativeLayout
+                android:id="@+id/address_layout"
+                style="@style/my_list_item_layout_style" >
+
+                <TextView
+                    style="@style/listview_item_text_style_middle"
+                    android:layout_centerVertical="true"
+                    android:text="@string/user_address"
+                    android:textColor="@color/main_color_black" />
+
+                <TextView
+                    android:id="@+id/addressText"
+                    style="@style/listview_item_text_style_small"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/space_8"
+                    android:layout_toLeftOf="@+id/address_goto"
+                    android:textColor="@color/main_color_black" />
+
+                <ImageView
+                    android:id="@+id/address_goto"
+                    style="@style/my_item_layout_image_style"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@null" />
+            </RelativeLayout>
+
+            <View style="@style/divier_line" />
+
+            <RelativeLayout
+                android:id="@+id/home_layout"
+                style="@style/my_list_item_layout_style" >
+
+                <TextView
+                    android:id="@+id/home"
+                    style="@style/listview_item_text_style_middle"
+                    android:layout_centerVertical="true"
+                    android:text="@string/user_home"
+                    android:textColor="@color/main_color_black" />
+
+                <TextView
+                    android:id="@+id/homeText"
+                    style="@style/listview_item_text_style_small"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/space_48"
+                    android:layout_marginRight="@dimen/space_8"
+                    android:layout_toLeftOf="@+id/home_goto"
+                    android:layout_toRightOf="@+id/home"
+                    android:ellipsize="end"
+                    android:gravity="right"
+                    android:singleLine="true"
+                    android:textColor="@color/main_color_black" />
+
+                <ImageView
+                    android:id="@+id/home_goto"
+                    style="@style/my_item_layout_image_style"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@null" />
+            </RelativeLayout>
+
+            <View style="@style/divier_line" />
+
+            <Button
+                android:id="@+id/btn_confirm"
+                style="@style/button_login_style"
+                android:layout_margin="@dimen/space_24"
+                android:text="@string/comfirm" />
+        </LinearLayout>
+    </ScrollView>
+
+    <include
+        android:id="@+id/error_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/ownerinfo_head_layout"
+        android:layout_marginTop="@dimen/space_8"
+        layout="@layout/view_error_layout" />
+
+</RelativeLayout>

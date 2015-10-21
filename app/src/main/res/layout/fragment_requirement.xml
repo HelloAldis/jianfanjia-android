@@ -1,29 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:id="@+id/frag_req_rootview"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_layout_bg"
-    android:id="@+id/frag_req_rootview">
+    android:orientation="vertical">
 
     <com.jianfanjia.cn.view.MainHeadView
+        android:id="@+id/req_head"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/req_head" />
+        android:layout_height="wrap_content" />
 
     <LinearLayout
-        android:orientation="vertical"
+        android:id="@+id/req_listview_wrap"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/req_listview_wrap">
+        android:orientation="vertical">
 
-        <android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/req_listView"
-            android:layout_gravity="center_horizontal"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/req_listView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp" />
 
         <!--<ListView
             android:layout_width="match_parent"
@@ -44,25 +45,25 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="60dp"
         android:visibility="gone">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/str_req_tip"
-        android:id="@+id/req_tip"
-        android:textColor="@color/main_color_grey"
-        android:textSize="@dimen/text_size_14" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:text="@string/str_req_pubReq"
-        android:id="@+id/req_publish"
-        android:textColor="@color/font_white"
-        android:background="@drawable/btn_selector"
-        android:layout_marginTop="48dp"
-        android:layout_alignLeft="@+id/req_tip"
-        android:layout_alignRight="@+id/req_tip"
-         />
+        <TextView
+            android:id="@+id/req_tip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/str_req_tip"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/main_color_grey"
+            android:textSize="@dimen/text_size_14" />
+
+        <Button
+            android:id="@+id/req_publish"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_alignLeft="@+id/req_tip"
+            android:layout_alignRight="@+id/req_tip"
+            android:layout_marginTop="48dp"
+            android:background="@drawable/btn_selector"
+            android:text="@string/str_req_pubReq"
+            android:textColor="@color/font_white" />
     </RelativeLayout>
 </LinearLayout>

@@ -1,12 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.jianfanjia.cn.activity.EditInfoActivity">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/site_content_bg" >
 
-    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <RelativeLayout
+        android:id="@+id/edit_head_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_48"
+        android:background="@color/head_layout_bg" >
 
+        <TextView
+            android:id="@+id/edit_back"
+            style="@style/listview_item_text_style_middle"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/space_16"
+            android:drawableLeft="@mipmap/icon_register_back"
+            android:drawablePadding="4dp"
+            android:text="@string/back"
+            android:textColor="@color/back_color" />
+
+        <TextView
+            android:id="@+id/edit_title"
+            style="@style/listview_item_text_style_big"
+            android:layout_centerInParent="true"
+            android:text="@string/userinfo"
+            android:textColor="@color/main_color_black" />
+
+        <View
+            style="@style/divier_line"
+            android:layout_alignParentBottom="true"
+            android:background="@color/horzontal_line_color" />
+    </RelativeLayout>
+
+     <EditText
+        android:id="@+id/edit_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edit_head_layout"
+        android:layout_marginTop="@dimen/space_16"
+        android:background="@color/font_white"
+        android:gravity="top"
+        android:hint="@string/add_feedback"
+        android:padding="@dimen/space_12"
+        android:textSize="@dimen/text_size_14"
+        android:textColor="@color/main_color_black"
+        android:textColorHint="@color/main_color_grey"
+        />
+
+    <Button
+        android:id="@+id/btn_commit"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/edit_info"
+        android:layout_margin="16dp"
+        android:background="@drawable/btn_selector"
+        android:text="@string/confirm"
+        android:textColor="@color/font_white"
+        android:textSize="16sp" />
 </RelativeLayout>
