@@ -4,8 +4,10 @@ import android.view.View;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseFragment;
+import com.jianfanjia.cn.bean.DesignerInfo;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
+import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 
 /**
@@ -19,7 +21,7 @@ public class DesignerInfoFragment extends BaseFragment implements ApiUiUpdateLis
 
     @Override
     public void initView(View view) {
-        getDesignerProduct("55ebfc02d6e8f37706e4f1b7", 0, 5);
+        getDesignerPageInfo("55ebfc02d6e8f37706e4f1b7");
     }
 
     @Override
@@ -27,8 +29,8 @@ public class DesignerInfoFragment extends BaseFragment implements ApiUiUpdateLis
 
     }
 
-    private void getDesignerProduct(String designerid, int from, int limit) {
-        JianFanJiaClient.getDesignerProduct(getContext(), designerid, from, limit, this, this);
+    private void getDesignerPageInfo(String designerid) {
+        JianFanJiaClient.getDesignerHomePage(getActivity(), designerid, this, this);
     }
 
     @Override
@@ -39,6 +41,9 @@ public class DesignerInfoFragment extends BaseFragment implements ApiUiUpdateLis
     @Override
     public void loadSuccess(Object data) {
         LogTool.d(TAG, "data:" + data);
+        LogTool.d(TAG, "data:" + data);
+        DesignerInfo designerInfo = JsonParser.jsonToBean(data.toString(), DesignerInfo.class);
+        LogTool.d(TAG, "designerInfo:" + designerInfo);
     }
 
     @Override
