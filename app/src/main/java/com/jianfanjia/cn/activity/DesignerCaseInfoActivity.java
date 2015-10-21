@@ -42,6 +42,7 @@ public class DesignerCaseInfoActivity extends BaseActivity implements ApiUiUpdat
     private DesignerCaseAdapter adapter = null;
     private List<DesignerCaseInfo> designerCaseList = new ArrayList<DesignerCaseInfo>();
     private String productid = null;
+    private String designertid = null;
 
     @Override
     public void initView() {
@@ -91,7 +92,9 @@ public class DesignerCaseInfoActivity extends BaseActivity implements ApiUiUpdat
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.designerinfo_head_img:
-//                startActivity(DesignerInfoActivity.class);
+                Bundle designerBundle = new Bundle();
+                designerBundle.putString("designerId", designertid);
+                startActivity(DesignerInfoActivity.class, designerBundle);
                 break;
             default:
                 break;
@@ -116,6 +119,7 @@ public class DesignerCaseInfoActivity extends BaseActivity implements ApiUiUpdat
         DesignerCaseInfo designerCaseInfo = JsonParser.jsonToBean(response, DesignerCaseInfo.class);
         LogTool.d(TAG, "designerCaseInfo" + designerCaseInfo);
         if (null != designerCaseInfo) {
+            designertid = designerCaseInfo.getDesigner().get_id();
             collapsingToolbar.setTitle(designerCaseInfo.getCell());
             stylelText.setText(designerCaseInfo.getHouse_area() + "㎡");
             imageLoader.displayImage(Url_New.GET_IMAGE + designerCaseInfo.getDesigner().getImageid(), designerinfo_head_img, options);
