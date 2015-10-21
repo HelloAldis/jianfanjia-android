@@ -7,9 +7,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.jianfanjia.cn.AppConfig;
@@ -17,7 +14,6 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.dao.impl.NotifyMessageDao;
-import com.jianfanjia.cn.interf.PopWindowCallBack;
 import com.jianfanjia.cn.interf.manager.ListenerManeger;
 import com.jianfanjia.cn.tools.DaoManager;
 import com.jianfanjia.cn.tools.LogTool;
@@ -34,7 +30,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  * Date:15-10-11 15:42
  */
 public class BaseAnnotationFragment extends Fragment
-        implements PopWindowCallBack {
+        {
     protected FragmentManager fragmentManager = null;
     protected NotifyMessageDao notifyMessageDao = null;
     protected DataManagerNew dataManager = null;
@@ -131,25 +127,6 @@ public class BaseAnnotationFragment extends Fragment
             intent.putExtras(bundle);
         }
         startActivity(intent);
-    }
-
-    protected void showPopWindow(View view) {
-        if (popupWindow == null) {
-            popupWindow = new AddPhotoPopWindow(getActivity(), this);
-        }
-        popupWindow.show(view);
-    }
-
-    @Override
-    public void takecamera() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void takePhoto() {
-        // TODO Auto-generated method stub
-
     }
 
     protected void hideWaitDialog() {

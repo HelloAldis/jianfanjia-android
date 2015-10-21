@@ -222,6 +222,7 @@
         <activity android:name=".PingjiaActivity" />
         <activity android:name=".ContractActivity" />
         <activity android:name=".DesignerPlanActivity" />
+        <activity android:name=".AppointDesignerActivity" />
     </application>
 
 </manifest>

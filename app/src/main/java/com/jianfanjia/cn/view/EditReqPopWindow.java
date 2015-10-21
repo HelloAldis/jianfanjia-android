@@ -18,8 +18,8 @@ import com.jianfanjia.cn.interf.PopWindowCallBack;
 
 public class EditReqPopWindow extends PopupWindow implements OnClickListener {
 	private PopWindowCallBack callback = null;
-	private Button open_camera = null;
-	private Button open_album = null;
+	private Button firstButton = null;
+	private Button secondButton = null;
 	private Button cancel = null;
 	private LayoutInflater inflater = null;
 	private View menuView = null;
@@ -33,11 +33,11 @@ public class EditReqPopWindow extends PopupWindow implements OnClickListener {
 		this.callback = callback;
 		inflater = LayoutInflater.from(activity);
 		menuView = inflater.inflate(R.layout.dialog_edit_req, null);
-		open_camera = (Button) menuView.findViewById(R.id.dialog_btn_edit_req);
-		open_album = (Button) menuView.findViewById(R.id.dialog_btn_delete_req);
+		firstButton = (Button) menuView.findViewById(R.id.dialog_btn_edit_req);
+		secondButton = (Button) menuView.findViewById(R.id.dialog_btn_delete_req);
 		cancel = (Button) menuView.findViewById(R.id.btn_cancel);
-		open_camera.setOnClickListener(this);
-		open_album.setOnClickListener(this);
+		firstButton.setOnClickListener(this);
+		secondButton.setOnClickListener(this);
 		cancel.setOnClickListener(this);
 		// 设置SelectPicPopupWindow的View
 		this.setContentView(menuView);
@@ -83,13 +83,13 @@ public class EditReqPopWindow extends PopupWindow implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.btn_open_camera:
+		case R.id.dialog_btn_edit_req:
 			dismiss();
-			callback.takecamera();
+			callback.firstItemClick();
 			break;
-		case R.id.btn_open_album:
+		case R.id.dialog_btn_delete_req:
 			dismiss();
-			callback.takePhoto();
+			callback.secondItemClick();
 			break;
 		case R.id.btn_cancel:
 			dismiss();

@@ -50,13 +50,7 @@ public abstract class RecyclerViewAdapterBase<T, V extends View> extends Recycle
 
     public void clearItems() {
         items.clear();
-    }
-
-    public void deleteItem(T t) {
-        if (items.contains(t)) {
-            items.remove(t);
-            notifyDataSetChanged();
-        }
+        notifyDataSetChanged();
     }
     // additional methods to manipulate the items
 

@@ -30,6 +30,7 @@ public class RequirementInfo implements Serializable {
     private String work_type;
     private String total_price;
     private long create_at;
+    private long last_status_update_time;
     private String family_description;
     private String status;
     private String communication_type;
@@ -228,5 +229,13 @@ public class RequirementInfo implements Serializable {
 
     public void setOrder_designers(List<OrderDesignerInfo> order_designers) {
         this.order_designers = order_designers;
+    }
+
+    public long getLast_status_update_time() {
+        return last_status_update_time;
+    }
+
+    public void setLast_status_update_time(long last_status_update_time) {
+        this.last_status_update_time = last_status_update_time;
     }
 }

@@ -36,6 +36,7 @@ import com.jianfanjia.cn.http.request.RegisterRequest;
 import com.jianfanjia.cn.http.request.SearchDesignerProductRequest;
 import com.jianfanjia.cn.http.request.SendVerificationRequest;
 import com.jianfanjia.cn.http.request.TotalDurationRequest;
+import com.jianfanjia.cn.http.request.UpdateRequirementRequest;
 import com.jianfanjia.cn.http.request.UploadPicRequestNew;
 import com.jianfanjia.cn.http.request.UploadRegisterIdRequest;
 import com.jianfanjia.cn.http.request.UserByDesignerInfoRequest;
@@ -192,6 +193,19 @@ public class JianFanJiaClient {
         PostRequirementRequest postRequirementRequest = new PostRequirementRequest(context, requirementInfo);
         LogTool.d(TAG, "add_Requirement --" + postRequirementRequest.getUrl() + "--" + JsonParser.beanToJson(requirementInfo));
         OkHttpClientManager.getInstance().getPostDelegate().postAsyn(postRequirementRequest, JsonParser.beanToJson(requirementInfo), listener, tag);
+    }
+
+    /**
+     * 更新装修需求
+     * @param context
+     * @param requirementInfo
+     * @param listener
+     * @param tag
+     */
+    public static void update_Requirement(Context context,RequirementInfo requirementInfo,ApiUiUpdateListener listener, Object tag){
+        UpdateRequirementRequest updateRequirementRequest = new UpdateRequirementRequest(context, requirementInfo);
+        LogTool.d(TAG, "add_Requirement --" + updateRequirementRequest.getUrl() + "--" + JsonParser.beanToJson(requirementInfo));
+        OkHttpClientManager.getInstance().getPostDelegate().postAsyn(updateRequirementRequest, JsonParser.beanToJson(requirementInfo), listener, tag);
     }
 
 
