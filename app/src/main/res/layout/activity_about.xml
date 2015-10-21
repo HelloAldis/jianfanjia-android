@@ -14,7 +14,7 @@
 
         <TextView
             android:id="@+id/about_back"
-            style="@style/site_listview_item_text_style_middle"
+            style="@style/listview_item_text_style_middle"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/space_8"
             android:drawableLeft="@mipmap/icon_register_back"
@@ -24,7 +24,7 @@
 
         <TextView
             android:id="@+id/about_title"
-            style="@style/site_listview_item_text_style_title"
+            style="@style/listview_item_text_style_big"
             android:layout_centerInParent="true"
             android:text="@string/about"
             android:textColor="@color/main_color_black" />
@@ -44,7 +44,7 @@
         android:orientation="vertical">
 
         <TextView
-            style="@style/site_listview_item_text_style_middle"
+            style="@style/listview_item_text_style_middle"
             android:text="@string/about_my"
             android:textColor="@color/main_color_black" />
 
@@ -57,14 +57,14 @@
             android:src="@mipmap/icon_logo" />
 
         <TextView
-            style="@style/site_listview_item_text_style_middle"
+            style="@style/listview_item_text_style_middle"
             android:layout_marginTop="@dimen/space_8"
             android:text="@string/about_content"
             android:textColor="@color/main_color_black" />
 
         <TextView
             android:id="@+id/about_version"
-            style="@style/site_listview_item_text_style_middle"
+            style="@style/listview_item_text_style_middle"
             android:layout_marginTop="@dimen/space_8"
             android:text="@string/about_version"
             android:textColor="@color/main_color_black" />
@@ -79,13 +79,13 @@
         android:orientation="vertical">
 
         <TextView
-            style="@style/site_listview_item_text_style_middle"
+            style="@style/listview_item_text_style_middle"
             android:layout_marginTop="@dimen/space_8"
             android:text="@string/company"
             android:textColor="@color/main_color_black" />
 
         <TextView
-            style="@style/site_listview_item_text_style_middle"
+            style="@style/listview_item_text_style_middle"
             android:layout_marginTop="@dimen/space_8"
             android:text="@string/compant_net"
             android:textColor="@color/main_color_black" />

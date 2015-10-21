@@ -18,6 +18,7 @@ import com.jianfanjia.cn.http.request.CommitCommentRequest;
 import com.jianfanjia.cn.http.request.DeletePicRequest;
 import com.jianfanjia.cn.http.request.DesignerHomePageRequest;
 import com.jianfanjia.cn.http.request.DesignerInfoRequest;
+import com.jianfanjia.cn.http.request.FavoriteDesignerListRequest;
 import com.jianfanjia.cn.http.request.FeedBackRequest;
 import com.jianfanjia.cn.http.request.GetAllRescheduleRequest;
 import com.jianfanjia.cn.http.request.GetProductHomePageRequest;
@@ -261,6 +262,27 @@ public class JianFanJiaClient {
         designerInfoRequest.setUrl(getdesignerUrl);
         OkHttpClientManager.getInstance().getGetDelegate().getAsyn(designerInfoRequest, listener, tag);
 
+    }
+
+    /**
+     * 拿到我的意向设计师
+     * @param context
+     * @param from
+     * @param limit
+     * @param listener
+     * @param tag
+     */
+    public static void get_MyFavoriteDesignerList(Context context,String from,String limit,ApiUiUpdateListener listener, Object tag){
+        FavoriteDesignerListRequest favoriteDesignerListRequest = new FavoriteDesignerListRequest(context);
+        JSONObject jsonParams = new JSONObject();
+        try {
+            jsonParams.put("from", from);
+            jsonParams.put("limit", limit);
+            LogTool.d(TAG,"get_MyFavoriteDesignerList --" + favoriteDesignerListRequest.getUrl() + "---" + jsonParams.toString());
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(favoriteDesignerListRequest, jsonParams.toString(), listener, tag);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

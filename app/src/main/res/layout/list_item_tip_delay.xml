@@ -15,20 +15,20 @@
 
         <TextView
             android:id="@+id/list_item_tip_delay_name"
-            style="@style/site_listview_item_text_style_small"
+            style="@style/listview_item_text_style_small"
             android:text="@string/list_item_yanqi_example"
             android:textColor="@color/main_color_black" />
 
         <TextView
             android:id="@+id/list_item_tip_delay_status"
-            style="@style/site_listview_item_text_style_small"
+            style="@style/listview_item_text_style_small"
             android:layout_alignParentRight="true"
             android:text="已同意"
             android:textColor="@color/main_color_red" />
 
         <TextView
             android:id="@+id/list_item_tip_delay_content"
-            style="@style/site_listview_item_text_style_middle"
+            style="@style/listview_item_text_style_middle"
             android:layout_below="@+id/list_item_tip_delay_name"
             android:layout_marginBottom="@dimen/space_16"
             android:layout_marginTop="@dimen/space_16"
@@ -80,14 +80,14 @@
 
         <TextView
             android:id="@+id/list_item_tip_delay_node"
-            style="@style/site_listview_item_text_style_small"
+            style="@style/listview_item_text_style_small"
             android:layout_below="@+id/list_item_tip_delay_content"
             android:text="@string/ower"
             android:textColor="@color/main_color_grey" />
 
         <TextView
             android:id="@+id/list_item_tip_time"
-            style="@style/site_listview_item_text_style_small"
+            style="@style/listview_item_text_style_small"
             android:layout_alignBottom="@+id/list_item_tip_delay_node"
             android:layout_alignParentRight="true"
             android:text="@string/ower"

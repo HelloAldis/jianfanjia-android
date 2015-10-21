@@ -28,7 +28,7 @@
 
         <TextView
             android:id="@+id/list_item_xiaoqu_text"
-            style="@style/site_listview_item_text_style_middle"
+            style="@style/listview_item_text_style_middle"
             android:layout_below="@id/list_item_head_img"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/space_5"
@@ -36,7 +36,7 @@
 
         <TextView
             android:id="@+id/list_item_produce_text"
-            style="@style/site_listview_item_text_style_small"
+            style="@style/listview_item_text_style_small"
             android:layout_below="@id/list_item_xiaoqu_text"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/space_5"

@@ -222,7 +222,7 @@
         <activity android:name=".PingjiaActivity" />
         <activity android:name=".ContractActivity" />
         <activity android:name=".DesignerPlanActivity" />
-        <activity android:name=".AppointDesignerActivity" />
+        <activity android:name=".MyFavoriteDesignerActivity_" />
     </application>
 
 </manifest>

@@ -33,13 +33,13 @@
 
             <TextView
                 android:id="@+id/site_list_item_content_small_node_name"
-                style="@style/site_listview_item_text_style_middle"
+                style="@style/listview_item_text_style_middle"
                 android:text="@string/site_example_node_name"
                 android:textColor="@color/main_color_black" />
 
             <TextView
                 android:id="@+id/site_list_item_content_small_node_finishtime"
-                style="@style/site_listview_item_text_style_small"
+                style="@style/listview_item_text_style_small"
                 android:layout_alignBaseline="@+id/site_list_item_content_small_node_name"
                 android:layout_alignParentRight="true"
                 android:textColor="@color/main_color_black" />
@@ -59,13 +59,13 @@
 
             <TextView
                 android:id="@+id/site_list_item_content_expand_node_name"
-                style="@style/site_listview_item_text_style_middle"
+                style="@style/listview_item_text_style_middle"
                 android:text="@string/site_example_node_name"
                 android:textColor="@color/main_color_black" />
 
             <TextView
                 android:id="@+id/site_list_item_content_expand_node_finish_status"
-                style="@style/site_listview_item_text_style_small"
+                style="@style/listview_item_text_style_small"
                 android:layout_alignBaseline="@+id/site_list_item_content_expand_node_name"
                 android:layout_alignParentRight="true"
                 android:text="@string/site_example_node_finish"
@@ -73,7 +73,7 @@
 
             <TextView
                 android:id="@+id/site_list_item_content_expand_node_confirm_finish"
-                style="@style/site_listview_item_text_style_small"
+                style="@style/listview_item_text_style_small"
                 android:layout_alignParentRight="true"
                 android:background="@drawable/btn_selector"
                 android:clickable="true"
@@ -108,7 +108,7 @@
 
             <TextView
                 android:id="@+id/site_list_item_content_expand_node_time"
-                style="@style/site_listview_item_text_style_small"
+                style="@style/listview_item_text_style_small"
                 android:layout_alignBaseline="@+id/site_list_item_content_expand_node_assess"
                 android:layout_alignBottom="@+id/site_list_item_content_expand_node_assess"
                 android:layout_alignTop="@+id/site_list_item_content_expand_node_assess"
@@ -118,7 +118,7 @@
 
             <TextView
                 android:id="@+id/site_list_item_content_expand_node_assess"
-                style="@style/site_listview_item_text_style_small"
+                style="@style/listview_item_text_style_small"
                 android:layout_alignParentRight="true"
                 android:layout_below="@+id/site_list_item_content_expand_node_picture_layout"
                 android:drawableLeft="@mipmap/btn_icon_comment_normal"
