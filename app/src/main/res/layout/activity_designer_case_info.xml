@@ -10,7 +10,7 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="250dip"
+        android:layout_height="200dip"
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
@@ -22,7 +22,7 @@
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
             app:expandedTitleGravity="center_horizontal"
-            app:expandedTitleMarginTop="-120dip"
+            app:expandedTitleMarginTop="-80dip"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
 
@@ -53,13 +53,7 @@
                     android:scaleType="centerCrop"
                     android:src="@mipmap/pix_default" />
 
-                <TextView
-                    android:id="@+id/produceText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dip"
-                    android:text="设计简介:地中海风格。"
-                    android:textColor="#000000" />
+
             </LinearLayout>
 
             <android.support.v7.widget.Toolbar
@@ -77,17 +71,31 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <com.jianfanjia.cn.view.MyListView
-            android:id="@+id/designer_case_listview"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:cacheColorHint="#00000000"
-            android:clipToPadding="false"
-            android:divider="@null"
-            android:dividerHeight="15dip"
-            android:fadingEdge="none"
-            android:fastScrollEnabled="false"
-            android:listSelector="@android:color/transparent"
-            android:scrollbars="none" />
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/produceText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dip"
+                android:text="设计简介:地中海风格地中海风格地中海风格地中海风格地中海风格地中海风格。"
+                android:textColor="#000000" />
+
+            <com.jianfanjia.cn.view.MyListView
+                android:id="@+id/designer_case_listview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:cacheColorHint="#00000000"
+                android:clipToPadding="false"
+                android:divider="@null"
+                android:dividerHeight="15dip"
+                android:fadingEdge="none"
+                android:fastScrollEnabled="false"
+                android:listSelector="@android:color/transparent"
+                android:scrollbars="none" />
+        </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </android.support.design.widget.CoordinatorLayout>
