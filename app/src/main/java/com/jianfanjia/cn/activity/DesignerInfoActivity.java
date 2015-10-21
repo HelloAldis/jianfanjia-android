@@ -147,13 +147,14 @@ public class DesignerInfoActivity extends BaseActivity implements
             DesignerInfo designerInfo = JsonParser.jsonToBean(data.toString(), DesignerInfo.class);
             LogTool.d(TAG, "designerInfo:" + designerInfo);
             if (null != designerInfo) {
-                LogTool.d(TAG, "222222222222222222222222222" + "  " + activityToFragmentInterface);
                 collapsingToolbar.setTitle(designerInfo.getUsername());
                 imageLoader.displayImage(Url_New.GET_IMAGE + designerInfo.getImageid(), designerinfo_head_img, options);
                 viewCountText.setText("" + designerInfo.getView_count());
                 productCountText.setText("" + designerInfo.getProduct_count());
                 appointCountText.setText("" + designerInfo.getOrder_count());
-                activityToFragmentInterface.toTransmit(designerInfo);
+                if (null != activityToFragmentInterface) {
+                    activityToFragmentInterface.toTransmit(designerInfo);
+                }
             }
         }
 

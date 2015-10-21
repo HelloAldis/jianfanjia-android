@@ -9,33 +9,22 @@ import java.io.Serializable;
  * Time: 13:41
  */
 public class DesignerWorksInfo implements Serializable {
-    private String imgPath;
-    private String xiaoquName;
-    private String produce;
+    private Product product;
+    private String total;
 
-    public String getProduce() {
-        return produce;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setProduce(String produce) {
-        this.produce = produce;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
-    public String getXiaoquName() {
-
-        return xiaoquName;
+    public String getTotal() {
+        return total;
     }
 
-    public void setXiaoquName(String xiaoquName) {
-        this.xiaoquName = xiaoquName;
-    }
-
-    public String getImgPath() {
-
-        return imgPath;
-    }
-
-    public void setImgPath(String imgPath) {
-        this.imgPath = imgPath;
+    public void setTotal(String total) {
+        this.total = total;
     }
 }
