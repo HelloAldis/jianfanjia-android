@@ -22,14 +22,14 @@
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
             app:expandedTitleGravity="center_horizontal"
-            app:expandedTitleMarginTop="-150dip"
+            app:expandedTitleMarginTop="-120dip"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="70dip"
+                android:layout_marginTop="80dip"
                 android:fitsSystemWindows="true"
                 android:orientation="vertical"
                 app:layout_collapseMode="parallax"
@@ -81,8 +81,6 @@
             android:id="@+id/designer_case_listview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="10dip"
-            android:layout_marginTop="10dip"
             android:cacheColorHint="#00000000"
             android:clipToPadding="false"
             android:divider="@null"
