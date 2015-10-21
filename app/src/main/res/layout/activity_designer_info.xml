@@ -56,9 +56,10 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/viewCountText"
                             style="@style/site_listview_item_text_style_middle"
                             android:layout_gravity="center_horizontal"
-                            android:text="200K"
+                            android:text="0"
                             android:textColor="#000000" />
 
                         <TextView
@@ -76,9 +77,10 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/productCountText"
                             style="@style/site_listview_item_text_style_middle"
                             android:layout_gravity="center_horizontal"
-                            android:text="20"
+                            android:text="0"
                             android:textColor="#000000" />
 
                         <TextView
@@ -96,9 +98,10 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/appointCountText"
                             style="@style/site_listview_item_text_style_middle"
                             android:layout_gravity="center_horizontal"
-                            android:text="2"
+                            android:text="0"
                             android:textColor="#000000" />
 
                         <TextView
