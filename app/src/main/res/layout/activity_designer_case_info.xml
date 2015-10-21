@@ -52,8 +52,6 @@
                     android:layout_marginTop="10dip"
                     android:scaleType="centerCrop"
                     android:src="@mipmap/pix_default" />
-
-
             </LinearLayout>
 
             <android.support.v7.widget.Toolbar
