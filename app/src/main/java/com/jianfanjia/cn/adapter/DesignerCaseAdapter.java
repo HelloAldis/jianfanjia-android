@@ -7,7 +7,8 @@ import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.BaseListAdapter;
-import com.jianfanjia.cn.bean.DesignerCaseInfo;
+import com.jianfanjia.cn.bean.ImageInfo;
+import com.jianfanjia.cn.config.Url_New;
 
 import java.util.List;
 
@@ -17,16 +18,16 @@ import java.util.List;
  * Date: 2015-10-15
  * Time: 15:14
  */
-public class DesignerCaseAdapter extends BaseListAdapter<DesignerCaseInfo> {
+public class DesignerCaseAdapter extends BaseListAdapter<ImageInfo> {
 
-    public DesignerCaseAdapter(Context context, List<DesignerCaseInfo> list) {
+    public DesignerCaseAdapter(Context context, List<ImageInfo> list) {
         super(context, list);
     }
 
     @Override
     public View initView(int position, View convertView) {
         ViewHolder viewHolder = null;
-        DesignerCaseInfo info = list.get(position);
+        ImageInfo info = list.get(position);
         if (convertView == null) {
             convertView = layoutInflater.inflate(R.layout.list_item_designer_case,
                     null);
@@ -41,9 +42,9 @@ public class DesignerCaseAdapter extends BaseListAdapter<DesignerCaseInfo> {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.itemwCaseView.setImageResource(R.mipmap.bg_home_banner2);
-        viewHolder.itemTitleText.setText(info.getTitle());
-        viewHolder.itemProduceText.setText(info.getProduceInfo());
+        imageLoader.displayImage(Url_New.GET_IMAGE + info.getImageid(), viewHolder.itemwCaseView, options);
+        viewHolder.itemTitleText.setText(info.getSection());
+        viewHolder.itemProduceText.setText(info.getDescription());
         return convertView;
     }
 
