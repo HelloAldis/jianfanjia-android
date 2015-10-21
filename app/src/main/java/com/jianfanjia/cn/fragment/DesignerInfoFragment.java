@@ -12,6 +12,8 @@ import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 
+import java.util.List;
+
 /**
  * @author fengliang
  * @ClassName: DesignerInfoFragment
@@ -55,15 +57,27 @@ public class DesignerInfoFragment extends BaseFragment implements ApiUiUpdateLis
     @Override
     public void toTransmit(DesignerInfo designerInfo) {
         LogTool.d(TAG, "designerInfo----------------------------------------------" + designerInfo);
-        jiandanType.setText("接单类型:" + designerInfo.getAchievement());
-        jiandanHouseType.setText("接单户型:" + designerInfo.getAchievement());
+        jiandanType.setText("接单类型:");
+        jiandanHouseType.setText("接单户型:");
         jiandanDistrict.setText("接单区域:" + designerInfo.getProvince() + designerInfo.getCity() + designerInfo.getDistrict());
+        List<String> dec_styles = designerInfo.getDec_styles();
         designStyle.setText("设计风格:" + designerInfo.getAchievement());
         designIdea.setText("设计理念:" + designerInfo.getPhilosophy());
         designAchievement.setText("设计成就:" + designerInfo.getAchievement());
         company.setText("曾就职公司:" + designerInfo.getCompany());
         teamCount.setText("施工团队:" + designerInfo.getTeam_count() + "个");
-        designFee.setText("设计费:" + designerInfo.getAchievement());
+        String designFeeRange = designerInfo.getDesign_fee_range();
+        String designFeeStr = null;
+        if (designFeeRange.equals("0")) {
+            designFeeStr = "50-100";
+        } else if (designFeeRange.equals("1")) {
+            designFeeStr = "100-200";
+        } else if (designFeeRange.equals("2")) {
+            designFeeStr = "200-300";
+        } else if (designFeeRange.equals("3")) {
+            designFeeStr = "300以上";
+        }
+        designFee.setText("设计费:" + designFeeStr + "元/㎡");
     }
 
     @Override
