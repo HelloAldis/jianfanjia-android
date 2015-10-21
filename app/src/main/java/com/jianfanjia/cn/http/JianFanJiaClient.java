@@ -21,6 +21,7 @@ import com.jianfanjia.cn.http.request.DesignerInfoRequest;
 import com.jianfanjia.cn.http.request.FavoriteDesignerListRequest;
 import com.jianfanjia.cn.http.request.FeedBackRequest;
 import com.jianfanjia.cn.http.request.GetAllRescheduleRequest;
+import com.jianfanjia.cn.http.request.GetOrderDesignerListByUserRequest;
 import com.jianfanjia.cn.http.request.GetProductHomePageRequest;
 import com.jianfanjia.cn.http.request.GetRequirementRequest;
 import com.jianfanjia.cn.http.request.HomePageRequest;
@@ -266,19 +267,20 @@ public class JianFanJiaClient {
 
     /**
      * 拿到我的意向设计师
+     *
      * @param context
      * @param from
      * @param limit
      * @param listener
      * @param tag
      */
-    public static void get_MyFavoriteDesignerList(Context context,String from,String limit,ApiUiUpdateListener listener, Object tag){
+    public static void get_MyFavoriteDesignerList(Context context, String from, String limit, ApiUiUpdateListener listener, Object tag) {
         FavoriteDesignerListRequest favoriteDesignerListRequest = new FavoriteDesignerListRequest(context);
         JSONObject jsonParams = new JSONObject();
         try {
             jsonParams.put("from", from);
             jsonParams.put("limit", limit);
-            LogTool.d(TAG,"get_MyFavoriteDesignerList --" + favoriteDesignerListRequest.getUrl() + "---" + jsonParams.toString());
+            LogTool.d(TAG, "get_MyFavoriteDesignerList --" + favoriteDesignerListRequest.getUrl() + "---" + jsonParams.toString());
             OkHttpClientManager.getInstance().getPostDelegate().postAsyn(favoriteDesignerListRequest, jsonParams.toString(), listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -811,5 +813,23 @@ public class JianFanJiaClient {
         }
     }
 
+    /**
+     * 业主获取自己可以预约的设计师列表
+     *
+     * @param context
+     * @param requirementid
+     * @param listener
+     * @param tag
+     */
+    public static void getOrderDesignerListByUser(Context context, String requirementid, ApiUiUpdateListener listener, Object tag) {
+        GetOrderDesignerListByUserRequest getOrderDesignerListByUserRequest = new GetOrderDesignerListByUserRequest(context, requirementid);
+        JSONObject jsonParams = new JSONObject();
+        try {
+            jsonParams.put("requirementid", requirementid);
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(getOrderDesignerListByUserRequest, jsonParams.toString(), listener, tag);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
