@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Description:设计师案例详情
+ * Description:设计师作品案例详情
  * Author：fengliang
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
