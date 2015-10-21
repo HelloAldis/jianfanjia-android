@@ -9,6 +9,7 @@ import com.jianfanjia.cn.bean.OwnerUpdateInfo;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Url;
+import com.jianfanjia.cn.http.request.AddFavoriteDesignerRequest;
 import com.jianfanjia.cn.http.request.AddPicToCheckRequest;
 import com.jianfanjia.cn.http.request.AddPicToSectionItemRequest;
 import com.jianfanjia.cn.http.request.AgreeRescheduleRequest;
@@ -19,6 +20,7 @@ import com.jianfanjia.cn.http.request.DesignerHomePageRequest;
 import com.jianfanjia.cn.http.request.DesignerInfoRequest;
 import com.jianfanjia.cn.http.request.FeedBackRequest;
 import com.jianfanjia.cn.http.request.GetAllRescheduleRequest;
+import com.jianfanjia.cn.http.request.GetProductHomePageRequest;
 import com.jianfanjia.cn.http.request.GetRequirementRequest;
 import com.jianfanjia.cn.http.request.HomePageRequest;
 import com.jianfanjia.cn.http.request.LoginRequest;
@@ -197,12 +199,13 @@ public class JianFanJiaClient {
 
     /**
      * 更新装修需求
+     *
      * @param context
      * @param requirementInfo
      * @param listener
      * @param tag
      */
-    public static void update_Requirement(Context context,RequirementInfo requirementInfo,ApiUiUpdateListener listener, Object tag){
+    public static void update_Requirement(Context context, RequirementInfo requirementInfo, ApiUiUpdateListener listener, Object tag) {
         UpdateRequirementRequest updateRequirementRequest = new UpdateRequirementRequest(context, requirementInfo);
         LogTool.d(TAG, "add_Requirement --" + updateRequirementRequest.getUrl() + "--" + JsonParser.beanToJson(requirementInfo));
         OkHttpClientManager.getInstance().getPostDelegate().postAsyn(updateRequirementRequest, JsonParser.beanToJson(requirementInfo), listener, tag);
@@ -747,5 +750,44 @@ public class JianFanJiaClient {
             e.printStackTrace();
         }
     }
+
+    /**
+     * 添加设计师到意向列表
+     *
+     * @param context
+     * @param designerid
+     * @param listener
+     * @param tag
+     */
+    public static void Add_Favorite_Designer_List(Context context, String designerid, ApiUiUpdateListener listener, Object tag) {
+        AddFavoriteDesignerRequest addFavoriteDesignerRequest = new AddFavoriteDesignerRequest(context, designerid);
+        JSONObject jsonParams = new JSONObject();
+        try {
+            jsonParams.put("_id", designerid);
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(addFavoriteDesignerRequest, jsonParams.toString(), listener, tag);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 获取某个作品主页
+     *
+     * @param context
+     * @param productid
+     * @param listener
+     * @param tag
+     */
+    public static void getProductHomePage(Context context, String productid, ApiUiUpdateListener listener, Object tag) {
+        GetProductHomePageRequest getProductHomePageRequest = new GetProductHomePageRequest(context, productid);
+        JSONObject jsonParams = new JSONObject();
+        try {
+            jsonParams.put("_id", productid);
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(getProductHomePageRequest, jsonParams.toString(), listener, tag);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }
