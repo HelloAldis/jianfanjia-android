@@ -89,4 +89,8 @@
     <dimen name="space_2">2.0dip</dimen>
     <dimen name="space_1">1.0dip</dimen>
 
+    <dimen name="big_size">17sp</dimen>
+    <dimen name="middle_size">14sp</dimen>
+    <dimen name="small_size">12sp</dimen>
+
 </resources>

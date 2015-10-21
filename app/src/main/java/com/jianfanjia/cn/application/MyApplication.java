@@ -39,7 +39,7 @@ public class MyApplication extends BaseApplication {
     public void onCreate() {
         super.onCreate();
         instance = this;
-//        saveDefaultProcess();// 加载默认的工地信息
+        saveDefaultProcess();// 加载默认的工地信息
 
         cookieStore = new PersistentCookieStore(this);// 记录cookie
         saveCookie(OkHttpClientManager.getInstance().client());
@@ -54,9 +54,9 @@ public class MyApplication extends BaseApplication {
                 .getProcessInfoById(Constant.DEFAULT_PROCESSINFO_ID);
         if (processInfo == null) {
             processInfo = getDefaultProcessInfo(this);
-            DataManagerNew.getInstance().saveProcessInfo(processInfo);
             LogTool.d(this.getClass().getName(),
-                    "default_processIndo save success");
+                    processInfo.toString());
+            DataManagerNew.getInstance().saveProcessInfo(processInfo);
         }
     }
 
@@ -67,6 +67,8 @@ public class MyApplication extends BaseApplication {
             InputStream is = context.getAssets()
                     .open("default_processinfo.txt");
             String jsonString = StringUtils.toConvertString(is);
+            LogTool.d("getDefault",
+                    jsonString);
             processInfo = JsonParser.jsonToBean(jsonString, ProcessInfo.class);
         } catch (IOException e) {
             // TODO Auto-generated catch block

@@ -12,7 +12,7 @@
 
         <TextView
             android:id="@+id/share_back"
-            style="@style/site_listview_item_text_style_middle"
+            style="@style/listview_item_text_style_middle"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/space_8"
             android:drawableLeft="@mipmap/icon_register_back"
@@ -22,7 +22,7 @@
 
         <TextView
             android:id="@+id/share_title"
-            style="@style/site_listview_item_text_style_title"
+            style="@style/listview_item_text_style_big"
             android:layout_centerInParent="true"
             android:text="@string/share_title"
             android:textColor="@color/main_color_black" />
@@ -43,7 +43,7 @@
 
     <TextView
         android:id="@+id/share_tip"
-        style="@style/site_listview_item_text_style_middle"
+        style="@style/listview_item_text_style_middle"
         android:layout_alignLeft="@+id/share_qr"
         android:layout_alignRight="@+id/share_qr"
         android:layout_below="@+id/share_qr"

@@ -13,7 +13,7 @@
 
     <TextView
         android:id="@+id/list_item_case_title_text"
-        style="@style/site_listview_item_text_style_middle"
+        style="@style/listview_item_text_style_middle"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/space_10"
         android:text="小区名称"
@@ -21,7 +21,7 @@
 
     <TextView
         android:id="@+id/list_item_case_produce_text"
-        style="@style/site_listview_item_text_style_small"
+        style="@style/listview_item_text_style_small"
         android:layout_margin="10.0dip"
         android:text="100平米"
         android:textColor="@color/main_color_grey" />

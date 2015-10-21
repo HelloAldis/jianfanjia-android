@@ -11,7 +11,7 @@
 
         <TextView
             android:id="@+id/share_back"
-            style="@style/site_listview_item_text_style_middle"
+            style="@style/listview_item_text_style_middle"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/space_8"
             android:drawableLeft="@mipmap/icon_register_back"
@@ -21,14 +21,14 @@
 
         <TextView
             android:id="@+id/share_title"
-            style="@style/site_listview_item_text_style_title"
+            style="@style/listview_item_text_style_big"
             android:layout_centerInParent="true"
             android:text="方案"
             android:textColor="@color/main_color_black" />
 
         <TextView
             android:id="@+id/baojiaText"
-            style="@style/site_listview_item_text_style_middle"
+            style="@style/listview_item_text_style_middle"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_margin="10dip"

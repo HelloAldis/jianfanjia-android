@@ -10,4 +10,6 @@ public class Global {
 
     public static final String REQUIREMENT_INFO = "requirement_info";
     public static final String REQUIREMENT_ID = "requirement_id";
+
+    public static final String DESIGNER_INF0 = "designer_info";
 }

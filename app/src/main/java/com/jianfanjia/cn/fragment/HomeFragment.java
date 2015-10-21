@@ -83,41 +83,41 @@ public class HomeFragment extends BaseFragment implements
     }
 
     private void initDesignerByMarchedList(View view) {
-        designerLayout_1 = (LinearLayout) view.findViewById(R.id.designerLayout_1);
+        /*designerLayout_1 = (LinearLayout) view.findViewById(R.id.designerLayout_1);
         designerLayout_2 = (LinearLayout) view.findViewById(R.id.designerLayout_2);
-        designerLayout_3 = (LinearLayout) view.findViewById(R.id.designerLayout_3);
+        designerLayout_3 = (LinearLayout) view.findViewById(R.id.designerLayout_3);*/
     }
 
     private void initDesignerList() {
         for (int i = 0; i < 5; i++) {
             DesignerListInfo info = new DesignerListInfo();
-            info.setXiaoquInfo("小区名称" + 1);
-            info.setProduceInfo("100平米,三室二厅,现代简约");
+            /*info.setXiaoquInfo("小区名称" + 1);
+            info.setProduceInfo("100平米,三室二厅,现代简约");*/
             designerList.add(info);
         }
-        adapter = new DesignerListAdapter(getActivity(), designerList, this);
-        designer_listview.setAdapter(adapter);
+//        adapter = new DesignerListAdapter(getActivity(), designerList, this);
+//        designer_listview.setAdapter(adapter);
     }
 
     @Override
     public void setListener() {
         mPullRefreshScrollView.setOnRefreshListener(this);
-        designerLayout_1.setOnClickListener(this);
+        /*designerLayout_1.setOnClickListener(this);
         designerLayout_2.setOnClickListener(this);
-        designerLayout_3.setOnClickListener(this);
+        designerLayout_3.setOnClickListener(this);*/
         addXuQiu.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.designerLayout_1:
+            /*case R.id.designerLayout_1:
                 startActivity(DesignerInfoActivity.class);
                 break;
             case R.id.designerLayout_2:
                 break;
             case R.id.designerLayout_3:
-                break;
+                break;*/
             case R.id.btn_add:
                 startActivity(EditRequirementActivity.class);
                 break;
@@ -126,7 +126,7 @@ public class HomeFragment extends BaseFragment implements
         }
     }
 
-    private void getHomePageDesigners(String from, String limit) {
+    private void getHomePageDesigners(int from, int limit) {
         JianFanJiaClient.getHomePageDesigners(getActivity(), from, limit, this, this);
     }
 

@@ -15,7 +15,7 @@
         android:src="@mipmap/logo_loading" />
 
     <TextView
-        style="@style/site_listview_item_text_style_middle"
+        style="@style/listview_item_text_style_middle"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="24dp"

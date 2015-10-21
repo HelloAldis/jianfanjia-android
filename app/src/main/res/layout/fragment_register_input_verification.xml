@@ -12,7 +12,7 @@
 
     <TextView
         android:id="@+id/register_tip"
-        style="@style/site_listview_item_text_style_small"
+        style="@style/listview_item_text_style_small"
         android:layout_below="@+id/register_top"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/space_16"

@@ -19,6 +19,7 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.RequirementNewAdapter;
 import com.jianfanjia.cn.base.BaseAnnotationFragment;
 import com.jianfanjia.cn.bean.RequirementInfo;
+import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
@@ -172,6 +173,9 @@ public class XuQiuFragment extends BaseAnnotationFragment{
                         requirementAdapter.addItem(requirementInfos);
                         if(requirementInfos.size() > 0){
                             setListVisiable();
+                            if(requirementInfos.size() >= Constant.ROST_REQUIREMTNE_TOTAL){
+                                mainHeadView.setRigthTitleEnable(false);
+                            }
                         }else{
                             setPublishVisiable();
                         }

@@ -3,6 +3,7 @@ package com.jianfanjia.cn.fragment;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+import com.jianfanjia.cn.activity.MyFavoriteDesignerActivity_;
 import com.jianfanjia.cn.activity.NotifyActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SettingActivity;
@@ -44,7 +45,7 @@ public class MyFragment extends BaseFragment {
                 startActivity(NotifyActivity.class);
                 break;
             case R.id.my_designer_layout:
-
+                startActivity(MyFavoriteDesignerActivity_.class);
                 break;
             case R.id.my_site_layout:
 

@@ -240,10 +240,9 @@
     <string name="title_activity_show_pic">ShowPicActivity</string>
     <string name="title_activity_user_by_owner_info">UserByOwnerInfoActivity</string>
     <string name="title_activity_welcome">WelcomeActivity</string>
-    <string name="str_lovedesistyle">偏好设计师类型</string>
     <string name="title_activity_designer_info">DesignerInfoActivity</string>
     <string name="title_activity_designer_case_info">DesignerCaseInfoActivity</string>
-    <string name="str_dong">栋</string>
+
 
 
 

@@ -29,7 +29,7 @@
 
             <RelativeLayout
                 android:id="@+id/act_edit_req_city"
-                style="@style/my_item_layout_style"
+                style="@style/my_list_item_layout_style"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:focusableInTouchMode="true"
@@ -71,7 +71,7 @@
 
             <RelativeLayout
                 android:id="@+id/act_edit_req_street"
-                style="@style/my_item_layout_style"
+                style="@style/my_list_item_layout_style"
                 android:layout_width="match_parent"
                 android:layout_height="48dp">
 
@@ -109,7 +109,7 @@
 
             <LinearLayout
                 android:id="@+id/act_edit_req_cell"
-                style="@style/my_item_layout_style"
+                style="@style/my_list_item_layout_style"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:gravity="center_vertical"
@@ -163,7 +163,7 @@
 
             <LinearLayout
                 android:id="@+id/act_edit_req_adressdetail"
-                style="@style/my_item_layout_style"
+                style="@style/my_list_item_layout_style"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:gravity="center_vertical"
@@ -243,7 +243,7 @@
 
             <RelativeLayout
                 android:id="@+id/act_edit_req_housetype"
-                style="@style/my_item_layout_style"
+                style="@style/my_list_item_layout_style"
                 android:layout_width="match_parent"
                 android:layout_height="48dp">
 
@@ -281,7 +281,7 @@
 
             <RelativeLayout
                 android:id="@+id/act_edit_req_housearea"
-                style="@style/my_item_layout_style"
+                style="@style/my_list_item_layout_style"
                 android:layout_width="match_parent"
                 android:layout_height="48dp">
 
@@ -329,7 +329,7 @@
 
             <RelativeLayout
                 android:id="@+id/act_edit_req_decoratetype"
-                style="@style/my_item_layout_style"
+                style="@style/my_list_item_layout_style"
                 android:layout_width="match_parent"
                 android:layout_height="48dp">
 
@@ -367,7 +367,7 @@
 
             <RelativeLayout
                 android:id="@+id/act_edit_req_decoratebudget"
-                style="@style/my_item_layout_style"
+                style="@style/my_list_item_layout_style"
                 android:layout_width="match_parent"
                 android:layout_height="48dp">
 
@@ -419,7 +419,7 @@
 
             <RelativeLayout
                 android:id="@+id/act_edit_req_persons"
-                style="@style/my_item_layout_style"
+                style="@style/my_list_item_layout_style"
                 android:layout_width="match_parent"
                 android:layout_height="48dp">
 
@@ -458,7 +458,7 @@
 
             <RelativeLayout
                 android:id="@+id/act_edit_req_lovestyle"
-                style="@style/my_item_layout_style"
+                style="@style/my_list_item_layout_style"
                 android:layout_width="match_parent"
                 android:layout_height="48dp">
 
@@ -496,7 +496,7 @@
 
             <RelativeLayout
                 android:id="@+id/act_edit_req_lovedesistyle"
-                style="@style/my_item_layout_style"
+                style="@style/my_list_item_layout_style"
                 android:layout_width="match_parent"
                 android:layout_height="48dp">
 

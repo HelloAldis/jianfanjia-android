@@ -77,7 +77,7 @@ public class DesignerInfo implements Serializable {
 
 	private int match;
 
-	private int score;
+	private float score;
 
 	public String get_id() {
 		return _id;
@@ -327,11 +327,11 @@ public class DesignerInfo implements Serializable {
 		this.match = match;
 	}
 
-	public int getScore() {
+	public float getScore() {
 		return score;
 	}
 
-	public void setScore(int score) {
+	public void setScore(float score) {
 		this.score = score;
 	}
 }

@@ -24,26 +24,35 @@
                 <RelativeLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true">
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginBottom="@dimen/space_16">
 
 
                     <TextView
-                        android:id="@+id/textName"
+                        android:id="@+id/frag_my_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="张三"
+                        android:text="Jame"
                         android:textColor="#ffffff"
-                        android:textSize="16.0dip"
-                        android:textStyle="bold" />
+                        android:textSize="@dimen/big_size"
+                        android:textStyle="bold"
+                        android:layout_alignParentTop="false"
+                        android:layout_alignParentLeft="false"
+                        android:layout_alignParentStart="false"
+                        android:layout_toLeftOf="@+id/frag_my_account"
+                        android:layout_alignBaseline="@+id/frag_my_account"
+                        android:layout_marginRight="@dimen/space_24" />
 
                     <TextView
-                        android:id="@+id/textAccount"
+                        android:id="@+id/frag_my_account"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
-                        android:text="18635897456"
+                        android:text="账号：18635897456"
                         android:textColor="#ffffff"
-                        android:textSize="16.0dip" />
+                        android:textSize="@dimen/small_size" />
                 </RelativeLayout>
             </RelativeLayout>
 
@@ -54,7 +63,7 @@
                 style="@style/my_list_item_layout_style">
 
                 <TextView
-                    style="@style/site_listview_item_text_style_middle"
+                    style="@style/listview_item_text_style_middle"
                     android:layout_centerVertical="true"
                     android:text="我的提醒"
                     android:textColor="@color/main_color_black" />
@@ -73,7 +82,7 @@
                 style="@style/my_list_item_layout_style">
 
                 <TextView
-                    style="@style/site_listview_item_text_style_middle"
+                    style="@style/listview_item_text_style_middle"
                     android:layout_centerVertical="true"
                     android:text="我的意向设计师"
                     android:textColor="@color/main_color_black" />
@@ -92,7 +101,7 @@
                 style="@style/my_list_item_layout_style">
 
                 <TextView
-                    style="@style/site_listview_item_text_style_middle"
+                    style="@style/listview_item_text_style_middle"
                     android:layout_centerVertical="true"
                     android:text="我的装修工地"
                     android:textColor="@color/main_color_black" />
@@ -116,7 +125,7 @@
                 style="@style/my_list_item_layout_style">
 
                 <TextView
-                    style="@style/site_listview_item_text_style_middle"
+                    style="@style/listview_item_text_style_middle"
                     android:layout_centerVertical="true"
                     android:text="设置"
                     android:textColor="@color/main_color_black" />

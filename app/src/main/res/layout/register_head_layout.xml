@@ -35,7 +35,7 @@
 
     <TextView
         android:id="@+id/register_pro"
-        style="@style/site_listview_item_text_style_middle"
+        style="@style/listview_item_text_style_middle"
         android:layout_below="@+id/indicator"
         android:layout_centerHorizontal="true"
         android:text="@string/choose_role"

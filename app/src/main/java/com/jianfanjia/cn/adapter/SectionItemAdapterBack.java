@@ -1,7 +1,5 @@
 package com.jianfanjia.cn.adapter;
 
-import java.util.ArrayList;
-import java.util.List;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +13,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.bean.CommentInfo;
@@ -23,7 +22,11 @@ import com.jianfanjia.cn.bean.SectionItemInfo;
 import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
+import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.StringUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SectionItemAdapterBack extends BaseAdapter {
 	private static final int IMG_COUNT = 9;
@@ -235,6 +238,7 @@ public class SectionItemAdapterBack extends BaseAdapter {
 		switch (type) {
 		case SECTION_ITME_VIEW:
 			List<CommentInfo> commentInfoList = sectionItemInfo.getComments();
+			LogTool.d(this.getClass().getName(),sectionItemInfo.getName());
 			viewHolder.closeNodeName.setText(MyApplication.getInstance()
 					.getStringById(sectionItemInfo.getName()));
 			viewHolder.openNodeName.setText(MyApplication.getInstance()

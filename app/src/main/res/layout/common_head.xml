@@ -11,34 +11,36 @@
 
         <RelativeLayout
             android:id="@+id/head_back_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/space_70"
+            android:layout_height="match_parent"
             android:layout_centerVertical="true"
-            android:padding="@dimen/space_8">
+            android:paddingLeft="@dimen/space_14">
 
-            <TextView
+            <ImageView
                 android:id="@+id/head_back"
-                style="@style/site_listview_item_text_style_middle"
+                style="@style/listview_item_text_style_middle"
                 android:layout_centerVertical="true"
-                android:drawableLeft="@mipmap/icon_register_back"
-                android:drawablePadding="4dp"
-                android:text="@string/back"
-                android:textColor="@color/back_color" />
+                android:src="@mipmap/icon_register_back"
+                 />
         </RelativeLayout>
 
         <TextView
             android:id="@+id/head_center_title"
-            style="@style/site_listview_item_text_style_title"
+            style="@style/listview_item_text_style_big"
             android:layout_centerInParent="true"
             android:textColor="@color/main_color_black" />
 
         <TextView
             android:id="@+id/head_right_title"
-            style="@style/site_listview_item_text_style_middle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/space_8"
-            android:textColor="@color/main_color_black" />
+            android:paddingRight="@dimen/space_14"
+            android:paddingLeft="@dimen/space_14"
+            android:textColor="@color/main_color_black"
+            android:gravity="center"
+            android:textSize="@dimen/middle_size"/>
 
         <View
             android:id="@+id/head_divier"

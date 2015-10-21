@@ -38,7 +38,7 @@ public class DesignerInfoActivity extends BaseActivity implements
         CollapsingToolbarLayout collapsingToolbar =
                 (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         collapsingToolbar.setCollapsedTitleGravity(Gravity.CENTER_HORIZONTAL);
-        collapsingToolbar.setExpandedTitleTextAppearance(R.style.site_listview_item_text_style_big);
+        collapsingToolbar.setExpandedTitleTextAppearance(R.style.listview_item_text_style_big);
         collapsingToolbar.setExpandedTitleColor(Color.BLACK);
         collapsingToolbar.setTitle("设计师");
 

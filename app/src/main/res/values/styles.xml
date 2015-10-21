@@ -99,7 +99,7 @@
         <item name="android:layout_height">@dimen/space_32</item>
         <item name="android:background">@drawable/btn_selector</item>
         <item name="android:textColor">@color/font_white</item>
-        <item name="android:textSize">@dimen/text_size_17</item>
+        <item name="android:textSize">@dimen/big_size</item>
     </style>
 
     <style name="dialog_button_2">
@@ -111,7 +111,7 @@
         <item name="android:layout_height">48.0dip</item>
         <item name="android:maxLines">2</item>
         <item name="android:layout_weight">1.0</item>
-        <item name="android:textSize">@dimen/text_size_17</item>
+        <item name="android:textSize">@dimen/big_size</item>
     </style>
 
     <style name="dialog_button_1">
@@ -123,7 +123,7 @@
         <item name="android:layout_height">48.0dip</item>
         <item name="android:maxLines">2</item>
         <item name="android:layout_weight">1.0</item>
-        <item name="android:textSize">@dimen/text_size_17</item>
+        <item name="android:textSize">@dimen/big_size</item>
     </style>
 
     <style name="button_confirm_style">
@@ -131,12 +131,12 @@
         <item name="android:layout_height">@dimen/space_48</item>
         <item name="android:background">@drawable/btn_selector</item>
         <item name="android:textColor">@color/font_white</item>
-        <item name="android:textSize">@dimen/text_size_17</item>
+        <item name="android:textSize">@dimen/big_size</item>
     </style>
 
     <!-- head_layout -->
     <style name="head_title_text_style">
-        <item name="android:textSize">17sp</item>
+        <item name="android:textSize">@dimen/big_size</item>
         <item name="android:textColor">#101010</item>
         <item name="android:gravity">center</item>
     </style>
@@ -158,22 +158,16 @@
     </style>
 
     <!-- site_listview_item_text_style -->
-    <style name="site_listview_item_text_style_small" parent="my_item_layout_text_style_base">
-        <item name="android:textSize">@dimen/text_size_11</item>
+    <style name="listview_item_text_style_small" parent="my_item_layout_text_style_base">
+        <item name="android:textSize">@dimen/small_size</item>
     </style>
 
-    <style name="site_listview_item_text_style_middle" parent="my_item_layout_text_style_base">
-        <item name="android:textSize">@dimen/text_size_14</item>
+    <style name="listview_item_text_style_middle" parent="my_item_layout_text_style_base">
+        <item name="android:textSize">@dimen/middle_size</item>
     </style>
 
-
-    <style name="site_listview_item_text_style_big" parent="my_item_layout_text_style_base">
-        <item name="android:textSize">@dimen/text_size_18</item>
-    </style>
-
-
-    <style name="site_listview_item_text_style_title" parent="my_item_layout_text_style_base">
-        <item name="android:textSize">@dimen/text_size_17</item>
+    <style name="listview_item_text_style_big" parent="my_item_layout_text_style_base">
+        <item name="android:textSize">@dimen/big_size</item>
     </style>
 
     <!-- my_item_layout_style -->
@@ -182,17 +176,8 @@
         <item name="android:layout_height">@dimen/common_item_layout_height</item>
         <item name="android:background">@drawable/my_item_layout_bg</item>
         <item name="android:gravity">center_vertical</item>
-        <item name="android:paddingLeft">@dimen/space_24</item>
-        <item name="android:paddingRight">@dimen/space_24</item>
-    </style>
-
-    <style name="my_item_layout_style">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/common_item_layout_height</item>
-        <item name="android:background">#ffffff</item>
-        <item name="android:gravity">center_vertical</item>
-        <item name="android:paddingLeft">@dimen/space_24</item>
-        <item name="android:paddingRight">@dimen/space_24</item>
+        <item name="android:paddingLeft">@dimen/space_22</item>
+        <item name="android:paddingRight">@dimen/space_28</item>
     </style>
 
     <style name="progress_dialog" parent="@android:style/Theme.Dialog">

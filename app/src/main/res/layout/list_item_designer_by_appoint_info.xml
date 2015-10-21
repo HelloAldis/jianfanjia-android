@@ -29,13 +29,13 @@
 
             <TextView
                 android:id="@+id/list_item_name_text"
-                style="@style/site_listview_item_text_style_middle"
+                style="@style/listview_item_text_style_middle"
                 android:text="张三"
                 android:textColor="@color/main_color_black" />
 
             <TextView
                 android:id="@+id/list_item_march_text"
-                style="@style/site_listview_item_text_style_small"
+                style="@style/listview_item_text_style_small"
                 android:text="匹配度:100%"
                 android:textColor="@color/main_color_grey" />
         </LinearLayout>

@@ -29,4 +29,6 @@
     <string name="str_shi">室</string>
     <string name="str_danyuan">单元</string>
     <string name="str_not_order">未预约</string>
+    <string name="str_dong">栋</string>
+    <string name="str_lovedesistyle">偏好设计师类型</string>
 </resources>
