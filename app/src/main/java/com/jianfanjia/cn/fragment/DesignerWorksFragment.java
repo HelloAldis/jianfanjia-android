@@ -40,7 +40,16 @@ public class DesignerWorksFragment extends BaseFragment implements OnItemClickLi
     }
 
     private void initDesignerWorksList() {
+//        for (int i = 0; i < 5; i++) {
+//            DesignerWorksInfo info = new DesignerWorksInfo();
+//            info.setXiaoquName("小区名称" + 1);
+//            info.setProduce("100平米,三室二厅,现代简约");
+//            designerWorksList.add(info);
+//        }
+//        adapter = new DesignerWorksAdapter(getActivity(), designerWorksList);
+//        designer_works_listview.setAdapter(adapter);
 
+//        getDesignerProduct("55ebfc02d6e8f37706e4f1b7", 0, 5);
     }
 
     private void getDesignerProduct(String designerid, int from, int limit) {
