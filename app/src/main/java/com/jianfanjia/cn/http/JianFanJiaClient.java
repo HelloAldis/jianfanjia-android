@@ -28,6 +28,7 @@ import com.jianfanjia.cn.http.request.HomePageRequest;
 import com.jianfanjia.cn.http.request.LoginRequest;
 import com.jianfanjia.cn.http.request.LogoutRequest;
 import com.jianfanjia.cn.http.request.NotifyOwnerCheckRequest;
+import com.jianfanjia.cn.http.request.OrderDesignerByUserRequest;
 import com.jianfanjia.cn.http.request.OwnerFinishCheckRequest;
 import com.jianfanjia.cn.http.request.OwnerInfoRequest;
 import com.jianfanjia.cn.http.request.PostRequirementRequest;
@@ -832,4 +833,24 @@ public class JianFanJiaClient {
         }
     }
 
+    /**
+     * 业主预约设计师
+     *
+     * @param context
+     * @param requirementid
+     * @param designerids
+     * @param listener
+     * @param tag
+     */
+    public static void orderDesignerByUser(Context context, String requirementid, String[] designerids, ApiUiUpdateListener listener, Object tag) {
+        OrderDesignerByUserRequest orderDesignerByUserRequest = new OrderDesignerByUserRequest(context, requirementid, designerids);
+        JSONObject jsonParams = new JSONObject();
+        try {
+            jsonParams.put("requirementid", requirementid);
+            jsonParams.put("designerids", designerids);
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(orderDesignerByUserRequest, jsonParams.toString(), listener, tag);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 }
