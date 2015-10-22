@@ -25,19 +25,19 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
     private static final String TAG = DesignerPlanListActivity.class.getName();
     private MainHeadView mainHeadView = null;
     private ListView designer_plan_listview = null;
-    private List<List<HashMap<String, Object>>> mArrayList;
+    private List<List<HashMap<String, Object>>> designerPlanList;
 
     @Override
     public void initView() {
         initMainHeadView();
         designer_plan_listview = (ListView) findViewById(R.id.designer_plan_listview);
         initData();
-        DesignerPlanAdapter adapter = new DesignerPlanAdapter(this, mArrayList);
+        DesignerPlanAdapter adapter = new DesignerPlanAdapter(this, designerPlanList);
         designer_plan_listview.setAdapter(adapter);
     }
 
     public void initData() {
-        mArrayList = new ArrayList<List<HashMap<String, Object>>>();
+        designerPlanList = new ArrayList<List<HashMap<String, Object>>>();
         HashMap<String, Object> hashMap = null;
         List<HashMap<String, Object>> arrayListForEveryGridView;
         for (int i = 0; i < 8; i++) {
@@ -47,7 +47,7 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
                 hashMap.put("content", R.mipmap.ic_launcher);
                 arrayListForEveryGridView.add(hashMap);
             }
-            mArrayList.add(arrayListForEveryGridView);
+            designerPlanList.add(arrayListForEveryGridView);
         }
     }
 
