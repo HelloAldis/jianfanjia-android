@@ -156,6 +156,7 @@ public class Constant {
     public static final String LAST_LOGIN_TIME = "last_login_time";// 上次登录时间
     public static final long LOGIN_EXPIRE = 24 * 60 * 60 * 1000L;// 登录过期时间为24小时
 
+
     public static final String DOWNLOAD_URL = "download_url";// 下载链接
 
     public static final String INTENT_ACTION_USERINFO_CHANGE = "INTENT_ACTION_USERINFO_CHANGE";// 用户修改个人信息
@@ -170,5 +171,7 @@ public class Constant {
     public static final String REQUIREMENT_POST_PROCESS = "5";//需求配置了工地
     public static final int REC_DESIGNER_TOTAL = 3;//推荐设计师总数
     public static final int ROST_REQUIREMTNE_TOTAL = 3;//能够发布需求总数
+
+    public static final long CONFIRM_HOUSE_EXPIRE = 3 * 60 * 1000L;// 确认量房过期时间
 
 }

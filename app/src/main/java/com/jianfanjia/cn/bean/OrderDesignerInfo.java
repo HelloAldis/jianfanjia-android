@@ -1,7 +1,5 @@
 package com.jianfanjia.cn.bean;
 
-import org.w3c.dom.Comment;
-
 import java.io.Serializable;
 
 /**

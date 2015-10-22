@@ -203,11 +203,25 @@
         <item>四个人</item>
     </string-array>
 
-    <!-- 装修类型 -->
-    <string-array name="arr_decoratestyle">
+    <!-- 包工类型 -->
+    <string-array name="arr_worktype">
         <item>半包</item>
         <item>全包</item>
         <item>设计</item>
+    </string-array>
+
+    <!-- 装修类型 -->
+    <string-array name="arr_decstyle">
+        <item>家装</item>
+        <item>商装</item>
+        <item>软装</item>
+    </string-array>
+
+    <!-- 性别 -->
+    <string-array name="arr_desisex">
+        <item>不限</item>
+        <item>男</item>
+        <item>女</item>
     </string-array>
 
     <!-- 偏好设计师 -->
@@ -225,7 +239,6 @@
         <item>地中海</item>
         <item>东南亚</item>
         <item>田园</item>
-        <item>混搭</item>
     </string-array>
 
     <string-array name="arr_lovestyle_pic">
@@ -246,6 +259,9 @@
         <item>有方案</item>
         <item>未中标</item>
         <item>已中标</item>
+        <item>已量房</item>
+        <item>未响应</item>
+        <item>未提交</item>
     </string-array>
 
     <string-array name="requirement_status">
@@ -255,6 +271,8 @@
         <item>有方案</item>
         <item>已选中</item>
         <item>有工地</item>
+        <item>已量房</item>
+        <item>有合同</item>
     </string-array>
 
     <string-array name="edit_requirement_item">

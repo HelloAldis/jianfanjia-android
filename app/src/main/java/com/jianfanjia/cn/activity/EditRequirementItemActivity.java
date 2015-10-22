@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.ListView;
 
 import com.jianfanjia.cn.adapter.RequirementItemAdapter;
-import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.base.BaseAnnotationActivity;
 import com.jianfanjia.cn.interf.cutom_annotation.ReqItemFinderImp;
 import com.jianfanjia.cn.view.MainHeadView;
 
@@ -18,9 +18,11 @@ import org.androidannotations.annotations.ViewById;
 
 import static com.jianfanjia.cn.activity.EditRequirementActivity.REQUIRECODE_CITY;
 import static com.jianfanjia.cn.activity.EditRequirementActivity.REQUIRECODE_DECORATETYPE;
+import static com.jianfanjia.cn.activity.EditRequirementActivity.REQUIRECODE_DESISEX;
 import static com.jianfanjia.cn.activity.EditRequirementActivity.REQUIRECODE_HOUSETYPE;
 import static com.jianfanjia.cn.activity.EditRequirementActivity.REQUIRECODE_LOVEDESISTYLE;
 import static com.jianfanjia.cn.activity.EditRequirementActivity.REQUIRECODE_PERSONS;
+import static com.jianfanjia.cn.activity.EditRequirementActivity.REQUIRECODE_WORKTYPE;
 import static com.jianfanjia.cn.activity.EditRequirementActivity.REQUIRE_DATA;
 
 /**
@@ -29,8 +31,8 @@ import static com.jianfanjia.cn.activity.EditRequirementActivity.REQUIRE_DATA;
  * Email: jame.zhang@myjyz.com
  * Date:2015-10-15 13:19
  */
-@EActivity
-public class EditRequirementItemActivity extends BaseActivity {
+@EActivity(R.layout.activity_edit_req_item)
+public class EditRequirementItemActivity extends BaseAnnotationActivity {
 
     //用来记录是展示那个列表
     private int requestCode;
@@ -77,6 +79,12 @@ public class EditRequirementItemActivity extends BaseActivity {
             case REQUIRECODE_DECORATETYPE:
                 mainHeadView.setMianTitle(getString(R.string.str_decoratetype));
                 break;
+            case REQUIRECODE_WORKTYPE:
+                mainHeadView.setMianTitle(getResources().getString(R.string.str_work_type));
+                break;
+            case REQUIRECODE_DESISEX:
+                mainHeadView.setMianTitle(getString(R.string.str_lovedesisex));
+                break;
         }
 
     }
@@ -99,17 +107,4 @@ public class EditRequirementItemActivity extends BaseActivity {
         }
     }
 
-    @Override
-    public int getLayoutId() {
-        return R.layout.activity_edit_req_item;
-    }
-
-    @Override
-    public void initView() {
-    }
-
-    @Override
-    public void setListener() {
-
-    }
 }

@@ -13,11 +13,13 @@ import com.jianfanjia.cn.config.Url_New;
  */
 public class ConformMeasureHouseRequest extends BaseRequest {
     private String requirementid;
+    private String designerid;
 
-    public ConformMeasureHouseRequest(Context context, String requirementid) {
+    public ConformMeasureHouseRequest(Context context, String requirementid,String designerid) {
         super(context);
         this.requirementid = requirementid;
-        url = Url_New.USER_ORDERD_DESIGNERS;
+        this.designerid = designerid;
+        url = Url_New.DESIGNER_HOUSE_CHECKED ;
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.jianfanjia.cn.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -83,6 +84,9 @@ public class XuQiuFragment extends BaseAnnotationFragment {
     @ViewById
     protected RecyclerView req_listView;
 
+    @ViewById(R.id.req_pull_refresh)
+    protected SwipeRefreshLayout refreshLayout;
+
     protected Intent gotoOrderDesigner;
     protected Intent gotoMyDesigner;
     protected Intent gotoEditRequirement;
@@ -119,6 +123,7 @@ public class XuQiuFragment extends BaseAnnotationFragment {
                     case ITEM_GOTOPRO:
                         break;
                     case ITEM_GOTOMYDESI:
+                        gotoMyDesigner.putExtra(Global.REQUIREMENT_ID, requirementInfos.get(position).get_id());
                         startActivity(gotoMyDesigner);
                         break;
                     case ITEM_GOTOODERDESI:
@@ -151,6 +156,16 @@ public class XuQiuFragment extends BaseAnnotationFragment {
         initListView();
         initIntent();
         initdata();
+        initPullRefresh();
+    }
+
+    private void initPullRefresh() {
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                initdata();
+            }
+        });
     }
 
     protected void initIntent() {
@@ -168,6 +183,7 @@ public class XuQiuFragment extends BaseAnnotationFragment {
 
                 @Override
                 public void loadSuccess(Object data) {
+                    refreshLayout.setRefreshing(false);
                     if (data != null) {
                         requirementInfos = JsonParser.jsonToList(data.toString(), new TypeToken<List<RequirementInfo>>() {
                         }.getType());
@@ -186,6 +202,7 @@ public class XuQiuFragment extends BaseAnnotationFragment {
                 @Override
                 public void loadFailture(String error_msg) {
                     setPublishVisiable();
+                    refreshLayout.setRefreshing(false);
                 }
             }, this);
         }

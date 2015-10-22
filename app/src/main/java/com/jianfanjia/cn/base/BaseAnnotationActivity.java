@@ -72,12 +72,9 @@ public abstract class BaseAnnotationActivity extends AppCompatActivity implement
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS); //透明状态栏
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);//透明导航栏
         }
-        setContentView(getLayoutId());
         init();
         initDao();
         initParams();
-        initView();
-        setListener();
     }
 
     protected void setImmerseLayout(View view) {
@@ -91,13 +88,6 @@ public abstract class BaseAnnotationActivity extends AppCompatActivity implement
             view.setPadding(0, statusBarHeight, 0, 0);
         }
     }
-
-
-    public abstract int getLayoutId();
-
-    public abstract void initView();
-
-    public abstract void setListener();
 
     private void init() {
         activityManager = ActivityManager.getInstance();

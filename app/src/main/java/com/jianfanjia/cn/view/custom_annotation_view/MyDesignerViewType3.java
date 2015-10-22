@@ -1,14 +1,18 @@
 package com.jianfanjia.cn.view.custom_annotation_view;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.OrderDesignerInfo;
+import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.interf.ClickCallBack;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.ViewById;
@@ -55,6 +59,18 @@ public class MyDesignerViewType3 extends RelativeLayout {
 
     public void bind(OrderDesignerInfo designerInfo,ClickCallBack clickCallBack,int position) {
         String status = designerInfo.getPlan().getStatus();
+        String imageid = designerInfo.getImageid();
+        String username = designerInfo.getUsername();
+        if(!TextUtils.isEmpty(imageid)){
+            ImageLoader.getInstance().displayImage(Url_New.GET_IMAGE + imageid , headView);
+        }else{
+            ImageLoader.getInstance().displayImage(Constant.DEFALUT_DESIGNER_PIC, headView);
+        }
+        if(!TextUtils.isEmpty(username)){
+            nameView.setText(username);
+        }else{
+            nameView.setText(getResources().getString(R.string.designer));
+        }
         switch (status){
             case Global.PLAN_STATUS0:
                 textView3.setText(getResources().getString(R.string.wait_response));
