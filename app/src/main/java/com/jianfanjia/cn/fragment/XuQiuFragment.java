@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.AppointDesignerActivity;
 import com.jianfanjia.cn.activity.EditRequirementActivity_;
-import com.jianfanjia.cn.activity.MyDesignerActivity;
+import com.jianfanjia.cn.activity.MyDesignerActivity_;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.RequirementNewAdapter;
 import com.jianfanjia.cn.base.BaseAnnotationFragment;
@@ -156,7 +156,7 @@ public class XuQiuFragment extends BaseAnnotationFragment {
     protected void initIntent() {
         gotoEditRequirement = new Intent(getActivity(), EditRequirementActivity_.class);
         gotoOrderDesigner = new Intent(getActivity(), AppointDesignerActivity.class);
-        gotoMyDesigner = new Intent(getActivity(), MyDesignerActivity.class);
+        gotoMyDesigner = new Intent(getActivity(), MyDesignerActivity_.class);
     }
 
     protected void initdata() {

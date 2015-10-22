@@ -1,13 +1,16 @@
 package com.jianfanjia.cn.activity;
 
+import android.os.Bundle;
 import android.widget.ListView;
 
 import com.jianfanjia.cn.adapter.MyFavoriteDesignerAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.DesignerInfo;
 import com.jianfanjia.cn.bean.MyFavoriteDesigner;
+import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.tools.JsonParser;
+import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
 
 import org.androidannotations.annotations.AfterViews;
@@ -59,6 +62,10 @@ public class MyFavoriteDesignerActivity extends BaseActivity{
 
     @ItemClick(R.id.act_my_favorite_designer_listview)
     protected void clickItem(DesignerInfo designerInfo){
+        Bundle designerBundle = new Bundle();
+        designerBundle.putString(Global.DESIGNER_ID, designerInfo.get_id());
+        LogTool.d(this.getClass().getName(), designerInfo.get_id());
+        startActivity(DesignerInfoActivity.class,designerBundle);
     }
 
     @Override

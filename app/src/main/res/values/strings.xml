@@ -246,10 +246,6 @@
     <string name="title_activity_designer_info">DesignerInfoActivity</string>
     <string name="title_activity_designer_case_info">DesignerCaseInfoActivity</string>
 
-
-
-
-
      <string name="cheese_ipsum">Jarlsberg lancashire edam. Dolcelatte hard cheese brie st. agur blue
     cheese caerphilly bavarian bergkase cheese and biscuits mascarpone. Cheeseburger swiss bavarian
     bergkase cream cheese fromage frais cheesy feet port-salut airedale. St. agur blue cheese rubber
@@ -257,5 +253,8 @@
     the big cheese.</string>
     <string name="checkin">Checkin</string>
     <string name="title_activity_appoint_designer">AppointDesignerActivity</string>
+    <string name="not_commit">未提交</string>
+    <string name="already_repsonse">已响应</string>
     <string name="title_activity_designer_plan_list">DesignerPlanListActivity</string>
+
 </resources>

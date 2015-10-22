@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ltm_req_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/font_white"
+    android:padding="@dimen/space_16">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+    <com.jianfanjia.cn.layout.CircleImageView
+        android:id="@+id/ltm_my_designer_head"
+        android:layout_width="68dp"
+        android:layout_height="68dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/icon_sidebar_default_user" />
+
+    <RelativeLayout
+        android:id="@+id/ltm_my_designer_middle_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignBottom="@+id/ltm_my_designer_head"
+        android:layout_alignTop="@+id/ltm_my_designer_head"
+        android:layout_marginLeft="@dimen/space_8"
+        android:layout_toRightOf="@+id/ltm_my_designer_head">
+
+        <TextView
+            android:id="@+id/ltm_my_designer_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_8"
+            android:text="@string/str_cell" />
+
+        <TextView
+            android:id="@+id/ltm_my_designer_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ltm_my_designer_name"
+            android:layout_marginTop="@dimen/space_16"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="@dimen/space_8"
+            android:text="@string/str_publish_time" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/ltm_my_designer_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/ltm_my_designer_head"
+        android:layout_alignTop="@+id/ltm_my_designer_head"
+        android:layout_marginLeft="@dimen/space_8"
+        android:layout_toRightOf="@+id/ltm_my_designer_middle_layout">
+        <TextView
+            android:id="@+id/ltm_my_designer_textview3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_8"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:text="@string/str_cell" />
+
+
+    </RelativeLayout>
+        </RelativeLayout>
+
+
+</RelativeLayout>

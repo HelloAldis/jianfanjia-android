@@ -188,7 +188,7 @@
             android:label="@string/title_activity_forget_psw"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MyDesignerActivity"
+            android:name=".MyDesignerActivity_"
             android:label="@string/title_activity_my_designer"
             android:screenOrientation="portrait" />
         <activity
