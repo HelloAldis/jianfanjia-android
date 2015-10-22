@@ -10,7 +10,6 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.BaseListAdapter;
 import com.jianfanjia.cn.bean.DesignerCanOrderInfo;
 import com.jianfanjia.cn.config.Url_New;
-import com.jianfanjia.cn.tools.LogTool;
 
 import java.util.HashMap;
 import java.util.List;
@@ -61,23 +60,7 @@ public class DesignerByAppointAdapter extends BaseListAdapter<DesignerCanOrderIn
         }
         imageLoader.displayImage(Url_New.GET_IMAGE + info.getImageid(), viewHolder.itemwHeadView, options);
         viewHolder.itemNameText.setText(info.getUsername());
-        viewHolder.itemMarchText.setText(info.getWork_auth_type());
-        // 监听checkBox并根据原来的状态来设置新的状态
-        viewHolder.itemCheck.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View v) {
-                if (isSelected.get(position)) {
-                    LogTool.d(TAG, "1111111111111111");
-                    isSelected.put(position, false);
-                    setIsSelected(isSelected);
-                } else {
-                    LogTool.d(TAG, "222222222222222");
-                    isSelected.put(position, true);
-                    setIsSelected(isSelected);
-                }
-
-            }
-        });
+        viewHolder.itemMarchText.setText("匹配度:" + info.getMatch() + "%");
         // 根据isSelected来设置checkbox的选中状况
         viewHolder.itemCheck.setChecked(getIsSelected().get(position));
 
