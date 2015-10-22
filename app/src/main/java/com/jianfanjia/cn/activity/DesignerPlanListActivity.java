@@ -4,11 +4,16 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ListView;
 
+import com.jianfanjia.cn.adapter.ListViewAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Description:设计师方案列表
@@ -20,11 +25,30 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
     private static final String TAG = DesignerPlanListActivity.class.getName();
     private MainHeadView mainHeadView = null;
     private ListView designer_plan_listview = null;
+    private List<List<HashMap<String, Object>>> mArrayList;
 
     @Override
     public void initView() {
         initMainHeadView();
         designer_plan_listview = (ListView) findViewById(R.id.designer_plan_listview);
+        initData();
+        ListViewAdapter adapter = new ListViewAdapter(this, mArrayList);
+        designer_plan_listview.setAdapter(adapter);
+    }
+
+    public void initData() {
+        mArrayList = new ArrayList<List<HashMap<String, Object>>>();
+        HashMap<String, Object> hashMap = null;
+        List<HashMap<String, Object>> arrayListForEveryGridView;
+        for (int i = 0; i < 10; i++) {
+            arrayListForEveryGridView = new ArrayList<HashMap<String, Object>>();
+            for (int j = 0; j < 8; j++) {
+                hashMap = new HashMap<String, Object>();
+                hashMap.put("content", R.mipmap.ic_launcher);
+                arrayListForEveryGridView.add(hashMap);
+            }
+            mArrayList.add(arrayListForEveryGridView);
+        }
     }
 
     private void initMainHeadView() {
