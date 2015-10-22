@@ -6,6 +6,8 @@ import android.view.View;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.BaseListAdapter;
+import com.jianfanjia.cn.interf.ItemClickListener;
+import com.jianfanjia.cn.interf.ViewPagerClickListener;
 
 import java.util.HashMap;
 import java.util.List;
@@ -17,13 +19,20 @@ import java.util.List;
  * Time: 17:54
  */
 public class DesignerPlanAdapter extends BaseListAdapter<List<HashMap<String, Object>>> {
+    private ItemClickListener itemClickListener;
 
     public DesignerPlanAdapter(Context context, List<List<HashMap<String, Object>>> list) {
         super(context, list);
     }
 
+    public DesignerPlanAdapter(Context context, List<List<HashMap<String, Object>>> list, ItemClickListener itemClickListener) {
+        super(context, list);
+        this.itemClickListener = itemClickListener;
+    }
+
+
     @Override
-    public View initView(int position, View convertView) {
+    public View initView(final int position, View convertView) {
         ViewHolder holder = null;
         List<HashMap<String, Object>> arrayListForEveryGridView = list.get(position);
         if (convertView == null) {
@@ -36,7 +45,12 @@ public class DesignerPlanAdapter extends BaseListAdapter<List<HashMap<String, Ob
             holder = (ViewHolder) convertView.getTag();
         }
 
-        PlanViewAdapter adapter = new PlanViewAdapter(context, arrayListForEveryGridView);
+        PlanViewAdapter adapter = new PlanViewAdapter(context, arrayListForEveryGridView, new ViewPagerClickListener() {
+            @Override
+            public void onClickItem(int pos) {
+                itemClickListener.onCallBack(position, pos);
+            }
+        });
         holder.vp.setAdapter(adapter);
 
         return convertView;
