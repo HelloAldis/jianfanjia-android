@@ -256,4 +256,5 @@
     the big cheese.</string>
     <string name="checkin">Checkin</string>
     <string name="title_activity_appoint_designer">AppointDesignerActivity</string>
+    <string name="title_activity_designer_plan_list">DesignerPlanListActivity</string>
 </resources>
