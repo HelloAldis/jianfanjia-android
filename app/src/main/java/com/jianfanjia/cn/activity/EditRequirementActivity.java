@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.base.BaseAnnotationActivity;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.fragment.XuQiuFragment;
@@ -35,8 +35,8 @@ import java.util.Set;
  * Email: jame.zhang@myjyz.com
  * Date:2015-10-15 13:19
  */
-@EActivity
-public class EditRequirementActivity extends BaseActivity {
+@EActivity(R.layout.activity_edit_req)
+public class EditRequirementActivity extends BaseAnnotationActivity {
 
     public static final int REQUIRECODE_CITY = 0x00;
     public static final int REQUIRECODE_HOUSETYPE = 0x01;
@@ -44,11 +44,13 @@ public class EditRequirementActivity extends BaseActivity {
     public static final int REQUIRECODE_LOVESTYLE = 0x03;
     public static final int REQUIRECODE_LOVEDESISTYLE = 0x04;
     public static final int REQUIRECODE_DECORATETYPE = 0x05;
+    public static final int REQUIRECODE_WORKTYPE = 0x06;
+    public static final int REQUIRECODE_DESISEX = 0x07;
 
     public static final String REQUIRE_DATA = "require_data";
     public static final String RESPONDE_DATA = "response_data";
 
-    public static final int TOTAL_COUNT = 14;
+    public static final int TOTAL_COUNT = 16;
 
     private Set<String> setItems = new HashSet<>();
 
@@ -66,6 +68,10 @@ public class EditRequirementActivity extends BaseActivity {
     protected TextView act_edit_req_lovedesistyle_content;//偏好设计师类型
     @ViewById
     protected TextView act_edit_req_decoratetype_content;//装修类型
+    @ViewById
+    protected TextView act_edit_req_work_type_content;//包工类型
+    @ViewById
+    protected TextView act_edit_req_lovedesisex_content;//偏好设计师性别
     @ViewById
     protected EditText act_edit_req_street_content;//所在街道
     @ViewById
@@ -89,8 +95,12 @@ public class EditRequirementActivity extends BaseActivity {
     protected String[] arr_housetype;
     @StringArrayRes(R.array.arr_love_designerstyle)
     protected String[] arr_love_designerstyle;
-    @StringArrayRes(R.array.arr_decoratestyle)
-    protected String[] arr_decoratestyle;
+    @StringArrayRes(R.array.arr_worktype)
+    protected String[] arr_worktype;
+    @StringArrayRes(R.array.arr_decstyle)
+    protected String[] arr_decstyle;
+    @StringArrayRes(R.array.arr_desisex)
+    protected String[] arr_desisex;
 
     private int totalCount;
     private int requestCode;
@@ -200,7 +210,7 @@ public class EditRequirementActivity extends BaseActivity {
 
 
     @Click({R.id.head_back, R.id.act_edit_req_city, R.id.act_edit_req_housetype, R.id.act_edit_req_decoratetype,
-            R.id.act_edit_req_lovestyle, R.id.act_edit_req_persons, R.id.act_edit_req_lovedesistyle})
+            R.id.act_edit_req_lovestyle, R.id.act_edit_req_persons, R.id.act_edit_req_lovedesistyle,R.id.act_edit_req_lovedesisex,R.id.act_edit_req_work_type})
     protected void back(View clickView) {
         int viewId = clickView.getId();
         switch (viewId) {
@@ -230,6 +240,14 @@ public class EditRequirementActivity extends BaseActivity {
             case R.id.act_edit_req_housetype:
                 gotoItem.putExtra(REQUIRE_DATA, REQUIRECODE_HOUSETYPE);
                 startActivityForResult(gotoItem, REQUIRECODE_HOUSETYPE);
+                break;
+            case R.id.act_edit_req_work_type:
+                gotoItem.putExtra(REQUIRE_DATA, REQUIRECODE_WORKTYPE);
+                startActivityForResult(gotoItem, REQUIRECODE_WORKTYPE);
+                break;
+            case R.id.act_edit_req_lovedesisex:
+                gotoItem.putExtra(REQUIRE_DATA, REQUIRECODE_DESISEX);
+                startActivityForResult(gotoItem, REQUIRECODE_DESISEX);
                 break;
         }
     }
@@ -278,6 +296,9 @@ public class EditRequirementActivity extends BaseActivity {
         mainHeadView.setRightTitle(getResources().getString(R.string.confirm));
         mainHeadView.setRigthTitleEnable(false);
 
+        gotoItem = new Intent(this, EditRequirementItemActivity_.class);
+        gotoItemLove = new Intent(this, EditRequirementLovestyleActivity_.class);
+
         initData();
     }
 
@@ -293,35 +314,21 @@ public class EditRequirementActivity extends BaseActivity {
             act_edit_req_danyuan_content.setText(requirementInfo.getCell_unit());
             act_edit_req_dong_content.setText(requirementInfo.getCell_building());
             act_edit_req_shi_content.setText(requirementInfo.getCell_detail_number());
-            act_edit_req_decoratetype_content.setText(arr_decoratestyle[Integer.parseInt(requirementInfo.getWork_type())]);
+//            act_edit_req_decoratetype_content.setText(arr_decstyle[Integer.parseInt(requirementInfo.getDec_type())]);
             act_edit_req_housearea_content.setText(requirementInfo.getHouse_area());
             act_edit_req_housetype_content.setText(arr_housetype[Integer.parseInt(requirementInfo.getHouse_type())]);
             act_edit_req_decoratebudget_content.setText(requirementInfo.getTotal_price());
             act_edit_req_persons_content.setText(requirementInfo.getFamily_description());
             act_edit_req_lovestyle_content.setText(arr_lovestyle[Integer.parseInt(requirementInfo.getDec_style())]);
             act_edit_req_lovedesistyle_content.setText(arr_love_designerstyle[Integer.parseInt(requirementInfo.getCommunication_type())]);
+//            act_edit_req_lovedesisex_content.setText(arr_desisex[Integer.parseInt(requirementInfo.getSex())]);
+            act_edit_req_work_type_content.setText(arr_worktype[Integer.parseInt(requirementInfo.getWork_type())]);
             initItem();
             requestCode = XuQiuFragment.REQUESTCODE_EDIT_REQUIREMENT;
         } else {
             requirementInfo = new RequirementInfo();
             requestCode = XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT;
         }
-
-    }
-
-    @Override
-    public int getLayoutId() {
-        return R.layout.activity_edit_req;
-    }
-
-    @Override
-    public void initView() {
-        gotoItem = new Intent(this, EditRequirementItemActivity_.class);
-        gotoItemLove = new Intent(this, EditRequirementLovestyleActivity_.class);
-    }
-
-    @Override
-    public void setListener() {
 
     }
 
@@ -364,6 +371,16 @@ public class EditRequirementActivity extends BaseActivity {
                     act_edit_req_housetype_content.setText(itemMap.value);
                     addItem("item114");
                     requirementInfo.setHouse_type(itemMap.key);
+                    break;
+                case REQUIRECODE_WORKTYPE:
+                    act_edit_req_work_type_content.setText(itemMap.value);
+                    addItem("item15");
+                    requirementInfo.setWork_type(itemMap.key);
+                    break;
+                case REQUIRECODE_DESISEX:
+                    act_edit_req_lovedesisex_content.setText(itemMap.value);
+                    addItem("item16");
+                    requirementInfo.setSex(itemMap.key);
                     break;
             }
         }

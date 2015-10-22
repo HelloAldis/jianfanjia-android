@@ -18,14 +18,20 @@
         android:orientation="vertical">
 
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/act_my_designer_recyclerview"
-            android:layout_width="match_parent"
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:paddingBottom="8dp"
-            android:paddingTop="8dp"
-            />
+            android:id="@+id/act_my_designer_pull_refresh" >
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/act_my_designer_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"
+                />
+        </android.support.v4.widget.SwipeRefreshLayout>
 
         <!--<ListView
             android:layout_width="match_parent"

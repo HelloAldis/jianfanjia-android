@@ -15,6 +15,7 @@ import com.jianfanjia.cn.http.request.AddPicToSectionItemRequest;
 import com.jianfanjia.cn.http.request.AgreeRescheduleRequest;
 import com.jianfanjia.cn.http.request.CheckVersionRequest;
 import com.jianfanjia.cn.http.request.CommitCommentRequest;
+import com.jianfanjia.cn.http.request.ConformMeasureHouseRequest;
 import com.jianfanjia.cn.http.request.DeletePicRequest;
 import com.jianfanjia.cn.http.request.DesignerHomePageRequest;
 import com.jianfanjia.cn.http.request.DesignerInfoRequest;
@@ -877,6 +878,7 @@ public class JianFanJiaClient {
         JSONObject jsonParams = new JSONObject();
         try {
             jsonParams.put("requirementid", requirementid);
+            LogTool.d(TAG, "jsonParams:" + jsonParams.toString());
             OkHttpClientManager.getInstance().getPostDelegate().postAsyn(getOrderedDesignerRequest, jsonParams.toString(), listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -898,7 +900,29 @@ public class JianFanJiaClient {
         try {
             jsonParams.put("requirementid", requirementid);
             jsonParams.put("designerid", designerid);
+            LogTool.d(TAG, "jsonParams:" + jsonParams.toString());
             OkHttpClientManager.getInstance().getPostDelegate().postAsyn(getDesignerPlansByUserRequest, jsonParams.toString(), listener, tag);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 业主确认已量房
+     * @param context
+     * @param requirementid
+     * @param designerid
+     * @param listener
+     * @param tag
+     */
+    public static void confirmMeasureHouse(Context context, String requirementid, String designerid, ApiUiUpdateListener listener, Object tag) {
+        ConformMeasureHouseRequest conformMeasureHouseRequest = new ConformMeasureHouseRequest(context, requirementid, designerid);
+        JSONObject jsonParams = new JSONObject();
+        try {
+            jsonParams.put("requirementid", requirementid);
+            jsonParams.put("designerid", designerid);
+            LogTool.d(TAG,"confirmMeasureHouse" + " -- "+ conformMeasureHouseRequest.getUrl() + "--jsonParams:" + jsonParams.toString());
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(conformMeasureHouseRequest, jsonParams.toString(), listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
         }

@@ -75,6 +75,17 @@
                 android:layout_marginTop="@dimen/space_16"
                 android:text="2015-10-22 13:18" />
 
+            <Button
+                android:background="@drawable/btn_selector"
+                android:id="@+id/ltm_my_designer_button3"
+                android:layout_centerVertical="true"
+                android:layout_height="48dp"
+                android:layout_marginRight="@dimen/space_8"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:text="@string/str_req_pubReq"
+                android:textColor="@color/font_white" />
+
         </RelativeLayout>
     </RelativeLayout>
 

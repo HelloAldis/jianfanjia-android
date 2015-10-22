@@ -22,8 +22,8 @@ public class ReqItemFinderImp implements ReqItemFinder {
     @StringArrayRes(R.array.arr_district)
     protected String[] arr_district;
 
-    @StringArrayRes(R.array.arr_decoratestyle)
-    protected String[] arr_decoratestyle;
+    @StringArrayRes(R.array.arr_worktype)
+    protected String[] arr_worktype;
 
     @StringArrayRes(R.array.arr_housetype)
     protected String[] arr_housetype;
@@ -37,6 +37,12 @@ public class ReqItemFinderImp implements ReqItemFinder {
     @StringArrayRes(R.array.arr_lovestyle)
     protected String[] arr_lovestyle;
 
+    @StringArrayRes(R.array.arr_decstyle)
+    protected String[] arr_decstyle;
+
+    @StringArrayRes(R.array.arr_desisex)
+    protected String[] arr_desisex;
+
     @Override
     public List<ItemMap> findAll(int requirecode) {
         switch (requirecode) {
@@ -49,9 +55,13 @@ public class ReqItemFinderImp implements ReqItemFinder {
             case EditRequirementActivity.REQUIRECODE_LOVEDESISTYLE:
                 return getListByStringArray(arr_love_designerstyle);
             case EditRequirementActivity.REQUIRECODE_DECORATETYPE:
-                return getListByStringArray(arr_decoratestyle);
+                return getListByStringArray(arr_decstyle);
             case EditRequirementActivity.REQUIRECODE_LOVESTYLE:
                 return getListByStringArray(arr_lovestyle);
+            case EditRequirementActivity.REQUIRECODE_DESISEX:
+                return getListByStringArray(arr_desisex);
+            case EditRequirementActivity.REQUIRECODE_WORKTYPE:
+                return getListByStringArray(arr_worktype);
         }
         return null;
     }

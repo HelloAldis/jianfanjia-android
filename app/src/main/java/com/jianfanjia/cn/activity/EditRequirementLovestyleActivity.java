@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.GridView;
 
 import com.jianfanjia.cn.adapter.RequirementItemLoveStyleAdapter;
-import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.base.BaseAnnotationActivity;
 import com.jianfanjia.cn.interf.cutom_annotation.ReqItemFinderImp;
 import com.jianfanjia.cn.view.MainHeadView;
 
@@ -24,8 +24,8 @@ import static com.jianfanjia.cn.activity.EditRequirementActivity.REQUIRE_DATA;
  * Email: jame.zhang@myjyz.com
  * Date:2015-10-15 13:19
  */
-@EActivity
-public class EditRequirementLovestyleActivity extends BaseActivity{
+@EActivity(R.layout.activity_edit_req_lovestyle)
+public class EditRequirementLovestyleActivity extends BaseAnnotationActivity{
 
     //用来记录是展示那个列表
     private int requestCode;
@@ -67,18 +67,4 @@ public class EditRequirementLovestyleActivity extends BaseActivity{
         }
     }
 
-    @Override
-    public int getLayoutId() {
-        return R.layout.activity_edit_req_lovestyle;
-    }
-
-    @Override
-    public void initView() {
-
-    }
-
-    @Override
-    public void setListener() {
-
-    }
 }

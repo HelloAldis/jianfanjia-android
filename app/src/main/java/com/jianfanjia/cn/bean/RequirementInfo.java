@@ -27,6 +27,7 @@ public class RequirementInfo implements Serializable {
     private String house_type;
     private String house_area;
     private String dec_style;
+    private String dec_type;
     private String work_type;
     private String total_price;
     private long create_at;
@@ -38,6 +39,7 @@ public class RequirementInfo implements Serializable {
     private List<String> rec_designerids;
     private List<OrderDesignerInfo> rec_designers;//匹配的设计师
     private List<OrderDesignerInfo> order_designers;//预约的设计师
+    private String sex;
 
     public String get_id() {
         return _id;
@@ -110,6 +112,13 @@ public class RequirementInfo implements Serializable {
     public void setCell_detail_number(String cell_detail_number) {
         this.cell_detail_number = cell_detail_number;
     }
+    public String getDec_type() {
+        return dec_type;
+    }
+
+    public void setDec_type(String dec_type) {
+        this.dec_type = dec_type;
+    }
 
     public String getHouse_type() {
         return house_type;
@@ -173,6 +182,15 @@ public class RequirementInfo implements Serializable {
 
     public void setFamily_description(String family_description) {
         this.family_description = family_description;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+
+        this.sex = sex;
     }
 
     public String getStatus() {
