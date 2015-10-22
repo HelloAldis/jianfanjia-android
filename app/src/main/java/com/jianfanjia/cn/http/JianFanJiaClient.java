@@ -54,6 +54,7 @@ import com.jianfanjia.cn.tools.ImageUtil;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -848,8 +849,13 @@ public class JianFanJiaClient {
         OrderDesignerByUserRequest orderDesignerByUserRequest = new OrderDesignerByUserRequest(context, requirementid, designerids);
         JSONObject jsonParams = new JSONObject();
         try {
+            JSONArray array = new JSONArray();
+            for (String designerid : designerids) {
+                array.put(designerid);
+            }
             jsonParams.put("requirementid", requirementid);
-            jsonParams.put("designerids", designerids);
+            jsonParams.put("designerids", array);
+            LogTool.d(TAG, "jsonParams:" + jsonParams.toString());
             OkHttpClientManager.getInstance().getPostDelegate().postAsyn(orderDesignerByUserRequest, jsonParams.toString(), listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
