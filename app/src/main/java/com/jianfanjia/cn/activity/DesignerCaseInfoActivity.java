@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.jianfanjia.cn.adapter.DesignerCaseAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.DesignerCaseInfo;
+import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
@@ -64,7 +65,7 @@ public class DesignerCaseInfoActivity extends BaseActivity implements ApiUiUpdat
         //---------------------------------------------
         Intent intent = this.getIntent();
         Bundle productBundle = intent.getExtras();
-        productid = productBundle.getString("productId");
+        productid = productBundle.getString(Global.DESIGNER_ID);
         LogTool.d(TAG, " productid======" + productid);
         initDesignerCasesList();
     }
@@ -93,7 +94,7 @@ public class DesignerCaseInfoActivity extends BaseActivity implements ApiUiUpdat
         switch (view.getId()) {
             case R.id.designerinfo_head_img:
                 Bundle designerBundle = new Bundle();
-                designerBundle.putString("designerId", designertid);
+                designerBundle.putString(Global.DESIGNER_ID, designertid);
                 startActivity(DesignerInfoActivity.class, designerBundle);
                 break;
             default:
