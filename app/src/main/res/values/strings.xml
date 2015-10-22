@@ -254,4 +254,6 @@
     the big cheese.</string>
     <string name="checkin">Checkin</string>
     <string name="title_activity_appoint_designer">AppointDesignerActivity</string>
+    <string name="not_commit">未提交</string>
+    <string name="already_repsonse">已响应</string>
 </resources>

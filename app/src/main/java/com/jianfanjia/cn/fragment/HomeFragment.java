@@ -25,6 +25,7 @@ import com.jianfanjia.cn.bean.OrderDesignerInfo;
 import com.jianfanjia.cn.bean.Product;
 import com.jianfanjia.cn.bean.Requirement;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.ListItemClickListener;
@@ -126,7 +127,7 @@ public class HomeFragment extends BaseFragment implements
         String designertid = orderDesignerInfo.get_id();
         LogTool.d(TAG, "designertid:" + designertid);
         Bundle designerBundle = new Bundle();
-        designerBundle.putString("designerId", designertid);
+        designerBundle.putString(Global.DESIGNER_ID, designertid);
         startActivity(DesignerInfoActivity.class, designerBundle);
     }
 

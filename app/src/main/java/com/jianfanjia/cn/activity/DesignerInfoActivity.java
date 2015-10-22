@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.DesignerInfo;
+import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.fragment.DesignerInfoFragment;
 import com.jianfanjia.cn.fragment.DesignerWorksFragment;
@@ -83,7 +84,7 @@ public class DesignerInfoActivity extends BaseActivity implements
         //---------------------------------------------
         Intent intent = this.getIntent();
         Bundle designerBundle = intent.getExtras();
-        designerid = designerBundle.getString("designerId");
+        designerid = designerBundle.getString(Global.DESIGNER_ID);
         LogTool.d(TAG, "designerid=" + designerid);
         getDesignerPageInfo(designerid);
 

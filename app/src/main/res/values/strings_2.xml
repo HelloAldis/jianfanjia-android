@@ -31,4 +31,18 @@
     <string name="str_not_order">未预约</string>
     <string name="str_dong">栋</string>
     <string name="str_lovedesistyle">偏好设计师类型</string>
+    <string name="str_change_designer">替换</string>
+    <string name="str_comment">评价</string>
+    <string name="str_already_comment">已评价</string>
+    <string name="str_view_plan">查看方案</string>
+    <string name="str_view_contract">查看合同</string>
+    <string name="measure_house_time">量房时间：</string>
+    <string name="wait_response">等待响应</string>
+    <string name="already_order">已预约</string>
+    <string name="already_refuse">已拒绝</string>
+    <string name="already_commit">已提交</string>
+    <string name="not_choose">未中标</string>
+    <string name="already_choose">已中标</string>
+    <string name="already_measure">已量房</string>
+    <string name="not_response">未响应</string>
 </resources>
