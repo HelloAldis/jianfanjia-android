@@ -6,8 +6,10 @@ import android.widget.ListView;
 
 import com.jianfanjia.cn.adapter.DesignerPlanAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.bean.PlanInfo;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
+import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
 
@@ -90,6 +92,11 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
     @Override
     public void loadSuccess(Object data) {
         LogTool.d(TAG, "data:" + data);
+        PlanInfo planInfo = JsonParser.jsonToBean(data.toString(), PlanInfo.class);
+        LogTool.d(TAG, "planInfo:" + planInfo);
+        if (null != planInfo) {
+
+        }
     }
 
     @Override
