@@ -21,6 +21,7 @@ import com.jianfanjia.cn.http.request.DesignerInfoRequest;
 import com.jianfanjia.cn.http.request.FavoriteDesignerListRequest;
 import com.jianfanjia.cn.http.request.FeedBackRequest;
 import com.jianfanjia.cn.http.request.GetAllRescheduleRequest;
+import com.jianfanjia.cn.http.request.GetDesignerPlansByUserRequest;
 import com.jianfanjia.cn.http.request.GetOrderDesignerListByUserRequest;
 import com.jianfanjia.cn.http.request.GetOrderedDesignerRequest;
 import com.jianfanjia.cn.http.request.GetProductHomePageRequest;
@@ -877,6 +878,27 @@ public class JianFanJiaClient {
         try {
             jsonParams.put("requirementid", requirementid);
             OkHttpClientManager.getInstance().getPostDelegate().postAsyn(getOrderedDesignerRequest, jsonParams.toString(), listener, tag);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 业主获取我的方案
+     *
+     * @param context
+     * @param requirementid
+     * @param designerid
+     * @param listener
+     * @param tag
+     */
+    public static void getDesignerPlansByUser(Context context, String requirementid, String designerid, ApiUiUpdateListener listener, Object tag) {
+        GetDesignerPlansByUserRequest getDesignerPlansByUserRequest = new GetDesignerPlansByUserRequest(context, requirementid, designerid);
+        JSONObject jsonParams = new JSONObject();
+        try {
+            jsonParams.put("requirementid", requirementid);
+            jsonParams.put("designerid", designerid);
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(getDesignerPlansByUserRequest, jsonParams.toString(), listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
         }
