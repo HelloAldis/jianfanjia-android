@@ -4,7 +4,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ListView;
 
-import com.jianfanjia.cn.adapter.ListViewAdapter;
+import com.jianfanjia.cn.adapter.DesignerPlanAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
@@ -32,7 +32,7 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
         initMainHeadView();
         designer_plan_listview = (ListView) findViewById(R.id.designer_plan_listview);
         initData();
-        ListViewAdapter adapter = new ListViewAdapter(this, mArrayList);
+        DesignerPlanAdapter adapter = new DesignerPlanAdapter(this, mArrayList);
         designer_plan_listview.setAdapter(adapter);
     }
 
@@ -40,7 +40,7 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
         mArrayList = new ArrayList<List<HashMap<String, Object>>>();
         HashMap<String, Object> hashMap = null;
         List<HashMap<String, Object>> arrayListForEveryGridView;
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 8; i++) {
             arrayListForEveryGridView = new ArrayList<HashMap<String, Object>>();
             for (int j = 0; j < 8; j++) {
                 hashMap = new HashMap<String, Object>();
