@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.jianfanjia.cn.activity">
+    package="com.jianfanjia.cn.activity" >
 
     <!-- 屏幕适配 -->
     <supports-screens
@@ -36,7 +36,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/icon_logo"
         android:label="@string/app_name"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
 
         <!-- 个推SDK配置开始 -->
         <!-- 配置的第三方参数属性 -->
@@ -56,7 +56,7 @@
         <!-- 配置第三方Receiver -->
         <receiver
             android:name="com.jianfanjia.cn.receiver.PushMsgReceiver"
-            android:exported="false">
+            android:exported="false" >
             <intent-filter>
                 <action android:name="com.igexin.sdk.action.HyJECUN49e8qHmEk9uMhr8" />
             </intent-filter>
@@ -69,7 +69,7 @@
             android:label="NotificationCenter"
             android:process=":pushservice" />
 
-        <receiver android:name="com.igexin.sdk.PushReceiver">
+        <receiver android:name="com.igexin.sdk.PushReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
@@ -83,7 +83,7 @@
         </receiver>
         <receiver
             android:name="com.igexin.sdk.PushManagerReceiver"
-            android:exported="false">
+            android:exported="false" >
             <intent-filter>
                 <action android:name="com.igexin.sdk.action.pushmanager" />
             </intent-filter>
@@ -101,7 +101,7 @@
             android:name="com.igexin.download.DownloadService"
             android:process=":pushservice" />
 
-        <receiver android:name="com.igexin.download.DownloadReceiver">
+        <receiver android:name="com.igexin.download.DownloadReceiver" >
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
@@ -123,7 +123,7 @@
 
         <receiver
             android:name="com.igexin.getuiext.service.PayloadReceiver"
-            android:exported="false">
+            android:exported="false" >
             <intent-filter>
 
                 <!-- 这个com.igexin.sdk.action.7fjUl2Z3LH6xYy7NQK4ni4固定，不能修改 -->
@@ -142,76 +142,76 @@
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".RegisterActivity"
             android:label="@string/title_activity_register"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".HelpActivity"
             android:label="@string/title_activity_help"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".SettingActivity"
             android:label="@string/title_activity_setting"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".AboutActivity"
             android:label="@string/title_activity_about"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ShareActivity"
             android:label="@string/title_activity_share"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".CheckActivity"
             android:label="@string/title_activity_check"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".CommentActivity"
             android:label="@string/title_activity_comment"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".EditInfoActivity"
             android:label="@string/title_activity_edit_info"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".FeedBackActivity"
             android:label="@string/title_activity_feed_back"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ForgetPswActivity"
             android:label="@string/title_activity_forget_psw"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MyDesignerActivity_"
             android:label="@string/title_activity_my_designer"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".NavigateActivity"
             android:label="@string/title_activity_navigate"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".NotifyActivity"
             android:label="@string/title_activity_notify"
-            android:theme="@style/activity_style"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/activity_style" />
         <activity
             android:name=".ShowPicActivity"
             android:label="@string/title_activity_show_pic"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".UserByOwnerInfoActivity"
             android:label="@string/title_activity_user_by_owner_info"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".WelcomeActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -221,38 +221,48 @@
         <activity
             android:name=".EditRequirementActivity_"
             android:label="EditRequirementActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".EditRequirementItemActivity_"
             android:label="EditRequirementItemActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".EditRequirementLovestyleActivity_"
             android:label="EditRequirementLovestyleActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
 
         <service android:name="com.jianfanjia.cn.service.UpdateService" />
 
         <activity
             android:name=".DesignerInfoActivity"
             android:label="@string/title_activity_designer_info"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".DesignerCaseInfoActivity"
             android:label="@string/title_activity_designer_case_info"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".AppointDesignerActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".PingjiaActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ContractActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".DesignerPlanActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".MyFavoriteDesignerActivity_"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".MyProcessActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AppointDesignerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PingjiaActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ContractActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".DesignerPlanActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MyFavoriteDesignerActivity_"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MyProcessActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".DesignerPlanListActivity"
+            android:label="@string/title_activity_designer_plan_list" >
+        </activity>
     </application>
 
 </manifest>

@@ -21,13 +21,16 @@ import com.jianfanjia.cn.http.request.DesignerInfoRequest;
 import com.jianfanjia.cn.http.request.FavoriteDesignerListRequest;
 import com.jianfanjia.cn.http.request.FeedBackRequest;
 import com.jianfanjia.cn.http.request.GetAllRescheduleRequest;
+import com.jianfanjia.cn.http.request.GetDesignerPlansByUserRequest;
 import com.jianfanjia.cn.http.request.GetOrderDesignerListByUserRequest;
+import com.jianfanjia.cn.http.request.GetOrderedDesignerRequest;
 import com.jianfanjia.cn.http.request.GetProductHomePageRequest;
 import com.jianfanjia.cn.http.request.GetRequirementRequest;
 import com.jianfanjia.cn.http.request.HomePageRequest;
 import com.jianfanjia.cn.http.request.LoginRequest;
 import com.jianfanjia.cn.http.request.LogoutRequest;
 import com.jianfanjia.cn.http.request.NotifyOwnerCheckRequest;
+import com.jianfanjia.cn.http.request.OrderDesignerByUserRequest;
 import com.jianfanjia.cn.http.request.OwnerFinishCheckRequest;
 import com.jianfanjia.cn.http.request.OwnerInfoRequest;
 import com.jianfanjia.cn.http.request.PostRequirementRequest;
@@ -53,8 +56,11 @@ import com.jianfanjia.cn.tools.ImageUtil;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.List;
 
 /**
  * @author zhanghao
@@ -832,4 +838,69 @@ public class JianFanJiaClient {
         }
     }
 
+    /**
+     * 业主预约设计师
+     *
+     * @param context
+     * @param requirementid
+     * @param designerids
+     * @param listener
+     * @param tag
+     */
+    public static void orderDesignerByUser(Context context, String requirementid, List<String> designerids, ApiUiUpdateListener listener, Object tag) {
+        OrderDesignerByUserRequest orderDesignerByUserRequest = new OrderDesignerByUserRequest(context, requirementid, designerids);
+        JSONObject jsonParams = new JSONObject();
+        try {
+            JSONArray array = new JSONArray();
+            for (String designerid : designerids) {
+                array.put(designerid);
+            }
+            jsonParams.put("requirementid", requirementid);
+            jsonParams.put("designerids", array);
+            LogTool.d(TAG, "jsonParams:" + jsonParams.toString());
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(orderDesignerByUserRequest, jsonParams.toString(), listener, tag);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 业主获取我预约了的设计师
+     *
+     * @param context
+     * @param requirementid
+     * @param listener
+     * @param tag
+     */
+    public static void getOrderedDesignerList(Context context, String requirementid, ApiUiUpdateListener listener, Object tag) {
+        GetOrderedDesignerRequest getOrderedDesignerRequest = new GetOrderedDesignerRequest(context, requirementid);
+        JSONObject jsonParams = new JSONObject();
+        try {
+            jsonParams.put("requirementid", requirementid);
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(getOrderedDesignerRequest, jsonParams.toString(), listener, tag);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 业主获取我的方案
+     *
+     * @param context
+     * @param requirementid
+     * @param designerid
+     * @param listener
+     * @param tag
+     */
+    public static void getDesignerPlansByUser(Context context, String requirementid, String designerid, ApiUiUpdateListener listener, Object tag) {
+        GetDesignerPlansByUserRequest getDesignerPlansByUserRequest = new GetDesignerPlansByUserRequest(context, requirementid, designerid);
+        JSONObject jsonParams = new JSONObject();
+        try {
+            jsonParams.put("requirementid", requirementid);
+            jsonParams.put("designerid", designerid);
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(getDesignerPlansByUserRequest, jsonParams.toString(), listener, tag);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 }

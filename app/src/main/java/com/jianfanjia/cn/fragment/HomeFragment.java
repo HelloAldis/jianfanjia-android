@@ -195,7 +195,7 @@ public class HomeFragment extends BaseFragment implements
         String productid = product.get_id();
         LogTool.d(TAG, "productid:" + productid);
         Bundle productBundle = new Bundle();
-        productBundle.putString("productId", productid);
+        productBundle.putString(Global.DESIGNER_ID, productid);
         startActivity(DesignerCaseInfoActivity.class, productBundle);
     }
 

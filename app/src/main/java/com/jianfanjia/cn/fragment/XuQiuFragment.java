@@ -102,7 +102,6 @@ public class XuQiuFragment extends BaseAnnotationFragment {
     }
 
     protected void initListView() {
-
         final LinearLayoutManager mLayoutManager =  new LinearLayoutManager(getActivity());
         // 创建一个线性布局管理器
         req_listView.setLayoutManager(mLayoutManager);
