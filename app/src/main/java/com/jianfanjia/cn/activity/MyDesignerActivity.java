@@ -1,6 +1,7 @@
 package com.jianfanjia.cn.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -65,8 +66,7 @@ public class MyDesignerActivity extends BaseAnnotationActivity {
     protected void initMainHeadView() {
         LogTool.d(this.getClass().getName(), "initMainHeadView");
 
-        mainHeadView
-                .setMianTitle(getResources().getString(R.string.my_designer));
+        mainHeadView.setMianTitle(getResources().getString(R.string.my_designer));
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
         mainHeadView.setRightTitleVisable(View.GONE);
 
@@ -134,14 +134,29 @@ public class MyDesignerActivity extends BaseAnnotationActivity {
                 OrderDesignerInfo orderDesignerInfo = orderDesignerInfos.get(position);
                 switch (itemType) {
                     case VIEW_COMMENT:
+                        Bundle viewBundle = new Bundle();
+                        viewBundle.putSerializable(Global.EVALUATION,orderDesignerInfo.getEvaluation());
+                        startActivity(PingjiaActivity.class,viewBundle);
                         break;
                     case COMMENT:
+                        Bundle commentBundle = new Bundle();
+                        commentBundle.putString(Global.DESIGNER_ID, orderDesignerInfo.get_id());
+                        commentBundle.putString(Global.REQUIREMENT_ID, requirementid);
+                        startActivity(PingjiaActivity.class,commentBundle);
                         break;
                     case VIEW_CONTRACT:
                         break;
                     case VIEW_PLAN:
+                        Bundle viewPlan = new Bundle();
+                        viewPlan.putString(Global.DESIGNER_ID, orderDesignerInfo.get_id());
+                        viewPlan.putString(Global.REQUIREMENT_ID, requirementid);
+                        startActivity(DesignerPlanActivity.class,viewPlan);
                         break;
                     case CHANGE_DESIGNER:
+                        Bundle changeBundle = new Bundle();
+                        changeBundle.putString(Global.DESIGNER_ID, orderDesignerInfo.get_id());
+                        changeBundle.putString(Global.REQUIREMENT_ID, requirementid);
+                        startActivity(AppointDesignerActivity.class,changeBundle);
                         break;
                     case CONFIRM_MEASURE_HOUSE:
                         JianFanJiaClient.confirmMeasureHouse(MyDesignerActivity.this, requirementid, orderDesignerInfo.get_id(), new ApiUiUpdateListener() {
