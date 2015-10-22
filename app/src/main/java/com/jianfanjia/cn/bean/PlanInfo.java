@@ -10,9 +10,6 @@ import java.util.List;
  * Date:2015-10-20 09:49
  */
 public class PlanInfo implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-
     private String userid;
     private String _id;
     private String designerid;
