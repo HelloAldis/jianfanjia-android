@@ -263,6 +263,10 @@
             android:name=".DesignerPlanListActivity"
             android:label="@string/title_activity_designer_plan_list" >
         </activity>
+        <activity
+            android:name=".PreviewDesignerPlanActivity"
+            android:label="@string/title_activity_preview_designer_plan" >
+        </activity>
     </application>
 
 </manifest>

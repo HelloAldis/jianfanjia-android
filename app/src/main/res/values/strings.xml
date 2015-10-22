@@ -133,6 +133,8 @@
     <string name="appoint">位可预约</string>
     <string name="appointText">预约</string>
     <string name="planText">方案</string>
+    <string name="designerPlanText">方案1</string>
+    <string name="detailPrice">详细报价</string>
     <string name="my_site">我的工地</string>
     <string name="my_example_name">Jeff</string>
     <string name="my_example_account">账号：12244444</string>
@@ -256,5 +258,6 @@
     <string name="not_commit">未提交</string>
     <string name="already_repsonse">已响应</string>
     <string name="title_activity_designer_plan_list">DesignerPlanListActivity</string>
+    <string name="title_activity_preview_designer_plan">PreviewDesignerPlanActivity</string>
 
 </resources>
