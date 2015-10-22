@@ -9,6 +9,7 @@ import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.PlanInfo;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
+import com.jianfanjia.cn.interf.ItemClickListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
@@ -23,7 +24,7 @@ import java.util.List;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class DesignerPlanListActivity extends BaseActivity implements OnClickListener, ApiUiUpdateListener {
+public class DesignerPlanListActivity extends BaseActivity implements OnClickListener, ApiUiUpdateListener, ItemClickListener {
     private static final String TAG = DesignerPlanListActivity.class.getName();
     private MainHeadView mainHeadView = null;
     private ListView designer_plan_listview = null;
@@ -34,7 +35,7 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
         initMainHeadView();
         designer_plan_listview = (ListView) findViewById(R.id.designer_plan_listview);
         initData();
-        DesignerPlanAdapter adapter = new DesignerPlanAdapter(this, designerPlanList);
+        DesignerPlanAdapter adapter = new DesignerPlanAdapter(this, designerPlanList, this);
         designer_plan_listview.setAdapter(adapter);
     }
 
@@ -102,6 +103,11 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
     @Override
     public void loadFailture(String error_msg) {
         makeTextLong(error_msg);
+    }
+
+    @Override
+    public void onCallBack(int position, int pos) {
+        makeTextLong("position:" + position + "  pos:" + pos);
     }
 
     @Override
