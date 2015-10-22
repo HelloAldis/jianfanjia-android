@@ -1,5 +1,6 @@
 package com.jianfanjia.cn.activity;
 
+import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ListView;
@@ -10,6 +11,9 @@ import com.jianfanjia.cn.adapter.DesignerByIntentionInfoAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.DesignerByAppointInfo;
 import com.jianfanjia.cn.bean.DesignerByIntentionInfo;
+import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.view.MainHeadView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,21 +26,38 @@ import java.util.List;
  */
 public class AppointDesignerActivity extends BaseActivity implements OnClickListener {
     private static final String TAG = AppointDesignerActivity.class.getName();
+    private MainHeadView mainHeadView = null;
     private TextView allText = null;
     private TextView moreText = null;
     private ListView marched_designer_listview = null;
     private ListView intention_designer_listview = null;
     private List<DesignerByAppointInfo> marchList = new ArrayList<DesignerByAppointInfo>();
     private List<DesignerByIntentionInfo> intentionList = new ArrayList<DesignerByIntentionInfo>();
+    private int appointCount = -1;
 
     @Override
     public void initView() {
+        initMainHeadView();
         allText = (TextView) findViewById(R.id.allText);
         moreText = (TextView) findViewById(R.id.moreText);
         marched_designer_listview = (ListView) findViewById(R.id.marched_designer_listview);
         intention_designer_listview = (ListView) findViewById(R.id.intention_designer_listview);
+        Intent intent = this.getIntent();
+        String requestmentid = intent.getStringExtra(Global.REQUIREMENT_ID);
+        LogTool.d(TAG, "requestmentid:" + requestmentid);
         initMarchList();
         initIntentionList();
+    }
+
+    private void initMainHeadView() {
+        mainHeadView = (MainHeadView) findViewById(R.id.my_appoint_head_layout);
+        mainHeadView.setBackListener(this);
+        mainHeadView
+                .setMianTitle(getResources().getString(R.string.appoint));
+        mainHeadView.setRightTitle(getResources().getString(R.string.appointText));
+        mainHeadView.setLayoutBackground(R.color.head_layout_bg);
+        mainHeadView.setRightTitleVisable(View.VISIBLE);
+        mainHeadView.setBackLayoutVisable(View.VISIBLE);
     }
 
     private void initMarchList() {
@@ -70,11 +91,14 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.head_back_layout:
+                finish();
+                break;
             case R.id.allText:
-
+                makeTextLong("全选");
                 break;
             case R.id.moreText:
-
+                makeTextLong("更多");
                 break;
             default:
                 break;
