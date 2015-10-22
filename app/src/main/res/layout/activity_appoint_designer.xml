@@ -53,6 +53,18 @@
                         android:textColor="@color/text_color"
                         android:textSize="16sp" />
 
+                    <TextView
+                        android:id="@+id/cancelText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_margin="10dip"
+                        android:text="取消"
+                        android:textColor="@color/text_color"
+                        android:textSize="16sp"
+                        android:visibility="gone" />
+
                 </RelativeLayout>
 
                 <View style="@style/divier_line" />
