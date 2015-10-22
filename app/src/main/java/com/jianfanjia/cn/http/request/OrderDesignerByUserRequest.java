@@ -5,6 +5,8 @@ import android.content.Context;
 import com.jianfanjia.cn.base.BaseRequest;
 import com.jianfanjia.cn.config.Url_New;
 
+import java.util.List;
+
 /**
  * Name: OrderDesignerByUserRequest
  * User: fengliang
@@ -13,9 +15,9 @@ import com.jianfanjia.cn.config.Url_New;
  */
 public class OrderDesignerByUserRequest extends BaseRequest {
     private String requirementid;
-    private String[] designerids;
+    private List<String> designerids;
 
-    public OrderDesignerByUserRequest(Context context, String requirementid, String[] designerids) {
+    public OrderDesignerByUserRequest(Context context, String requirementid, List<String> designerids) {
         super(context);
         this.requirementid = requirementid;
         this.designerids = designerids;
