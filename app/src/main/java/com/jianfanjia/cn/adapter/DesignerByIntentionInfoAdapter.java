@@ -6,9 +6,10 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.jianfanjia.cn.adapter.base.BaseListAdapter;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.bean.DesignerByIntentionInfo;
+import com.jianfanjia.cn.adapter.base.BaseListAdapter;
+import com.jianfanjia.cn.bean.DesignerCanOrderInfo;
+import com.jianfanjia.cn.config.Url_New;
 
 import java.util.List;
 
@@ -18,16 +19,16 @@ import java.util.List;
  * Date: 2015-10-19
  * Time: 14:54
  */
-public class DesignerByIntentionInfoAdapter extends BaseListAdapter<DesignerByIntentionInfo> {
+public class DesignerByIntentionInfoAdapter extends BaseListAdapter<DesignerCanOrderInfo> {
 
-    public DesignerByIntentionInfoAdapter(Context context, List<DesignerByIntentionInfo> list) {
+    public DesignerByIntentionInfoAdapter(Context context, List<DesignerCanOrderInfo> list) {
         super(context, list);
     }
 
     @Override
     public View initView(int position, View convertView) {
         ViewHolder viewHolder = null;
-        DesignerByIntentionInfo info = list.get(position);
+        DesignerCanOrderInfo info = list.get(position);
         if (convertView == null) {
             convertView = layoutInflater.inflate(R.layout.list_item_designer_by_intention_info,
                     null);
@@ -44,9 +45,9 @@ public class DesignerByIntentionInfoAdapter extends BaseListAdapter<DesignerByIn
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.itemwHeadView.setImageResource(R.mipmap.bg_home_banner2);
-        viewHolder.itemNameText.setText(info.getName());
-        viewHolder.itemLevelText.setText(info.getStarLevel());
+        imageLoader.displayImage(Url_New.GET_IMAGE + info.getImageid(), viewHolder.itemwHeadView, options);
+        viewHolder.itemNameText.setText(info.getUsername());
+        viewHolder.itemLevelText.setText(info.getWork_auth_type());
 
         return convertView;
     }
