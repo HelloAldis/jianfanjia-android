@@ -57,6 +57,8 @@ import com.jianfanjia.cn.tools.LogTool;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.List;
+
 /**
  * @author zhanghao
  * @ClassName: JianFanJiaApi
@@ -842,7 +844,7 @@ public class JianFanJiaClient {
      * @param listener
      * @param tag
      */
-    public static void orderDesignerByUser(Context context, String requirementid, String[] designerids, ApiUiUpdateListener listener, Object tag) {
+    public static void orderDesignerByUser(Context context, String requirementid, List<String> designerids, ApiUiUpdateListener listener, Object tag) {
         OrderDesignerByUserRequest orderDesignerByUserRequest = new OrderDesignerByUserRequest(context, requirementid, designerids);
         JSONObject jsonParams = new JSONObject();
         try {
