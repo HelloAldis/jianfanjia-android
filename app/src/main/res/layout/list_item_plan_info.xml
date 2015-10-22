@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dip"
+    android:background="@color/font_white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dip">
+
+        <TextView
+            style="@style/site_listview_item_text_style_middle"
+            android:layout_centerVertical="true"
+            android:text="中建康城东区"
+            android:textColor="#000000" />
+
+        <TextView
+            style="@style/site_listview_item_text_style_middle"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="已中标"
+            android:textColor="#000000" />
+    </RelativeLayout>
+
+
+    <com.jianfanjia.cn.view.MyViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="150dip" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dip">
+
+        <TextView
+            android:id="@+id/dateText"
+            style="@style/site_listview_item_text_style_middle"
+            android:layout_centerVertical="true"
+            android:text="2015-10-22"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/previewText"
+            style="@style/site_listview_item_text_style_middle"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="方案预览"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/commentText"
+            style="@style/site_listview_item_text_style_middle"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="30dip"
+            android:layout_toLeftOf="@id/previewText"
+            android:text="留言"
+            android:textColor="#000000" />
+    </RelativeLayout>
+
+</LinearLayout>
