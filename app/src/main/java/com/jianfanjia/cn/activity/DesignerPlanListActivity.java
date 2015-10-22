@@ -4,11 +4,19 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ListView;
 
+import com.jianfanjia.cn.adapter.DesignerPlanAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.bean.PlanInfo;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
+import com.jianfanjia.cn.interf.ItemClickListener;
+import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Description:设计师方案列表
@@ -16,15 +24,34 @@ import com.jianfanjia.cn.view.MainHeadView;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class DesignerPlanListActivity extends BaseActivity implements OnClickListener, ApiUiUpdateListener {
+public class DesignerPlanListActivity extends BaseActivity implements OnClickListener, ApiUiUpdateListener, ItemClickListener {
     private static final String TAG = DesignerPlanListActivity.class.getName();
     private MainHeadView mainHeadView = null;
     private ListView designer_plan_listview = null;
+    private List<List<HashMap<String, Object>>> designerPlanList;
 
     @Override
     public void initView() {
         initMainHeadView();
         designer_plan_listview = (ListView) findViewById(R.id.designer_plan_listview);
+        initData();
+        DesignerPlanAdapter adapter = new DesignerPlanAdapter(this, designerPlanList, this);
+        designer_plan_listview.setAdapter(adapter);
+    }
+
+    public void initData() {
+        designerPlanList = new ArrayList<List<HashMap<String, Object>>>();
+        HashMap<String, Object> hashMap = null;
+        List<HashMap<String, Object>> arrayListForEveryGridView;
+        for (int i = 0; i < 8; i++) {
+            arrayListForEveryGridView = new ArrayList<HashMap<String, Object>>();
+            for (int j = 0; j < 8; j++) {
+                hashMap = new HashMap<String, Object>();
+                hashMap.put("content", R.mipmap.ic_launcher);
+                arrayListForEveryGridView.add(hashMap);
+            }
+            designerPlanList.add(arrayListForEveryGridView);
+        }
     }
 
     private void initMainHeadView() {
@@ -66,11 +93,21 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
     @Override
     public void loadSuccess(Object data) {
         LogTool.d(TAG, "data:" + data);
+        PlanInfo planInfo = JsonParser.jsonToBean(data.toString(), PlanInfo.class);
+        LogTool.d(TAG, "planInfo:" + planInfo);
+        if (null != planInfo) {
+
+        }
     }
 
     @Override
     public void loadFailture(String error_msg) {
         makeTextLong(error_msg);
+    }
+
+    @Override
+    public void onCallBack(int position, int pos) {
+        makeTextLong("position:" + position + "  pos:" + pos);
     }
 
     @Override
