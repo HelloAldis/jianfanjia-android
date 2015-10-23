@@ -6,5 +6,5 @@ package com.jianfanjia.cn.interf;
 public interface ItemClickListener {
     void onCallBack(int position, int pos);
 
-    void onCallBack(int position);
+    void onItemCallBack(int position, int itemType);
 }
