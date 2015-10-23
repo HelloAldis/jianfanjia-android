@@ -3,6 +3,7 @@ package com.jianfanjia.cn.http.request;
 import android.content.Context;
 
 import com.jianfanjia.cn.base.BaseRequest;
+import com.jianfanjia.cn.config.Url_New;
 
 /**
  * Name: AddCommentRequest
@@ -22,6 +23,7 @@ public class AddCommentRequest extends BaseRequest {
         this.topictype = topictype;
         this.content = content;
         this.to = to;
+        url = Url_New.ADD_COMMENT;
     }
 
     @Override
