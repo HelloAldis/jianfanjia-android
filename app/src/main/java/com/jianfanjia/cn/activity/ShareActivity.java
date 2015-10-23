@@ -43,9 +43,6 @@ public class ShareActivity extends BaseActivity implements OnClickListener,
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.share_back:
-                finish();
-                break;
             case R.id.head_back_layout:
                 finish();
                 break;
