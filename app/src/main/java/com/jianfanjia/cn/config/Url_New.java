@@ -64,7 +64,8 @@ public class Url_New {
     public static final String USER_ORDERD_DESIGNERS = HTTPROOT + "user_ordered_designers";
     //业主确实设计师已量房
     public static final String DESIGNER_HOUSE_CHECKED = HTTPROOT + "designer_house_checked";
-
+    //业主评价设计师
+    public static final String EVALUATE_DESIGNER_BY_USER = HTTPROOT + "user_evaluate_designer";
     //业主获取我的方案
     public static final String USER_REQUIREMENT_PLANS = HTTPROOT + "user_requirement_plans";
     //业主选定方案
