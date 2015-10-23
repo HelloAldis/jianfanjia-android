@@ -10,20 +10,23 @@ import java.util.List;
  * Date:2015-10-20 09:49
  */
 public class PlanInfo implements Serializable {
-    private String userid;
     private String _id;
-    private String designerid;
-    private String requirementid;
-    private int duration;
-    private float total_price;
-    private List<PriceDetail> price_detail;
-    private String description;
-    private String manager;
-    private List<String> images;
-    private String status;
-    private long house_check_time;
-    private long request_date;
     private long last_status_update_time;
+    private long request_date;
+    private String designerid;
+    private String userid;
+    private String requirementid;
+    private int __v;
+    private long house_check_time;
+    private int project_price_after_discount;
+    private String manager;
+    private String description;
+    private float total_price;
+    private int duration;
+    private String status;
+    private List<String> images;
+    private List<PriceDetail> price_detail;
+    private Designer designer;
     private List<CommentInfo> comments;
 
     public String getUserid() {
@@ -142,10 +145,47 @@ public class PlanInfo implements Serializable {
         this.comments = comments;
     }
 
+    public int get__v() {
+        return __v;
+    }
+
+    public void set__v(int __v) {
+        this.__v = __v;
+    }
+
+    public int getProject_price_after_discount() {
+        return project_price_after_discount;
+    }
+
+    public void setProject_price_after_discount(int project_price_after_discount) {
+        this.project_price_after_discount = project_price_after_discount;
+    }
+
+    public float getTotal_price() {
+        return total_price;
+    }
+
+    public Designer getDesigner() {
+        return designer;
+    }
+
+    public void setDesigner(Designer designer) {
+        this.designer = designer;
+    }
+
     public class PriceDetail {
+        private String _id;
         private String item;
         private float price;
         private String description;
+
+        public String get_id() {
+            return _id;
+        }
+
+        public void set_id(String _id) {
+            this._id = _id;
+        }
 
         public String getItem() {
             return item;
