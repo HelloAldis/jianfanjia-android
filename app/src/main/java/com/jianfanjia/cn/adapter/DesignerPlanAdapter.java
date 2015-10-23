@@ -3,12 +3,13 @@ package com.jianfanjia.cn.adapter;
 import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.widget.TextView;
 import android.view.View.OnClickListener;
+import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.BaseListAdapter;
 import com.jianfanjia.cn.bean.PlanInfo;
+import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.ItemClickListener;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.tools.DateFormatTool;
@@ -65,10 +66,17 @@ public class DesignerPlanAdapter extends BaseListAdapter<PlanInfo> {
             }
         });
         holder.vp.setAdapter(adapter);
+        holder.commentText.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                itemClickListener.onItemCallBack(position, Constant.PLAN_COMMENT_ITEM);
+            }
+        });
+
         holder.previewText.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                itemClickListener.onCallBack(position);
+                itemClickListener.onItemCallBack(position, Constant.PLAN_PREVIEW_ITEM);
             }
         });
         return convertView;
