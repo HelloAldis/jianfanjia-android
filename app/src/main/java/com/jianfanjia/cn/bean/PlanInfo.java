@@ -27,7 +27,7 @@ public class PlanInfo implements Serializable {
     private List<String> images;
     private List<PriceDetail> price_detail;
     private Designer designer;
-    private List<CommentInfo> comments;
+    private int comment_count;
 
     public String getUserid() {
         return userid;
@@ -137,14 +137,6 @@ public class PlanInfo implements Serializable {
         this.last_status_update_time = last_status_update_time;
     }
 
-    public List<CommentInfo> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<CommentInfo> comments) {
-        this.comments = comments;
-    }
-
     public int get__v() {
         return __v;
     }
@@ -173,43 +165,12 @@ public class PlanInfo implements Serializable {
         this.designer = designer;
     }
 
-    public class PriceDetail {
-        private String _id;
-        private String item;
-        private float price;
-        private String description;
+    public int getComment_count() {
+        return comment_count;
+    }
 
-        public String get_id() {
-            return _id;
-        }
-
-        public void set_id(String _id) {
-            this._id = _id;
-        }
-
-        public String getItem() {
-            return item;
-        }
-
-        public void setItem(String item) {
-            this.item = item;
-        }
-
-        public float getPrice() {
-            return price;
-        }
-
-        public void setPrice(float price) {
-            this.price = price;
-        }
-
-        public String getDescription() {
-            return description;
-        }
-
-        public void setDescription(String description) {
-            this.description = description;
-        }
+    public void setComment_count(int comment_count) {
+        this.comment_count = comment_count;
     }
 
 
