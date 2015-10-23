@@ -111,7 +111,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/btn_add"
+        android:id="@+id/btn_choose"
         style="@style/button_add_style"
         android:layout_alignParentBottom="true"
         android:layout_margin="10dip"
