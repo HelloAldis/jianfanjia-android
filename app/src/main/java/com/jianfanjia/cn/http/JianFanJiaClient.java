@@ -14,6 +14,7 @@ import com.jianfanjia.cn.http.request.AddPicToCheckRequest;
 import com.jianfanjia.cn.http.request.AddPicToSectionItemRequest;
 import com.jianfanjia.cn.http.request.AgreeRescheduleRequest;
 import com.jianfanjia.cn.http.request.CheckVersionRequest;
+import com.jianfanjia.cn.http.request.ChoosePlanByUserRequest;
 import com.jianfanjia.cn.http.request.CommitCommentRequest;
 import com.jianfanjia.cn.http.request.ConformMeasureHouseRequest;
 import com.jianfanjia.cn.http.request.DeletePicRequest;
@@ -25,6 +26,7 @@ import com.jianfanjia.cn.http.request.GetAllRescheduleRequest;
 import com.jianfanjia.cn.http.request.GetDesignerPlansByUserRequest;
 import com.jianfanjia.cn.http.request.GetOrderDesignerListByUserRequest;
 import com.jianfanjia.cn.http.request.GetOrderedDesignerRequest;
+import com.jianfanjia.cn.http.request.GetPlanInfoRequest;
 import com.jianfanjia.cn.http.request.GetProductHomePageRequest;
 import com.jianfanjia.cn.http.request.GetRequirementRequest;
 import com.jianfanjia.cn.http.request.HomePageRequest;
@@ -909,6 +911,7 @@ public class JianFanJiaClient {
 
     /**
      * 业主确认已量房
+     *
      * @param context
      * @param requirementid
      * @param designerid
@@ -921,8 +924,50 @@ public class JianFanJiaClient {
         try {
             jsonParams.put("requirementid", requirementid);
             jsonParams.put("designerid", designerid);
-            LogTool.d(TAG,"confirmMeasureHouse" + " -- "+ conformMeasureHouseRequest.getUrl() + "--jsonParams:" + jsonParams.toString());
+            LogTool.d(TAG, "confirmMeasureHouse" + " -- " + conformMeasureHouseRequest.getUrl() + "--jsonParams:" + jsonParams.toString());
             OkHttpClientManager.getInstance().getPostDelegate().postAsyn(conformMeasureHouseRequest, jsonParams.toString(), listener, tag);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 业主选定方案
+     *
+     * @param context
+     * @param requirementid
+     * @param designerid
+     * @param planid
+     * @param listener
+     * @param tag
+     */
+    public static void chooseDesignerPlan(Context context, String requirementid, String designerid, String planid, ApiUiUpdateListener listener, Object tag) {
+        ChoosePlanByUserRequest choosePlanByUserRequest = new ChoosePlanByUserRequest(context, requirementid, designerid, planid);
+        JSONObject jsonParams = new JSONObject();
+        try {
+            jsonParams.put("requirementid", requirementid);
+            jsonParams.put("designerid", designerid);
+            jsonParams.put("planid", planid);
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(choosePlanByUserRequest, jsonParams.toString(), listener, tag);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 用户获取某个方案信息
+     *
+     * @param context
+     * @param planid
+     * @param listener
+     * @param tag
+     */
+    public static void getPlanInfo(Context context, String planid, ApiUiUpdateListener listener, Object tag) {
+        GetPlanInfoRequest getPlanInfoRequest = new GetPlanInfoRequest(context, planid);
+        JSONObject jsonParams = new JSONObject();
+        try {
+            jsonParams.put("_id", planid);
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(getPlanInfoRequest, jsonParams.toString(), listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
         }
