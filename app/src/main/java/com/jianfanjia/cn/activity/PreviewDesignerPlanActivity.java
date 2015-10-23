@@ -20,11 +20,13 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
     private static final String TAG = PreviewDesignerPlanActivity.class.getName();
     private MainHeadView mainHeadView = null;
     private Button btnDetail = null;
+    private Button btn_choose = null;
 
     @Override
     public void initView() {
         initMainHeadView();
         btnDetail = (Button) findViewById(R.id.btnDetail);
+        btn_choose = (Button) findViewById(R.id.btn_choose);
     }
 
     private void initMainHeadView() {
@@ -42,6 +44,7 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
     @Override
     public void setListener() {
         btnDetail.setOnClickListener(this);
+        btn_choose.setOnClickListener(this);
     }
 
     @Override
@@ -55,6 +58,9 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
                 break;
             case R.id.btnDetail:
                 makeTextLong("详细报价");
+                break;
+            case R.id.btn_choose:
+                chooseDesignerPlan("", "", "");
                 break;
             default:
                 break;
