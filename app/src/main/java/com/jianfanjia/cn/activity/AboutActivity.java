@@ -2,10 +2,9 @@ package com.jianfanjia.cn.activity;
 
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.view.MainHeadView;
 
 /**
  * Description:关于
@@ -15,26 +14,32 @@ import com.jianfanjia.cn.base.BaseActivity;
  */
 public class AboutActivity extends BaseActivity implements OnClickListener {
     private static final String TAG = AboutActivity.class.getName();
-    private TextView backView;// 返回视图
-    private TextView currentVersion;// 当前版本
+    private MainHeadView mainHeadView = null;
 
 
     @Override
     public void initView() {
-        backView = (TextView) findViewById(R.id.about_back);
-        currentVersion = (TextView) findViewById(R.id.about_version);
-        setImmerseLayout((RelativeLayout) findViewById(R.id.about_head_layout));
+        initMainHeadView();
+    }
+
+    private void initMainHeadView() {
+        mainHeadView = (MainHeadView) findViewById(R.id.my_about_head_layout);
+        mainHeadView.setBackListener(this);
+        mainHeadView
+                .setMianTitle(getResources().getString(R.string.about));
+        mainHeadView.setLayoutBackground(R.color.head_layout_bg);
+        mainHeadView.setDividerVisable(View.VISIBLE);
     }
 
     @Override
     public void setListener() {
-        backView.setOnClickListener(this);
+
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.about_back:
+            case R.id.head_back_layout:
                 finish();
                 break;
             default:

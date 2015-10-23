@@ -7,35 +7,43 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.view.MainHeadView;
 
 public class FeedBackActivity extends BaseActivity implements OnClickListener {
     private static final String TAG = FeedBackActivity.class.getName();
-    private TextView backView = null;// 返回视图
+    private MainHeadView mainHeadView = null;
     private EditText feedContentView = null;
     private Button confirm = null;
 
     @Override
     public void initView() {
-        backView = (TextView) findViewById(R.id.feedback_back);
+        initMainHeadView();
         feedContentView = (EditText) findViewById(R.id.add_feedback);
         feedContentView.addTextChangedListener(textWatcher);
         confirm = (Button) findViewById(R.id.btn_commit);
         confirm.setEnabled(false);
     }
 
+    private void initMainHeadView() {
+        mainHeadView = (MainHeadView) findViewById(R.id.my_about_head_layout);
+        mainHeadView.setBackListener(this);
+        mainHeadView
+                .setMianTitle(getResources().getString(R.string.feedback));
+        mainHeadView.setLayoutBackground(R.color.head_layout_bg);
+        mainHeadView.setDividerVisable(View.VISIBLE);
+    }
+
     @Override
     public void setListener() {
-        backView.setOnClickListener(this);
         confirm.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.feedback_back:
+            case R.id.head_back_layout:
                 finish();
                 break;
             case R.id.btn_commit:
