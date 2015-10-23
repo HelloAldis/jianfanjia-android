@@ -95,7 +95,9 @@ public class PlanViewAdapter extends PagerAdapter {
 
             @Override
             public void onClick(View v) {
-                itemClickListener.onClickItem(position);
+                if (null != itemClickListener) {
+                    itemClickListener.onClickItem(position);
+                }
             }
         });
         return view;
