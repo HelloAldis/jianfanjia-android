@@ -24,6 +24,7 @@ import com.jianfanjia.cn.http.request.EvaluateDesignerRequest;
 import com.jianfanjia.cn.http.request.FavoriteDesignerListRequest;
 import com.jianfanjia.cn.http.request.FeedBackRequest;
 import com.jianfanjia.cn.http.request.GetAllRescheduleRequest;
+import com.jianfanjia.cn.http.request.GetContractRequest;
 import com.jianfanjia.cn.http.request.GetDesignerPlansByUserRequest;
 import com.jianfanjia.cn.http.request.GetOrderDesignerListByUserRequest;
 import com.jianfanjia.cn.http.request.GetOrderedDesignerRequest;
@@ -998,6 +999,25 @@ public class JianFanJiaClient {
             jsonParams.put("comment", comment);
             jsonParams.put("is_anonymous", is_anonymous);
             OkHttpClientManager.getInstance().getPostDelegate().postAsyn(evaluateDesignerRequest, jsonParams.toString(), listener, tag);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 用户获取合同
+     *
+     * @param context
+     * @param requirementid
+     * @param listener
+     * @param tag
+     */
+    public static void getContractInfo(Context context, String requirementid, ApiUiUpdateListener listener, Object tag) {
+        GetContractRequest getContractRequest = new GetContractRequest(context, requirementid);
+        JSONObject jsonParams = new JSONObject();
+        try {
+            jsonParams.put("requirementid", requirementid);
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(getContractRequest, jsonParams.toString(), listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
         }
