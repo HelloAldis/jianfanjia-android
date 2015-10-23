@@ -58,6 +58,10 @@ public class Constant {
     public static final int DELAY_ITEM = 5;
     public static final int CHECK_ITEM = 6;
 
+    //设计师方案列表item点击项
+    public static final int PLAN_COMMENT_ITEM = 1;//留言
+    public static final int PLAN_PREVIEW_ITEM = 2;//预览
+
     // 用户身份type
     public static final String IDENTITY_OWNER = "1";// 业主
     public static final String IDENTITY_DESIGNER = "2";// 设计师
