@@ -21,6 +21,7 @@ import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.tools.UiHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -127,6 +128,7 @@ public class DesignerCaseInfoActivity extends BaseActivity implements ApiUiUpdat
             produceText.setText("设计简介:" + designerCaseInfo.getDescription());
             adapter = new DesignerCaseAdapter(DesignerCaseInfoActivity.this, designerCaseInfo.getImages());
             designer_case_listview.setAdapter(adapter);
+            UiHelper.setListViewHeightBasedOnChildren(designer_case_listview);//此处是必须要做的计算Listview的高度
         }
     }
 

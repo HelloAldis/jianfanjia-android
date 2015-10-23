@@ -37,10 +37,6 @@ import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
 import com.jianfanjia.cn.interf.UploadImageListener;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
-import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
-import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.Mode;
-import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
-import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshScrollView;
 import com.jianfanjia.cn.tools.DateFormatTool;
 import com.jianfanjia.cn.tools.ImageUtil;
 import com.jianfanjia.cn.tools.ImageUtils;
@@ -52,7 +48,10 @@ import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DateWheelDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
-
+import com.jianfanjia.cn.view.library.PullToRefreshBase;
+import com.jianfanjia.cn.view.library.PullToRefreshScrollView;
+import com.jianfanjia.cn.view.library.PullToRefreshBase.OnRefreshListener2;
+import com.jianfanjia.cn.view.library.PullToRefreshBase.Mode;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -171,6 +170,7 @@ public class ManageFragment extends BaseFragment implements
 			sectionInfos = processInfo.getSections();
 			sectionInfo = sectionInfos.get(currentList);
 			setScrollHeadTime();
+			LogTool.d(TAG,sectionInfos.size()+"--sectionInfos.size()");
 			sectionItemAdapter = new SectionItemAdapterBack(getApplication(),
 					currentList, sectionInfos, this);
 			detailNodeListView.setAdapter(sectionItemAdapter);

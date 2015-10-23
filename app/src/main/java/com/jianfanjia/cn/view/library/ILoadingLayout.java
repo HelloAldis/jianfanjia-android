@@ -1,4 +1,4 @@
-package com.jianfanjia.cn.pulltorefresh.library;
+package com.jianfanjia.cn.view.library;
 
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -9,8 +9,7 @@ public interface ILoadingLayout {
 	 * Set the Last Updated Text. This displayed under the main label when
 	 * Pulling
 	 * 
-	 * @param label
-	 *            - Label to set
+	 * @param label - Label to set
 	 */
 	public void setLastUpdatedLabel(CharSequence label);
 
@@ -18,8 +17,7 @@ public interface ILoadingLayout {
 	 * Set the drawable used in the loading layout. This is the same as calling
 	 * <code>setLoadingDrawable(drawable, Mode.BOTH)</code>
 	 * 
-	 * @param drawable
-	 *            - Drawable to display
+	 * @param drawable - Drawable to display
 	 */
 	public void setLoadingDrawable(Drawable drawable);
 
@@ -27,8 +25,7 @@ public interface ILoadingLayout {
 	 * Set Text to show when the Widget is being Pulled
 	 * <code>setPullLabel(releaseLabel, Mode.BOTH)</code>
 	 * 
-	 * @param pullLabel
-	 *            - CharSequence to display
+	 * @param pullLabel - CharSequence to display
 	 */
 	public void setPullLabel(CharSequence pullLabel);
 
@@ -36,8 +33,7 @@ public interface ILoadingLayout {
 	 * Set Text to show when the Widget is refreshing
 	 * <code>setRefreshingLabel(releaseLabel, Mode.BOTH)</code>
 	 * 
-	 * @param refreshingLabel
-	 *            - CharSequence to display
+	 * @param refreshingLabel - CharSequence to display
 	 */
 	public void setRefreshingLabel(CharSequence refreshingLabel);
 
@@ -46,8 +42,7 @@ public interface ILoadingLayout {
 	 * released. This is the same as calling
 	 * <code>setReleaseLabel(releaseLabel, Mode.BOTH)</code>
 	 * 
-	 * @param releaseLabel
-	 *            - CharSequence to display
+	 * @param releaseLabel - CharSequence to display
 	 */
 	public void setReleaseLabel(CharSequence releaseLabel);
 

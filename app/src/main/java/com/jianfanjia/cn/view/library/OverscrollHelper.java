@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.jianfanjia.cn.pulltorefresh.library;
+package com.jianfanjia.cn.view.library;
 
 import android.annotation.TargetApi;
 import android.util.Log;
 import android.view.View;
 
-import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.Mode;
-import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.State;
+import com.jianfanjia.cn.view.library.PullToRefreshBase.Mode;
+import com.jianfanjia.cn.view.library.PullToRefreshBase.State;
 
 @TargetApi(9)
 public final class OverscrollHelper {
@@ -36,27 +36,20 @@ public final class OverscrollHelper {
 	 * calls through to overScrollBy() with the scrollRange = 0. AdapterView's
 	 * do not have a scroll range (i.e. getScrollY() doesn't work).
 	 * 
-	 * @param view
-	 *            - PullToRefreshView that is calling this.
-	 * @param deltaX
-	 *            - Change in X in pixels, passed through from from overScrollBy
-	 *            call
-	 * @param scrollX
-	 *            - Current X scroll value in pixels before applying deltaY,
+	 * @param view - PullToRefreshView that is calling this.
+	 * @param deltaX - Change in X in pixels, passed through from from
+	 *            overScrollBy call
+	 * @param scrollX - Current X scroll value in pixels before applying deltaY,
 	 *            passed through from from overScrollBy call
-	 * @param deltaY
-	 *            - Change in Y in pixels, passed through from from overScrollBy
-	 *            call
-	 * @param scrollY
-	 *            - Current Y scroll value in pixels before applying deltaY,
+	 * @param deltaY - Change in Y in pixels, passed through from from
+	 *            overScrollBy call
+	 * @param scrollY - Current Y scroll value in pixels before applying deltaY,
 	 *            passed through from from overScrollBy call
-	 * @param isTouchEvent
-	 *            - true if this scroll operation is the result of a touch
-	 *            event, passed through from from overScrollBy call
+	 * @param isTouchEvent - true if this scroll operation is the result of a
+	 *            touch event, passed through from from overScrollBy call
 	 */
-	public static void overScrollBy(final PullToRefreshBase<?> view,
-			final int deltaX, final int scrollX, final int deltaY,
-			final int scrollY, final boolean isTouchEvent) {
+	public static void overScrollBy(final PullToRefreshBase<?> view, final int deltaX, final int scrollX,
+			final int deltaY, final int scrollY, final boolean isTouchEvent) {
 		overScrollBy(view, deltaX, scrollX, deltaY, scrollY, 0, isTouchEvent);
 	}
 
@@ -65,81 +58,64 @@ public final class OverscrollHelper {
 	 * function. This version of the call is used for Views that need to specify
 	 * a Scroll Range but scroll back to it's edge correctly.
 	 * 
-	 * @param view
-	 *            - PullToRefreshView that is calling this.
-	 * @param deltaX
-	 *            - Change in X in pixels, passed through from from overScrollBy
-	 *            call
-	 * @param scrollX
-	 *            - Current X scroll value in pixels before applying deltaY,
+	 * @param view - PullToRefreshView that is calling this.
+	 * @param deltaX - Change in X in pixels, passed through from from
+	 *            overScrollBy call
+	 * @param scrollX - Current X scroll value in pixels before applying deltaY,
 	 *            passed through from from overScrollBy call
-	 * @param deltaY
-	 *            - Change in Y in pixels, passed through from from overScrollBy
-	 *            call
-	 * @param scrollY
-	 *            - Current Y scroll value in pixels before applying deltaY,
+	 * @param deltaY - Change in Y in pixels, passed through from from
+	 *            overScrollBy call
+	 * @param scrollY - Current Y scroll value in pixels before applying deltaY,
 	 *            passed through from from overScrollBy call
-	 * @param scrollRange
-	 *            - Scroll Range of the View, specifically needed for ScrollView
-	 * @param isTouchEvent
-	 *            - true if this scroll operation is the result of a touch
-	 *            event, passed through from from overScrollBy call
+	 * @param scrollRange - Scroll Range of the View, specifically needed for
+	 *            ScrollView
+	 * @param isTouchEvent - true if this scroll operation is the result of a
+	 *            touch event, passed through from from overScrollBy call
 	 */
-	public static void overScrollBy(final PullToRefreshBase<?> view,
-			final int deltaX, final int scrollX, final int deltaY,
-			final int scrollY, final int scrollRange, final boolean isTouchEvent) {
-		overScrollBy(view, deltaX, scrollX, deltaY, scrollY, scrollRange, 0,
-				DEFAULT_OVERSCROLL_SCALE, isTouchEvent);
+	public static void overScrollBy(final PullToRefreshBase<?> view, final int deltaX, final int scrollX,
+			final int deltaY, final int scrollY, final int scrollRange, final boolean isTouchEvent) {
+		overScrollBy(view, deltaX, scrollX, deltaY, scrollY, scrollRange, 0, DEFAULT_OVERSCROLL_SCALE, isTouchEvent);
 	}
 
 	/**
 	 * Helper method for Overscrolling that encapsulates all of the necessary
 	 * function. This is the advanced version of the call.
 	 * 
-	 * @param view
-	 *            - PullToRefreshView that is calling this.
-	 * @param deltaX
-	 *            - Change in X in pixels, passed through from from overScrollBy
-	 *            call
-	 * @param scrollX
-	 *            - Current X scroll value in pixels before applying deltaY,
+	 * @param view - PullToRefreshView that is calling this.
+	 * @param deltaX - Change in X in pixels, passed through from from
+	 *            overScrollBy call
+	 * @param scrollX - Current X scroll value in pixels before applying deltaY,
 	 *            passed through from from overScrollBy call
-	 * @param deltaY
-	 *            - Change in Y in pixels, passed through from from overScrollBy
-	 *            call
-	 * @param scrollY
-	 *            - Current Y scroll value in pixels before applying deltaY,
+	 * @param deltaY - Change in Y in pixels, passed through from from
+	 *            overScrollBy call
+	 * @param scrollY - Current Y scroll value in pixels before applying deltaY,
 	 *            passed through from from overScrollBy call
-	 * @param scrollRange
-	 *            - Scroll Range of the View, specifically needed for ScrollView
-	 * @param fuzzyThreshold
-	 *            - Threshold for which the values how fuzzy we should treat the
-	 *            other values. Needed for WebView as it doesn't always scroll
-	 *            back to it's edge. 0 = no fuzziness.
-	 * @param scaleFactor
-	 *            - Scale Factor for overscroll amount
-	 * @param isTouchEvent
-	 *            - true if this scroll operation is the result of a touch
-	 *            event, passed through from from overScrollBy call
+	 * @param scrollRange - Scroll Range of the View, specifically needed for
+	 *            ScrollView
+	 * @param fuzzyThreshold - Threshold for which the values how fuzzy we
+	 *            should treat the other values. Needed for WebView as it
+	 *            doesn't always scroll back to it's edge. 0 = no fuzziness.
+	 * @param scaleFactor - Scale Factor for overscroll amount
+	 * @param isTouchEvent - true if this scroll operation is the result of a
+	 *            touch event, passed through from from overScrollBy call
 	 */
-	public static void overScrollBy(final PullToRefreshBase<?> view,
-			final int deltaX, final int scrollX, final int deltaY,
-			final int scrollY, final int scrollRange, final int fuzzyThreshold,
+	public static void overScrollBy(final PullToRefreshBase<?> view, final int deltaX, final int scrollX,
+			final int deltaY, final int scrollY, final int scrollRange, final int fuzzyThreshold,
 			final float scaleFactor, final boolean isTouchEvent) {
 
 		final int deltaValue, currentScrollValue, scrollValue;
 		switch (view.getPullToRefreshScrollDirection()) {
-		case HORIZONTAL:
-			deltaValue = deltaX;
-			scrollValue = scrollX;
-			currentScrollValue = view.getScrollX();
-			break;
-		case VERTICAL:
-		default:
-			deltaValue = deltaY;
-			scrollValue = scrollY;
-			currentScrollValue = view.getScrollY();
-			break;
+			case HORIZONTAL:
+				deltaValue = deltaX;
+				scrollValue = scrollX;
+				currentScrollValue = view.getScrollX();
+				break;
+			case VERTICAL:
+			default:
+				deltaValue = deltaY;
+				scrollValue = scrollY;
+				currentScrollValue = view.getScrollY();
+				break;
 		}
 
 		// Check that OverScroll is enabled and that we're not currently
@@ -153,10 +129,8 @@ public final class OverscrollHelper {
 				final int newScrollValue = (deltaValue + scrollValue);
 
 				if (PullToRefreshBase.DEBUG) {
-					Log.d(LOG_TAG, "OverScroll. DeltaX: " + deltaX
-							+ ", ScrollX: " + scrollX + ", DeltaY: " + deltaY
-							+ ", ScrollY: " + scrollY + ", NewY: "
-							+ newScrollValue + ", ScrollRange: " + scrollRange
+					Log.d(LOG_TAG, "OverScroll. DeltaX: " + deltaX + ", ScrollX: " + scrollX + ", DeltaY: " + deltaY
+							+ ", ScrollY: " + scrollY + ", NewY: " + newScrollValue + ", ScrollRange: " + scrollRange
 							+ ", CurrentScroll: " + currentScrollValue);
 				}
 
@@ -182,8 +156,7 @@ public final class OverscrollHelper {
 							view.setState(State.OVERSCROLLING);
 						}
 
-						view.setHeaderScroll((int) (scaleFactor * (currentScrollValue
-								+ newScrollValue - scrollRange)));
+						view.setHeaderScroll((int) (scaleFactor * (currentScrollValue + newScrollValue - scrollRange)));
 					}
 				} else if (Math.abs(newScrollValue) <= fuzzyThreshold
 						|| Math.abs(newScrollValue - scrollRange) <= fuzzyThreshold) {
@@ -202,5 +175,4 @@ public final class OverscrollHelper {
 	static boolean isAndroidOverScrollEnabled(View view) {
 		return view.getOverScrollMode() != View.OVER_SCROLL_NEVER;
 	}
-
 }

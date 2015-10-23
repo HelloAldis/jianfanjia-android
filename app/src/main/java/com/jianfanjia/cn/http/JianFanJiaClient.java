@@ -48,7 +48,6 @@ import com.jianfanjia.cn.http.request.RefuseRescheduleRequest;
 import com.jianfanjia.cn.http.request.RegisterRequest;
 import com.jianfanjia.cn.http.request.SearchDesignerProductRequest;
 import com.jianfanjia.cn.http.request.SendVerificationRequest;
-import com.jianfanjia.cn.http.request.TotalDurationRequest;
 import com.jianfanjia.cn.http.request.UpdateRequirementRequest;
 import com.jianfanjia.cn.http.request.UploadPicRequestNew;
 import com.jianfanjia.cn.http.request.UploadRegisterIdRequest;
@@ -689,23 +688,6 @@ public class JianFanJiaClient {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-    }
-
-    /**
-     * 获得总的工期
-     *
-     * @param context
-     * @param planId
-     * @param listener
-     * @param tag
-     */
-    public static void get_TotalDuration(Context context, String planId,
-                                         ApiUiUpdateListener listener, Object tag) {
-        TotalDurationRequest totalDurationRequest = new TotalDurationRequest(context);
-        String getTotalDurationUrl = Url.GET_PLAN.replace(Url.ID, planId);
-        totalDurationRequest.setUrl(getTotalDurationUrl);
-        LogTool.d(TAG, "get_TotalDuration -" + totalDurationRequest.getUrl());
-        OkHttpClientManager.getInstance().getGetDelegate().getAsyn(totalDurationRequest, listener, tag);
     }
 
     /**

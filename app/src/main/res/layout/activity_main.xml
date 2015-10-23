@@ -17,7 +17,8 @@
         android:layout_width="match_parent"
         android:layout_height="55dip"
         android:background="#ffffff"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        >
 
         <RadioButton
             android:id="@+id/tab_rb_1"

@@ -29,14 +29,13 @@ import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.ListItemClickListener;
-import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
-import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.Mode;
-import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
-import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshScrollView;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.tools.ViewPagerManager;
 import com.jianfanjia.cn.tools.ViewPagerManager.ShapeType;
+import com.jianfanjia.cn.view.library.PullToRefreshBase;
+import com.jianfanjia.cn.view.library.PullToRefreshScrollView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +47,7 @@ import java.util.List;
  * Date:15-10-11 14:30
  */
 public class HomeFragment extends BaseFragment implements
-        OnRefreshListener2<ScrollView>, ListItemClickListener, ApiUiUpdateListener, OnItemClickListener {
+        PullToRefreshBase.OnRefreshListener2<ScrollView>, ListItemClickListener, ApiUiUpdateListener, OnItemClickListener {
     private static final String TAG = HomeFragment.class.getName();
     private PullToRefreshScrollView mPullRefreshScrollView = null;
     private LinearLayout marchedLayout = null;
@@ -72,7 +71,7 @@ public class HomeFragment extends BaseFragment implements
     public void initView(View view) {
         initBannerView();
         mPullRefreshScrollView = (PullToRefreshScrollView) view.findViewById(R.id.pull_refresh_scrollview);
-        mPullRefreshScrollView.setMode(Mode.BOTH);
+        mPullRefreshScrollView.setMode(PullToRefreshBase.Mode.BOTH);
         mPullRefreshScrollView.setOverScrollMode(PullToRefreshBase.OVER_SCROLL_NEVER);
         marchedLayout = (LinearLayout) view.findViewById(R.id.marched_layout);
         noMarchedLayout = (LinearLayout) view.findViewById(R.id.no_marched_layout);
@@ -100,6 +99,7 @@ public class HomeFragment extends BaseFragment implements
         getHomePageDesigners(FROM, Constant.LIMIT);
         designerAdapter = new DesignerListAdapter(getActivity(), designerList, this);
         designer_listview.setAdapter(designerAdapter);
+        UiHelper.setListViewHeightBasedOnChildren(designer_listview);//因为scrollview与listview有冲突，需要动态计算listview的高度才能全部显示
     }
 
     @Override
@@ -224,12 +224,15 @@ public class HomeFragment extends BaseFragment implements
         getHomePageDesigners(FROM, Constant.LIMIT);
     }
 
+
     @Override
     public void onPullUpToRefresh(PullToRefreshBase<ScrollView> refreshView) {
         mPullRefreshScrollView.onRefreshComplete();
         FROM = designerList.size();
         getHomePageDesigners(FROM, Constant.LIMIT);
     }
+
+
 
     @Override
     public int getLayoutId() {

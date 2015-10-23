@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.jianfanjia.cn.pulltorefresh.library.internal;
+package com.jianfanjia.cn.view.library.internal;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -27,8 +27,10 @@ import android.view.animation.RotateAnimation;
 import android.widget.ImageView.ScaleType;
 
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.Mode;
-import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.Orientation;
+import com.jianfanjia.cn.view.library.PullToRefreshBase.Mode;
+import com.jianfanjia.cn.view.library.PullToRefreshBase.Orientation;
+
+
 
 @SuppressLint("ViewConstructor")
 public class FlipLoadingLayout extends LoadingLayout {
@@ -37,22 +39,19 @@ public class FlipLoadingLayout extends LoadingLayout {
 
 	private final Animation mRotateAnimation, mResetRotateAnimation;
 
-	public FlipLoadingLayout(Context context, final Mode mode,
-			final Orientation scrollDirection, TypedArray attrs) {
+	public FlipLoadingLayout(Context context, final Mode mode, final Orientation scrollDirection, TypedArray attrs) {
 		super(context, mode, scrollDirection, attrs);
 
 		final int rotateAngle = mode == Mode.PULL_FROM_START ? -180 : 180;
 
-		mRotateAnimation = new RotateAnimation(0, rotateAngle,
-				Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
-				0.5f);
+		mRotateAnimation = new RotateAnimation(0, rotateAngle, Animation.RELATIVE_TO_SELF, 0.5f,
+				Animation.RELATIVE_TO_SELF, 0.5f);
 		mRotateAnimation.setInterpolator(ANIMATION_INTERPOLATOR);
 		mRotateAnimation.setDuration(FLIP_ANIMATION_DURATION);
 		mRotateAnimation.setFillAfter(true);
 
-		mResetRotateAnimation = new RotateAnimation(rotateAngle, 0,
-				Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
-				0.5f);
+		mResetRotateAnimation = new RotateAnimation(rotateAngle, 0, Animation.RELATIVE_TO_SELF, 0.5f,
+				Animation.RELATIVE_TO_SELF, 0.5f);
 		mResetRotateAnimation.setInterpolator(ANIMATION_INTERPOLATOR);
 		mResetRotateAnimation.setDuration(FLIP_ANIMATION_DURATION);
 		mResetRotateAnimation.setFillAfter(true);
@@ -79,10 +78,8 @@ public class FlipLoadingLayout extends LoadingLayout {
 			 */
 			mHeaderImage.setScaleType(ScaleType.MATRIX);
 			Matrix matrix = new Matrix();
-			matrix.postTranslate((lp.width - dWidth) / 2f,
-					(lp.height - dHeight) / 2f);
-			matrix.postRotate(getDrawableRotationAngle(), lp.width / 2f,
-					lp.height / 2f);
+			matrix.postTranslate((lp.width - dWidth) / 2f, (lp.height - dHeight) / 2f);
+			matrix.postRotate(getDrawableRotationAngle(), lp.width / 2f, lp.height / 2f);
 			mHeaderImage.setImageMatrix(matrix);
 		}
 	}
@@ -127,22 +124,22 @@ public class FlipLoadingLayout extends LoadingLayout {
 	private float getDrawableRotationAngle() {
 		float angle = 0f;
 		switch (mMode) {
-		case PULL_FROM_END:
-			if (mScrollDirection == Orientation.HORIZONTAL) {
-				angle = 90f;
-			} else {
-				angle = 180f;
-			}
-			break;
+			case PULL_FROM_END:
+				if (mScrollDirection == Orientation.HORIZONTAL) {
+					angle = 90f;
+				} else {
+					angle = 180f;
+				}
+				break;
 
-		case PULL_FROM_START:
-			if (mScrollDirection == Orientation.HORIZONTAL) {
-				angle = 270f;
-			}
-			break;
+			case PULL_FROM_START:
+				if (mScrollDirection == Orientation.HORIZONTAL) {
+					angle = 270f;
+				}
+				break;
 
-		default:
-			break;
+			default:
+				break;
 		}
 
 		return angle;
