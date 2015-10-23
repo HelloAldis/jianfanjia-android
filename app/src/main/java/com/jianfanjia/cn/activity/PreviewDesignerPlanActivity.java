@@ -31,6 +31,7 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
     private ViewPager viewPager = null;
     private Button btnDetail = null;
     private Button btn_choose = null;
+    private PlandetailInfo planDetailInfo = null;
     private String designerid = null;
     private String requirementid = null;
     private String planid = null;
@@ -73,10 +74,10 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
                 finish();
                 break;
             case R.id.head_right_title:
-                startActivity(DetailPriceActivity.class);
+                startToActivity(planDetailInfo);
                 break;
             case R.id.btnDetail:
-                startActivity(DetailPriceActivity.class);
+                startToActivity(planDetailInfo);
                 break;
             case R.id.btn_choose:
                 chooseDesignerPlan(requirementid, designerid, planid);
@@ -84,6 +85,12 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
             default:
                 break;
         }
+    }
+
+    private void startToActivity(PlandetailInfo detailInfo) {
+        Bundle priceBundle = new Bundle();
+        priceBundle.putSerializable(Global.PLAN_DETAIL, detailInfo);
+        startActivity(DetailPriceActivity.class, priceBundle);
     }
 
     //获取某个方案信息
@@ -108,7 +115,7 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data);
             hideWaitDialog();
-            PlandetailInfo planDetailInfo = JsonParser.jsonToBean(data.toString(), PlandetailInfo.class);
+            planDetailInfo = JsonParser.jsonToBean(data.toString(), PlandetailInfo.class);
             LogTool.d(TAG, "planDetailInfo:" + planDetailInfo);
             if (null != planDetailInfo) {
                 requirementid = planDetailInfo.getRequirementid();
