@@ -263,5 +263,6 @@
     <string name="title_activity_designer_plan_list">DesignerPlanListActivity</string>
     <string name="title_activity_preview_designer_plan">PreviewDesignerPlanActivity</string>
     <string name="title_activity_ping_jia_info">PingJiaInfoActivity</string>
+    <string name="title_activity_detail_price">DetailPriceActivity</string>
 
 </resources>

@@ -37,6 +37,7 @@
     <string name="str_already_comment">已评价</string>
     <string name="str_view_plan">查看方案</string>
     <string name="str_view_contract">查看合同</string>
+    <string name="str_view_price">详细报价</string>
     <string name="measure_house_time">量房时间：</string>
     <string name="wait_response">等待响应</string>
     <string name="already_order">已预约</string>
