@@ -2,6 +2,8 @@ package com.jianfanjia.cn.activity;
 
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.ListView;
 
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.view.MainHeadView;
@@ -15,10 +17,14 @@ import com.jianfanjia.cn.view.MainHeadView;
 public class CommentActivity extends BaseActivity implements OnClickListener {
     private static final String TAG = CommentActivity.class.getName();
     private MainHeadView mainHeadView = null;
+    private ListView commentListView = null;
+    private Button btnSend = null;
 
     @Override
     public void initView() {
         initMainHeadView();
+        commentListView = (ListView) findViewById(R.id.comment_listview);
+        btnSend = (Button) findViewById(R.id.btn_send);
     }
 
     private void initMainHeadView() {
@@ -33,7 +39,7 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
 
     @Override
     public void setListener() {
-
+        btnSend.setOnClickListener(this);
     }
 
     @Override
@@ -42,9 +48,19 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
             case R.id.head_back_layout:
                 finish();
                 break;
+            case R.id.btn_send:
+                break;
             default:
                 break;
         }
+    }
+
+    private void getCommentList() {
+
+    }
+
+    private void addComment() {
+
     }
 
     @Override
