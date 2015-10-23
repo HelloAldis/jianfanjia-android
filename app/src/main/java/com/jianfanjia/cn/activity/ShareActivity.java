@@ -6,29 +6,37 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.tools.ImageUtils;
+import com.jianfanjia.cn.view.MainHeadView;
 
 import java.io.IOException;
 
 public class ShareActivity extends BaseActivity implements OnClickListener,
         OnLongClickListener {
     private static final String TAG = ShareActivity.class.getName();
-    private TextView backView = null;// 返回视图
+    private MainHeadView mainHeadView = null;
     private ImageView mIvCode = null;// 当前版本
 
     @Override
     public void initView() {
-        backView = (TextView) findViewById(R.id.share_back);
+        initMainHeadView();
         mIvCode = (ImageView) findViewById(R.id.share_qr);
+    }
+
+    private void initMainHeadView() {
+        mainHeadView = (MainHeadView) findViewById(R.id.my_share_head_layout);
+        mainHeadView.setBackListener(this);
+        mainHeadView
+                .setMianTitle(getResources().getString(R.string.share_title));
+        mainHeadView.setLayoutBackground(R.color.head_layout_bg);
+        mainHeadView.setDividerVisable(View.VISIBLE);
     }
 
     @Override
     public void setListener() {
-        backView.setOnClickListener(this);
         mIvCode.setOnLongClickListener(this);
     }
 
@@ -36,6 +44,9 @@ public class ShareActivity extends BaseActivity implements OnClickListener,
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.share_back:
+                finish();
+                break;
+            case R.id.head_back_layout:
                 finish();
                 break;
             default:
