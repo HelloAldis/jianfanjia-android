@@ -105,8 +105,9 @@ public class MyDesignerActivity extends BaseAnnotationActivity {
                     refreshView.setRefreshing(false);
                     if (data != null) {
                         orderDesignerInfos = JsonParser.jsonToList(data.toString(),
-                                new TypeToken<List < OrderDesignerInfo >>(){}.getType());
-                        if(orderDesignerInfos != null && orderDesignerInfos.size() > 0){
+                                new TypeToken<List<OrderDesignerInfo>>() {
+                                }.getType());
+                        if (orderDesignerInfos != null && orderDesignerInfos.size() > 0) {
                             myDesignerAdapter.addItem(orderDesignerInfos);
                         }
                     }
@@ -135,14 +136,14 @@ public class MyDesignerActivity extends BaseAnnotationActivity {
                 switch (itemType) {
                     case VIEW_COMMENT:
                         Bundle viewBundle = new Bundle();
-                        viewBundle.putSerializable(Global.EVALUATION,orderDesignerInfo.getEvaluation());
-                        startActivity(PingjiaActivity.class,viewBundle);
+                        viewBundle.putSerializable(Global.EVALUATION, orderDesignerInfo.getEvaluation());
+                        startActivity(PingjiaActivity.class, viewBundle);
                         break;
                     case COMMENT:
                         Bundle commentBundle = new Bundle();
                         commentBundle.putString(Global.DESIGNER_ID, orderDesignerInfo.get_id());
                         commentBundle.putString(Global.REQUIREMENT_ID, requirementid);
-                        startActivity(PingjiaActivity.class,commentBundle);
+                        startActivity(PingjiaActivity.class, commentBundle);
                         break;
                     case VIEW_CONTRACT:
                         break;
@@ -150,13 +151,13 @@ public class MyDesignerActivity extends BaseAnnotationActivity {
                         Bundle viewPlan = new Bundle();
                         viewPlan.putString(Global.DESIGNER_ID, orderDesignerInfo.get_id());
                         viewPlan.putString(Global.REQUIREMENT_ID, requirementid);
-                        startActivity(DesignerPlanActivity.class,viewPlan);
+                        startActivity(PreviewDesignerPlanActivity.class, viewPlan);
                         break;
                     case CHANGE_DESIGNER:
                         Bundle changeBundle = new Bundle();
                         changeBundle.putString(Global.DESIGNER_ID, orderDesignerInfo.get_id());
                         changeBundle.putString(Global.REQUIREMENT_ID, requirementid);
-                        startActivity(AppointDesignerActivity.class,changeBundle);
+                        startActivity(AppointDesignerActivity.class, changeBundle);
                         break;
                     case CONFIRM_MEASURE_HOUSE:
                         JianFanJiaClient.confirmMeasureHouse(MyDesignerActivity.this, requirementid, orderDesignerInfo.get_id(), new ApiUiUpdateListener() {
@@ -175,7 +176,7 @@ public class MyDesignerActivity extends BaseAnnotationActivity {
                             public void loadFailture(String error_msg) {
                                 hideWaitDialog();
                             }
-                        },MyDesignerActivity.this);
+                        }, MyDesignerActivity.this);
                         break;
                 }
             }
