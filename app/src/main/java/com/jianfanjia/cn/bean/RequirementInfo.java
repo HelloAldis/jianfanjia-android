@@ -10,9 +10,6 @@ import java.util.List;
  * @date 2015-8-28 10:05
  */
 public class RequirementInfo implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-
     private String _id;
     private String userid;
     private String province = "湖北省";
@@ -114,6 +111,7 @@ public class RequirementInfo implements Serializable {
     public void setCell_detail_number(String cell_detail_number) {
         this.cell_detail_number = cell_detail_number;
     }
+
     public String getDec_type() {
         return dec_type;
     }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.TextView;
+import android.view.View.OnClickListener;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.BaseListAdapter;
@@ -64,7 +65,12 @@ public class DesignerPlanAdapter extends BaseListAdapter<PlanInfo> {
             }
         });
         holder.vp.setAdapter(adapter);
-
+        holder.previewText.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                itemClickListener.onCallBack(position);
+            }
+        });
         return convertView;
     }
 

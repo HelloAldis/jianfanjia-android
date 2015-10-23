@@ -63,7 +63,7 @@
             android:id="@+id/commentText"
             style="@style/site_listview_item_text_style_middle"
             android:layout_centerVertical="true"
-            android:layout_marginRight="30dip"
+            android:layout_marginRight="40dip"
             android:layout_toLeftOf="@id/previewText"
             android:text="留言"
             android:textColor="#000000" />

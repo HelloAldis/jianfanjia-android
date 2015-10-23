@@ -95,7 +95,9 @@ public class PlanViewAdapter extends PagerAdapter {
 
             @Override
             public void onClick(View v) {
-                itemClickListener.onClickItem(position);
+                if (null != itemClickListener) {
+                    itemClickListener.onClickItem(position);
+                }
             }
         });
         return view;
@@ -103,6 +105,9 @@ public class PlanViewAdapter extends PagerAdapter {
 
     @Override
     public float getPageWidth(int position) {
-        return 0.5f;
+        if (null != itemClickListener) {
+            return 0.5f;
+        }
+        return super.getPageWidth(position);
     }
 }

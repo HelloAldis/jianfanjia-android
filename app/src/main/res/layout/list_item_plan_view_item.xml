@@ -7,8 +7,7 @@
 
     <ImageView
         android:id="@+id/list_item_plan_img"
-        android:layout_width="150dip"
-        android:layout_height="120dip"
-        android:layout_gravity="center_vertical"
-        android:scaleType="centerCrop" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY" />
 </LinearLayout>
