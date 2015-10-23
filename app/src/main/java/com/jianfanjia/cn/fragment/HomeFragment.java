@@ -205,7 +205,7 @@ public class HomeFragment extends BaseFragment implements
         String designertid = designerListInfo.get_id();
         LogTool.d(TAG, "designertid:" + designertid);
         Bundle designerBundle = new Bundle();
-        designerBundle.putString("designerId", designertid);
+        designerBundle.putString(Global.DESIGNER_ID, designertid);
         startActivity(DesignerInfoActivity.class, designerBundle);
     }
 
