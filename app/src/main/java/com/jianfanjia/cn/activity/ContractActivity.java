@@ -1,9 +1,10 @@
 package com.jianfanjia.cn.activity;
 
-import android.webkit.WebSettings;
-import android.webkit.WebView;
+import android.view.View;
+import android.view.View.OnClickListener;
 
 import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.view.MainHeadView;
 
 /**
  * Description:合同查看
@@ -11,28 +12,47 @@ import com.jianfanjia.cn.base.BaseActivity;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class ContractActivity extends BaseActivity {
-    private WebView webview = null;
-    private WebSettings mWebSettings;
+public class ContractActivity extends BaseActivity implements OnClickListener {
+    private static final String TAG = ContractActivity.class.getName();
+    private MainHeadView mainHeadView = null;
 
 
     @Override
     public void initView() {
-        webview = (WebView) this.findViewById(R.id.webview);
-        webview.loadUrl("http://developer.android.com/");
-        mWebSettings = webview.getSettings();
-        mWebSettings.setJavaScriptEnabled(true);    //允许加载javascript
-        //mWebSettings.setSupportZoom(true);          //允许缩放
-        //mWebSettings.setBuiltInZoomControls(true);
-        //mWebSettings.setUseWideViewPort(true);      //任意比例缩放
+        initMainHeadView();
 
-        mWebSettings.setUseWideViewPort(true);      //设置加载进来的页面自适应手机屏幕（可缩放）
-        mWebSettings.setLoadWithOverviewMode(true);
     }
+
+    private void initMainHeadView() {
+        mainHeadView = (MainHeadView) findViewById(R.id.my_contract_head_layout);
+        mainHeadView.setBackListener(this);
+        mainHeadView.setRightTextListener(this);
+        mainHeadView
+                .setMianTitle(getResources().getString(R.string.contractText));
+        mainHeadView.setRightTitle(getResources().getString(R.string.comfirmText));
+        mainHeadView.setLayoutBackground(R.color.head_layout_bg);
+        mainHeadView.setRightTitleVisable(View.VISIBLE);
+        mainHeadView.setBackLayoutVisable(View.VISIBLE);
+    }
+
 
     @Override
     public void setListener() {
 
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.head_back_layout:
+                finish();
+                break;
+            case R.id.head_right_title:
+                makeTextLong("确认");
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
