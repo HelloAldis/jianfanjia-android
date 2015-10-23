@@ -134,6 +134,7 @@
     <string name="appointText">预约</string>
     <string name="planText">方案</string>
     <string name="designerPlanText">方案1</string>
+    <string name="pingjiaText">评价设计师</string>
     <string name="detailPrice">详细报价</string>
     <string name="contractText">施工合同</string>
     <string name="comfirmText">确认</string>
@@ -261,5 +262,6 @@
     <string name="already_repsonse">已响应</string>
     <string name="title_activity_designer_plan_list">DesignerPlanListActivity</string>
     <string name="title_activity_preview_designer_plan">PreviewDesignerPlanActivity</string>
+    <string name="title_activity_ping_jia_info">PingJiaInfoActivity</string>
 
 </resources>
