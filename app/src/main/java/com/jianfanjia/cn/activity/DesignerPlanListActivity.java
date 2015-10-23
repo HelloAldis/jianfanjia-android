@@ -18,6 +18,7 @@ import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,7 +31,7 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
     private static final String TAG = DesignerPlanListActivity.class.getName();
     private MainHeadView mainHeadView = null;
     private ListView designer_plan_listview = null;
-    private List<PlanInfo> designerPlanList;
+    private List<PlanInfo> designerPlanList = new ArrayList<PlanInfo>();
     private String requirementid = null;
     private String designerid = null;
 
@@ -104,7 +105,18 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
 
     @Override
     public void onCallBack(int position, int pos) {
-        makeTextLong("position:" + position + "  pos:" + pos);
+        LogTool.d(TAG, "position:" + position + "  pos:" + pos);
+    }
+
+    @Override
+    public void onCallBack(int position) {
+        PlanInfo planInfo = designerPlanList.get(position);
+        LogTool.d(TAG, "planInfo:" + planInfo);
+        String planid = planInfo.get_id();
+        LogTool.d(TAG, "planid:" + planid);
+        Bundle planBundle = new Bundle();
+        planBundle.putString(Global.PLAN_ID, planid);
+        startActivity(PreviewDesignerPlanActivity.class, planBundle);
     }
 
     @Override
