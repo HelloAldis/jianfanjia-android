@@ -27,6 +27,8 @@ public class RequirementInfo implements Serializable {
     private String dec_type;
     private String work_type;
     private String total_price;
+    private String final_planid;
+    private String final_designerid;
     private long create_at;
     private long last_status_update_time;
     private String family_description;
@@ -204,6 +206,22 @@ public class RequirementInfo implements Serializable {
 
     public void setCommunication_type(String communication_type) {
         this.communication_type = communication_type;
+    }
+
+    public String getFinal_designerid() {
+        return final_designerid;
+    }
+
+    public void setFinal_designerid(String final_designerid) {
+        this.final_designerid = final_designerid;
+    }
+
+    public String getFinal_planid() {
+        return final_planid;
+    }
+
+    public void setFinal_planid(String final_planid) {
+        this.final_planid = final_planid;
     }
 
     public String getCell_phase() {

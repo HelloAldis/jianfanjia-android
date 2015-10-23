@@ -26,7 +26,6 @@ public class DataManagerNew {
     public static final String FAILURE = "failure";
     private static DataManagerNew instance;
     private Context context;
-
     private SharedPrefer sharedPreferdata = null;
     private SharedPrefer sharedPreferuser = null;
     private List<Process> processLists;
@@ -73,14 +72,6 @@ public class DataManagerNew {
 
     public void setRequirementInfo(RequirementInfo requirementInfo) {
         this.requirementInfo = requirementInfo;
-    }
-
-    public String getTotalDuration() {
-        return totalDuration;
-    }
-
-    public void setTotalDuration(String totalDuration) {
-        this.totalDuration = totalDuration;
     }
 
     public OwnerInfo getOwnerInfoById(String ownerId) {
