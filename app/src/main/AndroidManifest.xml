@@ -251,9 +251,6 @@
             android:name=".ContractActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".DesignerPlanActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".MyFavoriteDesignerActivity_"
             android:screenOrientation="portrait" />
         <activity
