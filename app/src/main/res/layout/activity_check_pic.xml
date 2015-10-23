@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/checkLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/site_content_bg" >
+
+    <RelativeLayout
+        android:id="@+id/check_pic_head_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_48" >
+
+        <TextView
+            android:id="@+id/check_pic_back"
+            style="@style/site_listview_item_text_style_middle"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/space_8"
+            android:drawableLeft="@mipmap/icon_register_back"
+            android:drawablePadding="4dp"
+            android:text="@string/back"
+            android:textColor="@color/back_color" />
+
+        <TextView
+            android:id="@+id/check_pic_title"
+            style="@style/site_listview_item_text_style_title"
+            android:layout_centerInParent="true"
+            android:text="@string/check"
+            android:textColor="@color/main_color_black" />
+
+        <TextView
+            android:id="@+id/check_pic_edit"
+            style="@style/site_listview_item_text_style_middle"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/space_8"
+            android:padding="@dimen/space_8"
+            android:text="@string/edit"
+            android:textColor="@color/back_color" />
+
+        <View
+            style="@style/divier_line"
+            android:layout_alignParentBottom="true"
+            android:background="@color/horzontal_line_color" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/btn_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="10dip"
+        android:background="@drawable/btn_selector"
+        android:gravity="center"
+        android:text="@string/confirm_upload"
+        android:textColor="@color/font_white"
+        android:textSize="16sp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/btn_confirm"
+        android:layout_below="@id/check_pic_head_layout"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:id="@+id/text_title_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_8"
+                android:orientation="horizontal"
+                android:padding="@dimen/space_8"
+                android:weightSum="2" >
+
+                <TextView
+                    style="@style/site_listview_item_text_style_middle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:text="@string/show_pic"
+                    android:textColor="@color/main_color_black" />
+
+                <TextView
+                    style="@style/site_listview_item_text_style_middle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:text="@string/upload_pic"
+                    android:textColor="@color/main_color_black" />
+            </LinearLayout>
+
+            <com.jianfanjia.cn.view.MyGridView
+                android:id="@+id/mygridview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dip"
+                android:horizontalSpacing="10dp"
+                android:listSelector="@drawable/grid_item_selector"
+                android:numColumns="2"
+                android:scrollbars="none"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="10dp" />
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

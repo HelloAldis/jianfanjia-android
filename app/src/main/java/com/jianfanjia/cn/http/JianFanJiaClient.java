@@ -799,6 +799,7 @@ public class JianFanJiaClient {
         JSONObject jsonParams = new JSONObject();
         try {
             jsonParams.put("_id", designerid);
+            LogTool.d(TAG,"Add_Favorite_Designer_List --"  + "jsonParams:" + jsonParams.toString());
             OkHttpClientManager.getInstance().getPostDelegate().postAsyn(addFavoriteDesignerRequest, jsonParams.toString(), listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
