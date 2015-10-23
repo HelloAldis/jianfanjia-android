@@ -146,6 +146,7 @@ public class MyDesignerActivity extends BaseAnnotationActivity {
                         startActivity(PingjiaActivity.class, commentBundle);
                         break;
                     case VIEW_CONTRACT:
+                        startActivity(ContractActivity.class);
                         break;
                     case VIEW_PLAN:
                         Bundle viewPlan = new Bundle();
