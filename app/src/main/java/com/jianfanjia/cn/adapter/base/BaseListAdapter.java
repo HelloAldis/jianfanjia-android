@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.cache.DataManagerNew;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -25,12 +26,14 @@ public abstract class BaseListAdapter<T> extends BaseAdapter {
     protected List<T> list;
     protected ImageLoader imageLoader;
     protected DisplayImageOptions options;
+    protected DataManagerNew dataManager;
 
     public BaseListAdapter(Context context, List<T> list) {
         this.context = context;
         this.list = list;
         layoutInflater = LayoutInflater.from(context);
         imageLoader = ImageLoader.getInstance();
+        dataManager = DataManagerNew.getInstance();
         options = new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.mipmap.pix_default)
                 .showImageForEmptyUri(R.mipmap.pix_default)

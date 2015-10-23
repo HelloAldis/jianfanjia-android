@@ -65,7 +65,7 @@ public class DesignerCaseInfoActivity extends BaseActivity implements ApiUiUpdat
         //---------------------------------------------
         Intent intent = this.getIntent();
         Bundle productBundle = intent.getExtras();
-        productid = productBundle.getString(Global.DESIGNER_ID);
+        productid = productBundle.getString(Global.PRODUCT_ID);
         LogTool.d(TAG, " productid======" + productid);
         initDesignerCasesList();
     }

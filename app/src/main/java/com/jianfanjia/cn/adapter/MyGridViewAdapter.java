@@ -1,18 +1,20 @@
 package com.jianfanjia.cn.adapter;
 
-import java.util.List;
 import android.content.Context;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.base.BaseResponse;
+import com.jianfanjia.cn.adapter.base.BaseListAdapter;
 import com.jianfanjia.cn.bean.GridItem;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
 import com.jianfanjia.cn.interf.UploadListener;
+
+import java.util.List;
 
 public class MyGridViewAdapter extends BaseListAdapter<GridItem> {
 	private UploadListener listener;
@@ -137,15 +139,4 @@ public class MyGridViewAdapter extends BaseListAdapter<GridItem> {
 		public TextView name_tv = null;
 	}
 
-	@Override
-	public void loadSuccess(BaseResponse baseResponse) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void loadFailture() {
-		// TODO Auto-generated method stub
-
-	}
 }
