@@ -226,13 +226,12 @@ public class JianFanJiaClient {
 
 
     /**
-     *
      * @param context
      * @author zhanghao
      * @decription 业主配置工地
      */
     public static void post_Owner_Process(Context context,
-                                          String requirementid,String planid, ApiUiUpdateListener listener,Object tag) {
+                                          String requirementid, String planid, ApiUiUpdateListener listener, Object tag) {
         PostProcessRequest postProcessRequest = new PostProcessRequest(context);
         JSONObject jsonParams = new JSONObject();
         try {
@@ -770,7 +769,7 @@ public class JianFanJiaClient {
         JSONObject jsonParams = new JSONObject();
         try {
             jsonParams.put("_id", designerid);
-            LogTool.d(TAG,"Add_Favorite_Designer_List --"  + "jsonParams:" + jsonParams.toString());
+            LogTool.d(TAG, "Add_Favorite_Designer_List --" + "jsonParams:" + jsonParams.toString());
             OkHttpClientManager.getInstance().getPostDelegate().postAsyn(addFavoriteDesignerRequest, jsonParams.toString(), listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();

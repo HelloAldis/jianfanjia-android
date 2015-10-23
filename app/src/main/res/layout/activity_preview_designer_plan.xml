@@ -32,7 +32,8 @@
             android:layout_marginLeft="20dip"
             android:layout_marginRight="20dip"
             android:layout_marginTop="10dip"
-            android:text="清江山水" />
+            android:text="清江山水"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/houseType"
