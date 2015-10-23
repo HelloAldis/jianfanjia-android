@@ -72,10 +72,12 @@ public class Url_New {
     public static final String USER_CHOOSE_PLAN = HTTPROOT + "user/plan/final";
     //用户获取某个方案的信息
     public static final String ONE_PLAN_INFO = HTTPROOT + "one_plan";
-
     //用户获取合同
     public static final String ONE_CONTRACT = HTTPROOT + "one_contract";
-
+    //用户留言评论
+    public static final String ADD_COMMENT = HTTPROOT + "add_comment";
+    //用户获取留言评论并标记为已读
+    public static final String GET_COMMENT = HTTPROOT + "topic_comments";
     // 业主开启工地
     public static final String PROCESS = HTTPROOT + "user/process";
 
