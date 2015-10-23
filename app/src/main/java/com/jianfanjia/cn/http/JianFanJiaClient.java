@@ -38,6 +38,7 @@ import com.jianfanjia.cn.http.request.NotifyOwnerCheckRequest;
 import com.jianfanjia.cn.http.request.OrderDesignerByUserRequest;
 import com.jianfanjia.cn.http.request.OwnerFinishCheckRequest;
 import com.jianfanjia.cn.http.request.OwnerInfoRequest;
+import com.jianfanjia.cn.http.request.PostProcessRequest;
 import com.jianfanjia.cn.http.request.PostRequirementRequest;
 import com.jianfanjia.cn.http.request.PostRescheduleRequest;
 import com.jianfanjia.cn.http.request.PostSectionFinishRequest;
@@ -225,26 +226,25 @@ public class JianFanJiaClient {
     }
 
 
-   /* *//**
+    /**
+     *
      * @param context
-     * @param requirementInfo
-     * @param handler
      * @author zhanghao
      * @decription 业主配置工地
-     *//*
+     */
     public static void post_Owner_Process(Context context,
-                                          RequirementInfo requirementInfo, AsyncHttpResponseHandler handler) {
-        StringEntity entity;
+                                          String requirementid,String planid, ApiUiUpdateListener listener,Object tag) {
+        PostProcessRequest postProcessRequest = new PostProcessRequest(context);
+        JSONObject jsonParams = new JSONObject();
         try {
-            entity = new StringEntity(JsonParser.beanToJson(requirementInfo),
-                    "utf-8");
-            HttpRestClient.post(context, Url.PROCESS, entity,
-                    "application/json", handler);
-        } catch (UnsupportedEncodingException e) {
-            // TODO Auto-generated catch block
+            jsonParams.put("requirementid", requirementid);
+            jsonParams.put("planid", planid);
+            LogTool.d(TAG, "postProcessRequest --" + postProcessRequest.getUrl() + "---" + jsonParams.toString());
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(postProcessRequest, jsonParams.toString(), listener, tag);
+        } catch (JSONException e) {
             e.printStackTrace();
         }
-    }*/
+    }
 
     /**
      * 用户注册
@@ -277,7 +277,7 @@ public class JianFanJiaClient {
     }
 
     /**
-     * 拿到我的意向设计师
+     * 拿到我的意向设计师列表
      *
      * @param context
      * @param from
@@ -321,17 +321,6 @@ public class JianFanJiaClient {
         UserByDesignerInfoRequest userByOwnerInfoRequest = new UserByDesignerInfoRequest(context);
         OkHttpClientManager.getInstance().getGetDelegate().getAsyn(userByOwnerInfoRequest, listener, tag);
     }
-
-   /* *//**
-     * @param context
-     * @param hanlder
-     * @author zhanghao
-     * @description 设计师获取我的业主
-     *//*
-    public static void get_Designer_Owner(Context context,
-                                          AsyncHttpResponseHandler hanlder) {
-        HttpRestClient.get(context, Url.GET_DESIGNER_PROCESS, hanlder);
-    }*/
 
     /**
      * @param context
