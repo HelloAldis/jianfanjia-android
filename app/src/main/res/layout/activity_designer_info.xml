@@ -22,7 +22,7 @@
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
             app:expandedTitleGravity="center_horizontal"
-            app:expandedTitleMarginBottom="80dip"
+            app:expandedTitleMarginBottom="70dip"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <LinearLayout
@@ -38,7 +38,7 @@
                     android:layout_width="60dip"
                     android:layout_height="60dip"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="50dip"
+                    android:layout_marginTop="60dip"
                     android:scaleType="centerCrop"
                     android:src="@mipmap/pix_default" />
 
@@ -46,7 +46,7 @@
                     android:id="@+id/infoLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="40dip"
+                    android:layout_marginTop="30dip"
                     android:orientation="horizontal">
 
                     <LinearLayout
