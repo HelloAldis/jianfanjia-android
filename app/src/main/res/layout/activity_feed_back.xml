@@ -2,42 +2,19 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/site_content_bg" >
+    android:background="@color/site_content_bg">
 
-    <RelativeLayout
-        android:id="@+id/feedback_head_layout"
+    <com.jianfanjia.cn.view.MainHeadView
+        android:id="@+id/my_feedback_head_layout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/space_70"
-        android:background="@color/head_layout_bg" >
-
-        <TextView
-            android:id="@+id/feedback_back"
-            style="@style/listview_item_text_style_middle"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/space_8"
-            android:drawableLeft="@mipmap/icon_register_back"
-            android:drawablePadding="4dp"
-            android:text="@string/back"
-            android:textColor="@color/back_color" />
-
-        <TextView
-            android:id="@+id/feedback_title"
-            style="@style/listview_item_text_style_big"
-            android:layout_centerInParent="true"
-            android:text="@string/feedback"
-            android:textColor="@color/main_color_black" />
-
-        <View
-            style="@style/divier_line"
-            android:layout_alignParentBottom="true"
-            android:background="@color/horzontal_line_color" />
-    </RelativeLayout>
+        android:layout_height="wrap_content"
+        android:background="@color/head_layout_bg" />
 
     <EditText
         android:id="@+id/add_feedback"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/feedback_head_layout"
+        android:layout_below="@+id/my_feedback_head_layout"
         android:layout_marginLeft="@dimen/space_16"
         android:layout_marginRight="@dimen/space_16"
         android:layout_marginTop="@dimen/space_16"
@@ -46,9 +23,9 @@
         android:hint="@string/add_feedback"
         android:minLines="10"
         android:padding="@dimen/space_8"
+        android:textColor="@color/main_color_black"
         android:textColorHint="@color/horzontal_line_color"
-        android:textSize="@dimen/text_size_14"
-        android:textColor="@color/main_color_black" />
+        android:textSize="@dimen/text_size_14" />
 
     <Button
         android:id="@+id/btn_commit"
