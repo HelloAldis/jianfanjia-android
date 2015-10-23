@@ -10,21 +10,24 @@ import java.util.List;
  * Date:2015-10-20 09:49
  */
 public class PlanInfo implements Serializable {
-    private String userid;
     private String _id;
-    private String designerid;
-    private String requirementid;
-    private int duration;
-    private float total_price;
-    private List<PriceDetail> price_detail;
-    private String description;
-    private String manager;
-    private List<String> images;
-    private String status;
-    private long house_check_time;
-    private long request_date;
     private long last_status_update_time;
-    private List<CommentInfo> comments;
+    private long request_date;
+    private String designerid;
+    private String userid;
+    private String requirementid;
+    private int __v;
+    private long house_check_time;
+    private int project_price_after_discount;
+    private String manager;
+    private String description;
+    private float total_price;
+    private int duration;
+    private String status;
+    private List<String> images;
+    private List<PriceDetail> price_detail;
+    private Designer designer;
+    private int comment_count;
 
     public String getUserid() {
         return userid;
@@ -134,42 +137,40 @@ public class PlanInfo implements Serializable {
         this.last_status_update_time = last_status_update_time;
     }
 
-    public List<CommentInfo> getComments() {
-        return comments;
+    public int get__v() {
+        return __v;
     }
 
-    public void setComments(List<CommentInfo> comments) {
-        this.comments = comments;
+    public void set__v(int __v) {
+        this.__v = __v;
     }
 
-    public class PriceDetail {
-        private String item;
-        private float price;
-        private String description;
+    public int getProject_price_after_discount() {
+        return project_price_after_discount;
+    }
 
-        public String getItem() {
-            return item;
-        }
+    public void setProject_price_after_discount(int project_price_after_discount) {
+        this.project_price_after_discount = project_price_after_discount;
+    }
 
-        public void setItem(String item) {
-            this.item = item;
-        }
+    public float getTotal_price() {
+        return total_price;
+    }
 
-        public float getPrice() {
-            return price;
-        }
+    public Designer getDesigner() {
+        return designer;
+    }
 
-        public void setPrice(float price) {
-            this.price = price;
-        }
+    public void setDesigner(Designer designer) {
+        this.designer = designer;
+    }
 
-        public String getDescription() {
-            return description;
-        }
+    public int getComment_count() {
+        return comment_count;
+    }
 
-        public void setDescription(String description) {
-            this.description = description;
-        }
+    public void setComment_count(int comment_count) {
+        this.comment_count = comment_count;
     }
 
 

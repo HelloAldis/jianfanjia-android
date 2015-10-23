@@ -10,6 +10,7 @@ import java.io.Serializable;
  */
 public class Designer implements Serializable {
     private String _id;
+    private String phone;
     private String imageid;
     private String username;
 
@@ -35,5 +36,13 @@ public class Designer implements Serializable {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

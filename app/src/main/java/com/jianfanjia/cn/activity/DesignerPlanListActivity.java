@@ -1,12 +1,16 @@
 package com.jianfanjia.cn.activity;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ListView;
 
+import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.adapter.DesignerPlanAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.PlanInfo;
+import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.ItemClickListener;
@@ -14,8 +18,6 @@ import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -28,31 +30,22 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
     private static final String TAG = DesignerPlanListActivity.class.getName();
     private MainHeadView mainHeadView = null;
     private ListView designer_plan_listview = null;
-    private List<List<HashMap<String, Object>>> designerPlanList;
+    private List<PlanInfo> designerPlanList;
+    private String requirementid = null;
+    private String designerid = null;
 
     @Override
     public void initView() {
         initMainHeadView();
+        Intent intent = this.getIntent();
+        Bundle designerBundle = intent.getExtras();
+        requirementid = designerBundle.getString(Global.REQUIREMENT_ID);
+        designerid = designerBundle.getString(Global.DESIGNER_ID);
+        LogTool.d(TAG, "requirementid:" + requirementid + "  designerid:" + designerid);
         designer_plan_listview = (ListView) findViewById(R.id.designer_plan_listview);
-        initData();
-        DesignerPlanAdapter adapter = new DesignerPlanAdapter(this, designerPlanList, this);
-        designer_plan_listview.setAdapter(adapter);
+        getDesignerPlansList(requirementid, designerid);
     }
 
-    public void initData() {
-        designerPlanList = new ArrayList<List<HashMap<String, Object>>>();
-        HashMap<String, Object> hashMap = null;
-        List<HashMap<String, Object>> arrayListForEveryGridView;
-        for (int i = 0; i < 8; i++) {
-            arrayListForEveryGridView = new ArrayList<HashMap<String, Object>>();
-            for (int j = 0; j < 8; j++) {
-                hashMap = new HashMap<String, Object>();
-                hashMap.put("content", R.mipmap.ic_launcher);
-                arrayListForEveryGridView.add(hashMap);
-            }
-            designerPlanList.add(arrayListForEveryGridView);
-        }
-    }
 
     private void initMainHeadView() {
         mainHeadView = (MainHeadView) findViewById(R.id.my_plan_head_layout);
@@ -87,22 +80,26 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
 
     @Override
     public void preLoad() {
-
+        showWaitDialog(R.string.loading);
     }
 
     @Override
     public void loadSuccess(Object data) {
         LogTool.d(TAG, "data:" + data);
-        PlanInfo planInfo = JsonParser.jsonToBean(data.toString(), PlanInfo.class);
-        LogTool.d(TAG, "planInfo:" + planInfo);
-        if (null != planInfo) {
-
+        hideWaitDialog();
+        designerPlanList = JsonParser.jsonToList(data.toString(), new TypeToken<List<PlanInfo>>() {
+        }.getType());
+        LogTool.d(TAG, "designerPlanList:" + designerPlanList);
+        if (null != designerPlanList && designerPlanList.size() > 0) {
+            DesignerPlanAdapter adapter = new DesignerPlanAdapter(this, designerPlanList, this);
+            designer_plan_listview.setAdapter(adapter);
         }
     }
 
     @Override
     public void loadFailture(String error_msg) {
         makeTextLong(error_msg);
+        hideWaitDialog();
     }
 
     @Override

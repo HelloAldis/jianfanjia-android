@@ -1,6 +1,7 @@
 package com.jianfanjia.cn.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,9 +10,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -23,22 +26,39 @@ import java.util.List;
 public class PlanViewAdapter extends PagerAdapter {
     private static final String TAG = "PlanViewAdapter";
     private Context context;
-    private List<HashMap<String, Object>> mList;
+    private List<String> mList;
     private ViewPagerClickListener itemClickListener;
+    private ImageLoader imageLoader;
+    private DisplayImageOptions options;
 
-    public PlanViewAdapter(Context context, List<HashMap<String, Object>> mList) {
+
+    public PlanViewAdapter(Context context, List<String> mList) {
         this.context = context;
         this.mList = mList;
+        imageLoader = ImageLoader.getInstance();
+        options = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.mipmap.pix_default)
+                .showImageForEmptyUri(R.mipmap.pix_default)
+                .showImageOnFail(R.mipmap.pix_default).cacheInMemory(true)
+                .cacheOnDisk(true).considerExifParams(true)
+                .bitmapConfig(Bitmap.Config.RGB_565).build();
     }
 
-    public PlanViewAdapter(Context context, List<HashMap<String, Object>> mList, ViewPagerClickListener itemClickListener) {
+    public PlanViewAdapter(Context context, List<String> mList, ViewPagerClickListener itemClickListener) {
         this.context = context;
         this.mList = mList;
         this.itemClickListener = itemClickListener;
+        imageLoader = ImageLoader.getInstance();
+        options = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.mipmap.pix_default)
+                .showImageForEmptyUri(R.mipmap.pix_default)
+                .showImageOnFail(R.mipmap.pix_default).cacheInMemory(true)
+                .cacheOnDisk(true).considerExifParams(true)
+                .bitmapConfig(Bitmap.Config.RGB_565).build();
     }
 
 
-    public List<HashMap<String, Object>> getList() {
+    public List<String> getList() {
         return mList;
     }
 
@@ -68,8 +88,8 @@ public class PlanViewAdapter extends PagerAdapter {
                 R.layout.list_item_plan_view_item, container, false);
         ImageView imageView = (ImageView) view
                 .findViewById(R.id.list_item_plan_img);
-        HashMap<String, Object> hashMap = this.mList.get(position);
-        imageView.setImageResource((int) hashMap.get("content"));
+        String imgid = mList.get(position);
+        imageLoader.displayImage(Url_New.GET_IMAGE + imgid, imageView, options);
         container.addView(view, 0);
         view.setOnClickListener(new OnClickListener() {
 
@@ -83,6 +103,6 @@ public class PlanViewAdapter extends PagerAdapter {
 
     @Override
     public float getPageWidth(int position) {
-        return 0.29f;
+        return 0.5f;
     }
 }
