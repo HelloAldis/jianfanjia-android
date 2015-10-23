@@ -10,6 +10,7 @@ import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.adapter.DesignerPlanAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.PlanInfo;
+import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
@@ -109,14 +110,24 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
     }
 
     @Override
-    public void onCallBack(int position) {
-        PlanInfo planInfo = designerPlanList.get(position);
-        LogTool.d(TAG, "planInfo:" + planInfo);
-        String planid = planInfo.get_id();
-        LogTool.d(TAG, "planid:" + planid);
-        Bundle planBundle = new Bundle();
-        planBundle.putString(Global.PLAN_ID, planid);
-        startActivity(PreviewDesignerPlanActivity.class, planBundle);
+    public void onItemCallBack(int position, int itemType) {
+        LogTool.d(TAG, "itemType:" + itemType);
+        switch (itemType) {
+            case Constant.PLAN_COMMENT_ITEM:
+                startActivity(CommentActivity.class);
+                break;
+            case Constant.PLAN_PREVIEW_ITEM:
+                PlanInfo planInfo = designerPlanList.get(position);
+                LogTool.d(TAG, "planInfo:" + planInfo);
+                String planid = planInfo.get_id();
+                LogTool.d(TAG, "planid:" + planid);
+                Bundle planBundle = new Bundle();
+                planBundle.putString(Global.PLAN_ID, planid);
+                startActivity(PreviewDesignerPlanActivity.class, planBundle);
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
