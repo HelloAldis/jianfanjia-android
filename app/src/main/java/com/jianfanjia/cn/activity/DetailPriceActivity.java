@@ -47,12 +47,10 @@ public class DetailPriceActivity extends BaseActivity implements OnClickListener
     private void initMainHeadView() {
         mainHeadView = (MainHeadView) findViewById(R.id.my_price_head_layout);
         mainHeadView.setBackListener(this);
-        mainHeadView.setRightTextListener(this);
         mainHeadView
                 .setMianTitle(getResources().getString(R.string.str_view_price));
-        mainHeadView.setRightTitle(getResources().getString(R.string.okText));
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
-        mainHeadView.setRightTitleVisable(View.VISIBLE);
+        mainHeadView.setRightTitleVisable(View.GONE);
         mainHeadView.setBackLayoutVisable(View.VISIBLE);
     }
 
@@ -66,9 +64,6 @@ public class DetailPriceActivity extends BaseActivity implements OnClickListener
         switch (v.getId()) {
             case R.id.head_back_layout:
                 finish();
-                break;
-            case R.id.head_right_title:
-                makeTextLong("确定");
                 break;
             default:
                 break;
