@@ -48,7 +48,6 @@ import com.jianfanjia.cn.http.request.RefuseRescheduleRequest;
 import com.jianfanjia.cn.http.request.RegisterRequest;
 import com.jianfanjia.cn.http.request.SearchDesignerProductRequest;
 import com.jianfanjia.cn.http.request.SendVerificationRequest;
-import com.jianfanjia.cn.http.request.TotalDurationRequest;
 import com.jianfanjia.cn.http.request.UpdateRequirementRequest;
 import com.jianfanjia.cn.http.request.UploadPicRequestNew;
 import com.jianfanjia.cn.http.request.UploadRegisterIdRequest;
@@ -227,13 +226,12 @@ public class JianFanJiaClient {
 
 
     /**
-     *
      * @param context
      * @author zhanghao
      * @decription 业主配置工地
      */
     public static void post_Owner_Process(Context context,
-                                          String requirementid,String planid, ApiUiUpdateListener listener,Object tag) {
+                                          String requirementid, String planid, ApiUiUpdateListener listener, Object tag) {
         PostProcessRequest postProcessRequest = new PostProcessRequest(context);
         JSONObject jsonParams = new JSONObject();
         try {
@@ -691,22 +689,6 @@ public class JianFanJiaClient {
         }
     }
 
-    /**
-     * 获得总的工期
-     *
-     * @param context
-     * @param planId
-     * @param listener
-     * @param tag
-     */
-    public static void get_TotalDuration(Context context, String planId,
-                                         ApiUiUpdateListener listener, Object tag) {
-        TotalDurationRequest totalDurationRequest = new TotalDurationRequest(context);
-        String getTotalDurationUrl = Url.GET_PLAN.replace(Url.ID, planId);
-        totalDurationRequest.setUrl(getTotalDurationUrl);
-        LogTool.d(TAG, "get_TotalDuration -" + totalDurationRequest.getUrl());
-        OkHttpClientManager.getInstance().getGetDelegate().getAsyn(totalDurationRequest, listener, tag);
-    }
 
     /**
      * 获取首页数据
@@ -788,7 +770,7 @@ public class JianFanJiaClient {
         JSONObject jsonParams = new JSONObject();
         try {
             jsonParams.put("_id", designerid);
-            LogTool.d(TAG,"Add_Favorite_Designer_List --"  + "jsonParams:" + jsonParams.toString());
+            LogTool.d(TAG, "Add_Favorite_Designer_List --" + "jsonParams:" + jsonParams.toString());
             OkHttpClientManager.getInstance().getPostDelegate().postAsyn(addFavoriteDesignerRequest, jsonParams.toString(), listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
