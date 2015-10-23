@@ -15,6 +15,7 @@ public class Global {
     public static final String DESIGNER_ID = "designer_id";
     public static final String PRODUCT_ID = "product_id";
     public static final String EVALUATION = "evaluation";
+    public static final String PLAN_ID = "plan_id";
 
     public static final String PLAN_STATUS0 = "0";//已预约但没有响应
     public static final String PLAN_STATUS1 = "1";//已拒绝业主
