@@ -25,6 +25,7 @@ import com.jianfanjia.cn.http.request.EvaluateDesignerRequest;
 import com.jianfanjia.cn.http.request.FavoriteDesignerListRequest;
 import com.jianfanjia.cn.http.request.FeedBackRequest;
 import com.jianfanjia.cn.http.request.GetAllRescheduleRequest;
+import com.jianfanjia.cn.http.request.GetCommentsRequest;
 import com.jianfanjia.cn.http.request.GetContractRequest;
 import com.jianfanjia.cn.http.request.GetDesignerPlansByUserRequest;
 import com.jianfanjia.cn.http.request.GetOrderDesignerListByUserRequest;
@@ -1015,6 +1016,29 @@ public class JianFanJiaClient {
             jsonParams.put("content", content);
             jsonParams.put("to", to);
             OkHttpClientManager.getInstance().getPostDelegate().postAsyn(addCommentRequest, jsonParams.toString(), listener, tag);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 用户获取留言评论并标记为已读
+     *
+     * @param context
+     * @param topicid
+     * @param from
+     * @param limit
+     * @param listener
+     * @param tag
+     */
+    public static void getCommentList(Context context, String topicid, int from, int limit, ApiUiUpdateListener listener, Object tag) {
+        GetCommentsRequest getCommentsRequest = new GetCommentsRequest(context, topicid, from, limit);
+        JSONObject jsonParams = new JSONObject();
+        try {
+            jsonParams.put("topicid", topicid);
+            jsonParams.put("from", from);
+            jsonParams.put("limit", limit);
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(getCommentsRequest, jsonParams.toString(), listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
         }
