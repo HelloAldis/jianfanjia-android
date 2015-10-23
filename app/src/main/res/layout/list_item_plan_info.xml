@@ -12,12 +12,14 @@
         android:layout_margin="10dip">
 
         <TextView
+            android:id="@+id/cellText"
             style="@style/site_listview_item_text_style_middle"
             android:layout_centerVertical="true"
             android:text="中建康城东区"
             android:textColor="#000000" />
 
         <TextView
+            android:id="@+id/statusText"
             style="@style/site_listview_item_text_style_middle"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
@@ -25,11 +27,17 @@
             android:textColor="#000000" />
     </RelativeLayout>
 
-
-    <com.jianfanjia.cn.view.MyViewPager
-        android:id="@+id/viewpager"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="150dip" />
+        android:layout_height="150dp">
+
+        <com.jianfanjia.cn.view.MyViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        />
+    </FrameLayout>
+
 
     <RelativeLayout
         android:layout_width="match_parent"
