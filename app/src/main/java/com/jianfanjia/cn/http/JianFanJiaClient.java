@@ -9,6 +9,7 @@ import com.jianfanjia.cn.bean.OwnerUpdateInfo;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Url;
+import com.jianfanjia.cn.http.request.AddCommentRequest;
 import com.jianfanjia.cn.http.request.AddFavoriteDesignerRequest;
 import com.jianfanjia.cn.http.request.AddPicToCheckRequest;
 import com.jianfanjia.cn.http.request.AddPicToSectionItemRequest;
@@ -989,6 +990,31 @@ public class JianFanJiaClient {
         try {
             jsonParams.put("requirementid", requirementid);
             OkHttpClientManager.getInstance().getPostDelegate().postAsyn(getContractRequest, jsonParams.toString(), listener, tag);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 用户添加评论留言
+     *
+     * @param context
+     * @param topicid
+     * @param topictype
+     * @param content
+     * @param to
+     * @param listener
+     * @param tag
+     */
+    public static void addComment(Context context, String topicid, String topictype, String content, String to, ApiUiUpdateListener listener, Object tag) {
+        AddCommentRequest addCommentRequest = new AddCommentRequest(context, topicid, topictype, content, to);
+        JSONObject jsonParams = new JSONObject();
+        try {
+            jsonParams.put("topicid", topicid);
+            jsonParams.put("topictype", topictype);
+            jsonParams.put("content", content);
+            jsonParams.put("to", to);
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(addCommentRequest, jsonParams.toString(), listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
         }
