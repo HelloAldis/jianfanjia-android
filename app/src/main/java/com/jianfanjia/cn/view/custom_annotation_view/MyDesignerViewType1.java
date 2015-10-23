@@ -69,6 +69,8 @@ public class MyDesignerViewType1 extends RelativeLayout {
         }else{
             nameView.setText(getResources().getString(R.string.designer));
         }
+        button1.setEnabled(true);
+        button2.setEnabled(true);
         switch (status){
             case Global.PLAN_STATUS1:
                 button1.setVisibility(View.GONE);

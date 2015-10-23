@@ -219,9 +219,9 @@
 
     <!-- 性别 -->
     <string-array name="arr_desisex">
-        <item>不限</item>
         <item>男</item>
         <item>女</item>
+        <item>不限</item>
     </string-array>
 
     <!-- 偏好设计师 -->

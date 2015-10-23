@@ -274,7 +274,7 @@ public class EditRequirementActivity extends BaseAnnotationActivity {
                 setResult(RESULT_OK);
                 finish();
             }
-        }, 5000);
+        }, 2000);
     }
 
     private void showSuccessDialog() {
@@ -314,14 +314,14 @@ public class EditRequirementActivity extends BaseAnnotationActivity {
             act_edit_req_danyuan_content.setText(requirementInfo.getCell_unit());
             act_edit_req_dong_content.setText(requirementInfo.getCell_building());
             act_edit_req_shi_content.setText(requirementInfo.getCell_detail_number());
-//            act_edit_req_decoratetype_content.setText(arr_decstyle[Integer.parseInt(requirementInfo.getDec_type())]);
+            act_edit_req_decoratetype_content.setText(arr_decstyle[Integer.parseInt(requirementInfo.getDec_type())]);
             act_edit_req_housearea_content.setText(requirementInfo.getHouse_area());
             act_edit_req_housetype_content.setText(arr_housetype[Integer.parseInt(requirementInfo.getHouse_type())]);
             act_edit_req_decoratebudget_content.setText(requirementInfo.getTotal_price());
             act_edit_req_persons_content.setText(requirementInfo.getFamily_description());
             act_edit_req_lovestyle_content.setText(arr_lovestyle[Integer.parseInt(requirementInfo.getDec_style())]);
             act_edit_req_lovedesistyle_content.setText(arr_love_designerstyle[Integer.parseInt(requirementInfo.getCommunication_type())]);
-//            act_edit_req_lovedesisex_content.setText(arr_desisex[Integer.parseInt(requirementInfo.getSex())]);
+            act_edit_req_lovedesisex_content.setText(arr_desisex[Integer.parseInt(requirementInfo.getPrefer_sex())]);
             act_edit_req_work_type_content.setText(arr_worktype[Integer.parseInt(requirementInfo.getWork_type())]);
             initItem();
             requestCode = XuQiuFragment.REQUESTCODE_EDIT_REQUIREMENT;
@@ -340,7 +340,6 @@ public class EditRequirementActivity extends BaseAnnotationActivity {
         }
         if (data != null) {
             ReqItemFinderImp.ItemMap itemMap = (ReqItemFinderImp.ItemMap) data.getSerializableExtra(RESPONDE_DATA);
-            makeTextLong(itemMap.key);
             switch (requestCode) {
                 case REQUIRECODE_CITY:
                     act_edit_req_city_content.setText(itemMap.value);
@@ -365,7 +364,7 @@ public class EditRequirementActivity extends BaseAnnotationActivity {
                 case REQUIRECODE_DECORATETYPE:
                     act_edit_req_decoratetype_content.setText(itemMap.value);
                     addItem("item13");
-                    requirementInfo.setWork_type(itemMap.key);
+                    requirementInfo.setDec_type(itemMap.key);
                     break;
                 case REQUIRECODE_HOUSETYPE:
                     act_edit_req_housetype_content.setText(itemMap.value);
@@ -380,7 +379,8 @@ public class EditRequirementActivity extends BaseAnnotationActivity {
                 case REQUIRECODE_DESISEX:
                     act_edit_req_lovedesisex_content.setText(itemMap.value);
                     addItem("item16");
-                    requirementInfo.setSex(itemMap.key);
+                    makeTextLong(itemMap.key);
+                    requirementInfo.setPrefer_sex(itemMap.key);
                     break;
             }
         }

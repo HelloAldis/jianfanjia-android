@@ -39,7 +39,7 @@ public class RequirementInfo implements Serializable {
     private List<String> rec_designerids;
     private List<OrderDesignerInfo> rec_designers;//匹配的设计师
     private List<OrderDesignerInfo> order_designers;//预约的设计师
-    private String sex;
+    private String prefer_sex;
 
     public String get_id() {
         return _id;
@@ -184,13 +184,12 @@ public class RequirementInfo implements Serializable {
         this.family_description = family_description;
     }
 
-    public String getSex() {
-        return sex;
+    public String getPrefer_sex() {
+        return prefer_sex;
     }
 
-    public void setSex(String sex) {
-
-        this.sex = sex;
+    public void setPrefer_sex(String prefer_sex) {
+        this.prefer_sex = prefer_sex;
     }
 
     public String getStatus() {

@@ -80,7 +80,7 @@ public class MyDesignerViewType2 extends RelativeLayout {
 
         switch (status) {
             case Global.PLAN_STATUS2:
-                if (Calendar.getInstance().getTimeInMillis() - housechecktime > Constant.CONFIRM_HOUSE_EXPIRE) {
+                if (Calendar.getInstance().getTimeInMillis() >  Constant.CONFIRM_HOUSE_EXPIRE) {
                     textView1.setVisibility(View.GONE);
                     textView2.setVisibility(View.GONE);
                     button3.setVisibility(View.VISIBLE);

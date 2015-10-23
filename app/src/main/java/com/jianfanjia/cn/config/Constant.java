@@ -168,7 +168,6 @@ public class Constant {
     public static final String AN_ZHUANG = "an_zhuang";
     public static final String JUN_GONG = "jun_gong";
 
-    public static final String REQUIREMENT_POST_PROCESS = "5";//需求配置了工地
     public static final int REC_DESIGNER_TOTAL = 3;//推荐设计师总数
     public static final int ROST_REQUIREMTNE_TOTAL = 3;//能够发布需求总数
 
