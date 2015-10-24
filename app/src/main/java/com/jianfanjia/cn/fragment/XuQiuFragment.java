@@ -106,7 +106,7 @@ public class XuQiuFragment extends BaseAnnotationFragment {
     }
 
     protected void initListView() {
-        final LinearLayoutManager mLayoutManager =  new LinearLayoutManager(getActivity());
+        final LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         // 创建一个线性布局管理器
         req_listView.setLayoutManager(mLayoutManager);
         req_listView.setItemAnimator(new FadeInUpAnimator(new DecelerateInterpolator(0.5F)));
@@ -139,7 +139,6 @@ public class XuQiuFragment extends BaseAnnotationFragment {
 
     @Click({R.id.req_publish, R.id.head_right_title})
     protected void publish_requirement() {
-        makeTextLong("发布需求");
         Intent intent = new Intent(getActivity(), EditRequirementActivity_.class);
         startActivityForResult(intent, REQUESTCODE_PUBLISH_REQUIREMENT);
 //        requirementAdapter.remove(3);
@@ -218,7 +217,8 @@ public class XuQiuFragment extends BaseAnnotationFragment {
             case REQUESTCODE_PUBLISH_REQUIREMENT:
                 initdata();
                 break;
-
+            default:
+                break;
         }
     }
 }

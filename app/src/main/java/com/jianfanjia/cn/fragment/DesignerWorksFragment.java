@@ -10,11 +10,10 @@ import com.jianfanjia.cn.activity.DesignerCaseInfoActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.DesignerWorksAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
-import com.jianfanjia.cn.bean.DesignerInfo;
 import com.jianfanjia.cn.bean.DesignerWorksInfo;
 import com.jianfanjia.cn.bean.Product;
+import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
-import com.jianfanjia.cn.interf.ActivityToFragmentInterface;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
@@ -28,41 +27,25 @@ import java.util.List;
  * @Description: 设计师作品
  * @date 2015-8-26 下午1:07:52
  */
-public class DesignerWorksFragment extends BaseFragment implements OnItemClickListener, ApiUiUpdateListener, ActivityToFragmentInterface {
+public class DesignerWorksFragment extends BaseFragment implements OnItemClickListener, ApiUiUpdateListener {
     private static final String TAG = DesignerWorksFragment.class.getName();
     private ListView designer_works_listview = null;
     private DesignerWorksAdapter adapter = null;
     private List<Product> productList = new ArrayList<Product>();
 
+    private String designerid = null;
+
     @Override
     public void initView(View view) {
+        Bundle bundle = getArguments();
+        designerid = bundle.getString(Global.DESIGNER_ID);
+        LogTool.d(TAG, "designerid-----------------------" + designerid);
         designer_works_listview = (ListView) view.findViewById(R.id.designer_works_listview);
         designer_works_listview.setFocusable(false);
-        initDesignerWorksList();
-    }
 
-    private void initDesignerWorksList() {
-//        for (int i = 0; i < 5; i++) {
-//            DesignerWorksInfo info = new DesignerWorksInfo();
-//            info.setXiaoquName("小区名称" + 1);
-//            info.setProduce("100平米,三室二厅,现代简约");
-//            designerWorksList.add(info);
-//        }
-//        adapter = new DesignerWorksAdapter(getActivity(), designerWorksList);
-//        designer_works_listview.setAdapter(adapter);
-
-        getDesignerProduct("55ebfc02d6e8f37706e4f1b7", 0, 5);
-    }
-
-    private void getDesignerProduct(String designerid, int from, int limit) {
-        JianFanJiaClient.getDesignerProduct(getActivity(), designerid, from, limit, this, this);
-    }
-
-    @Override
-    public void toTransmit(DesignerInfo designerInfo) {
-        String designerid = designerInfo.get_id();
         getDesignerProduct(designerid, 0, 5);
     }
+
 
     @Override
     public void setListener() {
@@ -77,6 +60,10 @@ public class DesignerWorksFragment extends BaseFragment implements OnItemClickLi
         Bundle productBundle = new Bundle();
         productBundle.putString("productId", productid);
         startActivity(DesignerCaseInfoActivity.class, productBundle);
+    }
+
+    private void getDesignerProduct(String designerid, int from, int limit) {
+        JianFanJiaClient.getDesignerProduct(getActivity(), designerid, from, limit, this, this);
     }
 
     @Override
