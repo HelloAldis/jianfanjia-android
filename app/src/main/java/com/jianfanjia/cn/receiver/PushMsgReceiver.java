@@ -30,6 +30,7 @@ import com.jianfanjia.cn.interf.manager.ListenerManeger;
 import com.jianfanjia.cn.tools.DaoManager;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.tools.SystemUtils;
 
 /**
  * Description:推送消息监听广播
@@ -102,6 +103,28 @@ public class PushMsgReceiver extends BroadcastReceiver {
             NotifyMessage message = JsonParser.jsonToBean(jsonStr,
                     NotifyMessage.class);
             Log.i(TAG, "message:" + message);
+            notifyMessageDao.save(message);
+            if (SystemUtils.isAppAlive(context, context.getPackageName())) {
+                LogTool.d(TAG, "the app process is alive");
+                sendNotifycation(context, message);
+//                ReceiveMsgListener listener = listenerManeger
+//                        .getReceiveMsgListener(message);
+//                Log.i(TAG, "listener:" + listener);
+//                if (null != listener) {
+//                    if (listener instanceof NotifyActivity) {
+//                        listener.onReceive(message);
+//                    }
+//                } else {
+//                    sendNotifycation(context, message);
+//                }
+            } else {
+                LogTool.d(TAG, "the app process is dead");
+                Intent launchIntent = context.getPackageManager()
+                        .getLaunchIntentForPackage(context.getPackageName());
+                launchIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                        | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+                Bundle args = new Bundle();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -122,12 +145,12 @@ public class PushMsgReceiver extends BroadcastReceiver {
 
             @Override
             public void loadSuccess(Object data) {
-                LogTool.d(TAG, "baseResponse:" + data.toString());
+                LogTool.d(TAG, "data:" + data.toString());
             }
 
             @Override
             public void loadFailture(String error_msg) {
-
+                LogTool.d(TAG, "error_msg:" + error_msg);
             }
         }, this);
     }
