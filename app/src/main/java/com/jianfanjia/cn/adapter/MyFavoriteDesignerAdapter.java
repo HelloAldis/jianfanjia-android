@@ -22,30 +22,28 @@ import java.util.List;
  * Date:2015-10-16 10:00
  */
 @EBean
-public class MyFavoriteDesignerAdapter extends BaseAdapter{
+public class MyFavoriteDesignerAdapter extends BaseAdapter {
 
     List<DesignerInfo> designerInfos = new ArrayList<>();
 
     @RootContext
     Context context;
 
-    private void addItem(DesignerInfo designerInfo){
+    private void addItem(DesignerInfo designerInfo) {
         designerInfos.add(designerInfo);
     }
 
-    public void addItems(List<DesignerInfo> designers){
+    public void addItems(List<DesignerInfo> designers) {
         designerInfos.clear();
-        for(DesignerInfo designerInfo :designers){
+        for (DesignerInfo designerInfo : designers) {
             addItem(designerInfo);
         }
         notifyDataSetChanged();
     }
 
 
-
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
         MyFavoriteDesignerView myFavoriteDesignerView;
         if (convertView == null) {
             myFavoriteDesignerView = MyFavoriteDesignerView_.build(context);

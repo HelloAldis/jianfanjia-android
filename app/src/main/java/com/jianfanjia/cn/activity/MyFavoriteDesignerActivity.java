@@ -29,7 +29,7 @@ import java.util.List;
  * Date:2015-10-21 10:22
  */
 @EActivity
-public class MyFavoriteDesignerActivity extends BaseActivity{
+public class MyFavoriteDesignerActivity extends BaseActivity {
 
     @ViewById(R.id.act_my_favorite_designer_head_layout)
     MainHeadView mainHeadView;
@@ -43,40 +43,38 @@ public class MyFavoriteDesignerActivity extends BaseActivity{
     MyFavoriteDesignerAdapter myFavoriteDesignerAdapter;
 
     @AfterViews
-    protected void init(){
+    protected void init() {
         mainHeadView.setMianTitle("我的意向设计师");
-
         listview.setAdapter(myFavoriteDesignerAdapter);
-
         initData();
     }
 
-    protected void initData(){
+    protected void initData() {
         JianFanJiaClient.get_MyFavoriteDesignerList(this, "0", "10000", this, this);
     }
 
     @Click(R.id.head_back)
-    protected void back(){
+    protected void back() {
         finish();
     }
 
     @ItemClick(R.id.act_my_favorite_designer_listview)
-    protected void clickItem(DesignerInfo designerInfo){
+    protected void clickItem(DesignerInfo designerInfo) {
         Bundle designerBundle = new Bundle();
         designerBundle.putString(Global.DESIGNER_ID, designerInfo.get_id());
         LogTool.d(this.getClass().getName(), designerInfo.get_id());
-        startActivity(DesignerInfoActivity.class,designerBundle);
+        startActivity(DesignerInfoActivity.class, designerBundle);
     }
 
     @Override
     public void loadSuccess(Object data) {
         super.loadSuccess(data);
-        if(data != null){
-            MyFavoriteDesigner myFavoriteDesigner = JsonParser.jsonToBean(data.toString(),MyFavoriteDesigner.class);
-            if(myFavoriteDesigner != null){
-                if(myFavoriteDesigner.getDesigners().size() > 0 ){
+        if (data != null) {
+            MyFavoriteDesigner myFavoriteDesigner = JsonParser.jsonToBean(data.toString(), MyFavoriteDesigner.class);
+            if (myFavoriteDesigner != null) {
+                if (myFavoriteDesigner.getDesigners().size() > 0) {
                     myFavoriteDesignerAdapter.addItems(myFavoriteDesigner.getDesigners());
-                }else{
+                } else {
 
                 }
             }
