@@ -144,11 +144,10 @@ public class HomeFragment extends BaseFragment implements
 
     @Override
     public void loadSuccess(Object data) {
-        LogTool.d(TAG, "data=============================" + data);
+        LogTool.d(TAG, "data:" + data);
         hideWaitDialog();
         mPullRefreshScrollView.onRefreshComplete();
         parseResponse(data.toString());
-        designerAdapter.notifyDataSetChanged();
     }
 
     private void parseResponse(String response) {
