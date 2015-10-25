@@ -78,7 +78,7 @@ public class Url_New {
     public static final String ADD_COMMENT = HTTPROOT + "add_comment";
     //用户获取留言评论并标记为已读
     public static final String GET_COMMENT = HTTPROOT + "topic_comments";
-    // 业主开启工地
+    // 业主提交装修流程 业主开启工地
     public static final String PROCESS = HTTPROOT + "user/process";
 
     // 获取业主的设计师

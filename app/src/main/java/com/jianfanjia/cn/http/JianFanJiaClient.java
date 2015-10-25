@@ -230,16 +230,15 @@ public class JianFanJiaClient {
     /**
      * @param context
      * @author zhanghao
-     * @decription 业主配置工地
+     * @decription 业主提交装修流程 配置工地
      */
     public static void post_Owner_Process(Context context,
-                                          String requirementid, String planid, ApiUiUpdateListener listener, Object tag) {
-        PostProcessRequest postProcessRequest = new PostProcessRequest(context);
+                                          String requirementid, String final_planid, ApiUiUpdateListener listener, Object tag) {
+        PostProcessRequest postProcessRequest = new PostProcessRequest(context, requirementid, final_planid);
         JSONObject jsonParams = new JSONObject();
         try {
             jsonParams.put("requirementid", requirementid);
-            jsonParams.put("planid", planid);
-            LogTool.d(TAG, "postProcessRequest --" + postProcessRequest.getUrl() + "---" + jsonParams.toString());
+            jsonParams.put("final_planid", final_planid);
             OkHttpClientManager.getInstance().getPostDelegate().postAsyn(postProcessRequest, jsonParams.toString(), listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
