@@ -39,7 +39,7 @@ public class DesignerWorksFragment extends BaseFragment implements OnItemClickLi
     public void initView(View view) {
         Bundle bundle = getArguments();
         designerid = bundle.getString(Global.DESIGNER_ID);
-        LogTool.d(TAG, "designerid-----------------------" + designerid);
+        LogTool.d(TAG, "designerid:" + designerid);
         designer_works_listview = (ListView) view.findViewById(R.id.designer_works_listview);
         designer_works_listview.setFocusable(false);
 

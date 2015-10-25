@@ -39,7 +39,7 @@ public class DesignerInfoFragment extends BaseFragment implements ApiUiUpdateLis
     public void initView(View view) {
         Bundle bundle = getArguments();
         designerid = bundle.getString(Global.DESIGNER_ID);
-        LogTool.d(TAG, "designerid===============================" + designerid);
+        LogTool.d(TAG, "designerid=" + designerid);
         jiandanType = (TextView) view.findViewById(R.id.jiandanType);
         jiandanHouseType = (TextView) view.findViewById(R.id.jiandanHouseType);
         jiandanDistrict = (TextView) view.findViewById(R.id.jiandanDistrict);
