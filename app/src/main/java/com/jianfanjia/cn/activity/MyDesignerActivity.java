@@ -122,7 +122,6 @@ public class MyDesignerActivity extends BaseAnnotationActivity {
     }
 
     public void initRecycleView() {
-
         final LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         // 创建一个线性布局管理器
         recyclerView.setLayoutManager(mLayoutManager);
@@ -146,7 +145,9 @@ public class MyDesignerActivity extends BaseAnnotationActivity {
                         startActivity(PingjiaActivity.class, commentBundle);
                         break;
                     case VIEW_CONTRACT:
-                        startActivity(ContractActivity.class);
+                        Bundle contractBundle = new Bundle();
+                        contractBundle.putString(Global.REQUIREMENT_ID, requirementid);
+                        startActivity(ContractActivity.class, contractBundle);
                         break;
                     case VIEW_PLAN:
                         Bundle viewPlan = new Bundle();
@@ -178,6 +179,8 @@ public class MyDesignerActivity extends BaseAnnotationActivity {
                                 hideWaitDialog();
                             }
                         }, MyDesignerActivity.this);
+                        break;
+                    default:
                         break;
                 }
             }
