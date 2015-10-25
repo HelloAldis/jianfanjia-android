@@ -58,7 +58,7 @@ public class DesignerWorksFragment extends BaseFragment implements OnItemClickLi
         String productid = product.get_id();
         LogTool.d(TAG, "productid:" + productid);
         Bundle productBundle = new Bundle();
-        productBundle.putString("productId", productid);
+        productBundle.putString(Global.PRODUCT_ID, productid);
         startActivity(DesignerCaseInfoActivity.class, productBundle);
     }
 
