@@ -176,8 +176,6 @@ public class HomeFragment extends BaseFragment implements
             designerList.addAll(homeDesignersInfo.getDesigners());
             LogTool.d(TAG, "designerList:" + designerList.size());
             designerAdapter.notifyDataSetChanged();
-        } else {
-
         }
     }
 
