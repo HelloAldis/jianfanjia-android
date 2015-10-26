@@ -1,20 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="100dip"
+    android:layout_height="150dip"
     android:background="@color/font_white"
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/home_item_tip_text"
         style="@style/listview_item_text_style_middle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/space_10"
-        android:text="@string/str_no_marched_tip"
+        android:text="@string/str_no_marched_tip_1"
         android:textColor="@color/main_color_black" />
 
+    <TextView
+        style="@style/listview_item_text_style_middle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/space_10"
+        android:text="@string/str_no_marched_tip_2"
+        android:textColor="@color/main_color_black" />
+
+    <TextView
+        style="@style/listview_item_text_style_middle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/space_10"
+        android:text="@string/str_no_marched_tip_3"
+        android:textColor="@color/main_color_black" />
 
     <Button
         android:id="@+id/btn_add"
