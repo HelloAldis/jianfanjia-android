@@ -1,12 +1,11 @@
 package com.jianfanjia.cn.activity;
 
-import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.LogTool;
@@ -21,6 +20,7 @@ import com.jianfanjia.cn.view.MainHeadView;
 public class ContractActivity extends BaseActivity implements OnClickListener {
     private static final String TAG = ContractActivity.class.getName();
     private MainHeadView mainHeadView = null;
+    private WebView webView = null;
 
     private String requirementid = null;
     private String final_planid = null;
@@ -29,11 +29,21 @@ public class ContractActivity extends BaseActivity implements OnClickListener {
     @Override
     public void initView() {
         initMainHeadView();
-        Intent intent = this.getIntent();
-        Bundle contractBundle = intent.getExtras();
-        requirementid = contractBundle.getString(Global.REQUIREMENT_ID);
-        LogTool.d(TAG, "requirementid:" + requirementid);
-        getContractInfo(requirementid);
+        webView = (WebView) findViewById(R.id.webView);
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.loadUrl("http://www.baidu.com/");
+//        Intent intent = this.getIntent();
+//        Bundle contractBundle = intent.getExtras();
+//        requirementid = contractBundle.getString(Global.REQUIREMENT_ID);
+//        LogTool.d(TAG, "requirementid:" + requirementid);
+//        getContractInfo(requirementid);
+        webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                view.loadUrl(url);
+                return true;
+            }
+        });
     }
 
     private void initMainHeadView() {
@@ -113,6 +123,13 @@ public class ContractActivity extends BaseActivity implements OnClickListener {
 
         }
     };
+
+    @Override
+    public void onBackPressed() {
+        if (webView.canGoBack()) {
+            webView.goBack();
+        }
+    }
 
     @Override
     public int getLayoutId() {
