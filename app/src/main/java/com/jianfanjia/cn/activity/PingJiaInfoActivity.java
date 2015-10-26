@@ -31,6 +31,8 @@ public class PingJiaInfoActivity extends BaseActivity implements
     private RatingBar speedBar = null;
     private RatingBar attudeBar = null;
 
+    private String imageid = null;
+    private String designer_name = null;
     private Evaluation evaluation = null;
 
     @Override
@@ -43,11 +45,13 @@ public class PingJiaInfoActivity extends BaseActivity implements
         attudeBar = (RatingBar) findViewById(R.id.attudeBar);
         Intent intent = this.getIntent();
         Bundle viewBundle = intent.getExtras();
+        imageid = viewBundle.getString(Global.IMAGE_ID);
+        designer_name = viewBundle.getString(Global.DESIGNER_NAME);
         evaluation = (Evaluation) viewBundle.getSerializable(Global.EVALUATION);
-        LogTool.d(TAG, "evaluation:" + evaluation);
+        LogTool.d(TAG, "imageid:" + imageid + " designer_name:" + designer_name + " evaluation:" + evaluation);
+        imageLoader.displayImage(Url_New.GET_IMAGE + imageid, designer_head_img, options);
+        designerName.setText(designer_name);
         if (null != evaluation) {
-            imageLoader.displayImage(Url_New.GET_IMAGE + evaluation.get_id(), designer_head_img, options);
-            designerName.setText(evaluation.getUserid());
 
         }
     }

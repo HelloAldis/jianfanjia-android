@@ -135,11 +135,15 @@ public class MyDesignerActivity extends BaseAnnotationActivity {
                 switch (itemType) {
                     case VIEW_COMMENT:
                         Bundle viewBundle = new Bundle();
+                        viewBundle.putString(Global.IMAGE_ID, orderDesignerInfo.getImageid());
+                        viewBundle.putString(Global.DESIGNER_NAME, orderDesignerInfo.getUsername());
                         viewBundle.putSerializable(Global.EVALUATION, orderDesignerInfo.getEvaluation());
                         startActivity(PingJiaInfoActivity.class, viewBundle);
                         break;
                     case COMMENT:
                         Bundle commentBundle = new Bundle();
+                        commentBundle.putString(Global.IMAGE_ID, orderDesignerInfo.getImageid());
+                        commentBundle.putString(Global.DESIGNER_NAME, orderDesignerInfo.getUsername());
                         commentBundle.putString(Global.DESIGNER_ID, orderDesignerInfo.get_id());
                         commentBundle.putString(Global.REQUIREMENT_ID, requirementid);
                         startActivity(PingjiaActivity.class, commentBundle);

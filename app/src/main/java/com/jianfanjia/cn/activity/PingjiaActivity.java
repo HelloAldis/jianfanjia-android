@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.LogTool;
@@ -36,6 +37,8 @@ public class PingjiaActivity extends BaseActivity implements
     private EditText contentEdit = null;
     private Button btn_commit = null;
 
+    private String imageid = null;
+    private String designer_name = null;
     private String requirementid = null;
     private String designerid = null;
 
@@ -55,9 +58,13 @@ public class PingjiaActivity extends BaseActivity implements
         btn_commit = (Button) findViewById(R.id.btn_commit);
         Intent intent = this.getIntent();
         Bundle commentBundle = intent.getExtras();
+        imageid = commentBundle.getString(Global.IMAGE_ID);
+        designer_name = commentBundle.getString(Global.DESIGNER_NAME);
         requirementid = commentBundle.getString(Global.REQUIREMENT_ID);
         designerid = commentBundle.getString(Global.DESIGNER_ID);
-        LogTool.d(TAG, "requirementid:" + requirementid + " designerid:" + designerid);
+        LogTool.d(TAG, "imageid:" + imageid + " designer_name:" + designer_name + " requirementid:" + requirementid + " designerid:" + designerid);
+        imageLoader.displayImage(Url_New.GET_IMAGE + imageid, designer_head_img, options);
+        designerName.setText(designer_name);
     }
 
     private void initMainHeadView() {
