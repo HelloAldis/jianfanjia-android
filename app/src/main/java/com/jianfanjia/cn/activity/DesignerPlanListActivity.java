@@ -35,15 +35,17 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
     private List<PlanInfo> designerPlanList = new ArrayList<PlanInfo>();
     private String requirementid = null;
     private String designerid = null;
+    private String designerName = null;
 
     @Override
     public void initView() {
-        initMainHeadView();
         Intent intent = this.getIntent();
         Bundle designerBundle = intent.getExtras();
         requirementid = designerBundle.getString(Global.REQUIREMENT_ID);
         designerid = designerBundle.getString(Global.DESIGNER_ID);
-        LogTool.d(TAG, "requirementid:" + requirementid + "  designerid:" + designerid);
+        designerName = designerBundle.getString(Global.DESIGNER_NAME);
+        LogTool.d(TAG, "requirementid:" + requirementid + "  designerid:" + designerid + "  designerName:" + designerName);
+        initMainHeadView();
         designer_plan_listview = (ListView) findViewById(R.id.designer_plan_listview);
         getDesignerPlansList(requirementid, designerid);
     }
@@ -53,7 +55,7 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
         mainHeadView = (MainHeadView) findViewById(R.id.my_plan_head_layout);
         mainHeadView.setBackListener(this);
         mainHeadView
-                .setMianTitle(getResources().getString(R.string.planText));
+                .setMianTitle(designerName + getResources().getString(R.string.planText));
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
         mainHeadView.setRightTitleVisable(View.GONE);
         mainHeadView.setBackLayoutVisable(View.VISIBLE);
