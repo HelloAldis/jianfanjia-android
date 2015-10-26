@@ -1,25 +1,143 @@
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:fitsSystemWindows="true"
-    tools:context="com.jianfanjia.cn.activity.PingJiaInfoActivity">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_layout_bg"
+    android:orientation="vertical">
 
-    <android.support.design.widget.AppBarLayout android:layout_height="wrap_content"
-        android:layout_width="match_parent" android:theme="@style/AppBarOverlay">
+    <com.jianfanjia.cn.view.MainHeadView
+        android:id="@+id/my_pingjia_head_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/head_layout_bg" />
 
-        <android.support.v7.widget.Toolbar android:id="@+id/toolbar"
-            android:layout_width="match_parent" android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary" app:popupTheme="@style/PopupOverlay" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
 
-    </android.support.design.widget.AppBarLayout>
+        <LinearLayout
+            android:id="@+id/rootview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <include layout="@layout/content_ping_jia_info" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/font_white"
+                android:orientation="vertical">
 
-    <android.support.design.widget.FloatingActionButton android:id="@+id/fab"
-        android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end" android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_dialog_email" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dip"
+                    android:layout_weight="2"
+                    android:background="@color/font_white"
+                    android:orientation="vertical">
 
-</android.support.design.widget.CoordinatorLayout>
+
+                    <com.jianfanjia.cn.layout.CircleImageView
+                        android:id="@+id/designer_head_img"
+                        android:layout_width="60dip"
+                        android:layout_height="60dip"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/space_10"
+                        android:scaleType="centerCrop"
+                        android:src="@mipmap/pix_default" />
+
+                    <TextView
+                        android:id="@+id/designerName"
+                        style="@style/listview_item_text_style_big"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/space_10"
+                        android:text="设计师"
+                        android:textColor="@color/main_color_black" />
+
+                    <RatingBar
+                        android:id="@+id/ratingBar"
+                        style="?android:attr/ratingBarStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/space_10"
+                        android:numStars="5"
+                        android:rating="5" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/main_layout_bg"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/listview_item_text_style_big"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/space_10"
+                        android:text="给设计师评分"
+                        android:textColor="@color/main_color_black" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/space_16"
+                        android:layout_marginRight="@dimen/space_16"
+                        android:layout_marginTop="@dimen/space_10"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/listview_item_text_style_big"
+                            android:layout_gravity="center_vertical"
+                            android:text="响应速度:"
+                            android:textColor="@color/main_color_black" />
+
+                        <RatingBar
+                            android:id="@+id/speedBar"
+                            style="?android:attr/ratingBarStyleIndicator"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:isIndicator="false"
+                            android:numStars="5"
+                            android:stepSize="1" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/space_16"
+                        android:layout_marginRight="@dimen/space_16"
+                        android:layout_marginTop="@dimen/space_10"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/listview_item_text_style_big"
+                            android:layout_gravity="center_vertical"
+                            android:text="服务态度:"
+                            android:textColor="@color/main_color_black" />
+
+                        <RatingBar
+                            android:id="@+id/attudeBar"
+                            style="?android:attr/ratingBarStyleIndicator"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:numStars="5"
+                            android:rating="0" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/commentText"
+                        style="@style/listview_item_text_style_big"
+                        android:layout_marginLeft="@dimen/space_16"
+                        android:layout_marginRight="@dimen/space_16"
+                        android:layout_marginTop="@dimen/space_10"
+                        android:text="评价内容"
+                        android:textColor="@color/main_color_black" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

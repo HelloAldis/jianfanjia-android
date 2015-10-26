@@ -6,8 +6,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.RatingBar.OnRatingBarChangeListener;
+import android.widget.TextView;
 
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.config.Global;
@@ -26,6 +28,8 @@ public class PingjiaActivity extends BaseActivity implements
         OnClickListener, ApiUiUpdateListener {
     private static final String TAG = PingjiaActivity.class.getName();
     private MainHeadView mainHeadView = null;
+    private ImageView designer_head_img = null;
+    private TextView designerName = null;
     private RatingBar bar = null;
     private RatingBar speedBar = null;
     private RatingBar attudeBar = null;
@@ -42,6 +46,8 @@ public class PingjiaActivity extends BaseActivity implements
     @Override
     public void initView() {
         initMainHeadView();
+        designer_head_img = (ImageView) findViewById(R.id.designer_head_img);
+        designerName = (TextView) findViewById(R.id.designerName);
         bar = (RatingBar) findViewById(R.id.ratingBar);
         speedBar = (RatingBar) findViewById(R.id.speedBar);
         attudeBar = (RatingBar) findViewById(R.id.attudeBar);
