@@ -1,11 +1,14 @@
 package com.jianfanjia.cn.activity;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.LogTool;
@@ -32,10 +35,11 @@ public class ContractActivity extends BaseActivity implements OnClickListener {
         webView = (WebView) findViewById(R.id.webView);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.loadUrl("http://www.baidu.com/");
-//        Intent intent = this.getIntent();
-//        Bundle contractBundle = intent.getExtras();
-//        requirementid = contractBundle.getString(Global.REQUIREMENT_ID);
-//        LogTool.d(TAG, "requirementid:" + requirementid);
+        Intent intent = this.getIntent();
+        Bundle contractBundle = intent.getExtras();
+        requirementid = contractBundle.getString(Global.REQUIREMENT_ID);
+        final_planid = contractBundle.getString(Global.PLAN_ID);
+        LogTool.d(TAG, "requirementid:" + requirementid + " final_planid:" + final_planid);
 //        getContractInfo(requirementid);
         webView.setWebViewClient(new WebViewClient() {
             @Override
