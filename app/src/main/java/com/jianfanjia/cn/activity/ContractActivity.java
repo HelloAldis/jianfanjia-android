@@ -71,7 +71,6 @@ public class ContractActivity extends BaseActivity implements OnClickListener {
     //查看合同
     private void getContractInfo(String requirementid) {
         JianFanJiaClient.getContractInfo(ContractActivity.this, requirementid, getContractListener, this);
-
     }
 
     private ApiUiUpdateListener getContractListener = new ApiUiUpdateListener() {
