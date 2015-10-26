@@ -151,7 +151,6 @@ public class MyDesignerActivity extends BaseAnnotationActivity {
                     case VIEW_CONTRACT:
                         Bundle contractBundle = new Bundle();
                         contractBundle.putString(Global.REQUIREMENT_ID, requirementid);
-                        contractBundle.putString(Global.PLAN_ID, orderDesignerInfo.getPlan().get_id());
                         startActivity(ContractActivity.class, contractBundle);
                         break;
                     case VIEW_PLAN:
