@@ -7,9 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
-import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
@@ -73,10 +71,10 @@ public class XuQiuFragment extends BaseAnnotationFragment {
     protected TextView req_tip;
 
     @ViewById(R.id.req_publish)
-    protected Button req_publish;
+    protected TextView req_publish;
 
     @ViewById
-    protected RelativeLayout req_publish_wrap;
+    protected LinearLayout req_publish_wrap;
 
     @ViewById
     protected LinearLayout req_listview_wrap;
@@ -137,7 +135,7 @@ public class XuQiuFragment extends BaseAnnotationFragment {
         req_listView.getItemAnimator().setAddDuration(300);
     }
 
-    @Click({R.id.req_publish, R.id.head_right_title})
+    @Click({R.id.req_publish_wrap, R.id.head_right_title})
     protected void publish_requirement() {
         Intent intent = new Intent(getActivity(), EditRequirementActivity_.class);
         startActivityForResult(intent, REQUESTCODE_PUBLISH_REQUIREMENT);

@@ -31,6 +31,7 @@ public class MyFavoriteDesignerAdapter extends BaseAdapter {
 
     private void addItem(DesignerInfo designerInfo) {
         designerInfos.add(designerInfo);
+        notifyDataSetChanged();
     }
 
     public void addItems(List<DesignerInfo> designers) {

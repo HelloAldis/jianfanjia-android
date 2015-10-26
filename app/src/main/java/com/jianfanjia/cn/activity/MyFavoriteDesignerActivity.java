@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.widget.ListView;
 
 import com.jianfanjia.cn.adapter.MyFavoriteDesignerAdapter;
-import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.base.BaseAnnotationActivity;
 import com.jianfanjia.cn.bean.DesignerInfo;
 import com.jianfanjia.cn.bean.MyFavoriteDesigner;
 import com.jianfanjia.cn.config.Global;
@@ -28,8 +28,8 @@ import java.util.List;
  * Email: jame.zhang@myjyz.com
  * Date:2015-10-21 10:22
  */
-@EActivity
-public class MyFavoriteDesignerActivity extends BaseActivity {
+@EActivity(R.layout.activity_my_favorite_designer)
+public class MyFavoriteDesignerActivity extends BaseAnnotationActivity {
 
     @ViewById(R.id.act_my_favorite_designer_head_layout)
     MainHeadView mainHeadView;
@@ -81,18 +81,4 @@ public class MyFavoriteDesignerActivity extends BaseActivity {
         }
     }
 
-    @Override
-    public int getLayoutId() {
-        return R.layout.activity_my_favorite_designer;
-    }
-
-    @Override
-    public void initView() {
-
-    }
-
-    @Override
-    public void setListener() {
-
-    }
 }

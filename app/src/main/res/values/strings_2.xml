@@ -5,7 +5,7 @@
     <string name="str_req_tip">您还没有发布需求，请前往发布需求</string>
     <string name="str_marched_tip">为你匹配到的设计师</string>
     <string name="str_no_marched_tip">您还未添加需求,无法匹配设计师</string>
-    <string name="str_req_pubReq">发布需求</string>
+    <string name="str_req_pubReq">点击前往发布需求 ＞</string>
     <string name="str_publish_time">发布时间：</string>
     <string name="str_edit_req">填写装修需求</string>
     <string name="str_create">创建</string>

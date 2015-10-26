@@ -24,7 +24,7 @@
             android:nestedScrollingEnabled="false"
             android:clickable="false"
             android:choiceMode="singleChoice"
-            android:horizontalSpacing="4dp"
-            android:verticalSpacing="4dp"/>
+            android:horizontalSpacing="2dp"
+            android:verticalSpacing="2dp"/>
     </LinearLayout>
 </LinearLayout>

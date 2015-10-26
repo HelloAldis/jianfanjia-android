@@ -27,7 +27,7 @@ import org.androidannotations.annotations.ViewById;
  * Date:2015-10-22 10:46
  */
 @EViewGroup(R.layout.list_item_my_designer_type1)
-public class MyDesignerViewType1 extends RelativeLayout {
+public class MyDesignerViewType1 extends BaseAnnotationView {
 
     @ViewById(R.id.ltm_my_designer_head)
     protected ImageView headView;
@@ -50,7 +50,6 @@ public class MyDesignerViewType1 extends RelativeLayout {
     @ViewById(R.id.merger_button2)
     protected Button button2;
 
-
     public MyDesignerViewType1(Context context) {
         super(context);
     }
@@ -60,9 +59,9 @@ public class MyDesignerViewType1 extends RelativeLayout {
         String imageid = designerInfo.getImageid();
         String username = designerInfo.getUsername();
         if(!TextUtils.isEmpty(imageid)){
-            ImageLoader.getInstance().displayImage(Url_New.GET_IMAGE + imageid , headView);
+            ImageLoader.getInstance().displayImage(Url_New.GET_IMAGE + imageid , headView,options);
         }else{
-            ImageLoader.getInstance().displayImage(Constant.DEFALUT_DESIGNER_PIC, headView);
+            ImageLoader.getInstance().displayImage(Constant.DEFALUT_DESIGNER_PIC, headView,options);
         }
         if(!TextUtils.isEmpty(username)){
             nameView.setText(username);

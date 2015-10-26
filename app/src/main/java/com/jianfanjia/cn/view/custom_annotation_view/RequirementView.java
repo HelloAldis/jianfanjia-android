@@ -3,7 +3,6 @@ package com.jianfanjia.cn.view.custom_annotation_view;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -12,7 +11,6 @@ import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.OrderDesignerInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
-import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.config.Url_New;
@@ -33,15 +31,10 @@ import java.util.List;
  * Date:2015-10-19 17:00
  */
 @EViewGroup(R.layout.list_item_req)
-public class RequirementView extends FrameLayout {
-
-    private ImageLoader imageLoader;
-    private DataManagerNew dataManagerNew;
+public class RequirementView extends BaseAnnotationView {
 
     public RequirementView(Context context) {
         super(context);
-        imageLoader = ImageLoader.getInstance();
-        dataManagerNew = DataManagerNew.getInstance();
     }
 
     @ViewById
@@ -82,7 +75,7 @@ public class RequirementView extends FrameLayout {
         ltm_req_starttime_cont.setText(StringUtils.covertLongToString(requirementInfo.getCreate_at()));
         ltm_req_updatetime_cont.setText(StringUtils.covertLongToString(requirementInfo.getLast_status_update_time()));
         ltm_req_status.setText(getResources().getStringArray(R.array.requirement_status)[Integer.parseInt(requirementInfo.getStatus())]);
-        imageLoader.displayImage(dataManagerNew.getUserImagePath(), ltm_req_owner_head);
+        imageLoader.displayImage(dataManagerNew.getUserImagePath(), ltm_req_owner_head,options);
         if (requirementInfo.getStatus().equals(Global.PLAN_STATUS5)) {
             ltm_req_gotopro.setEnabled(true);
         } else {
@@ -120,9 +113,9 @@ public class RequirementView extends FrameLayout {
                     nameView.setText(getResources().getString(R.string.designer));
                 }
                 if (!TextUtils.isEmpty(recDesignerInfos.get(i).getImageid())) {
-                    ImageLoader.getInstance().displayImage(Url_New.GET_IMAGE + recDesignerInfos.get(i).getImageid(), headView);
+                    ImageLoader.getInstance().displayImage(Url_New.GET_IMAGE + recDesignerInfos.get(i).getImageid(), headView,options);
                 } else {
-                    ImageLoader.getInstance().displayImage(Constant.DEFALUT_DESIGNER_PIC, headView);
+                    ImageLoader.getInstance().displayImage(Constant.DEFALUT_DESIGNER_PIC, headView,options);
                 }
                 statusView.setText(getResources().getString(R.string.str_not_order));
                 designerLayout.setOnClickListener(new OnClickListener() {
@@ -146,9 +139,9 @@ public class RequirementView extends FrameLayout {
                         nameView.setText(getResources().getString(R.string.designer));
                     }
                     if (!TextUtils.isEmpty(orderDesignerInfos.get(i).getImageid())) {
-                        ImageLoader.getInstance().displayImage(Url_New.GET_IMAGE + orderDesignerInfos.get(i).getImageid(), headView);
+                        ImageLoader.getInstance().displayImage(Url_New.GET_IMAGE + orderDesignerInfos.get(i).getImageid(), headView,options);
                     } else {
-                        ImageLoader.getInstance().displayImage(Constant.DEFALUT_DESIGNER_PIC, headView);
+                        ImageLoader.getInstance().displayImage(Constant.DEFALUT_DESIGNER_PIC, headView,options);
                     }
                     statusView.setText(getResources().getStringArray(R.array.plan_status)[Integer.parseInt(orderDesignerInfos.get(i).getPlan().getStatus())]);
                     designerLayout.setOnClickListener(new OnClickListener() {
@@ -159,7 +152,7 @@ public class RequirementView extends FrameLayout {
                     });
                 } else {
                     nameView.setText("");
-                    ImageLoader.getInstance().displayImage(Constant.DEFALUT_DESIGNER_PIC, headView);
+                    ImageLoader.getInstance().displayImage(Constant.DEFALUT_DESIGNER_PIC, headView,options);
                     statusView.setText(getResources().getString(R.string.str_not_order));
                     designerLayout.setOnClickListener(new OnClickListener() {
                         @Override
