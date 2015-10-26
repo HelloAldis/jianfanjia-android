@@ -157,6 +157,7 @@ public class MyDesignerActivity extends BaseAnnotationActivity {
                         Bundle viewPlan = new Bundle();
                         viewPlan.putString(Global.DESIGNER_ID, orderDesignerInfo.get_id());
                         viewPlan.putString(Global.REQUIREMENT_ID, requirementid);
+                        viewPlan.putString(Global.DESIGNER_NAME, orderDesignerInfo.getUsername());
                         startActivity(DesignerPlanListActivity.class, viewPlan);
                         break;
                     case CHANGE_DESIGNER:
