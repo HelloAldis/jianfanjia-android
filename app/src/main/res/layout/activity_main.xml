@@ -30,7 +30,7 @@
             android:drawableTop="@drawable/rb_btn_bg1"
             android:text="首页"
             android:textColor="@color/text_color"
-            android:textSize="@dimen/text_size_14" />
+            android:textSize="@dimen/text_size_17" />
 
         <RadioButton
             android:id="@+id/tab_rb_2"
@@ -42,7 +42,7 @@
             android:drawableTop="@drawable/rb_btn_bg2"
             android:text="需求"
             android:textColor="@color/text_color"
-            android:textSize="@dimen/text_size_14" />
+            android:textSize="@dimen/text_size_17" />
 
         <RadioButton
             android:id="@+id/tab_rb_3"
@@ -54,7 +54,7 @@
             android:drawableTop="@drawable/rb_btn_bg3"
             android:text="管理"
             android:textColor="@color/text_color"
-            android:textSize="@dimen/text_size_14" />
+            android:textSize="@dimen/text_size_17" />
 
         <RadioButton
             android:id="@+id/tab_rb_4"
@@ -66,7 +66,7 @@
             android:drawableTop="@drawable/rb_btn_bg4"
             android:text="我的"
             android:textColor="@color/text_color"
-            android:textSize="@dimen/text_size_14" />
+            android:textSize="@dimen/text_size_17" />
     </RadioGroup>
 
 </LinearLayout>
