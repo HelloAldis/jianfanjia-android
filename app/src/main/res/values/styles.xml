@@ -13,9 +13,9 @@
 
     <!-- horizontal line_style -->
     <style name="divier_line">
-        <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">1dp</item>
-        <item name="android:background">@color/transparent</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1px</item>
+        <item name="android:background">@color/light_white_color</item>
     </style>
 
     <!-- vertical line_style -->
@@ -72,7 +72,7 @@
         <item name="android:textColor">@color/font_white</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_gravity">center_vertical</item>
-        <item name="android:background">@drawable/site_listview_head_yellow_bg</item>
+        <item name="android:background">@drawable/btn_orange_bg</item>
         <item name="android:visibility">gone</item>
         <item name="android:layout_width">0.0dip</item>
         <item name="android:layout_height">48.0dip</item>
@@ -82,10 +82,10 @@
     </style>
 
     <style name="dialog_button_cancel">
-        <item name="android:textColor">@color/main_color_black</item>
+        <item name="android:textColor">@color/black_color</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_gravity">center_vertical</item>
-        <item name="android:background">@drawable/site_listview_head_white_bg</item>
+        <item name="android:background">@drawable/btn_orange_white_bg</item>
         <item name="android:visibility">gone</item>
         <item name="android:layout_width">0.0dip</item>
         <item name="android:layout_height">48.0dip</item>
@@ -103,10 +103,10 @@
     </style>
 
     <style name="dialog_button_2">
-        <item name="android:textColor">@color/main_color_black</item>
+        <item name="android:textColor">@color/black_color</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_gravity">center_vertical</item>
-        <item name="android:background">@drawable/site_listview_head_white_bg</item>
+        <item name="android:background">@drawable/btn_orange_white_bg</item>
         <item name="android:layout_width">0.0dip</item>
         <item name="android:layout_height">48.0dip</item>
         <item name="android:maxLines">2</item>
@@ -118,7 +118,7 @@
         <item name="android:textColor">@color/font_white</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_gravity">center_vertical</item>
-        <item name="android:background">@drawable/site_listview_head_yellow_bg</item>
+        <item name="android:background">@drawable/btn_orange_bg</item>
         <item name="android:layout_width">0.0dip</item>
         <item name="android:layout_height">48.0dip</item>
         <item name="android:maxLines">2</item>

@@ -73,7 +73,6 @@
             android:layout_centerVertical="true"
             android:layout_height="48dp"
             android:layout_width="wrap_content"
-            android:text="@string/str_req_pubReq"
             android:textColor="@color/font_white" />
     </RelativeLayout>
 

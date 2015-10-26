@@ -3,7 +3,6 @@ package com.jianfanjia.cn.view.custom_annotation_view;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -44,7 +43,7 @@ public class RequirementView extends BaseAnnotationView {
     @ViewById
     protected TextView ltm_req_updatetime_cont;
     @ViewById
-    protected ImageButton ltm_req_edit;
+    protected TextView ltm_req_edit;
     @ViewById
     protected TextView ltm_req_status;
     @ViewById
@@ -117,7 +116,8 @@ public class RequirementView extends BaseAnnotationView {
                 } else {
                     ImageLoader.getInstance().displayImage(Constant.DEFALUT_DESIGNER_PIC, headView,options);
                 }
-                statusView.setText(getResources().getString(R.string.str_not_order));
+                statusView.setText(String.format(getResources().getString(R.string.str_match), recDesignerInfos.get(i).getMatch()) + "%");
+                statusView.setTextColor(getResources().getColor(R.color.middle_grey_color));
                 designerLayout.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -143,7 +143,22 @@ public class RequirementView extends BaseAnnotationView {
                     } else {
                         ImageLoader.getInstance().displayImage(Constant.DEFALUT_DESIGNER_PIC, headView,options);
                     }
-                    statusView.setText(getResources().getStringArray(R.array.plan_status)[Integer.parseInt(orderDesignerInfos.get(i).getPlan().getStatus())]);
+                    String status = orderDesignerInfos.get(i).getPlan().getStatus();
+                    statusView.setText(getResources().getStringArray(R.array.plan_status)[Integer.parseInt(status)]);
+                    switch (status){
+                        case Global.PLAN_STATUS0:
+                            statusView.setTextColor(getResources().getColor(R.color.green_color));
+                            break;
+                        case Global.PLAN_STATUS5:
+                            statusView.setTextColor(getResources().getColor(R.color.orange_color));
+                            break;
+                        case Global.PLAN_STATUS2:
+                            statusView.setTextColor(getResources().getColor(R.color.blue_color));
+                            break;
+                        default:
+                            statusView.setTextColor(getResources().getColor(R.color.middle_grey_color));
+                            break;
+                    }
                     designerLayout.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -152,8 +167,9 @@ public class RequirementView extends BaseAnnotationView {
                     });
                 } else {
                     nameView.setText("");
-                    ImageLoader.getInstance().displayImage(Constant.DEFALUT_DESIGNER_PIC, headView,options);
+                    ImageLoader.getInstance().displayImage(Constant.DEFALUT_ADD_PIC, headView, options);
                     statusView.setText(getResources().getString(R.string.str_not_order));
+                    statusView.setTextColor(getResources().getColor(R.color.middle_grey_color));
                     designerLayout.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {

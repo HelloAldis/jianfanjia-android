@@ -16,7 +16,7 @@
             android:id="@+id/list_item_tip_pay_name"
             style="@style/listview_item_text_style_small"
             android:text="@string/list_item_fukuan_example"
-            android:textColor="@color/main_color_black" />
+            android:textColor="@color/black_color" />
 
         <TextView
             android:id="@+id/list_item_tip_pay_node"

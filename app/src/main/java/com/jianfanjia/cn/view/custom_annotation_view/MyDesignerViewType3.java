@@ -66,6 +66,7 @@ public class MyDesignerViewType3 extends BaseAnnotationView {
             case Global.PLAN_STATUS0:
                 textView3.setText(getResources().getString(R.string.wait_response));
                 statusView.setText(getResources().getString(R.string.already_order));
+                statusView.setTextColor(getResources().getColor(R.color.green_color));
                 break;
         }
 

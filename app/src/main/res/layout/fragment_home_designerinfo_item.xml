@@ -19,5 +19,5 @@
         android:layout_below="@id/list_item_head_img"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/space_10"
-        android:textColor="@color/main_color_black" />
+        android:textColor="@color/black_color" />
 </LinearLayout>

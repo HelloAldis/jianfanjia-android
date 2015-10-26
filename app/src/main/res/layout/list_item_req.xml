@@ -2,23 +2,24 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ltm_req_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/font_white"
+    >
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:background="@color/font_white"
         android:paddingBottom="@dimen/space_8"
-        android:paddingLeft="@dimen/space_16"
-        android:paddingRight="@dimen/space_16"
+        android:paddingLeft="@dimen/space_26"
+        android:paddingRight="@dimen/space_26"
         android:paddingTop="@dimen/space_8">
 
         <com.jianfanjia.cn.layout.CircleImageView
             android:id="@+id/ltm_req_owner_head"
-            android:layout_width="68dp"
-            android:layout_height="68dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
@@ -32,79 +33,83 @@
             android:layout_alignTop="@+id/ltm_req_owner_head"
             android:layout_marginLeft="@dimen/space_8"
             android:layout_toRightOf="@+id/ltm_req_owner_head"
-            android:text="@string/str_cell" />
+            android:text="@string/str_cell"
+            android:textColor="@color/black_color"
+            android:textSize="@dimen/middle_size"/>
 
         <TextView
             android:id="@+id/ltm_req_status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/ltm_req_owner_head"
+            style="@style/listview_item_text_style_small"
             android:layout_marginLeft="@dimen/space_8"
             android:layout_toRightOf="@+id/ltm_req_cell"
-             />
+            android:layout_alignBaseline="@+id/ltm_req_cell"
+            android:textColor="@color/grey_color"/>
 
-        <ImageButton
+        <TextView
             android:id="@+id/ltm_req_edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/listview_item_text_style_middle"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_alignTop="@+id/ltm_req_cell"
             android:layout_alignWithParentIfMissing="false"
-            android:background="@mipmap/icon_setting_next"
             android:padding="8dp"
-            android:scaleType="fitCenter" />
+            android:layout_alignBaseline="@+id/ltm_req_cell"
+            android:text="@string/edit"
+            android:textColor="@color/grey_color"/>
 
         <TextView
             android:id="@+id/ltm_req_starttime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/listview_item_text_style_small"
             android:layout_below="@+id/ltm_req_cell"
             android:layout_marginLeft="@dimen/space_8"
             android:layout_marginTop="@dimen/space_8"
             android:layout_toRightOf="@+id/ltm_req_owner_head"
-            android:text="@string/str_publish_time" />
+            android:text="@string/str_publish_time"
+            android:textColor="@color/grey_color"/>
 
         <TextView
             android:id="@+id/ltm_req_updatetime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/listview_item_text_style_small"
             android:layout_alignLeft="@+id/ltm_req_starttime"
             android:layout_alignStart="@+id/ltm_req_starttime"
             android:layout_below="@+id/ltm_req_starttime"
             android:layout_marginTop="4dp"
-            android:text="@string/str_update_time" />
+            android:text="@string/str_update_time"
+            android:textColor="@color/grey_color"/>
 
         <TextView
             android:id="@+id/ltm_req_starttime_cont"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/listview_item_text_style_small"
             android:layout_above="@+id/ltm_req_updatetime"
             android:layout_alignLeft="@+id/ltm_req_updatetime_cont"
             android:layout_alignStart="@+id/ltm_req_updatetime_cont"
-            android:text="New Text" />
+            android:text="New Text"
+            android:textColor="@color/grey_color"/>
 
         <TextView
             android:id="@+id/ltm_req_updatetime_cont"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/listview_item_text_style_small"
             android:layout_alignTop="@+id/ltm_req_updatetime"
             android:layout_toEndOf="@+id/ltm_req_updatetime"
             android:layout_toRightOf="@+id/ltm_req_updatetime"
-            android:text="New Text" />
+            android:text="New Text"
+            android:textColor="@color/grey_color"/>
 
     </RelativeLayout>
+
+    <View
+        android:id="@+id/first_line"
+        android:layout_below="@+id/relativeLayout"
+        style="@style/divier_line"/>
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/relativeLayout"
-        android:background="@android:color/transparent"
+        android:layout_below="@+id/first_line"
         android:orientation="horizontal"
         android:paddingBottom="8dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
+        android:paddingLeft="@dimen/space_48"
+        android:paddingRight="@dimen/space_48"
         android:paddingTop="8dp"
         android:weightSum="3">
 
@@ -116,12 +121,12 @@
 
             <com.jianfanjia.cn.layout.CircleImageView
                 android:id="@+id/ltm_req_designer_head0"
-                android:layout_width="68dp"
-                android:layout_height="68dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:scaleType="centerCrop"
-                android:src="@mipmap/icon_sidebar_default_designer" />
+                android:src="@mipmap/add" />
 
             <TextView
                 android:id="@+id/ltm_req_designer_name0"
@@ -130,7 +135,9 @@
                 android:layout_below="@+id/ltm_req_designer_head0"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="8dp"
-                android:text="New Text" />
+                android:text="New Text"
+                android:textColor="@color/black_color"
+                android:textSize="@dimen/middle_size"/>
 
             <TextView
                 android:id="@+id/ltm_req_designer_status0"
@@ -139,7 +146,8 @@
                 android:layout_centerHorizontal="true"
                 android:layout_below="@+id/ltm_req_designer_name0"
                 android:layout_marginTop="8dp"
-                android:text="New Text" />
+                android:text="New Text"
+                android:textSize="@dimen/small_size"/>
 
         </RelativeLayout>
 
@@ -151,12 +159,12 @@
 
             <com.jianfanjia.cn.layout.CircleImageView
                 android:id="@+id/ltm_req_designer_head1"
-                android:layout_width="68dp"
-                android:layout_height="68dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:scaleType="centerCrop"
-                android:src="@mipmap/icon_sidebar_default_designer" />
+                android:src="@mipmap/add" />
 
             <TextView
                 android:id="@+id/ltm_req_designer_name1"
@@ -165,7 +173,9 @@
                 android:layout_below="@+id/ltm_req_designer_head1"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="8dp"
-                android:text="New Text" />
+                android:text="New Text"
+                android:textColor="@color/black_color"
+                android:textSize="@dimen/middle_size"/>
 
             <TextView
                 android:id="@+id/ltm_req_designer_status1"
@@ -174,7 +184,8 @@
                 android:layout_centerHorizontal="true"
                 android:layout_below="@+id/ltm_req_designer_name1"
                 android:layout_marginTop="8dp"
-                android:text="New Text" />
+                android:text="New Text"
+                android:textSize="@dimen/small_size"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -185,12 +196,12 @@
 
             <com.jianfanjia.cn.layout.CircleImageView
                 android:id="@+id/ltm_req_designer_head2"
-                android:layout_width="68dp"
-                android:layout_height="68dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:scaleType="centerCrop"
-                android:src="@mipmap/icon_sidebar_default_designer" />
+                android:src="@mipmap/add" />
 
             <TextView
                 android:id="@+id/ltm_req_designer_name2"
@@ -199,7 +210,9 @@
                 android:layout_below="@+id/ltm_req_designer_head2"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="8dp"
-                android:text="New Text" />
+                android:text="New Text"
+                android:textColor="@color/black_color"
+                android:textSize="@dimen/middle_size"/>
 
             <TextView
                 android:id="@+id/ltm_req_designer_status2"
@@ -208,9 +221,16 @@
                 android:layout_centerHorizontal="true"
                 android:layout_below="@+id/ltm_req_designer_name2"
                 android:layout_marginTop="8dp"
-                android:text="New Text" />
+                android:text="New Text"
+                android:textSize="@dimen/small_size"/>
         </RelativeLayout>
+
     </LinearLayout>
+
+    <View
+        android:id="@+id/second_line"
+        android:layout_below="@+id/linearLayout"
+        style="@style/divier_line"/>
 
     <TextView
         android:id="@+id/ltm_req_gotopro"
@@ -218,12 +238,13 @@
         android:layout_height="48dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/linearLayout"
-        android:background="@color/font_white"
+        android:layout_below="@+id/second_line"
         android:gravity="center"
         android:paddingBottom="8dp"
         android:paddingTop="8dp"
-        android:text="@string/str_goto_pro" />
+        android:text="@string/str_goto_pro"
+        android:textColor="@color/orange_color"
+        android:textSize="@dimen/middle_size"/>
 
 
 </RelativeLayout>

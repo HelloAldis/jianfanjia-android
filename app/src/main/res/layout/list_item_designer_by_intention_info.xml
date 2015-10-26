@@ -31,7 +31,7 @@
                 android:id="@+id/list_item_name_text"
                 style="@style/listview_item_text_style_middle"
                 android:text="张三"
-                android:textColor="@color/main_color_black" />
+                android:textColor="@color/black_color" />
 
             <TextView
                 android:id="@+id/list_item_level_text"

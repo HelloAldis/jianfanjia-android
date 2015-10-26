@@ -27,7 +27,7 @@
             android:id="@+id/head_center_title"
             style="@style/listview_item_text_style_big"
             android:layout_centerInParent="true"
-            android:textColor="@color/main_color_black" />
+            android:textColor="@color/black_color" />
 
         <TextView
             android:id="@+id/head_right_title"
@@ -38,7 +38,7 @@
             android:gravity="center"
             android:paddingLeft="@dimen/space_14"
             android:paddingRight="@dimen/space_14"
-            android:textColor="@color/main_color_black"
+            android:textColor="@color/orange_color"
             android:textSize="@dimen/middle_size" />
 
         <View

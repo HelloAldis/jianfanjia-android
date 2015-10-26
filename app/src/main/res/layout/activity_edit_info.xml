@@ -18,14 +18,14 @@
             android:drawableLeft="@mipmap/icon_register_back"
             android:drawablePadding="4dp"
             android:text="@string/back"
-            android:textColor="@color/back_color" />
+            android:textColor="@color/grey_color" />
 
         <TextView
             android:id="@+id/edit_title"
             style="@style/listview_item_text_style_big"
             android:layout_centerInParent="true"
             android:text="@string/userinfo"
-            android:textColor="@color/main_color_black" />
+            android:textColor="@color/black_color" />
 
         <View
             style="@style/divier_line"
@@ -44,7 +44,7 @@
         android:hint="@string/add_feedback"
         android:padding="@dimen/space_12"
         android:textSize="@dimen/text_size_14"
-        android:textColor="@color/main_color_black"
+        android:textColor="@color/black_color"
         android:textColorHint="@color/main_color_grey"
         />
 

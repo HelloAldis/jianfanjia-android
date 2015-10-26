@@ -30,7 +30,7 @@
                 android:id="@+id/site_head_procedure_name"
                 style="@style/listview_item_text_style_middle"
                 android:layout_gravity="center_horizontal"
-                android:textColor="@color/main_color_black" />
+                android:textColor="@color/black_color" />
 
             <TextView
                 android:id="@+id/site_head_procedure_date"

@@ -18,7 +18,7 @@
     <View
         android:id="@+id/title_bar_divider"
         style="@style/divier_line"
-        android:background="@color/main_color_orange"
+        android:background="@color/orange_color"
         android:visibility="visible" />
 
     <FrameLayout

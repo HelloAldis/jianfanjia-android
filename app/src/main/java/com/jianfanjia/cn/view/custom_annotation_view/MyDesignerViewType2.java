@@ -3,7 +3,6 @@ package com.jianfanjia.cn.view.custom_annotation_view;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -54,7 +53,7 @@ public class MyDesignerViewType2 extends BaseAnnotationView {
     protected TextView textView2;
 
     @ViewById(R.id.ltm_my_designer_button3)
-    protected Button button3;
+    protected TextView button3;
 
     public MyDesignerViewType2(Context context) {
         super(context);
@@ -76,10 +75,10 @@ public class MyDesignerViewType2 extends BaseAnnotationView {
         } else {
             nameView.setText(getResources().getString(R.string.designer));
         }
-        statusView.setText(getResources().getString(R.string.already_repsonse));
-
         switch (status) {
             case Global.PLAN_STATUS2:
+                statusView.setTextColor(getResources().getColor(R.color.blue_color));
+                statusView.setText(getResources().getString(R.string.already_repsonse));
                 if (Calendar.getInstance().getTimeInMillis() >  Constant.CONFIRM_HOUSE_EXPIRE) {
                     textView1.setVisibility(View.GONE);
                     textView2.setVisibility(View.GONE);

@@ -17,7 +17,7 @@
             android:id="@+id/list_item_tip_delay_name"
             style="@style/listview_item_text_style_small"
             android:text="@string/list_item_yanqi_example"
-            android:textColor="@color/main_color_black" />
+            android:textColor="@color/black_color" />
 
         <TextView
             android:id="@+id/list_item_tip_delay_status"
@@ -33,7 +33,7 @@
             android:layout_marginBottom="@dimen/space_16"
             android:layout_marginTop="@dimen/space_16"
             android:text="@string/my_site_villagename_example"
-            android:textColor="@color/main_color_orange" />
+            android:textColor="@color/orange_color" />
 
         <LinearLayout
             android:layout_width="wrap_content"

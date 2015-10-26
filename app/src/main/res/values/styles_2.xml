@@ -14,4 +14,12 @@
         <item name="android:minHeight">28dip</item>
         <item name="android:maxHeight">28dip</item>
     </style>
+
+    <style name="style_edit_req_title" parent="listview_item_text_style_middle">
+        <item name="android:textColor">@color/grey_color</item>
+    </style>
+
+    <style name="style_edit_req_content" parent="listview_item_text_style_middle">
+        <item name="android:textColor">@color/black_color</item>
+    </style>
 </resources>

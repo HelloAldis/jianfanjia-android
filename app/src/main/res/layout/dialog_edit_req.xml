@@ -11,7 +11,7 @@
         android:layout_height="@dimen/space_48"
         android:background="@drawable/my_item_layout_bg"
         android:text="@string/str_edit_requirement"
-        android:textColor="@color/main_color_black"
+        android:textColor="@color/black_color"
         android:textSize="14sp" />
 
     <Button
@@ -21,7 +21,7 @@
         android:layout_marginTop="1px"
         android:background="@drawable/my_item_layout_bg"
         android:text="@string/str_delete_req"
-        android:textColor="@color/main_color_black"
+        android:textColor="@color/black_color"
         android:textSize="14sp" />
 
     <Button
@@ -31,7 +31,7 @@
         android:layout_marginTop="4dip"
         android:background="@drawable/my_item_layout_bg"
         android:text="@string/no"
-        android:textColor="@color/main_color_black"
+        android:textColor="@color/black_color"
         android:textSize="14sp" />
 
 </LinearLayout>

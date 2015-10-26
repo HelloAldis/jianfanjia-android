@@ -5,9 +5,9 @@ import android.content.Context;
 import com.jianfanjia.cn.base.BaseRequest;
 import com.jianfanjia.cn.config.Url_New;
 
-public class GetRequirementRequest extends BaseRequest {
+public class GetRequirementListRequest extends BaseRequest {
 
-    public GetRequirementRequest(Context context) {
+    public GetRequirementListRequest(Context context) {
         super(context);
         url = Url_New.REQUIREMENT_LIST;
     }
@@ -34,6 +34,8 @@ public class GetRequirementRequest extends BaseRequest {
                 requirementInfo.set_id(requirementInfo.get_id());
             }
             dataManager.setRequirementInfo(requirementInfo);*/
+
+
         }
     }
 

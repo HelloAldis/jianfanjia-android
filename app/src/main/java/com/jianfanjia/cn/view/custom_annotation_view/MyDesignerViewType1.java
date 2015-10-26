@@ -3,7 +3,6 @@ package com.jianfanjia.cn.view.custom_annotation_view;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -45,10 +44,10 @@ public class MyDesignerViewType1 extends BaseAnnotationView {
     protected RelativeLayout middleLayout;
 
     @ViewById(R.id.merger_button1)
-    protected Button button1;
+    protected TextView button1;
 
     @ViewById(R.id.merger_button2)
-    protected Button button2;
+    protected TextView button2;
 
     public MyDesignerViewType1(Context context) {
         super(context);
@@ -75,6 +74,7 @@ public class MyDesignerViewType1 extends BaseAnnotationView {
                 button1.setVisibility(View.GONE);
                 button2.setText(getResources().getString(R.string.str_change_designer));
                 statusView.setText(getResources().getString(R.string.already_refuse));
+                statusView.setTextColor(getResources().getColor(R.color.grey_color));
                 button2.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -108,6 +108,7 @@ public class MyDesignerViewType1 extends BaseAnnotationView {
                     }
                 });
                 statusView.setText(getResources().getString(R.string.already_commit));
+                statusView.setTextColor(getResources().getColor(R.color.grey_color));
                 break;
             case Global.PLAN_STATUS4:
                 button1.setVisibility(View.GONE);
@@ -119,6 +120,7 @@ public class MyDesignerViewType1 extends BaseAnnotationView {
                     }
                 });
                 statusView.setText(getResources().getString(R.string.not_choose));
+                statusView.setTextColor(getResources().getColor(R.color.grey_color));
                 break;
             case Global.PLAN_STATUS5:
                 button1.setText(getResources().getString(R.string.str_view_plan));
@@ -135,6 +137,7 @@ public class MyDesignerViewType1 extends BaseAnnotationView {
                         clickCallBack.click(position, MyDesignerActivity.VIEW_CONTRACT);
                     }
                 });
+                statusView.setTextColor(getResources().getColor(R.color.orange_color));
                 statusView.setText(getResources().getString(R.string.already_choose));
                 break;
             case Global.PLAN_STATUS6:
@@ -158,6 +161,7 @@ public class MyDesignerViewType1 extends BaseAnnotationView {
                 button2.setText(getResources().getString(R.string.str_view_plan));
                 button2.setEnabled(false);
                 statusView.setText(getResources().getString(R.string.already_measure));
+                statusView.setTextColor(getResources().getColor(R.color.grey_color));
                 break;
             case Global.PLAN_STATUS7:
                 button1.setVisibility(View.GONE);
@@ -169,6 +173,7 @@ public class MyDesignerViewType1 extends BaseAnnotationView {
                     }
                 });
                 statusView.setText(getResources().getString(R.string.not_response));
+                statusView.setTextColor(getResources().getColor(R.color.grey_color));
                 break;
             case Global.PLAN_STATUS8:
                 button1.setText(getResources().getString(R.string.str_already_comment));
@@ -181,6 +186,7 @@ public class MyDesignerViewType1 extends BaseAnnotationView {
                 button2.setText(getResources().getString(R.string.str_view_plan));
                 button2.setEnabled(false);
                 statusView.setText(getResources().getString(R.string.not_commit));
+                statusView.setTextColor(getResources().getColor(R.color.grey_color));
                 break;
 
         }

@@ -20,7 +20,7 @@
             android:maxWidth="100dp"
             android:singleLine="true"
             android:text="@string/my_site_villagename_example"
-            android:textColor="@color/main_color_black" />
+            android:textColor="@color/black_color" />
 
         <TextView
             android:id="@+id/list_item_site_currentsite"
@@ -29,7 +29,7 @@
             android:layout_marginLeft="@dimen/space_4"
             android:layout_toRightOf="@+id/list_item_site_villagename"
             android:text="@string/current_process"
-            android:textColor="@color/main_color_orange" />
+            android:textColor="@color/orange_color" />
 
         <TextView
             android:id="@+id/list_item_site_currentstage"

@@ -51,7 +51,7 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="@dimen/space_10"
                         android:text="设计师"
-                        android:textColor="@color/main_color_black" />
+                        android:textColor="@color/black_color" />
 
                     <RatingBar
                         android:id="@+id/ratingBar"
@@ -76,7 +76,7 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="@dimen/space_10"
                         android:text="给设计师评分"
-                        android:textColor="@color/main_color_black" />
+                        android:textColor="@color/black_color" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -90,7 +90,7 @@
                             style="@style/listview_item_text_style_big"
                             android:layout_gravity="center_vertical"
                             android:text="响应速度:"
-                            android:textColor="@color/main_color_black" />
+                            android:textColor="@color/black_color" />
 
                         <RatingBar
                             android:id="@+id/speedBar"
@@ -115,7 +115,7 @@
                             style="@style/listview_item_text_style_big"
                             android:layout_gravity="center_vertical"
                             android:text="服务态度:"
-                            android:textColor="@color/main_color_black" />
+                            android:textColor="@color/black_color" />
 
                         <RatingBar
                             android:id="@+id/attudeBar"
@@ -139,7 +139,7 @@
                         android:hint="请输入您对设计师的评价"
                         android:minLines="10"
                         android:padding="@dimen/space_8"
-                        android:textColor="@color/main_color_black"
+                        android:textColor="@color/black_color"
                         android:textColorHint="@color/horzontal_line_color"
                         android:textSize="@dimen/text_size_14" />
 

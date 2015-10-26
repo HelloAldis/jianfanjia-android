@@ -13,7 +13,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/space_10"
         android:text="@string/str_marched_tip"
-        android:textColor="@color/main_color_black" />
+        android:textColor="@color/black_color" />
 
     <com.jianfanjia.cn.view.MyGridView
         android:id="@+id/marchGridview"

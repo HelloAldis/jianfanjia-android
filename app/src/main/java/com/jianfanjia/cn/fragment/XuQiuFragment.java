@@ -145,7 +145,7 @@ public class XuQiuFragment extends BaseAnnotationFragment {
     @AfterViews
     protected void initMainHeadView() {
         mainHeadView
-                .setMianTitle(getResources().getString(R.string.xuqiu));
+                .setMianTitle(getResources().getString(R.string.requirement_list));
         mainHeadView.setRightTitle(getResources().getString(R.string.str_create));
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
         mainHeadView.setRightTitleVisable(View.VISIBLE);

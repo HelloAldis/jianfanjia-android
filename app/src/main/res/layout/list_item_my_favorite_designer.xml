@@ -20,7 +20,7 @@
             android:layout_marginLeft="@dimen/space_8"
             android:layout_toRightOf="@+id/ltm_myfavdesi_head"
             android:text="@string/my_site_villagename_example"
-            android:textColor="@color/main_color_black" />
+            android:textColor="@color/black_color" />
 
         <com.jianfanjia.cn.layout.CircleImageView
             android:id="@+id/ltm_myfavdesi_head"

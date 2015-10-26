@@ -91,6 +91,7 @@ public class Constant {
     public static final String DESIGNER_PROCESS_LIST = "designer_process_list";// 设计师工地列表
     public static final String DEFAULT_PROCESSINFO = "default_processinfo.txt";// 默认工地信息
     public static final String DEFAULT_PROCESSINFO_ID = "1";
+    public static final String REQUIREMENTINFO_LIST = "requirementInfo_list";//需求信息列表
 
     public static final String DATA = "data";// 获取成功的数据
     public static final String ERROR_MSG = "err_msg";// 获取数据失败的返回信息
@@ -144,6 +145,9 @@ public class Constant {
 
     public static final String DEFALUT_DESIGNER_PIC = "drawable://"
             + R.mipmap.icon_sidebar_default_user;
+
+    public static final String DEFALUT_ADD_PIC = "drawable://"
+            + R.mipmap.add;
 
     public static final String DEFALUT_PIC_HEAD = "drawable://";
 

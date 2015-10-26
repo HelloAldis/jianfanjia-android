@@ -32,7 +32,7 @@ import com.jianfanjia.cn.http.request.GetOrderDesignerListByUserRequest;
 import com.jianfanjia.cn.http.request.GetOrderedDesignerRequest;
 import com.jianfanjia.cn.http.request.GetPlanInfoRequest;
 import com.jianfanjia.cn.http.request.GetProductHomePageRequest;
-import com.jianfanjia.cn.http.request.GetRequirementRequest;
+import com.jianfanjia.cn.http.request.GetRequirementListRequest;
 import com.jianfanjia.cn.http.request.HomePageRequest;
 import com.jianfanjia.cn.http.request.LoginRequest;
 import com.jianfanjia.cn.http.request.LogoutRequest;
@@ -193,9 +193,9 @@ public class JianFanJiaClient {
      * @Description 获取业主需求
      */
     public static void get_Requirement_List(Context context, ApiUiUpdateListener listener, Object tag) {
-        GetRequirementRequest getRequirementRequest = new GetRequirementRequest(context);
-        LogTool.d(TAG, "get_Requirement_list --" + getRequirementRequest.getUrl());
-        OkHttpClientManager.getInstance().getGetDelegate().getAsyn(getRequirementRequest, listener, tag);
+        GetRequirementListRequest getRequirementListRequest = new GetRequirementListRequest(context);
+        LogTool.d(TAG, "get_Requirement_list --" + getRequirementListRequest.getUrl());
+        OkHttpClientManager.getInstance().getGetDelegate().getAsyn(getRequirementListRequest, listener, tag);
     }
 
     /**

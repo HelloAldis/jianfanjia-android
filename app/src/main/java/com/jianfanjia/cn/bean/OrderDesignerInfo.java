@@ -27,6 +27,15 @@ public class OrderDesignerInfo implements Serializable {
     private boolean is_rec;
     private PlanInfo plan;//设计师方案
     private Evaluation evaluation;
+    private int match;
+
+    public int getMatch() {
+        return match;
+    }
+
+    public void setMatch(int match) {
+        this.match = match;
+    }
 
     public Evaluation getEvaluation() {
         return evaluation;

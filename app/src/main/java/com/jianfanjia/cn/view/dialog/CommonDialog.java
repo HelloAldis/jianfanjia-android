@@ -147,7 +147,7 @@ public class CommonDialog extends Dialog {
 		tvMessage.setText(message);
 		tvMessage.setTextSize(14);
 		tvMessage.setTextColor(getContext().getResources().getColor(
-				R.color.back_color));
+				R.color.grey_color));
 
 		ScrollView.LayoutParams lp = new ScrollView.LayoutParams(
 				LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);

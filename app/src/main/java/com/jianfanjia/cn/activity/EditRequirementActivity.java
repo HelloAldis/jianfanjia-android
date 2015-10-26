@@ -254,7 +254,6 @@ public class EditRequirementActivity extends BaseAnnotationActivity {
 
     @Click(R.id.head_right_title)
     protected void confirm() {
-        makeTextLong("确定");
         if(requestCode == XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT){
             JianFanJiaClient.add_Requirement(this, requirementInfo, this, this);
         }else {
@@ -293,7 +292,7 @@ public class EditRequirementActivity extends BaseAnnotationActivity {
     @AfterViews
     protected void setMainHeadView() {
         mainHeadView.setMianTitle(getResources().getString(R.string.str_edit_req));
-        mainHeadView.setRightTitle(getResources().getString(R.string.confirm));
+        mainHeadView.setRightTitle(getResources().getString(R.string.finish));
         mainHeadView.setRigthTitleEnable(false);
 
         gotoItem = new Intent(this, EditRequirementItemActivity_.class);
