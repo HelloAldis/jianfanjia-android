@@ -9,9 +9,8 @@
     <ImageView
         android:id="@+id/list_item_case_img"
         android:layout_width="match_parent"
-        android:layout_height="220dip"
-        android:scaleType="center"
-        android:src="@mipmap/bg_home_banner2" />
+        android:layout_height="250dip"
+        android:scaleType="center" />
 
     <TextView
         android:id="@+id/list_item_case_title_text"
