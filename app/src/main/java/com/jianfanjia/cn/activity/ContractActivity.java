@@ -33,7 +33,7 @@ public class ContractActivity extends BaseActivity implements OnClickListener {
         initMainHeadView();
         webView = (WebView) findViewById(R.id.webView);
         webView.getSettings().setJavaScriptEnabled(true);
-        webView.loadUrl("http://www.baidu.com/");
+        webView.loadUrl("http://www.jianfanjia.com/tpl/guide/index.html?1");
         Intent intent = this.getIntent();
         Bundle contractBundle = intent.getExtras();
         requirementid = contractBundle.getString(Global.REQUIREMENT_ID);
