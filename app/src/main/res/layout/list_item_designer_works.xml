@@ -8,9 +8,8 @@
     <ImageView
         android:id="@+id/list_item_works_img"
         android:layout_width="match_parent"
-        android:layout_height="200dip"
-        android:scaleType="center"
-        android:src="@mipmap/bg_home_banner2" />
+        android:layout_height="250dip"
+        android:scaleType="centerCrop" />
 
     <TextView
         android:id="@+id/list_item_works_xiaoqu_text"
