@@ -1,12 +1,16 @@
 package com.jianfanjia.cn.activity;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.RatingBar.OnRatingBarChangeListener;
 
 import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.LogTool;
@@ -19,13 +23,20 @@ import com.jianfanjia.cn.view.MainHeadView;
  * Date:15-10-11 14:30
  */
 public class PingjiaActivity extends BaseActivity implements
-        OnRatingBarChangeListener, OnClickListener, ApiUiUpdateListener {
+        OnClickListener, ApiUiUpdateListener {
     private static final String TAG = PingjiaActivity.class.getName();
     private MainHeadView mainHeadView = null;
     private RatingBar bar = null;
     private RatingBar speedBar = null;
     private RatingBar attudeBar = null;
+    private EditText contentEdit = null;
     private Button btn_commit = null;
+
+    private String requirementid = null;
+    private String designerid = null;
+
+    private int respond_speed = 0;
+    private int service_attitude = 0;
 
 
     @Override
@@ -34,7 +45,13 @@ public class PingjiaActivity extends BaseActivity implements
         bar = (RatingBar) findViewById(R.id.ratingBar);
         speedBar = (RatingBar) findViewById(R.id.speedBar);
         attudeBar = (RatingBar) findViewById(R.id.attudeBar);
+        contentEdit = (EditText) findViewById(R.id.contentEdit);
         btn_commit = (Button) findViewById(R.id.btn_commit);
+        Intent intent = this.getIntent();
+        Bundle commentBundle = intent.getExtras();
+        requirementid = commentBundle.getString(Global.REQUIREMENT_ID);
+        designerid = commentBundle.getString(Global.DESIGNER_ID);
+        LogTool.d(TAG, "requirementid:" + requirementid + " designerid:" + designerid);
     }
 
     private void initMainHeadView() {
@@ -50,7 +67,8 @@ public class PingjiaActivity extends BaseActivity implements
 
     @Override
     public void setListener() {
-        speedBar.setOnRatingBarChangeListener(this);
+        speedBar.setOnRatingBarChangeListener(speedListener);
+        attudeBar.setOnRatingBarChangeListener(attitudeListener);
         btn_commit.setOnClickListener(this);
     }
 
@@ -61,39 +79,29 @@ public class PingjiaActivity extends BaseActivity implements
                 finish();
                 break;
             case R.id.btn_commit:
+                String content = contentEdit.getText().toString().trim();
+                evaluateDesignerByUser(requirementid, designerid, service_attitude, respond_speed, content, "0");
                 break;
             default:
                 break;
         }
     }
 
-    @Override
-    public void onRatingChanged(RatingBar ratingBar, float rating,
-                                boolean fromUser) {
-        int num = (int) rating;
-        String result = null;  //保存文字信息
-        switch (num) {
-            case 5:
-                result = "非常满意";
-                break;
-            case 4:
-                result = "满意";
-                break;
-            case 3:
-                result = "还可以";
-                break;
-            case 2:
-                result = "不满意";
-                break;
-            case 1:
-                result = "非常不满意";
-                break;
-            default:
-                break;
+    private OnRatingBarChangeListener speedListener = new OnRatingBarChangeListener() {
+        @Override
+        public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+            respond_speed = (int) rating;
+            LogTool.d(TAG, "respond_speed:" + respond_speed);
         }
-        LogTool.d(TAG, " result:" + result);
-        makeTextLong(" result:" + result);
-    }
+    };
+
+    private OnRatingBarChangeListener attitudeListener = new OnRatingBarChangeListener() {
+        @Override
+        public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+            service_attitude = (int) rating;
+            LogTool.d(TAG, "service_attitude:" + service_attitude);
+        }
+    };
 
     //评价设计师
     private void evaluateDesignerByUser(String requirementid, String designerid, int service_attitude, int respond_speed, String comment, String is_anonymous) {
@@ -109,6 +117,7 @@ public class PingjiaActivity extends BaseActivity implements
     public void loadSuccess(Object data) {
         super.loadSuccess(data);
         LogTool.d(TAG, "data:" + data);
+        makeTextLong(data.toString());
     }
 
 
