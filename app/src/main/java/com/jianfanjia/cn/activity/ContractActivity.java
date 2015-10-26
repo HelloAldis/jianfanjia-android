@@ -1,9 +1,15 @@
 package com.jianfanjia.cn.activity;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 
 import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.http.JianFanJiaClient;
+import com.jianfanjia.cn.interf.ApiUiUpdateListener;
+import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
 
 /**
@@ -16,11 +22,18 @@ public class ContractActivity extends BaseActivity implements OnClickListener {
     private static final String TAG = ContractActivity.class.getName();
     private MainHeadView mainHeadView = null;
 
+    private String requirementid = null;
+    private String final_planid = null;
+
 
     @Override
     public void initView() {
         initMainHeadView();
-
+        Intent intent = this.getIntent();
+        Bundle contractBundle = intent.getExtras();
+        requirementid = contractBundle.getString(Global.REQUIREMENT_ID);
+        LogTool.d(TAG, "requirementid:" + requirementid);
+        getContractInfo(requirementid);
     }
 
     private void initMainHeadView() {
@@ -48,12 +61,59 @@ public class ContractActivity extends BaseActivity implements OnClickListener {
                 finish();
                 break;
             case R.id.head_right_title:
-                makeTextLong("确认");
+                postUserProcess("", "");
                 break;
             default:
                 break;
         }
     }
+
+    //查看合同
+    private void getContractInfo(String requirementid) {
+        JianFanJiaClient.getContractInfo(ContractActivity.this, requirementid, getContractListener, this);
+
+    }
+
+    private ApiUiUpdateListener getContractListener = new ApiUiUpdateListener() {
+        @Override
+        public void preLoad() {
+
+        }
+
+        @Override
+        public void loadSuccess(Object data) {
+            LogTool.d(TAG, "data:" + data.toString());
+        }
+
+        @Override
+        public void loadFailture(String error_msg) {
+
+        }
+    };
+
+    //确认开启工地
+    private void postUserProcess(String requirementid, String final_planid) {
+        JianFanJiaClient.post_Owner_Process(ContractActivity.this, requirementid, final_planid, postUserProcessListener, this);
+    }
+
+
+    private ApiUiUpdateListener postUserProcessListener = new ApiUiUpdateListener() {
+        @Override
+        public void preLoad() {
+
+        }
+
+        @Override
+        public void loadSuccess(Object data) {
+            LogTool.d(TAG, "data:" + data.toString());
+            makeTextLong(data.toString());
+        }
+
+        @Override
+        public void loadFailture(String error_msg) {
+
+        }
+    };
 
     @Override
     public int getLayoutId() {

@@ -61,7 +61,7 @@ public class HomeFragment extends BaseFragment implements
     private DesignerListAdapter designerAdapter = null;
     private List<DesignerListInfo> designerList = new ArrayList<DesignerListInfo>();
 
-    private int FROM = 0;
+    private int FROM = 0;// 当前页的编号，从0开始
 
     private static final int BANNER_ICON[] = {R.mipmap.bg_home_banner1,
             R.mipmap.bg_home_banner2, R.mipmap.bg_home_banner3,
@@ -144,11 +144,10 @@ public class HomeFragment extends BaseFragment implements
 
     @Override
     public void loadSuccess(Object data) {
-        LogTool.d(TAG, "data=============================" + data);
+        LogTool.d(TAG, "data:" + data);
         hideWaitDialog();
-        parseResponse(data.toString());
         mPullRefreshScrollView.onRefreshComplete();
-        designerAdapter.notifyDataSetChanged();
+        parseResponse(data.toString());
     }
 
     private void parseResponse(String response) {
@@ -176,8 +175,6 @@ public class HomeFragment extends BaseFragment implements
             designerList.addAll(homeDesignersInfo.getDesigners());
             LogTool.d(TAG, "designerList:" + designerList.size());
             designerAdapter.notifyDataSetChanged();
-        } else {
-
         }
     }
 
@@ -227,11 +224,9 @@ public class HomeFragment extends BaseFragment implements
 
     @Override
     public void onPullUpToRefresh(PullToRefreshBase<ScrollView> refreshView) {
-        mPullRefreshScrollView.onRefreshComplete();
         FROM = designerList.size();
         getHomePageDesigners(FROM, Constant.LIMIT);
     }
-
 
 
     @Override

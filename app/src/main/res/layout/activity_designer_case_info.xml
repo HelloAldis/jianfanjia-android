@@ -29,7 +29,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="80dip"
+                android:layout_marginTop="90dip"
                 android:fitsSystemWindows="true"
                 android:orientation="vertical"
                 app:layout_collapseMode="parallax"

@@ -32,7 +32,9 @@ public class Constant {
 
     public static final String EXTRA_BUNDLE = "launchBundle";
 
-    public static final int LIMIT = 5;//分页 每次加载10条
+    public static final int LIMIT = 10;//分页 每次加载10条
+    public static final int STATE_REFRESH = 0;// 下拉刷新
+    public static final int STATE_MORE = 1;// 加载更多
 
     public static class Config {
         public static final boolean DEVELOPER_MODE = false;

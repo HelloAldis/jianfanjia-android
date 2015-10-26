@@ -10,7 +10,7 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="250dip"
+        android:layout_height="270dip"
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
@@ -22,7 +22,7 @@
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
             app:expandedTitleGravity="center_horizontal"
-            app:expandedTitleMarginBottom="70dip"
+            app:expandedTitleMarginBottom="65dip"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <LinearLayout
@@ -38,7 +38,7 @@
                     android:layout_width="60dip"
                     android:layout_height="60dip"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="60dip"
+                    android:layout_marginTop="80dip"
                     android:scaleType="centerCrop"
                     android:src="@mipmap/pix_default" />
 
@@ -134,53 +134,49 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v4.widget.NestedScrollView
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <LinearLayout
+        <RadioGroup
+            android:id="@+id/tab_rg_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="45dip"
+            android:orientation="horizontal">
 
-            <RadioGroup
-                android:id="@+id/tab_rg_layout"
+            <RadioButton
+                android:id="@+id/tab_designer_info"
+                style="@style/tab_rb_style"
                 android:layout_width="match_parent"
-                android:layout_height="45dip"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/layout_border"
+                android:checked="true"
+                android:gravity="center"
+                android:text="资料"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/text_size_14" />
 
-                <RadioButton
-                    android:id="@+id/tab_designer_info"
-                    style="@style/tab_rb_style"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/layout_border"
-                    android:checked="true"
-                    android:gravity="center"
-                    android:text="资料"
-                    android:textColor="@color/text_color"
-                    android:textSize="@dimen/text_size_14" />
-
-                <RadioButton
-                    android:id="@+id/tab_designer_works"
-                    style="@style/tab_rb_style"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="-2dip"
-                    android:layout_weight="1"
-                    android:background="@drawable/layout_border"
-                    android:gravity="center"
-                    android:text="作品"
-                    android:textColor="@color/text_color"
-                    android:textSize="@dimen/text_size_14" />
-            </RadioGroup>
-
-            <FrameLayout
-                android:id="@+id/contentLayout"
+            <RadioButton
+                android:id="@+id/tab_designer_works"
+                style="@style/tab_rb_style"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+                android:layout_height="match_parent"
+                android:layout_marginLeft="-2dip"
+                android:layout_weight="1"
+                android:background="@drawable/layout_border"
+                android:gravity="center"
+                android:text="作品"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/text_size_14" />
+        </RadioGroup>
+
+        <FrameLayout
+            android:id="@+id/contentLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>

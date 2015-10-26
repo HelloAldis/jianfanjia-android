@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
@@ -23,7 +22,6 @@ import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.fragment.DesignerInfoFragment;
 import com.jianfanjia.cn.fragment.DesignerWorksFragment;
 import com.jianfanjia.cn.http.JianFanJiaClient;
-import com.jianfanjia.cn.interf.ActivityToFragmentInterface;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
@@ -37,7 +35,6 @@ import com.jianfanjia.cn.tools.LogTool;
 public class DesignerInfoActivity extends BaseActivity implements
         OnCheckedChangeListener, OnClickListener {
     private static final String TAG = DesignerInfoActivity.class.getName();
-    private ActivityToFragmentInterface activityToFragmentInterface = null;
     private RadioGroup mTabRadioGroup = null;
     private Toolbar toolbar = null;
     private CollapsingToolbarLayout collapsingToolbar = null;
@@ -52,16 +49,6 @@ public class DesignerInfoActivity extends BaseActivity implements
     private DesignerWorksFragment workFragment = null;
     private String designerid = null;
 
-    @Override
-    public void onAttachFragment(Fragment fragment) {
-        super.onAttachFragment(fragment);
-        try {
-            activityToFragmentInterface = (ActivityToFragmentInterface) fragment;
-        } catch (ClassCastException e) {
-            e.printStackTrace();
-        }
-        LogTool.d(TAG, " activityToFragmentInterface:" + activityToFragmentInterface);
-    }
 
     @Override
     public void initView() {
@@ -153,9 +140,6 @@ public class DesignerInfoActivity extends BaseActivity implements
                 viewCountText.setText("" + designerInfo.getView_count());
                 productCountText.setText("" + designerInfo.getProduct_count());
                 appointCountText.setText("" + designerInfo.getOrder_count());
-                if (null != activityToFragmentInterface) {
-                    activityToFragmentInterface.toTransmit(designerInfo);
-                }
             }
         }
 
@@ -184,7 +168,6 @@ public class DesignerInfoActivity extends BaseActivity implements
         }
     };
 
-
     private void setTabSelection(int index) {
         // 开启一个Fragment事务
         FragmentTransaction transaction = this.getSupportFragmentManager()
@@ -196,6 +179,9 @@ public class DesignerInfoActivity extends BaseActivity implements
                     transaction.show(infoFragment);
                 } else {
                     infoFragment = new DesignerInfoFragment();
+                    Bundle designerBundle = new Bundle();
+                    designerBundle.putString(Global.DESIGNER_ID, designerid);
+                    infoFragment.setArguments(designerBundle);
                     transaction.add(R.id.contentLayout, infoFragment);
                 }
                 break;
@@ -204,6 +190,9 @@ public class DesignerInfoActivity extends BaseActivity implements
                     transaction.show(workFragment);
                 } else {
                     workFragment = new DesignerWorksFragment();
+                    Bundle designerBundle = new Bundle();
+                    designerBundle.putString(Global.DESIGNER_ID, designerid);
+                    workFragment.setArguments(designerBundle);
                     transaction.add(R.id.contentLayout, workFragment);
                 }
                 break;

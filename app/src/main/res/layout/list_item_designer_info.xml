@@ -3,12 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/font_white"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingBottom="10dip"
+    android:paddingTop="10dip">
 
     <ImageView
         android:id="@+id/list_item_product_img"
         android:layout_width="match_parent"
-        android:layout_height="220dip"
+        android:layout_height="250dip"
         android:scaleType="fitXY"
         android:src="@mipmap/pix_default" />
 
@@ -19,22 +21,20 @@
         android:layout_height="60dip"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="-30dip"
-        android:scaleType="centerCrop"
         android:elevation="@dimen/space_16"
+        android:scaleType="centerCrop"
         android:src="@mipmap/pix_default" />
 
     <TextView
         android:id="@+id/list_item_xiaoqu_text"
         style="@style/listview_item_text_style_middle"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/space_5"
         android:textColor="@color/main_color_black" />
 
     <TextView
         android:id="@+id/list_item_produce_text"
         style="@style/listview_item_text_style_small"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/space_5"
         android:textColor="@color/main_color_grey" />
 
 
