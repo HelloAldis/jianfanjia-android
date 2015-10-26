@@ -1,16 +1,16 @@
 package com.jianfanjia.cn.http.request;
 
 import android.content.Context;
-import android.text.TextUtils;
+
 import com.jianfanjia.cn.base.BaseRequest;
-import com.jianfanjia.cn.config.Url;
+import com.jianfanjia.cn.config.Url_New;
 
 public class UploadPicRequestNew extends BaseRequest {
 
 
 	public UploadPicRequestNew(Context context) {
 		super(context);
-		url = Url.UPLOAD_IMAGE;
+		url = Url_New.UPLOAD_IMAGE;
 	}
 
 	@Override

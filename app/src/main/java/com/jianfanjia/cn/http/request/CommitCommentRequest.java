@@ -3,13 +3,13 @@ package com.jianfanjia.cn.http.request;
 import android.content.Context;
 
 import com.jianfanjia.cn.base.BaseRequest;
-import com.jianfanjia.cn.config.Url;
+import com.jianfanjia.cn.config.Url_New;
 
 public class CommitCommentRequest extends BaseRequest {
 
     public CommitCommentRequest(Context context) {
         super(context);
-        url = Url.POST_PROCESS_COMMENT;
+        url = Url_New.POST_PROCESS_COMMENT;
     }
 
 

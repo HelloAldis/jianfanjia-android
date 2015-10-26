@@ -15,7 +15,8 @@
         android:id="@+id/req_listview_wrap"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
 
         <android.support.v4.widget.SwipeRefreshLayout
@@ -31,44 +32,42 @@
                 android:paddingTop="8dp" />
         </android.support.v4.widget.SwipeRefreshLayout>
 
-        <!--<ListView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/req_listView"
-            android:layout_gravity="center_horizontal"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:choiceMode="singleChoice"
-            style="@style/style_listview_base"
-            android:scrollingCache="false" />-->
     </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/req_publish_wrap"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="60dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
         android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/edit_requirement_bg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/bg_requirement"/>
 
         <TextView
             android:id="@+id/req_tip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
             android:text="@string/str_req_tip"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/main_color_grey"
-            android:textSize="@dimen/text_size_14" />
+            android:layout_gravity="center_horizontal"
+            android:textSize="@dimen/small_size" />
 
-        <Button
+        <TextView
             android:id="@+id/req_publish"
             android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:layout_alignLeft="@+id/req_tip"
-            android:layout_alignRight="@+id/req_tip"
-            android:layout_marginTop="48dp"
-            android:background="@drawable/btn_selector"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
             android:text="@string/str_req_pubReq"
-            android:textColor="@color/font_white" />
-    </RelativeLayout>
+            android:textColor="@color/main_color_orange"
+            android:textSize="@dimen/middle_size"
+            android:layout_gravity="center_horizontal"
+             />
+    </LinearLayout>
 </LinearLayout>

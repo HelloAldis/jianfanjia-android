@@ -348,7 +348,7 @@ public class ManageFragment extends BaseFragment implements
 						| DateUtils.FORMAT_SHOW_DATE
 						| DateUtils.FORMAT_ABBREV_ALL);
 		// Update the LastUpdatedLabel
-		refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
+//		refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
 		// 加载数据
 		/*
 		 * LoadClientHelper.requestProcessInfoById(getActivity(),new

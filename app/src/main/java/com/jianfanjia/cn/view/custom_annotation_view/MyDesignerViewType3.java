@@ -24,16 +24,7 @@ import org.androidannotations.annotations.ViewById;
  * Date:2015-10-22 10:46
  */
 @EViewGroup(R.layout.list_item_my_designer_type3)
-public class MyDesignerViewType3 extends RelativeLayout {
-
-    public static final int PLAN_TYPE1 = 0;
-    public static final int PLAN_TYPE2 = 1;
-    public static final int PLAN_TYPE3 = 2;
-    public static final int PLAN_TYPE4 = 3;
-    public static final int PLAN_TYPE5 = 4;
-    public static final int PLAN_TYPE6 = 5;
-    public static final int PLAN_TYPE7 = 6;
-    public static final int PLAN_TYPE8 = 7;
+public class MyDesignerViewType3 extends BaseAnnotationView {
 
     @ViewById(R.id.ltm_my_designer_head)
     protected ImageView headView;
@@ -62,9 +53,9 @@ public class MyDesignerViewType3 extends RelativeLayout {
         String imageid = designerInfo.getImageid();
         String username = designerInfo.getUsername();
         if(!TextUtils.isEmpty(imageid)){
-            ImageLoader.getInstance().displayImage(Url_New.GET_IMAGE + imageid , headView);
+            ImageLoader.getInstance().displayImage(Url_New.GET_IMAGE + imageid , headView,options);
         }else{
-            ImageLoader.getInstance().displayImage(Constant.DEFALUT_DESIGNER_PIC, headView);
+            ImageLoader.getInstance().displayImage(Constant.DEFALUT_DESIGNER_PIC, headView,options);
         }
         if(!TextUtils.isEmpty(username)){
             nameView.setText(username);
