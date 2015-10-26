@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="style_listview_base">
         <item name="android:listSelector">@android:color/transparent</item>
         <item name="android:listDivider">@android:color/transparent</item>
@@ -13,5 +14,12 @@
         <item name="android:progressDrawable">@drawable/ratingbar_drawable</item>
         <item name="android:minHeight">28dip</item>
         <item name="android:maxHeight">28dip</item>
+    </style>
+
+    <style name="list_item_ratingbar_style" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/list_item_rating_drawable_selector</item>
+        <item name="android:numStars">5</item>
+        <item name="android:minHeight">16dip</item>
+        <item name="android:maxHeight">16dip</item>
     </style>
 </resources>

@@ -18,8 +18,18 @@
             android:id="@+id/name_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/image_item"
+            android:layout_below="@id/image_item"
             android:layout_centerHorizontal="true" />
+
+        <RatingBar
+            android:id="@+id/ratingBar_item"
+            style="@style/list_item_ratingbar_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/name_item"
+            android:layout_centerHorizontal="true"
+            android:numStars="5"
+            android:rating="4" />
     </RelativeLayout>
 
 </RelativeLayout>
