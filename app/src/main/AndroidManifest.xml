@@ -264,8 +264,7 @@
             android:label="@string/title_activity_preview_designer_plan"></activity>
         <activity
             android:name=".PingJiaInfoActivity"
-            android:label="@string/title_activity_ping_jia_info"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+            android:label="@string/title_activity_ping_jia_info"></activity>
         <activity
             android:name=".DetailPriceActivity"
             android:label="@string/title_activity_detail_price"></activity>
