@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -28,6 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/name_item"
             android:layout_centerHorizontal="true"
+            android:isIndicator="true"
             android:numStars="5"
             android:rating="4" />
     </RelativeLayout>
