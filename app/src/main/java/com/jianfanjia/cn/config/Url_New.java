@@ -15,6 +15,8 @@ public class Url_New {
     public static final String HTTPROOT = "http://" + SEVER_IP + ":"
             + SEVER_PORT + "/api/v2/app/";
 
+    public static final String CONTRACT_URL = "http://www.jianfanjia.com/tpl/guide/index.html?1";
+
     public static final String ID = "id";
     //
     public static final String BIND_URL = HTTPROOT + "device/bind";
