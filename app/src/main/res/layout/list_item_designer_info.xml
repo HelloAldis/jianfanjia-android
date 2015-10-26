@@ -9,7 +9,7 @@
         android:id="@+id/list_item_product_img"
         android:layout_width="match_parent"
         android:layout_height="250dip"
-        android:scaleType="fitXY"
+        android:scaleType="center"
         android:src="@mipmap/pix_default" />
 
 
@@ -27,8 +27,8 @@
         android:id="@+id/list_item_xiaoqu_text"
         style="@style/listview_item_text_style_middle"
         android:layout_gravity="center_horizontal"
-        android:textStyle="bold"
-        android:textColor="@color/black_color" />
+        android:textColor="@color/black_color"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/list_item_produce_text"
