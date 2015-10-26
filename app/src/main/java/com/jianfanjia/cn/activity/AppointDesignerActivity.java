@@ -243,7 +243,7 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data);
             makeTextLong(data.toString());
-            getOrderDesignerList(requestmentid);
+            finish();
         }
 
         @Override
