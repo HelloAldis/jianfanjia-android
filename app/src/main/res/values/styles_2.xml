@@ -22,4 +22,11 @@
         <item name="android:minHeight">15dip</item>
         <item name="android:maxHeight">15dip</item>
     </style>
+
+    <style name="list_item_ratingbar_style_middle" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/list_item_rating_drawable_selector</item>
+        <item name="android:numStars">5</item>
+        <item name="android:minHeight">25dip</item>
+        <item name="android:maxHeight">25dip</item>
+    </style>
 </resources>
