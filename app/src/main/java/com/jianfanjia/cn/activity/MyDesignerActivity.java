@@ -136,7 +136,7 @@ public class MyDesignerActivity extends BaseAnnotationActivity {
                     case VIEW_COMMENT:
                         Bundle viewBundle = new Bundle();
                         viewBundle.putSerializable(Global.EVALUATION, orderDesignerInfo.getEvaluation());
-                        startActivity(PingjiaActivity.class, viewBundle);
+                        startActivity(PingJiaInfoActivity.class, viewBundle);
                         break;
                     case COMMENT:
                         Bundle commentBundle = new Bundle();
