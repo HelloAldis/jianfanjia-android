@@ -109,6 +109,11 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
     @Override
     public void onCallBack(int position, int pos) {
         LogTool.d(TAG, "position:" + position + "  pos:" + pos);
+        PlanInfo planInfo = designerPlanList.get(position);
+        LogTool.d(TAG, "planInfo:" + planInfo);
+        String planid = planInfo.get_id();
+        LogTool.d(TAG, "planid:" + planid);
+        startToActivity(planid);
     }
 
     @Override
@@ -123,13 +128,17 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
                 LogTool.d(TAG, "planInfo:" + planInfo);
                 String planid = planInfo.get_id();
                 LogTool.d(TAG, "planid:" + planid);
-                Bundle planBundle = new Bundle();
-                planBundle.putString(Global.PLAN_ID, planid);
-                startActivity(PreviewDesignerPlanActivity.class, planBundle);
+                startToActivity(planid);
                 break;
             default:
                 break;
         }
+    }
+
+    private void startToActivity(String planid) {
+        Bundle planBundle = new Bundle();
+        planBundle.putString(Global.PLAN_ID, planid);
+        startActivity(PreviewDesignerPlanActivity.class, planBundle);
     }
 
     @Override
