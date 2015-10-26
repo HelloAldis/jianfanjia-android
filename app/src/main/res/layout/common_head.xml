@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/transparent">
@@ -20,8 +20,7 @@
                 android:id="@+id/head_back"
                 style="@style/listview_item_text_style_middle"
                 android:layout_centerVertical="true"
-                android:src="@mipmap/icon_register_back"
-                 />
+                android:src="@mipmap/icon_register_back" />
         </RelativeLayout>
 
         <TextView
@@ -36,11 +35,11 @@
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:paddingRight="@dimen/space_14"
-            android:paddingLeft="@dimen/space_14"
-            android:textColor="@color/main_color_black"
             android:gravity="center"
-            android:textSize="@dimen/middle_size"/>
+            android:paddingLeft="@dimen/space_14"
+            android:paddingRight="@dimen/space_14"
+            android:textColor="@color/main_color_black"
+            android:textSize="@dimen/middle_size" />
 
         <View
             android:id="@+id/head_divier"
