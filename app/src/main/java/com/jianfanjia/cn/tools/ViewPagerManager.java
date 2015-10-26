@@ -115,7 +115,7 @@ public class ViewPagerManager {
         for (int i = 0; i < imgIds.length; i++) {
             ImageView iv = new ImageView(mContext);
             iv.setImageResource(imgIds[i]);
-            iv.setScaleType(ScaleType.FIT_XY);
+            iv.setScaleType(ScaleType.CENTER);
             mViews.add(iv);
         }
         mViews.add(view);
