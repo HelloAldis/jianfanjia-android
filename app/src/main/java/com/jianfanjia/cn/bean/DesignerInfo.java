@@ -72,6 +72,16 @@ public class DesignerInfo implements Serializable {
 
     private float score;
 
+    private boolean is_my_favorite;
+
+    public boolean is_my_favorite() {
+        return is_my_favorite;
+    }
+
+    public void setIs_my_favorite(boolean is_my_favorite) {
+        this.is_my_favorite = is_my_favorite;
+    }
+
     public String get_id() {
         return _id;
     }

@@ -3,6 +3,7 @@ package com.jianfanjia.cn.adapter;
 import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
@@ -34,6 +35,7 @@ public class MarchDesignerAdapter extends BaseListAdapter<OrderDesignerInfo> {
             holder.mHeadView = (ImageView) convertView
                     .findViewById(R.id.image_item);
             holder.mName = (TextView) convertView.findViewById(R.id.name_item);
+            holder.nBar = (RatingBar) convertView.findViewById(R.id.ratingBar_item);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -48,5 +50,6 @@ public class MarchDesignerAdapter extends BaseListAdapter<OrderDesignerInfo> {
     private static class ViewHolder {
         public ImageView mHeadView = null;
         public TextView mName = null;
+        public RatingBar nBar = null;
     }
 }

@@ -15,6 +15,8 @@ public class Url_New {
     public static final String HTTPROOT = "http://" + SEVER_IP + ":"
             + SEVER_PORT + "/api/v2/app/";
 
+    public static final String CONTRACT_URL = "http://www.jianfanjia.com/tpl/guide/index.html?1";
+
     public static final String ID = "id";
     //
     public static final String BIND_URL = HTTPROOT + "device/bind";
@@ -62,7 +64,9 @@ public class Url_New {
     public static final String USER_ORDER_DESIGNER = HTTPROOT + "user_order_designer";
     //业主获取我预约的设计师
     public static final String USER_ORDERD_DESIGNERS = HTTPROOT + "user_ordered_designers";
-    //业主确实设计师已量房
+    //业主更换预约了的设计师
+    public static final String USER_CHANGE_ORDERD_DESIGNER = HTTPROOT + "user_change_ordered_designer";
+    //业主确认设计师已量房
     public static final String DESIGNER_HOUSE_CHECKED = HTTPROOT + "designer_house_checked";
     //业主评价设计师
     public static final String EVALUATE_DESIGNER_BY_USER = HTTPROOT + "user_evaluate_designer";

@@ -22,7 +22,7 @@
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
             app:expandedTitleGravity="center_horizontal"
-            app:expandedTitleMarginTop="-80dip"
+            app:expandedTitleMarginTop="-70dip"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
 

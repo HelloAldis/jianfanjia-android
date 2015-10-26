@@ -107,6 +107,8 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
                 LogTool.d(TAG, "designerids=" + designerids);
                 if (designerids.size() > 0) {
                     orderDesignerByUser(requestmentid, designerids);
+                } else {
+                    makeTextLong("请选择设计师");
                 }
                 break;
             default:
@@ -241,7 +243,7 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data);
             makeTextLong(data.toString());
-            getOrderDesignerList(requestmentid);
+            finish();
         }
 
         @Override

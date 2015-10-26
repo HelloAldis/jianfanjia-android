@@ -74,11 +74,58 @@ public class DesignerInfoFragment extends BaseFragment implements ApiUiUpdateLis
         DesignerInfo designerInfo = JsonParser.jsonToBean(data.toString(), DesignerInfo.class);
         LogTool.d(TAG, "designerInfo:" + designerInfo);
         if (null != designerInfo) {
-            jiandanType.setText("接单类型:");
-            jiandanHouseType.setText("接单户型:");
-            jiandanDistrict.setText("接单区域:" + designerInfo.getProvince() + designerInfo.getCity() + designerInfo.getDistrict());
-            List<String> dec_styles = designerInfo.getDec_styles();
-            designStyle.setText("设计风格:" + designerInfo.getAchievement());
+            LogTool.d(TAG, "designerInfo:" + designerInfo);
+            List<String> decTypes = designerInfo.getDec_types();
+            StringBuffer decTypeStr = new StringBuffer();
+            for (String str : decTypes) {
+                LogTool.d(TAG, "str:" + str);
+                if (str.equals("0")) {
+                    decTypeStr.append("家装 ");
+                } else if (str.equals("1")) {
+                    decTypeStr.append("商装 ");
+                } else if (str.equals("2")) {
+                    decTypeStr.append("软装");
+                }
+            }
+            jiandanType.setText("接单类型:" + decTypeStr.toString());
+            List<String> decHouseTypes = designerInfo.getDec_house_types();
+            StringBuffer decHouseType = new StringBuffer();
+            for (String str : decHouseTypes) {
+                LogTool.d(TAG, "str:" + str);
+                if (str.equals("0")) {
+                    decHouseType.append("一居 ");
+                } else if (str.equals("1")) {
+                    decHouseType.append("二居 ");
+                } else if (str.equals("2")) {
+                    decHouseType.append("三居 ");
+                } else if (str.equals("3")) {
+                    decHouseType.append("四居 ");
+                } else if (str.equals("4")) {
+                    decHouseType.append("复式 ");
+                } else if (str.equals("5")) {
+                    decHouseType.append("别墅");
+                }
+            }
+            jiandanHouseType.setText("接单户型:" + decHouseType.toString());
+            jiandanDistrict.setText("接单区域:" + designerInfo.getDistrict());
+            List<String> decStyles = designerInfo.getDec_styles();
+            StringBuffer decStyleType = new StringBuffer();
+            for (String str : decStyles) {
+                if (str.equals("0")) {
+                    decStyleType.append("欧式 ");
+                } else if (str.equals("1")) {
+                    decStyleType.append("中式 ");
+                } else if (str.equals("2")) {
+                    decStyleType.append("现代 ");
+                } else if (str.equals("3")) {
+                    decStyleType.append("地中海 ");
+                } else if (str.equals("4")) {
+                    decStyleType.append("美式 ");
+                } else if (str.equals("5")) {
+                    decStyleType.append("东南亚");
+                }
+            }
+            designStyle.setText("设计风格:" + decStyleType.toString());
             designIdea.setText("设计理念:" + designerInfo.getPhilosophy());
             designAchievement.setText("设计成就:" + designerInfo.getAchievement());
             company.setText("曾就职公司:" + designerInfo.getCompany());
