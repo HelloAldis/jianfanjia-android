@@ -8,9 +8,12 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.bean.ContractInfo;
 import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
+import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
 
@@ -26,6 +29,7 @@ public class ContractActivity extends BaseActivity implements OnClickListener {
     private WebView webView = null;
 
     private String requirementid = null;
+    private String final_planid = null;
 
 
     @Override
@@ -33,12 +37,7 @@ public class ContractActivity extends BaseActivity implements OnClickListener {
         initMainHeadView();
         webView = (WebView) findViewById(R.id.webView);
         webView.getSettings().setJavaScriptEnabled(true);
-        webView.loadUrl("http://www.jianfanjia.com/tpl/guide/index.html?1");
-        Intent intent = this.getIntent();
-        Bundle contractBundle = intent.getExtras();
-        requirementid = contractBundle.getString(Global.REQUIREMENT_ID);
-        LogTool.d(TAG, "requirementid:" + requirementid);
-//        getContractInfo(requirementid);
+        webView.loadUrl(Url_New.CONTRACT_URL);
         webView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -46,6 +45,11 @@ public class ContractActivity extends BaseActivity implements OnClickListener {
                 return true;
             }
         });
+        Intent intent = this.getIntent();
+        Bundle contractBundle = intent.getExtras();
+        requirementid = contractBundle.getString(Global.REQUIREMENT_ID);
+        LogTool.d(TAG, "requirementid:" + requirementid);
+        getContractInfo(requirementid);
     }
 
     private void initMainHeadView() {
@@ -73,7 +77,7 @@ public class ContractActivity extends BaseActivity implements OnClickListener {
                 finish();
                 break;
             case R.id.head_right_title:
-                postUserProcess("", "");
+                postUserProcess(requirementid, final_planid);
                 break;
             default:
                 break;
@@ -94,16 +98,23 @@ public class ContractActivity extends BaseActivity implements OnClickListener {
         @Override
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data.toString());
+            ContractInfo contractInfo = JsonParser.jsonToBean(data.toString(), ContractInfo.class);
+            LogTool.d(TAG, "contractInfo:" + contractInfo);
+            if (null != contractInfo) {
+                final_planid = contractInfo.getFinal_planid();
+                LogTool.d(TAG, "final_planid:" + final_planid);
+            }
         }
 
         @Override
         public void loadFailture(String error_msg) {
-
+            makeTextLong(error_msg);
         }
     };
 
     //确认开启工地
     private void postUserProcess(String requirementid, String final_planid) {
+        LogTool.d(TAG, "requirementid=" + requirementid + "  final_planid=" + final_planid);
         JianFanJiaClient.post_Owner_Process(ContractActivity.this, requirementid, final_planid, postUserProcessListener, this);
     }
 
@@ -122,7 +133,7 @@ public class ContractActivity extends BaseActivity implements OnClickListener {
 
         @Override
         public void loadFailture(String error_msg) {
-
+            makeTextLong(error_msg);
         }
     };
 
