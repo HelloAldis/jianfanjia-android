@@ -27,6 +27,7 @@
         android:id="@+id/list_item_xiaoqu_text"
         style="@style/listview_item_text_style_middle"
         android:layout_gravity="center_horizontal"
+        android:textStyle="bold"
         android:textColor="@color/black_color" />
 
     <TextView
