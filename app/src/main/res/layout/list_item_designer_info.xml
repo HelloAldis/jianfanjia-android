@@ -9,8 +9,7 @@
         android:id="@+id/list_item_product_img"
         android:layout_width="match_parent"
         android:layout_height="250dip"
-        android:scaleType="center"
-        android:src="@mipmap/pix_default" />
+        android:scaleType="center" />
 
 
     <com.jianfanjia.cn.layout.CircleImageView
@@ -20,8 +19,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="-30dip"
         android:elevation="@dimen/space_16"
-        android:scaleType="centerCrop"
-        android:src="@mipmap/pix_default" />
+        android:scaleType="centerCrop" />
 
     <TextView
         android:id="@+id/list_item_xiaoqu_text"
