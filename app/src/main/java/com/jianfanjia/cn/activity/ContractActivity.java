@@ -26,7 +26,6 @@ public class ContractActivity extends BaseActivity implements OnClickListener {
     private WebView webView = null;
 
     private String requirementid = null;
-    private String final_planid = null;
 
 
     @Override
@@ -38,8 +37,7 @@ public class ContractActivity extends BaseActivity implements OnClickListener {
         Intent intent = this.getIntent();
         Bundle contractBundle = intent.getExtras();
         requirementid = contractBundle.getString(Global.REQUIREMENT_ID);
-        final_planid = contractBundle.getString(Global.PLAN_ID);
-        LogTool.d(TAG, "requirementid:" + requirementid + " final_planid:" + final_planid);
+        LogTool.d(TAG, "requirementid:" + requirementid);
 //        getContractInfo(requirementid);
         webView.setWebViewClient(new WebViewClient() {
             @Override
