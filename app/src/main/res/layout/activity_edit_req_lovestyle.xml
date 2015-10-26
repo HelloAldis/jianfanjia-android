@@ -13,18 +13,19 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/space_8"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="@dimen/space_8">
 
         <GridView
+            android:id="@+id/act_edit_req_lovestyle_gridview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/act_edit_req_lovestyle_gridview"
-            android:numColumns="2"
-            android:nestedScrollingEnabled="false"
-            android:clickable="false"
             android:choiceMode="singleChoice"
+            android:clickable="false"
             android:horizontalSpacing="2dp"
-            android:verticalSpacing="2dp"/>
+            android:nestedScrollingEnabled="false"
+            android:numColumns="2"
+            android:scrollbars="none"
+            android:verticalSpacing="2dp" />
     </LinearLayout>
 </LinearLayout>
