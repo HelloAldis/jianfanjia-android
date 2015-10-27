@@ -25,6 +25,12 @@
         <item name="android:background">@color/line_color</item>
     </style>
 
+    <style name="home_page_divier_line">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">5dip</item>
+        <item name="android:background">@color/light_white_color</item>
+    </style>
+
     <!-- login activity -->
     <style name="item_input_container">
         <item name="android:layout_width">match_parent</item>
@@ -260,6 +266,8 @@
         <item name="android:paddingBottom">24dp</item>
         <item name="android:orientation">vertical</item>
     </style>
+
     <style name="AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
     <style name="PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

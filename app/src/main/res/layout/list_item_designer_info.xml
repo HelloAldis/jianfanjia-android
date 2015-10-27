@@ -38,5 +38,8 @@
         android:textColor="@color/home_page_text_color"
         android:textSize="@dimen/text_size_11" />
 
-
+    <View
+        style="@style/home_page_divier_line"
+        android:layout_marginTop="5dip"
+        android:background="@color/transparent" />
 </LinearLayout>
