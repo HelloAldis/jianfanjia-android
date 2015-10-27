@@ -12,8 +12,8 @@ public class OrderDesignerInfo implements Serializable {
     private String _id;//设计师id
     private String imageid;//设计师头像id
     private String username;//设计师名称
-    private int respond_speed;
-    private int service_attitude;
+    private float respond_speed;
+    private float service_attitude;
     private String phone;
     private String city;
     private String provice;
@@ -174,19 +174,19 @@ public class OrderDesignerInfo implements Serializable {
         this.is_rec = is_rec;
     }
 
-    public int getRespond_speed() {
+    public float getRespond_speed() {
         return respond_speed;
     }
 
-    public void setRespond_speed(int respond_speed) {
+    public void setRespond_speed(float respond_speed) {
         this.respond_speed = respond_speed;
     }
 
-    public int getService_attitude() {
+    public float getService_attitude() {
         return service_attitude;
     }
 
-    public void setService_attitude(int service_attitude) {
+    public void setService_attitude(float service_attitude) {
         this.service_attitude = service_attitude;
     }
 }

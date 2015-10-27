@@ -40,6 +40,6 @@
 
     <View
         style="@style/home_page_divier_line"
-        android:layout_marginTop="5dip"
+        android:layout_marginTop="10dip"
         android:background="@color/transparent" />
 </LinearLayout>
