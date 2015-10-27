@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/space_10"
-        android:text="@string/str_marched_tip"
+        android:text="@string/str_no_marched_tip_1"
         android:textColor="@color/home_page_text_color"
         android:textSize="@dimen/text_size_14" />
 
