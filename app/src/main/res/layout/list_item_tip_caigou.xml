@@ -40,7 +40,6 @@
             style="@style/listview_item_text_style_middle"
             android:layout_below="@id/list_item_tip_caigou_name"
             android:layout_marginBottom="@dimen/space_10"
-            android:layout_marginTop="@dimen/space_10"
             android:text="复合板"
             android:textColor="@color/orange_color" />
 
