@@ -43,7 +43,7 @@
                     android:src="@mipmap/pix_default" />
 
                 <RatingBar
-                    android:id="@+id/ratingBar_item"
+                    android:id="@+id/ratingBar"
                     style="@style/list_item_ratingbar_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -78,9 +78,9 @@
                             style="@style/site_listview_item_text_style_small"
                             android:layout_gravity="center_horizontal"
                             android:text="浏览数"
-                            android:textColor="@color/designer_info_text_color"
+                            android:textColor="@color/home_page_text_color"
                             android:textSize="@dimen/text_size_14" />
-
+                        <!-- android:textColor="@color/designer_info_text_color"-->
                     </LinearLayout>
 
                     <LinearLayout
@@ -101,7 +101,7 @@
                             style="@style/site_listview_item_text_style_small"
                             android:layout_gravity="center_horizontal"
                             android:text="作品数"
-                            android:textColor="@color/designer_info_text_color"
+                            android:textColor="@color/home_page_text_color"
                             android:textSize="@dimen/text_size_14" />
 
                     </LinearLayout>
@@ -124,7 +124,7 @@
                             style="@style/site_listview_item_text_style_small"
                             android:layout_gravity="center_horizontal"
                             android:text="预约数"
-                            android:textColor="@color/designer_info_text_color"
+                            android:textColor="@color/home_page_text_color"
                             android:textSize="@dimen/text_size_14" />
                     </LinearLayout>
 
