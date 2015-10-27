@@ -24,6 +24,7 @@ public class DetailPriceActivity extends BaseActivity implements OnClickListener
     private static final String TAG = DetailPriceActivity.class.getName();
     private MainHeadView mainHeadView = null;
     private ListView priceListView = null;
+    private View headView = null;
     private TextView totalPrice = null;
     private PriceDetailAdapter adapter = null;
     private PlandetailInfo planDetailInfo = null;
@@ -31,6 +32,7 @@ public class DetailPriceActivity extends BaseActivity implements OnClickListener
     @Override
     public void initView() {
         initMainHeadView();
+        headView = inflater.inflate(R.layout.list_item_price_header_item, null);
         priceListView = (ListView) findViewById(R.id.price_listview);
         totalPrice = (TextView) findViewById(R.id.priceText);
         Intent intent = this.getIntent();
@@ -38,6 +40,7 @@ public class DetailPriceActivity extends BaseActivity implements OnClickListener
         planDetailInfo = (PlandetailInfo) priceBundle.getSerializable(Global.PLAN_DETAIL);
         LogTool.d(TAG, "planDetailInfo =" + planDetailInfo);
         if (null != planDetailInfo) {
+            priceListView.addHeaderView(headView);
             totalPrice.setText("项目总造价:" + planDetailInfo.getTotal_price() + "元");
             adapter = new PriceDetailAdapter(DetailPriceActivity.this, planDetailInfo.getPrice_detail());
             priceListView.setAdapter(adapter);
