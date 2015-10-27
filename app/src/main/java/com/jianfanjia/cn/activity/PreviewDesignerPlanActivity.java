@@ -6,10 +6,12 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.jianfanjia.cn.adapter.PlanViewAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.PlandetailInfo;
+import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
@@ -29,6 +31,14 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
     private static final String TAG = PreviewDesignerPlanActivity.class.getName();
     private MainHeadView mainHeadView = null;
     private ViewPager viewPager = null;
+    private TextView cellName = null;
+    private TextView houseType = null;
+    private TextView houseArea = null;
+    private TextView decorateType = null;
+    private TextView totalDate = null;
+    private TextView price = null;
+    private TextView designText = null;
+
     private Button btnDetail = null;
     private Button btn_choose = null;
     private PlandetailInfo planDetailInfo = null;
@@ -40,6 +50,13 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
     public void initView() {
         initMainHeadView();
         viewPager = (ViewPager) findViewById(R.id.viewpager);
+        cellName = (TextView) findViewById(R.id.cellName);
+        houseType = (TextView) findViewById(R.id.houseType);
+        houseArea = (TextView) findViewById(R.id.houseArea);
+        decorateType = (TextView) findViewById(R.id.decorateType);
+        totalDate = (TextView) findViewById(R.id.totalDate);
+        price = (TextView) findViewById(R.id.price);
+        designText = (TextView) findViewById(R.id.designText);
         btnDetail = (Button) findViewById(R.id.btnDetail);
         btn_choose = (Button) findViewById(R.id.btn_choose);
         Intent intent = this.getIntent();
@@ -118,9 +135,17 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
             planDetailInfo = JsonParser.jsonToBean(data.toString(), PlandetailInfo.class);
             LogTool.d(TAG, "planDetailInfo:" + planDetailInfo);
             if (null != planDetailInfo) {
+                RequirementInfo requirementInfo = planDetailInfo.getRequirement();
                 requirementid = planDetailInfo.getRequirementid();
                 designerid = planDetailInfo.getDesignerid();
-                LogTool.d(TAG, "requirementid:" + requirementid + " designerid:" + designerid);
+                LogTool.d(TAG, "requirementid:" + requirementid + " designerid:" + designerid + " requirementInfo:" + requirementInfo);
+                cellName.setText(requirementInfo.getCell());
+                requirementInfo.getHouse_type();
+                requirementInfo.getHouse_area();
+                requirementInfo.getWork_type();
+                requirementInfo.getTotal_price();
+                requirementInfo.getFamily_description();
+
                 String planStatus = planDetailInfo.getStatus();
                 if (planStatus.equals(Global.PLAN_STATUS5)) {
                     btn_choose.setEnabled(false);
