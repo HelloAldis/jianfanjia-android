@@ -55,13 +55,14 @@
 
                     <RatingBar
                         android:id="@+id/ratingBar"
-                        style="?android:attr/ratingBarStyleSmall"
+                        style="@style/list_item_ratingbar_style"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="@dimen/space_10"
+                        android:layout_marginTop="10dip"
+                        android:isIndicator="true"
                         android:numStars="5"
-                        android:rating="5" />
+                        android:rating="3" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -94,13 +95,13 @@
 
                         <RatingBar
                             android:id="@+id/speedBar"
-                            style="?android:attr/ratingBarStyleIndicator"
+                            style="@style/list_item_ratingbar_style_middle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:isIndicator="false"
+                            android:isIndicator="true"
                             android:numStars="5"
-                            android:stepSize="1" />
+                            android:rating="4" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -119,12 +120,13 @@
 
                         <RatingBar
                             android:id="@+id/attudeBar"
-                            style="?android:attr/ratingBarStyleIndicator"
+                            style="@style/list_item_ratingbar_style_middle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
+                            android:isIndicator="true"
                             android:numStars="5"
-                            android:rating="0" />
+                            android:rating="3" />
                     </LinearLayout>
 
                     <TextView
@@ -133,7 +135,7 @@
                         android:layout_marginLeft="@dimen/space_16"
                         android:layout_marginRight="@dimen/space_16"
                         android:layout_marginTop="@dimen/space_10"
-                        android:text="评价内容"
+                        android:text="评价内容:"
                         android:textColor="@color/black_color" />
 
                 </LinearLayout>
