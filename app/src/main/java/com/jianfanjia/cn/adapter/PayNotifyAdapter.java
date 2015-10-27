@@ -31,12 +31,14 @@ public class PayNotifyAdapter extends BaseListAdapter<NotifyMessage> {
             convertView = layoutInflater.inflate(R.layout.list_item_tip_pay,
                     null);
             viewHolder = new ViewHolder();
+            viewHolder.itemCellView = (TextView) convertView
+                    .findViewById(R.id.list_item_tip_cell_name);
             viewHolder.itemNameView = (TextView) convertView
                     .findViewById(R.id.list_item_tip_pay_name);
             viewHolder.itemNodeView = (TextView) convertView
                     .findViewById(R.id.list_item_tip_pay_node);
             viewHolder.itemPubTimeView = (TextView) convertView
-                    .findViewById(R.id.list_item_pay_time);
+                    .findViewById(R.id.list_item_tip_pay_time);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
@@ -50,6 +52,7 @@ public class PayNotifyAdapter extends BaseListAdapter<NotifyMessage> {
     }
 
     private static class ViewHolder {
+        TextView itemCellView;
         TextView itemNameView;// 延迟工序
         TextView itemNodeView;// 延迟节点
         TextView itemPubTimeView;// 发布时间

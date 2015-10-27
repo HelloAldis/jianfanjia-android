@@ -31,6 +31,8 @@ public class CaiGouNotifyAdapter extends BaseListAdapter<NotifyMessage> {
             convertView = layoutInflater.inflate(R.layout.list_item_tip_caigou,
                     null);
             viewHolder = new ViewHolder();
+            viewHolder.itemCellView = (TextView) convertView
+                    .findViewById(R.id.list_item_tip_cell_name);
             viewHolder.itemContentView = (TextView) convertView
                     .findViewById(R.id.list_item_tip_caigou_content);
             viewHolder.itemNameView = (TextView) convertView
@@ -53,6 +55,7 @@ public class CaiGouNotifyAdapter extends BaseListAdapter<NotifyMessage> {
     }
 
     private static class ViewHolder {
+        TextView itemCellView;
         TextView itemNameView;// 采购工序视图
         TextView itemContentView;// 采购内容视图
         TextView itemNodeView;// 采购节点
