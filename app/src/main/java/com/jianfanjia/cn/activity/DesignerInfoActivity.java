@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.base.BaseActivity;
@@ -38,6 +39,7 @@ public class DesignerInfoActivity extends BaseActivity implements
     private RadioGroup mTabRadioGroup = null;
     private Toolbar toolbar = null;
     private CollapsingToolbarLayout collapsingToolbar = null;
+    private RatingBar ratingBar = null;
     private ImageView designerinfo_head_img = null;
     private TextView viewCountText = null;
     private TextView productCountText = null;
@@ -64,6 +66,7 @@ public class DesignerInfoActivity extends BaseActivity implements
         collapsingToolbar.setCollapsedTitleTextColor(Color.BLACK);
         collapsingToolbar.setExpandedTitleColor(Color.BLACK);
         designerinfo_head_img = (ImageView) findViewById(R.id.designerinfo_head_img);
+        ratingBar = (RatingBar) findViewById(R.id.ratingBar);
         viewCountText = (TextView) findViewById(R.id.viewCountText);
         productCountText = (TextView) findViewById(R.id.productCountText);
         appointCountText = (TextView) findViewById(R.id.appointCountText);
@@ -140,6 +143,9 @@ public class DesignerInfoActivity extends BaseActivity implements
                 viewCountText.setText("" + designerInfo.getView_count() + "K");
                 productCountText.setText("" + designerInfo.getProduct_count());
                 appointCountText.setText("" + designerInfo.getOrder_count());
+                int respond_speed = designerInfo.getRespond_speed();
+                int service_attitude = designerInfo.getService_attitude();
+                ratingBar.setRating((respond_speed + service_attitude) / 2);
             }
         }
 
