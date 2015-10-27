@@ -143,8 +143,8 @@ public class DesignerInfoActivity extends BaseActivity implements
                 viewCountText.setText("" + designerInfo.getView_count() + "K");
                 productCountText.setText("" + designerInfo.getProduct_count());
                 appointCountText.setText("" + designerInfo.getOrder_count());
-                int respond_speed = designerInfo.getRespond_speed();
-                int service_attitude = designerInfo.getService_attitude();
+                int respond_speed = (int) designerInfo.getRespond_speed();
+                int service_attitude = (int) designerInfo.getService_attitude();
                 ratingBar.setRating((respond_speed + service_attitude) / 2);
             }
         }
