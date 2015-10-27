@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_layout_bg"
+    android:orientation="vertical">
+
+    <com.jianfanjia.cn.view.MainHeadView
+        android:id="@+id/my_appoint_head_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/head_layout_bg" />
+
+    <ScrollView
+        android:id="@+id/setting_scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/space_8"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <!--匹配设计师-->
+            <LinearLayout
+                android:id="@+id/marchRootview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dip"
+                    android:background="@color/font_white">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_margin="10dip"
+                        android:text="匹配设计师"
+                        android:textSize="16sp" />
+
+                  
+                </RelativeLayout>
+
+                <View style="@style/divier_line" />
+
+
+                <com.jianfanjia.cn.view.MyListView
+                    android:id="@+id/marched_designer_listview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/font_white"
+                    android:cacheColorHint="#00000000"
+                    android:clipToPadding="false"
+                    android:divider="@color/horzontal_line_color"
+                    android:dividerHeight="1dip"
+                    android:fadingEdge="none"
+                    android:fastScrollEnabled="false"
+                    android:scrollbars="none" />
+            </LinearLayout>
+
+            <!--意向设计师-->
+            <LinearLayout
+                android:id="@+id/intentionRootview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/space_8"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dip"
+                    android:background="@color/font_white">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_margin="10dip"
+                        android:text="意向设计师"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/moreText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_margin="10dip"
+                        android:text="更多"
+                        android:textColor="@color/text_color"
+                        android:textSize="16sp" />
+
+                </RelativeLayout>
+
+
+                <View style="@style/divier_line" />
+
+                <com.jianfanjia.cn.view.MyListView
+                    android:id="@+id/intention_designer_listview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/font_white"
+                    android:cacheColorHint="#00000000"
+                    android:clipToPadding="false"
+                    android:divider="@color/horzontal_line_color"
+                    android:dividerHeight="1dip"
+                    android:fadingEdge="none"
+                    android:fastScrollEnabled="false"
+                    android:scrollbars="none" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
+
