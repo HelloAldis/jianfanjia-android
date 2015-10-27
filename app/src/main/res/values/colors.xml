@@ -42,4 +42,5 @@
     <color name="green_color">#12c161</color>
     <color name="blue_color">#05b9fc</color>
     <color name="home_page_text_color">#344a5d</color>
+    <color name="designer_info_text_color">#aab1b6</color>
 </resources>
