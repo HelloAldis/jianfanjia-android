@@ -20,7 +20,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/image_item"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/home_page_text_color"
+            android:textSize="@dimen/text_size_14" />
 
         <RatingBar
             android:id="@+id/ratingBar_item"

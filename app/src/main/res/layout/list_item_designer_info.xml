@@ -25,14 +25,16 @@
         android:id="@+id/list_item_xiaoqu_text"
         style="@style/listview_item_text_style_middle"
         android:layout_gravity="center_horizontal"
-        android:textColor="@color/black_color"
+        android:textColor="@color/home_page_text_color"
+        android:textSize="@dimen/text_size_14"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/list_item_produce_text"
         style="@style/listview_item_text_style_small"
         android:layout_gravity="center_horizontal"
-        android:textColor="@color/main_color_grey" />
+        android:textColor="@color/home_page_text_color"
+        android:textSize="@dimen/text_size_11" />
 
 
 </LinearLayout>
