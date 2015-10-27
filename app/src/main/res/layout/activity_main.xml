@@ -12,10 +12,16 @@
         android:layout_height="0dip"
         android:layout_weight="1" />
 
+
+    <View
+        android:id="@+id/head_divier"
+        style="@style/divier_line"
+        android:background="@color/horzontal_line_color" />
+
     <RadioGroup
         android:id="@+id/tab_rg_menu"
         android:layout_width="match_parent"
-        android:layout_height="60dip"
+        android:layout_height="50dip"
         android:background="#ffffff"
         android:orientation="horizontal">
 
