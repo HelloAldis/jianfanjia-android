@@ -49,7 +49,7 @@
                     android:layout_width="60dip"
                     android:layout_height="60dip"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="10dip"
+                    android:layout_marginTop="20dip"
                     android:scaleType="centerCrop"
                     android:src="@mipmap/pix_default" />
             </LinearLayout>
