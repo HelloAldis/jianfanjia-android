@@ -87,7 +87,7 @@ public class ReplaceDesignerActivity extends BaseActivity implements OnClickList
                 startActivity(MyFavoriteDesignerActivity_.class);
                 break;
             case R.id.head_right_title:
-
+                replaceDesignerByUser(requestmentid, designerid, "");
                 break;
             default:
                 break;
@@ -154,6 +154,7 @@ public class ReplaceDesignerActivity extends BaseActivity implements OnClickList
         }
     };
 
+    //替换设计师
     private void replaceDesignerByUser(String requirementid, String old_designerid, String new_designerid) {
         JianFanJiaClient.ChangeOrderedDesignerByUser(ReplaceDesignerActivity.this, requirementid, old_designerid, new_designerid, replaceDesignerListener, this);
     }
@@ -167,6 +168,7 @@ public class ReplaceDesignerActivity extends BaseActivity implements OnClickList
         @Override
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data);
+            makeTextLong(data.toString());
         }
 
         @Override
