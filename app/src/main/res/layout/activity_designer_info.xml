@@ -33,14 +33,26 @@
                 app:layout_collapseMode="parallax"
                 app:layout_collapseParallaxMultiplier="0.7">
 
-                <com.jianfanjia.cn.layout.CircleImageView
-                    android:id="@+id/designerinfo_head_img"
+                <FrameLayout
+                    android:id="@+id/imageLayout"
                     android:layout_width="60dip"
                     android:layout_height="60dip"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="70dip"
-                    android:scaleType="centerCrop"
-                    android:src="@mipmap/pix_default" />
+                    android:layout_marginTop="70dip">
+
+                    <com.jianfanjia.cn.layout.CircleImageView
+                        android:id="@+id/designerinfo_head_img"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop" />
+
+                    <ImageView
+                        android:id="@+id/designerinfo_auth"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|right"
+                        android:src="@mipmap/icon_auth" />
+                </FrameLayout>
 
                 <RatingBar
                     android:id="@+id/ratingBar"

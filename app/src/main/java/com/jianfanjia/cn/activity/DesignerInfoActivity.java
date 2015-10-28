@@ -41,6 +41,7 @@ public class DesignerInfoActivity extends BaseActivity implements
     private CollapsingToolbarLayout collapsingToolbar = null;
     private RatingBar ratingBar = null;
     private ImageView designerinfo_head_img = null;
+    private ImageView designerinfo_auth = null;
     private TextView viewCountText = null;
     private TextView productCountText = null;
     private TextView appointCountText = null;
@@ -66,6 +67,7 @@ public class DesignerInfoActivity extends BaseActivity implements
         collapsingToolbar.setCollapsedTitleTextColor(Color.BLACK);
         collapsingToolbar.setExpandedTitleColor(Color.BLACK);
         designerinfo_head_img = (ImageView) findViewById(R.id.designerinfo_head_img);
+        designerinfo_auth = (ImageView) findViewById(R.id.designerinfo_auth);
         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
         viewCountText = (TextView) findViewById(R.id.viewCountText);
         productCountText = (TextView) findViewById(R.id.productCountText);
