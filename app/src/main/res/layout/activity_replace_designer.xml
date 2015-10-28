@@ -56,6 +56,7 @@
                     android:cacheColorHint="#00000000"
                     android:clipToPadding="false"
                     android:divider="@color/horzontal_line_color"
+                    android:dividerHeight="0.5dip"
                     android:fadingEdge="none"
                     android:fastScrollEnabled="false"
                     android:scrollbars="none" />
@@ -106,6 +107,7 @@
                     android:cacheColorHint="#00000000"
                     android:clipToPadding="false"
                     android:divider="@color/horzontal_line_color"
+                    android:dividerHeight="0.5dip"
                     android:fadingEdge="none"
                     android:fastScrollEnabled="false"
                     android:scrollbars="none" />
