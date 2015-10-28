@@ -127,8 +127,8 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
         switch (itemType) {
             case Constant.PLAN_COMMENT_ITEM:
                 Bundle commentBundle = new Bundle();
-                commentBundle.putString(Global.PLAN_ID, planid);
-                commentBundle.putString(Global.DESIGNER_ID, designerid);
+                commentBundle.putString(Global.TOPIC_ID, planid);
+                commentBundle.putString(Global.TO, designerid);
                 startActivity(CommentActivity.class, commentBundle);
                 break;
             case Constant.PLAN_PREVIEW_ITEM:
