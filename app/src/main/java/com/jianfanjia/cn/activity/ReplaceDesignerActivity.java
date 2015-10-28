@@ -140,8 +140,8 @@ public class ReplaceDesignerActivity extends BaseActivity implements OnClickList
             if (null != designerCanOrderListInfo) {
                 rec_designer = designerCanOrderListInfo.getRec_designer();
                 favorite_designer = designerCanOrderListInfo.getFavorite_designer();
-//                designerByAppointAdapter = new DesignerByAppointAdapter(ReplaceDesignerActivity.this, rec_designer);
-//                marched_designer_listview.setAdapter(designerByAppointAdapter);
+                designerByAppointAdapter = new DesignerByAppointAdapter(ReplaceDesignerActivity.this, rec_designer);
+                marched_designer_listview.setAdapter(designerByAppointAdapter);
                 designerByIntentionInfoAdapter = new DesignerByIntentionInfoAdapter(ReplaceDesignerActivity.this, favorite_designer);
                 intention_designer_listview.setAdapter(designerByIntentionInfoAdapter);
             }
