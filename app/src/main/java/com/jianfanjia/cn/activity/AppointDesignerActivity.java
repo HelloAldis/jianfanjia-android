@@ -101,7 +101,7 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
                 deSelectAll();
                 break;
             case R.id.moreText:
-                makeTextLong("更多");
+                startActivity(MyFavoriteDesignerActivity_.class);
                 break;
             case R.id.head_right_title:
                 LogTool.d(TAG, "designerids=" + designerids);

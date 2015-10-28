@@ -84,7 +84,7 @@ public class ReplaceDesignerActivity extends BaseActivity implements OnClickList
                 finish();
                 break;
             case R.id.moreText:
-                makeTextLong("更多");
+                startActivity(MyFavoriteDesignerActivity_.class);
                 break;
             case R.id.head_right_title:
 
