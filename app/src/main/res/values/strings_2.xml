@@ -54,4 +54,8 @@
     <string name="str_lovedesisex">偏好设计师性别</string>
     <string name="requirement_list">需求列表</string>
     <string name="str_match">匹配度：%1$s</string>
+    <string name="welcome_jianfanjia">欢迎使用简繁家</string>
+    <string name="str_publish_requirement">发布需求</string>
+    <string name="str_scan">逛一逛</string>
+    <string name="forget_pwd_title">忘记密码</string>
 </resources>

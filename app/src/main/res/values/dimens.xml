@@ -89,9 +89,11 @@
     <dimen name="space_2">2.0dip</dimen>
     <dimen name="space_1">1.0dip</dimen>
 
+    <dimen name="title_size">24sp</dimen>
     <dimen name="big_size">17sp</dimen>
     <dimen name="middle_size">14sp</dimen>
     <dimen name="small_size">12sp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="space_72">72dp</dimen>
 
 </resources>

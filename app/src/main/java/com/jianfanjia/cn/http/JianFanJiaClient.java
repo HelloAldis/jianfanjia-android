@@ -25,6 +25,7 @@ import com.jianfanjia.cn.http.request.DesignerInfoRequest;
 import com.jianfanjia.cn.http.request.EvaluateDesignerRequest;
 import com.jianfanjia.cn.http.request.FavoriteDesignerListRequest;
 import com.jianfanjia.cn.http.request.FeedBackRequest;
+import com.jianfanjia.cn.http.request.ForgetPswRequest;
 import com.jianfanjia.cn.http.request.GetAllRescheduleRequest;
 import com.jianfanjia.cn.http.request.GetCommentsRequest;
 import com.jianfanjia.cn.http.request.GetContractRequest;
@@ -113,6 +114,7 @@ public class JianFanJiaClient {
         try {
             jsonParams.put("phone", username);
             jsonParams.put("pass", password);
+            LogTool.d(TAG, "login --" + loginRequest.getUrl() + "---" + jsonParams.toString());
             OkHttpClientManager.getInstance().getPostDelegate().postAsyn(loginRequest, jsonParams.toString(), listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -132,6 +134,20 @@ public class JianFanJiaClient {
         LogTool.d(TAG, "logout " + logoutRequest.getUrl());
         OkHttpClientManager.getInstance().getGetDelegate().getAsyn(logoutRequest, listener, tag);
     }
+
+    /**
+     * 用户更新密码
+     * @param context
+     * @param registerInfo
+     * @param listener
+     * @param tag
+     */
+    public static void update_psw(Context context,RegisterInfo registerInfo, ApiUiUpdateListener listener, Object tag) {
+        ForgetPswRequest forgetPswRequest = new ForgetPswRequest(context);
+        LogTool.d(TAG, "update_psw --" + forgetPswRequest.getUrl() + "---" + JsonParser.beanToJson(registerInfo));
+        OkHttpClientManager.getInstance().getPostDelegate().postAsyn(forgetPswRequest, JsonParser.beanToJson(registerInfo), listener, tag);
+    }
+
 
     /**
      * 检查版本
