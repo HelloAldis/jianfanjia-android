@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
@@ -46,10 +47,12 @@ public class DesignerByIntentionInfoAdapter extends BaseListAdapter<DesignerCanO
             viewHolder = new ViewHolder();
             viewHolder.itemwHeadView = (ImageView) convertView
                     .findViewById(R.id.list_item_head_img);
+            viewHolder.itemAuthView = (ImageView) convertView
+                    .findViewById(R.id.list_item_auth);
             viewHolder.itemNameText = (TextView) convertView
                     .findViewById(R.id.list_item_name_text);
-            viewHolder.itemLevelText = (TextView) convertView
-                    .findViewById(R.id.list_item_level_text);
+            viewHolder.itemRatingBar = (RatingBar) convertView
+                    .findViewById(R.id.list_item_ratingBar);
             viewHolder.itemCheck = (CheckBox) convertView
                     .findViewById(R.id.list_item_check);
             convertView.setTag(viewHolder);
@@ -59,7 +62,6 @@ public class DesignerByIntentionInfoAdapter extends BaseListAdapter<DesignerCanO
         imageLoader.displayImage(Url_New.GET_IMAGE + info.getImageid(), viewHolder.itemwHeadView, options);
 
         viewHolder.itemNameText.setText(info.getUsername());
-        viewHolder.itemLevelText.setText(info.getWork_auth_type());
         viewHolder.itemCheck.setChecked(getIsSelected().get(position));
 
         return convertView;
@@ -67,8 +69,9 @@ public class DesignerByIntentionInfoAdapter extends BaseListAdapter<DesignerCanO
 
     private static class ViewHolder {
         ImageView itemwHeadView;
+        ImageView itemAuthView = null;
         TextView itemNameText;
-        TextView itemLevelText;
+        RatingBar itemRatingBar;
         CheckBox itemCheck;
     }
 
