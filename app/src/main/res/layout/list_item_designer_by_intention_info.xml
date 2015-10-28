@@ -39,7 +39,6 @@
             android:id="@+id/textLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:orientation="vertical">
 
             <TextView
@@ -53,6 +52,7 @@
                 style="@style/list_item_ratingbar_style"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dip"
                 android:isIndicator="true"
                 android:numStars="5"
                 android:rating="2" />
@@ -64,7 +64,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_margin="10dip"
+            android:layout_marginRight="10dip"
+            android:button="@drawable/checkbox_bg"
             android:clickable="false"
             android:focusable="false"
             android:focusableInTouchMode="false" />

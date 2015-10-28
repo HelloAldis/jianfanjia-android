@@ -37,7 +37,6 @@
             android:id="@+id/textLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:orientation="vertical">
 
             <TextView
@@ -49,6 +48,7 @@
             <TextView
                 android:id="@+id/list_item_march_text"
                 style="@style/listview_item_text_style_small"
+                android:layout_marginTop="10dip"
                 android:text="匹配度:100%"
                 android:textColor="@color/main_color_grey" />
         </LinearLayout>
@@ -59,7 +59,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_margin="10dip"
+            android:layout_marginRight="10dip"
+            android:button="@drawable/checkbox_bg"
             android:clickable="false"
             android:focusable="false"
             android:focusableInTouchMode="false" />
