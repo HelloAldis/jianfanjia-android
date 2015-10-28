@@ -22,6 +22,9 @@ public class Global {
     public static final String PLAN_DETAIL = "plan_datail";
     public static final String IMAGE_ID = "image_id";
     public static final String DESIGNER_NAME = "designer_name";
+    public static final String TOPIC_ID = "topic_id";
+    public static final String TO = "to";
+
 
     public static final String PLAN_STATUS0 = "0";//已预约但没有响应
     public static final String PLAN_STATUS1 = "1";//已拒绝业主
