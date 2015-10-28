@@ -140,11 +140,12 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
                 designerid = planDetailInfo.getDesignerid();
                 LogTool.d(TAG, "requirementid:" + requirementid + " designerid:" + designerid + " requirementInfo:" + requirementInfo);
                 cellName.setText(requirementInfo.getCell());
-                requirementInfo.getHouse_type();
-                requirementInfo.getHouse_area();
-                requirementInfo.getWork_type();
-                requirementInfo.getTotal_price();
-                requirementInfo.getFamily_description();
+                houseType.setText("装修户型:" + getHouseType(requirementInfo.getHouse_type()));
+                houseArea.setText("装修面积:" + requirementInfo.getHouse_area() + "㎡");
+                decorateType.setText("装修类型:" + getWorkType(requirementInfo.getWork_type()));
+                totalDate.setText("总工期:" + planDetailInfo.getDuration() + "天");
+                price.setText("项目报价:" + planDetailInfo.getTotal_price() + "元");
+                designText.setText("设计说明:" + planDetailInfo.getDescription());
 
                 String planStatus = planDetailInfo.getStatus();
                 if (planStatus.equals(Global.PLAN_STATUS5)) {
