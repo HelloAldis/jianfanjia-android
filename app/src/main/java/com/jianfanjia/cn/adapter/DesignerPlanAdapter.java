@@ -45,7 +45,7 @@ public class DesignerPlanAdapter extends BaseListAdapter<PlanInfo> {
             holder = new ViewHolder();
             holder.cellText = (TextView) convertView.findViewById(R.id.cellText);
             holder.statusText = (TextView) convertView.findViewById(R.id.statusText);
-            holder.vp = (ViewPager) convertView.findViewById(R.id.viewpager);
+            holder.viewPager = (ViewPager) convertView.findViewById(R.id.viewpager);
             holder.dateText = (TextView) convertView.findViewById(R.id.dateText);
             holder.previewText = (TextView) convertView.findViewById(R.id.previewText);
             holder.commentText = (TextView) convertView.findViewById(R.id.commentText);
@@ -65,7 +65,7 @@ public class DesignerPlanAdapter extends BaseListAdapter<PlanInfo> {
                 itemClickListener.onCallBack(position, pos);
             }
         });
-        holder.vp.setAdapter(adapter);
+        holder.viewPager.setAdapter(adapter);
         holder.commentText.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,7 +85,7 @@ public class DesignerPlanAdapter extends BaseListAdapter<PlanInfo> {
     private static class ViewHolder {
         TextView cellText;
         TextView statusText;
-        ViewPager vp;
+        ViewPager viewPager;
         TextView dateText;
         TextView commentText;
         TextView previewText;
