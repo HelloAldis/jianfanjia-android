@@ -122,11 +122,13 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
         PlanInfo planInfo = designerPlanList.get(position);
         LogTool.d(TAG, "planInfo:" + planInfo);
         String planid = planInfo.get_id();
-        LogTool.d(TAG, "planid:" + planid);
+        String designerid = planInfo.getDesignerid();
+        LogTool.d(TAG, "planid:" + planid + " designerid:" + designerid);
         switch (itemType) {
             case Constant.PLAN_COMMENT_ITEM:
                 Bundle commentBundle = new Bundle();
                 commentBundle.putString(Global.PLAN_ID, planid);
+                commentBundle.putString(Global.DESIGNER_ID, designerid);
                 startActivity(CommentActivity.class, commentBundle);
                 break;
             case Constant.PLAN_PREVIEW_ITEM:
