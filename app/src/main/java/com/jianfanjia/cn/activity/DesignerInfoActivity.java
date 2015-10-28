@@ -148,6 +148,9 @@ public class DesignerInfoActivity extends BaseActivity implements
                 int respond_speed = (int) designerInfo.getRespond_speed();
                 int service_attitude = (int) designerInfo.getService_attitude();
                 ratingBar.setRating((respond_speed + service_attitude) / 2);
+                if (designerInfo.is_my_favorite()) {
+                    addBtn.setEnabled(false);
+                }
             }
         }
 
