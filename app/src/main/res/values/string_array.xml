@@ -249,7 +249,6 @@
         <item>@mipmap/di_zhonghai</item>
         <item>@mipmap/dong_nanya</item>
         <item>@mipmap/tian_yuan</item>
-        <item>@mipmap/hun_da</item>
     </string-array>
 
     <string-array name="plan_status">

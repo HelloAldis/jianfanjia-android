@@ -110,7 +110,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:scaleType="center"
-            android:src="@mipmap/ok" />
+            android:src="@mipmap/register_ok" />
 
         <TextView
             style="@style/listview_item_text_style_big"

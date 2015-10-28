@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.jianfanjia.cn.base.BaseRequest;
 import com.jianfanjia.cn.bean.OwnerUpdateInfo;
-import com.jianfanjia.cn.config.Url;
+import com.jianfanjia.cn.config.Url_New;
 
 public class UserByOwnerInfoUpdateRequest extends BaseRequest{
 	
@@ -13,7 +13,7 @@ public class UserByOwnerInfoUpdateRequest extends BaseRequest{
 	public UserByOwnerInfoUpdateRequest(Context context,OwnerUpdateInfo ownerUpdateInfo) {
 		super(context);
 		this.ownerUpdateInfo = ownerUpdateInfo;
-		url = Url.GET_OWER_INFO;
+		url = Url_New.GET_OWER_INFO;
 	}
 	
 	@Override

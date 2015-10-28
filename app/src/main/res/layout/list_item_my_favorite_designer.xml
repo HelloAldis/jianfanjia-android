@@ -18,16 +18,33 @@
             android:id="@+id/ltm_myfavdesi_name"
             style="@style/listview_item_text_style_middle"
             android:layout_marginLeft="@dimen/space_8"
-            android:layout_toRightOf="@+id/ltm_myfavdesi_head"
+            android:layout_toRightOf="@+id/imageLayout"
             android:text="@string/my_site_villagename_example"
             android:textColor="@color/black_color" />
 
-        <com.jianfanjia.cn.layout.CircleImageView
-            android:id="@+id/ltm_myfavdesi_head"
-            android:layout_width="68dp"
-            android:layout_height="68dp"
-            android:contentDescription="@null"
-            android:scaleType="centerCrop" />
+        <FrameLayout
+            android:id="@+id/imageLayout"
+            android:layout_width="60dip"
+            android:layout_height="60dip"
+            android:layout_centerVertical="true"
+            >
+
+            <com.jianfanjia.cn.layout.CircleImageView
+                android:id="@+id/ltm_myfavdesi_head"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/icon_sidebar_default_user"  />
+
+            <ImageView
+                android:id="@+id/designerinfo_auth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|right"
+                android:src="@mipmap/icon_auth" />
+        </FrameLayout>
 
         <RatingBar
             android:id="@+id/ltm_myfavdesi_score"
@@ -37,7 +54,7 @@
             android:layout_alignLeft="@+id/ltm_myfavdesi_name"
             android:layout_alignStart="@+id/ltm_myfavdesi_name"
             android:layout_below="@+id/ltm_myfavdesi_name"
-            android:layout_marginTop="@dimen/space_8"
+            android:layout_marginTop="@dimen/space_16"
             android:isIndicator="true"
             android:numStars="5"
             android:rating="0"

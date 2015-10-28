@@ -2,6 +2,7 @@ package com.jianfanjia.cn.view.custom_annotation_view;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -44,6 +45,9 @@ public class MyDesignerViewType3 extends BaseAnnotationView {
     @ViewById(R.id.ltm_my_designer_textview3)
     protected TextView textView3;
 
+    @ViewById(R.id.designerinfo_auth)
+    ImageView authView;
+
     public MyDesignerViewType3(Context context) {
         super(context);
     }
@@ -56,6 +60,11 @@ public class MyDesignerViewType3 extends BaseAnnotationView {
             ImageLoader.getInstance().displayImage(Url_New.GET_IMAGE + imageid , headView,options);
         }else{
             ImageLoader.getInstance().displayImage(Constant.DEFALUT_DESIGNER_PIC, headView,options);
+        }
+        if(designerInfo.getAuth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)){
+            authView.setVisibility(View.VISIBLE);
+        }else{
+            authView.setVisibility(View.GONE);
         }
         if(!TextUtils.isEmpty(username)){
             nameView.setText(username);

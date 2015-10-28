@@ -55,6 +55,9 @@ public class MyDesignerViewType2 extends BaseAnnotationView {
     @ViewById(R.id.ltm_my_designer_button3)
     protected TextView button3;
 
+    @ViewById(R.id.designerinfo_auth)
+    ImageView authView;
+
     public MyDesignerViewType2(Context context) {
         super(context);
     }
@@ -74,6 +77,11 @@ public class MyDesignerViewType2 extends BaseAnnotationView {
             nameView.setText(username);
         } else {
             nameView.setText(getResources().getString(R.string.designer));
+        }
+        if(designerInfo.getAuth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)){
+            authView.setVisibility(View.VISIBLE);
+        }else{
+            authView.setVisibility(View.GONE);
         }
         switch (status) {
             case Global.PLAN_STATUS2:

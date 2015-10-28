@@ -2,6 +2,7 @@ package com.jianfanjia.cn.view.custom_annotation_view;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -33,6 +34,9 @@ public class MyFavoriteDesignerView extends BaseAnnotationView {
     @ViewById(R.id.ltm_myfavdesi_score)
     RatingBar ltm_myfavdesi_score;
 
+    @ViewById(R.id.designerinfo_auth)
+    ImageView authView;
+
     public MyFavoriteDesignerView(Context context) {
         super(context);
     }
@@ -40,12 +44,17 @@ public class MyFavoriteDesignerView extends BaseAnnotationView {
     public void bind(DesignerInfo designerInfo) {
         ltm_myfavdesi_name.setText(TextUtils.isEmpty(designerInfo.getUsername()) ? getResources().getString(R.string.designer) : designerInfo.getUsername());
         String imageid = designerInfo.getImageid();
-        LogTool.d(this.getClass().getName(),designerInfo.getUsername() + imageid);
+        LogTool.d(this.getClass().getName(), designerInfo.getUsername() + imageid);
         if(!TextUtils.isEmpty(imageid)){
             imageLoader.displayImage(Url.GET_IMAGE + imageid, ltm_myfavdesi_head,options);
         }else{
             imageLoader.getInstance().displayImage(Constant.DEFALUT_DESIGNER_PIC,ltm_myfavdesi_head,options);
         }
-        ltm_myfavdesi_score.setRating(designerInfo.getScore());
+        ltm_myfavdesi_score.setRating((int)(designerInfo.getRespond_speed() + designerInfo.getService_attitude())/2);
+        if(designerInfo.getAuth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)){
+            authView.setVisibility(View.VISIBLE);
+        }else{
+            authView.setVisibility(View.GONE);
+        }
     }
 }

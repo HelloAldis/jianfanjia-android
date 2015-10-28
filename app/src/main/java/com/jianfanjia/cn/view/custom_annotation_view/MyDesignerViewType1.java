@@ -49,6 +49,9 @@ public class MyDesignerViewType1 extends BaseAnnotationView {
     @ViewById(R.id.merger_button2)
     protected TextView button2;
 
+    @ViewById(R.id.designerinfo_auth)
+    ImageView authView;
+
     public MyDesignerViewType1(Context context) {
         super(context);
     }
@@ -66,6 +69,11 @@ public class MyDesignerViewType1 extends BaseAnnotationView {
             nameView.setText(username);
         }else{
             nameView.setText(getResources().getString(R.string.designer));
+        }
+        if(designerInfo.getAuth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)){
+            authView.setVisibility(View.VISIBLE);
+        }else{
+            authView.setVisibility(View.GONE);
         }
         button1.setEnabled(true);
         button2.setEnabled(true);

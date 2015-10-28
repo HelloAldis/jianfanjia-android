@@ -1,16 +1,17 @@
 package com.jianfanjia.cn.http.request;
 
 import android.content.Context;
+
 import com.jianfanjia.cn.base.BaseRequest;
 import com.jianfanjia.cn.bean.OwnerInfo;
-import com.jianfanjia.cn.config.Url;
+import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.tools.JsonParser;
 
 public class UserByOwnerInfoRequest extends BaseRequest {
 
 	public UserByOwnerInfoRequest(Context context) {
 		super(context);
-		url = Url.GET_OWER_INFO;
+		url = Url_New.GET_OWER_INFO;
 	}
 
 	@Override
