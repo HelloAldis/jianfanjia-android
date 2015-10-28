@@ -9,10 +9,11 @@ import java.io.Serializable;
  * Date:2015-10-20 10:05
  */
 public class OrderDesignerInfo implements Serializable {
-    private static final long serialVersionUID = 1L;
     private String _id;//设计师id
     private String imageid;//设计师头像id
     private String username;//设计师名称
+    private float respond_speed;
+    private float service_attitude;
     private String phone;
     private String city;
     private String provice;
@@ -171,5 +172,21 @@ public class OrderDesignerInfo implements Serializable {
 
     public void setIs_rec(boolean is_rec) {
         this.is_rec = is_rec;
+    }
+
+    public float getRespond_speed() {
+        return respond_speed;
+    }
+
+    public void setRespond_speed(float respond_speed) {
+        this.respond_speed = respond_speed;
+    }
+
+    public float getService_attitude() {
+        return service_attitude;
+    }
+
+    public void setService_attitude(float service_attitude) {
+        this.service_attitude = service_attitude;
     }
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="150dip"
+    android:layout_height="165dip"
     android:background="@color/font_white"
     android:orientation="vertical">
 
@@ -11,8 +11,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/space_10"
-        android:text="@string/str_marched_tip"
-        android:textColor="@color/black_color" />
+        android:text="@string/str_no_marched_tip_1"
+        android:textColor="@color/home_page_text_color"
+        android:textSize="@dimen/text_size_14" />
 
 
     <TextView
@@ -22,7 +23,8 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/space_10"
         android:text="@string/str_no_marched_tip_2"
-        android:textColor="@color/black_color" />
+        android:textColor="@color/home_page_text_color"
+        android:textSize="@dimen/text_size_14" />
 
     <TextView
         style="@style/listview_item_text_style_middle"
@@ -31,7 +33,8 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/space_10"
         android:text="@string/str_no_marched_tip_3"
-        android:textColor="@color/black_color" />
+        android:textColor="@color/home_page_text_color"
+        android:textSize="@dimen/text_size_14" />
 
     <Button
         android:id="@+id/btn_add"

@@ -34,6 +34,8 @@ public class MarchDesignerAdapter extends BaseListAdapter<OrderDesignerInfo> {
             holder = new ViewHolder();
             holder.mHeadView = (ImageView) convertView
                     .findViewById(R.id.image_item);
+            holder.mAuthView = (ImageView) convertView
+                    .findViewById(R.id.auth_item);
             holder.mName = (TextView) convertView.findViewById(R.id.name_item);
             holder.nBar = (RatingBar) convertView.findViewById(R.id.ratingBar_item);
             convertView.setTag(holder);
@@ -41,6 +43,9 @@ public class MarchDesignerAdapter extends BaseListAdapter<OrderDesignerInfo> {
             holder = (ViewHolder) convertView.getTag();
         }
         holder.mName.setText(info.getUsername());
+        int respond_speed = (int) info.getRespond_speed();
+        int service_attitude = (int) info.getService_attitude();
+        holder.nBar.setRating((respond_speed + service_attitude) / 2);
         imageLoader.displayImage(Url_New.GET_IMAGE + info.getImageid(),
                 holder.mHeadView, options);
 
@@ -49,6 +54,7 @@ public class MarchDesignerAdapter extends BaseListAdapter<OrderDesignerInfo> {
 
     private static class ViewHolder {
         public ImageView mHeadView = null;
+        public ImageView mAuthView = null;
         public TextView mName = null;
         public RatingBar nBar = null;
     }

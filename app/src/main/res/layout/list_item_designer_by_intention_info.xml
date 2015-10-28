@@ -5,26 +5,40 @@
     android:background="@color/font_white"
     android:orientation="vertical">
 
-    <com.jianfanjia.cn.layout.CircleImageView
-        android:id="@+id/list_item_head_img"
+
+    <FrameLayout
+        android:id="@+id/imageLayout"
         android:layout_width="60dip"
         android:layout_height="60dip"
         android:layout_centerVertical="true"
-        android:layout_margin="10dip"
-        android:scaleType="centerCrop" />
+        android:layout_margin="10dip">
+
+        <com.jianfanjia.cn.layout.CircleImageView
+            android:id="@+id/list_item_head_img"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:scaleType="centerCrop" />
+
+        <ImageView
+            android:id="@+id/list_item_auth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:src="@mipmap/icon_auth" />
+    </FrameLayout>
 
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@id/list_item_head_img">
+        android:layout_toRightOf="@id/imageLayout">
 
         <LinearLayout
             android:id="@+id/textLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:orientation="vertical">
 
             <TextView
@@ -33,11 +47,15 @@
                 android:text="张三"
                 android:textColor="@color/black_color" />
 
-            <TextView
-                android:id="@+id/list_item_level_text"
-                style="@style/listview_item_text_style_small"
-                android:text="匹配度:100%"
-                android:textColor="@color/main_color_grey" />
+            <RatingBar
+                android:id="@+id/list_item_ratingBar"
+                style="@style/list_item_ratingbar_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dip"
+                android:isIndicator="true"
+                android:numStars="5"
+                android:rating="2" />
         </LinearLayout>
 
         <CheckBox
@@ -46,7 +64,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_margin="10dip"
+            android:layout_marginRight="30dip"
+            android:background="@drawable/checkbox_bg"
+            android:button="@null"
             android:clickable="false"
             android:focusable="false"
             android:focusableInTouchMode="false" />

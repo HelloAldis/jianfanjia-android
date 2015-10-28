@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/head_item_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/font_white"
@@ -11,12 +12,9 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/titleText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="-0.5dp"
             android:layout_marginRight="-1dp"
-            android:layout_marginTop="-0.5dp"
             android:layout_weight="1"
             android:background="@drawable/layout_border"
             android:gravity="center"
@@ -24,17 +22,14 @@
             android:paddingLeft="10dip"
             android:paddingRight="10dip"
             android:paddingTop="13dip"
-            android:text="餐厅"
+            android:text="项目"
             android:textColor="#000000"
-            android:textSize="14sp" />
+            android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/contentText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="-0.5dp"
             android:layout_marginLeft="-1dp"
-            android:layout_marginTop="-0.5dp"
             android:layout_weight="1"
             android:background="@drawable/layout_border"
             android:gravity="center"
@@ -42,8 +37,8 @@
             android:paddingLeft="10dip"
             android:paddingRight="10dip"
             android:paddingTop="13dip"
-            android:text="1000"
+            android:text="项目总价"
             android:textColor="#000000"
-            android:textSize="14sp" />
+            android:textSize="16sp" />
     </LinearLayout>
 </LinearLayout>

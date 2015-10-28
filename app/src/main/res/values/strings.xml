@@ -166,8 +166,8 @@
     <string name="fukuanText">付款提醒</string>
     <string name="yanqiText">改期提醒</string>
     <string name="yanshouText">验收提醒</string>
-    <string name="list_item_caigou_example">您即将进入下一轮建材购买阶段,需要购买的是</string>
-    <string name="list_item_fukuan_example">您即将进入下一轮付款环节,请您及时与设计师联系</string>
+    <string name="list_item_caigou_example">系统提示:您即将进入下一轮建材购买阶段,您需要购买的是</string>
+    <string name="list_item_fukuan_example">尊敬的业主,您即将进入下一轮付款环节,请您及时与设计师联系</string>
     <string name="list_item_yanqi_example">对方已申请改期验收至</string>
 
     <!-- activity_upload_pic -->
@@ -266,5 +266,6 @@
     <string name="title_activity_preview_designer_plan">PreviewDesignerPlanActivity</string>
     <string name="title_activity_ping_jia_info">PingJiaInfoActivity</string>
     <string name="title_activity_detail_price">DetailPriceActivity</string>
+    <string name="title_activity_replace_designer">ReplaceDesignerActivity</string>
 
 </resources>

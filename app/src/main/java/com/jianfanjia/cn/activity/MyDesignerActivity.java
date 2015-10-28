@@ -164,7 +164,7 @@ public class MyDesignerActivity extends BaseAnnotationActivity {
                         Bundle changeBundle = new Bundle();
                         changeBundle.putString(Global.DESIGNER_ID, orderDesignerInfo.get_id());
                         changeBundle.putString(Global.REQUIREMENT_ID, requirementid);
-                        startActivity(AppointDesignerActivity.class, changeBundle);
+                        startActivity(ReplaceDesignerActivity.class, changeBundle);
                         break;
                     case CONFIRM_MEASURE_HOUSE:
                         JianFanJiaClient.confirmMeasureHouse(MyDesignerActivity.this, requirementid, orderDesignerInfo.get_id(), new ApiUiUpdateListener() {

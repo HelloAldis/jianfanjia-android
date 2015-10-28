@@ -48,6 +48,8 @@ public class DesignerByAppointAdapter extends BaseListAdapter<DesignerCanOrderIn
             viewHolder = new ViewHolder();
             viewHolder.itemwHeadView = (ImageView) convertView
                     .findViewById(R.id.list_item_head_img);
+            viewHolder.itemAuthView = (ImageView) convertView
+                    .findViewById(R.id.list_item_auth);
             viewHolder.itemNameText = (TextView) convertView
                     .findViewById(R.id.list_item_name_text);
             viewHolder.itemMarchText = (TextView) convertView
@@ -78,6 +80,7 @@ public class DesignerByAppointAdapter extends BaseListAdapter<DesignerCanOrderIn
 
     private static class ViewHolder {
         ImageView itemwHeadView;
+        ImageView itemAuthView = null;
         TextView itemNameText;
         TextView itemMarchText;
         CheckBox itemCheck;

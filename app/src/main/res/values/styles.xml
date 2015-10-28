@@ -25,6 +25,12 @@
         <item name="android:background">@color/line_color</item>
     </style>
 
+    <style name="home_page_divier_line">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">10dip</item>
+        <item name="android:background">@color/light_white_color</item>
+    </style>
+
     <!-- login activity -->
     <style name="item_input_container">
         <item name="android:layout_width">match_parent</item>
@@ -260,6 +266,17 @@
         <item name="android:paddingBottom">24dp</item>
         <item name="android:orientation">vertical</item>
     </style>
+
     <style name="AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
     <style name="PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabIndicatorColor">?attr/colorAccent</item>
+        <item name="tabIndicatorHeight">0dp</item>
+        <item name="tabPaddingStart">12dp</item>
+        <item name="tabPaddingEnd">12dp</item>
+        <item name="tabBackground">@color/font_white</item>
+        <item name="tabSelectedTextColor">?android:textColorPrimary</item>
+    </style>
 </resources>

@@ -42,28 +42,6 @@
                         android:text="匹配设计师"
                         android:textSize="16sp" />
 
-                    <TextView
-                        android:id="@+id/allText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_margin="10dip"
-                        android:text="全选"
-                        android:textColor="@color/text_color"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/cancelText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_margin="10dip"
-                        android:text="取消"
-                        android:textColor="@color/text_color"
-                        android:textSize="16sp"
-                        android:visibility="gone" />
 
                 </RelativeLayout>
 
@@ -89,12 +67,12 @@
                 android:id="@+id/intentionRootview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/space_8"
+                android:layout_marginTop="@dimen/space_10"
                 android:orientation="vertical">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dip"
+                    android:layout_height="45dip"
                     android:background="@color/font_white">
 
                     <TextView

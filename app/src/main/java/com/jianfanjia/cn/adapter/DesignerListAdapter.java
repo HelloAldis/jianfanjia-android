@@ -47,6 +47,8 @@ public class DesignerListAdapter extends BaseListAdapter<DesignerListInfo> {
                     .findViewById(R.id.list_item_product_img);
             viewHolder.itemHeadView = (ImageView) convertView
                     .findViewById(R.id.list_item_head_img);
+            viewHolder.itemAuthView = (ImageView) convertView
+                    .findViewById(R.id.list_item_auth);
             viewHolder.itemXiaoQuText = (TextView) convertView
                     .findViewById(R.id.list_item_xiaoqu_text);
             viewHolder.itemProduceText = (TextView) convertView
@@ -82,6 +84,7 @@ public class DesignerListAdapter extends BaseListAdapter<DesignerListInfo> {
     private static class ViewHolder {
         ImageView itemProductView;
         ImageView itemHeadView;
+        ImageView itemAuthView;
         TextView itemXiaoQuText;
         TextView itemProduceText;
     }

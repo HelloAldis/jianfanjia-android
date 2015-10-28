@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/font_white" >
+    android:background="@color/font_white">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -10,35 +10,43 @@
         android:paddingBottom="@dimen/space_16"
         android:paddingLeft="@dimen/space_16"
         android:paddingRight="@dimen/space_16"
-        android:paddingTop="@dimen/space_16" >
+        android:paddingTop="@dimen/space_16">
+
+        <TextView
+            android:id="@+id/list_item_tip_cell_name"
+            style="@style/listview_item_text_style_small"
+            android:text="清江山水"
+            android:textColor="@color/black_color" />
+
+        <TextView
+            android:id="@+id/list_item_tip_caigou_node"
+            style="@style/listview_item_text_style_small"
+            android:layout_alignBottom="@id/list_item_tip_cell_name"
+            android:layout_alignParentRight="true"
+            android:text="泥木阶段"
+            android:textColor="@color/main_color_grey" />
 
         <TextView
             android:id="@+id/list_item_tip_caigou_name"
             style="@style/listview_item_text_style_small"
+            android:layout_below="@id/list_item_tip_cell_name"
+            android:layout_marginBottom="@dimen/space_10"
+            android:layout_marginTop="@dimen/space_10"
             android:text="@string/list_item_caigou_example"
             android:textColor="@color/black_color" />
 
         <TextView
             android:id="@+id/list_item_tip_caigou_content"
             style="@style/listview_item_text_style_middle"
-            android:layout_below="@+id/list_item_tip_caigou_name"
-            android:layout_marginBottom="@dimen/space_16"
-            android:layout_marginTop="@dimen/space_16"
-            android:text="@string/my_site_villagename_example"
+            android:layout_below="@id/list_item_tip_caigou_name"
+            android:layout_marginBottom="@dimen/space_10"
+            android:text="复合板"
             android:textColor="@color/orange_color" />
-
-        <TextView
-            android:id="@+id/list_item_tip_caigou_node"
-            style="@style/listview_item_text_style_small"
-            android:layout_below="@+id/list_item_tip_caigou_content"
-            android:text="泥木阶段"
-            android:textColor="@color/main_color_grey" />
 
         <TextView
             android:id="@+id/list_item_tip_caigou_time"
             style="@style/listview_item_text_style_small"
-            android:layout_alignBottom="@+id/list_item_tip_caigou_node"
-            android:layout_alignParentRight="true"
+            android:layout_below="@id/list_item_tip_caigou_content"
             android:text="2015-09-22 23:05"
             android:textColor="@color/main_color_grey" />
     </RelativeLayout>

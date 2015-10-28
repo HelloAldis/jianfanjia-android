@@ -56,6 +56,10 @@ public class DesignerInfo implements Serializable {
 
     private int dec_fee_half;
 
+    private float respond_speed;
+
+    private float service_attitude;
+
     private List<String> dec_house_types;
 
     private List<String> dec_districts;
@@ -333,5 +337,21 @@ public class DesignerInfo implements Serializable {
 
     public boolean is_block() {
         return is_block;
+    }
+
+    public float getRespond_speed() {
+        return respond_speed;
+    }
+
+    public void setRespond_speed(float respond_speed) {
+        this.respond_speed = respond_speed;
+    }
+
+    public float getService_attitude() {
+        return service_attitude;
+    }
+
+    public void setService_attitude(float service_attitude) {
+        this.service_attitude = service_attitude;
     }
 }
