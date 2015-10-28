@@ -337,4 +337,15 @@ public abstract class BaseActivity extends AppCompatActivity implements
         }
         return str;
     }
+
+    protected String getWorkType(String workType) {
+        String str = null;
+        if (workType.equals("0")) {
+            str = "半包";
+        } else if (workType.equals("1")) {
+            str = "全包";
+        }
+        return str;
+    }
+
 }
