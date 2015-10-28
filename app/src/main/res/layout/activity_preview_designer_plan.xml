@@ -115,7 +115,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/btn_selector"
+        android:background="@drawable/btn_selector_bg"
         android:text="@string/str_choose_plan"
         android:textColor="@color/font_white"
         android:textSize="@dimen/text_size_17" />
