@@ -265,10 +265,10 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
 
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-        if (velocityX > 200 && currentPage == REGISER) {
+        if (velocityX <  -200 && currentPage == LOGIN) {
             showRegister();
             return true;
-        } else if (velocityX < -200 && currentPage == LOGIN) {
+        } else if (velocityX > 200 && currentPage == REGISER) {
             showLogin();
             return true;
         }
