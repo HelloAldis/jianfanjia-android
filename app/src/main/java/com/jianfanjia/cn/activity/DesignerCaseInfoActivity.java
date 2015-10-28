@@ -39,6 +39,7 @@ public class DesignerCaseInfoActivity extends BaseActivity implements ApiUiUpdat
     private ListView designer_case_listview = null;
     private TextView stylelText = null;
     private ImageView designerinfo_head_img = null;
+    private ImageView designerinfo_auth = null;
     private TextView produceText = null;
 
     private DesignerCaseAdapter adapter = null;
@@ -62,6 +63,7 @@ public class DesignerCaseInfoActivity extends BaseActivity implements ApiUiUpdat
         designer_case_listview.setFocusable(false);
         stylelText = (TextView) findViewById(R.id.stylelName);
         designerinfo_head_img = (ImageView) findViewById(R.id.designerinfo_head_img);
+        designerinfo_auth = (ImageView) findViewById(R.id.designerinfo_auth);
         produceText = (TextView) findViewById(R.id.produceText);
         //---------------------------------------------
         Intent intent = this.getIntent();
