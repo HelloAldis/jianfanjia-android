@@ -7,7 +7,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
@@ -25,7 +27,6 @@ import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.ClickCallBack;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.tools.NetTool;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.baseview.DividerItemDecoration;
 
@@ -77,13 +78,16 @@ public class XuQiuFragment extends BaseAnnotationFragment {
     protected LinearLayout req_publish_wrap;
 
     @ViewById
-    protected LinearLayout req_listview_wrap;
+    protected FrameLayout req_listview_wrap;
 
     @ViewById
     protected RecyclerView req_listView;
 
     @ViewById(R.id.req_pull_refresh)
     protected SwipeRefreshLayout refreshLayout;
+
+    @ViewById(R.id.error_include)
+    RelativeLayout error_Layout;
 
     protected Intent gotoOrderDesigner;
     protected Intent gotoMyDesigner;
@@ -172,37 +176,40 @@ public class XuQiuFragment extends BaseAnnotationFragment {
     }
 
     protected void initdata() {
-        if (NetTool.isNetworkAvailable(getActivity())) {
-            JianFanJiaClient.get_Requirement_List(getActivity(), new ApiUiUpdateListener() {
-                @Override
-                public void preLoad() {
-                }
+        JianFanJiaClient.get_Requirement_List(getActivity(), new ApiUiUpdateListener() {
+            @Override
+            public void preLoad() {
+            }
 
-                @Override
-                public void loadSuccess(Object data) {
-                    refreshLayout.setRefreshing(false);
-                    if (data != null) {
-                        requirementInfos = JsonParser.jsonToList(data.toString(), new TypeToken<List<RequirementInfo>>() {
-                        }.getType());
-                        requirementAdapter.addItem(requirementInfos);
-                        if (requirementInfos.size() > 0) {
-                            setListVisiable();
-                            if (requirementInfos.size() >= Constant.ROST_REQUIREMTNE_TOTAL) {
-                                mainHeadView.setRigthTitleEnable(false);
-                            }
-                        } else {
-                            setPublishVisiable();
+            @Override
+            public void loadSuccess(Object data) {
+                refreshLayout.setRefreshing(false);
+                if (data != null) {
+                    requirementInfos = JsonParser.jsonToList(data.toString(), new TypeToken<List<RequirementInfo>>() {
+                    }.getType());
+                    requirementAdapter.addItem(requirementInfos);
+                    if (requirementInfos.size() > 0) {
+                        setListVisiable();
+                        if (requirementInfos.size() >= Constant.ROST_REQUIREMTNE_TOTAL) {
+                            mainHeadView.setRigthTitleEnable(false);
                         }
+                    } else {
+                        setPublishVisiable();
                     }
+                    error_Layout.setVisibility(View.GONE);
                 }
+            }
 
-                @Override
-                public void loadFailture(String error_msg) {
-                    setPublishVisiable();
-                    refreshLayout.setRefreshing(false);
+            @Override
+            public void loadFailture(String error_msg) {
+                makeTextLong(error_msg);
+                setListVisiable();
+                if (requirementInfos == null || requirementInfos.size() == 0) {
+                    error_Layout.setVisibility(View.VISIBLE);
                 }
-            }, this);
-        }
+                refreshLayout.setRefreshing(false);
+            }
+        }, this);
     }
 
     @Override

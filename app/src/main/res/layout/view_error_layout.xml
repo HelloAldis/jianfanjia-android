@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/pageerrLayout"
+    android:id="@+id/error_Layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/error_bg" >
+    android:background="@color/error_bg"
+    >
 
     <TextView
         android:id="@+id/tv_error"
@@ -11,6 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:textColor="#000000"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:text="@string/no_data"/>
 
 </RelativeLayout>

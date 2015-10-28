@@ -48,6 +48,7 @@ import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.KeyManager;
 import javax.net.ssl.KeyManagerFactory;
@@ -80,6 +81,7 @@ public class OkHttpClientManager {
 
     private OkHttpClientManager() {
         mOkHttpClient = new OkHttpClient();
+        mOkHttpClient.setConnectTimeout(10, TimeUnit.SECONDS);
         //cookie enabled
         mDelivery = new Handler(Looper.getMainLooper());
         mGson = new Gson();
