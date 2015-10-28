@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.BaseListAdapter;
 import com.jianfanjia.cn.bean.CommentInfo;
+import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.tools.StringUtils;
 
@@ -47,8 +48,16 @@ public class CommentAdapter extends BaseListAdapter<CommentInfo> {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-
+        viewHolder.itemNameView.setText(commentInfo.getByUser().getUsername());
         viewHolder.itemContentView.setText(commentInfo.getContent());
+        String userType = commentInfo.getUsertype();
+        if (userType.equals(Constant.IDENTITY_OWNER)) {
+            viewHolder.itemIdentityView.setText(context
+                    .getString(R.string.ower));
+        } else {
+            viewHolder.itemIdentityView.setText(context
+                    .getString(R.string.designer));
+        }
         viewHolder.itemTimeView.setText(StringUtils
                 .covertLongToString(commentInfo.getDate()));
         imageLoader.displayImage(Url_New.GET_IMAGE + commentInfo.getByUser().getImageid(), viewHolder.itemHeadView, options);
