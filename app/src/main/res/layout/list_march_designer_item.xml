@@ -9,17 +9,31 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true">
 
-        <com.jianfanjia.cn.layout.CircleImageView
-            android:id="@+id/image_item"
+        <FrameLayout
+            android:id="@+id/imageLayout"
             android:layout_width="60dip"
             android:layout_height="60dip"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true">
+
+            <com.jianfanjia.cn.layout.CircleImageView
+                android:id="@+id/image_item"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop" />
+
+            <ImageView
+                android:id="@+id/auth_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|right"
+                android:src="@mipmap/icon_auth" />
+        </FrameLayout>
 
         <TextView
             android:id="@+id/name_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/image_item"
+            android:layout_below="@id/imageLayout"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="5dip"
             android:textColor="@color/home_page_text_color"
