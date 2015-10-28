@@ -1,172 +1,140 @@
 package com.jianfanjia.cn.activity;
 
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.PagerTabStrip;
-import android.support.v4.view.ViewPager;
+import android.content.Intent;
 import android.text.TextUtils;
-import android.util.TypedValue;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.base.BaseAnnotationActivity;
+import com.jianfanjia.cn.bean.RegisterInfo;
+import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.NetTool;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
- * @author fengliang
- * @ClassName: LoginActivity
- * @Description: 登录
- * @date 2015-8-18 下午12:11:23
+ * @author zhanghao
+ * @ClassName: RegisterNewActivity
+ * @Description: 注册
+ * @date 2015-10-27 下午12:11:23
  */
-@EActivity(R.layout.activity_login_new)
-public class RegisterNewActivity extends BaseAnnotationActivity implements OnClickListener,
+@EActivity(R.layout.activity_register_new)
+public class RegisterNewActivity extends BaseAnnotationActivity implements
         ApiUiUpdateListener {
     private static final String TAG = RegisterNewActivity.class.getName();
-    private RelativeLayout loginLayout = null;
-    @ViewById(R.id.login_viewpager)
-    ViewPager viewPager;
-    private List<View> viewList;
-    private List<String> titleList;
-    private View loginView;
-    private View registerView;
-    @ViewById(R.id.login_title)
-    PagerTabStrip pagerTitleStrip;
 
-    private EditText mEtUserName = null;// 用户名输入框
-    private EditText mEtPassword = null;// 用户密码输入框
-    private Button mBtnLogin = null;// 登录按钮
-    private TextView mForgetPswView = null;
-    private TextView mRegisterView = null;// 导航到用户注册
-    private String mUserName = null;// 用户名
-    private String mPassword = null;// 密码
+    public static final int REGISTER_CODE = 0;
+    public static final int UPDATE_PSW_CODE = 1;
+
+    @ViewById(R.id.register_layout)
+    RelativeLayout registerLayout;
+    @ViewById(R.id.success_layout)
+    LinearLayout successLayout;
+
+    @ViewById(R.id.et_verification)
+    EditText mEtVerification;// 用户名输入框
+    @ViewById(R.id.btn_scan)
+    Button mBtnScan;//浏览
+    @ViewById(R.id.btn_publish_requirement)
+    Button mBtnPublishRequirement;
+    @ViewById(R.id.register_phone)
+    TextView mPhoneView;//手机号码
+
+    private String mVerification = null;// 密码
+    private RegisterInfo registerInfo = null;
+
+    int requsetCode;
 
     @AfterViews
     public void initView() {
-        viewList = new ArrayList<>();
-        loginView = inflater.inflate(R.layout.viewpager_item_login,null,false);
-        registerView = inflater.inflate(R.layout.viewpager_item_register,null,false);
-        viewList.add(loginView);
-        viewList.add(registerView);
-        titleList = new ArrayList<>();
-        titleList.add(getString(R.string.login));
-        titleList.add(getString(R.string.register));
-        pagerTitleStrip.setTextColor(getResources().getColor(R.color.black_color));
-        pagerTitleStrip.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17);
-        pagerTitleStrip.setDrawFullUnderline(false);
-        pagerTitleStrip.setTabIndicatorColorResource(R.color.font_white);
-        PagerAdapter pagerAdapter = new PagerAdapter() {
-
-            @Override
-            public boolean isViewFromObject(View arg0, Object arg1) {
-                // TODO Auto-generated method stub
-                return arg0 == arg1;
-            }
-
-            @Override
-            public int getCount() {
-                // TODO Auto-generated method stub
-                return viewList.size();
-            }
-
-            @Override
-            public void destroyItem(ViewGroup container, int position,
-                                    Object object) {
-                // TODO Auto-generated method stub
-                container.removeView(viewList.get(position));
-            }
-
-            @Override
-            public Object instantiateItem(ViewGroup container, int position) {
-                // TODO Auto-generated method stub
-                container.addView(viewList.get(position));
-
-                return viewList.get(position);
-            }
-
-            @Override
-            public CharSequence getPageTitle(int position) {
-
-                return titleList.get(position);
-            }
-        };
-        viewPager.setAdapter(pagerAdapter);
-        viewPager.setCurrentItem(0);
+        Intent intent = getIntent();
+        registerInfo = (RegisterInfo) intent.getSerializableExtra(Global.REGISTER_INFO);
+        requsetCode = intent.getIntExtra(Global.REGISTER,0);
+        if (registerInfo != null) {
+            mPhoneView.setText(registerInfo.getPhone());
+        }
+        registerLayout.setVisibility(View.VISIBLE);
+        successLayout.setVisibility(View.GONE);
     }
 
-    @Override
-    public void onClick(View view) {
+    @Click({R.id.head_back_layout, R.id.btn_scan, R.id.btn_publish_requirement, R.id.btn_commit})
+    void OnClick(View view) {
         switch (view.getId()) {
-            case R.id.btn_login:
-                mUserName = mEtUserName.getText().toString().trim();
-                mPassword = mEtPassword.getText().toString().trim();
-                if (checkInput(mUserName, mPassword)) {
-                    login(mUserName, mPassword);
+            case R.id.btn_commit:
+                mVerification = mEtVerification.getText().toString().trim();
+                if (checkInput(mVerification)) {
+                    registerInfo.setCode(mVerification);
+                    register(registerInfo);
                 }
                 break;
-            case R.id.register:
-                startActivity(RegisterActivity.class);
+            case R.id.btn_scan:
+                startActivity(MainActivity.class);
+                finish();
                 break;
-            case R.id.forget_password:
-                startActivity(ForgetPswActivity.class);
+            case R.id.btn_publish_requirement:
+                startActivity(EditRequirementActivity_.class);
+                finish();
+                break;
+            case R.id.head_back_layout:
+                finish();
                 break;
             default:
                 break;
         }
+
     }
 
-    private boolean checkInput(String name, String password) {
-        if (TextUtils.isEmpty(name)) {
-            makeTextShort(getResources().getString(
-                    R.string.tip_please_input_username));
-            mEtUserName.requestFocus();
-            return false;
+    /**
+     * 注册
+     *
+     * @param registerInfo
+     */
+    private void register(RegisterInfo registerInfo) {
+        if (NetTool.isNetworkAvailable(this)) {
+            if(requsetCode == REGISTER_CODE){
+                JianFanJiaClient.register(this, registerInfo, this, this);
+            }else{
+                JianFanJiaClient.update_psw(this,registerInfo,this,this);
+            }
+        } else {
+            makeTextLong(getResources().getString(R.string.tip_internet_not));
         }
-        if (TextUtils.isEmpty(password)) {
+    }
+
+    private boolean checkInput(String verification) {
+        if (TextUtils.isEmpty(verification)) {
             makeTextShort(getResources().getString(
-                    R.string.tip_please_input_password));
-            mEtPassword.requestFocus();
+                    R.string.hint_verification));
+            mEtVerification.requestFocus();
             return false;
         }
         return true;
     }
 
-    /**
-     * 登录
-     *
-     * @param name
-     * @param password
-     */
-    private void login(String name, String password) {
-        // dataManager.login(name, password, this);
-        if (NetTool.isNetworkAvailable(this)) {
-            JianFanJiaClient.login(this, name, password, this, this);
-        } else {
-            makeTextLong(getString(R.string.tip_internet_not));
+    @Override
+    public void loadSuccess(Object data) {
+        //登录成功，加载首页
+        super.loadSuccess(data);
+        if(requsetCode == REGISTER_CODE){
+            registerLayout.setVisibility(View.GONE);
+            successLayout.setVisibility(View.VISIBLE);
+        }else{
+            startActivity(MainActivity.class);
+            finish();
         }
     }
 
     @Override
-    public void loadSuccess(Object data) {
-        //登录成功，加载工地列表
-        super.loadSuccess(data);
-        startActivity(MainActivity.class);
-        finish();
+    public void loadFailture(String error_msg) {
+        super.loadFailture(error_msg);
     }
-
-
-
-
 }

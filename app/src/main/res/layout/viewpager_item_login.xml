@@ -1,43 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/login_layout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/space_60"
+    android:paddingRight="@dimen/space_60"
+    >
 
-    <RelativeLayout
-        android:id="@+id/site_head_procedure"
+    <EditText
+        android:id="@+id/act_login_input_phone"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true" >
+        android:layout_height="48dp"
+        android:layout_centerHorizontal="true"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:hint="@string/input_phone"
+        android:maxLength="20"
+        android:paddingLeft="@dimen/space_16"
+        android:paddingRight="@dimen/space_16"
+        android:singleLine="true"
+        android:background="@null"
+        android:textColor="@color/black_color"
+        android:textSize="@dimen/middle_size" />
 
-        <ImageView
-            android:id="@+id/site_head_procedure_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:background="#ffffff"
-            android:scaleType="fitXY"
-            android:src="@mipmap/icon_home_checked1" />
+    <View
+        style="@style/divier_line"
+        android:layout_below="@+id/act_login_input_phone"/>
 
-        <LinearLayout
-            android:id="@+id/site_head_procedure_text_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/site_head_procedure_icon"
-            android:layout_centerHorizontal="true"
-            android:orientation="vertical" >
+    <EditText
+        android:id="@+id/act_login_input_password"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@+id/act_login_input_phone"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/space_16"
+        android:inputType="textPassword"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:hint="@string/tip_please_input_password"
+        android:maxLength="20"
+        android:paddingLeft="@dimen/space_16"
+        android:paddingRight="@dimen/space_16"
+        android:singleLine="true"
+        android:textColor="@color/black_color"
+        android:textSize="@dimen/middle_size"
+        android:background="@null"/>
 
-            <TextView
-                android:id="@+id/site_head_procedure_name"
-                style="@style/listview_item_text_style_middle"
-                android:layout_gravity="center_horizontal"
-                android:textColor="@color/black_color" />
+    <View
+        style="@style/divier_line"
+        android:layout_below="@+id/act_login_input_password"/>
 
-            <TextView
-                android:id="@+id/site_head_procedure_date"
-                style="@style/listview_item_text_style_small"
-                android:layout_gravity="center_horizontal"
-                android:textColor="@color/main_color_grey" />
-        </LinearLayout>
-    </RelativeLayout>
+    <TextView
+        android:id="@+id/act_forget_password"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_below="@+id/act_login_input_password"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:paddingLeft="@dimen/space_16"
+        android:paddingRight="@dimen/space_16"
+        android:text="@string/forget_pwd"
+        android:textColor="@color/black_color"
+        android:textSize="@dimen/middle_size" />
+
+    <Button
+        android:id="@+id/btn_login"
+        style="@style/button_login_style"
+        android:layout_marginTop="180dp"
+        android:text="@string/login"
+        android:textColor="@color/font_white"
+        />
 
 </RelativeLayout>

@@ -54,7 +54,7 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
 
     @Override
     public void loadFailture(String error_msg) {
-        startActivity(LoginActivity.class);
+        startActivity(LoginNewActivity_.class);
         finish();
     }
 
@@ -65,7 +65,7 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
             if (!first) {
                 if (!isLogin) {
                     Log.i(this.getClass().getName(), "没有登录");
-                    startActivity(LoginActivity.class);
+                    startActivity(LoginNewActivity_.class);
                     finish();
                 } else {
                     if (!isLoginExpire) {// 登录未过期，添加cookies到httpclient记录身份

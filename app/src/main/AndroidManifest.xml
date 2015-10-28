@@ -146,9 +146,21 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".LoginNewActivity_"
+            android:label="@string/title_activity_login"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden">
+
+        </activity>
         <activity
             android:name=".RegisterActivity"
+            android:label="@string/title_activity_register"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".RegisterNewActivity_"
             android:label="@string/title_activity_register"
             android:screenOrientation="portrait" />
         <activity
@@ -184,7 +196,7 @@
             android:label="@string/title_activity_feed_back"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ForgetPswActivity"
+            android:name=".ForgetPswActivity_"
             android:label="@string/title_activity_forget_psw"
             android:screenOrientation="portrait" />
         <activity

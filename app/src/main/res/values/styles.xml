@@ -14,7 +14,7 @@
     <!-- horizontal line_style -->
     <style name="divier_line">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">1px</item>
+        <item name="android:layout_height">1dp</item>
         <item name="android:background">@color/light_white_color</item>
     </style>
 
@@ -56,7 +56,7 @@
         <item name="android:layout_height">@dimen/space_48</item>
         <item name="android:background">@drawable/btn_selector</item>
         <item name="android:textColor">@color/font_white</item>
-        <item name="android:textSize">@dimen/text_size_17</item>
+        <item name="android:textSize">@dimen/big_size</item>
     </style>
     <!-- login activity -->
 
