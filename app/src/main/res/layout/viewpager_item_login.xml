@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <RelativeLayout
+        android:id="@+id/site_head_procedure"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true" >
+
+        <ImageView
+            android:id="@+id/site_head_procedure_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="#ffffff"
+            android:scaleType="fitXY"
+            android:src="@mipmap/icon_home_checked1" />
+
+        <LinearLayout
+            android:id="@+id/site_head_procedure_text_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/site_head_procedure_icon"
+            android:layout_centerHorizontal="true"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/site_head_procedure_name"
+                style="@style/listview_item_text_style_middle"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/black_color" />
+
+            <TextView
+                android:id="@+id/site_head_procedure_date"
+                style="@style/listview_item_text_style_small"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/main_color_grey" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>
