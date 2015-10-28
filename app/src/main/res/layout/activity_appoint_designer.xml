@@ -15,7 +15,7 @@
         android:id="@+id/setting_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/space_8"
+        android:layout_marginTop="@dimen/space_10"
         android:scrollbars="none">
 
         <LinearLayout
@@ -31,7 +31,7 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dip"
+                    android:layout_height="45dip"
                     android:background="@color/font_white">
 
                     <TextView
@@ -89,12 +89,12 @@
                 android:id="@+id/intentionRootview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/space_8"
+                android:layout_marginTop="@dimen/space_10"
                 android:orientation="vertical">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dip"
+                    android:layout_height="45dip"
                     android:background="@color/font_white">
 
                     <TextView
