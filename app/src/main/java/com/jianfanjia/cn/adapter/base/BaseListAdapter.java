@@ -77,4 +77,42 @@ public abstract class BaseListAdapter<T> extends BaseAdapter {
     }
 
     public abstract View initView(int position, View convertView);
+
+    protected String getHouseType(String houseType) {
+        String str = null;
+        if (houseType.equals("0")) {
+            str = "一居";
+        } else if (houseType.equals("1")) {
+            str = "二居";
+        } else if (houseType.equals("2")) {
+            str = "三居";
+        } else if (houseType.equals("3")) {
+            str = "四居";
+        } else if (houseType.equals("4")) {
+            str = "复式";
+        } else if (houseType.equals("5")) {
+            str = "别墅";
+        } else if (houseType.equals("6")) {
+            str = "商业";
+        }
+        return str;
+    }
+
+    protected String getDecStyle(String decStyle) {
+        String str = null;
+        if (decStyle.equals("0")) {
+            str = "欧式";
+        } else if (decStyle.equals("1")) {
+            str = "中式";
+        } else if (decStyle.equals("2")) {
+            str = "现代";
+        } else if (decStyle.equals("3")) {
+            str = "地中海";
+        } else if (decStyle.equals("4")) {
+            str = "美式";
+        } else if (decStyle.equals("5")) {
+            str = "东南亚";
+        }
+        return str;
+    }
 }
