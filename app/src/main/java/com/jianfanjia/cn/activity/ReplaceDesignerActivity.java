@@ -44,7 +44,7 @@ public class ReplaceDesignerActivity extends BaseActivity implements OnClickList
     private String designerid = null;
     private int totalCount = 1;//总可预约数
 
-    private List<String> designerids = new ArrayList<String>();
+    private String newDesignerid = null;
 
     @Override
     public void initView() {
@@ -87,7 +87,11 @@ public class ReplaceDesignerActivity extends BaseActivity implements OnClickList
                 startActivity(MyFavoriteDesignerActivity_.class);
                 break;
             case R.id.head_right_title:
-                replaceDesignerByUser(requestmentid, designerid, "");
+                if (null != newDesignerid) {
+                    replaceDesignerByUser(requestmentid, designerid, newDesignerid);
+                } else {
+                    makeTextLong("请选择设计师");
+                }
                 break;
             default:
                 break;
@@ -97,19 +101,19 @@ public class ReplaceDesignerActivity extends BaseActivity implements OnClickList
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         DesignerCanOrderInfo info = favorite_designer.get(position);
-        String designerid = info.get_id();
         CheckBox ctb = (CheckBox) view.findViewById(R.id.list_item_check);
         ctb.toggle();
         // 将CheckBox的选中状况记录下来
         designerByIntentionInfoAdapter.getIsSelected().put(position, ctb.isChecked());
         // 调整选定条目
         if (ctb.isChecked()) {
-            designerids.add(designerid);
+            newDesignerid = info.get_id();
             totalCount--;
         } else {
-            designerids.remove(designerid);
+            newDesignerid = null;
             totalCount++;
         }
+        LogTool.d(TAG, "newDesignerid=" + newDesignerid);
         dataNotifyChanged();
     }
 
