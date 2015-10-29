@@ -27,7 +27,6 @@ import com.jianfanjia.cn.bean.Requirement;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
-import com.jianfanjia.cn.interf.ActivityToFragmentCallBack;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.ListItemClickListener;
 import com.jianfanjia.cn.tools.JsonParser;
@@ -48,7 +47,7 @@ import java.util.List;
  * Date:15-10-11 14:30
  */
 public class HomeFragment extends BaseFragment implements
-        PullToRefreshBase.OnRefreshListener2<ScrollView>, ListItemClickListener, ApiUiUpdateListener, OnItemClickListener, ActivityToFragmentCallBack {
+        PullToRefreshBase.OnRefreshListener2<ScrollView>, ListItemClickListener, ApiUiUpdateListener, OnItemClickListener {
     private static final String TAG = HomeFragment.class.getName();
     private PullToRefreshScrollView mPullRefreshScrollView = null;
     private LinearLayout marchedLayout = null;
@@ -229,10 +228,6 @@ public class HomeFragment extends BaseFragment implements
         getHomePageDesigners(FROM, Constant.LIMIT);
     }
 
-    @Override
-    public void onTransmit(String params) {
-
-    }
 
     @Override
     public int getLayoutId() {
