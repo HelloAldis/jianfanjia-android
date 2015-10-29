@@ -332,7 +332,6 @@ public class ManageFragment extends BaseFragment implements
                 if (mUserType.equals(Constant.IDENTITY_OWNER)) {
                 /*Intent configIntent = new Intent(getActivity(),
                         OwnerSiteActivity.class);
->>>>>>> 553efb48ae53177a39e5852fd0866fefe64ead54
 				startActivityForResult(configIntent,
 						Constant.REQUESTCODE_CONFIG_SITE);*/
                 }
@@ -471,6 +470,95 @@ public class ManageFragment extends BaseFragment implements
                 break;
             case Constant.COMMENT_ITEM:
                 Bundle bundle = new Bundle();
+                bundle.putString(Global.TOPIC_ID, processId);
+                bundle.putString(Global.TO, processInfo.getFinal_designerid());
+                startActivity(CommentActivity.class, bundle);
+                break;
+            case Constant.DELAY_ITEM:
+                delayDialog();
+                break;
+            case Constant.CHECK_ITEM:
+                Bundle checkBundle = new Bundle();
+                checkBundle.putString(Constant.PROCESS_NAME, sectionInfo.getName());
+                checkBundle
+                        .putInt(Constant.PROCESS_STATUS, sectionInfo.getStatus());
+                startActivity(CheckActivity.class, checkBundle);
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void loadSuccess(Object data) {
+        mPullRefreshScrollView.onRefreshComplete();
+        processInfo = dataManager.getDefaultProcessInfo();
+        processId = dataManager.getDefaultProcessId();
+        initData();
+    }
+
+    @Override
+    public void loadFailture(String error_msg) {
+        makeTextLong(getString(R.string.tip_error_internet));
+        mPullRefreshScrollView.onRefreshComplete();
+    }
+
+    @Override
+    public void preLoad() {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void click(int position, int itemType, List<String> imageUrlList) {
+        switch (itemType) {
+            case Constant.IMG_ITEM:
+                Bundle bundle = new Bundle();
+                bundle.putStringArrayList(Constant.IMAGE_LIST,
+                        (ArrayList<String>) imageUrlList);
+                bundle.putInt(Constant.CURRENT_POSITION, position);
+                startActivity(ShowPicActivity.class, bundle);
+                break;
+            case Constant.ADD_ITEM:
+                imageList = imageUrlList;
+                showPopWindow(getView());
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void firstItemClick() {
+        /*
+         * Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+>>>>>>> 009b1e981b71f8c47df0790a0522745a76594af8
+=======
+        // refreshData();
+        processId = dataManager.getDefaultProcessId();
+        if (processId != null) {
+            loadCurrentProcess();
+        } else {
+            mPullRefreshScrollView.onRefreshComplete();
+        }
+    }
+
+    @Override
+    public void onPullUpToRefresh(PullToRefreshBase<ScrollView> refreshView) {
+        // 上拉加载更多(加载下一页数据)
+        mPullRefreshScrollView.onRefreshComplete();
+    }
+
+    @Override
+    public void click(int position, int itemType) {
+        LogTool.d(TAG, "position:" + position + "itemType:" + itemType);
+        switch (itemType) {
+            case Constant.CONFIRM_ITEM:
+                confirmFinishDialog();
+                break;
+            case Constant.IMG_ITEM:
+                break;
+            case Constant.COMMENT_ITEM:
+                Bundle bundle = new Bundle();
                 bundle.putInt(Constant.CURRENT_LIST, currentList);
                 bundle.putInt(Constant.CURRENT_ITEM, position);
                 startActivity(CommentActivity.class, bundle);
@@ -569,8 +657,8 @@ public class ManageFragment extends BaseFragment implements
                                 .getDateString(((DateWheelDialog) dialog)
                                         .getChooseCalendar().getTime());
                         LogTool.d(TAG, "dateStr:" + dateStr);
-						/*postReschedule(processInfo.get_id(),
-								processInfo.getUserid(),
+                        /*postReschedule(processInfo.get_id(),
+                                processInfo.getUserid(),
 								processInfo.getFinal_designerid(),
 								sectionInfo.getName(), dateStr);*/
                     }
@@ -788,7 +876,7 @@ public class ManageFragment extends BaseFragment implements
 
     @Override
     public void onTransmit(String params) {
-        LogTool.d(TAG, "params================================" + params);
+        LogTool.d(TAG, "-------------------------------------------------------------------------------------------------");
     }
 
     @Override

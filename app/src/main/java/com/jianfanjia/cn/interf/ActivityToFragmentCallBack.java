@@ -1,11 +1,8 @@
 package com.jianfanjia.cn.interf;
 
 /**
- * Name: ActivityToFragmentCallBack
- * User: fengliang
- * Date: 2015-10-29
- * Time: 16:17
+ * Created by Administrator on 2015/10/29.
  */
 public interface ActivityToFragmentCallBack {
     void onTransmit(String params);
-}  
+}

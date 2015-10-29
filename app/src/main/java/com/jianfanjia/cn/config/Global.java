@@ -26,6 +26,7 @@ public class Global {
     public static final String DESIGNER_NAME = "designer_name";
     public static final String TOPIC_ID = "topic_id";
     public static final String TO = "to";
+    public static final String SITE_ID = "site_id";
 
 
     public static final String PLAN_STATUS0 = "0";//已预约但没有响应
