@@ -329,11 +329,11 @@ public abstract class BaseActivity extends AppCompatActivity implements
         } else if (decStyle.equals("1")) {
             str = "中式";
         } else if (decStyle.equals("2")) {
-            str = "美式";
-        } else if (decStyle.equals("3")) {
             str = "现代";
-        } else if (decStyle.equals("4")) {
+        } else if (decStyle.equals("3")) {
             str = "地中海";
+        } else if (decStyle.equals("4")) {
+            str = "美式";
         } else if (decStyle.equals("5")) {
             str = "东南亚";
         } else if (decStyle.equals("6")) {
