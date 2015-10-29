@@ -10,6 +10,7 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.BaseListAdapter;
 import com.jianfanjia.cn.bean.PlanInfo;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.interf.ItemClickListener;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.tools.DateFormatTool;
@@ -57,7 +58,13 @@ public class DesignerPlanAdapter extends BaseListAdapter<PlanInfo> {
         holder.dateText.setText(DateFormatTool.longToString(info.getLast_status_update_time()));
         holder.commentText.setText("留言(" + info.getComment_count() + ")");
         String status = info.getStatus();
-        holder.statusText.setText("已中标");
+        if (status.equals(Global.PLAN_STATUS3)) {
+            holder.statusText.setText("沟通中");
+        } else if (status.equals(Global.PLAN_STATUS4)) {
+            holder.statusText.setText("未中标");
+        } else if (status.equals(Global.PLAN_STATUS5)) {
+            holder.statusText.setText("已中标");
+        }
         List<String> imgList = info.getImages();
         PlanViewAdapter adapter = new PlanViewAdapter(context, imgList, new ViewPagerClickListener() {
             @Override
