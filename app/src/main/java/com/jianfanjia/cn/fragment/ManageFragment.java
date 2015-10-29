@@ -14,10 +14,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ScrollView;
-import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.CheckActivity;
 import com.jianfanjia.cn.activity.CommentActivity;
@@ -32,6 +30,7 @@ import com.jianfanjia.cn.bean.SectionInfo;
 import com.jianfanjia.cn.bean.SectionItemInfo;
 import com.jianfanjia.cn.bean.ViewPagerItem;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ActivityToFragmentCallBack;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
@@ -66,6 +65,265 @@ import java.util.List;
  * @date 2015-8-26 上午11:14:00
  */
 public class ManageFragment extends BaseFragment implements
+<<<<<<< HEAD
+		OnRefreshListener2<ScrollView>, ItemClickCallBack, UploadImageListener,
+		ApiUiUpdateListener {
+	private static final String TAG = ManageFragment.class.getName();
+	private PullToRefreshScrollView mPullRefreshScrollView = null;
+	private static final int TOTAL_PROCESS = 7;// 7道工序
+	private List<SectionInfo> sectionInfos;
+	private SectionInfo sectionInfo = null;
+	private ProcessInfo processInfo = null;
+	private String processId = null;// 默认的工地id
+	private int currentPro = -1;// 当前进行工序
+	private int currentList = -1;// 当前展开第一道工序
+	private int lastPro = -1;// 上次进行的工序
+
+	private ViewPager processViewPager = null;
+	private ListView detailNodeListView = null;
+	private SectionItemAdapterBack sectionItemAdapter = null;
+	private SectionViewPageAdapter sectionViewPageAdapter = null;
+	private String[] proTitle = null;
+	private List<ViewPagerItem> processList = new ArrayList<ViewPagerItem>();
+	private List<String> imageList;
+
+	private MainHeadView mainHeadView;
+
+	private File mTmpFile = null;
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		Log.i(TAG, "----onCreate()----");
+		if (currentList == -1) {
+			currentList = dataManager.getCurrentList();
+		}
+		initProcessInfo();
+	}
+
+	private void initProcessInfo() {
+		processInfo = dataManager.getDefaultProcessInfo();
+		processId = dataManager.getDefaultProcessId();
+		if (processInfo == null) {
+			if (processId != null) {
+				if (NetTool.isNetworkAvailable(getActivity())) {
+					loadCurrentProcess();
+				} else {
+					processInfo = dataManager.getProcessInfoById(processId);
+				}
+			} else {
+				processInfo = dataManager
+						.getProcessInfoById(Constant.DEFAULT_PROCESSINFO_ID);
+			}
+		}
+
+	}
+
+	private void loadCurrentProcess() {
+		if (processId != null) {
+			JianFanJiaClient.get_ProcessInfo_By_Id(getActivity(),dataManager.getDefaultProcessId(),this,this);
+		}
+	}
+
+	protected Context getApplication(){
+		return MyApplication.getInstance();
+	}
+
+	@Override
+	public void initView(View view) {
+		proTitle = getApplication().getResources().getStringArray(
+				R.array.site_procedure);
+		mPullRefreshScrollView = (PullToRefreshScrollView) view
+				.findViewById(R.id.pull_refresh_scrollview);
+		mPullRefreshScrollView.setMode(Mode.PULL_FROM_START);
+		initMainHead(view);
+		initScrollLayout(view);
+		initListView(view);
+		initData();
+	}
+
+	private void initMainHead(View view) {
+		mainHeadView = (MainHeadView)view.findViewById(R.id.my_manage_head_layout);
+		mainHeadView.setBackLayoutVisable(View.GONE);
+		mainHeadView.setRightTitle("切换工地");
+	}
+
+	// 初始化数据
+	private void initData() {
+		if (processInfo != null) {
+			mainHeadView.setMianTitle(processInfo.getCell() == null ? ""
+					: processInfo.getCell());// 设置标题头
+			currentPro = MyApplication.getInstance().getPositionByItemName(
+					processInfo.getGoing_on());
+			if (currentList == -1 || lastPro != currentPro) {
+				currentList = currentPro;
+				lastPro = currentPro;
+			}
+			sectionInfos = processInfo.getSections();
+			sectionInfo = sectionInfos.get(currentList);
+			setScrollHeadTime();
+			LogTool.d(TAG,sectionInfos.size()+"--sectionInfos.size()");
+			sectionItemAdapter = new SectionItemAdapterBack(getApplication(),
+					currentList, sectionInfos, this);
+			detailNodeListView.setAdapter(sectionItemAdapter);
+			processViewPager.setCurrentItem(currentList);
+		}
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		if (sectionItemAdapter != null) {
+			sectionItemAdapter.notifyDataSetChanged();
+		}
+	}
+
+	@Override
+	public void onPause() {
+		super.onPause();
+		if (currentList != -1) {
+			dataManager.setCurrentList(currentList);
+		}
+	}
+
+	private void initScrollLayout(View view) {
+		processViewPager = (ViewPager) view.findViewById(R.id.processViewPager);
+		for (int i = 0; i < proTitle.length; i++) {
+			ViewPagerItem viewPagerItem = new ViewPagerItem();
+			viewPagerItem.setResId(getApplication().getResources()
+					.getIdentifier("icon_home_normal" + (i + 1), "drawable",
+							getApplication().getPackageName()));
+			viewPagerItem.setTitle(proTitle[i]);
+			viewPagerItem.setDate("");
+			processList.add(viewPagerItem);
+		}
+		for (int i = 0; i < 3; i++) {
+			ViewPagerItem viewPagerItem = new ViewPagerItem();
+			viewPagerItem.setResId(R.mipmap.icon8_home_normal);
+			viewPagerItem.setTitle("");
+			viewPagerItem.setDate("");
+			processList.add(viewPagerItem);
+		}
+		// --------------------------
+		sectionViewPageAdapter = new SectionViewPageAdapter(getActivity(), processList,
+				new ViewPagerClickListener() {
+
+					@Override
+					public void onClickItem(int potition) {
+						Log.i(TAG, "potition=" + potition);
+						if (sectionInfos != null) {
+							if (potition < TOTAL_PROCESS) {
+								currentList = potition;
+								sectionInfo = sectionInfos.get(currentList);
+								sectionItemAdapter.setPosition(currentList);
+								processViewPager.setCurrentItem(potition);
+							}
+						}
+					}
+
+				});
+		processViewPager.setAdapter(sectionViewPageAdapter);
+		processViewPager.setOnPageChangeListener(new OnPageChangeListener() {
+			@Override
+			public void onPageScrollStateChanged(int arg0) {
+				// TODO Auto-generated method stub
+			}
+
+			@Override
+			public void onPageScrolled(int arg0, float arg1, int arg2) {
+				// TODO Auto-generated method stub
+			}
+
+			@Override
+			public void onPageSelected(int arg0) {
+				if (sectionInfos != null) {
+					if (arg0 < TOTAL_PROCESS) {
+						currentList = arg0;
+						sectionInfo = sectionInfos.get(currentList);
+						Log.i(TAG, "sectionInfo=" + sectionInfo.getName());
+						sectionItemAdapter.setPosition(currentList);
+					}
+				}
+			}
+		});
+	}
+
+	private void setScrollHeadTime() {
+		if (sectionInfos != null) {
+			for (int i = 0; i < proTitle.length; i++) {
+				ViewPagerItem viewPagerItem = sectionViewPageAdapter.getList()
+						.get(i);
+				if (sectionInfos.get(i).getStart_at() > 0) {
+					viewPagerItem.setDate(DateFormatTool.covertLongToString(
+							sectionInfos.get(i).getStart_at(), "M.dd")
+							+ "-"
+							+ DateFormatTool.covertLongToString(sectionInfos
+									.get(i).getEnd_at(), "M.dd"));
+				}
+				if (sectionInfos.get(i).getStatus() != Constant.NOT_START) {
+					int drawableId = getApplication().getResources()
+							.getIdentifier("icon_home_checked" + (i + 1),
+									"drawable",
+									getApplication().getPackageName());
+					viewPagerItem.setResId(drawableId);
+				} else {
+					int drawableId = getApplication().getResources()
+							.getIdentifier("icon_home_normal" + (i + 1),
+									"drawable",
+									getApplication().getPackageName());
+					viewPagerItem.setResId(drawableId);
+				}
+			}
+			sectionViewPageAdapter.notifyDataSetChanged();
+		}
+	}
+
+	private void initListView(View view) {
+		detailNodeListView = (ListView) view.findViewById(R.id.site__listview);
+		detailNodeListView.setFocusable(false);
+		detailNodeListView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				if (sectionItemAdapter.isHasCheck()) {
+					if (position == 0) {
+						boolean isCanClickYanshou = true;
+						for (SectionItemInfo sectionItemInfo : sectionInfo
+								.getItems()) {
+							if (Constant.FINISH != Integer
+									.parseInt(sectionItemInfo.getStatus())) {
+								isCanClickYanshou = false;
+								break;
+							}
+						}
+						if (isCanClickYanshou) {
+							sectionItemAdapter.setCurrentOpenItem(position);
+						}
+					} else {
+						sectionItemAdapter.setCurrentOpenItem(position);
+					}
+				} else {
+					sectionItemAdapter.setCurrentOpenItem(position);
+				}
+			}
+		});
+
+	}
+
+	@Override
+	public void setListener() {
+		mPullRefreshScrollView.setOnRefreshListener(this);
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.head_right_title:
+			if (mUserType.equals(Constant.IDENTITY_OWNER)) {
+				/*Intent configIntent = new Intent(getActivity(),
+						OwnerSiteActivity.class);
+=======
         OnRefreshListener2<ScrollView>, ItemClickCallBack, UploadImageListener,
         ApiUiUpdateListener, ActivityToFragmentCallBack {
     private static final String TAG = ManageFragment.class.getName();
@@ -331,6 +589,7 @@ public class ManageFragment extends BaseFragment implements
                 if (mUserType.equals(Constant.IDENTITY_OWNER)) {
                 /*Intent configIntent = new Intent(getActivity(),
                         OwnerSiteActivity.class);
+>>>>>>> 553efb48ae53177a39e5852fd0866fefe64ead54
 				startActivityForResult(configIntent,
 						Constant.REQUESTCODE_CONFIG_SITE);*/
                 }
@@ -355,6 +614,95 @@ public class ManageFragment extends BaseFragment implements
 		 * ProcessInfoRequest(getActivity(), dataManager.getDefaultProcessId())
 		 * , this);
 		 */
+<<<<<<< HEAD
+		// refreshData();
+		processId = dataManager.getDefaultProcessId();
+		if (processId != null) {
+			loadCurrentProcess();
+		} else {
+			mPullRefreshScrollView.onRefreshComplete();
+		}
+	}
+
+	@Override
+	public void onPullUpToRefresh(PullToRefreshBase<ScrollView> refreshView) {
+		// 上拉加载更多(加载下一页数据)
+		mPullRefreshScrollView.onRefreshComplete();
+	}
+
+	@Override
+	public void click(int position, int itemType) {
+		LogTool.d(TAG, "position:" + position + "itemType:" + itemType);
+		switch (itemType) {
+		case Constant.CONFIRM_ITEM:
+			confirmFinishDialog();
+			break;
+		case Constant.IMG_ITEM:
+			break;
+		case Constant.COMMENT_ITEM:
+			Bundle bundle = new Bundle();
+			bundle.putString(Global.TOPIC_ID, processId);
+			bundle.putString(Global.TO, processInfo.getFinal_designerid());
+			startActivity(CommentActivity.class, bundle);
+			break;
+		case Constant.DELAY_ITEM:
+			delayDialog();
+			break;
+		case Constant.CHECK_ITEM:
+			Bundle checkBundle = new Bundle();
+			checkBundle.putString(Constant.PROCESS_NAME, sectionInfo.getName());
+			checkBundle
+					.putInt(Constant.PROCESS_STATUS, sectionInfo.getStatus());
+			startActivity(CheckActivity.class, checkBundle);
+			break;
+		default:
+			break;
+		}
+	}
+
+	@Override
+	public void loadSuccess(Object data) {
+		mPullRefreshScrollView.onRefreshComplete();
+		processInfo = dataManager.getDefaultProcessInfo();
+		processId = dataManager.getDefaultProcessId();
+		initData();
+	}
+
+	@Override
+	public void loadFailture(String error_msg) {
+		makeTextLong(getString(R.string.tip_error_internet));
+		mPullRefreshScrollView.onRefreshComplete();
+	}
+
+	@Override
+	public void preLoad() {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void click(int position, int itemType, List<String> imageUrlList) {
+		switch (itemType) {
+		case Constant.IMG_ITEM:
+			Bundle bundle = new Bundle();
+			bundle.putStringArrayList(Constant.IMAGE_LIST,
+					(ArrayList<String>) imageUrlList);
+			bundle.putInt(Constant.CURRENT_POSITION, position);
+			startActivity(ShowPicActivity.class, bundle);
+			break;
+		case Constant.ADD_ITEM:
+			imageList = imageUrlList;
+			showPopWindow(getView());
+			break;
+		default:
+			break;
+		}
+	}
+
+	@Override
+	public void firstItemClick() {
+		/*
+		 * Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+=======
         // refreshData();
         processId = dataManager.getDefaultProcessId();
         if (processId != null) {
@@ -442,6 +790,7 @@ public class ManageFragment extends BaseFragment implements
     public void firstItemClick() {
         /*
          * Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+>>>>>>> 553efb48ae53177a39e5852fd0866fefe64ead54
 		 * mTmpFile = FileUtil.createTmpFile(getActivity());
 		 * cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT,
 		 * Uri.fromFile(mTmpFile)); startActivityForResult(cameraIntent,

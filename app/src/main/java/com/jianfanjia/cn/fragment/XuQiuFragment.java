@@ -3,9 +3,11 @@ package com.jianfanjia.cn.fragment;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
@@ -31,7 +33,7 @@ import com.jianfanjia.cn.interf.SwitchTabCallBack;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
-import com.jianfanjia.cn.view.baseview.DividerItemDecoration;
+import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -126,8 +128,8 @@ public class XuQiuFragment extends BaseAnnotationFragment implements ActivityToF
         // 创建一个线性布局管理器
         req_listView.setLayoutManager(mLayoutManager);
         req_listView.setItemAnimator(new FadeInUpAnimator(new DecelerateInterpolator(0.5F)));
-        req_listView.addItemDecoration(new DividerItemDecoration(getActivity(),
-                DividerItemDecoration.VERTICAL_LIST));
+//        req_listView.addItemDecoration(new DividerItemDecoration(getActivity(),
+//                DividerItemDecoration.VERTICAL_LIST));
         requirementAdapter = new RequirementNewAdapter(getActivity(), new ClickCallBack() {
             @Override
             public void click(int position, int itemType) {
@@ -153,6 +155,15 @@ public class XuQiuFragment extends BaseAnnotationFragment implements ActivityToF
         });
         req_listView.setAdapter(requirementAdapter);
         req_listView.getItemAnimator().setAddDuration(300);
+
+        Paint paint = new Paint();
+        paint.setStrokeWidth(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,8,getResources().getDisplayMetrics()));
+        paint.setAlpha(0);
+        paint.setAntiAlias(true);
+        req_listView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity())
+                .paint(paint)
+                .showLastDivider()
+                .build());
     }
 
     @Click({R.id.req_publish_wrap, R.id.head_right_title})
