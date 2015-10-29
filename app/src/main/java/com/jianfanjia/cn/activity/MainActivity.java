@@ -2,6 +2,7 @@ package com.jianfanjia.cn.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
@@ -9,12 +10,12 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import com.igexin.sdk.PushManager;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.fragment.HomeFragment;
 import com.jianfanjia.cn.fragment.ManageFragment;
 import com.jianfanjia.cn.fragment.MyFragment;
 import com.jianfanjia.cn.fragment.XuQiuFragment;
 import com.jianfanjia.cn.fragment.XuQiuFragment_;
+import com.jianfanjia.cn.interf.ActivityToFragmentCallBack;
 import com.jianfanjia.cn.interf.SwitchTabCallBack;
 import com.jianfanjia.cn.tools.LogTool;
 
@@ -27,6 +28,7 @@ import com.jianfanjia.cn.tools.LogTool;
 public class MainActivity extends BaseActivity implements
         OnCheckedChangeListener, SwitchTabCallBack {
     private static final String TAG = MainActivity.class.getName();
+    private ActivityToFragmentCallBack callBack;
     private RadioGroup mTabRg = null;
     private HomeFragment homeFragment = null;
     private XuQiuFragment xuqiuFragment = null;
@@ -35,6 +37,16 @@ public class MainActivity extends BaseActivity implements
     private long mExitTime = 0L;
     private int tab = -1;
 
+    @Override
+    public void onAttachFragment(Fragment fragment) {
+        super.onAttachFragment(fragment);
+        LogTool.d(TAG, "fragment:" + fragment);
+        try {
+            callBack = (ActivityToFragmentCallBack) fragment;
+        } catch (ClassCastException e) {
+            LogTool.d(TAG, "e:" + e);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,9 +126,6 @@ public class MainActivity extends BaseActivity implements
                     transaction.show(manageFragment);
                 } else {
                     manageFragment = new ManageFragment();
-                    Bundle designerBundle = new Bundle();
-                    designerBundle.putString(Global.SITE_ID, "siteid");
-                    manageFragment.setArguments(designerBundle);
                     transaction.add(R.id.tabLayout, manageFragment);
                 }
                 break;
@@ -169,6 +178,10 @@ public class MainActivity extends BaseActivity implements
     @Override
     public void switchTab(int index, String params) {
         LogTool.d(TAG, "index=" + index + " params=" + params);
+        LogTool.d(TAG, "callBack=" + callBack);
+        if (null != callBack) {
+            callBack.onTransmit(params);
+        }
         setTabSelection(index);
         mTabRg.check(getResources().getIdentifier("tab_rb_" + (index + 1), "id", getPackageName()));
     }
