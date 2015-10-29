@@ -93,7 +93,9 @@ public abstract class BaseListAdapter<T> extends BaseAdapter {
         } else if (houseType.equals("5")) {
             str = "别墅";
         } else if (houseType.equals("6")) {
-            str = "商业";
+            str = "LOFT";
+        } else if (houseType.equals("7")) {
+            str = "其他";
         }
         return str;
     }
@@ -105,13 +107,15 @@ public abstract class BaseListAdapter<T> extends BaseAdapter {
         } else if (decStyle.equals("1")) {
             str = "中式";
         } else if (decStyle.equals("2")) {
-            str = "现代";
-        } else if (decStyle.equals("3")) {
-            str = "地中海";
-        } else if (decStyle.equals("4")) {
             str = "美式";
+        } else if (decStyle.equals("3")) {
+            str = "现代";
+        } else if (decStyle.equals("4")) {
+            str = "地中海";
         } else if (decStyle.equals("5")) {
             str = "东南亚";
+        } else if (decStyle.equals("6")) {
+            str = "田园";
         }
         return str;
     }
