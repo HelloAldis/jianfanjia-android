@@ -8,7 +8,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.jianfanjia.cn.adapter.PlanViewAdapter;
+import com.jianfanjia.cn.adapter.PreviewAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.PlandetailInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
@@ -152,7 +152,7 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
                     btn_choose.setEnabled(false);
                 }
                 List<String> imgList = planDetailInfo.getImages();
-                PlanViewAdapter adapter = new PlanViewAdapter(PreviewDesignerPlanActivity.this, imgList);
+                PreviewAdapter adapter = new PreviewAdapter(PreviewDesignerPlanActivity.this, imgList);
                 viewPager.setAdapter(adapter);
             }
         }
