@@ -13,6 +13,7 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SettingActivity;
 import com.jianfanjia.cn.activity.UserByOwnerInfoActivity;
 import com.jianfanjia.cn.base.BaseFragment;
+import com.jianfanjia.cn.interf.ActivityToFragmentCallBack;
 
 /**
  * Description:我的
@@ -20,7 +21,7 @@ import com.jianfanjia.cn.base.BaseFragment;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class MyFragment extends BaseFragment {
+public class MyFragment extends BaseFragment implements ActivityToFragmentCallBack {
     private static final String TAG = MyFragment.class.getName();
     private RelativeLayout notifyLayout = null;
     private RelativeLayout my_designer_layout = null;
@@ -90,6 +91,10 @@ public class MyFragment extends BaseFragment {
         }
     }
 
+    @Override
+    public void onTransmit(String params) {
+
+    }
 
     @Override
     public int getLayoutId() {
