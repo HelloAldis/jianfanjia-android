@@ -35,7 +35,7 @@ public class MainActivity extends BaseActivity implements
     private ManageFragment manageFragment = null;
     private MyFragment myFragment = null;
     private long mExitTime = 0L;
-    int tab = HOME;
+    private int tab = HOME;
 
 
     @Override
@@ -47,13 +47,13 @@ public class MainActivity extends BaseActivity implements
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        LogTool.d(this.getClass().getName(),"onNewIntent");
+        LogTool.d(this.getClass().getName(), "onNewIntent");
         initIntent(intent);
     }
 
-    private void initIntent(Intent intent){
-        tab = intent.getIntExtra(TAB_POSITION,HOME);
-        mTabRg.check(getResources().getIdentifier("tab_rb_"+(tab + 1),"id",getPackageName()));
+    private void initIntent(Intent intent) {
+        tab = intent.getIntExtra(TAB_POSITION, HOME);
+        mTabRg.check(getResources().getIdentifier("tab_rb_" + (tab + 1), "id", getPackageName()));
         setTabSelection(tab);
 
     }
