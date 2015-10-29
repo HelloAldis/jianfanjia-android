@@ -27,6 +27,7 @@ public class Constant {
     //	public static final String TEMP_IMG = "temp_img.jpg";// 照片名称
     public static final String TEMP_IMG = "current_camera_temp_path";//拍照的临时存储文件路径
 
+    public static final String TAB_POSITION = "tab_position";
     public static final int HOME = 0;//首页
     public static final int XUQIU = 1;//需求
     public static final int MANAGE = 2;//工地管理
