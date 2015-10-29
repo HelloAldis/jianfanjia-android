@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.jianfanjia.cn.base.BaseAnnotationActivity;
 import com.jianfanjia.cn.bean.RequirementInfo;
+import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.fragment.XuQiuFragment;
 import com.jianfanjia.cn.http.JianFanJiaClient;
@@ -210,7 +211,7 @@ public class EditRequirementActivity extends BaseAnnotationActivity {
 
 
     @Click({R.id.head_back, R.id.act_edit_req_city, R.id.act_edit_req_housetype, R.id.act_edit_req_decoratetype,
-            R.id.act_edit_req_lovestyle, R.id.act_edit_req_persons, R.id.act_edit_req_lovedesistyle,R.id.act_edit_req_lovedesisex,R.id.act_edit_req_work_type})
+            R.id.act_edit_req_lovestyle, R.id.act_edit_req_persons, R.id.act_edit_req_lovedesistyle, R.id.act_edit_req_lovedesisex, R.id.act_edit_req_work_type})
     protected void back(View clickView) {
         int viewId = clickView.getId();
         switch (viewId) {
@@ -254,10 +255,10 @@ public class EditRequirementActivity extends BaseAnnotationActivity {
 
     @Click(R.id.head_right_title)
     protected void confirm() {
-        if(requestCode == XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT){
+        if (requestCode == XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT) {
             JianFanJiaClient.add_Requirement(this, requirementInfo, this, this);
-        }else {
-            JianFanJiaClient.update_Requirement(this,requirementInfo,this,this);
+        } else {
+            JianFanJiaClient.update_Requirement(this, requirementInfo, this, this);
         }
     }
 
@@ -277,9 +278,9 @@ public class EditRequirementActivity extends BaseAnnotationActivity {
         }, 2000);
     }
 
-    private void comeMainActivity(){
-        Intent intent = new Intent(EditRequirementActivity.this,MainActivity.class);
-        intent.putExtra(MainActivity.TAB_POSITION,MainActivity.XUQIU);
+    private void comeMainActivity() {
+        Intent intent = new Intent(EditRequirementActivity.this, MainActivity.class);
+        intent.putExtra(Constant.TAB_POSITION, Constant.XUQIU);
         startActivity(intent);
         finish();
     }
@@ -287,10 +288,10 @@ public class EditRequirementActivity extends BaseAnnotationActivity {
     private void showSuccessDialog() {
         commonDialog = DialogHelper
                 .getPinterestDialogCancelable(this);
-        if(requestCode == XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT){
+        if (requestCode == XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT) {
             commonDialog.setTitle("发布成功");
             commonDialog.setMessage("您的需求发布成功啦！");
-        }else{
+        } else {
             commonDialog.setTitle("更新成功");
             commonDialog.setMessage("您的需求更新成功啦！");
         }
