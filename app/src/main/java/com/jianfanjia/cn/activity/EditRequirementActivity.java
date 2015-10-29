@@ -215,7 +215,7 @@ public class EditRequirementActivity extends BaseAnnotationActivity {
         int viewId = clickView.getId();
         switch (viewId) {
             case R.id.head_back:
-                finish();
+                comeMainActivity();
                 break;
             case R.id.act_edit_req_city:
                 gotoItem.putExtra(REQUIRE_DATA, REQUIRECODE_CITY);
@@ -270,10 +270,18 @@ public class EditRequirementActivity extends BaseAnnotationActivity {
             @Override
             public void run() {
                 commonDialog.dismiss();
-                setResult(RESULT_OK);
-                finish();
+                /*setResult(RESULT_OK);
+                finish();*/
+                comeMainActivity();
             }
         }, 2000);
+    }
+
+    private void comeMainActivity(){
+        Intent intent = new Intent(EditRequirementActivity.this,MainActivity.class);
+        intent.putExtra(MainActivity.TAB_POSITION,MainActivity.XUQIU);
+        startActivity(intent);
+        finish();
     }
 
     private void showSuccessDialog() {
@@ -281,10 +289,10 @@ public class EditRequirementActivity extends BaseAnnotationActivity {
                 .getPinterestDialogCancelable(this);
         if(requestCode == XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT){
             commonDialog.setTitle("发布成功");
-            commonDialog.setMessage("您的需求以及发布成功啦！");
+            commonDialog.setMessage("您的需求发布成功啦！");
         }else{
             commonDialog.setTitle("更新成功");
-            commonDialog.setMessage("您的需求以及更新成功啦！");
+            commonDialog.setMessage("您的需求更新成功啦！");
         }
         commonDialog.show();
     }

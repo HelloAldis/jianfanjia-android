@@ -5,7 +5,7 @@
     <string name="city">市</string>
     <string name="district">区</string>
 
-    <string-array name="sex">
+    <!--<string-array name="sex">
         <item>男</item>
         <item>女</item>
     </string-array>
@@ -25,21 +25,21 @@
         <item>地中海</item>
         <item>美式</item>
         <item>东南亚</item>
-    </string-array>
-    <string-array name="house_type">
+    </string-array>-->
+    <!--<string-array name="house_type">
         <item>一居</item>
         <item>二居</item>
         <item>三居</item>
         <item>四居</item>
         <item>复式</item>
         <item>别墅</item>
-    </string-array>
-    <string-array name="design_fee_range">
+    </string-array>-->
+    <!--<string-array name="design_fee_range">
         <item>50－100</item>
         <item>100－200</item>
         <item>200－300</item>
         <item>300以上</item>
-    </string-array>
+    </string-array>-->
     <string-array name="site_procedure">
         <item>开工</item>
         <item>拆改</item>
@@ -180,15 +180,21 @@
         <item>汉阳区</item>
         <item>武昌区</item>
         <item>洪山区</item>
-        <item>青山区</item>
+        <item>东西湖区</item>
+        <item>汉南区</item>
+        <item>蔡甸区</item>
+        <item>江夏区</item>
+        <item>黄陂区</item>
+        <item>新洲区</item>
+        <item>其他区</item>
     </string-array>
 
     <!-- 户型 -->
     <string-array name="arr_housetype">
-        <item>一室</item>
-        <item>两室</item>
-        <item>三室</item>
-        <item>四室</item>
+        <item>一居</item>
+        <item>二居</item>
+        <item>三居</item>
+        <item>四居</item>
         <item>复式</item>
         <item>别墅</item>
         <item>LOFT</item>
@@ -205,9 +211,9 @@
 
     <!-- 包工类型 -->
     <string-array name="arr_worktype">
-        <item>半包</item>
-        <item>全包</item>
-        <item>设计</item>
+        <item>（设计+施工）半包</item>
+        <item>（设计+施工）全包</item>
+        <item>纯设计</item>
     </string-array>
 
     <!-- 装修类型 -->
@@ -227,8 +233,8 @@
     <!-- 偏好设计师 -->
     <string-array name="arr_love_designerstyle">
         <item>不限</item>
-        <item>沟通型</item>
-        <item>聆听型</item>
+        <item>表达型</item>
+        <item>倾听型</item>
     </string-array>
 
     <string-array name="arr_lovestyle">

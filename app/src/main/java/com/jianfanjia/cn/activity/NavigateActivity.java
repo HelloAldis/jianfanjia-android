@@ -63,15 +63,15 @@ public class NavigateActivity extends BaseActivity implements OnClickListener,
         dataManager.setFisrt(false);
         switch (v.getId()) {
             case R.id.btn_welcome_off:
-                startActivity(LoginActivity.class);
+                startActivity(LoginNewActivity_.class);
                 finish();
                 break;
             case R.id.btnRegister:
-                startActivity(RegisterActivity.class);
+                startActivity(LoginNewActivity_.class);
                 finish();
                 break;
             case R.id.btnLogin:
-                startActivity(LoginActivity.class);
+                startActivity(LoginNewActivity_.class);
                 finish();
                 break;
             default:
@@ -88,7 +88,6 @@ public class NavigateActivity extends BaseActivity implements OnClickListener,
     @Override
     public void onPageScrolled(int arg0, float arg1, int arg2) {
         // TODO Auto-generated method stub
-
     }
 
     @Override

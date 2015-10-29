@@ -77,14 +77,25 @@ public class RequirementView extends BaseAnnotationView {
         imageLoader.displayImage(dataManagerNew.getUserImagePath(), ltm_req_owner_head,options);
         if (requirementInfo.getStatus().equals(Global.PLAN_STATUS5)) {
             ltm_req_gotopro.setEnabled(true);
-        } else {
-            ltm_req_gotopro.setEnabled(false);
+            ltm_req_gotopro.setText(getResources().getString(R.string.str_goto_pro));
             ltm_req_gotopro.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     clickCallBack.click(position, XuQiuFragment.ITEM_GOTOPRO);
                 }
             });
+        } else if(requirementInfo.getStatus().equals(Global.PLAN_STATUS0)){
+            ltm_req_gotopro.setEnabled(true);
+            ltm_req_gotopro.setText(getResources().getString(R.string.str_goto_order));
+            ltm_req_gotopro.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    clickCallBack.click(position, XuQiuFragment.ITEM_GOTOODERDESI);
+                }
+            });
+        }else{
+            ltm_req_gotopro.setEnabled(false);
+            ltm_req_gotopro.setText(getResources().getString(R.string.str_goto_pro));
         }
         if (requirementInfo.getStatus().equals(Global.PLAN_STATUS0)) {
             ltm_req_edit.setVisibility(View.VISIBLE);
@@ -101,22 +112,24 @@ public class RequirementView extends BaseAnnotationView {
         List<OrderDesignerInfo> recDesignerInfos = requirementInfo.getRec_designers();
         List<OrderDesignerInfo> orderDesignerInfos = requirementInfo.getOrder_designers();
         if (recDesignerInfos != null) {
-            for (int i = 0; i < recDesignerInfos.size(); i++) {
+            for (int i = 0; i < Constant.REC_DESIGNER_TOTAL; i++) {
                 RelativeLayout designerLayout = (RelativeLayout) getRootView().findViewById(getResources().getIdentifier("ltm_req_designer_layout" + i, "id", getContext().getPackageName()));
                 ImageView headView = (ImageView) getRootView().findViewById(getResources().getIdentifier("ltm_req_designer_head" + i, "id", getContext().getPackageName()));
                 TextView nameView = (TextView) getRootView().findViewById(getResources().getIdentifier("ltm_req_designer_name" + i, "id", getContext().getPackageName()));
                 TextView statusView = (TextView) getRootView().findViewById(getResources().getIdentifier("ltm_req_designer_status" + i, "id", getContext().getPackageName()));
-                if (!TextUtils.isEmpty(recDesignerInfos.get(i).getUsername())) {
+                /*if (!TextUtils.isEmpty(recDesignerInfos.get(i).getUsername())) {
                     nameView.setText(recDesignerInfos.get(i).getUsername());
                 } else {
                     nameView.setText(getResources().getString(R.string.designer));
-                }
-                if (!TextUtils.isEmpty(recDesignerInfos.get(i).getImageid())) {
+                }*/
+                /*if (!TextUtils.isEmpty(recDesignerInfos.get(i).getImageid())) {
                     ImageLoader.getInstance().displayImage(Url_New.GET_IMAGE + recDesignerInfos.get(i).getImageid(), headView,options);
                 } else {
                     ImageLoader.getInstance().displayImage(Constant.DEFALUT_DESIGNER_PIC, headView,options);
-                }
-                statusView.setText(String.format(getResources().getString(R.string.str_match), recDesignerInfos.get(i).getMatch()) + "%");
+                }*/
+                nameView.setText(getResources().getString(R.string.designer));
+                ImageLoader.getInstance().displayImage(Constant.DEFALUT_ADD_PIC, headView, options);
+                statusView.setText(getResources().getString(R.string.str_not_order));
                 statusView.setTextColor(getResources().getColor(R.color.middle_grey_color));
                 designerLayout.setOnClickListener(new OnClickListener() {
                     @Override

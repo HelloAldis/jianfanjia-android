@@ -1,5 +1,6 @@
 package com.jianfanjia.cn.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.RadioGroup;
@@ -12,6 +13,7 @@ import com.jianfanjia.cn.fragment.ManageFragment;
 import com.jianfanjia.cn.fragment.MyFragment;
 import com.jianfanjia.cn.fragment.XuQiuFragment;
 import com.jianfanjia.cn.fragment.XuQiuFragment_;
+import com.jianfanjia.cn.tools.LogTool;
 
 /**
  * Description:主界面
@@ -23,15 +25,17 @@ public class MainActivity extends BaseActivity implements
         OnCheckedChangeListener {
     private static final String TAG = MainActivity.class.getName();
     private RadioGroup mTabRg = null;
-    private static final int HOME = 0;
-    private static final int XUQIU = 1;
-    private static final int MANAGE = 2;
-    private static final int MY = 3;
+    public static final String TAB_POSITION = "tab_position";
+    public static final int HOME = 0;
+    public static final int XUQIU = 1;
+    public static final int MANAGE = 2;
+    public static final int MY = 3;
     private HomeFragment homeFragment = null;
     private XuQiuFragment xuqiuFragment = null;
     private ManageFragment manageFragment = null;
     private MyFragment myFragment = null;
     private long mExitTime = 0L;
+    int tab = HOME;
 
 
     @Override
@@ -41,9 +45,24 @@ public class MainActivity extends BaseActivity implements
     }
 
     @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        LogTool.d(this.getClass().getName(),"onNewIntent");
+        initIntent(intent);
+    }
+
+    private void initIntent(Intent intent){
+        tab = intent.getIntExtra(TAB_POSITION,HOME);
+        mTabRg.check(getResources().getIdentifier("tab_rb_"+(tab + 1),"id",getPackageName()));
+        setTabSelection(tab);
+
+    }
+
+    @Override
     public void initView() {
         mTabRg = (RadioGroup) findViewById(R.id.tab_rg_menu);
-        setTabSelection(HOME);
+        Intent intent = getIntent();
+        initIntent(intent);
     }
 
     @Override

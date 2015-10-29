@@ -58,4 +58,5 @@
     <string name="str_publish_requirement">发布需求</string>
     <string name="str_scan">逛一逛</string>
     <string name="forget_pwd_title">忘记密码</string>
+    <string name="str_goto_order">前往预约</string>
 </resources>
