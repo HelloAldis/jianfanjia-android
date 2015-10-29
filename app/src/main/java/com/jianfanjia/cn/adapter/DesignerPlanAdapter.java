@@ -43,7 +43,7 @@ public class DesignerPlanAdapter extends BaseListAdapter<PlanInfo> {
             convertView = layoutInflater.inflate(R.layout.list_item_plan_info,
                     null);
             holder = new ViewHolder();
-            holder.cellText = (TextView) convertView.findViewById(R.id.cellText);
+            holder.numText = (TextView) convertView.findViewById(R.id.numText);
             holder.statusText = (TextView) convertView.findViewById(R.id.statusText);
             holder.viewPager = (ViewPager) convertView.findViewById(R.id.viewpager);
             holder.dateText = (TextView) convertView.findViewById(R.id.dateText);
@@ -53,7 +53,7 @@ public class DesignerPlanAdapter extends BaseListAdapter<PlanInfo> {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        holder.cellText.setText("中建康城东区");
+        holder.numText.setText("方案" + (position + 1));
         holder.dateText.setText(DateFormatTool.longToString(info.getLast_status_update_time()));
         holder.commentText.setText("留言(" + info.getComment_count() + ")");
         String status = info.getStatus();
@@ -83,7 +83,7 @@ public class DesignerPlanAdapter extends BaseListAdapter<PlanInfo> {
     }
 
     private static class ViewHolder {
-        TextView cellText;
+        TextView numText;
         TextView statusText;
         ViewPager viewPager;
         TextView dateText;
