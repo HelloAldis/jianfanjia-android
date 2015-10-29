@@ -59,10 +59,13 @@ public class DesignerPlanAdapter extends BaseListAdapter<PlanInfo> {
         holder.commentText.setText("留言(" + info.getComment_count() + ")");
         String status = info.getStatus();
         if (status.equals(Global.PLAN_STATUS3)) {
+            holder.statusText.setTextColor(context.getResources().getColor(R.color.orange_color));
             holder.statusText.setText("沟通中");
         } else if (status.equals(Global.PLAN_STATUS4)) {
+            holder.statusText.setTextColor(context.getResources().getColor(R.color.grey_color));
             holder.statusText.setText("未中标");
         } else if (status.equals(Global.PLAN_STATUS5)) {
+            holder.statusText.setTextColor(context.getResources().getColor(R.color.orange_color));
             holder.statusText.setText("已中标");
         }
         List<String> imgList = info.getImages();
