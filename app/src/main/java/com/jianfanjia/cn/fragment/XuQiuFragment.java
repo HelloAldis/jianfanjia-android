@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.jianfanjia.cn.interf.SwitchTabCallBack;
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.AppointDesignerActivity;
 import com.jianfanjia.cn.activity.EditRequirementActivity_;
@@ -46,7 +47,7 @@ import jp.wasabeef.recyclerview.animators.FadeInUpAnimator;
  * Date:15-10-11 14:30
  */
 @EFragment(R.layout.fragment_requirement)
-public class XuQiuFragment extends BaseAnnotationFragment {
+public class XuQiuFragment extends BaseAnnotationFragment implements SwitchTabCallBack {
     private static final String TAG = XuQiuFragment.class.getName();
 
     public static final int REQUESTCODE_PUBLISH_REQUIREMENT = 1;
@@ -225,5 +226,10 @@ public class XuQiuFragment extends BaseAnnotationFragment {
             default:
                 break;
         }
+    }
+
+    @Override
+    public void switchTab(int index, String str) {
+
     }
 }
