@@ -14,13 +14,14 @@ import java.io.Serializable;
 @DatabaseTable(tableName = "NotifyMessage")
 public class NotifyMessage implements Serializable {
 
-    private static final long serialVersionUID = -1386644478824610283L;
-
     @DatabaseField(generatedId = true)
     public int id;// 自增长
 
     @DatabaseField
     private String type;// 类型
+
+    @DatabaseField
+    private String cell;//小区
 
     @DatabaseField
     private String content;// 内容
@@ -78,4 +79,19 @@ public class NotifyMessage implements Serializable {
         this.time = time;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getCell() {
+        return cell;
+    }
+
+    public void setCell(String cell) {
+        this.cell = cell;
+    }
 }
