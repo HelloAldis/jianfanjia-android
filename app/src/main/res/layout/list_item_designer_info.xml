@@ -27,7 +27,7 @@
             android:elevation="@dimen/space_16"
             android:scaleType="centerCrop"
             app:border_color="@color/white"
-            app:border_width="2px" />
+            app:border_width="3px" />
 
         <ImageView
             android:id="@+id/list_item_auth"
