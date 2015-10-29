@@ -2,6 +2,7 @@ package com.jianfanjia.cn.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
@@ -14,6 +15,7 @@ import com.jianfanjia.cn.fragment.ManageFragment;
 import com.jianfanjia.cn.fragment.MyFragment;
 import com.jianfanjia.cn.fragment.XuQiuFragment;
 import com.jianfanjia.cn.fragment.XuQiuFragment_;
+import com.jianfanjia.cn.interf.ActivityToFragmentCallBack;
 import com.jianfanjia.cn.interf.SwitchTabCallBack;
 import com.jianfanjia.cn.tools.LogTool;
 
@@ -26,6 +28,7 @@ import com.jianfanjia.cn.tools.LogTool;
 public class MainActivity extends BaseActivity implements
         OnCheckedChangeListener, SwitchTabCallBack {
     private static final String TAG = MainActivity.class.getName();
+    private ActivityToFragmentCallBack callback = null;
     private RadioGroup mTabRg = null;
     private HomeFragment homeFragment = null;
     private XuQiuFragment xuqiuFragment = null;
@@ -34,6 +37,15 @@ public class MainActivity extends BaseActivity implements
     private long mExitTime = 0L;
     private int tab = -1;
 
+    @Override
+    public void onAttachFragment(Fragment fragment) {
+        super.onAttachFragment(fragment);
+        try {
+            callback = (ActivityToFragmentCallBack) fragment;
+        } catch (ClassCastException e) {
+            LogTool.d(TAG, "e:" + e);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -163,8 +175,9 @@ public class MainActivity extends BaseActivity implements
     }
 
     @Override
-    public void switchTab(int index, String str) {
-        LogTool.d(TAG, "index=" + index + " str=" + str);
+    public void switchTab(int index, String params) {
+        LogTool.d(TAG, "index=" + index + " params=" + params);
+        callback.onTransmit(params);
         setTabSelection(index);
         mTabRg.check(getResources().getIdentifier("tab_rb_" + (index + 1), "id", getPackageName()));
     }
