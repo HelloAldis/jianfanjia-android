@@ -104,7 +104,7 @@ public class XuQiuFragment extends BaseAnnotationFragment {
         try {
             switchTabCallBack = (SwitchTabCallBack) context;
         } catch (ClassCastException e) {
-            LogTool.d(TAG, "e:" + e);
+            e.printStackTrace();
         }
     }
 
