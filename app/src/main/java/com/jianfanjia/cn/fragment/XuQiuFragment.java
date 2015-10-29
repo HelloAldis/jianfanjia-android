@@ -26,7 +26,6 @@ import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
-import com.jianfanjia.cn.interf.ActivityToFragmentCallBack;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.ClickCallBack;
 import com.jianfanjia.cn.interf.SwitchTabCallBack;
@@ -52,7 +51,7 @@ import jp.wasabeef.recyclerview.animators.FadeInUpAnimator;
  * Date:15-10-11 14:30
  */
 @EFragment(R.layout.fragment_requirement)
-public class XuQiuFragment extends BaseAnnotationFragment implements ActivityToFragmentCallBack {
+public class XuQiuFragment extends BaseAnnotationFragment {
     private static final String TAG = XuQiuFragment.class.getName();
     private SwitchTabCallBack switchTabCallBack = null;
     public static final int REQUESTCODE_PUBLISH_REQUIREMENT = 1;
@@ -157,7 +156,7 @@ public class XuQiuFragment extends BaseAnnotationFragment implements ActivityToF
         req_listView.getItemAnimator().setAddDuration(300);
 
         Paint paint = new Paint();
-        paint.setStrokeWidth(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,8,getResources().getDisplayMetrics()));
+        paint.setStrokeWidth(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, getResources().getDisplayMetrics()));
         paint.setAlpha(0);
         paint.setAntiAlias(true);
         req_listView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity())
@@ -254,8 +253,4 @@ public class XuQiuFragment extends BaseAnnotationFragment implements ActivityToF
         }
     }
 
-    @Override
-    public void onTransmit(String params) {
-
-    }
 }
