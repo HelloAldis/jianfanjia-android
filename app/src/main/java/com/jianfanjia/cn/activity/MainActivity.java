@@ -2,17 +2,21 @@ package com.jianfanjia.cn.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
 import com.igexin.sdk.PushManager;
 import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.fragment.HomeFragment;
 import com.jianfanjia.cn.fragment.ManageFragment;
 import com.jianfanjia.cn.fragment.MyFragment;
 import com.jianfanjia.cn.fragment.XuQiuFragment;
 import com.jianfanjia.cn.fragment.XuQiuFragment_;
+import com.jianfanjia.cn.interf.ActivityToFragmentCallBack;
+import com.jianfanjia.cn.interf.SwitchTabCallBack;
 import com.jianfanjia.cn.tools.LogTool;
 
 /**
@@ -22,21 +26,26 @@ import com.jianfanjia.cn.tools.LogTool;
  * Date:15-10-11 14:30
  */
 public class MainActivity extends BaseActivity implements
-        OnCheckedChangeListener {
+        OnCheckedChangeListener, SwitchTabCallBack {
     private static final String TAG = MainActivity.class.getName();
+    private ActivityToFragmentCallBack callback = null;
     private RadioGroup mTabRg = null;
-    public static final String TAB_POSITION = "tab_position";
-    public static final int HOME = 0;
-    public static final int XUQIU = 1;
-    public static final int MANAGE = 2;
-    public static final int MY = 3;
     private HomeFragment homeFragment = null;
     private XuQiuFragment xuqiuFragment = null;
     private ManageFragment manageFragment = null;
     private MyFragment myFragment = null;
     private long mExitTime = 0L;
-    int tab = HOME;
+    private int tab = -1;
 
+    @Override
+    public void onAttachFragment(Fragment fragment) {
+        super.onAttachFragment(fragment);
+        try {
+            callback = (ActivityToFragmentCallBack) fragment;
+        } catch (ClassCastException e) {
+            LogTool.d(TAG, "e:" + e);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,22 +56,21 @@ public class MainActivity extends BaseActivity implements
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        LogTool.d(this.getClass().getName(), "onNewIntent");
+        LogTool.d(TAG, "onNewIntent");
         initIntent(intent);
     }
 
-    private void initIntent(Intent intent){
-        tab = intent.getIntExtra(TAB_POSITION,HOME);
-        mTabRg.check(getResources().getIdentifier("tab_rb_"+(tab + 1),"id",getPackageName()));
+    private void initIntent(Intent intent) {
+        tab = intent.getIntExtra(Constant.TAB_POSITION, 0);
+        LogTool.d(TAG, "tab=" + tab);
+        mTabRg.check(getResources().getIdentifier("tab_rb_" + (tab + 1), "id", getPackageName()));
         setTabSelection(tab);
-
     }
 
     @Override
     public void initView() {
         mTabRg = (RadioGroup) findViewById(R.id.tab_rg_menu);
-        Intent intent = getIntent();
-        initIntent(intent);
+        setTabSelection(Constant.HOME);
     }
 
     @Override
@@ -74,16 +82,16 @@ public class MainActivity extends BaseActivity implements
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         switch (checkedId) {
             case R.id.tab_rb_1:
-                setTabSelection(HOME);
+                setTabSelection(Constant.HOME);
                 break;
             case R.id.tab_rb_2:
-                setTabSelection(XUQIU);
+                setTabSelection(Constant.XUQIU);
                 break;
             case R.id.tab_rb_3:
-                setTabSelection(MANAGE);
+                setTabSelection(Constant.MANAGE);
                 break;
             case R.id.tab_rb_4:
-                setTabSelection(MY);
+                setTabSelection(Constant.MY);
                 break;
             default:
                 break;
@@ -96,7 +104,7 @@ public class MainActivity extends BaseActivity implements
                 .beginTransaction();
         hideFragments(transaction);
         switch (index) {
-            case HOME:
+            case Constant.HOME:
                 if (homeFragment != null) {
                     transaction.show(homeFragment);
                 } else {
@@ -104,7 +112,7 @@ public class MainActivity extends BaseActivity implements
                     transaction.add(R.id.tabLayout, homeFragment);
                 }
                 break;
-            case XUQIU:
+            case Constant.XUQIU:
                 if (xuqiuFragment != null) {
                     transaction.show(xuqiuFragment);
                 } else {
@@ -112,7 +120,7 @@ public class MainActivity extends BaseActivity implements
                     transaction.add(R.id.tabLayout, xuqiuFragment);
                 }
                 break;
-            case MANAGE:
+            case Constant.MANAGE:
                 if (manageFragment != null) {
                     transaction.show(manageFragment);
                 } else {
@@ -120,7 +128,7 @@ public class MainActivity extends BaseActivity implements
                     transaction.add(R.id.tabLayout, manageFragment);
                 }
                 break;
-            case MY:
+            case Constant.MY:
                 if (myFragment != null) {
                     transaction.show(myFragment);
                 } else {
@@ -164,6 +172,14 @@ public class MainActivity extends BaseActivity implements
     protected void onDestroy() {
         super.onDestroy();
         PushManager.getInstance().stopService(this);// 完全终止SDK的服务
+    }
+
+    @Override
+    public void switchTab(int index, String params) {
+        LogTool.d(TAG, "index=" + index + " params=" + params);
+        callback.onTransmit(params);
+        setTabSelection(index);
+        mTabRg.check(getResources().getIdentifier("tab_rb_" + (index + 1), "id", getPackageName()));
     }
 
     @Override

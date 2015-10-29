@@ -11,6 +11,7 @@ import java.util.List;
  */
 public class Requirement implements Serializable {
     private String _id;
+    private String status;
     private List<String> rec_designerids;
     private List<OrderDesignerInfo> designers;
 
@@ -22,6 +23,13 @@ public class Requirement implements Serializable {
         this._id = _id;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public List<String> getRec_designerids() {
         return rec_designerids;

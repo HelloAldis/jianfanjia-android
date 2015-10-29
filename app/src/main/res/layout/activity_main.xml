@@ -46,7 +46,7 @@
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:drawableTop="@drawable/rb_btn_bg2"
-            android:text="需求"
+            android:text="需求列表"
             android:textColor="@color/text_color"
             android:textSize="@dimen/text_size_14" />
 
@@ -58,7 +58,7 @@
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:drawableTop="@drawable/rb_btn_bg3"
-            android:text="管理"
+            android:text="工地管理"
             android:textColor="@color/text_color"
             android:textSize="@dimen/text_size_14" />
 

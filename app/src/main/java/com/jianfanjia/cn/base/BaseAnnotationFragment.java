@@ -29,8 +29,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 15:42
  */
-public class BaseAnnotationFragment extends Fragment
-        {
+public class BaseAnnotationFragment extends Fragment {
     protected FragmentManager fragmentManager = null;
     protected NotifyMessageDao notifyMessageDao = null;
     protected DataManagerNew dataManager = null;

@@ -1,6 +1,7 @@
 package com.jianfanjia.cn.fragment;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -27,6 +28,7 @@ import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.ClickCallBack;
+import com.jianfanjia.cn.interf.SwitchTabCallBack;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
@@ -37,6 +39,7 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jp.wasabeef.recyclerview.animators.FadeInUpAnimator;
@@ -50,7 +53,7 @@ import jp.wasabeef.recyclerview.animators.FadeInUpAnimator;
 @EFragment(R.layout.fragment_requirement)
 public class XuQiuFragment extends BaseAnnotationFragment {
     private static final String TAG = XuQiuFragment.class.getName();
-
+    private SwitchTabCallBack switchTabCallBack = null;
     public static final int REQUESTCODE_PUBLISH_REQUIREMENT = 1;
     public static final int REQUESTCODE_EDIT_REQUIREMENT = 2;
     public static final int ITEM_EDIT = 0x00;
@@ -62,7 +65,7 @@ public class XuQiuFragment extends BaseAnnotationFragment {
     public static final int ITEM_GOTOODERDESI = 0x05;//去预约设计师
 
     protected RequirementNewAdapter requirementAdapter;
-    private List<RequirementInfo> requirementInfos;
+    private List<RequirementInfo> requirementInfos = new ArrayList<RequirementInfo>();
 
     @ViewById(R.id.frag_req_rootview)
     protected LinearLayout rootView;
@@ -97,6 +100,16 @@ public class XuQiuFragment extends BaseAnnotationFragment {
 
     private int lastVisibleItem;
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            switchTabCallBack = (SwitchTabCallBack) context;
+        } catch (ClassCastException e) {
+            LogTool.d(TAG, "e:" + e);
+        }
+    }
+
     protected void setListVisiable() {
         LogTool.d(getClass().getName(), "setVisiable()");
         req_listview_wrap.setVisibility(View.VISIBLE);
@@ -125,6 +138,8 @@ public class XuQiuFragment extends BaseAnnotationFragment {
                         startActivityForResult(gotoEditRequirement, REQUESTCODE_PUBLISH_REQUIREMENT);
                         break;
                     case ITEM_GOTOPRO:
+                        //工地id
+                        switchTabCallBack.switchTab(Constant.MANAGE, "siteid");
                         break;
                     case ITEM_GOTOMYDESI:
                         gotoMyDesigner.putExtra(Global.REQUIREMENT_ID, requirementInfos.get(position).get_id());
