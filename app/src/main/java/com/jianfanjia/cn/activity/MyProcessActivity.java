@@ -10,33 +10,32 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.adapter.MyProcessInfoAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.bean.Process;
+import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
+import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.NetTool;
 import com.jianfanjia.cn.view.MainHeadView;
 
-import java.util.Collections;
 import java.util.List;
 
 /**
- *
+ * @author fengliang
  * @ClassName: DesignerSiteActivity
  * @Description: 设计师工地
- * @author fengliang
  * @date 2015-9-11 上午10:02:42
- *
  */
 public class MyProcessActivity extends BaseActivity implements
         OnClickListener, OnItemClickListener, ApiUiUpdateListener {
     private static final String TAG = MyProcessActivity.class.getName();
     private MainHeadView mainHeadView = null;
     private ListView siteListView = null;
-    private List<Process> siteList;
+    private List<ProcessInfo> siteList;
     private TextView errorText;
     private MyProcessInfoAdapter myProcessInfoAdapter = null;
 
@@ -47,23 +46,27 @@ public class MyProcessActivity extends BaseActivity implements
 //        siteList = dataManager.getProcessLists();
         if (siteList == null) {
             if (NetTool.isNetworkAvailable(this)) {
-				/*LoadClientHelper.requestProcessList(this,
-						new ProcessListRequest(this), this);*/
-                JianFanJiaClient.get_Process_List(this,this,this);
+                JianFanJiaClient.get_Process_List(this, this, this);
             } else {
-                siteList = dataManager.getProcessListsByCache();
+//                siteList = dataManager.getProcessListsByCache();
+                setEmptyView();
             }
         }
         myProcessInfoAdapter = new MyProcessInfoAdapter(
                 MyProcessActivity.this, siteList);
         siteListView.setAdapter(myProcessInfoAdapter);
-        setEmptyView();
+    }
+
+    private void comeMainActivity() {
+        Intent intent = new Intent(MyProcessActivity.this, MainActivity.class);
+        intent.putExtra(Constant.TAB_POSITION, Constant.MANAGE);
+        startActivity(intent);
+        finish();
     }
 
     private void setEmptyView() {
         ViewStub mViewStub = (ViewStub) findViewById(R.id.empty);
         errorText = (TextView) mViewStub.inflate().findViewById(R.id.tv_error);
-        errorText.setText("暂无工地数据");
         siteListView.setEmptyView(mViewStub);
     }
 
@@ -74,7 +77,6 @@ public class MyProcessActivity extends BaseActivity implements
         mainHeadView.setMianTitle(getResources().getString(
                 R.string.my_decoration_site));
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
-        mainHeadView.setDividerVisable(View.VISIBLE);
     }
 
     @Override
@@ -95,24 +97,25 @@ public class MyProcessActivity extends BaseActivity implements
 
     @Override
     public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
-        Process siteInfo = siteList.get(position);
+        ProcessInfo siteInfo = siteList.get(position);
         LogTool.d(TAG, "_id=" + siteInfo.get_id());
         dataManager.setDefaultPro(position);
-        Intent intent = new Intent();
-        intent.putExtra("ProcessId", siteInfo.get_id());
-        setResult(Constant.REQUESTCODE_CHANGE_SITE, intent);
-        finish();
+        comeMainActivity();
     }
 
     @Override
     public void loadSuccess(Object data) {
         super.loadSuccess(data);
-        siteList = dataManager.getProcessLists();
-        myProcessInfoAdapter.setList(siteList);
-        myProcessInfoAdapter.notifyDataSetChanged();
+        if (data != null) {
+            siteList = JsonParser.jsonToList(data.toString(),
+                    new TypeToken<List<ProcessInfo>>() {
+                    }.getType());
+            myProcessInfoAdapter.setList(siteList);
+            myProcessInfoAdapter.notifyDataSetChanged();
+        }
     }
 
-    private List<Process> getSwapProcessList(List<Process> siteList) {
+   /* private List<Process> getSwapProcessList(List<Process> siteList) {
         for (int i = 0; i < siteList.size(); i++) {
             if (i == dataManager.getDefaultPro()) {
                 int index = siteList.indexOf(siteList.get(i));
@@ -120,7 +123,7 @@ public class MyProcessActivity extends BaseActivity implements
             }
         }
         return siteList;
-    }
+    }*/
 
     @Override
     public int getLayoutId() {

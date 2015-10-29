@@ -71,18 +71,6 @@
                 android:text="@string/site_example_node_finish"
                 android:textColor="@color/black_color" />
 
-            <TextView
-                android:id="@+id/site_list_item_content_expand_node_confirm_finish"
-                style="@style/listview_item_text_style_small"
-                android:layout_alignParentRight="true"
-                android:background="@drawable/btn_selector"
-                android:clickable="true"
-                android:focusable="false"
-                android:padding="5dip"
-                android:text="@string/site_example_node_confirm_finish"
-                android:textColor="@color/font_white"
-                android:visibility="gone" />
-
             <LinearLayout
                 android:id="@+id/site_list_item_content_expand_node_picture_layout"
                 android:layout_width="match_parent"

@@ -2,16 +2,14 @@ package com.jianfanjia.cn.cache;
 
 import android.content.Context;
 
-import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.bean.LoginUserBean;
-import com.jianfanjia.cn.bean.Process;
+import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url;
-import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.SharedPrefer;
 
 import java.util.Calendar;
@@ -25,10 +23,11 @@ public class DataManager {
     private Context context;
     private SharedPrefer sharedPreferdata = null;
     private SharedPrefer sharedPreferuser = null;
-    private List<Process> processLists;
+    private List<ProcessInfo> processLists;
     private List<RequirementInfo> requirementInfoList;
     private ProcessInfo currentProcessInfo;// 当前工地信息p
     private String currentUploadImageId;// 当前上传的imageId;
+    private OwnerInfo ownerInfo;//业主信息
 
     public static DataManager getInstance() {
         if (instance == null) {
@@ -43,8 +42,12 @@ public class DataManager {
         sharedPreferuser = new SharedPrefer(context, Constant.SHARED_USER);
     }
 
-    public void saveRequirementInfoList(String jsonRequirementInfoList){
-        sharedPreferdata.setValue(Constant.REQUIREMENTINFO_LIST,jsonRequirementInfoList);
+    public OwnerInfo getOwnerInfo() {
+        return ownerInfo;
+    }
+
+    public void setOwnerInfo(OwnerInfo ownerInfo) {
+        this.ownerInfo = ownerInfo;
     }
 
     public void setRequirementInfoList(List<RequirementInfo> requirementInfoList){
@@ -53,17 +56,6 @@ public class DataManager {
 
     public List<RequirementInfo> getRequirementInfoList(){
         return  requirementInfoList;
-    }
-
-    public List<RequirementInfo> getRequirementInfoListByCache(){
-        String jsonRequirementList = sharedPreferdata.getValue(
-                Constant.REQUIREMENTINFO_LIST, null);
-        if (jsonRequirementList != null) {
-            requirementInfoList = JsonParser.jsonToList(jsonRequirementList,
-                    new TypeToken<List<RequirementInfo>>() {
-                    }.getType());
-        }
-        return requirementInfoList;
     }
 
     public String getCurrentUploadImageId() {
@@ -78,71 +70,16 @@ public class DataManager {
         this.currentProcessInfo = currentProcessInfo;
     }
 
-    public ProcessInfo getDefaultProcessInfo() {
+    public ProcessInfo getCurrentProcessInfo() {
         return currentProcessInfo;
     }
 
-    public String getDefaultDesignerId() {
-        if (processLists == null || processLists.size() == 0) {
-            processLists = getProcessListsByCache();
-            if (processLists != null && processLists.size() != 0) {
-                return processLists.get(getDefaultPro()).getFinal_designerid();
-            } else {
-                return null;
-            }
-        } else {
-            return processLists.get(getDefaultPro()).getFinal_designerid();
-        }
-    }
-
-    public String getDefaultOwnerId() {
-        if (processLists == null || processLists.size() == 0) {
-            processLists = getProcessListsByCache();
-            if (processLists != null && processLists.size() != 0) {
-                return processLists.get(getDefaultPro()).getUserid();
-            } else {
-                return null;
-            }
-        } else {
-            return processLists.get(getDefaultPro()).getUserid();
-        }
-    }
-
-    public String getDefaultProcessId() {
-        if (processLists == null || processLists.size() == 0) {
-            processLists = getProcessListsByCache();
-            if (processLists != null && processLists.size() != 0) {
-                return processLists.get(getDefaultPro()).get_id();
-            } else {
-                return null;
-            }
-        } else {
-            return processLists.get(getDefaultPro()).get_id();
-        }
-    }
-
-    public List<Process> getProcessLists() {
+    public List<ProcessInfo> getProcessLists() {
         return processLists;
     }
 
-    public void setProcessLists(List<Process> processLists) {
+    public void setProcessLists(List<ProcessInfo> processLists) {
         this.processLists = processLists;
-    }
-
-    public void saveProcessLists(String jsonProcessLists) {
-        sharedPreferdata.setValue(Constant.DESIGNER_PROCESS_LIST,
-                jsonProcessLists);
-    }
-
-    public List<Process> getProcessListsByCache() {
-        String jsonProcessList = sharedPreferdata.getValue(
-                Constant.DESIGNER_PROCESS_LIST, null);
-        if (jsonProcessList != null) {
-            processLists = JsonParser.jsonToList(jsonProcessList,
-                    new TypeToken<List<Process>>() {
-                    }.getType());
-        }
-        return processLists;
     }
 
     public int getDefaultPro() {
@@ -151,20 +88,6 @@ public class DataManager {
 
     public void setDefaultPro(int defaultPro) {
         sharedPreferuser.setValue(Constant.DEFAULT_PROCESS, defaultPro);
-    }
-
-    /**
-     * 拿工地信息
-     *
-     * @param processId
-     * @return
-     */
-    public ProcessInfo getProcessInfoById(String processId) {
-        return (ProcessInfo) sharedPreferdata.getValue(processId);
-    }
-
-    public void saveProcessInfo(ProcessInfo processInfo) {
-        sharedPreferdata.setValue(processInfo.get_id(), processInfo);
     }
 
     public boolean isLogin() {

@@ -8,7 +8,7 @@ import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.BaseListAdapter;
 import com.jianfanjia.cn.application.MyApplication;
-import com.jianfanjia.cn.bean.Process;
+import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.User;
 import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.config.Constant;
@@ -22,16 +22,16 @@ import java.util.List;
  * @date 2015-8-26 下午20:05
  * 
  */
-public class MyProcessInfoAdapter extends BaseListAdapter<Process> {
+public class MyProcessInfoAdapter extends BaseListAdapter<ProcessInfo> {
 
-	public MyProcessInfoAdapter(Context context, List<Process> caigouList) {
+	public MyProcessInfoAdapter(Context context, List<ProcessInfo> caigouList) {
 		super(context, caigouList);
 	}
 
 	@Override
 	public View initView(int position, View convertView) {
 		ViewHolder viewHolder = null;
-		Process designerSiteInfo = list.get(position);
+		ProcessInfo designerSiteInfo = list.get(position);
 		if (convertView == null) {
 			convertView = layoutInflater.inflate(
 					R.layout.list_item_my_process, null);

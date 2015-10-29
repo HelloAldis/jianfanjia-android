@@ -32,9 +32,19 @@ public class ProcessInfo implements Serializable {
 
     private String userid;
 
+    private User user;
+
     private String going_on;
 
     private ArrayList<SectionInfo> sections;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public String getUserid() {
         return userid;
