@@ -59,4 +59,5 @@
     <string name="str_scan">逛一逛</string>
     <string name="forget_pwd_title">忘记密码</string>
     <string name="str_goto_order">前往预约</string>
+    <string name="city_tip">（目前仅支持湖北省武汉市）</string>
 </resources>

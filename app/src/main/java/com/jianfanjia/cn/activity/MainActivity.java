@@ -47,7 +47,7 @@ public class MainActivity extends BaseActivity implements
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        LogTool.d(this.getClass().getName(),"onNewIntent");
+        LogTool.d(this.getClass().getName(), "onNewIntent");
         initIntent(intent);
     }
 

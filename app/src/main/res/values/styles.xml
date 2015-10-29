@@ -32,31 +32,6 @@
     </style>
 
     <!-- login activity -->
-    <style name="item_input_container">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:gravity">center_vertical</item>
-        <item name="android:orientation">horizontal</item>
-        <item name="android:paddingLeft">@dimen/space_16</item>
-        <item name="android:paddingRight">@dimen/space_16</item>
-        <item name="android:background">@drawable/reg_and_login_text_layout_bg</item>
-    </style>
-
-    <style name="item_input_edittext">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_weight">1</item>
-        <item name="android:background">@null</item>
-        <item name="android:minHeight">40dp</item>
-        <item name="android:singleLine">true</item>
-        <item name="android:textColor">@color/font_white</item>
-        <item name="android:textColorHint">@color/log_and_res_hint</item>
-        <item name="android:shadowRadius">1.0</item>
-        <item name="android:shadowDx">0.5</item>
-        <item name="android:shadowDy">0.5</item>
-        <item name="android:textSize">@dimen/text_size_11</item>
-    </style>
-
     <style name="button_login_style">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/space_48</item>
@@ -81,7 +56,7 @@
         <item name="android:background">@drawable/btn_orange_bg</item>
         <item name="android:visibility">gone</item>
         <item name="android:layout_width">0.0dip</item>
-        <item name="android:layout_height">48.0dip</item>
+        <item name="android:layout_height">40.0dip</item>
         <item name="android:maxLines">2</item>
         <item name="android:layout_weight">1.0</item>
         <item name="android:textSize">@dimen/text_size_17</item>
@@ -94,18 +69,10 @@
         <item name="android:background">@drawable/btn_orange_white_bg</item>
         <item name="android:visibility">gone</item>
         <item name="android:layout_width">0.0dip</item>
-        <item name="android:layout_height">48.0dip</item>
+        <item name="android:layout_height">40.0dip</item>
         <item name="android:maxLines">2</item>
         <item name="android:layout_weight">1.0</item>
         <item name="android:textSize">@dimen/text_size_17</item>
-    </style>
-
-    <style name="button_enter_style">
-        <item name="android:layout_width">@dimen/space_100</item>
-        <item name="android:layout_height">@dimen/space_32</item>
-        <item name="android:background">@drawable/btn_selector</item>
-        <item name="android:textColor">@color/font_white</item>
-        <item name="android:textSize">@dimen/big_size</item>
     </style>
 
     <style name="dialog_button_2">
@@ -114,7 +81,7 @@
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:background">@drawable/btn_orange_white_bg</item>
         <item name="android:layout_width">0.0dip</item>
-        <item name="android:layout_height">48.0dip</item>
+        <item name="android:layout_height">40.0dip</item>
         <item name="android:maxLines">2</item>
         <item name="android:layout_weight">1.0</item>
         <item name="android:textSize">@dimen/big_size</item>
@@ -126,17 +93,9 @@
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:background">@drawable/btn_orange_bg</item>
         <item name="android:layout_width">0.0dip</item>
-        <item name="android:layout_height">48.0dip</item>
+        <item name="android:layout_height">40.0dip</item>
         <item name="android:maxLines">2</item>
         <item name="android:layout_weight">1.0</item>
-        <item name="android:textSize">@dimen/big_size</item>
-    </style>
-
-    <style name="button_confirm_style">
-        <item name="android:layout_width">@dimen/space_150</item>
-        <item name="android:layout_height">@dimen/space_48</item>
-        <item name="android:background">@drawable/btn_selector</item>
-        <item name="android:textColor">@color/font_white</item>
         <item name="android:textSize">@dimen/big_size</item>
     </style>
 

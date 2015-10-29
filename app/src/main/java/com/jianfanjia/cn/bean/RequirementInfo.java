@@ -29,6 +29,7 @@ public class RequirementInfo implements Serializable {
     private String total_price;
     private String final_planid;
     private String final_designerid;
+    private ProcessInfo process;
     private long create_at;
     private long last_status_update_time;
     private String family_description;
@@ -110,6 +111,14 @@ public class RequirementInfo implements Serializable {
 
     public void setCell_detail_number(String cell_detail_number) {
         this.cell_detail_number = cell_detail_number;
+    }
+
+    public ProcessInfo getProcess() {
+        return process;
+    }
+
+    public void setProcess(ProcessInfo process) {
+        this.process = process;
     }
 
     public String getDec_type() {

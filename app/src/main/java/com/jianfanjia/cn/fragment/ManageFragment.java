@@ -14,10 +14,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ScrollView;
-import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.CheckActivity;
 import com.jianfanjia.cn.activity.CommentActivity;
@@ -32,6 +30,7 @@ import com.jianfanjia.cn.bean.SectionInfo;
 import com.jianfanjia.cn.bean.SectionItemInfo;
 import com.jianfanjia.cn.bean.ViewPagerItem;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
@@ -49,9 +48,10 @@ import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DateWheelDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
-import com.jianfanjia.cn.view.library.PullToRefreshScrollView;
-import com.jianfanjia.cn.view.library.PullToRefreshBase.OnRefreshListener2;
 import com.jianfanjia.cn.view.library.PullToRefreshBase.Mode;
+import com.jianfanjia.cn.view.library.PullToRefreshBase.OnRefreshListener2;
+import com.jianfanjia.cn.view.library.PullToRefreshScrollView;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -86,10 +86,6 @@ public class ManageFragment extends BaseFragment implements
 	private String[] proTitle = null;
 	private List<ViewPagerItem> processList = new ArrayList<ViewPagerItem>();
 	private List<String> imageList;
-
-	private TextView titleCenter = null;
-	private TextView titleRight = null;
-	private ImageView titleImage = null;
 
 	private MainHeadView mainHeadView;
 
@@ -149,11 +145,7 @@ public class ManageFragment extends BaseFragment implements
 	private void initMainHead(View view) {
 		mainHeadView = (MainHeadView)view.findViewById(R.id.my_manage_head_layout);
 		mainHeadView.setBackLayoutVisable(View.GONE);
-		if (mUserType.equals(Constant.IDENTITY_OWNER)) {
-			mainHeadView.setRightTitle("配置工地");
-		} else if (mUserType.equals(Constant.IDENTITY_DESIGNER)) {
-			mainHeadView.setRightTitle("切换工地");
-		}
+		mainHeadView.setRightTitle("切换工地");
 	}
 
 	// 初始化数据
@@ -381,8 +373,8 @@ public class ManageFragment extends BaseFragment implements
 			break;
 		case Constant.COMMENT_ITEM:
 			Bundle bundle = new Bundle();
-			bundle.putInt(Constant.CURRENT_LIST, currentList);
-			bundle.putInt(Constant.CURRENT_ITEM, position);
+			bundle.putString(Global.TOPIC_ID, processId);
+			bundle.putString(Global.TO, processInfo.getFinal_designerid());
 			startActivity(CommentActivity.class, bundle);
 			break;
 		case Constant.DELAY_ITEM:

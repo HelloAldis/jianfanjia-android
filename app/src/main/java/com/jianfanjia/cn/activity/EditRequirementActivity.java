@@ -334,6 +334,7 @@ public class EditRequirementActivity extends BaseAnnotationActivity {
             requestCode = XuQiuFragment.REQUESTCODE_EDIT_REQUIREMENT;
         } else {
             requirementInfo = new RequirementInfo();
+            act_edit_req_city_content.setText(getString(R.string.city_tip));
             requestCode = XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT;
         }
 
@@ -349,7 +350,7 @@ public class EditRequirementActivity extends BaseAnnotationActivity {
             ReqItemFinderImp.ItemMap itemMap = (ReqItemFinderImp.ItemMap) data.getSerializableExtra(RESPONDE_DATA);
             switch (requestCode) {
                 case REQUIRECODE_CITY:
-                    act_edit_req_city_content.setText(itemMap.value);
+                    act_edit_req_city_content.setText(requirementInfo.getProvince() + requirementInfo.getCity() + itemMap.value);
                     addItem("item9");
                     requirementInfo.setDistrict(itemMap.value);
                     break;
