@@ -10,6 +10,7 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.BaseListAdapter;
 import com.jianfanjia.cn.bean.PlanInfo;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.interf.ItemClickListener;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.tools.DateFormatTool;
@@ -43,7 +44,7 @@ public class DesignerPlanAdapter extends BaseListAdapter<PlanInfo> {
             convertView = layoutInflater.inflate(R.layout.list_item_plan_info,
                     null);
             holder = new ViewHolder();
-            holder.cellText = (TextView) convertView.findViewById(R.id.cellText);
+            holder.numText = (TextView) convertView.findViewById(R.id.numText);
             holder.statusText = (TextView) convertView.findViewById(R.id.statusText);
             holder.viewPager = (ViewPager) convertView.findViewById(R.id.viewpager);
             holder.dateText = (TextView) convertView.findViewById(R.id.dateText);
@@ -53,11 +54,20 @@ public class DesignerPlanAdapter extends BaseListAdapter<PlanInfo> {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        holder.cellText.setText("中建康城东区");
+        holder.numText.setText("方案" + (position + 1));
         holder.dateText.setText(DateFormatTool.longToString(info.getLast_status_update_time()));
         holder.commentText.setText("留言(" + info.getComment_count() + ")");
         String status = info.getStatus();
-        holder.statusText.setText("已中标");
+        if (status.equals(Global.PLAN_STATUS3)) {
+            holder.statusText.setTextColor(context.getResources().getColor(R.color.orange_color));
+            holder.statusText.setText("沟通中");
+        } else if (status.equals(Global.PLAN_STATUS4)) {
+            holder.statusText.setTextColor(context.getResources().getColor(R.color.grey_color));
+            holder.statusText.setText("未中标");
+        } else if (status.equals(Global.PLAN_STATUS5)) {
+            holder.statusText.setTextColor(context.getResources().getColor(R.color.orange_color));
+            holder.statusText.setText("已中标");
+        }
         List<String> imgList = info.getImages();
         PlanViewAdapter adapter = new PlanViewAdapter(context, imgList, new ViewPagerClickListener() {
             @Override
@@ -83,7 +93,7 @@ public class DesignerPlanAdapter extends BaseListAdapter<PlanInfo> {
     }
 
     private static class ViewHolder {
-        TextView cellText;
+        TextView numText;
         TextView statusText;
         ViewPager viewPager;
         TextView dateText;

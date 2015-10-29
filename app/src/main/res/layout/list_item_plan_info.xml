@@ -12,10 +12,10 @@
         android:layout_margin="10dip">
 
         <TextView
-            android:id="@+id/cellText"
+            android:id="@+id/numText"
             style="@style/site_listview_item_text_style_middle"
             android:layout_centerVertical="true"
-            android:text="中建康城东区"
+            android:text="方案"
             android:textColor="#000000" />
 
         <TextView
@@ -31,7 +31,7 @@
     <com.jianfanjia.cn.view.MyViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
-        android:layout_height="150dip" />
+        android:layout_height="124dip" />
 
 
     <RelativeLayout
@@ -44,7 +44,7 @@
             style="@style/site_listview_item_text_style_middle"
             android:layout_centerVertical="true"
             android:text="2015-10-22"
-            android:textColor="#000000" />
+            android:textColor="@color/grey_color" />
 
         <TextView
             android:id="@+id/previewText"

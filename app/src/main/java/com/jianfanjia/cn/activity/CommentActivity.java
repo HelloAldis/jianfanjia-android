@@ -37,8 +37,8 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
     private Button btnSend = null;
     private CommentAdapter commentAdapter = null;
 
-    private String planid = null;
-    private String designerid = null;
+    private String topicid = null;
+    private String to = null;
 
     private List<CommentInfo> commentList = new ArrayList<CommentInfo>();
 
@@ -47,14 +47,14 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
         initMainHeadView();
         Intent intent = this.getIntent();
         Bundle commentBundle = intent.getExtras();
-        planid = commentBundle.getString(Global.PLAN_ID);
-        designerid = commentBundle.getString(Global.DESIGNER_ID);
-        LogTool.d(TAG, "planid=" + planid + " designerid=" + designerid);
+        topicid = commentBundle.getString(Global.TOPIC_ID);
+        to = commentBundle.getString(Global.TO);
+        LogTool.d(TAG, "topicid=" + topicid + " to=" + to);
         commentListView = (ListView) findViewById(R.id.comment_listview);
         commentEdit = (EditText) findViewById(R.id.add_comment);
         btnSend = (Button) findViewById(R.id.btn_send);
 
-        getCommentList(planid, 0, 10);
+        getCommentList(topicid, 0, 10);
     }
 
     private void initMainHeadView() {
@@ -81,7 +81,7 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
             case R.id.btn_send:
                 String content = commentEdit.getText().toString().trim();
                 if (!TextUtils.isEmpty(content)) {
-                    addComment(planid, "0", content, designerid);
+                    addComment(topicid, "0", content, to);
                 } else {
                     makeTextLong("请输入内容");
                 }
@@ -140,7 +140,7 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
             LogTool.d(TAG, "data:" + data);
             hideWaitDialog();
             commentEdit.setText("");
-            getCommentList(planid, 0, 10);
+            getCommentList(topicid, 0, 10);
         }
 
         @Override
