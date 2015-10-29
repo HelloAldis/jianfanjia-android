@@ -29,7 +29,6 @@ import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.ListItemClickListener;
-import com.jianfanjia.cn.interf.SwitchTabCallBack;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
@@ -48,7 +47,7 @@ import java.util.List;
  * Date:15-10-11 14:30
  */
 public class HomeFragment extends BaseFragment implements
-        PullToRefreshBase.OnRefreshListener2<ScrollView>, ListItemClickListener, ApiUiUpdateListener, OnItemClickListener, SwitchTabCallBack {
+        PullToRefreshBase.OnRefreshListener2<ScrollView>, ListItemClickListener, ApiUiUpdateListener, OnItemClickListener {
     private static final String TAG = HomeFragment.class.getName();
     private PullToRefreshScrollView mPullRefreshScrollView = null;
     private LinearLayout marchedLayout = null;
@@ -229,10 +228,6 @@ public class HomeFragment extends BaseFragment implements
         getHomePageDesigners(FROM, Constant.LIMIT);
     }
 
-    @Override
-    public void switchTab(int index, String str) {
-
-    }
 
     @Override
     public int getLayoutId() {
