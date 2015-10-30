@@ -129,7 +129,6 @@ public class JianFanJiaClient {
      * @param tag
      */
     public static void logout(Context context, ApiUiUpdateListener listener, Object tag) {
-//		HttpRestClient.get(context, Url.SIGNOUT_URL, handler);
         LogoutRequest logoutRequest = new LogoutRequest(context);
         LogTool.d(TAG, "logout " + logoutRequest.getUrl());
         OkHttpClientManager.getInstance().getGetDelegate().getAsyn(logoutRequest, listener, tag);
