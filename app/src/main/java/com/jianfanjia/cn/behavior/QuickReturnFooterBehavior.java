@@ -45,13 +45,13 @@ public class QuickReturnFooterBehavior extends CoordinatorLayout.Behavior<View> 
 
     private void hideView(final View child) {
         ObjectAnimator animator = ObjectAnimator.ofFloat(child, "translationY", 0, childHeight);
-        animator.setDuration(300);
+        animator.setDuration(500);
         animator.start();
     }
 
     private void showView(final View child) {
         ObjectAnimator animator = ObjectAnimator.ofFloat(child, "translationY", childHeight, 0);
-        animator.setDuration(300);
+        animator.setDuration(500);
         animator.start();
     }
 }
