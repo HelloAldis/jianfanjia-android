@@ -18,30 +18,19 @@
         android:orientation="vertical">
 
 
-        <android.support.v4.widget.SwipeRefreshLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/act_my_designer_pull_refresh" >
+        <com.jianfanjia.cn.view.SuperSwipeRefreshLayout
+            android:id="@+id/act_my_designer_pull_refresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/space_8">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/act_my_designer_recyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:paddingBottom="8dp"
-                android:paddingTop="8dp"
                 />
-        </android.support.v4.widget.SwipeRefreshLayout>
+        </com.jianfanjia.cn.view.SuperSwipeRefreshLayout>
 
-        <!--<ListView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/req_listView"
-            android:layout_gravity="center_horizontal"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:choiceMode="singleChoice"
-            style="@style/style_listview_base"
-            android:scrollingCache="false" />-->
     </LinearLayout>
 </LinearLayout>

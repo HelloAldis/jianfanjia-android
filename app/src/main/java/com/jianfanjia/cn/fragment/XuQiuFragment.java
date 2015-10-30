@@ -4,14 +4,16 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -33,6 +35,7 @@ import com.jianfanjia.cn.interf.SwitchTabCallBack;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
+import com.jianfanjia.cn.view.SuperSwipeRefreshLayout;
 import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
 
 import org.androidannotations.annotations.AfterViews;
@@ -90,7 +93,7 @@ public class XuQiuFragment extends BaseAnnotationFragment implements ActivityToF
     protected RecyclerView req_listView;
 
     @ViewById(R.id.req_pull_refresh)
-    protected SwipeRefreshLayout refreshLayout;
+    protected SuperSwipeRefreshLayout refreshLayout;
 
     @ViewById(R.id.error_include)
     RelativeLayout error_Layout;
@@ -99,7 +102,10 @@ public class XuQiuFragment extends BaseAnnotationFragment implements ActivityToF
     protected Intent gotoMyDesigner;
     protected Intent gotoEditRequirement;
 
-    private int lastVisibleItem;
+    // Header View
+    private ProgressBar progressBar;
+    private TextView textView;
+    private ImageView imageView;
 
     @Override
     public void onAttach(Context context) {
@@ -166,6 +172,8 @@ public class XuQiuFragment extends BaseAnnotationFragment implements ActivityToF
                 .build());
     }
 
+
+
     @Click({R.id.req_publish_wrap, R.id.head_right_title})
     protected void publish_requirement() {
         Intent intent = new Intent(getActivity(), EditRequirementActivity_.class);
@@ -188,12 +196,45 @@ public class XuQiuFragment extends BaseAnnotationFragment implements ActivityToF
     }
 
     private void initPullRefresh() {
-        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                initdata();
-            }
-        });
+        refreshLayout.setHeaderViewBackgroundColor(0xff888888);
+        refreshLayout.setHeaderView(createHeaderView());// add headerView
+        refreshLayout.setTargetScrollWithLayout(true);
+        refreshLayout
+                .setOnPullRefreshListener(new SuperSwipeRefreshLayout.OnPullRefreshListener() {
+
+                    @Override
+                    public void onRefresh() {
+                        textView.setText("正在刷新");
+                        imageView.setVisibility(View.GONE);
+                        progressBar.setVisibility(View.VISIBLE);
+                        initdata();
+                    }
+
+                    @Override
+                    public void onPullDistance(int distance) {
+                        // pull distance
+                    }
+
+                    @Override
+                    public void onPullEnable(boolean enable) {
+                        textView.setText(enable ? "松开刷新" : "下拉刷新");
+                        imageView.setVisibility(View.VISIBLE);
+                        imageView.setRotation(enable ? 180 : 0);
+                    }
+                });
+    }
+
+    private View createHeaderView() {
+        View headerView = LayoutInflater.from(refreshLayout.getContext())
+                .inflate(R.layout.layout_head, null);
+        progressBar = (ProgressBar) headerView.findViewById(R.id.pb_view);
+        textView = (TextView) headerView.findViewById(R.id.text_view);
+        textView.setText("下拉刷新");
+        imageView = (ImageView) headerView.findViewById(R.id.image_view);
+        imageView.setVisibility(View.VISIBLE);
+        imageView.setImageResource(R.mipmap.icon_arrow);
+        progressBar.setVisibility(View.GONE);
+        return headerView;
     }
 
     protected void initIntent() {
@@ -211,6 +252,7 @@ public class XuQiuFragment extends BaseAnnotationFragment implements ActivityToF
             @Override
             public void loadSuccess(Object data) {
                 refreshLayout.setRefreshing(false);
+                progressBar.setVisibility(View.GONE);
                 if (data != null) {
                     requirementInfos = JsonParser.jsonToList(data.toString(), new TypeToken<List<RequirementInfo>>() {
                     }.getType());
@@ -235,6 +277,7 @@ public class XuQiuFragment extends BaseAnnotationFragment implements ActivityToF
                     error_Layout.setVisibility(View.VISIBLE);
                 }
                 refreshLayout.setRefreshing(false);
+                progressBar.setVisibility(View.GONE);
             }
         }, this);
     }

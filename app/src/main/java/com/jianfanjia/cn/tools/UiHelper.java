@@ -19,6 +19,35 @@ import java.io.File;
 
 public class UiHelper {
 
+	/*private static View createFooterView(Context context) {
+		View footerView = LayoutInflater.from(context)
+				.inflate(R.layout.layout_footer, null);
+		ProgressBar footerProgressBar = (ProgressBar) footerView
+				.findViewById(R.id.footer_pb_view);
+		ImageView footerImageView = (ImageView) footerView
+				.findViewById(R.id.footer_image_view);
+		TextView footerTextView = (TextView) footerView
+				.findViewById(R.id.footer_text_view);
+		footerProgressBar.setVisibility(View.GONE);
+		footerImageView.setVisibility(View.VISIBLE);
+		footerImageView.setImageResource(R.drawable.down_arrow);
+		footerTextView.setText("上拉加载更多...");
+		return footerView;
+	}
+
+	private View createHeaderView() {
+		View headerView = LayoutInflater.from(swipeRefreshLayout.getContext())
+				.inflate(R.layout.layout_head, null);
+		progressBar = (ProgressBar) headerView.findViewById(R.id.pb_view);
+		textView = (TextView) headerView.findViewById(R.id.text_view);
+		textView.setText("下拉刷新");
+		imageView = (ImageView) headerView.findViewById(R.id.image_view);
+		imageView.setVisibility(View.VISIBLE);
+		imageView.setImageResource(R.drawable.down_arrow);
+		progressBar.setVisibility(View.GONE);
+		return headerView;
+	}*/
+
 	/**
 	 * @param root         最外层布局，需要调整的布局
 	 * @param scrollToView 被键盘遮挡的scrollToView，滚动root,使scrollToView在root可视区域的底部

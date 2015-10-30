@@ -15,30 +15,29 @@
         android:id="@+id/req_listview_wrap"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="8dp"
-        android:paddingTop="8dp"
         android:orientation="vertical"
-        >
+        android:layout_marginTop="@dimen/space_8">
 
-        <android.support.v4.widget.SwipeRefreshLayout
+        <com.jianfanjia.cn.view.SuperSwipeRefreshLayout
+            android:id="@+id/req_pull_refresh"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/req_pull_refresh" >
+            android:layout_height="match_parent"
+            >
+
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/req_listView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                />
-        </android.support.v4.widget.SwipeRefreshLayout>
+                android:layout_gravity="center_horizontal" />
+        </com.jianfanjia.cn.view.SuperSwipeRefreshLayout>
 
         <include
             android:id="@+id/error_include"
+            layout="@layout/view_error_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            layout="@layout/view_error_layout"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
     </FrameLayout>
 
@@ -54,17 +53,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scaleType="centerCrop"
-            android:src="@mipmap/bg_requirement"/>
+            android:src="@mipmap/bg_requirement" />
 
         <TextView
             android:id="@+id/req_tip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="24dp"
             android:text="@string/str_req_tip"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/black_color"
-            android:layout_gravity="center_horizontal"
             android:textSize="@dimen/small_size"
             android:textStyle="bold" />
 
@@ -72,11 +71,10 @@
             android:id="@+id/req_publish"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="24dp"
             android:text="@string/str_req_pubReq"
             android:textColor="@color/orange_color"
-            android:textSize="@dimen/middle_size"
-            android:layout_gravity="center_horizontal"
-             />
+            android:textSize="@dimen/middle_size" />
     </LinearLayout>
 </LinearLayout>
