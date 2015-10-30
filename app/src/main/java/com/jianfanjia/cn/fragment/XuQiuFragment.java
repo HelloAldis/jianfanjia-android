@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
+import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
@@ -107,6 +108,11 @@ public class XuQiuFragment extends BaseAnnotationFragment implements ActivityToF
     private TextView textView;
     private ImageView imageView;
 
+    // Footer View
+    private ProgressBar footerProgressBar;
+    private TextView footerTextView;
+    private ImageView footerImageView;
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -198,6 +204,7 @@ public class XuQiuFragment extends BaseAnnotationFragment implements ActivityToF
     private void initPullRefresh() {
         refreshLayout.setHeaderViewBackgroundColor(0xff888888);
         refreshLayout.setHeaderView(createHeaderView());// add headerView
+        refreshLayout.setFooterView(createFooterView());
         refreshLayout.setTargetScrollWithLayout(true);
         refreshLayout
                 .setOnPullRefreshListener(new SuperSwipeRefreshLayout.OnPullRefreshListener() {
@@ -222,6 +229,55 @@ public class XuQiuFragment extends BaseAnnotationFragment implements ActivityToF
                         imageView.setRotation(enable ? 180 : 0);
                     }
                 });
+        refreshLayout
+                .setOnPushLoadMoreListener(new SuperSwipeRefreshLayout.OnPushLoadMoreListener() {
+
+                    @Override
+                    public void onLoadMore() {
+                        footerTextView.setText("正在加载...");
+                        footerImageView.setVisibility(View.GONE);
+                        footerProgressBar.setVisibility(View.VISIBLE);
+                        new Handler().postDelayed(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                footerImageView.setVisibility(View.VISIBLE);
+                                footerProgressBar.setVisibility(View.GONE);
+                                refreshLayout.setLoadMore(false);
+                            }
+                        }, 5000);
+                    }
+
+                    @Override
+                    public void onPushEnable(boolean enable) {
+                        footerTextView.setText(enable ? "松开加载" : "上拉加载");
+                        footerImageView.setVisibility(View.VISIBLE);
+                        footerImageView.setRotation(enable ? 0 : 180);
+                    }
+
+                    @Override
+                    public void onPushDistance(int distance) {
+                        // TODO Auto-generated method stub
+
+                    }
+
+                });
+    }
+
+    private View createFooterView() {
+        View footerView = LayoutInflater.from(refreshLayout.getContext())
+                .inflate(R.layout.layout_footer, null);
+        footerProgressBar = (ProgressBar) footerView
+                .findViewById(R.id.footer_pb_view);
+        footerImageView = (ImageView) footerView
+                .findViewById(R.id.footer_image_view);
+        footerTextView = (TextView) footerView
+                .findViewById(R.id.footer_text_view);
+        footerProgressBar.setVisibility(View.GONE);
+        footerImageView.setVisibility(View.VISIBLE);
+        footerImageView.setImageResource(R.mipmap.icon_arrow);
+        footerTextView.setText("上拉加载更多...");
+        return footerView;
     }
 
     private View createHeaderView() {
