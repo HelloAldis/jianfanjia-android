@@ -137,12 +137,13 @@ public class JianFanJiaClient {
 
     /**
      * 用户更新密码
+     *
      * @param context
      * @param registerInfo
      * @param listener
      * @param tag
      */
-    public static void update_psw(Context context,RegisterInfo registerInfo, ApiUiUpdateListener listener, Object tag) {
+    public static void update_psw(Context context, RegisterInfo registerInfo, ApiUiUpdateListener listener, Object tag) {
         ForgetPswRequest forgetPswRequest = new ForgetPswRequest(context);
         LogTool.d(TAG, "update_psw --" + forgetPswRequest.getUrl() + "---" + JsonParser.beanToJson(registerInfo));
         OkHttpClientManager.getInstance().getPostDelegate().postAsyn(forgetPswRequest, JsonParser.beanToJson(registerInfo), listener, tag);
@@ -462,7 +463,6 @@ public class JianFanJiaClient {
      */
     public static void rescheduleAll(Context context,
                                      ApiUiUpdateListener listener, Object tag) {
-//        HttpRestClient.get(context, Url.GET_RESCHDULE_ALL, hanlder);
         GetAllRescheduleRequest getAllRescheduleRequest = new GetAllRescheduleRequest(context);
         OkHttpClientManager.getInstance().getGetDelegate().getAsyn(getAllRescheduleRequest, listener, tag);
     }
@@ -481,25 +481,6 @@ public class JianFanJiaClient {
         OkHttpClientManager.getInstance().getPostDelegate().postAsyn(commitCommentRequest, JsonParser.beanToJson(commitCommentInfo), listener, tag);
     }
 
-   /* *//**
-     * 用户上传图片
-     *
-     * @param context
-     * @param listener
-     *
-     *//*
-    public static void uploadImage(Context context, String imgPath,
-                                   AsyncHttpResponseHandler handler) {
-        try {
-            File file = new File(imgPath);
-            RequestParams params = new RequestParams();
-            params.put("Filedata", file);
-            HttpRestClient.post(context, Url.UPLOAD_IMAGE, params, handler);
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }*/
 
     /**
      * 用户上传图片
