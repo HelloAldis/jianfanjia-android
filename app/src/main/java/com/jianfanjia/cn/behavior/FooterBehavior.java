@@ -17,12 +17,8 @@ import android.view.animation.Interpolator;
  * Time: 10:57
  */
 public class FooterBehavior extends CoordinatorLayout.Behavior<View> {
-
     private static final Interpolator INTERPOLATOR = new FastOutSlowInInterpolator();
-
-
     private int sinceDirectionChange;
-
 
     public FooterBehavior(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -51,7 +47,7 @@ public class FooterBehavior extends CoordinatorLayout.Behavior<View> {
 
 
     private void hide(final View view) {
-        ViewPropertyAnimator animator = view.animate().translationY(view.getHeight()).setInterpolator(INTERPOLATOR).setDuration(200);
+        ViewPropertyAnimator animator = view.animate().translationY(view.getHeight()).setInterpolator(INTERPOLATOR).setDuration(600);
         animator.setListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animator) {
@@ -78,7 +74,7 @@ public class FooterBehavior extends CoordinatorLayout.Behavior<View> {
 
 
     private void show(final View view) {
-        ViewPropertyAnimator animator = view.animate().translationY(0).setInterpolator(INTERPOLATOR).setDuration(200);
+        ViewPropertyAnimator animator = view.animate().translationY(0).setInterpolator(INTERPOLATOR).setDuration(600);
         animator.setListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animator) {
