@@ -17,11 +17,10 @@ import com.jianfanjia.cn.view.custom_annotation_view.RequirementView_;
  * Date:2015-10-19 19:15
  */
 public class RequirementNewAdapter extends RecyclerViewAdapterBase<RequirementInfo, RequirementView> {
-
-    Context context;
+    private Context context;
     private ClickCallBack clickCallBack;
 
-    public RequirementNewAdapter(Context context,ClickCallBack cickCallBack){
+    public RequirementNewAdapter(Context context, ClickCallBack cickCallBack) {
         this.context = context;
         this.clickCallBack = cickCallBack;
     }
@@ -36,7 +35,7 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<RequirementIn
         RequirementView view = viewHolder.getView();
         RequirementInfo requirementInfo = items.get(position);
 
-        view.bind(requirementInfo,clickCallBack,position);
+        view.bind(requirementInfo, clickCallBack, position);
     }
 
 }
