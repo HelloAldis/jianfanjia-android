@@ -12,6 +12,7 @@ import com.jianfanjia.cn.bean.DesignerInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.view.baseview.BaseAnnotationView;
 
 import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.ViewById;

@@ -6,6 +6,7 @@ import android.widget.ImageView;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.interf.cutom_annotation.ReqItemFinderImp;
+import com.jianfanjia.cn.view.baseview.BaseAnnotationView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.androidannotations.annotations.EViewGroup;

@@ -1,10 +1,8 @@
 package com.jianfanjia.cn.fragment;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
-import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
@@ -22,6 +20,7 @@ import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.AppointDesignerActivity;
 import com.jianfanjia.cn.activity.EditRequirementActivity_;
 import com.jianfanjia.cn.activity.MyDesignerActivity_;
+import com.jianfanjia.cn.activity.MyProcessDetailActivity_;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.RequirementNewAdapter;
 import com.jianfanjia.cn.base.BaseAnnotationFragment;
@@ -29,10 +28,8 @@ import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
-import com.jianfanjia.cn.interf.ActivityToFragmentCallBack;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.ClickCallBack;
-import com.jianfanjia.cn.interf.SwitchTabCallBack;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
@@ -56,9 +53,8 @@ import jp.wasabeef.recyclerview.animators.FadeInUpAnimator;
  * Date:15-10-11 14:30
  */
 @EFragment(R.layout.fragment_requirement)
-public class XuQiuFragment extends BaseAnnotationFragment implements ActivityToFragmentCallBack {
+public class XuQiuFragment extends BaseAnnotationFragment{
     private static final String TAG = XuQiuFragment.class.getName();
-    private SwitchTabCallBack switchTabCallBack = null;
     public static final int REQUESTCODE_PUBLISH_REQUIREMENT = 1;
     public static final int REQUESTCODE_EDIT_REQUIREMENT = 2;
     public static final int ITEM_EDIT = 0x00;
@@ -102,26 +98,12 @@ public class XuQiuFragment extends BaseAnnotationFragment implements ActivityToF
     protected Intent gotoOrderDesigner;
     protected Intent gotoMyDesigner;
     protected Intent gotoEditRequirement;
+    protected Intent gotoMyProcess;
 
     // Header View
     private ProgressBar progressBar;
     private TextView textView;
     private ImageView imageView;
-
-    // Footer View
-    private ProgressBar footerProgressBar;
-    private TextView footerTextView;
-    private ImageView footerImageView;
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        try {
-            switchTabCallBack = (SwitchTabCallBack) context;
-        } catch (ClassCastException e) {
-            LogTool.d(TAG, "e:" + e);
-        }
-    }
 
     protected void setListVisiable() {
         LogTool.d(getClass().getName(), "setVisiable()");
@@ -140,7 +122,7 @@ public class XuQiuFragment extends BaseAnnotationFragment implements ActivityToF
         // 创建一个线性布局管理器
         req_listView.setLayoutManager(mLayoutManager);
         req_listView.setItemAnimator(new FadeInUpAnimator(new DecelerateInterpolator(0.5F)));
-//        req_listView.addItemDecoration(new DividerItemDecoration(getActivity(),
+//        manage_listView.addItemDecoration(new DividerItemDecoration(getActivity(),
 //                DividerItemDecoration.VERTICAL_LIST));
         requirementAdapter = new RequirementNewAdapter(getActivity(), new ClickCallBack() {
             @Override
@@ -152,7 +134,9 @@ public class XuQiuFragment extends BaseAnnotationFragment implements ActivityToF
                         break;
                     case ITEM_GOTOPRO:
                         //工地id
-                        switchTabCallBack.switchTab(Constant.MANAGE, "siteid");
+//                        switchTabCallBack.switchTab(Constant.MANAGE, "siteid");
+                        gotoMyProcess.putExtra(Global.PROCESS_INFO,requirementInfos.get(position).getProcess());
+                        startActivity(gotoMyProcess);
                         break;
                     case ITEM_GOTOMYDESI:
                         gotoMyDesigner.putExtra(Global.REQUIREMENT_ID, requirementInfos.get(position).get_id());
@@ -188,7 +172,7 @@ public class XuQiuFragment extends BaseAnnotationFragment implements ActivityToF
     }
 
     @AfterViews
-    protected void initMainHeadView() {
+    protected void initView() {
         mainHeadView
                 .setMianTitle(getResources().getString(R.string.requirement_list));
         mainHeadView.setRightTitle(getResources().getString(R.string.str_create));
@@ -197,14 +181,12 @@ public class XuQiuFragment extends BaseAnnotationFragment implements ActivityToF
         mainHeadView.setBackLayoutVisable(View.GONE);
         initListView();
         initIntent();
-        initdata();
         initPullRefresh();
+        initdata();
     }
 
     private void initPullRefresh() {
-        refreshLayout.setHeaderViewBackgroundColor(0xff888888);
         refreshLayout.setHeaderView(createHeaderView());// add headerView
-        refreshLayout.setFooterView(createFooterView());
         refreshLayout.setTargetScrollWithLayout(true);
         refreshLayout
                 .setOnPullRefreshListener(new SuperSwipeRefreshLayout.OnPullRefreshListener() {
@@ -229,55 +211,6 @@ public class XuQiuFragment extends BaseAnnotationFragment implements ActivityToF
                         imageView.setRotation(enable ? 180 : 0);
                     }
                 });
-        refreshLayout
-                .setOnPushLoadMoreListener(new SuperSwipeRefreshLayout.OnPushLoadMoreListener() {
-
-                    @Override
-                    public void onLoadMore() {
-                        footerTextView.setText("正在加载...");
-                        footerImageView.setVisibility(View.GONE);
-                        footerProgressBar.setVisibility(View.VISIBLE);
-                        new Handler().postDelayed(new Runnable() {
-
-                            @Override
-                            public void run() {
-                                footerImageView.setVisibility(View.VISIBLE);
-                                footerProgressBar.setVisibility(View.GONE);
-                                refreshLayout.setLoadMore(false);
-                            }
-                        }, 5000);
-                    }
-
-                    @Override
-                    public void onPushEnable(boolean enable) {
-                        footerTextView.setText(enable ? "松开加载" : "上拉加载");
-                        footerImageView.setVisibility(View.VISIBLE);
-                        footerImageView.setRotation(enable ? 0 : 180);
-                    }
-
-                    @Override
-                    public void onPushDistance(int distance) {
-                        // TODO Auto-generated method stub
-
-                    }
-
-                });
-    }
-
-    private View createFooterView() {
-        View footerView = LayoutInflater.from(refreshLayout.getContext())
-                .inflate(R.layout.layout_footer, null);
-        footerProgressBar = (ProgressBar) footerView
-                .findViewById(R.id.footer_pb_view);
-        footerImageView = (ImageView) footerView
-                .findViewById(R.id.footer_image_view);
-        footerTextView = (TextView) footerView
-                .findViewById(R.id.footer_text_view);
-        footerProgressBar.setVisibility(View.GONE);
-        footerImageView.setVisibility(View.VISIBLE);
-        footerImageView.setImageResource(R.mipmap.icon_arrow);
-        footerTextView.setText("上拉加载更多...");
-        return footerView;
     }
 
     private View createHeaderView() {
@@ -297,6 +230,7 @@ public class XuQiuFragment extends BaseAnnotationFragment implements ActivityToF
         gotoEditRequirement = new Intent(getActivity(), EditRequirementActivity_.class);
         gotoOrderDesigner = new Intent(getActivity(), AppointDesignerActivity.class);
         gotoMyDesigner = new Intent(getActivity(), MyDesignerActivity_.class);
+        gotoMyProcess = new Intent(getActivity(), MyProcessDetailActivity_.class);
     }
 
     protected void initdata() {
@@ -353,8 +287,4 @@ public class XuQiuFragment extends BaseAnnotationFragment implements ActivityToF
         }
     }
 
-    @Override
-    public void onTransmit(String params) {
-
-    }
 }

@@ -15,6 +15,7 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.interf.ClickCallBack;
+import com.jianfanjia.cn.view.baseview.BaseAnnotationView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.androidannotations.annotations.EViewGroup;

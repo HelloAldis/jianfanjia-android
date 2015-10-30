@@ -1,4 +1,4 @@
-package com.jianfanjia.cn.view.custom_annotation_view;
+package com.jianfanjia.cn.view.baseview;
 
 import android.content.Context;
 import android.graphics.Bitmap;

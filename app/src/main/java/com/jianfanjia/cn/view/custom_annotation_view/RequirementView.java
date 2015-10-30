@@ -16,6 +16,7 @@ import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.fragment.XuQiuFragment;
 import com.jianfanjia.cn.interf.ClickCallBack;
 import com.jianfanjia.cn.tools.StringUtils;
+import com.jianfanjia.cn.view.baseview.BaseAnnotationView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.androidannotations.annotations.EViewGroup;

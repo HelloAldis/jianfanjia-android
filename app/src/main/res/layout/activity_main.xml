@@ -18,7 +18,7 @@
         android:layout_gravity="bottom"
         android:background="#ffffff"
         android:orientation="vertical"
-        app:layout_behavior="com.jianfanjia.cn.behavior.FooterBehavior">
+        app:layout_behavior="com.jianfanjia.cn.behavior.QuickReturnFooterBehavior">
 
         <View
             android:id="@+id/head_divier"

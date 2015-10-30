@@ -5,6 +5,7 @@ import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.interf.cutom_annotation.ReqItemFinderImp;
+import com.jianfanjia.cn.view.baseview.BaseAnnotationView;
 
 import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.ViewById;

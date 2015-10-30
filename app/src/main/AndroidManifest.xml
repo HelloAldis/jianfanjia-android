@@ -258,6 +258,9 @@
             android:name=".MyProcessActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".MyProcessDetailActivity_"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".DesignerPlanListActivity"
             android:label="@string/title_activity_designer_plan_list" />
         <activity

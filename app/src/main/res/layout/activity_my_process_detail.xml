@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_layout_bg">
+
+    <com.jianfanjia.cn.view.MainHeadView
+        android:id="@+id/process_head_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/head_layout_bg" />
+
+    <RelativeLayout
+        android:id="@+id/frag_manage_notification_layout"
+        android:layout_width="48dp"
+        android:layout_height="48dp">
+
+        <ImageView
+            android:id="@+id/frag_manage_notification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@mipmap/icon_notification" />
+
+        <com.jianfanjia.cn.layout.CircleImageView
+            android:layout_width="6dp"
+            android:layout_height="6dp"
+            android:layout_above="@+id/frag_manage_notification"
+            android:layout_marginBottom="-4dp"
+            android:layout_marginLeft="-4dp"
+            android:layout_toRightOf="@+id/frag_manage_notification"
+            android:src="@drawable/site_listview_item_finish_circle" />
+    </RelativeLayout>
+
+    <com.jianfanjia.cn.view.MyViewPager
+        android:id="@+id/process_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_below="@+id/process_head_layout"
+        android:background="#ffffff"
+        android:fadingEdge="none" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/process_viewpager">
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="45dp"
+            android:background="@color/line_color" />
+
+        <com.jianfanjia.cn.view.SuperSwipeRefreshLayout
+            android:id="@+id/process_pull_refresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="33dp">
+
+            <com.jianfanjia.cn.view.MyListView
+                android:id="@+id/process__listview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:cacheColorHint="#ffffff"
+                android:clipToPadding="false"
+                android:divider="@null"
+                android:fadingEdge="none"
+                android:fastScrollEnabled="false"
+                android:listSelector="@android:color/transparent"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"
+                android:scrollbars="none" />
+        </com.jianfanjia.cn.view.SuperSwipeRefreshLayout>
+    </FrameLayout>
+</RelativeLayout>
