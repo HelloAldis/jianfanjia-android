@@ -163,7 +163,6 @@ public class XuQiuFragment extends BaseAnnotationFragment{
     }
 
 
-
     @Click({R.id.req_publish_wrap, R.id.head_right_title})
     protected void publish_requirement() {
         Intent intent = new Intent(getActivity(), EditRequirementActivity_.class);

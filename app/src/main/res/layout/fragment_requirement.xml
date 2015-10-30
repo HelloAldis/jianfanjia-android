@@ -15,14 +15,13 @@
         android:id="@+id/req_listview_wrap"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginTop="@dimen/space_8">
+        android:layout_marginTop="@dimen/space_8"
+        android:orientation="vertical">
 
         <com.jianfanjia.cn.view.SuperSwipeRefreshLayout
             android:id="@+id/req_pull_refresh"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
+            android:layout_height="match_parent">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/req_listView"

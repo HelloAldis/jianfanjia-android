@@ -34,7 +34,6 @@ import com.jianfanjia.cn.bean.ViewPagerItem;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
-import com.jianfanjia.cn.interf.ActivityToFragmentCallBack;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
 import com.jianfanjia.cn.interf.UploadImageListener;
@@ -68,7 +67,7 @@ import java.util.List;
  */
 public class ManageFragment extends BaseFragment implements
         OnRefreshListener2<ScrollView>, ItemClickCallBack, UploadImageListener,
-        ApiUiUpdateListener, ActivityToFragmentCallBack {
+        ApiUiUpdateListener {
     private static final String TAG = ManageFragment.class.getName();
     private PullToRefreshScrollView mPullRefreshScrollView = null;
     private static final int TOTAL_PROCESS = 7;// 7道工序
@@ -201,7 +200,7 @@ public class ManageFragment extends BaseFragment implements
             ViewPagerItem viewPagerItem = new ViewPagerItem();
             viewPagerItem.setResId(getApplication().getResources()
                     .getIdentifier("icon_home_normal" + (i + 1), "drawable",
-							getApplication().getPackageName()));
+                            getApplication().getPackageName()));
             viewPagerItem.setTitle(proTitle[i]);
             viewPagerItem.setDate("");
             processList.add(viewPagerItem);
@@ -272,14 +271,14 @@ public class ManageFragment extends BaseFragment implements
                 if (sectionInfos.get(i).getStatus() != Constant.NOT_START) {
                     int drawableId = getApplication().getResources()
                             .getIdentifier("icon_home_checked" + (i + 1),
-									"mipmap",
-									getApplication().getPackageName());
+                                    "drawable",
+                                    getApplication().getPackageName());
                     viewPagerItem.setResId(drawableId);
                 } else {
                     int drawableId = getApplication().getResources()
                             .getIdentifier("icon_home_normal" + (i + 1),
-									"mipmap",
-									getApplication().getPackageName());
+                                    "drawable",
+                                    getApplication().getPackageName());
                     viewPagerItem.setResId(drawableId);
                 }
             }
@@ -356,92 +355,98 @@ public class ManageFragment extends BaseFragment implements
 		 * ProcessInfoRequest(getActivity(), dataManager.getDefaultProcessId())
 		 * , this);
 		 */
-		// refreshData();
-		processId = dataManager.getDefaultProcessId();
-		if (processId != null) {
-			loadCurrentProcess();
-		} else {
-			mPullRefreshScrollView.onRefreshComplete();
-		}
-	}
+        // refreshData();
+        processId = dataManager.getDefaultProcessId();
+        if (processId != null) {
+            loadCurrentProcess();
+        } else {
+            mPullRefreshScrollView.onRefreshComplete();
+        }
+    }
 
-	@Override
-	public void onPullUpToRefresh(PullToRefreshBase<ScrollView> refreshView) {
-		// 上拉加载更多(加载下一页数据)
-		mPullRefreshScrollView.onRefreshComplete();
-	}
+    @Override
+    public void onPullUpToRefresh(PullToRefreshBase<ScrollView> refreshView) {
+        // 上拉加载更多(加载下一页数据)
+        mPullRefreshScrollView.onRefreshComplete();
+    }
 
-	@Override
-	public void click(int position, int itemType) {
-		LogTool.d(TAG, "position:" + position + "itemType:" + itemType);
-		switch (itemType) {
-		case Constant.CONFIRM_ITEM:
-			confirmFinishDialog();
-			break;
-		case Constant.IMG_ITEM:
-			break;
-		case Constant.COMMENT_ITEM:
-			Bundle bundle = new Bundle();
-			bundle.putString(Global.TOPIC_ID, processId);
-			bundle.putString(Global.TO, processInfo.getFinal_designerid());
-			startActivity(CommentActivity.class, bundle);
-			break;
-		case Constant.DELAY_ITEM:
-			delayDialog();
-			break;
-		case Constant.CHECK_ITEM:
-			Bundle checkBundle = new Bundle();
-			checkBundle.putString(Constant.PROCESS_NAME, sectionInfo.getName());
-			checkBundle
-					.putInt(Constant.PROCESS_STATUS, sectionInfo.getStatus());
-			startActivity(CheckActivity.class, checkBundle);
-			break;
-		default:
-			break;
-		}
-	}
+    @Override
+    public void click(int position, int itemType) {
+        LogTool.d(TAG, "position:" + position + "itemType:" + itemType);
+        switch (itemType) {
+            case Constant.CONFIRM_ITEM:
+                confirmFinishDialog();
+                break;
+            case Constant.IMG_ITEM:
+                break;
+            case Constant.COMMENT_ITEM:
+                Bundle bundle = new Bundle();
+                bundle.putString(Global.TOPIC_ID, processId);
+                bundle.putString(Global.TO, processInfo.getFinal_designerid());
+                startActivity(CommentActivity.class, bundle);
+                break;
+            case Constant.DELAY_ITEM:
+                delayDialog();
+                break;
+            case Constant.CHECK_ITEM:
+                Bundle checkBundle = new Bundle();
+                checkBundle.putString(Constant.PROCESS_NAME, sectionInfo.getName());
+                checkBundle
+                        .putInt(Constant.PROCESS_STATUS, sectionInfo.getStatus());
+                startActivity(CheckActivity.class, checkBundle);
+                break;
+            default:
+                break;
+        }
+    }
 
-	@Override
-	public void loadSuccess(Object data) {
-		mPullRefreshScrollView.onRefreshComplete();
-		processInfo = dataManager.getDefaultProcessInfo();
-		processId = dataManager.getDefaultProcessId();
-		initData();
-	}
+    @Override
+    public void loadSuccess(Object data) {
+        mPullRefreshScrollView.onRefreshComplete();
+        processInfo = dataManager.getDefaultProcessInfo();
+        processId = dataManager.getDefaultProcessId();
+        initData();
+    }
 
-	@Override
-	public void loadFailture(String error_msg) {
-		makeTextLong(getString(R.string.tip_error_internet));
-		mPullRefreshScrollView.onRefreshComplete();
-	}
+    @Override
+    public void loadFailture(String error_msg) {
+        makeTextLong(getString(R.string.tip_error_internet));
+        mPullRefreshScrollView.onRefreshComplete();
+    }
 
-	@Override
-	public void preLoad() {
-		// TODO Auto-generated method stub
-	}
+    @Override
+    public void preLoad() {
+        // TODO Auto-generated method stub
+    }
 
-	@Override
-	public void click(int position, int itemType, List<String> imageUrlList) {
-		switch (itemType) {
-		case Constant.IMG_ITEM:
-			Bundle bundle = new Bundle();
-			bundle.putStringArrayList(Constant.IMAGE_LIST,
-					(ArrayList<String>) imageUrlList);
-			bundle.putInt(Constant.CURRENT_POSITION, position);
-			startActivity(ShowPicActivity.class, bundle);
-			break;
-		case Constant.ADD_ITEM:
-			imageList = imageUrlList;
-			showPopWindow(getView());
-			break;
-		default:
-			break;
-		}
-	}
+    @Override
+    public void click(int position, int itemType, List<String> imageUrlList) {
+        switch (itemType) {
+            case Constant.IMG_ITEM:
+                Bundle bundle = new Bundle();
+                bundle.putStringArrayList(Constant.IMAGE_LIST,
+                        (ArrayList<String>) imageUrlList);
+                bundle.putInt(Constant.CURRENT_POSITION, position);
+                startActivity(ShowPicActivity.class, bundle);
+                break;
+            case Constant.ADD_ITEM:
+                imageList = imageUrlList;
+                showPopWindow(getView());
+                break;
+            default:
+                break;
+        }
+    }
 
-	@Override
-	public void firstItemClick() {
-
+    @Override
+    public void firstItemClick() {
+        /*
+         * Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		 * mTmpFile = FileUtil.createTmpFile(getActivity());
+		 * cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT,
+		 * Uri.fromFile(mTmpFile)); startActivityForResult(cameraIntent,
+		 * Constant.REQUESTCODE_CAMERA);
+		 */
         mTmpFile = UiHelper.getTempPath();
         if (mTmpFile != null) {
             Intent cameraIntent = UiHelper.createShotIntent(mTmpFile);
@@ -690,10 +695,6 @@ public class ManageFragment extends BaseFragment implements
         }
     }
 
-    @Override
-    public void onTransmit(String params) {
-        LogTool.d(TAG, "-------------------------------------------------------------------------------------------------");
-    }
 
     @Override
     public int getLayoutId() {
