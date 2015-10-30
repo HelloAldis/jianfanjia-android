@@ -16,7 +16,6 @@ public class QuickReturnFooterBehavior extends CoordinatorLayout.Behavior<View> 
 
     public QuickReturnFooterBehavior(Context context, AttributeSet attrs) {
         super(context, attrs);
-
     }
 
     @Override
