@@ -161,6 +161,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
     private void initProcessInfo() {
         Intent intent = getIntent();
         processInfo = (ProcessInfo) intent.getSerializableExtra(Global.PROCESS_INFO);
+        LogTool.d(getClass().getName(), "processInfo:" + processInfo);
         if (processInfo != null) {
             processId = processInfo.get_id();
             if (NetTool.isNetworkAvailable(this)) {
@@ -381,8 +382,8 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
 //        mPullRefreshScrollView.onRefreshComplete();
         process_pull_refresh.setRefreshing(false);
         progressBar.setVisibility(View.GONE);
-        if(data != null){
-            processInfo = JsonParser.jsonToBean(data.toString(),ProcessInfo.class);
+        if (data != null) {
+            processInfo = JsonParser.jsonToBean(data.toString(), ProcessInfo.class);
             initData();
         }
     }
