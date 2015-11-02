@@ -16,13 +16,22 @@ public class QuickReturnFooterBehavior extends CoordinatorLayout.Behavior<View> 
 
     public QuickReturnFooterBehavior(Context context, AttributeSet attrs) {
         super(context, attrs);
-
     }
 
     @Override
     public boolean onStartNestedScroll(CoordinatorLayout coordinatorLayout, View child, View directTargetChild, View target, int nestedScrollAxes) {
         childHeight = child.getHeight();
         return (nestedScrollAxes & ViewCompat.SCROLL_AXIS_VERTICAL) != 0;
+    }
+
+    @Override
+    public boolean onNestedFling(CoordinatorLayout coordinatorLayout, View child, View target, float velocityX, float velocityY, boolean consumed) {
+        return super.onNestedFling(coordinatorLayout, child, target, velocityX, velocityY, consumed);
+    }
+
+    @Override
+    public boolean onNestedPreFling(CoordinatorLayout coordinatorLayout, View child, View target, float velocityX, float velocityY) {
+        return super.onNestedPreFling(coordinatorLayout, child, target, velocityX, velocityY);
     }
 
     @Override
@@ -34,10 +43,10 @@ public class QuickReturnFooterBehavior extends CoordinatorLayout.Behavior<View> 
         //计算该方向的总距离
         mTotalDyDistance += dy;
         //判断当前操作是向上滑动还是向下滑动
-        if (!hide && mTotalDyDistance > child.getHeight()) {
+        if (!hide && mTotalDyDistance > childHeight) {
             hideView(child);
             hide = true;
-        } else if (hide && mTotalDyDistance < -child.getHeight()) {
+        } else if (hide && mTotalDyDistance < -childHeight) {
             showView(child);
             hide = false;
         }
