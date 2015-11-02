@@ -30,7 +30,7 @@ import java.util.List;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class ReplaceDesignerActivity extends BaseActivity implements OnClickListener, OnItemClickListener {
+public class ReplaceDesignerActivity extends BaseActivity implements OnClickListener {
     private static final String TAG = ReplaceDesignerActivity.class.getName();
     private MainHeadView mainHeadView = null;
     private TextView moreText = null;
@@ -74,7 +74,8 @@ public class ReplaceDesignerActivity extends BaseActivity implements OnClickList
 
     @Override
     public void setListener() {
-        intention_designer_listview.setOnItemClickListener(this);
+        marched_designer_listview.setOnItemClickListener(recDesignerClickListener);
+        intention_designer_listview.setOnItemClickListener(favoriteDesignerClickListener);
     }
 
     @Override
@@ -98,24 +99,35 @@ public class ReplaceDesignerActivity extends BaseActivity implements OnClickList
         }
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        DesignerCanOrderInfo info = favorite_designer.get(position);
-        CheckBox ctb = (CheckBox) view.findViewById(R.id.list_item_check);
-        ctb.toggle();
-        // 将CheckBox的选中状况记录下来
-        designerByIntentionInfoAdapter.getIsSelected().put(position, ctb.isChecked());
-        // 调整选定条目
-        if (ctb.isChecked()) {
-            newDesignerid = info.get_id();
-            totalCount--;
-        } else {
-            newDesignerid = null;
-            totalCount++;
+    private OnItemClickListener recDesignerClickListener = new OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            DesignerCanOrderInfo info = rec_designer.get(position);
+            CheckBox ctb = (CheckBox) view.findViewById(R.id.list_item_check);
+            ctb.toggle();
         }
-        LogTool.d(TAG, "newDesignerid=" + newDesignerid);
-        dataNotifyChanged();
-    }
+    };
+
+    private OnItemClickListener favoriteDesignerClickListener = new OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            DesignerCanOrderInfo info = favorite_designer.get(position);
+            CheckBox ctb = (CheckBox) view.findViewById(R.id.list_item_check);
+            ctb.toggle();
+            // 将CheckBox的选中状况记录下来
+            designerByIntentionInfoAdapter.getIsSelected().put(position, ctb.isChecked());
+            // 调整选定条目
+            if (ctb.isChecked()) {
+                newDesignerid = info.get_id();
+                totalCount--;
+            } else {
+                newDesignerid = null;
+                totalCount++;
+            }
+            LogTool.d(TAG, "newDesignerid=" + newDesignerid);
+            dataNotifyChanged();
+        }
+    };
 
     private void dataNotifyChanged() {
         designerByIntentionInfoAdapter.notifyDataSetChanged();
