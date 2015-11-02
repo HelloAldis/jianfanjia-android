@@ -78,17 +78,6 @@
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name="com.jianfanjia.cn.activity.OwnerInfoActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/activity_styleprize" />
-        <activity
-            android:name="com.jianfanjia.cn.activity.DesignerInfoActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/activity_styleprize" />
-        <activity
-            android:name="com.jianfanjia.cn.activity.UserByOwnerInfoActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name="com.jianfanjia.cn.activity.UserByDesignerInfoActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -112,19 +101,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/activity_styleprize" />
         <activity
-            android:name="com.jianfanjia.cn.activity.MyDesignerActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/activity_styleprize" />
-        <activity
             android:name="com.jianfanjia.cn.activity.MyOwnerActivity"
             android:screenOrientation="portrait"
             android:theme="@style/activity_styleprize" />
         <activity
             android:name="com.jianfanjia.cn.activity.SettingActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/activity_styleprize" />
-        <activity
-            android:name="com.jianfanjia.cn.activity.OwnerSiteActivity"
             android:screenOrientation="portrait"
             android:theme="@style/activity_styleprize" />
         <activity

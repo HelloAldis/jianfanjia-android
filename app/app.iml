@@ -88,7 +88,6 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 21 Platform (1)" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="gson-2.1" level="project" />
     <orderEntry type="library" exported="" name="gson-2.3.1" level="project" />
     <orderEntry type="library" exported="" name="okio-1.6.0" level="project" />
     <orderEntry type="library" exported="" name="ormlite-core-4.49-SNAPSHOT" level="project" />
@@ -97,10 +96,9 @@
     <orderEntry type="library" exported="" name="GetuiExt-2.0.3" level="project" />
     <orderEntry type="library" exported="" name="okhttp-2.5.0" level="project" />
     <orderEntry type="library" exported="" name="ormlite-android-4.49-SNAPSHOT" level="project" />
-    <orderEntry type="library" exported="" name="universal-image-loader-1.9.4-SNAPSHOT" level="project" />
-    <orderEntry type="library" exported="" name="mina-core-2.0.7" level="project" />
     <orderEntry type="library" exported="" name="umeng-analytics-v5.5.3" level="project" />
-    <orderEntry type="library" exported="" name="android-async-http-1.4.8" level="project" />
+    <orderEntry type="library" exported="" name="universal-image-loader-1.9.4-SNAPSHOT" level="project" />
     <orderEntry type="library" exported="" name="GetuiSdk2.5.0.0" level="project" />
+    <orderEntry type="library" exported="" name="mina-core-2.0.7" level="project" />
   </component>
 </module>

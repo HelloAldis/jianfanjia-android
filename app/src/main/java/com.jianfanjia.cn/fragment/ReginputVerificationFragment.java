@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
@@ -70,8 +71,8 @@ public class ReginputVerificationFragment extends BaseFragment {
 			String verif = mEdVerif.getText().toString().trim();
 			if (checkInput(verif)) {
 				MyApplication.getInstance().getRegisterInfo().setCode(verif);
-				makeTextLong(MyApplication.getInstance().getRegisterInfo()
-						.toString());
+//				makeTextLong(MyApplication.getInstance().getRegisterInfo()
+//						.toString());
 				register(MyApplication.getInstance().getRegisterInfo());
 			}
 			break;
@@ -112,6 +113,8 @@ public class ReginputVerificationFragment extends BaseFragment {
 			@Override
 			public void loadSuccess(BaseResponse baseResponse) {
 				hideWaitDialog();
+				startActivity(MainActivity.class);
+				getActivity().finish();
 			}
 
 			@Override

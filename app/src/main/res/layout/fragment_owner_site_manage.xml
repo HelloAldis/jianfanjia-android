@@ -5,10 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/site_content_bg"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
-    <com.jianfanjia.cn.pulltorefresh.library.PullToRefreshScrollView
-        xmlns:ptr="http://schemas.android.com/apk/res-auto"
+    <com.jianfanjia.cn.pulltorefresh.library.PullToRefreshScrollView xmlns:ptr="http://schemas.android.com/apk/res-auto"
         android:id="@+id/pull_refresh_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -22,16 +21,16 @@
         android:smoothScrollbar="true"
         ptr:ptrAnimationStyle="flip"
         ptr:ptrHeaderTextAppearance="@android:attr/textAppearanceMedium"
-        ptr:ptrHeaderTextColor="#000000" >
+        ptr:ptrHeaderTextColor="#000000">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="130dp" >
+                android:layout_height="130dp">
 
                 <include layout="@layout/viewpager_main" />
 
@@ -54,7 +53,7 @@
                     android:id="@+id/head_layout"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/space_48"
-                    android:background="@color/transparent" >
+                    android:background="@color/transparent">
 
                     <com.jianfanjia.cn.layout.CircleImageView
                         android:id="@+id/icon_head"
@@ -101,7 +100,7 @@
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+                android:layout_height="match_parent">
 
                 <View
                     android:layout_width="1dp"
@@ -120,8 +119,8 @@
                     android:divider="@null"
                     android:fadingEdge="none"
                     android:fastScrollEnabled="false"
-                    android:nestedScrollingEnabled="true"
                     android:listSelector="@android:color/transparent"
+                    android:nestedScrollingEnabled="true"
                     android:scrollbars="none" />
             </FrameLayout>
         </LinearLayout>

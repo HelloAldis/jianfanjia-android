@@ -116,8 +116,6 @@ public class OwnerInfoActivity extends BaseActivity implements OnClickListener {
 	// 有数据就改变展示的样式
 	private void setViewChange() {
 		mainHeadView.setBackgroundTransparent();
-		mainHeadView.setMainTextColor(getResources().getColor(
-				R.color.font_white));
 		mainHeadView.setDividerVisable(View.GONE);
 		contentLayout.setVisibility(View.VISIBLE);
 		bgView.setVisibility(View.VISIBLE);

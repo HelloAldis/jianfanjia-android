@@ -1,22 +1,17 @@
 package com.jianfanjia.cn.adapter;
 
-import java.util.List;
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseResponse;
 import com.jianfanjia.cn.bean.CommentInfo;
-import com.jianfanjia.cn.bean.DesignerInfo;
-import com.jianfanjia.cn.bean.OwnerInfo;
-import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Url;
-import com.jianfanjia.cn.http.JianFanJiaClient;
-import com.jianfanjia.cn.tools.JsonParser;
-import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.StringUtils;
+
+import java.util.List;
 
 /**
  * @class CommentInfoAdapter
@@ -59,7 +54,7 @@ public class CommentInfoAdapter extends BaseListAdapter<CommentInfo> {
 		viewHolder.itemTimeView.setText(StringUtils
 				.covertLongToString(commentInfo.getDate()));
 		String usertype = commentInfo.getUsertype();
-		if (usertype.equals(Constant.IDENTITY_DESIGNER)) {
+		/*if (usertype.equals(Constant.IDENTITY_DESIGNER)) {
 			String designerId = dataManager.getDefaultDesignerId();
 			viewHolder.itemIdentityView.setText(context
 					.getString(R.string.designer));
@@ -81,17 +76,17 @@ public class CommentInfoAdapter extends BaseListAdapter<CommentInfo> {
 							viewHolder.itemHeadView, options);
 					if (!isLoadDesignerInfo) {
 						if (dataManager.getUserType().equals(usertype)) {
-							/*LoadClientHelper
+							*//*LoadClientHelper
 									.getDesignerInfoById(context,
 											new DesignerInfoRequest(context,
-													designerId), this);*/
+													designerId), this);*//*
 							JianFanJiaClient.getDesignerInfoById(context,designerId,this,this);
 							isLoadDesignerInfo = true;
 						} else {
-							/*LoadClientHelper
+							*//*LoadClientHelper
 									.getOwnerDesignerInfoById(context,
 											new DesignerInfoRequest(context,
-													designerId), this);*/
+													designerId), this);*//*
 							isLoadDesignerInfo = true;
 						}
 					}
@@ -124,8 +119,8 @@ public class CommentInfoAdapter extends BaseListAdapter<CommentInfo> {
 					imageLoader.displayImage(Constant.DEFALUT_OWNER_PIC,
 							viewHolder.itemHeadView, options);
 					if (!isLoadOwnerInfo) {
-						/*LoadClientHelper.getOwnerInfoById(context,
-								new OwnerInfoRequest(context, ownerId), this);*/
+						*//*LoadClientHelper.getOwnerInfoById(context,
+								new OwnerInfoRequest(context, ownerId), this);*//*
 						isLoadOwnerInfo = true;
 					}
 				}
@@ -133,7 +128,7 @@ public class CommentInfoAdapter extends BaseListAdapter<CommentInfo> {
 				imageLoader.displayImage(Constant.DEFALUT_OWNER_PIC,
 						viewHolder.itemHeadView, options);
 			}
-		}
+		}*/
 		return convertView;
 	}
 

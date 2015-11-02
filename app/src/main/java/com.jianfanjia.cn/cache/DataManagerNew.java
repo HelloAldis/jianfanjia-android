@@ -1,8 +1,7 @@
 package com.jianfanjia.cn.cache;
 
-import java.util.Calendar;
-import java.util.List;
 import android.content.Context;
+
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
@@ -17,6 +16,9 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.SharedPrefer;
+
+import java.util.Calendar;
+import java.util.List;
 
 public class DataManagerNew {
 	private static final String TAG = DataManagerNew.class.getName();
@@ -275,7 +277,6 @@ public class DataManagerNew {
 
 	public void saveLoginUserInfo(LoginUserBean userBean) {
 		sharedPreferuser.setValue(Constant.ACCOUNT, userBean.getPhone());
-		sharedPreferuser.setValue(Constant.USERTYPE, userBean.getUsertype());
 		sharedPreferuser.setValue(Constant.USERNAME, userBean.getUsername());
 		sharedPreferuser.setValue(Constant.USERIMAGE_ID, userBean.getImageid());
 		sharedPreferuser.setValue(Constant.USER_ID, userBean.get_id());

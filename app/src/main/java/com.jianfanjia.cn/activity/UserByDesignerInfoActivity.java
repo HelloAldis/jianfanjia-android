@@ -1,6 +1,5 @@
 package com.jianfanjia.cn.activity;
 
-import java.io.File;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -17,6 +16,7 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.base.BaseResponse;
 import com.jianfanjia.cn.bean.DesignerInfo;
@@ -25,7 +25,6 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.LoadDataListener;
-import com.jianfanjia.cn.interf.UploadPortraitListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.PhotoUtils;
@@ -34,8 +33,7 @@ import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.io.File;
 
 /**
  * 

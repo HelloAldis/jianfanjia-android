@@ -3,84 +3,109 @@ package com.jianfanjia.cn.bean;
 import java.io.Serializable;
 
 /**
- * 
+ * @author fengliang
  * @ClassName: CommentInfo
  * @Description: 评论
- * @author fengliang
  * @date 2015-8-25 上午11:34:20
- * 
  */
 public class CommentInfo implements Serializable {
-	private static final long serialVersionUID = 6340039239493931968L;
+    private String _id;
+    private String topicid;
+    private String topictype;
+    private String content;
+    private String to;
+    private String by;
+    private String usertype;
+    private long date;
+    private String status;
+    private int __v;
+    private User byUser;
 
-	private String id;// 评论id
+    public String get_id() {
+        return _id;
+    }
 
-	private String by;// 评论人id
+    public void set_id(String _id) {
+        this._id = _id;
+    }
 
-	private String content;// 评论内容
+    public String getTopicid() {
+        return topicid;
+    }
 
-	private String usertype;// 评论人身份
+    public void setTopicid(String topicid) {
+        this.topicid = topicid;
+    }
 
-	private String userName;// 评论人姓名
+    public String getTopictype() {
+        return topictype;
+    }
 
-	private String userImageUrl;// 评论人头像url
+    public void setTopictype(String topictype) {
+        this.topictype = topictype;
+    }
 
-	private long date;// 评论时间
+    public String getContent() {
+        return content;
+    }
 
-	public String getId() {
-		return id;
-	}
+    public void setContent(String content) {
+        this.content = content;
+    }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public String getTo() {
+        return to;
+    }
 
-	public String getBy() {
-		return by;
-	}
+    public void setTo(String to) {
+        this.to = to;
+    }
 
-	public void setBy(String by) {
-		this.by = by;
-	}
+    public String getBy() {
+        return by;
+    }
 
-	public String getContent() {
-		return content;
-	}
+    public void setBy(String by) {
+        this.by = by;
+    }
 
-	public void setContent(String content) {
-		this.content = content;
-	}
+    public String getUsertype() {
+        return usertype;
+    }
 
-	public String getUsertype() {
-		return usertype;
-	}
+    public void setUsertype(String usertype) {
+        this.usertype = usertype;
+    }
 
-	public void setUsertype(String usertype) {
-		this.usertype = usertype;
-	}
+    public long getDate() {
+        return date;
+    }
 
-	public long getDate() {
-		return date;
-	}
+    public void setDate(long date) {
+        this.date = date;
+    }
 
-	public void setDate(long date) {
-		this.date = date;
-	}
+    public String getStatus() {
+        return status;
+    }
 
-	public String getUserName() {
-		return userName;
-	}
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+    public int get__v() {
+        return __v;
+    }
 
-	public String getUserImageUrl() {
-		return userImageUrl;
-	}
+    public void set__v(int __v) {
+        this.__v = __v;
+    }
 
-	public void setUserImageUrl(String userImageUrl) {
-		this.userImageUrl = userImageUrl;
-	}
+    public User getByUser() {
+        return byUser;
+    }
 
+    public void setByUser(User byUser) {
+        this.byUser = byUser;
+    }
 }

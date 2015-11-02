@@ -1,15 +1,16 @@
 package com.jianfanjia.cn.activity;
 
-import java.util.ArrayList;
-import java.util.List;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.fragment.RegChooseRoleFragment;
 import com.jianfanjia.cn.fragment.RegInputPhoneFragment;
 import com.jianfanjia.cn.fragment.ReginputVerificationFragment;
 import com.jianfanjia.cn.interf.FragmentListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 
@@ -21,7 +22,6 @@ import com.jianfanjia.cn.interf.FragmentListener;
  */
 public class RegisterActivity extends BaseActivity implements FragmentListener {
 	private static final String TAG = RegisterActivity.class.getName();
-	private RegChooseRoleFragment regChooseRoleFragment;
 	private RegInputPhoneFragment regInputPhoneFragment;
 	private ReginputVerificationFragment reginputVerificationFragment;
 	private List<Fragment> fragments = new ArrayList<Fragment>();
@@ -30,15 +30,13 @@ public class RegisterActivity extends BaseActivity implements FragmentListener {
 
 	@Override
 	public void initView() {
-		regChooseRoleFragment = new RegChooseRoleFragment();
 		regInputPhoneFragment = new RegInputPhoneFragment();
 		reginputVerificationFragment = new ReginputVerificationFragment();
-		fragments.add(regChooseRoleFragment);
 		fragments.add(regInputPhoneFragment);
 		fragments.add(reginputVerificationFragment);
 		FragmentTransaction fragmentTransaction = fragmentManager
 				.beginTransaction();
-		fragmentTransaction.add(R.id.reg_content, regChooseRoleFragment);
+		fragmentTransaction.add(R.id.reg_content, regInputPhoneFragment);
 		fragmentTransaction.commit();
 	}
 
@@ -59,7 +57,7 @@ public class RegisterActivity extends BaseActivity implements FragmentListener {
 
 	@Override
 	public void onNext() {
-		if (currentPage < 2) {
+		if (currentPage < 1) {
 			Log.i(TAG, "next");
 			FragmentTransaction fragmentTransaction = fragmentManager
 					.beginTransaction();

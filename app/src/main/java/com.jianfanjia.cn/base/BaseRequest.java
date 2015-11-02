@@ -1,7 +1,6 @@
 package com.jianfanjia.cn.base;
 
 import android.content.Context;
-import android.widget.Toast;
 
 import com.jianfanjia.cn.cache.DataManagerNew;
 import com.squareup.okhttp.MediaType;
@@ -16,7 +15,6 @@ public class BaseRequest {
     protected Context context;
     protected Request request;
     protected String url;
-    protected MediaType mediaType = MEDIA_TYPE_JSON;//默认的请求方式方式
 
     public BaseRequest(Context context) {
         dataManager = DataManagerNew.getInstance();
@@ -25,14 +23,6 @@ public class BaseRequest {
 
     public Request getRequest() {
         return request;
-    }
-
-    public MediaType getMediaType() {
-        return mediaType;
-    }
-
-    public void setMediaType(MediaType mediaType) {
-        this.mediaType = mediaType;
     }
 
     public void setRequest(Request request) {
@@ -65,14 +55,6 @@ public class BaseRequest {
     // 数据错误后的处理
     public void onFailure(BaseResponse baseResponse) {
         String err_msg = baseResponse.getErr_msg();
-    }
-
-    protected void makeLongTextToast(String message) {
-        Toast.makeText(context, message, Toast.LENGTH_LONG).show();
-    }
-
-    protected void makeShortTextToast(String message) {
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
 
 }

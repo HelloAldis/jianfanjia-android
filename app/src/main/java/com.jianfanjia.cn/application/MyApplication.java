@@ -1,21 +1,15 @@
 package com.jianfanjia.cn.application;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.CookieManager;
-import java.net.CookiePolicy;
-
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.util.Log;
-import com.jianfanjia.cn.activity.R;
+
 import com.jianfanjia.cn.base.BaseApplication;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.cache.DataCleanManager;
 import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.http.OkHttpClientManager;
 import com.jianfanjia.cn.http.cookie.PersistentCookieStore;
 import com.jianfanjia.cn.tools.JsonParser;
@@ -23,6 +17,12 @@ import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.StringUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.squareup.okhttp.OkHttpClient;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.CookieManager;
+import java.net.CookiePolicy;
 
 /**
  * @version 1.0

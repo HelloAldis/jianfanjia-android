@@ -1,9 +1,5 @@
 package com.jianfanjia.cn.activity;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.TypedArray;
@@ -11,7 +7,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.GridView;
@@ -38,6 +33,10 @@ import com.jianfanjia.cn.tools.NetTool;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author fengliang
@@ -143,19 +142,12 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
         check_pic_edit = (TextView) findViewById(R.id.check_pic_edit);
         gridView = (GridView) findViewById(R.id.mygridview);
         btn_confirm = (TextView) findViewById(R.id.btn_confirm);
-        if (!TextUtils.isEmpty(userIdentity)) {
-            if (userIdentity.equals(Constant.IDENTITY_OWNER)) {
-                check_pic_edit.setVisibility(View.GONE);
-                btn_confirm.setText(this.getResources().getString(
-                        R.string.confirm_done));
-            } else if (userIdentity.equals(Constant.IDENTITY_DESIGNER)) {
-                btn_confirm.setText(this.getResources().getString(
-                        R.string.confirm_upload));
-                check_pic_edit.setVisibility(View.VISIBLE);
-                check_pic_edit.setText("编辑");
-                currentState = EDIT_STATUS;
-            }
-        }
+
+        btn_confirm.setText(this.getResources().getString(
+                R.string.confirm_upload));
+        check_pic_edit.setVisibility(View.VISIBLE);
+        check_pic_edit.setText("编辑");
+        currentState = EDIT_STATUS;
         gridView.setFocusable(false);
     }
 
@@ -212,55 +204,33 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
     }
 
     private void setConfimStatus(int count) {
-        if (!TextUtils.isEmpty(userIdentity)) {
-            if (userIdentity.equals(Constant.IDENTITY_OWNER)) {
-                btn_confirm.setText(this.getResources().getString(
-                        R.string.confirm_done));
-                if (count < BusinessManager
-                        .getCheckPicCountBySection(sectionInfoName)) {
-                    btn_confirm.setEnabled(false);
-                } else {
-                    btn_confirm.setEnabled(true);
-                    btn_confirm.setOnClickListener(new OnClickListener() {
 
-                        @Override
-                        public void onClick(View v) {
-                            onClickCheckDone();
-                        }
-                    });
-                }
-                if (sectionInfoStatus == Constant.FINISH) {
-                    btn_confirm.setEnabled(false);
-                }
-            } else if (userIdentity.equals(Constant.IDENTITY_DESIGNER)) {
-                btn_confirm.setText(this.getResources().getString(
-                        R.string.confirm_upload));
-                if (count < BusinessManager
-                        .getCheckPicCountBySection(sectionInfoName)) {
-                    btn_confirm.setText(this.getResources().getString(
-                            R.string.confirm_upload));
-                    btn_confirm.setOnClickListener(new OnClickListener() {
+        btn_confirm.setText(this.getResources().getString(
+                R.string.confirm_upload));
+        if (count < BusinessManager
+                .getCheckPicCountBySection(sectionInfoName)) {
+            btn_confirm.setText(this.getResources().getString(
+                    R.string.confirm_upload));
+            btn_confirm.setOnClickListener(new OnClickListener() {
 
-                        @Override
-                        public void onClick(View v) {
-                            finish();
-                        }
-                    });
-                } else {
-                    btn_confirm.setText(this.getResources().getString(
-                            R.string.confirm_tip));
-                    btn_confirm.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                }
+            });
+        } else {
+            btn_confirm.setText(this.getResources().getString(
+                    R.string.confirm_tip));
+            btn_confirm.setOnClickListener(new OnClickListener() {
 
-                        @Override
-                        public void onClick(View v) {
-                            onClickCheckConfirm();
-                        }
-                    });
+                @Override
+                public void onClick(View v) {
+                    onClickCheckConfirm();
                 }
-                if (sectionInfoStatus == Constant.FINISH) {
-                    btn_confirm.setEnabled(false);
-                }
-            }
+            });
+        }
+        if (sectionInfoStatus == Constant.FINISH) {
+            btn_confirm.setEnabled(false);
         }
 
         if (sectionInfoStatus == Constant.FINISH) {
@@ -300,13 +270,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
                 changeEditStatus();
                 break;
             case R.id.btn_confirm:
-                if (!TextUtils.isEmpty(userIdentity)) {
-                    if (userIdentity.equals(Constant.IDENTITY_OWNER)) {
-                        onClickCheckDone();
-                    } else if (userIdentity.equals(Constant.IDENTITY_DESIGNER)) {
-                        onClickCheckConfirm();
-                    }
-                }
+                onClickCheckConfirm();
                 break;
             default:
                 break;
@@ -327,7 +291,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
         key = position + "";
         LogTool.d(TAG, "key:" + key);
         JianFanJiaClient.deleteYanshouImgByDesigner(this,
-                processInfoId, sectionInfoName, key,this,this);
+                processInfoId, sectionInfoName, key, this, this);
     }
 
     @Override
@@ -340,11 +304,12 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
     @Override
     public void takecamera() {
         /*Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-		mTmpFile = FileUtil.createTmpFile(CheckActivity.this);
+        mTmpFile = FileUtil.createTmpFile(CheckActivity.this);
 		cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mTmpFile));
 		startActivityForResult(cameraIntent, Constant.REQUESTCODE_CAMERA);*/
 
         mTmpFile = UiHelper.getTempPath();
+
         if (mTmpFile != null) {
             Intent cameraIntent = UiHelper.createShotIntent(mTmpFile);
             startActivityForResult(cameraIntent, Constant.REQUESTCODE_CAMERA);
@@ -433,24 +398,6 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
         }
     }
 
-    private void onClickCheckDone() {
-        CommonDialog dialog = DialogHelper
-                .getPinterestDialogCancelable(CheckActivity.this);
-        dialog.setTitle("确认完工");
-        dialog.setMessage("确定完工吗？");
-        dialog.setPositiveButton(R.string.ok,
-                new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        confirmCheckDoneByOwner(processInfoId, sectionInfoName);
-                    }
-                });
-        dialog.setNegativeButton(R.string.no, null);
-        dialog.show();
-    }
-
     private void onClickCheckConfirm() {
         CommonDialog dialog = DialogHelper
                 .getPinterestDialogCancelable(CheckActivity.this);
@@ -473,26 +420,6 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
     // 设计师确认可以开始验收
     private void confirmCanCheckByDesigner(String processid, String section) {
         JianFanJiaClient.confirm_canCheckBydesigner(this, processid, section, new LoadDataListener() {
-            @Override
-            public void preLoad() {
-
-            }
-
-            @Override
-            public void loadSuccess(BaseResponse baseResponse) {
-                btn_confirm.setEnabled(false);
-            }
-
-            @Override
-            public void loadFailture() {
-
-            }
-        }, this);
-    }
-
-    // 业主确认对比验收完成
-    private void confirmCheckDoneByOwner(String processid, String section) {
-        JianFanJiaClient.confirm_CheckDoneByOwner(this, processid, section, new LoadDataListener() {
             @Override
             public void preLoad() {
 

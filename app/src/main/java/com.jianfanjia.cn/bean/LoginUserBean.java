@@ -13,7 +13,6 @@ import java.io.Serializable;
 public class LoginUserBean implements Serializable {
 	private static final long serialVersionUID = 7912343352449337196L;
 	private String username;
-	private String usertype;
 	private String phone;
 	private String pass;
 	private String imageid;
@@ -49,14 +48,6 @@ public class LoginUserBean implements Serializable {
 
 	public void setUsername(String username) {
 		this.username = username;
-	}
-
-	public String getUsertype() {
-		return usertype;
-	}
-
-	public void setUsertype(String usertype) {
-		this.usertype = usertype;
 	}
 
 	public String getPhone() {

@@ -1,15 +1,15 @@
 package com.jianfanjia.cn.tools;
 
-import java.io.File;
-
-import com.jianfanjia.cn.cache.DataManagerNew;
-import com.jianfanjia.cn.config.Constant;
-
 import android.content.Intent;
 import android.hardware.Camera;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+
+import com.jianfanjia.cn.cache.DataManagerNew;
+import com.jianfanjia.cn.config.Constant;
+
+import java.io.File;
 
 public class UiHelper {
 	
@@ -51,15 +51,15 @@ public class UiHelper {
 	 * @return
 	 */
 	public static Intent createShotIntent(File tempFile) {
-		if (isCameraCanUse()) {
+//		if (isCameraCanUse()) {
 			DataManagerNew.getInstance().setPicPath(tempFile.getAbsolutePath());
 			Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
 			Uri uri = Uri.fromFile(tempFile);
 			intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
 			return intent;
-		} else {
-			return null;
-		}
+//		} else {
+//			return null;
+//		}
 	}
 	
 	public static boolean isCameraCanUse() {
