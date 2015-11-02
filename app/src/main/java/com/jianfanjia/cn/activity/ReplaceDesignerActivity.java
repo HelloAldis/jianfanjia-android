@@ -173,6 +173,8 @@ public class ReplaceDesignerActivity extends BaseActivity implements OnClickList
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data);
             makeTextLong(data.toString());
+            hideWaitDialog();
+            finish();
         }
 
         @Override
