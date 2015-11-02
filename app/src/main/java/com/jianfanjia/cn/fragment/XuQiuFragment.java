@@ -53,7 +53,7 @@ import jp.wasabeef.recyclerview.animators.FadeInUpAnimator;
  * Date:15-10-11 14:30
  */
 @EFragment(R.layout.fragment_requirement)
-public class XuQiuFragment extends BaseAnnotationFragment{
+public class XuQiuFragment extends BaseAnnotationFragment {
     private static final String TAG = XuQiuFragment.class.getName();
     public static final int REQUESTCODE_PUBLISH_REQUIREMENT = 1;
     public static final int REQUESTCODE_EDIT_REQUIREMENT = 2;
@@ -133,9 +133,7 @@ public class XuQiuFragment extends BaseAnnotationFragment{
                         startActivityForResult(gotoEditRequirement, REQUESTCODE_PUBLISH_REQUIREMENT);
                         break;
                     case ITEM_GOTOPRO:
-                        //工地id
-//                        switchTabCallBack.switchTab(Constant.MANAGE, "siteid");
-                        gotoMyProcess.putExtra(Global.PROCESS_INFO,requirementInfos.get(position).getProcess());
+                        gotoMyProcess.putExtra(Global.PROCESS_INFO, requirementInfos.get(position).getProcess());
                         startActivity(gotoMyProcess);
                         break;
                     case ITEM_GOTOMYDESI:
