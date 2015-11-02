@@ -74,6 +74,7 @@ public class ReplaceDesignerActivity extends BaseActivity implements OnClickList
 
     @Override
     public void setListener() {
+        moreText.setOnClickListener(this);
         marched_designer_listview.setOnItemClickListener(recDesignerClickListener);
         intention_designer_listview.setOnItemClickListener(favoriteDesignerClickListener);
     }
