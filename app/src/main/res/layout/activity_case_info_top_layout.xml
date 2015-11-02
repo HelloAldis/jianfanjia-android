@@ -9,7 +9,7 @@
         android:id="@+id/designerinfo_head_img"
         android:layout_width="50dip"
         android:layout_height="50dip"
-        android:layout_gravity="center_horizontal"
+        android:layout_centerVertical="true"
         android:layout_margin="10dip"
         android:scaleType="centerCrop"
         android:src="@mipmap/pix_default"
