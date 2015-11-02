@@ -3,28 +3,26 @@ package com.jianfanjia.cn.activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
-import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.jianfanjia.cn.adapter.DesignerCaseAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.DesignerCaseInfo;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.config.Url_New;
+import com.jianfanjia.cn.fragment.DesignerCaseInfoFragment;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.tools.UiHelper;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Description:设计师作品案例详情
@@ -32,48 +30,66 @@ import java.util.List;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class DesignerCaseInfoActivity extends BaseActivity implements ApiUiUpdateListener, OnClickListener {
+public class DesignerCaseInfoActivity extends BaseActivity implements ApiUiUpdateListener, OnClickListener, AppBarLayout.OnOffsetChangedListener {
     private static final String TAG = DesignerCaseInfoActivity.class.getName();
     private Toolbar toolbar = null;
+    private AppBarLayout appBarLayout = null;
     private CollapsingToolbarLayout collapsingToolbar = null;
-    private ListView designer_case_listview = null;
+    private RelativeLayout activity_case_info_top_layout = null;
     private TextView stylelText = null;
     private ImageView designerinfo_head_img = null;
     private ImageView designerinfo_auth = null;
     private TextView produceText = null;
+    private ImageView head_img = null;
+    private TextView nameText = null;
 
-    private DesignerCaseAdapter adapter = null;
-    private List<DesignerCaseInfo> designerCaseList = new ArrayList<DesignerCaseInfo>();
     private String productid = null;
     private String designertid = null;
 
+    private State state;
+
     @Override
     public void initView() {
+        activity_case_info_top_layout = (RelativeLayout) findViewById(R.id.top_info_layout);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.mipmap.icon_register_back);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
         collapsingToolbar =
                 (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         collapsingToolbar.setExpandedTitleTextAppearance(R.style.site_listview_item_text_style_big);
         collapsingToolbar.setExpandedTitleGravity(Gravity.CENTER_HORIZONTAL);
         collapsingToolbar.setCollapsedTitleTextColor(Color.BLACK);
         collapsingToolbar.setExpandedTitleColor(Color.BLACK);
-        designer_case_listview = (ListView) findViewById(R.id.designer_case_listview);
-        designer_case_listview.setFocusable(false);
+
         stylelText = (TextView) findViewById(R.id.stylelName);
         designerinfo_head_img = (ImageView) findViewById(R.id.designerinfo_head_img);
         designerinfo_auth = (ImageView) findViewById(R.id.designerinfo_auth);
         produceText = (TextView) findViewById(R.id.produceText);
+        head_img = (ImageView) findViewById(R.id.head_img);
+        nameText = (TextView) findViewById(R.id.name_text);
         //---------------------------------------------
         Intent intent = this.getIntent();
         Bundle productBundle = intent.getExtras();
         productid = productBundle.getString(Global.PRODUCT_ID);
-        LogTool.d(TAG, " productid=" + productid);
-        initDesignerCasesList();
+        LogTool.d(TAG, "productid=" + productid);
+        initDesignerCasesInfo();
+        initCaseInfoFragment(productid);
     }
 
-    private void initDesignerCasesList() {
+
+    private void initCaseInfoFragment(String productid) {
+        DesignerCaseInfoFragment infoFragment = new DesignerCaseInfoFragment();
+        FragmentTransaction transaction = fragmentManager
+                .beginTransaction();
+        Bundle designerBundle = new Bundle();
+        designerBundle.putString(Global.PRODUCT_ID, productid);
+        infoFragment.setArguments(designerBundle);
+        transaction.replace(R.id.listLayout, infoFragment).commit();
+    }
+
+    private void initDesignerCasesInfo() {
         getProductHomePageInfo(productid);
     }
 
@@ -84,6 +100,8 @@ public class DesignerCaseInfoActivity extends BaseActivity implements ApiUiUpdat
     @Override
     public void setListener() {
         designerinfo_head_img.setOnClickListener(this);
+        appBarLayout.addOnOffsetChangedListener(this);
+        activity_case_info_top_layout.setOnClickListener(this);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,11 +118,36 @@ public class DesignerCaseInfoActivity extends BaseActivity implements ApiUiUpdat
                 designerBundle.putString(Global.DESIGNER_ID, designertid);
                 startActivity(DesignerInfoActivity.class, designerBundle);
                 break;
+            case R.id.top_info_layout:
+                Bundle designerInfoBundle = new Bundle();
+                designerInfoBundle.putString(Global.DESIGNER_ID, designertid);
+                startActivity(DesignerInfoActivity.class, designerInfoBundle);
+                break;
             default:
                 break;
         }
     }
 
+    @Override
+    public void onOffsetChanged(AppBarLayout appBarLayout, int verticaloffset) {
+        LogTool.d(TAG, "verticaloffset=" + verticaloffset);
+        if (verticaloffset == 0) {
+            if (state != State.COLLAPSED) {
+                activity_case_info_top_layout.setVisibility(View.INVISIBLE);
+            }
+            state = State.COLLAPSED;
+        } else if (Math.abs(verticaloffset) >= appBarLayout.getTotalScrollRange()) {
+            if (state != State.EXPANDED) {
+                activity_case_info_top_layout.setVisibility(View.VISIBLE);
+            }
+            state = State.EXPANDED;
+        } else {
+            if (state != State.IDLE) {
+                activity_case_info_top_layout.setVisibility(View.INVISIBLE);
+            }
+            state = State.IDLE;
+        }
+    }
 
     @Override
     public void preLoad() {
@@ -114,7 +157,7 @@ public class DesignerCaseInfoActivity extends BaseActivity implements ApiUiUpdat
     @Override
     public void loadSuccess(Object data) {
         super.loadSuccess(data);
-        LogTool.d(TAG, "data======" + data);
+        LogTool.d(TAG, "data:" + data);
         hideWaitDialog();
         parseResponse(data.toString());
     }
@@ -128,9 +171,8 @@ public class DesignerCaseInfoActivity extends BaseActivity implements ApiUiUpdat
             stylelText.setText(designerCaseInfo.getHouse_area() + "㎡," + getHouseType(designerCaseInfo.getHouse_type()) + "," + getDecStyle(designerCaseInfo.getDec_type()));
             imageLoader.displayImage(Url_New.GET_IMAGE + designerCaseInfo.getDesigner().getImageid(), designerinfo_head_img, options);
             produceText.setText("设计简介:" + designerCaseInfo.getDescription());
-            adapter = new DesignerCaseAdapter(DesignerCaseInfoActivity.this, designerCaseInfo.getImages());
-            designer_case_listview.setAdapter(adapter);
-            UiHelper.setListViewHeightBasedOnChildren(designer_case_listview);//此处是必须要做的计算Listview的高度
+            imageLoader.displayImage(Url_New.GET_IMAGE + designerCaseInfo.getDesigner().getImageid(), head_img, options);
+            nameText.setText(designerCaseInfo.getDesigner().getUsername());
         }
     }
 
@@ -141,7 +183,21 @@ public class DesignerCaseInfoActivity extends BaseActivity implements ApiUiUpdat
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        appBarLayout.removeOnOffsetChangedListener(this);
+    }
+
+    private enum State {
+        EXPANDED,
+        COLLAPSED,
+        IDLE
+    }
+
+    @Override
     public int getLayoutId() {
         return R.layout.activity_designer_case_info;
     }
+
+
 }
