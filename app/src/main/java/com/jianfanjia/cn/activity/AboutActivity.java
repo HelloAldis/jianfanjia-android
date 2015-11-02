@@ -23,7 +23,8 @@ public class AboutActivity extends BaseActivity implements OnClickListener {
     }
 
     private void initMainHeadView() {
-        mainHeadView = (MainHeadView) findViewById(R.id.my_about_head_layout);
+        mainHeadView = (MainHeadView) findViewById(R.id.
+                about_head_layout);
         mainHeadView.setBackListener(this);
         mainHeadView
                 .setMianTitle(getResources().getString(R.string.about));
