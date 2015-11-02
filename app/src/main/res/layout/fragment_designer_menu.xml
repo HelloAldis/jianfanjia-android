@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <com.jianfanjia.cn.layout.CircleImageView
+                android:id="@+id/img_head"
+                android:layout_width="102dp"
+                android:layout_height="102dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/icon_sidebar_default_designer" />
+
+            <TextView
+                android:id="@+id/name_text"
+                style="@style/site_listview_item_text_style_middle"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/space_8"
+                android:text="@string/my_example_name"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/phone_text"
+                style="@style/site_listview_item_text_style_small"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/space_8"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/itemLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_8"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:id="@+id/notifyLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="6dip"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/tab_rb_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:padding="10dip"
+                    android:text="@string/tip"
+                    android:textColor="@color/menu_item_font_color"
+                    android:textSize="17sp" />
+
+                <ImageView
+                    android:id="@+id/notifyIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="30dip"
+                    android:src="@drawable/mini_red_dot"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tab_rb_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="6dip"
+                android:padding="10dip"
+                android:text="@string/my_ower"
+                android:textColor="@color/menu_item_font_color"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/tab_rb_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="6dip"
+                android:padding="10dip"
+                android:text="@string/my_decoration_site"
+                android:textColor="@color/menu_item_font_color"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/tab_rb_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="6dip"
+                android:padding="10dip"
+                android:text="@string/my_setting"
+                android:textColor="@color/menu_item_font_color"
+                android:textSize="17sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

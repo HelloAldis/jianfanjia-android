@@ -1,0 +1,260 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    -->
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+
+    <style name="tab_rb_style">
+        <item name="android:gravity">center_horizontal|bottom</item>
+        <item name="android:button">@null</item>
+    </style>
+    <!-- horizontal line_style -->
+    <style name="divier_line">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/transparent</item>
+    </style>
+
+    <!-- vertical line_style -->
+    <style name="vertical_divier_line">
+        <item name="android:layout_width">1dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/line_color</item>
+    </style>
+
+    <!-- login activity -->
+    <style name="item_input_container">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:paddingLeft">@dimen/space_16</item>
+        <item name="android:paddingRight">@dimen/space_16</item>
+        <item name="android:background">@drawable/reg_and_login_text_layout_bg</item>
+    </style>
+
+    <style name="item_input_edittext">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@null</item>
+        <item name="android:minHeight">40dp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">@color/font_white</item>
+        <item name="android:textColorHint">@color/log_and_res_hint</item>
+        <item name="android:shadowRadius">1.0</item>
+        <item name="android:shadowDx">0.5</item>
+        <item name="android:shadowDy">0.5</item>
+        <item name="android:textSize">@dimen/text_size_11</item>
+    </style>
+
+    <style name="button_login_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/space_48</item>
+        <item name="android:background">@drawable/btn_selector</item>
+        <item name="android:textColor">@color/font_white</item>
+        <item name="android:textSize">@dimen/text_size_17</item>
+    </style>
+    <!-- login activity -->
+
+    <style name="dialog_button_ok">
+        <item name="android:textColor">@color/font_white</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:background">@drawable/site_listview_head_yellow_bg</item>
+        <item name="android:visibility">gone</item>
+        <item name="android:layout_width">0.0dip</item>
+        <item name="android:layout_height">48.0dip</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:layout_weight">1.0</item>
+        <item name="android:textSize">@dimen/text_size_17</item>
+    </style>
+
+    <style name="dialog_button_cancel">
+        <item name="android:textColor">@color/main_color_black</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:background">@drawable/site_listview_head_white_bg</item>
+        <item name="android:visibility">gone</item>
+        <item name="android:layout_width">0.0dip</item>
+        <item name="android:layout_height">48.0dip</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:layout_weight">1.0</item>
+        <item name="android:textSize">@dimen/text_size_17</item>
+    </style>
+
+    <style name="button_enter_style">
+        <item name="android:layout_width">@dimen/space_100</item>
+        <item name="android:layout_height">@dimen/space_32</item>
+        <item name="android:background">@drawable/btn_selector</item>
+        <item name="android:textColor">@color/font_white</item>
+        <item name="android:textSize">@dimen/text_size_17</item>
+    </style>
+
+    <style name="dialog_button_2">
+        <item name="android:textColor">@color/main_color_black</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:background">@drawable/site_listview_head_white_bg</item>
+        <item name="android:layout_width">0.0dip</item>
+        <item name="android:layout_height">48.0dip</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:layout_weight">1.0</item>
+        <item name="android:textSize">@dimen/text_size_17</item>
+    </style>
+
+    <style name="dialog_button_1">
+        <item name="android:textColor">@color/font_white</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:background">@drawable/site_listview_head_yellow_bg</item>
+        <item name="android:layout_width">0.0dip</item>
+        <item name="android:layout_height">48.0dip</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:layout_weight">1.0</item>
+        <item name="android:textSize">@dimen/text_size_17</item>
+    </style>
+
+    <style name="button_confirm_style">
+        <item name="android:layout_width">@dimen/space_150</item>
+        <item name="android:layout_height">@dimen/space_48</item>
+        <item name="android:background">@drawable/btn_selector</item>
+        <item name="android:textColor">@color/font_white</item>
+        <item name="android:textSize">@dimen/text_size_17</item>
+    </style>
+
+    <!-- head_layout -->
+    <style name="head_title_text_style">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">#101010</item>
+        <item name="android:gravity">center</item>
+    </style>
+    <!-- head_layout -->
+
+
+    <!-- my_item_layout__style -->
+    <style name="my_item_layout_image_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/icon_setting_next</item>
+    </style>
+
+    <!-- my_item_layout_text_style -->
+    <style name="my_item_layout_text_style_base">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <!-- site_listview_item_text_style -->
+    <style name="site_listview_item_text_style_small" parent="my_item_layout_text_style_base">
+        <item name="android:textSize">@dimen/text_size_11</item>
+    </style>
+
+    <style name="site_listview_item_text_style_middle" parent="my_item_layout_text_style_base">
+        <item name="android:textSize">@dimen/text_size_14</item>
+    </style>
+
+    <!--
+    <style name="site_listview_item_text_style_big" parent="my_item_layout_text_style_base">
+        <item name="android:textSize">@dimen/text_size_14</item>
+    </style>
+    -->
+
+    <style name="site_listview_item_text_style_title" parent="my_item_layout_text_style_base">
+        <item name="android:textSize">@dimen/text_size_17</item>
+    </style>
+
+    <!-- my_item_layout_style -->
+    <style name="my_list_item_layout_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/common_item_layout_height</item>
+        <item name="android:background">@drawable/my_item_layout_bg</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">@dimen/space_24</item>
+        <item name="android:paddingRight">@dimen/space_24</item>
+    </style>
+
+    <style name="my_item_layout_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/common_item_layout_height</item>
+        <item name="android:background">#ffffff</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">@dimen/space_24</item>
+        <item name="android:paddingRight">@dimen/space_24</item>
+    </style>
+
+    <style name="progress_dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <!-- 边框 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 是否浮现在activity之上 -->
+        <item name="android:windowIsTranslucent">false</item>
+        <!-- 半透明 -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 无标题 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!-- 背景透明 -->
+        <item name="android:backgroundDimEnabled">true</item>
+        <!-- 模糊 -->
+    </style>
+
+    <style name="common_dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <!-- 边框 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 是否浮现在activity之上 -->
+        <item name="android:windowIsTranslucent">false</item>
+        <!-- 半透明 -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 无标题 -->
+        <item name="android:windowBackground">@drawable/notify_dialog_bg</item>
+        <!-- 背景透明 -->
+        <item name="android:backgroundDimEnabled">true</item>
+        <!-- 模糊 -->
+    </style>
+
+    <!-- ProgressBar  style -->
+    <style name="myProgressBarStyleLarge">
+        <item name="android:indeterminate">true</item>
+        <item name="android:indeterminateDrawable">@drawable/progress_large_shape</item>
+        <item name="android:indeterminateOnly">true</item>
+    </style>
+
+    <!-- popub_windows -->
+    <style name="popub_anim" mce_bogus="1" parent="@android:style/Animation.Dialog">
+        <item name="android:windowEnterAnimation">@anim/popub_slide_in_from_bottom</item>
+        <item name="android:windowExitAnimation">@anim/popub_slide_out_to_bottom</item>
+    </style>
+    <!-- activity animation -->
+    <style name="activity_styleprize">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="vpiIconPageIndicatorStyle">@style/Widget.IconPageIndicator</item>
+        <item name="vpiTabPageIndicatorStyle">@style/Widget.TabPageIndicator</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@style/AnimationActivity</item>
+    </style>
+
+    <style name="AnimationActivity" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/slide_right_enter</item>
+        <item name="android:activityOpenExitAnimation">@anim/slide_right_exit</item>
+        <item name="android:activityCloseEnterAnimation">@anim/slide_left_enter</item>
+        <item name="android:activityCloseExitAnimation">@anim/slide_left_exit</item>
+    </style>
+
+</resources>

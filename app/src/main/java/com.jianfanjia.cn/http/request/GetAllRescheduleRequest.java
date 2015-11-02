@@ -1,0 +1,24 @@
+package com.jianfanjia.cn.http.request;
+
+import android.content.Context;
+
+import com.jianfanjia.cn.base.BaseRequest;
+import com.jianfanjia.cn.base.BaseResponse;
+import com.jianfanjia.cn.config.Url;
+
+/**
+ * 用户获取所有的request
+ * Created by Administrator on 2015/10/12.
+ */
+public class GetAllRescheduleRequest extends BaseRequest{
+
+    public GetAllRescheduleRequest(Context context) {
+        super(context);
+        url = Url.GET_RESCHDULE_ALL;
+    }
+
+    @Override
+    public void onSuccess(BaseResponse baseResponse) {
+        super.onSuccess(baseResponse);
+    }
+}
