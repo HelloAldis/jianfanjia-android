@@ -6,7 +6,7 @@
     android:background="@color/font_white">
 
     <com.jianfanjia.cn.layout.CircleImageView
-        android:id="@+id/designerinfo_head_img"
+        android:id="@+id/head_img"
         android:layout_width="50dip"
         android:layout_height="50dip"
         android:layout_centerVertical="true"
