@@ -10,7 +10,8 @@
         android:id="@+id/act_edit_req_head"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:background="@color/head_layout_bg" />
 
     <ScrollView
         android:id="@+id/scrollView"
@@ -32,10 +33,11 @@
                 style="@style/my_list_item_layout_style"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:focusableInTouchMode="true"
                 android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:nextFocusDown="@+id/act_edit_req_street_content">
-                <requestFocus/>
+
+                <requestFocus />
 
                 <TextView
                     android:id="@+id/act_edit_req_city_title"
@@ -60,7 +62,7 @@
                     style="@style/style_edit_req_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="16dp"/>
+                    android:layout_marginRight="16dp" />
             </RelativeLayout>
 
             <View
@@ -96,9 +98,8 @@
                     android:paddingLeft="@dimen/space_16"
                     android:paddingRight="@dimen/space_16"
                     android:singleLine="true"
-                    android:textSize="@dimen/middle_size"
                     android:textColor="@color/black_color"
-                    />
+                    android:textSize="@dimen/middle_size" />
 
             </RelativeLayout>
 
@@ -134,8 +135,8 @@
                     android:paddingLeft="@dimen/space_16"
                     android:paddingRight="@dimen/space_16"
                     android:singleLine="true"
-                    android:textSize="@dimen/middle_size"
-                    android:textColor="@color/black_color"/>
+                    android:textColor="@color/black_color"
+                    android:textSize="@dimen/middle_size" />
 
                 <TextView
                     android:id="@+id/act_edit_req_qi_title"
@@ -155,8 +156,8 @@
                     android:paddingLeft="@dimen/space_16"
                     android:paddingRight="@dimen/space_16"
                     android:singleLine="true"
-                    android:textSize="@dimen/middle_size"
-                    android:textColor="@color/black_color"/>
+                    android:textColor="@color/black_color"
+                    android:textSize="@dimen/middle_size" />
             </LinearLayout>
 
             <View
@@ -190,8 +191,8 @@
                     android:paddingLeft="@dimen/space_16"
                     android:paddingRight="@dimen/space_16"
                     android:singleLine="true"
-                    android:textSize="@dimen/middle_size"
-                    android:textColor="@color/black_color"/>
+                    android:textColor="@color/black_color"
+                    android:textSize="@dimen/middle_size" />
 
                 <TextView
                     android:id="@+id/act_edit_req_danyuan_title"
@@ -211,8 +212,8 @@
                     android:paddingLeft="@dimen/space_16"
                     android:paddingRight="@dimen/space_16"
                     android:singleLine="true"
-                    android:textSize="@dimen/middle_size"
-                    android:textColor="@color/black_color"/>
+                    android:textColor="@color/black_color"
+                    android:textSize="@dimen/middle_size" />
 
                 <TextView
                     android:id="@+id/act_edit_req_shi_title"
@@ -232,9 +233,9 @@
                     android:paddingLeft="@dimen/space_16"
                     android:paddingRight="@dimen/space_16"
                     android:singleLine="true"
-                    android:textStyle="normal"
+                    android:textColor="@color/black_color"
                     android:textSize="@dimen/middle_size"
-                    android:textColor="@color/black_color"/>
+                    android:textStyle="normal" />
             </LinearLayout>
 
             <View
@@ -310,12 +311,12 @@
                     android:inputType="number"
                     android:maxLength="4"
                     android:minWidth="@dimen/space_48"
+                    android:nextFocusDown="@+id/act_edit_req_decoratebudget_content"
                     android:paddingLeft="@dimen/space_8"
                     android:paddingRight="@dimen/space_8"
                     android:singleLine="true"
-                    android:nextFocusDown="@+id/act_edit_req_decoratebudget_content"
-                    android:textSize="@dimen/middle_size"
-                    android:textColor="@color/black_color"/>
+                    android:textColor="@color/black_color"
+                    android:textSize="@dimen/middle_size" />
 
                 <TextView
                     android:id="@+id/act_edit_req_housearea_unit"
@@ -357,12 +358,12 @@
                     android:inputType="number"
                     android:maxLength="4"
                     android:minWidth="@dimen/space_48"
+                    android:nextFocusDown="@+id/act_edit_req_street_content"
                     android:paddingLeft="@dimen/space_8"
                     android:paddingRight="@dimen/space_8"
                     android:singleLine="true"
-                    android:nextFocusDown="@+id/act_edit_req_street_content"
-                    android:textSize="@dimen/middle_size"
-                    android:textColor="@color/black_color"/>
+                    android:textColor="@color/black_color"
+                    android:textSize="@dimen/middle_size" />
 
                 <TextView
                     android:id="@+id/act_edit_req_decoratebudget_unit"
@@ -484,7 +485,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="16dp" />
-                    />
+                />
             </RelativeLayout>
 
             <View
