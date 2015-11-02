@@ -3,7 +3,6 @@
     android:id="@+id/top_info_layout"
     android:layout_width="match_parent"
     android:layout_height="45dip"
-    android:layout_marginTop="60dip"
     android:background="@color/font_white">
 
     <com.jianfanjia.cn.layout.CircleImageView
@@ -11,7 +10,9 @@
         android:layout_width="40dip"
         android:layout_height="40dip"
         android:layout_centerVertical="true"
-        android:layout_margin="5dip"
+        android:layout_marginBottom="5dip"
+        android:layout_marginLeft="20dip"
+        android:layout_marginTop="5dip"
         android:scaleType="centerCrop"
         android:src="@mipmap/pix_default"
         app:border_color="@color/white"
