@@ -1,9 +1,5 @@
 package com.jianfanjia.cn.fragment;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -21,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+
 import com.jianfanjia.cn.activity.CheckActivity;
 import com.jianfanjia.cn.activity.CommentActivity;
 import com.jianfanjia.cn.activity.DesignerSiteActivity;
@@ -60,6 +57,11 @@ import com.jianfanjia.cn.tools.ViewPagerManager.ShapeType;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DateWheelDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 /**
  * 

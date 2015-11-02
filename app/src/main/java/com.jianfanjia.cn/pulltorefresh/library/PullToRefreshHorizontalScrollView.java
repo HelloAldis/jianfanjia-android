@@ -22,6 +22,7 @@ import android.os.Build.VERSION_CODES;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.HorizontalScrollView;
+import android.widget.ScrollView;
 
 import com.jianfanjia.cn.activity.R;
 
@@ -62,6 +63,7 @@ public class PullToRefreshHorizontalScrollView extends
 		}
 
 		scrollView.setId(R.id.scrollview);
+		scrollView.setOverScrollMode(ScrollView.OVER_SCROLL_NEVER);
 		return scrollView;
 	}
 

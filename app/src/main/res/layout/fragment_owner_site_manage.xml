@@ -120,6 +120,7 @@
                     android:divider="@null"
                     android:fadingEdge="none"
                     android:fastScrollEnabled="false"
+                    android:nestedScrollingEnabled="true"
                     android:listSelector="@android:color/transparent"
                     android:scrollbars="none" />
             </FrameLayout>
