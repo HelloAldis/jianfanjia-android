@@ -4,21 +4,22 @@
     android:id="@+id/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/font_white"
+    android:background="@color/main_layout_bg"
     android:fitsSystemWindows="true">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="280dip"
+        android:background="@color/main_layout_bg"
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/font_white"
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
             app:expandedTitleGravity="center_horizontal"
@@ -56,7 +57,9 @@
                         android:id="@+id/designerinfo_head_img"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:scaleType="centerCrop" />
+                        android:scaleType="centerCrop"
+                        app:border_color="@color/white"
+                        app:border_width="3px" />
 
                     <ImageView
                         android:id="@+id/designerinfo_auth"
@@ -66,12 +69,24 @@
                         android:src="@mipmap/icon_auth" />
                 </FrameLayout>
 
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dip"
+                    android:layout_marginRight="10dip"
+                    android:layout_marginTop="10dip"
+                    android:text="设计简介:"
+                    android:textColor="#000000" />
+
                 <TextView
                     android:id="@+id/produceText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dip"
-                    android:text="设计简介:地中海风格。"
+                    android:layout_marginBottom="10dip"
+                    android:layout_marginLeft="10dip"
+                    android:layout_marginRight="10dip"
+                    android:text="地中海风格地中海风格地中海风格。"
                     android:textColor="#000000" />
             </LinearLayout>
 
@@ -81,29 +96,25 @@
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
         </android.support.design.widget.CollapsingToolbarLayout>
 
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v4.widget.NestedScrollView
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+        <include layout="@layout/activity_case_info_top_layout" />
 
-        <com.jianfanjia.cn.view.MyListView
-            android:id="@+id/designer_case_listview"
+        <FrameLayout
+            android:id="@+id/listLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:cacheColorHint="#00000000"
-            android:clipToPadding="false"
-            android:divider="@null"
-            android:fadingEdge="none"
-            android:fastScrollEnabled="false"
-            android:listSelector="@android:color/transparent"
-            android:scrollbars="none" />
-
-    </android.support.v4.widget.NestedScrollView>
+            android:layout_height="match_parent" />
+    </LinearLayout>
 
 
 </android.support.design.widget.CoordinatorLayout>
