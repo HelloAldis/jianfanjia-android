@@ -23,8 +23,6 @@
             android:id="@+id/list_item_head_img"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:contentDescription="@null"
-            android:elevation="@dimen/space_16"
             android:scaleType="centerCrop"
             app:border_color="@color/white"
             app:border_width="3px" />
