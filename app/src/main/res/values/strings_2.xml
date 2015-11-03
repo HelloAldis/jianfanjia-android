@@ -60,4 +60,6 @@
     <string name="forget_pwd_title">忘记密码</string>
     <string name="str_goto_order">前往预约</string>
     <string name="city_tip">（目前仅支持湖北省武汉市）</string>
+    <string name="str_preview_pro">预览工地</string>
+    <string name="process_example">工地示例</string>
 </resources>

@@ -10,28 +10,6 @@
         android:layout_height="wrap_content"
         android:background="@color/head_layout_bg" />
 
-    <RelativeLayout
-        android:id="@+id/frag_manage_notification_layout"
-        android:layout_width="48dp"
-        android:layout_height="48dp">
-
-        <ImageView
-            android:id="@+id/frag_manage_notification"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:src="@mipmap/icon_notification" />
-
-        <com.jianfanjia.cn.layout.CircleImageView
-            android:layout_width="6dp"
-            android:layout_height="6dp"
-            android:layout_above="@+id/frag_manage_notification"
-            android:layout_marginBottom="-4dp"
-            android:layout_marginLeft="-4dp"
-            android:layout_toRightOf="@+id/frag_manage_notification"
-            android:src="@drawable/site_listview_item_finish_circle" />
-    </RelativeLayout>
-
     <com.jianfanjia.cn.view.MyViewPager
         android:id="@+id/process_viewpager"
         android:layout_width="match_parent"

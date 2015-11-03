@@ -75,9 +75,9 @@ public class RequirementView extends BaseAnnotationView {
         ltm_req_starttime_cont.setText(StringUtils.covertLongToString(requirementInfo.getCreate_at()));
         ltm_req_updatetime_cont.setText(StringUtils.covertLongToString(requirementInfo.getLast_status_update_time()));
         ltm_req_status.setText(getResources().getStringArray(R.array.requirement_status)[Integer.parseInt(requirementInfo.getStatus())]);
-        imageLoader.displayImage(dataManagerNew.getUserImagePath(), ltm_req_owner_head,options);
-        if (requirementInfo.getStatus().equals(Global.PLAN_STATUS5)) {
-            ltm_req_gotopro.setEnabled(true);
+        imageLoader.displayImage(dataManagerNew.getUserImagePath(), ltm_req_owner_head, options);
+        String requirementStatus = requirementInfo.getStatus();
+        if (requirementStatus.equals(Global.REQUIREMENT_STATUS5)) {
             ltm_req_gotopro.setText(getResources().getString(R.string.str_goto_pro));
             ltm_req_gotopro.setOnClickListener(new OnClickListener() {
                 @Override
@@ -85,8 +85,7 @@ public class RequirementView extends BaseAnnotationView {
                     clickCallBack.click(position, XuQiuFragment.ITEM_GOTOPRO);
                 }
             });
-        } else if(requirementInfo.getStatus().equals(Global.PLAN_STATUS0)){
-            ltm_req_gotopro.setEnabled(true);
+        } else if (requirementStatus.equals(Global.REQUIREMENT_STATUS1)) {
             ltm_req_gotopro.setText(getResources().getString(R.string.str_goto_order));
             ltm_req_gotopro.setOnClickListener(new OnClickListener() {
                 @Override
@@ -94,11 +93,16 @@ public class RequirementView extends BaseAnnotationView {
                     clickCallBack.click(position, XuQiuFragment.ITEM_GOTOODERDESI);
                 }
             });
-        }else{
-            ltm_req_gotopro.setEnabled(false);
-            ltm_req_gotopro.setText(getResources().getString(R.string.str_goto_pro));
+        } else {
+            ltm_req_gotopro.setText(getResources().getString(R.string.str_preview_pro));
+            ltm_req_gotopro.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    clickCallBack.click(position, XuQiuFragment.ITEM_GOTOPRO);
+                }
+            });
         }
-        if (requirementInfo.getStatus().equals(Global.PLAN_STATUS0)) {
+        if (requirementStatus.equals(Global.REQUIREMENT_STATUS0)) {
             ltm_req_edit.setVisibility(View.VISIBLE);
             ltm_req_edit.setOnClickListener(new OnClickListener() {
                 @Override
@@ -146,6 +150,7 @@ public class RequirementView extends BaseAnnotationView {
                 ImageView headView = (ImageView) getRootView().findViewById(getResources().getIdentifier("ltm_req_designer_head" + i, "id", getContext().getPackageName()));
                 TextView nameView = (TextView) getRootView().findViewById(getResources().getIdentifier("ltm_req_designer_name" + i, "id", getContext().getPackageName()));
                 TextView statusView = (TextView) getRootView().findViewById(getResources().getIdentifier("ltm_req_designer_status" + i, "id", getContext().getPackageName()));
+                String status = orderDesignerInfos.get(i).getPlan().getStatus();
                 if (i < size) {
                     if (!TextUtils.isEmpty(orderDesignerInfos.get(i).getUsername())) {
                         nameView.setText(orderDesignerInfos.get(i).getUsername());
@@ -153,13 +158,12 @@ public class RequirementView extends BaseAnnotationView {
                         nameView.setText(getResources().getString(R.string.designer));
                     }
                     if (!TextUtils.isEmpty(orderDesignerInfos.get(i).getImageid())) {
-                        ImageLoader.getInstance().displayImage(Url_New.GET_IMAGE + orderDesignerInfos.get(i).getImageid(), headView,options);
+                        ImageLoader.getInstance().displayImage(Url_New.GET_IMAGE + orderDesignerInfos.get(i).getImageid(), headView, options);
                     } else {
-                        ImageLoader.getInstance().displayImage(Constant.DEFALUT_DESIGNER_PIC, headView,options);
+                        ImageLoader.getInstance().displayImage(Constant.DEFALUT_DESIGNER_PIC, headView, options);
                     }
-                    String status = orderDesignerInfos.get(i).getPlan().getStatus();
                     statusView.setText(getResources().getStringArray(R.array.plan_status)[Integer.parseInt(status)]);
-                    switch (status){
+                    switch (status) {
                         case Global.PLAN_STATUS0:
                             statusView.setTextColor(getResources().getColor(R.color.green_color));
                             break;
@@ -184,12 +188,26 @@ public class RequirementView extends BaseAnnotationView {
                     ImageLoader.getInstance().displayImage(Constant.DEFALUT_ADD_PIC, headView, options);
                     statusView.setText(getResources().getString(R.string.str_not_order));
                     statusView.setTextColor(getResources().getColor(R.color.middle_grey_color));
-                    designerLayout.setOnClickListener(new OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            clickCallBack.click(position, XuQiuFragment.ITEM_GOTOODERDESI);
-                        }
-                    });
+                    //需求已经选中方案之后就无法添加设计师
+                    switch (requirementStatus) {
+                        case Global.REQUIREMENT_STATUS0:
+                        case Global.REQUIREMENT_STATUS1:
+                        case Global.REQUIREMENT_STATUS2:
+                        case Global.REQUIREMENT_STATUS3:
+                            designerLayout.setOnClickListener(null);
+                            break;
+                        case Global.REQUIREMENT_STATUS4:
+                        case Global.REQUIREMENT_STATUS5:
+                        case Global.REQUIREMENT_STATUS7:
+                            designerLayout.setOnClickListener(new OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    clickCallBack.click(position, XuQiuFragment.ITEM_GOTOODERDESI);
+                                }
+                            });
+                            break;
+                    }
+
                 }
             }
 

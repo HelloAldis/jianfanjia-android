@@ -48,6 +48,7 @@ import com.jianfanjia.cn.view.dialog.DateWheelDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.res.StringArrayRes;
@@ -161,8 +162,8 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
     private void initProcessInfo() {
         Intent intent = getIntent();
         processInfo = (ProcessInfo) intent.getSerializableExtra(Global.PROCESS_INFO);
-        LogTool.d(getClass().getName(), "processInfo:" + processInfo.get_id());
         if (processInfo != null) {
+            LogTool.d(getClass().getName(), "processInfo:" + processInfo.get_id());
             processId = processInfo.get_id();
             if (NetTool.isNetworkAvailable(this)) {
                 loadCurrentProcess();
@@ -171,6 +172,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
             }
         } else {
             processInfo = dataManager.getProcessInfoById(Constant.DEFAULT_PROCESSINFO_ID);
+            initData();
         }
 
     }
@@ -182,14 +184,18 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
     }
 
     private void initMainHead() {
-        mainHeadView.setBackLayoutVisable(View.GONE);
-        mainHeadView.setRightTitle("切换工地");
+        mainHeadView.setRightTitleVisable(View.GONE);
+    }
+
+    @Click(R.id.head_back_layout)
+    public void comeback(){
+        finish();
     }
 
     // 初始化数据
     private void initData() {
         if (processInfo != null) {
-            mainHeadView.setMianTitle(processInfo.getCell() == null ? ""
+            mainHeadView.setMianTitle(processInfo.getCell() == null ? getString(R.string.process_example)
                     : processInfo.getCell());// 设置标题头
             currentPro = MyApplication.getInstance().getPositionByItemName(
                     processInfo.getGoing_on());
