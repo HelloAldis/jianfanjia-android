@@ -159,18 +159,23 @@ public class HomeFragment extends BaseFragment implements
             if (null != requirement) {
                 designers = requirement.getDesigners();
                 LogTool.d(TAG, "designers=" + designers);
-                if (null != designers && designers.size() > 0) {
-                    marchedLayout.setVisibility(View.VISIBLE);
-                    noMarchedLayout.setVisibility(View.GONE);
-                    marchDesignerAdapter = new MarchDesignerAdapter(getActivity(), designers);
-                    marchDesignerView.setAdapter(marchDesignerAdapter);
+                if (null != designers) {
+                    if (designers.size() > 0) {
+                        marchedLayout.setVisibility(View.VISIBLE);
+                        noMarchedLayout.setVisibility(View.GONE);
+                        marchDesignerAdapter = new MarchDesignerAdapter(getActivity(), designers);
+                        marchDesignerView.setAdapter(marchDesignerAdapter);
+                    } else {
+                        marchedLayout.setVisibility(View.GONE);
+                        noMarchedLayout.setVisibility(View.VISIBLE);
+                    }
                 } else {
                     marchedLayout.setVisibility(View.GONE);
                     noMarchedLayout.setVisibility(View.GONE);
                 }
             } else {
-                marchedLayout.setVisibility(View.GONE);
-                noMarchedLayout.setVisibility(View.VISIBLE);
+                marchedLayout.setVisibility(View.VISIBLE);
+                noMarchedLayout.setVisibility(View.GONE);
             }
             designerList.addAll(homeDesignersInfo.getDesigners());
             LogTool.d(TAG, "designerList:" + designerList.size());
