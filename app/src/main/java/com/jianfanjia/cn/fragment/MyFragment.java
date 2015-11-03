@@ -39,7 +39,6 @@ public class MyFragment extends BaseFragment {
         my_info_layout = (RelativeLayout) view.findViewById(R.id.frag_my_info_layout);
         my_account = (TextView) view.findViewById(R.id.frag_my_account);
         my_name = (TextView) view.findViewById(R.id.frag_my_name);
-
     }
 
     @Override
