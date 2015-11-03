@@ -129,6 +129,7 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
                 Bundle commentBundle = new Bundle();
                 commentBundle.putString(Global.TOPIC_ID, planid);
                 commentBundle.putString(Global.TO, designerid);
+                commentBundle.putString(Global.TOPICTYPE, Global.TOPIC_PLAN);
                 startActivity(CommentActivity.class, commentBundle);
                 break;
             case Constant.PLAN_PREVIEW_ITEM:

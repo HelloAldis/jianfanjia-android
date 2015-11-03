@@ -26,7 +26,13 @@ public class Global {
     public static final String DESIGNER_NAME = "designer_name";
     public static final String TOPIC_ID = "topic_id";
     public static final String TO = "to";
-    public static final String SITE_ID = "site_id";
+    public static final java.lang.String SECTION = "section";
+    public static final java.lang.String ITEM = "item";
+    public static final String TOPICTYPE = "topictype";
+
+
+    public static final String TOPIC_PLAN = "0";
+    public static final String TOPIC_NODE = "1";
 
 
     public static final String PLAN_STATUS0 = "0";//已预约但没有响应
@@ -47,4 +53,5 @@ public class Global {
     public static final String REQUIREMENT_STATUS5 = "5";//配置了工地
     public static final String REQUIREMENT_STATUS6 = "6";//有一个或多个设计师量完房但是没有人上传方案
     public static final String REQUIREMENT_STATUS7 = "7";//配置了合同但是没有配置工地
+
 }

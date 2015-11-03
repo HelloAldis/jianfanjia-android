@@ -95,7 +95,6 @@ public class Url_New {
     // 获取工地列表
     public static final String GET_PROCESS_LIST = HTTPROOT
             + "/process/list";
-
     // 用户上传图片
     public static final String UPLOAD_IMAGE = HTTPROOT + "image/upload";
     // 用户上传图片到装修流程

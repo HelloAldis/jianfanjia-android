@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
-import com.jianfanjia.cn.bean.CommentInfo;
 import com.jianfanjia.cn.bean.SectionInfo;
 import com.jianfanjia.cn.bean.SectionItemInfo;
 import com.jianfanjia.cn.cache.DataManagerNew;
@@ -235,7 +234,6 @@ public class SectionItemAdapterBack extends BaseAdapter {
         final SectionItemInfo sectionItemInfo = list.get(position);
         switch (type) {
             case SECTION_ITME_VIEW:
-                List<CommentInfo> commentInfoList = sectionItemInfo.getComments();
                 LogTool.d(this.getClass().getName(), sectionItemInfo.getName());
                 viewHolder.closeNodeName.setText(MyApplication.getInstance()
                         .getStringById(sectionItemInfo.getName()));
@@ -248,7 +246,6 @@ public class SectionItemAdapterBack extends BaseAdapter {
                         viewHolder.openFinishStatus.setText(context.getResources()
                                 .getString(R.string.site_example_node_finish));
                         viewHolder.finishTime.setVisibility(View.VISIBLE);
-                        viewHolder.confirmFinishStatus.setVisibility(View.GONE);
                         viewHolder.openFinishStatus.setVisibility(View.VISIBLE);
                         viewHolder.bigOpenLayout
                                 .setBackgroundResource(R.mipmap.list_item_text_bg2);
@@ -306,9 +303,9 @@ public class SectionItemAdapterBack extends BaseAdapter {
                 } else {
                     imageUrlList.add(Constant.HOME_ADD_PIC);
                 }
-
-                if (null != commentInfoList && commentInfoList.size() > 0) {
-                    viewHolder.openComment.setText(commentInfoList.size() + "");
+                int commentCount = sectionItemInfo.getComment_count();
+                if (commentCount >  0) {
+                    viewHolder.openComment.setText(commentCount + "");
                     viewHolder.openComment.setCompoundDrawablesWithIntrinsicBounds(
                             context.getResources().getDrawable(
                                     R.mipmap.btn_icon_comment_pressed), null,

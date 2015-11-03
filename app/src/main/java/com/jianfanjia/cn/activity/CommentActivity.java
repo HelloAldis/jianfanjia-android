@@ -39,6 +39,9 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
 
     private String topicid = null;
     private String to = null;
+    private String section = null;
+    private String item = null;
+    private String topictype = null;
 
     private List<CommentInfo> commentList = new ArrayList<CommentInfo>();
 
@@ -49,12 +52,15 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
         Bundle commentBundle = intent.getExtras();
         topicid = commentBundle.getString(Global.TOPIC_ID);
         to = commentBundle.getString(Global.TO);
-        LogTool.d(TAG, "topicid=" + topicid + " to=" + to);
+        section = commentBundle.getString(Global.SECTION);
+        item = commentBundle.getString(Global.ITEM);
+        topictype = commentBundle.getString(Global.TOPICTYPE);
+        LogTool.d(TAG, "topicid=" + topicid + " to=" + to + " section = " + section + " item" + item);
         commentListView = (ListView) findViewById(R.id.comment_listview);
         commentEdit = (EditText) findViewById(R.id.add_comment);
         btnSend = (Button) findViewById(R.id.btn_send);
 
-        getCommentList(topicid, 0, 10);
+        getCommentList(topicid, 0, 10000, section, item);
     }
 
     private void initMainHeadView() {
@@ -81,7 +87,7 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
             case R.id.btn_send:
                 String content = commentEdit.getText().toString().trim();
                 if (!TextUtils.isEmpty(content)) {
-                    addComment(topicid, "0", content, to);
+                    addComment(topicid, topictype, section, item, content, to);
                 } else {
                     makeTextLong("请输入内容");
                 }
@@ -92,8 +98,8 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
     }
 
     //获取留言评论并标记为已读
-    private void getCommentList(String topicid, int from, int limit) {
-        JianFanJiaClient.getCommentList(CommentActivity.this, topicid, from, limit, getCommentListener, this);
+    private void getCommentList(String topicid, int from, int limit, String section, String item) {
+        JianFanJiaClient.getCommentList(CommentActivity.this, topicid, from, limit, section, item, getCommentListener, this);
     }
 
     private ApiUiUpdateListener getCommentListener = new ApiUiUpdateListener() {
@@ -125,8 +131,8 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
     };
 
     //添加评论
-    private void addComment(String topicid, String topictype, String content, String to) {
-        JianFanJiaClient.addComment(CommentActivity.this, topicid, topictype, content, to, addCommentListener, this);
+    private void addComment(String topicid, String topictype, String section, String item, String content, String to) {
+        JianFanJiaClient.addComment(CommentActivity.this, topicid, topictype, section, item, content, to, addCommentListener, this);
     }
 
     private ApiUiUpdateListener addCommentListener = new ApiUiUpdateListener() {
@@ -140,7 +146,7 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
             LogTool.d(TAG, "data:" + data);
             hideWaitDialog();
             commentEdit.setText("");
-            getCommentList(topicid, 0, 10);
+            getCommentList(topicid, 0, 10000, section, item);
         }
 
         @Override
