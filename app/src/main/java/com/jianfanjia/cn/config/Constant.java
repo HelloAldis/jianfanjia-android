@@ -29,9 +29,8 @@ public class Constant {
 
     public static final String TAB_POSITION = "tab_position";
     public static final int HOME = 0;//首页
-    public static final int XUQIU = 1;//需求
-    public static final int MANAGE = 2;//工地管理
-    public static final int MY = 3;//我的
+    public static final int MANAGE = 1;//工地管理
+    public static final int MY = 2;//我的
 
     public static final String PROCESSINFO_CACHE = "processinfo_cache";// 工地信息缓存文件名
     public static final String DESIGNERINFO_CACHE = "designerinfo_cache";// 设计师信息缓存文件名
