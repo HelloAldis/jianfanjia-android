@@ -13,7 +13,6 @@ import com.jianfanjia.cn.fragment.HomeFragment;
 import com.jianfanjia.cn.fragment.MyFragment;
 import com.jianfanjia.cn.fragment.XuQiuFragment;
 import com.jianfanjia.cn.fragment.XuQiuFragment_;
-import com.jianfanjia.cn.interf.SwitchTabCallBack;
 import com.jianfanjia.cn.tools.LogTool;
 
 /**
@@ -23,7 +22,7 @@ import com.jianfanjia.cn.tools.LogTool;
  * Date:15-10-11 14:30
  */
 public class MainActivity extends BaseActivity implements
-        OnCheckedChangeListener, SwitchTabCallBack {
+        OnCheckedChangeListener {
     private static final String TAG = MainActivity.class.getName();
     private RadioGroup mTabRg = null;
     private HomeFragment homeFragment = null;
@@ -146,12 +145,6 @@ public class MainActivity extends BaseActivity implements
         PushManager.getInstance().stopService(this);// 完全终止SDK的服务
     }
 
-    @Override
-    public void switchTab(int index, String params) {
-        LogTool.d(TAG, "index=" + index + " params=" + params);
-        setTabSelection(index);
-        mTabRg.check(getResources().getIdentifier("tab_rb_" + (index + 1), "id", getPackageName()));
-    }
 
     @Override
     public int getLayoutId() {
