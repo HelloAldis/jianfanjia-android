@@ -280,7 +280,7 @@ public class EditRequirementActivity extends BaseAnnotationActivity {
 
     private void comeMainActivity() {
         Intent intent = new Intent(EditRequirementActivity.this, MainActivity.class);
-        intent.putExtra(Constant.TAB_POSITION, Constant.XUQIU);
+        intent.putExtra(Constant.TAB_POSITION, Constant.MANAGE);
         startActivity(intent);
         finish();
     }

@@ -10,7 +10,6 @@ import com.igexin.sdk.PushManager;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.fragment.HomeFragment;
-import com.jianfanjia.cn.fragment.ManageFragment;
 import com.jianfanjia.cn.fragment.MyFragment;
 import com.jianfanjia.cn.fragment.XuQiuFragment;
 import com.jianfanjia.cn.fragment.XuQiuFragment_;
@@ -29,7 +28,6 @@ public class MainActivity extends BaseActivity implements
     private RadioGroup mTabRg = null;
     private HomeFragment homeFragment = null;
     private XuQiuFragment xuqiuFragment = null;
-    private ManageFragment manageFragment = null;
     private MyFragment myFragment = null;
     private long mExitTime = 0L;
     private int tab = -1;
@@ -73,12 +71,9 @@ public class MainActivity extends BaseActivity implements
                 setTabSelection(Constant.HOME);
                 break;
             case R.id.tab_rb_2:
-                setTabSelection(Constant.XUQIU);
-                break;
-            case R.id.tab_rb_3:
                 setTabSelection(Constant.MANAGE);
                 break;
-            case R.id.tab_rb_4:
+            case R.id.tab_rb_3:
                 setTabSelection(Constant.MY);
                 break;
             default:
@@ -100,20 +95,12 @@ public class MainActivity extends BaseActivity implements
                     transaction.add(R.id.tabLayout, homeFragment);
                 }
                 break;
-            case Constant.XUQIU:
+            case Constant.MANAGE:
                 if (xuqiuFragment != null) {
                     transaction.show(xuqiuFragment);
                 } else {
                     xuqiuFragment = XuQiuFragment_.builder().build();
                     transaction.add(R.id.tabLayout, xuqiuFragment);
-                }
-                break;
-            case Constant.MANAGE:
-                if (manageFragment != null) {
-                    transaction.show(manageFragment);
-                } else {
-                    manageFragment = new ManageFragment();
-                    transaction.add(R.id.tabLayout, manageFragment);
                 }
                 break;
             case Constant.MY:
@@ -137,9 +124,6 @@ public class MainActivity extends BaseActivity implements
         }
         if (xuqiuFragment != null) {
             ft.hide(xuqiuFragment);
-        }
-        if (manageFragment != null) {
-            ft.hide(manageFragment);
         }
         if (myFragment != null) {
             ft.hide(myFragment);
