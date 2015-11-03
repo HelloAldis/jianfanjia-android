@@ -44,20 +44,9 @@
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/text_size_14" />
 
-            <RadioButton
-                android:id="@+id/tab_rb_2"
-                style="@style/tab_rb_style"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:drawableTop="@drawable/rb_btn_bg2"
-                android:text="需求列表"
-                android:textColor="@color/text_color"
-                android:textSize="@dimen/text_size_14" />
 
             <RadioButton
-                android:id="@+id/tab_rb_3"
+                android:id="@+id/tab_rb_2"
                 style="@style/tab_rb_style"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -69,7 +58,7 @@
                 android:textSize="@dimen/text_size_14" />
 
             <RadioButton
-                android:id="@+id/tab_rb_4"
+                android:id="@+id/tab_rb_3"
                 style="@style/tab_rb_style"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
