@@ -5,10 +5,6 @@ package com.jianfanjia.cn.interf;
  */
 public interface ListItemClickListener {
 
-    void onBtnClick(int position);
-
-    void onGirdItemClick(int position);
-
     void onMaxClick(int position);
 
     void onMinClick(int position);
