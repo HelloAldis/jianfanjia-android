@@ -25,7 +25,7 @@ public class SectionItemInfo implements Serializable {
 
     private long date;
 
-    private ArrayList<CommentInfo> comments;
+    private int comment_count;
 
     private ArrayList<String> images;
 
@@ -53,12 +53,12 @@ public class SectionItemInfo implements Serializable {
         this.status = status;
     }
 
-    public ArrayList<CommentInfo> getComments() {
-        return comments;
+    public int getComment_count() {
+        return comment_count;
     }
 
-    public void setComments(ArrayList<CommentInfo> comments) {
-        this.comments = comments;
+    public void setComment_count(int comment_count) {
+        this.comment_count = comment_count;
     }
 
     public ArrayList<String> getImages() {
@@ -92,10 +92,8 @@ public class SectionItemInfo implements Serializable {
         }
     }
 
-    public void addCommentToItem(CommentInfo commentInfo) {
-        if (comments != null) {
-            comments.add(commentInfo);
-        }
+    public void addCommentToItem() {
+        comment_count++;
     }
 
 }

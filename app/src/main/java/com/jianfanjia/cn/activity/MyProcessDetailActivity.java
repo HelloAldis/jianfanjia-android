@@ -161,7 +161,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
     private void initProcessInfo() {
         Intent intent = getIntent();
         processInfo = (ProcessInfo) intent.getSerializableExtra(Global.PROCESS_INFO);
-        LogTool.d(getClass().getName(), "processInfo:" + processInfo);
+        LogTool.d(getClass().getName(), "processInfo:" + processInfo.get_id());
         if (processInfo != null) {
             processId = processInfo.get_id();
             if (NetTool.isNetworkAvailable(this)) {
@@ -177,7 +177,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
 
     private void loadCurrentProcess() {
         if (processId != null) {
-            JianFanJiaClient.get_ProcessInfo_By_Id(this, dataManager.getDefaultProcessId(), this, this);
+            JianFanJiaClient.get_ProcessInfo_By_Id(this, processId, this, this);
         }
     }
 
@@ -205,6 +205,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                     currentList, sectionInfos, this);
             detailNodeListView.setAdapter(sectionItemAdapter);
             processViewPager.setCurrentItem(currentList);
+            UiHelper.setListViewHeightBasedOnChildren(detailNodeListView);
         }
     }
 
@@ -360,6 +361,9 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                 Bundle bundle = new Bundle();
                 bundle.putString(Global.TOPIC_ID, processId);
                 bundle.putString(Global.TO, processInfo.getFinal_designerid());
+                bundle.putString(Global.SECTION, sectionInfo.getName());
+                bundle.putString(Global.ITEM, sectionInfo.getItems().get(position).getName());
+                bundle.putString(Global.TOPICTYPE, Global.TOPIC_NODE);
                 startActivity(CommentActivity.class, bundle);
                 break;
             case Constant.DELAY_ITEM:

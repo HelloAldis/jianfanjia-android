@@ -60,7 +60,7 @@
             <com.jianfanjia.cn.view.MyListView
                 android:id="@+id/process__listview"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:cacheColorHint="#ffffff"
                 android:clipToPadding="false"
                 android:divider="@null"

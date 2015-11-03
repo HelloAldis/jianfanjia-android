@@ -9,6 +9,7 @@ import com.jianfanjia.cn.bean.OwnerUpdateInfo;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Url;
+import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.http.request.AddCommentRequest;
 import com.jianfanjia.cn.http.request.AddFavoriteDesignerRequest;
 import com.jianfanjia.cn.http.request.AddPicToCheckRequest;
@@ -581,7 +582,7 @@ public class JianFanJiaClient {
     public static void get_ProcessInfo_By_Id(Context context, String processid,
                                              ApiUiUpdateListener listener, Object tag) {
         ProcessInfoRequest processInfoRequest = new ProcessInfoRequest(context, processid);
-        String getProcessUrl = Url.GET_PROCESSINFO_BYID.replace(Url.ID,
+        String getProcessUrl = Url_New.GET_PROCESSINFO_BYID.replace(Url_New.ID,
                 processid);
         processInfoRequest.setUrl(getProcessUrl);
         LogTool.d(TAG, "processItemDone -" + processInfoRequest.getUrl());
@@ -1003,13 +1004,15 @@ public class JianFanJiaClient {
      * @param listener
      * @param tag
      */
-    public static void addComment(Context context, String topicid, String topictype, String content, String to, ApiUiUpdateListener listener, Object tag) {
+    public static void addComment(Context context, String topicid, String topictype,String section,String item, String content, String to, ApiUiUpdateListener listener, Object tag) {
         AddCommentRequest addCommentRequest = new AddCommentRequest(context, topicid, topictype, content, to);
         JSONObject jsonParams = new JSONObject();
         try {
             jsonParams.put("topicid", topicid);
             jsonParams.put("topictype", topictype);
             jsonParams.put("content", content);
+            jsonParams.put("section", section);
+            jsonParams.put("item", item);
             jsonParams.put("to", to);
             OkHttpClientManager.getInstance().getPostDelegate().postAsyn(addCommentRequest, jsonParams.toString(), listener, tag);
         } catch (JSONException e) {
@@ -1027,13 +1030,15 @@ public class JianFanJiaClient {
      * @param listener
      * @param tag
      */
-    public static void getCommentList(Context context, String topicid, int from, int limit, ApiUiUpdateListener listener, Object tag) {
+    public static void getCommentList(Context context, String topicid, int from, int limit,String section,String item ,ApiUiUpdateListener listener, Object tag) {
         GetCommentsRequest getCommentsRequest = new GetCommentsRequest(context, topicid, from, limit);
         JSONObject jsonParams = new JSONObject();
         try {
             jsonParams.put("topicid", topicid);
             jsonParams.put("from", from);
             jsonParams.put("limit", limit);
+            jsonParams.put("section", section);
+            jsonParams.put("item", item);
             OkHttpClientManager.getInstance().getPostDelegate().postAsyn(getCommentsRequest, jsonParams.toString(), listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
