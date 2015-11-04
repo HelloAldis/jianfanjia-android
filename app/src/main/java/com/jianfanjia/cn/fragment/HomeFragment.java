@@ -31,7 +31,6 @@ import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.ListItemClickListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.tools.ViewPagerManager;
 import com.jianfanjia.cn.tools.ViewPagerManager.ShapeType;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
@@ -99,7 +98,6 @@ public class HomeFragment extends BaseFragment implements
         getHomePageDesigners(FROM, Constant.LIMIT, downListener);
         designerAdapter = new DesignerListAdapter(getActivity(), designerList, this);
         designer_listview.setAdapter(designerAdapter);
-        UiHelper.setListViewHeightBasedOnChildren(designer_listview);//因为scrollview与listview有冲突，需要动态计算listview的高度才能全部显示
     }
 
     @Override
