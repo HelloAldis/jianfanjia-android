@@ -11,6 +11,7 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.cache.DataManagerNew;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
 import java.util.List;
 
@@ -35,11 +36,11 @@ public abstract class BaseListAdapter<T> extends BaseAdapter {
         imageLoader = ImageLoader.getInstance();
         dataManager = DataManagerNew.getInstance();
         options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.mipmap.pic_default)
-                .showImageForEmptyUri(R.mipmap.pic_default)
-                .showImageOnFail(R.mipmap.pic_default).cacheInMemory(true)
+                .showImageOnLoading(R.mipmap.pix_default)
+                .showImageForEmptyUri(R.mipmap.pix_default)
+                .showImageOnFail(R.mipmap.pix_default).cacheInMemory(false)
                 .cacheOnDisk(true).considerExifParams(true)
-                .bitmapConfig(Bitmap.Config.RGB_565).build();
+                .bitmapConfig(Bitmap.Config.RGB_565).imageScaleType(ImageScaleType.IN_SAMPLE_INT).build();
     }
 
     public void setList(List<T> list) {
