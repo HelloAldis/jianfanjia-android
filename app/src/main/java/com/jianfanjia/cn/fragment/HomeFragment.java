@@ -10,6 +10,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
 import com.jianfanjia.cn.activity.DesignerCaseInfoActivity;
@@ -49,6 +50,7 @@ public class HomeFragment extends BaseFragment implements
         PullToRefreshBase.OnRefreshListener2<ScrollView>, ListItemClickListener, OnItemClickListener {
     private static final String TAG = HomeFragment.class.getName();
     private PullToRefreshScrollView mPullRefreshScrollView = null;
+    private RelativeLayout viewpagerLayout = null;
     private LinearLayout marchedLayout = null;
     private LinearLayout noMarchedLayout = null;
     private GridView marchDesignerView = null;
@@ -72,6 +74,7 @@ public class HomeFragment extends BaseFragment implements
         mPullRefreshScrollView = (PullToRefreshScrollView) view.findViewById(R.id.pull_refresh_scrollview);
         mPullRefreshScrollView.setMode(PullToRefreshBase.Mode.BOTH);
         mPullRefreshScrollView.setOverScrollMode(PullToRefreshBase.OVER_SCROLL_NEVER);
+        viewpagerLayout = (RelativeLayout) view.findViewById(R.id.viewpager_layout);
         marchedLayout = (LinearLayout) view.findViewById(R.id.marched_layout);
         noMarchedLayout = (LinearLayout) view.findViewById(R.id.no_marched_layout);
         addXuQiu = (Button) view.findViewById(R.id.btn_add);
@@ -179,6 +182,7 @@ public class HomeFragment extends BaseFragment implements
     private ApiUiUpdateListener downListener = new ApiUiUpdateListener() {
         @Override
         public void preLoad() {
+            viewpagerLayout.setVisibility(View.GONE);
             marchedLayout.setVisibility(View.GONE);
             noMarchedLayout.setVisibility(View.GONE);
         }
@@ -187,6 +191,7 @@ public class HomeFragment extends BaseFragment implements
         public void loadSuccess(Object data) {
             HomeDesignersInfo homeDesignersInfo = JsonParser.jsonToBean(data.toString(), HomeDesignersInfo.class);
             LogTool.d(TAG, "homeDesignersInfo:" + homeDesignersInfo);
+            viewpagerLayout.setVisibility(View.VISIBLE);
             if (null != homeDesignersInfo) {
                 Requirement requirement = homeDesignersInfo.getRequirement();
                 LogTool.d(TAG, "requirement=" + requirement);
@@ -223,6 +228,7 @@ public class HomeFragment extends BaseFragment implements
         public void loadFailture(String error_msg) {
             makeTextLong(error_msg);
             mPullRefreshScrollView.onRefreshComplete();
+            viewpagerLayout.setVisibility(View.GONE);
             marchedLayout.setVisibility(View.GONE);
             noMarchedLayout.setVisibility(View.GONE);
         }
