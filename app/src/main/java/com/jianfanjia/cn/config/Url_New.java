@@ -18,7 +18,10 @@ public class Url_New {
     public static final String CONTRACT_URL = "http://www.jianfanjia.com/tpl/guide/index.html?1";
 
     public static final String ID = "id";
-    //
+
+    //屏幕宽高
+    public static final String WIDTH = "400";
+
     public static final String BIND_URL = HTTPROOT + "device/bind";
     // 登录
     public static final String LOGIN_URL = HTTPROOT + "user_login";
@@ -119,7 +122,7 @@ public class Url_New {
     // 获取图片
     public static final String GET_IMAGE = HTTPROOT + "image/";
     //获取缩略图
-    public static final String GET_THUMBNAIL_IMAGE = HTTPROOT + "thumbnail/";
+    public static final String GET_THUMBNAIL_IMAGE = HTTPROOT + "thumbnail/" + WIDTH + "/";
     // 根据工地id获取某个工地
     public static final String GET_PROCESSINFO_BYID = HTTPROOT + "process/"
             + ID;
