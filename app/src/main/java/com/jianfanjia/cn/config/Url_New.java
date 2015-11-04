@@ -118,6 +118,8 @@ public class Url_New {
             + "process/reschedule/all";
     // 获取图片
     public static final String GET_IMAGE = HTTPROOT + "image/";
+    //获取缩略图
+    public static final String GET_THUMBNAIL_IMAGE = HTTPROOT + "thumbnail/";
     // 根据工地id获取某个工地
     public static final String GET_PROCESSINFO_BYID = HTTPROOT + "process/"
             + ID;
