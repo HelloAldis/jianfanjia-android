@@ -8,6 +8,7 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.cache.DataManagerNew;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
 /**
  * Description: com.jianfanjia.cn.view.custom_annotation_view
@@ -15,14 +16,14 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  * Email: jame.zhang@myjyz.com
  * Date:2015-10-26 10:50
  */
-public class BaseAnnotationView extends FrameLayout{
+public class BaseAnnotationView extends FrameLayout {
 
     protected ImageLoader imageLoader;
     protected DisplayImageOptions options;
     protected DataManagerNew dataManagerNew;
 
 
-    public BaseAnnotationView(Context context){
+    public BaseAnnotationView(Context context) {
         super(context);
         imageLoader = ImageLoader.getInstance();
         options = new DisplayImageOptions.Builder()
@@ -30,7 +31,7 @@ public class BaseAnnotationView extends FrameLayout{
                 .showImageForEmptyUri(R.mipmap.pix_default)
                 .showImageOnFail(R.mipmap.pix_default).cacheInMemory(true)
                 .cacheOnDisk(true).considerExifParams(true)
-                .bitmapConfig(Bitmap.Config.RGB_565).build();
+                .bitmapConfig(Bitmap.Config.RGB_565).imageScaleType(ImageScaleType.IN_SAMPLE_INT).build();
         dataManagerNew = DataManagerNew.getInstance();
     }
 }
