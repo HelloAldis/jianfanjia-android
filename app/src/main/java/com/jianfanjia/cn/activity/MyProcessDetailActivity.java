@@ -38,7 +38,6 @@ import com.jianfanjia.cn.tools.ImageUtil;
 import com.jianfanjia.cn.tools.ImageUtils;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.tools.NetTool;
 import com.jianfanjia.cn.tools.StringUtils;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.MainHeadView;
@@ -165,13 +164,10 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
         if (processInfo != null) {
             LogTool.d(getClass().getName(), "processInfo:" + processInfo.get_id());
             processId = processInfo.get_id();
-            if (NetTool.isNetworkAvailable(this)) {
-                loadCurrentProcess();
-            } else {
-//                processInfo = dataManager.getProcessInfoById(processId);
-            }
+            loadCurrentProcess();
         } else {
-            processInfo = dataManager.getProcessInfoById(Constant.DEFAULT_PROCESSINFO_ID);
+            processId = Constant.DEFAULT_PROCESSINFO_ID;
+            processInfo = dataManager.getProcessInfoById(processId);
             initData();
         }
 
@@ -188,7 +184,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
     }
 
     @Click(R.id.head_back_layout)
-    public void comeback(){
+    public void comeback() {
         finish();
     }
 
@@ -400,7 +396,9 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
 
     @Override
     public void loadFailture(String error_msg) {
-        makeTextLong(getString(R.string.tip_error_internet));
+        if(processId != Constant.DEFAULT_PROCESSINFO_ID){
+            makeTextLong(getString(R.string.tip_error_internet));
+        }
         process_pull_refresh.setRefreshing(false);
         progressBar.setVisibility(View.GONE);
 //        mPullRefreshScrollView.onRefreshComplete();
