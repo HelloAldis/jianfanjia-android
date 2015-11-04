@@ -81,7 +81,6 @@ public class MainActivity extends BaseActivity implements
     }
 
     private void setTabSelection(int index) {
-        // 开启一个Fragment事务
         FragmentTransaction transaction = this.getSupportFragmentManager()
                 .beginTransaction();
         hideFragments(transaction);
@@ -142,7 +141,6 @@ public class MainActivity extends BaseActivity implements
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        PushManager.getInstance().stopService(this);// 完全终止SDK的服务
     }
 
 
