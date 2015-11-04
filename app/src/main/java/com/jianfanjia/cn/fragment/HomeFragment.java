@@ -179,6 +179,8 @@ public class HomeFragment extends BaseFragment implements
     private ApiUiUpdateListener downListener = new ApiUiUpdateListener() {
         @Override
         public void preLoad() {
+            marchedLayout.setVisibility(View.GONE);
+            noMarchedLayout.setVisibility(View.GONE);
         }
 
         @Override
