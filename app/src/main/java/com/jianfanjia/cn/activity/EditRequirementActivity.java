@@ -253,6 +253,12 @@ public class EditRequirementActivity extends BaseAnnotationActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        comeMainActivity();
+    }
+
     @Click(R.id.head_right_title)
     protected void confirm() {
         if (requestCode == XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT) {

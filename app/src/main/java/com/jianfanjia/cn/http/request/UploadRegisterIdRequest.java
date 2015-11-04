@@ -3,7 +3,7 @@ package com.jianfanjia.cn.http.request;
 import android.content.Context;
 
 import com.jianfanjia.cn.base.BaseRequest;
-import com.jianfanjia.cn.config.Url;
+import com.jianfanjia.cn.config.Url_New;
 
 /**
  * 上传个推id
@@ -15,7 +15,7 @@ public class UploadRegisterIdRequest extends BaseRequest {
 	public UploadRegisterIdRequest(Context context, String clientId) {
 		super(context);
 		this.clientId = clientId;
-		url = Url.BIND_URL;
+		url = Url_New.BIND_URL;
 	}
 
 	@Override

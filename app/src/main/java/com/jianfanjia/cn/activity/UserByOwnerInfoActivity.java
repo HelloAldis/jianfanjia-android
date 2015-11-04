@@ -22,6 +22,7 @@ import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.bean.OwnerUpdateInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url;
+import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
@@ -495,7 +496,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 		dataManager.setUserImagePath(imageId);
 		imageLoader.displayImage(
 				TextUtils.isEmpty(imageId) ? Constant.DEFALUT_OWNER_PIC
-						: (Url.GET_IMAGE + imageId), headImageView, options);
+						: (Url_New.GET_IMAGE + imageId), headImageView, options);
 		if (ownerUpdateInfo != null) {
 			ownerUpdateInfo.setImageid(imageId);
 		}

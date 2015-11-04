@@ -42,9 +42,7 @@ import com.jianfanjia.cn.tools.StringUtils;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.SuperSwipeRefreshLayout;
-import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DateWheelDialog;
-import com.jianfanjia.cn.view.dialog.DialogHelper;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -354,9 +352,6 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
     public void click(int position, int itemType) {
         LogTool.d(TAG, "position:" + position + "itemType:" + itemType);
         switch (itemType) {
-            case Constant.CONFIRM_ITEM:
-                confirmFinishDialog();
-                break;
             case Constant.IMG_ITEM:
                 break;
             case Constant.COMMENT_ITEM:
@@ -473,26 +468,6 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
         dateWheelDialog.show();
     }
 
-    private void confirmFinishDialog() {
-        CommonDialog dialog = DialogHelper
-                .getPinterestDialogCancelable(this);
-        dialog.setTitle("确认完工");
-        dialog.setMessage("确认完工吗？");
-        dialog.setPositiveButton(R.string.ok,
-                new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        confirmProcessItemDone(processInfo.get_id(),
-                                sectionInfo.getName(),
-                                sectionItemAdapter.getCurrentItem());
-                    }
-                });
-        dialog.setNegativeButton(R.string.no, null);
-        dialog.show();
-    }
-
     // 提交改期
     private void postReschedule(String processId, String userId,
                                 String designerId, String section, String newDate) {
@@ -501,30 +476,6 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                 + " newDate:" + newDate);
         JianFanJiaClient.postReschedule(this, processId, userId,
                 designerId, section, newDate, new ApiUiUpdateListener() {
-                    @Override
-                    public void preLoad() {
-
-                    }
-
-                    @Override
-                    public void loadSuccess(Object data) {
-                        loadCurrentProcess();
-                    }
-
-                    @Override
-                    public void loadFailture(String error_msg) {
-
-                    }
-                }, this);
-    }
-
-    // 确认完工装修流程小节点
-    private void confirmProcessItemDone(String siteId, String section,
-                                        String item) {
-        LogTool.d(TAG, "siteId:" + siteId + " section:" + section + " item:"
-                + item);
-        JianFanJiaClient.processItemDone(this, siteId, section,
-                item, new ApiUiUpdateListener() {
                     @Override
                     public void preLoad() {
 

@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.DesignerInfo;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Url;
+import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.baseview.BaseAnnotationView;
 
@@ -47,7 +47,7 @@ public class MyFavoriteDesignerView extends BaseAnnotationView {
         String imageid = designerInfo.getImageid();
         LogTool.d(this.getClass().getName(), designerInfo.getUsername() + imageid);
         if(!TextUtils.isEmpty(imageid)){
-            imageLoader.displayImage(Url.GET_IMAGE + imageid, ltm_myfavdesi_head,options);
+            imageLoader.displayImage(Url_New.GET_IMAGE + imageid, ltm_myfavdesi_head,options);
         }else{
             imageLoader.getInstance().displayImage(Constant.DEFALUT_DESIGNER_PIC,ltm_myfavdesi_head,options);
         }
