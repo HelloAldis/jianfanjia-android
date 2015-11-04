@@ -10,7 +10,9 @@ import android.widget.TextView;
 import com.jianfanjia.cn.activity.MyDesignerActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.OrderDesignerInfo;
+import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.interf.ClickCallBack;
 import com.jianfanjia.cn.view.baseview.BaseAnnotationView;
@@ -26,7 +28,7 @@ import org.androidannotations.annotations.ViewById;
  * Date:2015-10-22 10:46
  */
 @EViewGroup(R.layout.list_item_my_designer_type1)
-public class MyDesignerViewType3 extends BaseAnnotationView {
+public class MyDesignerViewType7 extends BaseAnnotationView {
 
     @ViewById(R.id.ltm_my_designer_head)
     protected ImageView headView;
@@ -52,7 +54,7 @@ public class MyDesignerViewType3 extends BaseAnnotationView {
     @ViewById(R.id.designerinfo_auth)
     ImageView authView;
 
-    public MyDesignerViewType3(Context context) {
+    public MyDesignerViewType7(Context context) {
         super(context);
     }
 
@@ -75,35 +77,26 @@ public class MyDesignerViewType3 extends BaseAnnotationView {
         } else {
             authView.setVisibility(View.GONE);
         }
-        //不管需求状态如何，都可以点击按钮
-        if (designerInfo.getEvaluation() == null) {
-            button1.setText(getResources().getString(R.string.str_comment));
-            button1.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    clickCallBack.click(position, MyDesignerActivity.COMMENT);
-                }
-            });
-        } else {
-            button1.setText(getResources().getString(R.string.str_already_comment));
-            button1.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    clickCallBack.click(position, MyDesignerActivity.VIEW_COMMENT);
-                }
-            });
-        }
-        button2.setText(getResources().getString(R.string.str_view_plan));
+
+        button1.setVisibility(View.GONE);
+        button2.setText(getResources().getString(R.string.str_change_designer));
         button2.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                clickCallBack.click(position, MyDesignerActivity.VIEW_PLAN);
+                clickCallBack.click(position, MyDesignerActivity.CHANGE_DESIGNER);
             }
         });
-        statusView.setText(getResources().getString(R.string.already_commit));
+        statusView.setText(getResources().getString(R.string.not_response));
         statusView.setTextColor(getResources().getColor(R.color.grey_color));
+
+        RequirementInfo requirementInfo = designerInfo.getRequirement();
+        String requirementStatus = requirementInfo.getStatus();
+        if(requirementStatus.equals(Global.REQUIREMENT_STATUS4) || requirementStatus.equals(Global.REQUIREMENT_STATUS5) || requirementStatus.equals(Global.REQUIREMENT_STATUS7)){
+            button2.setEnabled(false);
+        }else{
+            button2.setEnabled(true);
+        }
 
 
     }
-
 }

@@ -376,6 +376,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                 checkBundle.putString(Constant.PROCESS_NAME, sectionInfo.getName());
                 checkBundle
                         .putInt(Constant.PROCESS_STATUS, sectionInfo.getStatus());
+                checkBundle.putSerializable(Global.PROCESS_INFO, processInfo);
                 startActivity(CheckActivity.class, checkBundle);
                 break;
             default:
@@ -396,7 +397,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
 
     @Override
     public void loadFailture(String error_msg) {
-        if(processId != Constant.DEFAULT_PROCESSINFO_ID){
+        if (processId != Constant.DEFAULT_PROCESSINFO_ID) {
             makeTextLong(getString(R.string.tip_error_internet));
         }
         process_pull_refresh.setRefreshing(false);

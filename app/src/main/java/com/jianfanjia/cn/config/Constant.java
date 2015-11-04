@@ -156,6 +156,8 @@ public class Constant {
 
     public static final String DEFALUT_PIC_HEAD = "drawable://";
 
+    public static final String DEFALUT_PIC = DEFALUT_PIC_HEAD + R.mipmap.pix_default;
+
     public static final String CURRENT_LIST = "current_list";// 首页展开的第一道工序
     public static final String CURRENT_ITEM = "current_item";// 当前节点
     public static final String CURRENT_POSITION = "current_position";// 当前位置

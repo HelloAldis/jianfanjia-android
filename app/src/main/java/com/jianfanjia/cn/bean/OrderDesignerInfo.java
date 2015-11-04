@@ -24,7 +24,7 @@ public class OrderDesignerInfo implements Serializable {
     private String auth_type;
     private int authed_product_count;
     private int order_count;
-    private String status;
+    private RequirementInfo requirement;
     private boolean is_rec;
     private PlanInfo plan;//设计师方案
     private Evaluation evaluation;
@@ -158,12 +158,12 @@ public class OrderDesignerInfo implements Serializable {
         this.order_count = order_count;
     }
 
-    public String getStatus() {
-        return status;
+    public RequirementInfo getRequirement() {
+        return requirement;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setRequirement(RequirementInfo requirement) {
+        this.requirement = requirement;
     }
 
     public boolean is_rec() {

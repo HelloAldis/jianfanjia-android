@@ -26,7 +26,7 @@ import org.androidannotations.annotations.ViewById;
  * Date:2015-10-22 10:46
  */
 @EViewGroup(R.layout.list_item_my_designer_type1)
-public class MyDesignerViewType3 extends BaseAnnotationView {
+public class MyDesignerViewType4 extends BaseAnnotationView {
 
     @ViewById(R.id.ltm_my_designer_head)
     protected ImageView headView;
@@ -52,7 +52,7 @@ public class MyDesignerViewType3 extends BaseAnnotationView {
     @ViewById(R.id.designerinfo_auth)
     ImageView authView;
 
-    public MyDesignerViewType3(Context context) {
+    public MyDesignerViewType4(Context context) {
         super(context);
     }
 
@@ -75,7 +75,7 @@ public class MyDesignerViewType3 extends BaseAnnotationView {
         } else {
             authView.setVisibility(View.GONE);
         }
-        //不管需求状态如何，都可以点击按钮
+
         if (designerInfo.getEvaluation() == null) {
             button1.setText(getResources().getString(R.string.str_comment));
             button1.setOnClickListener(new OnClickListener() {
@@ -100,10 +100,8 @@ public class MyDesignerViewType3 extends BaseAnnotationView {
                 clickCallBack.click(position, MyDesignerActivity.VIEW_PLAN);
             }
         });
-        statusView.setText(getResources().getString(R.string.already_commit));
+        statusView.setText(getResources().getString(R.string.not_choose));
         statusView.setTextColor(getResources().getColor(R.color.grey_color));
 
-
     }
-
 }

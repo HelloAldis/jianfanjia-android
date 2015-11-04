@@ -124,52 +124,52 @@
     <!-- 水电阶段验收图片 -->
     <string-array name="shui_dian">
         <item>@mipmap/shui_dian1</item>
-        <item>@mipmap/btn_icon_home_add</item>
+        <item>@mipmap/pix_default</item>
         <item>@mipmap/shui_dian2</item>
-        <item>@mipmap/btn_icon_home_add</item>
+        <item>@mipmap/pix_default</item>
         <item>@mipmap/shui_dian3</item>
-        <item>@mipmap/btn_icon_home_add</item>
+        <item>@mipmap/pix_default</item>
         <item>@mipmap/shui_dian4</item>
-        <item>@mipmap/btn_icon_home_add</item>
+        <item>@mipmap/pix_default</item>
         <item>@mipmap/shui_dian5</item>
-        <item>@mipmap/btn_icon_home_add</item>
+        <item>@mipmap/pix_default</item>
     </string-array>
     <!-- 泥木阶段验收图片 -->
     <string-array name="ni_mu">
         <item>@mipmap/ni_mu1</item>
-        <item>@mipmap/btn_icon_home_add</item>
+        <item>@mipmap/pix_default</item>
         <item>@mipmap/ni_mu2</item>
-        <item>@mipmap/btn_icon_home_add</item>
+        <item>@mipmap/pix_default</item>
         <item>@mipmap/ni_mu3</item>
-        <item>@mipmap/btn_icon_home_add</item>
+        <item>@mipmap/pix_default</item>
         <item>@mipmap/ni_mu4</item>
-        <item>@mipmap/btn_icon_home_add</item>
+        <item>@mipmap/pix_default</item>
         <item>@mipmap/ni_mu5</item>
-        <item>@mipmap/btn_icon_home_add</item>
+        <item>@mipmap/pix_default</item>
         <item>@mipmap/ni_mu6</item>
-        <item>@mipmap/btn_icon_home_add</item>
+        <item>@mipmap/pix_default</item>
         <item>@mipmap/ni_mu7</item>
-        <item>@mipmap/btn_icon_home_add</item>
+        <item>@mipmap/pix_default</item>
     </string-array>
 
     <!-- 油漆阶段验收图片 -->
     <string-array name="you_qi">
         <item>@mipmap/you_qi1</item>
-        <item>@mipmap/btn_icon_home_add</item>
+        <item>@mipmap/pix_default</item>
         <item>@mipmap/you_qi2</item>
-        <item>@mipmap/btn_icon_home_add</item>
+        <item>@mipmap/pix_default</item>
     </string-array>
 
     <!-- 安装阶段验收图片 -->
     <string-array name="an_zhuang">
         <item>@mipmap/an_zhuang1</item>
-        <item>@mipmap/btn_icon_home_add</item>
+        <item>@mipmap/pix_default</item>
     </string-array>
 
     <!-- 竣工阶段验收图片 -->
     <string-array name="jun_gong">
         <item>@mipmap/jun_gong1</item>
-        <item>@mipmap/btn_icon_home_add</item>
+        <item>@mipmap/pix_default</item>
     </string-array>
 
     <!-- 武汉市的区 -->

@@ -1,6 +1,5 @@
 package com.jianfanjia.cn.adapter;
 
-import java.util.List;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.v4.view.PagerAdapter;
@@ -10,12 +9,15 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Url;
+import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+
+import java.util.List;
 
 public class ShowPicPagerAdapter extends PagerAdapter {
 	private List<String> images;
@@ -61,7 +63,7 @@ public class ShowPicPagerAdapter extends PagerAdapter {
 		View view = inflater.inflate(R.layout.viewpager_item_show_pic, null);
 		ImageView imageView = (ImageView) view.findViewById(R.id.image_item);
 		if(!images.get(position).contains(Constant.DEFALUT_PIC_HEAD)){
-			imageLoader.displayImage(Url.GET_IMAGE + images.get(position),
+			imageLoader.displayImage(Url_New.GET_IMAGE + images.get(position),
 				imageView, options);
 		}else{
 			imageLoader.displayImage(images.get(position),

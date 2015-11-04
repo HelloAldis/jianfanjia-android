@@ -66,7 +66,6 @@ public class MyDesignerActivity extends BaseAnnotationActivity {
     private TextView textView;
     private ImageView imageView;
 
-
     private String requirementid;
 
     MyDesignerAdapter myDesignerAdapter;

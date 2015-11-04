@@ -11,6 +11,7 @@ import com.jianfanjia.cn.activity.MyDesignerActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.OrderDesignerInfo;
 import com.jianfanjia.cn.bean.PlanInfo;
+import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.config.Url_New;
@@ -70,42 +71,47 @@ public class MyDesignerViewType2 extends BaseAnnotationView {
         PlanInfo planInfo = designerInfo.getPlan();
         long housechecktime = planInfo.getHouse_check_time();
         if (!TextUtils.isEmpty(imageid)) {
-            ImageLoader.getInstance().displayImage(Url_New.GET_IMAGE + imageid, headView,options);
+            ImageLoader.getInstance().displayImage(Url_New.GET_IMAGE + imageid, headView, options);
         } else {
-            ImageLoader.getInstance().displayImage(Constant.DEFALUT_DESIGNER_PIC, headView,options);
+            ImageLoader.getInstance().displayImage(Constant.DEFALUT_DESIGNER_PIC, headView, options);
         }
         if (!TextUtils.isEmpty(username)) {
             nameView.setText(username);
         } else {
             nameView.setText(getResources().getString(R.string.designer));
         }
-        if(designerInfo.getAuth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)){
+        if (designerInfo.getAuth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)) {
             authView.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             authView.setVisibility(View.GONE);
         }
-        switch (status) {
-            case Global.PLAN_STATUS2:
-                statusView.setTextColor(getResources().getColor(R.color.blue_color));
-                statusView.setText(getResources().getString(R.string.already_repsonse));
-                if (Calendar.getInstance().getTimeInMillis() >  Constant.CONFIRM_HOUSE_EXPIRE) {
-                    textView1.setVisibility(View.GONE);
-                    textView2.setVisibility(View.GONE);
-                    button3.setVisibility(View.VISIBLE);
-                    button3.setText(getResources().getString(R.string.confirm_measure_house));
-                    button3.setOnClickListener(new OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            clickCallBack.click(position, MyDesignerActivity.CONFIRM_MEASURE_HOUSE);
-                        }
-                    });
-                } else {
-                    textView1.setVisibility(View.VISIBLE);
-                    textView2.setVisibility(View.VISIBLE);
-                    button3.setVisibility(View.GONE);
-                    textView1.setText(getResources().getString(R.string.measure_house_time));
+
+        statusView.setTextColor(getResources().getColor(R.color.blue_color));
+        statusView.setText(getResources().getString(R.string.already_repsonse));
+        if (Calendar.getInstance().getTimeInMillis() > Constant.CONFIRM_HOUSE_EXPIRE) {
+            textView1.setVisibility(View.GONE);
+            textView2.setVisibility(View.GONE);
+            button3.setVisibility(View.VISIBLE);
+            button3.setText(getResources().getString(R.string.confirm_measure_house));
+            button3.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    clickCallBack.click(position, MyDesignerActivity.CONFIRM_MEASURE_HOUSE);
                 }
-                break;
+            });
+        } else {
+            textView1.setVisibility(View.VISIBLE);
+            textView2.setVisibility(View.VISIBLE);
+            button3.setVisibility(View.GONE);
+            textView1.setText(getResources().getString(R.string.measure_house_time));
+        }
+
+        RequirementInfo requirementInfo = designerInfo.getRequirement();
+        String requirementStatus = requirementInfo.getStatus();
+        if(requirementStatus.equals(Global.REQUIREMENT_STATUS4) || requirementStatus.equals(Global.REQUIREMENT_STATUS5) || requirementStatus.equals(Global.REQUIREMENT_STATUS7)){
+            button3.setEnabled(false);
+        }else{
+            button3.setEnabled(true);
         }
 
     }

@@ -85,7 +85,7 @@ public class RequirementView extends BaseAnnotationView {
                     clickCallBack.click(position, XuQiuFragment.ITEM_GOTOPRO);
                 }
             });
-        } else if (requirementStatus.equals(Global.REQUIREMENT_STATUS1)) {
+        } else if (requirementStatus.equals(Global.REQUIREMENT_STATUS0)) {
             ltm_req_gotopro.setText(getResources().getString(R.string.str_goto_order));
             ltm_req_gotopro.setOnClickListener(new OnClickListener() {
                 @Override

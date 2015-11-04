@@ -34,9 +34,9 @@ public class PreviewAdapter extends PagerAdapter {
         this.mList = mList;
         imageLoader = ImageLoader.getInstance();
         options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.mipmap.pic_default)
-                .showImageForEmptyUri(R.mipmap.pic_default)
-                .showImageOnFail(R.mipmap.pic_default).cacheInMemory(true)
+                .showImageOnLoading(R.mipmap.pix_default)
+                .showImageForEmptyUri(R.mipmap.pix_default)
+                .showImageOnFail(R.mipmap.pix_default).cacheInMemory(true)
                 .cacheOnDisk(true).considerExifParams(true)
                 .bitmapConfig(Bitmap.Config.RGB_565).build();
     }
