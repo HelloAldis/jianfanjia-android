@@ -221,6 +221,8 @@ public class HomeFragment extends BaseFragment implements
         public void loadFailture(String error_msg) {
             makeTextLong(error_msg);
             mPullRefreshScrollView.onRefreshComplete();
+            marchedLayout.setVisibility(View.GONE);
+            noMarchedLayout.setVisibility(View.GONE);
         }
     };
 
@@ -245,6 +247,7 @@ public class HomeFragment extends BaseFragment implements
 
         @Override
         public void loadFailture(String error_msg) {
+            makeTextLong(error_msg);
             mPullRefreshScrollView.onRefreshComplete();
         }
     };
