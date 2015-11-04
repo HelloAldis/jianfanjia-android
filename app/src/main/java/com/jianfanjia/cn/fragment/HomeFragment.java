@@ -47,7 +47,7 @@ import java.util.List;
  * Date:15-10-11 14:30
  */
 public class HomeFragment extends BaseFragment implements
-        PullToRefreshBase.OnRefreshListener2<ScrollView>, ListItemClickListener, ApiUiUpdateListener, OnItemClickListener {
+        PullToRefreshBase.OnRefreshListener2<ScrollView>, ListItemClickListener, OnItemClickListener {
     private static final String TAG = HomeFragment.class.getName();
     private PullToRefreshScrollView mPullRefreshScrollView = null;
     private LinearLayout marchedLayout = null;
@@ -96,7 +96,7 @@ public class HomeFragment extends BaseFragment implements
     }
 
     private void initHomePage() {
-        getHomePageDesigners(FROM, Constant.LIMIT);
+        getHomePageDesigners(FROM, Constant.LIMIT, downListener);
         designerAdapter = new DesignerListAdapter(getActivity(), designerList, this);
         designer_listview.setAdapter(designerAdapter);
         UiHelper.setListViewHeightBasedOnChildren(designer_listview);//因为scrollview与listview有冲突，需要动态计算listview的高度才能全部显示
@@ -131,64 +131,10 @@ public class HomeFragment extends BaseFragment implements
         startActivity(DesignerInfoActivity.class, designerBundle);
     }
 
-    private void getHomePageDesigners(int from, int limit) {
-        JianFanJiaClient.getHomePageDesigners(getActivity(), from, limit, this, this);
+    private void getHomePageDesigners(int from, int limit, ApiUiUpdateListener listener) {
+        JianFanJiaClient.getHomePageDesigners(getActivity(), from, limit, listener, this);
     }
 
-    @Override
-    public void preLoad() {
-        marchedLayout.setVisibility(View.GONE);
-        noMarchedLayout.setVisibility(View.GONE);
-        showWaitDialog(R.string.loding);
-    }
-
-    @Override
-    public void loadSuccess(Object data) {
-        LogTool.d(TAG, "data:" + data);
-        hideWaitDialog();
-        mPullRefreshScrollView.onRefreshComplete();
-        parseResponse(data.toString());
-    }
-
-    private void parseResponse(String response) {
-        HomeDesignersInfo homeDesignersInfo = JsonParser.jsonToBean(response, HomeDesignersInfo.class);
-        LogTool.d(TAG, "homeDesignersInfo:" + homeDesignersInfo);
-        if (null != homeDesignersInfo) {
-            Requirement requirement = homeDesignersInfo.getRequirement();
-            LogTool.d(TAG, "requirement=" + requirement);
-            if (null != requirement) {
-                designers = requirement.getDesigners();
-                LogTool.d(TAG, "designers=" + designers);
-                if (null != designers) {
-                    if (designers.size() > 0) {
-                        marchedLayout.setVisibility(View.VISIBLE);
-                        noMarchedLayout.setVisibility(View.GONE);
-                        marchDesignerAdapter = new MarchDesignerAdapter(getActivity(), designers);
-                        marchDesignerView.setAdapter(marchDesignerAdapter);
-                    } else {
-                        marchedLayout.setVisibility(View.GONE);
-                        noMarchedLayout.setVisibility(View.VISIBLE);
-                    }
-                } else {
-                    marchedLayout.setVisibility(View.GONE);
-                    noMarchedLayout.setVisibility(View.GONE);
-                }
-            } else {
-                marchedLayout.setVisibility(View.VISIBLE);
-                noMarchedLayout.setVisibility(View.GONE);
-            }
-            designerList.addAll(homeDesignersInfo.getDesigners());
-            LogTool.d(TAG, "designerList:" + designerList.size());
-            designerAdapter.notifyDataSetChanged();
-        }
-    }
-
-    @Override
-    public void loadFailture(String error_msg) {
-        hideWaitDialog();
-        mPullRefreshScrollView.onRefreshComplete();
-        makeTextLong(error_msg);
-    }
 
     @Override
     public void onMaxClick(int position) {
@@ -221,18 +167,89 @@ public class HomeFragment extends BaseFragment implements
         // Update the LastUpdatedLabel
         refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
         FROM = 0;
-        designerList.clear();
-        designerAdapter.notifyDataSetChanged();
-        getHomePageDesigners(FROM, Constant.LIMIT);
+        getHomePageDesigners(FROM, Constant.LIMIT, downListener);
     }
 
 
     @Override
     public void onPullUpToRefresh(PullToRefreshBase<ScrollView> refreshView) {
         FROM = designerList.size();
-        getHomePageDesigners(FROM, Constant.LIMIT);
+        getHomePageDesigners(FROM, Constant.LIMIT, upListener);
     }
 
+
+    private ApiUiUpdateListener downListener = new ApiUiUpdateListener() {
+        @Override
+        public void preLoad() {
+        }
+
+        @Override
+        public void loadSuccess(Object data) {
+            HomeDesignersInfo homeDesignersInfo = JsonParser.jsonToBean(data.toString(), HomeDesignersInfo.class);
+            LogTool.d(TAG, "homeDesignersInfo:" + homeDesignersInfo);
+            if (null != homeDesignersInfo) {
+                Requirement requirement = homeDesignersInfo.getRequirement();
+                LogTool.d(TAG, "requirement=" + requirement);
+                if (null != requirement) {
+                    designers = requirement.getDesigners();
+                    LogTool.d(TAG, "designers=" + designers);
+                    if (null != designers) {
+                        if (designers.size() > 0) {
+                            marchedLayout.setVisibility(View.VISIBLE);
+                            noMarchedLayout.setVisibility(View.GONE);
+                            marchDesignerAdapter = new MarchDesignerAdapter(getActivity(), designers);
+                            marchDesignerView.setAdapter(marchDesignerAdapter);
+                        } else {
+                            marchedLayout.setVisibility(View.GONE);
+                            noMarchedLayout.setVisibility(View.VISIBLE);
+                        }
+                    } else {
+                        marchedLayout.setVisibility(View.GONE);
+                        noMarchedLayout.setVisibility(View.GONE);
+                    }
+                } else {
+                    marchedLayout.setVisibility(View.VISIBLE);
+                    noMarchedLayout.setVisibility(View.GONE);
+                }
+                designerList.clear();
+                designerList.addAll(homeDesignersInfo.getDesigners());
+                LogTool.d(TAG, "designerList:" + designerList.size());
+                designerAdapter.notifyDataSetChanged();
+            }
+            mPullRefreshScrollView.onRefreshComplete();
+        }
+
+        @Override
+        public void loadFailture(String error_msg) {
+            makeTextLong(error_msg);
+            mPullRefreshScrollView.onRefreshComplete();
+        }
+    };
+
+    private ApiUiUpdateListener upListener = new ApiUiUpdateListener() {
+        @Override
+        public void preLoad() {
+
+        }
+
+        @Override
+        public void loadSuccess(Object data) {
+            LogTool.d(TAG, "homeDesignersInfo=" + data.toString());
+            HomeDesignersInfo homeDesignersInfo = JsonParser.jsonToBean(data.toString(), HomeDesignersInfo.class);
+            LogTool.d(TAG, "homeDesignersInfo:" + homeDesignersInfo);
+            if (null != homeDesignersInfo) {
+                designerList.addAll(homeDesignersInfo.getDesigners());
+                LogTool.d(TAG, "designerList:" + designerList.size());
+                designerAdapter.notifyDataSetChanged();
+            }
+            mPullRefreshScrollView.onRefreshComplete();
+        }
+
+        @Override
+        public void loadFailture(String error_msg) {
+            mPullRefreshScrollView.onRefreshComplete();
+        }
+    };
 
     @Override
     public int getLayoutId() {

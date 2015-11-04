@@ -130,7 +130,6 @@ public class DesignerCaseInfoActivity extends BaseActivity implements ApiUiUpdat
 
     @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int verticaloffset) {
-        LogTool.d(TAG, "verticaloffset=" + verticaloffset);
         if (verticaloffset == 0) {
             if (state != State.COLLAPSED) {
                 activity_case_info_top_layout.setVisibility(View.INVISIBLE);
