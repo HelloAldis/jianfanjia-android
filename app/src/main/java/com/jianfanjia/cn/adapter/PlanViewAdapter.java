@@ -14,6 +14,7 @@ import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
 import java.util.List;
 
@@ -41,7 +42,7 @@ public class PlanViewAdapter extends PagerAdapter {
                 .showImageForEmptyUri(R.mipmap.pix_default)
                 .showImageOnFail(R.mipmap.pix_default).cacheInMemory(true)
                 .cacheOnDisk(true).considerExifParams(true)
-                .bitmapConfig(Bitmap.Config.RGB_565).build();
+                .bitmapConfig(Bitmap.Config.RGB_565).imageScaleType(ImageScaleType.IN_SAMPLE_INT).build();
     }
 
     public PlanViewAdapter(Context context, List<String> mList, ViewPagerClickListener itemClickListener) {

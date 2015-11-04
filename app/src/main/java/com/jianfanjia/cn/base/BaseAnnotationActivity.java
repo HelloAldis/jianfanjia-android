@@ -36,6 +36,7 @@ import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.cn.view.dialog.WaitDialog;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
 /**
  * Description:activity基类
@@ -68,7 +69,7 @@ public abstract class BaseAnnotationActivity extends AppCompatActivity implement
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LogTool.d(this.getClass().getName(), "onCreate()");
-        if(Build.VERSION.SDK_INT > 19){
+        if (Build.VERSION.SDK_INT > 19) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS); //透明状态栏
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);//透明导航栏
         }
@@ -104,7 +105,7 @@ public abstract class BaseAnnotationActivity extends AppCompatActivity implement
                 .showImageForEmptyUri(R.mipmap.pix_default)
                 .showImageOnFail(R.mipmap.pix_default).cacheInMemory(true)
                 .cacheOnDisk(true).considerExifParams(true)
-                .bitmapConfig(Bitmap.Config.RGB_565).build();
+                .bitmapConfig(Bitmap.Config.RGB_565).imageScaleType(ImageScaleType.IN_SAMPLE_INT).build();
         listenerManeger = ListenerManeger.getListenerManeger();
         netStateReceiver = new NetStateReceiver(this);
         _isVisible = true;
