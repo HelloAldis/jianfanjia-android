@@ -282,7 +282,6 @@ public class JianFanJiaClient {
         DesignerInfoRequest designerInfoRequest = new DesignerInfoRequest(context);
         designerInfoRequest.setUrl(getdesignerUrl);
         OkHttpClientManager.getInstance().getGetDelegate().getAsyn(designerInfoRequest, listener, tag);
-
     }
 
     /**
