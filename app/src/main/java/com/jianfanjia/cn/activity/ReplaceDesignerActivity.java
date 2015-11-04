@@ -106,6 +106,17 @@ public class ReplaceDesignerActivity extends BaseActivity implements OnClickList
             DesignerCanOrderInfo info = rec_designer.get(position);
             CheckBox ctb = (CheckBox) view.findViewById(R.id.list_item_check);
             ctb.toggle();
+            // 将CheckBox的选中状况记录下来
+            designerByAppointAdapter.getIsSelected().put(position, ctb.isChecked());
+            // 调整选定条目
+            if (ctb.isChecked()) {
+                newDesignerid = info.get_id();
+                totalCount--;
+            } else {
+                newDesignerid = null;
+                totalCount++;
+            }
+            dataChanged();
         }
     };
 
@@ -129,6 +140,13 @@ public class ReplaceDesignerActivity extends BaseActivity implements OnClickList
             dataNotifyChanged();
         }
     };
+
+    private void dataChanged() {
+        designerByAppointAdapter.notifyDataSetChanged();
+        LogTool.d(TAG, "totalCount======" + totalCount);
+        mainHeadView
+                .setMianTitle(totalCount + getResources().getString(R.string.appoint));
+    }
 
     private void dataNotifyChanged() {
         designerByIntentionInfoAdapter.notifyDataSetChanged();
