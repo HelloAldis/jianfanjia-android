@@ -69,24 +69,12 @@
                         android:src="@mipmap/icon_auth" />
                 </FrameLayout>
 
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dip"
-                    android:layout_marginRight="10dip"
-                    android:layout_marginTop="10dip"
-                    android:text="设计简介:"
-                    android:textColor="#000000" />
-
                 <TextView
                     android:id="@+id/produceText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dip"
-                    android:layout_marginLeft="10dip"
-                    android:layout_marginRight="10dip"
-                    android:text="地中海风格地中海风格地中海风格。"
+                    android:layout_margin="10dip"
+                    android:text=""
                     android:textColor="#000000" />
             </LinearLayout>
 
