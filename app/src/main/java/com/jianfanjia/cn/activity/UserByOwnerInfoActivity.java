@@ -21,7 +21,6 @@ import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.bean.OwnerUpdateInfo;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Url;
 import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
@@ -143,7 +142,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 		imageLoader
 				.displayImage(
 						TextUtils.isEmpty(ownerInfo.getImageid()) ? Constant.DEFALUT_OWNER_PIC
-								: (Url.GET_IMAGE + ownerInfo.getImageid()),
+								: (Url_New.GET_IMAGE + ownerInfo.getImageid()),
 						headImageView, options);
 		nameText.setText(TextUtils.isEmpty(ownerInfo.getUsername()) ? getString(R.string.ower)
 				: ownerInfo.getUsername());
@@ -320,7 +319,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 					@Override
 					public void loadSuccess(Object data) {
 						hideWaitDialog();
-						makeTextLong("修改成功");
+						makeTextShort("修改成功");
 						setConfimEnable(false);
 						if (!TextUtils.isEmpty(ownerUpdateInfo.getUsername())
 								|| ownerUpdateInfo.getUsername() != dataManager

@@ -16,7 +16,6 @@
     <TextView
         android:id="@+id/list_item_designer_text"
         style="@style/listview_item_text_style_small"
-        android:layout_below="@id/list_item_head_img"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/space_10"
         android:textColor="@color/black_color" />

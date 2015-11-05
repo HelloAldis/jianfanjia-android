@@ -62,4 +62,10 @@
     <string name="city_tip">（目前仅支持湖北省武汉市）</string>
     <string name="str_preview_pro">预览工地</string>
     <string name="process_example">工地示例</string>
+    <string name="str_rec_designer">匹配设计师</string>
+    <string name="str_choose_all">全选</string>
+    <string name="str_cancel">取消</string>
+    <string name="str_more">更多</string>
+    <string name="favorite_designer">意向设计师</string>
+    <string name="str_title">标题</string>
 </resources>

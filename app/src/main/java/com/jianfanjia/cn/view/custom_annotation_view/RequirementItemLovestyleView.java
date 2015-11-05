@@ -32,5 +32,6 @@ public class RequirementItemLovestyleView extends BaseAnnotationView {
         TypedArray ta = getResources().obtainTypedArray(R.array.arr_lovestyle_pic);
         String imageId = "drawable://" + ta.getResourceId(Integer.parseInt(itemMap.key), 0);
         ImageLoader.getInstance().displayImage(imageId, gtm_req_image,options);
+        ta.recycle();
     }
 }

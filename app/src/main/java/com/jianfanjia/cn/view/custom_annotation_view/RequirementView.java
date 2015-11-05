@@ -150,7 +150,6 @@ public class RequirementView extends BaseAnnotationView {
                 ImageView headView = (ImageView) getRootView().findViewById(getResources().getIdentifier("ltm_req_designer_head" + i, "id", getContext().getPackageName()));
                 TextView nameView = (TextView) getRootView().findViewById(getResources().getIdentifier("ltm_req_designer_name" + i, "id", getContext().getPackageName()));
                 TextView statusView = (TextView) getRootView().findViewById(getResources().getIdentifier("ltm_req_designer_status" + i, "id", getContext().getPackageName()));
-                String status = orderDesignerInfos.get(i).getPlan().getStatus();
                 if (i < size) {
                     if (!TextUtils.isEmpty(orderDesignerInfos.get(i).getUsername())) {
                         nameView.setText(orderDesignerInfos.get(i).getUsername());
@@ -162,6 +161,7 @@ public class RequirementView extends BaseAnnotationView {
                     } else {
                         ImageLoader.getInstance().displayImage(Constant.DEFALUT_DESIGNER_PIC, headView, options);
                     }
+                    String status = orderDesignerInfos.get(i).getPlan().getStatus();
                     statusView.setText(getResources().getStringArray(R.array.plan_status)[Integer.parseInt(status)]);
                     switch (status) {
                         case Global.PLAN_STATUS0:

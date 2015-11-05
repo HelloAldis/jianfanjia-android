@@ -15,7 +15,6 @@
         android:id="@+id/setting_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/my_setting_head_layout"
         android:layout_marginTop="@dimen/space_8">
 
         <LinearLayout

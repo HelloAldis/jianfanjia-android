@@ -42,7 +42,6 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="10dip"
-                    android:text="100㎡"
                     android:textColor="#000000" />
 
 
