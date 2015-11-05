@@ -19,6 +19,7 @@
         android:paddingRight="@dimen/space_16"
         android:singleLine="true"
         android:hint="@string/input_phone"
+        android:inputType="phone"
         android:textSize="@dimen/middle_size"
         android:textColor="@color/black_color"
         android:background="@null"/>

@@ -18,6 +18,7 @@
         android:maxLength="20"
         android:paddingLeft="@dimen/space_16"
         android:paddingRight="@dimen/space_16"
+        android:inputType="phone"
         android:singleLine="true"
         android:background="@null"
         android:textColor="@color/black_color"

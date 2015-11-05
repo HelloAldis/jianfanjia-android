@@ -755,10 +755,11 @@ public class ImageUtils {
 
     // 获取相册图片路径
     public static String getPicture(Context ctx, Uri uri) {
+        Cursor cursor = null;
         try {
             ContentResolver resolver = ctx.getContentResolver();
             String[] proj = {MediaColumns.DATA};
-            Cursor cursor = resolver.query(uri, proj, null, null, null);
+            cursor = resolver.query(uri, proj, null, null, null);
             int column_index = cursor
                     .getColumnIndexOrThrow(MediaColumns.DATA);
             cursor.moveToFirst();
@@ -767,6 +768,8 @@ public class ImageUtils {
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+        }finally {
+            cursor.close();
         }
         return null;
     }

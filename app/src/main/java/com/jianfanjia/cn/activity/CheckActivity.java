@@ -261,6 +261,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,ItemC
                 item.setImgId(Constant.DEFALUT_PIC_HEAD + ta.getResourceId(i, 0));
                 gridList.add(item);
             }
+            ta.recycle();
             return gridList;
         } catch (Exception e) {
             e.printStackTrace();

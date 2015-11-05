@@ -87,7 +87,7 @@
 
             <View
                 style="@style/divier_line"
-                android:layout_below="@+id/et_verification"/>
+                />
 
             <Button
                 android:id="@+id/btn_commit"

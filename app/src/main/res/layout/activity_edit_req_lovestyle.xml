@@ -23,7 +23,6 @@
             android:choiceMode="singleChoice"
             android:clickable="false"
             android:horizontalSpacing="2dp"
-            android:nestedScrollingEnabled="false"
             android:numColumns="2"
             android:scrollbars="none"
             android:verticalSpacing="2dp" />

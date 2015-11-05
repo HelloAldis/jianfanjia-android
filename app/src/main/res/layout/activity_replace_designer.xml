@@ -91,7 +91,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_margin="10dip"
-                        android:text="更多"
+                        android:text="@string/more"
                         android:textColor="@color/text_color"
                         android:textSize="16sp" />
 
