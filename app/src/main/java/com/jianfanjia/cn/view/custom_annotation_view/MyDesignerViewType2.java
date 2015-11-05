@@ -71,7 +71,7 @@ public class MyDesignerViewType2 extends BaseAnnotationView {
         PlanInfo planInfo = designerInfo.getPlan();
         long housechecktime = planInfo.getHouse_check_time();
         if (!TextUtils.isEmpty(imageid)) {
-            ImageLoader.getInstance().displayImage(Url_New.GET_IMAGE + imageid, headView, options);
+            ImageLoader.getInstance().displayImage(Url_New.GET_THUMBNAIL_IMAGE + imageid, headView, options);
         } else {
             ImageLoader.getInstance().displayImage(Constant.DEFALUT_DESIGNER_PIC, headView, options);
         }
@@ -108,9 +108,9 @@ public class MyDesignerViewType2 extends BaseAnnotationView {
 
         RequirementInfo requirementInfo = designerInfo.getRequirement();
         String requirementStatus = requirementInfo.getStatus();
-        if(requirementStatus.equals(Global.REQUIREMENT_STATUS4) || requirementStatus.equals(Global.REQUIREMENT_STATUS5) || requirementStatus.equals(Global.REQUIREMENT_STATUS7)){
+        if (requirementStatus.equals(Global.REQUIREMENT_STATUS4) || requirementStatus.equals(Global.REQUIREMENT_STATUS5) || requirementStatus.equals(Global.REQUIREMENT_STATUS7)) {
             button3.setEnabled(false);
-        }else{
+        } else {
             button3.setEnabled(true);
         }
 

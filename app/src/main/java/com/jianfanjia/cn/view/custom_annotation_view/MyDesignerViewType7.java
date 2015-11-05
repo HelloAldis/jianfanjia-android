@@ -63,7 +63,7 @@ public class MyDesignerViewType7 extends BaseAnnotationView {
         String imageid = designerInfo.getImageid();
         String username = designerInfo.getUsername();
         if (!TextUtils.isEmpty(imageid)) {
-            ImageLoader.getInstance().displayImage(Url_New.GET_IMAGE + imageid, headView, options);
+            ImageLoader.getInstance().displayImage(Url_New.GET_THUMBNAIL_IMAGE + imageid, headView, options);
         } else {
             ImageLoader.getInstance().displayImage(Constant.DEFALUT_DESIGNER_PIC, headView, options);
         }
@@ -91,9 +91,9 @@ public class MyDesignerViewType7 extends BaseAnnotationView {
 
         RequirementInfo requirementInfo = designerInfo.getRequirement();
         String requirementStatus = requirementInfo.getStatus();
-        if(requirementStatus.equals(Global.REQUIREMENT_STATUS4) || requirementStatus.equals(Global.REQUIREMENT_STATUS5) || requirementStatus.equals(Global.REQUIREMENT_STATUS7)){
+        if (requirementStatus.equals(Global.REQUIREMENT_STATUS4) || requirementStatus.equals(Global.REQUIREMENT_STATUS5) || requirementStatus.equals(Global.REQUIREMENT_STATUS7)) {
             button2.setEnabled(false);
-        }else{
+        } else {
             button2.setEnabled(true);
         }
 

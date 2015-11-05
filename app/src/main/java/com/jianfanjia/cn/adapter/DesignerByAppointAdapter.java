@@ -60,7 +60,7 @@ public class DesignerByAppointAdapter extends BaseListAdapter<DesignerCanOrderIn
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        imageLoader.displayImage(Url_New.GET_IMAGE + info.getImageid(), viewHolder.itemwHeadView, options);
+        imageLoader.displayImage(Url_New.GET_THUMBNAIL_IMAGE + info.getImageid(), viewHolder.itemwHeadView, options);
         viewHolder.itemNameText.setText(info.getUsername());
         viewHolder.itemMarchText.setText("匹配度:" + info.getMatch() + "%");
         // 根据isSelected来设置checkbox的选中状况

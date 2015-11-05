@@ -60,7 +60,7 @@ public class CommentAdapter extends BaseListAdapter<CommentInfo> {
         }
         viewHolder.itemTimeView.setText(StringUtils
                 .covertLongToString(commentInfo.getDate()));
-        imageLoader.displayImage(Url_New.GET_IMAGE + commentInfo.getByUser().getImageid(), viewHolder.itemHeadView, options);
+        imageLoader.displayImage(Url_New.GET_THUMBNAIL_IMAGE + commentInfo.getByUser().getImageid(), viewHolder.itemHeadView, options);
         return convertView;
     }
 

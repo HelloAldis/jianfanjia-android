@@ -74,7 +74,7 @@ public class PreviewAdapter extends PagerAdapter {
         ImageView imageView = (ImageView) view
                 .findViewById(R.id.list_item_plan_img);
         String imgid = mList.get(position);
-        imageLoader.displayImage(Url_New.GET_IMAGE + imgid, imageView, options);
+        imageLoader.displayImage(Url_New.GET_THUMBNAIL_IMAGE + imgid, imageView, options);
         container.addView(view, 0);
         return view;
     }
