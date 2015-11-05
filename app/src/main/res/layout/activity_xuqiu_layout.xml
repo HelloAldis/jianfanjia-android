@@ -10,7 +10,7 @@
         style="@style/listview_item_text_style_middle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/space_10"
         android:text="@string/str_marched_tip"
         android:textColor="@color/home_page_text_color"

@@ -21,7 +21,7 @@ import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.bean.OwnerUpdateInfo;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Url;
+import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
@@ -29,12 +29,9 @@ import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.PhotoUtils;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.MainHeadView;
+import com.jianfanjia.cn.view.dialog.CityWheelDialog;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
-import com.jianfanjia.cn.view.dialog.CommonWheelDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
-import com.jianfanjia.cn.view.wheel.ArrayWheelAdapter;
-import com.jianfanjia.cn.view.wheel.OnWheelChangedListener;
-import com.jianfanjia.cn.view.wheel.WheelView;
 
 import java.io.File;
 
@@ -64,6 +61,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 	private RelativeLayout userNameRelativeLayout = null;
 	private RelativeLayout homeRelativeLayout = null;
 	private RelativeLayout sexRelativeLayout = null;
+	private RelativeLayout phoneLayout = null;
 	private String sex = null;
 
 	private MainHeadView mainHeadView;
@@ -72,7 +70,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 
 	private OwnerUpdateInfo ownerUpdateInfo = null;
 
-	private CommonWheelDialog commonWheelDialog = null;
+	private CityWheelDialog cityWheelDialog = null;
 
 	private static String[] provices = { "湖北", "湖南", "安徽" };
 	private static String[] cities = { "武汉", "长沙", "合肥" };
@@ -106,6 +104,8 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 		homeRelativeLayout = (RelativeLayout) this
 				.findViewById(R.id.home_layout);
 		sexRelativeLayout = (RelativeLayout) this.findViewById(R.id.sex_layout);
+		phoneLayout = (RelativeLayout) this.findViewById(R.id.phone_layout);
+		phoneLayout.setEnabled(false);
 		setConfimEnable(false);
 		ownerInfo = dataManager.getOwnerInfo();
 		if (ownerInfo == null) {
@@ -114,7 +114,8 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 			setData();
 			setOwnerUpdateInfo();
 		}
-		commonWheelDialog = new CommonWheelDialog(this);
+//		commonWheelDialog = new CommonWheelDialog(this);
+		cityWheelDialog = new CityWheelDialog(this,false,null);
 	}
 
 	private void initMainHead() {
@@ -142,7 +143,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 		imageLoader
 				.displayImage(
 						TextUtils.isEmpty(ownerInfo.getImageid()) ? Constant.DEFALUT_OWNER_PIC
-								: (Url.GET_IMAGE + ownerInfo.getImageid()),
+								: (Url_New.GET_IMAGE + ownerInfo.getImageid()),
 						headImageView, options);
 		nameText.setText(TextUtils.isEmpty(ownerInfo.getUsername()) ? getString(R.string.ower)
 				: ownerInfo.getUsername());
@@ -170,7 +171,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 	public void setListener() {
 		headLayout.setOnClickListener(this);
 		btn_confirm.setOnClickListener(this);
-		// addressLayout.setOnClickListener(this);
+		 addressLayout.setOnClickListener(this);
 		homeRelativeLayout.setOnClickListener(this);
 		userNameRelativeLayout.setOnClickListener(this);
 		sexRelativeLayout.setOnClickListener(this);
@@ -191,7 +192,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 			}
 			break;
 		case R.id.address_layout:
-			// showWheelDialog();
+			 showWheelDialog();
 			break;
 		case R.id.name_layout:
 			Intent name = new Intent(UserByOwnerInfoActivity.this,
@@ -267,7 +268,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 	}
 
 	private void showWheelDialog() {
-		commonWheelDialog.setWheelAdapter1(new ArrayWheelAdapter<String>(
+		/*commonWheelDialog.setWheelAdapter1(new ArrayWheelAdapter<String>(
 				provices));
 		commonWheelDialog
 				.setWheelAdapter2(new ArrayWheelAdapter<String>(cities));
@@ -291,9 +292,9 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 							.getCurrentItem()];
 				}
 			}
-		});
-		commonWheelDialog.setTitle("选择地区");
-		commonWheelDialog.setPositiveButton(R.string.ok,
+		});*/
+		cityWheelDialog.setTitle("选择地区");
+		cityWheelDialog.setPositiveButton(R.string.ok,
 				new DialogInterface.OnClickListener() {
 
 					@Override
@@ -302,8 +303,8 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 						dialog.dismiss();
 					}
 				});
-		commonWheelDialog.setNegativeButton(R.string.no, null);
-		commonWheelDialog.show();
+		cityWheelDialog.setNegativeButton(R.string.no, null);
+		cityWheelDialog.show();
 	}
 
 	// 修改设计师个人资料
@@ -319,7 +320,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 					@Override
 					public void loadSuccess(Object data) {
 						hideWaitDialog();
-						makeTextLong("修改成功");
+						makeTextShort("修改成功");
 						setConfimEnable(false);
 						if (!TextUtils.isEmpty(ownerUpdateInfo.getUsername())
 								|| ownerUpdateInfo.getUsername() != dataManager
@@ -495,7 +496,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 		dataManager.setUserImagePath(imageId);
 		imageLoader.displayImage(
 				TextUtils.isEmpty(imageId) ? Constant.DEFALUT_OWNER_PIC
-						: (Url.GET_IMAGE + imageId), headImageView, options);
+						: (Url_New.GET_IMAGE + imageId), headImageView, options);
 		if (ownerUpdateInfo != null) {
 			ownerUpdateInfo.setImageid(imageId);
 		}

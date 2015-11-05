@@ -85,7 +85,7 @@ public class RequirementView extends BaseAnnotationView {
                     clickCallBack.click(position, XuQiuFragment.ITEM_GOTOPRO);
                 }
             });
-        } else if (requirementStatus.equals(Global.REQUIREMENT_STATUS1)) {
+        } else if (requirementStatus.equals(Global.REQUIREMENT_STATUS0)) {
             ltm_req_gotopro.setText(getResources().getString(R.string.str_goto_order));
             ltm_req_gotopro.setOnClickListener(new OnClickListener() {
                 @Override
@@ -150,7 +150,6 @@ public class RequirementView extends BaseAnnotationView {
                 ImageView headView = (ImageView) getRootView().findViewById(getResources().getIdentifier("ltm_req_designer_head" + i, "id", getContext().getPackageName()));
                 TextView nameView = (TextView) getRootView().findViewById(getResources().getIdentifier("ltm_req_designer_name" + i, "id", getContext().getPackageName()));
                 TextView statusView = (TextView) getRootView().findViewById(getResources().getIdentifier("ltm_req_designer_status" + i, "id", getContext().getPackageName()));
-                String status = orderDesignerInfos.get(i).getPlan().getStatus();
                 if (i < size) {
                     if (!TextUtils.isEmpty(orderDesignerInfos.get(i).getUsername())) {
                         nameView.setText(orderDesignerInfos.get(i).getUsername());
@@ -162,6 +161,7 @@ public class RequirementView extends BaseAnnotationView {
                     } else {
                         ImageLoader.getInstance().displayImage(Constant.DEFALUT_DESIGNER_PIC, headView, options);
                     }
+                    String status = orderDesignerInfos.get(i).getPlan().getStatus();
                     statusView.setText(getResources().getStringArray(R.array.plan_status)[Integer.parseInt(status)]);
                     switch (status) {
                         case Global.PLAN_STATUS0:
@@ -194,17 +194,17 @@ public class RequirementView extends BaseAnnotationView {
                         case Global.REQUIREMENT_STATUS1:
                         case Global.REQUIREMENT_STATUS2:
                         case Global.REQUIREMENT_STATUS3:
-                            designerLayout.setOnClickListener(null);
-                            break;
-                        case Global.REQUIREMENT_STATUS4:
-                        case Global.REQUIREMENT_STATUS5:
-                        case Global.REQUIREMENT_STATUS7:
                             designerLayout.setOnClickListener(new OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
                                     clickCallBack.click(position, XuQiuFragment.ITEM_GOTOODERDESI);
                                 }
                             });
+                            break;
+                        case Global.REQUIREMENT_STATUS4:
+                        case Global.REQUIREMENT_STATUS5:
+                        case Global.REQUIREMENT_STATUS7:
+                            designerLayout.setOnClickListener(null);
                             break;
                     }
 

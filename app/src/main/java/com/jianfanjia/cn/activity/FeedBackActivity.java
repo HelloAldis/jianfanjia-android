@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.http.JianFanJiaClient;
+import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.view.MainHeadView;
 
 public class FeedBackActivity extends BaseActivity implements OnClickListener {
@@ -55,7 +57,25 @@ public class FeedBackActivity extends BaseActivity implements OnClickListener {
     }
 
     private void feedBack(String content, String platform) {
+        JianFanJiaClient.feedBack(this, content, platform, new ApiUiUpdateListener() {
+            @Override
+            public void preLoad() {
+                showWaitDialog();
+            }
 
+            @Override
+            public void loadSuccess(Object data) {
+                hideWaitDialog();
+                feedContentView.setText("");
+                makeTextShort(getString(R.string.submit_success));
+            }
+
+            @Override
+            public void loadFailture(String error_msg) {
+                hideWaitDialog();
+                makeTextShort(getString(R.string.tip_internet_not));
+            }
+        },this);
     }
 
 

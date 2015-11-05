@@ -141,8 +141,8 @@ public class DesignerInfoActivity extends BaseActivity implements
             LogTool.d(TAG, "designerInfo:" + designerInfo);
             if (null != designerInfo) {
                 collapsingToolbar.setTitle(designerInfo.getUsername());
-                imageLoader.displayImage(Url_New.GET_IMAGE + designerInfo.getImageid(), designerinfo_head_img, options);
-                viewCountText.setText("" + designerInfo.getView_count() + "K");
+                imageLoader.displayImage(Url_New.GET_THUMBNAIL_IMAGE + designerInfo.getImageid(), designerinfo_head_img, options);
+                viewCountText.setText("" + designerInfo.getView_count());
                 productCountText.setText("" + designerInfo.getProduct_count());
                 appointCountText.setText("" + designerInfo.getOrder_count());
                 int respond_speed = (int) designerInfo.getRespond_speed();
@@ -168,7 +168,8 @@ public class DesignerInfoActivity extends BaseActivity implements
 
         @Override
         public void loadSuccess(Object data) {
-            makeTextLong(data.toString());
+            LogTool.d(TAG, "data:" + data.toString());
+            makeTextLong("添加成功");
             addBtn.setText("已添加意向");
             addBtn.setEnabled(false);
         }

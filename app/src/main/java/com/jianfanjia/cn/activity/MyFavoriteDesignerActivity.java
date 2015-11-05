@@ -53,7 +53,7 @@ public class MyFavoriteDesignerActivity extends BaseAnnotationActivity {
         JianFanJiaClient.get_MyFavoriteDesignerList(this, "0", "10000", this, this);
     }
 
-    @Click(R.id.head_back)
+    @Click(R.id.head_back_layout)
     protected void back() {
         finish();
     }

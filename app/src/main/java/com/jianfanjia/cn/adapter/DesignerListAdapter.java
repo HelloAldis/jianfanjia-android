@@ -62,8 +62,8 @@ public class DesignerListAdapter extends BaseListAdapter<DesignerListInfo> {
         String houseType = product.getHouse_type();
         String decStyle = product.getDec_style();
         viewHolder.itemProduceText.setText(product.getHouse_area() + "㎡," + getHouseType(houseType) + "," + getDecStyle(decStyle));
-        imageLoader.displayImage(Url_New.GET_IMAGE + product.getImages().get(0).getImageid(), viewHolder.itemProductView, options);
-        imageLoader.displayImage(Url_New.GET_IMAGE + info.getImageid(), viewHolder.itemHeadView, options);
+        imageLoader.displayImage(Url_New.GET_THUMBNAIL_IMAGE + product.getImages().get(0).getImageid(), viewHolder.itemProductView, options);
+        imageLoader.displayImage(Url_New.GET_THUMBNAIL_IMAGE + info.getImageid(), viewHolder.itemHeadView, options);
         viewHolder.itemProductView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {

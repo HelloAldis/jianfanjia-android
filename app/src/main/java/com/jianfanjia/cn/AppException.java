@@ -218,9 +218,5 @@ public class AppException extends Exception implements UncaughtExceptionHandler 
         pw.println(Build.MODEL);
         pw.println();
 
-        // cpu鏋舵瀯
-        pw.print("CPU ABI: ");
-        pw.println(Build.CPU_ABI);
-        pw.println();
     }
 }

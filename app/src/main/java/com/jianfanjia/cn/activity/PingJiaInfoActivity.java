@@ -49,7 +49,7 @@ public class PingJiaInfoActivity extends BaseActivity implements
         designer_name = viewBundle.getString(Global.DESIGNER_NAME);
         evaluation = (Evaluation) viewBundle.getSerializable(Global.EVALUATION);
         LogTool.d(TAG, "imageid:" + imageid + " designer_name:" + designer_name + " evaluation:" + evaluation);
-        imageLoader.displayImage(Url_New.GET_IMAGE + imageid, designer_head_img, options);
+        imageLoader.displayImage(Url_New.GET_THUMBNAIL_IMAGE + imageid, designer_head_img, options);
         designerName.setText(designer_name);
         if (null != evaluation) {
 

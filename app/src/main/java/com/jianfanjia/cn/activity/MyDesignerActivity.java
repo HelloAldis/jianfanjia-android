@@ -66,7 +66,6 @@ public class MyDesignerActivity extends BaseAnnotationActivity {
     private TextView textView;
     private ImageView imageView;
 
-
     private String requirementid;
 
     MyDesignerAdapter myDesignerAdapter;
@@ -129,7 +128,7 @@ public class MyDesignerActivity extends BaseAnnotationActivity {
         return headerView;
     }
 
-    @Click(R.id.head_back)
+    @Click(R.id.head_back_layout)
     protected void back() {
         finish();
     }

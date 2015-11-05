@@ -3,13 +3,13 @@ package com.jianfanjia.cn.http.request;
 import android.content.Context;
 
 import com.jianfanjia.cn.base.BaseRequest;
-import com.jianfanjia.cn.config.Url;
+import com.jianfanjia.cn.config.Url_New;
 
 public class SendVerificationRequest extends BaseRequest {
 
     public SendVerificationRequest(Context context) {
         super(context);
-        url = Url.GET_CODE_URL;
+        url = Url_New.GET_CODE_URL;
     }
 
     @Override

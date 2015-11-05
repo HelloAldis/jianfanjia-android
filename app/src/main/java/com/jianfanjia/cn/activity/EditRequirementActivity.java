@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.jianfanjia.cn.base.BaseAnnotationActivity;
 import com.jianfanjia.cn.bean.RequirementInfo;
-import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.fragment.XuQiuFragment;
 import com.jianfanjia.cn.http.JianFanJiaClient;
@@ -103,7 +102,6 @@ public class EditRequirementActivity extends BaseAnnotationActivity {
     @StringArrayRes(R.array.arr_desisex)
     protected String[] arr_desisex;
 
-    private int totalCount;
     private int requestCode;
 
     private Intent gotoItem;
@@ -210,13 +208,14 @@ public class EditRequirementActivity extends BaseAnnotationActivity {
     }
 
 
-    @Click({R.id.head_back, R.id.act_edit_req_city, R.id.act_edit_req_housetype, R.id.act_edit_req_decoratetype,
+    @Click({R.id.head_back_layout, R.id.act_edit_req_city, R.id.act_edit_req_housetype, R.id.act_edit_req_decoratetype,
             R.id.act_edit_req_lovestyle, R.id.act_edit_req_persons, R.id.act_edit_req_lovedesistyle, R.id.act_edit_req_lovedesisex, R.id.act_edit_req_work_type})
     protected void back(View clickView) {
         int viewId = clickView.getId();
         switch (viewId) {
             case R.id.head_back:
-                comeMainActivity();
+//                comeMainActivity();
+                finish();
                 break;
             case R.id.act_edit_req_city:
                 gotoItem.putExtra(REQUIRE_DATA, REQUIRECODE_CITY);
@@ -253,6 +252,12 @@ public class EditRequirementActivity extends BaseAnnotationActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
     @Click(R.id.head_right_title)
     protected void confirm() {
         if (requestCode == XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT) {
@@ -271,18 +276,10 @@ public class EditRequirementActivity extends BaseAnnotationActivity {
             @Override
             public void run() {
                 commonDialog.dismiss();
-                /*setResult(RESULT_OK);
-                finish();*/
-                comeMainActivity();
+                setResult(RESULT_OK);
+                finish();
             }
         }, 2000);
-    }
-
-    private void comeMainActivity() {
-        Intent intent = new Intent(EditRequirementActivity.this, MainActivity.class);
-        intent.putExtra(Constant.TAB_POSITION, Constant.MANAGE);
-        startActivity(intent);
-        finish();
     }
 
     private void showSuccessDialog() {
@@ -388,7 +385,6 @@ public class EditRequirementActivity extends BaseAnnotationActivity {
                 case REQUIRECODE_DESISEX:
                     act_edit_req_lovedesisex_content.setText(itemMap.value);
                     addItem("item16");
-                    makeTextLong(itemMap.key);
                     requirementInfo.setPrefer_sex(itemMap.key);
                     break;
             }

@@ -31,4 +31,5 @@ public class SystemUtils {
                 "the %s is not running, isAppAlive return false", packageName));
         return false;
     }
+
 }

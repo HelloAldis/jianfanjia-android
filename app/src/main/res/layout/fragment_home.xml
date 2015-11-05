@@ -23,7 +23,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="175dp">
 
-                <include layout="@layout/viewpager_main" />
+                <include
+                    android:id="@+id/viewpager_layout"
+                    layout="@layout/viewpager_main" />
             </FrameLayout>
 
             <include

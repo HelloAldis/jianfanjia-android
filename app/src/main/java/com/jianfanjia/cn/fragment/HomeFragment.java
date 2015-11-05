@@ -10,6 +10,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
 import com.jianfanjia.cn.activity.DesignerCaseInfoActivity;
@@ -31,7 +32,6 @@ import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.ListItemClickListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.tools.ViewPagerManager;
 import com.jianfanjia.cn.tools.ViewPagerManager.ShapeType;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
@@ -50,6 +50,7 @@ public class HomeFragment extends BaseFragment implements
         PullToRefreshBase.OnRefreshListener2<ScrollView>, ListItemClickListener, OnItemClickListener {
     private static final String TAG = HomeFragment.class.getName();
     private PullToRefreshScrollView mPullRefreshScrollView = null;
+    private RelativeLayout viewpagerLayout = null;
     private LinearLayout marchedLayout = null;
     private LinearLayout noMarchedLayout = null;
     private GridView marchDesignerView = null;
@@ -73,6 +74,7 @@ public class HomeFragment extends BaseFragment implements
         mPullRefreshScrollView = (PullToRefreshScrollView) view.findViewById(R.id.pull_refresh_scrollview);
         mPullRefreshScrollView.setMode(PullToRefreshBase.Mode.BOTH);
         mPullRefreshScrollView.setOverScrollMode(PullToRefreshBase.OVER_SCROLL_NEVER);
+        viewpagerLayout = (RelativeLayout) view.findViewById(R.id.viewpager_layout);
         marchedLayout = (LinearLayout) view.findViewById(R.id.marched_layout);
         noMarchedLayout = (LinearLayout) view.findViewById(R.id.no_marched_layout);
         addXuQiu = (Button) view.findViewById(R.id.btn_add);
@@ -99,7 +101,6 @@ public class HomeFragment extends BaseFragment implements
         getHomePageDesigners(FROM, Constant.LIMIT, downListener);
         designerAdapter = new DesignerListAdapter(getActivity(), designerList, this);
         designer_listview.setAdapter(designerAdapter);
-        UiHelper.setListViewHeightBasedOnChildren(designer_listview);//因为scrollview与listview有冲突，需要动态计算listview的高度才能全部显示
     }
 
     @Override
@@ -181,12 +182,16 @@ public class HomeFragment extends BaseFragment implements
     private ApiUiUpdateListener downListener = new ApiUiUpdateListener() {
         @Override
         public void preLoad() {
+            viewpagerLayout.setVisibility(View.GONE);
+            marchedLayout.setVisibility(View.GONE);
+            noMarchedLayout.setVisibility(View.GONE);
         }
 
         @Override
         public void loadSuccess(Object data) {
             HomeDesignersInfo homeDesignersInfo = JsonParser.jsonToBean(data.toString(), HomeDesignersInfo.class);
             LogTool.d(TAG, "homeDesignersInfo:" + homeDesignersInfo);
+            viewpagerLayout.setVisibility(View.VISIBLE);
             if (null != homeDesignersInfo) {
                 Requirement requirement = homeDesignersInfo.getRequirement();
                 LogTool.d(TAG, "requirement=" + requirement);
@@ -223,6 +228,9 @@ public class HomeFragment extends BaseFragment implements
         public void loadFailture(String error_msg) {
             makeTextLong(error_msg);
             mPullRefreshScrollView.onRefreshComplete();
+            viewpagerLayout.setVisibility(View.GONE);
+            marchedLayout.setVisibility(View.GONE);
+            noMarchedLayout.setVisibility(View.GONE);
         }
     };
 
@@ -247,6 +255,7 @@ public class HomeFragment extends BaseFragment implements
 
         @Override
         public void loadFailture(String error_msg) {
+            makeTextLong(error_msg);
             mPullRefreshScrollView.onRefreshComplete();
         }
     };

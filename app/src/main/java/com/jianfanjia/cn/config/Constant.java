@@ -37,7 +37,7 @@ public class Constant {
 
     public static final String EXTRA_BUNDLE = "launchBundle";
 
-    public static final int LIMIT = 10;//分页 每次加载10条
+    public static final int LIMIT = 5;//分页 每次加载5条
     public static final int STATE_REFRESH = 0;// 下拉刷新
     public static final int STATE_MORE = 1;// 加载更多
 
@@ -155,6 +155,8 @@ public class Constant {
             + R.mipmap.add;
 
     public static final String DEFALUT_PIC_HEAD = "drawable://";
+
+    public static final String DEFALUT_PIC = DEFALUT_PIC_HEAD + R.mipmap.pix_default;
 
     public static final String CURRENT_LIST = "current_list";// 首页展开的第一道工序
     public static final String CURRENT_ITEM = "current_item";// 当前节点

@@ -2,6 +2,7 @@ package com.jianfanjia.cn.activity;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.TypedValue;
@@ -277,9 +278,13 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
 
     public void translateAnimationToLeft(View view) {
         float currentX = view.getTranslationX();
+        float currentY = view.getTranslationY();
         LogTool.d("translateAnimationToLeft", "currentX = " + currentX);
+        LogTool.d("translateAnimationToLeft", "currentY = " + currentY);
+        PropertyValuesHolder p1 = PropertyValuesHolder.ofFloat("translationX", currentX, currentX - TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 124, getResources().getDisplayMetrics()));
+//        PropertyValuesHolder p2 = PropertyValuesHolder.ofFloat("y",currentY,currentY);
         ObjectAnimator objectAnimator = ObjectAnimator
-                .ofFloat(view, "x", currentX, currentX - TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 124, getResources().getDisplayMetrics()))
+                .ofPropertyValuesHolder(view,p1)
                 .setDuration(200);
         objectAnimator.start();
         objectAnimator.addListener(new Animator.AnimatorListener() {

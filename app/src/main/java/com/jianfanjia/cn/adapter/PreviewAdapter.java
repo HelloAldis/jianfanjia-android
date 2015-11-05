@@ -12,6 +12,7 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.config.Url_New;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
 import java.util.List;
 
@@ -34,11 +35,11 @@ public class PreviewAdapter extends PagerAdapter {
         this.mList = mList;
         imageLoader = ImageLoader.getInstance();
         options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.mipmap.pic_default)
-                .showImageForEmptyUri(R.mipmap.pic_default)
-                .showImageOnFail(R.mipmap.pic_default).cacheInMemory(true)
+                .showImageOnLoading(R.mipmap.pix_default)
+                .showImageForEmptyUri(R.mipmap.pix_default)
+                .showImageOnFail(R.mipmap.pix_default).cacheInMemory(true)
                 .cacheOnDisk(true).considerExifParams(true)
-                .bitmapConfig(Bitmap.Config.RGB_565).build();
+                .bitmapConfig(Bitmap.Config.RGB_565).imageScaleType(ImageScaleType.IN_SAMPLE_INT).build();
     }
 
 
@@ -73,7 +74,7 @@ public class PreviewAdapter extends PagerAdapter {
         ImageView imageView = (ImageView) view
                 .findViewById(R.id.list_item_plan_img);
         String imgid = mList.get(position);
-        imageLoader.displayImage(Url_New.GET_IMAGE + imgid, imageView, options);
+        imageLoader.displayImage(Url_New.GET_THUMBNAIL_IMAGE + imgid, imageView, options);
         container.addView(view, 0);
         return view;
     }

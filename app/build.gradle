@@ -2,8 +2,6 @@ apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
 def AAVersion = '3.3.1'
 
-
-
 apt {
     arguments {
         androidManifestFile variant.outputs[0].processResources.manifestFile
@@ -25,19 +23,59 @@ android {
     defaultConfig {
         applicationId "com.jianfanjia.cn.activity"
         minSdkVersion 15
-        targetSdkVersion 23
+        targetSdkVersion 21
         versionCode 1
-        versionName "1.0"
+        versionName "2.0.2"
+
+        // AndroidManifest.xml 里面UMENG_CHANNEL的value为 ${UMENG_CHANNEL_VALUE}
+        manifestPlaceholders = [UMENG_CHANNEL_VALUE: "channel_name"]
     }
+    //签名
+    signingConfigs {
+        relealse {
+            storeFile file("jianfanjia.keystore")
+            storePassword "jianfanjia"
+            keyAlias "jianfanjia"
+            keyPassword "jyzjianfanjia"
+        }
+    }
+
+    lintOptions{
+        abortOnError false
+    }
+
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.relealse
+        }
+        debug {
+            minifyEnabled false
+            signingConfig signingConfigs.relealse
         }
     }
     sourceSets {
-        main {
+        /*main {
             jniLibs.srcDirs = ['libs']
+        }*/
+    }
+
+    productFlavors {
+        default_channel {}
+    }
+
+    productFlavors.all { flavor ->
+        flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def outputFile = output.outputFile
+            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                def fileName = outputFile.name.replace(".apk", "-owner-${defaultConfig.versionName}.apk")
+                output.outputFile = new File(outputFile.parent, fileName)
+            }
         }
     }
 }
@@ -48,6 +86,7 @@ dependencies {
     compile files('libs/ormlite-android-4.49-SNAPSHOT.jar')
     compile files('libs/ormlite-core-4.49-SNAPSHOT.jar')
     compile files('libs/universal-image-loader-1.9.4-SNAPSHOT.jar')
+    compile files('libs/armeabi.jar')
     compile 'com.android.support:appcompat-v7:23.0.1'
     compile files('libs/GetuiExt-2.0.3.jar')
     compile files('libs/GetuiSDK2.6.1.0.jar')

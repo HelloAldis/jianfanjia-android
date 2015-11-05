@@ -2,15 +2,14 @@ package com.jianfanjia.cn.http.request;
 
 import android.content.Context;
 
-import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseRequest;
-import com.jianfanjia.cn.config.Url;
+import com.jianfanjia.cn.config.Url_New;
 
 public class FeedBackRequest extends BaseRequest {
 
 	public FeedBackRequest(Context context) {
 		super(context);
-		url = Url.FEEDBACK_URL;
+		url = Url_New.FEEDBACK_URL;
 	}
 
 	@Override

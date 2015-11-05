@@ -63,19 +63,19 @@
                 android:paddingRight="@dimen/space_16"
                 android:singleLine="true"
                 android:hint="@string/input_phone"
+                android:inputType="phone"
                 android:textSize="@dimen/middle_size"
                 android:textColor="@color/black_color"
                 android:background="@null"/>
 
             <View
                 style="@style/divier_line"
-                android:layout_below="@+id/act_register_input_phone"/>
+                />
 
             <EditText
                 android:id="@+id/act_register_input_password"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:layout_below="@+id/act_register_input_phone"
                 android:layout_marginTop="@dimen/space_16"
                 android:inputType="textPassword"
                 android:ellipsize="end"
@@ -92,7 +92,7 @@
 
             <View
                 style="@style/divier_line"
-                android:layout_below="@+id/act_register_input_password"/>
+                />
 
             <Button
                 android:id="@+id/btn_next"

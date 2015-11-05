@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.DesignerInfo;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Url;
+import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.baseview.BaseAnnotationView;
 
@@ -46,15 +46,15 @@ public class MyFavoriteDesignerView extends BaseAnnotationView {
         ltm_myfavdesi_name.setText(TextUtils.isEmpty(designerInfo.getUsername()) ? getResources().getString(R.string.designer) : designerInfo.getUsername());
         String imageid = designerInfo.getImageid();
         LogTool.d(this.getClass().getName(), designerInfo.getUsername() + imageid);
-        if(!TextUtils.isEmpty(imageid)){
-            imageLoader.displayImage(Url.GET_IMAGE + imageid, ltm_myfavdesi_head,options);
-        }else{
-            imageLoader.getInstance().displayImage(Constant.DEFALUT_DESIGNER_PIC,ltm_myfavdesi_head,options);
+        if (!TextUtils.isEmpty(imageid)) {
+            imageLoader.displayImage(Url_New.GET_THUMBNAIL_IMAGE + imageid, ltm_myfavdesi_head, options);
+        } else {
+            imageLoader.getInstance().displayImage(Constant.DEFALUT_DESIGNER_PIC, ltm_myfavdesi_head, options);
         }
-        ltm_myfavdesi_score.setRating((int)(designerInfo.getRespond_speed() + designerInfo.getService_attitude())/2);
-        if(designerInfo.getAuth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)){
+        ltm_myfavdesi_score.setRating((int) (designerInfo.getRespond_speed() + designerInfo.getService_attitude()) / 2);
+        if (designerInfo.getAuth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)) {
             authView.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             authView.setVisibility(View.GONE);
         }
     }

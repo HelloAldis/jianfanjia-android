@@ -7,10 +7,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.jianfanjia.cn.activity.MyDesignerActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.OrderDesignerInfo;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.interf.ClickCallBack;
 import com.jianfanjia.cn.view.baseview.BaseAnnotationView;
@@ -25,7 +25,7 @@ import org.androidannotations.annotations.ViewById;
  * Email: jame.zhang@myjyz.com
  * Date:2015-10-22 10:46
  */
-@EViewGroup(R.layout.list_item_my_designer_type3)
+@EViewGroup(R.layout.list_item_my_designer_type1)
 public class MyDesignerViewType3 extends BaseAnnotationView {
 
     @ViewById(R.id.ltm_my_designer_head)
@@ -43,8 +43,11 @@ public class MyDesignerViewType3 extends BaseAnnotationView {
     @ViewById(R.id.ltm_my_designer_middle_layout)
     protected RelativeLayout middleLayout;
 
-    @ViewById(R.id.ltm_my_designer_textview3)
-    protected TextView textView3;
+    @ViewById(R.id.merger_button1)
+    protected TextView button1;
+
+    @ViewById(R.id.merger_button2)
+    protected TextView button2;
 
     @ViewById(R.id.designerinfo_auth)
     ImageView authView;
@@ -53,32 +56,54 @@ public class MyDesignerViewType3 extends BaseAnnotationView {
         super(context);
     }
 
-    public void bind(OrderDesignerInfo designerInfo,ClickCallBack clickCallBack,int position) {
+    public void bind(OrderDesignerInfo designerInfo, final ClickCallBack clickCallBack, final int position) {
         String status = designerInfo.getPlan().getStatus();
         String imageid = designerInfo.getImageid();
         String username = designerInfo.getUsername();
-        if(!TextUtils.isEmpty(imageid)){
-            ImageLoader.getInstance().displayImage(Url_New.GET_IMAGE + imageid , headView,options);
-        }else{
-            ImageLoader.getInstance().displayImage(Constant.DEFALUT_DESIGNER_PIC, headView,options);
+        if (!TextUtils.isEmpty(imageid)) {
+            ImageLoader.getInstance().displayImage(Url_New.GET_THUMBNAIL_IMAGE + imageid, headView, options);
+        } else {
+            ImageLoader.getInstance().displayImage(Constant.DEFALUT_DESIGNER_PIC, headView, options);
         }
-        if(designerInfo.getAuth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)){
-            authView.setVisibility(View.VISIBLE);
-        }else{
-            authView.setVisibility(View.GONE);
-        }
-        if(!TextUtils.isEmpty(username)){
+        if (!TextUtils.isEmpty(username)) {
             nameView.setText(username);
-        }else{
+        } else {
             nameView.setText(getResources().getString(R.string.designer));
         }
-        switch (status){
-            case Global.PLAN_STATUS0:
-                textView3.setText(getResources().getString(R.string.wait_response));
-                statusView.setText(getResources().getString(R.string.already_order));
-                statusView.setTextColor(getResources().getColor(R.color.green_color));
-                break;
+        if (designerInfo.getAuth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)) {
+            authView.setVisibility(View.VISIBLE);
+        } else {
+            authView.setVisibility(View.GONE);
         }
+        //不管需求状态如何，都可以点击按钮
+        if (designerInfo.getEvaluation() == null) {
+            button1.setText(getResources().getString(R.string.str_comment));
+            button1.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    clickCallBack.click(position, MyDesignerActivity.COMMENT);
+                }
+            });
+        } else {
+            button1.setText(getResources().getString(R.string.str_already_comment));
+            button1.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    clickCallBack.click(position, MyDesignerActivity.VIEW_COMMENT);
+                }
+            });
+        }
+        button2.setText(getResources().getString(R.string.str_view_plan));
+        button2.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickCallBack.click(position, MyDesignerActivity.VIEW_PLAN);
+            }
+        });
+        statusView.setText(getResources().getString(R.string.already_commit));
+        statusView.setTextColor(getResources().getColor(R.color.grey_color));
+
 
     }
+
 }
