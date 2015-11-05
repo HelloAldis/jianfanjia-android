@@ -3,6 +3,7 @@ package com.jianfanjia.cn.application;
 import android.content.Context;
 import android.content.pm.PackageManager;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseApplication;
 import com.jianfanjia.cn.bean.ProcessInfo;
@@ -40,7 +41,7 @@ public class MyApplication extends BaseApplication {
         super.onCreate();
         instance = this;
         saveDefaultProcess();// 加载默认的工地信息
-
+        Fresco.initialize(this);
         cookieStore = new PersistentCookieStore(this);// 记录cookie
         saveCookie(OkHttpClientManager.getInstance().client());
         /*
