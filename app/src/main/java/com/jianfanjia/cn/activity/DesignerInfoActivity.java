@@ -142,7 +142,7 @@ public class DesignerInfoActivity extends BaseActivity implements
             if (null != designerInfo) {
                 collapsingToolbar.setTitle(designerInfo.getUsername());
                 imageLoader.displayImage(Url_New.GET_THUMBNAIL_IMAGE + designerInfo.getImageid(), designerinfo_head_img, options);
-                viewCountText.setText("" + designerInfo.getView_count() + "K");
+                viewCountText.setText("" + designerInfo.getView_count());
                 productCountText.setText("" + designerInfo.getProduct_count());
                 appointCountText.setText("" + designerInfo.getOrder_count());
                 int respond_speed = (int) designerInfo.getRespond_speed();
