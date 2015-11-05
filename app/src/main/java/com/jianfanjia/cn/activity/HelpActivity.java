@@ -18,13 +18,14 @@ import java.util.List;
  */
 public class HelpActivity extends BaseActivity {
     private static final String TAG = HelpActivity.class.getName();
-    private static final int IMG_ID[] = { R.mipmap.p1, R.mipmap.p2,
-            R.mipmap.p3, R.mipmap.p4 };
+    private static final int IMG_ID[] = {R.mipmap.p1, R.mipmap.p2,
+            R.mipmap.p3, R.mipmap.p4};
 
     @Override
     public void initView() {
         init();
     }
+
     private void init() {
         ViewPagerManager contoler = new ViewPagerManager(HelpActivity.this);
         contoler.setmShapeType(ShapeType.OVAL);// 设置指示器的形状为矩形，默认是圆形
