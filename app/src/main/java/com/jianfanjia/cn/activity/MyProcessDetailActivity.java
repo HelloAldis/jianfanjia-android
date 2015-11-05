@@ -205,7 +205,6 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                     currentList, sectionInfos, this);
             detailNodeListView.setAdapter(sectionItemAdapter);
             processViewPager.setCurrentItem(currentList);
-            UiHelper.setListViewHeightBasedOnChildren(detailNodeListView);
         }
     }
 
