@@ -835,7 +835,7 @@ public class JianFanJiaClient {
      * @param listener
      * @param tag
      */
-    public static void addComment(Context context, String topicid, String topictype,String section,String item, String content, String to, ApiUiUpdateListener listener, Object tag) {
+    public static void addComment(Context context, String topicid, String topictype, String section, String item, String content, String to, ApiUiUpdateListener listener, Object tag) {
         AddCommentRequest addCommentRequest = new AddCommentRequest(context, topicid, topictype, content, to);
         JSONObject jsonParams = new JSONObject();
         try {
@@ -861,7 +861,7 @@ public class JianFanJiaClient {
      * @param listener
      * @param tag
      */
-    public static void getCommentList(Context context, String topicid, int from, int limit,String section,String item ,ApiUiUpdateListener listener, Object tag) {
+    public static void getCommentList(Context context, String topicid, int from, int limit, String section, String item, ApiUiUpdateListener listener, Object tag) {
         GetCommentsRequest getCommentsRequest = new GetCommentsRequest(context, topicid, from, limit);
         JSONObject jsonParams = new JSONObject();
         try {
