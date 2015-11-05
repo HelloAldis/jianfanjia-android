@@ -63,7 +63,7 @@ public class PingjiaActivity extends BaseActivity implements
         requirementid = commentBundle.getString(Global.REQUIREMENT_ID);
         designerid = commentBundle.getString(Global.DESIGNER_ID);
         LogTool.d(TAG, "imageid:" + imageid + " designer_name:" + designer_name + " requirementid:" + requirementid + " designerid:" + designerid);
-        imageLoader.displayImage(Url_New.GET_IMAGE + imageid, designer_head_img, options);
+        imageLoader.displayImage(Url_New.GET_THUMBNAIL_IMAGE + imageid, designer_head_img, options);
         designerName.setText(designer_name);
     }
 

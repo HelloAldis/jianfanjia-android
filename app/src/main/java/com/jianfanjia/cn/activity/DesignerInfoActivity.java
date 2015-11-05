@@ -141,7 +141,7 @@ public class DesignerInfoActivity extends BaseActivity implements
             LogTool.d(TAG, "designerInfo:" + designerInfo);
             if (null != designerInfo) {
                 collapsingToolbar.setTitle(designerInfo.getUsername());
-                imageLoader.displayImage(Url_New.GET_IMAGE + designerInfo.getImageid(), designerinfo_head_img, options);
+                imageLoader.displayImage(Url_New.GET_THUMBNAIL_IMAGE + designerInfo.getImageid(), designerinfo_head_img, options);
                 viewCountText.setText("" + designerInfo.getView_count() + "K");
                 productCountText.setText("" + designerInfo.getProduct_count());
                 appointCountText.setText("" + designerInfo.getOrder_count());

@@ -46,7 +46,7 @@ public class MarchDesignerAdapter extends BaseListAdapter<OrderDesignerInfo> {
         int respond_speed = (int) info.getRespond_speed();
         int service_attitude = (int) info.getService_attitude();
         holder.nBar.setRating((respond_speed + service_attitude) / 2);
-        imageLoader.displayImage(Url_New.GET_IMAGE + info.getImageid(),
+        imageLoader.displayImage(Url_New.GET_THUMBNAIL_IMAGE + info.getImageid(),
                 holder.mHeadView, options);
 
         return convertView;

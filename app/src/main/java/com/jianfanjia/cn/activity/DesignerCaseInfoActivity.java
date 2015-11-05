@@ -168,9 +168,9 @@ public class DesignerCaseInfoActivity extends BaseActivity implements ApiUiUpdat
             designertid = designerCaseInfo.getDesigner().get_id();
             collapsingToolbar.setTitle(designerCaseInfo.getCell());
             stylelText.setText(designerCaseInfo.getHouse_area() + "㎡," + getHouseType(designerCaseInfo.getHouse_type()) + "," + getDecStyle(designerCaseInfo.getDec_type()));
-            imageLoader.displayImage(Url_New.GET_IMAGE + designerCaseInfo.getDesigner().getImageid(), designerinfo_head_img, options);
+            imageLoader.displayImage(Url_New.GET_THUMBNAIL_IMAGE + designerCaseInfo.getDesigner().getImageid(), designerinfo_head_img, options);
             produceText.setText("设计简介:" + designerCaseInfo.getDescription());
-            imageLoader.displayImage(Url_New.GET_IMAGE + designerCaseInfo.getDesigner().getImageid(), head_img, options);
+            imageLoader.displayImage(Url_New.GET_THUMBNAIL_IMAGE + designerCaseInfo.getDesigner().getImageid(), head_img, options);
             nameText.setText(designerCaseInfo.getDesigner().getUsername());
         }
     }

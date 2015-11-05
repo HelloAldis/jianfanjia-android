@@ -42,7 +42,7 @@ public class DesignerWorksAdapter extends BaseListAdapter<Product> {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        imageLoader.displayImage(Url_New.GET_IMAGE + product.getImages().get(0).getImageid(), viewHolder.itemwWorksView, options);
+        imageLoader.displayImage(Url_New.GET_THUMBNAIL_IMAGE + product.getImages().get(0).getImageid(), viewHolder.itemwWorksView, options);
         viewHolder.itemXiaoQuText.setText(product.getCell());
         String house_type = product.getHouse_type();
         String dec_style = product.getDec_style();

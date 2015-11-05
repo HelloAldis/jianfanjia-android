@@ -53,26 +53,26 @@ public class MyDesignerViewType0 extends BaseAnnotationView {
         super(context);
     }
 
-    public void bind(OrderDesignerInfo designerInfo,ClickCallBack clickCallBack,int position) {
+    public void bind(OrderDesignerInfo designerInfo, ClickCallBack clickCallBack, int position) {
         String status = designerInfo.getPlan().getStatus();
         String imageid = designerInfo.getImageid();
         String username = designerInfo.getUsername();
-        if(!TextUtils.isEmpty(imageid)){
-            ImageLoader.getInstance().displayImage(Url_New.GET_IMAGE + imageid , headView,options);
-        }else{
-            ImageLoader.getInstance().displayImage(Constant.DEFALUT_DESIGNER_PIC, headView,options);
+        if (!TextUtils.isEmpty(imageid)) {
+            ImageLoader.getInstance().displayImage(Url_New.GET_THUMBNAIL_IMAGE + imageid, headView, options);
+        } else {
+            ImageLoader.getInstance().displayImage(Constant.DEFALUT_DESIGNER_PIC, headView, options);
         }
-        if(designerInfo.getAuth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)){
+        if (designerInfo.getAuth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)) {
             authView.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             authView.setVisibility(View.GONE);
         }
-        if(!TextUtils.isEmpty(username)){
+        if (!TextUtils.isEmpty(username)) {
             nameView.setText(username);
-        }else{
+        } else {
             nameView.setText(getResources().getString(R.string.designer));
         }
-        switch (status){
+        switch (status) {
             case Global.PLAN_STATUS0:
                 textView3.setText(getResources().getString(R.string.wait_response));
                 statusView.setText(getResources().getString(R.string.already_order));

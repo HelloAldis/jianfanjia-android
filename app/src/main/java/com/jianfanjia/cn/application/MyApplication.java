@@ -175,6 +175,7 @@ public class MyApplication extends BaseApplication {
         // 清除数据缓存
 //		DataCleanManager.cleanInternalCache(this);
         ImageLoader.getInstance().clearDiskCache();
+        ImageLoader.getInstance().clearMemoryCache();
         DataCleanManager.deleteFilesByDirectory(new File(Constant.COMMON_PATH));
 
         //

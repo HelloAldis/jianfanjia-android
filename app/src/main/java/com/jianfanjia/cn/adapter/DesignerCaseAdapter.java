@@ -42,7 +42,7 @@ public class DesignerCaseAdapter extends BaseListAdapter<ImageInfo> {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        imageLoader.displayImage(Url_New.GET_IMAGE + info.getImageid(), viewHolder.itemwCaseView, options);
+        imageLoader.displayImage(Url_New.GET_THUMBNAIL_IMAGE + info.getImageid(), viewHolder.itemwCaseView, options);
         viewHolder.itemTitleText.setText(info.getSection());
         viewHolder.itemProduceText.setText(info.getDescription());
         return convertView;
