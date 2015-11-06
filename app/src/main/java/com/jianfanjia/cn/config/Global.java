@@ -8,6 +8,8 @@ package com.jianfanjia.cn.config;
  */
 public class Global {
 
+
+
     public static final String REGISTER_INFO = "register_info";
     public static final String REGISTER = "register";
 
@@ -15,6 +17,7 @@ public class Global {
     public static final String REQUIREMENT_ID = "requirement_id";
 
     public static final String PROCESS_INFO = "process_info";
+    public static final String PROCESS_ID = "process_id";
 
     public static final String DESIGNER_INF0 = "designer_info";
     public static final String DESIGNER_ID = "designer_id";

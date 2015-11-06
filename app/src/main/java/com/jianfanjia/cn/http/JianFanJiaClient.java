@@ -469,23 +469,24 @@ public class JianFanJiaClient {
 
     /**
      * 删除节点图片
+     * @param imageid
      * @param context
-     * @param processid
+     * @param imageid
      * @param section
      * @param item
      * @param index
      * @param listener
      * @param tag
      */
-    public static final void DeleteImageToProcess(Context context,String processid,String section,String item,int index,ApiUiUpdateListener listener,Object tag){
+    public static final void deleteImageToProcess(Context context, String imageid, String section, String item, int index, ApiUiUpdateListener listener, Object tag){
         DeletePicToSectionItemRequest deletePicToSectionItemRequest = new DeletePicToSectionItemRequest(context);
         JSONObject jsonParams = new JSONObject();
         try {
-            jsonParams.put("_id", processid);
+            jsonParams.put("_id", imageid);
             jsonParams.put("section", section);
             jsonParams.put("item", item);
             jsonParams.put("index", index);
-            LogTool.d(TAG, "submitImageToProcess -" + deletePicToSectionItemRequest.getUrl() + "----" + jsonParams.toString());
+            LogTool.d(TAG, "deleteImageToProcess -" + deletePicToSectionItemRequest.getUrl() + "----" + jsonParams.toString());
             OkHttpClientManager.getInstance().getPostDelegate().postAsyn(deletePicToSectionItemRequest, jsonParams.toString(), listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();

@@ -153,7 +153,7 @@
             android:label="@string/app_name"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            />
         <activity
             android:name=".LoginNewActivity_"
             android:label="@string/title_activity_login"
@@ -215,6 +215,10 @@
             android:theme="@style/activity_style" />
         <activity
             android:name=".ShowPicActivity"
+            android:label="@string/title_activity_show_pic"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ShowProcessPicActivity"
             android:label="@string/title_activity_show_pic"
             android:screenOrientation="portrait" />
         <activity

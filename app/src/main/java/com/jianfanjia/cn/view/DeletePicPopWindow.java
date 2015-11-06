@@ -10,34 +10,26 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.interf.PopWindowCallBack;
 
-public class EditReqPopWindow extends PopupWindow implements OnClickListener {
-	private PopWindowCallBack callback = null;
-	private Button firstButton = null;
+public class DeletePicPopWindow extends PopupWindow implements OnClickListener {
 	private Button secondButton = null;
 	private Button cancel = null;
 	private LayoutInflater inflater = null;
 	private View menuView = null;
-	private LinearLayout buttonLayout = null;
 	private Activity activity = null;
 	private WindowManager.LayoutParams lp = null;
 	private Window window = null;
 
-	public EditReqPopWindow(Activity activity, PopWindowCallBack callback) {
+	public DeletePicPopWindow(Activity activity,OnClickListener listener) {
 		super(activity);
-		this.callback = callback;
 		inflater = LayoutInflater.from(activity);
-		menuView = inflater.inflate(R.layout.dialog_edit_req, null);
-		firstButton = (Button) menuView.findViewById(R.id.dialog_btn_edit_req);
-		secondButton = (Button) menuView.findViewById(R.id.dialog_btn_delete_req);
+		menuView = inflater.inflate(R.layout.dialog_delete_pic, null);
+		secondButton = (Button) menuView.findViewById(R.id.dialog_btn_delete_pic);
 		cancel = (Button) menuView.findViewById(R.id.btn_cancel);
-		firstButton.setOnClickListener(this);
-		secondButton.setOnClickListener(this);
+		secondButton.setOnClickListener(listener);
 		cancel.setOnClickListener(this);
 		// 设置SelectPicPopupWindow的View
 		this.setContentView(menuView);
@@ -83,14 +75,6 @@ public class EditReqPopWindow extends PopupWindow implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.dialog_btn_edit_req:
-			dismiss();
-			callback.firstItemClick();
-			break;
-		case R.id.dialog_btn_delete_req:
-			dismiss();
-			callback.secondItemClick();
-			break;
 		case R.id.btn_cancel:
 			dismiss();
 			break;

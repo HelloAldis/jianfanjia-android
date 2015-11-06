@@ -48,6 +48,7 @@ public class Constant {
     public static final int REQUESTCODE_CAMERA = 1;// 拍照
     public static final int REQUESTCODE_LOCATION = 2;// 本地相册选取
     public static final int REQUESTCODE_CROP = 3;// 裁剪
+    public static final int REQUESTCODE_SHOW_PROCESS_PIC = 8;//显示照片列表
     // editactivity
     public static final int REQUESTCODE_EDIT_USERNAME = 4;
     public static final int REQUESTCODE_EDIT_ADDRESS = 5;
@@ -73,7 +74,6 @@ public class Constant {
     public static final String IDENTITY_OWNER = "1";// 业主
     public static final String IDENTITY_DESIGNER = "2";// 设计师
 
-    public static final String DESIGNER_SITE_ID = "siteId";// 设计师当前切换工地id
     public static final String ISOPEN = "isOpen";// 消息推送是否开启
     public static final String ISFIRST = "isFirst";// 是否是首次打开程序
     public static final String ACCOUNT = "account";// 账号

@@ -16,6 +16,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.adapter.SectionItemAdapterBack;
@@ -31,7 +32,6 @@ import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
-import com.jianfanjia.cn.interf.UploadImageListener;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.tools.DateFormatTool;
 import com.jianfanjia.cn.tools.ImageUtil;
@@ -62,7 +62,7 @@ import java.util.List;
  * @date 2015-8-26 上午11:14:00
  */
 @EActivity(R.layout.activity_my_process_detail)
-public class MyProcessDetailActivity extends BaseAnnotationActivity implements ItemClickCallBack, UploadImageListener {
+public class MyProcessDetailActivity extends BaseAnnotationActivity implements ItemClickCallBack {
     private static final String TAG = MyProcessDetailActivity.class.getName();
     private static final int TOTAL_PROCESS = 7;// 7道工序
 
@@ -79,6 +79,8 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
     MainHeadView mainHeadView;
     @ViewById(R.id.process_pull_refresh)
     SuperSwipeRefreshLayout process_pull_refresh;
+    @ViewById(R.id.head_notification_layout)
+    RelativeLayout notificationLayout;
     @StringArrayRes(R.array.site_procedure)
     String[] proTitle = null;
 
@@ -184,6 +186,11 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
     @Click(R.id.head_back_layout)
     public void comeback() {
         finish();
+    }
+
+    @Click(R.id.head_notification_layout)
+    protected void gotoNotifyActivity() {
+        startActivity(NotifyActivity.class);
     }
 
     // 初始化数据
@@ -412,7 +419,12 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                 bundle.putStringArrayList(Constant.IMAGE_LIST,
                         (ArrayList<String>) imageUrlList);
                 bundle.putInt(Constant.CURRENT_POSITION, position);
-                startActivity(ShowPicActivity.class, bundle);
+                bundle.putString(Global.PROCESS_ID, processId);
+                bundle.putString(Global.SECTION, sectionInfo.getName());
+                bundle.putString(Global.ITEM, sectionItemAdapter.getCurrentItem());
+                Intent intent = new Intent(this, ShowProcessPicActivity.class);
+                intent.putExtras(bundle);
+                startActivityForResult(intent, Constant.REQUESTCODE_SHOW_PROCESS_PIC);
                 break;
             case Constant.ADD_ITEM:
                 imageList = imageUrlList;
@@ -457,10 +469,10 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                                 .getDateString(((DateWheelDialog) dialog)
                                         .getChooseCalendar().getTime());
                         LogTool.d(TAG, "dateStr:" + dateStr);
-                        /*postReschedule(processInfo.get_id(),
+                        postReschedule(processInfo.get_id(),
                                 processInfo.getUserid(),
-								processInfo.getFinal_designerid(),
-								sectionInfo.getName(), dateStr);*/
+                                processInfo.getFinal_designerid(),
+                                sectionInfo.getName(), dateStr);
                     }
                 });
         dateWheelDialog.setNegativeButton(R.string.no, null);
@@ -495,6 +507,9 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != RESULT_OK) {
+            return;
+        }
         switch (requestCode) {
             case Constant.REQUESTCODE_CAMERA:// 拍照
                 mTmpFile = new File(dataManager.getPicPath());
@@ -551,6 +566,9 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                     }
                 }
                 break;
+            case Constant.REQUESTCODE_SHOW_PROCESS_PIC:
+                loadCurrentProcess();
+                break;
             default:
                 break;
         }
@@ -601,33 +619,6 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
             }
         }, this);
 
-    }
-
-    @Override
-    public void onSuccess(String msg) {
-        LogTool.d(TAG, "msg===========" + msg);
-        if ("success".equals(msg)) {
-            LogTool.d(TAG, "--------------------------------------------------");
-            if (mTmpFile != null && mTmpFile.exists()) {
-                mTmpFile.delete();
-            }
-            // loadCurrentProcess();
-            // sectionInfo.getItems()
-            if (dataManager.getCurrentUploadImageId() != null
-                    && imageList != null) {
-                imageList.add(imageList.size() - 1,
-                        dataManager.getCurrentUploadImageId());
-                sectionItemAdapter.notifyDataSetChanged();
-            }
-        }
-    }
-
-    @Override
-    public void onFailure() {
-        LogTool.d(TAG, "==============================================");
-        if (mTmpFile != null && mTmpFile.exists()) {
-            mTmpFile.delete();
-        }
     }
 
 }

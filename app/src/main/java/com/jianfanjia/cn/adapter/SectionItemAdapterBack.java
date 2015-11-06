@@ -432,7 +432,7 @@ public class SectionItemAdapterBack extends BaseAdapter {
             }
 
         });
-        gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+       /* gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 String data = imageUrlList.get(position);
@@ -450,7 +450,7 @@ public class SectionItemAdapterBack extends BaseAdapter {
                 }
                 return true;
             }
-        });
+        });*/
     }
 
     private static class ViewHolder {

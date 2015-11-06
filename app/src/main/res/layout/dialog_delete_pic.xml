@@ -6,21 +6,12 @@
     android:orientation="vertical" >
 
     <Button
-        android:id="@+id/dialog_btn_edit_req"
-        android:layout_width="fill_parent"
-        android:layout_height="@dimen/space_48"
-        android:background="@drawable/my_item_layout_bg"
-        android:text="@string/str_edit_requirement"
-        android:textColor="@color/black_color"
-        android:textSize="14sp" />
-
-    <Button
-        android:id="@+id/dialog_btn_delete_req"
+        android:id="@+id/dialog_btn_delete_pic"
         android:layout_width="fill_parent"
         android:layout_height="@dimen/space_48"
         android:layout_marginTop="1px"
         android:background="@drawable/my_item_layout_bg"
-        android:text="@string/str_delete_req"
+        android:text="@string/str_delete_pic"
         android:textColor="@color/black_color"
         android:textSize="14sp" />
 
