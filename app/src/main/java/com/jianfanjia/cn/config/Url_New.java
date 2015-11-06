@@ -9,8 +9,8 @@ package com.jianfanjia.cn.config;
 public class Url_New {
     public static String SEVER_IP = "101.200.191.159";
     // public static String SEVER_IP = "192.168.1.107";
-    public static String SEVER_PORT = "8888";
-//    public static String SEVER_PORT = "80";
+//    public static String SEVER_PORT = "8888";
+    public static String SEVER_PORT = "80";
 
     public static final String HTTPROOT = "http://" + SEVER_IP + ":"
             + SEVER_PORT + "/api/v2/app/";
@@ -87,6 +87,8 @@ public class Url_New {
     public static final String GET_COMMENT = HTTPROOT + "topic_comments";
     // 业主提交装修流程 业主开启工地
     public static final String PROCESS = HTTPROOT + "user/process";
+    //用户删除装修节点图片
+    public static final String DELETE_PROCESS_PIC = HTTPROOT + "process/delete_image";
 
     // 获取业主的设计师
     public static final String GET_OWER_DESIGNER = HTTPROOT + "designer/" + ID

@@ -18,6 +18,7 @@ import com.jianfanjia.cn.http.request.CheckVersionRequest;
 import com.jianfanjia.cn.http.request.ChoosePlanByUserRequest;
 import com.jianfanjia.cn.http.request.CommitCommentRequest;
 import com.jianfanjia.cn.http.request.ConformMeasureHouseRequest;
+import com.jianfanjia.cn.http.request.DeletePicToSectionItemRequest;
 import com.jianfanjia.cn.http.request.DesignerHomePageRequest;
 import com.jianfanjia.cn.http.request.DesignerInfoRequest;
 import com.jianfanjia.cn.http.request.EvaluateDesignerRequest;
@@ -461,6 +462,31 @@ public class JianFanJiaClient {
             jsonParams.put("imageid", imageId);
             LogTool.d(TAG, "submitImageToProcess -" + addPicToSectionItemRequest.getUrl() + "----" + jsonParams.toString());
             OkHttpClientManager.getInstance().getPostDelegate().postAsyn(addPicToSectionItemRequest, jsonParams.toString(), listener, tag);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 删除节点图片
+     * @param context
+     * @param processid
+     * @param section
+     * @param item
+     * @param index
+     * @param listener
+     * @param tag
+     */
+    public static final void DeleteImageToProcess(Context context,String processid,String section,String item,int index,ApiUiUpdateListener listener,Object tag){
+        DeletePicToSectionItemRequest deletePicToSectionItemRequest = new DeletePicToSectionItemRequest(context);
+        JSONObject jsonParams = new JSONObject();
+        try {
+            jsonParams.put("_id", processid);
+            jsonParams.put("section", section);
+            jsonParams.put("item", item);
+            jsonParams.put("index", index);
+            LogTool.d(TAG, "submitImageToProcess -" + deletePicToSectionItemRequest.getUrl() + "----" + jsonParams.toString());
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(deletePicToSectionItemRequest, jsonParams.toString(), listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
         }
