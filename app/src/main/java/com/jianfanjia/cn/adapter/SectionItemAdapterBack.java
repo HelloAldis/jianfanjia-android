@@ -432,6 +432,25 @@ public class SectionItemAdapterBack extends BaseAdapter {
             }
 
         });
+        gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                String data = imageUrlList.get(position);
+                Log.i(this.getClass().getName(), "data:" + data);
+                if (data.equals(Constant.HOME_ADD_PIC)) {
+//                    callBack.click(position, Constant.ADD_ITEM, imageUrlList);
+                } else {
+                    for (String str : imageUrlList) {
+                        if (str.equals(Constant.HOME_ADD_PIC)) {
+                            imageUrlList.remove(str);
+                        }
+                    }
+                    view.findViewById(R.id.delete).setVisibility(View.VISIBLE);
+//                    callBack.click(position, Constant.IMG_ITEM, imageUrlList);
+                }
+                return true;
+            }
+        });
     }
 
     private static class ViewHolder {
@@ -439,12 +458,10 @@ public class SectionItemAdapterBack extends BaseAdapter {
         RelativeLayout bigOpenLayout;
         TextView closeNodeName;
         TextView openNodeName;
-        TextView openUploadPic;
         TextView openComment;
         TextView openUploadTime;
         TextView finishTime;
         TextView openFinishStatus;
-        TextView confirmFinishStatus;
         ImageView finishStatusIcon;
         GridView gridView;
     }
