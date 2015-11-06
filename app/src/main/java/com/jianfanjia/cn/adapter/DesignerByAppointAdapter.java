@@ -1,7 +1,6 @@
 package com.jianfanjia.cn.adapter;
 
 import android.content.Context;
-import android.util.SparseBooleanArray;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
@@ -12,6 +11,7 @@ import com.jianfanjia.cn.adapter.base.BaseListAdapter;
 import com.jianfanjia.cn.bean.DesignerCanOrderInfo;
 import com.jianfanjia.cn.config.Url_New;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -23,11 +23,11 @@ import java.util.List;
 public class DesignerByAppointAdapter extends BaseListAdapter<DesignerCanOrderInfo> {
     private static final String TAG = "DesignerByAppointAdapter";
     // 用来控制CheckBox的选中状况
-    private static SparseBooleanArray isSelected;
+    private static HashMap<Integer, Boolean> isSelected;
 
     public DesignerByAppointAdapter(Context context, List<DesignerCanOrderInfo> list) {
         super(context, list);
-        isSelected = new SparseBooleanArray();
+        isSelected = new HashMap<Integer, Boolean>();
         initData();
     }
 
@@ -69,11 +69,11 @@ public class DesignerByAppointAdapter extends BaseListAdapter<DesignerCanOrderIn
         return convertView;
     }
 
-    public static SparseBooleanArray getIsSelected() {
+    public static HashMap<Integer, Boolean> getIsSelected() {
         return isSelected;
     }
 
-    public static void setIsSelected(SparseBooleanArray isSelected) {
+    public static void setIsSelected(HashMap<Integer, Boolean> isSelected) {
         DesignerByAppointAdapter.isSelected = isSelected;
     }
 
