@@ -6,19 +6,21 @@ import android.support.v4.view.PagerAdapter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
+import com.jianfanjia.cn.tools.ScreenUtil;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
 import java.util.List;
+
+import uk.co.senab.photoview.PhotoView;
+import uk.co.senab.photoview.PhotoViewAttacher;
 
 public class ShowPicPagerAdapter extends PagerAdapter {
     private List<String> images;
@@ -26,9 +28,12 @@ public class ShowPicPagerAdapter extends PagerAdapter {
     private ViewPagerClickListener viewPagerClickListener;
     private ImageLoader imageLoader;
     private DisplayImageOptions options;
+    Context context;
+    View.OnLongClickListener onLongClickListener;
 
     public ShowPicPagerAdapter(Context context, List<String> imageList,
                                ViewPagerClickListener viewPagerClickListener) {
+        this.context = context;
         this.images = imageList;
         this.inflater = LayoutInflater.from(context);
         this.viewPagerClickListener = viewPagerClickListener;
@@ -39,6 +44,22 @@ public class ShowPicPagerAdapter extends PagerAdapter {
                 .showImageOnFail(R.mipmap.pix_default).cacheInMemory(true)
                 .cacheOnDisk(true).considerExifParams(true)
                 .bitmapConfig(Bitmap.Config.RGB_565).imageScaleType(ImageScaleType.IN_SAMPLE_INT).build();
+    }
+
+    public void setOnLongClickListener(View.OnLongClickListener onLongClickListener) {
+        this.onLongClickListener = onLongClickListener;
+    }
+
+    public void deleteItem(int position) {
+        if (position > -1 && position < images.size()) {
+            images.remove(position);
+            notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public int getItemPosition(Object object) {
+        return POSITION_NONE;
     }
 
     @Override
@@ -62,23 +83,25 @@ public class ShowPicPagerAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, final int position) {
         Log.i(this.getClass().getName(), images.get(position));
         View view = inflater.inflate(R.layout.viewpager_item_show_pic, null);
-        ImageView imageView = (ImageView) view.findViewById(R.id.image_item);
+        PhotoView imageView = (PhotoView) view.findViewById(R.id.image_item);
         if (!images.get(position).contains(Constant.DEFALUT_PIC_HEAD)) {
-            imageLoader.displayImage(Url_New.GET_THUMBNAIL_IMAGE + images.get(position),
+            imageLoader.displayImage(Url_New.GET_THUMBNAIL_IMAGE.replace(Url_New.WIDTH, ScreenUtil.getScreenWidth(context) + "") + images.get(position),
                     imageView, options);
         } else {
             imageLoader.displayImage(images.get(position),
                     imageView, options);
         }
-        view.setOnClickListener(new OnClickListener() {
-
+        imageView.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
             @Override
-            public void onClick(View v) {
+            public void onPhotoTap(View view, float x, float y) {
                 if (viewPagerClickListener != null) {
                     viewPagerClickListener.onClickItem(position);
                 }
             }
         });
+        if (onLongClickListener != null) {
+            imageView.setOnLongClickListener(onLongClickListener);
+        }
         container.addView(view, 0);
         return view;
     }

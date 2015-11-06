@@ -213,7 +213,7 @@ public class EditRequirementActivity extends BaseAnnotationActivity {
     protected void back(View clickView) {
         int viewId = clickView.getId();
         switch (viewId) {
-            case R.id.head_back:
+            case R.id.head_back_layout:
 //                comeMainActivity();
                 finish();
                 break;

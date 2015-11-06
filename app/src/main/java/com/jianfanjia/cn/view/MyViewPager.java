@@ -24,4 +24,13 @@ public class MyViewPager extends ViewPager {
         return super.dispatchTouchEvent(ev);
     }
 
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        try {
+            return super.onInterceptTouchEvent(ev);
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
