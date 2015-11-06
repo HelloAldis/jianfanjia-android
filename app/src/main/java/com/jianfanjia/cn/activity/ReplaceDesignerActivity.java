@@ -7,6 +7,7 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -36,6 +37,8 @@ import java.util.List;
 public class ReplaceDesignerActivity extends BaseActivity implements OnClickListener {
     private static final String TAG = ReplaceDesignerActivity.class.getName();
     private MainHeadView mainHeadView = null;
+    private LinearLayout marchRootview = null;
+    private LinearLayout intentionRootview = null;
     private TextView moreText = null;
     private ListView marched_designer_listview = null;
     private ListView intention_designer_listview = null;
@@ -52,6 +55,8 @@ public class ReplaceDesignerActivity extends BaseActivity implements OnClickList
     @Override
     public void initView() {
         initMainHeadView();
+        marchRootview = (LinearLayout) findViewById(R.id.marchRootview);
+        intentionRootview = (LinearLayout) findViewById(R.id.intentionRootview);
         moreText = (TextView) findViewById(R.id.moreText);
         marched_designer_listview = (ListView) findViewById(R.id.marched_designer_listview);
         intention_designer_listview = (ListView) findViewById(R.id.intention_designer_listview);
