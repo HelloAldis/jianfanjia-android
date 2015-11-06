@@ -130,7 +130,7 @@ public class PingjiaActivity extends BaseActivity implements
     public void loadSuccess(Object data) {
         super.loadSuccess(data);
         LogTool.d(TAG, "data:" + data);
-        makeTextLong(data.toString());
+        makeTextLong("评价成功");
     }
 
 

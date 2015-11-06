@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main_layout_bg" >
+    android:background="@color/main_layout_bg">
 
     <com.jianfanjia.cn.view.MainHeadView
         android:id="@+id/act_my_favorite_designer_head_layout"
@@ -15,8 +15,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/act_my_favorite_designer_head_layout"
-        android:layout_marginTop="@dimen/space_8"
         android:layout_marginBottom="@dimen/space_8"
+        android:layout_marginTop="@dimen/space_8"
         android:cacheColorHint="#ffffff"
         android:divider="@android:color/transparent"
         android:dividerHeight="@dimen/space_8"

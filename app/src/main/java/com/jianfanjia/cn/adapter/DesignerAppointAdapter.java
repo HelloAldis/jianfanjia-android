@@ -15,17 +15,17 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * Name: DesignerByAppointAdapter
+ * Name: DesignerAppointAdapter
  * User: fengliang
- * Date: 2015-10-19
- * Time: 14:52
+ * Date: 2015-11-06
+ * Time: 16:15
  */
-public class DesignerByAppointAdapter extends BaseListAdapter<DesignerCanOrderInfo> {
-    private static final String TAG = "DesignerByAppointAdapter";
+public class DesignerAppointAdapter extends BaseListAdapter<DesignerCanOrderInfo> {
+    private static final String TAG = DesignerAppointAdapter.class.getName();
     // 用来控制CheckBox的选中状况
     private static HashMap<Integer, Boolean> isSelected;
 
-    public DesignerByAppointAdapter(Context context, List<DesignerCanOrderInfo> list) {
+    public DesignerAppointAdapter(Context context, List<DesignerCanOrderInfo> list) {
         super(context, list);
         isSelected = new HashMap<Integer, Boolean>();
         initData();
@@ -39,7 +39,7 @@ public class DesignerByAppointAdapter extends BaseListAdapter<DesignerCanOrderIn
     }
 
     @Override
-    public View initView(final int position, View convertView) {
+    public View initView(int position, View convertView) {
         ViewHolder viewHolder = null;
         DesignerCanOrderInfo info = list.get(position);
         if (convertView == null) {
@@ -74,9 +74,8 @@ public class DesignerByAppointAdapter extends BaseListAdapter<DesignerCanOrderIn
     }
 
     public static void setIsSelected(HashMap<Integer, Boolean> isSelected) {
-        DesignerByAppointAdapter.isSelected = isSelected;
+        DesignerAppointAdapter.isSelected = isSelected;
     }
-
 
     private static class ViewHolder {
         ImageView itemwHeadView;
