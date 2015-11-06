@@ -194,17 +194,17 @@ public class RequirementView extends BaseAnnotationView {
                         case Global.REQUIREMENT_STATUS1:
                         case Global.REQUIREMENT_STATUS2:
                         case Global.REQUIREMENT_STATUS3:
-                            designerLayout.setOnClickListener(null);
-                            break;
-                        case Global.REQUIREMENT_STATUS4:
-                        case Global.REQUIREMENT_STATUS5:
-                        case Global.REQUIREMENT_STATUS7:
                             designerLayout.setOnClickListener(new OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
                                     clickCallBack.click(position, XuQiuFragment.ITEM_GOTOODERDESI);
                                 }
                             });
+                            break;
+                        case Global.REQUIREMENT_STATUS4:
+                        case Global.REQUIREMENT_STATUS5:
+                        case Global.REQUIREMENT_STATUS7:
+                            designerLayout.setOnClickListener(null);
                             break;
                     }
 
