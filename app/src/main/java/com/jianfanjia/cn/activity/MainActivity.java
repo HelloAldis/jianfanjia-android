@@ -42,15 +42,15 @@ public class MainActivity extends BaseActivity implements
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         LogTool.d(TAG, "onNewIntent");
-//        initIntent(intent);
+        initIntent(intent);
     }
 
-//    private void initIntent(Intent intent) {
-//        tab = intent.getIntExtra(Constant.TAB_POSITION, 0);
-//        LogTool.d(TAG, "tab=" + tab);
-//        mTabRg.check(getResources().getIdentifier("tab_rb_" + (tab + 1), "id", getPackageName()));
-//        setTabSelection(tab);
-//    }
+    private void initIntent(Intent intent) {
+        tab = intent.getIntExtra(Constant.TAB_POSITION, 0);
+        LogTool.d(TAG, "tab=" + tab);
+        mTabRg.check(getResources().getIdentifier("tab_rb_" + (tab + 1), "id", getPackageName()));
+        setTabSelection(tab);
+    }
 
     @Override
     public void initView() {

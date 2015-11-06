@@ -130,7 +130,8 @@ public class XuQiuFragment extends BaseAnnotationFragment {
                 switch (itemType) {
                     case ITEM_EDIT:
                         gotoEditRequirement.putExtra(Global.REQUIREMENT_INFO, requirementInfos.get(position));
-                        startActivityForResult(gotoEditRequirement, REQUESTCODE_PUBLISH_REQUIREMENT);
+                        startActivity(gotoEditRequirement);
+                        getActivity().finish();
                         break;
                     case ITEM_GOTOPRO:
                         gotoMyProcess.putExtra(Global.PROCESS_INFO, requirementInfos.get(position).getProcess());

@@ -116,34 +116,7 @@ public class RequirementView extends BaseAnnotationView {
 
         List<OrderDesignerInfo> recDesignerInfos = requirementInfo.getRec_designers();
         List<OrderDesignerInfo> orderDesignerInfos = requirementInfo.getOrder_designers();
-        if (recDesignerInfos != null) {
-            for (int i = 0; i < Constant.REC_DESIGNER_TOTAL; i++) {
-                RelativeLayout designerLayout = (RelativeLayout) getRootView().findViewById(getResources().getIdentifier("ltm_req_designer_layout" + i, "id", getContext().getPackageName()));
-                ImageView headView = (ImageView) getRootView().findViewById(getResources().getIdentifier("ltm_req_designer_head" + i, "id", getContext().getPackageName()));
-                TextView nameView = (TextView) getRootView().findViewById(getResources().getIdentifier("ltm_req_designer_name" + i, "id", getContext().getPackageName()));
-                TextView statusView = (TextView) getRootView().findViewById(getResources().getIdentifier("ltm_req_designer_status" + i, "id", getContext().getPackageName()));
-                /*if (!TextUtils.isEmpty(recDesignerInfos.get(i).getUsername())) {
-                    nameView.setText(recDesignerInfos.get(i).getUsername());
-                } else {
-                    nameView.setText(getResources().getString(R.string.designer));
-                }*/
-                /*if (!TextUtils.isEmpty(recDesignerInfos.get(i).getImageid())) {
-                    ImageLoader.getInstance().displayImage(Url_New.GET_IMAGE + recDesignerInfos.get(i).getImageid(), headView,options);
-                } else {
-                    ImageLoader.getInstance().displayImage(Constant.DEFALUT_DESIGNER_PIC, headView,options);
-                }*/
-                nameView.setText(getResources().getString(R.string.designer));
-                ImageLoader.getInstance().displayImage(Constant.DEFALUT_ADD_PIC, headView, options);
-                statusView.setText(getResources().getString(R.string.str_not_order));
-                statusView.setTextColor(getResources().getColor(R.color.middle_grey_color));
-                designerLayout.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        clickCallBack.click(position, XuQiuFragment.ITEM_GOTOODERDESI);
-                    }
-                });
-            }
-        } else if (orderDesignerInfos != null) {
+        if (orderDesignerInfos != null) {
             int size = orderDesignerInfos.size();
             for (int i = 0; i < Constant.REC_DESIGNER_TOTAL; i++) {
                 RelativeLayout designerLayout = (RelativeLayout) getRootView().findViewById(getResources().getIdentifier("ltm_req_designer_layout" + i, "id", getContext().getPackageName()));
@@ -212,6 +185,23 @@ public class RequirementView extends BaseAnnotationView {
             }
 
 
+        }else{
+            for (int i = 0; i < Constant.REC_DESIGNER_TOTAL; i++) {
+                RelativeLayout designerLayout = (RelativeLayout) getRootView().findViewById(getResources().getIdentifier("ltm_req_designer_layout" + i, "id", getContext().getPackageName()));
+                ImageView headView = (ImageView) getRootView().findViewById(getResources().getIdentifier("ltm_req_designer_head" + i, "id", getContext().getPackageName()));
+                TextView nameView = (TextView) getRootView().findViewById(getResources().getIdentifier("ltm_req_designer_name" + i, "id", getContext().getPackageName()));
+                TextView statusView = (TextView) getRootView().findViewById(getResources().getIdentifier("ltm_req_designer_status" + i, "id", getContext().getPackageName()));
+                nameView.setText(getResources().getString(R.string.designer));
+                ImageLoader.getInstance().displayImage(Constant.DEFALUT_ADD_PIC, headView, options);
+                statusView.setText(getResources().getString(R.string.str_not_order));
+                statusView.setTextColor(getResources().getColor(R.color.middle_grey_color));
+                designerLayout.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        clickCallBack.click(position, XuQiuFragment.ITEM_GOTOODERDESI);
+                    }
+                });
+            }
         }
     }
 
