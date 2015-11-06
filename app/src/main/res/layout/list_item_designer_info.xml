@@ -10,7 +10,7 @@
         android:id="@+id/list_item_product_img"
         android:layout_width="match_parent"
         android:layout_height="250dip"
-        android:scaleType="fitXY" />
+        android:scaleType="centerCrop" />
 
     <FrameLayout
         android:id="@+id/imageLayout"
