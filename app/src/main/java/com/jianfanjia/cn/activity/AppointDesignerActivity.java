@@ -7,6 +7,7 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -36,6 +37,8 @@ import java.util.List;
 public class AppointDesignerActivity extends BaseActivity implements OnClickListener {
     private static final String TAG = AppointDesignerActivity.class.getName();
     private MainHeadView mainHeadView = null;
+    private LinearLayout marchRootview = null;
+    private LinearLayout intentionRootview = null;
     private TextView allText = null;
     private TextView cancelText = null;
     private TextView moreText = null;
@@ -53,6 +56,8 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
     @Override
     public void initView() {
         initMainHeadView();
+        marchRootview = (LinearLayout) findViewById(R.id.marchRootview);
+        intentionRootview = (LinearLayout) findViewById(R.id.intentionRootview);
         allText = (TextView) findViewById(R.id.allText);
         cancelText = (TextView) findViewById(R.id.cancelText);
         moreText = (TextView) findViewById(R.id.moreText);
