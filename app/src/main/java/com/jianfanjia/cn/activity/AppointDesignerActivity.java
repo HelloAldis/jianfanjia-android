@@ -124,9 +124,7 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
             String designerid = info.get_id();
             CheckBox ctb = (CheckBox) view.findViewById(R.id.list_item_check);
             ctb.toggle();
-            // 将CheckBox的选中状况记录下来
             designerByAppointAdapter.getIsSelected().put(position, ctb.isChecked());
-            // 调整选定条目
             if (ctb.isChecked()) {
                 designerids.add(designerid);
                 totalCount--;
@@ -145,9 +143,7 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
             String designerid = info.get_id();
             CheckBox ctb = (CheckBox) view.findViewById(R.id.list_item_check);
             ctb.toggle();
-            // 将CheckBox的选中状况记录下来
             designerByIntentionInfoAdapter.getIsSelected().put(position, ctb.isChecked());
-            // 调整选定条目
             if (ctb.isChecked()) {
                 designerids.add(designerid);
                 totalCount--;
