@@ -5,7 +5,7 @@
     <com.jianfanjia.cn.view.MyViewPager
         android:id="@+id/viewPager_lib"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"></com.jianfanjia.cn.view.MyViewPager>
+        android:layout_height="wrap_content" />
 
     <LinearLayout
         android:id="@+id/indicatorGroup_lib"

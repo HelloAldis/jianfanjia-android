@@ -3,6 +3,7 @@ package com.jianfanjia.cn.fragment;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -13,6 +14,7 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SettingActivity;
 import com.jianfanjia.cn.activity.UserByOwnerInfoActivity;
 import com.jianfanjia.cn.base.BaseFragment;
+import com.jianfanjia.cn.tools.LogTool;
 
 /**
  * Description:我的
@@ -27,6 +29,7 @@ public class MyFragment extends BaseFragment {
     private RelativeLayout my_site_layout = null;
     private RelativeLayout setting_layout = null;
     private RelativeLayout my_info_layout = null;
+    private ImageView head_img = null;
     private TextView my_name = null;
     private TextView my_account = null;
 
@@ -37,6 +40,7 @@ public class MyFragment extends BaseFragment {
         my_site_layout = (RelativeLayout) view.findViewById(R.id.my_site_layout);
         setting_layout = (RelativeLayout) view.findViewById(R.id.setting_layout);
         my_info_layout = (RelativeLayout) view.findViewById(R.id.frag_my_info_layout);
+        head_img = (ImageView) view.findViewById(R.id.head_img);
         my_account = (TextView) view.findViewById(R.id.frag_my_account);
         my_name = (TextView) view.findViewById(R.id.frag_my_name);
     }
@@ -55,6 +59,11 @@ public class MyFragment extends BaseFragment {
     protected void initMyInfo() {
         my_name.setText(TextUtils.isEmpty(dataManager.getUserName()) ? getResources().getString(R.string.ower) : dataManager.getUserName());
         my_account.setText(TextUtils.isEmpty(dataManager.getAccount()) ? "" : "账号：" + dataManager.getAccount());
+        String imgPath = dataManager.getUserImagePath();
+        LogTool.d(TAG, "imgPath=" + imgPath);
+        if (null != imgPath) {
+            imageLoader.displayImage(imgPath, head_img, options);
+        }
     }
 
     @Override
