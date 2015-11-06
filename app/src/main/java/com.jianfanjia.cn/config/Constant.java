@@ -49,6 +49,8 @@ public class Constant {
 	public static final int REQUESTCODE_CONFIG_SITE = 6;// 配置工地
 	public static final int REQUESTCODE_CHANGE_SITE = 7;// 切换工地
 
+	public static final int REQUESTCODE_SHOW_PROCESS_PIC = 8;//显示图片
+
 	// item点击项
 	public static final int CONFIRM_ITEM = 1;
 	public static final int ADD_ITEM = 2;
@@ -170,4 +172,6 @@ public class Constant {
 	public static final String TO = "to";
 	public static final String SECTION = "section";
 	public static final String ITEM = "item";
+	public static final String TOPIC_NODE = "1";
+
 }

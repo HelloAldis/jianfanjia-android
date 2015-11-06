@@ -86,7 +86,7 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
             case R.id.btn_send:
                 String content = commentEdit.getText().toString().trim();
                 if (!TextUtils.isEmpty(content)) {
-                    addComment(topicid, "0", content, to, section, item);
+                    addComment(topicid, Constant.TOPIC_NODE, section, item, content, to);
                 } else {
                     makeTextLong("请输入内容");
                 }
@@ -130,7 +130,7 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
     };
 
     //添加评论
-    private void addComment(String topicid, String topictype, String content, String to, String section, String item) {
+    private void addComment(String topicid, String topictype, String section, String item, String content, String to) {
         JianFanJiaClient.addComment(CommentActivity.this, topicid, topictype, section, item, content, to, addCommentListener, this);
     }
 

@@ -9,9 +9,10 @@ package com.jianfanjia.cn.config;
  * 
  */
 public class Url {
+
 	public static String SEVER_IP = "101.200.191.159";
 //	public static String SEVER_IP = "www.jianfanjia.com";
-
+//	public static String SEVER_PORT = "8888";
 	public static String SEVER_PORT = "80";
 
 	public static final String HTTPROOT = "http://" + SEVER_IP + ":"
@@ -81,4 +82,6 @@ public class Url {
 	// 设计师删除验收图片
 	public static final String DELETE_YANSHOU_IMG_BY_DESIGNER = HTTPROOT
 			+ "process/ysimage";
+	//用户删除节点图片
+	public static final String DELETE_PROCESS_PIC = HTTPROOT + "process/delete_image";
 }

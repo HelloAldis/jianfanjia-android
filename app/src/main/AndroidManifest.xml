@@ -97,6 +97,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/activity_styleprize" />
         <activity
+            android:name="com.jianfanjia.cn.activity.ShowProcessPicActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/activity_styleprize" />
+        <activity
             android:name="com.jianfanjia.cn.activity.NotifyActivity"
             android:screenOrientation="portrait"
             android:theme="@style/activity_styleprize" />
@@ -105,11 +109,19 @@
             android:screenOrientation="portrait"
             android:theme="@style/activity_styleprize" />
         <activity
+            android:name="com.jianfanjia.cn.activity.OwnerInfoActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/activity_styleprize" />
+        <activity
             android:name="com.jianfanjia.cn.activity.SettingActivity"
             android:screenOrientation="portrait"
             android:theme="@style/activity_styleprize" />
         <activity
             android:name="com.jianfanjia.cn.activity.DesignerSiteActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/activity_styleprize" />
+        <activity
+            android:name="com.jianfanjia.cn.activity.TestActivity"
             android:screenOrientation="portrait"
             android:theme="@style/activity_styleprize" />
         <activity

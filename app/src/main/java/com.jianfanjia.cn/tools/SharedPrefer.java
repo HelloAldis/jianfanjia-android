@@ -1,15 +1,17 @@
 package com.jianfanjia.cn.tools;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.preference.PreferenceManager;
+
+import org.apache.commons.codec.binary.Base64;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import android.content.Context;
-import android.content.SharedPreferences;
-import org.apache.mina.util.Base64;
-import android.content.SharedPreferences.Editor;
-import android.preference.PreferenceManager;
 
 /**
  * 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res/com.jianfanjia.cn.activity"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layoutAll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -112,7 +112,6 @@
                     android:id="@+id/site__listview"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="16dp"
                     android:layout_marginLeft="33dp"
                     android:cacheColorHint="#ffffff"
                     android:clipToPadding="false"
@@ -121,6 +120,8 @@
                     android:fastScrollEnabled="false"
                     android:listSelector="@android:color/transparent"
                     android:nestedScrollingEnabled="true"
+                    android:paddingBottom="8dp"
+                    android:paddingTop="8dp"
                     android:scrollbars="none" />
             </FrameLayout>
         </LinearLayout>

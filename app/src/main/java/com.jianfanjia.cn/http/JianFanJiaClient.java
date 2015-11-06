@@ -12,6 +12,7 @@ import com.jianfanjia.cn.http.request.AddPicToSectionItemRequest;
 import com.jianfanjia.cn.http.request.AgreeRescheduleRequest;
 import com.jianfanjia.cn.http.request.CheckVersionRequest;
 import com.jianfanjia.cn.http.request.DeletePicRequest;
+import com.jianfanjia.cn.http.request.DeletePicToSectionItemRequest;
 import com.jianfanjia.cn.http.request.FeedBackRequest;
 import com.jianfanjia.cn.http.request.GetAllRescheduleRequest;
 import com.jianfanjia.cn.http.request.GetCommentsRequest;
@@ -153,6 +154,32 @@ public class JianFanJiaClient {
         try {
             jsonParams.put("phone", phone);
             OkHttpClientManager.getInstance().getPostDelegate().postAsyn(sendVerificationRequest, jsonParams.toString(), listener, tag);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 删除节点图片
+     * @param imageid
+     * @param context
+     * @param imageid
+     * @param section
+     * @param item
+     * @param index
+     * @param listener
+     * @param tag
+     */
+    public static final void deleteImageToProcess(Context context, String imageid, String section, String item, int index, LoadDataListener listener, Object tag){
+        DeletePicToSectionItemRequest deletePicToSectionItemRequest = new DeletePicToSectionItemRequest(context);
+        JSONObject jsonParams = new JSONObject();
+        try {
+            jsonParams.put("_id", imageid);
+            jsonParams.put("section", section);
+            jsonParams.put("item", item);
+            jsonParams.put("index", index);
+            LogTool.d(TAG, "deleteImageToProcess -" + deletePicToSectionItemRequest.getUrl() + "----" + jsonParams.toString());
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(deletePicToSectionItemRequest, jsonParams.toString(), listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
         }

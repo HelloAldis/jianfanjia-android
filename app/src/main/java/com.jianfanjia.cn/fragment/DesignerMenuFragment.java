@@ -12,9 +12,9 @@ import android.widget.TextView;
 import com.jianfanjia.cn.activity.DesignerSiteActivity;
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.MyOwnerActivity;
-import com.jianfanjia.cn.activity.NotifyActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SettingActivity;
+import com.jianfanjia.cn.activity.TestActivity;
 import com.jianfanjia.cn.activity.UserByDesignerInfoActivity;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.config.Constant;
@@ -92,7 +92,7 @@ public class DesignerMenuFragment extends BaseFragment {
 			startActivity(UserByDesignerInfoActivity.class);
 			break;
 		case R.id.notifyLayout:
-			startActivity(NotifyActivity.class);
+			startActivity(TestActivity.class);
 			break;
 		case R.id.tab_rb_2:
 			startActivity(MyOwnerActivity.class);

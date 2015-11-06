@@ -2,28 +2,81 @@ apply plugin: 'com.android.application'
 
 
 android {
-    compileSdkVersion 21
+    compileSdkVersion 23
     buildToolsVersion '23.0.0'
     defaultConfig {
-        applicationId 'com.jianfanjia.cn.activity'
-        minSdkVersion 11
+        applicationId "com.jianfanjia.cn.activity"
+        minSdkVersion 15
         targetSdkVersion 21
         versionCode 1
-        versionName "1.0"
+        versionName "2.0.0"
+
+        // AndroidManifest.xml 里面UMENG_CHANNEL的value为 ${UMENG_CHANNEL_VALUE}
+        manifestPlaceholders = [UMENG_CHANNEL_VALUE: "channel_name"]
     }
+    //签名
+    signingConfigs {
+        relealse {
+            storeFile file("jianfanjia.keystore")
+            storePassword "jianfanjia"
+            keyAlias "jianfanjia"
+            keyPassword "jyzjianfanjia"
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.relealse
+        }
+        debug {
+            minifyEnabled false
+            signingConfig signingConfigs.relealse
         }
     }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
     productFlavors {
+        default_channel {}
+    }
+
+    productFlavors.all { flavor ->
+        flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def outputFile = output.outputFile
+            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                def fileName = outputFile.name.replace(".apk", "-designer-${defaultConfig.versionName}.apk")
+                output.outputFile = new File(outputFile.parent, fileName)
+            }
+        }
     }
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile files('libs/ormlite-android-4.49-SNAPSHOT.jar')
+    compile files('libs/ormlite-core-4.49-SNAPSHOT.jar')
+    compile files('libs/armeabi.jar')
+    compile 'com.android.support:appcompat-v7:23.0.1'
+    compile files('libs/GetuiExt-2.0.3.jar')
+    compile files('libs/GetuiSDK2.6.1.0.jar')
+    compile files('libs/gson-2.3.1.jar')
+    compile files('libs/commons-codec-1.10.jar')
     compile 'com.squareup.okhttp:okhttp:2.5.0'
-    compile 'com.google.code.gson:gson:2.3.1'
     compile 'com.squareup.okio:okio:1.6.0'
+    compile 'com.android.support:support-v4:23.0.1'
+    compile 'com.android.support:design:23.0.1'
+    compile 'com.android.support:cardview-v7:23.0.1'
+    compile 'com.android.support:recyclerview-v7:23.0.1'
+    compile 'jp.wasabeef:recyclerview-animators:1.3.0'
+    compile 'com.malinskiy:superrecyclerview:1.1.1'
+    compile 'com.commit451:PhotoView:1.2.4'
+    compile files('libs/universal-image-loader-1.9.4-SNAPSHOT.jar')
 }

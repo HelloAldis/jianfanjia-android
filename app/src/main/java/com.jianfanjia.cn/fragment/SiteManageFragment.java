@@ -1,5 +1,6 @@
 package com.jianfanjia.cn.fragment;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -23,7 +24,7 @@ import com.jianfanjia.cn.activity.CommentActivity;
 import com.jianfanjia.cn.activity.DesignerSiteActivity;
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.ShowPicActivity;
+import com.jianfanjia.cn.activity.ShowProcessPicActivity;
 import com.jianfanjia.cn.adapter.MyViewPageAdapter;
 import com.jianfanjia.cn.adapter.SectionItemAdapterBack;
 import com.jianfanjia.cn.application.MyApplication;
@@ -34,6 +35,7 @@ import com.jianfanjia.cn.bean.SectionInfo;
 import com.jianfanjia.cn.bean.SectionItemInfo;
 import com.jianfanjia.cn.bean.ViewPagerItem;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.http.request.AddPicToSectionItemRequest;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
@@ -444,7 +446,12 @@ public class SiteManageFragment extends BaseFragment implements
                 bundle.putStringArrayList(Constant.IMAGE_LIST,
                         (ArrayList<String>) imageUrlList);
                 bundle.putInt(Constant.CURRENT_POSITION, position);
-                startActivity(ShowPicActivity.class, bundle);
+                bundle.putString(Global.PROCESS_ID, processId);
+                bundle.putString(Global.SECTION, sectionInfo.getName());
+                bundle.putString(Global.ITEM, sectionItemAdapter.getCurrentItem());
+                Intent intent = new Intent(getActivity(), ShowProcessPicActivity.class);
+                intent.putExtras(bundle);
+                startActivityForResult(intent, Constant.REQUESTCODE_SHOW_PROCESS_PIC);
                 break;
             case Constant.ADD_ITEM:
                 imageList = imageUrlList;
@@ -578,6 +585,9 @@ public class SiteManageFragment extends BaseFragment implements
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode != Activity.RESULT_OK){
+            return;
+        }
         switch (requestCode) {
             case Constant.REQUESTCODE_CAMERA:// 拍照
                 mTmpFile = new File(dataManager.getPicPath());

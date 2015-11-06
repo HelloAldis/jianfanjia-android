@@ -199,6 +199,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
             }
             setConfimStatus(imagecount);
             adapter.setList(checkGridList);
+
         }
         initShowList();
     }

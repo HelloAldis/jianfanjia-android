@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
-import com.jianfanjia.cn.bean.CommentInfo;
 import com.jianfanjia.cn.bean.SectionInfo;
 import com.jianfanjia.cn.bean.SectionItemInfo;
 import com.jianfanjia.cn.cache.DataManagerNew;
@@ -236,7 +235,6 @@ public class SectionItemAdapterBack extends BaseAdapter {
         final SectionItemInfo sectionItemInfo = list.get(position);
         switch (type) {
             case SECTION_ITME_VIEW:
-                List<CommentInfo> commentInfoList = sectionItemInfo.getComments();
                 viewHolder.closeNodeName.setText(MyApplication.getInstance()
                         .getStringById(sectionItemInfo.getName()));
                 viewHolder.openNodeName.setText(MyApplication.getInstance()
@@ -312,8 +310,9 @@ public class SectionItemAdapterBack extends BaseAdapter {
                     imageUrlList.add(Constant.HOME_ADD_PIC);
                 }
 
-                if (null != commentInfoList && commentInfoList.size() > 0) {
-                    viewHolder.openComment.setText(commentInfoList.size() + "");
+                int commentCount = sectionItemInfo.getComment_count();
+                if (commentCount > 0) {
+                    viewHolder.openComment.setText(commentCount + "");
                     viewHolder.openComment.setCompoundDrawablesWithIntrinsicBounds(
                             context.getResources().getDrawable(
                                     R.drawable.btn_icon_comment_pressed), null,
