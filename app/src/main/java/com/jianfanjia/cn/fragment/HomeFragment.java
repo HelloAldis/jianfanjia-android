@@ -214,7 +214,7 @@ public class HomeFragment extends BaseFragment implements
                         }
                     } else {
                         marchedLayout.setVisibility(View.GONE);
-                        noMarchedLayout.setVisibility(View.VISIBLE);
+                        noMarchedLayout.setVisibility(View.GONE);
                     }
                 } else {
                     marchedLayout.setVisibility(View.GONE);
