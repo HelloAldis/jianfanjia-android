@@ -2,6 +2,7 @@ package com.jianfanjia.cn.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -59,7 +60,11 @@ public class PingJiaInfoActivity extends BaseActivity implements
             bar.setRating((int) (speed + attitude) / 2);
             speedBar.setRating((int) speed);
             attudeBar.setRating((int) attitude);
-            commentText.setText("评价内容:" + evaluation.getComment());
+            if (!TextUtils.isEmpty(evaluation.getComment())) {
+                commentText.setText("评价内容:" + evaluation.getComment());
+            } else {
+                commentText.setText("评价内容:暂无");
+            }
         }
     }
 
