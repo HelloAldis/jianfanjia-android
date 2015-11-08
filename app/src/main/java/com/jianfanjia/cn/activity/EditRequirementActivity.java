@@ -222,7 +222,9 @@ public class EditRequirementActivity extends BaseAnnotationActivity {
         int viewId = clickView.getId();
         switch (viewId) {
             case R.id.head_back_layout:
-                comeMainActivity();
+//                comeMainActivity();
+                setResult(RESULT_CANCELED);
+                finish();
                 break;
             case R.id.act_edit_req_city:
                 gotoItem.putExtra(REQUIRE_DATA, REQUIRECODE_CITY);
@@ -263,7 +265,9 @@ public class EditRequirementActivity extends BaseAnnotationActivity {
     public void onBackPressed() {
         super.onBackPressed();
 //        finish();
-        comeMainActivity();
+//        comeMainActivity();
+        setResult(RESULT_CANCELED);
+        finish();
     }
 
     @Click(R.id.head_right_title)
@@ -284,9 +288,9 @@ public class EditRequirementActivity extends BaseAnnotationActivity {
             @Override
             public void run() {
                 commonDialog.dismiss();
-                /*setResult(RESULT_OK);
-                finish();*/
-                comeMainActivity();
+                setResult(RESULT_OK);
+                finish();
+//                comeMainActivity();
             }
         }, 2000);
     }

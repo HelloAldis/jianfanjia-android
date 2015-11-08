@@ -14,6 +14,7 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SettingActivity;
 import com.jianfanjia.cn.activity.UserByOwnerInfoActivity;
 import com.jianfanjia.cn.base.BaseFragment;
+import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.tools.LogTool;
 
 /**
@@ -61,7 +62,7 @@ public class MyFragment extends BaseFragment {
         my_account.setText(TextUtils.isEmpty(dataManager.getAccount()) ? "" : "账号：" + dataManager.getAccount());
         String imgPath = dataManager.getUserImagePath();
         LogTool.d(TAG, "imgPath=" + imgPath);
-        if (null != imgPath) {
+        if (null != imgPath && !imgPath.contains(Constant.DEFALUT_PIC_HEAD)) {
             imageLoader.displayImage(imgPath, head_img, options);
         }
     }

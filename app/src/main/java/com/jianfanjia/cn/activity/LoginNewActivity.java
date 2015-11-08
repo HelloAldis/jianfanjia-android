@@ -223,6 +223,11 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
         finish();
     }
 
+    @Override
+    public void loadFailture(String error_msg) {
+        super.loadFailture(error_msg);
+    }
+
     void showRegister() {
         translateAnimationToLeft(titleLayout);
         viewFlipper.showNext();

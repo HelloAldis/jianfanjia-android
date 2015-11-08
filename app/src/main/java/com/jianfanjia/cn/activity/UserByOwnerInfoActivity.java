@@ -521,8 +521,8 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 		intent.putExtra("aspectY", 1);
 		intent.putExtra("scale", true);
 		// outputX outputY 是裁剪图片宽高
-		intent.putExtra("outputX", 300);
-		intent.putExtra("outputY", 300);
+		intent.putExtra("outputX", 400);
+		intent.putExtra("outputY", 400);
 		intent.putExtra("return-data", true);
 		startActivityForResult(intent, Constant.REQUESTCODE_CROP);
 	}
