@@ -1,5 +1,7 @@
 package com.jianfanjia.cn.fragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.view.View;
@@ -15,6 +17,7 @@ import android.widget.ScrollView;
 
 import com.jianfanjia.cn.activity.DesignerCaseInfoActivity;
 import com.jianfanjia.cn.activity.DesignerInfoActivity;
+import com.jianfanjia.cn.activity.EditRequirementActivity;
 import com.jianfanjia.cn.activity.EditRequirementActivity_;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.DesignerListAdapter;
@@ -63,6 +66,7 @@ public class HomeFragment extends BaseFragment implements
     private List<DesignerListInfo> designerList = new ArrayList<DesignerListInfo>();
 
     private int FROM = 0;// 当前页的编号，从0开始
+    private int total = Constant.LIMIT;
 
     private static final int BANNER_ICON[] = {R.mipmap.bg_home_banner1,
             R.mipmap.bg_home_banner2, R.mipmap.bg_home_banner3,
@@ -114,7 +118,8 @@ public class HomeFragment extends BaseFragment implements
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_add:
-                startActivity(EditRequirementActivity_.class);
+                Intent intent = new Intent(getActivity(), EditRequirementActivity_.class);
+                getActivity().startActivityForResult(intent, XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT);
                 break;
             default:
                 break;
@@ -168,14 +173,14 @@ public class HomeFragment extends BaseFragment implements
         // Update the LastUpdatedLabel
         refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
         FROM = 0;
-        getHomePageDesigners(FROM, Constant.LIMIT, downListener);
+        getHomePageDesigners(FROM, total, downListener);
     }
 
 
     @Override
     public void onPullUpToRefresh(PullToRefreshBase<ScrollView> refreshView) {
-        FROM = designerList.size();
-        getHomePageDesigners(FROM, Constant.LIMIT, upListener);
+//        FROM = designerList.size();
+        getHomePageDesigners(total, Constant.LIMIT, upListener);
     }
 
 
@@ -210,11 +215,11 @@ public class HomeFragment extends BaseFragment implements
                         }
                     } else {
                         marchedLayout.setVisibility(View.GONE);
-                        noMarchedLayout.setVisibility(View.GONE);
+                        noMarchedLayout.setVisibility(View.VISIBLE);
                     }
                 } else {
-                    marchedLayout.setVisibility(View.VISIBLE);
-                    noMarchedLayout.setVisibility(View.GONE);
+                    marchedLayout.setVisibility(View.GONE);
+                    noMarchedLayout.setVisibility(View.VISIBLE);
                 }
                 designerList.clear();
                 designerList.addAll(homeDesignersInfo.getDesigners());
@@ -242,6 +247,7 @@ public class HomeFragment extends BaseFragment implements
 
         @Override
         public void loadSuccess(Object data) {
+            total += Constant.LIMIT;
             LogTool.d(TAG, "homeDesignersInfo=" + data.toString());
             HomeDesignersInfo homeDesignersInfo = JsonParser.jsonToBean(data.toString(), HomeDesignersInfo.class);
             LogTool.d(TAG, "homeDesignersInfo:" + homeDesignersInfo);
@@ -263,5 +269,18 @@ public class HomeFragment extends BaseFragment implements
     @Override
     public int getLayoutId() {
         return R.layout.fragment_home;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != Activity.RESULT_OK) {
+            return;
+        }
+        switch (requestCode) {
+            case XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT:
+                getHomePageDesigners(FROM, total, downListener);
+                break;
+        }
     }
 }
