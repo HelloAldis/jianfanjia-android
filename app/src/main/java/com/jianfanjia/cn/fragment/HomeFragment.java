@@ -17,7 +17,6 @@ import android.widget.ScrollView;
 
 import com.jianfanjia.cn.activity.DesignerCaseInfoActivity;
 import com.jianfanjia.cn.activity.DesignerInfoActivity;
-import com.jianfanjia.cn.activity.EditRequirementActivity;
 import com.jianfanjia.cn.activity.EditRequirementActivity_;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.DesignerListAdapter;
@@ -267,11 +266,6 @@ public class HomeFragment extends BaseFragment implements
     };
 
     @Override
-    public int getLayoutId() {
-        return R.layout.fragment_home;
-    }
-
-    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != Activity.RESULT_OK) {
@@ -281,6 +275,15 @@ public class HomeFragment extends BaseFragment implements
             case XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT:
                 getHomePageDesigners(FROM, total, downListener);
                 break;
+            default:
+                break;
         }
     }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.fragment_home;
+    }
+
+
 }
