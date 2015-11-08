@@ -18,7 +18,6 @@ import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.AppointDesignerActivity;
-import com.jianfanjia.cn.activity.EditRequirementActivity;
 import com.jianfanjia.cn.activity.EditRequirementActivity_;
 import com.jianfanjia.cn.activity.MyDesignerActivity_;
 import com.jianfanjia.cn.activity.MyProcessDetailActivity_;
@@ -271,7 +270,7 @@ public class XuQiuFragment extends BaseAnnotationFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        LogTool.d(TAG,"onActivityResult = "+requestCode);
+        LogTool.d(TAG, "onActivityResult = " + requestCode);
         if (resultCode != Activity.RESULT_OK) {
             return;
         }
