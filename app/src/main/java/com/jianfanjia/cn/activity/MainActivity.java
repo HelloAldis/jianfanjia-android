@@ -47,6 +47,7 @@ public class MainActivity extends BaseActivity implements
         //如果是注册直接点击发布需求，先创建mainactivity再启动editrequirementactivity
         Intent intent = getIntent();
         boolean flag = intent.getBooleanExtra(Global.IS_PUBLISHREQUIREMENT, false);
+        LogTool.d(TAG, "flag:" + flag);
         if (flag) {
             LogTool.d(TAG, "REGISTER PUBLISH REQUIREMENG");
             startActivityForResult(new Intent(this, EditRequirementActivity_.class), XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT);
