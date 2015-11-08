@@ -60,7 +60,7 @@ public class DesignerByIntentionInfoAdapter extends BaseListAdapter<DesignerCanO
             viewHolder = (ViewHolder) convertView.getTag();
         }
         imageLoader.displayImage(Url_New.GET_THUMBNAIL_IMAGE + info.getImageid(), viewHolder.itemwHeadView, options);
-
+        viewHolder.itemRatingBar.setRating((int) (info.getRespond_speed() + info.getService_attitude()) / 2);
         viewHolder.itemNameText.setText(info.getUsername());
         viewHolder.itemCheck.setChecked(getIsSelected().get(position));
 
