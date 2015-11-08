@@ -55,7 +55,7 @@
                     android:layout_marginTop="10dip"
                     android:isIndicator="true"
                     android:numStars="5"
-                    android:rating="3" />
+                    android:rating="0" />
             </LinearLayout>
 
             <LinearLayout
@@ -86,7 +86,7 @@
                         android:layout_gravity="center_vertical"
                         android:isIndicator="true"
                         android:numStars="5"
-                        android:rating="4" />
+                        android:rating="0" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -111,7 +111,7 @@
                         android:layout_gravity="center_vertical"
                         android:isIndicator="true"
                         android:numStars="5"
-                        android:rating="3" />
+                        android:rating="0" />
                 </LinearLayout>
 
                 <TextView
