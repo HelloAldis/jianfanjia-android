@@ -59,4 +59,7 @@ public class Global {
     public static final String REQUIREMENT_STATUS6 = "6";//有一个或多个设计师量完房但是没有人上传方案
     public static final String REQUIREMENT_STATUS7 = "7";//配置了合同但是没有配置工地
 
+    public static final String PHONE_MATCH = "^(13[0-9]|15[0|3|6|7|8|9]|18[8|9])\\d{8}$";
+    public static final String PASSWORD_MATCH = "\\w{6,30}$";
+//    public static final String PASSWORD_MATCH = "^[a-zA-Z_]\\w{5,29}$";
 }

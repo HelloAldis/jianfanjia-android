@@ -60,9 +60,19 @@ public class ForgetPswActivity extends BaseAnnotationActivity{
             mEtForgetPswUserName.requestFocus();
             return false;
         }
+        if(!name.matches(Global.PHONE_MATCH)){
+            makeTextShort(getString(R.string.tip_input_corrent_phone));
+            mEtForgetPswUserName.requestFocus();
+            return false;
+        }
         if (TextUtils.isEmpty(password)) {
             makeTextShort(getResources().getString(
                     R.string.tip_please_input_password));
+            mEtForgetPswPassword.requestFocus();
+            return false;
+        }
+        if(!password.matches(Global.PASSWORD_MATCH)){
+            makeTextShort(getString(R.string.tip_input_correct_password));
             mEtForgetPswPassword.requestFocus();
             return false;
         }
