@@ -44,7 +44,6 @@ public class MainActivity extends BaseActivity implements
     public void initView() {
         mTabRg = (RadioGroup) findViewById(R.id.tab_rg_menu);
         setTabSelection(Constant.HOME);
-
         //如果是注册直接点击发布需求，先创建mainactivity再启动editrequirementactivity
         Intent intent = getIntent();
         boolean flag = intent.getBooleanExtra(Global.IS_PUBLISHREQUIREMENT, false);
