@@ -177,7 +177,7 @@ public class XuQiuFragment extends BaseAnnotationFragment {
         initListView();
         initIntent();
         initPullRefresh();
-        initdata();
+        initData();
     }
 
     private void initPullRefresh() {
@@ -191,7 +191,7 @@ public class XuQiuFragment extends BaseAnnotationFragment {
                         textView.setText("正在刷新");
                         imageView.setVisibility(View.GONE);
                         progressBar.setVisibility(View.VISIBLE);
-                        initdata();
+                        initData();
                     }
 
                     @Override
@@ -228,7 +228,7 @@ public class XuQiuFragment extends BaseAnnotationFragment {
         gotoMyProcess = new Intent(getActivity(), MyProcessDetailActivity_.class);
     }
 
-    protected void initdata() {
+    protected void initData() {
         JianFanJiaClient.get_Requirement_List(getActivity(), new ApiUiUpdateListener() {
             @Override
             public void preLoad() {
@@ -277,7 +277,7 @@ public class XuQiuFragment extends BaseAnnotationFragment {
         switch (requestCode) {
             case REQUESTCODE_PUBLISH_REQUIREMENT:
             case REQUESTCODE_EDIT_REQUIREMENT:
-                initdata();
+                initData();
                 break;
             default:
                 break;
