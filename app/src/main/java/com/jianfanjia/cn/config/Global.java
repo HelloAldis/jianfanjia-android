@@ -7,9 +7,6 @@ package com.jianfanjia.cn.config;
  * Date:15-10-11 12:47
  */
 public class Global {
-
-
-
     public static final String REGISTER_INFO = "register_info";
     public static final String REGISTER = "register";
 
@@ -29,9 +26,11 @@ public class Global {
     public static final String DESIGNER_NAME = "designer_name";
     public static final String TOPIC_ID = "topic_id";
     public static final String TO = "to";
-    public static final java.lang.String SECTION = "section";
-    public static final java.lang.String ITEM = "item";
+    public static final String SECTION = "section";
+    public static final String ITEM = "item";
     public static final String TOPICTYPE = "topictype";
+    public static final String SPEED = "speed";
+    public static final String ATTITUDE = "attitude";
 
 
     public static final String TOPIC_PLAN = "0";
