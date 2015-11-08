@@ -41,6 +41,9 @@ public class PingjiaActivity extends BaseActivity implements
     private String designer_name = null;
     private String requirementid = null;
     private String designerid = null;
+    private float speed = 0.0f;
+    private float attitude = 0.0f;
+
 
     private int respond_speed = 0;
     private int service_attitude = 0;
@@ -62,7 +65,10 @@ public class PingjiaActivity extends BaseActivity implements
         designer_name = commentBundle.getString(Global.DESIGNER_NAME);
         requirementid = commentBundle.getString(Global.REQUIREMENT_ID);
         designerid = commentBundle.getString(Global.DESIGNER_ID);
-        LogTool.d(TAG, "imageid:" + imageid + " designer_name:" + designer_name + " requirementid:" + requirementid + " designerid:" + designerid);
+        speed = commentBundle.getFloat(Global.SPEED);
+        attitude = commentBundle.getFloat(Global.ATTITUDE);
+        LogTool.d(TAG, "imageid:" + imageid + " designer_name:" + designer_name + " requirementid:" + requirementid + " designerid:" + designerid + " speed:" + speed + " attitude:" + attitude);
+        bar.setRating((int) (speed + attitude) / 2);
         imageLoader.displayImage(Url_New.GET_THUMBNAIL_IMAGE + imageid, designer_head_img, options);
         designerName.setText(designer_name);
     }

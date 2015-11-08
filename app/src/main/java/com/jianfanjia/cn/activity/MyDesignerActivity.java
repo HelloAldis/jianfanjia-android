@@ -186,6 +186,8 @@ public class MyDesignerActivity extends BaseAnnotationActivity {
                         commentBundle.putString(Global.IMAGE_ID, orderDesignerInfo.getImageid());
                         commentBundle.putString(Global.DESIGNER_NAME, orderDesignerInfo.getUsername());
                         commentBundle.putString(Global.DESIGNER_ID, orderDesignerInfo.get_id());
+                        commentBundle.putFloat(Global.SPEED, orderDesignerInfo.getRespond_speed());
+                        commentBundle.putFloat(Global.ATTITUDE, orderDesignerInfo.getService_attitude());
                         commentBundle.putString(Global.REQUIREMENT_ID, requirementid);
                         startActivity(PingjiaActivity.class, commentBundle);
                         break;
