@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.jianfanjia.cn.base.BaseAnnotationActivity;
 import com.jianfanjia.cn.bean.RequirementInfo;
-import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.fragment.XuQiuFragment;
 import com.jianfanjia.cn.http.JianFanJiaClient;
@@ -38,7 +37,6 @@ import java.util.Set;
  */
 @EActivity(R.layout.activity_edit_req)
 public class EditRequirementActivity extends BaseAnnotationActivity {
-
     public static final int REQUIRECODE_CITY = 0x00;
     public static final int REQUIRECODE_HOUSETYPE = 0x01;
     public static final int REQUIRECODE_PERSONS = 0x02;
@@ -208,21 +206,12 @@ public class EditRequirementActivity extends BaseAnnotationActivity {
         mainHeadView.setRigthTitleEnable(true);
     }
 
-    protected void comeMainActivity(){
-        Intent intent = new Intent(this,MainActivity.class);
-        intent.putExtra(Constant.TAB_POSITION, Constant.MANAGE);
-        startActivity(intent);
-        finish();
-    }
-
-
     @Click({R.id.head_back_layout, R.id.act_edit_req_city, R.id.act_edit_req_housetype, R.id.act_edit_req_decoratetype,
             R.id.act_edit_req_lovestyle, R.id.act_edit_req_persons, R.id.act_edit_req_lovedesistyle, R.id.act_edit_req_lovedesisex, R.id.act_edit_req_work_type})
     protected void back(View clickView) {
         int viewId = clickView.getId();
         switch (viewId) {
             case R.id.head_back_layout:
-//                comeMainActivity();
                 setResult(RESULT_CANCELED);
                 finish();
                 break;
@@ -258,14 +247,14 @@ public class EditRequirementActivity extends BaseAnnotationActivity {
                 gotoItem.putExtra(REQUIRE_DATA, REQUIRECODE_DESISEX);
                 startActivityForResult(gotoItem, REQUIRECODE_DESISEX);
                 break;
+            default:
+                break;
         }
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-//        finish();
-//        comeMainActivity();
         setResult(RESULT_CANCELED);
         finish();
     }
@@ -290,7 +279,6 @@ public class EditRequirementActivity extends BaseAnnotationActivity {
                 commonDialog.dismiss();
                 setResult(RESULT_OK);
                 finish();
-//                comeMainActivity();
             }
         }, 2000);
     }
@@ -321,7 +309,6 @@ public class EditRequirementActivity extends BaseAnnotationActivity {
     }
 
     private void initData() {
-
         Intent intent = getIntent();
         requirementInfo = (RequirementInfo) intent.getSerializableExtra(Global.REQUIREMENT_INFO);
         if (requirementInfo != null) {

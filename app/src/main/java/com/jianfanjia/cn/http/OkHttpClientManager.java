@@ -64,7 +64,7 @@ import javax.net.ssl.X509TrustManager;
  * Date:2015-10-15 15:17
  */
 public class OkHttpClientManager {
-    private static final String TAG = "OkHttpClientManager";
+    private static final String TAG = OkHttpClientManager.class.getName();
     public static final String SERVER_ERROR = "对不起，服务器出现异常";
 
     private static OkHttpClientManager mInstance;
@@ -152,7 +152,7 @@ public class OkHttpClientManager {
         if (listener != null) {
             listener.preLoad();
         }
-        LogTool.d("onResponse == ", "preLoad :");
+        LogTool.d(TAG, "preLoad :");
         baseRequest.pre();
         mOkHttpClient.newCall(baseRequest.getRequest()).enqueue(new Callback() {
             @Override
@@ -167,12 +167,12 @@ public class OkHttpClientManager {
                     JSONObject responseString = new JSONObject(string);
                     if (responseString.has(Constant.DATA)
                             && responseString.get(Constant.DATA) != null) {
-                        LogTool.d("onResponse == ", "data :" + responseString.get(Constant.DATA).toString());
+                        LogTool.d(TAG, "data :" + responseString.get(Constant.DATA).toString());
                         String data = responseString.get(Constant.DATA).toString();
                         baseRequest.onSuccess(data);
                         sendSuccessResultCallback(listener, data);
                     } else if (responseString.has(Constant.ERROR_MSG) && responseString.get(Constant.ERROR_MSG) != null) {
-                        LogTool.d("onResponse == ", "errormsg :" + responseString.get(
+                        LogTool.d(TAG, "errormsg :" + responseString.get(
                                 Constant.ERROR_MSG).toString());
                         String error_msg = responseString.get(
                                 Constant.ERROR_MSG).toString();
@@ -180,7 +180,7 @@ public class OkHttpClientManager {
                         sendFailedStringCallback(listener, error_msg);
                     } else if (responseString.has(Constant.SUCCESS_MSG) && responseString.get(
                             Constant.SUCCESS_MSG) != null) {
-                        LogTool.d("onResponse == ", "msg :" + responseString.get(
+                        LogTool.d(TAG, "msg :" + responseString.get(
                                 Constant.SUCCESS_MSG).toString());
                         String msg = responseString.get(
                                 Constant.SUCCESS_MSG).toString();

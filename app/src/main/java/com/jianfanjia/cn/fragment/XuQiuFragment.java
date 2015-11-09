@@ -142,6 +142,8 @@ public class XuQiuFragment extends BaseAnnotationFragment {
                         gotoOrderDesigner.putExtra(Global.REQUIREMENT_ID, requirementInfos.get(position).get_id());
                         startActivity(gotoOrderDesigner);
                         break;
+                    default:
+                        break;
                 }
             }
         });
