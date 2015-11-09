@@ -39,8 +39,6 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
     private MainHeadView mainHeadView = null;
     private LinearLayout marchRootview = null;
     private LinearLayout intentionRootview = null;
-    private TextView allText = null;
-    private TextView cancelText = null;
     private TextView moreText = null;
     private ListView marched_designer_listview = null;
     private ListView intention_designer_listview = null;
@@ -58,8 +56,6 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
         initMainHeadView();
         marchRootview = (LinearLayout) findViewById(R.id.marchRootview);
         intentionRootview = (LinearLayout) findViewById(R.id.intentionRootview);
-        allText = (TextView) findViewById(R.id.allText);
-        cancelText = (TextView) findViewById(R.id.cancelText);
         moreText = (TextView) findViewById(R.id.moreText);
         marched_designer_listview = (ListView) findViewById(R.id.marched_designer_listview);
         intention_designer_listview = (ListView) findViewById(R.id.intention_designer_listview);
@@ -85,8 +81,6 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
 
     @Override
     public void setListener() {
-        allText.setOnClickListener(this);
-        cancelText.setOnClickListener(this);
         moreText.setOnClickListener(this);
         marched_designer_listview.setOnItemClickListener(recDesignerClickListener);
         intention_designer_listview.setOnItemClickListener(favoriteDesignerClickListener);
@@ -97,16 +91,6 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
         switch (view.getId()) {
             case R.id.head_back_layout:
                 finish();
-                break;
-            case R.id.allText:
-                allText.setVisibility(View.GONE);
-                cancelText.setVisibility(View.VISIBLE);
-                selectAll();
-                break;
-            case R.id.cancelText:
-                allText.setVisibility(View.VISIBLE);
-                cancelText.setVisibility(View.GONE);
-                deSelectAll();
                 break;
             case R.id.moreText:
                 startActivity(MyFavoriteDesignerActivity_.class);

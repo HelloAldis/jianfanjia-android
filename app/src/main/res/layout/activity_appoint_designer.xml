@@ -42,29 +42,6 @@
                         android:text="@string/str_rec_designer"
                         android:textSize="16sp" />
 
-                    <TextView
-                        android:id="@+id/allText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_margin="10dip"
-                        android:text="@string/str_choose_all"
-                        android:textColor="@color/text_color"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/cancelText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_margin="10dip"
-                        android:text="@string/str_cancel"
-                        android:textColor="@color/text_color"
-                        android:textSize="16sp"
-                        android:visibility="gone" />
-
                 </RelativeLayout>
 
                 <View style="@style/divier_line" />
@@ -94,7 +71,7 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dip"
+                    android:layout_height="45dip"
                     android:background="@color/font_white">
 
                     <TextView
