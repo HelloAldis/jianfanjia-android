@@ -90,20 +90,6 @@ public class DataManagerNew {
         sharedPreferdata.setValue(ownerInfo.get_id(), ownerInfo);
     }
 
-    public Object getOwnerOrDesignerByIdAndType(String userType, String _id) {
-        if (userType.equals(Constant.IDENTITY_DESIGNER)) {
-            return getDesignerInfoById(_id);
-        } else if (userType.equals(Constant.IDENTITY_OWNER)) {
-            return getOwnerInfoById(_id);
-        }
-        return null;
-    }
-
-    // 设计师用户获取个人资料
-    public DesignerInfo getDesignerInfo() {
-        return getDesignerInfoById(getUserId());
-    }
-
     // 业主用户获取个人资料
     public OwnerInfo getOwnerInfo() {
         return getOwnerInfoById(getUserId());

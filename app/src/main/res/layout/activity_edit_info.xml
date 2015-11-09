@@ -55,7 +55,7 @@
         android:layout_alignParentRight="true"
         android:layout_below="@+id/edit_info"
         android:layout_margin="16dp"
-        android:background="@drawable/btn_selector"
+        android:background="@drawable/btn_selector_bg"
         android:text="@string/confirm"
         android:textColor="@color/font_white"
         android:textSize="16sp" />

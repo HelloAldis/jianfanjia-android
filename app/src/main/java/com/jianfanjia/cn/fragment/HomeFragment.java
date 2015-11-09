@@ -208,6 +208,7 @@ public class HomeFragment extends BaseFragment implements
                             noMarchedLayout.setVisibility(View.GONE);
                             marchDesignerAdapter = new MarchDesignerAdapter(getActivity(), designers);
                             marchDesignerView.setAdapter(marchDesignerAdapter);
+
                         } else {
                             marchedLayout.setVisibility(View.GONE);
                             noMarchedLayout.setVisibility(View.VISIBLE);

@@ -34,7 +34,7 @@
         android:layout_alignParentRight="true"
         android:layout_below="@+id/add_feedback"
         android:layout_margin="16dp"
-        android:background="@drawable/btn_selector"
+        android:background="@drawable/btn_selector_bg"
         android:text="@string/commit"
         android:textColor="@color/font_white"
         android:textSize="16sp" />

@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.jianfanjia.cn.activity.MyDesignerActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.OrderDesignerInfo;
-import com.jianfanjia.cn.bean.PlanInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
@@ -65,11 +64,8 @@ public class MyDesignerViewType2 extends BaseAnnotationView {
     }
 
     public void bind(OrderDesignerInfo designerInfo, final ClickCallBack clickCallBack, final int position) {
-        String status = designerInfo.getPlan().getStatus();
         String imageid = designerInfo.getImageid();
         String username = designerInfo.getUsername();
-        PlanInfo planInfo = designerInfo.getPlan();
-        long housechecktime = planInfo.getHouse_check_time();
         if (!TextUtils.isEmpty(imageid)) {
             ImageLoader.getInstance().displayImage(Url_New.GET_THUMBNAIL_IMAGE + imageid, headView, options);
         } else {

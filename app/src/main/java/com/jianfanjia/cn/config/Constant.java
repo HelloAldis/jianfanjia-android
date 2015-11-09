@@ -51,9 +51,14 @@ public class Constant {
     public static final int REQUESTCODE_SHOW_PROCESS_PIC = 8;//显示照片列表
     // editactivity
     public static final int REQUESTCODE_EDIT_USERNAME = 4;
-    public static final int REQUESTCODE_EDIT_ADDRESS = 5;
+    public static final int REQUESTCODE_EDIT_HOME = 5;
+    public static final int REQUESTCODE_EDIT_ADDRESS= 8;
     public static final String EDIT_TYPE = "inputType";
     public static final String EDIT_CONTENT = "content";
+
+    public static final String EDIT_PROVICE = "provice";
+    public static final String EDIT_CITY = "city";
+    public static final String EDIT_DISTRICT = "district";
 
     public static final int REQUESTCODE_CONFIG_SITE = 6;// 配置工地
     public static final int REQUESTCODE_CHANGE_SITE = 7;// 切换工地

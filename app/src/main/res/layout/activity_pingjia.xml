@@ -152,7 +152,7 @@
                         android:layout_marginLeft="@dimen/space_16"
                         android:layout_marginRight="@dimen/space_16"
                         android:layout_marginTop="@dimen/space_10"
-                        android:background="@drawable/btn_selector"
+                        android:background="@drawable/btn_selector_bg"
                         android:text="@string/commit"
                         android:textColor="@color/font_white"
                         android:textSize="16sp" />

@@ -59,7 +59,6 @@ public class MyDesignerViewType1 extends BaseAnnotationView {
     }
 
     public void bind(OrderDesignerInfo designerInfo, final ClickCallBack clickCallBack, final int position) {
-        String status = designerInfo.getPlan().getStatus();
         String imageid = designerInfo.getImageid();
         String username = designerInfo.getUsername();
         if (!TextUtils.isEmpty(imageid)) {
@@ -82,7 +81,7 @@ public class MyDesignerViewType1 extends BaseAnnotationView {
         button2.setText(getResources().getString(R.string.str_change_designer));
         statusView.setText(getResources().getString(R.string.already_refuse));
         statusView.setTextColor(getResources().getColor(R.color.grey_color));
-        button2.setOnClickListener(new OnClickListener() {
+        button1.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 clickCallBack.click(position, MyDesignerActivity.CHANGE_DESIGNER);

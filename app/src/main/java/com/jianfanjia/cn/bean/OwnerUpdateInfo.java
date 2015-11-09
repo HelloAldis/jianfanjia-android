@@ -10,6 +10,8 @@ public class OwnerUpdateInfo implements Serializable {
 
 	private String sex;
 
+	private String province;
+
 	private String city;
 
 	private String district;
@@ -66,4 +68,11 @@ public class OwnerUpdateInfo implements Serializable {
 		this.imageid = imageid;
 	}
 
+	public String getProvince() {
+		return province;
+	}
+
+	public void setProvince(String province) {
+		this.province = province;
+	}
 }

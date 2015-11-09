@@ -42,9 +42,8 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/space_8"
-            android:background="@drawable/btn_orange_white_bg"
+            android:background="@drawable/btn_white_selector_bg"
             android:padding="@dimen/space_8"
-            android:text="@string/str_req_pubReq"
             android:textColor="@color/orange_color" />
 
     </RelativeLayout>

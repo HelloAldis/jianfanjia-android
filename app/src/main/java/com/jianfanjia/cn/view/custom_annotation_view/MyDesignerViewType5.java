@@ -57,7 +57,6 @@ public class MyDesignerViewType5 extends BaseAnnotationView {
     }
 
     public void bind(OrderDesignerInfo designerInfo, final ClickCallBack clickCallBack, final int position) {
-        String status = designerInfo.getPlan().getStatus();
         String imageid = designerInfo.getImageid();
         String username = designerInfo.getUsername();
         if (!TextUtils.isEmpty(imageid)) {

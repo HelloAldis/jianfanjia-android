@@ -57,7 +57,6 @@ public class MyDesignerViewType6 extends BaseAnnotationView {
     }
 
     public void bind(OrderDesignerInfo designerInfo, final ClickCallBack clickCallBack, final int position) {
-        String status = designerInfo.getPlan().getStatus();
         String imageid = designerInfo.getImageid();
         String username = designerInfo.getUsername();
         if (!TextUtils.isEmpty(imageid)) {
@@ -95,6 +94,7 @@ public class MyDesignerViewType6 extends BaseAnnotationView {
         }
         button2.setText(getResources().getString(R.string.str_view_plan));
         button2.setEnabled(false);
+        button2.setTextColor(getResources().getColor(R.color.grey_color));
         statusView.setText(getResources().getString(R.string.already_measure));
         statusView.setTextColor(getResources().getColor(R.color.grey_color));
 

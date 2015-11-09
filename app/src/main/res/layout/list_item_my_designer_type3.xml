@@ -26,7 +26,7 @@
             android:layout_marginTop="@dimen/space_8"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
-            android:text="@string/str_cell" />
+            />
 
 
     </RelativeLayout>

@@ -146,27 +146,27 @@ public class CityFormatTool {
     }*/
 
     //拿到省数组
-    public static String[] getProviceList() {
+    public static List<String> getProviceList() {
         String proviceData = loadJson(PROVICE_FILE);
         Gson gson = new Gson();
-        String[] provices = gson.fromJson(proviceData, new TypeToken<String[]>() {
+        List<String> provices = gson.fromJson(proviceData, new TypeToken<ArrayList<String>>() {
         }.getType());
         return provices;
     }
 
     //拿到市
-    public static Map<String,String[]> getCityMap(){
+    public static Map<String, List<String>> getCityMap(){
         String cityData = loadJson(CITY_FILE);
         Gson gson = new Gson();
-        Map<String,String[]> citys = gson.fromJson(cityData,new TypeToken<Map<String,String[]>>(){}.getType());
+        Map<String,List<String>> citys = gson.fromJson(cityData,new TypeToken<Map<String,ArrayList<String>>>(){}.getType());
         return citys;
     }
 
     //拿到区
-    public static Map<String,String[]> getDistrictMap(){
+    public static Map<String, List<String>> getDistrictMap(){
         String districtData = loadJson(DISTRICT_FILE);
         Gson gson = new Gson();
-        Map<String,String[]> districts = gson.fromJson(districtData,new TypeToken<Map<String,String[]>>(){}.getType());
+        Map<String,List<String>> districts = gson.fromJson(districtData,new TypeToken<Map<String,ArrayList<String>>>(){}.getType());
         return districts;
     }
 

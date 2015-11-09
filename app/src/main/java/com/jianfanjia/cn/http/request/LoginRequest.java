@@ -38,7 +38,6 @@ public class LoginRequest extends BaseRequest {
         super.onSuccess(data);
         if (data != null) {
             LoginUserBean loginUserBean = JsonParser.jsonToBean((String)data, LoginUserBean.class);
-            loginUserBean.setPass(password);
             dataManager.saveLoginUserInfo(loginUserBean);
             dataManager.setLogin(true);
             dataManager.savaLastLoginTime(Calendar.getInstance()

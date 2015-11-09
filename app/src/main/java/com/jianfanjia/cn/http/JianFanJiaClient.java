@@ -316,6 +316,7 @@ public class JianFanJiaClient {
     public static void get_Owner_Info(Context context,
                                       ApiUiUpdateListener listener, Object tag) {
         UserByOwnerInfoRequest userByOwnerInfoRequest = new UserByOwnerInfoRequest(context);
+        LogTool.d(TAG, "get_Owner_Info：" + userByOwnerInfoRequest.getUrl());
         OkHttpClientManager.getInstance().getGetDelegate().getAsyn(userByOwnerInfoRequest, listener, tag);
     }
 

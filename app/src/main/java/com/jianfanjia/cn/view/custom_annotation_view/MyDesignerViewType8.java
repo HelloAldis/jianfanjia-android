@@ -95,6 +95,7 @@ public class MyDesignerViewType8 extends BaseAnnotationView {
         }
         button2.setText(getResources().getString(R.string.str_view_plan));
         button2.setEnabled(false);
+        button2.setTextColor(getResources().getColor(R.color.grey_color));
         statusView.setText(getResources().getString(R.string.not_commit));
         statusView.setTextColor(getResources().getColor(R.color.grey_color));
 
