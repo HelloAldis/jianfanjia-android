@@ -69,4 +69,5 @@
     <string name="favorite_designer">意向设计师</string>
     <string name="str_title">标题</string>
     <string name="str_delete_pic">删除照片</string>
+    <string name="edit_pattern">0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
 </resources>

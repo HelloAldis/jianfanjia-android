@@ -143,7 +143,8 @@
                     style="@style/my_item_layout_image_style"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:contentDescription="@null" />
+                    android:contentDescription="@null"
+                    android:visibility="invisible"/>
             </RelativeLayout>
 
             <View style="@style/divier_line" />
