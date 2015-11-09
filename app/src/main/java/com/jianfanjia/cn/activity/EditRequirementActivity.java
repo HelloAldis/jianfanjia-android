@@ -37,7 +37,6 @@ import java.util.Set;
  */
 @EActivity(R.layout.activity_edit_req)
 public class EditRequirementActivity extends BaseAnnotationActivity {
-
     public static final int REQUIRECODE_CITY = 0x00;
     public static final int REQUIRECODE_HOUSETYPE = 0x01;
     public static final int REQUIRECODE_PERSONS = 0x02;
@@ -247,6 +246,8 @@ public class EditRequirementActivity extends BaseAnnotationActivity {
             case R.id.act_edit_req_lovedesisex:
                 gotoItem.putExtra(REQUIRE_DATA, REQUIRECODE_DESISEX);
                 startActivityForResult(gotoItem, REQUIRECODE_DESISEX);
+                break;
+            default:
                 break;
         }
     }
