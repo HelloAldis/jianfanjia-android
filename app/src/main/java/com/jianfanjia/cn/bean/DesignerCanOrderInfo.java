@@ -28,6 +28,8 @@ public class DesignerCanOrderInfo implements Serializable {
     private String uid_auth_type;
     private String email_auth_type;
     private String work_auth_type;
+    private float respond_speed;
+    private float service_attitude;
     private int match;
 
     public String get_id() {
@@ -181,5 +183,21 @@ public class DesignerCanOrderInfo implements Serializable {
 
     public void setDec_fee_all(int dec_fee_all) {
         this.dec_fee_all = dec_fee_all;
+    }
+
+    public float getRespond_speed() {
+        return respond_speed;
+    }
+
+    public void setRespond_speed(float respond_speed) {
+        this.respond_speed = respond_speed;
+    }
+
+    public float getService_attitude() {
+        return service_attitude;
+    }
+
+    public void setService_attitude(float service_attitude) {
+        this.service_attitude = service_attitude;
     }
 }

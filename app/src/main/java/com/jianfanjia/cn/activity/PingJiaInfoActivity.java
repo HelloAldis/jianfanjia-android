@@ -2,6 +2,7 @@ package com.jianfanjia.cn.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -30,6 +31,7 @@ public class PingJiaInfoActivity extends BaseActivity implements
     private RatingBar bar = null;
     private RatingBar speedBar = null;
     private RatingBar attudeBar = null;
+    private TextView commentText = null;
 
     private String imageid = null;
     private String designer_name = null;
@@ -43,6 +45,7 @@ public class PingJiaInfoActivity extends BaseActivity implements
         bar = (RatingBar) findViewById(R.id.ratingBar);
         speedBar = (RatingBar) findViewById(R.id.speedBar);
         attudeBar = (RatingBar) findViewById(R.id.attudeBar);
+        commentText = (TextView) findViewById(R.id.commentText);
         Intent intent = this.getIntent();
         Bundle viewBundle = intent.getExtras();
         imageid = viewBundle.getString(Global.IMAGE_ID);
@@ -52,7 +55,16 @@ public class PingJiaInfoActivity extends BaseActivity implements
         imageLoader.displayImage(Url_New.GET_THUMBNAIL_IMAGE + imageid, designer_head_img, options);
         designerName.setText(designer_name);
         if (null != evaluation) {
-
+            float speed = evaluation.getRespond_speed();
+            float attitude = evaluation.getService_attitude();
+            bar.setRating((int) (speed + attitude) / 2);
+            speedBar.setRating((int) speed);
+            attudeBar.setRating((int) attitude);
+            if (!TextUtils.isEmpty(evaluation.getComment())) {
+                commentText.setText("评价内容:" + evaluation.getComment());
+            } else {
+                commentText.setText("评价内容:暂无");
+            }
         }
     }
 

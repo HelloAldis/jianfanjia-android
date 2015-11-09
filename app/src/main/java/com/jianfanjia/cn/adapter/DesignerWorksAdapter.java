@@ -46,7 +46,7 @@ public class DesignerWorksAdapter extends BaseListAdapter<Product> {
         viewHolder.itemXiaoQuText.setText(product.getCell());
         String house_type = product.getHouse_type();
         String dec_style = product.getDec_style();
-        viewHolder.itemProduceText.setText(product.getHouse_area() + "㎡," + getHouseType(house_type) + "," + getDecStyle(dec_style));
+        viewHolder.itemProduceText.setText(product.getHouse_area() + "㎡，" + getHouseType(house_type) + "，" + getDecStyle(dec_style));
         return convertView;
     }
 
