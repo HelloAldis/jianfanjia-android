@@ -174,7 +174,7 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
         @Override
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data);
-            makeTextLong(data.toString());
+            makeTextLong("方案选定成功");
             hideWaitDialog();
         }
 
