@@ -1,11 +1,13 @@
 package com.jianfanjia.cn.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -20,6 +22,8 @@ import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
+import com.jianfanjia.cn.view.dialog.CommonDialog;
+import com.jianfanjia.cn.view.dialog.DialogHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +37,8 @@ import java.util.List;
 public class AppointDesignerActivity extends BaseActivity implements OnClickListener {
     private static final String TAG = AppointDesignerActivity.class.getName();
     private MainHeadView mainHeadView = null;
+    private LinearLayout marchRootview = null;
+    private LinearLayout intentionRootview = null;
     private TextView allText = null;
     private TextView cancelText = null;
     private TextView moreText = null;
@@ -50,6 +56,8 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
     @Override
     public void initView() {
         initMainHeadView();
+        marchRootview = (LinearLayout) findViewById(R.id.marchRootview);
+        intentionRootview = (LinearLayout) findViewById(R.id.intentionRootview);
         allText = (TextView) findViewById(R.id.allText);
         cancelText = (TextView) findViewById(R.id.cancelText);
         moreText = (TextView) findViewById(R.id.moreText);
@@ -106,7 +114,7 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
             case R.id.head_right_title:
                 LogTool.d(TAG, "designerids=" + designerids);
                 if (designerids.size() > 0) {
-                    orderDesignerByUser(requestmentid, designerids);
+                    appointDesignerDialog();
                 } else {
                     makeTextLong("请选择设计师");
                 }
@@ -116,6 +124,23 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
         }
     }
 
+    private void appointDesignerDialog() {
+        CommonDialog dialog = DialogHelper
+                .getPinterestDialogCancelable(AppointDesignerActivity.this);
+        dialog.setTitle("预约设计师？");
+        dialog.setMessage("确定预约设计师吗？");
+        dialog.setPositiveButton(R.string.ok,
+                new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        orderDesignerByUser(requestmentid, designerids);
+                    }
+                });
+        dialog.setNegativeButton(R.string.no, null);
+        dialog.show();
+    }
 
     private OnItemClickListener recDesignerClickListener = new OnItemClickListener() {
         @Override

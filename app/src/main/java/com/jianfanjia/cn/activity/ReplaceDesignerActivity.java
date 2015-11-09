@@ -1,11 +1,13 @@
 package com.jianfanjia.cn.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -20,6 +22,8 @@ import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
+import com.jianfanjia.cn.view.dialog.CommonDialog;
+import com.jianfanjia.cn.view.dialog.DialogHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +37,8 @@ import java.util.List;
 public class ReplaceDesignerActivity extends BaseActivity implements OnClickListener {
     private static final String TAG = ReplaceDesignerActivity.class.getName();
     private MainHeadView mainHeadView = null;
+    private LinearLayout marchRootview = null;
+    private LinearLayout intentionRootview = null;
     private TextView moreText = null;
     private ListView marched_designer_listview = null;
     private ListView intention_designer_listview = null;
@@ -49,6 +55,8 @@ public class ReplaceDesignerActivity extends BaseActivity implements OnClickList
     @Override
     public void initView() {
         initMainHeadView();
+        marchRootview = (LinearLayout) findViewById(R.id.marchRootview);
+        intentionRootview = (LinearLayout) findViewById(R.id.intentionRootview);
         moreText = (TextView) findViewById(R.id.moreText);
         marched_designer_listview = (ListView) findViewById(R.id.marched_designer_listview);
         intention_designer_listview = (ListView) findViewById(R.id.intention_designer_listview);
@@ -90,7 +98,7 @@ public class ReplaceDesignerActivity extends BaseActivity implements OnClickList
                 break;
             case R.id.head_right_title:
                 if (null != newDesignerid) {
-                    replaceDesignerByUser(requestmentid, designerid, newDesignerid);
+                    replaceDesignerDialog();
                 } else {
                     makeTextLong("请选择设计师");
                 }
@@ -98,6 +106,24 @@ public class ReplaceDesignerActivity extends BaseActivity implements OnClickList
             default:
                 break;
         }
+    }
+
+    private void replaceDesignerDialog() {
+        CommonDialog dialog = DialogHelper
+                .getPinterestDialogCancelable(ReplaceDesignerActivity.this);
+        dialog.setTitle("替换设计师？");
+        dialog.setMessage("确定替换设计师吗？");
+        dialog.setPositiveButton(R.string.ok,
+                new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        replaceDesignerByUser(requestmentid, designerid, newDesignerid);
+                    }
+                });
+        dialog.setNegativeButton(R.string.no, null);
+        dialog.show();
     }
 
     private OnItemClickListener recDesignerClickListener = new OnItemClickListener() {

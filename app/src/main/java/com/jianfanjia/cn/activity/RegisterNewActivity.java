@@ -1,6 +1,7 @@
 package com.jianfanjia.cn.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -81,7 +82,9 @@ public class RegisterNewActivity extends BaseAnnotationActivity implements
                 finish();
                 break;
             case R.id.btn_publish_requirement:
-                startActivity(EditRequirementActivity_.class);
+                Bundle bundle = new Bundle();
+                bundle.putBoolean(Global.IS_PUBLISHREQUIREMENT,true);
+                startActivity(MainActivity.class,bundle);
                 finish();
                 break;
             case R.id.head_back_layout:

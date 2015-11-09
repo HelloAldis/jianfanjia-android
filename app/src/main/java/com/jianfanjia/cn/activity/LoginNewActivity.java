@@ -4,7 +4,9 @@ import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.TypedValue;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -97,6 +99,9 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
         loginTitle.setAlpha(Alpha2);
         registerTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
         loginTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
+
+//        mEtRegisterUserName.addTextChangedListener(phoneWatcher);
+//        mEtLoginUserName.addTextChangedListener(phoneWatcher);
     }
 
     @Click({R.id.btn_login, R.id.btn_next, R.id.act_forget_password,R.id.act_login,R.id.act_register})
@@ -141,9 +146,19 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
             mEtRegisterUserName.requestFocus();
             return false;
         }
+        if(!name.matches(Global.PHONE_MATCH)){
+            makeTextShort(getString(R.string.tip_input_corrent_phone));
+            mEtRegisterUserName.requestFocus();
+            return false;
+        }
         if (TextUtils.isEmpty(password)) {
             makeTextShort(getResources().getString(
                     R.string.tip_please_input_password));
+            mEtRegisterPassword.requestFocus();
+            return false;
+        }
+        if(!password.matches(Global.PASSWORD_MATCH)){
+            makeTextShort(getString(R.string.tip_input_correct_password));
             mEtRegisterPassword.requestFocus();
             return false;
         }
@@ -157,9 +172,19 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
             mEtLoginUserName.requestFocus();
             return false;
         }
+        if(!name.matches(Global.PHONE_MATCH)){
+            makeTextShort(getString(R.string.tip_input_corrent_phone));
+            mEtLoginUserName.requestFocus();
+            return false;
+        }
         if (TextUtils.isEmpty(password)) {
             makeTextShort(getResources().getString(
                     R.string.tip_please_input_password));
+            mEtLoginPassword.requestFocus();
+            return false;
+        }
+        if(!password.matches(Global.PASSWORD_MATCH)){
+            makeTextShort(getString(R.string.tip_input_correct_password));
             mEtLoginPassword.requestFocus();
             return false;
         }
@@ -221,6 +246,11 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
         super.loadSuccess(data);
         startActivity(MainActivity.class);
         finish();
+    }
+
+    @Override
+    public void loadFailture(String error_msg) {
+        super.loadFailture(error_msg);
     }
 
     void showRegister() {
@@ -411,6 +441,26 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
         alphaAnimation.setFillAfter(true);
         return alphaAnimation;
     }
+
+    TextWatcher phoneWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            String input = s.toString();
+            if(!input.matches(Global.PHONE_MATCH)){
+                makeTextLong(getResources().getString(R.string.tip_input_corrent_phone));
+            }
+        }
+    };
 
 
 }

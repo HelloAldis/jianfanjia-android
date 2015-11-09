@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_layout_bg"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/marchRootview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dip"
+            android:background="@color/font_white">
+
+            <TextView
+                android:id="@+id/titleTag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_margin="10dip"
+                android:text="匹配设计师"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+        <View style="@style/divier_line" />
+
+
+    </LinearLayout>
+
+</LinearLayout>

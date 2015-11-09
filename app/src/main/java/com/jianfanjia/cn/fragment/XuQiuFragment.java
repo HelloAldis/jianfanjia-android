@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.AppointDesignerActivity;
+import com.jianfanjia.cn.activity.EditRequirementActivity;
 import com.jianfanjia.cn.activity.EditRequirementActivity_;
 import com.jianfanjia.cn.activity.MyDesignerActivity_;
 import com.jianfanjia.cn.activity.MyProcessDetailActivity_;
@@ -59,8 +60,6 @@ public class XuQiuFragment extends BaseAnnotationFragment {
     public static final int REQUESTCODE_EDIT_REQUIREMENT = 2;
     public static final int ITEM_EDIT = 0x00;
     public static final int ITEM_GOTOPRO = 0x01;
-    public static final int ITEM_HEAD = 0x02;
-    public static final int ITEM_ADD = 0x03;
 
     public static final int ITEM_GOTOMYDESI = 0x04;//去我的设计师
     public static final int ITEM_GOTOODERDESI = 0x05;//去预约设计师
@@ -130,8 +129,7 @@ public class XuQiuFragment extends BaseAnnotationFragment {
                 switch (itemType) {
                     case ITEM_EDIT:
                         gotoEditRequirement.putExtra(Global.REQUIREMENT_INFO, requirementInfos.get(position));
-                        startActivity(gotoEditRequirement);
-                        getActivity().finish();
+                        getActivity().startActivityForResult(gotoEditRequirement, REQUESTCODE_EDIT_REQUIREMENT);
                         break;
                     case ITEM_GOTOPRO:
                         gotoMyProcess.putExtra(Global.PROCESS_INFO, requirementInfos.get(position).getProcess());
@@ -273,11 +271,13 @@ public class XuQiuFragment extends BaseAnnotationFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        LogTool.d(TAG,"onActivityResult = "+requestCode);
         if (resultCode != Activity.RESULT_OK) {
             return;
         }
         switch (requestCode) {
             case REQUESTCODE_PUBLISH_REQUIREMENT:
+            case REQUESTCODE_EDIT_REQUIREMENT:
                 initdata();
                 break;
             default:

@@ -33,6 +33,9 @@
             android:layout_marginLeft="@dimen/space_8"
             android:layout_toRightOf="@+id/ltm_req_owner_head"
             android:text="@string/str_cell"
+            android:maxWidth="100dp"
+            android:ellipsize="end"
+            android:singleLine="true"
             android:textColor="@color/black_color"
             android:textSize="@dimen/middle_size" />
 
@@ -129,12 +132,15 @@
 
             <TextView
                 android:id="@+id/ltm_req_designer_name0"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/ltm_req_designer_head0"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="8dp"
                 android:text="New Text"
+                android:gravity="center"
+                android:ellipsize="end"
+                android:singleLine="true"
                 android:textColor="@color/black_color"
                 android:textSize="@dimen/middle_size" />
 
@@ -167,12 +173,15 @@
 
             <TextView
                 android:id="@+id/ltm_req_designer_name1"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/ltm_req_designer_head1"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="8dp"
                 android:text="New Text"
+                android:gravity="center"
+                android:ellipsize="end"
+                android:singleLine="true"
                 android:textColor="@color/black_color"
                 android:textSize="@dimen/middle_size" />
 
@@ -204,12 +213,15 @@
 
             <TextView
                 android:id="@+id/ltm_req_designer_name2"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/ltm_req_designer_head2"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="8dp"
                 android:text="New Text"
+                android:gravity="center"
+                android:ellipsize="end"
+                android:singleLine="true"
                 android:textColor="@color/black_color"
                 android:textSize="@dimen/middle_size" />
 
