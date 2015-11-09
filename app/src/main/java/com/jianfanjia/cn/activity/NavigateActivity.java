@@ -1,5 +1,6 @@
 package com.jianfanjia.cn.activity;
 
+import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.LinearLayout;
 
 import com.jianfanjia.cn.adapter.ViewPageAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.config.Global;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,7 +69,9 @@ public class NavigateActivity extends BaseActivity implements OnClickListener,
                 finish();
                 break;
             case R.id.btnRegister:
-                startActivity(LoginNewActivity_.class);
+                Bundle bundle = new Bundle();
+                bundle.putBoolean(Global.ISREGIISTER,true);
+                startActivity(LoginNewActivity_.class,bundle);
                 finish();
                 break;
             case R.id.btnLogin:

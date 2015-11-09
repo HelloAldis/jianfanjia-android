@@ -131,7 +131,7 @@ public class RegisterNewActivity extends BaseAnnotationActivity implements
             registerLayout.setVisibility(View.GONE);
             successLayout.setVisibility(View.VISIBLE);
         }else{
-            startActivity(MainActivity.class);
+            startActivity(LoginNewActivity_.class);
             finish();
         }
     }

@@ -3,10 +3,10 @@ package com.jianfanjia.cn.activity;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
+import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
+import android.os.Handler;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.util.TypedValue;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -100,8 +100,23 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
         registerTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
         loginTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
 
-//        mEtRegisterUserName.addTextChangedListener(phoneWatcher);
-//        mEtLoginUserName.addTextChangedListener(phoneWatcher);
+        Intent intent = getIntent();
+        boolean flag = intent.getBooleanExtra(Global.ISREGIISTER,false);
+        if(flag){
+            LogTool.d(TAG, "showregister");
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    showRegister();
+                }
+            }, 300);
+        }
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     @Click({R.id.btn_login, R.id.btn_next, R.id.act_forget_password,R.id.act_login,R.id.act_register})
@@ -137,6 +152,15 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
             default:
                 break;
         }
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        mEtRegisterUserName.setText("");
+        mEtRegisterPassword.setText("");
+        mEtLoginUserName.setText("");
+        mEtLoginPassword.setText("");
     }
 
     private boolean checkRegisterInput(String name, String password) {
@@ -441,26 +465,4 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
         alphaAnimation.setFillAfter(true);
         return alphaAnimation;
     }
-
-    TextWatcher phoneWatcher = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            String input = s.toString();
-            if(!input.matches(Global.PHONE_MATCH)){
-                makeTextLong(getResources().getString(R.string.tip_input_corrent_phone));
-            }
-        }
-    };
-
-
 }
