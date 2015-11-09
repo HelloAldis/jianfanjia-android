@@ -29,7 +29,7 @@ import java.util.Map;
  * Date:2015-11-09 13:06
  */
 @EActivity(R.layout.activity_cityedit)
-public class CityEditActivity extends BaseAnnotationActivity{
+public class CityEditActivity extends BaseAnnotationActivity {
 
     private static final String TAG = "CityEditActivity";
     @ViewById(R.id.spinner_pro)
@@ -55,91 +55,89 @@ public class CityEditActivity extends BaseAnnotationActivity{
     private String city;
     private String district;
 
-    private int currentPro=0;
+    private int currentPro = 0;
     private int currentCity = 0;
     private int currentDistrict = 0;
+
+    private boolean isInit = false;
 
     private List<String> provinces;
     private List<String> citys;
     private List<String> districts;
-    private Map<String,List<String>> cityMap;
-    private Map<String,List<String>> districtMap;
+    private Map<String, List<String>> cityMap;
+    private Map<String, List<String>> districtMap;
 
     private Intent intent;
 
     @AfterViews
-    public void init(){
+    public void init() {
         mainHeadView.setMianTitle(getString(R.string.user_address));
 
         initData();
         initSpinner();
     }
 
-    private void initSpinner(){
-        spinnerProAdapter = new ArrayAdapter(this,R.layout.spinner_city_item, provinces);
+    private void initSpinner() {
+        spinnerProAdapter = new ArrayAdapter(this, R.layout.spinner_city_item, provinces);
 //        spinner_pro.setDropDownVerticalOffset(2);
         spinnerProAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_pro.setAdapter(spinnerProAdapter);
-        spinner_pro.setSelection(currentPro,true);
+        spinner_pro.setSelection(currentPro);
         spinner_pro.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                LogTool.d(TAG, " position " + position);
                 currentPro = position;
                 provice = provinces.get(position);
                 citys = cityMap.get(provice);
-                currentCity = 0;
+                LogTool.d(TAG, city + citys.size());
+
                 city = citys.get(currentCity);
-                spinnerCityAdapter.clear();
-                spinnerCityAdapter.addAll(citys);
-                spinnerCityAdapter.notifyDataSetChanged();
-                districts = districtMap.get(city);
-                currentDistrict = 0;
-                district = districts.get(currentDistrict);
-                spinnerDistrictAdapter.clear();
-                spinnerDistrictAdapter.addAll(districts);
-                spinnerDistrictAdapter.notifyDataSetChanged();
-            }
+                spinnerCityAdapter = new ArrayAdapter(CityEditActivity.this, R.layout.spinner_city_item, citys);
+                spinnerCityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinner_city.setAdapter(spinnerCityAdapter);
+                if(!isInit){
+                    currentCity = 0;
+                }else{
+                    spinner_city.setSelection(currentCity);
+                }
+                spinner_city.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        currentCity = position;
+                        city = citys.get(position);
+                        districts = districtMap.get(city);
+                        district = districts.get(currentDistrict);
+                        spinnerDistrictAdapter = new ArrayAdapter(CityEditActivity.this, R.layout.spinner_city_item, districts);
+                        spinnerDistrictAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        spinner_district.setAdapter(spinnerDistrictAdapter);
+                        if(!isInit){
+                            currentDistrict = 0;
+                        }else{
+                            spinner_district.setSelection(currentDistrict);
+                        }
+                        spinner_district.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                currentDistrict = position;
+                                district = districts.get(position);
+                                if(isInit == true){
+                                    isInit = false;
+                                }
+                            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+                            @Override
+                            public void onNothingSelected(AdapterView<?> parent) {
 
-            }
-        });
+                            }
+                        });
+                    }
 
-        spinnerCityAdapter = new ArrayAdapter(this,R.layout.spinner_city_item,citys);
-//        spinner_city.setDropDownVerticalOffset(2);
-        spinnerCityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
 
-        spinner_city.setAdapter(spinnerCityAdapter);
-        spinner_city.setSelection(currentCity,true);
-        spinner_city.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                currentCity = position;
-                city = citys.get(position);
-                districts = districtMap.get(city);
-                currentDistrict = 0;
-                district = districts.get(currentDistrict);
-                spinnerDistrictAdapter.clear();
-                spinnerDistrictAdapter.addAll(districts);
-                spinnerDistrictAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        spinnerDistrictAdapter = new ArrayAdapter(this, R.layout.spinner_city_item,districts);
-        spinnerDistrictAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner_district.setAdapter(spinnerDistrictAdapter);
-        spinner_district.setSelection(currentDistrict,true);
-        spinner_district.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                currentDistrict = position;
-                district = districts.get(position);
+                    }
+                });
             }
 
             @Override
@@ -149,7 +147,7 @@ public class CityEditActivity extends BaseAnnotationActivity{
         });
     }
 
-    private  void initData() {
+    private void initData() {
         provinces = CityFormatTool.getProviceList();
         cityMap = CityFormatTool.getCityMap();
         districtMap = CityFormatTool.getDistrictMap();
@@ -158,17 +156,18 @@ public class CityEditActivity extends BaseAnnotationActivity{
         provice = intent.getStringExtra(Constant.EDIT_PROVICE);
         city = intent.getStringExtra(Constant.EDIT_CITY);
         district = intent.getStringExtra(Constant.EDIT_DISTRICT);
-        if(!TextUtils.isEmpty(provice) && !TextUtils.isEmpty(city)){
+        if (!TextUtils.isEmpty(provice) && !TextUtils.isEmpty(city)) {
             currentPro = provinces.indexOf(provice);
             citys = cityMap.get(provice);
             currentCity = citys.indexOf(city);
             districts = districtMap.get(city);
-            if(!TextUtils.isEmpty(district)){
+            if (!TextUtils.isEmpty(district)) {
                 currentDistrict = districts.indexOf(district);
-            }else{
+            } else {
                 currentDistrict = 0;
             }
-        }else{
+            isInit = true;
+        } else {
             provice = provinces.get(currentPro);
             citys = cityMap.get(provice);
             city = citys.get(currentCity);
@@ -176,21 +175,21 @@ public class CityEditActivity extends BaseAnnotationActivity{
             district = districts.get(currentDistrict);
         }
 
-        LogTool.d(TAG,provice + " " + city + " " + district);
+        LogTool.d(TAG, provice + "= " + city + "= " + district);
 
     }
 
-    @Click({R.id.head_back_layout,R.id.btn_confirm})
-    public void click(View view){
-        switch (view.getId()){
+    @Click({R.id.head_back_layout, R.id.btn_confirm})
+    public void click(View view) {
+        switch (view.getId()) {
             case R.id.head_back_layout:
                 finish();
                 break;
             case R.id.btn_confirm:
-                intent.putExtra(Constant.EDIT_PROVICE,provice);
-                intent.putExtra(Constant.EDIT_CITY,city);
-                intent.putExtra(Constant.EDIT_DISTRICT,district);
-                LogTool.d(TAG,provice + city + district);
+                intent.putExtra(Constant.EDIT_PROVICE, provice);
+                intent.putExtra(Constant.EDIT_CITY, city);
+                intent.putExtra(Constant.EDIT_DISTRICT, district);
+                LogTool.d(TAG, provice + city + district);
                 setResult(RESULT_OK, intent);
                 finish();
                 break;

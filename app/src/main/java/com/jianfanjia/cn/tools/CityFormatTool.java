@@ -11,6 +11,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -149,7 +150,7 @@ public class CityFormatTool {
     public static List<String> getProviceList() {
         String proviceData = loadJson(PROVICE_FILE);
         Gson gson = new Gson();
-        List<String> provices = gson.fromJson(proviceData, new TypeToken<ArrayList<String>>() {
+        List<String> provices = gson.fromJson(proviceData, new TypeToken<List<String>>() {
         }.getType());
         return provices;
     }
@@ -158,7 +159,7 @@ public class CityFormatTool {
     public static Map<String, List<String>> getCityMap(){
         String cityData = loadJson(CITY_FILE);
         Gson gson = new Gson();
-        Map<String,List<String>> citys = gson.fromJson(cityData,new TypeToken<Map<String,ArrayList<String>>>(){}.getType());
+        Map<String,List<String>> citys = gson.fromJson(cityData,new TypeToken<HashMap<String,List<String>>>(){}.getType());
         return citys;
     }
 
@@ -166,7 +167,7 @@ public class CityFormatTool {
     public static Map<String, List<String>> getDistrictMap(){
         String districtData = loadJson(DISTRICT_FILE);
         Gson gson = new Gson();
-        Map<String,List<String>> districts = gson.fromJson(districtData,new TypeToken<Map<String,ArrayList<String>>>(){}.getType());
+        Map<String,List<String>> districts = gson.fromJson(districtData,new TypeToken<HashMap<String,List<String>>>(){}.getType());
         return districts;
     }
 
