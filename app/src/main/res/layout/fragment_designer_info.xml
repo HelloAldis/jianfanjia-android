@@ -17,7 +17,6 @@
             android:layout_marginLeft="20dip"
             android:layout_marginRight="20dip"
             android:layout_marginTop="10dip"
-            android:text="接单类型:家装"
             android:textColor="@color/home_page_text_color"
             android:textSize="@dimen/text_size_14" />
 
@@ -28,7 +27,6 @@
             android:layout_marginLeft="20dip"
             android:layout_marginRight="20dip"
             android:layout_marginTop="10dip"
-            android:text="接单户型:三室两厅"
             android:textColor="@color/home_page_text_color"
             android:textSize="@dimen/text_size_14" />
 
@@ -39,7 +37,6 @@
             android:layout_marginLeft="20dip"
             android:layout_marginRight="20dip"
             android:layout_marginTop="10dip"
-            android:text="接单区域:洪山区"
             android:textColor="@color/home_page_text_color"
             android:textSize="@dimen/text_size_14" />
 
@@ -50,7 +47,6 @@
             android:layout_marginLeft="20dip"
             android:layout_marginRight="20dip"
             android:layout_marginTop="10dip"
-            android:text="设计风格:简约"
             android:textColor="@color/home_page_text_color"
             android:textSize="@dimen/text_size_14" />
 
@@ -61,7 +57,6 @@
             android:layout_marginLeft="20dip"
             android:layout_marginRight="20dip"
             android:layout_marginTop="10dip"
-            android:text="设计理念:体验生活,最求品质"
             android:textColor="@color/home_page_text_color"
             android:textSize="@dimen/text_size_14" />
 
@@ -72,7 +67,6 @@
             android:layout_marginLeft="20dip"
             android:layout_marginRight="20dip"
             android:layout_marginTop="10dip"
-            android:text="设计成就:客户中产生客户"
             android:textColor="@color/home_page_text_color"
             android:textSize="@dimen/text_size_14" />
 
@@ -84,7 +78,6 @@
             android:layout_marginLeft="20dip"
             android:layout_marginRight="20dip"
             android:layout_marginTop="10dip"
-            android:text="曾就职装修公司:美颂雅庭"
             android:textColor="@color/home_page_text_color"
             android:textSize="@dimen/text_size_14" />
 
@@ -96,7 +89,6 @@
             android:layout_marginLeft="20dip"
             android:layout_marginRight="20dip"
             android:layout_marginTop="10dip"
-            android:text="施工团队:1个施工队"
             android:textColor="@color/home_page_text_color"
             android:textSize="@dimen/text_size_14" />
 
@@ -107,7 +99,6 @@
             android:layout_marginLeft="20dip"
             android:layout_marginRight="20dip"
             android:layout_marginTop="10dip"
-            android:text="设计费:50-100元/㎡"
             android:textColor="@color/home_page_text_color"
             android:textSize="@dimen/text_size_14" />
     </LinearLayout>
