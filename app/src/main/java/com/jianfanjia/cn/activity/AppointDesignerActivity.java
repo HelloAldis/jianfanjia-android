@@ -97,10 +97,12 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
                 break;
             case R.id.head_right_title:
                 LogTool.d(TAG, "designerids=" + designerids);
-                if (designerids.size() > 0) {
+                if (designerids.size() > 0 && designerids.size() <= 3) {
                     appointDesignerDialog();
-                } else {
+                } else if (designerids.size() == 0) {
                     makeTextLong("请选择设计师");
+                } else if (designerids.size() > 3) {
+                    makeTextLong("最多可选3名设计师");
                 }
                 break;
             default:
