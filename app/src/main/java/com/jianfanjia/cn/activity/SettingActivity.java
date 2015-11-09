@@ -303,7 +303,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener, On
                     @Override
                     public void loadSuccess(Object data) {
                         hideWaitDialog();
-                        makeTextLong("退出成功");
+                        makeTextShort("退出成功");
                         PushManager.getInstance().stopService(
                                 SettingActivity.this);// 完全终止SDK的服务
                         activityManager.exit();

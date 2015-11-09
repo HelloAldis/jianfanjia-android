@@ -60,6 +60,7 @@
     <string name="confirm">确认</string>
     <string name="finish">完成</string>
     <string name="commit">提交</string>
+    <string name="submit_comment">发表评价</string>
     <string name="choose_role">选择角色</string>
     <string name="input_phone">请输入您的手机号</string>
     <string name="verifica_phone">验证手机</string>
