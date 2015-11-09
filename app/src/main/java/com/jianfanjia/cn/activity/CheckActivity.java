@@ -35,8 +35,7 @@ import java.util.List;
  * @Description: 验收
  * @date 2015-8-28 下午2:25:36
  */
-public class CheckActivity extends BaseActivity implements OnClickListener,ItemClickCallBack
-         {
+public class CheckActivity extends BaseActivity implements OnClickListener, ItemClickCallBack {
     private static final String TAG = CheckActivity.class.getName();
     public static final int EDIT_STATUS = 0;
     public static final int FINISH_STATUS = 1;
