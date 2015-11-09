@@ -40,31 +40,17 @@ public class MainActivity extends BaseActivity implements
         PushManager.getInstance().initialize(getApplicationContext());
     }
 
-   /* @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        LogTool.d(TAG, "onNewIntent");
-        initIntent(intent);
-    }
-
-    private void initIntent(Intent intent) {
-        tab = intent.getIntExtra(Constant.TAB_POSITION, 0);
-        LogTool.d(TAG, "tab=" + tab);
-        mTabRg.check(getResources().getIdentifier("tab_rb_" + (tab + 1), "id", getPackageName()));
-        setTabSelection(tab);
-    }
-*/
     @Override
     public void initView() {
         mTabRg = (RadioGroup) findViewById(R.id.tab_rg_menu);
         setTabSelection(Constant.HOME);
-
         //如果是注册直接点击发布需求，先创建mainactivity再启动editrequirementactivity
         Intent intent = getIntent();
-        boolean flag = intent.getBooleanExtra(Global.IS_PUBLISHREQUIREMENT,false);
-        if(flag){
-            LogTool.d(TAG,"REGISTER PUBLISH REQUIREMENG");
-            startActivityForResult(new Intent(this,EditRequirementActivity_.class),XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT);
+        boolean flag = intent.getBooleanExtra(Global.IS_PUBLISHREQUIREMENT, false);
+        LogTool.d(TAG, "flag:" + flag);
+        if (flag) {
+            LogTool.d(TAG, "REGISTER PUBLISH REQUIREMENG");
+            startActivityForResult(new Intent(this, EditRequirementActivity_.class), XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT);
         }
     }
 
@@ -91,38 +77,38 @@ public class MainActivity extends BaseActivity implements
     }
 
     private void setTabSelection(int index) {
-            FragmentTransaction transaction = this.getSupportFragmentManager()
-                    .beginTransaction();
-            hideFragments(transaction);
-            switch (index) {
-                case Constant.HOME:
-                    if (homeFragment != null) {
-                        transaction.show(homeFragment);
-                    } else {
-                        homeFragment = new HomeFragment();
-                        transaction.add(R.id.tabLayout, homeFragment);
-                    }
-                    break;
-                case Constant.MANAGE:
-                    if (xuqiuFragment != null) {
-                        transaction.show(xuqiuFragment);
-                    } else {
-                        xuqiuFragment = XuQiuFragment_.builder().build();
-                        transaction.add(R.id.tabLayout, xuqiuFragment);
-                    }
-                    break;
-                case Constant.MY:
-                    if (myFragment != null) {
-                        transaction.show(myFragment);
-                    } else {
-                        myFragment = new MyFragment();
-                        transaction.add(R.id.tabLayout, myFragment);
-                    }
-                    break;
-                default:
-                    break;
-            }
-            transaction.commitAllowingStateLoss();
+        FragmentTransaction transaction = this.getSupportFragmentManager()
+                .beginTransaction();
+        hideFragments(transaction);
+        switch (index) {
+            case Constant.HOME:
+                if (homeFragment != null) {
+                    transaction.show(homeFragment);
+                } else {
+                    homeFragment = new HomeFragment();
+                    transaction.add(R.id.tabLayout, homeFragment);
+                }
+                break;
+            case Constant.MANAGE:
+                if (xuqiuFragment != null) {
+                    transaction.show(xuqiuFragment);
+                } else {
+                    xuqiuFragment = XuQiuFragment_.builder().build();
+                    transaction.add(R.id.tabLayout, xuqiuFragment);
+                }
+                break;
+            case Constant.MY:
+                if (myFragment != null) {
+                    transaction.show(myFragment);
+                } else {
+                    myFragment = new MyFragment();
+                    transaction.add(R.id.tabLayout, myFragment);
+                }
+                break;
+            default:
+                break;
+        }
+        transaction.commitAllowingStateLoss();
     }
 
     // 当fragment已被实例化，相当于发生过切换，就隐藏起来
@@ -167,16 +153,16 @@ public class MainActivity extends BaseActivity implements
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 //        super.onActivityResult(requestCode, resultCode, data);
-        LogTool.d(TAG,"onActivityResult requestCode =" + requestCode);
-        if(requestCode == XuQiuFragment.REQUESTCODE_EDIT_REQUIREMENT){
-            xuqiuFragment.onActivityResult(requestCode,resultCode,data);
-        }else if(requestCode == XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT){
+        LogTool.d(TAG, "onActivityResult requestCode =" + requestCode);
+        if (requestCode == XuQiuFragment.REQUESTCODE_EDIT_REQUIREMENT) {
+            xuqiuFragment.onActivityResult(requestCode, resultCode, data);
+        } else if (requestCode == XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT) {
             mTabRg.check(R.id.tab_rb_2);
             setTabSelection(Constant.MANAGE);
             xuqiuFragment.onActivityResult(requestCode, resultCode, data);
-            homeFragment.onActivityResult(requestCode,resultCode,data);
-        }else{
-            super.onActivityResult(requestCode,resultCode,data);
+            homeFragment.onActivityResult(requestCode, resultCode, data);
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
         }
     }
 }

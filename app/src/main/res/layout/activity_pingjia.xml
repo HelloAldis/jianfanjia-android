@@ -55,13 +55,14 @@
 
                     <RatingBar
                         android:id="@+id/ratingBar"
-                        style="?android:attr/ratingBarStyleSmall"
+                        style="@style/list_item_ratingbar_style"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="@dimen/space_10"
+                        android:isIndicator="true"
                         android:numStars="5"
-                        android:rating="5" />
+                        android:rating="0" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -94,7 +95,7 @@
 
                         <RatingBar
                             android:id="@+id/speedBar"
-                            style="?android:attr/ratingBarStyleIndicator"
+                            style="@style/list_item_ratingbar_style_middle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
@@ -119,12 +120,12 @@
 
                         <RatingBar
                             android:id="@+id/attudeBar"
-                            style="?android:attr/ratingBarStyleIndicator"
+                            style="@style/list_item_ratingbar_style_middle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:numStars="5"
-                            android:rating="0" />
+                            android:stepSize="1" />
                     </LinearLayout>
 
                     <EditText

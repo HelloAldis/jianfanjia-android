@@ -55,7 +55,7 @@
                     android:layout_marginTop="10dip"
                     android:isIndicator="true"
                     android:numStars="5"
-                    android:rating="3" />
+                    android:rating="0" />
             </LinearLayout>
 
             <LinearLayout
@@ -86,7 +86,7 @@
                         android:layout_gravity="center_vertical"
                         android:isIndicator="true"
                         android:numStars="5"
-                        android:rating="4" />
+                        android:rating="0" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -111,7 +111,7 @@
                         android:layout_gravity="center_vertical"
                         android:isIndicator="true"
                         android:numStars="5"
-                        android:rating="3" />
+                        android:rating="0" />
                 </LinearLayout>
 
                 <TextView
@@ -120,7 +120,6 @@
                     android:layout_marginLeft="@dimen/space_20"
                     android:layout_marginRight="@dimen/space_20"
                     android:layout_marginTop="@dimen/space_20"
-                    android:text="评价内容:不了解"
                     android:textColor="@color/black_color" />
 
             </LinearLayout>
