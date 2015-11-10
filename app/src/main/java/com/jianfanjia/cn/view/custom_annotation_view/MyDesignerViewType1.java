@@ -64,7 +64,7 @@ public class MyDesignerViewType1 extends BaseAnnotationView {
         if (!TextUtils.isEmpty(imageid)) {
             ImageLoader.getInstance().displayImage(Url_New.GET_THUMBNAIL_IMAGE + imageid, headView, options);
         } else {
-            ImageLoader.getInstance().displayImage(Constant.DEFALUT_DESIGNER_PIC, headView, options);
+            ImageLoader.getInstance().displayImage(Constant.DEFALUT_OWNER_PIC, headView, options);
         }
         if (!TextUtils.isEmpty(username)) {
             nameView.setText(username);

@@ -70,4 +70,6 @@
     <string name="str_title">标题</string>
     <string name="str_delete_pic">删除照片</string>
     <string name="edit_pattern">0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
+    <string name="abandon_update">您的修改还没有提交，确定放弃修改吗？</string>
+    <string name="tip_update">修改提醒</string>
 </resources>

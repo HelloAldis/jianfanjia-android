@@ -132,7 +132,7 @@ public class RequirementView extends BaseAnnotationView {
                     if (!TextUtils.isEmpty(orderDesignerInfos.get(i).getImageid())) {
                         ImageLoader.getInstance().displayImage(Url_New.GET_IMAGE + orderDesignerInfos.get(i).getImageid(), headView, options);
                     } else {
-                        ImageLoader.getInstance().displayImage(Constant.DEFALUT_DESIGNER_PIC, headView, options);
+                        ImageLoader.getInstance().displayImage(Constant.DEFALUT_ADD_PIC, headView, options);
                     }
                     String status = orderDesignerInfos.get(i).getPlan().getStatus();
                     statusView.setText(getResources().getStringArray(R.array.plan_status)[Integer.parseInt(status)]);
@@ -157,7 +157,7 @@ public class RequirementView extends BaseAnnotationView {
                         }
                     });
                 } else {
-                    nameView.setText("");
+                    nameView.setText(getResources().getString(R.string.designer));
                     ImageLoader.getInstance().displayImage(Constant.DEFALUT_ADD_PIC, headView, options);
                     statusView.setText(getResources().getString(R.string.str_not_order));
                     statusView.setTextColor(getResources().getColor(R.color.middle_grey_color));
