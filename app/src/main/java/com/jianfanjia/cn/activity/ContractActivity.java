@@ -2,7 +2,6 @@ package com.jianfanjia.cn.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.WebSettings;
@@ -29,13 +28,18 @@ public class ContractActivity extends BaseActivity implements OnClickListener {
     private static final String TAG = ContractActivity.class.getName();
     private MainHeadView mainHeadView = null;
     private WebView webView = null;
-
+    private String requirementStatus = null;
     private String requirementid = null;
     private String final_planid = null;
 
 
     @Override
     public void initView() {
+        Intent intent = this.getIntent();
+        Bundle contractBundle = intent.getExtras();
+        requirementStatus = contractBundle.getString(Global.REQUIREMENT_STATUS);
+        requirementid = contractBundle.getString(Global.REQUIREMENT_ID);
+        LogTool.d(TAG, "requirementStatus :" + requirementStatus + " requirementid:" + requirementid);
         initMainHeadView();
         webView = (WebView) findViewById(R.id.webView);
         //支持javascript
@@ -57,10 +61,6 @@ public class ContractActivity extends BaseActivity implements OnClickListener {
                 return true;
             }
         });
-        Intent intent = this.getIntent();
-        Bundle contractBundle = intent.getExtras();
-        requirementid = contractBundle.getString(Global.REQUIREMENT_ID);
-        LogTool.d(TAG, "requirementid:" + requirementid);
         getContractInfo(requirementid);
     }
 
@@ -74,7 +74,11 @@ public class ContractActivity extends BaseActivity implements OnClickListener {
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
         mainHeadView.setRightTitleVisable(View.VISIBLE);
         mainHeadView.setBackLayoutVisable(View.VISIBLE);
-        mainHeadView.setRigthTitleEnable(false);
+        if (requirementStatus.equals(Global.REQUIREMENT_STATUS5)) {
+            mainHeadView.setRigthTitleEnable(false);
+        } else {
+            mainHeadView.setRigthTitleEnable(true);
+        }
     }
 
 
@@ -116,11 +120,6 @@ public class ContractActivity extends BaseActivity implements OnClickListener {
             if (null != contractInfo) {
                 final_planid = contractInfo.getFinal_planid();
                 LogTool.d(TAG, "final_planid:" + final_planid);
-                if (!TextUtils.isEmpty(final_planid)) {
-                    mainHeadView.setRigthTitleEnable(true);
-                } else {
-                    mainHeadView.setRigthTitleEnable(false);
-                }
             }
         }
 

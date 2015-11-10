@@ -15,6 +15,7 @@ public class Global {
 
     public static final String REQUIREMENT_INFO = "requirement_info";
     public static final String REQUIREMENT_ID = "requirement_id";
+    public static final String REQUIREMENT_STATUS = "requirement_status";
     public static final String IS_PUBLISHREQUIREMENT = "is_publishrequirement";
 
 

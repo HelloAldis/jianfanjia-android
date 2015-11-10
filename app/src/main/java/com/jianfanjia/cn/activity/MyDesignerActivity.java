@@ -45,6 +45,7 @@ import jp.wasabeef.recyclerview.animators.FadeInUpAnimator;
  */
 @EActivity(R.layout.activity_my_designer)
 public class MyDesignerActivity extends BaseAnnotationActivity {
+    private static final String TAG = MyDesignerActivity.class.getName();
     public static final int CHANGE_DESIGNER = 0;//替换设计师
     public static final int VIEW_COMMENT = 1;//查看评价
     public static final int COMMENT = 2;//评价
@@ -197,6 +198,7 @@ public class MyDesignerActivity extends BaseAnnotationActivity {
                     case VIEW_CONTRACT:
                         Bundle contractBundle = new Bundle();
                         contractBundle.putString(Global.REQUIREMENT_ID, requirementid);
+                        contractBundle.putString(Global.REQUIREMENT_STATUS, orderDesignerInfo.getRequirement().getStatus());
                         startActivity(ContractActivity.class, contractBundle);
                         break;
                     case VIEW_PLAN:
