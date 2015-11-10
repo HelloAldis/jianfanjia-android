@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -36,8 +37,17 @@ public class ContractActivity extends BaseActivity implements OnClickListener {
     public void initView() {
         initMainHeadView();
         webView = (WebView) findViewById(R.id.webView);
+        //支持javascript
         webView.getSettings().setJavaScriptEnabled(true);
+        // 设置可以支持缩放
         webView.getSettings().setSupportZoom(true);
+        // 设置出现缩放工具
+        webView.getSettings().setBuiltInZoomControls(true);
+        //扩大比例的缩放
+        webView.getSettings().setUseWideViewPort(true);
+        //自适应屏幕
+        webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        webView.getSettings().setLoadWithOverviewMode(true);
         webView.loadUrl(Url_New.CONTRACT_URL);
         webView.setWebViewClient(new WebViewClient() {
             @Override
