@@ -118,12 +118,14 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
             DesignerPlanAdapter adapter = new DesignerPlanAdapter(this, designerPlanList, this);
             designer_plan_listview.setAdapter(adapter);
         }
+        designer_plan_listview.onRefreshComplete();
     }
 
     @Override
     public void loadFailture(String error_msg) {
         makeTextLong(error_msg);
         hideWaitDialog();
+        designer_plan_listview.onRefreshComplete();
     }
 
     @Override
