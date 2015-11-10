@@ -132,7 +132,7 @@ public class DesignerCaseInfoActivity extends BaseActivity implements ApiUiUpdat
     public void onOffsetChanged(AppBarLayout appBarLayout, int verticaloffset) {
         if (verticaloffset == 0) {
             if (state != State.COLLAPSED) {
-                activity_case_info_top_layout.setVisibility(View.INVISIBLE);
+                activity_case_info_top_layout.setVisibility(View.GONE);
             }
             state = State.COLLAPSED;
         } else if (Math.abs(verticaloffset) >= appBarLayout.getTotalScrollRange()) {
@@ -142,7 +142,7 @@ public class DesignerCaseInfoActivity extends BaseActivity implements ApiUiUpdat
             state = State.EXPANDED;
         } else {
             if (state != State.IDLE) {
-                activity_case_info_top_layout.setVisibility(View.INVISIBLE);
+                activity_case_info_top_layout.setVisibility(View.GONE);
             }
             state = State.IDLE;
         }
