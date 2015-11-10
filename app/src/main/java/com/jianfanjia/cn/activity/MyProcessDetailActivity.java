@@ -18,7 +18,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.jianfanjia.cn.adapter.SectionItemAdapterBack;
+import com.jianfanjia.cn.adapter.SectionItemAdapter;
 import com.jianfanjia.cn.adapter.SectionViewPageAdapter;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseAnnotationActivity;
@@ -84,7 +84,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
     @StringArrayRes(R.array.site_procedure)
     String[] proTitle = null;
 
-    private SectionItemAdapterBack sectionItemAdapter = null;
+    private SectionItemAdapter sectionItemAdapter = null;
     private SectionViewPageAdapter sectionViewPageAdapter = null;
     private List<ViewPagerItem> processList = new ArrayList<ViewPagerItem>();
     private List<String> imageList;
@@ -218,7 +218,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
             sectionInfo = sectionInfos.get(currentList);
             setScrollHeadTime();
             LogTool.d(TAG, sectionInfos.size() + "--sectionInfos.size()");
-            sectionItemAdapter = new SectionItemAdapterBack(getApplication(),
+            sectionItemAdapter = new SectionItemAdapter(getApplication(),
                     currentList, sectionInfos, this);
             detailNodeListView.setAdapter(sectionItemAdapter);
             processViewPager.setCurrentItem(currentList);

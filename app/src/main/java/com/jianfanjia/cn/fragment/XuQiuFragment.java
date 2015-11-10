@@ -2,12 +2,9 @@ package com.jianfanjia.cn.fragment;
 
 import android.content.Intent;
 import android.graphics.Paint;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -33,8 +30,9 @@ import com.jianfanjia.cn.interf.OnActivityResultCallBack;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
-import com.jianfanjia.cn.view.SuperSwipeRefreshLayout;
 import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
+import com.jianfanjia.cn.view.library.PullToRefreshBase;
+import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -43,8 +41,6 @@ import org.androidannotations.annotations.ViewById;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import jp.wasabeef.recyclerview.animators.FadeInUpAnimator;
 
 /**
  * Description:需求
@@ -85,11 +81,13 @@ public class XuQiuFragment extends BaseAnnotationFragment implements OnActivityR
     @ViewById
     protected FrameLayout req_listview_wrap;
 
-    @ViewById
-    protected RecyclerView req_listView;
+    @ViewById(R.id.req_pullfefresh)
+    protected PullToRefreshRecycleView pullrefresh;
 
-    @ViewById(R.id.req_pull_refresh)
-    protected SuperSwipeRefreshLayout refreshLayout;
+//    private RecyclerView req_listView;
+
+  /*  @ViewById(R.id.req_pull_refresh)
+    protected SuperSwipeRefreshLayout refreshLayout;*/
 
     @ViewById(R.id.error_include)
     RelativeLayout error_Layout;
@@ -117,10 +115,11 @@ public class XuQiuFragment extends BaseAnnotationFragment implements OnActivityR
     }
 
     protected void initListView() {
-        final LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+//        req_listView = pullrefresh.getRefreshableView();
+//        final LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         // 创建一个线性布局管理器
-        req_listView.setLayoutManager(mLayoutManager);
-        req_listView.setItemAnimator(new FadeInUpAnimator(new DecelerateInterpolator(0.5F)));
+//        req_listView.setLayoutManager(mLayoutManager);
+//        req_listView.setItemAnimator(new FadeInUpAnimator(new DecelerateInterpolator(0.5F)));
 //        manage_listView.addItemDecoration(new DividerItemDecoration(getActivity(),
 //                DividerItemDecoration.VERTICAL_LIST));
         requirementAdapter = new RequirementNewAdapter(getActivity(), new ClickCallBack() {
@@ -148,14 +147,14 @@ public class XuQiuFragment extends BaseAnnotationFragment implements OnActivityR
                 }
             }
         });
-        req_listView.setAdapter(requirementAdapter);
-        req_listView.getItemAnimator().setAddDuration(300);
+        pullrefresh.setAdapter(requirementAdapter);
+//        req_listView.setAdapter(requirementAdapter);
 
         Paint paint = new Paint();
         paint.setStrokeWidth(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, getResources().getDisplayMetrics()));
         paint.setAlpha(0);
         paint.setAntiAlias(true);
-        req_listView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity())
+        pullrefresh.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity())
                 .paint(paint)
                 .showLastDivider()
                 .build());
@@ -177,14 +176,21 @@ public class XuQiuFragment extends BaseAnnotationFragment implements OnActivityR
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
         mainHeadView.setRightTitleVisable(View.VISIBLE);
         mainHeadView.setBackLayoutVisable(View.GONE);
+        initPullRefresh();
         initListView();
         initIntent();
-        initPullRefresh();
         initData();
     }
 
     private void initPullRefresh() {
-        refreshLayout.setHeaderView(createHeaderView());// add headerView
+        pullrefresh.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+        pullrefresh.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<RecyclerView>() {
+            @Override
+            public void onRefresh(PullToRefreshBase<RecyclerView> refreshView) {
+                initData();
+            }
+        });
+       /* refreshLayout.setHeaderView(createHeaderView());// add headerView
         refreshLayout.setTargetScrollWithLayout(true);
         refreshLayout
                 .setOnPullRefreshListener(new SuperSwipeRefreshLayout.OnPullRefreshListener() {
@@ -208,10 +214,10 @@ public class XuQiuFragment extends BaseAnnotationFragment implements OnActivityR
                         imageView.setVisibility(View.VISIBLE);
                         imageView.setRotation(enable ? 180 : 0);
                     }
-                });
+                });*/
     }
 
-    private View createHeaderView() {
+ /*   private View createHeaderView() {
         View headerView = LayoutInflater.from(refreshLayout.getContext())
                 .inflate(R.layout.layout_head, null);
         progressBar = (ProgressBar) headerView.findViewById(R.id.pb_view);
@@ -222,7 +228,7 @@ public class XuQiuFragment extends BaseAnnotationFragment implements OnActivityR
         imageView.setImageResource(R.mipmap.icon_arrow);
         progressBar.setVisibility(View.GONE);
         return headerView;
-    }
+    }*/
 
     protected void initIntent() {
         gotoEditRequirement = new Intent(getActivity(), EditRequirementActivity_.class);
@@ -239,8 +245,9 @@ public class XuQiuFragment extends BaseAnnotationFragment implements OnActivityR
 
             @Override
             public void loadSuccess(Object data) {
-                refreshLayout.setRefreshing(false);
-                progressBar.setVisibility(View.GONE);
+                pullrefresh.onRefreshComplete();
+//                refreshLayout.setRefreshing(false);
+//                progressBar.setVisibility(View.GONE);
                 if (data != null) {
                     requirementInfos = JsonParser.jsonToList(data.toString(), new TypeToken<List<RequirementInfo>>() {
                     }.getType());
@@ -264,8 +271,9 @@ public class XuQiuFragment extends BaseAnnotationFragment implements OnActivityR
                 if (requirementInfos == null || requirementInfos.size() == 0) {
                     error_Layout.setVisibility(View.VISIBLE);
                 }
-                refreshLayout.setRefreshing(false);
-                progressBar.setVisibility(View.GONE);
+                pullrefresh.onRefreshComplete();
+//                refreshLayout.setRefreshing(false);
+//                progressBar.setVisibility(View.GONE);
             }
         }, this);
     }

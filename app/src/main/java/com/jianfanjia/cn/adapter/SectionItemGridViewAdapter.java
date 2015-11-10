@@ -12,9 +12,9 @@ import com.jianfanjia.cn.config.Url_New;
 
 import java.util.List;
 
-public class SiteGridViewAdapter extends BaseListAdapter<String> {
+public class SectionItemGridViewAdapter extends BaseListAdapter<String> {
 
-    public SiteGridViewAdapter(Context context, List<String> list) {
+    public SectionItemGridViewAdapter(Context context, List<String> list) {
         super(context, list);
     }
 

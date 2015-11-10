@@ -27,15 +27,14 @@ import com.jianfanjia.cn.tools.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SectionItemAdapterBack extends BaseAdapter {
+public class SectionItemAdapter extends BaseAdapter {
     private static final int IMG_COUNT = 9;
     private static final int CHECK_VIEW = 0;
     private static final int SECTION_ITME_VIEW = 1;
     private ItemClickCallBack callBack = null;
     private int lastClickItem = -1;// 记录上次点击的位置
     private int currentClickItem = -1;// 记录当前点击位置
-    private SiteGridViewAdapter siteGridViewAdapter;
-    private String userType;
+    private SectionItemGridViewAdapter sectionItemGridViewAdapter;
     private int section_status;// 节点的状态
     private SectionInfo sectionInfo;
     private Context context;
@@ -46,13 +45,12 @@ public class SectionItemAdapterBack extends BaseAdapter {
     private boolean isHasCheck;// 是否有验收
     private List<SectionInfo> sectionInfos;
 
-    public SectionItemAdapterBack(Context context, int position,
-                                  List<SectionInfo> sectionInfos, ItemClickCallBack callBack) {
+    public SectionItemAdapter(Context context, int position,
+                              List<SectionInfo> sectionInfos, ItemClickCallBack callBack) {
         this.context = context;
         layoutInflater = LayoutInflater.from(context);
         dataManager = DataManagerNew.getInstance();
         this.callBack = callBack;
-        userType = dataManager.getUserType();
         this.sectionInfos = sectionInfos;
         setPosition(position);
     }
@@ -132,10 +130,6 @@ public class SectionItemAdapterBack extends BaseAdapter {
                 }
             }
         }
-    }
-
-    public int getCurrentClickItem() {
-        return currentClickItem;
     }
 
     public String getCurrentItem() {
@@ -410,8 +404,8 @@ public class SectionItemAdapterBack extends BaseAdapter {
      * @des 设置item里gridview的照片
      */
     private void setImageData(final List<String> imageUrlList, GridView gridView) {
-        siteGridViewAdapter = new SiteGridViewAdapter(context, imageUrlList);
-        gridView.setAdapter(siteGridViewAdapter);
+        sectionItemGridViewAdapter = new SectionItemGridViewAdapter(context, imageUrlList);
+        gridView.setAdapter(sectionItemGridViewAdapter);
         gridView.setOnItemClickListener(new OnItemClickListener() {
 
             @Override

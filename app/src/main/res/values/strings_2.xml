@@ -73,4 +73,7 @@
     <string name="abandon_update">您的修改还没有提交，确定放弃修改吗？</string>
     <string name="tip_update">修改提醒</string>
     <string name="check_head">阶段验收</string>
+    <string name="new_version_message">有新的版本啦，版本号为：%1$s</string>
+    <string name="no_new_version">当前已经是最新版本啦</string>
+    <string name="check_version">检查新版本</string>
 </resources>

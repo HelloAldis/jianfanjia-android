@@ -18,17 +18,11 @@
         android:layout_marginTop="@dimen/space_8"
         android:orientation="vertical">
 
-        <com.jianfanjia.cn.view.SuperSwipeRefreshLayout
-            android:id="@+id/req_pull_refresh"
+        <com.jianfanjia.cn.view.library.PullToRefreshRecycleView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/req_listView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal" />
-        </com.jianfanjia.cn.view.SuperSwipeRefreshLayout>
+            android:layout_height="match_parent"
+            android:id="@+id/req_pullfefresh">
+        </com.jianfanjia.cn.view.library.PullToRefreshRecycleView>
 
         <include
             android:id="@+id/error_include"

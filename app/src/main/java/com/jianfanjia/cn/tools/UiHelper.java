@@ -1,5 +1,7 @@
 package com.jianfanjia.cn.tools;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.hardware.Camera;
@@ -12,41 +14,66 @@ import android.view.ViewTreeObserver;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.bean.UpdateVersion;
 import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.http.JianFanJiaClient;
+import com.jianfanjia.cn.interf.ApiUiUpdateListener;
+import com.jianfanjia.cn.service.UpdateService;
+import com.jianfanjia.cn.view.dialog.CommonDialog;
+import com.jianfanjia.cn.view.dialog.DialogHelper;
 
 import java.io.File;
 
 public class UiHelper {
 
-	/*private static View createFooterView(Context context) {
-		View footerView = LayoutInflater.from(context)
-				.inflate(R.layout.layout_footer, null);
-		ProgressBar footerProgressBar = (ProgressBar) footerView
-				.findViewById(R.id.footer_pb_view);
-		ImageView footerImageView = (ImageView) footerView
-				.findViewById(R.id.footer_image_view);
-		TextView footerTextView = (TextView) footerView
-				.findViewById(R.id.footer_text_view);
-		footerProgressBar.setVisibility(View.GONE);
-		footerImageView.setVisibility(View.VISIBLE);
-		footerImageView.setImageResource(R.drawable.down_arrow);
-		footerTextView.setText("上拉加载更多...");
-		return footerView;
+	/**
+	 * 检查新版本
+	 * @param context
+	 * @param listener
+	 */
+	public static void checkNewVersion(Context context,ApiUiUpdateListener listener){
+		JianFanJiaClient.checkVersion(context, listener, context);
 	}
 
-	private View createHeaderView() {
-		View headerView = LayoutInflater.from(swipeRefreshLayout.getContext())
-				.inflate(R.layout.layout_head, null);
-		progressBar = (ProgressBar) headerView.findViewById(R.id.pb_view);
-		textView = (TextView) headerView.findViewById(R.id.text_view);
-		textView.setText("下拉刷新");
-		imageView = (ImageView) headerView.findViewById(R.id.image_view);
-		imageView.setVisibility(View.VISIBLE);
-		imageView.setImageResource(R.drawable.down_arrow);
-		progressBar.setVisibility(View.GONE);
-		return headerView;
-	}*/
+	/**
+	 * 显示新版本对话框
+	 * @param context
+	 * @param message
+	 * @param updateVersion
+	 */
+	public static void showNewVersionDialog(final Context context,String message,final UpdateVersion updateVersion){
+		CommonDialog dialog = DialogHelper
+				.getPinterestDialogCancelable(context);
+		dialog.setTitle("版本更新");
+		dialog.setMessage(message);
+		dialog.setPositiveButton(R.string.ok,
+				new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+						startUpdateService(context,updateVersion.getDownload_url());
+					}
+
+				});
+		dialog.setNegativeButton(R.string.no, null);
+		dialog.show();
+	}
+
+	/**
+	 * 开启更新服务
+	 * @param context
+	 * @param download_url
+	 */
+	public static void startUpdateService(Context context,String download_url){
+		if (download_url == null)
+			return;
+		Intent intent = new Intent(context, UpdateService.class);
+		intent.putExtra(Constant.DOWNLOAD_URL, download_url);
+		context.startService(intent);
+	}
 
 	/**
 	 * @param root         最外层布局，需要调整的布局

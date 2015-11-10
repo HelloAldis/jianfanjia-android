@@ -1,7 +1,6 @@
 package com.jianfanjia.cn.activity;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.CompoundButton;
@@ -17,10 +16,10 @@ import com.jianfanjia.cn.bean.UpdateVersion;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
-import com.jianfanjia.cn.service.UpdateService;
 import com.jianfanjia.cn.tools.FileUtil;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
@@ -190,36 +189,6 @@ public class SettingActivity extends BaseActivity implements OnClickListener, On
         dialog.show();
     }
 
-    /**
-     * 获取最新版本
-     */
-    public void showNewVersion(String message, final UpdateVersion updateVersion) {
-        CommonDialog dialog = DialogHelper
-                .getPinterestDialogCancelable(SettingActivity.this);
-        dialog.setTitle("版本更新");
-        dialog.setMessage(message);
-        dialog.setPositiveButton(R.string.ok,
-                new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        startUpdateService(updateVersion.getDownload_url());
-                    }
-
-                });
-        dialog.setNegativeButton(R.string.no, null);
-        dialog.show();
-    }
-
-    private void startUpdateService(String download_url) {
-        if (download_url == null)
-            return;
-        Intent intent = new Intent(this, UpdateService.class);
-        intent.putExtra(Constant.DOWNLOAD_URL, download_url);
-        startService(intent);
-    }
-
     @Override
     public void onResume() {
         super.onResume();
@@ -251,43 +220,41 @@ public class SettingActivity extends BaseActivity implements OnClickListener, On
 
     // 检查版本
     private void checkVersion() {
-        JianFanJiaClient.checkVersion(this, new ApiUiUpdateListener() {
-            @Override
-            public void preLoad() {
-                showWaitDialog("检查新版本");
-            }
+        UiHelper.checkNewVersion(this, new ApiUiUpdateListener() {
+                    @Override
+                    public void preLoad() {
+                        showWaitDialog(getString(R.string.check_version));
+                    }
 
-            @Override
-            public void loadSuccess(Object data) {
-                hideWaitDialog();
-                if (data != null) {
-                    UpdateVersion updateVersion = JsonParser
-                            .jsonToBean(data.toString(),
-                                    UpdateVersion.class);
-                    if (updateVersion != null) {
-                        if (Integer.parseInt(updateVersion
-                                .getVersion_code()) > MyApplication
-                                .getInstance().getVersionCode()) {
-                            showNewVersion(
-                                    "有新的版本啦，版本号："
-                                            + updateVersion
-                                            .getVersion_name(),
-                                    updateVersion);
-                        } else {
-                            makeTextLong("当前已经是最新版本啦！");
+                    @Override
+                    public void loadSuccess(Object data) {
+                        hideWaitDialog();
+                        if (data != null) {
+                            UpdateVersion updateVersion = JsonParser
+                                    .jsonToBean(data.toString(),
+                                            UpdateVersion.class);
+                            if (updateVersion != null) {
+                                if (Integer.parseInt(updateVersion
+                                        .getVersion_code()) > MyApplication
+                                        .getInstance().getVersionCode()) {
+                                    UiHelper.showNewVersionDialog(SettingActivity.this,
+                                            String.format(getString(R.string.new_version_message),
+                                                    updateVersion.getVersion_name()),
+                                            updateVersion);
+                                } else {
+                                    makeTextLong(getString(R.string.no_new_version));
+                                }
+                            }
                         }
                     }
+
+                    @Override
+                    public void loadFailture(String error_msg) {
+                        makeTextLong(getString(R.string.tip_error_internet));
+                        hideWaitDialog();
+                    }
                 }
-            }
-
-            @Override
-            public void loadFailture(String error_msg) {
-                makeTextLong(getString(R.string.tip_error_internet));
-                hideWaitDialog();
-            }
-        }
-
-                , this);
+        );
     }
 
     // 退出登录
