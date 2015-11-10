@@ -1,5 +1,6 @@
 package com.jianfanjia.cn.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
@@ -44,13 +45,14 @@ import jp.wasabeef.recyclerview.animators.FadeInUpAnimator;
  */
 @EActivity(R.layout.activity_my_designer)
 public class MyDesignerActivity extends BaseAnnotationActivity {
-
     public static final int CHANGE_DESIGNER = 0;//替换设计师
     public static final int VIEW_COMMENT = 1;//查看评价
     public static final int COMMENT = 2;//评价
     public static final int VIEW_PLAN = 3;//查看方案
     public static final int VIEW_CONTRACT = 4;//查看合同
     public static final int CONFIRM_MEASURE_HOUSE = 5;//确认已量房
+
+    public static final int REQUESTCODE_FRESH_LIST = 1;
 
     @ViewById(R.id.act_my_designer_head)
     protected MainHeadView mainHeadView;
@@ -75,7 +77,6 @@ public class MyDesignerActivity extends BaseAnnotationActivity {
     @AfterViews
     protected void initMainHeadView() {
         LogTool.d(this.getClass().getName(), "initMainHeadView");
-
         mainHeadView.setMianTitle(getResources().getString(R.string.my_designer));
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
         mainHeadView.setRightTitleVisable(View.GONE);
@@ -182,6 +183,7 @@ public class MyDesignerActivity extends BaseAnnotationActivity {
                         startActivity(PingJiaInfoActivity.class, viewBundle);
                         break;
                     case COMMENT:
+                        Intent commentIntent = new Intent(MyDesignerActivity.this, PingjiaActivity.class);
                         Bundle commentBundle = new Bundle();
                         commentBundle.putString(Global.IMAGE_ID, orderDesignerInfo.getImageid());
                         commentBundle.putString(Global.DESIGNER_NAME, orderDesignerInfo.getUsername());
@@ -189,7 +191,8 @@ public class MyDesignerActivity extends BaseAnnotationActivity {
                         commentBundle.putFloat(Global.SPEED, orderDesignerInfo.getRespond_speed());
                         commentBundle.putFloat(Global.ATTITUDE, orderDesignerInfo.getService_attitude());
                         commentBundle.putString(Global.REQUIREMENT_ID, requirementid);
-                        startActivity(PingjiaActivity.class, commentBundle);
+                        commentIntent.putExtras(commentBundle);
+                        startActivityForResult(commentIntent, REQUESTCODE_FRESH_LIST);
                         break;
                     case VIEW_CONTRACT:
                         Bundle contractBundle = new Bundle();
@@ -246,5 +249,18 @@ public class MyDesignerActivity extends BaseAnnotationActivity {
                 .build());
     }
 
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != Activity.RESULT_OK) {
+            return;
+        }
+        switch (requestCode) {
+            case REQUESTCODE_FRESH_LIST:
+                initdata();
+                break;
+            default:
+                break;
+        }
+    }
 }
