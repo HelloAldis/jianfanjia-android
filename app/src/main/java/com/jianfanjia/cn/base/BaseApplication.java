@@ -51,8 +51,10 @@ public class BaseApplication extends Application {
 				context);
 		config.threadPriority(Thread.NORM_PRIORITY - 2);
 		config.denyCacheImageMultipleSizesInMemory();
+		config.threadPoolSize(3);
 		config.diskCacheFileNameGenerator(new Md5FileNameGenerator());
 		config.diskCacheSize(50 * 1024 * 1024); // 50 MiB
+		config.memoryCacheSize(2 * 1024 * 1024);
 		config.tasksProcessingOrder(QueueProcessingType.LIFO);
 		config.writeDebugLogs(); // Remove for release app
 

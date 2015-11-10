@@ -10,7 +10,9 @@ import android.widget.TextView;
 import com.jianfanjia.cn.activity.MyDesignerActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.OrderDesignerInfo;
+import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.interf.ClickCallBack;
 import com.jianfanjia.cn.view.baseview.BaseAnnotationView;
@@ -82,6 +84,7 @@ public class MyDesignerViewType5 extends BaseAnnotationView {
                 clickCallBack.click(position, MyDesignerActivity.VIEW_PLAN);
             }
         });
+
         button2.setText(getResources().getString(R.string.str_view_contract));
         button2.setOnClickListener(new OnClickListener() {
             @Override
@@ -89,6 +92,16 @@ public class MyDesignerViewType5 extends BaseAnnotationView {
                 clickCallBack.click(position, MyDesignerActivity.VIEW_CONTRACT);
             }
         });
+
+        RequirementInfo requirementInfo = designerInfo.getRequirement();
+        String requirementStatus = requirementInfo.getStatus();
+        if (requirementStatus.equals(Global.REQUIREMENT_STATUS4)) {
+            button2.setEnabled(false);
+            button2.setTextColor(getResources().getColor(R.color.grey_color));
+        } else {
+            button2.setEnabled(true);
+            button2.setTextColor(getResources().getColor(R.color.font_white));
+        }
         statusView.setTextColor(getResources().getColor(R.color.orange_color));
         statusView.setText(getResources().getString(R.string.already_choose));
     }

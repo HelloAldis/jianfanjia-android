@@ -15,6 +15,7 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.interf.ClickCallBack;
+import com.jianfanjia.cn.tools.StringUtils;
 import com.jianfanjia.cn.view.baseview.BaseAnnotationView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -84,7 +85,7 @@ public class MyDesignerViewType2 extends BaseAnnotationView {
 
         statusView.setTextColor(getResources().getColor(R.color.blue_color));
         statusView.setText(getResources().getString(R.string.already_repsonse));
-        if (Calendar.getInstance().getTimeInMillis() > Constant.CONFIRM_HOUSE_EXPIRE) {
+        if (Calendar.getInstance().getTimeInMillis() > designerInfo.getPlan().getHouse_check_time()) {
             textView1.setVisibility(View.GONE);
             textView2.setVisibility(View.GONE);
             button3.setVisibility(View.VISIBLE);
@@ -100,14 +101,17 @@ public class MyDesignerViewType2 extends BaseAnnotationView {
             textView2.setVisibility(View.VISIBLE);
             button3.setVisibility(View.GONE);
             textView1.setText(getResources().getString(R.string.measure_house_time));
+            textView2.setText(StringUtils.covertLongToStringHasMini(designerInfo.getPlan().getHouse_check_time()));
         }
 
         RequirementInfo requirementInfo = designerInfo.getRequirement();
         String requirementStatus = requirementInfo.getStatus();
         if (requirementStatus.equals(Global.REQUIREMENT_STATUS4) || requirementStatus.equals(Global.REQUIREMENT_STATUS5) || requirementStatus.equals(Global.REQUIREMENT_STATUS7)) {
             button3.setEnabled(false);
+            button3.setTextColor(getResources().getColor(R.color.grey_color));
         } else {
             button3.setEnabled(true);
+            button3.setTextColor(getResources().getColor(R.color.font_white));
         }
 
     }
