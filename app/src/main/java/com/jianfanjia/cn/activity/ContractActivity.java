@@ -37,6 +37,7 @@ public class ContractActivity extends BaseActivity implements OnClickListener {
         initMainHeadView();
         webView = (WebView) findViewById(R.id.webView);
         webView.getSettings().setJavaScriptEnabled(true);
+        webView.getSettings().setSupportZoom(true);
         webView.loadUrl(Url_New.CONTRACT_URL);
         webView.setWebViewClient(new WebViewClient() {
             @Override
