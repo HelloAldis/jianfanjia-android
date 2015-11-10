@@ -23,6 +23,7 @@ import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
 
@@ -43,6 +44,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener, Item
     public static final String POSITION = "position";
 
     private RelativeLayout checkLayout = null;
+    private MainHeadView mainHeadView = null;
     private TextView backView = null;// 返回视图
     private TextView check_pic_title = null;
     private GridView gridView = null;
@@ -97,9 +99,9 @@ public class CheckActivity extends BaseActivity implements OnClickListener, Item
 
     @Override
     public void initView() {
+        mainHeadView = (MainHeadView) findViewById(R.id.check_pic_head_layout);
+        mainHeadView.setBackListener(this);
         checkLayout = (RelativeLayout) findViewById(R.id.checkLayout);
-        backView = (TextView) findViewById(R.id.check_pic_back);
-        check_pic_title = (TextView) findViewById(R.id.check_pic_title);
         gridView = (GridView) findViewById(R.id.mygridview);
         btn_confirm = (TextView) findViewById(R.id.btn_confirm);
         btn_confirm.setText(this.getResources().getString(
@@ -108,9 +110,9 @@ public class CheckActivity extends BaseActivity implements OnClickListener, Item
     }
 
     private void initData() {
-        check_pic_title.setText(MyApplication.getInstance().getStringById(
+        mainHeadView.setMianTitle(MyApplication.getInstance().getStringById(
                 sectionInfoName)
-                + "阶段验收");
+                + getString(R.string.check_head));
         switch (sectionInfoStatus) {
             case Constant.NOT_START:
                 break;
@@ -181,13 +183,12 @@ public class CheckActivity extends BaseActivity implements OnClickListener, Item
 
     @Override
     public void setListener() {
-        backView.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.check_pic_back:
+            case R.id.head_back_layout:
                 finish();
                 break;
             case R.id.btn_confirm:

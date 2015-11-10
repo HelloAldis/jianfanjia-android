@@ -228,9 +228,9 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
     @Override
     public void onResume() {
         super.onResume();
-        if (sectionItemAdapter != null) {
+        /*if (sectionItemAdapter != null) {
             sectionItemAdapter.notifyDataSetChanged();
-        }
+        }*/
     }
 
     @Override
@@ -339,6 +339,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
+                position--;//因为Listview加了一个下拉头,所以第一个position为下拉头
                 if (sectionItemAdapter.isHasCheck()) {
                     if (position == 0) {
                         boolean isCanClickYanshou = true;
