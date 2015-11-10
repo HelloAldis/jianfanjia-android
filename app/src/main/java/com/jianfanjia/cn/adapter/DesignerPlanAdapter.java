@@ -72,21 +72,27 @@ public class DesignerPlanAdapter extends BaseListAdapter<PlanInfo> {
         PlanViewAdapter adapter = new PlanViewAdapter(context, imgList, new ViewPagerClickListener() {
             @Override
             public void onClickItem(int pos) {
-                itemClickListener.onCallBack(position, pos);
+                if (null != itemClickListener) {
+                    itemClickListener.onCallBack(position, pos);
+                }
             }
         });
         holder.viewPager.setAdapter(adapter);
         holder.commentText.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                itemClickListener.onItemCallBack(position, Constant.PLAN_COMMENT_ITEM);
+                if (null != itemClickListener) {
+                    itemClickListener.onItemCallBack(position, Constant.PLAN_COMMENT_ITEM);
+                }
             }
         });
 
         holder.previewText.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                itemClickListener.onItemCallBack(position, Constant.PLAN_PREVIEW_ITEM);
+                if (null != itemClickListener) {
+                    itemClickListener.onItemCallBack(position, Constant.PLAN_PREVIEW_ITEM);
+                }
             }
         });
         return convertView;

@@ -2,6 +2,7 @@ package com.jianfanjia.cn.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.format.DateUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ListView;
@@ -18,6 +19,8 @@ import com.jianfanjia.cn.interf.ItemClickListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
+import com.jianfanjia.cn.view.library.PullToRefreshBase;
+import com.jianfanjia.cn.view.library.PullToRefreshListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,10 +31,10 @@ import java.util.List;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class DesignerPlanListActivity extends BaseActivity implements OnClickListener, ApiUiUpdateListener, ItemClickListener {
+public class DesignerPlanListActivity extends BaseActivity implements OnClickListener, ApiUiUpdateListener, ItemClickListener, PullToRefreshBase.OnRefreshListener2<ListView> {
     private static final String TAG = DesignerPlanListActivity.class.getName();
     private MainHeadView mainHeadView = null;
-    private ListView designer_plan_listview = null;
+    private PullToRefreshListView designer_plan_listview = null;
     private List<PlanInfo> designerPlanList = new ArrayList<PlanInfo>();
     private String requirementid = null;
     private String designerid = null;
@@ -46,7 +49,8 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
         designerName = designerBundle.getString(Global.DESIGNER_NAME);
         LogTool.d(TAG, "requirementid:" + requirementid + "  designerid:" + designerid + "  designerName:" + designerName);
         initMainHeadView();
-        designer_plan_listview = (ListView) findViewById(R.id.designer_plan_listview);
+        designer_plan_listview = (PullToRefreshListView) findViewById(R.id.designer_plan_listview);
+        designer_plan_listview.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
         getDesignerPlansList(requirementid, designerid);
     }
 
@@ -63,7 +67,7 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
 
     @Override
     public void setListener() {
-
+        designer_plan_listview.setOnRefreshListener(this);
     }
 
     @Override
@@ -75,6 +79,22 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
             default:
                 break;
         }
+    }
+
+    @Override
+    public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+        String label = DateUtils.formatDateTime(DesignerPlanListActivity.this,
+                System.currentTimeMillis(), DateUtils.FORMAT_SHOW_TIME
+                        | DateUtils.FORMAT_SHOW_DATE
+                        | DateUtils.FORMAT_ABBREV_ALL);
+        // Update the LastUpdatedLabel
+        refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
+        getDesignerPlansList(requirementid, designerid);
+    }
+
+    @Override
+    public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+
     }
 
     //业主获取我的方案
@@ -98,12 +118,14 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
             DesignerPlanAdapter adapter = new DesignerPlanAdapter(this, designerPlanList, this);
             designer_plan_listview.setAdapter(adapter);
         }
+        designer_plan_listview.onRefreshComplete();
     }
 
     @Override
     public void loadFailture(String error_msg) {
         makeTextLong(error_msg);
         hideWaitDialog();
+        designer_plan_listview.onRefreshComplete();
     }
 
     @Override

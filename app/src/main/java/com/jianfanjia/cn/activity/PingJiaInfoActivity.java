@@ -61,9 +61,9 @@ public class PingJiaInfoActivity extends BaseActivity implements
             speedBar.setRating((int) speed);
             attudeBar.setRating((int) attitude);
             if (!TextUtils.isEmpty(evaluation.getComment())) {
-                commentText.setText("评价内容:" + evaluation.getComment());
+                commentText.setText("评价内容：" + evaluation.getComment());
             } else {
-                commentText.setText("评价内容:暂无");
+                commentText.setText("评价内容：暂无");
             }
         }
     }

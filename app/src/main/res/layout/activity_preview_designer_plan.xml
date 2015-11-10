@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main_layout_bg">
+    android:background="@color/font_white">
 
     <com.jianfanjia.cn.view.MainHeadView
         android:id="@+id/my_prieview_head_layout"
@@ -10,105 +10,106 @@
         android:layout_height="wrap_content"
         android:background="@color/head_layout_bg" />
 
-
-    <com.jianfanjia.cn.view.MyViewPager
-        android:id="@+id/viewpager"
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:layout_below="@id/my_prieview_head_layout" />
-
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/viewpager"
-        android:background="@color/font_white"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/cellName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dip"
-            android:layout_marginRight="20dip"
-            android:layout_marginTop="10dip"
-            android:text="清江山水"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/houseType"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dip"
-            android:layout_marginRight="20dip"
-            android:layout_marginTop="10dip"
-            android:text="装修户型:三室两厅" />
-
-
-        <TextView
-            android:id="@+id/houseArea"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dip"
-            android:layout_marginRight="20dip"
-            android:layout_marginTop="10dip"
-            android:text="装修面积:90㎡" />
-
-        <TextView
-            android:id="@+id/decorateType"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dip"
-            android:layout_marginRight="20dip"
-            android:layout_marginTop="10dip"
-            android:text="装修类型:全包" />
-
-        <TextView
-            android:id="@+id/totalDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dip"
-            android:layout_marginRight="20dip"
-            android:layout_marginTop="10dip"
-            android:text="总工期:45天" />
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dip"
-            android:layout_marginRight="20dip"
-            android:layout_marginTop="10dip"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:layout_below="@id/my_prieview_head_layout"
+            android:orientation="vertical">
+
+            <com.jianfanjia.cn.view.MyViewPager
+                android:id="@+id/viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="250dp" />
 
             <TextView
-                android:id="@+id/price"
+                android:id="@+id/cellName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:text="项目报价:100000元" />
+                android:layout_marginLeft="20dip"
+                android:layout_marginRight="20dip"
+                android:layout_marginTop="10dip"
+                android:text="清江山水"
+                android:textSize="16sp" />
 
-            <Button
-                android:id="@+id/btnDetail"
+            <TextView
+                android:id="@+id/houseType"
                 android:layout_width="wrap_content"
-                android:layout_height="35dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/space_10"
-                android:background="@drawable/btn_orange_white_bg"
-                android:text="@string/detailPrice"
-                android:textColor="@color/orange_color" />
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dip"
+                android:layout_marginRight="20dip"
+                android:layout_marginTop="10dip"
+                android:text="装修户型:三室两厅" />
+
+
+            <TextView
+                android:id="@+id/houseArea"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dip"
+                android:layout_marginRight="20dip"
+                android:layout_marginTop="10dip"
+                android:text="装修面积:90㎡" />
+
+            <TextView
+                android:id="@+id/decorateType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dip"
+                android:layout_marginRight="20dip"
+                android:layout_marginTop="10dip"
+                android:text="装修类型:全包" />
+
+            <TextView
+                android:id="@+id/totalDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dip"
+                android:layout_marginRight="20dip"
+                android:layout_marginTop="10dip"
+                android:text="总工期:45天" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dip"
+                android:layout_marginRight="20dip"
+                android:layout_marginTop="10dip"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="项目报价:100000元" />
+
+                <Button
+                    android:id="@+id/btnDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/space_10"
+                    android:background="@drawable/btn_orange_white_bg"
+                    android:text="@string/detailPrice"
+                    android:textColor="@color/orange_color" />
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/designText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dip"
+                android:layout_marginRight="20dip"
+                android:layout_marginTop="10dip"
+                android:text="设计说明:了解" />
         </LinearLayout>
-
-
-        <TextView
-            android:id="@+id/designText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dip"
-            android:layout_marginRight="20dip"
-            android:layout_marginTop="10dip"
-            android:text="设计说明:了解" />
-
-    </LinearLayout>
+    </ScrollView>
 
     <Button
         android:id="@+id/btn_choose"
