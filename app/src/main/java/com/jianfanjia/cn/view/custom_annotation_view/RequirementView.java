@@ -167,6 +167,7 @@ public class RequirementView extends BaseAnnotationView {
                         case Global.REQUIREMENT_STATUS1:
                         case Global.REQUIREMENT_STATUS2:
                         case Global.REQUIREMENT_STATUS3:
+                        case Global.REQUIREMENT_STATUS6:
                             designerLayout.setOnClickListener(new OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
@@ -183,8 +184,6 @@ public class RequirementView extends BaseAnnotationView {
 
                 }
             }
-
-
         }else{
             for (int i = 0; i < Constant.REC_DESIGNER_TOTAL; i++) {
                 RelativeLayout designerLayout = (RelativeLayout) getRootView().findViewById(getResources().getIdentifier("ltm_req_designer_layout" + i, "id", getContext().getPackageName()));

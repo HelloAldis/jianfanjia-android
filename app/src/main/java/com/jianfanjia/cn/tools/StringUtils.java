@@ -31,7 +31,7 @@ public class StringUtils {
 	private final static ThreadLocal<SimpleDateFormat> dateFormater = new ThreadLocal<SimpleDateFormat>() {
 		@Override
 		protected SimpleDateFormat initialValue() {
-			return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			return new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		}
 	};
 
@@ -416,12 +416,17 @@ public class StringUtils {
 	/**
 	 * @decription 杞寲鏃堕棿涓哄瓧绗︿覆
 	 * @param times
-	 * @param pattern
+	 * @param times
 	 * @return
 	 */
 	public static String covertLongToString(long times) {
 		Date date = new Date(times);
 		return dateFormater2.get().format(date);
+	}
+
+	public static String covertLongToStringHasMini(long times) {
+		Date date = new Date(times);
+		return dateFormater.get().format(date);
 	}
 
 }
