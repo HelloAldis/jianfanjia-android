@@ -15,6 +15,7 @@
             style="@style/site_listview_item_text_style_middle"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/space_8"
+            android:layout_height="match_parent"
             android:drawableLeft="@drawable/icon_register_back"
             android:drawablePadding="4dp"
             android:text="@string/back"
