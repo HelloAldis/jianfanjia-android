@@ -39,7 +39,7 @@ public class ContractActivity extends BaseActivity implements OnClickListener {
         Bundle contractBundle = intent.getExtras();
         requirementStatus = contractBundle.getString(Global.REQUIREMENT_STATUS);
         requirementid = contractBundle.getString(Global.REQUIREMENT_ID);
-        LogTool.d(TAG, "requirementStatus :" + requirementStatus + " requirementid:" + requirementid);
+        LogTool.d(TAG, "requirementStatus:" + requirementStatus + " requirementid:" + requirementid);
         initMainHeadView();
         webView = (WebView) findViewById(R.id.webView);
         //支持javascript
