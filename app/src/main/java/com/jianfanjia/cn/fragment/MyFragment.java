@@ -1,5 +1,6 @@
 package com.jianfanjia.cn.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -15,6 +16,7 @@ import com.jianfanjia.cn.activity.SettingActivity;
 import com.jianfanjia.cn.activity.UserByOwnerInfoActivity;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.interf.OnActivityResultCallBack;
 import com.jianfanjia.cn.tools.LogTool;
 
 /**
@@ -23,7 +25,7 @@ import com.jianfanjia.cn.tools.LogTool;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class MyFragment extends BaseFragment {
+public class MyFragment extends BaseFragment implements OnActivityResultCallBack {
     private static final String TAG = MyFragment.class.getName();
     private RelativeLayout notifyLayout = null;
     private RelativeLayout my_designer_layout = null;
@@ -99,6 +101,10 @@ public class MyFragment extends BaseFragment {
         }
     }
 
+    @Override
+    public void onResult(int requestCode, int resultCode, Intent data) {
+
+    }
 
     @Override
     public int getLayoutId() {

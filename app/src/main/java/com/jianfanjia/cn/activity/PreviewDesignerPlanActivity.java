@@ -70,8 +70,7 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
         mainHeadView = (MainHeadView) findViewById(R.id.my_prieview_head_layout);
         mainHeadView.setBackListener(this);
         mainHeadView.setRightTextListener(this);
-        mainHeadView
-                .setMianTitle(getResources().getString(R.string.designerPlanText));
+        mainHeadView.setMianTitle(getResources().getString(R.string.designerPlanText));
         mainHeadView.setRightTitle(getResources().getString(R.string.detailPrice));
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
         mainHeadView.setRightTitleVisable(View.VISIBLE);
@@ -146,7 +145,6 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
                 totalDate.setText("总工期:" + planDetailInfo.getDuration() + "天");
                 price.setText("项目报价:" + planDetailInfo.getTotal_price() + "元");
                 designText.setText("设计说明:" + planDetailInfo.getDescription());
-
                 String planStatus = planDetailInfo.getStatus();
                 if (planStatus.equals(Global.PLAN_STATUS5)) {
                     btn_choose.setEnabled(false);
@@ -176,6 +174,7 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
             LogTool.d(TAG, "data:" + data);
             makeTextLong("方案选定成功");
             hideWaitDialog();
+            btn_choose.setEnabled(false);
         }
 
         @Override

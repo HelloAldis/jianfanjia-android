@@ -45,6 +45,7 @@ public class NavigateActivity extends BaseActivity implements OnClickListener,
         // 导航测试资源
         for (int i = 0; i < imgId.length; i++) {
             ImageView view = new ImageView(this);
+            view.setScaleType(ImageView.ScaleType.CENTER);
             view.setImageResource(imgId[i]);
             list.add(view);
         }
@@ -70,8 +71,8 @@ public class NavigateActivity extends BaseActivity implements OnClickListener,
                 break;
             case R.id.btnRegister:
                 Bundle bundle = new Bundle();
-                bundle.putBoolean(Global.ISREGIISTER,true);
-                startActivity(LoginNewActivity_.class,bundle);
+                bundle.putBoolean(Global.ISREGIISTER, true);
+                startActivity(LoginNewActivity_.class, bundle);
                 finish();
                 break;
             case R.id.btnLogin:
