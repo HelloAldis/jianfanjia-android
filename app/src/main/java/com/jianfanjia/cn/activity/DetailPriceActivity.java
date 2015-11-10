@@ -34,6 +34,7 @@ public class DetailPriceActivity extends BaseActivity implements OnClickListener
         initMainHeadView();
         headView = inflater.inflate(R.layout.list_item_price_header_item, null);
         priceListView = (ListView) findViewById(R.id.price_listview);
+        priceListView.setFocusable(false);
         totalPrice = (TextView) findViewById(R.id.priceText);
         Intent intent = this.getIntent();
         Bundle priceBundle = intent.getExtras();
