@@ -75,7 +75,7 @@
                     <TextView
                         style="@style/listview_item_text_style_middle"
                         android:layout_gravity="center_vertical"
-                        android:text="响应速度:"
+                        android:text="响应速度："
                         android:textColor="@color/black_color" />
 
                     <RatingBar
@@ -100,7 +100,7 @@
                     <TextView
                         style="@style/listview_item_text_style_middle"
                         android:layout_gravity="center_vertical"
-                        android:text="服务态度:"
+                        android:text="服务态度："
                         android:textColor="@color/black_color" />
 
                     <RatingBar
