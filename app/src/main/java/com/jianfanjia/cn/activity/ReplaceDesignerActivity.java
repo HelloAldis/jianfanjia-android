@@ -140,7 +140,7 @@ public class ReplaceDesignerActivity extends BaseActivity implements OnClickList
                 newDesignerid = null;
                 totalCount++;
             }
-            dataChanged();
+            mainHeadView.setMianTitle(totalCount + getResources().getString(R.string.appoint));
         }
     };
 
@@ -158,21 +158,9 @@ public class ReplaceDesignerActivity extends BaseActivity implements OnClickList
                 newDesignerid = null;
                 totalCount++;
             }
-            dataNotifyChanged();
+            mainHeadView.setMianTitle(totalCount + getResources().getString(R.string.appoint));
         }
     };
-
-    private void dataChanged() {
-        designerByAppointAdapter.notifyDataSetChanged();
-        LogTool.d(TAG, "totalCount=" + totalCount);
-        mainHeadView.setMianTitle(totalCount + getResources().getString(R.string.appoint));
-    }
-
-    private void dataNotifyChanged() {
-        designerByIntentionInfoAdapter.notifyDataSetChanged();
-        LogTool.d(TAG, "totalCount: " + totalCount);
-        mainHeadView.setMianTitle(totalCount + getResources().getString(R.string.appoint));
-    }
 
     //获取自己可以预约的设计师
     private void getOrderDesignerList(String requestmentid) {
