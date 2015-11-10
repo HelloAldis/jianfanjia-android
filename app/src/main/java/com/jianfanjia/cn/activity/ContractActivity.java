@@ -2,6 +2,7 @@ package com.jianfanjia.cn.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.WebSettings;
@@ -73,6 +74,7 @@ public class ContractActivity extends BaseActivity implements OnClickListener {
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
         mainHeadView.setRightTitleVisable(View.VISIBLE);
         mainHeadView.setBackLayoutVisable(View.VISIBLE);
+        mainHeadView.setRigthTitleEnable(false);
     }
 
 
@@ -114,6 +116,11 @@ public class ContractActivity extends BaseActivity implements OnClickListener {
             if (null != contractInfo) {
                 final_planid = contractInfo.getFinal_planid();
                 LogTool.d(TAG, "final_planid:" + final_planid);
+                if (!TextUtils.isEmpty(final_planid)) {
+                    mainHeadView.setRigthTitleEnable(true);
+                } else {
+                    mainHeadView.setRigthTitleEnable(false);
+                }
             }
         }
 
