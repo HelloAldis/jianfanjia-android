@@ -139,7 +139,7 @@ public class ContractActivity extends BaseActivity implements OnClickListener {
         @Override
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data.toString());
-            makeTextLong(data.toString());
+            makeTextLong("确认成功");
         }
 
         @Override
