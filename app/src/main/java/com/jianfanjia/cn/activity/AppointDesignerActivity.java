@@ -144,7 +144,7 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
                 designerids.remove(designerid);
                 totalCount++;
             }
-            dataChanged();
+            mainHeadView.setMianTitle(totalCount + getResources().getString(R.string.appoint));
         }
     };
 
@@ -163,44 +163,10 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
                 designerids.remove(designerid);
                 totalCount++;
             }
-            dataNotifyChanged();
+            mainHeadView.setMianTitle(totalCount + getResources().getString(R.string.appoint));
         }
     };
 
-
-    //全选
-    private void selectAll() {
-        for (int i = 0; i < rec_designer.size(); i++) {
-            designerByAppointAdapter.getIsSelected().put(i, true);
-        }
-        totalCount = rec_designer.size();
-        dataChanged();
-    }
-
-    //取消
-    private void deSelectAll() {
-        for (int i = 0; i < rec_designer.size(); i++) {
-            if (designerByAppointAdapter.getIsSelected().get(i)) {
-                designerByAppointAdapter.getIsSelected().put(i, false);
-                totalCount--;// 数量减1
-            }
-        }
-        dataChanged();
-    }
-
-    private void dataNotifyChanged() {
-        designerByIntentionInfoAdapter.notifyDataSetChanged();
-        LogTool.d(TAG, "totalCount======" + totalCount);
-        mainHeadView
-                .setMianTitle(totalCount + getResources().getString(R.string.appoint));
-    }
-
-    private void dataChanged() {
-        designerByAppointAdapter.notifyDataSetChanged();
-        LogTool.d(TAG, "  totalCount==========================" + totalCount);
-        mainHeadView
-                .setMianTitle(totalCount + getResources().getString(R.string.appoint));
-    }
 
     //获取自己可以预约的设计师
     private void getOrderDesignerList(String requestmentid) {
