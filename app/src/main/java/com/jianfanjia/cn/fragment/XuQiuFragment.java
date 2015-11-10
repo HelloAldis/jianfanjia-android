@@ -1,6 +1,5 @@
 package com.jianfanjia.cn.fragment;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.support.v7.widget.LinearLayoutManager;
@@ -58,6 +57,7 @@ public class XuQiuFragment extends BaseAnnotationFragment implements OnActivityR
     private static final String TAG = XuQiuFragment.class.getName();
     public static final int REQUESTCODE_PUBLISH_REQUIREMENT = 1;
     public static final int REQUESTCODE_EDIT_REQUIREMENT = 2;
+    public static final int REQUESTCODE_FRESH_REQUIREMENT = 3;
     public static final int ITEM_EDIT = 0x00;
     public static final int ITEM_GOTOPRO = 0x01;
 
@@ -141,7 +141,7 @@ public class XuQiuFragment extends BaseAnnotationFragment implements OnActivityR
                         break;
                     case ITEM_GOTOODERDESI:
                         gotoOrderDesigner.putExtra(Global.REQUIREMENT_ID, requirementInfos.get(position).get_id());
-                        startActivity(gotoOrderDesigner);
+                        startActivityForResult(gotoOrderDesigner, REQUESTCODE_FRESH_REQUIREMENT);
                         break;
                     default:
                         break;
@@ -273,13 +273,16 @@ public class XuQiuFragment extends BaseAnnotationFragment implements OnActivityR
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        LogTool.d(TAG, "onActivityResult = " + requestCode);
-        if (resultCode != Activity.RESULT_OK) {
-            return;
-        }
+        LogTool.d(TAG, "onActivityResult = " + requestCode + " resultCode=" + resultCode);
+//        if (resultCode != Activity.RESULT_OK) {
+//            return;
+//        }
         switch (requestCode) {
             case REQUESTCODE_PUBLISH_REQUIREMENT:
             case REQUESTCODE_EDIT_REQUIREMENT:
+                initData();
+                break;
+            case REQUESTCODE_FRESH_REQUIREMENT:
                 initData();
                 break;
             default:

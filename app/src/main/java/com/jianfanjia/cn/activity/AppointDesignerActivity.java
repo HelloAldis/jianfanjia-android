@@ -17,6 +17,7 @@ import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.DesignerCanOrderInfo;
 import com.jianfanjia.cn.bean.DesignerCanOrderListInfo;
 import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.fragment.XuQiuFragment;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.JsonParser;
@@ -250,6 +251,7 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data.toString());
             makeTextLong("预约成功");
+            setResult(XuQiuFragment.REQUESTCODE_FRESH_REQUIREMENT);
             finish();
         }
 
