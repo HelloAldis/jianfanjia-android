@@ -187,11 +187,7 @@ public class DataManager {
         String userImagePath = null;
         String imageId = sharedPreferuser.getValue(Constant.USERIMAGE_ID, null);
         if (imageId == null) {
-            if (getUserType().equals(Constant.IDENTITY_OWNER)) {
                 userImagePath = Constant.DEFALUT_OWNER_PIC;
-            } else if (getUserType().equals(Constant.IDENTITY_DESIGNER)) {
-                userImagePath = Constant.DEFALUT_DESIGNER_PIC;
-            }
         } else {
             userImagePath = Url_New.GET_IMAGE + imageId;
         }

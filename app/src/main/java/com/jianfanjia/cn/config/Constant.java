@@ -151,10 +151,7 @@ public class Constant {
             + R.drawable.btn_default_bg;
 
     public static final String DEFALUT_OWNER_PIC = "drawable://"
-            + R.mipmap.icon_sidebar_default_user;
-
-    public static final String DEFALUT_DESIGNER_PIC = "drawable://"
-            + R.mipmap.icon_sidebar_default_user;
+            + R.mipmap.icon_default_head;
 
     public static final String DEFALUT_ADD_PIC = "drawable://"
             + R.mipmap.add;

@@ -13,6 +13,7 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.baseview.BaseAnnotationView;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.ViewById;
@@ -49,7 +50,7 @@ public class MyFavoriteDesignerView extends BaseAnnotationView {
         if (!TextUtils.isEmpty(imageid)) {
             imageLoader.displayImage(Url_New.GET_THUMBNAIL_IMAGE + imageid, ltm_myfavdesi_head, options);
         } else {
-            imageLoader.getInstance().displayImage(Constant.DEFALUT_DESIGNER_PIC, ltm_myfavdesi_head, options);
+            ImageLoader.getInstance().displayImage(Constant.DEFALUT_OWNER_PIC, ltm_myfavdesi_head, options);
         }
         ltm_myfavdesi_score.setRating((int) (designerInfo.getRespond_speed() + designerInfo.getService_attitude()) / 2);
         if (designerInfo.getAuth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)) {

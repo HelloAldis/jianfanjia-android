@@ -1301,7 +1301,7 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout imp
         FLIP;
 
         static AnimationStyle getDefault() {
-            return ROTATE;
+            return FLIP;
         }
 
         /**
@@ -1324,11 +1324,11 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout imp
 
         LoadingLayout createLoadingLayout(Context context, Mode mode, Orientation scrollDirection, TypedArray attrs) {
             switch (this) {
-                case ROTATE:
-                default:
-                    return new RotateLoadingLayout(context, mode, scrollDirection, attrs);
                 case FLIP:
+                default:
                     return new FlipLoadingLayout(context, mode, scrollDirection, attrs);
+                case ROTATE:
+                    return new RotateLoadingLayout(context, mode, scrollDirection, attrs);
             }
         }
     }

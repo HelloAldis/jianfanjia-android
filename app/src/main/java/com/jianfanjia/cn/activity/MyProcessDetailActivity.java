@@ -9,7 +9,6 @@ import android.provider.MediaStore;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -41,8 +40,9 @@ import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.StringUtils;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.MainHeadView;
-import com.jianfanjia.cn.view.SuperSwipeRefreshLayout;
 import com.jianfanjia.cn.view.dialog.DateWheelDialog;
+import com.jianfanjia.cn.view.library.PullToRefreshBase;
+import com.jianfanjia.cn.view.library.PullToRefreshListView;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -74,11 +74,11 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
     @ViewById(R.id.process_viewpager)
     ViewPager processViewPager;
     @ViewById(R.id.process__listview)
-    ListView detailNodeListView;
+    PullToRefreshListView detailNodeListView;
     @ViewById(R.id.process_head_layout)
     MainHeadView mainHeadView;
-    @ViewById(R.id.process_pull_refresh)
-    SuperSwipeRefreshLayout process_pull_refresh;
+  /*  @ViewById(R.id.process_pull_refresh)
+    SuperSwipeRefreshLayout process_pull_refresh;*/
     @ViewById(R.id.head_notification_layout)
     RelativeLayout notificationLayout;
     @StringArrayRes(R.array.site_procedure)
@@ -116,7 +116,17 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
         initProcessInfo();
     }
 
-    private void initPullRefresh() {
+    private void initPullRefresh(){
+        detailNodeListView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+        detailNodeListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
+            @Override
+            public void onRefresh(PullToRefreshBase<ListView> refreshView) {
+                loadCurrentProcess();
+            }
+        });
+    }
+
+   /* private void initPullRefresh() {
         process_pull_refresh.setHeaderView(createHeaderView());// add headerView
         process_pull_refresh.setTargetScrollWithLayout(true);
         process_pull_refresh
@@ -143,9 +153,9 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                         imageView.setRotation(enable ? 180 : 0);
                     }
                 });
-    }
+    }*/
 
-    private View createHeaderView() {
+    /*private View createHeaderView() {
         View headerView = LayoutInflater.from(process_pull_refresh.getContext())
                 .inflate(R.layout.layout_head, null);
         progressBar = (ProgressBar) headerView.findViewById(R.id.pb_view);
@@ -156,7 +166,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
         imageView.setImageResource(R.mipmap.icon_arrow);
         progressBar.setVisibility(View.GONE);
         return headerView;
-    }
+    }*/
 
     private void initProcessInfo() {
         Intent intent = getIntent();
@@ -352,6 +362,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
             }
         });
 
+
     }
 
     @Override
@@ -388,8 +399,9 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
     @Override
     public void loadSuccess(Object data) {
 //        mPullRefreshScrollView.onRefreshComplete();
-        process_pull_refresh.setRefreshing(false);
-        progressBar.setVisibility(View.GONE);
+//        process_pull_refresh.setRefreshing(false);
+        detailNodeListView.onRefreshComplete();
+//        progressBar.setVisibility(View.GONE);
         if (data != null) {
             processInfo = JsonParser.jsonToBean(data.toString(), ProcessInfo.class);
             initData();
@@ -401,8 +413,9 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
         if (processId != Constant.DEFAULT_PROCESSINFO_ID) {
             makeTextLong(getString(R.string.tip_error_internet));
         }
-        process_pull_refresh.setRefreshing(false);
-        progressBar.setVisibility(View.GONE);
+//        process_pull_refresh.setRefreshing(false);
+        detailNodeListView.onRefreshComplete();
+//        progressBar.setVisibility(View.GONE);
 //        mPullRefreshScrollView.onRefreshComplete();
     }
 

@@ -32,7 +32,8 @@ public class SiteGridViewAdapter extends BaseListAdapter<String> {
         }
 
         if (imgUrl.equals(Constant.HOME_ADD_PIC)) {
-            imageLoader.displayImage(imgUrl, holder.img, options);
+//            imageLoader.displayImage(imgUrl, holder.img, options);
+            holder.img.setImageResource(R.mipmap.btn_icon_home_add);
         } else {
             imageLoader.displayImage(Url_New.GET_THUMBNAIL_IMAGE + imgUrl, holder.img,
                     options);
