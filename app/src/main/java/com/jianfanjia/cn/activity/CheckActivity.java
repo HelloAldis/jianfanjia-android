@@ -58,7 +58,6 @@ public class CheckActivity extends BaseActivity implements OnClickListener, Item
     private String sectionInfoName = null;// 工序名称
     private int sectionInfoStatus = -1;// 工序状态
     private ProcessInfo processInfo;
-    private int currentState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,8 +103,6 @@ public class CheckActivity extends BaseActivity implements OnClickListener, Item
         checkLayout = (RelativeLayout) findViewById(R.id.checkLayout);
         gridView = (GridView) findViewById(R.id.mygridview);
         btn_confirm = (TextView) findViewById(R.id.btn_confirm);
-        btn_confirm.setText(this.getResources().getString(
-                R.string.confirm_done));
         gridView.setFocusable(false);
     }
 
@@ -142,12 +139,13 @@ public class CheckActivity extends BaseActivity implements OnClickListener, Item
             int imagecount = 0;
             for (int i = 0; imageids != null && i < imageids.size(); i++) {
                 String key = imageids.get(i).getKey();
-                if (imageids.get(i).getImageid() != null) {
-                    LogTool.d(TAG, imageids.get(i).getImageid());
-                    checkGridList.get(Integer.parseInt(key) * 2 + 1).setImgId(
-                            imageids.get(i).getImageid());
-                    imagecount++;
-                }
+                LogTool.d(TAG, imageids.get(i).getImageid());
+                checkGridList.get(Integer.parseInt(key) * 2 + 1).setImgId(
+                        imageids.get(i).getImageid());
+                imagecount++;
+                /*if (imageids.get(i).getImageid() != null) {
+
+                }*/
             }
             setConfimStatus(imagecount);
             adapter.setList(checkGridList);
