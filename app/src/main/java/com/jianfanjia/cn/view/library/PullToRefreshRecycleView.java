@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2011, 2012 Chris Banes.
- *
+ * <p/>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * <p/>
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p/>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -28,63 +28,63 @@ import jp.wasabeef.recyclerview.animators.FadeInUpAnimator;
 
 public class PullToRefreshRecycleView extends PullToRefreshBase<RecyclerView> {
 
-	public PullToRefreshRecycleView(Context context) {
-		super(context);
-	}
+    public PullToRefreshRecycleView(Context context) {
+        super(context);
+    }
 
-	public PullToRefreshRecycleView(Context context, AttributeSet attrs) {
-		super(context, attrs);
-	}
+    public PullToRefreshRecycleView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
 
-	public PullToRefreshRecycleView(Context context, Mode mode) {
-		super(context, mode);
-	}
+    public PullToRefreshRecycleView(Context context, Mode mode) {
+        super(context, mode);
+    }
 
-	public PullToRefreshRecycleView(Context context, Mode mode, AnimationStyle style) {
-		super(context, mode, style);
-	}
+    public PullToRefreshRecycleView(Context context, Mode mode, AnimationStyle style) {
+        super(context, mode, style);
+    }
 
-	@Override
-	public final Orientation getPullToRefreshScrollDirection() {
-		return Orientation.VERTICAL;
-	}
+    @Override
+    public final Orientation getPullToRefreshScrollDirection() {
+        return Orientation.VERTICAL;
+    }
 
-	@Override
-	protected RecyclerView createRefreshableView(Context context, AttributeSet attrs) {
-		RecyclerView recyclerView = new RecyclerView(context,attrs);
-		final LinearLayoutManager mLayoutManager = new LinearLayoutManager(context);
-		// 创建一个线性布局管理器
-		recyclerView.setLayoutManager(mLayoutManager);
-		recyclerView.setItemAnimator(new FadeInUpAnimator(new DecelerateInterpolator(0.5F)));
-		recyclerView.setId(R.id.recycleview);
-		return recyclerView;
-	}
+    @Override
+    protected RecyclerView createRefreshableView(Context context, AttributeSet attrs) {
+        RecyclerView recyclerView = new RecyclerView(context, attrs);
+        final LinearLayoutManager mLayoutManager = new LinearLayoutManager(context);
+        // 创建一个线性布局管理器
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setItemAnimator(new FadeInUpAnimator(new DecelerateInterpolator(0.5F)));
+        recyclerView.setId(R.id.recycleview);
+        return recyclerView;
+    }
 
-	public void setAdapter(RecyclerView.Adapter adapter){
-		if(mRefreshableView != null){
-			mRefreshableView.setAdapter(adapter);
-		}
-	}
+    public void setAdapter(RecyclerView.Adapter adapter) {
+        if (mRefreshableView != null) {
+            mRefreshableView.setAdapter(adapter);
+        }
+    }
 
-	public void setItemAnimator(RecyclerView.ItemAnimator itemAnimator){
-		if(mRefreshableView != null){
-			mRefreshableView.setItemAnimator(itemAnimator);
-		}
-	}
+    public void setItemAnimator(RecyclerView.ItemAnimator itemAnimator) {
+        if (mRefreshableView != null) {
+            mRefreshableView.setItemAnimator(itemAnimator);
+        }
+    }
 
-	public void addItemDecoration(RecyclerView.ItemDecoration itemDecoration){
-		if(mRefreshableView != null){
-			mRefreshableView.addItemDecoration(itemDecoration);
-		}
-	}
+    public void addItemDecoration(RecyclerView.ItemDecoration itemDecoration) {
+        if (mRefreshableView != null) {
+            mRefreshableView.addItemDecoration(itemDecoration);
+        }
+    }
 
-	@Override
-	protected boolean isReadyForPullStart() {
-		return !ViewCompat.canScrollVertically(mRefreshableView, -1);
-	}
+    @Override
+    protected boolean isReadyForPullStart() {
+        return !ViewCompat.canScrollVertically(mRefreshableView, -1);
+    }
 
-	@Override
-	protected boolean isReadyForPullEnd() {
-		return false;
-	}
+    @Override
+    protected boolean isReadyForPullEnd() {
+        return false;
+    }
 }
