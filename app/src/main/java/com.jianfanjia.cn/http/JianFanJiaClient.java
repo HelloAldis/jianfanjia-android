@@ -61,7 +61,7 @@ public class JianFanJiaClient {
         UploadRegisterIdRequest uploadRegisterIdRequest = new UploadRegisterIdRequest(context, clientId);
         JSONObject jsonParams = new JSONObject();
         try {
-            jsonParams.put("clientId", clientId);
+            jsonParams.put("cid", clientId);
             OkHttpClientManager.getInstance().getPostDelegate().postAsyn(uploadRegisterIdRequest, jsonParams.toString(), listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();

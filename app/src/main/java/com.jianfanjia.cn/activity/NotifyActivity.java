@@ -1,13 +1,12 @@
 package com.jianfanjia.cn.activity;
 
-import java.util.ArrayList;
-import java.util.List;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
+
 import com.jianfanjia.cn.adapter.MyFragmentPagerAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.NotifyMessage;
@@ -21,6 +20,9 @@ import com.jianfanjia.cn.interf.SwitchFragmentListener;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.TabPageIndicator;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 
@@ -136,7 +138,7 @@ public class NotifyActivity extends BaseActivity implements OnClickListener,
 	public void onResume() {
 		super.onResume();
 		LogTool.d(TAG, "---onResume()");
-		listenerManeger.addReceiveMsgListener(this);
+//		listenerManeger.addReceiveMsgListener(this);
 	}
 
 	@Override
@@ -155,7 +157,7 @@ public class NotifyActivity extends BaseActivity implements OnClickListener,
 	protected void onDestroy() {
 		super.onDestroy();
 		LogTool.d(TAG, "---onDestroy()");
-		listenerManeger.removeReceiveMsgListener(this);
+//		listenerManeger.removeReceiveMsgListener(this);
 	}
 
 	@Override

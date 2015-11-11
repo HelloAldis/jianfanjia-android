@@ -125,11 +125,17 @@ public class SectionItemAdapterBack extends BaseAdapter {
                     max = list.get(i).getDate();
                 }
             }
-            for (int i = list.size() - 1; i >= 0; i--) {
+            for (int i = 0; i <list.size(); i++) {
+                if (list.get(i).getDate() == max) {
+                    setCurrentOpenItem(i);
+                    break;
+                }
+            }
+           /* for (int i = list.size() - 1; i >= 0; i--) {
                 if (list.get(i).getDate() == max) {
                     setCurrentOpenItem(i);
                 }
-            }
+            }*/
         }
     }
 
@@ -411,6 +417,7 @@ public class SectionItemAdapterBack extends BaseAdapter {
                                 callBack.click(position, Constant.DELAY_ITEM);
                             }
                         });
+//                        viewHolderf.openCheck.setOnClickListener(null);
                         break;
                 }
 

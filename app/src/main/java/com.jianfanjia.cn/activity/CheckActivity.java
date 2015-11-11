@@ -190,16 +190,13 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
             int imagecount = 0;
             for (int i = 0; imageids != null && i < imageids.size(); i++) {
                 String key = imageids.get(i).getKey();
-                if (imageids.get(i).getImageid() != null) {
-                    LogTool.d(TAG, imageids.get(i).getImageid());
-                    checkGridList.get(Integer.parseInt(key) * 2 + 1).setImgId(
-                            imageids.get(i).getImageid());
-                    imagecount++;
-                }
+                LogTool.d(TAG, imageids.get(i).getImageid());
+                checkGridList.get(Integer.parseInt(key) * 2 + 1).setImgId(
+                        imageids.get(i).getImageid());
+                imagecount++;
             }
             setConfimStatus(imagecount);
             adapter.setList(checkGridList);
-
         }
         initShowList();
     }
@@ -234,9 +231,6 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
             btn_confirm.setEnabled(false);
         }
 
-        if (sectionInfoStatus == Constant.FINISH) {
-            btn_confirm.setEnabled(false);
-        }
     }
 
     @Override
@@ -304,11 +298,6 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 
     @Override
     public void takecamera() {
-        /*Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        mTmpFile = FileUtil.createTmpFile(CheckActivity.this);
-		cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mTmpFile));
-		startActivityForResult(cameraIntent, Constant.REQUESTCODE_CAMERA);*/
-
         mTmpFile = UiHelper.getTempPath();
 
         if (mTmpFile != null) {

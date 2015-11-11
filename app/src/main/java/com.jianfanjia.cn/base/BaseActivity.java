@@ -14,11 +14,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.widget.Toast;
+
 import com.jianfanjia.cn.AppConfig;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.dao.impl.NotifyMessageDao;
-import com.jianfanjia.cn.inter.manager.ListenerManeger;
 import com.jianfanjia.cn.interf.LoadDataListener;
 import com.jianfanjia.cn.interf.NetStateListener;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
@@ -51,7 +51,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 	protected NotificationManager nManager = null;
 	protected ImageLoader imageLoader = null;
 	protected DisplayImageOptions options = null;
-	protected ListenerManeger listenerManeger = null;
+//	protected ListenerManeger listenerManeger = null;
 	protected NetStateReceiver netStateReceiver = null;
 	protected AddPhotoPopWindow popupWindow = null;
 	private boolean _isVisible;

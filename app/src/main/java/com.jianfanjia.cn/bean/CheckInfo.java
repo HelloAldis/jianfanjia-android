@@ -3,8 +3,6 @@ package com.jianfanjia.cn.bean;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import com.jianfanjia.cn.tools.LogTool;
-
 /**
  * @class CheckInfo.class
  * @author zhanghao
@@ -46,9 +44,7 @@ public class CheckInfo implements Serializable {
 		if (images != null) {
 			for (Imageid imageid : images) {
 				if (key.equals(imageid.getKey())) {
-					imageid.setImageid(null);
-					flag = true;
-					LogTool.d("deleteImageIdBykey","flag =" + flag);
+					images.remove(imageid);
 				}
 			}
 		}

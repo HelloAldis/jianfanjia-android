@@ -149,12 +149,12 @@ public class PushMsgReceiver extends BroadcastReceiver {
 		JianFanJiaClient.uploadRegisterId(context, clientId, new LoadDataListener() {
 			@Override
 			public void preLoad() {
-
+				LogTool.d(TAG, "onStart()");
 			}
 
 			@Override
 			public void loadSuccess(BaseResponse baseResponse) {
-
+				LogTool.d(TAG, "JSONObject response:" + baseResponse.getData());
 			}
 
 			@Override

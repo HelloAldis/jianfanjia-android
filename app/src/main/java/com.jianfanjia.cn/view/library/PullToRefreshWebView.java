@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.jianfanjia.cn.pulltorefresh.library;
+package com.jianfanjia.cn.view.library;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -26,6 +26,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.view.library.PullToRefreshBase;
 
 public class PullToRefreshWebView extends PullToRefreshBase<WebView> {
 
@@ -114,10 +115,8 @@ public class PullToRefreshWebView extends PullToRefreshBase<WebView> {
 
 	@Override
 	protected boolean isReadyForPullEnd() {
-		float exactContentHeight = (float)Math.floor(mRefreshableView
-				.getContentHeight() * mRefreshableView.getScale());
-		return mRefreshableView.getScrollY() >= (exactContentHeight - mRefreshableView
-				.getHeight());
+		float exactContentHeight = (float)Math.floor(mRefreshableView.getContentHeight() * mRefreshableView.getScale());
+		return mRefreshableView.getScrollY() >= (exactContentHeight - mRefreshableView.getHeight());
 	}
 
 	@Override
@@ -148,29 +147,22 @@ public class PullToRefreshWebView extends PullToRefreshBase<WebView> {
 		}
 
 		@Override
-		protected boolean overScrollBy(int deltaX, int deltaY, int scrollX,
-				int scrollY, int scrollRangeX, int scrollRangeY,
-				int maxOverScrollX, int maxOverScrollY, boolean isTouchEvent) {
+		protected boolean overScrollBy(int deltaX, int deltaY, int scrollX, int scrollY, int scrollRangeX,
+				int scrollRangeY, int maxOverScrollX, int maxOverScrollY, boolean isTouchEvent) {
 
-			final boolean returnValue = super.overScrollBy(deltaX, deltaY,
-					scrollX, scrollY, scrollRangeX, scrollRangeY,
-					maxOverScrollX, maxOverScrollY, isTouchEvent);
+			final boolean returnValue = super.overScrollBy(deltaX, deltaY, scrollX, scrollY, scrollRangeX,
+					scrollRangeY, maxOverScrollX, maxOverScrollY, isTouchEvent);
 
 			// Does all of the hard work...
-			OverscrollHelper.overScrollBy(PullToRefreshWebView.this, deltaX,
-					scrollX, deltaY, scrollY, getScrollRange(),
-					OVERSCROLL_FUZZY_THRESHOLD, OVERSCROLL_SCALE_FACTOR,
-					isTouchEvent);
+			OverscrollHelper.overScrollBy(PullToRefreshWebView.this, deltaX, scrollX, deltaY, scrollY,
+					getScrollRange(), OVERSCROLL_FUZZY_THRESHOLD, OVERSCROLL_SCALE_FACTOR, isTouchEvent);
 
 			return returnValue;
 		}
 
 		private int getScrollRange() {
-			return (int) Math
-					.max(0,
-							Math.floor(mRefreshableView.getContentHeight()
-									* mRefreshableView.getScale())
-									- (getHeight() - getPaddingBottom() - getPaddingTop()));
+			return (int) Math.max(0, Math.floor(mRefreshableView.getContentHeight() * mRefreshableView.getScale())
+					- (getHeight() - getPaddingBottom() - getPaddingTop()));
 		}
 	}
 }

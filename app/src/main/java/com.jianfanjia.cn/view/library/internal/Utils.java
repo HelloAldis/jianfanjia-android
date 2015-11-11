@@ -1,4 +1,4 @@
-package com.jianfanjia.cn.pulltorefresh.library.internal;
+package com.jianfanjia.cn.view.library.internal;
 
 import android.util.Log;
 

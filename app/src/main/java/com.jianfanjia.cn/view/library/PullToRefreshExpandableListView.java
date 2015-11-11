@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.jianfanjia.cn.pulltorefresh.library;
+package com.jianfanjia.cn.view.library;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -23,10 +23,9 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ExpandableListView;
 
-import com.jianfanjia.cn.pulltorefresh.library.internal.EmptyViewMethodAccessor;
+import com.jianfanjia.cn.view.library.internal.EmptyViewMethodAccessor;
 
-public class PullToRefreshExpandableListView extends
-		PullToRefreshAdapterViewBase<ExpandableListView> {
+public class PullToRefreshExpandableListView extends PullToRefreshAdapterViewBase<ExpandableListView> {
 
 	public PullToRefreshExpandableListView(Context context) {
 		super(context);
@@ -40,8 +39,7 @@ public class PullToRefreshExpandableListView extends
 		super(context, mode);
 	}
 
-	public PullToRefreshExpandableListView(Context context, Mode mode,
-			AnimationStyle style) {
+	public PullToRefreshExpandableListView(Context context, Mode mode, AnimationStyle style) {
 		super(context, mode, style);
 	}
 
@@ -51,8 +49,7 @@ public class PullToRefreshExpandableListView extends
 	}
 
 	@Override
-	protected ExpandableListView createRefreshableView(Context context,
-			AttributeSet attrs) {
+	protected ExpandableListView createRefreshableView(Context context, AttributeSet attrs) {
 		final ExpandableListView lv;
 		if (VERSION.SDK_INT >= VERSION_CODES.GINGERBREAD) {
 			lv = new InternalExpandableListViewSDK9(context, attrs);
@@ -65,8 +62,7 @@ public class PullToRefreshExpandableListView extends
 		return lv;
 	}
 
-	class InternalExpandableListView extends ExpandableListView implements
-			EmptyViewMethodAccessor {
+	class InternalExpandableListView extends ExpandableListView implements EmptyViewMethodAccessor {
 
 		public InternalExpandableListView(Context context, AttributeSet attrs) {
 			super(context, attrs);
@@ -84,26 +80,22 @@ public class PullToRefreshExpandableListView extends
 	}
 
 	@TargetApi(9)
-	final class InternalExpandableListViewSDK9 extends
-			InternalExpandableListView {
+	final class InternalExpandableListViewSDK9 extends InternalExpandableListView {
 
-		public InternalExpandableListViewSDK9(Context context,
-				AttributeSet attrs) {
+		public InternalExpandableListViewSDK9(Context context, AttributeSet attrs) {
 			super(context, attrs);
 		}
 
 		@Override
-		protected boolean overScrollBy(int deltaX, int deltaY, int scrollX,
-				int scrollY, int scrollRangeX, int scrollRangeY,
-				int maxOverScrollX, int maxOverScrollY, boolean isTouchEvent) {
+		protected boolean overScrollBy(int deltaX, int deltaY, int scrollX, int scrollY, int scrollRangeX,
+				int scrollRangeY, int maxOverScrollX, int maxOverScrollY, boolean isTouchEvent) {
 
-			final boolean returnValue = super.overScrollBy(deltaX, deltaY,
-					scrollX, scrollY, scrollRangeX, scrollRangeY,
-					maxOverScrollX, maxOverScrollY, isTouchEvent);
+			final boolean returnValue = super.overScrollBy(deltaX, deltaY, scrollX, scrollY, scrollRangeX,
+					scrollRangeY, maxOverScrollX, maxOverScrollY, isTouchEvent);
 
 			// Does all of the hard work...
-			OverscrollHelper.overScrollBy(PullToRefreshExpandableListView.this,
-					deltaX, scrollX, deltaY, scrollY, isTouchEvent);
+			OverscrollHelper.overScrollBy(PullToRefreshExpandableListView.this, deltaX, scrollX, deltaY, scrollY,
+					isTouchEvent);
 
 			return returnValue;
 		}

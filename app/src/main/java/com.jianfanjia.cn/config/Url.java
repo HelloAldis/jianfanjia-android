@@ -12,8 +12,8 @@ public class Url {
 
 	public static String SEVER_IP = "101.200.191.159";
 //	public static String SEVER_IP = "www.jianfanjia.com";
-	public static String SEVER_PORT = "8888";
-//	public static String SEVER_PORT = "80";
+//	public static String SEVER_PORT = "8888";
+	public static String SEVER_PORT = "80";
 
 	public static final String HTTPROOT = "http://" + SEVER_IP + ":"
 			+ SEVER_PORT + "/api/v2/app/";

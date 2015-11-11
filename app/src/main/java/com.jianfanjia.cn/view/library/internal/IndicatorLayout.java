@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.jianfanjia.cn.pulltorefresh.library.internal;
+package com.jianfanjia.cn.view.library.internal;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -31,7 +31,8 @@ import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
+import com.jianfanjia.cn.view.library.PullToRefreshBase;
+
 
 @SuppressLint("ViewConstructor")
 public class IndicatorLayout extends FrameLayout implements AnimationListener {
@@ -47,35 +48,32 @@ public class IndicatorLayout extends FrameLayout implements AnimationListener {
 		super(context);
 		mArrowImageView = new ImageView(context);
 
-		Drawable arrowD = getResources()
-				.getDrawable(R.drawable.indicator_arrow);
+		Drawable arrowD = getResources().getDrawable(R.drawable.indicator_arrow);
 		mArrowImageView.setImageDrawable(arrowD);
 
-		final int padding = getResources().getDimensionPixelSize(
-				R.dimen.indicator_internal_padding);
+		final int padding = getResources().getDimensionPixelSize(R.dimen.indicator_internal_padding);
 		mArrowImageView.setPadding(padding, padding, padding, padding);
 		addView(mArrowImageView);
 
 		int inAnimResId, outAnimResId;
 		switch (mode) {
-		case PULL_FROM_END:
-			inAnimResId = R.anim.slide_in_from_bottom;
-			outAnimResId = R.anim.slide_out_to_bottom;
-			setBackgroundResource(R.drawable.indicator_bg_bottom);
+			case PULL_FROM_END:
+				inAnimResId = R.anim.slide_in_from_bottom;
+				outAnimResId = R.anim.slide_out_to_bottom;
+				setBackgroundResource(R.drawable.indicator_bg_bottom);
 
-			// Rotate Arrow so it's pointing the correct way
-			mArrowImageView.setScaleType(ScaleType.MATRIX);
-			Matrix matrix = new Matrix();
-			matrix.setRotate(180f, arrowD.getIntrinsicWidth() / 2f,
-					arrowD.getIntrinsicHeight() / 2f);
-			mArrowImageView.setImageMatrix(matrix);
-			break;
-		default:
-		case PULL_FROM_START:
-			inAnimResId = R.anim.slide_in_from_top;
-			outAnimResId = R.anim.slide_out_to_top;
-			setBackgroundResource(R.drawable.indicator_bg_top);
-			break;
+				// Rotate Arrow so it's pointing the correct way
+				mArrowImageView.setScaleType(ScaleType.MATRIX);
+				Matrix matrix = new Matrix();
+				matrix.setRotate(180f, arrowD.getIntrinsicWidth() / 2f, arrowD.getIntrinsicHeight() / 2f);
+				mArrowImageView.setImageMatrix(matrix);
+				break;
+			default:
+			case PULL_FROM_START:
+				inAnimResId = R.anim.slide_in_from_top;
+				outAnimResId = R.anim.slide_out_to_top;
+				setBackgroundResource(R.drawable.indicator_bg_top);
+				break;
 		}
 
 		mInAnim = AnimationUtils.loadAnimation(context, inAnimResId);
@@ -85,16 +83,14 @@ public class IndicatorLayout extends FrameLayout implements AnimationListener {
 		mOutAnim.setAnimationListener(this);
 
 		final Interpolator interpolator = new LinearInterpolator();
-		mRotateAnimation = new RotateAnimation(0, -180,
-				Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
+		mRotateAnimation = new RotateAnimation(0, -180, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
 				0.5f);
 		mRotateAnimation.setInterpolator(interpolator);
 		mRotateAnimation.setDuration(DEFAULT_ROTATION_ANIMATION_DURATION);
 		mRotateAnimation.setFillAfter(true);
 
-		mResetRotateAnimation = new RotateAnimation(-180, 0,
-				Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
-				0.5f);
+		mResetRotateAnimation = new RotateAnimation(-180, 0, Animation.RELATIVE_TO_SELF, 0.5f,
+				Animation.RELATIVE_TO_SELF, 0.5f);
 		mResetRotateAnimation.setInterpolator(interpolator);
 		mResetRotateAnimation.setDuration(DEFAULT_ROTATION_ANIMATION_DURATION);
 		mResetRotateAnimation.setFillAfter(true);

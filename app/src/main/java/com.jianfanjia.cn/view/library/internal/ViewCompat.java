@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.jianfanjia.cn.pulltorefresh.library.internal;
+package com.jianfanjia.cn.view.library.internal;
 
 import android.annotation.TargetApi;
 import android.graphics.drawable.Drawable;
@@ -21,6 +21,7 @@ import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.view.View;
 
+@SuppressWarnings("deprecation")
 public class ViewCompat {
 
 	public static void postOnAnimation(View view, Runnable runnable) {

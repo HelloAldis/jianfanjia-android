@@ -1,13 +1,15 @@
-package com.jianfanjia.cn.pulltorefresh.library;
-
-import java.util.HashSet;
+package com.jianfanjia.cn.view.library;
 
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 
-import com.jianfanjia.cn.pulltorefresh.library.internal.LoadingLayout;
+import com.jianfanjia.cn.view.library.internal.LoadingLayout;
+
+import java.util.HashSet;
+
 
 public class LoadingLayoutProxy implements ILoadingLayout {
+
 	private final HashSet<LoadingLayout> mLoadingLayouts;
 
 	LoadingLayoutProxy() {
@@ -21,8 +23,7 @@ public class LoadingLayoutProxy implements ILoadingLayout {
 	 * {@link PullToRefreshBase#createLoadingLayoutProxy(boolean, boolean)
 	 * createLoadingLayoutProxy(...)} calls.
 	 * 
-	 * @param layout
-	 *            - LoadingLayout to have included.
+	 * @param layout - LoadingLayout to have included.
 	 */
 	public void addLayout(LoadingLayout layout) {
 		if (null != layout) {
@@ -65,11 +66,9 @@ public class LoadingLayoutProxy implements ILoadingLayout {
 		}
 	}
 
-	@Override
 	public void setTextTypeface(Typeface tf) {
 		for (LoadingLayout layout : mLoadingLayouts) {
 			layout.setTextTypeface(tf);
 		}
 	}
-
 }

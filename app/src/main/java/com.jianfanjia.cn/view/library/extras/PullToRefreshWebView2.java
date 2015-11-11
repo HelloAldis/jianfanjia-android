@@ -13,14 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.jianfanjia.cn.pulltorefresh.library.extras;
+package com.jianfanjia.cn.view.library.extras;
 
-import java.util.concurrent.atomic.AtomicBoolean;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.webkit.WebView;
 
-import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshWebView;
+import com.jianfanjia.cn.view.library.PullToRefreshWebView;
+
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * An advanced version of {@link PullToRefreshWebView} which delegates the
@@ -59,6 +60,7 @@ import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshWebView;
  * @author Chris Banes
  */
 public class PullToRefreshWebView2 extends PullToRefreshWebView {
+
 	static final String JS_INTERFACE_PKG = "ptr";
 	static final String DEF_JS_READY_PULL_DOWN_CALL = "javascript:isReadyForPullDown();";
 	static final String DEF_JS_READY_PULL_UP_CALL = "javascript:isReadyForPullUp();";

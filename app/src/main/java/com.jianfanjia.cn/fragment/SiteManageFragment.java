@@ -32,7 +32,6 @@ import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.base.BaseResponse;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.SectionInfo;
-import com.jianfanjia.cn.bean.SectionItemInfo;
 import com.jianfanjia.cn.bean.ViewPagerItem;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
@@ -42,10 +41,6 @@ import com.jianfanjia.cn.interf.ItemClickCallBack;
 import com.jianfanjia.cn.interf.LoadDataListener;
 import com.jianfanjia.cn.interf.UploadImageListener;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
-import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
-import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.Mode;
-import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
-import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshScrollView;
 import com.jianfanjia.cn.tools.DateFormatTool;
 import com.jianfanjia.cn.tools.ImageUtil;
 import com.jianfanjia.cn.tools.ImageUtils;
@@ -58,6 +53,10 @@ import com.jianfanjia.cn.tools.ViewPagerManager.ShapeType;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DateWheelDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
+import com.jianfanjia.cn.view.library.PullToRefreshBase;
+import com.jianfanjia.cn.view.library.PullToRefreshBase.Mode;
+import com.jianfanjia.cn.view.library.PullToRefreshBase.OnRefreshListener2;
+import com.jianfanjia.cn.view.library.PullToRefreshScrollView;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -315,7 +314,8 @@ public class SiteManageFragment extends BaseFragment implements
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                if (sectionItemAdapter.isHasCheck()) {
+                sectionItemAdapter.setCurrentOpenItem(position);
+              /*  if (sectionItemAdapter.isHasCheck()) {
                     if (position == 0) {
                         boolean isCanClickYanshou = true;
                         for (SectionItemInfo sectionItemInfo : sectionInfo
@@ -334,7 +334,7 @@ public class SiteManageFragment extends BaseFragment implements
                     }
                 } else {
                     sectionItemAdapter.setCurrentOpenItem(position);
-                }
+                }*/
             }
         });
 
@@ -489,6 +489,7 @@ public class SiteManageFragment extends BaseFragment implements
     }
 
     private void delayDialog() {
+        LogTool.d(TAG, "delayDialog");
         DateWheelDialog dateWheelDialog = new DateWheelDialog(getActivity(),
                 Calendar.getInstance());
         dateWheelDialog.setTitle("选择时间");

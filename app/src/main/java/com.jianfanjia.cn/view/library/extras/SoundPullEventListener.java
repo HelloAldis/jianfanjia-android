@@ -13,28 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.jianfanjia.cn.pulltorefresh.library.extras;
+package com.jianfanjia.cn.view.library.extras;
 
-import java.util.HashMap;
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.view.View;
 
-import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
-import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.Mode;
-import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase.State;
+import com.jianfanjia.cn.view.library.PullToRefreshBase;
+import com.jianfanjia.cn.view.library.PullToRefreshBase.Mode;
+import com.jianfanjia.cn.view.library.PullToRefreshBase.State;
 
-public class SoundPullEventListener<V extends View> implements
-		PullToRefreshBase.OnPullEventListener<V> {
+import java.util.HashMap;
+
+
+public class SoundPullEventListener<V extends View> implements PullToRefreshBase.OnPullEventListener<V> {
+
 	private final Context mContext;
 	private final HashMap<State, Integer> mSoundMap;
+
 	private MediaPlayer mCurrentMediaPlayer;
 
 	/**
 	 * Constructor
 	 * 
-	 * @param context
-	 *            - Context
+	 * @param context - Context
 	 */
 	public SoundPullEventListener(Context context) {
 		mContext = context;
@@ -42,8 +44,7 @@ public class SoundPullEventListener<V extends View> implements
 	}
 
 	@Override
-	public final void onPullEvent(PullToRefreshBase<V> refreshView,
-			State event, Mode direction) {
+	public final void onPullEvent(PullToRefreshBase<V> refreshView, State event, Mode direction) {
 		Integer soundResIdObj = mSoundMap.get(event);
 		if (null != soundResIdObj) {
 			playSound(soundResIdObj.intValue());
@@ -58,10 +59,8 @@ public class SoundPullEventListener<V extends View> implements
 	 * If you've already set a sound for a certain event, and add another sound
 	 * for that event, only the new sound will be played.
 	 * 
-	 * @param event
-	 *            - The event for which the sound will be played.
-	 * @param resId
-	 *            - Resource Id of the sound file to be played (e.g.
+	 * @param event - The event for which the sound will be played.
+	 * @param resId - Resource Id of the sound file to be played (e.g.
 	 *            <var>R.raw.pull_sound</var>)
 	 */
 	public void addSoundEvent(State event, int resId) {
