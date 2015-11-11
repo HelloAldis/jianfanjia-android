@@ -153,11 +153,13 @@ public class MyDesignerActivity extends BaseAnnotationActivity {
         paint.setStrokeWidth(1);
         paint.setColor(getResources().getColor(R.color.light_white_color));
         paint.setAntiAlias(true);
-        refreshView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this)
-                .paint(paint)
+        refreshView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this).
+                        colorResId(R.color.light_white_color).sizeResId(R.dimen.line_width).marginResId(R.dimen.space_80,R.dimen.space_0)
+                        .build());
+               /* .paint(paint)
                 .showLastDivider()
-                .margin(60,0)
-                .build());
+                .margin(300,0)
+                .build());*/
 //        refreshView.setRefreshing(true);
     }
 
