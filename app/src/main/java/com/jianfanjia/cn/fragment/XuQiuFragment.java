@@ -3,6 +3,7 @@ package com.jianfanjia.cn.fragment;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateUtils;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -165,7 +166,6 @@ public class XuQiuFragment extends BaseAnnotationFragment implements OnActivityR
     protected void publish_requirement() {
         Intent intent = new Intent(getActivity(), EditRequirementActivity_.class);
         startActivityForResult(intent, REQUESTCODE_PUBLISH_REQUIREMENT);
-//        requirementAdapter.remove(3);
     }
 
     @AfterViews
@@ -187,48 +187,16 @@ public class XuQiuFragment extends BaseAnnotationFragment implements OnActivityR
         pullrefresh.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<RecyclerView>() {
             @Override
             public void onRefresh(PullToRefreshBase<RecyclerView> refreshView) {
+                String label = DateUtils.formatDateTime(getActivity(),
+                        System.currentTimeMillis(), DateUtils.FORMAT_SHOW_TIME
+                                | DateUtils.FORMAT_SHOW_DATE
+                                | DateUtils.FORMAT_ABBREV_ALL);
+                // Update the LastUpdatedLabel
+                refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
                 initData();
             }
         });
-       /* refreshLayout.setHeaderView(createHeaderView());// add headerView
-        refreshLayout.setTargetScrollWithLayout(true);
-        refreshLayout
-                .setOnPullRefreshListener(new SuperSwipeRefreshLayout.OnPullRefreshListener() {
-
-                    @Override
-                    public void onRefresh() {
-                        textView.setText("正在刷新");
-                        imageView.setVisibility(View.GONE);
-                        progressBar.setVisibility(View.VISIBLE);
-                        initData();
-                    }
-
-                    @Override
-                    public void onPullDistance(int distance) {
-                        // pull distance
-                    }
-
-                    @Override
-                    public void onPullEnable(boolean enable) {
-                        textView.setText(enable ? "松开刷新" : "下拉刷新");
-                        imageView.setVisibility(View.VISIBLE);
-                        imageView.setRotation(enable ? 180 : 0);
-                    }
-                });*/
     }
-
- /*   private View createHeaderView() {
-        View headerView = LayoutInflater.from(refreshLayout.getContext())
-                .inflate(R.layout.layout_head, null);
-        progressBar = (ProgressBar) headerView.findViewById(R.id.pb_view);
-        textView = (TextView) headerView.findViewById(R.id.text_view);
-        textView.setText("下拉刷新");
-        imageView = (ImageView) headerView.findViewById(R.id.image_view);
-        imageView.setVisibility(View.VISIBLE);
-        imageView.setImageResource(R.mipmap.icon_arrow);
-        progressBar.setVisibility(View.GONE);
-        return headerView;
-    }*/
 
     protected void initIntent() {
         gotoEditRequirement = new Intent(getActivity(), EditRequirementActivity_.class);
@@ -246,8 +214,6 @@ public class XuQiuFragment extends BaseAnnotationFragment implements OnActivityR
             @Override
             public void loadSuccess(Object data) {
                 pullrefresh.onRefreshComplete();
-//                refreshLayout.setRefreshing(false);
-//                progressBar.setVisibility(View.GONE);
                 if (data != null) {
                     requirementInfos = JsonParser.jsonToList(data.toString(), new TypeToken<List<RequirementInfo>>() {
                     }.getType());
@@ -272,8 +238,6 @@ public class XuQiuFragment extends BaseAnnotationFragment implements OnActivityR
                     error_Layout.setVisibility(View.VISIBLE);
                 }
                 pullrefresh.onRefreshComplete();
-//                refreshLayout.setRefreshing(false);
-//                progressBar.setVisibility(View.GONE);
             }
         }, this);
     }
