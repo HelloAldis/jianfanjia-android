@@ -86,7 +86,7 @@ public class JianFanJiaClient {
         UploadRegisterIdRequest uploadRegisterIdRequest = new UploadRegisterIdRequest(context, clientId);
         JSONObject jsonParams = new JSONObject();
         try {
-            jsonParams.put("clientId", clientId);
+            jsonParams.put("cid", clientId);
             OkHttpClientManager.getInstance().getPostDelegate().postAsyn(uploadRegisterIdRequest, jsonParams.toString(), listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -470,6 +470,7 @@ public class JianFanJiaClient {
 
     /**
      * 删除节点图片
+     *
      * @param imageid
      * @param context
      * @param imageid
@@ -479,7 +480,7 @@ public class JianFanJiaClient {
      * @param listener
      * @param tag
      */
-    public static final void deleteImageToProcess(Context context, String imageid, String section, String item, int index, ApiUiUpdateListener listener, Object tag){
+    public static final void deleteImageToProcess(Context context, String imageid, String section, String item, int index, ApiUiUpdateListener listener, Object tag) {
         DeletePicToSectionItemRequest deletePicToSectionItemRequest = new DeletePicToSectionItemRequest(context);
         JSONObject jsonParams = new JSONObject();
         try {
