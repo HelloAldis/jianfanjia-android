@@ -1,8 +1,5 @@
 package com.jianfanjia.cn.fragment;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,78 +16,79 @@ import com.jianfanjia.cn.interf.LoadDataListener;
 import com.jianfanjia.cn.interf.SwitchFragmentListener;
 import com.jianfanjia.cn.tools.LogTool;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- * 
+ * @author fengliang
  * @ClassName: YanQiNotifyFragment
  * @Description: 延期提醒
- * @author fengliang
  * @date 2015-8-26 下午1:09:52
- * 
  */
 public class YanQiNotifyFragment extends BaseFragment implements
-		SwitchFragmentListener, OnItemLongClickListener {
-	private static final String TAG = YanQiNotifyFragment.class.getName();
-	private ListView yanqiListView = null;
-	private List<NotifyDelayInfo> delayList = new ArrayList<NotifyDelayInfo>();
-	private NotifyDelayInfo notifyDelayInfo = null;
-	private DelayNotifyAdapter delayAdapter = null;
+        SwitchFragmentListener, OnItemLongClickListener {
+    private static final String TAG = YanQiNotifyFragment.class.getName();
+    private ListView yanqiListView = null;
+    private List<NotifyDelayInfo> delayList = new ArrayList<NotifyDelayInfo>();
+    private NotifyDelayInfo notifyDelayInfo = null;
+    private DelayNotifyAdapter delayAdapter = null;
 
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-		LogTool.d(TAG, "dataManager=" + dataManager);
-	}
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        LogTool.d(TAG, "dataManager=" + dataManager);
+    }
 
-	@Override
-	public void initView(View view) {
-		yanqiListView = (ListView) view.findViewById(R.id.tip_delay__listview);
-	}
+    @Override
+    public void initView(View view) {
+        yanqiListView = (ListView) view.findViewById(R.id.tip_delay__listview);
+    }
 
-	@Override
-	public void setUserVisibleHint(boolean isVisibleToUser) {
-		super.setUserVisibleHint(isVisibleToUser);
-		if (isVisibleToUser) {
-			// fragment可见时加载数据
-			LogTool.d(TAG, "YanQiNotifyFragment 可见");
-			getRescheduleAll();
-		} else {
-			// 不可见时不执行操作
-			LogTool.d(TAG, "YanQiNotifyFragment 不可见");
-		}
-	}
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            // fragment可见时加载数据
+            LogTool.d(TAG, "YanQiNotifyFragment 可见");
+            getRescheduleAll();
+        } else {
+            // 不可见时不执行操作
+            LogTool.d(TAG, "YanQiNotifyFragment 不可见");
+        }
+    }
 
-	@Override
-	public void setListener() {
-		yanqiListView.setOnItemLongClickListener(this);
-	}
+    @Override
+    public void setListener() {
+        yanqiListView.setOnItemLongClickListener(this);
+    }
 
-	@Override
-	public boolean onItemLongClick(AdapterView<?> arg0, View v, int position,
-			long id) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public boolean onItemLongClick(AdapterView<?> arg0, View v, int position,
+                                   long id) {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
-	// /用户获取我的改期提醒
-	private void getRescheduleAll() {
-		JianFanJiaClient.rescheduleAll(getActivity(), new LoadDataListener() {
-			@Override
-			public void preLoad() {
-				showWaitDialog();
-			}
+    // /用户获取我的改期提醒
+    private void getRescheduleAll() {
+        JianFanJiaClient.rescheduleAll(getActivity(), new LoadDataListener() {
+            @Override
+            public void preLoad() {
+                showWaitDialog();
+            }
 
-			@Override
-			public void loadSuccess(BaseResponse baseResponse) {
-				hideWaitDialog();
-			}
+            @Override
+            public void loadSuccess(BaseResponse baseResponse) {
+                hideWaitDialog();
+            }
 
-			@Override
-			public void loadFailture() {
-				hideWaitDialog();;
-			}
-		},this);
-		/*JianFanJiaApiClient.rescheduleAll(getActivity(),
-				new JsonHttpResponseHandler() {
+            @Override
+            public void loadFailture() {
+                hideWaitDialog();
+            }
+        }, this);
+        /*JianFanJiaApiClient.rescheduleAll(getActivity(),
+                new JsonHttpResponseHandler() {
 					@Override
 					public void onStart() {
 						LogTool.d(TAG, "onStart()");
@@ -158,28 +156,28 @@ public class YanQiNotifyFragment extends BaseFragment implements
 						makeTextLong(getString(R.string.tip_login_error_for_network));
 					};
 				});*/
-	}
+    }
 
-	// 用户同意改期
-	private void agreeReschedule(String processid) {
-		JianFanJiaClient.agreeReschedule(getActivity(), processid, new LoadDataListener() {
-			@Override
-			public void preLoad() {
+    // 用户同意改期
+    private void agreeReschedule(String processid) {
+        JianFanJiaClient.agreeReschedule(getActivity(), processid, new LoadDataListener() {
+            @Override
+            public void preLoad() {
 
-			}
+            }
 
-			@Override
-			public void loadSuccess(BaseResponse baseResponse) {
+            @Override
+            public void loadSuccess(BaseResponse baseResponse) {
 
-			}
+            }
 
-			@Override
-			public void loadFailture() {
+            @Override
+            public void loadFailture() {
 
-			}
-		},this);
-		/*JianFanJiaApiClient.agreeReschedule(getActivity(), processid,
-				new JsonHttpResponseHandler() {
+            }
+        }, this);
+        /*JianFanJiaApiClient.agreeReschedule(getActivity(), processid,
+                new JsonHttpResponseHandler() {
 					@Override
 					public void onStart() {
 						LogTool.d(this.getClass().getName(), "onStart()");
@@ -223,28 +221,28 @@ public class YanQiNotifyFragment extends BaseFragment implements
 								+ throwable);
 					};
 				});*/
-	}
+    }
 
-	// 用户拒绝改期
-	private void refuseReschedule(String processid) {
-		JianFanJiaClient.refuseReschedule(getActivity(), processid, new LoadDataListener() {
-			@Override
-			public void preLoad() {
+    // 用户拒绝改期
+    private void refuseReschedule(String processid) {
+        JianFanJiaClient.refuseReschedule(getActivity(), processid, new LoadDataListener() {
+            @Override
+            public void preLoad() {
 
-			}
+            }
 
-			@Override
-			public void loadSuccess(BaseResponse baseResponse) {
+            @Override
+            public void loadSuccess(BaseResponse baseResponse) {
 
-			}
+            }
 
-			@Override
-			public void loadFailture() {
+            @Override
+            public void loadFailture() {
 
-			}
-		},this);
-		/*JianFanJiaApiClient.refuseReschedule(getActivity(), processid,
-				new JsonHttpResponseHandler() {
+            }
+        }, this);
+        /*JianFanJiaApiClient.refuseReschedule(getActivity(), processid,
+                new JsonHttpResponseHandler() {
 					@Override
 					public void onStart() {
 						LogTool.d(this.getClass().getName(), "onStart()");
@@ -288,17 +286,17 @@ public class YanQiNotifyFragment extends BaseFragment implements
 								+ throwable);
 					};
 				});*/
-	}
+    }
 
-	@Override
-	public int getLayoutId() {
-		return R.layout.fragment_yanqi_notify;
-	}
+    @Override
+    public int getLayoutId() {
+        return R.layout.fragment_yanqi_notify;
+    }
 
-	@Override
-	public void switchTab(int index) {
-		// TODO Auto-generated method stub
+    @Override
+    public void switchTab(int index) {
+        // TODO Auto-generated method stub
 
-	}
+    }
 
 }
