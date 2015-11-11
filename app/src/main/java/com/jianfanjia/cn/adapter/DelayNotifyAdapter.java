@@ -15,7 +15,7 @@ import com.jianfanjia.cn.tools.DateFormatTool;
 import java.util.List;
 
 /**
- * @param <NotifyDelayInfo>
+ * @param
  * @author zhanghao
  * @class DelayNotifyAdapter
  * @date 2015-8-26 15:57
