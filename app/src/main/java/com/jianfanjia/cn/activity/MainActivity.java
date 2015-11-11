@@ -7,7 +7,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
-import com.igexin.sdk.PushManager;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
@@ -49,7 +48,6 @@ public class MainActivity extends BaseActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        PushManager.getInstance().initialize(getApplicationContext());
     }
 
     @Override

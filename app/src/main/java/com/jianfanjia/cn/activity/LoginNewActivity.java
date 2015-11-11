@@ -20,6 +20,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
+import com.igexin.sdk.PushManager;
 import com.jianfanjia.cn.base.BaseAnnotationActivity;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.config.Global;
@@ -101,8 +102,8 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
         loginTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
 
         Intent intent = getIntent();
-        boolean flag = intent.getBooleanExtra(Global.ISREGIISTER,false);
-        if(flag){
+        boolean flag = intent.getBooleanExtra(Global.ISREGIISTER, false);
+        if (flag) {
             LogTool.d(TAG, "showregister");
             new Handler().postDelayed(new Runnable() {
                 @Override
@@ -119,7 +120,7 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
         super.onResume();
     }
 
-    @Click({R.id.btn_login, R.id.btn_next, R.id.act_forget_password,R.id.act_login,R.id.act_register})
+    @Click({R.id.btn_login, R.id.btn_next, R.id.act_forget_password, R.id.act_login, R.id.act_register})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_login:
@@ -140,12 +141,12 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
                 startActivity(ForgetPswActivity_.class);
                 break;
             case R.id.act_login:
-                if(currentPage == REGISER){
+                if (currentPage == REGISER) {
                     showLogin();
                 }
                 break;
             case R.id.act_register:
-                if(currentPage == LOGIN){
+                if (currentPage == LOGIN) {
                     showRegister();
                 }
                 break;
@@ -170,7 +171,7 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
             mEtRegisterUserName.requestFocus();
             return false;
         }
-        if(!name.matches(Global.PHONE_MATCH)){
+        if (!name.matches(Global.PHONE_MATCH)) {
             makeTextShort(getString(R.string.tip_input_corrent_phone));
             mEtRegisterUserName.requestFocus();
             return false;
@@ -181,7 +182,7 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
             mEtRegisterPassword.requestFocus();
             return false;
         }
-        if(!password.matches(Global.PASSWORD_MATCH)){
+        if (!password.matches(Global.PASSWORD_MATCH)) {
             makeTextShort(getString(R.string.tip_input_correct_password));
             mEtRegisterPassword.requestFocus();
             return false;
@@ -196,7 +197,7 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
             mEtLoginUserName.requestFocus();
             return false;
         }
-        if(!name.matches(Global.PHONE_MATCH)){
+        if (!name.matches(Global.PHONE_MATCH)) {
             makeTextShort(getString(R.string.tip_input_corrent_phone));
             mEtLoginUserName.requestFocus();
             return false;
@@ -207,7 +208,7 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
             mEtLoginPassword.requestFocus();
             return false;
         }
-        if(!password.matches(Global.PASSWORD_MATCH)){
+        if (!password.matches(Global.PASSWORD_MATCH)) {
             makeTextShort(getString(R.string.tip_input_correct_password));
             mEtLoginPassword.requestFocus();
             return false;
@@ -266,8 +267,8 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
 
     @Override
     public void loadSuccess(Object data) {
-        //登录成功，加载工地列表
         super.loadSuccess(data);
+        PushManager.getInstance().initialize(getApplicationContext());
         startActivity(MainActivity.class);
         finish();
     }
@@ -320,7 +321,7 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
 
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-        if (velocityX <  -200 && currentPage == LOGIN) {
+        if (velocityX < -200 && currentPage == LOGIN) {
             showRegister();
             return true;
         } else if (velocityX > 200 && currentPage == REGISER) {
@@ -338,7 +339,7 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
         PropertyValuesHolder p1 = PropertyValuesHolder.ofFloat("translationX", currentX, currentX - TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 124, getResources().getDisplayMetrics()));
 //        PropertyValuesHolder p2 = PropertyValuesHolder.ofFloat("y",currentY,currentY);
         ObjectAnimator objectAnimator = ObjectAnimator
-                .ofPropertyValuesHolder(view,p1)
+                .ofPropertyValuesHolder(view, p1)
                 .setDuration(200);
         objectAnimator.start();
         objectAnimator.addListener(new Animator.AnimatorListener() {
