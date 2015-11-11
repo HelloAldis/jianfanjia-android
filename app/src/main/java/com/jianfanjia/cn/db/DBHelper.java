@@ -28,7 +28,7 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db, ConnectionSource connectionSource) {
         try {
-            TableUtils.clearTable(connectionSource, NotifyMessage.class);
+            TableUtils.createTable(connectionSource, NotifyMessage.class);
         } catch (SQLException e) {
             e.printStackTrace();
         }
