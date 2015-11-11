@@ -24,7 +24,6 @@ import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseAnnotationActivity;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.SectionInfo;
-import com.jianfanjia.cn.bean.SectionItemInfo;
 import com.jianfanjia.cn.bean.ViewPagerItem;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
@@ -125,48 +124,6 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
             }
         });
     }
-
-   /* private void initPullRefresh() {
-        process_pull_refresh.setHeaderView(createHeaderView());// add headerView
-        process_pull_refresh.setTargetScrollWithLayout(true);
-        process_pull_refresh
-                .setOnPullRefreshListener(new SuperSwipeRefreshLayout.OnPullRefreshListener() {
-
-                    @Override
-                    public void onRefresh() {
-                        textView.setText("正在刷新");
-                        imageView.setVisibility(View.GONE);
-                        progressBar.setVisibility(View.VISIBLE);
-//                        initdata();
-                        loadCurrentProcess();
-                    }
-
-                    @Override
-                    public void onPullDistance(int distance) {
-                        // pull distance
-                    }
-
-                    @Override
-                    public void onPullEnable(boolean enable) {
-                        textView.setText(enable ? "松开刷新" : "下拉刷新");
-                        imageView.setVisibility(View.VISIBLE);
-                        imageView.setRotation(enable ? 180 : 0);
-                    }
-                });
-    }*/
-
-    /*private View createHeaderView() {
-        View headerView = LayoutInflater.from(process_pull_refresh.getContext())
-                .inflate(R.layout.layout_head, null);
-        progressBar = (ProgressBar) headerView.findViewById(R.id.pb_view);
-        textView = (TextView) headerView.findViewById(R.id.text_view);
-        textView.setText("下拉刷新");
-        imageView = (ImageView) headerView.findViewById(R.id.image_view);
-        imageView.setVisibility(View.VISIBLE);
-        imageView.setImageResource(R.mipmap.icon_arrow);
-        progressBar.setVisibility(View.GONE);
-        return headerView;
-    }*/
 
     private void initProcessInfo() {
         Intent intent = getIntent();
@@ -340,7 +297,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 position--;//因为Listview加了一个下拉头,所以第一个position为下拉头
-                if (sectionItemAdapter.isHasCheck()) {
+                /*if (sectionItemAdapter.isHasCheck()) {
                     if (position == 0) {
                         boolean isCanClickYanshou = true;
                         for (SectionItemInfo sectionItemInfo : sectionInfo
@@ -359,7 +316,8 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                     }
                 } else {
                     sectionItemAdapter.setCurrentOpenItem(position);
-                }
+                }*/
+                sectionItemAdapter.setCurrentOpenItem(position);
             }
         });
 
