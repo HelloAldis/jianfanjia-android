@@ -408,8 +408,8 @@ public class JianFanJiaClient {
      * @param context
      * @param listener
      */
-    public static void rescheduleAll(Context context,
-                                     ApiUiUpdateListener listener, Object tag) {
+    public static void getRescheduleAll(Context context,
+                                        ApiUiUpdateListener listener, Object tag) {
         GetAllRescheduleRequest getAllRescheduleRequest = new GetAllRescheduleRequest(context);
         OkHttpClientManager.getInstance().getGetDelegate().getAsyn(getAllRescheduleRequest, listener, tag);
     }
