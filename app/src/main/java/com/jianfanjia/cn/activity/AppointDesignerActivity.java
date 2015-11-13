@@ -114,8 +114,8 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
     private void appointDesignerDialog() {
         CommonDialog dialog = DialogHelper
                 .getPinterestDialogCancelable(AppointDesignerActivity.this);
-        dialog.setTitle("预约设计师？");
-        dialog.setMessage("确定预约设计师吗？");
+        dialog.setTitle("预约设计师");
+        dialog.setMessage("确定要预约设计师吗？");
         dialog.setPositiveButton(R.string.ok,
                 new DialogInterface.OnClickListener() {
 
