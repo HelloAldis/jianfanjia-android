@@ -81,7 +81,7 @@ public class MyDesignerViewType1 extends BaseAnnotationView {
         button2.setText(getResources().getString(R.string.str_change_designer));
         statusView.setText(getResources().getString(R.string.already_refuse));
         statusView.setTextColor(getResources().getColor(R.color.grey_color));
-        button1.setOnClickListener(new OnClickListener() {
+        button2.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 clickCallBack.click(position, MyDesignerActivity.CHANGE_DESIGNER);

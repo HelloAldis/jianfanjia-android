@@ -271,10 +271,10 @@
 
     <string-array name="requirement_status">
         <item>未预约</item>
-        <item>未响应</item>
+        <item>已预约</item>
         <item>已响应</item>
         <item>有方案</item>
-        <item>已选中</item>
+        <item>已选定</item>
         <item>有工地</item>
         <item>已量房</item>
         <item>有合同</item>

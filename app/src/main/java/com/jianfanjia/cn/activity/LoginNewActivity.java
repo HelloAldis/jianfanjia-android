@@ -30,7 +30,6 @@ import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.NetTool;
-import com.jianfanjia.cn.tools.UiHelper;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -61,6 +60,9 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
     TextView registerTitle;
     @ViewById(R.id.act_title_layout)
     RelativeLayout titleLayout;
+
+    @ViewById(R.id.content_layout)
+    RelativeLayout contentLayout;
 
     @ViewById(R.id.login_register_layout)
     RelativeLayout loginRegisterLayout;
@@ -95,7 +97,7 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
 
     @AfterViews
     public void initView() {
-        UiHelper.controlKeyboardLayout(loginRegisterLayout, mBtnLogin);
+        controlKeyboardLayout(contentLayout, mBtnLogin);
 
         mGestureDetector = new GestureDetector(this, this);
         registerTitle.setAlpha(Alpha1);
@@ -117,6 +119,8 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
 
     }
 
+    private int srollHeight;
+
     private void controlKeyboardLayout(final View root,final View scrollToView){
         root.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -129,13 +133,13 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
                         int rootInvisibleHeight = root.getRootView()
                                 .getHeight() - rect.bottom;
                         // 若不可视区域高度大于100，则键盘显示
+                        int[] location = new int[2];
+                        // 获取scrollToView在窗体的坐标
+                        scrollToView.getLocationInWindow(location);
+                        // 计算root滚动高度，使scrollToView在可见区域
+                        srollHeight = (location[1] + scrollToView
+                                .getHeight()) - rect.bottom;
                         if (rootInvisibleHeight > 100) {
-                            int[] location = new int[2];
-                            // 获取scrollToView在窗体的坐标
-                            scrollToView.getLocationInWindow(location);
-                            // 计算root滚动高度，使scrollToView在可见区域
-                            int srollHeight = (location[1] + scrollToView
-                                    .getHeight()) - rect.bottom;
 //                            root.scrollTo(0, srollHeight);
                             root.animate().translationY(-srollHeight).setDuration(100).start();
                         } else {
@@ -246,6 +250,29 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
             return false;
         }
         return true;
+    }
+
+    private void verifyPhone(final String phone){
+        if(NetTool.isNetworkAvailable(this)){
+            JianFanJiaClient.verifyPhone(this, phone, new ApiUiUpdateListener() {
+                @Override
+                public void preLoad() {
+
+                }
+
+                @Override
+                public void loadSuccess(Object data) {
+
+                }
+
+                @Override
+                public void loadFailture(String error_msg) {
+
+                }
+            },this);
+        }else{
+            makeTextShort(getString(R.string.tip_internet_not));
+        }
     }
 
     /**
@@ -364,14 +391,15 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
     }
 
     public void translateAnimationToLeft(View view) {
-        float currentX = view.getTranslationX();
-        float currentY = view.getTranslationY();
-        LogTool.d("translateAnimationToLeft", "currentX = " + currentX);
+        int[] location = new int[2];
+        view.getLocationInWindow(location);
+        float currentX = view.getX();
+        float currentY = view.getY();
         LogTool.d("translateAnimationToLeft", "currentY = " + currentY);
-        PropertyValuesHolder p1 = PropertyValuesHolder.ofFloat("translationX", currentX, currentX - TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 124, getResources().getDisplayMetrics()));
-//        PropertyValuesHolder p2 = PropertyValuesHolder.ofFloat("y",currentY,currentY);
+        PropertyValuesHolder p1 = PropertyValuesHolder.ofFloat("x", currentX, currentX - TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 124, getResources().getDisplayMetrics()));
+        PropertyValuesHolder p2 = PropertyValuesHolder.ofFloat("y",currentY,currentY);
         ObjectAnimator objectAnimator = ObjectAnimator
-                .ofPropertyValuesHolder(view, p1)
+                .ofPropertyValuesHolder(view, p1,p2)
                 .setDuration(200);
         objectAnimator.start();
         objectAnimator.addListener(new Animator.AnimatorListener() {

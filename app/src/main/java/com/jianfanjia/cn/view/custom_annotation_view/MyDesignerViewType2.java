@@ -15,6 +15,7 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.interf.ClickCallBack;
+import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.StringUtils;
 import com.jianfanjia.cn.view.baseview.BaseAnnotationView;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -85,6 +86,7 @@ public class MyDesignerViewType2 extends BaseAnnotationView {
 
         statusView.setTextColor(getResources().getColor(R.color.blue_color));
         statusView.setText(getResources().getString(R.string.already_repsonse));
+        LogTool.d(this.getClass().getName(),"当前时间 ="+ Calendar.getInstance().getTimeInMillis()+ "  量房时间 =" + designerInfo.getPlan().getHouse_check_time());
         if (Calendar.getInstance().getTimeInMillis() > designerInfo.getPlan().getHouse_check_time()) {
             textView1.setVisibility(View.GONE);
             textView2.setVisibility(View.GONE);

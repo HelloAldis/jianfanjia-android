@@ -22,7 +22,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:paddingTop="@dimen/space_8">
+            android:paddingTop="@dimen/space_8"
+            android:paddingBottom="@dimen/space_8">
 
             <View
                 style="@style/divier_line"
