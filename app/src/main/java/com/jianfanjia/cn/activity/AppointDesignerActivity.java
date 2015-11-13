@@ -216,7 +216,6 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
         @Override
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data.toString());
-            makeTextLong("预约成功");
             setResult(XuQiuFragment.REQUESTCODE_FRESH_REQUIREMENT);
             finish();
         }
