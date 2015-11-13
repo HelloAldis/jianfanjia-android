@@ -18,6 +18,7 @@ import com.jianfanjia.cn.activity.AppointDesignerActivity;
 import com.jianfanjia.cn.activity.EditRequirementActivity_;
 import com.jianfanjia.cn.activity.MyDesignerActivity_;
 import com.jianfanjia.cn.activity.MyProcessDetailActivity_;
+import com.jianfanjia.cn.activity.PriviewRequirementActivity_;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.RequirementNewAdapter;
 import com.jianfanjia.cn.base.BaseAnnotationFragment;
@@ -55,6 +56,7 @@ public class XuQiuFragment extends BaseAnnotationFragment implements OnActivityR
     public static final int REQUESTCODE_PUBLISH_REQUIREMENT = 1;
     public static final int REQUESTCODE_EDIT_REQUIREMENT = 2;
     public static final int REQUESTCODE_FRESH_REQUIREMENT = 3;
+    public static final int ITEM_PRIVIEW = 0x06;
     public static final int ITEM_EDIT = 0x00;
     public static final int ITEM_GOTOPRO = 0x01;
 
@@ -97,6 +99,7 @@ public class XuQiuFragment extends BaseAnnotationFragment implements OnActivityR
     protected Intent gotoMyDesigner;
     protected Intent gotoEditRequirement;
     protected Intent gotoMyProcess;
+    protected Intent gotoPriviewRequirement;
 
     // Header View
     private ProgressBar progressBar;
@@ -127,6 +130,10 @@ public class XuQiuFragment extends BaseAnnotationFragment implements OnActivityR
             @Override
             public void click(int position, int itemType) {
                 switch (itemType) {
+                    case ITEM_PRIVIEW:
+                        gotoPriviewRequirement.putExtra(Global.REQUIREMENT_INFO,requirementInfos.get(position));
+                        getActivity().startActivity(gotoPriviewRequirement);
+                        break;
                     case ITEM_EDIT:
                         gotoEditRequirement.putExtra(Global.REQUIREMENT_INFO, requirementInfos.get(position));
                         getActivity().startActivityForResult(gotoEditRequirement, REQUESTCODE_EDIT_REQUIREMENT);
@@ -203,6 +210,7 @@ public class XuQiuFragment extends BaseAnnotationFragment implements OnActivityR
         gotoOrderDesigner = new Intent(getActivity(), AppointDesignerActivity.class);
         gotoMyDesigner = new Intent(getActivity(), MyDesignerActivity_.class);
         gotoMyProcess = new Intent(getActivity(), MyProcessDetailActivity_.class);
+        gotoPriviewRequirement = new Intent(getActivity(), PriviewRequirementActivity_.class);
     }
 
     protected void initData() {

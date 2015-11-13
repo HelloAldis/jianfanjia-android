@@ -250,7 +250,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener, On
 
                     @Override
                     public void loadFailture(String error_msg) {
-                        makeTextLong(getString(R.string.tip_error_internet));
+                        makeTextLong(error_msg);
                         hideWaitDialog();
                     }
                 }
@@ -270,7 +270,6 @@ public class SettingActivity extends BaseActivity implements OnClickListener, On
                     @Override
                     public void loadSuccess(Object data) {
                         hideWaitDialog();
-                        makeTextShort("退出成功");
                         PushManager.getInstance().stopService(
                                 SettingActivity.this);// 完全终止SDK的服务
                         activityManager.exit();
@@ -281,7 +280,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener, On
                     @Override
                     public void loadFailture(String error_msg) {
                         hideWaitDialog();
-                        makeTextLong(getString(R.string.tip_error_internet));
+                        makeTextLong(error_msg);
                     }
                 }, this);
     }

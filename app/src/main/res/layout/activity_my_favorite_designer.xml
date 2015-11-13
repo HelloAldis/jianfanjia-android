@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:background="@color/head_layout_bg" />
 
-    <ListView
+    <com.baoyz.swipemenulistview.SwipeMenuListView
         android:id="@+id/act_my_favorite_designer_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

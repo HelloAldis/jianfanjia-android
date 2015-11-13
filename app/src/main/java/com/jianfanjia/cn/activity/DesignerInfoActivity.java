@@ -125,7 +125,7 @@ public class DesignerInfoActivity extends BaseActivity implements
     }
 
     private void addFavoriteDesignerToList(String designerid) {
-        JianFanJiaClient.Add_Favorite_Designer_List(DesignerInfoActivity.this, designerid, addFavoriteDesigner, this);
+        JianFanJiaClient.addFavoriteDesigner(DesignerInfoActivity.this, designerid, addFavoriteDesigner, this);
     }
 
     private ApiUiUpdateListener designerHomePage = new ApiUiUpdateListener() {

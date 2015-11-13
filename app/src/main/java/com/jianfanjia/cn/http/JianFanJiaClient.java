@@ -18,6 +18,7 @@ import com.jianfanjia.cn.http.request.CheckVersionRequest;
 import com.jianfanjia.cn.http.request.ChoosePlanByUserRequest;
 import com.jianfanjia.cn.http.request.CommitCommentRequest;
 import com.jianfanjia.cn.http.request.ConformMeasureHouseRequest;
+import com.jianfanjia.cn.http.request.DeleteFavoriteDesignerRequest;
 import com.jianfanjia.cn.http.request.DeletePicToSectionItemRequest;
 import com.jianfanjia.cn.http.request.DesignerHomePageRequest;
 import com.jianfanjia.cn.http.request.DesignerInfoRequest;
@@ -617,22 +618,42 @@ public class JianFanJiaClient {
 
     /**
      * 添加设计师到意向列表
-     *
+     *  @param context
+     * @param designerid
+     * @param listener
+     * @param tag
+     */
+    public static void addFavoriteDesigner(Context context, String designerid, ApiUiUpdateListener listener, Object tag) {
+        AddFavoriteDesignerRequest addFavoriteDesignerRequest = new AddFavoriteDesignerRequest(context, designerid);
+        JSONObject jsonParams = new JSONObject();
+        try {
+            jsonParams.put("_id", designerid);
+            LogTool.d(TAG, "addFavoriteDesigner --" + "jsonParams:" + jsonParams.toString());
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(addFavoriteDesignerRequest, jsonParams.toString(), listener, tag);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    /**
+     * 删除意向设计师
      * @param context
      * @param designerid
      * @param listener
      * @param tag
      */
-    public static void Add_Favorite_Designer_List(Context context, String designerid, ApiUiUpdateListener listener, Object tag) {
-        AddFavoriteDesignerRequest addFavoriteDesignerRequest = new AddFavoriteDesignerRequest(context, designerid);
+    public static void deleteFavoriteDesigner(Context context,String designerid,ApiUiUpdateListener listener,Object tag){
+        DeleteFavoriteDesignerRequest deleteFavoriteDesignerRequest = new DeleteFavoriteDesignerRequest(context,designerid);
         JSONObject jsonParams = new JSONObject();
         try {
             jsonParams.put("_id", designerid);
-            LogTool.d(TAG, "Add_Favorite_Designer_List --" + "jsonParams:" + jsonParams.toString());
-            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(addFavoriteDesignerRequest, jsonParams.toString(), listener, tag);
+            LogTool.d(TAG, "deleteFavoriteDesignerRequest --" + deleteFavoriteDesignerRequest.getUrl() + "  jsonParams:" + jsonParams.toString());
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(deleteFavoriteDesignerRequest, jsonParams.toString(), listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
     }
 
     /**

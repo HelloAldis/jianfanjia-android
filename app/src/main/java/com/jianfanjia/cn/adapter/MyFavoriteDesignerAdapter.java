@@ -12,7 +12,6 @@ import com.jianfanjia.cn.view.custom_annotation_view.MyFavoriteDesignerView_;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,12 +23,12 @@ import java.util.List;
 @EBean
 public class MyFavoriteDesignerAdapter extends BaseAdapter {
 
-    List<DesignerInfo> designerInfos = new ArrayList<>();
+    List<DesignerInfo> designerInfos;
 
     @RootContext
     Context context;
 
-    private void addItem(DesignerInfo designerInfo) {
+    /*private void addItem(DesignerInfo designerInfo) {
         designerInfos.add(designerInfo);
         notifyDataSetChanged();
     }
@@ -40,8 +39,16 @@ public class MyFavoriteDesignerAdapter extends BaseAdapter {
             addItem(designerInfo);
         }
         notifyDataSetChanged();
+    }*/
+
+    public List<DesignerInfo> getDesignerInfos() {
+        return designerInfos;
     }
 
+    public void setDesignerInfos(List<DesignerInfo> designerInfos) {
+        this.designerInfos = designerInfos;
+        notifyDataSetChanged();
+    }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {

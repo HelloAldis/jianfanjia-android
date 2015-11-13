@@ -76,4 +76,7 @@
     <string name="new_version_message">有新的版本啦，版本号为：%1$s</string>
     <string name="no_new_version">当前已经是最新版本啦</string>
     <string name="check_version">检查新版本</string>
+    <string name="priview">查看</string>
+    <string name="str_priview_req">我的装修需求</string>
+    <string name="my_favorite_designer">我的意向设计师</string>
 </resources>

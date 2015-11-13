@@ -103,7 +103,7 @@ public class RequirementView extends BaseAnnotationView {
             });
         }
         if (requirementStatus.equals(Global.REQUIREMENT_STATUS0)) {
-            ltm_req_edit.setVisibility(View.VISIBLE);
+            ltm_req_edit.setText(getResources().getString(R.string.edit));
             ltm_req_edit.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -111,7 +111,13 @@ public class RequirementView extends BaseAnnotationView {
                 }
             });
         } else {
-            ltm_req_edit.setVisibility(View.GONE);
+            ltm_req_edit.setText(getResources().getString(R.string.priview));
+            ltm_req_edit.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    clickCallBack.click(position, XuQiuFragment.ITEM_PRIVIEW);
+                }
+            });
         }
 
         List<OrderDesignerInfo> recDesignerInfos = requirementInfo.getRec_designers();
