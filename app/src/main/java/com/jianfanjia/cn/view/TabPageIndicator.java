@@ -30,7 +30,7 @@ import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.interf.IconPagerAdapter;
 import com.jianfanjia.cn.interf.PageIndicator;
-import com.jianfanjia.cn.layout.IcsLinearLayout;
+import com.jianfanjia.cn.view.layout.IcsLinearLayout;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;

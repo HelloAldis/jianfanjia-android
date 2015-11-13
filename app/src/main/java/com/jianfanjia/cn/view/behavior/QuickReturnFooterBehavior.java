@@ -1,4 +1,4 @@
-package com.jianfanjia.cn.behavior;
+package com.jianfanjia.cn.view.behavior;
 
 
 import android.animation.ObjectAnimator;

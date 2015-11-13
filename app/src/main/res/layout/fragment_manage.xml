@@ -23,7 +23,7 @@
             android:src="@mipmap/icon_notification"
             android:layout_centerInParent="true"
             />
-        <com.jianfanjia.cn.layout.CircleImageView
+        <com.jianfanjia.cn.view.layout.CircleImageView
             android:layout_width="6dp"
             android:layout_height="6dp"
             android:layout_toRightOf="@+id/frag_manage_notification"

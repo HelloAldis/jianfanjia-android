@@ -10,7 +10,7 @@
         android:layout_centerVertical="true"
         >
 
-        <com.jianfanjia.cn.layout.CircleImageView
+        <com.jianfanjia.cn.view.layout.CircleImageView
             android:id="@+id/ltm_my_designer_head"
             android:layout_height="match_parent"
             android:layout_width="match_parent"
