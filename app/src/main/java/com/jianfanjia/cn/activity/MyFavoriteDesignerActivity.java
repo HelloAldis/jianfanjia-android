@@ -92,7 +92,7 @@ public class MyFavoriteDesignerActivity extends BaseAnnotationActivity {
                         hideWaitDialog();
                         makeTextShort(error_msg);
                     }
-                },MyFavoriteDesignerActivity.this);
+                }, MyFavoriteDesignerActivity.this);
                 return false;
             }
         });
