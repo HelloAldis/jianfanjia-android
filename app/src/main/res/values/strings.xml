@@ -61,7 +61,7 @@
     <string name="commit">提交</string>
     <string name="submit_comment">发表评价</string>
     <string name="choose_role">选择角色</string>
-    <string name="input_phone">请输入您的手机号</string>
+    <string name="input_phone">请输入账号</string>
     <string name="verifica_phone">验证手机</string>
     <string name="verification_code_sended">验证码已发送到:</string>
     <string name="register_failure">注册失败</string>

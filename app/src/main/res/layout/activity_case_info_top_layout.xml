@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="45dip">
 
-    <com.jianfanjia.cn.layout.CircleImageView
+    <com.jianfanjia.cn.view.layout.CircleImageView
         android:id="@+id/head_img"
         android:layout_width="40dip"
         android:layout_height="40dip"
