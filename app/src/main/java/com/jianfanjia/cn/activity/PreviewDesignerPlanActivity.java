@@ -172,7 +172,6 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
         @Override
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data);
-            makeTextLong("方案选定成功");
             hideWaitDialog();
             btn_choose.setEnabled(false);
         }
