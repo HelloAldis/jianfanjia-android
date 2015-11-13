@@ -116,7 +116,7 @@ public class ReplaceDesignerActivity extends BaseActivity implements OnClickList
         CommonDialog dialog = DialogHelper
                 .getPinterestDialogCancelable(ReplaceDesignerActivity.this);
         dialog.setTitle("替换设计师？");
-        dialog.setMessage("确定替换设计师吗？");
+        dialog.setMessage("确定要替换设计师吗？");
         dialog.setPositiveButton(R.string.ok,
                 new DialogInterface.OnClickListener() {
 
