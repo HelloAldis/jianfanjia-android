@@ -51,6 +51,7 @@ public class ReplaceDesignerActivity extends BaseActivity implements OnClickList
     private int totalCount = 1;//总可预约数
 
     private String newDesignerid = null;
+    private List<String> designerids = new ArrayList<String>();
 
     @Override
     public void initView() {
@@ -97,7 +98,10 @@ public class ReplaceDesignerActivity extends BaseActivity implements OnClickList
                 startActivity(MyFavoriteDesignerActivity_.class);
                 break;
             case R.id.head_right_title:
-                if (null != newDesignerid) {
+                LogTool.d(TAG, "designerids====" + designerids);
+                if (null != designerids && designerids.size() > 0) {
+                    newDesignerid = designerids.get(0);
+                    LogTool.d(TAG, "newDesignerid:" + newDesignerid);
                     replaceDesignerDialog();
                 } else {
                     makeTextLong("请选择设计师");
@@ -111,8 +115,8 @@ public class ReplaceDesignerActivity extends BaseActivity implements OnClickList
     private void replaceDesignerDialog() {
         CommonDialog dialog = DialogHelper
                 .getPinterestDialogCancelable(ReplaceDesignerActivity.this);
-        dialog.setTitle("替换设计师？");
-        dialog.setMessage("确定替换设计师吗？");
+        dialog.setTitle("替换设计师");
+        dialog.setMessage("确定要替换设计师吗？");
         dialog.setPositiveButton(R.string.ok,
                 new DialogInterface.OnClickListener() {
 
@@ -130,14 +134,19 @@ public class ReplaceDesignerActivity extends BaseActivity implements OnClickList
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             DesignerCanOrderInfo info = rec_designer.get(position);
+            String designerid = info.get_id();
             CheckBox ctb = (CheckBox) view.findViewById(R.id.list_item_check);
             ctb.toggle();
             designerByAppointAdapter.getIsSelected().put(position, ctb.isChecked());
             if (ctb.isChecked()) {
-                newDesignerid = info.get_id();
+                if (designerids.isEmpty()) {
+                    designerids.add(designerid);
+                }
                 totalCount--;
             } else {
-                newDesignerid = null;
+                if (!designerids.isEmpty()) {
+                    designerids.remove(designerid);
+                }
                 totalCount++;
             }
             mainHeadView.setMianTitle(totalCount + getResources().getString(R.string.appoint));
@@ -148,14 +157,19 @@ public class ReplaceDesignerActivity extends BaseActivity implements OnClickList
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             DesignerCanOrderInfo info = favorite_designer.get(position);
+            String designerid = info.get_id();
             CheckBox ctb = (CheckBox) view.findViewById(R.id.list_item_check);
             ctb.toggle();
             designerByIntentionInfoAdapter.getIsSelected().put(position, ctb.isChecked());
             if (ctb.isChecked()) {
-                newDesignerid = info.get_id();
+                if (designerids.isEmpty()) {
+                    designerids.add(designerid);
+                }
                 totalCount--;
             } else {
-                newDesignerid = null;
+                if (!designerids.isEmpty()) {
+                    designerids.remove(designerid);
+                }
                 totalCount++;
             }
             mainHeadView.setMianTitle(totalCount + getResources().getString(R.string.appoint));
