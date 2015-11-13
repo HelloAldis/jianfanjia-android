@@ -10,9 +10,21 @@
         android:layout_height="wrap_content"
         android:background="@color/head_layout_bg" />
 
+    <Button
+        android:id="@+id/btn_choose"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="10dip"
+        android:background="@drawable/btn_selector_bg"
+        android:text="@string/str_choose_plan"
+        android:textColor="@color/font_white"
+        android:textSize="@dimen/text_size_17" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@id/btn_choose"
         android:layout_below="@id/my_prieview_head_layout"
         android:scrollbars="none">
 
@@ -111,15 +123,4 @@
                 android:text="设计说明:了解" />
         </LinearLayout>
     </ScrollView>
-
-    <Button
-        android:id="@+id/btn_choose"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="10dip"
-        android:background="@drawable/btn_selector_bg"
-        android:text="@string/str_choose_plan"
-        android:textColor="@color/font_white"
-        android:textSize="@dimen/text_size_17" />
 </RelativeLayout>
