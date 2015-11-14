@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.config.Url_New;
+import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
@@ -24,15 +25,17 @@ import java.util.List;
  */
 public class PreviewAdapter extends PagerAdapter {
     private static final String TAG = "PreviewAdapter";
+    private ViewPagerClickListener listener;
     private Context context;
     private List<String> mList;
     private ImageLoader imageLoader;
     private DisplayImageOptions options;
 
 
-    public PreviewAdapter(Context context, List<String> mList) {
+    public PreviewAdapter(Context context, List<String> mList, ViewPagerClickListener listener) {
         this.context = context;
         this.mList = mList;
+        this.listener = listener;
         imageLoader = ImageLoader.getInstance();
         options = new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.mipmap.pix_default)
@@ -75,6 +78,14 @@ public class PreviewAdapter extends PagerAdapter {
                 .findViewById(R.id.list_item_plan_img);
         String imgid = mList.get(position);
         imageLoader.displayImage(Url_New.GET_THUMBNAIL_IMAGE + imgid, imageView, options);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (null != listener) {
+                    listener.onClickItem(position);
+                }
+            }
+        });
         container.addView(view, 0);
         return view;
     }
