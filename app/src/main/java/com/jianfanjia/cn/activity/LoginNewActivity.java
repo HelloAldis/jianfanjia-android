@@ -7,7 +7,9 @@ import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.TypedValue;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -18,6 +20,7 @@ import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
@@ -84,6 +87,15 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
     Button mBtnNext = null;// 下一步
     @ViewById(R.id.act_forget_password)
     TextView mForgetPswView = null;//忘记密码
+    @ViewById(R.id.act_login_input_password_delete)
+    ImageView loginInputPasswordDelete;
+    @ViewById(R.id.act_login_input_phone_delete)
+    ImageView loginInputPhoneDelete;
+    @ViewById(R.id.act_register_input_password_delete)
+    ImageView registerInputPasswordDelete;
+    @ViewById(R.id.act_register_input_phone_delete)
+    ImageView registerInputPhoneDelete;
+
     private String mUserName = null;// 用户名
     private String mPassword = null;// 密码
 
@@ -117,9 +129,91 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
             }, 300);
         }
 
-    }
+        mEtRegisterUserName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-    private int srollHeight;
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String text = s.toString();
+                if(text == null || !text.matches(Global.PHONE_MATCH)){
+                    registerInputPhoneDelete.setVisibility(View.VISIBLE);
+                }else{
+                    verifyPhone(text);
+                }
+            }
+        });
+        mEtRegisterPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String text = s.toString();
+                if(text == null || !text.matches(Global.PASSWORD_MATCH)){
+                    registerInputPasswordDelete.setVisibility(View.VISIBLE);
+                }else{
+                    registerInputPasswordDelete.setVisibility(View.GONE);
+                }
+            }
+        });
+        mEtLoginUserName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String text = s.toString();
+                if(text == null || !text.matches(Global.PHONE_MATCH)){
+                    loginInputPhoneDelete.setVisibility(View.VISIBLE);
+                }else{
+                    loginInputPhoneDelete.setVisibility(View.GONE);
+                }
+            }
+        });
+        mEtLoginPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String text = s.toString();
+                if(text == null || !text.matches(Global.PASSWORD_MATCH)){
+                    loginInputPasswordDelete.setVisibility(View.VISIBLE);
+                }else{
+                    loginInputPasswordDelete.setVisibility(View.GONE);
+                }
+            }
+        });
+    }
 
     private void controlKeyboardLayout(final View root,final View scrollToView){
         root.getViewTreeObserver().addOnGlobalLayoutListener(
@@ -137,7 +231,7 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
                         // 获取scrollToView在窗体的坐标
                         scrollToView.getLocationInWindow(location);
                         // 计算root滚动高度，使scrollToView在可见区域
-                        srollHeight = (location[1] + scrollToView
+                        int srollHeight = (location[1] + scrollToView
                                 .getHeight()) - rect.bottom;
                         if (rootInvisibleHeight > 100) {
 //                            root.scrollTo(0, srollHeight);
@@ -262,12 +356,12 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
 
                 @Override
                 public void loadSuccess(Object data) {
-
+                    registerInputPhoneDelete.setVisibility(View.GONE);
                 }
 
                 @Override
                 public void loadFailture(String error_msg) {
-
+                    makeTextShort(error_msg);
                 }
             },this);
         }else{

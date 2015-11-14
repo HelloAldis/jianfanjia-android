@@ -217,7 +217,7 @@
     </string-array>
 
     <!-- 装修类型 -->
-    <string-array name="arr_decstyle">
+    <string-array name="arr_dectype">
         <item>家装</item>
         <item>商装</item>
         <item>软装</item>
@@ -237,7 +237,7 @@
         <item>倾听型</item>
     </string-array>
 
-    <string-array name="arr_lovestyle">
+    <string-array name="arr_decstyle">
         <item>欧式</item>
         <item>中式</item>
         <item>美式</item>

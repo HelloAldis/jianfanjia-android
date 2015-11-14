@@ -60,7 +60,7 @@ public class PriviewRequirementActivity extends BaseAnnotationActivity {
     @ViewById
     protected TextView act_edit_req_shi_content;//室
 
-    @StringArrayRes(R.array.arr_lovestyle)
+    @StringArrayRes(R.array.arr_decstyle)
     protected String[] arr_lovestyle;
     @StringArrayRes(R.array.arr_housetype)
     protected String[] arr_housetype;
@@ -68,7 +68,7 @@ public class PriviewRequirementActivity extends BaseAnnotationActivity {
     protected String[] arr_love_designerstyle;
     @StringArrayRes(R.array.arr_worktype)
     protected String[] arr_worktype;
-    @StringArrayRes(R.array.arr_decstyle)
+    @StringArrayRes(R.array.arr_dectype)
     protected String[] arr_decstyle;
     @StringArrayRes(R.array.arr_desisex)
     protected String[] arr_desisex;

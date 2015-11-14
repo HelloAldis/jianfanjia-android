@@ -10,6 +10,7 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.BaseListAdapter;
 import com.jianfanjia.cn.bean.DesignerListInfo;
 import com.jianfanjia.cn.bean.Product;
+import com.jianfanjia.cn.cache.BusinessManager;
 import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.interf.ListItemClickListener;
 
@@ -61,7 +62,7 @@ public class DesignerListAdapter extends BaseListAdapter<DesignerListInfo> {
         viewHolder.itemXiaoQuText.setText(product.getCell());
         String houseType = product.getHouse_type();
         String decStyle = product.getDec_style();
-        viewHolder.itemProduceText.setText(product.getHouse_area() + "㎡，" + getHouseType(houseType) + "，" + getDecStyle(decStyle));
+        viewHolder.itemProduceText.setText(product.getHouse_area() + "㎡，" + BusinessManager.convertHouseTypeToShow(houseType) + "，" + BusinessManager.convertDecStyleToShow(decStyle));
         imageLoader.displayImage(Url_New.GET_THUMBNAIL_IMAGE + product.getImages().get(0).getImageid(), viewHolder.itemProductView, options);
         imageLoader.displayImage(Url_New.GET_THUMBNAIL_IMAGE + info.getImageid(), viewHolder.itemHeadView, options);
         viewHolder.itemProductView.setOnClickListener(new OnClickListener() {
