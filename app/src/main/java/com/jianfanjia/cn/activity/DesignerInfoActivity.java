@@ -151,6 +151,9 @@ public class DesignerInfoActivity extends BaseActivity implements
                 if (designerInfo.is_my_favorite()) {
                     addBtn.setEnabled(false);
                     addBtn.setText("已添加意向");
+                } else {
+                    addBtn.setEnabled(true);
+                    addBtn.setText("添加意向");
                 }
             }
         }
