@@ -72,12 +72,14 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
 
     @ViewById(R.id.process_viewpager)
     ViewPager processViewPager;
+    @ViewById(R.id.lineView)
+    View lineView;
     @ViewById(R.id.process__listview)
     PullToRefreshListView detailNodeListView;
     @ViewById(R.id.process_head_layout)
     MainHeadView mainHeadView;
-  /*  @ViewById(R.id.process_pull_refresh)
-    SuperSwipeRefreshLayout process_pull_refresh;*/
+    /*  @ViewById(R.id.process_pull_refresh)
+      SuperSwipeRefreshLayout process_pull_refresh;*/
     @ViewById(R.id.head_notification_layout)
     RelativeLayout notificationLayout;
     @StringArrayRes(R.array.site_procedure)
@@ -115,7 +117,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
         initProcessInfo();
     }
 
-    private void initPullRefresh(){
+    private void initPullRefresh() {
         detailNodeListView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
         detailNodeListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
             @Override
@@ -353,9 +355,16 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
     }
 
     @Override
+    public void preLoad() {
+        super.preLoad();
+        lineView.setVisibility(View.GONE);
+    }
+
+    @Override
     public void loadSuccess(Object data) {
         hideWaitDialog();
         detailNodeListView.onRefreshComplete();
+        lineView.setVisibility(View.VISIBLE);
         if (data != null) {
             processInfo = JsonParser.jsonToBean(data.toString(), ProcessInfo.class);
             initData();
@@ -365,11 +374,11 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
     @Override
     public void loadFailture(String error_msg) {
         hideWaitDialog();
+        lineView.setVisibility(View.GONE);
         if (processId != Constant.DEFAULT_PROCESSINFO_ID) {
             makeTextLong(getString(R.string.tip_error_internet));
         }
         detailNodeListView.onRefreshComplete();
-
     }
 
     @Override
@@ -398,7 +407,6 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
 
     @Override
     public void firstItemClick() {
-
         mTmpFile = UiHelper.getTempPath();
         if (mTmpFile != null) {
             Intent cameraIntent = UiHelper.createShotIntent(mTmpFile);
@@ -579,7 +587,6 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
 
             }
         }, this);
-
     }
 
 }
