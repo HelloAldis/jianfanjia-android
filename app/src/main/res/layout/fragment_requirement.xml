@@ -33,7 +33,7 @@
 
         <include
             android:id="@+id/error_include"
-            layout="@layout/view_empty_layout"
+            layout="@layout/view_error_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
