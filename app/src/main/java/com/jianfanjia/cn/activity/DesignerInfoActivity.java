@@ -150,6 +150,7 @@ public class DesignerInfoActivity extends BaseActivity implements
                 ratingBar.setRating((int) (respond_speed + service_attitude) / 2);
                 if (designerInfo.is_my_favorite()) {
                     addBtn.setEnabled(false);
+                    addBtn.setText("已添加意向");
                 }
             }
         }
