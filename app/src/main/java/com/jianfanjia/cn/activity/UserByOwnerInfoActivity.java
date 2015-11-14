@@ -46,7 +46,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
     private RelativeLayout headLayout = null;
     private RelativeLayout ownerInfoLayout = null;
     private ScrollView scrollView = null;
-    private View errorView = null;
+    private View emptyView = null;
     private TextView nameText = null;
     private TextView sexText = null;
     private TextView phoneText = null;
@@ -78,7 +78,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
         ownerInfoLayout = (RelativeLayout) this
                 .findViewById(R.id.ownerinfoLayout);
         scrollView = (ScrollView) this.findViewById(R.id.ownerinfo_scrollview);
-        errorView = this.findViewById(R.id.error_view);
+        emptyView = this.findViewById(R.id.empty_view);
         headLayout = (RelativeLayout) this.findViewById(R.id.head_layout);
         nameText = (TextView) this.findViewById(R.id.nameText);
         sexText = (TextView) this.findViewById(R.id.sexText);
@@ -117,13 +117,13 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
     }
 
     public void setViewChange() {
-        errorView.setVisibility(View.GONE);
+        emptyView.setVisibility(View.GONE);
         scrollView.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void setErrorView() {
-        ((TextView) errorView.findViewById(R.id.tv_error)).setText("暂无个人信息数据");
+        ((TextView) emptyView.findViewById(R.id.tv_error)).setText("暂无个人信息数据");
     }
 
     private void setData() {
@@ -238,7 +238,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
                 }
             });
             commonDialog.show();
-        }else{
+        } else {
             finish();
         }
     }
@@ -313,7 +313,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
                             dataManager.setUserName(ownerUpdateInfo
                                     .getUsername());
                         }
-                        if(!TextUtils.isEmpty(ownerUpdateInfo.getImageid())){
+                        if (!TextUtils.isEmpty(ownerUpdateInfo.getImageid())) {
                             dataManager.setUserImagePath(ownerUpdateInfo.getImageid());
                         }
                         updateOwnerInfo();
