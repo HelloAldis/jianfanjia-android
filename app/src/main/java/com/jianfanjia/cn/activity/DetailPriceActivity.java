@@ -46,8 +46,8 @@ public class DetailPriceActivity extends BaseActivity implements OnClickListener
         LogTool.d(TAG, "planDetailInfo =" + planDetailInfo);
         if (null != planDetailInfo) {
             priceListView.addHeaderView(headView);
-            project_price_before_discount.setText("工程折前总价:" + planDetailInfo.getProject_price_before_discount() + "元");
-            project_price_after_discount.setText("工程折后总价:" + planDetailInfo.getProject_price_after_discount() + "元");
+            project_price_before_discount.setText("项目折前总价:" + planDetailInfo.getProject_price_before_discount() + "元");
+            project_price_after_discount.setText("项目折后总价:" + planDetailInfo.getProject_price_after_discount() + "元");
             total_design_fee.setText("设计费:" + planDetailInfo.getTotal_design_fee() + "元");
             adapter = new PriceDetailAdapter(DetailPriceActivity.this, planDetailInfo.getPrice_detail());
             priceListView.setAdapter(adapter);
