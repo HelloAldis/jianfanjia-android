@@ -12,13 +12,16 @@ import com.jianfanjia.cn.adapter.PreviewAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.PlandetailInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
+import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
+import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -149,8 +152,20 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
                 if (planStatus.equals(Global.PLAN_STATUS5)) {
                     btn_choose.setEnabled(false);
                 }
-                List<String> imgList = planDetailInfo.getImages();
-                PreviewAdapter adapter = new PreviewAdapter(PreviewDesignerPlanActivity.this, imgList);
+                final List<String> imgList = planDetailInfo.getImages();
+                PreviewAdapter adapter = new PreviewAdapter(PreviewDesignerPlanActivity.this, imgList, new ViewPagerClickListener() {
+                    @Override
+                    public void onClickItem(int pos) {
+                        LogTool.d(TAG, "pos:" + pos);
+                        Intent showPicIntent = new Intent(PreviewDesignerPlanActivity.this, ShowPicActivity.class);
+                        Bundle showPicBundle = new Bundle();
+                        showPicBundle.putInt(Constant.CURRENT_POSITION, pos);
+                        showPicBundle.putStringArrayList(Constant.IMAGE_LIST,
+                                (ArrayList<String>) imgList);
+                        showPicIntent.putExtras(showPicBundle);
+                        startActivity(showPicIntent);
+                    }
+                });
                 viewPager.setAdapter(adapter);
             }
         }

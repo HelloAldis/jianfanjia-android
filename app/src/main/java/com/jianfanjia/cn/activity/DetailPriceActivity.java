@@ -25,7 +25,9 @@ public class DetailPriceActivity extends BaseActivity implements OnClickListener
     private MainHeadView mainHeadView = null;
     private ListView priceListView = null;
     private View headView = null;
-    private TextView totalPrice = null;
+    private TextView project_price_before_discount = null;
+    private TextView project_price_after_discount = null;
+    private TextView total_design_fee = null;
     private PriceDetailAdapter adapter = null;
     private PlandetailInfo planDetailInfo = null;
 
@@ -35,14 +37,18 @@ public class DetailPriceActivity extends BaseActivity implements OnClickListener
         headView = inflater.inflate(R.layout.list_item_price_header_item, null);
         priceListView = (ListView) findViewById(R.id.price_listview);
         priceListView.setFocusable(false);
-        totalPrice = (TextView) findViewById(R.id.priceText);
+        project_price_before_discount = (TextView) findViewById(R.id.project_price_before_discount);
+        project_price_after_discount = (TextView) findViewById(R.id.project_price_after_discount);
+        total_design_fee = (TextView) findViewById(R.id.total_design_fee);
         Intent intent = this.getIntent();
         Bundle priceBundle = intent.getExtras();
         planDetailInfo = (PlandetailInfo) priceBundle.getSerializable(Global.PLAN_DETAIL);
         LogTool.d(TAG, "planDetailInfo =" + planDetailInfo);
         if (null != planDetailInfo) {
             priceListView.addHeaderView(headView);
-            totalPrice.setText("项目总造价:" + planDetailInfo.getTotal_price() + "元");
+            project_price_before_discount.setText("项目折前总价:" + planDetailInfo.getProject_price_before_discount() + "元");
+            project_price_after_discount.setText("项目折后总价:" + planDetailInfo.getProject_price_after_discount() + "元");
+            total_design_fee.setText("设计费:" + planDetailInfo.getTotal_design_fee() + "元");
             adapter = new PriceDetailAdapter(DetailPriceActivity.this, planDetailInfo.getPrice_detail());
             priceListView.setAdapter(adapter);
         }

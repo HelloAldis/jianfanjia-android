@@ -77,6 +77,7 @@ public class DesignerPlanAdapter extends BaseListAdapter<PlanInfo> {
                 }
             }
         });
+        holder.viewPager.setPageMargin(10);
         holder.viewPager.setAdapter(adapter);
         holder.commentText.setOnClickListener(new OnClickListener() {
             @Override

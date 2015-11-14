@@ -1,6 +1,5 @@
 package com.jianfanjia.cn.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateUtils;
@@ -34,7 +33,7 @@ import java.util.List;
  */
 public class DesignerPlanListActivity extends BaseActivity implements OnClickListener, ApiUiUpdateListener, ItemClickListener, PullToRefreshBase.OnRefreshListener2<ListView> {
     private static final String TAG = DesignerPlanListActivity.class.getName();
-    private static final int REQUESTCODE_FRESH_LIST = 1;
+    public static final int REQUESTCODE_FRESH_LIST = 1;
     private MainHeadView mainHeadView = null;
     private PullToRefreshListView designer_plan_listview = null;
     private List<PlanInfo> designerPlanList = new ArrayList<PlanInfo>();
@@ -175,12 +174,9 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode != Activity.RESULT_OK) {
-            return;
-        }
         switch (requestCode) {
             case REQUESTCODE_FRESH_LIST:
-
+                getDesignerPlansList(requirementid, designerid);
                 break;
             default:
                 break;
