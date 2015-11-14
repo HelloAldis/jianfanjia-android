@@ -82,6 +82,7 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.head_back_layout:
+                setResult(DesignerPlanListActivity.REQUESTCODE_FRESH_LIST);
                 finish();
                 break;
             case R.id.btn_send:
@@ -156,6 +157,11 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
         }
     };
 
+    @Override
+    public void onBackPressed() {
+        setResult(DesignerPlanListActivity.REQUESTCODE_FRESH_LIST);
+        finish();
+    }
 
     @Override
     public int getLayoutId() {
