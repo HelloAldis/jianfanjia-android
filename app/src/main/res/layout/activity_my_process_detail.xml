@@ -47,6 +47,7 @@
         android:layout_below="@+id/process_viewpager">
 
         <View
+            android:id="@+id/lineView"
             android:layout_width="1dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="45dp"
@@ -56,6 +57,6 @@
             android:id="@+id/process__listview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="33dp"/>
+            android:layout_marginLeft="33dp" />
     </FrameLayout>
 </RelativeLayout>

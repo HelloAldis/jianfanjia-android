@@ -87,13 +87,11 @@ public class XuQiuFragment extends BaseAnnotationFragment implements OnActivityR
     @ViewById(R.id.req_pullfefresh)
     protected PullToRefreshRecycleView pullrefresh;
 
-//    private RecyclerView req_listView;
-
-  /*  @ViewById(R.id.req_pull_refresh)
-    protected SuperSwipeRefreshLayout refreshLayout;*/
-
     @ViewById(R.id.error_include)
     RelativeLayout error_Layout;
+
+    @ViewById(R.id.empty_include)
+    RelativeLayout empty_Layout;
 
     protected Intent gotoOrderDesigner;
     protected Intent gotoMyDesigner;
@@ -131,7 +129,7 @@ public class XuQiuFragment extends BaseAnnotationFragment implements OnActivityR
             public void click(int position, int itemType) {
                 switch (itemType) {
                     case ITEM_PRIVIEW:
-                        gotoPriviewRequirement.putExtra(Global.REQUIREMENT_INFO,requirementInfos.get(position));
+                        gotoPriviewRequirement.putExtra(Global.REQUIREMENT_INFO, requirementInfos.get(position));
                         getActivity().startActivity(gotoPriviewRequirement);
                         break;
                     case ITEM_EDIT:
@@ -217,6 +215,7 @@ public class XuQiuFragment extends BaseAnnotationFragment implements OnActivityR
         JianFanJiaClient.get_Requirement_List(getActivity(), new ApiUiUpdateListener() {
             @Override
             public void preLoad() {
+
             }
 
             @Override
@@ -234,7 +233,7 @@ public class XuQiuFragment extends BaseAnnotationFragment implements OnActivityR
                     } else {
                         setPublishVisiable();
                     }
-                    error_Layout.setVisibility(View.GONE);
+                    empty_Layout.setVisibility(View.GONE);
                 }
             }
 
@@ -243,7 +242,7 @@ public class XuQiuFragment extends BaseAnnotationFragment implements OnActivityR
                 makeTextLong(error_msg);
                 setListVisiable();
                 if (requirementInfos == null || requirementInfos.size() == 0) {
-                    error_Layout.setVisibility(View.VISIBLE);
+                    empty_Layout.setVisibility(View.VISIBLE);
                 }
                 pullrefresh.onRefreshComplete();
             }

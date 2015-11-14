@@ -150,6 +150,10 @@ public class DesignerInfoActivity extends BaseActivity implements
                 ratingBar.setRating((int) (respond_speed + service_attitude) / 2);
                 if (designerInfo.is_my_favorite()) {
                     addBtn.setEnabled(false);
+                    addBtn.setText("已添加意向");
+                } else {
+                    addBtn.setEnabled(true);
+                    addBtn.setText("添加意向");
                 }
             }
         }
@@ -169,7 +173,6 @@ public class DesignerInfoActivity extends BaseActivity implements
         @Override
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data.toString());
-            makeTextLong("添加成功");
             addBtn.setText("已添加意向");
             addBtn.setEnabled(false);
         }

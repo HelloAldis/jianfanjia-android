@@ -10,7 +10,7 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="280dip"
+        android:layout_height="250dip"
         android:background="@color/main_layout_bg"
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
@@ -23,7 +23,7 @@
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
             app:expandedTitleGravity="center_horizontal"
-            app:expandedTitleMarginTop="-150dip"
+            app:expandedTitleMarginTop="-120dip"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
 
@@ -71,7 +71,11 @@
                     android:id="@+id/produceText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dip"
+                    android:layout_marginLeft="10dip"
+                    android:layout_marginRight="10dip"
+                    android:layout_marginTop="5dip"
+                    android:ellipsize="end"
+                    android:maxLines="4"
                     android:text=""
                     android:textColor="#000000" />
             </LinearLayout>

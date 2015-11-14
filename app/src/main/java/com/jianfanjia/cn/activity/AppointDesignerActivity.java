@@ -63,7 +63,6 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
         Intent intent = this.getIntent();
         requestmentid = intent.getStringExtra(Global.REQUIREMENT_ID);
         LogTool.d(TAG, "requestmentid:" + requestmentid);
-
         getOrderDesignerList(requestmentid);
     }
 

@@ -65,7 +65,6 @@ public class ReplaceDesignerActivity extends BaseActivity implements OnClickList
         requestmentid = intent.getStringExtra(Global.REQUIREMENT_ID);
         designerid = intent.getStringExtra(Global.DESIGNER_ID);
         LogTool.d(TAG, "requestmentid:" + requestmentid + " designerid:" + designerid);
-
         getOrderDesignerList(requestmentid);
     }
 
