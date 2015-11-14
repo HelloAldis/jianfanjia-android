@@ -74,6 +74,8 @@
                     android:layout_marginLeft="10dip"
                     android:layout_marginRight="10dip"
                     android:layout_marginTop="5dip"
+                    android:ellipsize="end"
+                    android:maxLines="4"
                     android:text=""
                     android:textColor="#000000" />
             </LinearLayout>
