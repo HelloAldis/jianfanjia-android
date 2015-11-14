@@ -17,7 +17,6 @@ import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.ClickCallBack;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
@@ -148,7 +147,7 @@ public class MyDesignerActivity extends BaseAnnotationActivity {
                     case VIEW_DESIGNER:
                         Bundle bundle = new Bundle();
                         bundle.putSerializable(Global.DESIGNER_ID, orderDesignerInfo.get_id());
-                        UiHelper.intentTo(MyDesignerActivity.this, DesignerInfoActivity.class, bundle);
+                        startActivity(DesignerInfoActivity.class,bundle);
                         break;
                     default:
                         break;
@@ -167,7 +166,6 @@ public class MyDesignerActivity extends BaseAnnotationActivity {
                 .showLastDivider()
                 .margin(300,0)
                 .build());*/
-//        refreshView.setRefreshing(true);
     }
 
     @Click(R.id.head_back_layout)
