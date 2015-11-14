@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.PersistableBundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -55,7 +56,7 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
     private static final float Alpha2 = 1.0f;
     @ViewById(R.id.login_layout)
     RelativeLayout loginLayout;
-    @ViewById(R.id.register_layout)
+    @ViewById(R.id.forget_psw_layout)
     RelativeLayout registerLayout;
     @ViewById(R.id.act_login)
     TextView loginTitle;
@@ -73,9 +74,9 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
     @ViewById(R.id.act_viewflipper)
     ViewFlipper viewFlipper;
 
-    @ViewById(R.id.act_register_input_phone)
+    @ViewById(R.id.act_forget_psw_input_phone)
     EditText mEtRegisterUserName = null;// 注册用户名输入框
-    @ViewById(R.id.act_register_input_password)
+    @ViewById(R.id.act_forget_psw_input_password)
     EditText mEtRegisterPassword = null;// 注册用户密码输入框
     @ViewById(R.id.act_login_input_phone)
     EditText mEtLoginUserName = null;// 用户名输入框
@@ -91,9 +92,9 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
     ImageView loginInputPasswordDelete;
     @ViewById(R.id.act_login_input_phone_delete)
     ImageView loginInputPhoneDelete;
-    @ViewById(R.id.act_register_input_password_delete)
+    @ViewById(R.id.act_forget_psw_input_password_delete)
     ImageView registerInputPasswordDelete;
-    @ViewById(R.id.act_register_input_phone_delete)
+    @ViewById(R.id.act_forget_psw_input_phone_delete)
     ImageView registerInputPhoneDelete;
 
     private String mUserName = null;// 用户名
@@ -127,6 +128,8 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
                     showRegister();
                 }
             }, 300);
+        }else{
+            mEtLoginUserName.requestFocus();
         }
 
         mEtRegisterUserName.addTextChangedListener(new TextWatcher() {
@@ -142,8 +145,9 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
 
             @Override
             public void afterTextChanged(Editable s) {
+                LogTool.d(TAG,"registerlogin afterTextChanged");
                 String text = s.toString();
-                if(text == null || !text.matches(Global.PHONE_MATCH)){
+                if(!TextUtils.isEmpty(text) && !text.matches(Global.PHONE_MATCH)){
                     registerInputPhoneDelete.setVisibility(View.VISIBLE);
                 }else{
                     verifyPhone(text);
@@ -163,8 +167,9 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
 
             @Override
             public void afterTextChanged(Editable s) {
+                LogTool.d(TAG,"registerpassword afterTextChanged");
                 String text = s.toString();
-                if(text == null || !text.matches(Global.PASSWORD_MATCH)){
+                if(!TextUtils.isEmpty(text) && !text.matches(Global.PASSWORD_MATCH)){
                     registerInputPasswordDelete.setVisibility(View.VISIBLE);
                 }else{
                     registerInputPasswordDelete.setVisibility(View.GONE);
@@ -185,7 +190,7 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
             @Override
             public void afterTextChanged(Editable s) {
                 String text = s.toString();
-                if(text == null || !text.matches(Global.PHONE_MATCH)){
+                if(!TextUtils.isEmpty(text) && !text.matches(Global.PHONE_MATCH)){
                     loginInputPhoneDelete.setVisibility(View.VISIBLE);
                 }else{
                     loginInputPhoneDelete.setVisibility(View.GONE);
@@ -206,7 +211,7 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
             @Override
             public void afterTextChanged(Editable s) {
                 String text = s.toString();
-                if(text == null || !text.matches(Global.PASSWORD_MATCH)){
+                if(!TextUtils.isEmpty(text) && !text.matches(Global.PASSWORD_MATCH)){
                     loginInputPasswordDelete.setVisibility(View.VISIBLE);
                 }else{
                     loginInputPasswordDelete.setVisibility(View.GONE);
@@ -214,6 +219,18 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
             }
         });
     }
+
+    private void initInput() {
+//        InputMethodManager inputManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+//        inputManager.showSoftInput(mEtLoginUserName,0);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
+    }
+
+    int scrollHeight;
 
     private void controlKeyboardLayout(final View root,final View scrollToView){
         root.getViewTreeObserver().addOnGlobalLayoutListener(
@@ -224,22 +241,27 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
                         // 获取root在窗体的可视区域
                         root.getWindowVisibleDisplayFrame(rect);
                         // 获取root在窗体的不可视区域高度(被其他View遮挡的区域高度)
+                        LogTool.d(TAG,"rect.bottom =" + rect.bottom + " rect.top" + rect.top);
                         int rootInvisibleHeight = root.getRootView()
-                                .getHeight() - rect.bottom;
+                                .getHeight() -(rect.bottom - rect.top);
                         // 若不可视区域高度大于100，则键盘显示
                         int[] location = new int[2];
                         // 获取scrollToView在窗体的坐标
                         scrollToView.getLocationInWindow(location);
                         // 计算root滚动高度，使scrollToView在可见区域
-                        int srollHeight = (location[1] + scrollToView
-                                .getHeight()) - rect.bottom;
+                        LogTool.d(TAG,"scrollHeight =" + scrollHeight);
                         if (rootInvisibleHeight > 100) {
-//                            root.scrollTo(0, srollHeight);
-                            root.animate().translationY(-srollHeight).setDuration(100).start();
+                            LogTool.d(TAG,"键盘显示");
+                            scrollHeight = (location[1] + scrollToView
+                                    .getHeight()) - (rect.bottom);
+                            if(scrollHeight > 0){
+                                int traY = root.getTop()-scrollHeight;
+                                root.animate().y(traY).setDuration(100).start();
+                            }
                         } else {
                             // 键盘隐藏
-                            root.animate().translationY(0).setDuration(100).start();
-//                            root.scrollTo(0, 0);
+                            LogTool.d(TAG,"键盘隐藏");
+                            root.animate().y(root.getTop()).setDuration(100).start();
                         }
                     }
                 });
@@ -248,6 +270,7 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
     @Override
     protected void onResume() {
         super.onResume();
+//        controlKeyboardLayout(contentLayout, mBtnLogin);
     }
 
     @Click({R.id.btn_login, R.id.btn_next, R.id.act_forget_password, R.id.act_login, R.id.act_register})
@@ -292,6 +315,7 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
         mEtRegisterPassword.setText("");
         mEtLoginUserName.setText("");
         mEtLoginPassword.setText("");
+        mEtLoginUserName.requestFocus();
     }
 
     private boolean checkRegisterInput(String name, String password) {
@@ -509,6 +533,7 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
                 registerTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
                 loginTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
                 currentPage = REGISER;
+                mEtRegisterUserName.requestFocus();
             }
 
             @Override
@@ -543,6 +568,7 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
                 registerTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
                 loginTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
                 currentPage = LOGIN;
+                mEtLoginUserName.requestFocus();
             }
 
             @Override

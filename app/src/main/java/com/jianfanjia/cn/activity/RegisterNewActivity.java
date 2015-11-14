@@ -36,7 +36,7 @@ public class RegisterNewActivity extends BaseAnnotationActivity implements
     public static final int REGISTER_CODE = 0;
     public static final int UPDATE_PSW_CODE = 1;
 
-    @ViewById(R.id.register_layout)
+    @ViewById(R.id.forget_psw_layout)
     RelativeLayout registerLayout;
     @ViewById(R.id.success_layout)
     LinearLayout successLayout;

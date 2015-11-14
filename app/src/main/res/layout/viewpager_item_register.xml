@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/register_layout"
+    android:id="@+id/forget_psw_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingLeft="@dimen/space_60"
@@ -8,14 +8,14 @@
 
 
     <FrameLayout
-        android:id="@+id/act_register_input_phone_layout"
+        android:id="@+id/act_forget_psw_input_phone_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:focusableInTouchMode="true"
         android:focusable="true">
 
         <EditText
-            android:id="@+id/act_register_input_phone"
+            android:id="@+id/act_forget_psw_input_phone"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:background="@null"
@@ -24,7 +24,7 @@
             android:hint="@string/input_phone"
             android:inputType="phone"
             android:maxLength="15"
-            android:nextFocusDown="@+id/act_register_input_password"
+            android:nextFocusDown="@+id/act_forget_psw_input_password"
             android:paddingLeft="@dimen/space_16"
             android:paddingRight="@dimen/space_16"
             android:singleLine="true"
@@ -33,7 +33,7 @@
 
 
         <ImageView
-            android:id="@+id/act_register_input_phone_delete"
+            android:id="@+id/act_forget_psw_input_phone_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right|center_vertical"
@@ -46,16 +46,16 @@
     </FrameLayout>
 
     <FrameLayout
-        android:id="@+id/act_register_input_password_layout"
+        android:id="@+id/act_forget_psw_input_password_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/act_register_input_phone_layout"
+        android:layout_below="@+id/act_forget_psw_input_phone_layout"
         android:layout_marginTop="@dimen/space_16"
         android:focusableInTouchMode="true"
         android:focusable="true">
 
         <EditText
-            android:id="@+id/act_register_input_password"
+            android:id="@+id/act_forget_psw_input_password"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:background="@null"
@@ -64,7 +64,7 @@
             android:hint="@string/tip_please_input_password"
             android:inputType="textPassword"
             android:maxLength="30"
-            android:nextFocusDown="@+id/act_register_input_phone"
+            android:nextFocusDown="@+id/act_forget_psw_input_phone"
             android:paddingLeft="@dimen/space_16"
             android:paddingRight="@dimen/space_16"
             android:singleLine="true"
@@ -72,7 +72,7 @@
             android:textSize="@dimen/middle_size" />
 
         <ImageView
-            android:id="@+id/act_register_input_password_delete"
+            android:id="@+id/act_forget_psw_input_password_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right|center_vertical"
