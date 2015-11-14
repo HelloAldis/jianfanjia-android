@@ -67,6 +67,7 @@ public class FeedBackActivity extends BaseActivity implements OnClickListener {
             public void loadSuccess(Object data) {
                 hideWaitDialog();
                 feedContentView.setText("");
+                finish();
 //                makeTextShort(getString(R.string.submit_success));
             }
 

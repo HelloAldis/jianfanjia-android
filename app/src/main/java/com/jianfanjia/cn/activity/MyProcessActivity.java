@@ -1,7 +1,7 @@
 package com.jianfanjia.cn.activity;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewStub;
@@ -14,7 +14,7 @@ import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.adapter.MyProcessInfoAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.ProcessInfo;
-import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.JsonParser;
@@ -57,12 +57,12 @@ public class MyProcessActivity extends BaseActivity implements
         siteListView.setAdapter(myProcessInfoAdapter);
     }
 
-    private void comeMainActivity() {
+   /* private void comeMainActivity() {
         Intent intent = new Intent(MyProcessActivity.this, MainActivity.class);
         intent.putExtra(Constant.TAB_POSITION, Constant.MANAGE);
         startActivity(intent);
         finish();
-    }
+    }*/
 
     private void setEmptyView() {
         ViewStub mViewStub = (ViewStub) findViewById(R.id.empty);
@@ -97,10 +97,11 @@ public class MyProcessActivity extends BaseActivity implements
 
     @Override
     public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
-        ProcessInfo siteInfo = siteList.get(position);
-        LogTool.d(TAG, "_id=" + siteInfo.get_id());
-        dataManager.setDefaultPro(position);
-        comeMainActivity();
+        ProcessInfo processInfo= siteList.get(position);
+        LogTool.d(TAG, "_id=" + processInfo.get_id());
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(Global.PROCESS_INFO,processInfo);
+        startActivity(MyProcessDetailActivity_.class,bundle);
     }
 
     @Override
