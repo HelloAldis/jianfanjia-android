@@ -35,7 +35,6 @@ public class DataManagerNew {
     private RequirementInfo requirementInfo;// 需求信息
     private ProcessInfo currentProcessInfo;// 当前工地信息p
     private String currentUploadImageId;// 当前上传的imageId;
-    private String picPath = null;
 
     public static DataManagerNew getInstance() {
         if (instance == null) {

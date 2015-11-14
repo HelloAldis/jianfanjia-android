@@ -185,9 +185,6 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
     @Override
     public void onResume() {
         super.onResume();
-        /*if (sectionItemAdapter != null) {
-            sectionItemAdapter.notifyDataSetChanged();
-        }*/
     }
 
     @Override
@@ -357,10 +354,8 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
 
     @Override
     public void loadSuccess(Object data) {
-//        mPullRefreshScrollView.onRefreshComplete();
-//        process_pull_refresh.setRefreshing(false);
+        hideWaitDialog();
         detailNodeListView.onRefreshComplete();
-//        progressBar.setVisibility(View.GONE);
         if (data != null) {
             processInfo = JsonParser.jsonToBean(data.toString(), ProcessInfo.class);
             initData();
@@ -369,18 +364,12 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
 
     @Override
     public void loadFailture(String error_msg) {
+        hideWaitDialog();
         if (processId != Constant.DEFAULT_PROCESSINFO_ID) {
             makeTextLong(getString(R.string.tip_error_internet));
         }
-//        process_pull_refresh.setRefreshing(false);
         detailNodeListView.onRefreshComplete();
-//        progressBar.setVisibility(View.GONE);
-//        mPullRefreshScrollView.onRefreshComplete();
-    }
 
-    @Override
-    public void preLoad() {
-        // TODO Auto-generated method stub
     }
 
     @Override
