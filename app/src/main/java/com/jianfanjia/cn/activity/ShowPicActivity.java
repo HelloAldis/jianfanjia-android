@@ -10,7 +10,6 @@ import com.jianfanjia.cn.adapter.ShowPicPagerAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
-import com.jianfanjia.cn.tools.LogTool;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,9 +33,6 @@ public class ShowPicActivity extends BaseActivity implements
         if (bundle != null) {
             currentPosition = bundle.getInt(Constant.CURRENT_POSITION, 0);
             imageList = bundle.getStringArrayList(Constant.IMAGE_LIST);
-            for (String str : imageList) {
-                LogTool.d(this.getClass().getName(), " str:" + str);
-            }
             totalCount = imageList.size();
         }
         showPicPagerAdapter = new ShowPicPagerAdapter(this, imageList, this);

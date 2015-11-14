@@ -48,6 +48,9 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
     @Override
     public void initView() {
         initMainHeadView();
+        commentListView = (ListView) findViewById(R.id.comment_listview);
+        commentEdit = (EditText) findViewById(R.id.add_comment);
+        btnSend = (Button) findViewById(R.id.btn_send);
         Intent intent = this.getIntent();
         Bundle commentBundle = intent.getExtras();
         topicid = commentBundle.getString(Global.TOPIC_ID);
@@ -56,10 +59,6 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
         item = commentBundle.getString(Global.ITEM);
         topictype = commentBundle.getString(Global.TOPICTYPE);
         LogTool.d(TAG, "topicid=" + topicid + " to=" + to + " section = " + section + " item" + item);
-        commentListView = (ListView) findViewById(R.id.comment_listview);
-        commentEdit = (EditText) findViewById(R.id.add_comment);
-        btnSend = (Button) findViewById(R.id.btn_send);
-
         getCommentList(topicid, 0, 10000, section, item);
     }
 
