@@ -298,7 +298,7 @@ public class SectionItemAdapter extends BaseAdapter {
                     imageUrlList.add(Constant.HOME_ADD_PIC);
                 }
                 int commentCount = sectionItemInfo.getComment_count();
-                if (commentCount >  0) {
+                if (commentCount > 0) {
                     viewHolder.openComment.setText(commentCount + "");
                     viewHolder.openComment.setCompoundDrawablesWithIntrinsicBounds(
                             context.getResources().getDrawable(
@@ -426,25 +426,6 @@ public class SectionItemAdapter extends BaseAdapter {
             }
 
         });
-       /* gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                String data = imageUrlList.get(position);
-                Log.i(this.getClass().getName(), "data:" + data);
-                if (data.equals(Constant.HOME_ADD_PIC)) {
-//                    callBack.click(position, Constant.ADD_ITEM, imageUrlList);
-                } else {
-                    for (String str : imageUrlList) {
-                        if (str.equals(Constant.HOME_ADD_PIC)) {
-                            imageUrlList.remove(str);
-                        }
-                    }
-                    view.findViewById(R.id.delete).setVisibility(View.VISIBLE);
-//                    callBack.click(position, Constant.IMG_ITEM, imageUrlList);
-                }
-                return true;
-            }
-        });*/
     }
 
     private static class ViewHolder {
