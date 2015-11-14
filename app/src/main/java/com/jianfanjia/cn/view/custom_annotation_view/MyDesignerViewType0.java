@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.jianfanjia.cn.activity.MyDesignerActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.OrderDesignerInfo;
 import com.jianfanjia.cn.config.Constant;
@@ -53,10 +54,16 @@ public class MyDesignerViewType0 extends BaseAnnotationView {
         super(context);
     }
 
-    public void bind(OrderDesignerInfo designerInfo, ClickCallBack clickCallBack, int position) {
+    public void bind(OrderDesignerInfo designerInfo,final ClickCallBack clickCallBack,final int position) {
         String status = designerInfo.getPlan().getStatus();
         String imageid = designerInfo.getImageid();
         String username = designerInfo.getUsername();
+        headView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickCallBack.click(position, MyDesignerActivity.VIEW_DESIGNER);
+            }
+        });
         if (!TextUtils.isEmpty(imageid)) {
             ImageLoader.getInstance().displayImage(Url_New.GET_THUMBNAIL_IMAGE + imageid, headView, options);
         } else {

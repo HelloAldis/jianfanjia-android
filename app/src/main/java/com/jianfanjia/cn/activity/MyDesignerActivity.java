@@ -17,6 +17,7 @@ import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.ClickCallBack;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
@@ -45,6 +46,7 @@ public class MyDesignerActivity extends BaseAnnotationActivity {
     public static final int VIEW_PLAN = 3;//查看方案
     public static final int VIEW_CONTRACT = 4;//查看合同
     public static final int CONFIRM_MEASURE_HOUSE = 5;//确认已量房
+    public static final int VIEW_DESIGNER = 6;//查看设计师
 
     public static final int REQUESTCODE_FRESH_LIST = 1;
 
@@ -143,6 +145,11 @@ public class MyDesignerActivity extends BaseAnnotationActivity {
                             }
                         }, MyDesignerActivity.this);
                         break;
+                    case VIEW_DESIGNER:
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable(Global.DESIGNER_ID, orderDesignerInfo.get_id());
+                        UiHelper.intentTo(MyDesignerActivity.this, DesignerInfoActivity.class, bundle);
+                        break;
                     default:
                         break;
                 }
@@ -211,4 +218,5 @@ public class MyDesignerActivity extends BaseAnnotationActivity {
                 break;
         }
     }
+
 }

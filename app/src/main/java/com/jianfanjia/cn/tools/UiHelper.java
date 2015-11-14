@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Rect;
 import android.hardware.Camera;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
@@ -105,6 +106,14 @@ public class UiHelper {
 						}
 					}
 				});
+	}
+
+	public static void intentTo(Context context,Class<?> clazz,Bundle bundle){
+		Intent intent = new Intent(context,clazz);
+		if(bundle != null){
+			intent.putExtras(bundle);
+		}
+		context.startActivity(intent);
 	}
 
 	/**
