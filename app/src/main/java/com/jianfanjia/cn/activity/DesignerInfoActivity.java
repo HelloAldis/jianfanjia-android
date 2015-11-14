@@ -169,7 +169,6 @@ public class DesignerInfoActivity extends BaseActivity implements
         @Override
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data.toString());
-            makeTextLong("添加成功");
             addBtn.setText("已添加意向");
             addBtn.setEnabled(false);
         }
