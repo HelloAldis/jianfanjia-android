@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/font_white"
-    android:descendantFocusability="blocksDescendants"
-    android:orientation="vertical">
+    android:orientation="horizontal">
 
     <FrameLayout
         android:id="@+id/imageLayout"
@@ -30,7 +29,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
+        android:layout_gravity="center_vertical"
         android:layout_toRightOf="@id/imageLayout">
 
         <LinearLayout
@@ -41,7 +40,7 @@
 
             <TextView
                 android:id="@+id/list_item_name_text"
-                style="@style/listview_item_text_style_middle"
+                style="@style/listview_item_text_style_big"
                 android:text="张三"
                 android:textColor="@color/black_color" />
 
@@ -50,7 +49,19 @@
                 style="@style/listview_item_text_style_small"
                 android:layout_marginTop="10dip"
                 android:text="匹配度:100%"
-                android:textColor="@color/main_color_grey" />
+                android:textColor="@color/main_color_grey"
+                android:visibility="gone" />
+
+            <RatingBar
+                android:id="@+id/list_item_ratingBar"
+                style="@style/list_item_ratingbar_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dip"
+                android:isIndicator="true"
+                android:numStars="5"
+                android:rating="2"
+                android:visibility="gone" />
         </LinearLayout>
 
         <CheckBox
@@ -67,4 +78,4 @@
             android:focusableInTouchMode="false" />
     </RelativeLayout>
 
-</RelativeLayout>
+</LinearLayout>
