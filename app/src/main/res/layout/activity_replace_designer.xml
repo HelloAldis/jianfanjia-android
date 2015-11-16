@@ -21,7 +21,7 @@
         android:cacheColorHint="#00000000"
         android:choiceMode="singleChoice"
         android:clipToPadding="false"
-        android:divider="@drawable/list_item_divider"
+        android:divider="@color/horzontal_line_color"
         android:dividerHeight="0.5dip"
         android:fadingEdge="none"
         android:fastScrollEnabled="false"
