@@ -241,8 +241,8 @@
             android:label="EditRequirementActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".PriviewRequirementActivity_"
-            android:label="PriviewRequirementActivity"
+            android:name=".PreviewRequirementActivity_"
+            android:label="PreviewRequirementActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".EditRequirementItemActivity_"
