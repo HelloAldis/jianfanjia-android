@@ -97,6 +97,7 @@
         style="@style/button_login_style"
         android:layout_marginTop="180dp"
         android:text="@string/login"
-        android:textColor="@color/font_white" />
+        android:textColor="@color/font_white"
+        android:enabled="false"/>
 
 </RelativeLayout>

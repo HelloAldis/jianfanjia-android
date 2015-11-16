@@ -130,6 +130,7 @@
     <orderEntry type="library" exported="" name="ormlite-android-4.49-SNAPSHOT" level="project" />
     <orderEntry type="library" exported="" name="universal-image-loader-1.9.4-SNAPSHOT" level="project" />
     <orderEntry type="library" exported="" name="PhotoView-1.2.4" level="project" />
+    <orderEntry type="library" exported="" name="eventbus-3.0.0-beta1" level="project" />
     <orderEntry type="library" exported="" name="armeabi" level="project" />
     <orderEntry type="library" exported="" name="design-23.0.1" level="project" />
     <orderEntry type="library" exported="" name="androidannotations-api-3.3.1" level="project" />
