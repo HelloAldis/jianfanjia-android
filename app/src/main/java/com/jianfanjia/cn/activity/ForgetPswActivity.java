@@ -98,6 +98,8 @@ public class ForgetPswActivity extends BaseAnnotationActivity{
     void initUi(){
         UiHelper.controlKeyboardLayout(registerLayout, mBtnNext);
 
+        mBtnNext.setEnabled(false);
+
         mEtForgetPswUserName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -111,12 +113,12 @@ public class ForgetPswActivity extends BaseAnnotationActivity{
 
             @Override
             public void afterTextChanged(Editable s) {
-                LogTool.d(TAG, "registerlogin afterTextChanged");
+                LogTool.d(TAG, "forgetPsw afterTextChanged");
                 String text = s.toString();
-                if(!TextUtils.isEmpty(text) && !text.matches(Global.PHONE_MATCH)){
-                    registerInputPhoneDelete.setVisibility(View.VISIBLE);
+                if(!TextUtils.isEmpty(text) && !TextUtils.isEmpty(mEtForgetPswPassword.getText().toString())){
+                    mBtnNext.setEnabled(true);
                 }else{
-                    registerInputPhoneDelete.setVisibility(View.GONE);
+                    mBtnNext.setEnabled(false);
                 }
             }
         });
@@ -133,12 +135,12 @@ public class ForgetPswActivity extends BaseAnnotationActivity{
 
             @Override
             public void afterTextChanged(Editable s) {
-                LogTool.d(TAG,"registerpassword afterTextChanged");
+                LogTool.d(TAG,"forgetPsw afterTextChanged");
                 String text = s.toString();
-                if(!TextUtils.isEmpty(text) && !text.matches(Global.PASSWORD_MATCH)){
-                    registerInputPasswordDelete.setVisibility(View.VISIBLE);
+                if(!TextUtils.isEmpty(text) && !TextUtils.isEmpty(mEtForgetPswUserName.getText().toString())){
+                    mBtnNext.setEnabled(true);
                 }else{
-                    registerInputPasswordDelete.setVisibility(View.GONE);
+                    mBtnNext.setEnabled(false);
                 }
             }
         });

@@ -100,7 +100,7 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
     private String mPassword = null;// 密码
 
     private GestureDetector mGestureDetector;
-    int currentPage = LOGIN;
+    private int currentPage = LOGIN;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,6 +131,9 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
             mEtLoginUserName.requestFocus();
         }
 
+        mBtnLogin.setEnabled(false);
+        mBtnNext.setEnabled(false);
+
         mEtRegisterUserName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -146,10 +149,11 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
             public void afterTextChanged(Editable s) {
                 LogTool.d(TAG,"registerlogin afterTextChanged");
                 String text = s.toString();
-                if(!TextUtils.isEmpty(text) && !text.matches(Global.PHONE_MATCH)){
-                    registerInputPhoneDelete.setVisibility(View.VISIBLE);
+                if(!TextUtils.isEmpty(text) && !TextUtils.isEmpty(mEtRegisterPassword.getText().toString())){
+                    mBtnNext.setEnabled(true);
                 }else{
-                    verifyPhone(text);
+                    mBtnNext.setEnabled(false);
+//                    verifyPhone(text);
                 }
             }
         });
@@ -168,10 +172,10 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
             public void afterTextChanged(Editable s) {
                 LogTool.d(TAG,"registerpassword afterTextChanged");
                 String text = s.toString();
-                if(!TextUtils.isEmpty(text) && !text.matches(Global.PASSWORD_MATCH)){
-                    registerInputPasswordDelete.setVisibility(View.VISIBLE);
+                if(!TextUtils.isEmpty(text) && !TextUtils.isEmpty(mEtRegisterUserName.getText().toString())){
+                    mBtnNext.setEnabled(true);
                 }else{
-                    registerInputPasswordDelete.setVisibility(View.GONE);
+                    mBtnNext.setEnabled(false);
                 }
             }
         });
@@ -189,10 +193,11 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
             @Override
             public void afterTextChanged(Editable s) {
                 String text = s.toString();
-                if(!TextUtils.isEmpty(text) && !text.matches(Global.PHONE_MATCH)){
-                    loginInputPhoneDelete.setVisibility(View.VISIBLE);
+                if(!TextUtils.isEmpty(text) && !TextUtils.isEmpty(mEtLoginPassword.getText().toString())){
+                    mBtnLogin.setEnabled(true);
                 }else{
-                    loginInputPhoneDelete.setVisibility(View.GONE);
+                    mBtnLogin.setEnabled(false);
+//                    verifyPhone(text);
                 }
             }
         });
@@ -210,10 +215,11 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
             @Override
             public void afterTextChanged(Editable s) {
                 String text = s.toString();
-                if(!TextUtils.isEmpty(text) && !text.matches(Global.PASSWORD_MATCH)){
-                    loginInputPasswordDelete.setVisibility(View.VISIBLE);
+                if(!TextUtils.isEmpty(text) && !TextUtils.isEmpty(mEtLoginUserName.getText().toString())){
+                    mBtnLogin.setEnabled(true);
                 }else{
-                    loginInputPasswordDelete.setVisibility(View.GONE);
+                    mBtnLogin.setEnabled(false);
+//                    verifyPhone(text);
                 }
             }
         });
@@ -281,7 +287,8 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
                 mUserName = mEtRegisterUserName.getText().toString().trim();
                 mPassword = mEtRegisterPassword.getText().toString().trim();
                 if (checkRegisterInput(mUserName, mPassword)) {
-                    sendVerification(mUserName, mPassword);
+                    verifyPhone(mUserName);
+//                    sendVerification(mUserName, mPassword);
                 }
                 break;
             case R.id.act_forget_password:
@@ -305,10 +312,6 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
     @Override
     protected void onRestart() {
         super.onRestart();
-        mEtRegisterUserName.setText("");
-        mEtRegisterPassword.setText("");
-        mEtLoginUserName.setText("");
-        mEtLoginPassword.setText("");
 //        mEtLoginUserName.requestFocus();
     }
 
@@ -374,7 +377,8 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
 
                 @Override
                 public void loadSuccess(Object data) {
-                    registerInputPhoneDelete.setVisibility(View.GONE);
+//                    registerInputPhoneDelete.setVisibility(View.GONE);
+                    sendVerification(mUserName,mPassword);
                 }
 
                 @Override
@@ -577,67 +581,5 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
         });
     }
 
-    public TranslateAnimation getToLeft() {
-        TranslateAnimation translateAnimation = new TranslateAnimation(0, -TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 124, getResources().getDisplayMetrics()), 0, 0);
-        translateAnimation.setDuration(200);
-        translateAnimation.setFillAfter(true);
-        translateAnimation.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
 
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
-        return translateAnimation;
-    }
-
-    public TranslateAnimation getToRight() {
-        TranslateAnimation translateAnimation = new TranslateAnimation(-TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 124, getResources().getDisplayMetrics()), 0, 0, 0);
-        translateAnimation.setDuration(200);
-        translateAnimation.setFillAfter(true);
-        translateAnimation.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                registerTitle.setAlpha(Alpha1);
-                loginTitle.setAlpha(Alpha2);
-                registerTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
-                loginTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
-                currentPage = LOGIN;
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
-        return translateAnimation;
-    }
-
-    public AlphaAnimation get0To1() {
-        AlphaAnimation alphaAnimation = new AlphaAnimation(0, 1);
-        alphaAnimation.setDuration(100);
-        alphaAnimation.setFillAfter(true);
-        return alphaAnimation;
-    }
-
-    public AlphaAnimation get1To0() {
-        AlphaAnimation alphaAnimation = new AlphaAnimation(1, 0);
-        alphaAnimation.setDuration(100);
-        alphaAnimation.setFillAfter(true);
-        return alphaAnimation;
-    }
 }
