@@ -103,7 +103,7 @@ public class XuQiuFragment extends BaseAnnotationFragment implements OnActivityR
     protected Intent gotoPriviewRequirement;
 
     // Header View
-   private UpdateBroadcastReceiver updateBroadcastReceiver;
+    private UpdateBroadcastReceiver updateBroadcastReceiver;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -287,7 +287,7 @@ public class XuQiuFragment extends BaseAnnotationFragment implements OnActivityR
     }
 
     //刷新数据的广播
-    class UpdateBroadcastReceiver  extends BroadcastReceiver{
+    class UpdateBroadcastReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
             initData();
