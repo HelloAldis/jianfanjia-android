@@ -7,7 +7,6 @@ import com.jianfanjia.cn.bean.CommitCommentInfo;
 import com.jianfanjia.cn.bean.OwnerUpdateInfo;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
-import com.jianfanjia.cn.config.Url;
 import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.http.request.AddCommentRequest;
 import com.jianfanjia.cn.http.request.AddFavoriteDesignerRequest;
@@ -43,8 +42,8 @@ import com.jianfanjia.cn.http.request.OwnerFinishCheckRequest;
 import com.jianfanjia.cn.http.request.PostProcessRequest;
 import com.jianfanjia.cn.http.request.PostRequirementRequest;
 import com.jianfanjia.cn.http.request.PostRescheduleRequest;
-import com.jianfanjia.cn.http.request.ProcessInfoRequest;
-import com.jianfanjia.cn.http.request.ProcessListRequest;
+import com.jianfanjia.cn.http.request.GetProcessInfoRequest;
+import com.jianfanjia.cn.http.request.GetProcessListRequest;
 import com.jianfanjia.cn.http.request.RefuseRescheduleRequest;
 import com.jianfanjia.cn.http.request.RegisterRequest;
 import com.jianfanjia.cn.http.request.SearchDesignerProductRequest;
@@ -53,7 +52,7 @@ import com.jianfanjia.cn.http.request.UpdateRequirementRequest;
 import com.jianfanjia.cn.http.request.UploadPicRequestNew;
 import com.jianfanjia.cn.http.request.UploadRegisterIdRequest;
 import com.jianfanjia.cn.http.request.UserByOwnerInfoRequest;
-import com.jianfanjia.cn.http.request.UserByOwnerInfoUpdateRequestApi;
+import com.jianfanjia.cn.http.request.UpdateOwnerInfoRequest;
 import com.jianfanjia.cn.http.request.VerifyPhoneRequest;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.DateFormatTool;
@@ -299,7 +298,7 @@ public class JianFanJiaClient {
      */
     public static void getDesignerInfoById(Context context, String designerid,
                                            ApiUiUpdateListener listener, Object tag) {
-        String getdesignerUrl = Url_New.GET_OWER_DESIGNER.replace(Url.ID,
+        String getdesignerUrl = Url_New.GET_OWER_DESIGNER.replace(Url_New.ID,
                 designerid);
         DesignerInfoRequest designerInfoRequest = new DesignerInfoRequest(context);
         designerInfoRequest.setUrl(getdesignerUrl);
@@ -349,7 +348,8 @@ public class JianFanJiaClient {
      */
     public static void get_Process_List(Context context,
                                         ApiUiUpdateListener listener, Object tag) {
-        ProcessListRequest processListRequest = new ProcessListRequest(context);
+        GetProcessListRequest processListRequest = new GetProcessListRequest(context);
+        LogTool.d("JianFanJiaApiClient","get_Process_List" + processListRequest.getUrl());
         OkHttpClientManager.getInstance().getGetDelegate().getAsyn(processListRequest, listener, tag);
     }
 
@@ -525,12 +525,12 @@ public class JianFanJiaClient {
      */
     public static void get_ProcessInfo_By_Id(Context context, String processid,
                                              ApiUiUpdateListener listener, Object tag) {
-        ProcessInfoRequest processInfoRequest = new ProcessInfoRequest(context, processid);
+        GetProcessInfoRequest getProcessInfoRequest = new GetProcessInfoRequest(context, processid);
         String getProcessUrl = Url_New.GET_PROCESSINFO_BYID.replace(Url_New.ID,
                 processid);
-        processInfoRequest.setUrl(getProcessUrl);
-        LogTool.d(TAG, "processItemDone -" + processInfoRequest.getUrl());
-        OkHttpClientManager.getInstance().getGetDelegate().getAsyn(processInfoRequest, listener, tag);
+        getProcessInfoRequest.setUrl(getProcessUrl);
+        LogTool.d(TAG, "processItemDone -" + getProcessInfoRequest.getUrl());
+        OkHttpClientManager.getInstance().getGetDelegate().getAsyn(getProcessInfoRequest, listener, tag);
     }
 
     /**
@@ -542,7 +542,7 @@ public class JianFanJiaClient {
      */
     public static void put_OwnerInfo(Context context,
                                      OwnerUpdateInfo ownerInfo, ApiUiUpdateListener listener, Object tag) {
-        UserByOwnerInfoUpdateRequestApi userByOwnerInfoUpdateRequest = new UserByOwnerInfoUpdateRequestApi(context, ownerInfo);
+        UpdateOwnerInfoRequest userByOwnerInfoUpdateRequest = new UpdateOwnerInfoRequest(context, ownerInfo);
         LogTool.d(TAG, "put_OwnerInfo -" + userByOwnerInfoUpdateRequest.getUrl() + JsonParser.beanToJson(ownerInfo));
         OkHttpClientManager.getInstance().getPostDelegate().postAsyn(userByOwnerInfoUpdateRequest, JsonParser.beanToJson(ownerInfo), listener, tag);
     }

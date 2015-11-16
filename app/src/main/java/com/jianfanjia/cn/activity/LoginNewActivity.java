@@ -260,11 +260,11 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
     protected void onResume() {
         super.onResume();
 //        controlKeyboardLayout(contentLayout, mBtnLogin);
-        if(currentPage == REGISER){
+      /*  if(currentPage == REGISER){
             mEtRegisterUserName.requestFocus();
         }else{
             mEtLoginUserName.requestFocus();
-        }
+        }*/
     }
 
     @Click({R.id.btn_login, R.id.btn_next, R.id.act_forget_password, R.id.act_login, R.id.act_register})
@@ -309,7 +309,7 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
         mEtRegisterPassword.setText("");
         mEtLoginUserName.setText("");
         mEtLoginPassword.setText("");
-        mEtLoginUserName.requestFocus();
+//        mEtLoginUserName.requestFocus();
     }
 
     private boolean checkRegisterInput(String name, String password) {
