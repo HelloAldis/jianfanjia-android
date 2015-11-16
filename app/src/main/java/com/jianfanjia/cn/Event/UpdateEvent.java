@@ -9,11 +9,7 @@ package com.jianfanjia.cn.Event;
 public class UpdateEvent {
     private int eventType;
 
-    public int getEventType() {
-        return eventType;
-    }
-
-    public void setEventType(int eventType) {
+    public UpdateEvent(int eventType) {
         this.eventType = eventType;
     }
 }
