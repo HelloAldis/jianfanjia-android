@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.PersistableBundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -220,16 +219,6 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
         });
     }
 
-    private void initInput() {
-//        InputMethodManager inputManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
-//        inputManager.showSoftInput(mEtLoginUserName,0);
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
-        super.onSaveInstanceState(outState, outPersistentState);
-    }
-
     int scrollHeight;
 
     private void controlKeyboardLayout(final View root,final View scrollToView){
@@ -271,6 +260,11 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
     protected void onResume() {
         super.onResume();
 //        controlKeyboardLayout(contentLayout, mBtnLogin);
+        if(currentPage == REGISER){
+            mEtRegisterUserName.requestFocus();
+        }else{
+            mEtLoginUserName.requestFocus();
+        }
     }
 
     @Click({R.id.btn_login, R.id.btn_next, R.id.act_forget_password, R.id.act_login, R.id.act_register})
