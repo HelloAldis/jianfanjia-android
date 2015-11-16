@@ -197,7 +197,7 @@ public class RequirementView extends BaseAnnotationView {
 
                 }
             }
-        }else{
+        } else {
             for (int i = 0; i < Constant.REC_DESIGNER_TOTAL; i++) {
                 RelativeLayout designerLayout = (RelativeLayout) getRootView().findViewById(getResources().getIdentifier("ltm_req_designer_layout" + i, "id", getContext().getPackageName()));
                 ImageView headView = (ImageView) getRootView().findViewById(getResources().getIdentifier("ltm_req_designer_head" + i, "id", getContext().getPackageName()));

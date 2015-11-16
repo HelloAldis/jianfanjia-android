@@ -4,34 +4,10 @@
     android:layout_height="match_parent"
     android:background="@color/site_content_bg" >
 
-    <RelativeLayout
+    <com.jianfanjia.cn.view.MainHeadView
         android:id="@+id/edit_head_layout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/space_48"
-        android:background="@color/head_layout_bg" >
-
-        <TextView
-            android:id="@+id/edit_back"
-            style="@style/listview_item_text_style_middle"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/space_16"
-            android:drawableLeft="@mipmap/icon_register_back"
-            android:drawablePadding="4dp"
-            android:text="@string/back"
-            android:textColor="@color/grey_color" />
-
-        <TextView
-            android:id="@+id/edit_title"
-            style="@style/listview_item_text_style_big"
-            android:layout_centerInParent="true"
-            android:text="@string/userinfo"
-            android:textColor="@color/black_color" />
-
-        <View
-            style="@style/divier_line"
-            android:layout_alignParentBottom="true"
-            android:background="@color/horzontal_line_color" />
-    </RelativeLayout>
+        android:layout_height="wrap_content" />
 
      <EditText
         android:id="@+id/edit_info"

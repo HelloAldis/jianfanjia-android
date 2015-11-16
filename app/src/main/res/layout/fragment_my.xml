@@ -106,7 +106,8 @@
 
             <RelativeLayout
                 android:id="@+id/my_site_layout"
-                style="@style/my_list_item_layout_style">
+                style="@style/my_list_item_layout_style"
+                android:visibility="gone">
 
                 <TextView
                     style="@style/listview_item_text_style_middle"
@@ -121,8 +122,7 @@
                     android:contentDescription="@null" />
             </RelativeLayout>
 
-            <View style="@style/divier_line" />
-
+            <!--<View style="@style/divier_line" />-->
 
             <View
                 style="@style/divier_line"

@@ -198,7 +198,7 @@
     <string name="user_sex">性别</string>
     <string name="user_phone">手机号</string>
     <string name="user_address">所在地</string>
-    <string name="user_home">居住地址</string>
+    <string name="user_home">详细地址</string>
     <string name="not_edit">未填写</string>
     <!-- activity userinfo -->
 

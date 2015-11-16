@@ -10,8 +10,7 @@
         android:id="@+id/act_login_input_phone_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:focusableInTouchMode="true"
-        android:focusable="true">
+        >
 
         <EditText
             android:id="@+id/act_login_input_phone"
@@ -49,8 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/act_login_input_phone_layout"
         android:layout_marginTop="@dimen/space_16"
-        android:focusableInTouchMode="true"
-        android:focusable="true">
+        >
 
         <EditText
             android:id="@+id/act_login_input_password"

@@ -88,6 +88,12 @@ public class ForgetPswActivity extends BaseAnnotationActivity{
         return true;
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+//        mEtForgetPswUserName.requestFocus();
+    }
+
     @AfterViews
     void initUi(){
         UiHelper.controlKeyboardLayout(registerLayout, mBtnNext);

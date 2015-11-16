@@ -200,6 +200,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
                         EditInfoActivity.class);
                 name.putExtra(Constant.EDIT_TYPE,
                         Constant.REQUESTCODE_EDIT_USERNAME);
+                name.putExtra(Constant.EDIT_CONTENT,ownerUpdateInfo.getUsername());
                 startActivityForResult(name, Constant.REQUESTCODE_EDIT_USERNAME);
                 break;
             case R.id.home_layout:
@@ -207,6 +208,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
                         EditInfoActivity.class);
                 home.putExtra(Constant.EDIT_TYPE,
                         Constant.REQUESTCODE_EDIT_HOME);
+                home.putExtra(Constant.EDIT_CONTENT,ownerUpdateInfo.getAddress());
                 startActivityForResult(home, Constant.REQUESTCODE_EDIT_HOME);
                 break;
             case R.id.sex_layout:
