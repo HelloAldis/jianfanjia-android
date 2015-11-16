@@ -23,7 +23,7 @@ import org.androidannotations.annotations.res.StringArrayRes;
  * Date:2015-10-15 13:19
  */
 @EActivity(R.layout.activity_priview_req)
-public class PriviewRequirementActivity extends BaseAnnotationActivity {
+public class PreviewRequirementActivity extends BaseAnnotationActivity {
 
     @ViewById(R.id.act_edit_req_head)
     protected MainHeadView mainHeadView;
