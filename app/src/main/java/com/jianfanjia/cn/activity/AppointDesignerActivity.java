@@ -45,18 +45,22 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
     private List<DesignerCanOrderInfo> favorite_designer = new ArrayList<DesignerCanOrderInfo>();
     private DesignerByAppointOrReplaceAdapter designerByAppointOrReplaceAdapter = null;
     private String requestmentid = null;
+    private int orderDesignerNum = 0;//已预约设计师数
     private int totalCount = 3;//总可预约数
+    private int total = 0;
     private int checkedItemCount = 0;//已选数
 
     private List<String> designerids = new ArrayList<String>();
 
     @Override
     public void initView() {
+        Intent intent = this.getIntent();
+        orderDesignerNum = intent.getIntExtra(Global.REQUIREMENT_DESIGNER_NUM, 0);
+        requestmentid = intent.getStringExtra(Global.REQUIREMENT_ID);
+        LogTool.d(TAG, "requestmentid:" + requestmentid + " orderDesignerNum:" + orderDesignerNum);
+        total = totalCount - orderDesignerNum;
         initMainHeadView();
         appoint_designer_listview = (ListView) findViewById(R.id.appoint_designer_listview);
-        Intent intent = this.getIntent();
-        requestmentid = intent.getStringExtra(Global.REQUIREMENT_ID);
-        LogTool.d(TAG, "requestmentid:" + requestmentid);
         getOrderDesignerList(requestmentid);
     }
 
@@ -65,7 +69,7 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
         mainHeadView.setBackListener(this);
         mainHeadView.setRightTextListener(this);
         mainHeadView
-                .setMianTitle(totalCount + getResources().getString(R.string.appoint));
+                .setMianTitle(total + getResources().getString(R.string.appoint));
         mainHeadView.setRightTitle(getResources().getString(R.string.appointText));
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
         mainHeadView.setRightTitleVisable(View.VISIBLE);
@@ -130,8 +134,8 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         checkedItemCount = appoint_designer_listview.getCheckedItemCount();
-        if (checkedItemCount > totalCount) {
-            makeTextLong("最多可选3名设计师");
+        if (checkedItemCount > total) {
+            makeTextLong("最多可选" + total + "名设计师");
             return;
         }
         boolean checked = appoint_designer_listview.getCheckedItemPositions().get(position);
@@ -143,7 +147,7 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
         } else {
             designerids.remove(designerid);
         }
-        mainHeadView.setMianTitle((totalCount - checkedItemCount) + getResources().getString(R.string.appoint));
+        mainHeadView.setMianTitle((total - checkedItemCount) + getResources().getString(R.string.appoint));
     }
 
     private void appointDesignerDialog() {

@@ -144,6 +144,7 @@ public class XuQiuFragment extends BaseAnnotationFragment implements OnActivityR
                         startActivity(gotoMyDesigner);
                         break;
                     case ITEM_GOTOODERDESI:
+                        gotoOrderDesigner.putExtra(Global.REQUIREMENT_DESIGNER_NUM, requirementInfos.get(position).getOrder_designers().size());
                         gotoOrderDesigner.putExtra(Global.REQUIREMENT_ID, requirementInfos.get(position).get_id());
                         startActivity(gotoOrderDesigner);
                         break;
