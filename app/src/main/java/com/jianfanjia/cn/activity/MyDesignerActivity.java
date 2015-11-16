@@ -17,6 +17,7 @@ import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.ClickCallBack;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
@@ -74,6 +75,13 @@ public class MyDesignerActivity extends BaseAnnotationActivity {
         initdata();
     }
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        initdata();
+        UiHelper.sendUpdateBroast(this);
+    }
+
     private void initPullRefresh() {
         refreshView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
         refreshView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<RecyclerView>() {
@@ -111,7 +119,6 @@ public class MyDesignerActivity extends BaseAnnotationActivity {
                         Bundle contractBundle = new Bundle();
                         contractBundle.putString(Global.REQUIREMENT_ID, requirementid);
                         contractBundle.putString(Global.REQUIREMENT_STATUS, orderDesignerInfo.getRequirement().getStatus());
-//                        startActivity(ContractActivity.class, contractBundle);
                         viewContractIntent.putExtras(contractBundle);
                         startActivityForResult(viewContractIntent,REQUESTCODE_FRESH_LIST);
                         break;
@@ -121,9 +128,8 @@ public class MyDesignerActivity extends BaseAnnotationActivity {
                         planBundle.putString(Global.DESIGNER_ID, orderDesignerInfo.get_id());
                         planBundle.putString(Global.REQUIREMENT_ID, requirementid);
                         planBundle.putString(Global.DESIGNER_NAME, orderDesignerInfo.getUsername());
-//                        startActivity(DesignerPlanListActivity.class, viewPlan);
                         viewPlanIntent.putExtras(planBundle);
-                        startActivityForResult(viewPlanIntent,REQUESTCODE_FRESH_LIST);
+                        startActivity(viewPlanIntent);
                         break;
                     case CHANGE_DESIGNER:
                         Intent changeDesignerIntent = new Intent(MyDesignerActivity.this,ReplaceDesignerActivity.class);
@@ -131,7 +137,6 @@ public class MyDesignerActivity extends BaseAnnotationActivity {
                         changeBundle.putString(Global.DESIGNER_ID, orderDesignerInfo.get_id());
                         changeBundle.putString(Global.REQUIREMENT_ID, requirementid);
                         changeDesignerIntent.putExtras(changeBundle);
-//                        startActivity(ReplaceDesignerActivity.class, changeBundle);
                         startActivityForResult(changeDesignerIntent,REQUESTCODE_FRESH_LIST);
                         break;
                     case CONFIRM_MEASURE_HOUSE:
@@ -172,6 +177,8 @@ public class MyDesignerActivity extends BaseAnnotationActivity {
             public void loadSuccess(Object data) {
                 hideWaitDialog();
                 initdata();
+                //刷新Xuqiufragment
+                UiHelper.sendUpdateBroast(MyDesignerActivity.this);
             }
 
             @Override
@@ -224,6 +231,8 @@ public class MyDesignerActivity extends BaseAnnotationActivity {
         switch (requestCode) {
             case REQUESTCODE_FRESH_LIST:
                 initdata();
+                //刷新Xuqiufragment
+                UiHelper.sendUpdateBroast(MyDesignerActivity.this);
                 break;
             default:
                 break;

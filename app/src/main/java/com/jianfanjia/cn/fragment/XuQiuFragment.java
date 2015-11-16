@@ -146,7 +146,7 @@ public class XuQiuFragment extends BaseAnnotationFragment implements OnActivityR
                     case ITEM_GOTOODERDESI:
                         gotoOrderDesigner.putExtra(Global.REQUIREMENT_DESIGNER_NUM, requirementInfos.get(position).getOrder_designers().size());
                         gotoOrderDesigner.putExtra(Global.REQUIREMENT_ID, requirementInfos.get(position).get_id());
-                        startActivityForResult(gotoOrderDesigner, REQUESTCODE_FRESH_REQUIREMENT);
+                        startActivity(gotoOrderDesigner);
                         break;
                     default:
                         break;
@@ -268,9 +268,9 @@ public class XuQiuFragment extends BaseAnnotationFragment implements OnActivityR
             case REQUESTCODE_EDIT_REQUIREMENT:
                 initData();
                 break;
-            case REQUESTCODE_FRESH_REQUIREMENT:
+           /* case REQUESTCODE_FRESH_REQUIREMENT:
                 initData();
-                break;
+                break;*/
             default:
                 break;
         }
