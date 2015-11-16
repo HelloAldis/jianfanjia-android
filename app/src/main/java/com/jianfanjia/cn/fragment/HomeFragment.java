@@ -32,7 +32,6 @@ import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.ListItemClickListener;
-import com.jianfanjia.cn.interf.OnActivityResultCallBack;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.ViewPagerManager;
@@ -50,7 +49,7 @@ import java.util.List;
  * Date:15-10-11 14:30
  */
 public class HomeFragment extends BaseFragment implements
-        PullToRefreshBase.OnRefreshListener2<ScrollView>, ListItemClickListener, OnItemClickListener, OnActivityResultCallBack {
+        PullToRefreshBase.OnRefreshListener2<ScrollView>, ListItemClickListener, OnItemClickListener {
     private static final String TAG = HomeFragment.class.getName();
     private PullToRefreshScrollView mPullRefreshScrollView = null;
     private RelativeLayout viewpagerLayout = null;
@@ -277,11 +276,6 @@ public class HomeFragment extends BaseFragment implements
             default:
                 break;
         }
-    }
-
-    @Override
-    public void onResult(int requestCode, int resultCode, Intent data) {
-
     }
 
     @Override
