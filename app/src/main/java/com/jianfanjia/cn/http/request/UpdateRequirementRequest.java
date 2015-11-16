@@ -8,40 +8,40 @@ import com.jianfanjia.cn.config.Url_New;
 
 public class UpdateRequirementRequest extends BaseRequest {
 
-	private RequirementInfo requirementInfo;
+    private RequirementInfo requirementInfo;
 
-	public UpdateRequirementRequest(Context context, RequirementInfo requirementInfo) {
-		super(context);
-		this.requirementInfo = requirementInfo;
-		url = Url_New.REQUIREMENT_UPDATE;
-	}
+    public UpdateRequirementRequest(Context context, RequirementInfo requirementInfo) {
+        super(context);
+        this.requirementInfo = requirementInfo;
+        url = Url_New.REQUIREMENT_UPDATE;
+    }
 
-	@Override
-	public void all() {
-		// TODO Auto-generated method stub
-		super.all();
+    @Override
+    public void all() {
+        // TODO Auto-generated method stub
+        super.all();
 
-	}
+    }
 
-	@Override
-	public void pre() {
-		// TODO Auto-generated method stub
-		super.pre();
-	}
+    @Override
+    public void pre() {
+        // TODO Auto-generated method stub
+        super.pre();
+    }
 
-	@Override
-	public void onSuccess(Object data) {
-		if(data != null){
+    @Override
+    public void onSuccess(Object data) {
+        if (data != null) {
 
-		}
-	}
+        }
+    }
 
-	public RequirementInfo getRequirementInfo() {
-		return requirementInfo;
-	}
+    public RequirementInfo getRequirementInfo() {
+        return requirementInfo;
+    }
 
-	public void setRequirementInfo(RequirementInfo requirementInfo) {
-		this.requirementInfo = requirementInfo;
-	}
+    public void setRequirementInfo(RequirementInfo requirementInfo) {
+        this.requirementInfo = requirementInfo;
+    }
 
 }
