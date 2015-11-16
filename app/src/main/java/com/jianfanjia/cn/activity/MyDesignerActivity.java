@@ -107,42 +107,35 @@ public class MyDesignerActivity extends BaseAnnotationActivity {
                         startActivityForResult(commentIntent, REQUESTCODE_FRESH_LIST);
                         break;
                     case VIEW_CONTRACT:
+                        Intent viewContractIntent = new Intent(MyDesignerActivity.this,ContractActivity.class);
                         Bundle contractBundle = new Bundle();
                         contractBundle.putString(Global.REQUIREMENT_ID, requirementid);
                         contractBundle.putString(Global.REQUIREMENT_STATUS, orderDesignerInfo.getRequirement().getStatus());
-                        startActivity(ContractActivity.class, contractBundle);
+//                        startActivity(ContractActivity.class, contractBundle);
+                        viewContractIntent.putExtras(contractBundle);
+                        startActivityForResult(viewContractIntent,REQUESTCODE_FRESH_LIST);
                         break;
                     case VIEW_PLAN:
-                        Bundle viewPlan = new Bundle();
-                        viewPlan.putString(Global.DESIGNER_ID, orderDesignerInfo.get_id());
-                        viewPlan.putString(Global.REQUIREMENT_ID, requirementid);
-                        viewPlan.putString(Global.DESIGNER_NAME, orderDesignerInfo.getUsername());
-                        startActivity(DesignerPlanListActivity.class, viewPlan);
+                        Intent viewPlanIntent = new Intent(MyDesignerActivity.this,DesignerPlanListActivity.class);
+                        Bundle planBundle = new Bundle();
+                        planBundle.putString(Global.DESIGNER_ID, orderDesignerInfo.get_id());
+                        planBundle.putString(Global.REQUIREMENT_ID, requirementid);
+                        planBundle.putString(Global.DESIGNER_NAME, orderDesignerInfo.getUsername());
+//                        startActivity(DesignerPlanListActivity.class, viewPlan);
+                        viewPlanIntent.putExtras(planBundle);
+                        startActivityForResult(viewPlanIntent,REQUESTCODE_FRESH_LIST);
                         break;
                     case CHANGE_DESIGNER:
+                        Intent changeDesignerIntent = new Intent(MyDesignerActivity.this,ReplaceDesignerActivity.class);
                         Bundle changeBundle = new Bundle();
                         changeBundle.putString(Global.DESIGNER_ID, orderDesignerInfo.get_id());
                         changeBundle.putString(Global.REQUIREMENT_ID, requirementid);
-                        startActivity(ReplaceDesignerActivity.class, changeBundle);
+                        changeDesignerIntent.putExtras(changeBundle);
+//                        startActivity(ReplaceDesignerActivity.class, changeBundle);
+                        startActivityForResult(changeDesignerIntent,REQUESTCODE_FRESH_LIST);
                         break;
                     case CONFIRM_MEASURE_HOUSE:
-                        JianFanJiaClient.confirmMeasureHouse(MyDesignerActivity.this, requirementid, orderDesignerInfo.get_id(), new ApiUiUpdateListener() {
-                            @Override
-                            public void preLoad() {
-                                showWaitDialog();
-                            }
-
-                            @Override
-                            public void loadSuccess(Object data) {
-                                hideWaitDialog();
-                                initdata();
-                            }
-
-                            @Override
-                            public void loadFailture(String error_msg) {
-                                hideWaitDialog();
-                            }
-                        }, MyDesignerActivity.this);
+                        confirmMeasureHouse(orderDesignerInfo.get_id());
                         break;
                     case VIEW_DESIGNER:
                         Bundle bundle = new Bundle();
@@ -160,12 +153,32 @@ public class MyDesignerActivity extends BaseAnnotationActivity {
         paint.setColor(getResources().getColor(R.color.light_white_color));
         paint.setAntiAlias(true);
         refreshView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this).
-                        colorResId(R.color.light_white_color).sizeResId(R.dimen.line_width).marginResId(R.dimen.space_80,R.dimen.space_0)
-                        .build());
+                colorResId(R.color.light_white_color).sizeResId(R.dimen.line_width).marginResId(R.dimen.space_80, R.dimen.space_0)
+                .build());
                /* .paint(paint)
                 .showLastDivider()
                 .margin(300,0)
                 .build());*/
+    }
+
+    protected void confirmMeasureHouse(String designerid){
+        JianFanJiaClient.confirmMeasureHouse(MyDesignerActivity.this, requirementid, designerid, new ApiUiUpdateListener() {
+            @Override
+            public void preLoad() {
+                showWaitDialog();
+            }
+
+            @Override
+            public void loadSuccess(Object data) {
+                hideWaitDialog();
+                initdata();
+            }
+
+            @Override
+            public void loadFailture(String error_msg) {
+                hideWaitDialog();
+            }
+        }, MyDesignerActivity.this);
     }
 
     @Click(R.id.head_back_layout)

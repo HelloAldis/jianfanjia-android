@@ -19,6 +19,7 @@ import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.MainHeadView;
 
 import java.util.ArrayList;
@@ -189,7 +190,10 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
             LogTool.d(TAG, "data:" + data);
             hideWaitDialog();
             btn_choose.setEnabled(false);
-            updateData();
+            //发送数据刷新广播
+            setResult(RESULT_OK);
+            finish();
+            UiHelper.sendUpdateBroast(PreviewDesignerPlanActivity.this);
         }
 
         @Override
@@ -198,12 +202,6 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
             hideWaitDialog();
         }
     };
-
-    protected void updateData(){
-        Intent intent = new Intent();
-        intent.setAction(Global.ACTION_UPDATE);
-        sendBroadcast(intent);
-    }
 
     @Override
     public int getLayoutId() {

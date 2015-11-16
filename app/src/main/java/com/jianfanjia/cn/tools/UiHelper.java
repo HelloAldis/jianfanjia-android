@@ -19,6 +19,7 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.UpdateVersion;
 import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.service.UpdateService;
@@ -74,6 +75,16 @@ public class UiHelper {
 		Intent intent = new Intent(context, UpdateService.class);
 		intent.putExtra(Constant.DOWNLOAD_URL, download_url);
 		context.startService(intent);
+	}
+
+	/**
+	 * 发送需求页面更新广播
+	 * @param context
+	 */
+	public static void sendUpdateBroast(Context context){
+		Intent intent = new Intent();
+		intent.setAction(Global.ACTION_UPDATE);
+		context.sendBroadcast(intent);
 	}
 
 	/**

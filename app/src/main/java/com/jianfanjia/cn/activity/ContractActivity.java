@@ -17,6 +17,7 @@ import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.MainHeadView;
 
 /**
@@ -33,10 +34,11 @@ public class ContractActivity extends BaseActivity implements OnClickListener, V
     private String requirementid = null;
     private String final_planid = null;
 
+    private Intent intent;
 
     @Override
     public void initView() {
-        Intent intent = this.getIntent();
+        intent = this.getIntent();
         Bundle contractBundle = intent.getExtras();
         requirementStatus = contractBundle.getString(Global.REQUIREMENT_STATUS);
         requirementid = contractBundle.getString(Global.REQUIREMENT_ID);
@@ -158,7 +160,10 @@ public class ContractActivity extends BaseActivity implements OnClickListener, V
         @Override
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data.toString());
-            makeTextLong("确认成功");
+            //发送数据刷新广播
+            UiHelper.sendUpdateBroast(ContractActivity.this);
+            setResult(RESULT_OK);
+            finish();
         }
 
         @Override
