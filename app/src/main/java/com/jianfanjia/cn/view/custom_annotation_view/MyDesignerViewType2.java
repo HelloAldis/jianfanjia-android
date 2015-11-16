@@ -15,6 +15,8 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.interf.ClickCallBack;
+import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.tools.StringUtils;
 import com.jianfanjia.cn.view.baseview.BaseAnnotationView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -66,10 +68,16 @@ public class MyDesignerViewType2 extends BaseAnnotationView {
     public void bind(OrderDesignerInfo designerInfo, final ClickCallBack clickCallBack, final int position) {
         String imageid = designerInfo.getImageid();
         String username = designerInfo.getUsername();
+        headView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickCallBack.click(position, MyDesignerActivity.VIEW_DESIGNER);
+            }
+        });
         if (!TextUtils.isEmpty(imageid)) {
             ImageLoader.getInstance().displayImage(Url_New.GET_THUMBNAIL_IMAGE + imageid, headView, options);
         } else {
-            ImageLoader.getInstance().displayImage(Constant.DEFALUT_DESIGNER_PIC, headView, options);
+            ImageLoader.getInstance().displayImage(Constant.DEFALUT_OWNER_PIC, headView, options);
         }
         if (!TextUtils.isEmpty(username)) {
             nameView.setText(username);
@@ -84,7 +92,8 @@ public class MyDesignerViewType2 extends BaseAnnotationView {
 
         statusView.setTextColor(getResources().getColor(R.color.blue_color));
         statusView.setText(getResources().getString(R.string.already_repsonse));
-        if (Calendar.getInstance().getTimeInMillis() > Constant.CONFIRM_HOUSE_EXPIRE) {
+        LogTool.d(this.getClass().getName(),"当前时间 ="+ Calendar.getInstance().getTimeInMillis()+ "  量房时间 =" + designerInfo.getPlan().getHouse_check_time());
+        if (Calendar.getInstance().getTimeInMillis() > designerInfo.getPlan().getHouse_check_time()) {
             textView1.setVisibility(View.GONE);
             textView2.setVisibility(View.GONE);
             button3.setVisibility(View.VISIBLE);
@@ -100,14 +109,17 @@ public class MyDesignerViewType2 extends BaseAnnotationView {
             textView2.setVisibility(View.VISIBLE);
             button3.setVisibility(View.GONE);
             textView1.setText(getResources().getString(R.string.measure_house_time));
+            textView2.setText(StringUtils.covertLongToStringHasMini(designerInfo.getPlan().getHouse_check_time()));
         }
 
         RequirementInfo requirementInfo = designerInfo.getRequirement();
         String requirementStatus = requirementInfo.getStatus();
         if (requirementStatus.equals(Global.REQUIREMENT_STATUS4) || requirementStatus.equals(Global.REQUIREMENT_STATUS5) || requirementStatus.equals(Global.REQUIREMENT_STATUS7)) {
             button3.setEnabled(false);
+            button3.setTextColor(getResources().getColor(R.color.grey_color));
         } else {
             button3.setEnabled(true);
+            button3.setTextColor(getResources().getColor(R.color.orange_color));
         }
 
     }

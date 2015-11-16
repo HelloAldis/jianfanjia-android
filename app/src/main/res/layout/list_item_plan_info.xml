@@ -31,7 +31,9 @@
     <com.jianfanjia.cn.view.MyViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
-        android:layout_height="124dip" />
+        android:layout_height="125dip"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip" />
 
 
     <RelativeLayout

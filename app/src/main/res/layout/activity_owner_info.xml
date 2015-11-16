@@ -3,7 +3,7 @@
     android:id="@+id/ownerinfoLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main_layout_bg" >
+    android:background="@color/main_layout_bg">
 
     <com.jianfanjia.cn.view.MainHeadView
         android:id="@+id/ownerinfo_head_layout"
@@ -15,13 +15,13 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_below="@+id/ownerinfo_head_layout"
-        android:layout_marginTop="@dimen/space_8" >
+        android:layout_marginTop="@dimen/space_8">
 
         <LinearLayout
             android:id="@+id/rootview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <View style="@style/divier_line" />
 
@@ -30,7 +30,7 @@
                 style="@style/my_list_item_layout_style"
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/space_16"
-                android:paddingTop="@dimen/space_16" >
+                android:paddingTop="@dimen/space_16">
 
                 <TextView
                     style="@style/listview_item_text_style_middle"
@@ -39,7 +39,7 @@
                     android:text="@string/user_head"
                     android:textColor="@color/black_color" />
 
-                <com.jianfanjia.cn.layout.CircleImageView
+                <com.jianfanjia.cn.view.layout.CircleImageView
                     android:id="@+id/head_icon"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
@@ -60,7 +60,7 @@
 
             <RelativeLayout
                 android:id="@+id/name_layout"
-                style="@style/my_list_item_layout_style" >
+                style="@style/my_list_item_layout_style">
 
                 <TextView
                     android:id="@+id/name"
@@ -94,7 +94,7 @@
 
             <RelativeLayout
                 android:id="@+id/sex_layout"
-                style="@style/my_list_item_layout_style" >
+                style="@style/my_list_item_layout_style">
 
                 <TextView
                     style="@style/listview_item_text_style_middle"
@@ -122,7 +122,7 @@
 
             <RelativeLayout
                 android:id="@+id/phone_layout"
-                style="@style/my_list_item_layout_style" >
+                style="@style/my_list_item_layout_style">
 
                 <TextView
                     style="@style/listview_item_text_style_middle"
@@ -144,14 +144,14 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:contentDescription="@null"
-                    android:visibility="invisible"/>
+                    android:visibility="invisible" />
             </RelativeLayout>
 
             <View style="@style/divier_line" />
 
             <RelativeLayout
                 android:id="@+id/address_layout"
-                style="@style/my_list_item_layout_style" >
+                style="@style/my_list_item_layout_style">
 
                 <TextView
                     style="@style/listview_item_text_style_middle"
@@ -179,7 +179,7 @@
 
             <RelativeLayout
                 android:id="@+id/home_layout"
-                style="@style/my_list_item_layout_style" >
+                style="@style/my_list_item_layout_style">
 
                 <TextView
                     android:id="@+id/home"
@@ -215,16 +215,16 @@
                 android:id="@+id/btn_confirm"
                 style="@style/button_login_style"
                 android:layout_margin="@dimen/space_24"
-                android:text="@string/comfirm" />
+                android:text="@string/confirm" />
         </LinearLayout>
     </ScrollView>
 
     <include
-        android:id="@+id/error_view"
+        android:id="@+id/empty_view"
+        layout="@layout/view_empty_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/ownerinfo_head_layout"
-        android:layout_marginTop="@dimen/space_8"
-        layout="@layout/view_error_layout" />
+        android:layout_marginTop="@dimen/space_8" />
 
 </RelativeLayout>

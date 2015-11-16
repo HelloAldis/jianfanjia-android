@@ -35,7 +35,6 @@ public class DataManagerNew {
     private RequirementInfo requirementInfo;// 需求信息
     private ProcessInfo currentProcessInfo;// 当前工地信息p
     private String currentUploadImageId;// 当前上传的imageId;
-    private String picPath = null;
 
     public static DataManagerNew getInstance() {
         if (instance == null) {
@@ -298,11 +297,7 @@ public class DataManagerNew {
         String userImagePath = null;
         String imageId = sharedPreferuser.getValue(Constant.USERIMAGE_ID, null);
         if (imageId == null) {
-            if (getUserType().equals(Constant.IDENTITY_OWNER)) {
                 userImagePath = Constant.DEFALUT_OWNER_PIC;
-            } else if (getUserType().equals(Constant.IDENTITY_DESIGNER)) {
-                userImagePath = Constant.DEFALUT_DESIGNER_PIC;
-            }
         } else {
             userImagePath = Url_New.GET_IMAGE + imageId;
         }

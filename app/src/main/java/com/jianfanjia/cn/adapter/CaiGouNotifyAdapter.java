@@ -47,7 +47,7 @@ public class CaiGouNotifyAdapter extends BaseListAdapter<NotifyMessage> {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.itemCellView.setText(message.getCell());
-        viewHolder.itemNameView.setText("您即将进入下一轮建材购买阶段,需要购买的是");
+        viewHolder.itemNameView.setText(context.getResources().getString(R.string.list_item_caigou_example));
         viewHolder.itemContentView.setText(message.getContent());
         viewHolder.itemNodeView.setText(MyApplication.getInstance()
                 .getStringById(message.getSection()) + "阶段");

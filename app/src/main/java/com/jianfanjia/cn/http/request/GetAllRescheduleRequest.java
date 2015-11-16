@@ -9,7 +9,7 @@ import com.jianfanjia.cn.config.Url_New;
  * 用户获取所有的request
  * Created by Administrator on 2015/10/12.
  */
-public class GetAllRescheduleRequest extends BaseRequest{
+public class GetAllRescheduleRequest extends BaseRequest {
 
     public GetAllRescheduleRequest(Context context) {
         super(context);

@@ -94,6 +94,6 @@
         android:id="@+id/btn_confirm"
         style="@style/button_login_style"
         android:layout_margin="@dimen/space_24"
-        android:text="@string/comfirm" />
+        android:text="@string/confirm" />
 
 </LinearLayout>

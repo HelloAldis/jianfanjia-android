@@ -8,14 +8,16 @@
 
 
         <RelativeLayout
+            android:id="@+id/content_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_60">
 
             <RelativeLayout
                 android:id="@+id/act_title_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_60">
+                >
 
                 <TextView
                     android:id="@+id/act_login"
@@ -41,7 +43,7 @@
 
             <ViewFlipper
                 android:id="@+id/act_viewflipper"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@+id/act_title_layout"
                 android:layout_gravity="center"

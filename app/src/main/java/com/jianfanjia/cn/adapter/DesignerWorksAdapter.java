@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.BaseListAdapter;
 import com.jianfanjia.cn.bean.Product;
+import com.jianfanjia.cn.cache.BusinessManager;
 import com.jianfanjia.cn.config.Url_New;
 
 import java.util.List;
@@ -46,7 +47,7 @@ public class DesignerWorksAdapter extends BaseListAdapter<Product> {
         viewHolder.itemXiaoQuText.setText(product.getCell());
         String house_type = product.getHouse_type();
         String dec_style = product.getDec_style();
-        viewHolder.itemProduceText.setText(product.getHouse_area() + "㎡，" + getHouseType(house_type) + "，" + getDecStyle(dec_style));
+        viewHolder.itemProduceText.setText(product.getHouse_area() + "㎡，" + BusinessManager.convertHouseTypeToShow(house_type) + "，" + BusinessManager.convertDecStyleToShow(dec_style));
         return convertView;
     }
 

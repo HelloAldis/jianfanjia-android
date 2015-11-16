@@ -41,24 +41,22 @@
         <!-- 友盟配置 -->
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="55e40deee0f55acc66001861" >
-        </meta-data>
+            android:value="55e40deee0f55acc66001861"></meta-data>
         <meta-data
             android:name="UMENG_CHANNEL"
-            android:value="${UMENG_CHANNEL_VALUE}" >
-        </meta-data>
+            android:value="${UMENG_CHANNEL_VALUE}"></meta-data>
 
         <!-- 个推SDK配置开始 -->
         <!-- 配置的第三方参数属性 -->
         <meta-data
             android:name="PUSH_APPID"
-            android:value="HyJECUN49e8qHmEk9uMhr8" />
+            android:value="YZV748rCe89l8CfZ7dtIF9" />
         <meta-data
             android:name="PUSH_APPKEY"
-            android:value="9DuE4LhT228Uke7iF292A8" />
+            android:value="8GJ1XgPOL9ArriE8xOJDK8" />
         <meta-data
             android:name="PUSH_APPSECRET"
-            android:value="5roiDKLESJ66IqfoBWqBEA" />
+            android:value="sJtpmFxS0a5sA30Au3iI36" />
         <meta-data
             android:name="PUSH_GROUPID"
             android:value="" />
@@ -68,7 +66,7 @@
             android:name="com.jianfanjia.cn.receiver.PushMsgReceiver"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.igexin.sdk.action.HyJECUN49e8qHmEk9uMhr8" />
+                <action android:name="com.igexin.sdk.action.YZV748rCe89l8CfZ7dtIF9" />
             </intent-filter>
         </receiver>
 
@@ -139,7 +137,7 @@
                 <!-- 这个com.igexin.sdk.action.7fjUl2Z3LH6xYy7NQK4ni4固定，不能修改 -->
                 <action android:name="com.igexin.sdk.action.7fjUl2Z3LH6xYy7NQK4ni4" />
                 <!-- android:name="com.igexin.sdk.action.第三方的appId" -->
-                <action android:name="com.igexin.sdk.action.HyJECUN49e8qHmEk9uMhr8" />
+                <action android:name="com.igexin.sdk.action.YZV748rCe89l8CfZ7dtIF9" />
             </intent-filter>
         </receiver>
 
@@ -152,18 +150,17 @@
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".LoginNewActivity_"
             android:label="@string/title_activity_login"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateHidden">
-        </activity>
+            android:windowSoftInputMode="stateVisible"></activity>
         <activity
             android:name=".RegisterNewActivity_"
             android:label="@string/title_activity_register"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible" />
         <activity
             android:name=".HelpActivity"
             android:label="@string/title_activity_help"
@@ -191,19 +188,23 @@
         <activity
             android:name=".EditInfoActivity"
             android:label="@string/title_activity_edit_info"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible" />
         <activity
             android:name=".FeedBackActivity"
             android:label="@string/title_activity_feed_back"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible" />
         <activity
             android:name=".ForgetPswActivity_"
             android:label="@string/title_activity_forget_psw"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible" />
         <activity
             android:name=".MyDesignerActivity_"
             android:label="@string/title_activity_my_designer"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"/>
         <activity
             android:name=".NavigateActivity"
             android:label="@string/title_activity_navigate"
@@ -238,6 +239,10 @@
         <activity
             android:name=".EditRequirementActivity_"
             android:label="EditRequirementActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PreviewRequirementActivity_"
+            android:label="PreviewRequirementActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".EditRequirementItemActivity_"
@@ -293,12 +298,11 @@
         <activity
             android:name=".ReplaceDesignerActivity"
             android:label="@string/title_activity_replace_designer"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:screenOrientation="portrait" ></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
         <activity
             android:name=".CityEditActivity_"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

@@ -9,7 +9,6 @@ import android.provider.MediaStore;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -19,13 +18,12 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.jianfanjia.cn.adapter.SectionItemAdapterBack;
+import com.jianfanjia.cn.adapter.SectionItemAdapter;
 import com.jianfanjia.cn.adapter.SectionViewPageAdapter;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseAnnotationActivity;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.SectionInfo;
-import com.jianfanjia.cn.bean.SectionItemInfo;
 import com.jianfanjia.cn.bean.ViewPagerItem;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
@@ -41,8 +39,9 @@ import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.StringUtils;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.MainHeadView;
-import com.jianfanjia.cn.view.SuperSwipeRefreshLayout;
 import com.jianfanjia.cn.view.dialog.DateWheelDialog;
+import com.jianfanjia.cn.view.library.PullToRefreshBase;
+import com.jianfanjia.cn.view.library.PullToRefreshListView;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -73,18 +72,20 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
 
     @ViewById(R.id.process_viewpager)
     ViewPager processViewPager;
+    @ViewById(R.id.lineView)
+    View lineView;
     @ViewById(R.id.process__listview)
-    ListView detailNodeListView;
+    PullToRefreshListView detailNodeListView;
     @ViewById(R.id.process_head_layout)
     MainHeadView mainHeadView;
-    @ViewById(R.id.process_pull_refresh)
-    SuperSwipeRefreshLayout process_pull_refresh;
+    /*  @ViewById(R.id.process_pull_refresh)
+      SuperSwipeRefreshLayout process_pull_refresh;*/
     @ViewById(R.id.head_notification_layout)
     RelativeLayout notificationLayout;
     @StringArrayRes(R.array.site_procedure)
     String[] proTitle = null;
 
-    private SectionItemAdapterBack sectionItemAdapter = null;
+    private SectionItemAdapter sectionItemAdapter = null;
     private SectionViewPageAdapter sectionViewPageAdapter = null;
     private List<ViewPagerItem> processList = new ArrayList<ViewPagerItem>();
     private List<String> imageList;
@@ -117,45 +118,13 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
     }
 
     private void initPullRefresh() {
-        process_pull_refresh.setHeaderView(createHeaderView());// add headerView
-        process_pull_refresh.setTargetScrollWithLayout(true);
-        process_pull_refresh
-                .setOnPullRefreshListener(new SuperSwipeRefreshLayout.OnPullRefreshListener() {
-
-                    @Override
-                    public void onRefresh() {
-                        textView.setText("正在刷新");
-                        imageView.setVisibility(View.GONE);
-                        progressBar.setVisibility(View.VISIBLE);
-//                        initdata();
-                        loadCurrentProcess();
-                    }
-
-                    @Override
-                    public void onPullDistance(int distance) {
-                        // pull distance
-                    }
-
-                    @Override
-                    public void onPullEnable(boolean enable) {
-                        textView.setText(enable ? "松开刷新" : "下拉刷新");
-                        imageView.setVisibility(View.VISIBLE);
-                        imageView.setRotation(enable ? 180 : 0);
-                    }
-                });
-    }
-
-    private View createHeaderView() {
-        View headerView = LayoutInflater.from(process_pull_refresh.getContext())
-                .inflate(R.layout.layout_head, null);
-        progressBar = (ProgressBar) headerView.findViewById(R.id.pb_view);
-        textView = (TextView) headerView.findViewById(R.id.text_view);
-        textView.setText("下拉刷新");
-        imageView = (ImageView) headerView.findViewById(R.id.image_view);
-        imageView.setVisibility(View.VISIBLE);
-        imageView.setImageResource(R.mipmap.icon_arrow);
-        progressBar.setVisibility(View.GONE);
-        return headerView;
+        detailNodeListView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+        detailNodeListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
+            @Override
+            public void onRefresh(PullToRefreshBase<ListView> refreshView) {
+                loadCurrentProcess();
+            }
+        });
     }
 
     private void initProcessInfo() {
@@ -208,7 +177,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
             sectionInfo = sectionInfos.get(currentList);
             setScrollHeadTime();
             LogTool.d(TAG, sectionInfos.size() + "--sectionInfos.size()");
-            sectionItemAdapter = new SectionItemAdapterBack(getApplication(),
+            sectionItemAdapter = new SectionItemAdapter(getApplication(),
                     currentList, sectionInfos, this);
             detailNodeListView.setAdapter(sectionItemAdapter);
             processViewPager.setCurrentItem(currentList);
@@ -218,9 +187,6 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
     @Override
     public void onResume() {
         super.onResume();
-        if (sectionItemAdapter != null) {
-            sectionItemAdapter.notifyDataSetChanged();
-        }
     }
 
     @Override
@@ -329,7 +295,8 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                if (sectionItemAdapter.isHasCheck()) {
+                position--;//因为Listview加了一个下拉头,所以第一个position为下拉头
+                /*if (sectionItemAdapter.isHasCheck()) {
                     if (position == 0) {
                         boolean isCanClickYanshou = true;
                         for (SectionItemInfo sectionItemInfo : sectionInfo
@@ -348,9 +315,11 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                     }
                 } else {
                     sectionItemAdapter.setCurrentOpenItem(position);
-                }
+                }*/
+                sectionItemAdapter.setCurrentOpenItem(position);
             }
         });
+
 
     }
 
@@ -386,10 +355,16 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
     }
 
     @Override
+    public void preLoad() {
+        super.preLoad();
+        lineView.setVisibility(View.GONE);
+    }
+
+    @Override
     public void loadSuccess(Object data) {
-//        mPullRefreshScrollView.onRefreshComplete();
-        process_pull_refresh.setRefreshing(false);
-        progressBar.setVisibility(View.GONE);
+        hideWaitDialog();
+        detailNodeListView.onRefreshComplete();
+        lineView.setVisibility(View.VISIBLE);
         if (data != null) {
             processInfo = JsonParser.jsonToBean(data.toString(), ProcessInfo.class);
             initData();
@@ -398,17 +373,12 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
 
     @Override
     public void loadFailture(String error_msg) {
+        hideWaitDialog();
+        lineView.setVisibility(View.GONE);
         if (processId != Constant.DEFAULT_PROCESSINFO_ID) {
             makeTextLong(getString(R.string.tip_error_internet));
         }
-        process_pull_refresh.setRefreshing(false);
-        progressBar.setVisibility(View.GONE);
-//        mPullRefreshScrollView.onRefreshComplete();
-    }
-
-    @Override
-    public void preLoad() {
-        // TODO Auto-generated method stub
+        detailNodeListView.onRefreshComplete();
     }
 
     @Override
@@ -437,7 +407,6 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
 
     @Override
     public void firstItemClick() {
-
         mTmpFile = UiHelper.getTempPath();
         if (mTmpFile != null) {
             Intent cameraIntent = UiHelper.createShotIntent(mTmpFile);
@@ -618,7 +587,6 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
 
             }
         }, this);
-
     }
 
 }

@@ -8,7 +8,6 @@ package com.jianfanjia.cn.config;
  */
 public class Url_New {
     public static String SEVER_IP = "101.200.191.159";
-    // public static String SEVER_IP = "192.168.1.107";
 //    public static String SEVER_PORT = "8888";
     public static String SEVER_PORT = "80";
 
@@ -27,6 +26,8 @@ public class Url_New {
     public static final String LOGIN_URL = HTTPROOT + "user_login";
     // 注册
     public static final String REGISTER_URL = HTTPROOT + "user_signup";
+    //检查手机号是否被占用
+    public static final String VERIFY_PHONE = HTTPROOT + "verify_phone";
     // 获取短信验证码
     public static final String GET_CODE_URL = HTTPROOT + "send_verify_code";
     // 忘记密码

@@ -40,7 +40,7 @@
     <string name="str_view_plan">查看方案</string>
     <string name="str_view_contract">查看合同</string>
     <string name="str_view_price">方案报价</string>
-    <string name="measure_house_time">量房时间：</string>
+    <string name="measure_house_time">量房时间</string>
     <string name="wait_response">等待响应</string>
     <string name="already_order">已预约</string>
     <string name="already_refuse">已拒绝</string>
@@ -70,4 +70,13 @@
     <string name="str_title">标题</string>
     <string name="str_delete_pic">删除照片</string>
     <string name="edit_pattern">0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
+    <string name="abandon_update">您的修改还没有提交，确定放弃修改吗？</string>
+    <string name="tip_update">修改提醒</string>
+    <string name="check_head">阶段验收</string>
+    <string name="new_version_message">有新的版本啦，版本号为：%1$s</string>
+    <string name="no_new_version">当前已经是最新版本啦</string>
+    <string name="check_version">检查新版本</string>
+    <string name="priview">查看</string>
+    <string name="str_priview_req">我的装修需求</string>
+    <string name="my_favorite_designer">我的意向设计师</string>
 </resources>

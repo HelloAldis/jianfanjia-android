@@ -25,7 +25,6 @@
     <string name="enter">欢迎使用</string>
     <string name="loging">正在登录中</string>
     <string name="loding">正在加载中</string>
-    <string name="comfirm">确  认</string>
     <string name="no">取  消</string>
     <string name="ok">确     定</string>
     <string name="agree">同     意</string>
@@ -62,7 +61,7 @@
     <string name="commit">提交</string>
     <string name="submit_comment">发表评价</string>
     <string name="choose_role">选择角色</string>
-    <string name="input_phone">请输入您的手机号</string>
+    <string name="input_phone">请输入账号</string>
     <string name="verifica_phone">验证手机</string>
     <string name="verification_code_sended">验证码已发送到:</string>
     <string name="register_failure">注册失败</string>
@@ -125,7 +124,7 @@
     <string name="my_diary">我的日记</string>
     <string name="my_favorite">我的收藏</string>
     <string name="my_setting">设置</string>
-    <string name="my_tip">提醒</string>
+    <string name="my_tip">我的提醒</string>
     <string name="my_help">帮助</string>
     <string name="my_ower">我的业主</string>
     <string name="owner_detail">业主详情</string>
@@ -133,6 +132,7 @@
     <string name="xuqiu">装修需求</string>
     <string name="appoint">位可预约</string>
     <string name="appointText">预约</string>
+    <string name="replaceText">替换</string>
     <string name="commentText">留言</string>
     <string name="planText">的方案</string>
     <string name="designerPlanText">方案详情</string>
@@ -168,7 +168,7 @@
     <string name="yanqiText">改期提醒</string>
     <string name="yanshouText">验收提醒</string>
     <string name="list_item_caigou_example">系统提示:您即将进入下一轮建材购买阶段,您需要购买的是</string>
-    <string name="list_item_fukuan_example">尊敬的业主,您即将进入下一轮付款环节,请您及时与设计师联系</string>
+    <string name="list_item_fukuan_example">系统提示:您即将进入下一轮付款环节,请您及时与设计师联系</string>
     <string name="list_item_yanqi_example">对方已申请改期验收至</string>
 
     <!-- activity_upload_pic -->
@@ -199,7 +199,7 @@
     <string name="user_sex">性别</string>
     <string name="user_phone">手机号</string>
     <string name="user_address">所在地</string>
-    <string name="user_home">居住地址</string>
+    <string name="user_home">详细地址</string>
     <string name="not_edit">未填写</string>
     <!-- activity userinfo -->
 

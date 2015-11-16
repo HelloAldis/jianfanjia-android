@@ -1,14 +1,21 @@
 package com.jianfanjia.cn.activity;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.widget.ListView;
 
+import com.baoyz.swipemenulistview.SwipeMenu;
+import com.baoyz.swipemenulistview.SwipeMenuCreator;
+import com.baoyz.swipemenulistview.SwipeMenuItem;
+import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.jianfanjia.cn.adapter.MyFavoriteDesignerAdapter;
+import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseAnnotationActivity;
 import com.jianfanjia.cn.bean.DesignerInfo;
 import com.jianfanjia.cn.bean.MyFavoriteDesigner;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
+import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
@@ -19,8 +26,6 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ItemClick;
 import org.androidannotations.annotations.ViewById;
-
-import java.util.List;
 
 /**
  * Description: com.jianfanjia.cn.activity
@@ -35,16 +40,62 @@ public class MyFavoriteDesignerActivity extends BaseAnnotationActivity {
     MainHeadView mainHeadView;
 
     @ViewById(R.id.act_my_favorite_designer_listview)
-    ListView listview;
+    SwipeMenuListView listview;
 
-    List<DesignerInfo> designerInfos;
+    MyFavoriteDesigner myFavoriteDesigner;
 
     @Bean
     MyFavoriteDesignerAdapter myFavoriteDesignerAdapter;
 
+    private SwipeMenuCreator creator = new SwipeMenuCreator() {
+
+        @Override
+        public void create(SwipeMenu menu) {
+
+            // create "delete" item
+            SwipeMenuItem deleteItem = new SwipeMenuItem(
+                    getApplicationContext());
+            // set item background
+            deleteItem.setBackground(new ColorDrawable(Color.rgb(0xF9,
+                    0x3F, 0x25)));
+            // set item width
+            deleteItem.setWidth(MyApplication.dip2px(MyFavoriteDesignerActivity.this, 90f));
+            // set a icon
+            deleteItem.setIcon(R.mipmap.ic_delete);
+            // add to menu
+            menu.addMenuItem(deleteItem);
+        }
+    };
+
     @AfterViews
     protected void init() {
-        mainHeadView.setMianTitle("我的意向设计师");
+        mainHeadView.setMianTitle(getString(R.string.my_favorite_designer));
+        listview.setMenuCreator(creator);
+        listview.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(final int position, SwipeMenu menu, int index) {
+                JianFanJiaClient.deleteFavoriteDesigner(MyFavoriteDesignerActivity.this, myFavoriteDesigner.getDesigners().get(position).get_id(), new ApiUiUpdateListener() {
+                    @Override
+                    public void preLoad() {
+                        showWaitDialog();
+                    }
+
+                    @Override
+                    public void loadSuccess(Object data) {
+                        hideWaitDialog();
+                        myFavoriteDesigner.getDesigners().remove(position);
+                        myFavoriteDesignerAdapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void loadFailture(String error_msg) {
+                        hideWaitDialog();
+                        makeTextShort(error_msg);
+                    }
+                }, MyFavoriteDesignerActivity.this);
+                return false;
+            }
+        });
         listview.setAdapter(myFavoriteDesignerAdapter);
         initData();
     }
@@ -70,13 +121,9 @@ public class MyFavoriteDesignerActivity extends BaseAnnotationActivity {
     public void loadSuccess(Object data) {
         super.loadSuccess(data);
         if (data != null) {
-            MyFavoriteDesigner myFavoriteDesigner = JsonParser.jsonToBean(data.toString(), MyFavoriteDesigner.class);
+            myFavoriteDesigner = JsonParser.jsonToBean(data.toString(), MyFavoriteDesigner.class);
             if (myFavoriteDesigner != null) {
-                if (myFavoriteDesigner.getDesigners().size() > 0) {
-                    myFavoriteDesignerAdapter.addItems(myFavoriteDesigner.getDesigners());
-                } else {
-
-                }
+                myFavoriteDesignerAdapter.setDesignerInfos(myFavoriteDesigner.getDesigners());
             }
         }
     }

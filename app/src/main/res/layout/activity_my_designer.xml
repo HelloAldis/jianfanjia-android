@@ -15,21 +15,14 @@
         android:id="@+id/act_my_designer_recyclerview_wrap"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingTop="@dimen/space_8"
         android:orientation="vertical">
 
-
-        <com.jianfanjia.cn.view.SuperSwipeRefreshLayout
-            android:id="@+id/act_my_designer_pull_refresh"
+        <com.jianfanjia.cn.view.library.PullToRefreshRecycleView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/space_8">
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/act_my_designer_recyclerview"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal" />
-        </com.jianfanjia.cn.view.SuperSwipeRefreshLayout>
+            android:id="@+id/act_my_designer_pull_refresh">
+        </com.jianfanjia.cn.view.library.PullToRefreshRecycleView>
 
     </LinearLayout>
 </LinearLayout>

@@ -9,7 +9,6 @@ import java.io.Serializable;
  * @date 2015-8-26 下午18:00
  */
 public class NotifyDelayInfo implements Serializable {
-    private static final long serialVersionUID = 1L;
 
     private String _id;
 
@@ -30,6 +29,8 @@ public class NotifyDelayInfo implements Serializable {
     private String section;
 
     private String processid;
+
+    private Process process;
 
     public String get_id() {
         return _id;
@@ -111,4 +112,11 @@ public class NotifyDelayInfo implements Serializable {
         this.processid = processid;
     }
 
+    public Process getProcess() {
+        return process;
+    }
+
+    public void setProcess(Process process) {
+        this.process = process;
+    }
 }

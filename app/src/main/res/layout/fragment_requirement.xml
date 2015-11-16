@@ -18,17 +18,18 @@
         android:layout_marginTop="@dimen/space_8"
         android:orientation="vertical">
 
-        <com.jianfanjia.cn.view.SuperSwipeRefreshLayout
-            android:id="@+id/req_pull_refresh"
+        <com.jianfanjia.cn.view.library.PullToRefreshRecycleView
+            android:id="@+id/req_pullfefresh"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"></com.jianfanjia.cn.view.library.PullToRefreshRecycleView>
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/req_listView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal" />
-        </com.jianfanjia.cn.view.SuperSwipeRefreshLayout>
+        <include
+            android:id="@+id/empty_include"
+            layout="@layout/view_empty_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone" />
 
         <include
             android:id="@+id/error_include"
@@ -37,7 +38,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:visibility="gone" />
-
     </FrameLayout>
 
     <LinearLayout

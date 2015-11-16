@@ -24,17 +24,17 @@
             android:id="@+id/ltm_my_designer_textview1"
             style="@style/listview_item_text_style_middle"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="@dimen/space_8"
-            android:text="@string/measure_house_time" />
+            android:layout_marginTop="@dimen/space_4"
+            android:text="@string/measure_house_time"
+            android:textColor="@color/orange_color"/>
 
         <TextView
             android:id="@+id/ltm_my_designer_textview2"
             style="@style/listview_item_text_style_middle"
             android:layout_alignParentRight="true"
-            android:layout_below="@+id/ltm_my_designer_textview1"
-            android:layout_marginBottom="@dimen/space_8"
-            android:layout_marginTop="@dimen/space_16"
-            android:text="2015-10-22 13:18" />
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/space_4"
+            android:textColor="@color/orange_color"/>
 
         <TextView
             android:id="@+id/ltm_my_designer_button3"

@@ -12,13 +12,17 @@ import com.jianfanjia.cn.adapter.PreviewAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.PlandetailInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
+import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
+import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.MainHeadView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -70,8 +74,7 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
         mainHeadView = (MainHeadView) findViewById(R.id.my_prieview_head_layout);
         mainHeadView.setBackListener(this);
         mainHeadView.setRightTextListener(this);
-        mainHeadView
-                .setMianTitle(getResources().getString(R.string.designerPlanText));
+        mainHeadView.setMianTitle(getResources().getString(R.string.designerPlanText));
         mainHeadView.setRightTitle(getResources().getString(R.string.detailPrice));
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
         mainHeadView.setRightTitleVisable(View.VISIBLE);
@@ -146,13 +149,24 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
                 totalDate.setText("总工期:" + planDetailInfo.getDuration() + "天");
                 price.setText("项目报价:" + planDetailInfo.getTotal_price() + "元");
                 designText.setText("设计说明:" + planDetailInfo.getDescription());
-
                 String planStatus = planDetailInfo.getStatus();
                 if (planStatus.equals(Global.PLAN_STATUS5)) {
                     btn_choose.setEnabled(false);
                 }
-                List<String> imgList = planDetailInfo.getImages();
-                PreviewAdapter adapter = new PreviewAdapter(PreviewDesignerPlanActivity.this, imgList);
+                final List<String> imgList = planDetailInfo.getImages();
+                PreviewAdapter adapter = new PreviewAdapter(PreviewDesignerPlanActivity.this, imgList, new ViewPagerClickListener() {
+                    @Override
+                    public void onClickItem(int pos) {
+                        LogTool.d(TAG, "pos:" + pos);
+                        Intent showPicIntent = new Intent(PreviewDesignerPlanActivity.this, ShowPicActivity.class);
+                        Bundle showPicBundle = new Bundle();
+                        showPicBundle.putInt(Constant.CURRENT_POSITION, pos);
+                        showPicBundle.putStringArrayList(Constant.IMAGE_LIST,
+                                (ArrayList<String>) imgList);
+                        showPicIntent.putExtras(showPicBundle);
+                        startActivity(showPicIntent);
+                    }
+                });
                 viewPager.setAdapter(adapter);
             }
         }
@@ -174,8 +188,14 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
         @Override
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data);
-            makeTextLong("方案选定成功");
             hideWaitDialog();
+            btn_choose.setEnabled(false);
+            //发送数据刷新广播
+            UiHelper.intentTo(PreviewDesignerPlanActivity.this,MyDesignerActivity_.class,null);
+//            Intent intent = new Intent(PreviewDesignerPlanActivity.this,MyDesignerActivity_.class);
+//            startActivity(intent);
+////            setResult(RESULT_OK);
+            finish();
         }
 
         @Override

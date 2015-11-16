@@ -25,8 +25,8 @@
             <ImageView
                 android:id="@+id/head_notification"
                 style="@style/listview_item_text_style_middle"
-                android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
                 android:src="@mipmap/icon_notification" />
         </RelativeLayout>
 
@@ -37,6 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:layout_below="@+id/process_head_wrap"
+        android:layout_marginTop="@dimen/space_8"
         android:background="#ffffff"
         android:fadingEdge="none" />
 
@@ -46,30 +47,16 @@
         android:layout_below="@+id/process_viewpager">
 
         <View
+            android:id="@+id/lineView"
             android:layout_width="1dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="45dp"
             android:background="@color/line_color" />
 
-        <com.jianfanjia.cn.view.SuperSwipeRefreshLayout
-            android:id="@+id/process_pull_refresh"
+        <com.jianfanjia.cn.view.library.PullToRefreshListView
+            android:id="@+id/process__listview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="33dp">
-
-            <com.jianfanjia.cn.view.MyListView
-                android:id="@+id/process__listview"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:cacheColorHint="#ffffff"
-                android:clipToPadding="false"
-                android:divider="@null"
-                android:fadingEdge="none"
-                android:fastScrollEnabled="false"
-                android:listSelector="@android:color/transparent"
-                android:paddingBottom="8dp"
-                android:paddingTop="8dp"
-                android:scrollbars="none" />
-        </com.jianfanjia.cn.view.SuperSwipeRefreshLayout>
+            android:layout_marginLeft="33dp" />
     </FrameLayout>
 </RelativeLayout>

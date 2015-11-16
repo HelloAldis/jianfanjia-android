@@ -4,22 +4,28 @@ import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.TypedValue;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
+import com.igexin.sdk.PushManager;
 import com.jianfanjia.cn.base.BaseAnnotationActivity;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.config.Global;
@@ -27,7 +33,6 @@ import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.NetTool;
-import com.jianfanjia.cn.tools.UiHelper;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -50,7 +55,7 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
     private static final float Alpha2 = 1.0f;
     @ViewById(R.id.login_layout)
     RelativeLayout loginLayout;
-    @ViewById(R.id.register_layout)
+    @ViewById(R.id.forget_psw_layout)
     RelativeLayout registerLayout;
     @ViewById(R.id.act_login)
     TextView loginTitle;
@@ -59,15 +64,18 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
     @ViewById(R.id.act_title_layout)
     RelativeLayout titleLayout;
 
+    @ViewById(R.id.content_layout)
+    RelativeLayout contentLayout;
+
     @ViewById(R.id.login_register_layout)
     RelativeLayout loginRegisterLayout;
 
     @ViewById(R.id.act_viewflipper)
     ViewFlipper viewFlipper;
 
-    @ViewById(R.id.act_register_input_phone)
+    @ViewById(R.id.act_forget_psw_input_phone)
     EditText mEtRegisterUserName = null;// 注册用户名输入框
-    @ViewById(R.id.act_register_input_password)
+    @ViewById(R.id.act_forget_psw_input_password)
     EditText mEtRegisterPassword = null;// 注册用户密码输入框
     @ViewById(R.id.act_login_input_phone)
     EditText mEtLoginUserName = null;// 用户名输入框
@@ -79,6 +87,15 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
     Button mBtnNext = null;// 下一步
     @ViewById(R.id.act_forget_password)
     TextView mForgetPswView = null;//忘记密码
+    @ViewById(R.id.act_login_input_password_delete)
+    ImageView loginInputPasswordDelete;
+    @ViewById(R.id.act_login_input_phone_delete)
+    ImageView loginInputPhoneDelete;
+    @ViewById(R.id.act_forget_psw_input_password_delete)
+    ImageView registerInputPasswordDelete;
+    @ViewById(R.id.act_forget_psw_input_phone_delete)
+    ImageView registerInputPhoneDelete;
+
     private String mUserName = null;// 用户名
     private String mPassword = null;// 密码
 
@@ -92,7 +109,7 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
 
     @AfterViews
     public void initView() {
-        UiHelper.controlKeyboardLayout(loginRegisterLayout, mBtnLogin);
+        controlKeyboardLayout(contentLayout, mBtnLogin);
 
         mGestureDetector = new GestureDetector(this, this);
         registerTitle.setAlpha(Alpha1);
@@ -101,8 +118,8 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
         loginTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
 
         Intent intent = getIntent();
-        boolean flag = intent.getBooleanExtra(Global.ISREGIISTER,false);
-        if(flag){
+        boolean flag = intent.getBooleanExtra(Global.ISREGIISTER, false);
+        if (flag) {
             LogTool.d(TAG, "showregister");
             new Handler().postDelayed(new Runnable() {
                 @Override
@@ -110,16 +127,147 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
                     showRegister();
                 }
             }, 300);
+        }else{
+            mEtLoginUserName.requestFocus();
         }
 
+        mEtRegisterUserName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                LogTool.d(TAG,"registerlogin afterTextChanged");
+                String text = s.toString();
+                if(!TextUtils.isEmpty(text) && !text.matches(Global.PHONE_MATCH)){
+                    registerInputPhoneDelete.setVisibility(View.VISIBLE);
+                }else{
+                    verifyPhone(text);
+                }
+            }
+        });
+        mEtRegisterPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                LogTool.d(TAG,"registerpassword afterTextChanged");
+                String text = s.toString();
+                if(!TextUtils.isEmpty(text) && !text.matches(Global.PASSWORD_MATCH)){
+                    registerInputPasswordDelete.setVisibility(View.VISIBLE);
+                }else{
+                    registerInputPasswordDelete.setVisibility(View.GONE);
+                }
+            }
+        });
+        mEtLoginUserName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String text = s.toString();
+                if(!TextUtils.isEmpty(text) && !text.matches(Global.PHONE_MATCH)){
+                    loginInputPhoneDelete.setVisibility(View.VISIBLE);
+                }else{
+                    loginInputPhoneDelete.setVisibility(View.GONE);
+                }
+            }
+        });
+        mEtLoginPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String text = s.toString();
+                if(!TextUtils.isEmpty(text) && !text.matches(Global.PASSWORD_MATCH)){
+                    loginInputPasswordDelete.setVisibility(View.VISIBLE);
+                }else{
+                    loginInputPasswordDelete.setVisibility(View.GONE);
+                }
+            }
+        });
+    }
+
+    int scrollHeight;
+
+    private void controlKeyboardLayout(final View root,final View scrollToView){
+        root.getViewTreeObserver().addOnGlobalLayoutListener(
+                new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        Rect rect = new Rect();
+                        // 获取root在窗体的可视区域
+                        root.getWindowVisibleDisplayFrame(rect);
+                        // 获取root在窗体的不可视区域高度(被其他View遮挡的区域高度)
+                        LogTool.d(TAG,"rect.bottom =" + rect.bottom + " rect.top" + rect.top);
+                        int rootInvisibleHeight = root.getRootView()
+                                .getHeight() -(rect.bottom - rect.top);
+                        // 若不可视区域高度大于100，则键盘显示
+                        int[] location = new int[2];
+                        // 获取scrollToView在窗体的坐标
+                        scrollToView.getLocationInWindow(location);
+                        // 计算root滚动高度，使scrollToView在可见区域
+                        LogTool.d(TAG,"scrollHeight =" + scrollHeight);
+                        if (rootInvisibleHeight > 100) {
+                            LogTool.d(TAG,"键盘显示");
+                            scrollHeight = (location[1] + scrollToView
+                                    .getHeight()) - (rect.bottom);
+                            if(scrollHeight > 0){
+                                int traY = root.getTop()-scrollHeight;
+                                root.animate().y(traY).setDuration(100).start();
+                            }
+                        } else {
+                            // 键盘隐藏
+                            LogTool.d(TAG,"键盘隐藏");
+                            root.animate().y(root.getTop()).setDuration(100).start();
+                        }
+                    }
+                });
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+//        controlKeyboardLayout(contentLayout, mBtnLogin);
+      /*  if(currentPage == REGISER){
+            mEtRegisterUserName.requestFocus();
+        }else{
+            mEtLoginUserName.requestFocus();
+        }*/
     }
 
-    @Click({R.id.btn_login, R.id.btn_next, R.id.act_forget_password,R.id.act_login,R.id.act_register})
+    @Click({R.id.btn_login, R.id.btn_next, R.id.act_forget_password, R.id.act_login, R.id.act_register})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_login:
@@ -140,12 +288,12 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
                 startActivity(ForgetPswActivity_.class);
                 break;
             case R.id.act_login:
-                if(currentPage == REGISER){
+                if (currentPage == REGISER) {
                     showLogin();
                 }
                 break;
             case R.id.act_register:
-                if(currentPage == LOGIN){
+                if (currentPage == LOGIN) {
                     showRegister();
                 }
                 break;
@@ -161,6 +309,7 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
         mEtRegisterPassword.setText("");
         mEtLoginUserName.setText("");
         mEtLoginPassword.setText("");
+//        mEtLoginUserName.requestFocus();
     }
 
     private boolean checkRegisterInput(String name, String password) {
@@ -170,7 +319,7 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
             mEtRegisterUserName.requestFocus();
             return false;
         }
-        if(!name.matches(Global.PHONE_MATCH)){
+        if (!name.matches(Global.PHONE_MATCH)) {
             makeTextShort(getString(R.string.tip_input_corrent_phone));
             mEtRegisterUserName.requestFocus();
             return false;
@@ -181,7 +330,7 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
             mEtRegisterPassword.requestFocus();
             return false;
         }
-        if(!password.matches(Global.PASSWORD_MATCH)){
+        if (!password.matches(Global.PASSWORD_MATCH)) {
             makeTextShort(getString(R.string.tip_input_correct_password));
             mEtRegisterPassword.requestFocus();
             return false;
@@ -196,7 +345,7 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
             mEtLoginUserName.requestFocus();
             return false;
         }
-        if(!name.matches(Global.PHONE_MATCH)){
+        if (!name.matches(Global.PHONE_MATCH)) {
             makeTextShort(getString(R.string.tip_input_corrent_phone));
             mEtLoginUserName.requestFocus();
             return false;
@@ -207,12 +356,35 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
             mEtLoginPassword.requestFocus();
             return false;
         }
-        if(!password.matches(Global.PASSWORD_MATCH)){
+        if (!password.matches(Global.PASSWORD_MATCH)) {
             makeTextShort(getString(R.string.tip_input_correct_password));
             mEtLoginPassword.requestFocus();
             return false;
         }
         return true;
+    }
+
+    private void verifyPhone(final String phone){
+        if(NetTool.isNetworkAvailable(this)){
+            JianFanJiaClient.verifyPhone(this, phone, new ApiUiUpdateListener() {
+                @Override
+                public void preLoad() {
+
+                }
+
+                @Override
+                public void loadSuccess(Object data) {
+                    registerInputPhoneDelete.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void loadFailture(String error_msg) {
+                    makeTextShort(error_msg);
+                }
+            },this);
+        }else{
+            makeTextShort(getString(R.string.tip_internet_not));
+        }
     }
 
     /**
@@ -266,8 +438,8 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
 
     @Override
     public void loadSuccess(Object data) {
-        //登录成功，加载工地列表
         super.loadSuccess(data);
+        PushManager.getInstance().initialize(getApplicationContext());
         startActivity(MainActivity.class);
         finish();
     }
@@ -320,7 +492,7 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
 
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-        if (velocityX <  -200 && currentPage == LOGIN) {
+        if (velocityX < -200 && currentPage == LOGIN) {
             showRegister();
             return true;
         } else if (velocityX > 200 && currentPage == REGISER) {
@@ -331,14 +503,15 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
     }
 
     public void translateAnimationToLeft(View view) {
-        float currentX = view.getTranslationX();
-        float currentY = view.getTranslationY();
-        LogTool.d("translateAnimationToLeft", "currentX = " + currentX);
+        int[] location = new int[2];
+        view.getLocationInWindow(location);
+        float currentX = view.getX();
+        float currentY = view.getY();
         LogTool.d("translateAnimationToLeft", "currentY = " + currentY);
-        PropertyValuesHolder p1 = PropertyValuesHolder.ofFloat("translationX", currentX, currentX - TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 124, getResources().getDisplayMetrics()));
-//        PropertyValuesHolder p2 = PropertyValuesHolder.ofFloat("y",currentY,currentY);
+        PropertyValuesHolder p1 = PropertyValuesHolder.ofFloat("x", currentX, currentX - TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 124, getResources().getDisplayMetrics()));
+        PropertyValuesHolder p2 = PropertyValuesHolder.ofFloat("y",currentY,currentY);
         ObjectAnimator objectAnimator = ObjectAnimator
-                .ofPropertyValuesHolder(view,p1)
+                .ofPropertyValuesHolder(view, p1,p2)
                 .setDuration(200);
         objectAnimator.start();
         objectAnimator.addListener(new Animator.AnimatorListener() {
@@ -354,6 +527,7 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
                 registerTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
                 loginTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
                 currentPage = REGISER;
+                mEtRegisterUserName.requestFocus();
             }
 
             @Override
@@ -388,6 +562,7 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
                 registerTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
                 loginTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
                 currentPage = LOGIN;
+                mEtLoginUserName.requestFocus();
             }
 
             @Override

@@ -1,18 +1,18 @@
 package com.jianfanjia.cn.fragment;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Paint;
-import android.support.v7.widget.LinearLayoutManager;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateUtils;
 import android.util.TypedValue;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -21,6 +21,7 @@ import com.jianfanjia.cn.activity.AppointDesignerActivity;
 import com.jianfanjia.cn.activity.EditRequirementActivity_;
 import com.jianfanjia.cn.activity.MyDesignerActivity_;
 import com.jianfanjia.cn.activity.MyProcessDetailActivity_;
+import com.jianfanjia.cn.activity.PreviewRequirementActivity_;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.RequirementNewAdapter;
 import com.jianfanjia.cn.base.BaseAnnotationFragment;
@@ -33,8 +34,9 @@ import com.jianfanjia.cn.interf.ClickCallBack;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
-import com.jianfanjia.cn.view.SuperSwipeRefreshLayout;
 import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
+import com.jianfanjia.cn.view.library.PullToRefreshBase;
+import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -43,8 +45,6 @@ import org.androidannotations.annotations.ViewById;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import jp.wasabeef.recyclerview.animators.FadeInUpAnimator;
 
 /**
  * Description:需求
@@ -57,6 +57,8 @@ public class XuQiuFragment extends BaseAnnotationFragment {
     private static final String TAG = XuQiuFragment.class.getName();
     public static final int REQUESTCODE_PUBLISH_REQUIREMENT = 1;
     public static final int REQUESTCODE_EDIT_REQUIREMENT = 2;
+    public static final int REQUESTCODE_FRESH_REQUIREMENT = 3;
+    public static final int ITEM_PRIVIEW = 0x06;
     public static final int ITEM_EDIT = 0x00;
     public static final int ITEM_GOTOPRO = 0x01;
 
@@ -84,24 +86,28 @@ public class XuQiuFragment extends BaseAnnotationFragment {
     @ViewById
     protected FrameLayout req_listview_wrap;
 
-    @ViewById
-    protected RecyclerView req_listView;
-
-    @ViewById(R.id.req_pull_refresh)
-    protected SuperSwipeRefreshLayout refreshLayout;
+    @ViewById(R.id.req_pullfefresh)
+    protected PullToRefreshRecycleView pullrefresh;
 
     @ViewById(R.id.error_include)
     RelativeLayout error_Layout;
+
+    @ViewById(R.id.empty_include)
+    RelativeLayout empty_Layout;
 
     protected Intent gotoOrderDesigner;
     protected Intent gotoMyDesigner;
     protected Intent gotoEditRequirement;
     protected Intent gotoMyProcess;
+    protected Intent gotoPriviewRequirement;
 
     // Header View
-    private ProgressBar progressBar;
-    private TextView textView;
-    private ImageView imageView;
+    private UpdateBroadcastReceiver updateBroadcastReceiver;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     protected void setListVisiable() {
         LogTool.d(getClass().getName(), "setVisiable()");
@@ -116,16 +122,14 @@ public class XuQiuFragment extends BaseAnnotationFragment {
     }
 
     protected void initListView() {
-        final LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
-        // 创建一个线性布局管理器
-        req_listView.setLayoutManager(mLayoutManager);
-        req_listView.setItemAnimator(new FadeInUpAnimator(new DecelerateInterpolator(0.5F)));
-//        manage_listView.addItemDecoration(new DividerItemDecoration(getActivity(),
-//                DividerItemDecoration.VERTICAL_LIST));
         requirementAdapter = new RequirementNewAdapter(getActivity(), new ClickCallBack() {
             @Override
             public void click(int position, int itemType) {
                 switch (itemType) {
+                    case ITEM_PRIVIEW:
+                        gotoPriviewRequirement.putExtra(Global.REQUIREMENT_INFO, requirementInfos.get(position));
+                        getActivity().startActivity(gotoPriviewRequirement);
+                        break;
                     case ITEM_EDIT:
                         gotoEditRequirement.putExtra(Global.REQUIREMENT_INFO, requirementInfos.get(position));
                         getActivity().startActivityForResult(gotoEditRequirement, REQUESTCODE_EDIT_REQUIREMENT);
@@ -139,6 +143,7 @@ public class XuQiuFragment extends BaseAnnotationFragment {
                         startActivity(gotoMyDesigner);
                         break;
                     case ITEM_GOTOODERDESI:
+                        gotoOrderDesigner.putExtra(Global.REQUIREMENT_DESIGNER_NUM, requirementInfos.get(position).getOrder_designers().size());
                         gotoOrderDesigner.putExtra(Global.REQUIREMENT_ID, requirementInfos.get(position).get_id());
                         startActivity(gotoOrderDesigner);
                         break;
@@ -147,14 +152,12 @@ public class XuQiuFragment extends BaseAnnotationFragment {
                 }
             }
         });
-        req_listView.setAdapter(requirementAdapter);
-        req_listView.getItemAnimator().setAddDuration(300);
-
+        pullrefresh.setAdapter(requirementAdapter);
         Paint paint = new Paint();
         paint.setStrokeWidth(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, getResources().getDisplayMetrics()));
         paint.setAlpha(0);
         paint.setAntiAlias(true);
-        req_listView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity())
+        pullrefresh.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity())
                 .paint(paint)
                 .showLastDivider()
                 .build());
@@ -165,7 +168,6 @@ public class XuQiuFragment extends BaseAnnotationFragment {
     protected void publish_requirement() {
         Intent intent = new Intent(getActivity(), EditRequirementActivity_.class);
         startActivityForResult(intent, REQUESTCODE_PUBLISH_REQUIREMENT);
-//        requirementAdapter.remove(3);
     }
 
     @AfterViews
@@ -176,51 +178,35 @@ public class XuQiuFragment extends BaseAnnotationFragment {
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
         mainHeadView.setRightTitleVisable(View.VISIBLE);
         mainHeadView.setBackLayoutVisable(View.GONE);
+        initPullRefresh();
         initListView();
         initIntent();
-        initPullRefresh();
         initData();
     }
 
-    private void initPullRefresh() {
-        refreshLayout.setHeaderView(createHeaderView());// add headerView
-        refreshLayout.setTargetScrollWithLayout(true);
-        refreshLayout
-                .setOnPullRefreshListener(new SuperSwipeRefreshLayout.OnPullRefreshListener() {
-
-                    @Override
-                    public void onRefresh() {
-                        textView.setText("正在刷新");
-                        imageView.setVisibility(View.GONE);
-                        progressBar.setVisibility(View.VISIBLE);
-                        initData();
-                    }
-
-                    @Override
-                    public void onPullDistance(int distance) {
-                        // pull distance
-                    }
-
-                    @Override
-                    public void onPullEnable(boolean enable) {
-                        textView.setText(enable ? "松开刷新" : "下拉刷新");
-                        imageView.setVisibility(View.VISIBLE);
-                        imageView.setRotation(enable ? 180 : 0);
-                    }
-                });
+    @Override
+    public void onAttach(Context context) {
+        updateBroadcastReceiver = new UpdateBroadcastReceiver();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Global.ACTION_UPDATE);    //只有持有相同的action的接受者才能接收此广播
+        context.registerReceiver(updateBroadcastReceiver, filter);
+        super.onAttach(context);
     }
 
-    private View createHeaderView() {
-        View headerView = LayoutInflater.from(refreshLayout.getContext())
-                .inflate(R.layout.layout_head, null);
-        progressBar = (ProgressBar) headerView.findViewById(R.id.pb_view);
-        textView = (TextView) headerView.findViewById(R.id.text_view);
-        textView.setText("下拉刷新");
-        imageView = (ImageView) headerView.findViewById(R.id.image_view);
-        imageView.setVisibility(View.VISIBLE);
-        imageView.setImageResource(R.mipmap.icon_arrow);
-        progressBar.setVisibility(View.GONE);
-        return headerView;
+    private void initPullRefresh() {
+        pullrefresh.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+        pullrefresh.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<RecyclerView>() {
+            @Override
+            public void onRefresh(PullToRefreshBase<RecyclerView> refreshView) {
+                String label = DateUtils.formatDateTime(getActivity(),
+                        System.currentTimeMillis(), DateUtils.FORMAT_SHOW_TIME
+                                | DateUtils.FORMAT_SHOW_DATE
+                                | DateUtils.FORMAT_ABBREV_ALL);
+                // Update the LastUpdatedLabel
+                refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
+                initData();
+            }
+        });
     }
 
     protected void initIntent() {
@@ -228,18 +214,19 @@ public class XuQiuFragment extends BaseAnnotationFragment {
         gotoOrderDesigner = new Intent(getActivity(), AppointDesignerActivity.class);
         gotoMyDesigner = new Intent(getActivity(), MyDesignerActivity_.class);
         gotoMyProcess = new Intent(getActivity(), MyProcessDetailActivity_.class);
+        gotoPriviewRequirement = new Intent(getActivity(), PreviewRequirementActivity_.class);
     }
 
     protected void initData() {
         JianFanJiaClient.get_Requirement_List(getActivity(), new ApiUiUpdateListener() {
             @Override
             public void preLoad() {
+
             }
 
             @Override
             public void loadSuccess(Object data) {
-                refreshLayout.setRefreshing(false);
-                progressBar.setVisibility(View.GONE);
+                pullrefresh.onRefreshComplete();
                 if (data != null) {
                     requirementInfos = JsonParser.jsonToList(data.toString(), new TypeToken<List<RequirementInfo>>() {
                     }.getType());
@@ -252,7 +239,7 @@ public class XuQiuFragment extends BaseAnnotationFragment {
                     } else {
                         setPublishVisiable();
                     }
-                    error_Layout.setVisibility(View.GONE);
+                    empty_Layout.setVisibility(View.GONE);
                 }
             }
 
@@ -261,10 +248,9 @@ public class XuQiuFragment extends BaseAnnotationFragment {
                 makeTextLong(error_msg);
                 setListVisiable();
                 if (requirementInfos == null || requirementInfos.size() == 0) {
-                    error_Layout.setVisibility(View.VISIBLE);
+                    empty_Layout.setVisibility(View.VISIBLE);
                 }
-                refreshLayout.setRefreshing(false);
-                progressBar.setVisibility(View.GONE);
+                pullrefresh.onRefreshComplete();
             }
         }, this);
     }
@@ -272,7 +258,7 @@ public class XuQiuFragment extends BaseAnnotationFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        LogTool.d(TAG, "onActivityResult = " + requestCode);
+        LogTool.d(TAG, "onActivityResult = " + requestCode + " resultCode=" + resultCode);
         if (resultCode != Activity.RESULT_OK) {
             return;
         }
@@ -281,9 +267,25 @@ public class XuQiuFragment extends BaseAnnotationFragment {
             case REQUESTCODE_EDIT_REQUIREMENT:
                 initData();
                 break;
+           /* case REQUESTCODE_FRESH_REQUIREMENT:
+                initData();
+                break;*/
             default:
                 break;
         }
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        getActivity().unregisterReceiver(updateBroadcastReceiver);
+    }
+
+    //刷新数据的广播
+    class UpdateBroadcastReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            initData();
+        }
+    }
 }

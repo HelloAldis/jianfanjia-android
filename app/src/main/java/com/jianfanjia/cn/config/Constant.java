@@ -27,19 +27,11 @@ public class Constant {
     //	public static final String TEMP_IMG = "temp_img.jpg";// 照片名称
     public static final String TEMP_IMG = "current_camera_temp_path";//拍照的临时存储文件路径
 
-    public static final String TAB_POSITION = "tab_position";
     public static final int HOME = 0;//首页
     public static final int MANAGE = 1;//工地管理
     public static final int MY = 2;//我的
 
-    public static final String PROCESSINFO_CACHE = "processinfo_cache";// 工地信息缓存文件名
-    public static final String DESIGNERINFO_CACHE = "designerinfo_cache";// 设计师信息缓存文件名
-
-    public static final String EXTRA_BUNDLE = "launchBundle";
-
     public static final int LIMIT = 5;//分页 每次加载5条
-    public static final int STATE_REFRESH = 0;// 下拉刷新
-    public static final int STATE_MORE = 1;// 加载更多
 
     public static class Config {
         public static final boolean DEVELOPER_MODE = false;
@@ -52,7 +44,7 @@ public class Constant {
     // editactivity
     public static final int REQUESTCODE_EDIT_USERNAME = 4;
     public static final int REQUESTCODE_EDIT_HOME = 5;
-    public static final int REQUESTCODE_EDIT_ADDRESS= 8;
+    public static final int REQUESTCODE_EDIT_ADDRESS = 8;
     public static final String EDIT_TYPE = "inputType";
     public static final String EDIT_CONTENT = "content";
 
@@ -101,11 +93,13 @@ public class Constant {
     public static final String DESIGNER_PROCESS_LIST = "designer_process_list";// 设计师工地列表
     public static final String DEFAULT_PROCESSINFO = "default_processinfo.txt";// 默认工地信息
     public static final String DEFAULT_PROCESSINFO_ID = "1";
-    public static final String REQUIREMENTINFO_LIST = "requirementInfo_list";//需求信息列表
 
     public static final String DATA = "data";// 获取成功的数据
     public static final String ERROR_MSG = "err_msg";// 获取数据失败的返回信息
     public static final String SUCCESS_MSG = "msg";// 获取数据成功的返回信息
+
+    public static final int LIST_ITEM_TAG = 1;
+    public static final int LIST_ITEM = 2;
 
     // 提醒消息id
     public static final int CAIGOU_NOTIFY_ID = 1;
@@ -151,10 +145,7 @@ public class Constant {
             + R.drawable.btn_default_bg;
 
     public static final String DEFALUT_OWNER_PIC = "drawable://"
-            + R.mipmap.icon_sidebar_default_user;
-
-    public static final String DEFALUT_DESIGNER_PIC = "drawable://"
-            + R.mipmap.icon_sidebar_default_user;
+            + R.mipmap.icon_default_head;
 
     public static final String DEFALUT_ADD_PIC = "drawable://"
             + R.mipmap.add;
@@ -193,6 +184,5 @@ public class Constant {
     public static final int REC_DESIGNER_TOTAL = 3;//推荐设计师总数
     public static final int ROST_REQUIREMTNE_TOTAL = 3;//能够发布需求总数
 
-    public static final long CONFIRM_HOUSE_EXPIRE = 3 * 60 * 1000L;// 确认量房过期时间
 
 }

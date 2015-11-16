@@ -61,10 +61,16 @@ public class MyDesignerViewType1 extends BaseAnnotationView {
     public void bind(OrderDesignerInfo designerInfo, final ClickCallBack clickCallBack, final int position) {
         String imageid = designerInfo.getImageid();
         String username = designerInfo.getUsername();
+        headView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickCallBack.click(position, MyDesignerActivity.VIEW_DESIGNER);
+            }
+        });
         if (!TextUtils.isEmpty(imageid)) {
             ImageLoader.getInstance().displayImage(Url_New.GET_THUMBNAIL_IMAGE + imageid, headView, options);
         } else {
-            ImageLoader.getInstance().displayImage(Constant.DEFALUT_DESIGNER_PIC, headView, options);
+            ImageLoader.getInstance().displayImage(Constant.DEFALUT_OWNER_PIC, headView, options);
         }
         if (!TextUtils.isEmpty(username)) {
             nameView.setText(username);
@@ -81,7 +87,7 @@ public class MyDesignerViewType1 extends BaseAnnotationView {
         button2.setText(getResources().getString(R.string.str_change_designer));
         statusView.setText(getResources().getString(R.string.already_refuse));
         statusView.setTextColor(getResources().getColor(R.color.grey_color));
-        button1.setOnClickListener(new OnClickListener() {
+        button2.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 clickCallBack.click(position, MyDesignerActivity.CHANGE_DESIGNER);
@@ -92,8 +98,10 @@ public class MyDesignerViewType1 extends BaseAnnotationView {
         String requirementStatus = requirementInfo.getStatus();
         if (requirementStatus.equals(Global.REQUIREMENT_STATUS4) || requirementStatus.equals(Global.REQUIREMENT_STATUS5) || requirementStatus.equals(Global.REQUIREMENT_STATUS7)) {
             button2.setEnabled(false);
+            button2.setTextColor(getResources().getColor(R.color.grey_color));
         } else {
             button2.setEnabled(true);
+            button2.setTextColor(getResources().getColor(R.color.font_white));
         }
 
     }

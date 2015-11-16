@@ -141,7 +141,6 @@ public class ShowProcessPicActivity extends BaseActivity implements
     public void onPageSelected(int arg0) {
         currentPosition = arg0;
         setTipText();
-
     }
 
 }

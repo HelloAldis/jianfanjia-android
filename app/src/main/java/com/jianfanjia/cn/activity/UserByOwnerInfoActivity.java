@@ -46,7 +46,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
     private RelativeLayout headLayout = null;
     private RelativeLayout ownerInfoLayout = null;
     private ScrollView scrollView = null;
-    private View errorView = null;
+    private View emptyView = null;
     private TextView nameText = null;
     private TextView sexText = null;
     private TextView phoneText = null;
@@ -67,6 +67,8 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
 
     private OwnerUpdateInfo ownerUpdateInfo = null;
 
+    private boolean isUpdate = false;
+
     private File mTmpFile = null;
     private String imageId = null;
 
@@ -76,7 +78,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
         ownerInfoLayout = (RelativeLayout) this
                 .findViewById(R.id.ownerinfoLayout);
         scrollView = (ScrollView) this.findViewById(R.id.ownerinfo_scrollview);
-        errorView = this.findViewById(R.id.error_view);
+        emptyView = this.findViewById(R.id.empty_view);
         headLayout = (RelativeLayout) this.findViewById(R.id.head_layout);
         nameText = (TextView) this.findViewById(R.id.nameText);
         sexText = (TextView) this.findViewById(R.id.sexText);
@@ -92,7 +94,6 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
                 .findViewById(R.id.home_layout);
         sexRelativeLayout = (RelativeLayout) this.findViewById(R.id.sex_layout);
         phoneLayout = (RelativeLayout) this.findViewById(R.id.phone_layout);
-        phoneLayout.setEnabled(false);
         setConfimEnable(false);
 //		ownerInfo = dataManager.getOwnerInfo();
         if (ownerInfo == null) {
@@ -111,17 +112,18 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
     }
 
     private void setConfimEnable(boolean enabled) {
+        isUpdate = enabled;
         btn_confirm.setEnabled(enabled);
     }
 
     public void setViewChange() {
-        errorView.setVisibility(View.GONE);
+        emptyView.setVisibility(View.GONE);
         scrollView.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void setErrorView() {
-        ((TextView) errorView.findViewById(R.id.tv_error)).setText("暂无个人信息数据");
+        ((TextView) emptyView.findViewById(R.id.tv_error)).setText("暂无个人信息数据");
     }
 
     private void setData() {
@@ -147,10 +149,10 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
                 .setText(TextUtils.isEmpty(ownerInfo.getPhone()) ? getString(R.string.not_edit)
                         : ownerInfo.getPhone());
         String city = ownerInfo.getCity();
-        if(TextUtils.isEmpty(city)){
+        if (TextUtils.isEmpty(city)) {
             addressText
                     .setText(getString(R.string.not_edit));
-        }else{
+        } else {
             String province = ownerInfo.getProvince();
             String district = ownerInfo.getDistrict();
             addressText
@@ -175,7 +177,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.head_back_layout:
-                finish();
+                showTipDialog();
                 break;
             case R.id.head_layout:
                 showPopWindow(ownerInfoLayout);
@@ -188,9 +190,9 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
             case R.id.address_layout:
                 Intent address = new Intent(UserByOwnerInfoActivity.this,
                         CityEditActivity_.class);
-                address.putExtra(Constant.EDIT_PROVICE,ownerUpdateInfo.getProvince());
-                address.putExtra(Constant.EDIT_CITY,ownerUpdateInfo.getCity());
-                address.putExtra(Constant.EDIT_DISTRICT,ownerUpdateInfo.getDistrict());
+                address.putExtra(Constant.EDIT_PROVICE, ownerUpdateInfo.getProvince());
+                address.putExtra(Constant.EDIT_CITY, ownerUpdateInfo.getCity());
+                address.putExtra(Constant.EDIT_DISTRICT, ownerUpdateInfo.getDistrict());
                 startActivityForResult(address, Constant.REQUESTCODE_EDIT_ADDRESS);
                 break;
             case R.id.name_layout:
@@ -198,6 +200,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
                         EditInfoActivity.class);
                 name.putExtra(Constant.EDIT_TYPE,
                         Constant.REQUESTCODE_EDIT_USERNAME);
+                name.putExtra(Constant.EDIT_CONTENT,ownerUpdateInfo.getUsername());
                 startActivityForResult(name, Constant.REQUESTCODE_EDIT_USERNAME);
                 break;
             case R.id.home_layout:
@@ -205,6 +208,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
                         EditInfoActivity.class);
                 home.putExtra(Constant.EDIT_TYPE,
                         Constant.REQUESTCODE_EDIT_HOME);
+                home.putExtra(Constant.EDIT_CONTENT,ownerUpdateInfo.getAddress());
                 startActivityForResult(home, Constant.REQUESTCODE_EDIT_HOME);
                 break;
             case R.id.sex_layout:
@@ -212,6 +216,32 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
                 break;
             default:
                 break;
+        }
+    }
+
+    //提示是否放弃修改
+    private void showTipDialog() {
+        if (isUpdate) {
+            final CommonDialog commonDialog = DialogHelper
+                    .getPinterestDialogCancelable(this);
+            commonDialog.setTitle(R.string.tip_update);
+            commonDialog.setMessage(getString(R.string.abandon_update));
+            commonDialog.setNegativeButton(getString(R.string.str_cancel), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    commonDialog.dismiss();
+                }
+            });
+            commonDialog.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    commonDialog.dismiss();
+                    finish();
+                }
+            });
+            commonDialog.show();
+        } else {
+            finish();
         }
     }
 
@@ -281,11 +311,12 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
                         hideWaitDialog();
                         makeTextShort("修改成功");
                         setConfimEnable(false);
-                        if (!TextUtils.isEmpty(ownerUpdateInfo.getUsername())
-                                || ownerUpdateInfo.getUsername() != dataManager
-                                .getUserName()) {
+                        if (!TextUtils.isEmpty(ownerUpdateInfo.getUsername())) {
                             dataManager.setUserName(ownerUpdateInfo
                                     .getUsername());
+                        }
+                        if (!TextUtils.isEmpty(ownerUpdateInfo.getImageid())) {
+                            dataManager.setUserImagePath(ownerUpdateInfo.getImageid());
                         }
                         updateOwnerInfo();
                         dataManager.setOwnerInfo(ownerInfo);
@@ -359,7 +390,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode != RESULT_OK){
+        if (resultCode != RESULT_OK) {
             return;
         }
         switch (requestCode) {
@@ -377,13 +408,13 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
                 }
                 break;
             case Constant.REQUESTCODE_EDIT_ADDRESS:
-                if(data != null){
+                if (data != null) {
                     String provice = data.getStringExtra(Constant.EDIT_PROVICE);
                     String city = data.getStringExtra(Constant.EDIT_CITY);
                     String district = data.getStringExtra(Constant.EDIT_DISTRICT);
-                    if(ownerUpdateInfo != null){
-                        if(!TextUtils.isEmpty(provice) && !TextUtils.isEmpty(city) && !TextUtils.isEmpty(district)){
-                            addressText.setText(provice+city+district);
+                    if (ownerUpdateInfo != null) {
+                        if (!TextUtils.isEmpty(provice) && !TextUtils.isEmpty(city) && !TextUtils.isEmpty(district)) {
+                            addressText.setText(provice + city + district);
                             ownerUpdateInfo.setProvince(provice);
                             ownerUpdateInfo.setCity(city);
                             ownerUpdateInfo.setDistrict(district);
@@ -469,7 +500,7 @@ public class UserByOwnerInfoActivity extends BaseActivity implements
     public void getImageId(String imageid) {
         LogTool.d(TAG, "imageid=" + imageid);
         imageId = imageid;
-        dataManager.setUserImagePath(imageId);
+//        dataManager.setUserImagePath(imageId);
         imageLoader.displayImage(
                 TextUtils.isEmpty(imageId) ? Constant.DEFALUT_OWNER_PIC
                         : (Url_New.GET_IMAGE + imageId), headImageView, options);

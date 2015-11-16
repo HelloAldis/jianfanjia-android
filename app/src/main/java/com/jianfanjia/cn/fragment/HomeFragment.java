@@ -186,7 +186,6 @@ public class HomeFragment extends BaseFragment implements
     private ApiUiUpdateListener downListener = new ApiUiUpdateListener() {
         @Override
         public void preLoad() {
-            viewpagerLayout.setVisibility(View.GONE);
             marchedLayout.setVisibility(View.GONE);
             noMarchedLayout.setVisibility(View.GONE);
         }
@@ -195,7 +194,6 @@ public class HomeFragment extends BaseFragment implements
         public void loadSuccess(Object data) {
             HomeDesignersInfo homeDesignersInfo = JsonParser.jsonToBean(data.toString(), HomeDesignersInfo.class);
             LogTool.d(TAG, "homeDesignersInfo:" + homeDesignersInfo);
-            viewpagerLayout.setVisibility(View.VISIBLE);
             if (null != homeDesignersInfo) {
                 Requirement requirement = homeDesignersInfo.getRequirement();
                 LogTool.d(TAG, "requirement=" + requirement);
@@ -233,7 +231,6 @@ public class HomeFragment extends BaseFragment implements
         public void loadFailture(String error_msg) {
             makeTextLong(error_msg);
             mPullRefreshScrollView.onRefreshComplete();
-            viewpagerLayout.setVisibility(View.GONE);
             marchedLayout.setVisibility(View.GONE);
             noMarchedLayout.setVisibility(View.GONE);
         }

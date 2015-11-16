@@ -99,7 +99,6 @@ public class MyFragment extends BaseFragment {
         }
     }
 
-
     @Override
     public int getLayoutId() {
         return R.layout.fragment_my;

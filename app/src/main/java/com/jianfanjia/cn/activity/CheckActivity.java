@@ -23,6 +23,7 @@ import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
 
@@ -43,6 +44,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener, Item
     public static final String POSITION = "position";
 
     private RelativeLayout checkLayout = null;
+    private MainHeadView mainHeadView = null;
     private TextView backView = null;// 返回视图
     private TextView check_pic_title = null;
     private GridView gridView = null;
@@ -56,7 +58,6 @@ public class CheckActivity extends BaseActivity implements OnClickListener, Item
     private String sectionInfoName = null;// 工序名称
     private int sectionInfoStatus = -1;// 工序状态
     private ProcessInfo processInfo;
-    private int currentState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,20 +98,18 @@ public class CheckActivity extends BaseActivity implements OnClickListener, Item
 
     @Override
     public void initView() {
+        mainHeadView = (MainHeadView) findViewById(R.id.check_pic_head_layout);
+        mainHeadView.setBackListener(this);
         checkLayout = (RelativeLayout) findViewById(R.id.checkLayout);
-        backView = (TextView) findViewById(R.id.check_pic_back);
-        check_pic_title = (TextView) findViewById(R.id.check_pic_title);
         gridView = (GridView) findViewById(R.id.mygridview);
         btn_confirm = (TextView) findViewById(R.id.btn_confirm);
-        btn_confirm.setText(this.getResources().getString(
-                R.string.confirm_done));
         gridView.setFocusable(false);
     }
 
     private void initData() {
-        check_pic_title.setText(MyApplication.getInstance().getStringById(
+        mainHeadView.setMianTitle(MyApplication.getInstance().getStringById(
                 sectionInfoName)
-                + "阶段验收");
+                + getString(R.string.check_head));
         switch (sectionInfoStatus) {
             case Constant.NOT_START:
                 break;
@@ -140,12 +139,13 @@ public class CheckActivity extends BaseActivity implements OnClickListener, Item
             int imagecount = 0;
             for (int i = 0; imageids != null && i < imageids.size(); i++) {
                 String key = imageids.get(i).getKey();
-                if (imageids.get(i).getImageid() != null) {
-                    LogTool.d(TAG, imageids.get(i).getImageid());
-                    checkGridList.get(Integer.parseInt(key) * 2 + 1).setImgId(
-                            imageids.get(i).getImageid());
-                    imagecount++;
-                }
+                LogTool.d(TAG, imageids.get(i).getImageid());
+                checkGridList.get(Integer.parseInt(key) * 2 + 1).setImgId(
+                        imageids.get(i).getImageid());
+                imagecount++;
+                /*if (imageids.get(i).getImageid() != null) {
+
+                }*/
             }
             setConfimStatus(imagecount);
             adapter.setList(checkGridList);
@@ -181,13 +181,12 @@ public class CheckActivity extends BaseActivity implements OnClickListener, Item
 
     @Override
     public void setListener() {
-        backView.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.check_pic_back:
+            case R.id.head_back_layout:
                 finish();
                 break;
             case R.id.btn_confirm:

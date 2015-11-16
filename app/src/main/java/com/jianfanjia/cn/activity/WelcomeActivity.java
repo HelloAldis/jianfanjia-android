@@ -8,9 +8,12 @@ import android.view.WindowManager;
 import com.jianfanjia.cn.AppConfig;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.bean.UpdateVersion;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
+import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.tools.UiHelper;
 
 /**
  * @author fengliang
@@ -33,11 +36,53 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
         isLogin = dataManager.isLogin();
         isLoginExpire = AppConfig.getInstance(this).isLoginExpire();
         LogTool.d(this.getClass().getName(), "first=" + first);
+//        checkVersion();
     }
+
+    // 检查版本
+    private void checkVersion() {
+        UiHelper.checkNewVersion(this, new ApiUiUpdateListener() {
+                    @Override
+                    public void preLoad() {
+                        showWaitDialog(getString(R.string.check_version));
+                    }
+
+                    @Override
+                    public void loadSuccess(Object data) {
+                        hideWaitDialog();
+                        if (data != null) {
+                            UpdateVersion updateVersion = JsonParser
+                                    .jsonToBean(data.toString(),
+                                            UpdateVersion.class);
+                            if (updateVersion != null) {
+                                if (Integer.parseInt(updateVersion
+                                        .getVersion_code()) > MyApplication
+                                        .getInstance().getVersionCode()) {
+                                    UiHelper.showNewVersionDialog(WelcomeActivity.this,
+                                            String.format(getString(R.string.new_version_message),
+                                                    updateVersion.getVersion_name()),
+                                            updateVersion);
+                                } else {
+//                                    makeTextLong(getString(R.string.no_new_version));
+
+                                }
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void loadFailture(String error_msg) {
+                        makeTextLong(getString(R.string.tip_error_internet));
+                        hideWaitDialog();
+                    }
+                }
+        );
+    }
+
 
     @Override
     public void initView() {
-        handler.postDelayed(runnable, 3000);
+        handler.postDelayed(runnable, 2000);
     }
 
     @Override
