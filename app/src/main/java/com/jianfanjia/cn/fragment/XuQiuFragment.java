@@ -21,7 +21,7 @@ import com.jianfanjia.cn.activity.AppointDesignerActivity;
 import com.jianfanjia.cn.activity.EditRequirementActivity_;
 import com.jianfanjia.cn.activity.MyDesignerActivity_;
 import com.jianfanjia.cn.activity.MyProcessDetailActivity_;
-import com.jianfanjia.cn.activity.PriviewRequirementActivity_;
+import com.jianfanjia.cn.activity.PreviewRequirementActivity_;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.RequirementNewAdapter;
 import com.jianfanjia.cn.base.BaseAnnotationFragment;
@@ -215,7 +215,7 @@ public class XuQiuFragment extends BaseAnnotationFragment implements OnActivityR
         gotoOrderDesigner = new Intent(getActivity(), AppointDesignerActivity.class);
         gotoMyDesigner = new Intent(getActivity(), MyDesignerActivity_.class);
         gotoMyProcess = new Intent(getActivity(), MyProcessDetailActivity_.class);
-        gotoPriviewRequirement = new Intent(getActivity(), PriviewRequirementActivity_.class);
+        gotoPriviewRequirement = new Intent(getActivity(), PreviewRequirementActivity_.class);
     }
 
     protected void initData() {
