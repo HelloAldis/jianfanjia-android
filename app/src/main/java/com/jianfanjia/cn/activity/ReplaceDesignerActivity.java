@@ -64,7 +64,7 @@ public class ReplaceDesignerActivity extends BaseActivity implements OnClickList
         mainHeadView.setRightTextListener(this);
         mainHeadView
                 .setMianTitle(totalCount + getResources().getString(R.string.appoint));
-        mainHeadView.setRightTitle(getResources().getString(R.string.appointText));
+        mainHeadView.setRightTitle(getResources().getString(R.string.replaceText));
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
         mainHeadView.setRightTitleVisable(View.VISIBLE);
         mainHeadView.setBackLayoutVisable(View.VISIBLE);
