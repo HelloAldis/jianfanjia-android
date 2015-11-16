@@ -19,7 +19,6 @@ import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.MainHeadView;
 
 import java.util.ArrayList;
@@ -191,9 +190,10 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
             hideWaitDialog();
             btn_choose.setEnabled(false);
             //发送数据刷新广播
-            setResult(RESULT_OK);
+            Intent intent = new Intent(PreviewDesignerPlanActivity.this,MyDesignerActivity_.class);
+            startActivity(intent);
+//            setResult(RESULT_OK);
             finish();
-            UiHelper.sendUpdateBroast(PreviewDesignerPlanActivity.this);
         }
 
         @Override

@@ -14,11 +14,11 @@ import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.DesignerCanOrderInfo;
 import com.jianfanjia.cn.bean.DesignerCanOrderListInfo;
 import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.fragment.XuQiuFragment;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
@@ -211,7 +211,9 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
         @Override
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data.toString());
-            setResult(XuQiuFragment.REQUESTCODE_FRESH_REQUIREMENT);
+//            setResult(XuQiuFragment.REQUESTCODE_FRESH_REQUIREMENT);
+            //刷新Xuqiufragmet
+            UiHelper.sendUpdateBroast(AppointDesignerActivity.this);
             finish();
         }
 

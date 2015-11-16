@@ -200,6 +200,7 @@ public class ReplaceDesignerActivity extends BaseActivity implements OnClickList
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data.toString());
             hideWaitDialog();
+            setResult(RESULT_OK);
             finish();
         }
 

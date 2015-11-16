@@ -145,7 +145,7 @@ public class XuQiuFragment extends BaseAnnotationFragment implements OnActivityR
                         break;
                     case ITEM_GOTOODERDESI:
                         gotoOrderDesigner.putExtra(Global.REQUIREMENT_ID, requirementInfos.get(position).get_id());
-                        startActivityForResult(gotoOrderDesigner, REQUESTCODE_FRESH_REQUIREMENT);
+                        startActivity(gotoOrderDesigner);
                         break;
                     default:
                         break;
@@ -267,9 +267,9 @@ public class XuQiuFragment extends BaseAnnotationFragment implements OnActivityR
             case REQUESTCODE_EDIT_REQUIREMENT:
                 initData();
                 break;
-            case REQUESTCODE_FRESH_REQUIREMENT:
+           /* case REQUESTCODE_FRESH_REQUIREMENT:
                 initData();
-                break;
+                break;*/
             default:
                 break;
         }
@@ -287,7 +287,7 @@ public class XuQiuFragment extends BaseAnnotationFragment implements OnActivityR
     }
 
     //刷新数据的广播
-    class UpdateBroadcastReceiver  extends BroadcastReceiver{
+    class UpdateBroadcastReceiver extends BroadcastReceiver{
         @Override
         public void onReceive(Context context, Intent intent) {
             initData();

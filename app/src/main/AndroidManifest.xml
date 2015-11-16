@@ -155,14 +155,12 @@
             android:name=".LoginNewActivity_"
             android:label="@string/title_activity_login"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateVisible"
-            ></activity>
+            android:windowSoftInputMode="stateVisible"></activity>
         <activity
             android:name=".RegisterNewActivity_"
             android:label="@string/title_activity_register"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateVisible"
-            />
+            android:windowSoftInputMode="stateVisible" />
         <activity
             android:name=".HelpActivity"
             android:label="@string/title_activity_help"
@@ -191,22 +189,22 @@
             android:name=".EditInfoActivity"
             android:label="@string/title_activity_edit_info"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateVisible"/>
+            android:windowSoftInputMode="stateVisible" />
         <activity
             android:name=".FeedBackActivity"
             android:label="@string/title_activity_feed_back"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateVisible"/>
+            android:windowSoftInputMode="stateVisible" />
         <activity
             android:name=".ForgetPswActivity_"
             android:label="@string/title_activity_forget_psw"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateVisible"
-            />
+            android:windowSoftInputMode="stateVisible" />
         <activity
             android:name=".MyDesignerActivity_"
             android:label="@string/title_activity_my_designer"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"/>
         <activity
             android:name=".NavigateActivity"
             android:label="@string/title_activity_navigate"
