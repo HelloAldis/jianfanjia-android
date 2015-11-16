@@ -79,10 +79,10 @@ public class DesignerByAppointAdapter extends BaseListAdapter<DesignerCanOrderIn
 
 
     private static class ViewHolder {
-        ImageView itemwHeadView;
+        ImageView itemwHeadView = null;
         ImageView itemAuthView = null;
-        TextView itemNameText;
-        TextView itemMarchText;
-        CheckBox itemCheck;
+        TextView itemNameText = null;
+        TextView itemMarchText = null;
+        CheckBox itemCheck = null;
     }
 }
