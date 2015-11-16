@@ -119,7 +119,7 @@ public class MyDesignerViewType2 extends BaseAnnotationView {
             button3.setTextColor(getResources().getColor(R.color.grey_color));
         } else {
             button3.setEnabled(true);
-            button3.setTextColor(getResources().getColor(R.color.font_white));
+            button3.setTextColor(getResources().getColor(R.color.orange_color));
         }
 
     }
