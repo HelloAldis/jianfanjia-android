@@ -16,7 +16,6 @@ public class AboutActivity extends BaseActivity implements OnClickListener {
     private static final String TAG = AboutActivity.class.getName();
     private MainHeadView mainHeadView = null;
 
-
     @Override
     public void initView() {
         initMainHeadView();
