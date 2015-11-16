@@ -44,7 +44,7 @@ public class Constant {
     // editactivity
     public static final int REQUESTCODE_EDIT_USERNAME = 4;
     public static final int REQUESTCODE_EDIT_HOME = 5;
-    public static final int REQUESTCODE_EDIT_ADDRESS= 8;
+    public static final int REQUESTCODE_EDIT_ADDRESS = 8;
     public static final String EDIT_TYPE = "inputType";
     public static final String EDIT_CONTENT = "content";
 
@@ -97,6 +97,9 @@ public class Constant {
     public static final String DATA = "data";// 获取成功的数据
     public static final String ERROR_MSG = "err_msg";// 获取数据失败的返回信息
     public static final String SUCCESS_MSG = "msg";// 获取数据成功的返回信息
+
+    public static final int LIST_ITEM_TAG = 1;
+    public static final int LIST_ITEM = 2;
 
     // 提醒消息id
     public static final int CAIGOU_NOTIFY_ID = 1;
