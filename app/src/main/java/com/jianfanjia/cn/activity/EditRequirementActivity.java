@@ -1,7 +1,6 @@
 package com.jianfanjia.cn.activity;
 
 import android.content.Intent;
-import android.os.Handler;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.view.View;
@@ -271,16 +270,17 @@ public class EditRequirementActivity extends BaseAnnotationActivity {
     @Override
     public void loadSuccess(Object data) {
         super.loadSuccess(data);
-        showSuccessDialog();
+        setResult(RESULT_OK);
+        finish();
+        /*showSuccessDialog();
         LogTool.d(getClass().getName(), data.toString());
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 commonDialog.dismiss();
-                setResult(RESULT_OK);
-                finish();
+
             }
-        }, 2000);
+        }, 2000);*/
     }
 
     private void showSuccessDialog() {
