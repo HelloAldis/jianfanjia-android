@@ -24,8 +24,8 @@ android {
         applicationId "com.jianfanjia.cn.activity"
         minSdkVersion 15
         targetSdkVersion 21
-        versionCode 1
-        versionName "2.0.9"
+        versionCode 10
+        versionName "2.0.10"
 
         // AndroidManifest.xml 里面UMENG_CHANNEL的value为 ${UMENG_CHANNEL_VALUE}
         manifestPlaceholders = [UMENG_CHANNEL_VALUE: "channel_name"]
@@ -50,10 +50,10 @@ android {
 //            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.relealse
         }
-        debug {
+        /*debug {
             minifyEnabled false
             signingConfig signingConfigs.relealse
-        }
+        }*/
     }
     sourceSets {
         /*main {
@@ -62,18 +62,22 @@ android {
     }
 
     productFlavors {
-        default_channel {}
+        default_channel {
+        }
     }
 
     productFlavors.all { flavor ->
         flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
     }
 
+    def date = new java.text.SimpleDateFormat("yyyyMMdd").format(new Date());
+
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
             def outputFile = output.outputFile
             if (outputFile != null && outputFile.name.endsWith('.apk')) {
-                def fileName = outputFile.name.replace(".apk", "-owner-${defaultConfig.versionName}.apk")
+                def fileName = outputFile.name.replace(".apk", "_${date}_${defaultConfig.versionCode}_${defaultConfig.versionName}.apk")
+				fileName = fileName.replace("app","jianfanjia").replace("-default_channel-release","")
                 output.outputFile = new File(outputFile.parent, fileName)
             }
         }

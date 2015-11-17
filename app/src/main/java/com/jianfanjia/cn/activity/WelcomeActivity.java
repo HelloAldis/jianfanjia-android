@@ -36,7 +36,7 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
         isLogin = dataManager.isLogin();
         isLoginExpire = AppConfig.getInstance(this).isLoginExpire();
         LogTool.d(this.getClass().getName(), "first=" + first);
-//        checkVersion();
+        checkVersion();
     }
 
     // 检查版本
