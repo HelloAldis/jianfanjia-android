@@ -119,15 +119,15 @@ public class MyDesignerActivity extends BaseAnnotationActivity {
                         startActivityForResult(commentIntent, REQUESTCODE_FRESH_LIST);
                         break;
                     case VIEW_CONTRACT:
-                        Intent viewContractIntent = new Intent(MyDesignerActivity.this,ContractActivity.class);
+                        Intent viewContractIntent = new Intent(MyDesignerActivity.this, ContractActivity.class);
                         Bundle contractBundle = new Bundle();
                         contractBundle.putString(Global.REQUIREMENT_ID, requirementid);
                         contractBundle.putString(Global.REQUIREMENT_STATUS, orderDesignerInfo.getRequirement().getStatus());
                         viewContractIntent.putExtras(contractBundle);
-                        startActivityForResult(viewContractIntent,REQUESTCODE_FRESH_LIST);
+                        startActivityForResult(viewContractIntent, REQUESTCODE_FRESH_LIST);
                         break;
                     case VIEW_PLAN:
-                        Intent viewPlanIntent = new Intent(MyDesignerActivity.this,DesignerPlanListActivity.class);
+                        Intent viewPlanIntent = new Intent(MyDesignerActivity.this, DesignerPlanListActivity.class);
                         Bundle planBundle = new Bundle();
                         planBundle.putString(Global.DESIGNER_ID, orderDesignerInfo.get_id());
                         planBundle.putString(Global.REQUIREMENT_ID, requirementid);
@@ -136,12 +136,12 @@ public class MyDesignerActivity extends BaseAnnotationActivity {
                         startActivity(viewPlanIntent);
                         break;
                     case CHANGE_DESIGNER:
-                        Intent changeDesignerIntent = new Intent(MyDesignerActivity.this,ReplaceDesignerActivity.class);
+                        Intent changeDesignerIntent = new Intent(MyDesignerActivity.this, ReplaceDesignerActivity.class);
                         Bundle changeBundle = new Bundle();
                         changeBundle.putString(Global.DESIGNER_ID, orderDesignerInfo.get_id());
                         changeBundle.putString(Global.REQUIREMENT_ID, requirementid);
                         changeDesignerIntent.putExtras(changeBundle);
-                        startActivityForResult(changeDesignerIntent,REQUESTCODE_FRESH_LIST);
+                        startActivityForResult(changeDesignerIntent, REQUESTCODE_FRESH_LIST);
                         break;
                     case CONFIRM_MEASURE_HOUSE:
                         confirmMeasureHouse(orderDesignerInfo.get_id());
@@ -149,7 +149,7 @@ public class MyDesignerActivity extends BaseAnnotationActivity {
                     case VIEW_DESIGNER:
                         Bundle bundle = new Bundle();
                         bundle.putSerializable(Global.DESIGNER_ID, orderDesignerInfo.get_id());
-                        startActivity(DesignerInfoActivity.class,bundle);
+                        startActivity(DesignerInfoActivity.class, bundle);
                         break;
                     default:
                         break;
@@ -171,13 +171,13 @@ public class MyDesignerActivity extends BaseAnnotationActivity {
     }
 
     @Click(R.id.error_include)
-    protected void errorRefresh(){
+    protected void errorRefresh() {
 //        initData();
         refreshView.setRefreshing(true);
     }
 
 
-    protected void confirmMeasureHouse(String designerid){
+    protected void confirmMeasureHouse(String designerid) {
         JianFanJiaClient.confirmMeasureHouse(MyDesignerActivity.this, requirementid, designerid, new ApiUiUpdateListener() {
             @Override
             public void preLoad() {
@@ -229,7 +229,7 @@ public class MyDesignerActivity extends BaseAnnotationActivity {
                 @Override
                 public void loadFailture(String error_msg) {
                     refreshView.onRefreshComplete();
-                    if(orderDesignerInfos == null || orderDesignerInfos.size() == 0){
+                    if (orderDesignerInfos == null || orderDesignerInfos.size() == 0) {
                         error_Layout.setVisibility(View.VISIBLE);
                     }
                 }
