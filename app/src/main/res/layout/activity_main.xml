@@ -39,6 +39,7 @@
                 android:layout_weight="1"
                 android:checked="true"
                 android:drawableTop="@drawable/rb_btn_bg1"
+                android:paddingTop="6dp"
                 android:text="首页"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/text_size_14" />
@@ -52,6 +53,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
                 android:drawableTop="@drawable/rb_btn_bg3"
+                android:paddingTop="6dp"
                 android:text="工地管理"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/text_size_14" />
@@ -64,6 +66,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
                 android:drawableTop="@drawable/rb_btn_bg4"
+                android:paddingTop="6dp"
                 android:text="我的"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/text_size_14" />
