@@ -15,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_below="@+id/ownerinfo_head_layout"
-        android:layout_marginTop="@dimen/space_16">
+        android:layout_marginTop="@dimen/space_8">
 
         <LinearLayout
             android:id="@+id/rootview"
@@ -224,8 +224,8 @@
         layout="@layout/view_error_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/ownerinfo_head_layout"
         android:layout_gravity="center"
+        android:layout_below="@+id/ownerinfo_head_layout"
         android:visibility="gone" />
 
 </RelativeLayout>
