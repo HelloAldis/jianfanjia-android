@@ -123,7 +123,7 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
                 if (checkedItemCount != 0) {
                     appointDesignerDialog();
                 } else {
-                    makeTextLong("请选择设计师");
+                    makeTextShort("请选择设计师");
                 }
                 break;
             default:
@@ -135,7 +135,7 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         checkedItemCount = appoint_designer_listview.getCheckedItemCount();
         if (checkedItemCount > total) {
-            makeTextLong("最多可选" + total + "名设计师");
+            makeTextShort("最多可选" + total + "名设计师");
             return;
         }
         boolean checked = appoint_designer_listview.getCheckedItemPositions().get(position);

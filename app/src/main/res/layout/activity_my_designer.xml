@@ -15,13 +15,13 @@
         android:id="@+id/act_my_designer_recyclerview_wrap"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="@dimen/space_8"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingTop="@dimen/space_8">
 
         <com.jianfanjia.cn.view.library.PullToRefreshRecycleView
+            android:id="@+id/act_my_designer_pull_refresh"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/act_my_designer_pull_refresh"/>
+            android:layout_height="match_parent" />
 
         <include
             android:id="@+id/error_include"
