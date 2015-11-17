@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/edit_head_layout"
-        android:layout_marginTop="@dimen/space_16"
+        android:layout_marginTop="@dimen/space_8"
         android:background="@color/font_white"
         android:gravity="top"
         android:hint="@string/add_feedback"
