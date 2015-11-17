@@ -198,6 +198,11 @@ public class XuQiuFragment extends BaseAnnotationFragment {
         super.onAttach(context);
     }
 
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+    }
+
     private void initPullRefresh() {
         pullrefresh.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
         pullrefresh.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<RecyclerView>() {
