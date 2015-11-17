@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.jianfanjia.cn.base.BaseRequest;
-import com.jianfanjia.cn.base.BaseResponse;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.coreprogress.helper.ProgressHelper;
 import com.jianfanjia.cn.http.coreprogress.listener.impl.UIProgressListener;
@@ -566,7 +565,7 @@ public class OkHttpClientManager {
                 @Override
                 public void onResponse(Response response) {
                     InputStream is = null;
-                    byte[] buf = new byte[2048];
+                    byte[] buf = new byte[1024];
                     int len = 0;
                     FileOutputStream fos = null;
                     try {
@@ -577,17 +576,14 @@ public class OkHttpClientManager {
                             dir.mkdirs();
                         }
                         File file = new File(dir, filename);
-                        fos = new FileOutputStream(file);
+                        fos = new FileOutputStream(file,false);
                         while ((len = is.read(buf)) != -1) {
                             fos.write(buf, 0, len);
                         }
                         fos.flush();
                         //如果下载文件成功，传递的数据为文件的绝对路径
-                        BaseResponse baseResponse = new BaseResponse();
-                        baseResponse.setData(file.getAbsolutePath());
                         LogTool.d(TAG, file.getAbsolutePath());
-
-                        sendSuccessResultCallback(listener, baseResponse);
+                        sendSuccessResultCallback(listener, file.getAbsolutePath());
                     } catch (IOException e) {
                         sendFailedStringCallback(listener, SERVER_ERROR);
                     } finally {

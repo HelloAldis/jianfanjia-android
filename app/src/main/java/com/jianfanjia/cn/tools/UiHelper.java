@@ -1,5 +1,6 @@
 package com.jianfanjia.cn.tools;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -40,31 +41,6 @@ public class UiHelper {
         JianFanJiaClient.checkVersion(context, listener, context);
     }
 
-    /**
-     * 显示新版本对话框
-     *
-     * @param context
-     * @param message
-     * @param updateVersion
-     */
-    public static void showNewVersionDialog(final Context context, String message, final UpdateVersion updateVersion) {
-        CommonDialog dialog = DialogHelper
-                .getPinterestDialogCancelable(context);
-        dialog.setTitle("版本更新");
-        dialog.setMessage(message);
-        dialog.setPositiveButton(R.string.ok,
-                new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        startUpdateService(context, updateVersion.getDownload_url());
-                    }
-
-                });
-        dialog.setNegativeButton(R.string.no, null);
-        dialog.show();
-    }
 
     /**
      * 开启更新服务

@@ -12,14 +12,11 @@ import android.widget.ToggleButton;
 import com.igexin.sdk.PushManager;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.bean.UpdateVersion;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.FileUtil;
-import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
@@ -108,7 +105,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener, On
                 onClickExit();
                 break;
             case R.id.current_version_layout:
-                checkVersion();
+//                checkVersion();
                 break;
             case R.id.share_layout:
                 startActivity(ShareActivity.class);
@@ -216,45 +213,6 @@ public class SettingActivity extends BaseActivity implements OnClickListener, On
     protected void onDestroy() {
         super.onDestroy();
         LogTool.d(TAG, "---onDestroy()");
-    }
-
-    // 检查版本
-    private void checkVersion() {
-        UiHelper.checkNewVersion(this, new ApiUiUpdateListener() {
-                    @Override
-                    public void preLoad() {
-                        showWaitDialog(getString(R.string.check_version));
-                    }
-
-                    @Override
-                    public void loadSuccess(Object data) {
-                        hideWaitDialog();
-                        if (data != null) {
-                            UpdateVersion updateVersion = JsonParser
-                                    .jsonToBean(data.toString(),
-                                            UpdateVersion.class);
-                            if (updateVersion != null) {
-                                if (Integer.parseInt(updateVersion
-                                        .getVersion_code()) > MyApplication
-                                        .getInstance().getVersionCode()) {
-                                    UiHelper.showNewVersionDialog(SettingActivity.this,
-                                            String.format(getString(R.string.new_version_message),
-                                                    updateVersion.getVersion_name()),
-                                            updateVersion);
-                                } else {
-                                    makeTextLong(getString(R.string.no_new_version));
-                                }
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void loadFailture(String error_msg) {
-                        makeTextLong(error_msg);
-                        hideWaitDialog();
-                    }
-                }
-        );
     }
 
     // 退出登录

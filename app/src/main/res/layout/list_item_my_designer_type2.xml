@@ -43,7 +43,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/space_8"
             android:background="@drawable/btn_white_selector_bg"
-            android:padding="@dimen/space_8"
+            android:padding="@dimen/space_4"
             android:textColor="@color/orange_color" />
 
     </RelativeLayout>

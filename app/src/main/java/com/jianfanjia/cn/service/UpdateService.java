@@ -25,6 +25,11 @@ import java.io.File;
  */
 public class UpdateService extends Service {
 
+    // 指定文件类型
+    private static String[] allowedContentTypes = new String[]{"image/png",
+            "image/jpeg", "application/octet-stream", "application/zip",
+            "application/vnd.android.package-archive"};
+
     private NotificationManager nManager;
     private static final int NotificationID = 1;
     private NotificationCompat.Builder builder;
@@ -104,7 +109,7 @@ public class UpdateService extends Service {
             @Override
             public void loadSuccess(Object data) {
                 LogTool.d(this.getClass().getName(), "onSuccess()");
-                if (data!= null) {
+                if (data != null) {
                     LogTool.d(this.getClass().getName(), data.toString());
                     File apkFile = new File(data.toString());
                     stopSelf();
@@ -118,69 +123,7 @@ public class UpdateService extends Service {
                 nManager.cancel(NotificationID);
             }
         }, uiProgressListener, this);
-        // 指定文件类型
-        String[] allowedContentTypes = new String[]{"image/png",
-                "image/jpeg", "application/octet-stream", "application/zip",
-                "application/vnd.android.package-archive"};
-        /*HttpRestClient.get(url, new BinaryHttpResponseHandler(
-                allowedContentTypes) {
 
-			@Override
-			public void onStart() {
-				LogTool.d(this.getClass().getName(), "onStart()");
-				builder = new NotificationCompat.Builder(
-						getApplicationContext());
-				builder.setSmallIcon(R.drawable.icon_notify);
-				builder.setTicker("正在下载新版本");
-				builder.setContentTitle("简繁家");
-				builder.setContentText("正在下载,请稍后...");
-				builder.setNumber(0);
-				builder.setAutoCancel(true);
-				nManager.notify(NotificationID, builder.build());
-			}
-
-			@Override
-			public void onProgress(long bytesWritten, long totalSize) {
-				LogTool.d(this.getClass().getName(), "bytesWritten:"
-						+ bytesWritten + "  totalSize:" + totalSize);
-				builder.setProgress((int) totalSize, (int) bytesWritten, false);
-				String process = (int) ((bytesWritten * 1.0 / totalSize) * 100)
-						+ "%";
-				LogTool.d(this.getClass().getName(), "process:" + process);
-				builder.setContentInfo((int) ((bytesWritten / (float) totalSize) * 100)
-						+ "%");
-				nManager.notify(NotificationID, builder.build());
-			}
-
-			@Override
-			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
-				LogTool.d(this.getClass().getName(), "onSuccess()");
-				File file = new File(filePath);
-				if (!file.exists()) {
-					file.mkdirs();
-				}
-				File apkFile = new File(file, fileName);
-				try {
-					FileOutputStream fos = new FileOutputStream(apkFile);
-					fos.write(arg2);
-					fos.flush();
-					fos.close();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				stopSelf();
-				nManager.cancel(NotificationID);
-				installApk(apkFile);
-			}
-
-			@Override
-			public void onFailure(int arg0, Header[] arg1, byte[] arg2,
-					Throwable arg3) {
-				LogTool.d(this.getClass().getName(), "arg3:" + arg3);
-				nManager.cancel(NotificationID);
-			}
-
-		});*/
     }
 
     // 安装APK文件

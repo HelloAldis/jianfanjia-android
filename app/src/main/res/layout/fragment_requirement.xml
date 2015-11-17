@@ -3,7 +3,7 @@
     android:id="@+id/frag_req_rootview"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/font_white"
+    android:background="@color/main_layout_bg"
     android:orientation="vertical">
 
     <com.jianfanjia.cn.view.MainHeadView
@@ -37,7 +37,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="gone"
+        android:background="@color/font_white">
 
         <ImageView
             android:id="@+id/edit_requirement_bg"
