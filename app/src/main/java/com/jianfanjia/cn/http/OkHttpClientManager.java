@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.google.gson.Gson;
 import com.jianfanjia.cn.base.BaseRequest;
 import com.jianfanjia.cn.base.BaseResponse;
 import com.jianfanjia.cn.config.Constant;
@@ -70,7 +69,6 @@ public class OkHttpClientManager {
     private static OkHttpClientManager mInstance;
     private OkHttpClient mOkHttpClient;
     private Handler mDelivery;
-    private Gson mGson;
 
     private HttpsDelegate mHttpsDelegate = new HttpsDelegate();
     private DownloadDelegate mDownloadDelegate = new DownloadDelegate();
@@ -84,7 +82,6 @@ public class OkHttpClientManager {
         mOkHttpClient.setConnectTimeout(10, TimeUnit.SECONDS);
         //cookie enabled
         mDelivery = new Handler(Looper.getMainLooper());
-        mGson = new Gson();
 
         /*just for test !!!*/
         /*mOkHttpClient.setHostnameVerifier(new HostnameVerifier() {
