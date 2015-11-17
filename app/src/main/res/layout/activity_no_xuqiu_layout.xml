@@ -5,45 +5,50 @@
     android:background="@color/font_white"
     android:orientation="vertical">
 
-    <TextView
-        style="@style/listview_item_text_style_middle"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/space_10"
-        android:text="@string/str_no_marched_tip_1"
-        android:textColor="@color/home_page_text_color"
-        android:textSize="@dimen/text_size_14" />
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_margin="10dip"
+        android:orientation="vertical">
 
+        <TextView
+            style="@style/listview_item_text_style_middle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/str_no_marched_tip_1"
+            android:textColor="@color/home_page_text_color"
+            android:textSize="@dimen/text_size_14" />
 
-    <TextView
-        style="@style/listview_item_text_style_middle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/space_10"
-        android:text="@string/str_no_marched_tip_2"
-        android:textColor="@color/home_page_text_color"
-        android:textSize="@dimen/text_size_14" />
+        <TextView
+            style="@style/listview_item_text_style_middle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/space_10"
+            android:text="@string/str_no_marched_tip_2"
+            android:textColor="@color/home_page_text_color"
+            android:textSize="@dimen/text_size_14" />
 
-    <TextView
-        style="@style/listview_item_text_style_middle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/space_10"
-        android:text="@string/str_no_marched_tip_3"
-        android:textColor="@color/home_page_text_color"
-        android:textSize="@dimen/text_size_14" />
+        <TextView
+            style="@style/listview_item_text_style_middle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/space_10"
+            android:text="@string/str_no_marched_tip_3"
+            android:textColor="@color/home_page_text_color"
+            android:textSize="@dimen/text_size_14" />
 
-    <Button
-        android:id="@+id/btn_add"
-        style="@style/button_add_style"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="@dimen/space_10"
-        android:layout_marginLeft="@dimen/space_60"
-        android:layout_marginRight="@dimen/space_60"
-        android:layout_marginTop="@dimen/space_10"
-        android:text="@string/str_req_pubReq" />
-
+        <Button
+            android:id="@+id/btn_add"
+            style="@style/button_add_style"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/space_10"
+            android:layout_marginLeft="@dimen/space_60"
+            android:layout_marginRight="@dimen/space_60"
+            android:layout_marginTop="@dimen/space_10"
+            android:text="@string/str_req_pubReq" />
+    </LinearLayout>
 </LinearLayout>
