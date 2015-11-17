@@ -68,6 +68,7 @@ public class ReplaceDesignerActivity extends BaseActivity implements OnClickList
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
         mainHeadView.setRightTitleVisable(View.VISIBLE);
         mainHeadView.setBackLayoutVisable(View.VISIBLE);
+        mainHeadView.setRigthTitleEnable(false);
     }
 
     private void setReplaceDesignerList(List<DesignerCanOrderInfo> rec_designerList, List<DesignerCanOrderInfo> favorite_designerList) {
@@ -113,11 +114,7 @@ public class ReplaceDesignerActivity extends BaseActivity implements OnClickList
 //                startActivity(MyFavoriteDesignerActivity_.class);
 //                break;
             case R.id.head_right_title:
-                if (null != newDesignerid) {
-                    replaceDesignerDialog();
-                } else {
-                    makeTextLong("请选择设计师");
-                }
+                replaceDesignerDialog();
                 break;
             default:
                 break;
@@ -132,6 +129,7 @@ public class ReplaceDesignerActivity extends BaseActivity implements OnClickList
             totalCount--;
         }
         mainHeadView.setMianTitle(totalCount + getResources().getString(R.string.appoint));
+        mainHeadView.setRigthTitleEnable(true);
     }
 
     private void replaceDesignerDialog() {
