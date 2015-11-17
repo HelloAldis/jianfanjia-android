@@ -179,7 +179,7 @@ public class DesignerInfoActivity extends BaseActivity implements
 
         @Override
         public void loadFailture(String error_msg) {
-
+            addBtn.setEnabled(true);
         }
     };
 
