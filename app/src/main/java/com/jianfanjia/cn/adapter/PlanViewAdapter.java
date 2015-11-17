@@ -107,7 +107,7 @@ public class PlanViewAdapter extends PagerAdapter {
     @Override
     public float getPageWidth(int position) {
         if (null != itemClickListener) {
-            return 0.5f;
+            return 0.39f;
         }
         return super.getPageWidth(position);
     }
