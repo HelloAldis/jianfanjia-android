@@ -31,7 +31,6 @@ import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.ClickCallBack;
-import com.jianfanjia.cn.interf.OnActivityResultCallBack;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
@@ -54,7 +53,7 @@ import java.util.List;
  * Date:15-10-11 14:30
  */
 @EFragment(R.layout.fragment_requirement)
-public class XuQiuFragment extends BaseAnnotationFragment implements OnActivityResultCallBack {
+public class XuQiuFragment extends BaseAnnotationFragment {
     private static final String TAG = XuQiuFragment.class.getName();
     public static final int REQUESTCODE_PUBLISH_REQUIREMENT = 1;
     public static final int REQUESTCODE_EDIT_REQUIREMENT = 2;
@@ -144,7 +143,9 @@ public class XuQiuFragment extends BaseAnnotationFragment implements OnActivityR
                         startActivity(gotoMyDesigner);
                         break;
                     case ITEM_GOTOODERDESI:
-                        gotoOrderDesigner.putExtra(Global.REQUIREMENT_DESIGNER_NUM, requirementInfos.get(position).getOrder_designers().size());
+                        if(requirementInfos.get(position).getOrder_designers() != null){
+                            gotoOrderDesigner.putExtra(Global.REQUIREMENT_DESIGNER_NUM, requirementInfos.get(position).getOrder_designers().size());
+                        }
                         gotoOrderDesigner.putExtra(Global.REQUIREMENT_ID, requirementInfos.get(position).get_id());
                         startActivity(gotoOrderDesigner);
                         break;
@@ -274,11 +275,6 @@ public class XuQiuFragment extends BaseAnnotationFragment implements OnActivityR
             default:
                 break;
         }
-    }
-
-    @Override
-    public void onResult(int requestCode, int resultCode, Intent data) {
-
     }
 
     @Override

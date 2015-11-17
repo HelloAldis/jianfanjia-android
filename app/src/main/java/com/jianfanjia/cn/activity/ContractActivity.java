@@ -159,6 +159,7 @@ public class ContractActivity extends BaseActivity implements OnClickListener, V
         @Override
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data.toString());
+            mainHeadView.setRigthTitleEnable(false);
             setResult(RESULT_OK);
             finish();
         }
@@ -166,6 +167,7 @@ public class ContractActivity extends BaseActivity implements OnClickListener, V
         @Override
         public void loadFailture(String error_msg) {
             makeTextLong(error_msg);
+            mainHeadView.setRigthTitleEnable(true);
         }
     };
 

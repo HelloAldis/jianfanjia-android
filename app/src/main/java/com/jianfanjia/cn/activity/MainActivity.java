@@ -2,7 +2,6 @@ package com.jianfanjia.cn.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
@@ -14,7 +13,6 @@ import com.jianfanjia.cn.fragment.HomeFragment;
 import com.jianfanjia.cn.fragment.MyFragment;
 import com.jianfanjia.cn.fragment.XuQiuFragment;
 import com.jianfanjia.cn.fragment.XuQiuFragment_;
-import com.jianfanjia.cn.interf.OnActivityResultCallBack;
 import com.jianfanjia.cn.tools.LogTool;
 
 /**
@@ -26,7 +24,6 @@ import com.jianfanjia.cn.tools.LogTool;
 public class MainActivity extends BaseActivity implements
         OnCheckedChangeListener {
     private static final String TAG = MainActivity.class.getName();
-    private OnActivityResultCallBack onActivityResultCallBack = null;
     private RadioGroup mTabRg = null;
     private HomeFragment homeFragment = null;
     private XuQiuFragment xuqiuFragment = null;
@@ -34,21 +31,11 @@ public class MainActivity extends BaseActivity implements
     private long mExitTime = 0L;
     private int tab = -1;
 
-    @Override
-    public void onAttachFragment(Fragment fragment) {
-        super.onAttachFragment(fragment);
-        try {
-            onActivityResultCallBack = (OnActivityResultCallBack) fragment;
-        } catch (ClassCastException e) {
-            LogTool.d(TAG, "e:" + e);
-        }
-        LogTool.d(TAG, "onActivityResultCallBack:" + onActivityResultCallBack);
-    }
 
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        LogTool.d(TAG,"onNewIntent");
+        LogTool.d(TAG, "onNewIntent");
     }
 
     @Override
