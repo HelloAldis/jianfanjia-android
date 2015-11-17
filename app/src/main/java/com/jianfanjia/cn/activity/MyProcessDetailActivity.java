@@ -357,14 +357,14 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
     @Override
     public void preLoad() {
         super.preLoad();
-//        lineView.setVisibility(View.GONE);
+        lineView.setVisibility(View.GONE);
     }
 
     @Override
     public void loadSuccess(Object data) {
         hideWaitDialog();
         detailNodeListView.onRefreshComplete();
-//        lineView.setVisibility(View.VISIBLE);
+        lineView.setVisibility(View.VISIBLE);
         if (data != null) {
             processInfo = JsonParser.jsonToBean(data.toString(), ProcessInfo.class);
             initData();
@@ -374,7 +374,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
     @Override
     public void loadFailture(String error_msg) {
         hideWaitDialog();
-//        lineView.setVisibility(View.GONE);
+        lineView.setVisibility(View.GONE);
         if (processId != Constant.DEFAULT_PROCESSINFO_ID) {
             makeTextLong(getString(R.string.tip_error_internet));
         }
