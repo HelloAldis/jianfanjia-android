@@ -20,12 +20,12 @@
             <FrameLayout
                 android:id="@+id/frag_my_info_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="275dip">
 
                 <ImageView
                     android:id="@+id/head_img"
                     android:layout_width="match_parent"
-                    android:layout_height="275dip"
+                    android:layout_height="match_parent"
                     android:scaleType="centerCrop"
                     android:src="@mipmap/bg_my" />
 
@@ -33,35 +33,30 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
-                    android:paddingTop="@dimen/space_16"
-                    android:paddingBottom="@dimen/space_16"
-                    >
-
-                    <TextView
-                        android:id="@+id/frag_my_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBaseline="@+id/frag_my_account"
-                        android:layout_alignParentLeft="false"
-                        android:layout_toLeftOf="@+id/frag_my_account"
-                        android:ellipsize="end"
-                        android:gravity="center"
-                        android:singleLine="true"
-                        android:paddingLeft="@dimen/space_16"
-                        android:paddingRight="@dimen/space_16"
-                        android:textColor="#ffffff"
-                        android:textSize="@dimen/middle_size"
-                        android:textStyle="bold"
-                        />
+                    android:layout_margin="@dimen/space_20">
 
                     <TextView
                         android:id="@+id/frag_my_account"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
-                        android:gravity="center"
+                        android:layout_centerVertical="true"
                         android:textColor="#ffffff"
                         android:textSize="@dimen/small_size" />
+
+                    <TextView
+                        android:id="@+id/frag_my_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@+id/frag_my_account"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/space_20"
+                        android:layout_toLeftOf="@id/frag_my_account"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:textColor="#ffffff"
+                        android:textSize="@dimen/middle_size"
+                        android:textStyle="bold" />
                 </RelativeLayout>
             </FrameLayout>
 

@@ -18,7 +18,6 @@
         android:cacheColorHint="#00000000"
         android:clipToPadding="false"
         android:divider="@null"
-        android:dividerHeight="10dip"
         android:fadingEdge="none"
         android:fastScrollEnabled="false"
         android:footerDividersEnabled="false"
