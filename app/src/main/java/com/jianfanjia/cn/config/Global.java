@@ -64,7 +64,6 @@ public class Global {
     public static final String PASSWORD_MATCH = "^[\\@A-Za-z0-9\\!\\#\\$\\%\\^\\&\\*\\.\\~]{6,30}$";
 //    public static final String PASSWORD_MATCH = "^[a-zA-Z_]\\w{5,29}$";
 
-
     public static final int PIC_WIDTH_NODE = 100;//节点图片的缩略图宽度
 
     public static final String ACTION_UPDATE = "com.jianfanjia.action.update";

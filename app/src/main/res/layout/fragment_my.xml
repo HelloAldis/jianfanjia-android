@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <RelativeLayout
+            <FrameLayout
                 android:id="@+id/frag_my_info_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -30,13 +30,10 @@
                     android:src="@mipmap/bg_my" />
 
                 <RelativeLayout
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:paddingBottom="@dimen/space_8"
-                    android:paddingTop="@dimen/space_8">
+                    android:layout_gravity="bottom"
+                    android:layout_marginBottom="@dimen/space_16">
 
                     <TextView
                         android:id="@+id/frag_my_name"
@@ -46,23 +43,27 @@
                         android:layout_alignParentLeft="false"
                         android:layout_alignParentStart="false"
                         android:layout_alignParentTop="false"
-                        android:layout_marginRight="@dimen/space_24"
                         android:layout_toLeftOf="@+id/frag_my_account"
-                        android:text="Jame"
+                        android:ellipsize="end"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:paddingRight="@dimen/space_16"
+                        android:paddingLeft="@dimen/space_16"
                         android:textColor="#ffffff"
                         android:textSize="@dimen/big_size"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        />
 
                     <TextView
                         android:id="@+id/frag_my_account"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
-                        android:text="账号：18635897456"
+                        android:gravity="center"
                         android:textColor="#ffffff"
                         android:textSize="@dimen/small_size" />
                 </RelativeLayout>
-            </RelativeLayout>
+            </FrameLayout>
 
             <View style="@style/divier_line" />
 

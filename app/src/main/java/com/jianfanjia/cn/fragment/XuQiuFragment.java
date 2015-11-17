@@ -92,9 +92,6 @@ public class XuQiuFragment extends BaseAnnotationFragment {
     @ViewById(R.id.error_include)
     RelativeLayout error_Layout;
 
-    @ViewById(R.id.empty_include)
-    RelativeLayout empty_Layout;
-
     protected Intent gotoOrderDesigner;
     protected Intent gotoMyDesigner;
     protected Intent gotoEditRequirement;
@@ -172,6 +169,12 @@ public class XuQiuFragment extends BaseAnnotationFragment {
         startActivityForResult(intent, REQUESTCODE_PUBLISH_REQUIREMENT);
     }
 
+    @Click(R.id.error_include)
+    protected void errorRefresh(){
+//        initData();
+        pullrefresh.setRefreshing(true);
+    }
+
     @AfterViews
     protected void initView() {
         mainHeadView
@@ -241,7 +244,7 @@ public class XuQiuFragment extends BaseAnnotationFragment {
                     } else {
                         setPublishVisiable();
                     }
-                    empty_Layout.setVisibility(View.GONE);
+                    error_Layout.setVisibility(View.GONE);
                 }
             }
 
@@ -250,7 +253,7 @@ public class XuQiuFragment extends BaseAnnotationFragment {
                 makeTextLong(error_msg);
                 setListVisiable();
                 if (requirementInfos == null || requirementInfos.size() == 0) {
-                    empty_Layout.setVisibility(View.VISIBLE);
+                    error_Layout.setVisibility(View.VISIBLE);
                 }
                 pullrefresh.onRefreshComplete();
             }

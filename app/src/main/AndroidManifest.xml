@@ -223,8 +223,8 @@
             android:label="@string/title_activity_show_pic"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".UserByOwnerInfoActivity"
-            android:label="@string/title_activity_user_by_owner_info"
+            android:name=".UserInfoActivity_"
+            android:label="@string/title_activity_user_info"
             android:screenOrientation="portrait" />
         <activity
             android:name=".WelcomeActivity"

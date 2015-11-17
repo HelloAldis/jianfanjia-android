@@ -1,8 +1,10 @@
 package com.jianfanjia.cn.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -12,7 +14,7 @@ import com.jianfanjia.cn.activity.MyProcessActivity;
 import com.jianfanjia.cn.activity.NotifyActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SettingActivity;
-import com.jianfanjia.cn.activity.UserByOwnerInfoActivity;
+import com.jianfanjia.cn.activity.UserInfoActivity_;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.tools.LogTool;
@@ -25,11 +27,13 @@ import com.jianfanjia.cn.tools.LogTool;
  */
 public class MyFragment extends BaseFragment {
     private static final String TAG = MyFragment.class.getName();
+    public static final int REQUESTCODE_USERINFO = 0;
+
     private RelativeLayout notifyLayout = null;
     private RelativeLayout my_designer_layout = null;
     private RelativeLayout my_site_layout = null;
     private RelativeLayout setting_layout = null;
-    private RelativeLayout my_info_layout = null;
+    private FrameLayout my_info_layout = null;
     private ImageView head_img = null;
     private TextView my_name = null;
     private TextView my_account = null;
@@ -40,21 +44,17 @@ public class MyFragment extends BaseFragment {
         my_designer_layout = (RelativeLayout) view.findViewById(R.id.my_designer_layout);
         my_site_layout = (RelativeLayout) view.findViewById(R.id.my_site_layout);
         setting_layout = (RelativeLayout) view.findViewById(R.id.setting_layout);
-        my_info_layout = (RelativeLayout) view.findViewById(R.id.frag_my_info_layout);
+        my_info_layout = (FrameLayout) view.findViewById(R.id.frag_my_info_layout);
         head_img = (ImageView) view.findViewById(R.id.head_img);
         my_account = (TextView) view.findViewById(R.id.frag_my_account);
         my_name = (TextView) view.findViewById(R.id.frag_my_name);
+
+        initMyInfo();
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        initMyInfo();
     }
 
     protected void initMyInfo() {
@@ -89,7 +89,8 @@ public class MyFragment extends BaseFragment {
                 startActivity(MyProcessActivity.class);
                 break;
             case R.id.frag_my_info_layout:
-                startActivity(UserByOwnerInfoActivity.class);
+                Intent gotoUserInfo = new Intent(getActivity(),UserInfoActivity_.class);
+                startActivityForResult(gotoUserInfo,REQUESTCODE_USERINFO);
                 break;
             case R.id.setting_layout:
                 startActivity(SettingActivity.class);
@@ -104,5 +105,16 @@ public class MyFragment extends BaseFragment {
         return R.layout.fragment_my;
     }
 
-
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode != getActivity().RESULT_OK){
+            return;
+        }
+        switch (requestCode){
+            case REQUESTCODE_USERINFO:
+                initMyInfo();
+                break;
+        }
+    }
 }

@@ -220,11 +220,12 @@
     </ScrollView>
 
     <include
-        android:id="@+id/empty_view"
-        layout="@layout/view_empty_layout"
+        android:id="@+id/error_include"
+        layout="@layout/view_error_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_gravity="center"
         android:layout_below="@+id/ownerinfo_head_layout"
-        android:layout_marginTop="@dimen/space_8" />
+        android:visibility="gone" />
 
 </RelativeLayout>

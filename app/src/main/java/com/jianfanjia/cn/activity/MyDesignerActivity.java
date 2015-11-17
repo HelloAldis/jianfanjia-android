@@ -6,6 +6,7 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.adapter.MyDesignerAdapter;
@@ -55,6 +56,9 @@ public class MyDesignerActivity extends BaseAnnotationActivity {
 
     @ViewById(R.id.act_my_designer_pull_refresh)
     protected PullToRefreshRecycleView refreshView;
+
+    @ViewById(R.id.error_include)
+    protected RelativeLayout error_Layout;
 
     private String requirementid;
 
@@ -166,6 +170,13 @@ public class MyDesignerActivity extends BaseAnnotationActivity {
                 .build());*/
     }
 
+    @Click(R.id.error_include)
+    protected void errorRefresh(){
+//        initData();
+        refreshView.setRefreshing(true);
+    }
+
+
     protected void confirmMeasureHouse(String designerid){
         JianFanJiaClient.confirmMeasureHouse(MyDesignerActivity.this, requirementid, designerid, new ApiUiUpdateListener() {
             @Override
@@ -210,6 +221,7 @@ public class MyDesignerActivity extends BaseAnnotationActivity {
                                 }.getType());
                         if (orderDesignerInfos != null && orderDesignerInfos.size() > 0) {
                             myDesignerAdapter.addItem(orderDesignerInfos);
+                            error_Layout.setVisibility(View.GONE);
                         }
                     }
                 }
@@ -217,6 +229,9 @@ public class MyDesignerActivity extends BaseAnnotationActivity {
                 @Override
                 public void loadFailture(String error_msg) {
                     refreshView.onRefreshComplete();
+                    if(orderDesignerInfos == null || orderDesignerInfos.size() == 0){
+                        error_Layout.setVisibility(View.VISIBLE);
+                    }
                 }
             }, this);
         }

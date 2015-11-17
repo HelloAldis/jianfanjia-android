@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <LinearLayout
+    <FrameLayout
         android:id="@+id/act_my_designer_recyclerview_wrap"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -21,8 +21,15 @@
         <com.jianfanjia.cn.view.library.PullToRefreshRecycleView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/act_my_designer_pull_refresh">
-        </com.jianfanjia.cn.view.library.PullToRefreshRecycleView>
+            android:id="@+id/act_my_designer_pull_refresh"/>
 
-    </LinearLayout>
+        <include
+            android:id="@+id/error_include"
+            layout="@layout/view_error_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="visible" />
+
+    </FrameLayout>
 </LinearLayout>
