@@ -23,7 +23,6 @@ import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.tools.UiHelper;
 
 /**
  * Description:设计师作品案例详情
@@ -161,7 +160,6 @@ public class DesignerCaseInfoActivity extends BaseActivity implements ApiUiUpdat
             nameText.setText(designerCaseInfo.getDesigner().getUsername());
             DesignerCaseAdapter adapter = new DesignerCaseAdapter(DesignerCaseInfoActivity.this, designerCaseInfo.getImages());
             designer_case_listview.setAdapter(adapter);
-            UiHelper.setListViewHeightBasedOnChildren(designer_case_listview);//此处是必须要做的计算Listview的高度
         }
     }
 
