@@ -130,7 +130,7 @@ public class MainActivity extends BaseActivity implements
     @Override
     public void onBackPressed() {
         if ((System.currentTimeMillis() - mExitTime) > 2000) {// 如果两次按键时间间隔大于2000毫秒，则不退出
-            makeTextLong("再按一次退出程序");
+            makeTextShort("再按一次退出程序");
             mExitTime = System.currentTimeMillis();// 更新mExitTime
         } else {
             activityManager.exit();
