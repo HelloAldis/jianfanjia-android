@@ -23,9 +23,9 @@ public class Constant {
             .getExternalStorageDirectory() + "/JianFanJia/Pic/";// 保存照片
     public static final String COMMON_PATH = Environment
             .getExternalStorageDirectory() + "/JianFanJia/";// 公共的路径
-
+    public static final String CROP_PATH = IMAG_PATH + "cropped.jpg";// 截图的图片路径
     //	public static final String TEMP_IMG = "temp_img.jpg";// 照片名称
-    public static final String TEMP_IMG = "current_camera_temp_path";//拍照的临时存储文件路径
+    public static final String TEMP_IMG =COMMON_PATH + "current_camera_temp_path";//拍照的临时存储文件路径
 
     public static final int HOME = 0;//首页
     public static final int MANAGE = 1;//工地管理

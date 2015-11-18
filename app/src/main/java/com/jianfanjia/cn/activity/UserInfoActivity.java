@@ -4,7 +4,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
@@ -16,6 +15,7 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jianfanjia.cn.base.BaseAnnotationActivity;
 import com.jianfanjia.cn.bean.OwnerInfo;
@@ -25,12 +25,13 @@ import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
+import com.jianfanjia.cn.tools.ImageUtils;
 import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.tools.PhotoUtils;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
+import com.soundcloud.android.crop.Crop;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -365,6 +366,45 @@ public class UserInfoActivity extends BaseAnnotationActivity implements
         startActivityForResult(albumIntent, Constant.REQUESTCODE_LOCATION);
     }
 
+    private void beginCrop(Uri source) {
+        Uri destination = Uri.fromFile(new File(Constant.CROP_PATH));
+        Crop.of(source, destination).withAspect(100,100).start(this);
+    }
+
+    private void handleCrop(int resultCode, Intent result) {
+        if (resultCode == RESULT_OK) {
+            Uri uri = Crop.getOutput(result);
+            LogTool.d(TAG, "uri path: " + uri.toString());
+            Bitmap bitmap = ImageUtils.getBitmapByPath(new File(Constant.CROP_PATH).getPath());
+            if(bitmap != null){
+                JianFanJiaClient.uploadImage(this, bitmap, new ApiUiUpdateListener() {
+                    @Override
+                    public void preLoad() {
+
+                    }
+
+                    @Override
+                    public void loadSuccess(Object data) {
+                        if (data != null) {
+                            String imageid = data.toString();
+                            LogTool.d(TAG, "imageid:" + imageid);
+                            if (!TextUtils.isEmpty(imageid)) {
+                                getImageId(imageid);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void loadFailture(String msg) {
+
+                    }
+                }, this);
+            }
+        } else if (resultCode == Crop.RESULT_ERROR) {
+            Toast.makeText(this, Crop.getError(result).getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -420,7 +460,8 @@ public class UserInfoActivity extends BaseAnnotationActivity implements
                     Uri uri = Uri.fromFile(mTmpFile);
                     LogTool.d(TAG, "uri:" + uri);
                     if (null != uri) {
-                        startPhotoZoom(uri);
+//                        startPhotoZoom(uri);
+                        beginCrop(uri);
                     }
                 }
                 break;
@@ -429,17 +470,20 @@ public class UserInfoActivity extends BaseAnnotationActivity implements
                     Uri uri = data.getData();
                     LogTool.d(TAG, "uri:" + uri);
                     if (null != uri) {
-                        startPhotoZoom(uri);
+//                        startPhotoZoom(uri);
+                        beginCrop(uri);
                     }
                 }
                 break;
-            case Constant.REQUESTCODE_CROP:
-                if (data != null) {
+            case Crop.REQUEST_CROP:
+                handleCrop(resultCode, data);
+                /*if (data != null) {
                     Bundle extras = data.getExtras();
                     if (extras != null) {
                         // 得到返回来的数据，是bitmap类型的数据
                         Bitmap bitmap = extras.getParcelable("data");
                         LogTool.d(TAG, "avatar - bitmap = " + bitmap);
+                        Uri uri = Crop.getOutput(data);
                         String imgPath = PhotoUtils.savaPicture(bitmap);
                         LogTool.d(TAG, "imgPath==" + imgPath);
                         if (!TextUtils.isEmpty(imgPath)) {
@@ -467,8 +511,7 @@ public class UserInfoActivity extends BaseAnnotationActivity implements
                                 }
                             }, this);
                         }
-                    }
-                }
+                    }*/
                 break;
             default:
                 break;
