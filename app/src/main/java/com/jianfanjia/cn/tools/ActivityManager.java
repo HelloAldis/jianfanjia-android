@@ -36,5 +36,6 @@ public class ActivityManager {
         for (Activity activity : activityList) {
             activity.finish();
         }
+        System.exit(0);
     }
 }
