@@ -45,12 +45,7 @@ public class MyProcessActivity extends BaseActivity implements
         siteListView = (ListView) findViewById(R.id.designer_site_listview);
 //        siteList = dataManager.getProcessLists();
         if (siteList == null) {
-            if (NetTool.isNetworkAvailable(this)) {
-                JianFanJiaClient.get_Process_List(this, this, this);
-            } else {
-//                siteList = dataManager.getProcessListsByCache();
-                setEmptyView();
-            }
+            JianFanJiaClient.get_Process_List(this, this, this);
         }
         myProcessInfoAdapter = new MyProcessInfoAdapter(
                 MyProcessActivity.this, siteList);

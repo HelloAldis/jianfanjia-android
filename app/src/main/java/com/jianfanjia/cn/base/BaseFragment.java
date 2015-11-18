@@ -17,6 +17,7 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.dao.impl.NotifyMessageDao;
+import com.jianfanjia.cn.http.OkHttpClientManager;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
 import com.jianfanjia.cn.interf.manager.ListenerManeger;
 import com.jianfanjia.cn.tools.DaoManager;
@@ -131,6 +132,7 @@ public abstract class BaseFragment extends Fragment
     @Override
     public void onDestroy() {
         super.onDestroy();
+        OkHttpClientManager.cancelTag(this);
         LogTool.d(this.getClass().getName(), "onDestroy");
     }
 

@@ -2,7 +2,9 @@ package com.jianfanjia.cn.activity;
 
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.TextView;
 
+import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.view.MainHeadView;
 
@@ -15,10 +17,15 @@ import com.jianfanjia.cn.view.MainHeadView;
 public class AboutActivity extends BaseActivity implements OnClickListener {
     private static final String TAG = AboutActivity.class.getName();
     private MainHeadView mainHeadView = null;
+    private TextView currentVersion;// 当前版本
+    private String versionInfo;
 
     @Override
     public void initView() {
         initMainHeadView();
+        currentVersion = (TextView) findViewById(R.id.about_version);
+        versionInfo = String.format(getString(R.string.about_version),MyApplication.getInstance().getVersionName());
+        currentVersion.setText(versionInfo);
     }
 
     private void initMainHeadView() {
