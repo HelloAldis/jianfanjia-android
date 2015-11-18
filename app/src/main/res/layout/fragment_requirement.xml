@@ -18,10 +18,12 @@
         android:layout_marginTop="@dimen/space_8"
         android:orientation="vertical">
 
-        <com.jianfanjia.cn.view.library.PullToRefreshRecycleView
+        <com.jianfanjia.cn.view.library.PullToRefreshRecycleView xmlns:ptr="http://schemas.android.com/apk/res-auto"
             android:id="@+id/req_pullfefresh"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            ptr:ptrAnimationStyle="flip"
+            ptr:ptrHeaderTextColor="#344a5d" />
 
         <include
             android:id="@+id/error_include"
@@ -36,9 +38,9 @@
         android:id="@+id/req_publish_wrap"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/font_white"
         android:orientation="vertical"
-        android:visibility="gone"
-        android:background="@color/font_white">
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/edit_requirement_bg"
