@@ -6,6 +6,7 @@ import com.jianfanjia.cn.base.BaseRequest;
 import com.jianfanjia.cn.bean.LoginUserBean;
 import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.tools.JsonParser;
+import com.jianfanjia.cn.tools.LogTool;
 
 import java.util.Calendar;
 
@@ -37,7 +38,9 @@ public class LoginRequest extends BaseRequest {
     public void onSuccess(Object data) {
         super.onSuccess(data);
         if (data != null) {
+            LogTool.d(this.getClass().getName(),"already login");
             LoginUserBean loginUserBean = JsonParser.jsonToBean((String)data, LoginUserBean.class);
+            loginUserBean.setPass(password);
             dataManager.saveLoginUserInfo(loginUserBean);
             dataManager.setLogin(true);
             dataManager.savaLastLoginTime(Calendar.getInstance()

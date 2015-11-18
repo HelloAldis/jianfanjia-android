@@ -270,5 +270,7 @@
     <string name="title_activity_replace_designer">ReplaceDesignerActivity</string>
     <string name="tip_input_corrent_phone">请输入正确的手机号</string>
     <string name="tip_input_correct_password">请输入正确的密码格式，密码由6-30位数字、字母组成</string>
+    <string name="tip_open_camera">请开启摄像机权限</string>
+    <string name="tip_not_sdcard">没有SD卡，无法打开相机</string>
 
 </resources>

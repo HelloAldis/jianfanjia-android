@@ -4,10 +4,8 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.WindowManager;
 
-import com.jianfanjia.cn.AppConfig;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.UpdateVersion;
@@ -39,10 +37,9 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         first = dataManager.isFirst();
-        isLogin = dataManager.isLogin();
-        isLoginExpire = AppConfig.getInstance(this).isLoginExpire();
         LogTool.d(this.getClass().getName(), "first=" + first);
         checkVersion();
+//        initData();
     }
 
     // 检查版本
@@ -82,6 +79,14 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
         );
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+    }
+
+
+
     /**
      * 显示新版本对话框
      *
@@ -91,7 +96,7 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
      */
     public void showNewVersionDialog(final Activity activity, String message, final UpdateVersion updateVersion) {
         CommonDialog dialog = DialogHelper
-                .getPinterestDialogCancelable(activity);
+                .getPinterestDialog(activity);
         dialog.setTitle("版本更新");
         dialog.setMessage(message);
         dialog.setPositiveButton(R.string.ok,
@@ -112,9 +117,9 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                if(updateVersion.getUpdatetype().equals(Global.REC_UPDATE)){
+                if (updateVersion.getUpdatetype().equals(Global.REC_UPDATE)) {
                     handler.postDelayed(runnable, 2000);
-                }else{
+                } else {
                     WelcomeActivity.this.finish();
                 }
             }
@@ -123,11 +128,14 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
         dialog.show();
     }
 
-
+    protected void initData(){
+        handler.postDelayed(runnable, 2000);
+    }
 
     @Override
     public void initView() {
-
+        LogTool.d(this.getClass().getName(), "initView");
+//        handler.postDelayed(runnable, 2000);
     }
 
     @Override
@@ -153,27 +161,30 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
         @Override
         public void run() {
             if (!first) {
+                isLogin = dataManager.isLogin();
+                isLoginExpire = dataManager.isLoginExpire();
+                LogTool.d(this.getClass().getName(), "not first");
                 if (!isLogin) {
-                    Log.i(this.getClass().getName(), "没有登录");
+                    LogTool.d(this.getClass().getName(), "not login");
                     startActivity(LoginNewActivity_.class);
                     finish();
                 } else {
                     if (!isLoginExpire) {// 登录未过期，添加cookies到httpclient记录身份
-                        Log.i(this.getClass().getName(), "未过期");
+                        LogTool.d(this.getClass().getName(), "not expire");
                         startActivity(MainActivity.class);
                         finish();
                     } else {
-                        Log.i(this.getClass().getName(), "已经过期");
+                        LogTool.d(this.getClass().getName(), "expire");
                         MyApplication.getInstance().clearCookie();
                         JianFanJiaClient.login(WelcomeActivity.this, dataManager.getAccount(), dataManager.getPassword(), WelcomeActivity.this, WelcomeActivity.this);
                     }
                 }
             } else {
+                LogTool.d(this.getClass().getName(), "启动导航");
                 startActivity(NavigateActivity.class);
                 finish();
             }
         }
-
     };
 
     @Override
