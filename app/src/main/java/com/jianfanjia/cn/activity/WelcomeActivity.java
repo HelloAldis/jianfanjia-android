@@ -1,13 +1,11 @@
 package com.jianfanjia.cn.activity;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
+import android.view.KeyEvent;
 import android.view.WindowManager;
 
-import com.jianfanjia.cn.AppConfig;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.UpdateVersion;
@@ -32,6 +30,7 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
     private boolean isLoginExpire;// 是否登录过去
     private boolean isLogin;// 是否登录过
     private UpdateVersion updateVersion;
+    private CommonDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +38,6 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         first = dataManager.isFirst();
-        isLogin = dataManager.isLogin();
-        isLoginExpire = AppConfig.getInstance(this).isLoginExpire();
         LogTool.d(this.getClass().getName(), "first=" + first);
         checkVersion();
     }
@@ -62,12 +59,11 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
                                 if (Integer.parseInt(updateVersion
                                         .getVersion_code()) > MyApplication
                                         .getInstance().getVersionCode()) {
-                                    showNewVersionDialog(WelcomeActivity.this,
+                                    showNewVersionDialog(
                                             String.format(getString(R.string.new_version_message),
                                                     updateVersion.getVersion_name()),
                                             updateVersion);
                                 } else {
-//                                    makeTextLong(getString(R.string.no_new_version));
                                     handler.postDelayed(runnable, 2000);
                                 }
                             }
@@ -76,7 +72,7 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
 
                     @Override
                     public void loadFailture(String error_msg) {
-
+                        handler.postDelayed(runnable, 2000);
                     }
                 }
         );
@@ -85,13 +81,10 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
     /**
      * 显示新版本对话框
      *
-     * @param activity
      * @param message
      * @param updateVersion
      */
-    public void showNewVersionDialog(final Activity activity, String message, final UpdateVersion updateVersion) {
-        CommonDialog dialog = DialogHelper
-                .getPinterestDialogCancelable(activity);
+    public void showNewVersionDialog(String message, final UpdateVersion updateVersion) {
         dialog.setTitle("版本更新");
         dialog.setMessage(message);
         dialog.setPositiveButton(R.string.ok,
@@ -100,9 +93,9 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        UiHelper.startUpdateService(activity, updateVersion.getDownload_url());
-                        if(updateVersion.getUpdatetype().equals(Global.REC_UPDATE)){
-                            handler.postDelayed(runnable, 2000);
+                        UiHelper.startUpdateService(WelcomeActivity.this, updateVersion.getDownload_url());
+                        if (updateVersion.getUpdatetype().equals(Global.REC_UPDATE)) {
+                            handler.postDelayed(runnable, 1500);
                         }
                     }
 
@@ -112,22 +105,34 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                if(updateVersion.getUpdatetype().equals(Global.REC_UPDATE)){
-                    handler.postDelayed(runnable, 2000);
-                }else{
+                if (updateVersion.getUpdatetype().equals(Global.REC_UPDATE)) {
+                    handler.postDelayed(runnable, 1500);
+                } else {
                     WelcomeActivity.this.finish();
                 }
             }
 
         });
+        dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                switch (keyCode) {
+                    case KeyEvent.KEYCODE_BACK:
+                        dialog.dismiss();
+                        activityManager.exit();
+                        return true;
+                }
+                return false;
+            }
+        });
         dialog.show();
     }
 
-
-
     @Override
     public void initView() {
-
+        LogTool.d(this.getClass().getName(), "initView");
+        dialog = DialogHelper
+                .getPinterestDialog(this);
     }
 
     @Override
@@ -137,7 +142,6 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
 
     @Override
     public void loadSuccess(Object data) {
-        super.loadSuccess(data);
         startActivity(MainActivity.class);
         finish();
     }
@@ -153,27 +157,30 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
         @Override
         public void run() {
             if (!first) {
+                isLogin = dataManager.isLogin();
+                isLoginExpire = dataManager.isLoginExpire();
+                LogTool.d(this.getClass().getName(), "not first");
                 if (!isLogin) {
-                    Log.i(this.getClass().getName(), "没有登录");
+                    LogTool.d(this.getClass().getName(), "not login");
                     startActivity(LoginNewActivity_.class);
                     finish();
                 } else {
                     if (!isLoginExpire) {// 登录未过期，添加cookies到httpclient记录身份
-                        Log.i(this.getClass().getName(), "未过期");
+                        LogTool.d(this.getClass().getName(), "not expire");
                         startActivity(MainActivity.class);
                         finish();
                     } else {
-                        Log.i(this.getClass().getName(), "已经过期");
+                        LogTool.d(this.getClass().getName(), "expire");
                         MyApplication.getInstance().clearCookie();
                         JianFanJiaClient.login(WelcomeActivity.this, dataManager.getAccount(), dataManager.getPassword(), WelcomeActivity.this, WelcomeActivity.this);
                     }
                 }
             } else {
+                LogTool.d(this.getClass().getName(), "启动导航");
                 startActivity(NavigateActivity.class);
                 finish();
             }
         }
-
     };
 
     @Override

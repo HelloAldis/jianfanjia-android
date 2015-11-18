@@ -303,6 +303,8 @@
         <activity
             android:name=".CityEditActivity_"
             android:screenOrientation="portrait" />
+        <activity android:name="com.soundcloud.android.crop.CropImageActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

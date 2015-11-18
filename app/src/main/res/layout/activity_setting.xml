@@ -105,7 +105,7 @@
                     style="@style/listview_item_text_style_middle"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:text="@string/cache_size"
+                    android:text="0M"
                     android:textColor="@color/main_color_grey" />
             </RelativeLayout>
 

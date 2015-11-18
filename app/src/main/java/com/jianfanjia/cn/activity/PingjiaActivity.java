@@ -44,7 +44,6 @@ public class PingjiaActivity extends BaseActivity implements
     private float speed = 0.0f;
     private float attitude = 0.0f;
 
-
     private int respond_speed = 0;
     private int service_attitude = 0;
 

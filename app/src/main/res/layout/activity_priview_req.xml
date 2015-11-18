@@ -16,14 +16,15 @@
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:paddingTop="@dimen/space_8"
-            android:paddingBottom="@dimen/space_8">
+            android:paddingBottom="@dimen/space_8"
+            android:paddingTop="@dimen/space_8">
 
             <View
                 style="@style/divier_line"
@@ -98,8 +99,7 @@
                     android:paddingRight="@dimen/space_16"
                     android:singleLine="true"
                     android:textColor="@color/black_color"
-                    android:textSize="@dimen/middle_size"
-                    />
+                    android:textSize="@dimen/middle_size" />
 
             </RelativeLayout>
 
@@ -154,8 +154,7 @@
                     android:paddingRight="@dimen/space_16"
                     android:singleLine="true"
                     android:textColor="@color/black_color"
-                    android:textSize="@dimen/middle_size"
-                    />
+                    android:textSize="@dimen/middle_size" />
             </LinearLayout>
 
             <View
@@ -189,8 +188,7 @@
                     android:paddingRight="@dimen/space_16"
                     android:singleLine="true"
                     android:textColor="@color/black_color"
-                    android:textSize="@dimen/middle_size"
-                    />
+                    android:textSize="@dimen/middle_size" />
 
                 <TextView
                     android:id="@+id/act_edit_req_danyuan_title"
@@ -210,8 +208,7 @@
                     android:paddingRight="@dimen/space_16"
                     android:singleLine="true"
                     android:textColor="@color/black_color"
-                    android:textSize="@dimen/middle_size"
-                    />
+                    android:textSize="@dimen/middle_size" />
 
                 <TextView
                     android:id="@+id/act_edit_req_shi_title"
@@ -232,8 +229,7 @@
                     android:singleLine="true"
                     android:textColor="@color/black_color"
                     android:textSize="@dimen/middle_size"
-                    android:textStyle="normal"
-                    />
+                    android:textStyle="normal" />
             </LinearLayout>
 
             <View
@@ -266,17 +262,16 @@
                     android:layout_height="match_parent"
                     android:layout_centerVertical="true"
                     android:layout_toLeftOf="@+id/act_edit_req_housearea_unit"
+                    android:layout_toRightOf="@+id/act_edit_req_housearea_title"
                     android:background="@null"
                     android:ellipsize="end"
                     android:gravity="right|center_vertical"
                     android:maxLength="4"
-                    android:layout_toRightOf="@+id/act_edit_req_housearea_title"
                     android:paddingLeft="@dimen/space_16"
                     android:paddingRight="@dimen/space_16"
                     android:singleLine="true"
                     android:textColor="@color/black_color"
-                    android:textSize="@dimen/middle_size"
-                    />
+                    android:textSize="@dimen/middle_size" />
 
                 <TextView
                     android:id="@+id/act_edit_req_housearea_unit"
@@ -321,8 +316,7 @@
                     android:paddingRight="@dimen/space_16"
                     android:singleLine="true"
                     android:textColor="@color/black_color"
-                    android:textSize="@dimen/middle_size"
-                    />
+                    android:textSize="@dimen/middle_size" />
 
                 <TextView
                     android:id="@+id/act_edit_req_decoratebudget_unit"

@@ -19,7 +19,7 @@ public class Url_New {
     public static final String ID = "id";
 
     //屏幕宽高
-    public static final String WIDTH = "500";
+    public static final String WIDTH = "400";
 
     public static final String BIND_URL = HTTPROOT + "device/bind";
     // 登录

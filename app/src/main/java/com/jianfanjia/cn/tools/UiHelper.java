@@ -1,8 +1,6 @@
 package com.jianfanjia.cn.tools;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.hardware.Camera;
@@ -16,16 +14,12 @@ import android.view.ViewTreeObserver;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
-import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.bean.UpdateVersion;
 import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.service.UpdateService;
-import com.jianfanjia.cn.view.dialog.CommonDialog;
-import com.jianfanjia.cn.view.dialog.DialogHelper;
 
 import java.io.File;
 
@@ -178,6 +172,7 @@ public class UiHelper {
         if (isCameraCanUse()) {
             DataManagerNew.getInstance().setPicPath(tempFile.getAbsolutePath());
             Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             Uri uri = Uri.fromFile(tempFile);
             intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
             return intent;

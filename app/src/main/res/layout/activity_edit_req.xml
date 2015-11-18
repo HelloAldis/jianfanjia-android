@@ -16,14 +16,15 @@
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:paddingTop="@dimen/space_8"
-            android:paddingBottom="@dimen/space_8">
+            android:paddingBottom="@dimen/space_8"
+            android:paddingTop="@dimen/space_8">
 
             <View
                 style="@style/divier_line"
@@ -148,17 +149,17 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@null"
+                    android:digits="@string/edit_pattern"
                     android:ellipsize="end"
                     android:gravity="right|center_vertical"
+                    android:inputType="number"
                     android:maxLength="10"
                     android:nextFocusDown="@+id/act_edit_req_dong_content"
                     android:paddingLeft="@dimen/space_16"
                     android:paddingRight="@dimen/space_16"
                     android:singleLine="true"
                     android:textColor="@color/black_color"
-                    android:textSize="@dimen/middle_size"
-                    android:inputType="number"
-                    android:digits="@string/edit_pattern"/>
+                    android:textSize="@dimen/middle_size" />
             </LinearLayout>
 
             <View
@@ -185,18 +186,17 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@null"
+                    android:digits="@string/edit_pattern"
                     android:ellipsize="end"
                     android:gravity="center"
+                    android:inputType="number"
                     android:maxLength="10"
                     android:nextFocusDown="@+id/act_edit_req_danyuan_content"
                     android:paddingLeft="@dimen/space_16"
                     android:paddingRight="@dimen/space_16"
                     android:singleLine="true"
                     android:textColor="@color/black_color"
-                    android:textSize="@dimen/middle_size"
-                    android:inputType="number"
-                    android:digits="@string/edit_pattern"
-                    />
+                    android:textSize="@dimen/middle_size" />
 
                 <TextView
                     android:id="@+id/act_edit_req_danyuan_title"
@@ -209,17 +209,17 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@null"
+                    android:digits="@string/edit_pattern"
                     android:ellipsize="end"
                     android:gravity="center"
+                    android:inputType="number"
                     android:maxLength="10"
                     android:nextFocusDown="@+id/act_edit_req_shi_content"
                     android:paddingLeft="@dimen/space_16"
                     android:paddingRight="@dimen/space_16"
                     android:singleLine="true"
                     android:textColor="@color/black_color"
-                    android:textSize="@dimen/middle_size"
-                    android:inputType="number"
-                    android:digits="@string/edit_pattern"/>
+                    android:textSize="@dimen/middle_size" />
 
                 <TextView
                     android:id="@+id/act_edit_req_shi_title"
@@ -232,8 +232,10 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@null"
+                    android:digits="@string/edit_pattern"
                     android:ellipsize="end"
                     android:gravity="right|center_vertical"
+                    android:inputType="number"
                     android:maxLength="10"
                     android:nextFocusDown="@+id/act_edit_req_housetype_content"
                     android:paddingLeft="@dimen/space_16"
@@ -241,10 +243,7 @@
                     android:singleLine="true"
                     android:textColor="@color/black_color"
                     android:textSize="@dimen/middle_size"
-                    android:textStyle="normal"
-                    android:inputType="number"
-                    android:digits="@string/edit_pattern"
-                    />
+                    android:textStyle="normal" />
             </LinearLayout>
 
             <View
@@ -277,19 +276,19 @@
                     android:layout_height="match_parent"
                     android:layout_centerVertical="true"
                     android:layout_toLeftOf="@+id/act_edit_req_housearea_unit"
+                    android:layout_toRightOf="@+id/act_edit_req_housearea_title"
                     android:background="@null"
                     android:ellipsize="end"
                     android:gravity="right|center_vertical"
                     android:inputType="number"
                     android:maxLength="4"
-                    android:layout_toRightOf="@+id/act_edit_req_housearea_title"
                     android:nextFocusDown="@+id/act_edit_req_decoratebudget_content"
+                    android:numeric="integer"
                     android:paddingLeft="@dimen/space_16"
                     android:paddingRight="@dimen/space_16"
                     android:singleLine="true"
                     android:textColor="@color/black_color"
-                    android:textSize="@dimen/middle_size"
-                    android:numeric="integer" />
+                    android:textSize="@dimen/middle_size" />
 
                 <TextView
                     android:id="@+id/act_edit_req_housearea_unit"
@@ -331,12 +330,12 @@
                     android:inputType="number"
                     android:maxLength="4"
                     android:minWidth="@dimen/space_48"
+                    android:numeric="integer"
                     android:paddingLeft="@dimen/space_16"
                     android:paddingRight="@dimen/space_16"
                     android:singleLine="true"
                     android:textColor="@color/black_color"
-                    android:textSize="@dimen/middle_size"
-                    android:numeric="integer" />
+                    android:textSize="@dimen/middle_size" />
 
                 <TextView
                     android:id="@+id/act_edit_req_decoratebudget_unit"

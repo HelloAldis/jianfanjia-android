@@ -101,7 +101,7 @@ public class HomeFragment extends BaseFragment implements
     }
 
     private void initHomePage() {
-        getHomePageDesigners(FROM, Constant.LIMIT, downListener);
+        getHomePageDesigners(FROM, Constant.LIMIT, pullDownListener);
         designerAdapter = new DesignerListAdapter(getActivity(), designerList, this);
         designer_listview.setAdapter(designerAdapter);
     }
@@ -172,18 +172,18 @@ public class HomeFragment extends BaseFragment implements
         // Update the LastUpdatedLabel
         refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
         FROM = 0;
-        getHomePageDesigners(FROM, total, downListener);
+        getHomePageDesigners(FROM, total, pullDownListener);
     }
 
 
     @Override
     public void onPullUpToRefresh(PullToRefreshBase<ScrollView> refreshView) {
 //        FROM = designerList.size();
-        getHomePageDesigners(total, Constant.LIMIT, upListener);
+        getHomePageDesigners(total, Constant.LIMIT, pullUpListener);
     }
 
 
-    private ApiUiUpdateListener downListener = new ApiUiUpdateListener() {
+    private ApiUiUpdateListener pullDownListener = new ApiUiUpdateListener() {
         @Override
         public void preLoad() {
 
@@ -235,7 +235,7 @@ public class HomeFragment extends BaseFragment implements
         }
     };
 
-    private ApiUiUpdateListener upListener = new ApiUiUpdateListener() {
+    private ApiUiUpdateListener pullUpListener = new ApiUiUpdateListener() {
         @Override
         public void preLoad() {
 
@@ -270,7 +270,7 @@ public class HomeFragment extends BaseFragment implements
         }
         switch (requestCode) {
             case XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT:
-                getHomePageDesigners(FROM, total, downListener);
+                getHomePageDesigners(FROM, total, pullDownListener);
                 break;
             default:
                 break;

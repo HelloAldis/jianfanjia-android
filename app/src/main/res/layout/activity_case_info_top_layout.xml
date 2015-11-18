@@ -2,7 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/top_info_layout"
     android:layout_width="match_parent"
-    android:layout_height="45dip">
+    android:layout_height="40dip">
 
     <com.jianfanjia.cn.view.layout.CircleImageView
         android:id="@+id/head_img"
@@ -15,7 +15,7 @@
         android:scaleType="centerCrop"
         android:src="@mipmap/pix_default"
         app:border_color="@color/white"
-        app:border_width="3px" />
+        app:border_width="2dip" />
 
 
     <ImageView

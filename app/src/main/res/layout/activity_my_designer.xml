@@ -18,10 +18,12 @@
         android:orientation="vertical"
         android:paddingTop="@dimen/space_8">
 
-        <com.jianfanjia.cn.view.library.PullToRefreshRecycleView
+        <com.jianfanjia.cn.view.library.PullToRefreshRecycleView xmlns:ptr="http://schemas.android.com/apk/res-auto"
             android:id="@+id/act_my_designer_pull_refresh"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            ptr:ptrAnimationStyle="flip"
+            ptr:ptrHeaderTextColor="#344a5d" />
 
         <include
             android:id="@+id/error_include"
