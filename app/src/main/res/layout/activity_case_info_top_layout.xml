@@ -15,7 +15,7 @@
         android:scaleType="centerCrop"
         android:src="@mipmap/pix_default"
         app:border_color="@color/white"
-        app:border_width="3px" />
+        app:border_width="2dip" />
 
 
     <ImageView
