@@ -58,7 +58,7 @@ public class DesignerCaseInfoActivity extends BaseActivity implements ApiUiUpdat
         appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
         collapsingToolbar =
                 (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        collapsingToolbar.setExpandedTitleTextAppearance(R.style.site_listview_item_text_style_big);
+        collapsingToolbar.setExpandedTitleTextAppearance(R.style.site_listview_item_text_style_title);
         collapsingToolbar.setExpandedTitleGravity(Gravity.CENTER_HORIZONTAL);
         collapsingToolbar.setCollapsedTitleTextColor(Color.BLACK);
         collapsingToolbar.setExpandedTitleColor(Color.BLACK);
