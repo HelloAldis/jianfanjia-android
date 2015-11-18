@@ -25,6 +25,6 @@
         android:listSelector="@android:color/transparent"
         android:scrollbars="none"
         ptr:ptrAnimationStyle="flip"
-        ptr:ptrHeaderTextColor="#000000" />
+        ptr:ptrHeaderTextColor="#344a5d" />
 
 </LinearLayout>

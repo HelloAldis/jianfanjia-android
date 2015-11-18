@@ -43,7 +43,9 @@
                         android:id="@+id/designerinfo_head_img"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:scaleType="centerCrop" />
+                        android:scaleType="centerCrop"
+                        app:border_color="@color/white"
+                        app:border_width="2dip" />
 
                     <ImageView
                         android:id="@+id/designerinfo_auth"

@@ -31,7 +31,7 @@ public class Constant {
     public static final int MANAGE = 1;//工地管理
     public static final int MY = 2;//我的
 
-    public static final int LIMIT = 5;//分页 每次加载5条
+    public static final int LIMIT = 10;//分页 每次加载10条
 
     public static class Config {
         public static final boolean DEVELOPER_MODE = false;

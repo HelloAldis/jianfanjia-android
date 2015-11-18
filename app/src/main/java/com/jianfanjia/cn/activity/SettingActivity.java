@@ -170,7 +170,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener, On
     private void onClickCleanCache() {
         CommonDialog dialog = DialogHelper
                 .getPinterestDialogCancelable(SettingActivity.this);
-        dialog.setTitle("清空缓存？");
+        dialog.setTitle("清空缓存");
         dialog.setMessage("确定清空缓存吗？");
         dialog.setPositiveButton(R.string.ok,
                 new DialogInterface.OnClickListener() {

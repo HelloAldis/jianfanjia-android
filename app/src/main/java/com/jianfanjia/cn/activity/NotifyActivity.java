@@ -44,7 +44,6 @@ public class NotifyActivity extends BaseActivity implements OnClickListener, Rec
         }
     }
 
-
     @Override
     public void initView() {
         initMainHeadView();
