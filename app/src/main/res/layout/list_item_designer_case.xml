@@ -7,7 +7,7 @@
     <ImageView
         android:id="@+id/list_item_case_img"
         android:layout_width="match_parent"
-        android:layout_height="270dip"
+        android:layout_height="260dip"
         android:scaleType="centerCrop" />
 
     <TextView
