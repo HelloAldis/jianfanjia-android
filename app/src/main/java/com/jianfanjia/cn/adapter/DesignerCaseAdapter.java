@@ -41,7 +41,7 @@ public class DesignerCaseAdapter extends BaseListAdapter<ImageInfo> {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        imageShow.displayImageHeadWidthThumnailImage(context,info.getImageid(),viewHolder.itemwCaseView);
+        imageShow.displayScreenWidthThumnailImage(context, info.getImageid(), viewHolder.itemwCaseView);
 //        imageLoader.displayImage(Url_New.GET_THUMBNAIL_IMAGE + info.getImageid(), viewHolder.itemwCaseView, options);
         viewHolder.itemTitleText.setText(info.getSection());
         viewHolder.itemProduceText.setText(info.getDescription());
