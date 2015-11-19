@@ -12,11 +12,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.jianfanjia.cn.adapter.SectionItemAdapter;
 import com.jianfanjia.cn.adapter.SectionViewPageAdapter;
@@ -65,11 +62,6 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
     private static final String TAG = MyProcessDetailActivity.class.getName();
     private static final int TOTAL_PROCESS = 7;// 7道工序
 
-    // Header View
-    private ProgressBar progressBar;
-    private TextView textView;
-    private ImageView imageView;
-
     @ViewById(R.id.process_viewpager)
     ViewPager processViewPager;
     @ViewById(R.id.lineView)
@@ -78,8 +70,6 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
     PullToRefreshListView detailNodeListView;
     @ViewById(R.id.process_head_layout)
     MainHeadView mainHeadView;
-    /*  @ViewById(R.id.process_pull_refresh)
-      SuperSwipeRefreshLayout process_pull_refresh;*/
     @ViewById(R.id.head_notification_layout)
     RelativeLayout notificationLayout;
     @StringArrayRes(R.array.site_procedure)
