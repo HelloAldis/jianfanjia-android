@@ -174,7 +174,6 @@ public class HomeFragment extends BaseFragment implements
 
     @Override
     public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-//        FROM = designerList.size();
         getHomePageDesigners(total, Constant.LIMIT, pullUpListener);
     }
 
