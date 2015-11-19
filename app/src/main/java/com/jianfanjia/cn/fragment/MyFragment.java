@@ -62,8 +62,10 @@ public class MyFragment extends BaseFragment {
         my_account.setText(TextUtils.isEmpty(dataManager.getAccount()) ? "" : "账号：" + dataManager.getAccount());
         String imgPath = dataManager.getUserImagePath();
         LogTool.d(TAG, "imgPath=" + imgPath);
-        if (null != imgPath && !imgPath.contains(Constant.DEFALUT_PIC_HEAD)) {
-            imageLoader.displayImage(imgPath, head_img, options);
+        if (!imgPath.contains(Constant.DEFALUT_PIC_HEAD)) {
+            imageShow.displayImageHeadWidthThumnailImage(getActivity(),imgPath,head_img);
+        } else {
+            imageShow.displayLocalImage(imgPath, head_img);
         }
     }
 

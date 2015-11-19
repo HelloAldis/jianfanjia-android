@@ -1,7 +1,6 @@
 package com.jianfanjia.cn.base;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -21,9 +20,6 @@ import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.AddPhotoPopWindow;
 import com.jianfanjia.cn.view.dialog.DialogControl;
 import com.jianfanjia.cn.view.dialog.WaitDialog;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
 /**
  * Description:Fragment基类
@@ -38,8 +34,6 @@ public class BaseAnnotationFragment extends Fragment {
     protected AppConfig appConfig = null;
     protected LayoutInflater inflater = null;
     // protected SharedPrefer sharedPrefer = null;
-    protected ImageLoader imageLoader = null;
-    protected DisplayImageOptions options = null;
     protected ListenerManeger listenerManeger = null;
     protected AddPhotoPopWindow popupWindow = null;
     protected ProcessInfo processInfo = null;
@@ -66,13 +60,6 @@ public class BaseAnnotationFragment extends Fragment {
         appConfig = AppConfig.getInstance(getActivity());
         dataManager = DataManagerNew.getInstance();
         notifyMessageDao = DaoManager.getNotifyMessageDao(getActivity());
-        imageLoader = ImageLoader.getInstance();
-        options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.mipmap.pix_default)
-                .showImageForEmptyUri(R.mipmap.pix_default)
-                .showImageOnFail(R.mipmap.pix_default).cacheInMemory(true)
-                .cacheOnDisk(true).considerExifParams(true)
-                .bitmapConfig(Bitmap.Config.RGB_565).imageScaleType(ImageScaleType.IN_SAMPLE_INT).build();
         // sharedPrefer = dataManager.sharedPreferdata;
         fragmentManager = getFragmentManager();
     }

@@ -75,7 +75,11 @@ public class RequirementView extends BaseAnnotationView {
         ltm_req_starttime_cont.setText(StringUtils.covertLongToString(requirementInfo.getCreate_at()));
         ltm_req_updatetime_cont.setText(StringUtils.covertLongToString(requirementInfo.getLast_status_update_time()));
         ltm_req_status.setText(getResources().getStringArray(R.array.requirement_status)[Integer.parseInt(requirementInfo.getStatus())]);
-        imageLoader.displayImage(dataManagerNew.getUserImagePath(), ltm_req_owner_head, options);
+        if (!dataManagerNew.getUserImagePath().contains(Constant.DEFALUT_PIC_HEAD)) {
+            imageShow.displayImageHeadWidthThumnailImage(context,dataManagerNew.getUserImagePath(),ltm_req_owner_head);
+        } else {
+            imageShow.displayLocalImage(dataManagerNew.getUserImagePath(), ltm_req_owner_head);
+        }
         String requirementStatus = requirementInfo.getStatus();
         if (requirementStatus.equals(Global.REQUIREMENT_STATUS5)) {
             ltm_req_gotopro.setText(getResources().getString(R.string.str_goto_pro));

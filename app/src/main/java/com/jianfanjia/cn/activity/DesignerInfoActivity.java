@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -18,8 +19,8 @@ import android.widget.TextView;
 
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.DesignerInfo;
+import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.fragment.DesignerInfoFragment;
 import com.jianfanjia.cn.fragment.DesignerWorksFragment;
 import com.jianfanjia.cn.http.JianFanJiaClient;
@@ -141,7 +142,12 @@ public class DesignerInfoActivity extends BaseActivity implements
             LogTool.d(TAG, "designerInfo:" + designerInfo);
             if (null != designerInfo) {
                 collapsingToolbar.setTitle(designerInfo.getUsername());
-                imageLoader.displayImage(Url_New.GET_THUMBNAIL_IMAGE + designerInfo.getImageid(), designerinfo_head_img, options);
+                String designerid = designerInfo.getImageid();
+                if(!TextUtils.isEmpty(designerid)){
+                    imageShow.displayImageHeadWidthThumnailImage(DesignerInfoActivity.this,designerInfo.getImageid(), designerinfo_head_img);
+                }else{
+                    imageShow.displayLocalImage(Constant.DEFALUT_OWNER_PIC, designerinfo_head_img);
+                }
                 viewCountText.setText("" + designerInfo.getView_count());
                 productCountText.setText("" + designerInfo.getProduct_count());
                 appointCountText.setText("" + designerInfo.getOrder_count());

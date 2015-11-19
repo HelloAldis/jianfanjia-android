@@ -2,6 +2,7 @@ package com.jianfanjia.cn.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -12,8 +13,8 @@ import android.widget.RatingBar.OnRatingBarChangeListener;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.LogTool;
@@ -68,7 +69,12 @@ public class PingjiaActivity extends BaseActivity implements
         attitude = commentBundle.getFloat(Global.ATTITUDE);
         LogTool.d(TAG, "imageid:" + imageid + " designer_name:" + designer_name + " requirementid:" + requirementid + " designerid:" + designerid + " speed:" + speed + " attitude:" + attitude);
         bar.setRating((int) (speed + attitude) / 2);
-        imageLoader.displayImage(Url_New.GET_THUMBNAIL_IMAGE + imageid, designer_head_img, options);
+//        imageLoader.displayImage(Url_New.GET_THUMBNAIL_IMAGE + imageid, designer_head_img, options);
+        if(!TextUtils.isEmpty(imageid)){
+            imageShow.displayImageHeadWidthThumnailImage(this,imageid, designer_head_img);
+        }else{
+            imageShow.displayLocalImage(Constant.DEFALUT_OWNER_PIC, designer_head_img);
+        }
         designerName.setText(designer_name);
     }
 

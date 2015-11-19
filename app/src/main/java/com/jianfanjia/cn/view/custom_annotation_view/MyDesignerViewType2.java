@@ -13,12 +13,10 @@ import com.jianfanjia.cn.bean.OrderDesignerInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.interf.ClickCallBack;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.StringUtils;
 import com.jianfanjia.cn.view.baseview.BaseAnnotationView;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.ViewById;
@@ -75,9 +73,9 @@ public class MyDesignerViewType2 extends BaseAnnotationView {
             }
         });
         if (!TextUtils.isEmpty(imageid)) {
-            ImageLoader.getInstance().displayImage(Url_New.GET_THUMBNAIL_IMAGE + imageid, headView, options);
+            imageShow.displayImageHeadWidthThumnailImage(context, imageid, headView);
         } else {
-            ImageLoader.getInstance().displayImage(Constant.DEFALUT_OWNER_PIC, headView, options);
+            imageShow.displayLocalImage(Constant.DEFALUT_OWNER_PIC, headView);
         }
         if (!TextUtils.isEmpty(username)) {
             nameView.setText(username);

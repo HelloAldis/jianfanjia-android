@@ -7,7 +7,6 @@ import android.widget.ImageView;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.interf.cutom_annotation.ReqItemFinderImp;
 import com.jianfanjia.cn.view.baseview.BaseAnnotationView;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.ViewById;
@@ -31,7 +30,7 @@ public class RequirementItemLovestyleView extends BaseAnnotationView {
     public void bind(ReqItemFinderImp.ItemMap itemMap) {
         TypedArray ta = getResources().obtainTypedArray(R.array.arr_lovestyle_pic);
         String imageId = "drawable://" + ta.getResourceId(Integer.parseInt(itemMap.key), 0);
-        ImageLoader.getInstance().displayImage(imageId, gtm_req_image,options);
+        imageShow.displayLocalImage(imageId, gtm_req_image);
         ta.recycle();
     }
 }

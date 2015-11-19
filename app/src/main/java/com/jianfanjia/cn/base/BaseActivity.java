@@ -5,7 +5,6 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -29,15 +28,13 @@ import com.jianfanjia.cn.interf.manager.ListenerManeger;
 import com.jianfanjia.cn.receiver.NetStateReceiver;
 import com.jianfanjia.cn.tools.ActivityManager;
 import com.jianfanjia.cn.tools.DaoManager;
+import com.jianfanjia.cn.tools.ImageShow;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.ScreenUtil;
 import com.jianfanjia.cn.view.AddPhotoPopWindow;
 import com.jianfanjia.cn.view.dialog.DialogControl;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.cn.view.dialog.WaitDialog;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
 /**
  * Description:activity基类
@@ -53,8 +50,6 @@ public abstract class BaseActivity extends AppCompatActivity implements
     protected LayoutInflater inflater = null;
     protected FragmentManager fragmentManager = null;
     protected NotificationManager nManager = null;
-    protected ImageLoader imageLoader = null;
-    protected DisplayImageOptions options = null;
     protected ListenerManeger listenerManeger = null;
     protected NetStateReceiver netStateReceiver = null;
     protected AddPhotoPopWindow popupWindow = null;
@@ -62,6 +57,7 @@ public abstract class BaseActivity extends AppCompatActivity implements
     private WaitDialog _waitDialog;
     protected DataManagerNew dataManager;
     protected AppConfig appConfig;
+    protected ImageShow imageShow;
 
     protected String userIdentity = null;
     protected boolean isOpen = false;
@@ -110,17 +106,11 @@ public abstract class BaseActivity extends AppCompatActivity implements
         dataManager = DataManagerNew.getInstance();
         appConfig = AppConfig.getInstance(this);
         fragmentManager = this.getSupportFragmentManager();
-        imageLoader = ImageLoader.getInstance();
-        options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.mipmap.pix_default)
-                .showImageForEmptyUri(R.mipmap.pix_default)
-                .showImageOnFail(R.mipmap.pix_default).cacheInMemory(true)
-                .cacheOnDisk(true).considerExifParams(true)
-                .bitmapConfig(Bitmap.Config.RGB_565).imageScaleType(ImageScaleType.IN_SAMPLE_INT).build();
         listenerManeger = ListenerManeger.getListenerManeger();
         netStateReceiver = new NetStateReceiver(this);
         _isVisible = true;
         activityManager.addActivity(this);
+        imageShow = ImageShow.getImageShow();
     }
 
     private void initParams() {
