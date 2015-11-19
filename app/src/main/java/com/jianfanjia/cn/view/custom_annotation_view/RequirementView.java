@@ -12,7 +12,6 @@ import com.jianfanjia.cn.bean.OrderDesignerInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.fragment.XuQiuFragment;
 import com.jianfanjia.cn.interf.ClickCallBack;
 import com.jianfanjia.cn.tools.StringUtils;
@@ -146,9 +145,9 @@ public class RequirementView extends BaseAnnotationView {
                         nameView.setText(getResources().getString(R.string.designer));
                     }
                     if (!TextUtils.isEmpty(orderDesignerInfos.get(i).getImageid())) {
-                        ImageLoader.getInstance().displayImage(Url_New.GET_IMAGE + orderDesignerInfos.get(i).getImageid(), headView, options);
+                        imageShow.displayImageHeadWidthThumnailImage(context,orderDesignerInfos.get(i).getImageid(),headView);
                     } else {
-                        ImageLoader.getInstance().displayImage(Constant.DEFALUT_ADD_PIC, headView, options);
+                        imageShow.displayLocalImage(Constant.DEFALUT_ADD_PIC,headView);
                     }
                     String status = orderDesignerInfos.get(i).getPlan().getStatus();
                     statusView.setText(getResources().getStringArray(R.array.plan_status)[Integer.parseInt(status)]);
@@ -209,7 +208,7 @@ public class RequirementView extends BaseAnnotationView {
                 TextView statusView = (TextView) getRootView().findViewById(getResources().getIdentifier("ltm_req_designer_status" + i, "id", getContext().getPackageName()));
                 ImageView authView = (ImageView) getRootView().findViewById(getResources().getIdentifier("designerinfo_auth" + i, "id", getContext().getPackageName()));
                 nameView.setText(getResources().getString(R.string.designer));
-                ImageLoader.getInstance().displayImage(Constant.DEFALUT_ADD_PIC, headView, options);
+                imageShow.displayLocalImage(Constant.DEFALUT_ADD_PIC,headView);
                 statusView.setText(getResources().getString(R.string.str_not_order));
                 statusView.setTextColor(getResources().getColor(R.color.middle_grey_color));
                 designerLayout.setOnClickListener(new OnClickListener() {
