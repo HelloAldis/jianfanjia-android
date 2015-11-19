@@ -9,6 +9,7 @@ import android.os.StrictMode;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.tools.SharedPrefer;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
@@ -50,12 +51,12 @@ public class BaseApplication extends Application {
         config.threadPriority(Thread.NORM_PRIORITY - 2);
         config.denyCacheImageMultipleSizesInMemory();
         config.threadPoolSize(3);
+        config.memoryCache(new WeakMemoryCache());
         config.diskCacheFileNameGenerator(new Md5FileNameGenerator());
         config.diskCacheSize(50 * 1024 * 1024); // 50 MiB
         config.memoryCacheSize(2 * 1024 * 1024);
         config.tasksProcessingOrder(QueueProcessingType.LIFO);
         config.writeDebugLogs(); // Remove for release app
-
         // Initialize ImageLoader with configuration.
         ImageLoader.getInstance().init(config.build());
     }
