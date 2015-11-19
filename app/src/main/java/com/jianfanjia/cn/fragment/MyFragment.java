@@ -64,8 +64,6 @@ public class MyFragment extends BaseFragment {
         LogTool.d(TAG, "imgPath=" + imgPath);
         if (!imgPath.contains(Constant.DEFALUT_PIC_HEAD)) {
             imageShow.displayImageHeadWidthThumnailImage(getActivity(),imgPath,head_img);
-        } else {
-            imageShow.displayLocalImage(imgPath, head_img);
         }
     }
 
