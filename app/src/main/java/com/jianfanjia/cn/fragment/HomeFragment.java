@@ -73,11 +73,10 @@ public class HomeFragment extends BaseFragment implements
 
     @Override
     public void initView(View view) {
-
         pullToRefreshListView = (PullToRefreshListView) view.findViewById(R.id.pull_refresh_scrollview);
         pullToRefreshListView.setMode(PullToRefreshBase.Mode.BOTH);
 //        pullToRefreshListView.setOverScrollMode(PullToRefreshBase.OVER_SCROLL_NEVER);
-        headLayout = (LinearLayout)inflater.inflate(R.layout.list_item_home_head,null,false);
+        headLayout = (LinearLayout) inflater.inflate(R.layout.list_item_home_head, null, false);
         viewpagerLayout = (RelativeLayout) headLayout.findViewById(R.id.viewpager_layout);
         marchedLayout = (LinearLayout) headLayout.findViewById(R.id.marched_layout);
         noMarchedLayout = (LinearLayout) headLayout.findViewById(R.id.no_marched_layout);
@@ -89,8 +88,8 @@ public class HomeFragment extends BaseFragment implements
     }
 
     private void initBannerView() {
-        MyViewPager myViewPager = (MyViewPager)headLayout.findViewById(R.id.viewPager_lib);
-        ViewPagerManager contoler = new ViewPagerManager(getActivity(),myViewPager);
+        MyViewPager myViewPager = (MyViewPager) headLayout.findViewById(R.id.viewPager_lib);
+        ViewPagerManager contoler = new ViewPagerManager(getActivity(), myViewPager);
         contoler.setmShapeType(ShapeType.OVAL);// 设置指示器的形状为矩形，默认是圆形
         List<View> bannerList = new ArrayList<View>();
         for (int i = 0; i < BANNER_ICON.length; i++) {
