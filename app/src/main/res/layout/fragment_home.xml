@@ -9,25 +9,20 @@
     <FrameLayout
         android:id="@+id/req_listview_wrap"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <com.jianfanjia.cn.view.library.PullToRefreshListView xmlns:ptr="http://schemas.android.com/apk/res-auto"
             android:id="@+id/pull_refresh_scrollview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:cacheColorHint="#ffffff"
-            android:clipToPadding="false"
-            android:divider="@null"
-            android:fadingEdge="none"
-            android:fastScrollEnabled="false"
-            android:listSelector="@android:color/transparent"
-            android:scrollbars="none"
+            android:smoothScrollbar="true"
             ptr:ptrAnimationStyle="flip"
             ptr:ptrHeaderTextColor="#344a5d" />
 
         <include
             android:id="@+id/empty_include"
-            layout="@layout/view_empty_layout"
+            layout="@layout/view_error_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
