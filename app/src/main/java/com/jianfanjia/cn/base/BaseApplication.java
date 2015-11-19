@@ -57,7 +57,6 @@ public class BaseApplication extends Application {
         config.memoryCacheSize(2 * 1024 * 1024);
         config.tasksProcessingOrder(QueueProcessingType.LIFO);
         config.writeDebugLogs(); // Remove for release app
-
         // Initialize ImageLoader with configuration.
         ImageLoader.getInstance().init(config.build());
     }
