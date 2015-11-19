@@ -152,7 +152,6 @@ public class ForgetPswActivity extends BaseAnnotationActivity{
      * @param password
      */
     private void sendVerification(final String name, final String password) {
-        if (NetTool.isNetworkAvailable(this)) {
             JianFanJiaClient.send_verification(this, name, new ApiUiUpdateListener() {
                 @Override
                 public void preLoad() {
@@ -175,9 +174,6 @@ public class ForgetPswActivity extends BaseAnnotationActivity{
                     makeTextLong(error_msg);
                 }
             }, this);
-        } else {
-            makeTextLong(getString(R.string.tip_internet_not));
-        }
     }
 
 

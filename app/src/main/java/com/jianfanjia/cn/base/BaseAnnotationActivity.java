@@ -21,6 +21,7 @@ import com.jianfanjia.cn.AppConfig;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.dao.impl.NotifyMessageDao;
+import com.jianfanjia.cn.http.OkHttpClientManager;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.NetStateListener;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
@@ -160,6 +161,7 @@ public abstract class BaseAnnotationActivity extends AppCompatActivity implement
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        OkHttpClientManager.cancelTag(this);
         LogTool.d(this.getClass().getName(), "onDestroy()");
     }
 

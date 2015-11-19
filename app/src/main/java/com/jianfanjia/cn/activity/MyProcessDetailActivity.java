@@ -376,7 +376,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
         hideWaitDialog();
         lineView.setVisibility(View.GONE);
         if (processId != Constant.DEFAULT_PROCESSINFO_ID) {
-            makeTextLong(getString(R.string.tip_error_internet));
+            makeTextShort(error_msg);
         }
         detailNodeListView.onRefreshComplete();
     }
