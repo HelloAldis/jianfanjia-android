@@ -2,7 +2,6 @@ package com.jianfanjia.cn.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.format.DateUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ListView;
@@ -84,12 +83,6 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
 
     @Override
     public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-        String label = DateUtils.formatDateTime(DesignerPlanListActivity.this,
-                System.currentTimeMillis(), DateUtils.FORMAT_SHOW_TIME
-                        | DateUtils.FORMAT_SHOW_DATE
-                        | DateUtils.FORMAT_ABBREV_ALL);
-        // Update the LastUpdatedLabel
-        refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
         getDesignerPlansList(requirementid, designerid);
     }
 
