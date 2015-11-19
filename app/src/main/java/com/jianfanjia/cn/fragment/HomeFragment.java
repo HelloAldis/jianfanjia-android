@@ -13,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 
 import com.jianfanjia.cn.activity.DesignerCaseInfoActivity;
 import com.jianfanjia.cn.activity.DesignerInfoActivity;
@@ -36,8 +35,9 @@ import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.ViewPagerManager;
 import com.jianfanjia.cn.tools.ViewPagerManager.ShapeType;
+import com.jianfanjia.cn.view.MyViewPager;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
-import com.jianfanjia.cn.view.library.PullToRefreshScrollView;
+import com.jianfanjia.cn.view.library.PullToRefreshListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,18 +49,18 @@ import java.util.List;
  * Date:15-10-11 14:30
  */
 public class HomeFragment extends BaseFragment implements
-        PullToRefreshBase.OnRefreshListener2<ScrollView>, ListItemClickListener, OnItemClickListener {
+        PullToRefreshBase.OnRefreshListener2<ListView>, ListItemClickListener, OnItemClickListener {
     private static final String TAG = HomeFragment.class.getName();
-    private PullToRefreshScrollView mPullRefreshScrollView = null;
+    private PullToRefreshListView pullToRefreshListView = null;
     private RelativeLayout viewpagerLayout = null;
     private LinearLayout marchedLayout = null;
     private LinearLayout noMarchedLayout = null;
+    private LinearLayout headLayout = null;
     private GridView marchDesignerView = null;
     private MarchDesignerAdapter marchDesignerAdapter = null;
     private List<OrderDesignerInfo> designers = new ArrayList<OrderDesignerInfo>();
 
     private Button addXuQiu = null;
-    private ListView designer_listview = null;
     private DesignerListAdapter designerAdapter = null;
     private List<DesignerListInfo> designerList = new ArrayList<DesignerListInfo>();
 
@@ -73,22 +73,24 @@ public class HomeFragment extends BaseFragment implements
 
     @Override
     public void initView(View view) {
+
+        pullToRefreshListView = (PullToRefreshListView) view.findViewById(R.id.pull_refresh_scrollview);
+        pullToRefreshListView.setMode(PullToRefreshBase.Mode.BOTH);
+//        pullToRefreshListView.setOverScrollMode(PullToRefreshBase.OVER_SCROLL_NEVER);
+        headLayout = (LinearLayout)inflater.inflate(R.layout.list_item_home_head,null,false);
+        viewpagerLayout = (RelativeLayout) headLayout.findViewById(R.id.viewpager_layout);
+        marchedLayout = (LinearLayout) headLayout.findViewById(R.id.marched_layout);
+        noMarchedLayout = (LinearLayout) headLayout.findViewById(R.id.no_marched_layout);
+        addXuQiu = (Button) headLayout.findViewById(R.id.btn_add);
+        marchDesignerView = (GridView) headLayout.findViewById(R.id.marchGridview);
+        pullToRefreshListView.getRefreshableView().addHeaderView(headLayout);
         initBannerView();
-        mPullRefreshScrollView = (PullToRefreshScrollView) view.findViewById(R.id.pull_refresh_scrollview);
-        mPullRefreshScrollView.setMode(PullToRefreshBase.Mode.BOTH);
-        mPullRefreshScrollView.setOverScrollMode(PullToRefreshBase.OVER_SCROLL_NEVER);
-        viewpagerLayout = (RelativeLayout) view.findViewById(R.id.viewpager_layout);
-        marchedLayout = (LinearLayout) view.findViewById(R.id.marched_layout);
-        noMarchedLayout = (LinearLayout) view.findViewById(R.id.no_marched_layout);
-        addXuQiu = (Button) view.findViewById(R.id.btn_add);
-        marchDesignerView = (GridView) view.findViewById(R.id.marchGridview);
-        designer_listview = (ListView) view.findViewById(R.id.designer_listview);
-        designer_listview.setFocusable(false);
         initHomePage();
     }
 
     private void initBannerView() {
-        ViewPagerManager contoler = new ViewPagerManager(getActivity());
+        MyViewPager myViewPager = (MyViewPager)headLayout.findViewById(R.id.viewPager_lib);
+        ViewPagerManager contoler = new ViewPagerManager(getActivity(),myViewPager);
         contoler.setmShapeType(ShapeType.OVAL);// 设置指示器的形状为矩形，默认是圆形
         List<View> bannerList = new ArrayList<View>();
         for (int i = 0; i < BANNER_ICON.length; i++) {
@@ -103,12 +105,12 @@ public class HomeFragment extends BaseFragment implements
     private void initHomePage() {
         getHomePageDesigners(FROM, Constant.LIMIT, pullDownListener);
         designerAdapter = new DesignerListAdapter(getActivity(), designerList, this);
-        designer_listview.setAdapter(designerAdapter);
+        pullToRefreshListView.setAdapter(designerAdapter);
     }
 
     @Override
     public void setListener() {
-        mPullRefreshScrollView.setOnRefreshListener(this);
+        pullToRefreshListView.setOnRefreshListener(this);
         addXuQiu.setOnClickListener(this);
         marchDesignerView.setOnItemClickListener(this);
     }
@@ -163,7 +165,7 @@ public class HomeFragment extends BaseFragment implements
     }
 
     @Override
-    public void onPullDownToRefresh(PullToRefreshBase<ScrollView> refreshView) {
+    public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
         // 下拉刷新(从第一页开始装载数据)
         String label = DateUtils.formatDateTime(getActivity(),
                 System.currentTimeMillis(), DateUtils.FORMAT_SHOW_TIME
@@ -177,7 +179,7 @@ public class HomeFragment extends BaseFragment implements
 
 
     @Override
-    public void onPullUpToRefresh(PullToRefreshBase<ScrollView> refreshView) {
+    public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
 //        FROM = designerList.size();
         getHomePageDesigners(total, Constant.LIMIT, pullUpListener);
     }
@@ -223,13 +225,13 @@ public class HomeFragment extends BaseFragment implements
                 LogTool.d(TAG, "designerList:" + designerList.size());
                 designerAdapter.notifyDataSetChanged();
             }
-            mPullRefreshScrollView.onRefreshComplete();
+            pullToRefreshListView.onRefreshComplete();
         }
 
         @Override
         public void loadFailture(String error_msg) {
             makeTextLong(error_msg);
-            mPullRefreshScrollView.onRefreshComplete();
+            pullToRefreshListView.onRefreshComplete();
             marchedLayout.setVisibility(View.GONE);
             noMarchedLayout.setVisibility(View.GONE);
         }
@@ -252,13 +254,13 @@ public class HomeFragment extends BaseFragment implements
                 LogTool.d(TAG, "designerList:" + designerList.size());
                 designerAdapter.notifyDataSetChanged();
             }
-            mPullRefreshScrollView.onRefreshComplete();
+            pullToRefreshListView.onRefreshComplete();
         }
 
         @Override
         public void loadFailture(String error_msg) {
             makeTextLong(error_msg);
-            mPullRefreshScrollView.onRefreshComplete();
+            pullToRefreshListView.onRefreshComplete();
         }
     };
 

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/space_8">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="175dp">
+
+            <include
+                android:id="@+id/viewpager_layout"
+                layout="@layout/viewpager_main" />
+        </FrameLayout>
+
+        <include
+            android:id="@+id/marched_layout"
+            layout="@layout/activity_xuqiu_layout" />
+
+        <include
+            android:id="@+id/no_marched_layout"
+            layout="@layout/activity_no_xuqiu_layout" />
+
+</LinearLayout>

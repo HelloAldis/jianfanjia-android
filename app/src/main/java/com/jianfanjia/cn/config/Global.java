@@ -64,7 +64,9 @@ public class Global {
     public static final String PASSWORD_MATCH = "^[\\@A-Za-z0-9\\!\\#\\$\\%\\^\\&\\*\\.\\~]{6,30}$";
 //    public static final String PASSWORD_MATCH = "^[a-zA-Z_]\\w{5,29}$";
 
-    public static final int PIC_WIDTH_NODE = 100;//节点图片的缩略图宽度
+    public static final int PIC_WIDTH_NODE = 100;//节点图片的缩略图宽度100dp
+    public static final int PIC_WIDTH_UPLOAD_WIDTH = 600;//上传头像的宽度统一为600px
+    public static final int PIC_WIDTH_SHOW_WIDTH = 60;//头像显示统一为60dp
 
     public static final String ACTION_UPDATE = "com.jianfanjia.action.update";
     public static final String FORCE_UPDATE = "1";

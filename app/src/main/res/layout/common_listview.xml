@@ -8,6 +8,4 @@
     android:fadingEdge="none"
     android:fastScrollEnabled="false"
     android:listSelector="@android:color/transparent"
-    android:paddingBottom="8dp"
-    android:paddingTop="8dp"
     android:scrollbars="none" />

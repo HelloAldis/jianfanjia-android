@@ -99,9 +99,10 @@ public class ViewPagerManager {
     /**
      * @param context
      */
-    public ViewPagerManager(Context context) {
+    public ViewPagerManager(Context context,MyViewPager viewPager) {
         super();
         this.mContext = context;
+        this.mViewPager = viewPager;
     }
 
     /***
@@ -142,8 +143,6 @@ public class ViewPagerManager {
      * 设置ViewPager
      **/
     private void setViewPager() {
-        mViewPager = (MyViewPager) ((Activity) mContext)
-                .findViewById(R.id.viewPager_lib);
         mPagerAdapter = new ViewPageAdapter(mContext, mViews);
         mViewPager.setAdapter(mPagerAdapter);
         mViewPager.setOnPageChangeListener(pageChangeListener);
