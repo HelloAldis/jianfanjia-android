@@ -52,6 +52,8 @@ public class HomeFragment extends BaseFragment implements
         PullToRefreshBase.OnRefreshListener2<ListView>, ListItemClickListener, OnItemClickListener {
     private static final String TAG = HomeFragment.class.getName();
     private PullToRefreshListView pullToRefreshListView = null;
+    private RelativeLayout emptyLayout = null;
+    private RelativeLayout errorLayout = null;
     private RelativeLayout viewpagerLayout = null;
     private LinearLayout marchedLayout = null;
     private LinearLayout noMarchedLayout = null;
@@ -75,6 +77,8 @@ public class HomeFragment extends BaseFragment implements
     public void initView(View view) {
         pullToRefreshListView = (PullToRefreshListView) view.findViewById(R.id.pull_refresh_scrollview);
         pullToRefreshListView.setMode(PullToRefreshBase.Mode.BOTH);
+        emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
+        errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
         headLayout = (LinearLayout) inflater.inflate(R.layout.list_item_home_head, null, false);
         viewpagerLayout = (RelativeLayout) headLayout.findViewById(R.id.viewpager_layout);
         marchedLayout = (LinearLayout) headLayout.findViewById(R.id.marched_layout);
