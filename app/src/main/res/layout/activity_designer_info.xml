@@ -173,6 +173,7 @@
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+
         <RadioGroup
             android:id="@+id/tab_rg_layout"
             android:layout_width="match_parent"
@@ -206,9 +207,14 @@
                 android:textSize="@dimen/text_size_14" />
         </RadioGroup>
 
-        <FrameLayout
-            android:id="@+id/contentLayout"
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
+
+            <FrameLayout
+                android:id="@+id/contentLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </android.support.v4.widget.NestedScrollView>
     </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>

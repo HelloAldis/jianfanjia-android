@@ -8,7 +8,6 @@ import android.content.IntentFilter;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
-import android.text.format.DateUtils;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -140,7 +139,7 @@ public class XuQiuFragment extends BaseAnnotationFragment {
                         startActivity(gotoMyDesigner);
                         break;
                     case ITEM_GOTOODERDESI:
-                        if(requirementInfos.get(position).getOrder_designers() != null){
+                        if (requirementInfos.get(position).getOrder_designers() != null) {
                             gotoOrderDesigner.putExtra(Global.REQUIREMENT_DESIGNER_NUM, requirementInfos.get(position).getOrder_designers().size());
                         }
                         gotoOrderDesigner.putExtra(Global.REQUIREMENT_ID, requirementInfos.get(position).get_id());
@@ -170,7 +169,7 @@ public class XuQiuFragment extends BaseAnnotationFragment {
     }
 
     @Click(R.id.error_include)
-    protected void errorRefresh(){
+    protected void errorRefresh() {
 //        initData();
         pullrefresh.setRefreshing(true);
     }
@@ -208,12 +207,6 @@ public class XuQiuFragment extends BaseAnnotationFragment {
         pullrefresh.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<RecyclerView>() {
             @Override
             public void onRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-                String label = DateUtils.formatDateTime(getActivity(),
-                        System.currentTimeMillis(), DateUtils.FORMAT_SHOW_TIME
-                                | DateUtils.FORMAT_SHOW_DATE
-                                | DateUtils.FORMAT_ABBREV_ALL);
-                // Update the LastUpdatedLabel
-                refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
                 initData();
             }
         });

@@ -3,7 +3,6 @@ package com.jianfanjia.cn.fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -168,13 +167,6 @@ public class HomeFragment extends BaseFragment implements
 
     @Override
     public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-        // 下拉刷新(从第一页开始装载数据)
-        String label = DateUtils.formatDateTime(getActivity(),
-                System.currentTimeMillis(), DateUtils.FORMAT_SHOW_TIME
-                        | DateUtils.FORMAT_SHOW_DATE
-                        | DateUtils.FORMAT_ABBREV_ALL);
-        // Update the LastUpdatedLabel
-        refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
         FROM = 0;
         getHomePageDesigners(FROM, total, pullDownListener);
     }
@@ -182,7 +174,6 @@ public class HomeFragment extends BaseFragment implements
 
     @Override
     public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-//        FROM = designerList.size();
         getHomePageDesigners(total, Constant.LIMIT, pullUpListener);
     }
 
