@@ -27,7 +27,6 @@ import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
-import com.jianfanjia.cn.tools.FileUtil;
 import com.jianfanjia.cn.tools.ImageUtils;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
@@ -42,7 +41,6 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
 import java.io.File;
-import java.io.IOException;
 
 /**
  * @author fengliang
@@ -142,7 +140,7 @@ public class UserInfoActivity extends BaseAnnotationActivity implements
                 : ownerInfo.getAddress());
     }
 
-    @Click({R.id.error_include,R.id.head_back_layout,R.id.head_layout,R.id.btn_confirm,R.id.address_layout,R.id.name_layout,R.id.sex_layout,R.id.home_layout})
+    @Click({R.id.error_include, R.id.head_back_layout, R.id.head_layout, R.id.btn_confirm, R.id.address_layout, R.id.name_layout, R.id.sex_layout, R.id.home_layout})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.error_include:
@@ -172,7 +170,7 @@ public class UserInfoActivity extends BaseAnnotationActivity implements
                         EditInfoActivity.class);
                 name.putExtra(Constant.EDIT_TYPE,
                         Constant.REQUESTCODE_EDIT_USERNAME);
-                name.putExtra(Constant.EDIT_CONTENT,ownerUpdateInfo.getUsername());
+                name.putExtra(Constant.EDIT_CONTENT, ownerUpdateInfo.getUsername());
                 startActivityForResult(name, Constant.REQUESTCODE_EDIT_USERNAME);
                 break;
             case R.id.home_layout:
@@ -180,7 +178,7 @@ public class UserInfoActivity extends BaseAnnotationActivity implements
                         EditInfoActivity.class);
                 home.putExtra(Constant.EDIT_TYPE,
                         Constant.REQUESTCODE_EDIT_HOME);
-                home.putExtra(Constant.EDIT_CONTENT,ownerUpdateInfo.getAddress());
+                home.putExtra(Constant.EDIT_CONTENT, ownerUpdateInfo.getAddress());
                 startActivityForResult(home, Constant.REQUESTCODE_EDIT_HOME);
                 break;
             case R.id.sex_layout:
@@ -352,9 +350,9 @@ public class UserInfoActivity extends BaseAnnotationActivity implements
         mTmpFile = UiHelper.getTempPath();
         if (mTmpFile != null) {
             Intent cameraIntent = UiHelper.createShotIntent(mTmpFile);
-            if(cameraIntent != null){
+            if (cameraIntent != null) {
                 startActivityForResult(cameraIntent, Constant.REQUESTCODE_CAMERA);
-            }else{
+            } else {
 //                makeTextShort(getString(R.string.tip_open_camera));
             }
         } else {
@@ -372,7 +370,7 @@ public class UserInfoActivity extends BaseAnnotationActivity implements
 
     private void beginCrop(Uri source) {
         Uri destination = Uri.fromFile(new File(Constant.CROP_PATH));
-        Crop.of(source, destination).asSquare().withMaxSize(MyApplication.dip2px(this, Global.PIC_WIDTH_NODE),MyApplication.dip2px(this, Global.PIC_WIDTH_NODE)).start(this);
+        Crop.of(source, destination).asSquare().withMaxSize(MyApplication.dip2px(this, Global.PIC_WIDTH_NODE), MyApplication.dip2px(this, Global.PIC_WIDTH_NODE)).start(this);
     }
 
     private void handleCrop(int resultCode, Intent result) {
@@ -383,7 +381,7 @@ public class UserInfoActivity extends BaseAnnotationActivity implements
             String filePath = uri.getPath();
             LogTool.d(TAG, "uri filePath: " + filePath);
             Bitmap bitmap = ImageUtils.getBitmapByPath(filePath);
-            if (bitmap != null){
+            if (bitmap != null) {
                 JianFanJiaClient.uploadImage(this, bitmap, new ApiUiUpdateListener() {
                     @Override
                     public void preLoad() {
