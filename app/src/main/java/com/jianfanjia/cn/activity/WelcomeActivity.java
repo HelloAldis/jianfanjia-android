@@ -171,7 +171,7 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
                         finish();
                     } else {
                         LogTool.d(this.getClass().getName(), "expire");
-//                        MyApplication.getInstance().clearCookie();
+                        MyApplication.getInstance().clearCookie();
                         JianFanJiaClient.login(WelcomeActivity.this, dataManager.getAccount(), dataManager.getPassword(), WelcomeActivity.this, WelcomeActivity.this);
                     }
                 }

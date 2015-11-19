@@ -3,6 +3,8 @@ package com.jianfanjia.cn.http.cookie;
 /**
  * Created by Administrator on 2015/10/13.
  */
+import com.jianfanjia.cn.tools.LogTool;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -28,6 +30,8 @@ public class SerializableHttpCookie implements Serializable {
     }
 
     private void writeObject(ObjectOutputStream out) throws IOException {
+        LogTool.d(this.getClass().getName(), "write : name ="+ cookie.getName() + "  value=" + cookie.getValue() + "--age=" + cookie.getMaxAge());
+
         out.writeObject(cookie.getName());
         out.writeObject(cookie.getValue());
         out.writeObject(cookie.getComment());
@@ -44,6 +48,7 @@ public class SerializableHttpCookie implements Serializable {
     private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
         String name = (String) in.readObject();
         String value = (String) in.readObject();
+        LogTool.d(this.getClass().getName(), "readObject : name ="+ name + "  value=" + value);
         clientCookie = new HttpCookie(name, value);
         clientCookie.setComment((String) in.readObject());
         clientCookie.setCommentURL((String) in.readObject());
