@@ -3,14 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="160dip"
     android:background="@color/font_white"
-    android:visibility="gone"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:visibility="gone">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:layout_margin="10dip"
+        android:layout_marginBottom="10dip"
+        android:layout_marginTop="10dip"
         android:orientation="vertical">
 
         <TextView
