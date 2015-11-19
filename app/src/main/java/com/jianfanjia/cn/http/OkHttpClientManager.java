@@ -9,12 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseRequest;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.coreprogress.helper.ProgressHelper;
 import com.jianfanjia.cn.http.coreprogress.listener.impl.UIProgressListener;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.tools.NetTool;
 import com.squareup.okhttp.Call;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.Headers;
@@ -63,7 +65,8 @@ import javax.net.ssl.X509TrustManager;
  */
 public class OkHttpClientManager {
     private static final String TAG = OkHttpClientManager.class.getName();
-    public static final String SERVER_ERROR = "对不起，服务器出现异常";
+    public static final String SERVER_ERROR = "网络加载异常";
+    public static final String NOT_NET_ERROR = "网络无法连接";
 
     private static OkHttpClientManager mInstance;
     private OkHttpClient mOkHttpClient;
@@ -145,6 +148,10 @@ public class OkHttpClientManager {
 
     private void deliveryResult(final ApiUiUpdateListener listener, final BaseRequest baseRequest) {
         //UI thread
+        if(!NetTool.isNetworkAvailable(MyApplication.getInstance())){
+            sendFailedStringCallback(listener,NOT_NET_ERROR);
+            return;
+        }
         if (listener != null) {
             listener.preLoad();
         }
@@ -197,7 +204,7 @@ public class OkHttpClientManager {
     }
 
     private void sendFailedStringCallback(final ApiUiUpdateListener listener, final String error_msg) {
-        LogTool.d("onResponse ==", "loadFailture");
+        LogTool.d("onResponse ==", "loadFailture :" + error_msg);
         mDelivery.post(new Runnable() {
             @Override
             public void run() {

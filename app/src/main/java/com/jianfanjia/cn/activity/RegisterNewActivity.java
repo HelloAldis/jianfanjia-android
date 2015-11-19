@@ -131,15 +131,11 @@ public class RegisterNewActivity extends BaseAnnotationActivity implements
      * @param registerInfo
      */
     private void register(RegisterInfo registerInfo) {
-        if (NetTool.isNetworkAvailable(this)) {
             if(requsetCode == REGISTER_CODE){
                 JianFanJiaClient.register(this, registerInfo, this, this);
             }else{
                 JianFanJiaClient.update_psw(this,registerInfo,this,this);
             }
-        } else {
-            makeTextLong(getResources().getString(R.string.tip_internet_not));
-        }
     }
 
     private boolean checkInput(String verification) {

@@ -127,7 +127,7 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
                     showRegister();
                 }
             }, 300);
-        }else{
+        } else {
             mEtLoginUserName.requestFocus();
         }
 
@@ -147,11 +147,11 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
 
             @Override
             public void afterTextChanged(Editable s) {
-                LogTool.d(TAG,"registerlogin afterTextChanged");
+                LogTool.d(TAG, "registerlogin afterTextChanged");
                 String text = s.toString();
-                if(!TextUtils.isEmpty(text) && !TextUtils.isEmpty(mEtRegisterPassword.getText().toString())){
+                if (!TextUtils.isEmpty(text) && !TextUtils.isEmpty(mEtRegisterPassword.getText().toString())) {
                     mBtnNext.setEnabled(true);
-                }else{
+                } else {
                     mBtnNext.setEnabled(false);
 //                    verifyPhone(text);
                 }
@@ -170,11 +170,11 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
 
             @Override
             public void afterTextChanged(Editable s) {
-                LogTool.d(TAG,"registerpassword afterTextChanged");
+                LogTool.d(TAG, "registerpassword afterTextChanged");
                 String text = s.toString();
-                if(!TextUtils.isEmpty(text) && !TextUtils.isEmpty(mEtRegisterUserName.getText().toString())){
+                if (!TextUtils.isEmpty(text) && !TextUtils.isEmpty(mEtRegisterUserName.getText().toString())) {
                     mBtnNext.setEnabled(true);
-                }else{
+                } else {
                     mBtnNext.setEnabled(false);
                 }
             }
@@ -193,9 +193,9 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
             @Override
             public void afterTextChanged(Editable s) {
                 String text = s.toString();
-                if(!TextUtils.isEmpty(text) && !TextUtils.isEmpty(mEtLoginPassword.getText().toString())){
+                if (!TextUtils.isEmpty(text) && !TextUtils.isEmpty(mEtLoginPassword.getText().toString())) {
                     mBtnLogin.setEnabled(true);
-                }else{
+                } else {
                     mBtnLogin.setEnabled(false);
 //                    verifyPhone(text);
                 }
@@ -215,9 +215,9 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
             @Override
             public void afterTextChanged(Editable s) {
                 String text = s.toString();
-                if(!TextUtils.isEmpty(text) && !TextUtils.isEmpty(mEtLoginUserName.getText().toString())){
+                if (!TextUtils.isEmpty(text) && !TextUtils.isEmpty(mEtLoginUserName.getText().toString())) {
                     mBtnLogin.setEnabled(true);
-                }else{
+                } else {
                     mBtnLogin.setEnabled(false);
 //                    verifyPhone(text);
                 }
@@ -227,7 +227,7 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
 
     int scrollHeight;
 
-    private void controlKeyboardLayout(final View root,final View scrollToView){
+    private void controlKeyboardLayout(final View root, final View scrollToView) {
         root.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
                     @Override
@@ -236,26 +236,26 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
                         // 获取root在窗体的可视区域
                         root.getWindowVisibleDisplayFrame(rect);
                         // 获取root在窗体的不可视区域高度(被其他View遮挡的区域高度)
-                        LogTool.d(TAG,"rect.bottom =" + rect.bottom + " rect.top" + rect.top);
+                        LogTool.d(TAG, "rect.bottom =" + rect.bottom + " rect.top" + rect.top);
                         int rootInvisibleHeight = root.getRootView()
-                                .getHeight() -(rect.bottom - rect.top);
+                                .getHeight() - (rect.bottom - rect.top);
                         // 若不可视区域高度大于100，则键盘显示
                         int[] location = new int[2];
                         // 获取scrollToView在窗体的坐标
                         scrollToView.getLocationInWindow(location);
                         // 计算root滚动高度，使scrollToView在可见区域
-                        LogTool.d(TAG,"scrollHeight =" + scrollHeight);
+                        LogTool.d(TAG, "scrollHeight =" + scrollHeight);
                         if (rootInvisibleHeight > 100) {
-                            LogTool.d(TAG,"键盘显示");
+                            LogTool.d(TAG, "键盘显示");
                             scrollHeight = (location[1] + scrollToView
                                     .getHeight()) - (rect.bottom);
-                            if(scrollHeight > 0){
-                                int traY = root.getTop()-scrollHeight;
+                            if (scrollHeight > 0) {
+                                int traY = root.getTop() - scrollHeight;
                                 root.animate().y(traY).setDuration(100).start();
                             }
                         } else {
                             // 键盘隐藏
-                            LogTool.d(TAG,"键盘隐藏");
+                            LogTool.d(TAG, "键盘隐藏");
                             root.animate().y(root.getTop()).setDuration(100).start();
                         }
                     }
@@ -367,28 +367,24 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
         return true;
     }
 
-    private void verifyPhone(final String phone){
-        if(NetTool.isNetworkAvailable(this)){
-            JianFanJiaClient.verifyPhone(this, phone, new ApiUiUpdateListener() {
-                @Override
-                public void preLoad() {
+    private void verifyPhone(final String phone) {
+        JianFanJiaClient.verifyPhone(this, phone, new ApiUiUpdateListener() {
+            @Override
+            public void preLoad() {
 
-                }
+            }
 
-                @Override
-                public void loadSuccess(Object data) {
+            @Override
+            public void loadSuccess(Object data) {
 //                    registerInputPhoneDelete.setVisibility(View.GONE);
-                    sendVerification(mUserName,mPassword);
-                }
+                sendVerification(mUserName, mPassword);
+            }
 
-                @Override
-                public void loadFailture(String error_msg) {
-                    makeTextShort(error_msg);
-                }
-            },this);
-        }else{
-            makeTextShort(getString(R.string.tip_internet_not));
-        }
+            @Override
+            public void loadFailture(String error_msg) {
+                makeTextShort(error_msg);
+            }
+        }, this);
     }
 
     /**
@@ -398,32 +394,28 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
      * @param password
      */
     private void sendVerification(final String name, final String password) {
-        if (NetTool.isNetworkAvailable(this)) {
-            JianFanJiaClient.send_verification(this, name, new ApiUiUpdateListener() {
-                @Override
-                public void preLoad() {
+        JianFanJiaClient.send_verification(this, name, new ApiUiUpdateListener() {
+            @Override
+            public void preLoad() {
 
-                }
+            }
 
-                @Override
-                public void loadSuccess(Object data) {
-                    RegisterInfo registerInfo = new RegisterInfo();
-                    registerInfo.setPass(password);
-                    registerInfo.setPhone(name);
-                    Bundle registerBundle = new Bundle();
-                    registerBundle.putSerializable(Global.REGISTER_INFO, registerInfo);
-                    registerBundle.putInt(Global.REGISTER, RegisterNewActivity.REGISTER_CODE);
-                    startActivity(RegisterNewActivity_.class, registerBundle);
-                }
+            @Override
+            public void loadSuccess(Object data) {
+                RegisterInfo registerInfo = new RegisterInfo();
+                registerInfo.setPass(password);
+                registerInfo.setPhone(name);
+                Bundle registerBundle = new Bundle();
+                registerBundle.putSerializable(Global.REGISTER_INFO, registerInfo);
+                registerBundle.putInt(Global.REGISTER, RegisterNewActivity.REGISTER_CODE);
+                startActivity(RegisterNewActivity_.class, registerBundle);
+            }
 
-                @Override
-                public void loadFailture(String error_msg) {
-                    makeTextLong(error_msg);
-                }
-            }, this);
-        } else {
-            makeTextLong(getString(R.string.tip_internet_not));
-        }
+            @Override
+            public void loadFailture(String error_msg) {
+                makeTextLong(error_msg);
+            }
+        }, this);
     }
 
     /**
@@ -433,11 +425,7 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
      * @param password
      */
     private void login(String name, String password) {
-        if (NetTool.isNetworkAvailable(this)) {
-            JianFanJiaClient.login(this, name, password, this, this);
-        } else {
-            makeTextLong(getString(R.string.tip_internet_not));
-        }
+        JianFanJiaClient.login(this, name, password, this, this);
     }
 
     @Override
@@ -513,9 +501,9 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
         float currentY = view.getY();
         LogTool.d("translateAnimationToLeft", "currentY = " + currentY);
         PropertyValuesHolder p1 = PropertyValuesHolder.ofFloat("x", currentX, currentX - TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 124, getResources().getDisplayMetrics()));
-        PropertyValuesHolder p2 = PropertyValuesHolder.ofFloat("y",currentY,currentY);
+        PropertyValuesHolder p2 = PropertyValuesHolder.ofFloat("y", currentY, currentY);
         ObjectAnimator objectAnimator = ObjectAnimator
-                .ofPropertyValuesHolder(view, p1,p2)
+                .ofPropertyValuesHolder(view, p1, p2)
                 .setDuration(200);
         objectAnimator.start();
         objectAnimator.addListener(new Animator.AnimatorListener() {

@@ -59,6 +59,8 @@ public class SettingActivity extends BaseActivity implements OnClickListener, On
         clearCacheLayout = (RelativeLayout) findViewById(R.id.clear_cache_layout);
         cacheSizeView = (TextView) findViewById(R.id.cache_size);
         currentVersion = (TextView) findViewById(R.id.current_version);
+
+        caculateCacheSize();
     }
 
     private void initMainHeadView() {
