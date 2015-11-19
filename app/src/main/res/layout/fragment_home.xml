@@ -15,7 +15,13 @@
             android:id="@+id/pull_refresh_scrollview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:smoothScrollbar="true"
+            android:cacheColorHint="#ffffff"
+            android:clipToPadding="false"
+            android:divider="@null"
+            android:fadingEdge="none"
+            android:fastScrollEnabled="false"
+            android:listSelector="@android:color/transparent"
+            android:scrollbars="none"
             ptr:ptrAnimationStyle="flip"
             ptr:ptrHeaderTextColor="#344a5d" />
 
