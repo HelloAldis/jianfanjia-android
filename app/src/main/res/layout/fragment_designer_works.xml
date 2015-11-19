@@ -5,8 +5,7 @@
     android:background="@color/main_layout_bg"
     android:orientation="vertical">
 
-
-    <ListView
+    <com.jianfanjia.cn.view.MyListView
         android:id="@+id/designer_works_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
