@@ -10,7 +10,6 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.BaseListAdapter;
 import com.jianfanjia.cn.bean.GridItem;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
 
 import java.util.List;
@@ -44,10 +43,12 @@ public class MyGridViewAdapter extends BaseListAdapter<GridItem> {
         String imgId = item.getImgId();
         if (position % 2 != 0) {
             if (imgId.equals(Constant.DEFALUT_PIC)) {
-                imageLoader.displayImage(imgId, holder.img, options);
+                imageShow.displayLocalImage(imgId, holder.img);
+//                imageLoader.displayImage(imgId, holder.img, options);
             } else {
-                imageLoader.displayImage(Url_New.GET_THUMBNAIL_IMAGE + imgId, holder.img,
-                        options);
+                imageShow.displayHalfScreenWidthThumnailImageView(context,imgId,holder.img);
+//                imageLoader.displayImage(Url_New.GET_THUMBNAIL_IMAGE + imgId, holder.img,
+//                        options);
                 holder.img.setOnClickListener(new OnClickListener() {
 
                     @Override
@@ -64,7 +65,8 @@ public class MyGridViewAdapter extends BaseListAdapter<GridItem> {
                     itemClickCallBack.click(position, Constant.IMG_ITEM);
                 }
             });
-            imageLoader.displayImage(imgId, holder.img, options);
+            imageShow.displayLocalImage(imgId, holder.img);
+//            imageLoader.displayImage(imgId, holder.img, options);
 
         }
 

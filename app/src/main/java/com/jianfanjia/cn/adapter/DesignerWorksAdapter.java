@@ -9,7 +9,6 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.BaseListAdapter;
 import com.jianfanjia.cn.bean.Product;
 import com.jianfanjia.cn.cache.BusinessManager;
-import com.jianfanjia.cn.config.Url_New;
 
 import java.util.List;
 
@@ -43,7 +42,8 @@ public class DesignerWorksAdapter extends BaseListAdapter<Product> {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        imageLoader.displayImage(Url_New.GET_THUMBNAIL_IMAGE + product.getImages().get(0).getImageid(), viewHolder.itemwWorksView, options);
+        imageShow.displayScreenWidthThumnailImage(context,product.getImages().get(0).getImageid(),viewHolder.itemwWorksView);
+//        imageLoader.displayImage(Url_New.GET_THUMBNAIL_IMAGE + product.getImages().get(0).getImageid(), viewHolder.itemwWorksView, options);
         viewHolder.itemXiaoQuText.setText(product.getCell());
         String house_type = product.getHouse_type();
         String dec_style = product.getDec_style();

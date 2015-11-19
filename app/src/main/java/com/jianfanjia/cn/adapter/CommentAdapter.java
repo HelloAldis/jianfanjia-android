@@ -9,7 +9,6 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.BaseListAdapter;
 import com.jianfanjia.cn.bean.CommentInfo;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.tools.StringUtils;
 
 import java.util.List;
@@ -60,7 +59,8 @@ public class CommentAdapter extends BaseListAdapter<CommentInfo> {
         }
         viewHolder.itemTimeView.setText(StringUtils
                 .covertLongToString(commentInfo.getDate()));
-        imageLoader.displayImage(Url_New.GET_THUMBNAIL_IMAGE + commentInfo.getByUser().getImageid(), viewHolder.itemHeadView, options);
+        imageShow.displayImageHeadWidthThumnailImage(context,commentInfo.getByUser().getImageid(), viewHolder.itemHeadView);
+//        imageLoader.displayImage(Url_New.GET_THUMBNAIL_IMAGE + commentInfo.getByUser().getImageid(), viewHolder.itemHeadView, options);
         return convertView;
     }
 

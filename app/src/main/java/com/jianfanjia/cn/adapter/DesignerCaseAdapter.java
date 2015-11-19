@@ -8,7 +8,6 @@ import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.BaseListAdapter;
 import com.jianfanjia.cn.bean.ImageInfo;
-import com.jianfanjia.cn.config.Url_New;
 
 import java.util.List;
 
@@ -42,7 +41,8 @@ public class DesignerCaseAdapter extends BaseListAdapter<ImageInfo> {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        imageLoader.displayImage(Url_New.GET_THUMBNAIL_IMAGE + info.getImageid(), viewHolder.itemwCaseView, options);
+        imageShow.displayImageHeadWidthThumnailImage(context,info.getImageid(),viewHolder.itemwCaseView);
+//        imageLoader.displayImage(Url_New.GET_THUMBNAIL_IMAGE + info.getImageid(), viewHolder.itemwCaseView, options);
         viewHolder.itemTitleText.setText(info.getSection());
         viewHolder.itemProduceText.setText(info.getDescription());
         return convertView;

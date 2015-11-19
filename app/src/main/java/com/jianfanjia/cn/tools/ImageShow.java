@@ -85,6 +85,10 @@ public class ImageShow {
         displayThumbnailImage(imageid, imageView, ScreenUtil.getScreenWidth(context));
     }
 
+    public void displayHalfScreenWidthThumnailImageView(Context context,String imageid,ImageView imageView){
+        displayThumbnailImage(imageid, imageView, ScreenUtil.getScreenWidth(context)/2);
+    }
+
     /**
      * 显示应用内的用户头像的缩略图，头像宽度为60dp
      * @param context

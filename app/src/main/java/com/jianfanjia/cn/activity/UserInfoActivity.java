@@ -22,7 +22,6 @@ import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.bean.OwnerUpdateInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
@@ -104,11 +103,11 @@ public class UserInfoActivity extends BaseAnnotationActivity implements
     }
 
     private void setData() {
-        imageLoader
-                .displayImage(
-                        TextUtils.isEmpty(ownerInfo.getImageid()) ? Constant.DEFALUT_OWNER_PIC
-                                : (Url_New.GET_IMAGE + ownerInfo.getImageid()),
-                        headImageView, options);
+        if(TextUtils.isEmpty(ownerInfo.getImageid())){
+           imageShow.displayLocalImage(Constant.DEFALUT_OWNER_PIC,headImageView);
+        }else{
+            imageShow.displayImageHeadWidthThumnailImage(this,ownerInfo.getImageid(),headImageView);
+        }
         nameText.setText(TextUtils.isEmpty(ownerInfo.getUsername()) ? getString(R.string.ower)
                 : ownerInfo.getUsername());
         String sexInfo = ownerInfo.getSex();
@@ -526,9 +525,11 @@ public class UserInfoActivity extends BaseAnnotationActivity implements
         LogTool.d(TAG, "imageid=" + imageid);
         imageId = imageid;
 //        dataManager.setUserImagePath(imageId);
-        imageLoader.displayImage(
-                TextUtils.isEmpty(imageId) ? Constant.DEFALUT_OWNER_PIC
-                        : (Url_New.GET_IMAGE + imageId), headImageView, options);
+        if(TextUtils.isEmpty(imageId)){
+            imageShow.displayLocalImage(Constant.DEFALUT_OWNER_PIC,headImageView);
+        }else{
+            imageShow.displayImageHeadWidthThumnailImage(this,imageId,headImageView);
+        }
         if (ownerUpdateInfo != null) {
             ownerUpdateInfo.setImageid(imageId);
         }

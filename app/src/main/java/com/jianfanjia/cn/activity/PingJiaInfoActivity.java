@@ -11,8 +11,8 @@ import android.widget.TextView;
 
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.Evaluation;
+import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
 
@@ -52,7 +52,11 @@ public class PingJiaInfoActivity extends BaseActivity implements
         designer_name = viewBundle.getString(Global.DESIGNER_NAME);
         evaluation = (Evaluation) viewBundle.getSerializable(Global.EVALUATION);
         LogTool.d(TAG, "imageid:" + imageid + " designer_name:" + designer_name + " evaluation:" + evaluation);
-        imageLoader.displayImage(Url_New.GET_THUMBNAIL_IMAGE + imageid, designer_head_img, options);
+        if(!TextUtils.isEmpty(imageid)){
+            imageShow.displayImageHeadWidthThumnailImage(this,imageid, designer_head_img);
+        }else{
+            imageShow.displayLocalImage(Constant.DEFALUT_OWNER_PIC, designer_head_img);
+        }
         designerName.setText(designer_name);
         if (null != evaluation) {
             float speed = evaluation.getRespond_speed();
