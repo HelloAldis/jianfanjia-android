@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.tools.ImageShow;
 
@@ -65,8 +64,7 @@ public class PreviewAdapter extends PagerAdapter {
                 R.layout.list_item_preview_view_item, container, false);
         ImageView imageView = (ImageView) view
                 .findViewById(R.id.list_item_plan_img);
-        String imgid = mList.get(position);
-        imageShow.displayScreenWidthThumnailImage(context, Url_New.GET_THUMBNAIL_IMAGE + imgid, imageView);
+        imageShow.displayScreenWidthThumnailImage(context, mList.get(position), imageView);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
