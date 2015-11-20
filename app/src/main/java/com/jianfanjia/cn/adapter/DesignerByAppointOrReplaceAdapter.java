@@ -43,7 +43,7 @@ public class DesignerByAppointOrReplaceAdapter extends BaseListAdapter<Map<Strin
             checkableLinearLayout = new CheckableLinearLayout(context, null, Constant.LIST_ITEM);
         }
         checkableLinearLayout.setName(list.get(position).get("itemTitle"));
-        checkableLinearLayout.setHeadView(list.get(position).get("itemImg"));
+        checkableLinearLayout.setHeadView(context, list.get(position).get("itemImg"));
         return checkableLinearLayout;
     }
 }
