@@ -52,9 +52,6 @@ public class Constant {
     public static final String EDIT_CITY = "city";
     public static final String EDIT_DISTRICT = "district";
 
-    public static final int REQUESTCODE_CONFIG_SITE = 6;// 配置工地
-    public static final int REQUESTCODE_CHANGE_SITE = 7;// 切换工地
-
     // item点击项
     public static final int CONFIRM_ITEM = 1;
     public static final int ADD_ITEM = 2;

@@ -412,7 +412,7 @@ public class FileUtil {
 						deletedFile.delete();
 					}
 					newPath.delete();
-					Log.i("DirectoryManager deleteDirectory", fileName);
+					Log.i("DirManager deleteDir", fileName);
 					status = true;
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -443,7 +443,7 @@ public class FileUtil {
 			checker.checkDelete(newPath.toString());
 			if (newPath.isFile()) {
 				try {
-					Log.i("DirectoryManager deleteFile", fileName);
+					Log.i("DirManager deleteFile", fileName);
 					newPath.delete();
 					status = true;
 				} catch (SecurityException se) {
@@ -500,7 +500,7 @@ public class FileUtil {
 		File f = new File(filePath);
 		checker.checkDelete(filePath);
 		if (f.isFile()) {
-			Log.i("DirectoryManager deleteFile", filePath);
+			Log.i("DirManager deleteFile", filePath);
 			f.delete();
 			return true;
 		}

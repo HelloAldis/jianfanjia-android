@@ -89,7 +89,7 @@ public class ImageShow {
         displayThumbnailImage(imageid, imageView, ScreenUtil.getScreenWidth(context));
     }
 
-    public void displayHalfScreenWidthThumnailImageView(Context context, String imageid, ImageView imageView) {
+    public void displayHalfScreenWidthThumnailImage(Context context, String imageid, ImageView imageView) {
         displayThumbnailImage(imageid, imageView, ScreenUtil.getScreenWidth(context) / 2);
     }
 
