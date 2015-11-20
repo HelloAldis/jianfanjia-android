@@ -355,7 +355,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
     public void loadSuccess(Object data) {
         hideWaitDialog();
         detailNodeListView.onRefreshComplete();
-        lineView.setVisibility(View.VISIBLE);
+//        lineView.setVisibility(View.VISIBLE);
         if (data != null) {
             processInfo = JsonParser.jsonToBean(data.toString(), ProcessInfo.class);
             initData();
@@ -365,7 +365,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
     @Override
     public void loadFailture(String error_msg) {
         hideWaitDialog();
-        lineView.setVisibility(View.GONE);
+//        lineView.setVisibility(View.GONE);
         if (processId != Constant.DEFAULT_PROCESSINFO_ID) {
             makeTextShort(error_msg);
         }
