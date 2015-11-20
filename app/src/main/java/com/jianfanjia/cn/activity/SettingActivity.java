@@ -12,7 +12,6 @@ import android.widget.ToggleButton;
 import com.igexin.sdk.PushManager;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.FileUtil;
@@ -151,10 +150,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener, On
         long fileSize = 0;
         String cacheSize = "0KB";
         File filesDir = ImageLoader.getInstance().getDiskCache().getDirectory();
-        File file = new File(Constant.COMMON_PATH);
-
         fileSize += FileUtil.getDirSize(filesDir);
-        fileSize += FileUtil.getDirSize(file);
 
         // 2.2版本才有将应用缓存转移到sd卡的功能
         if (MyApplication.isMethodsCompat(android.os.Build.VERSION_CODES.FROYO)) {

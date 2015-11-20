@@ -283,6 +283,11 @@ public class EditRequirementActivity extends BaseAnnotationActivity {
         }, 2000);*/
     }
 
+    @Override
+    public void loadFailture(String error_msg) {
+        super.loadFailture(error_msg);
+    }
+
     private void showSuccessDialog() {
         commonDialog = DialogHelper
                 .getPinterestDialogCancelable(this);

@@ -224,11 +224,12 @@ public class XuQiuFragment extends BaseAnnotationFragment {
         JianFanJiaClient.get_Requirement_List(getActivity(), new ApiUiUpdateListener() {
             @Override
             public void preLoad() {
-
+                showWaitDialog();
             }
 
             @Override
             public void loadSuccess(Object data) {
+                hideWaitDialog();
                 pullrefresh.onRefreshComplete();
                 if (data != null) {
                     requirementInfos = JsonParser.jsonToList(data.toString(), new TypeToken<List<RequirementInfo>>() {
@@ -248,6 +249,7 @@ public class XuQiuFragment extends BaseAnnotationFragment {
 
             @Override
             public void loadFailture(String error_msg) {
+                hideWaitDialog();
                 makeTextLong(error_msg);
                 setListVisiable();
                 if (requirementInfos == null || requirementInfos.size() == 0) {
@@ -270,9 +272,6 @@ public class XuQiuFragment extends BaseAnnotationFragment {
             case REQUESTCODE_EDIT_REQUIREMENT:
                 initData();
                 break;
-           /* case REQUESTCODE_FRESH_REQUIREMENT:
-                initData();
-                break;*/
             default:
                 break;
         }

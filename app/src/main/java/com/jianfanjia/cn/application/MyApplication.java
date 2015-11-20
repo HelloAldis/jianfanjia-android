@@ -46,6 +46,8 @@ public class MyApplication extends BaseApplication {
          * Thread.setDefaultUncaughtExceptionHandler(AppException
 		 * .getAppExceptionHandler(this));
 		 */
+
+
     }
 
     public void saveDefaultProcess() {
@@ -175,7 +177,7 @@ public class MyApplication extends BaseApplication {
 //		DataCleanManager.cleanInternalCache(this);
         ImageLoader.getInstance().clearDiskCache();
         ImageLoader.getInstance().clearMemoryCache();
-        DataCleanManager.deleteFilesByDirectory(new File(Constant.COMMON_PATH));
+        DataCleanManager.deleteFilesByDirectory(new File(Constant.IMAG_PATH));
 
         //
         // 2.2版本才有将应用缓存转移到sd卡的功能

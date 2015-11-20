@@ -1,8 +1,8 @@
 package com.jianfanjia.cn.config;
 
-import android.os.Environment;
-
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.application.MyApplication;
+import com.jianfanjia.cn.tools.FileUtil;
 
 /**
  * Description:常量类
@@ -13,19 +13,20 @@ import com.jianfanjia.cn.activity.R;
 public class Constant {
     public static final String SHARED_DATA = "jianfanjia_data";
     public static final String SHARED_USER = "jianfanjia_user";
-    public static final String LOG_PATH = Environment
-            .getExternalStorageDirectory() + "/JianFanJia/MyLog/mylog.txt";// log存放路径
-    public static final String APK_PATH = Environment
-            .getExternalStorageDirectory() + "/JianFanJia/Apk/";// 下载apk存放路径
-    public static final String ERROR_LOG_PATH = Environment
-            .getExternalStorageDirectory() + "/JianFanJia/MyLog/errorlog.txt";// log存放路径
-    public static final String IMAG_PATH = Environment
-            .getExternalStorageDirectory() + "/JianFanJia/Pic/";// 保存照片
-    public static final String COMMON_PATH = Environment
-            .getExternalStorageDirectory() + "/JianFanJia/";// 公共的路径
-    public static final String CROP_PATH = IMAG_PATH + "cropped.jpg";// 截图的图片路径
-    //	public static final String TEMP_IMG = "temp_img.jpg";// 照片名称
-    public static final String TEMP_IMG =COMMON_PATH + "current_camera_temp_path";//拍照的临时存储文件路径
+
+    public static final String LOG_FILE_DIR = "/MyLog";
+    public static final String APK_FILE_DIR= "/Apk";
+    public static final String PIC_FILE_DIR = "/pic";
+
+    public static final String LOG_PATH = FileUtil.getAppCache(MyApplication.getInstance(),LOG_FILE_DIR);// log存放路径
+    public static final String APK_PATH = FileUtil.getAppCache(MyApplication.getInstance(),APK_FILE_DIR);// 下载apk存放路径
+    public static final String IMAG_PATH = FileUtil.getAppCache(MyApplication.getInstance(), PIC_FILE_DIR);// 保存照片
+
+    public static final String LOG_FILE = LOG_PATH + "/log.txt";//log文件
+    public static final String ERROR_LOG_FILE = LOG_PATH + "/errorLog.txt";// errorlog文件
+
+    public static final String CROP_PATH = IMAG_PATH + "/cropped.jpg";// 截图的图片路径
+    public static final String TEMP_IMG = IMAG_PATH + "/current_camera_temp_path";//拍照的临时存储文件路径
 
     public static final int HOME = 0;//首页
     public static final int MANAGE = 1;//工地管理
@@ -51,9 +52,6 @@ public class Constant {
     public static final String EDIT_PROVICE = "provice";
     public static final String EDIT_CITY = "city";
     public static final String EDIT_DISTRICT = "district";
-
-    public static final int REQUESTCODE_CONFIG_SITE = 6;// 配置工地
-    public static final int REQUESTCODE_CHANGE_SITE = 7;// 切换工地
 
     // item点击项
     public static final int CONFIRM_ITEM = 1;

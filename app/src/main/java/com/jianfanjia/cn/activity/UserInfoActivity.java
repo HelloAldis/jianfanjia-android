@@ -3,6 +3,7 @@ package com.jianfanjia.cn.activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.text.TextUtils;
@@ -25,7 +26,8 @@ import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
-import com.jianfanjia.cn.tools.ImageUtils;
+import com.jianfanjia.cn.tools.FileUtil;
+import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.MainHeadView;
@@ -39,6 +41,8 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 /**
  * @author fengliang
@@ -88,13 +92,7 @@ public class UserInfoActivity extends BaseAnnotationActivity implements
     public void initView() {
         mainHeadView.setMianTitle(getResources().getString(R.string.userinfo));
         setConfimEnable(false);
-//		ownerInfo = dataManager.getOwnerInfo();
-        if (ownerInfo == null) {
-            initData();
-        } else {
-            setData();
-            setOwnerUpdateInfo();
-        }
+        initData();
     }
 
     private void setConfimEnable(boolean enabled) {
@@ -103,10 +101,12 @@ public class UserInfoActivity extends BaseAnnotationActivity implements
     }
 
     private void setData() {
-        if(TextUtils.isEmpty(ownerInfo.getImageid())){
-           imageShow.displayLocalImage(Constant.DEFALUT_OWNER_PIC,headImageView);
-        }else{
-            imageShow.displayImageHeadWidthThumnailImage(this,ownerInfo.getImageid(),headImageView);
+        setOwnerUpdateInfo();
+
+        if (TextUtils.isEmpty(ownerInfo.getImageid())) {
+            imageShow.displayLocalImage(Constant.DEFALUT_OWNER_PIC, headImageView);
+        } else {
+            imageShow.displayImageHeadWidthThumnailImage(this, ownerInfo.getImageid(), headImageView);
         }
         nameText.setText(TextUtils.isEmpty(ownerInfo.getUsername()) ? getString(R.string.ower)
                 : ownerInfo.getUsername());
@@ -298,22 +298,11 @@ public class UserInfoActivity extends BaseAnnotationActivity implements
                 }, this);
     }
 
-    protected void updateOwnerInfo() {
-        ownerInfo.setImageid(ownerUpdateInfo.getImageid());
-        ownerInfo.setAddress(ownerUpdateInfo.getAddress());
-        ownerInfo.setCity(ownerUpdateInfo.getCity());
-        ownerInfo.setDistrict(ownerUpdateInfo.getDistrict());
-        ownerInfo.setProvince(ownerUpdateInfo.getProvince());
-        ownerInfo.setSex(ownerUpdateInfo.getSex());
-        ownerInfo.setUsername(ownerUpdateInfo.getUsername());
-    }
-
     @Override
     public void loadSuccess(Object data) {
         super.loadSuccess(data);
-        ownerInfo = dataManager.getOwnerInfo();
-        if (null != ownerInfo) {
-            setOwnerUpdateInfo();
+        if (data.toString() != null) {
+            ownerInfo = JsonParser.jsonToBean(data.toString(),OwnerInfo.class);
             setData();
             error_Layout.setVisibility(View.GONE);
         } else {
@@ -344,14 +333,12 @@ public class UserInfoActivity extends BaseAnnotationActivity implements
 
     @Override
     public void firstItemClick() {
-
-        mTmpFile = UiHelper.getTempPath();
+        mTmpFile = FileUtil.createTmpFile(this);
         if (mTmpFile != null) {
             Intent cameraIntent = UiHelper.createShotIntent(mTmpFile);
             if (cameraIntent != null) {
                 startActivityForResult(cameraIntent, Constant.REQUESTCODE_CAMERA);
             } else {
-//                makeTextShort(getString(R.string.tip_open_camera));
             }
         } else {
             makeTextShort(getString(R.string.tip_not_sdcard));
@@ -368,17 +355,21 @@ public class UserInfoActivity extends BaseAnnotationActivity implements
 
     private void beginCrop(Uri source) {
         Uri destination = Uri.fromFile(new File(Constant.CROP_PATH));
-        Crop.of(source, destination).asSquare().withMaxSize(Global.PIC_WIDTH_UPLOAD_WIDTH,Global.PIC_WIDTH_UPLOAD_WIDTH).start(this);
+        Crop.of(source, destination).asSquare().withMaxSize(Global.PIC_WIDTH_UPLOAD_WIDTH, Global.PIC_WIDTH_UPLOAD_WIDTH).start(this);
     }
 
     private void handleCrop(int resultCode, Intent result) {
         if (resultCode == RESULT_OK) {
             Uri uri = Crop.getOutput(result);
             LogTool.d(TAG, "uri path: " + uri.toString() + uri.getEncodedPath());
-//            Bitmap bitmap=  MediaStore.Images.Media.getBitmap(getContentResolver(),uri);
-            String filePath = uri.getPath();
-            LogTool.d(TAG, "uri filePath: " + filePath);
-            Bitmap bitmap = ImageUtils.getBitmapByPath(filePath);
+            Bitmap bitmap = null;
+            try {
+                InputStream is = this.getContentResolver().openInputStream(uri);
+                bitmap = BitmapFactory.decodeStream(is);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                return;
+            }
             if (bitmap != null) {
                 JianFanJiaClient.uploadImage(this, bitmap, new ApiUiUpdateListener() {
                     @Override
@@ -389,7 +380,7 @@ public class UserInfoActivity extends BaseAnnotationActivity implements
                     @Override
                     public void loadSuccess(Object data) {
                         if (data != null) {
-                            String imageid = data.toString();
+                            String imageid = dataManager.getCurrentUploadImageId();
                             LogTool.d(TAG, "imageid:" + imageid);
                             if (!TextUtils.isEmpty(imageid)) {
                                 getImageId(imageid);
@@ -463,7 +454,6 @@ public class UserInfoActivity extends BaseAnnotationActivity implements
                     Uri uri = Uri.fromFile(mTmpFile);
                     LogTool.d(TAG, "uri:" + uri);
                     if (null != uri) {
-//                        startPhotoZoom(uri);
                         beginCrop(uri);
                     }
                 }
@@ -473,7 +463,6 @@ public class UserInfoActivity extends BaseAnnotationActivity implements
                     Uri uri = data.getData();
                     LogTool.d(TAG, "uri:" + uri);
                     if (null != uri) {
-//                        startPhotoZoom(uri);
                         beginCrop(uri);
                     }
                 }
@@ -525,10 +514,10 @@ public class UserInfoActivity extends BaseAnnotationActivity implements
         LogTool.d(TAG, "imageid=" + imageid);
         imageId = imageid;
 //        dataManager.setUserImagePath(imageId);
-        if(TextUtils.isEmpty(imageId)){
-            imageShow.displayLocalImage(Constant.DEFALUT_OWNER_PIC,headImageView);
-        }else{
-            imageShow.displayImageHeadWidthThumnailImage(this,imageId,headImageView);
+        if (TextUtils.isEmpty(imageId)) {
+            imageShow.displayLocalImage(Constant.DEFALUT_OWNER_PIC, headImageView);
+        } else {
+            imageShow.displayImageHeadWidthThumnailImage(this, imageId, headImageView);
         }
         if (ownerUpdateInfo != null) {
             ownerUpdateInfo.setImageid(imageId);

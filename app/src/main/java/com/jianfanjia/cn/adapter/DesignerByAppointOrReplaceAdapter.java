@@ -18,7 +18,7 @@ import java.util.Map;
  * Time: 14:31
  */
 public class DesignerByAppointOrReplaceAdapter extends BaseListAdapter<Map<String, String>> {
-    private static final String TAG = "DesignerByReplaceAdapter";
+    private static final String TAG = DesignerByAppointOrReplaceAdapter.class.getName();
     private List<Map<String, String>> splitList = new ArrayList<Map<String, String>>();
 
     public DesignerByAppointOrReplaceAdapter(Context context, List<Map<String, String>> list, List<Map<String, String>> splitList) {
@@ -43,7 +43,7 @@ public class DesignerByAppointOrReplaceAdapter extends BaseListAdapter<Map<Strin
             checkableLinearLayout = new CheckableLinearLayout(context, null, Constant.LIST_ITEM);
         }
         checkableLinearLayout.setName(list.get(position).get("itemTitle"));
-        checkableLinearLayout.setHeadView(list.get(position).get("itemImg"));
+        checkableLinearLayout.setHeadView(context, list.get(position).get("itemImg"));
         return checkableLinearLayout;
     }
 }

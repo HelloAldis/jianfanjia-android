@@ -29,6 +29,7 @@ import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.tools.DateFormatTool;
+import com.jianfanjia.cn.tools.FileUtil;
 import com.jianfanjia.cn.tools.ImageUtil;
 import com.jianfanjia.cn.tools.ImageUtils;
 import com.jianfanjia.cn.tools.JsonParser;
@@ -354,7 +355,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
     public void loadSuccess(Object data) {
         hideWaitDialog();
         detailNodeListView.onRefreshComplete();
-        lineView.setVisibility(View.VISIBLE);
+//        lineView.setVisibility(View.VISIBLE);
         if (data != null) {
             processInfo = JsonParser.jsonToBean(data.toString(), ProcessInfo.class);
             initData();
@@ -364,7 +365,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
     @Override
     public void loadFailture(String error_msg) {
         hideWaitDialog();
-        lineView.setVisibility(View.GONE);
+//        lineView.setVisibility(View.GONE);
         if (processId != Constant.DEFAULT_PROCESSINFO_ID) {
             makeTextShort(error_msg);
         }
@@ -397,7 +398,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
 
     @Override
     public void firstItemClick() {
-        mTmpFile = UiHelper.getTempPath();
+        mTmpFile = FileUtil.createTmpFile(this);
         if (mTmpFile != null) {
             Intent cameraIntent = UiHelper.createShotIntent(mTmpFile);
             if(cameraIntent != null){
@@ -493,38 +494,6 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                                 .getImagePath(uri, this));
                         if (null != imageBitmap) {
                             upload_image(imageBitmap);
-                        }
-                    }
-                }
-                break;
-            case Constant.REQUESTCODE_CONFIG_SITE:
-                if (data != null) {
-                    Bundle bundle = data.getExtras();
-                    if (bundle != null) {
-                        String temStr = (String) bundle.get("Key");
-                        LogTool.d(TAG, "temStr" + temStr);
-                        if (null != temStr) {
-                            initProcessInfo();
-                            if (processInfo != null) {
-                                initData();
-                            } else {
-                                // loadempty
-                                loadCurrentProcess();
-                            }
-                        }
-                    }
-                }
-                break;
-            case Constant.REQUESTCODE_CHANGE_SITE:
-                if (data != null) {
-                    Bundle bundle = data.getExtras();
-                    if (bundle != null) {
-                        String processId = (String) bundle.get("ProcessId");
-                        LogTool.d(TAG, "processId=" + processId);
-                        if (null != processId
-                                && dataManager.getDefaultProcessId() != processId) {
-                            // loadempty
-                            loadCurrentProcess();
                         }
                     }
                 }

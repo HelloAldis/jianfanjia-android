@@ -299,7 +299,7 @@
             android:name=".ReplaceDesignerActivity"
             android:label="@string/title_activity_replace_designer"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".CityEditActivity_"
             android:screenOrientation="portrait" />

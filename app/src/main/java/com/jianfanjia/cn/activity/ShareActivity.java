@@ -56,7 +56,7 @@ public class ShareActivity extends BaseActivity implements OnClickListener,
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
                 R.mipmap.icon_jianfanjia_qr);
         try {
-            ImageUtils.saveImageToSD(ShareActivity.this, Constant.COMMON_PATH
+            ImageUtils.saveImageToSD(ShareActivity.this, Constant.IMAG_PATH
                     + "myqr.jpg", bitmap, 100);
             makeTextLong(getResources().getString(R.string.save_image_success));
         } catch (IOException e) {
