@@ -172,7 +172,7 @@ public class AppException extends Exception implements UncaughtExceptionHandler 
 
     private boolean saveToSDCard(Throwable ex) throws Exception {
         boolean append = false;
-        File file = FileUtil.getSaveFile(Constant.ERROR_LOG_PATH);
+        File file = FileUtil.getSaveFile(Constant.ERROR_LOG_FILE);
         if (System.currentTimeMillis() - file.lastModified() > 5000) {
             append = true;
         }

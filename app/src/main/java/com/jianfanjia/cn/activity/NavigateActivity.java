@@ -8,6 +8,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.jianfanjia.cn.adapter.ViewPageAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
@@ -25,38 +26,47 @@ import java.util.List;
 public class NavigateActivity extends BaseActivity implements OnClickListener,
         OnPageChangeListener {
     private ViewPager viewPager = null;
-    private ImageView btn_welcome_off = null;
     private LinearLayout btnLayout = null;
     private Button btnRegister = null;
     private Button btnLogin = null;
     private List<View> list = new ArrayList<View>();
     private ViewPageAdapter adapter = null;
+    private int lastSelectorItem = 0;
     private int currentItem = 0; // 当前图片的索引号
+    private LinearLayout dotLayout;
+    private RelativeLayout imageLayout;
+
     private static final int imgId[] = {R.mipmap.p1, R.mipmap.p2,
             R.mipmap.p3, R.mipmap.p4};
+
+    private static final ImageView[] dots = new ImageView[4];
 
     @Override
     public void initView() {
         viewPager = (ViewPager) findViewById(R.id.viewPager);
-        btn_welcome_off = (ImageView) findViewById(R.id.btn_welcome_off);
         btnLayout = (LinearLayout) findViewById(R.id.btnLayout);
+        dotLayout = (LinearLayout) findViewById(R.id.dot_layout);
         btnRegister = (Button) findViewById(R.id.btnRegister);
         btnLogin = (Button) findViewById(R.id.btnLogin);
         // 导航测试资源
         for (int i = 0; i < imgId.length; i++) {
-            ImageView view = new ImageView(this);
-            view.setScaleType(ImageView.ScaleType.CENTER);
+            imageLayout = (RelativeLayout)inflater.inflate(R.layout.viewpager_item_navigate,null,false);
+            ImageView view = (ImageView)(imageLayout.findViewById(R.id.viewpager_navigate_item_pic));
             view.setImageResource(imgId[i]);
             list.add(view);
         }
+        for(int i = 0;i < dots.length; i++){
+            ImageView imageView = (ImageView)findViewById(getResources().getIdentifier("welcome_dot"+i,"id",getPackageName()));
+            dots[i] = imageView;
+        }
         adapter = new ViewPageAdapter(NavigateActivity.this, list);
         viewPager.setAdapter(adapter);
+        viewPager.setCurrentItem(currentItem);
     }
 
     @Override
     public void setListener() {
         viewPager.setOnPageChangeListener(this);
-        btn_welcome_off.setOnClickListener(this);
         btnRegister.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
     }
@@ -65,10 +75,6 @@ public class NavigateActivity extends BaseActivity implements OnClickListener,
     public void onClick(View v) {
         dataManager.setFisrt(false);
         switch (v.getId()) {
-            case R.id.btn_welcome_off:
-                startActivity(LoginNewActivity_.class);
-                finish();
-                break;
             case R.id.btnRegister:
                 Bundle bundle = new Bundle();
                 bundle.putBoolean(Global.ISREGIISTER, true);
@@ -103,6 +109,12 @@ public class NavigateActivity extends BaseActivity implements OnClickListener,
         } else {
             btnLayout.setVisibility(View.GONE);
         }
+        if(currentItem != lastSelectorItem){
+            dots[currentItem].setImageResource(R.mipmap.dot_selector);
+            dots[lastSelectorItem].setImageResource(R.mipmap.dot_normal);
+            lastSelectorItem = currentItem;
+        }
+
     }
 
     @Override

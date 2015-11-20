@@ -29,6 +29,7 @@ import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.tools.DateFormatTool;
+import com.jianfanjia.cn.tools.FileUtil;
 import com.jianfanjia.cn.tools.ImageUtil;
 import com.jianfanjia.cn.tools.ImageUtils;
 import com.jianfanjia.cn.tools.JsonParser;
@@ -397,7 +398,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
 
     @Override
     public void firstItemClick() {
-        mTmpFile = UiHelper.getTempPath();
+        mTmpFile = FileUtil.createTmpFile(this);
         if (mTmpFile != null) {
             Intent cameraIntent = UiHelper.createShotIntent(mTmpFile);
             if(cameraIntent != null){

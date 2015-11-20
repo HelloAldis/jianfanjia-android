@@ -33,4 +33,5 @@ public class MyViewPager extends ViewPager {
             return false;
         }
     }
+
 }

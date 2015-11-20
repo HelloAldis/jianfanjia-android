@@ -181,7 +181,7 @@ public class HomeFragment extends BaseFragment implements
     private ApiUiUpdateListener pullDownListener = new ApiUiUpdateListener() {
         @Override
         public void preLoad() {
-
+            showWaitDialog();
         }
 
         @Override
@@ -189,6 +189,7 @@ public class HomeFragment extends BaseFragment implements
             HomeDesignersInfo homeDesignersInfo = JsonParser.jsonToBean(data.toString(), HomeDesignersInfo.class);
             LogTool.d(TAG, "homeDesignersInfo:" + homeDesignersInfo);
             if (null != homeDesignersInfo) {
+                hideWaitDialog();
                 Requirement requirement = homeDesignersInfo.getRequirement();
                 LogTool.d(TAG, "requirement=" + requirement);
                 if (null != requirement) {
@@ -223,6 +224,7 @@ public class HomeFragment extends BaseFragment implements
 
         @Override
         public void loadFailture(String error_msg) {
+            hideWaitDialog();
             makeTextLong(error_msg);
             pullToRefreshListView.onRefreshComplete();
             marchedLayout.setVisibility(View.GONE);

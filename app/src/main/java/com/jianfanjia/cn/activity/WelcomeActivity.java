@@ -12,6 +12,7 @@ import com.jianfanjia.cn.bean.UpdateVersion;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
+import com.jianfanjia.cn.tools.FileUtil;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
@@ -40,6 +41,10 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
         first = dataManager.isFirst();
         LogTool.d(this.getClass().getName(), "first=" + first);
         checkVersion();
+
+        LogTool.d(this.getClass().getName(), "sd root =" + FileUtil.getSDRoot());
+        LogTool.d(this.getClass().getName(), "sd ex root =" + FileUtil.getExternalSDRoot());
+        LogTool.d(this.getClass().getName(), "sd root =" + FileUtil.getAppCache(this, "jianfan"));
     }
 
     // 检查版本

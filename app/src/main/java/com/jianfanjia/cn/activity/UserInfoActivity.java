@@ -26,6 +26,8 @@ import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
+import com.jianfanjia.cn.tools.FileUtil;
+import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.MainHeadView;
@@ -90,13 +92,7 @@ public class UserInfoActivity extends BaseAnnotationActivity implements
     public void initView() {
         mainHeadView.setMianTitle(getResources().getString(R.string.userinfo));
         setConfimEnable(false);
-//		ownerInfo = dataManager.getOwnerInfo();
-        if (ownerInfo == null) {
-            initData();
-        } else {
-            setData();
-            setOwnerUpdateInfo();
-        }
+        initData();
     }
 
     private void setConfimEnable(boolean enabled) {
@@ -105,10 +101,12 @@ public class UserInfoActivity extends BaseAnnotationActivity implements
     }
 
     private void setData() {
-        if(TextUtils.isEmpty(ownerInfo.getImageid())){
-           imageShow.displayLocalImage(Constant.DEFALUT_OWNER_PIC,headImageView);
-        }else{
-            imageShow.displayImageHeadWidthThumnailImage(this,ownerInfo.getImageid(),headImageView);
+        setOwnerUpdateInfo();
+
+        if (TextUtils.isEmpty(ownerInfo.getImageid())) {
+            imageShow.displayLocalImage(Constant.DEFALUT_OWNER_PIC, headImageView);
+        } else {
+            imageShow.displayImageHeadWidthThumnailImage(this, ownerInfo.getImageid(), headImageView);
         }
         nameText.setText(TextUtils.isEmpty(ownerInfo.getUsername()) ? getString(R.string.ower)
                 : ownerInfo.getUsername());
@@ -303,9 +301,8 @@ public class UserInfoActivity extends BaseAnnotationActivity implements
     @Override
     public void loadSuccess(Object data) {
         super.loadSuccess(data);
-        ownerInfo = dataManager.getOwnerInfo();
-        if (null != ownerInfo) {
-            setOwnerUpdateInfo();
+        if (data.toString() != null) {
+            ownerInfo = JsonParser.jsonToBean(data.toString(),OwnerInfo.class);
             setData();
             error_Layout.setVisibility(View.GONE);
         } else {
@@ -336,7 +333,7 @@ public class UserInfoActivity extends BaseAnnotationActivity implements
 
     @Override
     public void firstItemClick() {
-        mTmpFile = UiHelper.getTempPath();
+        mTmpFile = FileUtil.createTmpFile(this);
         if (mTmpFile != null) {
             Intent cameraIntent = UiHelper.createShotIntent(mTmpFile);
             if (cameraIntent != null) {
@@ -358,7 +355,7 @@ public class UserInfoActivity extends BaseAnnotationActivity implements
 
     private void beginCrop(Uri source) {
         Uri destination = Uri.fromFile(new File(Constant.CROP_PATH));
-        Crop.of(source, destination).asSquare().withMaxSize(Global.PIC_WIDTH_UPLOAD_WIDTH,Global.PIC_WIDTH_UPLOAD_WIDTH).start(this);
+        Crop.of(source, destination).asSquare().withMaxSize(Global.PIC_WIDTH_UPLOAD_WIDTH, Global.PIC_WIDTH_UPLOAD_WIDTH).start(this);
     }
 
     private void handleCrop(int resultCode, Intent result) {
@@ -369,7 +366,7 @@ public class UserInfoActivity extends BaseAnnotationActivity implements
             try {
                 InputStream is = this.getContentResolver().openInputStream(uri);
                 bitmap = BitmapFactory.decodeStream(is);
-            }catch (FileNotFoundException e){
+            } catch (FileNotFoundException e) {
                 e.printStackTrace();
                 return;
             }
@@ -517,10 +514,10 @@ public class UserInfoActivity extends BaseAnnotationActivity implements
         LogTool.d(TAG, "imageid=" + imageid);
         imageId = imageid;
 //        dataManager.setUserImagePath(imageId);
-        if(TextUtils.isEmpty(imageId)){
-            imageShow.displayLocalImage(Constant.DEFALUT_OWNER_PIC,headImageView);
-        }else{
-            imageShow.displayImageHeadWidthThumnailImage(this,imageId,headImageView);
+        if (TextUtils.isEmpty(imageId)) {
+            imageShow.displayLocalImage(Constant.DEFALUT_OWNER_PIC, headImageView);
+        } else {
+            imageShow.displayImageHeadWidthThumnailImage(this, imageId, headImageView);
         }
         if (ownerUpdateInfo != null) {
             ownerUpdateInfo.setImageid(imageId);

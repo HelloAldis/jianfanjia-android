@@ -62,8 +62,8 @@ public class DesignerListAdapter extends BaseListAdapter<DesignerListInfo> {
         String houseType = product.getHouse_type();
         String decStyle = product.getDec_style();
         viewHolder.itemProduceText.setText(product.getHouse_area() + "㎡，" + BusinessManager.convertHouseTypeToShow(houseType) + "，" + BusinessManager.convertDecStyleToShow(decStyle));
-        imageShow.displayHalfScreenWidthThumnailImage(context, product.getImages().get(0).getImageid(), viewHolder.itemProductView);
-        imageShow.displayHalfScreenWidthThumnailImage(context,info.getImageid(), viewHolder.itemHeadView);
+        imageShow.displayScreenWidthThumnailImage(context, product.getImages().get(0).getImageid(), viewHolder.itemProductView);
+        imageShow.displayScreenWidthThumnailImage(context,info.getImageid(), viewHolder.itemHeadView);
 //        imageLoader.displayImage(Url_New.GET_THUMBNAIL_IMAGE + product.getImages().get(0).getImageid(), viewHolder.itemProductView, options);
 //        imageLoader.displayImage(Url_New.GET_THUMBNAIL_IMAGE + info.getImageid(), viewHolder.itemHeadView, options);
         viewHolder.itemProductView.setOnClickListener(new OnClickListener() {

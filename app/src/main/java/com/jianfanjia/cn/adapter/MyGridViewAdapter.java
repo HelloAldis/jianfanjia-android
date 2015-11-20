@@ -44,11 +44,8 @@ public class MyGridViewAdapter extends BaseListAdapter<GridItem> {
         if (position % 2 != 0) {
             if (imgId.equals(Constant.DEFALUT_PIC)) {
                 imageShow.displayLocalImage(imgId, holder.img);
-//                imageLoader.displayImage(imgId, holder.img, options);
             } else {
                 imageShow.displayHalfScreenWidthThumnailImage(context, imgId, holder.img);
-//                imageLoader.displayImage(Url_New.GET_THUMBNAIL_IMAGE + imgId, holder.img,
-//                        options);
                 holder.img.setOnClickListener(new OnClickListener() {
 
                     @Override

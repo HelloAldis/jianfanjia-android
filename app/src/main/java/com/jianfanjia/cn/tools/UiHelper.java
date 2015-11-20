@@ -6,7 +6,6 @@ import android.graphics.Rect;
 import android.hardware.Camera;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
 import android.view.ViewGroup;
@@ -128,39 +127,6 @@ public class UiHelper {
 //        listView.getDividerHeight();//获取子项间分隔符占用的高度
         // params.height最后得到整个ListView完整显示需要的高度
         listView.setLayoutParams(params);
-    }
-
-
-    /**
-     * 获取路径
-     *
-     * @return
-     */
-    public static File getTempPath() {
-        File tempFile = null;
-        if (checkSDCard()) {
-            File dirFile = new File(Environment.getExternalStorageDirectory()
-                    .getAbsolutePath() + Constant.IMAG_PATH);
-            tempFile = new File(dirFile, System.currentTimeMillis() + ".jpg");
-            if (!tempFile.getParentFile().exists()) {
-                tempFile.getParentFile().mkdirs();
-            }
-        }
-        return tempFile;
-    }
-
-    /**
-     * 检查sd卡
-     *
-     * @return
-     */
-    public static boolean checkSDCard() {
-        if (Environment.getExternalStorageState().equals(
-                Environment.MEDIA_MOUNTED)) {
-            return true;
-        } else {
-            return false;
-        }
     }
 
     /**
