@@ -30,7 +30,7 @@ public class ImageShow {
         options = new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.mipmap.pix_default)
                 .showImageForEmptyUri(R.mipmap.pix_default)
-                .showImageOnFail(R.mipmap.pix_default).cacheInMemory(true)
+                .showImageOnFail(R.mipmap.pix_default).cacheInMemory(false)
                 .cacheOnDisk(true).considerExifParams(true)
                 .bitmapConfig(Bitmap.Config.RGB_565).imageScaleType(ImageScaleType.IN_SAMPLE_INT).build();
     }
