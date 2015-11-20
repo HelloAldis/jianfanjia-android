@@ -45,8 +45,8 @@ public class NavigateActivity extends BaseActivity implements OnClickListener,
         // 导航测试资源
         for (int i = 0; i < imgId.length; i++) {
             ImageView view = new ImageView(this);
-            view.setScaleType(ImageView.ScaleType.CENTER);
-            view.setImageResource(imgId[i]);
+            view.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            view.setBackgroundResource(imgId[i]);
             list.add(view);
         }
         adapter = new ViewPageAdapter(NavigateActivity.this, list);
