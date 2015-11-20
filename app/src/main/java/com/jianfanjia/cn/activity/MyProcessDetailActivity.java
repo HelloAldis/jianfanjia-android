@@ -497,38 +497,6 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                     }
                 }
                 break;
-            case Constant.REQUESTCODE_CONFIG_SITE:
-                if (data != null) {
-                    Bundle bundle = data.getExtras();
-                    if (bundle != null) {
-                        String temStr = (String) bundle.get("Key");
-                        LogTool.d(TAG, "temStr" + temStr);
-                        if (null != temStr) {
-                            initProcessInfo();
-                            if (processInfo != null) {
-                                initData();
-                            } else {
-                                // loadempty
-                                loadCurrentProcess();
-                            }
-                        }
-                    }
-                }
-                break;
-            case Constant.REQUESTCODE_CHANGE_SITE:
-                if (data != null) {
-                    Bundle bundle = data.getExtras();
-                    if (bundle != null) {
-                        String processId = (String) bundle.get("ProcessId");
-                        LogTool.d(TAG, "processId=" + processId);
-                        if (null != processId
-                                && dataManager.getDefaultProcessId() != processId) {
-                            // loadempty
-                            loadCurrentProcess();
-                        }
-                    }
-                }
-                break;
             case Constant.REQUESTCODE_SHOW_PROCESS_PIC:
                 loadCurrentProcess();
                 break;
