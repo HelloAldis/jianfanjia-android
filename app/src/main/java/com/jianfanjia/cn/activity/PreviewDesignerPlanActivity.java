@@ -3,6 +3,7 @@ package com.jianfanjia.cn.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -143,9 +144,21 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
                 designerid = planDetailInfo.getDesignerid();
                 LogTool.d(TAG, "requirementid:" + requirementid + " designerid:" + designerid + " requirementInfo:" + requirementInfo);
                 cellName.setText(requirementInfo.getCell());
-                houseType.setText("装修户型:" + getHouseType(requirementInfo.getHouse_type()));
-                houseArea.setText("装修面积:" + requirementInfo.getHouse_area() + "㎡");
-                decorateType.setText("装修类型:" + getWorkType(requirementInfo.getWork_type()));
+                if (!TextUtils.isEmpty(requirementInfo.getHouse_type())) {
+                    houseType.setText("装修户型:" + getHouseType(requirementInfo.getHouse_type()));
+                } else {
+                    houseType.setVisibility(View.GONE);
+                }
+                if (!TextUtils.isEmpty(requirementInfo.getHouse_area())) {
+                    houseArea.setText("装修面积:" + requirementInfo.getHouse_area() + "㎡");
+                } else {
+                    houseArea.setVisibility(View.GONE);
+                }
+                if (!TextUtils.isEmpty(requirementInfo.getWork_type())) {
+                    decorateType.setText("装修类型:" + getWorkType(requirementInfo.getWork_type()));
+                } else {
+                    decorateType.setVisibility(View.GONE);
+                }
                 totalDate.setText("总工期:" + planDetailInfo.getDuration() + "天");
                 price.setText("项目报价:" + planDetailInfo.getTotal_price() + "元");
                 designText.setText("设计说明:" + planDetailInfo.getDescription());
@@ -191,7 +204,7 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
             hideWaitDialog();
             btn_choose.setEnabled(false);
             //发送数据刷新广播
-            UiHelper.intentTo(PreviewDesignerPlanActivity.this,MyDesignerActivity_.class,null);
+            UiHelper.intentTo(PreviewDesignerPlanActivity.this, MyDesignerActivity_.class, null);
 //            Intent intent = new Intent(PreviewDesignerPlanActivity.this,MyDesignerActivity_.class);
 //            startActivity(intent);
 ////            setResult(RESULT_OK);
