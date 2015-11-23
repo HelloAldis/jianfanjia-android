@@ -352,7 +352,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
     public void loadSuccess(Object data) {
         hideWaitDialog();
         detailNodeListView.onRefreshComplete();
-//        lineView.setVisibility(View.VISIBLE);
+        lineView.setVisibility(View.VISIBLE);
         if (data != null) {
             processInfo = JsonParser.jsonToBean(data.toString(), ProcessInfo.class);
             initData();
@@ -362,7 +362,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
     @Override
     public void loadFailture(String error_msg) {
         hideWaitDialog();
-//        lineView.setVisibility(View.GONE);
+        lineView.setVisibility(View.GONE);
         if (processId != Constant.DEFAULT_PROCESSINFO_ID) {
             makeTextShort(error_msg);
         }
@@ -398,9 +398,9 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
         mTmpFile = FileUtil.createTmpFile(this);
         if (mTmpFile != null) {
             Intent cameraIntent = UiHelper.createShotIntent(mTmpFile);
-            if(cameraIntent != null){
+            if (cameraIntent != null) {
                 startActivityForResult(cameraIntent, Constant.REQUESTCODE_CAMERA);
-            }else{
+            } else {
 //                makeTextShort(getString(R.string.tip_open_camera));
             }
         } else {
