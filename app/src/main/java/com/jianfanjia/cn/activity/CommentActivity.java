@@ -13,6 +13,7 @@ import com.jianfanjia.cn.adapter.CommentAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.Comment;
 import com.jianfanjia.cn.bean.CommentInfo;
+import com.jianfanjia.cn.bean.User;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
@@ -21,6 +22,7 @@ import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -117,7 +119,7 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
             LogTool.d(TAG, "comment:" + comment);
             if (null != comment) {
                 commentList = comment.getComments();
-                if (null != commentList && commentList.size() > 0) {
+                if (null != commentList) {
                     commentAdapter = new CommentAdapter(CommentActivity.this, commentList);
                     commentListView.setAdapter(commentAdapter);
                 }
@@ -146,8 +148,12 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data);
             hideWaitDialog();
+            CommentInfo commentInfo = createCommentInfo(commentEdit.getEditableText().toString());
+            commentAdapter.addItem(commentInfo,0);
+            commentAdapter.notifyDataSetChanged();
+            commentListView.setSelection(0);
             commentEdit.setText("");
-            getCommentList(topicid, 0, 10000, section, item);
+//            getCommentList(topicid, 0, 10000, section, item);
 
             isUpdate = true;
         }
@@ -158,6 +164,20 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
             hideWaitDialog();
         }
     };
+
+    protected CommentInfo createCommentInfo(String content){
+        CommentInfo commentInfo = new CommentInfo();
+        commentInfo.setTo(to);
+        commentInfo.setTopicid(topicid);
+        commentInfo.setTopictype(topictype);
+        commentInfo.setDate(Calendar.getInstance().getTimeInMillis());
+        commentInfo.setContent(content);
+        User user = new User();
+        user.setUsername(dataManager.getUserName());
+        user.setImageid(dataManager.getUserImagePath());
+        commentInfo.setByUser(user);
+        return commentInfo;
+    }
 
     protected void back(){
         if(isUpdate){

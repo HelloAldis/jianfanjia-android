@@ -15,11 +15,11 @@ public class Constant {
     public static final String SHARED_USER = "jianfanjia_user";
 
     public static final String LOG_FILE_DIR = "/MyLog";
-    public static final String APK_FILE_DIR= "/Apk";
+    public static final String APK_FILE_DIR = "/Apk";
     public static final String PIC_FILE_DIR = "/pic";
 
-    public static final String LOG_PATH = FileUtil.getAppCache(MyApplication.getInstance(),LOG_FILE_DIR);// log存放路径
-    public static final String APK_PATH = FileUtil.getAppCache(MyApplication.getInstance(),APK_FILE_DIR);// 下载apk存放路径
+    public static final String LOG_PATH = FileUtil.getAppCache(MyApplication.getInstance(), LOG_FILE_DIR);// log存放路径
+    public static final String APK_PATH = FileUtil.getAppCache(MyApplication.getInstance(), APK_FILE_DIR);// 下载apk存放路径
     public static final String IMAG_PATH = FileUtil.getAppCache(MyApplication.getInstance(), PIC_FILE_DIR);// 保存照片
 
     public static final String LOG_FILE = LOG_PATH + "/log.txt";//log文件
@@ -138,21 +138,22 @@ public class Constant {
     public static final String DESIGNER_NOW_AUTH_TYPE = "1";// 设计师正在审核中
     public static final String DESIGNER_FINISH_AUTH_TYPE = "2";// 设计师完成认证
 
-    public static final String HOME_ADD_PIC = "drawable://"
-            + R.mipmap.btn_icon_home_add;
-
-    public static final String HOME_DEFAULT_PIC = "drawable://"
-            + R.drawable.btn_default_bg;
-
-    public static final String DEFALUT_OWNER_PIC = "drawable://"
-            + R.mipmap.icon_default_head;
-
-    public static final String DEFALUT_ADD_PIC = "drawable://"
-            + R.mipmap.add;
-
     public static final String DEFALUT_PIC_HEAD = "drawable://";
 
-    public static final String DEFALUT_PIC = DEFALUT_PIC_HEAD + R.mipmap.pix_default;
+    public static final String HOME_ADD_PIC = DEFALUT_PIC_HEAD
+            + R.mipmap.btn_icon_home_add;
+
+    public static final String HOME_DEFAULT_PIC = DEFALUT_PIC_HEAD
+            + R.drawable.btn_default_bg;
+
+    public static final String DEFALUT_OWNER_PIC = DEFALUT_PIC_HEAD
+            + R.mipmap.icon_default_head;
+
+    public static final String DEFALUT_ADD_PIC = DEFALUT_PIC_HEAD
+            + R.mipmap.add;
+
+    public static final String DEFALUT_PIC = DEFALUT_PIC_HEAD
+            + R.mipmap.pix_default;
 
     public static final String CURRENT_LIST = "current_list";// 首页展开的第一道工序
     public static final String CURRENT_ITEM = "current_item";// 当前节点

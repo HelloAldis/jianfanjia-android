@@ -184,7 +184,8 @@
         <activity
             android:name=".CommentActivity"
             android:label="@string/title_activity_comment"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
         <activity
             android:name=".EditInfoActivity"
             android:label="@string/title_activity_edit_info"
