@@ -212,7 +212,6 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
         @Override
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data.toString());
-//            setResult(XuQiuFragment.REQUESTCODE_FRESH_REQUIREMENT);
             //刷新Xuqiufragmet
             UiHelper.sendUpdateBroast(AppointDesignerActivity.this);
             finish();
