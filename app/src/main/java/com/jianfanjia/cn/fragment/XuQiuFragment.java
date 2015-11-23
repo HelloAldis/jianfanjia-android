@@ -139,8 +139,10 @@ public class XuQiuFragment extends BaseAnnotationFragment {
                         startActivity(gotoMyDesigner);
                         break;
                     case ITEM_GOTOODERDESI:
-                        if (requirementInfos.get(position).getOrder_designers() != null) {
+                        if (requirementInfos.get(position).getOrder_designers() != null && requirementInfos.get(position).getOrder_designers().size() > 0) {
                             gotoOrderDesigner.putExtra(Global.REQUIREMENT_DESIGNER_NUM, requirementInfos.get(position).getOrder_designers().size());
+                        } else {
+                            gotoOrderDesigner.putExtra(Global.REQUIREMENT_DESIGNER_NUM, 0);
                         }
                         gotoOrderDesigner.putExtra(Global.REQUIREMENT_ID, requirementInfos.get(position).get_id());
                         startActivity(gotoOrderDesigner);
