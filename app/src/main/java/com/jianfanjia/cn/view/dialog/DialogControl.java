@@ -2,11 +2,11 @@ package com.jianfanjia.cn.view.dialog;
 
 public interface DialogControl {
 
-	public abstract void hideWaitDialog();
+    void hideWaitDialog();
 
-	public abstract WaitDialog showWaitDialog();
+    WaitDialog showWaitDialog();
 
-	public abstract WaitDialog showWaitDialog(int resid);
+    WaitDialog showWaitDialog(int resid);
 
-	public abstract WaitDialog showWaitDialog(String text);
+    WaitDialog showWaitDialog(String text);
 }
