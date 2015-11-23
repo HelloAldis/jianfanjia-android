@@ -1,7 +1,6 @@
 package com.jianfanjia.cn.adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.support.v4.view.PagerAdapter;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,12 +9,8 @@ import android.view.ViewGroup;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
-import com.jianfanjia.cn.tools.ScreenUtil;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.jianfanjia.cn.tools.ImageShow;
 
 import java.util.List;
 
@@ -26,8 +21,7 @@ public class ShowPicPagerAdapter extends PagerAdapter {
     private List<String> images;
     private LayoutInflater inflater;
     private ViewPagerClickListener viewPagerClickListener;
-    private ImageLoader imageLoader;
-    private DisplayImageOptions options;
+    private ImageShow imageShow;
     Context context;
     View.OnLongClickListener onLongClickListener;
 
@@ -37,13 +31,7 @@ public class ShowPicPagerAdapter extends PagerAdapter {
         this.images = imageList;
         this.inflater = LayoutInflater.from(context);
         this.viewPagerClickListener = viewPagerClickListener;
-        imageLoader = ImageLoader.getInstance();
-        options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.mipmap.pix_default)
-                .showImageForEmptyUri(R.mipmap.pix_default)
-                .showImageOnFail(R.mipmap.pix_default).cacheInMemory(true)
-                .cacheOnDisk(true).considerExifParams(true)
-                .bitmapConfig(Bitmap.Config.RGB_565).imageScaleType(ImageScaleType.IN_SAMPLE_INT).build();
+        imageShow = ImageShow.getImageShow();
     }
 
     public void setOnLongClickListener(View.OnLongClickListener onLongClickListener) {
@@ -85,11 +73,9 @@ public class ShowPicPagerAdapter extends PagerAdapter {
         View view = inflater.inflate(R.layout.viewpager_item_show_pic, null);
         PhotoView imageView = (PhotoView) view.findViewById(R.id.image_item);
         if (!images.get(position).contains(Constant.DEFALUT_PIC_HEAD)) {
-            imageLoader.displayImage(Url_New.GET_THUMBNAIL_IMAGE.replace(Url_New.WIDTH, ScreenUtil.getScreenWidth(context) + "") + images.get(position),
-                    imageView, options);
+            imageShow.displayScreenWidthThumnailImage(context,images.get(position),imageView);
         } else {
-            imageLoader.displayImage(images.get(position),
-                    imageView, options);
+            imageShow.displayLocalImage(images.get(position),imageView);
         }
         imageView.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
             @Override

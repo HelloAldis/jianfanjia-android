@@ -53,10 +53,18 @@
             android:layout_marginLeft="45dp"
             android:background="@color/line_color" />
 
-        <com.jianfanjia.cn.view.library.PullToRefreshListView
-            android:id="@+id/process__listview"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="33dp" />
+            android:paddingBottom="@dimen/space_8"
+            android:paddingTop="@dimen/space_8">
+
+            <com.jianfanjia.cn.view.library.PullToRefreshListView
+                android:id="@+id/process__listview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="33dp" />
+
+        </RelativeLayout>
     </FrameLayout>
 </RelativeLayout>
