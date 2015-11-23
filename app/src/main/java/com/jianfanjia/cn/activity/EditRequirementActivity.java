@@ -252,7 +252,6 @@ public class EditRequirementActivity extends BaseAnnotationActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         back();
     }
 
