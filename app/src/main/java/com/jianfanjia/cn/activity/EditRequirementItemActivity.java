@@ -97,11 +97,11 @@ public class EditRequirementItemActivity extends BaseAnnotationActivity {
         finish();
     }
 
-    @Click({R.id.head_back})
+    @Click({R.id.head_back_layout})
     protected void back(View clickView) {
         int resId = clickView.getId();
         switch (resId) {
-            case R.id.head_back:
+            case R.id.head_back_layout:
                 finish();
                 break;
         }

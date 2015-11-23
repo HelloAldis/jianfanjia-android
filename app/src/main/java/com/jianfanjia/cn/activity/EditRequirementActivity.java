@@ -1,5 +1,6 @@
 package com.jianfanjia.cn.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -105,7 +106,6 @@ public class EditRequirementActivity extends BaseAnnotationActivity {
     private Intent gotoItem;
     private Intent gotoItemLove;
     private RequirementInfo requirementInfo;
-    private CommonDialog commonDialog;
 
     @AfterTextChange({R.id.act_edit_req_street_content, R.id.act_edit_req_cell_content, R.id.act_edit_req_qi_content, R.id.act_edit_req_danyuan_content, R.id.act_edit_req_dong_content,
             R.id.act_edit_req_shi_content, R.id.act_edit_req_housearea_content, R.id.act_edit_req_decoratebudget_content})
@@ -211,8 +211,7 @@ public class EditRequirementActivity extends BaseAnnotationActivity {
         int viewId = clickView.getId();
         switch (viewId) {
             case R.id.head_back_layout:
-                setResult(RESULT_CANCELED);
-                finish();
+                back();
                 break;
             case R.id.act_edit_req_city:
                 gotoItem.putExtra(REQUIRE_DATA, REQUIRECODE_CITY);
@@ -254,8 +253,43 @@ public class EditRequirementActivity extends BaseAnnotationActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        setResult(RESULT_CANCELED);
-        finish();
+        back();
+    }
+
+    protected void back(){
+        if(requestCode == XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT){
+            if(setItems.size() > 0){
+                showTipDialog();
+            }else{
+                setResult(RESULT_CANCELED);
+                finish();
+            }
+        }else{
+            setResult(RESULT_CANCELED);
+            finish();
+        }
+    }
+
+    //显示放弃提交提醒
+    protected void showTipDialog(){
+        CommonDialog commonDialog = DialogHelper.getPinterestDialogCancelable(this);
+        commonDialog.setTitle(R.string.tip_confirm);
+        commonDialog.setMessage(getString(R.string.abandon_confirm_req));
+        commonDialog.setNegativeButton(getString(R.string.str_cancel), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        commonDialog.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                setResult(RESULT_CANCELED);
+                finish();
+            }
+        });
+        commonDialog.show();
     }
 
     @Click(R.id.head_right_title)
@@ -272,33 +306,11 @@ public class EditRequirementActivity extends BaseAnnotationActivity {
         super.loadSuccess(data);
         setResult(RESULT_OK);
         finish();
-        /*showSuccessDialog();
-        LogTool.d(getClass().getName(), data.toString());
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                commonDialog.dismiss();
-
-            }
-        }, 2000);*/
     }
 
     @Override
     public void loadFailture(String error_msg) {
         super.loadFailture(error_msg);
-    }
-
-    private void showSuccessDialog() {
-        commonDialog = DialogHelper
-                .getPinterestDialogCancelable(this);
-        if (requestCode == XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT) {
-            commonDialog.setTitle("发布成功");
-            commonDialog.setMessage("您的需求发布成功啦！");
-        } else {
-            commonDialog.setTitle("更新成功");
-            commonDialog.setMessage("您的需求更新成功啦！");
-        }
-        commonDialog.show();
     }
 
     @AfterViews
