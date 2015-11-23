@@ -15,8 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_margin="10dip"
-        android:background="@drawable/btn_selector_bg"
+        android:background="@drawable/btn_bg"
         android:text="@string/str_choose_plan"
         android:textColor="@color/font_white"
         android:textSize="@dimen/text_size_17" />
@@ -117,10 +116,11 @@
                 android:id="@+id/designText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dip"
                 android:layout_marginLeft="20dip"
                 android:layout_marginRight="20dip"
                 android:layout_marginTop="10dip"
-                android:text="设计说明:了解" />
+                android:text="设计说明:说明" />
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

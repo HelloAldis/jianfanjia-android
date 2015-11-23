@@ -1,6 +1,7 @@
 package com.jianfanjia.cn.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.jianfanjia.cn.adapter.base.BaseListAdapter;
@@ -43,7 +44,10 @@ public class DesignerByAppointOrReplaceAdapter extends BaseListAdapter<Map<Strin
             checkableLinearLayout = new CheckableLinearLayout(context, null, Constant.LIST_ITEM);
         }
         checkableLinearLayout.setName(list.get(position).get("itemTitle"));
-        checkableLinearLayout.setHeadView(context, list.get(position).get("itemImg"));
+        String imgId = list.get(position).get("itemImg");
+        if (!TextUtils.isEmpty(imgId)) {
+            checkableLinearLayout.setHeadView(context, imgId);
+        }
         return checkableLinearLayout;
     }
 }
