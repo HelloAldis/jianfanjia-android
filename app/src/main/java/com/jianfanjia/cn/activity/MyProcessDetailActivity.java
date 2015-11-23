@@ -65,8 +65,6 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
 
     @ViewById(R.id.process_viewpager)
     ViewPager processViewPager;
-    @ViewById(R.id.lineView)
-    View lineView;
     @ViewById(R.id.process__listview)
     PullToRefreshListView detailNodeListView;
     @ViewById(R.id.process_head_layout)
@@ -348,7 +346,6 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
     @Override
     public void preLoad() {
         super.preLoad();
-        lineView.setVisibility(View.GONE);
     }
 
     @Override
