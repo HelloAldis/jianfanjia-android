@@ -49,17 +49,16 @@ public class CommentAdapter extends BaseListAdapter<CommentInfo> {
         }
         viewHolder.itemNameView.setText(commentInfo.getByUser().getUsername());
         viewHolder.itemContentView.setText(commentInfo.getContent());
-        String userType = commentInfo.getUsertype();
-        if (userType.equals(Constant.IDENTITY_OWNER)) {
-            viewHolder.itemIdentityView.setText(context
+        viewHolder.itemIdentityView.setText(context
                     .getString(R.string.ower));
-        } else {
-            viewHolder.itemIdentityView.setText(context
-                    .getString(R.string.designer));
-        }
         viewHolder.itemTimeView.setText(StringUtils
                 .covertLongToString(commentInfo.getDate()));
-        imageShow.displayImageHeadWidthThumnailImage(context,commentInfo.getByUser().getImageid(), viewHolder.itemHeadView);
+        String imageid = commentInfo.getByUser().getImageid();
+        if(!imageid.contains(Constant.DEFALUT_PIC_HEAD)){
+            imageShow.displayImageHeadWidthThumnailImage(context,commentInfo.getByUser().getImageid(), viewHolder.itemHeadView);
+        } else{
+            imageShow.displayLocalImage(commentInfo.getByUser().getImageid(),viewHolder.itemHeadView);
+        }
 //        imageLoader.displayImage(Url_New.GET_THUMBNAIL_IMAGE + commentInfo.getByUser().getImageid(), viewHolder.itemHeadView, options);
         return convertView;
     }
