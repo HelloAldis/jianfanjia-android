@@ -136,6 +136,7 @@ public class DesignerCaseInfoActivity extends BaseActivity implements ApiUiUpdat
     @Override
     public void preLoad() {
         showWaitDialog(R.string.loding);
+        collapsingToolbar.setTitle("");
     }
 
     @Override
@@ -154,10 +155,8 @@ public class DesignerCaseInfoActivity extends BaseActivity implements ApiUiUpdat
             collapsingToolbar.setTitle(designerCaseInfo.getCell());
             stylelText.setText(designerCaseInfo.getHouse_area() + "㎡，" + getHouseType(designerCaseInfo.getHouse_type()) + "，" + getDecStyle(designerCaseInfo.getDec_type()));
             imageShow.displayScreenWidthThumnailImage(this, designerCaseInfo.getDesigner().getImageid(), designerinfo_head_img);
-            imageShow.displayScreenWidthThumnailImage(this,designerCaseInfo.getDesigner().getImageid(), head_img);
-//            imageLoader.displayImage(Url_New.GET_THUMBNAIL_IMAGE + designerCaseInfo.getDesigner().getImageid(), designerinfo_head_img, options);
+            imageShow.displayScreenWidthThumnailImage(this, designerCaseInfo.getDesigner().getImageid(), head_img);
             produceText.setText("设计简介:" + designerCaseInfo.getDescription());
-//            imageLoader.displayImage(Url_New.GET_THUMBNAIL_IMAGE + designerCaseInfo.getDesigner().getImageid(), head_img, options);
             nameText.setText(designerCaseInfo.getDesigner().getUsername());
             DesignerCaseAdapter adapter = new DesignerCaseAdapter(DesignerCaseInfoActivity.this, designerCaseInfo.getImages());
             designer_case_listview.setAdapter(adapter);
@@ -168,6 +167,7 @@ public class DesignerCaseInfoActivity extends BaseActivity implements ApiUiUpdat
     public void loadFailture(String error_msg) {
         hideWaitDialog();
         makeTextLong(error_msg);
+        collapsingToolbar.setTitle("");
     }
 
     @Override

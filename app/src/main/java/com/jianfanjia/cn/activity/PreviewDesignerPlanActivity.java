@@ -80,6 +80,7 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
         mainHeadView.setRightTitleVisable(View.VISIBLE);
         mainHeadView.setBackLayoutVisable(View.VISIBLE);
+        mainHeadView.setRigthTitleEnable(false);
     }
 
     @Override
@@ -139,6 +140,8 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
             planDetailInfo = JsonParser.jsonToBean(data.toString(), PlandetailInfo.class);
             LogTool.d(TAG, "planDetailInfo:" + planDetailInfo);
             if (null != planDetailInfo) {
+                btnDetail.setVisibility(View.VISIBLE);
+                mainHeadView.setRigthTitleEnable(true);
                 RequirementInfo requirementInfo = planDetailInfo.getRequirement();
                 requirementid = planDetailInfo.getRequirementid();
                 designerid = planDetailInfo.getDesignerid();
