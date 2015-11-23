@@ -325,7 +325,9 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                 bundle.putString(Global.SECTION, sectionInfo.getName());
                 bundle.putString(Global.ITEM, sectionInfo.getItems().get(position).getName());
                 bundle.putString(Global.TOPICTYPE, Global.TOPIC_NODE);
-                startActivity(CommentActivity.class, bundle);
+                Intent intent = new Intent(this,CommentActivity.class);
+                intent.putExtras(bundle);
+                startActivityForResult(intent,Constant.REQUESTCODE_GOTO_COMMENT);
                 break;
             case Constant.DELAY_ITEM:
                 delayDialog();
@@ -494,6 +496,9 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                 }
                 break;
             case Constant.REQUESTCODE_SHOW_PROCESS_PIC:
+                loadCurrentProcess();
+                break;
+            case Constant.REQUESTCODE_GOTO_COMMENT:
                 loadCurrentProcess();
                 break;
             default:

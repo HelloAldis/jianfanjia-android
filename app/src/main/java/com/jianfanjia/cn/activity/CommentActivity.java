@@ -45,6 +45,8 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
 
     private List<CommentInfo> commentList = new ArrayList<CommentInfo>();
 
+    private boolean isUpdate = false;//返回是否更新
+
     @Override
     public void initView() {
         initMainHeadView();
@@ -81,8 +83,7 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.head_back_layout:
-                setResult(DesignerPlanListActivity.REQUESTCODE_FRESH_LIST);
-                finish();
+                back();
                 break;
             case R.id.btn_send:
                 String content = commentEdit.getText().toString().trim();
@@ -147,6 +148,8 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
             hideWaitDialog();
             commentEdit.setText("");
             getCommentList(topicid, 0, 10000, section, item);
+
+            isUpdate = true;
         }
 
         @Override
@@ -156,10 +159,18 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
         }
     };
 
+    protected void back(){
+        if(isUpdate){
+            setResult(RESULT_OK);
+        }else{
+            setResult(RESULT_CANCELED);
+        }
+        finish();
+    }
+
     @Override
     public void onBackPressed() {
-        setResult(DesignerPlanListActivity.REQUESTCODE_FRESH_LIST);
-        finish();
+        back();
     }
 
     @Override

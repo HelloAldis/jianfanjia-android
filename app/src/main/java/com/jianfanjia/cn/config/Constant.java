@@ -42,10 +42,12 @@ public class Constant {
     public static final int REQUESTCODE_LOCATION = 2;// 本地相册选取
     public static final int REQUESTCODE_CROP = 3;// 裁剪
     public static final int REQUESTCODE_SHOW_PROCESS_PIC = 8;//显示照片列表
+    public static final int REQUESTCODE_GOTO_COMMENT = 7;//调用评论
+
     // editactivity
     public static final int REQUESTCODE_EDIT_USERNAME = 4;
     public static final int REQUESTCODE_EDIT_HOME = 5;
-    public static final int REQUESTCODE_EDIT_ADDRESS = 8;
+    public static final int REQUESTCODE_EDIT_ADDRESS = 9;
     public static final String EDIT_TYPE = "inputType";
     public static final String EDIT_CONTENT = "content";
 
