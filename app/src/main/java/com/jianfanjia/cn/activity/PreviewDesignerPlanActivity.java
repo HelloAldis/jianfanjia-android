@@ -139,6 +139,7 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
             planDetailInfo = JsonParser.jsonToBean(data.toString(), PlandetailInfo.class);
             LogTool.d(TAG, "planDetailInfo:" + planDetailInfo);
             if (null != planDetailInfo) {
+                btnDetail.setVisibility(View.VISIBLE);
                 RequirementInfo requirementInfo = planDetailInfo.getRequirement();
                 requirementid = planDetailInfo.getRequirementid();
                 designerid = planDetailInfo.getDesignerid();

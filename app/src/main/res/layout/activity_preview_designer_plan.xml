@@ -102,7 +102,8 @@
                     android:layout_marginLeft="@dimen/space_10"
                     android:background="@drawable/btn_orange_white_bg"
                     android:text="@string/detailPrice"
-                    android:textColor="@color/orange_color" />
+                    android:textColor="@color/orange_color"
+                    android:visibility="gone" />
             </LinearLayout>
 
 
