@@ -225,7 +225,7 @@ public abstract class BaseAnnotationActivity extends AppCompatActivity implement
     @Override
     public void loadFailture(String error_msg) {
         hideWaitDialog();
-        makeTextLong(error_msg);
+        makeTextShort(error_msg);
     }
 
     @Override
