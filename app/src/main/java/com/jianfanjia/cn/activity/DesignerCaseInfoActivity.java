@@ -5,12 +5,14 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -35,7 +37,8 @@ public class DesignerCaseInfoActivity extends BaseActivity implements ApiUiUpdat
     private AppBarLayout appBarLayout = null;
     private CollapsingToolbarLayout collapsingToolbar = null;
     private RelativeLayout activity_case_info_top_layout = null;
-    private ListView designer_case_listview = null;
+    private RecyclerView designer_case_listview = null;
+    private LinearLayoutManager mLayoutManager = null;
     private TextView stylelText = null;
     private ImageView designerinfo_head_img = null;
     private ImageView designerinfo_auth = null;
@@ -63,7 +66,11 @@ public class DesignerCaseInfoActivity extends BaseActivity implements ApiUiUpdat
         collapsingToolbar.setCollapsedTitleTextColor(Color.BLACK);
         collapsingToolbar.setExpandedTitleColor(Color.BLACK);
 
-        designer_case_listview = (ListView) findViewById(R.id.designer_case_listview);
+        designer_case_listview = (RecyclerView) findViewById(R.id.designer_case_listview);
+        mLayoutManager = new LinearLayoutManager(DesignerCaseInfoActivity.this);
+        designer_case_listview.setLayoutManager(mLayoutManager);
+        designer_case_listview.setItemAnimator(new DefaultItemAnimator());
+        designer_case_listview.setHasFixedSize(true);
         stylelText = (TextView) findViewById(R.id.stylelName);
         designerinfo_head_img = (ImageView) findViewById(R.id.designerinfo_head_img);
         designerinfo_auth = (ImageView) findViewById(R.id.designerinfo_auth);
