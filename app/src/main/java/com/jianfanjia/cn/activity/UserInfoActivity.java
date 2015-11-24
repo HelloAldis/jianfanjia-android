@@ -103,6 +103,8 @@ public class UserInfoActivity extends BaseAnnotationActivity implements
     private void setData() {
         setOwnerUpdateInfo();
 
+        scrollView.setVisibility(View.VISIBLE);
+
         if (TextUtils.isEmpty(ownerInfo.getImageid())) {
             imageShow.displayLocalImage(Constant.DEFALUT_OWNER_PIC, headImageView);
         } else {
@@ -306,6 +308,7 @@ public class UserInfoActivity extends BaseAnnotationActivity implements
             setData();
             error_Layout.setVisibility(View.GONE);
         } else {
+            scrollView.setVisibility(View.GONE);
             error_Layout.setVisibility(View.VISIBLE);
         }
     }
@@ -313,6 +316,7 @@ public class UserInfoActivity extends BaseAnnotationActivity implements
     @Override
     public void loadFailture(String error_msg) {
         super.loadFailture(error_msg);
+        scrollView.setVisibility(View.GONE);
         error_Layout.setVisibility(View.VISIBLE);
     }
 
@@ -339,6 +343,7 @@ public class UserInfoActivity extends BaseAnnotationActivity implements
             if (cameraIntent != null) {
                 startActivityForResult(cameraIntent, Constant.REQUESTCODE_CAMERA);
             } else {
+
             }
         } else {
             makeTextShort(getString(R.string.tip_not_sdcard));

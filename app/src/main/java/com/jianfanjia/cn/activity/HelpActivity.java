@@ -29,8 +29,8 @@ public class HelpActivity extends BaseActivity {
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         for (int i = 0; i < IMG_ID.length; i++) {
             ImageView view = new ImageView(this);
-            view.setScaleType(ImageView.ScaleType.FIT_CENTER);
-            view.setBackgroundResource(IMG_ID[i]);
+            view.setScaleType(ImageView.ScaleType.CENTER);
+            view.setImageResource(IMG_ID[i]);
             bannerList.add(view);
         }
         ViewPageAdapter pageAdapter = new ViewPageAdapter(HelpActivity.this,

@@ -110,9 +110,6 @@ public class ReplaceDesignerActivity extends BaseActivity implements OnClickList
             case R.id.head_back_layout:
                 finish();
                 break;
-//            case R.id.moreText:
-//                startActivity(MyFavoriteDesignerActivity_.class);
-//                break;
             case R.id.head_right_title:
                 replaceDesignerDialog();
                 break;

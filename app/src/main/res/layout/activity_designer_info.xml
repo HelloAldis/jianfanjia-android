@@ -173,48 +173,18 @@
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-
-        <RadioGroup
-            android:id="@+id/tab_rg_layout"
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabs"
+            style="@style/MyCustomTabLayout"
             android:layout_width="match_parent"
-            android:layout_height="45dip"
-            android:orientation="horizontal">
+            android:layout_height="50dp"
+            android:background="@drawable/layout_border"
+            android:minHeight="50dp"
+            app:tabGravity="fill" />
 
-            <RadioButton
-                android:id="@+id/tab_designer_info"
-                style="@style/tab_rb_style"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/layout_border"
-                android:checked="true"
-                android:gravity="center"
-                android:text="资料"
-                android:textColor="@color/tab_text_color"
-                android:textSize="@dimen/text_size_14" />
-
-            <RadioButton
-                android:id="@+id/tab_designer_works"
-                style="@style/tab_rb_style"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="-2dip"
-                android:layout_weight="1"
-                android:background="@drawable/layout_border"
-                android:gravity="center"
-                android:text="作品"
-                android:textColor="@color/tab_text_color"
-                android:textSize="@dimen/text_size_14" />
-        </RadioGroup>
-
-        <android.support.v4.widget.NestedScrollView
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <FrameLayout
-                android:id="@+id/contentLayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </android.support.v4.widget.NestedScrollView>
+            android:layout_height="match_parent" />
     </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>

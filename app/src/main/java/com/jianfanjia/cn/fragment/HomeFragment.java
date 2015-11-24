@@ -92,7 +92,7 @@ public class HomeFragment extends BaseFragment implements
     private void initBannerView() {
         MyViewPager myViewPager = (MyViewPager) headLayout.findViewById(R.id.viewPager_lib);
         ViewPagerManager contoler = new ViewPagerManager(getActivity(), myViewPager);
-        contoler.setmShapeType(ShapeType.OVAL);// 设置指示器的形状为矩形，默认是圆形
+        contoler.setmShapeType(ShapeType.OVAL);
         List<View> bannerList = new ArrayList<View>();
         for (int i = 0; i < BANNER_ICON.length; i++) {
             ImageView imageView = new ImageView(getActivity());

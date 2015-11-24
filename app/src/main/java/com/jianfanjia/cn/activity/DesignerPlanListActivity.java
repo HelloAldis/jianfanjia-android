@@ -32,7 +32,6 @@ import java.util.List;
  */
 public class DesignerPlanListActivity extends BaseActivity implements OnClickListener, ApiUiUpdateListener, ItemClickListener, PullToRefreshBase.OnRefreshListener2<ListView> {
     private static final String TAG = DesignerPlanListActivity.class.getName();
-    public static final int REQUESTCODE_FRESH_LIST = 1;
     private MainHeadView mainHeadView = null;
     private PullToRefreshListView designer_plan_listview = null;
     private List<PlanInfo> designerPlanList = new ArrayList<PlanInfo>();
@@ -148,7 +147,7 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
                 commentBundle.putString(Global.TO, designerid);
                 commentBundle.putString(Global.TOPICTYPE, Global.TOPIC_PLAN);
                 commentIntent.putExtras(commentBundle);
-                startActivityForResult(commentIntent, REQUESTCODE_FRESH_LIST);
+                startActivityForResult(commentIntent, Constant.REQUESTCODE_GOTO_COMMENT);
                 break;
             case Constant.PLAN_PREVIEW_ITEM:
                 startToActivity(planid);
@@ -167,8 +166,11 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode != RESULT_OK){
+            return;
+        }
         switch (requestCode) {
-            case REQUESTCODE_FRESH_LIST:
+            case Constant.REQUESTCODE_GOTO_COMMENT:
                 getDesignerPlansList(requirementid, designerid);
                 break;
             default:

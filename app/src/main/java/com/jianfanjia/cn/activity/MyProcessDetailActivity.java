@@ -65,8 +65,6 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
 
     @ViewById(R.id.process_viewpager)
     ViewPager processViewPager;
-    @ViewById(R.id.lineView)
-    View lineView;
     @ViewById(R.id.process__listview)
     PullToRefreshListView detailNodeListView;
     @ViewById(R.id.process_head_layout)
@@ -327,7 +325,9 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                 bundle.putString(Global.SECTION, sectionInfo.getName());
                 bundle.putString(Global.ITEM, sectionInfo.getItems().get(position).getName());
                 bundle.putString(Global.TOPICTYPE, Global.TOPIC_NODE);
-                startActivity(CommentActivity.class, bundle);
+                Intent intent = new Intent(this,CommentActivity.class);
+                intent.putExtras(bundle);
+                startActivityForResult(intent,Constant.REQUESTCODE_GOTO_COMMENT);
                 break;
             case Constant.DELAY_ITEM:
                 delayDialog();
@@ -348,14 +348,12 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
     @Override
     public void preLoad() {
         super.preLoad();
-        lineView.setVisibility(View.GONE);
     }
 
     @Override
     public void loadSuccess(Object data) {
         hideWaitDialog();
         detailNodeListView.onRefreshComplete();
-//        lineView.setVisibility(View.VISIBLE);
         if (data != null) {
             processInfo = JsonParser.jsonToBean(data.toString(), ProcessInfo.class);
             initData();
@@ -365,7 +363,6 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
     @Override
     public void loadFailture(String error_msg) {
         hideWaitDialog();
-//        lineView.setVisibility(View.GONE);
         if (processId != Constant.DEFAULT_PROCESSINFO_ID) {
             makeTextShort(error_msg);
         }
@@ -401,9 +398,9 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
         mTmpFile = FileUtil.createTmpFile(this);
         if (mTmpFile != null) {
             Intent cameraIntent = UiHelper.createShotIntent(mTmpFile);
-            if(cameraIntent != null){
+            if (cameraIntent != null) {
                 startActivityForResult(cameraIntent, Constant.REQUESTCODE_CAMERA);
-            }else{
+            } else {
 //                makeTextShort(getString(R.string.tip_open_camera));
             }
         } else {
@@ -499,6 +496,9 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                 }
                 break;
             case Constant.REQUESTCODE_SHOW_PROCESS_PIC:
+                loadCurrentProcess();
+                break;
+            case Constant.REQUESTCODE_GOTO_COMMENT:
                 loadCurrentProcess();
                 break;
             default:

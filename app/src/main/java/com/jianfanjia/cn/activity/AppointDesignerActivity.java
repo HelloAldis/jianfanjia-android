@@ -116,9 +116,6 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
             case R.id.head_back_layout:
                 finish();
                 break;
-//            case R.id.moreText:
-//                startActivity(MyFavoriteDesignerActivity_.class);
-//                break;
             case R.id.head_right_title:
                 if (checkedItemCount != 0) {
                     appointDesignerDialog();
@@ -215,7 +212,6 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
         @Override
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data.toString());
-//            setResult(XuQiuFragment.REQUESTCODE_FRESH_REQUIREMENT);
             //刷新Xuqiufragmet
             UiHelper.sendUpdateBroast(AppointDesignerActivity.this);
             finish();

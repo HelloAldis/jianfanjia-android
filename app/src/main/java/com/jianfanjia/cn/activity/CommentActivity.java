@@ -13,6 +13,7 @@ import com.jianfanjia.cn.adapter.CommentAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.Comment;
 import com.jianfanjia.cn.bean.CommentInfo;
+import com.jianfanjia.cn.bean.User;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
@@ -21,6 +22,7 @@ import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -44,6 +46,8 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
     private String topictype = null;
 
     private List<CommentInfo> commentList = new ArrayList<CommentInfo>();
+
+    private boolean isUpdate = false;//返回是否更新
 
     @Override
     public void initView() {
@@ -81,8 +85,7 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.head_back_layout:
-                setResult(DesignerPlanListActivity.REQUESTCODE_FRESH_LIST);
-                finish();
+                back();
                 break;
             case R.id.btn_send:
                 String content = commentEdit.getText().toString().trim();
@@ -116,7 +119,7 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
             LogTool.d(TAG, "comment:" + comment);
             if (null != comment) {
                 commentList = comment.getComments();
-                if (null != commentList && commentList.size() > 0) {
+                if (null != commentList) {
                     commentAdapter = new CommentAdapter(CommentActivity.this, commentList);
                     commentListView.setAdapter(commentAdapter);
                 }
@@ -145,8 +148,14 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data);
             hideWaitDialog();
+            CommentInfo commentInfo = createCommentInfo(commentEdit.getEditableText().toString());
+            commentAdapter.addItem(commentInfo,0);
+            commentAdapter.notifyDataSetChanged();
+            commentListView.setSelection(0);
             commentEdit.setText("");
-            getCommentList(topicid, 0, 10000, section, item);
+//            getCommentList(topicid, 0, 10000, section, item);
+
+            isUpdate = true;
         }
 
         @Override
@@ -156,10 +165,32 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
         }
     };
 
+    protected CommentInfo createCommentInfo(String content){
+        CommentInfo commentInfo = new CommentInfo();
+        commentInfo.setTo(to);
+        commentInfo.setTopicid(topicid);
+        commentInfo.setTopictype(topictype);
+        commentInfo.setDate(Calendar.getInstance().getTimeInMillis());
+        commentInfo.setContent(content);
+        User user = new User();
+        user.setUsername(dataManager.getUserName());
+        user.setImageid(dataManager.getUserImagePath());
+        commentInfo.setByUser(user);
+        return commentInfo;
+    }
+
+    protected void back(){
+        if(isUpdate){
+            setResult(RESULT_OK);
+        }else{
+            setResult(RESULT_CANCELED);
+        }
+        finish();
+    }
+
     @Override
     public void onBackPressed() {
-        setResult(DesignerPlanListActivity.REQUESTCODE_FRESH_LIST);
-        finish();
+        back();
     }
 
     @Override

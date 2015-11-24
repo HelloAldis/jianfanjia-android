@@ -1,101 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_layout_bg"
     android:orientation="vertical">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/jiandanType"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dip"
-        android:layout_marginRight="20dip"
-        android:layout_marginTop="10dip"
-        android:textColor="@color/home_page_text_color"
-        android:textSize="@dimen/text_size_14" />
+        <TextView
+            android:id="@+id/jiandanType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dip"
+            android:layout_marginRight="20dip"
+            android:layout_marginTop="10dip"
+            android:textColor="@color/home_page_text_color"
+            android:textSize="@dimen/text_size_14" />
 
-    <TextView
-        android:id="@+id/jiandanHouseType"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dip"
-        android:layout_marginRight="20dip"
-        android:layout_marginTop="10dip"
-        android:textColor="@color/home_page_text_color"
-        android:textSize="@dimen/text_size_14" />
+        <TextView
+            android:id="@+id/jiandanHouseType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dip"
+            android:layout_marginRight="20dip"
+            android:layout_marginTop="10dip"
+            android:textColor="@color/home_page_text_color"
+            android:textSize="@dimen/text_size_14" />
 
-    <TextView
-        android:id="@+id/jiandanDistrict"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dip"
-        android:layout_marginRight="20dip"
-        android:layout_marginTop="10dip"
-        android:textColor="@color/home_page_text_color"
-        android:textSize="@dimen/text_size_14" />
+        <TextView
+            android:id="@+id/jiandanDistrict"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dip"
+            android:layout_marginRight="20dip"
+            android:layout_marginTop="10dip"
+            android:textColor="@color/home_page_text_color"
+            android:textSize="@dimen/text_size_14" />
 
-    <TextView
-        android:id="@+id/designStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dip"
-        android:layout_marginRight="20dip"
-        android:layout_marginTop="10dip"
-        android:textColor="@color/home_page_text_color"
-        android:textSize="@dimen/text_size_14" />
+        <TextView
+            android:id="@+id/designStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dip"
+            android:layout_marginRight="20dip"
+            android:layout_marginTop="10dip"
+            android:textColor="@color/home_page_text_color"
+            android:textSize="@dimen/text_size_14" />
 
-    <TextView
-        android:id="@+id/designIdea"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dip"
-        android:layout_marginRight="20dip"
-        android:layout_marginTop="10dip"
-        android:textColor="@color/home_page_text_color"
-        android:textSize="@dimen/text_size_14" />
+        <TextView
+            android:id="@+id/designIdea"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dip"
+            android:layout_marginRight="20dip"
+            android:layout_marginTop="10dip"
+            android:textColor="@color/home_page_text_color"
+            android:textSize="@dimen/text_size_14" />
 
-    <TextView
-        android:id="@+id/designAchievement"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dip"
-        android:layout_marginRight="20dip"
-        android:layout_marginTop="10dip"
-        android:textColor="@color/home_page_text_color"
-        android:textSize="@dimen/text_size_14" />
-
-
-    <TextView
-        android:id="@+id/company"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dip"
-        android:layout_marginRight="20dip"
-        android:layout_marginTop="10dip"
-        android:textColor="@color/home_page_text_color"
-        android:textSize="@dimen/text_size_14" />
+        <TextView
+            android:id="@+id/designAchievement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dip"
+            android:layout_marginRight="20dip"
+            android:layout_marginTop="10dip"
+            android:textColor="@color/home_page_text_color"
+            android:textSize="@dimen/text_size_14" />
 
 
-    <TextView
-        android:id="@+id/teamCount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dip"
-        android:layout_marginRight="20dip"
-        android:layout_marginTop="10dip"
-        android:textColor="@color/home_page_text_color"
-        android:textSize="@dimen/text_size_14" />
+        <TextView
+            android:id="@+id/company"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dip"
+            android:layout_marginRight="20dip"
+            android:layout_marginTop="10dip"
+            android:textColor="@color/home_page_text_color"
+            android:textSize="@dimen/text_size_14" />
 
-    <TextView
-        android:id="@+id/designFee"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dip"
-        android:layout_marginLeft="20dip"
-        android:layout_marginRight="20dip"
-        android:layout_marginTop="10dip"
-        android:textColor="@color/home_page_text_color"
-        android:textSize="@dimen/text_size_14" />
-</LinearLayout>
+
+        <TextView
+            android:id="@+id/teamCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dip"
+            android:layout_marginRight="20dip"
+            android:layout_marginTop="10dip"
+            android:textColor="@color/home_page_text_color"
+            android:textSize="@dimen/text_size_14" />
+
+        <TextView
+            android:id="@+id/designFee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dip"
+            android:layout_marginLeft="20dip"
+            android:layout_marginRight="20dip"
+            android:layout_marginTop="10dip"
+            android:textColor="@color/home_page_text_color"
+            android:textSize="@dimen/text_size_14" />
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

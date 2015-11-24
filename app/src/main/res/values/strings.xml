@@ -210,7 +210,7 @@
     <string name="about_content">我的设计师专单平台</string>
     <string name="about_version">版本号：%1$s</string>
     <string name="company">武汉家易装科技有限公司</string>
-    <string name="compant_net">Copyright © 2015-2025 jianfanjia.com</string>
+    <string name="compant_net">Copyright © 2015 jianfanjia.com</string>
     <!-- activity_about -->
 
 
@@ -272,5 +272,6 @@
     <string name="tip_input_correct_password">请输入正确的密码格式，密码由6-30位数字、字母组成</string>
     <string name="tip_open_camera">请开启摄像机权限</string>
     <string name="tip_not_sdcard">没有SD卡，无法打开相机</string>
+
 
 </resources>

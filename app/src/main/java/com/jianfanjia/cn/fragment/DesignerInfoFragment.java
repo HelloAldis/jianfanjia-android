@@ -32,8 +32,16 @@ public class DesignerInfoFragment extends BaseFragment implements ApiUiUpdateLis
     private TextView company = null;
     private TextView teamCount = null;
     private TextView designFee = null;
-
     private String designerid = null;
+
+    public static DesignerInfoFragment newInstance(String info) {
+        Bundle args = new Bundle();
+        DesignerInfoFragment infoFragment = new DesignerInfoFragment();
+        args.putString(Global.DESIGNER_ID, info);
+        infoFragment.setArguments(args);
+        return infoFragment;
+    }
+
 
     @Override
     public void initView(View view) {
@@ -49,7 +57,6 @@ public class DesignerInfoFragment extends BaseFragment implements ApiUiUpdateLis
         company = (TextView) view.findViewById(R.id.company);
         teamCount = (TextView) view.findViewById(R.id.teamCount);
         designFee = (TextView) view.findViewById(R.id.designFee);
-
         getDesignerPageInfo(designerid);
     }
 
