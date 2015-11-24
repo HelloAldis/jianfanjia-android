@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.jianfanjia.cn.tools.ImageShow;
+
 import java.util.List;
 
 /**
@@ -18,11 +20,13 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Re
     protected Context context;
     protected List<T> list;
     protected LayoutInflater layoutInflater;
+    protected ImageShow imageShow;
 
     public BaseRecyclerViewAdapter(Context context, List<T> list) {
         this.context = context;
         this.list = list;
         layoutInflater = LayoutInflater.from(context);
+        imageShow = ImageShow.getImageShow();
     }
 
 
