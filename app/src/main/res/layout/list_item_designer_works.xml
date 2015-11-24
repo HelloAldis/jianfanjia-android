@@ -18,6 +18,7 @@
             android:id="@+id/list_item_works_img"
             android:layout_width="match_parent"
             android:layout_height="260dip"
+            android:layout_gravity="center_horizontal"
             android:scaleType="centerCrop" />
 
         <TextView
