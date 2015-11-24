@@ -4,7 +4,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.v4.app.FragmentTransaction;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Gravity;
@@ -12,13 +13,13 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RadioGroup;
-import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.jianfanjia.cn.adapter.MyFragmentPagerAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.DesignerInfo;
+import com.jianfanjia.cn.bean.SelectItem;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.fragment.DesignerInfoFragment;
@@ -28,18 +29,21 @@ import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Description:设计师信息
  * Author：fengliang
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class DesignerInfoActivity extends BaseActivity implements
-        OnCheckedChangeListener, OnClickListener {
+public class DesignerInfoActivity extends BaseActivity implements OnClickListener {
     private static final String TAG = DesignerInfoActivity.class.getName();
-    private RadioGroup mTabRadioGroup = null;
     private Toolbar toolbar = null;
     private CollapsingToolbarLayout collapsingToolbar = null;
+    private TabLayout tabLayout = null;
+    private ViewPager viewPager = null;
     private RatingBar ratingBar = null;
     private ImageView designerinfo_head_img = null;
     private ImageView designerinfo_auth = null;
@@ -47,8 +51,6 @@ public class DesignerInfoActivity extends BaseActivity implements
     private TextView productCountText = null;
     private TextView appointCountText = null;
     private Button addBtn = null;
-    private static final int DESIGNER_INFO = 0;
-    private static final int DESIGNER_WORK = 1;
     private DesignerInfoFragment infoFragment = null;
     private DesignerWorksFragment workFragment = null;
     private String designerid = null;
@@ -56,11 +58,19 @@ public class DesignerInfoActivity extends BaseActivity implements
 
     @Override
     public void initView() {
-        mTabRadioGroup = (RadioGroup) findViewById(R.id.tab_rg_layout);
+        Intent intent = this.getIntent();
+        Bundle designerBundle = intent.getExtras();
+        designerid = designerBundle.getString(Global.DESIGNER_ID);
+        LogTool.d(TAG, "designerid=" + designerid);
+        //---------------------------------
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.mipmap.icon_register_back);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        setupViewPager(viewPager);
+        tabLayout.setupWithViewPager(viewPager);
         collapsingToolbar =
                 (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         collapsingToolbar.setExpandedTitleTextAppearance(R.style.site_listview_item_text_style_title);
@@ -74,19 +84,24 @@ public class DesignerInfoActivity extends BaseActivity implements
         productCountText = (TextView) findViewById(R.id.productCountText);
         appointCountText = (TextView) findViewById(R.id.appointCountText);
         addBtn = (Button) findViewById(R.id.btn_add);
-        //---------------------------------------------
-        Intent intent = this.getIntent();
-        Bundle designerBundle = intent.getExtras();
-        designerid = designerBundle.getString(Global.DESIGNER_ID);
-        LogTool.d(TAG, "designerid=" + designerid);
-        getDesignerPageInfo(designerid);
 
-        setTabSelection(DESIGNER_INFO);
+        getDesignerPageInfo(designerid);
+    }
+
+    private void setupViewPager(ViewPager viewPager) {
+        List<SelectItem> listViews = new ArrayList<SelectItem>();
+        SelectItem caigouItem = new SelectItem(DesignerInfoFragment.newInstance(designerid),
+                "资料");
+        SelectItem fukuanItem = new SelectItem(DesignerWorksFragment.newInstance(designerid),
+                "作品");
+        listViews.add(caigouItem);
+        listViews.add(fukuanItem);
+        MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(fragmentManager, listViews);
+        viewPager.setAdapter(adapter);
     }
 
     @Override
     public void setListener() {
-        mTabRadioGroup.setOnCheckedChangeListener(this);
         addBtn.setOnClickListener(this);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,19 +122,6 @@ public class DesignerInfoActivity extends BaseActivity implements
         }
     }
 
-    @Override
-    public void onCheckedChanged(RadioGroup group, int checkedId) {
-        switch (checkedId) {
-            case R.id.tab_designer_info:
-                setTabSelection(DESIGNER_INFO);
-                break;
-            case R.id.tab_designer_works:
-                setTabSelection(DESIGNER_WORK);
-                break;
-            default:
-                break;
-        }
-    }
 
     private void getDesignerPageInfo(String designerid) {
         JianFanJiaClient.getDesignerHomePage(DesignerInfoActivity.this, designerid, designerHomePage, this);
@@ -143,9 +145,9 @@ public class DesignerInfoActivity extends BaseActivity implements
             if (null != designerInfo) {
                 collapsingToolbar.setTitle(designerInfo.getUsername());
                 String designerid = designerInfo.getImageid();
-                if(!TextUtils.isEmpty(designerid)){
-                    imageShow.displayImageHeadWidthThumnailImage(DesignerInfoActivity.this,designerInfo.getImageid(), designerinfo_head_img);
-                }else{
+                if (!TextUtils.isEmpty(designerid)) {
+                    imageShow.displayImageHeadWidthThumnailImage(DesignerInfoActivity.this, designerInfo.getImageid(), designerinfo_head_img);
+                } else {
                     imageShow.displayLocalImage(Constant.DEFALUT_OWNER_PIC, designerinfo_head_img);
                 }
                 viewCountText.setText("" + designerInfo.getView_count());
@@ -189,49 +191,6 @@ public class DesignerInfoActivity extends BaseActivity implements
         }
     };
 
-    private void setTabSelection(int index) {
-        // 开启一个Fragment事务
-        FragmentTransaction transaction = this.getSupportFragmentManager()
-                .beginTransaction();
-        hideFragments(transaction);
-        switch (index) {
-            case DESIGNER_INFO:
-                if (infoFragment != null) {
-                    transaction.show(infoFragment);
-                } else {
-                    infoFragment = new DesignerInfoFragment();
-                    Bundle designerBundle = new Bundle();
-                    designerBundle.putString(Global.DESIGNER_ID, designerid);
-                    infoFragment.setArguments(designerBundle);
-                    transaction.add(R.id.contentLayout, infoFragment);
-                }
-                break;
-            case DESIGNER_WORK:
-                if (workFragment != null) {
-                    transaction.show(workFragment);
-                } else {
-                    workFragment = new DesignerWorksFragment();
-                    Bundle designerBundle = new Bundle();
-                    designerBundle.putString(Global.DESIGNER_ID, designerid);
-                    workFragment.setArguments(designerBundle);
-                    transaction.add(R.id.contentLayout, workFragment);
-                }
-                break;
-            default:
-                break;
-        }
-        transaction.commit();
-    }
-
-    // 当fragment已被实例化，相当于发生过切换，就隐藏起来
-    public void hideFragments(FragmentTransaction ft) {
-        if (infoFragment != null) {
-            ft.hide(infoFragment);
-        }
-        if (workFragment != null) {
-            ft.hide(workFragment);
-        }
-    }
 
     @Override
     public int getLayoutId() {
