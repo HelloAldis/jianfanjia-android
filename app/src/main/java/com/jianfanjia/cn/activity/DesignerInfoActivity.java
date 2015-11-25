@@ -139,7 +139,7 @@ public class DesignerInfoActivity extends BaseActivity implements OnClickListene
 
         @Override
         public void loadSuccess(Object data) {
-            LogTool.d(TAG, "data:" + data);
+            LogTool.d(TAG, "data=" + data);
             DesignerInfo designerInfo = JsonParser.jsonToBean(data.toString(), DesignerInfo.class);
             LogTool.d(TAG, "designerInfo:" + designerInfo);
             if (null != designerInfo) {
