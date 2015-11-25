@@ -49,7 +49,7 @@ public class DesignerWorksAdapter extends BaseRecyclerViewAdapter<Product> {
     }
 
     @Override
-    public View createView(ViewGroup viewGroup, int position) {
+    public View createView(ViewGroup viewGroup, int viewType) {
         View view = layoutInflater.inflate(R.layout.list_item_designer_works,
                 null);
         return view;
