@@ -52,14 +52,14 @@ public abstract class BaseListAdapter<T> extends BaseAdapter {
     }
 
     public void addItem(T t) {
-        if(list == null) return;
+        if (list == null) return;
         list.add(t);
         notifyDataSetChanged();
     }
 
-    public void addItem(T t,int index){
-        if(list == null) return;
-        list.add(index,t);
+    public void addItem(T t, int index) {
+        if (list == null) return;
+        list.add(index, t);
         notifyDataSetChanged();
     }
 
