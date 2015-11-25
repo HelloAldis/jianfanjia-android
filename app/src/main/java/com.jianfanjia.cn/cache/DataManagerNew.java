@@ -13,7 +13,7 @@ import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.bean.SectionInfo;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Url;
+import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.SharedPrefer;
 
@@ -326,7 +326,7 @@ public class DataManagerNew {
 				userImagePath = Constant.DEFALUT_DESIGNER_PIC;
 			}
 		} else {
-			userImagePath = Url.GET_IMAGE + imageId;
+			userImagePath = Url_New.GET_IMAGE + imageId;
 		}
 		return userImagePath;
 	}

@@ -14,50 +14,50 @@
 
         <TextView
             android:id="@+id/list_item_site_villagename"
-            style="@style/site_listview_item_text_style_middle"
+            style="@style/listview_item_text_style_middle"
             android:ellipsize="end"
             android:gravity="left"
             android:maxWidth="100dp"
             android:singleLine="true"
             android:text="@string/my_site_villagename_example"
-            android:textColor="@color/main_color_black" />
+            android:textColor="@color/black_color" />
 
         <TextView
             android:id="@+id/list_item_site_currentsite"
-            style="@style/site_listview_item_text_style_small"
+            style="@style/listview_item_text_style_small"
             android:layout_alignBaseline="@+id/list_item_site_villagename"
             android:layout_marginLeft="@dimen/space_4"
             android:layout_toRightOf="@+id/list_item_site_villagename"
             android:text="@string/current_process"
-            android:textColor="@color/main_color_orange" />
+            android:textColor="@color/orange_color" />
 
         <TextView
             android:id="@+id/list_item_site_currentstage"
-            style="@style/site_listview_item_text_style_small"
+            style="@style/listview_item_text_style_small"
             android:layout_alignBaseline="@+id/list_item_site_villagename"
             android:layout_alignParentRight="true"
             android:text="@string/my_site_villagename_example"
-            android:textColor="@color/main_color_grey" />
+            android:textColor="@color/grey_color" />
 
         <TextView
             android:id="@+id/list_item_site_address"
-            style="@style/site_listview_item_text_style_small"
+            style="@style/listview_item_text_style_small"
             android:layout_below="@+id/list_item_site_villagename"
             android:layout_marginTop="@dimen/space_8"
             android:maxWidth="@dimen/space_100"
             android:text="@string/my_site_villagename_example"
-            android:textColor="@color/main_color_grey" />
+            android:textColor="@color/grey_color" />
 
         <TextView
             android:id="@+id/list_item_site_owername"
-            style="@style/site_listview_item_text_style_small"
+            style="@style/listview_item_text_style_small"
             android:layout_alignBottom="@+id/list_item_site_address"
             android:layout_marginRight="@dimen/space_8"
             android:layout_toLeftOf="@+id/list_item_site_owerhead"
             android:text="@string/my_site_villagename_example"
-            android:textColor="@color/main_color_grey" />
+            android:textColor="@color/grey_color" />
 
-        <com.jianfanjia.cn.layout.CircleImageView
+        <com.jianfanjia.cn.view.layout.CircleImageView
             android:id="@+id/list_item_site_owerhead"
             android:layout_width="20dp"
             android:layout_height="20dp"

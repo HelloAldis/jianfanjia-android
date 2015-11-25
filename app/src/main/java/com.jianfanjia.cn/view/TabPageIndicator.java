@@ -32,7 +32,7 @@ import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.interf.IconPagerAdapter;
 import com.jianfanjia.cn.interf.PageIndicator;
-import com.jianfanjia.cn.layout.IcsLinearLayout;
+import com.jianfanjia.cn.view.layout.IcsLinearLayout;
 
 /**
  * This widget implements the dynamic action bar tab behavior that can change

@@ -14,33 +14,33 @@
 
         <TextView
             android:id="@+id/list_item_tip_caigou_name"
-            style="@style/site_listview_item_text_style_small"
+            style="@style/listview_item_text_style_small"
             android:text="@string/list_item_caigou_example"
-            android:textColor="@color/main_color_black" />
+            android:textColor="@color/black_color" />
 
         <TextView
             android:id="@+id/list_item_tip_caigou_content"
-            style="@style/site_listview_item_text_style_middle"
+            style="@style/listview_item_text_style_middle"
             android:layout_below="@+id/list_item_tip_caigou_name"
             android:layout_marginBottom="@dimen/space_16"
             android:layout_marginTop="@dimen/space_16"
             android:text="@string/my_site_villagename_example"
-            android:textColor="@color/main_color_orange" />
+            android:textColor="@color/orange_color" />
 
         <TextView
             android:id="@+id/list_item_tip_caigou_node"
-            style="@style/site_listview_item_text_style_small"
+            style="@style/listview_item_text_style_small"
             android:layout_below="@+id/list_item_tip_caigou_content"
             android:text="泥木阶段"
-            android:textColor="@color/main_color_grey" />
+            android:textColor="@color/grey_color" />
 
         <TextView
             android:id="@+id/list_item_tip_caigou_time"
-            style="@style/site_listview_item_text_style_small"
+            style="@style/listview_item_text_style_small"
             android:layout_alignBottom="@+id/list_item_tip_caigou_node"
             android:layout_alignParentRight="true"
             android:text="2015-09-22 23:05"
-            android:textColor="@color/main_color_grey" />
+            android:textColor="@color/grey_color" />
     </RelativeLayout>
 
 </RelativeLayout>

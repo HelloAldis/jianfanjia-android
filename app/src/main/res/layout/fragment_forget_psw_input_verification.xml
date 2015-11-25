@@ -20,14 +20,14 @@
         android:orientation="horizontal" >
 
         <TextView
-            style="@style/site_listview_item_text_style_small"
+            style="@style/listview_item_text_style_small"
             android:text="@string/verification_code_sended"
             android:textColor="@color/font_white" />
 
         <TextView
             android:id="@+id/register_tip"
-            style="@style/site_listview_item_text_style_small"
-            android:textColor="@color/font_reg_color2" />
+            style="@style/listview_item_text_style_small"
+            android:textColor="@color/orange_color" />
     </LinearLayout>
 
     <LinearLayout

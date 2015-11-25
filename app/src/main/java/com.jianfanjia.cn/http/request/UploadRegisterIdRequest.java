@@ -3,10 +3,7 @@ package com.jianfanjia.cn.http.request;
 import android.content.Context;
 
 import com.jianfanjia.cn.base.BaseRequest;
-import com.jianfanjia.cn.base.BaseResponse;
-import com.jianfanjia.cn.bean.ProcessInfo;
-import com.jianfanjia.cn.config.Url;
-import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.config.Url_New;
 
 /**
  * 上传个推id
@@ -18,7 +15,7 @@ public class UploadRegisterIdRequest extends BaseRequest {
 	public UploadRegisterIdRequest(Context context, String clientId) {
 		super(context);
 		this.clientId = clientId;
-		url = Url.BIND_URL;
+		url = Url_New.BIND_URL;
 	}
 
 	@Override
@@ -35,10 +32,7 @@ public class UploadRegisterIdRequest extends BaseRequest {
 	}
 	
 	@Override
-	public void onSuccess(BaseResponse baseResponse) {
-		if (baseResponse.getMsg() != null) {
-
-		}
+	public void onSuccess(Object data) {
 	}
 	
 	public String getClientId() {

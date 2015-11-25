@@ -12,7 +12,7 @@
 
         <TextView
             android:id="@+id/feedback_back"
-            style="@style/site_listview_item_text_style_middle"
+            style="@style/listview_item_text_style_middle"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/space_8"
             android:drawableLeft="@drawable/icon_register_back"
@@ -22,15 +22,15 @@
 
         <TextView
             android:id="@+id/feedback_title"
-            style="@style/site_listview_item_text_style_title"
+            style="@style/listview_item_text_style_big"
             android:layout_centerInParent="true"
             android:text="@string/feedback"
-            android:textColor="@color/main_color_black" />
+            android:textColor="@color/black_color" />
 
         <View
             style="@style/divier_line"
             android:layout_alignParentBottom="true"
-            android:background="@color/horzontal_line_color" />
+            android:background="@color/light_white_color" />
     </RelativeLayout>
 
     <EditText
@@ -46,9 +46,9 @@
         android:hint="@string/add_feedback"
         android:minLines="10"
         android:padding="@dimen/space_8"
-        android:textColorHint="@color/horzontal_line_color"
+        android:textColorHint="@color/light_white_color"
         android:textSize="@dimen/text_size_14"
-        android:textColor="@color/main_color_black" />
+        android:textColor="@color/black_color" />
 
     <Button
         android:id="@+id/btn_commit"

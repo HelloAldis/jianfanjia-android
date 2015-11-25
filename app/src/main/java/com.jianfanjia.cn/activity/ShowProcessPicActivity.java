@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.jianfanjia.cn.adapter.ShowPicPagerAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.base.BaseResponse;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
@@ -83,7 +82,7 @@ public class ShowProcessPicActivity extends BaseActivity implements
     }
 
     @Override
-    public void loadSuccess(BaseResponse data) {
+    public void loadSuccess(Object data) {
         super.loadSuccess(data);
         if (showPicPagerAdapter.getCount() == 1) {
             setResult(RESULT_OK);

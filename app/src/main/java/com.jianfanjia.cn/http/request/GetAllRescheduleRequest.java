@@ -3,8 +3,7 @@ package com.jianfanjia.cn.http.request;
 import android.content.Context;
 
 import com.jianfanjia.cn.base.BaseRequest;
-import com.jianfanjia.cn.base.BaseResponse;
-import com.jianfanjia.cn.config.Url;
+import com.jianfanjia.cn.config.Url_New;
 
 /**
  * 用户获取所有的request
@@ -14,11 +13,11 @@ public class GetAllRescheduleRequest extends BaseRequest{
 
     public GetAllRescheduleRequest(Context context) {
         super(context);
-        url = Url.GET_RESCHDULE_ALL;
+        url = Url_New.GET_RESCHDULE_ALL;
     }
 
     @Override
-    public void onSuccess(BaseResponse baseResponse) {
-        super.onSuccess(baseResponse);
+    public void onSuccess(Object data) {
+        super.onSuccess(data);
     }
 }

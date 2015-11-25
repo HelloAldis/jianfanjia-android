@@ -19,7 +19,7 @@ import com.jianfanjia.cn.AppConfig;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.dao.impl.NotifyMessageDao;
-import com.jianfanjia.cn.interf.LoadDataListener;
+import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.NetStateListener;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
 import com.jianfanjia.cn.receiver.NetStateReceiver;
@@ -42,7 +42,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  * 
  */
 public abstract class BaseActivity extends FragmentActivity implements
-		DialogControl, NetStateListener, PopWindowCallBack, LoadDataListener {
+		DialogControl, NetStateListener, PopWindowCallBack, ApiUiUpdateListener {
 	protected ActivityManager activityManager = null;
 	protected DownloadManager downloadManager = null;
 	protected NotifyMessageDao notifyMessageDao = null;
@@ -214,7 +214,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 	}
 
 	@Override
-	public void loadSuccess(BaseResponse baseResponse) {
+	public void loadSuccess(Object data) {
 		hideWaitDialog();
 	}
 
@@ -224,7 +224,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 	}
 
 	@Override
-	public void loadFailture() {
+	public void loadFailture(String errorMsg) {
 		hideWaitDialog();
 		setErrorView();
 		makeTextLong(getString(R.string.tip_error_internet));

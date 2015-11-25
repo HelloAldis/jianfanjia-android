@@ -13,7 +13,7 @@
     <View
         style="@style/divier_line"
         android:layout_above="@+id/add_comment_layout"
-        android:background="@color/horzontal_line_color" />
+        android:background="@color/light_white_color" />
 
     <RelativeLayout
         android:id="@+id/add_comment_layout"
@@ -34,8 +34,8 @@
             android:hint="@string/add_comment"
             android:minHeight="40dp"
             android:padding="@dimen/space_8"
-            android:textColor="@color/main_color_black"
-            android:textColorHint="@color/horzontal_line_color" />
+            android:textColor="@color/black_color"
+            android:textColorHint="@color/light_white_color" />
 
         <Button
             android:id="@+id/btn_send"

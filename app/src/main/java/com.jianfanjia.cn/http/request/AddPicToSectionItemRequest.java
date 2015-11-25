@@ -3,9 +3,8 @@ package com.jianfanjia.cn.http.request;
 import android.content.Context;
 
 import com.jianfanjia.cn.base.BaseRequest;
-import com.jianfanjia.cn.base.BaseResponse;
 import com.jianfanjia.cn.bean.ProcessInfo;
-import com.jianfanjia.cn.config.Url;
+import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.tools.LogTool;
 
 public class AddPicToSectionItemRequest extends BaseRequest {
@@ -24,7 +23,7 @@ public class AddPicToSectionItemRequest extends BaseRequest {
 		this.section = section;
 		this.item = item;
 		this.imageId = imageId;
-		url = Url.POST_PROCESS_IMAGE;
+		url = Url_New.POST_PROCESS_IMAGE;
 	}
 
 	@Override
@@ -41,8 +40,8 @@ public class AddPicToSectionItemRequest extends BaseRequest {
 	}
 	
 	@Override
-	public void onSuccess(BaseResponse baseResponse) {
-		if (baseResponse.getMsg() != null) {
+	public void onSuccess(Object data) {
+		if (data.toString() != null) {
 			ProcessInfo processInfo = dataManager.getDefaultProcessInfo();
 			if(processInfo != null){
 				LogTool.d(this.getClass().getName(), "processInfo != null");

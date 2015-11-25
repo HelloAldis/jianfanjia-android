@@ -1,92 +1,184 @@
 package com.jianfanjia.cn.activity;
 
-import java.util.ArrayList;
-import java.util.List;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
-import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.fragment.ForgetPswInputPhoneFragment;
-import com.jianfanjia.cn.fragment.FrgPswInputVerificationFragment;
-import com.jianfanjia.cn.interf.FragmentListener;
+import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
-/**
- * 
- * @ClassName: ForgetPswActivity
- * @Description: 忘记密码
- * @author fengliang
- * @date 2015-8-25 下午5:29:34
- * 
- */
-public class ForgetPswActivity extends BaseActivity implements FragmentListener {
-	private static final String TAG = ForgetPswActivity.class.getClass()
-			.getName();
-	private ForgetPswInputPhoneFragment forgetPswInputPhoneFragment = null;
-	private FrgPswInputVerificationFragment frgPswInputVerificationFragment = null;
-	private List<Fragment> fragments = new ArrayList<Fragment>();
+import com.jianfanjia.cn.base.BaseAnnotationActivity;
+import com.jianfanjia.cn.bean.RegisterInfo;
+import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.http.JianFanJiaClient;
+import com.jianfanjia.cn.interf.ApiUiUpdateListener;
+import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.tools.UiHelper;
 
-	private int currentPage = 0;// 所在的Fragment页面的位置
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ViewById;
 
-	@Override
-	public void initView() {
-		forgetPswInputPhoneFragment = new ForgetPswInputPhoneFragment();
-		frgPswInputVerificationFragment = new FrgPswInputVerificationFragment();
-		fragments.add(forgetPswInputPhoneFragment);
-		fragments.add(frgPswInputVerificationFragment);
-		FragmentTransaction fragmentTransaction = fragmentManager
-				.beginTransaction();
-		fragmentTransaction.add(R.id.forget_psw_content,
-				forgetPswInputPhoneFragment);
-		fragmentTransaction.commit();
-	}
+@EActivity(R.layout.activity_forget_psw)
+public class ForgetPswActivity extends BaseAnnotationActivity {
+    private static final String TAG = ForgetPswActivity.class.getClass()
+            .getName();
+    @ViewById(R.id.act_forget_psw_input_phone)
+    EditText mEtForgetPswUserName = null;// 注册用户名输入框
+    @ViewById(R.id.act_forget_psw_input_password)
+    EditText mEtForgetPswPassword = null;// 注册用户密码输入框
+    @ViewById(R.id.btn_next)
+    Button mBtnNext;
+    @ViewById(R.id.forget_psw_layout)
+    RelativeLayout registerLayout;
+    @ViewById(R.id.act_forget_psw_input_password_delete)
+    ImageView registerInputPasswordDelete;
+    @ViewById(R.id.act_forget_psw_input_phone_delete)
+    ImageView registerInputPhoneDelete;
 
-	@Override
-	public void setListener() {
-		// TODO Auto-generated method stub
+    private String mUserName = null;// 用户名
+    private String mPassword = null;// 密码
 
-	}
+    @AfterViews
+    protected void initView(){
+        mEtForgetPswUserName.requestFocus();
+    }
 
-	@Override
-	public void onBack() {
-		fragmentManager.popBackStack();
-		if (currentPage >= 0) {
-			currentPage--;
-		} else {
-			finish();
-		}
-	}
 
-	@Override
-	public void onNext() {
-		if (currentPage < 1) {
-			Log.i(TAG, "next");
-			FragmentTransaction fragmentTransaction = fragmentManager
-					.beginTransaction();
-			fragmentTransaction.setCustomAnimations(
-					R.anim.fragment_slide_right_enter,
-					R.anim.fragment_slide_left_exit,
-					R.anim.fragment_slide_left_enter,
-					R.anim.fragment_slide_right_exit);
-			fragmentTransaction.replace(R.id.forget_psw_content,
-					fragments.get(++currentPage));
-			fragmentTransaction.addToBackStack(null);
-			fragmentTransaction.commit();
-		}
-	}
+    @Click({R.id.head_back_layout, R.id.btn_next})
+    void onClick(View view){
+        int resId = view.getId();
+        switch (resId){
+            case R.id.head_back_layout:
+                finish();
+                break;
+            case R.id.btn_next:
+                mUserName = mEtForgetPswUserName.getText().toString().trim();
+                mPassword = mEtForgetPswPassword .getText().toString().trim();
+                if(checkRegisterInput(mUserName,mPassword)){
+                    sendVerification(mUserName,mPassword);
+                }
+                break;
+        }
+    }
 
-	@Override
-	public int getLayoutId() {
-		return R.layout.activity_forget_psw;
-	}
+    private boolean checkRegisterInput(String name, String password) {
+        if (TextUtils.isEmpty(name)) {
+            makeTextShort(getResources().getString(
+                    R.string.tip_please_input_username));
+            mEtForgetPswUserName.requestFocus();
+            return false;
+        }
+        if(!name.matches(Global.PHONE_MATCH)){
+            makeTextShort(getString(R.string.tip_input_corrent_phone));
+            mEtForgetPswUserName.requestFocus();
+            return false;
+        }
+        if (TextUtils.isEmpty(password)) {
+            makeTextShort(getResources().getString(
+                    R.string.tip_please_input_password));
+            mEtForgetPswPassword.requestFocus();
+            return false;
+        }
+        if(!password.matches(Global.PASSWORD_MATCH)){
+            makeTextShort(getString(R.string.tip_input_correct_password));
+            mEtForgetPswPassword.requestFocus();
+            return false;
+        }
+        return true;
+    }
 
-	@Override
-	public void onBackPressed() {
-		super.onBackPressed();
-		if (currentPage >= 0) {
-			currentPage--;
-		} else {
-			finish();
-		}
-	}
+    @Override
+    protected void onResume() {
+        super.onResume();
+//        mEtForgetPswUserName.requestFocus();
+    }
+
+    @AfterViews
+    void initUi(){
+        UiHelper.controlKeyboardLayout(registerLayout, mBtnNext);
+
+        mBtnNext.setEnabled(false);
+
+        mEtForgetPswUserName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                LogTool.d(TAG, "forgetPsw afterTextChanged");
+                String text = s.toString();
+                if(!TextUtils.isEmpty(text) && !TextUtils.isEmpty(mEtForgetPswPassword.getText().toString())){
+                    mBtnNext.setEnabled(true);
+                }else{
+                    mBtnNext.setEnabled(false);
+                }
+            }
+        });
+        mEtForgetPswPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                LogTool.d(TAG, "forgetPsw afterTextChanged");
+                String text = s.toString();
+                if(!TextUtils.isEmpty(text) && !TextUtils.isEmpty(mEtForgetPswUserName.getText().toString())){
+                    mBtnNext.setEnabled(true);
+                }else{
+                    mBtnNext.setEnabled(false);
+                }
+            }
+        });
+    }
+
+    /**
+     * 发送验证码
+     * @param name
+     * @param password
+     */
+    private void sendVerification(final String name, final String password) {
+            JianFanJiaClient.send_verification(this, name, new ApiUiUpdateListener() {
+                @Override
+                public void preLoad() {
+
+                }
+
+                @Override
+                public void loadSuccess(Object data) {
+                    RegisterInfo registerInfo = new RegisterInfo();
+                    registerInfo.setPass(password);
+                    registerInfo.setPhone(name);
+                    Bundle registerBundle = new Bundle();
+                    registerBundle.putSerializable(Global.REGISTER_INFO, registerInfo);
+                    registerBundle.putInt(Global.REGISTER, RegisterNewActivity.UPDATE_PSW_CODE);
+                    startActivity(RegisterNewActivity_.class, registerBundle);
+                }
+
+                @Override
+                public void loadFailture(String error_msg) {
+                    makeTextLong(error_msg);
+                }
+            }, this);
+    }
+
 
 }

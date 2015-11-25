@@ -55,7 +55,7 @@
                     android:layout_height="@dimen/space_48"
                     android:background="@color/transparent">
 
-                    <com.jianfanjia.cn.layout.CircleImageView
+                    <com.jianfanjia.cn.view.layout.CircleImageView
                         android:id="@+id/icon_head"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
@@ -69,14 +69,14 @@
 
                     <TextView
                         android:id="@+id/head_center_title"
-                        style="@style/site_listview_item_text_style_title"
+                        style="@style/listview_item_text_style_big"
                         android:layout_centerInParent="true"
                         android:text="@string/my_site"
                         android:textColor="@color/font_white" />
 
                     <TextView
                         android:id="@+id/head_right_title"
-                        style="@style/site_listview_item_text_style_middle"
+                        style="@style/listview_item_text_style_middle"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="@dimen/space_8"
@@ -86,7 +86,7 @@
                         android:id="@+id/head_divier"
                         style="@style/divier_line"
                         android:layout_alignParentBottom="true"
-                        android:background="@color/horzontal_line_color"
+                        android:background="@color/light_white_color"
                         android:visibility="gone" />
                 </RelativeLayout>
             </FrameLayout>
@@ -106,7 +106,7 @@
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="45dp"
-                    android:background="@color/line_color" />
+                    android:background="@color/middle_grey_color" />
 
                 <com.jianfanjia.cn.view.MyListView
                     android:id="@+id/site__listview"

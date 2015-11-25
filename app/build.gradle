@@ -1,5 +1,20 @@
 apply plugin: 'com.android.application'
+apply plugin: 'android-apt'
+def AAVersion = '3.3.1'
 
+apt {
+    arguments {
+        androidManifestFile variant.outputs[0].processResources.manifestFile
+        // if you have multiple outputs (when using splits), you may want to have other index than 0
+
+        // you should set your package name here if you are using different application IDs
+        // resourcePackageName "your.package.name"
+
+        // You can set optional annotation processing options here, like these commented options:
+        // logLevel 'INFO'
+        // logFile '/var/log/aa.log'
+    }
+}
 
 android {
     compileSdkVersion 23
@@ -8,8 +23,8 @@ android {
         applicationId "com.jianfanjia.cn.activity"
         minSdkVersion 15
         targetSdkVersion 21
-        versionCode 1
-        versionName "2.0.5"
+        versionCode 2
+        versionName "2.0.6"
 
         // AndroidManifest.xml 里面UMENG_CHANNEL的value为 ${UMENG_CHANNEL_VALUE}
         manifestPlaceholders = [UMENG_CHANNEL_VALUE: "channel_name"]
@@ -31,14 +46,14 @@ android {
             signingConfig signingConfigs.relealse
         }
         debug {
-            minifyEnabled false
-            signingConfig signingConfigs.relealse
+//            minifyEnabled false
+//            signingConfig signingConfigs.relealse
         }
     }
     sourceSets {
-        main {
+       /* main {
             jniLibs.srcDirs = ['libs']
-        }
+        }*/
     }
 
     productFlavors {
@@ -53,18 +68,30 @@ android {
         flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
     }
 
+    def date = new Date().format('yyyyMMdd');
+    def force_update = '1' //强制更新
+    def rec_update = '0'   //自愿更新
+    def update = rec_update
+
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
             def outputFile = output.outputFile
             if (outputFile != null && outputFile.name.endsWith('.apk')) {
-                def fileName = outputFile.name.replace(".apk", "-designer-${defaultConfig.versionName}.apk")
+                String fileName = outputFile.name.replace(".apk", "_${date}_${update}_${defaultConfig.versionCode}_${defaultConfig.versionName}.apk")
+                fileName = fileName.replace("app","jianfanjia_designer")
+                if(fileName.contains("-release")){
+                    fileName = fileName.replace("-release","")
+                }
                 output.outputFile = new File(outputFile.parent, fileName)
             }
         }
     }
+
 }
 
 dependencies {
+    apt "org.androidannotations:androidannotations:$AAVersion"
+    compile "org.androidannotations:androidannotations-api:$AAVersion"
     compile files('libs/ormlite-android-4.49-SNAPSHOT.jar')
     compile files('libs/ormlite-core-4.49-SNAPSHOT.jar')
     compile files('libs/armeabi.jar')

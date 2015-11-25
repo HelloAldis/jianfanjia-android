@@ -35,10 +35,10 @@
     <string name="ok">确     定</string>
     <string name="agree">同     意</string>
     <string name="refuse">拒     绝</string>
-    <string name="hint_username">请输入手机号码</string>
+    <string name="hint_username">请输入您的手机号</string>
     <string name="hint_password">请输入密码</string>
     <string name="forget_pwd">忘记密码</string>
-    <string name="register">用户注册</string>
+    <string name="register">注册</string>
     <string name="loginByUser">用户登录</string>
     <string name="tip_please_input_username">请输入账号</string>
     <string name="tip_please_input_password">请输入密码</string>
@@ -54,7 +54,9 @@
     <string name="submit_failture">提交失败</string>
     <!-- login_activity -->
 
-
+    <string name="tip_input_corrent_phone">请输入正确的手机号</string>
+    <string name="tip_input_correct_password">请输入正确的密码格式，密码由6-30位数字、字母组成</string>
+    <string name="forget_pwd_title">忘记密码</string>
     <!-- register_activity -->
     <string name="next">下一步</string>
     <string name="last">上一步</string>
@@ -66,7 +68,7 @@
     <string name="finish">完成</string>
     <string name="commit">提交</string>
     <string name="choose_role">选择角色</string>
-    <string name="input_phone">请输入你的手机号</string>
+    <string name="input_phone">请输入您的手机号</string>
     <string name="verifica_phone">验证手机号</string>
     <string name="verification_code_sended">验证码已发送到：</string>
     <string name="register_failure">注册失败</string>

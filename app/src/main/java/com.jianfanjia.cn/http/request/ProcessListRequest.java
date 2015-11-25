@@ -1,14 +1,14 @@
 package com.jianfanjia.cn.http.request;
 
-import java.util.List;
 import android.content.Context;
 
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.base.BaseRequest;
-import com.jianfanjia.cn.base.BaseResponse;
 import com.jianfanjia.cn.bean.Process;
-import com.jianfanjia.cn.config.Url;
+import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.tools.JsonParser;
+
+import java.util.List;
 
 public class ProcessListRequest extends BaseRequest {
 	
@@ -16,7 +16,7 @@ public class ProcessListRequest extends BaseRequest {
 
 	public ProcessListRequest(Context context) {
 		super(context);
-		url = Url.GET_DESIGNER_PROCESS;
+		url = Url_New.GET_DESIGNER_PROCESS;
 	}
 	
 	@Override
@@ -25,16 +25,15 @@ public class ProcessListRequest extends BaseRequest {
 	}
 	
 	@Override
-	public void onSuccess(BaseResponse baseResponse) {
-		super.onSuccess(baseResponse);
-		String data = baseResponse.getData().toString();
-		if(data != null){
-			processLists = JsonParser.jsonToList(data,
+	public void onSuccess(Object data) {
+		super.onSuccess(data);
+		if(data.toString() != null){
+			processLists = JsonParser.jsonToList(data.toString(),
 					new TypeToken<List<Process>>() {
 					}.getType());
 			if(processLists != null){
 				dataManager.setProcessLists(processLists);
-				dataManager.saveProcessLists(data);
+				dataManager.saveProcessLists(data.toString());
 			}
 		}
 	}

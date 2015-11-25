@@ -15,7 +15,7 @@ import com.jianfanjia.cn.activity.MyOwnerActivity;
 import com.jianfanjia.cn.activity.NotifyActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SettingActivity;
-import com.jianfanjia.cn.activity.UserByDesignerInfoActivity;
+import com.jianfanjia.cn.activity.UserInfoActivity_;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.tools.LogTool;
@@ -89,7 +89,7 @@ public class DesignerMenuFragment extends BaseFragment {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.img_head:
-			startActivity(UserByDesignerInfoActivity.class);
+			startActivity(UserInfoActivity_.class);
 			break;
 		case R.id.notifyLayout:
 			startActivity(NotifyActivity.class);

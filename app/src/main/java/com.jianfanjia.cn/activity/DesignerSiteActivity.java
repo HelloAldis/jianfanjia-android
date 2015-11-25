@@ -14,11 +14,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import com.jianfanjia.cn.adapter.DesignerSiteInfoAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.base.BaseResponse;
 import com.jianfanjia.cn.bean.Process;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaClient;
-import com.jianfanjia.cn.interf.LoadDataListener;
+import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.NetTool;
 import com.jianfanjia.cn.view.MainHeadView;
@@ -32,7 +31,7 @@ import com.jianfanjia.cn.view.MainHeadView;
  * 
  */
 public class DesignerSiteActivity extends BaseActivity implements
-		OnClickListener, OnItemClickListener, LoadDataListener {
+		OnClickListener, OnItemClickListener, ApiUiUpdateListener {
 	private static final String TAG = DesignerSiteActivity.class.getName();
 	private MainHeadView mainHeadView = null;
 	private ListView siteListView = null;
@@ -105,8 +104,8 @@ public class DesignerSiteActivity extends BaseActivity implements
 	}
 
 	@Override
-	public void loadSuccess(BaseResponse baseResponse) {
-		super.loadSuccess(baseResponse);
+	public void loadSuccess(Object data) {
+		super.loadSuccess(data);
 		siteList = dataManager.getProcessLists();
 		designerSiteInfoAdapter.setList(siteList);
 		designerSiteInfoAdapter.notifyDataSetChanged();

@@ -63,13 +63,13 @@
 
                     <TextView
                         android:id="@+id/forget_password"
-                        style="@style/site_listview_item_text_style_small"
+                        style="@style/listview_item_text_style_small"
                         android:text="@string/forget_pwd"
                         android:textColor="@color/font_reg_color1" />
 
                     <TextView
                         android:id="@+id/register"
-                        style="@style/site_listview_item_text_style_small"
+                        style="@style/listview_item_text_style_small"
                         android:layout_alignParentRight="true"
                         android:text="@string/register"
                         android:textColor="@color/font_reg_color1" />

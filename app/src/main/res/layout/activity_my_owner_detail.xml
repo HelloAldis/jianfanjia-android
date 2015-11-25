@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_24" >
 
-            <com.jianfanjia.cn.layout.CircleImageView
+            <com.jianfanjia.cn.view.layout.CircleImageView
                 android:id="@+id/owner_detail_head_icon"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
@@ -49,7 +49,7 @@
 
             <TextView
                 android:id="@+id/owner_detail_name"
-                style="@style/site_listview_item_text_style_middle"
+                style="@style/listview_item_text_style_middle"
                 android:layout_below="@+id/owner_detail_head_icon"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="12dp"
@@ -70,11 +70,11 @@
 
             <TextView
                 android:id="@+id/pro_stage"
-                style="@style/site_listview_item_text_style_middle"
+                style="@style/listview_item_text_style_middle"
                 android:layout_below="@+id/owner_detail_name"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="12dp"
-                android:textColor="@color/main_color_orange" />
+                android:textColor="@color/orange_color" />
 
             <LinearLayout
                 android:id="@+id/owner_detail_middle_layout"
@@ -93,7 +93,7 @@
 
                     <TextView
                         android:id="@+id/my_site_city"
-                        style="@style/site_listview_item_text_style_middle"
+                        style="@style/listview_item_text_style_middle"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="8dp"
                         android:layout_toRightOf="@+id/item1"
@@ -102,7 +102,7 @@
 
                     <TextView
                         android:id="@+id/item1"
-                        style="@style/site_listview_item_text_style_middle"
+                        style="@style/listview_item_text_style_middle"
                         android:layout_alignParentLeft="true"
                         android:layout_centerVertical="true"
                         android:text="@string/owner_detail_city"
@@ -117,14 +117,14 @@
 
                     <TextView
                         android:id="@+id/item2"
-                        style="@style/site_listview_item_text_style_middle"
+                        style="@style/listview_item_text_style_middle"
                         android:layout_centerVertical="true"
                         android:text="@string/owner_detail_cell"
                         android:textColor="@color/font_white" />
 
                     <TextView
                         android:id="@+id/my_site_villagename"
-                        style="@style/site_listview_item_text_style_middle"
+                        style="@style/listview_item_text_style_middle"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="8dp"
                         android:layout_toRightOf="@+id/item2"
@@ -140,14 +140,14 @@
 
                     <TextView
                         android:id="@+id/item3"
-                        style="@style/site_listview_item_text_style_middle"
+                        style="@style/listview_item_text_style_middle"
                         android:layout_centerVertical="true"
                         android:text="@string/owner_detail_housestyle"
                         android:textColor="@color/font_white" />
 
                     <TextView
                         android:id="@+id/my_site_housestyle"
-                        style="@style/site_listview_item_text_style_middle"
+                        style="@style/listview_item_text_style_middle"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="8dp"
                         android:layout_toRightOf="@+id/item3"
@@ -163,14 +163,14 @@
 
                     <TextView
                         android:id="@+id/item4"
-                        style="@style/site_listview_item_text_style_middle"
+                        style="@style/listview_item_text_style_middle"
                         android:layout_centerVertical="true"
                         android:text="@string/owner_detail_decoratearea"
                         android:textColor="@color/font_white" />
 
                     <TextView
                         android:id="@+id/my_site_derationArea"
-                        style="@style/site_listview_item_text_style_middle"
+                        style="@style/listview_item_text_style_middle"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="8dp"
                         android:layout_toRightOf="@+id/item4"
@@ -186,14 +186,14 @@
 
                     <TextView
                         android:id="@+id/item5"
-                        style="@style/site_listview_item_text_style_middle"
+                        style="@style/listview_item_text_style_middle"
                         android:layout_centerVertical="true"
                         android:text="@string/owner_detail_lovestyle"
                         android:textColor="@color/font_white" />
 
                     <TextView
                         android:id="@+id/my_site_lovestyle"
-                        style="@style/site_listview_item_text_style_middle"
+                        style="@style/listview_item_text_style_middle"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="8dp"
                         android:layout_toRightOf="@+id/item5"
@@ -209,14 +209,14 @@
 
                     <TextView
                         android:id="@+id/item6"
-                        style="@style/site_listview_item_text_style_middle"
+                        style="@style/listview_item_text_style_middle"
                         android:layout_centerVertical="true"
                         android:text="@string/owner_detail_decoratestyle"
                         android:textColor="@color/font_white" />
 
                     <TextView
                         android:id="@+id/my_site_decorationstyle"
-                        style="@style/site_listview_item_text_style_middle"
+                        style="@style/listview_item_text_style_middle"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="8dp"
                         android:layout_toRightOf="@+id/item6"
@@ -232,14 +232,14 @@
 
                     <TextView
                         android:id="@+id/item7"
-                        style="@style/site_listview_item_text_style_middle"
+                        style="@style/listview_item_text_style_middle"
                         android:layout_centerVertical="true"
                         android:text="@string/owner_detail_decoratebudget"
                         android:textColor="@color/font_white" />
 
                     <TextView
                         android:id="@+id/my_site_decorationbudget"
-                        style="@style/site_listview_item_text_style_middle"
+                        style="@style/listview_item_text_style_middle"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="8dp"
                         android:layout_toRightOf="@+id/item7"
@@ -255,14 +255,14 @@
 
                     <TextView
                         android:id="@+id/item8"
-                        style="@style/site_listview_item_text_style_middle"
+                        style="@style/listview_item_text_style_middle"
                         android:layout_centerVertical="true"
                         android:text="@string/owner_detail_startdate"
                         android:textColor="@color/font_white" />
 
                     <TextView
                         android:id="@+id/my_site_startdate"
-                        style="@style/site_listview_item_text_style_middle"
+                        style="@style/listview_item_text_style_middle"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="8dp"
                         android:layout_toRightOf="@+id/item8"
@@ -277,14 +277,14 @@
 
                     <TextView
                         android:id="@+id/item9"
-                        style="@style/site_listview_item_text_style_middle"
+                        style="@style/listview_item_text_style_middle"
                         android:layout_centerVertical="true"
                         android:text="@string/owner_detail_totaldate"
                         android:textColor="@color/font_white" />
 
                     <TextView
                         android:id="@+id/my_site_totaldate"
-                        style="@style/site_listview_item_text_style_middle"
+                        style="@style/listview_item_text_style_middle"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="8dp"
                         android:layout_toRightOf="@+id/item9"

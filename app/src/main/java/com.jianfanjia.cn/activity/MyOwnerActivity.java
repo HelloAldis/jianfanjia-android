@@ -11,7 +11,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import com.jianfanjia.cn.adapter.MyOwerInfoAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.base.BaseResponse;
 import com.jianfanjia.cn.bean.Process;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.tools.LogTool;
@@ -84,8 +83,8 @@ public class MyOwnerActivity extends BaseActivity implements OnClickListener,
 	}
 
 	@Override
-	public void loadSuccess(BaseResponse baseResponse) {
-		super.loadSuccess(baseResponse);
+	public void loadSuccess(Object data) {
+		super.loadSuccess(data);
 		ownerList = dataManager.getProcessLists();
 		myOwerInfoAdapter.setList(ownerList);
 		myOwerInfoAdapter.notifyDataSetChanged();

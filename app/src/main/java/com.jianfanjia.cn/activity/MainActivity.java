@@ -12,7 +12,7 @@ import com.igexin.sdk.PushManager;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.fragment.DesignerMenuFragment;
 import com.jianfanjia.cn.fragment.SiteManageFragment;
-import com.jianfanjia.cn.layout.PagerEnabledSlidingPaneLayout;
+import com.jianfanjia.cn.view.layout.PagerEnabledSlidingPaneLayout;
 import com.jianfanjia.cn.tools.LogTool;
 
 /**

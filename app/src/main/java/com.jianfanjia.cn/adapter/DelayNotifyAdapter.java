@@ -7,7 +7,6 @@ import android.view.View.OnClickListener;
 import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
-import com.jianfanjia.cn.base.BaseResponse;
 import com.jianfanjia.cn.bean.NotifyDelayInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.DelayInfoListener;
@@ -180,13 +179,13 @@ public class DelayNotifyAdapter extends BaseListAdapter<NotifyDelayInfo> {
 	}
 
 	@Override
-	public void loadSuccess(BaseResponse baseResponse) {
+	public void loadSuccess(Object data) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void loadFailture() {
+	public void loadFailture(String errorMsg) {
 		// TODO Auto-generated method stub
 
 	}

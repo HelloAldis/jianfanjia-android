@@ -8,12 +8,11 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.base.BaseResponse;
 import com.jianfanjia.cn.bean.Process;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.User;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Url;
+import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.tools.DateFormatTool;
 import com.jianfanjia.cn.tools.LogTool;
@@ -86,12 +85,12 @@ public class OwnerInfoActivity extends BaseActivity implements OnClickListener {
 		if (null != ownerInfo) {
 			// get_one_owner_info(ownerId);
 			imageLoader.displayImage(
-					ownerInfo.getImageid() != null ? Url.GET_IMAGE
+					ownerInfo.getImageid() != null ? Url_New.GET_IMAGE
 							+ ownerInfo.getImageid()
 							: Constant.DEFALUT_OWNER_PIC, ownerHeadView,
 					options);
 			imageLoader.displayImage(
-					ownerInfo.getImageid() != null ? Url.GET_IMAGE
+					ownerInfo.getImageid() != null ? Url_New.GET_IMAGE
 							+ ownerInfo.getImageid()
 							: Constant.DEFALUT_OWNER_PIC, bgView,
 					options);
@@ -159,8 +158,8 @@ public class OwnerInfoActivity extends BaseActivity implements OnClickListener {
 	}
 
 	@Override
-	public void loadSuccess(BaseResponse baseResponse) {
-		super.loadSuccess(baseResponse);
+	public void loadSuccess(Object data) {
+		super.loadSuccess(data);
 		processInfo = dataManager.getProcessInfoById(processId);
 		LogTool.d(TAG, "processInfo:" + processInfo);
 		if (null != processInfo) {

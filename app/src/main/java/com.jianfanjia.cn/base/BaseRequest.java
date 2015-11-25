@@ -3,11 +3,17 @@ package com.jianfanjia.cn.base;
 import android.content.Context;
 
 import com.jianfanjia.cn.cache.DataManagerNew;
+import com.jianfanjia.cn.interf.ApiDataUpdateListenter;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.Request;
 
-public class BaseRequest {
-
+/**
+ * Description: com.jianfanjia.cn.base
+ * Author: zhanghao
+ * Email: jame.zhang@myjyz.com
+ * Date:2015-10-14 10:19
+ */
+public abstract class BaseRequest implements ApiDataUpdateListenter {
     private static final MediaType MEDIA_TYPE_STREAM = MediaType.parse("application/octet-stream;charset=utf-8");
     private static final MediaType MEDIA_TYPE_STRING = MediaType.parse("text/plain;charset=utf-8");
     private static final MediaType MEDIA_TYPE_JSON = MediaType.parse("application/json;charset=utf-8");
@@ -15,14 +21,23 @@ public class BaseRequest {
     protected Context context;
     protected Request request;
     protected String url;
+    protected MediaType mediaType = MEDIA_TYPE_JSON;//默认的请求方式方式
 
     public BaseRequest(Context context) {
-        dataManager = DataManagerNew.getInstance();
         this.context = context;
+        dataManager = DataManagerNew.getInstance();
     }
 
     public Request getRequest() {
         return request;
+    }
+
+    public MediaType getMediaType() {
+        return mediaType;
+    }
+
+    public void setMediaType(MediaType mediaType) {
+        this.mediaType = mediaType;
     }
 
     public void setRequest(Request request) {
@@ -38,23 +53,27 @@ public class BaseRequest {
     }
 
     // 请求之前的准备操作
+    @Override
     public void pre() {
 
     }
 
     // 框架请求成功后的通用处理
-    protected void all() {
+    @Override
+    public void all() {
 
     }
 
     // 数据正确后的处理
-    public void onSuccess(BaseResponse baseResponse) {
+    @Override
+    public void onSuccess(Object data) {
 
     }
 
     // 数据错误后的处理
-    public void onFailure(BaseResponse baseResponse) {
-        String err_msg = baseResponse.getErr_msg();
+    @Override
+    public void onFailure(String error_msg) {
     }
+
 
 }

@@ -9,9 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.base.BaseResponse;
 import com.jianfanjia.cn.http.JianFanJiaClient;
-import com.jianfanjia.cn.interf.LoadDataListener;
+import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 
 /**
  * @class FeedBackActivity
@@ -56,19 +55,19 @@ public class FeedBackActivity extends BaseActivity implements OnClickListener {
 	}
 
 	private void feedBack(String content, String platform) {
-		JianFanJiaClient.feedBack(this, content, platform, new LoadDataListener() {
+		JianFanJiaClient.feedBack(this, content, platform, new ApiUiUpdateListener() {
 			@Override
 			public void preLoad() {
 
 			}
 
 			@Override
-			public void loadSuccess(BaseResponse baseResponse) {
+			public void loadSuccess(Object data) {
 				makeTextLong(getString(R.string.submit_success));
 			}
 
 			@Override
-			public void loadFailture() {
+			public void loadFailture(String errorMsg) {
 				makeTextLong(getString(R.string.submit_failture));
 			}
 		},this);

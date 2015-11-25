@@ -3,12 +3,9 @@ package com.jianfanjia.cn.http.request;
 import android.content.Context;
 
 import com.jianfanjia.cn.base.BaseRequest;
-import com.jianfanjia.cn.base.BaseResponse;
 import com.jianfanjia.cn.bean.ProcessInfo;
-import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Url;
+import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.tools.LogTool;
-import com.squareup.okhttp.Request;
 
 public class AddPicToCheckRequest extends BaseRequest {
 
@@ -26,7 +23,7 @@ public class AddPicToCheckRequest extends BaseRequest {
 		this.section = section;
 		this.key = key;
 		this.imageId = imageId;
-		url = Url.SUBMIT_YAHSHOU_IMAGE;
+		url = Url_New.SUBMIT_YAHSHOU_IMAGE;
 	}
 
 	@Override
@@ -43,8 +40,8 @@ public class AddPicToCheckRequest extends BaseRequest {
 	}
 	
 	@Override
-	public void onSuccess(BaseResponse baseResponse) {
-		if (baseResponse.getMsg() != null) {
+	public void onSuccess(Object data) {
+		if (data.toString() != null) {
 			ProcessInfo processInfo = dataManager.getDefaultProcessInfo();
 			if(processInfo != null){
 				LogTool.d(this.getClass().getName(), "processInfo != null");

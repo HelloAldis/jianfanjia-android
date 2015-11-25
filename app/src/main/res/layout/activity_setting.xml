@@ -30,11 +30,11 @@
                 style="@style/my_list_item_layout_style" >
 
                 <TextView
-                    style="@style/site_listview_item_text_style_middle"
+                    style="@style/listview_item_text_style_middle"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:text="@string/message_push"
-                    android:textColor="@color/main_color_black" />
+                    android:textColor="@color/black_color" />
 
                 <ToggleButton
                     android:id="@+id/mespush_toggle"
@@ -54,10 +54,10 @@
                 style="@style/my_list_item_layout_style" >
 
                 <TextView
-                    style="@style/site_listview_item_text_style_middle"
+                    style="@style/listview_item_text_style_middle"
                     android:layout_centerVertical="true"
                     android:text="@string/share"
-                    android:textColor="@color/main_color_black" />
+                    android:textColor="@color/black_color" />
 
                 <ImageView
                     style="@style/my_item_layout_image_style"
@@ -73,18 +73,18 @@
                 style="@style/my_list_item_layout_style" >
 
                 <TextView
-                    style="@style/site_listview_item_text_style_middle"
+                    style="@style/listview_item_text_style_middle"
                     android:layout_centerVertical="true"
                     android:text="@string/current_version"
-                    android:textColor="@color/main_color_black" />
+                    android:textColor="@color/black_color" />
 
                 <TextView
                     android:id="@+id/current_version"
-                    style="@style/site_listview_item_text_style_middle"
+                    style="@style/listview_item_text_style_middle"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:text="@string/current_version_example"
-                    android:textColor="@color/main_color_grey" />
+                    android:textColor="@color/grey_color" />
             </RelativeLayout>
 
             <View style="@style/divier_line" />
@@ -94,18 +94,18 @@
                 style="@style/my_list_item_layout_style" >
 
                 <TextView
-                    style="@style/site_listview_item_text_style_middle"
+                    style="@style/listview_item_text_style_middle"
                     android:layout_centerVertical="true"
                     android:text="@string/clear_cache"
-                    android:textColor="@color/main_color_black" />
+                    android:textColor="@color/black_color" />
 
                 <TextView
                     android:id="@+id/cache_size"
-                    style="@style/site_listview_item_text_style_middle"
+                    style="@style/listview_item_text_style_middle"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:text="@string/cache_size"
-                    android:textColor="@color/main_color_grey" />
+                    android:textColor="@color/grey_color" />
             </RelativeLayout>
 
             <View style="@style/divier_line" />
@@ -119,10 +119,10 @@
                 style="@style/my_list_item_layout_style" >
 
                 <TextView
-                    style="@style/site_listview_item_text_style_middle"
+                    style="@style/listview_item_text_style_middle"
                     android:layout_centerVertical="true"
                     android:text="@string/feedback"
-                    android:textColor="@color/main_color_black" />
+                    android:textColor="@color/black_color" />
 
                 <ImageView
                     style="@style/my_item_layout_image_style"
@@ -138,10 +138,10 @@
                 style="@style/my_list_item_layout_style" >
 
                 <TextView
-                    style="@style/site_listview_item_text_style_middle"
+                    style="@style/listview_item_text_style_middle"
                     android:layout_centerVertical="true"
                     android:text="@string/my_help"
-                    android:textColor="@color/main_color_black" />
+                    android:textColor="@color/black_color" />
 
                 <ImageView
                     style="@style/my_item_layout_image_style"
@@ -157,10 +157,10 @@
                 style="@style/my_list_item_layout_style" >
 
                 <TextView
-                    style="@style/site_listview_item_text_style_middle"
+                    style="@style/listview_item_text_style_middle"
                     android:layout_centerVertical="true"
                     android:text="@string/about"
-                    android:textColor="@color/main_color_black" />
+                    android:textColor="@color/black_color" />
 
                 <ImageView
                     style="@style/my_item_layout_image_style"
@@ -180,11 +180,11 @@
                 style="@style/my_list_item_layout_style" >
 
                 <TextView
-                    style="@style/site_listview_item_text_style_middle"
+                    style="@style/listview_item_text_style_middle"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:text="@string/logout"
-                    android:textColor="@color/main_color_orange" />
+                    android:textColor="@color/orange_color" />
             </RelativeLayout>
 
             <View style="@style/divier_line" />

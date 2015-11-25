@@ -10,9 +10,8 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.base.BaseResponse;
 import com.jianfanjia.cn.http.JianFanJiaClient;
-import com.jianfanjia.cn.interf.LoadDataListener;
+import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.NetTool;
 
@@ -25,7 +24,7 @@ import com.jianfanjia.cn.tools.NetTool;
  * 
  */
 public class LoginActivity extends BaseActivity implements OnClickListener,
-		LoadDataListener {
+		ApiUiUpdateListener {
 	private static final String TAG = LoginActivity.class.getName();
 	private RelativeLayout loginLayout = null;
 	private EditText mEtUserName = null;// 用户名输入框
@@ -118,9 +117,9 @@ public class LoginActivity extends BaseActivity implements OnClickListener,
 	}
 
 	@Override
-	public void loadSuccess(BaseResponse baseResponse) {
+	public void loadSuccess(Object data) {
 		//登录成功，加载工地列表
-		JianFanJiaClient.get_Process_List(this,new LoadDataListener() {
+		JianFanJiaClient.get_Process_List(this,new ApiUiUpdateListener() {
 
 			@Override
 			public void preLoad() {
@@ -129,11 +128,11 @@ public class LoginActivity extends BaseActivity implements OnClickListener,
 			}
 
 			@Override
-			public void loadSuccess(BaseResponse baseResponse) {
+			public void loadSuccess(Object data) {
 				// 工地列表刷新成功，加载用户默认工地
 				String processId = dataManager.getDefaultProcessId();
 				if (processId != null) {
-					JianFanJiaClient.get_ProcessInfo_By_Id(LoginActivity.this, processId, new LoadDataListener() {
+					JianFanJiaClient.get_ProcessInfo_By_Id(LoginActivity.this, processId, new ApiUiUpdateListener() {
 
 						@Override
 						public void preLoad() {
@@ -142,7 +141,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener,
 						}
 
 						@Override
-						public void loadSuccess(BaseResponse baseResponse) {
+						public void loadSuccess(Object data) {
 							// TODO Auto-generated method stub
 							hideWaitDialog();
 							startActivity(MainActivity.class);
@@ -150,7 +149,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener,
 						}
 
 						@Override
-						public void loadFailture() {
+						public void loadFailture(String errorMsg) {
 							// TODO Auto-generated method stub
 							hideWaitDialog();
 							makeTextLong(getString(R.string.tip_error_internet));
@@ -165,7 +164,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener,
 			}
 
 			@Override
-			public void loadFailture() {
+			public void loadFailture(String errorMsg) {
 				// TODO Auto-generated method stub
 				hideWaitDialog();
 				makeTextLong(getString(R.string.tip_error_internet));

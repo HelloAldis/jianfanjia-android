@@ -2,13 +2,13 @@ package com.jianfanjia.cn.config;
 
 /**
  * 
- * @ClassName: Url
+ * @ClassName: Url_New
  * @Description:服务器地址及相关接口类
  * @author fengliang
  * @date 2015-8-18 下午12:06:07
  * 
  */
-public class Url {
+public class Url_New {
 
 	public static String SEVER_IP = "101.200.191.159";
 //	public static String SEVER_IP = "www.jianfanjia.com";
@@ -19,6 +19,7 @@ public class Url {
 			+ SEVER_PORT + "/api/v2/app/";
 
 	public static final String ID = "id";
+	public static final String WIDTH = "width";
 	//
 	public static final String BIND_URL = HTTPROOT + "device/bind";
 	// 登录
@@ -31,6 +32,8 @@ public class Url {
 	public static final String UPDATE_PASS_URL = HTTPROOT + "update_pass";
 	// 登出
 	public static final String SIGNOUT_URL = HTTPROOT + "signout";
+	//检查手机号是否被占用
+	public static final String VERIFY_PHONE = HTTPROOT + "verify_phone";
 	// 检查版本
 	public static final String UPDATE_VERSION_URL = HTTPROOT
 			+ "device/android_build_version";
@@ -82,6 +85,8 @@ public class Url {
 	// 设计师删除验收图片
 	public static final String DELETE_YANSHOU_IMG_BY_DESIGNER = HTTPROOT
 			+ "process/ysimage";
+	//获取缩略图
+	public static final String GET_THUMBNAIL_IMAGE = HTTPROOT + "thumbnail/" + WIDTH + "/";
 	//用户删除节点图片
 	public static final String DELETE_PROCESS_PIC = HTTPROOT + "process/delete_image";
 }

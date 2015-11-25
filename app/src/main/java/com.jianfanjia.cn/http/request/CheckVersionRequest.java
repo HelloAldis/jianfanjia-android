@@ -4,14 +4,13 @@ import android.content.Context;
 
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseRequest;
-import com.jianfanjia.cn.base.BaseResponse;
-import com.jianfanjia.cn.config.Url;
+import com.jianfanjia.cn.config.Url_New;
 
 public class CheckVersionRequest extends BaseRequest {
 
 	public CheckVersionRequest(Context context) {
 		super(context);
-		url = Url.UPDATE_VERSION_URL;
+		url = Url_New.UPDATE_VERSION_URL;
 	}
 
 	@Override
@@ -28,8 +27,8 @@ public class CheckVersionRequest extends BaseRequest {
 	}
 
 	@Override
-	public void onSuccess(BaseResponse baseResponse) {
-		if (baseResponse.getMsg() != null) {
+	public void onSuccess(Object data) {
+		if (data.toString() != null) {
 			dataManager.setLogin(false);
 			dataManager.cleanData();
 			MyApplication.getInstance().clearCookie();
