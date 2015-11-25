@@ -74,15 +74,15 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Re
     }
 
     @Override
-    public RecyclerViewHolderBase onCreateViewHolder(ViewGroup viewGroup, int position) {
-        View view = createView(viewGroup, position);
+    public RecyclerViewHolderBase onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+        View view = createView(viewGroup, viewType);
         RecyclerViewHolderBase holder = createViewHolder(view);
         return holder;
     }
 
     public abstract void bindView(RecyclerViewHolderBase viewHolder, int position, List<T> list);
 
-    public abstract View createView(ViewGroup viewGroup, int position);
+    public abstract View createView(ViewGroup viewGroup, int viewType);
 
     public abstract RecyclerViewHolderBase createViewHolder(View view);
 }
