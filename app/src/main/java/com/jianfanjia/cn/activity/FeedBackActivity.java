@@ -23,7 +23,6 @@ public class FeedBackActivity extends BaseActivity implements OnClickListener {
     public void initView() {
         initMainHeadView();
         feedContentView = (EditText) findViewById(R.id.add_feedback);
-        feedContentView.addTextChangedListener(textWatcher);
         confirm = (Button) findViewById(R.id.btn_commit);
         confirm.setEnabled(false);
     }
@@ -31,14 +30,14 @@ public class FeedBackActivity extends BaseActivity implements OnClickListener {
     private void initMainHeadView() {
         mainHeadView = (MainHeadView) findViewById(R.id.my_feedback_head_layout);
         mainHeadView.setBackListener(this);
-        mainHeadView
-                .setMianTitle(getResources().getString(R.string.feedback));
+        mainHeadView.setMianTitle(getResources().getString(R.string.feedback));
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
         mainHeadView.setDividerVisable(View.VISIBLE);
     }
 
     @Override
     public void setListener() {
+        feedContentView.addTextChangedListener(textWatcher);
         confirm.setOnClickListener(this);
     }
 
@@ -68,7 +67,6 @@ public class FeedBackActivity extends BaseActivity implements OnClickListener {
                 hideWaitDialog();
                 feedContentView.setText("");
                 finish();
-//                makeTextShort(getString(R.string.submit_success));
             }
 
             @Override
@@ -76,7 +74,7 @@ public class FeedBackActivity extends BaseActivity implements OnClickListener {
                 hideWaitDialog();
                 makeTextShort(error_msg);
             }
-        },this);
+        }, this);
     }
 
 

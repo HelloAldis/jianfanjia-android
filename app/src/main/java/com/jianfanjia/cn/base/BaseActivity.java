@@ -35,6 +35,7 @@ import com.jianfanjia.cn.view.AddPhotoPopWindow;
 import com.jianfanjia.cn.view.dialog.DialogControl;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.cn.view.dialog.WaitDialog;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * Description:activity基类
@@ -144,12 +145,14 @@ public abstract class BaseActivity extends AppCompatActivity implements
         super.onResume();
         LogTool.d(this.getClass().getName(), "onResume()");
         isOpen = dataManager.isPushOpen();
+        MobclickAgent.onResume(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         LogTool.d(this.getClass().getName(), "onPause()");
+        MobclickAgent.onPause(this);
     }
 
     @Override

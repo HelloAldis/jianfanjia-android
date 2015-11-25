@@ -2,6 +2,7 @@ package com.jianfanjia.cn.activity;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -9,6 +10,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -24,6 +26,7 @@ import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
 
 /**
  * Description:设计师作品案例详情
@@ -71,6 +74,11 @@ public class DesignerCaseInfoActivity extends BaseActivity implements ApiUiUpdat
         designer_case_listview.setLayoutManager(mLayoutManager);
         designer_case_listview.setItemAnimator(new DefaultItemAnimator());
         designer_case_listview.setHasFixedSize(true);
+        Paint paint = new Paint();
+        paint.setStrokeWidth(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, getResources().getDisplayMetrics()));
+        paint.setAlpha(0);
+        paint.setAntiAlias(true);
+        designer_case_listview.addItemDecoration(new HorizontalDividerItemDecoration.Builder(DesignerCaseInfoActivity.this).paint(paint).showLastDivider().build());
         stylelText = (TextView) findViewById(R.id.stylelName);
         designerinfo_head_img = (ImageView) findViewById(R.id.designerinfo_head_img);
         designerinfo_auth = (ImageView) findViewById(R.id.designerinfo_auth);

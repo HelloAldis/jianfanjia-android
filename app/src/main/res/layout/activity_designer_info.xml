@@ -175,14 +175,12 @@
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"
+            style="@style/MyCustomTabLayout"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:minHeight="50dp"
-            app:tabGravity="fill"
-            app:tabMode="fixed"
-            app:tabSelectedTextColor="#344a5d"
-            app:tabTextColor="#aab1b6" />
-        <!--  app:tabIndicatorColor="@color/white"-->
+            android:layout_height="45dp"
+            android:background="@drawable/layout_border"
+            android:minHeight="45dp"
+            app:tabGravity="fill" />
 
         <android.support.v4.view.ViewPager
             android:id="@+id/viewpager"
