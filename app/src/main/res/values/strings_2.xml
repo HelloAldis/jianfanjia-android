@@ -80,4 +80,5 @@
     <string name="str_priview_req">我的装修需求</string>
     <string name="my_favorite_designer">我的意向设计师</string>
     <string name="tip_confirm">发布提醒</string>
+    <string name="abandon_confirm_req">您的需求没有提交，您要放弃提交吗？</string>
 </resources>

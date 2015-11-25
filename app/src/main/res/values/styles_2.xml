@@ -38,5 +38,5 @@
         <item name="android:maxHeight">25dip</item>
     </style>
 
-    <string name="abandon_confirm_req">您的需求没有提交，您要放弃提交吗？</string>
+
 </resources>
