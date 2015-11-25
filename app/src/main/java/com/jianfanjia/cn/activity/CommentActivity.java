@@ -180,8 +180,6 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
             commentAdapter.notifyDataSetChanged();
             commentListView.setSelection(0);
             commentEdit.setText("");
-//            getCommentList(topicid, 0, 10000, section, item);
-
             isUpdate = true;
         }
 
