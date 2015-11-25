@@ -2,7 +2,9 @@ package com.jianfanjia.cn.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -55,6 +57,7 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
         commentListView = (ListView) findViewById(R.id.comment_listview);
         commentEdit = (EditText) findViewById(R.id.add_comment);
         btnSend = (Button) findViewById(R.id.btn_send);
+        btnSend.setEnabled(false);
         Intent intent = this.getIntent();
         Bundle commentBundle = intent.getExtras();
         topicid = commentBundle.getString(Global.TOPIC_ID);
@@ -78,6 +81,7 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
 
     @Override
     public void setListener() {
+        commentEdit.addTextChangedListener(textWatcher);
         btnSend.setOnClickListener(this);
     }
 
@@ -89,16 +93,39 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
                 break;
             case R.id.btn_send:
                 String content = commentEdit.getText().toString().trim();
-                if (!TextUtils.isEmpty(content)) {
-                    addComment(topicid, topictype, section, item, content, to);
-                } else {
-                    makeTextLong("请输入内容");
-                }
+                addComment(topicid, topictype, section, item, content, to);
                 break;
             default:
                 break;
         }
     }
+
+    private TextWatcher textWatcher = new TextWatcher() {
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before,
+                                  int count) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count,
+                                      int after) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            String content = s.toString().trim();
+            if (TextUtils.isEmpty(content)) {
+                btnSend.setEnabled(false);
+            } else {
+                btnSend.setEnabled(true);
+            }
+        }
+    };
 
     //获取留言评论并标记为已读
     private void getCommentList(String topicid, int from, int limit, String section, String item) {
@@ -149,7 +176,7 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
             LogTool.d(TAG, "data:" + data);
             hideWaitDialog();
             CommentInfo commentInfo = createCommentInfo(commentEdit.getEditableText().toString());
-            commentAdapter.addItem(commentInfo,0);
+            commentAdapter.addItem(commentInfo, 0);
             commentAdapter.notifyDataSetChanged();
             commentListView.setSelection(0);
             commentEdit.setText("");
@@ -165,7 +192,7 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
         }
     };
 
-    protected CommentInfo createCommentInfo(String content){
+    protected CommentInfo createCommentInfo(String content) {
         CommentInfo commentInfo = new CommentInfo();
         commentInfo.setTo(to);
         commentInfo.setTopicid(topicid);
@@ -179,10 +206,10 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
         return commentInfo;
     }
 
-    protected void back(){
-        if(isUpdate){
+    protected void back() {
+        if (isUpdate) {
             setResult(RESULT_OK);
-        }else{
+        } else {
             setResult(RESULT_CANCELED);
         }
         finish();
