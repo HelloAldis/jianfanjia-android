@@ -48,6 +48,7 @@ public class NavigateActivity extends BaseActivity implements OnClickListener,
 		for (int i = 0; i < imgId.length; i++) {
 			ImageView view = new ImageView(this);
 			view.setImageResource(imgId[i]);
+			view.setScaleType(ImageView.ScaleType.FIT_XY);
 			list.add(view);
 		}
 		adapter = new ViewPageAdapter(NavigateActivity.this, list);

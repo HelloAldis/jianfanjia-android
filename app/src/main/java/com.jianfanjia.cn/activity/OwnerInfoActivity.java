@@ -29,7 +29,6 @@ import com.jianfanjia.cn.view.MainHeadView;
 public class OwnerInfoActivity extends BaseActivity implements OnClickListener {
 	private static final String TAG = OwnerInfoActivity.class.getName();
 	private RelativeLayout contentLayout = null;// 内容视图
-	private View errorView = null;// 错误视图
 	private MainHeadView mainHeadView = null;// 头视图
 	private ImageView bgView = null;
 	private ImageView fgView = null;
@@ -65,7 +64,6 @@ public class OwnerInfoActivity extends BaseActivity implements OnClickListener {
 		}
 
 		initMainHead();
-		errorView = findViewById(R.id.error_view);
 		contentLayout = (RelativeLayout) findViewById(R.id.owner_detail_content_layout);
 		fgView = (ImageView) findViewById(R.id.owner_detail_fg);
 		bgView = (ImageView) findViewById(R.id.owner_detail_bg);
@@ -119,12 +117,10 @@ public class OwnerInfoActivity extends BaseActivity implements OnClickListener {
 		contentLayout.setVisibility(View.VISIBLE);
 		bgView.setVisibility(View.VISIBLE);
 		fgView.setVisibility(View.VISIBLE);
-		errorView.setVisibility(View.GONE);
 	}
 
 	@Override
 	public void setErrorView() {
-		((TextView) errorView.findViewById(R.id.tv_error)).setText("暂无业主详情数据");
 	}
 
 	private void initMainHead() {

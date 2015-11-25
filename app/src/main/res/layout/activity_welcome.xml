@@ -8,13 +8,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:contentDescription="@null"
+        android:scaleType="fitXY"
         android:src="@mipmap/bg_welcome" />
 
     <TextView
         style="@style/listview_item_text_style_middle"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="@dimen/space_16"
         android:text="@string/jianfanjia_net"
         android:textColor="@color/grey_color" />
 

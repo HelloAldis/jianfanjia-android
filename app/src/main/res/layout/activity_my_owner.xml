@@ -21,14 +21,14 @@
         android:dividerHeight="@dimen/space_8"
         android:listSelector="@android:color/transparent"
         android:scrollbars="none" />
-    
-      <ViewStub android:id="@+id/empty" 
-       android:layout_width="fill_parent" 
-	   android:layout_height="fill_parent" 
-	   android:layout_below="@+id/my_ower_head_layout"
-       android:layout_marginTop="@dimen/space_8"
-       android:layout_gravity="center" 
-       android:layout="@layout/view_error_layout" 
-	/>   
+
+    <include
+        android:id="@+id/error_include"
+        layout="@layout/view_error_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/designer_site_head_layout"
+        android:layout_gravity="center"
+        android:visibility="gone" />
 
 </RelativeLayout>
