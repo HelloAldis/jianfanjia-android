@@ -177,9 +177,9 @@
             android:id="@+id/tabs"
             style="@style/MyCustomTabLayout"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="45dp"
             android:background="@drawable/layout_border"
-            android:minHeight="50dp"
+            android:minHeight="45dp"
             app:tabGravity="fill" />
 
         <android.support.v4.view.ViewPager
