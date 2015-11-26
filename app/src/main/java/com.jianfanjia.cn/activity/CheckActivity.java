@@ -22,14 +22,16 @@ import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.cache.BusinessManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaClient;
-import com.jianfanjia.cn.interf.ItemClickCallBack;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
+import com.jianfanjia.cn.interf.ItemClickCallBack;
+import com.jianfanjia.cn.interf.PopWindowCallBack;
 import com.jianfanjia.cn.interf.UploadListener;
 import com.jianfanjia.cn.tools.ImageUtil;
 import com.jianfanjia.cn.tools.ImageUtils;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.NetTool;
 import com.jianfanjia.cn.tools.UiHelper;
+import com.jianfanjia.cn.view.AddPhotoPopWindow;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
 
@@ -44,7 +46,7 @@ import java.util.List;
  * @date 2015-8-28 下午2:25:36
  */
 public class CheckActivity extends BaseActivity implements OnClickListener,
-        UploadListener, ItemClickCallBack {
+        UploadListener, ItemClickCallBack, PopWindowCallBack {
     private static final String TAG = CheckActivity.class.getName();
     public static final int EDIT_STATUS = 0;
     public static final int FINISH_STATUS = 1;
@@ -277,6 +279,13 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
         key = position + "";
         LogTool.d(TAG, "key:" + key);
         showPopWindow(checkLayout);
+    }
+
+    protected void showPopWindow(View view) {
+        if (popupWindow == null) {
+            popupWindow = new AddPhotoPopWindow(this, this);
+        }
+        popupWindow.show(view);
     }
 
     @Override

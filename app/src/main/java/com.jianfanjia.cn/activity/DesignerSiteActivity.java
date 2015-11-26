@@ -9,7 +9,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
-import com.jianfanjia.cn.adapter.DesignerSiteInfoAdapter;
+import com.jianfanjia.cn.adapter.MyProcessInfoAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.Process;
 import com.jianfanjia.cn.http.JianFanJiaClient;
@@ -33,7 +33,7 @@ public class DesignerSiteActivity extends BaseActivity implements
     private MainHeadView mainHeadView = null;
     private ListView siteListView = null;
     private List<Process> siteList = new ArrayList<Process>();
-    private DesignerSiteInfoAdapter designerSiteInfoAdapter = null;
+    private MyProcessInfoAdapter myProcessInfoAdapter = null;
     protected RelativeLayout error_Layout;
 
     @Override
@@ -50,9 +50,9 @@ public class DesignerSiteActivity extends BaseActivity implements
                 siteList = dataManager.getProcessListsByCache();
             }
         }
-        designerSiteInfoAdapter = new DesignerSiteInfoAdapter(
+        myProcessInfoAdapter = new MyProcessInfoAdapter(
                 DesignerSiteActivity.this, siteList);
-        siteListView.setAdapter(designerSiteInfoAdapter);
+        siteListView.setAdapter(myProcessInfoAdapter);
         setEmptyView();
     }
 
@@ -105,8 +105,8 @@ public class DesignerSiteActivity extends BaseActivity implements
     public void loadSuccess(Object data) {
         super.loadSuccess(data);
         siteList = dataManager.getProcessLists();
-        designerSiteInfoAdapter.setList(siteList);
-        designerSiteInfoAdapter.notifyDataSetChanged();
+        myProcessInfoAdapter.setList(siteList);
+        myProcessInfoAdapter.notifyDataSetChanged();
         error_Layout.setVisibility(View.GONE);
     }
 

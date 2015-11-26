@@ -35,12 +35,12 @@ import com.jianfanjia.cn.bean.ViewPagerItem;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
-import com.jianfanjia.cn.http.request.AddPicToSectionItemRequest;
-import com.jianfanjia.cn.interf.ItemClickCallBack;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
-import com.jianfanjia.cn.interf.UploadImageListener;
+import com.jianfanjia.cn.interf.ItemClickCallBack;
+import com.jianfanjia.cn.interf.PopWindowCallBack;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.tools.DateFormatTool;
+import com.jianfanjia.cn.tools.FileUtil;
 import com.jianfanjia.cn.tools.ImageUtil;
 import com.jianfanjia.cn.tools.ImageUtils;
 import com.jianfanjia.cn.tools.LogTool;
@@ -49,6 +49,7 @@ import com.jianfanjia.cn.tools.StringUtils;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.tools.ViewPagerManager;
 import com.jianfanjia.cn.tools.ViewPagerManager.ShapeType;
+import com.jianfanjia.cn.view.AddPhotoPopWindow;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DateWheelDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
@@ -69,8 +70,8 @@ import java.util.List;
  * @date 2015-8-26 上午11:14:00
  */
 public class SiteManageFragment extends BaseFragment implements
-        OnRefreshListener2<ScrollView>, ItemClickCallBack, UploadImageListener,
-        ApiUiUpdateListener {
+        OnRefreshListener2<ScrollView>, ItemClickCallBack,
+        ApiUiUpdateListener,PopWindowCallBack {
     private static final String TAG = SiteManageFragment.class.getName();
     private PullToRefreshScrollView mPullRefreshScrollView = null;
     private static final int TOTAL_PROCESS = 7;// 7道工序
@@ -89,6 +90,7 @@ public class SiteManageFragment extends BaseFragment implements
     private String[] proTitle = null;
     private List<ViewPagerItem> processList = new ArrayList<ViewPagerItem>();
     private List<String> imageList;
+    private AddPhotoPopWindow popupWindow;
 
     private TextView titleCenter = null;
     private TextView titleRight = null;
@@ -181,7 +183,11 @@ public class SiteManageFragment extends BaseFragment implements
     @Override
     public void onResume() {
         super.onResume();
-        imageLoader.displayImage(mUserImageId, titleImage, options);
+        if(mUserImageId.contains(Constant.DEFALUT_PIC_HEAD)){
+            imageShow.displayLocalImage(mUserImageId,titleImage);
+        }else{
+            imageShow.displayImageHeadWidthThumnailImage(getActivity(),mUserImageId,titleImage);
+        }
         if (sectionItemAdapter != null) {
             sectionItemAdapter.notifyDataSetChanged();
         }
@@ -309,26 +315,6 @@ public class SiteManageFragment extends BaseFragment implements
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 sectionItemAdapter.setCurrentOpenItem(position);
-              /*  if (sectionItemAdapter.isHasCheck()) {
-                    if (position == 0) {
-                        boolean isCanClickYanshou = true;
-                        for (SectionItemInfo sectionItemInfo : sectionInfo
-                                .getItems()) {
-                            if (Constant.FINISH != Integer
-                                    .parseInt(sectionItemInfo.getStatus())) {
-                                isCanClickYanshou = false;
-                                break;
-                            }
-                        }
-                        if (isCanClickYanshou) {
-                            sectionItemAdapter.setCurrentOpenItem(position);
-                        }
-                    } else {
-                        sectionItemAdapter.setCurrentOpenItem(position);
-                    }
-                } else {
-                    sectionItemAdapter.setCurrentOpenItem(position);
-                }*/
             }
         });
 
@@ -397,7 +383,7 @@ public class SiteManageFragment extends BaseFragment implements
                 bundle.putString(Constant.SECTION, sectionInfo.getName());
                 bundle.putString(Constant.ITEM, sectionInfo.getItems().get(position).getName());
                 bundle.putString(Global.TOPICTYPE, Global.TOPIC_NODE);
-                Intent intent = new Intent(getActivity(),CommentActivity.class);
+                Intent intent = new Intent(getActivity(), CommentActivity.class);
                 intent.putExtras(bundle);
                 startActivityForResult(intent, Constant.REQUESTCODE_GOTO_COMMENT);
                 break;
@@ -459,16 +445,16 @@ public class SiteManageFragment extends BaseFragment implements
         }
     }
 
+    protected void showPopWindow(View view) {
+        if (popupWindow == null) {
+            popupWindow = new AddPhotoPopWindow(getActivity(), this);
+        }
+        popupWindow.show(view);
+    }
+
     @Override
     public void takecamera() {
-        /*
-		 * Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-		 * mTmpFile = FileUtil.createTmpFile(getActivity());
-		 * cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT,
-		 * Uri.fromFile(mTmpFile)); startActivityForResult(cameraIntent,
-		 * Constant.REQUESTCODE_CAMERA);
-		 */
-        mTmpFile = UiHelper.getTempPath();
+        mTmpFile = FileUtil.createTmpFile(getActivity());
         if (mTmpFile != null) {
             Intent cameraIntent = UiHelper.createShotIntent(mTmpFile);
             startActivityForResult(cameraIntent, Constant.REQUESTCODE_CAMERA);
@@ -583,7 +569,7 @@ public class SiteManageFragment extends BaseFragment implements
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode != Activity.RESULT_OK){
+        if (resultCode != Activity.RESULT_OK) {
             return;
         }
         switch (requestCode) {
@@ -593,66 +579,7 @@ public class SiteManageFragment extends BaseFragment implements
                     Bitmap imageBitmap = ImageUtil.getImage(mTmpFile.getPath());
                     LogTool.d(TAG, "imageBitmap:" + imageBitmap);
                     if (null != imageBitmap) {
-                        JianFanJiaClient.uploadImage(getActivity(), imageBitmap,
-                                new ApiUiUpdateListener() {
-
-                                    @Override
-                                    public void preLoad() {
-                                        showWaitDialog();
-                                    }
-
-                                    @Override
-                                    public void loadSuccess(Object data) {
-                                        String itemName = sectionItemAdapter
-                                                .getCurrentItem();
-                                        JianFanJiaClient.submitImageToProcess(getActivity(),
-                                                processInfo.get_id(),
-                                                sectionInfo.getName(),
-                                                itemName,
-                                                dataManager
-                                                        .getCurrentUploadImageId(),
-                                                new ApiUiUpdateListener() {
-
-                                                    @Override
-                                                    public void preLoad() {
-                                                        // TODO
-                                                        // Auto-generated
-                                                        // method
-                                                        // stub
-                                                    }
-
-                                                    @Override
-                                                    public void loadSuccess(Object data) {
-                                                        hideWaitDialog();
-                                                        loadCurrentProcess();
-                                                        if (mTmpFile != null
-                                                                && mTmpFile
-                                                                .exists()) {
-                                                            mTmpFile.delete();
-                                                        }
-                                                        loadCurrentProcess();
-                                                    }
-
-                                                    @Override
-                                                    public void loadFailture(String errorMsg) {
-                                                        hideWaitDialog();
-                                                        makeTextLong(getString(R.string.tip_error_internet));
-                                                        if (mTmpFile != null
-                                                                && mTmpFile
-                                                                .exists()) {
-                                                            mTmpFile.delete();
-                                                        }
-                                                    }
-                                                }, this);
-                                    }
-
-                                    @Override
-                                    public void loadFailture(String errorMsg) {
-                                        hideWaitDialog();
-                                        makeTextLong(getString(R.string.tip_error_internet));
-                                    }
-                                }, this);
-
+                        upload_image(imageBitmap);
                     }
                 }
                 break;
@@ -664,75 +591,13 @@ public class SiteManageFragment extends BaseFragment implements
                         Bitmap imageBitmap = ImageUtil.getImage(ImageUtils
                                 .getImagePath(uri, getActivity()));
                         if (null != imageBitmap) {
-                            JianFanJiaClient.uploadImage(getActivity(), imageBitmap,
-                                    new ApiUiUpdateListener() {
-
-                                        @Override
-                                        public void preLoad() {
-                                            showWaitDialog();
-                                        }
-
-                                        @Override
-                                        public void loadSuccess(Object data) {
-                                            String itemName = sectionItemAdapter
-                                                    .getCurrentItem();
-                                            AddPicToSectionItemRequest addSectionItemRequest = new AddPicToSectionItemRequest(
-                                                    getActivity(),
-                                                    processInfo.get_id(),
-                                                    sectionInfo.getName(),
-                                                    itemName,
-                                                    dataManager
-                                                            .getCurrentUploadImageId());
-                                            JianFanJiaClient.submitImageToProcess(getActivity(),
-                                                    processInfo.get_id(),
-                                                    sectionInfo.getName(),
-                                                    itemName,
-                                                    dataManager
-                                                            .getCurrentUploadImageId(),
-                                                    new ApiUiUpdateListener() {
-
-                                                        @Override
-                                                        public void preLoad() {
-                                                            // TODO
-                                                            // Auto-generated
-                                                            // method
-                                                            // stub
-                                                        }
-
-                                                        @Override
-                                                        public void loadSuccess(Object data) {
-                                                            hideWaitDialog();
-                                                            loadCurrentProcess();
-                                                            if (mTmpFile != null
-                                                                    && mTmpFile
-                                                                    .exists()) {
-                                                                mTmpFile.delete();
-                                                            }
-                                                            loadCurrentProcess();
-                                                        }
-
-                                                        @Override
-                                                        public void loadFailture(String errorMsg) {
-                                                            hideWaitDialog();
-                                                            makeTextLong(getString(R.string.tip_error_internet));
-                                                            if (mTmpFile != null
-                                                                    && mTmpFile
-                                                                    .exists()) {
-                                                                mTmpFile.delete();
-                                                            }
-                                                        }
-                                                    }, this);
-                                        }
-
-                                        @Override
-                                        public void loadFailture(String errorMsg) {
-                                            hideWaitDialog();
-                                            makeTextLong(getString(R.string.tip_error_internet));
-                                        }
-                                    }, this);
+                            upload_image(imageBitmap);
                         }
                     }
                 }
+                break;
+            case Constant.REQUESTCODE_SHOW_PROCESS_PIC:
+                loadCurrentProcess();
                 break;
             case Constant.REQUESTCODE_CHANGE_SITE:
                 if (data != null) {
@@ -755,31 +620,49 @@ public class SiteManageFragment extends BaseFragment implements
         }
     }
 
-    @Override
-    public void onSuccess(String msg) {
-        LogTool.d(TAG, "msg===========" + msg);
-        if ("success".equals(msg)) {
-            LogTool.d(TAG, "--------------------------------------------------");
-            if (mTmpFile != null && mTmpFile.exists()) {
-                mTmpFile.delete();
+    protected void upload_image(Bitmap bitmap) {
+        JianFanJiaClient.uploadImage(getActivity(), bitmap, new ApiUiUpdateListener() {
+            @Override
+            public void preLoad() {
             }
-            // loadCurrentProcess();
-            // sectionInfo.getItems()
-            if (dataManager.getCurrentUploadImageId() != null
-                    && imageList != null) {
-                imageList.add(imageList.size() - 1,
-                        dataManager.getCurrentUploadImageId());
-                sectionItemAdapter.notifyDataSetChanged();
-            }
-        }
-    }
 
-    @Override
-    public void onFailure() {
-        LogTool.d(TAG, "==============================================");
-        if (mTmpFile != null && mTmpFile.exists()) {
-            mTmpFile.delete();
-        }
+            @Override
+            public void loadSuccess(Object data) {
+                String itemName = sectionItemAdapter
+                        .getCurrentItem();
+                JianFanJiaClient.submitImageToProcess(getActivity(),
+                        processInfo.get_id(),
+                        sectionInfo.getName(),
+                        itemName,
+                        dataManager
+                                .getCurrentUploadImageId(), new ApiUiUpdateListener() {
+                            @Override
+                            public void preLoad() {
+
+                            }
+
+                            @Override
+                            public void loadSuccess(Object data) {
+                                loadCurrentProcess();
+                                if (mTmpFile != null
+                                        && mTmpFile
+                                        .exists()) {
+                                    mTmpFile.delete();
+                                }
+                            }
+
+                            @Override
+                            public void loadFailture(String error_msg) {
+
+                            }
+                        }, this);
+            }
+
+            @Override
+            public void loadFailture(String error_msg) {
+
+            }
+        }, this);
     }
 
     @Override

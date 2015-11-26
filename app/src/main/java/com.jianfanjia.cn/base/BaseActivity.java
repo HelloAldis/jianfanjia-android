@@ -5,33 +5,28 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.Window;
 import android.widget.Toast;
 
-import com.jianfanjia.cn.AppConfig;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.dao.impl.NotifyMessageDao;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.NetStateListener;
-import com.jianfanjia.cn.interf.PopWindowCallBack;
 import com.jianfanjia.cn.receiver.NetStateReceiver;
 import com.jianfanjia.cn.tools.ActivityManager;
 import com.jianfanjia.cn.tools.DaoManager;
+import com.jianfanjia.cn.tools.ImageShow;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.AddPhotoPopWindow;
 import com.jianfanjia.cn.view.dialog.DialogControl;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.cn.view.dialog.WaitDialog;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
  * 
@@ -42,22 +37,20 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  * 
  */
 public abstract class BaseActivity extends FragmentActivity implements
-		DialogControl, NetStateListener, PopWindowCallBack, ApiUiUpdateListener {
+		DialogControl, NetStateListener, ApiUiUpdateListener {
 	protected ActivityManager activityManager = null;
 	protected DownloadManager downloadManager = null;
 	protected NotifyMessageDao notifyMessageDao = null;
 	protected LayoutInflater inflater = null;
 	protected FragmentManager fragmentManager = null;
 	protected NotificationManager nManager = null;
-	protected ImageLoader imageLoader = null;
-	protected DisplayImageOptions options = null;
+	protected ImageShow imageShow;
 //	protected ListenerManeger listenerManeger = null;
 	protected NetStateReceiver netStateReceiver = null;
 	protected AddPhotoPopWindow popupWindow = null;
 	private boolean _isVisible;
 	private WaitDialog _waitDialog;
 	protected DataManagerNew dataManager;
-	protected AppConfig appConfig;
 
 	protected String userIdentity = null;
 	protected boolean isOpen = false;
@@ -67,7 +60,9 @@ public abstract class BaseActivity extends FragmentActivity implements
 		super.onCreate(savedInstanceState);
 		LogTool.d(this.getClass().getName(), "onCreate()");
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(getLayoutId());
+		if(getLayoutId() != -1){
+			setContentView(getLayoutId());
+		}
 		init();
 		initDao();
 		initParams();
@@ -88,15 +83,8 @@ public abstract class BaseActivity extends FragmentActivity implements
 		inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		nManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 		dataManager = DataManagerNew.getInstance();
-		appConfig = AppConfig.getInstance(this);
 		fragmentManager = this.getSupportFragmentManager();
-		imageLoader = ImageLoader.getInstance();
-		options = new DisplayImageOptions.Builder()
-				.showImageOnLoading(R.drawable.pix_default)
-				.showImageForEmptyUri(R.drawable.pix_default)
-				.showImageOnFail(R.drawable.pix_default).cacheInMemory(true)
-				.cacheOnDisk(true).considerExifParams(true)
-				.bitmapConfig(Bitmap.Config.RGB_565).build();
+		imageShow = ImageShow.getImageShow();
 		netStateReceiver = new NetStateReceiver(this);
 		_isVisible = true;
 		activityManager.addActivity(this);
@@ -194,25 +182,6 @@ public abstract class BaseActivity extends FragmentActivity implements
 		startActivity(intent);
 	}
 
-	protected void showPopWindow(View view) {
-		if (popupWindow == null) {
-			popupWindow = new AddPhotoPopWindow(this, this);
-		}
-		popupWindow.show(view);
-	}
-
-	@Override
-	public void takecamera() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void takePhoto() {
-		// TODO Auto-generated method stub
-
-	}
-
 	@Override
 	public void loadSuccess(Object data) {
 		hideWaitDialog();
@@ -227,7 +196,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 	public void loadFailture(String errorMsg) {
 		hideWaitDialog();
 		setErrorView();
-		makeTextLong(getString(R.string.tip_error_internet));
+		makeTextLong(errorMsg);
 	}
 
 	// 设置错误视图

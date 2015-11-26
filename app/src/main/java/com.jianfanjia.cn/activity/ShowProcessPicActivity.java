@@ -33,6 +33,7 @@ public class ShowProcessPicActivity extends BaseActivity implements
     private String item;
     private String tipText = null;
     private DeletePicPopWindow deletePicPopWindow = null;
+    private boolean isDeletePic = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +93,13 @@ public class ShowProcessPicActivity extends BaseActivity implements
             totalCount--;
             setTipText();
             showPicPagerAdapter.deleteItem(currentPosition);
+            isDeletePic = true;
         }
+    }
+
+    @Override
+    public void loadFailture(String error_msg) {
+        super.loadFailture(error_msg);
     }
 
     @Override
@@ -116,7 +123,11 @@ public class ShowProcessPicActivity extends BaseActivity implements
 
     @Override
     public void onClickItem(int potition) {
-        setResult(RESULT_OK);
+        if(isDeletePic){
+            setResult(RESULT_OK);
+        }else{
+            setResult(RESULT_CANCELED);
+        }
         finish();
     }
 
@@ -136,7 +147,6 @@ public class ShowProcessPicActivity extends BaseActivity implements
     public void onPageSelected(int arg0) {
         currentPosition = arg0;
         setTipText();
-
     }
 
 }

@@ -52,7 +52,7 @@ public class RegisterNewActivity extends BaseAnnotationActivity implements
     int requsetCode;
 
     @AfterViews
-    public void initView() {
+    public void afterView() {
         Intent intent = getIntent();
         registerInfo = (RegisterInfo) intent.getSerializableExtra(Global.REGISTER_INFO);
         requsetCode = intent.getIntExtra(Global.REGISTER, 0);

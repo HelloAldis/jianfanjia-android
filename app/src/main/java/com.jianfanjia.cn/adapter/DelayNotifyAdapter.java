@@ -1,16 +1,18 @@
 package com.jianfanjia.cn.adapter;
 
-import java.util.List;
 import android.content.Context;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
+
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.bean.NotifyDelayInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.DelayInfoListener;
 import com.jianfanjia.cn.tools.DateFormatTool;
+
+import java.util.List;
 
 /**
  * @class DelayNotifyAdapter
@@ -178,16 +180,5 @@ public class DelayNotifyAdapter extends BaseListAdapter<NotifyDelayInfo> {
 		TextView itemRefuseText;// 拒绝
 	}
 
-	@Override
-	public void loadSuccess(Object data) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void loadFailture(String errorMsg) {
-		// TODO Auto-generated method stub
-
-	}
 
 }

@@ -2,7 +2,6 @@ package com.jianfanjia.cn.http.request;
 
 import android.content.Context;
 
-import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseRequest;
 import com.jianfanjia.cn.config.Url_New;
 
@@ -29,9 +28,6 @@ public class FeedBackRequest extends BaseRequest {
 	@Override
 	public void onSuccess(Object data) {
 		if (data.toString() != null) {
-			dataManager.setLogin(false);
-			dataManager.cleanData();
-			MyApplication.getInstance().clearCookie();
 		}
 	}
 

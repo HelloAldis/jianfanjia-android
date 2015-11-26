@@ -57,7 +57,7 @@ public class UserInfoActivity extends BaseAnnotationActivity{
     private String sex = null;
 
     @AfterViews
-    public void initView() {
+    public void afterView() {
         mainHeadView.setMianTitle(getResources().getString(R.string.userinfo));
         initData();
     }

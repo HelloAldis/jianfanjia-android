@@ -8,7 +8,6 @@ import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.CommentInfo;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.tools.StringUtils;
 
 import java.util.List;
@@ -59,8 +58,12 @@ public class CommentAdapter extends BaseListAdapter<CommentInfo> {
         }
         viewHolder.itemTimeView.setText(StringUtils
                 .covertLongToString(commentInfo.getDate()));
-        imageLoader.displayImage(Url_New.GET_IMAGE + commentInfo.getByUser().getImageid(), viewHolder.itemHeadView, options);
-        return convertView;
+        String imageid = commentInfo.getByUser().getImageid();
+        if (!imageid.contains(Constant.DEFALUT_PIC_HEAD)) {
+            imageShow.displayImageHeadWidthThumnailImage(context, commentInfo.getByUser().getImageid(), viewHolder.itemHeadView);
+        } else {
+            imageShow.displayLocalImage(commentInfo.getByUser().getImageid(), viewHolder.itemHeadView);
+        }        return convertView;
     }
 
     private static class ViewHolder {
@@ -71,13 +74,4 @@ public class CommentAdapter extends BaseListAdapter<CommentInfo> {
         ImageView itemHeadView;// 评论人头像
     }
 
-    @Override
-    public void loadSuccess(Object data) {
-
-    }
-
-    @Override
-    public void loadFailture(String errorMsg) {
-        
-    }
 }

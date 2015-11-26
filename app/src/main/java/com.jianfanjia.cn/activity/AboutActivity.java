@@ -17,12 +17,14 @@ public class AboutActivity extends BaseActivity implements OnClickListener {
 	private static final String TAG = AboutActivity.class.getName();
 	private TextView backView;// 返回视图
 	private TextView currentVersion;// 当前版本
+	private String versionInfo;
 
 	@Override
 	public void initView() {
 		backView = (TextView) findViewById(R.id.about_back);
 		currentVersion = (TextView) findViewById(R.id.about_version);
-		currentVersion.setText(MyApplication.getInstance().getVersionName());
+		versionInfo = String.format(getString(R.string.about_version),MyApplication.getInstance().getVersionName());
+		currentVersion.setText(versionInfo);
 	}
 
 	@Override

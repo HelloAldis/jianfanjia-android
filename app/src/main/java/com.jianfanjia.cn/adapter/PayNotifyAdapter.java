@@ -55,16 +55,5 @@ public class PayNotifyAdapter extends BaseListAdapter<NotifyMessage> {
 		TextView itemPubTimeView;// 发布时间
 	}
 
-	@Override
-	public void loadSuccess(Object data) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void loadFailture(String errorMsg) {
-		// TODO Auto-generated method stub
-
-	}
 
 }
