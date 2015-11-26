@@ -297,7 +297,6 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
     @Override
     public void takecamera() {
         mTmpFile = UiHelper.getTempPath();
-
         if (mTmpFile != null) {
             Intent cameraIntent = UiHelper.createShotIntent(mTmpFile);
             startActivityForResult(cameraIntent, Constant.REQUESTCODE_CAMERA);
