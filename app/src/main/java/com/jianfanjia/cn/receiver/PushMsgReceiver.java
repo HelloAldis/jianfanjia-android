@@ -16,6 +16,7 @@ import com.igexin.sdk.PushConsts;
 import com.igexin.sdk.PushManager;
 import com.jianfanjia.cn.activity.CheckActivity;
 import com.jianfanjia.cn.activity.MainActivity;
+import com.jianfanjia.cn.activity.MyProcessDetailActivity;
 import com.jianfanjia.cn.activity.NotifyActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.NotifyMessage;
@@ -26,6 +27,7 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.dao.impl.NotifyMessageDao;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
+import com.jianfanjia.cn.interf.ReceiveMsgListener;
 import com.jianfanjia.cn.interf.manager.ListenerManeger;
 import com.jianfanjia.cn.tools.DaoManager;
 import com.jianfanjia.cn.tools.JsonParser;
@@ -106,17 +108,19 @@ public class PushMsgReceiver extends BroadcastReceiver {
             notifyMessageDao.save(message);
             if (SystemUtils.isAppAlive(context, context.getPackageName())) {
                 LogTool.d(TAG, "the app process is alive");
-                sendNotifycation(context, message);
-//                ReceiveMsgListener listener = listenerManeger
-//                        .getReceiveMsgListener(message);
-//                Log.i(TAG, "listener:" + listener);
-//                if (null != listener) {
-//                    if (listener instanceof NotifyActivity) {
-//                        listener.onReceive(message);
-//                    }
-//                } else {
-//                    sendNotifycation(context, message);
-//                }
+                ReceiveMsgListener listener = listenerManeger
+                        .getReceiveMsgListener();
+                Log.i(TAG, "listener:" + listener);
+                if (null != listener) {
+                    if (listener instanceof NotifyActivity) {
+                        listener.onReceive(message);
+                    }
+                    if (listener instanceof MyProcessDetailActivity) {
+                        listener.onReceive(message);
+                    }
+                } else {
+                    sendNotifycation(context, message);
+                }
             } else {
                 LogTool.d(TAG, "the app process is dead");
                 Intent launchIntent = context.getPackageManager()
