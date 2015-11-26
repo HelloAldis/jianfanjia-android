@@ -19,6 +19,7 @@ import com.jianfanjia.cn.adapter.SectionItemAdapter;
 import com.jianfanjia.cn.adapter.SectionViewPageAdapter;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseAnnotationActivity;
+import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.SectionInfo;
 import com.jianfanjia.cn.bean.ViewPagerItem;
@@ -27,6 +28,7 @@ import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
+import com.jianfanjia.cn.interf.ReceiveMsgListener;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.tools.DateFormatTool;
 import com.jianfanjia.cn.tools.FileUtil;
@@ -59,7 +61,7 @@ import java.util.List;
  * @date 2015-8-26 上午11:14:00
  */
 @EActivity(R.layout.activity_my_process_detail)
-public class MyProcessDetailActivity extends BaseAnnotationActivity implements ItemClickCallBack {
+public class MyProcessDetailActivity extends BaseAnnotationActivity implements ItemClickCallBack, ReceiveMsgListener {
     private static final String TAG = MyProcessDetailActivity.class.getName();
     private static final int TOTAL_PROCESS = 7;// 7道工序
 
@@ -325,9 +327,9 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                 bundle.putString(Global.SECTION, sectionInfo.getName());
                 bundle.putString(Global.ITEM, sectionInfo.getItems().get(position).getName());
                 bundle.putString(Global.TOPICTYPE, Global.TOPIC_NODE);
-                Intent intent = new Intent(this,CommentActivity.class);
+                Intent intent = new Intent(this, CommentActivity.class);
                 intent.putExtras(bundle);
-                startActivityForResult(intent,Constant.REQUESTCODE_GOTO_COMMENT);
+                startActivityForResult(intent, Constant.REQUESTCODE_GOTO_COMMENT);
                 break;
             case Constant.DELAY_ITEM:
                 delayDialog();
@@ -552,4 +554,8 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
         }, this);
     }
 
+    @Override
+    public void onReceive(NotifyMessage message) {
+
+    }
 }
