@@ -93,12 +93,13 @@ public class JianFanJiaClient {
 
     /**
      * 检查手机号是否被占用
+     *
      * @param context
      * @param phone
      * @param listener
      * @param tag
      */
-    public static void verifyPhone(Context context,String phone,ApiUiUpdateListener listener,Object tag){
+    public static void verifyPhone(Context context, String phone, ApiUiUpdateListener listener, Object tag) {
         VerifyPhoneRequest verifyPhoneRequest = new VerifyPhoneRequest(context);
         JSONObject jsonParams = new JSONObject();
         try {
@@ -196,6 +197,7 @@ public class JianFanJiaClient {
 
     /**
      * 删除节点图片
+     *
      * @param imageid
      * @param context
      * @param imageid
@@ -205,7 +207,7 @@ public class JianFanJiaClient {
      * @param listener
      * @param tag
      */
-    public static final void deleteImageToProcess(Context context, String imageid, String section, String item, int index, ApiUiUpdateListener listener, Object tag){
+    public static final void deleteImageToProcess(Context context, String imageid, String section, String item, int index, ApiUiUpdateListener listener, Object tag) {
         DeletePicToSectionItemRequest deletePicToSectionItemRequest = new DeletePicToSectionItemRequest(context);
         JSONObject jsonParams = new JSONObject();
         try {
@@ -346,7 +348,6 @@ public class JianFanJiaClient {
      */
     public static void rescheduleAll(Context context,
                                      ApiUiUpdateListener listener, Object tag) {
-//        HttpRestClient.get(context, Url_New.GET_RESCHDULE_ALL, hanlder);
         GetAllRescheduleRequest getAllRescheduleRequest = new GetAllRescheduleRequest(context);
         OkHttpClientManager.getInstance().getGetDelegate().getAsyn(getAllRescheduleRequest, listener, tag);
     }
@@ -496,7 +497,7 @@ public class JianFanJiaClient {
         }
     }
 
-        /**
+    /**
      * 设计师删除验收照片
      *
      * @param context
@@ -533,7 +534,7 @@ public class JianFanJiaClient {
      * @param listener
      * @param tag
      */
-    public static void addComment(Context context, String topicid, String topictype,String section,String item, String content, String to, ApiUiUpdateListener listener, Object tag) {
+    public static void addComment(Context context, String topicid, String topictype, String section, String item, String content, String to, ApiUiUpdateListener listener, Object tag) {
         AddCommentRequest addCommentRequest = new AddCommentRequest(context, topicid, topictype, content, to);
         JSONObject jsonParams = new JSONObject();
         try {
@@ -559,7 +560,7 @@ public class JianFanJiaClient {
      * @param listener
      * @param tag
      */
-    public static void getCommentList(Context context, String topicid, int from, int limit,String section,String item, ApiUiUpdateListener listener, Object tag) {
+    public static void getCommentList(Context context, String topicid, int from, int limit, String section, String item, ApiUiUpdateListener listener, Object tag) {
         GetCommentsRequest getCommentsRequest = new GetCommentsRequest(context, topicid, from, limit);
         JSONObject jsonParams = new JSONObject();
         try {
