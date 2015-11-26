@@ -67,7 +67,6 @@ public class DesignerMenuFragment extends BaseFragment {
 		}else{
 			imageShow.displayImageHeadWidthThumnailImage(getActivity(), mUserImageId, img_head);
 		}
-//		imageLoader.displayImage(mUserImageId, img_head, options);
 	}
 
 	@Override
