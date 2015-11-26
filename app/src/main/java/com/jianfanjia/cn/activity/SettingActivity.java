@@ -12,8 +12,6 @@ import android.widget.ToggleButton;
 import com.igexin.sdk.PushManager;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.http.JianFanJiaClient;
-import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.FileUtil;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
@@ -126,21 +124,12 @@ public class SettingActivity extends BaseActivity implements OnClickListener, On
     }
 
     private void onClickExit() {
-        CommonDialog dialog = DialogHelper
-                .getPinterestDialogCancelable(SettingActivity.this);
-        dialog.setTitle("退出登录");
-        dialog.setMessage("确定退出登录吗？");
-        dialog.setPositiveButton(R.string.ok,
-                new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        logout();
-                        dialog.dismiss();
-                    }
-                });
-        dialog.setNegativeButton(R.string.no, null);
-        dialog.show();
+        PushManager.getInstance().stopService(
+                SettingActivity.this);// 完全终止SDK的服务
+        activityManager.exit();
+        MyApplication.getInstance().clearCookie();
+        startActivity(LoginNewActivity_.class);
+        finish();
     }
 
     /**
@@ -211,35 +200,6 @@ public class SettingActivity extends BaseActivity implements OnClickListener, On
     protected void onDestroy() {
         super.onDestroy();
         LogTool.d(TAG, "---onDestroy()");
-    }
-
-    // 退出登录
-    private void logout() {
-        JianFanJiaClient.logout(this,
-                new ApiUiUpdateListener() {
-
-                    @Override
-                    public void preLoad() {
-                        showWaitDialog();
-                    }
-
-                    @Override
-                    public void loadSuccess(Object data) {
-                        hideWaitDialog();
-                        PushManager.getInstance().stopService(
-                                SettingActivity.this);// 完全终止SDK的服务
-                        activityManager.exit();
-                        MyApplication.getInstance().clearCookie();
-                        startActivity(LoginNewActivity_.class);
-                        finish();
-                    }
-
-                    @Override
-                    public void loadFailture(String error_msg) {
-                        hideWaitDialog();
-                        makeTextLong(error_msg);
-                    }
-                }, this);
     }
 
     @Override
