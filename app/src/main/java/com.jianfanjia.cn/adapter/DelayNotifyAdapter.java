@@ -2,7 +2,6 @@ package com.jianfanjia.cn.adapter;
 
 import android.content.Context;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
@@ -35,148 +34,65 @@ public class DelayNotifyAdapter extends BaseListAdapter<NotifyDelayInfo> {
     }
 
     @Override
-    public View initView(int position, View convertView) {
+    public View initView(final int position, View convertView) {
         ViewHolder viewHolder = null;
         NotifyDelayInfo info = list.get(position);
         if (convertView == null) {
             convertView = layoutInflater.inflate(R.layout.list_item_tip_delay,
                     null);
             viewHolder = new ViewHolder();
-            viewHolder.itemContentView = (TextView) convertView
-                    .findViewById(R.id.list_item_tip_delay_content);
-            viewHolder.itemNameView = (TextView) convertView
-                    .findViewById(R.id.list_item_tip_delay_name);
+            viewHolder.itemCellView = (TextView) convertView
+                    .findViewById(R.id.list_item_tip_cell_name);
             viewHolder.itemNodeView = (TextView) convertView
                     .findViewById(R.id.list_item_tip_delay_node);
+            viewHolder.itemNewTimeView = (TextView) convertView
+                    .findViewById(R.id.list_item_tip_delay_new_time);
             viewHolder.itemPubTimeView = (TextView) convertView
-                    .findViewById(R.id.list_item_tip_time);
-            viewHolder.itemAgressView = (TextView) convertView
+                    .findViewById(R.id.list_item_tip_delay_time);
+            viewHolder.itemStatusView = (TextView) convertView
                     .findViewById(R.id.list_item_tip_delay_status);
-            viewHolder.itemAgreeText = (TextView) convertView
-                    .findViewById(R.id.list_item_tip_delay_agree);
-            viewHolder.itemRefuseText = (TextView) convertView
-                    .findViewById(R.id.list_item_tip_delay_refuse);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        String requestRole = info.getRequest_role();
-        String status = info.getStatus();
-        if (status.equals(Constant.NO_START)) {
-            viewHolder.itemAgressView.setText("未开工");
-            viewHolder.itemAgreeText.setVisibility(View.GONE);
-            viewHolder.itemRefuseText.setVisibility(View.GONE);
-        } else if (status.equals(Constant.DOING)) {
-            viewHolder.itemAgressView.setText("进行中");
-            viewHolder.itemAgreeText.setVisibility(View.GONE);
-            viewHolder.itemRefuseText.setVisibility(View.GONE);
-        } else if (status.equals(Constant.FINISHED)) {
-            viewHolder.itemAgressView.setText("已完成");
-            viewHolder.itemAgreeText.setVisibility(View.GONE);
-            viewHolder.itemRefuseText.setVisibility(View.GONE);
-        } else if (status.equals(Constant.YANQI_BE_DOING)) {
-            viewHolder.itemAgressView.setText("改期申请中");
-            if (userType.equals(Constant.IDENTITY_DESIGNER)) {
-                if (requestRole.equals(Constant.IDENTITY_OWNER)) {
-                    viewHolder.itemNameView.setText("您的业主已申请改期验收至");
-                    viewHolder.itemAgreeText.setVisibility(View.VISIBLE);
-                    viewHolder.itemRefuseText.setVisibility(View.VISIBLE);
-                } else if (requestRole.equals(Constant.IDENTITY_DESIGNER)) {
-                    viewHolder.itemNameView.setText("您已申请改期验收至");
-                    viewHolder.itemAgreeText.setVisibility(View.GONE);
-                    viewHolder.itemRefuseText.setVisibility(View.GONE);
-                }
-            } else if (userType.equals(Constant.IDENTITY_OWNER)) {
-                if (requestRole.equals(Constant.IDENTITY_OWNER)) {
-                    viewHolder.itemNameView.setText("您已申请改期验收至");
-                    viewHolder.itemAgreeText.setVisibility(View.GONE);
-                    viewHolder.itemRefuseText.setVisibility(View.GONE);
-                } else if (requestRole.equals(Constant.IDENTITY_DESIGNER)) {
-                    viewHolder.itemNameView.setText("您的设计师已申请改期验收至");
-                    viewHolder.itemAgreeText.setVisibility(View.VISIBLE);
-                    viewHolder.itemRefuseText.setVisibility(View.VISIBLE);
-                }
-            }
-        } else if (status.equals(Constant.YANQI_AGREE)) {
-            viewHolder.itemAgressView.setText("改期同意");
-            if (userType.equals(Constant.IDENTITY_DESIGNER)) {
-                if (requestRole.equals(Constant.IDENTITY_OWNER)) {
-                    viewHolder.itemNameView.setText("您的业主已申请改期验收至");
-                    viewHolder.itemAgreeText.setVisibility(View.GONE);
-                    viewHolder.itemRefuseText.setVisibility(View.GONE);
-                } else if (requestRole.equals(Constant.IDENTITY_DESIGNER)) {
-                    viewHolder.itemNameView.setText("您已申请改期验收至");
-                    viewHolder.itemAgreeText.setVisibility(View.GONE);
-                    viewHolder.itemRefuseText.setVisibility(View.GONE);
-                }
-            } else if (userType.equals(Constant.IDENTITY_OWNER)) {
-                if (requestRole.equals(Constant.IDENTITY_OWNER)) {
-                    viewHolder.itemNameView.setText("您已申请改期验收至");
-                    viewHolder.itemAgreeText.setVisibility(View.GONE);
-                    viewHolder.itemRefuseText.setVisibility(View.GONE);
-                } else if (requestRole.equals(Constant.IDENTITY_DESIGNER)) {
-                    viewHolder.itemNameView.setText("您的设计师已申请改期验收至");
-                    viewHolder.itemAgreeText.setVisibility(View.GONE);
-                    viewHolder.itemRefuseText.setVisibility(View.GONE);
-                }
-            }
-        } else if (status.equals(Constant.YANQI_REFUSE)) {
-            viewHolder.itemAgressView.setText("改期拒绝");
-            if (userType.equals(Constant.IDENTITY_DESIGNER)) {
-                if (requestRole.equals(Constant.IDENTITY_OWNER)) {
-                    viewHolder.itemNameView.setText("您的业主已申请改期验收至");
-                    viewHolder.itemAgreeText.setVisibility(View.GONE);
-                    viewHolder.itemRefuseText.setVisibility(View.GONE);
-                } else if (requestRole.equals(Constant.IDENTITY_DESIGNER)) {
-                    viewHolder.itemNameView.setText("您已申请改期验收至");
-                    viewHolder.itemAgreeText.setVisibility(View.GONE);
-                    viewHolder.itemRefuseText.setVisibility(View.GONE);
-                }
-            } else if (userType.equals(Constant.IDENTITY_OWNER)) {
-                if (requestRole.equals(Constant.IDENTITY_OWNER)) {
-                    viewHolder.itemNameView.setText("您已申请改期验收至");
-                    viewHolder.itemAgreeText.setVisibility(View.GONE);
-                    viewHolder.itemRefuseText.setVisibility(View.GONE);
-                } else if (requestRole.equals(Constant.IDENTITY_DESIGNER)) {
-                    viewHolder.itemNameView.setText("您的设计师已申请改期验收至");
-                    viewHolder.itemAgreeText.setVisibility(View.GONE);
-                    viewHolder.itemRefuseText.setVisibility(View.GONE);
-                }
-            }
-        }
-        viewHolder.itemContentView.setText(DateFormatTool.longToString(info
-                .getNew_date()));
+        viewHolder.itemCellView.setText(info.getProcess().getCell());
         viewHolder.itemNodeView.setText(MyApplication.getInstance()
                 .getStringById(info.getSection()) + "阶段");
+        viewHolder.itemNewTimeView.setText("对方已申请改期验收至" + DateFormatTool.longToString(info.getNew_date()));
         viewHolder.itemPubTimeView.setText(DateFormatTool
                 .toLocalTimeString(info.getRequest_date()));
-        viewHolder.itemAgreeText.setOnClickListener(new OnClickListener() {
+        String status = info.getStatus();
+        if (status.equals(Constant.NO_START)) {
+            viewHolder.itemStatusView.setText("未开工");
+        } else if (status.equals(Constant.DOING)) {
+            viewHolder.itemStatusView.setText("进行中");
+        } else if (status.equals(Constant.FINISHED)) {
+            viewHolder.itemStatusView.setText("已完成");
+        } else if (status.equals(Constant.YANQI_BE_DOING)) {
+            viewHolder.itemStatusView.setText("未处理,点击前往处理");
+            viewHolder.itemStatusView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (null != listener) {
+                        listener.onClick(position);
+                    }
+                }
+            });
+        } else if (status.equals(Constant.YANQI_AGREE)) {
+            viewHolder.itemStatusView.setText("已同意");
+        } else if (status.equals(Constant.YANQI_REFUSE)) {
+            viewHolder.itemStatusView.setText("已拒绝");
+        }
 
-            @Override
-            public void onClick(View arg0) {
-                listener.onAgree();
-            }
-
-        });
-        viewHolder.itemRefuseText.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-                listener.onRefuse();
-            }
-
-        });
         return convertView;
     }
 
     private static class ViewHolder {
-        TextView itemNameView;// 延迟标题
-        TextView itemContentView;// 延迟内容
+        TextView itemCellView;
         TextView itemNodeView;// 延迟节点
+        TextView itemNewTimeView;// 延期时间
         TextView itemPubTimeView;// 发布时间
-        TextView itemAgressView;// 是否同意
-        TextView itemAgreeText;// 同意
-        TextView itemRefuseText;// 拒绝
+        TextView itemStatusView;
     }
 
     @Override

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/font_white"
-    android:descendantFocusability="blocksDescendants" >
+    android:descendantFocusability="blocksDescendants">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -11,87 +11,46 @@
         android:paddingBottom="@dimen/space_16"
         android:paddingLeft="@dimen/space_16"
         android:paddingRight="@dimen/space_16"
-        android:paddingTop="@dimen/space_16" >
+        android:paddingTop="@dimen/space_16">
 
         <TextView
-            android:id="@+id/list_item_tip_delay_name"
+            android:id="@+id/list_item_tip_cell_name"
             style="@style/listview_item_text_style_small"
-            android:text="@string/list_item_yanqi_example"
+            android:text="清江山水"
             android:textColor="@color/black_color" />
-
-        <TextView
-            android:id="@+id/list_item_tip_delay_status"
-            style="@style/listview_item_text_style_small"
-            android:layout_alignParentRight="true"
-            android:text="已同意"
-            android:textColor="@color/red_color" />
-
-        <TextView
-            android:id="@+id/list_item_tip_delay_content"
-            style="@style/listview_item_text_style_middle"
-            android:layout_below="@+id/list_item_tip_delay_name"
-            android:layout_marginBottom="@dimen/space_16"
-            android:layout_marginTop="@dimen/space_16"
-            android:text="@string/my_site_villagename_example"
-            android:textColor="@color/orange_color" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/list_item_tip_delay_name"
-            android:layout_marginBottom="@dimen/space_16"
-            android:layout_marginTop="@dimen/space_16"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:id="@+id/list_item_tip_delay_agree"
-                style="@style/dialog_button_ok"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10dip"
-                android:clickable="true"
-                android:focusable="false"
-                android:gravity="center"
-                android:paddingBottom="5dip"
-                android:paddingLeft="10dip"
-                android:paddingRight="10dip"
-                android:paddingTop="5dip"
-                android:text="@string/agree"
-                android:textColor="@color/font_white"
-                android:textSize="@dimen/text_size_11" />
-
-            <TextView
-                android:id="@+id/list_item_tip_delay_refuse"
-                style="@style/dialog_button_cancel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:focusable="false"
-                android:gravity="center"
-                android:paddingBottom="5dip"
-                android:paddingLeft="10dip"
-                android:paddingRight="10dip"
-                android:paddingTop="5dip"
-                android:text="@string/refuse"
-                android:textColor="@color/font_black"
-                android:textSize="@dimen/text_size_11" />
-        </LinearLayout>
 
         <TextView
             android:id="@+id/list_item_tip_delay_node"
             style="@style/listview_item_text_style_small"
-            android:layout_below="@+id/list_item_tip_delay_content"
-            android:text="@string/ower"
-            android:textColor="@color/grey_color" />
+            android:layout_alignBottom="@id/list_item_tip_cell_name"
+            android:layout_alignParentRight="true"
+            android:text="泥木阶段"
+            android:textColor="@color/main_color_grey" />
 
         <TextView
-            android:id="@+id/list_item_tip_time"
+            android:id="@+id/list_item_tip_delay_new_time"
             style="@style/listview_item_text_style_small"
-            android:layout_alignBottom="@+id/list_item_tip_delay_node"
+            android:layout_below="@id/list_item_tip_cell_name"
+            android:layout_marginBottom="@dimen/space_10"
+            android:layout_marginTop="@dimen/space_10"
+            android:text="@string/list_item_yanqi_example"
+            android:textColor="@color/black_color" />
+
+
+        <TextView
+            android:id="@+id/list_item_tip_delay_time"
+            style="@style/listview_item_text_style_small"
+            android:layout_below="@id/list_item_tip_delay_new_time"
+            android:text="2015-08-23"
+            android:textColor="@color/main_color_grey" />
+
+        <TextView
+            android:id="@+id/list_item_tip_delay_status"
+            style="@style/listview_item_text_style_small"
+            android:layout_alignBottom="@id/list_item_tip_delay_time"
             android:layout_alignParentRight="true"
-            android:text="@string/ower"
-            android:textColor="@color/grey_color" />
+            android:text="已同意"
+            android:textColor="@color/main_color_red" />
     </RelativeLayout>
 
 </RelativeLayout>
