@@ -33,7 +33,7 @@ public class SectionItemAdapterBack extends BaseAdapter {
     private ItemClickCallBack callBack = null;
     private int lastClickItem = -1;// 记录上次点击的位置
     private int currentClickItem = -1;// 记录当前点击位置
-    private SiteGridViewAdapter siteGridViewAdapter;
+    private SectionItemGridViewAdapter sectionItemGridViewAdapter;
     private String userType;
     private int section_status;// 节点的状态
     private SectionInfo sectionInfo;
@@ -442,8 +442,8 @@ public class SectionItemAdapterBack extends BaseAdapter {
      * @des 设置item里gridview的照片
      */
     private void setImageData(final List<String> imageUrlList, GridView gridView) {
-        siteGridViewAdapter = new SiteGridViewAdapter(context, imageUrlList);
-        gridView.setAdapter(siteGridViewAdapter);
+        sectionItemGridViewAdapter = new SectionItemGridViewAdapter(context, imageUrlList);
+        gridView.setAdapter(sectionItemGridViewAdapter);
         gridView.setOnItemClickListener(new OnItemClickListener() {
 
             @Override

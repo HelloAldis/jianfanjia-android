@@ -9,7 +9,6 @@ import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.GridItem;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
 import com.jianfanjia.cn.interf.UploadListener;
 
@@ -56,7 +55,7 @@ public class MyGridViewAdapter extends BaseListAdapter<GridItem> {
         String imgId = item.getImgId();
         if (position % 2 != 0) {
             if (imgId.equals(Constant.HOME_ADD_PIC)) {
-                imageLoader.displayImage(imgId, holder.img, options);
+                imageShow.displayLocalImage(imgId,holder.img);
                 if (!isCanDelete()) {
                     holder.img.setOnClickListener(new OnClickListener() {
 
@@ -73,8 +72,7 @@ public class MyGridViewAdapter extends BaseListAdapter<GridItem> {
                 }
                 holder.delete.setVisibility(View.GONE);
             } else {
-                imageLoader.displayImage(Url_New.GET_IMAGE + imgId, holder.img,
-                        options);
+                imageShow.displayImageHeadWidthThumnailImage(context, imgId, holder.img);
 
                 if (isCanDelete()) {
                     holder.delete.setVisibility(View.VISIBLE);
@@ -108,8 +106,7 @@ public class MyGridViewAdapter extends BaseListAdapter<GridItem> {
                     itemClickCallBack.click(position, Constant.IMG_ITEM);
                 }
             });
-            imageLoader.displayImage(imgId, holder.img, options);
-
+            imageShow.displayLocalImage(imgId, holder.img);
         }
 
 
@@ -122,15 +119,4 @@ public class MyGridViewAdapter extends BaseListAdapter<GridItem> {
         public TextView name_tv = null;
     }
 
-    @Override
-    public void loadSuccess(Object data) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void loadFailture(String errorMsg) {
-        // TODO Auto-generated method stub
-
-    }
 }

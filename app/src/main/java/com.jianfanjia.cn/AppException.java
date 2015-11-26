@@ -1,5 +1,18 @@
 package com.jianfanjia.cn;
 
+import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.os.Build;
+import android.os.Looper;
+import android.widget.Toast;
+
+import com.jianfanjia.cn.application.MyApplication;
+import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.tools.FileUtil;
+import com.jianfanjia.cn.tools.StringUtils;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -9,17 +22,6 @@ import java.lang.Thread.UncaughtExceptionHandler;
 import java.net.ConnectException;
 import java.net.SocketException;
 import java.net.UnknownHostException;
-import android.content.Context;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
-import android.os.Build;
-import android.os.Looper;
-import android.widget.Toast;
-import com.jianfanjia.cn.application.MyApplication;
-import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.tools.FileUtil;
-import com.jianfanjia.cn.tools.StringUtils;
 
 @SuppressWarnings("serial")
 public class AppException extends Exception implements UncaughtExceptionHandler {
@@ -168,7 +170,7 @@ public class AppException extends Exception implements UncaughtExceptionHandler 
 
 	private boolean saveToSDCard(Throwable ex) throws Exception {
 		boolean append = false;
-		File file = FileUtil.getSaveFile(Constant.ERROR_LOG_PATH);
+		File file = FileUtil.getSaveFile(Constant.ERROR_LOG_FILE);
 		if (System.currentTimeMillis() - file.lastModified() > 5000) {
 			append = true;
 		}

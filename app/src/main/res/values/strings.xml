@@ -204,9 +204,9 @@
     <string name="about">关于我们</string>
     <string name="about_my">关于简繁家</string>
     <string name="about_content">我的设计师专单平台</string>
-    <string name="about_version">版本号：1.0</string>
+    <string name="about_version">版本号：%1$s</string>
     <string name="company">武汉家易装科技有限公司</string>
-    <string name="compant_net">Copyright © 2015-2025 jianfanjia.com</string>
+    <string name="compant_net">Copyright © 2015 jianfanjia.com</string>
     <!-- activity_about -->
 
 

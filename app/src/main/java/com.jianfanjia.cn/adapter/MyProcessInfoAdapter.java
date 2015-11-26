@@ -1,26 +1,27 @@
 package com.jianfanjia.cn.adapter;
 
-import java.util.List;
 import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.bean.Process;
 import com.jianfanjia.cn.bean.User;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Url_New;
+
+import java.util.List;
 
 /**
- * @class DesignerSiteInfoAdapter
+ * @class MyProcessInfoAdapter
  * @author zhanghao
  * @date 2015-8-26 下午20:05
  * 
  */
-public class DesignerSiteInfoAdapter extends BaseListAdapter<Process> {
+public class MyProcessInfoAdapter extends BaseListAdapter<Process> {
 
-	public DesignerSiteInfoAdapter(Context context, List<Process> caigouList) {
+	public MyProcessInfoAdapter(Context context, List<Process> caigouList) {
 		super(context, caigouList);
 	}
 
@@ -61,11 +62,10 @@ public class DesignerSiteInfoAdapter extends BaseListAdapter<Process> {
 		viewHolder.itemVillageView.setText(designerSiteInfo.getCell());
 		String imageId = user.getImageid();
 		if (imageId != null) {
-			imageLoader.displayImage(Url_New.GET_IMAGE + imageId,
-					viewHolder.itemOwerHeadView, options);
+			imageShow.displayImageHeadWidthThumnailImage(context, imageId, viewHolder.itemOwerHeadView);
 		} else {
-			imageLoader.displayImage(Constant.DEFALUT_OWNER_PIC,
-					viewHolder.itemOwerHeadView, options);
+			imageShow.displayLocalImage(Constant.DEFALUT_OWNER_PIC,
+					viewHolder.itemOwerHeadView);
 		}
 
 		return convertView;
@@ -80,16 +80,6 @@ public class DesignerSiteInfoAdapter extends BaseListAdapter<Process> {
 		TextView itemCurrentView;// 是否是当前工地
 	}
 
-	@Override
-	public void loadSuccess(Object data) {
-		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	public void loadFailture(String errorMsg) {
-		// TODO Auto-generated method stub
-
-	}
 
 }

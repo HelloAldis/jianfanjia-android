@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.WindowManager;
-import com.jianfanjia.cn.AppConfig;
+
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.http.JianFanJiaClient;
@@ -32,13 +32,13 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		first = dataManager.isFirst();
 		isLogin = dataManager.isLogin();
-		isLoginExpire = AppConfig.getInstance(this).isLoginExpire();
+		isLoginExpire = dataManager.isLoginExpire();
 		LogTool.d(this.getClass().getName(), "first=" + first);
 	}
 
 	@Override
 	public void initView() {
-		handler.postDelayed(runnable, 3000);
+		handler.postDelayed(runnable, 2000);
 	}
 
 	@Override

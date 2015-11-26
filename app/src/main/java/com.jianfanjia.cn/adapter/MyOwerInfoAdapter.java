@@ -1,16 +1,17 @@
 package com.jianfanjia.cn.adapter;
 
-import java.util.List;
 import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.bean.Process;
 import com.jianfanjia.cn.bean.User;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Url_New;
+
+import java.util.List;
 
 /**
  * @class MyOwerInfoAdapter
@@ -51,10 +52,9 @@ public class MyOwerInfoAdapter extends BaseListAdapter<Process> {
 				.getStringById(info.getGoing_on()) + "阶段");
 		String imageId = user.getImageid();
 		if(imageId != null){
-			imageLoader.displayImage(Url_New.GET_IMAGE + imageId,
-					viewHolder.itemOwerHeadView, options);
+			imageShow.displayImageHeadWidthThumnailImage(context,imageId,viewHolder.itemOwerHeadView);
 		}else{
-			imageLoader.displayImage(Constant.DEFALUT_OWNER_PIC, viewHolder.itemOwerHeadView, options);
+			imageShow.displayLocalImage(Constant.DEFALUT_OWNER_PIC, viewHolder.itemOwerHeadView);
 		}
 		return convertView;
 	}
@@ -64,18 +64,6 @@ public class MyOwerInfoAdapter extends BaseListAdapter<Process> {
 		TextView itemAdressView;// 业主工地地址
 		TextView itemStageView;// 所处阶段
 		ImageView itemOwerHeadView;// 业主头像
-	}
-
-	@Override
-	public void loadSuccess(Object data) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void loadFailture(String errorMsg) {
-		// TODO Auto-generated method stub
-
 	}
 
 }

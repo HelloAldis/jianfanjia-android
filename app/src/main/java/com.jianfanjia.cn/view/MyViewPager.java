@@ -26,4 +26,19 @@ public class MyViewPager extends ViewPager {
 		return super.dispatchTouchEvent(ev);
 	}
 
+	/**
+	 * PHOTOVIEW 异常解决办法
+	 * @param ev
+	 * @return
+	 */
+	@Override
+	public boolean onInterceptTouchEvent(MotionEvent ev) {
+		try {
+			return super.onInterceptTouchEvent(ev);
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
 }

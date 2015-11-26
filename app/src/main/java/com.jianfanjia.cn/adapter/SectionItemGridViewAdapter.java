@@ -1,17 +1,20 @@
 package com.jianfanjia.cn.adapter;
 
-import java.util.List;
 import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Url_New;
+import com.jianfanjia.cn.config.Global;
 
-public class SiteGridViewAdapter extends BaseListAdapter<String> {
+import java.util.List;
 
-	public SiteGridViewAdapter(Context context, List<String> list) {
+public class SectionItemGridViewAdapter extends BaseListAdapter<String> {
+
+	public SectionItemGridViewAdapter(Context context, List<String> list) {
 		super(context, list);
 	}
 
@@ -29,10 +32,12 @@ public class SiteGridViewAdapter extends BaseListAdapter<String> {
 		}
 
 		if (imgUrl.equals(Constant.HOME_ADD_PIC)) {
-			imageLoader.displayImage(imgUrl, holder.img, options);
+//            imageLoader.displayImage(imgUrl, holder.img, options);
+			holder.img.setImageResource(R.drawable.btn_icon_home_add);
 		} else {
-			imageLoader.displayImage(Url_New.GET_IMAGE + imgUrl, holder.img,
-					options);
+			imageShow.displayThumbnailImage(imgUrl, holder.img, MyApplication.dip2px(context, Global.PIC_WIDTH_NODE));
+//            imageLoader.displayImage(Url_New.GET_THUMBNAIL_IMAGE.replace(Url_New.WIDTH, MyApplication.dip2px(context, Global.PIC_WIDTH_NODE) + "") + imgUrl, holder.img,
+//                    options);
 		}
 
 		return convertView;
@@ -43,15 +48,4 @@ public class SiteGridViewAdapter extends BaseListAdapter<String> {
 		public TextView name_tv = null;
 	}
 
-	@Override
-	public void loadSuccess(Object data) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void loadFailture(String errorMsg) {
-		// TODO Auto-generated method stub
-
-	}
 }

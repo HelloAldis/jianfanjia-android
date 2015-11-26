@@ -566,9 +566,9 @@ public class JianFanJiaClient {
         try {
             jsonParams.put("topicid", topicid);
             jsonParams.put("from", from);
+            jsonParams.put("limit", limit);
             jsonParams.put("section", section);
             jsonParams.put("item", item);
-            jsonParams.put("limit", limit);
             OkHttpClientManager.getInstance().getPostDelegate().postAsyn(getCommentsRequest, jsonParams.toString(), listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();

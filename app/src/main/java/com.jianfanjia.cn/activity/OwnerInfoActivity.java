@@ -7,12 +7,12 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.Process;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.User;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.tools.DateFormatTool;
 import com.jianfanjia.cn.tools.LogTool;
@@ -82,16 +82,13 @@ public class OwnerInfoActivity extends BaseActivity implements OnClickListener {
 		totalDateView = (TextView) findViewById(R.id.my_site_totaldate);
 		if (null != ownerInfo) {
 			// get_one_owner_info(ownerId);
-			imageLoader.displayImage(
-					ownerInfo.getImageid() != null ? Url_New.GET_IMAGE
-							+ ownerInfo.getImageid()
-							: Constant.DEFALUT_OWNER_PIC, ownerHeadView,
-					options);
-			imageLoader.displayImage(
-					ownerInfo.getImageid() != null ? Url_New.GET_IMAGE
-							+ ownerInfo.getImageid()
-							: Constant.DEFALUT_OWNER_PIC, bgView,
-					options);
+			if(TextUtils.isEmpty(ownerInfo.getImageid())){
+				imageShow.displayLocalImage(Constant.DEFALUT_OWNER_PIC, ownerHeadView);
+				imageShow.displayLocalImage(Constant.DEFALUT_OWNER_PIC, bgView);
+			}else{
+				imageShow.displayImageHeadWidthThumnailImage(this,ownerInfo.getImageid(),ownerHeadView);
+				imageShow.displayScreenWidthThumnailImage(this,ownerInfo.getImageid(),bgView);
+			}
 			if (!TextUtils.isEmpty(ownerInfo.getUsername())) {
 				ownerNameView.setText(ownerInfo.getUsername());
 			} else {

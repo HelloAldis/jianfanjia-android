@@ -44,7 +44,7 @@ public class ForgetPswActivity extends BaseAnnotationActivity {
     private String mPassword = null;// 密码
 
     @AfterViews
-    protected void initView(){
+    protected void afterView(){
         mEtForgetPswUserName.requestFocus();
     }
 

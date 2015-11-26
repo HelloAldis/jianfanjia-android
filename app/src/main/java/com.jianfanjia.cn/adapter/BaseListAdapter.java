@@ -1,17 +1,15 @@
 package com.jianfanjia.cn.adapter;
 
-import java.util.List;
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import com.jianfanjia.cn.activity.R;
+
 import com.jianfanjia.cn.cache.DataManagerNew;
-import com.jianfanjia.cn.interf.ApiUiUpdateListener;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
+import com.jianfanjia.cn.tools.ImageShow;
+
+import java.util.List;
 
 /**
  * 
@@ -22,26 +20,18 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  * 
  * @param <T>
  */
-public abstract class BaseListAdapter<T> extends BaseAdapter implements
-		ApiUiUpdateListener {
+public abstract class BaseListAdapter<T> extends BaseAdapter{
 	protected Context context;
 	protected LayoutInflater layoutInflater;
 	protected List<T> list;
-	protected ImageLoader imageLoader;
-	protected DisplayImageOptions options;
 	protected DataManagerNew dataManager;
+	protected ImageShow imageShow;
 
 	public BaseListAdapter(Context context, List<T> list) {
 		this.context = context;
 		this.list = list;
 		layoutInflater = LayoutInflater.from(context);
-		imageLoader = ImageLoader.getInstance();
-		options = new DisplayImageOptions.Builder()
-				.showImageOnLoading(R.drawable.pix_default)
-				.showImageForEmptyUri(R.drawable.pix_default)
-				.showImageOnFail(R.drawable.pix_default).cacheInMemory(true)
-				.cacheOnDisk(true).considerExifParams(true)
-				.bitmapConfig(Bitmap.Config.RGB_565).build();
+		imageShow = ImageShow.getImageShow();
 		dataManager = DataManagerNew.getInstance();
 	}
 
@@ -69,10 +59,10 @@ public abstract class BaseListAdapter<T> extends BaseAdapter implements
 		notifyDataSetChanged();
 	}
 
-	@Override
-	public void preLoad() {
-		// TODO Auto-generated method stub
-
+	public void addItem(T t, int index) {
+		if (list == null) return;
+		list.add(index, t);
+		notifyDataSetChanged();
 	}
 
 	@Override

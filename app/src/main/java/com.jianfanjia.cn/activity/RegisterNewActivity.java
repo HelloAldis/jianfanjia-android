@@ -52,7 +52,7 @@ public class RegisterNewActivity extends BaseAnnotationActivity implements
     int requsetCode;
 
     @AfterViews
-    public void initView() {
+    public void afterView() {
         Intent intent = getIntent();
         registerInfo = (RegisterInfo) intent.getSerializableExtra(Global.REGISTER_INFO);
         requsetCode = intent.getIntExtra(Global.REGISTER, 0);
@@ -132,8 +132,13 @@ public class RegisterNewActivity extends BaseAnnotationActivity implements
     public void loadSuccess(Object data) {
         //登录成功，加载首页
         super.loadSuccess(data);
-        startActivity(MainActivity.class);
-        finish();
+        if(requsetCode == REGISTER_CODE){
+            startActivity(MainActivity.class);
+            finish();
+        }else{
+            startActivity(LoginNewActivity_.class);
+            finish();
+        }
     }
 
     @Override

@@ -3,13 +3,13 @@ package com.jianfanjia.cn.application;
 import android.content.Context;
 import android.content.pm.PackageManager;
 
+import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseApplication;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.cache.DataCleanManager;
 import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.http.OkHttpClientManager;
 import com.jianfanjia.cn.http.cookie.PersistentCookieStore;
 import com.jianfanjia.cn.tools.JsonParser;
@@ -18,7 +18,6 @@ import com.jianfanjia.cn.tools.StringUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.squareup.okhttp.OkHttpClient;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.CookieManager;
@@ -40,8 +39,6 @@ public class MyApplication extends BaseApplication {
 	public void onCreate() {
 		super.onCreate();
 		instance = this;
-
-		saveDefaultProcess();// 加载默认的工地信息
 
 		cookieStore = new PersistentCookieStore(this);// 记录cookie
 		saveCookie(OkHttpClientManager.getInstance().client());
@@ -175,7 +172,7 @@ public class MyApplication extends BaseApplication {
 		// 清除数据缓存
 //		DataCleanManager.cleanInternalCache(this);
 		ImageLoader.getInstance().clearDiskCache();
-		DataCleanManager.deleteFilesByDirectory(new File(Constant.COMMON_PATH));
+//		DataCleanManager.deleteFilesByDirectory(new File(Constant.COMMON_PATH));
 		
 		//
 		// 2.2版本才有将应用缓存转移到sd卡的功能
@@ -186,7 +183,6 @@ public class MyApplication extends BaseApplication {
 
 	public void saveCookie(OkHttpClient client) {
 		client.setCookieHandler(new CookieManager(cookieStore, CookiePolicy.ACCEPT_ORIGINAL_SERVER));
-
 	}
 
 

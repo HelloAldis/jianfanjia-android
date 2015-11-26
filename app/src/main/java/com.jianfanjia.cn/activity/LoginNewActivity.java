@@ -104,7 +104,7 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
     }
 
     @AfterViews
-    public void initView() {
+    public void afterView() {
         controlKeyboardLayout(contentLayout, mBtnLogin);
 
         mGestureDetector = new GestureDetector(this, this);

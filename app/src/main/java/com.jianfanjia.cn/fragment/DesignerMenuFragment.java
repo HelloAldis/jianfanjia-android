@@ -57,12 +57,17 @@ public class DesignerMenuFragment extends BaseFragment {
 		if (!TextUtils.isEmpty(mUserName)) {
 			nameText.setText(mUserName);
 		} else {
-			nameText.setText("设计师");
+			nameText.setText(getString(R.string.designer));
 		}
 		if (!TextUtils.isEmpty(mAccount)) {
 			phoneText.setText("账号:" + mAccount);
 		}
-		imageLoader.displayImage(mUserImageId, img_head, options);
+		if(mUserImageId.contains(Constant.DEFALUT_PIC_HEAD)){
+			imageShow.displayLocalImage(mUserImageId,img_head);
+		}else{
+			imageShow.displayImageHeadWidthThumnailImage(getActivity(), mUserImageId, img_head);
+		}
+//		imageLoader.displayImage(mUserImageId, img_head, options);
 	}
 
 	@Override
