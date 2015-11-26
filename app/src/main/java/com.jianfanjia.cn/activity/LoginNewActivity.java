@@ -426,10 +426,62 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
 
     @Override
     public void loadSuccess(Object data) {
-        super.loadSuccess(data);
+//        super.loadSuccess(data);
         PushManager.getInstance().initialize(getApplicationContext());
-        startActivity(MainActivity.class);
-        finish();
+        //登录成功，加载工地列表
+        JianFanJiaClient.get_Process_List(this, new ApiUiUpdateListener() {
+
+            @Override
+            public void preLoad() {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void loadSuccess(Object data) {
+                // 工地列表刷新成功，加载用户默认工地
+                String processId = dataManager.getDefaultProcessId();
+                if (processId != null) {
+                    JianFanJiaClient.get_ProcessInfo_By_Id(LoginNewActivity.this, processId, new ApiUiUpdateListener() {
+
+                        @Override
+                        public void preLoad() {
+                            // TODO Auto-generated method stub
+
+                        }
+
+                        @Override
+                        public void loadSuccess(Object data) {
+                            // TODO Auto-generated method stub
+                            hideWaitDialog();
+                            startActivity(MainActivity.class);
+                            finish();
+                        }
+
+                        @Override
+                        public void loadFailture(String errorMsg) {
+                            // TODO Auto-generated method stub
+                            hideWaitDialog();
+                            makeTextLong(getString(R.string.tip_error_internet));
+                        }
+                    }, this);
+                } else {
+                    hideWaitDialog();
+                    startActivity(MainActivity.class);
+                    finish();
+                }
+            }
+
+            @Override
+            public void loadFailture(String errorMsg) {
+                // TODO Auto-generated method stub
+                hideWaitDialog();
+                makeTextLong(getString(R.string.tip_error_internet));
+            }
+        }, this);
+
+//        startActivity(MainActivity.class);
+//        finish();
     }
 
     @Override

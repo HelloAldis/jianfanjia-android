@@ -7,6 +7,7 @@ import com.jianfanjia.cn.base.BaseRequest;
 import com.jianfanjia.cn.bean.Process;
 import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.tools.JsonParser;
+import com.jianfanjia.cn.tools.LogTool;
 
 import java.util.List;
 
@@ -32,6 +33,7 @@ public class ProcessListRequest extends BaseRequest {
 					new TypeToken<List<Process>>() {
 					}.getType());
 			if(processLists != null){
+				LogTool.d(this.getClass().getName(),"processList  not null");
 				dataManager.setProcessLists(processLists);
 				dataManager.saveProcessLists(data.toString());
 			}
