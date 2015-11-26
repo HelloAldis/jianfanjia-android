@@ -49,8 +49,14 @@ public class CommentAdapter extends BaseListAdapter<CommentInfo> {
         }
         viewHolder.itemNameView.setText(commentInfo.getByUser().getUsername());
         viewHolder.itemContentView.setText(commentInfo.getContent());
-        viewHolder.itemIdentityView.setText(context
-                .getString(R.string.ower));
+        String userType = commentInfo.getUsertype();
+        if (userType.equals(Constant.IDENTITY_OWNER)) {
+            viewHolder.itemIdentityView.setText(context
+                    .getString(R.string.ower));
+        } else {
+            viewHolder.itemIdentityView.setText(context
+                    .getString(R.string.designer));
+        }
         viewHolder.itemTimeView.setText(StringUtils
                 .covertLongToString(commentInfo.getDate()));
         String imageid = commentInfo.getByUser().getImageid();

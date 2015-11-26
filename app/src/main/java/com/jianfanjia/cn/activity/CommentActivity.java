@@ -16,6 +16,7 @@ import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.Comment;
 import com.jianfanjia.cn.bean.CommentInfo;
 import com.jianfanjia.cn.bean.User;
+import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
@@ -177,7 +178,6 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
             hideWaitDialog();
             CommentInfo commentInfo = createCommentInfo(commentEdit.getEditableText().toString());
             commentAdapter.addItem(commentInfo, 0);
-            commentAdapter.notifyDataSetChanged();
             commentListView.setSelection(0);
             commentEdit.setText("");
             isUpdate = true;
@@ -197,6 +197,7 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
         commentInfo.setTopictype(topictype);
         commentInfo.setDate(Calendar.getInstance().getTimeInMillis());
         commentInfo.setContent(content);
+        commentInfo.setUsertype(Constant.IDENTITY_OWNER);
         User user = new User();
         user.setUsername(dataManager.getUserName());
         user.setImageid(dataManager.getUserImagePath());
