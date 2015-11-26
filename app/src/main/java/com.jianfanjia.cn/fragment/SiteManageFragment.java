@@ -202,13 +202,13 @@ public class SiteManageFragment extends BaseFragment implements
     public void onStop() {
         super.onStop();
         LogTool.d(TAG, "---onStop()-----");
+        listenerManeger.removeReceiveMsgListener(this);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         LogTool.d(TAG, "---onDestroy()--------");
-        listenerManeger.removeReceiveMsgListener(this);
     }
 
     private void initScrollLayout(View view) {
