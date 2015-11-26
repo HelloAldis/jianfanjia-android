@@ -7,6 +7,45 @@
     android:background="@color/site_content_bg"
     android:orientation="vertical">
 
+    <RelativeLayout
+        android:id="@+id/head_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_48"
+        android:background="@color/head_layout_bg">
+
+        <com.jianfanjia.cn.view.layout.CircleImageView
+            android:id="@+id/icon_head"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/space_8"
+            android:contentDescription="@null"
+            android:padding="@dimen/space_8"
+            android:src="@drawable/icon_home_default_user"
+            app:border_color="@color/white"
+            app:border_width="2px" />
+
+        <TextView
+            android:id="@+id/head_center_title"
+            style="@style/listview_item_text_style_big"
+            android:layout_centerInParent="true"
+            android:text="@string/my_site"
+            android:textColor="@color/font_white" />
+
+        <TextView
+            android:id="@+id/head_right_title"
+            style="@style/listview_item_text_style_middle"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/space_8"
+            android:textColor="@color/black_color" />
+
+        <View
+            android:id="@+id/head_divier"
+            style="@style/divier_line"
+            android:layout_alignParentBottom="true" />
+    </RelativeLayout>
+
     <com.jianfanjia.cn.view.library.PullToRefreshScrollView xmlns:ptr="http://schemas.android.com/apk/res-auto"
         android:id="@+id/pull_refresh_scrollview"
         android:layout_width="match_parent"
@@ -28,75 +67,14 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="130dp">
-
-                <include layout="@layout/viewpager_main" />
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@null"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/cover_home_banner" />
-
-                <LinearLayout
-                    android:id="@+id/viewGroup"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:gravity="center"
-                    android:orientation="horizontal" />
-
-                <RelativeLayout
-                    android:id="@+id/head_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/space_48"
-                    android:background="@color/transparent">
-
-                    <com.jianfanjia.cn.view.layout.CircleImageView
-                        android:id="@+id/icon_head"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="@dimen/space_8"
-                        android:contentDescription="@null"
-                        android:padding="@dimen/space_8"
-                        android:src="@drawable/icon_home_default_user"
-                        app:border_color="@color/white"
-                        app:border_width="2px" />
-
-                    <TextView
-                        android:id="@+id/head_center_title"
-                        style="@style/listview_item_text_style_big"
-                        android:layout_centerInParent="true"
-                        android:text="@string/my_site"
-                        android:textColor="@color/font_white" />
-
-                    <TextView
-                        android:id="@+id/head_right_title"
-                        style="@style/listview_item_text_style_middle"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="@dimen/space_8"
-                        android:textColor="@color/menu_item_font_color" />
-
-                    <View
-                        android:id="@+id/head_divier"
-                        style="@style/divier_line"
-                        android:layout_alignParentBottom="true"
-                        android:background="@color/light_white_color"
-                        android:visibility="gone" />
-                </RelativeLayout>
-            </FrameLayout>
-
             <com.jianfanjia.cn.view.MyViewPager
                 android:id="@+id/processViewPager"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
                 android:background="#ffffff"
                 android:fadingEdge="none" />
+
+            <View style="@style/divier_line" />
 
             <FrameLayout
                 android:layout_width="match_parent"

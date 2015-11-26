@@ -36,8 +36,8 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.http.request.AddPicToSectionItemRequest;
-import com.jianfanjia.cn.interf.ItemClickCallBack;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
+import com.jianfanjia.cn.interf.ItemClickCallBack;
 import com.jianfanjia.cn.interf.UploadImageListener;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.tools.DateFormatTool;
@@ -47,8 +47,6 @@ import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.NetTool;
 import com.jianfanjia.cn.tools.StringUtils;
 import com.jianfanjia.cn.tools.UiHelper;
-import com.jianfanjia.cn.tools.ViewPagerManager;
-import com.jianfanjia.cn.tools.ViewPagerManager.ShapeType;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DateWheelDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
@@ -93,10 +91,6 @@ public class SiteManageFragment extends BaseFragment implements
     private TextView titleCenter = null;
     private TextView titleRight = null;
     private ImageView titleImage = null;
-
-    private static final int BANNER_ICON[] = {R.drawable.bg_home_banner1,
-            R.drawable.bg_home_banner2, R.drawable.bg_home_banner3,
-            R.drawable.bg_home_banner4};
 
     private File mTmpFile = null;
 
@@ -146,7 +140,6 @@ public class SiteManageFragment extends BaseFragment implements
                 .findViewById(R.id.pull_refresh_scrollview);
         mPullRefreshScrollView.setMode(Mode.PULL_FROM_START);
         initMainHead(view);
-        initBannerView();
         initScrollLayout(view);
         initListView(view);
         initData();
@@ -198,19 +191,6 @@ public class SiteManageFragment extends BaseFragment implements
         if (currentList != -1) {
             dataManager.setCurrentList(currentList);
         }
-    }
-
-    private void initBannerView() {
-        ViewPagerManager contoler = new ViewPagerManager(getActivity());
-        contoler.setmShapeType(ShapeType.OVAL);// 设置指示器的形状为矩形，默认是圆形
-        List<View> bannerList = new ArrayList<View>();
-        for (int i = 0; i < BANNER_ICON.length; i++) {
-            ImageView imageView = new ImageView(getActivity());
-            imageView.setBackgroundResource(BANNER_ICON[i]);
-            bannerList.add(imageView);
-        }
-        contoler.init(bannerList);
-        contoler.setAutoSroll(true);
     }
 
     private void initScrollLayout(View view) {
@@ -464,7 +444,7 @@ public class SiteManageFragment extends BaseFragment implements
     @Override
     public void takecamera() {
         /*
-		 * Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+         * Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 		 * mTmpFile = FileUtil.createTmpFile(getActivity());
 		 * cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT,
 		 * Uri.fromFile(mTmpFile)); startActivityForResult(cameraIntent,
@@ -585,7 +565,7 @@ public class SiteManageFragment extends BaseFragment implements
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode != Activity.RESULT_OK){
+        if (resultCode != Activity.RESULT_OK) {
             return;
         }
         switch (requestCode) {
