@@ -60,7 +60,6 @@ public abstract class BaseActivity extends AppCompatActivity implements
     protected AppConfig appConfig;
     protected ImageShow imageShow;
 
-    protected String userIdentity = null;
     protected boolean isOpen = false;
 
     @Override
