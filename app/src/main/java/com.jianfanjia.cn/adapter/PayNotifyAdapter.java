@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
-import com.jianfanjia.cn.base.BaseResponse;
 import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.tools.DateFormatTool;
 
@@ -57,13 +56,13 @@ public class PayNotifyAdapter extends BaseListAdapter<NotifyMessage> {
 	}
 
 	@Override
-	public void loadSuccess(BaseResponse baseResponse) {
+	public void loadSuccess(Object data) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void loadFailture() {
+	public void loadFailture(String errorMsg) {
 		// TODO Auto-generated method stub
 
 	}

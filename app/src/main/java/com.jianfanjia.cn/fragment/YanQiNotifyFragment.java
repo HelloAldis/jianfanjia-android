@@ -9,10 +9,9 @@ import android.widget.ListView;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.DelayNotifyAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
-import com.jianfanjia.cn.base.BaseResponse;
 import com.jianfanjia.cn.bean.NotifyDelayInfo;
 import com.jianfanjia.cn.http.JianFanJiaClient;
-import com.jianfanjia.cn.interf.LoadDataListener;
+import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.SwitchFragmentListener;
 import com.jianfanjia.cn.tools.LogTool;
 
@@ -71,19 +70,19 @@ public class YanQiNotifyFragment extends BaseFragment implements
 
     // /用户获取我的改期提醒
     private void getRescheduleAll() {
-        JianFanJiaClient.rescheduleAll(getActivity(), new LoadDataListener() {
+        JianFanJiaClient.rescheduleAll(getActivity(), new ApiUiUpdateListener() {
             @Override
             public void preLoad() {
                 showWaitDialog();
             }
 
             @Override
-            public void loadSuccess(BaseResponse baseResponse) {
+            public void loadSuccess(Object data) {
                 hideWaitDialog();
             }
 
             @Override
-            public void loadFailture() {
+            public void loadFailture(String errorMsg) {
                 hideWaitDialog();
             }
         }, this);
@@ -91,19 +90,19 @@ public class YanQiNotifyFragment extends BaseFragment implements
 
     // 用户同意改期
     private void agreeReschedule(String processid) {
-        JianFanJiaClient.agreeReschedule(getActivity(), processid, new LoadDataListener() {
+        JianFanJiaClient.agreeReschedule(getActivity(), processid, new ApiUiUpdateListener() {
             @Override
             public void preLoad() {
 
             }
 
             @Override
-            public void loadSuccess(BaseResponse baseResponse) {
+            public void loadSuccess(Object data) {
 
             }
 
             @Override
-            public void loadFailture() {
+            public void loadFailture(String errorMsg) {
 
             }
         }, this);
@@ -111,19 +110,19 @@ public class YanQiNotifyFragment extends BaseFragment implements
 
     // 用户拒绝改期
     private void refuseReschedule(String processid) {
-        JianFanJiaClient.refuseReschedule(getActivity(), processid, new LoadDataListener() {
+        JianFanJiaClient.refuseReschedule(getActivity(), processid, new ApiUiUpdateListener() {
             @Override
             public void preLoad() {
 
             }
 
             @Override
-            public void loadSuccess(BaseResponse baseResponse) {
+            public void loadSuccess(Object data) {
 
             }
 
             @Override
-            public void loadFailture() {
+            public void loadFailture(String errorMsg) {
 
             }
         }, this);

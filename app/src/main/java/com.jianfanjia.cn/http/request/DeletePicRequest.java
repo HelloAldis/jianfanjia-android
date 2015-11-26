@@ -3,9 +3,8 @@ package com.jianfanjia.cn.http.request;
 import android.content.Context;
 
 import com.jianfanjia.cn.base.BaseRequest;
-import com.jianfanjia.cn.base.BaseResponse;
 import com.jianfanjia.cn.bean.ProcessInfo;
-import com.jianfanjia.cn.config.Url;
+import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.tools.LogTool;
 
 public class DeletePicRequest extends BaseRequest{
@@ -23,7 +22,7 @@ public class DeletePicRequest extends BaseRequest{
 		this.processId = processId;
 		this.section = section;
 		this.key = key;
-		url = Url.DELETE_YANSHOU_IMG_BY_DESIGNER;
+		url = Url_New.DELETE_YANSHOU_IMG_BY_DESIGNER;
 	}
 	
 	@Override
@@ -33,9 +32,9 @@ public class DeletePicRequest extends BaseRequest{
 	}
 	
 	@Override
-	public void onSuccess(BaseResponse baseResponse) {
+	public void onSuccess(Object data) {
 		// TODO Auto-generated method stub
-		if(baseResponse.getMsg() != null){
+		if(data.toString() != null){
 			ProcessInfo processInfo = dataManager.getDefaultProcessInfo();
 			if(processInfo != null){
 				LogTool.d(this.getClass().getName(), "processInfo != null");

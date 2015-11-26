@@ -3,7 +3,7 @@
     android:id="@+id/ownerinfoLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main_layout_bg" >
+    android:background="@color/main_layout_bg">
 
     <com.jianfanjia.cn.view.MainHeadView
         android:id="@+id/ownerinfo_head_layout"
@@ -15,13 +15,13 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_below="@+id/ownerinfo_head_layout"
-        android:layout_marginTop="@dimen/space_8" >
+        android:layout_marginTop="@dimen/space_8">
 
         <LinearLayout
             android:id="@+id/rootview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <View style="@style/divier_line" />
 
@@ -30,16 +30,16 @@
                 style="@style/my_list_item_layout_style"
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/space_16"
-                android:paddingTop="@dimen/space_16" >
+                android:paddingTop="@dimen/space_16">
 
                 <TextView
-                    style="@style/site_listview_item_text_style_middle"
+                    style="@style/listview_item_text_style_middle"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:text="@string/user_head"
-                    android:textColor="@color/main_color_black" />
+                    android:textColor="@color/black_color" />
 
-                <com.jianfanjia.cn.layout.CircleImageView
+                <com.jianfanjia.cn.view.layout.CircleImageView
                     android:id="@+id/head_icon"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
@@ -60,18 +60,18 @@
 
             <RelativeLayout
                 android:id="@+id/name_layout"
-                style="@style/my_list_item_layout_style" >
+                style="@style/my_list_item_layout_style">
 
                 <TextView
                     android:id="@+id/name"
-                    style="@style/site_listview_item_text_style_middle"
+                    style="@style/listview_item_text_style_middle"
                     android:layout_centerVertical="true"
                     android:text="@string/user_name"
-                    android:textColor="@color/main_color_black" />
+                    android:textColor="@color/black_color" />
 
                 <TextView
                     android:id="@+id/nameText"
-                    style="@style/site_listview_item_text_style_small"
+                    style="@style/listview_item_text_style_small"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/space_48"
                     android:layout_marginRight="@dimen/space_8"
@@ -80,7 +80,7 @@
                     android:ellipsize="end"
                     android:gravity="right"
                     android:singleLine="true"
-                    android:textColor="@color/main_color_black" />
+                    android:textColor="@color/black_color" />
 
                 <ImageView
                     android:id="@+id/name_goto"
@@ -94,21 +94,21 @@
 
             <RelativeLayout
                 android:id="@+id/sex_layout"
-                style="@style/my_list_item_layout_style" >
+                style="@style/my_list_item_layout_style">
 
                 <TextView
-                    style="@style/site_listview_item_text_style_middle"
+                    style="@style/listview_item_text_style_middle"
                     android:layout_centerVertical="true"
                     android:text="@string/user_sex"
-                    android:textColor="@color/main_color_black" />
+                    android:textColor="@color/black_color" />
 
                 <TextView
                     android:id="@+id/sexText"
-                    style="@style/site_listview_item_text_style_small"
+                    style="@style/listview_item_text_style_small"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/space_8"
                     android:layout_toLeftOf="@+id/sex_goto"
-                    android:textColor="@color/main_color_black" />
+                    android:textColor="@color/black_color" />
 
                 <ImageView
                     android:id="@+id/sex_goto"
@@ -122,49 +122,50 @@
 
             <RelativeLayout
                 android:id="@+id/phone_layout"
-                style="@style/my_list_item_layout_style" >
+                style="@style/my_list_item_layout_style">
 
                 <TextView
-                    style="@style/site_listview_item_text_style_middle"
+                    style="@style/listview_item_text_style_middle"
                     android:layout_centerVertical="true"
                     android:text="@string/user_phone"
-                    android:textColor="@color/main_color_black" />
+                    android:textColor="@color/black_color" />
 
                 <TextView
                     android:id="@+id/phoneText"
-                    style="@style/site_listview_item_text_style_small"
+                    style="@style/listview_item_text_style_small"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/space_8"
                     android:layout_toLeftOf="@+id/phone_goto"
-                    android:textColor="@color/main_color_black" />
+                    android:textColor="@color/black_color" />
 
                 <ImageView
                     android:id="@+id/phone_goto"
                     style="@style/my_item_layout_image_style"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:contentDescription="@null" />
+                    android:contentDescription="@null"
+                    android:visibility="invisible" />
             </RelativeLayout>
 
             <View style="@style/divier_line" />
 
             <RelativeLayout
                 android:id="@+id/address_layout"
-                style="@style/my_list_item_layout_style" >
+                style="@style/my_list_item_layout_style">
 
                 <TextView
-                    style="@style/site_listview_item_text_style_middle"
+                    style="@style/listview_item_text_style_middle"
                     android:layout_centerVertical="true"
                     android:text="@string/user_address"
-                    android:textColor="@color/main_color_black" />
+                    android:textColor="@color/black_color" />
 
                 <TextView
                     android:id="@+id/addressText"
-                    style="@style/site_listview_item_text_style_small"
+                    style="@style/listview_item_text_style_small"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/space_8"
                     android:layout_toLeftOf="@+id/address_goto"
-                    android:textColor="@color/main_color_black" />
+                    android:textColor="@color/black_color" />
 
                 <ImageView
                     android:id="@+id/address_goto"
@@ -178,18 +179,18 @@
 
             <RelativeLayout
                 android:id="@+id/home_layout"
-                style="@style/my_list_item_layout_style" >
+                style="@style/my_list_item_layout_style">
 
                 <TextView
                     android:id="@+id/home"
-                    style="@style/site_listview_item_text_style_middle"
+                    style="@style/listview_item_text_style_middle"
                     android:layout_centerVertical="true"
                     android:text="@string/user_home"
-                    android:textColor="@color/main_color_black" />
+                    android:textColor="@color/black_color" />
 
                 <TextView
                     android:id="@+id/homeText"
-                    style="@style/site_listview_item_text_style_small"
+                    style="@style/listview_item_text_style_small"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/space_48"
                     android:layout_marginRight="@dimen/space_8"
@@ -198,7 +199,7 @@
                     android:ellipsize="end"
                     android:gravity="right"
                     android:singleLine="true"
-                    android:textColor="@color/main_color_black" />
+                    android:textColor="@color/black_color" />
 
                 <ImageView
                     android:id="@+id/home_goto"
@@ -214,16 +215,19 @@
                 android:id="@+id/btn_confirm"
                 style="@style/button_login_style"
                 android:layout_margin="@dimen/space_24"
-                android:text="@string/comfirm" />
+                android:text="@string/confirm"
+                android:visibility="gone"/>
         </LinearLayout>
+
     </ScrollView>
 
     <include
-        android:id="@+id/error_view"
+        android:id="@+id/error_include"
+        layout="@layout/view_error_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/ownerinfo_head_layout"
-        android:layout_marginTop="@dimen/space_8"
-        layout="@layout/view_error_layout" />
+        android:layout_gravity="center"
+        android:visibility="gone" />
 
 </RelativeLayout>

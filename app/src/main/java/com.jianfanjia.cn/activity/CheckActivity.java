@@ -16,7 +16,6 @@ import android.widget.TextView;
 import com.jianfanjia.cn.adapter.MyGridViewAdapter;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.base.BaseResponse;
 import com.jianfanjia.cn.bean.CheckInfo.Imageid;
 import com.jianfanjia.cn.bean.GridItem;
 import com.jianfanjia.cn.bean.ProcessInfo;
@@ -24,7 +23,7 @@ import com.jianfanjia.cn.cache.BusinessManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
-import com.jianfanjia.cn.interf.LoadDataListener;
+import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.UploadListener;
 import com.jianfanjia.cn.tools.ImageUtil;
 import com.jianfanjia.cn.tools.ImageUtils;
@@ -100,7 +99,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 
     private void loadCurrentProcess() {
         JianFanJiaClient.get_ProcessInfo_By_Id(this, dataManager.getDefaultProcessId(),
-                new LoadDataListener() {
+                new ApiUiUpdateListener() {
 
                     @Override
                     public void preLoad() {
@@ -108,13 +107,13 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
                     }
 
                     @Override
-                    public void loadSuccess(BaseResponse baseResponse) {
+                    public void loadSuccess(Object data) {
                         hideWaitDialog();
                         initProcessInfo();
                     }
 
                     @Override
-                    public void loadFailture() {
+                    public void loadFailture(String errorMsg) {
                         hideWaitDialog();
                         initProcessInfo();
                     }
@@ -290,8 +289,8 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
     }
 
     @Override
-    public void loadSuccess(BaseResponse baseResponse) {
-        super.loadSuccess(baseResponse);
+    public void loadSuccess(Object data) {
+        super.loadSuccess(data);
         initList();
         changeEditStatus();
     }
@@ -345,7 +344,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
     private void uploadImage(String imagePath) {
         Bitmap imageBitmap = ImageUtil.getImage(imagePath);
         if (null != imageBitmap) {
-            JianFanJiaClient.uploadImage(this, imageBitmap, new LoadDataListener() {
+            JianFanJiaClient.uploadImage(this, imageBitmap, new ApiUiUpdateListener() {
 
                 @Override
                 public void preLoad() {
@@ -353,9 +352,9 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
                 }
 
                 @Override
-                public void loadSuccess(BaseResponse baseResponse) {
+                public void loadSuccess(Object data) {
                     JianFanJiaClient.submitYanShouImage(CheckActivity.this, processInfoId, sectionInfoName,
-                            key, dataManager.getCurrentUploadImageId(), new LoadDataListener() {
+                            key, dataManager.getCurrentUploadImageId(), new ApiUiUpdateListener() {
 
                                 @Override
                                 public void preLoad() {
@@ -365,14 +364,14 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
                                 }
 
                                 @Override
-                                public void loadSuccess(BaseResponse baseResponse) {
+                                public void loadSuccess(Object data) {
                                     hideWaitDialog();
                                     initList();
                                     adapter.notifyDataSetChanged();
                                 }
 
                                 @Override
-                                public void loadFailture() {
+                                public void loadFailture(String errorMsg) {
                                     hideWaitDialog();
                                     makeTextLong(getString(R.string.tip_error_internet));
                                 }
@@ -380,7 +379,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
                 }
 
                 @Override
-                public void loadFailture() {
+                public void loadFailture(String errorMsg) {
                     hideWaitDialog();
                     makeTextLong(getString(R.string.tip_error_internet));
                 }
@@ -409,19 +408,19 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 
     // 设计师确认可以开始验收
     private void confirmCanCheckByDesigner(String processid, String section) {
-        JianFanJiaClient.confirm_canCheckBydesigner(this, processid, section, new LoadDataListener() {
+        JianFanJiaClient.confirm_canCheckBydesigner(this, processid, section, new ApiUiUpdateListener() {
             @Override
             public void preLoad() {
 
             }
 
             @Override
-            public void loadSuccess(BaseResponse baseResponse) {
+            public void loadSuccess(Object data) {
                 btn_confirm.setEnabled(false);
             }
 
             @Override
-            public void loadFailture() {
+            public void loadFailture(String errorMsg) {
 
             }
         }, this);

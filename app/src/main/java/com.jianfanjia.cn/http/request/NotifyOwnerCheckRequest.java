@@ -3,8 +3,7 @@ package com.jianfanjia.cn.http.request;
 import android.content.Context;
 
 import com.jianfanjia.cn.base.BaseRequest;
-import com.jianfanjia.cn.base.BaseResponse;
-import com.jianfanjia.cn.config.Url;
+import com.jianfanjia.cn.config.Url_New;
 
 /**
  * Created by Administrator on 2015/10/12.
@@ -12,11 +11,11 @@ import com.jianfanjia.cn.config.Url;
 public class NotifyOwnerCheckRequest extends BaseRequest{
     public NotifyOwnerCheckRequest(Context context) {
         super(context);
-        url = Url.CONFIRM_CHECK_BY_DESIGNER;
+        url = Url_New.CONFIRM_CHECK_BY_DESIGNER;
     }
 
     @Override
-    public void onSuccess(BaseResponse baseResponse) {
-        super.onSuccess(baseResponse);
+    public void onSuccess(Object data) {
+        super.onSuccess(data);
     }
 }

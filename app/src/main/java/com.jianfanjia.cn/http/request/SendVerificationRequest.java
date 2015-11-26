@@ -4,14 +4,13 @@ import android.content.Context;
 
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseRequest;
-import com.jianfanjia.cn.base.BaseResponse;
-import com.jianfanjia.cn.config.Url;
+import com.jianfanjia.cn.config.Url_New;
 
 public class SendVerificationRequest extends BaseRequest {
 
 	public SendVerificationRequest(Context context) {
 		super(context);
-		url = Url.GET_CODE_URL;
+		url = Url_New.GET_CODE_URL;
 	}
 
 	@Override
@@ -28,8 +27,8 @@ public class SendVerificationRequest extends BaseRequest {
 	}
 
 	@Override
-	public void onSuccess(BaseResponse baseResponse) {
-		if (baseResponse.getMsg() != null) {
+	public void onSuccess(Object data) {
+		if (data.toString() != null) {
 			dataManager.setLogin(false);
 			dataManager.cleanData();
 			MyApplication.getInstance().clearCookie();

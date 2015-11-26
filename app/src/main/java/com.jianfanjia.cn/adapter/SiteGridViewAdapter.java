@@ -6,9 +6,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.base.BaseResponse;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Url;
+import com.jianfanjia.cn.config.Url_New;
 
 public class SiteGridViewAdapter extends BaseListAdapter<String> {
 
@@ -32,7 +31,7 @@ public class SiteGridViewAdapter extends BaseListAdapter<String> {
 		if (imgUrl.equals(Constant.HOME_ADD_PIC)) {
 			imageLoader.displayImage(imgUrl, holder.img, options);
 		} else {
-			imageLoader.displayImage(Url.GET_IMAGE + imgUrl, holder.img,
+			imageLoader.displayImage(Url_New.GET_IMAGE + imgUrl, holder.img,
 					options);
 		}
 
@@ -45,13 +44,13 @@ public class SiteGridViewAdapter extends BaseListAdapter<String> {
 	}
 
 	@Override
-	public void loadSuccess(BaseResponse baseResponse) {
+	public void loadSuccess(Object data) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void loadFailture() {
+	public void loadFailture(String errorMsg) {
 		// TODO Auto-generated method stub
 
 	}

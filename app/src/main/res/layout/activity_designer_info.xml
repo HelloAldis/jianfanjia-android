@@ -34,13 +34,13 @@
                 android:paddingTop="@dimen/space_16" >
 
                 <TextView
-                    style="@style/site_listview_item_text_style_middle"
+                    style="@style/listview_item_text_style_middle"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:text="@string/user_head"
-                    android:textColor="@color/main_color_black" />
+                    android:textColor="@color/black_color" />
 
-                <com.jianfanjia.cn.layout.CircleImageView
+                <com.jianfanjia.cn.view.layout.CircleImageView
                     android:id="@+id/head_icon"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
@@ -65,14 +65,14 @@
 
                 <TextView
                     android:id="@+id/name"
-                    style="@style/site_listview_item_text_style_middle"
+                    style="@style/listview_item_text_style_middle"
                     android:layout_centerVertical="true"
                     android:text="@string/user_name"
-                    android:textColor="@color/main_color_black" />
+                    android:textColor="@color/black_color" />
 
                 <TextView
                     android:id="@+id/nameText"
-                    style="@style/site_listview_item_text_style_small"
+                    style="@style/listview_item_text_style_small"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/space_48"
                     android:layout_marginRight="@dimen/space_8"
@@ -81,7 +81,7 @@
                     android:ellipsize="end"
                     android:gravity="right"
                     android:singleLine="true"
-                    android:textColor="@color/main_color_black" />
+                    android:textColor="@color/black_color" />
 
                 <ImageView
                     android:id="@+id/name_goto"
@@ -98,18 +98,18 @@
                 style="@style/my_list_item_layout_style" >
 
                 <TextView
-                    style="@style/site_listview_item_text_style_middle"
+                    style="@style/listview_item_text_style_middle"
                     android:layout_centerVertical="true"
                     android:text="@string/user_sex"
-                    android:textColor="@color/main_color_black" />
+                    android:textColor="@color/black_color" />
 
                 <TextView
                     android:id="@+id/sexText"
-                    style="@style/site_listview_item_text_style_small"
+                    style="@style/listview_item_text_style_small"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/space_8"
                     android:layout_toLeftOf="@+id/sex_goto"
-                    android:textColor="@color/main_color_black" />
+                    android:textColor="@color/black_color" />
 
                 <ImageView
                     android:id="@+id/sex_goto"
@@ -126,18 +126,18 @@
                 style="@style/my_list_item_layout_style" >
 
                 <TextView
-                    style="@style/site_listview_item_text_style_middle"
+                    style="@style/listview_item_text_style_middle"
                     android:layout_centerVertical="true"
                     android:text="@string/user_phone"
-                    android:textColor="@color/main_color_black" />
+                    android:textColor="@color/black_color" />
 
                 <TextView
                     android:id="@+id/phoneText"
-                    style="@style/site_listview_item_text_style_small"
+                    style="@style/listview_item_text_style_small"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/space_8"
                     android:layout_toLeftOf="@+id/phone_goto"
-                    android:textColor="@color/main_color_black" />
+                    android:textColor="@color/black_color" />
 
                 <ImageView
                     android:id="@+id/phone_goto"
@@ -154,18 +154,18 @@
                 style="@style/my_list_item_layout_style" >
 
                 <TextView
-                    style="@style/site_listview_item_text_style_middle"
+                    style="@style/listview_item_text_style_middle"
                     android:layout_centerVertical="true"
                     android:text="@string/user_address"
-                    android:textColor="@color/main_color_black" />
+                    android:textColor="@color/black_color" />
 
                 <TextView
                     android:id="@+id/addressText"
-                    style="@style/site_listview_item_text_style_small"
+                    style="@style/listview_item_text_style_small"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/space_8"
                     android:layout_toLeftOf="@+id/address_goto"
-                    android:textColor="@color/main_color_black" />
+                    android:textColor="@color/black_color" />
 
                 <ImageView
                     android:id="@+id/address_goto"
@@ -183,14 +183,14 @@
 
                 <TextView
                     android:id="@+id/home"
-                    style="@style/site_listview_item_text_style_middle"
+                    style="@style/listview_item_text_style_middle"
                     android:layout_centerVertical="true"
                     android:text="@string/user_home"
-                    android:textColor="@color/main_color_black" />
+                    android:textColor="@color/black_color" />
 
                 <TextView
                     android:id="@+id/homeText"
-                    style="@style/site_listview_item_text_style_small"
+                    style="@style/listview_item_text_style_small"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/space_48"
                     android:layout_marginRight="@dimen/space_8"
@@ -199,7 +199,7 @@
                     android:ellipsize="end"
                     android:gravity="right"
                     android:singleLine="true"
-                    android:textColor="@color/main_color_black" />
+                    android:textColor="@color/black_color" />
 
                 <ImageView
                     android:id="@+id/home_goto"

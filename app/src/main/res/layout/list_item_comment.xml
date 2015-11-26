@@ -14,15 +14,15 @@
 
         <TextView
             android:id="@+id/list_item_comment_pubtime"
-            style="@style/site_listview_item_text_style_small"
+            style="@style/listview_item_text_style_small"
             android:layout_alignBaseline="@+id/list_item_comment_username"
             android:layout_alignParentRight="true"
             android:text="@string/list_item_comment_pubtime_example"
-            android:textColor="@color/main_color_grey" />
+            android:textColor="@color/grey_color" />
 
         <TextView
             android:id="@+id/list_item_comment_content"
-            style="@style/site_listview_item_text_style_small"
+            style="@style/listview_item_text_style_small"
             android:layout_below="@+id/list_item_comment_username"
             android:layout_marginLeft="@dimen/space_8"
             android:layout_marginTop="@dimen/space_8"
@@ -31,11 +31,11 @@
             android:layout_marginRight="@dimen/space_8"
             android:text="@string/my_site_villagename_example"
             android:gravity="left"
-            android:textColor="@color/main_color_grey" />
+            android:textColor="@color/grey_color" />
 
         <TextView
             android:id="@+id/list_item_comment_userrole"
-            style="@style/site_listview_item_text_style_small"
+            style="@style/listview_item_text_style_small"
             android:layout_alignBaseline="@+id/list_item_comment_username"
             android:layout_marginLeft="@dimen/space_8"
             android:layout_toRightOf="@+id/list_item_comment_username"
@@ -44,13 +44,13 @@
 
         <TextView
             android:id="@+id/list_item_comment_username"
-            style="@style/site_listview_item_text_style_middle"
+            style="@style/listview_item_text_style_middle"
             android:layout_marginLeft="@dimen/space_8"
             android:layout_toRightOf="@+id/list_item_comment_userhead"
             android:text="@string/my_example_name"
-            android:textColor="@color/main_color_black" />
+            android:textColor="@color/black_color" />
 
-        <com.jianfanjia.cn.layout.CircleImageView
+        <com.jianfanjia.cn.view.layout.CircleImageView
             android:id="@+id/list_item_comment_userhead"
             android:layout_width="68dp"
             android:layout_height="68dp"

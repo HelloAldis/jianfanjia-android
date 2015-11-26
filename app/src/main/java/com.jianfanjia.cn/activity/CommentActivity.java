@@ -11,12 +11,11 @@ import android.widget.ListView;
 
 import com.jianfanjia.cn.adapter.CommentAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.base.BaseResponse;
 import com.jianfanjia.cn.bean.Comment;
 import com.jianfanjia.cn.bean.CommentInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaClient;
-import com.jianfanjia.cn.interf.LoadDataListener;
+import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
@@ -101,17 +100,17 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
         JianFanJiaClient.getCommentList(CommentActivity.this, topicid, from, limit, section, item, getCommentListener, this);
     }
 
-    private LoadDataListener getCommentListener = new LoadDataListener() {
+    private ApiUiUpdateListener getCommentListener = new ApiUiUpdateListener() {
         @Override
         public void preLoad() {
             showWaitDialog(R.string.loading);
         }
 
         @Override
-        public void loadSuccess(BaseResponse data) {
-            LogTool.d(TAG, "data:" + data.getData());
+        public void loadSuccess(Object data) {
+            LogTool.d(TAG, "data:" + data.toString());
             hideWaitDialog();
-            Comment comment = JsonParser.jsonToBean(data.getData().toString(), Comment.class);
+            Comment comment = JsonParser.jsonToBean(data.toString(), Comment.class);
             LogTool.d(TAG, "comment:" + comment);
             if (null != comment) {
                 commentList = comment.getComments();
@@ -123,7 +122,7 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
         }
 
         @Override
-        public void loadFailture() {
+        public void loadFailture(String errorMsg) {
             makeTextLong(getString(R.string.tip_error_internet));
             hideWaitDialog();
         }
@@ -134,14 +133,14 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
         JianFanJiaClient.addComment(CommentActivity.this, topicid, topictype, section, item, content, to, addCommentListener, this);
     }
 
-    private LoadDataListener addCommentListener = new LoadDataListener() {
+    private ApiUiUpdateListener addCommentListener = new ApiUiUpdateListener() {
         @Override
         public void preLoad() {
             showWaitDialog(R.string.submiting);
         }
 
         @Override
-        public void loadSuccess(BaseResponse data) {
+        public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data.toString());
             hideWaitDialog();
             commentEdit.setText("");
@@ -149,7 +148,7 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
         }
 
         @Override
-        public void loadFailture() {
+        public void loadFailture(String errorMsg) {
             makeTextLong(getString(R.string.tip_error_internet));
             hideWaitDialog();
         }

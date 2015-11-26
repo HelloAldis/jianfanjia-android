@@ -53,6 +53,7 @@
     <!-- common space -->
     <dimen name="space_150">150.0dip</dimen>
     <dimen name="space_100">100.0dip</dimen>
+    <dimen name="space_70">70dp</dimen>
     <dimen name="space_60">60dp</dimen>
     <dimen name="space_49">49dip</dimen>
     <dimen name="space_48">48dip</dimen>
@@ -87,5 +88,10 @@
     <dimen name="space_3">3.0dip</dimen>
     <dimen name="space_2">2.0dip</dimen>
     <dimen name="space_1">1.0dip</dimen>
+
+    <dimen name="title_size">24sp</dimen>
+    <dimen name="big_size">17sp</dimen>
+    <dimen name="middle_size">14sp</dimen>
+    <dimen name="small_size">12sp</dimen>
 
 </resources>

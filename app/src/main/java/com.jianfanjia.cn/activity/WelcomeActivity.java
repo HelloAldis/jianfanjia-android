@@ -7,9 +7,8 @@ import android.view.WindowManager;
 import com.jianfanjia.cn.AppConfig;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.base.BaseResponse;
 import com.jianfanjia.cn.http.JianFanJiaClient;
-import com.jianfanjia.cn.interf.LoadDataListener;
+import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.LogTool;
 
 /**
@@ -20,7 +19,7 @@ import com.jianfanjia.cn.tools.LogTool;
  * @date 2015-8-29 上午9:30:21
  * 
  */
-public class WelcomeActivity extends BaseActivity implements LoadDataListener {
+public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener {
 	private Handler handler = new Handler();
 	private boolean first;// 用于判断导航界面是否显示
 	private boolean isLoginExpire;// 是否登录过去
@@ -49,15 +48,15 @@ public class WelcomeActivity extends BaseActivity implements LoadDataListener {
 	}
 
 	@Override
-	public void loadSuccess(BaseResponse baseResponse) {
-		super.loadSuccess(baseResponse);
+	public void loadSuccess(Object data) {
+		super.loadSuccess(data);
 		startActivity(MainActivity.class);
 		finish();
 	}
 
 	@Override
-	public void loadFailture() {
-		startActivity(LoginActivity.class);
+	public void loadFailture(String errorMsg) {
+		startActivity(LoginNewActivity_.class);
 		finish();
 	}
 
@@ -68,7 +67,7 @@ public class WelcomeActivity extends BaseActivity implements LoadDataListener {
 			if (!first) {
 				if (!isLogin) {
 					Log.i(this.getClass().getName(), "没有登录");
-					startActivity(LoginActivity.class);
+					startActivity(LoginNewActivity_.class);
 					finish();
 				} else {
 					if (!isLoginExpire) {// 登录未过期，添加cookies到httpclient记录身份

@@ -1,25 +1,22 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_loading_720" >
+     >
 
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="96dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:contentDescription="@null"
-        android:src="@drawable/logo_loading" />
+        android:scaleType="fitXY"
+        android:src="@mipmap/bg_welcome" />
 
     <TextView
-        style="@style/site_listview_item_text_style_middle"
+        style="@style/listview_item_text_style_middle"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="@dimen/space_16"
         android:text="@string/jianfanjia_net"
-        android:textColor="@color/main_color_grey" />
+        android:textColor="@color/grey_color" />
 
 </RelativeLayout>

@@ -1,4 +1,4 @@
-package com.jianfanjia.cn.layout;
+package com.jianfanjia.cn.view.layout;
 
 import java.util.ArrayDeque;
 import java.util.Deque;

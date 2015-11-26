@@ -3,7 +3,6 @@ package com.jianfanjia.cn.http.request;
 import android.content.Context;
 
 import com.jianfanjia.cn.base.BaseRequest;
-import com.jianfanjia.cn.base.BaseResponse;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.tools.JsonParser;
@@ -31,11 +30,10 @@ public class PostRequirementRequest extends BaseRequest {
 	}
 
 	@Override
-	public void onSuccess(BaseResponse baseResponse) {
-		String data = baseResponse.getData().toString();
-		if(data != null){
+	public void onSuccess(Object data) {
+		if(data.toString() != null){
 			ProcessInfo processInfo = JsonParser
-					.jsonToBean(data, ProcessInfo.class);
+					.jsonToBean(data.toString(), ProcessInfo.class);
 			if(processInfo != null){
 				dataManager.saveProcessInfo(processInfo);
 				dataManager.setCurrentProcessInfo(processInfo);

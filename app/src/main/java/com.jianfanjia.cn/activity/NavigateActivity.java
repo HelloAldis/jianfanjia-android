@@ -1,7 +1,6 @@
 package com.jianfanjia.cn.activity;
 
-import java.util.ArrayList;
-import java.util.List;
+import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View;
@@ -9,8 +8,13 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+
 import com.jianfanjia.cn.adapter.ViewPageAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.config.Global;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 
@@ -44,6 +48,7 @@ public class NavigateActivity extends BaseActivity implements OnClickListener,
 		for (int i = 0; i < imgId.length; i++) {
 			ImageView view = new ImageView(this);
 			view.setImageResource(imgId[i]);
+			view.setScaleType(ImageView.ScaleType.FIT_XY);
 			list.add(view);
 		}
 		adapter = new ViewPageAdapter(NavigateActivity.this, list);
@@ -62,20 +67,18 @@ public class NavigateActivity extends BaseActivity implements OnClickListener,
 	public void onClick(View v) {
 		dataManager.setFisrt(false);
 		switch (v.getId()) {
-		case R.id.btn_welcome_off:
-			startActivity(LoginActivity.class);
-			finish();
-			break;
-		case R.id.btnRegister:
-			startActivity(RegisterActivity.class);
-			finish();
-			break;
-		case R.id.btnLogin:
-			startActivity(LoginActivity.class);
-			finish();
-			break;
-		default:
-			break;
+			case R.id.btnRegister:
+				Bundle bundle = new Bundle();
+				bundle.putBoolean(Global.ISREGIISTER, true);
+				startActivity(LoginNewActivity_.class, bundle);
+				finish();
+				break;
+			case R.id.btnLogin:
+				startActivity(LoginNewActivity_.class);
+				finish();
+				break;
+			default:
+				break;
 		}
 	}
 

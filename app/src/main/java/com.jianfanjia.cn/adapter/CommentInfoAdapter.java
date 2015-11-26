@@ -7,7 +7,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.base.BaseResponse;
 import com.jianfanjia.cn.bean.CommentInfo;
 import com.jianfanjia.cn.tools.StringUtils;
 
@@ -69,7 +68,7 @@ public class CommentInfoAdapter extends BaseListAdapter<CommentInfo> {
 					String imageId = designerInfo.getImageid();
 					imageLoader.displayImage(
 							imageId == null ? Constant.DEFALUT_DESIGNER_PIC
-									: (Url.GET_IMAGE + imageId),
+									: (Url_New.GET_IMAGE + imageId),
 							viewHolder.itemHeadView, options);
 				} else {
 					imageLoader.displayImage(Constant.DEFALUT_DESIGNER_PIC,
@@ -113,7 +112,7 @@ public class CommentInfoAdapter extends BaseListAdapter<CommentInfo> {
 					LogTool.d("imageId", "ownerImageId =" + imageId);
 					imageLoader.displayImage(
 							imageId == null ? Constant.DEFALUT_OWNER_PIC
-									: (Url.GET_IMAGE + imageId),
+									: (Url_New.GET_IMAGE + imageId),
 							viewHolder.itemHeadView, options);
 				} else {
 					imageLoader.displayImage(Constant.DEFALUT_OWNER_PIC,
@@ -141,12 +140,12 @@ public class CommentInfoAdapter extends BaseListAdapter<CommentInfo> {
 	}
 
 	@Override
-	public void loadSuccess(BaseResponse baseResponse) {
+	public void loadSuccess(Object data) {
 		notifyDataSetChanged();
 	}
 
 	@Override
-	public void loadFailture() {
+	public void loadFailture(String errorMsg) {
 		isLoadDesignerInfo = false;
 		isLoadOwnerInfo = false;
 	}

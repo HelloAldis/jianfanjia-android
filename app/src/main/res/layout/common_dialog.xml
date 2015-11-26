@@ -9,7 +9,7 @@
 
     <TextView
         android:id="@+id/common_title"
-        style="@style/site_listview_item_text_style_middle"
+        style="@style/listview_item_text_style_middle"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_gravity="center_horizontal"
@@ -18,7 +18,7 @@
     <View
         android:id="@+id/title_bar_divider"
         style="@style/divier_line"
-        android:background="@color/main_color_orange"
+        android:background="@color/orange_color"
         android:visibility="visible" />
 
     <FrameLayout

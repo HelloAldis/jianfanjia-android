@@ -14,7 +14,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
-            <com.jianfanjia.cn.layout.CircleImageView
+            <com.jianfanjia.cn.view.layout.CircleImageView
                 android:id="@+id/img_head"
                 android:layout_width="102dp"
                 android:layout_height="102dp"
@@ -23,7 +23,7 @@
 
             <TextView
                 android:id="@+id/name_text"
-                style="@style/site_listview_item_text_style_middle"
+                style="@style/listview_item_text_style_middle"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/space_8"
                 android:text="@string/my_example_name"
@@ -32,7 +32,7 @@
 
             <TextView
                 android:id="@+id/phone_text"
-                style="@style/site_listview_item_text_style_small"
+                style="@style/listview_item_text_style_small"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/space_8"
                 android:textColor="@android:color/white" />

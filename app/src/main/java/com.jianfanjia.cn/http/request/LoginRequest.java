@@ -1,14 +1,13 @@
 package com.jianfanjia.cn.http.request;
 
-import java.util.Calendar;
-
 import android.content.Context;
 
 import com.jianfanjia.cn.base.BaseRequest;
-import com.jianfanjia.cn.base.BaseResponse;
 import com.jianfanjia.cn.bean.LoginUserBean;
-import com.jianfanjia.cn.config.Url;
+import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.tools.JsonParser;
+
+import java.util.Calendar;
 
 public class LoginRequest extends BaseRequest {
     private String username;
@@ -18,7 +17,7 @@ public class LoginRequest extends BaseRequest {
         super(context);
         this.username = username;
         this.password = password;
-        url = Url.LOGIN_URL;
+        url = Url_New.LOGIN_URL;
     }
 
     @Override
@@ -35,11 +34,9 @@ public class LoginRequest extends BaseRequest {
     }
 
     @Override
-    public void onSuccess(BaseResponse baseResponse) {
-        super.onSuccess(baseResponse);
-        String data = baseResponse.getData().toString();
-        if (data != null) {
-            LoginUserBean loginUserBean = JsonParser.jsonToBean(data, LoginUserBean.class);
+    public void onSuccess(Object data) {
+        if (data.toString() != null) {
+            LoginUserBean loginUserBean = JsonParser.jsonToBean(data.toString(), LoginUserBean.class);
             loginUserBean.setPass(password);
             dataManager.saveLoginUserInfo(loginUserBean);
             dataManager.setLogin(true);

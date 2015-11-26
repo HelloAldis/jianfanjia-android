@@ -4,14 +4,13 @@ import android.content.Context;
 
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseRequest;
-import com.jianfanjia.cn.base.BaseResponse;
-import com.jianfanjia.cn.config.Url;
+import com.jianfanjia.cn.config.Url_New;
 
 public class FeedBackRequest extends BaseRequest {
 
 	public FeedBackRequest(Context context) {
 		super(context);
-		url = Url.FEEDBACK_URL;
+		url = Url_New.FEEDBACK_URL;
 	}
 
 	@Override
@@ -28,8 +27,8 @@ public class FeedBackRequest extends BaseRequest {
 	}
 
 	@Override
-	public void onSuccess(BaseResponse baseResponse) {
-		if (baseResponse.getMsg() != null) {
+	public void onSuccess(Object data) {
+		if (data.toString() != null) {
 			dataManager.setLogin(false);
 			dataManager.cleanData();
 			MyApplication.getInstance().clearCookie();

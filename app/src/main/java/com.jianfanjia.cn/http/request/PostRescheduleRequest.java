@@ -3,8 +3,7 @@ package com.jianfanjia.cn.http.request;
 import android.content.Context;
 
 import com.jianfanjia.cn.base.BaseRequest;
-import com.jianfanjia.cn.base.BaseResponse;
-import com.jianfanjia.cn.config.Url;
+import com.jianfanjia.cn.config.Url_New;
 
 /**
  * 用户改期request
@@ -14,11 +13,11 @@ public class PostRescheduleRequest extends BaseRequest{
 
     public PostRescheduleRequest(Context context) {
         super(context);
-        url = Url.POST_RESCHDULE;
+        url = Url_New.POST_RESCHDULE;
     }
 
     @Override
-    public void onSuccess(BaseResponse baseResponse) {
-        super.onSuccess(baseResponse);
+    public void onSuccess(Object data) {
+        super.onSuccess(data);
     }
 }

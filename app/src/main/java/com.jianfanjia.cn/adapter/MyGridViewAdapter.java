@@ -7,10 +7,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.base.BaseResponse;
 import com.jianfanjia.cn.bean.GridItem;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Url;
+import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
 import com.jianfanjia.cn.interf.UploadListener;
 
@@ -74,7 +73,7 @@ public class MyGridViewAdapter extends BaseListAdapter<GridItem> {
                 }
                 holder.delete.setVisibility(View.GONE);
             } else {
-                imageLoader.displayImage(Url.GET_IMAGE + imgId, holder.img,
+                imageLoader.displayImage(Url_New.GET_IMAGE + imgId, holder.img,
                         options);
 
                 if (isCanDelete()) {
@@ -124,13 +123,13 @@ public class MyGridViewAdapter extends BaseListAdapter<GridItem> {
     }
 
     @Override
-    public void loadSuccess(BaseResponse baseResponse) {
+    public void loadSuccess(Object data) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void loadFailture() {
+    public void loadFailture(String errorMsg) {
         // TODO Auto-generated method stub
 
     }

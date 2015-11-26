@@ -7,11 +7,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
-import com.jianfanjia.cn.base.BaseResponse;
 import com.jianfanjia.cn.bean.Process;
 import com.jianfanjia.cn.bean.User;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Url;
+import com.jianfanjia.cn.config.Url_New;
 
 /**
  * @class DesignerSiteInfoAdapter
@@ -62,7 +61,7 @@ public class DesignerSiteInfoAdapter extends BaseListAdapter<Process> {
 		viewHolder.itemVillageView.setText(designerSiteInfo.getCell());
 		String imageId = user.getImageid();
 		if (imageId != null) {
-			imageLoader.displayImage(Url.GET_IMAGE + imageId,
+			imageLoader.displayImage(Url_New.GET_IMAGE + imageId,
 					viewHolder.itemOwerHeadView, options);
 		} else {
 			imageLoader.displayImage(Constant.DEFALUT_OWNER_PIC,
@@ -82,13 +81,13 @@ public class DesignerSiteInfoAdapter extends BaseListAdapter<Process> {
 	}
 
 	@Override
-	public void loadSuccess(BaseResponse baseResponse) {
+	public void loadSuccess(Object data) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void loadFailture() {
+	public void loadFailture(String errorMsg) {
 		// TODO Auto-generated method stub
 
 	}

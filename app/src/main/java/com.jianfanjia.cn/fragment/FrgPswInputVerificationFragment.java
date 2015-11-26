@@ -11,11 +11,10 @@ import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
-import com.jianfanjia.cn.base.BaseResponse;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.FragmentListener;
-import com.jianfanjia.cn.interf.LoadDataListener;
+import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.NetTool;
 
@@ -100,7 +99,7 @@ public class FrgPswInputVerificationFragment extends BaseFragment {
 	 * @param registerInfo
 	 */
 	private void register(RegisterInfo registerInfo) {
-		JianFanJiaClient.register(getActivity(), registerInfo, new LoadDataListener() {
+		JianFanJiaClient.register(getActivity(), registerInfo, new ApiUiUpdateListener() {
 			@Override
 			public void preLoad() {
 				showWaitDialog(R.string.submiting);
@@ -108,12 +107,12 @@ public class FrgPswInputVerificationFragment extends BaseFragment {
 			}
 
 			@Override
-			public void loadSuccess(BaseResponse baseResponse) {
+			public void loadSuccess(Object data) {
 				hideWaitDialog();
 			}
 
 			@Override
-			public void loadFailture() {
+			public void loadFailture(String errorMsg) {
 				hideWaitDialog();
 			}
 		},this);

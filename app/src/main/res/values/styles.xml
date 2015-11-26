@@ -2,20 +2,14 @@
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
-    <style name="AppBaseTheme" parent="android:Theme.Light">
-        <!--
-            Theme customizations available in newer API levels can go in
-            res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
-        -->
+    <!-- Application theme. -->
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
     </style>
 
-    <!-- Application theme. -->
-    <style name="AppTheme" parent="AppBaseTheme">
-        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
-    </style>
 
     <style name="tab_rb_style">
         <item name="android:gravity">center_horizontal|bottom</item>
@@ -23,16 +17,16 @@
     </style>
     <!-- horizontal line_style -->
     <style name="divier_line">
-        <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">1dp</item>
-        <item name="android:background">@color/transparent</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1px</item>
+        <item name="android:background">@color/light_white_color</item>
     </style>
 
     <!-- vertical line_style -->
     <style name="vertical_divier_line">
         <item name="android:layout_width">1dp</item>
         <item name="android:layout_height">match_parent</item>
-        <item name="android:background">@color/line_color</item>
+        <item name="android:background">@color/middle_grey_color</item>
     </style>
 
     <!-- login activity -->
@@ -84,7 +78,7 @@
     </style>
 
     <style name="dialog_button_cancel">
-        <item name="android:textColor">@color/main_color_black</item>
+        <item name="android:textColor">@color/black_color</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:background">@drawable/site_listview_head_white_bg</item>
@@ -105,7 +99,7 @@
     </style>
 
     <style name="dialog_button_2">
-        <item name="android:textColor">@color/main_color_black</item>
+        <item name="android:textColor">@color/black_color</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:background">@drawable/site_listview_head_white_bg</item>
@@ -160,21 +154,15 @@
     </style>
 
     <!-- site_listview_item_text_style -->
-    <style name="site_listview_item_text_style_small" parent="my_item_layout_text_style_base">
+    <style name="listview_item_text_style_small" parent="my_item_layout_text_style_base">
         <item name="android:textSize">@dimen/text_size_11</item>
     </style>
 
-    <style name="site_listview_item_text_style_middle" parent="my_item_layout_text_style_base">
+    <style name="listview_item_text_style_middle" parent="my_item_layout_text_style_base">
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
-    <!--
-    <style name="site_listview_item_text_style_big" parent="my_item_layout_text_style_base">
-        <item name="android:textSize">@dimen/text_size_14</item>
-    </style>
-    -->
-
-    <style name="site_listview_item_text_style_title" parent="my_item_layout_text_style_base">
+    <style name="listview_item_text_style_big" parent="my_item_layout_text_style_base">
         <item name="android:textSize">@dimen/text_size_17</item>
     </style>
 
@@ -255,6 +243,12 @@
         <item name="android:activityOpenExitAnimation">@anim/slide_right_exit</item>
         <item name="android:activityCloseEnterAnimation">@anim/slide_left_enter</item>
         <item name="android:activityCloseExitAnimation">@anim/slide_left_exit</item>
+    </style>
+
+    <!-- activity animation -->
+    <style name="activity_style" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <item name="vpiIconPageIndicatorStyle">@style/Widget.IconPageIndicator</item>
+        <item name="vpiTabPageIndicatorStyle">@style/Widget.TabPageIndicator</item>
     </style>
 
 </resources>

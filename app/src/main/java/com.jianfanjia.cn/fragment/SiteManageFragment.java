@@ -29,7 +29,6 @@ import com.jianfanjia.cn.adapter.MyViewPageAdapter;
 import com.jianfanjia.cn.adapter.SectionItemAdapterBack;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
-import com.jianfanjia.cn.base.BaseResponse;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.SectionInfo;
 import com.jianfanjia.cn.bean.ViewPagerItem;
@@ -38,7 +37,7 @@ import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.http.request.AddPicToSectionItemRequest;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
-import com.jianfanjia.cn.interf.LoadDataListener;
+import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.UploadImageListener;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.tools.DateFormatTool;
@@ -71,7 +70,7 @@ import java.util.List;
  */
 public class SiteManageFragment extends BaseFragment implements
         OnRefreshListener2<ScrollView>, ItemClickCallBack, UploadImageListener,
-        LoadDataListener {
+        ApiUiUpdateListener {
     private static final String TAG = SiteManageFragment.class.getName();
     private PullToRefreshScrollView mPullRefreshScrollView = null;
     private static final int TOTAL_PROCESS = 7;// 7道工序
@@ -420,7 +419,7 @@ public class SiteManageFragment extends BaseFragment implements
     }
 
     @Override
-    public void loadSuccess(BaseResponse baseResponse) {
+    public void loadSuccess(Object data) {
         mPullRefreshScrollView.onRefreshComplete();
         processInfo = dataManager.getDefaultProcessInfo();
         processId = dataManager.getDefaultProcessId();
@@ -428,7 +427,7 @@ public class SiteManageFragment extends BaseFragment implements
     }
 
     @Override
-    public void loadFailture() {
+    public void loadFailture(String errorMsg) {
         makeTextLong(getString(R.string.tip_error_internet));
         mPullRefreshScrollView.onRefreshComplete();
     }
@@ -540,19 +539,19 @@ public class SiteManageFragment extends BaseFragment implements
                 + " designerId:" + designerId + " section:" + section
                 + " newDate:" + newDate);
         JianFanJiaClient.postReschedule(getActivity(), processId, userId,
-                designerId, section, newDate, new LoadDataListener() {
+                designerId, section, newDate, new ApiUiUpdateListener() {
                     @Override
                     public void preLoad() {
 
                     }
 
                     @Override
-                    public void loadSuccess(BaseResponse baseResponse) {
+                    public void loadSuccess(Object data) {
                         loadCurrentProcess();
                     }
 
                     @Override
-                    public void loadFailture() {
+                    public void loadFailture(String errorMsg) {
 
                     }
                 }, this);
@@ -564,20 +563,20 @@ public class SiteManageFragment extends BaseFragment implements
         LogTool.d(TAG, "siteId:" + siteId + " section:" + section + " item:"
                 + item);
         JianFanJiaClient.processItemDone(getActivity(), siteId, section,
-                item, new LoadDataListener() {
+                item, new ApiUiUpdateListener() {
                     @Override
                     public void preLoad() {
                         showWaitDialog();
                     }
 
                     @Override
-                    public void loadSuccess(BaseResponse baseResponse) {
+                    public void loadSuccess(Object data) {
                         hideWaitDialog();
                         loadCurrentProcess();
                     }
 
                     @Override
-                    public void loadFailture() {
+                    public void loadFailture(String errorMsg) {
                         hideWaitDialog();
                     }
                 }, this);
@@ -597,7 +596,7 @@ public class SiteManageFragment extends BaseFragment implements
                     LogTool.d(TAG, "imageBitmap:" + imageBitmap);
                     if (null != imageBitmap) {
                         JianFanJiaClient.uploadImage(getActivity(), imageBitmap,
-                                new LoadDataListener() {
+                                new ApiUiUpdateListener() {
 
                                     @Override
                                     public void preLoad() {
@@ -605,7 +604,7 @@ public class SiteManageFragment extends BaseFragment implements
                                     }
 
                                     @Override
-                                    public void loadSuccess(BaseResponse baseResponse) {
+                                    public void loadSuccess(Object data) {
                                         String itemName = sectionItemAdapter
                                                 .getCurrentItem();
                                         JianFanJiaClient.submitImageToProcess(getActivity(),
@@ -614,7 +613,7 @@ public class SiteManageFragment extends BaseFragment implements
                                                 itemName,
                                                 dataManager
                                                         .getCurrentUploadImageId(),
-                                                new LoadDataListener() {
+                                                new ApiUiUpdateListener() {
 
                                                     @Override
                                                     public void preLoad() {
@@ -625,7 +624,7 @@ public class SiteManageFragment extends BaseFragment implements
                                                     }
 
                                                     @Override
-                                                    public void loadSuccess(BaseResponse baseResponse) {
+                                                    public void loadSuccess(Object data) {
                                                         hideWaitDialog();
                                                         loadCurrentProcess();
                                                         if (mTmpFile != null
@@ -637,7 +636,7 @@ public class SiteManageFragment extends BaseFragment implements
                                                     }
 
                                                     @Override
-                                                    public void loadFailture() {
+                                                    public void loadFailture(String errorMsg) {
                                                         hideWaitDialog();
                                                         makeTextLong(getString(R.string.tip_error_internet));
                                                         if (mTmpFile != null
@@ -650,7 +649,7 @@ public class SiteManageFragment extends BaseFragment implements
                                     }
 
                                     @Override
-                                    public void loadFailture() {
+                                    public void loadFailture(String errorMsg) {
                                         hideWaitDialog();
                                         makeTextLong(getString(R.string.tip_error_internet));
                                     }
@@ -668,7 +667,7 @@ public class SiteManageFragment extends BaseFragment implements
                                 .getImagePath(uri, getActivity()));
                         if (null != imageBitmap) {
                             JianFanJiaClient.uploadImage(getActivity(), imageBitmap,
-                                    new LoadDataListener() {
+                                    new ApiUiUpdateListener() {
 
                                         @Override
                                         public void preLoad() {
@@ -676,7 +675,7 @@ public class SiteManageFragment extends BaseFragment implements
                                         }
 
                                         @Override
-                                        public void loadSuccess(BaseResponse baseResponse) {
+                                        public void loadSuccess(Object data) {
                                             String itemName = sectionItemAdapter
                                                     .getCurrentItem();
                                             AddPicToSectionItemRequest addSectionItemRequest = new AddPicToSectionItemRequest(
@@ -692,7 +691,7 @@ public class SiteManageFragment extends BaseFragment implements
                                                     itemName,
                                                     dataManager
                                                             .getCurrentUploadImageId(),
-                                                    new LoadDataListener() {
+                                                    new ApiUiUpdateListener() {
 
                                                         @Override
                                                         public void preLoad() {
@@ -703,7 +702,7 @@ public class SiteManageFragment extends BaseFragment implements
                                                         }
 
                                                         @Override
-                                                        public void loadSuccess(BaseResponse baseResponse) {
+                                                        public void loadSuccess(Object data) {
                                                             hideWaitDialog();
                                                             loadCurrentProcess();
                                                             if (mTmpFile != null
@@ -715,7 +714,7 @@ public class SiteManageFragment extends BaseFragment implements
                                                         }
 
                                                         @Override
-                                                        public void loadFailture() {
+                                                        public void loadFailture(String errorMsg) {
                                                             hideWaitDialog();
                                                             makeTextLong(getString(R.string.tip_error_internet));
                                                             if (mTmpFile != null
@@ -728,7 +727,7 @@ public class SiteManageFragment extends BaseFragment implements
                                         }
 
                                         @Override
-                                        public void loadFailture() {
+                                        public void loadFailture(String errorMsg) {
                                             hideWaitDialog();
                                             makeTextLong(getString(R.string.tip_error_internet));
                                         }

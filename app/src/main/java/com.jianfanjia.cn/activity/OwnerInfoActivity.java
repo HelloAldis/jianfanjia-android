@@ -8,12 +8,11 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.base.BaseResponse;
 import com.jianfanjia.cn.bean.Process;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.User;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Url;
+import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.tools.DateFormatTool;
 import com.jianfanjia.cn.tools.LogTool;
@@ -30,7 +29,6 @@ import com.jianfanjia.cn.view.MainHeadView;
 public class OwnerInfoActivity extends BaseActivity implements OnClickListener {
 	private static final String TAG = OwnerInfoActivity.class.getName();
 	private RelativeLayout contentLayout = null;// 内容视图
-	private View errorView = null;// 错误视图
 	private MainHeadView mainHeadView = null;// 头视图
 	private ImageView bgView = null;
 	private ImageView fgView = null;
@@ -66,7 +64,6 @@ public class OwnerInfoActivity extends BaseActivity implements OnClickListener {
 		}
 
 		initMainHead();
-		errorView = findViewById(R.id.error_view);
 		contentLayout = (RelativeLayout) findViewById(R.id.owner_detail_content_layout);
 		fgView = (ImageView) findViewById(R.id.owner_detail_fg);
 		bgView = (ImageView) findViewById(R.id.owner_detail_bg);
@@ -86,12 +83,12 @@ public class OwnerInfoActivity extends BaseActivity implements OnClickListener {
 		if (null != ownerInfo) {
 			// get_one_owner_info(ownerId);
 			imageLoader.displayImage(
-					ownerInfo.getImageid() != null ? Url.GET_IMAGE
+					ownerInfo.getImageid() != null ? Url_New.GET_IMAGE
 							+ ownerInfo.getImageid()
 							: Constant.DEFALUT_OWNER_PIC, ownerHeadView,
 					options);
 			imageLoader.displayImage(
-					ownerInfo.getImageid() != null ? Url.GET_IMAGE
+					ownerInfo.getImageid() != null ? Url_New.GET_IMAGE
 							+ ownerInfo.getImageid()
 							: Constant.DEFALUT_OWNER_PIC, bgView,
 					options);
@@ -120,12 +117,10 @@ public class OwnerInfoActivity extends BaseActivity implements OnClickListener {
 		contentLayout.setVisibility(View.VISIBLE);
 		bgView.setVisibility(View.VISIBLE);
 		fgView.setVisibility(View.VISIBLE);
-		errorView.setVisibility(View.GONE);
 	}
 
 	@Override
 	public void setErrorView() {
-		((TextView) errorView.findViewById(R.id.tv_error)).setText("暂无业主详情数据");
 	}
 
 	private void initMainHead() {
@@ -159,8 +154,8 @@ public class OwnerInfoActivity extends BaseActivity implements OnClickListener {
 	}
 
 	@Override
-	public void loadSuccess(BaseResponse baseResponse) {
-		super.loadSuccess(baseResponse);
+	public void loadSuccess(Object data) {
+		super.loadSuccess(data);
 		processInfo = dataManager.getProcessInfoById(processId);
 		LogTool.d(TAG, "processInfo:" + processInfo);
 		if (null != processInfo) {

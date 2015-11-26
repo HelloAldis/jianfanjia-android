@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Url;
+import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -81,7 +81,7 @@ public class ShowPicPagerAdapter extends PagerAdapter {
 		View view = inflater.inflate(R.layout.itme_show_pic, null);
 		PhotoView imageView = (PhotoView) view.findViewById(R.id.image_item);
 		if(!images.get(position).contains(Constant.DEFALUT_PIC_HEAD)){
-			imageLoader.displayImage(Url.GET_IMAGE + images.get(position),
+			imageLoader.displayImage(Url_New.GET_IMAGE + images.get(position),
 				imageView, options);
 		}else{
 			imageLoader.displayImage(images.get(position),

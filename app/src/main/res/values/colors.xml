@@ -3,10 +3,6 @@
 
     <!-- main_layout_bg -->
     <color name="main_layout_bg">#efefef</color>
-
-    <!-- actionbar title color -->
-    <color name="line_color">#b5babb</color>
-    <color name="horzontal_line_color">#d5d5d5</color>
     <color name="transparent">#00000000</color>
 
     <!-- site_manager -->
@@ -20,21 +16,28 @@
     <color name="log_and_res_hint">#d8d8d8</color>
     <color name="log_and_res_broder">#d8d8d8</color>
     <color name="font_reg_color1">#f2f5f5</color>
-    <color name="font_reg_color2">#fe7003</color>
     <color name="site_content_bg">#f2f2f3</color>
-    <color name="main_color_black">#344a5c</color>
-    <color name="main_color_grey">#798489</color>
-    <color name="main_color_orange">#fe7003</color>
-    <color name="main_color_red">#dd4847</color>
-    <color name="font_green">#219d2b</color>
+    <color name="red_color">#dd4847</color>
     <color name="back_color">#7c8489</color>
     <color name="ower_color">#378fe4</color>
     <color name="designer_color">#e3398c</color>
     <color name="add_comment_bg">#f2f2f3</color>
     <color name="btn_unenable">#aaaaaa</color>
-    <color name="btn_enable_unpress">#fe7003</color>
+    <color name="btn_enable_unpress">@color/orange_color</color>
     <color name="btn_enable_press">#ccfe7003</color>
     <color name="error_bg">#f2f2f3</color>
     <color name="bg_color">#e5e5e4</color>
+
+
+    <color name="light_white_color">#d5d5d5</color>
+    <color name="orange_color">#fe7003</color>
+    <color name="black_color">#344a5c</color>
+    <color name="grey_color">#7c8489</color>
+    <color name="middle_grey_color">#b5babb</color>
+    <color name="green_color">#12c161</color>
+    <color name="blue_color">#05b9fc</color>
+    <color name="home_page_text_color">#344a5d</color>
+    <color name="designer_info_text_color">#aab1b6</color>
+    <color name="black_translucencen">#dd000000</color>
 
 </resources>

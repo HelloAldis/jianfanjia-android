@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.cache.DataManagerNew;
-import com.jianfanjia.cn.interf.LoadDataListener;
+import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -23,7 +23,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  * @param <T>
  */
 public abstract class BaseListAdapter<T> extends BaseAdapter implements
-		LoadDataListener {
+		ApiUiUpdateListener {
 	protected Context context;
 	protected LayoutInflater layoutInflater;
 	protected List<T> list;
