@@ -13,7 +13,6 @@ import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.bean.SelectItem;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.fragment.CaiGouNotifyFragment;
-import com.jianfanjia.cn.fragment.FuKuanNotifyFragment;
 import com.jianfanjia.cn.fragment.YanQiNotifyFragment;
 import com.jianfanjia.cn.interf.ReceiveMsgListener;
 import com.jianfanjia.cn.interf.SwitchFragmentListener;
@@ -102,11 +101,8 @@ public class NotifyActivity extends BaseActivity implements OnClickListener,
     private void initItem(int initialPosition) {
         SelectItem caigouItem = new SelectItem(new CaiGouNotifyFragment(),
                 "采购提醒");
-        SelectItem fukuanItem = new SelectItem(new FuKuanNotifyFragment(),
-                "付款提醒");
         SelectItem yanqiItem = new SelectItem(new YanQiNotifyFragment(), "改期提醒");
         listViews.add(caigouItem);
-        listViews.add(fukuanItem);
         listViews.add(yanqiItem);
         adapter = new MyFragmentPagerAdapter(fragmentManager, listViews);
         mPager.setAdapter(adapter);
