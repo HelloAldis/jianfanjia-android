@@ -19,6 +19,8 @@ import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.jianfanjia.cn.bean.NotifyMessage;
+import com.jianfanjia.cn.interf.ReceiveMsgListener;
 import com.jianfanjia.cn.activity.CheckActivity;
 import com.jianfanjia.cn.activity.CommentActivity;
 import com.jianfanjia.cn.activity.DesignerSiteActivity;
@@ -68,7 +70,7 @@ import java.util.List;
  */
 public class SiteManageFragment extends BaseFragment implements
         OnRefreshListener2<ScrollView>, ItemClickCallBack, UploadImageListener,
-        ApiUiUpdateListener {
+        ApiUiUpdateListener, ReceiveMsgListener {
     private static final String TAG = SiteManageFragment.class.getName();
     private PullToRefreshScrollView mPullRefreshScrollView = null;
     private static final int TOTAL_PROCESS = 7;// 7道工序
@@ -179,18 +181,34 @@ public class SiteManageFragment extends BaseFragment implements
     @Override
     public void onResume() {
         super.onResume();
+        LogTool.d(TAG, "---onResume()-----");
         imageLoader.displayImage(mUserImageId, titleImage, options);
         if (sectionItemAdapter != null) {
             sectionItemAdapter.notifyDataSetChanged();
         }
+        listenerManeger.addReceiveMsgListener(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        LogTool.d(TAG, "---onPause()-----");
         if (currentList != -1) {
             dataManager.setCurrentList(currentList);
         }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        LogTool.d(TAG, "---onStop()-----");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        LogTool.d(TAG, "---onDestroy()--------");
+        listenerManeger.removeReceiveMsgListener(this);
     }
 
     private void initScrollLayout(View view) {
@@ -778,6 +796,11 @@ public class SiteManageFragment extends BaseFragment implements
         if (mTmpFile != null && mTmpFile.exists()) {
             mTmpFile.delete();
         }
+    }
+
+    @Override
+    public void onReceive(NotifyMessage message) {
+
     }
 
     @Override
