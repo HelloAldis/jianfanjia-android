@@ -59,7 +59,6 @@ public class MyOwnerActivity extends BaseActivity implements OnClickListener,
         mainHeadView.setBackListener(this);
         mainHeadView.setMianTitle(getResources().getString(R.string.my_ower));
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
-        mainHeadView.setDividerVisable(View.VISIBLE);
     }
 
     @Override
