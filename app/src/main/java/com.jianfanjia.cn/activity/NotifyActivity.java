@@ -62,10 +62,8 @@ public class NotifyActivity extends BaseActivity implements OnClickListener,
         if (!TextUtils.isEmpty(notifyType)) {
             if (notifyType.equals(Constant.CAIGOU_NOTIFY)) {
                 initialPosition = 0;
-            } else if (notifyType.equals(Constant.FUKUAN_NOTIFY)) {
-                initialPosition = 1;
             } else if (notifyType.equals(Constant.YANQI_NOTIFY)) {
-                initialPosition = 2;
+                initialPosition = 1;
             }
         } else {
             initialPosition = 0;
