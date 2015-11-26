@@ -6,13 +6,16 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 
+import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.DelayNotifyAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.NotifyDelayInfo;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
+import com.jianfanjia.cn.interf.DelayInfoListener;
 import com.jianfanjia.cn.interf.SwitchFragmentListener;
+import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 
 import java.util.ArrayList;
@@ -79,6 +82,21 @@ public class YanQiNotifyFragment extends BaseFragment implements
             @Override
             public void loadSuccess(Object data) {
                 hideWaitDialog();
+                delayList = JsonParser.jsonToList(data.toString(), new TypeToken<List<NotifyDelayInfo>>() {
+                }.getType());
+                LogTool.d(TAG, "delayList:" + delayList);
+                delayAdapter = new DelayNotifyAdapter(getActivity(), delayList, new DelayInfoListener() {
+                    @Override
+                    public void onAgree() {
+
+                    }
+
+                    @Override
+                    public void onRefuse() {
+
+                    }
+                });
+                yanqiListView.setAdapter(delayAdapter);
             }
 
             @Override
@@ -127,6 +145,7 @@ public class YanQiNotifyFragment extends BaseFragment implements
             }
         }, this);
     }
+
 
     @Override
     public int getLayoutId() {
