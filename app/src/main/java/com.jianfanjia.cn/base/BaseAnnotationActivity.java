@@ -88,6 +88,7 @@ public abstract class BaseAnnotationActivity extends FragmentActivity implements
 
     private void init() {
         activityManager = ActivityManager.getInstance();
+        listenerManeger = ListenerManeger.getListenerManeger();
         downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
         notifyMessageDao = DaoManager.getNotifyMessageDao(this);
         inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);

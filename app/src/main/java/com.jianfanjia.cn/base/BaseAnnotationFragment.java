@@ -62,6 +62,7 @@ public class BaseAnnotationFragment extends Fragment {
         notifyMessageDao = DaoManager.getNotifyMessageDao(getActivity());
         // sharedPrefer = dataManager.sharedPreferdata;
         fragmentManager = getFragmentManager();
+        listenerManeger = ListenerManeger.getListenerManeger();
     }
 
     private void initUserInfo() {
