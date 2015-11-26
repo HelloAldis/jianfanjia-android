@@ -141,21 +141,12 @@ public class SettingActivity extends BaseActivity implements OnClickListener,
     }
 
     private void onClickExit() {
-        CommonDialog dialog = DialogHelper
-                .getPinterestDialogCancelable(SettingActivity.this);
-        dialog.setTitle("退出登录");
-        dialog.setMessage("确定退出登录吗？");
-        dialog.setPositiveButton(R.string.ok,
-                new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        logout();
-                        dialog.dismiss();
-                    }
-                });
-        dialog.setNegativeButton(R.string.no, null);
-        dialog.show();
+        PushManager.getInstance().stopService(
+                SettingActivity.this);// 完全终止SDK的服务
+        activityManager.exit();
+        dataManager.cleanData();
+        startActivity(LoginNewActivity_.class);
+        finish();
     }
 
     /**
@@ -166,10 +157,10 @@ public class SettingActivity extends BaseActivity implements OnClickListener,
         long fileSize = 0;
         String cacheSize = "0KB";
         File filesDir = ImageLoader.getInstance().getDiskCache().getDirectory();
-        File file = new File(Constant.COMMON_PATH);
+//        File file = new File(Constant.COMMON_PATH);
 
         fileSize += FileUtil.getDirSize(filesDir);
-        fileSize += FileUtil.getDirSize(file);
+//        fileSize += FileUtil.getDirSize(file);
 
         // 2.2版本才有将应用缓存转移到sd卡的功能
         if (MyApplication.isMethodsCompat(android.os.Build.VERSION_CODES.FROYO)) {
@@ -295,98 +286,14 @@ public class SettingActivity extends BaseActivity implements OnClickListener,
                 }
             }
 
-        @Override
-        public void loadFailture(String errorMsg) {
-            makeTextLong(getString(R.string.tip_error_internet));
-            hideWaitDialog();
+            @Override
+            public void loadFailture(String errorMsg) {
+                makeTextLong(getString(R.string.tip_error_internet));
+                hideWaitDialog();
+            }
         }
-    }
 
-    ,this);
-        /*JianFanJiaApiClient.checkVersion(SettingActivity.this,
-				new JsonHttpResponseHandler() {
-					@Override
-					public void onStart() {
-						LogTool.d(TAG, "onStart()");
-						showWaitDialog("检查新版本");
-					}
-
-					@Override
-					public void onSuccess(int statusCode, Header[] headers,
-							JSONObject response) {
-						LogTool.d(TAG, "JSONObject response:" + response);
-						hideWaitDialog();
-						try {
-							if (response.get(Constant.DATA) != null) {
-								UpdateVersion updateVersion = JsonParser
-										.jsonToBean(response.get(Constant.DATA)
-												.toString(),
-												UpdateVersion.class);
-								if (updateVersion != null) {
-									if (Integer.parseInt(updateVersion
-											.getVersion_code()) > MyApplication
-											.getInstance().getVersionCode()) {
-										showNewVersion(
-												"有新的版本啦，版本号："
-														+ updateVersion
-																.getVersion_name(),
-												updateVersion);
-									} else {
-										makeTextLong("当前已经是最新版本啦！");
-									}
-								}
-							}
-						} catch (JSONException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					}
-
-					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							Throwable throwable, JSONObject errorResponse) {
-						hideWaitDialog();
-						LogTool.d(TAG,
-								"Throwable throwable:" + throwable.toString());
-						makeTextLong(getString(R.string.tip_error_internet));
-					}
-
-					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							String responseString, Throwable throwable) {
-						LogTool.d(TAG, "throwable:" + throwable);
-						makeTextLong(getString(R.string.tip_error_internet));
-						hideWaitDialog();
-					};
-				});*/
-}
-
-    // 退出登录
-    private void logout() {
-        JianFanJiaClient.logout(this,
-                new ApiUiUpdateListener() {
-
-                    @Override
-                    public void preLoad() {
-                        showWaitDialog();
-                    }
-
-                    @Override
-                    public void loadSuccess(Object data) {
-                        hideWaitDialog();
-                        PushManager.getInstance().stopService(
-                                SettingActivity.this);// 完全终止SDK的服务
-                        activityManager.exit();
-                        startActivity(LoginNewActivity_.class);
-                        finish();
-                    }
-
-                    @Override
-                    public void loadFailture(String errorMsg) {
-                        hideWaitDialog();
-                        makeTextLong(getString(R.string.tip_error_internet));
-                    }
-                }, this);
+                , this);
     }
 
     private void downloadVersion(String apkPath) {

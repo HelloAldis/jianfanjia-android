@@ -12,7 +12,6 @@ import android.widget.RelativeLayout;
 import com.jianfanjia.cn.adapter.DesignerSiteInfoAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.Process;
-import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.NetTool;
@@ -98,7 +97,7 @@ public class DesignerSiteActivity extends BaseActivity implements
         dataManager.setDefaultPro(position);
         Intent intent = new Intent();
         intent.putExtra("ProcessId", siteInfo.get_id());
-        setResult(Constant.REQUESTCODE_CHANGE_SITE, intent);
+        setResult(RESULT_OK, intent);
         finish();
     }
 

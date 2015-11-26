@@ -121,8 +121,7 @@ public class SiteManageFragment extends BaseFragment implements
                     processInfo = dataManager.getProcessInfoById(processId);
                 }
             } else {
-                processInfo = dataManager
-                        .getProcessInfoById(Constant.DEFAULT_PROCESSINFO_ID);
+                processInfo = MyApplication.getDefaultProcessInfo(getActivity());
             }
         }
 
@@ -130,10 +129,6 @@ public class SiteManageFragment extends BaseFragment implements
 
     private void loadCurrentProcess() {
         if (processId != null) {
-            /*LoadClientHelper.requestProcessInfoById(
-                    getActivity(),
-					new ProcessInfoRequest(getActivity(), dataManager
-							.getDefaultProcessId()), SiteManageFragment.this);*/
             JianFanJiaClient.get_ProcessInfo_By_Id(getActivity(), dataManager.getDefaultProcessId(), this, this);
         }
     }
@@ -401,7 +396,10 @@ public class SiteManageFragment extends BaseFragment implements
                 bundle.putString(Constant.TO, processInfo.getUserid());
                 bundle.putString(Constant.SECTION, sectionInfo.getName());
                 bundle.putString(Constant.ITEM, sectionInfo.getItems().get(position).getName());
-                startActivity(CommentActivity.class, bundle);
+                bundle.putString(Global.TOPICTYPE, Global.TOPIC_NODE);
+                Intent intent = new Intent(getActivity(),CommentActivity.class);
+                intent.putExtras(bundle);
+                startActivityForResult(intent, Constant.REQUESTCODE_GOTO_COMMENT);
                 break;
             case Constant.DELAY_ITEM:
                 delayDialog();
@@ -736,24 +734,6 @@ public class SiteManageFragment extends BaseFragment implements
                     }
                 }
                 break;
-            case Constant.REQUESTCODE_CONFIG_SITE:
-                if (data != null) {
-                    Bundle bundle = data.getExtras();
-                    if (bundle != null) {
-                        String temStr = (String) bundle.get("Key");
-                        LogTool.d(TAG, "temStr" + temStr);
-                        if (null != temStr) {
-                            initProcessInfo();
-                            if (processInfo != null) {
-                                initData();
-                            } else {
-                                // loadempty
-                                loadCurrentProcess();
-                            }
-                        }
-                    }
-                }
-                break;
             case Constant.REQUESTCODE_CHANGE_SITE:
                 if (data != null) {
                     Bundle bundle = data.getExtras();
@@ -768,6 +748,8 @@ public class SiteManageFragment extends BaseFragment implements
                     }
                 }
                 break;
+            case Constant.REQUESTCODE_GOTO_COMMENT:
+                loadCurrentProcess();
             default:
                 break;
         }

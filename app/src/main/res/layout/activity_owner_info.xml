@@ -43,17 +43,9 @@
                     android:id="@+id/head_icon"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:layout_marginRight="@dimen/space_8"
-                    android:layout_toLeftOf="@+id/head_goto"
+                    android:layout_alignParentRight="true"
                     android:contentDescription="@null"
                     android:scaleType="centerCrop" />
-
-                <ImageView
-                    android:id="@+id/head_goto"
-                    style="@style/my_item_layout_image_style"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:contentDescription="@null" />
             </RelativeLayout>
 
             <View style="@style/divier_line" />
@@ -74,20 +66,13 @@
                     style="@style/listview_item_text_style_small"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/space_48"
-                    android:layout_marginRight="@dimen/space_8"
-                    android:layout_toLeftOf="@+id/name_goto"
+                    android:layout_alignParentRight="true"
                     android:layout_toRightOf="@+id/name"
                     android:ellipsize="end"
                     android:gravity="right"
                     android:singleLine="true"
                     android:textColor="@color/black_color" />
 
-                <ImageView
-                    android:id="@+id/name_goto"
-                    style="@style/my_item_layout_image_style"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:contentDescription="@null" />
             </RelativeLayout>
 
             <View style="@style/divier_line" />
@@ -106,16 +91,9 @@
                     android:id="@+id/sexText"
                     style="@style/listview_item_text_style_small"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/space_8"
-                    android:layout_toLeftOf="@+id/sex_goto"
+                    android:layout_alignParentRight="true"
                     android:textColor="@color/black_color" />
 
-                <ImageView
-                    android:id="@+id/sex_goto"
-                    style="@style/my_item_layout_image_style"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:contentDescription="@null" />
             </RelativeLayout>
 
             <View style="@style/divier_line" />
@@ -134,17 +112,9 @@
                     android:id="@+id/phoneText"
                     style="@style/listview_item_text_style_small"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/space_8"
-                    android:layout_toLeftOf="@+id/phone_goto"
+                    android:layout_alignParentRight="true"
                     android:textColor="@color/black_color" />
 
-                <ImageView
-                    android:id="@+id/phone_goto"
-                    style="@style/my_item_layout_image_style"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:contentDescription="@null"
-                    android:visibility="invisible" />
             </RelativeLayout>
 
             <View style="@style/divier_line" />
@@ -163,16 +133,9 @@
                     android:id="@+id/addressText"
                     style="@style/listview_item_text_style_small"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/space_8"
-                    android:layout_toLeftOf="@+id/address_goto"
+                    android:layout_alignParentRight="true"
                     android:textColor="@color/black_color" />
 
-                <ImageView
-                    android:id="@+id/address_goto"
-                    style="@style/my_item_layout_image_style"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:contentDescription="@null" />
             </RelativeLayout>
 
             <View style="@style/divier_line" />
@@ -193,20 +156,13 @@
                     style="@style/listview_item_text_style_small"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/space_48"
-                    android:layout_marginRight="@dimen/space_8"
-                    android:layout_toLeftOf="@+id/home_goto"
+                    android:layout_alignParentRight="true"
                     android:layout_toRightOf="@+id/home"
                     android:ellipsize="end"
                     android:gravity="right"
                     android:singleLine="true"
                     android:textColor="@color/black_color" />
 
-                <ImageView
-                    android:id="@+id/home_goto"
-                    style="@style/my_item_layout_image_style"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:contentDescription="@null" />
             </RelativeLayout>
 
             <View style="@style/divier_line" />

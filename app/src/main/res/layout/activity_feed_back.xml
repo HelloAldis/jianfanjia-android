@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/site_content_bg">
+
+    <com.jianfanjia.cn.view.MainHeadView
+        android:id="@+id/my_feedback_head_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/head_layout_bg" />
+
+    <EditText
+        android:id="@+id/add_feedback"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/my_feedback_head_layout"
+        android:layout_marginLeft="@dimen/space_16"
+        android:layout_marginRight="@dimen/space_16"
+        android:layout_marginTop="@dimen/space_16"
+        android:background="@drawable/edit_feedback_bg"
+        android:gravity="top"
+        android:hint="@string/add_feedback"
+        android:minLines="10"
+        android:padding="@dimen/space_8"
+        android:textColor="@color/black_color"
+        android:textColorHint="@color/middle_grey_color"
+        android:textSize="@dimen/text_size_14" />
+
+    <Button
+        android:id="@+id/btn_commit"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/add_feedback"
+        android:layout_margin="16dp"
+        android:background="@drawable/btn_selector"
+        android:text="@string/commit"
+        android:textColor="@color/font_white"
+        android:textSize="16sp" />
+
+</RelativeLayout>

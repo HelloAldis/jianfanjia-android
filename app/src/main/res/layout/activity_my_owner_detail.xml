@@ -300,6 +300,7 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/owner_detail_head_layout"
         android:layout_marginTop="@dimen/space_8"
-        layout="@layout/view_error_layout" />
+        layout="@layout/view_error_layout"
+        android:visibility="gone"/>
 
 </RelativeLayout>

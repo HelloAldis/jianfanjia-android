@@ -15,6 +15,7 @@ import com.jianfanjia.cn.bean.SectionInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.tools.JsonParser;
+import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.SharedPrefer;
 
 import java.util.Calendar;
@@ -30,9 +31,7 @@ public class DataManagerNew {
     private SharedPrefer sharedPreferdata = null;
     private SharedPrefer sharedPreferuser = null;
     private List<Process> processLists;
-    private OwnerInfo ownerInfo;// 业主的个人信息
     private DesignerInfo designerInfo;// 设计师的个人信息
-    private String totalDuration;// 总工期
     private RequirementInfo requirementInfo;// 需求信息
     private ProcessInfo currentProcessInfo;// 当前工地信息p
     private String currentUploadImageId;// 当前上传的imageId;
@@ -75,14 +74,6 @@ public class DataManagerNew {
         this.requirementInfo = requirementInfo;
     }
 
-    public String getTotalDuration() {
-        return totalDuration;
-    }
-
-    public void setTotalDuration(String totalDuration) {
-        this.totalDuration = totalDuration;
-    }
-
     public OwnerInfo getOwnerInfoById(String ownerId) {
         return (OwnerInfo) sharedPreferdata.getValue(ownerId);
     }
@@ -93,10 +84,6 @@ public class DataManagerNew {
 
     public DesignerInfo getDesignerInfoById(String designerId) {
         return (DesignerInfo) sharedPreferdata.getValue(designerId);
-    }
-
-    public void setOwnerInfo(OwnerInfo ownerInfo) {
-        sharedPreferdata.setValue(ownerInfo.get_id(), ownerInfo);
     }
 
     public Object getOwnerOrDesignerByIdAndType(String userType, String _id) {
@@ -111,11 +98,6 @@ public class DataManagerNew {
     // 设计师用户获取个人资料
     public DesignerInfo getDesignerInfo() {
         return getDesignerInfoById(getUserId());
-    }
-
-    // 业主用户获取个人资料
-    public OwnerInfo getOwnerInfo() {
-        return getOwnerInfoById(getUserId());
     }
 
     public void setCurrentProcessInfo(ProcessInfo currentProcessInfo) {
@@ -233,13 +215,17 @@ public class DataManagerNew {
 
     // 是否登录信息已过期
     public boolean isLoginExpire() {
-        long currentTime = Calendar.getInstance().getTimeInMillis();// 当前时间
-        long loginLoginTime = sharedPreferdata.getValue(
-                Constant.LAST_LOGIN_TIME, currentTime);
-        if (currentTime - loginLoginTime > Constant.LOGIN_EXPIRE) {
-            return true;
-        }
-        return false;
+        Calendar currentDate = Calendar.getInstance();// 当前时间
+        long lastLoginTime = sharedPreferuser.getValue(
+                Constant.LAST_LOGIN_TIME, currentDate.getTimeInMillis());
+        Calendar lastLoginDate = Calendar.getInstance();
+        lastLoginDate.setTimeInMillis(lastLoginTime);
+        boolean isExipre = !(currentDate.get(Calendar.YEAR) == lastLoginDate.get(Calendar.YEAR)
+                && currentDate.get(Calendar.MONTH) == lastLoginDate.get(Calendar.MONTH)
+                && currentDate.get(Calendar.DAY_OF_MONTH) == lastLoginDate.get(Calendar.DAY_OF_MONTH));
+        LogTool.d(TAG, "currentDate =" + currentDate.get(Calendar.DAY_OF_MONTH));
+        LogTool.d(TAG, "isloginExipre =" + isExipre);
+        return isExipre;
     }
 
     public int getCurrentList() {
@@ -302,11 +288,7 @@ public class DataManagerNew {
     public String getUserName() {
         String userName = sharedPreferuser.getValue(Constant.USERNAME, null);
         if (userName == null) {
-            if (getUserType().equals(Constant.IDENTITY_OWNER)) {
-                return context.getString(R.string.ower);
-            } else if (getUserType().equals(Constant.IDENTITY_DESIGNER)) {
-                return context.getString(R.string.designer);
-            }
+             return context.getString(R.string.designer);
         }
         return userName;
     }
@@ -315,25 +297,19 @@ public class DataManagerNew {
         String userImagePath = null;
         String imageId = sharedPreferuser.getValue(Constant.USERIMAGE_ID, null);
         if (imageId == null) {
-            if (getUserType().equals(Constant.IDENTITY_OWNER)) {
-                userImagePath = Constant.DEFALUT_OWNER_PIC;
-            } else if (getUserType().equals(Constant.IDENTITY_DESIGNER)) {
-                userImagePath = Constant.DEFALUT_DESIGNER_PIC;
-            }
+            userImagePath = Constant.DEFALUT_DESIGNER_PIC;
         } else {
-            userImagePath = Url_New.GET_IMAGE + imageId;
+            userImagePath = Url_New.GET_IMAGE +  imageId;
         }
         return userImagePath;
     }
 
     public void cleanData() {
         processLists = null;
-        ownerInfo = null;
         designerInfo = null;
         requirementInfo = null;
-        totalDuration = null;
         currentProcessInfo = null;
-        // sharedPreferdata.clear();
+        sharedPreferdata.clear();
         sharedPreferuser.clear();
     }
 
