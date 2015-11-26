@@ -205,8 +205,8 @@ public class CheckActivity extends BaseActivity implements OnClickListener, Item
     private void onClickCheckDone() {
         CommonDialog dialog = DialogHelper
                 .getPinterestDialogCancelable(CheckActivity.this);
-        dialog.setTitle("确认完工");
-        dialog.setMessage("确定完工吗？");
+        dialog.setTitle("确认验收");
+        dialog.setMessage("确定验收吗？");
         dialog.setPositiveButton(R.string.ok,
                 new DialogInterface.OnClickListener() {
 
