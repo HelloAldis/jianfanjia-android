@@ -94,17 +94,4 @@ public class DelayNotifyAdapter extends BaseListAdapter<NotifyDelayInfo> {
         TextView itemPubTimeView;// 发布时间
         TextView itemStatusView;
     }
-
-    @Override
-    public void loadSuccess(Object data) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void loadFailture(String errorMsg) {
-        // TODO Auto-generated method stub
-
-    }
-
 }
