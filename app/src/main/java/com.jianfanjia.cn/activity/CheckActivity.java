@@ -201,7 +201,6 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
     }
 
     private void setConfimStatus(int count) {
-
         btn_confirm.setText(this.getResources().getString(
                 R.string.confirm_upload));
         if (count < BusinessManager
