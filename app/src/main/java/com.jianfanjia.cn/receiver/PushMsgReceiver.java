@@ -113,7 +113,7 @@ public class PushMsgReceiver extends BroadcastReceiver {
             if (SystemUtils.isAppAlive(context, context.getPackageName())) {
                 LogTool.d(TAG, "the app process is alive");
                 ReceiveMsgListener listener = listenerManeger
-                        .getReceiveMsgListener(message);
+                        .getReceiveMsgListener();
                 Log.i(TAG, "listener:" + listener);
                 if (null != listener) {
                     if (listener instanceof NotifyActivity) {
