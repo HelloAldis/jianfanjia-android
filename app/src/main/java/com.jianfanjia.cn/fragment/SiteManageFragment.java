@@ -800,7 +800,7 @@ public class SiteManageFragment extends BaseFragment implements
 
     @Override
     public void onReceive(NotifyMessage message) {
-
+        Log.i(TAG, "onReceive  message");
     }
 
     @Override
