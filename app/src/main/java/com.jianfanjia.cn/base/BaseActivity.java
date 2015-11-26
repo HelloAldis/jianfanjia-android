@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.dao.impl.NotifyMessageDao;
+import com.jianfanjia.cn.inter.manager.ListenerManeger;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.NetStateListener;
 import com.jianfanjia.cn.receiver.NetStateReceiver;
@@ -29,12 +30,10 @@ import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.cn.view.dialog.WaitDialog;
 
 /**
- * 
+ * @author fengliang
  * @ClassName: BaseActivity
  * @Description: activity基类
- * @author fengliang
  * @date 2015年7月24日 上午11:46:40
- * 
  */
 public abstract class BaseActivity extends FragmentActivity implements
 		DialogControl, NetStateListener, ApiUiUpdateListener {
@@ -45,7 +44,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 	protected FragmentManager fragmentManager = null;
 	protected NotificationManager nManager = null;
 	protected ImageShow imageShow;
-//	protected ListenerManeger listenerManeger = null;
+	protected ListenerManeger listenerManeger = null;
 	protected NetStateReceiver netStateReceiver = null;
 	protected AddPhotoPopWindow popupWindow = null;
 	private boolean _isVisible;
@@ -80,6 +79,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 		activityManager = ActivityManager.getInstance();
 		downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
 		notifyMessageDao = DaoManager.getNotifyMessageDao(this);
+		listenerManeger = ListenerManeger.getListenerManeger();
 		inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		nManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 		dataManager = DataManagerNew.getInstance();
@@ -241,16 +241,16 @@ public abstract class BaseActivity extends FragmentActivity implements
 		}
 	}
 
-	// 注册网络监听广播
-	protected void registerNetReceiver() {
-		IntentFilter intentFilter = new IntentFilter();
-		intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
-		registerReceiver(netStateReceiver, intentFilter);
-	}
+    // 注册网络监听广播
+    protected void registerNetReceiver() {
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(netStateReceiver, intentFilter);
+    }
 
-	// 取消网络监听广播
-	protected void unregisterNetReceiver() {
-		unregisterReceiver(netStateReceiver);
-	}
+    // 取消网络监听广播
+    protected void unregisterNetReceiver() {
+        unregisterReceiver(netStateReceiver);
+    }
 
 }

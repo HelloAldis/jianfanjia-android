@@ -29,6 +29,7 @@ import com.jianfanjia.cn.adapter.MyViewPageAdapter;
 import com.jianfanjia.cn.adapter.SectionItemAdapterBack;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
+import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.SectionInfo;
 import com.jianfanjia.cn.bean.ViewPagerItem;
@@ -38,6 +39,7 @@ import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
+import com.jianfanjia.cn.interf.ReceiveMsgListener;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.tools.DateFormatTool;
 import com.jianfanjia.cn.tools.FileUtil;
@@ -47,8 +49,6 @@ import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.NetTool;
 import com.jianfanjia.cn.tools.StringUtils;
 import com.jianfanjia.cn.tools.UiHelper;
-import com.jianfanjia.cn.tools.ViewPagerManager;
-import com.jianfanjia.cn.tools.ViewPagerManager.ShapeType;
 import com.jianfanjia.cn.view.AddPhotoPopWindow;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DateWheelDialog;
@@ -71,7 +71,7 @@ import java.util.List;
  */
 public class SiteManageFragment extends BaseFragment implements
         OnRefreshListener2<ScrollView>, ItemClickCallBack,
-        ApiUiUpdateListener,PopWindowCallBack {
+        ApiUiUpdateListener,PopWindowCallBack, ReceiveMsgListener {
     private static final String TAG = SiteManageFragment.class.getName();
     private PullToRefreshScrollView mPullRefreshScrollView = null;
     private static final int TOTAL_PROCESS = 7;// 7道工序
@@ -95,10 +95,6 @@ public class SiteManageFragment extends BaseFragment implements
     private TextView titleCenter = null;
     private TextView titleRight = null;
     private ImageView titleImage = null;
-
-    private static final int BANNER_ICON[] = {R.drawable.bg_home_banner1,
-            R.drawable.bg_home_banner2, R.drawable.bg_home_banner3,
-            R.drawable.bg_home_banner4};
 
     private File mTmpFile = null;
 
@@ -143,7 +139,6 @@ public class SiteManageFragment extends BaseFragment implements
                 .findViewById(R.id.pull_refresh_scrollview);
         mPullRefreshScrollView.setMode(Mode.PULL_FROM_START);
         initMainHead(view);
-        initBannerView();
         initScrollLayout(view);
         initListView(view);
         initData();
@@ -188,30 +183,33 @@ public class SiteManageFragment extends BaseFragment implements
         }else{
             imageShow.displayImageHeadWidthThumnailImage(getActivity(),mUserImageId,titleImage);
         }
+        LogTool.d(TAG, "---onResume()-----");
         if (sectionItemAdapter != null) {
             sectionItemAdapter.notifyDataSetChanged();
         }
+        listenerManeger.addReceiveMsgListener(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        LogTool.d(TAG, "---onPause()-----");
         if (currentList != -1) {
             dataManager.setCurrentList(currentList);
         }
     }
 
-    private void initBannerView() {
-        ViewPagerManager contoler = new ViewPagerManager(getActivity());
-        contoler.setmShapeType(ShapeType.OVAL);// 设置指示器的形状为矩形，默认是圆形
-        List<View> bannerList = new ArrayList<View>();
-        for (int i = 0; i < BANNER_ICON.length; i++) {
-            ImageView imageView = new ImageView(getActivity());
-            imageView.setBackgroundResource(BANNER_ICON[i]);
-            bannerList.add(imageView);
-        }
-        contoler.init(bannerList);
-        contoler.setAutoSroll(true);
+    @Override
+    public void onStop() {
+        super.onStop();
+        LogTool.d(TAG, "---onStop()-----");
+        listenerManeger.removeReceiveMsgListener(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        LogTool.d(TAG, "---onDestroy()--------");
     }
 
     private void initScrollLayout(View view) {
@@ -663,6 +661,11 @@ public class SiteManageFragment extends BaseFragment implements
 
             }
         }, this);
+    }
+
+    @Override
+    public void onReceive(NotifyMessage message) {
+        Log.i(TAG, "onReceive  message");
     }
 
     @Override

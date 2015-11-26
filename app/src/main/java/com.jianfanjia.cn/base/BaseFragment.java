@@ -26,11 +26,10 @@ import com.jianfanjia.cn.view.dialog.DialogControl;
 import com.jianfanjia.cn.view.dialog.WaitDialog;
 
 /**
+ * @author Administrator
  * @version 1.0
  * @Description Fragment基类
- * @author Administrator
  * @date 2015-8-19 16:02:18
- * 
  */
 public abstract class BaseFragment extends Fragment implements OnClickListener{
 	protected FragmentManager fragmentManager = null;
@@ -75,6 +74,7 @@ public abstract class BaseFragment extends Fragment implements OnClickListener{
 	private void init() {
 		appConfig = AppConfig.getInstance(getActivity());
 		dataManager = DataManagerNew.getInstance();
+		listenerManeger = ListenerManeger.getListenerManeger();
 		notifyMessageDao = DaoManager.getNotifyMessageDao(getActivity());
 		imageShow = ImageShow.getImageShow();
 		// sharedPrefer = dataManager.sharedPreferdata;

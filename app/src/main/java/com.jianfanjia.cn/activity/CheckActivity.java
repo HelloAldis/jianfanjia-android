@@ -203,7 +203,6 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
     }
 
     private void setConfimStatus(int count) {
-
         btn_confirm.setText(this.getResources().getString(
                 R.string.confirm_upload));
         if (count < BusinessManager
@@ -307,7 +306,6 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
     @Override
     public void takecamera() {
         mTmpFile = UiHelper.getTempPath();
-
         if (mTmpFile != null) {
             Intent cameraIntent = UiHelper.createShotIntent(mTmpFile);
             startActivityForResult(cameraIntent, Constant.REQUESTCODE_CAMERA);
@@ -399,8 +397,8 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
     private void onClickCheckConfirm() {
         CommonDialog dialog = DialogHelper
                 .getPinterestDialogCancelable(CheckActivity.this);
-        dialog.setTitle("确认验收");
-        dialog.setMessage("确定验收吗？");
+        dialog.setTitle("提交验收");
+        dialog.setMessage("确定提交验收吗？");
         dialog.setPositiveButton(R.string.ok,
                 new DialogInterface.OnClickListener() {
 
