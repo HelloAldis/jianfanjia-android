@@ -158,8 +158,6 @@ public class NotifyActivity extends BaseActivity implements OnClickListener,
         String msgType = message.getType();
         if (msgType.equals(Constant.YANQI_NOTIFY)) {
 
-        } else if (msgType.equals(Constant.FUKUAN_NOTIFY)) {
-
         } else if (msgType.equals(Constant.CAIGOU_NOTIFY)) {
 
         }
