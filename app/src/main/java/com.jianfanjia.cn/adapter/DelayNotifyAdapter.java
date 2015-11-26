@@ -15,10 +15,9 @@ import com.jianfanjia.cn.tools.DateFormatTool;
 import java.util.List;
 
 /**
- * @class DelayNotifyAdapter
  * @author zhanghao
+ * @class DelayNotifyAdapter
  * @date 2015-8-26 15:57
- *
  */
 public class DelayNotifyAdapter extends BaseListAdapter<NotifyDelayInfo> {
 	private DelayInfoListener listener;
@@ -179,6 +178,5 @@ public class DelayNotifyAdapter extends BaseListAdapter<NotifyDelayInfo> {
 		TextView itemAgreeText;// 同意
 		TextView itemRefuseText;// 拒绝
 	}
-
 
 }
