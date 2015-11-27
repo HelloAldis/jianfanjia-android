@@ -18,7 +18,6 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.bean.SectionInfo;
 import com.jianfanjia.cn.bean.SectionItemInfo;
-import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
 import com.jianfanjia.cn.tools.LogTool;
@@ -40,24 +39,28 @@ public class SectionItemAdapter extends BaseAdapter {
     private Context context;
     private LayoutInflater layoutInflater;
     private List<SectionItemInfo> list = new ArrayList<SectionItemInfo>();
-    private List<String> imageUrlList = new ArrayList<String>();
-    private List<String> showImageUrlList = new ArrayList<>();
-    private DataManagerNew dataManager;
+    private List<String> imageUrlList = new ArrayList<String>();//源数据的List
+    private List<String> showImageUrlList = new ArrayList<>();//用来展示图片的List
     private boolean isHasCheck;// 是否有验收
-    private List<SectionInfo> sectionInfos;
+    private List<SectionInfo> showSectionInfoList = new ArrayList<>();
 
     public SectionItemAdapter(Context context, int position,
-                              List<SectionInfo> sectionInfos, ItemClickCallBack callBack) {
+                              List<SectionInfo> showSectionInfoList, ItemClickCallBack callBack) {
         this.context = context;
         layoutInflater = LayoutInflater.from(context);
-        dataManager = DataManagerNew.getInstance();
         this.callBack = callBack;
-        this.sectionInfos = sectionInfos;
+        initSectionInfoList(showSectionInfoList);
         setPosition(position);
     }
 
+    private void  initSectionInfoList(List<SectionInfo> sectionInfos){
+        if(sectionInfos != null){
+            showSectionInfoList.addAll(sectionInfos);
+        }
+    }
+
     public void setPosition(int position) {
-        sectionInfo = sectionInfos.get(position);
+        sectionInfo = showSectionInfoList.get(position);
         section_status = sectionInfo.getStatus();
         initList();
     }

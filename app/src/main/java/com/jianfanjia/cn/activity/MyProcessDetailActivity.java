@@ -526,7 +526,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
         JianFanJiaClient.uploadImage(this, bitmap, new ApiUiUpdateListener() {
             @Override
             public void preLoad() {
-
+                showWaitDialog();
             }
 
             @Override
@@ -563,7 +563,8 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
 
             @Override
             public void loadFailture(String error_msg) {
-
+                makeTextShort(error_msg);
+                hideWaitDialog();
             }
         }, this);
     }
