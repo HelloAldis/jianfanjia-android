@@ -727,7 +727,7 @@ public class SiteManageFragment extends BaseFragment implements
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
                             Bundle checkBundle = new Bundle();
-                            checkBundle.putString(Constant.PROCESS_NAME, sectionInfo.getName());
+                            checkBundle.putString(Constant.PROCESS_NAME, message.getSection());
                             checkBundle
                                     .putInt(Constant.PROCESS_STATUS, sectionInfo.getStatus());
                             checkBundle.putSerializable(Global.PROCESS_INFO, processInfo);
