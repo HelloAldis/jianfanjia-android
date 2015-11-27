@@ -171,7 +171,7 @@ public class DesignerCaseInfoActivity extends BaseActivity implements ApiUiUpdat
             stylelText.setText(designerCaseInfo.getHouse_area() + "㎡，" + getHouseType(designerCaseInfo.getHouse_type()) + "，" + getDecStyle(designerCaseInfo.getDec_type()));
             imageShow.displayScreenWidthThumnailImage(this, designerCaseInfo.getDesigner().getImageid(), designerinfo_head_img);
             imageShow.displayImageHeadWidthThumnailImage(this, designerCaseInfo.getDesigner().getImageid(), head_img);
-            produceText.setText("设计简介:" + designerCaseInfo.getDescription());
+            produceText.setText(designerCaseInfo.getDescription());
             nameText.setText(designerCaseInfo.getDesigner().getUsername());
             DesignerCaseAdapter adapter = new DesignerCaseAdapter(DesignerCaseInfoActivity.this, designerCaseInfo.getImages());
             designer_case_listview.setAdapter(adapter);
