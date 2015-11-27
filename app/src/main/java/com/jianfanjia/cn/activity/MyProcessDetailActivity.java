@@ -622,6 +622,23 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                             dialog.dismiss();
                         }
                     });
+        } else if (msgType.equals(Constant.CONFIRM_CHECK_NOTIFY)) {
+            dialog.setTitle("验收提醒");
+            dialog.setMessage("确定要验收吗？");
+            dialog.setPositiveButton(R.string.ok,
+                    new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            Bundle checkBundle = new Bundle();
+                            checkBundle.putString(Constant.PROCESS_NAME, sectionInfo.getName());
+                            checkBundle
+                                    .putInt(Constant.PROCESS_STATUS, sectionInfo.getStatus());
+                            checkBundle.putSerializable(Global.PROCESS_INFO, processInfo);
+                            startActivity(CheckActivity.class, checkBundle);
+                        }
+                    });
         }
         dialog.show();
     }
