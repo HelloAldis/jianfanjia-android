@@ -114,8 +114,8 @@ public class YanQiNotifyFragment extends BaseFragment implements
     private void delayNotifyDialog() {
         CommonDialog dialog = DialogHelper
                 .getPinterestDialogCancelable(getActivity());
-        dialog.setTitle("延期提醒");
-        dialog.setMessage("确定要延期吗？");
+        dialog.setTitle("改期提醒");
+        dialog.setMessage("确定要改期吗？");
         dialog.setPositiveButton(R.string.agree,
                 new DialogInterface.OnClickListener() {
 
@@ -181,7 +181,6 @@ public class YanQiNotifyFragment extends BaseFragment implements
     @Override
     public void switchTab(int index) {
         // TODO Auto-generated method stub
-
     }
 
     @Override

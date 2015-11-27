@@ -28,6 +28,8 @@ public class Constant {
     public static final String CROP_PATH = IMAG_PATH + "/cropped.jpg";// 截图的图片路径
     public static final String TEMP_IMG = IMAG_PATH + "/current_camera_temp_path";//拍照的临时存储文件路径
 
+    public static final String EXTRA_BUNDLE = "launchBundle";
+
     public static final int HOME = 0;//首页
     public static final int MANAGE = 1;//工地管理
     public static final int MY = 2;//我的

@@ -16,6 +16,7 @@ import com.igexin.sdk.PushConsts;
 import com.igexin.sdk.PushManager;
 import com.jianfanjia.cn.activity.CheckActivity;
 import com.jianfanjia.cn.activity.MainActivity;
+import com.jianfanjia.cn.activity.MyProcessDetailActivity;
 import com.jianfanjia.cn.activity.NotifyActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.NotifyMessage;
@@ -23,9 +24,11 @@ import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.SectionInfo;
 import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.dao.impl.NotifyMessageDao;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
+import com.jianfanjia.cn.interf.ReceiveMsgListener;
 import com.jianfanjia.cn.interf.manager.ListenerManeger;
 import com.jianfanjia.cn.tools.DaoManager;
 import com.jianfanjia.cn.tools.JsonParser;
@@ -106,17 +109,19 @@ public class PushMsgReceiver extends BroadcastReceiver {
             notifyMessageDao.save(message);
             if (SystemUtils.isAppAlive(context, context.getPackageName())) {
                 LogTool.d(TAG, "the app process is alive");
-                sendNotifycation(context, message);
-//                ReceiveMsgListener listener = listenerManeger
-//                        .getReceiveMsgListener(message);
-//                Log.i(TAG, "listener:" + listener);
-//                if (null != listener) {
-//                    if (listener instanceof NotifyActivity) {
-//                        listener.onReceive(message);
-//                    }
-//                } else {
-//                    sendNotifycation(context, message);
-//                }
+                ReceiveMsgListener listener = listenerManeger
+                        .getReceiveMsgListener();
+                Log.i(TAG, "listener:" + listener);
+                if (null != listener) {
+                    if (listener instanceof NotifyActivity) {
+                        listener.onReceive(message);
+                    }
+                    if (listener instanceof MyProcessDetailActivity) {
+                        listener.onReceive(message);
+                    }
+                } else {
+                    sendNotifycation(context, message);
+                }
             } else {
                 LogTool.d(TAG, "the app process is dead");
                 Intent launchIntent = context.getPackageManager()
@@ -124,6 +129,9 @@ public class PushMsgReceiver extends BroadcastReceiver {
                 launchIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
                         | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
                 Bundle args = new Bundle();
+                args.putString("Type", message.getType());
+                launchIntent.putExtra(Constant.EXTRA_BUNDLE, args);
+                context.startActivity(launchIntent);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -206,7 +214,7 @@ public class PushMsgReceiver extends BroadcastReceiver {
             Intent[] intents = {mainIntent, notifyIntent};
             pendingIntent = PendingIntent.getActivities(context, 0, intents,
                     PendingIntent.FLAG_UPDATE_CURRENT);
-        } else {
+        } else if (type.equals(Constant.CONFIRM_CHECK_NOTIFY)) {
             notifyId = Constant.YANSHOU_NOTIFY_ID;
             ProcessInfo processInfo = dataManager.getDefaultProcessInfo();
             SectionInfo sectionInfo = processInfo.getSectionInfoByName(message
@@ -224,6 +232,7 @@ public class PushMsgReceiver extends BroadcastReceiver {
             Bundle bundle = new Bundle();
             bundle.putString(Constant.PROCESS_NAME, sectionInfo.getName());
             bundle.putInt(Constant.PROCESS_STATUS, sectionInfo.getStatus());
+            bundle.putSerializable(Global.PROCESS_INFO, processInfo);
             checkIntent.putExtras(bundle);
             Intent[] intents = {mainIntent, checkIntent};
             pendingIntent = PendingIntent.getActivities(context, 0, intents,
@@ -238,6 +247,4 @@ public class PushMsgReceiver extends BroadcastReceiver {
                 + context.getPackageName() + "/" + R.raw.message);
         nManager.notify(notifyId, notification);
     }
-
-
 }

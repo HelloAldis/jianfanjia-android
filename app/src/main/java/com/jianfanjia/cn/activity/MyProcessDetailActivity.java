@@ -19,6 +19,7 @@ import com.jianfanjia.cn.adapter.SectionItemAdapter;
 import com.jianfanjia.cn.adapter.SectionViewPageAdapter;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseAnnotationActivity;
+import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.SectionInfo;
 import com.jianfanjia.cn.bean.ViewPagerItem;
@@ -27,6 +28,7 @@ import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
+import com.jianfanjia.cn.interf.ReceiveMsgListener;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.tools.DateFormatTool;
 import com.jianfanjia.cn.tools.FileUtil;
@@ -37,7 +39,9 @@ import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.StringUtils;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.MainHeadView;
+import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DateWheelDialog;
+import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshListView;
 
@@ -59,7 +63,7 @@ import java.util.List;
  * @date 2015-8-26 上午11:14:00
  */
 @EActivity(R.layout.activity_my_process_detail)
-public class MyProcessDetailActivity extends BaseAnnotationActivity implements ItemClickCallBack {
+public class MyProcessDetailActivity extends BaseAnnotationActivity implements ItemClickCallBack, ReceiveMsgListener {
     private static final String TAG = MyProcessDetailActivity.class.getName();
     private static final int TOTAL_PROCESS = 7;// 7道工序
 
@@ -176,6 +180,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
     @Override
     public void onResume() {
         super.onResume();
+        listenerManeger.addReceiveMsgListener(this);
     }
 
     @Override
@@ -184,6 +189,17 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
         if (currentList != -1) {
             dataManager.setCurrentList(currentList);
         }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        listenerManeger.removeReceiveMsgListener(this);
     }
 
     private void initScrollLayout() {
@@ -314,7 +330,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
 
     @Override
     public void click(int position, int itemType) {
-        LogTool.d(TAG, "position:" + position + "itemType:" + itemType);
+        LogTool.d(TAG, "position:" + position + "  itemType:" + itemType);
         switch (itemType) {
             case Constant.IMG_ITEM:
                 break;
@@ -325,9 +341,9 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                 bundle.putString(Global.SECTION, sectionInfo.getName());
                 bundle.putString(Global.ITEM, sectionInfo.getItems().get(position).getName());
                 bundle.putString(Global.TOPICTYPE, Global.TOPIC_NODE);
-                Intent intent = new Intent(this,CommentActivity.class);
+                Intent intent = new Intent(this, CommentActivity.class);
                 intent.putExtras(bundle);
-                startActivityForResult(intent,Constant.REQUESTCODE_GOTO_COMMENT);
+                startActivityForResult(intent, Constant.REQUESTCODE_GOTO_COMMENT);
                 break;
             case Constant.DELAY_ITEM:
                 delayDialog();
@@ -552,4 +568,78 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
         }, this);
     }
 
+    @Override
+    public void onReceive(NotifyMessage message) {
+        LogTool.d(TAG, "onReceive message");
+        if (null != message) {
+            showNotifyDialog(message);
+        }
+    }
+
+    private void showNotifyDialog(NotifyMessage message) {
+        CommonDialog dialog = DialogHelper
+                .getPinterestDialogCancelable(MyProcessDetailActivity.this);
+        String msgType = message.getType();
+        if (msgType.equals(Constant.YANQI_NOTIFY)) {
+            dialog.setTitle("改期提醒");
+            dialog.setMessage(message.getContent());
+            dialog.setPositiveButton(R.string.agree,
+                    new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+
+                        }
+                    });
+            dialog.setNegativeButton(R.string.refuse, new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+
+                }
+            });
+        } else if (msgType.equals(Constant.FUKUAN_NOTIFY)) {
+            dialog.setTitle("付款提醒");
+            dialog.setMessage("系统提示:您即将进入下一轮付款环节,请您及时与设计师联系");
+            dialog.setPositiveButton(R.string.ok,
+                    new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+        } else if (msgType.equals(Constant.CAIGOU_NOTIFY)) {
+            dialog.setTitle("采购提醒");
+            dialog.setMessage("系统提示:您即将进入下一轮建材购买阶段,您需要购买的是" + message.getContent());
+            dialog.setPositiveButton(R.string.ok,
+                    new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+        } else if (msgType.equals(Constant.CONFIRM_CHECK_NOTIFY)) {
+            dialog.setTitle("验收提醒");
+            dialog.setMessage("确定要进行验收吗？");
+            dialog.setPositiveButton(R.string.ok,
+                    new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            Bundle checkBundle = new Bundle();
+                            checkBundle.putString(Constant.PROCESS_NAME, sectionInfo.getName());
+                            checkBundle
+                                    .putInt(Constant.PROCESS_STATUS, sectionInfo.getStatus());
+                            checkBundle.putSerializable(Global.PROCESS_INFO, processInfo);
+                            startActivity(CheckActivity.class, checkBundle);
+                        }
+                    });
+        }
+        dialog.show();
+    }
 }
