@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2011, 2012 Chris Banes.
- * <p/>
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p/>
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- * <p/>
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -53,7 +53,7 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout imp
 
     static final String LOG_TAG = "PullToRefresh";
 
-    static final float FRICTION = 3.0f;
+    static final float FRICTION = 4.0f;
 
     public static final int SMOOTH_SCROLL_DURATION_MS = 200;
     public static final int SMOOTH_SCROLL_LONG_DURATION_MS = 325;
@@ -612,7 +612,7 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout imp
      * This is implemented by derived classes to return the created View. If you
      * need to use a custom View (such as a custom ListView), override this
      * method and return an instance of your custom class.
-     * <p/>
+     * <p>
      * Be sure to set the ID of the view in this method, especially if you're
      * using a ListActivity or ListFragment.
      *
