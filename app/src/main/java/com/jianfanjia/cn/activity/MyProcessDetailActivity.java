@@ -39,7 +39,9 @@ import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.StringUtils;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.MainHeadView;
+import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DateWheelDialog;
+import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshListView;
 
@@ -576,6 +578,27 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
 
 
     private void showNotifyDialog(NotifyMessage message) {
+        CommonDialog dialog = DialogHelper
+                .getPinterestDialogCancelable(MyProcessDetailActivity.this);
+        dialog.setTitle("延期提醒");
+        dialog.setMessage("确定要延期吗？");
+        dialog.setPositiveButton(R.string.agree,
+                new DialogInterface.OnClickListener() {
 
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+
+                    }
+                });
+        dialog.setNegativeButton(R.string.refuse, new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+
+            }
+        });
+        dialog.show();
     }
 }
