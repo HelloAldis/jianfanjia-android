@@ -14,10 +14,8 @@ import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.Process;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.tools.NetTool;
 import com.jianfanjia.cn.view.MainHeadView;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -32,7 +30,7 @@ public class DesignerSiteActivity extends BaseActivity implements
     private static final String TAG = DesignerSiteActivity.class.getName();
     private MainHeadView mainHeadView = null;
     private ListView siteListView = null;
-    private List<Process> siteList = new ArrayList<Process>();
+    private List<Process> siteList;
     private MyProcessInfoAdapter myProcessInfoAdapter = null;
     protected RelativeLayout error_Layout;
 
@@ -40,15 +38,8 @@ public class DesignerSiteActivity extends BaseActivity implements
     public void initView() {
         initMainHeadView();
         siteListView = (ListView) findViewById(R.id.designer_site_listview);
-        siteList = dataManager.getProcessLists();
         if (siteList == null) {
-            if (NetTool.isNetworkAvailable(this)) {
-                /*LoadClientHelper.requestProcessList(this,
-						new ProcessListRequest(this), this);*/
-                JianFanJiaClient.get_Process_List(this, this, this);
-            } else {
-                siteList = dataManager.getProcessListsByCache();
-            }
+            JianFanJiaClient.get_Process_List(this, this, this);
         }
         myProcessInfoAdapter = new MyProcessInfoAdapter(
                 DesignerSiteActivity.this, siteList);

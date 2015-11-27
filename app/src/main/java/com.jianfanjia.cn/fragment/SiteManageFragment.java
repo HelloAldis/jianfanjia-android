@@ -29,10 +29,7 @@ import com.jianfanjia.cn.adapter.MyViewPageAdapter;
 import com.jianfanjia.cn.adapter.SectionItemAdapterBack;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
-import com.jianfanjia.cn.bean.NotifyMessage;
-import com.jianfanjia.cn.bean.ProcessInfo;
-import com.jianfanjia.cn.bean.SectionInfo;
-import com.jianfanjia.cn.bean.ViewPagerItem;
+import com.jianfanjia.cn.bean.*;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
@@ -601,7 +598,7 @@ public class SiteManageFragment extends BaseFragment implements
                 if (data != null) {
                     Bundle bundle = data.getExtras();
                     if (bundle != null) {
-                        String processId = (String) bundle.get("ProcessId");
+                        processId = (String) bundle.get("ProcessId");
                         LogTool.d(TAG, "processId=" + processId);
                         if (null != processId
                                 && dataManager.getDefaultProcessId() != processId) {

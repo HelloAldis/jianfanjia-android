@@ -141,12 +141,27 @@ public class SettingActivity extends BaseActivity implements OnClickListener,
     }
 
     private void onClickExit() {
-        PushManager.getInstance().stopService(
-                SettingActivity.this);// 完全终止SDK的服务
-        activityManager.exit();
-        dataManager.cleanData();
-        startActivity(LoginNewActivity_.class);
-        finish();
+        CommonDialog dialog = DialogHelper
+                .getPinterestDialogCancelable(SettingActivity.this);
+        dialog.setTitle("退出登录");
+        dialog.setMessage("确定退出登录吗？");
+        dialog.setPositiveButton(R.string.ok,
+                new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        PushManager.getInstance().stopService(
+                                SettingActivity.this);// 完全终止SDK的服务
+                        activityManager.exit();
+                        dataManager.cleanData();
+                        MyApplication.getInstance().clearCookie();
+                        startActivity(LoginNewActivity_.class);
+                        finish();
+                    }
+                });
+        dialog.setNegativeButton(R.string.no, null);
+        dialog.show();
     }
 
     /**

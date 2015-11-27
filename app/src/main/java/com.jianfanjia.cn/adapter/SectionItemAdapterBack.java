@@ -41,6 +41,7 @@ public class SectionItemAdapterBack extends BaseAdapter {
     private LayoutInflater layoutInflater;
     private List<SectionItemInfo> list = new ArrayList<SectionItemInfo>();
     private List<String> imageUrlList = new ArrayList<String>();
+    private List<String> showImageUrlList = new ArrayList<>();
     private DataManagerNew dataManager;
     private boolean isHasCheck;// 是否有验收
     private List<SectionInfo> sectionInfos;
@@ -300,20 +301,17 @@ public class SectionItemAdapterBack extends BaseAdapter {
                     viewHolder.openUploadTime.setText("");
                 }
 
+                showImageUrlList.clear();
                 if (null != imageUrlList && imageUrlList.size() > 0) {
-                    if (imageUrlList.size() < IMG_COUNT
-                            && !imageUrlList.contains(Constant.HOME_ADD_PIC)) {// 最多上传9张照片
+                    if (imageUrlList.size() < IMG_COUNT) {// 最多上传9张照片
                         Log.i(this.getClass().getName(), "addImage");
-                        imageUrlList.add(Constant.HOME_ADD_PIC);
+                        showImageUrlList.addAll(imageUrlList);
+                        showImageUrlList.add(Constant.HOME_ADD_PIC);
                     } else {
-                        for (String str : imageUrlList) {
-                            if (str.equals(Constant.HOME_ADD_PIC)) {
-                                list.remove(str);
-                            }
-                        }
+                        showImageUrlList.addAll(imageUrlList);
                     }
                 } else {
-                    imageUrlList.add(Constant.HOME_ADD_PIC);
+                    showImageUrlList.add(Constant.HOME_ADD_PIC);
                 }
 
                 int commentCount = sectionItemInfo.getComment_count();
@@ -346,7 +344,7 @@ public class SectionItemAdapterBack extends BaseAdapter {
 
                 }
                 // 设置上传照片
-                setImageData(imageUrlList, viewHolder.gridView);
+                setImageData(viewHolder.gridView);
 
                 viewHolder.confirmFinishStatus
                         .setOnClickListener(new OnClickListener() {
@@ -437,28 +435,23 @@ public class SectionItemAdapterBack extends BaseAdapter {
     }
 
     /**
-     * @param imageUrlList
+     * @param
      * @param gridView
      * @des 设置item里gridview的照片
      */
-    private void setImageData(final List<String> imageUrlList, GridView gridView) {
-        sectionItemGridViewAdapter = new SectionItemGridViewAdapter(context, imageUrlList);
+    private void setImageData( GridView gridView) {
+        sectionItemGridViewAdapter = new SectionItemGridViewAdapter(context, showImageUrlList);
         gridView.setAdapter(sectionItemGridViewAdapter);
         gridView.setOnItemClickListener(new OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     final int position, long id) {
-                String data = imageUrlList.get(position);
+                String data = showImageUrlList.get(position);
                 Log.i(this.getClass().getName(), "data:" + data);
                 if (data.equals(Constant.HOME_ADD_PIC)) {
                     callBack.click(position, Constant.ADD_ITEM, imageUrlList);
                 } else {
-                    for (String str : imageUrlList) {
-                        if (str.equals(Constant.HOME_ADD_PIC)) {
-                            imageUrlList.remove(str);
-                        }
-                    }
                     callBack.click(position, Constant.IMG_ITEM, imageUrlList);
                 }
             }
