@@ -576,7 +576,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
         }
     }
 
-    private void showNotifyDialog(NotifyMessage message) {
+    private void showNotifyDialog(final NotifyMessage message) {
         CommonDialog dialog = DialogHelper
                 .getPinterestDialogCancelable(MyProcessDetailActivity.this);
         String msgType = message.getType();
@@ -589,7 +589,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
-//                            agreeReschedule(processInfo.get_id());
+                            agreeReschedule(message.getProcessid());
                         }
                     });
             dialog.setNegativeButton(R.string.refuse, new DialogInterface.OnClickListener() {
@@ -597,7 +597,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
-//                    refuseReschedule(processInfo.get_id());
+                    refuseReschedule(message.getProcessid());
                 }
             });
         } else if (msgType.equals(Constant.FUKUAN_NOTIFY)) {
