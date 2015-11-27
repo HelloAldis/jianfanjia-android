@@ -330,7 +330,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
 
     @Override
     public void click(int position, int itemType) {
-        LogTool.d(TAG, "position:" + position + "itemType:" + itemType);
+        LogTool.d(TAG, "position:" + position + "  itemType:" + itemType);
         switch (itemType) {
             case Constant.IMG_ITEM:
                 break;
