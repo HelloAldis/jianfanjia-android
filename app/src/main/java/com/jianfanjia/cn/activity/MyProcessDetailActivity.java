@@ -576,7 +576,6 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
         }
     }
 
-
     private void showNotifyDialog(NotifyMessage message) {
         CommonDialog dialog = DialogHelper
                 .getPinterestDialogCancelable(MyProcessDetailActivity.this);
