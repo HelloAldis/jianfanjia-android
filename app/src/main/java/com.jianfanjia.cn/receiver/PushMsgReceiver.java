@@ -164,32 +164,6 @@ public class PushMsgReceiver extends BroadcastReceiver {
 
             }
         }, this);
-        /*JianFanJiaApiClient.uploadRegisterId(context, clientId,
-                new JsonHttpResponseHandler() {
-					@Override
-					public void onStart() {
-						LogTool.d(TAG, "onStart()");
-					}
-
-					@Override
-					public void onSuccess(int statusCode, Header[] headers,
-							JSONObject response) {
-						LogTool.d(TAG, "JSONObject response:" + response);
-					}
-
-					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							Throwable throwable, JSONObject errorResponse) {
-						LogTool.d(TAG,
-								"Throwable throwable:" + throwable.toString());
-					}
-
-					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							String responseString, Throwable throwable) {
-						LogTool.d(TAG, "throwable:" + throwable);
-					};
-				});*/
     }
 
     private void sendNotifycation(Context context, NotifyMessage message) {
@@ -243,7 +217,7 @@ public class PushMsgReceiver extends BroadcastReceiver {
             Intent[] intents = {mainIntent, notifyIntent};
             pendingIntent = PendingIntent.getActivities(context, 0, intents,
                     PendingIntent.FLAG_UPDATE_CURRENT);
-        } else {
+        } else if (type.equals(Constant.CONFIRM_CHECK_NOTIFY)) {
             notifyId = Constant.YANSHOU_NOTIFY_ID;
             ProcessInfo processInfo = dataManager.getDefaultProcessInfo();
             SectionInfo sectionInfo = processInfo.getSectionInfoByName(message

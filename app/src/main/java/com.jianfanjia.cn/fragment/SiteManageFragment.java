@@ -68,7 +68,7 @@ import java.util.List;
  */
 public class SiteManageFragment extends BaseFragment implements
         OnRefreshListener2<ScrollView>, ItemClickCallBack,
-        ApiUiUpdateListener,PopWindowCallBack, ReceiveMsgListener {
+        ApiUiUpdateListener, PopWindowCallBack, ReceiveMsgListener {
     private static final String TAG = SiteManageFragment.class.getName();
     private PullToRefreshScrollView mPullRefreshScrollView = null;
     private static final int TOTAL_PROCESS = 7;// 7道工序
@@ -175,10 +175,10 @@ public class SiteManageFragment extends BaseFragment implements
     @Override
     public void onResume() {
         super.onResume();
-        if(mUserImageId.contains(Constant.DEFALUT_PIC_HEAD)){
-            imageShow.displayLocalImage(mUserImageId,titleImage);
-        }else{
-            imageShow.displayImageHeadWidthThumnailImage(getActivity(),mUserImageId,titleImage);
+        if (mUserImageId.contains(Constant.DEFALUT_PIC_HEAD)) {
+            imageShow.displayLocalImage(mUserImageId, titleImage);
+        } else {
+            imageShow.displayImageHeadWidthThumnailImage(getActivity(), mUserImageId, titleImage);
         }
         LogTool.d(TAG, "---onResume()-----");
         if (sectionItemAdapter != null) {
@@ -663,6 +663,116 @@ public class SiteManageFragment extends BaseFragment implements
     @Override
     public void onReceive(NotifyMessage message) {
         Log.i(TAG, "onReceive  message");
+        if (null != message) {
+            showNotifyDialog(message);
+        }
+    }
+
+    private void showNotifyDialog(final NotifyMessage message) {
+        CommonDialog dialog = DialogHelper
+                .getPinterestDialogCancelable(getActivity());
+        String msgType = message.getType();
+        if (msgType.equals(Constant.YANQI_NOTIFY)) {
+            dialog.setTitle("改期提醒");
+            dialog.setMessage(message.getContent());
+            dialog.setPositiveButton(R.string.agree,
+                    new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            agreeReschedule(message.getProcessid());
+                        }
+                    });
+            dialog.setNegativeButton(R.string.refuse, new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                    refuseReschedule(message.getProcessid());
+                }
+            });
+        } else if (msgType.equals(Constant.FUKUAN_NOTIFY)) {
+            dialog.setTitle("付款提醒");
+            dialog.setMessage("系统提示:您即将进入下一轮付款环节,请您及时与设计师联系");
+            dialog.setPositiveButton(R.string.ok,
+                    new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+        } else if (msgType.equals(Constant.CAIGOU_NOTIFY)) {
+            dialog.setTitle("采购提醒");
+            dialog.setMessage("系统提示:您即将进入下一轮建材购买阶段,您需要购买的是" + message.getContent());
+            dialog.setPositiveButton(R.string.ok,
+                    new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+        } else if (msgType.equals(Constant.CONFIRM_CHECK_NOTIFY)) {
+            dialog.setTitle("验收提醒");
+            dialog.setMessage("确定要进行验收吗？");
+            dialog.setPositiveButton(R.string.ok,
+                    new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            Bundle checkBundle = new Bundle();
+                            checkBundle.putString(Constant.PROCESS_NAME, sectionInfo.getName());
+                            checkBundle
+                                    .putInt(Constant.PROCESS_STATUS, sectionInfo.getStatus());
+                            checkBundle.putSerializable(Global.PROCESS_INFO, processInfo);
+                            startActivity(CheckActivity.class, checkBundle);
+                        }
+                    });
+        }
+        dialog.show();
+    }
+
+    //同意改期
+    private void agreeReschedule(String processid) {
+        JianFanJiaClient.agreeReschedule(getActivity(), processid, new ApiUiUpdateListener() {
+            @Override
+            public void preLoad() {
+
+            }
+
+            @Override
+            public void loadSuccess(Object data) {
+                LogTool.d(TAG, "data:" + data.toString());
+            }
+
+            @Override
+            public void loadFailture(String error_msg) {
+                makeTextLong(error_msg);
+            }
+        }, this);
+    }
+
+    // 拒绝改期
+    private void refuseReschedule(String processid) {
+        JianFanJiaClient.refuseReschedule(getActivity(), processid, new ApiUiUpdateListener() {
+            @Override
+            public void preLoad() {
+
+            }
+
+            @Override
+            public void loadSuccess(Object data) {
+                LogTool.d(TAG, "data:" + data.toString());
+            }
+
+            @Override
+            public void loadFailture(String error_msg) {
+                makeTextLong(error_msg);
+            }
+        }, this);
     }
 
     @Override
