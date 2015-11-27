@@ -8,14 +8,14 @@ package com.jianfanjia.cn.config;
  */
 public class Url_New {
     public static String SEVER_IP = "101.200.191.159";
-//    public static String SEVER_IP = "www.jianfanjia.com";
+    //    public static String SEVER_IP = "www.jianfanjia.com";
 //    public static String SEVER_PORT = "8888";
     public static String SEVER_PORT = "80";
 
     public static final String HTTPROOT = "http://" + SEVER_IP + ":"
             + SEVER_PORT + "/api/v2/app/";
 
-    public static final String CONTRACT_URL = "http://www.jianfanjia.com/tpl/guide/index.html?1";
+    public static final String CONTRACT_URL = "http://" + SEVER_IP + "/tpl/user/agreement.html";
 
     public static final String ID = "id";
 
