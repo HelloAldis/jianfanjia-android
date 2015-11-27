@@ -6,6 +6,8 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.jianfanjia.cn.tools.TDevice;
+
 /**
  * Name: 自定义ViewPager
  * User: fengliang
@@ -51,7 +53,7 @@ public class WrapContentHeightViewPager extends ViewPager {
                 maxHeight = height;
             }
         }
-        setMeasuredDimension(getMeasuredWidth(), maxHeight);
+        setMeasuredDimension(getMeasuredWidth(), (int)TDevice.getScreenHeight());
     }
 
     /**
