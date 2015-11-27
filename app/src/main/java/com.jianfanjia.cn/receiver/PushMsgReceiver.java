@@ -243,7 +243,7 @@ public class PushMsgReceiver extends BroadcastReceiver {
             Intent[] intents = {mainIntent, notifyIntent};
             pendingIntent = PendingIntent.getActivities(context, 0, intents,
                     PendingIntent.FLAG_UPDATE_CURRENT);
-        } else {
+        } else if (type.equals(Constant.CONFIRM_CHECK_NOTIFY)) {
             notifyId = Constant.YANSHOU_NOTIFY_ID;
             ProcessInfo processInfo = dataManager.getDefaultProcessInfo();
             SectionInfo sectionInfo = processInfo.getSectionInfoByName(message
