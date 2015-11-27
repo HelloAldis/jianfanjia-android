@@ -55,6 +55,10 @@ public class MainHeadView extends RelativeLayout {
         mainTitle.setText(message);
     }
 
+    public void setMainColor(int resColor){
+        mainTitle.setTextColor(getResources().getColor(resColor));
+    }
+
     public void setRightTitle(String message) {
         if (message == null)
             return;
