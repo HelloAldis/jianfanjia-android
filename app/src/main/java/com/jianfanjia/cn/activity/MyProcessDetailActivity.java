@@ -579,25 +579,50 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
     private void showNotifyDialog(NotifyMessage message) {
         CommonDialog dialog = DialogHelper
                 .getPinterestDialogCancelable(MyProcessDetailActivity.this);
-        dialog.setTitle("延期提醒");
-        dialog.setMessage("确定要延期吗？");
-        dialog.setPositiveButton(R.string.agree,
-                new DialogInterface.OnClickListener() {
+        String msgType = message.getType();
+        if (msgType.equals(Constant.YANQI_NOTIFY)) {
+            dialog.setTitle("改期提醒");
+            dialog.setMessage(message.getContent());
+            dialog.setPositiveButton(R.string.agree,
+                    new DialogInterface.OnClickListener() {
 
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
 
-                    }
-                });
-        dialog.setNegativeButton(R.string.refuse, new DialogInterface.OnClickListener() {
+                        }
+                    });
+            dialog.setNegativeButton(R.string.refuse, new DialogInterface.OnClickListener() {
 
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
 
-            }
-        });
+                }
+            });
+        } else if (msgType.equals(Constant.FUKUAN_NOTIFY)) {
+            dialog.setTitle("付款提醒");
+            dialog.setMessage("系统提示:您即将进入下一轮付款环节,请您及时与设计师联系");
+            dialog.setPositiveButton(R.string.ok,
+                    new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+        } else if (msgType.equals(Constant.CAIGOU_NOTIFY)) {
+            dialog.setTitle("采购提醒");
+            dialog.setMessage("系统提示:您即将进入下一轮建材购买阶段,您需要购买的是" + message.getContent());
+            dialog.setPositiveButton(R.string.ok,
+                    new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+        }
         dialog.show();
     }
 }
