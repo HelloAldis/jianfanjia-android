@@ -181,7 +181,6 @@ public class YanQiNotifyFragment extends BaseFragment implements
     @Override
     public void switchTab(int index) {
         // TODO Auto-generated method stub
-
     }
 
     @Override
