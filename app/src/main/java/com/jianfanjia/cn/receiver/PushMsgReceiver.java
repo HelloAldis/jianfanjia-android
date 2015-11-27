@@ -24,6 +24,7 @@ import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.SectionInfo;
 import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.dao.impl.NotifyMessageDao;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
@@ -231,6 +232,7 @@ public class PushMsgReceiver extends BroadcastReceiver {
             Bundle bundle = new Bundle();
             bundle.putString(Constant.PROCESS_NAME, sectionInfo.getName());
             bundle.putInt(Constant.PROCESS_STATUS, sectionInfo.getStatus());
+            bundle.putSerializable(Global.PROCESS_INFO, processInfo);
             checkIntent.putExtras(bundle);
             Intent[] intents = {mainIntent, checkIntent};
             pendingIntent = PendingIntent.getActivities(context, 0, intents,
