@@ -178,6 +178,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
     @Override
     public void onResume() {
         super.onResume();
+        listenerManeger.addReceiveMsgListener(this);
     }
 
     @Override
@@ -186,6 +187,17 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
         if (currentList != -1) {
             dataManager.setCurrentList(currentList);
         }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        listenerManeger.removeReceiveMsgListener(this);
     }
 
     private void initScrollLayout() {
