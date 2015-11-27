@@ -247,6 +247,4 @@ public class PushMsgReceiver extends BroadcastReceiver {
                 + context.getPackageName() + "/" + R.raw.message);
         nManager.notify(notifyId, notification);
     }
-
-
 }
