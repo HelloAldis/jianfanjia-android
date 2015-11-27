@@ -624,7 +624,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                     });
         } else if (msgType.equals(Constant.CONFIRM_CHECK_NOTIFY)) {
             dialog.setTitle("验收提醒");
-            dialog.setMessage("确定要验收吗？");
+            dialog.setMessage("确定要进行验收吗？");
             dialog.setPositiveButton(R.string.ok,
                     new DialogInterface.OnClickListener() {
 
