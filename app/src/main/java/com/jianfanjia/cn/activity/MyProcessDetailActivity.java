@@ -562,7 +562,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                 .getPinterestDialogCancelable(MyProcessDetailActivity.this);
         String msgType = message.getType();
         if (msgType.equals(Constant.YANQI_NOTIFY)) {
-            dialog.setTitle("改期提醒");
+            dialog.setTitle(getResources().getString(R.string.yanqiText));
             dialog.setMessage(message.getContent());
             dialog.setPositiveButton(R.string.agree,
                     new DialogInterface.OnClickListener() {
@@ -582,8 +582,8 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                 }
             });
         } else if (msgType.equals(Constant.FUKUAN_NOTIFY)) {
-            dialog.setTitle("付款提醒");
-            dialog.setMessage("系统提示:您即将进入下一轮付款环节,请您及时与设计师联系");
+            dialog.setTitle(getResources().getString(R.string.fukuanText));
+            dialog.setMessage(getResources().getString(R.string.list_item_fukuan_example));
             dialog.setPositiveButton(R.string.ok,
                     new DialogInterface.OnClickListener() {
 
@@ -593,8 +593,8 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                         }
                     });
         } else if (msgType.equals(Constant.CAIGOU_NOTIFY)) {
-            dialog.setTitle("采购提醒");
-            dialog.setMessage("系统提示:您即将进入下一轮建材购买阶段,您需要购买的是" + message.getContent());
+            dialog.setTitle(getResources().getString(R.string.caigouText));
+            dialog.setMessage(getResources().getString(R.string.list_item_caigou_example) + message.getContent());
             dialog.setPositiveButton(R.string.ok,
                     new DialogInterface.OnClickListener() {
 
@@ -604,7 +604,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                         }
                     });
         } else if (msgType.equals(Constant.CONFIRM_CHECK_NOTIFY)) {
-            dialog.setTitle("验收提醒");
+            dialog.setTitle(getResources().getString(R.string.yanshouText));
             dialog.setMessage("确定要进行验收吗？");
             dialog.setPositiveButton(R.string.ok,
                     new DialogInterface.OnClickListener() {
