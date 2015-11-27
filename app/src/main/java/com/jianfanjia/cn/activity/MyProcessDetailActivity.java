@@ -569,5 +569,13 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
     @Override
     public void onReceive(NotifyMessage message) {
         LogTool.d(TAG, "onReceive message");
+        if (null != message) {
+            showNotifyDialog(message);
+        }
+    }
+
+
+    private void showNotifyDialog(NotifyMessage message) {
+
     }
 }
