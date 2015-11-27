@@ -39,7 +39,6 @@ import java.util.List;
  */
 public class CheckActivity extends BaseActivity implements OnClickListener, ItemClickCallBack {
     private static final String TAG = CheckActivity.class.getName();
-
     private RelativeLayout checkLayout = null;
     private MainHeadView mainHeadView = null;
     private GridView gridView = null;
