@@ -72,7 +72,6 @@ public class CheckActivity extends BaseActivity implements OnClickListener, Item
                     + " sectionInfoName:" + sectionInfoName
                     + " processInfoStatus:" + sectionInfoStatus);
         }
-
         initProcessInfo();
     }
 
