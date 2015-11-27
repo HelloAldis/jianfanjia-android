@@ -226,7 +226,9 @@ public abstract class BaseActivity extends AppCompatActivity implements
 
     @Override
     public void preLoad() {
-        showWaitDialog();
+        if(_waitDialog == null){
+            showWaitDialog();
+        }
     }
 
     @Override

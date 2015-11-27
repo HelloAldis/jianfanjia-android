@@ -33,6 +33,7 @@
     <string name="hint_password">请输入密码</string>
     <string name="forget_pwd">忘记密码？</string>
     <string name="register">注册</string>
+    <string name="new_user">新用户</string>
     <string name="loginByUser">用户登录</string>
     <string name="tip_please_input_username">请输入账号</string>
     <string name="tip_please_input_password">请输入密码</string>
@@ -163,6 +164,8 @@
     <string name="confirm_upload">确认上传</string>
     <string name="confirm_tip">提醒业主进行验收</string>
     <string name="confirm_done">确认验收</string>
+    <string name="confirm_not_finish">工序未完工，您还不能验收</string>
+    <string name="confirm_finish">已确认验收</string>
     <string name="caigouText">采购提醒</string>
     <string name="fukuanText">付款提醒</string>
     <string name="yanqiText">改期提醒</string>

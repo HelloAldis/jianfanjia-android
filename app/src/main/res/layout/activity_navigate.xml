@@ -8,7 +8,7 @@
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space_48"/>
+        android:paddingTop="@dimen/space_72"/>
 
     <LinearLayout
         android:id="@+id/dot_layout"
@@ -87,7 +87,7 @@
             android:id="@+id/btnRegister"
             style="@style/dialog_button_2"
             android:layout_width="@dimen/space_140"
-            android:text="@string/register" />
+            android:text="@string/new_user" />
 
     </LinearLayout>
 

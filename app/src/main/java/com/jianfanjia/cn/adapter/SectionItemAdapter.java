@@ -18,7 +18,6 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.bean.SectionInfo;
 import com.jianfanjia.cn.bean.SectionItemInfo;
-import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
 import com.jianfanjia.cn.tools.LogTool;
@@ -40,23 +39,28 @@ public class SectionItemAdapter extends BaseAdapter {
     private Context context;
     private LayoutInflater layoutInflater;
     private List<SectionItemInfo> list = new ArrayList<SectionItemInfo>();
-    private List<String> imageUrlList = new ArrayList<String>();
-    private DataManagerNew dataManager;
+    private List<String> imageUrlList = new ArrayList<String>();//源数据的List
+    private List<String> showImageUrlList = new ArrayList<>();//用来展示图片的List
     private boolean isHasCheck;// 是否有验收
-    private List<SectionInfo> sectionInfos;
+    private List<SectionInfo> showSectionInfoList = new ArrayList<>();
 
     public SectionItemAdapter(Context context, int position,
-                              List<SectionInfo> sectionInfos, ItemClickCallBack callBack) {
+                              List<SectionInfo> showSectionInfoList, ItemClickCallBack callBack) {
         this.context = context;
         layoutInflater = LayoutInflater.from(context);
-        dataManager = DataManagerNew.getInstance();
         this.callBack = callBack;
-        this.sectionInfos = sectionInfos;
+        initSectionInfoList(showSectionInfoList);
         setPosition(position);
     }
 
+    private void  initSectionInfoList(List<SectionInfo> sectionInfos){
+        if(sectionInfos != null){
+            showSectionInfoList.addAll(sectionInfos);
+        }
+    }
+
     public void setPosition(int position) {
-        sectionInfo = sectionInfos.get(position);
+        sectionInfo = showSectionInfoList.get(position);
         section_status = sectionInfo.getStatus();
         initList();
     }
@@ -275,27 +279,23 @@ public class SectionItemAdapter extends BaseAdapter {
 
                 // 设置最新动态的时间
                 long date = sectionItemInfo.getDate();
-                if (date != 0l) {
+                if (date != 0L) {
                     viewHolder.openUploadTime.setText(StringUtils
                             .covertLongToString(date));
                 } else {
                     viewHolder.openUploadTime.setText("");
                 }
-
+                showImageUrlList.clear();
                 if (null != imageUrlList && imageUrlList.size() > 0) {
-                    if (imageUrlList.size() < IMG_COUNT
-                            && !imageUrlList.contains(Constant.HOME_ADD_PIC)) {// 最多上传9张照片
+                    if (imageUrlList.size() < IMG_COUNT) {// 最多上传9张照片
                         Log.i(this.getClass().getName(), "addImage");
-                        imageUrlList.add(Constant.HOME_ADD_PIC);
+                        showImageUrlList.addAll(imageUrlList);
+                        showImageUrlList.add(Constant.HOME_ADD_PIC);
                     } else {
-                        for (String str : imageUrlList) {
-                            if (str.equals(Constant.HOME_ADD_PIC)) {
-                                list.remove(str);
-                            }
-                        }
+                        showImageUrlList.addAll(imageUrlList);
                     }
                 } else {
-                    imageUrlList.add(Constant.HOME_ADD_PIC);
+                    showImageUrlList.add(Constant.HOME_ADD_PIC);
                 }
                 int commentCount = sectionItemInfo.getComment_count();
                 if (commentCount > 0) {
@@ -327,7 +327,7 @@ public class SectionItemAdapter extends BaseAdapter {
 
                 }
                 // 设置上传照片
-                setImageData(imageUrlList, viewHolder.gridView);
+                setImageData(viewHolder.gridView);
                 viewHolder.openComment.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -399,28 +399,24 @@ public class SectionItemAdapter extends BaseAdapter {
     }
 
     /**
-     * @param imageUrlList
+     * @param
      * @param gridView
      * @des 设置item里gridview的照片
      */
-    private void setImageData(final List<String> imageUrlList, GridView gridView) {
-        sectionItemGridViewAdapter = new SectionItemGridViewAdapter(context, imageUrlList);
+    private void setImageData(GridView gridView) {
+        sectionItemGridViewAdapter = new SectionItemGridViewAdapter(context, showImageUrlList);
         gridView.setAdapter(sectionItemGridViewAdapter);
         gridView.setOnItemClickListener(new OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     final int position, long id) {
-                String data = imageUrlList.get(position);
+                String data =showImageUrlList.get(position);
                 Log.i(this.getClass().getName(), "data:" + data);
+                Log.i(this.getClass().getName(), "imageUrlList size=" + imageUrlList.size());
                 if (data.equals(Constant.HOME_ADD_PIC)) {
                     callBack.click(position, Constant.ADD_ITEM, imageUrlList);
                 } else {
-                    for (String str : imageUrlList) {
-                        if (str.equals(Constant.HOME_ADD_PIC)) {
-                            imageUrlList.remove(str);
-                        }
-                    }
                     callBack.click(position, Constant.IMG_ITEM, imageUrlList);
                 }
             }
