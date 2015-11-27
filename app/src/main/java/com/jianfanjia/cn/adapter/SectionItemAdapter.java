@@ -38,8 +38,8 @@ public class SectionItemAdapter extends BaseAdapter {
     private SectionInfo sectionInfo;
     private Context context;
     private LayoutInflater layoutInflater;
-    private List<SectionItemInfo> list = new ArrayList<SectionItemInfo>();
-    private List<String> imageUrlList = new ArrayList<String>();//源数据的List
+    private List<SectionItemInfo> list = new ArrayList<>();
+    private List<String> imageUrlList = new ArrayList<>();//源数据的List
     private List<String> showImageUrlList = new ArrayList<>();//用来展示图片的List
     private boolean isHasCheck;// 是否有验收
     private List<SectionInfo> showSectionInfoList = new ArrayList<>();
@@ -53,8 +53,8 @@ public class SectionItemAdapter extends BaseAdapter {
         setPosition(position);
     }
 
-    private void  initSectionInfoList(List<SectionInfo> sectionInfos){
-        if(sectionInfos != null){
+    private void initSectionInfoList(List<SectionInfo> sectionInfos) {
+        if (sectionInfos != null) {
             showSectionInfoList.addAll(sectionInfos);
         }
     }
@@ -411,7 +411,7 @@ public class SectionItemAdapter extends BaseAdapter {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     final int position, long id) {
-                String data =showImageUrlList.get(position);
+                String data = showImageUrlList.get(position);
                 Log.i(this.getClass().getName(), "data:" + data);
                 Log.i(this.getClass().getName(), "imageUrlList size=" + imageUrlList.size());
                 if (data.equals(Constant.HOME_ADD_PIC)) {
