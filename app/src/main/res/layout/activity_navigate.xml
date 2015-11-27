@@ -87,7 +87,7 @@
             android:id="@+id/btnRegister"
             style="@style/dialog_button_2"
             android:layout_width="@dimen/space_140"
-            android:text="@string/register" />
+            android:text="@string/new_user" />
 
     </LinearLayout>
 
