@@ -577,7 +577,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
         }
     }
 
-    private void showNotifyDialog(NotifyMessage message) {
+    private void showNotifyDialog(final NotifyMessage message) {
         CommonDialog dialog = DialogHelper
                 .getPinterestDialogCancelable(MyProcessDetailActivity.this);
         String msgType = message.getType();
@@ -590,7 +590,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
-
+                            agreeReschedule(message.getProcessid());
                         }
                     });
             dialog.setNegativeButton(R.string.refuse, new DialogInterface.OnClickListener() {
@@ -598,7 +598,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
-
+                    refuseReschedule(message.getProcessid());
                 }
             });
         } else if (msgType.equals(Constant.FUKUAN_NOTIFY)) {
@@ -642,5 +642,45 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                     });
         }
         dialog.show();
+    }
+
+    //同意改期
+    private void agreeReschedule(String processid) {
+        JianFanJiaClient.agreeReschedule(MyProcessDetailActivity.this, processid, new ApiUiUpdateListener() {
+            @Override
+            public void preLoad() {
+
+            }
+
+            @Override
+            public void loadSuccess(Object data) {
+                LogTool.d(TAG, "data:" + data.toString());
+            }
+
+            @Override
+            public void loadFailture(String error_msg) {
+                makeTextLong(error_msg);
+            }
+        }, this);
+    }
+
+    // 拒绝改期
+    private void refuseReschedule(String processid) {
+        JianFanJiaClient.refuseReschedule(MyProcessDetailActivity.this, processid, new ApiUiUpdateListener() {
+            @Override
+            public void preLoad() {
+
+            }
+
+            @Override
+            public void loadSuccess(Object data) {
+                LogTool.d(TAG, "data:" + data.toString());
+            }
+
+            @Override
+            public void loadFailture(String error_msg) {
+                makeTextLong(error_msg);
+            }
+        }, this);
     }
 }
