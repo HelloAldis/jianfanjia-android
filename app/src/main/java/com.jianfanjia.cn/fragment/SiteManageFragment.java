@@ -603,6 +603,7 @@ public class SiteManageFragment extends BaseFragment implements
                         if (null != processId
                                 && dataManager.getDefaultProcessId() != processId) {
                             // loadempty
+                            currentList = dataManager.getCurrentList();
                             loadCurrentProcess();
                         }
                     }

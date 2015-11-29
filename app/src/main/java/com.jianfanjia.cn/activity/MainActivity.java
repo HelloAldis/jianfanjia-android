@@ -1,5 +1,6 @@
 package com.jianfanjia.cn.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SlidingPaneLayout;
@@ -10,6 +11,7 @@ import android.widget.FrameLayout;
 
 import com.igexin.sdk.PushManager;
 import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.fragment.DesignerMenuFragment;
 import com.jianfanjia.cn.fragment.SiteManageFragment;
 import com.jianfanjia.cn.view.layout.PagerEnabledSlidingPaneLayout;
@@ -26,6 +28,7 @@ public class MainActivity extends BaseActivity implements PanelSlideListener {
     private PagerEnabledSlidingPaneLayout slidingPaneLayout = null;
     private FrameLayout slidingpane_content = null;
     private long mExitTime = 0L;
+    private SiteManageFragment ownerSiteManageFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +46,7 @@ public class MainActivity extends BaseActivity implements PanelSlideListener {
     private void initFragment() {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         DesignerMenuFragment designerMenuFragment = new DesignerMenuFragment();
-        SiteManageFragment ownerSiteManageFragment = new SiteManageFragment();
+        ownerSiteManageFragment = new SiteManageFragment();
         transaction
                 .replace(R.id.slidingpane_menu, designerMenuFragment);
         transaction.replace(R.id.slidingpane_content,
@@ -108,4 +111,30 @@ public class MainActivity extends BaseActivity implements PanelSlideListener {
         LogTool.d(TAG, "onDisConnect()");
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != RESULT_OK) {
+            return;
+        }
+        switch (requestCode) {
+            case Constant.REQUESTCODE_CHANGE_SITE:
+                if (data != null) {
+                    Bundle bundle = data.getExtras();
+                    if (bundle != null) {
+                        LogTool.d(TAG,"change site");
+                        if (slidingPaneLayout.isOpen()) {
+                            slidingPaneLayout.closePane();
+                        }
+                        if (ownerSiteManageFragment != null) {
+                            ownerSiteManageFragment.onActivityResult(requestCode, resultCode, data);
+                        }
+                        return;
+                    }
+                }
+                break;
+            default:
+                break;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 }

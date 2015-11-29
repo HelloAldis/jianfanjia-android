@@ -102,9 +102,9 @@ public class DesignerMenuFragment extends BaseFragment {
 			startActivity(MyOwnerActivity.class);
 			break;
 		case R.id.tab_rb_3:
-			Intent changeIntent = new Intent(getActivity(),
+			Intent changeIntent = new Intent((MainActivity)getActivity(),
 					DesignerSiteActivity.class);
-			startActivityForResult(changeIntent,
+			getActivity().startActivityForResult(changeIntent,
 					Constant.REQUESTCODE_CHANGE_SITE);
 			break;
 		case R.id.tab_rb_4:
@@ -118,29 +118,6 @@ public class DesignerMenuFragment extends BaseFragment {
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		switch (requestCode) {
-		case Constant.REQUESTCODE_CHANGE_SITE:
-			if (data != null) {
-				Bundle bundle = data.getExtras();
-				if (bundle != null) {
-					String processId = (String) bundle.get("ProcessId");
-					LogTool.d(TAG, "processId=" + processId);
-					if (null != processId
-							&& dataManager.getDefaultProcessId() != processId) {
-						if (((MainActivity) getActivity())
-								.getSlidingPaneLayout().isOpen()) {
-							((MainActivity) getActivity())
-									.getSlidingPaneLayout().closePane();
-						}
-						// loadempty
-						// loadCurrentProcess();
-					}
-				}
-			}
-			break;
-		default:
-			break;
-		}
 	}
 
 	@Override

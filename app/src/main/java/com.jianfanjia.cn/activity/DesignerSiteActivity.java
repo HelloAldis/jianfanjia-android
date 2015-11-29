@@ -85,7 +85,8 @@ public class DesignerSiteActivity extends BaseActivity implements
     public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
         Process siteInfo = siteList.get(position);
         LogTool.d(TAG, "_id=" + siteInfo.get_id());
-        dataManager.setDefaultPro(position);
+        dataManager.setDefaultPro(position);//设置当前工地
+        dataManager.setCurrentList(-1);//重置展开的工序
         Intent intent = new Intent();
         intent.putExtra("ProcessId", siteInfo.get_id());
         setResult(RESULT_OK, intent);
