@@ -243,7 +243,7 @@ public class PushMsgReceiver extends BroadcastReceiver {
             Intent checkIntent = new Intent(context, CheckActivity.class);
             Bundle bundle = new Bundle();
             bundle.putString(Constant.PROCESS_NAME, sectionInfo.getName());
-            bundle.putInt(Constant.PROCESS_STATUS, sectionInfo.getStatus());
+            bundle.putString(Constant.PROCESS_STATUS, sectionInfo.getStatus());
             bundle.putSerializable(Global.PROCESS_INFO, processInfo);
             checkIntent.putExtras(bundle);
             Intent[] intents = {mainIntent, checkIntent};

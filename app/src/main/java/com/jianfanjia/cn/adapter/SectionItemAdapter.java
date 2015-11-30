@@ -34,7 +34,7 @@ public class SectionItemAdapter extends BaseAdapter {
     private int lastClickItem = -1;// 记录上次点击的位置
     private int currentClickItem = -1;// 记录当前点击位置
     private SectionItemGridViewAdapter sectionItemGridViewAdapter;
-    private int section_status;// 节点的状态
+    private String section_status;// 节点的状态
     private SectionInfo sectionInfo;
     private Context context;
     private LayoutInflater layoutInflater;
@@ -237,8 +237,8 @@ public class SectionItemAdapter extends BaseAdapter {
                         .getStringById(sectionItemInfo.getName()));
                 viewHolder.openNodeName.setText(MyApplication.getInstance()
                         .getStringById(sectionItemInfo.getName()));
-                switch (Integer.parseInt(sectionItemInfo.getStatus())) {
-                    case Constant.FINISH:
+                switch (sectionItemInfo.getStatus()) {
+                    case Constant.FINISHED:
                         viewHolder.finishStatusIcon
                                 .setImageResource(R.mipmap.icon_home_finish);
                         viewHolder.openFinishStatus.setText(context.getResources()
@@ -250,7 +250,7 @@ public class SectionItemAdapter extends BaseAdapter {
                         viewHolder.smallcloseLayout
                                 .setBackgroundResource(R.mipmap.list_item_text_bg2);
                         break;
-                    case Constant.NOT_START:
+                    case Constant.NO_START:
                         viewHolder.finishStatusIcon
                                 .setImageResource(R.drawable.site_listview_item_notstart_circle);
                         viewHolder.finishTime.setVisibility(View.GONE);
@@ -262,7 +262,7 @@ public class SectionItemAdapter extends BaseAdapter {
                         viewHolder.smallcloseLayout
                                 .setBackgroundResource(R.mipmap.list_item_text_bg1);
                         break;
-                    case Constant.WORKING:
+                    case Constant.DOING:
                         viewHolder.finishTime.setVisibility(View.GONE);
                         viewHolder.finishStatusIcon
                                 .setImageResource(R.mipmap.icon_home_working);
@@ -313,7 +313,7 @@ public class SectionItemAdapter extends BaseAdapter {
                 }
 
                 // 未开工的点击无法展开
-                if (section_status != Constant.NOT_START) {
+                if (!section_status.equals(Constant.NO_START)) {
                     if (sectionItemInfo.isOpen()) {
                         viewHolder.bigOpenLayout.setVisibility(View.VISIBLE);
                         viewHolder.smallcloseLayout.setVisibility(View.GONE);
@@ -343,34 +343,41 @@ public class SectionItemAdapter extends BaseAdapter {
             case CHECK_VIEW:
                 viewHolderf.closeNodeName.setText(sectionItemInfo.getName());
                 viewHolderf.openNodeName.setText(sectionItemInfo.getName());
-                if (section_status != Constant.NOT_START) {
-                    if (sectionItemInfo.isOpen()) {
-                        viewHolderf.bigOpenLayout.setVisibility(View.VISIBLE);
-                        viewHolderf.smallcloseLayout.setVisibility(View.GONE);
-                    } else {
-                        viewHolderf.bigOpenLayout.setVisibility(View.GONE);
-                        viewHolderf.smallcloseLayout.setVisibility(View.VISIBLE);
-                    }
+                viewHolderf.closeNodeName.setText(sectionItemInfo.getName());
+                viewHolderf.openNodeName.setText(sectionItemInfo.getName());
+                if (section_status.equals(Constant.FINISHED)) {
                     viewHolderf.bigOpenLayout
                             .setBackgroundResource(R.mipmap.list_item_text_bg2);
                     viewHolderf.smallcloseLayout
                             .setBackgroundResource(R.mipmap.list_item_text_bg2);
                 } else {
-                    viewHolderf.bigOpenLayout.setVisibility(View.GONE);
-                    viewHolderf.smallcloseLayout.setVisibility(View.VISIBLE);
                     viewHolderf.bigOpenLayout
                             .setBackgroundResource(R.mipmap.list_item_text_bg1);
                     viewHolderf.smallcloseLayout
                             .setBackgroundResource(R.mipmap.list_item_text_bg1);
                 }
-                int state = sectionInfo.getStatus();
-                switch (state) {
-                    case Constant.FINISH:
+                if (sectionItemInfo.isOpen()) {
+                    viewHolderf.bigOpenLayout.setVisibility(View.VISIBLE);
+                    viewHolderf.smallcloseLayout.setVisibility(View.GONE);
+                } else {
+                    viewHolderf.bigOpenLayout.setVisibility(View.GONE);
+                    viewHolderf.smallcloseLayout.setVisibility(View.VISIBLE);
+                }
+                switch (section_status) {
+                    case Constant.FINISHED:
                         viewHolderf.finishStatusIcon
                                 .setImageResource(R.mipmap.icon_home_finish);
-                        viewHolderf.openDelay.setOnClickListener(null);
+                        viewHolderf.openDelay.setEnabled(false);
+                        viewHolderf.openDelay.setTextColor(context.getResources().getColor(R.color.grey_color));
+                        viewHolderf.openDelay.setText(context.getResources().getText(R.string.site_example_node_delay_no));
                         break;
-                    default:
+                    case Constant.YANQI_AGREE:
+                    case Constant.YANQI_REFUSE:
+                    case Constant.NO_START:
+                    case Constant.DOING:
+                        viewHolderf.openDelay.setEnabled(true);
+                        viewHolderf.openDelay.setTextColor(context.getResources().getColor(R.color.orange_color));
+                        viewHolderf.openDelay.setText(context.getResources().getText(R.string.site_example_node_delay));
                         viewHolderf.finishStatusIcon
                                 .setImageResource(R.drawable.site_listview_item_notstart_circle);
                         viewHolderf.openDelay.setOnClickListener(new OnClickListener() {
@@ -381,8 +388,15 @@ public class SectionItemAdapter extends BaseAdapter {
                             }
                         });
                         break;
+                    case Constant.YANQI_BE_DOING:
+                        LogTool.d(this.getClass().getName(),"this section is yanqi_doing");
+                        viewHolderf.openDelay.setTextColor(context.getResources().getColor(R.color.grey_color));
+                        viewHolderf.openDelay.setText(context.getResources().getText(R.string.site_example_node_delay_doing));
+                        viewHolderf.openDelay.setEnabled(false);
+                        break;
+                    default:
+                        break;
                 }
-
                 viewHolderf.openCheck.setOnClickListener(new OnClickListener() {
 
                     @Override

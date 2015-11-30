@@ -50,7 +50,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener, Item
     private List<Imageid> imageids = null;
     private String processInfoId = null;// 工地id
     private String sectionInfoName = null;// 工序名称
-    private int sectionInfoStatus = -1;// 工序状态
+    private String sectionInfoStatus = null;// 工序状态
     private ProcessInfo processInfo;
     private List<SectionItemInfo> sectionItemInfos;
 
@@ -61,7 +61,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener, Item
         Bundle bundle = intent.getExtras();
         if (bundle != null) {
             sectionInfoName = bundle.getString(Constant.PROCESS_NAME);
-            sectionInfoStatus = bundle.getInt(Constant.PROCESS_STATUS, 0);
+            sectionInfoStatus = bundle.getString(Constant.PROCESS_STATUS, Constant.DOING);
             processInfo = (ProcessInfo) bundle.getSerializable(Global.PROCESS_INFO);
             LogTool.d(TAG, "processInfoId:" + processInfoId
                     + " sectionInfoName:" + sectionInfoName
@@ -106,16 +106,12 @@ public class CheckActivity extends BaseActivity implements OnClickListener, Item
                 sectionInfoName)
                 + getString(R.string.check_head));
         switch (sectionInfoStatus) {
-            case Constant.NOT_START:
+            case Constant.NO_START:
                 break;
-            case Constant.WORKING:
+            case Constant.DOING:
                 break;
-            case Constant.FINISH:
+            case Constant.FINISHED:
                 btn_confirm.setEnabled(false);
-                break;
-            case Constant.OWNER_APPLY_DELAY:
-                break;
-            case Constant.DESIGNER_APPLY_DELAY:
                 break;
             default:
                 break;
@@ -138,9 +134,6 @@ public class CheckActivity extends BaseActivity implements OnClickListener, Item
                 checkGridList.get(Integer.parseInt(key) * 2 + 1).setImgId(
                         imageids.get(i).getImageid());
                 imagecount++;
-                /*if (imageids.get(i).getImageid() != null) {
-
-                }*/
             }
             setConfimStatus(imagecount);
             adapter.setList(checkGridList);
@@ -150,7 +143,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener, Item
     }
 
     private void setConfimStatus(int count) {
-        if (sectionInfoStatus != Constant.FINISH) {
+        if (!sectionInfoStatus.equals(Constant.FINISHED)) {
             if (count < BusinessManager
                     .getCheckPicCountBySection(sectionInfoName)) {
                 //设计师图片没上传完，不能验收
@@ -198,7 +191,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener, Item
         for (SectionItemInfo sectionItemInfo : sectionItemInfos) {
             LogTool.d(TAG, "sectionitem name =" + sectionItemInfo.getName());
             LogTool.d(TAG, "sectionitem status =" + sectionItemInfo.getStatus());
-            if (!sectionItemInfo.getStatus().equals(Constant.FINISH + "")) {
+            if (!sectionItemInfo.getStatus().equals(Constant.FINISHED)) {
                 LogTool.d(TAG, "sectionitem not finish");
                 flag = false;
                 return flag;
