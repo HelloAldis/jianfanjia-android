@@ -136,7 +136,7 @@
     <string name="appoint">位可预约</string>
     <string name="appointText">预约</string>
     <string name="replaceText">替换</string>
-    <string name="commentText">留言</string>
+    <string name="commentText">评论</string>
     <string name="planText">的方案</string>
     <string name="designerPlanText">方案详情</string>
     <string name="pingjiaText">评价设计师</string>
@@ -172,8 +172,8 @@
     <string name="fukuanText">付款提醒</string>
     <string name="yanqiText">改期提醒</string>
     <string name="yanshouText">验收提醒</string>
-    <string name="list_item_caigou_example">系统提示:您即将进入下一轮建材购买阶段,您需要购买的是</string>
-    <string name="list_item_fukuan_example">系统提示:您即将进入下一轮付款环节,请您及时与设计师联系</string>
+    <string name="list_item_caigou_example">系统提示：您即将进入下一轮建材购买阶段，您需要购买的是</string>
+    <string name="list_item_fukuan_example">系统提示：您即将进入下一轮付款环节，请您及时与设计师联系</string>
     <string name="list_item_yanqi_example">对方已申请改期验收至</string>
 
     <!-- activity_upload_pic -->
