@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/font_white">
+
+    <ImageView
+        android:id="@+id/list_item_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_margin="5dip"
+        android:src="@mipmap/icon_logo" />
+
+    <LinearLayout
+        android:id="@+id/titleLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/list_item_img"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dip">
+
+            <TextView
+                android:id="@+id/list_item_title"
+                style="@style/listview_item_text_style_middle"
+                android:text="清江山水"
+                android:textColor="@color/black_color" />
+
+            <TextView
+                android:id="@+id/list_item_date"
+                style="@style/listview_item_text_style_small"
+                android:layout_alignParentRight="true"
+                android:text="2015-11-30"
+                android:textColor="@color/black_color" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/list_item_content"
+            style="@style/listview_item_text_style_middle"
+            android:layout_marginRight="5dip"
+            android:text="泥木阶段"
+            android:textColor="@color/black_color" />
+
+    </LinearLayout>
+
+</RelativeLayout>
