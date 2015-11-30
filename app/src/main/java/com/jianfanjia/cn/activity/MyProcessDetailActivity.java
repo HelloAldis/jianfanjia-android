@@ -583,7 +583,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
             });
         } else if (msgType.equals(Constant.FUKUAN_NOTIFY)) {
             dialog.setTitle(getResources().getString(R.string.fukuanText));
-            dialog.setMessage(getResources().getString(R.string.list_item_fukuan_example));
+            dialog.setMessage(message.getContent());
             dialog.setPositiveButton(R.string.ok,
                     new DialogInterface.OnClickListener() {
 
@@ -605,7 +605,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                     });
         } else if (msgType.equals(Constant.CONFIRM_CHECK_NOTIFY)) {
             dialog.setTitle(getResources().getString(R.string.yanshouText));
-            dialog.setMessage("确定要进行验收吗？");
+            dialog.setMessage(message.getContent());
             dialog.setPositiveButton(R.string.ok,
                     new DialogInterface.OnClickListener() {
 
