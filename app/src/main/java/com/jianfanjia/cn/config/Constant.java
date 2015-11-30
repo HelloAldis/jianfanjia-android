@@ -187,7 +187,8 @@ public class Constant {
     public static final int REC_DESIGNER_TOTAL = 3;//推荐设计师总数
     public static final int ROST_REQUIREMTNE_TOTAL = 3;//能够发布需求总数
 
+    public static final String KEY = "Item";
+
     public static final int UPDATE_HOME_FRAGMENT = 10;
     public static final int UPDATE_REQUIRE_FRAGMENT = 20;
-
 }
