@@ -94,10 +94,13 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 
     private void initProcessInfo() {
         processInfo = dataManager.getDefaultProcessInfo();
+        LogTool.d(TAG, "processInfo:" + processInfo);
         if (processInfo != null) {
             processInfoId = processInfo.get_id();
             sectionItemInfos = processInfo.getSectionInfoByName(sectionInfoName).getItems();
             initData();
+        } else {
+            btn_confirm.setEnabled(false);
         }
     }
 
@@ -270,7 +273,6 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
             btn_confirm.setEnabled(false);
             btn_confirm.setText(this.getResources().getString(
                     R.string.confirm_finish));
-
         }
 
     }
@@ -491,12 +493,14 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 
             @Override
             public void loadSuccess(Object data) {
+                LogTool.d(TAG, "data:" + data.toString());
                 btn_confirm.setEnabled(false);
             }
 
             @Override
             public void loadFailture(String errorMsg) {
-
+                LogTool.d(TAG, "errorMsg:" + errorMsg);
+                btn_confirm.setEnabled(false);
             }
         }, this);
     }
