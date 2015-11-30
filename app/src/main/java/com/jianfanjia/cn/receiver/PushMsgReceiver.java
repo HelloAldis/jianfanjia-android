@@ -243,6 +243,7 @@ public class PushMsgReceiver extends BroadcastReceiver {
         builder.setAutoCancel(true);
         builder.setContentIntent(pendingIntent);
         Notification notification = builder.build();
+        notification.vibrate = new long[]{0, 300, 500, 700};
         notification.sound = Uri.parse("android.resource://"
                 + context.getPackageName() + "/" + R.raw.message);
         nManager.notify(notifyId, notification);
