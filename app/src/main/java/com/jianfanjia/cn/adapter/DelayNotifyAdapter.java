@@ -61,7 +61,7 @@ public class DelayNotifyAdapter extends BaseListAdapter<NotifyDelayInfo> {
         viewHolder.itemNewTimeView.setText("对方已申请改期验收至" + DateFormatTool.longToString(info.getNew_date()));
         viewHolder.itemPubTimeView.setText(DateFormatTool
                 .toLocalTimeString(info.getRequest_date()));
-        String status = info.getStatus();
+        final String status = info.getStatus();
         if (status.equals(Constant.NO_START)) {
             viewHolder.itemStatusView.setText("未开工");
         } else if (status.equals(Constant.DOING)) {
@@ -70,20 +70,19 @@ public class DelayNotifyAdapter extends BaseListAdapter<NotifyDelayInfo> {
             viewHolder.itemStatusView.setText("已完成");
         } else if (status.equals(Constant.YANQI_BE_DOING)) {
             viewHolder.itemStatusView.setText("未处理,点击前往处理");
-            viewHolder.itemStatusView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (null != listener) {
-                        listener.onClick(position);
-                    }
-                }
-            });
         } else if (status.equals(Constant.YANQI_AGREE)) {
             viewHolder.itemStatusView.setText("已同意");
         } else if (status.equals(Constant.YANQI_REFUSE)) {
             viewHolder.itemStatusView.setText("已拒绝");
         }
-
+        viewHolder.itemStatusView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (null != listener) {
+                    listener.onClick(position, status);
+                }
+            }
+        });
         return convertView;
     }
 
