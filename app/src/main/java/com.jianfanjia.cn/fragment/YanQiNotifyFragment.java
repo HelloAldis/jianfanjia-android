@@ -12,6 +12,7 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.DelayNotifyAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.NotifyDelayInfo;
+import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.DelayInfoListener;
@@ -101,21 +102,24 @@ public class YanQiNotifyFragment extends BaseFragment implements
     }
 
     @Override
-    public void onClick(int position) {
-        notifyDelayInfo = delayList.get(position);
-        LogTool.d(TAG, " notifyDelayInfo:" + notifyDelayInfo);
-        if (null != notifyDelayInfo) {
-            processid = notifyDelayInfo.get_id();
-            LogTool.d(TAG, "processid:" + processid);
-            delayNotifyDialog();
+    public void onClick(int position, String status) {
+        LogTool.d(TAG, "position=" + position + "  status=" + status);
+        if (status.equals(Constant.YANQI_BE_DOING)) {
+            notifyDelayInfo = delayList.get(position);
+            LogTool.d(TAG, " notifyDelayInfo:" + notifyDelayInfo);
+            if (null != notifyDelayInfo) {
+                processid = notifyDelayInfo.get_id();
+                LogTool.d(TAG, "processid:" + processid);
+                delayNotifyDialog();
+            }
         }
     }
 
     private void delayNotifyDialog() {
         CommonDialog dialog = DialogHelper
                 .getPinterestDialogCancelable(getActivity());
-        dialog.setTitle("延期提醒");
-        dialog.setMessage("确定要延期吗？");
+        dialog.setTitle("改期提醒");
+        dialog.setMessage("确定要改期吗？");
         dialog.setPositiveButton(R.string.agree,
                 new DialogInterface.OnClickListener() {
 

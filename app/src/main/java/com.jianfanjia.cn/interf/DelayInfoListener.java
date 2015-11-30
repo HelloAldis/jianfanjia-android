@@ -1,5 +1,5 @@
 package com.jianfanjia.cn.interf;
 
 public interface DelayInfoListener {
-    void onClick(int position);
+    void onClick(int position, String status);
 }
