@@ -159,6 +159,8 @@
     <string name="confirm_upload">确认上传</string>
     <string name="confirm_tip">提醒业主进行验收</string>
     <string name="confirm_done">确认验收</string>
+    <string name="confirm_not_finish">工序未完工，您还不能提醒业主验收</string>
+    <string name="confirm_finish">已确认验收</string>
     <string name="caigouText">采购提醒</string>
     <string name="fukuanText">付款提醒</string>
     <string name="yanqiText">改期提醒</string>

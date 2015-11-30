@@ -19,6 +19,7 @@ import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.CheckInfo.Imageid;
 import com.jianfanjia.cn.bean.GridItem;
 import com.jianfanjia.cn.bean.ProcessInfo;
+import com.jianfanjia.cn.bean.SectionItemInfo;
 import com.jianfanjia.cn.cache.BusinessManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaClient;
@@ -70,6 +71,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
     private String key = null;
     private File mTmpFile = null;
     private ProcessInfo processInfo;
+    private List<SectionItemInfo> sectionItemInfos;
     private int currentState;
 
     @Override
@@ -95,6 +97,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
         processInfo = dataManager.getDefaultProcessInfo();
         if (processInfo != null) {
             processInfoId = processInfo.get_id();
+            sectionItemInfos = processInfo.getSectionInfoByName(sectionInfoName).getItems();
             initData();
         }
     }
@@ -203,7 +206,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
     }
 
     private void setConfimStatus(int count) {
-        btn_confirm.setText(this.getResources().getString(
+        /*btn_confirm.setText(this.getResources().getString(
                 R.string.confirm_upload));
         if (count < BusinessManager
                 .getCheckPicCountBySection(sectionInfoName)) {
@@ -229,7 +232,72 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
         }
         if (sectionInfoStatus == Constant.FINISH) {
             btn_confirm.setEnabled(false);
+        }*/
+
+        if (sectionInfoStatus != Constant.FINISH) {
+            if (count < BusinessManager
+                    .getCheckPicCountBySection(sectionInfoName)) {
+                //设计师图片没上传完，不能验收
+                btn_confirm.setEnabled(true);
+                btn_confirm.setText(this.getResources().getString(
+                        R.string.confirm_upload));
+                btn_confirm.setOnClickListener(new OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        finish();
+                    }
+                });
+            } else {
+                boolean isFinish = isSectionInfoFishish(sectionItemInfos);
+                if (isFinish) {
+                    //图片上传完了，可以进行验收
+                    btn_confirm.setEnabled(true);
+                    btn_confirm.setText(this.getResources().getString(
+                            R.string.confirm_tip));
+                    btn_confirm.setOnClickListener(new OnClickListener() {
+
+                        @Override
+                        public void onClick(View v) {
+                            onClickCheckConfirm();
+                        }
+                    });
+                } else {
+                    //图片上传完了，但是工序的某些节点还没有完工
+                    btn_confirm.setEnabled(false);
+                    btn_confirm.setText(this.getResources().getString(
+                            R.string.confirm_not_finish));
+
+                }
+            }
+        } else {
+            //已经验收过了
+            btn_confirm.setEnabled(false);
+            btn_confirm.setText(this.getResources().getString(
+                    R.string.confirm_finish));
+
         }
+
+    }
+
+    /**
+     * 判断是否所有节点都已经完工了
+     *
+     * @param sectionItemInfos
+     * @return
+     */
+    private boolean isSectionInfoFishish(List<SectionItemInfo> sectionItemInfos) {
+        boolean flag = true;
+        for (SectionItemInfo sectionItemInfo : sectionItemInfos) {
+            LogTool.d(TAG, "sectionitem name =" + sectionItemInfo.getName());
+            LogTool.d(TAG, "sectionitem status =" + sectionItemInfo.getStatus());
+            if (!sectionItemInfo.getStatus().equals(Constant.FINISH + "")) {
+                LogTool.d(TAG, "sectionitem not finish");
+                flag = false;
+                return flag;
+            }
+        }
+        return flag;
 
     }
 
@@ -240,18 +308,23 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
     }
 
     public void changeEditStatus() {
-        if (currentState == FINISH_STATUS) {
-            check_pic_edit.setText("编辑");
-            currentState = EDIT_STATUS;
-            adapter.setCanDelete(false);
-            btn_confirm.setEnabled(true);
-            adapter.notifyDataSetInvalidated();
-        } else {
+        if(sectionInfoStatus != Constant.FINISH){
+            if (currentState == FINISH_STATUS) {
+                check_pic_edit.setText("编辑");
+                currentState = EDIT_STATUS;
+                adapter.setCanDelete(false);
+                btn_confirm.setEnabled(true);
+                adapter.notifyDataSetInvalidated();
+            } else {
+                btn_confirm.setEnabled(false);
+                check_pic_edit.setText("完成");
+                currentState = FINISH_STATUS;
+                adapter.setCanDelete(true);
+                adapter.notifyDataSetInvalidated();
+            }
+        }else{
+            check_pic_edit.setEnabled(false);
             btn_confirm.setEnabled(false);
-            check_pic_edit.setText("完成");
-            currentState = FINISH_STATUS;
-            adapter.setCanDelete(true);
-            adapter.notifyDataSetInvalidated();
         }
     }
 

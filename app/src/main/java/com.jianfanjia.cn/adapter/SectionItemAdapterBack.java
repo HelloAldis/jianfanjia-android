@@ -76,6 +76,7 @@ public class SectionItemAdapterBack extends BaseAdapter {
                     .getPositionByItemName(sectionInfo.getName())]);
             sectionItemInfo.setDate(sectionInfo.getYs().getDate());
             sectionItemInfo.setOpen(false);
+            sectionItemInfo.setStatus(sectionInfo.getStatus()+"");//验收的状态就是工序的状态
             list.add(sectionItemInfo);
         } else {
             isHasCheck = false;
@@ -132,11 +133,6 @@ public class SectionItemAdapterBack extends BaseAdapter {
                     break;
                 }
             }
-           /* for (int i = list.size() - 1; i >= 0; i--) {
-                if (list.get(i).getDate() == max) {
-                    setCurrentOpenItem(i);
-                }
-            }*/
         }
     }
 
@@ -375,25 +371,23 @@ public class SectionItemAdapterBack extends BaseAdapter {
             case CHECK_VIEW:
                 viewHolderf.closeNodeName.setText(sectionItemInfo.getName());
                 viewHolderf.openNodeName.setText(sectionItemInfo.getName());
-                if (section_status != Constant.NOT_START) {
-                    if (sectionItemInfo.isOpen()) {
-                        viewHolderf.bigOpenLayout.setVisibility(View.VISIBLE);
-                        viewHolderf.smallcloseLayout.setVisibility(View.GONE);
-                    } else {
-                        viewHolderf.bigOpenLayout.setVisibility(View.GONE);
-                        viewHolderf.smallcloseLayout.setVisibility(View.VISIBLE);
-                    }
+                if (section_status == Constant.FINISH) {
                     viewHolderf.bigOpenLayout
                             .setBackgroundResource(R.drawable.list_item_text_bg2);
                     viewHolderf.smallcloseLayout
                             .setBackgroundResource(R.drawable.list_item_text_bg2);
                 } else {
-                    viewHolderf.bigOpenLayout.setVisibility(View.GONE);
-                    viewHolderf.smallcloseLayout.setVisibility(View.VISIBLE);
                     viewHolderf.bigOpenLayout
                             .setBackgroundResource(R.drawable.list_item_text_bg1);
                     viewHolderf.smallcloseLayout
                             .setBackgroundResource(R.drawable.list_item_text_bg1);
+                }
+                if (sectionItemInfo.isOpen()) {
+                    viewHolderf.bigOpenLayout.setVisibility(View.VISIBLE);
+                    viewHolderf.smallcloseLayout.setVisibility(View.GONE);
+                } else {
+                    viewHolderf.bigOpenLayout.setVisibility(View.GONE);
+                    viewHolderf.smallcloseLayout.setVisibility(View.VISIBLE);
                 }
                 // 根据不同的用户类型显示不同的文字
                 viewHolderf.openCheck.setText(context
