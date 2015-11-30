@@ -80,7 +80,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
         Bundle bundle = intent.getExtras();
         if (bundle != null) {
             sectionInfoName = bundle.getString(Constant.PROCESS_NAME);
-            sectionInfoStatus = bundle.getString(Constant.PROCESS_STATUS, "0");
+            sectionInfoStatus = bundle.getString(Constant.PROCESS_STATUS, Constant.DOING);
             LogTool.d(TAG, "processInfoId:" + processInfoId
                     + " sectionInfoName:" + sectionInfoName
                     + " processInfoStatus:" + sectionInfoStatus);

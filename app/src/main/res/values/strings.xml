@@ -82,6 +82,8 @@
     <string name="site_example_node_check">对比验收</string>
     <string name="site_example_node_time">2015-8-1 9:30</string>
     <string name="site_example_node_delay">预计改期</string>
+    <string name="site_example_node_delay_doing">改期进行中</string>
+    <string name="site_example_node_delay_no">无法改期</string>
     <string name="site_example_node_working">正在施工</string>
     <string name="site_example_node_finish">已完工</string>
     <string name="site_example_node_not_start">未开工</string>

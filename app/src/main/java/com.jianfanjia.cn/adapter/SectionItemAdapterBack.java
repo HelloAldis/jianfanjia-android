@@ -21,6 +21,7 @@ import com.jianfanjia.cn.bean.SectionItemInfo;
 import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
+import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.StringUtils;
 
 import java.util.ArrayList;
@@ -396,13 +397,17 @@ public class SectionItemAdapterBack extends BaseAdapter {
                     case Constant.FINISHED:
                         viewHolderf.finishStatusIcon
                                 .setImageResource(R.drawable.icon_home_finish);
-                        viewHolderf.openDelay.setOnClickListener(null);
+                        viewHolderf.openDelay.setEnabled(false);
+                        viewHolderf.openDelay.setTextColor(context.getResources().getColor(R.color.grey_color));
+                        viewHolderf.openDelay.setText(context.getResources().getText(R.string.site_example_node_delay_no));
                         break;
                     case Constant.YANQI_AGREE:
                     case Constant.YANQI_REFUSE:
                     case Constant.NO_START:
                     case Constant.DOING:
                         viewHolderf.openDelay.setEnabled(true);
+                        viewHolderf.openDelay.setTextColor(context.getResources().getColor(R.color.orange_color));
+                        viewHolderf.openDelay.setText(context.getResources().getText(R.string.site_example_node_delay));
                         viewHolderf.finishStatusIcon
                                 .setImageResource(R.drawable.site_listview_item_notstart_circle);
                         viewHolderf.openDelay.setOnClickListener(new OnClickListener() {
@@ -414,6 +419,9 @@ public class SectionItemAdapterBack extends BaseAdapter {
                         });
                         break;
                     case Constant.YANQI_BE_DOING:
+                        LogTool.d(this.getClass().getName(),"this section is yanqi_doing");
+                        viewHolderf.openDelay.setTextColor(context.getResources().getColor(R.color.grey_color));
+                        viewHolderf.openDelay.setText(context.getResources().getText(R.string.site_example_node_delay_doing));
                         viewHolderf.openDelay.setEnabled(false);
                         break;
                     default:
