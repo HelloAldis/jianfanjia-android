@@ -102,15 +102,17 @@ public class YanQiNotifyFragment extends BaseFragment implements
     }
 
     @Override
-    public void onClick(int position, String status) {
-        LogTool.d(TAG, "position=" + position + "  status=" + status);
-        if (status.equals(Constant.YANQI_BE_DOING)) {
-            notifyDelayInfo = delayList.get(position);
-            LogTool.d(TAG, " notifyDelayInfo:" + notifyDelayInfo);
-            if (null != notifyDelayInfo) {
-                processid = notifyDelayInfo.get_id();
-                LogTool.d(TAG, "processid:" + processid);
-                delayNotifyDialog();
+    public void onClick(int position, String status, String role) {
+        LogTool.d(TAG, "position=" + position + " status=" + status + " role=" + role);
+        if (role.equals(Constant.IDENTITY_OWNER)) {
+            if (status.equals(Constant.YANQI_BE_DOING)) {
+                notifyDelayInfo = delayList.get(position);
+                LogTool.d(TAG, " notifyDelayInfo:" + notifyDelayInfo);
+                if (null != notifyDelayInfo) {
+                    processid = notifyDelayInfo.get_id();
+                    LogTool.d(TAG, "processid:" + processid);
+                    delayNotifyDialog();
+                }
             }
         }
     }
