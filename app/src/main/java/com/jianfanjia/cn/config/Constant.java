@@ -28,6 +28,8 @@ public class Constant {
     public static final String CROP_PATH = IMAG_PATH + "/cropped.jpg";// 截图的图片路径
     public static final String TEMP_IMG = IMAG_PATH + "/current_camera_temp_path";//拍照的临时存储文件路径
 
+    public static final String EXTRA_BUNDLE = "launchBundle";
+
     public static final int HOME = 0;//首页
     public static final int MANAGE = 1;//工地管理
     public static final int MY = 2;//我的
@@ -116,7 +118,7 @@ public class Constant {
     public static final String CHECK_REFUSE = "0";// 验收拒绝
     public static final String CHECK_AGREE = "1";// 验收同意
 
-    // 延期提醒状态
+    // 延期提醒状态,工序状态
     public static final String NO_START = "0";// 未开工
     public static final String DOING = "1";// 进行中
     public static final String FINISHED = "2";// 已完成
@@ -124,12 +126,12 @@ public class Constant {
     public static final String YANQI_AGREE = "4";// 改期同意
     public static final String YANQI_REFUSE = "5";// 改期拒绝
 
-    // 工序状态
+    /*// 工序状态
     public static final int NOT_START = 0;// 未开工
     public static final int WORKING = 1;// 正在进行中
     public static final int FINISH = 2;// 已完工
     public static final int OWNER_APPLY_DELAY = 3;// 业主申请延期中
-    public static final int DESIGNER_APPLY_DELAY = 4;// 设计师申请延期中
+    public static final int DESIGNER_APPLY_DELAY = 4;// 设计师申请延期中*/
 
     public static final String SEX_MAN = "0";
     public static final String SEX_WOMEN = "1";
@@ -170,7 +172,6 @@ public class Constant {
     public static final String LAST_LOGIN_TIME = "last_login_time";// 上次登录时间
     public static final long LOGIN_EXPIRE = 24 * 60 * 60 * 1000L;// 登录过期时间为24小时
 
-
     public static final String DOWNLOAD_URL = "download_url";// 下载链接
 
     public static final String INTENT_ACTION_USERINFO_CHANGE = "INTENT_ACTION_USERINFO_CHANGE";// 用户修改个人信息
@@ -185,5 +186,8 @@ public class Constant {
     public static final int REC_DESIGNER_TOTAL = 3;//推荐设计师总数
     public static final int ROST_REQUIREMTNE_TOTAL = 3;//能够发布需求总数
 
+    public static final String KEY = "Item";
 
+    public static final int UPDATE_HOME_FRAGMENT = 10;
+    public static final int UPDATE_REQUIRE_FRAGMENT = 20;
 }

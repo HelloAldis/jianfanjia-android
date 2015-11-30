@@ -44,7 +44,7 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
 
         LogTool.d(this.getClass().getName(), "sd root =" + FileUtil.getSDRoot());
         LogTool.d(this.getClass().getName(), "sd ex root =" + FileUtil.getExternalSDRoot());
-        LogTool.d(this.getClass().getName(), "sd root =" + FileUtil.getAppCache(this, "jianfan"));
+//        LogTool.d(this.getClass().getName(), "sd root =" + FileUtil.getAppCache(this, "jianfan"));
     }
 
     // 检查版本

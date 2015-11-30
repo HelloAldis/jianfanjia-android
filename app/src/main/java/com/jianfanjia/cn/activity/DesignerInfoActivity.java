@@ -73,7 +73,7 @@ public class DesignerInfoActivity extends BaseActivity implements OnClickListene
         tabLayout.setupWithViewPager(viewPager);
         collapsingToolbar =
                 (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        collapsingToolbar.setExpandedTitleTextAppearance(R.style.site_listview_item_text_style_title);
+        collapsingToolbar.setExpandedTitleTextAppearance(R.style.listview_item_text_style_title);
         collapsingToolbar.setExpandedTitleGravity(Gravity.CENTER_HORIZONTAL);
         collapsingToolbar.setCollapsedTitleTextColor(Color.BLACK);
         collapsingToolbar.setExpandedTitleColor(Color.BLACK);
@@ -139,7 +139,7 @@ public class DesignerInfoActivity extends BaseActivity implements OnClickListene
 
         @Override
         public void loadSuccess(Object data) {
-            LogTool.d(TAG, "data:" + data);
+            LogTool.d(TAG, "data=" + data);
             DesignerInfo designerInfo = JsonParser.jsonToBean(data.toString(), DesignerInfo.class);
             LogTool.d(TAG, "designerInfo:" + designerInfo);
             if (null != designerInfo) {

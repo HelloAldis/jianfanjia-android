@@ -29,6 +29,39 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Re
         imageShow = ImageShow.getImageShow();
     }
 
+    public void add(T t) {
+        if (t != null) {
+            list.add(t);
+            notifyDataSetChanged();
+        }
+    }
+
+    public void add(List<T> l) {
+        if (list.size() > 0) {
+            for (T t : l) {
+                list.add(t);
+            }
+            notifyDataSetChanged();
+        }
+    }
+
+    public void replace(List<T> l) {
+        list.clear();
+        if (l.size() > 0) {
+            list.addAll(l);
+            notifyDataSetChanged();
+        }
+    }
+
+    public void remove(int position) {
+        list.remove(position);
+        notifyDataSetChanged();
+    }
+
+    public void removeAll() {
+        list.clear();
+        notifyDataSetChanged();
+    }
 
     @Override
     public int getItemCount() {
@@ -41,15 +74,15 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Re
     }
 
     @Override
-    public RecyclerViewHolderBase onCreateViewHolder(ViewGroup viewGroup, int position) {
-        View view = createView(viewGroup, position);
+    public RecyclerViewHolderBase onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+        View view = createView(viewGroup, viewType);
         RecyclerViewHolderBase holder = createViewHolder(view);
         return holder;
     }
 
     public abstract void bindView(RecyclerViewHolderBase viewHolder, int position, List<T> list);
 
-    public abstract View createView(ViewGroup viewGroup, int position);
+    public abstract View createView(ViewGroup viewGroup, int viewType);
 
     public abstract RecyclerViewHolderBase createViewHolder(View view);
 }

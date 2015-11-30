@@ -54,7 +54,7 @@ public abstract class BaseAnnotationActivity extends AppCompatActivity implement
     protected NetStateReceiver netStateReceiver = null;
     protected AddPhotoPopWindow popupWindow = null;
     private boolean _isVisible;
-    private WaitDialog _waitDialog;
+    protected WaitDialog _waitDialog;
     protected DataManagerNew dataManager;
     protected AppConfig appConfig;
     protected ImageShow imageShow;
@@ -214,7 +214,9 @@ public abstract class BaseAnnotationActivity extends AppCompatActivity implement
 
     @Override
     public void preLoad() {
-        showWaitDialog();
+        if(_waitDialog == null){
+            showWaitDialog();
+        }
     }
 
     @Override

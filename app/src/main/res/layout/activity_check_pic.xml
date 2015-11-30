@@ -45,7 +45,7 @@
                 android:weightSum="2" >
 
                 <TextView
-                    style="@style/site_listview_item_text_style_middle"
+                    style="@style/listview_item_text_style_middle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -54,7 +54,7 @@
                     android:textColor="@color/black_color" />
 
                 <TextView
-                    style="@style/site_listview_item_text_style_middle"
+                    style="@style/listview_item_text_style_middle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"

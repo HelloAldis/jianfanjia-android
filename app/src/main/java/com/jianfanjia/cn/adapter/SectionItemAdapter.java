@@ -18,7 +18,6 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.bean.SectionInfo;
 import com.jianfanjia.cn.bean.SectionItemInfo;
-import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
 import com.jianfanjia.cn.tools.LogTool;
@@ -35,28 +34,33 @@ public class SectionItemAdapter extends BaseAdapter {
     private int lastClickItem = -1;// 记录上次点击的位置
     private int currentClickItem = -1;// 记录当前点击位置
     private SectionItemGridViewAdapter sectionItemGridViewAdapter;
-    private int section_status;// 节点的状态
+    private String section_status;// 节点的状态
     private SectionInfo sectionInfo;
     private Context context;
     private LayoutInflater layoutInflater;
-    private List<SectionItemInfo> list = new ArrayList<SectionItemInfo>();
-    private List<String> imageUrlList = new ArrayList<String>();
-    private DataManagerNew dataManager;
+    private List<SectionItemInfo> list = new ArrayList<>();
+    private List<String> imageUrlList = new ArrayList<>();//源数据的List
+    private List<String> showImageUrlList = new ArrayList<>();//用来展示图片的List
     private boolean isHasCheck;// 是否有验收
-    private List<SectionInfo> sectionInfos;
+    private List<SectionInfo> showSectionInfoList = new ArrayList<>();
 
     public SectionItemAdapter(Context context, int position,
-                              List<SectionInfo> sectionInfos, ItemClickCallBack callBack) {
+                              List<SectionInfo> showSectionInfoList, ItemClickCallBack callBack) {
         this.context = context;
         layoutInflater = LayoutInflater.from(context);
-        dataManager = DataManagerNew.getInstance();
         this.callBack = callBack;
-        this.sectionInfos = sectionInfos;
+        initSectionInfoList(showSectionInfoList);
         setPosition(position);
     }
 
+    private void initSectionInfoList(List<SectionInfo> sectionInfos) {
+        if (sectionInfos != null) {
+            showSectionInfoList.addAll(sectionInfos);
+        }
+    }
+
     public void setPosition(int position) {
-        sectionInfo = sectionInfos.get(position);
+        sectionInfo = showSectionInfoList.get(position);
         section_status = sectionInfo.getStatus();
         initList();
     }
@@ -233,8 +237,8 @@ public class SectionItemAdapter extends BaseAdapter {
                         .getStringById(sectionItemInfo.getName()));
                 viewHolder.openNodeName.setText(MyApplication.getInstance()
                         .getStringById(sectionItemInfo.getName()));
-                switch (Integer.parseInt(sectionItemInfo.getStatus())) {
-                    case Constant.FINISH:
+                switch (sectionItemInfo.getStatus()) {
+                    case Constant.FINISHED:
                         viewHolder.finishStatusIcon
                                 .setImageResource(R.mipmap.icon_home_finish);
                         viewHolder.openFinishStatus.setText(context.getResources()
@@ -246,7 +250,7 @@ public class SectionItemAdapter extends BaseAdapter {
                         viewHolder.smallcloseLayout
                                 .setBackgroundResource(R.mipmap.list_item_text_bg2);
                         break;
-                    case Constant.NOT_START:
+                    case Constant.NO_START:
                         viewHolder.finishStatusIcon
                                 .setImageResource(R.drawable.site_listview_item_notstart_circle);
                         viewHolder.finishTime.setVisibility(View.GONE);
@@ -258,7 +262,7 @@ public class SectionItemAdapter extends BaseAdapter {
                         viewHolder.smallcloseLayout
                                 .setBackgroundResource(R.mipmap.list_item_text_bg1);
                         break;
-                    case Constant.WORKING:
+                    case Constant.DOING:
                         viewHolder.finishTime.setVisibility(View.GONE);
                         viewHolder.finishStatusIcon
                                 .setImageResource(R.mipmap.icon_home_working);
@@ -275,27 +279,23 @@ public class SectionItemAdapter extends BaseAdapter {
 
                 // 设置最新动态的时间
                 long date = sectionItemInfo.getDate();
-                if (date != 0l) {
+                if (date != 0L) {
                     viewHolder.openUploadTime.setText(StringUtils
                             .covertLongToString(date));
                 } else {
                     viewHolder.openUploadTime.setText("");
                 }
-
+                showImageUrlList.clear();
                 if (null != imageUrlList && imageUrlList.size() > 0) {
-                    if (imageUrlList.size() < IMG_COUNT
-                            && !imageUrlList.contains(Constant.HOME_ADD_PIC)) {// 最多上传9张照片
+                    if (imageUrlList.size() < IMG_COUNT) {// 最多上传9张照片
                         Log.i(this.getClass().getName(), "addImage");
-                        imageUrlList.add(Constant.HOME_ADD_PIC);
+                        showImageUrlList.addAll(imageUrlList);
+                        showImageUrlList.add(Constant.HOME_ADD_PIC);
                     } else {
-                        for (String str : imageUrlList) {
-                            if (str.equals(Constant.HOME_ADD_PIC)) {
-                                list.remove(str);
-                            }
-                        }
+                        showImageUrlList.addAll(imageUrlList);
                     }
                 } else {
-                    imageUrlList.add(Constant.HOME_ADD_PIC);
+                    showImageUrlList.add(Constant.HOME_ADD_PIC);
                 }
                 int commentCount = sectionItemInfo.getComment_count();
                 if (commentCount > 0) {
@@ -313,7 +313,7 @@ public class SectionItemAdapter extends BaseAdapter {
                 }
 
                 // 未开工的点击无法展开
-                if (section_status != Constant.NOT_START) {
+                if (!section_status.equals(Constant.NO_START)) {
                     if (sectionItemInfo.isOpen()) {
                         viewHolder.bigOpenLayout.setVisibility(View.VISIBLE);
                         viewHolder.smallcloseLayout.setVisibility(View.GONE);
@@ -327,7 +327,7 @@ public class SectionItemAdapter extends BaseAdapter {
 
                 }
                 // 设置上传照片
-                setImageData(imageUrlList, viewHolder.gridView);
+                setImageData(viewHolder.gridView);
                 viewHolder.openComment.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -343,34 +343,41 @@ public class SectionItemAdapter extends BaseAdapter {
             case CHECK_VIEW:
                 viewHolderf.closeNodeName.setText(sectionItemInfo.getName());
                 viewHolderf.openNodeName.setText(sectionItemInfo.getName());
-                if (section_status != Constant.NOT_START) {
-                    if (sectionItemInfo.isOpen()) {
-                        viewHolderf.bigOpenLayout.setVisibility(View.VISIBLE);
-                        viewHolderf.smallcloseLayout.setVisibility(View.GONE);
-                    } else {
-                        viewHolderf.bigOpenLayout.setVisibility(View.GONE);
-                        viewHolderf.smallcloseLayout.setVisibility(View.VISIBLE);
-                    }
+                viewHolderf.closeNodeName.setText(sectionItemInfo.getName());
+                viewHolderf.openNodeName.setText(sectionItemInfo.getName());
+                if (section_status.equals(Constant.FINISHED)) {
                     viewHolderf.bigOpenLayout
                             .setBackgroundResource(R.mipmap.list_item_text_bg2);
                     viewHolderf.smallcloseLayout
                             .setBackgroundResource(R.mipmap.list_item_text_bg2);
                 } else {
-                    viewHolderf.bigOpenLayout.setVisibility(View.GONE);
-                    viewHolderf.smallcloseLayout.setVisibility(View.VISIBLE);
                     viewHolderf.bigOpenLayout
                             .setBackgroundResource(R.mipmap.list_item_text_bg1);
                     viewHolderf.smallcloseLayout
                             .setBackgroundResource(R.mipmap.list_item_text_bg1);
                 }
-                int state = sectionInfo.getStatus();
-                switch (state) {
-                    case Constant.FINISH:
+                if (sectionItemInfo.isOpen()) {
+                    viewHolderf.bigOpenLayout.setVisibility(View.VISIBLE);
+                    viewHolderf.smallcloseLayout.setVisibility(View.GONE);
+                } else {
+                    viewHolderf.bigOpenLayout.setVisibility(View.GONE);
+                    viewHolderf.smallcloseLayout.setVisibility(View.VISIBLE);
+                }
+                switch (section_status) {
+                    case Constant.FINISHED:
                         viewHolderf.finishStatusIcon
                                 .setImageResource(R.mipmap.icon_home_finish);
-                        viewHolderf.openDelay.setOnClickListener(null);
+                        viewHolderf.openDelay.setEnabled(false);
+                        viewHolderf.openDelay.setTextColor(context.getResources().getColor(R.color.grey_color));
+                        viewHolderf.openDelay.setText(context.getResources().getText(R.string.site_example_node_delay_no));
                         break;
-                    default:
+                    case Constant.YANQI_AGREE:
+                    case Constant.YANQI_REFUSE:
+                    case Constant.NO_START:
+                    case Constant.DOING:
+                        viewHolderf.openDelay.setEnabled(true);
+                        viewHolderf.openDelay.setTextColor(context.getResources().getColor(R.color.orange_color));
+                        viewHolderf.openDelay.setText(context.getResources().getText(R.string.site_example_node_delay));
                         viewHolderf.finishStatusIcon
                                 .setImageResource(R.drawable.site_listview_item_notstart_circle);
                         viewHolderf.openDelay.setOnClickListener(new OnClickListener() {
@@ -381,8 +388,15 @@ public class SectionItemAdapter extends BaseAdapter {
                             }
                         });
                         break;
+                    case Constant.YANQI_BE_DOING:
+                        LogTool.d(this.getClass().getName(),"this section is yanqi_doing");
+                        viewHolderf.openDelay.setTextColor(context.getResources().getColor(R.color.grey_color));
+                        viewHolderf.openDelay.setText(context.getResources().getText(R.string.site_example_node_delay_doing));
+                        viewHolderf.openDelay.setEnabled(false);
+                        break;
+                    default:
+                        break;
                 }
-
                 viewHolderf.openCheck.setOnClickListener(new OnClickListener() {
 
                     @Override
@@ -399,28 +413,24 @@ public class SectionItemAdapter extends BaseAdapter {
     }
 
     /**
-     * @param imageUrlList
+     * @param
      * @param gridView
      * @des 设置item里gridview的照片
      */
-    private void setImageData(final List<String> imageUrlList, GridView gridView) {
-        sectionItemGridViewAdapter = new SectionItemGridViewAdapter(context, imageUrlList);
+    private void setImageData(GridView gridView) {
+        sectionItemGridViewAdapter = new SectionItemGridViewAdapter(context, showImageUrlList);
         gridView.setAdapter(sectionItemGridViewAdapter);
         gridView.setOnItemClickListener(new OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     final int position, long id) {
-                String data = imageUrlList.get(position);
+                String data = showImageUrlList.get(position);
                 Log.i(this.getClass().getName(), "data:" + data);
+                Log.i(this.getClass().getName(), "imageUrlList size=" + imageUrlList.size());
                 if (data.equals(Constant.HOME_ADD_PIC)) {
                     callBack.click(position, Constant.ADD_ITEM, imageUrlList);
                 } else {
-                    for (String str : imageUrlList) {
-                        if (str.equals(Constant.HOME_ADD_PIC)) {
-                            imageUrlList.remove(str);
-                        }
-                    }
                     callBack.click(position, Constant.IMG_ITEM, imageUrlList);
                 }
             }

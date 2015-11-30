@@ -21,7 +21,7 @@ public class SectionInfo implements Serializable {
 
     private String name;
 
-    private int status;
+    private String status;
 
     private ArrayList<SectionItemInfo> items;
 
@@ -35,11 +35,11 @@ public class SectionInfo implements Serializable {
         this._id = _id;
     }
 
-    public int getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 

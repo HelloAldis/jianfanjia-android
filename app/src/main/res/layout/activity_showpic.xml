@@ -7,12 +7,12 @@
     <com.jianfanjia.cn.view.MyViewPager
         android:id="@+id/showpicPager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical" />
+        android:layout_height="match_parent"
+        />
 
     <TextView
         android:id="@+id/pic_tip"
-        style="@style/site_listview_item_text_style_middle"
+        style="@style/listview_item_text_style_middle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|bottom"

@@ -25,7 +25,7 @@
     <string name="enter">欢迎使用</string>
     <string name="loging">正在登录中</string>
     <string name="loding">正在加载中</string>
-    <string name="no">取  消</string>
+    <string name="no">取     消</string>
     <string name="ok">确     定</string>
     <string name="agree">同     意</string>
     <string name="refuse">拒     绝</string>
@@ -33,6 +33,7 @@
     <string name="hint_password">请输入密码</string>
     <string name="forget_pwd">忘记密码？</string>
     <string name="register">注册</string>
+    <string name="new_user">新用户</string>
     <string name="loginByUser">用户登录</string>
     <string name="tip_please_input_username">请输入账号</string>
     <string name="tip_please_input_password">请输入密码</string>
@@ -75,6 +76,8 @@
     <string name="site_example_node_check">对比验收</string>
     <string name="site_example_node_time">2015-8-1 9:30</string>
     <string name="site_example_node_delay">预计改期</string>
+    <string name="site_example_node_delay_doing">改期进行中</string>
+    <string name="site_example_node_delay_no">无法改期</string>
     <string name="site_example_node_working">正在施工</string>
     <string name="site_example_node_finish">已完工</string>
     <string name="site_example_node_not_start">未开工</string>
@@ -133,7 +136,7 @@
     <string name="appoint">位可预约</string>
     <string name="appointText">预约</string>
     <string name="replaceText">替换</string>
-    <string name="commentText">留言</string>
+    <string name="commentText">评论</string>
     <string name="planText">的方案</string>
     <string name="designerPlanText">方案详情</string>
     <string name="pingjiaText">评价设计师</string>
@@ -163,12 +166,14 @@
     <string name="confirm_upload">确认上传</string>
     <string name="confirm_tip">提醒业主进行验收</string>
     <string name="confirm_done">确认验收</string>
+    <string name="confirm_not_finish">工序未完工，您还不能验收</string>
+    <string name="confirm_finish">已确认验收</string>
     <string name="caigouText">采购提醒</string>
     <string name="fukuanText">付款提醒</string>
     <string name="yanqiText">改期提醒</string>
     <string name="yanshouText">验收提醒</string>
-    <string name="list_item_caigou_example">系统提示:您即将进入下一轮建材购买阶段,您需要购买的是</string>
-    <string name="list_item_fukuan_example">系统提示:您即将进入下一轮付款环节,请您及时与设计师联系</string>
+    <string name="list_item_caigou_example">系统提示：您即将进入下一轮建材购买阶段，您需要购买的是</string>
+    <string name="list_item_fukuan_example">系统提示：您即将进入下一轮付款环节，请您及时与设计师联系</string>
     <string name="list_item_yanqi_example">对方已申请改期验收至</string>
 
     <!-- activity_upload_pic -->

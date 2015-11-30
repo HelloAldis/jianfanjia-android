@@ -309,6 +309,8 @@ public class DataManagerNew {
     }
 
     public void cleanData() {
+        sharedPreferuser.clear();
+        sharedPreferdata.clear();
         processLists = null;
         ownerInfo = null;
         designerInfo = null;
@@ -316,7 +318,6 @@ public class DataManagerNew {
         totalDuration = null;
         currentProcessInfo = null;
         // sharedPreferdata.clear();
-        sharedPreferuser.clear();
     }
 
 }

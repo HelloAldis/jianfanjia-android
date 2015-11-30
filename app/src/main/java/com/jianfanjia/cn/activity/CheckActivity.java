@@ -16,6 +16,7 @@ import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.CheckInfo.Imageid;
 import com.jianfanjia.cn.bean.GridItem;
 import com.jianfanjia.cn.bean.ProcessInfo;
+import com.jianfanjia.cn.bean.SectionItemInfo;
 import com.jianfanjia.cn.cache.BusinessManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
@@ -38,15 +39,8 @@ import java.util.List;
  */
 public class CheckActivity extends BaseActivity implements OnClickListener, ItemClickCallBack {
     private static final String TAG = CheckActivity.class.getName();
-    public static final int EDIT_STATUS = 0;
-    public static final int FINISH_STATUS = 1;
-    public static final String SHOW_LIST = "show_list";
-    public static final String POSITION = "position";
-
     private RelativeLayout checkLayout = null;
     private MainHeadView mainHeadView = null;
-    private TextView backView = null;// 返回视图
-    private TextView check_pic_title = null;
     private GridView gridView = null;
     private TextView btn_confirm = null;
     private MyGridViewAdapter adapter = null;
@@ -56,8 +50,9 @@ public class CheckActivity extends BaseActivity implements OnClickListener, Item
     private List<Imageid> imageids = null;
     private String processInfoId = null;// 工地id
     private String sectionInfoName = null;// 工序名称
-    private int sectionInfoStatus = -1;// 工序状态
+    private String sectionInfoStatus = null;// 工序状态
     private ProcessInfo processInfo;
+    private List<SectionItemInfo> sectionItemInfos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,19 +61,19 @@ public class CheckActivity extends BaseActivity implements OnClickListener, Item
         Bundle bundle = intent.getExtras();
         if (bundle != null) {
             sectionInfoName = bundle.getString(Constant.PROCESS_NAME);
-            sectionInfoStatus = bundle.getInt(Constant.PROCESS_STATUS, 0);
+            sectionInfoStatus = bundle.getString(Constant.PROCESS_STATUS, Constant.DOING);
             processInfo = (ProcessInfo) bundle.getSerializable(Global.PROCESS_INFO);
             LogTool.d(TAG, "processInfoId:" + processInfoId
                     + " sectionInfoName:" + sectionInfoName
                     + " processInfoStatus:" + sectionInfoStatus);
         }
-
         initProcessInfo();
     }
 
     private void initProcessInfo() {
         if (processInfo != null) {
             processInfoId = processInfo.get_id();
+            sectionItemInfos = processInfo.getSectionInfoByName(sectionInfoName).getItems();
             initData();
         }
     }
@@ -111,16 +106,12 @@ public class CheckActivity extends BaseActivity implements OnClickListener, Item
                 sectionInfoName)
                 + getString(R.string.check_head));
         switch (sectionInfoStatus) {
-            case Constant.NOT_START:
+            case Constant.NO_START:
                 break;
-            case Constant.WORKING:
+            case Constant.DOING:
                 break;
-            case Constant.FINISH:
+            case Constant.FINISHED:
                 btn_confirm.setEnabled(false);
-                break;
-            case Constant.OWNER_APPLY_DELAY:
-                break;
-            case Constant.DESIGNER_APPLY_DELAY:
                 break;
             default:
                 break;
@@ -143,9 +134,6 @@ public class CheckActivity extends BaseActivity implements OnClickListener, Item
                 checkGridList.get(Integer.parseInt(key) * 2 + 1).setImgId(
                         imageids.get(i).getImageid());
                 imagecount++;
-                /*if (imageids.get(i).getImageid() != null) {
-
-                }*/
             }
             setConfimStatus(imagecount);
             adapter.setList(checkGridList);
@@ -155,29 +143,64 @@ public class CheckActivity extends BaseActivity implements OnClickListener, Item
     }
 
     private void setConfimStatus(int count) {
-        btn_confirm.setText(this.getResources().getString(
-                R.string.confirm_done));
-        if (count < BusinessManager
-                .getCheckPicCountBySection(sectionInfoName)) {
-            btn_confirm.setEnabled(false);
-        } else {
-            btn_confirm.setEnabled(true);
-            btn_confirm.setOnClickListener(new OnClickListener() {
+        if (!sectionInfoStatus.equals(Constant.FINISHED)) {
+            if (count < BusinessManager
+                    .getCheckPicCountBySection(sectionInfoName)) {
+                //设计师图片没上传完，不能验收
+                btn_confirm.setEnabled(false);
+                btn_confirm.setText(this.getResources().getString(
+                        R.string.confirm_done));
+            } else {
+                boolean isFinish = isSectionInfoFishish(sectionItemInfos);
+                if (isFinish) {
+                    //图片上传完了，可以进行验收
+                    btn_confirm.setEnabled(true);
+                    btn_confirm.setText(this.getResources().getString(
+                            R.string.confirm_done));
+                } else {
+                    //图片上传完了，但是工序的某些节点还没有完工
+                    btn_confirm.setEnabled(false);
+                    btn_confirm.setText(this.getResources().getString(
+                            R.string.confirm_not_finish));
 
-                @Override
-                public void onClick(View v) {
-                    onClickCheckDone();
                 }
-            });
-        }
-        if (sectionInfoStatus == Constant.FINISH) {
+            }
+        } else {
+            //已经验收过了
             btn_confirm.setEnabled(false);
+            btn_confirm.setText(this.getResources().getString(
+                    R.string.confirm_finish));
         }
+        btn_confirm.setOnClickListener(new OnClickListener() {
 
-        if (sectionInfoStatus == Constant.FINISH) {
-            btn_confirm.setEnabled(false);
-        }
+            @Override
+            public void onClick(View v) {
+                onClickCheckDone();
+            }
+        });
     }
+
+    /**
+     * 判断是否所有节点都已经完工了
+     *
+     * @param sectionItemInfos
+     * @return
+     */
+    private boolean isSectionInfoFishish(List<SectionItemInfo> sectionItemInfos) {
+        boolean flag = true;
+        for (SectionItemInfo sectionItemInfo : sectionItemInfos) {
+            LogTool.d(TAG, "sectionitem name =" + sectionItemInfo.getName());
+            LogTool.d(TAG, "sectionitem status =" + sectionItemInfo.getStatus());
+            if (!sectionItemInfo.getStatus().equals(Constant.FINISHED)) {
+                LogTool.d(TAG, "sectionitem not finish");
+                flag = false;
+                return flag;
+            }
+        }
+        return flag;
+
+    }
+
 
     @Override
     public void setListener() {
@@ -205,8 +228,8 @@ public class CheckActivity extends BaseActivity implements OnClickListener, Item
     private void onClickCheckDone() {
         CommonDialog dialog = DialogHelper
                 .getPinterestDialogCancelable(CheckActivity.this);
-        dialog.setTitle("确认完工");
-        dialog.setMessage("确定完工吗？");
+        dialog.setTitle("确认验收");
+        dialog.setMessage("确定验收吗？");
         dialog.setPositiveButton(R.string.ok,
                 new DialogInterface.OnClickListener() {
 
@@ -231,6 +254,8 @@ public class CheckActivity extends BaseActivity implements OnClickListener, Item
             @Override
             public void loadSuccess(Object data) {
                 btn_confirm.setEnabled(false);
+                btn_confirm.setText(getResources().getString(
+                        R.string.confirm_finish));
             }
 
             @Override

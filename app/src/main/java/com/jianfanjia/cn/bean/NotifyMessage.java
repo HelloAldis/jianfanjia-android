@@ -35,6 +35,9 @@ public class NotifyMessage implements Serializable {
     @DatabaseField
     private String status;// 状态
 
+    @DatabaseField
+    private String processid;// 工序id
+
     public NotifyMessage() {
 
     }
@@ -93,5 +96,13 @@ public class NotifyMessage implements Serializable {
 
     public void setCell(String cell) {
         this.cell = cell;
+    }
+
+    public String getProcessid() {
+        return processid;
+    }
+
+    public void setProcessid(String processid) {
+        this.processid = processid;
     }
 }

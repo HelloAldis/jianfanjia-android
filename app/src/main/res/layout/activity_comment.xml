@@ -58,8 +58,7 @@
             android:divider="@android:color/transparent"
             android:dividerHeight="@dimen/space_1"
             android:listSelector="@android:color/transparent"
-            android:scrollbars="none"
-            />
+            android:scrollbars="none" />
     </RelativeLayout>
 
 </RelativeLayout>

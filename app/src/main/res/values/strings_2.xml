@@ -10,7 +10,7 @@
     <string name="str_req_pubReq">点击前往发布需求 ＞</string>
     <string name="str_publish_time">发布时间：</string>
     <string name="str_edit_req">填写装修需求</string>
-    <string name="str_create">创建</string>
+    <string name="str_create">发布</string>
     <string name="str_goto_pro">前往工地</string>
     <string name="str_delete_req">删除需求</string>
     <string name="str_street">所在街道</string>
@@ -80,4 +80,5 @@
     <string name="str_priview_req">我的装修需求</string>
     <string name="my_favorite_designer">我的意向设计师</string>
     <string name="tip_confirm">发布提醒</string>
+    <string name="abandon_confirm_req">您的需求没有提交，您要放弃提交吗？</string>
 </resources>

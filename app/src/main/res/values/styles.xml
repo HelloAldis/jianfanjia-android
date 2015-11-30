@@ -3,7 +3,6 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="android:listDivider">@color/horzontal_line_color</item>
     </style>
 
     <style name="tab_rb_style">
@@ -135,20 +134,7 @@
         <item name="android:textSize">@dimen/big_size</item>
     </style>
 
-    <style name="site_listview_item_text_style_small" parent="my_item_layout_text_style_base">
-        <item name="android:textSize">@dimen/text_size_11</item>
-    </style>
-
-    <style name="site_listview_item_text_style_middle" parent="my_item_layout_text_style_base">
-        <item name="android:textSize">@dimen/text_size_14</item>
-    </style>
-
-
-    <style name="site_listview_item_text_style_big" parent="my_item_layout_text_style_base">
-        <item name="android:textSize">@dimen/text_size_18</item>
-    </style>
-
-    <style name="site_listview_item_text_style_title" parent="my_item_layout_text_style_base">
+    <style name="listview_item_text_style_title" parent="my_item_layout_text_style_base">
         <item name="android:textSize">@dimen/text_size_17</item>
     </style>
     <!-- my_item_layout_style -->
@@ -216,7 +202,6 @@
         <item name="android:activityCloseEnterAnimation">@anim/fragment_slide_left_enter</item>
         <item name="android:activityCloseExitAnimation">@anim/fragment_slide_left_exit</item>
     </style>
-
 
     <style name="Widget.CardContent" parent="android:Widget">
         <item name="android:paddingLeft">16dp</item>
