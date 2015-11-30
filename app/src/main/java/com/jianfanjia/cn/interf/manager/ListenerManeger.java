@@ -40,7 +40,7 @@ public class ListenerManeger {
     }
 
     public ReceiveMsgListener getReceiveMsgListener() {
-        Log.i(TAG, "ListenerManeger msgListeners:" + msgListeners);
+        Log.i(TAG, "msgListeners:" + msgListeners);
         for (ReceiveMsgListener listener : msgListeners) {
             if (listener instanceof NotifyActivity) {
                 return listener;
