@@ -109,7 +109,7 @@ public class YanQiNotifyFragment extends BaseFragment implements
                 notifyDelayInfo = delayList.get(position);
                 LogTool.d(TAG, " notifyDelayInfo:" + notifyDelayInfo);
                 if (null != notifyDelayInfo) {
-                    processid = notifyDelayInfo.get_id();
+                    processid = notifyDelayInfo.getProcessid();
                     LogTool.d(TAG, "processid:" + processid);
                     delayNotifyDialog();
                 }
