@@ -163,7 +163,7 @@
     <string name="fukuanText">付款提醒</string>
     <string name="yanqiText">改期提醒</string>
     <string name="yanshouText">验收提醒</string>
-    <string name="list_item_caigou_example">您即将进入下一轮建材购买阶段,需要购买的是</string>
+    <string name="list_item_caigou_example">您即将进入下一轮建材购买阶段，需要购买的是</string>
     <string name="list_item_fukuan_example">您即将进入下一轮付款环节，简繁家工作人员将会和您联系</string>
     <string name="list_item_yanqi_example">对方已申请改期验收至</string>
 
