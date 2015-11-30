@@ -35,7 +35,7 @@ public class SectionItemAdapterBack extends BaseAdapter {
     private int currentClickItem = -1;// 记录当前点击位置
     private SectionItemGridViewAdapter sectionItemGridViewAdapter;
     private String userType;
-    private int section_status;// 节点的状态
+    private String section_status;// 节点的状态
     private SectionInfo sectionInfo;
     private Context context;
     private LayoutInflater layoutInflater;
@@ -76,7 +76,7 @@ public class SectionItemAdapterBack extends BaseAdapter {
                     .getPositionByItemName(sectionInfo.getName())]);
             sectionItemInfo.setDate(sectionInfo.getYs().getDate());
             sectionItemInfo.setOpen(false);
-            sectionItemInfo.setStatus(sectionInfo.getStatus()+"");//验收的状态就是工序的状态
+            sectionItemInfo.setStatus(sectionInfo.getStatus() + "");//验收的状态就是工序的状态
             list.add(sectionItemInfo);
         } else {
             isHasCheck = false;
@@ -127,7 +127,7 @@ public class SectionItemAdapterBack extends BaseAdapter {
                     max = list.get(i).getDate();
                 }
             }
-            for (int i = 0; i <list.size(); i++) {
+            for (int i = 0; i < list.size(); i++) {
                 if (list.get(i).getDate() == max) {
                     setCurrentOpenItem(i);
                     break;
@@ -242,8 +242,8 @@ public class SectionItemAdapterBack extends BaseAdapter {
                         .getStringById(sectionItemInfo.getName()));
                 viewHolder.openNodeName.setText(MyApplication.getInstance()
                         .getStringById(sectionItemInfo.getName()));
-                switch (Integer.parseInt(sectionItemInfo.getStatus())) {
-                    case Constant.FINISH:
+                switch (sectionItemInfo.getStatus()) {
+                    case Constant.FINISHED:
                         viewHolder.finishStatusIcon
                                 .setImageResource(R.drawable.icon_home_finish);
                         viewHolder.openFinishStatus.setText(context.getResources()
@@ -256,7 +256,7 @@ public class SectionItemAdapterBack extends BaseAdapter {
                         viewHolder.smallcloseLayout
                                 .setBackgroundResource(R.drawable.list_item_text_bg2);
                         break;
-                    case Constant.NOT_START:
+                    case Constant.NO_START:
                         viewHolder.finishStatusIcon
                                 .setImageResource(R.drawable.site_listview_item_notstart_circle);
                         viewHolder.finishTime.setVisibility(View.GONE);
@@ -270,7 +270,7 @@ public class SectionItemAdapterBack extends BaseAdapter {
                         viewHolder.smallcloseLayout
                                 .setBackgroundResource(R.drawable.list_item_text_bg1);
                         break;
-                    case Constant.WORKING:
+                    case Constant.DOING:
                         viewHolder.finishTime.setVisibility(View.GONE);
                         viewHolder.finishStatusIcon
                                 .setImageResource(R.drawable.icon_home_working);
@@ -290,7 +290,7 @@ public class SectionItemAdapterBack extends BaseAdapter {
 
                 // 设置最新动态的时间
                 long date = sectionItemInfo.getDate();
-                if (date != 0l) {
+                if (date != 0L) {
                     viewHolder.openUploadTime.setText(StringUtils
                             .covertLongToString(date));
                 } else {
@@ -326,7 +326,7 @@ public class SectionItemAdapterBack extends BaseAdapter {
                 }
 
                 // 未开工的点击无法展开
-                if (section_status != Constant.NOT_START) {
+                if (!section_status.equals(Constant.NO_START)) {
                     if (sectionItemInfo.isOpen()) {
                         viewHolder.bigOpenLayout.setVisibility(View.VISIBLE);
                         viewHolder.smallcloseLayout.setVisibility(View.GONE);
@@ -371,7 +371,7 @@ public class SectionItemAdapterBack extends BaseAdapter {
             case CHECK_VIEW:
                 viewHolderf.closeNodeName.setText(sectionItemInfo.getName());
                 viewHolderf.openNodeName.setText(sectionItemInfo.getName());
-                if (section_status == Constant.FINISH) {
+                if (section_status.equals(Constant.FINISHED)) {
                     viewHolderf.bigOpenLayout
                             .setBackgroundResource(R.drawable.list_item_text_bg2);
                     viewHolderf.smallcloseLayout
@@ -392,14 +392,17 @@ public class SectionItemAdapterBack extends BaseAdapter {
                 // 根据不同的用户类型显示不同的文字
                 viewHolderf.openCheck.setText(context
                         .getString(R.string.upload_pic));
-                int state = sectionInfo.getStatus();
-                switch (state) {
-                    case Constant.FINISH:
+                switch (section_status) {
+                    case Constant.FINISHED:
                         viewHolderf.finishStatusIcon
                                 .setImageResource(R.drawable.icon_home_finish);
                         viewHolderf.openDelay.setOnClickListener(null);
                         break;
-                    default:
+                    case Constant.YANQI_AGREE:
+                    case Constant.YANQI_REFUSE:
+                    case Constant.NO_START:
+                    case Constant.DOING:
+                        viewHolderf.openDelay.setEnabled(true);
                         viewHolderf.finishStatusIcon
                                 .setImageResource(R.drawable.site_listview_item_notstart_circle);
                         viewHolderf.openDelay.setOnClickListener(new OnClickListener() {
@@ -409,10 +412,13 @@ public class SectionItemAdapterBack extends BaseAdapter {
                                 callBack.click(position, Constant.DELAY_ITEM);
                             }
                         });
-//                        viewHolderf.openCheck.setOnClickListener(null);
+                        break;
+                    case Constant.YANQI_BE_DOING:
+                        viewHolderf.openDelay.setEnabled(false);
+                        break;
+                    default:
                         break;
                 }
-
                 viewHolderf.openCheck.setOnClickListener(new OnClickListener() {
 
                     @Override
@@ -433,7 +439,7 @@ public class SectionItemAdapterBack extends BaseAdapter {
      * @param gridView
      * @des 设置item里gridview的照片
      */
-    private void setImageData( GridView gridView) {
+    private void setImageData(GridView gridView) {
         sectionItemGridViewAdapter = new SectionItemGridViewAdapter(context, showImageUrlList);
         gridView.setAdapter(sectionItemGridViewAdapter);
         gridView.setOnItemClickListener(new OnItemClickListener() {

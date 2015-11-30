@@ -119,11 +119,9 @@ public class Constant {
 	public static final String YANQI_REFUSE = "5";// 改期拒绝
 
 	// 工序状态
-	public static final int NOT_START = 0;// 未开工
+/*	public static final int NOT_START = 0;// 未开工
 	public static final int WORKING = 1;// 正在进行中
-	public static final int FINISH = 2;// 已完工
-	public static final int OWNER_APPLY_DELAY = 3;// 业主申请延期中
-	public static final int DESIGNER_APPLY_DELAY = 4;// 设计师申请延期中
+	public static final int FINISH = 2;// 已完工*/
 
 	public static final String SEX_MAN = "0";
 	public static final String SEX_WOMEN = "1";

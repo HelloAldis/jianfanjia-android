@@ -27,6 +27,7 @@ import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
 import com.jianfanjia.cn.interf.UploadListener;
+import com.jianfanjia.cn.tools.FileUtil;
 import com.jianfanjia.cn.tools.ImageUtil;
 import com.jianfanjia.cn.tools.ImageUtils;
 import com.jianfanjia.cn.tools.LogTool;
@@ -51,8 +52,6 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
     private static final String TAG = CheckActivity.class.getName();
     public static final int EDIT_STATUS = 0;
     public static final int FINISH_STATUS = 1;
-    public static final String SHOW_LIST = "show_list";
-    public static final String POSITION = "position";
 
     private RelativeLayout checkLayout = null;
     private TextView backView = null;// 返回视图
@@ -61,13 +60,13 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
     private GridView gridView = null;
     private TextView btn_confirm = null;
     private MyGridViewAdapter adapter = null;
-    private List<GridItem> checkGridList = new ArrayList<GridItem>();
-    private List<String> showSamplePic = new ArrayList<String>();
-    private List<String> showProcessPic = new ArrayList<String>();
+    private List<GridItem> checkGridList = new ArrayList<>();
+    private List<String> showSamplePic = new ArrayList<>();
+    private List<String> showProcessPic = new ArrayList<>();
     private List<Imageid> imageids = null;
     private String processInfoId = null;// 工地id
     private String sectionInfoName = null;// 工序名称
-    private int sectionInfoStatus = -1;// 工序状态
+    private String sectionInfoStatus = null;// 工序状态
     private String key = null;
     private File mTmpFile = null;
     private ProcessInfo processInfo;
@@ -81,7 +80,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
         Bundle bundle = intent.getExtras();
         if (bundle != null) {
             sectionInfoName = bundle.getString(Constant.PROCESS_NAME);
-            sectionInfoStatus = bundle.getInt(Constant.PROCESS_STATUS, 0);
+            sectionInfoStatus = bundle.getString(Constant.PROCESS_STATUS, "0");
             LogTool.d(TAG, "processInfoId:" + processInfoId
                     + " sectionInfoName:" + sectionInfoName
                     + " processInfoStatus:" + sectionInfoStatus);
@@ -160,16 +159,12 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
                 sectionInfoName)
                 + "阶段验收");
         switch (sectionInfoStatus) {
-            case Constant.NOT_START:
+            case Constant.NO_START:
                 break;
-            case Constant.WORKING:
+            case Constant.DOING:
                 break;
-            case Constant.FINISH:
+            case Constant.FINISHED:
                 btn_confirm.setEnabled(false);
-                break;
-            case Constant.OWNER_APPLY_DELAY:
-                break;
-            case Constant.DESIGNER_APPLY_DELAY:
                 break;
             default:
                 break;
@@ -234,7 +229,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
             btn_confirm.setEnabled(false);
         }*/
 
-        if (sectionInfoStatus != Constant.FINISH) {
+        if (!sectionInfoStatus.equals(Constant.FINISHED)) {
             if (count < BusinessManager
                     .getCheckPicCountBySection(sectionInfoName)) {
                 //设计师图片没上传完，不能验收
@@ -291,7 +286,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
         for (SectionItemInfo sectionItemInfo : sectionItemInfos) {
             LogTool.d(TAG, "sectionitem name =" + sectionItemInfo.getName());
             LogTool.d(TAG, "sectionitem status =" + sectionItemInfo.getStatus());
-            if (!sectionItemInfo.getStatus().equals(Constant.FINISH + "")) {
+            if (!sectionItemInfo.getStatus().equals(Constant.FINISHED)) {
                 LogTool.d(TAG, "sectionitem not finish");
                 flag = false;
                 return flag;
@@ -308,7 +303,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
     }
 
     public void changeEditStatus() {
-        if(sectionInfoStatus != Constant.FINISH){
+        if (!sectionInfoStatus.equals(Constant.FINISHED)) {
             if (currentState == FINISH_STATUS) {
                 check_pic_edit.setText("编辑");
                 currentState = EDIT_STATUS;
@@ -322,7 +317,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
                 adapter.setCanDelete(true);
                 adapter.notifyDataSetInvalidated();
             }
-        }else{
+        } else {
             check_pic_edit.setEnabled(false);
             btn_confirm.setEnabled(false);
         }
@@ -378,7 +373,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 
     @Override
     public void takecamera() {
-        mTmpFile = UiHelper.getTempPath();
+        mTmpFile = FileUtil.createTmpFile(this);
         if (mTmpFile != null) {
             Intent cameraIntent = UiHelper.createShotIntent(mTmpFile);
             startActivityForResult(cameraIntent, Constant.REQUESTCODE_CAMERA);
@@ -566,7 +561,6 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
     @Override
     public void click(int position, int itemType, List<String> imageUrlList) {
         // TODO Auto-generated method stub
-
     }
 
 }
