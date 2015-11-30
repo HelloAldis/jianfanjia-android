@@ -673,26 +673,38 @@ public class SiteManageFragment extends BaseFragment implements
         CommonDialog dialog = DialogHelper
                 .getPinterestDialogCancelable(getActivity());
         String msgType = message.getType();
+        String msgStatus = message.getStatus();
         if (msgType.equals(Constant.YANQI_NOTIFY)) {
             dialog.setTitle(getResources().getString(R.string.yanqiText));
             dialog.setMessage(message.getContent());
-            dialog.setPositiveButton(R.string.agree,
-                    new DialogInterface.OnClickListener() {
+            if (msgStatus.equals(Constant.YANQI_BE_DOING)) {
+                dialog.setPositiveButton(R.string.agree,
+                        new DialogInterface.OnClickListener() {
 
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                            agreeReschedule(message.getProcessid());
-                        }
-                    });
-            dialog.setNegativeButton(R.string.refuse, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                                agreeReschedule(message.getProcessid());
+                            }
+                        });
+                dialog.setNegativeButton(R.string.refuse, new DialogInterface.OnClickListener() {
 
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                    refuseReschedule(message.getProcessid());
-                }
-            });
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        refuseReschedule(message.getProcessid());
+                    }
+                });
+            } else {
+                dialog.setPositiveButton(R.string.ok,
+                        new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+            }
         } else if (msgType.equals(Constant.FUKUAN_NOTIFY)) {
             dialog.setTitle(getResources().getString(R.string.fukuanText));
             dialog.setMessage(getResources().getString(R.string.list_item_fukuan_example));
