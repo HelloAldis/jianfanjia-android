@@ -35,7 +35,7 @@ public class NotifyMessage implements Serializable {
     private String status;// 状态
 
     @DatabaseField
-    private String processid;// 工序id
+    private String processid;// 工地id
 
     public NotifyMessage() {
 

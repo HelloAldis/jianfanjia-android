@@ -20,8 +20,8 @@ import com.jianfanjia.cn.bean.CheckInfo.Imageid;
 import com.jianfanjia.cn.bean.GridItem;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.SectionItemInfo;
-import com.jianfanjia.cn.cache.BusinessManager;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
@@ -31,7 +31,6 @@ import com.jianfanjia.cn.tools.FileUtil;
 import com.jianfanjia.cn.tools.ImageUtil;
 import com.jianfanjia.cn.tools.ImageUtils;
 import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.tools.NetTool;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.AddPhotoPopWindow;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
@@ -60,14 +59,14 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
     private GridView gridView = null;
     private TextView btn_confirm = null;
     private MyGridViewAdapter adapter = null;
-    private List<GridItem> checkGridList = new ArrayList<>();
-    private List<String> showSamplePic = new ArrayList<>();
-    private List<String> showProcessPic = new ArrayList<>();
+    private List<GridItem> checkGridList = new ArrayList<>();//本页显示的griditem项
+    private List<String> showSamplePic = new ArrayList<>();//示例照片
+    private List<String> showProcessPic = new ArrayList<>();//工地验收照片
     private List<Imageid> imageids = null;
     private String processInfoId = null;// 工地id
     private String sectionInfoName = null;// 工序名称
     private String sectionInfoStatus = null;// 工序状态
-    private String key = null;
+    private int key;
     private File mTmpFile = null;
     private ProcessInfo processInfo;
     private List<SectionItemInfo> sectionItemInfos;
@@ -81,31 +80,18 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
         if (bundle != null) {
             sectionInfoName = bundle.getString(Constant.PROCESS_NAME);
             sectionInfoStatus = bundle.getString(Constant.PROCESS_STATUS, Constant.DOING);
+            processInfoId = bundle.getString(Global.PROCESS_ID);
             LogTool.d(TAG, "processInfoId:" + processInfoId
                     + " sectionInfoName:" + sectionInfoName
                     + " processInfoStatus:" + sectionInfoStatus);
-        }
-        if (NetTool.isNetworkAvailable(this)) {
-            loadCurrentProcess();
-        } else {
-            initProcessInfo();
-        }
-    }
-
-    private void initProcessInfo() {
-        processInfo = dataManager.getDefaultProcessInfo();
-        LogTool.d(TAG, "processInfo:" + processInfo);
-        if (processInfo != null) {
-            processInfoId = processInfo.get_id();
-            sectionItemInfos = processInfo.getSectionInfoByName(sectionInfoName).getItems();
-            initData();
-        } else {
-            btn_confirm.setEnabled(false);
+            if (processInfoId != null) {
+                loadCurrentProcess();
+            }
         }
     }
 
     private void loadCurrentProcess() {
-        JianFanJiaClient.get_ProcessInfo_By_Id(this, dataManager.getDefaultProcessId(),
+        JianFanJiaClient.get_ProcessInfo_By_Id(this, processInfoId,
                 new ApiUiUpdateListener() {
 
                     @Override
@@ -116,17 +102,20 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
                     @Override
                     public void loadSuccess(Object data) {
                         hideWaitDialog();
-                        initProcessInfo();
+//                        initProcessInfo();
+                        initData();
                     }
 
                     @Override
                     public void loadFailture(String errorMsg) {
                         hideWaitDialog();
-                        initProcessInfo();
+                        makeTextShort(errorMsg);
+//                        initProcessInfo();
                     }
                 }, this);
     }
 
+    //初始化放大显示的list
     private void initShowList() {
         showProcessPic.clear();
         showSamplePic.clear();
@@ -134,7 +123,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
             showSamplePic.add(checkGridList.get(i).getImgId());
         }
         for (int i = 1; i < checkGridList.size(); i = i + 2) {
-            if (checkGridList.get(i).getImgId() != null) {
+            if (!checkGridList.get(i).getImgId().contains(Constant.DEFALUT_PIC_HEAD)) {
                 showProcessPic.add(checkGridList.get(i).getImgId());
             }
         }
@@ -148,19 +137,15 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
         check_pic_edit = (TextView) findViewById(R.id.check_pic_edit);
         gridView = (GridView) findViewById(R.id.mygridview);
         btn_confirm = (TextView) findViewById(R.id.btn_confirm);
-
         btn_confirm.setText(this.getResources().getString(
                 R.string.confirm_upload));
         check_pic_edit.setVisibility(View.VISIBLE);
-        check_pic_edit.setText("编辑");
+        check_pic_edit.setText(getString(R.string.edit));
         currentState = EDIT_STATUS;
         gridView.setFocusable(false);
     }
 
     private void initData() {
-        check_pic_title.setText(MyApplication.getInstance().getStringById(
-                sectionInfoName)
-                + "阶段验收");
         switch (sectionInfoStatus) {
             case Constant.NO_START:
                 break;
@@ -175,66 +160,38 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
         adapter = new MyGridViewAdapter(CheckActivity.this, checkGridList,
                 this, this);
         gridView.setAdapter(adapter);
-        initList();
+        processInfo = dataManager.getDefaultProcessInfo();
+        if (processInfo != null) {
+            sectionItemInfos = processInfo.getSectionInfoByName(sectionInfoName).getItems();
+            refreshList();
+        }
+        check_pic_title.setText(MyApplication.getInstance().getStringById(
+                sectionInfoName)
+                + "阶段验收");
     }
 
-    private void initList() {
+    private void refreshList() {
+        LogTool.d(TAG, "processInfo != null");
         checkGridList.clear();
         checkGridList = getCheckedImageById(sectionInfoName);
         processInfo = dataManager.getDefaultProcessInfo();
-        if (processInfo == null) {
-            processInfo = dataManager.getProcessInfoById(processInfoId);
+        imageids = processInfo.getImageidsByName(sectionInfoName);
+        int imagecount = imageids.size();
+        for (int i = 0; imageids != null && i < imageids.size(); i++) {
+            String key = imageids.get(i).getKey();
+            LogTool.d(TAG, imageids.get(i).getImageid());
+            checkGridList.get(Integer.parseInt(key) * 2 + 1).setImgId(
+                    imageids.get(i).getImageid());
         }
-        if (processInfo != null) {
-            dataManager.setCurrentProcessInfo(processInfo);
-            LogTool.d(TAG, "processInfo != null");
-            imageids = processInfo.getImageidsByName(sectionInfoName);
-            int imagecount = 0;
-            for (int i = 0; imageids != null && i < imageids.size(); i++) {
-                String key = imageids.get(i).getKey();
-                LogTool.d(TAG, imageids.get(i).getImageid());
-                checkGridList.get(Integer.parseInt(key) * 2 + 1).setImgId(
-                        imageids.get(i).getImageid());
-                imagecount++;
-            }
-            setConfimStatus(imagecount);
-            adapter.setList(checkGridList);
-        }
+        adapter.setList(checkGridList);
+        adapter.notifyDataSetChanged();
+        setConfimStatus(imagecount);
         initShowList();
     }
 
     private void setConfimStatus(int count) {
-        /*btn_confirm.setText(this.getResources().getString(
-                R.string.confirm_upload));
-        if (count < BusinessManager
-                .getCheckPicCountBySection(sectionInfoName)) {
-            btn_confirm.setText(this.getResources().getString(
-                    R.string.confirm_upload));
-            btn_confirm.setOnClickListener(new OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    finish();
-                }
-            });
-        } else {
-            btn_confirm.setText(this.getResources().getString(
-                    R.string.confirm_tip));
-            btn_confirm.setOnClickListener(new OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    onClickCheckConfirm();
-                }
-            });
-        }
-        if (sectionInfoStatus == Constant.FINISH) {
-            btn_confirm.setEnabled(false);
-        }*/
-
         if (!sectionInfoStatus.equals(Constant.FINISHED)) {
-            if (count < BusinessManager
-                    .getCheckPicCountBySection(sectionInfoName)) {
+            if (count < checkGridList.size() / 2) {
                 //设计师图片没上传完，不能验收
                 btn_confirm.setEnabled(true);
                 btn_confirm.setText(this.getResources().getString(
@@ -265,7 +222,6 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
                     btn_confirm.setEnabled(false);
                     btn_confirm.setText(this.getResources().getString(
                             R.string.confirm_not_finish));
-
                 }
             }
         } else {
@@ -307,14 +263,14 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
     public void changeEditStatus() {
         if (!sectionInfoStatus.equals(Constant.FINISHED)) {
             if (currentState == FINISH_STATUS) {
-                check_pic_edit.setText("编辑");
+                check_pic_edit.setText(getString(R.string.edit));
                 currentState = EDIT_STATUS;
                 adapter.setCanDelete(false);
                 btn_confirm.setEnabled(true);
                 adapter.notifyDataSetInvalidated();
             } else {
                 btn_confirm.setEnabled(false);
-                check_pic_edit.setText("完成");
+                check_pic_edit.setText(getString(R.string.finish));
                 currentState = FINISH_STATUS;
                 adapter.setCanDelete(true);
                 adapter.notifyDataSetInvalidated();
@@ -345,7 +301,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
     @Override
     public void onUpload(int position) {
         LogTool.d(TAG, "position:" + position);
-        key = position + "";
+        key = position;
         LogTool.d(TAG, "key:" + key);
         showPopWindow(checkLayout);
     }
@@ -360,17 +316,28 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
     @Override
     public void delete(int position) {
         LogTool.d(TAG, "position:" + position);
-        key = position + "";
+        key = position;
         LogTool.d(TAG, "key:" + key);
         JianFanJiaClient.deleteYanshouImgByDesigner(this,
-                processInfoId, sectionInfoName, key, this, this);
-    }
+                processInfoId, sectionInfoName, key + "", new ApiUiUpdateListener() {
+                    @Override
+                    public void preLoad() {
+                        showWaitDialog();
+                    }
 
-    @Override
-    public void loadSuccess(Object data) {
-        super.loadSuccess(data);
-        initList();
-        changeEditStatus();
+                    @Override
+                    public void loadSuccess(Object data) {
+                        hideWaitDialog();
+                        refreshList();
+                        changeEditStatus();
+                    }
+
+                    @Override
+                    public void loadFailture(String errorMsg) {
+                        hideWaitDialog();
+                        makeTextShort(errorMsg);
+                    }
+                }, this);
     }
 
     @Override
@@ -386,7 +353,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 
     @Override
     public void takePhoto() {
-        Intent albumIntent = new Intent(Intent.ACTION_GET_CONTENT);
+        Intent albumIntent = new Intent(Intent.ACTION_PICK, null);
         albumIntent.setDataAndType(
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
         startActivityForResult(albumIntent, Constant.REQUESTCODE_LOCATION);
@@ -399,9 +366,11 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
             case Constant.REQUESTCODE_CAMERA:// 拍照
                 mTmpFile = new File(dataManager.getPicPath());
                 if (mTmpFile != null) {
-                    Uri uri = Uri.fromFile(mTmpFile);
-                    LogTool.d(TAG, "uri:" + uri);
-                    uploadImage(mTmpFile.getPath());
+                    Bitmap imageBitmap = ImageUtil.getImage(mTmpFile.getPath());
+                    LogTool.d(TAG, "imageBitmap:" + imageBitmap);
+                    if (null != imageBitmap) {
+                        uploadImage(imageBitmap);
+                    }
                 }
                 break;
             case Constant.REQUESTCODE_LOCATION:// 本地选取
@@ -409,7 +378,11 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
                     Uri uri = data.getData();
                     LogTool.d(TAG, "uri:" + uri);
                     if (null != uri) {
-                        uploadImage(ImageUtils.getImagePath(uri, this));
+                        Bitmap imageBitmap = ImageUtil.getImage(ImageUtils
+                                .getImagePath(uri, this));
+                        if (null != imageBitmap) {
+                            uploadImage(imageBitmap);
+                        }
                     }
                 }
                 break;
@@ -418,8 +391,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
         }
     }
 
-    private void uploadImage(String imagePath) {
-        Bitmap imageBitmap = ImageUtil.getImage(imagePath);
+    private void uploadImage(Bitmap imageBitmap) {
         if (null != imageBitmap) {
             JianFanJiaClient.uploadImage(this, imageBitmap, new ApiUiUpdateListener() {
 
@@ -431,7 +403,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
                 @Override
                 public void loadSuccess(Object data) {
                     JianFanJiaClient.submitYanShouImage(CheckActivity.this, processInfoId, sectionInfoName,
-                            key, dataManager.getCurrentUploadImageId(), new ApiUiUpdateListener() {
+                            key + "", dataManager.getCurrentUploadImageId(), new ApiUiUpdateListener() {
 
                                 @Override
                                 public void preLoad() {
@@ -443,14 +415,13 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
                                 @Override
                                 public void loadSuccess(Object data) {
                                     hideWaitDialog();
-                                    initList();
-                                    adapter.notifyDataSetChanged();
+                                    refreshList();
                                 }
 
                                 @Override
                                 public void loadFailture(String errorMsg) {
                                     hideWaitDialog();
-                                    makeTextLong(getString(R.string.tip_error_internet));
+                                    makeTextShort(errorMsg);
                                 }
                             }, this);
                 }
@@ -458,7 +429,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
                 @Override
                 public void loadFailture(String errorMsg) {
                     hideWaitDialog();
-                    makeTextLong(getString(R.string.tip_error_internet));
+                    makeTextShort(errorMsg);
                 }
             }, this);
         }
@@ -467,8 +438,8 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
     private void onClickCheckConfirm() {
         CommonDialog dialog = DialogHelper
                 .getPinterestDialogCancelable(CheckActivity.this);
-        dialog.setTitle("提交验收");
-        dialog.setMessage("确定提交验收吗？");
+        dialog.setTitle("提醒业主验收");
+        dialog.setMessage("确定提醒业主验收吗？");
         dialog.setPositiveButton(R.string.ok,
                 new DialogInterface.OnClickListener() {
 
@@ -513,14 +484,13 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
      */
     private List<GridItem> getCheckedImageById(String sectionName) {
         try {
-            List<GridItem> gridList = new ArrayList<GridItem>();
+            List<GridItem> gridList = new ArrayList<>();
             int arrId = getResources().getIdentifier(sectionName, "array",
                     MyApplication.getInstance().getPackageName());
             TypedArray ta = getResources().obtainTypedArray(arrId);
             for (int i = 0; i < ta.length(); i++) {
                 LogTool.d(TAG, "res id:" + ta.getResourceId(i, 0));
-                GridItem item = new GridItem();
-                item.setImgId("drawable://" + ta.getResourceId(i, 0));
+                GridItem item = new GridItem("drawable://" + ta.getResourceId(i, 0));
                 gridList.add(item);
             }
             return gridList;

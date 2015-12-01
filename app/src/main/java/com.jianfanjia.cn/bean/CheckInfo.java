@@ -45,6 +45,7 @@ public class CheckInfo implements Serializable {
 			for (Imageid imageid : images) {
 				if (key.equals(imageid.getKey())) {
 					images.remove(imageid);
+					return true;
 				}
 			}
 		}

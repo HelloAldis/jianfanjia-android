@@ -72,8 +72,7 @@ public class MyGridViewAdapter extends BaseListAdapter<GridItem> {
                 }
                 holder.delete.setVisibility(View.GONE);
             } else {
-                imageShow.displayImageHeadWidthThumnailImage(context, imgId, holder.img);
-
+                imageShow.displayHalfScreenWidthThumnailImage(context, imgId, holder.img);
                 if (isCanDelete()) {
                     holder.delete.setVisibility(View.VISIBLE);
                     holder.delete.setOnClickListener(new OnClickListener() {

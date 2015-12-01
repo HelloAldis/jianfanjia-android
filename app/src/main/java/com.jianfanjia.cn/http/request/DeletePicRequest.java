@@ -35,7 +35,7 @@ public class DeletePicRequest extends BaseRequest{
 	public void onSuccess(Object data) {
 		// TODO Auto-generated method stub
 		if(data.toString() != null){
-			ProcessInfo processInfo = dataManager.getDefaultProcessInfo();
+			ProcessInfo processInfo = dataManager.getProcessInfoById(processId);
 			if(processInfo != null){
 				LogTool.d(this.getClass().getName(), "processInfo != null");
 				boolean flag = processInfo.deleteCheckImage(section, key);

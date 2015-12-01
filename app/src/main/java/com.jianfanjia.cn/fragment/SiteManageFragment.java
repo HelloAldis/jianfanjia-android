@@ -390,6 +390,7 @@ public class SiteManageFragment extends BaseFragment implements
                 checkBundle.putString(Constant.PROCESS_NAME, sectionInfo.getName());
                 checkBundle
                         .putString(Constant.PROCESS_STATUS, sectionInfo.getStatus());
+                checkBundle.putString(Global.PROCESS_ID,processId);
                 startActivity(CheckActivity.class, checkBundle);
                 break;
             default:
@@ -738,9 +739,8 @@ public class SiteManageFragment extends BaseFragment implements
                             dialog.dismiss();
                             Bundle checkBundle = new Bundle();
                             checkBundle.putString(Constant.PROCESS_NAME, message.getSection());
-                            checkBundle
-                                    .putString(Constant.PROCESS_STATUS, sectionInfo.getStatus());
-                            checkBundle.putSerializable(Global.PROCESS_INFO, processInfo);
+                            checkBundle.putString(Constant.PROCESS_STATUS, message.getStatus());
+                            checkBundle.putSerializable(Global.PROCESS_ID, message.getProcessid());
                             startActivity(CheckActivity.class, checkBundle);
                         }
                     });

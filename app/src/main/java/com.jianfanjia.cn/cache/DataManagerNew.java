@@ -11,7 +11,6 @@ import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.bean.Process;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
-import com.jianfanjia.cn.bean.SectionInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
@@ -105,40 +104,6 @@ public class DataManagerNew {
 
     public ProcessInfo getDefaultProcessInfo() {
         return currentProcessInfo;
-    }
-
-    public SectionInfo getDefaultSectionInfoByPosition(int position) {
-        ProcessInfo processInfo = getDefaultProcessInfo();
-        if (processInfo != null) {
-            return processInfo.getSections().get(position);
-        }
-        return null;
-    }
-
-    public String getDefaultDesignerId() {
-        if (processLists == null || processLists.size() == 0) {
-            processLists = getProcessListsByCache();
-            if (processLists != null && processLists.size() != 0) {
-                return processLists.get(getDefaultPro()).getFinal_designerid();
-            } else {
-                return null;
-            }
-        } else {
-            return processLists.get(getDefaultPro()).getFinal_designerid();
-        }
-    }
-
-    public String getDefaultOwnerId() {
-        if (processLists == null || processLists.size() == 0) {
-            processLists = getProcessListsByCache();
-            if (processLists != null && processLists.size() != 0) {
-                return processLists.get(getDefaultPro()).getUserid();
-            } else {
-                return null;
-            }
-        } else {
-            return processLists.get(getDefaultPro()).getUserid();
-        }
     }
 
     public String getDefaultProcessId() {

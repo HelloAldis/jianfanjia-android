@@ -84,7 +84,7 @@ public class Url_New {
 			+ "process/can_ys";
 	// 设计师删除验收图片
 	public static final String DELETE_YANSHOU_IMG_BY_DESIGNER = HTTPROOT
-			+ "process/ysimage";
+			+ "process/ysimage/delete";
 	//获取缩略图
 	public static final String GET_THUMBNAIL_IMAGE = HTTPROOT + "thumbnail/" + WIDTH + "/";
 	//用户删除节点图片
