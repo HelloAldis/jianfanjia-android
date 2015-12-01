@@ -1,15 +1,15 @@
 package com.jianfanjia.cn.Event;
 
 /**
- * Name: UpdateEvent
+ * Name: MessageEvent
  * User: fengliang
- * Date: 2015-11-16
- * Time: 18:43
+ * Date: 2015-12-01
+ * Time: 11:22
  */
-public class UpdateEvent {
+public class MessageEvent {
     private int eventType;
 
-    public UpdateEvent(int eventType) {
+    public MessageEvent(int eventType) {
         this.eventType = eventType;
     }
 
