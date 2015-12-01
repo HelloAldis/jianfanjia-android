@@ -62,22 +62,42 @@ public class CheckActivity extends BaseActivity implements OnClickListener, Item
         if (bundle != null) {
             sectionInfoName = bundle.getString(Constant.PROCESS_NAME);
             sectionInfoStatus = bundle.getString(Constant.PROCESS_STATUS, Constant.DOING);
-            processInfo = (ProcessInfo) bundle.getSerializable(Global.PROCESS_INFO);
+            processInfoId = bundle.getString(Global.PROCESS_ID);
             LogTool.d(TAG, "processInfoId:" + processInfoId
                     + " sectionInfoName:" + sectionInfoName
                     + " processInfoStatus:" + sectionInfoStatus);
-        }
-        initProcessInfo();
-    }
-
-    private void initProcessInfo() {
-        if (processInfo != null) {
-            processInfoId = processInfo.get_id();
-            sectionItemInfos = processInfo.getSectionInfoByName(sectionInfoName).getItems();
-            initData();
+            if (processInfoId != null) {
+                loadCurrentProcess();
+            }
         }
     }
 
+    private void loadCurrentProcess() {
+        JianFanJiaClient.get_ProcessInfo_By_Id(this, processInfoId,
+                new ApiUiUpdateListener() {
+
+                    @Override
+                    public void preLoad() {
+                        showWaitDialog();
+                    }
+
+                    @Override
+                    public void loadSuccess(Object data) {
+                        hideWaitDialog();
+//                        initProcessInfo();
+                        initData();
+                    }
+
+                    @Override
+                    public void loadFailture(String errorMsg) {
+                        hideWaitDialog();
+                        makeTextShort(errorMsg);
+//                        initProcessInfo();
+                    }
+                }, this);
+    }
+
+    //初始化放大显示的list
     private void initShowList() {
         showProcessPic.clear();
         showSamplePic.clear();
@@ -85,7 +105,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener, Item
             showSamplePic.add(checkGridList.get(i).getImgId());
         }
         for (int i = 1; i < checkGridList.size(); i = i + 2) {
-            if (checkGridList.get(i).getImgId() != null) {
+            if (!checkGridList.get(i).getImgId().contains(Constant.DEFALUT_PIC_HEAD)) {
                 showProcessPic.add(checkGridList.get(i).getImgId());
             }
         }
@@ -102,9 +122,6 @@ public class CheckActivity extends BaseActivity implements OnClickListener, Item
     }
 
     private void initData() {
-        mainHeadView.setMianTitle(MyApplication.getInstance().getStringById(
-                sectionInfoName)
-                + getString(R.string.check_head));
         switch (sectionInfoStatus) {
             case Constant.NO_START:
                 break;
@@ -119,26 +136,32 @@ public class CheckActivity extends BaseActivity implements OnClickListener, Item
         adapter = new MyGridViewAdapter(CheckActivity.this, checkGridList,
                 this);
         gridView.setAdapter(adapter);
-        initList();
+        processInfo = dataManager.getDefaultProcessInfo();
+        if (processInfo != null) {
+            sectionItemInfos = processInfo.getSectionInfoByName(sectionInfoName).getItems();
+            refreshList();
+        }
+        mainHeadView.setMianTitle(MyApplication.getInstance().getStringById(
+                sectionInfoName)
+                + "阶段验收");
     }
 
-    private void initList() {
+    private void refreshList() {
+        LogTool.d(TAG, "processInfo != null");
+        checkGridList.clear();
         checkGridList = getCheckedImageById(sectionInfoName);
-        if (processInfo != null) {
-            LogTool.d(TAG, "processInfo != null");
-            imageids = processInfo.getImageidsByName(sectionInfoName);
-            int imagecount = 0;
-            for (int i = 0; imageids != null && i < imageids.size(); i++) {
-                String key = imageids.get(i).getKey();
-                LogTool.d(TAG, imageids.get(i).getImageid());
-                checkGridList.get(Integer.parseInt(key) * 2 + 1).setImgId(
-                        imageids.get(i).getImageid());
-                imagecount++;
-            }
-            setConfimStatus(imagecount);
-            adapter.setList(checkGridList);
-            adapter.notifyDataSetChanged();
+        processInfo = dataManager.getDefaultProcessInfo();
+        imageids = processInfo.getImageidsByName(sectionInfoName);
+        int imagecount = imageids.size();
+        for (int i = 0; imageids != null && i < imageids.size(); i++) {
+            String key = imageids.get(i).getKey();
+            LogTool.d(TAG, imageids.get(i).getImageid());
+            checkGridList.get(Integer.parseInt(key) * 2 + 1).setImgId(
+                    imageids.get(i).getImageid());
         }
+        adapter.setList(checkGridList);
+        adapter.notifyDataSetChanged();
+        setConfimStatus(imagecount);
         initShowList();
     }
 
