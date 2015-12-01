@@ -73,6 +73,11 @@ public class HomeFragment extends BaseFragment implements
             R.mipmap.bg_home_banner4};
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
     public void initView(View view) {
         pullToRefreshListView = (PullToRefreshListView) view.findViewById(R.id.pull_refresh_scrollview);
         pullToRefreshListView.setMode(PullToRefreshBase.Mode.BOTH);
@@ -137,6 +142,16 @@ public class HomeFragment extends BaseFragment implements
         Bundle designerBundle = new Bundle();
         designerBundle.putString(Global.DESIGNER_ID, designertid);
         startActivity(DesignerInfoActivity.class, designerBundle);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 
     private void getHomePageDesigners(int from, int limit, ApiUiUpdateListener listener) {

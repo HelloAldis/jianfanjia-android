@@ -280,6 +280,11 @@ public class XuQiuFragment extends BaseAnnotationFragment {
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         getActivity().unregisterReceiver(updateBroadcastReceiver);
