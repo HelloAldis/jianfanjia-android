@@ -18,7 +18,7 @@ import java.util.List;
 public class ListenerManeger {
     private static final String TAG = ListenerManeger.class.getName();
     private static ListenerManeger listenerManeger;
-    public static List<ReceiveMsgListener> msgListeners = new ArrayList<ReceiveMsgListener>();
+    private static List<ReceiveMsgListener> msgListeners = new ArrayList<ReceiveMsgListener>();
 
     public static ListenerManeger getListenerManeger() {
         if (null == listenerManeger) {
