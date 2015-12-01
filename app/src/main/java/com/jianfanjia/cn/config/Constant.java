@@ -118,7 +118,7 @@ public class Constant {
     public static final String CHECK_REFUSE = "0";// 验收拒绝
     public static final String CHECK_AGREE = "1";// 验收同意
 
-    // 延期提醒状态
+    // 延期提醒状态,工序状态
     public static final String NO_START = "0";// 未开工
     public static final String DOING = "1";// 进行中
     public static final String FINISHED = "2";// 已完成
@@ -171,7 +171,6 @@ public class Constant {
     public static final String COOKIES_CONFIG = "cookies_config";// cookies配置
     public static final String LAST_LOGIN_TIME = "last_login_time";// 上次登录时间
     public static final long LOGIN_EXPIRE = 24 * 60 * 60 * 1000L;// 登录过期时间为24小时
-
 
     public static final String DOWNLOAD_URL = "download_url";// 下载链接
 
