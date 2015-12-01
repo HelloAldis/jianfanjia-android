@@ -383,10 +383,15 @@ public class SectionItemAdapterBack extends BaseAdapter {
                     viewHolderf.smallcloseLayout
                             .setBackgroundResource(R.drawable.list_item_text_bg1);
                 }
-                if (sectionItemInfo.isOpen()) {
-                    viewHolderf.bigOpenLayout.setVisibility(View.VISIBLE);
-                    viewHolderf.smallcloseLayout.setVisibility(View.GONE);
-                } else {
+                if(!section_status.equals(Constant.NO_START)){
+                    if (sectionItemInfo.isOpen()) {
+                        viewHolderf.bigOpenLayout.setVisibility(View.VISIBLE);
+                        viewHolderf.smallcloseLayout.setVisibility(View.GONE);
+                    } else {
+                        viewHolderf.bigOpenLayout.setVisibility(View.GONE);
+                        viewHolderf.smallcloseLayout.setVisibility(View.VISIBLE);
+                    }
+                }else {
                     viewHolderf.bigOpenLayout.setVisibility(View.GONE);
                     viewHolderf.smallcloseLayout.setVisibility(View.VISIBLE);
                 }
