@@ -17,6 +17,7 @@
 #}
 -keepattributes Signature
 -keep class com.jianfanjia.cn.bean.** { *; }
+-keep class com.jianfanjia.cn.http.cookie.** { *; }
 
 #个推混淆
 -dontwarn com.igexin.**

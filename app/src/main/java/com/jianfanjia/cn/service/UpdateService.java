@@ -63,13 +63,13 @@ public class UpdateService extends Service {
 
     private UIProgressListener uiProgressListener = new UIProgressListener() {
         @Override
-        public void onUIProgress(long bytesWritten, long totalSize, boolean done) {
+        public void onUIProgress(final long bytesWritten, final long totalSize, boolean done) {
             LogTool.d(this.getClass().getName(), "bytesWritten:"
                     + bytesWritten + "  totalSize:" + totalSize);
-            builder.setProgress((int) totalSize, (int) bytesWritten, false);
             String process = (int) ((bytesWritten * 1.0 / totalSize) * 100)
                     + "%";
             LogTool.d(this.getClass().getName(), "process:" + process);
+            builder.setProgress((int) totalSize, (int) bytesWritten, false);
             builder.setContentInfo((int) ((bytesWritten / (float) totalSize) * 100)
                     + "%");
             nManager.notify(NotificationID, builder.build());

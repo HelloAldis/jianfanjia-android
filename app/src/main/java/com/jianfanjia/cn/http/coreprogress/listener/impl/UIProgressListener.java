@@ -31,30 +31,37 @@ import com.jianfanjia.cn.http.coreprogress.listener.impl.model.ProgressModel;
 public abstract class UIProgressListener implements ProgressListener {
     private boolean isFirst = false;
 
+
     //处理UI层的Handler子类
     private static class UIHandler extends ProgressHandler {
+        private int lastProcess = 0;
+
         public UIHandler(UIProgressListener uiProgressListener) {
             super(uiProgressListener);
         }
 
         @Override
         public void start(UIProgressListener uiProgressListener, long currentBytes, long contentLength, boolean done) {
-            if (uiProgressListener!=null) {
+            if (uiProgressListener != null) {
                 uiProgressListener.onUIStart(currentBytes, contentLength, done);
             }
         }
 
         @Override
         public void progress(UIProgressListener uiProgressListener, long currentBytes, long contentLength, boolean done) {
-            if (uiProgressListener!=null){
-                uiProgressListener.onUIProgress(currentBytes, contentLength, done);
+            if (uiProgressListener != null) {
+                int currentProcess = (int) (currentBytes * 100 / contentLength);
+                if (currentProcess - 1 >= lastProcess) {//因为是在主线程更新，所以我们不能一直进行更新，进度只用增加1%以上才刷新
+                    uiProgressListener.onUIProgress(currentBytes, contentLength, done);
+                    lastProcess = currentProcess;
+                }
             }
         }
 
         @Override
         public void finish(UIProgressListener uiProgressListener, long currentBytes, long contentLength, boolean done) {
-            if (uiProgressListener!=null){
-                uiProgressListener.onUIFinish(currentBytes, contentLength,done);
+            if (uiProgressListener != null) {
+                uiProgressListener.onUIFinish(currentBytes, contentLength, done);
             }
         }
     }
@@ -79,7 +86,7 @@ public abstract class UIProgressListener implements ProgressListener {
         message.what = ProgressHandler.UPDATE;
         mHandler.sendMessage(message);
 
-        if(done) {
+        if (done) {
             Message finish = Message.obtain();
             finish.obj = new ProgressModel(bytesWrite, contentLength, done);
             finish.what = ProgressHandler.FINISH;
@@ -90,7 +97,7 @@ public abstract class UIProgressListener implements ProgressListener {
     /**
      * UI层回调抽象方法
      *
-     * @param currentBytes    当前的字节长度
+     * @param currentBytes  当前的字节长度
      * @param contentLength 总字节长度
      * @param done          是否写入完成
      */
@@ -98,9 +105,10 @@ public abstract class UIProgressListener implements ProgressListener {
 
     /**
      * UI层开始请求回调方法
-     * @param currentBytes 当前的字节长度
+     *
+     * @param currentBytes  当前的字节长度
      * @param contentLength 总字节长度
-     * @param done 是否写入完成
+     * @param done          是否写入完成
      */
     public void onUIStart(long currentBytes, long contentLength, boolean done) {
 
@@ -108,9 +116,10 @@ public abstract class UIProgressListener implements ProgressListener {
 
     /**
      * UI层结束请求回调方法
-     * @param currentBytes 当前的字节长度
+     *
+     * @param currentBytes  当前的字节长度
      * @param contentLength 总字节长度
-     * @param done 是否写入完成
+     * @param done          是否写入完成
      */
     public void onUIFinish(long currentBytes, long contentLength, boolean done) {
 

@@ -51,8 +51,9 @@ android {
             signingConfig signingConfigs.relealse
         }
         debug {
-//            minifyEnabled false
-//            signingConfig signingConfigs.relealse
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.relealse
         }
     }
     sourceSets {
@@ -62,7 +63,7 @@ android {
     }
 
     productFlavors {
-        default_channel{
+        Default{
         }
         yingyongbao {
         }

@@ -1,8 +1,17 @@
 package com.jianfanjia.cn.cache;
 
+import android.content.Context;
+
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
+import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.tools.JsonParser;
+import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.tools.StringUtils;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 public class BusinessManager {
 
@@ -19,6 +28,23 @@ public class BusinessManager {
             return 1;
         }
         return -1;
+    }
+
+    // 拿到所有的模拟工地数据
+    public static ProcessInfo getDefaultProcessInfo(Context context) {
+        ProcessInfo processInfo = null;
+        try {
+            InputStream is = context.getAssets()
+                    .open("default_processinfo.txt");
+            String jsonString = StringUtils.toConvertString(is);
+            LogTool.d("getDefault",
+                    jsonString);
+            processInfo = JsonParser.jsonToBean(jsonString, ProcessInfo.class);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return processInfo;
     }
 
     /**
