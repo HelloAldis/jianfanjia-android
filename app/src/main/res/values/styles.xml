@@ -190,7 +190,7 @@
         <item name="android:windowExitAnimation">@anim/popub_slide_out_to_bottom</item>
     </style>
     <!-- activity animation -->
-    <style name="activity_style" parent="@style/Theme.AppCompat.Light.NoActionBar">
+    <style name="activity_style" parent="AppTheme">
         <item name="vpiIconPageIndicatorStyle">@style/Widget.IconPageIndicator</item>
         <item name="vpiTabPageIndicatorStyle">@style/Widget.TabPageIndicator</item>
     </style>

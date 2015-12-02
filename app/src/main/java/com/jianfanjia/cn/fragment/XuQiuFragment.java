@@ -12,7 +12,6 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
@@ -34,6 +33,7 @@ import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
+import com.jianfanjia.cn.view.empty.EmptyLayout;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
 
@@ -89,7 +89,7 @@ public class XuQiuFragment extends BaseAnnotationFragment {
     protected PullToRefreshRecycleView pullrefresh;
 
     @ViewById(R.id.error_include)
-    RelativeLayout error_Layout;
+    EmptyLayout error_Layout;
 
     protected Intent gotoOrderDesigner;
     protected Intent gotoMyDesigner;
@@ -205,6 +205,7 @@ public class XuQiuFragment extends BaseAnnotationFragment {
     }
 
     private void initPullRefresh() {
+        error_Layout.setErrorType(EmptyLayout.NETWORK_LOADING);
         pullrefresh.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
         pullrefresh.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<RecyclerView>() {
             @Override
@@ -226,12 +227,14 @@ public class XuQiuFragment extends BaseAnnotationFragment {
         JianFanJiaClient.get_Requirement_List(getActivity(), new ApiUiUpdateListener() {
             @Override
             public void preLoad() {
-                showWaitDialog();
+//                showWaitDialog();
+
             }
 
             @Override
             public void loadSuccess(Object data) {
-                hideWaitDialog();
+//                hideWaitDialog();
+                error_Layout.setErrorType(EmptyLayout.HIDE_LAYOUT);
                 pullrefresh.onRefreshComplete();
                 if (data != null) {
                     requirementInfos = JsonParser.jsonToList(data.toString(), new TypeToken<List<RequirementInfo>>() {
@@ -245,7 +248,7 @@ public class XuQiuFragment extends BaseAnnotationFragment {
                     } else {
                         setPublishVisiable();
                     }
-                    error_Layout.setVisibility(View.GONE);
+//                    error_Layout.setVisibility(View.GONE);
                 }
             }
 
@@ -255,7 +258,8 @@ public class XuQiuFragment extends BaseAnnotationFragment {
                 makeTextLong(error_msg);
                 setListVisiable();
                 if (requirementInfos == null || requirementInfos.size() == 0) {
-                    error_Layout.setVisibility(View.VISIBLE);
+//                    error_Layout.setVisibility(View.VISIBLE);
+                    error_Layout.setErrorType(EmptyLayout.NETWORK_ERROR);
                 }
                 pullrefresh.onRefreshComplete();
             }

@@ -4,11 +4,9 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewStub;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.adapter.MyProcessInfoAdapter;
@@ -19,7 +17,6 @@ import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.tools.NetTool;
 import com.jianfanjia.cn.view.MainHeadView;
 
 import java.util.List;
@@ -36,7 +33,6 @@ public class MyProcessActivity extends BaseActivity implements
     private MainHeadView mainHeadView = null;
     private ListView siteListView = null;
     private List<ProcessInfo> siteList;
-    private TextView errorText;
     private MyProcessInfoAdapter myProcessInfoAdapter = null;
 
     @Override
@@ -58,12 +54,6 @@ public class MyProcessActivity extends BaseActivity implements
         startActivity(intent);
         finish();
     }*/
-
-    private void setEmptyView() {
-        ViewStub mViewStub = (ViewStub) findViewById(R.id.empty);
-        errorText = (TextView) mViewStub.inflate().findViewById(R.id.tv_error);
-        siteListView.setEmptyView(mViewStub);
-    }
 
     @SuppressLint("ResourceAsColor")
     private void initMainHeadView() {
