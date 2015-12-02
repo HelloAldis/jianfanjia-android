@@ -408,7 +408,7 @@ public class SiteManageFragment extends BaseFragment implements
 
     @Override
     public void loadFailture(String errorMsg) {
-        makeTextLong(getString(R.string.tip_error_internet));
+        makeTextLong(errorMsg);
         mPullRefreshScrollView.onRefreshComplete();
     }
 
@@ -469,8 +469,10 @@ public class SiteManageFragment extends BaseFragment implements
 
     private void delayDialog() {
         LogTool.d(TAG, "delayDialog");
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(sectionInfo.getStart_at());
         DateWheelDialog dateWheelDialog = new DateWheelDialog(getActivity(),
-                Calendar.getInstance());
+                calendar);
         dateWheelDialog.setTitle("选择时间");
         dateWheelDialog.setPositiveButton(R.string.ok,
                 new DialogInterface.OnClickListener() {
@@ -650,14 +652,14 @@ public class SiteManageFragment extends BaseFragment implements
 
                             @Override
                             public void loadFailture(String error_msg) {
-
+                                    makeTextShort(error_msg);
                             }
                         }, this);
             }
 
             @Override
             public void loadFailture(String error_msg) {
-
+                    makeTextShort(error_msg);
             }
         }, this);
     }

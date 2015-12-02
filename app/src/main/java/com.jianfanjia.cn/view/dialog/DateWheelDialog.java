@@ -36,7 +36,7 @@ public class DateWheelDialog extends CommonDialog implements
     public DateWheelDialog(Context context, Calendar calendar) {
         super(context);
         inflater = LayoutInflater.from(context);
-        startCalendar = Calendar.getInstance();
+        startCalendar =calendar;
         minYear = startCalendar.get(Calendar.YEAR);
         minMonth = startCalendar.get(Calendar.MONTH);
         minDate = startCalendar.get(Calendar.DAY_OF_MONTH);
@@ -66,9 +66,9 @@ public class DateWheelDialog extends CommonDialog implements
         wheelView2.setCyclic(false);
 
         // year
-        int curYear = currentCalendar.get(Calendar.YEAR);
+//        int curYear = currentCalendar.get(Calendar.YEAR);
         wheelView1.setAdapter(new NumericWheelAdapter(minYear, minYear + 1));
-        wheelView1.setCurrentItem(curYear - minYear);
+        wheelView1.setCurrentItem(0);
         wheelView1.addChangingListener(this);
         wheelView1.setCyclic(false);
 
@@ -79,7 +79,7 @@ public class DateWheelDialog extends CommonDialog implements
 //        wheelView3.setCurrentItem(0);
         wheelView3.addChangingListener(this);
 
-        Log.i(this.getClass().getName(), curYear + "-" + (curMonth + 1) + "-"
+        Log.i(this.getClass().getName(), minYear + "-" + (curMonth + 1) + "-"
                 + startCalendar.get(Calendar.DAY_OF_MONTH));
     }
 
@@ -133,9 +133,7 @@ public class DateWheelDialog extends CommonDialog implements
         } else {
             LogTool.d(this.getClass().getName(), "day change");
             chooseCalendar.set(Calendar.DAY_OF_MONTH,
-                    wheelView3.getCurrentItem() + minDate);
-            
-
+                    wheelView3.getCurrentItem() + minDate > chooseCalendar.getActualMaximum(Calendar.DAY_OF_MONTH) ? minDate : wheelView3.getCurrentItem() + minDate);
             Log.i(this.getClass().getName(), chooseCalendar.get(Calendar.YEAR) + "-" + (chooseCalendar.get(Calendar.MONTH) + 1) + "-"
                     + chooseCalendar.get(Calendar.DAY_OF_MONTH));
         }
