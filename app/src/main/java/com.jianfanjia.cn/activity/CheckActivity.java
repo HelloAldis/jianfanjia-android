@@ -141,12 +141,12 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
                 R.string.confirm_upload));
         check_pic_edit.setVisibility(View.VISIBLE);
         check_pic_edit.setText(getString(R.string.edit));
-        currentState = EDIT_STATUS;
+        currentState = FINISH_STATUS;
         gridView.setFocusable(false);
     }
 
     private void initData() {
-        switch (sectionInfoStatus) {
+       /* switch (sectionInfoStatus) {
             case Constant.NO_START:
                 break;
             case Constant.DOING:
@@ -156,7 +156,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
                 break;
             default:
                 break;
-        }
+        }*/
         adapter = new MyGridViewAdapter(CheckActivity.this, checkGridList,
                 this, this);
         gridView.setAdapter(adapter);
@@ -176,7 +176,6 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
         checkGridList = getCheckedImageById(sectionInfoName);
         processInfo = dataManager.getDefaultProcessInfo();
         imageids = processInfo.getImageidsByName(sectionInfoName);
-        int imagecount = imageids.size();
         for (int i = 0; imageids != null && i < imageids.size(); i++) {
             String key = imageids.get(i).getKey();
             LogTool.d(TAG, imageids.get(i).getImageid());
@@ -185,15 +184,15 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
         }
         adapter.setList(checkGridList);
         adapter.notifyDataSetChanged();
-        setConfimStatus(imagecount);
+        setConfimStatus();
         initShowList();
     }
 
-    private void setConfimStatus(int count) {
+    private void setConfimStatus() {
+        int count = imageids.size();
         if (!sectionInfoStatus.equals(Constant.FINISHED)) {
             if (count < checkGridList.size() / 2) {
                 //设计师图片没上传完，不能验收
-                btn_confirm.setEnabled(true);
                 btn_confirm.setText(this.getResources().getString(
                         R.string.confirm_upload));
                 btn_confirm.setOnClickListener(new OnClickListener() {
@@ -203,11 +202,16 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
                         finish();
                     }
                 });
+                if (currentState == FINISH_STATUS) {
+                    btn_confirm.setEnabled(true);
+                } else {
+                    btn_confirm.setEnabled(false);
+                }
             } else {
                 boolean isFinish = isSectionInfoFishish(sectionItemInfos);
                 if (isFinish) {
                     //图片上传完了，可以进行验收
-                    btn_confirm.setEnabled(true);
+//                    btn_confirm.setEnabled(true);
                     btn_confirm.setText(this.getResources().getString(
                             R.string.confirm_tip));
                     btn_confirm.setOnClickListener(new OnClickListener() {
@@ -217,6 +221,11 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
                             onClickCheckConfirm();
                         }
                     });
+                    if (currentState == FINISH_STATUS) {
+                        btn_confirm.setEnabled(true);
+                    } else {
+                        btn_confirm.setEnabled(false);
+                    }
                 } else {
                     //图片上传完了，但是工序的某些节点还没有完工
                     btn_confirm.setEnabled(false);
@@ -263,22 +272,21 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
     public void changeEditStatus() {
         if (!sectionInfoStatus.equals(Constant.FINISHED)) {
             if (currentState == FINISH_STATUS) {
-                check_pic_edit.setText(getString(R.string.edit));
+                check_pic_edit.setText(getString(R.string.finish));
                 currentState = EDIT_STATUS;
-                adapter.setCanDelete(false);
-//                btn_confirm.setEnabled(true);
+                adapter.setCanDelete(true);
                 adapter.notifyDataSetInvalidated();
             } else {
-//                btn_confirm.setEnabled(false);
-                check_pic_edit.setText(getString(R.string.finish));
+                check_pic_edit.setText(getString(R.string.edit));
                 currentState = FINISH_STATUS;
-                adapter.setCanDelete(true);
+                adapter.setCanDelete(false);
                 adapter.notifyDataSetInvalidated();
             }
         } else {
             check_pic_edit.setEnabled(false);
             btn_confirm.setEnabled(false);
         }
+        setConfimStatus();
     }
 
     @Override
@@ -329,7 +337,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
                     public void loadSuccess(Object data) {
                         hideWaitDialog();
                         refreshList();
-                        changeEditStatus();
+//                        changeEditStatus();
                     }
 
                     @Override
