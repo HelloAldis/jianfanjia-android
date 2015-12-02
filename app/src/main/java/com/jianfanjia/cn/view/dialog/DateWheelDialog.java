@@ -1,127 +1,141 @@
 package com.jianfanjia.cn.view.dialog;
 
-import java.util.Calendar;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.wheel.NumericWheelAdapter;
 import com.jianfanjia.cn.view.wheel.OnWheelChangedListener;
 import com.jianfanjia.cn.view.wheel.WheelView;
 
+import java.util.Calendar;
+
 public class DateWheelDialog extends CommonDialog implements
-		OnWheelChangedListener {
+        OnWheelChangedListener {
 
-	public static final int VISIABLECOUNT = 5;
+    public static final int VISIABLECOUNT = 3;
 
-	private Calendar startCalendar;// 开始时间
-	private Calendar chooseCalendar;// 选择时间
+    private Calendar startCalendar;// 起始时间
+    private Calendar chooseCalendar;// 选择时间
+    private Calendar currentCalendar = Calendar.getInstance();
+//	private Calendar endCalendar;//结束时间
 
-	private int minYear;
-	private int maxYear;
+    private int minYear;
+    private int minMonth;
+    private int minDate;
+    private int maxYear;
 
-	private LayoutInflater inflater;
-	private WheelView wheelView1;
-	private WheelView wheelView2;
-	private WheelView wheelView3;
+    private LayoutInflater inflater;
+    private WheelView wheelView1;
+    private WheelView wheelView2;
+    private WheelView wheelView3;
 
-	public DateWheelDialog(Context context, boolean flag,
-			OnCancelListener listener, Calendar calendar) {
-		super(context, flag, listener);
-		inflater = LayoutInflater.from(context);
-		startCalendar = calendar;
-		chooseCalendar = calendar;
-		initView();
-	}
+    public DateWheelDialog(Context context, Calendar calendar) {
+        super(context);
+        inflater = LayoutInflater.from(context);
+        startCalendar =calendar;
+        minYear = startCalendar.get(Calendar.YEAR);
+        minMonth = startCalendar.get(Calendar.MONTH);
+        minDate = startCalendar.get(Calendar.DAY_OF_MONTH);
+        chooseCalendar = currentCalendar;
+        initView();
+    }
 
-	public DateWheelDialog(Context context, int defStyle, Calendar calendar) {
-		super(context, defStyle);
-		inflater = LayoutInflater.from(context);
-		startCalendar = calendar;
-		chooseCalendar = calendar;
-		initView();
-	}
+    public Calendar getChooseCalendar() {
+        return chooseCalendar;
+    }
 
-	public DateWheelDialog(Context context, Calendar calendar) {
-		super(context);
-		inflater = LayoutInflater.from(context);
-		startCalendar = calendar;
-		chooseCalendar = calendar;
-		initView();
-	}
+    private void initView() {
+        View view = inflater.inflate(R.layout.commont_wheel, null);
+        setContent(view);
+        wheelView1 = (WheelView) view.findViewById(R.id.wheel_item1);
+        wheelView2 = (WheelView) view.findViewById(R.id.wheel_item2);
+        wheelView3 = (WheelView) view.findViewById(R.id.wheel_item3);
+        wheelView1.setVisibleItems(VISIABLECOUNT);
+        wheelView2.setVisibleItems(VISIABLECOUNT);
+        wheelView3.setVisibleItems(VISIABLECOUNT);
 
-	public Calendar getChooseCalendar() {
-		return chooseCalendar;
-	}
+        // month
+        int curMonth = currentCalendar.get(Calendar.MONTH);
+        wheelView2.setAdapter(new NumericWheelAdapter(minMonth + 1, 12));
+//        wheelView2.setCurrentItem(curMonth);
+        wheelView2.addChangingListener(this);
+        wheelView2.setCyclic(false);
 
-	public void setStartCalendar(Calendar startCalendar) {
-		this.startCalendar = startCalendar;
-	}
+        // year
+//        int curYear = currentCalendar.get(Calendar.YEAR);
+        wheelView1.setAdapter(new NumericWheelAdapter(minYear, minYear + 1));
+        wheelView1.setCurrentItem(0);
+        wheelView1.addChangingListener(this);
+        wheelView1.setCyclic(false);
 
-	private void initView() {
-		View view = inflater.inflate(R.layout.commont_wheel, null);
-		setContent(view);
-		wheelView1 = (WheelView) view.findViewById(R.id.wheel_item1);
-		wheelView2 = (WheelView) view.findViewById(R.id.wheel_item2);
-		wheelView3 = (WheelView) view.findViewById(R.id.wheel_item3);
-		wheelView1.setVisibleItems(VISIABLECOUNT);
-		wheelView2.setVisibleItems(VISIABLECOUNT);
-		wheelView3.setVisibleItems(VISIABLECOUNT);
+        // day
+        wheelView3.setCyclic(false);
+        int maxDays = currentCalendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+        wheelView3.setAdapter(new NumericWheelAdapter(minDate, maxDays));
+//        wheelView3.setCurrentItem(0);
+        wheelView3.addChangingListener(this);
 
-		// month
-		int curMonth = startCalendar.get(Calendar.MONTH);
-		wheelView2.setAdapter(new NumericWheelAdapter(1, 12));
-		wheelView2.setCurrentItem(curMonth);
-		wheelView2.addChangingListener(this);
-		wheelView2.setCyclic(true);
+        Log.i(this.getClass().getName(), minYear + "-" + (curMonth + 1) + "-"
+                + startCalendar.get(Calendar.DAY_OF_MONTH));
+    }
 
-		// year
-		int curYear = startCalendar.get(Calendar.YEAR);
-		minYear = curYear - 2;
-		wheelView1.setAdapter(new NumericWheelAdapter(minYear, minYear + 4));
-		wheelView1.setCurrentItem(curYear - minYear);
-		wheelView1.addChangingListener(this);
-		wheelView1.setCyclic(true);
+    /**
+     * Updates day wheel. Sets max days according to selected month and year
+     */
+    void updateDays() {
+        LogTool.d(this.getClass().getName(), "updateDays");
+        int maxDays = chooseCalendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+        if(chooseCalendar.get(Calendar.YEAR) == startCalendar.get(Calendar.YEAR)  && chooseCalendar.get(Calendar.MONTH) == startCalendar.get(Calendar.MONTH)){
+            minDate = startCalendar.get(Calendar.DAY_OF_MONTH);
+            LogTool.d(this.getClass().getName(), "minDate =" + minDate);
+        }else{
+            minDate = 1;
+        }
+        LogTool.d(this.getClass().getName(), "chooseCalendar.get(Calendar.YEAR) =" + chooseCalendar.get(Calendar.YEAR) + "," + "startCalendar.get(Calendar.YEAR) =" + startCalendar.get(Calendar.YEAR));
+        LogTool.d(this.getClass().getName(), "chooseCalendar.get(Calendar.MONTH) =" + chooseCalendar.get(Calendar.MONTH) + "," + "startCalendar.get(Calendar.MONTH) =" + startCalendar.get(Calendar.MONTH));
+        wheelView3.setAdapter(new NumericWheelAdapter(minDate, maxDays));
+        wheelView3.setCurrentItem(0, true);
+    }
 
-		// day
-		wheelView3.setCyclic(true);
-		int maxDays = startCalendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-		wheelView3.setAdapter(new NumericWheelAdapter(1, maxDays));
-		wheelView3.setCurrentItem(startCalendar.get(Calendar.DAY_OF_MONTH) - 1);
-		wheelView3.addChangingListener(this);
+    void updateMonth() {
+        LogTool.d(this.getClass().getName(), "updateMonth");
+        if (chooseCalendar.get(Calendar.YEAR) == startCalendar.get(Calendar.YEAR)) {
+            LogTool.d(this.getClass().getName(), "same month");
+            minMonth = startCalendar.get(Calendar.MONTH);
+        } else {
+            minMonth = 0;
+        }
+        wheelView2.setAdapter(new NumericWheelAdapter(minMonth + 1, 12));
+        wheelView2.setCurrentItem(0, true);
+    }
 
-		Log.i(this.getClass().getName(), curYear + "-" + curMonth + "-"
-				+ startCalendar.get(Calendar.DAY_OF_MONTH));
-	}
-
-	/**
-	 * Updates day wheel. Sets max days according to selected month and year
-	 */
-	void updateDays(WheelView day) {
-
-		int maxDays = chooseCalendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-		day.setAdapter(new NumericWheelAdapter(1, maxDays));
-		int curDay = Math.min(maxDays, day.getCurrentItem() + 1);
-		day.setCurrentItem(curDay - 1, true);
-
-		chooseCalendar.set(Calendar.DAY_OF_MONTH, curDay);
-	}
-
-	@Override
-	public void onChanged(WheelView wheel, int oldValue, int newValue) {
-		// updateDays(wheelView1, wheelView2, wheelView3);
-		wheel.setCurrentItem(newValue);
-		if (wheel == wheelView1) {
-			chooseCalendar.set(Calendar.YEAR, minYear + wheel.getCurrentItem());
-			updateDays(wheelView3);
-		} else if (wheel == wheelView2) {
-			chooseCalendar.set(Calendar.MONTH, wheel.getCurrentItem());
-			updateDays(wheelView3);
-		} else {
-			chooseCalendar.set(Calendar.DAY_OF_MONTH,
-					wheelView3.getCurrentItem() + 1);
-		}
-	}
-
+    @Override
+    public void onChanged(WheelView wheel, int oldValue, int newValue) {
+        // updateDays(wheelView1, wheelView2, wheelView3);
+//		wheel.setCurrentItem(newValue);
+        LogTool.d(this.getClass().getName(), "wheel.getCurrentItem() =" + wheel.getCurrentItem());
+        if (wheel == wheelView1) {
+            LogTool.d(this.getClass().getName(), "year change");
+            chooseCalendar.set(Calendar.YEAR, minYear + wheelView1.getCurrentItem());
+            LogTool.d(this.getClass().getName(), "Calendar.YEAR = " + chooseCalendar.get(Calendar.YEAR));
+//			updateDays(wheelView3);
+            updateMonth();
+        } else if (wheel == wheelView2) {
+            LogTool.d(this.getClass().getName(), "month change");
+            LogTool.d(this.getClass().getName(), "minmonth =" + minMonth);
+            chooseCalendar.set(Calendar.MONTH, minMonth + wheelView2.getCurrentItem() > 12 ? minMonth : (minMonth + wheelView2.getCurrentItem()));
+            LogTool.d(this.getClass().getName(), "Calendar.YEAR = " + chooseCalendar.get(Calendar.YEAR));
+            updateDays();
+        } else {
+            LogTool.d(this.getClass().getName(), "day change");
+            chooseCalendar.set(Calendar.DAY_OF_MONTH,
+                    wheelView3.getCurrentItem() + minDate > chooseCalendar.getActualMaximum(Calendar.DAY_OF_MONTH) ? minDate : wheelView3.getCurrentItem() + minDate);
+            Log.i(this.getClass().getName(), chooseCalendar.get(Calendar.YEAR) + "-" + (chooseCalendar.get(Calendar.MONTH) + 1) + "-"
+                    + chooseCalendar.get(Calendar.DAY_OF_MONTH));
+        }
+    }
 }
