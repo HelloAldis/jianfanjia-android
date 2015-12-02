@@ -266,10 +266,10 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
                 check_pic_edit.setText(getString(R.string.edit));
                 currentState = EDIT_STATUS;
                 adapter.setCanDelete(false);
-                btn_confirm.setEnabled(true);
+//                btn_confirm.setEnabled(true);
                 adapter.notifyDataSetInvalidated();
             } else {
-                btn_confirm.setEnabled(false);
+//                btn_confirm.setEnabled(false);
                 check_pic_edit.setText(getString(R.string.finish));
                 currentState = FINISH_STATUS;
                 adapter.setCanDelete(true);

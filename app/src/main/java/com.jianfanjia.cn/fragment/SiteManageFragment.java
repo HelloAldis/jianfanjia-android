@@ -181,9 +181,9 @@ public class SiteManageFragment extends BaseFragment implements
             imageShow.displayImageHeadWidthThumnailImage(getActivity(), mUserImageId, titleImage);
         }
         LogTool.d(TAG, "---onResume()-----");
-        if (sectionItemAdapter != null) {
+        /*if (sectionItemAdapter != null) {
             sectionItemAdapter.notifyDataSetChanged();
-        }
+        }*/
         listenerManeger.addReceiveMsgListener(this);
     }
 

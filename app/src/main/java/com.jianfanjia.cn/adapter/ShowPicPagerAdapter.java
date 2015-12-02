@@ -78,7 +78,7 @@ public class ShowPicPagerAdapter extends PagerAdapter {
 	@Override
 	public Object instantiateItem(ViewGroup container, final int position) {
 		Log.i(this.getClass().getName(), images.get(position));
-		View view = inflater.inflate(R.layout.itme_show_pic, null);
+		View view = inflater.inflate(R.layout.viewpager_item_show_pic, null);
 		PhotoView imageView = (PhotoView) view.findViewById(R.id.image_item);
 		if(!images.get(position).contains(Constant.DEFALUT_PIC_HEAD)){
 			imageLoader.displayImage(Url_New.GET_IMAGE + images.get(position),

@@ -33,6 +33,8 @@ public abstract class UIProgressListener implements ProgressListener {
 
     //处理UI层的Handler子类
     private static class UIHandler extends ProgressHandler {
+        private int lastProcess = 0;
+
         public UIHandler(UIProgressListener uiProgressListener) {
             super(uiProgressListener);
         }
@@ -46,8 +48,12 @@ public abstract class UIProgressListener implements ProgressListener {
 
         @Override
         public void progress(UIProgressListener uiProgressListener, long currentBytes, long contentLength, boolean done) {
-            if (uiProgressListener!=null){
-                uiProgressListener.onUIProgress(currentBytes, contentLength, done);
+            if (uiProgressListener != null) {
+                int currentProcess = (int) (currentBytes * 100 / contentLength);
+                if (currentProcess - 1 >= lastProcess) {//因为是在主线程更新，所以我们不能一直进行更新，进度只用增加1%以上才刷新
+                    uiProgressListener.onUIProgress(currentBytes, contentLength, done);
+                    lastProcess = currentProcess;
+                }
             }
         }
 
