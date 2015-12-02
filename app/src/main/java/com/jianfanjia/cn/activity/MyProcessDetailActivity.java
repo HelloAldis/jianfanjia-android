@@ -333,7 +333,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                 checkBundle.putString(Constant.PROCESS_NAME, sectionInfo.getName());
                 checkBundle
                         .putString(Constant.PROCESS_STATUS, sectionInfo.getStatus());
-                checkBundle.putSerializable(Global.PROCESS_INFO, processInfo);
+                checkBundle.putString(Global.PROCESS_ID, processId);
                 startActivity(CheckActivity.class, checkBundle);
                 break;
             default:
@@ -627,8 +627,8 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                             Bundle checkBundle = new Bundle();
                             checkBundle.putString(Constant.PROCESS_NAME, message.getSection());
                             checkBundle
-                                    .putString(Constant.PROCESS_STATUS, sectionInfo.getStatus());
-                            checkBundle.putSerializable(Global.PROCESS_INFO, processInfo);
+                                    .putString(Constant.PROCESS_STATUS, message.getStatus());
+                            checkBundle.putString(Global.PROCESS_ID, message.getProcessid());
                             startActivity(CheckActivity.class, checkBundle);
                         }
                     });

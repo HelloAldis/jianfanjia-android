@@ -1,41 +1,29 @@
 package com.jianfanjia.cn.receiver;
 
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.RemoteViews;
 
 import com.igexin.sdk.PushConsts;
 import com.igexin.sdk.PushManager;
-import com.jianfanjia.cn.activity.CheckActivity;
-import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.MyProcessDetailActivity;
 import com.jianfanjia.cn.activity.NotifyActivity;
-import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.NotifyMessage;
-import com.jianfanjia.cn.bean.ProcessInfo;
-import com.jianfanjia.cn.bean.SectionInfo;
 import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.dao.impl.NotifyMessageDao;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.ReceiveMsgListener;
 import com.jianfanjia.cn.interf.manager.ListenerManeger;
 import com.jianfanjia.cn.tools.DaoManager;
-import com.jianfanjia.cn.tools.DateFormatTool;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.SystemUtils;
+import com.jianfanjia.cn.tools.UiHelper;
 
 /**
  * Description:推送消息监听广播
@@ -122,7 +110,7 @@ public class PushMsgReceiver extends BroadcastReceiver {
                         listener.onReceive(message);
                     }
                 } else {
-                    sendNotifycation(context, message);
+                    UiHelper.sendNotifycation(context, message);
                 }
             } else {
                 LogTool.d(TAG, "the app process is dead");
@@ -165,99 +153,4 @@ public class PushMsgReceiver extends BroadcastReceiver {
         }, this);
     }
 
-    private void sendNotifycation(Context context, NotifyMessage message) {
-        int notifyId = -1;
-        NotificationManager nManager = (NotificationManager) context
-                .getSystemService(Context.NOTIFICATION_SERVICE);
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(
-                context);
-        RemoteViews mRemoteViews = new RemoteViews(context.getPackageName(), R.layout.view_custom_notify);
-        mRemoteViews.setImageViewResource(R.id.list_item_img, R.mipmap.icon_logo);
-        builder.setSmallIcon(R.mipmap.icon_notify);
-        String type = message.getType();
-        PendingIntent pendingIntent = null;
-        if (type.equals(Constant.YANQI_NOTIFY)) {
-            notifyId = Constant.YANQI_NOTIFY_ID;
-            builder.setTicker(context.getResources()
-                    .getText(R.string.yanqiText));
-            mRemoteViews.setTextViewText(R.id.list_item_title, context.getResources()
-                    .getText(R.string.yanqiText));
-            mRemoteViews.setTextViewText(R.id.list_item_date, DateFormatTool.toLocalTimeString(message.getTime()));
-            mRemoteViews.setTextViewText(R.id.list_item_content, message.getContent());
-            Intent mainIntent = new Intent(context, MainActivity.class);
-            mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-                    | Intent.FLAG_ACTIVITY_NEW_TASK);
-            Intent notifyIntent = new Intent(context, NotifyActivity.class);
-            notifyIntent.putExtra("Type", type);
-            Intent[] intents = {mainIntent, notifyIntent};
-            pendingIntent = PendingIntent.getActivities(context, 0, intents,
-                    PendingIntent.FLAG_UPDATE_CURRENT);
-        } else if (type.equals(Constant.FUKUAN_NOTIFY)) {
-            notifyId = Constant.FUKUAN_NOTIFY_ID;
-            builder.setTicker(context.getResources()
-                    .getText(R.string.fukuanText));
-            mRemoteViews.setTextViewText(R.id.list_item_title, context.getResources()
-                    .getText(R.string.fukuanText));
-            mRemoteViews.setTextViewText(R.id.list_item_date, DateFormatTool.toLocalTimeString(message.getTime()));
-            mRemoteViews.setTextViewText(R.id.list_item_content, message.getContent());
-            Intent mainIntent = new Intent(context, MainActivity.class);
-            mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-                    | Intent.FLAG_ACTIVITY_NEW_TASK);
-            Intent notifyIntent = new Intent(context, NotifyActivity.class);
-            notifyIntent.putExtra("Type", type);
-            Intent[] intents = {mainIntent, notifyIntent};
-            pendingIntent = PendingIntent.getActivities(context, 0, intents,
-                    PendingIntent.FLAG_UPDATE_CURRENT);
-        } else if (type.equals(Constant.CAIGOU_NOTIFY)) {
-            notifyId = Constant.CAIGOU_NOTIFY_ID;
-            builder.setTicker(context.getResources()
-                    .getText(R.string.caigouText));
-            mRemoteViews.setTextViewText(R.id.list_item_title, context.getResources()
-                    .getText(R.string.caigouText));
-            mRemoteViews.setTextViewText(R.id.list_item_date, DateFormatTool.toLocalTimeString(message.getTime()));
-            mRemoteViews.setTextViewText(R.id.list_item_content, message.getContent());
-            Intent mainIntent = new Intent(context, MainActivity.class);
-            mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-                    | Intent.FLAG_ACTIVITY_NEW_TASK);
-            Intent notifyIntent = new Intent(context, NotifyActivity.class);
-            notifyIntent.putExtra("Type", type);
-            Intent[] intents = {mainIntent, notifyIntent};
-            pendingIntent = PendingIntent.getActivities(context, 0, intents,
-                    PendingIntent.FLAG_UPDATE_CURRENT);
-        } else if (type.equals(Constant.CONFIRM_CHECK_NOTIFY)) {
-            notifyId = Constant.YANSHOU_NOTIFY_ID;
-            ProcessInfo processInfo = dataManager.getDefaultProcessInfo();
-            SectionInfo sectionInfo = processInfo.getSectionInfoByName(message
-                    .getSection());
-            LogTool.d(TAG, "processInfo:" + processInfo + " sectionInfo:"
-                    + sectionInfo);
-            builder.setTicker(context.getResources().getText(
-                    R.string.yanshouText));
-            mRemoteViews.setTextViewText(R.id.list_item_title, context.getResources()
-                    .getText(R.string.yanshouText));
-            mRemoteViews.setTextViewText(R.id.list_item_date, DateFormatTool.toLocalTimeString(message.getTime()));
-            mRemoteViews.setTextViewText(R.id.list_item_content, message.getContent());
-            Intent mainIntent = new Intent(context, MainActivity.class);
-            mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-                    | Intent.FLAG_ACTIVITY_NEW_TASK);
-            Intent checkIntent = new Intent(context, CheckActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putString(Constant.PROCESS_NAME, sectionInfo.getName());
-            bundle.putString(Constant.PROCESS_STATUS, sectionInfo.getStatus());
-            bundle.putSerializable(Global.PROCESS_INFO, processInfo);
-            checkIntent.putExtras(bundle);
-            Intent[] intents = {mainIntent, checkIntent};
-            pendingIntent = PendingIntent.getActivities(context, 0, intents,
-                    PendingIntent.FLAG_UPDATE_CURRENT);
-        }
-        builder.setContent(mRemoteViews);
-        builder.setWhen(System.currentTimeMillis());
-        builder.setAutoCancel(true);
-        builder.setContentIntent(pendingIntent);
-        Notification notification = builder.build();
-        notification.vibrate = new long[]{0, 300, 500, 700};
-        notification.sound = Uri.parse("android.resource://"
-                + context.getPackageName() + "/" + R.raw.message);
-        nManager.notify(notifyId, notification);
-    }
 }
