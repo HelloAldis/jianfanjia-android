@@ -208,9 +208,6 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
             btn_choose.setEnabled(false);
             //发送数据刷新广播
             UiHelper.intentTo(PreviewDesignerPlanActivity.this, MyDesignerActivity_.class, null);
-//            Intent intent = new Intent(PreviewDesignerPlanActivity.this,MyDesignerActivity_.class);
-//            startActivity(intent);
-////            setResult(RESULT_OK);
             finish();
         }
 
