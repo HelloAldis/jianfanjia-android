@@ -43,7 +43,6 @@ public class PersistentCookieStore implements CookieStore {
     public PersistentCookieStore(Context context) {
         cookiePrefs = context.getSharedPreferences(COOKIE_PREFS, 0);
         cookies = new HashMap<String, ConcurrentHashMap<String, HttpCookie>>();
-
         // Load any previously stored cookies into the store
         Map<String, ?> prefsMap = cookiePrefs.getAll();
         for(Map.Entry<String, ?> entry : prefsMap.entrySet()) {
@@ -58,7 +57,6 @@ public class PersistentCookieStore implements CookieStore {
                                 cookies.put(entry.getKey(), new ConcurrentHashMap<String, HttpCookie>());
                             cookies.get(entry.getKey()).put(name, decodedCookie);
                             LogTool.d(this.getClass().getName(), name + " --" + cookies.get(entry.getKey()).get(name));
-
                         }
                     }
                 }

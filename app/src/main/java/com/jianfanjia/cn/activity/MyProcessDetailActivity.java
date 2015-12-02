@@ -23,6 +23,7 @@ import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.SectionInfo;
 import com.jianfanjia.cn.bean.ViewPagerItem;
+import com.jianfanjia.cn.cache.BusinessManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
@@ -129,7 +130,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
             loadCurrentProcess();
         } else {
             processId = Constant.DEFAULT_PROCESSINFO_ID;
-            processInfo = dataManager.getProcessInfoById(processId);
+            processInfo = BusinessManager.getDefaultProcessInfo(this);
             initData();
         }
 

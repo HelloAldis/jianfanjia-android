@@ -5,22 +5,15 @@ import android.content.pm.PackageManager;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseApplication;
-import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.cache.DataCleanManager;
-import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.OkHttpClientManager;
 import com.jianfanjia.cn.http.cookie.PersistentCookieStore;
-import com.jianfanjia.cn.tools.JsonParser;
-import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.tools.StringUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.squareup.okhttp.OkHttpClient;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
 
@@ -39,7 +32,7 @@ public class MyApplication extends BaseApplication {
     public void onCreate() {
         super.onCreate();
         instance = this;
-        saveDefaultProcess();// 加载默认的工地信息
+//        saveDefaultProcess();// 加载默认的工地信息
         cookieStore = new PersistentCookieStore(this);// 记录cookie
         saveCookie(OkHttpClientManager.getInstance().client());
         /*
@@ -48,34 +41,6 @@ public class MyApplication extends BaseApplication {
 		 */
 
 
-    }
-
-    public void saveDefaultProcess() {
-        ProcessInfo processInfo = DataManagerNew.getInstance()
-                .getProcessInfoById(Constant.DEFAULT_PROCESSINFO_ID);
-        if (processInfo == null) {
-            processInfo = getDefaultProcessInfo(this);
-            LogTool.d(this.getClass().getName(),
-                    processInfo.toString());
-            DataManagerNew.getInstance().saveProcessInfo(processInfo);
-        }
-    }
-
-    // 拿到所有的模拟工地数据
-    public static ProcessInfo getDefaultProcessInfo(Context context) {
-        ProcessInfo processInfo = null;
-        try {
-            InputStream is = context.getAssets()
-                    .open("default_processinfo.txt");
-            String jsonString = StringUtils.toConvertString(is);
-            LogTool.d("getDefault",
-                    jsonString);
-            processInfo = JsonParser.jsonToBean(jsonString, ProcessInfo.class);
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return processInfo;
     }
 
     public static MyApplication getInstance() {
