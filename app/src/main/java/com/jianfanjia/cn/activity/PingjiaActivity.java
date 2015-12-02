@@ -48,7 +48,6 @@ public class PingjiaActivity extends BaseActivity implements
     private int respond_speed = 0;
     private int service_attitude = 0;
 
-
     @Override
     public void initView() {
         initMainHeadView();
@@ -69,10 +68,9 @@ public class PingjiaActivity extends BaseActivity implements
         attitude = commentBundle.getFloat(Global.ATTITUDE);
         LogTool.d(TAG, "imageid:" + imageid + " designer_name:" + designer_name + " requirementid:" + requirementid + " designerid:" + designerid + " speed:" + speed + " attitude:" + attitude);
         bar.setRating((int) (speed + attitude) / 2);
-//        imageLoader.displayImage(Url_New.GET_THUMBNAIL_IMAGE + imageid, designer_head_img, options);
-        if(!TextUtils.isEmpty(imageid)){
-            imageShow.displayImageHeadWidthThumnailImage(this,imageid, designer_head_img);
-        }else{
+        if (!TextUtils.isEmpty(imageid)) {
+            imageShow.displayImageHeadWidthThumnailImage(this, imageid, designer_head_img);
+        } else {
             imageShow.displayLocalImage(Constant.DEFALUT_OWNER_PIC, designer_head_img);
         }
         designerName.setText(designer_name);
@@ -87,7 +85,6 @@ public class PingjiaActivity extends BaseActivity implements
         mainHeadView.setRightTitleVisable(View.GONE);
         mainHeadView.setBackLayoutVisable(View.VISIBLE);
     }
-
 
     @Override
     public void setListener() {
@@ -144,7 +141,6 @@ public class PingjiaActivity extends BaseActivity implements
         setResult(RESULT_OK);
         finish();
     }
-
 
     @Override
     public void loadFailture(String error_msg) {

@@ -125,7 +125,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
         Intent intent = getIntent();
         processInfo = (ProcessInfo) intent.getSerializableExtra(Global.PROCESS_INFO);
         if (processInfo != null) {
-            LogTool.d(getClass().getName(), "processInfo:" + processInfo.get_id());
+            LogTool.d(TAG, "processInfo:" + processInfo.get_id());
             processId = processInfo.get_id();
             loadCurrentProcess();
         } else {

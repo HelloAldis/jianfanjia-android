@@ -34,7 +34,6 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<RequirementIn
     public void onBindViewHolder(ViewWrapper<RequirementView> viewHolder, int position) {
         RequirementView view = viewHolder.getView();
         RequirementInfo requirementInfo = items.get(position);
-
         view.bind(requirementInfo, clickCallBack, position);
     }
 

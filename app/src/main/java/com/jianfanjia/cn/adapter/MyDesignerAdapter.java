@@ -25,7 +25,6 @@ import com.jianfanjia.cn.view.custom_annotation_view.MyDesignerViewType8_;
  * Date:2015-10-19 19:15
  */
 public class MyDesignerAdapter extends RecyclerViewAdapterBase<OrderDesignerInfo, View> {
-
     public static final int PLAN_TYPE0 = 0;
     public static final int PLAN_TYPE1 = 1;
     public static final int PLAN_TYPE2 = 2;
@@ -49,13 +48,6 @@ public class MyDesignerAdapter extends RecyclerViewAdapterBase<OrderDesignerInfo
         OrderDesignerInfo orderDesignerInfo = items.get(position);
         String status = orderDesignerInfo.getPlan().getStatus();
         return Integer.parseInt(status);
-       /* if(status.equals(Global.PLAN_STATUS0)){
-            return PLAN_TYPE3;
-        }else if(status.equals(Global.PLAN_STATUS2)){
-            return PLAN_TYPE2;
-        }else{
-            return PLAN_TYPE1;
-        }*/
     }
 
     @Override
@@ -125,7 +117,5 @@ public class MyDesignerAdapter extends RecyclerViewAdapterBase<OrderDesignerInfo
                 view8.bind(orderDesignerInfo, clickCallBack, position);
                 break;
         }
-
     }
-
 }
