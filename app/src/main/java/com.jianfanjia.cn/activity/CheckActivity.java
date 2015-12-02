@@ -146,17 +146,6 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
     }
 
     private void initData() {
-       /* switch (sectionInfoStatus) {
-            case Constant.NO_START:
-                break;
-            case Constant.DOING:
-                break;
-            case Constant.FINISHED:
-                btn_confirm.setEnabled(false);
-                break;
-            default:
-                break;
-        }*/
         adapter = new MyGridViewAdapter(CheckActivity.this, checkGridList,
                 this, this);
         gridView.setAdapter(adapter);
@@ -282,6 +271,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
                 adapter.setCanDelete(false);
                 adapter.notifyDataSetInvalidated();
             }
+
         } else {
             check_pic_edit.setEnabled(false);
             btn_confirm.setEnabled(false);
