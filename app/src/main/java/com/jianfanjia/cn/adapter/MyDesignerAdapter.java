@@ -49,13 +49,6 @@ public class MyDesignerAdapter extends RecyclerViewAdapterBase<OrderDesignerInfo
         OrderDesignerInfo orderDesignerInfo = items.get(position);
         String status = orderDesignerInfo.getPlan().getStatus();
         return Integer.parseInt(status);
-       /* if(status.equals(Global.PLAN_STATUS0)){
-            return PLAN_TYPE3;
-        }else if(status.equals(Global.PLAN_STATUS2)){
-            return PLAN_TYPE2;
-        }else{
-            return PLAN_TYPE1;
-        }*/
     }
 
     @Override
@@ -125,7 +118,5 @@ public class MyDesignerAdapter extends RecyclerViewAdapterBase<OrderDesignerInfo
                 view8.bind(orderDesignerInfo, clickCallBack, position);
                 break;
         }
-
     }
-
 }
