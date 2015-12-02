@@ -25,7 +25,6 @@ import com.jianfanjia.cn.view.custom_annotation_view.MyDesignerViewType8_;
  * Date:2015-10-19 19:15
  */
 public class MyDesignerAdapter extends RecyclerViewAdapterBase<OrderDesignerInfo, View> {
-
     public static final int PLAN_TYPE0 = 0;
     public static final int PLAN_TYPE1 = 1;
     public static final int PLAN_TYPE2 = 2;
