@@ -86,7 +86,6 @@ public class PingjiaActivity extends BaseActivity implements
         mainHeadView.setBackLayoutVisable(View.VISIBLE);
     }
 
-
     @Override
     public void setListener() {
         speedBar.setOnRatingBarChangeListener(speedListener);
@@ -142,7 +141,6 @@ public class PingjiaActivity extends BaseActivity implements
         setResult(RESULT_OK);
         finish();
     }
-
 
     @Override
     public void loadFailture(String error_msg) {
