@@ -15,7 +15,6 @@
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
@@ -25,7 +24,6 @@
             app:expandedTitleGravity="center_horizontal"
             app:expandedTitleMarginTop="-120dip"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
-
 
             <LinearLayout
                 android:layout_width="match_parent"

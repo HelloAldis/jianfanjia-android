@@ -95,10 +95,8 @@ public class UiHelper {
                     PendingIntent.FLAG_UPDATE_CURRENT);
         } else if (type.equals(Constant.CONFIRM_CHECK_NOTIFY)) {
             notifyId = Constant.YANSHOU_NOTIFY_ID;
-            builder.setTicker(context.getResources().getText(
-                    R.string.yanshouText));
-            mRemoteViews.setTextViewText(R.id.list_item_title, context.getResources()
-                    .getText(R.string.yanshouText));
+            builder.setTicker(context.getResources().getText(R.string.yanshouText));
+            mRemoteViews.setTextViewText(R.id.list_item_title, context.getResources().getText(R.string.yanshouText));
             mRemoteViews.setTextViewText(R.id.list_item_date, DateFormatTool.toLocalTimeString(message.getTime()));
             mRemoteViews.setTextViewText(R.id.list_item_content, message.getContent());
             Intent mainIntent = new Intent(context, MainActivity.class);
