@@ -55,7 +55,7 @@
                 android:drawableTop="@drawable/rb_btn_bg3"
                 android:paddingBottom="3dp"
                 android:paddingTop="5dp"
-                android:text="工地管理"
+                android:text="装修需求"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/text_size_14" />
 
@@ -74,5 +74,4 @@
                 android:textSize="@dimen/text_size_14" />
         </RadioGroup>
     </LinearLayout>
-
 </LinearLayout>
