@@ -153,6 +153,7 @@ public class XuQiuFragment extends BaseAnnotationFragment {
             }
         });
         pullrefresh.setAdapter(requirementAdapter);
+//        pullrefresh.setRefreshing(true);
         Paint paint = new Paint();
         paint.setStrokeWidth(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, getResources().getDisplayMetrics()));
         paint.setAlpha(0);
@@ -190,6 +191,7 @@ public class XuQiuFragment extends BaseAnnotationFragment {
         initData();
     }
 
+
     @Override
     public void onAttach(Context context) {
         updateBroadcastReceiver = new UpdateBroadcastReceiver();
@@ -205,7 +207,7 @@ public class XuQiuFragment extends BaseAnnotationFragment {
     }
 
     private void initPullRefresh() {
-        error_Layout.setErrorType(EmptyLayout.NETWORK_LOADING);
+        error_Layout.setErrorType(EmptyLayout.HIDE_LAYOUT);
         pullrefresh.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
         pullrefresh.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<RecyclerView>() {
             @Override

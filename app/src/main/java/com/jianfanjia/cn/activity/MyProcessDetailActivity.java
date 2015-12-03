@@ -415,7 +415,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
 
     private void delayDialog() {
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(sectionInfo.getStart_at());
+        calendar.setTimeInMillis(sectionInfo.getStart_at() + Constant.DELAY_TIME);
         DateWheelDialog dateWheelDialog = new DateWheelDialog(this,
                 calendar);
         dateWheelDialog.setTitle("选择时间");

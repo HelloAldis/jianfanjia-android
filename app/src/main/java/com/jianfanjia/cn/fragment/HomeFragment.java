@@ -60,13 +60,14 @@ public class HomeFragment extends BaseFragment implements
     private GridView marchDesignerView = null;
     private MarchDesignerAdapter marchDesignerAdapter = null;
     private List<OrderDesignerInfo> designers = new ArrayList<OrderDesignerInfo>();
+    private boolean isFirst = true;
 
     private Button addXuQiu = null;
     private DesignerListAdapter designerAdapter = null;
     private List<DesignerListInfo> designerList = new ArrayList<DesignerListInfo>();
 
     private int FROM = 0;// 当前页的编号，从0开始
-    private int total = Constant.LIMIT;
+    private int total = 0;
 
     private static final int BANNER_ICON[] = {R.mipmap.bg_home_banner1,
             R.mipmap.bg_home_banner2, R.mipmap.bg_home_banner3,
@@ -109,9 +110,10 @@ public class HomeFragment extends BaseFragment implements
     }
 
     private void initHomePage() {
-        getHomePageDesigners(FROM, Constant.LIMIT, pullDownListener);
+        getHomePageDesigners(FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
         designerAdapter = new DesignerListAdapter(getActivity(), designerList, this);
         pullToRefreshListView.setAdapter(designerAdapter);
+//        pullToRefreshListView.setRefreshing(true);
     }
 
     @Override
@@ -183,28 +185,31 @@ public class HomeFragment extends BaseFragment implements
     @Override
     public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
         FROM = 0;
-        getHomePageDesigners(FROM, total, pullDownListener);
+        getHomePageDesigners(FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
     }
 
 
     @Override
     public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-        getHomePageDesigners(total, Constant.LIMIT, pullUpListener);
+        getHomePageDesigners(total, Constant.HOME_PAGE_LIMIT, pullUpListener);
     }
 
 
     private ApiUiUpdateListener pullDownListener = new ApiUiUpdateListener() {
         @Override
         public void preLoad() {
-            showWaitDialog();
+            if(isFirst){
+                showWaitDialog();
+            }
         }
 
         @Override
         public void loadSuccess(Object data) {
+            hideWaitDialog();
             HomeDesignersInfo homeDesignersInfo = JsonParser.jsonToBean(data.toString(), HomeDesignersInfo.class);
             LogTool.d(TAG, "homeDesignersInfo:" + homeDesignersInfo);
             if (null != homeDesignersInfo) {
-                hideWaitDialog();
+                isFirst = false;
                 Requirement requirement = homeDesignersInfo.getRequirement();
                 LogTool.d(TAG, "requirement=" + requirement);
                 if (null != requirement) {
@@ -216,7 +221,6 @@ public class HomeFragment extends BaseFragment implements
                             noMarchedLayout.setVisibility(View.GONE);
                             marchDesignerAdapter = new MarchDesignerAdapter(getActivity(), designers);
                             marchDesignerView.setAdapter(marchDesignerAdapter);
-
                         } else {
                             marchedLayout.setVisibility(View.GONE);
                             noMarchedLayout.setVisibility(View.VISIBLE);
@@ -231,6 +235,7 @@ public class HomeFragment extends BaseFragment implements
                 }
                 designerList.clear();
                 designerList.addAll(homeDesignersInfo.getDesigners());
+                total = homeDesignersInfo.getDesigners().size();
                 LogTool.d(TAG, "designerList:" + designerList.size());
                 designerAdapter.notifyDataSetChanged();
             }
@@ -255,7 +260,7 @@ public class HomeFragment extends BaseFragment implements
 
         @Override
         public void loadSuccess(Object data) {
-            total += Constant.LIMIT;
+            total += Constant.HOME_PAGE_LIMIT;
             LogTool.d(TAG, "homeDesignersInfo=" + data.toString());
             HomeDesignersInfo homeDesignersInfo = JsonParser.jsonToBean(data.toString(), HomeDesignersInfo.class);
             LogTool.d(TAG, "homeDesignersInfo:" + homeDesignersInfo);
@@ -282,7 +287,7 @@ public class HomeFragment extends BaseFragment implements
         }
         switch (requestCode) {
             case XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT:
-                getHomePageDesigners(FROM, total, pullDownListener);
+                getHomePageDesigners(FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
                 break;
             default:
                 break;

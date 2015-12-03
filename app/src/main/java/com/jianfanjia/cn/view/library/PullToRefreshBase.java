@@ -18,8 +18,6 @@ package com.jianfanjia.cn.view.library;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
-import android.os.Build.VERSION;
-import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.AttributeSet;
@@ -53,7 +51,7 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout imp
 
     static final String LOG_TAG = "PullToRefresh";
 
-    static final float FRICTION = 4.0f;
+    static final float FRICTION = 3.0f;
 
     public static final int SMOOTH_SCROLL_DURATION_MS = 200;
     public static final int SMOOTH_SCROLL_LONG_DURATION_MS = 325;
@@ -195,13 +193,6 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout imp
         return mState;
     }
 
-    /**
-     * @deprecated See {@link #isScrollingWhileRefreshingEnabled()}.
-     */
-    public final boolean isDisableScrollingWhileRefreshing() {
-        return !isScrollingWhileRefreshingEnabled();
-    }
-
     @Override
     public final boolean isPullToRefreshEnabled() {
         return mMode.permitsPullToRefresh();
@@ -209,8 +200,9 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout imp
 
     @Override
     public final boolean isPullToRefreshOverScrollEnabled() {
-        return VERSION.SDK_INT >= VERSION_CODES.GINGERBREAD && mOverScrollEnabled
-                && OverscrollHelper.isAndroidOverScrollEnabled(mRefreshableView);
+       /* return VERSION.SDK_INT >= VERSION_CODES.GINGERBREAD && mOverScrollEnabled
+                && OverscrollHelper.isAndroidOverScrollEnabled(mRefreshableView);*/
+        return false;
     }
 
     @Override
@@ -245,6 +237,7 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout imp
             case MotionEvent.ACTION_MOVE: {
                 // If we're refreshing, and the flag is set. Eat all MOVE events
                 if (!mScrollingWhileRefreshingEnabled && isRefreshing()) {
+
                     return true;
                 }
 
