@@ -34,7 +34,7 @@ public class Constant {
     public static final int MANAGE = 1;//工地管理
     public static final int MY = 2;//我的
 
-    public static final int LIMIT = 10;//分页 每次加载10条
+    public static final int HOME_PAGE_LIMIT = 8;//首页分页 每次加载8条
 
     public static class Config {
         public static final boolean DEVELOPER_MODE = false;
@@ -171,6 +171,8 @@ public class Constant {
     public static final String COOKIES_CONFIG = "cookies_config";// cookies配置
     public static final String LAST_LOGIN_TIME = "last_login_time";// 上次登录时间
     public static final long LOGIN_EXPIRE = 24 * 60 * 60 * 1000L;// 登录过期时间为24小时
+    public static final long DELAY_TIME = 24 * 60 * 60 * 1000L;// 延期过期时间为开工日期之后的24小时
+
 
     public static final String DOWNLOAD_URL = "download_url";// 下载链接
 
