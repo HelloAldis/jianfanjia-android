@@ -147,7 +147,6 @@ public class SiteManageFragment extends BaseFragment implements
         titleImage = (ImageView) view.findViewById(R.id.icon_head);
         titleImage.setOnClickListener(this);
         titleRight.setOnClickListener(this);
-        titleCenter.setText("");
         titleRight.setText("切换工地");
     }
 
@@ -400,6 +399,7 @@ public class SiteManageFragment extends BaseFragment implements
 
     @Override
     public void loadSuccess(Object data) {
+        hideWaitDialog();
         mPullRefreshScrollView.onRefreshComplete();
         processInfo = dataManager.getDefaultProcessInfo();
         processId = dataManager.getDefaultProcessId();
@@ -408,13 +408,15 @@ public class SiteManageFragment extends BaseFragment implements
 
     @Override
     public void loadFailture(String errorMsg) {
-        makeTextLong(errorMsg);
+        hideWaitDialog();
+        makeTextShort(errorMsg);
         mPullRefreshScrollView.onRefreshComplete();
     }
 
     @Override
     public void preLoad() {
         // TODO Auto-generated method stub
+        showWaitDialog();
     }
 
     @Override
@@ -766,7 +768,7 @@ public class SiteManageFragment extends BaseFragment implements
 
             @Override
             public void loadFailture(String error_msg) {
-                makeTextLong(error_msg);
+                makeTextShort(error_msg);
             }
         }, this);
     }
@@ -786,7 +788,7 @@ public class SiteManageFragment extends BaseFragment implements
 
             @Override
             public void loadFailture(String error_msg) {
-                makeTextLong(error_msg);
+                makeTextShort(error_msg);
             }
         }, this);
     }

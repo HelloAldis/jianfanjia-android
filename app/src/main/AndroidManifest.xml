@@ -43,6 +43,7 @@
         <activity
             android:name="com.jianfanjia.cn.activity.MainActivity"
             android:screenOrientation="portrait"
+            android:launchMode="singleTask"
             android:theme="@style/Theme.PageIndicatorDefaults" />
         <activity
             android:name="com.jianfanjia.cn.activity.RegisterNewActivity_"

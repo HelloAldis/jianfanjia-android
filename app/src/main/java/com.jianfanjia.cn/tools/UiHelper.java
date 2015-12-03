@@ -50,8 +50,7 @@ public class UiHelper {
 			mRemoteViews.setTextViewText(R.id.list_item_date, DateFormatTool.toLocalTimeString(message.getTime()));
 			mRemoteViews.setTextViewText(R.id.list_item_content, message.getContent());
 			Intent mainIntent = new Intent(context, MainActivity.class);
-			mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-					| Intent.FLAG_ACTIVITY_NEW_TASK);
+			mainIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			Intent notifyIntent = new Intent(context, NotifyActivity.class);
 			notifyIntent.putExtra("Type", type);
 			Intent[] intents = {mainIntent, notifyIntent};
@@ -66,8 +65,7 @@ public class UiHelper {
 			mRemoteViews.setTextViewText(R.id.list_item_date, DateFormatTool.toLocalTimeString(message.getTime()));
 			mRemoteViews.setTextViewText(R.id.list_item_content, message.getContent());
 			Intent mainIntent = new Intent(context, MainActivity.class);
-			mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-					| Intent.FLAG_ACTIVITY_NEW_TASK);
+			mainIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			Intent notifyIntent = new Intent(context, NotifyActivity.class);
 			notifyIntent.putExtra("Type", type);
 			Intent[] intents = {mainIntent, notifyIntent};
@@ -82,8 +80,7 @@ public class UiHelper {
 			mRemoteViews.setTextViewText(R.id.list_item_date, DateFormatTool.toLocalTimeString(message.getTime()));
 			mRemoteViews.setTextViewText(R.id.list_item_content, message.getContent());
 			Intent mainIntent = new Intent(context, MainActivity.class);
-			mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-					| Intent.FLAG_ACTIVITY_NEW_TASK);
+			mainIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			Intent notifyIntent = new Intent(context, NotifyActivity.class);
 			notifyIntent.putExtra("Type", type);
 			Intent[] intents = {mainIntent, notifyIntent};
@@ -98,8 +95,7 @@ public class UiHelper {
 			mRemoteViews.setTextViewText(R.id.list_item_date, DateFormatTool.toLocalTimeString(message.getTime()));
 			mRemoteViews.setTextViewText(R.id.list_item_content, message.getContent());
 			Intent mainIntent = new Intent(context, MainActivity.class);
-			mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-					| Intent.FLAG_ACTIVITY_NEW_TASK);
+			mainIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			Intent checkIntent = new Intent(context, CheckActivity.class);
 			Bundle bundle = new Bundle();
 			bundle.putString(Constant.PROCESS_NAME, message.getSection());
