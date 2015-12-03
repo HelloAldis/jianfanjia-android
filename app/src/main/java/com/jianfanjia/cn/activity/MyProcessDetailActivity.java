@@ -459,7 +459,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
 
                     @Override
                     public void loadFailture(String error_msg) {
-
+                        makeTextShort(error_msg);
                     }
                 }, this);
     }
@@ -539,7 +539,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
 
                             @Override
                             public void loadFailture(String error_msg) {
-
+                                makeTextShort(error_msg);
                             }
                         }, this);
             }
@@ -654,7 +654,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
 
             @Override
             public void loadFailture(String error_msg) {
-                makeTextLong(error_msg);
+                makeTextShort(error_msg);
             }
         }, this);
     }
@@ -674,7 +674,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
 
             @Override
             public void loadFailture(String error_msg) {
-                makeTextLong(error_msg);
+                makeTextShort(error_msg);
             }
         }, this);
     }
