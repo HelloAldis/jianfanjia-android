@@ -14,7 +14,7 @@
         android:id="@+id/list_item_case_title_text"
         style="@style/listview_item_text_style_middle"
         android:layout_below="@id/list_item_case_img"
-        android:layout_marginLeft="@dimen/space_10"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/space_10"
         android:textColor="@color/black_color"
         android:textSize="@dimen/text_size_17" />
@@ -23,8 +23,7 @@
         android:id="@+id/list_item_case_produce_text"
         style="@style/listview_item_text_style_small"
         android:layout_below="@id/list_item_case_title_text"
-        android:layout_margin="10.0dip"
+        android:layout_margin="@dimen/space_10"
         android:textColor="@color/main_color_grey" />
-
 
 </RelativeLayout>
