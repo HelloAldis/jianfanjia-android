@@ -2,7 +2,6 @@ package com.jianfanjia.cn.inter.manager;
 
 import android.util.Log;
 
-import com.jianfanjia.cn.activity.NotifyActivity;
 import com.jianfanjia.cn.fragment.SiteManageFragment;
 import com.jianfanjia.cn.interf.ReceiveMsgListener;
 
@@ -36,9 +35,6 @@ public class ListenerManeger {
     public ReceiveMsgListener getReceiveMsgListener() {
         Log.i(TAG, "ListenerManeger msgListeners:" + msgListeners);
         for (ReceiveMsgListener listener : msgListeners) {
-            if (listener instanceof NotifyActivity) {
-                return listener;
-            }
             if (listener instanceof SiteManageFragment) {
                 return listener;
             }

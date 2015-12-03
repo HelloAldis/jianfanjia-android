@@ -9,12 +9,10 @@ import android.view.View.OnClickListener;
 
 import com.jianfanjia.cn.adapter.MyFragmentPagerAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.bean.SelectItem;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.fragment.CaiGouNotifyFragment;
 import com.jianfanjia.cn.fragment.YanQiNotifyFragment;
-import com.jianfanjia.cn.interf.ReceiveMsgListener;
 import com.jianfanjia.cn.interf.SwitchFragmentListener;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
@@ -29,8 +27,7 @@ import java.util.List;
  * @Description: 提醒
  * @date 2015-9-11 上午9:49:10
  */
-public class NotifyActivity extends BaseActivity implements OnClickListener,
-        ReceiveMsgListener {
+public class NotifyActivity extends BaseActivity implements OnClickListener {
     private static final String TAG = NotifyActivity.class.getName();
     private SwitchFragmentListener listener = null;
     private MainHeadView mainHeadView = null;
@@ -124,43 +121,6 @@ public class NotifyActivity extends BaseActivity implements OnClickListener,
 
                     }
                 });
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        LogTool.d(TAG, "---onResume()");
-        listenerManeger.addReceiveMsgListener(this);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        LogTool.d(TAG, "---onPause()");
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        LogTool.d(TAG, "---onStop()");
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        LogTool.d(TAG, "---onDestroy()");
-        listenerManeger.removeReceiveMsgListener(this);
-    }
-
-    @Override
-    public void onReceive(NotifyMessage message) {
-        LogTool.d(TAG, "message: " + message);
-        String msgType = message.getType();
-        if (msgType.equals(Constant.YANQI_NOTIFY)) {
-
-        } else if (msgType.equals(Constant.CAIGOU_NOTIFY)) {
-
-        }
     }
 
     @Override

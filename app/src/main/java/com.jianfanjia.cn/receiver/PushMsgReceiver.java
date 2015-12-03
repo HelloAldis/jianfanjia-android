@@ -9,7 +9,6 @@ import android.util.Log;
 
 import com.igexin.sdk.PushConsts;
 import com.igexin.sdk.PushManager;
-import com.jianfanjia.cn.activity.NotifyActivity;
 import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.config.Constant;
@@ -107,13 +106,10 @@ public class PushMsgReceiver extends BroadcastReceiver {
                         .getReceiveMsgListener();
                 Log.i(TAG, "listener:" + listener);
                 if (null != listener) {
-                    if (listener instanceof NotifyActivity) {
-                        listener.onReceive(message);
-                    }
                     if (listener instanceof SiteManageFragment) {
-                        if(dataManager.getDefaultProcessId() != null && dataManager.getDefaultProcessId().equals(message.getProcessid())){
+                        if (dataManager.getDefaultProcessId() != null && dataManager.getDefaultProcessId().equals(message.getProcessid())) {
                             listener.onReceive(message);
-                        }else{
+                        } else {
                             UiHelper.sendNotifycation(context, message);
                         }
                     }
@@ -160,7 +156,6 @@ public class PushMsgReceiver extends BroadcastReceiver {
             }
         }, this);
     }
-
 
 
 }
