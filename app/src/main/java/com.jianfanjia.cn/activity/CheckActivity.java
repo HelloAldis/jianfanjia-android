@@ -180,6 +180,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
     private void setConfimStatus() {
         int count = imageids.size();
         if (!sectionInfoStatus.equals(Constant.FINISHED)) {
+            check_pic_edit.setVisibility(View.VISIBLE);
             if (count < checkGridList.size() / 2) {
                 //设计师图片没上传完，不能验收
                 btn_confirm.setText(this.getResources().getString(
@@ -223,6 +224,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
                 }
             }
         } else {
+            check_pic_edit.setVisibility(View.GONE);
             //已经验收过了
             btn_confirm.setEnabled(false);
             btn_confirm.setText(this.getResources().getString(

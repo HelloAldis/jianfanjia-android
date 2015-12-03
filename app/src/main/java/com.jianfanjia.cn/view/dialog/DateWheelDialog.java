@@ -19,7 +19,7 @@ public class DateWheelDialog extends CommonDialog implements
     public static final int VISIABLECOUNT = 3;
 
     private Calendar startCalendar;// 起始时间
-    private Calendar chooseCalendar;// 选择时间
+    private Calendar chooseCalendar = Calendar.getInstance();// 选择时间
     private Calendar currentCalendar = Calendar.getInstance();
 //	private Calendar endCalendar;//结束时间
 
@@ -36,11 +36,11 @@ public class DateWheelDialog extends CommonDialog implements
     public DateWheelDialog(Context context, Calendar calendar) {
         super(context);
         inflater = LayoutInflater.from(context);
-        startCalendar =calendar;
+        startCalendar = calendar;
         minYear = startCalendar.get(Calendar.YEAR);
         minMonth = startCalendar.get(Calendar.MONTH);
         minDate = startCalendar.get(Calendar.DAY_OF_MONTH);
-        chooseCalendar = currentCalendar;
+        chooseCalendar.setTimeInMillis(calendar.getTimeInMillis());
         initView();
     }
 

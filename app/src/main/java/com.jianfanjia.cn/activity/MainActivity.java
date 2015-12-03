@@ -14,8 +14,8 @@ import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.fragment.DesignerMenuFragment;
 import com.jianfanjia.cn.fragment.SiteManageFragment;
-import com.jianfanjia.cn.view.layout.PagerEnabledSlidingPaneLayout;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.view.layout.PagerEnabledSlidingPaneLayout;
 
 /**
  * @author fengliang
@@ -121,7 +121,7 @@ public class MainActivity extends BaseActivity implements PanelSlideListener {
                 if (data != null) {
                     Bundle bundle = data.getExtras();
                     if (bundle != null) {
-                        LogTool.d(TAG,"change site");
+                        LogTool.d(TAG, "change site");
                         if (slidingPaneLayout.isOpen()) {
                             slidingPaneLayout.closePane();
                         }

@@ -470,7 +470,7 @@ public class SiteManageFragment extends BaseFragment implements
     private void delayDialog() {
         LogTool.d(TAG, "delayDialog");
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(sectionInfo.getStart_at());
+        calendar.setTimeInMillis(sectionInfo.getStart_at() + Constant.DELAY_TIME);
         DateWheelDialog dateWheelDialog = new DateWheelDialog(getActivity(),
                 calendar);
         dateWheelDialog.setTitle("选择时间");
@@ -534,7 +534,7 @@ public class SiteManageFragment extends BaseFragment implements
 
                     @Override
                     public void loadFailture(String errorMsg) {
-
+                        makeTextShort(errorMsg);
                     }
                 }, this);
     }
@@ -559,6 +559,7 @@ public class SiteManageFragment extends BaseFragment implements
 
                     @Override
                     public void loadFailture(String errorMsg) {
+                        makeTextShort(errorMsg);
                         hideWaitDialog();
                     }
                 }, this);
