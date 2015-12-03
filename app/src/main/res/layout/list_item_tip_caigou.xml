@@ -54,6 +54,7 @@
             android:text="2015-09-22 23:05"
             android:textColor="@color/main_color_grey"
             android:textSize="@dimen/text_size_14" />
+
     </RelativeLayout>
 
 </RelativeLayout>
