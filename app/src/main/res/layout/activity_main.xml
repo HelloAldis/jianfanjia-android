@@ -45,7 +45,6 @@
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/text_size_14" />
 
-
             <RadioButton
                 android:id="@+id/tab_rb_2"
                 style="@style/tab_rb_style"
