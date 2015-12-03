@@ -17,7 +17,8 @@
             android:id="@+id/list_item_tip_cell_name"
             style="@style/listview_item_text_style_small"
             android:text="清江山水"
-            android:textColor="@color/black_color" />
+            android:textColor="@color/black_color"
+            android:textSize="@dimen/text_size_14" />
 
         <TextView
             android:id="@+id/list_item_tip_delay_node"
@@ -25,7 +26,8 @@
             android:layout_alignBottom="@id/list_item_tip_cell_name"
             android:layout_alignParentRight="true"
             android:text="泥木阶段"
-            android:textColor="@color/main_color_grey" />
+            android:textColor="@color/main_color_grey"
+            android:textSize="@dimen/text_size_14" />
 
         <TextView
             android:id="@+id/list_item_tip_delay_new_time"
@@ -34,7 +36,8 @@
             android:layout_marginBottom="@dimen/space_10"
             android:layout_marginTop="@dimen/space_10"
             android:text="@string/list_item_yanqi_example"
-            android:textColor="@color/black_color" />
+            android:textColor="@color/black_color"
+            android:textSize="@dimen/text_size_14" />
 
 
         <TextView
@@ -42,7 +45,8 @@
             style="@style/listview_item_text_style_small"
             android:layout_below="@id/list_item_tip_delay_new_time"
             android:text="2015-08-23"
-            android:textColor="@color/main_color_grey" />
+            android:textColor="@color/main_color_grey"
+            android:textSize="@dimen/text_size_14" />
 
         <TextView
             android:id="@+id/list_item_tip_delay_status"
@@ -50,7 +54,8 @@
             android:layout_alignBottom="@id/list_item_tip_delay_time"
             android:layout_alignParentRight="true"
             android:text="已同意"
-            android:textColor="@color/main_color_red" />
+            android:textColor="@color/main_color_red"
+            android:textSize="@dimen/text_size_14" />
     </RelativeLayout>
 
 </RelativeLayout>
