@@ -45,6 +45,7 @@ public class DesignerCaseInfoActivity extends BaseActivity implements ApiUiUpdat
     private TextView stylelText = null;
     private ImageView designerinfo_head_img = null;
     private ImageView designerinfo_auth = null;
+    private TextView produceTitle = null;
     private TextView produceText = null;
     private ImageView head_img = null;
     private TextView nameText = null;
@@ -82,6 +83,7 @@ public class DesignerCaseInfoActivity extends BaseActivity implements ApiUiUpdat
         stylelText = (TextView) findViewById(R.id.stylelName);
         designerinfo_head_img = (ImageView) findViewById(R.id.designerinfo_head_img);
         designerinfo_auth = (ImageView) findViewById(R.id.designerinfo_auth);
+        produceTitle = (TextView) findViewById(R.id.produceTitle);
         produceText = (TextView) findViewById(R.id.produceText);
         head_img = (ImageView) findViewById(R.id.head_img);
         nameText = (TextView) findViewById(R.id.name_text);
@@ -171,6 +173,7 @@ public class DesignerCaseInfoActivity extends BaseActivity implements ApiUiUpdat
             stylelText.setText(designerCaseInfo.getHouse_area() + "㎡，" + getHouseType(designerCaseInfo.getHouse_type()) + "，" + getDecStyle(designerCaseInfo.getDec_type()));
             imageShow.displayScreenWidthThumnailImage(this, designerCaseInfo.getDesigner().getImageid(), designerinfo_head_img);
             imageShow.displayImageHeadWidthThumnailImage(this, designerCaseInfo.getDesigner().getImageid(), head_img);
+            produceTitle.setVisibility(View.VISIBLE);
             produceText.setText(designerCaseInfo.getDescription());
             nameText.setText(designerCaseInfo.getDesigner().getUsername());
             DesignerCaseAdapter adapter = new DesignerCaseAdapter(DesignerCaseInfoActivity.this, designerCaseInfo.getImages());
