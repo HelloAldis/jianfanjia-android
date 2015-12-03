@@ -135,6 +135,7 @@
     </style>
 
     <style name="listview_item_text_style_title" parent="my_item_layout_text_style_base">
+        <item name="android:textColor">@color/back</item>
         <item name="android:textSize">@dimen/text_size_17</item>
     </style>
     <!-- my_item_layout_style -->

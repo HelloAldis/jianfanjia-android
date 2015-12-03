@@ -1,7 +1,6 @@
 package com.jianfanjia.cn.activity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
@@ -11,7 +10,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -65,11 +63,6 @@ public class DesignerCaseInfoActivity extends BaseActivity implements ApiUiUpdat
         appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
         collapsingToolbar =
                 (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        collapsingToolbar.setExpandedTitleTextAppearance(R.style.listview_item_text_style_title);
-        collapsingToolbar.setExpandedTitleGravity(Gravity.CENTER_HORIZONTAL);
-        collapsingToolbar.setCollapsedTitleTextColor(Color.BLACK);
-        collapsingToolbar.setExpandedTitleColor(Color.BLACK);
-
         designer_case_listview = (RecyclerView) findViewById(R.id.designer_case_listview);
         mLayoutManager = new LinearLayoutManager(DesignerCaseInfoActivity.this);
         designer_case_listview.setLayoutManager(mLayoutManager);
