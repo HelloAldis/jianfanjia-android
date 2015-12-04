@@ -166,6 +166,7 @@ public class OkHttpClientManager {
             @Override
             public void onResponse(final Response response) {
                 LogTool.d(TAG, "response:" + response + "  response code:" + response.code());
+                LogTool.d(TAG, "response body" + response.body());
                 try {
                     final String string = response.body().string();
                     JSONObject responseString = new JSONObject(string);
