@@ -177,16 +177,13 @@ public class OkHttpClientManager {
                         baseRequest.onSuccess(data);
                         sendSuccessResultCallback(listener, data);
                     } else if (responseString.has(Constant.ERROR_MSG) && responseString.get(Constant.ERROR_MSG) != null) {
-                        LogTool.d(TAG, "errormsg :" + responseString.get(
-                                Constant.ERROR_MSG).toString());
-                        String error_msg = responseString.get(
-                                Constant.ERROR_MSG).toString();
+                        LogTool.d(TAG, "errormsg :" + responseString.get(Constant.ERROR_MSG).toString());
+                        String error_msg = responseString.get(Constant.ERROR_MSG).toString();
                         baseRequest.onFailure(error_msg);
                         sendFailedStringCallback(listener, error_msg);
                     } else if (responseString.has(Constant.SUCCESS_MSG) && responseString.get(
                             Constant.SUCCESS_MSG) != null) {
-                        LogTool.d(TAG, "msg :" + responseString.get(
-                                Constant.SUCCESS_MSG).toString());
+                        LogTool.d(TAG, "msg :" + responseString.get(Constant.SUCCESS_MSG).toString());
                         String msg = responseString.get(
                                 Constant.SUCCESS_MSG).toString();
                         baseRequest.onSuccess(msg);
