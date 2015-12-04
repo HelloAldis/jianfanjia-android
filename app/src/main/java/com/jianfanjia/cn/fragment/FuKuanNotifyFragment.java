@@ -1,8 +1,5 @@
 package com.jianfanjia.cn.fragment;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,8 +11,10 @@ import com.jianfanjia.cn.adapter.PayNotifyAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.interf.SwitchFragmentListener;
 import com.jianfanjia.cn.tools.LogTool;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author fengliang
@@ -23,8 +22,7 @@ import com.jianfanjia.cn.tools.LogTool;
  * @Description: 付款提醒
  * @date 2015-8-26 下午1:08:44
  */
-public class FuKuanNotifyFragment extends BaseFragment implements
-        SwitchFragmentListener, OnItemLongClickListener {
+public class FuKuanNotifyFragment extends BaseFragment implements OnItemLongClickListener {
     private static final String TAG = FuKuanNotifyFragment.class.getName();
     private ListView fukuanListView = null;
     private List<NotifyMessage> payList = new ArrayList<NotifyMessage>();
@@ -76,12 +74,6 @@ public class FuKuanNotifyFragment extends BaseFragment implements
     @Override
     public int getLayoutId() {
         return R.layout.fragment_fukuan_notify;
-    }
-
-    @Override
-    public void switchTab(int index) {
-        // TODO Auto-generated method stub
-
     }
 
 }
