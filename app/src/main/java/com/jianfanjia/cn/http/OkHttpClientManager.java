@@ -165,6 +165,7 @@ public class OkHttpClientManager {
 
             @Override
             public void onResponse(final Response response) {
+                LogTool.d(TAG, "response:" + response + "  response code:" + response.code());
                 try {
                     final String string = response.body().string();
                     JSONObject responseString = new JSONObject(string);
@@ -191,6 +192,7 @@ public class OkHttpClientManager {
                         sendSuccessResultCallback(listener, msg);
                     }
                 } catch (IOException e) {
+                    LogTool.d(TAG, "IOException :" + e.toString());
                     sendFailedStringCallback(listener, SERVER_ERROR);
                 } catch (com.google.gson.JsonParseException e)//Json解析的错误
                 {
