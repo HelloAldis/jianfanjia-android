@@ -160,6 +160,7 @@ public class OkHttpClientManager {
         mOkHttpClient.newCall(baseRequest.getRequest()).enqueue(new Callback() {
             @Override
             public void onFailure(final Request request, final IOException e) {
+                LogTool.d(TAG, "e :" + e.toString());
                 sendFailedStringCallback(listener, SERVER_ERROR);
             }
 
