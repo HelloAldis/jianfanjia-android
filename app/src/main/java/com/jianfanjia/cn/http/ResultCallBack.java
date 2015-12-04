@@ -7,15 +7,15 @@ import com.squareup.okhttp.Response;
 import java.io.IOException;
 
 /**
- * Name: OnCallBack
+ * Name: ResultCallBack
  * User: fengliang
  * Date: 2015-12-04
- * Time: 11:47
+ * Time: 15:26
  */
-public class OnCallBack<T> implements com.squareup.okhttp.Callback {
+public class ResultCallBack<T> implements com.squareup.okhttp.Callback {
     private Parser<T> parser;
 
-    public OnCallBack(Parser<T> parser) {
+    public ResultCallBack(Parser<T> parser) {
         this.parser = parser;
     }
 
