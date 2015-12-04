@@ -199,7 +199,6 @@ public class OkHttpClientManager {
                     sendFailedStringCallback(listener, SERVER_ERROR);
                 } catch (JSONException e) {
                     sendFailedStringCallback(listener, SERVER_ERROR);
-
                 }
             }
         });
@@ -313,8 +312,6 @@ public class OkHttpClientManager {
             Request request = builder.build();
             return request;
         }
-
-
     }
 
     //====================GetDelegate=======================
