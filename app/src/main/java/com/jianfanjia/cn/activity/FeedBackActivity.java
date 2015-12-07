@@ -8,6 +8,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
@@ -49,14 +50,15 @@ public class FeedBackActivity extends BaseActivity implements OnClickListener {
                 break;
             case R.id.btn_commit:
                 String content = feedContentView.getText().toString().trim();
-                feedBack(content, "0");
+                feedBack(content, "" + MyApplication
+                        .getInstance().getVersionCode(), "0");
             default:
                 break;
         }
     }
 
-    private void feedBack(String content, String platform) {
-        JianFanJiaClient.feedBack(this, content, platform, new ApiUiUpdateListener() {
+    private void feedBack(String content, String version, String platform) {
+        JianFanJiaClient.feedBack(this, content, version, platform, new ApiUiUpdateListener() {
             @Override
             public void preLoad() {
                 showWaitDialog();
