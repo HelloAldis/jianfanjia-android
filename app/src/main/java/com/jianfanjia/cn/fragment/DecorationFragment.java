@@ -5,6 +5,7 @@ import android.view.View;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseFragment;
+import com.jianfanjia.cn.view.MainHeadView;
 
 /**
  * Description:装修美图
@@ -14,11 +15,21 @@ import com.jianfanjia.cn.base.BaseFragment;
  */
 public class DecorationFragment extends BaseFragment {
     private static final String TAG = DecorationFragment.class.getName();
+    private MainHeadView mainHeadView = null;
     private RecyclerView decoration_listview = null;
 
     @Override
     public void initView(View view) {
+        initMainHeadView(view);
         decoration_listview = (RecyclerView) view.findViewById(R.id.decoration_listview);
+    }
+
+    private void initMainHeadView(View view) {
+        mainHeadView = (MainHeadView) view.findViewById(R.id.dec_head);
+        mainHeadView.setMianTitle(getResources().getString(R.string.decoration_img));
+        mainHeadView.setLayoutBackground(R.color.head_layout_bg);
+        mainHeadView.setRightTitleVisable(View.GONE);
+        mainHeadView.setBackLayoutVisable(View.GONE);
     }
 
     @Override
