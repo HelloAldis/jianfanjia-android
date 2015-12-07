@@ -1,6 +1,7 @@
 package com.jianfanjia.cn.fragment;
 
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
 import com.jianfanjia.cn.activity.R;
@@ -17,11 +18,13 @@ public class DecorationFragment extends BaseFragment {
     private static final String TAG = DecorationFragment.class.getName();
     private MainHeadView mainHeadView = null;
     private RecyclerView decoration_listview = null;
+    private StaggeredGridLayoutManager mLayoutManager = null;
 
     @Override
     public void initView(View view) {
         initMainHeadView(view);
         decoration_listview = (RecyclerView) view.findViewById(R.id.decoration_listview);
+        mLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
     }
 
     private void initMainHeadView(View view) {
