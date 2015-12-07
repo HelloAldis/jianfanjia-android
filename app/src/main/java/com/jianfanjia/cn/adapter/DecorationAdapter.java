@@ -31,6 +31,7 @@ public class DecorationAdapter extends BaseRecyclerViewAdapter<DecorationItemInf
     public void bindView(RecyclerViewHolderBase viewHolder, int position, List<DecorationItemInfo> list) {
         DecorationItemInfo info = list.get(position);
         DecorationViewHolder holder = (DecorationViewHolder) viewHolder;
+
     }
 
     @Override
