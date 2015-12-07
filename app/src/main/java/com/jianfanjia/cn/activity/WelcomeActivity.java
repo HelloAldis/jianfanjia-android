@@ -44,7 +44,7 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
         checkVersion();
         LogTool.d(TAG, "sd root =" + FileUtil.getSDRoot());
         LogTool.d(TAG, "sd ex root =" + FileUtil.getExternalSDRoot());
-//        LogTool.d(this.getClass().getName(), "sd root =" + FileUtil.getAppCache(this, "jianfan"));
+//        LogTool.d(TAG, "sd root =" + FileUtil.getAppCache(this, "jianfan"));
     }
 
     // 检查版本
