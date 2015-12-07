@@ -31,8 +31,9 @@ public class Constant {
     public static final String EXTRA_BUNDLE = "launchBundle";
 
     public static final int HOME = 0;//首页
-    public static final int MANAGE = 1;//工地管理
-    public static final int MY = 2;//我的
+    public static final int DECORATE = 1;//装修美图
+    public static final int MANAGE = 2;//工地管理
+    public static final int MY = 3;//我的
 
     public static final int HOME_PAGE_LIMIT = 8;//首页分页 每次加载8条
 

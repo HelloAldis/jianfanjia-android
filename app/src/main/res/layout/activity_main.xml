@@ -52,6 +52,21 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
+                android:checked="true"
+                android:drawableTop="@drawable/rb_btn_bg1"
+                android:paddingBottom="3dp"
+                android:paddingTop="5dp"
+                android:text="装修美图"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/text_size_14" />
+
+            <RadioButton
+                android:id="@+id/tab_rb_3"
+                style="@style/tab_rb_style"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
                 android:drawableTop="@drawable/rb_btn_bg3"
                 android:paddingBottom="3dp"
                 android:paddingTop="5dp"
@@ -60,7 +75,7 @@
                 android:textSize="@dimen/text_size_14" />
 
             <RadioButton
-                android:id="@+id/tab_rb_3"
+                android:id="@+id/tab_rb_4"
                 style="@style/tab_rb_style"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

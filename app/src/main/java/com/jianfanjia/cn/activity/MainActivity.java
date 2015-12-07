@@ -9,6 +9,7 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.fragment.DecorationFragment;
 import com.jianfanjia.cn.fragment.HomeFragment;
 import com.jianfanjia.cn.fragment.MyFragment;
 import com.jianfanjia.cn.fragment.XuQiuFragment;
@@ -26,6 +27,7 @@ public class MainActivity extends BaseActivity implements
     private static final String TAG = MainActivity.class.getName();
     private RadioGroup mTabRg = null;
     private HomeFragment homeFragment = null;
+    private DecorationFragment decorationFragment = null;
     private XuQiuFragment xuqiuFragment = null;
     private MyFragment myFragment = null;
     private long mExitTime = 0L;
@@ -68,9 +70,12 @@ public class MainActivity extends BaseActivity implements
                 setTabSelection(Constant.HOME);
                 break;
             case R.id.tab_rb_2:
-                setTabSelection(Constant.MANAGE);
+                setTabSelection(Constant.DECORATE);
                 break;
             case R.id.tab_rb_3:
+                setTabSelection(Constant.MANAGE);
+                break;
+            case R.id.tab_rb_4:
                 setTabSelection(Constant.MY);
                 break;
             default:
@@ -89,6 +94,14 @@ public class MainActivity extends BaseActivity implements
                 } else {
                     homeFragment = new HomeFragment();
                     transaction.add(R.id.tabLayout, homeFragment);
+                }
+                break;
+            case Constant.DECORATE:
+                if (decorationFragment != null) {
+                    transaction.show(decorationFragment);
+                } else {
+                    decorationFragment = new DecorationFragment();
+                    transaction.add(R.id.tabLayout, decorationFragment);
                 }
                 break;
             case Constant.MANAGE:
@@ -117,6 +130,9 @@ public class MainActivity extends BaseActivity implements
     public void hideFragments(FragmentTransaction ft) {
         if (homeFragment != null) {
             ft.hide(homeFragment);
+        }
+        if (decorationFragment != null) {
+            ft.hide(decorationFragment);
         }
         if (xuqiuFragment != null) {
             ft.hide(xuqiuFragment);
