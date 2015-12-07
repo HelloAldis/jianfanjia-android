@@ -26,6 +26,7 @@ import com.jianfanjia.cn.view.dialog.DialogHelper;
  * @date 2015-8-29 上午9:30:21
  */
 public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener {
+    private static final String TAG = UserInfoActivity.class.getName();
     private Handler handler = new Handler();
     private boolean first;// 用于判断导航界面是否显示
     private boolean isLoginExpire;// 是否登录过去
@@ -39,11 +40,11 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         first = dataManager.isFirst();
-        LogTool.d(this.getClass().getName(), "first=" + first);
+        LogTool.d(TAG, "first=" + first);
         checkVersion();
 
-        LogTool.d(this.getClass().getName(), "sd root =" + FileUtil.getSDRoot());
-        LogTool.d(this.getClass().getName(), "sd ex root =" + FileUtil.getExternalSDRoot());
+        LogTool.d(TAG, "sd root =" + FileUtil.getSDRoot());
+        LogTool.d(TAG, "sd ex root =" + FileUtil.getExternalSDRoot());
 //        LogTool.d(this.getClass().getName(), "sd root =" + FileUtil.getAppCache(this, "jianfan"));
     }
 
@@ -135,7 +136,7 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
 
     @Override
     public void initView() {
-        LogTool.d(this.getClass().getName(), "initView");
+        LogTool.d(TAG, "initView");
         dialog = DialogHelper
                 .getPinterestDialog(this);
     }
@@ -164,24 +165,24 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
             if (!first) {
                 isLogin = dataManager.isLogin();
                 isLoginExpire = dataManager.isLoginExpire();
-                LogTool.d(this.getClass().getName(), "not first");
+                LogTool.d(TAG, "not first");
                 if (!isLogin) {
-                    LogTool.d(this.getClass().getName(), "not login");
+                    LogTool.d(TAG, "not login");
                     startActivity(LoginNewActivity_.class);
                     finish();
                 } else {
                     if (!isLoginExpire) {// 登录未过期，添加cookies到httpclient记录身份
-                        LogTool.d(this.getClass().getName(), "not expire");
+                        LogTool.d(TAG, "not expire");
                         startActivity(MainActivity.class);
                         finish();
                     } else {
-                        LogTool.d(this.getClass().getName(), "expire");
+                        LogTool.d(TAG, "expire");
                         MyApplication.getInstance().clearCookie();
                         JianFanJiaClient.login(WelcomeActivity.this, dataManager.getAccount(), dataManager.getPassword(), WelcomeActivity.this, WelcomeActivity.this);
                     }
                 }
             } else {
-                LogTool.d(this.getClass().getName(), "启动导航");
+                LogTool.d(TAG, "启动导航");
                 startActivity(NavigateActivity.class);
                 finish();
             }
