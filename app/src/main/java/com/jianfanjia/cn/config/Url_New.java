@@ -134,4 +134,6 @@ public class Url_New {
     public static final String CONFIRM_CHECK_DONE_BY_OWNER = HTTPROOT
             + "process/done_section";
     //获取装修美图
+    public static final String GET_DECORATION_IMG = HTTPROOT
+            + "";
 }
