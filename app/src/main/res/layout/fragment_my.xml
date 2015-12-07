@@ -162,7 +162,6 @@
             </RelativeLayout>
 
             <View style="@style/divier_line" />
-
         </LinearLayout>
     </ScrollView>
 </FrameLayout>
