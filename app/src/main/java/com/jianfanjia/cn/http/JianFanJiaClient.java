@@ -96,12 +96,13 @@ public class JianFanJiaClient {
 
     /**
      * 检查手机号是否被占用
+     *
      * @param context
      * @param phone
      * @param listener
      * @param tag
      */
-    public static void verifyPhone(Context context,String phone,ApiUiUpdateListener listener,Object tag){
+    public static void verifyPhone(Context context, String phone, ApiUiUpdateListener listener, Object tag) {
         VerifyPhoneRequest verifyPhoneRequest = new VerifyPhoneRequest(context);
         JSONObject jsonParams = new JSONObject();
         try {
@@ -185,12 +186,13 @@ public class JianFanJiaClient {
      * @param listener
      * @param tag
      */
-    public static void feedBack(Context context, String content, String platform,
+    public static void feedBack(Context context, String content, String version, String platform,
                                 ApiUiUpdateListener listener, Object tag) {
         FeedBackRequest feedBackRequest = new FeedBackRequest(context);
         JSONObject jsonParams = new JSONObject();
         try {
             jsonParams.put("content", content);
+            jsonParams.put("version", version);
             jsonParams.put("platform", platform);
             OkHttpClientManager.getInstance().getPostDelegate().postAsyn(feedBackRequest, jsonParams.toString(), listener, tag);
         } catch (JSONException e) {
@@ -285,8 +287,8 @@ public class JianFanJiaClient {
      */
     public static void register(Context context, RegisterInfo registerInfo,
                                 ApiUiUpdateListener listener, Object tag) {
-        RegisterRequest registerRequest = new RegisterRequest(context,registerInfo);
-        LogTool.d(TAG,"register  " + registerRequest.getUrl() + "--" + JsonParser.beanToJson(registerInfo) );
+        RegisterRequest registerRequest = new RegisterRequest(context, registerInfo);
+        LogTool.d(TAG, "register  " + registerRequest.getUrl() + "--" + JsonParser.beanToJson(registerInfo));
         OkHttpClientManager.getInstance().getPostDelegate().postAsyn(registerRequest, JsonParser.beanToJson(registerInfo), listener, tag);
     }
 
@@ -350,7 +352,7 @@ public class JianFanJiaClient {
     public static void get_Process_List(Context context,
                                         ApiUiUpdateListener listener, Object tag) {
         GetProcessListRequest processListRequest = new GetProcessListRequest(context);
-        LogTool.d("JianFanJiaApiClient","get_Process_List" + processListRequest.getUrl());
+        LogTool.d("JianFanJiaApiClient", "get_Process_List" + processListRequest.getUrl());
         OkHttpClientManager.getInstance().getGetDelegate().getAsyn(processListRequest, listener, tag);
     }
 
@@ -639,7 +641,8 @@ public class JianFanJiaClient {
 
     /**
      * 添加设计师到意向列表
-     *  @param context
+     *
+     * @param context
      * @param designerid
      * @param listener
      * @param tag
@@ -659,13 +662,14 @@ public class JianFanJiaClient {
 
     /**
      * 删除意向设计师
+     *
      * @param context
      * @param designerid
      * @param listener
      * @param tag
      */
-    public static void deleteFavoriteDesigner(Context context,String designerid,ApiUiUpdateListener listener,Object tag){
-        DeleteFavoriteDesignerRequest deleteFavoriteDesignerRequest = new DeleteFavoriteDesignerRequest(context,designerid);
+    public static void deleteFavoriteDesigner(Context context, String designerid, ApiUiUpdateListener listener, Object tag) {
+        DeleteFavoriteDesignerRequest deleteFavoriteDesignerRequest = new DeleteFavoriteDesignerRequest(context, designerid);
         JSONObject jsonParams = new JSONObject();
         try {
             jsonParams.put("_id", designerid);
