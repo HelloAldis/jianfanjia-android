@@ -18,11 +18,16 @@ public class DecorationFragment extends BaseFragment {
 
     @Override
     public void initView(View view) {
-
+        decoration_listview = (RecyclerView) view.findViewById(R.id.decoration_listview);
     }
 
     @Override
     public void setListener() {
+
+    }
+
+
+    private void getDecorationImg() {
 
     }
 
