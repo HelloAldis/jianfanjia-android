@@ -42,7 +42,6 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
         first = dataManager.isFirst();
         LogTool.d(TAG, "first=" + first);
         checkVersion();
-
         LogTool.d(TAG, "sd root =" + FileUtil.getSDRoot());
         LogTool.d(TAG, "sd ex root =" + FileUtil.getExternalSDRoot());
 //        LogTool.d(this.getClass().getName(), "sd root =" + FileUtil.getAppCache(this, "jianfan"));
