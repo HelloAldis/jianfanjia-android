@@ -133,4 +133,5 @@ public class Url_New {
     // 业主确认对比验收完成
     public static final String CONFIRM_CHECK_DONE_BY_OWNER = HTTPROOT
             + "process/done_section";
+    //获取装修美图
 }
