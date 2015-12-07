@@ -158,7 +158,7 @@ public class MainActivity extends BaseActivity implements
         if (requestCode == XuQiuFragment.REQUESTCODE_EDIT_REQUIREMENT) {
             xuqiuFragment.onActivityResult(requestCode, resultCode, data);
         } else if (requestCode == XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT) {
-            mTabRg.check(R.id.tab_rb_2);
+            mTabRg.check(R.id.tab_rb_3);
             setTabSelection(Constant.MANAGE);
             xuqiuFragment.onActivityResult(requestCode, resultCode, data);
             homeFragment.onActivityResult(requestCode, resultCode, data);
