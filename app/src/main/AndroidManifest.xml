@@ -184,7 +184,7 @@
             android:name=".CommentActivity"
             android:label="@string/title_activity_comment"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustResize"/>
+            android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name=".EditInfoActivity"
             android:label="@string/title_activity_edit_info"
@@ -203,8 +203,8 @@
         <activity
             android:name=".MyDesignerActivity_"
             android:label="@string/title_activity_my_designer"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".NavigateActivity"
             android:label="@string/title_activity_navigate"
@@ -298,13 +298,13 @@
         <activity
             android:name=".ReplaceDesignerActivity"
             android:label="@string/title_activity_replace_designer"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".CityEditActivity_"
             android:screenOrientation="portrait" />
-        <activity android:name="com.soundcloud.android.crop.CropImageActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.soundcloud.android.crop.CropImageActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
