@@ -9,6 +9,7 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.bean.DecorationItemInfo;
+import com.jianfanjia.cn.interf.OnItemClickListener;
 
 import java.util.List;
 
@@ -19,9 +20,11 @@ import java.util.List;
  * Time: 10:33
  */
 public class DecorationAdapter extends BaseRecyclerViewAdapter<DecorationItemInfo> {
+    private OnItemClickListener listener;
 
-    public DecorationAdapter(Context context, List<DecorationItemInfo> list) {
+    public DecorationAdapter(Context context, List<DecorationItemInfo> list, OnItemClickListener listener) {
         super(context, list);
+        this.listener = listener;
     }
 
     @Override
