@@ -1,6 +1,7 @@
 package com.jianfanjia.cn.bean;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Name: DecorationItemInfo
@@ -9,13 +10,22 @@ import java.io.Serializable;
  * Time: 10:33
  */
 public class DecorationItemInfo implements Serializable {
-    private String _id;
+    private List<BeautyImgInfo> beautiful_images;
+    private int total;
 
-    public String get_id() {
-        return _id;
+    public List<BeautyImgInfo> getBeautiful_images() {
+        return beautiful_images;
     }
 
-    public void set_id(String _id) {
-        this._id = _id;
+    public void setBeautiful_images(List<BeautyImgInfo> beautiful_images) {
+        this.beautiful_images = beautiful_images;
+    }
+
+    public int getTotal() {
+        return total;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
     }
 }
