@@ -139,4 +139,13 @@ public class Url_New {
     //搜索装修美图
     public static final String SEARCH_DECORATION_IMG = HTTPROOT
             + "search_beautiful_image";
+    //用户添加收藏
+    public static final String ADD_COLLECTION = HTTPROOT
+            + "favorite/product/add";
+    //用户获取收藏作品列表
+    public static final String GET_COLLECTION_LIST = HTTPROOT
+            + "favorite/product/list";
+    //用户删除收藏
+    public static final String DELETE_COLLECTION = HTTPROOT
+            + "favorite/product/delete";
 }
