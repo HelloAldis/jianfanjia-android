@@ -135,5 +135,8 @@ public class Url_New {
             + "process/done_section";
     //获取装修美图
     public static final String GET_DECORATION_IMG = HTTPROOT
-            + "";
+            + "beautiful_image_homepage";
+    //搜索装修美图
+    public static final String SEARCH_DECORATION_IMG = HTTPROOT
+            + "search_beautiful_image";
 }
