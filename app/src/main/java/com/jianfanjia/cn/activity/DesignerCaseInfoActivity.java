@@ -109,18 +109,20 @@ public class DesignerCaseInfoActivity extends BaseActivity implements ApiUiUpdat
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.designerinfo_head_img:
-                Bundle designerBundle = new Bundle();
-                designerBundle.putString(Global.DESIGNER_ID, designertid);
-                startActivity(DesignerInfoActivity.class, designerBundle);
+                startDesignerInfoActivity(designertid);
                 break;
             case R.id.top_info_layout:
-                Bundle designerInfoBundle = new Bundle();
-                designerInfoBundle.putString(Global.DESIGNER_ID, designertid);
-                startActivity(DesignerInfoActivity.class, designerInfoBundle);
+                startDesignerInfoActivity(designertid);
                 break;
             default:
                 break;
         }
+    }
+
+    private void startDesignerInfoActivity(String designertid) {
+        Bundle designerInfoBundle = new Bundle();
+        designerInfoBundle.putString(Global.DESIGNER_ID, designertid);
+        startActivity(DesignerInfoActivity.class, designerInfoBundle);
     }
 
     @Override
