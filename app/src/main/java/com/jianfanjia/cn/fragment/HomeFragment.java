@@ -160,7 +160,6 @@ public class HomeFragment extends BaseFragment implements
         JianFanJiaClient.getHomePageDesigners(getActivity(), from, limit, listener, this);
     }
 
-
     @Override
     public void onMaxClick(int position) {
         DesignerListInfo designerListInfo = designerList.get(position);
@@ -198,7 +197,7 @@ public class HomeFragment extends BaseFragment implements
     private ApiUiUpdateListener pullDownListener = new ApiUiUpdateListener() {
         @Override
         public void preLoad() {
-            if(isFirst){
+            if (isFirst) {
                 showWaitDialog();
             }
         }
