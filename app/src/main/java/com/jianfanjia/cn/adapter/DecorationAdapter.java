@@ -20,6 +20,7 @@ import java.util.List;
  * Time: 10:33
  */
 public class DecorationAdapter extends BaseRecyclerViewAdapter<BeautyImgInfo> {
+    private static final String TAG = DecorationAdapter.class.getName();
     private OnItemClickListener listener;
 
     public DecorationAdapter(Context context, List<BeautyImgInfo> list, OnItemClickListener listener) {
@@ -31,7 +32,7 @@ public class DecorationAdapter extends BaseRecyclerViewAdapter<BeautyImgInfo> {
     public void bindView(RecyclerViewHolderBase viewHolder, int position, List<BeautyImgInfo> list) {
         BeautyImgInfo info = list.get(position);
         DecorationViewHolder holder = (DecorationViewHolder) viewHolder;
-
+        imageShow.displayScreenWidthThumnailImage(context, info.getImages().get(0).getImageid(), holder.itemDecorateView);
     }
 
     @Override
