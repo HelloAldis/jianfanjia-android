@@ -8,6 +8,7 @@ import com.jianfanjia.cn.bean.OwnerUpdateInfo;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Url_New;
+import com.jianfanjia.cn.http.request.AddCollectionRequest;
 import com.jianfanjia.cn.http.request.AddCommentRequest;
 import com.jianfanjia.cn.http.request.AddFavoriteDesignerRequest;
 import com.jianfanjia.cn.http.request.AddPicToSectionItemRequest;
@@ -17,6 +18,7 @@ import com.jianfanjia.cn.http.request.CheckVersionRequest;
 import com.jianfanjia.cn.http.request.ChoosePlanByUserRequest;
 import com.jianfanjia.cn.http.request.CommitCommentRequest;
 import com.jianfanjia.cn.http.request.ConformMeasureHouseRequest;
+import com.jianfanjia.cn.http.request.DeleteCollectionRequest;
 import com.jianfanjia.cn.http.request.DeleteFavoriteDesignerRequest;
 import com.jianfanjia.cn.http.request.DeletePicToSectionItemRequest;
 import com.jianfanjia.cn.http.request.DesignerHomePageRequest;
@@ -26,12 +28,15 @@ import com.jianfanjia.cn.http.request.FavoriteDesignerListRequest;
 import com.jianfanjia.cn.http.request.FeedBackRequest;
 import com.jianfanjia.cn.http.request.ForgetPswRequest;
 import com.jianfanjia.cn.http.request.GetAllRescheduleRequest;
+import com.jianfanjia.cn.http.request.GetCollectionRequest;
 import com.jianfanjia.cn.http.request.GetCommentsRequest;
 import com.jianfanjia.cn.http.request.GetContractRequest;
 import com.jianfanjia.cn.http.request.GetDesignerPlansByUserRequest;
 import com.jianfanjia.cn.http.request.GetOrderDesignerListByUserRequest;
 import com.jianfanjia.cn.http.request.GetOrderedDesignerRequest;
 import com.jianfanjia.cn.http.request.GetPlanInfoRequest;
+import com.jianfanjia.cn.http.request.GetProcessInfoRequest;
+import com.jianfanjia.cn.http.request.GetProcessListRequest;
 import com.jianfanjia.cn.http.request.GetProductHomePageRequest;
 import com.jianfanjia.cn.http.request.GetRequirementListRequest;
 import com.jianfanjia.cn.http.request.HomePageRequest;
@@ -42,17 +47,15 @@ import com.jianfanjia.cn.http.request.OwnerFinishCheckRequest;
 import com.jianfanjia.cn.http.request.PostProcessRequest;
 import com.jianfanjia.cn.http.request.PostRequirementRequest;
 import com.jianfanjia.cn.http.request.PostRescheduleRequest;
-import com.jianfanjia.cn.http.request.GetProcessInfoRequest;
-import com.jianfanjia.cn.http.request.GetProcessListRequest;
 import com.jianfanjia.cn.http.request.RefuseRescheduleRequest;
 import com.jianfanjia.cn.http.request.RegisterRequest;
 import com.jianfanjia.cn.http.request.SearchDesignerProductRequest;
 import com.jianfanjia.cn.http.request.SendVerificationRequest;
+import com.jianfanjia.cn.http.request.UpdateOwnerInfoRequest;
 import com.jianfanjia.cn.http.request.UpdateRequirementRequest;
 import com.jianfanjia.cn.http.request.UploadPicRequestNew;
 import com.jianfanjia.cn.http.request.UploadRegisterIdRequest;
 import com.jianfanjia.cn.http.request.UserByOwnerInfoRequest;
-import com.jianfanjia.cn.http.request.UpdateOwnerInfoRequest;
 import com.jianfanjia.cn.http.request.VerifyPhoneRequest;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.DateFormatTool;
@@ -969,6 +972,65 @@ public class JianFanJiaClient {
             jsonParams.put("old_designerid", old_designerid);
             jsonParams.put("new_designerid", new_designerid);
             OkHttpClientManager.getInstance().getPostDelegate().postAsyn(changeOrderedDesignerRequest, jsonParams.toString(), listener, tag);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 用户添加收藏
+     *
+     * @param context
+     * @param productid
+     * @param listener
+     * @param tag
+     */
+    public static void addCollectionByUser(Context context, String productid, ApiUiUpdateListener listener, Object tag) {
+        AddCollectionRequest addCollectionRequest = new AddCollectionRequest(context, productid);
+        JSONObject jsonParams = new JSONObject();
+        try {
+            jsonParams.put("_id", productid);
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(addCollectionRequest, jsonParams.toString(), listener, tag);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 用户删除收藏
+     *
+     * @param context
+     * @param productid
+     * @param listener
+     * @param tag
+     */
+    public static void deleteCollectionByUser(Context context, String productid, ApiUiUpdateListener listener, Object tag) {
+        DeleteCollectionRequest deleteCollectionRequest = new DeleteCollectionRequest(context, productid);
+        JSONObject jsonParams = new JSONObject();
+        try {
+            jsonParams.put("_id", productid);
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(deleteCollectionRequest, jsonParams.toString(), listener, tag);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 用户获取收藏作品列表
+     *
+     * @param context
+     * @param from
+     * @param limit
+     * @param listener
+     * @param tag
+     */
+    public static void getCollectListByUser(Context context, int from, int limit, ApiUiUpdateListener listener, Object tag) {
+        GetCollectionRequest getCollectionRequest = new GetCollectionRequest(context, from, limit);
+        JSONObject jsonParams = new JSONObject();
+        try {
+            jsonParams.put("from", from);
+            jsonParams.put("limit", limit);
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(getCollectionRequest, jsonParams.toString(), listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
         }
