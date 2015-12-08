@@ -182,7 +182,7 @@ public class ReplaceDesignerActivity extends BaseActivity implements OnClickList
 
     //替换设计师
     private void replaceDesignerByUser(String requirementid, String old_designerid, String new_designerid) {
-        JianFanJiaClient.ChangeOrderedDesignerByUser(ReplaceDesignerActivity.this, requirementid, old_designerid, new_designerid, replaceDesignerListener, this);
+        JianFanJiaClient.changeOrderedDesignerByUser(ReplaceDesignerActivity.this, requirementid, old_designerid, new_designerid, replaceDesignerListener, this);
     }
 
     private ApiUiUpdateListener replaceDesignerListener = new ApiUiUpdateListener() {

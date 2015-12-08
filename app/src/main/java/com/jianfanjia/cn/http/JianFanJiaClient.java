@@ -964,7 +964,7 @@ public class JianFanJiaClient {
      * @param listener
      * @param tag
      */
-    public static void ChangeOrderedDesignerByUser(Context context, String requirementid, String old_designerid, String new_designerid, ApiUiUpdateListener listener, Object tag) {
+    public static void changeOrderedDesignerByUser(Context context, String requirementid, String old_designerid, String new_designerid, ApiUiUpdateListener listener, Object tag) {
         ChangeOrderedDesignerRequest changeOrderedDesignerRequest = new ChangeOrderedDesignerRequest(context, requirementid, old_designerid, new_designerid);
         JSONObject jsonParams = new JSONObject();
         try {
