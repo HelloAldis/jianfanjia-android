@@ -12,9 +12,15 @@ import com.jianfanjia.cn.config.Url_New;
  * Time: 17:01
  */
 public class SearchDecorationImgRequest extends BaseRequest {
+    private String searchWord;
+    private int from;
+    private int limit;
 
-    public SearchDecorationImgRequest(Context context) {
+    public SearchDecorationImgRequest(Context context, String searchWord, int from, int limit) {
         super(context);
+        this.searchWord = searchWord;
+        this.from = from;
+        this.limit = limit;
         url = Url_New.SEARCH_DECORATION_IMG;
     }
 

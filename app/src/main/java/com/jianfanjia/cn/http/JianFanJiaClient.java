@@ -49,6 +49,7 @@ import com.jianfanjia.cn.http.request.PostRequirementRequest;
 import com.jianfanjia.cn.http.request.PostRescheduleRequest;
 import com.jianfanjia.cn.http.request.RefuseRescheduleRequest;
 import com.jianfanjia.cn.http.request.RegisterRequest;
+import com.jianfanjia.cn.http.request.SearchDecorationImgRequest;
 import com.jianfanjia.cn.http.request.SearchDesignerProductRequest;
 import com.jianfanjia.cn.http.request.SendVerificationRequest;
 import com.jianfanjia.cn.http.request.UpdateOwnerInfoRequest;
@@ -975,6 +976,49 @@ public class JianFanJiaClient {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 游客搜索装修美图
+     *
+     * @param context
+     * @param query
+     * @param lastupdate
+     * @param searchWord
+     * @param from
+     * @param limit
+     * @param listener
+     * @param tag
+     */
+    public static void searchDecorationImg(Context context, String query, int lastupdate, String searchWord, int from, int limit, ApiUiUpdateListener listener, Object tag) {
+        SearchDecorationImgRequest searchDecorationImgRequest = new SearchDecorationImgRequest(context, searchWord, from, limit);
+        JSONObject jsonParams = new JSONObject();
+        try {
+            JSONObject params1 = new JSONObject();
+            JSONObject params2 = new JSONObject();
+            params2.put("lastupdate", lastupdate);
+            jsonParams.put("query", params1);
+            jsonParams.put("sort", params2);
+            jsonParams.put("search_word", searchWord);
+            jsonParams.put("from", from);
+            jsonParams.put("limit", limit);
+            LogTool.d(TAG, "jsonParams:" + jsonParams.toString());
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(searchDecorationImgRequest, jsonParams.toString(), listener, tag);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 游客获取装修美图首页
+     *
+     * @param context
+     * @param id
+     * @param listener
+     * @param tag
+     */
+    public static void getDecorationImg(Context context, String id, ApiUiUpdateListener listener, Object tag) {
+
     }
 
     /**
