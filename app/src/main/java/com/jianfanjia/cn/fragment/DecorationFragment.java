@@ -73,7 +73,7 @@ public class DecorationFragment extends BaseFragment implements ApiUiUpdateListe
             decorationAdapter = new DecorationAdapter(getActivity(), beautyImgList, new OnItemClickListener() {
                 @Override
                 public void OnItemClick(int position) {
-
+                    LogTool.d(TAG, "position:" + position);
                 }
             });
             decoration_listview.setAdapter(decorationAdapter);
