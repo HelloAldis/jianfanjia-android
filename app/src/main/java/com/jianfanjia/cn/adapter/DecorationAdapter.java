@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
-import com.jianfanjia.cn.bean.DecorationItemInfo;
+import com.jianfanjia.cn.bean.BeautyImgInfo;
 import com.jianfanjia.cn.interf.OnItemClickListener;
 
 import java.util.List;
@@ -19,17 +19,17 @@ import java.util.List;
  * Date: 2015-12-07
  * Time: 10:33
  */
-public class DecorationAdapter extends BaseRecyclerViewAdapter<DecorationItemInfo> {
+public class DecorationAdapter extends BaseRecyclerViewAdapter<BeautyImgInfo> {
     private OnItemClickListener listener;
 
-    public DecorationAdapter(Context context, List<DecorationItemInfo> list, OnItemClickListener listener) {
+    public DecorationAdapter(Context context, List<BeautyImgInfo> list, OnItemClickListener listener) {
         super(context, list);
         this.listener = listener;
     }
 
     @Override
-    public void bindView(RecyclerViewHolderBase viewHolder, int position, List<DecorationItemInfo> list) {
-        DecorationItemInfo info = list.get(position);
+    public void bindView(RecyclerViewHolderBase viewHolder, int position, List<BeautyImgInfo> list) {
+        BeautyImgInfo info = list.get(position);
         DecorationViewHolder holder = (DecorationViewHolder) viewHolder;
 
     }
