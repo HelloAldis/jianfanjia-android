@@ -85,6 +85,6 @@ public class PullToRefreshRecycleView extends PullToRefreshBase<RecyclerView> {
 
     @Override
     protected boolean isReadyForPullEnd() {
-        return false;
+        return !ViewCompat.canScrollVertically(mRefreshableView, 0);
     }
 }
