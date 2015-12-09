@@ -31,6 +31,7 @@ public class DesignerCaseInfo implements Serializable {
     private int view_count;
     private List<ImageInfo> images;
     private Designer designer;
+    private boolean is_my_favorite;
 
     public String get_id() {
         return _id;
@@ -198,5 +199,13 @@ public class DesignerCaseInfo implements Serializable {
 
     public void setDesigner(Designer designer) {
         this.designer = designer;
+    }
+
+    public boolean is_my_favorite() {
+        return is_my_favorite;
+    }
+
+    public void setIs_my_favorite(boolean is_my_favorite) {
+        this.is_my_favorite = is_my_favorite;
     }
 }
