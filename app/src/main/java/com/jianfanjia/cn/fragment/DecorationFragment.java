@@ -71,12 +71,14 @@ public class DecorationFragment extends BaseFragment implements ApiUiUpdateListe
         DecorationItemInfo decorationItemInfo = JsonParser.jsonToBean(data.toString(), DecorationItemInfo.class);
         LogTool.d(TAG, "decorationItemInfo:" + decorationItemInfo);
         if (null != decorationItemInfo) {
-            List<BeautyImgInfo> beautyImgList = decorationItemInfo.getBeautiful_images();
+            final List<BeautyImgInfo> beautyImgList = decorationItemInfo.getBeautiful_images();
             LogTool.d(TAG, "beautyImgList:" + beautyImgList);
             decorationAdapter = new DecorationAdapter(getActivity(), beautyImgList, new OnItemClickListener() {
                 @Override
                 public void OnItemClick(int position) {
-                    LogTool.d(TAG, "position:" + position);
+                    BeautyImgInfo beautyImgInfo = beautyImgList.get(position);
+                    String _id = beautyImgInfo.get_id();
+                    LogTool.d(TAG, "_id:" + _id);
                 }
             });
             decoration_listview.setAdapter(decorationAdapter);
