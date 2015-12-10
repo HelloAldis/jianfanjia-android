@@ -54,7 +54,7 @@ public class DecorationFragment extends BaseFragment implements ApiUiUpdateListe
     }
 
     private void searchDecorationImg() {
-        JianFanJiaClient.searchDecorationImg(getContext(), "", -1, "", 0, 5, this, this);
+        JianFanJiaClient.searchDecorationImg(getContext(), "不限", "不限", "不限", "", -1, 0, 5, this, this);
     }
 
     @Override
