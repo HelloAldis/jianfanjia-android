@@ -1,5 +1,6 @@
 package com.jianfanjia.cn.fragment;
 
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
@@ -41,6 +42,7 @@ public class DecorationFragment extends BaseFragment implements ApiUiUpdateListe
         decoration_listview.setMode(PullToRefreshBase.Mode.BOTH);
         mLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         decoration_listview.setLayoutManager(mLayoutManager);
+        decoration_listview.setItemAnimator(new DefaultItemAnimator());
         searchDecorationImg();
     }
 
