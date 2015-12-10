@@ -1,5 +1,6 @@
 package com.jianfanjia.cn.fragment;
 
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
@@ -14,6 +15,7 @@ import com.jianfanjia.cn.interf.OnItemClickListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
+import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
 
 import java.util.List;
@@ -24,7 +26,7 @@ import java.util.List;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class DecorationFragment extends BaseFragment implements ApiUiUpdateListener {
+public class DecorationFragment extends BaseFragment implements ApiUiUpdateListener, PullToRefreshBase.OnRefreshListener2<RecyclerView> {
     private static final String TAG = DecorationFragment.class.getName();
     private MainHeadView mainHeadView = null;
     private PullToRefreshRecycleView decoration_listview = null;
@@ -35,6 +37,7 @@ public class DecorationFragment extends BaseFragment implements ApiUiUpdateListe
     public void initView(View view) {
         initMainHeadView(view);
         decoration_listview = (PullToRefreshRecycleView) view.findViewById(R.id.decoration_listview);
+        decoration_listview.setMode(PullToRefreshBase.Mode.BOTH);
         mLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         decoration_listview.setLayoutManager(mLayoutManager);
         searchDecorationImg();
@@ -50,7 +53,7 @@ public class DecorationFragment extends BaseFragment implements ApiUiUpdateListe
 
     @Override
     public void setListener() {
-
+        decoration_listview.setOnRefreshListener(this);
     }
 
     private void searchDecorationImg() {
@@ -83,6 +86,16 @@ public class DecorationFragment extends BaseFragment implements ApiUiUpdateListe
     @Override
     public void loadFailture(String error_msg) {
 
+    }
+
+    @Override
+    public void onPullDownToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
+        decoration_listview.onRefreshComplete();
+    }
+
+    @Override
+    public void onPullUpToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
+        decoration_listview.onRefreshComplete();
     }
 
     @Override
