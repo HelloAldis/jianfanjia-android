@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
+import com.jianfanjia.cn.activity.PreviewDecorationActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.DecorationAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
@@ -79,6 +80,7 @@ public class DecorationFragment extends BaseFragment implements ApiUiUpdateListe
                     BeautyImgInfo beautyImgInfo = beautyImgList.get(position);
                     String _id = beautyImgInfo.get_id();
                     LogTool.d(TAG, "_id:" + _id);
+                    startActivity(PreviewDecorationActivity.class);
                 }
             });
             decoration_listview.setAdapter(decorationAdapter);

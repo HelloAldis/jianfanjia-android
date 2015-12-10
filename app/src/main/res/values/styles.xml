@@ -224,4 +224,8 @@
         <item name="tabTextColor">#aab1b6</item>
         <item name="tabSelectedTextColor">#344a5d</item>
     </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
