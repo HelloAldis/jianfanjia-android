@@ -52,6 +52,12 @@ public class PullToRefreshRecycleView extends PullToRefreshBase<RecyclerView> {
         return recyclerView;
     }
 
+    public void setLayoutManager(RecyclerView.LayoutManager mLayoutManager) {
+        if (mRefreshableView != null) {
+            mRefreshableView.setLayoutManager(mLayoutManager);
+        }
+    }
+
     public void setAdapter(RecyclerView.Adapter adapter) {
         if (mRefreshableView != null) {
             mRefreshableView.setAdapter(adapter);
