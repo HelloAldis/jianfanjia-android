@@ -37,6 +37,7 @@ public class MyFragment extends BaseFragment {
     private RelativeLayout setting_layout = null;
     private FrameLayout my_info_layout = null;
     private ImageView head_img = null;
+    private ImageView user_head_img = null;
     private TextView my_name = null;
     private TextView my_account = null;
 
@@ -49,9 +50,9 @@ public class MyFragment extends BaseFragment {
         setting_layout = (RelativeLayout) view.findViewById(R.id.setting_layout);
         my_info_layout = (FrameLayout) view.findViewById(R.id.frag_my_info_layout);
         head_img = (ImageView) view.findViewById(R.id.head_img);
+        user_head_img = (ImageView) view.findViewById(R.id.user_head_img);
         my_account = (TextView) view.findViewById(R.id.frag_my_account);
         my_name = (TextView) view.findViewById(R.id.frag_my_name);
-
         initMyInfo();
     }
 
@@ -67,6 +68,7 @@ public class MyFragment extends BaseFragment {
         LogTool.d(TAG, "imgPath=" + imgPath);
         if (!imgPath.contains(Constant.DEFALUT_PIC_HEAD)) {
             imageShow.displayScreenWidthThumnailImage(getActivity(), imgPath, head_img);
+            imageShow.displayScreenWidthThumnailImage(getActivity(), imgPath, user_head_img);
         }
     }
 
