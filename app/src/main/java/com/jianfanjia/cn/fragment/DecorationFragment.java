@@ -102,6 +102,40 @@ public class DecorationFragment extends BaseFragment implements ApiUiUpdateListe
         decoration_listview.onRefreshComplete();
     }
 
+    private ApiUiUpdateListener pullDownListener = new ApiUiUpdateListener() {
+        @Override
+        public void preLoad() {
+
+        }
+
+        @Override
+        public void loadSuccess(Object data) {
+
+        }
+
+        @Override
+        public void loadFailture(String error_msg) {
+
+        }
+    };
+
+    private ApiUiUpdateListener pullUpListener = new ApiUiUpdateListener() {
+        @Override
+        public void preLoad() {
+
+        }
+
+        @Override
+        public void loadSuccess(Object data) {
+
+        }
+
+        @Override
+        public void loadFailture(String error_msg) {
+
+        }
+    };
+
     @Override
     public int getLayoutId() {
         return R.layout.fragment_decoration;
