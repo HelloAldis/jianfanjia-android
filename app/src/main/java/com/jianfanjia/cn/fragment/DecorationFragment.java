@@ -102,4 +102,5 @@ public class DecorationFragment extends BaseFragment implements ApiUiUpdateListe
     public int getLayoutId() {
         return R.layout.fragment_decoration;
     }
+
 }
