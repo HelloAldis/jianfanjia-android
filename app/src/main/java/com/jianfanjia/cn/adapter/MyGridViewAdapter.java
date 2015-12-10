@@ -63,8 +63,6 @@ public class MyGridViewAdapter extends BaseListAdapter<GridItem> {
                 }
             });
             imageShow.displayLocalImage(imgId, holder.img);
-//            imageLoader.displayImage(imgId, holder.img, options);
-
         }
 
         return convertView;
