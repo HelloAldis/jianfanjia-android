@@ -1,6 +1,5 @@
 package com.jianfanjia.cn.fragment;
 
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
@@ -15,6 +14,7 @@ import com.jianfanjia.cn.interf.OnItemClickListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
+import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
 
 import java.util.List;
 
@@ -27,14 +27,14 @@ import java.util.List;
 public class DecorationFragment extends BaseFragment implements ApiUiUpdateListener {
     private static final String TAG = DecorationFragment.class.getName();
     private MainHeadView mainHeadView = null;
-    private RecyclerView decoration_listview = null;
+    private PullToRefreshRecycleView decoration_listview = null;
     private StaggeredGridLayoutManager mLayoutManager = null;
     private DecorationAdapter decorationAdapter = null;
 
     @Override
     public void initView(View view) {
         initMainHeadView(view);
-        decoration_listview = (RecyclerView) view.findViewById(R.id.decoration_listview);
+        decoration_listview = (PullToRefreshRecycleView) view.findViewById(R.id.decoration_listview);
         mLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         decoration_listview.setLayoutManager(mLayoutManager);
         searchDecorationImg();
