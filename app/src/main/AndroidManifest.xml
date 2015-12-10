@@ -41,10 +41,10 @@
         <!-- 友盟配置 -->
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="55e40deee0f55acc66001861"></meta-data>
+            android:value="55e40deee0f55acc66001861" />
         <meta-data
             android:name="UMENG_CHANNEL"
-            android:value="${UMENG_CHANNEL_VALUE}"></meta-data>
+            android:value="${UMENG_CHANNEL_VALUE}" />
 
         <!-- 个推SDK配置开始 -->
         <!-- 配置的第三方参数属性 -->
@@ -154,7 +154,7 @@
             android:name=".LoginNewActivity_"
             android:label="@string/title_activity_login"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateVisible"></activity>
+            android:windowSoftInputMode="stateVisible" />
         <activity
             android:name=".RegisterNewActivity_"
             android:label="@string/title_activity_register"
@@ -307,6 +307,10 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".CollectActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PreviewDecorationActivity"
+            android:label="@string/title_activity_preview_decoration"
             android:screenOrientation="portrait" />
     </application>
 
