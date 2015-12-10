@@ -7,6 +7,7 @@ import com.jianfanjia.cn.bean.CommitCommentInfo;
 import com.jianfanjia.cn.bean.OwnerUpdateInfo;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
+import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.http.request.AddCollectionRequest;
 import com.jianfanjia.cn.http.request.AddCommentRequest;
@@ -990,11 +991,20 @@ public class JianFanJiaClient {
      * @param listener
      * @param tag
      */
-    public static void searchDecorationImg(Context context, String query, int lastupdate, String searchWord, int from, int limit, ApiUiUpdateListener listener, Object tag) {
-        SearchDecorationImgRequest searchDecorationImgRequest = new SearchDecorationImgRequest(context, searchWord, from, limit);
+    public static void searchDecorationImg(Context context, String section, String house_type, String dec_style, String searchWord, int lastupdate, int from, int limit, ApiUiUpdateListener listener, Object tag) {
+        SearchDecorationImgRequest searchDecorationImgRequest = new SearchDecorationImgRequest(context, section, house_type, dec_style, searchWord, lastupdate, from, limit);
         JSONObject jsonParams = new JSONObject();
         try {
             JSONObject params1 = new JSONObject();
+            if (!section.equals(Constant.KEY_WORD)) {
+                params1.put("section", section);
+            }
+            if (!house_type.equals(Constant.KEY_WORD)) {
+                params1.put("house_type", house_type);
+            }
+            if (!dec_style.equals(Constant.KEY_WORD)) {
+                params1.put("dec_style", dec_style);
+            }
             JSONObject params2 = new JSONObject();
             params2.put("lastupdate", lastupdate);
             jsonParams.put("query", params1);
