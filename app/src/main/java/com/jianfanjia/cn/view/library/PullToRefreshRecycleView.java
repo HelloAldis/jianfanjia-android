@@ -17,14 +17,10 @@ package com.jianfanjia.cn.view.library;
 
 import android.content.Context;
 import android.support.v4.view.ViewCompat;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.view.animation.DecelerateInterpolator;
 
 import com.jianfanjia.cn.activity.R;
-
-import jp.wasabeef.recyclerview.animators.FadeInUpAnimator;
 
 public class PullToRefreshRecycleView extends PullToRefreshBase<RecyclerView> {
 
@@ -52,10 +48,6 @@ public class PullToRefreshRecycleView extends PullToRefreshBase<RecyclerView> {
     @Override
     protected RecyclerView createRefreshableView(Context context, AttributeSet attrs) {
         RecyclerView recyclerView = new RecyclerView(context, attrs);
-        final LinearLayoutManager mLayoutManager = new LinearLayoutManager(context);
-        // 创建一个线性布局管理器
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.setItemAnimator(new FadeInUpAnimator(new DecelerateInterpolator(0.5F)));
         recyclerView.setId(R.id.recycleview);
         return recyclerView;
     }
