@@ -12,13 +12,21 @@ import com.jianfanjia.cn.config.Url_New;
  * Time: 17:01
  */
 public class SearchDecorationImgRequest extends BaseRequest {
+    private String section;
+    private String house_type;
+    private String dec_style;
     private String searchWord;
+    private int lastupdate;
     private int from;
     private int limit;
 
-    public SearchDecorationImgRequest(Context context, String searchWord, int from, int limit) {
+    public SearchDecorationImgRequest(Context context, String section, String house_type, String dec_style, String searchWord, int lastupdate, int from, int limit) {
         super(context);
+        this.section = section;
+        this.house_type = house_type;
+        this.dec_style = dec_style;
         this.searchWord = searchWord;
+        this.lastupdate = lastupdate;
         this.from = from;
         this.limit = limit;
         url = Url_New.SEARCH_DECORATION_IMG;
