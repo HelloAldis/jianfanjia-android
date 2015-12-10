@@ -1,4 +1,5 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -32,32 +33,38 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:layout_margin="@dimen/space_20">
+                    android:layout_height="match_parent">
 
-                    <TextView
-                        android:id="@+id/frag_my_account"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:textColor="#ffffff"
-                        android:textSize="@dimen/small_size" />
+                    <com.jianfanjia.cn.view.layout.CircleImageView
+                        android:id="@+id/user_head_img"
+                        android:layout_width="90dip"
+                        android:layout_height="90dip"
+                        android:layout_centerInParent="true"
+                        android:scaleType="centerCrop"
+                        app:border_color="@color/white"
+                        app:border_width="2dip" />
 
                     <TextView
                         android:id="@+id/frag_my_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignBaseline="@+id/frag_my_account"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="@dimen/space_20"
-                        android:layout_toLeftOf="@id/frag_my_account"
-                        android:ellipsize="end"
-                        android:singleLine="true"
+                        android:layout_below="@id/user_head_img"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="10dip"
                         android:textColor="#ffffff"
                         android:textSize="@dimen/middle_size"
                         android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/frag_my_account"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/frag_my_name"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="10dip"
+                        android:textColor="#ffffff"
+                        android:textSize="@dimen/small_size" />
+
                 </RelativeLayout>
             </FrameLayout>
 
