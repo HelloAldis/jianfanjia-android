@@ -182,8 +182,8 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
                     }
                 });
                 pullToRefreshRecyclerView.setAdapter(designerAdapter);
-                total = homeDesignersInfo.getDesigners().size();
-                LogTool.d(TAG, "designerList:" + designerList.size());
+                total = designerList.size();
+                LogTool.d(TAG, "designerList:" + designerList);
             }
             pullToRefreshRecyclerView.onRefreshComplete();
         }
