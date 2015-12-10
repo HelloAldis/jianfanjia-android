@@ -30,4 +30,5 @@
             layout="@layout/view_error_layout"
             android:visibility="gone" />
     </FrameLayout>
+
 </LinearLayout>
