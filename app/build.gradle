@@ -63,7 +63,7 @@ android {
     }
 
     productFlavors {
-        Default{
+        Default {
         }
         yingyongbao {
         }
@@ -76,16 +76,16 @@ android {
     def date = new Date().format('yyyyMMdd');
     def force_update = '1' //强制更新
     def rec_update = '0'   //自愿更新
-	def update = rec_update
+    def update = rec_update
 
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
             def outputFile = output.outputFile
             if (outputFile != null && outputFile.name.endsWith('.apk')) {
                 String fileName = outputFile.name.replace(".apk", "_${date}_${update}_${defaultConfig.versionCode}_${defaultConfig.versionName}.apk")
-                fileName = fileName.replace("app","jianfanjia")
-                if(fileName.contains("-release")){
-                    fileName = fileName.replace("-release","")
+                fileName = fileName.replace("app", "jianfanjia")
+                if (fileName.contains("-release")) {
+                    fileName = fileName.replace("-release", "")
                 }
                 output.outputFile = new File(outputFile.parent, fileName)
             }
@@ -114,8 +114,8 @@ dependencies {
     compile 'jp.wasabeef:recyclerview-animators:1.3.0'
     compile 'com.commit451:PhotoView:1.2.4'
     compile 'com.baoyz.swipemenulistview:library:1.3.0'
-    compile files('libs/universal-image-loader-1.9.4-SNAPSHOT.jar')
     compile 'de.greenrobot:eventbus:2.4.0'
     compile 'com.soundcloud.android:android-crop:1.0.1@aar'
     compile 'com.umeng.analytics:analytics:latest.integration'
+    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
 }
