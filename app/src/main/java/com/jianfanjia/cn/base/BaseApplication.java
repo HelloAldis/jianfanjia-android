@@ -48,6 +48,7 @@ public class BaseApplication extends Application {
         // method.
         ImageLoaderConfiguration.Builder config = new ImageLoaderConfiguration.Builder(
                 context);
+        config.memoryCacheExtraOptions(480, 800);
         config.threadPriority(Thread.NORM_PRIORITY - 2);
         config.denyCacheImageMultipleSizesInMemory();
         config.threadPoolSize(3);
