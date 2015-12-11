@@ -109,13 +109,13 @@
             <View style="@style/divier_line" />
 
             <RelativeLayout
-                android:id="@+id/my_designer_layout"
+                android:id="@+id/my_site_layout"
                 style="@style/my_list_item_layout_style">
 
                 <TextView
                     style="@style/listview_item_text_style_middle"
                     android:layout_centerVertical="true"
-                    android:text="我的意向设计师"
+                    android:text="我的装修工地"
                     android:textColor="@color/black_color" />
 
                 <ImageView
@@ -128,14 +128,14 @@
             <View style="@style/divier_line" />
 
             <RelativeLayout
-                android:id="@+id/my_site_layout"
+                android:id="@+id/my_designer_layout"
                 style="@style/my_list_item_layout_style"
                 android:visibility="gone">
 
                 <TextView
                     style="@style/listview_item_text_style_middle"
                     android:layout_centerVertical="true"
-                    android:text="我的装修工地"
+                    android:text="我的意向设计师"
                     android:textColor="@color/black_color" />
 
                 <ImageView

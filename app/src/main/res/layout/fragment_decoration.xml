@@ -109,6 +109,11 @@
         </RelativeLayout>
     </LinearLayout>
 
+    <View
+        android:id="@+id/head_divier"
+        style="@style/divier_line"
+        android:background="@color/horzontal_line_color" />
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
