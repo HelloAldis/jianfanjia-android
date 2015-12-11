@@ -22,7 +22,7 @@
             style="@style/MyCustomTabLayout"
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:background="@drawable/layout_border"
+            android:background="@drawable/layout_border_bg"
             android:minHeight="45dp"
             app:tabGravity="fill" />
 
