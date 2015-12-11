@@ -149,7 +149,7 @@ public class Url_New {
     public static final String DELETE_PRODUCT_BY_USER = HTTPROOT
             + "favorite/product/delete";
     //用户获取收藏的装修美图列表
-    public static final String GET_BEAUTY_IMG_BY_USER = HTTPROOT
+    public static final String GET_BEAUTY_IMG_LIST_BY_USER = HTTPROOT
             + "favorite/beautiful_image/list";
     //用户删除收藏的装修美图
     public static final String DELETE_BEAUTY_IMG_BY_USER = HTTPROOT
