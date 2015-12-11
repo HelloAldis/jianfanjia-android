@@ -11,6 +11,7 @@ import java.util.List;
  */
 public class ProductInfo implements Serializable {
     private List<Product> products;
+
     private int total;
 
     public List<Product> getProducts() {
