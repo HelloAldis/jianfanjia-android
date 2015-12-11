@@ -19,6 +19,7 @@ import com.jianfanjia.cn.http.request.CheckVersionRequest;
 import com.jianfanjia.cn.http.request.ChoosePlanByUserRequest;
 import com.jianfanjia.cn.http.request.CommitCommentRequest;
 import com.jianfanjia.cn.http.request.ConformMeasureHouseRequest;
+import com.jianfanjia.cn.http.request.DeleteBeautyImgRequest;
 import com.jianfanjia.cn.http.request.DeleteCollectionRequest;
 import com.jianfanjia.cn.http.request.DeleteFavoriteDesignerRequest;
 import com.jianfanjia.cn.http.request.DeletePicToSectionItemRequest;
@@ -29,6 +30,7 @@ import com.jianfanjia.cn.http.request.FavoriteDesignerListRequest;
 import com.jianfanjia.cn.http.request.FeedBackRequest;
 import com.jianfanjia.cn.http.request.ForgetPswRequest;
 import com.jianfanjia.cn.http.request.GetAllRescheduleRequest;
+import com.jianfanjia.cn.http.request.GetBeautyImgListRequest;
 import com.jianfanjia.cn.http.request.GetCollectionRequest;
 import com.jianfanjia.cn.http.request.GetCommentsRequest;
 import com.jianfanjia.cn.http.request.GetContractRequest;
@@ -1085,6 +1087,46 @@ public class JianFanJiaClient {
             jsonParams.put("from", from);
             jsonParams.put("limit", limit);
             OkHttpClientManager.getInstance().getPostDelegate().postAsyn(getCollectionRequest, jsonParams.toString(), listener, tag);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 用户获取收藏的装修美图列表
+     *
+     * @param context
+     * @param from
+     * @param limit
+     * @param listener
+     * @param tag
+     */
+    public static void getBeautyImgListByUser(Context context, int from, int limit, ApiUiUpdateListener listener, Object tag) {
+        GetBeautyImgListRequest getBeautyImgListRequest = new GetBeautyImgListRequest(context, from, limit);
+        JSONObject jsonParams = new JSONObject();
+        try {
+            jsonParams.put("from", from);
+            jsonParams.put("limit", limit);
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(getBeautyImgListRequest, jsonParams.toString(), listener, tag);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 用户删除收藏的装修美图
+     *
+     * @param context
+     * @param productid
+     * @param listener
+     * @param tag
+     */
+    public static void deleteBeautyImgByUser(Context context, String id, ApiUiUpdateListener listener, Object tag) {
+        DeleteBeautyImgRequest deleteBeautyImgRequest = new DeleteBeautyImgRequest(context, id);
+        JSONObject jsonParams = new JSONObject();
+        try {
+            jsonParams.put("_id", id);
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(deleteBeautyImgRequest, jsonParams.toString(), listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
         }
