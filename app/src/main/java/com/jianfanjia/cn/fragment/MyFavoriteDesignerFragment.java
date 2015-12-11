@@ -5,6 +5,9 @@ import android.view.View;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseFragment;
+import com.jianfanjia.cn.http.JianFanJiaClient;
+import com.jianfanjia.cn.interf.ApiUiUpdateListener;
+import com.jianfanjia.cn.tools.LogTool;
 
 /**
  * @author fengliang
@@ -12,17 +15,33 @@ import com.jianfanjia.cn.base.BaseFragment;
  * @Description: 我的意向设计师
  * @date 2015-8-26 下午1:07:52
  */
-public class MyFavoriteDesignerFragment extends BaseFragment {
+public class MyFavoriteDesignerFragment extends BaseFragment implements ApiUiUpdateListener {
     private static final String TAG = DecorationImgFragment.class.getName();
     private RecyclerView my_favorite_designer_listview = null;
 
     @Override
     public void initView(View view) {
         my_favorite_designer_listview = (RecyclerView) view.findViewById(R.id.my_favorite_designer_listview);
+        JianFanJiaClient.get_MyFavoriteDesignerList(getActivity(), 0, 100, this, this);
     }
 
     @Override
     public void setListener() {
+
+    }
+
+    @Override
+    public void preLoad() {
+
+    }
+
+    @Override
+    public void loadSuccess(Object data) {
+        LogTool.d(TAG, "data=" + data.toString());
+    }
+
+    @Override
+    public void loadFailture(String error_msg) {
 
     }
 
