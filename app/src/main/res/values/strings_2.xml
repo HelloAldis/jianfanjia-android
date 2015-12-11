@@ -2,12 +2,12 @@
 <resources>
     <string name="str_cell">小区</string>
     <string name="str_update_time">更新时间：</string>
-    <string name="str_req_tip">您还没有发布需求，请前往发布需求</string>
+    <string name="str_req_tip">您还没有发布需求，当前需求列表为空</string>
     <string name="str_marched_tip">为您匹配的设计师</string>
     <string name="str_no_marched_tip_1">由于您还没有添加需求</string>
     <string name="str_no_marched_tip_2">简繁家无法向您推荐匹配设计师</string>
     <string name="str_no_marched_tip_3">请您前往完善需求</string>
-    <string name="str_req_pubReq">点击前往发布需求 ＞</string>
+    <string name="str_req_pubReq">免费获取三套方案 ></string>
     <string name="str_publish_time">发布时间：</string>
     <string name="str_edit_req">填写装修需求</string>
     <string name="str_create">发布</string>
