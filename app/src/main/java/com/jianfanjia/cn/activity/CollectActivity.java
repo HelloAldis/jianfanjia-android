@@ -40,8 +40,7 @@ public class CollectActivity extends BaseActivity implements OnClickListener {
     private void initMainHeadView() {
         mainHeadView = (MainHeadView) findViewById(R.id.my_collect_head_layout);
         mainHeadView.setBackListener(this);
-        mainHeadView
-                .setMianTitle(getResources().getString(R.string.my_favorite));
+        mainHeadView.setMianTitle(getResources().getString(R.string.my_favorite));
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
         mainHeadView.setDividerVisable(View.VISIBLE);
     }
