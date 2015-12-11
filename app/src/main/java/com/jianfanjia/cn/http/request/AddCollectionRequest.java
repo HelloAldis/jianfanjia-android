@@ -17,7 +17,7 @@ public class AddCollectionRequest extends BaseRequest {
     public AddCollectionRequest(Context context, String productid) {
         super(context);
         this.productid = productid;
-        url = Url_New.ADD_COLLECTION;
+        url = Url_New.ADD_PRODUCT;
     }
 
     @Override

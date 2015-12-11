@@ -17,7 +17,7 @@ public class DeleteCollectionRequest extends BaseRequest {
     public DeleteCollectionRequest(Context context, String productid) {
         super(context);
         this.productid = productid;
-        url = Url_New.DELETE_COLLECTION;
+        url = Url_New.DELETE_PRODUCT_BY_USER;
     }
 
     @Override

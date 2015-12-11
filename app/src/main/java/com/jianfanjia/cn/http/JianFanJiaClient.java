@@ -1032,7 +1032,7 @@ public class JianFanJiaClient {
     }
 
     /**
-     * 用户添加收藏
+     * 用户收藏作品
      *
      * @param context
      * @param productid
@@ -1051,7 +1051,7 @@ public class JianFanJiaClient {
     }
 
     /**
-     * 用户删除收藏
+     * 用户删除收藏的作品
      *
      * @param context
      * @param productid
