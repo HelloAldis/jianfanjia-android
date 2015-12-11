@@ -4,12 +4,12 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Name: CollectionInfo
+ * Name: ProductInfo
  * User: fengliang
- * Date: 2015-12-08
- * Time: 16:26
+ * Date: 2015-12-11
+ * Time: 13:21
  */
-public class CollectionInfo implements Serializable {
+public class ProductInfo implements Serializable {
     private List<Product> products;
     private int total;
 
@@ -28,4 +28,4 @@ public class CollectionInfo implements Serializable {
     public void setTotal(int total) {
         this.total = total;
     }
-}
+}  
