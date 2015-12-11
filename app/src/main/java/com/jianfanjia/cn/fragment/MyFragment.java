@@ -69,6 +69,7 @@ public class MyFragment extends BaseFragment {
         if (!imgPath.contains(Constant.DEFALUT_PIC_HEAD)) {
             imageShow.displayScreenWidthThumnailImage(getActivity(), imgPath, head_img);
             imageShow.displayScreenWidthThumnailImage(getActivity(), imgPath, user_head_img);
+            head_img.setAlpha(0.8f);
         }
     }
 
