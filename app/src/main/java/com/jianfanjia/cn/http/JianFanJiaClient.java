@@ -324,8 +324,8 @@ public class JianFanJiaClient {
      * @param listener
      * @param tag
      */
-    public static void get_MyFavoriteDesignerList(Context context, String from, String limit, ApiUiUpdateListener listener, Object tag) {
-        FavoriteDesignerListRequest favoriteDesignerListRequest = new FavoriteDesignerListRequest(context);
+    public static void get_MyFavoriteDesignerList(Context context, int from, int limit, ApiUiUpdateListener listener, Object tag) {
+        FavoriteDesignerListRequest favoriteDesignerListRequest = new FavoriteDesignerListRequest(context, from, limit);
         JSONObject jsonParams = new JSONObject();
         try {
             jsonParams.put("from", from);
