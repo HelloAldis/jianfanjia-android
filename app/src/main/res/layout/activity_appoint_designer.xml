@@ -11,108 +11,21 @@
         android:layout_height="wrap_content"
         android:background="@color/head_layout_bg" />
 
-    <ScrollView
-        android:id="@+id/setting_scrollview"
+    <ListView
+        android:id="@+id/appoint_designer_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/space_10"
-        android:scrollbars="none">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-            <!--匹配设计师-->
-            <LinearLayout
-                android:id="@+id/marchRootview"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="45dip"
-                    android:background="@color/font_white">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_margin="10dip"
-                        android:text="@string/str_rec_designer"
-                        android:textSize="16sp" />
-
-                </RelativeLayout>
-
-                <View style="@style/divier_line" />
-
-
-                <com.jianfanjia.cn.view.MyListView
-                    android:id="@+id/marched_designer_listview"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/font_white"
-                    android:cacheColorHint="#00000000"
-                    android:clipToPadding="false"
-                    android:divider="@drawable/list_item_divider"
-                    android:dividerHeight="0.5dip"
-                    android:fadingEdge="none"
-                    android:fastScrollEnabled="false"
-                    android:scrollbars="none" />
-            </LinearLayout>
-
-            <!--意向设计师-->
-            <LinearLayout
-                android:id="@+id/intentionRootview"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/space_8"
-                android:orientation="vertical">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="45dip"
-                    android:background="@color/font_white">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_margin="10dip"
-                        android:text="@string/favorite_designer"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/moreText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_margin="10dip"
-                        android:text="@string/str_more"
-                        android:textColor="@color/text_color"
-                        android:textSize="16sp" />
-
-                </RelativeLayout>
-
-
-                <View style="@style/divier_line" />
-
-                <com.jianfanjia.cn.view.MyListView
-                    android:id="@+id/intention_designer_listview"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/font_white"
-                    android:cacheColorHint="#00000000"
-                    android:clipToPadding="false"
-                    android:divider="@drawable/list_item_divider"
-                    android:dividerHeight="0.5dip"
-                    android:fadingEdge="none"
-                    android:fastScrollEnabled="false"
-                    android:scrollbars="none" />
-            </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
+        android:layout_marginBottom="10dip"
+        android:layout_marginTop="10dip"
+        android:background="@color/font_white"
+        android:cacheColorHint="#00000000"
+        android:choiceMode="multipleChoice"
+        android:clipToPadding="false"
+        android:divider="@color/horzontal_line_color"
+        android:dividerHeight="0.5dip"
+        android:fadingEdge="none"
+        android:fastScrollEnabled="false"
+        android:scrollbars="none" />
 
 </LinearLayout>
 

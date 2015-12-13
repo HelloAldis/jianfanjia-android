@@ -2,14 +2,15 @@ package com.jianfanjia.cn.adapter;
 
 import android.content.Context;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.adapter.base.BaseListAdapter;
+import com.jianfanjia.cn.adapter.base.BaseRecyclerViewAdapter;
+import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.bean.CommentInfo;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.tools.StringUtils;
 
 import java.util.List;
@@ -20,56 +21,67 @@ import java.util.List;
  * Date: 2015-10-28
  * Time: 17:10
  */
-public class CommentAdapter extends BaseListAdapter<CommentInfo> {
+public class CommentAdapter extends BaseRecyclerViewAdapter<CommentInfo> {
 
     public CommentAdapter(Context context, List<CommentInfo> list) {
         super(context, list);
     }
 
     @Override
-    public View initView(int position, View convertView) {
-        ViewHolder viewHolder = null;
+    public void bindView(RecyclerViewHolderBase viewHolder, int position, List<CommentInfo> list) {
         CommentInfo commentInfo = list.get(position);
-        if (convertView == null) {
-            convertView = layoutInflater.inflate(R.layout.list_item_comment,
-                    null);
-            viewHolder = new ViewHolder();
-            viewHolder.itemNameView = (TextView) convertView
-                    .findViewById(R.id.list_item_comment_username);
-            viewHolder.itemContentView = (TextView) convertView
-                    .findViewById(R.id.list_item_comment_content);
-            viewHolder.itemIdentityView = (TextView) convertView
-                    .findViewById(R.id.list_item_comment_userrole);
-            viewHolder.itemTimeView = (TextView) convertView
-                    .findViewById(R.id.list_item_comment_pubtime);
-            viewHolder.itemHeadView = (ImageView) convertView
-                    .findViewById(R.id.list_item_comment_userhead);
-            convertView.setTag(viewHolder);
-        } else {
-            viewHolder = (ViewHolder) convertView.getTag();
-        }
-        viewHolder.itemNameView.setText(commentInfo.getByUser().getUsername());
-        viewHolder.itemContentView.setText(commentInfo.getContent());
+        CommentViewHolder holder = (CommentViewHolder) viewHolder;
+        holder.itemNameView.setText(commentInfo.getByUser().getUsername());
+        holder.itemContentView.setText(commentInfo.getContent());
         String userType = commentInfo.getUsertype();
         if (userType.equals(Constant.IDENTITY_OWNER)) {
-            viewHolder.itemIdentityView.setText(context
+            holder.itemIdentityView.setText(context
                     .getString(R.string.ower));
         } else {
-            viewHolder.itemIdentityView.setText(context
+            holder.itemIdentityView.setText(context
                     .getString(R.string.designer));
         }
-        viewHolder.itemTimeView.setText(StringUtils
+        holder.itemTimeView.setText(StringUtils
                 .covertLongToString(commentInfo.getDate()));
-        imageLoader.displayImage(Url_New.GET_THUMBNAIL_IMAGE + commentInfo.getByUser().getImageid(), viewHolder.itemHeadView, options);
-        return convertView;
+        String imageid = commentInfo.getByUser().getImageid();
+        if (!imageid.contains(Constant.DEFALUT_PIC_HEAD)) {
+            imageShow.displayImageHeadWidthThumnailImage(context, commentInfo.getByUser().getImageid(), holder.itemHeadView);
+        } else {
+            imageShow.displayLocalImage(commentInfo.getByUser().getImageid(), holder.itemHeadView);
+        }
     }
 
-    private static class ViewHolder {
-        TextView itemNameView;// 评论人名称
-        TextView itemTimeView;// 评论时间
-        TextView itemContentView;// 评论内容
-        TextView itemIdentityView;// 评论人身份
-        ImageView itemHeadView;// 评论人头像
+    @Override
+    public View createView(ViewGroup viewGroup, int viewType) {
+        View view = layoutInflater.inflate(R.layout.list_item_comment,
+                null);
+        return view;
     }
 
+    @Override
+    public RecyclerViewHolderBase createViewHolder(View view) {
+        return new CommentViewHolder(view);
+    }
+
+    private static class CommentViewHolder extends RecyclerViewHolderBase {
+        public TextView itemNameView;// 评论人名称
+        public TextView itemTimeView;// 评论时间
+        public TextView itemContentView;// 评论内容
+        public TextView itemIdentityView;// 评论人身份
+        public ImageView itemHeadView;// 评论人头像
+
+        public CommentViewHolder(View itemView) {
+            super(itemView);
+            itemNameView = (TextView) itemView
+                    .findViewById(R.id.list_item_comment_username);
+            itemContentView = (TextView) itemView
+                    .findViewById(R.id.list_item_comment_content);
+            itemIdentityView = (TextView) itemView
+                    .findViewById(R.id.list_item_comment_userrole);
+            itemTimeView = (TextView) itemView
+                    .findViewById(R.id.list_item_comment_pubtime);
+            itemHeadView = (ImageView) itemView
+                    .findViewById(R.id.list_item_comment_userhead);
+        }
+    }
 }

@@ -2,25 +2,20 @@ package com.jianfanjia.cn.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
-import android.text.format.DateUtils;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
-import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 
 import com.jianfanjia.cn.activity.DesignerCaseInfoActivity;
 import com.jianfanjia.cn.activity.DesignerInfoActivity;
 import com.jianfanjia.cn.activity.EditRequirementActivity_;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.DesignerListAdapter;
-import com.jianfanjia.cn.adapter.MarchDesignerAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.DesignerListInfo;
 import com.jianfanjia.cn.bean.HomeDesignersInfo;
@@ -32,13 +27,11 @@ import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.ListItemClickListener;
-import com.jianfanjia.cn.interf.OnActivityResultCallBack;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.tools.ViewPagerManager;
-import com.jianfanjia.cn.tools.ViewPagerManager.ShapeType;
+import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
-import com.jianfanjia.cn.view.library.PullToRefreshScrollView;
+import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,69 +42,49 @@ import java.util.List;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class HomeFragment extends BaseFragment implements
-        PullToRefreshBase.OnRefreshListener2<ScrollView>, ListItemClickListener, OnItemClickListener, OnActivityResultCallBack {
+public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRefreshListener2<RecyclerView> {
     private static final String TAG = HomeFragment.class.getName();
-    private PullToRefreshScrollView mPullRefreshScrollView = null;
-    private RelativeLayout viewpagerLayout = null;
-    private LinearLayout marchedLayout = null;
-    private LinearLayout noMarchedLayout = null;
-    private GridView marchDesignerView = null;
-    private MarchDesignerAdapter marchDesignerAdapter = null;
-    private List<OrderDesignerInfo> designers = new ArrayList<OrderDesignerInfo>();
+    private PullToRefreshRecycleView pullToRefreshRecyclerView = null;
+    private RelativeLayout emptyLayout = null;
+    private RelativeLayout errorLayout = null;
+    private boolean isFirst = true;
 
-    private Button addXuQiu = null;
-    private ListView designer_listview = null;
     private DesignerListAdapter designerAdapter = null;
     private List<DesignerListInfo> designerList = new ArrayList<DesignerListInfo>();
 
     private int FROM = 0;// 当前页的编号，从0开始
-    private int total = Constant.LIMIT;
+    private int total = 0;
 
-    private static final int BANNER_ICON[] = {R.mipmap.bg_home_banner1,
-            R.mipmap.bg_home_banner2, R.mipmap.bg_home_banner3,
-            R.mipmap.bg_home_banner4};
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     public void initView(View view) {
-        initBannerView();
-        mPullRefreshScrollView = (PullToRefreshScrollView) view.findViewById(R.id.pull_refresh_scrollview);
-        mPullRefreshScrollView.setMode(PullToRefreshBase.Mode.BOTH);
-        mPullRefreshScrollView.setOverScrollMode(PullToRefreshBase.OVER_SCROLL_NEVER);
-        viewpagerLayout = (RelativeLayout) view.findViewById(R.id.viewpager_layout);
-        marchedLayout = (LinearLayout) view.findViewById(R.id.marched_layout);
-        noMarchedLayout = (LinearLayout) view.findViewById(R.id.no_marched_layout);
-        addXuQiu = (Button) view.findViewById(R.id.btn_add);
-        marchDesignerView = (GridView) view.findViewById(R.id.marchGridview);
-        designer_listview = (ListView) view.findViewById(R.id.designer_listview);
-        designer_listview.setFocusable(false);
+        emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
+        errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
+        pullToRefreshRecyclerView = (PullToRefreshRecycleView) view.findViewById(R.id.pull_refresh_scrollview);
+        pullToRefreshRecyclerView.setMode(PullToRefreshBase.Mode.BOTH);
+        pullToRefreshRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        pullToRefreshRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        Paint paint = new Paint();
+        paint.setStrokeWidth(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getResources().getDisplayMetrics()));
+        paint.setAlpha(0);
+        paint.setAntiAlias(true);
+        pullToRefreshRecyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).paint(paint).showLastDivider().build());
+        pullToRefreshRecyclerView.setFocusable(false);
         initHomePage();
     }
 
-    private void initBannerView() {
-        ViewPagerManager contoler = new ViewPagerManager(getActivity());
-        contoler.setmShapeType(ShapeType.OVAL);// 设置指示器的形状为矩形，默认是圆形
-        List<View> bannerList = new ArrayList<View>();
-        for (int i = 0; i < BANNER_ICON.length; i++) {
-            ImageView imageView = new ImageView(getActivity());
-            imageView.setBackgroundResource(BANNER_ICON[i]);
-            bannerList.add(imageView);
-        }
-        contoler.init(bannerList);
-        contoler.setAutoSroll(true);
-    }
-
     private void initHomePage() {
-        getHomePageDesigners(FROM, Constant.LIMIT, downListener);
-        designerAdapter = new DesignerListAdapter(getActivity(), designerList, this);
-        designer_listview.setAdapter(designerAdapter);
+        getHomePageDesigners(FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
+//        pullToRefreshRecyclerView.setRefreshing(true);
     }
 
     @Override
     public void setListener() {
-        mPullRefreshScrollView.setOnRefreshListener(this);
-        addXuQiu.setOnClickListener(this);
-        marchDesignerView.setOnItemClickListener(this);
+        pullToRefreshRecyclerView.setOnRefreshListener(this);
     }
 
     @Override
@@ -127,117 +100,103 @@ public class HomeFragment extends BaseFragment implements
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position,
-                            long id) {
-        OrderDesignerInfo orderDesignerInfo = designers.get(position);
-        String designertid = orderDesignerInfo.get_id();
-        LogTool.d(TAG, "designertid:" + designertid);
-        Bundle designerBundle = new Bundle();
-        designerBundle.putString(Global.DESIGNER_ID, designertid);
-        startActivity(DesignerInfoActivity.class, designerBundle);
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 
     private void getHomePageDesigners(int from, int limit, ApiUiUpdateListener listener) {
         JianFanJiaClient.getHomePageDesigners(getActivity(), from, limit, listener, this);
     }
 
-
     @Override
-    public void onMaxClick(int position) {
-        DesignerListInfo designerListInfo = designerList.get(position);
-        Product product = designerListInfo.getProduct();
-        String productid = product.get_id();
-        LogTool.d(TAG, "productid:" + productid);
-        Bundle productBundle = new Bundle();
-        productBundle.putString(Global.PRODUCT_ID, productid);
-        startActivity(DesignerCaseInfoActivity.class, productBundle);
-    }
-
-    @Override
-    public void onMinClick(int position) {
-        DesignerListInfo designerListInfo = designerList.get(position);
-        String designertid = designerListInfo.get_id();
-        LogTool.d(TAG, "designertid:" + designertid);
-        Bundle designerBundle = new Bundle();
-        designerBundle.putString(Global.DESIGNER_ID, designertid);
-        startActivity(DesignerInfoActivity.class, designerBundle);
-    }
-
-    @Override
-    public void onPullDownToRefresh(PullToRefreshBase<ScrollView> refreshView) {
-        // 下拉刷新(从第一页开始装载数据)
-        String label = DateUtils.formatDateTime(getActivity(),
-                System.currentTimeMillis(), DateUtils.FORMAT_SHOW_TIME
-                        | DateUtils.FORMAT_SHOW_DATE
-                        | DateUtils.FORMAT_ABBREV_ALL);
-        // Update the LastUpdatedLabel
-        refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
+    public void onPullDownToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
         FROM = 0;
-        getHomePageDesigners(FROM, total, downListener);
+        getHomePageDesigners(FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
     }
-
 
     @Override
-    public void onPullUpToRefresh(PullToRefreshBase<ScrollView> refreshView) {
-//        FROM = designerList.size();
-        getHomePageDesigners(total, Constant.LIMIT, upListener);
+    public void onPullUpToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
+        getHomePageDesigners(total, Constant.HOME_PAGE_LIMIT, pullUpListener);
     }
 
-
-    private ApiUiUpdateListener downListener = new ApiUiUpdateListener() {
+    private ApiUiUpdateListener pullDownListener = new ApiUiUpdateListener() {
         @Override
         public void preLoad() {
-            marchedLayout.setVisibility(View.GONE);
-            noMarchedLayout.setVisibility(View.GONE);
+            if (isFirst) {
+                showWaitDialog();
+            }
         }
 
         @Override
         public void loadSuccess(Object data) {
+            hideWaitDialog();
             HomeDesignersInfo homeDesignersInfo = JsonParser.jsonToBean(data.toString(), HomeDesignersInfo.class);
             LogTool.d(TAG, "homeDesignersInfo:" + homeDesignersInfo);
             if (null != homeDesignersInfo) {
+                isFirst = false;
                 Requirement requirement = homeDesignersInfo.getRequirement();
                 LogTool.d(TAG, "requirement=" + requirement);
-                if (null != requirement) {
-                    designers = requirement.getDesigners();
-                    LogTool.d(TAG, "designers=" + designers);
-                    if (null != designers) {
-                        if (designers.size() > 0) {
-                            marchedLayout.setVisibility(View.VISIBLE);
-                            noMarchedLayout.setVisibility(View.GONE);
-                            marchDesignerAdapter = new MarchDesignerAdapter(getActivity(), designers);
-                            marchDesignerView.setAdapter(marchDesignerAdapter);
-
-                        } else {
-                            marchedLayout.setVisibility(View.GONE);
-                            noMarchedLayout.setVisibility(View.VISIBLE);
-                        }
-                    } else {
-                        marchedLayout.setVisibility(View.GONE);
-                        noMarchedLayout.setVisibility(View.GONE);
-                    }
-                } else {
-                    marchedLayout.setVisibility(View.GONE);
-                    noMarchedLayout.setVisibility(View.VISIBLE);
-                }
                 designerList.clear();
-                designerList.addAll(homeDesignersInfo.getDesigners());
-                LogTool.d(TAG, "designerList:" + designerList.size());
-                designerAdapter.notifyDataSetChanged();
+                designerList = homeDesignersInfo.getDesigners();
+                designerAdapter = new DesignerListAdapter(getActivity(), designerList, requirement, new ListItemClickListener() {
+                    @Override
+                    public void onMaxClick(int position) {
+                        DesignerListInfo designerListInfo = designerList.get(position);
+                        Product product = designerListInfo.getProduct();
+                        String productid = product.get_id();
+                        LogTool.d(TAG, "productid:" + productid);
+                        Bundle productBundle = new Bundle();
+                        productBundle.putString(Global.PRODUCT_ID, productid);
+                        startActivity(DesignerCaseInfoActivity.class, productBundle);
+                    }
+
+                    @Override
+                    public void onMinClick(int position) {
+                        DesignerListInfo designerListInfo = designerList.get(position);
+                        String designertid = designerListInfo.get_id();
+                        LogTool.d(TAG, "designertid:" + designertid);
+                        Bundle designerBundle = new Bundle();
+                        designerBundle.putString(Global.DESIGNER_ID, designertid);
+                        startActivity(DesignerInfoActivity.class, designerBundle);
+                    }
+
+                    @Override
+                    public void onItemClick(int itemPosition, OrderDesignerInfo orderDesignerInfo) {
+                        LogTool.d(TAG, "itemPosition=====" + itemPosition + " orderDesignerInfo====" + orderDesignerInfo);
+                        String designertid = orderDesignerInfo.get_id();
+                        LogTool.d(TAG, "designertid:" + designertid);
+                        Bundle designerBundle = new Bundle();
+                        designerBundle.putString(Global.DESIGNER_ID, designertid);
+                        startActivity(DesignerInfoActivity.class, designerBundle);
+                    }
+
+                    @Override
+                    public void onClick() {
+                        Intent intent = new Intent(getActivity(), EditRequirementActivity_.class);
+                        getActivity().startActivityForResult(intent, XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT);
+                    }
+                });
+                pullToRefreshRecyclerView.setAdapter(designerAdapter);
+                total = designerList.size();
+                LogTool.d(TAG, "designerList:" + designerList);
             }
-            mPullRefreshScrollView.onRefreshComplete();
+            pullToRefreshRecyclerView.onRefreshComplete();
         }
 
         @Override
         public void loadFailture(String error_msg) {
+            hideWaitDialog();
             makeTextLong(error_msg);
-            mPullRefreshScrollView.onRefreshComplete();
-            marchedLayout.setVisibility(View.GONE);
-            noMarchedLayout.setVisibility(View.GONE);
+            pullToRefreshRecyclerView.onRefreshComplete();
         }
     };
 
-    private ApiUiUpdateListener upListener = new ApiUiUpdateListener() {
+    private ApiUiUpdateListener pullUpListener = new ApiUiUpdateListener() {
         @Override
         public void preLoad() {
 
@@ -245,22 +204,20 @@ public class HomeFragment extends BaseFragment implements
 
         @Override
         public void loadSuccess(Object data) {
-            total += Constant.LIMIT;
+            total += Constant.HOME_PAGE_LIMIT;
             LogTool.d(TAG, "homeDesignersInfo=" + data.toString());
             HomeDesignersInfo homeDesignersInfo = JsonParser.jsonToBean(data.toString(), HomeDesignersInfo.class);
             LogTool.d(TAG, "homeDesignersInfo:" + homeDesignersInfo);
             if (null != homeDesignersInfo) {
-                designerList.addAll(homeDesignersInfo.getDesigners());
-                LogTool.d(TAG, "designerList:" + designerList.size());
-                designerAdapter.notifyDataSetChanged();
+                designerAdapter.add(homeDesignersInfo.getDesigners());
             }
-            mPullRefreshScrollView.onRefreshComplete();
+            pullToRefreshRecyclerView.onRefreshComplete();
         }
 
         @Override
         public void loadFailture(String error_msg) {
             makeTextLong(error_msg);
-            mPullRefreshScrollView.onRefreshComplete();
+            pullToRefreshRecyclerView.onRefreshComplete();
         }
     };
 
@@ -272,7 +229,7 @@ public class HomeFragment extends BaseFragment implements
         }
         switch (requestCode) {
             case XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT:
-                getHomePageDesigners(FROM, total, downListener);
+                getHomePageDesigners(FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
                 break;
             default:
                 break;
@@ -280,14 +237,8 @@ public class HomeFragment extends BaseFragment implements
     }
 
     @Override
-    public void onResult(int requestCode, int resultCode, Intent data) {
-
-    }
-
-    @Override
     public int getLayoutId() {
         return R.layout.fragment_home;
     }
-
 
 }

@@ -18,7 +18,7 @@ import java.util.Date;
 public class LogTool {
     public static void d(String tag, String msg) {
         Log.i(tag, msg);
-        final File file = new File(Constant.LOG_PATH);
+        final File file = new File(Constant.LOG_FILE);
         if (!file.exists()) {
             File parent = file.getParentFile();
             if (!parent.exists())
@@ -62,7 +62,7 @@ public class LogTool {
     }
 
     public static void delete() {
-        final File file = new File(Constant.LOG_PATH);
+        final File file = new File(Constant.LOG_FILE);
         if (file.exists()) {
             file.delete();
         }

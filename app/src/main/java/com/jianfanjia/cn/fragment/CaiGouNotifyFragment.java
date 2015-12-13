@@ -11,7 +11,6 @@ import com.jianfanjia.cn.adapter.CaiGouNotifyAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.interf.SwitchFragmentListener;
 import com.jianfanjia.cn.tools.LogTool;
 
 import java.util.ArrayList;
@@ -23,8 +22,7 @@ import java.util.List;
  * @Description: 采购提醒
  * @date 2015-8-26 下午1:07:52
  */
-public class CaiGouNotifyFragment extends BaseFragment implements
-        SwitchFragmentListener, OnItemLongClickListener {
+public class CaiGouNotifyFragment extends BaseFragment implements OnItemLongClickListener {
     private static final String TAG = CaiGouNotifyFragment.class.getName();
     private ListView caigouListView;
     private List<NotifyMessage> caigouList = new ArrayList<NotifyMessage>();
@@ -79,12 +77,6 @@ public class CaiGouNotifyFragment extends BaseFragment implements
     @Override
     public int getLayoutId() {
         return R.layout.fragment_caigou_notify;
-    }
-
-    @Override
-    public void switchTab(int index) {
-        // TODO Auto-generated method stub
-
     }
 
 }

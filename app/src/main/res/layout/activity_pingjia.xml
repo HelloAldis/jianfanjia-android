@@ -36,7 +36,7 @@
                     android:orientation="vertical">
 
 
-                    <com.jianfanjia.cn.layout.CircleImageView
+                    <com.jianfanjia.cn.view.layout.CircleImageView
                         android:id="@+id/designer_head_img"
                         android:layout_width="60dip"
                         android:layout_height="60dip"
@@ -75,16 +75,16 @@
                     <TextView
                         style="@style/listview_item_text_style_big"
                         android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="@dimen/space_10"
+                        android:layout_marginTop="@dimen/space_20"
                         android:text="给设计师评分"
                         android:textColor="@color/black_color" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_16"
-                        android:layout_marginRight="@dimen/space_16"
-                        android:layout_marginTop="@dimen/space_10"
+                        android:layout_marginLeft="@dimen/space_10"
+                        android:layout_marginRight="@dimen/space_10"
+                        android:layout_marginTop="@dimen/space_20"
                         android:orientation="horizontal">
 
                         <TextView
@@ -107,9 +107,9 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_16"
-                        android:layout_marginRight="@dimen/space_16"
-                        android:layout_marginTop="@dimen/space_10"
+                        android:layout_marginLeft="@dimen/space_10"
+                        android:layout_marginRight="@dimen/space_10"
+                        android:layout_marginTop="@dimen/space_20"
                         android:orientation="horizontal">
 
                         <TextView
@@ -133,9 +133,9 @@
                         android:id="@+id/contentEdit"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_16"
-                        android:layout_marginRight="@dimen/space_16"
-                        android:layout_marginTop="@dimen/space_10"
+                        android:layout_marginLeft="@dimen/space_10"
+                        android:layout_marginRight="@dimen/space_10"
+                        android:layout_marginTop="@dimen/space_20"
                         android:background="@drawable/edit_feedback_bg"
                         android:gravity="top|left"
                         android:hint="请输入您对设计师的评价"
@@ -149,8 +149,8 @@
                         android:id="@+id/btn_commit"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
-                        android:layout_marginLeft="@dimen/space_16"
-                        android:layout_marginRight="@dimen/space_16"
+                        android:layout_marginLeft="@dimen/space_10"
+                        android:layout_marginRight="@dimen/space_10"
                         android:layout_marginTop="@dimen/space_10"
                         android:background="@drawable/btn_selector_bg"
                         android:text="@string/submit_comment"

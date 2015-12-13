@@ -11,6 +11,15 @@
     <string name="loading">正在加载中</string>
     <string name="submiting">正在提交中</string>
     <string name="no_data">暂无数据</string>
+
+    <!-- Error View -->
+    <string name="error_view_click_to_refresh">点击屏幕,重新加载</string>
+    <string name="error_view_no_data">暂无内容</string>
+    <string name="error_view_loading">加载中…</string>
+    <string name="error_view_load_error_click_to_refresh">内容加载失败\r\n点击重新加载</string>
+    <string name="error_view_network_error_click_to_refresh">没有可用的网络</string>
+    <string name="tip_network_error">没有可用的网络</string>
+
     <!-- main activity -->
     <string name="main_tab_name_darly">日记</string>
     <string name="main_tab_name_site">工地</string>
@@ -25,7 +34,7 @@
     <string name="enter">欢迎使用</string>
     <string name="loging">正在登录中</string>
     <string name="loding">正在加载中</string>
-    <string name="no">取  消</string>
+    <string name="no">取     消</string>
     <string name="ok">确     定</string>
     <string name="agree">同     意</string>
     <string name="refuse">拒     绝</string>
@@ -33,6 +42,7 @@
     <string name="hint_password">请输入密码</string>
     <string name="forget_pwd">忘记密码？</string>
     <string name="register">注册</string>
+    <string name="new_user">新用户</string>
     <string name="loginByUser">用户登录</string>
     <string name="tip_please_input_username">请输入账号</string>
     <string name="tip_please_input_password">请输入密码</string>
@@ -61,7 +71,7 @@
     <string name="commit">提交</string>
     <string name="submit_comment">发表评价</string>
     <string name="choose_role">选择角色</string>
-    <string name="input_phone">请输入您的手机号</string>
+    <string name="input_phone">请输入账号</string>
     <string name="verifica_phone">验证手机</string>
     <string name="verification_code_sended">验证码已发送到:</string>
     <string name="register_failure">注册失败</string>
@@ -75,6 +85,8 @@
     <string name="site_example_node_check">对比验收</string>
     <string name="site_example_node_time">2015-8-1 9:30</string>
     <string name="site_example_node_delay">预计改期</string>
+    <string name="site_example_node_delay_doing">改期进行中</string>
+    <string name="site_example_node_delay_no">工序已完工</string>
     <string name="site_example_node_working">正在施工</string>
     <string name="site_example_node_finish">已完工</string>
     <string name="site_example_node_not_start">未开工</string>
@@ -132,6 +144,7 @@
     <string name="xuqiu">装修需求</string>
     <string name="appoint">位可预约</string>
     <string name="appointText">预约</string>
+    <string name="replaceText">替换</string>
     <string name="commentText">留言</string>
     <string name="planText">的方案</string>
     <string name="designerPlanText">方案详情</string>
@@ -162,12 +175,14 @@
     <string name="confirm_upload">确认上传</string>
     <string name="confirm_tip">提醒业主进行验收</string>
     <string name="confirm_done">确认验收</string>
+    <string name="confirm_not_finish">工序未完工，您还不能验收</string>
+    <string name="confirm_finish">已确认验收</string>
     <string name="caigouText">采购提醒</string>
     <string name="fukuanText">付款提醒</string>
     <string name="yanqiText">改期提醒</string>
     <string name="yanshouText">验收提醒</string>
-    <string name="list_item_caigou_example">系统提示:您即将进入下一轮建材购买阶段,您需要购买的是</string>
-    <string name="list_item_fukuan_example">系统提示:您即将进入下一轮付款环节,请您及时与设计师联系</string>
+    <string name="list_item_caigou_example">系统提示：您即将进入下一轮建材购买阶段，您需要购买的是</string>
+    <string name="list_item_fukuan_example">系统提示：您即将进入下一轮付款环节，请您及时与设计师联系</string>
     <string name="list_item_yanqi_example">对方已申请改期验收至</string>
 
     <!-- activity_upload_pic -->
@@ -198,7 +213,7 @@
     <string name="user_sex">性别</string>
     <string name="user_phone">手机号</string>
     <string name="user_address">所在地</string>
-    <string name="user_home">居住地址</string>
+    <string name="user_home">详细地址</string>
     <string name="not_edit">未填写</string>
     <!-- activity userinfo -->
 
@@ -207,9 +222,9 @@
     <string name="about">关于我们</string>
     <string name="about_my">关于简繁家</string>
     <string name="about_content">我的设计师专单平台</string>
-    <string name="about_version">版本号：1.0</string>
+    <string name="about_version">版本号：%1$s</string>
     <string name="company">武汉家易装科技有限公司</string>
-    <string name="compant_net">Copyright © 2015-2025 jianfanjia.com</string>
+    <string name="compant_net">Copyright © 2015 jianfanjia.com</string>
     <!-- activity_about -->
 
 
@@ -248,7 +263,7 @@
     <string name="title_activity_navigate">NavigateActivity</string>
     <string name="title_activity_notify">NotifyActivity</string>
     <string name="title_activity_show_pic">ShowPicActivity</string>
-    <string name="title_activity_user_by_owner_info">UserByOwnerInfoActivity</string>
+    <string name="title_activity_user_info">UserInfoActivity</string>
     <string name="title_activity_welcome">WelcomeActivity</string>
     <string name="title_activity_designer_info">DesignerInfoActivity</string>
     <string name="title_activity_designer_case_info">DesignerCaseInfoActivity</string>
@@ -269,5 +284,9 @@
     <string name="title_activity_replace_designer">ReplaceDesignerActivity</string>
     <string name="tip_input_corrent_phone">请输入正确的手机号</string>
     <string name="tip_input_correct_password">请输入正确的密码格式，密码由6-30位数字、字母组成</string>
+    <string name="tip_open_camera">请开启摄像机权限</string>
+    <string name="tip_not_sdcard">没有SD卡，无法打开相机</string>
+    <string name="title_activity_preview_decoration">PreviewDecorationActivity</string>
+
 
 </resources>

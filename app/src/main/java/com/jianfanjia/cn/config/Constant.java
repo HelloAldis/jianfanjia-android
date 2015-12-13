@@ -1,8 +1,8 @@
 package com.jianfanjia.cn.config;
 
-import android.os.Environment;
-
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.application.MyApplication;
+import com.jianfanjia.cn.tools.FileUtil;
 
 /**
  * Description:常量类
@@ -13,33 +13,30 @@ import com.jianfanjia.cn.activity.R;
 public class Constant {
     public static final String SHARED_DATA = "jianfanjia_data";
     public static final String SHARED_USER = "jianfanjia_user";
-    public static final String LOG_PATH = Environment
-            .getExternalStorageDirectory() + "/JianFanJia/MyLog/mylog.txt";// log存放路径
-    public static final String APK_PATH = Environment
-            .getExternalStorageDirectory() + "/JianFanJia/Apk/";// 下载apk存放路径
-    public static final String ERROR_LOG_PATH = Environment
-            .getExternalStorageDirectory() + "/JianFanJia/MyLog/errorlog.txt";// log存放路径
-    public static final String IMAG_PATH = Environment
-            .getExternalStorageDirectory() + "/JianFanJia/Pic/";// 保存照片
-    public static final String COMMON_PATH = Environment
-            .getExternalStorageDirectory() + "/JianFanJia/";// 公共的路径
 
-    //	public static final String TEMP_IMG = "temp_img.jpg";// 照片名称
-    public static final String TEMP_IMG = "current_camera_temp_path";//拍照的临时存储文件路径
+    public static final String LOG_FILE_DIR = "/MyLog";
+    public static final String APK_FILE_DIR = "/Apk";
+    public static final String PIC_FILE_DIR = "/pic";
 
-    public static final String TAB_POSITION = "tab_position";
-    public static final int HOME = 0;//首页
-    public static final int MANAGE = 1;//工地管理
-    public static final int MY = 2;//我的
+    public static final String LOG_PATH = FileUtil.getAppCache(MyApplication.getInstance(), LOG_FILE_DIR);// log存放路径
+    public static final String APK_PATH = FileUtil.getAppCache(MyApplication.getInstance(), APK_FILE_DIR);// 下载apk存放路径
+    public static final String IMAG_PATH = FileUtil.getAppCache(MyApplication.getInstance(), PIC_FILE_DIR);// 保存照片
 
-    public static final String PROCESSINFO_CACHE = "processinfo_cache";// 工地信息缓存文件名
-    public static final String DESIGNERINFO_CACHE = "designerinfo_cache";// 设计师信息缓存文件名
+    public static final String LOG_FILE = LOG_PATH + "/log.txt";//log文件
+    public static final String ERROR_LOG_FILE = LOG_PATH + "/errorLog.txt";// errorlog文件
+
+    public static final String CROP_PATH = IMAG_PATH + "/cropped.jpg";// 截图的图片路径
+    public static final String TEMP_IMG = IMAG_PATH + "/current_camera_temp_path";//拍照的临时存储文件路径
 
     public static final String EXTRA_BUNDLE = "launchBundle";
+    public static final String KEY_WORD = "不限";
 
-    public static final int LIMIT = 5;//分页 每次加载5条
-    public static final int STATE_REFRESH = 0;// 下拉刷新
-    public static final int STATE_MORE = 1;// 加载更多
+    public static final int HOME = 0;//首页
+    public static final int DECORATE = 1;//装修美图
+    public static final int MANAGE = 2;//工地管理
+    public static final int MY = 3;//我的
+
+    public static final int HOME_PAGE_LIMIT = 8;//首页分页 每次加载8条
 
     public static class Config {
         public static final boolean DEVELOPER_MODE = false;
@@ -49,19 +46,18 @@ public class Constant {
     public static final int REQUESTCODE_LOCATION = 2;// 本地相册选取
     public static final int REQUESTCODE_CROP = 3;// 裁剪
     public static final int REQUESTCODE_SHOW_PROCESS_PIC = 8;//显示照片列表
+    public static final int REQUESTCODE_GOTO_COMMENT = 7;//调用评论
+
     // editactivity
     public static final int REQUESTCODE_EDIT_USERNAME = 4;
     public static final int REQUESTCODE_EDIT_HOME = 5;
-    public static final int REQUESTCODE_EDIT_ADDRESS= 8;
+    public static final int REQUESTCODE_EDIT_ADDRESS = 9;
     public static final String EDIT_TYPE = "inputType";
     public static final String EDIT_CONTENT = "content";
 
     public static final String EDIT_PROVICE = "provice";
     public static final String EDIT_CITY = "city";
     public static final String EDIT_DISTRICT = "district";
-
-    public static final int REQUESTCODE_CONFIG_SITE = 6;// 配置工地
-    public static final int REQUESTCODE_CHANGE_SITE = 7;// 切换工地
 
     // item点击项
     public static final int CONFIRM_ITEM = 1;
@@ -101,11 +97,13 @@ public class Constant {
     public static final String DESIGNER_PROCESS_LIST = "designer_process_list";// 设计师工地列表
     public static final String DEFAULT_PROCESSINFO = "default_processinfo.txt";// 默认工地信息
     public static final String DEFAULT_PROCESSINFO_ID = "1";
-    public static final String REQUIREMENTINFO_LIST = "requirementInfo_list";//需求信息列表
 
     public static final String DATA = "data";// 获取成功的数据
     public static final String ERROR_MSG = "err_msg";// 获取数据失败的返回信息
     public static final String SUCCESS_MSG = "msg";// 获取数据成功的返回信息
+
+    public static final int LIST_ITEM_TAG = 1;
+    public static final int LIST_ITEM = 2;
 
     // 提醒消息id
     public static final int CAIGOU_NOTIFY_ID = 1;
@@ -122,7 +120,7 @@ public class Constant {
     public static final String CHECK_REFUSE = "0";// 验收拒绝
     public static final String CHECK_AGREE = "1";// 验收同意
 
-    // 延期提醒状态
+    // 延期提醒状态,工序状态
     public static final String NO_START = "0";// 未开工
     public static final String DOING = "1";// 进行中
     public static final String FINISHED = "2";// 已完成
@@ -130,12 +128,12 @@ public class Constant {
     public static final String YANQI_AGREE = "4";// 改期同意
     public static final String YANQI_REFUSE = "5";// 改期拒绝
 
-    // 工序状态
+    /*// 工序状态
     public static final int NOT_START = 0;// 未开工
     public static final int WORKING = 1;// 正在进行中
     public static final int FINISH = 2;// 已完工
     public static final int OWNER_APPLY_DELAY = 3;// 业主申请延期中
-    public static final int DESIGNER_APPLY_DELAY = 4;// 设计师申请延期中
+    public static final int DESIGNER_APPLY_DELAY = 4;// 设计师申请延期中*/
 
     public static final String SEX_MAN = "0";
     public static final String SEX_WOMEN = "1";
@@ -144,21 +142,22 @@ public class Constant {
     public static final String DESIGNER_NOW_AUTH_TYPE = "1";// 设计师正在审核中
     public static final String DESIGNER_FINISH_AUTH_TYPE = "2";// 设计师完成认证
 
-    public static final String HOME_ADD_PIC = "drawable://"
-            + R.mipmap.btn_icon_home_add;
-
-    public static final String HOME_DEFAULT_PIC = "drawable://"
-            + R.drawable.btn_default_bg;
-
-    public static final String DEFALUT_OWNER_PIC = "drawable://"
-            + R.mipmap.icon_default_head;
-
-    public static final String DEFALUT_ADD_PIC = "drawable://"
-            + R.mipmap.add;
-
     public static final String DEFALUT_PIC_HEAD = "drawable://";
 
-    public static final String DEFALUT_PIC = DEFALUT_PIC_HEAD + R.mipmap.pix_default;
+    public static final String HOME_ADD_PIC = DEFALUT_PIC_HEAD
+            + R.mipmap.btn_icon_home_add;
+
+    public static final String HOME_DEFAULT_PIC = DEFALUT_PIC_HEAD
+            + R.drawable.btn_default_bg;
+
+    public static final String DEFALUT_OWNER_PIC = DEFALUT_PIC_HEAD
+            + R.mipmap.icon_default_head;
+
+    public static final String DEFALUT_ADD_PIC = DEFALUT_PIC_HEAD
+            + R.mipmap.add;
+
+    public static final String DEFALUT_PIC = DEFALUT_PIC_HEAD
+            + R.mipmap.pix_default;
 
     public static final String CURRENT_LIST = "current_list";// 首页展开的第一道工序
     public static final String CURRENT_ITEM = "current_item";// 当前节点
@@ -174,6 +173,7 @@ public class Constant {
     public static final String COOKIES_CONFIG = "cookies_config";// cookies配置
     public static final String LAST_LOGIN_TIME = "last_login_time";// 上次登录时间
     public static final long LOGIN_EXPIRE = 24 * 60 * 60 * 1000L;// 登录过期时间为24小时
+    public static final long DELAY_TIME = 24 * 60 * 60 * 1000L;// 延期过期时间为开工日期之后的24小时
 
 
     public static final String DOWNLOAD_URL = "download_url";// 下载链接
@@ -190,6 +190,8 @@ public class Constant {
     public static final int REC_DESIGNER_TOTAL = 3;//推荐设计师总数
     public static final int ROST_REQUIREMTNE_TOTAL = 3;//能够发布需求总数
 
-    public static final long CONFIRM_HOUSE_EXPIRE = 3 * 60 * 1000L;// 确认量房过期时间
+    public static final String KEY = "Item";
 
+    public static final int UPDATE_FRAGMENT = 10;
+    public static final int UPDATE_REQUIRE_FRAGMENT = 20;
 }

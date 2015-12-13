@@ -4,59 +4,86 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingLeft="@dimen/space_60"
-    android:paddingRight="@dimen/space_60"
-    >
+    android:paddingRight="@dimen/space_60">
 
-    <EditText
-        android:id="@+id/act_login_input_phone"
+    <FrameLayout
+        android:id="@+id/act_login_input_phone_layout"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_centerHorizontal="true"
-        android:ellipsize="end"
-        android:gravity="center"
-        android:hint="@string/input_phone"
-        android:nextFocusDown="@+id/act_login_input_password"
-        android:maxLength="15"
-        android:paddingLeft="@dimen/space_16"
-        android:paddingRight="@dimen/space_16"
-        android:inputType="phone"
-        android:singleLine="true"
-        android:background="@null"
-        android:textColor="@color/black_color"
-        android:textSize="@dimen/middle_size" />
+        android:layout_height="wrap_content"
+        >
 
-    <View
-        style="@style/divier_line"
-        android:layout_below="@+id/act_login_input_phone"/>
+        <EditText
+            android:id="@+id/act_login_input_phone"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@null"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:hint="@string/input_phone"
+            android:inputType="phone"
+            android:maxLength="15"
+            android:nextFocusDown="@+id/act_login_input_password"
+            android:paddingLeft="@dimen/space_16"
+            android:paddingRight="@dimen/space_16"
+            android:singleLine="true"
+            android:textColor="@color/black_color"
+            android:textSize="@dimen/middle_size" />
 
-    <EditText
-        android:id="@+id/act_login_input_password"
+        <ImageView
+            android:id="@+id/act_login_input_phone_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:src="@mipmap/icon_delete"
+            android:visibility="gone" />
+
+        <View
+            style="@style/divier_line"
+            android:layout_gravity="bottom" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/act_login_input_password_layout"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_below="@+id/act_login_input_phone"
-        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/act_login_input_phone_layout"
         android:layout_marginTop="@dimen/space_16"
-        android:inputType="textPassword"
-        android:ellipsize="end"
-        android:gravity="center"
-        android:hint="@string/tip_please_input_password"
-        android:maxLength="30"
-        android:paddingLeft="@dimen/space_16"
-        android:paddingRight="@dimen/space_16"
-        android:singleLine="true"
-        android:textColor="@color/black_color"
-        android:textSize="@dimen/middle_size"
-        android:background="@null"/>
+        >
 
-    <View
-        style="@style/divier_line"
-        android:layout_below="@+id/act_login_input_password"/>
+        <EditText
+            android:id="@+id/act_login_input_password"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@null"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:hint="@string/tip_please_input_password"
+            android:inputType="textPassword"
+            android:maxLength="30"
+            android:paddingLeft="@dimen/space_16"
+            android:paddingRight="@dimen/space_16"
+            android:singleLine="true"
+            android:textColor="@color/black_color"
+            android:textSize="@dimen/middle_size" />
+
+        <ImageView
+            android:id="@+id/act_login_input_password_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:src="@mipmap/icon_delete"
+            android:visibility="gone" />
+
+        <View
+            style="@style/divier_line"
+            android:layout_gravity="bottom" />
+    </FrameLayout>
 
     <TextView
         android:id="@+id/act_forget_password"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:layout_below="@+id/act_login_input_password"
+        android:layout_below="@+id/act_login_input_password_layout"
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:paddingLeft="@dimen/space_16"
@@ -71,6 +98,6 @@
         android:layout_marginTop="180dp"
         android:text="@string/login"
         android:textColor="@color/font_white"
-        />
+        android:enabled="false"/>
 
 </RelativeLayout>

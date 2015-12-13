@@ -1,7 +1,6 @@
 package com.jianfanjia.cn.activity;
 
 import android.content.Intent;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
@@ -9,14 +8,11 @@ import android.view.View.OnClickListener;
 
 import com.jianfanjia.cn.adapter.MyFragmentPagerAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.bean.SelectItem;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.fragment.CaiGouNotifyFragment;
 import com.jianfanjia.cn.fragment.FuKuanNotifyFragment;
 import com.jianfanjia.cn.fragment.YanQiNotifyFragment;
-import com.jianfanjia.cn.interf.ReceiveMsgListener;
-import com.jianfanjia.cn.interf.SwitchFragmentListener;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.TabPageIndicator;
@@ -24,26 +20,14 @@ import com.jianfanjia.cn.view.TabPageIndicator;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NotifyActivity extends BaseActivity implements OnClickListener, ReceiveMsgListener {
+public class NotifyActivity extends BaseActivity implements OnClickListener {
     private static final String TAG = NotifyActivity.class.getName();
-    private SwitchFragmentListener listener = null;
     private MainHeadView mainHeadView = null;
     private TabPageIndicator mPageIndicator = null;
     private MyFragmentPagerAdapter adapter = null;
     private ViewPager mPager = null;// 页卡内容
     private List<SelectItem> listViews = new ArrayList<SelectItem>(); // Tab页面列表
     private int initialPosition = 0;
-
-    @Override
-    public void onAttachFragment(Fragment fragment) {
-        super.onAttachFragment(fragment);
-        try {
-            listener = (SwitchFragmentListener) fragment;
-        } catch (ClassCastException e) {
-            LogTool.d(TAG, "e:" + e);
-        }
-    }
-
 
     @Override
     public void initView() {
@@ -123,45 +107,6 @@ public class NotifyActivity extends BaseActivity implements OnClickListener, Rec
 
                     }
                 });
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        LogTool.d(TAG, "---onResume()");
-        listenerManeger.addReceiveMsgListener(this);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        LogTool.d(TAG, "---onPause()");
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        LogTool.d(TAG, "---onStop()");
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        LogTool.d(TAG, "---onDestroy()");
-        listenerManeger.removeReceiveMsgListener(this);
-    }
-
-    @Override
-    public void onReceive(NotifyMessage message) {
-        LogTool.d(TAG, "message: " + message);
-        String msgType = message.getType();
-        if (msgType.equals(Constant.YANQI_NOTIFY)) {
-
-        } else if (msgType.equals(Constant.FUKUAN_NOTIFY)) {
-
-        } else if (msgType.equals(Constant.CAIGOU_NOTIFY)) {
-
-        }
     }
 
     @Override

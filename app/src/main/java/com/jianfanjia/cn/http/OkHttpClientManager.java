@@ -9,14 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.google.gson.Gson;
+import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseRequest;
-import com.jianfanjia.cn.base.BaseResponse;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.coreprogress.helper.ProgressHelper;
 import com.jianfanjia.cn.http.coreprogress.listener.impl.UIProgressListener;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.tools.NetTool;
 import com.squareup.okhttp.Call;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.Headers;
@@ -65,12 +65,12 @@ import javax.net.ssl.X509TrustManager;
  */
 public class OkHttpClientManager {
     private static final String TAG = OkHttpClientManager.class.getName();
-    public static final String SERVER_ERROR = "对不起，服务器出现异常";
+    public static final String SERVER_ERROR = "网络异常";
+    public static final String NOT_NET_ERROR = "网络未连接";
 
     private static OkHttpClientManager mInstance;
     private OkHttpClient mOkHttpClient;
     private Handler mDelivery;
-    private Gson mGson;
 
     private HttpsDelegate mHttpsDelegate = new HttpsDelegate();
     private DownloadDelegate mDownloadDelegate = new DownloadDelegate();
@@ -84,7 +84,6 @@ public class OkHttpClientManager {
         mOkHttpClient.setConnectTimeout(10, TimeUnit.SECONDS);
         //cookie enabled
         mDelivery = new Handler(Looper.getMainLooper());
-        mGson = new Gson();
 
         /*just for test !!!*/
         /*mOkHttpClient.setHostnameVerifier(new HostnameVerifier() {
@@ -149,6 +148,10 @@ public class OkHttpClientManager {
 
     private void deliveryResult(final ApiUiUpdateListener listener, final BaseRequest baseRequest) {
         //UI thread
+        if (!NetTool.isNetworkAvailable(MyApplication.getInstance())) {
+            sendFailedStringCallback(listener, NOT_NET_ERROR);
+            return;
+        }
         if (listener != null) {
             listener.preLoad();
         }
@@ -157,11 +160,13 @@ public class OkHttpClientManager {
         mOkHttpClient.newCall(baseRequest.getRequest()).enqueue(new Callback() {
             @Override
             public void onFailure(final Request request, final IOException e) {
+                LogTool.d(TAG, "e :" + e.toString());
                 sendFailedStringCallback(listener, SERVER_ERROR);
             }
 
             @Override
             public void onResponse(final Response response) {
+                LogTool.d(TAG, "response :" + response + "  response code :" + response.code());
                 try {
                     final String string = response.body().string();
                     JSONObject responseString = new JSONObject(string);
@@ -172,36 +177,33 @@ public class OkHttpClientManager {
                         baseRequest.onSuccess(data);
                         sendSuccessResultCallback(listener, data);
                     } else if (responseString.has(Constant.ERROR_MSG) && responseString.get(Constant.ERROR_MSG) != null) {
-                        LogTool.d(TAG, "errormsg :" + responseString.get(
-                                Constant.ERROR_MSG).toString());
-                        String error_msg = responseString.get(
-                                Constant.ERROR_MSG).toString();
+                        LogTool.d(TAG, "errormsg :" + responseString.get(Constant.ERROR_MSG).toString());
+                        String error_msg = responseString.get(Constant.ERROR_MSG).toString();
                         baseRequest.onFailure(error_msg);
                         sendFailedStringCallback(listener, error_msg);
                     } else if (responseString.has(Constant.SUCCESS_MSG) && responseString.get(
                             Constant.SUCCESS_MSG) != null) {
-                        LogTool.d(TAG, "msg :" + responseString.get(
-                                Constant.SUCCESS_MSG).toString());
+                        LogTool.d(TAG, "msg :" + responseString.get(Constant.SUCCESS_MSG).toString());
                         String msg = responseString.get(
                                 Constant.SUCCESS_MSG).toString();
                         baseRequest.onSuccess(msg);
                         sendSuccessResultCallback(listener, msg);
                     }
                 } catch (IOException e) {
+                    LogTool.d(TAG, "IOException :" + e.toString());
                     sendFailedStringCallback(listener, SERVER_ERROR);
                 } catch (com.google.gson.JsonParseException e)//Json解析的错误
                 {
                     sendFailedStringCallback(listener, SERVER_ERROR);
                 } catch (JSONException e) {
                     sendFailedStringCallback(listener, SERVER_ERROR);
-
                 }
             }
         });
     }
 
     private void sendFailedStringCallback(final ApiUiUpdateListener listener, final String error_msg) {
-        LogTool.d("onResponse ==", "loadFailture");
+        LogTool.d("onResponse ==", "loadFailture :" + error_msg);
         mDelivery.post(new Runnable() {
             @Override
             public void run() {
@@ -308,8 +310,6 @@ public class OkHttpClientManager {
             Request request = builder.build();
             return request;
         }
-
-
     }
 
     //====================GetDelegate=======================
@@ -569,7 +569,7 @@ public class OkHttpClientManager {
                 @Override
                 public void onResponse(Response response) {
                     InputStream is = null;
-                    byte[] buf = new byte[2048];
+                    byte[] buf = new byte[1024];
                     int len = 0;
                     FileOutputStream fos = null;
                     try {
@@ -580,17 +580,14 @@ public class OkHttpClientManager {
                             dir.mkdirs();
                         }
                         File file = new File(dir, filename);
-                        fos = new FileOutputStream(file);
+                        fos = new FileOutputStream(file, false);
                         while ((len = is.read(buf)) != -1) {
                             fos.write(buf, 0, len);
                         }
                         fos.flush();
                         //如果下载文件成功，传递的数据为文件的绝对路径
-                        BaseResponse baseResponse = new BaseResponse();
-                        baseResponse.setData(file.getAbsolutePath());
                         LogTool.d(TAG, file.getAbsolutePath());
-
-                        sendSuccessResultCallback(listener, baseResponse);
+                        sendSuccessResultCallback(listener, file.getAbsolutePath());
                     } catch (IOException e) {
                         sendFailedStringCallback(listener, SERVER_ERROR);
                     } finally {

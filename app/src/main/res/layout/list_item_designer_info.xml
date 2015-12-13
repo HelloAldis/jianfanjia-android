@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/font_white"
-    android:orientation="vertical">
+    android:background="@color/font_white">
 
     <ImageView
         android:id="@+id/list_item_product_img"
@@ -16,16 +15,17 @@
         android:id="@+id/imageLayout"
         android:layout_width="60dip"
         android:layout_height="60dip"
-        android:layout_gravity="center_horizontal"
+        android:layout_below="@id/list_item_product_img"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="-30dip">
 
-        <com.jianfanjia.cn.layout.CircleImageView
+        <com.jianfanjia.cn.view.layout.CircleImageView
             android:id="@+id/list_item_head_img"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
             app:border_color="@color/white"
-            app:border_width="3px" />
+            app:border_width="2dip" />
 
         <ImageView
             android:id="@+id/list_item_auth"
@@ -38,7 +38,8 @@
     <TextView
         android:id="@+id/list_item_xiaoqu_text"
         style="@style/listview_item_text_style_middle"
-        android:layout_gravity="center_horizontal"
+        android:layout_below="@id/imageLayout"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="5dip"
         android:textColor="@color/home_page_text_color"
         android:textSize="@dimen/text_size_14"
@@ -47,13 +48,10 @@
     <TextView
         android:id="@+id/list_item_produce_text"
         style="@style/listview_item_text_style_small"
-        android:layout_gravity="center_horizontal"
+        android:layout_below="@id/list_item_xiaoqu_text"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="5dip"
         android:textColor="@color/home_page_text_color"
         android:textSize="@dimen/text_size_11" />
 
-    <View
-        style="@style/home_page_divier_line"
-        android:layout_marginTop="10dip"
-        android:background="@color/transparent" />
-</LinearLayout>
+</RelativeLayout>

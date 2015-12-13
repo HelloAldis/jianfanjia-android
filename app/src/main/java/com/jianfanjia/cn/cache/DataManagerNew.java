@@ -13,8 +13,8 @@ import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.bean.SectionInfo;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.tools.JsonParser;
+import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.SharedPrefer;
 
 import java.util.Calendar;
@@ -35,7 +35,6 @@ public class DataManagerNew {
     private RequirementInfo requirementInfo;// 需求信息
     private ProcessInfo currentProcessInfo;// 当前工地信息p
     private String currentUploadImageId;// 当前上传的imageId;
-    private String picPath = null;
 
     public static DataManagerNew getInstance() {
         if (instance == null) {
@@ -215,13 +214,17 @@ public class DataManagerNew {
 
     // 是否登录信息已过期
     public boolean isLoginExpire() {
-        long currentTime = Calendar.getInstance().getTimeInMillis();// 当前时间
-        long loginLoginTime = sharedPreferdata.getValue(
-                Constant.LAST_LOGIN_TIME, currentTime);
-        if (currentTime - loginLoginTime > Constant.LOGIN_EXPIRE) {
-            return true;
-        }
-        return false;
+        Calendar currentDate = Calendar.getInstance();// 当前时间
+        long lastLoginTime = sharedPreferuser.getValue(
+                Constant.LAST_LOGIN_TIME, currentDate.getTimeInMillis());
+        Calendar lastLoginDate = Calendar.getInstance();
+        lastLoginDate.setTimeInMillis(lastLoginTime);
+        boolean isExipre = !(currentDate.get(Calendar.YEAR) == lastLoginDate.get(Calendar.YEAR)
+                && currentDate.get(Calendar.MONTH) == lastLoginDate.get(Calendar.MONTH)
+                && currentDate.get(Calendar.DAY_OF_MONTH) == lastLoginDate.get(Calendar.DAY_OF_MONTH));
+        LogTool.d(TAG, "currentDate =" + currentDate.get(Calendar.DAY_OF_MONTH));
+        LogTool.d(TAG, "isloginExipre =" + isExipre);
+        return isExipre;
     }
 
     public int getCurrentList() {
@@ -298,14 +301,16 @@ public class DataManagerNew {
         String userImagePath = null;
         String imageId = sharedPreferuser.getValue(Constant.USERIMAGE_ID, null);
         if (imageId == null) {
-                userImagePath = Constant.DEFALUT_OWNER_PIC;
+            userImagePath = Constant.DEFALUT_OWNER_PIC;
         } else {
-            userImagePath = Url_New.GET_IMAGE + imageId;
+            userImagePath = imageId;
         }
         return userImagePath;
     }
 
     public void cleanData() {
+        sharedPreferuser.clear();
+        sharedPreferdata.clear();
         processLists = null;
         ownerInfo = null;
         designerInfo = null;
@@ -313,7 +318,6 @@ public class DataManagerNew {
         totalDuration = null;
         currentProcessInfo = null;
         // sharedPreferdata.clear();
-        sharedPreferuser.clear();
     }
 
 }

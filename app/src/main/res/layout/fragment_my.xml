@@ -1,4 +1,5 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -17,52 +18,55 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <RelativeLayout
+            <FrameLayout
                 android:id="@+id/frag_my_info_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="255dip">
 
                 <ImageView
                     android:id="@+id/head_img"
                     android:layout_width="match_parent"
-                    android:layout_height="275dip"
+                    android:layout_height="match_parent"
+                    android:foreground="@color/black_translucencen"
                     android:scaleType="centerCrop"
                     android:src="@mipmap/bg_my" />
 
                 <RelativeLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:paddingBottom="@dimen/space_8"
-                    android:paddingTop="@dimen/space_8">
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.jianfanjia.cn.view.layout.CircleImageView
+                        android:id="@+id/user_head_img"
+                        android:layout_width="90dip"
+                        android:layout_height="90dip"
+                        android:layout_centerInParent="true"
+                        android:scaleType="centerCrop"
+                        app:border_color="@color/white"
+                        app:border_width="2dip" />
 
                     <TextView
                         android:id="@+id/frag_my_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignBaseline="@+id/frag_my_account"
-                        android:layout_alignParentLeft="false"
-                        android:layout_alignParentStart="false"
-                        android:layout_alignParentTop="false"
-                        android:layout_marginRight="@dimen/space_24"
-                        android:layout_toLeftOf="@+id/frag_my_account"
-                        android:text="Jame"
+                        android:layout_below="@id/user_head_img"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="10dip"
                         android:textColor="#ffffff"
-                        android:textSize="@dimen/big_size"
+                        android:textSize="@dimen/middle_size"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/frag_my_account"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_below="@id/frag_my_name"
                         android:layout_centerHorizontal="true"
-                        android:text="账号：18635897456"
+                        android:layout_marginTop="10dip"
                         android:textColor="#ffffff"
                         android:textSize="@dimen/small_size" />
+
                 </RelativeLayout>
-            </RelativeLayout>
+            </FrameLayout>
 
             <View style="@style/divier_line" />
 
@@ -86,13 +90,13 @@
             <View style="@style/divier_line" />
 
             <RelativeLayout
-                android:id="@+id/my_designer_layout"
+                android:id="@+id/collect_layout"
                 style="@style/my_list_item_layout_style">
 
                 <TextView
                     style="@style/listview_item_text_style_middle"
                     android:layout_centerVertical="true"
-                    android:text="我的意向设计师"
+                    android:text="我的收藏"
                     android:textColor="@color/black_color" />
 
                 <ImageView
@@ -123,6 +127,25 @@
 
             <View style="@style/divier_line" />
 
+            <RelativeLayout
+                android:id="@+id/my_designer_layout"
+                style="@style/my_list_item_layout_style"
+                android:visibility="gone">
+
+                <TextView
+                    style="@style/listview_item_text_style_middle"
+                    android:layout_centerVertical="true"
+                    android:text="我的意向设计师"
+                    android:textColor="@color/black_color" />
+
+                <ImageView
+                    style="@style/my_item_layout_image_style"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@null" />
+            </RelativeLayout>
+
+            <!--<View style="@style/divier_line" />-->
 
             <View
                 style="@style/divier_line"
@@ -146,8 +169,6 @@
             </RelativeLayout>
 
             <View style="@style/divier_line" />
-
-
         </LinearLayout>
     </ScrollView>
 </FrameLayout>

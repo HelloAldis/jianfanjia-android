@@ -6,48 +6,29 @@
     android:background="@color/font_white"
     android:orientation="vertical">
 
-    <com.jianfanjia.cn.view.library.PullToRefreshScrollView xmlns:ptr="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/pull_refresh_scrollview"
+    <FrameLayout
+        android:id="@+id/req_listview_wrap"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="none"
-        ptr:ptrAnimationStyle="flip"
-        ptr:ptrHeaderTextColor="#000000">
+        android:orientation="vertical">
 
-        <LinearLayout
+        <com.jianfanjia.cn.view.library.PullToRefreshRecycleView xmlns:ptr="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/pull_refresh_scrollview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:scrollbars="none"
+            ptr:ptrAnimationStyle="flip"
+            ptr:ptrHeaderTextColor="#344a5d" />
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="175dp">
+        <include
+            android:id="@+id/empty_include"
+            layout="@layout/view_error_layout"
+            android:visibility="gone" />
 
-                <include
-                    android:id="@+id/viewpager_layout"
-                    layout="@layout/viewpager_main" />
-            </FrameLayout>
+        <include
+            android:id="@+id/error_include"
+            layout="@layout/view_error_layout"
+            android:visibility="gone" />
+    </FrameLayout>
 
-            <include
-                android:id="@+id/marched_layout"
-                layout="@layout/activity_xuqiu_layout" />
-
-            <include
-                android:id="@+id/no_marched_layout"
-                layout="@layout/activity_no_xuqiu_layout" />
-
-            <com.jianfanjia.cn.view.MyListView
-                android:id="@+id/designer_listview"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="10dip"
-                android:cacheColorHint="#00000000"
-                android:clipToPadding="false"
-                android:divider="@null"
-                android:fadingEdge="none"
-                android:fastScrollEnabled="false"
-                android:listSelector="@android:color/transparent"
-                android:scrollbars="none" />
-        </LinearLayout>
-    </com.jianfanjia.cn.view.library.PullToRefreshScrollView>
 </LinearLayout>

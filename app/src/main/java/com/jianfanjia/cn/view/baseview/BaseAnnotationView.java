@@ -1,14 +1,11 @@
 package com.jianfanjia.cn.view.baseview;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.widget.FrameLayout;
 
-import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.cache.DataManagerNew;
+import com.jianfanjia.cn.tools.ImageShow;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
 /**
  * Description: com.jianfanjia.cn.view.custom_annotation_view
@@ -18,20 +15,24 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
  */
 public class BaseAnnotationView extends FrameLayout {
 
-    protected ImageLoader imageLoader;
+//    protected ImageLoader imageLoader;
     protected DisplayImageOptions options;
     protected DataManagerNew dataManagerNew;
+    protected ImageShow imageShow;
+    protected Context context;
 
 
     public BaseAnnotationView(Context context) {
         super(context);
-        imageLoader = ImageLoader.getInstance();
-        options = new DisplayImageOptions.Builder()
+        this.context = context;
+//        imageLoader = ImageLoader.getInstance();
+      /*  options = new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.mipmap.pix_default)
                 .showImageForEmptyUri(R.mipmap.pix_default)
                 .showImageOnFail(R.mipmap.pix_default).cacheInMemory(true)
                 .cacheOnDisk(true).considerExifParams(true)
-                .bitmapConfig(Bitmap.Config.RGB_565).imageScaleType(ImageScaleType.IN_SAMPLE_INT).build();
+                .bitmapConfig(Bitmap.Config.RGB_565).imageScaleType(ImageScaleType.IN_SAMPLE_INT).build();*/
+        imageShow = ImageShow.getImageShow();
         dataManagerNew = DataManagerNew.getInstance();
     }
 }

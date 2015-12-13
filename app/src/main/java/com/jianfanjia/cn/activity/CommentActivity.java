@@ -1,26 +1,35 @@
 package com.jianfanjia.cn.activity;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 
 import com.jianfanjia.cn.adapter.CommentAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.Comment;
 import com.jianfanjia.cn.bean.CommentInfo;
+import com.jianfanjia.cn.bean.User;
+import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
+import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -32,7 +41,7 @@ import java.util.List;
 public class CommentActivity extends BaseActivity implements OnClickListener {
     private static final String TAG = CommentActivity.class.getName();
     private MainHeadView mainHeadView = null;
-    private ListView commentListView = null;
+    private RecyclerView commentListView = null;
     private EditText commentEdit = null;
     private Button btnSend = null;
     private CommentAdapter commentAdapter = null;
@@ -45,9 +54,23 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
 
     private List<CommentInfo> commentList = new ArrayList<CommentInfo>();
 
+    private boolean isUpdate = false;//返回是否更新
+
     @Override
     public void initView() {
         initMainHeadView();
+        commentListView = (RecyclerView) findViewById(R.id.comment_listview);
+        commentListView.setLayoutManager(new LinearLayoutManager(this));
+        commentListView.setItemAnimator(new DefaultItemAnimator());
+        commentListView.setHasFixedSize(true);
+        Paint paint = new Paint();
+        paint.setStrokeWidth(1);
+        paint.setColor(getResources().getColor(R.color.light_white_color));
+        paint.setAntiAlias(true);
+        commentListView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this).paint(paint).showLastDivider().build());
+        commentEdit = (EditText) findViewById(R.id.add_comment);
+        btnSend = (Button) findViewById(R.id.btn_send);
+        btnSend.setEnabled(false);
         Intent intent = this.getIntent();
         Bundle commentBundle = intent.getExtras();
         topicid = commentBundle.getString(Global.TOPIC_ID);
@@ -56,10 +79,6 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
         item = commentBundle.getString(Global.ITEM);
         topictype = commentBundle.getString(Global.TOPICTYPE);
         LogTool.d(TAG, "topicid=" + topicid + " to=" + to + " section = " + section + " item" + item);
-        commentListView = (ListView) findViewById(R.id.comment_listview);
-        commentEdit = (EditText) findViewById(R.id.add_comment);
-        btnSend = (Button) findViewById(R.id.btn_send);
-
         getCommentList(topicid, 0, 10000, section, item);
     }
 
@@ -75,6 +94,7 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
 
     @Override
     public void setListener() {
+        commentEdit.addTextChangedListener(textWatcher);
         btnSend.setOnClickListener(this);
     }
 
@@ -82,20 +102,43 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.head_back_layout:
-                finish();
+                back();
                 break;
             case R.id.btn_send:
                 String content = commentEdit.getText().toString().trim();
-                if (!TextUtils.isEmpty(content)) {
-                    addComment(topicid, topictype, section, item, content, to);
-                } else {
-                    makeTextLong("请输入内容");
-                }
+                addComment(topicid, topictype, section, item, content, to);
                 break;
             default:
                 break;
         }
     }
+
+    private TextWatcher textWatcher = new TextWatcher() {
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before,
+                                  int count) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count,
+                                      int after) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            String content = s.toString().trim();
+            if (TextUtils.isEmpty(content)) {
+                btnSend.setEnabled(false);
+            } else {
+                btnSend.setEnabled(true);
+            }
+        }
+    };
 
     //获取留言评论并标记为已读
     private void getCommentList(String topicid, int from, int limit, String section, String item) {
@@ -116,7 +159,7 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
             LogTool.d(TAG, "comment:" + comment);
             if (null != comment) {
                 commentList = comment.getComments();
-                if (null != commentList && commentList.size() > 0) {
+                if (null != commentList) {
                     commentAdapter = new CommentAdapter(CommentActivity.this, commentList);
                     commentListView.setAdapter(commentAdapter);
                 }
@@ -145,8 +188,12 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data);
             hideWaitDialog();
+            CommentInfo commentInfo = createCommentInfo(commentEdit.getEditableText().toString());
+            commentList.add(0, commentInfo);
+            commentAdapter.notifyItemInserted(0);
+            commentListView.scrollToPosition(0);
             commentEdit.setText("");
-            getCommentList(topicid, 0, 10000, section, item);
+            isUpdate = true;
         }
 
         @Override
@@ -156,6 +203,34 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
         }
     };
 
+    protected CommentInfo createCommentInfo(String content) {
+        CommentInfo commentInfo = new CommentInfo();
+        commentInfo.setTo(to);
+        commentInfo.setTopicid(topicid);
+        commentInfo.setTopictype(topictype);
+        commentInfo.setDate(Calendar.getInstance().getTimeInMillis());
+        commentInfo.setContent(content);
+        commentInfo.setUsertype(Constant.IDENTITY_OWNER);
+        User user = new User();
+        user.setUsername(dataManager.getUserName());
+        user.setImageid(dataManager.getUserImagePath());
+        commentInfo.setByUser(user);
+        return commentInfo;
+    }
+
+    protected void back() {
+        if (isUpdate) {
+            setResult(RESULT_OK);
+        } else {
+            setResult(RESULT_CANCELED);
+        }
+        finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        back();
+    }
 
     @Override
     public int getLayoutId() {

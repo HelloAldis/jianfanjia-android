@@ -2,7 +2,6 @@ package com.jianfanjia.cn.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
@@ -10,11 +9,11 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.fragment.DecorationFragment;
 import com.jianfanjia.cn.fragment.HomeFragment;
 import com.jianfanjia.cn.fragment.MyFragment;
 import com.jianfanjia.cn.fragment.XuQiuFragment;
 import com.jianfanjia.cn.fragment.XuQiuFragment_;
-import com.jianfanjia.cn.interf.OnActivityResultCallBack;
 import com.jianfanjia.cn.tools.LogTool;
 
 /**
@@ -26,23 +25,18 @@ import com.jianfanjia.cn.tools.LogTool;
 public class MainActivity extends BaseActivity implements
         OnCheckedChangeListener {
     private static final String TAG = MainActivity.class.getName();
-    private OnActivityResultCallBack onActivityResultCallBack = null;
     private RadioGroup mTabRg = null;
     private HomeFragment homeFragment = null;
+    private DecorationFragment decorationFragment = null;
     private XuQiuFragment xuqiuFragment = null;
     private MyFragment myFragment = null;
     private long mExitTime = 0L;
     private int tab = -1;
 
     @Override
-    public void onAttachFragment(Fragment fragment) {
-        super.onAttachFragment(fragment);
-        try {
-            onActivityResultCallBack = (OnActivityResultCallBack) fragment;
-        } catch (ClassCastException e) {
-            LogTool.d(TAG, "e:" + e);
-        }
-        LogTool.d(TAG, "onActivityResultCallBack:" + onActivityResultCallBack);
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        LogTool.d(TAG, "onNewIntent");
     }
 
     @Override
@@ -76,9 +70,12 @@ public class MainActivity extends BaseActivity implements
                 setTabSelection(Constant.HOME);
                 break;
             case R.id.tab_rb_2:
-                setTabSelection(Constant.MANAGE);
+                setTabSelection(Constant.DECORATE);
                 break;
             case R.id.tab_rb_3:
+                setTabSelection(Constant.MANAGE);
+                break;
+            case R.id.tab_rb_4:
                 setTabSelection(Constant.MY);
                 break;
             default:
@@ -97,6 +94,14 @@ public class MainActivity extends BaseActivity implements
                 } else {
                     homeFragment = new HomeFragment();
                     transaction.add(R.id.tabLayout, homeFragment);
+                }
+                break;
+            case Constant.DECORATE:
+                if (decorationFragment != null) {
+                    transaction.show(decorationFragment);
+                } else {
+                    decorationFragment = new DecorationFragment();
+                    transaction.add(R.id.tabLayout, decorationFragment);
                 }
                 break;
             case Constant.MANAGE:
@@ -126,6 +131,9 @@ public class MainActivity extends BaseActivity implements
         if (homeFragment != null) {
             ft.hide(homeFragment);
         }
+        if (decorationFragment != null) {
+            ft.hide(decorationFragment);
+        }
         if (xuqiuFragment != null) {
             ft.hide(xuqiuFragment);
         }
@@ -137,7 +145,7 @@ public class MainActivity extends BaseActivity implements
     @Override
     public void onBackPressed() {
         if ((System.currentTimeMillis() - mExitTime) > 2000) {// 如果两次按键时间间隔大于2000毫秒，则不退出
-            makeTextLong("再按一次退出程序");
+            makeTextShort("再按一次退出简繁家");
             mExitTime = System.currentTimeMillis();// 更新mExitTime
         } else {
             activityManager.exit();
@@ -146,12 +154,11 @@ public class MainActivity extends BaseActivity implements
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
         LogTool.d(TAG, "onActivityResult requestCode =" + requestCode);
         if (requestCode == XuQiuFragment.REQUESTCODE_EDIT_REQUIREMENT) {
             xuqiuFragment.onActivityResult(requestCode, resultCode, data);
         } else if (requestCode == XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT) {
-            mTabRg.check(R.id.tab_rb_2);
+            mTabRg.check(R.id.tab_rb_3);
             setTabSelection(Constant.MANAGE);
             xuqiuFragment.onActivityResult(requestCode, resultCode, data);
             homeFragment.onActivityResult(requestCode, resultCode, data);

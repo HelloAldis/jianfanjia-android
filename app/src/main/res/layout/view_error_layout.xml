@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/error_Layout"
+    android:id="@+id/loading_error_Layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/error_bg">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tv_error"
+    <ImageView
+        android:id="@+id/img_error"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="@string/no_data"
-        android:textColor="#000000"
-        android:textSize="16sp" />
+        android:src="@mipmap/loading_error" />
 
 </RelativeLayout>

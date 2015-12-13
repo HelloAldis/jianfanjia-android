@@ -1,19 +1,23 @@
 package com.jianfanjia.cn.activity;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
+import android.view.KeyEvent;
 import android.view.WindowManager;
 
-import com.jianfanjia.cn.AppConfig;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.UpdateVersion;
+import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
+import com.jianfanjia.cn.tools.FileUtil;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
+import com.jianfanjia.cn.view.dialog.CommonDialog;
+import com.jianfanjia.cn.view.dialog.DialogHelper;
 
 /**
  * @author fengliang
@@ -22,10 +26,13 @@ import com.jianfanjia.cn.tools.UiHelper;
  * @date 2015-8-29 上午9:30:21
  */
 public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener {
+    private static final String TAG = UserInfoActivity.class.getName();
     private Handler handler = new Handler();
     private boolean first;// 用于判断导航界面是否显示
     private boolean isLoginExpire;// 是否登录过去
     private boolean isLogin;// 是否登录过
+    private UpdateVersion updateVersion;
+    private CommonDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +40,11 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         first = dataManager.isFirst();
-        isLogin = dataManager.isLogin();
-        isLoginExpire = AppConfig.getInstance(this).isLoginExpire();
-        LogTool.d(this.getClass().getName(), "first=" + first);
-//        checkVersion();
+        LogTool.d(TAG, "first=" + first);
+        checkVersion();
+        LogTool.d(TAG, "sd root =" + FileUtil.getSDRoot());
+        LogTool.d(TAG, "sd ex root =" + FileUtil.getExternalSDRoot());
+//        LogTool.d(TAG, "sd root =" + FileUtil.getAppCache(this, "jianfan"));
     }
 
     // 检查版本
@@ -44,27 +52,24 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
         UiHelper.checkNewVersion(this, new ApiUiUpdateListener() {
                     @Override
                     public void preLoad() {
-                        showWaitDialog(getString(R.string.check_version));
                     }
 
                     @Override
                     public void loadSuccess(Object data) {
-                        hideWaitDialog();
                         if (data != null) {
-                            UpdateVersion updateVersion = JsonParser
+                            updateVersion = JsonParser
                                     .jsonToBean(data.toString(),
                                             UpdateVersion.class);
                             if (updateVersion != null) {
                                 if (Integer.parseInt(updateVersion
                                         .getVersion_code()) > MyApplication
                                         .getInstance().getVersionCode()) {
-                                    UiHelper.showNewVersionDialog(WelcomeActivity.this,
+                                    showNewVersionDialog(
                                             String.format(getString(R.string.new_version_message),
                                                     updateVersion.getVersion_name()),
                                             updateVersion);
                                 } else {
-//                                    makeTextLong(getString(R.string.no_new_version));
-
+                                    handler.postDelayed(runnable, 2000);
                                 }
                             }
                         }
@@ -72,17 +77,67 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
 
                     @Override
                     public void loadFailture(String error_msg) {
-                        makeTextLong(getString(R.string.tip_error_internet));
-                        hideWaitDialog();
+                        handler.postDelayed(runnable, 2000);
                     }
                 }
         );
     }
 
+    /**
+     * 显示新版本对话框
+     *
+     * @param message
+     * @param updateVersion
+     */
+    public void showNewVersionDialog(String message, final UpdateVersion updateVersion) {
+        dialog.setTitle("版本更新");
+        dialog.setMessage(message);
+        dialog.setPositiveButton(R.string.ok,
+                new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        UiHelper.startUpdateService(WelcomeActivity.this, updateVersion.getDownload_url());
+                        if (updateVersion.getUpdatetype().equals(Global.REC_UPDATE)) {
+                            handler.postDelayed(runnable, 1500);
+                        }
+                    }
+
+                });
+        dialog.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                if (updateVersion.getUpdatetype().equals(Global.REC_UPDATE)) {
+                    handler.postDelayed(runnable, 1500);
+                } else {
+                    WelcomeActivity.this.finish();
+                }
+            }
+
+        });
+        dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                switch (keyCode) {
+                    case KeyEvent.KEYCODE_BACK:
+                        dialog.dismiss();
+                        activityManager.exit();
+                        return true;
+                }
+                return false;
+            }
+        });
+        dialog.show();
+    }
 
     @Override
     public void initView() {
-        handler.postDelayed(runnable, 2000);
+        LogTool.d(TAG, "initView");
+        dialog = DialogHelper
+                .getPinterestDialog(this);
     }
 
     @Override
@@ -92,7 +147,6 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
 
     @Override
     public void loadSuccess(Object data) {
-        super.loadSuccess(data);
         startActivity(MainActivity.class);
         finish();
     }
@@ -108,27 +162,30 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
         @Override
         public void run() {
             if (!first) {
+                isLogin = dataManager.isLogin();
+                isLoginExpire = dataManager.isLoginExpire();
+                LogTool.d(TAG, "not first");
                 if (!isLogin) {
-                    Log.i(this.getClass().getName(), "没有登录");
+                    LogTool.d(TAG, "not login");
                     startActivity(LoginNewActivity_.class);
                     finish();
                 } else {
                     if (!isLoginExpire) {// 登录未过期，添加cookies到httpclient记录身份
-                        Log.i(this.getClass().getName(), "未过期");
+                        LogTool.d(TAG, "not expire");
                         startActivity(MainActivity.class);
                         finish();
                     } else {
-                        Log.i(this.getClass().getName(), "已经过期");
+                        LogTool.d(TAG, "expire");
                         MyApplication.getInstance().clearCookie();
                         JianFanJiaClient.login(WelcomeActivity.this, dataManager.getAccount(), dataManager.getPassword(), WelcomeActivity.this, WelcomeActivity.this);
                     }
                 }
             } else {
+                LogTool.d(TAG, "启动导航");
                 startActivity(NavigateActivity.class);
                 finish();
             }
         }
-
     };
 
     @Override

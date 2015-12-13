@@ -1,25 +1,22 @@
 package com.jianfanjia.cn.activity;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewStub;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.adapter.MyProcessInfoAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.ProcessInfo;
-import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.tools.NetTool;
 import com.jianfanjia.cn.view.MainHeadView;
 
 import java.util.List;
@@ -36,7 +33,6 @@ public class MyProcessActivity extends BaseActivity implements
     private MainHeadView mainHeadView = null;
     private ListView siteListView = null;
     private List<ProcessInfo> siteList;
-    private TextView errorText;
     private MyProcessInfoAdapter myProcessInfoAdapter = null;
 
     @Override
@@ -45,30 +41,19 @@ public class MyProcessActivity extends BaseActivity implements
         siteListView = (ListView) findViewById(R.id.designer_site_listview);
 //        siteList = dataManager.getProcessLists();
         if (siteList == null) {
-            if (NetTool.isNetworkAvailable(this)) {
-                JianFanJiaClient.get_Process_List(this, this, this);
-            } else {
-//                siteList = dataManager.getProcessListsByCache();
-                setEmptyView();
-            }
+            JianFanJiaClient.get_Process_List(this, this, this);
         }
         myProcessInfoAdapter = new MyProcessInfoAdapter(
                 MyProcessActivity.this, siteList);
         siteListView.setAdapter(myProcessInfoAdapter);
     }
 
-    private void comeMainActivity() {
+   /* private void comeMainActivity() {
         Intent intent = new Intent(MyProcessActivity.this, MainActivity.class);
         intent.putExtra(Constant.TAB_POSITION, Constant.MANAGE);
         startActivity(intent);
         finish();
-    }
-
-    private void setEmptyView() {
-        ViewStub mViewStub = (ViewStub) findViewById(R.id.empty);
-        errorText = (TextView) mViewStub.inflate().findViewById(R.id.tv_error);
-        siteListView.setEmptyView(mViewStub);
-    }
+    }*/
 
     @SuppressLint("ResourceAsColor")
     private void initMainHeadView() {
@@ -97,10 +82,11 @@ public class MyProcessActivity extends BaseActivity implements
 
     @Override
     public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
-        ProcessInfo siteInfo = siteList.get(position);
-        LogTool.d(TAG, "_id=" + siteInfo.get_id());
-        dataManager.setDefaultPro(position);
-        comeMainActivity();
+        ProcessInfo processInfo= siteList.get(position);
+        LogTool.d(TAG, "_id=" + processInfo.get_id());
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(Global.PROCESS_INFO,processInfo);
+        startActivity(MyProcessDetailActivity_.class,bundle);
     }
 
     @Override

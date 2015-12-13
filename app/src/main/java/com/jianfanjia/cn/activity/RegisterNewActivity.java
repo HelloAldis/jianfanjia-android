@@ -2,7 +2,9 @@ package com.jianfanjia.cn.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +17,7 @@ import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
+import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.NetTool;
 
 import org.androidannotations.annotations.AfterViews;
@@ -36,7 +39,7 @@ public class RegisterNewActivity extends BaseAnnotationActivity implements
     public static final int REGISTER_CODE = 0;
     public static final int UPDATE_PSW_CODE = 1;
 
-    @ViewById(R.id.register_layout)
+    @ViewById(R.id.forget_psw_layout)
     RelativeLayout registerLayout;
     @ViewById(R.id.success_layout)
     LinearLayout successLayout;
@@ -49,6 +52,8 @@ public class RegisterNewActivity extends BaseAnnotationActivity implements
     Button mBtnPublishRequirement;
     @ViewById(R.id.register_phone)
     TextView mPhoneView;//手机号码
+    @ViewById(R.id.btn_commit)
+    Button mBtnCommit;
 
     private String mVerification = null;// 密码
     private RegisterInfo registerInfo = null;
@@ -65,6 +70,30 @@ public class RegisterNewActivity extends BaseAnnotationActivity implements
         }
         registerLayout.setVisibility(View.VISIBLE);
         successLayout.setVisibility(View.GONE);
+        mBtnCommit.setEnabled(false);
+
+        mEtVerification.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                LogTool.d(TAG, "register afterTextChanged");
+                String text = s.toString();
+                if(!TextUtils.isEmpty(text)){
+                    mBtnCommit.setEnabled(true);
+                }else{
+                    mBtnCommit.setEnabled(false);
+                }
+            }
+        });
     }
 
     @Click({R.id.head_back_layout, R.id.btn_scan, R.id.btn_publish_requirement, R.id.btn_commit})
@@ -102,15 +131,11 @@ public class RegisterNewActivity extends BaseAnnotationActivity implements
      * @param registerInfo
      */
     private void register(RegisterInfo registerInfo) {
-        if (NetTool.isNetworkAvailable(this)) {
             if(requsetCode == REGISTER_CODE){
                 JianFanJiaClient.register(this, registerInfo, this, this);
             }else{
                 JianFanJiaClient.update_psw(this,registerInfo,this,this);
             }
-        } else {
-            makeTextLong(getResources().getString(R.string.tip_internet_not));
-        }
     }
 
     private boolean checkInput(String verification) {

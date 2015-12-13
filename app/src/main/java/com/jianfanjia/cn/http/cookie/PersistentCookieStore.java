@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.jianfanjia.cn.tools.LogTool;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -41,7 +43,6 @@ public class PersistentCookieStore implements CookieStore {
     public PersistentCookieStore(Context context) {
         cookiePrefs = context.getSharedPreferences(COOKIE_PREFS, 0);
         cookies = new HashMap<String, ConcurrentHashMap<String, HttpCookie>>();
-
         // Load any previously stored cookies into the store
         Map<String, ?> prefsMap = cookiePrefs.getAll();
         for(Map.Entry<String, ?> entry : prefsMap.entrySet()) {
@@ -55,6 +56,7 @@ public class PersistentCookieStore implements CookieStore {
                             if(!cookies.containsKey(entry.getKey()))
                                 cookies.put(entry.getKey(), new ConcurrentHashMap<String, HttpCookie>());
                             cookies.get(entry.getKey()).put(name, decodedCookie);
+                            LogTool.d(this.getClass().getName(), name + " --" + cookies.get(entry.getKey()).get(name));
                         }
                     }
                 }
@@ -66,13 +68,15 @@ public class PersistentCookieStore implements CookieStore {
     @Override
     public void add(URI uri, HttpCookie cookie) {
         String name = getCookieToken(uri, cookie);
-
         // Save cookie into local store, or remove if expired
         if (!cookie.hasExpired()) {
-            if(!cookies.containsKey(uri.getHost()))
+            if(!cookies.containsKey(uri.getHost())) {
                 cookies.put(uri.getHost(), new ConcurrentHashMap<String, HttpCookie>());
+            }
+            LogTool.d(this.getClass().getName(),"not expired : " + "uri =" + uri + "--name =" + name + "--value =" + cookie.getValue() + "--age=" + cookie.getMaxAge());
             cookies.get(uri.getHost()).put(name, cookie);
         } else {
+            LogTool.d(this.getClass().getName(),"expired : "  + "uri =" + uri + "--name =" + name + "--value =" + cookie.getValue() + "--age=" + cookie.getMaxAge());
             if(cookies.containsKey(uri.toString()))
                 cookies.get(uri.getHost()).remove(name);
         }

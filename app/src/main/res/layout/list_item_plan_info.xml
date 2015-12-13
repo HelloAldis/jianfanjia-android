@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="10dip"
+    android:layout_height="wrap_content"
     android:background="@color/font_white"
     android:orientation="vertical">
 
@@ -13,14 +12,14 @@
 
         <TextView
             android:id="@+id/numText"
-            style="@style/site_listview_item_text_style_middle"
+            style="@style/listview_item_text_style_middle"
             android:layout_centerVertical="true"
             android:text="方案"
             android:textColor="#000000" />
 
         <TextView
             android:id="@+id/statusText"
-            style="@style/site_listview_item_text_style_middle"
+            style="@style/listview_item_text_style_middle"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:text="已中标"
@@ -31,9 +30,11 @@
     <com.jianfanjia.cn.view.MyViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
-        android:layout_height="124dip"
+        android:layout_height="125dip"
+        android:layout_marginBottom="5dip"
         android:layout_marginLeft="10dip"
-        android:layout_marginRight="10dip" />
+        android:layout_marginRight="10dip"
+        android:layout_marginTop="5dip" />
 
 
     <RelativeLayout
@@ -43,14 +44,14 @@
 
         <TextView
             android:id="@+id/dateText"
-            style="@style/site_listview_item_text_style_middle"
+            style="@style/listview_item_text_style_middle"
             android:layout_centerVertical="true"
             android:text="2015-10-22"
             android:textColor="@color/grey_color" />
 
         <TextView
             android:id="@+id/previewText"
-            style="@style/site_listview_item_text_style_middle"
+            style="@style/listview_item_text_style_middle"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:text="方案预览"
@@ -58,7 +59,7 @@
 
         <TextView
             android:id="@+id/commentText"
-            style="@style/site_listview_item_text_style_middle"
+            style="@style/listview_item_text_style_middle"
             android:layout_centerVertical="true"
             android:layout_marginRight="40dip"
             android:layout_toLeftOf="@id/previewText"

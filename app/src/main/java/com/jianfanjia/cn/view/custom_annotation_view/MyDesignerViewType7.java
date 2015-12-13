@@ -13,10 +13,8 @@ import com.jianfanjia.cn.bean.OrderDesignerInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.interf.ClickCallBack;
 import com.jianfanjia.cn.view.baseview.BaseAnnotationView;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.ViewById;
@@ -62,10 +60,16 @@ public class MyDesignerViewType7 extends BaseAnnotationView {
         String status = designerInfo.getPlan().getStatus();
         String imageid = designerInfo.getImageid();
         String username = designerInfo.getUsername();
+        headView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickCallBack.click(position,MyDesignerActivity.VIEW_DESIGNER);
+            }
+        });
         if (!TextUtils.isEmpty(imageid)) {
-            ImageLoader.getInstance().displayImage(Url_New.GET_THUMBNAIL_IMAGE + imageid, headView, options);
+            imageShow.displayImageHeadWidthThumnailImage(context, imageid, headView);
         } else {
-            ImageLoader.getInstance().displayImage(Constant.DEFALUT_OWNER_PIC, headView, options);
+            imageShow.displayLocalImage(Constant.DEFALUT_OWNER_PIC, headView);
         }
         if (!TextUtils.isEmpty(username)) {
             nameView.setText(username);

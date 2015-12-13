@@ -1,7 +1,6 @@
 package com.jianfanjia.cn.adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,10 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.config.Url_New;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.jianfanjia.cn.interf.ViewPagerClickListener;
+import com.jianfanjia.cn.tools.ImageShow;
 
 import java.util.List;
 
@@ -24,22 +21,16 @@ import java.util.List;
  */
 public class PreviewAdapter extends PagerAdapter {
     private static final String TAG = "PreviewAdapter";
+    private ViewPagerClickListener listener;
     private Context context;
     private List<String> mList;
-    private ImageLoader imageLoader;
-    private DisplayImageOptions options;
+    private ImageShow imageShow;
 
-
-    public PreviewAdapter(Context context, List<String> mList) {
+    public PreviewAdapter(Context context, List<String> mList, ViewPagerClickListener listener) {
         this.context = context;
         this.mList = mList;
-        imageLoader = ImageLoader.getInstance();
-        options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.mipmap.pix_default)
-                .showImageForEmptyUri(R.mipmap.pix_default)
-                .showImageOnFail(R.mipmap.pix_default).cacheInMemory(true)
-                .cacheOnDisk(true).considerExifParams(true)
-                .bitmapConfig(Bitmap.Config.RGB_565).imageScaleType(ImageScaleType.IN_SAMPLE_INT).build();
+        this.listener = listener;
+        imageShow = ImageShow.getImageShow();
     }
 
 
@@ -73,8 +64,15 @@ public class PreviewAdapter extends PagerAdapter {
                 R.layout.list_item_preview_view_item, container, false);
         ImageView imageView = (ImageView) view
                 .findViewById(R.id.list_item_plan_img);
-        String imgid = mList.get(position);
-        imageLoader.displayImage(Url_New.GET_THUMBNAIL_IMAGE + imgid, imageView, options);
+        imageShow.displayScreenWidthThumnailImage(context, mList.get(position), imageView);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (null != listener) {
+                    listener.onClickItem(position);
+                }
+            }
+        });
         container.addView(view, 0);
         return view;
     }

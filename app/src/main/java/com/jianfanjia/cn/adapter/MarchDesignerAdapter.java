@@ -9,7 +9,6 @@ import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.BaseListAdapter;
 import com.jianfanjia.cn.bean.OrderDesignerInfo;
-import com.jianfanjia.cn.config.Url_New;
 
 import java.util.List;
 
@@ -46,8 +45,7 @@ public class MarchDesignerAdapter extends BaseListAdapter<OrderDesignerInfo> {
         int respond_speed = (int) info.getRespond_speed();
         int service_attitude = (int) info.getService_attitude();
         holder.nBar.setRating((respond_speed + service_attitude) / 2);
-        imageLoader.displayImage(Url_New.GET_THUMBNAIL_IMAGE + info.getImageid(),
-                holder.mHeadView, options);
+        imageShow.displayImageHeadWidthThumnailImage(context, info.getImageid(), holder.mHeadView);
 
         return convertView;
     }

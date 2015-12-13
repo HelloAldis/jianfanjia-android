@@ -8,24 +8,27 @@ package com.jianfanjia.cn.config;
  */
 public class Url_New {
     public static String SEVER_IP = "101.200.191.159";
+    //    public static String SEVER_IP = "www.jianfanjia.com";
 //    public static String SEVER_PORT = "8888";
     public static String SEVER_PORT = "80";
 
     public static final String HTTPROOT = "http://" + SEVER_IP + ":"
             + SEVER_PORT + "/api/v2/app/";
 
-    public static final String CONTRACT_URL = "http://www.jianfanjia.com/tpl/guide/index.html?1";
+    public static final String CONTRACT_URL = "http://" + SEVER_IP + "/tpl/user/agreement.html";
 
     public static final String ID = "id";
 
     //屏幕宽高
-    public static final String WIDTH = "500";
+    public static final String WIDTH = "400";
 
     public static final String BIND_URL = HTTPROOT + "device/bind";
     // 登录
     public static final String LOGIN_URL = HTTPROOT + "user_login";
     // 注册
     public static final String REGISTER_URL = HTTPROOT + "user_signup";
+    //检查手机号是否被占用
+    public static final String VERIFY_PHONE = HTTPROOT + "verify_phone";
     // 获取短信验证码
     public static final String GET_CODE_URL = HTTPROOT + "send_verify_code";
     // 忘记密码
@@ -130,4 +133,25 @@ public class Url_New {
     // 业主确认对比验收完成
     public static final String CONFIRM_CHECK_DONE_BY_OWNER = HTTPROOT
             + "process/done_section";
+    //获取装修美图首页
+    public static final String GET_DECORATION_IMG = HTTPROOT
+            + "beautiful_image_homepage";
+    //搜索装修美图
+    public static final String SEARCH_DECORATION_IMG = HTTPROOT
+            + "search_beautiful_image";
+    //用户收藏作品
+    public static final String ADD_PRODUCT = HTTPROOT
+            + "favorite/product/add";
+    //用户获取收藏作品列表
+    public static final String GET_PRODUCT_LIST_BY_COLLECTED = HTTPROOT
+            + "favorite/product/list";
+    //用户删除收藏的作品
+    public static final String DELETE_PRODUCT_BY_USER = HTTPROOT
+            + "favorite/product/delete";
+    //用户获取收藏的装修美图列表
+    public static final String GET_BEAUTY_IMG_LIST_BY_USER = HTTPROOT
+            + "favorite/beautiful_image/list";
+    //用户删除收藏的装修美图
+    public static final String DELETE_BEAUTY_IMG_BY_USER = HTTPROOT
+            + "favorite/beautiful_image/delete";
 }

@@ -3,6 +3,7 @@ package com.jianfanjia.cn.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -12,13 +13,17 @@ import com.jianfanjia.cn.adapter.PreviewAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.PlandetailInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
+import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
+import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.MainHeadView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -75,6 +80,7 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
         mainHeadView.setRightTitleVisable(View.VISIBLE);
         mainHeadView.setBackLayoutVisable(View.VISIBLE);
+        mainHeadView.setRigthTitleEnable(false);
     }
 
     @Override
@@ -134,14 +140,28 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
             planDetailInfo = JsonParser.jsonToBean(data.toString(), PlandetailInfo.class);
             LogTool.d(TAG, "planDetailInfo:" + planDetailInfo);
             if (null != planDetailInfo) {
+                btnDetail.setVisibility(View.VISIBLE);
+                mainHeadView.setRigthTitleEnable(true);
                 RequirementInfo requirementInfo = planDetailInfo.getRequirement();
                 requirementid = planDetailInfo.getRequirementid();
                 designerid = planDetailInfo.getDesignerid();
                 LogTool.d(TAG, "requirementid:" + requirementid + " designerid:" + designerid + " requirementInfo:" + requirementInfo);
                 cellName.setText(requirementInfo.getCell());
-                houseType.setText("装修户型:" + getHouseType(requirementInfo.getHouse_type()));
-                houseArea.setText("装修面积:" + requirementInfo.getHouse_area() + "㎡");
-                decorateType.setText("装修类型:" + getWorkType(requirementInfo.getWork_type()));
+                if (!TextUtils.isEmpty(requirementInfo.getHouse_type())) {
+                    houseType.setText("装修户型:" + getHouseType(requirementInfo.getHouse_type()));
+                } else {
+                    houseType.setVisibility(View.GONE);
+                }
+                if (!TextUtils.isEmpty(requirementInfo.getHouse_area())) {
+                    houseArea.setText("装修面积:" + requirementInfo.getHouse_area() + "㎡");
+                } else {
+                    houseArea.setVisibility(View.GONE);
+                }
+                if (!TextUtils.isEmpty(requirementInfo.getWork_type())) {
+                    decorateType.setText("装修类型:" + getWorkType(requirementInfo.getWork_type()));
+                } else {
+                    decorateType.setVisibility(View.GONE);
+                }
                 totalDate.setText("总工期:" + planDetailInfo.getDuration() + "天");
                 price.setText("项目报价:" + planDetailInfo.getTotal_price() + "元");
                 designText.setText("设计说明:" + planDetailInfo.getDescription());
@@ -149,8 +169,20 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
                 if (planStatus.equals(Global.PLAN_STATUS5)) {
                     btn_choose.setEnabled(false);
                 }
-                List<String> imgList = planDetailInfo.getImages();
-                PreviewAdapter adapter = new PreviewAdapter(PreviewDesignerPlanActivity.this, imgList);
+                final List<String> imgList = planDetailInfo.getImages();
+                PreviewAdapter adapter = new PreviewAdapter(PreviewDesignerPlanActivity.this, imgList, new ViewPagerClickListener() {
+                    @Override
+                    public void onClickItem(int pos) {
+                        LogTool.d(TAG, "pos:" + pos);
+                        Intent showPicIntent = new Intent(PreviewDesignerPlanActivity.this, ShowPicActivity.class);
+                        Bundle showPicBundle = new Bundle();
+                        showPicBundle.putInt(Constant.CURRENT_POSITION, pos);
+                        showPicBundle.putStringArrayList(Constant.IMAGE_LIST,
+                                (ArrayList<String>) imgList);
+                        showPicIntent.putExtras(showPicBundle);
+                        startActivity(showPicIntent);
+                    }
+                });
                 viewPager.setAdapter(adapter);
             }
         }
@@ -172,9 +204,11 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
         @Override
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data);
-            makeTextLong("方案选定成功");
             hideWaitDialog();
             btn_choose.setEnabled(false);
+            //发送数据刷新广播
+            UiHelper.intentTo(PreviewDesignerPlanActivity.this, MyDesignerActivity_.class, null);
+            finish();
         }
 
         @Override

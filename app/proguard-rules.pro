@@ -15,3 +15,105 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+-keepattributes Signature
+-keep class com.jianfanjia.cn.bean.** { *; }
+-keep class com.jianfanjia.cn.http.cookie.** { *; }
+
+#个推混淆
+-dontwarn com.igexin.**
+-dontwarn android.support.**
+-keep class com.igexin.**{*;}
+-keep class android.support.v4.** { *; }
+-keep interface android.support.v4.app.** { *; }
+
+#ormlite混淆
+-dontwarn com.j256.**
+-keep class org.slf4j.** {*;}
+-keep class com.j256.ormlite.** { *; }
+-keep class com.j256.ormlite.android.** { *; }
+-keep class com.j256.ormlite.field.** { *; }
+-keep class com.j256.ormlite.stmt.** { *; }
+
+#okio混淆
+-dontwarn com.squareup.okhttp.**
+-keep class com.squareup.okhttp.** { *;}
+-dontwarn okio.**
+
+#androidannotations混淆
+-dontwarn org.androidannotations.**
+
+#友盟混淆
+-keep class com.umeng.** { *; }
+-keep class com.umeng.analytics.** { *; }
+-keep class com.umeng.common.** { *; }
+-keep class com.umeng.newxp.** { *; }
+-keep class u.aly.** {*;}
+
+-dontwarn android.support.v4.**
+-dontwarn org.apache.commons.net.**
+-dontwarn com.tencent.**
+
+-keepclasseswithmembernames class * {
+    native <methods>;
+}
+
+-keepclasseswithmembernames class * {
+    public <init>(android.content.Context, android.util.AttributeSet);
+}
+
+-keepclasseswithmembernames class * {
+    public <init>(android.content.Context, android.util.AttributeSet, int);
+}
+
+-keepclassmembers enum * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
+
+-keep class * implements android.os.Parcelable {
+  public static final android.os.Parcelable$Creator *;
+}
+
+-keepclasseswithmembers class * {
+    public <init>(android.content.Context);
+}
+
+-dontshrink
+-dontoptimize
+-dontwarn com.google.android.maps.**
+-dontwarn android.webkit.WebView
+-dontwarn com.umeng.**
+-dontwarn u.aly.**
+-dontwarn com.tencent.weibo.sdk.**
+-dontwarn com.facebook.**
+
+-keep enum com.facebook.**
+-keepattributes Exceptions,InnerClasses,Signature
+-keepattributes *Annotation*
+-keepattributes SourceFile,LineNumberTable
+
+-keep public interface com.facebook.**
+-keep public interface com.tencent.**
+-keep public interface com.umeng.socialize.**
+-keep public interface com.umeng.socialize.sensor.**
+-keep public interface com.umeng.scrshot.**
+
+-keep public class com.umeng.socialize.* {*;}
+-keep public class javax.**
+-keep public class android.webkit.**
+
+-keep class com.facebook.**
+-keep class com.umeng.scrshot.**
+-keep public class com.tencent.** {*;}
+-keep class com.umeng.socialize.sensor.**
+
+-keep class com.tencent.mm.sdk.openapi.WXMediaMessage {*;}
+
+-keep class com.tencent.mm.sdk.openapi.** implements com.tencent.mm.sdk.openapi.WXMediaMessage$IMediaObject {*;}
+
+-keep class im.yixin.sdk.api.YXMessage {*;}
+-keep class im.yixin.sdk.api.** implements im.yixin.sdk.api.YXMessage$YXMessageData{*;}
+
+-keep public class com.jianfanjia.cn.activity.R$*{
+    public static final int *;
+}

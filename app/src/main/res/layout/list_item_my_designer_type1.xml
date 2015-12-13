@@ -22,22 +22,22 @@
 
         <TextView
             android:id="@+id/merger_button1"
-            android:background="@drawable/btn_white_selector_bg"
+            android:background="@drawable/btn_white_selector"
             style="@style/listview_item_text_style_middle"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/space_16"
             android:layout_toLeftOf="@+id/merger_button2"
             android:layout_width="wrap_content"
-            android:padding="@dimen/space_8"
+            android:padding="@dimen/space_4"
             android:textColor="@color/orange_color" />
 
         <TextView
             android:id="@+id/merger_button2"
-            android:background="@drawable/btn_orange_selector_bg"
+            android:background="@drawable/btn_orange_selector"
             style="@style/listview_item_text_style_middle"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:padding="@dimen/space_8"
+            android:padding="@dimen/space_4"
             android:layout_width="wrap_content"
             android:textColor="@color/font_white"
             />

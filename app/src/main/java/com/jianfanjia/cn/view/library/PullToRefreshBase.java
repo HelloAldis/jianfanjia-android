@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2011, 2012 Chris Banes.
- * <p/>
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p/>
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- * <p/>
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -18,8 +18,6 @@ package com.jianfanjia.cn.view.library;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
-import android.os.Build.VERSION;
-import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.AttributeSet;
@@ -195,13 +193,6 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout imp
         return mState;
     }
 
-    /**
-     * @deprecated See {@link #isScrollingWhileRefreshingEnabled()}.
-     */
-    public final boolean isDisableScrollingWhileRefreshing() {
-        return !isScrollingWhileRefreshingEnabled();
-    }
-
     @Override
     public final boolean isPullToRefreshEnabled() {
         return mMode.permitsPullToRefresh();
@@ -209,8 +200,9 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout imp
 
     @Override
     public final boolean isPullToRefreshOverScrollEnabled() {
-        return VERSION.SDK_INT >= VERSION_CODES.GINGERBREAD && mOverScrollEnabled
-                && OverscrollHelper.isAndroidOverScrollEnabled(mRefreshableView);
+       /* return VERSION.SDK_INT >= VERSION_CODES.GINGERBREAD && mOverScrollEnabled
+                && OverscrollHelper.isAndroidOverScrollEnabled(mRefreshableView);*/
+        return false;
     }
 
     @Override
@@ -245,6 +237,7 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout imp
             case MotionEvent.ACTION_MOVE: {
                 // If we're refreshing, and the flag is set. Eat all MOVE events
                 if (!mScrollingWhileRefreshingEnabled && isRefreshing()) {
+
                     return true;
                 }
 
@@ -612,7 +605,7 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout imp
      * This is implemented by derived classes to return the created View. If you
      * need to use a custom View (such as a custom ListView), override this
      * method and return an instance of your custom class.
-     * <p/>
+     * <p>
      * Be sure to set the ID of the view in this method, especially if you're
      * using a ListActivity or ListFragment.
      *

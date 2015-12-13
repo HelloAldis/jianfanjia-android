@@ -1,10 +1,13 @@
 package com.jianfanjia.cn.activity;
 
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.jianfanjia.cn.base.BaseAnnotationActivity;
@@ -12,6 +15,7 @@ import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
+import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.NetTool;
 import com.jianfanjia.cn.tools.UiHelper;
 
@@ -24,14 +28,19 @@ import org.androidannotations.annotations.ViewById;
 public class ForgetPswActivity extends BaseAnnotationActivity{
     private static final String TAG = ForgetPswActivity.class.getClass()
             .getName();
-    @ViewById(R.id.act_register_input_phone)
+    @ViewById(R.id.act_forget_psw_input_phone)
     EditText mEtForgetPswUserName = null;// 注册用户名输入框
-    @ViewById(R.id.act_register_input_password)
+    @ViewById(R.id.act_forget_psw_input_password)
     EditText mEtForgetPswPassword = null;// 注册用户密码输入框
     @ViewById(R.id.btn_next)
     Button mBtnNext;
-    @ViewById(R.id.register_layout)
+    @ViewById(R.id.forget_psw_layout)
     RelativeLayout registerLayout;
+    @ViewById(R.id.act_forget_psw_input_password_delete)
+    ImageView registerInputPasswordDelete;
+    @ViewById(R.id.act_forget_psw_input_phone_delete)
+    ImageView registerInputPhoneDelete;
+
     private String mUserName = null;// 用户名
     private String mPassword = null;// 密码
 
@@ -79,9 +88,62 @@ public class ForgetPswActivity extends BaseAnnotationActivity{
         return true;
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+//        mEtForgetPswUserName.requestFocus();
+    }
+
     @AfterViews
     void initUi(){
         UiHelper.controlKeyboardLayout(registerLayout, mBtnNext);
+
+        mBtnNext.setEnabled(false);
+
+        mEtForgetPswUserName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                LogTool.d(TAG, "forgetPsw afterTextChanged");
+                String text = s.toString();
+                if(!TextUtils.isEmpty(text) && !TextUtils.isEmpty(mEtForgetPswPassword.getText().toString())){
+                    mBtnNext.setEnabled(true);
+                }else{
+                    mBtnNext.setEnabled(false);
+                }
+            }
+        });
+        mEtForgetPswPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                LogTool.d(TAG,"forgetPsw afterTextChanged");
+                String text = s.toString();
+                if(!TextUtils.isEmpty(text) && !TextUtils.isEmpty(mEtForgetPswUserName.getText().toString())){
+                    mBtnNext.setEnabled(true);
+                }else{
+                    mBtnNext.setEnabled(false);
+                }
+            }
+        });
     }
 
     /**
@@ -90,7 +152,6 @@ public class ForgetPswActivity extends BaseAnnotationActivity{
      * @param password
      */
     private void sendVerification(final String name, final String password) {
-        if (NetTool.isNetworkAvailable(this)) {
             JianFanJiaClient.send_verification(this, name, new ApiUiUpdateListener() {
                 @Override
                 public void preLoad() {
@@ -113,9 +174,6 @@ public class ForgetPswActivity extends BaseAnnotationActivity{
                     makeTextLong(error_msg);
                 }
             }, this);
-        } else {
-            makeTextLong(getString(R.string.tip_internet_not));
-        }
     }
 
 

@@ -44,7 +44,7 @@ public class ImageUtil {
         try {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             // 将bitmap一字节流输出 Bitmap.CompressFormat.PNG 压缩格式，100：压缩率，baos：字节流
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);
             buffer = baos.toByteArray();
             baos.close();
         } catch (IOException e) {

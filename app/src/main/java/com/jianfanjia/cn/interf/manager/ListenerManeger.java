@@ -2,8 +2,7 @@ package com.jianfanjia.cn.interf.manager;
 
 import android.util.Log;
 
-import com.jianfanjia.cn.activity.NotifyActivity;
-import com.jianfanjia.cn.bean.NotifyMessage;
+import com.jianfanjia.cn.activity.MyProcessDetailActivity;
 import com.jianfanjia.cn.interf.ReceiveMsgListener;
 
 import java.util.ArrayList;
@@ -18,7 +17,7 @@ import java.util.List;
 public class ListenerManeger {
     private static final String TAG = ListenerManeger.class.getName();
     private static ListenerManeger listenerManeger;
-    public static List<ReceiveMsgListener> msgListeners = new ArrayList<ReceiveMsgListener>();
+    private static List<ReceiveMsgListener> msgListeners = new ArrayList<ReceiveMsgListener>();
 
     public static ListenerManeger getListenerManeger() {
         if (null == listenerManeger) {
@@ -39,10 +38,10 @@ public class ListenerManeger {
         }
     }
 
-    public ReceiveMsgListener getReceiveMsgListener(NotifyMessage message) {
-        Log.i(TAG, "ListenerManeger msgListeners:" + msgListeners);
+    public ReceiveMsgListener getReceiveMsgListener() {
+        Log.i(TAG, "msgListeners:" + msgListeners);
         for (ReceiveMsgListener listener : msgListeners) {
-            if (listener instanceof NotifyActivity) {
+            if (listener instanceof MyProcessDetailActivity) {
                 return listener;
             }
         }

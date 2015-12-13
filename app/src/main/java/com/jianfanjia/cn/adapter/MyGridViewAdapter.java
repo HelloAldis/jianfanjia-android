@@ -10,7 +10,6 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.BaseListAdapter;
 import com.jianfanjia.cn.bean.GridItem;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
 
 import java.util.List;
@@ -22,8 +21,7 @@ public class MyGridViewAdapter extends BaseListAdapter<GridItem> {
         super(context, list);
     }
 
-    public MyGridViewAdapter(Context context, List<GridItem> list,
-                             ItemClickCallBack itemClickCallBack) {
+    public MyGridViewAdapter(Context context, List<GridItem> list, ItemClickCallBack itemClickCallBack) {
         super(context, list);
         this.itemClickCallBack = itemClickCallBack;
     }
@@ -44,15 +42,16 @@ public class MyGridViewAdapter extends BaseListAdapter<GridItem> {
         String imgId = item.getImgId();
         if (position % 2 != 0) {
             if (imgId.equals(Constant.DEFALUT_PIC)) {
-                imageLoader.displayImage(imgId, holder.img, options);
+                imageShow.displayLocalImage(imgId, holder.img);
             } else {
-                imageLoader.displayImage(Url_New.GET_THUMBNAIL_IMAGE + imgId, holder.img,
-                        options);
+                imageShow.displayHalfScreenWidthThumnailImage(context, imgId, holder.img);
                 holder.img.setOnClickListener(new OnClickListener() {
 
                     @Override
                     public void onClick(View arg0) {
-                        itemClickCallBack.click(position, Constant.IMG_ITEM);
+                        if (null != itemClickCallBack) {
+                            itemClickCallBack.click(position, Constant.IMG_ITEM);
+                        }
                     }
                 });
             }
@@ -61,11 +60,12 @@ public class MyGridViewAdapter extends BaseListAdapter<GridItem> {
 
                 @Override
                 public void onClick(View arg0) {
-                    itemClickCallBack.click(position, Constant.IMG_ITEM);
+                    if (null != itemClickCallBack) {
+                        itemClickCallBack.click(position, Constant.IMG_ITEM);
+                    }
                 }
             });
-            imageLoader.displayImage(imgId, holder.img, options);
-
+            imageShow.displayLocalImage(imgId, holder.img);
         }
 
         return convertView;

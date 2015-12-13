@@ -7,15 +7,14 @@
         android:id="@+id/imageLayout"
         android:layout_width="60dip"
         android:layout_height="60dip"
-        android:layout_centerVertical="true"
-        >
+        android:layout_centerVertical="true">
 
-        <com.jianfanjia.cn.layout.CircleImageView
+        <com.jianfanjia.cn.view.layout.CircleImageView
             android:id="@+id/ltm_my_designer_head"
-            android:layout_height="match_parent"
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="@mipmap/icon_sidebar_default_user"  />
+            android:src="@mipmap/icon_sidebar_default_user" />
 
         <ImageView
             android:id="@+id/designerinfo_auth"
@@ -27,25 +26,25 @@
 
     <RelativeLayout
         android:id="@+id/ltm_my_designer_middle_layout"
-        android:layout_centerVertical="true"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/space_8"
-        android:layout_toRightOf="@+id/imageLayout"
-        android:layout_width="wrap_content">
+        android:layout_toRightOf="@+id/imageLayout">
 
         <TextView
-            style="@style/listview_item_text_style_middle"
             android:id="@+id/ltm_my_designer_name"
+            style="@style/listview_item_text_style_middle"
             android:text="@string/str_cell"
             android:textColor="@color/black_color" />
 
         <TextView
-            style="@style/listview_item_text_style_small"
             android:id="@+id/ltm_my_designer_status"
+            style="@style/listview_item_text_style_small"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/ltm_my_designer_name"
             android:layout_marginTop="@dimen/space_16"
             android:text="@string/str_publish_time"
             android:textColor="@color/grey_color" />
     </RelativeLayout>
-    </RelativeLayout>
+</RelativeLayout>

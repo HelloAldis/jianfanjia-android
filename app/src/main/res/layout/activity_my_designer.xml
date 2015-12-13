@@ -11,18 +11,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <LinearLayout
+    <FrameLayout
         android:id="@+id/act_my_designer_recyclerview_wrap"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="@dimen/space_8"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingTop="@dimen/space_8">
 
-        <com.jianfanjia.cn.view.library.PullToRefreshRecycleView
+        <com.jianfanjia.cn.view.library.PullToRefreshRecycleView xmlns:ptr="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/act_my_designer_pull_refresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/act_my_designer_pull_refresh">
-        </com.jianfanjia.cn.view.library.PullToRefreshRecycleView>
+            ptr:ptrAnimationStyle="flip"
+            ptr:ptrHeaderTextColor="#344a5d" />
 
-    </LinearLayout>
+        <include
+            android:id="@+id/error_include"
+            layout="@layout/view_error_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone" />
+
+    </FrameLayout>
 </LinearLayout>

@@ -1,11 +1,14 @@
 package com.jianfanjia.cn.activity;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
-import android.text.format.DateUtils;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ListView;
 
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.adapter.DesignerPlanAdapter;
@@ -19,8 +22,9 @@ import com.jianfanjia.cn.interf.ItemClickListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
+import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
-import com.jianfanjia.cn.view.library.PullToRefreshListView;
+import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,10 +35,10 @@ import java.util.List;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class DesignerPlanListActivity extends BaseActivity implements OnClickListener, ApiUiUpdateListener, ItemClickListener, PullToRefreshBase.OnRefreshListener2<ListView> {
+public class DesignerPlanListActivity extends BaseActivity implements OnClickListener, ApiUiUpdateListener, ItemClickListener, PullToRefreshBase.OnRefreshListener2<RecyclerView> {
     private static final String TAG = DesignerPlanListActivity.class.getName();
     private MainHeadView mainHeadView = null;
-    private PullToRefreshListView designer_plan_listview = null;
+    private PullToRefreshRecycleView designer_plan_listview = null;
     private List<PlanInfo> designerPlanList = new ArrayList<PlanInfo>();
     private String requirementid = null;
     private String designerid = null;
@@ -49,11 +53,17 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
         designerName = designerBundle.getString(Global.DESIGNER_NAME);
         LogTool.d(TAG, "requirementid:" + requirementid + "  designerid:" + designerid + "  designerName:" + designerName);
         initMainHeadView();
-        designer_plan_listview = (PullToRefreshListView) findViewById(R.id.designer_plan_listview);
+        designer_plan_listview = (PullToRefreshRecycleView) findViewById(R.id.designer_plan_listview);
         designer_plan_listview.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+        designer_plan_listview.setLayoutManager(new LinearLayoutManager(this));
+        designer_plan_listview.setItemAnimator(new DefaultItemAnimator());
+        Paint paint = new Paint();
+        paint.setStrokeWidth(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, getResources().getDisplayMetrics()));
+        paint.setAlpha(0);
+        paint.setAntiAlias(true);
+        designer_plan_listview.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this).paint(paint).showLastDivider().build());
         getDesignerPlansList(requirementid, designerid);
     }
-
 
     private void initMainHeadView() {
         mainHeadView = (MainHeadView) findViewById(R.id.my_plan_head_layout);
@@ -82,18 +92,12 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
     }
 
     @Override
-    public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-        String label = DateUtils.formatDateTime(DesignerPlanListActivity.this,
-                System.currentTimeMillis(), DateUtils.FORMAT_SHOW_TIME
-                        | DateUtils.FORMAT_SHOW_DATE
-                        | DateUtils.FORMAT_ABBREV_ALL);
-        // Update the LastUpdatedLabel
-        refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
+    public void onPullDownToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
         getDesignerPlansList(requirementid, designerid);
     }
 
     @Override
-    public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+    public void onPullUpToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
 
     }
 
@@ -148,11 +152,13 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
         LogTool.d(TAG, "planid:" + planid + " designerid:" + designerid);
         switch (itemType) {
             case Constant.PLAN_COMMENT_ITEM:
+                Intent commentIntent = new Intent(DesignerPlanListActivity.this, CommentActivity.class);
                 Bundle commentBundle = new Bundle();
                 commentBundle.putString(Global.TOPIC_ID, planid);
                 commentBundle.putString(Global.TO, designerid);
                 commentBundle.putString(Global.TOPICTYPE, Global.TOPIC_PLAN);
-                startActivity(CommentActivity.class, commentBundle);
+                commentIntent.putExtras(commentBundle);
+                startActivityForResult(commentIntent, Constant.REQUESTCODE_GOTO_COMMENT);
                 break;
             case Constant.PLAN_PREVIEW_ITEM:
                 startToActivity(planid);
@@ -166,6 +172,21 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
         Bundle planBundle = new Bundle();
         planBundle.putString(Global.PLAN_ID, planid);
         startActivity(PreviewDesignerPlanActivity.class, planBundle);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != RESULT_OK) {
+            return;
+        }
+        switch (requestCode) {
+            case Constant.REQUESTCODE_GOTO_COMMENT:
+                getDesignerPlansList(requirementid, designerid);
+                break;
+            default:
+                break;
+        }
     }
 
     @Override

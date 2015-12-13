@@ -8,6 +8,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
@@ -23,7 +24,6 @@ public class FeedBackActivity extends BaseActivity implements OnClickListener {
     public void initView() {
         initMainHeadView();
         feedContentView = (EditText) findViewById(R.id.add_feedback);
-        feedContentView.addTextChangedListener(textWatcher);
         confirm = (Button) findViewById(R.id.btn_commit);
         confirm.setEnabled(false);
     }
@@ -31,14 +31,14 @@ public class FeedBackActivity extends BaseActivity implements OnClickListener {
     private void initMainHeadView() {
         mainHeadView = (MainHeadView) findViewById(R.id.my_feedback_head_layout);
         mainHeadView.setBackListener(this);
-        mainHeadView
-                .setMianTitle(getResources().getString(R.string.feedback));
+        mainHeadView.setMianTitle(getResources().getString(R.string.feedback));
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
         mainHeadView.setDividerVisable(View.VISIBLE);
     }
 
     @Override
     public void setListener() {
+        feedContentView.addTextChangedListener(textWatcher);
         confirm.setOnClickListener(this);
     }
 
@@ -50,14 +50,15 @@ public class FeedBackActivity extends BaseActivity implements OnClickListener {
                 break;
             case R.id.btn_commit:
                 String content = feedContentView.getText().toString().trim();
-                feedBack(content, "0");
+                feedBack(content, "" + MyApplication
+                        .getInstance().getVersionCode(), "0");
             default:
                 break;
         }
     }
 
-    private void feedBack(String content, String platform) {
-        JianFanJiaClient.feedBack(this, content, platform, new ApiUiUpdateListener() {
+    private void feedBack(String content, String version, String platform) {
+        JianFanJiaClient.feedBack(this, content, version, platform, new ApiUiUpdateListener() {
             @Override
             public void preLoad() {
                 showWaitDialog();
@@ -67,15 +68,15 @@ public class FeedBackActivity extends BaseActivity implements OnClickListener {
             public void loadSuccess(Object data) {
                 hideWaitDialog();
                 feedContentView.setText("");
-                makeTextShort(getString(R.string.submit_success));
+                finish();
             }
 
             @Override
             public void loadFailture(String error_msg) {
                 hideWaitDialog();
-                makeTextShort(getString(R.string.tip_internet_not));
+                makeTextShort(error_msg);
             }
-        },this);
+        }, this);
     }
 
 

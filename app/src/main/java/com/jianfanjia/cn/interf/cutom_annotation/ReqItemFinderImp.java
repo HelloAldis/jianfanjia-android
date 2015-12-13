@@ -34,10 +34,10 @@ public class ReqItemFinderImp implements ReqItemFinder {
     @StringArrayRes(R.array.arr_love_designerstyle)
     protected String[] arr_love_designerstyle;
 
-    @StringArrayRes(R.array.arr_lovestyle)
+    @StringArrayRes(R.array.arr_decstyle)
     protected String[] arr_lovestyle;
 
-    @StringArrayRes(R.array.arr_decstyle)
+    @StringArrayRes(R.array.arr_dectype)
     protected String[] arr_decstyle;
 
     @StringArrayRes(R.array.arr_desisex)

@@ -365,8 +365,10 @@ public abstract class PullToRefreshAdapterViewBase<T extends AbsListView> extend
 		}
 	}
 
+
 	private boolean getShowIndicatorInternal() {
-		return mShowIndicator && isPullToRefreshEnabled();
+//		return mShowIndicator && isPullToRefreshEnabled();暂时不需求，先禁掉
+		return false;
 	}
 
 	private boolean isFirstItemVisible() {

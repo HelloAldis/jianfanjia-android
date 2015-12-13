@@ -12,7 +12,6 @@ import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.User;
 import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Url_New;
 
 import java.util.List;
 
@@ -64,11 +63,15 @@ public class MyProcessInfoAdapter extends BaseListAdapter<ProcessInfo> {
         viewHolder.itemVillageView.setText(designerSiteInfo.getCell());
         String imageId = user.getImageid();
         if (imageId != null) {
-            imageLoader.displayImage(Url_New.GET_THUMBNAIL_IMAGE + imageId,
-                    viewHolder.itemOwerHeadView, options);
+            imageShow.displayImageHeadWidthThumnailImage(context,imageId,
+                    viewHolder.itemOwerHeadView);
+//            imageLoader.displayImage(Url_New.GET_THUMBNAIL_IMAGE + imageId,
+//                    viewHolder.itemOwerHeadView, options);
         } else {
-            imageLoader.displayImage(Constant.DEFALUT_OWNER_PIC,
-                    viewHolder.itemOwerHeadView, options);
+            imageShow.displayLocalImage(Constant.DEFALUT_OWNER_PIC,
+                    viewHolder.itemOwerHeadView);
+//            imageLoader.displayImage(Constant.DEFALUT_OWNER_PIC,
+//                    viewHolder.itemOwerHeadView, options);
         }
 
         return convertView;

@@ -2,28 +2,28 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp"
+    android:layout_margin="5dp"
     android:orientation="horizontal"
     card_view:cardBackgroundColor="@color/font_white"
-    card_view:cardCornerRadius="0dp">
+    card_view:cardCornerRadius="5dp">
 
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:padding="10dp">
 
         <ImageView
             android:id="@+id/list_item_works_img"
             android:layout_width="match_parent"
             android:layout_height="250dip"
+            android:layout_centerHorizontal="true"
             android:scaleType="centerCrop" />
 
         <TextView
             android:id="@+id/list_item_works_xiaoqu_text"
             style="@style/listview_item_text_style_middle"
-            android:layout_gravity="center_horizontal"
+            android:layout_below="@id/list_item_works_img"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/space_10"
             android:text="小区名称"
             android:textColor="@color/black_color" />
@@ -31,10 +31,11 @@
         <TextView
             android:id="@+id/list_item_works_produce_text"
             style="@style/listview_item_text_style_small"
-            android:layout_gravity="center_horizontal"
+            android:layout_below="@id/list_item_works_xiaoqu_text"
+            android:layout_centerHorizontal="true"
             android:layout_margin="10.0dip"
             android:text="100平米"
             android:textColor="@color/main_color_grey" />
-    </LinearLayout>
+    </RelativeLayout>
 
 </android.support.v7.widget.CardView>

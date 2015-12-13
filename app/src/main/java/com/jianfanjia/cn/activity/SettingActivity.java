@@ -12,14 +12,8 @@ import android.widget.ToggleButton;
 import com.igexin.sdk.PushManager;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.bean.UpdateVersion;
-import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.http.JianFanJiaClient;
-import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.FileUtil;
-import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
@@ -62,6 +56,8 @@ public class SettingActivity extends BaseActivity implements OnClickListener, On
         clearCacheLayout = (RelativeLayout) findViewById(R.id.clear_cache_layout);
         cacheSizeView = (TextView) findViewById(R.id.cache_size);
         currentVersion = (TextView) findViewById(R.id.current_version);
+
+        caculateCacheSize();
     }
 
     private void initMainHeadView() {
@@ -108,7 +104,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener, On
                 onClickExit();
                 break;
             case R.id.current_version_layout:
-                checkVersion();
+//                checkVersion();
                 break;
             case R.id.share_layout:
                 startActivity(ShareActivity.class);
@@ -137,8 +133,14 @@ public class SettingActivity extends BaseActivity implements OnClickListener, On
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        logout();
                         dialog.dismiss();
+                        PushManager.getInstance().stopService(
+                                SettingActivity.this);// 完全终止SDK的服务
+                        activityManager.exit();
+                        dataManager.cleanData();
+                        MyApplication.getInstance().clearCookie();
+                        startActivity(LoginNewActivity_.class);
+                        finish();
                     }
                 });
         dialog.setNegativeButton(R.string.no, null);
@@ -152,10 +154,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener, On
         long fileSize = 0;
         String cacheSize = "0KB";
         File filesDir = ImageLoader.getInstance().getDiskCache().getDirectory();
-        File file = new File(Constant.COMMON_PATH);
-
         fileSize += FileUtil.getDirSize(filesDir);
-        fileSize += FileUtil.getDirSize(file);
 
         // 2.2版本才有将应用缓存转移到sd卡的功能
         if (MyApplication.isMethodsCompat(android.os.Build.VERSION_CODES.FROYO)) {
@@ -173,7 +172,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener, On
     private void onClickCleanCache() {
         CommonDialog dialog = DialogHelper
                 .getPinterestDialogCancelable(SettingActivity.this);
-        dialog.setTitle("清空缓存？");
+        dialog.setTitle("清空缓存");
         dialog.setMessage("确定清空缓存吗？");
         dialog.setPositiveButton(R.string.ok,
                 new DialogInterface.OnClickListener() {
@@ -216,74 +215,6 @@ public class SettingActivity extends BaseActivity implements OnClickListener, On
     protected void onDestroy() {
         super.onDestroy();
         LogTool.d(TAG, "---onDestroy()");
-    }
-
-    // 检查版本
-    private void checkVersion() {
-        UiHelper.checkNewVersion(this, new ApiUiUpdateListener() {
-                    @Override
-                    public void preLoad() {
-                        showWaitDialog(getString(R.string.check_version));
-                    }
-
-                    @Override
-                    public void loadSuccess(Object data) {
-                        hideWaitDialog();
-                        if (data != null) {
-                            UpdateVersion updateVersion = JsonParser
-                                    .jsonToBean(data.toString(),
-                                            UpdateVersion.class);
-                            if (updateVersion != null) {
-                                if (Integer.parseInt(updateVersion
-                                        .getVersion_code()) > MyApplication
-                                        .getInstance().getVersionCode()) {
-                                    UiHelper.showNewVersionDialog(SettingActivity.this,
-                                            String.format(getString(R.string.new_version_message),
-                                                    updateVersion.getVersion_name()),
-                                            updateVersion);
-                                } else {
-                                    makeTextLong(getString(R.string.no_new_version));
-                                }
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void loadFailture(String error_msg) {
-                        makeTextLong(getString(R.string.tip_error_internet));
-                        hideWaitDialog();
-                    }
-                }
-        );
-    }
-
-    // 退出登录
-    private void logout() {
-        JianFanJiaClient.logout(this,
-                new ApiUiUpdateListener() {
-
-                    @Override
-                    public void preLoad() {
-                        showWaitDialog();
-                    }
-
-                    @Override
-                    public void loadSuccess(Object data) {
-                        hideWaitDialog();
-                        makeTextShort("退出成功");
-                        PushManager.getInstance().stopService(
-                                SettingActivity.this);// 完全终止SDK的服务
-                        activityManager.exit();
-                        startActivity(LoginNewActivity_.class);
-                        finish();
-                    }
-
-                    @Override
-                    public void loadFailture(String error_msg) {
-                        hideWaitDialog();
-                        makeTextLong(getString(R.string.tip_error_internet));
-                    }
-                }, this);
     }
 
     @Override

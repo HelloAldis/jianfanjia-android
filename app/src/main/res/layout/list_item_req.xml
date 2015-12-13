@@ -15,7 +15,7 @@
         android:paddingRight="@dimen/space_26"
         android:paddingTop="@dimen/space_8">
 
-        <com.jianfanjia.cn.layout.CircleImageView
+        <com.jianfanjia.cn.view.layout.CircleImageView
             android:id="@+id/ltm_req_owner_head"
             android:layout_width="60dp"
             android:layout_height="60dp"
@@ -121,20 +121,35 @@
             android:layout_height="wrap_content"
             android:layout_weight="1">
 
-            <com.jianfanjia.cn.layout.CircleImageView
-                android:id="@+id/ltm_req_designer_head0"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+            <FrameLayout
+                android:id="@+id/imageLayout0"
+                android:layout_width="60dip"
+                android:layout_height="60dip"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:scaleType="centerCrop"
-                android:src="@mipmap/add" />
+                android:layout_centerVertical="true"
+                >
+
+                <com.jianfanjia.cn.view.layout.CircleImageView
+                    android:id="@+id/ltm_req_designer_head0"
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/add"  />
+
+                <ImageView
+                    android:id="@+id/designerinfo_auth0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|right"
+                    android:src="@mipmap/icon_auth" />
+            </FrameLayout>
 
             <TextView
                 android:id="@+id/ltm_req_designer_name0"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/ltm_req_designer_head0"
+                android:layout_below="@+id/imageLayout0"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="8dp"
                 android:text="New Text"
@@ -162,20 +177,35 @@
             android:layout_height="wrap_content"
             android:layout_weight="1">
 
-            <com.jianfanjia.cn.layout.CircleImageView
-                android:id="@+id/ltm_req_designer_head1"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+            <FrameLayout
+                android:id="@+id/imageLayout1"
+                android:layout_width="60dip"
+                android:layout_height="60dip"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:scaleType="centerCrop"
-                android:src="@mipmap/add" />
+                android:layout_centerVertical="true"
+                >
+
+                <com.jianfanjia.cn.view.layout.CircleImageView
+                    android:id="@+id/ltm_req_designer_head1"
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/add"  />
+
+                <ImageView
+                    android:id="@+id/designerinfo_auth1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|right"
+                    android:src="@mipmap/icon_auth" />
+            </FrameLayout>
 
             <TextView
                 android:id="@+id/ltm_req_designer_name1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/ltm_req_designer_head1"
+                android:layout_below="@+id/imageLayout1"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="8dp"
                 android:text="New Text"
@@ -202,20 +232,36 @@
             android:layout_height="wrap_content"
             android:layout_weight="1">
 
-            <com.jianfanjia.cn.layout.CircleImageView
-                android:id="@+id/ltm_req_designer_head2"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+            <FrameLayout
+                android:id="@+id/imageLayout2"
+                android:layout_width="60dip"
+                android:layout_height="60dip"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:scaleType="centerCrop"
-                android:src="@mipmap/add" />
+                android:layout_centerVertical="true"
+                >
+
+                <com.jianfanjia.cn.view.layout.CircleImageView
+                    android:id="@+id/ltm_req_designer_head2"
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/add"  />
+
+                <ImageView
+                    android:id="@+id/designerinfo_auth2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|right"
+                    android:src="@mipmap/icon_auth" />
+            </FrameLayout>
 
             <TextView
                 android:id="@+id/ltm_req_designer_name2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/ltm_req_designer_head2"
+                android:layout_below="@+id/imageLayout2"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="8dp"
                 android:text="New Text"

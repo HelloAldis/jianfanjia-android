@@ -7,8 +7,9 @@ import com.jianfanjia.cn.bean.CommitCommentInfo;
 import com.jianfanjia.cn.bean.OwnerUpdateInfo;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
-import com.jianfanjia.cn.config.Url;
+import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url_New;
+import com.jianfanjia.cn.http.request.AddCollectionRequest;
 import com.jianfanjia.cn.http.request.AddCommentRequest;
 import com.jianfanjia.cn.http.request.AddFavoriteDesignerRequest;
 import com.jianfanjia.cn.http.request.AddPicToSectionItemRequest;
@@ -18,6 +19,9 @@ import com.jianfanjia.cn.http.request.CheckVersionRequest;
 import com.jianfanjia.cn.http.request.ChoosePlanByUserRequest;
 import com.jianfanjia.cn.http.request.CommitCommentRequest;
 import com.jianfanjia.cn.http.request.ConformMeasureHouseRequest;
+import com.jianfanjia.cn.http.request.DeleteBeautyImgRequest;
+import com.jianfanjia.cn.http.request.DeleteCollectionRequest;
+import com.jianfanjia.cn.http.request.DeleteFavoriteDesignerRequest;
 import com.jianfanjia.cn.http.request.DeletePicToSectionItemRequest;
 import com.jianfanjia.cn.http.request.DesignerHomePageRequest;
 import com.jianfanjia.cn.http.request.DesignerInfoRequest;
@@ -26,12 +30,16 @@ import com.jianfanjia.cn.http.request.FavoriteDesignerListRequest;
 import com.jianfanjia.cn.http.request.FeedBackRequest;
 import com.jianfanjia.cn.http.request.ForgetPswRequest;
 import com.jianfanjia.cn.http.request.GetAllRescheduleRequest;
+import com.jianfanjia.cn.http.request.GetBeautyImgListRequest;
+import com.jianfanjia.cn.http.request.GetCollectionRequest;
 import com.jianfanjia.cn.http.request.GetCommentsRequest;
 import com.jianfanjia.cn.http.request.GetContractRequest;
 import com.jianfanjia.cn.http.request.GetDesignerPlansByUserRequest;
 import com.jianfanjia.cn.http.request.GetOrderDesignerListByUserRequest;
 import com.jianfanjia.cn.http.request.GetOrderedDesignerRequest;
 import com.jianfanjia.cn.http.request.GetPlanInfoRequest;
+import com.jianfanjia.cn.http.request.GetProcessInfoRequest;
+import com.jianfanjia.cn.http.request.GetProcessListRequest;
 import com.jianfanjia.cn.http.request.GetProductHomePageRequest;
 import com.jianfanjia.cn.http.request.GetRequirementListRequest;
 import com.jianfanjia.cn.http.request.HomePageRequest;
@@ -42,17 +50,17 @@ import com.jianfanjia.cn.http.request.OwnerFinishCheckRequest;
 import com.jianfanjia.cn.http.request.PostProcessRequest;
 import com.jianfanjia.cn.http.request.PostRequirementRequest;
 import com.jianfanjia.cn.http.request.PostRescheduleRequest;
-import com.jianfanjia.cn.http.request.ProcessInfoRequest;
-import com.jianfanjia.cn.http.request.ProcessListRequest;
 import com.jianfanjia.cn.http.request.RefuseRescheduleRequest;
 import com.jianfanjia.cn.http.request.RegisterRequest;
+import com.jianfanjia.cn.http.request.SearchDecorationImgRequest;
 import com.jianfanjia.cn.http.request.SearchDesignerProductRequest;
 import com.jianfanjia.cn.http.request.SendVerificationRequest;
+import com.jianfanjia.cn.http.request.UpdateOwnerInfoRequest;
 import com.jianfanjia.cn.http.request.UpdateRequirementRequest;
 import com.jianfanjia.cn.http.request.UploadPicRequestNew;
 import com.jianfanjia.cn.http.request.UploadRegisterIdRequest;
 import com.jianfanjia.cn.http.request.UserByOwnerInfoRequest;
-import com.jianfanjia.cn.http.request.UserByOwnerInfoUpdateRequestApi;
+import com.jianfanjia.cn.http.request.VerifyPhoneRequest;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.DateFormatTool;
 import com.jianfanjia.cn.tools.ImageUtil;
@@ -88,6 +96,26 @@ public class JianFanJiaClient {
         try {
             jsonParams.put("cid", clientId);
             OkHttpClientManager.getInstance().getPostDelegate().postAsyn(uploadRegisterIdRequest, jsonParams.toString(), listener, tag);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 检查手机号是否被占用
+     *
+     * @param context
+     * @param phone
+     * @param listener
+     * @param tag
+     */
+    public static void verifyPhone(Context context, String phone, ApiUiUpdateListener listener, Object tag) {
+        VerifyPhoneRequest verifyPhoneRequest = new VerifyPhoneRequest(context);
+        JSONObject jsonParams = new JSONObject();
+        try {
+            jsonParams.put("phone", phone);
+            LogTool.d(TAG, "verifyPhone --" + verifyPhoneRequest.getUrl() + "---" + jsonParams.toString());
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(verifyPhoneRequest, jsonParams.toString(), listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -165,12 +193,13 @@ public class JianFanJiaClient {
      * @param listener
      * @param tag
      */
-    public static void feedBack(Context context, String content, String platform,
+    public static void feedBack(Context context, String content, String version, String platform,
                                 ApiUiUpdateListener listener, Object tag) {
         FeedBackRequest feedBackRequest = new FeedBackRequest(context);
         JSONObject jsonParams = new JSONObject();
         try {
             jsonParams.put("content", content);
+            jsonParams.put("version", version);
             jsonParams.put("platform", platform);
             OkHttpClientManager.getInstance().getPostDelegate().postAsyn(feedBackRequest, jsonParams.toString(), listener, tag);
         } catch (JSONException e) {
@@ -265,7 +294,8 @@ public class JianFanJiaClient {
      */
     public static void register(Context context, RegisterInfo registerInfo,
                                 ApiUiUpdateListener listener, Object tag) {
-        RegisterRequest registerRequest = new RegisterRequest(context);
+        RegisterRequest registerRequest = new RegisterRequest(context, registerInfo);
+        LogTool.d(TAG, "register  " + registerRequest.getUrl() + "--" + JsonParser.beanToJson(registerInfo));
         OkHttpClientManager.getInstance().getPostDelegate().postAsyn(registerRequest, JsonParser.beanToJson(registerInfo), listener, tag);
     }
 
@@ -278,7 +308,7 @@ public class JianFanJiaClient {
      */
     public static void getDesignerInfoById(Context context, String designerid,
                                            ApiUiUpdateListener listener, Object tag) {
-        String getdesignerUrl = Url_New.GET_OWER_DESIGNER.replace(Url.ID,
+        String getdesignerUrl = Url_New.GET_OWER_DESIGNER.replace(Url_New.ID,
                 designerid);
         DesignerInfoRequest designerInfoRequest = new DesignerInfoRequest(context);
         designerInfoRequest.setUrl(getdesignerUrl);
@@ -294,8 +324,8 @@ public class JianFanJiaClient {
      * @param listener
      * @param tag
      */
-    public static void get_MyFavoriteDesignerList(Context context, String from, String limit, ApiUiUpdateListener listener, Object tag) {
-        FavoriteDesignerListRequest favoriteDesignerListRequest = new FavoriteDesignerListRequest(context);
+    public static void get_MyFavoriteDesignerList(Context context, int from, int limit, ApiUiUpdateListener listener, Object tag) {
+        FavoriteDesignerListRequest favoriteDesignerListRequest = new FavoriteDesignerListRequest(context, from, limit);
         JSONObject jsonParams = new JSONObject();
         try {
             jsonParams.put("from", from);
@@ -328,7 +358,8 @@ public class JianFanJiaClient {
      */
     public static void get_Process_List(Context context,
                                         ApiUiUpdateListener listener, Object tag) {
-        ProcessListRequest processListRequest = new ProcessListRequest(context);
+        GetProcessListRequest processListRequest = new GetProcessListRequest(context);
+        LogTool.d("JianFanJiaApiClient", "get_Process_List" + processListRequest.getUrl());
         OkHttpClientManager.getInstance().getGetDelegate().getAsyn(processListRequest, listener, tag);
     }
 
@@ -504,12 +535,12 @@ public class JianFanJiaClient {
      */
     public static void get_ProcessInfo_By_Id(Context context, String processid,
                                              ApiUiUpdateListener listener, Object tag) {
-        ProcessInfoRequest processInfoRequest = new ProcessInfoRequest(context, processid);
+        GetProcessInfoRequest getProcessInfoRequest = new GetProcessInfoRequest(context, processid);
         String getProcessUrl = Url_New.GET_PROCESSINFO_BYID.replace(Url_New.ID,
                 processid);
-        processInfoRequest.setUrl(getProcessUrl);
-        LogTool.d(TAG, "processItemDone -" + processInfoRequest.getUrl());
-        OkHttpClientManager.getInstance().getGetDelegate().getAsyn(processInfoRequest, listener, tag);
+        getProcessInfoRequest.setUrl(getProcessUrl);
+        LogTool.d(TAG, "processItemDone -" + getProcessInfoRequest.getUrl());
+        OkHttpClientManager.getInstance().getGetDelegate().getAsyn(getProcessInfoRequest, listener, tag);
     }
 
     /**
@@ -521,7 +552,7 @@ public class JianFanJiaClient {
      */
     public static void put_OwnerInfo(Context context,
                                      OwnerUpdateInfo ownerInfo, ApiUiUpdateListener listener, Object tag) {
-        UserByOwnerInfoUpdateRequestApi userByOwnerInfoUpdateRequest = new UserByOwnerInfoUpdateRequestApi(context, ownerInfo);
+        UpdateOwnerInfoRequest userByOwnerInfoUpdateRequest = new UpdateOwnerInfoRequest(context, ownerInfo);
         LogTool.d(TAG, "put_OwnerInfo -" + userByOwnerInfoUpdateRequest.getUrl() + JsonParser.beanToJson(ownerInfo));
         OkHttpClientManager.getInstance().getPostDelegate().postAsyn(userByOwnerInfoUpdateRequest, JsonParser.beanToJson(ownerInfo), listener, tag);
     }
@@ -623,16 +654,38 @@ public class JianFanJiaClient {
      * @param listener
      * @param tag
      */
-    public static void Add_Favorite_Designer_List(Context context, String designerid, ApiUiUpdateListener listener, Object tag) {
+    public static void addFavoriteDesigner(Context context, String designerid, ApiUiUpdateListener listener, Object tag) {
         AddFavoriteDesignerRequest addFavoriteDesignerRequest = new AddFavoriteDesignerRequest(context, designerid);
         JSONObject jsonParams = new JSONObject();
         try {
             jsonParams.put("_id", designerid);
-            LogTool.d(TAG, "Add_Favorite_Designer_List --" + "jsonParams:" + jsonParams.toString());
+            LogTool.d(TAG, "addFavoriteDesigner --" + "jsonParams:" + jsonParams.toString());
             OkHttpClientManager.getInstance().getPostDelegate().postAsyn(addFavoriteDesignerRequest, jsonParams.toString(), listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+
+    /**
+     * 删除意向设计师
+     *
+     * @param context
+     * @param designerid
+     * @param listener
+     * @param tag
+     */
+    public static void deleteFavoriteDesigner(Context context, String designerid, ApiUiUpdateListener listener, Object tag) {
+        DeleteFavoriteDesignerRequest deleteFavoriteDesignerRequest = new DeleteFavoriteDesignerRequest(context, designerid);
+        JSONObject jsonParams = new JSONObject();
+        try {
+            jsonParams.put("_id", designerid);
+            LogTool.d(TAG, "deleteFavoriteDesignerRequest --" + deleteFavoriteDesignerRequest.getUrl() + "  jsonParams:" + jsonParams.toString());
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(deleteFavoriteDesignerRequest, jsonParams.toString(), listener, tag);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 
     /**
@@ -915,7 +968,7 @@ public class JianFanJiaClient {
      * @param listener
      * @param tag
      */
-    public static void ChangeOrderedDesignerByUser(Context context, String requirementid, String old_designerid, String new_designerid, ApiUiUpdateListener listener, Object tag) {
+    public static void changeOrderedDesignerByUser(Context context, String requirementid, String old_designerid, String new_designerid, ApiUiUpdateListener listener, Object tag) {
         ChangeOrderedDesignerRequest changeOrderedDesignerRequest = new ChangeOrderedDesignerRequest(context, requirementid, old_designerid, new_designerid);
         JSONObject jsonParams = new JSONObject();
         try {
@@ -927,4 +980,156 @@ public class JianFanJiaClient {
             e.printStackTrace();
         }
     }
+
+    /**
+     * 游客搜索装修美图
+     *
+     * @param context
+     * @param query
+     * @param lastupdate
+     * @param searchWord
+     * @param from
+     * @param limit
+     * @param listener
+     * @param tag
+     */
+    public static void searchDecorationImg(Context context, String section, String house_type, String dec_style, String searchWord, int lastupdate, int from, int limit, ApiUiUpdateListener listener, Object tag) {
+        SearchDecorationImgRequest searchDecorationImgRequest = new SearchDecorationImgRequest(context, section, house_type, dec_style, searchWord, lastupdate, from, limit);
+        JSONObject jsonParams = new JSONObject();
+        try {
+            JSONObject params1 = new JSONObject();
+            if (!section.equals(Constant.KEY_WORD)) {
+                params1.put("section", section);
+            }
+            if (!house_type.equals(Constant.KEY_WORD)) {
+                params1.put("house_type", house_type);
+            }
+            if (!dec_style.equals(Constant.KEY_WORD)) {
+                params1.put("dec_style", dec_style);
+            }
+            JSONObject params2 = new JSONObject();
+            params2.put("lastupdate", lastupdate);
+            jsonParams.put("query", params1);
+            jsonParams.put("sort", params2);
+            jsonParams.put("search_word", searchWord);
+            jsonParams.put("from", from);
+            jsonParams.put("limit", limit);
+            LogTool.d(TAG, "jsonParams:" + jsonParams.toString());
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(searchDecorationImgRequest, jsonParams.toString(), listener, tag);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 游客获取装修美图首页
+     *
+     * @param context
+     * @param id
+     * @param listener
+     * @param tag
+     */
+    public static void getDecorationImg(Context context, String id, ApiUiUpdateListener listener, Object tag) {
+
+    }
+
+    /**
+     * 用户收藏作品
+     *
+     * @param context
+     * @param productid
+     * @param listener
+     * @param tag
+     */
+    public static void addCollectionByUser(Context context, String productid, ApiUiUpdateListener listener, Object tag) {
+        AddCollectionRequest addCollectionRequest = new AddCollectionRequest(context, productid);
+        JSONObject jsonParams = new JSONObject();
+        try {
+            jsonParams.put("_id", productid);
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(addCollectionRequest, jsonParams.toString(), listener, tag);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 用户删除收藏的作品
+     *
+     * @param context
+     * @param productid
+     * @param listener
+     * @param tag
+     */
+    public static void deleteCollectionByUser(Context context, String productid, ApiUiUpdateListener listener, Object tag) {
+        DeleteCollectionRequest deleteCollectionRequest = new DeleteCollectionRequest(context, productid);
+        JSONObject jsonParams = new JSONObject();
+        try {
+            jsonParams.put("_id", productid);
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(deleteCollectionRequest, jsonParams.toString(), listener, tag);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 用户获取收藏作品列表
+     *
+     * @param context
+     * @param from
+     * @param limit
+     * @param listener
+     * @param tag
+     */
+    public static void getCollectListByUser(Context context, int from, int limit, ApiUiUpdateListener listener, Object tag) {
+        GetCollectionRequest getCollectionRequest = new GetCollectionRequest(context, from, limit);
+        JSONObject jsonParams = new JSONObject();
+        try {
+            jsonParams.put("from", from);
+            jsonParams.put("limit", limit);
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(getCollectionRequest, jsonParams.toString(), listener, tag);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 用户获取收藏的装修美图列表
+     *
+     * @param context
+     * @param from
+     * @param limit
+     * @param listener
+     * @param tag
+     */
+    public static void getBeautyImgListByUser(Context context, int from, int limit, ApiUiUpdateListener listener, Object tag) {
+        GetBeautyImgListRequest getBeautyImgListRequest = new GetBeautyImgListRequest(context, from, limit);
+        JSONObject jsonParams = new JSONObject();
+        try {
+            jsonParams.put("from", from);
+            jsonParams.put("limit", limit);
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(getBeautyImgListRequest, jsonParams.toString(), listener, tag);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 用户删除收藏的装修美图
+     *
+     * @param context
+     * @param productid
+     * @param listener
+     * @param tag
+     */
+    public static void deleteBeautyImgByUser(Context context, String id, ApiUiUpdateListener listener, Object tag) {
+        DeleteBeautyImgRequest deleteBeautyImgRequest = new DeleteBeautyImgRequest(context, id);
+        JSONObject jsonParams = new JSONObject();
+        try {
+            jsonParams.put("_id", id);
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(deleteBeautyImgRequest, jsonParams.toString(), listener, tag);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

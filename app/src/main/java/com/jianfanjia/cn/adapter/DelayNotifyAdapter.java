@@ -15,7 +15,7 @@ import com.jianfanjia.cn.tools.DateFormatTool;
 import java.util.List;
 
 /**
- * @param <NotifyDelayInfo>
+ * @param
  * @author zhanghao
  * @class DelayNotifyAdapter
  * @date 2015-8-26 15:57
@@ -55,13 +55,17 @@ public class DelayNotifyAdapter extends BaseListAdapter<NotifyDelayInfo> {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
+        final String role = info.getRequest_role();
         viewHolder.itemCellView.setText(info.getProcess().getCell());
         viewHolder.itemNodeView.setText(MyApplication.getInstance()
                 .getStringById(info.getSection()) + "阶段");
-        viewHolder.itemNewTimeView.setText("对方已申请改期验收至" + DateFormatTool.longToString(info.getNew_date()));
-        viewHolder.itemPubTimeView.setText(DateFormatTool
-                .toLocalTimeString(info.getRequest_date()));
-        String status = info.getStatus();
+        if (role.equals(Constant.IDENTITY_OWNER)) {
+            viewHolder.itemNewTimeView.setText("您已申请改期验收至" + DateFormatTool.longToString(info.getNew_date()));
+        } else {
+            viewHolder.itemNewTimeView.setText("对方已申请改期验收至" + DateFormatTool.longToString(info.getNew_date()));
+        }
+        viewHolder.itemPubTimeView.setText(DateFormatTool.toLocalTimeString(info.getRequest_date()));
+        final String status = info.getStatus();
         if (status.equals(Constant.NO_START)) {
             viewHolder.itemStatusView.setText("未开工");
         } else if (status.equals(Constant.DOING)) {
@@ -69,21 +73,24 @@ public class DelayNotifyAdapter extends BaseListAdapter<NotifyDelayInfo> {
         } else if (status.equals(Constant.FINISHED)) {
             viewHolder.itemStatusView.setText("已完成");
         } else if (status.equals(Constant.YANQI_BE_DOING)) {
-            viewHolder.itemStatusView.setText("未处理,点击前往处理");
-            viewHolder.itemStatusView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (null != listener) {
-                        listener.onClick(position);
-                    }
-                }
-            });
+            if (role.equals(Constant.IDENTITY_OWNER)) {
+                viewHolder.itemStatusView.setText("等待对方确认");
+            } else {
+                viewHolder.itemStatusView.setText("未处理,点击前往处理");
+            }
         } else if (status.equals(Constant.YANQI_AGREE)) {
             viewHolder.itemStatusView.setText("已同意");
         } else if (status.equals(Constant.YANQI_REFUSE)) {
             viewHolder.itemStatusView.setText("已拒绝");
         }
-
+        viewHolder.itemStatusView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (null != listener) {
+                    listener.onClick(position, status, role);
+                }
+            }
+        });
         return convertView;
     }
 

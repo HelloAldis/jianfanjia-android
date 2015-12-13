@@ -1,7 +1,7 @@
 package com.jianfanjia.cn.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Handler;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.view.View;
@@ -88,7 +88,7 @@ public class EditRequirementActivity extends BaseAnnotationActivity {
     @ViewById
     protected EditText act_edit_req_shi_content;//室
 
-    @StringArrayRes(R.array.arr_lovestyle)
+    @StringArrayRes(R.array.arr_decstyle)
     protected String[] arr_lovestyle;
     @StringArrayRes(R.array.arr_housetype)
     protected String[] arr_housetype;
@@ -96,7 +96,7 @@ public class EditRequirementActivity extends BaseAnnotationActivity {
     protected String[] arr_love_designerstyle;
     @StringArrayRes(R.array.arr_worktype)
     protected String[] arr_worktype;
-    @StringArrayRes(R.array.arr_decstyle)
+    @StringArrayRes(R.array.arr_dectype)
     protected String[] arr_decstyle;
     @StringArrayRes(R.array.arr_desisex)
     protected String[] arr_desisex;
@@ -106,7 +106,6 @@ public class EditRequirementActivity extends BaseAnnotationActivity {
     private Intent gotoItem;
     private Intent gotoItemLove;
     private RequirementInfo requirementInfo;
-    private CommonDialog commonDialog;
 
     @AfterTextChange({R.id.act_edit_req_street_content, R.id.act_edit_req_cell_content, R.id.act_edit_req_qi_content, R.id.act_edit_req_danyuan_content, R.id.act_edit_req_dong_content,
             R.id.act_edit_req_shi_content, R.id.act_edit_req_housearea_content, R.id.act_edit_req_decoratebudget_content})
@@ -212,8 +211,7 @@ public class EditRequirementActivity extends BaseAnnotationActivity {
         int viewId = clickView.getId();
         switch (viewId) {
             case R.id.head_back_layout:
-                setResult(RESULT_CANCELED);
-                finish();
+                back();
                 break;
             case R.id.act_edit_req_city:
                 gotoItem.putExtra(REQUIRE_DATA, REQUIRECODE_CITY);
@@ -254,9 +252,43 @@ public class EditRequirementActivity extends BaseAnnotationActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        setResult(RESULT_CANCELED);
-        finish();
+        back();
+    }
+
+    protected void back(){
+        if(requestCode == XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT){
+            if(setItems.size() > 0){
+                showTipDialog();
+            }else{
+                setResult(RESULT_CANCELED);
+                finish();
+            }
+        }else{
+            setResult(RESULT_CANCELED);
+            finish();
+        }
+    }
+
+    //显示放弃提交提醒
+    protected void showTipDialog(){
+        CommonDialog commonDialog = DialogHelper.getPinterestDialogCancelable(this);
+        commonDialog.setTitle(R.string.tip_confirm);
+        commonDialog.setMessage(getString(R.string.abandon_confirm_req));
+        commonDialog.setNegativeButton(getString(R.string.str_cancel), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        commonDialog.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                setResult(RESULT_CANCELED);
+                finish();
+            }
+        });
+        commonDialog.show();
     }
 
     @Click(R.id.head_right_title)
@@ -271,29 +303,13 @@ public class EditRequirementActivity extends BaseAnnotationActivity {
     @Override
     public void loadSuccess(Object data) {
         super.loadSuccess(data);
-        showSuccessDialog();
-        LogTool.d(getClass().getName(), data.toString());
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                commonDialog.dismiss();
-                setResult(RESULT_OK);
-                finish();
-            }
-        }, 2000);
+        setResult(RESULT_OK);
+        finish();
     }
 
-    private void showSuccessDialog() {
-        commonDialog = DialogHelper
-                .getPinterestDialogCancelable(this);
-        if (requestCode == XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT) {
-            commonDialog.setTitle("发布成功");
-            commonDialog.setMessage("您的需求发布成功啦！");
-        } else {
-            commonDialog.setTitle("更新成功");
-            commonDialog.setMessage("您的需求更新成功啦！");
-        }
-        commonDialog.show();
+    @Override
+    public void loadFailture(String error_msg) {
+        super.loadFailture(error_msg);
     }
 
     @AfterViews
@@ -319,15 +335,15 @@ public class EditRequirementActivity extends BaseAnnotationActivity {
             act_edit_req_danyuan_content.setText(requirementInfo.getCell_unit());
             act_edit_req_dong_content.setText(requirementInfo.getCell_building());
             act_edit_req_shi_content.setText(requirementInfo.getCell_detail_number());
-            act_edit_req_decoratetype_content.setText(arr_decstyle[Integer.parseInt(requirementInfo.getDec_type())]);
+            act_edit_req_decoratetype_content.setText(TextUtils.isEmpty(requirementInfo.getDec_type()) ? "" : arr_decstyle[Integer.parseInt(requirementInfo.getDec_type())]);
             act_edit_req_housearea_content.setText(requirementInfo.getHouse_area());
-            act_edit_req_housetype_content.setText(arr_housetype[Integer.parseInt(requirementInfo.getHouse_type())]);
+            act_edit_req_housetype_content.setText(TextUtils.isEmpty(requirementInfo.getHouse_type()) ? "" : arr_housetype[Integer.parseInt(requirementInfo.getHouse_type())]);
             act_edit_req_decoratebudget_content.setText(requirementInfo.getTotal_price());
             act_edit_req_persons_content.setText(requirementInfo.getFamily_description());
-            act_edit_req_lovestyle_content.setText(arr_lovestyle[Integer.parseInt(requirementInfo.getDec_style())]);
-            act_edit_req_lovedesistyle_content.setText(arr_love_designerstyle[Integer.parseInt(requirementInfo.getCommunication_type())]);
-            act_edit_req_lovedesisex_content.setText(arr_desisex[Integer.parseInt(requirementInfo.getPrefer_sex())]);
-            act_edit_req_work_type_content.setText(arr_worktype[Integer.parseInt(requirementInfo.getWork_type())]);
+            act_edit_req_lovestyle_content.setText(TextUtils.isEmpty(requirementInfo.getDec_style()) ? "" : arr_lovestyle[Integer.parseInt(requirementInfo.getDec_style())]);
+            act_edit_req_lovedesistyle_content.setText(TextUtils.isEmpty(requirementInfo.getCommunication_type()) ? "" : arr_love_designerstyle[Integer.parseInt(requirementInfo.getCommunication_type())]);
+            act_edit_req_lovedesisex_content.setText(TextUtils.isEmpty(requirementInfo.getPrefer_sex()) ? "" : arr_desisex[Integer.parseInt(requirementInfo.getPrefer_sex())]);
+            act_edit_req_work_type_content.setText(TextUtils.isEmpty(requirementInfo.getWork_type()) ? "" : arr_worktype[Integer.parseInt(requirementInfo.getWork_type())]);
             initItem();
             requestCode = XuQiuFragment.REQUESTCODE_EDIT_REQUIREMENT;
         } else {

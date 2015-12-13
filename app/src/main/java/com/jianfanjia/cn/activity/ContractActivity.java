@@ -2,6 +2,7 @@ package com.jianfanjia.cn.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.WebSettings;
@@ -24,7 +25,7 @@ import com.jianfanjia.cn.view.MainHeadView;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class ContractActivity extends BaseActivity implements OnClickListener {
+public class ContractActivity extends BaseActivity implements OnClickListener, View.OnKeyListener {
     private static final String TAG = ContractActivity.class.getName();
     private MainHeadView mainHeadView = null;
     private WebView webView = null;
@@ -32,10 +33,11 @@ public class ContractActivity extends BaseActivity implements OnClickListener {
     private String requirementid = null;
     private String final_planid = null;
 
+    private Intent intent;
 
     @Override
     public void initView() {
-        Intent intent = this.getIntent();
+        intent = this.getIntent();
         Bundle contractBundle = intent.getExtras();
         requirementStatus = contractBundle.getString(Global.REQUIREMENT_STATUS);
         requirementid = contractBundle.getString(Global.REQUIREMENT_ID);
@@ -84,7 +86,7 @@ public class ContractActivity extends BaseActivity implements OnClickListener {
 
     @Override
     public void setListener() {
-
+        webView.setOnKeyListener(this);
     }
 
     @Override
@@ -99,6 +101,18 @@ public class ContractActivity extends BaseActivity implements OnClickListener {
             default:
                 break;
         }
+    }
+
+    @Override
+    public boolean onKey(View v, int keyCode, KeyEvent event) {
+        if (event.getAction() == KeyEvent.ACTION_DOWN) {
+            if (keyCode == KeyEvent.KEYCODE_BACK &&
+                    webView.canGoBack()) {  //表示按返回键时的操作
+                webView.goBack();   //后退
+                return true;    //已处理
+            }
+        }
+        return false;
     }
 
     //查看合同
@@ -145,21 +159,18 @@ public class ContractActivity extends BaseActivity implements OnClickListener {
         @Override
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data.toString());
-            makeTextLong("确认成功");
+            mainHeadView.setRigthTitleEnable(false);
+            setResult(RESULT_OK);
+            finish();
         }
 
         @Override
         public void loadFailture(String error_msg) {
             makeTextLong(error_msg);
+            mainHeadView.setRigthTitleEnable(true);
         }
     };
 
-    @Override
-    public void onBackPressed() {
-        if (webView.canGoBack()) {
-            webView.goBack();
-        }
-    }
 
     @Override
     public int getLayoutId() {
