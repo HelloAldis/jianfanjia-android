@@ -5,12 +5,13 @@
     android:layout_margin="5dp"
     android:orientation="horizontal"
     card_view:cardBackgroundColor="@color/font_white"
-    card_view:cardCornerRadius="5dp">
+    card_view:cardCornerRadius="5dp"
+    card_view:cardElevation="5dip"
+    card_view:contentPadding="10dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/list_item_works_img"
