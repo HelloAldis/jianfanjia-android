@@ -5,7 +5,6 @@
     android:layout_height="80dp"
     app:cardBackgroundColor="@color/font_white"
     app:cardCornerRadius="5dp"
-    card_view:cardElevation="5dip"
     card_view:cardPreventCornerOverlap="true">
 
     <ImageView

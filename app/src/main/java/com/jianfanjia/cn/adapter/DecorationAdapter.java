@@ -32,7 +32,7 @@ public class DecorationAdapter extends BaseRecyclerViewAdapter<BeautyImgInfo> {
     public void bindView(RecyclerViewHolderBase viewHolder, final int position, List<BeautyImgInfo> list) {
         BeautyImgInfo info = list.get(position);
         DecorationViewHolder holder = (DecorationViewHolder) viewHolder;
-        imageShow.displayScreenWidthThumnailImage(context, info.getImages().get(0).getImageid(), holder.itemDecorateView);
+        imageShow.displayHalfScreenWidthThumnailImage(context, info.getImages().get(0).getImageid(), holder.itemDecorateView);
         holder.itemDecorateView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

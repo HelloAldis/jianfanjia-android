@@ -17,6 +17,7 @@ import com.jianfanjia.cn.interf.OnItemClickListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
+import com.jianfanjia.cn.view.baseview.SpacesItemDecoration;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
 
@@ -43,6 +44,9 @@ public class DecorationFragment extends BaseFragment implements ApiUiUpdateListe
         mLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         decoration_listview.setLayoutManager(mLayoutManager);
         decoration_listview.setItemAnimator(new DefaultItemAnimator());
+        //设置item之间的间隔
+        SpacesItemDecoration decoration = new SpacesItemDecoration(10);
+        decoration_listview.addItemDecoration(decoration);
         searchDecorationImg();
     }
 
