@@ -30,9 +30,9 @@ public class ProductAdapter extends BaseRecyclerViewAdapter<Product> {
     }
 
     @Override
-    public void bindView(RecyclerViewHolderBase viewHolder, final int position, List<Product> list) {
+    public void bindView(RecyclerViewHolderBase viewHolder, int position, List<Product> list) {
         Product product = list.get(position);
-        ProductViewHolder holder = (ProductViewHolder) viewHolder;
+        final ProductViewHolder holder = (ProductViewHolder) viewHolder;
         holder.itemXiaoQuText.setText(product.getCell());
         String houseType = product.getHouse_type();
         String decStyle = product.getDec_style();
@@ -43,7 +43,7 @@ public class ProductAdapter extends BaseRecyclerViewAdapter<Product> {
             @Override
             public void onClick(View v) {
                 if (null != listener) {
-                    listener.OnItemClick(v, position);
+                    listener.OnItemClick(v, holder.getLayoutPosition());
                 }
             }
         });
@@ -51,7 +51,7 @@ public class ProductAdapter extends BaseRecyclerViewAdapter<Product> {
             @Override
             public boolean onLongClick(View v) {
                 if (null != listener) {
-                    listener.OnLongItemClick(v, position);
+                    listener.OnLongItemClick(v, holder.getLayoutPosition());
                 }
                 return true;
             }
@@ -60,7 +60,7 @@ public class ProductAdapter extends BaseRecyclerViewAdapter<Product> {
             @Override
             public void onClick(View v) {
                 if (null != listener) {
-                    listener.OnViewClick(position);
+                    listener.OnViewClick(holder.getLayoutPosition());
                 }
             }
         });
