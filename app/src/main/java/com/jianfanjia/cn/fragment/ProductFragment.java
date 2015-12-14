@@ -31,7 +31,6 @@ public class ProductFragment extends BaseFragment implements ApiUiUpdateListener
     @Override
     public void initView(View view) {
         prodtct_listview = (RecyclerView) view.findViewById(R.id.prodtct_listview);
-        prodtct_listview = (RecyclerView) view.findViewById(R.id.my_favorite_designer_listview);
         prodtct_listview.setLayoutManager(new LinearLayoutManager(getActivity()));
         prodtct_listview.setItemAnimator(new DefaultItemAnimator());
         Paint paint = new Paint();

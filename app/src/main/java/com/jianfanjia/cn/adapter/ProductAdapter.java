@@ -3,10 +3,14 @@ package com.jianfanjia.cn.adapter;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.bean.Product;
+import com.jianfanjia.cn.cache.BusinessManager;
 
 import java.util.List;
 
@@ -24,16 +28,46 @@ public class ProductAdapter extends BaseRecyclerViewAdapter<Product> {
 
     @Override
     public void bindView(RecyclerViewHolderBase viewHolder, int position, List<Product> list) {
+        Product product = list.get(position);
+        ProductViewHolder holder = (ProductViewHolder) viewHolder;
+        holder.itemXiaoQuText.setText(product.getCell());
+        String houseType = product.getHouse_type();
+        String decStyle = product.getDec_style();
+        holder.itemProduceText.setText(product.getHouse_area() + "㎡，" + BusinessManager.convertHouseTypeToShow(houseType) + "，" + BusinessManager.convertDecStyleToShow(decStyle));
+        imageShow.displayScreenWidthThumnailImage(context, product.getImages().get(0).getImageid(), holder.itemProductView);
+//        imageShow.displayImageHeadWidthThumnailImage(context, info.getImageid(), holder.itemHeadView);
 
     }
 
     @Override
     public View createView(ViewGroup viewGroup, int viewType) {
-        return null;
+        View view = layoutInflater.inflate(R.layout.list_item_product,
+                null);
+        return view;
     }
 
     @Override
     public RecyclerViewHolderBase createViewHolder(View view) {
-        return null;
+        return new ProductViewHolder(view);
+    }
+
+
+    private static class ProductViewHolder extends RecyclerViewHolderBase {
+        public ImageView itemProductView;
+        public ImageView itemHeadView;
+        public TextView itemXiaoQuText;
+        public TextView itemProduceText;
+
+        public ProductViewHolder(View itemView) {
+            super(itemView);
+            itemProductView = (ImageView) itemView
+                    .findViewById(R.id.list_item_product_img);
+            itemHeadView = (ImageView) itemView
+                    .findViewById(R.id.list_item_head_img);
+            itemXiaoQuText = (TextView) itemView
+                    .findViewById(R.id.list_item_xiaoqu_text);
+            itemProduceText = (TextView) itemView
+                    .findViewById(R.id.list_item_produce_text);
+        }
     }
 }
