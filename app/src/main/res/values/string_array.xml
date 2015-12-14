@@ -296,5 +296,40 @@
         <item>city</item>
     </string-array>
 
+    <!--装修美图-->
+    <string-array name="section_item">
+        <item>不限</item>
+        <item>厨房</item>
+        <item>客厅</item>
+        <item>卫生间</item>
+        <item>卧室</item>
+        <item>餐厅</item>
+        <item>书房</item>
+        <item>玄关</item>
+        <item>阳台</item>
+        <item>儿童房</item>
+        <item>走廊</item>
+        <item>储物间</item>
+    </string-array>
 
+    <string-array name="housetype_item">
+        <item>不限</item>
+        <item>一室</item>
+        <item>二室</item>
+        <item>三室</item>
+        <item>四室</item>
+        <item>复式</item>
+        <item>别墅</item>
+        <item>LOFT</item>
+    </string-array>
+
+    <string-array name="decstyle_item">
+        <item>不限</item>
+        <item>欧式</item>
+        <item>中式</item>
+        <item>现代</item>
+        <item>地中海</item>
+        <item>美式</item>
+        <item>东南亚</item>
+    </string-array>
 </resources>

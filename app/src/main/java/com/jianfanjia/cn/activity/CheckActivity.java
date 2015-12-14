@@ -185,7 +185,6 @@ public class CheckActivity extends BaseActivity implements OnClickListener, Item
                     btn_confirm.setEnabled(false);
                     btn_confirm.setText(this.getResources().getString(
                             R.string.confirm_not_finish));
-
                 }
             }
         } else {
@@ -221,9 +220,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener, Item
             }
         }
         return flag;
-
     }
-
 
     @Override
     public void setListener() {

@@ -1,7 +1,11 @@
 package com.jianfanjia.cn.activity;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -9,7 +13,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 
 import com.jianfanjia.cn.adapter.CommentAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
@@ -23,6 +26,7 @@ import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
+import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -37,7 +41,7 @@ import java.util.List;
 public class CommentActivity extends BaseActivity implements OnClickListener {
     private static final String TAG = CommentActivity.class.getName();
     private MainHeadView mainHeadView = null;
-    private ListView commentListView = null;
+    private RecyclerView commentListView = null;
     private EditText commentEdit = null;
     private Button btnSend = null;
     private CommentAdapter commentAdapter = null;
@@ -55,7 +59,15 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
     @Override
     public void initView() {
         initMainHeadView();
-        commentListView = (ListView) findViewById(R.id.comment_listview);
+        commentListView = (RecyclerView) findViewById(R.id.comment_listview);
+        commentListView.setLayoutManager(new LinearLayoutManager(this));
+        commentListView.setItemAnimator(new DefaultItemAnimator());
+        commentListView.setHasFixedSize(true);
+        Paint paint = new Paint();
+        paint.setStrokeWidth(1);
+        paint.setColor(getResources().getColor(R.color.light_white_color));
+        paint.setAntiAlias(true);
+        commentListView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this).paint(paint).showLastDivider().build());
         commentEdit = (EditText) findViewById(R.id.add_comment);
         btnSend = (Button) findViewById(R.id.btn_send);
         btnSend.setEnabled(false);
@@ -177,8 +189,9 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
             LogTool.d(TAG, "data:" + data);
             hideWaitDialog();
             CommentInfo commentInfo = createCommentInfo(commentEdit.getEditableText().toString());
-            commentAdapter.addItem(commentInfo, 0);
-            commentListView.setSelection(0);
+            commentList.add(0, commentInfo);
+            commentAdapter.notifyItemInserted(0);
+            commentListView.scrollToPosition(0);
             commentEdit.setText("");
             isUpdate = true;
         }

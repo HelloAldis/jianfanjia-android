@@ -3,11 +3,12 @@ package com.jianfanjia.cn.adapter;
 import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.adapter.base.BaseListAdapter;
+import com.jianfanjia.cn.adapter.base.BaseRecyclerViewAdapter;
+import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.bean.PlanInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
@@ -23,37 +24,18 @@ import java.util.List;
  * Date: 2015-10-22
  * Time: 17:54
  */
-public class DesignerPlanAdapter extends BaseListAdapter<PlanInfo> {
+public class DesignerPlanAdapter extends BaseRecyclerViewAdapter<PlanInfo> {
     private ItemClickListener itemClickListener;
-
-    public DesignerPlanAdapter(Context context, List<PlanInfo> list) {
-        super(context, list);
-    }
 
     public DesignerPlanAdapter(Context context, List<PlanInfo> list, ItemClickListener itemClickListener) {
         super(context, list);
         this.itemClickListener = itemClickListener;
     }
 
-
     @Override
-    public View initView(final int position, View convertView) {
-        ViewHolder holder = null;
+    public void bindView(RecyclerViewHolderBase viewHolder, final int position, List<PlanInfo> list) {
         PlanInfo info = list.get(position);
-        if (convertView == null) {
-            convertView = layoutInflater.inflate(R.layout.list_item_plan_info,
-                    null);
-            holder = new ViewHolder();
-            holder.numText = (TextView) convertView.findViewById(R.id.numText);
-            holder.statusText = (TextView) convertView.findViewById(R.id.statusText);
-            holder.viewPager = (ViewPager) convertView.findViewById(R.id.viewpager);
-            holder.dateText = (TextView) convertView.findViewById(R.id.dateText);
-            holder.previewText = (TextView) convertView.findViewById(R.id.previewText);
-            holder.commentText = (TextView) convertView.findViewById(R.id.commentText);
-            convertView.setTag(holder);
-        } else {
-            holder = (ViewHolder) convertView.getTag();
-        }
+        DesignerPlanViewHolder holder = (DesignerPlanViewHolder) viewHolder;
         holder.numText.setText("方案" + (position + 1));
         holder.dateText.setText(DateFormatTool.longToString(info.getLast_status_update_time()));
         holder.commentText.setText("留言(" + info.getComment_count() + ")");
@@ -79,7 +61,7 @@ public class DesignerPlanAdapter extends BaseListAdapter<PlanInfo> {
         });
         holder.viewPager.setPageMargin(10);
         holder.viewPager.setAdapter(adapter);
-        holder.commentText.setOnClickListener(new OnClickListener() {
+        holder.commentText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (null != itemClickListener) {
@@ -88,7 +70,7 @@ public class DesignerPlanAdapter extends BaseListAdapter<PlanInfo> {
             }
         });
 
-        holder.previewText.setOnClickListener(new OnClickListener() {
+        holder.previewText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (null != itemClickListener) {
@@ -96,15 +78,36 @@ public class DesignerPlanAdapter extends BaseListAdapter<PlanInfo> {
                 }
             }
         });
-        return convertView;
     }
 
-    private static class ViewHolder {
-        TextView numText;
-        TextView statusText;
-        ViewPager viewPager;
-        TextView dateText;
-        TextView commentText;
-        TextView previewText;
+    @Override
+    public View createView(ViewGroup viewGroup, int viewType) {
+        View view = layoutInflater.inflate(R.layout.list_item_plan_info,
+                null);
+        return view;
+    }
+
+    @Override
+    public RecyclerViewHolderBase createViewHolder(View view) {
+        return new DesignerPlanViewHolder(view);
+    }
+
+    private static class DesignerPlanViewHolder extends RecyclerViewHolderBase {
+        public TextView numText;
+        public TextView statusText;
+        public ViewPager viewPager;
+        public TextView dateText;
+        public TextView commentText;
+        public TextView previewText;
+
+        public DesignerPlanViewHolder(View itemView) {
+            super(itemView);
+            numText = (TextView) itemView.findViewById(R.id.numText);
+            statusText = (TextView) itemView.findViewById(R.id.statusText);
+            viewPager = (ViewPager) itemView.findViewById(R.id.viewpager);
+            dateText = (TextView) itemView.findViewById(R.id.dateText);
+            previewText = (TextView) itemView.findViewById(R.id.previewText);
+            commentText = (TextView) itemView.findViewById(R.id.commentText);
+        }
     }
 }

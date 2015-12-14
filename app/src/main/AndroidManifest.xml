@@ -41,10 +41,10 @@
         <!-- 友盟配置 -->
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="55e40deee0f55acc66001861"></meta-data>
+            android:value="55e40deee0f55acc66001861" />
         <meta-data
             android:name="UMENG_CHANNEL"
-            android:value="${UMENG_CHANNEL_VALUE}"></meta-data>
+            android:value="${UMENG_CHANNEL_VALUE}" />
 
         <!-- 个推SDK配置开始 -->
         <!-- 配置的第三方参数属性 -->
@@ -155,7 +155,7 @@
             android:name=".LoginNewActivity_"
             android:label="@string/title_activity_login"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateVisible"></activity>
+            android:windowSoftInputMode="stateVisible" />
         <activity
             android:name=".RegisterNewActivity_"
             android:label="@string/title_activity_register"
@@ -185,7 +185,7 @@
             android:name=".CommentActivity"
             android:label="@string/title_activity_comment"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustResize"/>
+            android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name=".EditInfoActivity"
             android:label="@string/title_activity_edit_info"
@@ -204,8 +204,8 @@
         <activity
             android:name=".MyDesignerActivity_"
             android:label="@string/title_activity_my_designer"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".NavigateActivity"
             android:label="@string/title_activity_navigate"
@@ -299,13 +299,20 @@
         <activity
             android:name=".ReplaceDesignerActivity"
             android:label="@string/title_activity_replace_designer"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".CityEditActivity_"
             android:screenOrientation="portrait" />
-        <activity android:name="com.soundcloud.android.crop.CropImageActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.soundcloud.android.crop.CropImageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".CollectActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PreviewDecorationActivity"
+            android:label="@string/title_activity_preview_decoration"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

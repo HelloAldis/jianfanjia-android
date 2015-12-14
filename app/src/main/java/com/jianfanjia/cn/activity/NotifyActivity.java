@@ -1,7 +1,6 @@
 package com.jianfanjia.cn.activity;
 
 import android.content.Intent;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
@@ -14,7 +13,6 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.fragment.CaiGouNotifyFragment;
 import com.jianfanjia.cn.fragment.FuKuanNotifyFragment;
 import com.jianfanjia.cn.fragment.YanQiNotifyFragment;
-import com.jianfanjia.cn.interf.SwitchFragmentListener;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.TabPageIndicator;
@@ -24,23 +22,12 @@ import java.util.List;
 
 public class NotifyActivity extends BaseActivity implements OnClickListener {
     private static final String TAG = NotifyActivity.class.getName();
-    private SwitchFragmentListener listener = null;
     private MainHeadView mainHeadView = null;
     private TabPageIndicator mPageIndicator = null;
     private MyFragmentPagerAdapter adapter = null;
     private ViewPager mPager = null;// 页卡内容
     private List<SelectItem> listViews = new ArrayList<SelectItem>(); // Tab页面列表
     private int initialPosition = 0;
-
-    @Override
-    public void onAttachFragment(Fragment fragment) {
-        super.onAttachFragment(fragment);
-        try {
-            listener = (SwitchFragmentListener) fragment;
-        } catch (ClassCastException e) {
-            LogTool.d(TAG, "e:" + e);
-        }
-    }
 
     @Override
     public void initView() {

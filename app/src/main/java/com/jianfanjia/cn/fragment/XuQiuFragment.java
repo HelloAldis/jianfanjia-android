@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.View;
@@ -209,6 +210,7 @@ public class XuQiuFragment extends BaseAnnotationFragment {
     private void initPullRefresh() {
         error_Layout.setErrorType(EmptyLayout.HIDE_LAYOUT);
         pullrefresh.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+        pullrefresh.setLayoutManager(new LinearLayoutManager(getActivity()));
         pullrefresh.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<RecyclerView>() {
             @Override
             public void onRefresh(PullToRefreshBase<RecyclerView> refreshView) {

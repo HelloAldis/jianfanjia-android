@@ -6,25 +6,28 @@ import com.jianfanjia.cn.base.BaseRequest;
 import com.jianfanjia.cn.config.Url_New;
 
 public class FavoriteDesignerListRequest extends BaseRequest {
+    private int from;
+    private int limit;
 
+    public FavoriteDesignerListRequest(Context context, int from, int limit) {
+        super(context);
+        this.from = from;
+        this.limit = limit;
+        url = Url_New.FAVORITE_DESIGNER_LIST;
+    }
 
-	public FavoriteDesignerListRequest(Context context) {
-		super(context);
-		url = Url_New.FAVORITE_DESIGNER_LIST;
-	}
-	
-	@Override
-	public void pre() {
-		super.pre();
-	}
-	
-	@Override
-	public void onSuccess(Object data) {
-		super.onSuccess(data);
-		if(data != null){
+    @Override
+    public void pre() {
+        super.pre();
+    }
 
-		}
-	}
-	
+    @Override
+    public void onSuccess(Object data) {
+        super.onSuccess(data);
+        if (data != null) {
+
+        }
+    }
+
 
 }

@@ -139,7 +139,7 @@ public class PushMsgReceiver extends BroadcastReceiver {
 
             @Override
             public void loadSuccess(Object data) {
-                LogTool.d(TAG, "data:" + data.toString());
+                LogTool.d(TAG, "data:" + data);
             }
 
             @Override
@@ -148,5 +148,4 @@ public class PushMsgReceiver extends BroadcastReceiver {
             }
         }, this);
     }
-
 }

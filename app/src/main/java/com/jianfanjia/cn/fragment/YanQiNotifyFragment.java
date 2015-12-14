@@ -16,7 +16,6 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.DelayInfoListener;
-import com.jianfanjia.cn.interf.SwitchFragmentListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
@@ -31,8 +30,7 @@ import java.util.List;
  * @Description: 改期提醒
  * @date 2015-8-26 下午1:09:52
  */
-public class YanQiNotifyFragment extends BaseFragment implements
-        SwitchFragmentListener, OnItemLongClickListener, ApiUiUpdateListener, DelayInfoListener {
+public class YanQiNotifyFragment extends BaseFragment implements OnItemLongClickListener, ApiUiUpdateListener, DelayInfoListener {
     private static final String TAG = YanQiNotifyFragment.class.getName();
     private ListView yanqiListView = null;
     private List<NotifyDelayInfo> delayList = new ArrayList<NotifyDelayInfo>();
@@ -185,14 +183,8 @@ public class YanQiNotifyFragment extends BaseFragment implements
     }
 
     @Override
-    public void switchTab(int index) {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
     public int getLayoutId() {
         return R.layout.fragment_yanqi_notify;
     }
-
 
 }

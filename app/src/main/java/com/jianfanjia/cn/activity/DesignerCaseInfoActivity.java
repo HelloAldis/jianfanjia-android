@@ -32,9 +32,10 @@ import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class DesignerCaseInfoActivity extends BaseActivity implements ApiUiUpdateListener, OnClickListener, AppBarLayout.OnOffsetChangedListener {
+public class DesignerCaseInfoActivity extends BaseActivity implements OnClickListener, AppBarLayout.OnOffsetChangedListener {
     private static final String TAG = DesignerCaseInfoActivity.class.getName();
     private Toolbar toolbar = null;
+    private TextView toolbar_add = null;
     private AppBarLayout appBarLayout = null;
     private CollapsingToolbarLayout collapsingToolbar = null;
     private RelativeLayout activity_case_info_top_layout = null;
@@ -57,6 +58,7 @@ public class DesignerCaseInfoActivity extends BaseActivity implements ApiUiUpdat
     public void initView() {
         activity_case_info_top_layout = (RelativeLayout) findViewById(R.id.top_info_layout);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar_add = (TextView) findViewById(R.id.toolbar_add);
         toolbar.setNavigationIcon(R.mipmap.icon_register_back);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -88,9 +90,6 @@ public class DesignerCaseInfoActivity extends BaseActivity implements ApiUiUpdat
         getProductHomePageInfo(productid);
     }
 
-    private void getProductHomePageInfo(String productid) {
-        JianFanJiaClient.getProductHomePage(DesignerCaseInfoActivity.this, productid, this, this);
-    }
 
     @Override
     public void setListener() {
@@ -103,24 +102,38 @@ public class DesignerCaseInfoActivity extends BaseActivity implements ApiUiUpdat
                 finish();
             }
         });
+        toolbar_add.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.toolbar_add:
+                addProductHomePageInfo(productid);
+                break;
             case R.id.designerinfo_head_img:
-                Bundle designerBundle = new Bundle();
-                designerBundle.putString(Global.DESIGNER_ID, designertid);
-                startActivity(DesignerInfoActivity.class, designerBundle);
+                startDesignerInfoActivity(designertid);
                 break;
             case R.id.top_info_layout:
-                Bundle designerInfoBundle = new Bundle();
-                designerInfoBundle.putString(Global.DESIGNER_ID, designertid);
-                startActivity(DesignerInfoActivity.class, designerInfoBundle);
+                startDesignerInfoActivity(designertid);
                 break;
             default:
                 break;
         }
+    }
+
+    private void startDesignerInfoActivity(String designertid) {
+        Bundle designerInfoBundle = new Bundle();
+        designerInfoBundle.putString(Global.DESIGNER_ID, designertid);
+        startActivity(DesignerInfoActivity.class, designerInfoBundle);
+    }
+
+    private void getProductHomePageInfo(String productid) {
+        JianFanJiaClient.getProductHomePage(DesignerCaseInfoActivity.this, productid, getProductHomePageInfoListener, this);
+    }
+
+    private void addProductHomePageInfo(String productid) {
+        JianFanJiaClient.addCollectionByUser(DesignerCaseInfoActivity.this, productid, addProductHomePageInfoListener, this);
     }
 
     @Override
@@ -143,43 +156,58 @@ public class DesignerCaseInfoActivity extends BaseActivity implements ApiUiUpdat
         }
     }
 
-    @Override
-    public void preLoad() {
-        showWaitDialog(R.string.loding);
-        collapsingToolbar.setTitle("");
-    }
-
-    @Override
-    public void loadSuccess(Object data) {
-        super.loadSuccess(data);
-        LogTool.d(TAG, "data:" + data);
-        hideWaitDialog();
-        parseResponse(data.toString());
-    }
-
-    private void parseResponse(String response) {
-        DesignerCaseInfo designerCaseInfo = JsonParser.jsonToBean(response, DesignerCaseInfo.class);
-        LogTool.d(TAG, "designerCaseInfo" + designerCaseInfo);
-        if (null != designerCaseInfo) {
-            designertid = designerCaseInfo.getDesigner().get_id();
-            collapsingToolbar.setTitle(designerCaseInfo.getCell());
-            stylelText.setText(designerCaseInfo.getHouse_area() + "㎡，" + getHouseType(designerCaseInfo.getHouse_type()) + "，" + getDecStyle(designerCaseInfo.getDec_type()));
-            imageShow.displayScreenWidthThumnailImage(this, designerCaseInfo.getDesigner().getImageid(), designerinfo_head_img);
-            imageShow.displayImageHeadWidthThumnailImage(this, designerCaseInfo.getDesigner().getImageid(), head_img);
-            produceTitle.setVisibility(View.VISIBLE);
-            produceText.setText(designerCaseInfo.getDescription());
-            nameText.setText(designerCaseInfo.getDesigner().getUsername());
-            DesignerCaseAdapter adapter = new DesignerCaseAdapter(DesignerCaseInfoActivity.this, designerCaseInfo.getImages());
-            designer_case_listview.setAdapter(adapter);
+    private ApiUiUpdateListener getProductHomePageInfoListener = new ApiUiUpdateListener() {
+        @Override
+        public void preLoad() {
+            showWaitDialog(R.string.loding);
+            collapsingToolbar.setTitle("");
         }
-    }
 
-    @Override
-    public void loadFailture(String error_msg) {
-        hideWaitDialog();
-        makeTextLong(error_msg);
-        collapsingToolbar.setTitle("");
-    }
+        @Override
+        public void loadSuccess(Object data) {
+            LogTool.d(TAG, "data:" + data);
+            hideWaitDialog();
+            DesignerCaseInfo designerCaseInfo = JsonParser.jsonToBean(data.toString(), DesignerCaseInfo.class);
+            LogTool.d(TAG, "designerCaseInfo" + designerCaseInfo);
+            if (null != designerCaseInfo) {
+                designertid = designerCaseInfo.getDesigner().get_id();
+                collapsingToolbar.setTitle(designerCaseInfo.getCell());
+                stylelText.setText(designerCaseInfo.getHouse_area() + "㎡，" + getHouseType(designerCaseInfo.getHouse_type()) + "，" + getDecStyle(designerCaseInfo.getDec_type()));
+                imageShow.displayScreenWidthThumnailImage(DesignerCaseInfoActivity.this, designerCaseInfo.getDesigner().getImageid(), designerinfo_head_img);
+                imageShow.displayImageHeadWidthThumnailImage(DesignerCaseInfoActivity.this, designerCaseInfo.getDesigner().getImageid(), head_img);
+                produceTitle.setVisibility(View.VISIBLE);
+                produceText.setText(designerCaseInfo.getDescription());
+                nameText.setText(designerCaseInfo.getDesigner().getUsername());
+                DesignerCaseAdapter adapter = new DesignerCaseAdapter(DesignerCaseInfoActivity.this, designerCaseInfo.getImages());
+                designer_case_listview.setAdapter(adapter);
+            }
+        }
+
+        @Override
+        public void loadFailture(String error_msg) {
+            hideWaitDialog();
+            makeTextLong(error_msg);
+            collapsingToolbar.setTitle("");
+        }
+    };
+
+
+    private ApiUiUpdateListener addProductHomePageInfoListener = new ApiUiUpdateListener() {
+        @Override
+        public void preLoad() {
+
+        }
+
+        @Override
+        public void loadSuccess(Object data) {
+            makeTextLong(data.toString());
+        }
+
+        @Override
+        public void loadFailture(String error_msg) {
+            makeTextLong(error_msg);
+        }
+    };
 
     @Override
     protected void onDestroy() {

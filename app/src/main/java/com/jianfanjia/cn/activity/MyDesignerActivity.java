@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -88,6 +89,7 @@ public class MyDesignerActivity extends BaseAnnotationActivity {
 
     private void initPullRefresh() {
         refreshView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+        refreshView.setLayoutManager(new LinearLayoutManager(this));
         refreshView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<RecyclerView>() {
             @Override
             public void onRefresh(PullToRefreshBase<RecyclerView> refreshView) {

@@ -29,10 +29,12 @@ public class Constant {
     public static final String TEMP_IMG = IMAG_PATH + "/current_camera_temp_path";//拍照的临时存储文件路径
 
     public static final String EXTRA_BUNDLE = "launchBundle";
+    public static final String KEY_WORD = "不限";
 
     public static final int HOME = 0;//首页
-    public static final int MANAGE = 1;//工地管理
-    public static final int MY = 2;//我的
+    public static final int DECORATE = 1;//装修美图
+    public static final int MANAGE = 2;//工地管理
+    public static final int MY = 3;//我的
 
     public static final int HOME_PAGE_LIMIT = 8;//首页分页 每次加载8条
 

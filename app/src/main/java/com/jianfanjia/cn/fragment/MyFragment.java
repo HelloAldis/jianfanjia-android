@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.jianfanjia.cn.activity.CollectActivity;
 import com.jianfanjia.cn.activity.MyFavoriteDesignerActivity_;
 import com.jianfanjia.cn.activity.MyProcessActivity;
 import com.jianfanjia.cn.activity.NotifyActivity;
@@ -30,25 +31,28 @@ public class MyFragment extends BaseFragment {
     public static final int REQUESTCODE_USERINFO = 0;
 
     private RelativeLayout notifyLayout = null;
+    private RelativeLayout my_collect_layout = null;
     private RelativeLayout my_designer_layout = null;
     private RelativeLayout my_site_layout = null;
     private RelativeLayout setting_layout = null;
     private FrameLayout my_info_layout = null;
     private ImageView head_img = null;
+    private ImageView user_head_img = null;
     private TextView my_name = null;
     private TextView my_account = null;
 
     @Override
     public void initView(View view) {
         notifyLayout = (RelativeLayout) view.findViewById(R.id.notify_layout);
+        my_collect_layout = (RelativeLayout) view.findViewById(R.id.collect_layout);
         my_designer_layout = (RelativeLayout) view.findViewById(R.id.my_designer_layout);
         my_site_layout = (RelativeLayout) view.findViewById(R.id.my_site_layout);
         setting_layout = (RelativeLayout) view.findViewById(R.id.setting_layout);
         my_info_layout = (FrameLayout) view.findViewById(R.id.frag_my_info_layout);
         head_img = (ImageView) view.findViewById(R.id.head_img);
+        user_head_img = (ImageView) view.findViewById(R.id.user_head_img);
         my_account = (TextView) view.findViewById(R.id.frag_my_account);
         my_name = (TextView) view.findViewById(R.id.frag_my_name);
-
         initMyInfo();
     }
 
@@ -63,13 +67,20 @@ public class MyFragment extends BaseFragment {
         String imgPath = dataManager.getUserImagePath();
         LogTool.d(TAG, "imgPath=" + imgPath);
         if (!imgPath.contains(Constant.DEFALUT_PIC_HEAD)) {
-            imageShow.displayScreenWidthThumnailImage(getActivity(),imgPath,head_img);
+            imageShow.displayScreenWidthThumnailImage(getActivity(), imgPath, head_img);
+            imageShow.displayScreenWidthThumnailImage(getActivity(), imgPath, user_head_img);
+            head_img.setAlpha(0.5f);
+        } else {
+            head_img.setImageResource(R.mipmap.bg_my);
+            user_head_img.setImageResource(R.mipmap.bg_my);
+            head_img.setAlpha(0.5f);
         }
     }
 
     @Override
     public void setListener() {
         notifyLayout.setOnClickListener(this);
+        my_collect_layout.setOnClickListener(this);
         my_designer_layout.setOnClickListener(this);
         my_site_layout.setOnClickListener(this);
         setting_layout.setOnClickListener(this);
@@ -82,6 +93,9 @@ public class MyFragment extends BaseFragment {
             case R.id.notify_layout:
                 startActivity(NotifyActivity.class);
                 break;
+            case R.id.collect_layout:
+                startActivity(CollectActivity.class);
+                break;
             case R.id.my_designer_layout:
                 startActivity(MyFavoriteDesignerActivity_.class);
                 break;
@@ -89,8 +103,8 @@ public class MyFragment extends BaseFragment {
                 startActivity(MyProcessActivity.class);
                 break;
             case R.id.frag_my_info_layout:
-                Intent gotoUserInfo = new Intent(getActivity(),UserInfoActivity_.class);
-                startActivityForResult(gotoUserInfo,REQUESTCODE_USERINFO);
+                Intent gotoUserInfo = new Intent(getActivity(), UserInfoActivity_.class);
+                startActivityForResult(gotoUserInfo, REQUESTCODE_USERINFO);
                 break;
             case R.id.setting_layout:
                 startActivity(SettingActivity.class);
@@ -108,10 +122,10 @@ public class MyFragment extends BaseFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode != getActivity().RESULT_OK){
+        if (resultCode != getActivity().RESULT_OK) {
             return;
         }
-        switch (requestCode){
+        switch (requestCode) {
             case REQUESTCODE_USERINFO:
                 initMyInfo();
                 break;

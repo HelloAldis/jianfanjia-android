@@ -8,6 +8,7 @@ package com.jianfanjia.cn.Event;
  */
 public class MessageEvent {
     private int eventType;
+    private String msg;
 
     public MessageEvent(int eventType) {
         this.eventType = eventType;
@@ -19,5 +20,13 @@ public class MessageEvent {
 
     public void setEventType(int eventType) {
         this.eventType = eventType;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 }

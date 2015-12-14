@@ -101,7 +101,7 @@ public class MyFavoriteDesignerActivity extends BaseAnnotationActivity {
     }
 
     protected void initData() {
-        JianFanJiaClient.get_MyFavoriteDesignerList(this, "0", "10000", this, this);
+        JianFanJiaClient.get_MyFavoriteDesignerList(this, 0, 100, this, this);
     }
 
     @Click(R.id.head_back_layout)

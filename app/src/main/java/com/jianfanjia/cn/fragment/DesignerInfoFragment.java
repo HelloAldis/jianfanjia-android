@@ -42,7 +42,6 @@ public class DesignerInfoFragment extends BaseFragment implements ApiUiUpdateLis
         return infoFragment;
     }
 
-
     @Override
     public void initView(View view) {
         Bundle bundle = getArguments();

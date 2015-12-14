@@ -160,11 +160,13 @@ public class OkHttpClientManager {
         mOkHttpClient.newCall(baseRequest.getRequest()).enqueue(new Callback() {
             @Override
             public void onFailure(final Request request, final IOException e) {
+                LogTool.d(TAG, "e :" + e.toString());
                 sendFailedStringCallback(listener, SERVER_ERROR);
             }
 
             @Override
             public void onResponse(final Response response) {
+                LogTool.d(TAG, "response :" + response + "  response code :" + response.code());
                 try {
                     final String string = response.body().string();
                     JSONObject responseString = new JSONObject(string);
@@ -175,29 +177,26 @@ public class OkHttpClientManager {
                         baseRequest.onSuccess(data);
                         sendSuccessResultCallback(listener, data);
                     } else if (responseString.has(Constant.ERROR_MSG) && responseString.get(Constant.ERROR_MSG) != null) {
-                        LogTool.d(TAG, "errormsg :" + responseString.get(
-                                Constant.ERROR_MSG).toString());
-                        String error_msg = responseString.get(
-                                Constant.ERROR_MSG).toString();
+                        LogTool.d(TAG, "errormsg :" + responseString.get(Constant.ERROR_MSG).toString());
+                        String error_msg = responseString.get(Constant.ERROR_MSG).toString();
                         baseRequest.onFailure(error_msg);
                         sendFailedStringCallback(listener, error_msg);
                     } else if (responseString.has(Constant.SUCCESS_MSG) && responseString.get(
                             Constant.SUCCESS_MSG) != null) {
-                        LogTool.d(TAG, "msg :" + responseString.get(
-                                Constant.SUCCESS_MSG).toString());
+                        LogTool.d(TAG, "msg :" + responseString.get(Constant.SUCCESS_MSG).toString());
                         String msg = responseString.get(
                                 Constant.SUCCESS_MSG).toString();
                         baseRequest.onSuccess(msg);
                         sendSuccessResultCallback(listener, msg);
                     }
                 } catch (IOException e) {
+                    LogTool.d(TAG, "IOException :" + e.toString());
                     sendFailedStringCallback(listener, SERVER_ERROR);
                 } catch (com.google.gson.JsonParseException e)//Json解析的错误
                 {
                     sendFailedStringCallback(listener, SERVER_ERROR);
                 } catch (JSONException e) {
                     sendFailedStringCallback(listener, SERVER_ERROR);
-
                 }
             }
         });
@@ -311,8 +310,6 @@ public class OkHttpClientManager {
             Request request = builder.build();
             return request;
         }
-
-
     }
 
     //====================GetDelegate=======================

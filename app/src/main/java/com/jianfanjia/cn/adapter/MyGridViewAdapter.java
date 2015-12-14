@@ -21,8 +21,7 @@ public class MyGridViewAdapter extends BaseListAdapter<GridItem> {
         super(context, list);
     }
 
-    public MyGridViewAdapter(Context context, List<GridItem> list,
-                             ItemClickCallBack itemClickCallBack) {
+    public MyGridViewAdapter(Context context, List<GridItem> list, ItemClickCallBack itemClickCallBack) {
         super(context, list);
         this.itemClickCallBack = itemClickCallBack;
     }
@@ -50,7 +49,9 @@ public class MyGridViewAdapter extends BaseListAdapter<GridItem> {
 
                     @Override
                     public void onClick(View arg0) {
-                        itemClickCallBack.click(position, Constant.IMG_ITEM);
+                        if (null != itemClickCallBack) {
+                            itemClickCallBack.click(position, Constant.IMG_ITEM);
+                        }
                     }
                 });
             }
@@ -59,12 +60,12 @@ public class MyGridViewAdapter extends BaseListAdapter<GridItem> {
 
                 @Override
                 public void onClick(View arg0) {
-                    itemClickCallBack.click(position, Constant.IMG_ITEM);
+                    if (null != itemClickCallBack) {
+                        itemClickCallBack.click(position, Constant.IMG_ITEM);
+                    }
                 }
             });
             imageShow.displayLocalImage(imgId, holder.img);
-//            imageLoader.displayImage(imgId, holder.img, options);
-
         }
 
         return convertView;

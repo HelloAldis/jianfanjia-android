@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.DesignerInfo;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.baseview.BaseAnnotationView;
 
 import org.androidannotations.annotations.EViewGroup;
@@ -44,12 +43,10 @@ public class MyFavoriteDesignerView extends BaseAnnotationView {
     public void bind(DesignerInfo designerInfo) {
         ltm_myfavdesi_name.setText(TextUtils.isEmpty(designerInfo.getUsername()) ? getResources().getString(R.string.designer) : designerInfo.getUsername());
         String imageid = designerInfo.getImageid();
-        LogTool.d(this.getClass().getName(), designerInfo.getUsername() + imageid);
         if (!TextUtils.isEmpty(imageid)) {
-            imageShow.displayImageHeadWidthThumnailImage(context,imageid,ltm_myfavdesi_head);
+            imageShow.displayImageHeadWidthThumnailImage(context, imageid, ltm_myfavdesi_head);
         } else {
             imageShow.displayLocalImage(Constant.DEFALUT_OWNER_PIC, ltm_myfavdesi_head);
-//            ImageLoader.getInstance().displayImage(Constant.DEFALUT_OWNER_PIC, ltm_myfavdesi_head, options);
         }
         ltm_myfavdesi_score.setRating((int) (designerInfo.getRespond_speed() + designerInfo.getService_attitude()) / 2);
         if (designerInfo.getAuth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)) {
