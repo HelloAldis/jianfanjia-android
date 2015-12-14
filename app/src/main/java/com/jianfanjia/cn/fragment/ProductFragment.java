@@ -40,6 +40,8 @@ public class ProductFragment extends BaseFragment implements ApiUiUpdateListener
     private RecyclerView prodtct_listview = null;
     private ProductAdapter productAdapter = null;
     private List<Product> products = new ArrayList<Product>();
+    private String productid = null;
+    private int itemPosition = -1;
 
     @Override
     public void initView(View view) {
@@ -84,7 +86,7 @@ public class ProductFragment extends BaseFragment implements ApiUiUpdateListener
     @Override
     public void OnItemClick(View view, int position) {
         Product product = products.get(position);
-        String productid = product.get_id();
+        productid = product.get_id();
         LogTool.d(TAG, "productid:" + productid);
         Bundle productBundle = new Bundle();
         productBundle.putString(Global.PRODUCT_ID, productid);
@@ -93,6 +95,10 @@ public class ProductFragment extends BaseFragment implements ApiUiUpdateListener
 
     @Override
     public void OnLongItemClick(View view, int position) {
+        itemPosition = position;
+        Product product = products.get(position);
+        productid = product.get_id();
+        LogTool.d(TAG, "productid=" + productid);
         deleteProductDialog();
     }
 
@@ -117,12 +123,35 @@ public class ProductFragment extends BaseFragment implements ApiUiUpdateListener
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-
+                        deleteProductDesigner(productid);
                     }
                 });
         dialog.setNegativeButton(R.string.no, null);
         dialog.show();
     }
+
+    private void deleteProductDesigner(String productid) {
+        JianFanJiaClient.deleteCollectionByUser(getActivity(), productid, deleteProductListener, this);
+    }
+
+    private ApiUiUpdateListener deleteProductListener = new ApiUiUpdateListener() {
+        @Override
+        public void preLoad() {
+
+        }
+
+        @Override
+        public void loadSuccess(Object data) {
+            LogTool.d(TAG, "data=" + data.toString());
+            products.remove(itemPosition);
+            productAdapter.notifyItemRemoved(itemPosition);
+        }
+
+        @Override
+        public void loadFailture(String error_msg) {
+            makeTextLong(error_msg);
+        }
+    };
 
     @Override
     public int getLayoutId() {
