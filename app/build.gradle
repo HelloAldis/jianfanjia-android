@@ -117,5 +117,4 @@ dependencies {
     compile 'com.soundcloud.android:android-crop:1.0.1@aar'
     compile 'com.umeng.analytics:analytics:latest.integration'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
-    compile files('libs/gson-2.3.1.jar')
 }

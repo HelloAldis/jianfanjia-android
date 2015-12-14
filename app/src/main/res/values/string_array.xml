@@ -4,42 +4,6 @@
     <string name="pro">省份：</string>
     <string name="city">城市：</string>
     <string name="district">地区：</string>
-
-    <!--<string-array name="sex">
-        <item>男</item>
-        <item>女</item>
-    </string-array>
-    <string-array name="work_type">
-        <item>半包</item>
-        <item>全包</item>
-    </string-array>
-    <string-array name="dec_districts">
-        <item>汉口</item>
-        <item>汉阳</item>
-        <item>武昌</item>
-    </string-array>
-    <string-array name="dec_style">
-        <item>欧式</item>
-        <item>中式</item>
-        <item>现代</item>
-        <item>地中海</item>
-        <item>美式</item>
-        <item>东南亚</item>
-    </string-array>-->
-    <!--<string-array name="house_type">
-        <item>一居</item>
-        <item>二居</item>
-        <item>三居</item>
-        <item>四居</item>
-        <item>复式</item>
-        <item>别墅</item>
-    </string-array>-->
-    <!--<string-array name="design_fee_range">
-        <item>50－100</item>
-        <item>100－200</item>
-        <item>200－300</item>
-        <item>300以上</item>
-    </string-array>-->
     <string-array name="site_procedure">
         <item>开工</item>
         <item>拆改</item>
@@ -207,6 +171,13 @@
         <item>两个人</item>
         <item>三个人</item>
         <item>四个人</item>
+    </string-array>
+
+    <string-array name="arr_collect_person_pic">
+        <item>@mipmap/img_danshen</item>
+        <item>@mipmap/img_twopeople</item>
+        <item>@mipmap/img_threepeople</item>
+        <item>@mipmap/img_threegenerations</item>
     </string-array>
 
     <!-- 包工类型 -->

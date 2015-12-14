@@ -313,6 +313,12 @@
             android:name=".PreviewDecorationActivity"
             android:label="@string/title_activity_preview_decoration"
             android:screenOrientation="portrait" />
+        <activity android:name=".NewUserCollectLoveStyleActivity_"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".NewUserCollectPersonActivity_"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".NewUserCollectDecStageActivity_"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
