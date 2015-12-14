@@ -96,6 +96,7 @@ public class ProductFragment extends BaseFragment implements ApiUiUpdateListener
     @Override
     public void OnLongItemClick(View view, int position) {
         itemPosition = position;
+        LogTool.d(TAG, "itemPosition=" + itemPosition);
         Product product = products.get(position);
         productid = product.get_id();
         LogTool.d(TAG, "productid=" + productid);
