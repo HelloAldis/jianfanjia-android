@@ -42,7 +42,6 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="5dip"
                     android:src="@mipmap/icon_arrow_1" />
-
             </LinearLayout>
 
         </RelativeLayout>
