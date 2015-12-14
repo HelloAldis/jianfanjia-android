@@ -118,6 +118,11 @@ public class MyFavoriteDesignerFragment extends BaseFragment {
                         LogTool.d(this.getClass().getName(), designerId);
                         deleteFavoriteDesignerDialog();
                     }
+
+                    @Override
+                    public void OnViewClick(int position) {
+
+                    }
                 });
                 my_favorite_designer_listview.setAdapter(adapter);
             }
