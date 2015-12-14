@@ -6,7 +6,6 @@
     android:orientation="horizontal"
     app:cardBackgroundColor="@color/font_white"
     app:cardCornerRadius="5dp"
-    app:cardElevation="5dp"
     app:contentPadding="5dip">
 
     <ImageView
