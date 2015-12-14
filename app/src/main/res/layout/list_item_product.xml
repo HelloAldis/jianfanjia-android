@@ -47,6 +47,7 @@
             android:layout_marginTop="8dip"
             android:textColor="@color/home_page_text_color"
             android:textSize="@dimen/text_size_11" />
+
     </RelativeLayout>
 
 </android.support.v7.widget.CardView>

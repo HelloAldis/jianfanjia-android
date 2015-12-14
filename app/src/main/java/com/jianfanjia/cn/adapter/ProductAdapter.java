@@ -35,8 +35,7 @@ public class ProductAdapter extends BaseRecyclerViewAdapter<Product> {
         String decStyle = product.getDec_style();
         holder.itemProduceText.setText(product.getHouse_area() + "㎡，" + BusinessManager.convertHouseTypeToShow(houseType) + "，" + BusinessManager.convertDecStyleToShow(decStyle));
         imageShow.displayScreenWidthThumnailImage(context, product.getImages().get(0).getImageid(), holder.itemProductView);
-//        imageShow.displayImageHeadWidthThumnailImage(context, info.getImageid(), holder.itemHeadView);
-
+        imageShow.displayImageHeadWidthThumnailImage(context, product.getDesigner().getImageid(), holder.itemHeadView);
     }
 
     @Override
