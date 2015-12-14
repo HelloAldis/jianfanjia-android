@@ -1,6 +1,8 @@
 package com.jianfanjia.cn.fragment;
 
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
 import com.jianfanjia.cn.activity.R;
@@ -19,6 +21,8 @@ public class DecorationImgFragment extends BaseFragment {
     @Override
     public void initView(View view) {
         decoration_img_listview = (RecyclerView) view.findViewById(R.id.decoration_img_listview);
+        decoration_img_listview.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        decoration_img_listview.setItemAnimator(new DefaultItemAnimator());
     }
 
     @Override

@@ -33,11 +33,9 @@ public class ContractActivity extends BaseActivity implements OnClickListener, V
     private String requirementid = null;
     private String final_planid = null;
 
-    private Intent intent;
-
     @Override
     public void initView() {
-        intent = this.getIntent();
+        Intent intent = this.getIntent();
         Bundle contractBundle = intent.getExtras();
         requirementStatus = contractBundle.getString(Global.REQUIREMENT_STATUS);
         requirementid = contractBundle.getString(Global.REQUIREMENT_ID);
