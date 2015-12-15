@@ -40,6 +40,7 @@ public class DecorationPopWindow extends PopupWindow {
         gridView = (GridView) popView.findViewById(R.id.popGridview);
         adapter = new PopWindowAdapter(activity, list);
         gridView.setAdapter(adapter);
+        adapter.setSelectedPos(0);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
