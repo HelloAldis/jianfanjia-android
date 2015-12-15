@@ -55,7 +55,7 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Re
 
     public void remove(int position) {
         list.remove(position);
-        notifyDataSetChanged();
+        notifyItemRemoved(position);
     }
 
     public void removeAll() {
