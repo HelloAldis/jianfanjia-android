@@ -4,6 +4,8 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.jianfanjia.cn.activity.PreviewDecorationActivity;
 import com.jianfanjia.cn.activity.R;
@@ -16,6 +18,7 @@ import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.OnItemClickListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.view.DecorationPopWindow;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.baseview.SpacesItemDecoration;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
@@ -29,9 +32,13 @@ import java.util.List;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class DecorationFragment extends BaseFragment implements ApiUiUpdateListener, PullToRefreshBase.OnRefreshListener2<RecyclerView> {
+public class DecorationFragment extends BaseFragment implements View.OnClickListener, ApiUiUpdateListener, PullToRefreshBase.OnRefreshListener2<RecyclerView> {
     private static final String TAG = DecorationFragment.class.getName();
     private MainHeadView mainHeadView = null;
+    private LinearLayout topLayout = null;
+    private RelativeLayout sectionLayout = null;
+    private RelativeLayout houseTypeLayout = null;
+    private RelativeLayout decStyleLayout = null;
     private PullToRefreshRecycleView decoration_listview = null;
     private StaggeredGridLayoutManager mLayoutManager = null;
     private DecorationAdapter decorationAdapter = null;
@@ -39,6 +46,10 @@ public class DecorationFragment extends BaseFragment implements ApiUiUpdateListe
     @Override
     public void initView(View view) {
         initMainHeadView(view);
+        topLayout = (LinearLayout) view.findViewById(R.id.topLayout);
+        sectionLayout = (RelativeLayout) view.findViewById(R.id.sectionLayout);
+        houseTypeLayout = (RelativeLayout) view.findViewById(R.id.houseTypeLayout);
+        decStyleLayout = (RelativeLayout) view.findViewById(R.id.decStyleLayout);
         decoration_listview = (PullToRefreshRecycleView) view.findViewById(R.id.decoration_listview);
         decoration_listview.setMode(PullToRefreshBase.Mode.BOTH);
         mLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
@@ -60,8 +71,33 @@ public class DecorationFragment extends BaseFragment implements ApiUiUpdateListe
 
     @Override
     public void setListener() {
+        sectionLayout.setOnClickListener(this);
+        houseTypeLayout.setOnClickListener(this);
+        decStyleLayout.setOnClickListener(this);
         decoration_listview.setOnRefreshListener(this);
     }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.sectionLayout:
+                DecorationPopWindow window = new DecorationPopWindow(getActivity());
+                window.show(topLayout);
+                break;
+            case R.id.houseTypeLayout:
+
+                break;
+            case R.id.decStyleLayout:
+
+                break;
+            case R.id.topLayout:
+
+                break;
+            default:
+                break;
+        }
+    }
+
 
     private void searchDecorationImg() {
         JianFanJiaClient.searchDecorationImg(getContext(), "不限", "不限", "不限", "", -1, 0, 5, this, this);
