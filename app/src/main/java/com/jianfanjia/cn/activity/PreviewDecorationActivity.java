@@ -24,6 +24,7 @@ public class PreviewDecorationActivity extends BaseActivity {
         Bundle decorationBundle = intent.getExtras();
         beautyImgInfo = (BeautyImgInfo) decorationBundle.getSerializable(Global.DECORATION);
         LogTool.d(TAG, "beautyImgInfo=" + beautyImgInfo);
+
     }
 
     @Override
