@@ -26,6 +26,7 @@ import com.jianfanjia.cn.view.baseview.SpacesItemDecoration;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,7 +35,7 @@ import java.util.List;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class DecorationFragment extends BaseFragment implements View.OnClickListener, ApiUiUpdateListener, PullToRefreshBase.OnRefreshListener2<RecyclerView> {
+public class DecorationFragment extends BaseFragment implements View.OnClickListener, PullToRefreshBase.OnRefreshListener2<RecyclerView> {
     private static final String TAG = DecorationFragment.class.getName();
     private static final int SECTION = 1;
     private static final int HOUSETYPE = 2;
@@ -48,6 +49,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
     private StaggeredGridLayoutManager mLayoutManager = null;
     private DecorationAdapter decorationAdapter = null;
     private DecorationPopWindow window = null;
+    private List<BeautyImgInfo> beautyImgList = new ArrayList<BeautyImgInfo>();
     private String section = null;
     private String houseStyle = null;
     private String decStyle = null;
@@ -67,7 +69,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         //设置item之间的间隔
         SpacesItemDecoration decoration = new SpacesItemDecoration(10);
         decoration_listview.addItemDecoration(decoration);
-        searchDecorationImg(section, houseStyle, decStyle, 0, 5);
+        searchDecorationImg(section, houseStyle, decStyle, 0, 8, getDecorationImgListener);
     }
 
     private void initMainHeadView(View view) {
@@ -128,41 +130,9 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         }
     }
 
-
-    private void searchDecorationImg(String section, String houseStyle, String decStyle, int from, int limit) {
+    private void searchDecorationImg(String section, String houseStyle, String decStyle, int from, int limit, ApiUiUpdateListener listener) {
         LogTool.d(TAG, "section:" + section + " houseStyle:" + houseStyle + " decStyle:" + decStyle);
-        JianFanJiaClient.searchDecorationImg(getContext(), section, houseStyle, decStyle, "", -1, from, limit, this, this);
-    }
-
-    @Override
-    public void preLoad() {
-
-    }
-
-    @Override
-    public void loadSuccess(Object data) {
-        LogTool.d(TAG, "data:" + data.toString());
-        DecorationItemInfo decorationItemInfo = JsonParser.jsonToBean(data.toString(), DecorationItemInfo.class);
-        LogTool.d(TAG, "decorationItemInfo:" + decorationItemInfo);
-        if (null != decorationItemInfo) {
-            final List<BeautyImgInfo> beautyImgList = decorationItemInfo.getBeautiful_images();
-            LogTool.d(TAG, "beautyImgList:" + beautyImgList);
-            decorationAdapter = new DecorationAdapter(getActivity(), beautyImgList, new OnItemClickListener() {
-                @Override
-                public void OnItemClick(int position) {
-                    BeautyImgInfo beautyImgInfo = beautyImgList.get(position);
-                    String _id = beautyImgInfo.get_id();
-                    LogTool.d(TAG, "_id:" + _id);
-                    startActivity(PreviewDecorationActivity.class);
-                }
-            });
-            decoration_listview.setAdapter(decorationAdapter);
-        }
-    }
-
-    @Override
-    public void loadFailture(String error_msg) {
-
+        JianFanJiaClient.searchDecorationImg(getContext(), section, houseStyle, decStyle, "", -1, from, limit, listener, this);
     }
 
     @Override
@@ -174,6 +144,65 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
     public void onPullUpToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
         decoration_listview.onRefreshComplete();
     }
+
+    private ApiUiUpdateListener getDecorationImgListener = new ApiUiUpdateListener() {
+        @Override
+        public void preLoad() {
+
+        }
+
+        @Override
+        public void loadSuccess(Object data) {
+            LogTool.d(TAG, "data:" + data.toString());
+            DecorationItemInfo decorationItemInfo = JsonParser.jsonToBean(data.toString(), DecorationItemInfo.class);
+            LogTool.d(TAG, "decorationItemInfo:" + decorationItemInfo);
+            if (null != decorationItemInfo) {
+                beautyImgList.addAll(decorationItemInfo.getBeautiful_images());
+                LogTool.d(TAG, "beautyImgList:" + beautyImgList);
+                decorationAdapter = new DecorationAdapter(getActivity(), beautyImgList, new OnItemClickListener() {
+                    @Override
+                    public void OnItemClick(int position) {
+                        BeautyImgInfo beautyImgInfo = beautyImgList.get(position);
+                        String _id = beautyImgInfo.get_id();
+                        LogTool.d(TAG, "_id:" + _id);
+                        startActivity(PreviewDecorationActivity.class);
+                    }
+                });
+                LogTool.d(TAG, "decorationAdapter:" + decorationAdapter);
+                decoration_listview.setAdapter(decorationAdapter);
+            }
+        }
+
+        @Override
+        public void loadFailture(String error_msg) {
+
+        }
+    };
+
+    private ApiUiUpdateListener getDecorationBySearchListener = new ApiUiUpdateListener() {
+        @Override
+        public void preLoad() {
+
+        }
+
+        @Override
+        public void loadSuccess(Object data) {
+            LogTool.d(TAG, "data:" + data.toString());
+            DecorationItemInfo decorationItemInfo = JsonParser.jsonToBean(data.toString(), DecorationItemInfo.class);
+            LogTool.d(TAG, "decorationItemInfo:" + decorationItemInfo);
+            if (null != decorationItemInfo) {
+                beautyImgList.clear();
+                beautyImgList.addAll(decorationItemInfo.getBeautiful_images());
+                LogTool.d(TAG, "beautyImgList:" + beautyImgList);
+                decorationAdapter.notifyDataSetChanged();
+            }
+        }
+
+        @Override
+        public void loadFailture(String error_msg) {
+
+        }
+    };
 
     private ApiUiUpdateListener pullDownListener = new ApiUiUpdateListener() {
         @Override
@@ -230,6 +259,8 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         @Override
         public void onItemCallback(int position, String title) {
             LogTool.d(TAG, "position====" + position + " title===" + title);
+            section = title;
+            searchDecorationImg(section, houseStyle, decStyle, 0, 8, getDecorationBySearchListener);
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
@@ -241,6 +272,8 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         @Override
         public void onItemCallback(int position, String title) {
             LogTool.d(TAG, "position---" + position + " title---" + title);
+            houseStyle = title;
+            searchDecorationImg(section, houseStyle, decStyle, 0, 8, getDecorationBySearchListener);
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
@@ -252,6 +285,8 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         @Override
         public void onItemCallback(int position, String title) {
             LogTool.d(TAG, "position***" + position + " title***" + title);
+            decStyle = title;
+            searchDecorationImg(section, houseStyle, decStyle, 0, 8, getDecorationBySearchListener);
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
