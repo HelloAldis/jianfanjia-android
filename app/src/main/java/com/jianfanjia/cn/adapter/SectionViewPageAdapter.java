@@ -1,6 +1,5 @@
 package com.jianfanjia.cn.adapter;
 
-import java.util.List;
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
@@ -9,12 +8,15 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.ViewPagerItem;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
 
+import java.util.List;
+
 public class SectionViewPageAdapter extends PagerAdapter {
-	private static final String TAG = "MyViewPageAdapter";
+	private static final String TAG = "SectionViewPageAdapter";
 	private Context context;
 	private List<ViewPagerItem> list;
 	private ViewPagerClickListener itemClickListener;

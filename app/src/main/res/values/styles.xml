@@ -37,6 +37,7 @@
         <item name="android:background">@drawable/btn_selector_bg</item>
         <item name="android:textColor">@color/font_white</item>
         <item name="android:textSize">@dimen/big_size</item>
+        <item name="android:gravity">center</item>
     </style>
     <!-- login activity -->
 
@@ -58,7 +59,7 @@
         <item name="android:layout_height">40.0dip</item>
         <item name="android:maxLines">2</item>
         <item name="android:layout_weight">1.0</item>
-        <item name="android:textSize">@dimen/text_size_17</item>
+        <item name="android:textSize">@dimen/big_size</item>
     </style>
 
     <style name="dialog_button_cancel">
@@ -71,7 +72,7 @@
         <item name="android:layout_height">40.0dip</item>
         <item name="android:maxLines">2</item>
         <item name="android:layout_weight">1.0</item>
-        <item name="android:textSize">@dimen/text_size_17</item>
+        <item name="android:textSize">@dimen/big_size</item>
     </style>
 
     <style name="dialog_button_2">
@@ -136,8 +137,13 @@
 
     <style name="listview_item_text_style_title" parent="my_item_layout_text_style_base">
         <item name="android:textColor">@color/back</item>
-        <item name="android:textSize">@dimen/text_size_17</item>
+        <item name="android:textSize">@dimen/big_size</item>
     </style>
+
+    <style name="listview_item_text_style_more_big" parent="my_item_layout_text_style_base">
+        <item name="android:textSize">@dimen/more_big_size</item>
+    </style>
+
     <!-- my_item_layout_style -->
     <style name="my_list_item_layout_style">
         <item name="android:layout_width">match_parent</item>

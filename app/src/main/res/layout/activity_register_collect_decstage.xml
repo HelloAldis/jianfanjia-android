@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <ImageView
+        android:id="@+id/act_res_guide_head"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/bg_register_guide"
+        android:contentDescription="@null"
+        />
+
+    <TextView
+        android:layout_marginTop="@dimen/space_24"
+        android:layout_marginBottom="@dimen/space_24"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/dec_stage"
+        android:textColor="@color/black_color"
+        style="@style/listview_item_text_style_big"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/dec_stage0"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/dec_stage_scan"
+            android:textColor="@color/black_color"
+            style="@style/listview_item_text_style_middle"
+            android:background="@drawable/btn_grey_white_oval_bg"/>
+
+        <TextView
+            android:id="@+id/dec_stage1"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/dec_stage_prepare"
+            android:textColor="@color/black_color"
+            android:layout_marginTop="@dimen/space_16"
+            style="@style/listview_item_text_style_middle"
+            android:background="@drawable/btn_grey_white_oval_bg"/>
+
+        <TextView
+            android:id="@+id/dec_stage2"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/dec_stage_working"
+            android:textColor="@color/black_color"
+            android:layout_marginTop="@dimen/space_16"
+            style="@style/listview_item_text_style_middle"
+            android:background="@drawable/btn_grey_white_oval_bg"/>
+    </LinearLayout>
+
+</LinearLayout>

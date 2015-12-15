@@ -82,4 +82,14 @@
     <string name="my_favorite_designer">我的意向设计师</string>
     <string name="tip_confirm">发布提醒</string>
     <string name="abandon_confirm_req">您的需求没有提交，您要放弃提交吗？</string>
+    <string name="dec_stage">您现在所处的装修阶段</string>
+    <string name="dec_stage_scan">我想看一看</string>
+    <string name="dec_stage_prepare">正在准备中</string>
+    <string name="dec_stage_working">已经开始装修</string>
+    <string name="collect_person_title">请选择您家的</string>
+    <string name="collect_person_content">常住人口</string>
+    <string name="collect_lovestyle_title">请选择您喜欢的</string>
+    <string name="collect_lovestyle_content">风格喜好</string>
+    <string name="collect_person_tip">只能选择一种常住人口类型</string>
+    <string name="collect_lovestyle_tip">最多只能选择三种风格喜好</string>
 </resources>

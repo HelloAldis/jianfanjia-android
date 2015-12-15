@@ -18,7 +18,6 @@ import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.tools.NetTool;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -153,8 +152,10 @@ public class RegisterNewActivity extends BaseAnnotationActivity implements
         //登录成功，加载首页
         super.loadSuccess(data);
         if(requsetCode == REGISTER_CODE){
-            registerLayout.setVisibility(View.GONE);
-            successLayout.setVisibility(View.VISIBLE);
+//            registerLayout.setVisibility(View.GONE);
+//            successLayout.setVisibility(View.VISIBLE);
+            startActivity(NewUserCollectDecStageActivity_.class);
+            finish();
         }else{
             startActivity(LoginNewActivity_.class);
             finish();

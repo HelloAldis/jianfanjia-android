@@ -24,8 +24,8 @@ android {
         applicationId "com.jianfanjia.cn.activity"
         minSdkVersion 15
         targetSdkVersion 21
-        versionCode 19
-        versionName "2.0.19"
+        versionCode 20
+        versionName "2.0.20"
 
         // AndroidManifest.xml 里面UMENG_CHANNEL的value为 ${UMENG_CHANNEL_VALUE}
         manifestPlaceholders = [UMENG_CHANNEL_VALUE: "channel_name"]
@@ -117,5 +117,4 @@ dependencies {
     compile 'com.soundcloud.android:android-crop:1.0.1@aar'
     compile 'com.umeng.analytics:analytics:latest.integration'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
-    compile files('libs/gson-2.3.1.jar')
 }
