@@ -36,11 +36,16 @@ public class PopWindowAdapter extends BaseListAdapter<String> {
         }
         holder.mName.setText(title);
         if (mSelectedPos == position) {
-            holder.mName.setBackgroundResource(R.color.blue_color);
+            holder.mName.setBackgroundResource(R.color.color_red);
         } else {
             holder.mName.setBackgroundResource(R.color.font_white);
         }
         return convertView;
+    }
+
+    public void setSelectedPos(int position) {
+        this.mSelectedPos = position;
+        notifyDataSetChanged();
     }
 
     private static class ViewHolder {
