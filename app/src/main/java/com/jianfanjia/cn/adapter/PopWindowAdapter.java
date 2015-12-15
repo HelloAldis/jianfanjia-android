@@ -6,7 +6,6 @@ import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.BaseListAdapter;
-import com.jianfanjia.cn.interf.GetItemCallback;
 
 import java.util.List;
 
@@ -17,11 +16,10 @@ import java.util.List;
  * Time: 16:07
  */
 public class PopWindowAdapter extends BaseListAdapter<String> {
-    private GetItemCallback callback;
+    private int mSelectedPos = -1;
 
-    public PopWindowAdapter(Context context, List<String> list, GetItemCallback callback) {
+    public PopWindowAdapter(Context context, List<String> list) {
         super(context, list);
-        this.callback = callback;
     }
 
     @Override
@@ -37,12 +35,11 @@ public class PopWindowAdapter extends BaseListAdapter<String> {
             holder = (ViewHolder) convertView.getTag();
         }
         holder.mName.setText(title);
-        holder.mName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                callback.onItemCallback(position, title);
-            }
-        });
+        if (mSelectedPos == position) {
+            holder.mName.setBackgroundResource(R.color.blue_color);
+        } else {
+            holder.mName.setBackgroundResource(R.color.font_white);
+        }
         return convertView;
     }
 

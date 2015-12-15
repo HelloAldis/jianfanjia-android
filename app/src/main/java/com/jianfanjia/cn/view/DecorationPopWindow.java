@@ -7,12 +7,14 @@ import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.PopupWindow;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.PopWindowAdapter;
 import com.jianfanjia.cn.interf.GetItemCallback;
+import com.jianfanjia.cn.tools.LogTool;
 
 import java.util.List;
 
@@ -23,6 +25,7 @@ import java.util.List;
  * Time: 15:56
  */
 public class DecorationPopWindow extends PopupWindow {
+    private static final String TAG = DecorationPopWindow.class.getName();
     private LayoutInflater inflater = null;
     private View popView = null;
     private GridView gridView = null;
@@ -30,13 +33,21 @@ public class DecorationPopWindow extends PopupWindow {
     private WindowManager.LayoutParams lp = null;
     private Window window = null;
 
-    public DecorationPopWindow(Activity activity, List<String> list, GetItemCallback callback) {
+    public DecorationPopWindow(Activity activity, final List<String> list, final GetItemCallback callback) {
         super(activity);
         inflater = LayoutInflater.from(activity);
         popView = inflater.inflate(R.layout.gird_item_pop, null);
         gridView = (GridView) popView.findViewById(R.id.popGridview);
-        adapter = new PopWindowAdapter(activity, list, callback);
+        adapter = new PopWindowAdapter(activity, list);
         gridView.setAdapter(adapter);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                LogTool.d(TAG, "position------" + position);
+                String title = list.get(position);
+                callback.onItemCallback(position, title);
+            }
+        });
         this.setContentView(popView);
         this.setWidth(LayoutParams.MATCH_PARENT);
         // 设置SelectPicPopupWindow弹出窗体的高
