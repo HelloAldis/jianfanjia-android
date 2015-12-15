@@ -37,7 +37,7 @@ import java.util.List;
 public class MyFavoriteDesignerFragment extends BaseFragment {
     private static final String TAG = DecorationImgFragment.class.getName();
     private RecyclerView my_favorite_designer_listview = null;
-    private FavoriteDesignerAdapter adapter = null;
+    private FavoriteDesignerAdapter designAdapter = null;
     private MyFavoriteDesigner myFavoriteDesigner = null;
     private List<DesignerInfo> designers = new ArrayList<DesignerInfo>();
     private String designerId = null;
@@ -100,7 +100,7 @@ public class MyFavoriteDesignerFragment extends BaseFragment {
             LogTool.d(TAG, "myFavoriteDesigner=" + myFavoriteDesigner);
             if (myFavoriteDesigner != null) {
                 designers = myFavoriteDesigner.getDesigners();
-                adapter = new FavoriteDesignerAdapter(getActivity(), designers, new RecyclerViewOnItemClickListener() {
+                designAdapter = new FavoriteDesignerAdapter(getActivity(), designers, new RecyclerViewOnItemClickListener() {
                     @Override
                     public void OnItemClick(View view, int position) {
                         designerId = myFavoriteDesigner.getDesigners().get(position).get_id();
@@ -124,7 +124,7 @@ public class MyFavoriteDesignerFragment extends BaseFragment {
 
                     }
                 });
-                my_favorite_designer_listview.setAdapter(adapter);
+                my_favorite_designer_listview.setAdapter(designAdapter);
             }
         }
 
@@ -143,8 +143,7 @@ public class MyFavoriteDesignerFragment extends BaseFragment {
         @Override
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data=" + data.toString());
-            designers.remove(itemPosition);
-            adapter.notifyItemRemoved(itemPosition);
+            designAdapter.remove(itemPosition);
         }
 
         @Override

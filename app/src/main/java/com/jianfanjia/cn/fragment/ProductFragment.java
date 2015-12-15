@@ -144,8 +144,7 @@ public class ProductFragment extends BaseFragment implements ApiUiUpdateListener
         @Override
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data=" + data.toString());
-            products.remove(itemPosition);
-            productAdapter.notifyItemRemoved(itemPosition);
+            productAdapter.remove(itemPosition);
         }
 
         @Override
