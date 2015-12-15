@@ -36,9 +36,9 @@ public class PopWindowAdapter extends BaseListAdapter<String> {
         }
         holder.mName.setText(title);
         if (mSelectedPos == position) {
-            holder.mName.setBackgroundResource(R.color.color_red);
+            holder.mName.setBackgroundResource(R.drawable.text_layout_bg);
         } else {
-            holder.mName.setBackgroundResource(R.color.font_white);
+            holder.mName.setBackgroundResource(R.color.transparent);
         }
         return convertView;
     }
