@@ -48,6 +48,15 @@ public class Constant {
     public static final int REQUESTCODE_SHOW_PROCESS_PIC = 8;//显示照片列表
     public static final int REQUESTCODE_GOTO_COMMENT = 7;//调用评论
 
+    public static final int REQUIRECODE_CITY = 0x00;
+    public static final int REQUIRECODE_HOUSETYPE = 0x01;
+    public static final int REQUIRECODE_PERSONS = 0x02;
+    public static final int REQUIRECODE_LOVESTYLE = 0x03;
+    public static final int REQUIRECODE_LOVEDESISTYLE = 0x04;
+    public static final int REQUIRECODE_BUSI_DECORATETYPE = 0x05;
+    public static final int REQUIRECODE_WORKTYPE = 0x06;
+    public static final int REQUIRECODE_DESISEX = 0x07;
+
     // editactivity
     public static final int REQUESTCODE_EDIT_USERNAME = 4;
     public static final int REQUESTCODE_EDIT_HOME = 5;

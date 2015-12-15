@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:scaleType="centerInside"
-        android:background="@drawable/img_selector_bg"
+        android:background="@drawable/img_collect_req_selector_bg"
         />
 
 

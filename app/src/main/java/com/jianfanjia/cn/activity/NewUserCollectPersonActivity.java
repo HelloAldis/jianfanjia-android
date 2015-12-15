@@ -1,5 +1,6 @@
 package com.jianfanjia.cn.activity;
 
+import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.Button;
@@ -7,6 +8,10 @@ import android.widget.TextView;
 
 import com.jianfanjia.cn.adapter.CollectPersonViewPageAdapter;
 import com.jianfanjia.cn.base.BaseAnnotationActivity;
+import com.jianfanjia.cn.bean.OwnerInfo;
+import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.http.JianFanJiaClient;
+import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.OnItemClickListener;
 
 import org.androidannotations.annotations.AfterViews;
@@ -41,6 +46,8 @@ public class NewUserCollectPersonActivity extends BaseAnnotationActivity {
 
     List<String> personList = new ArrayList<>();
 
+    OwnerInfo ownerInfo;
+
     CollectPersonViewPageAdapter collectPersonViewPageAdapter;
 
     List<CollectPersonViewPageAdapter.LoveStyleItemInfo> loveStyleItemInfoList = new ArrayList<>();
@@ -58,6 +65,9 @@ public class NewUserCollectPersonActivity extends BaseAnnotationActivity {
 
     @AfterViews
     protected void initView() {
+        Intent intent = getIntent();
+        ownerInfo = (OwnerInfo)intent.getSerializableExtra(Global.OWNERINFO);
+
         titleView.setText(getString(R.string.collect_person_title));
         contentView.setText(getString(R.string.collect_person_content));
         buttonNext.setText(getString(R.string.finish));
@@ -110,13 +120,40 @@ public class NewUserCollectPersonActivity extends BaseAnnotationActivity {
     protected void back(View view) {
         switch (view.getId()) {
             case R.id.btn_next:
-                startActivity(MainActivity.class);
-                finish();
+                postCollectOwnerInfo();
+//                startActivity(MainActivity.class);
+//                finish();
                 break;
             case R.id.head_back_layout:
                 finish();
                 break;
         }
+    }
+
+    protected void postCollectOwnerInfo(){
+        if(ownerInfo == null){
+            ownerInfo = new OwnerInfo();
+        }
+        ownerInfo.setFamily_description(persons[currentSelcetorPos]);
+        JianFanJiaClient.post_collect_ownerinfo(this, ownerInfo, new ApiUiUpdateListener() {
+            @Override
+            public void preLoad() {
+                showWaitDialog();
+            }
+
+            @Override
+            public void loadSuccess(Object data) {
+                hideWaitDialog();
+                startActivity(NewUserGuideActivity_.class);
+                finish();
+            }
+
+            @Override
+            public void loadFailture(String error_msg) {
+                hideWaitDialog();
+                makeTextShort(error_msg);
+            }
+        },this);
     }
 
 

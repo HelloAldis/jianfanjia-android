@@ -165,6 +165,19 @@
         <item>其他</item>
     </string-array>
 
+    <!-- 商装类型 -->
+    <string-array name="arr_busi_housetype">
+        <item>餐厅</item>
+        <item>服装店</item>
+        <item>酒吧</item>
+        <item>美容院</item>
+        <item>办公室</item>
+        <item>美发店</item>
+        <item>幼儿园</item>
+        <item>酒店</item>
+        <item>其他</item>
+    </string-array>
+
     <!-- 几口人-->
     <string-array name="arr_person">
         <item>单身</item>

@@ -1,7 +1,7 @@
 package com.jianfanjia.cn.interf.cutom_annotation;
 
-import com.jianfanjia.cn.activity.EditRequirementActivity;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.config.Constant;
 
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.res.StringArrayRes;
@@ -37,30 +37,30 @@ public class ReqItemFinderImp implements ReqItemFinder {
     @StringArrayRes(R.array.arr_decstyle)
     protected String[] arr_lovestyle;
 
-    @StringArrayRes(R.array.arr_dectype)
-    protected String[] arr_decstyle;
-
     @StringArrayRes(R.array.arr_desisex)
     protected String[] arr_desisex;
+
+    @StringArrayRes(R.array.arr_busi_housetype)
+    protected String[] arr_busihousetype;
 
     @Override
     public List<ItemMap> findAll(int requirecode) {
         switch (requirecode) {
-            case EditRequirementActivity.REQUIRECODE_CITY:
+            case Constant.REQUIRECODE_CITY:
                 return getListByStringArray(arr_district);
-            case EditRequirementActivity.REQUIRECODE_HOUSETYPE:
+            case Constant.REQUIRECODE_HOUSETYPE:
                 return getListByStringArray(arr_housetype);
-            case EditRequirementActivity.REQUIRECODE_PERSONS:
+            case Constant.REQUIRECODE_PERSONS:
                 return getListByStringArray(arr_person);
-            case EditRequirementActivity.REQUIRECODE_LOVEDESISTYLE:
+            case Constant.REQUIRECODE_LOVEDESISTYLE:
                 return getListByStringArray(arr_love_designerstyle);
-            case EditRequirementActivity.REQUIRECODE_DECORATETYPE:
-                return getListByStringArray(arr_decstyle);
-            case EditRequirementActivity.REQUIRECODE_LOVESTYLE:
+            case Constant.REQUIRECODE_BUSI_DECORATETYPE:
+                return getListByStringArrayHasOther(arr_busihousetype);
+            case Constant.REQUIRECODE_LOVESTYLE:
                 return getListByStringArray(arr_lovestyle);
-            case EditRequirementActivity.REQUIRECODE_DESISEX:
+            case Constant.REQUIRECODE_DESISEX:
                 return getListByStringArray(arr_desisex);
-            case EditRequirementActivity.REQUIRECODE_WORKTYPE:
+            case Constant.REQUIRECODE_WORKTYPE:
                 return getListByStringArray(arr_worktype);
         }
         return null;
@@ -75,6 +75,20 @@ public class ReqItemFinderImp implements ReqItemFinder {
         }
         return itemMaps;
     }
+
+    //属性中有其他字段的解析方法
+    public List<ItemMap> getListByStringArrayHasOther(String[] strings){
+        List<ItemMap> itemMaps = new ArrayList<>();
+        ItemMap itemMap = null;
+        for(int i = 0; i<strings.length-1; i++){
+            itemMap = new ItemMap(i + "",strings[i]);
+            itemMaps.add(itemMap);
+        }
+        itemMap = new ItemMap("9999",strings[strings.length-1]);
+        itemMaps.add(itemMap);
+        return itemMaps;
+    }
+
 
     public static class ItemMap implements Serializable{
         public final String key;

@@ -18,7 +18,8 @@ public class Global {
     public static final String REQUIREMENT_STATUS = "requirement_status";
     public static final String IS_PUBLISHREQUIREMENT = "is_publishrequirement";
     public static final String REQUIREMENT_DESIGNER_NUM = "requirement_designer_num";
-
+    public static final String DEC_PROGRESS = "dec_progress";
+    public static final String OWNERINFO = "ownerinfo";
 
     public static final String PROCESS_INFO = "process_info";
     public static final String PROCESS_ID = "process_id";
@@ -60,6 +61,14 @@ public class Global {
     public static final String REQUIREMENT_STATUS6 = "6";//有一个或多个设计师量完房但是没有人上传方案
     public static final String REQUIREMENT_STATUS7 = "7";//配置了合同但是没有配置工地
 
+    public static final String DEC_TYPE_HOME = "0";//家装
+    public static final String DEC_TYPE_BUSINESS = "1";//商装
+
+
+    public static final String DEC_PROGRESS0 = "0";//我想看一看
+    public static final String DEC_PROGRESS1 = "1";//正在做准备
+    public static final String DEC_PROGRESS2 = "2";//已经开始装修
+
     public static final String PHONE_MATCH = "^(13[0-9]{9}|15[012356789][0-9]{8}|18[0123456789][0-9]{8}|147[0-9]{8}|170[0-9]{8}|177[0-9]{8})$";
     public static final String PASSWORD_MATCH = "^[\\@A-Za-z0-9\\!\\#\\$\\%\\^\\&\\*\\.\\~]{6,30}$";
 //    public static final String PASSWORD_MATCH = "^[a-zA-Z_]\\w{5,29}$";
@@ -71,4 +80,6 @@ public class Global {
     public static final String ACTION_UPDATE = "com.jianfanjia.action.update";
     public static final String FORCE_UPDATE = "1";
     public static final String REC_UPDATE = "0";
+
+
 }

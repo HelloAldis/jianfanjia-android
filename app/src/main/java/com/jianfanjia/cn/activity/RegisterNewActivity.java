@@ -1,14 +1,12 @@
 package com.jianfanjia.cn.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -40,8 +38,6 @@ public class RegisterNewActivity extends BaseAnnotationActivity implements
 
     @ViewById(R.id.forget_psw_layout)
     RelativeLayout registerLayout;
-    @ViewById(R.id.success_layout)
-    LinearLayout successLayout;
 
     @ViewById(R.id.et_verification)
     EditText mEtVerification;// 用户名输入框
@@ -68,7 +64,6 @@ public class RegisterNewActivity extends BaseAnnotationActivity implements
             mPhoneView.setText(registerInfo.getPhone());
         }
         registerLayout.setVisibility(View.VISIBLE);
-        successLayout.setVisibility(View.GONE);
         mBtnCommit.setEnabled(false);
 
         mEtVerification.addTextChangedListener(new TextWatcher() {
@@ -95,7 +90,7 @@ public class RegisterNewActivity extends BaseAnnotationActivity implements
         });
     }
 
-    @Click({R.id.head_back_layout, R.id.btn_scan, R.id.btn_publish_requirement, R.id.btn_commit})
+    @Click({R.id.head_back_layout,R.id.btn_commit})
     void OnClick(View view) {
         switch (view.getId()) {
             case R.id.btn_commit:
@@ -104,16 +99,6 @@ public class RegisterNewActivity extends BaseAnnotationActivity implements
                     registerInfo.setCode(mVerification);
                     register(registerInfo);
                 }
-                break;
-            case R.id.btn_scan:
-                startActivity(MainActivity.class);
-                finish();
-                break;
-            case R.id.btn_publish_requirement:
-                Bundle bundle = new Bundle();
-                bundle.putBoolean(Global.IS_PUBLISHREQUIREMENT,true);
-                startActivity(MainActivity.class,bundle);
-                finish();
                 break;
             case R.id.head_back_layout:
                 finish();

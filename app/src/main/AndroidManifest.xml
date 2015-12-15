@@ -319,6 +319,10 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".NewUserCollectDecStageActivity_"
             android:screenOrientation="portrait"/>
+        <activity android:name=".NewUserGuideActivity_"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".EditRequirementActivityNew"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

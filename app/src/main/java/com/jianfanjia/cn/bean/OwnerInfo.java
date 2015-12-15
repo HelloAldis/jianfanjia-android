@@ -1,6 +1,7 @@
 package com.jianfanjia.cn.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * @author zhanghao
@@ -40,6 +41,12 @@ public class OwnerInfo implements Serializable {
     private boolean is_block;
 
     private int score;
+
+    private String family_description;
+
+    private String dec_progress;
+
+    private ArrayList<String> dec_styles;
 
     public String get_id() {
         return _id;
@@ -161,4 +168,27 @@ public class OwnerInfo implements Serializable {
         this.score = score;
     }
 
+    public String getFamily_description() {
+        return family_description;
+    }
+
+    public void setFamily_description(String family_description) {
+        this.family_description = family_description;
+    }
+
+    public String getDec_progress() {
+        return dec_progress;
+    }
+
+    public void setDec_progress(String dec_progress) {
+        this.dec_progress = dec_progress;
+    }
+
+    public ArrayList<String> getDec_styles() {
+        return dec_styles;
+    }
+
+    public void setDec_styles(ArrayList<String> dec_styles) {
+        this.dec_styles = dec_styles;
+    }
 }
