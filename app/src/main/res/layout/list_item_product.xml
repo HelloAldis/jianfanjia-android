@@ -34,7 +34,7 @@
             style="@style/listview_item_text_style_middle"
             android:layout_below="@id/list_item_head_img"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="8dip"
+            android:layout_marginTop="5dip"
             android:textColor="@color/home_page_text_color"
             android:textSize="@dimen/text_size_14"
             android:textStyle="bold" />
@@ -44,8 +44,8 @@
             style="@style/listview_item_text_style_small"
             android:layout_below="@id/list_item_xiaoqu_text"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="8dip"
-            android:layout_marginTop="8dip"
+            android:layout_marginBottom="5dip"
+            android:layout_marginTop="5dip"
             android:textColor="@color/home_page_text_color"
             android:textSize="@dimen/text_size_11" />
 
