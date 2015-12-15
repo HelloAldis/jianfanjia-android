@@ -81,17 +81,13 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.sectionLayout:
-                DecorationPopWindow window = new DecorationPopWindow(getActivity());
-                window.show(topLayout);
+                showWindow(topLayout);
                 break;
             case R.id.houseTypeLayout:
-
+                showWindow(topLayout);
                 break;
             case R.id.decStyleLayout:
-
-                break;
-            case R.id.topLayout:
-
+                showWindow(topLayout);
                 break;
             default:
                 break;
@@ -177,6 +173,11 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
 
         }
     };
+
+    private void showWindow(View view) {
+        DecorationPopWindow window = new DecorationPopWindow(getActivity());
+        window.show(view);
+    }
 
     @Override
     public int getLayoutId() {
