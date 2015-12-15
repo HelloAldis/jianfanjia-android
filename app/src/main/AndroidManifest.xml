@@ -27,7 +27,8 @@
 
         <!-- 个推SDK配置开始 -->
         <!-- 配置的第三方参数属性 -->
-        <meta-data
+        <!-- 产品的配置 -->
+        <!-- 产品的配置<meta-data
             android:name="PUSH_APPID"
             android:value="YZV748rCe89l8CfZ7dtIF9" />
         <meta-data
@@ -35,7 +36,17 @@
             android:value="8GJ1XgPOL9ArriE8xOJDK8" />
         <meta-data
             android:name="PUSH_APPSECRET"
-            android:value="sJtpmFxS0a5sA30Au3iI36" />
+            android:value="sJtpmFxS0a5sA30Au3iI36" />-->
+        <!-- 测试的配置 -->
+        <meta-data
+            android:name="PUSH_APPID"
+            android:value="SLKdGK8YIr9wns6NPEL8v8" />
+        <meta-data
+            android:name="PUSH_APPKEY"
+            android:value="O3oCpGEAVp7NjP67JbMPt5" />
+        <meta-data
+            android:name="PUSH_APPSECRET"
+            android:value="MM8Ybygbsz7EUvMoNpkHd5" />
         <meta-data
             android:name="PUSH_GROUPID"
             android:value="" />
