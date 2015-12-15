@@ -67,7 +67,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         //设置item之间的间隔
         SpacesItemDecoration decoration = new SpacesItemDecoration(10);
         decoration_listview.addItemDecoration(decoration);
-        searchDecorationImg("", houseStyle, decStyle, 0, 5);
+        searchDecorationImg(section, houseStyle, decStyle, 0, 5);
     }
 
     private void initMainHeadView(View view) {
