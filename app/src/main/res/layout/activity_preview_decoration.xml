@@ -1,19 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000000">
 
-    <com.jianfanjia.cn.view.MainHeadView
-        android:id="@+id/dec_head"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="45dp"
+        android:minHeight="45dp"
+        app:layout_collapseMode="pin"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+        <ImageButton
+            android:id="@+id/toolbar_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/btn_collect" />
+    </android.support.v7.widget.Toolbar>
 
     <com.jianfanjia.cn.view.MyViewPager
         android:id="@+id/showpicPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/dec_head" />
+        android:layout_below="@id/toolbar" />
 
     <TextView
         android:id="@+id/pic_tip"
