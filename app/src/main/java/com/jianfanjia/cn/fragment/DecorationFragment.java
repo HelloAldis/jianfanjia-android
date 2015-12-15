@@ -1,5 +1,7 @@
 package com.jianfanjia.cn.fragment;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -13,6 +15,7 @@ import com.jianfanjia.cn.adapter.DecorationAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.BeautyImgInfo;
 import com.jianfanjia.cn.bean.DecorationItemInfo;
+import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.GetItemCallback;
@@ -163,9 +166,12 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
                     @Override
                     public void OnItemClick(int position) {
                         BeautyImgInfo beautyImgInfo = beautyImgList.get(position);
-                        String _id = beautyImgInfo.get_id();
-                        LogTool.d(TAG, "_id:" + _id);
-                        startActivity(PreviewDecorationActivity.class);
+                        LogTool.d(TAG, "beautyImgInfo:" + beautyImgInfo);
+                        Intent decorationIntent = new Intent(getActivity(), PreviewDecorationActivity.class);
+                        Bundle decorationBundle = new Bundle();
+                        decorationBundle.putSerializable(Global.DECORATION, beautyImgInfo);
+                        decorationIntent.putExtras(decorationBundle);
+                        startActivity(decorationIntent);
                     }
                 });
                 LogTool.d(TAG, "decorationAdapter:" + decorationAdapter);
