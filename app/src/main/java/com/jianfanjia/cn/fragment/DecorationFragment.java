@@ -15,6 +15,7 @@ import com.jianfanjia.cn.bean.BeautyImgInfo;
 import com.jianfanjia.cn.bean.DecorationItemInfo;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
+import com.jianfanjia.cn.interf.GetItemCallback;
 import com.jianfanjia.cn.interf.OnItemClickListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
@@ -33,8 +34,11 @@ import java.util.List;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class DecorationFragment extends BaseFragment implements View.OnClickListener, ApiUiUpdateListener, PullToRefreshBase.OnRefreshListener2<RecyclerView>, OnItemClickListener {
+public class DecorationFragment extends BaseFragment implements View.OnClickListener, ApiUiUpdateListener, PullToRefreshBase.OnRefreshListener2<RecyclerView> {
     private static final String TAG = DecorationFragment.class.getName();
+    private static final int SECTION = 1;
+    private static final int HOUSETYPE = 2;
+    private static final int DECSTYLE = 3;
     private MainHeadView mainHeadView = null;
     private LinearLayout topLayout = null;
     private RelativeLayout sectionLayout = null;
@@ -44,6 +48,9 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
     private StaggeredGridLayoutManager mLayoutManager = null;
     private DecorationAdapter decorationAdapter = null;
     private DecorationPopWindow window = null;
+    private String section = null;
+    private String houseStyle = null;
+    private String decStyle = null;
 
     @Override
     public void initView(View view) {
@@ -60,7 +67,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         //设置item之间的间隔
         SpacesItemDecoration decoration = new SpacesItemDecoration(10);
         decoration_listview.addItemDecoration(decoration);
-        searchDecorationImg();
+        searchDecorationImg(section, houseStyle, decStyle, 0, 5);
     }
 
     private void initMainHeadView(View view) {
@@ -83,13 +90,38 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.sectionLayout:
-                showWindow(topLayout, R.array.section_item);
+                setSelectState(SECTION);
                 break;
             case R.id.houseTypeLayout:
-                showWindow(topLayout, R.array.housetype_item);
+                setSelectState(HOUSETYPE);
                 break;
             case R.id.decStyleLayout:
-                showWindow(topLayout, R.array.decstyle_item);
+                setSelectState(DECSTYLE);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void setSelectState(int type) {
+        switch (type) {
+            case SECTION:
+                showWindow(topLayout, R.array.section_item, SECTION);
+                sectionLayout.setSelected(true);
+                houseTypeLayout.setSelected(false);
+                decStyleLayout.setSelected(false);
+                break;
+            case HOUSETYPE:
+                showWindow(topLayout, R.array.housetype_item, HOUSETYPE);
+                sectionLayout.setSelected(false);
+                houseTypeLayout.setSelected(true);
+                decStyleLayout.setSelected(false);
+                break;
+            case DECSTYLE:
+                showWindow(topLayout, R.array.decstyle_item, DECSTYLE);
+                sectionLayout.setSelected(false);
+                houseTypeLayout.setSelected(false);
+                decStyleLayout.setSelected(true);
                 break;
             default:
                 break;
@@ -97,8 +129,9 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
     }
 
 
-    private void searchDecorationImg() {
-        JianFanJiaClient.searchDecorationImg(getContext(), "不限", "不限", "不限", "", -1, 0, 5, this, this);
+    private void searchDecorationImg(String section, String houseStyle, String decStyle, int from, int limit) {
+        LogTool.d(TAG, "section:" + section + " houseStyle:" + houseStyle + " decStyle:" + decStyle);
+        JianFanJiaClient.searchDecorationImg(getContext(), section, houseStyle, decStyle, "", -1, from, limit, this, this);
     }
 
     @Override
@@ -176,20 +209,56 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         }
     };
 
-    private void showWindow(View view, int resId) {
-        window = new DecorationPopWindow(getActivity(), StringUtils.getListByResource(getActivity(), resId), this);
+    private void showWindow(View view, int resId, int type) {
+        switch (type) {
+            case SECTION:
+                window = new DecorationPopWindow(getActivity(), StringUtils.getListByResource(getActivity(), resId), getSectionCallback);
+                break;
+            case HOUSETYPE:
+                window = new DecorationPopWindow(getActivity(), StringUtils.getListByResource(getActivity(), resId), getHouseStyleCallback);
+                break;
+            case DECSTYLE:
+                window = new DecorationPopWindow(getActivity(), StringUtils.getListByResource(getActivity(), resId), getDecStyleCallback);
+                break;
+            default:
+                break;
+        }
         window.show(view);
     }
 
-    @Override
-    public void OnItemClick(int position) {
-        LogTool.d(TAG, "position==============================" + position);
-        if (null != window) {
-            if (window.isShowing()) {
-                window.dismiss();
+    private GetItemCallback getSectionCallback = new GetItemCallback() {
+        @Override
+        public void onItemCallback(int position, String title) {
+            LogTool.d(TAG, "position====" + position + " title===" + title);
+            if (null != window) {
+                if (window.isShowing()) {
+                    window.dismiss();
+                }
             }
         }
-    }
+    };
+    private GetItemCallback getHouseStyleCallback = new GetItemCallback() {
+        @Override
+        public void onItemCallback(int position, String title) {
+            LogTool.d(TAG, "position---" + position + " title---" + title);
+            if (null != window) {
+                if (window.isShowing()) {
+                    window.dismiss();
+                }
+            }
+        }
+    };
+    private GetItemCallback getDecStyleCallback = new GetItemCallback() {
+        @Override
+        public void onItemCallback(int position, String title) {
+            LogTool.d(TAG, "position***" + position + " title***" + title);
+            if (null != window) {
+                if (window.isShowing()) {
+                    window.dismiss();
+                }
+            }
+        }
+    };
 
     @Override
     public int getLayoutId() {

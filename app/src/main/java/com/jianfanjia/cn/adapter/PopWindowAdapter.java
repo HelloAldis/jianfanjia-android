@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.BaseListAdapter;
-import com.jianfanjia.cn.interf.OnItemClickListener;
+import com.jianfanjia.cn.interf.GetItemCallback;
 
 import java.util.List;
 
@@ -17,16 +17,16 @@ import java.util.List;
  * Time: 16:07
  */
 public class PopWindowAdapter extends BaseListAdapter<String> {
-    private OnItemClickListener listener;
+    private GetItemCallback callback;
 
-    public PopWindowAdapter(Context context, List<String> list, OnItemClickListener listener) {
+    public PopWindowAdapter(Context context, List<String> list, GetItemCallback callback) {
         super(context, list);
-        this.listener = listener;
+        this.callback = callback;
     }
 
     @Override
     public View initView(final int position, View convertView) {
-        String title = list.get(position);
+        final String title = list.get(position);
         ViewHolder holder = null;
         if (convertView == null) {
             convertView = layoutInflater.inflate(R.layout.gird_item_pop_item, null);
@@ -40,7 +40,7 @@ public class PopWindowAdapter extends BaseListAdapter<String> {
         holder.mName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.OnItemClick(position);
+                callback.onItemCallback(position, title);
             }
         });
         return convertView;

@@ -12,7 +12,7 @@ import android.widget.PopupWindow;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.PopWindowAdapter;
-import com.jianfanjia.cn.interf.OnItemClickListener;
+import com.jianfanjia.cn.interf.GetItemCallback;
 
 import java.util.List;
 
@@ -30,12 +30,12 @@ public class DecorationPopWindow extends PopupWindow {
     private WindowManager.LayoutParams lp = null;
     private Window window = null;
 
-    public DecorationPopWindow(Activity activity, List<String> list, OnItemClickListener listener) {
+    public DecorationPopWindow(Activity activity, List<String> list, GetItemCallback callback) {
         super(activity);
         inflater = LayoutInflater.from(activity);
         popView = inflater.inflate(R.layout.gird_item_pop, null);
         gridView = (GridView) popView.findViewById(R.id.popGridview);
-        adapter = new PopWindowAdapter(activity, list, listener);
+        adapter = new PopWindowAdapter(activity, list, callback);
         gridView.setAdapter(adapter);
         this.setContentView(popView);
         this.setWidth(LayoutParams.MATCH_PARENT);
