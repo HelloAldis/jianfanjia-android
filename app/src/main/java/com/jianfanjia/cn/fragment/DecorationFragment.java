@@ -18,6 +18,7 @@ import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.OnItemClickListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.tools.StringUtils;
 import com.jianfanjia.cn.view.DecorationPopWindow;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.baseview.SpacesItemDecoration;
@@ -32,7 +33,7 @@ import java.util.List;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class DecorationFragment extends BaseFragment implements View.OnClickListener, ApiUiUpdateListener, PullToRefreshBase.OnRefreshListener2<RecyclerView> {
+public class DecorationFragment extends BaseFragment implements View.OnClickListener, ApiUiUpdateListener, PullToRefreshBase.OnRefreshListener2<RecyclerView>, OnItemClickListener {
     private static final String TAG = DecorationFragment.class.getName();
     private MainHeadView mainHeadView = null;
     private LinearLayout topLayout = null;
@@ -42,6 +43,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
     private PullToRefreshRecycleView decoration_listview = null;
     private StaggeredGridLayoutManager mLayoutManager = null;
     private DecorationAdapter decorationAdapter = null;
+    private DecorationPopWindow window = null;
 
     @Override
     public void initView(View view) {
@@ -81,13 +83,13 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.sectionLayout:
-                showWindow(topLayout);
+                showWindow(topLayout, R.array.section_item);
                 break;
             case R.id.houseTypeLayout:
-                showWindow(topLayout);
+                showWindow(topLayout, R.array.housetype_item);
                 break;
             case R.id.decStyleLayout:
-                showWindow(topLayout);
+                showWindow(topLayout, R.array.decstyle_item);
                 break;
             default:
                 break;
@@ -174,9 +176,19 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         }
     };
 
-    private void showWindow(View view) {
-        DecorationPopWindow window = new DecorationPopWindow(getActivity());
+    private void showWindow(View view, int resId) {
+        window = new DecorationPopWindow(getActivity(), StringUtils.getListByResource(getActivity(), resId), this);
         window.show(view);
+    }
+
+    @Override
+    public void OnItemClick(int position) {
+        LogTool.d(TAG, "position==============================" + position);
+        if (null != window) {
+            if (window.isShowing()) {
+                window.dismiss();
+            }
+        }
     }
 
     @Override

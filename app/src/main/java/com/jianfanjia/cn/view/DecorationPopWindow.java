@@ -12,8 +12,8 @@ import android.widget.PopupWindow;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.PopWindowAdapter;
+import com.jianfanjia.cn.interf.OnItemClickListener;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,12 +30,12 @@ public class DecorationPopWindow extends PopupWindow {
     private WindowManager.LayoutParams lp = null;
     private Window window = null;
 
-    public DecorationPopWindow(Activity activity) {
+    public DecorationPopWindow(Activity activity, List<String> list, OnItemClickListener listener) {
         super(activity);
         inflater = LayoutInflater.from(activity);
         popView = inflater.inflate(R.layout.gird_item_pop, null);
         gridView = (GridView) popView.findViewById(R.id.popGridview);
-        adapter = new PopWindowAdapter(activity, initData());
+        adapter = new PopWindowAdapter(activity, list, listener);
         gridView.setAdapter(adapter);
         this.setContentView(popView);
         this.setWidth(LayoutParams.MATCH_PARENT);
@@ -63,14 +63,6 @@ public class DecorationPopWindow extends PopupWindow {
                 window.setAttributes(lp);
             }
         });
-    }
-
-    private List<String> initData() {
-        List<String> list = new ArrayList<String>();
-        for (int i = 0; i < 10; i++) {
-            list.add("title" + i);
-        }
-        return list;
     }
 
     public void show(View view) {

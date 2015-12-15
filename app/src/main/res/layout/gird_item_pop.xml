@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:layout_margin="10dip"
         android:horizontalSpacing="15dp"
         android:listSelector="@drawable/grid_item_selector"
         android:numColumns="3"
