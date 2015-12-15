@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -35,7 +36,7 @@ import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
 public class DesignerCaseInfoActivity extends BaseActivity implements OnClickListener, AppBarLayout.OnOffsetChangedListener {
     private static final String TAG = DesignerCaseInfoActivity.class.getName();
     private Toolbar toolbar = null;
-    private TextView toolbar_add = null;
+    private ImageButton toolbar_add = null;
     private AppBarLayout appBarLayout = null;
     private CollapsingToolbarLayout collapsingToolbar = null;
     private RelativeLayout activity_case_info_top_layout = null;
@@ -58,7 +59,7 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
     public void initView() {
         activity_case_info_top_layout = (RelativeLayout) findViewById(R.id.top_info_layout);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar_add = (TextView) findViewById(R.id.toolbar_add);
+        toolbar_add = (ImageButton) findViewById(R.id.toolbar_add);
         toolbar.setNavigationIcon(R.mipmap.icon_register_back);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -170,6 +171,11 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
             DesignerCaseInfo designerCaseInfo = JsonParser.jsonToBean(data.toString(), DesignerCaseInfo.class);
             LogTool.d(TAG, "designerCaseInfo" + designerCaseInfo);
             if (null != designerCaseInfo) {
+                if (designerCaseInfo.is_my_favorite()) {
+                    toolbar_add.setEnabled(false);
+                } else {
+                    toolbar_add.setEnabled(true);
+                }
                 designertid = designerCaseInfo.getDesigner().get_id();
                 collapsingToolbar.setTitle(designerCaseInfo.getCell());
                 stylelText.setText(designerCaseInfo.getHouse_area() + "㎡，" + getHouseType(designerCaseInfo.getHouse_type()) + "，" + getDecStyle(designerCaseInfo.getDec_type()));
@@ -200,7 +206,7 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
 
         @Override
         public void loadSuccess(Object data) {
-            makeTextLong(data.toString());
+            toolbar_add.setEnabled(false);
         }
 
         @Override
