@@ -65,7 +65,7 @@ public class BeautyImgInfo implements Serializable {
         this.images = images;
     }
 
-    public static class Img {
+    public static class Img implements Serializable {
         private String imageid;
         private int width;
         private int height;
