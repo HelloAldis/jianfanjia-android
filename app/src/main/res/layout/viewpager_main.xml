@@ -3,11 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <com.jianfanjia.cn.view.MyViewPager
+    <com.jianfanjia.cn.designer.view.MyViewPager
         android:id="@+id/viewPager_lib"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" >
-    </com.jianfanjia.cn.view.MyViewPager>
+    </com.jianfanjia.cn.designer.view.MyViewPager>
 
     <LinearLayout
         android:id="@+id/indicatorGroup_lib"

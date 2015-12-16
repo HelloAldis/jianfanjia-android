@@ -6,13 +6,13 @@
     android:background="@color/main_layout_bg"
     android:fitsSystemWindows="true">
 
-    <com.jianfanjia.cn.view.MainHeadView
+    <com.jianfanjia.cn.designer.view.MainHeadView
         android:id="@+id/my_setting_head_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="top"
         android:background="@color/head_layout_bg"
-        app:layout_behavior="com.jianfanjia.cn.view.QuickReturnFooterBehavior" />
+        app:layout_behavior="com.jianfanjia.cn.designer.view.QuickReturnFooterBehavior" />
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"

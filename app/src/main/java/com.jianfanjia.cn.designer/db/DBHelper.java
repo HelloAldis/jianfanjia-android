@@ -1,0 +1,64 @@
+package com.jianfanjia.cn.designer.db;
+
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+
+import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
+import com.j256.ormlite.support.ConnectionSource;
+import com.j256.ormlite.table.TableUtils;
+import com.jianfanjia.cn.designer.bean.NotifyMessage;
+
+import java.sql.SQLException;
+
+/**
+ * @author fengliang
+ * @ClassName: DBHelper
+ * @Description: 数据库类
+ * @date 2015-8-18 下午3:09:13
+ */
+public class DBHelper extends OrmLiteSqliteOpenHelper {
+    private static final String DBNAME = "jianfanjia.db";
+    private static final int DBVERSION = 1;
+    private static DBHelper helper;
+
+    public DBHelper(Context context) {
+        super(context, DBNAME, null, DBVERSION);
+    }
+
+    public static synchronized DBHelper getHelper(Context context) {
+        if (helper == null) {
+            synchronized (DBHelper.class) {
+                if (helper == null)
+                    helper = new DBHelper(context);
+            }
+        }
+        return helper;
+    }
+
+    @Override
+    public void onCreate(SQLiteDatabase db, ConnectionSource connectionSource) {
+        try {
+            TableUtils.createTable(connectionSource, NotifyMessage.class);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, ConnectionSource connectionSource,
+                          int arg2, int arg3) {
+        try {
+            TableUtils.dropTable(connectionSource, NotifyMessage.class, true);
+            onCreate(db, connectionSource);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void close() {
+        super.close();
+        helper = null;
+    }
+
+}

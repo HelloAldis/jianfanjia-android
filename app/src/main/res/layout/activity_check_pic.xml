@@ -96,7 +96,7 @@
                     android:textColor="@color/black_color" />
             </LinearLayout>
 
-            <com.jianfanjia.cn.view.MyGridView
+            <com.jianfanjia.cn.designer.view.MyGridView
                 android:id="@+id/mygridview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

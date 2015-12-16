@@ -10,13 +10,13 @@
         android:layout_height="wrap_content"
         android:background="@color/head_layout_bg" >
 
-        <com.jianfanjia.cn.view.MainHeadView
+        <com.jianfanjia.cn.designer.view.MainHeadView
             android:id="@+id/notify_head_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <!-- tabpage -->
 
-        <com.jianfanjia.cn.view.TabPageIndicator
+        <com.jianfanjia.cn.designer.view.TabPageIndicator
             android:id="@+id/page_indicator"
             android:layout_width="match_parent"
             android:layout_height="40dip"

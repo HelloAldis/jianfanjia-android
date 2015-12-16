@@ -14,7 +14,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
-            <com.jianfanjia.cn.view.layout.CircleImageView
+            <com.jianfanjia.cn.designer.view.layout.CircleImageView
                 android:id="@+id/img_head"
                 android:layout_width="102dp"
                 android:layout_height="102dp"

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.jianfanjia.cn.activity"
+    package="com.jianfanjia.cn.designer"
     android:versionCode="2"
     android:versionName="1.0.2" >
 
@@ -9,7 +9,7 @@
         android:targetSdkVersion="18" />
 
     <application
-        android:name="com.jianfanjia.cn.application.MyApplication"
+        android:name="com.jianfanjia.cn.designer.application.MyApplication"
         android:allowBackup="true"
         android:icon="@drawable/icon_logo"
         android:label="@string/app_name"
@@ -52,94 +52,90 @@
             android:value="" />
 
         <activity
-            android:name="com.jianfanjia.cn.activity.MainActivity"
+            android:name="com.jianfanjia.cn.designer.activity.MainActivity"
             android:screenOrientation="portrait"
             android:launchMode="singleTask"
             android:theme="@style/Theme.PageIndicatorDefaults" />
         <activity
-            android:name="com.jianfanjia.cn.activity.RegisterNewActivity_"
+            android:name="com.jianfanjia.cn.designer.activity.RegisterNewActivity_"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible"
              />
         <activity
-            android:name="com.jianfanjia.cn.activity.NavigateActivity"
+            android:name="com.jianfanjia.cn.designer.activity.NavigateActivity"
             android:screenOrientation="portrait"
             />
         <activity
-            android:name="com.jianfanjia.cn.activity.ForgetPswActivity_"
+            android:name="com.jianfanjia.cn.designer.activity.ForgetPswActivity_"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible"
             />
         <activity
-            android:name="com.jianfanjia.cn.activity.FeedBackActivity"
+            android:name="com.jianfanjia.cn.designer.activity.FeedBackActivity"
             android:screenOrientation="portrait"
             />
         <activity
-            android:name="com.jianfanjia.cn.activity.AboutActivity"
+            android:name="com.jianfanjia.cn.designer.activity.AboutActivity"
             android:screenOrientation="portrait"
             />
         <activity
-            android:name="com.jianfanjia.cn.activity.CommentActivity"
+            android:name="com.jianfanjia.cn.designer.activity.CommentActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name="com.jianfanjia.cn.activity.CheckActivity"
+            android:name="com.jianfanjia.cn.designer.activity.CheckActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.jianfanjia.cn.activity.LoginNewActivity_"
+            android:name="com.jianfanjia.cn.designer.activity.LoginNewActivity_"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible" />
         <activity
-            android:name="com.jianfanjia.cn.activity.ShareActivity"
+            android:name="com.jianfanjia.cn.designer.activity.ShareActivity"
             android:screenOrientation="portrait"
              />
         <activity
-            android:name="com.jianfanjia.cn.activity.EditInfoActivity"
+            android:name="com.jianfanjia.cn.designer.activity.EditInfoActivity"
             android:screenOrientation="portrait"
             />
         <activity
-            android:name="com.jianfanjia.cn.activity.HelpActivity"
+            android:name="com.jianfanjia.cn.designer.activity.HelpActivity"
             android:screenOrientation="portrait"
             />
         <activity
-            android:name="com.jianfanjia.cn.activity.ShowPicActivity"
+            android:name="com.jianfanjia.cn.designer.activity.ShowPicActivity"
             android:screenOrientation="portrait"
             />
         <activity
-            android:name="com.jianfanjia.cn.activity.ShowProcessPicActivity"
+            android:name="com.jianfanjia.cn.designer.activity.ShowProcessPicActivity"
             android:screenOrientation="portrait"
             />
         <activity
-            android:name="com.jianfanjia.cn.activity.NotifyActivity"
+            android:name="com.jianfanjia.cn.designer.activity.NotifyActivity"
             android:screenOrientation="portrait"
             android:theme="@style/activity_style"/>
         <activity
-            android:name="com.jianfanjia.cn.activity.MyOwnerActivity"
+            android:name="com.jianfanjia.cn.designer.activity.MyOwnerActivity"
             android:screenOrientation="portrait"
             />
         <activity
-            android:name="com.jianfanjia.cn.activity.OwnerInfoActivity"
+            android:name="com.jianfanjia.cn.designer.activity.OwnerInfoActivity"
             android:screenOrientation="portrait"
             />
         <activity
-        android:name="com.jianfanjia.cn.activity.UserInfoActivity_"
+        android:name="com.jianfanjia.cn.designer.activity.UserInfoActivity_"
         android:screenOrientation="portrait"
         />
         <activity
-            android:name="com.jianfanjia.cn.activity.SettingActivity"
+            android:name="com.jianfanjia.cn.designer.activity.SettingActivity"
             android:screenOrientation="portrait"
             />
         <activity
-            android:name="com.jianfanjia.cn.activity.DesignerSiteActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity
-            android:name="com.jianfanjia.cn.activity.TestActivity"
+            android:name="com.jianfanjia.cn.designer.activity.DesignerSiteActivity"
             android:screenOrientation="portrait"
             />
 
         <activity
-            android:name="com.jianfanjia.cn.activity.WelcomeActivity"
+            android:name="com.jianfanjia.cn.designer.activity.WelcomeActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
              >
@@ -152,19 +148,19 @@
 
         <!-- 配置第三方Receiver -->
         <receiver
-            android:name="com.jianfanjia.cn.receiver.PushMsgReceiver"
+            android:name="com.jianfanjia.cn.designer.receiver.PushMsgReceiver"
             android:exported="false" >
             <intent-filter>
                 <action android:name="com.igexin.sdk.action.YZV748rCe89l8CfZ7dtIF9" />
             </intent-filter>
         </receiver>
-        <receiver android:name="com.jianfanjia.cn.receiver.DownLoadReceiver" >
+        <receiver android:name="com.jianfanjia.cn.designer.receiver.DownLoadReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
             </intent-filter>
         </receiver>
 
-        <service android:name="com.jianfanjia.cn.service.UpdateService" />
+        <service android:name="com.jianfanjia.cn.designer.service.UpdateService" />
 
         <!-- 配置SDK核心服务 -->
         <service
@@ -215,7 +211,7 @@
 
         <provider
             android:name="com.igexin.download.DownloadProvider"
-            android:authorities="downloads.com.jianfanjia.cn.activity"
+            android:authorities="downloads.com.jianfanjia.cn.designer.activity"
             android:process=":pushservice" />
         <!-- android:authorities="downloads.第三方包名" -->
         <activity
