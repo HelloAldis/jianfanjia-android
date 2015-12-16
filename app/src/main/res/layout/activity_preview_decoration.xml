@@ -29,7 +29,19 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/toolbar"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="48dp"
+        android:layout_marginBottom="10dip"
+        android:layout_marginLeft="30dip"
+        android:layout_marginTop="10dip"
+        android:textColor="@color/font_white" />
+
+    <TextView
+        android:id="@+id/pic_des"
+        style="@style/listview_item_text_style_middle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dip"
+        android:layout_marginLeft="30dip"
         android:textColor="@color/font_white" />
 
     <TextView
@@ -37,14 +49,16 @@
         style="@style/listview_item_text_style_big"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@id/pic_des"
+        android:layout_margin="20dip"
         android:textColor="@color/font_white" />
 
     <com.jianfanjia.cn.view.MyViewPager
         android:id="@+id/showpicPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/toolbar" />
+        android:layout_height="400dip"
+        android:layout_below="@id/pic_tip"
+        android:layout_centerInParent="true" />
 
 
 </RelativeLayout>
