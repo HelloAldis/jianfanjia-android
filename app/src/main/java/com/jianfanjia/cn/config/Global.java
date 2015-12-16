@@ -38,7 +38,7 @@ public class Global {
     public static final String TOPICTYPE = "topictype";
     public static final String SPEED = "speed";
     public static final String ATTITUDE = "attitude";
-    public static final String DECORATION = "decoration";
+    public static final String DECORATION_ID = "decoration_id";
 
     public static final String TOPIC_PLAN = "0";//方案评论
     public static final String TOPIC_NODE = "1";//节点评论

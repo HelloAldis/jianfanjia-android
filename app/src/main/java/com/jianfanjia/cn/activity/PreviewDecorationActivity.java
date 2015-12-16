@@ -8,8 +8,9 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.bean.BeautyImgInfo;
 import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.http.JianFanJiaClient;
+import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.LogTool;
 
 /**
@@ -23,21 +24,21 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
     private Toolbar toolbar = null;
     private ImageButton toolbar_add = null;
     private ViewPager viewPager = null;
-    private BeautyImgInfo beautyImgInfo = null;
+    private String decorationId = null;
 
     @Override
     public void initView() {
+        Intent intent = this.getIntent();
+        Bundle decorationBundle = intent.getExtras();
+        decorationId = decorationBundle.getString(Global.DECORATION_ID);
+        LogTool.d(TAG, "decorationId=" + decorationId);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar_add = (ImageButton) findViewById(R.id.toolbar_add);
         toolbar.setNavigationIcon(R.mipmap.icon_register_back);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         viewPager = (ViewPager) findViewById(R.id.showpicPager);
-        Intent intent = this.getIntent();
-        Bundle decorationBundle = intent.getExtras();
-        beautyImgInfo = (BeautyImgInfo) decorationBundle.getSerializable(Global.DECORATION);
-        LogTool.d(TAG, "beautyImgInfo=" + beautyImgInfo);
-
+        getDecorationImgInfo(decorationId);
     }
 
     @Override
@@ -51,6 +52,11 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
         toolbar_add.setOnClickListener(this);
     }
 
+
+    private void getDecorationImgInfo(String decorationId) {
+        JianFanJiaClient.getDecorationImgInfo(PreviewDecorationActivity.this, decorationId, getDecorationImgInfoListener, this);
+    }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -61,6 +67,23 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
                 break;
         }
     }
+
+    private ApiUiUpdateListener getDecorationImgInfoListener = new ApiUiUpdateListener() {
+        @Override
+        public void preLoad() {
+
+        }
+
+        @Override
+        public void loadSuccess(Object data) {
+            LogTool.d(TAG, "data:" + data.toString());
+        }
+
+        @Override
+        public void loadFailture(String error_msg) {
+
+        }
+    };
 
     @Override
     public int getLayoutId() {

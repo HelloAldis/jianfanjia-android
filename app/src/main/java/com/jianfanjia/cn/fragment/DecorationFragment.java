@@ -169,7 +169,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
                         LogTool.d(TAG, "beautyImgInfo:" + beautyImgInfo);
                         Intent decorationIntent = new Intent(getActivity(), PreviewDecorationActivity.class);
                         Bundle decorationBundle = new Bundle();
-                        decorationBundle.putSerializable(Global.DECORATION, beautyImgInfo);
+                        decorationBundle.putString(Global.DECORATION_ID, beautyImgInfo.get_id());
                         decorationIntent.putExtras(decorationBundle);
                         startActivity(decorationIntent);
                     }
