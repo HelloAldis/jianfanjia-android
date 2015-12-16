@@ -32,6 +32,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
     private static final String TAG = PreviewDecorationActivity.class.getName();
     private Toolbar toolbar = null;
     private ImageButton toolbar_add = null;
+    private ImageButton toolbar_share = null;
     private ViewPager viewPager = null;
     private TextView pic_tip = null;
     private TextView pic_title = null;
@@ -49,6 +50,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
         LogTool.d(TAG, "decorationId=" + decorationId);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar_add = (ImageButton) findViewById(R.id.toolbar_add);
+        toolbar_share = (ImageButton) findViewById(R.id.toolbar_share);
         toolbar.setNavigationIcon(R.mipmap.icon_register_back);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -68,6 +70,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
             }
         });
         toolbar_add.setOnClickListener(this);
+        toolbar_share.setOnClickListener(this);
         viewPager.setOnPageChangeListener(this);
     }
 
@@ -76,6 +79,8 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
         switch (view.getId()) {
             case R.id.toolbar_add:
                 addDecorationImgInfo(decorationId);
+                break;
+            case R.id.toolbar_share:
                 break;
             default:
                 break;
