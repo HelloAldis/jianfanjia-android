@@ -7,8 +7,10 @@ import android.view.View;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseFragment;
+import com.jianfanjia.cn.bean.DecorationItemInfo;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
+import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.baseview.SpacesItemDecoration;
 
@@ -51,6 +53,11 @@ public class DecorationImgFragment extends BaseFragment {
         @Override
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data.toString());
+            DecorationItemInfo decorationItemInfo = JsonParser.jsonToBean(data.toString(), DecorationItemInfo.class);
+            LogTool.d(TAG, "decorationItemInfo:" + decorationItemInfo);
+            if (null != decorationItemInfo) {
+
+            }
         }
 
         @Override
