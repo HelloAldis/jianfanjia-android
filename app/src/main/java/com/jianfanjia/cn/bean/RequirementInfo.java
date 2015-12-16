@@ -29,6 +29,7 @@ public class RequirementInfo implements Serializable {
     private String total_price;
     private String final_planid;
     private String final_designerid;
+    private String business_house_type;
     private ProcessInfo process;
     private long create_at;
     private long last_status_update_time;
@@ -279,5 +280,13 @@ public class RequirementInfo implements Serializable {
 
     public void setLast_status_update_time(long last_status_update_time) {
         this.last_status_update_time = last_status_update_time;
+    }
+
+    public String getBusiness_house_type() {
+        return business_house_type;
+    }
+
+    public void setBusiness_house_type(String business_house_type) {
+        this.business_house_type = business_house_type;
     }
 }

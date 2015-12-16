@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.text.TextUtils;
 
 import com.jianfanjia.cn.bean.CommitCommentInfo;
+import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.bean.OwnerUpdateInfo;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
@@ -49,6 +50,7 @@ import com.jianfanjia.cn.http.request.LoginRequest;
 import com.jianfanjia.cn.http.request.LogoutRequest;
 import com.jianfanjia.cn.http.request.OrderDesignerByUserRequest;
 import com.jianfanjia.cn.http.request.OwnerFinishCheckRequest;
+import com.jianfanjia.cn.http.request.PostCollectOwnerInfoRequest;
 import com.jianfanjia.cn.http.request.PostProcessRequest;
 import com.jianfanjia.cn.http.request.PostRequirementRequest;
 import com.jianfanjia.cn.http.request.PostRescheduleRequest;
@@ -227,6 +229,19 @@ public class JianFanJiaClient {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 收集新用户的个人偏好
+     * @param context
+     * @param ownerInfo
+     * @param listener
+     * @param tag
+     */
+    public static void post_collect_ownerinfo(Context context,OwnerInfo ownerInfo,ApiUiUpdateListener listener,Object tag){
+        PostCollectOwnerInfoRequest postCollectOwnerInfoRequest = new PostCollectOwnerInfoRequest(context);
+        LogTool.d(TAG, "post_collect_ownerinfo --" + postCollectOwnerInfoRequest.getUrl() + "--" + JsonParser.beanToJson(ownerInfo));
+        OkHttpClientManager.getInstance().getPostDelegate().postAsyn(postCollectOwnerInfoRequest, JsonParser.beanToJson(ownerInfo), listener, tag);
     }
 
     /**

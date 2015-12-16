@@ -92,4 +92,8 @@
     <string name="collect_lovestyle_content">风格喜好</string>
     <string name="collect_person_tip">只能选择一种常住人口类型</string>
     <string name="collect_lovestyle_tip">最多只能选择三种风格喜好</string>
+    <string name="str_totalbudget">总报价</string>
+    <string name="str_guide_tip1">您可以免费前往获取三套方案</string>
+    <string name="str_guide_tip2">我们将会为您匹配最合适的设计师</string>
+    <string name="str_businessdecoratetype">商装类型</string>
 </resources>

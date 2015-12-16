@@ -77,7 +77,7 @@ public class EditRequirementItemActivity extends BaseAnnotationActivity {
                 mainHeadView.setMianTitle(getString(R.string.str_lovedesistyle));
                 break;
             case REQUIRECODE_DECORATETYPE:
-                mainHeadView.setMianTitle(getString(R.string.str_decoratetype));
+                mainHeadView.setMianTitle(getString(R.string.str_businessdecoratetype));
                 break;
             case REQUIRECODE_WORKTYPE:
                 mainHeadView.setMianTitle(getResources().getString(R.string.str_work_type));

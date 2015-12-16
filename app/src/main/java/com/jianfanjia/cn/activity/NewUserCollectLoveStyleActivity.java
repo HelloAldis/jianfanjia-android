@@ -8,7 +8,9 @@ import android.widget.TextView;
 
 import com.jianfanjia.cn.adapter.CollectLoveStyleViewPageAdapter;
 import com.jianfanjia.cn.base.BaseAnnotationActivity;
+import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.interf.OnItemClickListener;
 
 import org.androidannotations.annotations.AfterViews;
@@ -41,11 +43,15 @@ public class NewUserCollectLoveStyleActivity extends BaseAnnotationActivity {
     @ViewById(R.id.btn_next)
     Button buttonNext;
 
+    OwnerInfo ownerInfo;
+
     CollectLoveStyleViewPageAdapter collectLoveStyleViewPageAdapter;
 
     List<CollectLoveStyleViewPageAdapter.LoveStyleItemInfo> loveStyleItemInfoList = new ArrayList<>();
 
-    List<String> lovestyleList = new ArrayList<>();
+    ArrayList<String> lovestyleList = new ArrayList<>();
+
+    ArrayList<String> lovestyleNumber = new ArrayList<>();
 
     @StringArrayRes(R.array.arr_decstyle)
     protected String[] decstyles;
@@ -57,6 +63,9 @@ public class NewUserCollectLoveStyleActivity extends BaseAnnotationActivity {
 
     @AfterViews
     protected void initView() {
+        Intent intent = getIntent();
+        ownerInfo = (OwnerInfo)intent.getSerializableExtra(Global.OWNERINFO);
+
         titleView.setText(getString(R.string.collect_lovestyle_title));
         contentView.setText(getString(R.string.collect_lovestyle_content));
         notifyViewRefresh();
@@ -74,10 +83,12 @@ public class NewUserCollectLoveStyleActivity extends BaseAnnotationActivity {
                 if (loveStyleItemInfo.isSelector()) {
                     loveStyleItemInfo.setIsSelector(false);
                     lovestyleList.remove(decstyles[position]);
+                    lovestyleNumber.remove(position + "");
                 } else {
                     if (lovestyleList.size() < Constant.LOVE_STYLE_TOTAL) {
                         loveStyleItemInfo.setIsSelector(true);
                         lovestyleList.add(decstyles[position]);
+                        lovestyleNumber.add(position + "");
                     } else {
                         makeTextShort(getString(R.string.collect_lovestyle_tip));
                         return;
@@ -114,7 +125,12 @@ public class NewUserCollectLoveStyleActivity extends BaseAnnotationActivity {
     }
 
     protected void intentToCollectPerson() {
+        if(ownerInfo == null){
+            ownerInfo = new OwnerInfo();
+        }
+        ownerInfo.setDec_styles(lovestyleNumber);
         Intent intent = new Intent(this, NewUserCollectPersonActivity_.class);
+        intent.putExtra(Global.OWNERINFO,ownerInfo);
         startActivity(intent);
     }
 

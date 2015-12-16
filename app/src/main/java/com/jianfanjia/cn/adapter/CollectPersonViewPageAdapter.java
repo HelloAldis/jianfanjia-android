@@ -58,7 +58,7 @@ public class CollectPersonViewPageAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, final int position) {
         View view = LayoutInflater.from(context).inflate(
-                R.layout.list_item_collect_req, null, false);
+                R.layout.viewpager_item_collect_req, null, false);
         final LoveStyleItemInfo loveStyleItemInfo = list.get(position);
         ImageView contentView = (ImageView)view.findViewById(R.id.img);
 //        imageShow.displayLocalImage(loveStyleItemInfo.getImageid(),contentView);
