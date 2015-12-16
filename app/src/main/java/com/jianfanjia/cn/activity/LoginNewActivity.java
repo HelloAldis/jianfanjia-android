@@ -24,12 +24,10 @@ import android.widget.ViewFlipper;
 
 import com.igexin.sdk.PushManager;
 import com.jianfanjia.cn.base.BaseAnnotationActivity;
-import com.jianfanjia.cn.bean.LoginUserBean;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
-import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 
 import org.androidannotations.annotations.AfterViews;
@@ -429,9 +427,6 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
     @Override
     public void loadSuccess(Object data) {
         super.loadSuccess(data);
-        LogTool.d(TAG, "data:" + data);
-        LoginUserBean loginUserBean = JsonParser.jsonToBean(data.toString(), LoginUserBean.class);
-        LogTool.d(TAG, "loginUserBean:" + loginUserBean);
         PushManager.getInstance().initialize(getApplicationContext());
         startActivity(MainActivity.class);
         finish();
