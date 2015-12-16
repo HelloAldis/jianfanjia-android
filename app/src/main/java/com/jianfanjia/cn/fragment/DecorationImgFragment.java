@@ -54,13 +54,12 @@ public class DecorationImgFragment extends BaseFragment {
 
     }
 
-
     private void getDecorationImgList(int from, int limit, ApiUiUpdateListener listener) {
         JianFanJiaClient.getBeautyImgListByUser(getActivity(), from, limit, listener, this);
     }
 
     private void deleteDecorationImg(String id) {
-        JianFanJiaClient.deleteBeautyImgByUser(getActivity(), id, deleteDecorationImgListListener, this);
+        JianFanJiaClient.deleteBeautyImgByUser(getActivity(), id, deleteDecorationImgListener, this);
     }
 
     private ApiUiUpdateListener getDecorationImgListListener = new ApiUiUpdateListener() {
@@ -92,6 +91,8 @@ public class DecorationImgFragment extends BaseFragment {
 
                     @Override
                     public void OnLongItemClick(View view, int position) {
+                        itemPosition = position;
+                        LogTool.d(TAG, "itemPosition=" + itemPosition);
                         BeautyImgInfo beautyImgInfo = beautyImgList.get(position);
                         LogTool.d(TAG, "beautyImgInfo:" + beautyImgInfo);
                         decorationid = beautyImgInfo.get_id();
@@ -114,7 +115,7 @@ public class DecorationImgFragment extends BaseFragment {
         }
     };
 
-    private ApiUiUpdateListener deleteDecorationImgListListener = new ApiUiUpdateListener() {
+    private ApiUiUpdateListener deleteDecorationImgListener = new ApiUiUpdateListener() {
         @Override
         public void preLoad() {
 
