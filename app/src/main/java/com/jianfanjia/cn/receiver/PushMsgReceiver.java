@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 
 import com.igexin.sdk.PushConsts;
@@ -14,8 +13,6 @@ import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.dao.impl.NotifyMessageDao;
-import com.jianfanjia.cn.http.JianFanJiaClient;
-import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.ReceiveMsgListener;
 import com.jianfanjia.cn.interf.manager.ListenerManeger;
 import com.jianfanjia.cn.tools.DaoManager;
@@ -66,9 +63,6 @@ public class PushMsgReceiver extends BroadcastReceiver {
                 // 第三方应用需要将CID上传到第三方服务器，并且将当前用户帐号和CID进行关联，以便日后通过用户帐号查找CID进行消息推送
                 String cid = bundle.getString("clientid");
                 LogTool.d(TAG, "cid:" + cid);
-                if (!TextUtils.isEmpty(cid)) {
-                    uploadClientID(context, cid);
-                }
                 break;
             case PushConsts.THIRDPART_FEEDBACK:
             /*
@@ -122,30 +116,5 @@ public class PushMsgReceiver extends BroadcastReceiver {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    /**
-     * 上传clientid
-     *
-     * @param context
-     * @param clientId
-     */
-    private void uploadClientID(Context context, String clientId) {
-        JianFanJiaClient.uploadRegisterId(context, clientId, new ApiUiUpdateListener() {
-            @Override
-            public void preLoad() {
-
-            }
-
-            @Override
-            public void loadSuccess(Object data) {
-                LogTool.d(TAG, "data:" + data);
-            }
-
-            @Override
-            public void loadFailture(String error_msg) {
-                LogTool.d(TAG, "error_msg:" + error_msg);
-            }
-        }, this);
     }
 }
