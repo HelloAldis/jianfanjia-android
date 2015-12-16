@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 
 import com.igexin.sdk.PushConsts;
@@ -14,9 +13,7 @@ import com.jianfanjia.cn.designer.cache.DataManagerNew;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.dao.impl.NotifyMessageDao;
 import com.jianfanjia.cn.designer.fragment.SiteManageFragment;
-import com.jianfanjia.cn.designer.http.JianFanJiaClient;
 import com.jianfanjia.cn.designer.inter.manager.ListenerManeger;
-import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.designer.interf.ReceiveMsgListener;
 import com.jianfanjia.cn.designer.tools.DaoManager;
 import com.jianfanjia.cn.designer.tools.JsonParser;
@@ -66,8 +63,10 @@ public class PushMsgReceiver extends BroadcastReceiver {
                 // 第三方应用需要将CID上传到第三方服务器，并且将当前用户帐号和CID进行关联，以便日后通过用户帐号查找CID进行消息推送
                 String cid = bundle.getString("clientid");
                 LogTool.d(TAG, "cid:" + cid);
-                if (!TextUtils.isEmpty(cid)) {
-                    uploadClientID(context, cid);
+                boolean isLogin = dataManager.isLogin();
+                LogTool.d(TAG, "isLogin:" + isLogin);
+                if (isLogin) {
+                    PushManager.getInstance().bindAlias(context.getApplicationContext(), dataManager.getUserId());
                 }
                 break;
             case PushConsts.THIRDPART_FEEDBACK:
@@ -131,31 +130,5 @@ public class PushMsgReceiver extends BroadcastReceiver {
             e.printStackTrace();
         }
     }
-
-    /**
-     * 上传clientid
-     *
-     * @param context
-     * @param clientId
-     */
-    private void uploadClientID(Context context, String clientId) {
-        JianFanJiaClient.uploadRegisterId(context, clientId, new ApiUiUpdateListener() {
-            @Override
-            public void preLoad() {
-                LogTool.d(TAG, "onStart()");
-            }
-
-            @Override
-            public void loadSuccess(Object data) {
-                LogTool.d(TAG, "JSONObject response:" + data.toString());
-            }
-
-            @Override
-            public void loadFailture(String errorMsg) {
-
-            }
-        }, this);
-    }
-
 
 }
