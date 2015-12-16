@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:layout_marginRight="20dp"
-            android:background="@drawable/btn_collect" />
+            android:background="@drawable/icon_collect_bg" />
     </android.support.v7.widget.Toolbar>
 
     <com.jianfanjia.cn.view.MyViewPager
