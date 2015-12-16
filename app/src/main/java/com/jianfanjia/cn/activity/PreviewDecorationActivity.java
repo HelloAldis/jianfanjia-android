@@ -87,7 +87,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
     }
 
     private void addDecorationImgInfo(String decorationId) {
-        JianFanJiaClient.addCollectionByUser(PreviewDecorationActivity.this, decorationId, AddDecorationImgInfoListener, this);
+        JianFanJiaClient.addBeautyImgByUser(PreviewDecorationActivity.this, decorationId, AddDecorationImgInfoListener, this);
     }
 
     private ApiUiUpdateListener getDecorationImgInfoListener = new ApiUiUpdateListener() {
