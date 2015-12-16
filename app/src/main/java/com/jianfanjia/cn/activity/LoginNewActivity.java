@@ -15,9 +15,6 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -27,12 +24,13 @@ import android.widget.ViewFlipper;
 
 import com.igexin.sdk.PushManager;
 import com.jianfanjia.cn.base.BaseAnnotationActivity;
+import com.jianfanjia.cn.bean.LoginUserBean;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
+import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.tools.NetTool;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -431,6 +429,9 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
     @Override
     public void loadSuccess(Object data) {
         super.loadSuccess(data);
+        LogTool.d(TAG, "data:" + data);
+        LoginUserBean loginUserBean = JsonParser.jsonToBean(data.toString(), LoginUserBean.class);
+        LogTool.d(TAG, "loginUserBean:" + loginUserBean);
         PushManager.getInstance().initialize(getApplicationContext());
         startActivity(MainActivity.class);
         finish();
