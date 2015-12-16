@@ -33,9 +33,9 @@ android {
     signingConfigs {
         relealse {
             storeFile file("jianfanjia.keystore")
-            storePassword "jianfanjia"
+            storePassword KEYSTORE_PASSWORD
             keyAlias "jianfanjia"
-            keyPassword "jyzjianfanjia"
+            keyPassword KEY_PASSWORD
         }
     }
 
