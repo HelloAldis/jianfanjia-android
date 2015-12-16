@@ -13,7 +13,7 @@ import android.widget.RelativeLayout;
 
 import com.jianfanjia.cn.activity.DesignerCaseInfoActivity;
 import com.jianfanjia.cn.activity.DesignerInfoActivity;
-import com.jianfanjia.cn.activity.EditRequirementActivityNew;
+import com.jianfanjia.cn.activity.PublishRequirementActivity;
 import com.jianfanjia.cn.activity.EditRequirementActivity_;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.DesignerListAdapter;
@@ -92,7 +92,7 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_add:
-                Intent intent = new Intent(getActivity(), EditRequirementActivityNew.class);
+                Intent intent = new Intent(getActivity(), PublishRequirementActivity.class);
                 startActivityForResult(intent, XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT);
                 break;
             default:

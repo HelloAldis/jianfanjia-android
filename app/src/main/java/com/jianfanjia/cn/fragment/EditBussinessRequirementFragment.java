@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.jianfanjia.cn.activity.EditRequirementActivityNew;
+import com.jianfanjia.cn.activity.PublishRequirementActivity;
 import com.jianfanjia.cn.activity.EditRequirementItemActivity_;
 import com.jianfanjia.cn.activity.EditRequirementLovestyleActivity_;
 import com.jianfanjia.cn.activity.R;
@@ -42,7 +42,7 @@ public class EditBussinessRequirementFragment extends BaseAnnotationFragment{
     public static final String REQUIRE_DATA = "require_data";
     public static final String RESPONDE_DATA = "response_data";
 
-    private EditRequirementActivityNew editRequirementActivityNew;
+    private PublishRequirementActivity publishRequirementActivity;
     protected boolean isFinish = false;
 
     public static final int TOTAL_COUNT = 9;
@@ -125,7 +125,7 @@ public class EditBussinessRequirementFragment extends BaseAnnotationFragment{
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        editRequirementActivityNew = (EditRequirementActivityNew)getActivity();
+        publishRequirementActivity = (PublishRequirementActivity)getActivity();
     }
 
     //控制确定按钮的显示
@@ -133,7 +133,7 @@ public class EditBussinessRequirementFragment extends BaseAnnotationFragment{
         if (setItems.contains(item)) {
             setItems.remove(item);
             isFinish = false;
-            editRequirementActivityNew.setMainRightEnable(false);
+            publishRequirementActivity.setMainRightEnable(false);
         }
     }
 
@@ -144,7 +144,7 @@ public class EditBussinessRequirementFragment extends BaseAnnotationFragment{
             LogTool.d(this.getClass().getName(), setItems.size() + " ==" + item);
             if (setItems.size() == TOTAL_COUNT) {
                 isFinish = true;
-                editRequirementActivityNew.setMainRightEnable(true);
+                publishRequirementActivity.setMainRightEnable(true);
             }
         }
     }

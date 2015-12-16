@@ -54,7 +54,7 @@ public class MainActivity extends BaseActivity implements
         LogTool.d(TAG, "flag:" + flag);
         if (flag) {
             LogTool.d(TAG, "REGISTER PUBLISH REQUIREMENG");
-            startActivityForResult(new Intent(this, EditRequirementActivityNew.class), XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT);
+            startActivityForResult(new Intent(this, PublishRequirementActivity.class), XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT);
         }
     }
 

@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.AppointDesignerActivity;
-import com.jianfanjia.cn.activity.EditRequirementActivityNew;
+import com.jianfanjia.cn.activity.PublishRequirementActivity;
 import com.jianfanjia.cn.activity.EditRequirementActivity_;
 import com.jianfanjia.cn.activity.MyDesignerActivity_;
 import com.jianfanjia.cn.activity.MyProcessDetailActivity_;
@@ -169,7 +169,7 @@ public class XuQiuFragment extends BaseAnnotationFragment {
 
     @Click({R.id.req_publish_wrap, R.id.head_right_title})
     protected void publish_requirement() {
-        Intent intent = new Intent(getActivity(), EditRequirementActivityNew.class);
+        Intent intent = new Intent(getActivity(), PublishRequirementActivity.class);
         startActivityForResult(intent, REQUESTCODE_PUBLISH_REQUIREMENT);
     }
 

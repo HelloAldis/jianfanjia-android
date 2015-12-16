@@ -321,7 +321,7 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".NewUserGuideActivity_"
             android:screenOrientation="portrait"/>
-        <activity android:name=".EditRequirementActivityNew"
+        <activity android:name=".PublishRequirementActivity"
             android:screenOrientation="portrait"/>
     </application>
 

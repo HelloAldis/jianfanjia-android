@@ -26,8 +26,8 @@ import java.util.List;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class EditRequirementActivityNew extends BaseActivity implements OnClickListener {
-    private static final String TAG = EditRequirementActivityNew.class.getName();
+public class PublishRequirementActivity extends BaseActivity implements OnClickListener {
+    private static final String TAG = PublishRequirementActivity.class.getName();
     private MainHeadView mainHeadView = null;
     private TabLayout tabLayout = null;
     private ViewPager viewPager = null;
