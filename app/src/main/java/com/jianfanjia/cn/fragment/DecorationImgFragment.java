@@ -1,20 +1,27 @@
 package com.jianfanjia.cn.fragment;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
+import com.jianfanjia.cn.activity.PreviewDecorationActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.DecorationAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
+import com.jianfanjia.cn.bean.BeautyImgInfo;
 import com.jianfanjia.cn.bean.DecorationItemInfo;
+import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.OnItemClickListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.baseview.SpacesItemDecoration;
+
+import java.util.List;
 
 /**
  * @author fengliang
@@ -58,10 +65,17 @@ public class DecorationImgFragment extends BaseFragment {
             DecorationItemInfo decorationItemInfo = JsonParser.jsonToBean(data.toString(), DecorationItemInfo.class);
             LogTool.d(TAG, "decorationItemInfo:" + decorationItemInfo);
             if (null != decorationItemInfo) {
-                DecorationAdapter decorationAdapter = new DecorationAdapter(getActivity(), decorationItemInfo.getBeautiful_images(), new OnItemClickListener() {
+                final List<BeautyImgInfo> beautyImgList = decorationItemInfo.getBeautiful_images();
+                DecorationAdapter decorationAdapter = new DecorationAdapter(getActivity(), beautyImgList, new OnItemClickListener() {
                     @Override
                     public void OnItemClick(int position) {
-
+                        BeautyImgInfo beautyImgInfo = beautyImgList.get(position);
+                        LogTool.d(TAG, "beautyImgInfo:" + beautyImgInfo);
+                        Intent decorationIntent = new Intent(getActivity(), PreviewDecorationActivity.class);
+                        Bundle decorationBundle = new Bundle();
+                        decorationBundle.putString(Global.DECORATION_ID, beautyImgInfo.get_id());
+                        decorationIntent.putExtras(decorationBundle);
+                        startActivity(decorationIntent);
                     }
                 });
                 decoration_img_listview.setAdapter(decorationAdapter);
