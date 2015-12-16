@@ -11,10 +11,20 @@ import java.util.List;
  */
 public class BeautyImgInfo implements Serializable {
     private String _id;
+    private long lastupdate;
+    private long create_at;
     private String title;
+    private String description;
     private String dec_type;
     private String house_type;
     private String dec_style;
+    private String status;
+    private String authorid;
+    private String usertype;
+    private int __v;
+    private int favorite_count;
+    private int view_count;
+    private boolean is_my_favorite;
     private List<Img> images;
 
     public String get_id() {
@@ -64,4 +74,84 @@ public class BeautyImgInfo implements Serializable {
     public void setImages(List<Img> images) {
         this.images = images;
     }
-}  
+
+    public long getLastupdate() {
+        return lastupdate;
+    }
+
+    public void setLastupdate(long lastupdate) {
+        this.lastupdate = lastupdate;
+    }
+
+    public long getCreate_at() {
+        return create_at;
+    }
+
+    public void setCreate_at(long create_at) {
+        this.create_at = create_at;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getAuthorid() {
+        return authorid;
+    }
+
+    public void setAuthorid(String authorid) {
+        this.authorid = authorid;
+    }
+
+    public String getUsertype() {
+        return usertype;
+    }
+
+    public void setUsertype(String usertype) {
+        this.usertype = usertype;
+    }
+
+    public int get__v() {
+        return __v;
+    }
+
+    public void set__v(int __v) {
+        this.__v = __v;
+    }
+
+    public int getFavorite_count() {
+        return favorite_count;
+    }
+
+    public void setFavorite_count(int favorite_count) {
+        this.favorite_count = favorite_count;
+    }
+
+    public int getView_count() {
+        return view_count;
+    }
+
+    public void setView_count(int view_count) {
+        this.view_count = view_count;
+    }
+
+    public boolean is_my_favorite() {
+        return is_my_favorite;
+    }
+
+    public void setIs_my_favorite(boolean is_my_favorite) {
+        this.is_my_favorite = is_my_favorite;
+    }
+}

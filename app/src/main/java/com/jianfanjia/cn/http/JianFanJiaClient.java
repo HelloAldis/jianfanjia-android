@@ -11,6 +11,7 @@ import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url_New;
+import com.jianfanjia.cn.http.request.AddBeautyImgRequest;
 import com.jianfanjia.cn.http.request.AddCollectionRequest;
 import com.jianfanjia.cn.http.request.AddCommentRequest;
 import com.jianfanjia.cn.http.request.AddFavoriteDesignerRequest;
@@ -233,12 +234,13 @@ public class JianFanJiaClient {
 
     /**
      * 收集新用户的个人偏好
+     *
      * @param context
      * @param ownerInfo
      * @param listener
      * @param tag
      */
-    public static void post_collect_ownerinfo(Context context,OwnerInfo ownerInfo,ApiUiUpdateListener listener,Object tag){
+    public static void post_collect_ownerinfo(Context context, OwnerInfo ownerInfo, ApiUiUpdateListener listener, Object tag) {
         PostCollectOwnerInfoRequest postCollectOwnerInfoRequest = new PostCollectOwnerInfoRequest(context);
         LogTool.d(TAG, "post_collect_ownerinfo --" + postCollectOwnerInfoRequest.getUrl() + "--" + JsonParser.beanToJson(ownerInfo));
         OkHttpClientManager.getInstance().getPostDelegate().postAsyn(postCollectOwnerInfoRequest, JsonParser.beanToJson(ownerInfo), listener, tag);
@@ -1111,6 +1113,25 @@ public class JianFanJiaClient {
             jsonParams.put("from", from);
             jsonParams.put("limit", limit);
             OkHttpClientManager.getInstance().getPostDelegate().postAsyn(getCollectionRequest, jsonParams.toString(), listener, tag);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 用户收藏装修美图
+     *
+     * @param context
+     * @param id
+     * @param listener
+     * @param tag
+     */
+    public static void addBeautyImgByUser(Context context, String id, ApiUiUpdateListener listener, Object tag) {
+        AddBeautyImgRequest addBeautyImgRequest = new AddBeautyImgRequest(context, id);
+        JSONObject jsonParams = new JSONObject();
+        try {
+            jsonParams.put("_id", id);
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(addBeautyImgRequest, jsonParams.toString(), listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
         }

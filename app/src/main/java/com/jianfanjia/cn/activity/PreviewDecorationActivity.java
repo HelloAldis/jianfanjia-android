@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.jianfanjia.cn.adapter.PreviewAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.bean.DecorationImgInfo;
+import com.jianfanjia.cn.bean.BeautyImgInfo;
 import com.jianfanjia.cn.bean.Img;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
@@ -32,6 +32,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
     private static final String TAG = PreviewDecorationActivity.class.getName();
     private Toolbar toolbar = null;
     private ImageButton toolbar_add = null;
+    private ImageButton toolbar_share = null;
     private ViewPager viewPager = null;
     private TextView pic_tip = null;
     private TextView pic_title = null;
@@ -49,6 +50,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
         LogTool.d(TAG, "decorationId=" + decorationId);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar_add = (ImageButton) findViewById(R.id.toolbar_add);
+        toolbar_share = (ImageButton) findViewById(R.id.toolbar_share);
         toolbar.setNavigationIcon(R.mipmap.icon_register_back);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -68,6 +70,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
             }
         });
         toolbar_add.setOnClickListener(this);
+        toolbar_share.setOnClickListener(this);
         viewPager.setOnPageChangeListener(this);
     }
 
@@ -76,6 +79,8 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
         switch (view.getId()) {
             case R.id.toolbar_add:
                 addDecorationImgInfo(decorationId);
+                break;
+            case R.id.toolbar_share:
                 break;
             default:
                 break;
@@ -87,7 +92,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
     }
 
     private void addDecorationImgInfo(String decorationId) {
-        JianFanJiaClient.addCollectionByUser(PreviewDecorationActivity.this, decorationId, AddDecorationImgInfoListener, this);
+        JianFanJiaClient.addBeautyImgByUser(PreviewDecorationActivity.this, decorationId, AddDecorationImgInfoListener, this);
     }
 
     private ApiUiUpdateListener getDecorationImgInfoListener = new ApiUiUpdateListener() {
@@ -99,17 +104,17 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
         @Override
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data.toString());
-            DecorationImgInfo decorationImgInfo = JsonParser.jsonToBean(data.toString(), DecorationImgInfo.class);
-            LogTool.d(TAG, "decorationImgInfo:" + decorationImgInfo);
-            if (null != decorationImgInfo) {
-                if (decorationImgInfo.is_my_favorite()) {
+            BeautyImgInfo beautyImgInfo = JsonParser.jsonToBean(data.toString(), BeautyImgInfo.class);
+            LogTool.d(TAG, "beautyImgInfo:" + beautyImgInfo);
+            if (null != beautyImgInfo) {
+                if (beautyImgInfo.is_my_favorite()) {
                     toolbar_add.setEnabled(false);
                 } else {
                     toolbar_add.setEnabled(true);
                 }
-                pic_title.setText(decorationImgInfo.getTitle());
-                pic_des.setText("#" + decorationImgInfo.getDescription() + " #" + getHouseType(decorationImgInfo.getHouse_type()) + " #" + getDecStyle(decorationImgInfo.getDec_type()));
-                List<Img> decorationImgs = decorationImgInfo.getImages();
+                pic_title.setText(beautyImgInfo.getTitle());
+                pic_des.setText("#" + beautyImgInfo.getDescription() + " #" + getHouseType(beautyImgInfo.getHouse_type()) + " #" + getDecStyle(beautyImgInfo.getDec_type()));
+                List<Img> decorationImgs = beautyImgInfo.getImages();
                 totalCount = decorationImgs.size();
                 for (Img img : decorationImgs) {
                     imgList.add(img.getImageid());
