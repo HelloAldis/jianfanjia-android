@@ -22,6 +22,7 @@ import java.util.List;
  * Time: 13:20
  */
 public class ProductAdapter extends BaseRecyclerViewAdapter<Product> {
+    private static final String TAG = ProductAdapter.class.getName();
     private RecyclerViewOnItemClickListener listener;
 
     public ProductAdapter(Context context, List<Product> list, RecyclerViewOnItemClickListener listener) {
@@ -33,12 +34,16 @@ public class ProductAdapter extends BaseRecyclerViewAdapter<Product> {
     public void bindView(RecyclerViewHolderBase viewHolder, int position, List<Product> list) {
         Product product = list.get(position);
         final ProductViewHolder holder = (ProductViewHolder) viewHolder;
-        holder.itemXiaoQuText.setText(product.getCell());
-        String houseType = product.getHouse_type();
-        String decStyle = product.getDec_style();
-        holder.itemProduceText.setText(product.getHouse_area() + "㎡，" + BusinessManager.convertHouseTypeToShow(houseType) + "，" + BusinessManager.convertDecStyleToShow(decStyle));
-        imageShow.displayScreenWidthThumnailImage(context, product.getImages().get(0).getImageid(), holder.itemProductView);
-        imageShow.displayImageHeadWidthThumnailImage(context, product.getDesigner().getImageid(), holder.itemHeadView);
+        if (!product.is_deleted()) {
+            holder.itemXiaoQuText.setText(product.getCell());
+            String houseType = product.getHouse_type();
+            String decStyle = product.getDec_style();
+            holder.itemProduceText.setText(product.getHouse_area() + "㎡，" + BusinessManager.convertHouseTypeToShow(houseType) + "，" + BusinessManager.convertDecStyleToShow(decStyle));
+            imageShow.displayScreenWidthThumnailImage(context, product.getImages().get(0).getImageid(), holder.itemProductView);
+            imageShow.displayImageHeadWidthThumnailImage(context, product.getDesigner().getImageid(), holder.itemHeadView);
+        } else {
+
+        }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,7 +69,6 @@ public class ProductAdapter extends BaseRecyclerViewAdapter<Product> {
                 }
             }
         });
-
     }
 
     @Override
