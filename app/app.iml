@@ -119,8 +119,8 @@
     <orderEntry type="jdk" jdkName="Android API 23 Platform (1)" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="gson-2.3.1" level="project" />
-    <orderEntry type="library" exported="" name="eventbus-2.4.0" level="project" />
     <orderEntry type="library" exported="" name="okio-1.6.0" level="project" />
+    <orderEntry type="library" exported="" name="eventbus-2.4.0" level="project" />
     <orderEntry type="library" exported="" name="ormlite-core-4.49-SNAPSHOT" level="project" />
     <orderEntry type="library" exported="" name="cardview-v7-23.1.1" level="project" />
     <orderEntry type="library" exported="" name="GetuiExt-2.0.3" level="project" />
@@ -129,6 +129,7 @@
     <orderEntry type="library" exported="" name="PhotoView-1.2.4" level="project" />
     <orderEntry type="library" exported="" name="armeabi" level="project" />
     <orderEntry type="library" exported="" name="universal-image-loader-1.9.5" level="project" />
+    <orderEntry type="library" exported="" name="GetuiSDK2.7.0.0" level="project" />
     <orderEntry type="library" exported="" name="design-23.1.1" level="project" />
     <orderEntry type="library" exported="" name="androidannotations-api-3.3.1" level="project" />
     <orderEntry type="library" exported="" name="recyclerview-v7-23.1.1" level="project" />
@@ -139,6 +140,5 @@
     <orderEntry type="library" exported="" name="support-annotations-23.1.1" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-23.1.1" level="project" />
     <orderEntry type="library" exported="" name="analytics-5.6.1" level="project" />
-    <orderEntry type="library" exported="" name="GetuiSDK2.6.1.0" level="project" />
   </component>
 </module>
