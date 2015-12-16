@@ -35,6 +35,7 @@ import com.jianfanjia.cn.http.request.GetBeautyImgListRequest;
 import com.jianfanjia.cn.http.request.GetCollectionRequest;
 import com.jianfanjia.cn.http.request.GetCommentsRequest;
 import com.jianfanjia.cn.http.request.GetContractRequest;
+import com.jianfanjia.cn.http.request.GetDecorationImgRequest;
 import com.jianfanjia.cn.http.request.GetDesignerPlansByUserRequest;
 import com.jianfanjia.cn.http.request.GetOrderDesignerListByUserRequest;
 import com.jianfanjia.cn.http.request.GetOrderedDesignerRequest;
@@ -1030,8 +1031,15 @@ public class JianFanJiaClient {
      * @param listener
      * @param tag
      */
-    public static void getDecorationImg(Context context, String id, ApiUiUpdateListener listener, Object tag) {
-
+    public static void getDecorationImgInfo(Context context, String id, ApiUiUpdateListener listener, Object tag) {
+        GetDecorationImgRequest getDecorationImgRequest = new GetDecorationImgRequest(context, id);
+        JSONObject jsonParams = new JSONObject();
+        try {
+            jsonParams.put("_id", id);
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(getDecorationImgRequest, jsonParams.toString(), listener, tag);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
