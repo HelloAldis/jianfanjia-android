@@ -148,6 +148,9 @@ public class Url_New {
     //用户删除收藏的作品
     public static final String DELETE_PRODUCT_BY_USER = HTTPROOT
             + "favorite/product/delete";
+    //用户收藏美图
+    public static final String ADD_BEAUTY_IMG = HTTPROOT
+            + "favorite/beautiful_image/add";
     //用户获取收藏的装修美图列表
     public static final String GET_BEAUTY_IMG_LIST_BY_USER = HTTPROOT
             + "favorite/beautiful_image/list";
