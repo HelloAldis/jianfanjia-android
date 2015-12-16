@@ -63,6 +63,11 @@ public class PushMsgReceiver extends BroadcastReceiver {
                 // 第三方应用需要将CID上传到第三方服务器，并且将当前用户帐号和CID进行关联，以便日后通过用户帐号查找CID进行消息推送
                 String cid = bundle.getString("clientid");
                 LogTool.d(TAG, "cid:" + cid);
+                boolean isLogin = dataManager.isLogin();
+                LogTool.d(TAG, "isLogin:" + isLogin);
+                if (isLogin) {
+                    PushManager.getInstance().bindAlias(context.getApplicationContext(), dataManager.getUserId());
+                }
                 break;
             case PushConsts.THIRDPART_FEEDBACK:
             /*
