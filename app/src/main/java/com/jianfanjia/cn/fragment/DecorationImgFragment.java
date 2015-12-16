@@ -137,7 +137,7 @@ public class DecorationImgFragment extends BaseFragment {
         CommonDialog dialog = DialogHelper
                 .getPinterestDialogCancelable(getActivity());
         dialog.setTitle("移出装修美图");
-        dialog.setMessage("确定把该美图移出吗？");
+        dialog.setMessage("确定把该美图移出收藏吗？");
         dialog.setPositiveButton(R.string.ok,
                 new DialogInterface.OnClickListener() {
 
