@@ -48,7 +48,7 @@ android {
             manifestPlaceholders = [GETUI_PUSH_APPID : "tE9LwxEKvxACImev1VLiCA",GETUI_PUSH_APPKEY : "5pOVHYbLcS6GrWsp0CTwK3",GETUI_PUSH_APPSECRET : "qX6mtXErCJ7I5ADTLW8P85"]
         }
 
-        apptest {
+        androidtest {
             manifestPlaceholders = [GETUI_PUSH_APPID : "s7Et91ZLPu8KRwBEtY4AZ8",GETUI_PUSH_APPKEY : "8BTWfBSMYM95oFpDOwGYu5",GETUI_PUSH_APPSECRET : "QbclEVLgAIA6iWblkTjyD4"]
         }
 
