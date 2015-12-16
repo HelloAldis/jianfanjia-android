@@ -53,6 +53,10 @@ public class DecorationImgFragment extends BaseFragment {
         JianFanJiaClient.getBeautyImgListByUser(getActivity(), from, limit, listener, this);
     }
 
+    private void deleteDecorationImg(String id, ApiUiUpdateListener listener) {
+        JianFanJiaClient.deleteBeautyImgByUser(getActivity(), id, listener, this);
+    }
+
     private ApiUiUpdateListener getDecorationImgListListener = new ApiUiUpdateListener() {
         @Override
         public void preLoad() {
@@ -80,6 +84,24 @@ public class DecorationImgFragment extends BaseFragment {
                 });
                 decoration_img_listview.setAdapter(decorationAdapter);
             }
+        }
+
+        @Override
+        public void loadFailture(String error_msg) {
+
+        }
+    };
+
+    private ApiUiUpdateListener deleteDecorationImgListListener = new ApiUiUpdateListener() {
+        @Override
+        public void preLoad() {
+
+        }
+
+        @Override
+        public void loadSuccess(Object data) {
+            LogTool.d(TAG, "data:" + data.toString());
+
         }
 
         @Override
