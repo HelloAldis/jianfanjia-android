@@ -181,7 +181,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
 
         @Override
         public void loadFailture(String error_msg) {
-
+            makeTextLong(error_msg);
         }
     };
 
@@ -206,7 +206,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
 
         @Override
         public void loadFailture(String error_msg) {
-
+            makeTextLong(error_msg);
         }
     };
 
