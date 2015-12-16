@@ -41,34 +41,35 @@ public class ProductAdapter extends BaseRecyclerViewAdapter<Product> {
             holder.itemProduceText.setText(product.getHouse_area() + "㎡，" + BusinessManager.convertHouseTypeToShow(houseType) + "，" + BusinessManager.convertDecStyleToShow(decStyle));
             imageShow.displayScreenWidthThumnailImage(context, product.getImages().get(0).getImageid(), holder.itemProductView);
             imageShow.displayImageHeadWidthThumnailImage(context, product.getDesigner().getImageid(), holder.itemHeadView);
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (null != listener) {
+                        listener.OnItemClick(v, holder.getLayoutPosition());
+                    }
+                }
+            });
+            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    if (null != listener) {
+                        listener.OnLongItemClick(v, holder.getLayoutPosition());
+                    }
+                    return true;
+                }
+            });
+            holder.itemHeadView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (null != listener) {
+                        listener.OnViewClick(holder.getLayoutPosition());
+                    }
+                }
+            });
         } else {
 
         }
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != listener) {
-                    listener.OnItemClick(v, holder.getLayoutPosition());
-                }
-            }
-        });
-        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                if (null != listener) {
-                    listener.OnLongItemClick(v, holder.getLayoutPosition());
-                }
-                return true;
-            }
-        });
-        holder.itemHeadView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != listener) {
-                    listener.OnViewClick(holder.getLayoutPosition());
-                }
-            }
-        });
+
     }
 
     @Override
