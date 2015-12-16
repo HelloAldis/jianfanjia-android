@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.jianfanjia.cn.base.BaseAnnotationActivity;
 import com.jianfanjia.cn.bean.RequirementInfo;
-import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.cutom_annotation.ReqItemFinderImp;
@@ -36,14 +35,21 @@ import java.util.Set;
  * Date:2015-10-15 13:19
  */
 @EActivity(R.layout.activity_edit_req)
-public class EditRequirementActivity extends BaseAnnotationActivity {
+public class EditBusinessRequirementActivity extends BaseAnnotationActivity {
+    public static final int REQUIRECODE_CITY = 0x00;
+    public static final int REQUIRECODE_HOUSETYPE = 0x01;
+    public static final int REQUIRECODE_PERSONS = 0x02;
+    public static final int REQUIRECODE_LOVESTYLE = 0x03;
+    public static final int REQUIRECODE_LOVEDESISTYLE = 0x04;
+    public static final int REQUIRECODE_DECORATETYPE = 0x05;
+    public static final int REQUIRECODE_WORKTYPE = 0x06;
+    public static final int REQUIRECODE_DESISEX = 0x07;
 
     public static final String REQUIRE_DATA = "require_data";
     public static final String RESPONDE_DATA = "response_data";
 
     @ViewById(R.id.act_edit_req_head)
     protected MainHeadView mainHeadView;
-
     public static final int TOTAL_COUNT = 14;
 
     private Set<String> setItems = new HashSet<>();
@@ -158,6 +164,7 @@ public class EditRequirementActivity extends BaseAnnotationActivity {
             }
         }
     }
+
     //控制确定按钮的显示
     protected void removeItem(String item) {
         if (setItems.contains(item)) {
@@ -185,38 +192,45 @@ public class EditRequirementActivity extends BaseAnnotationActivity {
         mainHeadView.setRigthTitleEnable(true);
     }
 
-    @Click({R.id.act_edit_req_city, R.id.act_edit_req_housetype, R.id.act_edit_req_decoratetype,
+    @Click({R.id.head_back_layout, R.id.act_edit_req_city, R.id.act_edit_req_housetype, R.id.act_edit_req_decoratetype,
             R.id.act_edit_req_lovestyle, R.id.act_edit_req_persons, R.id.act_edit_req_lovedesistyle, R.id.act_edit_req_lovedesisex, R.id.act_edit_req_work_type})
     protected void back(View clickView) {
         int viewId = clickView.getId();
         switch (viewId) {
+            case R.id.head_back_layout:
+                back();
+                break;
             case R.id.act_edit_req_city:
-                gotoItem.putExtra(REQUIRE_DATA, Constant.REQUIRECODE_CITY);
-                startActivityForResult(gotoItem, Constant.REQUIRECODE_CITY);
+                gotoItem.putExtra(REQUIRE_DATA, REQUIRECODE_CITY);
+                startActivityForResult(gotoItem, REQUIRECODE_CITY);
                 break;
             case R.id.act_edit_req_lovedesistyle:
-                gotoItem.putExtra(REQUIRE_DATA, Constant.REQUIRECODE_LOVEDESISTYLE);
-                startActivityForResult(gotoItem, Constant.REQUIRECODE_LOVEDESISTYLE);
+                gotoItem.putExtra(REQUIRE_DATA, REQUIRECODE_LOVEDESISTYLE);
+                startActivityForResult(gotoItem, REQUIRECODE_LOVEDESISTYLE);
                 break;
             case R.id.act_edit_req_lovestyle:
-                gotoItemLove.putExtra(REQUIRE_DATA, Constant.REQUIRECODE_LOVESTYLE);
-                startActivityForResult(gotoItemLove, Constant.REQUIRECODE_LOVESTYLE);
+                gotoItemLove.putExtra(REQUIRE_DATA, REQUIRECODE_LOVESTYLE);
+                startActivityForResult(gotoItemLove, REQUIRECODE_LOVESTYLE);
                 break;
             case R.id.act_edit_req_persons:
-                gotoItem.putExtra(REQUIRE_DATA, Constant.REQUIRECODE_PERSONS);
-                startActivityForResult(gotoItem, Constant.REQUIRECODE_PERSONS);
+                gotoItem.putExtra(REQUIRE_DATA, REQUIRECODE_PERSONS);
+                startActivityForResult(gotoItem, REQUIRECODE_PERSONS);
+                break;
+            case R.id.act_edit_req_decoratetype:
+                gotoItem.putExtra(REQUIRE_DATA, REQUIRECODE_DECORATETYPE);
+                startActivityForResult(gotoItem, REQUIRECODE_DECORATETYPE);
                 break;
             case R.id.act_edit_req_housetype:
-                gotoItem.putExtra(REQUIRE_DATA, Constant.REQUIRECODE_HOUSETYPE);
-                startActivityForResult(gotoItem, Constant.REQUIRECODE_HOUSETYPE);
+                gotoItem.putExtra(REQUIRE_DATA, REQUIRECODE_HOUSETYPE);
+                startActivityForResult(gotoItem, REQUIRECODE_HOUSETYPE);
                 break;
             case R.id.act_edit_req_work_type:
-                gotoItem.putExtra(REQUIRE_DATA, Constant.REQUIRECODE_WORKTYPE);
-                startActivityForResult(gotoItem, Constant.REQUIRECODE_WORKTYPE);
+                gotoItem.putExtra(REQUIRE_DATA, REQUIRECODE_WORKTYPE);
+                startActivityForResult(gotoItem, REQUIRECODE_WORKTYPE);
                 break;
             case R.id.act_edit_req_lovedesisex:
-                gotoItem.putExtra(REQUIRE_DATA, Constant.REQUIRECODE_DESISEX);
-                startActivityForResult(gotoItem, Constant.REQUIRECODE_DESISEX);
+                gotoItem.putExtra(REQUIRE_DATA, REQUIRECODE_DESISEX);
+                startActivityForResult(gotoItem, REQUIRECODE_DESISEX);
                 break;
             default:
                 break;
@@ -229,8 +243,8 @@ public class EditRequirementActivity extends BaseAnnotationActivity {
     }
 
     protected void back() {
-            setResult(RESULT_CANCELED);
-            finish();
+        setResult(RESULT_CANCELED);
+        finish();
     }
 
     //显示放弃提交提醒
@@ -289,6 +303,7 @@ public class EditRequirementActivity extends BaseAnnotationActivity {
         requirementInfo = (RequirementInfo) intent.getSerializableExtra(Global.REQUIREMENT_INFO);
         if (requirementInfo != null) {
             act_edit_req_city_content.setText(requirementInfo.getProvince() + requirementInfo.getCity() + requirementInfo.getDistrict());
+            act_edit_req_street_content.setText(requirementInfo.getStreet());
             act_edit_req_cell_content.setText(requirementInfo.getCell());
             act_edit_req_qi_content.setText(requirementInfo.getCell_phase());
             act_edit_req_danyuan_content.setText(requirementInfo.getCell_unit());
@@ -316,39 +331,39 @@ public class EditRequirementActivity extends BaseAnnotationActivity {
         if (data != null) {
             ReqItemFinderImp.ItemMap itemMap = (ReqItemFinderImp.ItemMap) data.getSerializableExtra(RESPONDE_DATA);
             switch (requestCode) {
-                case Constant.REQUIRECODE_CITY:
+                case REQUIRECODE_CITY:
                     act_edit_req_city_content.setText(requirementInfo.getProvince() + requirementInfo.getCity() + itemMap.value);
                     addItem("item9");
                     requirementInfo.setDistrict(itemMap.value);
                     break;
-                case Constant.REQUIRECODE_LOVEDESISTYLE:
+                case REQUIRECODE_LOVEDESISTYLE:
                     act_edit_req_lovedesistyle_content.setText(itemMap.value);
                     addItem("item10");
                     requirementInfo.setCommunication_type(itemMap.key);
                     break;
-                case Constant.REQUIRECODE_LOVESTYLE:
+                case REQUIRECODE_LOVESTYLE:
                     act_edit_req_lovestyle_content.setText(itemMap.value);
                     addItem("item111");
                     requirementInfo.setDec_style(itemMap.key);
                     break;
-                case Constant.REQUIRECODE_PERSONS:
+                case REQUIRECODE_PERSONS:
                     act_edit_req_persons_content.setText(itemMap.value);
                     addItem("item12");
                     requirementInfo.setFamily_description(itemMap.value);
                     break;
-                case Constant.REQUIRECODE_HOUSETYPE:
+                case REQUIRECODE_HOUSETYPE:
                     act_edit_req_housetype_content.setText(itemMap.value);
-                    addItem("item113");
+                    addItem("item114");
                     requirementInfo.setHouse_type(itemMap.key);
                     break;
-                case Constant.REQUIRECODE_WORKTYPE:
+                case REQUIRECODE_WORKTYPE:
                     act_edit_req_work_type_content.setText(itemMap.value);
-                    addItem("item14");
+                    addItem("item15");
                     requirementInfo.setWork_type(itemMap.key);
                     break;
-                case Constant.REQUIRECODE_DESISEX:
+                case REQUIRECODE_DESISEX:
                     act_edit_req_lovedesisex_content.setText(itemMap.value);
-                    addItem("item8");
+                    addItem("item16");
                     requirementInfo.setPrefer_sex(itemMap.key);
                     break;
             }
