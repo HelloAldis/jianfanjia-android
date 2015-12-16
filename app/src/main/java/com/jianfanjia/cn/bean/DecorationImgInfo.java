@@ -154,34 +154,4 @@ public class DecorationImgInfo implements Serializable {
     public void setImages(List<Img> images) {
         this.images = images;
     }
-
-    public static class Img implements Serializable {
-        private String imageid;
-        private int width;
-        private int height;
-
-        public String getImageid() {
-            return imageid;
-        }
-
-        public void setImageid(String imageid) {
-            this.imageid = imageid;
-        }
-
-        public int getWidth() {
-            return width;
-        }
-
-        public void setWidth(int width) {
-            this.width = width;
-        }
-
-        public int getHeight() {
-            return height;
-        }
-
-        public void setHeight(int height) {
-            this.height = height;
-        }
-    }
 }  
