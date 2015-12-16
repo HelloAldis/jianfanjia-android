@@ -152,8 +152,8 @@ public class SettingActivity extends BaseActivity implements OnClickListener,
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        PushManager.getInstance().stopService(
-                                SettingActivity.this);// 完全终止SDK的服务
+                        PushManager.getInstance().stopService(SettingActivity.this);// 完全终止SDK的服务
+                        PushManager.getInstance().unBindAlias(getApplicationContext(), dataManager.getUserId(), true);
                         activityManager.exit();
                         dataManager.cleanData();
                         MyApplication.getInstance().clearCookie();

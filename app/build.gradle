@@ -51,9 +51,9 @@ android {
         }
     }
     sourceSets {
-       /* main {
-            jniLibs.srcDirs = ['libs']
-        }*/
+        /* main {
+             jniLibs.srcDirs = ['libs']
+         }*/
     }
 
     productFlavors {
@@ -78,9 +78,9 @@ android {
             def outputFile = output.outputFile
             if (outputFile != null && outputFile.name.endsWith('.apk')) {
                 String fileName = outputFile.name.replace(".apk", "_${date}_${update}_${defaultConfig.versionCode}_${defaultConfig.versionName}.apk")
-                fileName = fileName.replace("app","jianfanjia_designer")
-                if(fileName.contains("-release")){
-                    fileName = fileName.replace("-release","")
+                fileName = fileName.replace("app", "jianfanjia_designer")
+                if (fileName.contains("-release")) {
+                    fileName = fileName.replace("-release", "")
                 }
                 output.outputFile = new File(outputFile.parent, fileName)
             }
@@ -96,8 +96,6 @@ dependencies {
     compile files('libs/ormlite-core-4.49-SNAPSHOT.jar')
     compile files('libs/armeabi.jar')
     compile 'com.android.support:appcompat-v7:23.0.1'
-    compile files('libs/GetuiExt-2.0.3.jar')
-    compile files('libs/GetuiSDK2.6.1.0.jar')
     compile files('libs/gson-2.3.1.jar')
     compile files('libs/commons-codec-1.10.jar')
     compile 'com.squareup.okhttp:okhttp:2.5.0'
@@ -110,4 +108,6 @@ dependencies {
     compile 'com.malinskiy:superrecyclerview:1.1.1'
     compile 'com.commit451:PhotoView:1.2.4'
     compile files('libs/universal-image-loader-1.9.4-SNAPSHOT.jar')
+    compile files('libs/GetuiExt-2.0.3.jar')
+    compile files('libs/GetuiSDK2.7.0.0.jar')
 }
