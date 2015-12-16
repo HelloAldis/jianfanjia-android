@@ -6,6 +6,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.base.BaseAnnotationActivity;
@@ -79,6 +80,9 @@ public class EditRequirementActivity extends BaseAnnotationActivity {
     protected EditText act_edit_req_dong_content;//栋
     @ViewById
     protected EditText act_edit_req_shi_content;//室
+
+    @ViewById(R.id.act_edit_req_content)
+    ScrollView scrollView;
 
     @StringArrayRes(R.array.arr_decstyle)
     protected String[] arr_lovestyle;
@@ -185,11 +189,14 @@ public class EditRequirementActivity extends BaseAnnotationActivity {
         mainHeadView.setRigthTitleEnable(true);
     }
 
-    @Click({R.id.act_edit_req_city, R.id.act_edit_req_housetype, R.id.act_edit_req_decoratetype,
+    @Click({R.id.head_back_layout,R.id.act_edit_req_city, R.id.act_edit_req_housetype, R.id.act_edit_req_decoratetype,
             R.id.act_edit_req_lovestyle, R.id.act_edit_req_persons, R.id.act_edit_req_lovedesistyle, R.id.act_edit_req_lovedesisex, R.id.act_edit_req_work_type})
     protected void back(View clickView) {
         int viewId = clickView.getId();
         switch (viewId) {
+            case R.id.head_back_layout:
+                finish();
+                break;
             case R.id.act_edit_req_city:
                 gotoItem.putExtra(REQUIRE_DATA, Constant.REQUIRECODE_CITY);
                 startActivityForResult(gotoItem, Constant.REQUIRECODE_CITY);

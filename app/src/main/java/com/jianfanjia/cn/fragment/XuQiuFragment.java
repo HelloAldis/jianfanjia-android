@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.AppointDesignerActivity;
+import com.jianfanjia.cn.activity.EditBusinessRequirementActivity_;
 import com.jianfanjia.cn.activity.PublishRequirementActivity;
 import com.jianfanjia.cn.activity.EditRequirementActivity_;
 import com.jianfanjia.cn.activity.MyDesignerActivity_;
@@ -129,8 +130,16 @@ public class XuQiuFragment extends BaseAnnotationFragment {
                         getActivity().startActivity(gotoPriviewRequirement);
                         break;
                     case ITEM_EDIT:
-                        gotoEditRequirement.putExtra(Global.REQUIREMENT_INFO, requirementInfos.get(position));
-                        getActivity().startActivityForResult(gotoEditRequirement, REQUESTCODE_EDIT_REQUIREMENT);
+                        RequirementInfo requirementInfo = requirementInfos.get(position);
+                        Intent intent = null;
+                        if(requirementInfo.getDec_type().equals(Global.DEC_TYPE_BUSINESS)){
+                            intent = new Intent(getActivity(), EditBusinessRequirementActivity_.class);
+                        }else{
+                            intent = new Intent(getActivity(), EditRequirementActivity_.class);
+                        }
+                        intent.putExtra(Global.REQUIREMENT_INFO,requirementInfo);
+                        getActivity().startActivityForResult(intent, REQUESTCODE_EDIT_REQUIREMENT);
+
                         break;
                     case ITEM_GOTOPRO:
                         gotoMyProcess.putExtra(Global.PROCESS_INFO, requirementInfos.get(position).getProcess());
