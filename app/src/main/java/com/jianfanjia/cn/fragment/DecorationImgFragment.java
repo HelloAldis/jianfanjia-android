@@ -17,7 +17,7 @@ import com.jianfanjia.cn.view.baseview.SpacesItemDecoration;
 /**
  * @author fengliang
  * @ClassName: DecorationImgFragment
- * @Description: 装修美图
+ * @Description: 装修美图收藏
  * @date 2015-8-26 下午1:07:52
  */
 public class DecorationImgFragment extends BaseFragment {
