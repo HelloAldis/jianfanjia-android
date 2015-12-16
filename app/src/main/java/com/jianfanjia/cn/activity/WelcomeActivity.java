@@ -29,7 +29,7 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
     private static final String TAG = UserInfoActivity.class.getName();
     private Handler handler = new Handler();
     private boolean first;// 用于判断导航界面是否显示
-    private boolean isLoginExpire;// 是否登录过去
+    private boolean isLoginExpire;// 是否登录过期
     private boolean isLogin;// 是否登录过
     private UpdateVersion updateVersion;
     private CommonDialog dialog;

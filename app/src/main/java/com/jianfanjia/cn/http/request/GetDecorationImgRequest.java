@@ -12,9 +12,11 @@ import com.jianfanjia.cn.config.Url_New;
  * Time: 17:02
  */
 public class GetDecorationImgRequest extends BaseRequest {
+    private String _id;
 
-    public GetDecorationImgRequest(Context context) {
+    public GetDecorationImgRequest(Context context, String _id) {
         super(context);
+        this._id = _id;
         url = Url_New.GET_DECORATION_IMG;
     }
 
