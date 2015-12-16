@@ -6,10 +6,12 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.adapter.DecorationAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.DecorationItemInfo;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
+import com.jianfanjia.cn.interf.OnItemClickListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.baseview.SpacesItemDecoration;
@@ -56,7 +58,13 @@ public class DecorationImgFragment extends BaseFragment {
             DecorationItemInfo decorationItemInfo = JsonParser.jsonToBean(data.toString(), DecorationItemInfo.class);
             LogTool.d(TAG, "decorationItemInfo:" + decorationItemInfo);
             if (null != decorationItemInfo) {
+                DecorationAdapter decorationAdapter = new DecorationAdapter(getActivity(), decorationItemInfo.getBeautiful_images(), new OnItemClickListener() {
+                    @Override
+                    public void OnItemClick(int position) {
 
+                    }
+                });
+                decoration_img_listview.setAdapter(decorationAdapter);
             }
         }
 

@@ -50,7 +50,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@id/pic_des"
-        android:layout_margin="20dip"
+        android:layout_marginBottom="20dip"
+        android:layout_marginLeft="30dip"
+        android:layout_marginTop="20dip"
         android:textColor="@color/font_white" />
 
     <com.jianfanjia.cn.view.MyViewPager
