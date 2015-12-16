@@ -428,6 +428,7 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
     public void loadSuccess(Object data) {
         super.loadSuccess(data);
         PushManager.getInstance().initialize(getApplicationContext());
+        PushManager.getInstance().bindAlias(getApplicationContext(), dataManager.getUserId());
         startActivity(MainActivity.class);
         finish();
     }
