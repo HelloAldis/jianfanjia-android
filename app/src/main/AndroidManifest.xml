@@ -50,13 +50,13 @@
         <!-- 配置的第三方参数属性 -->
         <meta-data
             android:name="PUSH_APPID"
-            android:value="YZV748rCe89l8CfZ7dtIF9" />
+            android:value="${GETUI_PUSH_APPID}" />
         <meta-data
             android:name="PUSH_APPKEY"
-            android:value="8GJ1XgPOL9ArriE8xOJDK8" />
+            android:value="${GETUI_PUSH_APPKEY}" />
         <meta-data
             android:name="PUSH_APPSECRET"
-            android:value="sJtpmFxS0a5sA30Au3iI36" />
+            android:value="${GETUI_PUSH_APPSECRET}" />
         <meta-data
             android:name="PUSH_GROUPID"
             android:value="" />
@@ -66,7 +66,7 @@
             android:name="com.jianfanjia.cn.receiver.PushMsgReceiver"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.igexin.sdk.action.YZV748rCe89l8CfZ7dtIF9" />
+                <action android:name="com.igexin.sdk.action.${GETUI_PUSH_APPID}" />
             </intent-filter>
         </receiver>
 
@@ -137,7 +137,7 @@
                 <!-- 这个com.igexin.sdk.action.7fjUl2Z3LH6xYy7NQK4ni4固定，不能修改 -->
                 <action android:name="com.igexin.sdk.action.7fjUl2Z3LH6xYy7NQK4ni4" />
                 <!-- android:name="com.igexin.sdk.action.第三方的appId" -->
-                <action android:name="com.igexin.sdk.action.YZV748rCe89l8CfZ7dtIF9" />
+                <action android:name="com.igexin.sdk.action.${GETUI_PUSH_APPID}" />
             </intent-filter>
         </receiver>
 
