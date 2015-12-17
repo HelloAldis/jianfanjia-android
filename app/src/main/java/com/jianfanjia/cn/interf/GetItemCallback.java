@@ -5,4 +5,6 @@ package com.jianfanjia.cn.interf;
  */
 public interface GetItemCallback {
     void onItemCallback(int position, String title);
+
+    void onDismissCallback();
 }

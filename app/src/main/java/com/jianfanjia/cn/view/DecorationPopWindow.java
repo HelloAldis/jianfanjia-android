@@ -49,13 +49,9 @@ public class DecorationPopWindow extends PopupWindow {
         });
         this.setContentView(popView);
         this.setWidth(LayoutParams.MATCH_PARENT);
-        // 设置SelectPicPopupWindow弹出窗体的高
         this.setHeight(LayoutParams.WRAP_CONTENT);
-        // 设置SelectPicPopupWindow弹出窗体动画效果
 //        this.setAnimationStyle(R.style.popwindow_anim);
-        // 实例化一个ColorDrawable颜色为半透明
         ColorDrawable dw = new ColorDrawable(0x80000000);
-        // 设置SelectPicPopupWindow弹出窗体的背景
         this.setBackgroundDrawable(dw);
         // 产生背景变暗效果
         lp = activity.getWindow().getAttributes();
