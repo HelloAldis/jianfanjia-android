@@ -203,7 +203,6 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
         }
     };
 
-
     private ApiUiUpdateListener addProductHomePageInfoListener = new ApiUiUpdateListener() {
         @Override
         public void preLoad() {
