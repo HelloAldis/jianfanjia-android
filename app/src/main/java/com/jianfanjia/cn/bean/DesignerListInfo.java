@@ -10,6 +10,7 @@ import java.io.Serializable;
  */
 public class DesignerListInfo implements Serializable {
     private String _id;
+    private String auth_type;
     private String imageid;
     private String username;
     private Product product;
@@ -44,5 +45,13 @@ public class DesignerListInfo implements Serializable {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    public String getAuth_type() {
+        return auth_type;
+    }
+
+    public void setAuth_type(String auth_type) {
+        this.auth_type = auth_type;
     }
 }
