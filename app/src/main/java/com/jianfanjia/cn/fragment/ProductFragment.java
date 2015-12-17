@@ -116,8 +116,8 @@ public class ProductFragment extends BaseFragment implements ApiUiUpdateListener
     private void deleteProductDialog() {
         CommonDialog dialog = DialogHelper
                 .getPinterestDialogCancelable(getActivity());
-        dialog.setTitle("移出作品");
-        dialog.setMessage("确定把该作品移出列表吗？");
+        dialog.setTitle("删除作品");
+        dialog.setMessage("确定要删除吗？");
         dialog.setPositiveButton(R.string.ok,
                 new DialogInterface.OnClickListener() {
 
