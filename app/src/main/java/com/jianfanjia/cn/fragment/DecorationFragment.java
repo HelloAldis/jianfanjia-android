@@ -281,6 +281,11 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         @Override
         public void onDismissCallback() {
             setSelectState(NOT);
+            if (null != window) {
+                if (window.isShowing()) {
+                    window.dismiss();
+                }
+            }
         }
     };
     private GetItemCallback getHouseStyleCallback = new GetItemCallback() {
@@ -299,6 +304,11 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         @Override
         public void onDismissCallback() {
             setSelectState(NOT);
+            if (null != window) {
+                if (window.isShowing()) {
+                    window.dismiss();
+                }
+            }
         }
     };
     private GetItemCallback getDecStyleCallback = new GetItemCallback() {
@@ -317,6 +327,11 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         @Override
         public void onDismissCallback() {
             setSelectState(NOT);
+            if (null != window) {
+                if (window.isShowing()) {
+                    window.dismiss();
+                }
+            }
         }
     };
 
