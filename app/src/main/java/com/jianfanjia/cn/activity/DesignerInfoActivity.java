@@ -150,6 +150,11 @@ public class DesignerInfoActivity extends BaseActivity implements OnClickListene
                 } else {
                     imageShow.displayLocalImage(Constant.DEFALUT_OWNER_PIC, designerinfo_head_img);
                 }
+                if (designerInfo.getAuth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)) {
+                    designerinfo_auth.setVisibility(View.VISIBLE);
+                } else {
+                    designerinfo_auth.setVisibility(View.GONE);
+                }
                 viewCountText.setText("" + designerInfo.getView_count());
                 productCountText.setText("" + designerInfo.getProduct_count());
                 appointCountText.setText("" + designerInfo.getOrder_count());
