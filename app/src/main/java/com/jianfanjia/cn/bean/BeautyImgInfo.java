@@ -11,6 +11,7 @@ import java.util.List;
  */
 public class BeautyImgInfo implements Serializable {
     private String _id;
+    private boolean is_deleted;
     private long lastupdate;
     private long create_at;
     private String title;
@@ -153,5 +154,13 @@ public class BeautyImgInfo implements Serializable {
 
     public void setIs_my_favorite(boolean is_my_favorite) {
         this.is_my_favorite = is_my_favorite;
+    }
+
+    public boolean is_deleted() {
+        return is_deleted;
+    }
+
+    public void setIs_deleted(boolean is_deleted) {
+        this.is_deleted = is_deleted;
     }
 }
