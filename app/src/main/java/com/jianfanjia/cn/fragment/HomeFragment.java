@@ -14,7 +14,6 @@ import android.widget.RelativeLayout;
 import com.jianfanjia.cn.activity.DesignerCaseInfoActivity;
 import com.jianfanjia.cn.activity.DesignerInfoActivity;
 import com.jianfanjia.cn.activity.PublishRequirementActivity;
-import com.jianfanjia.cn.activity.EditRequirementActivity_;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.DesignerListAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
@@ -178,7 +177,7 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
 
                     @Override
                     public void onClick() {
-                        Intent intent = new Intent(getActivity(), EditRequirementActivity_.class);
+                        Intent intent = new Intent(getActivity(), PublishRequirementActivity.class);
                         getActivity().startActivityForResult(intent, XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT);
                     }
                 });

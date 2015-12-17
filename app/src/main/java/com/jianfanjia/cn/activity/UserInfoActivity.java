@@ -167,7 +167,7 @@ public class UserInfoActivity extends BaseAnnotationActivity implements
                 break;
             case R.id.name_layout:
                 Intent name = new Intent(UserInfoActivity.this,
-                        EditInfoActivity.class);
+                        EditOwnerInfoActivity.class);
                 name.putExtra(Constant.EDIT_TYPE,
                         Constant.REQUESTCODE_EDIT_USERNAME);
                 name.putExtra(Constant.EDIT_CONTENT, ownerUpdateInfo.getUsername());
@@ -175,7 +175,7 @@ public class UserInfoActivity extends BaseAnnotationActivity implements
                 break;
             case R.id.home_layout:
                 Intent home = new Intent(UserInfoActivity.this,
-                        EditInfoActivity.class);
+                        EditOwnerInfoActivity.class);
                 home.putExtra(Constant.EDIT_TYPE,
                         Constant.REQUESTCODE_EDIT_HOME);
                 home.putExtra(Constant.EDIT_CONTENT, ownerUpdateInfo.getAddress());

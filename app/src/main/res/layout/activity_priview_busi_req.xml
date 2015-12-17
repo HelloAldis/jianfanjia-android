@@ -1,21 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/scrollView"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_layout_bg"
     android:focusable="false"
-    android:scrollbars="none"
-    >
+    android:orientation="vertical">
+
+    <com.jianfanjia.cn.view.MainHeadView
+        android:id="@+id/act_edit_req_head"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/head_layout_bg" />
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:paddingBottom="@dimen/space_8"
-            android:paddingTop="@dimen/space_8"
-            android:focusable="true"
-            android:focusableInTouchMode="true">
+            android:paddingTop="@dimen/space_8">
 
             <View
                 style="@style/divier_line"
@@ -26,6 +35,8 @@
                 style="@style/my_list_item_layout_style"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:nextFocusDown="@+id/act_edit_req_street_content">
 
                 <requestFocus />
@@ -74,7 +85,7 @@
                     android:layout_centerVertical="true"
                     android:text="@string/str_street" />
 
-                <EditText
+                <TextView
                     android:id="@+id/act_edit_req_street_content"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -84,7 +95,6 @@
                     android:ellipsize="end"
                     android:gravity="right|center_vertical"
                     android:maxLength="20"
-                    android:nextFocusDown="@+id/act_edit_req_cell_content"
                     android:paddingLeft="@dimen/space_16"
                     android:paddingRight="@dimen/space_16"
                     android:singleLine="true"
@@ -111,7 +121,7 @@
                     android:layout_centerVertical="true"
                     android:text="@string/str_business_company" />
 
-                <EditText
+                <TextView
                     android:id="@+id/act_edit_req_cell_content"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -121,7 +131,6 @@
                     android:ellipsize="end"
                     android:gravity="right|center_vertical"
                     android:maxLength="20"
-                    android:nextFocusDown="@+id/act_edit_req_cell_content"
                     android:paddingLeft="@dimen/space_16"
                     android:paddingRight="@dimen/space_16"
                     android:singleLine="true"
@@ -129,6 +138,11 @@
                     android:textSize="@dimen/middle_size" />
 
             </RelativeLayout>
+
+
+            <View
+                style="@style/divier_line"
+                android:background="@color/horzontal_line_color" />
 
             <View
                 style="@style/divier_line"
@@ -150,7 +164,7 @@
                     android:text="@string/str_decoratearea" />
 
 
-                <EditText
+                <TextView
                     android:id="@+id/act_edit_req_housearea_content"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -160,10 +174,7 @@
                     android:background="@null"
                     android:ellipsize="end"
                     android:gravity="right|center_vertical"
-                    android:inputType="number"
                     android:maxLength="4"
-                    android:nextFocusDown="@+id/act_edit_req_decoratebudget_content"
-                    android:numeric="integer"
                     android:paddingLeft="@dimen/space_16"
                     android:paddingRight="@dimen/space_16"
                     android:singleLine="true"
@@ -198,7 +209,7 @@
                     android:text="@string/str_decoratebudget" />
 
 
-                <EditText
+                <TextView
                     android:id="@+id/act_edit_req_decoratebudget_content"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -207,10 +218,8 @@
                     android:layout_toRightOf="@+id/act_edit_req_decoratebudget_title"
                     android:background="@null"
                     android:gravity="right|center_vertical"
-                    android:inputType="number"
                     android:maxLength="4"
                     android:minWidth="@dimen/space_48"
-                    android:numeric="integer"
                     android:paddingLeft="@dimen/space_16"
                     android:paddingRight="@dimen/space_16"
                     android:singleLine="true"
@@ -230,6 +239,10 @@
                 style="@style/divier_line"
                 android:background="@color/horzontal_line_color" />
 
+            <View
+                style="@style/divier_line"
+                android:background="@color/horzontal_line_color" />
+
             <RelativeLayout
                 android:id="@+id/act_edit_req_decoratetype"
                 style="@style/my_list_item_layout_style"
@@ -242,7 +255,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
-                    android:text="@string/str_businessdecoratetype" />
+                    android:text="@string/str_decoratetype" />
 
 
                 <ImageView
@@ -415,3 +428,5 @@
                 android:background="@color/horzontal_line_color" />
         </LinearLayout>
     </ScrollView>
+
+</LinearLayout>

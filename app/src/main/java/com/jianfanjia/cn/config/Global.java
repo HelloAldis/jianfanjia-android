@@ -18,8 +18,8 @@ public class Global {
     public static final String REQUIREMENT_STATUS = "requirement_status";
     public static final String IS_PUBLISHREQUIREMENT = "is_publishrequirement";
     public static final String REQUIREMENT_DESIGNER_NUM = "requirement_designer_num";
-    public static final String DEC_PROGRESS = "dec_progress";
     public static final String OWNERINFO = "ownerinfo";
+    public static final String REQUIREMENG_ACTION_TYPE = "requirement_action_type";
 
     public static final String PROCESS_INFO = "process_info";
     public static final String PROCESS_ID = "process_id";
@@ -82,5 +82,6 @@ public class Global {
     public static final String FORCE_UPDATE = "1";
     public static final String REC_UPDATE = "0";
 
-
+    public static final String REQUIRE_DATA = "require_data";
+    public static final String RESPONSE_DATA = "response_data";
 }

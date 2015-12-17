@@ -101,6 +101,11 @@ public class MainHeadView extends RelativeLayout {
 
     public void setRigthTitleEnable(boolean isAble){
         rigthTitle.setEnabled(isAble);
+        if(isAble){
+            rigthTitle.setTextColor(getResources().getColor(R.color.orange_color));
+        }else{
+            rigthTitle.setTextColor(getResources().getColor(R.color.middle_grey_color));
+        }
     }
 
 
