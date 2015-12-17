@@ -92,7 +92,6 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
         getProductHomePageInfo(productid);
     }
 
-
     @Override
     public void setListener() {
         designerinfo_head_img.setOnClickListener(this);
