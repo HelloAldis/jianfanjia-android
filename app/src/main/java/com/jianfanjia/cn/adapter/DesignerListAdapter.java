@@ -115,7 +115,7 @@ public class DesignerListAdapter extends BaseRecyclerViewAdapter<DesignerListInf
                 Product product = info.getProduct();
                 DesignerListViewHolder designerListViewHolder = (DesignerListViewHolder) viewHolder;
                 designerListViewHolder.itemXiaoQuText.setText(product.getCell());
-                if (product.getAuth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)) {
+                if (info.getAuth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)) {
                     designerListViewHolder.itemAuthView.setVisibility(View.VISIBLE);
                 } else {
                     designerListViewHolder.itemAuthView.setVisibility(View.GONE);
