@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.jianfanjia.cn.base.BaseAnnotationActivity;
 import com.jianfanjia.cn.bean.RequirementInfo;
+import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.cutom_annotation.ReqItemFinderImp;
@@ -34,23 +35,16 @@ import java.util.Set;
  * Email: jame.zhang@myjyz.com
  * Date:2015-10-15 13:19
  */
-@EActivity(R.layout.activity_edit_req)
+@EActivity(R.layout.activity_edit_busi_req)
 public class EditBusinessRequirementActivity extends BaseAnnotationActivity {
-    public static final int REQUIRECODE_CITY = 0x00;
-    public static final int REQUIRECODE_HOUSETYPE = 0x01;
-    public static final int REQUIRECODE_PERSONS = 0x02;
-    public static final int REQUIRECODE_LOVESTYLE = 0x03;
-    public static final int REQUIRECODE_LOVEDESISTYLE = 0x04;
-    public static final int REQUIRECODE_DECORATETYPE = 0x05;
-    public static final int REQUIRECODE_WORKTYPE = 0x06;
-    public static final int REQUIRECODE_DESISEX = 0x07;
+
 
     public static final String REQUIRE_DATA = "require_data";
     public static final String RESPONDE_DATA = "response_data";
 
     @ViewById(R.id.act_edit_req_head)
     protected MainHeadView mainHeadView;
-    public static final int TOTAL_COUNT = 14;
+    public static final int TOTAL_COUNT = 9;
 
     private Set<String> setItems = new HashSet<>();
 
@@ -65,6 +59,8 @@ public class EditBusinessRequirementActivity extends BaseAnnotationActivity {
     @ViewById
     protected TextView act_edit_req_lovedesistyle_content;//偏好设计师类型
     @ViewById
+    protected TextView act_edit_req_decoratetype_content;//装修类型
+    @ViewById
     protected TextView act_edit_req_work_type_content;//包工类型
     @ViewById
     protected TextView act_edit_req_lovedesisex_content;//偏好设计师性别
@@ -74,17 +70,6 @@ public class EditBusinessRequirementActivity extends BaseAnnotationActivity {
     protected EditText act_edit_req_housearea_content;//装修面积
     @ViewById
     protected EditText act_edit_req_decoratebudget_content;//装修预算
-
-    @ViewById
-    protected EditText act_edit_req_cell_content;//小区
-    @ViewById
-    protected EditText act_edit_req_qi_content;//期
-    @ViewById
-    protected EditText act_edit_req_danyuan_content;//单元
-    @ViewById
-    protected EditText act_edit_req_dong_content;//栋
-    @ViewById
-    protected EditText act_edit_req_shi_content;//室
 
     @StringArrayRes(R.array.arr_decstyle)
     protected String[] arr_lovestyle;
@@ -96,70 +81,43 @@ public class EditBusinessRequirementActivity extends BaseAnnotationActivity {
     protected String[] arr_worktype;
     @StringArrayRes(R.array.arr_desisex)
     protected String[] arr_desisex;
+    @StringArrayRes(R.array.arr_busi_housetype)
+    protected String[] arr_busihousetype;
 
     private Intent gotoItem;
     private Intent gotoItemLove;
     private RequirementInfo requirementInfo;
 
-    @AfterTextChange({R.id.act_edit_req_cell_content, R.id.act_edit_req_qi_content, R.id.act_edit_req_danyuan_content, R.id.act_edit_req_dong_content,
-            R.id.act_edit_req_shi_content, R.id.act_edit_req_housearea_content, R.id.act_edit_req_decoratebudget_content})
+    @AfterTextChange({R.id.act_edit_req_street_content,R.id.act_edit_req_housearea_content, R.id.act_edit_req_decoratebudget_content})
     protected void afterTextChangedOnSomeTextViews(TextView tv, Editable text) {
         int viewId = tv.getId();
         String textContent = text.toString();
         if (!TextUtils.isEmpty(textContent)) {
             LogTool.d(getClass().getName() + "afterchange ", viewId + text.toString());
             switch (viewId) {
-                case R.id.act_edit_req_cell_content:
-                    addItem("item2");
-                    requirementInfo.setCell(textContent);
-                    break;
-                case R.id.act_edit_req_qi_content:
-                    addItem("item3");
-                    requirementInfo.setCell_phase(textContent);
-                    break;
-                case R.id.act_edit_req_danyuan_content:
-                    addItem("item4");
-                    requirementInfo.setCell_unit(textContent);
-                    break;
-                case R.id.act_edit_req_dong_content:
-                    addItem("item5");
-                    requirementInfo.setCell_building(textContent);
-                    break;
-                case R.id.act_edit_req_shi_content:
-                    addItem("item6");
-                    requirementInfo.setCell_detail_number(textContent);
+                case R.id.act_edit_req_street_content:
+                    addItem("item1");
+                    requirementInfo.setStreet(textContent);
                     break;
                 case R.id.act_edit_req_housearea_content:
-                    addItem("item7");
+                    addItem("item2");
                     requirementInfo.setHouse_area(textContent);
                     break;
                 case R.id.act_edit_req_decoratebudget_content:
-                    addItem("item1");
+                    addItem("item3");
                     requirementInfo.setTotal_price(textContent);
                     break;
             }
         } else {
             switch (viewId) {
-                case R.id.act_edit_req_cell_content:
-                    removeItem("item2");
-                    break;
-                case R.id.act_edit_req_qi_content:
-                    removeItem("item3");
-                    break;
-                case R.id.act_edit_req_danyuan_content:
-                    removeItem("item4");
-                    break;
-                case R.id.act_edit_req_dong_content:
-                    removeItem("item5");
-                    break;
-                case R.id.act_edit_req_shi_content:
-                    removeItem("item6");
+                case R.id.act_edit_req_street_content:
+                    removeItem("item1");
                     break;
                 case R.id.act_edit_req_housearea_content:
-                    removeItem("item7");
+                    removeItem("item2");
                     break;
                 case R.id.act_edit_req_decoratebudget_content:
-                    removeItem("item1");
+                    removeItem("item3");
                     break;
             }
         }
@@ -192,45 +150,37 @@ public class EditBusinessRequirementActivity extends BaseAnnotationActivity {
         mainHeadView.setRigthTitleEnable(true);
     }
 
-    @Click({R.id.head_back_layout, R.id.act_edit_req_city, R.id.act_edit_req_housetype, R.id.act_edit_req_decoratetype,
+    @Click({R.id.head_back_layout,R.id.act_edit_req_city, R.id.act_edit_req_decoratetype,
             R.id.act_edit_req_lovestyle, R.id.act_edit_req_persons, R.id.act_edit_req_lovedesistyle, R.id.act_edit_req_lovedesisex, R.id.act_edit_req_work_type})
     protected void back(View clickView) {
         int viewId = clickView.getId();
         switch (viewId) {
             case R.id.head_back_layout:
-                back();
+                finish();
                 break;
             case R.id.act_edit_req_city:
-                gotoItem.putExtra(REQUIRE_DATA, REQUIRECODE_CITY);
-                startActivityForResult(gotoItem, REQUIRECODE_CITY);
+                gotoItem.putExtra(REQUIRE_DATA, Constant.REQUIRECODE_CITY);
+                startActivityForResult(gotoItem, Constant.REQUIRECODE_CITY);
                 break;
             case R.id.act_edit_req_lovedesistyle:
-                gotoItem.putExtra(REQUIRE_DATA, REQUIRECODE_LOVEDESISTYLE);
-                startActivityForResult(gotoItem, REQUIRECODE_LOVEDESISTYLE);
+                gotoItem.putExtra(REQUIRE_DATA, Constant.REQUIRECODE_LOVEDESISTYLE);
+                startActivityForResult(gotoItem, Constant.REQUIRECODE_LOVEDESISTYLE);
                 break;
             case R.id.act_edit_req_lovestyle:
-                gotoItemLove.putExtra(REQUIRE_DATA, REQUIRECODE_LOVESTYLE);
-                startActivityForResult(gotoItemLove, REQUIRECODE_LOVESTYLE);
-                break;
-            case R.id.act_edit_req_persons:
-                gotoItem.putExtra(REQUIRE_DATA, REQUIRECODE_PERSONS);
-                startActivityForResult(gotoItem, REQUIRECODE_PERSONS);
+                gotoItemLove.putExtra(REQUIRE_DATA, Constant.REQUIRECODE_LOVESTYLE);
+                startActivityForResult(gotoItemLove, Constant.REQUIRECODE_LOVESTYLE);
                 break;
             case R.id.act_edit_req_decoratetype:
-                gotoItem.putExtra(REQUIRE_DATA, REQUIRECODE_DECORATETYPE);
-                startActivityForResult(gotoItem, REQUIRECODE_DECORATETYPE);
-                break;
-            case R.id.act_edit_req_housetype:
-                gotoItem.putExtra(REQUIRE_DATA, REQUIRECODE_HOUSETYPE);
-                startActivityForResult(gotoItem, REQUIRECODE_HOUSETYPE);
+                gotoItem.putExtra(REQUIRE_DATA, Constant.REQUIRECODE_BUSI_DECORATETYPE);
+                startActivityForResult(gotoItem, Constant.REQUIRECODE_BUSI_DECORATETYPE);
                 break;
             case R.id.act_edit_req_work_type:
-                gotoItem.putExtra(REQUIRE_DATA, REQUIRECODE_WORKTYPE);
-                startActivityForResult(gotoItem, REQUIRECODE_WORKTYPE);
+                gotoItem.putExtra(REQUIRE_DATA, Constant.REQUIRECODE_WORKTYPE);
+                startActivityForResult(gotoItem, Constant.REQUIRECODE_WORKTYPE);
                 break;
             case R.id.act_edit_req_lovedesisex:
-                gotoItem.putExtra(REQUIRE_DATA, REQUIRECODE_DESISEX);
-                startActivityForResult(gotoItem, REQUIRECODE_DESISEX);
+                gotoItem.putExtra(REQUIRE_DATA, Constant.REQUIRECODE_DESISEX);
+                startActivityForResult(gotoItem, Constant.REQUIRECODE_DESISEX);
                 break;
             default:
                 break;
@@ -304,15 +254,9 @@ public class EditBusinessRequirementActivity extends BaseAnnotationActivity {
         if (requirementInfo != null) {
             act_edit_req_city_content.setText(requirementInfo.getProvince() + requirementInfo.getCity() + requirementInfo.getDistrict());
             act_edit_req_street_content.setText(requirementInfo.getStreet());
-            act_edit_req_cell_content.setText(requirementInfo.getCell());
-            act_edit_req_qi_content.setText(requirementInfo.getCell_phase());
-            act_edit_req_danyuan_content.setText(requirementInfo.getCell_unit());
-            act_edit_req_dong_content.setText(requirementInfo.getCell_building());
-            act_edit_req_shi_content.setText(requirementInfo.getCell_detail_number());
             act_edit_req_housearea_content.setText(requirementInfo.getHouse_area());
-            act_edit_req_housetype_content.setText(TextUtils.isEmpty(requirementInfo.getHouse_type()) ? "" : arr_housetype[Integer.parseInt(requirementInfo.getHouse_type())]);
             act_edit_req_decoratebudget_content.setText(requirementInfo.getTotal_price());
-            act_edit_req_persons_content.setText(requirementInfo.getFamily_description());
+            act_edit_req_decoratetype_content.setText(TextUtils.isEmpty(requirementInfo.getBusiness_house_type())? "" : arr_busihousetype[Integer.parseInt(requirementInfo.getBusiness_house_type()) > (arr_busihousetype.length -1) ?  (arr_busihousetype.length -1) : Integer.parseInt(requirementInfo.getBusiness_house_type())]);
             act_edit_req_lovestyle_content.setText(TextUtils.isEmpty(requirementInfo.getDec_style()) ? "" : arr_lovestyle[Integer.parseInt(requirementInfo.getDec_style())]);
             act_edit_req_lovedesistyle_content.setText(TextUtils.isEmpty(requirementInfo.getCommunication_type()) ? "" : arr_love_designerstyle[Integer.parseInt(requirementInfo.getCommunication_type())]);
             act_edit_req_lovedesisex_content.setText(TextUtils.isEmpty(requirementInfo.getPrefer_sex()) ? "" : arr_desisex[Integer.parseInt(requirementInfo.getPrefer_sex())]);
@@ -331,39 +275,34 @@ public class EditBusinessRequirementActivity extends BaseAnnotationActivity {
         if (data != null) {
             ReqItemFinderImp.ItemMap itemMap = (ReqItemFinderImp.ItemMap) data.getSerializableExtra(RESPONDE_DATA);
             switch (requestCode) {
-                case REQUIRECODE_CITY:
+                case Constant.REQUIRECODE_CITY:
                     act_edit_req_city_content.setText(requirementInfo.getProvince() + requirementInfo.getCity() + itemMap.value);
-                    addItem("item9");
+                    addItem("item4");
                     requirementInfo.setDistrict(itemMap.value);
                     break;
-                case REQUIRECODE_LOVEDESISTYLE:
+                case Constant.REQUIRECODE_LOVEDESISTYLE:
                     act_edit_req_lovedesistyle_content.setText(itemMap.value);
-                    addItem("item10");
+                    addItem("item5");
                     requirementInfo.setCommunication_type(itemMap.key);
                     break;
-                case REQUIRECODE_LOVESTYLE:
+                case Constant.REQUIRECODE_LOVESTYLE:
                     act_edit_req_lovestyle_content.setText(itemMap.value);
-                    addItem("item111");
+                    addItem("item16");
                     requirementInfo.setDec_style(itemMap.key);
                     break;
-                case REQUIRECODE_PERSONS:
-                    act_edit_req_persons_content.setText(itemMap.value);
-                    addItem("item12");
-                    requirementInfo.setFamily_description(itemMap.value);
+                case Constant.REQUIRECODE_BUSI_DECORATETYPE:
+                    act_edit_req_decoratetype_content.setText(itemMap.value);
+                    addItem("item17");
+                    requirementInfo.setBusiness_house_type(itemMap.key);
                     break;
-                case REQUIRECODE_HOUSETYPE:
-                    act_edit_req_housetype_content.setText(itemMap.value);
-                    addItem("item114");
-                    requirementInfo.setHouse_type(itemMap.key);
-                    break;
-                case REQUIRECODE_WORKTYPE:
+                case Constant.REQUIRECODE_WORKTYPE:
                     act_edit_req_work_type_content.setText(itemMap.value);
-                    addItem("item15");
+                    addItem("item18");
                     requirementInfo.setWork_type(itemMap.key);
                     break;
-                case REQUIRECODE_DESISEX:
+                case Constant.REQUIRECODE_DESISEX:
                     act_edit_req_lovedesisex_content.setText(itemMap.value);
-                    addItem("item16");
+                    addItem("item9");
                     requirementInfo.setPrefer_sex(itemMap.key);
                     break;
             }
