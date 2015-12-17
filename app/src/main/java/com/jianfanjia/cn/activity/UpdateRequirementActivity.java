@@ -50,7 +50,6 @@ public class UpdateRequirementActivity extends BaseAnnotationActivity implements
         requirementInfo = (RequirementInfo)intent.getSerializableExtra(Global.REQUIREMENT_INFO);
         status = requirementInfo.getDec_type();
         initFragment();
-
     }
 
     protected void initFragment(){

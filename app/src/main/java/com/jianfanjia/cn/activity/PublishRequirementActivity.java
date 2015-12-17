@@ -10,6 +10,7 @@ import android.view.View.OnClickListener;
 
 import com.jianfanjia.cn.adapter.MyFragmentPagerAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.bean.SelectItem;
 import com.jianfanjia.cn.config.Global;
@@ -17,7 +18,9 @@ import com.jianfanjia.cn.fragment.EditBussinessRequirementFragment_;
 import com.jianfanjia.cn.fragment.EditHomeRequirementFragment_;
 import com.jianfanjia.cn.fragment.XuQiuFragment;
 import com.jianfanjia.cn.http.JianFanJiaClient;
+import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.NotifyActivityStatusChange;
+import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
@@ -42,9 +45,11 @@ public class PublishRequirementActivity extends BaseActivity implements OnClickL
 
     protected String status;//当前页面的状态，家装还是商装
 
+    private OwnerInfo ownerInfo;
+    private RequirementInfo requirementInfoInit;
+
     @Override
     public void initView() {
-
         initMainHeadView();
         tabLayout = (TabLayout) findViewById(R.id.tablayout);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
@@ -70,6 +75,27 @@ public class PublishRequirementActivity extends BaseActivity implements OnClickL
             }
         });
         status = Global.DEC_TYPE_HOME;
+//        initData();
+    }
+
+    protected void initData(){
+        JianFanJiaClient.get_Owner_Info(this, new ApiUiUpdateListener() {
+            @Override
+            public void preLoad() {
+
+            }
+
+            @Override
+            public void loadSuccess(Object data) {
+                ownerInfo = JsonParser.jsonToBean(data.toString(), OwnerInfo.class);
+                setupViewPager(viewPager);
+            }
+
+            @Override
+            public void loadFailture(String error_msg) {
+
+            }
+        },this);
     }
 
     private void initMainHeadView() {

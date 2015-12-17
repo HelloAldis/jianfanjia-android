@@ -99,7 +99,6 @@ public class PreviewRequirementActivity extends BaseAnnotationActivity {
             act_edit_req_danyuan_content.setText(requirementInfo.getCell_unit());
             act_edit_req_dong_content.setText(requirementInfo.getCell_building());
             act_edit_req_shi_content.setText(requirementInfo.getCell_detail_number());
-
             act_edit_req_housearea_content.setText(requirementInfo.getHouse_area());
             act_edit_req_housetype_content.setText(TextUtils.isEmpty(requirementInfo.getHouse_type()) ? "" : arr_housetype[Integer.parseInt(requirementInfo.getHouse_type())]);
             act_edit_req_decoratebudget_content.setText(requirementInfo.getTotal_price());

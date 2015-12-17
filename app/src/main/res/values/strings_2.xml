@@ -10,7 +10,7 @@
     <string name="str_req_pubReq">免费获取三套方案 ></string>
     <string name="str_publish_time">发布时间：</string>
     <string name="str_edit_req">填写装修需求</string>
-    <string name="str_create">发布</string>
+    <string name="str_create">创建</string>
     <string name="str_goto_pro">前往工地</string>
     <string name="str_delete_req">删除需求</string>
     <string name="str_street">详细地址</string>
