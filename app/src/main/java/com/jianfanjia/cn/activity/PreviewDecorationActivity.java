@@ -33,6 +33,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
     private Toolbar toolbar = null;
     private ImageButton toolbar_add = null;
     private ImageButton toolbar_share = null;
+    private ImageButton btn_download = null;
     private ViewPager viewPager = null;
     private TextView pic_tip = null;
     private TextView pic_title = null;
@@ -58,6 +59,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
         pic_tip = (TextView) findViewById(R.id.pic_tip);
         pic_title = (TextView) findViewById(R.id.pic_title);
         pic_des = (TextView) findViewById(R.id.pic_des);
+        btn_download = (ImageButton) findViewById(R.id.btn_download);
         getDecorationImgInfo(decorationId);
     }
 
@@ -71,6 +73,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
         });
         toolbar_add.setOnClickListener(this);
         toolbar_share.setOnClickListener(this);
+        btn_download.setOnClickListener(this);
         viewPager.setOnPageChangeListener(this);
     }
 
@@ -81,6 +84,8 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
                 addDecorationImgInfo(decorationId);
                 break;
             case R.id.toolbar_share:
+                break;
+            case R.id.btn_download:
                 break;
             default:
                 break;
