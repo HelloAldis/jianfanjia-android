@@ -153,6 +153,19 @@ public class MainActivity extends BaseActivity implements
     }
 
     @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Global.SECTION_POSITION = 0;
+        Global.HOUSE_TYPE_POSITION = 0;
+        Global.DEC_STYLE_POSITION = 0;
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         LogTool.d(TAG, "onActivityResult requestCode =" + requestCode);
         if (requestCode == XuQiuFragment.REQUESTCODE_EDIT_REQUIREMENT) {
