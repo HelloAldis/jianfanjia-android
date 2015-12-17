@@ -1,6 +1,7 @@
 package com.jianfanjia.cn.activity;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -14,8 +15,12 @@ import com.jianfanjia.cn.bean.SelectItem;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.fragment.EditBussinessRequirementFragment_;
 import com.jianfanjia.cn.fragment.EditHomeRequirementFragment_;
+import com.jianfanjia.cn.fragment.XuQiuFragment;
 import com.jianfanjia.cn.http.JianFanJiaClient;
+import com.jianfanjia.cn.interf.NotifyActivityStatusChange;
 import com.jianfanjia.cn.view.MainHeadView;
+import com.jianfanjia.cn.view.dialog.CommonDialog;
+import com.jianfanjia.cn.view.dialog.DialogHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +31,7 @@ import java.util.List;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class PublishRequirementActivity extends BaseActivity implements OnClickListener {
+public class PublishRequirementActivity extends BaseActivity implements OnClickListener,NotifyActivityStatusChange {
     private static final String TAG = PublishRequirementActivity.class.getName();
     private MainHeadView mainHeadView = null;
     private TabLayout tabLayout = null;
@@ -45,19 +50,13 @@ public class PublishRequirementActivity extends BaseActivity implements OnClickL
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
         tabLayout.setupWithViewPager(viewPager);
+        tabLayout.setTabMode(TabLayout.MODE_FIXED);
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
                 status = tab.getPosition() + "";
-                switch (status){
-                    case Global.DEC_TYPE_HOME:
-                        setMainRightEnable(editHomeRequirementFragment_.isFinish());
-                        break;
-                    case Global.DEC_TYPE_BUSINESS:
-                        setMainRightEnable(editBussinessRequirementFragment_.isFinish());
-                        break;
-                }
+                resetRightTitleStatus();
             }
 
             @Override
@@ -82,8 +81,21 @@ public class PublishRequirementActivity extends BaseActivity implements OnClickL
         mainHeadView.setRightTextListener(this);
     }
 
-    public void setMainRightEnable(boolean isenable){
-        mainHeadView.setRigthTitleEnable(isenable);
+    private void resetRightTitleStatus(){
+        switch (status){
+            case Global.DEC_TYPE_HOME:
+                mainHeadView.setRigthTitleEnable(editHomeRequirementFragment_.isFinish());
+                break;
+            case Global.DEC_TYPE_BUSINESS:
+                mainHeadView.setRigthTitleEnable(editBussinessRequirementFragment_.isFinish());
+                break;
+        }
+    }
+
+    @Override
+    public void notifyStatusChange() {
+        //重置完成按钮的状态
+        resetRightTitleStatus();
     }
 
     protected void confirm() {
@@ -106,6 +118,28 @@ public class PublishRequirementActivity extends BaseActivity implements OnClickL
         finish();
     }
 
+    //显示放弃提交提醒
+    protected void showTipDialog() {
+        CommonDialog commonDialog = DialogHelper.getPinterestDialogCancelable(this);
+        commonDialog.setTitle(R.string.tip_confirm);
+        commonDialog.setMessage(getString(R.string.abandon_confirm_req));
+        commonDialog.setNegativeButton(getString(R.string.str_cancel), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        commonDialog.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                setResult(RESULT_CANCELED);
+                finish();
+            }
+        });
+        commonDialog.show();
+    }
+
     private void setupViewPager(ViewPager viewPager) {
         List<SelectItem> listViews = new ArrayList<SelectItem>();
         editBussinessRequirementFragment_ = new EditBussinessRequirementFragment_();
@@ -126,7 +160,8 @@ public class PublishRequirementActivity extends BaseActivity implements OnClickL
         Bundle bundle = new Bundle();
         RequirementInfo requirementInfo = new RequirementInfo();
         requirementInfo.setDec_type(type);
-        bundle.putSerializable(Global.REQUIREMENT_INFO,requirementInfo);
+        bundle.putSerializable(Global.REQUIREMENT_INFO, requirementInfo);
+        bundle.putInt(Global.REQUIREMENG_ACTION_TYPE, XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT);
         return bundle;
     }
 

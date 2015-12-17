@@ -19,7 +19,9 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:paddingBottom="@dimen/space_8"
-            android:paddingTop="@dimen/space_8">
+            android:paddingTop="@dimen/space_8"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
 
             <View
                 style="@style/divier_line"
@@ -30,8 +32,6 @@
                 style="@style/my_list_item_layout_style"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
                 android:nextFocusDown="@+id/act_edit_req_street_content">
 
                 <requestFocus />

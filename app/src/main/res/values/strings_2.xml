@@ -13,7 +13,8 @@
     <string name="str_create">发布</string>
     <string name="str_goto_pro">前往工地</string>
     <string name="str_delete_req">删除需求</string>
-    <string name="str_street">所在街道</string>
+    <string name="str_street">详细地址</string>
+    <string name="str_business_company">公司名称</string>
     <string name="str_city">所在城市</string>
     <string name="str_edit_requirement">编辑需求</string>
     <string name="str_housetype">户型</string>
@@ -96,4 +97,5 @@
     <string name="str_guide_tip1">您可以免费前往获取三套方案</string>
     <string name="str_guide_tip2">我们将会为您匹配最合适的设计师</string>
     <string name="str_businessdecoratetype">商装类型</string>
+    <string name="update_requirement">修改装修需求</string>
 </resources>

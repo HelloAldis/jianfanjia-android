@@ -6,6 +6,7 @@ import android.widget.GridView;
 
 import com.jianfanjia.cn.adapter.RequirementItemLoveStyleAdapter;
 import com.jianfanjia.cn.base.BaseAnnotationActivity;
+import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.interf.cutom_annotation.ReqItemFinderImp;
 import com.jianfanjia.cn.view.MainHeadView;
 
@@ -15,8 +16,6 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ItemClick;
 import org.androidannotations.annotations.ViewById;
-
-import static com.jianfanjia.cn.activity.EditRequirementActivity.REQUIRE_DATA;
 
 /**
  * Description: com.jianfanjia.cn.activity
@@ -43,7 +42,7 @@ public class EditRequirementLovestyleActivity extends BaseAnnotationActivity{
     void setView(){
         mainHeadView.setMianTitle(getString(R.string.style));
         Intent data = getIntent();
-        requestCode = data.getIntExtra(REQUIRE_DATA, 0);
+        requestCode = data.getIntExtra(Global.REQUIRE_DATA, 0);
 
         gridView.setAdapter(requirementItemLoveStyleAdapter);
         requirementItemLoveStyleAdapter.changeShow(requestCode);
@@ -51,8 +50,8 @@ public class EditRequirementLovestyleActivity extends BaseAnnotationActivity{
 
     @ItemClick(R.id.act_edit_req_lovestyle_gridview)
     void personListItemClicked(ReqItemFinderImp.ItemMap itemMap) {
-        Intent data = new Intent(this, EditRequirementActivity_.class);
-        data.putExtra(EditRequirementActivity.RESPONDE_DATA, itemMap);
+        Intent data = new Intent(this, UpdateRequirementActivity_.class);
+        data.putExtra(Global.RESPONSE_DATA, itemMap);
         setResult(RESULT_OK, data);
         finish();
     }

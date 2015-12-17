@@ -3,7 +3,7 @@
     android:id="@+id/checkLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/site_content_bg" >
+    android:background="@color/main_layout_bg" >
 
     <com.jianfanjia.cn.view.MainHeadView
         android:id="@+id/check_pic_head_layout"

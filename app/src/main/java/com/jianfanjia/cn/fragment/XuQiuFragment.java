@@ -17,13 +17,13 @@ import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.AppointDesignerActivity;
-import com.jianfanjia.cn.activity.EditBusinessRequirementActivity_;
-import com.jianfanjia.cn.activity.PublishRequirementActivity;
-import com.jianfanjia.cn.activity.EditRequirementActivity_;
 import com.jianfanjia.cn.activity.MyDesignerActivity_;
 import com.jianfanjia.cn.activity.MyProcessDetailActivity_;
+import com.jianfanjia.cn.activity.PreviewBusinessRequirementActivity_;
 import com.jianfanjia.cn.activity.PreviewRequirementActivity_;
+import com.jianfanjia.cn.activity.PublishRequirementActivity;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.UpdateRequirementActivity_;
 import com.jianfanjia.cn.adapter.RequirementNewAdapter;
 import com.jianfanjia.cn.base.BaseAnnotationFragment;
 import com.jianfanjia.cn.bean.RequirementInfo;
@@ -96,9 +96,7 @@ public class XuQiuFragment extends BaseAnnotationFragment {
 
     protected Intent gotoOrderDesigner;
     protected Intent gotoMyDesigner;
-    protected Intent gotoEditRequirement;
     protected Intent gotoMyProcess;
-    protected Intent gotoPriviewRequirement;
 
     // Header View
     private UpdateBroadcastReceiver updateBroadcastReceiver;
@@ -124,22 +122,27 @@ public class XuQiuFragment extends BaseAnnotationFragment {
         requirementAdapter = new RequirementNewAdapter(getActivity(), new ClickCallBack() {
             @Override
             public void click(int position, int itemType) {
+                RequirementInfo requirementInfo = requirementInfos.get(position);
                 switch (itemType) {
                     case ITEM_PRIVIEW:
-                        gotoPriviewRequirement.putExtra(Global.REQUIREMENT_INFO, requirementInfos.get(position));
-                        getActivity().startActivity(gotoPriviewRequirement);
+                        Intent gotoPriviewRequirement = null;
+                        if(requirementInfo.getDec_type().equals(Global.DEC_TYPE_BUSINESS)){
+                            gotoPriviewRequirement = new Intent(getActivity(), PreviewBusinessRequirementActivity_.class);
+                        }else{
+                            gotoPriviewRequirement = new Intent(getActivity(), PreviewRequirementActivity_.class);
+                        }
+                        gotoPriviewRequirement.putExtra(Global.REQUIREMENT_INFO,requirementInfo);
+                        getActivity().startActivityForResult(gotoPriviewRequirement, REQUESTCODE_FRESH_REQUIREMENT);
                         break;
                     case ITEM_EDIT:
-                        RequirementInfo requirementInfo = requirementInfos.get(position);
-                        Intent intent = null;
-                        if(requirementInfo.getDec_type().equals(Global.DEC_TYPE_BUSINESS)){
+                        Intent intent = new Intent(getActivity(), UpdateRequirementActivity_.class);
+                       /* if(requirementInfo.getDec_type().equals(Global.DEC_TYPE_BUSINESS)){
                             intent = new Intent(getActivity(), EditBusinessRequirementActivity_.class);
                         }else{
                             intent = new Intent(getActivity(), EditRequirementActivity_.class);
-                        }
+                        }*/
                         intent.putExtra(Global.REQUIREMENT_INFO,requirementInfo);
                         getActivity().startActivityForResult(intent, REQUESTCODE_EDIT_REQUIREMENT);
-
                         break;
                     case ITEM_GOTOPRO:
                         gotoMyProcess.putExtra(Global.PROCESS_INFO, requirementInfos.get(position).getProcess());
@@ -230,11 +233,9 @@ public class XuQiuFragment extends BaseAnnotationFragment {
     }
 
     protected void initIntent() {
-        gotoEditRequirement = new Intent(getActivity(), EditRequirementActivity_.class);
         gotoOrderDesigner = new Intent(getActivity(), AppointDesignerActivity.class);
         gotoMyDesigner = new Intent(getActivity(), MyDesignerActivity_.class);
         gotoMyProcess = new Intent(getActivity(), MyProcessDetailActivity_.class);
-        gotoPriviewRequirement = new Intent(getActivity(), PreviewRequirementActivity_.class);
     }
 
     protected void initData() {
