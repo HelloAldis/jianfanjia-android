@@ -25,7 +25,6 @@ import java.util.List;
  */
 public class DecorationPopWindow extends PopupWindow {
     private static final String TAG = DecorationPopWindow.class.getName();
-    private LayoutInflater inflater = null;
     private View popView = null;
     private GridView gridView = null;
     private PopWindowAdapter adapter = null;
@@ -34,8 +33,7 @@ public class DecorationPopWindow extends PopupWindow {
 
     public DecorationPopWindow(Activity activity, final List<String> list, final GetItemCallback callback) {
         super(activity);
-        inflater = LayoutInflater.from(activity);
-        popView = inflater.inflate(R.layout.gird_item_pop, null);
+        popView = LayoutInflater.from(activity).inflate(R.layout.gird_item_pop, null);
         gridView = (GridView) popView.findViewById(R.id.popGridview);
         adapter = new PopWindowAdapter(activity, list);
         gridView.setAdapter(adapter);
