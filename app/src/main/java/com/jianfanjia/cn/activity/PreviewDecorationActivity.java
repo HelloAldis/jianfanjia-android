@@ -86,6 +86,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
             case R.id.toolbar_share:
                 break;
             case R.id.btn_download:
+                downloadImg();
                 break;
             default:
                 break;
@@ -175,6 +176,11 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
     public void onPageSelected(int arg0) {
         currentPosition = arg0;
         pic_tip.setText((currentPosition + 1) + "/" + totalCount);
+    }
+
+
+    private void downloadImg() {
+
     }
 
     @Override
