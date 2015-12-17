@@ -28,27 +28,15 @@
                 android:layout_weight="1"
                 android:clickable="true">
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/section_item"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/section_item"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:text="空间"
-                        android:textColor="@color/font_style_colors" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="5dip"
-                        android:src="@drawable/icon_arrow" />
-                </LinearLayout>
+                    android:drawablePadding="@dimen/space_5"
+                    android:drawableRight="@drawable/icon_arrow"
+                    android:text="空间"
+                    android:textColor="@color/font_style_colors" />
 
             </RelativeLayout>
 
@@ -59,29 +47,16 @@
                 android:layout_weight="1"
                 android:clickable="true">
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/houseType_item"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:orientation="horizontal">
+                    android:drawablePadding="@dimen/space_5"
+                    android:drawableRight="@drawable/icon_arrow"
+                    android:text="户型"
+                    android:textColor="@color/font_style_colors" />
 
-                    <TextView
-                        android:id="@+id/houseType_item"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:text="户型"
-                        android:textColor="@color/font_style_colors" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="5dip"
-                        android:src="@drawable/icon_arrow" />
-
-                </LinearLayout>
             </RelativeLayout>
 
             <RelativeLayout
@@ -91,29 +66,16 @@
                 android:layout_weight="1"
                 android:clickable="true">
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/decStyle_item"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:orientation="horizontal">
+                    android:drawablePadding="@dimen/space_5"
+                    android:drawableRight="@drawable/icon_arrow"
+                    android:text="风格"
+                    android:textColor="@color/font_style_colors" />
 
-                    <TextView
-                        android:id="@+id/decStyle_item"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:text="风格"
-                        android:textColor="@color/font_style_colors" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="5dip"
-                        android:src="@drawable/icon_arrow" />
-
-                </LinearLayout>
             </RelativeLayout>
         </LinearLayout>
 
