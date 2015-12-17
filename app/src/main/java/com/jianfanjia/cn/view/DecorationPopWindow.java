@@ -14,7 +14,6 @@ import android.widget.PopupWindow;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.PopWindowAdapter;
 import com.jianfanjia.cn.interf.GetItemCallback;
-import com.jianfanjia.cn.tools.LogTool;
 
 import java.util.List;
 
@@ -44,7 +43,6 @@ public class DecorationPopWindow extends PopupWindow {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                LogTool.d(TAG, "position------" + position);
                 String title = list.get(position);
                 callback.onItemCallback(position, title);
             }
@@ -71,6 +69,7 @@ public class DecorationPopWindow extends PopupWindow {
             public void onDismiss() {
                 lp.alpha = 1f;
                 window.setAttributes(lp);
+                callback.onDismissCallback();
             }
         });
     }
