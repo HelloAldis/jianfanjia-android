@@ -68,8 +68,8 @@ public class MyFavoriteDesignerFragment extends BaseFragment {
     private void deleteFavoriteDesignerDialog() {
         CommonDialog dialog = DialogHelper
                 .getPinterestDialogCancelable(getActivity());
-        dialog.setTitle("移出设计师");
-        dialog.setMessage("确定把该设计师移出意向列表吗？");
+        dialog.setTitle("删除设计师");
+        dialog.setMessage("确定要删除吗？");
         dialog.setPositiveButton(R.string.ok,
                 new DialogInterface.OnClickListener() {
 

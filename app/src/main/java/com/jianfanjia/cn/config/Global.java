@@ -84,4 +84,8 @@ public class Global {
 
     public static final String REQUIRE_DATA = "require_data";
     public static final String RESPONSE_DATA = "response_data";
+
+    public static int SECTION_POSITION = 0;
+    public static int HOUSE_TYPE_POSITION = 0;
+    public static int DEC_STYLE_POSITION = 0;
 }

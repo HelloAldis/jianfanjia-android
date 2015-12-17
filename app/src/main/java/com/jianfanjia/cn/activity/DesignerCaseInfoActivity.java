@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.jianfanjia.cn.adapter.DesignerCaseAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.DesignerCaseInfo;
+import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
@@ -181,6 +182,11 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
                 stylelText.setText(designerCaseInfo.getHouse_area() + "㎡，" + getHouseType(designerCaseInfo.getHouse_type()) + "，" + getDecStyle(designerCaseInfo.getDec_type()));
                 imageShow.displayScreenWidthThumnailImage(DesignerCaseInfoActivity.this, designerCaseInfo.getDesigner().getImageid(), designerinfo_head_img);
                 imageShow.displayImageHeadWidthThumnailImage(DesignerCaseInfoActivity.this, designerCaseInfo.getDesigner().getImageid(), head_img);
+                if (designerCaseInfo.getAuth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)) {
+                    designerinfo_auth.setVisibility(View.VISIBLE);
+                } else {
+                    designerinfo_auth.setVisibility(View.GONE);
+                }
                 produceTitle.setVisibility(View.VISIBLE);
                 produceText.setText(designerCaseInfo.getDescription());
                 nameText.setText(designerCaseInfo.getDesigner().getUsername());
