@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.BaseListAdapter;
 import com.jianfanjia.cn.bean.OrderDesignerInfo;
+import com.jianfanjia.cn.config.Constant;
 
 import java.util.List;
 
@@ -40,6 +41,11 @@ public class MarchDesignerAdapter extends BaseListAdapter<OrderDesignerInfo> {
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
+        }
+        if (info.getAuth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)) {
+            holder.mAuthView.setVisibility(View.VISIBLE);
+        } else {
+            holder.mAuthView.setVisibility(View.GONE);
         }
         holder.mName.setText(info.getUsername());
         int respond_speed = (int) info.getRespond_speed();
