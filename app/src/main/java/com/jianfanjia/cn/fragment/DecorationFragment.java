@@ -22,7 +22,6 @@ import com.jianfanjia.cn.interf.GetItemCallback;
 import com.jianfanjia.cn.interf.OnItemClickListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.tools.StringUtils;
 import com.jianfanjia.cn.view.DecorationPopWindow;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.baseview.SpacesItemDecoration;
@@ -43,6 +42,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
     private static final int SECTION = 1;
     private static final int HOUSETYPE = 2;
     private static final int DECSTYLE = 3;
+    private static final int NOT = 4;
     private MainHeadView mainHeadView = null;
     private LinearLayout topLayout = null;
     private RelativeLayout sectionLayout = null;
@@ -111,23 +111,27 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
     private void setSelectState(int type) {
         switch (type) {
             case SECTION:
-                showWindow(topLayout, R.array.section_item, SECTION);
+                showWindow(R.array.section_item, SECTION);
                 sectionLayout.setSelected(true);
                 houseTypeLayout.setSelected(false);
                 decStyleLayout.setSelected(false);
                 break;
             case HOUSETYPE:
-                showWindow(topLayout, R.array.housetype_item, HOUSETYPE);
+                showWindow(R.array.housetype_item, HOUSETYPE);
                 sectionLayout.setSelected(false);
                 houseTypeLayout.setSelected(true);
                 decStyleLayout.setSelected(false);
                 break;
             case DECSTYLE:
-                showWindow(topLayout, R.array.decstyle_item, DECSTYLE);
+                showWindow(R.array.decstyle_item, DECSTYLE);
                 sectionLayout.setSelected(false);
                 houseTypeLayout.setSelected(false);
                 decStyleLayout.setSelected(true);
                 break;
+            case NOT:
+                sectionLayout.setSelected(false);
+                houseTypeLayout.setSelected(false);
+                decStyleLayout.setSelected(false);
             default:
                 break;
         }
@@ -244,27 +248,27 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         }
     };
 
-    private void showWindow(View view, int resId, int type) {
+    private void showWindow(int resId, int type) {
         switch (type) {
             case SECTION:
-                window = new DecorationPopWindow(getActivity(), StringUtils.getListByResource(getActivity(), resId), getSectionCallback);
+                window = new DecorationPopWindow(getActivity(), resId, getSectionCallback, Global.SECTION_POSITION);
                 break;
             case HOUSETYPE:
-                window = new DecorationPopWindow(getActivity(), StringUtils.getListByResource(getActivity(), resId), getHouseStyleCallback);
+                window = new DecorationPopWindow(getActivity(), resId, getHouseStyleCallback, Global.HOUSE_TYPE_POSITION);
                 break;
             case DECSTYLE:
-                window = new DecorationPopWindow(getActivity(), StringUtils.getListByResource(getActivity(), resId), getDecStyleCallback);
+                window = new DecorationPopWindow(getActivity(), resId, getDecStyleCallback, Global.DEC_STYLE_POSITION);
                 break;
             default:
                 break;
         }
-        window.show(view);
+        window.show(topLayout);
     }
 
     private GetItemCallback getSectionCallback = new GetItemCallback() {
         @Override
         public void onItemCallback(int position, String title) {
-            LogTool.d(TAG, "position====" + position + " title===" + title);
+            Global.SECTION_POSITION = position;
             section = title;
             searchDecorationImg(section, houseStyle, decStyle, 0, 8, getDecorationBySearchListener);
             if (null != window) {
@@ -273,11 +277,16 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
                 }
             }
         }
+
+        @Override
+        public void onDismissCallback() {
+            setSelectState(NOT);
+        }
     };
     private GetItemCallback getHouseStyleCallback = new GetItemCallback() {
         @Override
         public void onItemCallback(int position, String title) {
-            LogTool.d(TAG, "position---" + position + " title---" + title);
+            Global.HOUSE_TYPE_POSITION = position;
             houseStyle = title;
             searchDecorationImg(section, houseStyle, decStyle, 0, 8, getDecorationBySearchListener);
             if (null != window) {
@@ -286,11 +295,16 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
                 }
             }
         }
+
+        @Override
+        public void onDismissCallback() {
+            setSelectState(NOT);
+        }
     };
     private GetItemCallback getDecStyleCallback = new GetItemCallback() {
         @Override
         public void onItemCallback(int position, String title) {
-            LogTool.d(TAG, "position***" + position + " title***" + title);
+            Global.DEC_STYLE_POSITION = position;
             decStyle = title;
             searchDecorationImg(section, houseStyle, decStyle, 0, 8, getDecorationBySearchListener);
             if (null != window) {
@@ -298,6 +312,11 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
                     window.dismiss();
                 }
             }
+        }
+
+        @Override
+        public void onDismissCallback() {
+            setSelectState(NOT);
         }
     };
 

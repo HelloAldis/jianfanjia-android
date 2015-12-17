@@ -14,6 +14,7 @@ import android.widget.PopupWindow;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.PopWindowAdapter;
 import com.jianfanjia.cn.interf.GetItemCallback;
+import com.jianfanjia.cn.tools.StringUtils;
 
 import java.util.List;
 
@@ -31,13 +32,14 @@ public class DecorationPopWindow extends PopupWindow {
     private WindowManager.LayoutParams lp = null;
     private Window window = null;
 
-    public DecorationPopWindow(Activity activity, final List<String> list, final GetItemCallback callback) {
+    public DecorationPopWindow(Activity activity, int resId, final GetItemCallback callback, int currentPosition) {
         super(activity);
         popView = LayoutInflater.from(activity).inflate(R.layout.gird_item_pop, null);
         gridView = (GridView) popView.findViewById(R.id.popGridview);
+        final List<String> list = StringUtils.getListByResource(activity, resId);
         adapter = new PopWindowAdapter(activity, list);
         gridView.setAdapter(adapter);
-        adapter.setSelectedPos(0);
+        adapter.setSelectedPos(currentPosition);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
