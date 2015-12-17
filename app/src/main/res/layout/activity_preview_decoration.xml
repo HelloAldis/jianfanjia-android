@@ -35,6 +35,7 @@
         </LinearLayout>
     </android.support.v7.widget.Toolbar>
 
+
     <TextView
         android:id="@+id/pic_tip"
         style="@style/listview_item_text_style_middle"
@@ -47,26 +48,29 @@
         android:layout_marginTop="10dip"
         android:textColor="@color/font_white" />
 
-    <TextView
-        android:id="@+id/pic_des"
-        style="@style/listview_item_text_style_middle"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/textLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="20dip"
-        android:layout_marginLeft="30dip"
-        android:textColor="@color/font_white" />
+        android:layout_margin="30dip"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/pic_title"
-        style="@style/listview_item_text_style_big"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/pic_des"
-        android:layout_marginBottom="20dip"
-        android:layout_marginLeft="30dip"
-        android:layout_marginTop="20dip"
-        android:textColor="@color/font_white" />
+        <TextView
+            android:id="@+id/pic_title"
+            style="@style/listview_item_text_style_big"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/font_white" />
+
+        <TextView
+            android:id="@+id/pic_des"
+            style="@style/listview_item_text_style_middle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dip"
+            android:textColor="@color/font_white" />
+    </LinearLayout>
 
     <com.jianfanjia.cn.view.MyViewPager
         android:id="@+id/showpicPager"
