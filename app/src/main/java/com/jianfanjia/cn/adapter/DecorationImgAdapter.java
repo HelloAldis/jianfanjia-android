@@ -30,26 +30,42 @@ public class DecorationImgAdapter extends BaseRecyclerViewAdapter<BeautyImgInfo>
 
     @Override
     public void bindView(RecyclerViewHolderBase viewHolder, final int position, List<BeautyImgInfo> list) {
-        BeautyImgInfo info = list.get(position);
+        BeautyImgInfo beautyImgInfo = list.get(position);
         final DecorationViewHolder holder = (DecorationViewHolder) viewHolder;
-        imageShow.displayHalfScreenWidthThumnailImage(context, info.getImages().get(0).getImageid(), holder.itemDecorateView);
-        holder.itemDecorateView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != listener) {
-                    listener.OnItemClick(v, holder.getLayoutPosition());
+        if (!beautyImgInfo.is_deleted()) {
+            holder.itemDecorateView.setVisibility(View.VISIBLE);
+            holder.itemNoDecorateView.setVisibility(View.GONE);
+            imageShow.displayHalfScreenWidthThumnailImage(context, beautyImgInfo.getImages().get(0).getImageid(), holder.itemDecorateView);
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (null != listener) {
+                        listener.OnItemClick(v, holder.getLayoutPosition());
+                    }
                 }
-            }
-        });
-        holder.itemDecorateView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                if (null != listener) {
-                    listener.OnLongItemClick(v, holder.getLayoutPosition());
+            });
+            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    if (null != listener) {
+                        listener.OnLongItemClick(v, holder.getLayoutPosition());
+                    }
+                    return true;
                 }
-                return true;
-            }
-        });
+            });
+        } else {
+            holder.itemDecorateView.setVisibility(View.GONE);
+            holder.itemNoDecorateView.setVisibility(View.VISIBLE);
+            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    if (null != listener) {
+                        listener.OnLongItemClick(v, holder.getLayoutPosition());
+                    }
+                    return true;
+                }
+            });
+        }
     }
 
     @Override
@@ -66,11 +82,14 @@ public class DecorationImgAdapter extends BaseRecyclerViewAdapter<BeautyImgInfo>
 
     private static class DecorationViewHolder extends RecyclerViewHolderBase {
         public ImageView itemDecorateView;
+        public ImageView itemNoDecorateView;
 
         public DecorationViewHolder(View itemView) {
             super(itemView);
             itemDecorateView = (ImageView) itemView
                     .findViewById(R.id.list_item_decorate_img);
+            itemNoDecorateView = (ImageView) itemView
+                    .findViewById(R.id.list_item_no_decorate_img);
         }
     }
 }
