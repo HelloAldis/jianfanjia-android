@@ -182,7 +182,7 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
                 stylelText.setText(designerCaseInfo.getHouse_area() + "㎡，" + getHouseType(designerCaseInfo.getHouse_type()) + "，" + getDecStyle(designerCaseInfo.getDec_type()));
                 imageShow.displayScreenWidthThumnailImage(DesignerCaseInfoActivity.this, designerCaseInfo.getDesigner().getImageid(), designerinfo_head_img);
                 imageShow.displayImageHeadWidthThumnailImage(DesignerCaseInfoActivity.this, designerCaseInfo.getDesigner().getImageid(), head_img);
-                if (designerCaseInfo.getAuth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)) {
+                if (designerCaseInfo.getDesigner().getAuth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)) {
                     designerinfo_auth.setVisibility(View.VISIBLE);
                 } else {
                     designerinfo_auth.setVisibility(View.GONE);
