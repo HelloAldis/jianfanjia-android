@@ -88,7 +88,7 @@ public class ProductFragment extends BaseFragment implements ApiUiUpdateListener
         Bundle productBundle = new Bundle();
         productBundle.putString(Global.PRODUCT_ID, productid);
         productIntent.putExtras(productBundle);
-        startActivity(DesignerCaseInfoActivity.class, productBundle);
+        startActivity(productIntent);
     }
 
     @Override
