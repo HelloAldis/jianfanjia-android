@@ -13,6 +13,7 @@ import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.bean.SelectItem;
+import com.jianfanjia.cn.cache.BusinessManager;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.fragment.EditBussinessRequirementFragment_;
 import com.jianfanjia.cn.fragment.EditHomeRequirementFragment_;
@@ -21,6 +22,7 @@ import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.NotifyActivityStatusChange;
 import com.jianfanjia.cn.tools.JsonParser;
+import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
@@ -34,7 +36,7 @@ import java.util.List;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class PublishRequirementActivity extends BaseActivity implements OnClickListener,NotifyActivityStatusChange {
+public class PublishRequirementActivity extends BaseActivity implements OnClickListener, NotifyActivityStatusChange {
     private static final String TAG = PublishRequirementActivity.class.getName();
     private MainHeadView mainHeadView = null;
     private TabLayout tabLayout = null;
@@ -46,15 +48,14 @@ public class PublishRequirementActivity extends BaseActivity implements OnClickL
     protected String status;//当前页面的状态，家装还是商装
 
     private OwnerInfo ownerInfo;
-    private RequirementInfo requirementInfoInit;
+    private RequirementInfo requirementInfoInit = new RequirementInfo();
 
     @Override
     public void initView() {
         initMainHeadView();
         tabLayout = (TabLayout) findViewById(R.id.tablayout);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
-        setupViewPager(viewPager);
-        tabLayout.setupWithViewPager(viewPager);
+//        setupViewPager(viewPager);
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -75,10 +76,10 @@ public class PublishRequirementActivity extends BaseActivity implements OnClickL
             }
         });
         status = Global.DEC_TYPE_HOME;
-//        initData();
+        initData();
     }
 
-    protected void initData(){
+    protected void initData() {
         JianFanJiaClient.get_Owner_Info(this, new ApiUiUpdateListener() {
             @Override
             public void preLoad() {
@@ -88,14 +89,26 @@ public class PublishRequirementActivity extends BaseActivity implements OnClickL
             @Override
             public void loadSuccess(Object data) {
                 ownerInfo = JsonParser.jsonToBean(data.toString(), OwnerInfo.class);
+                if (ownerInfo != null) {
+                    String family_des = ownerInfo.getFamily_description();
+                    if (family_des != null) {
+                        requirementInfoInit.setFamily_description(family_des);
+                    }
+                    List<String> lovestyle = ownerInfo.getDec_styles();
+                    if (lovestyle != null && lovestyle.size() > 0) {
+                        requirementInfoInit.setDec_style(lovestyle.get(0));
+                    }
+                }
                 setupViewPager(viewPager);
+                tabLayout.setupWithViewPager(viewPager);
             }
 
             @Override
             public void loadFailture(String error_msg) {
-
+                setupViewPager(viewPager);
+                tabLayout.setupWithViewPager(viewPager);
             }
-        },this);
+        }, this);
     }
 
     private void initMainHeadView() {
@@ -107,8 +120,8 @@ public class PublishRequirementActivity extends BaseActivity implements OnClickL
         mainHeadView.setRightTextListener(this);
     }
 
-    private void resetRightTitleStatus(){
-        switch (status){
+    private void resetRightTitleStatus() {
+        switch (status) {
             case Global.DEC_TYPE_HOME:
                 mainHeadView.setRigthTitleEnable(editHomeRequirementFragment_.isFinish());
                 break;
@@ -125,8 +138,13 @@ public class PublishRequirementActivity extends BaseActivity implements OnClickL
     }
 
     protected void confirm() {
+        RequirementInfo requirementInfo = getConfirmRequirement();
+        JianFanJiaClient.add_Requirement(this, requirementInfo, this, this);
+    }
+
+    protected RequirementInfo getConfirmRequirement() {
         RequirementInfo requirementInfo = null;
-        switch (status){
+        switch (status) {
             case Global.DEC_TYPE_HOME:
                 requirementInfo = editHomeRequirementFragment_.getRequirementInfo();
                 break;
@@ -134,7 +152,7 @@ public class PublishRequirementActivity extends BaseActivity implements OnClickL
                 requirementInfo = editBussinessRequirementFragment_.getRequirementInfo();
                 break;
         }
-        JianFanJiaClient.add_Requirement(this, requirementInfo, this, this);
+        return requirementInfo;
     }
 
     @Override
@@ -182,10 +200,18 @@ public class PublishRequirementActivity extends BaseActivity implements OnClickL
         viewPager.setAdapter(adapter);
     }
 
-    protected Bundle getBundleByType(String type){
+    protected Bundle getBundleByType(String type) {
         Bundle bundle = new Bundle();
         RequirementInfo requirementInfo = new RequirementInfo();
-        requirementInfo.setDec_type(type);
+        requirementInfo.setDec_style(type);
+        String family_des = requirementInfoInit.getFamily_description();
+        if (family_des != null) {
+            requirementInfo.setFamily_description(family_des);
+        }
+        String lovestyle = requirementInfoInit.getDec_style();
+        if(lovestyle != null){
+            requirementInfo.setDec_style(lovestyle);
+        }
         bundle.putSerializable(Global.REQUIREMENT_INFO, requirementInfo);
         bundle.putInt(Global.REQUIREMENG_ACTION_TYPE, XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT);
         return bundle;
@@ -196,11 +222,30 @@ public class PublishRequirementActivity extends BaseActivity implements OnClickL
 
     }
 
+    protected void back(){
+        boolean isChange = false;
+        requirementInfoInit.setDec_style(Global.DEC_TYPE_BUSINESS);
+        if(BusinessManager.isRequirementChange(editBussinessRequirementFragment_.getRequirementInfo(),requirementInfoInit)){
+            isChange = true;
+        }
+        requirementInfoInit.setDec_style(Global.DEC_TYPE_HOME);
+        if(BusinessManager.isRequirementChange(editHomeRequirementFragment_.getRequirementInfo(),requirementInfoInit)){
+            isChange = true;
+        }
+        if(!isChange){
+            LogTool.d(this.getClass().getName(), "没有改变");
+            finish();
+        }else{
+            LogTool.d(this.getClass().getName(), "有改变");
+            showTipDialog();
+        }
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.head_back_layout:
-                finish();
+                back();
                 break;
             case R.id.head_right_title:
                 confirm();

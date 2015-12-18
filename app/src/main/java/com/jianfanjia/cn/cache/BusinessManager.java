@@ -5,6 +5,7 @@ import android.content.Context;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.bean.ProcessInfo;
+import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
@@ -12,6 +13,7 @@ import com.jianfanjia.cn.tools.StringUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Field;
 
 public class BusinessManager {
 
@@ -49,6 +51,7 @@ public class BusinessManager {
 
     /**
      * 拿到显示的房子类型
+     *
      * @param houseType
      * @return
      */
@@ -62,6 +65,7 @@ public class BusinessManager {
 
     /**
      * 拿到显示的风格喜好
+     *
      * @param decStyle
      * @return
      */
@@ -71,6 +75,46 @@ public class BusinessManager {
         String[] decStyles = MyApplication.getInstance().getResources().getStringArray(R.array.arr_decstyle);
         if (decPosition < 0 || decPosition > decStyles.length) return null;
         return decStyles[decPosition];
+    }
+
+    /**
+     * 比较需求是否改变
+     *
+     * @param src
+     * @param target
+     * @return
+     */
+    public static boolean isRequirementChange(RequirementInfo src, RequirementInfo target) {
+        LogTool.d("isRequirementChange","isRequirementChange");
+        try {
+            Class clazz = src.getClass();
+            Field[] fields = clazz.getDeclaredFields();
+            for (Field field : fields) {
+                LogTool.d("isRequirementChange",field.getName());
+                field.setAccessible(true);
+                Object srcValue = field.get(src);
+                Object targetValue = field.get(target);
+                if (srcValue == null && target == null) {
+                    continue;
+                }
+                if (srcValue == null && targetValue != null) {
+                    return true;
+                }
+                if (srcValue != null && targetValue == null) {
+                    return true;
+                }
+                if (srcValue == targetValue || srcValue.equals(targetValue)) {
+                    continue;
+                } else {
+                    return true;
+                }
+            }
+        } catch (
+                IllegalAccessException e
+                ) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
 }

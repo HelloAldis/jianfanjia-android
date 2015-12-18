@@ -34,7 +34,7 @@ import org.androidannotations.annotations.res.StringArrayRes;
  * Date:2015-12-15 14:43
  */
 @EFragment(R.layout.fragment_edit_bussiness_req)
-public class EditBussinessRequirementFragment extends BaseAnnotationFragment{
+public class EditBussinessRequirementFragment extends BaseAnnotationFragment {
 
     private NotifyActivityStatusChange hostActivity;
     protected boolean isFinish = false;//编辑是否已经完成
@@ -78,26 +78,24 @@ public class EditBussinessRequirementFragment extends BaseAnnotationFragment{
     private Intent gotoItemLove;
     private RequirementInfo requirementInfo;
 
-    @AfterTextChange({R.id.act_edit_req_cell_content,R.id.act_edit_req_street_content,R.id.act_edit_req_housearea_content, R.id.act_edit_req_decoratebudget_content})
+    @AfterTextChange({R.id.act_edit_req_cell_content, R.id.act_edit_req_street_content, R.id.act_edit_req_housearea_content, R.id.act_edit_req_decoratebudget_content})
     protected void afterTextChangedOnSomeTextViews(TextView tv, Editable text) {
         int viewId = tv.getId();
         String textContent = text.toString();
-        if (!TextUtils.isEmpty(textContent)) {
-            LogTool.d(getClass().getName() + "afterchange ", viewId + text.toString());
-            switch (viewId) {
-                case R.id.act_edit_req_street_content:
-                    requirementInfo.setStreet(textContent);
-                    break;
-                case R.id.act_edit_req_housearea_content:
-                    requirementInfo.setHouse_area(textContent);
-                    break;
-                case R.id.act_edit_req_decoratebudget_content:
-                    requirementInfo.setTotal_price(textContent);
-                    break;
-                case R.id.act_edit_req_cell_content:
-                    requirementInfo.setCell(textContent);
-                    break;
-            }
+        LogTool.d(getClass().getName() + "afterchange ", viewId + text.toString());
+        switch (viewId) {
+            case R.id.act_edit_req_street_content:
+                requirementInfo.setStreet(textContent);
+                break;
+            case R.id.act_edit_req_housearea_content:
+                requirementInfo.setHouse_area(textContent);
+                break;
+            case R.id.act_edit_req_decoratebudget_content:
+                requirementInfo.setTotal_price(textContent);
+                break;
+            case R.id.act_edit_req_cell_content:
+                requirementInfo.setCell(textContent);
+                break;
         }
         isAllInput();
     }
@@ -105,10 +103,10 @@ public class EditBussinessRequirementFragment extends BaseAnnotationFragment{
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if(!(getActivity() instanceof NotifyActivityStatusChange)){
+        if (!(getActivity() instanceof NotifyActivityStatusChange)) {
             throw new IllegalArgumentException("hostactivity not implements NotifyActivityStatusChange");
         }
-        hostActivity = (NotifyActivityStatusChange)getActivity();
+        hostActivity = (NotifyActivityStatusChange) getActivity();
     }
 
     /**
@@ -118,10 +116,10 @@ public class EditBussinessRequirementFragment extends BaseAnnotationFragment{
      */
     public void isAllInput() {
         if (act_edit_req_city_content.length() > 0 && !act_edit_req_city_content.getText().equals(getResources().getString(R.string.city_tip))
-                && act_edit_req_cell_content.length() > 0  && act_edit_req_decoratebudget_content.length() > 0
+                && act_edit_req_cell_content.length() > 0 && act_edit_req_decoratebudget_content.length() > 0
                 && act_edit_req_decoratetype_content.length() > 0 && act_edit_req_housearea_content.length() > 0
                 && act_edit_req_lovedesisex_content.length() > 0 && act_edit_req_lovestyle_content.length() > 0
-                && act_edit_req_work_type_content.length() > 0 && act_edit_req_street_content.length() > 0  && act_edit_req_lovedesistyle_content.length() > 0) {
+                && act_edit_req_work_type_content.length() > 0 && act_edit_req_street_content.length() > 0 && act_edit_req_lovedesistyle_content.length() > 0) {
             isFinish = true;
         } else {
             isFinish = false;
@@ -129,7 +127,7 @@ public class EditBussinessRequirementFragment extends BaseAnnotationFragment{
         hostActivity.notifyStatusChange();
     }
 
-    public boolean isFinish(){
+    public boolean isFinish() {
         return isFinish;
     }
 
@@ -177,20 +175,21 @@ public class EditBussinessRequirementFragment extends BaseAnnotationFragment{
     }
 
     private void initData() {
-        requirementInfo = (RequirementInfo)getArguments().getSerializable(Global.REQUIREMENT_INFO);
+        LogTool.d(this.getClass().getName(), "initData");
+        requirementInfo = (RequirementInfo) getArguments().getSerializable(Global.REQUIREMENT_INFO);
         actionType = getArguments().getInt(Global.REQUIREMENG_ACTION_TYPE, 0);
-        switch (actionType){
+        switch (actionType) {
             case XuQiuFragment.REQUESTCODE_EDIT_REQUIREMENT:
-                    act_edit_req_city_content.setText(requirementInfo.getProvince() + requirementInfo.getCity() + requirementInfo.getDistrict());
-                    act_edit_req_street_content.setText(requirementInfo.getStreet());
-                    act_edit_req_cell_content.setText(requirementInfo.getCell());
-                    act_edit_req_housearea_content.setText(requirementInfo.getHouse_area());
-                    act_edit_req_decoratebudget_content.setText(requirementInfo.getTotal_price());
-                    act_edit_req_decoratetype_content.setText(TextUtils.isEmpty(requirementInfo.getBusiness_house_type())? "" : arr_busihousetype[Integer.parseInt(requirementInfo.getBusiness_house_type()) > (arr_busihousetype.length -1) ?  (arr_busihousetype.length -1) : Integer.parseInt(requirementInfo.getBusiness_house_type())]);
-                    act_edit_req_lovestyle_content.setText(TextUtils.isEmpty(requirementInfo.getDec_style()) ? "" : arr_lovestyle[Integer.parseInt(requirementInfo.getDec_style())]);
-                    act_edit_req_lovedesistyle_content.setText(TextUtils.isEmpty(requirementInfo.getCommunication_type()) ? "" : arr_love_designerstyle[Integer.parseInt(requirementInfo.getCommunication_type())]);
-                    act_edit_req_lovedesisex_content.setText(TextUtils.isEmpty(requirementInfo.getPrefer_sex()) ? "" : arr_desisex[Integer.parseInt(requirementInfo.getPrefer_sex())]);
-                    act_edit_req_work_type_content.setText(TextUtils.isEmpty(requirementInfo.getWork_type()) ? "" : arr_worktype[Integer.parseInt(requirementInfo.getWork_type())]);
+                act_edit_req_city_content.setText(requirementInfo.getProvince() + requirementInfo.getCity() + requirementInfo.getDistrict());
+                act_edit_req_street_content.setText(requirementInfo.getStreet());
+                act_edit_req_cell_content.setText(requirementInfo.getCell());
+                act_edit_req_housearea_content.setText(requirementInfo.getHouse_area());
+                act_edit_req_decoratebudget_content.setText(requirementInfo.getTotal_price());
+                act_edit_req_decoratetype_content.setText(TextUtils.isEmpty(requirementInfo.getBusiness_house_type()) ? "" : arr_busihousetype[Integer.parseInt(requirementInfo.getBusiness_house_type()) > (arr_busihousetype.length - 1) ? (arr_busihousetype.length - 1) : Integer.parseInt(requirementInfo.getBusiness_house_type())]);
+                act_edit_req_lovestyle_content.setText(TextUtils.isEmpty(requirementInfo.getDec_style()) ? "" : arr_lovestyle[Integer.parseInt(requirementInfo.getDec_style())]);
+                act_edit_req_lovedesistyle_content.setText(TextUtils.isEmpty(requirementInfo.getCommunication_type()) ? "" : arr_love_designerstyle[Integer.parseInt(requirementInfo.getCommunication_type())]);
+                act_edit_req_lovedesisex_content.setText(TextUtils.isEmpty(requirementInfo.getPrefer_sex()) ? "" : arr_desisex[Integer.parseInt(requirementInfo.getPrefer_sex())]);
+                act_edit_req_work_type_content.setText(TextUtils.isEmpty(requirementInfo.getWork_type()) ? "" : arr_worktype[Integer.parseInt(requirementInfo.getWork_type())]);
                 break;
             case XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT:
                 act_edit_req_city_content.setText(getString(R.string.city_tip));
@@ -200,7 +199,7 @@ public class EditBussinessRequirementFragment extends BaseAnnotationFragment{
 
     }
 
-    public RequirementInfo getRequirementInfo(){
+    public RequirementInfo getRequirementInfo() {
         return requirementInfo;
     }
 

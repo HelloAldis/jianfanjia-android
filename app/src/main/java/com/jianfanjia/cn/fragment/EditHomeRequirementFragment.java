@@ -89,31 +89,29 @@ public class EditHomeRequirementFragment extends BaseAnnotationFragment {
     protected void afterTextChangedOnSomeTextViews(TextView tv, Editable text) {
         int viewId = tv.getId();
         String textContent = text.toString();
-        if (!TextUtils.isEmpty(textContent)) {
-            LogTool.d(getClass().getName() + "afterchange ", viewId + text.toString());
-            switch (viewId) {
-                case R.id.act_edit_req_cell_content:
-                    requirementInfo.setCell(textContent);
-                    break;
-                case R.id.act_edit_req_qi_content:
-                    requirementInfo.setCell_phase(textContent);
-                    break;
-                case R.id.act_edit_req_danyuan_content:
-                    requirementInfo.setCell_unit(textContent);
-                    break;
-                case R.id.act_edit_req_dong_content:
-                    requirementInfo.setCell_building(textContent);
-                    break;
-                case R.id.act_edit_req_shi_content:
-                    requirementInfo.setCell_detail_number(textContent);
-                    break;
-                case R.id.act_edit_req_housearea_content:
-                    requirementInfo.setHouse_area(textContent);
-                    break;
-                case R.id.act_edit_req_decoratebudget_content:
-                    requirementInfo.setTotal_price(textContent);
-                    break;
-            }
+        LogTool.d(getClass().getName() + "afterchange ", viewId + text.toString());
+        switch (viewId) {
+            case R.id.act_edit_req_cell_content:
+                requirementInfo.setCell(textContent);
+                break;
+            case R.id.act_edit_req_qi_content:
+                requirementInfo.setCell_phase(textContent);
+                break;
+            case R.id.act_edit_req_danyuan_content:
+                requirementInfo.setCell_unit(textContent);
+                break;
+            case R.id.act_edit_req_dong_content:
+                requirementInfo.setCell_building(textContent);
+                break;
+            case R.id.act_edit_req_shi_content:
+                requirementInfo.setCell_detail_number(textContent);
+                break;
+            case R.id.act_edit_req_housearea_content:
+                requirementInfo.setHouse_area(textContent);
+                break;
+            case R.id.act_edit_req_decoratebudget_content:
+                requirementInfo.setTotal_price(textContent);
+                break;
         }
         isAllInput();
     }
@@ -197,6 +195,7 @@ public class EditHomeRequirementFragment extends BaseAnnotationFragment {
     }
 
     private void initData() {
+        LogTool.d(this.getClass().getName(), "initData");
         requirementInfo = (RequirementInfo) getArguments().getSerializable(Global.REQUIREMENT_INFO);
         actionType = getArguments().getInt(Global.REQUIREMENG_ACTION_TYPE, 0);
         switch (actionType) {

@@ -136,16 +136,11 @@ public class XuQiuFragment extends BaseAnnotationFragment {
                         break;
                     case ITEM_EDIT:
                         Intent intent = new Intent(getActivity(), UpdateRequirementActivity_.class);
-                       /* if(requirementInfo.getDec_type().equals(Global.DEC_TYPE_BUSINESS)){
-                            intent = new Intent(getActivity(), EditBusinessRequirementActivity_.class);
-                        }else{
-                            intent = new Intent(getActivity(), EditRequirementActivity_.class);
-                        }*/
                         intent.putExtra(Global.REQUIREMENT_INFO,requirementInfo);
                         getActivity().startActivityForResult(intent, REQUESTCODE_EDIT_REQUIREMENT);
                         break;
                     case ITEM_GOTOPRO:
-                        gotoMyProcess.putExtra(Global.PROCESS_INFO, requirementInfos.get(position).getProcess());
+                        gotoMyProcess.putExtra(Global.PROCESS_INFO, requirementInfo.getProcess());
                         startActivity(gotoMyProcess);
                         break;
                     case ITEM_GOTOMYDESI:
@@ -153,12 +148,12 @@ public class XuQiuFragment extends BaseAnnotationFragment {
                         startActivity(gotoMyDesigner);
                         break;
                     case ITEM_GOTOODERDESI:
-                        if (requirementInfos.get(position).getOrder_designers() != null && requirementInfos.get(position).getOrder_designers().size() > 0) {
-                            gotoOrderDesigner.putExtra(Global.REQUIREMENT_DESIGNER_NUM, requirementInfos.get(position).getOrder_designers().size());
+                        if (requirementInfo.getOrder_designers() != null && requirementInfo.getOrder_designers().size() > 0) {
+                            gotoOrderDesigner.putExtra(Global.REQUIREMENT_DESIGNER_NUM, requirementInfo.getOrder_designers().size());
                         } else {
                             gotoOrderDesigner.putExtra(Global.REQUIREMENT_DESIGNER_NUM, 0);
                         }
-                        gotoOrderDesigner.putExtra(Global.REQUIREMENT_ID, requirementInfos.get(position).get_id());
+                        gotoOrderDesigner.putExtra(Global.REQUIREMENT_ID, requirementInfo.get_id());
                         startActivity(gotoOrderDesigner);
                         break;
                     default:
@@ -167,7 +162,6 @@ public class XuQiuFragment extends BaseAnnotationFragment {
             }
         });
         pullrefresh.setAdapter(requirementAdapter);
-//        pullrefresh.setRefreshing(true);
         Paint paint = new Paint();
         paint.setStrokeWidth(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, getResources().getDisplayMetrics()));
         paint.setAlpha(0);
