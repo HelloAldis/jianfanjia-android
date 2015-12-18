@@ -17,10 +17,12 @@ public class Constant {
     public static final String LOG_FILE_DIR = "/MyLog";
     public static final String APK_FILE_DIR = "/Apk";
     public static final String PIC_FILE_DIR = "/pic";
+    public static final String IMG_FILE_DIR = "/BeautyImg";
 
     public static final String LOG_PATH = FileUtil.getAppCache(MyApplication.getInstance(), LOG_FILE_DIR);// log存放路径
     public static final String APK_PATH = FileUtil.getAppCache(MyApplication.getInstance(), APK_FILE_DIR);// 下载apk存放路径
     public static final String IMAG_PATH = FileUtil.getAppCache(MyApplication.getInstance(), PIC_FILE_DIR);// 保存照片
+    public static final String BEAUTY_IMAG_PATH = FileUtil.getAppCache(MyApplication.getInstance(), IMG_FILE_DIR);// 保存美图
 
     public static final String LOG_FILE = LOG_PATH + "/log.txt";//log文件
     public static final String ERROR_LOG_FILE = LOG_PATH + "/errorLog.txt";// errorlog文件
