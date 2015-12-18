@@ -2,7 +2,7 @@ package com.jianfanjia.cn.interf.manager;
 
 import android.util.Log;
 
-import com.jianfanjia.cn.activity.MyProcessDetailActivity;
+import com.jianfanjia.cn.activity.requirement.MyProcessDetailActivity;
 import com.jianfanjia.cn.interf.ReceiveMsgListener;
 
 import java.util.ArrayList;

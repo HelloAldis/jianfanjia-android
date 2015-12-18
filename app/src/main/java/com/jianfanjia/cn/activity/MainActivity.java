@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
+import com.jianfanjia.cn.activity.requirement.PublishRequirementActivity;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;

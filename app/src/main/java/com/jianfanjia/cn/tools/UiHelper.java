@@ -18,9 +18,9 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RemoteViews;
 
-import com.jianfanjia.cn.activity.CheckActivity;
+import com.jianfanjia.cn.activity.requirement.CheckActivity;
 import com.jianfanjia.cn.activity.MainActivity;
-import com.jianfanjia.cn.activity.NotifyActivity;
+import com.jianfanjia.cn.activity.my.NotifyActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.cache.DataManagerNew;

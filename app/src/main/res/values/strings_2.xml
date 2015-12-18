@@ -14,7 +14,7 @@
     <string name="str_goto_pro">前往工地</string>
     <string name="str_delete_req">删除需求</string>
     <string name="str_street">详细地址</string>
-    <string name="str_business_company">公司名称</string>
+    <string name="str_business_company">项目名称</string>
     <string name="str_city">所在城市</string>
     <string name="str_edit_requirement">编辑需求</string>
     <string name="str_housetype">户型</string>

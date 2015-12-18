@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import com.jianfanjia.cn.activity.PreviewDecorationActivity;
+import com.jianfanjia.cn.activity.beautifulpic.PreviewDecorationActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.DecorationAdapter;
 import com.jianfanjia.cn.base.BaseFragment;

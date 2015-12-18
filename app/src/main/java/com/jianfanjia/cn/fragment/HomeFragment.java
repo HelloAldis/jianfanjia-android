@@ -11,9 +11,9 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.RelativeLayout;
 
-import com.jianfanjia.cn.activity.DesignerCaseInfoActivity;
-import com.jianfanjia.cn.activity.DesignerInfoActivity;
-import com.jianfanjia.cn.activity.PublishRequirementActivity;
+import com.jianfanjia.cn.activity.home.DesignerCaseInfoActivity;
+import com.jianfanjia.cn.activity.home.DesignerInfoActivity;
+import com.jianfanjia.cn.activity.requirement.PublishRequirementActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.DesignerListAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
