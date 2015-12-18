@@ -92,7 +92,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
                 makeTextLong("分享");
                 break;
             case R.id.btn_download:
-                downloadImg();
+
                 break;
             default:
                 break;
@@ -207,7 +207,8 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
     }
 
 
-    private void downloadImg() {
+    private void downloadImg(String url, String filePath,
+                             String fileName) {
 
     }
 
