@@ -21,7 +21,7 @@
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:src="@mipmap/icon_setting_next" />
+        android:src="@mipmap/icon_next" />
 
     <TextView
         android:layout_width="wrap_content"

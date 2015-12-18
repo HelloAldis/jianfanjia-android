@@ -32,8 +32,6 @@ public class ProcessView extends BaseAnnotationView {
     @ViewById
     protected TextView ltm_req_updatetime_cont;
     @ViewById
-    protected TextView ltm_req_edit;
-    @ViewById
     protected TextView ltm_req_status;
     @ViewById
     protected ImageView ltm_req_owner_head;

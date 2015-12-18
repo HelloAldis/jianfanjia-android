@@ -46,7 +46,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:src="@mipmap/icon_setting_next" />
+                    android:src="@mipmap/icon_next" />
 
                 <TextView
                     android:id="@+id/act_edit_req_city_content"
@@ -252,7 +252,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:src="@mipmap/icon_setting_next" />
+                    android:src="@mipmap/icon_next" />
 
                 <TextView
                     android:id="@+id/act_edit_req_decoratetype_content"
@@ -288,7 +288,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:src="@mipmap/icon_setting_next" />
+                    android:src="@mipmap/icon_next" />
 
                 <TextView
                     android:id="@+id/act_edit_req_work_type_content"
@@ -329,7 +329,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:src="@mipmap/icon_setting_next" />
+                    android:src="@mipmap/icon_next" />
 
                 <TextView
                     android:id="@+id/act_edit_req_lovestyle_content"
@@ -365,7 +365,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:src="@mipmap/icon_setting_next" />
+                    android:src="@mipmap/icon_next" />
 
                 <TextView
                     android:id="@+id/act_edit_req_lovedesistyle_content"
@@ -400,7 +400,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:src="@mipmap/icon_setting_next" />
+                    android:src="@mipmap/icon_next" />
 
                 <TextView
                     android:id="@+id/act_edit_req_lovedesisex_content"

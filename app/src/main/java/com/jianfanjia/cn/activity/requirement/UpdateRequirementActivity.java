@@ -43,8 +43,7 @@ public class UpdateRequirementActivity extends BaseAnnotationActivity implements
     @AfterViews
     protected void initMainView(){
         mainHeadView.setMianTitle(getString(R.string.update_requirement));
-        mainHeadView.setLayoutBackground(R.color.head_layout_bg);
-        mainHeadView.setRightTitle(getString(R.string.finish));
+        mainHeadView.setRightTitle(getString(R.string.confirm));
         mainHeadView.setRigthTitleEnable(false);
 
         Intent intent = getIntent();

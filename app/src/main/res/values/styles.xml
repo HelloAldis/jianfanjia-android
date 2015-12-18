@@ -112,7 +112,7 @@
     <style name="my_item_layout_image_style">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@mipmap/icon_setting_next</item>
+        <item name="android:background">@mipmap/icon_next</item>
     </style>
 
     <!-- my_item_layout_text_style -->
