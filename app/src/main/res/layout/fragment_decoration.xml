@@ -82,17 +82,13 @@
             android:background="@color/horzontal_line_color" />
     </LinearLayout>
 
-    <FrameLayout
+    <com.jianfanjia.cn.view.library.PullToRefreshRecycleView xmlns:ptr="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/decoration_listview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_margin="5dip"
+        android:scrollbars="none"
+        ptr:ptrAnimationStyle="flip"
+        ptr:ptrHeaderTextColor="#344a5d" />
 
-        <com.jianfanjia.cn.view.library.PullToRefreshRecycleView xmlns:ptr="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/decoration_listview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="5dip"
-            android:scrollbars="none"
-            ptr:ptrAnimationStyle="flip"
-            ptr:ptrHeaderTextColor="#344a5d" />
-    </FrameLayout>
 </LinearLayout>
