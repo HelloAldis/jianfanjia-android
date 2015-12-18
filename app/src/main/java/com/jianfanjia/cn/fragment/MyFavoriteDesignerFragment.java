@@ -1,5 +1,6 @@
 package com.jianfanjia.cn.fragment;
 
+import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -78,9 +79,11 @@ public class MyFavoriteDesignerFragment extends BaseFragment {
                     public void OnItemClick(View view, int position) {
                         String designerId = myFavoriteDesigner.getDesigners().get(position).get_id();
                         LogTool.d(this.getClass().getName(), designerId);
+                        Intent designerIntent = new Intent(getActivity(), DesignerInfoActivity.class);
                         Bundle designerBundle = new Bundle();
                         designerBundle.putString(Global.DESIGNER_ID, designerId);
-                        startActivity(DesignerInfoActivity.class, designerBundle);
+                        designerIntent.putExtras(designerBundle);
+                        startActivity(designerIntent);
                     }
 
                     @Override

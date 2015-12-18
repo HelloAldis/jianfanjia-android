@@ -1,5 +1,6 @@
 package com.jianfanjia.cn.fragment;
 
+import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -83,8 +84,10 @@ public class ProductFragment extends BaseFragment implements ApiUiUpdateListener
         Product product = products.get(position);
         String productid = product.get_id();
         LogTool.d(TAG, "productid:" + productid);
+        Intent productIntent = new Intent(getActivity(), DesignerCaseInfoActivity.class);
         Bundle productBundle = new Bundle();
         productBundle.putString(Global.PRODUCT_ID, productid);
+        productIntent.putExtras(productBundle);
         startActivity(DesignerCaseInfoActivity.class, productBundle);
     }
 
@@ -93,9 +96,11 @@ public class ProductFragment extends BaseFragment implements ApiUiUpdateListener
         Product product = products.get(position);
         String designertid = product.getDesignerid();
         LogTool.d(TAG, "designertid=" + designertid);
+        Intent designerIntent = new Intent(getActivity(), DesignerInfoActivity.class);
         Bundle designerBundle = new Bundle();
         designerBundle.putString(Global.DESIGNER_ID, designertid);
-        startActivity(DesignerInfoActivity.class, designerBundle);
+        designerIntent.putExtras(designerBundle);
+        startActivity(designerIntent);
     }
 
     @Override
