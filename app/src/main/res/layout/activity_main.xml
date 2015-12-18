@@ -43,7 +43,7 @@
                 android:paddingTop="5dp"
                 android:text="首页"
                 android:textColor="@color/text_color"
-                android:textSize="@dimen/text_size_14" />
+                android:textSize="@dimen/text_size_12" />
 
             <RadioButton
                 android:id="@+id/tab_rb_2"
@@ -57,7 +57,7 @@
                 android:paddingTop="5dp"
                 android:text="装修美图"
                 android:textColor="@color/text_color"
-                android:textSize="@dimen/text_size_14" />
+                android:textSize="@dimen/text_size_12" />
 
             <RadioButton
                 android:id="@+id/tab_rb_3"
@@ -71,7 +71,7 @@
                 android:paddingTop="5dp"
                 android:text="装修需求"
                 android:textColor="@color/text_color"
-                android:textSize="@dimen/text_size_14" />
+                android:textSize="@dimen/text_size_12" />
 
             <RadioButton
                 android:id="@+id/tab_rb_4"
@@ -85,7 +85,7 @@
                 android:paddingTop="5dp"
                 android:text="我的"
                 android:textColor="@color/text_color"
-                android:textSize="@dimen/text_size_14" />
+                android:textSize="@dimen/text_size_12" />
         </RadioGroup>
     </LinearLayout>
 </LinearLayout>

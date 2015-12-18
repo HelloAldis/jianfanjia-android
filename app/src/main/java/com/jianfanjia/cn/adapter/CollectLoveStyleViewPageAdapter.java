@@ -63,11 +63,9 @@ public class CollectLoveStyleViewPageAdapter extends PagerAdapter {
         ImageView contentView = (ImageView)view.findViewById(R.id.img);
         contentView.setImageResource(loveStyleItemInfo.getImageid());
         if(loveStyleItemInfo.isSelector){
-//            foreGroundView.setVisibility(View.VISIBLE);
             contentView.setSelected(true);
         }else{
             contentView.setSelected(false);
-//            foreGroundView.setVisibility(View.GONE);
         }
         view.setOnClickListener(new View.OnClickListener() {
             @Override

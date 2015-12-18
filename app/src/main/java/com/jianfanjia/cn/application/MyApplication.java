@@ -43,6 +43,12 @@ public class MyApplication extends BaseApplication {
 
     }
 
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        ImageLoader.getInstance().clearMemoryCache();
+    }
+
     public static MyApplication getInstance() {
         return instance;
     }
