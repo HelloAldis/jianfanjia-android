@@ -51,6 +51,7 @@ public class DesignerInfoActivity extends BaseActivity implements OnClickListene
     private TextView productCountText = null;
     private TextView appointCountText = null;
     private Button addBtn = null;
+    private Button deleteBtn = null;
     private DesignerInfoFragment infoFragment = null;
     private DesignerWorksFragment workFragment = null;
     private String designerid = null;
@@ -84,7 +85,7 @@ public class DesignerInfoActivity extends BaseActivity implements OnClickListene
         productCountText = (TextView) findViewById(R.id.productCountText);
         appointCountText = (TextView) findViewById(R.id.appointCountText);
         addBtn = (Button) findViewById(R.id.btn_add);
-
+        deleteBtn = (Button) findViewById(R.id.btn_delete);
         getDesignerPageInfo(designerid);
     }
 
@@ -103,6 +104,7 @@ public class DesignerInfoActivity extends BaseActivity implements OnClickListene
     @Override
     public void setListener() {
         addBtn.setOnClickListener(this);
+        deleteBtn.setOnClickListener(this);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,11 +119,13 @@ public class DesignerInfoActivity extends BaseActivity implements OnClickListene
             case R.id.btn_add:
                 addFavoriteDesignerToList(designerid);
                 break;
+            case R.id.btn_delete:
+                deleteFavoriteDesigner(designerid);
+                break;
             default:
                 break;
         }
     }
-
 
     private void getDesignerPageInfo(String designerid) {
         JianFanJiaClient.getDesignerHomePage(DesignerInfoActivity.this, designerid, designerHomePage, this);
@@ -129,6 +133,10 @@ public class DesignerInfoActivity extends BaseActivity implements OnClickListene
 
     private void addFavoriteDesignerToList(String designerid) {
         JianFanJiaClient.addFavoriteDesigner(DesignerInfoActivity.this, designerid, addFavoriteDesigner, this);
+    }
+
+    private void deleteFavoriteDesigner(String designerid) {
+        JianFanJiaClient.deleteFavoriteDesigner(DesignerInfoActivity.this, designerid, deleteMyFavoriteDesignerListener, this);
     }
 
     private ApiUiUpdateListener designerHomePage = new ApiUiUpdateListener() {
@@ -162,11 +170,11 @@ public class DesignerInfoActivity extends BaseActivity implements OnClickListene
                 float service_attitude = designerInfo.getService_attitude();
                 ratingBar.setRating((int) (respond_speed + service_attitude) / 2);
                 if (designerInfo.is_my_favorite()) {
-                    addBtn.setEnabled(false);
-                    addBtn.setText("已添加意向");
+                    addBtn.setVisibility(View.GONE);
+                    deleteBtn.setVisibility(View.VISIBLE);
                 } else {
-                    addBtn.setEnabled(true);
-                    addBtn.setText("添加意向");
+                    addBtn.setVisibility(View.VISIBLE);
+                    deleteBtn.setVisibility(View.GONE);
                 }
             }
         }
@@ -186,8 +194,8 @@ public class DesignerInfoActivity extends BaseActivity implements OnClickListene
         @Override
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data.toString());
-            addBtn.setText("已添加意向");
-            addBtn.setEnabled(false);
+            addBtn.setVisibility(View.GONE);
+            deleteBtn.setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -196,6 +204,24 @@ public class DesignerInfoActivity extends BaseActivity implements OnClickListene
         }
     };
 
+    private ApiUiUpdateListener deleteMyFavoriteDesignerListener = new ApiUiUpdateListener() {
+        @Override
+        public void preLoad() {
+
+        }
+
+        @Override
+        public void loadSuccess(Object data) {
+            LogTool.d(TAG, "data=" + data.toString());
+            addBtn.setVisibility(View.VISIBLE);
+            deleteBtn.setVisibility(View.GONE);
+        }
+
+        @Override
+        public void loadFailture(String error_msg) {
+            makeTextLong(error_msg);
+        }
+    };
 
     @Override
     public int getLayoutId() {
