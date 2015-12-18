@@ -8,7 +8,7 @@ import android.util.Log;
 
 import com.igexin.sdk.PushConsts;
 import com.igexin.sdk.PushManager;
-import com.jianfanjia.cn.activity.MyProcessDetailActivity;
+import com.jianfanjia.cn.activity.requirement.MyProcessDetailActivity;
 import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.config.Constant;

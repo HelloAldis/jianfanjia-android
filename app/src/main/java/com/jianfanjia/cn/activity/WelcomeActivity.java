@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.view.KeyEvent;
 import android.view.WindowManager;
 
+import com.jianfanjia.cn.activity.my.UserInfoActivity;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.UpdateVersion;

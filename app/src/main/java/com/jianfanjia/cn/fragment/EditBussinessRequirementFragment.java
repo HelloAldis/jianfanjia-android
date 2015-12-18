@@ -9,8 +9,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.jianfanjia.cn.activity.EditRequirementItemActivity_;
-import com.jianfanjia.cn.activity.EditRequirementLovestyleActivity_;
+import com.jianfanjia.cn.activity.requirement.EditRequirementItemActivity_;
+import com.jianfanjia.cn.activity.requirement.EditRequirementLovestyleActivity_;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseAnnotationFragment;
 import com.jianfanjia.cn.bean.RequirementInfo;

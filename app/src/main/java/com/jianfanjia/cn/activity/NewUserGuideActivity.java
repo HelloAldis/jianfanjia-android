@@ -42,4 +42,7 @@ public class NewUserGuideActivity extends BaseAnnotationActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+    }
 }

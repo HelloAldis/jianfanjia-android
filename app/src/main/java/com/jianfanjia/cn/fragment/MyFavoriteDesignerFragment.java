@@ -9,7 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.View;
 
-import com.jianfanjia.cn.activity.DesignerInfoActivity;
+import com.jianfanjia.cn.activity.home.DesignerInfoActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.FavoriteDesignerAdapter;
 import com.jianfanjia.cn.base.BaseFragment;

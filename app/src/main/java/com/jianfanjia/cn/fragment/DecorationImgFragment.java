@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
-import com.jianfanjia.cn.activity.PreviewDecorationActivity;
+import com.jianfanjia.cn.activity.beautifulpic.PreviewDecorationActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.DecorationImgAdapter;
 import com.jianfanjia.cn.base.BaseFragment;

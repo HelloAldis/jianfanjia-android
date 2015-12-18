@@ -8,7 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.View;
 
-import com.jianfanjia.cn.activity.DesignerCaseInfoActivity;
+import com.jianfanjia.cn.activity.home.DesignerCaseInfoActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.DesignerWorksAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
