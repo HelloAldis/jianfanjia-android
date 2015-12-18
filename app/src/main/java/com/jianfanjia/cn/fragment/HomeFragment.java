@@ -53,7 +53,6 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
     private List<DesignerListInfo> designerList = new ArrayList<DesignerListInfo>();
 
     private int FROM = 0;// 当前页的编号，从0开始
-    private int total = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -121,7 +120,7 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
 
     @Override
     public void onPullUpToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-        getHomePageDesigners(total, Constant.HOME_PAGE_LIMIT, pullUpListener);
+        getHomePageDesigners(FROM, Constant.HOME_PAGE_LIMIT, pullUpListener);
     }
 
     private ApiUiUpdateListener pullDownListener = new ApiUiUpdateListener() {
@@ -182,7 +181,7 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
                     }
                 });
                 pullToRefreshRecyclerView.setAdapter(designerAdapter);
-                total = designerList.size();
+                FROM = designerList.size();
                 LogTool.d(TAG, "designerList:" + designerList);
             }
             pullToRefreshRecyclerView.onRefreshComplete();
@@ -204,7 +203,7 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
 
         @Override
         public void loadSuccess(Object data) {
-            total += Constant.HOME_PAGE_LIMIT;
+            FROM += Constant.HOME_PAGE_LIMIT;
             LogTool.d(TAG, "homeDesignersInfo=" + data.toString());
             HomeDesignersInfo homeDesignersInfo = JsonParser.jsonToBean(data.toString(), HomeDesignersInfo.class);
             LogTool.d(TAG, "homeDesignersInfo:" + homeDesignersInfo);

@@ -8,8 +8,11 @@ import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.jianfanjia.cn.tools.LogTool;
+
 
 public class QuickReturnFooterBehavior extends CoordinatorLayout.Behavior<View> {
+    private static final String TAG = QuickReturnFooterBehavior.class.getName();
     private int mTotalDyDistance;//dy往一个方向移动的总距离
     private boolean hide = false;//footer是否隐藏
     private int childHeight;//footer height
@@ -21,6 +24,7 @@ public class QuickReturnFooterBehavior extends CoordinatorLayout.Behavior<View> 
     @Override
     public boolean onStartNestedScroll(CoordinatorLayout coordinatorLayout, View child, View directTargetChild, View target, int nestedScrollAxes) {
         childHeight = child.getHeight();
+        LogTool.d(TAG, "child=" + child + "  childHeight=" + childHeight);
         return (nestedScrollAxes & ViewCompat.SCROLL_AXIS_VERTICAL) != 0;
     }
 
@@ -36,17 +40,19 @@ public class QuickReturnFooterBehavior extends CoordinatorLayout.Behavior<View> 
 
     @Override
     public void onNestedPreScroll(CoordinatorLayout coordinatorLayout, View child, View target, int dx, int dy, int[] consumed) {
+        LogTool.d(TAG, "dy=" + dy);
         //判断手指是否先往一个方向移动一段距离后再往反方向移动，如果是，则在往反方向移动时mTotalDyDistance初始化为0，再计算该方向的距离总和
         if (dy > 0 && mTotalDyDistance < 0 || dy < 0 && mTotalDyDistance > 0) {
             mTotalDyDistance = 0;
         }
         //计算该方向的总距离
         mTotalDyDistance += dy;
+        LogTool.d(TAG, "mTotalDyDistance=" + mTotalDyDistance);
         //判断当前操作是向上滑动还是向下滑动
         if (!hide && mTotalDyDistance > childHeight) {
             hideView(child);
             hide = true;
-        } else if (hide && mTotalDyDistance < -childHeight) {
+        } else if (hide && mTotalDyDistance < 0) {
             showView(child);
             hide = false;
         }
