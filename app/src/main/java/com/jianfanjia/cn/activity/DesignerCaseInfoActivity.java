@@ -37,7 +37,7 @@ import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
 public class DesignerCaseInfoActivity extends BaseActivity implements OnClickListener, AppBarLayout.OnOffsetChangedListener {
     private static final String TAG = DesignerCaseInfoActivity.class.getName();
     private Toolbar toolbar = null;
-    private ImageButton toolbar_add = null;
+    private ImageButton toolbar_collect = null;
     private AppBarLayout appBarLayout = null;
     private CollapsingToolbarLayout collapsingToolbar = null;
     private RelativeLayout activity_case_info_top_layout = null;
@@ -60,7 +60,7 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
     public void initView() {
         activity_case_info_top_layout = (RelativeLayout) findViewById(R.id.top_info_layout);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar_add = (ImageButton) findViewById(R.id.toolbar_add);
+        toolbar_collect = (ImageButton) findViewById(R.id.toolbar_collect);
         toolbar.setNavigationIcon(R.mipmap.icon_register_back);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -92,7 +92,6 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
         getProductHomePageInfo(productid);
     }
 
-
     @Override
     public void setListener() {
         designerinfo_head_img.setOnClickListener(this);
@@ -104,14 +103,18 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
                 finish();
             }
         });
-        toolbar_add.setOnClickListener(this);
+        toolbar_collect.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.toolbar_add:
-                addProductHomePageInfo(productid);
+            case R.id.toolbar_collect:
+                if (toolbar_collect.isSelected()) {
+                    deleteProductDesigner(productid);
+                } else {
+                    addProductHomePageInfo(productid);
+                }
                 break;
             case R.id.designerinfo_head_img:
                 startDesignerInfoActivity(designertid);
@@ -136,6 +139,10 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
 
     private void addProductHomePageInfo(String productid) {
         JianFanJiaClient.addCollectionByUser(DesignerCaseInfoActivity.this, productid, addProductHomePageInfoListener, this);
+    }
+
+    private void deleteProductDesigner(String productid) {
+        JianFanJiaClient.deleteCollectionByUser(DesignerCaseInfoActivity.this, productid, deleteProductListener, this);
     }
 
     @Override
@@ -173,9 +180,9 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
             LogTool.d(TAG, "designerCaseInfo" + designerCaseInfo);
             if (null != designerCaseInfo) {
                 if (designerCaseInfo.is_my_favorite()) {
-                    toolbar_add.setEnabled(false);
+                    toolbar_collect.setSelected(true);
                 } else {
-                    toolbar_add.setEnabled(true);
+                    toolbar_collect.setSelected(false);
                 }
                 designertid = designerCaseInfo.getDesigner().get_id();
                 collapsingToolbar.setTitle(designerCaseInfo.getCell());
@@ -203,7 +210,6 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
         }
     };
 
-
     private ApiUiUpdateListener addProductHomePageInfoListener = new ApiUiUpdateListener() {
         @Override
         public void preLoad() {
@@ -212,7 +218,24 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
 
         @Override
         public void loadSuccess(Object data) {
-            toolbar_add.setEnabled(false);
+            toolbar_collect.setSelected(true);
+        }
+
+        @Override
+        public void loadFailture(String error_msg) {
+            makeTextLong(error_msg);
+        }
+    };
+    private ApiUiUpdateListener deleteProductListener = new ApiUiUpdateListener() {
+        @Override
+        public void preLoad() {
+
+        }
+
+        @Override
+        public void loadSuccess(Object data) {
+            LogTool.d(TAG, "data=" + data.toString());
+            toolbar_collect.setSelected(false);
         }
 
         @Override

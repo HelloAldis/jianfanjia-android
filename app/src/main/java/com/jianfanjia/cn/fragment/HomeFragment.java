@@ -167,7 +167,7 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
 
                     @Override
                     public void onItemClick(int itemPosition, OrderDesignerInfo orderDesignerInfo) {
-                        LogTool.d(TAG, "itemPosition=====" + itemPosition + " orderDesignerInfo====" + orderDesignerInfo);
+                        LogTool.d(TAG, "itemPosition:" + itemPosition + " orderDesignerInfo:" + orderDesignerInfo);
                         String designertid = orderDesignerInfo.get_id();
                         LogTool.d(TAG, "designertid:" + designertid);
                         Bundle designerBundle = new Bundle();

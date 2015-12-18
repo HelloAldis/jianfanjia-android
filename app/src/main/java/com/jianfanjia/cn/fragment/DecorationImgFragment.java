@@ -1,6 +1,5 @@
 package com.jianfanjia.cn.fragment;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -21,8 +20,6 @@ import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.baseview.SpacesItemDecoration;
-import com.jianfanjia.cn.view.dialog.CommonDialog;
-import com.jianfanjia.cn.view.dialog.DialogHelper;
 
 import java.util.List;
 
@@ -36,8 +33,6 @@ public class DecorationImgFragment extends BaseFragment {
     private static final String TAG = DecorationImgFragment.class.getName();
     private RecyclerView decoration_img_listview = null;
     private DecorationImgAdapter decorationImgAdapter = null;
-    private String decorationid = null;
-    private int itemPosition = -1;
 
     @Override
     public void initView(View view) {
@@ -56,10 +51,6 @@ public class DecorationImgFragment extends BaseFragment {
 
     private void getDecorationImgList(int from, int limit, ApiUiUpdateListener listener) {
         JianFanJiaClient.getBeautyImgListByUser(getActivity(), from, limit, listener, this);
-    }
-
-    private void deleteDecorationImg(String id) {
-        JianFanJiaClient.deleteBeautyImgByUser(getActivity(), id, deleteDecorationImgListener, this);
     }
 
     private ApiUiUpdateListener getDecorationImgListListener = new ApiUiUpdateListener() {
@@ -81,23 +72,12 @@ public class DecorationImgFragment extends BaseFragment {
                     public void OnItemClick(View view, int position) {
                         BeautyImgInfo beautyImgInfo = beautyImgList.get(position);
                         LogTool.d(TAG, "beautyImgInfo:" + beautyImgInfo);
-                        decorationid = beautyImgInfo.get_id();
+                        String decorationid = beautyImgInfo.get_id();
                         Intent decorationIntent = new Intent(getActivity(), PreviewDecorationActivity.class);
                         Bundle decorationBundle = new Bundle();
                         decorationBundle.putString(Global.DECORATION_ID, decorationid);
                         decorationIntent.putExtras(decorationBundle);
                         startActivity(decorationIntent);
-                    }
-
-                    @Override
-                    public void OnLongItemClick(View view, int position) {
-                        itemPosition = position;
-                        LogTool.d(TAG, "itemPosition=" + itemPosition);
-                        BeautyImgInfo beautyImgInfo = beautyImgList.get(position);
-                        LogTool.d(TAG, "beautyImgInfo:" + beautyImgInfo);
-                        decorationid = beautyImgInfo.get_id();
-                        LogTool.d(TAG, "decorationid =" + decorationid);
-                        deleteDecorationImgDialog();
                     }
 
                     @Override
@@ -114,42 +94,6 @@ public class DecorationImgFragment extends BaseFragment {
             makeTextLong(error_msg);
         }
     };
-
-    private ApiUiUpdateListener deleteDecorationImgListener = new ApiUiUpdateListener() {
-        @Override
-        public void preLoad() {
-
-        }
-
-        @Override
-        public void loadSuccess(Object data) {
-            LogTool.d(TAG, "data:" + data.toString());
-            decorationImgAdapter.remove(itemPosition);
-        }
-
-        @Override
-        public void loadFailture(String error_msg) {
-            makeTextLong(error_msg);
-        }
-    };
-
-    private void deleteDecorationImgDialog() {
-        CommonDialog dialog = DialogHelper
-                .getPinterestDialogCancelable(getActivity());
-        dialog.setTitle("删除装修美图");
-        dialog.setMessage("确定要删除吗？");
-        dialog.setPositiveButton(R.string.ok,
-                new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        deleteDecorationImg(decorationid);
-                    }
-                });
-        dialog.setNegativeButton(R.string.no, null);
-        dialog.show();
-    }
 
     @Override
     public int getLayoutId() {
