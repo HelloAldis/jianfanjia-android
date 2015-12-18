@@ -180,10 +180,10 @@
 
     <!-- 几口人-->
     <string-array name="arr_person">
-        <item>单身</item>
-        <item>两个人</item>
-        <item>三个人</item>
-        <item>四个人</item>
+        <item>单身贵族</item>
+        <item>幸福小两口</item>
+        <item>三口之家</item>
+        <item>三代同堂</item>
     </string-array>
 
     <string-array name="arr_collect_person_pic">
