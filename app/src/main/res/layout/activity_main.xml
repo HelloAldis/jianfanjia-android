@@ -88,4 +88,5 @@
                 android:textSize="@dimen/text_size_12" />
         </RadioGroup>
     </LinearLayout>
+
 </android.support.design.widget.CoordinatorLayout>
