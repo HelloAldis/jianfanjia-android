@@ -31,7 +31,7 @@ import java.util.List;
 public class PreviewDecorationActivity extends BaseActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
     private static final String TAG = PreviewDecorationActivity.class.getName();
     private Toolbar toolbar = null;
-    private ImageButton toolbar_add = null;
+    private ImageButton toolbar_collect = null;
     private ImageButton toolbar_share = null;
     private ImageButton btn_download = null;
     private ViewPager viewPager = null;
@@ -50,7 +50,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
         decorationId = decorationBundle.getString(Global.DECORATION_ID);
         LogTool.d(TAG, "decorationId=" + decorationId);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar_add = (ImageButton) findViewById(R.id.toolbar_add);
+        toolbar_collect = (ImageButton) findViewById(R.id.toolbar_collect);
         toolbar_share = (ImageButton) findViewById(R.id.toolbar_share);
         toolbar.setNavigationIcon(R.mipmap.icon_register_back);
         setSupportActionBar(toolbar);
@@ -71,7 +71,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
                 finish();
             }
         });
-        toolbar_add.setOnClickListener(this);
+        toolbar_collect.setOnClickListener(this);
         toolbar_share.setOnClickListener(this);
         btn_download.setOnClickListener(this);
         viewPager.setOnPageChangeListener(this);
@@ -80,8 +80,12 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.toolbar_add:
-                addDecorationImgInfo(decorationId);
+            case R.id.toolbar_collect:
+                if (toolbar_collect.isSelected()) {
+                    deleteDecorationImg(decorationId);
+                } else {
+                    addDecorationImgInfo(decorationId);
+                }
                 break;
             case R.id.toolbar_share:
                 break;
@@ -101,6 +105,10 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
         JianFanJiaClient.addBeautyImgByUser(PreviewDecorationActivity.this, decorationId, AddDecorationImgInfoListener, this);
     }
 
+    private void deleteDecorationImg(String decorationId) {
+        JianFanJiaClient.deleteBeautyImgByUser(PreviewDecorationActivity.this, decorationId, deleteDecorationImgListener, this);
+    }
+
     private ApiUiUpdateListener getDecorationImgInfoListener = new ApiUiUpdateListener() {
         @Override
         public void preLoad() {
@@ -114,9 +122,9 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
             LogTool.d(TAG, "beautyImgInfo:" + beautyImgInfo);
             if (null != beautyImgInfo) {
                 if (beautyImgInfo.is_my_favorite()) {
-                    toolbar_add.setEnabled(false);
+                    toolbar_collect.setSelected(true);
                 } else {
-                    toolbar_add.setEnabled(true);
+                    toolbar_collect.setSelected(false);
                 }
                 pic_title.setText(beautyImgInfo.getTitle());
                 pic_des.setText("#" + beautyImgInfo.getDescription() + "  #" + getHouseType(beautyImgInfo.getHouse_type()) + "  #" + getDecStyle(beautyImgInfo.getDec_type()));
@@ -151,7 +159,25 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
         @Override
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data.toString());
-            toolbar_add.setEnabled(false);
+            toolbar_collect.setSelected(true);
+        }
+
+        @Override
+        public void loadFailture(String error_msg) {
+            makeTextLong(error_msg);
+        }
+    };
+
+    private ApiUiUpdateListener deleteDecorationImgListener = new ApiUiUpdateListener() {
+        @Override
+        public void preLoad() {
+
+        }
+
+        @Override
+        public void loadSuccess(Object data) {
+            LogTool.d(TAG, "data:" + data.toString());
+            toolbar_collect.setSelected(false);
         }
 
         @Override
