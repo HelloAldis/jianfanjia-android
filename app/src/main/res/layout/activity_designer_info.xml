@@ -151,7 +151,6 @@
                     android:layout_marginLeft="@dimen/space_30"
                     android:layout_marginRight="@dimen/space_30"
                     android:layout_marginTop="@dimen/space_15"
-                    android:enabled="false"
                     android:text="@string/strl_add_yixiang" />
 
                 <Button
@@ -161,11 +160,9 @@
                     android:layout_marginLeft="@dimen/space_30"
                     android:layout_marginRight="@dimen/space_30"
                     android:layout_marginTop="@dimen/space_15"
-                    android:enabled="false"
                     android:text="@string/strl_delete_yixiang"
                     android:visibility="gone" />
             </LinearLayout>
-
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"

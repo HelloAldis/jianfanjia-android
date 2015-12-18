@@ -200,7 +200,7 @@ public class DesignerInfoActivity extends BaseActivity implements OnClickListene
 
         @Override
         public void loadFailture(String error_msg) {
-            addBtn.setEnabled(true);
+            makeTextLong(error_msg);
         }
     };
 
