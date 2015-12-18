@@ -92,7 +92,7 @@ public class ProductFragment extends BaseFragment implements ApiUiUpdateListener
     public void OnViewClick(int position) {
         Product product = products.get(position);
         String designertid = product.getDesignerid();
-        LogTool.d(TAG, "designertid:" + designertid);
+        LogTool.d(TAG, "designertid=" + designertid);
         Bundle designerBundle = new Bundle();
         designerBundle.putString(Global.DESIGNER_ID, designertid);
         startActivity(DesignerInfoActivity.class, designerBundle);
