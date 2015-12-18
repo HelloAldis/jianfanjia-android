@@ -88,6 +88,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
                 }
                 break;
             case R.id.toolbar_share:
+                makeTextLong("分享");
                 break;
             case R.id.btn_download:
                 downloadImg();
