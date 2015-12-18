@@ -32,7 +32,7 @@ public class ProductAdapter extends BaseRecyclerViewAdapter<Product> {
     }
 
     @Override
-    public void bindView(RecyclerViewHolderBase viewHolder, int position, List<Product> list) {
+    public void bindView(RecyclerViewHolderBase viewHolder, final int position, List<Product> list) {
         Product product = list.get(position);
         final ProductViewHolder holder = (ProductViewHolder) viewHolder;
         if (!product.is_deleted()) {
@@ -48,39 +48,21 @@ public class ProductAdapter extends BaseRecyclerViewAdapter<Product> {
                 @Override
                 public void onClick(View v) {
                     if (null != listener) {
-                        listener.OnItemClick(v, holder.getLayoutPosition());
+                        listener.OnItemClick(v, position);
                     }
-                }
-            });
-            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    if (null != listener) {
-                        listener.OnLongItemClick(v, holder.getLayoutPosition());
-                    }
-                    return true;
                 }
             });
             holder.itemHeadView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (null != listener) {
-                        listener.OnViewClick(holder.getLayoutPosition());
+                        listener.OnViewClick(position);
                     }
                 }
             });
         } else {
             holder.imgLayout.setVisibility(View.GONE);
             holder.noImgLayout.setVisibility(View.VISIBLE);
-            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    if (null != listener) {
-                        listener.OnLongItemClick(v, holder.getLayoutPosition());
-                    }
-                    return true;
-                }
-            });
         }
 
     }

@@ -1,6 +1,5 @@
 package com.jianfanjia.cn.fragment;
 
-import android.content.DialogInterface;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -22,8 +21,6 @@ import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
-import com.jianfanjia.cn.view.dialog.CommonDialog;
-import com.jianfanjia.cn.view.dialog.DialogHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,8 +37,6 @@ public class MyFavoriteDesignerFragment extends BaseFragment {
     private FavoriteDesignerAdapter designAdapter = null;
     private MyFavoriteDesigner myFavoriteDesigner = null;
     private List<DesignerInfo> designers = new ArrayList<DesignerInfo>();
-    private String designerId = null;
-    private int itemPosition = -1;
 
     @Override
     public void initView(View view) {
@@ -65,28 +60,6 @@ public class MyFavoriteDesignerFragment extends BaseFragment {
         JianFanJiaClient.get_MyFavoriteDesignerList(getActivity(), 0, 100, getMyFavoriteDesignerListener, this);
     }
 
-    private void deleteFavoriteDesignerDialog() {
-        CommonDialog dialog = DialogHelper
-                .getPinterestDialogCancelable(getActivity());
-        dialog.setTitle("删除设计师");
-        dialog.setMessage("确定要删除吗？");
-        dialog.setPositiveButton(R.string.ok,
-                new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        deleteFavoriteDesigner(designerId);
-                    }
-                });
-        dialog.setNegativeButton(R.string.no, null);
-        dialog.show();
-    }
-
-    private void deleteFavoriteDesigner(String designerId) {
-        JianFanJiaClient.deleteFavoriteDesigner(getActivity(), designerId, deleteMyFavoriteDesignerListener, this);
-    }
-
     private ApiUiUpdateListener getMyFavoriteDesignerListener = new ApiUiUpdateListener() {
         @Override
         public void preLoad() {
@@ -103,20 +76,11 @@ public class MyFavoriteDesignerFragment extends BaseFragment {
                 designAdapter = new FavoriteDesignerAdapter(getActivity(), designers, new RecyclerViewOnItemClickListener() {
                     @Override
                     public void OnItemClick(View view, int position) {
-                        designerId = myFavoriteDesigner.getDesigners().get(position).get_id();
+                        String designerId = myFavoriteDesigner.getDesigners().get(position).get_id();
                         LogTool.d(this.getClass().getName(), designerId);
                         Bundle designerBundle = new Bundle();
                         designerBundle.putString(Global.DESIGNER_ID, designerId);
                         startActivity(DesignerInfoActivity.class, designerBundle);
-                    }
-
-                    @Override
-                    public void OnLongItemClick(View view, int position) {
-                        LogTool.d(TAG, "position:" + position);
-                        itemPosition = position;
-                        designerId = myFavoriteDesigner.getDesigners().get(position).get_id();
-                        LogTool.d(this.getClass().getName(), designerId);
-                        deleteFavoriteDesignerDialog();
                     }
 
                     @Override
@@ -126,24 +90,6 @@ public class MyFavoriteDesignerFragment extends BaseFragment {
                 });
                 my_favorite_designer_listview.setAdapter(designAdapter);
             }
-        }
-
-        @Override
-        public void loadFailture(String error_msg) {
-            makeTextLong(error_msg);
-        }
-    };
-
-    private ApiUiUpdateListener deleteMyFavoriteDesignerListener = new ApiUiUpdateListener() {
-        @Override
-        public void preLoad() {
-
-        }
-
-        @Override
-        public void loadSuccess(Object data) {
-            LogTool.d(TAG, "data=" + data.toString());
-            designAdapter.remove(itemPosition);
         }
 
         @Override

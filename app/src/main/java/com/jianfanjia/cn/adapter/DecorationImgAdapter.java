@@ -40,31 +40,13 @@ public class DecorationImgAdapter extends BaseRecyclerViewAdapter<BeautyImgInfo>
                 @Override
                 public void onClick(View v) {
                     if (null != listener) {
-                        listener.OnItemClick(v, holder.getLayoutPosition());
+                        listener.OnItemClick(v, position);
                     }
-                }
-            });
-            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    if (null != listener) {
-                        listener.OnLongItemClick(v, holder.getLayoutPosition());
-                    }
-                    return true;
                 }
             });
         } else {
             holder.itemDecorateView.setVisibility(View.GONE);
             holder.itemNoDecorateView.setVisibility(View.VISIBLE);
-            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    if (null != listener) {
-                        listener.OnLongItemClick(v, holder.getLayoutPosition());
-                    }
-                    return true;
-                }
-            });
         }
     }
 
