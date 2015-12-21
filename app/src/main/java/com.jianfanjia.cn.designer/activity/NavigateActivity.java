@@ -73,6 +73,7 @@ public class NavigateActivity extends BaseActivity implements OnClickListener,
                 finish();
                 break;
             case R.id.btnLogin:
+            case R.id.btn_welcome_off:
                 startActivity(LoginNewActivity_.class);
                 finish();
                 break;

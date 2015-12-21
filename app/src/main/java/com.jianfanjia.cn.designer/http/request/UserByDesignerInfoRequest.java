@@ -3,9 +3,7 @@ package com.jianfanjia.cn.designer.http.request;
 import android.content.Context;
 
 import com.jianfanjia.cn.designer.base.BaseRequest;
-import com.jianfanjia.cn.designer.bean.DesignerInfo;
 import com.jianfanjia.cn.designer.config.Url_New;
-import com.jianfanjia.cn.designer.tools.JsonParser;
 
 public class UserByDesignerInfoRequest extends BaseRequest {
 
@@ -30,13 +28,6 @@ public class UserByDesignerInfoRequest extends BaseRequest {
     @Override
     public void onSuccess(Object data) {
         super.onSuccess(data);
-        if (data.toString() != null) {
-            DesignerInfo designerInfo = JsonParser.jsonToBean(data.toString(),
-                    DesignerInfo.class);
-            if (designerInfo != null) {
-                dataManager.setDesignerInfo(designerInfo);
-            }
-        }
     }
 
 

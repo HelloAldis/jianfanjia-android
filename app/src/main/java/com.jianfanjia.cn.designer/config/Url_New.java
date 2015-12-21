@@ -38,7 +38,7 @@ public class Url_New {
     public static final String FEEDBACK_URL = HTTPROOT + "feedback";
     // ----------------------------------------------------设计师----------------------------------------------------------
     // 设计师获取个人信息
-    public static final String GET_DESIGNER_INFO = HTTPROOT + "com.jianfanjia.cn.designer.designer/info";
+    public static final String GET_DESIGNER_INFO = HTTPROOT + "designer/info";
     // 获取设计师的工地列表
     public static final String GET_DESIGNER_PROCESS = HTTPROOT
             + "/process/list";
