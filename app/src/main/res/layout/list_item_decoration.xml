@@ -11,6 +11,7 @@
         android:id="@+id/list_item_decorate_img"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:adjustViewBounds="true"
         android:background="@mipmap/pix_default"
         android:scaleType="centerCrop" />
@@ -19,6 +20,7 @@
         android:id="@+id/list_item_no_decorate_img"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:background="@mipmap/pix_default"
         android:scaleType="centerCrop"
         android:visibility="gone" />
