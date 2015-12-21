@@ -49,7 +49,6 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
     private RelativeLayout houseTypeLayout = null;
     private RelativeLayout decStyleLayout = null;
     private PullToRefreshRecycleView decoration_listview = null;
-    private StaggeredGridLayoutManager mLayoutManager = null;
     private DecorationAdapter decorationAdapter = null;
     private DecorationPopWindow window = null;
     private List<BeautyImgInfo> beautyImgList = new ArrayList<BeautyImgInfo>();
@@ -66,13 +65,12 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         decStyleLayout = (RelativeLayout) view.findViewById(R.id.decStyleLayout);
         decoration_listview = (PullToRefreshRecycleView) view.findViewById(R.id.decoration_listview);
         decoration_listview.setMode(PullToRefreshBase.Mode.BOTH);
-        mLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        decoration_listview.setLayoutManager(mLayoutManager);
+        decoration_listview.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         decoration_listview.setItemAnimator(new DefaultItemAnimator());
         //设置item之间的间隔
         SpacesItemDecoration decoration = new SpacesItemDecoration(8);
         decoration_listview.addItemDecoration(decoration);
-        searchDecorationImg(section, houseStyle, decStyle, 0, 8, getDecorationImgListener);
+        searchDecorationImg(section, houseStyle, decStyle, 0, 20, getDecorationImgListener);
     }
 
     private void initMainHeadView(View view) {
