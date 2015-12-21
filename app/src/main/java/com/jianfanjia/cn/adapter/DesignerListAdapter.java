@@ -165,8 +165,7 @@ public class DesignerListAdapter extends BaseRecyclerViewAdapter<DesignerListInf
             if (i == 0) {
                 indicators[i].setBackgroundResource(R.drawable.shape_indicator_selected_oval);
             } else {
-                indicators[i]
-                        .setBackgroundResource(R.drawable.shape_indicator_unselected_oval);
+                indicators[i].setBackgroundResource(R.drawable.shape_indicator_unselected_oval);
             }
             indicators[i].setLayoutParams(params);
             indicatorGroup_lib.addView(indicators[i]);
