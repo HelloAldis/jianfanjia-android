@@ -31,7 +31,6 @@ public class FuKuanNotifyFragment extends BaseFragment implements OnItemLongClic
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        setUserVisibleHint(true);
         payAdapter = new PayNotifyAdapter(getActivity(), payList);
         fukuanListView.setAdapter(payAdapter);
     }

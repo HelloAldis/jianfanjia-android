@@ -31,7 +31,6 @@ public class CaiGouNotifyFragment extends BaseFragment implements OnItemLongClic
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        setUserVisibleHint(true);
         caiGouAdapter = new CaiGouNotifyAdapter(getActivity(), caigouList);
         caigouListView.setAdapter(caiGouAdapter);
     }
