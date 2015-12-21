@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardBackgroundColor="@color/font_white"
-    app:cardCornerRadius="5dp"
+    app:cardCornerRadius="6dp"
     card_view:cardPreventCornerOverlap="true">
 
     <ImageView
