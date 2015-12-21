@@ -231,7 +231,7 @@ public class JianFanJiaClient {
      */
     public static void register(Context context, RegisterInfo registerInfo,
                                 ApiUiUpdateListener listener, Object tag) {
-        RegisterRequest registerRequest = new RegisterRequest(context);
+        RegisterRequest registerRequest = new RegisterRequest(context,registerInfo.getPass());
         OkHttpClientManager.getInstance().getPostDelegate().postAsyn(registerRequest, JsonParser.beanToJson(registerInfo), listener, tag);
     }
 

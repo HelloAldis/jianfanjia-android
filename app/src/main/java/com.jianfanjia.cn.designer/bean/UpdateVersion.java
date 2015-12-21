@@ -12,6 +12,8 @@ public class UpdateVersion implements Serializable {
 
     private String download_url;
 
+    private String updatetype;
+
     public String getVersion_name() {
         return version_name;
     }
@@ -36,4 +38,11 @@ public class UpdateVersion implements Serializable {
         this.download_url = download_url;
     }
 
+    public String getUpdatetype() {
+        return updatetype;
+    }
+
+    public void setUpdatetype(String updatetype) {
+        this.updatetype = updatetype;
+    }
 }

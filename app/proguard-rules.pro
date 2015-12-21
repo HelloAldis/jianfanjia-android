@@ -16,8 +16,8 @@
 #   public *;
 #}
 -keepattributes Signature
--keep class com.jianfanjia.cn.bean.** { *; }
--keep class com.jianfanjia.cn.http.cookie.** { *; }
+-keep class com.jianfanjia.cn.designer.bean.** { *; }
+-keep class com.jianfanjia.cn.designer.http.cookie.** { *; }
 
 #个推混淆
 -dontwarn com.igexin.**
@@ -114,6 +114,6 @@
 -keep class im.yixin.sdk.api.YXMessage {*;}
 -keep class im.yixin.sdk.api.** implements im.yixin.sdk.api.YXMessage$YXMessageData{*;}
 
--keep public class com.jianfanjia.cn.activity.R$*{
+-keep public class com.jianfanjia.cn.designer.R$*{
     public static final int *;
 }

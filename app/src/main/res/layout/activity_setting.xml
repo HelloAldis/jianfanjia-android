@@ -70,7 +70,8 @@
 
             <RelativeLayout
                 android:id="@+id/current_version_layout"
-                style="@style/my_list_item_layout_style" >
+                style="@style/my_list_item_layout_style"
+                android:visibility="gone">
 
                 <TextView
                     style="@style/listview_item_text_style_middle"

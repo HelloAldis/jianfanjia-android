@@ -453,7 +453,7 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
                         public void loadSuccess(Object data) {
                             // TODO Auto-generated method stub
                             hideWaitDialog();
-                            startActivity(com.jianfanjia.cn.designer.activity.MainActivity.class);
+                            startActivity(MainActivity.class);
                             finish();
                         }
 
@@ -461,12 +461,12 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
                         public void loadFailture(String errorMsg) {
                             // TODO Auto-generated method stub
                             hideWaitDialog();
-                            makeTextLong(getString(R.string.tip_error_internet));
+                            makeTextLong(errorMsg);
                         }
                     }, this);
                 } else {
                     hideWaitDialog();
-                    startActivity(com.jianfanjia.cn.designer.activity.MainActivity.class);
+                    startActivity(MainActivity.class);
                     finish();
                 }
             }

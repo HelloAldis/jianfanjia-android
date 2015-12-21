@@ -149,4 +149,7 @@ public class Constant {
         public static final boolean DEVELOPER_MODE = false;
     }
 
+    public static final String FORCE_UPDATE = "1";
+    public static final String REC_UPDATE = "0";
+
 }

@@ -229,6 +229,7 @@
     <string name="input_name">请输入昵称</string>
     <string name="input_home">请输入家庭地址</string>
     <string name="str_delete_pic">删除照片</string>
+    <string name="new_version_message">有新的版本啦，版本号为：%1$s</string>
     <!-- edit activity -->
 
 </resources>

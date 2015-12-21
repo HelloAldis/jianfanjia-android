@@ -23,8 +23,8 @@ android {
         applicationId "com.jianfanjia.cn.designer"
         minSdkVersion 15
         targetSdkVersion 21
-        versionCode 12
-        versionName "2.0.16"
+        versionCode 17
+        versionName "2.0.17"
 
         // AndroidManifest.xml 里面UMENG_CHANNEL的value为 ${UMENG_CHANNEL_VALUE}
 //        manifestPlaceholders = [UMENG_CHANNEL_VALUE: "channel_name"]
@@ -41,15 +41,17 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
-//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.relealse
             manifestPlaceholders = [GETUI_PUSH_APPID : "tE9LwxEKvxACImev1VLiCA",GETUI_PUSH_APPKEY : "5pOVHYbLcS6GrWsp0CTwK3",GETUI_PUSH_APPSECRET : "qX6mtXErCJ7I5ADTLW8P85"]
         }
 
-        androidtest {
-            manifestPlaceholders = [GETUI_PUSH_APPID : "s7Et91ZLPu8KRwBEtY4AZ8",GETUI_PUSH_APPKEY : "8BTWfBSMYM95oFpDOwGYu5",GETUI_PUSH_APPSECRET : "QbclEVLgAIA6iWblkTjyD4"]
+        andtest {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.relealse
+            manifestPlaceholders = [GETUI_PUSH_APPID : "s7Et91ZLPu8KRwBEtY4AZ8",GETUI_PUSH_APPKEY : "8BTWfBSMYM95oFpDOwGYu5",GETUI_PUSH_APPSECRET : "QbclEVLgAIA6iWblkTjyD4"]
         }
 
         debug {
@@ -66,6 +68,7 @@ android {
 
     productFlavors {
         Default {}
+        yingyongbao{}
     }
 
     lintOptions {
@@ -86,7 +89,7 @@ android {
             def outputFile = output.outputFile
             if (outputFile != null && outputFile.name.endsWith('.apk')) {
                 String fileName = outputFile.name.replace(".apk", "_${date}_${update}_${defaultConfig.versionCode}_${defaultConfig.versionName}.apk")
-                fileName = fileName.replace("app", "jianfanjia_designer")
+                fileName = fileName.replace("app", "designer")
                 if (fileName.contains("-release")) {
                     fileName = fileName.replace("-release", "")
                 }
@@ -113,7 +116,6 @@ dependencies {
     compile 'com.android.support:cardview-v7:23.0.1'
     compile 'com.android.support:recyclerview-v7:23.0.1'
     compile 'jp.wasabeef:recyclerview-animators:1.3.0'
-    compile 'com.malinskiy:superrecyclerview:1.1.1'
     compile 'com.commit451:PhotoView:1.2.4'
     compile files('libs/universal-image-loader-1.9.4-SNAPSHOT.jar')
     compile files('libs/GetuiExt-2.0.3.jar')

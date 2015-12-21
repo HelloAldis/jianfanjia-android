@@ -16,14 +16,17 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.RemoteViews;
 
+import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.activity.CheckActivity;
 import com.jianfanjia.cn.designer.activity.MainActivity;
 import com.jianfanjia.cn.designer.activity.NotifyActivity;
-import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.bean.NotifyMessage;
 import com.jianfanjia.cn.designer.cache.DataManagerNew;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
+import com.jianfanjia.cn.designer.http.JianFanJiaClient;
+import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
+import com.jianfanjia.cn.designer.service.UpdateService;
 
 import java.io.File;
 
@@ -115,6 +118,30 @@ public class UiHelper {
         notification.sound = Uri.parse("android.resource://"
                 + context.getPackageName() + "/" + R.raw.message);
         nManager.notify(notifyId, notification);
+    }
+
+    /**
+     * 检查新版本
+     *
+     * @param context
+     * @param listener
+     */
+    public static void checkNewVersion(Context context, ApiUiUpdateListener listener) {
+        JianFanJiaClient.checkVersion(context, listener, context);
+    }
+
+    /**
+     * 开启更新服务
+     *
+     * @param context
+     * @param download_url
+     */
+    public static void startUpdateService(Context context, String download_url) {
+        if (download_url == null)
+            return;
+        Intent intent = new Intent(context, UpdateService.class);
+        intent.putExtra(Constant.DOWNLOAD_URL, download_url);
+        context.startService(intent);
     }
 
     /**

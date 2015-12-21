@@ -1,11 +1,7 @@
 package com.jianfanjia.cn.designer.activity;
 
-import android.app.DownloadManager;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.net.Uri;
-import android.os.Environment;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.CompoundButton;
@@ -156,6 +152,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener,
                         PushManager.getInstance().unBindAlias(getApplicationContext(), dataManager.getUserId(), true);
                         activityManager.exit();
                         dataManager.cleanData();
+                        dataManager.setLogin(false);
                         MyApplication.getInstance().clearCookie();
                         startActivity(LoginNewActivity_.class);
                         finish();
@@ -310,27 +307,6 @@ public class SettingActivity extends BaseActivity implements OnClickListener,
         }
 
                 , this);
-    }
-
-    private void downloadVersion(String apkPath) {
-        Uri uri = Uri.parse(apkPath);
-        DownloadManager.Request request = new DownloadManager.Request(uri);
-        // 设置下载路径和文件名
-        request.setDestinationInExternalPublicDir(
-                Environment.DIRECTORY_DOWNLOADS, "jianfanjia.apk");
-        request.setTitle("简繁家");
-        request.setDescription("正在下载简繁家新版本");
-        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-        request.setMimeType("application/vnd.android.package-archive");
-        // 设置为可被媒体扫描器找到
-        request.allowScanningByMediaScanner();
-        // 设置为可见和可管理
-        request.setVisibleInDownloadsUi(true);
-        long refernece = downloadManager.enqueue(request);
-        // 把当前下载的ID保存起来
-        SharedPreferences sPreferences = getSharedPreferences("downloadplato",
-                0);
-        sPreferences.edit().putLong("plato", refernece).commit();
     }
 
     @Override

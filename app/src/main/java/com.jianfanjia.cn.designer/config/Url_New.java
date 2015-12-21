@@ -33,7 +33,7 @@ public class Url_New {
     public static final String VERIFY_PHONE = HTTPROOT + "verify_phone";
     // 检查版本
     public static final String UPDATE_VERSION_URL = HTTPROOT
-            + "device/android_build_version";
+            + "device/designer_android_build_version";
     // 用户反馈 feedback
     public static final String FEEDBACK_URL = HTTPROOT + "feedback";
     // ----------------------------------------------------设计师----------------------------------------------------------

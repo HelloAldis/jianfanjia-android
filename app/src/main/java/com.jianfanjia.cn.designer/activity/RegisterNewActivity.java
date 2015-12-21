@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.igexin.sdk.PushManager;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.base.BaseAnnotationActivity;
 import com.jianfanjia.cn.designer.bean.RegisterInfo;
@@ -130,6 +131,8 @@ public class RegisterNewActivity extends BaseAnnotationActivity implements
         //登录成功，加载首页
         super.loadSuccess(data);
         if (requsetCode == REGISTER_CODE) {
+            PushManager.getInstance().initialize(getApplicationContext());
+            PushManager.getInstance().bindAlias(getApplicationContext(), dataManager.getUserId());
             startActivity(MainActivity.class);
             finish();
         } else {

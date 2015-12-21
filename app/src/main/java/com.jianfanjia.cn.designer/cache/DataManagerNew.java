@@ -20,8 +20,6 @@ import java.util.Calendar;
 import java.util.List;
 
 public class DataManagerNew {
-    public static final String SUCCESS = "success";
-    public static final String FAILURE = "failure";
     private static final String TAG = DataManagerNew.class.getName();
     private static DataManagerNew instance;
     private Context context;
@@ -78,15 +76,6 @@ public class DataManagerNew {
 
     public DesignerInfo getDesignerInfoById(String designerId) {
         return (DesignerInfo) sharedPreferdata.getValue(designerId);
-    }
-
-    public Object getOwnerOrDesignerByIdAndType(String userType, String _id) {
-        if (userType.equals(Constant.IDENTITY_DESIGNER)) {
-            return getDesignerInfoById(_id);
-        } else if (userType.equals(Constant.IDENTITY_OWNER)) {
-            return getOwnerInfoById(_id);
-        }
-        return null;
     }
 
     // 设计师用户获取个人资料
@@ -166,21 +155,21 @@ public class DataManagerNew {
     }
 
     public boolean isLogin() {
-        return sharedPreferdata.getValue(Constant.USER_IS_LOGIN, false);// 默认是没登录
+        return sharedPreferuser.getValue(Constant.USER_IS_LOGIN, false);// 默认是没登录
     }
 
     public void setLogin(boolean isLogin) {
-        sharedPreferdata.setValue(Constant.USER_IS_LOGIN, isLogin);
+        sharedPreferuser.setValue(Constant.USER_IS_LOGIN, isLogin);
     }
 
     public void savaLastLoginTime(long loginTime) {
-        sharedPreferuser.setValue(Constant.LAST_LOGIN_TIME, loginTime);
+        sharedPreferdata.setValue(Constant.LAST_LOGIN_TIME, loginTime);
     }
 
     // 是否登录信息已过期
     public boolean isLoginExpire() {
         Calendar currentDate = Calendar.getInstance();// 当前时间
-        long lastLoginTime = sharedPreferuser.getValue(
+        long lastLoginTime = sharedPreferdata.getValue(
                 Constant.LAST_LOGIN_TIME, currentDate.getTimeInMillis());
         Calendar lastLoginDate = Calendar.getInstance();
         lastLoginDate.setTimeInMillis(lastLoginTime);
@@ -209,11 +198,11 @@ public class DataManagerNew {
     }
 
     public boolean isFirst() {
-        return sharedPreferdata.getValue(Constant.ISFIRST, true);
+        return sharedPreferuser.getValue(Constant.ISFIRST, true);
     }
 
     public void setFisrt(boolean isFirst) {
-        sharedPreferdata.setValue(Constant.ISFIRST, isFirst);
+        sharedPreferuser.setValue(Constant.ISFIRST, isFirst);
     }
 
     public void saveLoginUserInfo(LoginUserBean userBean) {
@@ -274,7 +263,6 @@ public class DataManagerNew {
         requirementInfo = null;
         currentProcessInfo = null;
         sharedPreferdata.clear();
-        sharedPreferuser.clear();
     }
 
 }
