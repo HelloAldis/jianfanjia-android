@@ -70,7 +70,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         decoration_listview.setLayoutManager(mLayoutManager);
         decoration_listview.setItemAnimator(new DefaultItemAnimator());
         //设置item之间的间隔
-        SpacesItemDecoration decoration = new SpacesItemDecoration(10);
+        SpacesItemDecoration decoration = new SpacesItemDecoration(8);
         decoration_listview.addItemDecoration(decoration);
         searchDecorationImg(section, houseStyle, decStyle, 0, 8, getDecorationImgListener);
     }
