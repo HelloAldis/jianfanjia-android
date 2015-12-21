@@ -45,6 +45,15 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Re
         }
     }
 
+    public void add(List<T> l, int position) {
+        if (list.size() > 0) {
+            for (T t : l) {
+                list.add(t);
+            }
+            notifyItemRangeInserted(position, list.size());
+        }
+    }
+
     public void replace(List<T> l) {
         list.clear();
         if (l.size() > 0) {
