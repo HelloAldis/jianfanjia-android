@@ -24,7 +24,6 @@ import android.widget.ViewFlipper;
 
 import com.igexin.sdk.PushManager;
 import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.base.BaseAnnotationActivity;
 import com.jianfanjia.cn.designer.bean.RegisterInfo;
 import com.jianfanjia.cn.designer.config.Global;
@@ -427,9 +426,7 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
     public void loadSuccess(Object data) {
 //        super.loadSuccess(data);
         PushManager.getInstance().initialize(getApplicationContext());
-        boolean flag = PushManager.getInstance().bindAlias(getApplicationContext(), dataManager.getUserId());
-        LogTool.d(TAG, "bindAlias id = " + dataManager.getUserId() + "  isSuccess =" + flag + "meta id=" + MyApplication.getInstance().getApplicationInfo().metaData.get("PUSH_APPID"));
-
+        PushManager.getInstance().bindAlias(getApplicationContext(), dataManager.getUserId());
         //登录成功，加载工地列表
         JianFanJiaClient.get_Process_List(this, new ApiUiUpdateListener() {
 
