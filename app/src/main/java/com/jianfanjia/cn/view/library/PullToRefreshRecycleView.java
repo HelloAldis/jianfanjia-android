@@ -76,6 +76,12 @@ public class PullToRefreshRecycleView extends PullToRefreshBase<RecyclerView> {
         }
     }
 
+    public void setHasFixedSize(boolean hasFixedSize) {
+        if (mRefreshableView != null) {
+            mRefreshableView.setHasFixedSize(hasFixedSize);
+        }
+    }
+
     @Override
     protected boolean isReadyForPullStart() {
         return !ViewCompat.canScrollVertically(mRefreshableView, -1);
