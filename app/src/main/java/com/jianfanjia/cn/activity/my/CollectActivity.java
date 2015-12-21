@@ -48,12 +48,9 @@ public class CollectActivity extends BaseActivity implements OnClickListener {
 
     private void setupViewPager(ViewPager viewPager) {
         List<SelectItem> listViews = new ArrayList<SelectItem>();
-        SelectItem designerItem = new SelectItem(new MyFavoriteDesignerFragment(),
-                "设计师");
-        SelectItem productItem = new SelectItem(new ProductFragment(),
-                "作品");
-        SelectItem imgItem = new SelectItem(new DecorationImgFragment(),
-                "美图");
+        SelectItem designerItem = new SelectItem(new MyFavoriteDesignerFragment(), getResources().getString(R.string.designerText));
+        SelectItem productItem = new SelectItem(new ProductFragment(), getResources().getString(R.string.productText));
+        SelectItem imgItem = new SelectItem(new DecorationImgFragment(), getResources().getString(R.string.imgText));
         listViews.add(designerItem);
         listViews.add(productItem);
         listViews.add(imgItem);

@@ -288,5 +288,9 @@
     <string name="tip_not_sdcard">没有SD卡，无法打开相机</string>
     <string name="title_activity_preview_decoration">PreviewDecorationActivity</string>
 
+    <!--CollectActivity-->
+    <string name="designerText">设计师</string>
+    <string name="productText">作品</string>
+    <string name="imgText">美图</string>
 
 </resources>
