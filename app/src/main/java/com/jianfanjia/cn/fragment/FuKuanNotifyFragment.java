@@ -44,11 +44,9 @@ public class FuKuanNotifyFragment extends BaseFragment implements OnItemLongClic
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
-            // fragment可见时加载数据
             LogTool.d(TAG, "FuKuanNotifyFragment 可见");
             initData();
         } else {
-            // 不可见时不执行操作
             LogTool.d(TAG, "FuKuanNotifyFragment 不可见");
         }
     }
