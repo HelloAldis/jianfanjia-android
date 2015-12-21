@@ -11,7 +11,6 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.bean.BeautyImgInfo;
-import com.jianfanjia.cn.bean.Img;
 import com.jianfanjia.cn.interf.OnItemClickListener;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.ScreenUtil;
@@ -39,10 +38,9 @@ public class DecorationAdapter extends BaseRecyclerViewAdapter<BeautyImgInfo> {
     public void bindView(final RecyclerViewHolderBase viewHolder, final int position, List<BeautyImgInfo> list) {
         BeautyImgInfo info = list.get(position);
         final DecorationViewHolder holder = (DecorationViewHolder) viewHolder;
-        List<Img> imgList = info.getImages();
 //        holder.itemDecorateView.setImageResource(R.drawable.whitebottom);
-        holder.itemDecorateView.setTag(imgList.get(0).getImageid());
-        imageShow.displayScreenWidthThumnailImage(context, imgList.get(0).getImageid(), holder.itemDecorateView, new ImageLoadingListener() {
+        holder.itemDecorateView.setTag(info.getImages().get(0).getImageid());
+        imageShow.displayScreenWidthThumnailImage(context, info.getImages().get(0).getImageid(), holder.itemDecorateView, new ImageLoadingListener() {
             @Override
             public void onLoadingStarted(String imageUri, View view) {
 
