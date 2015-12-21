@@ -67,7 +67,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         decStyleLayout = (RelativeLayout) view.findViewById(R.id.decStyleLayout);
         decoration_listview = (PullToRefreshRecycleView) view.findViewById(R.id.decoration_listview);
         decoration_listview.setMode(PullToRefreshBase.Mode.BOTH);
-        decoration_listview.setHasFixedSize(false);
+        decoration_listview.setHasFixedSize(true);
         decoration_listview.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         decoration_listview.setItemAnimator(new DefaultItemAnimator());
         SpacesItemDecoration decoration = new SpacesItemDecoration(7);
@@ -234,7 +234,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
             DecorationItemInfo decorationItemInfo = JsonParser.jsonToBean(data.toString(), DecorationItemInfo.class);
             LogTool.d(TAG, "decorationItemInfo:" + decorationItemInfo);
             if (null != decorationItemInfo) {
-                decorationAdapter.add(decorationItemInfo.getBeautiful_images());
+                decorationAdapter.add(decorationItemInfo.getBeautiful_images(), FROM);
             }
             decoration_listview.onRefreshComplete();
         }
