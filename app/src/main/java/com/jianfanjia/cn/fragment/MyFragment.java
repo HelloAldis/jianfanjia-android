@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.my.CollectActivity;
-import com.jianfanjia.cn.activity.my.MyFavoriteDesignerActivity_;
 import com.jianfanjia.cn.activity.my.MyProcessActivity;
 import com.jianfanjia.cn.activity.my.NotifyActivity;
 import com.jianfanjia.cn.activity.my.SettingActivity;
@@ -97,7 +96,6 @@ public class MyFragment extends BaseFragment {
                 startActivity(CollectActivity.class);
                 break;
             case R.id.my_designer_layout:
-                startActivity(MyFavoriteDesignerActivity_.class);
                 break;
             case R.id.my_site_layout:
                 startActivity(MyProcessActivity.class);
