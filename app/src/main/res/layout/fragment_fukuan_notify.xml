@@ -8,5 +8,6 @@
         android:id="@+id/tip_pay__listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/space_8"
         android:scrollbars="none" />
 </FrameLayout>
