@@ -84,6 +84,9 @@ public class CollectPersonViewPageAdapter extends PagerAdapter {
 
     @Override
     public float getPageWidth(int position) {
+        if(position == (list.size() - 1)){ //最后一屏，显示屏幕宽
+            return 1.0f;
+        }
         return 0.75f;
     }
 

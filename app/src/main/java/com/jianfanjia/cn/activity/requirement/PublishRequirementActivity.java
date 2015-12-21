@@ -37,7 +37,9 @@ import java.util.List;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class PublishRequirementActivity extends BaseActivity implements OnClickListener, NotifyActivityStatusChange {
+public class
+
+        PublishRequirementActivity extends BaseActivity implements OnClickListener, NotifyActivityStatusChange {
     private static final String TAG = PublishRequirementActivity.class.getName();
     private MainHeadView mainHeadView = null;
     private TabLayout tabLayout = null;
@@ -225,11 +227,13 @@ public class PublishRequirementActivity extends BaseActivity implements OnClickL
     protected void back(){
         boolean isChange = false;
         requirementInfoInit.setDec_type(Global.DEC_TYPE_BUSINESS);
-        if(BusinessManager.isRequirementChange(editBussinessRequirementFragment_.getRequirementInfo(),requirementInfoInit)){
+        if(BusinessManager.isRequirementChange(
+                editBussinessRequirementFragment_.getRequirementInfo(),requirementInfoInit)){
             isChange = true;
         }
         requirementInfoInit.setDec_type(Global.DEC_TYPE_HOME);
-        if(BusinessManager.isRequirementChange(editHomeRequirementFragment_.getRequirementInfo(),requirementInfoInit)){
+        if(BusinessManager.isRequirementChange(
+                editHomeRequirementFragment_.getRequirementInfo(),requirementInfoInit)){
             isChange = true;
         }
         if(!isChange){

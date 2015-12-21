@@ -9,9 +9,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.requirement.EditRequirementItemActivity_;
 import com.jianfanjia.cn.activity.requirement.EditRequirementLovestyleActivity_;
-import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseAnnotationFragment;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Constant;
@@ -136,19 +136,34 @@ public class EditHomeRequirementFragment extends BaseAnnotationFragment {
      */
     public void isAllInput() {
         if (act_edit_req_city_content.length() > 0 && !act_edit_req_city_content.getText().equals(getResources().getString(R.string.city_tip))
-                && act_edit_req_cell_content.length() > 0 && act_edit_req_danyuan_content.length() > 0 && act_edit_req_decoratebudget_content.length() > 0
-                && act_edit_req_dong_content.length() > 0 && act_edit_req_housearea_content.length() > 0
-                && act_edit_req_housetype_content.length() > 0 && act_edit_req_lovedesisex_content.length() > 0 && act_edit_req_lovestyle_content.length() > 0 && act_edit_req_persons_content.length() > 0
-                && act_edit_req_qi_content.length() > 0 && act_edit_req_shi_content.length() > 0 && act_edit_req_dong_content.length() > 0 && act_edit_req_work_type_content.length() > 0) {
+                && act_edit_req_cell_content.length() > 0
+                && act_edit_req_danyuan_content.length() > 0
+                && act_edit_req_decoratebudget_content.length() > 0
+                && act_edit_req_dong_content.length() > 0
+                && act_edit_req_housearea_content.length() > 0
+                && act_edit_req_housetype_content.length() > 0
+                && act_edit_req_lovedesisex_content.length() > 0
+                && act_edit_req_lovestyle_content.length() > 0
+                && act_edit_req_persons_content.length() > 0
+                && act_edit_req_qi_content.length() > 0
+                && act_edit_req_shi_content.length() > 0
+                && act_edit_req_dong_content.length() > 0
+                && act_edit_req_work_type_content.length() > 0) {
             isFinish = true;
         } else {
             isFinish = false;
         }
+        LogTool.d(this.getClass().getName(),"isFinish = " + isFinish);
         hostActivity.notifyStatusChange();
     }
 
-    @Click({R.id.act_edit_req_city, R.id.act_edit_req_housetype, R.id.act_edit_req_decoratetype,
-            R.id.act_edit_req_lovestyle, R.id.act_edit_req_persons, R.id.act_edit_req_lovedesistyle, R.id.act_edit_req_lovedesisex, R.id.act_edit_req_work_type})
+    @Click({R.id.act_edit_req_city, R.id.act_edit_req_housetype,
+            R.id.act_edit_req_decoratetype,
+            R.id.act_edit_req_lovestyle,
+            R.id.act_edit_req_persons,
+            R.id.act_edit_req_lovedesistyle,
+            R.id.act_edit_req_lovedesisex,
+            R.id.act_edit_req_work_type})
     protected void back(View clickView) {
         int viewId = clickView.getId();
         switch (viewId) {
