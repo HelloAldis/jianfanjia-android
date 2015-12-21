@@ -1,7 +1,11 @@
 package com.jianfanjia.cn.fragment;
 
+import android.graphics.Paint;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.View;
 
 import com.jianfanjia.cn.activity.R;
@@ -10,6 +14,7 @@ import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +41,13 @@ public class FuKuanNotifyFragment extends BaseFragment {
     @Override
     public void initView(View view) {
         fukuanListView = (RecyclerView) view.findViewById(R.id.tip_pay__listview);
+        fukuanListView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        fukuanListView.setItemAnimator(new DefaultItemAnimator());
+        Paint paint = new Paint();
+        paint.setStrokeWidth(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, getResources().getDisplayMetrics()));
+        paint.setAlpha(0);
+        paint.setAntiAlias(true);
+        fukuanListView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).paint(paint).showLastDivider().build());
     }
 
     @Override
