@@ -30,7 +30,7 @@
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL"/>
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
 
     <application
         android:name="com.jianfanjia.cn.application.MyApplication"
@@ -214,8 +214,7 @@
         <activity
             android:name=".my.NotifyActivity"
             android:label="@string/title_activity_notify"
-            android:screenOrientation="portrait"
-            android:theme="@style/activity_style" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".common.ShowPicActivity"
             android:label="@string/title_activity_show_pic"
@@ -310,20 +309,27 @@
             android:name=".beautifulpic.PreviewDecorationActivity"
             android:label="@string/title_activity_preview_decoration"
             android:screenOrientation="portrait" />
-        <activity android:name=".NewUserCollectLoveStyleActivity_"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".NewUserCollectPersonActivity_"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".NewUserCollectDecStageActivity_"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".NewUserGuideActivity_"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".requirement.PublishRequirementActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".requirement.PreviewBusinessRequirementActivity_"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".requirement.UpdateRequirementActivity_"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".NewUserCollectLoveStyleActivity_"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".NewUserCollectPersonActivity_"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".NewUserCollectDecStageActivity_"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".NewUserGuideActivity_"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".requirement.PublishRequirementActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".requirement.PreviewBusinessRequirementActivity_"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".requirement.UpdateRequirementActivity_"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
