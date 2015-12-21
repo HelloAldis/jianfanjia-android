@@ -67,10 +67,9 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         decoration_listview.setMode(PullToRefreshBase.Mode.BOTH);
         decoration_listview.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         decoration_listview.setItemAnimator(new DefaultItemAnimator());
-        //设置item之间的间隔
         SpacesItemDecoration decoration = new SpacesItemDecoration(8);
         decoration_listview.addItemDecoration(decoration);
-        searchDecorationImg(section, houseStyle, decStyle, 0, 20, getDecorationImgListener);
+        searchDecorationImg(section, houseStyle, decStyle, 0, 8, getDecorationImgListener);
     }
 
     private void initMainHeadView(View view) {
