@@ -1,10 +1,8 @@
 package com.jianfanjia.cn.fragment;
 
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.ListView;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.PayNotifyAdapter;
@@ -22,9 +20,9 @@ import java.util.List;
  * @Description: 付款提醒
  * @date 2015-8-26 下午1:08:44
  */
-public class FuKuanNotifyFragment extends BaseFragment implements OnItemLongClickListener {
+public class FuKuanNotifyFragment extends BaseFragment {
     private static final String TAG = FuKuanNotifyFragment.class.getName();
-    private ListView fukuanListView = null;
+    private RecyclerView fukuanListView = null;
     private List<NotifyMessage> payList = new ArrayList<NotifyMessage>();
     private PayNotifyAdapter payAdapter = null;
 
@@ -37,7 +35,7 @@ public class FuKuanNotifyFragment extends BaseFragment implements OnItemLongClic
 
     @Override
     public void initView(View view) {
-        fukuanListView = (ListView) view.findViewById(R.id.tip_pay__listview);
+        fukuanListView = (RecyclerView) view.findViewById(R.id.tip_pay__listview);
     }
 
     @Override
@@ -58,14 +56,7 @@ public class FuKuanNotifyFragment extends BaseFragment implements OnItemLongClic
 
     @Override
     public void setListener() {
-        fukuanListView.setOnItemLongClickListener(this);
-    }
 
-    @Override
-    public boolean onItemLongClick(AdapterView<?> arg0, View v, int position,
-                                   long id) {
-        // TODO Auto-generated method stub
-        return false;
     }
 
     @Override
