@@ -27,7 +27,6 @@ import com.jianfanjia.cn.http.request.DeleteCollectionRequest;
 import com.jianfanjia.cn.http.request.DeleteFavoriteDesignerRequest;
 import com.jianfanjia.cn.http.request.DeletePicToSectionItemRequest;
 import com.jianfanjia.cn.http.request.DesignerHomePageRequest;
-import com.jianfanjia.cn.http.request.DesignerInfoRequest;
 import com.jianfanjia.cn.http.request.EvaluateDesignerRequest;
 import com.jianfanjia.cn.http.request.FavoriteDesignerListRequest;
 import com.jianfanjia.cn.http.request.FeedBackRequest;
@@ -316,22 +315,6 @@ public class JianFanJiaClient {
         RegisterRequest registerRequest = new RegisterRequest(context, registerInfo);
         LogTool.d(TAG, "register  " + registerRequest.getUrl() + "--" + JsonParser.beanToJson(registerInfo));
         OkHttpClientManager.getInstance().getPostDelegate().postAsyn(registerRequest, JsonParser.beanToJson(registerInfo), listener, tag);
-    }
-
-    /**
-     * 根据设计师id拿到设计师信息
-     *
-     * @param designerid
-     * @param listener
-     * @author zhanghao
-     */
-    public static void getDesignerInfoById(Context context, String designerid,
-                                           ApiUiUpdateListener listener, Object tag) {
-        String getdesignerUrl = Url_New.GET_OWER_DESIGNER.replace(Url_New.ID,
-                designerid);
-        DesignerInfoRequest designerInfoRequest = new DesignerInfoRequest(context);
-        designerInfoRequest.setUrl(getdesignerUrl);
-        OkHttpClientManager.getInstance().getGetDelegate().getAsyn(designerInfoRequest, listener, tag);
     }
 
     /**

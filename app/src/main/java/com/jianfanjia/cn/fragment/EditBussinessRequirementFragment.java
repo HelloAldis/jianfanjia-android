@@ -116,14 +116,21 @@ public class EditBussinessRequirementFragment extends BaseAnnotationFragment {
      */
     public void isAllInput() {
         if (act_edit_req_city_content.length() > 0 && !act_edit_req_city_content.getText().equals(getResources().getString(R.string.city_tip))
-                && act_edit_req_cell_content.length() > 0 && act_edit_req_decoratebudget_content.length() > 0
-                && act_edit_req_decoratetype_content.length() > 0 && act_edit_req_housearea_content.length() > 0
-                && act_edit_req_lovedesisex_content.length() > 0 && act_edit_req_lovestyle_content.length() > 0
-                && act_edit_req_work_type_content.length() > 0 && act_edit_req_street_content.length() > 0 && act_edit_req_lovedesistyle_content.length() > 0) {
+                && act_edit_req_cell_content.length() > 0
+                && act_edit_req_decoratebudget_content.length() > 0
+                && act_edit_req_decoratetype_content.length() > 0
+                && act_edit_req_housearea_content.length() > 0
+                && act_edit_req_lovedesisex_content.length() > 0
+                && act_edit_req_lovestyle_content.length() > 0
+                && act_edit_req_work_type_content.length() > 0
+                && act_edit_req_street_content.length() > 0
+                && act_edit_req_lovedesistyle_content.length() > 0) {
             isFinish = true;
         } else {
             isFinish = false;
         }
+        LogTool.d(this.getClass().getName(),"isFinish = " + isFinish);
+
         hostActivity.notifyStatusChange();
     }
 
@@ -132,7 +139,11 @@ public class EditBussinessRequirementFragment extends BaseAnnotationFragment {
     }
 
     @Click({R.id.act_edit_req_city, R.id.act_edit_req_decoratetype,
-            R.id.act_edit_req_lovestyle, R.id.act_edit_req_persons, R.id.act_edit_req_lovedesistyle, R.id.act_edit_req_lovedesisex, R.id.act_edit_req_work_type})
+            R.id.act_edit_req_lovestyle,
+            R.id.act_edit_req_persons,
+            R.id.act_edit_req_lovedesistyle,
+            R.id.act_edit_req_lovedesisex,
+            R.id.act_edit_req_work_type})
     protected void back(View clickView) {
         int viewId = clickView.getId();
         switch (viewId) {
