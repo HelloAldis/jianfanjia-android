@@ -203,12 +203,16 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
 
         @Override
         public void loadSuccess(Object data) {
-            FROM += Constant.HOME_PAGE_LIMIT;
-            LogTool.d(TAG, "homeDesignersInfo=" + data.toString());
+            LogTool.d(TAG, "data=" + data.toString());
             HomeDesignersInfo homeDesignersInfo = JsonParser.jsonToBean(data.toString(), HomeDesignersInfo.class);
             LogTool.d(TAG, "homeDesignersInfo:" + homeDesignersInfo);
             if (null != homeDesignersInfo) {
-                designerAdapter.add(homeDesignersInfo.getDesigners());
+                List<DesignerListInfo> designers = homeDesignersInfo.getDesigners();
+                if (null != designers && designers.size() > 0) {
+                    FROM += Constant.HOME_PAGE_LIMIT;
+                    LogTool.d(TAG, "FROM=" + FROM);
+                    designerAdapter.add(homeDesignersInfo.getDesigners(), FROM);
+                }
             }
             pullToRefreshRecyclerView.onRefreshComplete();
         }
