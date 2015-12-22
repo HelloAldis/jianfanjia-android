@@ -16,9 +16,11 @@ import com.jianfanjia.cn.bean.Img;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
+import com.jianfanjia.cn.interf.PopWindowCallBack;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.view.SharePopWindow;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,7 +91,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
                 }
                 break;
             case R.id.toolbar_share:
-                makeTextLong("分享");
+                showPopwindow(getWindow().getDecorView());
                 break;
             case R.id.btn_download:
 
@@ -204,6 +206,22 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
     public void onPageSelected(int arg0) {
         currentPosition = arg0;
         pic_tip.setText((currentPosition + 1) + "/" + totalCount);
+    }
+
+
+    private void showPopwindow(View view) {
+        SharePopWindow window = new SharePopWindow(PreviewDecorationActivity.this, new PopWindowCallBack() {
+            @Override
+            public void firstItemClick() {
+
+            }
+
+            @Override
+            public void secondItemClick() {
+
+            }
+        });
+        window.show(view);
     }
 
 
