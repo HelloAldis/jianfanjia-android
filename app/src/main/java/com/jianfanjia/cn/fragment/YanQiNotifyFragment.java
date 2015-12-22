@@ -1,11 +1,13 @@
 package com.jianfanjia.cn.fragment;
 
 import android.content.DialogInterface;
+import android.graphics.Paint;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.ListView;
 
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.R;
@@ -18,6 +20,7 @@ import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.DelayInfoListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
 
@@ -30,9 +33,9 @@ import java.util.List;
  * @Description: 改期提醒
  * @date 2015-8-26 下午1:09:52
  */
-public class YanQiNotifyFragment extends BaseFragment implements OnItemLongClickListener, ApiUiUpdateListener, DelayInfoListener {
+public class YanQiNotifyFragment extends BaseFragment implements ApiUiUpdateListener, DelayInfoListener {
     private static final String TAG = YanQiNotifyFragment.class.getName();
-    private ListView yanqiListView = null;
+    private RecyclerView yanqiListView = null;
     private List<NotifyDelayInfo> delayList = new ArrayList<NotifyDelayInfo>();
     private NotifyDelayInfo notifyDelayInfo = null;
     private DelayNotifyAdapter delayAdapter = null;
@@ -45,7 +48,14 @@ public class YanQiNotifyFragment extends BaseFragment implements OnItemLongClick
 
     @Override
     public void initView(View view) {
-        yanqiListView = (ListView) view.findViewById(R.id.tip_delay__listview);
+        yanqiListView = (RecyclerView) view.findViewById(R.id.tip_delay__listview);
+        yanqiListView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        yanqiListView.setItemAnimator(new DefaultItemAnimator());
+        Paint paint = new Paint();
+        paint.setStrokeWidth(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, getResources().getDisplayMetrics()));
+        paint.setAlpha(0);
+        paint.setAntiAlias(true);
+        yanqiListView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).paint(paint).showLastDivider().build());
     }
 
     @Override
@@ -63,14 +73,7 @@ public class YanQiNotifyFragment extends BaseFragment implements OnItemLongClick
 
     @Override
     public void setListener() {
-        yanqiListView.setOnItemLongClickListener(this);
-    }
 
-    @Override
-    public boolean onItemLongClick(AdapterView<?> arg0, View v, int position,
-                                   long id) {
-        // TODO Auto-generated method stub
-        return false;
     }
 
     //获取改期提醒

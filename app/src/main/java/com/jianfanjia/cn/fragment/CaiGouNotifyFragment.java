@@ -1,10 +1,12 @@
 package com.jianfanjia.cn.fragment;
 
+import android.graphics.Paint;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.ListView;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.CaiGouNotifyAdapter;
@@ -12,6 +14,7 @@ import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +25,9 @@ import java.util.List;
  * @Description: 采购提醒
  * @date 2015-8-26 下午1:07:52
  */
-public class CaiGouNotifyFragment extends BaseFragment implements OnItemLongClickListener {
+public class CaiGouNotifyFragment extends BaseFragment {
     private static final String TAG = CaiGouNotifyFragment.class.getName();
-    private ListView caigouListView;
+    private RecyclerView caigouListView = null;
     private List<NotifyMessage> caigouList = new ArrayList<NotifyMessage>();
     private CaiGouNotifyAdapter caiGouAdapter = null;
 
@@ -37,8 +40,15 @@ public class CaiGouNotifyFragment extends BaseFragment implements OnItemLongClic
 
     @Override
     public void initView(View view) {
-        caigouListView = (ListView) view
+        caigouListView = (RecyclerView) view
                 .findViewById(R.id.tip_caigou__listview);
+        caigouListView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        caigouListView.setItemAnimator(new DefaultItemAnimator());
+        Paint paint = new Paint();
+        paint.setStrokeWidth(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, getResources().getDisplayMetrics()));
+        paint.setAlpha(0);
+        paint.setAntiAlias(true);
+        caigouListView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).paint(paint).showLastDivider().build());
     }
 
     @Override
@@ -60,15 +70,7 @@ public class CaiGouNotifyFragment extends BaseFragment implements OnItemLongClic
 
     @Override
     public void setListener() {
-        caigouListView.setOnItemLongClickListener(this);
-    }
 
-    @Override
-    public boolean onItemLongClick(AdapterView<?> arg0, View v, int position,
-                                   long id) {
-        NotifyMessage notifyMessage = caigouList.get(position);
-        LogTool.d(TAG, "notifyMessage:" + notifyMessage);
-        return true;
     }
 
     @Override

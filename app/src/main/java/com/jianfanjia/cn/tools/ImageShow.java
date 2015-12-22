@@ -12,6 +12,7 @@ import com.jianfanjia.cn.config.Url_New;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 /**
  * Description: com.jianfanjia.cn.tools
@@ -65,6 +66,11 @@ public class ImageShow {
         imageLoader.displayImage(imageUrl, imageView, options);
     }
 
+    public void displayThumbnailImage(String imageid, ImageView imageView, int width, ImageLoadingListener listener) {
+        String imageUrl = Url_New.GET_THUMBNAIL_IMAGE.replace(Url_New.WIDTH, width + "") + imageid;
+        imageLoader.displayImage(imageUrl, imageView, options, listener);
+    }
+
     /**
      * 显示本地图片
      *
@@ -92,6 +98,14 @@ public class ImageShow {
 
     public void displayHalfScreenWidthThumnailImage(Context context, String imageid, ImageView imageView) {
         displayThumbnailImage(imageid, imageView, ScreenUtil.getScreenWidth(context) / 2);
+    }
+
+    public void displayScreenWidthThumnailImage(Context context, String imageid, ImageView imageView, ImageLoadingListener listener) {
+        displayThumbnailImage(imageid, imageView, ScreenUtil.getScreenWidth(context), listener);
+    }
+
+    public void displayHalfScreenWidthThumnailImage(Context context, String imageid, ImageView imageView, ImageLoadingListener listener) {
+        displayThumbnailImage(imageid, imageView, ScreenUtil.getScreenWidth(context) / 2, listener);
     }
 
     /**

@@ -41,7 +41,7 @@ public class DecorationImgFragment extends BaseFragment {
         decoration_img_listview.setItemAnimator(new DefaultItemAnimator());
         SpacesItemDecoration decoration = new SpacesItemDecoration(10);
         decoration_img_listview.addItemDecoration(decoration);
-        getDecorationImgList(0, 8, getDecorationImgListListener);
+        getDecorationImgList(0, 100, getDecorationImgListListener);
     }
 
     @Override

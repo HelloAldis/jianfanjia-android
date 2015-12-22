@@ -142,6 +142,8 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
                 LogTool.d(TAG, "requirement=" + requirement);
                 designerList.clear();
                 designerList = homeDesignersInfo.getDesigners();
+                FROM = designerList.size();
+                LogTool.d(TAG, " FROM:" + FROM);
                 designerAdapter = new DesignerListAdapter(getActivity(), designerList, requirement, new ListItemClickListener() {
                     @Override
                     public void onMaxClick(int position) {
@@ -181,8 +183,6 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
                     }
                 });
                 pullToRefreshRecyclerView.setAdapter(designerAdapter);
-                FROM = designerList.size();
-                LogTool.d(TAG, "designerList:" + designerList);
             }
             pullToRefreshRecyclerView.onRefreshComplete();
         }
@@ -203,12 +203,15 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
 
         @Override
         public void loadSuccess(Object data) {
-            FROM += Constant.HOME_PAGE_LIMIT;
-            LogTool.d(TAG, "homeDesignersInfo=" + data.toString());
             HomeDesignersInfo homeDesignersInfo = JsonParser.jsonToBean(data.toString(), HomeDesignersInfo.class);
             LogTool.d(TAG, "homeDesignersInfo:" + homeDesignersInfo);
             if (null != homeDesignersInfo) {
-                designerAdapter.add(homeDesignersInfo.getDesigners());
+                List<DesignerListInfo> designers = homeDesignersInfo.getDesigners();
+                if (null != designers && designers.size() > 0) {
+                    FROM += Constant.HOME_PAGE_LIMIT;
+                    LogTool.d(TAG, "FROM=" + FROM);
+                    designerAdapter.add(designers, FROM);
+                }
             }
             pullToRefreshRecyclerView.onRefreshComplete();
         }

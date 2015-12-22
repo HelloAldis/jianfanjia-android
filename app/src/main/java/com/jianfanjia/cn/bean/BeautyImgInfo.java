@@ -28,6 +28,7 @@ public class BeautyImgInfo implements Serializable {
     private int favorite_count;
     private int view_count;
     private boolean is_my_favorite;
+    private List<AssociateImgInfo> associate_beautiful_images;
     private List<Img> images;
 
     public String get_id() {
@@ -164,5 +165,13 @@ public class BeautyImgInfo implements Serializable {
 
     public void setIs_deleted(boolean is_deleted) {
         this.is_deleted = is_deleted;
+    }
+
+    public List<AssociateImgInfo> getAssociate_beautiful_images() {
+        return associate_beautiful_images;
+    }
+
+    public void setAssociate_beautiful_images(List<AssociateImgInfo> associate_beautiful_images) {
+        this.associate_beautiful_images = associate_beautiful_images;
     }
 }

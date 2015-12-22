@@ -2,11 +2,14 @@ package com.jianfanjia.cn.adapter;
 
 import android.content.Context;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.adapter.base.BaseListAdapter;
+import com.jianfanjia.cn.adapter.base.BaseRecyclerViewAdapter;
+import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.application.MyApplication;
+import com.jianfanjia.cn.bean.DesignerInfo;
 import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.tools.DateFormatTool;
 
@@ -18,49 +21,56 @@ import java.util.List;
  * @class CaiGouNotifyAdapter
  * @date 2015-8-26 15:57
  */
-public class CaiGouNotifyAdapter extends BaseListAdapter<NotifyMessage> {
+public class CaiGouNotifyAdapter extends BaseRecyclerViewAdapter<NotifyMessage> {
 
-    public CaiGouNotifyAdapter(Context context, List<NotifyMessage> caigouList) {
-        super(context, caigouList);
+    public CaiGouNotifyAdapter(Context context, List<NotifyMessage> list) {
+        super(context, list);
     }
 
     @Override
-    public View initView(int position, View convertView) {
-        ViewHolder viewHolder = null;
+    public void bindView(RecyclerViewHolderBase viewHolder, int position, List<NotifyMessage> list) {
         NotifyMessage message = list.get(position);
-        if (convertView == null) {
-            convertView = layoutInflater.inflate(R.layout.list_item_tip_caigou,
-                    null);
-            viewHolder = new ViewHolder();
-            viewHolder.itemCellView = (TextView) convertView
-                    .findViewById(R.id.list_item_tip_cell_name);
-            viewHolder.itemContentView = (TextView) convertView
-                    .findViewById(R.id.list_item_tip_caigou_content);
-            viewHolder.itemNameView = (TextView) convertView
-                    .findViewById(R.id.list_item_tip_caigou_name);
-            viewHolder.itemNodeView = (TextView) convertView
-                    .findViewById(R.id.list_item_tip_caigou_node);
-            viewHolder.itemPubTimeView = (TextView) convertView
-                    .findViewById(R.id.list_item_tip_caigou_time);
-            convertView.setTag(viewHolder);
-        } else {
-            viewHolder = (ViewHolder) convertView.getTag();
-        }
-        viewHolder.itemCellView.setText(message.getCell());
-        viewHolder.itemNameView.setText(context.getResources().getString(R.string.list_item_caigou_example));
-        viewHolder.itemContentView.setText(message.getContent());
-        viewHolder.itemNodeView.setText(MyApplication.getInstance()
+        CaiGouNotifyViewHolder holder = (CaiGouNotifyViewHolder) viewHolder;
+        holder.itemCellView.setText(message.getCell());
+        holder.itemNameView.setText(context.getResources().getString(R.string.list_item_caigou_example));
+        holder.itemContentView.setText(message.getContent());
+        holder.itemNodeView.setText(MyApplication.getInstance()
                 .getStringById(message.getSection()) + "阶段");
-        viewHolder.itemPubTimeView.setText(DateFormatTool
+        holder.itemPubTimeView.setText(DateFormatTool
                 .toLocalTimeString(message.getTime()));
-        return convertView;
     }
 
-    private static class ViewHolder {
-        TextView itemCellView;
-        TextView itemNameView;// 采购工序视图
-        TextView itemContentView;// 采购内容视图
-        TextView itemNodeView;// 采购节点
-        TextView itemPubTimeView;// 发布时间
+    @Override
+    public View createView(ViewGroup viewGroup, int viewType) {
+        View view = layoutInflater.inflate(R.layout.list_item_tip_caigou,
+                null);
+        return view;
+    }
+
+    @Override
+    public RecyclerViewHolderBase createViewHolder(View view) {
+        return new CaiGouNotifyViewHolder(view);
+    }
+
+    private static class CaiGouNotifyViewHolder extends RecyclerViewHolderBase {
+        public TextView itemCellView;
+        public TextView itemNameView;// 采购工序视图
+        public TextView itemContentView;// 采购内容视图
+        public TextView itemNodeView;// 采购节点
+        public TextView itemPubTimeView;// 发布时间
+
+        public CaiGouNotifyViewHolder(View itemView) {
+            super(itemView);
+            itemCellView = (TextView) itemView
+                    .findViewById(R.id.list_item_tip_cell_name);
+            itemContentView = (TextView) itemView
+                    .findViewById(R.id.list_item_tip_caigou_content);
+            itemNameView = (TextView) itemView
+                    .findViewById(R.id.list_item_tip_caigou_name);
+            itemNodeView = (TextView) itemView
+                    .findViewById(R.id.list_item_tip_caigou_node);
+            itemPubTimeView = (TextView) itemView
+                    .findViewById(R.id.list_item_tip_caigou_time);
+        }
     }
 }
