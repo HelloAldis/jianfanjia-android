@@ -13,11 +13,14 @@ import com.jianfanjia.cn.adapter.PreviewAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.BeautyImgInfo;
 import com.jianfanjia.cn.bean.Img;
+import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
+import com.jianfanjia.cn.http.coreprogress.listener.impl.UIProgressListener;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
+import com.jianfanjia.cn.tools.DownLoadManager;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.SharePopWindow;
@@ -33,6 +36,7 @@ import java.util.List;
  */
 public class PreviewDecorationActivity extends BaseActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
     private static final String TAG = PreviewDecorationActivity.class.getName();
+    private DownLoadManager downLoadManager = null;
     private Toolbar toolbar = null;
     private ImageButton toolbar_collect = null;
     private ImageButton toolbar_share = null;
@@ -52,6 +56,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
         Bundle decorationBundle = intent.getExtras();
         decorationId = decorationBundle.getString(Global.DECORATION_ID);
         LogTool.d(TAG, "decorationId=" + decorationId);
+        downLoadManager = DownLoadManager.getInstance();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar_collect = (ImageButton) findViewById(R.id.toolbar_collect);
         toolbar_share = (ImageButton) findViewById(R.id.toolbar_share);
@@ -225,10 +230,52 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
     }
 
 
-    private void downloadImg(String url, String filePath,
-                             String fileName) {
-
+    private void downloadImg(String url, String fileName) {
+        downLoadManager.download(url, Constant.BEAUTY_IMAG_PATH, fileName, downloadListener, uiProgressListener);
     }
+
+    private ApiUiUpdateListener downloadListener = new ApiUiUpdateListener() {
+        @Override
+        public void preLoad() {
+
+        }
+
+        @Override
+        public void loadSuccess(Object data) {
+            LogTool.d(TAG, "data:" + data.toString());
+        }
+
+        @Override
+        public void loadFailture(String error_msg) {
+            makeTextLong(error_msg);
+        }
+    };
+    private UIProgressListener uiProgressListener = new UIProgressListener() {
+        @Override
+        public void onUIProgress(final long bytesWritten, final long totalSize, boolean done) {
+            LogTool.d(this.getClass().getName(), "bytesWritten:"
+                    + bytesWritten + "  totalSize:" + totalSize);
+            String process = (int) ((bytesWritten * 1.0 / totalSize) * 100)
+                    + "%";
+            LogTool.d(this.getClass().getName(), "process:" + process);
+//            builder.setProgress((int) totalSize, (int) bytesWritten, false);
+//            builder.setContentInfo((int) ((bytesWritten / (float) totalSize) * 100)
+//                    + "%");
+//            nManager.notify(NotificationID, builder.build());
+        }
+
+        @Override
+        public void onUIStart(long currentBytes, long contentLength, boolean done) {
+            super.onUIStart(currentBytes, contentLength, done);
+            LogTool.d("uiProgressListener", "onUiStart");
+        }
+
+        @Override
+        public void onUIFinish(long currentBytes, long contentLength, boolean done) {
+            super.onUIFinish(currentBytes, contentLength, done);
+            LogTool.d("uiProgressListener", "onUiFinish");
+        }
+    };
 
     @Override
     public int getLayoutId() {
