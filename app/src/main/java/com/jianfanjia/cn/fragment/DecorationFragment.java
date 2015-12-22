@@ -153,32 +153,6 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         searchDecorationImg(section, houseStyle, decStyle, FROM, Constant.HOME_PAGE_LIMIT, pullUpListener);
     }
 
-
-    private ApiUiUpdateListener getDecorationBySearchListener = new ApiUiUpdateListener() {
-        @Override
-        public void preLoad() {
-
-        }
-
-        @Override
-        public void loadSuccess(Object data) {
-            LogTool.d(TAG, "data:" + data.toString());
-            DecorationItemInfo decorationItemInfo = JsonParser.jsonToBean(data.toString(), DecorationItemInfo.class);
-            LogTool.d(TAG, "decorationItemInfo:" + decorationItemInfo);
-            if (null != decorationItemInfo) {
-                beautyImgList.clear();
-                beautyImgList.addAll(decorationItemInfo.getBeautiful_images());
-                LogTool.d(TAG, "beautyImgList:" + beautyImgList);
-                decorationAdapter.notifyDataSetChanged();
-            }
-        }
-
-        @Override
-        public void loadFailture(String error_msg) {
-            makeTextLong(error_msg);
-        }
-    };
-
     private ApiUiUpdateListener pullDownListener = new ApiUiUpdateListener() {
         @Override
         public void preLoad() {
@@ -192,24 +166,26 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
             LogTool.d(TAG, "decorationItemInfo:" + decorationItemInfo);
             if (null != decorationItemInfo) {
                 beautyImgList.clear();
-                beautyImgList = decorationItemInfo.getBeautiful_images();
-                LogTool.d(TAG, "beautyImgList:" + beautyImgList);
-                decorationAdapter = new DecorationAdapter(getActivity(), beautyImgList, new OnItemClickListener() {
-                    @Override
-                    public void OnItemClick(int position) {
-                        BeautyImgInfo beautyImgInfo = beautyImgList.get(position);
-                        LogTool.d(TAG, "beautyImgInfo:" + beautyImgInfo);
-                        Intent decorationIntent = new Intent(getActivity(), PreviewDecorationActivity.class);
-                        Bundle decorationBundle = new Bundle();
-                        decorationBundle.putString(Global.DECORATION_ID, beautyImgInfo.get_id());
-                        decorationIntent.putExtras(decorationBundle);
-                        startActivity(decorationIntent);
-                    }
-                });
-                LogTool.d(TAG, "decorationAdapter:" + decorationAdapter);
-                decoration_listview.setAdapter(decorationAdapter);
+                beautyImgList.addAll(decorationItemInfo.getBeautiful_images());
                 FROM = beautyImgList.size();
-                LogTool.d(TAG, "beautyImgList:" + beautyImgList + "  FROM=" + FROM);
+                if (null == decorationAdapter) {
+                    decorationAdapter = new DecorationAdapter(getActivity(), beautyImgList, new OnItemClickListener() {
+                        @Override
+                        public void OnItemClick(int position) {
+                            BeautyImgInfo beautyImgInfo = beautyImgList.get(position);
+                            LogTool.d(TAG, "beautyImgInfo:" + beautyImgInfo);
+                            Intent decorationIntent = new Intent(getActivity(), PreviewDecorationActivity.class);
+                            Bundle decorationBundle = new Bundle();
+                            decorationBundle.putString(Global.DECORATION_ID, beautyImgInfo.get_id());
+                            decorationIntent.putExtras(decorationBundle);
+                            startActivity(decorationIntent);
+                        }
+                    });
+                    decoration_listview.setAdapter(decorationAdapter);
+                } else {
+                    decorationAdapter.notifyDataSetChanged();
+                }
+
             }
             decoration_listview.onRefreshComplete();
         }
@@ -229,12 +205,15 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
 
         @Override
         public void loadSuccess(Object data) {
-            FROM += Constant.HOME_PAGE_LIMIT;
-            LogTool.d(TAG, "data=" + data.toString());
             DecorationItemInfo decorationItemInfo = JsonParser.jsonToBean(data.toString(), DecorationItemInfo.class);
             LogTool.d(TAG, "decorationItemInfo:" + decorationItemInfo);
             if (null != decorationItemInfo) {
-                decorationAdapter.add(decorationItemInfo.getBeautiful_images(), FROM);
+                List<BeautyImgInfo> beautyImgs = decorationItemInfo.getBeautiful_images();
+                if (null != beautyImgs && beautyImgs.size() > 0) {
+                    FROM += Constant.HOME_PAGE_LIMIT;
+                    LogTool.d(TAG, "FROM=" + FROM);
+                    decorationAdapter.add(beautyImgs, FROM);
+                }
             }
             decoration_listview.onRefreshComplete();
         }
@@ -268,7 +247,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         public void onItemCallback(int position, String title) {
             Global.SECTION_POSITION = position;
             section = title;
-            searchDecorationImg(section, houseStyle, decStyle, FROM, Constant.HOME_PAGE_LIMIT, getDecorationBySearchListener);
+            searchDecorationImg(section, houseStyle, decStyle, FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
@@ -291,7 +270,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         public void onItemCallback(int position, String title) {
             Global.HOUSE_TYPE_POSITION = position;
             houseStyle = title;
-            searchDecorationImg(section, houseStyle, decStyle, FROM, Constant.HOME_PAGE_LIMIT, getDecorationBySearchListener);
+            searchDecorationImg(section, houseStyle, decStyle, FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
@@ -314,7 +293,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         public void onItemCallback(int position, String title) {
             Global.DEC_STYLE_POSITION = position;
             decStyle = title;
-            searchDecorationImg(section, houseStyle, decStyle, FROM, Constant.HOME_PAGE_LIMIT, getDecorationBySearchListener);
+            searchDecorationImg(section, houseStyle, decStyle, FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
