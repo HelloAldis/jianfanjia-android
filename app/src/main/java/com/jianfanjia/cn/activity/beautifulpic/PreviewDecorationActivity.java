@@ -53,7 +53,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar_collect = (ImageButton) findViewById(R.id.toolbar_collect);
         toolbar_share = (ImageButton) findViewById(R.id.toolbar_share);
-        toolbar.setNavigationIcon(R.mipmap.icon_register_back);
+        toolbar.setNavigationIcon(R.mipmap.icon_back);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         viewPager = (ViewPager) findViewById(R.id.showpicPager);
