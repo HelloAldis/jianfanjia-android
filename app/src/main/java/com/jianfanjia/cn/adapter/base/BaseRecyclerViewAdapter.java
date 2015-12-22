@@ -62,15 +62,6 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Re
         }
     }
 
-    public void remove(List<T> l, int position) {
-        if (list.size() > 0) {
-            for (T t : l) {
-                list.add(t);
-            }
-            notifyItemRangeRemoved(position, list.size());
-        }
-    }
-
     public void remove(int position) {
         list.remove(position);
         notifyItemRemoved(position);
