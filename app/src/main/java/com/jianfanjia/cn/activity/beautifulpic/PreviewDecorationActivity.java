@@ -15,6 +15,7 @@ import com.jianfanjia.cn.bean.BeautyImgInfo;
 import com.jianfanjia.cn.bean.Img;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.http.coreprogress.listener.impl.UIProgressListener;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
@@ -49,6 +50,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
     private List<String> imgList = new ArrayList<String>();
     private int totalCount = 0;
     private int currentPosition = 0;
+    private String currentImgId = null;
 
     @Override
     public void initView() {
@@ -99,7 +101,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
                 showPopwindow(getWindow().getDecorView());
                 break;
             case R.id.btn_download:
-
+                downloadImg(currentImgId);
                 break;
             default:
                 break;
@@ -143,6 +145,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
                 for (Img img : decorationImgs) {
                     imgList.add(img.getImageid());
                 }
+                currentImgId = imgList.get(currentPosition);
                 pic_tip.setText((currentPosition + 1) + "/" + totalCount);
                 PreviewAdapter adapter = new PreviewAdapter(PreviewDecorationActivity.this, imgList, new ViewPagerClickListener() {
                     @Override
@@ -213,6 +216,8 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
     public void onPageSelected(int arg0) {
         currentPosition = arg0;
         pic_tip.setText((currentPosition + 1) + "/" + totalCount);
+        currentImgId = imgList.get(currentPosition);
+        LogTool.d(TAG, "currentImgId=" + currentImgId);
     }
 
 
@@ -232,8 +237,8 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
     }
 
 
-    private void downloadImg(String url, String fileName) {
-        downLoadManager.download(url, Constant.BEAUTY_IMAG_PATH, fileName, downloadListener, uiProgressListener);
+    private void downloadImg(String imgId) {
+        downLoadManager.download(Url_New.IMG_HTTPROOT + imgId, Constant.BEAUTY_IMAG_PATH, imgId + ".jpg", downloadListener, uiProgressListener);
     }
 
     private ApiUiUpdateListener downloadListener = new ApiUiUpdateListener() {
@@ -245,6 +250,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
         @Override
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data.toString());
+            makeTextLong("下载成功");
         }
 
         @Override
