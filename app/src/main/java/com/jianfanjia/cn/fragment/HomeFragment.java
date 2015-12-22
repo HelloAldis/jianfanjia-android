@@ -210,7 +210,7 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
                 if (null != designers && designers.size() > 0) {
                     FROM += Constant.HOME_PAGE_LIMIT;
                     LogTool.d(TAG, "FROM=" + FROM);
-                    designerAdapter.add(homeDesignersInfo.getDesigners(), FROM);
+                    designerAdapter.add(designers, FROM);
                 }
             }
             pullToRefreshRecyclerView.onRefreshComplete();
