@@ -57,7 +57,8 @@
         android:layout_alignParentRight="true"
         android:layout_marginBottom="15dip"
         android:layout_marginRight="15dip"
-        android:background="@drawable/icon_download_bg" />
+        android:background="@drawable/icon_download_bg"
+        android:visibility="gone" />
 
     <LinearLayout
         android:id="@+id/textLayout"

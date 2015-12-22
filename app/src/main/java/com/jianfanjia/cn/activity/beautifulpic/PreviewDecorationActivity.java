@@ -130,6 +130,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
             BeautyImgInfo beautyImgInfo = JsonParser.jsonToBean(data.toString(), BeautyImgInfo.class);
             LogTool.d(TAG, "beautyImgInfo:" + beautyImgInfo);
             if (null != beautyImgInfo) {
+                btn_download.setVisibility(View.VISIBLE);
                 if (beautyImgInfo.is_my_favorite()) {
                     toolbar_collect.setSelected(true);
                 } else {
@@ -156,6 +157,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
         @Override
         public void loadFailture(String error_msg) {
             makeTextLong(error_msg);
+            btn_download.setVisibility(View.GONE);
         }
     };
 
