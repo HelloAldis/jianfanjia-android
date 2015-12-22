@@ -15,6 +15,9 @@ public class Url_New {
     public static final String HTTPROOT = "http://" + SEVER_IP + ":"
             + SEVER_PORT + "/api/v2/app/";
 
+    public static final String IMG_HTTPROOT = "http://" + SEVER_IP + ":"
+            + SEVER_PORT + "/api/v2/app/image/";
+
     public static final String CONTRACT_URL = "http://" + SEVER_IP + "/tpl/user/agreement.html";
 
     public static final String ID = "id";
