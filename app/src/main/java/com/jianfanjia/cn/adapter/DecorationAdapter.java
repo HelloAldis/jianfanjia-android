@@ -38,7 +38,7 @@ public class DecorationAdapter extends BaseRecyclerViewAdapter<BeautyImgInfo> {
     public void bindView(final RecyclerViewHolderBase viewHolder, final int position, List<BeautyImgInfo> list) {
         BeautyImgInfo info = list.get(position);
         final DecorationViewHolder holder = (DecorationViewHolder) viewHolder;
-//        holder.itemDecorateView.setImageResource(R.drawable.whitebottom);
+        holder.itemDecorateView.setImageResource(R.mipmap.pix_default);
         holder.itemDecorateView.setTag(info.getImages().get(0).getImageid());
         imageShow.displayScreenWidthThumnailImage(context, info.getImages().get(0).getImageid(), holder.itemDecorateView, new ImageLoadingListener() {
             @Override
