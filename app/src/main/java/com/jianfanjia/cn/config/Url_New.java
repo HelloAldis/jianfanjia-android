@@ -38,6 +38,7 @@ public class Url_New {
     // 检查版本
     public static final String UPDATE_VERSION_URL = HTTPROOT
             + "device/android_build_version";
+
     // 用户反馈 feedback
     public static final String FEEDBACK_URL = HTTPROOT + "feedback";
     // --------------------------------------------------业主-----------------------------------------------------------

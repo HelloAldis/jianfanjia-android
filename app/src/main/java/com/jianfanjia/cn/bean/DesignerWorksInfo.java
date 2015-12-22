@@ -10,6 +10,7 @@ import java.util.List;
  * Time: 13:41
  */
 public class DesignerWorksInfo implements Serializable {
+    private static final long serialVersionUID = 5438941915418246822L;
     private List<Product> products;
     private String total;
 

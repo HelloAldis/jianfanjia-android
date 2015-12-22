@@ -10,6 +10,7 @@ import java.util.List;
  * Time: 10:33
  */
 public class DecorationItemInfo implements Serializable {
+    private static final long serialVersionUID = 1882322068000269988L;
     private List<BeautyImgInfo> beautiful_images;
     private int total;
 

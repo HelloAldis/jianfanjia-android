@@ -12,8 +12,8 @@ import java.io.Serializable;
 import java.net.HttpCookie;
 
 public class SerializableHttpCookie implements Serializable {
-    private static final long serialVersionUID = 6374381323722046732L;
 
+    private static final long serialVersionUID = 143920162100736639L;
     private transient final HttpCookie cookie;
     private transient HttpCookie clientCookie;
 

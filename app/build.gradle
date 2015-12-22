@@ -18,12 +18,12 @@ apt {
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    buildToolsVersion "23.0.2"
 
     defaultConfig {
         applicationId "com.jianfanjia.cn.activity"
         minSdkVersion 15
-        targetSdkVersion 21
+        targetSdkVersion 23
         versionCode 20
         versionName "2.0.20"
 
@@ -53,7 +53,7 @@ android {
             manifestPlaceholders = [GETUI_PUSH_APPID : "YZV748rCe89l8CfZ7dtIF9",GETUI_PUSH_APPKEY : "8GJ1XgPOL9ArriE8xOJDK8",GETUI_PUSH_APPSECRET : "sJtpmFxS0a5sA30Au3iI36"]
 
         }
-        androidtest {
+        andtest {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.relealse
@@ -62,7 +62,7 @@ android {
 
         }
         debug{
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.relealse
 

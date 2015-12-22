@@ -13,8 +13,7 @@ import java.util.ArrayList;
  */
 public class SectionItemInfo implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
+    private static final long serialVersionUID = -8274501297058657269L;
     private boolean isOpen;
 
     private String _id;

@@ -10,6 +10,8 @@ import java.util.List;
  * Time: 17:38
  */
 public class BeautyImgInfo implements Serializable {
+
+    private static final long serialVersionUID = 3756904014887565122L;
     private String _id;
     private boolean is_deleted;
     private long lastupdate;

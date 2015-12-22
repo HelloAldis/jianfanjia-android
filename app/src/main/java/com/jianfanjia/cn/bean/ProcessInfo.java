@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * @date 2015-8-28 15:30
  */
 public class ProcessInfo implements Serializable {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -4608194481708495533L;
     private String _id;
     private String requirementid;
     private String final_planid;

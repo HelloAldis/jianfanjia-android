@@ -9,6 +9,7 @@ import java.io.Serializable;
  * Date:15-10-20 21:47
  */
 public class Designer implements Serializable {
+    private static final long serialVersionUID = -8515828649644437770L;
     private String _id;
     private String phone;
     private String imageid;

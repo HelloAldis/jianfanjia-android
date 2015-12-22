@@ -9,6 +9,7 @@ import java.io.Serializable;
  * Time: 12:05
  */
 public class PriceDetail implements Serializable {
+    private static final long serialVersionUID = 5886154173353451274L;
     private String _id;
     private String item;
     private float price;
