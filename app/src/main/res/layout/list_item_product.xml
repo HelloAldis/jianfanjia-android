@@ -29,6 +29,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="-30dip"
             android:scaleType="centerCrop"
+            android:visibility="gone"
             app:border_color="@color/white"
             app:border_width="2dip" />
 
