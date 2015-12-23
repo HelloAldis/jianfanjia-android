@@ -6,8 +6,7 @@
 
     <TextView
         android:id="@+id/no_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/listview_item_text_style_middle"
         android:layout_centerInParent="true"
         android:text="@string/error_view_no_data"
         android:textColor="#000000" />
