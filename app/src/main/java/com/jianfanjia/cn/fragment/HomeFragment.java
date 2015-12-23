@@ -191,7 +191,7 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
                     pullToRefreshRecyclerView.setAdapter(designerAdapter);
                 } else {
                     LogTool.d(TAG, "designerAdapter is not null");
-                    designerAdapter.notifyItemRangeChanged(FROM + 1, designerAdapter.getItemCount() - (FROM + 1));
+                    designerAdapter.notifyDataSetChanged();
                 }
             }
             pullToRefreshRecyclerView.onRefreshComplete();
