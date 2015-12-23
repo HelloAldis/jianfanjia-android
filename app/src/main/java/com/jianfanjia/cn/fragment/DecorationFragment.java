@@ -179,26 +179,36 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
             if (null != decorationItemInfo) {
                 beautyImgList.clear();
                 beautyImgList.addAll(decorationItemInfo.getBeautiful_images());
+                LogTool.d(TAG, "beautyImgList=" + beautyImgList);
                 FROM = beautyImgList.size();
                 LogTool.d(TAG, "FROM:" + FROM);
-                if (null == decorationAdapter) {
-                    LogTool.d(TAG, "decorationAdapter is null");
-                    decorationAdapter = new DecorationAdapter(getActivity(), beautyImgList, new OnItemClickListener() {
-                        @Override
-                        public void OnItemClick(int position) {
-                            BeautyImgInfo beautyImgInfo = beautyImgList.get(position);
-                            LogTool.d(TAG, "beautyImgInfo:" + beautyImgInfo);
-                            Intent decorationIntent = new Intent(getActivity(), PreviewDecorationActivity.class);
-                            Bundle decorationBundle = new Bundle();
-                            decorationBundle.putString(Global.DECORATION_ID, beautyImgInfo.get_id());
-                            decorationIntent.putExtras(decorationBundle);
-                            startActivity(decorationIntent);
-                        }
-                    });
-                    decoration_listview.setAdapter(decorationAdapter);
+                if (null != beautyImgList && beautyImgList.size() > 0) {
+                    if (null == decorationAdapter) {
+                        LogTool.d(TAG, "decorationAdapter is null");
+                        decorationAdapter = new DecorationAdapter(getActivity(), beautyImgList, new OnItemClickListener() {
+                            @Override
+                            public void OnItemClick(int position) {
+                                BeautyImgInfo beautyImgInfo = beautyImgList.get(position);
+                                LogTool.d(TAG, "beautyImgInfo:" + beautyImgInfo);
+                                Intent decorationIntent = new Intent(getActivity(), PreviewDecorationActivity.class);
+                                Bundle decorationBundle = new Bundle();
+                                decorationBundle.putString(Global.DECORATION_ID, beautyImgInfo.get_id());
+                                decorationIntent.putExtras(decorationBundle);
+                                startActivity(decorationIntent);
+                            }
+                        });
+                        decoration_listview.setAdapter(decorationAdapter);
+                    } else {
+                        LogTool.d(TAG, "decorationAdapter is not null");
+                        decorationAdapter.notifyDataSetChanged();
+                    }
+                    decoration_listview.setVisibility(View.VISIBLE);
+                    emptyLayout.setVisibility(View.GONE);
+                    errorLayout.setVisibility(View.GONE);
                 } else {
-                    LogTool.d(TAG, "decorationAdapter is not null");
-                    decorationAdapter.notifyDataSetChanged();
+                    decoration_listview.setVisibility(View.GONE);
+                    errorLayout.setVisibility(View.GONE);
+                    emptyLayout.setVisibility(View.VISIBLE);
                 }
             }
             decoration_listview.onRefreshComplete();
@@ -207,6 +217,8 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         @Override
         public void loadFailture(String error_msg) {
             makeTextLong(error_msg);
+            decoration_listview.setVisibility(View.GONE);
+            emptyLayout.setVisibility(View.GONE);
             errorLayout.setVisibility(View.VISIBLE);
             decoration_listview.onRefreshComplete();
         }

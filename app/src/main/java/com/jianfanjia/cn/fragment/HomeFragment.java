@@ -201,7 +201,6 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
         public void loadFailture(String error_msg) {
             hideWaitDialog();
             makeTextLong(error_msg);
-            errorLayout.setVisibility(View.VISIBLE);
             pullToRefreshRecyclerView.onRefreshComplete();
         }
     };
