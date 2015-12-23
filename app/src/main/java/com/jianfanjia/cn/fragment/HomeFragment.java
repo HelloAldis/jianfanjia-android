@@ -84,6 +84,7 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
     @Override
     public void setListener() {
         pullToRefreshRecyclerView.setOnRefreshListener(this);
+        errorLayout.setOnClickListener(this);
     }
 
     @Override
@@ -92,6 +93,9 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
             case R.id.btn_add:
                 Intent intent = new Intent(getActivity(), PublishRequirementActivity.class);
                 startActivityForResult(intent, XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT);
+                break;
+            case R.id.error_include:
+                initHomePage();
                 break;
             default:
                 break;
@@ -191,6 +195,7 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
         public void loadFailture(String error_msg) {
             hideWaitDialog();
             makeTextLong(error_msg);
+            errorLayout.setVisibility(View.VISIBLE);
             pullToRefreshRecyclerView.onRefreshComplete();
         }
     };
@@ -219,6 +224,7 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
         @Override
         public void loadFailture(String error_msg) {
             makeTextLong(error_msg);
+            errorLayout.setVisibility(View.VISIBLE);
             pullToRefreshRecyclerView.onRefreshComplete();
         }
     };
