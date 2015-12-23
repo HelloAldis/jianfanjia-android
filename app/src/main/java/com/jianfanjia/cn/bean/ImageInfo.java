@@ -9,6 +9,7 @@ import java.io.Serializable;
  * Time: 11:37
  */
 public class ImageInfo implements Serializable {
+    private static final long serialVersionUID = 8429692010603248547L;
     private String description;
     private String imageid;
     private String section;

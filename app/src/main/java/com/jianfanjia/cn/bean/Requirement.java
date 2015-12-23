@@ -10,6 +10,7 @@ import java.util.List;
  * Time: 11:31
  */
 public class Requirement implements Serializable {
+    private static final long serialVersionUID = 6939087950102330881L;
     private String _id;
     private String status;
     private List<String> rec_designerids;

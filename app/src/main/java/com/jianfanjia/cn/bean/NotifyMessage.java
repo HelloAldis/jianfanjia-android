@@ -14,6 +14,7 @@ import java.io.Serializable;
 @DatabaseTable(tableName = "NotifyMessage")
 public class NotifyMessage implements Serializable {
 
+    private static final long serialVersionUID = -5432981870622737812L;
     @DatabaseField(generatedId = true)
     public int id;// 自增长
 

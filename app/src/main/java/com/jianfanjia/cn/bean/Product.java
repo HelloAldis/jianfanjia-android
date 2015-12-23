@@ -10,6 +10,7 @@ import java.util.List;
  * Time: 11:34
  */
 public class Product implements Serializable {
+    private static final long serialVersionUID = 2616692613021879727L;
     private String _id;
     private boolean is_deleted;
     private String province;

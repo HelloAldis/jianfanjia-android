@@ -11,8 +11,8 @@ import java.io.Serializable;
  *
  */
 public class Process implements Serializable {
-	private static final long serialVersionUID = 1L;
 
+	private static final long serialVersionUID = -5635939585005504702L;
 	private String _id;// 工地id
 
 	private String city;

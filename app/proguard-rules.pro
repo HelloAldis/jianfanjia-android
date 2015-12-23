@@ -16,14 +16,17 @@
 #   public *;
 #}
 -keepattributes Signature
--keep class com.jianfanjia.cn.bean.** { *; }
--keep class com.jianfanjia.cn.http.cookie.** { *; }
+-keepattributes EnclosingMethod
+
+-keep class com.jianfanjia.cn.bean.** { * ;}
+-keep class com.jianfanjia.cn.http.** { * ;}
 
 #个推混淆
 -dontwarn com.igexin.**
 -dontwarn android.support.**
 -keep class com.igexin.**{*;}
 -keep class android.support.v4.** { *; }
+-keep public class * extends android.support.v4.** { *;}
 -keep interface android.support.v4.app.** { *; }
 
 #ormlite混淆

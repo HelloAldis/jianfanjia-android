@@ -12,6 +12,7 @@ import java.util.List;
  */
 public class MyFavoriteDesigner implements Serializable{
 
+    private static final long serialVersionUID = 6567201683315668291L;
     private int total;
     private List<DesignerInfo> designers;
 

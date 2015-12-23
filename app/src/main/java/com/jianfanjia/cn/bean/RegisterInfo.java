@@ -10,7 +10,7 @@ import java.io.Serializable;
  * @Decription 此类是一个注册实体类
  */
 public class RegisterInfo implements Serializable {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -2800934515739609552L;
     private String phone;// 手机号
     private String pass;// 密码
     private String code;// 验证码

@@ -10,6 +10,7 @@ import java.util.List;
  * Time: 14:47
  */
 public class ContractInfo implements Serializable {
+    private static final long serialVersionUID = -5936540477117400623L;
     private String _id;
     private long last_status_update_time;
     private long create_at;

@@ -10,6 +10,7 @@ import java.util.List;
  * Time: 15:11
  */
 public class DesignerCaseInfo implements Serializable {
+    private static final long serialVersionUID = 5825116965328501693L;
     private String _id;
     private String province;
     private String city;

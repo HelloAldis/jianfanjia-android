@@ -10,8 +10,8 @@ import java.util.ArrayList;
  * @date 2015-8-26 下午19:33
  */
 public class OwnerInfo implements Serializable {
-    private static final long serialVersionUID = 1L;
 
+    private static final long serialVersionUID = 8598943994953102276L;
     private String _id;
 
     private String accessToken;
