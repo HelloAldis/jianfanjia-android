@@ -179,8 +179,8 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
             if (null != decorationItemInfo) {
                 beautyImgList.clear();
                 beautyImgList.addAll(decorationItemInfo.getBeautiful_images());
-                LogTool.d(TAG, "beautyImgList:" + beautyImgList);
                 FROM = beautyImgList.size();
+                LogTool.d(TAG, "FROM:" + FROM);
                 if (null == decorationAdapter) {
                     LogTool.d(TAG, "decorationAdapter is null");
                     decorationAdapter = new DecorationAdapter(getActivity(), beautyImgList, new OnItemClickListener() {
@@ -200,7 +200,6 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
                     LogTool.d(TAG, "decorationAdapter is not null");
                     decorationAdapter.notifyDataSetChanged();
                 }
-
             }
             decoration_listview.onRefreshComplete();
         }
@@ -226,9 +225,9 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
             if (null != decorationItemInfo) {
                 List<BeautyImgInfo> beautyImgs = decorationItemInfo.getBeautiful_images();
                 if (null != beautyImgs && beautyImgs.size() > 0) {
+                    decorationAdapter.add(FROM, beautyImgs);
                     FROM += Constant.HOME_PAGE_LIMIT;
                     LogTool.d(TAG, "FROM=" + FROM);
-                    decorationAdapter.add(beautyImgs, FROM);
                 }
             }
             decoration_listview.onRefreshComplete();
