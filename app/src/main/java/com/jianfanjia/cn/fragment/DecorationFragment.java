@@ -45,6 +45,8 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
     private static final int DECSTYLE = 3;
     private static final int NOT = 4;
     private MainHeadView mainHeadView = null;
+    private RelativeLayout emptyLayout = null;
+    private RelativeLayout errorLayout = null;
     private LinearLayout topLayout = null;
     private RelativeLayout sectionLayout = null;
     private RelativeLayout houseTypeLayout = null;
@@ -61,6 +63,8 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
     @Override
     public void initView(View view) {
         initMainHeadView(view);
+        emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
+        errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
         topLayout = (LinearLayout) view.findViewById(R.id.topLayout);
         sectionLayout = (RelativeLayout) view.findViewById(R.id.sectionLayout);
         houseTypeLayout = (RelativeLayout) view.findViewById(R.id.houseTypeLayout);
@@ -72,7 +76,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         decoration_listview.setItemAnimator(new DefaultItemAnimator());
         SpacesItemDecoration decoration = new SpacesItemDecoration(7);
         decoration_listview.addItemDecoration(decoration);
-        searchDecorationImg(section, houseStyle, decStyle, FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
+        initDecorationImg();
     }
 
     private void initMainHeadView(View view) {
@@ -83,12 +87,17 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         mainHeadView.setBackLayoutVisable(View.GONE);
     }
 
+    private void initDecorationImg() {
+        searchDecorationImg(section, houseStyle, decStyle, FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
+    }
+
     @Override
     public void setListener() {
         sectionLayout.setOnClickListener(this);
         houseTypeLayout.setOnClickListener(this);
         decStyleLayout.setOnClickListener(this);
         decoration_listview.setOnRefreshListener(this);
+        errorLayout.setOnClickListener(this);
     }
 
     @Override
@@ -102,6 +111,9 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
                 break;
             case R.id.decStyleLayout:
                 setSelectState(DECSTYLE);
+                break;
+            case R.id.error_include:
+
                 break;
             default:
                 break;
@@ -193,6 +205,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         @Override
         public void loadFailture(String error_msg) {
             makeTextLong(error_msg);
+            errorLayout.setVisibility(View.VISIBLE);
             decoration_listview.onRefreshComplete();
         }
     };
@@ -221,6 +234,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         @Override
         public void loadFailture(String error_msg) {
             makeTextLong(error_msg);
+            errorLayout.setVisibility(View.VISIBLE);
             decoration_listview.onRefreshComplete();
         }
     };
