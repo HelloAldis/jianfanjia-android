@@ -38,7 +38,7 @@ public class Constant {
     public static final int MANAGE = 2;//工地管理
     public static final int MY = 3;//我的
 
-    public static final int HOME_PAGE_LIMIT = 8;//首页分页 每次加载8条
+    public static final int HOME_PAGE_LIMIT = 10;//首页分页 每次加载10条
 
     public static class Config {
         public static final boolean DEVELOPER_MODE = false;
