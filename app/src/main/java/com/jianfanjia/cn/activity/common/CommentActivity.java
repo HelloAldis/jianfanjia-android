@@ -225,7 +225,7 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
         } else {
             setResult(RESULT_CANCELED);
         }
-        finish();
+        appManager.finishActivity(this);
     }
 
     @Override

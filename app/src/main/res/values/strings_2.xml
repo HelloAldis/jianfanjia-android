@@ -99,4 +99,6 @@
     <string name="str_guide_tip2">我们将会为您匹配最合适的设计师</string>
     <string name="str_businessdecoratetype">商装类型</string>
     <string name="update_requirement">修改装修需求</string>
+    <string name="business_dec">商装</string>
+    <string name="home_dec">家装</string>
 </resources>

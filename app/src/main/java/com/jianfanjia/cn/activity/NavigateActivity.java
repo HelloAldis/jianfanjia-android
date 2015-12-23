@@ -36,10 +36,10 @@ public class NavigateActivity extends BaseActivity implements OnClickListener,
     private LinearLayout dotLayout;
     private RelativeLayout imageLayout;
 
-    private static final int imgId[] = {R.mipmap.p1, R.mipmap.p2,
+    private int imgId[] = {R.mipmap.p1, R.mipmap.p2,
             R.mipmap.p3, R.mipmap.p4};
 
-    private static final ImageView[] dots = new ImageView[4];
+    private ImageView[] dots = new ImageView[4];
 
     @Override
     public void initView() {
@@ -79,11 +79,11 @@ public class NavigateActivity extends BaseActivity implements OnClickListener,
                 Bundle bundle = new Bundle();
                 bundle.putBoolean(Global.ISREGIISTER, true);
                 startActivity(LoginNewActivity_.class, bundle);
-                finish();
+                appManager.finishActivity(this);
                 break;
             case R.id.btnLogin:
                 startActivity(LoginNewActivity_.class);
-                finish();
+                appManager.finishActivity(this);
                 break;
             default:
                 break;

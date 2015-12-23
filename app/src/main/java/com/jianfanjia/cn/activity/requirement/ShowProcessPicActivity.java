@@ -88,7 +88,7 @@ public class ShowProcessPicActivity extends BaseActivity implements
         super.loadSuccess(data);
         if (showPicPagerAdapter.getCount() == 1) {
             setResult(RESULT_OK);
-            finish();
+            appManager.finishActivity(this);
         } else {
             deletePicPopWindow.dismiss();
             totalCount--;
@@ -129,7 +129,7 @@ public class ShowProcessPicActivity extends BaseActivity implements
         }else{
             setResult(RESULT_CANCELED);
         }
-        finish();
+        appManager.finishActivity(this);
     }
 
     @Override

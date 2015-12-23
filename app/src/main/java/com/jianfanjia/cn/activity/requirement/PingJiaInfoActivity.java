@@ -92,7 +92,7 @@ public class PingJiaInfoActivity extends BaseActivity implements
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.head_back_layout:
-                finish();
+                appManager.finishActivity(this);
                 break;
             default:
                 break;

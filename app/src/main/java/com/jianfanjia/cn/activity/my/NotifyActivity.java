@@ -12,6 +12,7 @@ import com.jianfanjia.cn.adapter.MyFragmentPagerAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.SelectItem;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.dao.impl.NotifyMessageDao;
 import com.jianfanjia.cn.fragment.CaiGouNotifyFragment;
 import com.jianfanjia.cn.fragment.FuKuanNotifyFragment;
 import com.jianfanjia.cn.fragment.YanQiNotifyFragment;
@@ -29,6 +30,7 @@ public class NotifyActivity extends BaseActivity implements OnClickListener {
     private ViewPager mPager = null;// 页卡内容
     private List<SelectItem> listViews = new ArrayList<SelectItem>(); // Tab页面列表
     private int initPosition = 0;
+    protected NotifyMessageDao notifyMessageDao = null;
 
     @Override
     public void initView() {
@@ -71,7 +73,7 @@ public class NotifyActivity extends BaseActivity implements OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.head_back_layout:
-                finish();
+                appManager.finishActivity(this);
                 break;
             default:
                 break;

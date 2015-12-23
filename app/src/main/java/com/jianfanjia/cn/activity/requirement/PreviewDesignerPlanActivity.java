@@ -95,7 +95,7 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.head_back_layout:
-                finish();
+                appManager.finishActivity(this);
                 break;
             case R.id.head_right_title:
                 startToActivity(planDetailInfo);
@@ -210,7 +210,7 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
             btn_choose.setEnabled(false);
             //发送数据刷新广播
             UiHelper.intentTo(PreviewDesignerPlanActivity.this, MyDesignerActivity_.class, null);
-            finish();
+            appManager.finishActivity(PreviewDesignerPlanActivity.this);
         }
 
         @Override

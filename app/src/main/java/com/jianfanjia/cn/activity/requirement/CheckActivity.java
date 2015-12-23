@@ -232,7 +232,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener, Item
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.head_back_layout:
-                finish();
+                appManager.finishActivity(this);
                 break;
             case R.id.btn_confirm:
                 onClickCheckDone();

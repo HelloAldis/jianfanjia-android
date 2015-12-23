@@ -88,7 +88,7 @@ public class EditRequirementItemActivity extends BaseAnnotationActivity {
         Intent data = new Intent(this, UpdateRequirementActivity_.class);
         data.putExtra(Global.RESPONSE_DATA, itemMap);
         setResult(RESULT_OK, data);
-        finish();
+        appManager.finishActivity(this);
     }
 
     @Click({R.id.head_back_layout})
@@ -96,7 +96,7 @@ public class EditRequirementItemActivity extends BaseAnnotationActivity {
         int resId = clickView.getId();
         switch (resId) {
             case R.id.head_back_layout:
-                finish();
+                appManager.finishActivity(this);
                 break;
         }
     }

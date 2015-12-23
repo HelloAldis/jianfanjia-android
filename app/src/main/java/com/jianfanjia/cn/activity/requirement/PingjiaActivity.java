@@ -98,7 +98,7 @@ public class PingjiaActivity extends BaseActivity implements
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.head_back_layout:
-                finish();
+                appManager.finishActivity(this);
                 break;
             case R.id.btn_commit:
                 String content = contentEdit.getText().toString().trim();
@@ -140,7 +140,7 @@ public class PingjiaActivity extends BaseActivity implements
         super.loadSuccess(data);
         LogTool.d(TAG, "data:" + data);
         setResult(RESULT_OK);
-        finish();
+        appManager.finishActivity(this);
     }
 
     @Override

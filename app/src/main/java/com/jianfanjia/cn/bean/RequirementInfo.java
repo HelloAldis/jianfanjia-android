@@ -11,6 +11,7 @@ import java.util.List;
  */
 public class RequirementInfo implements Serializable {
     private static final long serialVersionUID = -5082792601841753217L;
+
     private String _id;
     private String userid;
     private String province = "湖北省";

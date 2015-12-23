@@ -101,7 +101,7 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                appManager.finishActivity(DesignerCaseInfoActivity.this);
             }
         });
         toolbar_collect.setOnClickListener(this);

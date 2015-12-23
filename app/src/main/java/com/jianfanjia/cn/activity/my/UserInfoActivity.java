@@ -90,7 +90,7 @@ public class UserInfoActivity extends BaseAnnotationActivity implements
 
 
     @AfterViews
-    public void initView() {
+    public void initAnnotationView() {
         mainHeadView.setMianTitle(getResources().getString(R.string.userinfo));
         setConfimEnable(false);
         initData();
@@ -207,12 +207,12 @@ public class UserInfoActivity extends BaseAnnotationActivity implements
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     commonDialog.dismiss();
-                    finish();
+                    appManager.finishActivity(UserInfoActivity.this);
                 }
             });
             commonDialog.show();
         } else {
-            finish();
+            appManager.finishActivity(this);
         }
     }
 
@@ -290,7 +290,7 @@ public class UserInfoActivity extends BaseAnnotationActivity implements
                         }
                         dataManager.setOwnerInfo(ownerInfo);
                         setResult(RESULT_OK);
-                        finish();
+                        appManager.finishActivity(UserInfoActivity.this);
                     }
 
                     @Override

@@ -69,7 +69,7 @@ public class FeedBackActivity extends BaseActivity implements OnClickListener {
             public void loadSuccess(Object data) {
                 hideWaitDialog();
                 feedContentView.setText("");
-                finish();
+                appManager.finishActivity(FeedBackActivity.this);
             }
 
             @Override

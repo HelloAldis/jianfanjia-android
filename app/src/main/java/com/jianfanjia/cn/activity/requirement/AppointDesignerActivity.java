@@ -115,7 +115,7 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.head_back_layout:
-                finish();
+                appManager.finishActivity(this);
                 break;
             case R.id.head_right_title:
                 if (checkedItemCount != 0) {
@@ -215,7 +215,7 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
             LogTool.d(TAG, "data:" + data.toString());
             //刷新Xuqiufragmet
             UiHelper.sendUpdateBroast(AppointDesignerActivity.this);
-            finish();
+            appManager.finishActivity(AppointDesignerActivity.this);
         }
 
         @Override

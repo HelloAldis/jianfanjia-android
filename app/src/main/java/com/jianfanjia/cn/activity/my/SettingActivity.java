@@ -115,7 +115,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener, On
                 onClickCleanCache();
                 break;
             case R.id.head_back_layout:
-                finish();
+                appManager.finishActivity(this);
                 break;
             case R.id.mespush_layout:
                 toggleButton.toggle();
@@ -139,9 +139,9 @@ public class SettingActivity extends BaseActivity implements OnClickListener, On
                         PushManager.getInstance().stopService(
                                 SettingActivity.this);// 完全终止SDK的服务
                         PushManager.getInstance().unBindAlias(getApplicationContext(), dataManager.getUserId(), true);
-                        activityManager.exit();
                         dataManager.cleanData();
                         MyApplication.getInstance().clearCookie();
+                        appManager.finishAllActivity();
                         startActivity(LoginNewActivity_.class);
                         finish();
                     }

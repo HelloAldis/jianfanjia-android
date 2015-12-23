@@ -92,7 +92,7 @@ public class ContractActivity extends BaseActivity implements OnClickListener, V
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.head_back_layout:
-                finish();
+                appManager.finishActivity(this);
                 break;
             case R.id.head_right_title:
                 postUserProcess(requirementid, final_planid);
@@ -160,7 +160,7 @@ public class ContractActivity extends BaseActivity implements OnClickListener, V
             LogTool.d(TAG, "data:" + data.toString());
             mainHeadView.setRigthTitleEnable(false);
             setResult(RESULT_OK);
-            finish();
+            appManager.finishActivity(ContractActivity.this);
         }
 
         @Override

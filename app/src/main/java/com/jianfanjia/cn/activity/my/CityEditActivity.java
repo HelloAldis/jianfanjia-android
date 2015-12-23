@@ -184,7 +184,7 @@ public class CityEditActivity extends BaseAnnotationActivity {
     public void click(View view) {
         switch (view.getId()) {
             case R.id.head_back_layout:
-                finish();
+                appManager.finishActivity(this);
                 break;
             case R.id.btn_confirm:
                 intent.putExtra(Constant.EDIT_PROVICE, provice);
@@ -192,7 +192,7 @@ public class CityEditActivity extends BaseAnnotationActivity {
                 intent.putExtra(Constant.EDIT_DISTRICT, district);
                 LogTool.d(TAG, provice + city + district);
                 setResult(RESULT_OK, intent);
-                finish();
+                appManager.finishActivity(this);
                 break;
         }
     }

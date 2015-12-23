@@ -56,7 +56,7 @@ public class RegisterNewActivity extends BaseAnnotationActivity implements
     int requsetCode;
 
     @AfterViews
-    public void initView() {
+    public void initAnnotationView() {
         Intent intent = getIntent();
         registerInfo = (RegisterInfo) intent.getSerializableExtra(Global.REGISTER_INFO);
         requsetCode = intent.getIntExtra(Global.REGISTER,0);
@@ -101,7 +101,7 @@ public class RegisterNewActivity extends BaseAnnotationActivity implements
                 }
                 break;
             case R.id.head_back_layout:
-                finish();
+                appManager.finishActivity(this);
                 break;
             default:
                 break;
@@ -138,10 +138,10 @@ public class RegisterNewActivity extends BaseAnnotationActivity implements
         super.loadSuccess(data);
         if(requsetCode == REGISTER_CODE){
             startActivity(NewUserCollectDecStageActivity_.class);
-            finish();
+            appManager.finishActivity(this);
         }else{
             startActivity(LoginNewActivity_.class);
-            finish();
+            appManager.finishActivity(this);
         }
     }
 

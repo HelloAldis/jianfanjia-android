@@ -67,7 +67,7 @@ public class ShowPicActivity extends BaseActivity implements
 
     @Override
     public void onClickItem(int potition) {
-        finish();
+        appManager.finishActivity(this);
     }
 
     @Override

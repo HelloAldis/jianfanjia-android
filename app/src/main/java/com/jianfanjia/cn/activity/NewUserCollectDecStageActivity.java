@@ -77,6 +77,5 @@ public class NewUserCollectDecStageActivity extends BaseAnnotationActivity {
         Intent intent = new Intent(this,NewUserCollectLoveStyleActivity_.class);
         intent.putExtra(Global.OWNERINFO,ownerInfo);
         startActivity(intent);
-        finish();
     }
 }
