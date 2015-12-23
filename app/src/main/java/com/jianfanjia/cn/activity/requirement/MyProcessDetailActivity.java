@@ -106,7 +106,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
     }
 
     @AfterViews
-    public void initView() {
+    public void initAnnotationView() {
         initPullRefresh();
         initMainHead();
         initScrollLayout();
