@@ -8,7 +8,6 @@ import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.widget.Toast;
 
-import com.jianfanjia.cn.AppConfig;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.cache.DataManagerNew;
@@ -31,7 +30,6 @@ public class BaseAnnotationFragment extends Fragment {
     protected FragmentManager fragmentManager = null;
     protected NotifyMessageDao notifyMessageDao = null;
     protected DataManagerNew dataManager = null;
-    protected AppConfig appConfig = null;
     protected LayoutInflater inflater = null;
     // protected SharedPrefer sharedPrefer = null;
     protected ListenerManeger listenerManeger = null;
@@ -57,7 +55,6 @@ public class BaseAnnotationFragment extends Fragment {
     }
 
     private void init() {
-        appConfig = AppConfig.getInstance(getActivity());
         dataManager = DataManagerNew.getInstance();
         notifyMessageDao = DaoManager.getNotifyMessageDao(getActivity());
         // sharedPrefer = dataManager.sharedPreferdata;

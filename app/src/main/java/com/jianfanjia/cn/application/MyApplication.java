@@ -11,6 +11,8 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.OkHttpClientManager;
 import com.jianfanjia.cn.http.cookie.PersistentCookieStore;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
 import com.squareup.okhttp.OkHttpClient;
 
 import java.io.File;
@@ -28,6 +30,8 @@ public class MyApplication extends BaseApplication {
     private RegisterInfo registerInfo = new RegisterInfo();// 注册实体信息
     private PersistentCookieStore cookieStore;// cookie实例化
 
+    private RefWatcher refWatcher;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -39,14 +43,17 @@ public class MyApplication extends BaseApplication {
          * Thread.setDefaultUncaughtExceptionHandler(AppException
 		 * .getAppExceptionHandler(this));
 		 */
+        refWatcher = LeakCanary.install(this);
+    }
 
-
+    public static RefWatcher getRefWatcher(Context context) {
+        MyApplication application = (MyApplication) context.getApplicationContext();
+        return application.refWatcher;
     }
 
     @Override
     public void onLowMemory() {
         super.onLowMemory();
-        ImageLoader.getInstance().clearMemoryCache();
     }
 
     public static MyApplication getInstance() {

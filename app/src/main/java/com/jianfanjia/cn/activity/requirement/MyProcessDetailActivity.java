@@ -151,7 +151,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
 
     @Click(R.id.head_back_layout)
     public void comeback() {
-        finish();
+        appManager.finishActivity(this);
     }
 
     @Click(R.id.head_notification_layout)

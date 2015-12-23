@@ -72,14 +72,14 @@ public class EditOwnerInfoActivity extends BaseActivity implements OnClickListen
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.head_back_layout:
-			finish();
+			appManager.finishActivity(this);
 			break;
 		case R.id.btn_commit:
 			String content = editInfoView.getEditableText().toString().trim();
 			if (!TextUtils.isEmpty(content)) {
 				intent.putExtra(Constant.EDIT_CONTENT, content);
 				setResult(RESULT_OK, intent);
-				finish();
+				appManager.finishActivity(this);
 			}
 			break;
 		default:

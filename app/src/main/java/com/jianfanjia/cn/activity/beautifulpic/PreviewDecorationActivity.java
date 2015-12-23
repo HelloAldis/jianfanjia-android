@@ -78,7 +78,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                appManager.finishActivity(PreviewDecorationActivity.this);
             }
         });
         toolbar_collect.setOnClickListener(this);
@@ -258,6 +258,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
             makeTextLong(error_msg);
         }
     };
+
     private UIProgressListener uiProgressListener = new UIProgressListener() {
         @Override
         public void onUIProgress(final long bytesWritten, final long totalSize, boolean done) {

@@ -109,7 +109,7 @@ public class DesignerInfoActivity extends BaseActivity implements OnClickListene
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                appManager.finishActivity(DesignerInfoActivity.this);
             }
         });
     }

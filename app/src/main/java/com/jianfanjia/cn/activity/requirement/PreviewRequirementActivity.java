@@ -75,7 +75,7 @@ public class PreviewRequirementActivity extends BaseAnnotationActivity {
         int viewId = clickView.getId();
         switch (viewId) {
             case R.id.head_back_layout:
-                finish();
+                appManager.finishActivity(this);
                 break;
             default:
                 break;

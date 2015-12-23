@@ -104,14 +104,14 @@ public class UpdateRequirementActivity extends BaseAnnotationActivity implements
     public void loadSuccess(Object data) {
         super.loadSuccess(data);
         setResult(Activity.RESULT_OK);
-        finish();
+        appManager.finishActivity(this);
     }
 
     @Click({R.id.head_back_layout,R.id.head_right_title})
     protected void click(View view){
         switch (view.getId()){
             case R.id.head_back_layout:
-                finish();
+                appManager.finishActivity(this);
                 break;
             case R.id.head_right_title:
                 confirm();

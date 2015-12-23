@@ -62,7 +62,7 @@ public class NewUserCollectLoveStyleActivity extends BaseAnnotationActivity {
     };
 
     @AfterViews
-    protected void initView() {
+    protected void initAnnotationView() {
         Intent intent = getIntent();
         ownerInfo = (OwnerInfo)intent.getSerializableExtra(Global.OWNERINFO);
 
@@ -119,7 +119,7 @@ public class NewUserCollectLoveStyleActivity extends BaseAnnotationActivity {
                 intentToCollectPerson();
                 break;
             case R.id.head_back_layout:
-                finish();
+                appManager.finishActivity(this);
                 break;
         }
     }

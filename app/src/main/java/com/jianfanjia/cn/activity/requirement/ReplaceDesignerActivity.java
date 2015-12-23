@@ -109,7 +109,7 @@ public class ReplaceDesignerActivity extends BaseActivity implements OnClickList
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.head_back_layout:
-                finish();
+                appManager.finishActivity(this);
                 break;
             case R.id.head_right_title:
                 replaceDesignerDialog();
@@ -197,7 +197,7 @@ public class ReplaceDesignerActivity extends BaseActivity implements OnClickList
             LogTool.d(TAG, "data:" + data.toString());
             hideWaitDialog();
             setResult(RESULT_OK);
-            finish();
+            appManager.finishActivity(ReplaceDesignerActivity.this);
         }
 
         @Override

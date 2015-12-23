@@ -11,9 +11,8 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.jianfanjia.cn.AppConfig;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.bean.ProcessInfo;
+import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.dao.impl.NotifyMessageDao;
 import com.jianfanjia.cn.http.OkHttpClientManager;
@@ -37,13 +36,10 @@ public abstract class BaseFragment extends Fragment
     protected FragmentManager fragmentManager = null;
     protected NotifyMessageDao notifyMessageDao = null;
     protected DataManagerNew dataManager = null;
-    protected AppConfig appConfig = null;
     protected LayoutInflater inflater = null;
-    // protected SharedPrefer sharedPrefer = null;
     protected ListenerManeger listenerManeger = null;
     protected AddPhotoPopWindow popupWindow = null;
     protected ImageShow imageShow = null;
-    protected ProcessInfo processInfo = null;
     protected String mUserName = null;// 用户名
     protected String mAccount = null;// 账号
     protected String mUserImageId = null;// 头像
@@ -77,9 +73,8 @@ public abstract class BaseFragment extends Fragment
     }
 
     private void init() {
-        appConfig = AppConfig.getInstance(getActivity());
         dataManager = DataManagerNew.getInstance();
-        notifyMessageDao = DaoManager.getNotifyMessageDao(getActivity());
+        notifyMessageDao = DaoManager.getNotifyMessageDao(MyApplication.getInstance());
         // sharedPrefer = dataManager.sharedPreferdata;
         fragmentManager = getFragmentManager();
         imageShow = ImageShow.getImageShow();
@@ -92,8 +87,6 @@ public abstract class BaseFragment extends Fragment
         mUserType = dataManager.getUserType();
         LogTool.d(this.getClass().getName(), "mUserName:" + mUserName
                 + " mAccount:" + mAccount + " userImageId:" + mUserImageId);
-        processInfo = dataManager.getDefaultProcessInfo();
-        LogTool.d(this.getClass().getName(), "processInfo=" + processInfo);
     }
 
     public abstract int getLayoutId();

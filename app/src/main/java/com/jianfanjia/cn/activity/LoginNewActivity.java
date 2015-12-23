@@ -104,7 +104,7 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
     }
 
     @AfterViews
-    public void initView() {
+    public void initAnnotationView() {
         controlKeyboardLayout(contentLayout, mBtnLogin);
 
         mGestureDetector = new GestureDetector(this, this);
@@ -430,7 +430,12 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
         PushManager.getInstance().initialize(getApplicationContext());
         PushManager.getInstance().bindAlias(getApplicationContext(), dataManager.getUserId());
         startActivity(MainActivity.class);
-        finish();
+        appManager.finishActivity(this);
+    }
+
+    @Override
+    public void onBackPressed() {
+        appManager.finishAllActivity();
     }
 
     @Override

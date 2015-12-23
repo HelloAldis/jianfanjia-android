@@ -28,13 +28,13 @@ public class NewUserGuideActivity extends BaseAnnotationActivity {
         switch (view.getId()) {
             case R.id.btn_scan:
                 startActivity(MainActivity.class);
-                finish();
+                appManager.finishActivity(this);
                 break;
             case R.id.btn_publish_requirement:
                 Bundle bundle = new Bundle();
                 bundle.putBoolean(Global.IS_PUBLISHREQUIREMENT,true);
                 startActivity(MainActivity.class,bundle);
-                finish();
+                appManager.finishActivity(this);
                 break;
             default:
                 break;

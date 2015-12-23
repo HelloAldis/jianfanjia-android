@@ -202,7 +202,7 @@ public class MyDesignerActivity extends BaseAnnotationActivity {
 
     @Click(R.id.head_back_layout)
     protected void back() {
-        finish();
+        appManager.finishActivity(this);
     }
 
     protected void initdata() {

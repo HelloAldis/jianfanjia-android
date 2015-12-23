@@ -37,9 +37,7 @@ import java.util.List;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class
-
-        PublishRequirementActivity extends BaseActivity implements OnClickListener, NotifyActivityStatusChange {
+public class PublishRequirementActivity extends BaseActivity implements OnClickListener, NotifyActivityStatusChange {
     private static final String TAG = PublishRequirementActivity.class.getName();
     private MainHeadView mainHeadView = null;
     private TabLayout tabLayout = null;
@@ -58,27 +56,6 @@ public class
         initMainHeadView();
         tabLayout = (TabLayout) findViewById(R.id.tablayout);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
-//        setupViewPager(viewPager);
-        tabLayout.setTabMode(TabLayout.MODE_FIXED);
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-                status = tab.getPosition() + "";
-                resetRightTitleStatus();
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-        status = Global.DEC_TYPE_HOME;
         initData();
     }
 
@@ -102,16 +79,29 @@ public class
                         requirementInfoInit.setDec_style(lovestyle.get(0));
                     }
                 }
-                setupViewPager(viewPager);
-                tabLayout.setupWithViewPager(viewPager);
+                initViewPager();
             }
 
             @Override
             public void loadFailture(String error_msg) {
-                setupViewPager(viewPager);
-                tabLayout.setupWithViewPager(viewPager);
+                initViewPager();
             }
         }, this);
+    }
+
+    private void initViewPager(){
+        setupViewPager(viewPager);
+        tabLayout.setupWithViewPager(viewPager);
+        tabLayout.setTabMode(TabLayout.MODE_FIXED);
+        tabLayout.setOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager){
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                super.onTabSelected(tab);
+                status = tab.getPosition() + "";
+                resetRightTitleStatus();
+            }
+        });
+        status = Global.DEC_TYPE_HOME;
     }
 
     private void initMainHeadView() {
@@ -154,6 +144,7 @@ public class
                 requirementInfo = editBussinessRequirementFragment_.getRequirementInfo();
                 break;
         }
+
         return requirementInfo;
     }
 
@@ -161,7 +152,7 @@ public class
     public void loadSuccess(Object data) {
         super.loadSuccess(data);
         setResult(Activity.RESULT_OK);
-        finish();
+        appManager.finishActivity(this);
     }
 
     //显示放弃提交提醒
@@ -180,7 +171,7 @@ public class
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
                 setResult(RESULT_CANCELED);
-                finish();
+                appManager.finishActivity(PublishRequirementActivity.this);
             }
         });
         commonDialog.show();
@@ -193,9 +184,9 @@ public class
         editHomeRequirementFragment_ = new EditHomeRequirementFragment_();
         editHomeRequirementFragment_.setArguments(getBundleByType(Global.DEC_TYPE_HOME));
         SelectItem designerItem = new SelectItem(editHomeRequirementFragment_,
-                "家装");
+                getString(R.string.home_dec));
         SelectItem productItem = new SelectItem(editBussinessRequirementFragment_,
-                "商装");
+                getString(R.string.business_dec));
         listViews.add(designerItem);
         listViews.add(productItem);
         MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(fragmentManager, listViews);
@@ -238,7 +229,7 @@ public class
         }
         if(!isChange){
             LogTool.d(this.getClass().getName(), "没有改变");
-            finish();
+            appManager.finishActivity(this);
         }else{
             LogTool.d(this.getClass().getName(), "有改变");
             showTipDialog();
