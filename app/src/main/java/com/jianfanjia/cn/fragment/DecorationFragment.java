@@ -76,7 +76,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         decoration_listview.setItemAnimator(new DefaultItemAnimator());
         SpacesItemDecoration decoration = new SpacesItemDecoration(7);
         decoration_listview.addItemDecoration(decoration);
-        initDecorationImg();
+        searchDecorationImg(section, houseStyle, decStyle, FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
     }
 
     private void initMainHeadView(View view) {
@@ -85,10 +85,6 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
         mainHeadView.setRightTitleVisable(View.GONE);
         mainHeadView.setBackLayoutVisable(View.GONE);
-    }
-
-    private void initDecorationImg() {
-        searchDecorationImg(section, houseStyle, decStyle, FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
     }
 
     @Override
@@ -113,7 +109,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
                 setSelectState(DECSTYLE);
                 break;
             case R.id.error_include:
-
+                searchDecorationImg(section, houseStyle, decStyle, FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
                 break;
             default:
                 break;
