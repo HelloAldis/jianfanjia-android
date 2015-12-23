@@ -179,8 +179,10 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
             if (null != decorationItemInfo) {
                 beautyImgList.clear();
                 beautyImgList.addAll(decorationItemInfo.getBeautiful_images());
+                LogTool.d(TAG, "beautyImgList:" + beautyImgList);
                 FROM = beautyImgList.size();
                 if (null == decorationAdapter) {
+                    LogTool.d(TAG, "decorationAdapter is null");
                     decorationAdapter = new DecorationAdapter(getActivity(), beautyImgList, new OnItemClickListener() {
                         @Override
                         public void OnItemClick(int position) {
@@ -195,6 +197,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
                     });
                     decoration_listview.setAdapter(decorationAdapter);
                 } else {
+                    LogTool.d(TAG, "decorationAdapter is not null");
                     decorationAdapter.notifyDataSetChanged();
                 }
 
@@ -261,6 +264,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         public void onItemCallback(int position, String title) {
             Global.SECTION_POSITION = position;
             section = title;
+            FROM = 0;
             searchDecorationImg(section, houseStyle, decStyle, FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
             if (null != window) {
                 if (window.isShowing()) {
@@ -284,6 +288,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         public void onItemCallback(int position, String title) {
             Global.HOUSE_TYPE_POSITION = position;
             houseStyle = title;
+            FROM = 0;
             searchDecorationImg(section, houseStyle, decStyle, FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
             if (null != window) {
                 if (window.isShowing()) {
@@ -307,6 +312,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         public void onItemCallback(int position, String title) {
             Global.DEC_STYLE_POSITION = position;
             decStyle = title;
+            FROM = 0;
             searchDecorationImg(section, houseStyle, decStyle, FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
             if (null != window) {
                 if (window.isShowing()) {
