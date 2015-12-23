@@ -33,7 +33,7 @@ public class DecorationAdapter extends BaseRecyclerViewAdapter<BeautyImgInfo> {
     }
 
     @Override
-    public void bindView(final RecyclerViewHolderBase viewHolder, final int position, List<BeautyImgInfo> list) {
+    public void bindView(final RecyclerViewHolderBase viewHolder, final int position, final List<BeautyImgInfo> list) {
         BeautyImgInfo info = list.get(position);
         final DecorationViewHolder holder = (DecorationViewHolder) viewHolder;
         holder.itemDecorateView.setImageResource(R.mipmap.pix_default);
@@ -45,6 +45,14 @@ public class DecorationAdapter extends BaseRecyclerViewAdapter<BeautyImgInfo> {
                 width, height);
         holder.itemDecorateView.setLayoutParams(params);
         imageShow.displayScreenWidthThumnailImage(context, img.getImageid(), holder.itemDecorateView);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (null != listener) {
+                    listener.OnItemClick(position);
+                }
+            }
+        });
     }
 
     @Override
