@@ -72,7 +72,6 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
         paint.setAlpha(0);
         paint.setAntiAlias(true);
         pullToRefreshRecyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).paint(paint).showLastDivider().build());
-        pullToRefreshRecyclerView.setFocusable(false);
         initHomePage();
     }
 
