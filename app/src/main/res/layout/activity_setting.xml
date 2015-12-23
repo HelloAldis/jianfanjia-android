@@ -132,11 +132,10 @@
                     android:contentDescription="@null" />
             </RelativeLayout>
 
-            <View style="@style/divier_line" />
-
             <RelativeLayout
                 android:id="@+id/help_layout"
-                style="@style/my_list_item_layout_style">
+                style="@style/my_list_item_layout_style"
+                android:visibility="gone">
 
                 <TextView
                     style="@style/listview_item_text_style_middle"
