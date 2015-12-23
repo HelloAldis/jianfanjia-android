@@ -45,6 +45,8 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
     private static final int DECSTYLE = 3;
     private static final int NOT = 4;
     private MainHeadView mainHeadView = null;
+    private RelativeLayout emptyLayout = null;
+    private RelativeLayout errorLayout = null;
     private LinearLayout topLayout = null;
     private RelativeLayout sectionLayout = null;
     private RelativeLayout houseTypeLayout = null;
@@ -61,6 +63,8 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
     @Override
     public void initView(View view) {
         initMainHeadView(view);
+        emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
+        errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
         topLayout = (LinearLayout) view.findViewById(R.id.topLayout);
         sectionLayout = (RelativeLayout) view.findViewById(R.id.sectionLayout);
         houseTypeLayout = (RelativeLayout) view.findViewById(R.id.houseTypeLayout);
@@ -89,6 +93,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         houseTypeLayout.setOnClickListener(this);
         decStyleLayout.setOnClickListener(this);
         decoration_listview.setOnRefreshListener(this);
+        errorLayout.setOnClickListener(this);
     }
 
     @Override
@@ -102,6 +107,9 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
                 break;
             case R.id.decStyleLayout:
                 setSelectState(DECSTYLE);
+                break;
+            case R.id.error_include:
+                searchDecorationImg(section, houseStyle, decStyle, FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
                 break;
             default:
                 break;
@@ -167,25 +175,37 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
             if (null != decorationItemInfo) {
                 beautyImgList.clear();
                 beautyImgList.addAll(decorationItemInfo.getBeautiful_images());
+                LogTool.d(TAG, "beautyImgList=" + beautyImgList);
                 FROM = beautyImgList.size();
-                if (null == decorationAdapter) {
-                    decorationAdapter = new DecorationAdapter(getActivity(), beautyImgList, new OnItemClickListener() {
-                        @Override
-                        public void OnItemClick(int position) {
-                            BeautyImgInfo beautyImgInfo = beautyImgList.get(position);
-                            LogTool.d(TAG, "beautyImgInfo:" + beautyImgInfo);
-                            Intent decorationIntent = new Intent(getActivity(), PreviewDecorationActivity.class);
-                            Bundle decorationBundle = new Bundle();
-                            decorationBundle.putString(Global.DECORATION_ID, beautyImgInfo.get_id());
-                            decorationIntent.putExtras(decorationBundle);
-                            startActivity(decorationIntent);
-                        }
-                    });
-                    decoration_listview.setAdapter(decorationAdapter);
+                LogTool.d(TAG, "FROM:" + FROM);
+                if (null != beautyImgList && beautyImgList.size() > 0) {
+                    if (null == decorationAdapter) {
+                        LogTool.d(TAG, "decorationAdapter is null");
+                        decorationAdapter = new DecorationAdapter(getActivity(), beautyImgList, new OnItemClickListener() {
+                            @Override
+                            public void OnItemClick(int position) {
+                                BeautyImgInfo beautyImgInfo = beautyImgList.get(position);
+                                LogTool.d(TAG, "beautyImgInfo:" + beautyImgInfo);
+                                Intent decorationIntent = new Intent(getActivity(), PreviewDecorationActivity.class);
+                                Bundle decorationBundle = new Bundle();
+                                decorationBundle.putString(Global.DECORATION_ID, beautyImgInfo.get_id());
+                                decorationIntent.putExtras(decorationBundle);
+                                startActivity(decorationIntent);
+                            }
+                        });
+                        decoration_listview.setAdapter(decorationAdapter);
+                    } else {
+                        LogTool.d(TAG, "decorationAdapter is not null");
+                        decorationAdapter.notifyDataSetChanged();
+                    }
+                    decoration_listview.setVisibility(View.VISIBLE);
+                    emptyLayout.setVisibility(View.GONE);
+                    errorLayout.setVisibility(View.GONE);
                 } else {
-                    decorationAdapter.notifyDataSetChanged();
+                    decoration_listview.setVisibility(View.GONE);
+                    errorLayout.setVisibility(View.GONE);
+                    emptyLayout.setVisibility(View.VISIBLE);
                 }
-
             }
             decoration_listview.onRefreshComplete();
         }
@@ -193,6 +213,9 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         @Override
         public void loadFailture(String error_msg) {
             makeTextLong(error_msg);
+            decoration_listview.setVisibility(View.GONE);
+            emptyLayout.setVisibility(View.GONE);
+            errorLayout.setVisibility(View.VISIBLE);
             decoration_listview.onRefreshComplete();
         }
     };
@@ -210,9 +233,9 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
             if (null != decorationItemInfo) {
                 List<BeautyImgInfo> beautyImgs = decorationItemInfo.getBeautiful_images();
                 if (null != beautyImgs && beautyImgs.size() > 0) {
+                    decorationAdapter.add(FROM, beautyImgs);
                     FROM += Constant.HOME_PAGE_LIMIT;
                     LogTool.d(TAG, "FROM=" + FROM);
-                    decorationAdapter.add(beautyImgs, FROM);
                 }
             }
             decoration_listview.onRefreshComplete();
@@ -221,6 +244,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         @Override
         public void loadFailture(String error_msg) {
             makeTextLong(error_msg);
+            errorLayout.setVisibility(View.VISIBLE);
             decoration_listview.onRefreshComplete();
         }
     };
@@ -247,6 +271,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         public void onItemCallback(int position, String title) {
             Global.SECTION_POSITION = position;
             section = title;
+            FROM = 0;
             searchDecorationImg(section, houseStyle, decStyle, FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
             if (null != window) {
                 if (window.isShowing()) {
@@ -270,6 +295,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         public void onItemCallback(int position, String title) {
             Global.HOUSE_TYPE_POSITION = position;
             houseStyle = title;
+            FROM = 0;
             searchDecorationImg(section, houseStyle, decStyle, FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
             if (null != window) {
                 if (window.isShowing()) {
@@ -293,6 +319,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         public void onItemCallback(int position, String title) {
             Global.DEC_STYLE_POSITION = position;
             decStyle = title;
+            FROM = 0;
             searchDecorationImg(section, houseStyle, decStyle, FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
             if (null != window) {
                 if (window.isShowing()) {
