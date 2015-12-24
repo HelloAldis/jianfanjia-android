@@ -93,7 +93,7 @@ public class DesignerInfoFragment extends BaseFragment implements ApiUiUpdateLis
                     decTypeStr.append("软装");
                 }
             }
-            jiandanType.setText("接单类型:" + decTypeStr.toString());
+            jiandanType.setText(decTypeStr.toString());
             List<String> decHouseTypes = designerInfo.getDec_house_types();
             StringBuffer decHouseType = new StringBuffer();
             for (String str : decHouseTypes) {
@@ -112,8 +112,8 @@ public class DesignerInfoFragment extends BaseFragment implements ApiUiUpdateLis
                     decHouseType.append("别墅");
                 }
             }
-            jiandanHouseType.setText("接单户型:" + decHouseType.toString());
-            jiandanDistrict.setText("接单区域:" + designerInfo.getDistrict());
+            jiandanHouseType.setText(decHouseType.toString());
+            jiandanDistrict.setText(designerInfo.getDistrict());
             List<String> decStyles = designerInfo.getDec_styles();
             StringBuffer decStyleType = new StringBuffer();
             for (String str : decStyles) {
@@ -131,11 +131,11 @@ public class DesignerInfoFragment extends BaseFragment implements ApiUiUpdateLis
                     decStyleType.append("东南亚");
                 }
             }
-            designStyle.setText("设计风格:" + decStyleType.toString());
-            designIdea.setText("设计理念:" + designerInfo.getPhilosophy());
-            designAchievement.setText("设计成就:" + designerInfo.getAchievement());
-            company.setText("曾就职公司:" + designerInfo.getCompany());
-            teamCount.setText("施工团队:" + designerInfo.getTeam_count() + "个");
+            designStyle.setText(decStyleType.toString());
+            designIdea.setText(designerInfo.getPhilosophy());
+            designAchievement.setText(designerInfo.getAchievement());
+            company.setText(designerInfo.getCompany());
+            teamCount.setText(designerInfo.getTeam_count() + "个");
             String designFeeRange = designerInfo.getDesign_fee_range();
             String designFeeStr = null;
             if (designFeeRange.equals("0")) {
@@ -147,7 +147,7 @@ public class DesignerInfoFragment extends BaseFragment implements ApiUiUpdateLis
             } else if (designFeeRange.equals("3")) {
                 designFeeStr = "300以上";
             }
-            designFee.setText("设计费:" + designFeeStr + "元/㎡");
+            designFee.setText(designFeeStr + "元/㎡");
         }
     }
 
