@@ -14,7 +14,7 @@ import com.jianfanjia.cn.tools.UiHelper;
  * Email: jame.zhang@myjyz.com
  * Date:2015-12-24 10:16
  */
-public class AnimImageButton extends ImageButton{
+public class AnimImageButton extends ImageButton {
 
     public AnimImageButton(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -22,6 +22,7 @@ public class AnimImageButton extends ImageButton{
 
     /**
      * 点击的时候执行动画
+     *
      * @param l
      * @param listener
      */
@@ -29,7 +30,7 @@ public class AnimImageButton extends ImageButton{
         OnClickListener wrapClickListener = new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(l != null){
+                if (l != null) {
                     l.onClick(AnimImageButton.this);
                 }
                 onClickAnim(listener);
@@ -38,7 +39,7 @@ public class AnimImageButton extends ImageButton{
         setOnClickListener(wrapClickListener);
     }
 
-    protected void onClickAnim(Animator.AnimatorListener listener){
-        UiHelper.imageButtonAnim(AnimImageButton.this,listener);
+    protected void onClickAnim(Animator.AnimatorListener listener) {
+        UiHelper.imageButtonAnim(AnimImageButton.this, listener);
     }
 }
