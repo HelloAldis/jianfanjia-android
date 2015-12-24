@@ -127,15 +127,15 @@ public class DesignerInfoFragment extends BaseFragment implements ApiUiUpdateLis
             for (String str : decHouseTypes) {
                 LogTool.d(TAG, "str:" + str);
                 if (str.equals("0")) {
-                    decHouseType.append("一居 ");
+                    decHouseType.append("一居  ");
                 } else if (str.equals("1")) {
-                    decHouseType.append("二居 ");
+                    decHouseType.append("二居  ");
                 } else if (str.equals("2")) {
-                    decHouseType.append("三居 ");
+                    decHouseType.append("三居  ");
                 } else if (str.equals("3")) {
-                    decHouseType.append("四居 ");
+                    decHouseType.append("四居  ");
                 } else if (str.equals("4")) {
-                    decHouseType.append("复式 ");
+                    decHouseType.append("复式  ");
                 } else if (str.equals("5")) {
                     decHouseType.append("别墅");
                 }
@@ -146,15 +146,15 @@ public class DesignerInfoFragment extends BaseFragment implements ApiUiUpdateLis
             StringBuffer decStyleType = new StringBuffer();
             for (String str : decStyles) {
                 if (str.equals("0")) {
-                    decStyleType.append("欧式 ");
+                    decStyleType.append("欧式  ");
                 } else if (str.equals("1")) {
-                    decStyleType.append("中式 ");
+                    decStyleType.append("中式  ");
                 } else if (str.equals("2")) {
-                    decStyleType.append("现代 ");
+                    decStyleType.append("现代  ");
                 } else if (str.equals("3")) {
-                    decStyleType.append("地中海 ");
+                    decStyleType.append("地中海  ");
                 } else if (str.equals("4")) {
-                    decStyleType.append("美式 ");
+                    decStyleType.append("美式  ");
                 } else if (str.equals("5")) {
                     decStyleType.append("东南亚");
                 }
