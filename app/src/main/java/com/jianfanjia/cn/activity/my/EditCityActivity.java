@@ -30,9 +30,9 @@ import java.util.Map;
  * Date:2015-11-09 13:06
  */
 @EActivity(R.layout.activity_cityedit)
-public class CityEditActivity extends BaseAnnotationActivity {
+public class EditCityActivity extends BaseAnnotationActivity {
 
-    private static final String TAG = "CityEditActivity";
+    private static final String TAG = "EditCityActivity";
     @ViewById(R.id.spinner_pro)
     Spinner spinner_pro;
 
@@ -94,7 +94,7 @@ public class CityEditActivity extends BaseAnnotationActivity {
                 LogTool.d(TAG, city + citys.size());
 
                 city = citys.get(currentCity);
-                spinnerCityAdapter = new ArrayAdapter(CityEditActivity.this, R.layout.spinner_city_item, citys);
+                spinnerCityAdapter = new ArrayAdapter(EditCityActivity.this, R.layout.spinner_city_item, citys);
                 spinnerCityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spinner_city.setAdapter(spinnerCityAdapter);
                 if(!isInit){
@@ -109,7 +109,7 @@ public class CityEditActivity extends BaseAnnotationActivity {
                         city = citys.get(position);
                         districts = districtMap.get(city);
                         district = districts.get(currentDistrict);
-                        spinnerDistrictAdapter = new ArrayAdapter(CityEditActivity.this, R.layout.spinner_city_item, districts);
+                        spinnerDistrictAdapter = new ArrayAdapter(EditCityActivity.this, R.layout.spinner_city_item, districts);
                         spinnerDistrictAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         spinner_district.setAdapter(spinnerDistrictAdapter);
                         if(!isInit){
