@@ -9,13 +9,15 @@ import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.View;
 
+import com.jianfanjia.cn.Event.MessageEvent;
+import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.home.DesignerCaseInfoActivity;
 import com.jianfanjia.cn.activity.home.DesignerInfoActivity;
-import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.ProductAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.Product;
 import com.jianfanjia.cn.bean.ProductInfo;
+import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
@@ -26,6 +28,8 @@ import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * @author fengliang
@@ -40,6 +44,12 @@ public class ProductFragment extends BaseFragment implements ApiUiUpdateListener
     private List<Product> products = new ArrayList<Product>();
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
     public void initView(View view) {
         prodtct_listview = (RecyclerView) view.findViewById(R.id.prodtct_listview);
         prodtct_listview.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -49,6 +59,10 @@ public class ProductFragment extends BaseFragment implements ApiUiUpdateListener
         paint.setAlpha(0);
         paint.setAntiAlias(true);
         prodtct_listview.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).paint(paint).showLastDivider().build());
+        getProductList();
+    }
+
+    private void getProductList() {
         JianFanJiaClient.getCollectListByUser(getActivity(), 0, 100, this, this);
     }
 
@@ -101,6 +115,22 @@ public class ProductFragment extends BaseFragment implements ApiUiUpdateListener
         designerBundle.putString(Global.DESIGNER_ID, designertid);
         designerIntent.putExtras(designerBundle);
         startActivity(designerIntent);
+    }
+
+    public void onEventMainThread(MessageEvent event) {
+        switch (event.getEventType()) {
+            case Constant.UPDATE_PRODUCT_FRAGMENT:
+                getProductList();
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override

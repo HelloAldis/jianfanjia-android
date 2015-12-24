@@ -9,12 +9,14 @@ import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.View;
 
-import com.jianfanjia.cn.activity.home.DesignerInfoActivity;
+import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.home.DesignerInfoActivity;
 import com.jianfanjia.cn.adapter.FavoriteDesignerAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.DesignerInfo;
 import com.jianfanjia.cn.bean.MyFavoriteDesigner;
+import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
@@ -25,6 +27,8 @@ import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * @author fengliang
@@ -38,6 +42,12 @@ public class MyFavoriteDesignerFragment extends BaseFragment {
     private FavoriteDesignerAdapter designAdapter = null;
     private MyFavoriteDesigner myFavoriteDesigner = null;
     private List<DesignerInfo> designers = new ArrayList<DesignerInfo>();
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
 
     @Override
     public void initView(View view) {
@@ -100,6 +110,22 @@ public class MyFavoriteDesignerFragment extends BaseFragment {
             makeTextLong(error_msg);
         }
     };
+
+    public void onEventMainThread(MessageEvent event) {
+        switch (event.getEventType()) {
+            case Constant.UPDATE_FAVORITE_FRAGMENT:
+                getMyFavoriteDesignerList();
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 
     @Override
     public int getLayoutId() {

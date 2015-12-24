@@ -8,11 +8,13 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.ShowPicPagerAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.BeautyImgInfo;
 import com.jianfanjia.cn.bean.Img;
+import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
@@ -27,6 +29,8 @@ import com.jianfanjia.cn.view.SharePopWindow;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * Description:预览装修美图
@@ -80,9 +84,9 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
                 appManager.finishActivity(PreviewDecorationActivity.this);
             }
         });
-        toolbar_collect.setOnClickListener(this,null);
-        toolbar_share.setOnClickListener(this,null);
-        btn_download.setOnClickListener(this,null);
+        toolbar_collect.setOnClickListener(this, null);
+        toolbar_share.setOnClickListener(this, null);
+        btn_download.setOnClickListener(this, null);
         viewPager.setOnPageChangeListener(this);
     }
 
@@ -173,6 +177,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data.toString());
             toolbar_collect.setSelected(true);
+            EventBus.getDefault().post(new MessageEvent(Constant.UPDATE_BEAUTY_FRAGMENT));
         }
 
         @Override
@@ -191,6 +196,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data.toString());
             toolbar_collect.setSelected(false);
+            EventBus.getDefault().post(new MessageEvent(Constant.UPDATE_BEAUTY_FRAGMENT));
         }
 
         @Override
@@ -237,15 +243,15 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
 
 
     private void downloadImg() {
-        ImageView photoView = (ImageView)viewPager.getChildAt(currentPosition).findViewById(R.id.image_item);
+        ImageView photoView = (ImageView) viewPager.getChildAt(currentPosition).findViewById(R.id.image_item);
         try {
-            boolean isSuccess = ImageUtil.snapshot(this,photoView,100);
-            if(isSuccess){
+            boolean isSuccess = ImageUtil.snapshot(this, photoView, 100);
+            if (isSuccess) {
                 makeTextShort(getResources().getString(R.string.save_image_success));
-            }else{
+            } else {
                 makeTextShort(getResources().getString(R.string.save_image_failure));
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             makeTextShort(getResources().getString(R.string.save_image_failure));
         }
     }

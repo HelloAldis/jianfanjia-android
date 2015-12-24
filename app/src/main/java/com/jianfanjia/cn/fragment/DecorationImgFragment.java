@@ -7,12 +7,14 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
-import com.jianfanjia.cn.activity.beautifulpic.PreviewDecorationActivity;
+import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.beautifulpic.PreviewDecorationActivity;
 import com.jianfanjia.cn.adapter.DecorationImgAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.BeautyImgInfo;
 import com.jianfanjia.cn.bean.DecorationItemInfo;
+import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
@@ -21,7 +23,10 @@ import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.baseview.SpacesItemDecoration;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * @author fengliang
@@ -29,10 +34,17 @@ import java.util.List;
  * @Description: 装修美图收藏
  * @date 2015-8-26 下午1:07:52
  */
-public class DecorationImgFragment extends BaseFragment {
+public class DecorationImgFragment extends BaseFragment implements ApiUiUpdateListener, RecyclerViewOnItemClickListener {
     private static final String TAG = DecorationImgFragment.class.getName();
     private RecyclerView decoration_img_listview = null;
+    private List<BeautyImgInfo> beautyImgList = new ArrayList<BeautyImgInfo>();
     private DecorationImgAdapter decorationImgAdapter = null;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
 
     @Override
     public void initView(View view) {
@@ -41,7 +53,7 @@ public class DecorationImgFragment extends BaseFragment {
         decoration_img_listview.setItemAnimator(new DefaultItemAnimator());
         SpacesItemDecoration decoration = new SpacesItemDecoration(10);
         decoration_img_listview.addItemDecoration(decoration);
-        getDecorationImgList(0, 100, getDecorationImgListListener);
+        getDecorationImgList();
     }
 
     @Override
@@ -49,51 +61,64 @@ public class DecorationImgFragment extends BaseFragment {
 
     }
 
-    private void getDecorationImgList(int from, int limit, ApiUiUpdateListener listener) {
-        JianFanJiaClient.getBeautyImgListByUser(getActivity(), from, limit, listener, this);
+    private void getDecorationImgList() {
+        JianFanJiaClient.getBeautyImgListByUser(getActivity(), 0, 100, this, this);
     }
 
-    private ApiUiUpdateListener getDecorationImgListListener = new ApiUiUpdateListener() {
-        @Override
-        public void preLoad() {
+    @Override
+    public void preLoad() {
 
+    }
+
+    @Override
+    public void loadSuccess(Object data) {
+        LogTool.d(TAG, "data:" + data.toString());
+        DecorationItemInfo decorationItemInfo = JsonParser.jsonToBean(data.toString(), DecorationItemInfo.class);
+        LogTool.d(TAG, "decorationItemInfo:" + decorationItemInfo);
+        if (null != decorationItemInfo) {
+            beautyImgList = decorationItemInfo.getBeautiful_images();
+            decorationImgAdapter = new DecorationImgAdapter(getActivity(), beautyImgList, this);
+            decoration_img_listview.setAdapter(decorationImgAdapter);
         }
+    }
 
-        @Override
-        public void loadSuccess(Object data) {
-            LogTool.d(TAG, "data:" + data.toString());
-            DecorationItemInfo decorationItemInfo = JsonParser.jsonToBean(data.toString(), DecorationItemInfo.class);
-            LogTool.d(TAG, "decorationItemInfo:" + decorationItemInfo);
-            if (null != decorationItemInfo) {
-                final List<BeautyImgInfo> beautyImgList = decorationItemInfo.getBeautiful_images();
-                decorationImgAdapter = new DecorationImgAdapter(getActivity(), beautyImgList, new RecyclerViewOnItemClickListener() {
+    @Override
+    public void loadFailture(String error_msg) {
+        makeTextLong(error_msg);
+    }
 
-                    @Override
-                    public void OnItemClick(View view, int position) {
-                        BeautyImgInfo beautyImgInfo = beautyImgList.get(position);
-                        LogTool.d(TAG, "beautyImgInfo:" + beautyImgInfo);
-                        String decorationid = beautyImgInfo.get_id();
-                        Intent decorationIntent = new Intent(getActivity(), PreviewDecorationActivity.class);
-                        Bundle decorationBundle = new Bundle();
-                        decorationBundle.putString(Global.DECORATION_ID, decorationid);
-                        decorationIntent.putExtras(decorationBundle);
-                        startActivity(decorationIntent);
-                    }
+    @Override
+    public void OnItemClick(View view, int position) {
+        BeautyImgInfo beautyImgInfo = beautyImgList.get(position);
+        LogTool.d(TAG, "beautyImgInfo:" + beautyImgInfo);
+        String decorationid = beautyImgInfo.get_id();
+        Intent decorationIntent = new Intent(getActivity(), PreviewDecorationActivity.class);
+        Bundle decorationBundle = new Bundle();
+        decorationBundle.putString(Global.DECORATION_ID, decorationid);
+        decorationIntent.putExtras(decorationBundle);
+        startActivity(decorationIntent);
+    }
 
-                    @Override
-                    public void OnViewClick(int position) {
+    @Override
+    public void OnViewClick(int position) {
 
-                    }
-                });
-                decoration_img_listview.setAdapter(decorationImgAdapter);
-            }
+    }
+
+    public void onEventMainThread(MessageEvent event) {
+        switch (event.getEventType()) {
+            case Constant.UPDATE_BEAUTY_FRAGMENT:
+                getDecorationImgList();
+                break;
+            default:
+                break;
         }
+    }
 
-        @Override
-        public void loadFailture(String error_msg) {
-            makeTextLong(error_msg);
-        }
-    };
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 
     @Override
     public int getLayoutId() {
