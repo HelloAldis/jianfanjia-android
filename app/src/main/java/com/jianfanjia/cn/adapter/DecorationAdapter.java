@@ -12,7 +12,6 @@ import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.bean.BeautyImgInfo;
 import com.jianfanjia.cn.bean.Img;
 import com.jianfanjia.cn.interf.OnItemClickListener;
-import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.ScreenUtil;
 
 import java.util.List;
@@ -40,7 +39,6 @@ public class DecorationAdapter extends BaseRecyclerViewAdapter<BeautyImgInfo> {
         Img img = info.getImages().get(0);
         int width = ScreenUtil.getScreenWidth(context) / 2;
         int height = width * img.getHeight() / img.getWidth();//高通过宽等比例缩放
-        LogTool.d(TAG, "width=" + width + " height=" + height);
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
                 width, height);
         holder.itemDecorateView.setLayoutParams(params);

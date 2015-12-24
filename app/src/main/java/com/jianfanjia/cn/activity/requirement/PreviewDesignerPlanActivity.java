@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
@@ -37,6 +38,12 @@ import java.util.List;
 public class PreviewDesignerPlanActivity extends BaseActivity implements OnClickListener {
     private static final String TAG = PreviewDesignerPlanActivity.class.getName();
     private MainHeadView mainHeadView = null;
+    private LinearLayout houseTypeLayout = null;
+    private LinearLayout houseAreaLayout = null;
+    private LinearLayout decorateTypeLayout = null;
+    private LinearLayout totalDateLayout = null;
+    private LinearLayout priceLayout = null;
+    private LinearLayout designTextLayout = null;
     private ViewPager viewPager = null;
     private TextView cellName = null;
     private TextView houseType = null;
@@ -56,6 +63,12 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
     @Override
     public void initView() {
         initMainHeadView();
+        houseTypeLayout = (LinearLayout) findViewById(R.id.houseTypeLayout);
+        houseAreaLayout = (LinearLayout) findViewById(R.id.houseAreaLayout);
+        decorateTypeLayout = (LinearLayout) findViewById(R.id.decorateTypeLayout);
+        totalDateLayout = (LinearLayout) findViewById(R.id.totalDateLayout);
+        priceLayout = (LinearLayout) findViewById(R.id.priceLayout);
+        designTextLayout = (LinearLayout) findViewById(R.id.designTextLayout);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         cellName = (TextView) findViewById(R.id.cellName);
         houseType = (TextView) findViewById(R.id.houseType);
@@ -142,31 +155,33 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
             planDetailInfo = JsonParser.jsonToBean(data.toString(), PlandetailInfo.class);
             LogTool.d(TAG, "planDetailInfo:" + planDetailInfo);
             if (null != planDetailInfo) {
-                btnDetail.setVisibility(View.VISIBLE);
+                totalDateLayout.setVisibility(View.VISIBLE);
+                priceLayout.setVisibility(View.VISIBLE);
+                designTextLayout.setVisibility(View.VISIBLE);
                 mainHeadView.setRigthTitleEnable(true);
                 RequirementInfo requirementInfo = planDetailInfo.getRequirement();
                 requirementid = planDetailInfo.getRequirementid();
                 designerid = planDetailInfo.getDesignerid();
                 LogTool.d(TAG, "requirementid:" + requirementid + " designerid:" + designerid + " requirementInfo:" + requirementInfo);
-                cellName.setText(requirementInfo.getCell());
+                if (!TextUtils.isEmpty(requirementInfo.getCell())) {
+                    cellName.setVisibility(View.VISIBLE);
+                    cellName.setText(requirementInfo.getCell());
+                }
                 if (!TextUtils.isEmpty(requirementInfo.getHouse_type())) {
-                    houseType.setText("装修户型:" + getHouseType(requirementInfo.getHouse_type()));
-                } else {
-                    houseType.setVisibility(View.GONE);
+                    houseTypeLayout.setVisibility(View.VISIBLE);
+                    houseType.setText(getHouseType(requirementInfo.getHouse_type()));
                 }
                 if (!TextUtils.isEmpty(requirementInfo.getHouse_area())) {
-                    houseArea.setText("装修面积:" + requirementInfo.getHouse_area() + "㎡");
-                } else {
-                    houseArea.setVisibility(View.GONE);
+                    houseAreaLayout.setVisibility(View.VISIBLE);
+                    houseArea.setText(requirementInfo.getHouse_area() + "㎡");
                 }
                 if (!TextUtils.isEmpty(requirementInfo.getWork_type())) {
-                    decorateType.setText("装修类型:" + getWorkType(requirementInfo.getWork_type()));
-                } else {
-                    decorateType.setVisibility(View.GONE);
+                    decorateTypeLayout.setVisibility(View.VISIBLE);
+                    decorateType.setText(getWorkType(requirementInfo.getWork_type()));
                 }
-                totalDate.setText("总工期:" + planDetailInfo.getDuration() + "天");
-                price.setText("项目报价:" + planDetailInfo.getTotal_price() + "元");
-                designText.setText("设计说明:" + planDetailInfo.getDescription());
+                totalDate.setText(planDetailInfo.getDuration() + "天");
+                price.setText(planDetailInfo.getTotal_price() + "元");
+                designText.setText(planDetailInfo.getDescription());
                 String planStatus = planDetailInfo.getStatus();
                 if (planStatus.equals(Global.PLAN_STATUS5)) {
                     btn_choose.setEnabled(false);

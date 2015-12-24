@@ -41,4 +41,5 @@
     <color name="black_translucencen">#dd000000</color>
     <color name="color_red">#FF4445</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="designer_info_text_color_bg">#7c8489</color>
 </resources>

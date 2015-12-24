@@ -143,53 +143,47 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
                 LogTool.d(TAG, "requirement=" + requirement);
                 designerList.clear();
                 designerList.addAll(homeDesignersInfo.getDesigners());
+                designerAdapter = new DesignerListAdapter(getActivity(), designerList, requirement, new ListItemClickListener() {
+                    @Override
+                    public void onMaxClick(int position) {
+                        DesignerListInfo designerListInfo = designerList.get(position);
+                        Product product = designerListInfo.getProduct();
+                        String productid = product.get_id();
+                        LogTool.d(TAG, "productid:" + productid);
+                        Bundle productBundle = new Bundle();
+                        productBundle.putString(Global.PRODUCT_ID, productid);
+                        startActivity(DesignerCaseInfoActivity.class, productBundle);
+                    }
+
+                    @Override
+                    public void onMinClick(int position) {
+                        DesignerListInfo designerListInfo = designerList.get(position);
+                        String designertid = designerListInfo.get_id();
+                        LogTool.d(TAG, "designertid:" + designertid);
+                        Bundle designerBundle = new Bundle();
+                        designerBundle.putString(Global.DESIGNER_ID, designertid);
+                        startActivity(DesignerInfoActivity.class, designerBundle);
+                    }
+
+                    @Override
+                    public void onItemClick(int itemPosition, OrderDesignerInfo orderDesignerInfo) {
+                        LogTool.d(TAG, "itemPosition:" + itemPosition + " orderDesignerInfo:" + orderDesignerInfo);
+                        String designertid = orderDesignerInfo.get_id();
+                        LogTool.d(TAG, "designertid:" + designertid);
+                        Bundle designerBundle = new Bundle();
+                        designerBundle.putString(Global.DESIGNER_ID, designertid);
+                        startActivity(DesignerInfoActivity.class, designerBundle);
+                    }
+
+                    @Override
+                    public void onClick() {
+                        Intent intent = new Intent(getActivity(), PublishRequirementActivity.class);
+                        getActivity().startActivityForResult(intent, XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT);
+                    }
+                });
+                pullToRefreshRecyclerView.setAdapter(designerAdapter);
                 FROM = designerList.size();
                 LogTool.d(TAG, "FROM:" + FROM);
-                if (null == designerAdapter) {
-                    LogTool.d(TAG, "designerAdapter is null");
-                    designerAdapter = new DesignerListAdapter(getActivity(), designerList, requirement, new ListItemClickListener() {
-                        @Override
-                        public void onMaxClick(int position) {
-                            DesignerListInfo designerListInfo = designerList.get(position);
-                            Product product = designerListInfo.getProduct();
-                            String productid = product.get_id();
-                            LogTool.d(TAG, "productid:" + productid);
-                            Bundle productBundle = new Bundle();
-                            productBundle.putString(Global.PRODUCT_ID, productid);
-                            startActivity(DesignerCaseInfoActivity.class, productBundle);
-                        }
-
-                        @Override
-                        public void onMinClick(int position) {
-                            DesignerListInfo designerListInfo = designerList.get(position);
-                            String designertid = designerListInfo.get_id();
-                            LogTool.d(TAG, "designertid:" + designertid);
-                            Bundle designerBundle = new Bundle();
-                            designerBundle.putString(Global.DESIGNER_ID, designertid);
-                            startActivity(DesignerInfoActivity.class, designerBundle);
-                        }
-
-                        @Override
-                        public void onItemClick(int itemPosition, OrderDesignerInfo orderDesignerInfo) {
-                            LogTool.d(TAG, "itemPosition:" + itemPosition + " orderDesignerInfo:" + orderDesignerInfo);
-                            String designertid = orderDesignerInfo.get_id();
-                            LogTool.d(TAG, "designertid:" + designertid);
-                            Bundle designerBundle = new Bundle();
-                            designerBundle.putString(Global.DESIGNER_ID, designertid);
-                            startActivity(DesignerInfoActivity.class, designerBundle);
-                        }
-
-                        @Override
-                        public void onClick() {
-                            Intent intent = new Intent(getActivity(), PublishRequirementActivity.class);
-                            getActivity().startActivityForResult(intent, XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT);
-                        }
-                    });
-                    pullToRefreshRecyclerView.setAdapter(designerAdapter);
-                } else {
-                    LogTool.d(TAG, "designerAdapter is not null");
-                    designerAdapter.notifyDataSetChanged();
-                }
             }
             pullToRefreshRecyclerView.onRefreshComplete();
         }
