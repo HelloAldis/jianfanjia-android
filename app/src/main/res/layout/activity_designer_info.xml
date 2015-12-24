@@ -92,7 +92,7 @@
                             style="@style/listview_item_text_style_small"
                             android:layout_gravity="center_horizontal"
                             android:text="浏览数"
-                            android:textColor="@color/home_page_text_color"
+                            android:textColor="@color/designer_info_text_color_bg"
                             android:textSize="@dimen/text_size_14" />
                         <!-- android:textColor="@color/designer_info_text_color"-->
                     </LinearLayout>
@@ -115,7 +115,7 @@
                             style="@style/listview_item_text_style_small"
                             android:layout_gravity="center_horizontal"
                             android:text="作品数"
-                            android:textColor="@color/home_page_text_color"
+                            android:textColor="@color/designer_info_text_color_bg"
                             android:textSize="@dimen/text_size_14" />
 
                     </LinearLayout>
@@ -138,7 +138,7 @@
                             style="@style/listview_item_text_style_small"
                             android:layout_gravity="center_horizontal"
                             android:text="预约数"
-                            android:textColor="@color/home_page_text_color"
+                            android:textColor="@color/designer_info_text_color_bg"
                             android:textSize="@dimen/text_size_14" />
                     </LinearLayout>
 
