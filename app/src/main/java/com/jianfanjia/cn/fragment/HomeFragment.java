@@ -219,7 +219,7 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
 
         @Override
         public void loadFailture(String error_msg) {
-            makeTextLong(error_msg);
+            makeTextShort(error_msg);
             errorLayout.setVisibility(View.VISIBLE);
             pullToRefreshRecyclerView.onRefreshComplete();
         }
@@ -228,6 +228,7 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        LogTool.d(TAG, "onActivityResult = " + requestCode + " resultCode=" + resultCode);
         if (resultCode != Activity.RESULT_OK) {
             return;
         }

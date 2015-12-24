@@ -20,7 +20,6 @@ import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
-import com.jianfanjia.cn.tools.DownLoadManager;
 import com.jianfanjia.cn.tools.ImageUtil;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
@@ -40,7 +39,6 @@ import de.greenrobot.event.EventBus;
  */
 public class PreviewDecorationActivity extends BaseActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
     private static final String TAG = PreviewDecorationActivity.class.getName();
-    private DownLoadManager downLoadManager = null;
     private Toolbar toolbar = null;
     private AnimImageButton toolbar_collect = null;
     private AnimImageButton toolbar_share = null;
@@ -61,7 +59,6 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
         Bundle decorationBundle = intent.getExtras();
         decorationId = decorationBundle.getString(Global.DECORATION_ID);
         LogTool.d(TAG, "decorationId=" + decorationId);
-        downLoadManager = DownLoadManager.getInstance();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar_collect = (AnimImageButton) findViewById(R.id.toolbar_collect);
         toolbar_share = (AnimImageButton) findViewById(R.id.toolbar_share);
@@ -136,6 +133,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
             LogTool.d(TAG, "beautyImgInfo:" + beautyImgInfo);
             if (null != beautyImgInfo) {
                 btn_download.setVisibility(View.VISIBLE);
+                toolbar_collect.setVisibility(View.VISIBLE);
                 if (beautyImgInfo.is_my_favorite()) {
                     toolbar_collect.setSelected(true);
                 } else {
@@ -164,6 +162,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
         public void loadFailture(String error_msg) {
             makeTextLong(error_msg);
             btn_download.setVisibility(View.GONE);
+            toolbar_collect.setVisibility(View.GONE);
         }
     };
 

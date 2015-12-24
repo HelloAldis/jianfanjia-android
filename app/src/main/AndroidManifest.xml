@@ -254,10 +254,12 @@
 
         <activity
             android:name=".home.DesignerInfoActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            />
         <activity
             android:name=".home.DesignerCaseInfoActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            />
         <activity
             android:name=".requirement.AppointDesignerActivity"
             android:screenOrientation="portrait" />
@@ -294,7 +296,7 @@
             android:label="@string/title_activity_replace_designer"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".my.CityEditActivity_"
+            android:name=".my.EditCityActivity_"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.soundcloud.android.crop.CropImageActivity"
@@ -304,7 +306,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".beautifulpic.PreviewDecorationActivity"
-            android:label="@string/title_activity_preview_decoration"
+            android:label=""
             android:screenOrientation="portrait" />
         <activity
             android:name=".NewUserCollectLoveStyleActivity_"

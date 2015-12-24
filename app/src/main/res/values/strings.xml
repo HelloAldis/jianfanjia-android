@@ -292,5 +292,8 @@
     <string name="designerText">设计师</string>
     <string name="productText">作品</string>
     <string name="imgText">美图</string>
+    <string name="man">男</string>
+    <string name="women">女</string>
+    <string name="choose_sex">选择性别</string>
 
 </resources>

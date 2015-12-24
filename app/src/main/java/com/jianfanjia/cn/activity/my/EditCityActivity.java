@@ -10,7 +10,10 @@ import android.widget.Spinner;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseAnnotationActivity;
+import com.jianfanjia.cn.bean.OwnerUpdateInfo;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.http.JianFanJiaClient;
+import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.CityFormatTool;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
@@ -30,9 +33,9 @@ import java.util.Map;
  * Date:2015-11-09 13:06
  */
 @EActivity(R.layout.activity_cityedit)
-public class CityEditActivity extends BaseAnnotationActivity {
+public class EditCityActivity extends BaseAnnotationActivity {
 
-    private static final String TAG = "CityEditActivity";
+    private static final String TAG = "EditCityActivity";
     @ViewById(R.id.spinner_pro)
     Spinner spinner_pro;
 
@@ -69,6 +72,7 @@ public class CityEditActivity extends BaseAnnotationActivity {
     private Map<String, List<String>> districtMap;
 
     private Intent intent;
+    private OwnerUpdateInfo ownerUpdateInfo = new OwnerUpdateInfo();
 
     @AfterViews
     public void init() {
@@ -94,12 +98,12 @@ public class CityEditActivity extends BaseAnnotationActivity {
                 LogTool.d(TAG, city + citys.size());
 
                 city = citys.get(currentCity);
-                spinnerCityAdapter = new ArrayAdapter(CityEditActivity.this, R.layout.spinner_city_item, citys);
+                spinnerCityAdapter = new ArrayAdapter(EditCityActivity.this, R.layout.spinner_city_item, citys);
                 spinnerCityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spinner_city.setAdapter(spinnerCityAdapter);
-                if(!isInit){
+                if (!isInit) {
                     currentCity = 0;
-                }else{
+                } else {
                     spinner_city.setSelection(currentCity);
                 }
                 spinner_city.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -109,12 +113,12 @@ public class CityEditActivity extends BaseAnnotationActivity {
                         city = citys.get(position);
                         districts = districtMap.get(city);
                         district = districts.get(currentDistrict);
-                        spinnerDistrictAdapter = new ArrayAdapter(CityEditActivity.this, R.layout.spinner_city_item, districts);
+                        spinnerDistrictAdapter = new ArrayAdapter(EditCityActivity.this, R.layout.spinner_city_item, districts);
                         spinnerDistrictAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         spinner_district.setAdapter(spinnerDistrictAdapter);
-                        if(!isInit){
+                        if (!isInit) {
                             currentDistrict = 0;
-                        }else{
+                        } else {
                             spinner_district.setSelection(currentDistrict);
                         }
                         spinner_district.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -122,7 +126,7 @@ public class CityEditActivity extends BaseAnnotationActivity {
                             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                                 currentDistrict = position;
                                 district = districts.get(position);
-                                if(isInit == true){
+                                if (isInit == true) {
                                     isInit = false;
                                 }
                             }
@@ -180,6 +184,35 @@ public class CityEditActivity extends BaseAnnotationActivity {
 
     }
 
+    // 修改设计师个人资料
+    private void put_Owner_Info() {
+        JianFanJiaClient.put_OwnerInfo(this, ownerUpdateInfo,
+                new ApiUiUpdateListener() {
+
+                    @Override
+                    public void preLoad() {
+                        showWaitDialog();
+                    }
+
+                    @Override
+                    public void loadSuccess(Object data) {
+                        hideWaitDialog();
+                        intent.putExtra(Constant.EDIT_PROVICE, provice);
+                        intent.putExtra(Constant.EDIT_CITY, city);
+                        intent.putExtra(Constant.EDIT_DISTRICT, district);
+                        LogTool.d(TAG, provice + city + district);
+                        setResult(RESULT_OK, intent);
+                        appManager.finishActivity(EditCityActivity.this);
+                    }
+
+                    @Override
+                    public void loadFailture(String error_msg) {
+                        hideWaitDialog();
+                        makeTextLong(error_msg);
+                    }
+                }, this);
+    }
+
     @Click({R.id.head_back_layout, R.id.btn_confirm})
     public void click(View view) {
         switch (view.getId()) {
@@ -187,12 +220,10 @@ public class CityEditActivity extends BaseAnnotationActivity {
                 appManager.finishActivity(this);
                 break;
             case R.id.btn_confirm:
-                intent.putExtra(Constant.EDIT_PROVICE, provice);
-                intent.putExtra(Constant.EDIT_CITY, city);
-                intent.putExtra(Constant.EDIT_DISTRICT, district);
-                LogTool.d(TAG, provice + city + district);
-                setResult(RESULT_OK, intent);
-                appManager.finishActivity(this);
+                ownerUpdateInfo.setProvince(provice);
+                ownerUpdateInfo.setCity(city);
+                ownerUpdateInfo.setDistrict(district);
+                put_Owner_Info();
                 break;
         }
     }
