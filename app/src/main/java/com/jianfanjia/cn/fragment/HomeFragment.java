@@ -45,7 +45,6 @@ import java.util.List;
 public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRefreshListener2<RecyclerView> {
     private static final String TAG = HomeFragment.class.getName();
     private PullToRefreshRecycleView pullToRefreshRecyclerView = null;
-    private RelativeLayout emptyLayout = null;
     private RelativeLayout errorLayout = null;
     private boolean isFirst = true;
 
@@ -61,7 +60,6 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
 
     @Override
     public void initView(View view) {
-        emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
         errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
         pullToRefreshRecyclerView = (PullToRefreshRecycleView) view.findViewById(R.id.pull_refresh_scrollview);
         pullToRefreshRecyclerView.setMode(PullToRefreshBase.Mode.BOTH);

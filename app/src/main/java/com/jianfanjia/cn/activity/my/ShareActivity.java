@@ -30,8 +30,7 @@ public class ShareActivity extends BaseActivity implements OnClickListener,
     private void initMainHeadView() {
         mainHeadView = (MainHeadView) findViewById(R.id.my_share_head_layout);
         mainHeadView.setBackListener(this);
-        mainHeadView
-                .setMianTitle(getResources().getString(R.string.share_title));
+        mainHeadView.setMianTitle(getResources().getString(R.string.share_title));
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
         mainHeadView.setDividerVisable(View.VISIBLE);
     }
@@ -59,10 +58,10 @@ public class ShareActivity extends BaseActivity implements OnClickListener,
         try {
             ImageUtils.saveImageToSD(ShareActivity.this, Constant.IMAG_PATH
                     + "myqr.jpg", bitmap, 100);
-            makeTextLong(getResources().getString(R.string.save_image_success));
+            makeTextShort(getResources().getString(R.string.save_image_success));
         } catch (IOException e) {
             e.printStackTrace();
-            makeTextLong(getResources().getString(R.string.save_image_failure));
+            makeTextShort(getResources().getString(R.string.save_image_failure));
         }
         return true;
     }

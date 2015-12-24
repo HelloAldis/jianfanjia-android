@@ -101,7 +101,7 @@
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
-                <ImageButton
+                <com.jianfanjia.cn.view.AnimImageButton
                     android:id="@+id/toolbar_collect"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

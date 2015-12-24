@@ -15,7 +15,6 @@
 
     <TextView
         android:layout_marginTop="@dimen/space_24"
-        android:layout_marginBottom="@dimen/space_24"
         android:layout_gravity="center_horizontal"
         android:text="@string/dec_stage"
         android:textColor="@color/black_color"
@@ -31,6 +30,7 @@
             android:layout_gravity="center_horizontal"
             android:text="@string/dec_stage_scan"
             android:textColor="@color/black_color"
+            android:layout_marginTop="@dimen/space_24"
             style="@style/listview_item_text_style_middle"
             android:background="@drawable/btn_grey_white_oval_bg"/>
 

@@ -1,5 +1,9 @@
 package com.jianfanjia.cn.tools;
 
+import android.animation.Animator;
+import android.animation.Keyframe;
+import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -14,6 +18,7 @@ import android.support.v4.app.NotificationCompat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.animation.AccelerateInterpolator;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RemoteViews;
@@ -33,6 +38,34 @@ import com.jianfanjia.cn.service.UpdateService;
 import java.io.File;
 
 public class UiHelper {
+
+    /**
+     * 对按钮进行做点击效果的
+     * @param view
+     * @param listener
+     */
+    public static void imageButtonAnim(View view,Animator.AnimatorListener listener)
+    {
+        Keyframe kf0 = Keyframe.ofFloat(0f, 1.0f);
+        Keyframe kf1 = Keyframe.ofFloat(0.17f, 1.4f);
+        Keyframe kf2 = Keyframe.ofFloat(0.34f, 0.9f);
+        Keyframe kf3 = Keyframe.ofFloat(0.51f, 1.15f);
+        Keyframe kf4 = Keyframe.ofFloat(0.68f, 0.95f);
+        Keyframe kf5 = Keyframe.ofFloat(0.85f, 1.02f);
+        Keyframe kf6 = Keyframe.ofFloat(1.0f, 1.0f);
+        PropertyValuesHolder propertyValuesHolderScaleXHolder = PropertyValuesHolder.ofKeyframe("scaleX", kf0, kf1,
+                kf2, kf3, kf4, kf5, kf6);
+        PropertyValuesHolder propertyValuesHolderScaleYHolder = PropertyValuesHolder.ofKeyframe("scaleY", kf0, kf1,
+                kf2, kf3, kf4, kf5, kf6);
+        ObjectAnimator rotaAnimator = ObjectAnimator.ofPropertyValuesHolder(view,
+                propertyValuesHolderScaleXHolder,propertyValuesHolderScaleYHolder);
+        rotaAnimator.setDuration(500);
+        rotaAnimator.setInterpolator(new AccelerateInterpolator());
+        if(listener != null){
+            rotaAnimator.addListener(listener);
+        }
+        rotaAnimator.start();
+    }
 
     public static void sendNotifycation(Context context, NotifyMessage message) {
         int notifyId = -1;
