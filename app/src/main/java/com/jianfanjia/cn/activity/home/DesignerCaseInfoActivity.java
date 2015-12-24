@@ -180,6 +180,7 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
             DesignerCaseInfo designerCaseInfo = JsonParser.jsonToBean(data.toString(), DesignerCaseInfo.class);
             LogTool.d(TAG, "designerCaseInfo" + designerCaseInfo);
             if (null != designerCaseInfo) {
+                toolbar_collect.setVisibility(View.VISIBLE);
                 if (designerCaseInfo.is_my_favorite()) {
                     toolbar_collect.setSelected(true);
                 } else {
@@ -188,7 +189,7 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
                 designertid = designerCaseInfo.getDesigner().get_id();
                 collapsingToolbar.setTitle(designerCaseInfo.getCell());
                 stylelText.setText(designerCaseInfo.getHouse_area() + "㎡，" + getHouseType(designerCaseInfo.getHouse_type()) + "，" + getDecStyle(designerCaseInfo.getDec_type()));
-                imageShow.displayScreenWidthThumnailImage(DesignerCaseInfoActivity.this, designerCaseInfo.getDesigner().getImageid(), designerinfo_head_img);
+                imageShow.displayImageHeadWidthThumnailImage(DesignerCaseInfoActivity.this, designerCaseInfo.getDesigner().getImageid(), designerinfo_head_img);
                 imageShow.displayImageHeadWidthThumnailImage(DesignerCaseInfoActivity.this, designerCaseInfo.getDesigner().getImageid(), head_img);
                 if (designerCaseInfo.getDesigner().getAuth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)) {
                     designerinfo_auth.setVisibility(View.VISIBLE);
@@ -208,6 +209,8 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
             hideWaitDialog();
             makeTextLong(error_msg);
             collapsingToolbar.setTitle("");
+            toolbar_collect.setVisibility(View.GONE);
+
         }
     };
 

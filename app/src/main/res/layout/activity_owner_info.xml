@@ -15,7 +15,9 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_below="@+id/ownerinfo_head_layout"
-        android:layout_marginTop="@dimen/space_8">
+        android:layout_marginTop="@dimen/space_8"
+        android:overScrollMode="always"
+        >
 
         <LinearLayout
             android:id="@+id/rootview"
@@ -210,12 +212,6 @@
             </RelativeLayout>
 
             <View style="@style/divier_line" />
-
-            <Button
-                android:id="@+id/btn_confirm"
-                style="@style/button_login_style"
-                android:layout_margin="@dimen/space_24"
-                android:text="@string/confirm" />
         </LinearLayout>
     </ScrollView>
 
