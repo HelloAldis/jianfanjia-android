@@ -213,7 +213,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=" 个"
+                android:text=" 个施工队"
                 android:textColor="@color/designer_info_text_color_bg"
                 android:textSize="@dimen/text_size_14" />
         </LinearLayout>
