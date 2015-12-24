@@ -1,12 +1,7 @@
 package com.jianfanjia.cn.tools;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.net.URI;
-
 import android.content.ContentResolver;
+import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
@@ -25,6 +20,14 @@ import android.graphics.Shader.TileMode;
 import android.graphics.drawable.Drawable;
 import android.provider.MediaStore;
 import android.provider.MediaStore.Images;
+import android.view.View;
+import android.widget.ImageView;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
 
 /**
  * Description:com.jianfanjia.cn.tools
@@ -38,6 +41,23 @@ public class ImageUtil {
     private static final int OPTIONS_SCALE_UP = 0x1;
     public static final int OPTIONS_RECYCLE_INPUT = 0x2;
     static int mBorderThickness = 2;
+
+    /**
+     * 获取imageview的bitmap.保存在本地
+     * @param context
+     * @param
+     * @param quality
+     * @return
+     * @throws Exception
+     */
+    public static boolean snapshot(Context context, ImageView imageView, int quality) throws Exception {
+        boolean isSuccess = false;
+        Bitmap bitmap = drawableToBitmap(imageView.getDrawable());
+        if (bitmap != null) {
+            isSuccess = ImageUtils.saveImageToSD(context, FileUtil.createTmpFile(context).getPath(), bitmap, quality);
+        }
+        return isSuccess;
+    }
 
     public static byte[] transformBitmapToBytes(Bitmap bitmap) {
         byte[] buffer = null;
@@ -211,7 +231,7 @@ public class ImageUtil {
         /* 原始位图宽和高 */
         final int h = options.outHeight;
         final int w = options.outWidth;
-		/* 目标位图宽和高 */
+        /* 目标位图宽和高 */
         final int reqHeight = 600;
         final int reqWidth = 600;
 		/* 获取裁剪比率 */

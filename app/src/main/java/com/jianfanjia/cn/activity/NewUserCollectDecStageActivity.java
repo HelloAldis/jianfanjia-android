@@ -2,12 +2,8 @@ package com.jianfanjia.cn.activity;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.animation.Keyframe;
-import android.animation.ObjectAnimator;
-import android.animation.PropertyValuesHolder;
 import android.content.Intent;
 import android.view.View;
-import android.view.animation.AccelerateInterpolator;
 import android.view.animation.OvershootInterpolator;
 import android.widget.TextView;
 
@@ -16,6 +12,7 @@ import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.ScreenUtil;
+import com.jianfanjia.cn.tools.UiHelper;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -41,51 +38,30 @@ public class NewUserCollectDecStageActivity extends BaseAnnotationActivity {
     TextView dec_stage_2;
 
 
-    @Click({R.id.dec_stage0,R.id.dec_stage1,R.id.dec_stage2})
-    protected void click(View view) {
-        switch (view.getId()) {
-            case R.id.dec_stage0:
-//                propertyValuesHolder(view);
-                intentToCollectReq(Global.DEC_PROGRESS0);
-                break;
-            case R.id.dec_stage1:
-//                propertyValuesHolder(view);
-                intentToCollectReq(Global.DEC_PROGRESS1);
-                break;
-            case R.id.dec_stage2:
-                intentToCollectReq(Global.DEC_PROGRESS2);
-                break;
-        }
-    }
-
-    public void propertyValuesHolder(View view)
-    {
-        Keyframe kf0 = Keyframe.ofFloat(0f, 1.0f);
-        Keyframe kf1 = Keyframe.ofFloat(0.17f, 1.4f);
-        Keyframe kf2 = Keyframe.ofFloat(0.34f, 0.9f);
-        Keyframe kf3 = Keyframe.ofFloat(0.51f, 1.15f);
-        Keyframe kf4 = Keyframe.ofFloat(0.68f, 0.95f);
-        Keyframe kf5 = Keyframe.ofFloat(0.85f, 1.02f);
-        Keyframe kf6 = Keyframe.ofFloat(1.0f, 1.0f);
-        PropertyValuesHolder propertyValuesHolderRotationHolder = PropertyValuesHolder.ofKeyframe("scale", kf0, kf1,
-                kf2, kf3, kf4, kf5, kf6);
-        ObjectAnimator rotaAnimator = ObjectAnimator.ofPropertyValuesHolder(view,
-                propertyValuesHolderRotationHolder);
-        rotaAnimator.setDuration(500);
-        rotaAnimator.setInterpolator(new AccelerateInterpolator());
-        rotaAnimator.addListener(new AnimatorListenerAdapter() {
+    @Click({R.id.dec_stage0, R.id.dec_stage1, R.id.dec_stage2})
+    protected void click(final View view) {
+        UiHelper.imageButtonAnim(view, new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
+                switch (view.getId()) {
+                    case R.id.dec_stage0:
+                        intentToCollectReq(Global.DEC_PROGRESS0);
+                        break;
+                    case R.id.dec_stage1:
+                        intentToCollectReq(Global.DEC_PROGRESS1);
+                        break;
+                    case R.id.dec_stage2:
+                        intentToCollectReq(Global.DEC_PROGRESS2);
+                        break;
+                }
             }
         });
-        rotaAnimator.start();
-
-
     }
 
+
     @AfterViews
-    protected void viewanim(){
+    protected void viewanim() {
 //        dec_stage_1.setTranslationY(TDevice.getScreenHeight() / 2);
         LogTool.d(this.getClass().getName(), "ScreenUtil.getScreenHeight(this) =" + ScreenUtil.getScreenHeight(this));
         dec_stage_1.setTranslationY(ScreenUtil.getScreenHeight(this));
@@ -106,11 +82,11 @@ public class NewUserCollectDecStageActivity extends BaseAnnotationActivity {
 //        super.onBackPressed();
     }
 
-    protected void intentToCollectReq(String stage){
+    protected void intentToCollectReq(String stage) {
         OwnerInfo ownerInfo = new OwnerInfo();
         ownerInfo.setDec_progress(stage);
-        Intent intent = new Intent(this,NewUserCollectLoveStyleActivity_.class);
-        intent.putExtra(Global.OWNERINFO,ownerInfo);
+        Intent intent = new Intent(this, NewUserCollectLoveStyleActivity_.class);
+        intent.putExtra(Global.OWNERINFO, ownerInfo);
         startActivity(intent);
     }
 }

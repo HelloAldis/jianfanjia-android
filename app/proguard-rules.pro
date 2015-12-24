@@ -30,9 +30,9 @@
 -keep interface android.support.v4.app.** { *; }
 
 # LeakCanary
--keep class org.eclipse.mat.** { *; }
--keep class com.squareup.leakcanary.** { *; }
--dontwarn com.squareup.leakcanary.**
+#-keep class org.eclipse.mat.** { *; }
+#-keep class com.squareup.leakcanary.** { *; }
+#-dontwarn com.squareup.leakcanary.**
 
 #ormlite混淆
 -dontwarn com.j256.**

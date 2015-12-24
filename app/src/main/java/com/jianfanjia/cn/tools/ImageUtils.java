@@ -97,8 +97,9 @@ public class ImageUtils {
      *
      * @throws IOException
      */
-    public static void saveImageToSD(Context ctx, String filePath,
+    public static boolean saveImageToSD(Context ctx, String filePath,
                                      Bitmap bitmap, int quality) throws IOException {
+        boolean isSuccess = false;
         if (bitmap != null) {
             File file = new File(filePath.substring(0,
                     filePath.lastIndexOf(File.separator)));
@@ -107,13 +108,14 @@ public class ImageUtils {
             }
             BufferedOutputStream bos = new BufferedOutputStream(
                     new FileOutputStream(filePath));
-            bitmap.compress(CompressFormat.JPEG, quality, bos);
+            isSuccess = bitmap.compress(CompressFormat.JPEG, quality, bos);
             bos.flush();
             bos.close();
             if (ctx != null) {
                 scanPhoto(ctx, filePath);
             }
         }
+        return isSuccess;
     }
 
     public static void saveBackgroundImage(Context ctx, String filePath,
@@ -236,7 +238,7 @@ public class ImageUtils {
      * @return
      */
     public static String getTempFileName() {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss_SS");
+        SimpleDateFormat format = new SimpleDateFormat("jfj_image_yyyy-MM-dd_HH-mm-ss_SS");
         String fileName = format.format(new Timestamp(System
                 .currentTimeMillis()));
         return fileName;

@@ -5,25 +5,24 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.adapter.PreviewAdapter;
+import com.jianfanjia.cn.adapter.ShowPicPagerAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.BeautyImgInfo;
 import com.jianfanjia.cn.bean.Img;
-import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.http.JianFanJiaClient;
-import com.jianfanjia.cn.http.coreprogress.listener.impl.UIProgressListener;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.tools.DownLoadManager;
+import com.jianfanjia.cn.tools.ImageUtil;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.view.AnimImageButton;
 import com.jianfanjia.cn.view.SharePopWindow;
 
 import java.util.ArrayList;
@@ -39,9 +38,9 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
     private static final String TAG = PreviewDecorationActivity.class.getName();
     private DownLoadManager downLoadManager = null;
     private Toolbar toolbar = null;
-    private ImageButton toolbar_collect = null;
-    private ImageButton toolbar_share = null;
-    private ImageButton btn_download = null;
+    private AnimImageButton toolbar_collect = null;
+    private AnimImageButton toolbar_share = null;
+    private AnimImageButton btn_download = null;
     private ViewPager viewPager = null;
     private TextView pic_tip = null;
     private TextView pic_title = null;
@@ -60,8 +59,8 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
         LogTool.d(TAG, "decorationId=" + decorationId);
         downLoadManager = DownLoadManager.getInstance();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar_collect = (ImageButton) findViewById(R.id.toolbar_collect);
-        toolbar_share = (ImageButton) findViewById(R.id.toolbar_share);
+        toolbar_collect = (AnimImageButton) findViewById(R.id.toolbar_collect);
+        toolbar_share = (AnimImageButton) findViewById(R.id.toolbar_share);
         toolbar.setNavigationIcon(R.mipmap.icon_back);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -69,7 +68,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
         pic_tip = (TextView) findViewById(R.id.pic_tip);
         pic_title = (TextView) findViewById(R.id.pic_title);
         pic_des = (TextView) findViewById(R.id.pic_des);
-        btn_download = (ImageButton) findViewById(R.id.btn_download);
+        btn_download = (AnimImageButton) findViewById(R.id.btn_download);
         getDecorationImgInfo(decorationId);
     }
 
@@ -81,9 +80,9 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
                 appManager.finishActivity(PreviewDecorationActivity.this);
             }
         });
-        toolbar_collect.setOnClickListener(this);
-        toolbar_share.setOnClickListener(this);
-        btn_download.setOnClickListener(this);
+        toolbar_collect.setOnClickListener(this,null);
+        toolbar_share.setOnClickListener(this,null);
+        btn_download.setOnClickListener(this,null);
         viewPager.setOnPageChangeListener(this);
     }
 
@@ -101,7 +100,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
                 showPopwindow(getWindow().getDecorView());
                 break;
             case R.id.btn_download:
-                downloadImg(currentImgId);
+                downloadImg();
                 break;
             default:
                 break;
@@ -147,13 +146,13 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
                 }
                 currentImgId = imgList.get(currentPosition);
                 pic_tip.setText((currentPosition + 1) + "/" + totalCount);
-                PreviewAdapter adapter = new PreviewAdapter(PreviewDecorationActivity.this, imgList, new ViewPagerClickListener() {
+                final ShowPicPagerAdapter showPicPagerAdapter = new ShowPicPagerAdapter(PreviewDecorationActivity.this, imgList, new ViewPagerClickListener() {
                     @Override
                     public void onClickItem(int pos) {
                         LogTool.d(TAG, "pos:" + pos);
                     }
                 });
-                viewPager.setAdapter(adapter);
+                viewPager.setAdapter(showPicPagerAdapter);
             }
         }
 
@@ -237,54 +236,19 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
     }
 
 
-    private void downloadImg(String imgId) {
-        downLoadManager.download(Url_New.IMG_HTTPROOT + imgId, Constant.BEAUTY_IMAG_PATH, imgId + ".jpg", downloadListener, uiProgressListener);
+    private void downloadImg() {
+        ImageView photoView = (ImageView)viewPager.getChildAt(currentPosition).findViewById(R.id.image_item);
+        try {
+            boolean isSuccess = ImageUtil.snapshot(this,photoView,100);
+            if(isSuccess){
+                makeTextShort(getResources().getString(R.string.save_image_success));
+            }else{
+                makeTextShort(getResources().getString(R.string.save_image_failure));
+            }
+        }catch (Exception e){
+            makeTextShort(getResources().getString(R.string.save_image_failure));
+        }
     }
-
-    private ApiUiUpdateListener downloadListener = new ApiUiUpdateListener() {
-        @Override
-        public void preLoad() {
-
-        }
-
-        @Override
-        public void loadSuccess(Object data) {
-            LogTool.d(TAG, "data:" + data.toString());
-            makeTextLong("下载成功");
-        }
-
-        @Override
-        public void loadFailture(String error_msg) {
-            makeTextLong(error_msg);
-        }
-    };
-
-    private UIProgressListener uiProgressListener = new UIProgressListener() {
-        @Override
-        public void onUIProgress(final long bytesWritten, final long totalSize, boolean done) {
-            LogTool.d(this.getClass().getName(), "bytesWritten:"
-                    + bytesWritten + "  totalSize:" + totalSize);
-            String process = (int) ((bytesWritten * 1.0 / totalSize) * 100)
-                    + "%";
-            LogTool.d(this.getClass().getName(), "process:" + process);
-//            builder.setProgress((int) totalSize, (int) bytesWritten, false);
-//            builder.setContentInfo((int) ((bytesWritten / (float) totalSize) * 100)
-//                    + "%");
-//            nManager.notify(NotificationID, builder.build());
-        }
-
-        @Override
-        public void onUIStart(long currentBytes, long contentLength, boolean done) {
-            super.onUIStart(currentBytes, contentLength, done);
-            LogTool.d("uiProgressListener", "onUiStart");
-        }
-
-        @Override
-        public void onUIFinish(long currentBytes, long contentLength, boolean done) {
-            super.onUIFinish(currentBytes, contentLength, done);
-            LogTool.d("uiProgressListener", "onUiFinish");
-        }
-    };
 
     @Override
     public int getLayoutId() {

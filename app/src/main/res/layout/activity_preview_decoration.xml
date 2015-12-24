@@ -5,6 +5,12 @@
     android:layout_height="match_parent"
     android:background="#000000">
 
+    <com.jianfanjia.cn.view.MyViewPager
+        android:id="@+id/showpicPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -15,23 +21,28 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="right"
-            android:layout_marginRight="20dp"
             android:orientation="horizontal">
 
-            <ImageButton
+            <com.jianfanjia.cn.view.AnimImageButton
                 android:id="@+id/toolbar_collect"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="30dip"
-                android:background="@drawable/icon_collect_bg" />
+                android:layout_marginRight="20dip"
+                android:layout_marginLeft="20dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/icon_collect_bg"
+                />
 
-            <ImageButton
+            <com.jianfanjia.cn.view.AnimImageButton
                 android:id="@+id/toolbar_share"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/icon_share_bg" />
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/icon_share_bg"
+                android:visibility="gone"/>
         </LinearLayout>
     </android.support.v7.widget.Toolbar>
 
@@ -49,7 +60,7 @@
         android:textColor="@color/font_white" />
 
 
-    <ImageButton
+    <com.jianfanjia.cn.view.AnimImageButton
         android:id="@+id/btn_download"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -84,11 +95,6 @@
             android:textColor="@color/font_white" />
     </LinearLayout>
 
-    <com.jianfanjia.cn.view.MyViewPager
-        android:id="@+id/showpicPager"
-        android:layout_width="match_parent"
-        android:layout_height="400dip"
-        android:layout_below="@id/pic_tip"
-        android:layout_centerInParent="true" />
+
 
 </RelativeLayout>

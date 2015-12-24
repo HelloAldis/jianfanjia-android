@@ -12,7 +12,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -27,6 +26,7 @@ import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.view.AnimImageButton;
 import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
 
 /**
@@ -38,7 +38,7 @@ import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
 public class DesignerCaseInfoActivity extends BaseActivity implements OnClickListener, AppBarLayout.OnOffsetChangedListener {
     private static final String TAG = DesignerCaseInfoActivity.class.getName();
     private Toolbar toolbar = null;
-    private ImageButton toolbar_collect = null;
+    private AnimImageButton toolbar_collect = null;
     private AppBarLayout appBarLayout = null;
     private CollapsingToolbarLayout collapsingToolbar = null;
     private RelativeLayout activity_case_info_top_layout = null;
@@ -61,7 +61,7 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
     public void initView() {
         activity_case_info_top_layout = (RelativeLayout) findViewById(R.id.top_info_layout);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar_collect = (ImageButton) findViewById(R.id.toolbar_collect);
+        toolbar_collect = (AnimImageButton ) findViewById(R.id.toolbar_collect);
         toolbar.setNavigationIcon(R.mipmap.icon_register_back);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -104,7 +104,7 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
                 appManager.finishActivity(DesignerCaseInfoActivity.this);
             }
         });
-        toolbar_collect.setOnClickListener(this);
+        toolbar_collect.setOnClickListener(this,null);
     }
 
     @Override

@@ -475,41 +475,6 @@ public class UserInfoActivity extends BaseAnnotationActivity implements
                 break;
             case Crop.REQUEST_CROP:
                 handleCrop(resultCode, data);
-                /*if (data != null) {
-                    Bundle extras = data.getExtras();
-                    if (extras != null) {
-                        // 得到返回来的数据，是bitmap类型的数据
-                        Bitmap bitmap = extras.getParcelable("data");
-                        LogTool.d(TAG, "avatar - bitmap = " + bitmap);
-                        Uri uri = Crop.getOutput(data);
-                        String imgPath = PhotoUtils.savaPicture(bitmap);
-                        LogTool.d(TAG, "imgPath==" + imgPath);
-                        if (!TextUtils.isEmpty(imgPath)) {
-//						uploadManager.uploadPortrait(imgPath, this);
-                            JianFanJiaClient.uploadImage(this, bitmap, new ApiUiUpdateListener() {
-                                @Override
-                                public void preLoad() {
-
-                                }
-
-                                @Override
-                                public void loadSuccess(Object data) {
-                                    if (data != null) {
-                                        String imageid = data.toString();
-                                        LogTool.d(TAG, "imageid:" + imageid);
-                                        if (!TextUtils.isEmpty(imageid)) {
-                                            getImageId(imageid);
-                                        }
-                                    }
-                                }
-
-                                @Override
-                                public void loadFailture(String msg) {
-
-                                }
-                            }, this);
-                        }
-                    }*/
                 break;
             default:
                 break;
