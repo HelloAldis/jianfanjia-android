@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.MyFragmentPagerAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
@@ -32,6 +33,8 @@ import com.jianfanjia.cn.tools.LogTool;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * Description:设计师信息
@@ -197,6 +200,7 @@ public class DesignerInfoActivity extends BaseActivity implements OnClickListene
             LogTool.d(TAG, "data:" + data.toString());
             addBtn.setVisibility(View.GONE);
             deleteBtn.setVisibility(View.VISIBLE);
+            EventBus.getDefault().post(new MessageEvent(Constant.UPDATE_FAVORITE_FRAGMENT));
         }
 
         @Override
@@ -216,6 +220,7 @@ public class DesignerInfoActivity extends BaseActivity implements OnClickListene
             LogTool.d(TAG, "data=" + data.toString());
             addBtn.setVisibility(View.VISIBLE);
             deleteBtn.setVisibility(View.GONE);
+            EventBus.getDefault().post(new MessageEvent(Constant.UPDATE_FAVORITE_FRAGMENT));
         }
 
         @Override

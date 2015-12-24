@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.DesignerCaseAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
@@ -28,6 +29,8 @@ import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.AnimImageButton;
 import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * Description:设计师作品案例详情
@@ -61,7 +64,7 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
     public void initView() {
         activity_case_info_top_layout = (RelativeLayout) findViewById(R.id.top_info_layout);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar_collect = (AnimImageButton ) findViewById(R.id.toolbar_collect);
+        toolbar_collect = (AnimImageButton) findViewById(R.id.toolbar_collect);
         toolbar.setNavigationIcon(R.mipmap.icon_register_back);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -104,7 +107,7 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
                 appManager.finishActivity(DesignerCaseInfoActivity.this);
             }
         });
-        toolbar_collect.setOnClickListener(this,null);
+        toolbar_collect.setOnClickListener(this, null);
     }
 
     @Override
@@ -223,6 +226,7 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
         @Override
         public void loadSuccess(Object data) {
             toolbar_collect.setSelected(true);
+            EventBus.getDefault().post(new MessageEvent(Constant.UPDATE_PRODUCT_FRAGMENT));
         }
 
         @Override
@@ -240,6 +244,7 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data=" + data.toString());
             toolbar_collect.setSelected(false);
+            EventBus.getDefault().post(new MessageEvent(Constant.UPDATE_PRODUCT_FRAGMENT));
         }
 
         @Override

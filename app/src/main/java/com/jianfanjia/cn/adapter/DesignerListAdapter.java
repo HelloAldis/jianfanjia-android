@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
@@ -76,8 +75,8 @@ public class DesignerListAdapter extends BaseRecyclerViewAdapter<DesignerListInf
                     final List<OrderDesignerInfo> designers = requirement.getDesigners();
                     if (null != designers) {
                         if (designers.size() > 0) {
-                            designerHeadHolder.marchedLayout.setVisibility(View.VISIBLE);
-                            designerHeadHolder.noMarchedLayout.setVisibility(View.GONE);
+                            designerHeadHolder.marchedView.setVisibility(View.VISIBLE);
+                            designerHeadHolder.noMarchedView.setVisibility(View.GONE);
                             MarchDesignerAdapter marchDesignerAdapter = new MarchDesignerAdapter(context, designers);
                             designerHeadHolder.marchDesignerView.setAdapter(marchDesignerAdapter);
                             designerHeadHolder.marchDesignerView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -90,16 +89,16 @@ public class DesignerListAdapter extends BaseRecyclerViewAdapter<DesignerListInf
                                 }
                             });
                         } else {
-                            designerHeadHolder.marchedLayout.setVisibility(View.GONE);
-                            designerHeadHolder.noMarchedLayout.setVisibility(View.VISIBLE);
+                            designerHeadHolder.marchedView.setVisibility(View.GONE);
+                            designerHeadHolder.noMarchedView.setVisibility(View.VISIBLE);
                         }
                     } else {
-                        designerHeadHolder.marchedLayout.setVisibility(View.GONE);
-                        designerHeadHolder.noMarchedLayout.setVisibility(View.GONE);
+                        designerHeadHolder.marchedView.setVisibility(View.GONE);
+                        designerHeadHolder.noMarchedView.setVisibility(View.GONE);
                     }
                 } else {
-                    designerHeadHolder.marchedLayout.setVisibility(View.GONE);
-                    designerHeadHolder.noMarchedLayout.setVisibility(View.VISIBLE);
+                    designerHeadHolder.marchedView.setVisibility(View.GONE);
+                    designerHeadHolder.noMarchedView.setVisibility(View.VISIBLE);
                 }
                 designerHeadHolder.addXuQiu.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -150,6 +149,7 @@ public class DesignerListAdapter extends BaseRecyclerViewAdapter<DesignerListInf
     }
 
     private void initBannerView(MyViewPager viewPager, LinearLayout indicatorGroup_lib) {
+        indicatorGroup_lib.removeAllViews();
         List<View> bannerList = new ArrayList<View>();
         for (int i = 0; i < BANNER_ICON.length; i++) {
             ImageView imageView = new ImageView(context);
@@ -224,9 +224,9 @@ public class DesignerListAdapter extends BaseRecyclerViewAdapter<DesignerListInf
     }
 
     private static class DesignerHeadHolder extends RecyclerViewHolderBase {
-        public RelativeLayout viewpagerLayout = null;
-        public RelativeLayout marchedLayout = null;
-        public RelativeLayout noMarchedLayout = null;
+        public View pagerView = null;
+        public View marchedView = null;
+        public View noMarchedView = null;
         public MyViewPager myViewPager = null;
         public LinearLayout indicatorGroup_lib = null;
         public GridView marchDesignerView = null;
@@ -234,13 +234,13 @@ public class DesignerListAdapter extends BaseRecyclerViewAdapter<DesignerListInf
 
         public DesignerHeadHolder(View itemView) {
             super(itemView);
-            viewpagerLayout = (RelativeLayout) itemView.findViewById(R.id.viewpager_layout);
-            marchedLayout = (RelativeLayout) itemView.findViewById(R.id.marched_layout);
-            noMarchedLayout = (RelativeLayout) itemView.findViewById(R.id.no_marched_layout);
-            myViewPager = (MyViewPager) viewpagerLayout.findViewById(R.id.viewPager_lib);
-            indicatorGroup_lib = (LinearLayout) viewpagerLayout.findViewById(R.id.indicatorGroup_lib);
-            marchDesignerView = (GridView) marchedLayout.findViewById(R.id.marchGridview);
-            addXuQiu = (Button) noMarchedLayout.findViewById(R.id.btn_add);
+            pagerView = itemView.findViewById(R.id.viewpager_layout);
+            marchedView = itemView.findViewById(R.id.marched_layout);
+            noMarchedView = itemView.findViewById(R.id.no_marched_layout);
+            myViewPager = (MyViewPager) pagerView.findViewById(R.id.viewPager_lib);
+            indicatorGroup_lib = (LinearLayout) pagerView.findViewById(R.id.indicatorGroup_lib);
+            marchDesignerView = (GridView) marchedView.findViewById(R.id.marchGridview);
+            addXuQiu = (Button) noMarchedView.findViewById(R.id.btn_add);
         }
     }
 
