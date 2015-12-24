@@ -233,9 +233,9 @@ public class DesignerListAdapter extends BaseRecyclerViewAdapter<DesignerListInf
 
         public DesignerHeadHolder(View itemView) {
             super(itemView);
-            pagerView = (View) itemView.findViewById(R.id.viewpager_layout);
-            marchedView = (View) itemView.findViewById(R.id.marched_layout);
-            noMarchedView = (View) itemView.findViewById(R.id.no_marched_layout);
+            pagerView = itemView.findViewById(R.id.viewpager_layout);
+            marchedView = itemView.findViewById(R.id.marched_layout);
+            noMarchedView = itemView.findViewById(R.id.no_marched_layout);
             myViewPager = (MyViewPager) pagerView.findViewById(R.id.viewPager_lib);
             indicatorGroup_lib = (LinearLayout) pagerView.findViewById(R.id.indicatorGroup_lib);
             marchDesignerView = (GridView) marchedView.findViewById(R.id.marchGridview);
