@@ -148,8 +148,8 @@
                     android:id="@+id/btn_add"
                     style="@style/button_add_style"
                     android:layout_marginBottom="@dimen/space_10"
-                    android:layout_marginLeft="@dimen/space_30"
-                    android:layout_marginRight="@dimen/space_30"
+                    android:layout_marginLeft="@dimen/space_40"
+                    android:layout_marginRight="@dimen/space_40"
                     android:layout_marginTop="@dimen/space_15"
                     android:text="@string/strl_add_yixiang" />
 
