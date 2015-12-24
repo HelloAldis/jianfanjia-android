@@ -385,6 +385,7 @@ public class UserInfoActivity extends BaseAnnotationActivity implements
                     nameText.setText(name);
                     ownerInfo.setAddress(name);
                     dataManager.setOwnerInfo(ownerInfo);
+                    dataManager.setUserName(name);
                     isUpdate = true;
                 }
                 break;
