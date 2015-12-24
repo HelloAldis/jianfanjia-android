@@ -149,6 +149,7 @@ public class DesignerListAdapter extends BaseRecyclerViewAdapter<DesignerListInf
     }
 
     private void initBannerView(MyViewPager viewPager, LinearLayout indicatorGroup_lib) {
+        indicatorGroup_lib.removeAllViews();
         List<View> bannerList = new ArrayList<View>();
         for (int i = 0; i < BANNER_ICON.length; i++) {
             ImageView imageView = new ImageView(context);
