@@ -77,6 +77,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
     PullToRefreshListView detailNodeListView;
     @ViewById(R.id.process_head_layout)
     MainHeadView mainHeadView;
+
     @ViewById(R.id.head_notification_layout)
     RelativeLayout notificationLayout;
     @StringArrayRes(R.array.site_procedure)
