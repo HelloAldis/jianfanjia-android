@@ -152,7 +152,7 @@ public abstract class BaseActivity extends AppCompatActivity implements
     }
 
     protected void makeTextShort(String text) {
-        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,text,Toast.LENGTH_SHORT).show();
     }
 
     protected void makeTextLong(String text) {
