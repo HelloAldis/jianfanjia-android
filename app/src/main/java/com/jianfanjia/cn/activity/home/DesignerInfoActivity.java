@@ -71,8 +71,6 @@ public class DesignerInfoActivity extends BaseActivity implements OnClickListene
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         tabLayout = (TabLayout) findViewById(R.id.tabs);
-        setupViewPager(viewPager);
-        tabLayout.setupWithViewPager(viewPager);
         collapsingToolbar =
                 (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         collapsingToolbar.setExpandedTitleTextAppearance(R.style.listview_item_text_style_title);
@@ -93,6 +91,8 @@ public class DesignerInfoActivity extends BaseActivity implements OnClickListene
     private void initData(Intent intent){
         Bundle designerBundle = intent.getExtras();
         designerid = designerBundle.getString(Global.DESIGNER_ID);
+        setupViewPager(viewPager);
+        tabLayout.setupWithViewPager(viewPager);
         getDesignerPageInfo(designerid);
     }
 
