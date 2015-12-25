@@ -140,7 +140,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
                     toolbar_collect.setSelected(false);
                 }
                 pic_title.setText(beautyImgInfo.getTitle());
-                pic_des.setText("#" + beautyImgInfo.getDescription() + "  #" + getHouseType(beautyImgInfo.getHouse_type()) + "  #" + getDecStyle(beautyImgInfo.getDec_type()));
+                pic_des.setText(beautyImgInfo.getDescription() + "  " + getHouseType(beautyImgInfo.getHouse_type()) + "  " + getDecStyle(beautyImgInfo.getDec_type()));
                 List<Img> decorationImgs = beautyImgInfo.getImages();
                 totalCount = decorationImgs.size();
                 for (Img img : decorationImgs) {
