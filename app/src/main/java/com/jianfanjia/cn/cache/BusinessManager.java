@@ -92,6 +92,34 @@ public class BusinessManager {
         return decStyles[decPosition];
     }
 
+    public static String getHouseTypeByText(String houseTypeText) {
+        try {
+            String[] items = MyApplication.getInstance().getResources().getStringArray(R.array.arr_housetype);
+            for (int i = 0; i < items.length; i++) {
+                if (items[i].equals(houseTypeText)) {
+                    return i + "";
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static String getDecStyleByText(String decStyleText) {
+        try {
+            String[] items = MyApplication.getInstance().getResources().getStringArray(R.array.arr_decstyle);
+            for (int i = 0; i < items.length; i++) {
+                if (items[i].equals(decStyleText)) {
+                    return i + "";
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     /**
      * 比较需求是否改变
      *
