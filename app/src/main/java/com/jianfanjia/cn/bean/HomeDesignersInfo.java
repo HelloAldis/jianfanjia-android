@@ -10,9 +10,6 @@ import java.util.List;
  * Time: 11:29
  */
 public class HomeDesignersInfo implements Serializable {
-
-
-    private static final long serialVersionUID = 3758410466533305132L;
     private Requirement requirement;
     private List<DesignerListInfo> designers;
 

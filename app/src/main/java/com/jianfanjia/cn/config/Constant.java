@@ -208,9 +208,9 @@ public class Constant {
     public static final int UPDATE_FRAGMENT = 10;
     public static final int UPDATE_REQUIRE_FRAGMENT = 20;
 
-
     //消息类型
-    public static final int UPDATE_FAVORITE_FRAGMENT = 10;
-    public static final int UPDATE_PRODUCT_FRAGMENT = 20;
-    public static final int UPDATE_BEAUTY_FRAGMENT = 30;
+    public static final int UPDATE_HOME_FRAGMENT = 10;
+    public static final int UPDATE_FAVORITE_FRAGMENT = 20;
+    public static final int UPDATE_PRODUCT_FRAGMENT = 30;
+    public static final int UPDATE_BEAUTY_FRAGMENT = 40;
 }

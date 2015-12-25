@@ -39,7 +39,6 @@
             android:textColor="@color/light_black_color"
             android:textSize="@dimen/text_size_14" />
 
-
         <TextView
             android:id="@+id/list_item_tip_delay_time"
             style="@style/listview_item_text_style_small"
@@ -55,7 +54,7 @@
             android:layout_alignParentRight="true"
             android:text="已同意"
             android:textColor="@color/main_color_red"
-            android:textSize="@dimen/text_size_14" />
+            android:textSize="@dimen/text_size_16" />
 
     </RelativeLayout>
 

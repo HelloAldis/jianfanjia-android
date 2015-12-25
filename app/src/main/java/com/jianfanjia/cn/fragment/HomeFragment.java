@@ -11,6 +11,7 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.home.DesignerCaseInfoActivity;
 import com.jianfanjia.cn.activity.home.DesignerInfoActivity;
@@ -36,6 +37,8 @@ import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.greenrobot.event.EventBus;
+
 /**
  * Description:首页
  * Author：fengliang
@@ -56,6 +59,7 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -106,6 +110,7 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
     @Override
     public void onDestroy() {
         super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     private void getHomePageDesigners(int from, int limit, ApiUiUpdateListener listener) {
@@ -224,6 +229,16 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
             pullToRefreshRecyclerView.onRefreshComplete();
         }
     };
+
+    public void onEventMainThread(MessageEvent event) {
+        switch (event.getEventType()) {
+            case Constant.UPDATE_HOME_FRAGMENT:
+                getHomePageDesigners(FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
+                break;
+            default:
+                break;
+        }
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

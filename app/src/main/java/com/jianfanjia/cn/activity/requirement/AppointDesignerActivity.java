@@ -9,11 +9,13 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.DesignerByAppointOrReplaceAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.DesignerCanOrderInfo;
 import com.jianfanjia.cn.bean.DesignerCanOrderListInfo;
+import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
@@ -28,6 +30,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * Description:预约设计师
@@ -214,6 +218,7 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data.toString());
             //刷新Xuqiufragmet
+            EventBus.getDefault().post(new MessageEvent(Constant.UPDATE_HOME_FRAGMENT));
             UiHelper.sendUpdateBroast(AppointDesignerActivity.this);
             appManager.finishActivity(AppointDesignerActivity.this);
         }

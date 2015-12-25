@@ -15,6 +15,8 @@ import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
+import com.jianfanjia.cn.view.library.PullToRefreshBase;
+import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,9 +27,9 @@ import java.util.List;
  * @Description: 采购提醒
  * @date 2015-8-26 下午1:07:52
  */
-public class CaiGouNotifyFragment extends BaseFragment {
+public class CaiGouNotifyFragment extends BaseFragment implements PullToRefreshBase.OnRefreshListener2<RecyclerView> {
     private static final String TAG = CaiGouNotifyFragment.class.getName();
-    private RecyclerView caigouListView = null;
+    private PullToRefreshRecycleView caigouListView = null;
     private List<NotifyMessage> caigouList = new ArrayList<NotifyMessage>();
     private CaiGouNotifyAdapter caiGouAdapter = null;
 
@@ -40,8 +42,9 @@ public class CaiGouNotifyFragment extends BaseFragment {
 
     @Override
     public void initView(View view) {
-        caigouListView = (RecyclerView) view
+        caigouListView = (PullToRefreshRecycleView) view
                 .findViewById(R.id.tip_caigou__listview);
+        caigouListView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
         caigouListView.setLayoutManager(new LinearLayoutManager(getActivity()));
         caigouListView.setItemAnimator(new DefaultItemAnimator());
         Paint paint = new Paint();
@@ -63,14 +66,28 @@ public class CaiGouNotifyFragment extends BaseFragment {
     }
 
     private void initData() {
-        caigouList = notifyMessageDao
+        caigouList.clear();
+        List<NotifyMessage> caigouMsgList = notifyMessageDao
                 .getNotifyListByType(Constant.CAIGOU_NOTIFY);
-        LogTool.d(TAG, "caigouList:" + caigouList);
+        LogTool.d(TAG, "caigouMsgList:" + caigouMsgList);
+        caigouList.addAll(caigouMsgList);
     }
 
     @Override
     public void setListener() {
+        caigouListView.setOnRefreshListener(this);
+    }
 
+    @Override
+    public void onPullDownToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
+        initData();
+        caiGouAdapter.notifyDataSetChanged();
+        caigouListView.onRefreshComplete();
+    }
+
+    @Override
+    public void onPullUpToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
+        caigouListView.onRefreshComplete();
     }
 
     @Override
