@@ -63,9 +63,6 @@ public class DesignerInfoActivity extends BaseActivity implements OnClickListene
 
     @Override
     public void initView() {
-        Intent intent = this.getIntent();
-        Bundle designerBundle = intent.getExtras();
-        designerid = designerBundle.getString(Global.DESIGNER_ID);
         LogTool.d(TAG, "designerid=" + designerid);
         //---------------------------------
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -90,7 +87,20 @@ public class DesignerInfoActivity extends BaseActivity implements OnClickListene
         appointCountText = (TextView) findViewById(R.id.appointCountText);
         addBtn = (Button) findViewById(R.id.btn_add);
         deleteBtn = (Button) findViewById(R.id.btn_delete);
+        initData(this.getIntent());
+    }
+
+    private void initData(Intent intent){
+        Bundle designerBundle = intent.getExtras();
+        designerid = designerBundle.getString(Global.DESIGNER_ID);
         getDesignerPageInfo(designerid);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        LogTool.d(TAG, "onNewIntent");
+        initData(intent);
     }
 
     private void setupViewPager(ViewPager viewPager) {

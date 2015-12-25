@@ -195,16 +195,14 @@ public class BusinessManager {
                     return true;
                 }
             }
-        } catch (
-                IllegalAccessException e
-                ) {
+        } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
         return false;
     }
 
     public static List<String> getListByResource(Context context, int resId) {
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         String[] array = context.getResources().getStringArray(resId);
         for (int i = 0; i < array.length; i++) {
             list.add(array[i]);
