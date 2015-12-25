@@ -165,12 +165,13 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
     private ApiUiUpdateListener pullDownListener = new ApiUiUpdateListener() {
         @Override
         public void preLoad() {
-
+            showWaitDialog();
         }
 
         @Override
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data.toString());
+            hideWaitDialog();
             DecorationItemInfo decorationItemInfo = JsonParser.jsonToBean(data.toString(), DecorationItemInfo.class);
             LogTool.d(TAG, "decorationItemInfo:" + decorationItemInfo);
             if (null != decorationItemInfo) {
@@ -214,6 +215,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         @Override
         public void loadFailture(String error_msg) {
             makeTextLong(error_msg);
+            hideWaitDialog();
             decoration_listview.setVisibility(View.GONE);
             emptyLayout.setVisibility(View.GONE);
             errorLayout.setVisibility(View.VISIBLE);
@@ -224,11 +226,12 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
     private ApiUiUpdateListener pullUpListener = new ApiUiUpdateListener() {
         @Override
         public void preLoad() {
-
+            showWaitDialog();
         }
 
         @Override
         public void loadSuccess(Object data) {
+            hideWaitDialog();
             DecorationItemInfo decorationItemInfo = JsonParser.jsonToBean(data.toString(), DecorationItemInfo.class);
             LogTool.d(TAG, "decorationItemInfo:" + decorationItemInfo);
             if (null != decorationItemInfo) {
@@ -245,6 +248,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         @Override
         public void loadFailture(String error_msg) {
             makeTextLong(error_msg);
+            hideWaitDialog();
             errorLayout.setVisibility(View.VISIBLE);
             decoration_listview.onRefreshComplete();
         }

@@ -35,7 +35,6 @@ public class DecorationAdapter extends BaseRecyclerViewAdapter<BeautyImgInfo> {
     public void bindView(final RecyclerViewHolderBase viewHolder, final int position, final List<BeautyImgInfo> list) {
         BeautyImgInfo info = list.get(position);
         final DecorationViewHolder holder = (DecorationViewHolder) viewHolder;
-        holder.itemDecorateView.setImageResource(R.mipmap.pix_default);
         Img img = info.getImages().get(0);
         int width = ScreenUtil.getScreenWidth(context) / 2;
         int height = width * img.getHeight() / img.getWidth();//高通过宽等比例缩放
