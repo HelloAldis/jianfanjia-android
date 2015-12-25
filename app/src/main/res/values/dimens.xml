@@ -104,5 +104,6 @@
     <dimen name="space_120">120dp</dimen>
     <dimen name="space_140">140dp</dimen>
     <dimen name="space_96">96dp</dimen>
+    <dimen name="space_64">64dp</dimen>
 
 </resources>

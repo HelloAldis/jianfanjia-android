@@ -28,7 +28,7 @@ import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.view.AnimImageButton;
+import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
 
 import de.greenrobot.event.EventBus;
@@ -42,7 +42,8 @@ import de.greenrobot.event.EventBus;
 public class DesignerCaseInfoActivity extends BaseActivity implements OnClickListener, AppBarLayout.OnOffsetChangedListener {
     private static final String TAG = DesignerCaseInfoActivity.class.getName();
     private Toolbar toolbar = null;
-    private AnimImageButton toolbar_collect = null;
+    private ImageView toolbar_collect = null;
+    private RelativeLayout toolbar_collect_layout = null;
     private AppBarLayout appBarLayout = null;
     private CollapsingToolbarLayout collapsingToolbar = null;
     private RelativeLayout activity_case_info_top_layout = null;
@@ -65,7 +66,8 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
     public void initView() {
         activity_case_info_top_layout = (RelativeLayout) findViewById(R.id.top_info_layout);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar_collect = (AnimImageButton) findViewById(R.id.toolbar_collect);
+        toolbar_collect_layout = (RelativeLayout) findViewById(R.id.toolbar_collect_layout);
+        toolbar_collect = (ImageView) findViewById(R.id.toolbar_collect);
         toolbar.setNavigationIcon(R.mipmap.icon_register_back);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -118,13 +120,14 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
                 appManager.finishActivity(DesignerCaseInfoActivity.this);
             }
         });
-        toolbar_collect.setOnClickListener(this, null);
+        toolbar_collect_layout.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.toolbar_collect:
+            case R.id.toolbar_collect_layout:
+                UiHelper.imageButtonAnim(toolbar_collect,null);
                 if (toolbar_collect.isSelected()) {
                     deleteProductDesigner(productid);
                 } else {
@@ -194,7 +197,7 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
             DesignerCaseInfo designerCaseInfo = JsonParser.jsonToBean(data.toString(), DesignerCaseInfo.class);
             LogTool.d(TAG, "designerCaseInfo" + designerCaseInfo);
             if (null != designerCaseInfo) {
-                toolbar_collect.setVisibility(View.VISIBLE);
+                toolbar_collect_layout.setVisibility(View.VISIBLE);
                 if (designerCaseInfo.is_my_favorite()) {
                     toolbar_collect.setSelected(true);
                 } else {
@@ -237,6 +240,7 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
         @Override
         public void loadSuccess(Object data) {
             toolbar_collect.setSelected(true);
+            makeTextShort(getString(R.string.str_collect_success));
             EventBus.getDefault().post(new MessageEvent(Constant.UPDATE_PRODUCT_FRAGMENT));
         }
 

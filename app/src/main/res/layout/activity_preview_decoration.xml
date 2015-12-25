@@ -13,8 +13,8 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:minHeight="45dp"
+        android:layout_height="@dimen/space_48"
+        android:minHeight="@dimen/space_48"
         app:layout_collapseMode="pin"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
@@ -32,74 +32,87 @@
             android:layout_gravity="right"
             android:orientation="horizontal">
 
-            <com.jianfanjia.cn.view.AnimImageButton
-                android:id="@+id/toolbar_collect"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
+            <RelativeLayout
+                android:id="@+id/toolbar_collect_layout"
+                android:layout_width="@dimen/space_64"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dip"
-                android:padding="@dimen/space_12"
-                android:background="@drawable/icon_collect_bg"
-                android:visibility="gone" />
+                android:visibility="gone">
 
-            <com.jianfanjia.cn.view.AnimImageButton
-                android:id="@+id/toolbar_share"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|right"
+                <ImageView
+                    android:id="@+id/toolbar_collect"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_margin="@dimen/space_8"
+                    android:background="@drawable/icon_collect_bg" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/toolbar_share_layout"
+                android:layout_width="@dimen/space_64"
+                android:layout_height="match_parent"
+                android:layout_gravity="right"
                 android:layout_marginRight="20dp"
-                android:padding="@dimen/space_12"
-                android:background="@drawable/icon_share_bg"
-                android:visibility="gone" />
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/toolbar_share"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_margin="@dimen/space_8"
+                    android:background="@drawable/icon_share_bg" />
+            </RelativeLayout>
         </LinearLayout>
     </android.support.v7.widget.Toolbar>
-
-
-
 
     <LinearLayout
         android:id="@+id/textLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/transparent_bg"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/space_8"
         android:paddingLeft="@dimen/space_20"
         android:paddingRight="@dimen/space_20"
-        android:paddingTop="@dimen/space_8"
-        android:paddingBottom="@dimen/space_8"
-        android:orientation="vertical"
-        android:layout_alignParentBottom="true"
-        android:background="@color/transparent_bg">
+        android:paddingTop="@dimen/space_8">
 
         <TextView
             android:id="@+id/pic_title"
             style="@style/listview_item_text_style_big"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/font_white"
-            />
+            android:layout_gravity="left"
+            android:textColor="@color/font_white" />
 
         <TextView
             android:id="@+id/pic_des"
             style="@style/listview_item_text_style_middle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="left"
             android:layout_marginTop="@dimen/space_8"
             android:textColor="@color/font_white" />
 
-        <com.jianfanjia.cn.view.AnimImageButton
-            android:id="@+id/btn_download"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:id="@+id/btn_download_layout"
+            android:layout_width="@dimen/space_64"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:layout_marginTop="@dimen/space_8"
-            android:layout_marginBottom="@dimen/space_8"
-            android:layout_marginRight="@dimen/space_8"
-            android:padding="@dimen/space_12"
-            android:background="@drawable/icon_download_bg"
-            android:visibility="gone" />
+            android:visibility="gone">
+            <ImageView
+                android:id="@+id/btn_download"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_margin="@dimen/space_12"
+                android:background="@drawable/icon_download_bg"
+                />
+        </RelativeLayout>
     </LinearLayout>
-
-
 
 
 </RelativeLayout>

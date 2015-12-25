@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.Event.MessageEvent;
@@ -25,7 +26,7 @@ import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.tools.ImageUtil;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.view.AnimImageButton;
+import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.SharePopWindow;
 
 import java.util.ArrayList;
@@ -42,9 +43,13 @@ import de.greenrobot.event.EventBus;
 public class PreviewDecorationActivity extends BaseActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
     private static final String TAG = PreviewDecorationActivity.class.getName();
     private Toolbar toolbar = null;
-    private AnimImageButton toolbar_collect = null;
-    private AnimImageButton toolbar_share = null;
-    private AnimImageButton btn_download = null;
+    private ImageView toolbar_collect = null;
+    private ImageView toolbar_share = null;
+    private ImageView btn_download = null;
+    private RelativeLayout toolbar_collectLayout = null;
+    private RelativeLayout toolbar_shareLayout = null;
+    private RelativeLayout btn_downloadLayout = null;
+
     private ViewPager viewPager = null;
     private TextView pic_tip = null;
     private TextView pic_title = null;
@@ -62,8 +67,12 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
         decorationId = decorationBundle.getString(Global.DECORATION_ID);
         LogTool.d(TAG, "decorationId=" + decorationId);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar_collect = (AnimImageButton) findViewById(R.id.toolbar_collect);
-        toolbar_share = (AnimImageButton) findViewById(R.id.toolbar_share);
+        toolbar_collect = (ImageView) findViewById(R.id.toolbar_collect);
+        toolbar_share = (ImageView) findViewById(R.id.toolbar_share);
+        btn_download = (ImageView) findViewById(R.id.btn_download);
+        toolbar_collectLayout = (RelativeLayout) findViewById(R.id.toolbar_collect_layout);
+        toolbar_shareLayout = (RelativeLayout) findViewById(R.id.toolbar_share_layout);
+        btn_downloadLayout = (RelativeLayout) findViewById(R.id.btn_download_layout);
         toolbar.setNavigationIcon(R.mipmap.icon_back);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -71,7 +80,6 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
         pic_tip = (TextView) findViewById(R.id.pic_tip);
         pic_title = (TextView) findViewById(R.id.pic_title);
         pic_des = (TextView) findViewById(R.id.pic_des);
-        btn_download = (AnimImageButton) findViewById(R.id.btn_download);
         getDecorationImgInfo(decorationId);
     }
 
@@ -83,26 +91,32 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
                 appManager.finishActivity(PreviewDecorationActivity.this);
             }
         });
-        toolbar_collect.setOnClickListener(this, null);
-        toolbar_share.setOnClickListener(this, null);
-        btn_download.setOnClickListener(this, null);
+        toolbar_shareLayout.setOnClickListener(this);
+        toolbar_collectLayout.setOnClickListener(this);
+        btn_downloadLayout.setOnClickListener(this);
+//        toolbar_collect.setOnClickListener(this, null);
+//        toolbar_share.setOnClickListener(this, null);
+//        btn_download.setOnClickListener(this, null);
         viewPager.setOnPageChangeListener(this);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.toolbar_collect:
+            case R.id.toolbar_collect_layout:
+                UiHelper.imageButtonAnim(toolbar_collect,null);
                 if (toolbar_collect.isSelected()) {
                     deleteDecorationImg(decorationId);
                 } else {
                     addDecorationImgInfo(decorationId);
                 }
                 break;
-            case R.id.toolbar_share:
+            case R.id.toolbar_share_layout:
+                UiHelper.imageButtonAnim(toolbar_share,null);
                 showPopwindow(getWindow().getDecorView());
                 break;
-            case R.id.btn_download:
+            case R.id.btn_download_layout:
+                UiHelper.imageButtonAnim(btn_download,null);
                 downloadImg();
                 break;
             default:
@@ -125,17 +139,18 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
     private ApiUiUpdateListener getDecorationImgInfoListener = new ApiUiUpdateListener() {
         @Override
         public void preLoad() {
-
+            showWaitDialog();
         }
 
         @Override
         public void loadSuccess(Object data) {
+            hideWaitDialog();
             LogTool.d(TAG, "data:" + data.toString());
             BeautyImgInfo beautyImgInfo = JsonParser.jsonToBean(data.toString(), BeautyImgInfo.class);
             LogTool.d(TAG, "beautyImgInfo:" + beautyImgInfo);
             if (null != beautyImgInfo) {
-                btn_download.setVisibility(View.VISIBLE);
-                toolbar_collect.setVisibility(View.VISIBLE);
+                btn_downloadLayout.setVisibility(View.VISIBLE);
+                toolbar_collectLayout.setVisibility(View.VISIBLE);
                 if (beautyImgInfo.is_my_favorite()) {
                     toolbar_collect.setSelected(true);
                 } else {
@@ -165,9 +180,10 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
 
         @Override
         public void loadFailture(String error_msg) {
+            hideWaitDialog();
             makeTextLong(error_msg);
-            btn_download.setVisibility(View.GONE);
-            toolbar_collect.setVisibility(View.GONE);
+            btn_downloadLayout.setVisibility(View.GONE);
+            toolbar_collectLayout.setVisibility(View.GONE);
         }
     };
 
@@ -186,7 +202,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
 
         @Override
         public void loadFailture(String error_msg) {
-            makeTextLong(error_msg);
+            makeTextShort(error_msg);
         }
     };
 

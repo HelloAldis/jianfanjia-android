@@ -295,5 +295,6 @@
     <string name="man">男</string>
     <string name="women">女</string>
     <string name="choose_sex">选择性别</string>
+    <string name="str_collect_success">收藏成功</string>
 
 </resources>
