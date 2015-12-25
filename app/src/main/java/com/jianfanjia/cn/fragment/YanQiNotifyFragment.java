@@ -23,6 +23,8 @@ import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
+import com.jianfanjia.cn.view.library.PullToRefreshBase;
+import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,9 +35,9 @@ import java.util.List;
  * @Description: 改期提醒
  * @date 2015-8-26 下午1:09:52
  */
-public class YanQiNotifyFragment extends BaseFragment implements ApiUiUpdateListener, DelayInfoListener {
+public class YanQiNotifyFragment extends BaseFragment implements ApiUiUpdateListener, DelayInfoListener, PullToRefreshBase.OnRefreshListener2<RecyclerView> {
     private static final String TAG = YanQiNotifyFragment.class.getName();
-    private RecyclerView yanqiListView = null;
+    private PullToRefreshRecycleView yanqiListView = null;
     private List<NotifyDelayInfo> delayList = new ArrayList<NotifyDelayInfo>();
     private NotifyDelayInfo notifyDelayInfo = null;
     private DelayNotifyAdapter delayAdapter = null;
@@ -48,7 +50,8 @@ public class YanQiNotifyFragment extends BaseFragment implements ApiUiUpdateList
 
     @Override
     public void initView(View view) {
-        yanqiListView = (RecyclerView) view.findViewById(R.id.tip_delay__listview);
+        yanqiListView = (PullToRefreshRecycleView) view.findViewById(R.id.tip_delay__listview);
+        yanqiListView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
         yanqiListView.setLayoutManager(new LinearLayoutManager(getActivity()));
         yanqiListView.setItemAnimator(new DefaultItemAnimator());
         Paint paint = new Paint();
@@ -73,6 +76,16 @@ public class YanQiNotifyFragment extends BaseFragment implements ApiUiUpdateList
 
     @Override
     public void setListener() {
+        yanqiListView.setOnRefreshListener(this);
+    }
+
+    @Override
+    public void onPullDownToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
+
+    }
+
+    @Override
+    public void onPullUpToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
 
     }
 

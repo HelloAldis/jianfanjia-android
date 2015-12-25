@@ -15,6 +15,8 @@ import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
+import com.jianfanjia.cn.view.library.PullToRefreshBase;
+import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,9 +27,9 @@ import java.util.List;
  * @Description: 付款提醒
  * @date 2015-8-26 下午1:08:44
  */
-public class FuKuanNotifyFragment extends BaseFragment {
+public class FuKuanNotifyFragment extends BaseFragment implements PullToRefreshBase.OnRefreshListener2<RecyclerView> {
     private static final String TAG = FuKuanNotifyFragment.class.getName();
-    private RecyclerView fukuanListView = null;
+    private PullToRefreshRecycleView fukuanListView = null;
     private List<NotifyMessage> payList = new ArrayList<NotifyMessage>();
     private PayNotifyAdapter payAdapter = null;
 
@@ -40,7 +42,8 @@ public class FuKuanNotifyFragment extends BaseFragment {
 
     @Override
     public void initView(View view) {
-        fukuanListView = (RecyclerView) view.findViewById(R.id.tip_pay__listview);
+        fukuanListView = (PullToRefreshRecycleView) view.findViewById(R.id.tip_pay__listview);
+        fukuanListView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
         fukuanListView.setLayoutManager(new LinearLayoutManager(getActivity()));
         fukuanListView.setItemAnimator(new DefaultItemAnimator());
         Paint paint = new Paint();
@@ -68,7 +71,17 @@ public class FuKuanNotifyFragment extends BaseFragment {
 
     @Override
     public void setListener() {
+        fukuanListView.setOnRefreshListener(this);
+    }
 
+    @Override
+    public void onPullDownToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
+        fukuanListView.onRefreshComplete();
+    }
+
+    @Override
+    public void onPullUpToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
+        fukuanListView.onRefreshComplete();
     }
 
     @Override
