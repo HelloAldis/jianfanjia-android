@@ -240,7 +240,6 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
         @Override
         public void loadSuccess(Object data) {
             toolbar_collect.setSelected(true);
-            makeTextShort(getString(R.string.str_collect_success));
             EventBus.getDefault().post(new MessageEvent(Constant.UPDATE_PRODUCT_FRAGMENT));
         }
 
