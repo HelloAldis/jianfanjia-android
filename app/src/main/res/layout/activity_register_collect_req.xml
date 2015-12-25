@@ -36,7 +36,7 @@
             android:id="@+id/act_reg_collect_title"
             android:layout_gravity="center_horizontal"
             android:text="@string/dec_stage_scan"
-            android:textColor="@color/black_color"
+            android:textColor="@color/light_black_color"
             style="@style/listview_item_text_style_big"
             android:layout_marginBottom="@dimen/space_24"/>
 
@@ -44,7 +44,7 @@
             android:id="@+id/act_reg_collect_content"
             android:layout_gravity="center_horizontal"
             android:text="@string/dec_stage_scan"
-            android:textColor="@color/black_color"
+            android:textColor="@color/light_black_color"
             style="@style/listview_item_text_style_more_big"
             android:layout_marginBottom="@dimen/space_24"/>
 

@@ -88,7 +88,7 @@
                     android:paddingLeft="@dimen/space_16"
                     android:paddingRight="@dimen/space_16"
                     android:singleLine="true"
-                    android:textColor="@color/black_color"
+                    android:textColor="@color/light_black_color"
                     android:textSize="@dimen/middle_size" />
 
                 <TextView
@@ -108,7 +108,7 @@
                     android:paddingLeft="@dimen/space_16"
                     android:paddingRight="@dimen/space_4"
                     android:singleLine="true"
-                    android:textColor="@color/black_color"
+                    android:textColor="@color/light_black_color"
                     android:textSize="@dimen/middle_size" />
             </LinearLayout>
 
@@ -142,7 +142,7 @@
                     android:paddingLeft="@dimen/space_16"
                     android:paddingRight="@dimen/space_16"
                     android:singleLine="true"
-                    android:textColor="@color/black_color"
+                    android:textColor="@color/light_black_color"
                     android:textSize="@dimen/middle_size" />
 
                 <TextView
@@ -162,7 +162,7 @@
                     android:paddingLeft="@dimen/space_16"
                     android:paddingRight="@dimen/space_16"
                     android:singleLine="true"
-                    android:textColor="@color/black_color"
+                    android:textColor="@color/light_black_color"
                     android:textSize="@dimen/middle_size" />
 
                 <TextView
@@ -182,7 +182,7 @@
                     android:paddingLeft="@dimen/space_16"
                     android:paddingRight="@dimen/space_4"
                     android:singleLine="true"
-                    android:textColor="@color/black_color"
+                    android:textColor="@color/light_black_color"
                     android:textSize="@dimen/middle_size"
                     android:textStyle="normal" />
             </LinearLayout>
@@ -224,7 +224,7 @@
                     android:paddingLeft="@dimen/space_16"
                     android:paddingRight="@dimen/space_16"
                     android:singleLine="true"
-                    android:textColor="@color/black_color"
+                    android:textColor="@color/light_black_color"
                     android:textSize="@dimen/middle_size" />
 
                 <TextView
@@ -268,7 +268,7 @@
                     android:paddingLeft="@dimen/space_16"
                     android:paddingRight="@dimen/space_16"
                     android:singleLine="true"
-                    android:textColor="@color/black_color"
+                    android:textColor="@color/light_black_color"
                     android:textSize="@dimen/middle_size" />
 
                 <TextView

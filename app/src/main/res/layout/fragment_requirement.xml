@@ -63,7 +63,7 @@
             android:layout_marginTop="24dp"
             android:text="@string/str_req_tip"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/black_color"
+            android:textColor="@color/light_black_color"
             android:textSize="@dimen/small_size"
             android:textStyle="bold" />
 

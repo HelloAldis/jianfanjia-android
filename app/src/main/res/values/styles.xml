@@ -63,7 +63,7 @@
     </style>
 
     <style name="dialog_button_cancel">
-        <item name="android:textColor">@color/black_color</item>
+        <item name="android:textColor">@color/light_black_color</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:background">@drawable/btn_orange_white_bg</item>
@@ -76,7 +76,7 @@
     </style>
 
     <style name="dialog_button_2">
-        <item name="android:textColor">@color/black_color</item>
+        <item name="android:textColor">@color/light_black_color</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:background">@drawable/btn_orange_white_bg</item>
@@ -252,7 +252,7 @@
         <item name="tabPaddingStart">16dp</item>
         <item name="tabPaddingEnd">16dp</item>
         <item name="tabTextColor">@color/middle_grey_color</item>
-        <item name="tabSelectedTextColor">@color/black_color</item>
+        <item name="tabSelectedTextColor">@color/light_black_color</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

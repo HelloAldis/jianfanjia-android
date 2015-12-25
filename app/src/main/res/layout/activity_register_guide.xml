@@ -22,13 +22,13 @@
             style="@style/listview_item_text_style_more_big"
             android:layout_marginTop="@dimen/space_16"
             android:text="@string/register_success"
-            android:textColor="@color/black_color" />
+            android:textColor="@color/light_black_color" />
 
         <TextView
             style="@style/listview_item_text_style_big"
             android:layout_marginTop="@dimen/space_8"
             android:text="@string/welcome_jianfanjia"
-            android:textColor="@color/black_color" />
+            android:textColor="@color/light_black_color" />
 
         <TextView
             style="@style/listview_item_text_style_big"

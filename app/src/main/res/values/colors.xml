@@ -11,7 +11,6 @@
 
     <!-- 字体色值 -->
     <color name="font_white">#ffffff</color>
-    <color name="font_black">#000000</color>
     <color name="log_and_res_hint">#d8d8d8</color>
     <color name="log_and_res_broder">#d8d8d8</color>
     <color name="font_reg_color1">#f2f5f5</color>
@@ -31,7 +30,8 @@
     <color name="main_layout_bg">#f2f2f3</color>
     <color name="light_white_color">#d5d5d5</color>
     <color name="orange_color">#fe7003</color>
-    <color name="black_color">#344a5c</color>
+    <color name="light_black_color">#344a5c</color>
+    <color name="black_color">#000000</color>
     <color name="grey_color">#7c8489</color>
     <color name="middle_grey_color">#b5babb</color>
     <color name="green_color">#12c161</color>

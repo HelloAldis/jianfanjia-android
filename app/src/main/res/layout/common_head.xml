@@ -28,7 +28,7 @@
             android:id="@+id/head_center_title"
             style="@style/listview_item_text_style_big"
             android:layout_centerInParent="true"
-            android:textColor="@color/black_color" />
+            android:textColor="@color/light_black_color" />
 
         <TextView
             android:id="@+id/head_right_title"

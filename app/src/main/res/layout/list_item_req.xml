@@ -37,7 +37,7 @@
             android:maxWidth="100dp"
             android:ellipsize="end"
             android:singleLine="true"
-            android:textColor="@color/black_color"
+            android:textColor="@color/light_black_color"
             android:textSize="@dimen/middle_size" />
 
         <TextView
@@ -164,7 +164,7 @@
                 android:gravity="center"
                 android:ellipsize="end"
                 android:singleLine="true"
-                android:textColor="@color/black_color"
+                android:textColor="@color/light_black_color"
                 android:textSize="@dimen/middle_size" />
 
             <TextView
@@ -220,7 +220,7 @@
                 android:gravity="center"
                 android:ellipsize="end"
                 android:singleLine="true"
-                android:textColor="@color/black_color"
+                android:textColor="@color/light_black_color"
                 android:textSize="@dimen/middle_size" />
 
             <TextView
@@ -276,7 +276,7 @@
                 android:gravity="center"
                 android:ellipsize="end"
                 android:singleLine="true"
-                android:textColor="@color/black_color"
+                android:textColor="@color/light_black_color"
                 android:textSize="@dimen/middle_size" />
 
             <TextView

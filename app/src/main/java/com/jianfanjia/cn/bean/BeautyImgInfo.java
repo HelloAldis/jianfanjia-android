@@ -22,6 +22,7 @@ public class BeautyImgInfo implements Serializable {
     private String house_type;
     private String dec_style;
     private String status;
+    private String keywords;
     private String authorid;
     private String usertype;
     private int __v;
@@ -173,5 +174,13 @@ public class BeautyImgInfo implements Serializable {
 
     public void setAssociate_beautiful_images(List<AssociateImgInfo> associate_beautiful_images) {
         this.associate_beautiful_images = associate_beautiful_images;
+    }
+
+    public String getKeywords() {
+        return keywords;
+    }
+
+    public void setKeywords(String keywords) {
+        this.keywords = keywords;
     }
 }

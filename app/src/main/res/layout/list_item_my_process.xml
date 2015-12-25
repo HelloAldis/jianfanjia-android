@@ -20,7 +20,7 @@
             android:maxWidth="100dp"
             android:singleLine="true"
             android:text="@string/my_site_villagename_example"
-            android:textColor="@color/black_color" />
+            android:textColor="@color/light_black_color" />
 
         <TextView
             android:id="@+id/list_item_site_currentsite"
