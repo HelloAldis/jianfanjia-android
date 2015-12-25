@@ -15,6 +15,7 @@ import com.jianfanjia.cn.adapter.DecorationAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.BeautyImgInfo;
 import com.jianfanjia.cn.bean.DecorationItemInfo;
+import com.jianfanjia.cn.cache.BusinessManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
@@ -294,7 +295,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         @Override
         public void onItemCallback(int position, String title) {
             Global.HOUSE_TYPE_POSITION = position;
-            houseStyle = title;
+            houseStyle = BusinessManager.getHouseTypeByText(title);
             FROM = 0;
             searchDecorationImg(section, houseStyle, decStyle, FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
             if (null != window) {
@@ -318,7 +319,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         @Override
         public void onItemCallback(int position, String title) {
             Global.DEC_STYLE_POSITION = position;
-            decStyle = title;
+            decStyle = BusinessManager.getDecStyleByText(title);
             FROM = 0;
             searchDecorationImg(section, houseStyle, decStyle, FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
             if (null != window) {
