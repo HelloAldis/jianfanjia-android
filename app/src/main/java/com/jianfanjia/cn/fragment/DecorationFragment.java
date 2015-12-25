@@ -60,6 +60,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
     private String houseStyle = null;
     private String decStyle = null;
     private int FROM = 0;
+    private boolean isFirst = true;
 
     @Override
     public void initView(View view) {
@@ -165,7 +166,9 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
     private ApiUiUpdateListener pullDownListener = new ApiUiUpdateListener() {
         @Override
         public void preLoad() {
-            showWaitDialog();
+            if (isFirst) {
+                showWaitDialog();
+            }
         }
 
         @Override
@@ -226,12 +229,11 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
     private ApiUiUpdateListener pullUpListener = new ApiUiUpdateListener() {
         @Override
         public void preLoad() {
-            showWaitDialog();
+
         }
 
         @Override
         public void loadSuccess(Object data) {
-            hideWaitDialog();
             DecorationItemInfo decorationItemInfo = JsonParser.jsonToBean(data.toString(), DecorationItemInfo.class);
             LogTool.d(TAG, "decorationItemInfo:" + decorationItemInfo);
             if (null != decorationItemInfo) {
@@ -248,7 +250,6 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         @Override
         public void loadFailture(String error_msg) {
             makeTextLong(error_msg);
-            hideWaitDialog();
             errorLayout.setVisibility(View.VISIBLE);
             decoration_listview.onRefreshComplete();
         }
