@@ -22,14 +22,15 @@ public class BusinessManager {
 
     /**
      * 分开装修美图keyword
+     *
      * @param keyWord
      * @return
      */
-    public static String spilteKeyWord(String keyWord){
+    public static String spilteKeyWord(String keyWord) {
         if (TextUtils.isEmpty(keyWord)) return null;
         String[] keywords = keyWord.split(",");
         StringBuffer stringBuffer = new StringBuffer();
-        for(String key : keywords){
+        for (String key : keywords) {
             stringBuffer.append("#");
             stringBuffer.append(key);
             stringBuffer.append("   ");
@@ -82,6 +83,19 @@ public class BusinessManager {
     }
 
     /**
+     * @param houseType
+     * @return
+     */
+    public static String convertDectypeToShow(String decType) {
+        if (decType == null) return null;
+        int decPosition = Integer.parseInt(decType);
+        String[] dectypes = MyApplication.getInstance().getResources().getStringArray(R.array.arr_dectype);
+        if (decPosition < 0 || decPosition > dectypes.length) return null;
+        return dectypes[decPosition];
+    }
+
+
+    /**
      * 拿到显示的房子类型
      *
      * @param houseType
@@ -107,6 +121,18 @@ public class BusinessManager {
         String[] decStyles = MyApplication.getInstance().getResources().getStringArray(R.array.arr_decstyle);
         if (decPosition < 0 || decPosition > decStyles.length) return null;
         return decStyles[decPosition];
+    }
+
+    /**
+     * @param designFee
+     * @return
+     */
+    public static String convertDesignFeeToShow(String designFee) {
+        if (designFee == null) return null;
+        int feePosition = Integer.parseInt(designFee);
+        String[] designFees = MyApplication.getInstance().getResources().getStringArray(R.array.arr_fee);
+        if (feePosition < 0 || feePosition > designFees.length) return null;
+        return designFees[feePosition];
     }
 
     public static String getHouseTypeByText(String houseTypeText) {

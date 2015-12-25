@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.DesignerInfo;
+import com.jianfanjia.cn.cache.BusinessManager;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
@@ -99,7 +100,6 @@ public class DesignerInfoFragment extends BaseFragment implements ApiUiUpdateLis
         DesignerInfo designerInfo = JsonParser.jsonToBean(data.toString(), DesignerInfo.class);
         LogTool.d(TAG, "designerInfo:" + designerInfo);
         if (null != designerInfo) {
-            LogTool.d(TAG, "designerInfo:" + designerInfo);
             jiandanTypeLayout.setVisibility(View.VISIBLE);
             jiandanHouseTypeLayout.setVisibility(View.VISIBLE);
             jiandanDistrictLayout.setVisibility(View.VISIBLE);
@@ -110,54 +110,23 @@ public class DesignerInfoFragment extends BaseFragment implements ApiUiUpdateLis
             teamCountLayout.setVisibility(View.VISIBLE);
             designFeeLayout.setVisibility(View.VISIBLE);
             List<String> decTypes = designerInfo.getDec_types();
-            StringBuffer decTypeStr = new StringBuffer();
+            StringBuilder decTypeStr = new StringBuilder();
             for (String str : decTypes) {
                 LogTool.d(TAG, "str:" + str);
-                if (str.equals("0")) {
-                    decTypeStr.append("家装 ");
-                } else if (str.equals("1")) {
-                    decTypeStr.append("商装 ");
-                } else if (str.equals("2")) {
-                    decTypeStr.append("软装");
-                }
+                decTypeStr.append(BusinessManager.convertDectypeToShow(str) + "  ");
             }
             jiandanType.setText(decTypeStr.toString());
             List<String> decHouseTypes = designerInfo.getDec_house_types();
-            StringBuffer decHouseType = new StringBuffer();
+            StringBuilder decHouseType = new StringBuilder();
             for (String str : decHouseTypes) {
-                LogTool.d(TAG, "str:" + str);
-                if (str.equals("0")) {
-                    decHouseType.append("一居  ");
-                } else if (str.equals("1")) {
-                    decHouseType.append("二居  ");
-                } else if (str.equals("2")) {
-                    decHouseType.append("三居  ");
-                } else if (str.equals("3")) {
-                    decHouseType.append("四居  ");
-                } else if (str.equals("4")) {
-                    decHouseType.append("复式  ");
-                } else if (str.equals("5")) {
-                    decHouseType.append("别墅");
-                }
+                decHouseType.append(BusinessManager.convertHouseTypeToShow(str) + "  ");
             }
             jiandanHouseType.setText(decHouseType.toString());
             jiandanDistrict.setText(designerInfo.getDistrict());
             List<String> decStyles = designerInfo.getDec_styles();
-            StringBuffer decStyleType = new StringBuffer();
+            StringBuilder decStyleType = new StringBuilder();
             for (String str : decStyles) {
-                if (str.equals("0")) {
-                    decStyleType.append("欧式  ");
-                } else if (str.equals("1")) {
-                    decStyleType.append("中式  ");
-                } else if (str.equals("2")) {
-                    decStyleType.append("现代  ");
-                } else if (str.equals("3")) {
-                    decStyleType.append("地中海  ");
-                } else if (str.equals("4")) {
-                    decStyleType.append("美式  ");
-                } else if (str.equals("5")) {
-                    decStyleType.append("东南亚");
-                }
+                decStyleType.append(BusinessManager.convertDecStyleToShow(str) + "  ");
             }
             designStyle.setText(decStyleType.toString());
             designIdea.setText(designerInfo.getPhilosophy());
@@ -165,17 +134,7 @@ public class DesignerInfoFragment extends BaseFragment implements ApiUiUpdateLis
             company.setText(designerInfo.getCompany());
             teamCount.setText(designerInfo.getTeam_count() + "");
             String designFeeRange = designerInfo.getDesign_fee_range();
-            String designFeeStr = null;
-            if (designFeeRange.equals("0")) {
-                designFeeStr = "50-100";
-            } else if (designFeeRange.equals("1")) {
-                designFeeStr = "100-200";
-            } else if (designFeeRange.equals("2")) {
-                designFeeStr = "200-300";
-            } else if (designFeeRange.equals("3")) {
-                designFeeStr = "300以上";
-            }
-            designFee.setText(designFeeStr);
+            designFee.setText(BusinessManager.convertDesignFeeToShow(designFeeRange));
         }
     }
 

@@ -231,6 +231,13 @@
         <item>田园</item>
     </string-array>
 
+    <string-array name="arr_fee">
+        <item>50-100</item>
+        <item>100-200</item>
+        <item>200-300</item>
+        <item>300以上</item>
+    </string-array>
+
     <string-array name="arr_lovestyle_pic">
         <item>@mipmap/ou_shi</item>
         <item>@mipmap/zhong_shi</item>
