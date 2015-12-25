@@ -5,9 +5,11 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.beautifulpic.PreviewDecorationActivity;
@@ -52,6 +54,9 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
     private RelativeLayout sectionLayout = null;
     private RelativeLayout houseTypeLayout = null;
     private RelativeLayout decStyleLayout = null;
+    private TextView section_item = null;
+    private TextView houseType_item = null;
+    private TextView decStyle_item = null;
     private PullToRefreshRecycleView decoration_listview = null;
     private DecorationAdapter decorationAdapter = null;
     private DecorationPopWindow window = null;
@@ -71,6 +76,9 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         sectionLayout = (RelativeLayout) view.findViewById(R.id.sectionLayout);
         houseTypeLayout = (RelativeLayout) view.findViewById(R.id.houseTypeLayout);
         decStyleLayout = (RelativeLayout) view.findViewById(R.id.decStyleLayout);
+        section_item = (TextView) view.findViewById(R.id.section_item);
+        houseType_item = (TextView) view.findViewById(R.id.houseType_item);
+        decStyle_item = (TextView) view.findViewById(R.id.decStyle_item);
         decoration_listview = (PullToRefreshRecycleView) view.findViewById(R.id.decoration_listview);
         decoration_listview.setMode(PullToRefreshBase.Mode.BOTH);
         decoration_listview.setHasFixedSize(true);
@@ -277,6 +285,11 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         public void onItemCallback(int position, String title) {
             Global.SECTION_POSITION = position;
             section = title;
+            if (!TextUtils.isEmpty(title) && !title.equals(Constant.KEY_WORD)) {
+                section_item.setText(title);
+            } else {
+                section_item.setText("空间");
+            }
             FROM = 0;
             searchDecorationImg(section, houseStyle, decStyle, FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
             if (null != window) {
@@ -300,6 +313,11 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         @Override
         public void onItemCallback(int position, String title) {
             Global.HOUSE_TYPE_POSITION = position;
+            if (!TextUtils.isEmpty(title) && !title.equals(Constant.KEY_WORD)) {
+                houseType_item.setText(title);
+            } else {
+                houseType_item.setText("户型");
+            }
             houseStyle = BusinessManager.getHouseTypeByText(title);
             FROM = 0;
             searchDecorationImg(section, houseStyle, decStyle, FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
@@ -324,6 +342,11 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         @Override
         public void onItemCallback(int position, String title) {
             Global.DEC_STYLE_POSITION = position;
+            if (!TextUtils.isEmpty(title) && !title.equals(Constant.KEY_WORD)) {
+                decStyle_item.setText(title);
+            } else {
+                decStyle_item.setText("风格");
+            }
             decStyle = BusinessManager.getDecStyleByText(title);
             FROM = 0;
             searchDecorationImg(section, houseStyle, decStyle, FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
