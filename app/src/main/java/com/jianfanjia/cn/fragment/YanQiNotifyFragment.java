@@ -81,12 +81,13 @@ public class YanQiNotifyFragment extends BaseFragment implements ApiUiUpdateList
 
     @Override
     public void onPullDownToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-
+        getRescheduleNotifyList();
+        yanqiListView.onRefreshComplete();
     }
 
     @Override
     public void onPullUpToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-
+        yanqiListView.onRefreshComplete();
     }
 
     //获取改期提醒
