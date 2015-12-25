@@ -90,11 +90,21 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
         head_img = (ImageView) findViewById(R.id.head_img);
         nameText = (TextView) findViewById(R.id.name_text);
         //---------------------------------------------
-        Intent intent = this.getIntent();
+        initData(this.getIntent());
+    }
+
+    private void initData(Intent intent){
         Bundle productBundle = intent.getExtras();
         productid = productBundle.getString(Global.PRODUCT_ID);
         LogTool.d(TAG, "productid=" + productid);
         getProductHomePageInfo(productid);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        LogTool.d(TAG, "onNewIntent");
+        initData(intent);
     }
 
     @Override

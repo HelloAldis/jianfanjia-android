@@ -22,14 +22,15 @@ public class BusinessManager {
 
     /**
      * 分开装修美图keyword
+     *
      * @param keyWord
      * @return
      */
-    public static String spilteKeyWord(String keyWord){
+    public static String spilteKeyWord(String keyWord) {
         if (TextUtils.isEmpty(keyWord)) return null;
         String[] keywords = keyWord.split(",");
         StringBuffer stringBuffer = new StringBuffer();
-        for(String key : keywords){
+        for (String key : keywords) {
             stringBuffer.append("#");
             stringBuffer.append(key);
             stringBuffer.append("   ");
@@ -169,16 +170,14 @@ public class BusinessManager {
                     return true;
                 }
             }
-        } catch (
-                IllegalAccessException e
-                ) {
+        } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
         return false;
     }
 
     public static List<String> getListByResource(Context context, int resId) {
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         String[] array = context.getResources().getStringArray(resId);
         for (int i = 0; i < array.length; i++) {
             list.add(array[i]);
