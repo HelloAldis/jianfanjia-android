@@ -119,19 +119,19 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
     private void setSelectState(int type) {
         switch (type) {
             case SECTION:
-                showWindow(R.array.section_item, SECTION);
+                showWindow(R.array.arr_section, SECTION);
                 sectionLayout.setSelected(true);
                 houseTypeLayout.setSelected(false);
                 decStyleLayout.setSelected(false);
                 break;
             case HOUSETYPE:
-                showWindow(R.array.housetype_item, HOUSETYPE);
+                showWindow(R.array.arr_housetype, HOUSETYPE);
                 sectionLayout.setSelected(false);
                 houseTypeLayout.setSelected(true);
                 decStyleLayout.setSelected(false);
                 break;
             case DECSTYLE:
-                showWindow(R.array.decstyle_item, DECSTYLE);
+                showWindow(R.array.arr_decstyle, DECSTYLE);
                 sectionLayout.setSelected(false);
                 houseTypeLayout.setSelected(false);
                 decStyleLayout.setSelected(true);
