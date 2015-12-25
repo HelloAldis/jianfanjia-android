@@ -15,6 +15,8 @@ import com.jianfanjia.cn.tools.StringUtils;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BusinessManager {
 
@@ -106,6 +108,35 @@ public class BusinessManager {
         if (decPosition < 0 || decPosition > decStyles.length) return null;
         return decStyles[decPosition];
     }
+
+    public static String getHouseTypeByText(String houseTypeText) {
+        try {
+            String[] items = MyApplication.getInstance().getResources().getStringArray(R.array.arr_housetype);
+            for (int i = 0; i < items.length; i++) {
+                if (items[i].equals(houseTypeText)) {
+                    return i + "";
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static String getDecStyleByText(String decStyleText) {
+        try {
+            String[] items = MyApplication.getInstance().getResources().getStringArray(R.array.arr_decstyle);
+            for (int i = 0; i < items.length; i++) {
+                if (items[i].equals(decStyleText)) {
+                    return i + "";
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     /**
      * 比较需求是否改变
      *
@@ -114,12 +145,12 @@ public class BusinessManager {
      * @return
      */
     public static boolean isRequirementChange(RequirementInfo src, RequirementInfo target) {
-        LogTool.d("isRequirementChange","isRequirementChange");
+        LogTool.d("isRequirementChange", "isRequirementChange");
         try {
             Class clazz = src.getClass();
             Field[] fields = clazz.getDeclaredFields();
             for (Field field : fields) {
-                LogTool.d("isRequirementChange",field.getName());
+                LogTool.d("isRequirementChange", field.getName());
                 field.setAccessible(true);
                 Object srcValue = field.get(src);
                 Object targetValue = field.get(target);
@@ -146,4 +177,13 @@ public class BusinessManager {
         return false;
     }
 
+    public static List<String> getListByResource(Context context, int resId) {
+        List<String> list = new ArrayList<String>();
+        String[] array = context.getResources().getStringArray(resId);
+        for (int i = 0; i < array.length; i++) {
+            list.add(array[i]);
+        }
+        list.add(0, Constant.KEY_WORD);
+        return list;
+    }
 }

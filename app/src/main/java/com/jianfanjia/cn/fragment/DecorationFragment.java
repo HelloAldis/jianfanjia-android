@@ -15,6 +15,7 @@ import com.jianfanjia.cn.adapter.DecorationAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.BeautyImgInfo;
 import com.jianfanjia.cn.bean.DecorationItemInfo;
+import com.jianfanjia.cn.cache.BusinessManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
@@ -59,6 +60,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
     private String houseStyle = null;
     private String decStyle = null;
     private int FROM = 0;
+    private boolean isFirst = true;
 
     @Override
     public void initView(View view) {
@@ -119,19 +121,19 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
     private void setSelectState(int type) {
         switch (type) {
             case SECTION:
-                showWindow(R.array.section_item, SECTION);
+                showWindow(R.array.arr_section, SECTION);
                 sectionLayout.setSelected(true);
                 houseTypeLayout.setSelected(false);
                 decStyleLayout.setSelected(false);
                 break;
             case HOUSETYPE:
-                showWindow(R.array.housetype_item, HOUSETYPE);
+                showWindow(R.array.arr_housetype, HOUSETYPE);
                 sectionLayout.setSelected(false);
                 houseTypeLayout.setSelected(true);
                 decStyleLayout.setSelected(false);
                 break;
             case DECSTYLE:
-                showWindow(R.array.decstyle_item, DECSTYLE);
+                showWindow(R.array.arr_decstyle, DECSTYLE);
                 sectionLayout.setSelected(false);
                 houseTypeLayout.setSelected(false);
                 decStyleLayout.setSelected(true);
@@ -164,12 +166,15 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
     private ApiUiUpdateListener pullDownListener = new ApiUiUpdateListener() {
         @Override
         public void preLoad() {
-
+            if (isFirst) {
+                showWaitDialog();
+            }
         }
 
         @Override
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data.toString());
+            hideWaitDialog();
             DecorationItemInfo decorationItemInfo = JsonParser.jsonToBean(data.toString(), DecorationItemInfo.class);
             LogTool.d(TAG, "decorationItemInfo:" + decorationItemInfo);
             if (null != decorationItemInfo) {
@@ -213,6 +218,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         @Override
         public void loadFailture(String error_msg) {
             makeTextLong(error_msg);
+            hideWaitDialog();
             decoration_listview.setVisibility(View.GONE);
             emptyLayout.setVisibility(View.GONE);
             errorLayout.setVisibility(View.VISIBLE);
@@ -294,7 +300,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         @Override
         public void onItemCallback(int position, String title) {
             Global.HOUSE_TYPE_POSITION = position;
-            houseStyle = title;
+            houseStyle = BusinessManager.getHouseTypeByText(title);
             FROM = 0;
             searchDecorationImg(section, houseStyle, decStyle, FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
             if (null != window) {
@@ -318,7 +324,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         @Override
         public void onItemCallback(int position, String title) {
             Global.DEC_STYLE_POSITION = position;
-            decStyle = title;
+            decStyle = BusinessManager.getDecStyleByText(title);
             FROM = 0;
             searchDecorationImg(section, houseStyle, decStyle, FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
             if (null != window) {
