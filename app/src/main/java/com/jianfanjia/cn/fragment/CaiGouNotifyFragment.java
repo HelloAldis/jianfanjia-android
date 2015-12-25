@@ -66,9 +66,11 @@ public class CaiGouNotifyFragment extends BaseFragment implements PullToRefreshB
     }
 
     private void initData() {
-        caigouList = notifyMessageDao
+        caigouList.clear();
+        List<NotifyMessage> caigouMsgList = notifyMessageDao
                 .getNotifyListByType(Constant.CAIGOU_NOTIFY);
-        LogTool.d(TAG, "caigouList:" + caigouList);
+        LogTool.d(TAG, "caigouMsgList:" + caigouMsgList);
+        caigouList.addAll(caigouMsgList);
     }
 
     @Override
@@ -78,6 +80,8 @@ public class CaiGouNotifyFragment extends BaseFragment implements PullToRefreshB
 
     @Override
     public void onPullDownToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
+        initData();
+        caiGouAdapter.notifyDataSetChanged();
         caigouListView.onRefreshComplete();
     }
 

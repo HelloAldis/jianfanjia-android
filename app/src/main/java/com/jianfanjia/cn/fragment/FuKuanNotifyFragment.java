@@ -65,8 +65,10 @@ public class FuKuanNotifyFragment extends BaseFragment implements PullToRefreshB
     }
 
     private void initData() {
-        payList = notifyMessageDao.getNotifyListByType(Constant.FUKUAN_NOTIFY);
-        LogTool.d(TAG, "payList:" + payList);
+        payList.clear();
+        List<NotifyMessage> payMsgList = notifyMessageDao.getNotifyListByType(Constant.FUKUAN_NOTIFY);
+        LogTool.d(TAG, "payMsgList:" + payMsgList);
+        payList.addAll(payMsgList);
     }
 
     @Override
@@ -76,6 +78,8 @@ public class FuKuanNotifyFragment extends BaseFragment implements PullToRefreshB
 
     @Override
     public void onPullDownToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
+        initData();
+        payAdapter.notifyDataSetChanged();
         fukuanListView.onRefreshComplete();
     }
 
