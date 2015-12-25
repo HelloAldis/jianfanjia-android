@@ -1000,13 +1000,13 @@ public class JianFanJiaClient {
         JSONObject jsonParams = new JSONObject();
         try {
             JSONObject params1 = new JSONObject();
-            if (!TextUtils.isEmpty(section)) {
+            if (!TextUtils.isEmpty(section) && !section.equals(Constant.KEY_WORD)) {
                 params1.put("section", section);
             }
-            if (!TextUtils.isEmpty(house_type)) {
+            if (!TextUtils.isEmpty(house_type) && !house_type.equals(Constant.KEY_WORD)) {
                 params1.put("house_type", house_type);
             }
-            if (!TextUtils.isEmpty(dec_style)) {
+            if (!TextUtils.isEmpty(dec_style) && !dec_style.equals(Constant.KEY_WORD)) {
                 params1.put("dec_style", dec_style);
             }
             JSONObject params2 = new JSONObject();
