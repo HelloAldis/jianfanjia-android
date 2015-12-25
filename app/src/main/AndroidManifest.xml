@@ -254,14 +254,12 @@
 
         <activity
             android:name=".home.DesignerInfoActivity"
-            android:screenOrientation="portrait"
             android:launchMode="singleTask"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".home.DesignerCaseInfoActivity"
-            android:screenOrientation="portrait"
             android:launchMode="singleTask"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".requirement.AppointDesignerActivity"
             android:screenOrientation="portrait" />
@@ -318,8 +316,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".NewUserCollectDecStageActivity_"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".NewUserGuideActivity_"
             android:screenOrientation="portrait" />
