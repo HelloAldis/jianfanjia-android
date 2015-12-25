@@ -1,17 +1,13 @@
 package com.jianfanjia.cn.tools;
 
-import android.content.Context;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.regex.Pattern;
 
 /**
@@ -426,15 +422,6 @@ public class StringUtils {
     public static String covertLongToStringHasMini(long times) {
         Date date = new Date(times);
         return dateFormater.get().format(date);
-    }
-
-    public static List<String> getListByResource(Context context, int resId) {
-        List<String> list = new ArrayList<String>();
-        String[] array = context.getResources().getStringArray(resId);
-        for (int i = 0; i < array.length; i++) {
-            list.add(array[i]);
-        }
-        return list;
     }
 
 }
