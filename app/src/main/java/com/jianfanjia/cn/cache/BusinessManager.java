@@ -138,6 +138,7 @@ public class BusinessManager {
         for (int i = 0; i < array.length; i++) {
             list.add(array[i]);
         }
+        list.add(0, "不限");
         return list;
     }
 }
