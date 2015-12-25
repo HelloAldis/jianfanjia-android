@@ -17,6 +17,19 @@ import java.lang.reflect.Field;
 
 public class BusinessManager {
 
+    public static String getWorkType(String workType) {
+        String str = null;
+        if (workType.equals("0")) {
+            str = "半包";
+        } else if (workType.equals("1")) {
+            str = "全包";
+        } else if (workType.equals("2")) {
+            str = "纯设计";
+        }
+        return str;
+    }
+
+
     public static int getCheckPicCountBySection(String section) {
         if (section.equals(Constant.SHUI_DIAN)) {
             return 5;
@@ -76,7 +89,6 @@ public class BusinessManager {
         if (decPosition < 0 || decPosition > decStyles.length) return null;
         return decStyles[decPosition];
     }
-
     /**
      * 比较需求是否改变
      *

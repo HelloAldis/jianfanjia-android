@@ -121,7 +121,7 @@ public class DesignerListAdapter extends BaseRecyclerViewAdapter<DesignerListInf
                 }
                 String houseType = product.getHouse_type();
                 String decStyle = product.getDec_style();
-                designerListViewHolder.itemProduceText.setText(product.getHouse_area() + "㎡，" + BusinessManager.convertHouseTypeToShow(houseType) + "，" + BusinessManager.convertDecStyleToShow(decStyle));
+                designerListViewHolder.itemProduceText.setText(product.getHouse_area() + context.getString(R.string.str_sq_unit)+ "，" + BusinessManager.convertHouseTypeToShow(houseType) + "，" + BusinessManager.convertDecStyleToShow(decStyle));
                 imageShow.displayScreenWidthThumnailImage(context, product.getImages().get(0).getImageid(), designerListViewHolder.itemProductView);
                 if (!TextUtils.isEmpty(info.getImageid())) {
                     imageShow.displayImageHeadWidthThumnailImage(context, info.getImageid(), designerListViewHolder.itemHeadView);

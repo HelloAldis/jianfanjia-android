@@ -21,6 +21,7 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.DesignerCaseAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.DesignerCaseInfo;
+import com.jianfanjia.cn.cache.BusinessManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
@@ -191,7 +192,7 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
                 }
                 designertid = designerCaseInfo.getDesigner().get_id();
                 collapsingToolbar.setTitle(designerCaseInfo.getCell());
-                stylelText.setText(designerCaseInfo.getHouse_area() + "㎡，" + getHouseType(designerCaseInfo.getHouse_type()) + "，" + getDecStyle(designerCaseInfo.getDec_type()));
+                stylelText.setText(designerCaseInfo.getHouse_area() + "㎡，" + BusinessManager.convertHouseTypeToShow(designerCaseInfo.getHouse_type()) + "，" + BusinessManager.convertDecStyleToShow(designerCaseInfo.getDec_type()));
                 imageShow.displayImageHeadWidthThumnailImage(DesignerCaseInfoActivity.this, designerCaseInfo.getDesigner().getImageid(), designerinfo_head_img);
                 imageShow.displayImageHeadWidthThumnailImage(DesignerCaseInfoActivity.this, designerCaseInfo.getDesigner().getImageid(), head_img);
                 if (designerCaseInfo.getDesigner().getAuth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)) {

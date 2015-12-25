@@ -155,10 +155,10 @@
 
     <!-- 户型 -->
     <string-array name="arr_housetype">
-        <item>一居</item>
-        <item>二居</item>
-        <item>三居</item>
-        <item>四居</item>
+        <item>一室</item>
+        <item>二室</item>
+        <item>三室</item>
+        <item>四室</item>
         <item>复式</item>
         <item>别墅</item>
         <item>LOFT</item>

@@ -14,6 +14,7 @@ import com.jianfanjia.cn.adapter.ShowPicPagerAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.BeautyImgInfo;
 import com.jianfanjia.cn.bean.Img;
+import com.jianfanjia.cn.cache.BusinessManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
@@ -140,7 +141,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
                     toolbar_collect.setSelected(false);
                 }
                 pic_title.setText(beautyImgInfo.getTitle());
-                pic_des.setText("#" + beautyImgInfo.getDescription() + "  #" + getHouseType(beautyImgInfo.getHouse_type()) + "  #" + getDecStyle(beautyImgInfo.getDec_type()));
+                pic_des.setText("#" + beautyImgInfo.getDescription() + "  #" + BusinessManager.convertHouseTypeToShow(beautyImgInfo.getHouse_type()) + "  #" + BusinessManager.convertDecStyleToShow(beautyImgInfo.getDec_style()));
                 List<Img> decorationImgs = beautyImgInfo.getImages();
                 totalCount = decorationImgs.size();
                 for (Img img : decorationImgs) {

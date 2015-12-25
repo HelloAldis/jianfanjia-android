@@ -16,6 +16,7 @@ import com.jianfanjia.cn.adapter.PreviewAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.PlandetailInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
+import com.jianfanjia.cn.cache.BusinessManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
@@ -169,15 +170,15 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
                 }
                 if (!TextUtils.isEmpty(requirementInfo.getHouse_type())) {
                     houseTypeLayout.setVisibility(View.VISIBLE);
-                    houseType.setText(getHouseType(requirementInfo.getHouse_type()));
+                    houseType.setText(BusinessManager.convertHouseTypeToShow(requirementInfo.getHouse_type()));
                 }
                 if (!TextUtils.isEmpty(requirementInfo.getHouse_area())) {
                     houseAreaLayout.setVisibility(View.VISIBLE);
-                    houseArea.setText(requirementInfo.getHouse_area() + "㎡");
+                    houseArea.setText(requirementInfo.getHouse_area() + getString(R.string.str_sq_unit));
                 }
                 if (!TextUtils.isEmpty(requirementInfo.getWork_type())) {
                     decorateTypeLayout.setVisibility(View.VISIBLE);
-                    decorateType.setText(getWorkType(requirementInfo.getWork_type()));
+                    decorateType.setText(BusinessManager.getWorkType(requirementInfo.getWork_type()));
                 }
                 totalDate.setText(planDetailInfo.getDuration() + "天");
                 price.setText(planDetailInfo.getTotal_price() + "元");

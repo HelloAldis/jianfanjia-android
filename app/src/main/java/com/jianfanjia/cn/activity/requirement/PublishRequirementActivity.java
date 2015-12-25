@@ -93,12 +93,17 @@ public class PublishRequirementActivity extends BaseActivity implements OnClickL
         setupViewPager(viewPager);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
-        tabLayout.setOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager){
+        tabLayout.setOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager) {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 super.onTabSelected(tab);
                 status = tab.getPosition() + "";
                 resetRightTitleStatus();
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                super.onTabUnselected(tab);
             }
         });
         status = Global.DEC_TYPE_HOME;
