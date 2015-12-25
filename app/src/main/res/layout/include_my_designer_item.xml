@@ -36,7 +36,7 @@
             android:id="@+id/ltm_my_designer_name"
             style="@style/listview_item_text_style_middle"
             android:text="@string/str_cell"
-            android:textColor="@color/black_color" />
+            android:textColor="@color/light_black_color" />
 
         <TextView
             android:id="@+id/ltm_my_designer_status"

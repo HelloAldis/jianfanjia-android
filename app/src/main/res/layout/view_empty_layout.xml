@@ -44,7 +44,7 @@
                 android:lines="2"
                 android:gravity="center"
                 android:text="@string/error_view_loading"
-                android:textColor="@color/black_color"
+                android:textColor="@color/light_black_color"
                 android:textSize="@dimen/text_size_16" />
         </LinearLayout>
     </RelativeLayout>

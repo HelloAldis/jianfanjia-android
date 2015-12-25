@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -141,7 +142,10 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
                     toolbar_collect.setSelected(false);
                 }
                 pic_title.setText(beautyImgInfo.getTitle());
-                pic_des.setText("#" + beautyImgInfo.getDescription() + "  #" + BusinessManager.convertHouseTypeToShow(beautyImgInfo.getHouse_type()) + "  #" + BusinessManager.convertDecStyleToShow(beautyImgInfo.getDec_style()));
+                String keyDes = BusinessManager.spilteKeyWord(beautyImgInfo.getKeywords());
+                if(!TextUtils.isEmpty(keyDes)){
+                    pic_des.setText(keyDes);
+                }
                 List<Img> decorationImgs = beautyImgInfo.getImages();
                 totalCount = decorationImgs.size();
                 for (Img img : decorationImgs) {

@@ -17,7 +17,7 @@
         android:layout_marginTop="@dimen/space_24"
         android:layout_gravity="center_horizontal"
         android:text="@string/dec_stage"
-        android:textColor="@color/black_color"
+        android:textColor="@color/light_black_color"
         style="@style/listview_item_text_style_big"/>
 
     <LinearLayout
@@ -29,7 +29,7 @@
             android:id="@+id/dec_stage0"
             android:layout_gravity="center_horizontal"
             android:text="@string/dec_stage_scan"
-            android:textColor="@color/black_color"
+            android:textColor="@color/light_black_color"
             android:layout_marginTop="@dimen/space_24"
             style="@style/listview_item_text_style_middle"
             android:background="@drawable/btn_grey_white_oval_bg"/>
@@ -38,7 +38,7 @@
             android:id="@+id/dec_stage1"
             android:layout_gravity="center_horizontal"
             android:text="@string/dec_stage_prepare"
-            android:textColor="@color/black_color"
+            android:textColor="@color/light_black_color"
             android:layout_marginTop="@dimen/space_16"
             style="@style/listview_item_text_style_middle"
             android:background="@drawable/btn_grey_white_oval_bg"/>
@@ -47,7 +47,7 @@
             android:id="@+id/dec_stage2"
             android:layout_gravity="center_horizontal"
             android:text="@string/dec_stage_working"
-            android:textColor="@color/black_color"
+            android:textColor="@color/light_black_color"
             android:layout_marginTop="@dimen/space_16"
             style="@style/listview_item_text_style_middle"
             android:background="@drawable/btn_grey_white_oval_bg"/>

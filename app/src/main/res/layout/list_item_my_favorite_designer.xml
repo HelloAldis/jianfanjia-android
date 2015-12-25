@@ -20,7 +20,7 @@
             android:layout_marginLeft="@dimen/space_8"
             android:layout_toRightOf="@+id/imageLayout"
             android:text="@string/my_site_villagename_example"
-            android:textColor="@color/black_color" />
+            android:textColor="@color/light_black_color" />
 
         <FrameLayout
             android:id="@+id/imageLayout"

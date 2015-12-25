@@ -21,7 +21,7 @@
     </style>
 
     <style name="style_edit_req_content" parent="listview_item_text_style_middle">
-        <item name="android:textColor">@color/black_color</item>
+        <item name="android:textColor">@color/light_black_color</item>
         <item name="android:gravity">right|center_vertical</item>
     </style>
 

@@ -1,6 +1,7 @@
 package com.jianfanjia.cn.cache;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
@@ -19,6 +20,23 @@ import java.util.List;
 
 public class BusinessManager {
 
+    /**
+     * 分开装修美图keyword
+     * @param keyWord
+     * @return
+     */
+    public static String spilteKeyWord(String keyWord){
+        if (TextUtils.isEmpty(keyWord)) return null;
+        String[] keywords = keyWord.split(",");
+        StringBuffer stringBuffer = new StringBuffer();
+        for(String key : keywords){
+            stringBuffer.append("#");
+            stringBuffer.append(key);
+            stringBuffer.append("   ");
+        }
+        return stringBuffer.toString();
+    }
+
     public static String getWorkType(String workType) {
         String str = null;
         if (workType.equals("0")) {
@@ -30,7 +48,6 @@ public class BusinessManager {
         }
         return str;
     }
-
 
     public static int getCheckPicCountBySection(String section) {
         if (section.equals(Constant.SHUI_DIAN)) {

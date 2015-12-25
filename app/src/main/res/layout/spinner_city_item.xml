@@ -8,4 +8,4 @@
     android:textAlignment="inherit"
     android:gravity="left|center_vertical"
     android:textSize="@dimen/middle_size"
-    android:textColor="@color/black_color"/>
+    android:textColor="@color/light_black_color"/>

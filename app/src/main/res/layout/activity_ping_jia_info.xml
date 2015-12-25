@@ -44,7 +44,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="@dimen/space_10"
                     android:text="设计师"
-                    android:textColor="@color/black_color" />
+                    android:textColor="@color/light_black_color" />
 
                 <RatingBar
                     android:id="@+id/ratingBar"
@@ -76,7 +76,7 @@
                         style="@style/listview_item_text_style_middle"
                         android:layout_gravity="center_vertical"
                         android:text="响应速度："
-                        android:textColor="@color/black_color" />
+                        android:textColor="@color/light_black_color" />
 
                     <RatingBar
                         android:id="@+id/speedBar"
@@ -101,7 +101,7 @@
                         style="@style/listview_item_text_style_middle"
                         android:layout_gravity="center_vertical"
                         android:text="服务态度："
-                        android:textColor="@color/black_color" />
+                        android:textColor="@color/light_black_color" />
 
                     <RatingBar
                         android:id="@+id/attudeBar"
@@ -127,13 +127,13 @@
                         style="@style/listview_item_text_style_middle"
                         android:layout_gravity="center_vertical"
                         android:text="评价内容："
-                        android:textColor="@color/black_color" />
+                        android:textColor="@color/light_black_color" />
 
                     <TextView
                         android:id="@+id/commentText"
                         style="@style/listview_item_text_style_middle"
                         android:layout_marginLeft="@dimen/space_10"
-                        android:textColor="@color/black_color" />
+                        android:textColor="@color/light_black_color" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

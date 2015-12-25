@@ -27,7 +27,7 @@
             android:paddingLeft="@dimen/space_16"
             android:paddingRight="@dimen/space_16"
             android:singleLine="true"
-            android:textColor="@color/black_color"
+            android:textColor="@color/light_black_color"
             android:textSize="@dimen/middle_size" />
 
 
@@ -66,7 +66,7 @@
             android:paddingLeft="@dimen/space_16"
             android:paddingRight="@dimen/space_16"
             android:singleLine="true"
-            android:textColor="@color/black_color"
+            android:textColor="@color/light_black_color"
             android:textSize="@dimen/middle_size" />
 
         <ImageView
