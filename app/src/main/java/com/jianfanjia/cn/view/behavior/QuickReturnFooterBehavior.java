@@ -10,6 +10,7 @@ import android.view.View;
 
 
 public class QuickReturnFooterBehavior extends CoordinatorLayout.Behavior<View> {
+    private static final String TAG = QuickReturnFooterBehavior.class.getName();
     private int mTotalDyDistance;//dy往一个方向移动的总距离
     private boolean hide = false;//footer是否隐藏
     private int childHeight;//footer height
@@ -46,7 +47,7 @@ public class QuickReturnFooterBehavior extends CoordinatorLayout.Behavior<View> 
         if (!hide && mTotalDyDistance > childHeight) {
             hideView(child);
             hide = true;
-        } else if (hide && mTotalDyDistance < -childHeight) {
+        } else if (hide && mTotalDyDistance < 0) {
             showView(child);
             hide = false;
         }

@@ -15,7 +15,9 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_below="@+id/ownerinfo_head_layout"
-        android:layout_marginTop="@dimen/space_8">
+        android:layout_marginTop="@dimen/space_8"
+        android:overScrollMode="always"
+        >
 
         <LinearLayout
             android:id="@+id/rootview"
@@ -37,7 +39,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:text="@string/user_head"
-                    android:textColor="@color/black_color" />
+                    android:textColor="@color/light_black_color" />
 
                 <com.jianfanjia.cn.view.layout.CircleImageView
                     android:id="@+id/head_icon"
@@ -67,7 +69,7 @@
                     style="@style/listview_item_text_style_middle"
                     android:layout_centerVertical="true"
                     android:text="@string/user_name"
-                    android:textColor="@color/black_color" />
+                    android:textColor="@color/light_black_color" />
 
                 <TextView
                     android:id="@+id/nameText"
@@ -80,7 +82,7 @@
                     android:ellipsize="end"
                     android:gravity="right"
                     android:singleLine="true"
-                    android:textColor="@color/black_color" />
+                    android:textColor="@color/light_black_color" />
 
                 <ImageView
                     android:id="@+id/name_goto"
@@ -100,7 +102,7 @@
                     style="@style/listview_item_text_style_middle"
                     android:layout_centerVertical="true"
                     android:text="@string/user_sex"
-                    android:textColor="@color/black_color" />
+                    android:textColor="@color/light_black_color" />
 
                 <TextView
                     android:id="@+id/sexText"
@@ -108,7 +110,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/space_8"
                     android:layout_toLeftOf="@+id/sex_goto"
-                    android:textColor="@color/black_color" />
+                    android:textColor="@color/light_black_color" />
 
                 <ImageView
                     android:id="@+id/sex_goto"
@@ -128,7 +130,7 @@
                     style="@style/listview_item_text_style_middle"
                     android:layout_centerVertical="true"
                     android:text="@string/user_phone"
-                    android:textColor="@color/black_color" />
+                    android:textColor="@color/light_black_color" />
 
                 <TextView
                     android:id="@+id/phoneText"
@@ -136,7 +138,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/space_8"
                     android:layout_toLeftOf="@+id/phone_goto"
-                    android:textColor="@color/black_color" />
+                    android:textColor="@color/light_black_color" />
 
                 <ImageView
                     android:id="@+id/phone_goto"
@@ -157,7 +159,7 @@
                     style="@style/listview_item_text_style_middle"
                     android:layout_centerVertical="true"
                     android:text="@string/user_address"
-                    android:textColor="@color/black_color" />
+                    android:textColor="@color/light_black_color" />
 
                 <TextView
                     android:id="@+id/addressText"
@@ -165,7 +167,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/space_8"
                     android:layout_toLeftOf="@+id/address_goto"
-                    android:textColor="@color/black_color" />
+                    android:textColor="@color/light_black_color" />
 
                 <ImageView
                     android:id="@+id/address_goto"
@@ -186,7 +188,7 @@
                     style="@style/listview_item_text_style_middle"
                     android:layout_centerVertical="true"
                     android:text="@string/user_home"
-                    android:textColor="@color/black_color" />
+                    android:textColor="@color/light_black_color" />
 
                 <TextView
                     android:id="@+id/homeText"
@@ -199,7 +201,7 @@
                     android:ellipsize="end"
                     android:gravity="right"
                     android:singleLine="true"
-                    android:textColor="@color/black_color" />
+                    android:textColor="@color/light_black_color" />
 
                 <ImageView
                     android:id="@+id/home_goto"
@@ -210,12 +212,6 @@
             </RelativeLayout>
 
             <View style="@style/divier_line" />
-
-            <Button
-                android:id="@+id/btn_confirm"
-                style="@style/button_login_style"
-                android:layout_margin="@dimen/space_24"
-                android:text="@string/confirm" />
         </LinearLayout>
     </ScrollView>
 

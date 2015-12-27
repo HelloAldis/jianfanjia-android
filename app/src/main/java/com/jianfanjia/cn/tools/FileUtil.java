@@ -498,7 +498,6 @@ public class FileUtil {
      * @return
      */
     public static String getSDRoot() {
-
         return Environment.getExternalStorageDirectory().getAbsolutePath();
     }
 

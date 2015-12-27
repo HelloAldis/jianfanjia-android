@@ -9,6 +9,7 @@ import java.io.Serializable;
  * Date:2015-10-20 10:05
  */
 public class OrderDesignerInfo implements Serializable {
+    private static final long serialVersionUID = 3360047352488985481L;
     private String _id;//设计师id
     private String imageid;//设计师头像id
     private String username;//设计师名称

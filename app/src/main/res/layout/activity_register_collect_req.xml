@@ -1,0 +1,61 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/font_white"
+    android:orientation="vertical">
+
+    <com.jianfanjia.cn.view.WrapContentHeightViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/space_72"
+        />
+
+    <RelativeLayout
+        android:id="@+id/head_back_layout"
+        android:layout_width="@dimen/space_70"
+        android:layout_height="@dimen/space_48"
+        android:paddingLeft="@dimen/space_14">
+
+        <ImageView
+            android:id="@+id/head_back"
+            style="@style/listview_item_text_style_middle"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/icon_register_back" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/btnLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="@dimen/space_72"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/act_reg_collect_title"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/dec_stage_scan"
+            android:textColor="@color/light_black_color"
+            style="@style/listview_item_text_style_big"
+            android:layout_marginBottom="@dimen/space_24"/>
+
+        <TextView
+            android:id="@+id/act_reg_collect_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/dec_stage_scan"
+            android:textColor="@color/light_black_color"
+            style="@style/listview_item_text_style_more_big"
+            android:layout_marginBottom="@dimen/space_24"/>
+
+        <Button
+            android:id="@+id/btn_next"
+            style="@style/button_login_style"
+            android:layout_marginLeft="@dimen/space_48"
+            android:layout_marginRight="@dimen/space_48"
+            android:text="@string/next" />
+        <!--android:layout_width="@dimen/space_140"-->
+
+    </LinearLayout>
+
+</FrameLayout>

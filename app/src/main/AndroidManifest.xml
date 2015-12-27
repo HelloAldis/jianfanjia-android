@@ -30,6 +30,7 @@
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
 
     <application
         android:name="com.jianfanjia.cn.application.MyApplication"
@@ -50,13 +51,13 @@
         <!-- 配置的第三方参数属性 -->
         <meta-data
             android:name="PUSH_APPID"
-            android:value="YZV748rCe89l8CfZ7dtIF9" />
+            android:value="${GETUI_PUSH_APPID}" />
         <meta-data
             android:name="PUSH_APPKEY"
-            android:value="8GJ1XgPOL9ArriE8xOJDK8" />
+            android:value="${GETUI_PUSH_APPKEY}" />
         <meta-data
             android:name="PUSH_APPSECRET"
-            android:value="sJtpmFxS0a5sA30Au3iI36" />
+            android:value="${GETUI_PUSH_APPSECRET}" />
         <meta-data
             android:name="PUSH_GROUPID"
             android:value="" />
@@ -66,7 +67,7 @@
             android:name="com.jianfanjia.cn.receiver.PushMsgReceiver"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.igexin.sdk.action.YZV748rCe89l8CfZ7dtIF9" />
+                <action android:name="com.igexin.sdk.action.${GETUI_PUSH_APPID}" />
             </intent-filter>
         </receiver>
 
@@ -137,7 +138,7 @@
                 <!-- 这个com.igexin.sdk.action.7fjUl2Z3LH6xYy7NQK4ni4固定，不能修改 -->
                 <action android:name="com.igexin.sdk.action.7fjUl2Z3LH6xYy7NQK4ni4" />
                 <!-- android:name="com.igexin.sdk.action.第三方的appId" -->
-                <action android:name="com.igexin.sdk.action.YZV748rCe89l8CfZ7dtIF9" />
+                <action android:name="com.igexin.sdk.action.${GETUI_PUSH_APPID}" />
             </intent-filter>
         </receiver>
 
@@ -149,6 +150,7 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
             android:name=".LoginNewActivity_"
@@ -161,37 +163,37 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible" />
         <activity
-            android:name=".HelpActivity"
+            android:name=".my.HelpActivity"
             android:label="@string/title_activity_help"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SettingActivity"
+            android:name=".my.SettingActivity"
             android:label="@string/title_activity_setting"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".AboutActivity"
+            android:name=".my.AboutActivity"
             android:label="@string/title_activity_about"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ShareActivity"
+            android:name=".my.ShareActivity"
             android:label="@string/title_activity_share"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".CheckActivity"
+            android:name=".requirement.CheckActivity"
             android:label="@string/title_activity_check"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".CommentActivity"
+            android:name=".common.CommentActivity"
             android:label="@string/title_activity_comment"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".EditInfoActivity"
+            android:name=".my.EditOwnerInfoActivity"
             android:label="@string/title_activity_edit_info"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible" />
         <activity
-            android:name=".FeedBackActivity"
+            android:name=".my.FeedBackActivity"
             android:label="@string/title_activity_feed_back"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible" />
@@ -201,7 +203,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible" />
         <activity
-            android:name=".MyDesignerActivity_"
+            android:name=".requirement.MyDesignerActivity_"
             android:label="@string/title_activity_my_designer"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
@@ -210,20 +212,19 @@
             android:label="@string/title_activity_navigate"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".NotifyActivity"
+            android:name=".my.NotifyActivity"
             android:label="@string/title_activity_notify"
-            android:screenOrientation="portrait"
-            android:theme="@style/activity_style" />
+            android:screenOrientation="portrait" />
         <activity
-            android:name=".ShowPicActivity"
+            android:name=".common.ShowPicActivity"
             android:label="@string/title_activity_show_pic"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ShowProcessPicActivity"
+            android:name=".requirement.ShowProcessPicActivity"
             android:label="@string/title_activity_show_pic"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".UserInfoActivity_"
+            android:name=".my.UserInfoActivity_"
             android:label="@string/title_activity_user_info"
             android:screenOrientation="portrait" />
         <activity
@@ -237,80 +238,96 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".EditRequirementActivity_"
-            android:label="EditRequirementActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".PreviewRequirementActivity_"
+            android:name=".requirement.PreviewRequirementActivity_"
             android:label="PreviewRequirementActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".EditRequirementItemActivity_"
+            android:name=".requirement.EditRequirementItemActivity_"
             android:label="EditRequirementItemActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".EditRequirementLovestyleActivity_"
+            android:name=".requirement.EditRequirementLovestyleActivity_"
             android:label="EditRequirementLovestyleActivity"
             android:screenOrientation="portrait" />
 
         <service android:name="com.jianfanjia.cn.service.UpdateService" />
 
         <activity
-            android:name=".DesignerInfoActivity"
+            android:name=".home.DesignerInfoActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".DesignerCaseInfoActivity"
+            android:name=".home.DesignerCaseInfoActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".AppointDesignerActivity"
+            android:name=".requirement.AppointDesignerActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".PingjiaActivity"
+            android:name=".requirement.PingjiaActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ContractActivity"
+            android:name=".requirement.ContractActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MyFavoriteDesignerActivity_"
+            android:name=".my.MyProcessActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MyProcessActivity"
+            android:name=".requirement.MyProcessDetailActivity_"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MyProcessDetailActivity_"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".DesignerPlanListActivity"
+            android:name=".requirement.DesignerPlanListActivity"
             android:label="@string/title_activity_designer_plan_list"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".PreviewDesignerPlanActivity"
+            android:name=".requirement.PreviewDesignerPlanActivity"
             android:label="@string/title_activity_preview_designer_plan"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".PingJiaInfoActivity"
+            android:name=".requirement.PingJiaInfoActivity"
             android:label="@string/title_activity_ping_jia_info"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".DetailPriceActivity"
+            android:name=".requirement.DetailPriceActivity"
             android:label="@string/title_activity_detail_price"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ReplaceDesignerActivity"
+            android:name=".requirement.ReplaceDesignerActivity"
             android:label="@string/title_activity_replace_designer"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".CityEditActivity_"
+            android:name=".my.EditCityActivity_"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.soundcloud.android.crop.CropImageActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".CollectActivity"
+            android:name=".my.CollectActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".PreviewDecorationActivity"
-            android:label="@string/title_activity_preview_decoration"
+            android:name=".beautifulpic.PreviewDecorationActivity"
+            android:label=""
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".NewUserCollectLoveStyleActivity_"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".NewUserCollectPersonActivity_"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".NewUserCollectDecStageActivity_"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".NewUserGuideActivity_"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".requirement.PublishRequirementActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".requirement.PreviewBusinessRequirementActivity_"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".requirement.UpdateRequirementActivity_"
             android:screenOrientation="portrait" />
     </application>
 

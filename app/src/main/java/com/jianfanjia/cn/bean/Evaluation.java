@@ -10,6 +10,7 @@ import java.io.Serializable;
  */
 public class Evaluation implements Serializable{
 
+    private static final long serialVersionUID = -2742232970423153563L;
     private String _id;
     private String designerid;
     private String requiremengid;

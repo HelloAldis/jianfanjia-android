@@ -10,10 +10,11 @@
     <string name="str_req_pubReq">免费获取三套方案 ></string>
     <string name="str_publish_time">发布时间：</string>
     <string name="str_edit_req">填写装修需求</string>
-    <string name="str_create">发布</string>
+    <string name="str_create">创建</string>
     <string name="str_goto_pro">前往工地</string>
     <string name="str_delete_req">删除需求</string>
-    <string name="str_street">所在街道</string>
+    <string name="str_street">详细地址</string>
+    <string name="str_business_company">项目名称</string>
     <string name="str_city">所在城市</string>
     <string name="str_edit_requirement">编辑需求</string>
     <string name="str_housetype">户型</string>
@@ -25,6 +26,7 @@
     <string name="str_persons">计划常住人口</string>
     <string name="str_lovestyle">风格喜好</string>
     <string name="strl_add_yixiang">添加意向</string>
+    <string name="strl_delete_yixiang">取消意向</string>
     <string name="str_choose_plan">选定方案</string>
     <string name="str_district">所在区域</string>
     <string name="style">风格</string>
@@ -82,4 +84,23 @@
     <string name="my_favorite_designer">我的意向设计师</string>
     <string name="tip_confirm">发布提醒</string>
     <string name="abandon_confirm_req">您的需求没有提交，您要放弃提交吗？</string>
+    <string name="dec_stage">您现在所处的装修阶段</string>
+    <string name="dec_stage_scan">我想看一看</string>
+    <string name="dec_stage_prepare">正在准备中</string>
+    <string name="dec_stage_working">已经开始装修</string>
+    <string name="collect_person_title">请选择您家的</string>
+    <string name="collect_person_content">常住人口</string>
+    <string name="collect_lovestyle_title">请选择您喜欢的</string>
+    <string name="collect_lovestyle_content">风格喜好</string>
+    <string name="collect_person_tip">只能选择一种常住人口类型</string>
+    <string name="collect_lovestyle_tip">最多只能选择三种风格喜好</string>
+    <string name="str_totalbudget">总报价</string>
+    <string name="str_guide_tip1">您可以免费前往获取三套方案</string>
+    <string name="str_guide_tip2">我们将会为您匹配最合适的设计师</string>
+    <string name="str_businessdecoratetype">商装类型</string>
+    <string name="update_requirement">修改装修需求</string>
+    <string name="business_dec">商装</string>
+    <string name="home_dec">家装</string>
+    <string name="save_success">保存成功</string>
+    <string name="save_failure">保存失败</string>
 </resources>

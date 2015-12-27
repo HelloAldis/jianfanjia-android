@@ -10,97 +10,245 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/jiandanType"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/jiandanTypeLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dip"
             android:layout_marginRight="20dip"
-            android:layout_marginTop="10dip"
-            android:textColor="@color/home_page_text_color"
-            android:textSize="@dimen/text_size_14" />
+            android:layout_marginTop="20dip"
+            android:orientation="horizontal"
+            android:visibility="gone">
 
-        <TextView
-            android:id="@+id/jiandanHouseType"
-            android:layout_width="wrap_content"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="接单类型："
+                android:textColor="@color/home_page_text_color"
+                android:textSize="@dimen/text_size_14" />
+
+            <TextView
+                android:id="@+id/jiandanType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/designer_info_text_color_bg"
+                android:textSize="@dimen/text_size_14" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/jiandanHouseTypeLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dip"
             android:layout_marginRight="20dip"
-            android:layout_marginTop="10dip"
-            android:textColor="@color/home_page_text_color"
-            android:textSize="@dimen/text_size_14" />
+            android:layout_marginTop="20dip"
+            android:orientation="horizontal"
+            android:visibility="gone">
 
-        <TextView
-            android:id="@+id/jiandanDistrict"
-            android:layout_width="wrap_content"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="接单户型："
+                android:textColor="@color/home_page_text_color"
+                android:textSize="@dimen/text_size_14" />
+
+            <TextView
+                android:id="@+id/jiandanHouseType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/designer_info_text_color_bg"
+                android:textSize="@dimen/text_size_14" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/jiandanDistrictLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dip"
             android:layout_marginRight="20dip"
-            android:layout_marginTop="10dip"
-            android:textColor="@color/home_page_text_color"
-            android:textSize="@dimen/text_size_14" />
+            android:layout_marginTop="20dip"
+            android:orientation="horizontal"
+            android:visibility="gone">
 
-        <TextView
-            android:id="@+id/designStyle"
-            android:layout_width="wrap_content"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="接单区域："
+                android:textColor="@color/home_page_text_color"
+                android:textSize="@dimen/text_size_14" />
+
+            <TextView
+                android:id="@+id/jiandanDistrict"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/designer_info_text_color_bg"
+                android:textSize="@dimen/text_size_14" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/designStyleLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dip"
             android:layout_marginRight="20dip"
-            android:layout_marginTop="10dip"
-            android:textColor="@color/home_page_text_color"
-            android:textSize="@dimen/text_size_14" />
+            android:layout_marginTop="20dip"
+            android:orientation="horizontal"
+            android:visibility="gone">
 
-        <TextView
-            android:id="@+id/designIdea"
-            android:layout_width="wrap_content"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="设计风格："
+                android:textColor="@color/home_page_text_color"
+                android:textSize="@dimen/text_size_14" />
+
+            <TextView
+                android:id="@+id/designStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/designer_info_text_color_bg"
+                android:textSize="@dimen/text_size_14" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/designIdeaLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dip"
             android:layout_marginRight="20dip"
-            android:layout_marginTop="10dip"
-            android:textColor="@color/home_page_text_color"
-            android:textSize="@dimen/text_size_14" />
+            android:layout_marginTop="20dip"
+            android:orientation="horizontal"
+            android:visibility="gone">
 
-        <TextView
-            android:id="@+id/designAchievement"
-            android:layout_width="wrap_content"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="设计理念："
+                android:textColor="@color/home_page_text_color"
+                android:textSize="@dimen/text_size_14" />
+
+            <TextView
+                android:id="@+id/designIdea"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/designer_info_text_color_bg"
+                android:textSize="@dimen/text_size_14" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/designAchievementLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dip"
             android:layout_marginRight="20dip"
-            android:layout_marginTop="10dip"
-            android:textColor="@color/home_page_text_color"
-            android:textSize="@dimen/text_size_14" />
+            android:layout_marginTop="20dip"
+            android:orientation="horizontal"
+            android:visibility="gone">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="设计成就："
+                android:textColor="@color/home_page_text_color"
+                android:textSize="@dimen/text_size_14" />
 
-        <TextView
-            android:id="@+id/company"
-            android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/designAchievement"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/designer_info_text_color_bg"
+                android:textSize="@dimen/text_size_14" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/companyLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dip"
             android:layout_marginRight="20dip"
-            android:layout_marginTop="10dip"
-            android:textColor="@color/home_page_text_color"
-            android:textSize="@dimen/text_size_14" />
+            android:layout_marginTop="20dip"
+            android:orientation="horizontal"
+            android:visibility="gone">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="曾就职公司："
+                android:textColor="@color/home_page_text_color"
+                android:textSize="@dimen/text_size_14" />
 
-        <TextView
-            android:id="@+id/teamCount"
-            android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/company"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/designer_info_text_color_bg"
+                android:textSize="@dimen/text_size_14" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/teamCountLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dip"
             android:layout_marginRight="20dip"
-            android:layout_marginTop="10dip"
-            android:textColor="@color/home_page_text_color"
-            android:textSize="@dimen/text_size_14" />
+            android:layout_marginTop="20dip"
+            android:orientation="horizontal"
+            android:visibility="gone">
 
-        <TextView
-            android:id="@+id/designFee"
-            android:layout_width="wrap_content"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="施工团队："
+                android:textColor="@color/home_page_text_color"
+                android:textSize="@dimen/text_size_14" />
+
+            <TextView
+                android:id="@+id/teamCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/orange_color"
+                android:textSize="@dimen/text_size_14" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" 个施工队"
+                android:textColor="@color/designer_info_text_color_bg"
+                android:textSize="@dimen/text_size_14" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/designFeeLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dip"
+            android:layout_marginBottom="20dip"
             android:layout_marginLeft="20dip"
             android:layout_marginRight="20dip"
-            android:layout_marginTop="10dip"
-            android:textColor="@color/home_page_text_color"
-            android:textSize="@dimen/text_size_14" />
+            android:layout_marginTop="20dip"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="设计费："
+                android:textColor="@color/home_page_text_color"
+                android:textSize="@dimen/text_size_14" />
+
+            <TextView
+                android:id="@+id/designFee"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/orange_color"
+                android:textSize="@dimen/text_size_14" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" 元/㎡"
+                android:textColor="@color/designer_info_text_color_bg"
+                android:textSize="@dimen/text_size_14" />
+        </LinearLayout>
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

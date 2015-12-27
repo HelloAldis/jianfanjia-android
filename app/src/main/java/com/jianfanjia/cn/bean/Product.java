@@ -10,7 +10,9 @@ import java.util.List;
  * Time: 11:34
  */
 public class Product implements Serializable {
+    private static final long serialVersionUID = 2616692613021879727L;
     private String _id;
+    private boolean is_deleted;
     private String province;
     private String city;
     private String district;
@@ -31,6 +33,7 @@ public class Product implements Serializable {
     private int favorite_count;
     private int view_count;
     private List<ImageInfo> images;
+    private Designer designer;
 
     public String get_id() {
         return _id;
@@ -198,5 +201,21 @@ public class Product implements Serializable {
 
     public void setView_count(int view_count) {
         this.view_count = view_count;
+    }
+
+    public Designer getDesigner() {
+        return designer;
+    }
+
+    public void setDesigner(Designer designer) {
+        this.designer = designer;
+    }
+
+    public boolean is_deleted() {
+        return is_deleted;
+    }
+
+    public void setIs_deleted(boolean is_deleted) {
+        this.is_deleted = is_deleted;
     }
 }

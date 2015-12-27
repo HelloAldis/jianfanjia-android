@@ -14,7 +14,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="52dip"
+        android:layout_height="50dip"
         android:layout_gravity="bottom"
         android:background="#ffffff"
         android:orientation="vertical">
@@ -28,6 +28,8 @@
             android:id="@+id/tab_rg_menu"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/space_20"
+            android:layout_marginRight="@dimen/space_20"
             android:orientation="horizontal">
 
             <RadioButton
@@ -37,13 +39,14 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
+                android:background="#00000000"
                 android:checked="true"
                 android:drawableTop="@drawable/rb_btn_bg1"
-                android:paddingBottom="3dp"
+                android:paddingBottom="5dp"
                 android:paddingTop="5dp"
                 android:text="首页"
                 android:textColor="@color/text_color"
-                android:textSize="@dimen/text_size_14" />
+                android:textSize="@dimen/text_size_11" />
 
             <RadioButton
                 android:id="@+id/tab_rb_2"
@@ -52,12 +55,13 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
+                android:background="#00000000"
                 android:drawableTop="@drawable/rb_btn_bg2"
-                android:paddingBottom="3dp"
+                android:paddingBottom="5dp"
                 android:paddingTop="5dp"
                 android:text="装修美图"
                 android:textColor="@color/text_color"
-                android:textSize="@dimen/text_size_14" />
+                android:textSize="@dimen/text_size_11" />
 
             <RadioButton
                 android:id="@+id/tab_rb_3"
@@ -66,12 +70,13 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
+                android:background="#00000000"
                 android:drawableTop="@drawable/rb_btn_bg3"
-                android:paddingBottom="3dp"
+                android:paddingBottom="5dp"
                 android:paddingTop="5dp"
                 android:text="装修需求"
                 android:textColor="@color/text_color"
-                android:textSize="@dimen/text_size_14" />
+                android:textSize="@dimen/text_size_11" />
 
             <RadioButton
                 android:id="@+id/tab_rb_4"
@@ -80,12 +85,13 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
+                android:background="#00000000"
                 android:drawableTop="@drawable/rb_btn_bg4"
-                android:paddingBottom="3dp"
+                android:paddingBottom="5dp"
                 android:paddingTop="5dp"
                 android:text="我的"
                 android:textColor="@color/text_color"
-                android:textSize="@dimen/text_size_14" />
+                android:textSize="@dimen/text_size_11" />
         </RadioGroup>
     </LinearLayout>
 </LinearLayout>

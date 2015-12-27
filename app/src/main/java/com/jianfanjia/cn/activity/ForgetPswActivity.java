@@ -16,7 +16,6 @@ import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.tools.NetTool;
 import com.jianfanjia.cn.tools.UiHelper;
 
 import org.androidannotations.annotations.AfterViews;
@@ -50,7 +49,7 @@ public class ForgetPswActivity extends BaseAnnotationActivity{
         int resId = view.getId();
         switch (resId){
             case R.id.head_back_layout:
-                finish();
+                appManager.finishActivity(this);
                 break;
             case R.id.btn_next:
                 mUserName = mEtForgetPswUserName.getText().toString().trim();
@@ -95,7 +94,7 @@ public class ForgetPswActivity extends BaseAnnotationActivity{
     }
 
     @AfterViews
-    void initUi(){
+    protected void initUi(){
         UiHelper.controlKeyboardLayout(registerLayout, mBtnNext);
 
         mBtnNext.setEnabled(false);

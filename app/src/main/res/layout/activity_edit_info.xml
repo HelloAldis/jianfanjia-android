@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/site_content_bg" >
+    android:background="@color/main_layout_bg" >
 
     <com.jianfanjia.cn.view.MainHeadView
         android:id="@+id/edit_head_layout"
@@ -20,7 +20,7 @@
         android:hint="@string/add_feedback"
         android:padding="@dimen/space_12"
         android:textSize="@dimen/text_size_14"
-        android:textColor="@color/black_color"
+        android:textColor="@color/light_black_color"
         android:textColorHint="@color/main_color_grey"
         />
 

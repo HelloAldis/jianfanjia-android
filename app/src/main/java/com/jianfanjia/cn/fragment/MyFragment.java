@@ -9,13 +9,12 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.jianfanjia.cn.activity.CollectActivity;
-import com.jianfanjia.cn.activity.MyFavoriteDesignerActivity_;
-import com.jianfanjia.cn.activity.MyProcessActivity;
-import com.jianfanjia.cn.activity.NotifyActivity;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.SettingActivity;
-import com.jianfanjia.cn.activity.UserInfoActivity_;
+import com.jianfanjia.cn.activity.my.CollectActivity;
+import com.jianfanjia.cn.activity.my.MyProcessActivity;
+import com.jianfanjia.cn.activity.my.NotifyActivity;
+import com.jianfanjia.cn.activity.my.SettingActivity;
+import com.jianfanjia.cn.activity.my.UserInfoActivity_;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.tools.LogTool;
@@ -69,11 +68,11 @@ public class MyFragment extends BaseFragment {
         if (!imgPath.contains(Constant.DEFALUT_PIC_HEAD)) {
             imageShow.displayScreenWidthThumnailImage(getActivity(), imgPath, head_img);
             imageShow.displayScreenWidthThumnailImage(getActivity(), imgPath, user_head_img);
-            head_img.setAlpha(0.5f);
+//            head_img.setAlpha(0.5f);
         } else {
             head_img.setImageResource(R.mipmap.bg_my);
             user_head_img.setImageResource(R.mipmap.bg_my);
-            head_img.setAlpha(0.5f);
+//            head_img.setAlpha(0.5f);
         }
     }
 
@@ -97,7 +96,6 @@ public class MyFragment extends BaseFragment {
                 startActivity(CollectActivity.class);
                 break;
             case R.id.my_designer_layout:
-                startActivity(MyFavoriteDesignerActivity_.class);
                 break;
             case R.id.my_site_layout:
                 startActivity(MyProcessActivity.class);

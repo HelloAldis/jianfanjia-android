@@ -6,6 +6,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
+import com.jianfanjia.cn.AppManager;
+import com.jianfanjia.cn.activity.requirement.PublishRequirementActivity;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
@@ -54,7 +56,7 @@ public class MainActivity extends BaseActivity implements
         LogTool.d(TAG, "flag:" + flag);
         if (flag) {
             LogTool.d(TAG, "REGISTER PUBLISH REQUIREMENG");
-            startActivityForResult(new Intent(this, EditRequirementActivity_.class), XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT);
+            startActivityForResult(new Intent(this, PublishRequirementActivity.class), XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT);
         }
     }
 
@@ -148,8 +150,21 @@ public class MainActivity extends BaseActivity implements
             makeTextShort("再按一次退出简繁家");
             mExitTime = System.currentTimeMillis();// 更新mExitTime
         } else {
-            activityManager.exit();
+            AppManager.getAppManager().AppExit(this);
         }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Global.SECTION_POSITION = 0;
+        Global.HOUSE_TYPE_POSITION = 0;
+        Global.DEC_STYLE_POSITION = 0;
     }
 
     @Override

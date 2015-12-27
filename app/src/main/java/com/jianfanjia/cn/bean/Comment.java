@@ -10,6 +10,8 @@ import java.util.List;
  * Time: 17:01
  */
 public class Comment implements Serializable {
+
+    private static final long serialVersionUID = -7792774353344872678L;
     private List<CommentInfo> comments;
     private int total;
 

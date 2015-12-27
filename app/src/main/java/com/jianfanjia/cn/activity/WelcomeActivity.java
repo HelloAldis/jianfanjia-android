@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.view.KeyEvent;
 import android.view.WindowManager;
 
+import com.jianfanjia.cn.activity.my.UserInfoActivity;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.UpdateVersion;
@@ -29,7 +30,7 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
     private static final String TAG = UserInfoActivity.class.getName();
     private Handler handler = new Handler();
     private boolean first;// 用于判断导航界面是否显示
-    private boolean isLoginExpire;// 是否登录过去
+    private boolean isLoginExpire;// 是否登录过期
     private boolean isLogin;// 是否登录过
     private UpdateVersion updateVersion;
     private CommonDialog dialog;
@@ -113,7 +114,7 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
                 if (updateVersion.getUpdatetype().equals(Global.REC_UPDATE)) {
                     handler.postDelayed(runnable, 1500);
                 } else {
-                    WelcomeActivity.this.finish();
+                    appManager.finishActivity(WelcomeActivity.this);
                 }
             }
 
@@ -124,7 +125,7 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
                 switch (keyCode) {
                     case KeyEvent.KEYCODE_BACK:
                         dialog.dismiss();
-                        activityManager.exit();
+                        appManager.AppExit(WelcomeActivity.this);
                         return true;
                 }
                 return false;
@@ -148,13 +149,13 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
     @Override
     public void loadSuccess(Object data) {
         startActivity(MainActivity.class);
-        finish();
+        appManager.finishActivity(WelcomeActivity.this);
     }
 
     @Override
     public void loadFailture(String error_msg) {
         startActivity(LoginNewActivity_.class);
-        finish();
+        appManager.finishActivity(WelcomeActivity.this);
     }
 
     private Runnable runnable = new Runnable() {
@@ -168,12 +169,12 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
                 if (!isLogin) {
                     LogTool.d(TAG, "not login");
                     startActivity(LoginNewActivity_.class);
-                    finish();
+                    appManager.finishActivity(WelcomeActivity.this);
                 } else {
                     if (!isLoginExpire) {// 登录未过期，添加cookies到httpclient记录身份
                         LogTool.d(TAG, "not expire");
                         startActivity(MainActivity.class);
-                        finish();
+                        appManager.finishActivity(WelcomeActivity.this);
                     } else {
                         LogTool.d(TAG, "expire");
                         MyApplication.getInstance().clearCookie();
@@ -183,7 +184,7 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
             } else {
                 LogTool.d(TAG, "启动导航");
                 startActivity(NavigateActivity.class);
-                finish();
+                appManager.finishActivity(WelcomeActivity.this);
             }
         }
     };

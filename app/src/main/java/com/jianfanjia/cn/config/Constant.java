@@ -17,10 +17,12 @@ public class Constant {
     public static final String LOG_FILE_DIR = "/MyLog";
     public static final String APK_FILE_DIR = "/Apk";
     public static final String PIC_FILE_DIR = "/pic";
+    public static final String IMG_FILE_DIR = "/BeautyImg";
 
     public static final String LOG_PATH = FileUtil.getAppCache(MyApplication.getInstance(), LOG_FILE_DIR);// log存放路径
     public static final String APK_PATH = FileUtil.getAppCache(MyApplication.getInstance(), APK_FILE_DIR);// 下载apk存放路径
     public static final String IMAG_PATH = FileUtil.getAppCache(MyApplication.getInstance(), PIC_FILE_DIR);// 保存照片
+    public static final String BEAUTY_IMAG_PATH = FileUtil.getAppCache(MyApplication.getInstance(), IMG_FILE_DIR);// 保存美图
 
     public static final String LOG_FILE = LOG_PATH + "/log.txt";//log文件
     public static final String ERROR_LOG_FILE = LOG_PATH + "/errorLog.txt";// errorlog文件
@@ -36,7 +38,7 @@ public class Constant {
     public static final int MANAGE = 2;//工地管理
     public static final int MY = 3;//我的
 
-    public static final int HOME_PAGE_LIMIT = 8;//首页分页 每次加载8条
+    public static final int HOME_PAGE_LIMIT = 10;//首页分页 每次加载10条
 
     public static class Config {
         public static final boolean DEVELOPER_MODE = false;
@@ -47,6 +49,16 @@ public class Constant {
     public static final int REQUESTCODE_CROP = 3;// 裁剪
     public static final int REQUESTCODE_SHOW_PROCESS_PIC = 8;//显示照片列表
     public static final int REQUESTCODE_GOTO_COMMENT = 7;//调用评论
+    public static final int REQUESTCODE_CHECK = 9;//调用评论
+
+    public static final int REQUIRECODE_CITY = 0x00;
+    public static final int REQUIRECODE_HOUSETYPE = 0x01;
+    public static final int REQUIRECODE_PERSONS = 0x02;
+    public static final int REQUIRECODE_LOVESTYLE = 0x03;
+    public static final int REQUIRECODE_LOVEDESISTYLE = 0x04;
+    public static final int REQUIRECODE_BUSI_DECORATETYPE = 0x05;
+    public static final int REQUIRECODE_WORKTYPE = 0x06;
+    public static final int REQUIRECODE_DESISEX = 0x07;
 
     // editactivity
     public static final int REQUESTCODE_EDIT_USERNAME = 4;
@@ -190,8 +202,16 @@ public class Constant {
     public static final int REC_DESIGNER_TOTAL = 3;//推荐设计师总数
     public static final int ROST_REQUIREMTNE_TOTAL = 3;//能够发布需求总数
 
+    public static final int LOVE_STYLE_TOTAL = 3;//能够选择的风格喜好数量
+
     public static final String KEY = "Item";
 
     public static final int UPDATE_FRAGMENT = 10;
     public static final int UPDATE_REQUIRE_FRAGMENT = 20;
+
+    //消息类型
+    public static final int UPDATE_HOME_FRAGMENT = 10;
+    public static final int UPDATE_FAVORITE_FRAGMENT = 20;
+    public static final int UPDATE_PRODUCT_FRAGMENT = 30;
+    public static final int UPDATE_BEAUTY_FRAGMENT = 40;
 }

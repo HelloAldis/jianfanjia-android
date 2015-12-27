@@ -16,12 +16,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
-import com.jianfanjia.cn.activity.AppointDesignerActivity;
-import com.jianfanjia.cn.activity.EditRequirementActivity_;
-import com.jianfanjia.cn.activity.MyDesignerActivity_;
-import com.jianfanjia.cn.activity.MyProcessDetailActivity_;
-import com.jianfanjia.cn.activity.PreviewRequirementActivity_;
+import com.jianfanjia.cn.activity.requirement.AppointDesignerActivity;
+import com.jianfanjia.cn.activity.requirement.MyDesignerActivity_;
+import com.jianfanjia.cn.activity.requirement.MyProcessDetailActivity_;
+import com.jianfanjia.cn.activity.requirement.PreviewBusinessRequirementActivity_;
+import com.jianfanjia.cn.activity.requirement.PreviewRequirementActivity_;
+import com.jianfanjia.cn.activity.requirement.PublishRequirementActivity;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.requirement.UpdateRequirementActivity_;
 import com.jianfanjia.cn.adapter.RequirementNewAdapter;
 import com.jianfanjia.cn.base.BaseAnnotationFragment;
 import com.jianfanjia.cn.bean.RequirementInfo;
@@ -94,9 +96,7 @@ public class XuQiuFragment extends BaseAnnotationFragment {
 
     protected Intent gotoOrderDesigner;
     protected Intent gotoMyDesigner;
-    protected Intent gotoEditRequirement;
     protected Intent gotoMyProcess;
-    protected Intent gotoPriviewRequirement;
 
     // Header View
     private UpdateBroadcastReceiver updateBroadcastReceiver;
@@ -122,17 +122,25 @@ public class XuQiuFragment extends BaseAnnotationFragment {
         requirementAdapter = new RequirementNewAdapter(getActivity(), new ClickCallBack() {
             @Override
             public void click(int position, int itemType) {
+                RequirementInfo requirementInfo = requirementInfos.get(position);
                 switch (itemType) {
                     case ITEM_PRIVIEW:
-                        gotoPriviewRequirement.putExtra(Global.REQUIREMENT_INFO, requirementInfos.get(position));
-                        getActivity().startActivity(gotoPriviewRequirement);
+                        Intent gotoPriviewRequirement = null;
+                        if(requirementInfo.getDec_type().equals(Global.DEC_TYPE_BUSINESS)){
+                            gotoPriviewRequirement = new Intent(getActivity(), PreviewBusinessRequirementActivity_.class);
+                        }else{
+                            gotoPriviewRequirement = new Intent(getActivity(), PreviewRequirementActivity_.class);
+                        }
+                        gotoPriviewRequirement.putExtra(Global.REQUIREMENT_INFO,requirementInfo);
+                        getActivity().startActivityForResult(gotoPriviewRequirement, REQUESTCODE_FRESH_REQUIREMENT);
                         break;
                     case ITEM_EDIT:
-                        gotoEditRequirement.putExtra(Global.REQUIREMENT_INFO, requirementInfos.get(position));
-                        getActivity().startActivityForResult(gotoEditRequirement, REQUESTCODE_EDIT_REQUIREMENT);
+                        Intent intent = new Intent(getActivity(), UpdateRequirementActivity_.class);
+                        intent.putExtra(Global.REQUIREMENT_INFO,requirementInfo);
+                        getActivity().startActivityForResult(intent, REQUESTCODE_EDIT_REQUIREMENT);
                         break;
                     case ITEM_GOTOPRO:
-                        gotoMyProcess.putExtra(Global.PROCESS_INFO, requirementInfos.get(position).getProcess());
+                        gotoMyProcess.putExtra(Global.PROCESS_INFO, requirementInfo.getProcess());
                         startActivity(gotoMyProcess);
                         break;
                     case ITEM_GOTOMYDESI:
@@ -140,12 +148,12 @@ public class XuQiuFragment extends BaseAnnotationFragment {
                         startActivity(gotoMyDesigner);
                         break;
                     case ITEM_GOTOODERDESI:
-                        if (requirementInfos.get(position).getOrder_designers() != null && requirementInfos.get(position).getOrder_designers().size() > 0) {
-                            gotoOrderDesigner.putExtra(Global.REQUIREMENT_DESIGNER_NUM, requirementInfos.get(position).getOrder_designers().size());
+                        if (requirementInfo.getOrder_designers() != null && requirementInfo.getOrder_designers().size() > 0) {
+                            gotoOrderDesigner.putExtra(Global.REQUIREMENT_DESIGNER_NUM, requirementInfo.getOrder_designers().size());
                         } else {
                             gotoOrderDesigner.putExtra(Global.REQUIREMENT_DESIGNER_NUM, 0);
                         }
-                        gotoOrderDesigner.putExtra(Global.REQUIREMENT_ID, requirementInfos.get(position).get_id());
+                        gotoOrderDesigner.putExtra(Global.REQUIREMENT_ID, requirementInfo.get_id());
                         startActivity(gotoOrderDesigner);
                         break;
                     default:
@@ -154,7 +162,6 @@ public class XuQiuFragment extends BaseAnnotationFragment {
             }
         });
         pullrefresh.setAdapter(requirementAdapter);
-//        pullrefresh.setRefreshing(true);
         Paint paint = new Paint();
         paint.setStrokeWidth(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, getResources().getDisplayMetrics()));
         paint.setAlpha(0);
@@ -168,7 +175,7 @@ public class XuQiuFragment extends BaseAnnotationFragment {
 
     @Click({R.id.req_publish_wrap, R.id.head_right_title})
     protected void publish_requirement() {
-        Intent intent = new Intent(getActivity(), EditRequirementActivity_.class);
+        Intent intent = new Intent(getActivity(), PublishRequirementActivity.class);
         startActivityForResult(intent, REQUESTCODE_PUBLISH_REQUIREMENT);
     }
 
@@ -220,11 +227,9 @@ public class XuQiuFragment extends BaseAnnotationFragment {
     }
 
     protected void initIntent() {
-        gotoEditRequirement = new Intent(getActivity(), EditRequirementActivity_.class);
         gotoOrderDesigner = new Intent(getActivity(), AppointDesignerActivity.class);
         gotoMyDesigner = new Intent(getActivity(), MyDesignerActivity_.class);
         gotoMyProcess = new Intent(getActivity(), MyProcessDetailActivity_.class);
-        gotoPriviewRequirement = new Intent(getActivity(), PreviewRequirementActivity_.class);
     }
 
     protected void initData() {

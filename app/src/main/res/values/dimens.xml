@@ -92,6 +92,7 @@
 
     <dimen name="line_width">1px</dimen>
 
+    <dimen name="more_big_size">24sp</dimen>
     <dimen name="title_size">24sp</dimen>
     <dimen name="big_size">17sp</dimen>
     <dimen name="middle_size">14sp</dimen>
@@ -102,5 +103,7 @@
     <dimen name="space_36">36dp</dimen>
     <dimen name="space_120">120dp</dimen>
     <dimen name="space_140">140dp</dimen>
+    <dimen name="space_96">96dp</dimen>
+    <dimen name="space_64">64dp</dimen>
 
 </resources>

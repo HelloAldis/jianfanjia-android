@@ -23,20 +23,20 @@ android {
     defaultConfig {
         applicationId "com.jianfanjia.cn.activity"
         minSdkVersion 15
-        targetSdkVersion 21
-        versionCode 19
-        versionName "2.0.19"
+        targetSdkVersion 23
+        versionCode 25
+        versionName "2.1.4"
 
         // AndroidManifest.xml 里面UMENG_CHANNEL的value为 ${UMENG_CHANNEL_VALUE}
-        manifestPlaceholders = [UMENG_CHANNEL_VALUE: "channel_name"]
+//        manifestPlaceholders = [UMENG_CHANNEL_VALUE: "channel_name"]
     }
     //签名
     signingConfigs {
         relealse {
             storeFile file("jianfanjia.keystore")
-            storePassword "jianfanjia"
+            storePassword KEYSTORE_PASSWORD
             keyAlias "jianfanjia"
-            keyPassword "jyzjianfanjia"
+            keyPassword KEY_PASSWORD
         }
     }
 
@@ -49,11 +49,24 @@ android {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.relealse
+
+            manifestPlaceholders = [GETUI_PUSH_APPID: "YZV748rCe89l8CfZ7dtIF9", GETUI_PUSH_APPKEY: "8GJ1XgPOL9ArriE8xOJDK8", GETUI_PUSH_APPSECRET: "sJtpmFxS0a5sA30Au3iI36"]
+
+        }
+        andtest {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.relealse
+
+            manifestPlaceholders = [GETUI_PUSH_APPID: "SLKdGK8YIr9wns6NPEL8v8", GETUI_PUSH_APPKEY: "O3oCpGEAVp7NjP67JbMPt5", GETUI_PUSH_APPSECRET: "MM8Ybygbsz7EUvMoNpkHd5"]
+
         }
         debug {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.relealse
+
+            manifestPlaceholders = [GETUI_PUSH_APPID: "t9nLEYqbWI7HUX2QkE79v2", GETUI_PUSH_APPKEY: "m2fZOPk3fy5pgq6szkabb7", GETUI_PUSH_APPSECRET: "cO8DCexdK69ug14SeeIbg7"]
         }
     }
     sourceSets {
@@ -100,9 +113,6 @@ dependencies {
     compile files('libs/ormlite-android-4.49-SNAPSHOT.jar')
     compile files('libs/ormlite-core-4.49-SNAPSHOT.jar')
     compile files('libs/armeabi.jar')
-    compile files('libs/GetuiExt-2.0.3.jar')
-    compile files('libs/GetuiSDK2.6.1.0.jar')
-    compile files('libs/gson-2.3.1.jar')
     compile files('libs/commons-codec-1.10.jar')
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.squareup.okhttp:okhttp:2.5.0'
@@ -113,9 +123,12 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:23.1.1'
     compile 'com.commit451:PhotoView:1.2.4'
     compile 'com.baoyz.swipemenulistview:library:1.3.0'
-    compile 'de.greenrobot:eventbus:2.4.0'
     compile 'com.soundcloud.android:android-crop:1.0.1@aar'
     compile 'com.umeng.analytics:analytics:latest.integration'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
-    compile files('libs/gson-2.3.1.jar')
+    compile files('libs/GetuiSDK2.7.0.0.jar')
+    compile files('libs/GetuiExt-2.0.3.jar')
+    compile 'de.greenrobot:eventbus:2.4.0'
+    //    compile 'com.squareup.leakcanary:leakcanary-android:1.3.1'
+    compile 'com.google.code.gson:gson:2.5'
 }

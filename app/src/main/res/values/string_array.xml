@@ -4,42 +4,6 @@
     <string name="pro">省份：</string>
     <string name="city">城市：</string>
     <string name="district">地区：</string>
-
-    <!--<string-array name="sex">
-        <item>男</item>
-        <item>女</item>
-    </string-array>
-    <string-array name="work_type">
-        <item>半包</item>
-        <item>全包</item>
-    </string-array>
-    <string-array name="dec_districts">
-        <item>汉口</item>
-        <item>汉阳</item>
-        <item>武昌</item>
-    </string-array>
-    <string-array name="dec_style">
-        <item>欧式</item>
-        <item>中式</item>
-        <item>现代</item>
-        <item>地中海</item>
-        <item>美式</item>
-        <item>东南亚</item>
-    </string-array>-->
-    <!--<string-array name="house_type">
-        <item>一居</item>
-        <item>二居</item>
-        <item>三居</item>
-        <item>四居</item>
-        <item>复式</item>
-        <item>别墅</item>
-    </string-array>-->
-    <!--<string-array name="design_fee_range">
-        <item>50－100</item>
-        <item>100－200</item>
-        <item>200－300</item>
-        <item>300以上</item>
-    </string-array>-->
     <string-array name="site_procedure">
         <item>开工</item>
         <item>拆改</item>
@@ -191,22 +155,42 @@
 
     <!-- 户型 -->
     <string-array name="arr_housetype">
-        <item>一居</item>
-        <item>二居</item>
-        <item>三居</item>
-        <item>四居</item>
+        <item>一室</item>
+        <item>二室</item>
+        <item>三室</item>
+        <item>四室</item>
         <item>复式</item>
         <item>别墅</item>
         <item>LOFT</item>
         <item>其他</item>
     </string-array>
 
+    <!-- 商装类型 -->
+    <string-array name="arr_busi_housetype">
+        <item>餐厅</item>
+        <item>服装店</item>
+        <item>酒吧</item>
+        <item>美容院</item>
+        <item>办公室</item>
+        <item>美发店</item>
+        <item>幼儿园</item>
+        <item>酒店</item>
+        <item>其他</item>
+    </string-array>
+
     <!-- 几口人-->
     <string-array name="arr_person">
-        <item>单身</item>
-        <item>两个人</item>
-        <item>三个人</item>
-        <item>四个人</item>
+        <item>单身贵族</item>
+        <item>幸福小两口</item>
+        <item>三口之家</item>
+        <item>三代同堂</item>
+    </string-array>
+
+    <string-array name="arr_collect_person_pic">
+        <item>@mipmap/img_danshen</item>
+        <item>@mipmap/img_twopeople</item>
+        <item>@mipmap/img_threepeople</item>
+        <item>@mipmap/img_threegenerations</item>
     </string-array>
 
     <!-- 包工类型 -->
@@ -245,6 +229,13 @@
         <item>地中海</item>
         <item>东南亚</item>
         <item>田园</item>
+    </string-array>
+
+    <string-array name="arr_fee">
+        <item>50-100</item>
+        <item>100-200</item>
+        <item>200-300</item>
+        <item>300以上</item>
     </string-array>
 
     <string-array name="arr_lovestyle_pic">
@@ -297,8 +288,7 @@
     </string-array>
 
     <!--装修美图-->
-    <string-array name="section_item">
-        <item>不限</item>
+    <string-array name="arr_section">
         <item>厨房</item>
         <item>客厅</item>
         <item>卫生间</item>
@@ -310,26 +300,5 @@
         <item>儿童房</item>
         <item>走廊</item>
         <item>储物间</item>
-    </string-array>
-
-    <string-array name="housetype_item">
-        <item>不限</item>
-        <item>一室</item>
-        <item>二室</item>
-        <item>三室</item>
-        <item>四室</item>
-        <item>复式</item>
-        <item>别墅</item>
-        <item>LOFT</item>
-    </string-array>
-
-    <string-array name="decstyle_item">
-        <item>不限</item>
-        <item>欧式</item>
-        <item>中式</item>
-        <item>现代</item>
-        <item>地中海</item>
-        <item>美式</item>
-        <item>东南亚</item>
     </string-array>
 </resources>

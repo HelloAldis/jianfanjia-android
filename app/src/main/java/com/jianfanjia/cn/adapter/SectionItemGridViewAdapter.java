@@ -24,7 +24,7 @@ public class SectionItemGridViewAdapter extends BaseListAdapter<String> {
         String imgUrl = list.get(position);
         ViewHolder holder = null;
         if (convertView == null) {
-            convertView = layoutInflater.inflate(R.layout.my_grid_item, null);
+            convertView = layoutInflater.inflate(R.layout.grid_item_check_pic, null);
             holder = new ViewHolder();
             holder.img = (ImageView) convertView.findViewById(R.id.img);
             convertView.setTag(holder);

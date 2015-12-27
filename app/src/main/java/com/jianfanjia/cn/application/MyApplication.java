@@ -28,6 +28,8 @@ public class MyApplication extends BaseApplication {
     private RegisterInfo registerInfo = new RegisterInfo();// 注册实体信息
     private PersistentCookieStore cookieStore;// cookie实例化
 
+//    private RefWatcher refWatcher;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -39,8 +41,17 @@ public class MyApplication extends BaseApplication {
          * Thread.setDefaultUncaughtExceptionHandler(AppException
 		 * .getAppExceptionHandler(this));
 		 */
+//        refWatcher = LeakCanary.install(this);
+    }
 
-
+    /*public static RefWatcher getRefWatcher(Context context) {
+        MyApplication application = (MyApplication) context.getApplicationContext();
+        return application.refWatcher;
+    }
+*/
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
     }
 
     public static MyApplication getInstance() {

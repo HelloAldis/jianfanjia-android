@@ -9,9 +9,11 @@ import java.io.Serializable;
  * Date:15-10-20 21:47
  */
 public class Designer implements Serializable {
+    private static final long serialVersionUID = -8515828649644437770L;
     private String _id;
     private String phone;
     private String imageid;
+    private String auth_type;
     private String username;
 
     public String get_id() {
@@ -44,5 +46,13 @@ public class Designer implements Serializable {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getAuth_type() {
+        return auth_type;
+    }
+
+    public void setAuth_type(String auth_type) {
+        this.auth_type = auth_type;
     }
 }

@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/site_content_bg"
+    android:background="@color/main_layout_bg"
     android:clipToPadding="true"
     android:fitsSystemWindows="true">
 
@@ -23,7 +23,7 @@
         <TextView
             style="@style/listview_item_text_style_middle"
             android:text="@string/about_my"
-            android:textColor="@color/black_color" />
+            android:textColor="@color/light_black_color" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -37,14 +37,14 @@
             style="@style/listview_item_text_style_middle"
             android:layout_marginTop="@dimen/space_8"
             android:text="@string/about_content"
-            android:textColor="@color/black_color" />
+            android:textColor="@color/light_black_color" />
 
         <TextView
             android:id="@+id/about_version"
             style="@style/listview_item_text_style_middle"
             android:layout_marginTop="@dimen/space_8"
             android:text="@string/about_version"
-            android:textColor="@color/black_color" />
+            android:textColor="@color/light_black_color" />
     </LinearLayout>
 
     <LinearLayout
@@ -59,13 +59,13 @@
             style="@style/listview_item_text_style_middle"
             android:layout_marginTop="@dimen/space_8"
             android:text="@string/company"
-            android:textColor="@color/black_color" />
+            android:textColor="@color/light_black_color" />
 
         <TextView
             style="@style/listview_item_text_style_middle"
             android:layout_marginTop="@dimen/space_8"
             android:text="@string/compant_net"
-            android:textColor="@color/black_color" />
+            android:textColor="@color/light_black_color" />
     </LinearLayout>
 
 </RelativeLayout>

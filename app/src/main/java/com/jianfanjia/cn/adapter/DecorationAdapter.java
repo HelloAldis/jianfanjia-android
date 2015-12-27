@@ -3,13 +3,16 @@ package com.jianfanjia.cn.adapter;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.bean.BeautyImgInfo;
+import com.jianfanjia.cn.bean.Img;
 import com.jianfanjia.cn.interf.OnItemClickListener;
+import com.jianfanjia.cn.tools.ScreenUtil;
 
 import java.util.List;
 
@@ -29,11 +32,18 @@ public class DecorationAdapter extends BaseRecyclerViewAdapter<BeautyImgInfo> {
     }
 
     @Override
-    public void bindView(RecyclerViewHolderBase viewHolder, final int position, List<BeautyImgInfo> list) {
+    public void bindView(final RecyclerViewHolderBase viewHolder, final int position, final List<BeautyImgInfo> list) {
         BeautyImgInfo info = list.get(position);
-        DecorationViewHolder holder = (DecorationViewHolder) viewHolder;
-        imageShow.displayScreenWidthThumnailImage(context, info.getImages().get(0).getImageid(), holder.itemDecorateView);
-        holder.itemDecorateView.setOnClickListener(new View.OnClickListener() {
+        final DecorationViewHolder holder = (DecorationViewHolder) viewHolder;
+        holder.itemDecorateView.setImageResource(R.mipmap.pix_default);
+        Img img = info.getImages().get(0);
+        int width = ScreenUtil.getScreenWidth(context) / 2;
+        int height = width * img.getHeight() / img.getWidth();//高通过宽等比例缩放
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
+                width, height);
+        holder.itemDecorateView.setLayoutParams(params);
+        imageShow.displayScreenWidthThumnailImage(context, img.getImageid(), holder.itemDecorateView);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (null != listener) {

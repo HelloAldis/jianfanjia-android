@@ -9,6 +9,7 @@ import java.io.Serializable;
  * @date 2015-8-25 上午11:34:20
  */
 public class CommentInfo implements Serializable {
+    private static final long serialVersionUID = -1804805285725131805L;
     private String _id;
     private String topicid;
     private String topictype;

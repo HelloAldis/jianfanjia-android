@@ -78,7 +78,7 @@
                     style="@style/listview_item_text_style_middle"
                     android:layout_centerVertical="true"
                     android:text="我的提醒"
-                    android:textColor="@color/black_color" />
+                    android:textColor="@color/light_black_color" />
 
                 <ImageView
                     style="@style/my_item_layout_image_style"
@@ -97,7 +97,7 @@
                     style="@style/listview_item_text_style_middle"
                     android:layout_centerVertical="true"
                     android:text="我的收藏"
-                    android:textColor="@color/black_color" />
+                    android:textColor="@color/light_black_color" />
 
                 <ImageView
                     style="@style/my_item_layout_image_style"
@@ -106,17 +106,18 @@
                     android:contentDescription="@null" />
             </RelativeLayout>
 
-            <View style="@style/divier_line" />
+            <!--<View style="@style/divier_line" />-->
 
             <RelativeLayout
                 android:id="@+id/my_site_layout"
-                style="@style/my_list_item_layout_style">
+                style="@style/my_list_item_layout_style"
+                android:visibility="gone">
 
                 <TextView
                     style="@style/listview_item_text_style_middle"
                     android:layout_centerVertical="true"
                     android:text="我的装修工地"
-                    android:textColor="@color/black_color" />
+                    android:textColor="@color/light_black_color" />
 
                 <ImageView
                     style="@style/my_item_layout_image_style"
@@ -136,7 +137,7 @@
                     style="@style/listview_item_text_style_middle"
                     android:layout_centerVertical="true"
                     android:text="我的意向设计师"
-                    android:textColor="@color/black_color" />
+                    android:textColor="@color/light_black_color" />
 
                 <ImageView
                     style="@style/my_item_layout_image_style"
@@ -159,7 +160,7 @@
                     style="@style/listview_item_text_style_middle"
                     android:layout_centerVertical="true"
                     android:text="设置"
-                    android:textColor="@color/black_color" />
+                    android:textColor="@color/light_black_color" />
 
                 <ImageView
                     style="@style/my_item_layout_image_style"

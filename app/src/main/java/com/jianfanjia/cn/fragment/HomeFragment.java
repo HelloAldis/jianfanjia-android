@@ -11,10 +11,11 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.RelativeLayout;
 
-import com.jianfanjia.cn.activity.DesignerCaseInfoActivity;
-import com.jianfanjia.cn.activity.DesignerInfoActivity;
-import com.jianfanjia.cn.activity.EditRequirementActivity_;
+import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.home.DesignerCaseInfoActivity;
+import com.jianfanjia.cn.activity.home.DesignerInfoActivity;
+import com.jianfanjia.cn.activity.requirement.PublishRequirementActivity;
 import com.jianfanjia.cn.adapter.DesignerListAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.DesignerListInfo;
@@ -36,6 +37,8 @@ import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.greenrobot.event.EventBus;
+
 /**
  * Description:首页
  * Author：fengliang
@@ -45,7 +48,6 @@ import java.util.List;
 public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRefreshListener2<RecyclerView> {
     private static final String TAG = HomeFragment.class.getName();
     private PullToRefreshRecycleView pullToRefreshRecyclerView = null;
-    private RelativeLayout emptyLayout = null;
     private RelativeLayout errorLayout = null;
     private boolean isFirst = true;
 
@@ -53,16 +55,15 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
     private List<DesignerListInfo> designerList = new ArrayList<DesignerListInfo>();
 
     private int FROM = 0;// 当前页的编号，从0开始
-    private int total = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
     }
 
     @Override
     public void initView(View view) {
-        emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
         errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
         pullToRefreshRecyclerView = (PullToRefreshRecycleView) view.findViewById(R.id.pull_refresh_scrollview);
         pullToRefreshRecyclerView.setMode(PullToRefreshBase.Mode.BOTH);
@@ -73,26 +74,28 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
         paint.setAlpha(0);
         paint.setAntiAlias(true);
         pullToRefreshRecyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).paint(paint).showLastDivider().build());
-        pullToRefreshRecyclerView.setFocusable(false);
         initHomePage();
     }
 
     private void initHomePage() {
         getHomePageDesigners(FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
-//        pullToRefreshRecyclerView.setRefreshing(true);
     }
 
     @Override
     public void setListener() {
         pullToRefreshRecyclerView.setOnRefreshListener(this);
+        errorLayout.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_add:
-                Intent intent = new Intent(getActivity(), EditRequirementActivity_.class);
-                getActivity().startActivityForResult(intent, XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT);
+                Intent intent = new Intent(getActivity(), PublishRequirementActivity.class);
+                startActivityForResult(intent, XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT);
+                break;
+            case R.id.error_include:
+                initHomePage();
                 break;
             default:
                 break;
@@ -107,9 +110,11 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
     @Override
     public void onDestroy() {
         super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     private void getHomePageDesigners(int from, int limit, ApiUiUpdateListener listener) {
+        LogTool.d(TAG, "from=" + from + " limit=" + limit);
         JianFanJiaClient.getHomePageDesigners(getActivity(), from, limit, listener, this);
     }
 
@@ -121,7 +126,7 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
 
     @Override
     public void onPullUpToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-        getHomePageDesigners(total, Constant.HOME_PAGE_LIMIT, pullUpListener);
+        getHomePageDesigners(FROM, Constant.HOME_PAGE_LIMIT, pullUpListener);
     }
 
     private ApiUiUpdateListener pullDownListener = new ApiUiUpdateListener() {
@@ -142,7 +147,7 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
                 Requirement requirement = homeDesignersInfo.getRequirement();
                 LogTool.d(TAG, "requirement=" + requirement);
                 designerList.clear();
-                designerList = homeDesignersInfo.getDesigners();
+                designerList.addAll(homeDesignersInfo.getDesigners());
                 designerAdapter = new DesignerListAdapter(getActivity(), designerList, requirement, new ListItemClickListener() {
                     @Override
                     public void onMaxClick(int position) {
@@ -167,7 +172,7 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
 
                     @Override
                     public void onItemClick(int itemPosition, OrderDesignerInfo orderDesignerInfo) {
-                        LogTool.d(TAG, "itemPosition=====" + itemPosition + " orderDesignerInfo====" + orderDesignerInfo);
+                        LogTool.d(TAG, "itemPosition:" + itemPosition + " orderDesignerInfo:" + orderDesignerInfo);
                         String designertid = orderDesignerInfo.get_id();
                         LogTool.d(TAG, "designertid:" + designertid);
                         Bundle designerBundle = new Bundle();
@@ -177,13 +182,13 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
 
                     @Override
                     public void onClick() {
-                        Intent intent = new Intent(getActivity(), EditRequirementActivity_.class);
+                        Intent intent = new Intent(getActivity(), PublishRequirementActivity.class);
                         getActivity().startActivityForResult(intent, XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT);
                     }
                 });
                 pullToRefreshRecyclerView.setAdapter(designerAdapter);
-                total = designerList.size();
-                LogTool.d(TAG, "designerList:" + designerList);
+                FROM = designerList.size();
+                LogTool.d(TAG, "FROM:" + FROM);
             }
             pullToRefreshRecyclerView.onRefreshComplete();
         }
@@ -204,26 +209,41 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
 
         @Override
         public void loadSuccess(Object data) {
-            total += Constant.HOME_PAGE_LIMIT;
-            LogTool.d(TAG, "homeDesignersInfo=" + data.toString());
             HomeDesignersInfo homeDesignersInfo = JsonParser.jsonToBean(data.toString(), HomeDesignersInfo.class);
             LogTool.d(TAG, "homeDesignersInfo:" + homeDesignersInfo);
             if (null != homeDesignersInfo) {
-                designerAdapter.add(homeDesignersInfo.getDesigners());
+                List<DesignerListInfo> designers = homeDesignersInfo.getDesigners();
+                if (null != designers && designers.size() > 0) {
+                    designerAdapter.add(FROM + 1, designers);
+                    FROM += Constant.HOME_PAGE_LIMIT;
+                    LogTool.d(TAG, "FROM=" + FROM);
+                }
             }
             pullToRefreshRecyclerView.onRefreshComplete();
         }
 
         @Override
         public void loadFailture(String error_msg) {
-            makeTextLong(error_msg);
+            makeTextShort(error_msg);
+            errorLayout.setVisibility(View.VISIBLE);
             pullToRefreshRecyclerView.onRefreshComplete();
         }
     };
 
+    public void onEventMainThread(MessageEvent event) {
+        switch (event.getEventType()) {
+            case Constant.UPDATE_HOME_FRAGMENT:
+                getHomePageDesigners(FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
+                break;
+            default:
+                break;
+        }
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        LogTool.d(TAG, "onActivityResult = " + requestCode + " resultCode=" + resultCode);
         if (resultCode != Activity.RESULT_OK) {
             return;
         }

@@ -10,6 +10,7 @@ import java.util.List;
  * @date 2015-9-2 11:52
  */
 public class DesignerInfo implements Serializable {
+    private static final long serialVersionUID = 6574862587608025365L;
     private String _id;
 
     private String phone;

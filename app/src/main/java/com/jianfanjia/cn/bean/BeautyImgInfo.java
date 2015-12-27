@@ -10,11 +10,26 @@ import java.util.List;
  * Time: 17:38
  */
 public class BeautyImgInfo implements Serializable {
+
+    private static final long serialVersionUID = 3756904014887565122L;
     private String _id;
+    private boolean is_deleted;
+    private long lastupdate;
+    private long create_at;
     private String title;
+    private String description;
     private String dec_type;
     private String house_type;
     private String dec_style;
+    private String status;
+    private String keywords;
+    private String authorid;
+    private String usertype;
+    private int __v;
+    private int favorite_count;
+    private int view_count;
+    private boolean is_my_favorite;
+    private List<AssociateImgInfo> associate_beautiful_images;
     private List<Img> images;
 
     public String get_id() {
@@ -65,33 +80,107 @@ public class BeautyImgInfo implements Serializable {
         this.images = images;
     }
 
-    public static class Img {
-        private String imageid;
-        private int width;
-        private int height;
-
-        public String getImageid() {
-            return imageid;
-        }
-
-        public void setImageid(String imageid) {
-            this.imageid = imageid;
-        }
-
-        public int getWidth() {
-            return width;
-        }
-
-        public void setWidth(int width) {
-            this.width = width;
-        }
-
-        public int getHeight() {
-            return height;
-        }
-
-        public void setHeight(int height) {
-            this.height = height;
-        }
+    public long getLastupdate() {
+        return lastupdate;
     }
-}  
+
+    public void setLastupdate(long lastupdate) {
+        this.lastupdate = lastupdate;
+    }
+
+    public long getCreate_at() {
+        return create_at;
+    }
+
+    public void setCreate_at(long create_at) {
+        this.create_at = create_at;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getAuthorid() {
+        return authorid;
+    }
+
+    public void setAuthorid(String authorid) {
+        this.authorid = authorid;
+    }
+
+    public String getUsertype() {
+        return usertype;
+    }
+
+    public void setUsertype(String usertype) {
+        this.usertype = usertype;
+    }
+
+    public int get__v() {
+        return __v;
+    }
+
+    public void set__v(int __v) {
+        this.__v = __v;
+    }
+
+    public int getFavorite_count() {
+        return favorite_count;
+    }
+
+    public void setFavorite_count(int favorite_count) {
+        this.favorite_count = favorite_count;
+    }
+
+    public int getView_count() {
+        return view_count;
+    }
+
+    public void setView_count(int view_count) {
+        this.view_count = view_count;
+    }
+
+    public boolean is_my_favorite() {
+        return is_my_favorite;
+    }
+
+    public void setIs_my_favorite(boolean is_my_favorite) {
+        this.is_my_favorite = is_my_favorite;
+    }
+
+    public boolean is_deleted() {
+        return is_deleted;
+    }
+
+    public void setIs_deleted(boolean is_deleted) {
+        this.is_deleted = is_deleted;
+    }
+
+    public List<AssociateImgInfo> getAssociate_beautiful_images() {
+        return associate_beautiful_images;
+    }
+
+    public void setAssociate_beautiful_images(List<AssociateImgInfo> associate_beautiful_images) {
+        this.associate_beautiful_images = associate_beautiful_images;
+    }
+
+    public String getKeywords() {
+        return keywords;
+    }
+
+    public void setKeywords(String keywords) {
+        this.keywords = keywords;
+    }
+}

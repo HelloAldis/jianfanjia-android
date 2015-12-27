@@ -5,12 +5,13 @@
     android:layout_margin="5dp"
     android:orientation="horizontal"
     card_view:cardBackgroundColor="@color/font_white"
-    card_view:cardCornerRadius="5dp">
+    card_view:cardCornerRadius="5dp"
+    card_view:cardElevation="5dip"
+    card_view:contentPadding="5dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/list_item_works_img"
@@ -24,16 +25,16 @@
             style="@style/listview_item_text_style_middle"
             android:layout_below="@id/list_item_works_img"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/space_10"
+            android:layout_marginTop="@dimen/space_5"
             android:text="小区名称"
-            android:textColor="@color/black_color" />
+            android:textColor="@color/light_black_color" />
 
         <TextView
             android:id="@+id/list_item_works_produce_text"
             style="@style/listview_item_text_style_small"
             android:layout_below="@id/list_item_works_xiaoqu_text"
             android:layout_centerHorizontal="true"
-            android:layout_margin="10.0dip"
+            android:layout_margin="@dimen/space_5"
             android:text="100平米"
             android:textColor="@color/main_color_grey" />
     </RelativeLayout>

@@ -6,14 +6,15 @@
     android:background="@color/font_white">
 
     <RelativeLayout
-        android:id="@+id/relativeLayout"
+        android:id="@+id/ltm_req_baseinfo_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:paddingBottom="@dimen/space_8"
         android:paddingLeft="@dimen/space_26"
         android:paddingRight="@dimen/space_26"
-        android:paddingTop="@dimen/space_8">
+        android:paddingTop="@dimen/space_8"
+        android:background="@drawable/my_item_layout_bg">
 
         <com.jianfanjia.cn.view.layout.CircleImageView
             android:id="@+id/ltm_req_owner_head"
@@ -36,7 +37,7 @@
             android:maxWidth="100dp"
             android:ellipsize="end"
             android:singleLine="true"
-            android:textColor="@color/black_color"
+            android:textColor="@color/light_black_color"
             android:textSize="@dimen/middle_size" />
 
         <TextView
@@ -47,7 +48,7 @@
             android:layout_toRightOf="@+id/ltm_req_cell"
             android:textColor="@color/grey_color" />
 
-        <TextView
+        <!--<TextView
             android:id="@+id/ltm_req_edit"
             style="@style/listview_item_text_style_middle"
             android:layout_alignBaseline="@+id/ltm_req_cell"
@@ -56,7 +57,14 @@
             android:layout_alignWithParentIfMissing="false"
             android:padding="8dp"
             android:text="@string/edit"
-            android:textColor="@color/grey_color" />
+            android:textColor="@color/grey_color" />-->
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/icon_next"/>
 
         <TextView
             android:id="@+id/ltm_req_starttime"
@@ -101,7 +109,7 @@
     <View
         android:id="@+id/first_line"
         style="@style/divier_line"
-        android:layout_below="@+id/relativeLayout" />
+        android:layout_below="@+id/ltm_req_baseinfo_layout" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -156,7 +164,7 @@
                 android:gravity="center"
                 android:ellipsize="end"
                 android:singleLine="true"
-                android:textColor="@color/black_color"
+                android:textColor="@color/light_black_color"
                 android:textSize="@dimen/middle_size" />
 
             <TextView
@@ -212,7 +220,7 @@
                 android:gravity="center"
                 android:ellipsize="end"
                 android:singleLine="true"
-                android:textColor="@color/black_color"
+                android:textColor="@color/light_black_color"
                 android:textSize="@dimen/middle_size" />
 
             <TextView
@@ -268,7 +276,7 @@
                 android:gravity="center"
                 android:ellipsize="end"
                 android:singleLine="true"
-                android:textColor="@color/black_color"
+                android:textColor="@color/light_black_color"
                 android:textSize="@dimen/middle_size" />
 
             <TextView

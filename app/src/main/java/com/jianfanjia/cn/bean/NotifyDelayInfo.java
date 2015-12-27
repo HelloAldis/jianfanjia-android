@@ -10,6 +10,7 @@ import java.io.Serializable;
  */
 public class NotifyDelayInfo implements Serializable {
 
+    private static final long serialVersionUID = 7353067343465581754L;
     private String _id;
 
     private String status;

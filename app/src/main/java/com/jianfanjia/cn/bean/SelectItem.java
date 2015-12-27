@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import java.io.Serializable;
 
 public class SelectItem implements Serializable {
+    private static final long serialVersionUID = 4141670217738397473L;
     private Fragment fragment;
     private String desc;
 

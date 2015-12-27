@@ -32,7 +32,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
-            android:src="@mipmap/icon_auth" />
+            android:src="@mipmap/icon_auth"
+            android:visibility="gone" />
     </FrameLayout>
 
     <TextView
@@ -50,6 +51,7 @@
         style="@style/listview_item_text_style_small"
         android:layout_below="@id/list_item_xiaoqu_text"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="5dip"
         android:layout_marginTop="5dip"
         android:textColor="@color/home_page_text_color"
         android:textSize="@dimen/text_size_11" />

@@ -15,6 +15,9 @@ public class Url_New {
     public static final String HTTPROOT = "http://" + SEVER_IP + ":"
             + SEVER_PORT + "/api/v2/app/";
 
+    public static final String IMG_HTTPROOT = "http://" + SEVER_IP + ":"
+            + SEVER_PORT + "/api/v2/app/image/";
+
     public static final String CONTRACT_URL = "http://" + SEVER_IP + "/tpl/user/agreement.html";
 
     public static final String ID = "id";
@@ -38,6 +41,7 @@ public class Url_New {
     // 检查版本
     public static final String UPDATE_VERSION_URL = HTTPROOT
             + "device/android_build_version";
+
     // 用户反馈 feedback
     public static final String FEEDBACK_URL = HTTPROOT + "feedback";
     // --------------------------------------------------业主-----------------------------------------------------------
@@ -148,6 +152,9 @@ public class Url_New {
     //用户删除收藏的作品
     public static final String DELETE_PRODUCT_BY_USER = HTTPROOT
             + "favorite/product/delete";
+    //用户收藏美图
+    public static final String ADD_BEAUTY_IMG = HTTPROOT
+            + "favorite/beautiful_image/add";
     //用户获取收藏的装修美图列表
     public static final String GET_BEAUTY_IMG_LIST_BY_USER = HTTPROOT
             + "favorite/beautiful_image/list";

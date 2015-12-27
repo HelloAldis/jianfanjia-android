@@ -36,14 +36,14 @@ public class RequirementView extends BaseAnnotationView {
         super(context);
     }
 
+    @ViewById(R.id.ltm_req_baseinfo_layout)
+    RelativeLayout ltm_req_baseinfo_layout;
     @ViewById
     protected TextView ltm_req_cell;
     @ViewById
     protected TextView ltm_req_starttime_cont;
     @ViewById
     protected TextView ltm_req_updatetime_cont;
-    @ViewById
-    protected TextView ltm_req_edit;
     @ViewById
     protected TextView ltm_req_status;
     @ViewById
@@ -106,16 +106,15 @@ public class RequirementView extends BaseAnnotationView {
             });
         }
         if (requirementStatus.equals(Global.REQUIREMENT_STATUS0)) {
-            ltm_req_edit.setText(getResources().getString(R.string.edit));
-            ltm_req_edit.setOnClickListener(new OnClickListener() {
+            ltm_req_baseinfo_layout.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     clickCallBack.click(position, XuQiuFragment.ITEM_EDIT);
                 }
             });
+
         } else {
-            ltm_req_edit.setText(getResources().getString(R.string.priview));
-            ltm_req_edit.setOnClickListener(new OnClickListener() {
+            ltm_req_baseinfo_layout.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     clickCallBack.click(position, XuQiuFragment.ITEM_PRIVIEW);

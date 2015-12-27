@@ -10,6 +10,7 @@ import java.util.List;
  * Time: 09:45
  */
 public class DesignerCanOrderInfo implements Serializable {
+    private static final long serialVersionUID = 8521735299973457685L;
     private String _id;
     private String auth_type;
     private int order_count;

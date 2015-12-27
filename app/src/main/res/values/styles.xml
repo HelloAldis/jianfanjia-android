@@ -37,6 +37,7 @@
         <item name="android:background">@drawable/btn_selector_bg</item>
         <item name="android:textColor">@color/font_white</item>
         <item name="android:textSize">@dimen/big_size</item>
+        <item name="android:gravity">center</item>
     </style>
     <!-- login activity -->
 
@@ -58,11 +59,11 @@
         <item name="android:layout_height">40.0dip</item>
         <item name="android:maxLines">2</item>
         <item name="android:layout_weight">1.0</item>
-        <item name="android:textSize">@dimen/text_size_17</item>
+        <item name="android:textSize">@dimen/big_size</item>
     </style>
 
     <style name="dialog_button_cancel">
-        <item name="android:textColor">@color/black_color</item>
+        <item name="android:textColor">@color/light_black_color</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:background">@drawable/btn_orange_white_bg</item>
@@ -71,11 +72,11 @@
         <item name="android:layout_height">40.0dip</item>
         <item name="android:maxLines">2</item>
         <item name="android:layout_weight">1.0</item>
-        <item name="android:textSize">@dimen/text_size_17</item>
+        <item name="android:textSize">@dimen/big_size</item>
     </style>
 
     <style name="dialog_button_2">
-        <item name="android:textColor">@color/black_color</item>
+        <item name="android:textColor">@color/light_black_color</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:background">@drawable/btn_orange_white_bg</item>
@@ -111,7 +112,7 @@
     <style name="my_item_layout_image_style">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@mipmap/icon_setting_next</item>
+        <item name="android:background">@mipmap/icon_next</item>
     </style>
 
     <!-- my_item_layout_text_style -->
@@ -136,8 +137,13 @@
 
     <style name="listview_item_text_style_title" parent="my_item_layout_text_style_base">
         <item name="android:textColor">@color/back</item>
-        <item name="android:textSize">@dimen/text_size_17</item>
+        <item name="android:textSize">@dimen/big_size</item>
     </style>
+
+    <style name="listview_item_text_style_more_big" parent="my_item_layout_text_style_base">
+        <item name="android:textSize">@dimen/more_big_size</item>
+    </style>
+
     <!-- my_item_layout_style -->
     <style name="my_list_item_layout_style">
         <item name="android:layout_width">match_parent</item>
@@ -160,6 +166,21 @@
         <item name="android:windowBackground">@android:color/transparent</item>
         <!-- 背景透明 -->
         <item name="android:backgroundDimEnabled">true</item>
+        <!-- 模糊 -->
+    </style>
+
+    <style name="dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <!-- 边框 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 是否浮现在activity之上 -->
+        <item name="android:windowIsTranslucent">false</item>
+        <!-- 半透明 -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 无标题 -->
+        <item name="android:windowBackground">@color/transparent</item>
+        <!-- 背景透明 -->
+        <item name="android:backgroundDimEnabled">false</item>
         <!-- 模糊 -->
     </style>
 
@@ -190,12 +211,12 @@
         <item name="android:windowEnterAnimation">@anim/popub_slide_in_from_bottom</item>
         <item name="android:windowExitAnimation">@anim/popub_slide_out_to_bottom</item>
     </style>
-    <!-- activity animation -->
-    <style name="activity_style" parent="AppTheme">
-        <item name="vpiIconPageIndicatorStyle">@style/Widget.IconPageIndicator</item>
-        <item name="vpiTabPageIndicatorStyle">@style/Widget.TabPageIndicator</item>
-    </style>
 
+    <style name="popwindow_anim" mce_bogus="1" parent="@android:style/Animation.Dialog">
+        <item name="android:windowEnterAnimation">@anim/slide_in_from_top</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_to_top</item>
+    </style>
+    <!-- activity animation -->
 
     <style name="AnimationActivity" parent="@android:style/Animation.Activity">
         <item name="android:activityOpenEnterAnimation">@anim/fragment_slide_right_enter</item>
@@ -223,6 +244,22 @@
         <item name="tabPaddingEnd">12dp</item>
         <item name="tabTextColor">#aab1b6</item>
         <item name="tabSelectedTextColor">#344a5d</item>
+    </style>
+
+    <style name="EditRequirementTagLayout" parent="Widget.Design.TabLayout">
+        <item name="tabIndicatorColor">?attr/colorAccent</item>
+        <item name="tabIndicatorHeight">0dp</item>
+        <item name="tabPaddingStart">12dp</item>
+        <item name="tabPaddingEnd">12dp</item>
+        <item name="tabTextColor">@color/middle_grey_color</item>
+        <item name="tabTextAppearance">@style/MyCustomTabTextAppearance</item>
+        <item name="tabSelectedTextColor">@color/light_black_color</item>
+    </style>
+
+    <style name="MyCustomTabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">?android:textColorSecondary</item>
+        <item name="textAllCaps">true</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

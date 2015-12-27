@@ -10,9 +10,9 @@ import android.support.v4.app.NotificationCompat;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.http.OkHttpClientManager;
 import com.jianfanjia.cn.http.coreprogress.listener.impl.UIProgressListener;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
+import com.jianfanjia.cn.tools.DownLoadManager;
 import com.jianfanjia.cn.tools.LogTool;
 
 import java.io.File;
@@ -23,13 +23,12 @@ import java.io.File;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 16:14
  */
-public class UpdateService extends Service {
-
+public class UpdateService extends Service implements ApiUiUpdateListener {
     // 指定文件类型
     private static String[] allowedContentTypes = new String[]{"image/png",
             "image/jpeg", "application/octet-stream", "application/zip",
             "application/vnd.android.package-archive"};
-
+    private DownLoadManager downLoadManager;
     private NotificationManager nManager;
     private static final int NotificationID = 1;
     private NotificationCompat.Builder builder;
@@ -44,6 +43,7 @@ public class UpdateService extends Service {
     public void onCreate() {
         super.onCreate();
         LogTool.d(this.getClass().getName(), "onCreate()");
+        downLoadManager = DownLoadManager.getInstance();
         nManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
     }
 
@@ -55,10 +55,40 @@ public class UpdateService extends Service {
             if (download_url != null) {
                 String fileName = download_url.substring(download_url
                         .lastIndexOf("/"));
-                download(download_url, Constant.APK_PATH, fileName);
+                downLoadManager.download(download_url, Constant.APK_PATH, fileName, this, uiProgressListener);
             }
         }
         return super.onStartCommand(intent, flags, startId);
+    }
+
+    @Override
+    public void preLoad() {
+        builder = new NotificationCompat.Builder(
+                getApplicationContext());
+        builder.setSmallIcon(R.mipmap.icon_notify);
+        builder.setTicker("正在下载新版本");
+        builder.setContentTitle("简繁家");
+        builder.setContentText("正在下载,请稍后...");
+        builder.setNumber(0);
+        builder.setAutoCancel(true);
+        nManager.notify(NotificationID, builder.build());
+    }
+
+    @Override
+    public void loadSuccess(Object data) {
+        if (data != null) {
+            LogTool.d(this.getClass().getName(), data.toString());
+            File apkFile = new File(data.toString());
+            stopSelf();
+            nManager.cancel(NotificationID);
+            installApk(apkFile);
+        }
+    }
+
+    @Override
+    public void loadFailture(String error_msg) {
+        nManager.cancel(NotificationID);
+        stopSelf();
     }
 
     private UIProgressListener uiProgressListener = new UIProgressListener() {
@@ -87,44 +117,6 @@ public class UpdateService extends Service {
             LogTool.d("uiProgressListener", "onUiFinish");
         }
     };
-
-    // 下载最新apk
-    private void download(String url, final String filePath,
-                          final String fileName) {
-        OkHttpClientManager.getDownloadDelegate().downloadAsyn(url, fileName, filePath, new ApiUiUpdateListener() {
-            @Override
-            public void preLoad() {
-                LogTool.d(this.getClass().getName(), "onStart()");
-                builder = new NotificationCompat.Builder(
-                        getApplicationContext());
-                builder.setSmallIcon(R.mipmap.icon_notify);
-                builder.setTicker("正在下载新版本");
-                builder.setContentTitle("简繁家");
-                builder.setContentText("正在下载,请稍后...");
-                builder.setNumber(0);
-                builder.setAutoCancel(true);
-                nManager.notify(NotificationID, builder.build());
-            }
-
-            @Override
-            public void loadSuccess(Object data) {
-                LogTool.d(this.getClass().getName(), "onSuccess()");
-                if (data != null) {
-                    LogTool.d(this.getClass().getName(), data.toString());
-                    File apkFile = new File(data.toString());
-                    stopSelf();
-                    nManager.cancel(NotificationID);
-                    installApk(apkFile);
-                }
-            }
-
-            @Override
-            public void loadFailture(String error_msg) {
-                nManager.cancel(NotificationID);
-            }
-        }, uiProgressListener, this);
-
-    }
 
     // 安装APK文件
     private void installApk(File file) {

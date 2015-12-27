@@ -36,7 +36,7 @@
                 style="@style/listview_item_text_style_big"
                 android:layout_centerHorizontal="true"
                 android:text="@string/verifica_phone"
-                android:textColor="@color/black_color" />
+                android:textColor="@color/light_black_color" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -49,7 +49,7 @@
                 <TextView
                     style="@style/listview_item_text_style_middle"
                     android:text="@string/verification_code_sended"
-                    android:textColor="@color/black_color" />
+                    android:textColor="@color/light_black_color" />
 
                 <TextView
                     android:id="@+id/register_phone"
@@ -81,7 +81,7 @@
                 android:paddingLeft="@dimen/space_16"
                 android:paddingRight="@dimen/space_16"
                 android:singleLine="true"
-                android:textColor="@color/black_color"
+                android:textColor="@color/light_black_color"
                 android:textSize="@dimen/middle_size"
                 android:background = "@null"/>
 
@@ -97,47 +97,6 @@
         </LinearLayout>
     </RelativeLayout>
 
-    <LinearLayout
-        android:id="@+id/success_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/head_back_layout"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:padding="@dimen/space_48">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleType="center"
-            android:src="@mipmap/register_ok" />
-
-        <TextView
-            style="@style/listview_item_text_style_big"
-            android:layout_marginTop="@dimen/space_16"
-            android:text="@string/register_success"
-            android:textColor="@color/black_color" />
-
-        <TextView
-            style="@style/listview_item_text_style_middle"
-            android:layout_marginTop="@dimen/space_16"
-            android:text="@string/welcome_jianfanjia"
-            android:textColor="@color/black_color" />
-
-        <Button
-            android:id="@+id/btn_publish_requirement"
-            style="@style/button_login_style"
-            android:layout_marginTop="@dimen/space_24"
-            android:text="@string/str_publish_requirement" />
-
-        <Button
-            android:id="@+id/btn_scan"
-            style="@style/button_login_style"
-            android:layout_marginTop="@dimen/space_16"
-            android:text="@string/str_scan" />
-
-
-    </LinearLayout>
 
 
 </RelativeLayout>

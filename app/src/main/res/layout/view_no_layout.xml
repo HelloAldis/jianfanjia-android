@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/loading_no_Layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/no_text"
+        style="@style/listview_item_text_style_middle"
+        android:layout_centerInParent="true"
+        android:text="@string/error_view_no_data"
+        android:textColor="@color/designer_info_text_color_bg"
+        android:textSize="@dimen/middle_size" />
+
+</RelativeLayout>

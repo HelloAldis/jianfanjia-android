@@ -52,7 +52,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom|right"
-                        android:src="@mipmap/icon_auth" />
+                        android:src="@mipmap/icon_auth"
+                        android:visibility="gone" />
                 </FrameLayout>
 
                 <RatingBar
@@ -91,7 +92,7 @@
                             style="@style/listview_item_text_style_small"
                             android:layout_gravity="center_horizontal"
                             android:text="浏览数"
-                            android:textColor="@color/home_page_text_color"
+                            android:textColor="@color/designer_info_text_color_bg"
                             android:textSize="@dimen/text_size_14" />
                         <!-- android:textColor="@color/designer_info_text_color"-->
                     </LinearLayout>
@@ -114,7 +115,7 @@
                             style="@style/listview_item_text_style_small"
                             android:layout_gravity="center_horizontal"
                             android:text="作品数"
-                            android:textColor="@color/home_page_text_color"
+                            android:textColor="@color/designer_info_text_color_bg"
                             android:textSize="@dimen/text_size_14" />
 
                     </LinearLayout>
@@ -137,7 +138,7 @@
                             style="@style/listview_item_text_style_small"
                             android:layout_gravity="center_horizontal"
                             android:text="预约数"
-                            android:textColor="@color/home_page_text_color"
+                            android:textColor="@color/designer_info_text_color_bg"
                             android:textSize="@dimen/text_size_14" />
                     </LinearLayout>
 
@@ -147,13 +148,21 @@
                     android:id="@+id/btn_add"
                     style="@style/button_add_style"
                     android:layout_marginBottom="@dimen/space_10"
-                    android:layout_marginLeft="@dimen/space_30"
-                    android:layout_marginRight="@dimen/space_30"
+                    android:layout_marginLeft="@dimen/space_40"
+                    android:layout_marginRight="@dimen/space_40"
                     android:layout_marginTop="@dimen/space_15"
-                    android:enabled="false"
                     android:text="@string/strl_add_yixiang" />
-            </LinearLayout>
 
+                <Button
+                    android:id="@+id/btn_delete"
+                    style="@style/button_add_style"
+                    android:layout_marginBottom="@dimen/space_10"
+                    android:layout_marginLeft="@dimen/space_40"
+                    android:layout_marginRight="@dimen/space_40"
+                    android:layout_marginTop="@dimen/space_15"
+                    android:text="@string/strl_delete_yixiang"
+                    android:visibility="gone" />
+            </LinearLayout>
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"

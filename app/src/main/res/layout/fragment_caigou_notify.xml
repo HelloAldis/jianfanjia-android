@@ -1,19 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/site_content_bg"
-    android:orientation="vertical" >
+    android:background="@color/main_layout_bg">
 
-    <ListView
+    <com.jianfanjia.cn.view.library.PullToRefreshRecycleView xmlns:ptr="http://schemas.android.com/apk/res-auto"
         android:id="@+id/tip_caigou__listview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginTop="@dimen/space_8"
-        android:cacheColorHint="#ffffff"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="@dimen/space_8"
-        android:listSelector="@android:color/transparent"
-        android:scrollbars="none" />
-
-</LinearLayout>
+        android:scrollbars="none"
+        ptr:ptrAnimationStyle="flip"
+        ptr:ptrHeaderTextColor="#344a5d" />
+</FrameLayout>

@@ -18,5 +18,5 @@
         style="@style/listview_item_text_style_small"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/space_10"
-        android:textColor="@color/black_color" />
+        android:textColor="@color/light_black_color" />
 </LinearLayout>

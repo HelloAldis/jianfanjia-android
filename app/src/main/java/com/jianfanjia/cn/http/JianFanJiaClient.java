@@ -2,13 +2,16 @@ package com.jianfanjia.cn.http;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.text.TextUtils;
 
 import com.jianfanjia.cn.bean.CommitCommentInfo;
+import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.bean.OwnerUpdateInfo;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url_New;
+import com.jianfanjia.cn.http.request.AddBeautyImgRequest;
 import com.jianfanjia.cn.http.request.AddCollectionRequest;
 import com.jianfanjia.cn.http.request.AddCommentRequest;
 import com.jianfanjia.cn.http.request.AddFavoriteDesignerRequest;
@@ -24,7 +27,6 @@ import com.jianfanjia.cn.http.request.DeleteCollectionRequest;
 import com.jianfanjia.cn.http.request.DeleteFavoriteDesignerRequest;
 import com.jianfanjia.cn.http.request.DeletePicToSectionItemRequest;
 import com.jianfanjia.cn.http.request.DesignerHomePageRequest;
-import com.jianfanjia.cn.http.request.DesignerInfoRequest;
 import com.jianfanjia.cn.http.request.EvaluateDesignerRequest;
 import com.jianfanjia.cn.http.request.FavoriteDesignerListRequest;
 import com.jianfanjia.cn.http.request.FeedBackRequest;
@@ -34,6 +36,7 @@ import com.jianfanjia.cn.http.request.GetBeautyImgListRequest;
 import com.jianfanjia.cn.http.request.GetCollectionRequest;
 import com.jianfanjia.cn.http.request.GetCommentsRequest;
 import com.jianfanjia.cn.http.request.GetContractRequest;
+import com.jianfanjia.cn.http.request.GetDecorationImgRequest;
 import com.jianfanjia.cn.http.request.GetDesignerPlansByUserRequest;
 import com.jianfanjia.cn.http.request.GetOrderDesignerListByUserRequest;
 import com.jianfanjia.cn.http.request.GetOrderedDesignerRequest;
@@ -47,6 +50,7 @@ import com.jianfanjia.cn.http.request.LoginRequest;
 import com.jianfanjia.cn.http.request.LogoutRequest;
 import com.jianfanjia.cn.http.request.OrderDesignerByUserRequest;
 import com.jianfanjia.cn.http.request.OwnerFinishCheckRequest;
+import com.jianfanjia.cn.http.request.PostCollectOwnerInfoRequest;
 import com.jianfanjia.cn.http.request.PostProcessRequest;
 import com.jianfanjia.cn.http.request.PostRequirementRequest;
 import com.jianfanjia.cn.http.request.PostRescheduleRequest;
@@ -228,6 +232,20 @@ public class JianFanJiaClient {
     }
 
     /**
+     * 收集新用户的个人偏好
+     *
+     * @param context
+     * @param ownerInfo
+     * @param listener
+     * @param tag
+     */
+    public static void post_collect_ownerinfo(Context context, OwnerInfo ownerInfo, ApiUiUpdateListener listener, Object tag) {
+        PostCollectOwnerInfoRequest postCollectOwnerInfoRequest = new PostCollectOwnerInfoRequest(context);
+        LogTool.d(TAG, "post_collect_ownerinfo --" + postCollectOwnerInfoRequest.getUrl() + "--" + JsonParser.beanToJson(ownerInfo));
+        OkHttpClientManager.getInstance().getPostDelegate().postAsyn(postCollectOwnerInfoRequest, JsonParser.beanToJson(ownerInfo), listener, tag);
+    }
+
+    /**
      * @param context
      * @author zhanghao
      * @Description 获取业主需求
@@ -297,22 +315,6 @@ public class JianFanJiaClient {
         RegisterRequest registerRequest = new RegisterRequest(context, registerInfo);
         LogTool.d(TAG, "register  " + registerRequest.getUrl() + "--" + JsonParser.beanToJson(registerInfo));
         OkHttpClientManager.getInstance().getPostDelegate().postAsyn(registerRequest, JsonParser.beanToJson(registerInfo), listener, tag);
-    }
-
-    /**
-     * 根据设计师id拿到设计师信息
-     *
-     * @param designerid
-     * @param listener
-     * @author zhanghao
-     */
-    public static void getDesignerInfoById(Context context, String designerid,
-                                           ApiUiUpdateListener listener, Object tag) {
-        String getdesignerUrl = Url_New.GET_OWER_DESIGNER.replace(Url_New.ID,
-                designerid);
-        DesignerInfoRequest designerInfoRequest = new DesignerInfoRequest(context);
-        designerInfoRequest.setUrl(getdesignerUrl);
-        OkHttpClientManager.getInstance().getGetDelegate().getAsyn(designerInfoRequest, listener, tag);
     }
 
     /**
@@ -993,22 +995,22 @@ public class JianFanJiaClient {
      * @param listener
      * @param tag
      */
-    public static void searchDecorationImg(Context context, String section, String house_type, String dec_style, String searchWord, int lastupdate, int from, int limit, ApiUiUpdateListener listener, Object tag) {
-        SearchDecorationImgRequest searchDecorationImgRequest = new SearchDecorationImgRequest(context, section, house_type, dec_style, searchWord, lastupdate, from, limit);
+    public static void searchDecorationImg(Context context, String section, String house_type, String dec_style, String searchWord, int lastUpdate, int from, int limit, ApiUiUpdateListener listener, Object tag) {
+        SearchDecorationImgRequest searchDecorationImgRequest = new SearchDecorationImgRequest(context, section, house_type, dec_style, searchWord, lastUpdate, from, limit);
         JSONObject jsonParams = new JSONObject();
         try {
             JSONObject params1 = new JSONObject();
-            if (!section.equals(Constant.KEY_WORD)) {
+            if (!TextUtils.isEmpty(section) && !section.equals(Constant.KEY_WORD)) {
                 params1.put("section", section);
             }
-            if (!house_type.equals(Constant.KEY_WORD)) {
+            if (!TextUtils.isEmpty(house_type) && !house_type.equals(Constant.KEY_WORD)) {
                 params1.put("house_type", house_type);
             }
-            if (!dec_style.equals(Constant.KEY_WORD)) {
+            if (!TextUtils.isEmpty(dec_style) && !dec_style.equals(Constant.KEY_WORD)) {
                 params1.put("dec_style", dec_style);
             }
             JSONObject params2 = new JSONObject();
-            params2.put("lastupdate", lastupdate);
+            params2.put("lastupdate", lastUpdate);
             jsonParams.put("query", params1);
             jsonParams.put("sort", params2);
             jsonParams.put("search_word", searchWord);
@@ -1029,8 +1031,15 @@ public class JianFanJiaClient {
      * @param listener
      * @param tag
      */
-    public static void getDecorationImg(Context context, String id, ApiUiUpdateListener listener, Object tag) {
-
+    public static void getDecorationImgInfo(Context context, String id, ApiUiUpdateListener listener, Object tag) {
+        GetDecorationImgRequest getDecorationImgRequest = new GetDecorationImgRequest(context, id);
+        JSONObject jsonParams = new JSONObject();
+        try {
+            jsonParams.put("_id", id);
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(getDecorationImgRequest, jsonParams.toString(), listener, tag);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -1087,6 +1096,25 @@ public class JianFanJiaClient {
             jsonParams.put("from", from);
             jsonParams.put("limit", limit);
             OkHttpClientManager.getInstance().getPostDelegate().postAsyn(getCollectionRequest, jsonParams.toString(), listener, tag);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 用户收藏装修美图
+     *
+     * @param context
+     * @param id
+     * @param listener
+     * @param tag
+     */
+    public static void addBeautyImgByUser(Context context, String id, ApiUiUpdateListener listener, Object tag) {
+        AddBeautyImgRequest addBeautyImgRequest = new AddBeautyImgRequest(context, id);
+        JSONObject jsonParams = new JSONObject();
+        try {
+            jsonParams.put("_id", id);
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(addBeautyImgRequest, jsonParams.toString(), listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
         }

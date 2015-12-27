@@ -15,9 +15,6 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -32,7 +29,6 @@ import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.tools.NetTool;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -108,7 +104,7 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
     }
 
     @AfterViews
-    public void initView() {
+    public void initAnnotationView() {
         controlKeyboardLayout(contentLayout, mBtnLogin);
 
         mGestureDetector = new GestureDetector(this, this);
@@ -432,8 +428,14 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
     public void loadSuccess(Object data) {
         super.loadSuccess(data);
         PushManager.getInstance().initialize(getApplicationContext());
+        PushManager.getInstance().bindAlias(getApplicationContext(), dataManager.getUserId());
         startActivity(MainActivity.class);
-        finish();
+        appManager.finishActivity(this);
+    }
+
+    @Override
+    public void onBackPressed() {
+        appManager.finishAllActivity();
     }
 
     @Override
