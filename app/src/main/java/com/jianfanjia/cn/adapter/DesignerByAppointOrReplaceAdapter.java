@@ -13,6 +13,7 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.bean.DesignerCanOrderInfo;
+import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.CheckListener;
 
 import java.util.ArrayList;
@@ -79,6 +80,11 @@ public class DesignerByAppointOrReplaceAdapter extends BaseRecyclerViewAdapter<M
                     holder.itemRatingBar.setRating((respond_speed + service_attitude) / 2);
                 }
                 imageShow.displayImageHeadWidthThumnailImage(context, designerCanOrderInfo.getImageid(), holder.itemwHeadView);
+                if (designerCanOrderInfo.getAuth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)) {
+                    holder.itemAuthView.setVisibility(View.VISIBLE);
+                } else {
+                    holder.itemAuthView.setVisibility(View.GONE);
+                }
                 holder.itemCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView,
