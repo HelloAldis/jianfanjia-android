@@ -18,7 +18,7 @@ public class GetContractRequest extends BaseRequest {
     public GetContractRequest(Context context, String requirementid) {
         super(context);
         this.requirementid = requirementid;
-        url = Url_New.ONE_CONTRACT;
+        url = url_new.ONE_CONTRACT;
     }
 
     @Override

@@ -15,7 +15,7 @@ public class VerifyPhoneRequest extends BaseRequest {
 
     public VerifyPhoneRequest(Context context){
         super(context);
-        url = Url_New.VERIFY_PHONE;
+        url = url_new.VERIFY_PHONE;
     }
 
 

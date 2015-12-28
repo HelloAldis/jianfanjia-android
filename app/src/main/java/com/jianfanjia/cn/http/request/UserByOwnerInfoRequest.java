@@ -11,7 +11,7 @@ public class UserByOwnerInfoRequest extends BaseRequest {
 
 	public UserByOwnerInfoRequest(Context context) {
 		super(context);
-		url = Url_New.GET_OWER_INFO;
+		url = url_new.GET_OWER_INFO;
 	}
 
 	@Override

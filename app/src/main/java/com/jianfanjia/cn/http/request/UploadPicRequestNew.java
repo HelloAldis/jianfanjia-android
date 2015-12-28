@@ -10,7 +10,7 @@ public class UploadPicRequestNew extends BaseRequest {
 
 	public UploadPicRequestNew(Context context) {
 		super(context);
-		url = Url_New.UPLOAD_IMAGE;
+		url = url_new.UPLOAD_IMAGE;
 	}
 
 	@Override

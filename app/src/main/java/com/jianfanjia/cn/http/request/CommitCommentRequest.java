@@ -9,7 +9,7 @@ public class CommitCommentRequest extends BaseRequest {
 
     public CommitCommentRequest(Context context) {
         super(context);
-        url = Url_New.POST_PROCESS_COMMENT;
+        url = url_new.POST_PROCESS_COMMENT;
     }
 
 

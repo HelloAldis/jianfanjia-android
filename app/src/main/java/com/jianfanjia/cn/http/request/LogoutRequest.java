@@ -10,7 +10,7 @@ public class LogoutRequest extends BaseRequest {
 
 	public LogoutRequest(Context context) {
 		super(context);
-		url = Url_New.SIGNOUT_URL;
+		url = url_new.SIGNOUT_URL;
 	}
 
 	@Override

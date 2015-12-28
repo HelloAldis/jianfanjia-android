@@ -1,7 +1,6 @@
 package com.jianfanjia.cn;
 
 import android.app.Activity;
-import android.content.Context;
 
 import com.jianfanjia.cn.tools.LogTool;
 
@@ -17,7 +16,7 @@ import java.util.Stack;
  */
 public class AppManager {
 
-    private static Stack<Activity> activityStack;
+    private static Stack<Activity> activityStack = new Stack<Activity>();
     private static AppManager instance;
 
     private AppManager() {}
@@ -47,8 +46,11 @@ public class AppManager {
      * 获取当前Activity（堆栈中最后一个压入的）
      */
     public Activity currentActivity() {
-        Activity activity = activityStack.lastElement();
-        return activity;
+        if(!activityStack.empty()){
+            Activity activity = activityStack.peek();
+            return activity;
+        }
+        return null;
     }
 
     /**
@@ -116,7 +118,7 @@ public class AppManager {
     /**
      * 退出应用程序
      */
-    public void AppExit(Context context) {
+    public void AppExit() {
         try {
             finishAllActivity();
             // 杀死该应用进程

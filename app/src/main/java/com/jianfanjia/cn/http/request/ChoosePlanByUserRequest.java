@@ -21,7 +21,7 @@ public class ChoosePlanByUserRequest extends BaseRequest {
         this.requirementid = requirementid;
         this.designerid = designerid;
         this.planid = planid;
-        url = Url_New.USER_CHOOSE_PLAN;
+        url = url_new.USER_CHOOSE_PLAN;
     }
 
     @Override

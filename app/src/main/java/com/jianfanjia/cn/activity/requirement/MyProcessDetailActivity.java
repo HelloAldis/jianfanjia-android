@@ -106,6 +106,14 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
         }
     }
 
+    /**
+     * 拿到当前屏幕的工地id
+     * @return
+     */
+    public String getProcessId(){
+        return processId;
+    }
+
     @AfterViews
     public void initAnnotationView() {
         initPullRefresh();
@@ -185,7 +193,6 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
     @Override
     public void onResume() {
         super.onResume();
-        listenerManeger.addReceiveMsgListener(this);
     }
 
     @Override
@@ -204,7 +211,6 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        listenerManeger.removeReceiveMsgListener(this);
     }
 
     private void initScrollLayout() {

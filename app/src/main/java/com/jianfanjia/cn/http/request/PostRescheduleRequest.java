@@ -13,7 +13,7 @@ public class PostRescheduleRequest extends BaseRequest{
 
     public PostRescheduleRequest(Context context) {
         super(context);
-        url = Url_New.POST_RESCHDULE;
+        url = url_new.POST_RESCHDULE;
     }
 
     @Override

@@ -150,7 +150,7 @@ public class MainActivity extends BaseActivity implements
             makeTextShort("再按一次退出简繁家");
             mExitTime = System.currentTimeMillis();// 更新mExitTime
         } else {
-            AppManager.getAppManager().AppExit(this);
+            AppManager.getAppManager().AppExit();
         }
     }
 

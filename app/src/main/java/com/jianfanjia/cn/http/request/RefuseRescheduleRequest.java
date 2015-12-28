@@ -13,7 +13,7 @@ public class RefuseRescheduleRequest extends BaseRequest{
 
     public RefuseRescheduleRequest(Context context) {
         super(context);
-        url = Url_New.REFUSE_RESCHDULE;
+        url = url_new.REFUSE_RESCHDULE;
     }
 
     @Override

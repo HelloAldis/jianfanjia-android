@@ -19,7 +19,7 @@ public class ConformMeasureHouseRequest extends BaseRequest {
         super(context);
         this.requirementid = requirementid;
         this.designerid = designerid;
-        url = Url_New.DESIGNER_HOUSE_CHECKED ;
+        url = url_new.DESIGNER_HOUSE_CHECKED ;
     }
 
     @Override

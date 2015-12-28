@@ -16,7 +16,7 @@ public class GetProcessListRequest extends BaseRequest {
 
 	public GetProcessListRequest(Context context) {
 		super(context);
-		url = Url_New.GET_PROCESS_LIST;
+		url = url_new.GET_PROCESS_LIST;
 	}
 	
 	@Override

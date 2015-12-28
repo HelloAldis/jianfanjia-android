@@ -19,7 +19,7 @@ public class GetCollectionRequest extends BaseRequest {
         super(context);
         this.from = from;
         this.limit = limit;
-        url = Url_New.GET_PRODUCT_LIST_BY_COLLECTED;
+        url = url_new.GET_PRODUCT_LIST_BY_COLLECTED;
     }
 
     @Override

@@ -13,7 +13,7 @@ public class PostProcessRequest extends BaseRequest {
         super(context);
         this.requirementid = requirementid;
         this.final_planid = final_planid;
-        url = Url_New.PROCESS;
+        url = url_new.PROCESS;
     }
 
     @Override

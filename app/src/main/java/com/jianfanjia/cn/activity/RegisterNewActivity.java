@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.igexin.sdk.PushManager;
 import com.jianfanjia.cn.base.BaseAnnotationActivity;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.config.Global;
@@ -139,6 +140,8 @@ public class RegisterNewActivity extends BaseAnnotationActivity implements
         if(requsetCode == REGISTER_CODE){
             startActivity(NewUserCollectDecStageActivity_.class);
             appManager.finishActivity(this);
+            PushManager.getInstance().initialize(getApplicationContext());//初始化个推
+            PushManager.getInstance().bindAlias(getApplicationContext(), dataManager.getUserId());
         }else{
             startActivity(LoginNewActivity_.class);
             appManager.finishActivity(this);

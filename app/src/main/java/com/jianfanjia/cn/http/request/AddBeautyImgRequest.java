@@ -3,7 +3,6 @@ package com.jianfanjia.cn.http.request;
 import android.content.Context;
 
 import com.jianfanjia.cn.base.BaseRequest;
-import com.jianfanjia.cn.config.Url_New;
 
 /**
  * Name: AddBeautyImgRequest
@@ -17,7 +16,7 @@ public class AddBeautyImgRequest extends BaseRequest {
     public AddBeautyImgRequest(Context context, String id) {
         super(context);
         this.id = id;
-        url = Url_New.ADD_BEAUTY_IMG;
+        url = url_new.ADD_BEAUTY_IMG;
     }
 
     @Override

@@ -17,7 +17,7 @@ public class GetProductHomePageRequest extends BaseRequest {
     public GetProductHomePageRequest(Context context, String productid) {
         super(context);
         this.productid = productid;
-        url = Url_New.PRODUCT_HOME_PAGE;
+        url = url_new.PRODUCT_HOME_PAGE;
     }
 
     @Override

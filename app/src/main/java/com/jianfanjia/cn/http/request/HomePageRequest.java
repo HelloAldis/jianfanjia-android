@@ -19,7 +19,7 @@ public class HomePageRequest extends BaseRequest {
         super(context);
         this.from = from;
         this.limit = limit;
-        url = Url_New.HOME_PAGE_DISIGNERS;
+        url = url_new.HOME_PAGE_DISIGNERS;
     }
 
     public int getFrom() {

@@ -54,7 +54,7 @@ public class ContractActivity extends BaseActivity implements OnClickListener, V
         //自适应屏幕
         webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         webView.getSettings().setLoadWithOverviewMode(true);
-        webView.loadUrl(Url_New.CONTRACT_URL);
+        webView.loadUrl(Url_New.getInstance().CONTRACT_URL);
         webView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {

@@ -17,7 +17,7 @@ public class DesignerHomePageRequest extends BaseRequest {
     public DesignerHomePageRequest(Context context, String designerid) {
         super(context);
         this.designerid = designerid;
-        url = Url_New.DESIGNER_HOME_PAGE;
+        url = url_new.DESIGNER_HOME_PAGE;
     }
 
     @Override

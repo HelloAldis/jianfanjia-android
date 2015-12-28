@@ -21,7 +21,7 @@ public class GetCommentsRequest extends BaseRequest {
         this.topicid = topicid;
         this.from = from;
         this.limit = limit;
-        url = Url_New.GET_COMMENT;
+        url = url_new.GET_COMMENT;
     }
 
     @Override

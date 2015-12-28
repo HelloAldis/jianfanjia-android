@@ -13,7 +13,7 @@ public class AgreeRescheduleRequest extends BaseRequest{
 
     public AgreeRescheduleRequest(Context context) {
         super(context);
-        url = Url_New.AGREE_RESCHDULE;
+        url = url_new.AGREE_RESCHDULE;
     }
 
     @Override

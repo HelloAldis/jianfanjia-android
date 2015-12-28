@@ -11,7 +11,7 @@ import com.jianfanjia.cn.config.Url_New;
 public class OwnerFinishCheckRequest extends BaseRequest{
     public OwnerFinishCheckRequest(Context context) {
         super(context);
-        url = Url_New.CONFIRM_CHECK_DONE_BY_OWNER;
+        url = url_new.CONFIRM_CHECK_DONE_BY_OWNER;
     }
 
     @Override

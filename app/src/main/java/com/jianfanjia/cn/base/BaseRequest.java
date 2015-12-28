@@ -3,6 +3,7 @@ package com.jianfanjia.cn.base;
 import android.content.Context;
 
 import com.jianfanjia.cn.cache.DataManagerNew;
+import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.interf.ApiDataUpdateListenter;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.Request;
@@ -21,11 +22,13 @@ public abstract class BaseRequest implements ApiDataUpdateListenter {
     protected Context context;
     protected Request request;
     protected String url;
+    protected Url_New url_new;
     protected MediaType mediaType = MEDIA_TYPE_JSON;//默认的请求方式方式
 
     public BaseRequest(Context context) {
         this.context = context;
         dataManager = DataManagerNew.getInstance();
+        url_new = Url_New.getInstance();
     }
 
     public Request getRequest() {

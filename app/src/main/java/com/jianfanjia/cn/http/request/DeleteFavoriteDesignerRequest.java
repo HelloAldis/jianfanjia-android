@@ -18,7 +18,7 @@ public class DeleteFavoriteDesignerRequest extends BaseRequest {
     public DeleteFavoriteDesignerRequest(Context context, String designerid) {
         super(context);
         this.designerid = designerid;
-        url = Url_New.DELETE_FAVORITE_DESIGNER;
+        url = url_new.DELETE_FAVORITE_DESIGNER;
     }
 
     @Override

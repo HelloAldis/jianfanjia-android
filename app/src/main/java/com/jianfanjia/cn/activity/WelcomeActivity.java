@@ -1,12 +1,13 @@
 package com.jianfanjia.cn.activity;
 
 import android.content.DialogInterface;
+import android.content.pm.ApplicationInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.KeyEvent;
 import android.view.WindowManager;
 
-import com.jianfanjia.cn.activity.my.UserInfoActivity;
+import com.igexin.sdk.PushManager;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.UpdateVersion;
@@ -27,7 +28,7 @@ import com.jianfanjia.cn.view.dialog.DialogHelper;
  * @date 2015-8-29 上午9:30:21
  */
 public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener {
-    private static final String TAG = UserInfoActivity.class.getName();
+    private static final String TAG = WelcomeActivity.class.getName();
     private Handler handler = new Handler();
     private boolean first;// 用于判断导航界面是否显示
     private boolean isLoginExpire;// 是否登录过期
@@ -40,12 +41,41 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
         super.onCreate(savedInstanceState);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        logGeTuiAPPKey();
         first = dataManager.isFirst();
         LogTool.d(TAG, "first=" + first);
         checkVersion();
         LogTool.d(TAG, "sd root =" + FileUtil.getSDRoot());
         LogTool.d(TAG, "sd ex root =" + FileUtil.getExternalSDRoot());
 //        LogTool.d(TAG, "sd root =" + FileUtil.getAppCache(this, "jianfan"));
+    }
+
+    private void logGeTuiAPPKey() {
+        try {
+            ApplicationInfo var4 = getPackageManager().getApplicationInfo(getPackageName(), 128);
+            if (var4 != null && var4.metaData != null)
+
+            {
+                String var5 = var4.metaData.getString("PUSH_APPID");
+                String var6 = var4.metaData.getString("PUSH_APPSECRET");
+                String var7 = var4.metaData.get("PUSH_APPKEY") != null ? var4.metaData.get("PUSH_APPKEY").toString() : null;
+                if (var5 != null) {
+                    var5 = var5.trim();
+                }
+
+                if (var6 != null) {
+                    var6 = var6.trim();
+                }
+
+                if (var7 != null) {
+                    var7 = var7.trim();
+                }
+
+                LogTool.d(TAG,"PUSH_APPID :" + var5 + "--" + "PUSH_APPSECRET :" + var6 + "--" + "PUSH_APPKEY:" + var7);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     // 检查版本
@@ -125,7 +155,7 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
                 switch (keyCode) {
                     case KeyEvent.KEYCODE_BACK:
                         dialog.dismiss();
-                        appManager.AppExit(WelcomeActivity.this);
+                        appManager.AppExit();
                         return true;
                 }
                 return false;
@@ -150,6 +180,8 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
     public void loadSuccess(Object data) {
         startActivity(MainActivity.class);
         appManager.finishActivity(WelcomeActivity.this);
+        PushManager.getInstance().initialize(getApplicationContext());//初始化个推
+        PushManager.getInstance().bindAlias(getApplicationContext(), dataManager.getUserId());
     }
 
     @Override
@@ -175,6 +207,8 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
                         LogTool.d(TAG, "not expire");
                         startActivity(MainActivity.class);
                         appManager.finishActivity(WelcomeActivity.this);
+                        PushManager.getInstance().initialize(getApplicationContext());//初始化个推
+                        PushManager.getInstance().bindAlias(getApplicationContext(), dataManager.getUserId());
                     } else {
                         LogTool.d(TAG, "expire");
                         MyApplication.getInstance().clearCookie();

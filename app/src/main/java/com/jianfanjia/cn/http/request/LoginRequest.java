@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.jianfanjia.cn.base.BaseRequest;
 import com.jianfanjia.cn.bean.LoginUserBean;
-import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 
@@ -18,7 +17,7 @@ public class LoginRequest extends BaseRequest {
         super(context);
         this.username = username;
         this.password = password;
-        url = Url_New.LOGIN_URL;
+        url = url_new.LOGIN_URL;
     }
 
     @Override

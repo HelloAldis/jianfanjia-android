@@ -25,6 +25,7 @@ public class ImageShow {
     private static ImageShow imageShow;
     protected ImageLoader imageLoader;
     protected DisplayImageOptions options;
+    protected Url_New url_new;
 
     public ImageShow() {
         imageLoader = ImageLoader.getInstance();
@@ -35,6 +36,7 @@ public class ImageShow {
                 .cacheOnDisk(true).considerExifParams(true)
                 .bitmapConfig(Bitmap.Config.RGB_565).imageScaleType(ImageScaleType.IN_SAMPLE_INT)
                 .build();
+        url_new = Url_New.getInstance();
     }
 
     public static ImageShow getImageShow() {
@@ -51,7 +53,7 @@ public class ImageShow {
      * @param imageView
      */
     public void displayImage(String imageid, ImageView imageView) {
-        imageLoader.displayImage(Url_New.GET_IMAGE + imageid, imageView, options);
+        imageLoader.displayImage(url_new.GET_IMAGE + imageid, imageView, options);
     }
 
     /**
@@ -62,12 +64,12 @@ public class ImageShow {
      * @param width
      */
     public void displayThumbnailImage(String imageid, ImageView imageView, int width) {
-        String imageUrl = Url_New.GET_THUMBNAIL_IMAGE.replace(Url_New.WIDTH, width + "") + imageid;
+        String imageUrl = url_new.GET_THUMBNAIL_IMAGE.replace(Url_New.WIDTH, width + "") + imageid;
         imageLoader.displayImage(imageUrl, imageView, options);
     }
 
     public void displayThumbnailImage(String imageid, ImageView imageView, int width, ImageLoadingListener listener) {
-        String imageUrl = Url_New.GET_THUMBNAIL_IMAGE.replace(Url_New.WIDTH, width + "") + imageid;
+        String imageUrl = url_new.GET_THUMBNAIL_IMAGE.replace(Url_New.WIDTH, width + "") + imageid;
         imageLoader.displayImage(imageUrl, imageView, options, listener);
     }
 

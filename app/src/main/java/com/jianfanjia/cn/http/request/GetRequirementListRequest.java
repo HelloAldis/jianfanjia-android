@@ -9,7 +9,7 @@ public class GetRequirementListRequest extends BaseRequest {
 
     public GetRequirementListRequest(Context context) {
         super(context);
-        url = Url_New.REQUIREMENT_LIST;
+        url = url_new.REQUIREMENT_LIST;
     }
 
     @Override

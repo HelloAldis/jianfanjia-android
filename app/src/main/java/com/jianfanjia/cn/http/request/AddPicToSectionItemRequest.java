@@ -23,7 +23,7 @@ public class AddPicToSectionItemRequest extends BaseRequest {
 		this.section = section;
 		this.item = item;
 		this.imageId = imageId;
-		url = Url_New.POST_PROCESS_IMAGE;
+		url = url_new.POST_PROCESS_IMAGE;
 	}
 
 	@Override

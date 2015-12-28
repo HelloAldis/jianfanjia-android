@@ -9,7 +9,7 @@ public class SendVerificationRequest extends BaseRequest {
 
     public SendVerificationRequest(Context context) {
         super(context);
-        url = Url_New.GET_CODE_URL;
+        url = url_new.GET_CODE_URL;
     }
 
     @Override

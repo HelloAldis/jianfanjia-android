@@ -538,7 +538,7 @@ public class JianFanJiaClient {
     public static void get_ProcessInfo_By_Id(Context context, String processid,
                                              ApiUiUpdateListener listener, Object tag) {
         GetProcessInfoRequest getProcessInfoRequest = new GetProcessInfoRequest(context, processid);
-        String getProcessUrl = Url_New.GET_PROCESSINFO_BYID.replace(Url_New.ID,
+        String getProcessUrl = Url_New.getInstance().GET_PROCESSINFO_BYID.replace(Url_New.ID,
                 processid);
         getProcessInfoRequest.setUrl(getProcessUrl);
         LogTool.d(TAG, "processItemDone -" + getProcessInfoRequest.getUrl());
