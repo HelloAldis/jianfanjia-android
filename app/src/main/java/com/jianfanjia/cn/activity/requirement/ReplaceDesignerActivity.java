@@ -77,7 +77,7 @@ public class ReplaceDesignerActivity extends BaseActivity implements OnClickList
         mainHeadView.setBackListener(this);
         mainHeadView.setRightTextListener(this);
         mainHeadView
-                .setMianTitle(totalCount + getResources().getString(R.string.appoint));
+                .setMianTitle(totalCount + " " + getResources().getString(R.string.appoint));
         mainHeadView.setRightTitle(getResources().getString(R.string.replaceText));
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
         mainHeadView.setRightTitleVisable(View.VISIBLE);
@@ -176,7 +176,7 @@ public class ReplaceDesignerActivity extends BaseActivity implements OnClickList
                         } else {
                             mainHeadView.setRigthTitleEnable(false);
                         }
-                        mainHeadView.setMianTitle((totalCount - checkNum) + getResources().getString(R.string.appoint));
+                        mainHeadView.setMianTitle((totalCount - checkNum) + " " + getResources().getString(R.string.appoint));
                     }
                 });
                 replace_designer_listview.setAdapter(designerByAppointOrReplaceAdapter);
