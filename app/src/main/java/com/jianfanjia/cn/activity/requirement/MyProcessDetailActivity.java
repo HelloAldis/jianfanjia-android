@@ -339,7 +339,9 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                 checkBundle
                         .putString(Constant.PROCESS_STATUS, sectionInfo.getStatus());
                 checkBundle.putString(Global.PROCESS_ID, processId);
-                startActivity(CheckActivity.class, checkBundle);
+                Intent checkIntent = new Intent(MyProcessDetailActivity.this,CheckActivity.class);
+                checkIntent.putExtras(checkBundle);
+                startActivityForResult(checkIntent, Constant.REQUESTCODE_CHECK);
                 break;
             default:
                 break;
@@ -499,8 +501,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                 }
                 break;
             case Constant.REQUESTCODE_SHOW_PROCESS_PIC:
-                loadCurrentProcess();
-                break;
+            case Constant.REQUESTCODE_CHECK:
             case Constant.REQUESTCODE_GOTO_COMMENT:
                 loadCurrentProcess();
                 break;
@@ -596,6 +597,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
 
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                loadCurrentProcess();
                                 dialog.dismiss();
                             }
                         });
@@ -654,6 +656,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
             @Override
             public void loadSuccess(Object data) {
                 LogTool.d(TAG, "data:" + data.toString());
+                loadCurrentProcess();
             }
 
             @Override
@@ -674,6 +677,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
             @Override
             public void loadSuccess(Object data) {
                 LogTool.d(TAG, "data:" + data.toString());
+                loadCurrentProcess();
             }
 
             @Override
