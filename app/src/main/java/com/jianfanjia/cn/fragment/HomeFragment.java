@@ -231,8 +231,10 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
     };
 
     public void onEventMainThread(MessageEvent event) {
+        LogTool.d(TAG, "event:" + event.getEventType());
         switch (event.getEventType()) {
             case Constant.UPDATE_HOME_FRAGMENT:
+                FROM = 0;
                 getHomePageDesigners(FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
                 break;
             default:
