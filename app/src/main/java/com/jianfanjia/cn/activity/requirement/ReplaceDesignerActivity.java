@@ -2,11 +2,12 @@ package com.jianfanjia.cn.activity.requirement;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Paint;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ListView;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.DesignerByAppointOrReplaceAdapter;
@@ -16,9 +17,11 @@ import com.jianfanjia.cn.bean.DesignerCanOrderListInfo;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
+import com.jianfanjia.cn.interf.CheckListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
+import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
 
@@ -33,12 +36,12 @@ import java.util.Map;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class ReplaceDesignerActivity extends BaseActivity implements OnClickListener, OnItemClickListener {
+public class ReplaceDesignerActivity extends BaseActivity implements OnClickListener {
     private static final String TAG = ReplaceDesignerActivity.class.getName();
     private MainHeadView mainHeadView = null;
-    private ListView replace_designer_listview = null;
-    private List<Map<String, String>> mylist = new ArrayList<Map<String, String>>();
-    private List<Map<String, String>> splitList = new ArrayList<Map<String, String>>();
+    private RecyclerView replace_designer_listview = null;
+    private List<Map<String, Object>> mylist = new ArrayList<Map<String, Object>>();
+    private List<Map<String, Object>> splitList = new ArrayList<Map<String, Object>>();
     private List<DesignerCanOrderInfo> rec_designer = new ArrayList<DesignerCanOrderInfo>();
     private List<DesignerCanOrderInfo> favorite_designer = new ArrayList<DesignerCanOrderInfo>();
     private DesignerByAppointOrReplaceAdapter designerByAppointOrReplaceAdapter = null;
@@ -51,7 +54,17 @@ public class ReplaceDesignerActivity extends BaseActivity implements OnClickList
     @Override
     public void initView() {
         initMainHeadView();
-        replace_designer_listview = (ListView) findViewById(R.id.replace_designer_listview);
+        replace_designer_listview = (RecyclerView) findViewById(R.id.replace_designer_listview);
+        replace_designer_listview.setLayoutManager(new LinearLayoutManager(ReplaceDesignerActivity.this));
+        replace_designer_listview.setItemAnimator(new DefaultItemAnimator());
+        Paint paint = new Paint();
+        paint.setStrokeWidth(1);
+        paint.setColor(getResources().getColor(R.color.light_white_color));
+        paint.setAntiAlias(true);
+        replace_designer_listview.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this)
+                .paint(paint)
+                .showLastDivider()
+                .build());
         Intent intent = this.getIntent();
         requestmentid = intent.getStringExtra(Global.REQUIREMENT_ID);
         designerid = intent.getStringExtra(Global.DESIGNER_ID);
@@ -73,36 +86,30 @@ public class ReplaceDesignerActivity extends BaseActivity implements OnClickList
     }
 
     private void setReplaceDesignerList(List<DesignerCanOrderInfo> rec_designerList, List<DesignerCanOrderInfo> favorite_designerList) {
-        Map<String, String> mp = new HashMap<String, String>();
-        mp.put("itemTitle", "匹配设计师");
+        Map<String, Object> mp = new HashMap<String, Object>();
+        mp.put("Item", "匹配设计师");
         mylist.add(mp);
         splitList.add(mp);
-        for (DesignerCanOrderInfo info : rec_designerList) {
-            Map<String, String> map = new HashMap<String, String>();
-            map.put("itemId", info.get_id());
-            map.put("itemTitle", info.getUsername());
-            map.put("itemImg", info.getImageid());
-            map.put("itemMatch", "" + info.getMatch());
+        for (DesignerCanOrderInfo designerCanOrderInfo : rec_designerList) {
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("Item", designerCanOrderInfo);
             mylist.add(map);
         }
         //----------------------------------------------------
-        mp = new HashMap<String, String>();
-        mp.put("itemTitle", "意向设计师");
+        mp = new HashMap<String, Object>();
+        mp.put("Item", "意向设计师");
         mylist.add(mp);
         splitList.add(mp);
-        for (DesignerCanOrderInfo info : favorite_designerList) {
-            Map<String, String> map = new HashMap<String, String>();
-            map.put("itemId", info.get_id());
-            map.put("itemTitle", info.getUsername());
-            map.put("itemImg", info.getImageid());
-            map.put("itemMatch", "" + info.getMatch());
+        for (DesignerCanOrderInfo designerCanOrderInfo : favorite_designerList) {
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("Item", designerCanOrderInfo);
             mylist.add(map);
         }
     }
 
     @Override
     public void setListener() {
-        replace_designer_listview.setOnItemClickListener(this);
+
     }
 
     @Override
@@ -117,17 +124,6 @@ public class ReplaceDesignerActivity extends BaseActivity implements OnClickList
             default:
                 break;
         }
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        newDesignerid = mylist.get(position).get("itemId");
-        LogTool.d(TAG, "newDesignerid=" + newDesignerid);
-        if (totalCount > 0) {
-            totalCount--;
-        }
-        mainHeadView.setMianTitle(totalCount + getResources().getString(R.string.appoint));
-        mainHeadView.setRigthTitleEnable(true);
     }
 
     private void replaceDesignerDialog() {
@@ -169,7 +165,22 @@ public class ReplaceDesignerActivity extends BaseActivity implements OnClickList
                 rec_designer = designerCanOrderListInfo.getRec_designer();
                 favorite_designer = designerCanOrderListInfo.getFavorite_designer();
                 setReplaceDesignerList(rec_designer, favorite_designer);
-                designerByAppointOrReplaceAdapter = new DesignerByAppointOrReplaceAdapter(ReplaceDesignerActivity.this, mylist, splitList);
+                designerByAppointOrReplaceAdapter = new DesignerByAppointOrReplaceAdapter(ReplaceDesignerActivity.this, mylist, splitList, totalCount, new CheckListener() {
+                    @Override
+                    public void getCheckedData(List<DesignerCanOrderInfo> info) {
+                        int checkNum = info.size();
+                        LogTool.d(TAG, "checkNum:" + checkNum);
+                        if (null != info && info.size() > 0) {
+                            mainHeadView.setRigthTitleEnable(true);
+                            for (DesignerCanOrderInfo designerCanOrderInfo : info) {
+                                newDesignerid = designerCanOrderInfo.get_id();
+                            }
+                        } else {
+                            mainHeadView.setRigthTitleEnable(false);
+                        }
+                        mainHeadView.setMianTitle((totalCount - checkNum) + getResources().getString(R.string.appoint));
+                    }
+                });
                 replace_designer_listview.setAdapter(designerByAppointOrReplaceAdapter);
             }
         }

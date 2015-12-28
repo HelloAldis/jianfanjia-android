@@ -2,11 +2,12 @@ package com.jianfanjia.cn.activity.requirement;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Paint;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.Event.MessageEvent;
@@ -19,10 +20,12 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
+import com.jianfanjia.cn.interf.CheckListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.MainHeadView;
+import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
 
@@ -39,13 +42,13 @@ import de.greenrobot.event.EventBus;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class AppointDesignerActivity extends BaseActivity implements OnClickListener, OnItemClickListener {
+public class AppointDesignerActivity extends BaseActivity implements OnClickListener {
     private static final String TAG = AppointDesignerActivity.class.getName();
     private MainHeadView mainHeadView = null;
     private TextView moreText = null;
-    private ListView appoint_designer_listview = null;
-    private List<Map<String, String>> mylist = new ArrayList<Map<String, String>>();
-    private List<Map<String, String>> splitList = new ArrayList<Map<String, String>>();
+    private RecyclerView appoint_designer_listview = null;
+    private List<Map<String, Object>> mylist = new ArrayList<Map<String, Object>>();
+    private List<Map<String, Object>> splitList = new ArrayList<Map<String, Object>>();
     private List<DesignerCanOrderInfo> rec_designer = new ArrayList<DesignerCanOrderInfo>();
     private List<DesignerCanOrderInfo> favorite_designer = new ArrayList<DesignerCanOrderInfo>();
     private DesignerByAppointOrReplaceAdapter designerByAppointOrReplaceAdapter = null;
@@ -64,8 +67,19 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
         requestmentid = intent.getStringExtra(Global.REQUIREMENT_ID);
         LogTool.d(TAG, "requestmentid:" + requestmentid + " orderDesignerNum:" + orderDesignerNum);
         total = totalCount - orderDesignerNum;
+        LogTool.d(TAG, " total :" + total);
         initMainHeadView();
-        appoint_designer_listview = (ListView) findViewById(R.id.appoint_designer_listview);
+        appoint_designer_listview = (RecyclerView) findViewById(R.id.appoint_designer_listview);
+        appoint_designer_listview.setLayoutManager(new LinearLayoutManager(AppointDesignerActivity.this));
+        appoint_designer_listview.setItemAnimator(new DefaultItemAnimator());
+        Paint paint = new Paint();
+        paint.setStrokeWidth(1);
+        paint.setColor(getResources().getColor(R.color.light_white_color));
+        paint.setAntiAlias(true);
+        appoint_designer_listview.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this)
+                .paint(paint)
+                .showLastDivider()
+                .build());
         getOrderDesignerList(requestmentid);
     }
 
@@ -79,40 +93,34 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
         mainHeadView.setRightTitleVisable(View.VISIBLE);
         mainHeadView.setBackLayoutVisable(View.VISIBLE);
+        mainHeadView.setRigthTitleEnable(false);
     }
 
     private void setAppointDesignerList(List<DesignerCanOrderInfo> rec_designerList, List<DesignerCanOrderInfo> favorite_designerList) {
-        Map<String, String> mp = new HashMap<String, String>();
-        mp.put("itemTitle", "匹配设计师");
+        Map<String, Object> mp = new HashMap<String, Object>();
+        mp.put("Item", "匹配设计师");
         mylist.add(mp);
         splitList.add(mp);
-        for (DesignerCanOrderInfo info : rec_designerList) {
-            Map<String, String> map = new HashMap<String, String>();
-            map.put("itemId", info.get_id());
-            map.put("itemTitle", info.getUsername());
-            map.put("itemImg", info.getImageid());
-            map.put("itemMatch", "" + info.getMatch());
+        for (DesignerCanOrderInfo designerCanOrderInfo : rec_designerList) {
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("Item", designerCanOrderInfo);
             mylist.add(map);
         }
         //----------------------------------------------------
-        mp = new HashMap<String, String>();
-        mp.put("itemTitle", "意向设计师");
+        mp = new HashMap<String, Object>();
+        mp.put("Item", "意向设计师");
         mylist.add(mp);
         splitList.add(mp);
-        for (DesignerCanOrderInfo info : favorite_designerList) {
-            Map<String, String> map = new HashMap<String, String>();
-            map.put("itemId", info.get_id());
-            map.put("itemTitle", info.getUsername());
-            map.put("itemImg", info.getImageid());
-            map.put("itemMatch", "" + info.getMatch());
+        for (DesignerCanOrderInfo designerCanOrderInfo : favorite_designerList) {
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("Item", designerCanOrderInfo);
             mylist.add(map);
         }
     }
 
-
     @Override
     public void setListener() {
-        appoint_designer_listview.setOnItemClickListener(this);
+
     }
 
     @Override
@@ -122,34 +130,11 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
                 appManager.finishActivity(this);
                 break;
             case R.id.head_right_title:
-                if (checkedItemCount != 0) {
-                    appointDesignerDialog();
-                } else {
-                    makeTextShort("请选择设计师");
-                }
+                appointDesignerDialog();
                 break;
             default:
                 break;
         }
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        checkedItemCount = appoint_designer_listview.getCheckedItemCount();
-        if (checkedItemCount > total) {
-            makeTextShort("最多可选" + total + "名设计师");
-            return;
-        }
-        boolean checked = appoint_designer_listview.getCheckedItemPositions().get(position);
-        LogTool.d(TAG, "checked=" + checked);
-        String designerid = mylist.get(position).get("itemId");
-        LogTool.d(TAG, "designerid=" + designerid);
-        if (checked) {
-            designerids.add(designerid);
-        } else {
-            designerids.remove(designerid);
-        }
-        mainHeadView.setMianTitle((total - checkedItemCount) + getResources().getString(R.string.appoint));
     }
 
     private void appointDesignerDialog() {
@@ -191,7 +176,22 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
                 rec_designer = designerCanOrderListInfo.getRec_designer();
                 favorite_designer = designerCanOrderListInfo.getFavorite_designer();
                 setAppointDesignerList(rec_designer, favorite_designer);
-                designerByAppointOrReplaceAdapter = new DesignerByAppointOrReplaceAdapter(AppointDesignerActivity.this, mylist, splitList);
+                designerByAppointOrReplaceAdapter = new DesignerByAppointOrReplaceAdapter(AppointDesignerActivity.this, mylist, splitList, total, new CheckListener() {
+                    @Override
+                    public void getCheckedData(List<DesignerCanOrderInfo> info) {
+                        int checkNum = info.size();
+                        LogTool.d(TAG, "checkNum=" + checkNum);
+                        if (null != info && info.size() > 0) {
+                            mainHeadView.setRigthTitleEnable(true);
+                            for (DesignerCanOrderInfo designerCanOrderInfo : info) {
+                                designerids.add(designerCanOrderInfo.get_id());
+                            }
+                        } else {
+                            mainHeadView.setRigthTitleEnable(false);
+                        }
+                        mainHeadView.setMianTitle((total - checkNum) + getResources().getString(R.string.appoint));
+                    }
+                });
                 appoint_designer_listview.setAdapter(designerByAppointOrReplaceAdapter);
             }
         }
