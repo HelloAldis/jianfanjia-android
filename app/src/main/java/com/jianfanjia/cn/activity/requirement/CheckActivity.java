@@ -232,6 +232,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener, Item
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.head_back_layout:
+                setResult(RESULT_CANCELED);
                 appManager.finishActivity(this);
                 break;
             case R.id.btn_confirm:
@@ -275,9 +276,8 @@ public class CheckActivity extends BaseActivity implements OnClickListener, Item
 
             @Override
             public void loadSuccess(Object data) {
-                btn_confirm.setEnabled(false);
-                btn_confirm.setText(getResources().getString(
-                        R.string.confirm_finish));
+                setResult(RESULT_OK);
+                appManager.finishActivity(CheckActivity.this);
             }
 
             @Override

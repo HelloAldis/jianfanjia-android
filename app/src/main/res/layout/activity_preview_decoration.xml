@@ -85,7 +85,7 @@
             style="@style/listview_item_text_style_big"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="left"
+            android:gravity="left"
             android:textColor="@color/font_white" />
 
         <TextView
@@ -93,7 +93,7 @@
             style="@style/listview_item_text_style_middle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="left"
+            android:gravity="left"
             android:layout_marginTop="@dimen/space_8"
             android:textColor="@color/font_white" />
 

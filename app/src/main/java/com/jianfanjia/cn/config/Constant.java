@@ -49,6 +49,7 @@ public class Constant {
     public static final int REQUESTCODE_CROP = 3;// 裁剪
     public static final int REQUESTCODE_SHOW_PROCESS_PIC = 8;//显示照片列表
     public static final int REQUESTCODE_GOTO_COMMENT = 7;//调用评论
+    public static final int REQUESTCODE_CHECK = 9;//调用评论
 
     public static final int REQUIRECODE_CITY = 0x00;
     public static final int REQUIRECODE_HOUSETYPE = 0x01;
