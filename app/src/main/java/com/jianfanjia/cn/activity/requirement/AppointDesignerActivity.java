@@ -8,7 +8,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.TextView;
 
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
@@ -45,7 +44,6 @@ import de.greenrobot.event.EventBus;
 public class AppointDesignerActivity extends BaseActivity implements OnClickListener {
     private static final String TAG = AppointDesignerActivity.class.getName();
     private MainHeadView mainHeadView = null;
-    private TextView moreText = null;
     private RecyclerView appoint_designer_listview = null;
     private List<Map<String, Object>> mylist = new ArrayList<Map<String, Object>>();
     private List<Map<String, Object>> splitList = new ArrayList<Map<String, Object>>();
@@ -76,10 +74,7 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
         paint.setStrokeWidth(1);
         paint.setColor(getResources().getColor(R.color.light_white_color));
         paint.setAntiAlias(true);
-        appoint_designer_listview.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this)
-                .paint(paint)
-                .showLastDivider()
-                .build());
+        appoint_designer_listview.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this).paint(paint).showLastDivider().build());
         getOrderDesignerList(requestmentid);
     }
 

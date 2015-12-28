@@ -62,10 +62,7 @@ public class ReplaceDesignerActivity extends BaseActivity implements OnClickList
         paint.setStrokeWidth(1);
         paint.setColor(getResources().getColor(R.color.light_white_color));
         paint.setAntiAlias(true);
-        replace_designer_listview.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this)
-                .paint(paint)
-                .showLastDivider()
-                .build());
+        replace_designer_listview.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this).paint(paint).showLastDivider().build());
         Intent intent = this.getIntent();
         requestmentid = intent.getStringExtra(Global.REQUIREMENT_ID);
         designerid = intent.getStringExtra(Global.DESIGNER_ID);
