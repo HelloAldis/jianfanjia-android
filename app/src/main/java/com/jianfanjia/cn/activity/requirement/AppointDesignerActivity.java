@@ -184,6 +184,7 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
                         if (null != info && info.size() > 0) {
                             mainHeadView.setRigthTitleEnable(true);
                             for (DesignerCanOrderInfo designerCanOrderInfo : info) {
+                                designerids.clear();
                                 designerids.add(designerCanOrderInfo.get_id());
                             }
                         } else {
