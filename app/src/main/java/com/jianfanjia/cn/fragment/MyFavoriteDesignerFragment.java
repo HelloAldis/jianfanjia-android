@@ -55,7 +55,7 @@ public class MyFavoriteDesignerFragment extends BaseFragment {
         my_favorite_designer_listview.setLayoutManager(new LinearLayoutManager(getActivity()));
         my_favorite_designer_listview.setItemAnimator(new DefaultItemAnimator());
         Paint paint = new Paint();
-        paint.setStrokeWidth(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, getResources().getDisplayMetrics()));
+        paint.setStrokeWidth(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, getResources().getDisplayMetrics()));
         paint.setAlpha(0);
         paint.setAntiAlias(true);
         my_favorite_designer_listview.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).paint(paint).showLastDivider().build());

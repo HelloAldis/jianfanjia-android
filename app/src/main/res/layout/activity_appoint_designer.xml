@@ -11,20 +11,12 @@
         android:layout_height="wrap_content"
         android:background="@color/head_layout_bg" />
 
-    <ListView
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/appoint_designer_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="10dip"
-        android:layout_marginTop="10dip"
-        android:background="@color/font_white"
-        android:cacheColorHint="#00000000"
-        android:choiceMode="multipleChoice"
-        android:clipToPadding="false"
-        android:divider="@color/horzontal_line_color"
-        android:dividerHeight="0.5dip"
-        android:fadingEdge="none"
-        android:fastScrollEnabled="false"
+        android:layout_marginBottom="8dip"
+        android:layout_marginTop="8dip"
         android:scrollbars="none" />
 
 </LinearLayout>

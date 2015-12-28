@@ -4,7 +4,6 @@
     android:layout_height="wrap_content"
     android:background="@drawable/my_item_layout_bg">
 
-    <View style="@style/divier_line" />
 
     <RelativeLayout
         android:layout_width="match_parent"

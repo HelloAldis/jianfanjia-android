@@ -60,7 +60,6 @@ public class DesignerInfoActivity extends BaseActivity implements OnClickListene
     private DesignerWorksFragment workFragment = null;
     private String designerid = null;
 
-
     @Override
     public void initView() {
         LogTool.d(TAG, "designerid=" + designerid);
@@ -88,7 +87,7 @@ public class DesignerInfoActivity extends BaseActivity implements OnClickListene
         initData(this.getIntent());
     }
 
-    private void initData(Intent intent){
+    private void initData(Intent intent) {
         Bundle designerBundle = intent.getExtras();
         designerid = designerBundle.getString(Global.DESIGNER_ID);
         setupViewPager(viewPager);

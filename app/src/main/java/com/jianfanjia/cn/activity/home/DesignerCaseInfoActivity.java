@@ -95,7 +95,7 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
         initData(this.getIntent());
     }
 
-    private void initData(Intent intent){
+    private void initData(Intent intent) {
         Bundle productBundle = intent.getExtras();
         productid = productBundle.getString(Global.PRODUCT_ID);
         LogTool.d(TAG, "productid=" + productid);
@@ -127,7 +127,7 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.toolbar_collect_layout:
-                UiHelper.imageButtonAnim(toolbar_collect,null);
+                UiHelper.imageButtonAnim(toolbar_collect, null);
                 if (toolbar_collect.isSelected()) {
                     deleteProductDesigner(productid);
                 } else {
