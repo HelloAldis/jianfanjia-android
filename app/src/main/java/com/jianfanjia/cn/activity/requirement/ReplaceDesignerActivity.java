@@ -167,14 +167,12 @@ public class ReplaceDesignerActivity extends BaseActivity implements OnClickList
                 setReplaceDesignerList(rec_designer, favorite_designer);
                 designerByAppointOrReplaceAdapter = new DesignerByAppointOrReplaceAdapter(ReplaceDesignerActivity.this, mylist, splitList, totalCount, new CheckListener() {
                     @Override
-                    public void getCheckedData(List<DesignerCanOrderInfo> info) {
-                        int checkNum = info.size();
+                    public void getCheckedData(List<String> designerids) {
+                        int checkNum = designerids.size();
                         LogTool.d(TAG, "checkNum:" + checkNum);
-                        if (null != info && info.size() > 0) {
+                        if (null != designerids && designerids.size() > 0) {
                             mainHeadView.setRigthTitleEnable(true);
-                            for (DesignerCanOrderInfo designerCanOrderInfo : info) {
-                                newDesignerid = designerCanOrderInfo.get_id();
-                            }
+                            newDesignerid = designerids.get(0);
                         } else {
                             mainHeadView.setRigthTitleEnable(false);
                         }

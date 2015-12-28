@@ -29,7 +29,7 @@ import java.util.Map;
 public class DesignerByAppointOrReplaceAdapter extends BaseRecyclerViewAdapter<Map<String, Object>> {
     private static final String TAG = DesignerByAppointOrReplaceAdapter.class.getName();
     private CheckListener listener;
-    private List<DesignerCanOrderInfo> checkedList = new ArrayList<DesignerCanOrderInfo>();// 选中的数据
+    private List<String> checkedList = new ArrayList<String>();// 选中的数据
     private static final int TYPE_TAG = 0;
     private static final int TYPE_TITLE = 1;
     private List<Map<String, Object>> splitList = new ArrayList<Map<String, Object>>();
@@ -66,6 +66,7 @@ public class DesignerByAppointOrReplaceAdapter extends BaseRecyclerViewAdapter<M
             case TYPE_TITLE:
                 final DesignerByAppointOrReplaceViewHolder holder = (DesignerByAppointOrReplaceViewHolder) viewHolder;
                 final DesignerCanOrderInfo designerCanOrderInfo = (DesignerCanOrderInfo) list.get(position).get("Item");
+                final String designerId = designerCanOrderInfo.get_id();
                 holder.itemCheck.setTag(new Integer(position));//设置tag 否则划回来时选中消失
                 holder.itemNameText.setText(designerCanOrderInfo.getUsername());
                 if (designerCanOrderInfo.getMatch() != 0) {
@@ -91,13 +92,13 @@ public class DesignerByAppointOrReplaceAdapter extends BaseRecyclerViewAdapter<M
                                                  boolean isChecked) {
                         if (isChecked && checkedList.size() < canOrderCount) {
                             if (!checkPositionlist.contains(holder.itemCheck.getTag())) {
-                                checkedList.add(designerCanOrderInfo);
+                                checkedList.add(designerId);
                                 checkPositionlist.add(new Integer(position));
                             }
                             holder.itemCheck.setChecked(true);
                         } else {
                             if (checkPositionlist.contains(holder.itemCheck.getTag())) {
-                                checkedList.remove(designerCanOrderInfo);
+                                checkedList.remove(designerId);
                                 checkPositionlist.remove(new Integer(position));
                             }
                             holder.itemCheck.setChecked(false);

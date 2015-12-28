@@ -58,7 +58,7 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
     private int total = 0;
     private int checkedItemCount = 0;//已选数
 
-    private List<String> designerids = new ArrayList<String>();
+    private List<String> designerIds = new ArrayList<String>();
 
     @Override
     public void initView() {
@@ -148,7 +148,7 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        orderDesignerByUser(requestmentid, designerids);
+                        orderDesignerByUser(requestmentid, designerIds);
                     }
                 });
         dialog.setNegativeButton(R.string.no, null);
@@ -178,15 +178,12 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
                 setAppointDesignerList(rec_designer, favorite_designer);
                 designerByAppointOrReplaceAdapter = new DesignerByAppointOrReplaceAdapter(AppointDesignerActivity.this, mylist, splitList, total, new CheckListener() {
                     @Override
-                    public void getCheckedData(List<DesignerCanOrderInfo> info) {
-                        int checkNum = info.size();
+                    public void getCheckedData(List<String> designerids) {
+                        int checkNum = designerids.size();
                         LogTool.d(TAG, "checkNum=" + checkNum);
-                        if (null != info && info.size() > 0) {
+                        if (null != designerids && designerids.size() > 0) {
                             mainHeadView.setRigthTitleEnable(true);
-                            for (DesignerCanOrderInfo designerCanOrderInfo : info) {
-                                designerids.clear();
-                                designerids.add(designerCanOrderInfo.get_id());
-                            }
+                            designerIds = designerids;
                         } else {
                             mainHeadView.setRigthTitleEnable(false);
                         }
