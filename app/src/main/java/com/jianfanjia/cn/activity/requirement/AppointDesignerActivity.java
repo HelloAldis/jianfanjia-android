@@ -98,22 +98,22 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
 
     private void setAppointDesignerList(List<DesignerCanOrderInfo> rec_designerList, List<DesignerCanOrderInfo> favorite_designerList) {
         Map<String, Object> mp = new HashMap<String, Object>();
-        mp.put("Item", "匹配设计师");
+        mp.put(Constant.KEY, getResources().getString(R.string.marchDesignerText));
         mylist.add(mp);
         splitList.add(mp);
         for (DesignerCanOrderInfo designerCanOrderInfo : rec_designerList) {
             Map<String, Object> map = new HashMap<String, Object>();
-            map.put("Item", designerCanOrderInfo);
+            map.put(Constant.KEY, designerCanOrderInfo);
             mylist.add(map);
         }
         //----------------------------------------------------
         mp = new HashMap<String, Object>();
-        mp.put("Item", "意向设计师");
+        mp.put(Constant.KEY, getResources().getString(R.string.intentionDesignerText));
         mylist.add(mp);
         splitList.add(mp);
         for (DesignerCanOrderInfo designerCanOrderInfo : favorite_designerList) {
             Map<String, Object> map = new HashMap<String, Object>();
-            map.put("Item", designerCanOrderInfo);
+            map.put(Constant.KEY, designerCanOrderInfo);
             mylist.add(map);
         }
     }

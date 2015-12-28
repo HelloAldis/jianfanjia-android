@@ -60,12 +60,12 @@ public class DesignerByAppointOrReplaceAdapter extends BaseRecyclerViewAdapter<M
         switch (viewHolder.getItemViewType()) {
             case TYPE_TAG:
                 DesignerByAppointOrReplaceTagViewHolder tagViewHolder = (DesignerByAppointOrReplaceTagViewHolder) viewHolder;
-                String tag = (String) list.get(position).get("Item");
+                String tag = (String) list.get(position).get(Constant.KEY);
                 tagViewHolder.itemNameText.setText(tag);
                 break;
             case TYPE_TITLE:
                 final DesignerByAppointOrReplaceViewHolder holder = (DesignerByAppointOrReplaceViewHolder) viewHolder;
-                final DesignerCanOrderInfo designerCanOrderInfo = (DesignerCanOrderInfo) list.get(position).get("Item");
+                final DesignerCanOrderInfo designerCanOrderInfo = (DesignerCanOrderInfo) list.get(position).get(Constant.KEY);
                 final String designerId = designerCanOrderInfo.get_id();
                 holder.itemCheck.setTag(new Integer(position));//设置tag 否则划回来时选中消失
                 holder.itemNameText.setText(designerCanOrderInfo.getUsername());

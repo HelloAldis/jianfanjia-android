@@ -14,6 +14,7 @@ import com.jianfanjia.cn.adapter.DesignerByAppointOrReplaceAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.DesignerCanOrderInfo;
 import com.jianfanjia.cn.bean.DesignerCanOrderListInfo;
+import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
@@ -87,22 +88,22 @@ public class ReplaceDesignerActivity extends BaseActivity implements OnClickList
 
     private void setReplaceDesignerList(List<DesignerCanOrderInfo> rec_designerList, List<DesignerCanOrderInfo> favorite_designerList) {
         Map<String, Object> mp = new HashMap<String, Object>();
-        mp.put("Item", "匹配设计师");
+        mp.put(Constant.KEY, getResources().getString(R.string.marchDesignerText));
         mylist.add(mp);
         splitList.add(mp);
         for (DesignerCanOrderInfo designerCanOrderInfo : rec_designerList) {
             Map<String, Object> map = new HashMap<String, Object>();
-            map.put("Item", designerCanOrderInfo);
+            map.put(Constant.KEY, designerCanOrderInfo);
             mylist.add(map);
         }
         //----------------------------------------------------
         mp = new HashMap<String, Object>();
-        mp.put("Item", "意向设计师");
+        mp.put(Constant.KEY, getResources().getString(R.string.intentionDesignerText));
         mylist.add(mp);
         splitList.add(mp);
         for (DesignerCanOrderInfo designerCanOrderInfo : favorite_designerList) {
             Map<String, Object> map = new HashMap<String, Object>();
-            map.put("Item", designerCanOrderInfo);
+            map.put(Constant.KEY, designerCanOrderInfo);
             mylist.add(map);
         }
     }
