@@ -63,7 +63,19 @@ public class MyFavoriteDesignerFragment extends BaseFragment {
         paint.setColor(getResources().getColor(R.color.light_white_color));
         paint.setAntiAlias(true);
         my_favorite_designer_listview.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).paint(paint).showLastDivider().build());
-        getMyFavoriteDesignerList();
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            // fragment可见时加载数据
+            LogTool.d(TAG, "MyFavoriteDesignerFragment 可见");
+            getMyFavoriteDesignerList();
+        } else {
+            // 不可见时不执行操作
+            LogTool.d(TAG, "MyFavoriteDesignerFragment 不可见");
+        }
     }
 
     @Override

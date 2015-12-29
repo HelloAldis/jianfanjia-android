@@ -58,7 +58,17 @@ public class DecorationImgFragment extends BaseFragment implements ApiUiUpdateLi
         decoration_img_listview.setItemAnimator(new DefaultItemAnimator());
         SpacesItemDecoration decoration = new SpacesItemDecoration(10);
         decoration_img_listview.addItemDecoration(decoration);
-        getDecorationImgList();
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            LogTool.d(TAG, "DecorationImgFragment 可见");
+            getDecorationImgList();
+        } else {
+            LogTool.d(TAG, "DecorationImgFragment 不可见");
+        }
     }
 
     @Override

@@ -64,7 +64,17 @@ public class ProductFragment extends BaseFragment implements ApiUiUpdateListener
         paint.setAlpha(0);
         paint.setAntiAlias(true);
         prodtct_listview.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).paint(paint).showLastDivider().build());
-        getProductList();
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            LogTool.d(TAG, "ProductFragment 可见");
+            getProductList();
+        } else {
+            LogTool.d(TAG, "ProductFragment 不可见");
+        }
     }
 
     private void getProductList() {
