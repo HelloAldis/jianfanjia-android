@@ -14,13 +14,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:src="@mipmap/icon_img" />
+            android:src="@mipmap/icon_product" />
 
         <TextView
             style="@style/listview_item_text_style_middle"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dip"
-            android:text="@string/error_view_no_data"
+            android:text="@string/error_view_no_product_data"
             android:textColor="@color/designer_info_text_color_bg"
             android:textSize="@dimen/middle_size" />
 

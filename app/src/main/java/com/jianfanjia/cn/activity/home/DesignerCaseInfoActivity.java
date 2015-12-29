@@ -42,6 +42,7 @@ import de.greenrobot.event.EventBus;
 public class DesignerCaseInfoActivity extends BaseActivity implements OnClickListener, AppBarLayout.OnOffsetChangedListener {
     private static final String TAG = DesignerCaseInfoActivity.class.getName();
     private Toolbar toolbar = null;
+    private TextView toolbar_title = null;
     private ImageView toolbar_collect = null;
     private RelativeLayout toolbar_collect_layout = null;
     private AppBarLayout appBarLayout = null;
@@ -68,6 +69,8 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
     public void initView() {
         activity_case_info_top_layout = (RelativeLayout) findViewById(R.id.top_info_layout);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("");
+        toolbar_title = (TextView) findViewById(R.id.toolbar_title);
         toolbar_collect_layout = (RelativeLayout) findViewById(R.id.toolbar_collect_layout);
         toolbar_collect = (ImageView) findViewById(R.id.toolbar_collect);
         toolbar.setNavigationIcon(R.mipmap.icon_register_back);
@@ -168,19 +171,19 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
     @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int verticaloffset) {
         if (verticaloffset == 0) {
-            toolbar.setTitle("");
+            toolbar_title.setText("");
             if (state != State.COLLAPSED) {
                 activity_case_info_top_layout.setVisibility(View.INVISIBLE);
             }
             state = State.COLLAPSED;
         } else if (Math.abs(verticaloffset) >= appBarLayout.getTotalScrollRange()) {
-            toolbar.setTitle(cell_name);
+            toolbar_title.setText(cell_name);
             if (state != State.EXPANDED) {
                 activity_case_info_top_layout.setVisibility(View.VISIBLE);
             }
             state = State.EXPANDED;
         } else {
-            toolbar.setTitle("");
+            toolbar_title.setText("");
             if (state != State.IDLE) {
                 activity_case_info_top_layout.setVisibility(View.INVISIBLE);
             }
