@@ -60,7 +60,7 @@ public class ProductFragment extends BaseFragment implements ApiUiUpdateListener
         prodtct_listview.setLayoutManager(new LinearLayoutManager(getActivity()));
         prodtct_listview.setItemAnimator(new DefaultItemAnimator());
         Paint paint = new Paint();
-        paint.setStrokeWidth(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, getResources().getDisplayMetrics()));
+        paint.setStrokeWidth(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getResources().getDisplayMetrics()));
         paint.setAlpha(0);
         paint.setAntiAlias(true);
         prodtct_listview.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).paint(paint).showLastDivider().build());
