@@ -69,6 +69,7 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
     public void initView() {
         activity_case_info_top_layout = (RelativeLayout) findViewById(R.id.top_info_layout);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("");
         toolbar_title = (TextView) findViewById(R.id.toolbar_title);
         toolbar_collect_layout = (RelativeLayout) findViewById(R.id.toolbar_collect_layout);
         toolbar_collect = (ImageView) findViewById(R.id.toolbar_collect);
@@ -206,7 +207,6 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
             if (null != designerCaseInfo) {
                 cell_name = designerCaseInfo.getCell();
                 cellName.setText(cell_name);
-                toolbar.setTitle("");
                 toolbar_collect_layout.setVisibility(View.VISIBLE);
                 if (designerCaseInfo.is_my_favorite()) {
                     toolbar_collect.setSelected(true);

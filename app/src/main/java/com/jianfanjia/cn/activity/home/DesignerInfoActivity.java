@@ -68,6 +68,7 @@ public class DesignerInfoActivity extends BaseActivity implements OnClickListene
         LogTool.d(TAG, "designerid=" + designerid);
         //---------------------------------
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("");
         toolbar_title = (TextView) findViewById(R.id.toolbar_title);
         toolbar.setNavigationIcon(R.mipmap.icon_register_back);
         setSupportActionBar(toolbar);
@@ -181,7 +182,6 @@ public class DesignerInfoActivity extends BaseActivity implements OnClickListene
             if (null != designerInfo) {
                 designer_name = designerInfo.getUsername();
                 designerName.setText(designer_name);
-                toolbar.setTitle("");
                 String designerid = designerInfo.getImageid();
                 if (!TextUtils.isEmpty(designerid)) {
                     imageShow.displayImageHeadWidthThumnailImage(DesignerInfoActivity.this, designerInfo.getImageid(), designerinfo_head_img);
