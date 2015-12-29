@@ -109,7 +109,7 @@ public class Url_New {
     //业主获取我的方案
     public String USER_REQUIREMENT_PLANS = HTTPROOT + "user_requirement_plans";
     //业主选定方案
-    public String USER_CHOOSE_PLAN = HTTPROOT + "user/plan/";
+    public String USER_CHOOSE_PLAN = HTTPROOT + "user/plan/final";
     //用户获取某个方案的信息
     public String ONE_PLAN_INFO = HTTPROOT + "one_plan";
     //用户获取合同
