@@ -59,7 +59,7 @@ public class DesignerWorksFragment extends BaseFragment implements OnItemClickLi
         designer_works_listview.setItemAnimator(new DefaultItemAnimator());
         designer_works_listview.setHasFixedSize(true);
         Paint paint = new Paint();
-        paint.setStrokeWidth(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, getResources().getDisplayMetrics()));
+        paint.setStrokeWidth(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getResources().getDisplayMetrics()));
         paint.setAlpha(0);
         paint.setAntiAlias(true);
         designer_works_listview.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).paint(paint).showLastDivider().build());
