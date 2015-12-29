@@ -108,18 +108,17 @@ public class DecorationImgFragment extends BaseFragment implements ApiUiUpdateLi
                 decoration_img_listview.setAdapter(decorationImgAdapter);
                 decoration_img_listview.setVisibility(View.VISIBLE);
                 emptyLayout.setVisibility(View.GONE);
-                errorLayout.setVisibility(View.GONE);
             } else {
                 decoration_img_listview.setVisibility(View.GONE);
                 emptyLayout.setVisibility(View.VISIBLE);
-                errorLayout.setVisibility(View.GONE);
             }
+            errorLayout.setVisibility(View.GONE);
         }
     }
 
     @Override
     public void loadFailture(String error_msg) {
-        makeTextLong(error_msg);
+        makeTextShort(error_msg);
         decoration_img_listview.setVisibility(View.GONE);
         emptyLayout.setVisibility(View.GONE);
         errorLayout.setVisibility(View.VISIBLE);

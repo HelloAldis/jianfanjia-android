@@ -210,12 +210,11 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
                     }
                     decoration_listview.setVisibility(View.VISIBLE);
                     emptyLayout.setVisibility(View.GONE);
-                    errorLayout.setVisibility(View.GONE);
                 } else {
                     decoration_listview.setVisibility(View.GONE);
-                    errorLayout.setVisibility(View.GONE);
                     emptyLayout.setVisibility(View.VISIBLE);
                 }
+                errorLayout.setVisibility(View.GONE);
                 FROM = beautyImgList.size();
                 LogTool.d(TAG, "FROM:" + FROM);
             }
@@ -224,8 +223,10 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
 
         @Override
         public void loadFailture(String error_msg) {
-            makeTextLong(error_msg);
+            makeTextShort(error_msg);
             hideWaitDialog();
+            errorLayout.setVisibility(View.VISIBLE);
+            emptyLayout.setVisibility(View.GONE);
             decoration_listview.onRefreshComplete();
         }
     };
@@ -253,7 +254,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
 
         @Override
         public void loadFailture(String error_msg) {
-            makeTextLong(error_msg);
+            makeTextShort(error_msg);
             decoration_listview.onRefreshComplete();
         }
     };
