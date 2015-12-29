@@ -25,19 +25,13 @@
             ptr:ptrAnimationStyle="flip"
             ptr:ptrHeaderTextColor="#344a5d" />
 
-        <com.jianfanjia.cn.view.empty.EmptyLayout
-            android:id="@+id/error_include"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="visible" />
-
-        <!--<include
+        <include
             android:id="@+id/error_include"
             layout="@layout/view_error_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:visibility="gone" />-->
+            android:visibility="gone" />
     </FrameLayout>
 
     <LinearLayout
