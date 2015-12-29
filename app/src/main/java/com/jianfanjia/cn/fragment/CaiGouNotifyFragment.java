@@ -36,6 +36,7 @@ public class CaiGouNotifyFragment extends BaseFragment implements PullToRefreshB
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        setUserVisibleHint(true);
         caiGouAdapter = new CaiGouNotifyAdapter(getActivity(), caigouList);
         caigouListView.setAdapter(caiGouAdapter);
     }

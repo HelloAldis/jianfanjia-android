@@ -1,14 +1,13 @@
 package com.jianfanjia.cn.activity.home;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -42,15 +41,17 @@ import de.greenrobot.event.EventBus;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class DesignerInfoActivity extends BaseActivity implements OnClickListener {
+public class DesignerInfoActivity extends BaseActivity implements OnClickListener, AppBarLayout.OnOffsetChangedListener {
     private static final String TAG = DesignerInfoActivity.class.getName();
     private Toolbar toolbar = null;
     private CollapsingToolbarLayout collapsingToolbar = null;
+    private AppBarLayout appBarLayout = null;
     private TabLayout tabLayout = null;
     private ViewPager viewPager = null;
     private RatingBar ratingBar = null;
     private ImageView designerinfo_head_img = null;
     private ImageView designerinfo_auth = null;
+    private TextView designerName = null;
     private TextView viewCountText = null;
     private TextView productCountText = null;
     private TextView appointCountText = null;
@@ -59,6 +60,7 @@ public class DesignerInfoActivity extends BaseActivity implements OnClickListene
     private DesignerInfoFragment infoFragment = null;
     private DesignerWorksFragment workFragment = null;
     private String designerid = null;
+    private String designer_name = null;
 
     @Override
     public void initView() {
@@ -68,17 +70,19 @@ public class DesignerInfoActivity extends BaseActivity implements OnClickListene
         toolbar.setNavigationIcon(R.mipmap.icon_register_back);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         collapsingToolbar =
                 (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        collapsingToolbar.setExpandedTitleTextAppearance(R.style.listview_item_text_style_title);
-        collapsingToolbar.setExpandedTitleGravity(Gravity.CENTER_HORIZONTAL);
-        collapsingToolbar.setCollapsedTitleTextColor(Color.BLACK);
-        collapsingToolbar.setExpandedTitleColor(Color.BLACK);
+//        collapsingToolbar.setExpandedTitleTextAppearance(R.style.listview_item_text_style_title);
+//        collapsingToolbar.setExpandedTitleGravity(Gravity.CENTER_HORIZONTAL);
+//        collapsingToolbar.setCollapsedTitleTextColor(Color.BLACK);
+//        collapsingToolbar.setExpandedTitleColor(Color.BLACK);
         designerinfo_head_img = (ImageView) findViewById(R.id.designerinfo_head_img);
         designerinfo_auth = (ImageView) findViewById(R.id.designerinfo_auth);
         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
+        designerName = (TextView) findViewById(R.id.designer_name);
         viewCountText = (TextView) findViewById(R.id.viewCountText);
         productCountText = (TextView) findViewById(R.id.productCountText);
         appointCountText = (TextView) findViewById(R.id.appointCountText);
@@ -118,6 +122,7 @@ public class DesignerInfoActivity extends BaseActivity implements OnClickListene
     public void setListener() {
         addBtn.setOnClickListener(this);
         deleteBtn.setOnClickListener(this);
+        appBarLayout.addOnOffsetChangedListener(this);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -137,6 +142,18 @@ public class DesignerInfoActivity extends BaseActivity implements OnClickListene
                 break;
             default:
                 break;
+        }
+    }
+
+
+    @Override
+    public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+        if (verticalOffset == 0) {
+            toolbar.setTitle("");
+        } else if (Math.abs(verticalOffset) >= appBarLayout.getTotalScrollRange()) {
+            toolbar.setTitle(designer_name);
+        } else {
+            toolbar.setTitle("");
         }
     }
 
@@ -164,7 +181,8 @@ public class DesignerInfoActivity extends BaseActivity implements OnClickListene
             DesignerInfo designerInfo = JsonParser.jsonToBean(data.toString(), DesignerInfo.class);
             LogTool.d(TAG, "designerInfo:" + designerInfo);
             if (null != designerInfo) {
-                collapsingToolbar.setTitle(designerInfo.getUsername());
+                designer_name = designerInfo.getUsername();
+                designerName.setText(designer_name);
                 String designerid = designerInfo.getImageid();
                 if (!TextUtils.isEmpty(designerid)) {
                     imageShow.displayImageHeadWidthThumnailImage(DesignerInfoActivity.this, designerInfo.getImageid(), designerinfo_head_img);
