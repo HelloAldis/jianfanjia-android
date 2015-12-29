@@ -613,8 +613,8 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
 
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                loadCurrentProcess(MyProcessDetailActivity.this);
                                 dialog.dismiss();
+                                loadCurrentProcess(MyProcessDetailActivity.this);
                             }
                         });
             }
@@ -638,6 +638,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
+                            loadCurrentProcess(MyProcessDetailActivity.this);
                         }
                     });
         } else if (msgType.equals(Constant.CONFIRM_CHECK_NOTIFY)) {
