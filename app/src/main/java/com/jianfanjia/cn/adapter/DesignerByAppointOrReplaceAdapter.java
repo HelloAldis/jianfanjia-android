@@ -86,6 +86,14 @@ public class DesignerByAppointOrReplaceAdapter extends BaseRecyclerViewAdapter<M
                 } else {
                     holder.itemAuthView.setVisibility(View.GONE);
                 }
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (null != listener) {
+                            listener.getItemData(designerId);
+                        }
+                    }
+                });
                 holder.itemCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView,
@@ -109,7 +117,7 @@ public class DesignerByAppointOrReplaceAdapter extends BaseRecyclerViewAdapter<M
                     }
                 });
 
-                if (checkPositionlist != null) {//checkbox  复用问题
+                if (checkPositionlist != null) {//checkbox复用问题
                     holder.itemCheck.setChecked((checkPositionlist.contains(new Integer(position)) ? true : false));
                 } else {
                     holder.itemCheck.setChecked(false);

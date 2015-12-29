@@ -165,10 +165,7 @@ public class MyDesignerActivity extends BaseAnnotationActivity {
         paint.setStrokeWidth(1);
         paint.setColor(getResources().getColor(R.color.light_white_color));
         paint.setAntiAlias(true);
-        refreshView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this)
-                .paint(paint)
-                .showLastDivider()
-                .build());
+        refreshView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this).paint(paint).showLastDivider().build());
     }
 
     @Click(R.id.error_include)

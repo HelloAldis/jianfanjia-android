@@ -3,6 +3,7 @@ package com.jianfanjia.cn.activity.requirement;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Paint;
+import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +12,7 @@ import android.view.View.OnClickListener;
 
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.home.DesignerInfoActivity;
 import com.jianfanjia.cn.adapter.DesignerByAppointOrReplaceAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.DesignerCanOrderInfo;
@@ -172,6 +174,15 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
                 favorite_designer = designerCanOrderListInfo.getFavorite_designer();
                 setAppointDesignerList(rec_designer, favorite_designer);
                 designerByAppointOrReplaceAdapter = new DesignerByAppointOrReplaceAdapter(AppointDesignerActivity.this, mylist, splitList, total, new CheckListener() {
+
+                    @Override
+                    public void getItemData(String designerid) {
+                        LogTool.d(TAG, "designerid=" + designerid);
+                        Bundle designerBundle = new Bundle();
+                        designerBundle.putString(Global.DESIGNER_ID, designerid);
+                        startActivity(DesignerInfoActivity.class, designerBundle);
+                    }
+
                     @Override
                     public void getCheckedData(List<String> designerids) {
                         int checkNum = designerids.size();

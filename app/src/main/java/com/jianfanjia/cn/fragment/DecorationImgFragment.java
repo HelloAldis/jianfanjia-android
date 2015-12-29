@@ -6,6 +6,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
@@ -37,6 +38,8 @@ import de.greenrobot.event.EventBus;
 public class DecorationImgFragment extends BaseFragment implements ApiUiUpdateListener, RecyclerViewOnItemClickListener {
     private static final String TAG = DecorationImgFragment.class.getName();
     private RecyclerView decoration_img_listview = null;
+    private RelativeLayout emptyLayout = null;
+    private RelativeLayout errorLayout = null;
     private List<BeautyImgInfo> beautyImgList = new ArrayList<BeautyImgInfo>();
     private DecorationImgAdapter decorationImgAdapter = null;
 
@@ -48,6 +51,8 @@ public class DecorationImgFragment extends BaseFragment implements ApiUiUpdateLi
 
     @Override
     public void initView(View view) {
+        emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
+        errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
         decoration_img_listview = (RecyclerView) view.findViewById(R.id.decoration_img_listview);
         decoration_img_listview.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         decoration_img_listview.setItemAnimator(new DefaultItemAnimator());
@@ -77,14 +82,26 @@ public class DecorationImgFragment extends BaseFragment implements ApiUiUpdateLi
         LogTool.d(TAG, "decorationItemInfo:" + decorationItemInfo);
         if (null != decorationItemInfo) {
             beautyImgList = decorationItemInfo.getBeautiful_images();
-            decorationImgAdapter = new DecorationImgAdapter(getActivity(), beautyImgList, this);
-            decoration_img_listview.setAdapter(decorationImgAdapter);
+            if (null != beautyImgList && beautyImgList.size() > 0) {
+                decorationImgAdapter = new DecorationImgAdapter(getActivity(), beautyImgList, this);
+                decoration_img_listview.setAdapter(decorationImgAdapter);
+                decoration_img_listview.setVisibility(View.VISIBLE);
+                emptyLayout.setVisibility(View.GONE);
+                errorLayout.setVisibility(View.GONE);
+            } else {
+                decoration_img_listview.setVisibility(View.GONE);
+                emptyLayout.setVisibility(View.VISIBLE);
+                errorLayout.setVisibility(View.GONE);
+            }
         }
     }
 
     @Override
     public void loadFailture(String error_msg) {
         makeTextLong(error_msg);
+        decoration_img_listview.setVisibility(View.GONE);
+        emptyLayout.setVisibility(View.GONE);
+        errorLayout.setVisibility(View.VISIBLE);
     }
 
     @Override

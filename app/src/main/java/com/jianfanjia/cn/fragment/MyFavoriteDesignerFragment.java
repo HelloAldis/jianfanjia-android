@@ -6,8 +6,8 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.TypedValue;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
@@ -39,6 +39,8 @@ import de.greenrobot.event.EventBus;
 public class MyFavoriteDesignerFragment extends BaseFragment {
     private static final String TAG = DecorationImgFragment.class.getName();
     private RecyclerView my_favorite_designer_listview = null;
+    private RelativeLayout emptyLayout = null;
+    private RelativeLayout errorLayout = null;
     private FavoriteDesignerAdapter designAdapter = null;
     private MyFavoriteDesigner myFavoriteDesigner = null;
     private List<DesignerInfo> designers = new ArrayList<DesignerInfo>();
@@ -51,12 +53,14 @@ public class MyFavoriteDesignerFragment extends BaseFragment {
 
     @Override
     public void initView(View view) {
+        emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
+        errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
         my_favorite_designer_listview = (RecyclerView) view.findViewById(R.id.my_favorite_designer_listview);
         my_favorite_designer_listview.setLayoutManager(new LinearLayoutManager(getActivity()));
         my_favorite_designer_listview.setItemAnimator(new DefaultItemAnimator());
         Paint paint = new Paint();
-        paint.setStrokeWidth(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, getResources().getDisplayMetrics()));
-        paint.setAlpha(0);
+        paint.setStrokeWidth(1);
+        paint.setColor(getResources().getColor(R.color.light_white_color));
         paint.setAntiAlias(true);
         my_favorite_designer_listview.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).paint(paint).showLastDivider().build());
         getMyFavoriteDesignerList();
@@ -84,30 +88,42 @@ public class MyFavoriteDesignerFragment extends BaseFragment {
             LogTool.d(TAG, "myFavoriteDesigner=" + myFavoriteDesigner);
             if (myFavoriteDesigner != null) {
                 designers = myFavoriteDesigner.getDesigners();
-                designAdapter = new FavoriteDesignerAdapter(getActivity(), designers, new RecyclerViewOnItemClickListener() {
-                    @Override
-                    public void OnItemClick(View view, int position) {
-                        String designerId = myFavoriteDesigner.getDesigners().get(position).get_id();
-                        LogTool.d(this.getClass().getName(), designerId);
-                        Intent designerIntent = new Intent(getActivity(), DesignerInfoActivity.class);
-                        Bundle designerBundle = new Bundle();
-                        designerBundle.putString(Global.DESIGNER_ID, designerId);
-                        designerIntent.putExtras(designerBundle);
-                        startActivity(designerIntent);
-                    }
+                if (null != designers && designers.size() > 0) {
+                    designAdapter = new FavoriteDesignerAdapter(getActivity(), designers, new RecyclerViewOnItemClickListener() {
+                        @Override
+                        public void OnItemClick(View view, int position) {
+                            String designerId = myFavoriteDesigner.getDesigners().get(position).get_id();
+                            LogTool.d(this.getClass().getName(), designerId);
+                            Intent designerIntent = new Intent(getActivity(), DesignerInfoActivity.class);
+                            Bundle designerBundle = new Bundle();
+                            designerBundle.putString(Global.DESIGNER_ID, designerId);
+                            designerIntent.putExtras(designerBundle);
+                            startActivity(designerIntent);
+                        }
 
-                    @Override
-                    public void OnViewClick(int position) {
+                        @Override
+                        public void OnViewClick(int position) {
 
-                    }
-                });
-                my_favorite_designer_listview.setAdapter(designAdapter);
+                        }
+                    });
+                    my_favorite_designer_listview.setAdapter(designAdapter);
+                    my_favorite_designer_listview.setVisibility(View.VISIBLE);
+                    emptyLayout.setVisibility(View.GONE);
+                    errorLayout.setVisibility(View.GONE);
+                } else {
+                    my_favorite_designer_listview.setVisibility(View.GONE);
+                    emptyLayout.setVisibility(View.VISIBLE);
+                    errorLayout.setVisibility(View.GONE);
+                }
             }
         }
 
         @Override
         public void loadFailture(String error_msg) {
             makeTextLong(error_msg);
+            my_favorite_designer_listview.setVisibility(View.GONE);
+            emptyLayout.setVisibility(View.GONE);
+            errorLayout.setVisibility(View.VISIBLE);
         }
     };
 

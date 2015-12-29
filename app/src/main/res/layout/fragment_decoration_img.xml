@@ -10,4 +10,14 @@
         android:layout_height="match_parent"
         android:layout_margin="5dip"
         android:scrollbars="none" />
+
+    <include
+        android:id="@+id/empty_include"
+        layout="@layout/view_no_layout"
+        android:visibility="gone" />
+
+    <include
+        android:id="@+id/error_include"
+        layout="@layout/view_error_layout"
+        android:visibility="gone" />
 </FrameLayout>

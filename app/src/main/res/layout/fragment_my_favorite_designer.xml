@@ -11,4 +11,14 @@
         android:layout_marginBottom="8dip"
         android:layout_marginTop="8dip"
         android:scrollbars="none" />
+
+    <include
+        android:id="@+id/empty_include"
+        layout="@layout/view_no_layout"
+        android:visibility="gone" />
+
+    <include
+        android:id="@+id/error_include"
+        layout="@layout/view_error_layout"
+        android:visibility="gone" />
 </FrameLayout>

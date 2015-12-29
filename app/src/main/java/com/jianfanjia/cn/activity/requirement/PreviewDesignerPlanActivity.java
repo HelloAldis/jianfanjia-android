@@ -136,12 +136,11 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
         JianFanJiaClient.getPlanInfo(PreviewDesignerPlanActivity.this, planid, getPlanInfoListener, this);
     }
 
-
     //选的方案
     private void chooseDesignerPlan(String requirementid, String designerid, String planid) {
+        LogTool.d(TAG, "requirementid=" + requirementid + " designerid=" + designerid + " planid=" + planid);
         JianFanJiaClient.chooseDesignerPlan(PreviewDesignerPlanActivity.this, requirementid, designerid, planid, chooseDesignerPlanListener, this);
     }
-
 
     private ApiUiUpdateListener getPlanInfoListener = new ApiUiUpdateListener() {
         @Override
