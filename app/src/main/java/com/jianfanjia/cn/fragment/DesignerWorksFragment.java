@@ -67,7 +67,6 @@ public class DesignerWorksFragment extends BaseFragment implements OnItemClickLi
         getDesignerProduct(designerid, 0, 10);
     }
 
-
     @Override
     public void setListener() {
 
