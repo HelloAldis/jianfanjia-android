@@ -33,7 +33,6 @@ public class NavigateActivity extends BaseActivity implements OnClickListener,
     private ViewPageAdapter adapter = null;
     private int lastSelectorItem = 0;
     private int currentItem = 0; // 当前图片的索引号
-    private LinearLayout dotLayout;
     private RelativeLayout imageLayout;
 
     private int imgId[] = {R.mipmap.p1, R.mipmap.p2,
@@ -45,7 +44,6 @@ public class NavigateActivity extends BaseActivity implements OnClickListener,
     public void initView() {
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         btnLayout = (LinearLayout) findViewById(R.id.btnLayout);
-        dotLayout = (LinearLayout) findViewById(R.id.dot_layout);
         btnRegister = (Button) findViewById(R.id.btnRegister);
         btnLogin = (Button) findViewById(R.id.btnLogin);
         // 导航测试资源

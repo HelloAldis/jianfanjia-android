@@ -18,14 +18,16 @@
 
         <RelativeLayout
             android:id="@+id/head_notification_layout"
-            android:layout_width="@dimen/space_70"
+            android:layout_width="@dimen/space_64"
             android:layout_height="match_parent"
             android:layout_gravity="right|center_vertical"
-            android:paddingRight="@dimen/space_16">
+            android:paddingRight="@dimen/space_14"
+            android:background="@drawable/commom_head_back_bg_selector">
 
             <ImageView
                 android:id="@+id/head_notification"
-                style="@style/listview_item_text_style_middle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:src="@mipmap/icon_notification" />

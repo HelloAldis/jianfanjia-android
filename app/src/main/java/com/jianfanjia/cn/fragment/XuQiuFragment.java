@@ -13,16 +13,17 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
+import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.requirement.AppointDesignerActivity;
 import com.jianfanjia.cn.activity.requirement.MyDesignerActivity_;
 import com.jianfanjia.cn.activity.requirement.MyProcessDetailActivity_;
 import com.jianfanjia.cn.activity.requirement.PreviewBusinessRequirementActivity_;
 import com.jianfanjia.cn.activity.requirement.PreviewRequirementActivity_;
 import com.jianfanjia.cn.activity.requirement.PublishRequirementActivity;
-import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.requirement.UpdateRequirementActivity_;
 import com.jianfanjia.cn.adapter.RequirementNewAdapter;
 import com.jianfanjia.cn.base.BaseAnnotationFragment;
@@ -36,7 +37,6 @@ import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
-import com.jianfanjia.cn.view.empty.EmptyLayout;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
 
@@ -69,6 +69,7 @@ public class XuQiuFragment extends BaseAnnotationFragment {
 
     protected RequirementNewAdapter requirementAdapter;
     private List<RequirementInfo> requirementInfos = new ArrayList<RequirementInfo>();
+    private boolean isFirst = true;//第一次加载成功之前都只显示等待对话框
 
     @ViewById(R.id.frag_req_rootview)
     protected LinearLayout rootView;
@@ -92,7 +93,7 @@ public class XuQiuFragment extends BaseAnnotationFragment {
     protected PullToRefreshRecycleView pullrefresh;
 
     @ViewById(R.id.error_include)
-    EmptyLayout error_Layout;
+    RelativeLayout error_Layout;
 
     protected Intent gotoOrderDesigner;
     protected Intent gotoMyDesigner;
@@ -181,14 +182,12 @@ public class XuQiuFragment extends BaseAnnotationFragment {
 
     @Click(R.id.error_include)
     protected void errorRefresh() {
-//        initData();
-        pullrefresh.setRefreshing(true);
+        initData();
     }
 
     @AfterViews
     protected void initView() {
-        mainHeadView
-                .setMianTitle(getResources().getString(R.string.requirement_list));
+        mainHeadView.setMianTitle(getResources().getString(R.string.requirement_list));
         mainHeadView.setRightTitle(getResources().getString(R.string.str_create));
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
         mainHeadView.setRightTitleVisable(View.VISIBLE);
@@ -215,7 +214,6 @@ public class XuQiuFragment extends BaseAnnotationFragment {
     }
 
     private void initPullRefresh() {
-        error_Layout.setErrorType(EmptyLayout.HIDE_LAYOUT);
         pullrefresh.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
         pullrefresh.setLayoutManager(new LinearLayoutManager(getActivity()));
         pullrefresh.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<RecyclerView>() {
@@ -236,39 +234,39 @@ public class XuQiuFragment extends BaseAnnotationFragment {
         JianFanJiaClient.get_Requirement_List(getActivity(), new ApiUiUpdateListener() {
             @Override
             public void preLoad() {
-//                showWaitDialog();
-
+                if(isFirst){
+                    showWaitDialog();
+                }
             }
 
             @Override
             public void loadSuccess(Object data) {
-//                hideWaitDialog();
-                error_Layout.setErrorType(EmptyLayout.HIDE_LAYOUT);
+                hideWaitDialog();
                 pullrefresh.onRefreshComplete();
                 if (data != null) {
                     requirementInfos = JsonParser.jsonToList(data.toString(), new TypeToken<List<RequirementInfo>>() {
                     }.getType());
-                    requirementAdapter.addItem(requirementInfos);
                     if (requirementInfos.size() > 0) {
+                        requirementAdapter.addItem(requirementInfos);
                         setListVisiable();
                         if (requirementInfos.size() >= Constant.ROST_REQUIREMTNE_TOTAL) {
                             mainHeadView.setRigthTitleEnable(false);
                         }
+                        isFirst = false;
                     } else {
                         setPublishVisiable();
                     }
-//                    error_Layout.setVisibility(View.GONE);
+                    error_Layout.setVisibility(View.GONE);
                 }
             }
 
             @Override
             public void loadFailture(String error_msg) {
                 hideWaitDialog();
-                makeTextLong(error_msg);
+                makeTextShort(error_msg);
                 setListVisiable();
                 if (requirementInfos == null || requirementInfos.size() == 0) {
-//                    error_Layout.setVisibility(View.VISIBLE);
-                    error_Layout.setErrorType(EmptyLayout.NETWORK_ERROR);
+                    error_Layout.setVisibility(View.VISIBLE);
                 }
                 pullrefresh.onRefreshComplete();
             }

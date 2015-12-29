@@ -13,7 +13,7 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.tools.NetTool;
 
 public class EmptyLayout extends LinearLayout implements
-        android.view.View.OnClickListener {// , ISkinUIObserver {
+        android.view.View.OnClickListener {
 
     public static final int HIDE_LAYOUT = 4;
     public static final int NETWORK_ERROR = 1;

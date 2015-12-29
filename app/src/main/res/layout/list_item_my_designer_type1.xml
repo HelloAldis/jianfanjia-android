@@ -11,7 +11,7 @@
         layout="@layout/include_my_designer_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"/>
+        android:layout_centerVertical="true" />
 
     <RelativeLayout
         android:id="@+id/ltm_my_designer_content"
@@ -22,26 +22,25 @@
 
         <TextView
             android:id="@+id/merger_button1"
-            android:background="@drawable/btn_white_selector"
             style="@style/listview_item_text_style_middle"
+            android:layout_width="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/space_16"
             android:layout_toLeftOf="@+id/merger_button2"
-            android:layout_width="wrap_content"
+            android:background="@drawable/btn_white_selector"
             android:padding="@dimen/space_4"
             android:textColor="@color/orange_color" />
 
         <TextView
             android:id="@+id/merger_button2"
-            android:background="@drawable/btn_orange_selector"
             style="@style/listview_item_text_style_middle"
+            android:layout_width="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:background="@drawable/btn_orange_selector"
             android:padding="@dimen/space_4"
-            android:layout_width="wrap_content"
-            android:textColor="@color/font_white"
-            />
-        </RelativeLayout>
+            android:textColor="@color/font_white" />
+    </RelativeLayout>
 
 
 </RelativeLayout>
