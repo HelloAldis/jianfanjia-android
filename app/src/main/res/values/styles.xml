@@ -148,7 +148,7 @@
     <style name="my_list_item_layout_style">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/common_item_layout_height</item>
-        <item name="android:background">@drawable/my_item_layout_bg</item>
+        <item name="android:background">@drawable/my_item_layout_bg_selector</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:paddingLeft">@dimen/space_22</item>
         <item name="android:paddingRight">@dimen/space_28</item>

@@ -14,7 +14,7 @@
         android:paddingLeft="@dimen/space_26"
         android:paddingRight="@dimen/space_26"
         android:paddingTop="@dimen/space_8"
-        android:background="@drawable/my_item_layout_bg">
+        android:background="@drawable/my_item_layout_bg_selector">
 
         <com.jianfanjia.cn.view.layout.CircleImageView
             android:id="@+id/ltm_req_owner_head"
@@ -309,6 +309,7 @@
         android:paddingTop="8dp"
         android:text="@string/str_goto_pro"
         android:textColor="@color/orange_color"
+        android:background="@drawable/my_item_layout_bg_selector"
         android:textSize="@dimen/middle_size" />
 
 

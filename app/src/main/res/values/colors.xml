@@ -27,6 +27,7 @@
     <color name="error_bg">#f2f2f3</color>
 
     <color name="head_layout_bg">#E5fbfbfb</color>
+    <color name="head_layout_bg_pressed">#fbfbfb</color>
     <color name="main_layout_bg">#f2f2f3</color>
     <color name="light_white_color">#d5d5d5</color>
     <color name="orange_color">#fe7003</color>
