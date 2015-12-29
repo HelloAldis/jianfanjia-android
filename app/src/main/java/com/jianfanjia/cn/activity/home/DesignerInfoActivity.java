@@ -75,10 +75,6 @@ public class DesignerInfoActivity extends BaseActivity implements OnClickListene
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         collapsingToolbar =
                 (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-//        collapsingToolbar.setExpandedTitleTextAppearance(R.style.listview_item_text_style_title);
-//        collapsingToolbar.setExpandedTitleGravity(Gravity.CENTER_HORIZONTAL);
-//        collapsingToolbar.setCollapsedTitleTextColor(Color.BLACK);
-//        collapsingToolbar.setExpandedTitleColor(Color.BLACK);
         designerinfo_head_img = (ImageView) findViewById(R.id.designerinfo_head_img);
         designerinfo_auth = (ImageView) findViewById(R.id.designerinfo_auth);
         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
