@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
@@ -40,6 +41,8 @@ import de.greenrobot.event.EventBus;
 public class ProductFragment extends BaseFragment implements ApiUiUpdateListener, RecyclerViewOnItemClickListener {
     private static final String TAG = DecorationImgFragment.class.getName();
     private RecyclerView prodtct_listview = null;
+    private RelativeLayout emptyLayout = null;
+    private RelativeLayout errorLayout = null;
     private ProductAdapter productAdapter = null;
     private List<Product> products = new ArrayList<Product>();
 
@@ -51,6 +54,8 @@ public class ProductFragment extends BaseFragment implements ApiUiUpdateListener
 
     @Override
     public void initView(View view) {
+        emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
+        errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
         prodtct_listview = (RecyclerView) view.findViewById(R.id.prodtct_listview);
         prodtct_listview.setLayoutManager(new LinearLayoutManager(getActivity()));
         prodtct_listview.setItemAnimator(new DefaultItemAnimator());

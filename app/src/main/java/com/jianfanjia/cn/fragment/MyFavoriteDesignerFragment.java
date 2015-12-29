@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
@@ -39,6 +40,8 @@ import de.greenrobot.event.EventBus;
 public class MyFavoriteDesignerFragment extends BaseFragment {
     private static final String TAG = DecorationImgFragment.class.getName();
     private RecyclerView my_favorite_designer_listview = null;
+    private RelativeLayout emptyLayout = null;
+    private RelativeLayout errorLayout = null;
     private FavoriteDesignerAdapter designAdapter = null;
     private MyFavoriteDesigner myFavoriteDesigner = null;
     private List<DesignerInfo> designers = new ArrayList<DesignerInfo>();
@@ -51,6 +54,8 @@ public class MyFavoriteDesignerFragment extends BaseFragment {
 
     @Override
     public void initView(View view) {
+        emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
+        errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
         my_favorite_designer_listview = (RecyclerView) view.findViewById(R.id.my_favorite_designer_listview);
         my_favorite_designer_listview.setLayoutManager(new LinearLayoutManager(getActivity()));
         my_favorite_designer_listview.setItemAnimator(new DefaultItemAnimator());
