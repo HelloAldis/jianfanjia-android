@@ -21,13 +21,11 @@
             ptr:ptrHeaderTextColor="#344a5d" />
 
         <include
-            android:id="@+id/empty_include"
-            layout="@layout/view_no_layout"
-            android:visibility="gone" />
-
-        <include
             android:id="@+id/error_include"
             layout="@layout/view_error_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:visibility="gone" />
     </FrameLayout>
 

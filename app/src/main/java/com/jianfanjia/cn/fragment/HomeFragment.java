@@ -132,6 +132,7 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
     private ApiUiUpdateListener pullDownListener = new ApiUiUpdateListener() {
         @Override
         public void preLoad() {
+            LogTool.d(TAG,"isFirst = " + isFirst);
             if (isFirst) {
                 showWaitDialog();
             }
@@ -189,6 +190,7 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
                 pullToRefreshRecyclerView.setAdapter(designerAdapter);
                 FROM = designerList.size();
                 LogTool.d(TAG, "FROM:" + FROM);
+                errorLayout.setVisibility(View.GONE);
             }
             pullToRefreshRecyclerView.onRefreshComplete();
         }
@@ -196,7 +198,8 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
         @Override
         public void loadFailture(String error_msg) {
             hideWaitDialog();
-            makeTextLong(error_msg);
+            makeTextShort(error_msg);
+            errorLayout.setVisibility(View.VISIBLE);
             pullToRefreshRecyclerView.onRefreshComplete();
         }
     };
@@ -225,7 +228,6 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
         @Override
         public void loadFailture(String error_msg) {
             makeTextShort(error_msg);
-            errorLayout.setVisibility(View.VISIBLE);
             pullToRefreshRecyclerView.onRefreshComplete();
         }
     };
