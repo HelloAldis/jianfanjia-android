@@ -12,9 +12,7 @@ import com.jianfanjia.cn.application.MyApplication;
  * Date:15-10-11 12:46
  */
 public class Url_New {
-
     private static Url_New instance;
-
     public String SEVER_IP = "";
     public String SEVER_PORT = "";
 
