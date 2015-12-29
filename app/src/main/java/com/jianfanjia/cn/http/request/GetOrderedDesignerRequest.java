@@ -17,7 +17,7 @@ public class GetOrderedDesignerRequest extends BaseRequest {
     public GetOrderedDesignerRequest(Context context, String requirementid) {
         super(context);
         this.requirementid = requirementid;
-        url = Url_New.USER_ORDERD_DESIGNERS;
+        url = url_new.USER_ORDERD_DESIGNERS;
     }
 
     @Override

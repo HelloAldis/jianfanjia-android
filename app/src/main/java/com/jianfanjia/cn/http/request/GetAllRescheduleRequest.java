@@ -13,7 +13,7 @@ public class GetAllRescheduleRequest extends BaseRequest {
 
     public GetAllRescheduleRequest(Context context) {
         super(context);
-        url = Url_New.GET_RESCHDULE_ALL;
+        url = url_new.GET_RESCHDULE_ALL;
     }
 
     @Override

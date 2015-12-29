@@ -29,7 +29,7 @@ public class SearchDecorationImgRequest extends BaseRequest {
         this.lastupdate = lastupdate;
         this.from = from;
         this.limit = limit;
-        url = Url_New.SEARCH_DECORATION_IMG;
+        url = url_new.SEARCH_DECORATION_IMG;
     }
 
     @Override

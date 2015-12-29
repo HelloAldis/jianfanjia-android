@@ -3,7 +3,6 @@ package com.jianfanjia.cn.http.request;
 import android.content.Context;
 
 import com.jianfanjia.cn.base.BaseRequest;
-import com.jianfanjia.cn.config.Url_New;
 
 /**
  * Name: DeleteBeautyImgRequest
@@ -17,7 +16,7 @@ public class DeleteBeautyImgRequest extends BaseRequest {
     public DeleteBeautyImgRequest(Context context, String _id) {
         super(context);
         this._id = _id;
-        url = Url_New.DELETE_BEAUTY_IMG_BY_USER;
+        url = url_new.DELETE_BEAUTY_IMG_BY_USER;
     }
 
     @Override

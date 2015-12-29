@@ -23,7 +23,7 @@ public class AddCommentRequest extends BaseRequest {
         this.topictype = topictype;
         this.content = content;
         this.to = to;
-        url = Url_New.ADD_COMMENT;
+        url = url_new.ADD_COMMENT;
     }
 
     @Override

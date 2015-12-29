@@ -3,7 +3,6 @@ package com.jianfanjia.cn.http.request;
 import android.content.Context;
 
 import com.jianfanjia.cn.base.BaseRequest;
-import com.jianfanjia.cn.config.Url_New;
 
 /**
  * Name: AddCollectionRequest
@@ -17,7 +16,7 @@ public class AddCollectionRequest extends BaseRequest {
     public AddCollectionRequest(Context context, String productid) {
         super(context);
         this.productid = productid;
-        url = Url_New.ADD_PRODUCT;
+        url = url_new.ADD_PRODUCT;
     }
 
     @Override

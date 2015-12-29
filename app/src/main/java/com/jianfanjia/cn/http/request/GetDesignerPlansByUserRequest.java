@@ -19,7 +19,7 @@ public class GetDesignerPlansByUserRequest extends BaseRequest {
         super(context);
         this.requirementid = requirementid;
         this.designerid = designerid;
-        url = Url_New.USER_REQUIREMENT_PLANS;
+        url = url_new.USER_REQUIREMENT_PLANS;
     }
 
     @Override

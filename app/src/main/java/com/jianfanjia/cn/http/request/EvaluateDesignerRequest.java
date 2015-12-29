@@ -27,7 +27,7 @@ public class EvaluateDesignerRequest extends BaseRequest {
         this.respond_speed = respond_speed;
         this.comment = comment;
         this.is_anonymous = is_anonymous;
-        url = Url_New.EVALUATE_DESIGNER_BY_USER;
+        url = url_new.EVALUATE_DESIGNER_BY_USER;
     }
 
     @Override

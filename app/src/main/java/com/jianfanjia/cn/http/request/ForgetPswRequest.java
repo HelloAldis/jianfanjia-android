@@ -19,7 +19,7 @@ public class ForgetPswRequest extends BaseRequest{
 
     public ForgetPswRequest(Context context) {
         super(context);
-        url = Url_New.UPDATE_PASS_URL;
+        url = url_new.UPDATE_PASS_URL;
     }
 
     @Override

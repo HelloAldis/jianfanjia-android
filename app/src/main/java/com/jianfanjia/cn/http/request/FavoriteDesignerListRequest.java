@@ -13,7 +13,7 @@ public class FavoriteDesignerListRequest extends BaseRequest {
         super(context);
         this.from = from;
         this.limit = limit;
-        url = Url_New.FAVORITE_DESIGNER_LIST;
+        url = url_new.FAVORITE_DESIGNER_LIST;
     }
 
     @Override

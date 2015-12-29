@@ -13,7 +13,7 @@ public class UpdateOwnerInfoRequest extends BaseRequest{
 	public UpdateOwnerInfoRequest(Context context, OwnerUpdateInfo ownerUpdateInfo) {
 		super(context);
 		this.ownerUpdateInfo = ownerUpdateInfo;
-		url = Url_New.GET_OWER_INFO;
+		url = url_new.GET_OWER_INFO;
 	}
 	
 	@Override

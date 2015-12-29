@@ -17,7 +17,7 @@ public class GetPlanInfoRequest extends BaseRequest {
     public GetPlanInfoRequest(Context context, String planid) {
         super(context);
         this.planid = planid;
-        url = Url_New.ONE_PLAN_INFO;
+        url = url_new.ONE_PLAN_INFO;
     }
 
     @Override

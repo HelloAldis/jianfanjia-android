@@ -21,7 +21,7 @@ public class SearchDesignerProductRequest extends BaseRequest {
         this.designerid = designerid;
         this.from = from;
         this.limit = limit;
-        url = Url_New.SEARCH_DESIGNER_PRODUCT;
+        url = url_new.SEARCH_DESIGNER_PRODUCT;
     }
 
     @Override

@@ -9,7 +9,7 @@ public class CheckVersionRequest extends BaseRequest {
 
 	public CheckVersionRequest(Context context) {
 		super(context);
-		url = Url_New.UPDATE_VERSION_URL;
+		url = url_new.UPDATE_VERSION_URL;
 	}
 
 	@Override

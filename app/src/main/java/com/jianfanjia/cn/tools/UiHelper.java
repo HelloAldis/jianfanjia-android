@@ -77,8 +77,11 @@ public class UiHelper {
         mRemoteViews.setImageViewResource(R.id.list_item_img, R.mipmap.icon_logo);
         builder.setSmallIcon(R.mipmap.icon_notify);
         String type = message.getType();
+        LogTool.d("sendNotifycation","type =" + type);
         PendingIntent pendingIntent = null;
         if (type.equals(Constant.YANQI_NOTIFY)) {
+            LogTool.d("sendNotifycation",context.getResources()
+                    .getString(R.string.yanqiText));
             notifyId = Constant.YANQI_NOTIFY_ID;
             builder.setTicker(context.getResources()
                     .getText(R.string.yanqiText));

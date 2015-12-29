@@ -1,19 +1,21 @@
 package com.jianfanjia.cn.receiver;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.igexin.sdk.PushConsts;
 import com.igexin.sdk.PushManager;
+import com.jianfanjia.cn.AppManager;
 import com.jianfanjia.cn.activity.requirement.MyProcessDetailActivity;
 import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.dao.impl.NotifyMessageDao;
-import com.jianfanjia.cn.interf.ReceiveMsgListener;
 import com.jianfanjia.cn.interf.manager.ListenerManeger;
 import com.jianfanjia.cn.tools.DaoManager;
 import com.jianfanjia.cn.tools.JsonParser;
@@ -97,14 +99,21 @@ public class PushMsgReceiver extends BroadcastReceiver {
             notifyMessageDao.save(message);
             if (SystemUtils.isAppAlive(context, context.getPackageName())) {
                 LogTool.d(TAG, "the app process is alive");
-                ReceiveMsgListener listener = listenerManeger
-                        .getReceiveMsgListener();
-                Log.i(TAG, "listener:" + listener);
-                if (null != listener) {
-                    if (listener instanceof MyProcessDetailActivity) {
-                        listener.onReceive(message);
-                    }
+                Activity activity = AppManager.getAppManager().currentActivity();
+                String processId = null;
+                String messageProcessId = null;
+                //此处的显示策略是：只有当MyProcessDetailActivity在当前屏幕，并且窗口聚焦，并且推送的Message的processid与MyProcessDetailActivity的processid相同的
+               // 情况下才会显示对话框，其他任何形式的通知都弹出通知栏
+                if (activity != null &&
+                        activity instanceof MyProcessDetailActivity
+                        && !TextUtils.isEmpty(processId = ((MyProcessDetailActivity) activity).getProcessId())
+                        && !TextUtils.isEmpty(messageProcessId = message.getProcessid())
+                        && messageProcessId.equals(processId)
+                        && activity.hasWindowFocus()) {
+                    LogTool.d(TAG, "MyProcessDetailActivity is resume");
+                    ((MyProcessDetailActivity) activity).onReceive(message);
                 } else {
+                    LogTool.d(TAG, "MyProcessDetailActivity is not in stakes");
                     UiHelper.sendNotifycation(context, message);
                 }
             } else {

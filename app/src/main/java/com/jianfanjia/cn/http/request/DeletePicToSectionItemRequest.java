@@ -3,7 +3,6 @@ package com.jianfanjia.cn.http.request;
 import android.content.Context;
 
 import com.jianfanjia.cn.base.BaseRequest;
-import com.jianfanjia.cn.config.Url_New;
 
 /**
  * Description: com.jianfanjia.cn.http.request
@@ -15,6 +14,6 @@ public class DeletePicToSectionItemRequest extends BaseRequest{
 
     public DeletePicToSectionItemRequest(Context context) {
         super(context);
-        url = Url_New.DELETE_PROCESS_PIC;
+        url = url_new.DELETE_PROCESS_PIC;
     }
 }

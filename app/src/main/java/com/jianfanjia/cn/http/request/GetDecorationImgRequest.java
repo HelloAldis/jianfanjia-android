@@ -17,7 +17,7 @@ public class GetDecorationImgRequest extends BaseRequest {
     public GetDecorationImgRequest(Context context, String _id) {
         super(context);
         this._id = _id;
-        url = Url_New.GET_DECORATION_IMG;
+        url = url_new.GET_DECORATION_IMG;
     }
 
     @Override

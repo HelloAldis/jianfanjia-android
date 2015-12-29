@@ -9,7 +9,7 @@ public class FeedBackRequest extends BaseRequest {
 
 	public FeedBackRequest(Context context) {
 		super(context);
-		url = Url_New.FEEDBACK_URL;
+		url = url_new.FEEDBACK_URL;
 	}
 
 	@Override

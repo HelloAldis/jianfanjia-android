@@ -19,7 +19,7 @@ public class GetBeautyImgListRequest extends BaseRequest {
         super(context);
         this.from = from;
         this.limit = limit;
-        url = Url_New.GET_BEAUTY_IMG_LIST_BY_USER;
+        url = url_new.GET_BEAUTY_IMG_LIST_BY_USER;
     }
 
     @Override

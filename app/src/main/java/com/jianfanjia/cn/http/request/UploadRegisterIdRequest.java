@@ -15,7 +15,7 @@ public class UploadRegisterIdRequest extends BaseRequest {
 	public UploadRegisterIdRequest(Context context, String clientId) {
 		super(context);
 		this.clientId = clientId;
-		url = Url_New.BIND_URL;
+		url = url_new.BIND_URL;
 	}
 
 	@Override

@@ -13,7 +13,7 @@ public class UpdateRequirementRequest extends BaseRequest {
     public UpdateRequirementRequest(Context context, RequirementInfo requirementInfo) {
         super(context);
         this.requirementInfo = requirementInfo;
-        url = Url_New.REQUIREMENT_UPDATE;
+        url = url_new.REQUIREMENT_UPDATE;
     }
 
     @Override

@@ -3,7 +3,6 @@ package com.jianfanjia.cn.http.request;
 import android.content.Context;
 
 import com.jianfanjia.cn.base.BaseRequest;
-import com.jianfanjia.cn.config.Url_New;
 
 /**
  * Description:com.jianfanjia.cn.http.request
@@ -18,7 +17,7 @@ public class AddFavoriteDesignerRequest extends BaseRequest {
     public AddFavoriteDesignerRequest(Context context, String designerid) {
         super(context);
         this.designerid = designerid;
-        url = Url_New.ADD_FAVORITE_DESIGNER;
+        url = url_new.ADD_FAVORITE_DESIGNER;
     }
 
     @Override

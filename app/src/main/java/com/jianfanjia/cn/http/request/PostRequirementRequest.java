@@ -13,7 +13,7 @@ public class PostRequirementRequest extends BaseRequest {
 	public PostRequirementRequest(Context context,RequirementInfo requirementInfo) {
 		super(context);
 		this.requirementInfo = requirementInfo;
-		url = Url_New.POST_REQUIREMENT;
+		url = url_new.POST_REQUIREMENT;
 	}
 
 	@Override

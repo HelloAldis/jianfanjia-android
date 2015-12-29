@@ -261,12 +261,6 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
     @Override
     protected void onResume() {
         super.onResume();
-//        controlKeyboardLayout(contentLayout, mBtnLogin);
-      /*  if(currentPage == REGISER){
-            mEtRegisterUserName.requestFocus();
-        }else{
-            mEtLoginUserName.requestFocus();
-        }*/
     }
 
     @Click({R.id.btn_login, R.id.btn_next, R.id.act_forget_password, R.id.act_login, R.id.act_register})
@@ -427,10 +421,10 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
     @Override
     public void loadSuccess(Object data) {
         super.loadSuccess(data);
-        PushManager.getInstance().initialize(getApplicationContext());
-        PushManager.getInstance().bindAlias(getApplicationContext(), dataManager.getUserId());
         startActivity(MainActivity.class);
         appManager.finishActivity(this);
+        PushManager.getInstance().initialize(getApplicationContext());//初始化个推
+        PushManager.getInstance().bindAlias(getApplicationContext(), dataManager.getUserId());
     }
 
     @Override

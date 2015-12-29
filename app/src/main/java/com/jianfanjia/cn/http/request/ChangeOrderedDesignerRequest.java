@@ -3,7 +3,6 @@ package com.jianfanjia.cn.http.request;
 import android.content.Context;
 
 import com.jianfanjia.cn.base.BaseRequest;
-import com.jianfanjia.cn.config.Url_New;
 
 /**
  * Name: ChangeOrderedDesignerRequest
@@ -21,7 +20,7 @@ public class ChangeOrderedDesignerRequest extends BaseRequest {
         this.requirementid = requirementid;
         this.old_designerid = old_designerid;
         this.new_designerid = new_designerid;
-        url = Url_New.USER_CHANGE_ORDERD_DESIGNER;
+        url = url_new.USER_CHANGE_ORDERD_DESIGNER;
     }
 
     @Override

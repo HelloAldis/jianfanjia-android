@@ -21,7 +21,7 @@ public class OrderDesignerByUserRequest extends BaseRequest {
         super(context);
         this.requirementid = requirementid;
         this.designerids = designerids;
-        url = Url_New.USER_ORDER_DESIGNER;
+        url = url_new.USER_ORDER_DESIGNER;
     }
 
     @Override
