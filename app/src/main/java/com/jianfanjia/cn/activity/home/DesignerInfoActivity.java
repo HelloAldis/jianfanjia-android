@@ -256,6 +256,12 @@ public class DesignerInfoActivity extends BaseActivity implements OnClickListene
     };
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        appBarLayout.removeOnOffsetChangedListener(this);
+    }
+
+    @Override
     public int getLayoutId() {
         return R.layout.activity_designer_info;
     }
