@@ -26,7 +26,7 @@ import com.jianfanjia.cn.tools.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SectionItemAdapter extends BaseAdapter {
+public class SectionItemAdapter extends BaseAdapter{
     private static final int IMG_COUNT = 9;
     private static final int CHECK_VIEW = 0;
     private static final int SECTION_ITME_VIEW = 1;
@@ -49,13 +49,14 @@ public class SectionItemAdapter extends BaseAdapter {
         this.context = context;
         layoutInflater = LayoutInflater.from(context);
         this.callBack = callBack;
-        initSectionInfoList(showSectionInfoList);
-        setPosition(position);
+        setSectionInfoList(showSectionInfoList, position);
     }
 
-    private void initSectionInfoList(List<SectionInfo> sectionInfos) {
+    public void setSectionInfoList(List<SectionInfo> sectionInfos,int position) {
         if (sectionInfos != null) {
+            showSectionInfoList.clear();
             showSectionInfoList.addAll(sectionInfos);
+            setPosition(position);
         }
     }
 
@@ -142,14 +143,6 @@ public class SectionItemAdapter extends BaseAdapter {
         } else {
             return sectionInfo.getItems().get(currentClickItem).getName();
         }
-    }
-
-    public boolean isHasCheck() {
-        return isHasCheck;
-    }
-
-    public void setHasCheck(boolean isHasCheck) {
-        this.isHasCheck = isHasCheck;
     }
 
     @Override
@@ -470,7 +463,7 @@ public class SectionItemAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return list.size();
+        return list == null ? 0 : list.size();
     }
 
     @Override

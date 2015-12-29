@@ -19,14 +19,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.animation.AccelerateInterpolator;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RemoteViews;
 
-import com.jianfanjia.cn.activity.requirement.CheckActivity;
 import com.jianfanjia.cn.activity.MainActivity;
-import com.jianfanjia.cn.activity.my.NotifyActivity;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.my.NotifyActivity;
+import com.jianfanjia.cn.activity.requirement.CheckActivity;
 import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.config.Constant;
@@ -38,6 +41,31 @@ import com.jianfanjia.cn.service.UpdateService;
 import java.io.File;
 
 public class UiHelper {
+
+    /**
+     * 设置listview下落动画
+     * @param context
+     * @param viewGroup
+     */
+    public static void setLayoutAnim(Context context,ViewGroup viewGroup){
+        Animation animation= AnimationUtils.loadAnimation(context, R.anim.listview_from_top);
+
+        //得到一个LayoutAnimationController对象；
+
+        LayoutAnimationController lac = new LayoutAnimationController(animation);
+
+        //设置控件显示的顺序；
+
+        lac.setOrder(LayoutAnimationController.ORDER_NORMAL);
+
+        //设置控件显示间隔时间；
+
+        lac.setDelay(0.1f);
+
+        //为ListView设置LayoutAnimationController属性；
+
+        viewGroup.setLayoutAnimation(lac);
+    }
 
     /**
      * 对按钮进行做点击效果的

@@ -15,9 +15,9 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
-import com.jianfanjia.cn.activity.my.NotifyActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.common.CommentActivity;
+import com.jianfanjia.cn.activity.my.NotifyActivity;
 import com.jianfanjia.cn.adapter.SectionItemAdapter;
 import com.jianfanjia.cn.adapter.SectionViewPageAdapter;
 import com.jianfanjia.cn.application.MyApplication;
@@ -86,7 +86,6 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
     private SectionItemAdapter sectionItemAdapter = null;
     private SectionViewPageAdapter sectionViewPageAdapter = null;
     private List<ViewPagerItem> processList = new ArrayList<ViewPagerItem>();
-    private List<String> imageList;
     private List<SectionInfo> sectionInfos;
     private SectionInfo sectionInfo = null;
     private ProcessInfo processInfo = null;
@@ -108,9 +107,10 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
 
     /**
      * 拿到当前屏幕的工地id
+     *
      * @return
      */
-    public String getProcessId(){
+    public String getProcessId() {
         return processId;
     }
 
@@ -128,7 +128,29 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
         detailNodeListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
             @Override
             public void onRefresh(PullToRefreshBase<ListView> refreshView) {
-                loadCurrentProcess();
+                loadCurrentProcess(new ApiUiUpdateListener() {
+                    @Override
+                    public void preLoad() {
+
+                    }
+
+                    @Override
+                    public void loadSuccess(Object data) {
+                        detailNodeListView.onRefreshComplete();
+                        if (data != null) {
+                            processInfo = JsonParser.jsonToBean(data.toString(), ProcessInfo.class);
+                            initData();
+                        }
+                    }
+
+                    @Override
+                    public void loadFailture(String error_msg) {
+                        detailNodeListView.onRefreshComplete();
+                        if (processId != Constant.DEFAULT_PROCESSINFO_ID) {
+                            makeTextShort(error_msg);
+                        }
+                    }
+                });
             }
         });
     }
@@ -139,7 +161,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
         if (processInfo != null) {
             LogTool.d(TAG, "processInfo:" + processInfo.get_id());
             processId = processInfo.get_id();
-            loadCurrentProcess();
+            loadCurrentProcess(this);
         } else {
             processId = Constant.DEFAULT_PROCESSINFO_ID;
             processInfo = BusinessManager.getDefaultProcessInfo(this);
@@ -148,9 +170,9 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
 
     }
 
-    private void loadCurrentProcess() {
+    private void loadCurrentProcess(ApiUiUpdateListener apiUiUpdateListener) {
         if (processId != null) {
-            JianFanJiaClient.get_ProcessInfo_By_Id(this, processId, this, this);
+            JianFanJiaClient.get_ProcessInfo_By_Id(this, processId, apiUiUpdateListener, this);
         }
     }
 
@@ -183,16 +205,10 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
             sectionInfo = sectionInfos.get(currentList);
             setScrollHeadTime();
             LogTool.d(TAG, sectionInfos.size() + "--sectionInfos.size()");
-            sectionItemAdapter = new SectionItemAdapter(getApplication(),
-                    currentList, sectionInfos, this);
-            detailNodeListView.setAdapter(sectionItemAdapter);
+            sectionItemAdapter.setSectionInfoList(sectionInfos, currentList);
+            processViewPager.setVisibility(View.VISIBLE);
             processViewPager.setCurrentItem(currentList);
         }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
     }
 
     @Override
@@ -201,16 +217,6 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
         if (currentList != -1) {
             dataManager.setCurrentList(currentList);
         }
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
     }
 
     private void initScrollLayout() {
@@ -249,6 +255,8 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
 
                 });
         processViewPager.setAdapter(sectionViewPageAdapter);
+        processViewPager.setCurrentItem(processList.size() - 1);
+        processViewPager.setVisibility(View.GONE);
         processViewPager.setOnPageChangeListener(new OnPageChangeListener() {
             @Override
             public void onPageScrollStateChanged(int arg0) {
@@ -268,10 +276,12 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                         sectionInfo = sectionInfos.get(currentList);
                         Log.i(TAG, "sectionInfo=" + sectionInfo.getName());
                         sectionItemAdapter.setPosition(currentList);
+                        detailNodeListView.getRefreshableView().startLayoutAnimation();
                     }
                 }
             }
         });
+
     }
 
     private void setScrollHeadTime() {
@@ -305,6 +315,10 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
     }
 
     private void initListView() {
+        sectionItemAdapter = new SectionItemAdapter(getApplication(),
+                currentList, sectionInfos, this);
+        detailNodeListView.setAdapter(sectionItemAdapter);
+        UiHelper.setLayoutAnim(this,detailNodeListView.getRefreshableView());
         detailNodeListView.setFocusable(false);
         detailNodeListView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -345,7 +359,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                 checkBundle
                         .putString(Constant.PROCESS_STATUS, sectionInfo.getStatus());
                 checkBundle.putString(Global.PROCESS_ID, processId);
-                Intent checkIntent = new Intent(MyProcessDetailActivity.this,CheckActivity.class);
+                Intent checkIntent = new Intent(MyProcessDetailActivity.this, CheckActivity.class);
                 checkIntent.putExtras(checkBundle);
                 startActivityForResult(checkIntent, Constant.REQUESTCODE_CHECK);
                 break;
@@ -362,7 +376,6 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
     @Override
     public void loadSuccess(Object data) {
         hideWaitDialog();
-        detailNodeListView.onRefreshComplete();
         if (data != null) {
             processInfo = JsonParser.jsonToBean(data.toString(), ProcessInfo.class);
             initData();
@@ -372,10 +385,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
     @Override
     public void loadFailture(String error_msg) {
         hideWaitDialog();
-        if (processId != Constant.DEFAULT_PROCESSINFO_ID) {
-            makeTextShort(error_msg);
-        }
-        detailNodeListView.onRefreshComplete();
+        makeTextShort(error_msg);
     }
 
     @Override
@@ -394,7 +404,6 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                 startActivityForResult(intent, Constant.REQUESTCODE_SHOW_PROCESS_PIC);
                 break;
             case Constant.ADD_ITEM:
-                imageList = imageUrlList;
                 showPopWindow(getWindow().getDecorView());
                 break;
             default:
@@ -466,7 +475,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
 
                     @Override
                     public void loadSuccess(Object data) {
-                        loadCurrentProcess();
+                        loadCurrentProcess(MyProcessDetailActivity.this);
                     }
 
                     @Override
@@ -509,7 +518,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
             case Constant.REQUESTCODE_SHOW_PROCESS_PIC:
             case Constant.REQUESTCODE_CHECK:
             case Constant.REQUESTCODE_GOTO_COMMENT:
-                loadCurrentProcess();
+                loadCurrentProcess(this);
                 break;
             default:
                 break;
@@ -540,7 +549,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
 
                             @Override
                             public void loadSuccess(Object data) {
-                                loadCurrentProcess();
+                                loadCurrentProcess(MyProcessDetailActivity.this);
                                 if (mTmpFile != null
                                         && mTmpFile
                                         .exists()) {
@@ -551,6 +560,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                             @Override
                             public void loadFailture(String error_msg) {
                                 makeTextShort(error_msg);
+                                hideWaitDialog();
                             }
                         }, this);
             }
@@ -603,7 +613,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
 
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                loadCurrentProcess();
+                                loadCurrentProcess(MyProcessDetailActivity.this);
                                 dialog.dismiss();
                             }
                         });
@@ -644,7 +654,9 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                             checkBundle
                                     .putString(Constant.PROCESS_STATUS, message.getStatus());
                             checkBundle.putString(Global.PROCESS_ID, message.getProcessid());
-                            startActivity(CheckActivity.class, checkBundle);
+                            Intent checkIntent = new Intent(MyProcessDetailActivity.this, CheckActivity.class);
+                            checkIntent.putExtras(checkBundle);
+                            startActivityForResult(checkIntent, Constant.REQUESTCODE_CHECK);
                         }
                     });
         }
@@ -662,7 +674,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
             @Override
             public void loadSuccess(Object data) {
                 LogTool.d(TAG, "data:" + data.toString());
-                loadCurrentProcess();
+                loadCurrentProcess(MyProcessDetailActivity.this);
             }
 
             @Override
@@ -683,7 +695,6 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
             @Override
             public void loadSuccess(Object data) {
                 LogTool.d(TAG, "data:" + data.toString());
-                loadCurrentProcess();
             }
 
             @Override
