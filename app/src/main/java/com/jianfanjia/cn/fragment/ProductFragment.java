@@ -73,7 +73,18 @@ public class ProductFragment extends BaseFragment implements ApiUiUpdateListener
 
     @Override
     public void setListener() {
+        errorLayout.setOnClickListener(this);
+    }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.error_include:
+                getProductList();
+                break;
+            default:
+                break;
+        }
     }
 
     @Override

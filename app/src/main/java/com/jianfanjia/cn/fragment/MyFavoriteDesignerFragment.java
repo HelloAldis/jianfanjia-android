@@ -68,7 +68,18 @@ public class MyFavoriteDesignerFragment extends BaseFragment {
 
     @Override
     public void setListener() {
+        errorLayout.setOnClickListener(this);
+    }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.error_include:
+                getMyFavoriteDesignerList();
+                break;
+            default:
+                break;
+        }
     }
 
     private void getMyFavoriteDesignerList() {

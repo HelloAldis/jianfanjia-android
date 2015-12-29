@@ -63,7 +63,18 @@ public class DecorationImgFragment extends BaseFragment implements ApiUiUpdateLi
 
     @Override
     public void setListener() {
+        errorLayout.setOnClickListener(this);
+    }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.error_include:
+                getDecorationImgList();
+                break;
+            default:
+                break;
+        }
     }
 
     private void getDecorationImgList() {
