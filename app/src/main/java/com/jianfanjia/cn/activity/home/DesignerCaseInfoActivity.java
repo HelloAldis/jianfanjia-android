@@ -49,6 +49,7 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
     private RelativeLayout activity_case_info_top_layout = null;
     private RecyclerView designer_case_listview = null;
     private LinearLayoutManager mLayoutManager = null;
+    private TextView cellName = null;
     private TextView stylelText = null;
     private ImageView designerinfo_head_img = null;
     private ImageView designerinfo_auth = null;
@@ -59,6 +60,7 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
 
     private String productid = null;
     private String designertid = null;
+    private String cell_name = null;
 
     private State state;
 
@@ -72,8 +74,7 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
-        collapsingToolbar =
-                (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         designer_case_listview = (RecyclerView) findViewById(R.id.designer_case_listview);
         mLayoutManager = new LinearLayoutManager(DesignerCaseInfoActivity.this);
         designer_case_listview.setLayoutManager(mLayoutManager);
@@ -84,6 +85,7 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
         paint.setAlpha(0);
         paint.setAntiAlias(true);
         designer_case_listview.addItemDecoration(new HorizontalDividerItemDecoration.Builder(DesignerCaseInfoActivity.this).paint(paint).showLastDivider().build());
+        cellName = (TextView) findViewById(R.id.cell_name);
         stylelText = (TextView) findViewById(R.id.stylelName);
         designerinfo_head_img = (ImageView) findViewById(R.id.designerinfo_head_img);
         designerinfo_auth = (ImageView) findViewById(R.id.designerinfo_auth);
@@ -166,16 +168,19 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
     @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int verticaloffset) {
         if (verticaloffset == 0) {
+            toolbar.setTitle("");
             if (state != State.COLLAPSED) {
                 activity_case_info_top_layout.setVisibility(View.INVISIBLE);
             }
             state = State.COLLAPSED;
         } else if (Math.abs(verticaloffset) >= appBarLayout.getTotalScrollRange()) {
+            toolbar.setTitle(cell_name);
             if (state != State.EXPANDED) {
                 activity_case_info_top_layout.setVisibility(View.VISIBLE);
             }
             state = State.EXPANDED;
         } else {
+            toolbar.setTitle("");
             if (state != State.IDLE) {
                 activity_case_info_top_layout.setVisibility(View.INVISIBLE);
             }
@@ -197,6 +202,8 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
             DesignerCaseInfo designerCaseInfo = JsonParser.jsonToBean(data.toString(), DesignerCaseInfo.class);
             LogTool.d(TAG, "designerCaseInfo" + designerCaseInfo);
             if (null != designerCaseInfo) {
+                cell_name = designerCaseInfo.getCell();
+                cellName.setText(cell_name);
                 toolbar_collect_layout.setVisibility(View.VISIBLE);
                 if (designerCaseInfo.is_my_favorite()) {
                     toolbar_collect.setSelected(true);
@@ -204,7 +211,6 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
                     toolbar_collect.setSelected(false);
                 }
                 designertid = designerCaseInfo.getDesigner().get_id();
-                collapsingToolbar.setTitle(designerCaseInfo.getCell());
                 stylelText.setText(designerCaseInfo.getHouse_area() + "㎡，" + BusinessManager.convertHouseTypeToShow(designerCaseInfo.getHouse_type()) + "，" + BusinessManager.convertDecStyleToShow(designerCaseInfo.getDec_type()));
                 imageShow.displayImageHeadWidthThumnailImage(DesignerCaseInfoActivity.this, designerCaseInfo.getDesigner().getImageid(), designerinfo_head_img);
                 imageShow.displayImageHeadWidthThumnailImage(DesignerCaseInfoActivity.this, designerCaseInfo.getDesigner().getImageid(), head_img);
