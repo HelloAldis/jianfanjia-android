@@ -3,6 +3,7 @@ package com.jianfanjia.cn.bean;
 import java.io.Serializable;
 
 public class ViewPagerItem implements Serializable {
+
     private static final long serialVersionUID = 3760854448859466132L;
     private int resId;
     private String title;

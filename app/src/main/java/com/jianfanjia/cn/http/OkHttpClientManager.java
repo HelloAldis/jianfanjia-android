@@ -65,8 +65,8 @@ import javax.net.ssl.X509TrustManager;
  */
 public class OkHttpClientManager {
     private static final String TAG = OkHttpClientManager.class.getName();
-    public static final String SERVER_ERROR = "网络异常";
-    public static final String NOT_NET_ERROR = "网络未连接";
+    public static final String SERVER_ERROR = "网络加载异常";
+    public static final String NOT_NET_ERROR = "网络无法连接";
 
     private static OkHttpClientManager mInstance;
     private OkHttpClient mOkHttpClient;

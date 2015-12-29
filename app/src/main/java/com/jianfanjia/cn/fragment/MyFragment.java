@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -34,7 +33,7 @@ public class MyFragment extends BaseFragment {
     private RelativeLayout my_designer_layout = null;
     private RelativeLayout my_site_layout = null;
     private RelativeLayout setting_layout = null;
-    private FrameLayout my_info_layout = null;
+    private RelativeLayout my_info_layout = null;
     private ImageView head_img = null;
     private ImageView user_head_img = null;
     private TextView my_name = null;
@@ -47,7 +46,7 @@ public class MyFragment extends BaseFragment {
         my_designer_layout = (RelativeLayout) view.findViewById(R.id.my_designer_layout);
         my_site_layout = (RelativeLayout) view.findViewById(R.id.my_site_layout);
         setting_layout = (RelativeLayout) view.findViewById(R.id.setting_layout);
-        my_info_layout = (FrameLayout) view.findViewById(R.id.frag_my_info_layout);
+        my_info_layout = (RelativeLayout) view.findViewById(R.id.frag_my_info_layout);
         head_img = (ImageView) view.findViewById(R.id.head_img);
         user_head_img = (ImageView) view.findViewById(R.id.user_head_img);
         my_account = (TextView) view.findViewById(R.id.frag_my_account);

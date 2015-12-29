@@ -20,7 +20,6 @@ public class EmptyLayout extends LinearLayout implements
     public static final int NETWORK_LOADING = 2;
     public static final int NODATA = 3;
     public static final int NODATA_ENABLE_CLICK = 5;
-    public static final int NO_LOGIN = 6;
 
     private ProgressBar animProgress;
     private boolean clickEnable = true;
@@ -97,28 +96,6 @@ public class EmptyLayout extends LinearLayout implements
             if (listener != null)
                 listener.onClick(v);
         }
-    }
-
-    @Override
-    protected void onAttachedToWindow() {
-        super.onAttachedToWindow();
-        // MyApplication.getInstance().getAtSkinObserable().registered(this);
-        onSkinChanged();
-    }
-
-    @Override
-    protected void onDetachedFromWindow() {
-        super.onDetachedFromWindow();
-        // MyApplication.getInstance().getAtSkinObserable().unregistered(this);
-    }
-
-    public void onSkinChanged() {
-        // mLayout.setBackgroundColor(SkinsUtil
-        // .getColor(getContext(), "bgcolor01"));
-        // tv.setTextColor(SkinsUtil.getColor(getContext(), "textcolor05"));
-    }
-
-    public void setDayNight(boolean flag) {
     }
 
     public void setErrorMessage(String msg) {

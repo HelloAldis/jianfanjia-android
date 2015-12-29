@@ -36,7 +36,6 @@
             <TextView
                 android:id="@+id/site_list_item_content_small_node_name"
                 style="@style/listview_item_text_style_middle"
-                android:text="@string/site_example_node_name"
                 android:textColor="@color/light_black_color" />
 
             <TextView
@@ -63,7 +62,6 @@
             <TextView
                 android:id="@+id/site_list_item_content_expand_node_name"
                 style="@style/listview_item_text_style_middle"
-                android:text="@string/site_example_node_name"
                 android:textColor="@color/light_black_color" />
 
             <TextView
