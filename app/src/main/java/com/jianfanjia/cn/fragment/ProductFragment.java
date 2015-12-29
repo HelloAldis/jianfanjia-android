@@ -88,14 +88,26 @@ public class ProductFragment extends BaseFragment implements ApiUiUpdateListener
         LogTool.d(TAG, "productInfo=" + productInfo);
         if (productInfo != null) {
             products = productInfo.getProducts();
-            productAdapter = new ProductAdapter(getActivity(), products, this);
-            prodtct_listview.setAdapter(productAdapter);
+            if (null != products && products.size() > 0) {
+                productAdapter = new ProductAdapter(getActivity(), products, this);
+                prodtct_listview.setAdapter(productAdapter);
+                prodtct_listview.setVisibility(View.VISIBLE);
+                emptyLayout.setVisibility(View.GONE);
+                errorLayout.setVisibility(View.GONE);
+            } else {
+                prodtct_listview.setVisibility(View.GONE);
+                emptyLayout.setVisibility(View.VISIBLE);
+                errorLayout.setVisibility(View.GONE);
+            }
         }
     }
 
     @Override
     public void loadFailture(String error_msg) {
-
+        makeTextLong(error_msg);
+        prodtct_listview.setVisibility(View.GONE);
+        emptyLayout.setVisibility(View.GONE);
+        errorLayout.setVisibility(View.VISIBLE);
     }
 
     @Override

@@ -89,30 +89,42 @@ public class MyFavoriteDesignerFragment extends BaseFragment {
             LogTool.d(TAG, "myFavoriteDesigner=" + myFavoriteDesigner);
             if (myFavoriteDesigner != null) {
                 designers = myFavoriteDesigner.getDesigners();
-                designAdapter = new FavoriteDesignerAdapter(getActivity(), designers, new RecyclerViewOnItemClickListener() {
-                    @Override
-                    public void OnItemClick(View view, int position) {
-                        String designerId = myFavoriteDesigner.getDesigners().get(position).get_id();
-                        LogTool.d(this.getClass().getName(), designerId);
-                        Intent designerIntent = new Intent(getActivity(), DesignerInfoActivity.class);
-                        Bundle designerBundle = new Bundle();
-                        designerBundle.putString(Global.DESIGNER_ID, designerId);
-                        designerIntent.putExtras(designerBundle);
-                        startActivity(designerIntent);
-                    }
+                if (null != designers && designers.size() > 0) {
+                    designAdapter = new FavoriteDesignerAdapter(getActivity(), designers, new RecyclerViewOnItemClickListener() {
+                        @Override
+                        public void OnItemClick(View view, int position) {
+                            String designerId = myFavoriteDesigner.getDesigners().get(position).get_id();
+                            LogTool.d(this.getClass().getName(), designerId);
+                            Intent designerIntent = new Intent(getActivity(), DesignerInfoActivity.class);
+                            Bundle designerBundle = new Bundle();
+                            designerBundle.putString(Global.DESIGNER_ID, designerId);
+                            designerIntent.putExtras(designerBundle);
+                            startActivity(designerIntent);
+                        }
 
-                    @Override
-                    public void OnViewClick(int position) {
+                        @Override
+                        public void OnViewClick(int position) {
 
-                    }
-                });
-                my_favorite_designer_listview.setAdapter(designAdapter);
+                        }
+                    });
+                    my_favorite_designer_listview.setAdapter(designAdapter);
+                    my_favorite_designer_listview.setVisibility(View.VISIBLE);
+                    emptyLayout.setVisibility(View.GONE);
+                    errorLayout.setVisibility(View.GONE);
+                } else {
+                    my_favorite_designer_listview.setVisibility(View.GONE);
+                    emptyLayout.setVisibility(View.VISIBLE);
+                    errorLayout.setVisibility(View.GONE);
+                }
             }
         }
 
         @Override
         public void loadFailture(String error_msg) {
             makeTextLong(error_msg);
+            my_favorite_designer_listview.setVisibility(View.GONE);
+            emptyLayout.setVisibility(View.GONE);
+            errorLayout.setVisibility(View.VISIBLE);
         }
     };
 

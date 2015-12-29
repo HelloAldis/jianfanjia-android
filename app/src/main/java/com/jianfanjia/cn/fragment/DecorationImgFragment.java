@@ -82,14 +82,26 @@ public class DecorationImgFragment extends BaseFragment implements ApiUiUpdateLi
         LogTool.d(TAG, "decorationItemInfo:" + decorationItemInfo);
         if (null != decorationItemInfo) {
             beautyImgList = decorationItemInfo.getBeautiful_images();
-            decorationImgAdapter = new DecorationImgAdapter(getActivity(), beautyImgList, this);
-            decoration_img_listview.setAdapter(decorationImgAdapter);
+            if (null != beautyImgList && beautyImgList.size() > 0) {
+                decorationImgAdapter = new DecorationImgAdapter(getActivity(), beautyImgList, this);
+                decoration_img_listview.setAdapter(decorationImgAdapter);
+                decoration_img_listview.setVisibility(View.VISIBLE);
+                emptyLayout.setVisibility(View.GONE);
+                errorLayout.setVisibility(View.GONE);
+            } else {
+                decoration_img_listview.setVisibility(View.GONE);
+                emptyLayout.setVisibility(View.VISIBLE);
+                errorLayout.setVisibility(View.GONE);
+            }
         }
     }
 
     @Override
     public void loadFailture(String error_msg) {
         makeTextLong(error_msg);
+        decoration_img_listview.setVisibility(View.GONE);
+        emptyLayout.setVisibility(View.GONE);
+        errorLayout.setVisibility(View.VISIBLE);
     }
 
     @Override
