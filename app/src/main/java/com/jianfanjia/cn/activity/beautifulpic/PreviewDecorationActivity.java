@@ -94,9 +94,6 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
         toolbar_shareLayout.setOnClickListener(this);
         toolbar_collectLayout.setOnClickListener(this);
         btn_downloadLayout.setOnClickListener(this);
-//        toolbar_collect.setOnClickListener(this, null);
-//        toolbar_share.setOnClickListener(this, null);
-//        btn_download.setOnClickListener(this, null);
         viewPager.setOnPageChangeListener(this);
     }
 
