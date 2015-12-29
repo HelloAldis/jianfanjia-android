@@ -86,7 +86,7 @@ public class DesignerByAppointOrReplaceAdapter extends BaseRecyclerViewAdapter<M
                 } else {
                     holder.itemAuthView.setVisibility(View.GONE);
                 }
-                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                holder.itemwHeadView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if (null != listener) {

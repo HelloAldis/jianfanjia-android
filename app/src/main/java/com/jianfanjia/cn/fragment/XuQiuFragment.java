@@ -126,17 +126,17 @@ public class XuQiuFragment extends BaseAnnotationFragment {
                 switch (itemType) {
                     case ITEM_PRIVIEW:
                         Intent gotoPriviewRequirement = null;
-                        if(requirementInfo.getDec_type().equals(Global.DEC_TYPE_BUSINESS)){
+                        if (requirementInfo.getDec_type().equals(Global.DEC_TYPE_BUSINESS)) {
                             gotoPriviewRequirement = new Intent(getActivity(), PreviewBusinessRequirementActivity_.class);
-                        }else{
+                        } else {
                             gotoPriviewRequirement = new Intent(getActivity(), PreviewRequirementActivity_.class);
                         }
-                        gotoPriviewRequirement.putExtra(Global.REQUIREMENT_INFO,requirementInfo);
+                        gotoPriviewRequirement.putExtra(Global.REQUIREMENT_INFO, requirementInfo);
                         getActivity().startActivityForResult(gotoPriviewRequirement, REQUESTCODE_FRESH_REQUIREMENT);
                         break;
                     case ITEM_EDIT:
                         Intent intent = new Intent(getActivity(), UpdateRequirementActivity_.class);
-                        intent.putExtra(Global.REQUIREMENT_INFO,requirementInfo);
+                        intent.putExtra(Global.REQUIREMENT_INFO, requirementInfo);
                         getActivity().startActivityForResult(intent, REQUESTCODE_EDIT_REQUIREMENT);
                         break;
                     case ITEM_GOTOPRO:
@@ -163,7 +163,7 @@ public class XuQiuFragment extends BaseAnnotationFragment {
         });
         pullrefresh.setAdapter(requirementAdapter);
         Paint paint = new Paint();
-        paint.setStrokeWidth(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, getResources().getDisplayMetrics()));
+        paint.setStrokeWidth(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getResources().getDisplayMetrics()));
         paint.setAlpha(0);
         paint.setAntiAlias(true);
         pullrefresh.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity())
