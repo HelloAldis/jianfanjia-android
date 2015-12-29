@@ -44,6 +44,7 @@ import de.greenrobot.event.EventBus;
 public class DesignerInfoActivity extends BaseActivity implements OnClickListener, AppBarLayout.OnOffsetChangedListener {
     private static final String TAG = DesignerInfoActivity.class.getName();
     private Toolbar toolbar = null;
+    private TextView toolbar_title = null;
     private CollapsingToolbarLayout collapsingToolbar = null;
     private AppBarLayout appBarLayout = null;
     private TabLayout tabLayout = null;
@@ -67,6 +68,7 @@ public class DesignerInfoActivity extends BaseActivity implements OnClickListene
         LogTool.d(TAG, "designerid=" + designerid);
         //---------------------------------
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar_title = (TextView) findViewById(R.id.toolbar_title);
         toolbar.setNavigationIcon(R.mipmap.icon_register_back);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -145,11 +147,11 @@ public class DesignerInfoActivity extends BaseActivity implements OnClickListene
     @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
         if (verticalOffset == 0) {
-            toolbar.setTitle("");
+            toolbar_title.setText("");
         } else if (Math.abs(verticalOffset) >= appBarLayout.getTotalScrollRange()) {
-            toolbar.setTitle(designer_name);
+            toolbar_title.setText(designer_name);
         } else {
-            toolbar.setTitle("");
+            toolbar_title.setText("");
         }
     }
 
@@ -179,6 +181,7 @@ public class DesignerInfoActivity extends BaseActivity implements OnClickListene
             if (null != designerInfo) {
                 designer_name = designerInfo.getUsername();
                 designerName.setText(designer_name);
+                toolbar.setTitle("");
                 String designerid = designerInfo.getImageid();
                 if (!TextUtils.isEmpty(designerid)) {
                     imageShow.displayImageHeadWidthThumnailImage(DesignerInfoActivity.this, designerInfo.getImageid(), designerinfo_head_img);

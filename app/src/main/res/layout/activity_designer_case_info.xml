@@ -99,8 +99,15 @@
                 android:minHeight="45dp"
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                app:title=""
-                app:titleTextColor="@color/back">
+                app:title="">
+
+                <TextView
+                    android:id="@+id/toolbar_title"
+                    style="@style/listview_item_text_style_big"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textColor="@color/home_page_text_color" />
 
                 <RelativeLayout
                     android:id="@+id/toolbar_collect_layout"
