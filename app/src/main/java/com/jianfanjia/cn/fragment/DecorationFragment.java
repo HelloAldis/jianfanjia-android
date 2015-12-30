@@ -82,6 +82,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         decoration_listview = (PullToRefreshRecycleView) view.findViewById(R.id.decoration_listview);
         decoration_listview.setMode(PullToRefreshBase.Mode.BOTH);
         decoration_listview.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        decoration_listview.setHasFixedSize(true);
         decoration_listview.setItemAnimator(new DefaultItemAnimator());
         SpacesItemDecoration decoration = new SpacesItemDecoration(10);
         decoration_listview.addItemDecoration(decoration);
