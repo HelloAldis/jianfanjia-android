@@ -84,8 +84,16 @@ android {
     productFlavors {
         Default {
         }
-        /*yingyongbao {
-        }*/
+        zhushou_360{
+        }
+        mi{
+        }
+        baidu{
+        }
+        yingyongbao {
+        }
+        huawei{
+        }
     }
 
     productFlavors.all { flavor ->

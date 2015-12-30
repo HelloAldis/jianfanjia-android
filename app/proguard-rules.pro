@@ -62,8 +62,11 @@
 -keep class u.aly.** {*;}
 
 -dontwarn android.support.v4.**
+-dontwarn android.support.v7.**
 -dontwarn org.apache.commons.net.**
 -dontwarn com.tencent.**
+
+-keep class android.support.v7.** { *; }
 
 -keepclasseswithmembernames class * {
     native <methods>;
