@@ -5,7 +5,6 @@ import android.content.pm.PackageManager;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseApplication;
-import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.cache.DataCleanManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.OkHttpClientManager;
@@ -25,7 +24,6 @@ import java.net.CookiePolicy;
  */
 public class MyApplication extends BaseApplication {
     private static MyApplication instance;
-    private RegisterInfo registerInfo = new RegisterInfo();// 注册实体信息
     private PersistentCookieStore cookieStore;// cookie实例化
 
 //    private RefWatcher refWatcher;
@@ -56,10 +54,6 @@ public class MyApplication extends BaseApplication {
 
     public static MyApplication getInstance() {
         return instance;
-    }
-
-    public RegisterInfo getRegisterInfo() {
-        return registerInfo;
     }
 
     /**

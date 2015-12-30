@@ -35,21 +35,31 @@ public class DecorationAdapter extends BaseRecyclerViewAdapter<BeautyImgInfo> {
     public void bindView(final RecyclerViewHolderBase viewHolder, final int position, final List<BeautyImgInfo> list) {
         BeautyImgInfo info = list.get(position);
         final DecorationViewHolder holder = (DecorationViewHolder) viewHolder;
-        Img img = info.getImages().get(0);
-        int width = ScreenUtil.getScreenWidth(context) / 2;
-        int height = width * img.getHeight() / img.getWidth();//高通过宽等比例缩放
-        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
-                width, height);
-        holder.itemDecorateView.setLayoutParams(params);
-        imageShow.displayScreenWidthThumnailImage(context, img.getImageid(), holder.itemDecorateView);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != listener) {
-                    listener.OnItemClick(position);
+        List<Img> imgList = info.getImages();
+        if (null != imgList && imgList.size() > 0) {
+            Img img = info.getImages().get(0);
+            int width = ScreenUtil.getScreenWidth(context) / 2;
+            int height = width * img.getHeight() / img.getWidth();//高通过宽等比例缩放
+            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
+                    width, height);
+            holder.itemDecorateView.setLayoutParams(params);
+            imageShow.displayScreenWidthThumnailImage(context, img.getImageid(), holder.itemDecorateView);
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (null != listener) {
+                        listener.OnItemClick(position);
+                    }
                 }
-            }
-        });
+            });
+        } else {
+            int width = ScreenUtil.getScreenWidth(context) / 2;
+            int height = ScreenUtil.getScreenWidth(context) / 2;
+            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
+                    width, height);
+            holder.itemDecorateView.setLayoutParams(params);
+            holder.itemDecorateView.setBackgroundResource(R.mipmap.pix_default);
+        }
     }
 
     @Override
