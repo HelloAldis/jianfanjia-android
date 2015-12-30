@@ -3,13 +3,16 @@ package com.jianfanjia.cn.adapter;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.bean.BeautyImgInfo;
+import com.jianfanjia.cn.bean.Img;
 import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
+import com.jianfanjia.cn.tools.ScreenUtil;
 
 import java.util.List;
 
@@ -29,24 +32,32 @@ public class DecorationImgAdapter extends BaseRecyclerViewAdapter<BeautyImgInfo>
     }
 
     @Override
-    public void bindView(RecyclerViewHolderBase viewHolder, final int position, List<BeautyImgInfo> list) {
+    public void bindView(RecyclerViewHolderBase viewHolder, int position, List<BeautyImgInfo> list) {
         BeautyImgInfo beautyImgInfo = list.get(position);
         final DecorationViewHolder holder = (DecorationViewHolder) viewHolder;
         if (!beautyImgInfo.is_deleted()) {
             holder.itemDecorateView.setVisibility(View.VISIBLE);
             holder.itemNoDecorateView.setVisibility(View.GONE);
-            imageShow.displayHalfScreenWidthThumnailImage(context, beautyImgInfo.getImages().get(0).getImageid(), holder.itemDecorateView);
+            Img img = beautyImgInfo.getImages().get(0);
+            int width = ScreenUtil.getScreenWidth(context) / 2;
+            int height = width * img.getHeight() / img.getWidth();//高通过宽等比例缩放
+            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
+                    width, height);
+            holder.itemDecorateView.setLayoutParams(params);
+            holder.itemNoDecorateView.setLayoutParams(params);
+            imageShow.displayScreenWidthThumnailImage(context, img.getImageid(), holder.itemDecorateView);
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (null != listener) {
-                        listener.OnItemClick(v, position);
+                        listener.OnItemClick(v, holder.getLayoutPosition());
                     }
                 }
             });
         } else {
             holder.itemDecorateView.setVisibility(View.GONE);
             holder.itemNoDecorateView.setVisibility(View.VISIBLE);
+            holder.itemNoDecorateView.setImageResource(R.mipmap.pix_default);
         }
     }
 
