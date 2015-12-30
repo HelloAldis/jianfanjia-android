@@ -383,7 +383,7 @@ public class UserInfoActivity extends BaseAnnotationActivity implements
                 if (data != null) {
                     String name = data.getStringExtra(Constant.EDIT_CONTENT);
                     nameText.setText(name);
-                    ownerInfo.setAddress(name);
+                    ownerInfo.setUsername(name);
                     dataManager.setOwnerInfo(ownerInfo);
                     dataManager.setUserName(name);
                     isUpdate = true;
