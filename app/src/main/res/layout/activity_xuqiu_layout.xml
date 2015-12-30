@@ -25,6 +25,8 @@
             android:id="@+id/marchGridview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/space_10"
+            android:layout_marginRight="@dimen/space_10"
             android:layout_marginTop="@dimen/space_10"
             android:horizontalSpacing="10dp"
             android:listSelector="@drawable/grid_item_selector"

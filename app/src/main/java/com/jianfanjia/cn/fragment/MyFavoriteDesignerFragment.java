@@ -44,6 +44,7 @@ public class MyFavoriteDesignerFragment extends BaseFragment {
     private FavoriteDesignerAdapter designAdapter = null;
     private MyFavoriteDesigner myFavoriteDesigner = null;
     private List<DesignerInfo> designers = new ArrayList<DesignerInfo>();
+    private int currentPos = -1;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -115,6 +116,8 @@ public class MyFavoriteDesignerFragment extends BaseFragment {
                     designAdapter = new FavoriteDesignerAdapter(getActivity(), designers, new RecyclerViewOnItemClickListener() {
                         @Override
                         public void OnItemClick(View view, int position) {
+                            LogTool.d(TAG, "position=" + position);
+                            currentPos = position;
                             String designerId = myFavoriteDesigner.getDesigners().get(position).get_id();
                             LogTool.d(this.getClass().getName(), designerId);
                             Intent designerIntent = new Intent(getActivity(), DesignerInfoActivity.class);
@@ -153,7 +156,11 @@ public class MyFavoriteDesignerFragment extends BaseFragment {
     public void onEventMainThread(MessageEvent event) {
         switch (event.getEventType()) {
             case Constant.UPDATE_FAVORITE_FRAGMENT:
-                getMyFavoriteDesignerList();
+                designAdapter.remove(currentPos);
+                if (designers.size() == 0) {
+                    my_favorite_designer_listview.setVisibility(View.GONE);
+                    emptyLayout.setVisibility(View.VISIBLE);
+                }
                 break;
             default:
                 break;

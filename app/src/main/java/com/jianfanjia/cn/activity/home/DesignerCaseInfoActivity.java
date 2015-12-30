@@ -214,7 +214,7 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
                     toolbar_collect.setSelected(false);
                 }
                 designertid = designerCaseInfo.getDesigner().get_id();
-                stylelText.setText(designerCaseInfo.getHouse_area() + "㎡，" + BusinessManager.convertHouseTypeToShow(designerCaseInfo.getHouse_type()) + "，" + BusinessManager.convertDecStyleToShow(designerCaseInfo.getDec_type()));
+                stylelText.setText(designerCaseInfo.getHouse_area() + "㎡，" + BusinessManager.convertHouseTypeToShow(designerCaseInfo.getHouse_type()) + "，" + BusinessManager.convertDecStyleToShow(designerCaseInfo.getDec_style()));
                 imageShow.displayImageHeadWidthThumnailImage(DesignerCaseInfoActivity.this, designerCaseInfo.getDesigner().getImageid(), designerinfo_head_img);
                 imageShow.displayImageHeadWidthThumnailImage(DesignerCaseInfoActivity.this, designerCaseInfo.getDesigner().getImageid(), head_img);
                 if (designerCaseInfo.getDesigner().getAuth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)) {
