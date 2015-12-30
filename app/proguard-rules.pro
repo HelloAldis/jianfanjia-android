@@ -50,6 +50,10 @@
 #androidannotations混淆
 -dontwarn org.androidannotations.**
 
+#event bus混淆
+-dontwarn de.greenrobot.**
+-keep class de.greenrobot.** { *; }
+
 #友盟混淆
 -keep class com.umeng.** { *; }
 -keep class com.umeng.analytics.** { *; }
