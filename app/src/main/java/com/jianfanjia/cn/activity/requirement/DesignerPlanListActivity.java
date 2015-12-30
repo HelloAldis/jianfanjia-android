@@ -60,7 +60,7 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
         designer_plan_listview.setLayoutManager(new LinearLayoutManager(this));
         designer_plan_listview.setItemAnimator(new DefaultItemAnimator());
         Paint paint = new Paint();
-        paint.setStrokeWidth(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, getResources().getDisplayMetrics()));
+        paint.setStrokeWidth(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getResources().getDisplayMetrics()));
         paint.setAlpha(0);
         paint.setAntiAlias(true);
         designer_plan_listview.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this).paint(paint).showLastDivider().build());
