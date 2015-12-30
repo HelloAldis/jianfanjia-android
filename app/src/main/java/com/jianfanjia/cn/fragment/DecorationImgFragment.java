@@ -42,6 +42,7 @@ public class DecorationImgFragment extends BaseFragment implements ApiUiUpdateLi
     private RelativeLayout errorLayout = null;
     private List<BeautyImgInfo> beautyImgList = new ArrayList<BeautyImgInfo>();
     private DecorationImgAdapter decorationImgAdapter = null;
+    private int currentPos = -1;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -126,6 +127,8 @@ public class DecorationImgFragment extends BaseFragment implements ApiUiUpdateLi
 
     @Override
     public void OnItemClick(View view, int position) {
+        LogTool.d(TAG, "position:" + position);
+        currentPos = position;
         BeautyImgInfo beautyImgInfo = beautyImgList.get(position);
         LogTool.d(TAG, "beautyImgInfo:" + beautyImgInfo);
         String decorationid = beautyImgInfo.get_id();
@@ -144,7 +147,11 @@ public class DecorationImgFragment extends BaseFragment implements ApiUiUpdateLi
     public void onEventMainThread(MessageEvent event) {
         switch (event.getEventType()) {
             case Constant.UPDATE_BEAUTY_FRAGMENT:
-                getDecorationImgList();
+                decorationImgAdapter.remove(currentPos);
+                if (beautyImgList.size() == 0) {
+                    decoration_img_listview.setVisibility(View.GONE);
+                    emptyLayout.setVisibility(View.VISIBLE);
+                }
                 break;
             default:
                 break;
