@@ -32,7 +32,7 @@ public class DecorationAdapter extends BaseRecyclerViewAdapter<BeautyImgInfo> {
     }
 
     @Override
-    public void bindView(final RecyclerViewHolderBase viewHolder, final int position, final List<BeautyImgInfo> list) {
+    public void bindView(final RecyclerViewHolderBase viewHolder, int position, final List<BeautyImgInfo> list) {
         BeautyImgInfo info = list.get(position);
         final DecorationViewHolder holder = (DecorationViewHolder) viewHolder;
         Img img = info.getImages().get(0);
@@ -46,7 +46,7 @@ public class DecorationAdapter extends BaseRecyclerViewAdapter<BeautyImgInfo> {
             @Override
             public void onClick(View v) {
                 if (null != listener) {
-                    listener.OnItemClick(position);
+                    listener.OnItemClick(holder.getLayoutPosition());
                 }
             }
         });

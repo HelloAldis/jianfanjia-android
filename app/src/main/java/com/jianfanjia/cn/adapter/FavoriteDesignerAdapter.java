@@ -33,7 +33,7 @@ public class FavoriteDesignerAdapter extends BaseRecyclerViewAdapter<DesignerInf
     }
 
     @Override
-    public void bindView(RecyclerViewHolderBase viewHolder, final int position, List<DesignerInfo> list) {
+    public void bindView(RecyclerViewHolderBase viewHolder, int position, List<DesignerInfo> list) {
         DesignerInfo designerInfo = list.get(position);
         final FavoriteDesignerViewHolder holder = (FavoriteDesignerViewHolder) viewHolder;
         holder.ltm_myfavdesi_name.setText(TextUtils.isEmpty(designerInfo.getUsername()) ? context.getResources().getString(R.string.designer) : designerInfo.getUsername());
@@ -53,7 +53,7 @@ public class FavoriteDesignerAdapter extends BaseRecyclerViewAdapter<DesignerInf
             @Override
             public void onClick(View v) {
                 if (null != listener) {
-                    listener.OnItemClick(v, position);
+                    listener.OnItemClick(v, holder.getLayoutPosition());
                 }
             }
         });

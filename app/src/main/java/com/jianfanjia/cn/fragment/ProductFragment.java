@@ -45,6 +45,7 @@ public class ProductFragment extends BaseFragment implements ApiUiUpdateListener
     private RelativeLayout errorLayout = null;
     private ProductAdapter productAdapter = null;
     private List<Product> products = new ArrayList<Product>();
+    private int currentPos = -1;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -133,6 +134,8 @@ public class ProductFragment extends BaseFragment implements ApiUiUpdateListener
 
     @Override
     public void OnItemClick(View view, int position) {
+        LogTool.d(TAG, "position:" + position);
+        currentPos = position;
         Product product = products.get(position);
         String productid = product.get_id();
         LogTool.d(TAG, "productid:" + productid);
@@ -158,7 +161,11 @@ public class ProductFragment extends BaseFragment implements ApiUiUpdateListener
     public void onEventMainThread(MessageEvent event) {
         switch (event.getEventType()) {
             case Constant.UPDATE_PRODUCT_FRAGMENT:
-                getProductList();
+                productAdapter.remove(currentPos);
+                if (products.size() == 0) {
+                    prodtct_listview.setVisibility(View.GONE);
+                    emptyLayout.setVisibility(View.VISIBLE);
+                }
                 break;
             default:
                 break;
