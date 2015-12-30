@@ -210,6 +210,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
                     }
                     decoration_listview.setVisibility(View.VISIBLE);
                     emptyLayout.setVisibility(View.GONE);
+                    isFirst = false;
                 } else {
                     decoration_listview.setVisibility(View.GONE);
                     emptyLayout.setVisibility(View.VISIBLE);
@@ -225,7 +226,9 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         public void loadFailture(String error_msg) {
             makeTextShort(error_msg);
             hideWaitDialog();
-            errorLayout.setVisibility(View.VISIBLE);
+            if(isFirst){
+                errorLayout.setVisibility(View.VISIBLE);
+            }
             emptyLayout.setVisibility(View.GONE);
             decoration_listview.onRefreshComplete();
         }

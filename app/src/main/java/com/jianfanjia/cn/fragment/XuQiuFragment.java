@@ -265,7 +265,7 @@ public class XuQiuFragment extends BaseAnnotationFragment {
                 hideWaitDialog();
                 makeTextShort(error_msg);
                 setListVisiable();
-                if (requirementInfos == null || requirementInfos.size() == 0) {
+                if (isFirst) {
                     error_Layout.setVisibility(View.VISIBLE);
                 }
                 pullrefresh.onRefreshComplete();
