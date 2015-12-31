@@ -55,7 +55,7 @@ public class YanQiNotifyFragment extends BaseFragment implements ApiUiUpdateList
         yanqiListView.setLayoutManager(new LinearLayoutManager(getActivity()));
         yanqiListView.setItemAnimator(new DefaultItemAnimator());
         Paint paint = new Paint();
-        paint.setStrokeWidth(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, getResources().getDisplayMetrics()));
+        paint.setStrokeWidth(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getResources().getDisplayMetrics()));
         paint.setAlpha(0);
         paint.setAntiAlias(true);
         yanqiListView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).paint(paint).showLastDivider().build());
