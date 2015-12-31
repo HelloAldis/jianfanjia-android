@@ -54,7 +54,7 @@ public class DecorationAdapter extends BaseRecyclerViewAdapter<BeautyImgInfo> {
             });
         } else {
             int width = ScreenUtil.getScreenWidth(context) / 2;
-            int height = ScreenUtil.getScreenWidth(context) / 2;
+            int height = width;
             FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
                     width, height);
             holder.itemDecorateView.setLayoutParams(params);
