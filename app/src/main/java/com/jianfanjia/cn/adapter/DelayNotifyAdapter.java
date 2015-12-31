@@ -62,7 +62,7 @@ public class DelayNotifyAdapter extends BaseRecyclerViewAdapter<NotifyDelayInfo>
         } else if (status.equals(Constant.YANQI_REFUSE)) {
             holder.itemStatusView.setText("已拒绝");
         }
-        holder.itemStatusView.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (null != listener) {
