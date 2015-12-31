@@ -44,8 +44,8 @@
             android:id="@+id/btn_add"
             style="@style/button_add_style"
             android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="@dimen/space_100"
-            android:layout_marginRight="@dimen/space_100"
+            android:layout_marginLeft="@dimen/space_80"
+            android:layout_marginRight="@dimen/space_80"
             android:layout_marginTop="@dimen/space_10"
             android:text="@string/str_req_pubReq" />
     </LinearLayout>
