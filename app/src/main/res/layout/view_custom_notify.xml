@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_margin="10dip"
+        android:layout_margin="8dip"
         android:src="@mipmap/icon_logo" />
 
     <LinearLayout
@@ -23,7 +23,9 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="5dip">
+            android:layout_marginBottom="5dip"
+            android:layout_marginRight="5dip"
+            android:layout_marginTop="5dip">
 
             <TextView
                 android:id="@+id/list_item_title"
@@ -42,7 +44,9 @@
         <TextView
             android:id="@+id/list_item_content"
             style="@style/listview_item_text_style_middle"
+            android:layout_marginBottom="5dip"
             android:layout_marginRight="5dip"
+            android:layout_marginTop="5dip"
             android:text="泥木阶段"
             android:textColor="@color/light_black_color" />
 
