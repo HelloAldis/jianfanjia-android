@@ -46,14 +46,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/add_comment_layout"
-        android:layout_below="@+id/my_comment_head_layout"
-        android:layout_marginBottom="@dimen/space_8"
-        android:layout_marginTop="@dimen/space_8">
+        android:layout_below="@+id/my_comment_head_layout">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/comment_listview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/space_10"
+            android:layout_marginTop="@dimen/space_10"
             android:scrollbars="none" />
     </FrameLayout>
 
