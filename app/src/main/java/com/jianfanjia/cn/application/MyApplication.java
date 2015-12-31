@@ -35,6 +35,7 @@ public class MyApplication extends BaseApplication {
 //        saveDefaultProcess();// 加载默认的工地信息
         cookieStore = new PersistentCookieStore(this);// 记录cookie
         saveCookie(OkHttpClientManager.getInstance().client());
+
         /*
          * Thread.setDefaultUncaughtExceptionHandler(AppException
 		 * .getAppExceptionHandler(this));
