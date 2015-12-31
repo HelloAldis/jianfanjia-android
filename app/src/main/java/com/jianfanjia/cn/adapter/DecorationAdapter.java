@@ -32,7 +32,7 @@ public class DecorationAdapter extends BaseRecyclerViewAdapter<BeautyImgInfo> {
     }
 
     @Override
-    public void bindView(final RecyclerViewHolderBase viewHolder,final int position, final List<BeautyImgInfo> list) {
+    public void bindView(final RecyclerViewHolderBase viewHolder, final int position, final List<BeautyImgInfo> list) {
         BeautyImgInfo info = list.get(position);
         final DecorationViewHolder holder = (DecorationViewHolder) viewHolder;
         List<Img> imgList = info.getImages();
@@ -43,7 +43,7 @@ public class DecorationAdapter extends BaseRecyclerViewAdapter<BeautyImgInfo> {
             FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
                     width, height);
             holder.itemDecorateView.setLayoutParams(params);
-            imageShow.displayScreenWidthThumnailImage(context, img.getImageid(), holder.itemDecorateView);
+            imageShow.displayHalfScreenWidthThumnailImage(context, img.getImageid(), holder.itemDecorateView);
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
