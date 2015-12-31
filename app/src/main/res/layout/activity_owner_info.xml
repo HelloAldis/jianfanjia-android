@@ -15,9 +15,8 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_below="@+id/ownerinfo_head_layout"
-        android:layout_marginTop="@dimen/space_8"
-        android:overScrollMode="always"
-        >
+        android:layout_marginTop="@dimen/space_10"
+        android:overScrollMode="always">
 
         <LinearLayout
             android:id="@+id/rootview"
