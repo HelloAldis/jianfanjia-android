@@ -11,7 +11,7 @@ import com.jianfanjia.cn.adapter.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.bean.CommentInfo;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.tools.StringUtils;
+import com.jianfanjia.cn.tools.DateFormatTool;
 
 import java.util.List;
 
@@ -41,8 +41,7 @@ public class CommentAdapter extends BaseRecyclerViewAdapter<CommentInfo> {
             holder.itemIdentityView.setText(context
                     .getString(R.string.designer));
         }
-        holder.itemTimeView.setText(StringUtils
-                .covertLongToString(commentInfo.getDate()));
+        holder.itemTimeView.setText(DateFormatTool.toLocalTimeString(commentInfo.getDate()));
         String imageid = commentInfo.getByUser().getImageid();
         if (!imageid.contains(Constant.DEFALUT_PIC_HEAD)) {
             imageShow.displayImageHeadWidthThumnailImage(context, commentInfo.getByUser().getImageid(), holder.itemHeadView);
