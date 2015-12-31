@@ -48,7 +48,7 @@ public class FuKuanNotifyFragment extends BaseFragment implements PullToRefreshB
         fukuanListView.setLayoutManager(new LinearLayoutManager(getActivity()));
         fukuanListView.setItemAnimator(new DefaultItemAnimator());
         Paint paint = new Paint();
-        paint.setStrokeWidth(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, getResources().getDisplayMetrics()));
+        paint.setStrokeWidth(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getResources().getDisplayMetrics()));
         paint.setAlpha(0);
         paint.setAntiAlias(true);
         fukuanListView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).paint(paint).showLastDivider().build());

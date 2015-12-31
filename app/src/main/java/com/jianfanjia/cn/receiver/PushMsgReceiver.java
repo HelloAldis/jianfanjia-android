@@ -103,7 +103,7 @@ public class PushMsgReceiver extends BroadcastReceiver {
                 String processId = null;
                 String messageProcessId = null;
                 //此处的显示策略是：只有当MyProcessDetailActivity在当前屏幕，并且窗口聚焦，并且推送的Message的processid与MyProcessDetailActivity的processid相同的
-               // 情况下才会显示对话框，其他任何形式的通知都弹出通知栏
+                // 情况下才会显示对话框，其他任何形式的通知都弹出通知栏
                 if (activity != null &&
                         activity instanceof MyProcessDetailActivity
                         && !TextUtils.isEmpty(processId = ((MyProcessDetailActivity) activity).getProcessId())

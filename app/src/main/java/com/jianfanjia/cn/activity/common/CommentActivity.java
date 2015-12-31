@@ -160,7 +160,7 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
             LogTool.d(TAG, "comment:" + comment);
             if (null != comment) {
                 commentList = comment.getComments();
-                if (null != commentList) {
+                if (null != commentList && commentList.size() > 0) {
                     commentAdapter = new CommentAdapter(CommentActivity.this, commentList);
                     commentListView.setAdapter(commentAdapter);
                 }
