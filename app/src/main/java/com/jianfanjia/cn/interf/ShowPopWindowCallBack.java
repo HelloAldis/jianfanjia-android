@@ -4,9 +4,9 @@ package com.jianfanjia.cn.interf;
  * Created by Administrator on 2016/1/4.
  */
 public interface ShowPopWindowCallBack {
-    void shareWeiXin();
+    void shareToWeiXin();
 
-    void shareWeiBo();
+    void shareToWeiBo();
 
-    void shareQQ();
+    void shareToQQ();
 }
