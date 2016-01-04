@@ -52,10 +52,6 @@ public class MyApplication extends BaseApplication {
         return application.refWatcher;
     }
 */
-    @Override
-    public void onLowMemory() {
-        super.onLowMemory();
-    }
 
     public static MyApplication getInstance() {
         return instance;

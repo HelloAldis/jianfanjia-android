@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
 
-import org.apache.commons.codec.binary.Base64;
+import com.umeng.socialize.net.utils.Base64;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -118,7 +118,7 @@ public class SharedPrefer {
             oos.writeObject(value);
             // 将Product对象放到OutputStream中
             // 将Product对象转换成byte数组，并将其进行base64编码
-            String str = new String(Base64.encodeBase64(baos.toByteArray()));
+            String str = new String(Base64.encodeBase64String(baos.toByteArray()));
             // 将编码后的字符串写到base64.xml文件中
             edit.putString(key, str);
             edit.commit();
@@ -193,7 +193,7 @@ public class SharedPrefer {
     public Object getValue(String key) {
         String base64Str = sp.getString(key, "");
         // 对Base64格式的字符串进行解码
-        byte[] base64Bytes = Base64.decodeBase64(base64Str.getBytes());
+        byte[] base64Bytes = Base64.decodeBase64(base64Str);
         ByteArrayInputStream bais = new ByteArrayInputStream(base64Bytes);
         ObjectInputStream ois = null;
         try {

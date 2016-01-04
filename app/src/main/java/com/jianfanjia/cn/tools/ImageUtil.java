@@ -308,7 +308,7 @@ public class ImageUtil {
         BitmapFactory.Options newOpts = new BitmapFactory.Options();
         // 开始读入图片，此时把options.inJustDecodeBounds 设回true了
         newOpts.inJustDecodeBounds = true;
-        Bitmap bitmap = BitmapFactory.decodeFile(srcPath, newOpts);// 此时返回bm为空
+        BitmapFactory.decodeFile(srcPath, newOpts);// 此时返回bm为空
 
         newOpts.inJustDecodeBounds = false;
         int w = newOpts.outWidth;
@@ -325,7 +325,7 @@ public class ImageUtil {
         if (be <= 0)
             be = 1;
         newOpts.inSampleSize = be;// 设置缩放比例
-        bitmap = BitmapFactory.decodeFile(srcPath, newOpts);
+        Bitmap bitmap  = BitmapFactory.decodeFile(srcPath, newOpts);
         LogTool.d("fjg", "after scaled bitmap width:" + bitmap.getWidth());
         LogTool.d("fjg", "after scaled bitmap height:" + bitmap.getHeight());
         LogTool.d("fjg", "after scaled newOpts width:" + newOpts.outWidth);
