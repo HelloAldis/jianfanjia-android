@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.igexin.sdk.PushManager;
@@ -29,11 +30,16 @@ import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.LogTool;
+import com.umeng.socialize.UMAuthListener;
+import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
+
+import java.util.Map;
 
 /**
  * @author fengliang
@@ -59,6 +65,9 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
     TextView registerTitle;
     @ViewById(R.id.act_title_layout)
     RelativeLayout titleLayout;
+
+    @ViewById(R.id.btn_login_weixin)
+    ImageView wexinLogin;
 
     @ViewById(R.id.content_layout)
     RelativeLayout contentLayout;
@@ -97,6 +106,8 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
 
     private GestureDetector mGestureDetector;
     private int currentPage = LOGIN;
+
+    private UMShareAPI mShareAPI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -263,7 +274,7 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
         super.onResume();
     }
 
-    @Click({R.id.btn_login, R.id.btn_next, R.id.act_forget_password, R.id.act_login, R.id.act_register})
+    @Click({R.id.btn_login, R.id.btn_next, R.id.act_forget_password, R.id.act_login, R.id.act_register,R.id.btn_login_weixin})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_login:
@@ -294,10 +305,32 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
                     showRegister();
                 }
                 break;
+            case R.id.btn_login_weixin:
+                SHARE_MEDIA platform = SHARE_MEDIA.SINA;
+                mShareAPI.doOauthVerify(this, platform, umAuthListener);
+            break;
             default:
                 break;
         }
     }
+
+
+    private UMAuthListener umAuthListener = new UMAuthListener() {
+        @Override
+        public void onComplete(SHARE_MEDIA platform, int action, Map<String, String> data) {
+            Toast.makeText(getApplicationContext(), "Authorize succeed", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onError(SHARE_MEDIA platform, int action, Throwable t) {
+            Toast.makeText( getApplicationContext(), "Authorize fail", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onCancel(SHARE_MEDIA platform, int action) {
+            Toast.makeText( getApplicationContext(), "Authorize cancel", Toast.LENGTH_SHORT).show();
+        }
+    };
 
     @Override
     protected void onRestart() {

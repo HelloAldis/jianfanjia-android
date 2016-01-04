@@ -11,6 +11,7 @@ import com.jianfanjia.cn.http.OkHttpClientManager;
 import com.jianfanjia.cn.http.cookie.PersistentCookieStore;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.squareup.okhttp.OkHttpClient;
+import com.umeng.socialize.PlatformConfig;
 
 import java.io.File;
 import java.net.CookieManager;
@@ -35,6 +36,9 @@ public class MyApplication extends BaseApplication {
 //        saveDefaultProcess();// 加载默认的工地信息
         cookieStore = new PersistentCookieStore(this);// 记录cookie
         saveCookie(OkHttpClientManager.getInstance().client());
+
+
+        PlatformConfig.setWeixin("wx391daabfce27e728", "f7c8e3e1b5910dd93be2744dacb3a1cc");
 
         /*
          * Thread.setDefaultUncaughtExceptionHandler(AppException
