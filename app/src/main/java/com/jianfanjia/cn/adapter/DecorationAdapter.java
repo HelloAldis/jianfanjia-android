@@ -12,7 +12,7 @@ import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.bean.BeautyImgInfo;
 import com.jianfanjia.cn.bean.Img;
 import com.jianfanjia.cn.interf.OnItemClickListener;
-import com.jianfanjia.cn.tools.ScreenUtil;
+import com.jianfanjia.cn.tools.TDevice;
 
 import java.util.List;
 
@@ -38,7 +38,7 @@ public class DecorationAdapter extends BaseRecyclerViewAdapter<BeautyImgInfo> {
         List<Img> imgList = info.getImages();
         if (null != imgList && imgList.size() > 0) {
             Img img = info.getImages().get(0);
-            int width = ScreenUtil.getScreenWidth(context) / 2;
+            int width = (int)TDevice.getScreenWidth() / 2;
             int height = width * img.getHeight() / img.getWidth();//高通过宽等比例缩放
             CardView.LayoutParams layoutParams = (CardView.LayoutParams) holder.itemDecorateView.getLayoutParams();
             layoutParams.width = width;
@@ -54,7 +54,7 @@ public class DecorationAdapter extends BaseRecyclerViewAdapter<BeautyImgInfo> {
                 }
             });
         } else {
-            int width = ScreenUtil.getScreenWidth(context) / 2;
+            int width = (int)TDevice.getScreenWidth() / 2;
             int height = width;
             CardView.LayoutParams layoutParams = (CardView.LayoutParams) holder.itemDecorateView.getLayoutParams();
             layoutParams.width = width;

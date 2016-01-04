@@ -20,7 +20,7 @@ import com.jianfanjia.cn.interf.manager.ListenerManeger;
 import com.jianfanjia.cn.tools.DaoManager;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.tools.SystemUtils;
+import com.jianfanjia.cn.tools.TDevice;
 import com.jianfanjia.cn.tools.UiHelper;
 
 /**
@@ -97,7 +97,7 @@ public class PushMsgReceiver extends BroadcastReceiver {
                     NotifyMessage.class);
             Log.i(TAG, "message:" + message);
             notifyMessageDao.save(message);
-            if (SystemUtils.isAppAlive(context, context.getPackageName())) {
+            if (TDevice.isAppAlive(context, context.getPackageName())) {
                 LogTool.d(TAG, "the app process is alive");
                 Activity activity = AppManager.getAppManager().currentActivity();
                 String processId = null;

@@ -95,19 +95,19 @@ public class ImageShow {
      * @param imageid
      */
     public void displayScreenWidthThumnailImage(Context context, String imageid, ImageView imageView) {
-        displayThumbnailImage(imageid, imageView, ScreenUtil.getScreenWidth(context));
+        displayThumbnailImage(imageid, imageView, (int)TDevice.getScreenWidth());
     }
 
     public void displayHalfScreenWidthThumnailImage(Context context, String imageid, ImageView imageView) {
-        displayThumbnailImage(imageid, imageView, ScreenUtil.getScreenWidth(context) / 2);
+        displayThumbnailImage(imageid, imageView, (int)TDevice.getScreenWidth() / 2);
     }
 
     public void displayScreenWidthThumnailImage(Context context, String imageid, ImageView imageView, ImageLoadingListener listener) {
-        displayThumbnailImage(imageid, imageView, ScreenUtil.getScreenWidth(context), listener);
+        displayThumbnailImage(imageid, imageView, (int)TDevice.getScreenWidth(), listener);
     }
 
     public void displayHalfScreenWidthThumnailImage(Context context, String imageid, ImageView imageView, ImageLoadingListener listener) {
-        displayThumbnailImage(imageid, imageView, ScreenUtil.getScreenWidth(context) / 2, listener);
+        displayThumbnailImage(imageid, imageView, (int)TDevice.getScreenWidth() / 2, listener);
     }
 
     /**

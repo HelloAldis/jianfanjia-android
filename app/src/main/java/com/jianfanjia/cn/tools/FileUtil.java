@@ -630,7 +630,7 @@ public class FileUtil {
     public static File createTmpFile(Context context) {
         String state = Environment.getExternalStorageState();
         if (state.equals(Environment.MEDIA_MOUNTED)) {
-            // 锟窖癸拷锟斤拷
+            // 有sd卡挂载的时候
             String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss",
                     Locale.CHINA).format(new Date());
             String fileName = "jyz_image_" + timeStamp + "";
