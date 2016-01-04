@@ -254,7 +254,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
 
             @Override
             public void shareWeiBo() {
-                
+
             }
 
             @Override
