@@ -360,7 +360,6 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
     @Override
     protected void onRestart() {
         super.onRestart();
-//        mEtLoginUserName.requestFocus();
     }
 
     private boolean checkRegisterInput(String name, String password) {

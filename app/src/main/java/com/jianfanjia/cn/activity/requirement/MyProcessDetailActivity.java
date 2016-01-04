@@ -37,7 +37,6 @@ import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.tools.DateFormatTool;
 import com.jianfanjia.cn.tools.FileUtil;
 import com.jianfanjia.cn.tools.ImageUtil;
-import com.jianfanjia.cn.tools.ImageUtils;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.StringUtils;
@@ -507,8 +506,8 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                     Uri uri = data.getData();
                     LogTool.d(TAG, "uri:" + uri);
                     if (null != uri) {
-                        Bitmap imageBitmap = ImageUtil.getImage(ImageUtils
-                                .getImagePath(uri, this));
+                        Bitmap imageBitmap = ImageUtil.getImage(ImageUtil
+                                .getImagePath(this,uri));
                         if (null != imageBitmap) {
                             upload_image(imageBitmap);
                         }

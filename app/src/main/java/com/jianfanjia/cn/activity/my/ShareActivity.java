@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.tools.ImageUtils;
+import com.jianfanjia.cn.tools.ImageUtil;
 import com.jianfanjia.cn.view.MainHeadView;
 
 import java.io.IOException;
@@ -56,7 +56,7 @@ public class ShareActivity extends BaseActivity implements OnClickListener,
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
                 R.mipmap.icon_jianfanjia_qr);
         try {
-            ImageUtils.saveImageToSD(ShareActivity.this, Constant.IMAG_PATH
+            ImageUtil.saveImageToSD(ShareActivity.this, Constant.IMAG_PATH
                     + "myqr.jpg", bitmap, 100);
             makeTextShort(getResources().getString(R.string.save_image_success));
         } catch (IOException e) {
