@@ -92,15 +92,15 @@ public class SharePopWindow extends PopupWindow implements OnClickListener {
         switch (v.getId()) {
             case R.id.pengyouLayout:
                 dismiss();
-                callback.shareQQ();
+                callback.shareToQQ();
                 break;
             case R.id.weiboLayout:
                 dismiss();
-                callback.shareWeiBo();
+                callback.shareToWeiBo();
                 break;
             case R.id.weixinLayout:
                 dismiss();
-                callback.shareWeiXin();
+                callback.shareToWeiXin();
                 break;
             case R.id.btn_delete:
                 dismiss();

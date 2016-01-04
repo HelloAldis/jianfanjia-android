@@ -37,6 +37,6 @@ public class ShareUtil {
     public void share(Activity activity, String desc, String imgId, SHARE_MEDIA platform, UMShareListener umShareListener) {
         String imageUrl = url_new.GET_THUMBNAIL_IMAGE.replace(Url_New.WIDTH, width + "") + imgId;
         UMImage image = new UMImage(activity, imageUrl);
-        shareAction.setPlatform(platform).setCallback(umShareListener).withText(desc).withTargetUrl(imageUrl).withMedia(image).share();
+        shareAction.setPlatform(platform).setCallback(umShareListener).withText(desc).withTargetUrl(imageUrl).withMedia(image).withTitle(desc).share();
     }
 }
