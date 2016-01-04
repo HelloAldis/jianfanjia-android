@@ -31,7 +31,7 @@ public class AuthUtil {
         umShareAPI = UMShareAPI.get(activity);
     }
 
-    public   void doOauthVerify(Activity activity,SHARE_MEDIA platform,UMAuthListener umAuthListener){
+    public  void doOauthVerify(Activity activity,SHARE_MEDIA platform,UMAuthListener umAuthListener){
         umShareAPI.doOauthVerify(activity,platform,umAuthListener);
     }
 
@@ -41,6 +41,10 @@ public class AuthUtil {
 
     public UMShareAPI getUmShareAPI(){
         return umShareAPI;
+    }
+
+    public void getPlatformInfo(Activity activity,SHARE_MEDIA platform,UMAuthListener umAuthListener){
+        umShareAPI.getPlatformInfo(activity,platform,umAuthListener);
     }
 
 

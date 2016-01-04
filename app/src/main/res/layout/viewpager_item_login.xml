@@ -2,15 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/login_layout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:paddingLeft="@dimen/space_60"
     android:paddingRight="@dimen/space_60">
 
     <FrameLayout
         android:id="@+id/act_login_input_phone_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content">
 
         <EditText
             android:id="@+id/act_login_input_phone"
@@ -47,8 +46,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/act_login_input_phone_layout"
-        android:layout_marginTop="@dimen/space_16"
-        >
+        android:layout_marginTop="@dimen/space_16">
 
         <EditText
             android:id="@+id/act_login_input_password"
@@ -96,17 +94,24 @@
         android:id="@+id/btn_login"
         style="@style/button_login_style"
         android:layout_marginTop="180dp"
+        android:enabled="false"
         android:text="@string/login"
-        android:textColor="@color/font_white"
-        android:enabled="false"/>
+        android:textColor="@color/font_white" />
 
-    <ImageView
-        android:id="@+id/btn_login_weixin"
-        android:layout_marginTop="90dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btn_login"
-        android:layout_centerHorizontal="true"
+    <RelativeLayout
+        android:id="@+id/btn_login_weixin_layout"
         android:layout_width="wrap_content"
-        android:src="@mipmap/icon_weixin"/>
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:padding="@dimen/space_24">
+
+        <ImageView
+            android:id="@+id/btn_login_weixin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@mipmap/icon_weixin_login" />
+    </RelativeLayout>
 
 </RelativeLayout>

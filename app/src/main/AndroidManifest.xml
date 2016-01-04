@@ -363,7 +363,7 @@
             android:screenOrientation="portrait" />
         <!--第三方分享以及登录-->
         <activity
-            android:name="com.jianfanjia.cn.wxapi.WXEntryActivity"
+            android:name=".wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:screenOrientation="portrait"

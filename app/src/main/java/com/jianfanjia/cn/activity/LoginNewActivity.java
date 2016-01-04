@@ -275,7 +275,7 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
         super.onResume();
     }
 
-    @Click({R.id.btn_login, R.id.btn_next, R.id.act_forget_password, R.id.act_login, R.id.act_register,R.id.btn_login_weixin})
+    @Click({R.id.btn_login, R.id.btn_next, R.id.act_forget_password, R.id.act_login, R.id.act_register,R.id.btn_login_weixin_layout})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_login:
@@ -306,7 +306,7 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
                     showRegister();
                 }
                 break;
-            case R.id.btn_login_weixin:
+            case R.id.btn_login_weixin_layout:
                 SHARE_MEDIA platform = SHARE_MEDIA.WEIXIN;
                 authUtil.doOauthVerify(this,platform,umAuthListener);
             break;
@@ -319,6 +319,31 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
         @Override
         public void onComplete(SHARE_MEDIA platform, int action, Map<String, String> data) {
             Toast.makeText(getApplicationContext(), "Authorize succeed", Toast.LENGTH_SHORT).show();
+            if (data!=null){
+                Toast.makeText(getApplicationContext(), data.toString(), Toast.LENGTH_SHORT).show();
+                LogTool.d(this.getClass().getName(),data.toString());
+            }
+            authUtil.getPlatformInfo(LoginNewActivity.this,SHARE_MEDIA.WEIXIN,umAuthInfoListener);
+        }
+
+        @Override
+        public void onError(SHARE_MEDIA platform, int action, Throwable t) {
+            Toast.makeText( getApplicationContext(), "Authorize fail", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onCancel(SHARE_MEDIA platform, int action) {
+            Toast.makeText( getApplicationContext(), "Authorize cancel", Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    private UMAuthListener umAuthInfoListener = new UMAuthListener() {
+        @Override
+        public void onComplete(SHARE_MEDIA platform, int action, Map<String, String> data) {
+            if (data!=null){
+                Toast.makeText(getApplicationContext(), data.toString(), Toast.LENGTH_SHORT).show();
+                LogTool.d(this.getClass().getName(),data.toString());
+            }
         }
 
         @Override
