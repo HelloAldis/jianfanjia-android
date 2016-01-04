@@ -26,8 +26,12 @@ import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.tools.ImageUtil;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.tools.ShareUtil;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.SharePopWindow;
+import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +46,7 @@ import de.greenrobot.event.EventBus;
  */
 public class PreviewDecorationActivity extends BaseActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
     private static final String TAG = PreviewDecorationActivity.class.getName();
+    private ShareUtil shareUtil = null;
     private Toolbar toolbar = null;
     private ImageView toolbar_collect = null;
     private ImageView toolbar_share = null;
@@ -66,6 +71,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
         Bundle decorationBundle = intent.getExtras();
         decorationId = decorationBundle.getString(Global.DECORATION_ID);
         LogTool.d(TAG, "decorationId=" + decorationId);
+        shareUtil = ShareUtil.getShareUtil(this);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar_collect = (ImageView) findViewById(R.id.toolbar_collect);
         toolbar_share = (ImageView) findViewById(R.id.toolbar_share);
@@ -249,17 +255,17 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
         SharePopWindow window = new SharePopWindow(PreviewDecorationActivity.this, new ShowPopWindowCallBack() {
             @Override
             public void shareWeiXin() {
-
+                shareUtil.share(PreviewDecorationActivity.this, "", currentImgId, SHARE_MEDIA.WEIXIN, umShareListener);
             }
 
             @Override
             public void shareWeiBo() {
-
+                shareUtil.share(PreviewDecorationActivity.this, "", currentImgId, SHARE_MEDIA.SINA, umShareListener);
             }
 
             @Override
             public void shareQQ() {
-
+                shareUtil.share(PreviewDecorationActivity.this, "", currentImgId, SHARE_MEDIA.QQ, umShareListener);
             }
         });
         window.show(view);
@@ -278,6 +284,30 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
         } catch (Exception e) {
             makeTextShort(getResources().getString(R.string.save_image_failure));
         }
+    }
+
+    private UMShareListener umShareListener = new UMShareListener() {
+        @Override
+        public void onResult(SHARE_MEDIA platform) {
+            makeTextShort(platform + " 分享成功啦");
+        }
+
+        @Override
+        public void onError(SHARE_MEDIA platform, Throwable t) {
+            makeTextShort(platform + " 分享失败啦");
+        }
+
+        @Override
+        public void onCancel(SHARE_MEDIA platform) {
+            makeTextShort(platform + " 分享取消了");
+        }
+    };
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        /** attention to this below ,must add this**/
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
