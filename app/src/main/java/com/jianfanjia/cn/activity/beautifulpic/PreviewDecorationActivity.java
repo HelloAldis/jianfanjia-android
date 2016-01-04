@@ -21,7 +21,7 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
-import com.jianfanjia.cn.interf.PopWindowCallBack;
+import com.jianfanjia.cn.interf.ShowPopWindowCallBack;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.tools.ImageUtil;
 import com.jianfanjia.cn.tools.JsonParser;
@@ -246,14 +246,19 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
 
 
     private void showPopwindow(View view) {
-        SharePopWindow window = new SharePopWindow(PreviewDecorationActivity.this, new PopWindowCallBack() {
+        SharePopWindow window = new SharePopWindow(PreviewDecorationActivity.this, new ShowPopWindowCallBack() {
             @Override
-            public void firstItemClick() {
+            public void shareWeiXin() {
 
             }
 
             @Override
-            public void secondItemClick() {
+            public void shareWeiBo() {
+
+            }
+
+            @Override
+            public void shareQQ() {
 
             }
         });
