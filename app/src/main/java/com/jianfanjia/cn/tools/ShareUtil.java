@@ -30,7 +30,7 @@ public class ShareUtil {
     public ShareUtil(Activity activity) {
         url_new = Url_New.getInstance();
         shareAction = new ShareAction(activity);
-        width = ScreenUtil.getScreenWidth(activity);
+        width = (int)TDevice.getScreenWidth();
     }
 
 

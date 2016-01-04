@@ -11,7 +11,7 @@ import com.jianfanjia.cn.base.BaseAnnotationActivity;
 import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.tools.ScreenUtil;
+import com.jianfanjia.cn.tools.TDevice;
 import com.jianfanjia.cn.tools.UiHelper;
 
 import org.androidannotations.annotations.AfterViews;
@@ -63,8 +63,8 @@ public class NewUserCollectDecStageActivity extends BaseAnnotationActivity {
     @AfterViews
     protected void viewanim() {
 //        dec_stage_1.setTranslationY(TDevice.getScreenHeight() / 2);
-        LogTool.d(this.getClass().getName(), "ScreenUtil.getScreenHeight(this) =" + ScreenUtil.getScreenHeight(this));
-        dec_stage_1.setTranslationY(ScreenUtil.getScreenHeight(this));
+        LogTool.d(this.getClass().getName(), "TDevice.getScreenHeight() =" + TDevice.getScreenHeight());
+        dec_stage_1.setTranslationY(TDevice.getScreenHeight());
         dec_stage_1.animate().translationY(0).setInterpolator(new OvershootInterpolator(1.0f)).setStartDelay(200).setDuration(700).start();
         dec_stage_2.setScaleX(0.1f);
         dec_stage_2.setScaleY(0.1f);

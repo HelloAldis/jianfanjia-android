@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.tools.ImageShow;
-import com.jianfanjia.cn.tools.ScreenUtil;
+import com.jianfanjia.cn.tools.TDevice;
 
 import java.util.List;
 
@@ -73,7 +73,7 @@ public class PlanViewAdapter extends PagerAdapter {
         ImageView imageView = (ImageView) view
                 .findViewById(R.id.list_item_plan_img);
         String imgid = mList.get(position);
-        imageShow.displayThumbnailImage(imgid,imageView, ScreenUtil.getScreenWidth(context)/3);
+        imageShow.displayThumbnailImage(imgid,imageView, (int) TDevice.getScreenWidth()/3);
         container.addView(view, 0);
         view.setOnClickListener(new OnClickListener() {
 

@@ -228,7 +228,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
 
         @Override
         public void loadFailture(String error_msg) {
-            makeTextLong(error_msg);
+            makeTextShort(error_msg);
         }
     };
 
