@@ -27,7 +27,7 @@ public class SharePopWindow extends PopupWindow implements OnClickListener {
     private Button cancel = null;
     private LayoutInflater inflater = null;
     private View menuView = null;
-    private LinearLayout pengyouLayout = null;
+    private LinearLayout qqLayout = null;
     private LinearLayout weiboLayout = null;
     private LinearLayout weixinLayout = null;
     private WindowManager.LayoutParams lp = null;
@@ -38,11 +38,11 @@ public class SharePopWindow extends PopupWindow implements OnClickListener {
         this.callback = callback;
         inflater = LayoutInflater.from(activity);
         menuView = inflater.inflate(R.layout.share_popwin_dialog, null);
-        pengyouLayout = (LinearLayout) menuView.findViewById(R.id.pengyouLayout);
+        qqLayout = (LinearLayout) menuView.findViewById(R.id.qqLayout);
         weiboLayout = (LinearLayout) menuView.findViewById(R.id.weiboLayout);
         weixinLayout = (LinearLayout) menuView.findViewById(R.id.weixinLayout);
         cancel = (Button) menuView.findViewById(R.id.btn_delete);
-        pengyouLayout.setOnClickListener(this);
+        qqLayout.setOnClickListener(this);
         weiboLayout.setOnClickListener(this);
         weixinLayout.setOnClickListener(this);
         cancel.setOnClickListener(this);
@@ -90,7 +90,7 @@ public class SharePopWindow extends PopupWindow implements OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.pengyouLayout:
+            case R.id.qqLayout:
                 dismiss();
                 callback.shareToQQ();
                 break;
