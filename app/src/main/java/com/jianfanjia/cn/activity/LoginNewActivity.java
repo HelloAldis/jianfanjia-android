@@ -29,9 +29,9 @@ import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
+import com.jianfanjia.cn.tools.AuthUtil;
 import com.jianfanjia.cn.tools.LogTool;
 import com.umeng.socialize.UMAuthListener;
-import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import org.androidannotations.annotations.AfterViews;
@@ -107,11 +107,12 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
     private GestureDetector mGestureDetector;
     private int currentPage = LOGIN;
 
-    private UMShareAPI mShareAPI;
+    private AuthUtil authUtil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        authUtil = AuthUtil.getInstance(this);
     }
 
     @AfterViews
@@ -306,14 +307,13 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
                 }
                 break;
             case R.id.btn_login_weixin:
-                SHARE_MEDIA platform = SHARE_MEDIA.SINA;
-                mShareAPI.doOauthVerify(this, platform, umAuthListener);
+                SHARE_MEDIA platform = SHARE_MEDIA.WEIXIN;
+                authUtil.doOauthVerify(this,platform,umAuthListener);
             break;
             default:
                 break;
         }
     }
-
 
     private UMAuthListener umAuthListener = new UMAuthListener() {
         @Override
@@ -598,5 +598,9 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
         });
     }
 
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        authUtil.getUmShareAPI().onActivityResult(requestCode,resultCode,data);
+    }
 }
