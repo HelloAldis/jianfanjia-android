@@ -37,7 +37,7 @@ public class MyApplication extends BaseApplication {
         cookieStore = new PersistentCookieStore(this);// 记录cookie
         saveCookie(OkHttpClientManager.getInstance().client());
 
-        PlatformConfig.setWeixin("wx391daabfce27e728","f7c8e3e1b5910dd93be2744dacb3a1cc");
+        PlatformConfig.setWeixin("wx391daabfce27e728", "f7c8e3e1b5910dd93be2744dacb3a1cc");
         PlatformConfig.setSinaWeibo("3921700954", "04b48b094faeb16683c32669824ebdad");
         PlatformConfig.setQQZone("1104973048", "FuDs7s4vJGAEzCrz");
 
