@@ -35,11 +35,8 @@
 
             <RelativeLayout
                 android:id="@+id/toolbar_collect_layout"
-                android:layout_width="@dimen/space_64"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dip"
-                android:visibility="gone">
+                android:layout_width="@dimen/space_60"
+                android:layout_height="match_parent">
 
                 <ImageView
                     android:id="@+id/toolbar_collect"
@@ -52,11 +49,9 @@
 
             <RelativeLayout
                 android:id="@+id/toolbar_share_layout"
-                android:layout_width="@dimen/space_64"
+                android:layout_width="@dimen/space_60"
                 android:layout_height="match_parent"
-                android:layout_gravity="right"
-                android:layout_marginRight="10dp"
-                android:visibility="gone">
+                android:layout_gravity="right">
 
                 <ImageView
                     android:id="@+id/toolbar_share"
