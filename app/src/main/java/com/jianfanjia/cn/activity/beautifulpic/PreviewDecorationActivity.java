@@ -255,17 +255,17 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
         SharePopWindow window = new SharePopWindow(PreviewDecorationActivity.this, new ShowPopWindowCallBack() {
             @Override
             public void shareWeiXin() {
-                shareUtil.share(PreviewDecorationActivity.this, "", currentImgId, SHARE_MEDIA.WEIXIN, umShareListener);
+                shareUtil.share(PreviewDecorationActivity.this, "weixin分享", currentImgId, SHARE_MEDIA.WEIXIN, umShareListener);
             }
 
             @Override
             public void shareWeiBo() {
-                shareUtil.share(PreviewDecorationActivity.this, "", currentImgId, SHARE_MEDIA.SINA, umShareListener);
+                shareUtil.share(PreviewDecorationActivity.this, "weibo分享", currentImgId, SHARE_MEDIA.SINA, umShareListener);
             }
 
             @Override
             public void shareQQ() {
-                shareUtil.share(PreviewDecorationActivity.this, "", currentImgId, SHARE_MEDIA.QQ, umShareListener);
+                shareUtil.share(PreviewDecorationActivity.this, "qq分享", currentImgId, SHARE_MEDIA.QQ, umShareListener);
             }
         });
         window.show(view);
