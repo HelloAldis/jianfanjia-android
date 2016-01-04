@@ -1,9 +1,9 @@
 package com.jianfanjia.cn.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.jianfanjia.cn.activity.R;
@@ -32,7 +32,7 @@ public class DecorationAdapter extends BaseRecyclerViewAdapter<BeautyImgInfo> {
     }
 
     @Override
-    public void bindView(final RecyclerViewHolderBase viewHolder,final int position, final List<BeautyImgInfo> list) {
+    public void bindView(final RecyclerViewHolderBase viewHolder, final int position, final List<BeautyImgInfo> list) {
         BeautyImgInfo info = list.get(position);
         final DecorationViewHolder holder = (DecorationViewHolder) viewHolder;
         List<Img> imgList = info.getImages();
@@ -40,10 +40,11 @@ public class DecorationAdapter extends BaseRecyclerViewAdapter<BeautyImgInfo> {
             Img img = info.getImages().get(0);
             int width = ScreenUtil.getScreenWidth(context) / 2;
             int height = width * img.getHeight() / img.getWidth();//高通过宽等比例缩放
-            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
-                    width, height);
-            holder.itemDecorateView.setLayoutParams(params);
-            imageShow.displayScreenWidthThumnailImage(context, img.getImageid(), holder.itemDecorateView);
+            CardView.LayoutParams layoutParams = (CardView.LayoutParams) holder.itemDecorateView.getLayoutParams();
+            layoutParams.width = width;
+            layoutParams.height = height;
+            holder.itemDecorateView.setLayoutParams(layoutParams);
+            imageShow.displayHalfScreenWidthThumnailImage(context, img.getImageid(), holder.itemDecorateView);
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -54,10 +55,11 @@ public class DecorationAdapter extends BaseRecyclerViewAdapter<BeautyImgInfo> {
             });
         } else {
             int width = ScreenUtil.getScreenWidth(context) / 2;
-            int height = ScreenUtil.getScreenWidth(context) / 2;
-            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
-                    width, height);
-            holder.itemDecorateView.setLayoutParams(params);
+            int height = width;
+            CardView.LayoutParams layoutParams = (CardView.LayoutParams) holder.itemDecorateView.getLayoutParams();
+            layoutParams.width = width;
+            layoutParams.height = height;
+            holder.itemDecorateView.setLayoutParams(layoutParams);
             holder.itemDecorateView.setBackgroundResource(R.mipmap.pix_default);
         }
     }

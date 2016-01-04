@@ -101,7 +101,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.toolbar_collect_layout:
-                UiHelper.imageButtonAnim(toolbar_collect,null);
+                UiHelper.imageButtonAnim(toolbar_collect, null);
                 if (toolbar_collect.isSelected()) {
                     deleteDecorationImg(decorationId);
                 } else {
@@ -109,11 +109,11 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
                 }
                 break;
             case R.id.toolbar_share_layout:
-                UiHelper.imageButtonAnim(toolbar_share,null);
+                UiHelper.imageButtonAnim(toolbar_share, null);
                 showPopwindow(getWindow().getDecorView());
                 break;
             case R.id.btn_download_layout:
-                UiHelper.imageButtonAnim(btn_download,null);
+                UiHelper.imageButtonAnim(btn_download, null);
                 downloadImg();
                 break;
             default:
@@ -148,6 +148,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
             if (null != beautyImgInfo) {
                 btn_downloadLayout.setVisibility(View.VISIBLE);
                 toolbar_collectLayout.setVisibility(View.VISIBLE);
+                toolbar_shareLayout.setVisibility(View.VISIBLE);
                 if (beautyImgInfo.is_my_favorite()) {
                     toolbar_collect.setSelected(true);
                 } else {
@@ -155,7 +156,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
                 }
                 pic_title.setText(beautyImgInfo.getTitle());
                 String keyDes = BusinessManager.spilteKeyWord(beautyImgInfo.getKeywords());
-                if(!TextUtils.isEmpty(keyDes)){
+                if (!TextUtils.isEmpty(keyDes)) {
                     pic_des.setText(keyDes);
                 }
                 List<Img> decorationImgs = beautyImgInfo.getImages();
@@ -181,6 +182,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
             makeTextLong(error_msg);
             btn_downloadLayout.setVisibility(View.GONE);
             toolbar_collectLayout.setVisibility(View.GONE);
+            toolbar_shareLayout.setVisibility(View.GONE);
         }
     };
 

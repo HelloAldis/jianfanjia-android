@@ -2,37 +2,32 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main_layout_bg" >
+    android:background="@color/main_layout_bg">
 
     <com.jianfanjia.cn.view.MainHeadView
         android:id="@+id/edit_head_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-     <EditText
+    <EditText
         android:id="@+id/edit_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/edit_head_layout"
-        android:layout_marginTop="@dimen/space_16"
+        android:layout_marginTop="@dimen/space_10"
         android:background="@color/font_white"
         android:gravity="top"
         android:hint="@string/add_feedback"
         android:padding="@dimen/space_12"
-        android:textSize="@dimen/text_size_14"
         android:textColor="@color/light_black_color"
         android:textColorHint="@color/main_color_grey"
-        />
+        android:textSize="@dimen/text_size_14" />
 
     <Button
         android:id="@+id/btn_commit"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_alignParentRight="true"
+        style="@style/button_login_style"
         android:layout_below="@+id/edit_info"
-        android:layout_margin="16dp"
-        android:background="@drawable/btn_selector_bg"
-        android:text="@string/confirm"
-        android:textColor="@color/font_white"
-        android:textSize="16sp" />
+        android:layout_margin="@dimen/space_16"
+        android:text="@string/confirm" />
+
 </RelativeLayout>

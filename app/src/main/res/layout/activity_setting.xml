@@ -15,7 +15,7 @@
         android:id="@+id/setting_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/space_8">
+        android:layout_marginTop="@dimen/space_10">
 
         <LinearLayout
             android:id="@+id/rootview"
@@ -113,7 +113,7 @@
 
             <View
                 style="@style/divier_line"
-                android:layout_marginTop="16dp" />
+                android:layout_marginTop="10dp" />
 
             <RelativeLayout
                 android:id="@+id/feedback_layout"
@@ -173,7 +173,7 @@
 
             <View
                 style="@style/divier_line"
-                android:layout_marginTop="@dimen/space_16" />
+                android:layout_marginTop="@dimen/space_10" />
 
             <RelativeLayout
                 android:id="@+id/logout_layout"
