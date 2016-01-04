@@ -64,6 +64,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
     private int totalCount = 0;
     private int currentPosition = 0;
     private String currentImgId = null;
+    private String currentDesc = null;
 
     @Override
     public void initView() {
@@ -160,6 +161,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
                 } else {
                     toolbar_collect.setSelected(false);
                 }
+                currentDesc = beautyImgInfo.getDescription();
                 pic_title.setText(beautyImgInfo.getTitle());
                 String keyDes = BusinessManager.spilteKeyWord(beautyImgInfo.getKeywords());
                 if (!TextUtils.isEmpty(keyDes)) {
@@ -255,17 +257,17 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
         SharePopWindow window = new SharePopWindow(PreviewDecorationActivity.this, new ShowPopWindowCallBack() {
             @Override
             public void shareToWeiXin() {
-                shareUtil.share(PreviewDecorationActivity.this, "weixin分享", currentImgId, SHARE_MEDIA.WEIXIN, umShareListener);
+                shareUtil.share(PreviewDecorationActivity.this, currentDesc, currentImgId, SHARE_MEDIA.WEIXIN, umShareListener);
             }
 
             @Override
             public void shareToWeiBo() {
-                shareUtil.share(PreviewDecorationActivity.this, "weibo分享", currentImgId, SHARE_MEDIA.SINA, umShareListener);
+                shareUtil.share(PreviewDecorationActivity.this, currentDesc, currentImgId, SHARE_MEDIA.SINA, umShareListener);
             }
 
             @Override
             public void shareToQQ() {
-                shareUtil.share(PreviewDecorationActivity.this, "qq分享", currentImgId, SHARE_MEDIA.QQ, umShareListener);
+                shareUtil.share(PreviewDecorationActivity.this, currentDesc, currentImgId, SHARE_MEDIA.QQ, umShareListener);
             }
         });
         window.show(view);
