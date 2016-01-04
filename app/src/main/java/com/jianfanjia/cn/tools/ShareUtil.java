@@ -29,8 +29,8 @@ public class ShareUtil {
     }
 
 
-    public void share(Activity activity, String url, SHARE_MEDIA platform, UMShareListener umShareListener) {
+    public void share(Activity activity, String desc, String url, SHARE_MEDIA platform, UMShareListener umShareListener) {
         UMImage image = new UMImage(activity, url);
-        shareAction.setPlatform(platform).setCallback(umShareListener).withText("分享美图").withMedia(image).share();
+        shareAction.setPlatform(platform).setCallback(umShareListener).withText(desc).withTargetUrl(url).withMedia(image).share();
     }
 }
