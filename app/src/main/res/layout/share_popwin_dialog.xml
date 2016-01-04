@@ -31,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dip"
-                android:text="朋友圈"
+                android:text="QQ"
                 android:textColor="#000000"
                 android:textSize="@dimen/text_size_12" />
         </LinearLayout>
