@@ -14,7 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.interf.PopWindowCallBack;
+import com.jianfanjia.cn.interf.ShowPopWindowCallBack;
 
 /**
  * Name: SharePopWindow
@@ -23,7 +23,7 @@ import com.jianfanjia.cn.interf.PopWindowCallBack;
  * Time: 10:23
  */
 public class SharePopWindow extends PopupWindow implements OnClickListener {
-    private PopWindowCallBack callback = null;
+    private ShowPopWindowCallBack callback = null;
     private Button cancel = null;
     private LayoutInflater inflater = null;
     private View menuView = null;
@@ -33,7 +33,7 @@ public class SharePopWindow extends PopupWindow implements OnClickListener {
     private WindowManager.LayoutParams lp = null;
     private Window window = null;
 
-    public SharePopWindow(Activity activity, PopWindowCallBack callback) {
+    public SharePopWindow(Activity activity, ShowPopWindowCallBack callback) {
         super(activity);
         this.callback = callback;
         inflater = LayoutInflater.from(activity);
@@ -92,12 +92,15 @@ public class SharePopWindow extends PopupWindow implements OnClickListener {
         switch (v.getId()) {
             case R.id.pengyouLayout:
                 dismiss();
+                callback.shareQQ();
                 break;
             case R.id.weiboLayout:
                 dismiss();
+                callback.shareWeiBo();
                 break;
             case R.id.weixinLayout:
                 dismiss();
+                callback.shareWeiXin();
                 break;
             case R.id.btn_delete:
                 dismiss();
