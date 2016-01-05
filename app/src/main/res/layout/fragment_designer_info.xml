@@ -35,7 +35,6 @@
                 android:textSize="@dimen/text_size_14" />
         </LinearLayout>
 
-
         <LinearLayout
             android:id="@+id/jiandanHouseTypeLayout"
             android:layout_width="match_parent"
