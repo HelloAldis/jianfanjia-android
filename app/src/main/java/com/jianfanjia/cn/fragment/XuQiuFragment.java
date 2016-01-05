@@ -234,7 +234,7 @@ public class XuQiuFragment extends BaseAnnotationFragment {
         JianFanJiaClient.get_Requirement_List(getActivity(), new ApiUiUpdateListener() {
             @Override
             public void preLoad() {
-                if(isFirst){
+                if (isFirst) {
                     showWaitDialog();
                 }
             }
@@ -246,7 +246,7 @@ public class XuQiuFragment extends BaseAnnotationFragment {
                 if (data != null) {
                     requirementInfos = JsonParser.jsonToList(data.toString(), new TypeToken<List<RequirementInfo>>() {
                     }.getType());
-                    if (requirementInfos.size() > 0) {
+                    if (null != requirementInfos && requirementInfos.size() > 0) {
                         requirementAdapter.addItem(requirementInfos);
                         setListVisiable();
                         if (requirementInfos.size() >= Constant.ROST_REQUIREMTNE_TOTAL) {
