@@ -213,7 +213,8 @@ public class Constant {
     public static final int UPDATE_HOME_FRAGMENT = 10;
     public static final int UPDATE_XUQIU_FRAGMENT = 20;
     public static final int UPDATE_DESIGNER_ACTIVITY = 30;
-    public static final int UPDATE_FAVORITE_FRAGMENT = 40;
-    public static final int UPDATE_PRODUCT_FRAGMENT = 50;
-    public static final int UPDATE_BEAUTY_FRAGMENT = 60;
+    public static final int UPDATE_MY_FRAGMENT = 40;
+    public static final int UPDATE_FAVORITE_FRAGMENT = 50;
+    public static final int UPDATE_PRODUCT_FRAGMENT = 60;
+    public static final int UPDATE_BEAUTY_FRAGMENT = 70;
 }
