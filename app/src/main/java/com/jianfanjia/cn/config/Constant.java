@@ -211,7 +211,8 @@ public class Constant {
 
     //消息类型
     public static final int UPDATE_HOME_FRAGMENT = 10;
-    public static final int UPDATE_FAVORITE_FRAGMENT = 20;
-    public static final int UPDATE_PRODUCT_FRAGMENT = 30;
-    public static final int UPDATE_BEAUTY_FRAGMENT = 40;
+    public static final int UPDATE_XUQIU_FRAGMENT = 20;
+    public static final int UPDATE_FAVORITE_FRAGMENT = 30;
+    public static final int UPDATE_PRODUCT_FRAGMENT = 40;
+    public static final int UPDATE_BEAUTY_FRAGMENT = 50;
 }
