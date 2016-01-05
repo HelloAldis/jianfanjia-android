@@ -76,8 +76,8 @@ public class ReplaceDesignerActivity extends BaseActivity implements OnClickList
         mainHeadView = (MainHeadView) findViewById(R.id.my_appoint_head_layout);
         mainHeadView.setBackListener(this);
         mainHeadView.setRightTextListener(this);
-        mainHeadView
-                .setMianTitle(totalCount + " " + getResources().getString(R.string.appoint));
+        mainHeadView.setMianTitle(totalCount + " " + getResources().getString(R.string.appoint));
+        mainHeadView.setMianTitleColor();
         mainHeadView.setRightTitle(getResources().getString(R.string.replaceText));
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
         mainHeadView.setRightTitleVisable(View.VISIBLE);
@@ -185,6 +185,7 @@ public class ReplaceDesignerActivity extends BaseActivity implements OnClickList
                             mainHeadView.setRigthTitleEnable(false);
                         }
                         mainHeadView.setMianTitle((totalCount - checkNum) + " " + getResources().getString(R.string.appoint));
+                        mainHeadView.setMianTitleColor();
                     }
                 });
                 replace_designer_listview.setAdapter(designerByAppointOrReplaceAdapter);
