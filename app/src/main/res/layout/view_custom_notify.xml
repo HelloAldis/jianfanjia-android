@@ -43,12 +43,14 @@
 
         <TextView
             android:id="@+id/list_item_content"
-            style="@style/listview_item_text_style_middle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="5dip"
             android:layout_marginRight="5dip"
             android:layout_marginTop="5dip"
             android:text="泥木阶段"
-            android:textColor="@color/light_black_color" />
+            android:textColor="@color/light_black_color"
+            android:textSize="@dimen/text_size_14" />
 
     </LinearLayout>
 
