@@ -16,6 +16,7 @@ public class LoginUserBean implements Serializable {
     private String pass;
     private String imageid;
     private String _id;
+    private boolean is_wechat_first_login;
 
     public String getPass() {
         return pass;
@@ -65,4 +66,11 @@ public class LoginUserBean implements Serializable {
         this.phone = phone;
     }
 
+    public boolean is_wechat_first_login() {
+        return is_wechat_first_login;
+    }
+
+    public void setIs_wechat_first_login(boolean is_wechat_first_login) {
+        this.is_wechat_first_login = is_wechat_first_login;
+    }
 }

@@ -187,6 +187,11 @@ public class DataManagerNew {
         sharedPreferuser.setValue(Constant.USERIMAGE_ID, userBean.getImageid());
         sharedPreferuser.setValue(Constant.USER_ID, userBean.get_id());
         sharedPreferuser.setValue(Constant.PASSWORD, userBean.getPass());
+        sharedPreferdata.setValue(Constant.IS_WEIXIN_FIRST_LOGIN,userBean.is_wechat_first_login());
+    }
+
+    public boolean getWeixinFisrtLogin(){
+        return sharedPreferdata.getValue(Constant.IS_WEIXIN_FIRST_LOGIN,false);
     }
 
     public void setUserName(String userName) {

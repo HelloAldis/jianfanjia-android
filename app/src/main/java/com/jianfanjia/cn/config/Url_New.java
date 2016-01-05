@@ -55,6 +55,14 @@ public class Url_New {
     public String BIND_URL = HTTPROOT + "device/bind";
     // 登录
     public String LOGIN_URL = HTTPROOT + "user_login";
+    // 微信登录
+    public String WEIXIN_LOGIN_URL = HTTPROOT + "user_wechat_login";
+    //业主绑定手机号
+    public String BIND_PHONE = HTTPROOT + "user_bind_phone";
+    //业主绑定微信
+    public String BIND_WEIXIN = HTTPROOT + "user_bind_wechat";
+    //业主刷新session
+    public String REFRESH_SESSION = HTTPROOT + "user_refresh_session";
     // 注册
     public String REGISTER_URL = HTTPROOT + "user_signup";
     //检查手机号是否被占用

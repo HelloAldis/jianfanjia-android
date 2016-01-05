@@ -16,7 +16,8 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/ownerinfo_head_layout"
         android:layout_marginTop="@dimen/space_10"
-        android:overScrollMode="always">
+        android:overScrollMode="always"
+        >
 
         <LinearLayout
             android:id="@+id/rootview"
@@ -128,7 +129,7 @@
                 <TextView
                     style="@style/listview_item_text_style_middle"
                     android:layout_centerVertical="true"
-                    android:text="@string/user_phone"
+                    android:text="@string/account_binding"
                     android:textColor="@color/light_black_color" />
 
                 <TextView
@@ -145,7 +146,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:contentDescription="@null"
-                    android:visibility="invisible" />
+                    />
             </RelativeLayout>
 
             <View style="@style/divier_line" />

@@ -103,4 +103,10 @@
     <string name="home_dec">家装</string>
     <string name="save_success">保存成功</string>
     <string name="save_failure">保存失败</string>
+    <string name="binding_phone">绑定手机号</string>
+    <string name="weixin">微信</string>
+    <string name="account_binding">账号绑定</string>
+    <string name="binding_phone_tip">您的手机号仅用于我们为您提供更便捷的服务，绝不做任何商业用途</string>
+    <string name="weixin_login">微信登录</string>
+    <string name="already_binding">已绑定</string>
 </resources>

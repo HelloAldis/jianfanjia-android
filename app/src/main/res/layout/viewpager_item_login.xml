@@ -100,18 +100,36 @@
 
     <RelativeLayout
         android:id="@+id/btn_login_weixin_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:padding="@dimen/space_24">
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_48"
+        android:layout_below="@+id/btn_login"
+        android:layout_marginTop="@dimen/space_24"
+        android:background="@drawable/btn_green_white_bg">
 
-        <ImageView
-            android:id="@+id/btn_login_weixin"
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:src="@mipmap/icon_weixin_login" />
+            android:layout_centerInParent="true">
+
+            <ImageView
+                android:id="@+id/weixin_login_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/icon_weixin_login" />
+
+            <TextView
+                android:id="@+id/weixin_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/weixin_login_icon"
+                android:text="@string/weixin_login"
+                android:textColor="@color/green_color"
+                android:textSize="@dimen/big_size" />
+        </RelativeLayout>
+
     </RelativeLayout>
+
 
 </RelativeLayout>

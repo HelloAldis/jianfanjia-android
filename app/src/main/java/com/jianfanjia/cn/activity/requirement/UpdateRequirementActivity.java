@@ -48,14 +48,18 @@ public class UpdateRequirementActivity extends BaseAnnotationActivity implements
 
         Intent intent = getIntent();
         requirementInfo = (RequirementInfo)intent.getSerializableExtra(Global.REQUIREMENT_INFO);
-        status = requirementInfo.getDec_type();
-        initFragment();
+        if(requirementInfo != null){
+            status = requirementInfo.getDec_type();
+            if(status != null){
+                initFragment();
+            }
+        }
     }
 
     protected void initFragment(){
         FragmentTransaction transaction = this.getSupportFragmentManager()
                 .beginTransaction();
-        switch (requirementInfo.getDec_type()){
+        switch (status){
             case Global.DEC_TYPE_BUSINESS:
                 editBussinessRequirementFragment_ = new EditBussinessRequirementFragment_();
                 editBussinessRequirementFragment_.setArguments(getBundle());

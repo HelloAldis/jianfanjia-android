@@ -23,13 +23,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
-import com.igexin.sdk.PushManager;
 import com.jianfanjia.cn.base.BaseAnnotationActivity;
 import com.jianfanjia.cn.bean.RegisterInfo;
+import com.jianfanjia.cn.bean.WeiXinRegisterInfo;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.AuthUtil;
+import com.jianfanjia.cn.tools.GeTuiManager;
 import com.jianfanjia.cn.tools.LogTool;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -65,9 +66,6 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
     TextView registerTitle;
     @ViewById(R.id.act_title_layout)
     RelativeLayout titleLayout;
-
-    @ViewById(R.id.btn_login_weixin)
-    ImageView wexinLogin;
 
     @ViewById(R.id.content_layout)
     RelativeLayout contentLayout;
@@ -318,12 +316,10 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
     private UMAuthListener umAuthListener = new UMAuthListener() {
         @Override
         public void onComplete(SHARE_MEDIA platform, int action, Map<String, String> data) {
-            Toast.makeText(getApplicationContext(), "Authorize succeed", Toast.LENGTH_SHORT).show();
             if (data!=null){
-                Toast.makeText(getApplicationContext(), data.toString(), Toast.LENGTH_SHORT).show();
                 LogTool.d(this.getClass().getName(),data.toString());
+                authUtil.getPlatformInfo(LoginNewActivity.this,SHARE_MEDIA.WEIXIN,umAuthInfoListener);
             }
-            authUtil.getPlatformInfo(LoginNewActivity.this,SHARE_MEDIA.WEIXIN,umAuthInfoListener);
         }
 
         @Override
@@ -340,9 +336,38 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
     private UMAuthListener umAuthInfoListener = new UMAuthListener() {
         @Override
         public void onComplete(SHARE_MEDIA platform, int action, Map<String, String> data) {
-            if (data!=null){
-                Toast.makeText(getApplicationContext(), data.toString(), Toast.LENGTH_SHORT).show();
-                LogTool.d(this.getClass().getName(),data.toString());
+            if (data != null){
+                LogTool.d(this.getClass().getName(), data.toString());
+                WeiXinRegisterInfo weiXinRegisterInfo = new WeiXinRegisterInfo();
+                weiXinRegisterInfo.setUsername(data.get("nickname"));
+                weiXinRegisterInfo.setImage_url(data.get("headimgurl"));
+                weiXinRegisterInfo.setSex(data.get("sex"));
+                weiXinRegisterInfo.setWechat_openid(data.get("openid"));
+                weiXinRegisterInfo.setWechat_unionid(data.get("unionid"));
+
+                JianFanJiaClient.weixinLogin(LoginNewActivity.this, weiXinRegisterInfo, new ApiUiUpdateListener() {
+                    @Override
+                    public void preLoad() {
+                    }
+
+                    @Override
+                    public void loadSuccess(Object data) {
+                        if(data != null){
+                            if(dataManager.getWeixinFisrtLogin()){
+                                startActivity(NewUserGuideActivity_.class);
+                            }else{
+                                startActivity(MainActivity.class);
+                            }
+                            appManager.finishActivity(LoginNewActivity.this);
+                            GeTuiManager.bindGeTui(getApplicationContext(), dataManager.getUserId());
+                        }
+                    }
+
+                    @Override
+                    public void loadFailture(String error_msg) {
+                        makeTextShort(error_msg);
+                    }
+                },LoginNewActivity.this);
             }
         }
 
@@ -480,8 +505,7 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
         super.loadSuccess(data);
         startActivity(MainActivity.class);
         appManager.finishActivity(this);
-        PushManager.getInstance().initialize(getApplicationContext());//初始化个推
-        PushManager.getInstance().bindAlias(getApplicationContext(), dataManager.getUserId());
+        GeTuiManager.bindGeTui(getApplicationContext(),dataManager.getUserId());
     }
 
     @Override

@@ -42,6 +42,9 @@ public class PushMsgReceiver extends BroadcastReceiver {
         dataManager = DataManagerNew.getInstance();
         //-------------------------------------------------
         Bundle bundle = intent.getExtras();
+        if(bundle == null){
+            return;
+        }
         LogTool.d(TAG, "onReceive() action=" + bundle.getInt("action"));
         switch (bundle.getInt(PushConsts.CMD_ACTION)) {
             case PushConsts.GET_MSG_DATA:

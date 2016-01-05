@@ -9,6 +9,7 @@ import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.bean.OwnerUpdateInfo;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
+import com.jianfanjia.cn.bean.WeiXinRegisterInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.http.request.AddBeautyImgRequest;
@@ -17,6 +18,8 @@ import com.jianfanjia.cn.http.request.AddCommentRequest;
 import com.jianfanjia.cn.http.request.AddFavoriteDesignerRequest;
 import com.jianfanjia.cn.http.request.AddPicToSectionItemRequest;
 import com.jianfanjia.cn.http.request.AgreeRescheduleRequest;
+import com.jianfanjia.cn.http.request.BindingPhoneRequest;
+import com.jianfanjia.cn.http.request.BindingWeiXinRequest;
 import com.jianfanjia.cn.http.request.ChangeOrderedDesignerRequest;
 import com.jianfanjia.cn.http.request.CheckVersionRequest;
 import com.jianfanjia.cn.http.request.ChoosePlanByUserRequest;
@@ -54,6 +57,7 @@ import com.jianfanjia.cn.http.request.PostCollectOwnerInfoRequest;
 import com.jianfanjia.cn.http.request.PostProcessRequest;
 import com.jianfanjia.cn.http.request.PostRequirementRequest;
 import com.jianfanjia.cn.http.request.PostRescheduleRequest;
+import com.jianfanjia.cn.http.request.RefreshSessionRequest;
 import com.jianfanjia.cn.http.request.RefuseRescheduleRequest;
 import com.jianfanjia.cn.http.request.RegisterRequest;
 import com.jianfanjia.cn.http.request.SearchDecorationImgRequest;
@@ -65,6 +69,7 @@ import com.jianfanjia.cn.http.request.UploadPicRequestNew;
 import com.jianfanjia.cn.http.request.UploadRegisterIdRequest;
 import com.jianfanjia.cn.http.request.UserByOwnerInfoRequest;
 import com.jianfanjia.cn.http.request.VerifyPhoneRequest;
+import com.jianfanjia.cn.http.request.WeiXinLoginRequest;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.DateFormatTool;
 import com.jianfanjia.cn.tools.ImageUtil;
@@ -145,6 +150,12 @@ public class JianFanJiaClient {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void weixinLogin(Context context, WeiXinRegisterInfo weiXinRegisterInfo, ApiUiUpdateListener listener, Object tag) {
+        WeiXinLoginRequest weiXinLoginRequest = new WeiXinLoginRequest(context);
+        LogTool.d(TAG, "weixinLogin --" + weiXinLoginRequest.getUrl() + "---" + JsonParser.beanToJson(weiXinRegisterInfo));
+        OkHttpClientManager.getInstance().getPostDelegate().postAsyn(weiXinLoginRequest, JsonParser.beanToJson(weiXinRegisterInfo), listener, tag);
     }
 
     /**
@@ -315,6 +326,62 @@ public class JianFanJiaClient {
         RegisterRequest registerRequest = new RegisterRequest(context, registerInfo);
         LogTool.d(TAG, "register  " + registerRequest.getUrl() + "--" + JsonParser.beanToJson(registerInfo));
         OkHttpClientManager.getInstance().getPostDelegate().postAsyn(registerRequest, JsonParser.beanToJson(registerInfo), listener, tag);
+    }
+
+    /**
+     * 绑定手机号
+     *
+     * @param context
+     * @param registerInfo
+     * @param listener
+     * @param tag
+     */
+    public static void bindingPhone(Context context, RegisterInfo registerInfo,
+                                    ApiUiUpdateListener listener, Object tag) {
+        BindingPhoneRequest bindingPhoneRequest = new BindingPhoneRequest(context);
+        LogTool.d(TAG, "register  " + bindingPhoneRequest.getUrl() + "--" + JsonParser.beanToJson(registerInfo));
+        OkHttpClientManager.getInstance().getPostDelegate().postAsyn(bindingPhoneRequest, JsonParser.beanToJson(registerInfo), listener, tag);
+    }
+
+    /**
+     * 绑定微信
+     *
+     * @param context
+     * @param listener
+     * @param tag
+     */
+    public static void bindingWeixin(Context context, String openid, String unionid,
+                                     ApiUiUpdateListener listener, Object tag) {
+        BindingWeiXinRequest bindingWeiXinRequest = new BindingWeiXinRequest(context);
+        JSONObject jsonParams = new JSONObject();
+        try {
+            jsonParams.put("wechat_openid", openid);
+            jsonParams.put("wechat_unionid", unionid);
+            LogTool.d(TAG, "bindingWeixin  " + bindingWeiXinRequest.getUrl() + "--" + jsonParams.toString());
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(bindingWeiXinRequest, jsonParams.toString(), listener, tag);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 业主刷新session
+     *
+     * @param context
+     * @param uid
+     * @param listener
+     * @param tag
+     */
+    public static void refreshSession(Context context, String uid, ApiUiUpdateListener listener, Object tag) {
+        RefreshSessionRequest refreshSessionRequest = new RefreshSessionRequest(context);
+        JSONObject jsonParams = new JSONObject();
+        try {
+            jsonParams.put("_id", uid);
+            LogTool.d(TAG, "refreshSession  " + refreshSessionRequest.getUrl() + "--" + jsonParams.toString());
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(refreshSessionRequest, jsonParams.toString(), listener, tag);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
@@ -50,7 +51,7 @@ import java.io.InputStream;
  * @Description:用户个人信息(业主)
  * @date 2015-8-18 下午12:11:49
  */
-@EActivity(R.layout.activity_owner_info)
+@EActivity(R.layout.activity_user_info)
 public class UserInfoActivity extends BaseAnnotationActivity implements
         OnClickListener, PopWindowCallBack {
     private static final String TAG = UserInfoActivity.class.getName();
@@ -111,9 +112,9 @@ public class UserInfoActivity extends BaseAnnotationActivity implements
         } else {
             sexText.setText(getString(R.string.not_edit));
         }
-        phoneText
-                .setText(TextUtils.isEmpty(ownerInfo.getPhone()) ? getString(R.string.not_edit)
-                        : ownerInfo.getPhone());
+//        phoneText
+//                .setText(TextUtils.isEmpty(ownerInfo.getPhone()) ? getString(R.string.not_edit)
+//                        : ownerInfo.getPhone());
         String city = ownerInfo.getCity();
         if (TextUtils.isEmpty(city)) {
             addressText
@@ -129,7 +130,7 @@ public class UserInfoActivity extends BaseAnnotationActivity implements
                 : ownerInfo.getAddress());
     }
 
-    @Click({R.id.error_include, R.id.head_back_layout, R.id.head_layout, R.id.address_layout, R.id.name_layout, R.id.sex_layout, R.id.home_layout})
+    @Click({R.id.error_include, R.id.head_back_layout, R.id.head_layout, R.id.address_layout, R.id.name_layout, R.id.sex_layout, R.id.home_layout,R.id.phone_layout})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.error_include:
@@ -167,6 +168,11 @@ public class UserInfoActivity extends BaseAnnotationActivity implements
                 break;
             case R.id.sex_layout:
                 showSexChooseDialog();
+                break;
+            case R.id.phone_layout:
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(Constant.OWNER_INFO,ownerInfo);
+                startActivity(BindingAccountActivity_.class,bundle);
                 break;
             default:
                 break;

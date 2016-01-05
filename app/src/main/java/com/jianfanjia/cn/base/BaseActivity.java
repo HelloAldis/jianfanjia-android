@@ -57,8 +57,6 @@ public abstract class BaseActivity extends AppCompatActivity implements
     protected ImageShow imageShow;
     protected AppManager appManager;
 
-    protected boolean isOpen = false;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -121,7 +119,6 @@ public abstract class BaseActivity extends AppCompatActivity implements
     protected void onResume() {
         super.onResume();
         LogTool.d(this.getClass().getName(), "onResume()");
-        isOpen = dataManager.isPushOpen();
         MobclickAgent.onResume(this);
     }
 

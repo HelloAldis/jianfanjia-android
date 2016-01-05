@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_layout_bg"
+    android:orientation="vertical">
+
+    <com.jianfanjia.cn.view.MainHeadView
+        android:id="@+id/bindingaccount_head_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:id="@+id/rootview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_8"
+        android:orientation="vertical">
+
+        <View style="@style/divier_line" />
+
+        <RelativeLayout
+            android:id="@+id/bindingaccount_phone_layout"
+            style="@style/my_list_item_layout_style">
+
+            <TextView
+                android:id="@+id/bindingaccount_phone_title"
+                style="@style/listview_item_text_style_middle"
+                android:layout_centerVertical="true"
+                android:text="@string/user_phone"
+                android:textColor="@color/light_black_color" />
+
+            <TextView
+                android:id="@+id/bindingaccount_phone_content"
+                style="@style/listview_item_text_style_small"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/space_48"
+                android:layout_marginRight="@dimen/space_8"
+                android:layout_toLeftOf="@+id/bindingaccount_phone_goto"
+                android:layout_toRightOf="@+id/bindingaccount_phone_title"
+                android:ellipsize="end"
+                android:gravity="right"
+                android:singleLine="true"
+                android:textColor="@color/light_black_color" />
+
+            <ImageView
+                android:id="@+id/bindingaccount_phone_goto"
+                style="@style/my_item_layout_image_style"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:contentDescription="@null" />
+        </RelativeLayout>
+
+        <View style="@style/divier_line" />
+
+        <RelativeLayout
+            android:id="@+id/bindingaccount_weixin_layout"
+            style="@style/my_list_item_layout_style">
+
+            <TextView
+                android:id="@+id/bindingaccount_weixin_title"
+                style="@style/listview_item_text_style_middle"
+                android:layout_centerVertical="true"
+                android:text="@string/weixin"
+                android:textColor="@color/light_black_color" />
+
+            <TextView
+                android:id="@+id/bindingaccount_weixin_content"
+                style="@style/listview_item_text_style_small"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/space_48"
+                android:layout_marginRight="@dimen/space_8"
+                android:layout_toLeftOf="@+id/bindingaccount_weixin_goto"
+                android:layout_toRightOf="@+id/bindingaccount_weixin_title"
+                android:ellipsize="end"
+                android:gravity="right"
+                android:singleLine="true"
+                android:textColor="@color/light_black_color" />
+
+            <ImageView
+                android:id="@+id/bindingaccount_weixin_goto"
+                style="@style/my_item_layout_image_style"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:contentDescription="@null" />
+        </RelativeLayout>
+
+        <View style="@style/divier_line" />
+    </LinearLayout>
+
+</LinearLayout>

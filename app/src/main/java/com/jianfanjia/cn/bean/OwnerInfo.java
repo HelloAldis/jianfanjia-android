@@ -42,6 +42,10 @@ public class OwnerInfo implements Serializable {
 
     private int score;
 
+    private String wechat_openid;
+
+    private String wechat_unionid;
+
     private String family_description;
 
     private String dec_progress;
@@ -190,5 +194,21 @@ public class OwnerInfo implements Serializable {
 
     public void setDec_styles(ArrayList<String> dec_styles) {
         this.dec_styles = dec_styles;
+    }
+
+    public String getWechat_openid() {
+        return wechat_openid;
+    }
+
+    public void setWechat_openid(String wechat_openid) {
+        this.wechat_openid = wechat_openid;
+    }
+
+    public String getWechat_unionid() {
+        return wechat_unionid;
+    }
+
+    public void setWechat_unionid(String wechat_unionid) {
+        this.wechat_unionid = wechat_unionid;
     }
 }

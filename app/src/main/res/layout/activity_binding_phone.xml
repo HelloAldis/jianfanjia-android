@@ -35,7 +35,7 @@
                 android:id="@+id/forget_psw_title"
                 style="@style/listview_item_text_style_big"
                 android:layout_centerHorizontal="true"
-                android:text="@string/verifica_phone"
+                android:text="@string/binding_phone"
                 android:textColor="@color/light_black_color" />
 
             <LinearLayout
@@ -44,11 +44,13 @@
                 android:layout_below="@+id/forget_psw_title"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/space_16"
+                android:layout_marginLeft="@dimen/space_48"
+                android:layout_marginRight="@dimen/space_48"
                 android:orientation="horizontal">
 
                 <TextView
                     style="@style/listview_item_text_style_middle"
-                    android:text="@string/verification_code_sended"
+                    android:text="@string/binding_phone_tip"
                     android:textColor="@color/light_black_color" />
 
                 <TextView
@@ -68,22 +70,22 @@
             android:layout_marginTop="@dimen/space_24"
             android:orientation="vertical">
 
-
             <EditText
-                android:id="@+id/et_verification"
+                android:id="@+id/act_binding_input_phone"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:layout_gravity="center_horizontal"
+                android:background="@null"
                 android:ellipsize="end"
                 android:gravity="center"
-                android:hint="@string/hint_verification"
-                android:maxLength="20"
+                android:hint="@string/input_phone"
+                android:inputType="phone"
+                android:maxLength="15"
+                android:nextFocusDown="@+id/act_login_input_password"
                 android:paddingLeft="@dimen/space_16"
                 android:paddingRight="@dimen/space_16"
                 android:singleLine="true"
                 android:textColor="@color/light_black_color"
-                android:textSize="@dimen/middle_size"
-                android:background = "@null"/>
+                android:textSize="@dimen/middle_size" />
 
             <View
                 style="@style/divier_line"
@@ -93,7 +95,7 @@
                 android:id="@+id/btn_commit"
                 style="@style/button_login_style"
                 android:layout_marginTop="@dimen/space_48"
-                android:text="@string/commit" />
+                android:text="@string/confirm" />
         </LinearLayout>
     </RelativeLayout>
 

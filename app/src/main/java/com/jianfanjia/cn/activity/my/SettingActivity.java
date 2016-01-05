@@ -9,12 +9,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-import com.igexin.sdk.PushManager;
 import com.jianfanjia.cn.activity.LoginNewActivity_;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.tools.FileUtil;
+import com.jianfanjia.cn.tools.GeTuiManager;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
@@ -60,6 +60,12 @@ public class SettingActivity extends BaseActivity implements OnClickListener, On
         currentVersion = (TextView) findViewById(R.id.current_version);
 
         caculateCacheSize();
+
+        if (GeTuiManager.isPushTurnOn(getApplicationContext())) {
+            toggleButton.setChecked(true);
+        } else {
+            toggleButton.setChecked(false);
+        }
     }
 
     private void initMainHeadView() {
@@ -87,7 +93,11 @@ public class SettingActivity extends BaseActivity implements OnClickListener, On
     @Override
     public void onCheckedChanged(CompoundButton arg0, boolean check) {
         LogTool.d(TAG, "check:" + check);
-
+        if(check){
+            GeTuiManager.turnOnPush(getApplicationContext());
+        }else{
+            GeTuiManager.turnOffPush(getApplicationContext());
+        }
     }
 
     @Override
@@ -136,8 +146,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener, On
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        PushManager.getInstance().unBindAlias(getApplicationContext(), dataManager.getUserId(), true);
-                        PushManager.getInstance().stopService(SettingActivity.this);// 完全终止SDK的服务
+                        GeTuiManager.cancelBind(getApplicationContext(),dataManager.getUserId());
                         dataManager.cleanData();
                         MyApplication.getInstance().clearCookie();
                         appManager.finishAllActivity();
@@ -194,11 +203,6 @@ public class SettingActivity extends BaseActivity implements OnClickListener, On
     public void onResume() {
         super.onResume();
         LogTool.d(TAG, "---onResume()");
-        if (isOpen) {
-            toggleButton.setChecked(true);
-        } else {
-            toggleButton.setChecked(false);
-        }
     }
 
     @Override

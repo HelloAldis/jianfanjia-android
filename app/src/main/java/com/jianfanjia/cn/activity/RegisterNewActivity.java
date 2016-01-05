@@ -7,21 +7,23 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.igexin.sdk.PushManager;
+import com.jianfanjia.cn.Event.BindingPhoneEvent;
 import com.jianfanjia.cn.base.BaseAnnotationActivity;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
+import com.jianfanjia.cn.tools.GeTuiManager;
 import com.jianfanjia.cn.tools.LogTool;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * @author zhanghao
@@ -36,16 +38,10 @@ public class RegisterNewActivity extends BaseAnnotationActivity implements
 
     public static final int REGISTER_CODE = 0;
     public static final int UPDATE_PSW_CODE = 1;
-
-    @ViewById(R.id.forget_psw_layout)
-    RelativeLayout registerLayout;
+    public static final int BINDING_PHONE = 2;
 
     @ViewById(R.id.et_verification)
     EditText mEtVerification;// 用户名输入框
-    @ViewById(R.id.btn_scan)
-    Button mBtnScan;//浏览
-    @ViewById(R.id.btn_publish_requirement)
-    Button mBtnPublishRequirement;
     @ViewById(R.id.register_phone)
     TextView mPhoneView;//手机号码
     @ViewById(R.id.btn_commit)
@@ -64,7 +60,6 @@ public class RegisterNewActivity extends BaseAnnotationActivity implements
         if (registerInfo != null) {
             mPhoneView.setText(registerInfo.getPhone());
         }
-        registerLayout.setVisibility(View.VISIBLE);
         mBtnCommit.setEnabled(false);
 
         mEtVerification.addTextChangedListener(new TextWatcher() {
@@ -116,10 +111,16 @@ public class RegisterNewActivity extends BaseAnnotationActivity implements
      * @param registerInfo
      */
     private void register(RegisterInfo registerInfo) {
-            if(requsetCode == REGISTER_CODE){
-                JianFanJiaClient.register(this, registerInfo, this, this);
-            }else{
-                JianFanJiaClient.update_psw(this,registerInfo,this,this);
+            switch (requsetCode){
+                case REGISTER_CODE:
+                    JianFanJiaClient.register(this, registerInfo, this, this);
+                    break;
+                case UPDATE_PSW_CODE:
+                    JianFanJiaClient.update_psw(this,registerInfo,this,this);
+                    break;
+                case BINDING_PHONE:
+                    JianFanJiaClient.bindingPhone(this, registerInfo, this, this);
+                    break;
             }
     }
 
@@ -137,14 +138,20 @@ public class RegisterNewActivity extends BaseAnnotationActivity implements
     public void loadSuccess(Object data) {
         //登录成功，加载首页
         super.loadSuccess(data);
-        if(requsetCode == REGISTER_CODE){
-            startActivity(NewUserCollectDecStageActivity_.class);
-            appManager.finishActivity(this);
-            PushManager.getInstance().initialize(getApplicationContext());//初始化个推
-            PushManager.getInstance().bindAlias(getApplicationContext(), dataManager.getUserId());
-        }else{
-            startActivity(LoginNewActivity_.class);
-            appManager.finishActivity(this);
+        switch (requsetCode){
+            case REGISTER_CODE:
+                startActivity(NewUserCollectDecStageActivity_.class);
+                appManager.finishActivity(this);
+                GeTuiManager.bindGeTui(getApplicationContext(), dataManager.getUserId());
+                break;
+            case UPDATE_PSW_CODE:
+                startActivity(LoginNewActivity_.class);
+                appManager.finishActivity(this);
+                break;
+            case BINDING_PHONE:
+                EventBus.getDefault().post(new BindingPhoneEvent(registerInfo.getPhone()));
+                appManager.finishActivity(this);
+                break;
         }
     }
 
