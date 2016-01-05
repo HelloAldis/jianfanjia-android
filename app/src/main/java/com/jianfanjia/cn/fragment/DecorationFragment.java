@@ -227,7 +227,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         public void loadFailture(String error_msg) {
             makeTextShort(error_msg);
             hideWaitDialog();
-            if(isFirst){
+            if (isFirst) {
                 errorLayout.setVisibility(View.VISIBLE);
             }
             emptyLayout.setVisibility(View.GONE);

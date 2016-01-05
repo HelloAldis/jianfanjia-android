@@ -22,13 +22,15 @@
 
         <TextView
             android:id="@+id/list_item_comment_content"
-            style="@style/listview_item_text_style_middle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/list_item_comment_username"
             android:layout_marginLeft="@dimen/space_8"
             android:layout_marginTop="@dimen/space_8"
             android:layout_toRightOf="@+id/list_item_comment_userhead"
             android:text="@string/my_site_villagename_example"
-            android:textColor="@color/main_color_grey" />
+            android:textColor="@color/main_color_grey"
+            android:textSize="@dimen/text_size_14" />
 
         <TextView
             android:id="@+id/list_item_comment_userrole"

@@ -1,6 +1,10 @@
 package com.jianfanjia.cn.view;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,6 +59,13 @@ public class MainHeadView extends RelativeLayout {
         mainTitle.setText(message);
     }
 
+    public void setMianTitleColor() {
+        SpannableStringBuilder builder = new SpannableStringBuilder(mainTitle.getText().toString());
+        ForegroundColorSpan span = new ForegroundColorSpan(Color.parseColor("#fe7003"));
+        builder.setSpan(span, 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        mainTitle.setText(builder);
+    }
+
     public void setRightTitle(String message) {
         if (message == null)
             return;
@@ -99,11 +110,11 @@ public class MainHeadView extends RelativeLayout {
         rigthTitle.setOnClickListener(onClickListener);
     }
 
-    public void setRigthTitleEnable(boolean isAble){
+    public void setRigthTitleEnable(boolean isAble) {
         rigthTitle.setEnabled(isAble);
-        if(isAble){
+        if (isAble) {
             rigthTitle.setTextColor(getResources().getColor(R.color.orange_color));
-        }else{
+        } else {
             rigthTitle.setTextColor(getResources().getColor(R.color.middle_grey_color));
         }
     }

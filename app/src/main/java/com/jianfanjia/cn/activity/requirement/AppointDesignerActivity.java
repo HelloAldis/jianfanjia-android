@@ -86,6 +86,7 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
         mainHeadView.setRightTextListener(this);
         mainHeadView
                 .setMianTitle(total + " " + getResources().getString(R.string.appoint));
+        mainHeadView.setMianTitleColor();
         mainHeadView.setRightTitle(getResources().getString(R.string.appointText));
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
         mainHeadView.setRightTitleVisable(View.VISIBLE);
@@ -194,6 +195,7 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
                             mainHeadView.setRigthTitleEnable(false);
                         }
                         mainHeadView.setMianTitle((total - checkNum) + " " + getResources().getString(R.string.appoint));
+                        mainHeadView.setMianTitleColor();
                     }
                 });
                 appoint_designer_listview.setAdapter(designerByAppointOrReplaceAdapter);

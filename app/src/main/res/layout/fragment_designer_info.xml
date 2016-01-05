@@ -14,8 +14,8 @@
             android:id="@+id/jiandanTypeLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dip"
-            android:layout_marginRight="20dip"
+            android:layout_marginLeft="30dip"
+            android:layout_marginRight="30dip"
             android:layout_marginTop="20dip"
             android:orientation="horizontal"
             android:visibility="gone">
@@ -35,13 +35,12 @@
                 android:textSize="@dimen/text_size_14" />
         </LinearLayout>
 
-
         <LinearLayout
             android:id="@+id/jiandanHouseTypeLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dip"
-            android:layout_marginRight="20dip"
+            android:layout_marginLeft="30dip"
+            android:layout_marginRight="30dip"
             android:layout_marginTop="20dip"
             android:orientation="horizontal"
             android:visibility="gone">
@@ -65,8 +64,8 @@
             android:id="@+id/jiandanDistrictLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dip"
-            android:layout_marginRight="20dip"
+            android:layout_marginLeft="30dip"
+            android:layout_marginRight="30dip"
             android:layout_marginTop="20dip"
             android:orientation="horizontal"
             android:visibility="gone">
@@ -90,8 +89,8 @@
             android:id="@+id/designStyleLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dip"
-            android:layout_marginRight="20dip"
+            android:layout_marginLeft="30dip"
+            android:layout_marginRight="30dip"
             android:layout_marginTop="20dip"
             android:orientation="horizontal"
             android:visibility="gone">
@@ -115,8 +114,8 @@
             android:id="@+id/designIdeaLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dip"
-            android:layout_marginRight="20dip"
+            android:layout_marginLeft="30dip"
+            android:layout_marginRight="30dip"
             android:layout_marginTop="20dip"
             android:orientation="horizontal"
             android:visibility="gone">
@@ -140,8 +139,8 @@
             android:id="@+id/designAchievementLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dip"
-            android:layout_marginRight="20dip"
+            android:layout_marginLeft="30dip"
+            android:layout_marginRight="30dip"
             android:layout_marginTop="20dip"
             android:orientation="horizontal"
             android:visibility="gone">
@@ -165,8 +164,8 @@
             android:id="@+id/companyLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dip"
-            android:layout_marginRight="20dip"
+            android:layout_marginLeft="30dip"
+            android:layout_marginRight="30dip"
             android:layout_marginTop="20dip"
             android:orientation="horizontal"
             android:visibility="gone">
@@ -190,8 +189,8 @@
             android:id="@+id/teamCountLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dip"
-            android:layout_marginRight="20dip"
+            android:layout_marginLeft="30dip"
+            android:layout_marginRight="30dip"
             android:layout_marginTop="20dip"
             android:orientation="horizontal"
             android:visibility="gone">
@@ -223,8 +222,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dip"
-            android:layout_marginLeft="20dip"
-            android:layout_marginRight="20dip"
+            android:layout_marginLeft="30dip"
+            android:layout_marginRight="30dip"
             android:layout_marginTop="20dip"
             android:orientation="horizontal"
             android:visibility="gone">
