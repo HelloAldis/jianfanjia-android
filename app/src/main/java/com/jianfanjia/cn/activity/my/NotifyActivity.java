@@ -50,7 +50,7 @@ public class NotifyActivity extends BaseActivity implements OnClickListener {
         }
         initMainHeadView();
         tabLayout = (TabLayout) findViewById(R.id.tabLyout);
-        mPager = (ViewPager) this.findViewById(R.id.vPager);
+        mPager = (ViewPager) findViewById(R.id.vPager);
         setupViewPager(mPager);
         mPager.setCurrentItem(initPosition);
         tabLayout.setupWithViewPager(mPager);
