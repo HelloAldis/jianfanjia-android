@@ -172,8 +172,8 @@
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:minHeight="45dp"
+                android:layout_height="@dimen/space_48"
+                android:minHeight="@dimen/space_48"
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
