@@ -5,14 +5,19 @@ import java.util.ArrayList;
 
 /**
  * @author zhanghao
- * @ClassName: MyOwerInfo
+ * @ClassName: OwerInfo
  * @Description: 我的业主个人信息类（设计师）
  * @date 2015-8-26 下午19:33
  */
 public class OwnerInfo implements Serializable {
 
     private static final long serialVersionUID = 8598943994953102276L;
+
     private String _id;
+
+    private String usertype;
+
+    private boolean is_wechat_first_login;
 
     private String accessToken;
 
@@ -156,14 +161,6 @@ public class OwnerInfo implements Serializable {
         this.province = province;
     }
 
-    public boolean isIs_block() {
-        return is_block;
-    }
-
-    public void setIs_block(boolean is_block) {
-        this.is_block = is_block;
-    }
-
     public int getScore() {
         return score;
     }
@@ -210,5 +207,29 @@ public class OwnerInfo implements Serializable {
 
     public void setWechat_unionid(String wechat_unionid) {
         this.wechat_unionid = wechat_unionid;
+    }
+
+    public String getUsertype() {
+        return usertype;
+    }
+
+    public void setUsertype(String usertype) {
+        this.usertype = usertype;
+    }
+
+    public boolean is_wechat_first_login() {
+        return is_wechat_first_login;
+    }
+
+    public void setIs_wechat_first_login(boolean is_wechat_first_login) {
+        this.is_wechat_first_login = is_wechat_first_login;
+    }
+
+    public boolean is_block() {
+        return is_block;
+    }
+
+    public void setIs_block(boolean is_block) {
+        this.is_block = is_block;
     }
 }

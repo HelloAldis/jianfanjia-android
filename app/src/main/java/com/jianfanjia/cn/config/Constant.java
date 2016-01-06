@@ -88,7 +88,6 @@ public class Constant {
     public static final String IDENTITY_OWNER = "1";// 业主
     public static final String IDENTITY_DESIGNER = "2";// 设计师
 
-    public static final String ISOPEN = "isOpen";// 消息推送是否开启
     public static final String ISFIRST = "isFirst";// 是否是首次打开程序
     public static final String ACCOUNT = "account";// 账号
     public static final String PASSWORD = "password";// 密码
@@ -97,15 +96,10 @@ public class Constant {
     public static final String USERIMAGE_ID = "userimageid";// 用户头像id
     public static final String USER_ID = "userid";// 用户id
     public static final String USER_IS_LOGIN = "user_is_login";// 用户是否登录
-    public static final String USERINFO_UPDATE = "userinfo_is update";// 用户信息是否更新
-    public static final String ISCONFIG_PROCESS = "is_config_process";// 是否配置过工地
+    public static final String OPEN_ID = "open_id";//微信openid
+    public static final String UNION_ID = "union_id";//微信union_id
 
-    public static final String FINAL_DESIGNER_ID = "final_designerid";// 业主的设计师id
-    public static final String FINAL_OWNER_ID = "final_owner_id";// 业主id
-    // public static final String PROCESSINFO_ID = "processinfo_id";// 当前工地id
-    public static final String PROCESSINFO_REFLECT = "processinfo_reflect";// 工地映射
     public static final String OWNER_INFO = "owner_info";// 当前业主信息
-    public static final String DESIGNER_INFO = "designer_info";// 当前设计师信息
     public static final String DEFAULT_PROCESS = "default_process";// 当前工地
     public static final String DESIGNER_PROCESS_LIST = "designer_process_list";// 设计师工地列表
     public static final String DEFAULT_PROCESSINFO = "default_processinfo.txt";// 默认工地信息
@@ -114,9 +108,6 @@ public class Constant {
     public static final String DATA = "data";// 获取成功的数据
     public static final String ERROR_MSG = "err_msg";// 获取数据失败的返回信息
     public static final String SUCCESS_MSG = "msg";// 获取数据成功的返回信息
-
-    public static final int LIST_ITEM_TAG = 1;
-    public static final int LIST_ITEM = 2;
 
     // 提醒消息id
     public static final int CAIGOU_NOTIFY_ID = 1;

@@ -35,12 +35,12 @@ public class RegisterRequest extends BaseRequest {
     @Override
     public void onSuccess(Object data) {
         if (data != null) {
-            LoginUserBean loginUserBean = JsonParser.jsonToBean((String) data, LoginUserBean.class);
-            loginUserBean.setPass(registerInfo.getPass());
-            dataManager.saveLoginUserInfo(loginUserBean);
             dataManager.setLogin(true);
             dataManager.savaLastLoginTime(Calendar.getInstance()
                     .getTimeInMillis());
+            LoginUserBean loginUserBean = JsonParser.jsonToBean(data.toString(),LoginUserBean.class);
+            loginUserBean.setPass(registerInfo.getPass());
+            dataManager.saveLoginUserBean(loginUserBean);
         }
     }
 

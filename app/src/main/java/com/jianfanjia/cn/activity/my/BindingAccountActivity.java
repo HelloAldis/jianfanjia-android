@@ -83,7 +83,7 @@ public class BindingAccountActivity extends BaseAnnotationActivity{
             bindingaccount_phone_layout.setEnabled(true);
         }
 
-        if(ownerInfo != null && ownerInfo.getWechat_openid() != null && ownerInfo.getWechat_unionid() != null){
+        if(ownerInfo != null && ownerInfo.getWechat_unionid() != null){
             bindingaccount_weixin_layout.setEnabled(false);
             bindingaccount_wexinText.setText(getString(R.string.already_binding));
         }else{

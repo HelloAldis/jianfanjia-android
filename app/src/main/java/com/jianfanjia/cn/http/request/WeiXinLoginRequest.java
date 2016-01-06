@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.jianfanjia.cn.base.BaseRequest;
 import com.jianfanjia.cn.bean.LoginUserBean;
+import com.jianfanjia.cn.bean.WeiXinRegisterInfo;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 
@@ -17,9 +18,12 @@ import java.util.Calendar;
  */
 public class WeiXinLoginRequest extends BaseRequest{
 
-    public WeiXinLoginRequest(Context context) {
+    WeiXinRegisterInfo weiXinRegisterInfo;
+
+    public WeiXinLoginRequest(Context context,WeiXinRegisterInfo weiXinRegisterInfo) {
         super(context);
         url = url_new.WEIXIN_LOGIN_URL;
+        this.weiXinRegisterInfo = weiXinRegisterInfo;
     }
 
     @Override
@@ -27,11 +31,13 @@ public class WeiXinLoginRequest extends BaseRequest{
         super.onSuccess(data);
         if (data != null) {
             LogTool.d(this.getClass().getName(), "already login");
-            LoginUserBean loginUserBean = JsonParser.jsonToBean((String) data, LoginUserBean.class);
-            dataManager.saveLoginUserInfo(loginUserBean);
             dataManager.setLogin(true);
             dataManager.savaLastLoginTime(Calendar.getInstance()
                     .getTimeInMillis());
+            LoginUserBean loginUserBean = JsonParser.jsonToBean(data.toString(),LoginUserBean.class);
+            loginUserBean.setWechat_openid(weiXinRegisterInfo.getWechat_openid());
+            loginUserBean.setWechat_unionid(weiXinRegisterInfo.getWechat_unionid());
+            dataManager.saveLoginUserBean(loginUserBean);
         }
     }
 }

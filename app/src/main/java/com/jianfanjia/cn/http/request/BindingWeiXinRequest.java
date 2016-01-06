@@ -13,9 +13,12 @@ import com.jianfanjia.cn.tools.LogTool;
  */
 public class BindingWeiXinRequest extends BaseRequest{
 
-    public BindingWeiXinRequest(Context context) {
+    private String unionid;
+
+    public BindingWeiXinRequest(Context context,String union_id) {
         super(context);
         url = url_new.BIND_WEIXIN;
+        this.unionid = union_id;
     }
 
     @Override
@@ -23,6 +26,8 @@ public class BindingWeiXinRequest extends BaseRequest{
         super.onSuccess(data);
         if(data != null){
             LogTool.d(this.getClass().getName(),data.toString());
+            dataManager.setWeixinFisrtLogin(false);
+            dataManager.setWechat_unionid(unionid);
         }
     }
 }

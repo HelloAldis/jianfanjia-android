@@ -153,7 +153,7 @@ public class JianFanJiaClient {
     }
 
     public static void weixinLogin(Context context, WeiXinRegisterInfo weiXinRegisterInfo, ApiUiUpdateListener listener, Object tag) {
-        WeiXinLoginRequest weiXinLoginRequest = new WeiXinLoginRequest(context);
+        WeiXinLoginRequest weiXinLoginRequest = new WeiXinLoginRequest(context,weiXinRegisterInfo);
         LogTool.d(TAG, "weixinLogin --" + weiXinLoginRequest.getUrl() + "---" + JsonParser.beanToJson(weiXinRegisterInfo));
         OkHttpClientManager.getInstance().getPostDelegate().postAsyn(weiXinLoginRequest, JsonParser.beanToJson(weiXinRegisterInfo), listener, tag);
     }
@@ -352,7 +352,7 @@ public class JianFanJiaClient {
      */
     public static void bindingWeixin(Context context, String openid, String unionid,
                                      ApiUiUpdateListener listener, Object tag) {
-        BindingWeiXinRequest bindingWeiXinRequest = new BindingWeiXinRequest(context);
+        BindingWeiXinRequest bindingWeiXinRequest = new BindingWeiXinRequest(context,unionid);
         JSONObject jsonParams = new JSONObject();
         try {
             jsonParams.put("wechat_openid", openid);

@@ -37,13 +37,13 @@ public class LoginRequest extends BaseRequest {
     public void onSuccess(Object data) {
         super.onSuccess(data);
         if (data != null) {
-            LogTool.d(this.getClass().getName(),"already login");
-            LoginUserBean loginUserBean = JsonParser.jsonToBean((String)data, LoginUserBean.class);
-            loginUserBean.setPass(password);
-            dataManager.saveLoginUserInfo(loginUserBean);
+            LogTool.d(this.getClass().getName(), "already login");
             dataManager.setLogin(true);
             dataManager.savaLastLoginTime(Calendar.getInstance()
                     .getTimeInMillis());
+            LoginUserBean loginUserBean = JsonParser.jsonToBean(data.toString(),LoginUserBean.class);
+            loginUserBean.setPass(password);
+            dataManager.saveLoginUserBean(loginUserBean);
         }
     }
 

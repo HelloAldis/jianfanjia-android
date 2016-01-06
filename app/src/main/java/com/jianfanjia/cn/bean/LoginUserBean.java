@@ -10,13 +10,31 @@ import java.io.Serializable;
  */
 public class LoginUserBean implements Serializable {
     private static final long serialVersionUID = 7912343352449337196L;
+    private String _id;
     private String username;
-    private String usertype;
     private String phone;
     private String pass;
     private String imageid;
-    private String _id;
+    private String usertype;
     private boolean is_wechat_first_login;
+    private String wechat_openid;
+    private String wechat_unionid;
+
+    public String getWechat_openid() {
+        return wechat_openid;
+    }
+
+    public void setWechat_openid(String wechat_openid) {
+        this.wechat_openid = wechat_openid;
+    }
+
+    public String getWechat_unionid() {
+        return wechat_unionid;
+    }
+
+    public void setWechat_unionid(String wechat_unionid) {
+        this.wechat_unionid = wechat_unionid;
+    }
 
     public String getPass() {
         return pass;

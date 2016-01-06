@@ -21,7 +21,8 @@
 
         <RelativeLayout
             android:id="@+id/bindingaccount_phone_layout"
-            style="@style/my_list_item_layout_style">
+            style="@style/my_list_item_layout_style"
+            android:background="@color/font_white">
 
             <TextView
                 android:id="@+id/bindingaccount_phone_title"
@@ -55,7 +56,8 @@
 
         <RelativeLayout
             android:id="@+id/bindingaccount_weixin_layout"
-            style="@style/my_list_item_layout_style">
+            style="@style/my_list_item_layout_style"
+            android:background="@color/font_white">
 
             <TextView
                 android:id="@+id/bindingaccount_weixin_title"
