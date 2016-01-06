@@ -7,7 +7,6 @@ import android.os.Handler;
 import android.view.KeyEvent;
 import android.view.WindowManager;
 
-import com.igexin.sdk.PushManager;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.UpdateVersion;
@@ -15,6 +14,7 @@ import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.FileUtil;
+import com.jianfanjia.cn.tools.GeTuiManager;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
@@ -180,8 +180,8 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
     public void loadSuccess(Object data) {
         startActivity(MainActivity.class);
         appManager.finishActivity(WelcomeActivity.this);
-        PushManager.getInstance().initialize(getApplicationContext());//初始化个推
-        PushManager.getInstance().bindAlias(getApplicationContext(), dataManager.getUserId());
+//        PushManager.getInstance().initialize(getApplicationContext());//初始化个推
+//        PushManager.getInstance().bindAlias(getApplicationContext(), dataManager.getUserId());
     }
 
     @Override
@@ -207,12 +207,12 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
                         LogTool.d(TAG, "not expire");
                         startActivity(MainActivity.class);
                         appManager.finishActivity(WelcomeActivity.this);
-                        PushManager.getInstance().initialize(getApplicationContext());//初始化个推
-                        PushManager.getInstance().bindAlias(getApplicationContext(), dataManager.getUserId());
+                        GeTuiManager.bindGeTui(getApplicationContext(),dataManager.getUserId());
                     } else {
                         LogTool.d(TAG, "expire");
                         MyApplication.getInstance().clearCookie();
-                        JianFanJiaClient.login(WelcomeActivity.this, dataManager.getAccount(), dataManager.getPassword(), WelcomeActivity.this, WelcomeActivity.this);
+                        JianFanJiaClient.refreshSession(WelcomeActivity.this, dataManager.getUserId(), WelcomeActivity.this, WelcomeActivity.this);
+//                        JianFanJiaClient.login(WelcomeActivity.this, dataManager.getAccount(), dataManager.getPassword(), WelcomeActivity.this, WelcomeActivity.this);
                     }
                 }
             } else {

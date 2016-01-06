@@ -1,6 +1,5 @@
 package com.jianfanjia.cn.activity.my;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -12,8 +11,6 @@ import com.jianfanjia.cn.Event.BindingPhoneEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseAnnotationActivity;
 import com.jianfanjia.cn.bean.OwnerInfo;
-import com.jianfanjia.cn.bean.WeiXinRegisterInfo;
-import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.AuthUtil;
@@ -72,25 +69,22 @@ public class BindingAccountActivity extends BaseAnnotationActivity{
     protected void afterView(){
         mainHeadView.setMianTitle(getString(R.string.account_binding));
 
-        Intent intent = getIntent();
-        ownerInfo = (OwnerInfo)intent.getSerializableExtra(Constant.OWNER_INFO);
-
-        phone = ownerInfo.getPhone();
+        phone = dataManager.getAccount();
         if(phone != null){
             bindingaccount_phone_layout.setEnabled(false);
             bindingaccount_phoneText.setText(phone);
         }else{
             bindingaccount_phone_layout.setEnabled(true);
+            bindingaccount_phoneText.setText(getString(R.string.not_binding));
         }
 
-        if(ownerInfo != null && ownerInfo.getWechat_unionid() != null){
+        if(dataManager.getWechat_unionid() != null){
             bindingaccount_weixin_layout.setEnabled(false);
             bindingaccount_wexinText.setText(getString(R.string.already_binding));
         }else{
             bindingaccount_weixin_layout.setEnabled(true);
+            bindingaccount_wexinText.setText(getString(R.string.not_binding));
         }
-
-
     }
 
     @Click({R.id.head_back_layout,R.id.bindingaccount_phone_layout,R.id.bindingaccount_weixin_layout})
@@ -126,12 +120,12 @@ public class BindingAccountActivity extends BaseAnnotationActivity{
 
         @Override
         public void onError(SHARE_MEDIA platform, int action, Throwable t) {
-            Toast.makeText(getApplicationContext(), "Authorize fail", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getString(R.string.authorize_fail), Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onCancel(SHARE_MEDIA platform, int action) {
-            Toast.makeText( getApplicationContext(), "Authorize cancel", Toast.LENGTH_SHORT).show();
+            Toast.makeText( getApplicationContext(), getString(R.string.authorize_cancel), Toast.LENGTH_SHORT).show();
         }
     };
 
@@ -140,14 +134,7 @@ public class BindingAccountActivity extends BaseAnnotationActivity{
         public void onComplete(SHARE_MEDIA platform, int action, Map<String, String> data) {
             if (data != null){
                 LogTool.d(this.getClass().getName(), data.toString());
-                WeiXinRegisterInfo weiXinRegisterInfo = new WeiXinRegisterInfo();
-                weiXinRegisterInfo.setUsername(data.get("nickname"));
-                weiXinRegisterInfo.setImage_url(data.get("headimgurl"));
-                weiXinRegisterInfo.setSex(data.get("sex"));
-                weiXinRegisterInfo.setWechat_openid(data.get("openid"));
-                weiXinRegisterInfo.setWechat_unionid(data.get("unionid"));
-
-                JianFanJiaClient.bindingWeixin(BindingAccountActivity.this, weiXinRegisterInfo.getWechat_openid(), weiXinRegisterInfo.getWechat_unionid(), new ApiUiUpdateListener() {
+                JianFanJiaClient.bindingWeixin(BindingAccountActivity.this, data.get("openid"),data.get("unionid"), new ApiUiUpdateListener() {
                     @Override
                     public void preLoad() {
 
@@ -161,7 +148,7 @@ public class BindingAccountActivity extends BaseAnnotationActivity{
 
                     @Override
                     public void loadFailture(String error_msg) {
-
+                        makeTextShort(error_msg);
                     }
                 },BindingAccountActivity.this);
             }
@@ -169,12 +156,12 @@ public class BindingAccountActivity extends BaseAnnotationActivity{
 
         @Override
         public void onError(SHARE_MEDIA platform, int action, Throwable t) {
-            Toast.makeText( getApplicationContext(), "Authorize fail", Toast.LENGTH_SHORT).show();
+            Toast.makeText( getApplicationContext(), getString(R.string.authorize_fail), Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onCancel(SHARE_MEDIA platform, int action) {
-            Toast.makeText( getApplicationContext(), "Authorize cancel", Toast.LENGTH_SHORT).show();
+            Toast.makeText( getApplicationContext(), getString(R.string.authorize_cancel), Toast.LENGTH_SHORT).show();
         }
     };
 }

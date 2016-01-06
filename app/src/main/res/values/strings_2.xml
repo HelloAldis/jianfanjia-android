@@ -110,4 +110,7 @@
     <string name="binding_phone_tip">您的手机号仅用于我们为您提供更便捷的服务，绝不做任何商业用途</string>
     <string name="weixin_login">微信登录</string>
     <string name="already_binding">已绑定</string>
+    <string name="not_binding">未绑定</string>
+    <string name="authorize_fail">认证失败</string>
+    <string name="authorize_cancel">取消认证</string>
 </resources>

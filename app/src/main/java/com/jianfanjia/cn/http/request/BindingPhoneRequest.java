@@ -13,9 +13,12 @@ import com.jianfanjia.cn.tools.LogTool;
  */
 public class BindingPhoneRequest extends BaseRequest{
 
-    public BindingPhoneRequest(Context context) {
+    String account = null;
+
+    public BindingPhoneRequest(Context context,String account) {
         super(context);
         url = url_new.BIND_PHONE;
+        this.account = account;
     }
 
     @Override
@@ -23,6 +26,7 @@ public class BindingPhoneRequest extends BaseRequest{
         super.onSuccess(data);
         if(data != null){
             LogTool.d(this.getClass().getName(),data.toString());
+            dataManager.setAccount(account);
         }
     }
 }

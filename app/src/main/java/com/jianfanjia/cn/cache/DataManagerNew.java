@@ -208,6 +208,10 @@ public class DataManagerNew {
         return sharedPreferuser.getValue(Constant.PASSWORD, null);
     }
 
+    public void setAccount(String phone){
+        sharedPreferuser.setValue(Constant.ACCOUNT, phone);
+    }
+
     public String getAccount() {
         return sharedPreferuser.getValue(Constant.ACCOUNT, null);
     }
