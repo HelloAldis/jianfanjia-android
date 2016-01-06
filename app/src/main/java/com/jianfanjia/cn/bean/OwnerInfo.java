@@ -15,10 +15,6 @@ public class OwnerInfo implements Serializable {
 
     private String _id;
 
-    private String usertype;
-
-    private boolean is_wechat_first_login;
-
     private String accessToken;
 
     private String pass;
@@ -207,22 +203,6 @@ public class OwnerInfo implements Serializable {
 
     public void setWechat_unionid(String wechat_unionid) {
         this.wechat_unionid = wechat_unionid;
-    }
-
-    public String getUsertype() {
-        return usertype;
-    }
-
-    public void setUsertype(String usertype) {
-        this.usertype = usertype;
-    }
-
-    public boolean is_wechat_first_login() {
-        return is_wechat_first_login;
-    }
-
-    public void setIs_wechat_first_login(boolean is_wechat_first_login) {
-        this.is_wechat_first_login = is_wechat_first_login;
     }
 
     public boolean is_block() {

@@ -26,6 +26,7 @@ import android.widget.ViewFlipper;
 import com.jianfanjia.cn.base.BaseAnnotationActivity;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.bean.WeiXinRegisterInfo;
+import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
@@ -288,7 +289,6 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
                 mPassword = mEtRegisterPassword.getText().toString().trim();
                 if (checkRegisterInput(mUserName, mPassword)) {
                     verifyPhone(mUserName);
-//                    sendVerification(mUserName, mPassword);
                 }
                 break;
             case R.id.act_forget_password:
@@ -324,12 +324,12 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
 
         @Override
         public void onError(SHARE_MEDIA platform, int action, Throwable t) {
-            Toast.makeText( getApplicationContext(), "Authorize fail", Toast.LENGTH_SHORT).show();
+            Toast.makeText( getApplicationContext(), getString(R.string.authorize_fail), Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onCancel(SHARE_MEDIA platform, int action) {
-            Toast.makeText( getApplicationContext(), "Authorize cancel", Toast.LENGTH_SHORT).show();
+            Toast.makeText( getApplicationContext(), getString(R.string.authorize_cancel), Toast.LENGTH_SHORT).show();
         }
     };
 
@@ -341,7 +341,10 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
                 WeiXinRegisterInfo weiXinRegisterInfo = new WeiXinRegisterInfo();
                 weiXinRegisterInfo.setUsername(data.get("nickname"));
                 weiXinRegisterInfo.setImage_url(data.get("headimgurl"));
-                weiXinRegisterInfo.setSex(data.get("sex"));
+                String sex = null;
+                if((sex = data.get("sex")) != null){
+                    weiXinRegisterInfo.setSex(sex.equals(Constant.SEX_MAN) ? Constant.SEX_WOMEN : Constant.SEX_MAN);//系统的性别和微信的性别要转换
+                }
                 weiXinRegisterInfo.setWechat_openid(data.get("openid"));
                 weiXinRegisterInfo.setWechat_unionid(data.get("unionid"));
 
@@ -354,7 +357,7 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
                     public void loadSuccess(Object data) {
                         if(data != null){
                             if(dataManager.getWeixinFisrtLogin()){
-                                startActivity(NewUserGuideActivity_.class);
+                                startActivity(NewUserCollectDecStageActivity_.class);
                             }else{
                                 startActivity(MainActivity.class);
                             }
@@ -373,12 +376,12 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
 
         @Override
         public void onError(SHARE_MEDIA platform, int action, Throwable t) {
-            Toast.makeText( getApplicationContext(), "Authorize fail", Toast.LENGTH_SHORT).show();
+            Toast.makeText( getApplicationContext(), getString(R.string.authorize_fail), Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onCancel(SHARE_MEDIA platform, int action) {
-            Toast.makeText( getApplicationContext(), "Authorize cancel", Toast.LENGTH_SHORT).show();
+            Toast.makeText( getApplicationContext(), getString(R.string.authorize_cancel), Toast.LENGTH_SHORT).show();
         }
     };
 
@@ -448,7 +451,6 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
 
             @Override
             public void loadSuccess(Object data) {
-//                    registerInputPhoneDelete.setVisibility(View.GONE);
                 sendVerification(mUserName, mPassword);
             }
 

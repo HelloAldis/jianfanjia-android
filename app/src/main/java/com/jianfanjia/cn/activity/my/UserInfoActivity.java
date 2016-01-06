@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
@@ -170,9 +169,7 @@ public class UserInfoActivity extends BaseAnnotationActivity implements
                 showSexChooseDialog();
                 break;
             case R.id.phone_layout:
-                Bundle bundle = new Bundle();
-                bundle.putSerializable(Constant.OWNER_INFO,ownerInfo);
-                startActivity(BindingAccountActivity_.class,bundle);
+                startActivity(BindingAccountActivity_.class);
                 break;
             default:
                 break;

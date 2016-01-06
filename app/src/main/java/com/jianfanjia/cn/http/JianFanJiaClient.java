@@ -338,7 +338,7 @@ public class JianFanJiaClient {
      */
     public static void bindingPhone(Context context, RegisterInfo registerInfo,
                                     ApiUiUpdateListener listener, Object tag) {
-        BindingPhoneRequest bindingPhoneRequest = new BindingPhoneRequest(context);
+        BindingPhoneRequest bindingPhoneRequest = new BindingPhoneRequest(context,registerInfo.getPhone());
         LogTool.d(TAG, "register  " + bindingPhoneRequest.getUrl() + "--" + JsonParser.beanToJson(registerInfo));
         OkHttpClientManager.getInstance().getPostDelegate().postAsyn(bindingPhoneRequest, JsonParser.beanToJson(registerInfo), listener, tag);
     }

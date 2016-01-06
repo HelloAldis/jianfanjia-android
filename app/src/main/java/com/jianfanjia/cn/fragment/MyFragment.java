@@ -60,8 +60,6 @@ public class MyFragment extends BaseFragment {
     }
 
     protected void initMyInfo() {
-        my_name.setText(TextUtils.isEmpty(dataManager.getUserName()) ? getResources().getString(R.string.ower) : dataManager.getUserName());
-        my_account.setText(TextUtils.isEmpty(dataManager.getAccount()) ? "" : "账号：" + dataManager.getAccount());
         String imgPath = dataManager.getUserImagePath();
         LogTool.d(TAG, "imgPath=" + imgPath);
         if (!imgPath.contains(Constant.DEFALUT_PIC_HEAD)) {
@@ -83,6 +81,13 @@ public class MyFragment extends BaseFragment {
         my_site_layout.setOnClickListener(this);
         setting_layout.setOnClickListener(this);
         my_info_layout.setOnClickListener(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        my_name.setText(TextUtils.isEmpty(dataManager.getUserName()) ? getResources().getString(R.string.ower) : dataManager.getUserName());
+        my_account.setText(TextUtils.isEmpty(dataManager.getAccount()) ? "" : "账号：" + dataManager.getAccount());
     }
 
     @Override

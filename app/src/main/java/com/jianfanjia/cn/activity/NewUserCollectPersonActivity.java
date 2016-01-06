@@ -144,7 +144,7 @@ public class NewUserCollectPersonActivity extends BaseAnnotationActivity {
             @Override
             public void loadSuccess(Object data) {
                 hideWaitDialog();
-                startActivity(NewUserGuideActivity_.class);
+                startActivity(MainActivity.class);
                 appManager.finishAllActivity();
             }
 

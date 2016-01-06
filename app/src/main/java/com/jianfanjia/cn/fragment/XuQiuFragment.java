@@ -9,6 +9,7 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -17,7 +18,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
+import com.jianfanjia.cn.Event.BindingPhoneEvent;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.my.BindingPhoneActivity_;
 import com.jianfanjia.cn.activity.requirement.AppointDesignerActivity;
 import com.jianfanjia.cn.activity.requirement.MyDesignerActivity_;
 import com.jianfanjia.cn.activity.requirement.MyProcessDetailActivity_;
@@ -47,6 +50,8 @@ import org.androidannotations.annotations.ViewById;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * Description:需求
@@ -101,10 +106,12 @@ public class XuQiuFragment extends BaseAnnotationFragment {
 
     // Header View
     private UpdateBroadcastReceiver updateBroadcastReceiver;
+    private RequirementInfo requirementInfo;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
     }
 
     protected void setListVisiable() {
@@ -123,7 +130,7 @@ public class XuQiuFragment extends BaseAnnotationFragment {
         requirementAdapter = new RequirementNewAdapter(getActivity(), new ClickCallBack() {
             @Override
             public void click(int position, int itemType) {
-                RequirementInfo requirementInfo = requirementInfos.get(position);
+                requirementInfo = requirementInfos.get(position);
                 switch (itemType) {
                     case ITEM_PRIVIEW:
                         Intent gotoPriviewRequirement = null;
@@ -149,13 +156,11 @@ public class XuQiuFragment extends BaseAnnotationFragment {
                         startActivity(gotoMyDesigner);
                         break;
                     case ITEM_GOTOODERDESI:
-                        if (requirementInfo.getOrder_designers() != null && requirementInfo.getOrder_designers().size() > 0) {
-                            gotoOrderDesigner.putExtra(Global.REQUIREMENT_DESIGNER_NUM, requirementInfo.getOrder_designers().size());
-                        } else {
-                            gotoOrderDesigner.putExtra(Global.REQUIREMENT_DESIGNER_NUM, 0);
+                        if(dataManager.getAccount() == null){
+                            startActivity(BindingPhoneActivity_.class);
+                        }else{
+                            gotoOrderDesigner();
                         }
-                        gotoOrderDesigner.putExtra(Global.REQUIREMENT_ID, requirementInfo.get_id());
-                        startActivity(gotoOrderDesigner);
                         break;
                     default:
                         break;
@@ -173,6 +178,15 @@ public class XuQiuFragment extends BaseAnnotationFragment {
                 .build());
     }
 
+    protected void gotoOrderDesigner(){
+        if (requirementInfo.getOrder_designers() != null && requirementInfo.getOrder_designers().size() > 0) {
+            gotoOrderDesigner.putExtra(Global.REQUIREMENT_DESIGNER_NUM, requirementInfo.getOrder_designers().size());
+        } else {
+            gotoOrderDesigner.putExtra(Global.REQUIREMENT_DESIGNER_NUM, 0);
+        }
+        gotoOrderDesigner.putExtra(Global.REQUIREMENT_ID, requirementInfo.get_id());
+        startActivity(gotoOrderDesigner);
+    }
 
     @Click({R.id.req_publish_layout, R.id.head_right_title})
     protected void publish_requirement() {
@@ -198,6 +212,11 @@ public class XuQiuFragment extends BaseAnnotationFragment {
         initData();
     }
 
+    public void onEventMainThread(BindingPhoneEvent bindingPhoneEvent) {
+        if(TextUtils.isEmpty(bindingPhoneEvent.getPhone())) return;
+        LogTool.d(this.getClass().getName(), "event:" + bindingPhoneEvent.getPhone());
+        gotoOrderDesigner();
+    }
 
     @Override
     public void onAttach(Context context) {

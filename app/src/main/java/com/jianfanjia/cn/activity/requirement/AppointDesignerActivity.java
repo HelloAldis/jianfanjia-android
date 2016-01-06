@@ -61,6 +61,11 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
     private List<String> designerIds = new ArrayList<String>();
 
     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
     public void initView() {
         Intent intent = this.getIntent();
         orderDesignerNum = intent.getIntExtra(Global.REQUIREMENT_DESIGNER_NUM, 0);
@@ -204,7 +209,7 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
 
         @Override
         public void loadFailture(String error_msg) {
-            makeTextLong(error_msg);
+            makeTextShort(error_msg);
             hideWaitDialog();
         }
     };
