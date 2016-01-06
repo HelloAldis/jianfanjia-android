@@ -274,7 +274,7 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
         super.onResume();
     }
 
-    @Click({R.id.btn_login, R.id.btn_next, R.id.act_forget_password, R.id.act_login, R.id.act_register,R.id.btn_login_weixin_layout})
+    @Click({R.id.btn_login, R.id.btn_next, R.id.act_forget_password, R.id.act_login, R.id.act_register, R.id.btn_login_weixin_layout})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_login:
@@ -306,8 +306,12 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
                 break;
             case R.id.btn_login_weixin_layout:
                 SHARE_MEDIA platform = SHARE_MEDIA.WEIXIN;
-                authUtil.doOauthVerify(this,platform,umAuthListener);
-            break;
+                if (authUtil.isAuthorize(LoginNewActivity.this, platform)) {
+                    authUtil.getPlatformInfo(LoginNewActivity.this, SHARE_MEDIA.WEIXIN, umAuthInfoListener);
+                } else {
+                    authUtil.doOauthVerify(this, platform, umAuthListener);
+                }
+                break;
             default:
                 break;
         }
@@ -316,33 +320,33 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
     private UMAuthListener umAuthListener = new UMAuthListener() {
         @Override
         public void onComplete(SHARE_MEDIA platform, int action, Map<String, String> data) {
-            if (data!=null){
-                LogTool.d(this.getClass().getName(),data.toString());
-                authUtil.getPlatformInfo(LoginNewActivity.this,SHARE_MEDIA.WEIXIN,umAuthInfoListener);
+            if (data != null) {
+                LogTool.d(this.getClass().getName(), data.toString());
+                authUtil.getPlatformInfo(LoginNewActivity.this, SHARE_MEDIA.WEIXIN, umAuthInfoListener);
             }
         }
 
         @Override
         public void onError(SHARE_MEDIA platform, int action, Throwable t) {
-            Toast.makeText( getApplicationContext(), getString(R.string.authorize_fail), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getString(R.string.authorize_fail), Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onCancel(SHARE_MEDIA platform, int action) {
-            Toast.makeText( getApplicationContext(), getString(R.string.authorize_cancel), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getString(R.string.authorize_cancel), Toast.LENGTH_SHORT).show();
         }
     };
 
     private UMAuthListener umAuthInfoListener = new UMAuthListener() {
         @Override
         public void onComplete(SHARE_MEDIA platform, int action, Map<String, String> data) {
-            if (data != null){
+            if (data != null) {
                 LogTool.d(this.getClass().getName(), data.toString());
                 WeiXinRegisterInfo weiXinRegisterInfo = new WeiXinRegisterInfo();
                 weiXinRegisterInfo.setUsername(data.get("nickname"));
                 weiXinRegisterInfo.setImage_url(data.get("headimgurl"));
                 String sex = null;
-                if((sex = data.get("sex")) != null){
+                if ((sex = data.get("sex")) != null) {
                     weiXinRegisterInfo.setSex(sex.equals(Constant.SEX_MAN) ? Constant.SEX_WOMEN : Constant.SEX_MAN);//系统的性别和微信的性别要转换
                 }
                 weiXinRegisterInfo.setWechat_openid(data.get("openid"));
@@ -355,10 +359,10 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
 
                     @Override
                     public void loadSuccess(Object data) {
-                        if(data != null){
-                            if(dataManager.getWeixinFisrtLogin()){
+                        if (data != null) {
+                            if (dataManager.getWeixinFisrtLogin()) {
                                 startActivity(NewUserCollectDecStageActivity_.class);
-                            }else{
+                            } else {
                                 startActivity(MainActivity.class);
                             }
                             appManager.finishActivity(LoginNewActivity.this);
@@ -370,18 +374,18 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
                     public void loadFailture(String error_msg) {
                         makeTextShort(error_msg);
                     }
-                },LoginNewActivity.this);
+                }, LoginNewActivity.this);
             }
         }
 
         @Override
         public void onError(SHARE_MEDIA platform, int action, Throwable t) {
-            Toast.makeText( getApplicationContext(), getString(R.string.authorize_fail), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getString(R.string.authorize_fail), Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onCancel(SHARE_MEDIA platform, int action) {
-            Toast.makeText( getApplicationContext(), getString(R.string.authorize_cancel), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getString(R.string.authorize_cancel), Toast.LENGTH_SHORT).show();
         }
     };
 
@@ -507,7 +511,7 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
         super.loadSuccess(data);
         startActivity(MainActivity.class);
         appManager.finishActivity(this);
-        GeTuiManager.bindGeTui(getApplicationContext(),dataManager.getUserId());
+        GeTuiManager.bindGeTui(getApplicationContext(), dataManager.getUserId());
     }
 
     @Override
@@ -651,6 +655,6 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        authUtil.getUmShareAPI().onActivityResult(requestCode,resultCode,data);
+        authUtil.getUmShareAPI().onActivityResult(requestCode, resultCode, data);
     }
 }

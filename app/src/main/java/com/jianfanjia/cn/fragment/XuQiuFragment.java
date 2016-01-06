@@ -20,7 +20,6 @@ import android.widget.TextView;
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.Event.BindingPhoneEvent;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.my.BindingPhoneActivity_;
 import com.jianfanjia.cn.activity.requirement.AppointDesignerActivity;
 import com.jianfanjia.cn.activity.requirement.MyDesignerActivity_;
 import com.jianfanjia.cn.activity.requirement.MyProcessDetailActivity_;
@@ -50,8 +49,6 @@ import org.androidannotations.annotations.ViewById;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import de.greenrobot.event.EventBus;
 
 /**
  * Description:需求
@@ -111,7 +108,7 @@ public class XuQiuFragment extends BaseAnnotationFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EventBus.getDefault().register(this);
+
     }
 
     protected void setListVisiable() {
@@ -156,11 +153,7 @@ public class XuQiuFragment extends BaseAnnotationFragment {
                         startActivity(gotoMyDesigner);
                         break;
                     case ITEM_GOTOODERDESI:
-                        if(dataManager.getAccount() == null){
-                            startActivity(BindingPhoneActivity_.class);
-                        }else{
-                            gotoOrderDesigner();
-                        }
+                        gotoOrderDesigner();
                         break;
                     default:
                         break;
@@ -178,7 +171,7 @@ public class XuQiuFragment extends BaseAnnotationFragment {
                 .build());
     }
 
-    protected void gotoOrderDesigner(){
+    protected void gotoOrderDesigner() {
         if (requirementInfo.getOrder_designers() != null && requirementInfo.getOrder_designers().size() > 0) {
             gotoOrderDesigner.putExtra(Global.REQUIREMENT_DESIGNER_NUM, requirementInfo.getOrder_designers().size());
         } else {
@@ -212,11 +205,6 @@ public class XuQiuFragment extends BaseAnnotationFragment {
         initData();
     }
 
-    public void onEventMainThread(BindingPhoneEvent bindingPhoneEvent) {
-        if(TextUtils.isEmpty(bindingPhoneEvent.getPhone())) return;
-        LogTool.d(this.getClass().getName(), "event:" + bindingPhoneEvent.getPhone());
-        gotoOrderDesigner();
-    }
 
     @Override
     public void onAttach(Context context) {

@@ -47,7 +47,8 @@ public class AuthUtil {
         umShareAPI.getPlatformInfo(activity,platform,umAuthListener);
     }
 
-
-
+    public boolean isAuthorize(Activity activity,SHARE_MEDIA platform){
+        return umShareAPI.isAuthorize(activity,platform);
+    }
 
 }

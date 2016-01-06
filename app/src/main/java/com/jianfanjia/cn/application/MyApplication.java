@@ -41,6 +41,7 @@ public class MyApplication extends BaseApplication {
         PlatformConfig.setSinaWeibo("10611350", "4a5b93b71687ec9af1ee91cfdfb361d3");
         PlatformConfig.setQQZone("1104973048", "FuDs7s4vJGAEzCrz");
 
+
         /*
          * Thread.setDefaultUncaughtExceptionHandler(AppException
 		 * .getAppExceptionHandler(this));

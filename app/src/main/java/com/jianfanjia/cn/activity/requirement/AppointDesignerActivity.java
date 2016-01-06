@@ -7,12 +7,15 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+import com.jianfanjia.cn.Event.BindingPhoneEvent;
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.home.DesignerInfoActivity;
+import com.jianfanjia.cn.activity.my.BindingPhoneActivity_;
 import com.jianfanjia.cn.adapter.DesignerByAppointOrReplaceAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.DesignerCanOrderInfo;
@@ -63,6 +66,7 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -121,6 +125,12 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
         }
     }
 
+    public void onEventMainThread(BindingPhoneEvent bindingPhoneEvent) {
+        if (TextUtils.isEmpty(bindingPhoneEvent.getPhone())) return;
+        LogTool.d(this.getClass().getName(), "event:" + bindingPhoneEvent.getPhone());
+        appointDesignerDialog();
+    }
+
     @Override
     public void setListener() {
 
@@ -133,7 +143,11 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
                 appManager.finishActivity(this);
                 break;
             case R.id.head_right_title:
-                appointDesignerDialog();
+                if(dataManager.getAccount() != null){
+                    appointDesignerDialog();
+                }else{
+                    startActivity(BindingPhoneActivity_.class);
+                }
                 break;
             default:
                 break;
