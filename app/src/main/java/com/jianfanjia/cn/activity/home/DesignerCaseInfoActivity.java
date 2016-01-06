@@ -13,6 +13,7 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -47,7 +48,7 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
     private RelativeLayout toolbar_collect_layout = null;
     private AppBarLayout appBarLayout = null;
     private CollapsingToolbarLayout collapsingToolbar = null;
-    private RelativeLayout activity_case_info_top_layout = null;
+    private LinearLayout activity_case_info_top_layout = null;
     private RecyclerView designer_case_listview = null;
     private LinearLayoutManager mLayoutManager = null;
     private TextView cellName = null;
@@ -67,7 +68,7 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
 
     @Override
     public void initView() {
-        activity_case_info_top_layout = (RelativeLayout) findViewById(R.id.top_info_layout);
+        activity_case_info_top_layout = (LinearLayout) findViewById(R.id.top_info_layout);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
         toolbar_title = (TextView) findViewById(R.id.toolbar_title);
