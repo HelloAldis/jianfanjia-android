@@ -132,6 +132,10 @@
 
         <View
             style="@style/divier_line"
+            android:background="@color/horzontal_line_color" />
+
+        <View
+            style="@style/divier_line"
             android:layout_marginTop="@dimen/space_10"
             android:background="@color/horzontal_line_color" />
 
