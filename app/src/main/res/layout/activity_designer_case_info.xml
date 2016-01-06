@@ -74,8 +74,8 @@
                     android:id="@+id/produceTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dip"
-                    android:layout_marginRight="15dip"
+                    android:layout_marginLeft="10dip"
+                    android:layout_marginRight="10dip"
                     android:layout_marginTop="5dip"
                     android:text="设计简介:"
                     android:textColor="@color/home_page_text_color"
@@ -86,8 +86,8 @@
                     android:id="@+id/produceText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dip"
-                    android:layout_marginRight="15dip"
+                    android:layout_marginLeft="10dip"
+                    android:layout_marginRight="10dip"
                     android:textColor="@color/home_page_text_color" />
             </LinearLayout>
 
