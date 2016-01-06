@@ -174,7 +174,6 @@
                 style="@style/style_edit_req_title"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="16dp"
                 android:text="@string/str_sq_unit" />
         </RelativeLayout>
 
@@ -221,7 +220,6 @@
                 style="@style/style_edit_req_title"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="16dp"
                 android:text="@string/unit_million" />
         </RelativeLayout>
 
