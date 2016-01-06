@@ -38,7 +38,7 @@ public class Constant {
     public static final int MANAGE = 2;//工地管理
     public static final int MY = 3;//我的
 
-    public static final int HOME_PAGE_LIMIT = 10;//首页分页 每次加载10条
+    public static final int HOME_PAGE_LIMIT = 20;//首页分页 每次加载20条
     public static final String IS_WEIXIN_FIRST_LOGIN = "is_weixin_first_login";
 
     public static class Config {

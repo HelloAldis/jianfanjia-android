@@ -250,100 +250,6 @@
             android:layout_marginTop="@dimen/space_10"
             android:background="@color/horzontal_line_color" />
 
-        <RelativeLayout
-            android:id="@+id/act_edit_req_housearea"
-            style="@style/my_list_item_layout_style"
-            android:layout_width="match_parent"
-            android:layout_height="48dp">
-
-            <TextView
-                android:id="@+id/act_edit_req_housearea_title"
-                style="@style/style_edit_req_title"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:text="@string/str_decoratearea" />
-
-
-            <EditText
-                android:id="@+id/act_edit_req_housearea_content"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/act_edit_req_housearea_unit"
-                android:layout_toRightOf="@+id/act_edit_req_housearea_title"
-                android:background="@null"
-                android:ellipsize="end"
-                android:gravity="right|center_vertical"
-                android:inputType="number"
-                android:maxLength="4"
-                android:nextFocusDown="@+id/act_edit_req_decoratebudget_content"
-                android:numeric="integer"
-                android:paddingLeft="@dimen/space_16"
-                android:paddingRight="@dimen/space_16"
-                android:singleLine="true"
-                android:textColor="@color/light_black_color"
-                android:textSize="@dimen/middle_size" />
-
-            <TextView
-                android:id="@+id/act_edit_req_housearea_unit"
-                style="@style/style_edit_req_title"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="16dp"
-                android:text="@string/str_sq_unit" />
-        </RelativeLayout>
-
-        <View
-            style="@style/divier_line"
-            android:background="@color/horzontal_line_color" />
-
-        <RelativeLayout
-            android:id="@+id/act_edit_req_decoratebudget"
-            style="@style/my_list_item_layout_style"
-            android:layout_width="match_parent"
-            android:layout_height="48dp">
-
-            <TextView
-                android:id="@+id/act_edit_req_decoratebudget_title"
-                style="@style/style_edit_req_title"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:text="@string/str_decoratebudget" />
-
-
-            <EditText
-                android:id="@+id/act_edit_req_decoratebudget_content"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/act_edit_req_decoratebudget_unit"
-                android:layout_toRightOf="@+id/act_edit_req_decoratebudget_title"
-                android:background="@null"
-                android:gravity="right|center_vertical"
-                android:inputType="number"
-                android:maxLength="4"
-                android:minWidth="@dimen/space_48"
-                android:numeric="integer"
-                android:paddingLeft="@dimen/space_16"
-                android:paddingRight="@dimen/space_16"
-                android:singleLine="true"
-                android:textColor="@color/light_black_color"
-                android:textSize="@dimen/middle_size" />
-
-            <TextView
-                android:id="@+id/act_edit_req_decoratebudget_unit"
-                style="@style/style_edit_req_title"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="16dp"
-                android:text="@string/unit_million" />
-        </RelativeLayout>
-
-        <View
-            style="@style/divier_line"
-            android:background="@color/horzontal_line_color" />
 
         <RelativeLayout
             android:id="@+id/act_edit_req_housetype"
@@ -382,6 +288,53 @@
             android:background="@color/horzontal_line_color" />
 
         <RelativeLayout
+            android:id="@+id/act_edit_req_housearea"
+            style="@style/my_list_item_layout_style"
+            android:layout_width="match_parent"
+            android:layout_height="48dp">
+
+            <TextView
+                android:id="@+id/act_edit_req_housearea_title"
+                style="@style/style_edit_req_title"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:text="@string/str_decoratearea" />
+
+            <EditText
+                android:id="@+id/act_edit_req_housearea_content"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/act_edit_req_housearea_unit"
+                android:layout_toRightOf="@+id/act_edit_req_housearea_title"
+                android:background="@null"
+                android:ellipsize="end"
+                android:gravity="right|center_vertical"
+                android:inputType="number"
+                android:maxLength="4"
+                android:nextFocusDown="@+id/act_edit_req_decoratebudget_content"
+                android:numeric="integer"
+                android:paddingLeft="@dimen/space_16"
+                android:paddingRight="@dimen/space_16"
+                android:singleLine="true"
+                android:textColor="@color/light_black_color"
+                android:textSize="@dimen/middle_size" />
+
+            <TextView
+                android:id="@+id/act_edit_req_housearea_unit"
+                style="@style/style_edit_req_title"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="@string/str_sq_unit" />
+        </RelativeLayout>
+
+
+        <View
+            style="@style/divier_line"
+            android:background="@color/horzontal_line_color" />
+
+        <RelativeLayout
             android:id="@+id/act_edit_req_work_type"
             style="@style/my_list_item_layout_style"
             android:layout_width="match_parent"
@@ -411,6 +364,52 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="16dp" />
+        </RelativeLayout>
+
+
+        <View
+            style="@style/divier_line"
+            android:background="@color/horzontal_line_color" />
+
+        <RelativeLayout
+            android:id="@+id/act_edit_req_decoratebudget"
+            style="@style/my_list_item_layout_style"
+            android:layout_width="match_parent"
+            android:layout_height="48dp">
+
+            <TextView
+                android:id="@+id/act_edit_req_decoratebudget_title"
+                style="@style/style_edit_req_title"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:text="@string/str_decoratebudget" />
+
+            <EditText
+                android:id="@+id/act_edit_req_decoratebudget_content"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/act_edit_req_decoratebudget_unit"
+                android:layout_toRightOf="@+id/act_edit_req_decoratebudget_title"
+                android:background="@null"
+                android:gravity="right|center_vertical"
+                android:inputType="number"
+                android:maxLength="4"
+                android:minWidth="@dimen/space_48"
+                android:numeric="integer"
+                android:paddingLeft="@dimen/space_16"
+                android:paddingRight="@dimen/space_16"
+                android:singleLine="true"
+                android:textColor="@color/light_black_color"
+                android:textSize="@dimen/middle_size" />
+
+            <TextView
+                android:id="@+id/act_edit_req_decoratebudget_unit"
+                style="@style/style_edit_req_title"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="@string/unit_million" />
         </RelativeLayout>
 
         <View

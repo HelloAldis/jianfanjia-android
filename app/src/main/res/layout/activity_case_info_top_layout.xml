@@ -1,39 +1,50 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/top_info_layout"
     android:layout_width="match_parent"
-    android:layout_height="40dip">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <com.jianfanjia.cn.view.layout.CircleImageView
-        android:id="@+id/head_img"
-        android:layout_width="40dip"
-        android:layout_height="40dip"
-        android:layout_centerVertical="true"
-        android:layout_marginBottom="6dip"
-        android:layout_marginLeft="30dip"
-        android:layout_marginTop="6dip"
-        android:scaleType="centerCrop"
-        android:src="@mipmap/pix_default"
-        app:border_color="@color/white"
-        app:border_width="2dip" />
+    <View
+        style="@style/divier_line"
+        android:background="@color/horzontal_line_color" />
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dip">
 
-    <ImageView
-        style="@style/my_item_layout_image_style"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_margin="10dip"
-        android:contentDescription="@null" />
+        <com.jianfanjia.cn.view.layout.CircleImageView
+            android:id="@+id/head_img"
+            android:layout_width="40dip"
+            android:layout_height="40dip"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="5dip"
+            android:layout_marginLeft="30dip"
+            android:layout_marginTop="5dip"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/pix_default"
+            app:border_color="@color/white"
+            app:border_width="2dip" />
 
+        <ImageView
+            style="@style/my_item_layout_image_style"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="10dip"
+            android:contentDescription="@null" />
 
-    <TextView
-        android:id="@+id/name_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_toRightOf="@id/head_img"
-        android:text="@string/str_title"
-        android:textColor="@android:color/black"
-        android:textSize="15sp" />
+        <TextView
+            android:id="@+id/name_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/head_img"
+            android:text="@string/str_title"
+            android:textColor="@color/home_page_text_color"
+            android:textSize="@dimen/text_size_14" />
+    </RelativeLayout>
 
-</RelativeLayout>
+    <View
+        style="@style/divier_line"
+        android:background="@color/horzontal_line_color" />
+</LinearLayout>
