@@ -272,12 +272,12 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
 
             @Override
             public void shareToCircle() {
-
+                shareUtil.share(PreviewDecorationActivity.this, currentDesc, currentImgId, SHARE_MEDIA.WEIXIN_CIRCLE, umShareListener);
             }
 
             @Override
-            public void shareToKongJian() {
-
+            public void shareToZone() {
+                shareUtil.share(PreviewDecorationActivity.this, currentDesc, currentImgId, SHARE_MEDIA.QZONE, umShareListener);
             }
         });
         window.show(view);

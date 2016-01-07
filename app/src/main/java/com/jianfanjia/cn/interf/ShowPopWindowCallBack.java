@@ -12,5 +12,5 @@ public interface ShowPopWindowCallBack {
 
     void shareToCircle();
 
-    void shareToKongJian();
+    void shareToZone();
 }
