@@ -57,7 +57,7 @@ public class DecorationImgFragment extends BaseFragment implements ApiUiUpdateLi
         decoration_img_listview = (RecyclerView) view.findViewById(R.id.decoration_img_listview);
         decoration_img_listview.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         decoration_img_listview.setItemAnimator(new DefaultItemAnimator());
-        SpacesItemDecoration decoration = new SpacesItemDecoration(10);
+        SpacesItemDecoration decoration = new SpacesItemDecoration(5);
         decoration_img_listview.addItemDecoration(decoration);
     }
 

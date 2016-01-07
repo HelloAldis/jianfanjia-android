@@ -84,7 +84,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         decoration_listview.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         decoration_listview.setHasFixedSize(true);
         decoration_listview.setItemAnimator(new DefaultItemAnimator());
-        SpacesItemDecoration decoration = new SpacesItemDecoration(10);
+        SpacesItemDecoration decoration = new SpacesItemDecoration(5);
         decoration_listview.addItemDecoration(decoration);
         searchDecorationImg(section, houseStyle, decStyle, FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
     }
