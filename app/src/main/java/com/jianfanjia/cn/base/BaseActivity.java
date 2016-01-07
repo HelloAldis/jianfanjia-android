@@ -61,11 +61,11 @@ public abstract class BaseActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LogTool.d(this.getClass().getName(), "onCreate()");
-        if (Build.VERSION.SDK_INT > 19) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS); //透明状态栏
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);//透明导航栏
         }
-        if(getLayoutId() != 0){
+        if (getLayoutId() != 0) {
             setContentView(getLayoutId());
         }
         init(savedInstanceState);
@@ -73,7 +73,7 @@ public abstract class BaseActivity extends AppCompatActivity implements
         setListener();
     }
 
-    protected void init(Bundle savedInstanceState){
+    protected void init(Bundle savedInstanceState) {
         appManager = AppManager.getAppManager();
         appManager.addActivity(this);
         downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
@@ -88,13 +88,14 @@ public abstract class BaseActivity extends AppCompatActivity implements
         _isVisible = true;
     }
 
-    public int getLayoutId(){
+    public int getLayoutId() {
         return 0;
     }
 
     public abstract void initView();
 
-    public void setListener(){}
+    public void setListener() {
+    }
 
     @Override
     public void onConnect() {
@@ -149,7 +150,7 @@ public abstract class BaseActivity extends AppCompatActivity implements
     }
 
     protected void makeTextShort(String text) {
-        Toast.makeText(this,text,Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
 
     protected void makeTextLong(String text) {
@@ -207,7 +208,7 @@ public abstract class BaseActivity extends AppCompatActivity implements
 
     @Override
     public void preLoad() {
-        if(_waitDialog == null){
+        if (_waitDialog == null) {
             showWaitDialog();
         }
     }
