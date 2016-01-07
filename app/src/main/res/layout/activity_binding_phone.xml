@@ -14,7 +14,7 @@
             android:id="@+id/head_back"
             style="@style/listview_item_text_style_middle"
             android:layout_centerVertical="true"
-            android:src="@mipmap/icon_register_back" />
+            android:src="@mipmap/icon_delete" />
     </RelativeLayout>
 
     <RelativeLayout
