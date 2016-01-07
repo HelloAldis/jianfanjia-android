@@ -9,4 +9,8 @@ public interface ShowPopWindowCallBack {
     void shareToWeiBo();
 
     void shareToQQ();
+
+    void shareToCircle();
+
+    void shareToKongJian();
 }

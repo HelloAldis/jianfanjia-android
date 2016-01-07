@@ -30,6 +30,7 @@ public class SharePopWindow extends PopupWindow implements OnClickListener {
     private LinearLayout qqLayout = null;
     private LinearLayout weiboLayout = null;
     private LinearLayout weixinLayout = null;
+    private LinearLayout pengyouLayout = null;
     private WindowManager.LayoutParams lp = null;
     private Window window = null;
 
@@ -41,10 +42,12 @@ public class SharePopWindow extends PopupWindow implements OnClickListener {
         qqLayout = (LinearLayout) menuView.findViewById(R.id.qqLayout);
         weiboLayout = (LinearLayout) menuView.findViewById(R.id.weiboLayout);
         weixinLayout = (LinearLayout) menuView.findViewById(R.id.weixinLayout);
+        pengyouLayout = (LinearLayout) menuView.findViewById(R.id.pengyouLayout);
         cancel = (Button) menuView.findViewById(R.id.btn_delete);
         qqLayout.setOnClickListener(this);
         weiboLayout.setOnClickListener(this);
         weixinLayout.setOnClickListener(this);
+        pengyouLayout.setOnClickListener(this);
         cancel.setOnClickListener(this);
         // 设置SelectPicPopupWindow的View
         this.setContentView(menuView);
@@ -101,6 +104,10 @@ public class SharePopWindow extends PopupWindow implements OnClickListener {
             case R.id.weixinLayout:
                 dismiss();
                 callback.shareToWeiXin();
+                break;
+            case R.id.pengyouLayout:
+                dismiss();
+                callback.shareToCircle();
                 break;
             case R.id.btn_delete:
                 dismiss();

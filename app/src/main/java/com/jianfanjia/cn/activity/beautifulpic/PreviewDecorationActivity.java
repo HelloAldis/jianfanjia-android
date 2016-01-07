@@ -269,6 +269,16 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
             public void shareToQQ() {
                 shareUtil.share(PreviewDecorationActivity.this, currentDesc, currentImgId, SHARE_MEDIA.QQ, umShareListener);
             }
+
+            @Override
+            public void shareToCircle() {
+
+            }
+
+            @Override
+            public void shareToKongJian() {
+
+            }
         });
         window.show(view);
     }
