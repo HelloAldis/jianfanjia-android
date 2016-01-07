@@ -9,7 +9,6 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -18,7 +17,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
-import com.jianfanjia.cn.Event.BindingPhoneEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.requirement.AppointDesignerActivity;
 import com.jianfanjia.cn.activity.requirement.MyDesignerActivity_;
@@ -196,7 +194,7 @@ public class XuQiuFragment extends BaseAnnotationFragment {
     protected void initView() {
         mainHeadView.setMianTitle(getResources().getString(R.string.requirement_list));
         mainHeadView.setRightTitle(getResources().getString(R.string.str_create));
-        mainHeadView.setLayoutBackground(R.color.head_layout_bg);
+        mainHeadView.setBackgroundTransparent();
         mainHeadView.setRightTitleVisable(View.VISIBLE);
         mainHeadView.setBackLayoutVisable(View.GONE);
         initPullRefresh();
