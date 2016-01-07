@@ -147,6 +147,7 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
                     appointDesignerDialog();
                 }else{
                     startActivity(BindingPhoneActivity_.class);
+                    overridePendingTransition(R.anim.slide_and_fade_in_from_bottom, R.anim.fade_out);
                 }
                 break;
             default:

@@ -96,7 +96,7 @@ public class BindingAccountActivity extends BaseAnnotationActivity{
                 break;
             case R.id.bindingaccount_phone_layout:
                 startActivity(BindingPhoneActivity_.class);
-                overridePendingTransition(R.anim.slide_in_from_bottom,R.anim.umeng_socialize_fade_out);
+                overridePendingTransition(R.anim.slide_and_fade_in_from_bottom,R.anim.fade_out);
                 break;
             case R.id.head_back_layout:
                 appManager.finishActivity(this);
