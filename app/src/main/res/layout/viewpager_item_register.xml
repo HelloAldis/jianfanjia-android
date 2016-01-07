@@ -90,4 +90,37 @@
         android:textColor="@color/font_white"
         android:enabled="false"/>
 
+    <RelativeLayout
+        android:id="@+id/btn_register_weixin_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_48"
+        android:layout_below="@+id/btn_next"
+        android:layout_marginTop="@dimen/space_24"
+        android:background="@drawable/btn_green_white_bg">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
+
+            <ImageView
+                android:id="@+id/weixin_login_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/icon_weixin_login" />
+
+            <TextView
+                android:id="@+id/weixin_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/weixin_login_icon"
+                android:text="@string/weixin_login"
+                android:textColor="@color/green_color"
+                android:textSize="@dimen/big_size" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
 </RelativeLayout>

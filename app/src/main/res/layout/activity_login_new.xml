@@ -46,7 +46,9 @@
             android:layout_height="match_parent"
             android:layout_below="@+id/act_title_layout"
             android:layout_gravity="center"
-            android:layout_marginTop="@dimen/space_24">
+            android:layout_marginTop="@dimen/space_24"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
 
             <include
                 layout="@layout/viewpager_item_login"

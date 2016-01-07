@@ -135,7 +135,7 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
                 }
             }, 300);
         } else {
-            mEtLoginUserName.requestFocus();
+//            mEtLoginUserName.requestFocus();
         }
 
         mBtnLogin.setEnabled(false);
@@ -274,7 +274,7 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
         super.onResume();
     }
 
-    @Click({R.id.btn_login, R.id.btn_next, R.id.act_forget_password, R.id.act_login, R.id.act_register, R.id.btn_login_weixin_layout})
+    @Click({R.id.btn_login, R.id.btn_next, R.id.act_forget_password, R.id.act_login, R.id.act_register, R.id.btn_login_weixin_layout,R.id.btn_register_weixin_layout})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_login:
@@ -305,12 +305,13 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
                 }
                 break;
             case R.id.btn_login_weixin_layout:
+             case   R.id.btn_register_weixin_layout:
                 SHARE_MEDIA platform = SHARE_MEDIA.WEIXIN;
-                if (authUtil.isAuthorize(LoginNewActivity.this, platform)) {
-                    authUtil.getPlatformInfo(LoginNewActivity.this, SHARE_MEDIA.WEIXIN, umAuthInfoListener);
-                } else {
+//                if (authUtil.isAuthorize(LoginNewActivity.this, platform)) {
+//                    authUtil.getPlatformInfo(LoginNewActivity.this, SHARE_MEDIA.WEIXIN, umAuthInfoListener);
+//                } else {
                     authUtil.doOauthVerify(this, platform, umAuthListener);
-                }
+//                }
                 break;
             default:
                 break;
@@ -602,7 +603,7 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
                 registerTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
                 loginTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
                 currentPage = REGISER;
-                mEtRegisterUserName.requestFocus();
+//                mEtRegisterUserName.requestFocus();
             }
 
             @Override
@@ -637,7 +638,7 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
                 registerTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
                 loginTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
                 currentPage = LOGIN;
-                mEtLoginUserName.requestFocus();
+//                mEtLoginUserName.requestFocus();
             }
 
             @Override
