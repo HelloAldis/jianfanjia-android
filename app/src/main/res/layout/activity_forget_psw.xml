@@ -7,23 +7,22 @@
     <RelativeLayout
         android:id="@+id/forget_psw_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
         <RelativeLayout
             android:id="@+id/forget_psw_tip_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="40dp">
+            android:layout_marginTop="40dp"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/forget_psw_title"
                 style="@style/listview_item_text_style_big"
                 android:layout_centerHorizontal="true"
                 android:text="@string/forget_pwd_title"
-                android:textSize="@dimen/title_size"
-                android:textColor="@color/light_black_color" />
+                android:textColor="@color/light_black_color"
+                android:textSize="@dimen/title_size" />
 
         </RelativeLayout>
 
@@ -39,8 +38,7 @@
             <FrameLayout
                 android:id="@+id/act_forget_psw_input_phone_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
+                android:layout_height="wrap_content">
 
                 <EditText
                     android:id="@+id/act_forget_psw_input_phone"
@@ -66,7 +64,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="right|center_vertical"
                     android:src="@mipmap/icon_delete"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
                 <View
                     style="@style/divier_line"
@@ -78,8 +76,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/act_forget_psw_input_phone_layout"
-                android:layout_marginTop="@dimen/space_16"
-                >
+                android:layout_marginTop="@dimen/space_16">
 
                 <EditText
                     android:id="@+id/act_forget_psw_input_password"
@@ -104,19 +101,20 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="right|center_vertical"
                     android:src="@mipmap/icon_delete"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
                 <View
                     style="@style/divier_line"
                     android:layout_gravity="bottom" />
             </FrameLayout>
+
             <Button
                 android:id="@+id/btn_next"
                 style="@style/button_login_style"
                 android:layout_marginTop="@dimen/space_60"
+                android:enabled="false"
                 android:text="@string/next"
-                android:textColor="@color/font_white"
-                android:enabled="false"/>
+                android:textColor="@color/font_white" />
         </LinearLayout>
     </RelativeLayout>
 
