@@ -92,7 +92,8 @@
             android:id="@+id/decoration_listview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="5dip"
+            android:layout_marginLeft="7dip"
+            android:layout_marginRight="7dip"
             android:scrollbars="none"
             ptr:ptrAnimationStyle="flip"
             ptr:ptrHeaderTextColor="#344a5d" />

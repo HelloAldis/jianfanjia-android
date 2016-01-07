@@ -252,7 +252,6 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
         LogTool.d(TAG, "currentImgId=" + currentImgId);
     }
 
-
     private void showPopwindow(View view) {
         SharePopWindow window = new SharePopWindow(PreviewDecorationActivity.this, new ShowPopWindowCallBack() {
             @Override
@@ -268,6 +267,16 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
             @Override
             public void shareToQQ() {
                 shareUtil.share(PreviewDecorationActivity.this, currentDesc, currentImgId, SHARE_MEDIA.QQ, umShareListener);
+            }
+
+            @Override
+            public void shareToCircle() {
+                shareUtil.share(PreviewDecorationActivity.this, currentDesc, currentImgId, SHARE_MEDIA.WEIXIN_CIRCLE, umShareListener);
+            }
+
+            @Override
+            public void shareToZone() {
+                shareUtil.share(PreviewDecorationActivity.this, currentDesc, currentImgId, SHARE_MEDIA.QZONE, umShareListener);
             }
         });
         window.show(view);

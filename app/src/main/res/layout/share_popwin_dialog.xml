@@ -19,14 +19,14 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/img_pengyou"
+                android:id="@+id/img_qq"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:src="@mipmap/icon_qq" />
 
             <TextView
-                android:id="@+id/text_pengyou"
+                android:id="@+id/text_qq"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -87,14 +87,81 @@
                 android:textColor="#000000"
                 android:textSize="@dimen/text_size_12" />
         </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/pengyouLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dip"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/img_pengyou"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/icon_penyou" />
+
+            <TextView
+                android:id="@+id/text_pengyou"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dip"
+                android:text="朋友圈"
+                android:textColor="#000000"
+                android:textSize="@dimen/text_size_12" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:id="@+id/qqZoneLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dip"
+            android:layout_weight="3"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/img_zone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/icon_qq" />
+
+            <TextView
+                android:id="@+id/text_zone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dip"
+                android:text="QQ空间"
+                android:textColor="#000000"
+                android:textSize="@dimen/text_size_12" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dip"
+            android:layout_weight="1"
+            android:orientation="vertical"></LinearLayout>
     </LinearLayout>
 
     <Button
         android:id="@+id/btn_delete"
         style="@style/button_add_style"
         android:layout_marginBottom="@dimen/space_10"
-        android:layout_marginLeft="@dimen/space_30"
-        android:layout_marginRight="@dimen/space_30"
+        android:layout_marginLeft="@dimen/space_20"
+        android:layout_marginRight="@dimen/space_20"
         android:layout_marginTop="@dimen/space_15"
         android:text="@string/str_cancel" />
 </LinearLayout>
