@@ -121,9 +121,6 @@ public class Constant {
     public static final String FUKUAN_NOTIFY = "2";// 付款提醒
     public static final String CONFIRM_CHECK_NOTIFY = "3";// 确认验收提醒
 
-    public static final String CHECK_REFUSE = "0";// 验收拒绝
-    public static final String CHECK_AGREE = "1";// 验收同意
-
     // 延期提醒状态,工序状态
     public static final String NO_START = "0";// 未开工
     public static final String DOING = "1";// 进行中
@@ -131,13 +128,6 @@ public class Constant {
     public static final String YANQI_BE_DOING = "3";// 改期申请中
     public static final String YANQI_AGREE = "4";// 改期同意
     public static final String YANQI_REFUSE = "5";// 改期拒绝
-
-    /*// 工序状态
-    public static final int NOT_START = 0;// 未开工
-    public static final int WORKING = 1;// 正在进行中
-    public static final int FINISH = 2;// 已完工
-    public static final int OWNER_APPLY_DELAY = 3;// 业主申请延期中
-    public static final int DESIGNER_APPLY_DELAY = 4;// 设计师申请延期中*/
 
     public static final String SEX_MAN = "0";
     public static final String SEX_WOMEN = "1";
@@ -167,23 +157,13 @@ public class Constant {
     public static final String CURRENT_ITEM = "current_item";// 当前节点
     public static final String CURRENT_POSITION = "current_position";// 当前位置
     public static final String IMAGE_LIST = "image_list";
-    public static final String SITE_ID = "site_id";
     public static final String PROCESS_NAME = "process_name";
     public static final String PROCESS_STATUS = "process_status";
 
-    public static final int LOAD_SUCCESS = 0;// 数据加载成功
-    public static final int LOAD_FAILURE = 1;// 数据加载失败
-
-    public static final String COOKIES_CONFIG = "cookies_config";// cookies配置
     public static final String LAST_LOGIN_TIME = "last_login_time";// 上次登录时间
-    public static final long LOGIN_EXPIRE = 24 * 60 * 60 * 1000L;// 登录过期时间为24小时
     public static final long DELAY_TIME = 24 * 60 * 60 * 1000L;// 延期过期时间为开工日期之后的24小时
 
-
     public static final String DOWNLOAD_URL = "download_url";// 下载链接
-
-    public static final String INTENT_ACTION_USERINFO_CHANGE = "INTENT_ACTION_USERINFO_CHANGE";// 用户修改个人信息
-    public static final String INTENT_ACTION_USER_IMAGE_CHANGE = "INTENT_ACTION_USER_IMAGE_CHANGE";// 用户修改头像
 
     public static final String SHUI_DIAN = "shui_dian";
     public static final String NI_MU = "ni_mu";

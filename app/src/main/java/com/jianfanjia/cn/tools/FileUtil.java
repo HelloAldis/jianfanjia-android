@@ -264,7 +264,7 @@ public class FileUtil {
     /**
      * 鑾峰彇鐩綍鏂囦欢涓暟
      *
-     * @param emojiFragment
+     * @param
      * @return
      */
     public long getFileList(File dir) {
@@ -476,7 +476,7 @@ public class FileUtil {
     /**
      * 娓呯┖锟?涓枃浠跺す
      *
-     * @param files
+     * @param
      */
     public static void clearFileWithPath(String filePath) {
         List<File> files = FileUtil.listPathFiles(filePath);
@@ -516,7 +516,7 @@ public class FileUtil {
     /**
      *
      *
-     * @param path
+     * @param
      * @return 缁濆璺緞
      */
     public static List<String> listPath(String root) {
@@ -563,7 +563,7 @@ public class FileUtil {
     /**
      * 鍒涘缓鐩綍
      *
-     * @param path
+     * @param
      */
     public static PathStatus createPath(String newPath) {
         File path = new File(newPath);

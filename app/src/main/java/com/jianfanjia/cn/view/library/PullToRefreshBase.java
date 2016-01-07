@@ -51,7 +51,7 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout imp
 
     static final String LOG_TAG = "PullToRefresh";
 
-    static final float FRICTION = 3.0f;
+    static final float FRICTION = 2.5f;
 
     public static final int SMOOTH_SCROLL_DURATION_MS = 200;
     public static final int SMOOTH_SCROLL_LONG_DURATION_MS = 325;
@@ -145,6 +145,7 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout imp
         if (mMode.showHeaderLoadingLayout() && isReadyForPullStart()) {
             smoothScrollToAndBack(-getHeaderSize() * 2);
             return true;
+
         } else if (mMode.showFooterLoadingLayout() && isReadyForPullEnd()) {
             smoothScrollToAndBack(getFooterSize() * 2);
             return true;
