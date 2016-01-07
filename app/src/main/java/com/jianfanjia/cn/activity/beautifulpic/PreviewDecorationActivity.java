@@ -252,7 +252,6 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
         LogTool.d(TAG, "currentImgId=" + currentImgId);
     }
 
-
     private void showPopwindow(View view) {
         SharePopWindow window = new SharePopWindow(PreviewDecorationActivity.this, new ShowPopWindowCallBack() {
             @Override
