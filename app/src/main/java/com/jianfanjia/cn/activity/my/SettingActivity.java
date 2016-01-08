@@ -1,6 +1,8 @@
 package com.jianfanjia.cn.activity.my;
 
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.CompoundButton;
@@ -13,13 +15,19 @@ import com.jianfanjia.cn.activity.LoginNewActivity_;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.interf.ShowPopWindowCallBack;
 import com.jianfanjia.cn.tools.FileUtil;
 import com.jianfanjia.cn.tools.GeTuiManager;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.tools.ShareUtil;
 import com.jianfanjia.cn.view.MainHeadView;
+import com.jianfanjia.cn.view.SharePopWindow;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import java.io.File;
 
@@ -43,6 +51,13 @@ public class SettingActivity extends BaseActivity implements OnClickListener, On
     private TextView currentVersion = null;
     private TextView cacheSizeView = null;
     private MainHeadView mainHeadView = null;
+    private ShareUtil shareUtil;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        shareUtil = ShareUtil.getShareUtil(this);
+    }
 
     @Override
     public void initView() {
@@ -100,6 +115,54 @@ public class SettingActivity extends BaseActivity implements OnClickListener, On
         }
     }
 
+    private void showPopwindow(View view) {
+        SharePopWindow window = new SharePopWindow(SettingActivity.this, new ShowPopWindowCallBack() {
+            @Override
+            public void shareToWeiXin() {
+                shareUtil.shareApp(SHARE_MEDIA.WEIXIN, umShareListener);
+            }
+
+            @Override
+            public void shareToWeiBo() {
+                shareUtil.shareApp(SHARE_MEDIA.SINA, umShareListener);
+            }
+
+            @Override
+            public void shareToQQ() {
+                shareUtil.shareApp(SHARE_MEDIA.QQ, umShareListener);
+            }
+
+            @Override
+            public void shareToCircle() {
+                shareUtil.shareApp(SHARE_MEDIA.WEIXIN_CIRCLE, umShareListener);
+            }
+
+            @Override
+            public void shareToZone() {
+                shareUtil.shareApp(SHARE_MEDIA.QZONE, umShareListener);
+            }
+        });
+        window.show(view);
+    }
+
+    private UMShareListener umShareListener = new UMShareListener() {
+        @Override
+        public void onResult(SHARE_MEDIA platform) {
+            makeTextShort(platform + getString(R.string.share_success));
+        }
+
+        @Override
+        public void onError(SHARE_MEDIA platform, Throwable t) {
+            makeTextShort(platform + getString(R.string.share_failure));
+        }
+
+        @Override
+        public void onCancel(SHARE_MEDIA platform) {
+            makeTextShort(platform + getString(R.string.share_cancel));
+        }
+    };
+
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -119,7 +182,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener, On
 //                checkVersion();
                 break;
             case R.id.share_layout:
-                startActivity(ShareActivity.class);
+                showPopwindow(v.getRootView());
                 break;
             case R.id.clear_cache_layout:
                 onClickCleanCache();
@@ -226,5 +289,11 @@ public class SettingActivity extends BaseActivity implements OnClickListener, On
     @Override
     public int getLayoutId() {
         return R.layout.activity_setting;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
     }
 }

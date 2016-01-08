@@ -12,6 +12,10 @@
     <string name="submiting">正在提交中</string>
     <string name="no_data">暂无数据</string>
 
+    <string name="share_app_des">我在使用 #简繁家# 的App，业内一线设计师为您量身打造房间，比传统装修便宜20%，让你一手轻松掌控装修全过程。</string>
+    <string name="share_app_title">简繁家，让装修变简单</string>
+    <string name="share_app_url">http://www.jianfanjia.com/zt/mobile/index.html</string>
+
     <!-- Error View -->
     <string name="error_view_click_to_refresh">点击屏幕,重新加载</string>
     <string name="error_view_no_data">暂无美图</string>

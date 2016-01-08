@@ -90,7 +90,7 @@
     <string name="dec_stage_prepare">正在准备中</string>
     <string name="dec_stage_working">已经开始装修</string>
     <string name="collect_person_title">请选择您家的</string>
-    <string name="collect_person_content">常住人口</string>
+    <string name="collect_person_content">常驻人口</string>
     <string name="collect_lovestyle_title">请选择您喜欢的</string>
     <string name="collect_lovestyle_content">风格喜好</string>
     <string name="collect_person_tip">只能选择一种常住人口类型</string>
@@ -113,4 +113,8 @@
     <string name="not_binding">未绑定</string>
     <string name="authorize_fail">认证失败</string>
     <string name="authorize_cancel">取消认证</string>
+    <string name="share_success">分享成功啦</string>
+    <string name="share_failure">分享失败啦</string>
+    <string name="share_cancel">分享取消啦</string>
+
 </resources>
