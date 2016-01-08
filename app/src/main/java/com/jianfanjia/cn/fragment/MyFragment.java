@@ -27,12 +27,12 @@ import com.jianfanjia.cn.tools.LogTool;
 public class MyFragment extends BaseFragment {
     private static final String TAG = MyFragment.class.getName();
     public static final int REQUESTCODE_USERINFO = 0;
-
     private RelativeLayout notifyLayout = null;
     private RelativeLayout my_collect_layout = null;
     private RelativeLayout my_designer_layout = null;
     private RelativeLayout my_site_layout = null;
     private RelativeLayout setting_layout = null;
+    private RelativeLayout kefu_layout = null;
     private RelativeLayout my_info_layout = null;
     private ImageView head_img = null;
     private ImageView user_head_img = null;
@@ -47,6 +47,7 @@ public class MyFragment extends BaseFragment {
         my_site_layout = (RelativeLayout) view.findViewById(R.id.my_site_layout);
         setting_layout = (RelativeLayout) view.findViewById(R.id.setting_layout);
         my_info_layout = (RelativeLayout) view.findViewById(R.id.frag_my_info_layout);
+        kefu_layout = (RelativeLayout) view.findViewById(R.id.kefu_layout);
         head_img = (ImageView) view.findViewById(R.id.head_img);
         user_head_img = (ImageView) view.findViewById(R.id.user_head_img);
         my_account = (TextView) view.findViewById(R.id.frag_my_account);
@@ -79,6 +80,7 @@ public class MyFragment extends BaseFragment {
         my_site_layout.setOnClickListener(this);
         setting_layout.setOnClickListener(this);
         my_info_layout.setOnClickListener(this);
+        kefu_layout.setOnClickListener(this);
     }
 
     @Override
@@ -105,6 +107,8 @@ public class MyFragment extends BaseFragment {
             case R.id.frag_my_info_layout:
                 Intent gotoUserInfo = new Intent(getActivity(), UserInfoActivity_.class);
                 startActivityForResult(gotoUserInfo, REQUESTCODE_USERINFO);
+                break;
+            case R.id.kefu_layout:
                 break;
             case R.id.setting_layout:
                 startActivity(SettingActivity.class);
