@@ -21,21 +21,20 @@
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
             app:titleEnabled="false">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fitsSystemWindows="true"
-                android:orientation="vertical"
-                app:layout_collapseParallaxMultiplier="0.8">
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/cell_name"
                     style="@style/listview_item_text_style_big"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="70dip"
+                    android:layout_marginTop="80dip"
                     android:textColor="@color/home_page_text_color" />
 
                 <TextView
@@ -86,7 +85,6 @@
                     android:id="@+id/produceText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dip"
                     android:layout_marginLeft="15dip"
                     android:layout_marginRight="15dip"
                     android:textColor="@color/main_color_grey"

@@ -20,22 +20,21 @@
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
             app:titleEnabled="false">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fitsSystemWindows="true"
-                android:orientation="vertical"
-                app:layout_collapseParallaxMultiplier="0.8">
+                android:orientation="vertical">
 
                 <FrameLayout
                     android:id="@+id/imageLayout"
                     android:layout_width="60dip"
                     android:layout_height="60dip"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="70dip">
+                    android:layout_marginTop="80dip">
 
                     <com.jianfanjia.cn.view.layout.CircleImageView
                         android:id="@+id/designerinfo_head_img"

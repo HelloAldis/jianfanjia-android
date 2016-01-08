@@ -103,6 +103,7 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
     private void setAppointDesignerList(List<DesignerCanOrderInfo> rec_designerList, List<DesignerCanOrderInfo> favorite_designerList) {
         Map<String, Object> mp = new HashMap<String, Object>();
         mp.put(Constant.KEY, getResources().getString(R.string.marchDesignerText));
+        mp.put(Constant.TEXT_KEY, "");
         mylist.add(mp);
         splitList.add(mp);
         for (DesignerCanOrderInfo designerCanOrderInfo : rec_designerList) {
@@ -113,6 +114,7 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
         //----------------------------------------------------
         mp = new HashMap<String, Object>();
         mp.put(Constant.KEY, getResources().getString(R.string.intentionDesignerText));
+        mp.put(Constant.TEXT_KEY, "");
         mylist.add(mp);
         splitList.add(mp);
         for (DesignerCanOrderInfo designerCanOrderInfo : favorite_designerList) {
