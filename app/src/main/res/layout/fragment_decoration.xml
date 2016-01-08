@@ -7,7 +7,8 @@
     <com.jianfanjia.cn.view.MainHeadView
         android:id="@+id/dec_head"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:background="@color/head_layout_bg" />
 
     <LinearLayout
         android:id="@+id/topLayout"
@@ -81,7 +82,6 @@
             style="@style/divier_line"
             android:background="@color/horzontal_line_color" />
     </LinearLayout>
-
 
     <FrameLayout
         android:layout_width="match_parent"
