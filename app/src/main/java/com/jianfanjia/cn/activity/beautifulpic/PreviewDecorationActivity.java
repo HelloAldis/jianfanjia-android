@@ -256,27 +256,27 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
         SharePopWindow window = new SharePopWindow(PreviewDecorationActivity.this, new ShowPopWindowCallBack() {
             @Override
             public void shareToWeiXin() {
-                shareUtil.share(PreviewDecorationActivity.this, currentDesc, currentImgId, SHARE_MEDIA.WEIXIN, umShareListener);
+                shareUtil.shareImage(currentDesc, currentImgId, SHARE_MEDIA.WEIXIN, umShareListener);
             }
 
             @Override
             public void shareToWeiBo() {
-                shareUtil.share(PreviewDecorationActivity.this, currentDesc, currentImgId, SHARE_MEDIA.SINA, umShareListener);
+                shareUtil.shareImage(currentDesc, currentImgId, SHARE_MEDIA.SINA, umShareListener);
             }
 
             @Override
             public void shareToQQ() {
-                shareUtil.share(PreviewDecorationActivity.this, currentDesc, currentImgId, SHARE_MEDIA.QQ, umShareListener);
+                shareUtil.shareImage(currentDesc, currentImgId, SHARE_MEDIA.QQ, umShareListener);
             }
 
             @Override
             public void shareToCircle() {
-                shareUtil.share(PreviewDecorationActivity.this, currentDesc, currentImgId, SHARE_MEDIA.WEIXIN_CIRCLE, umShareListener);
+                shareUtil.shareImage(currentDesc, currentImgId, SHARE_MEDIA.WEIXIN_CIRCLE, umShareListener);
             }
 
             @Override
             public void shareToZone() {
-                shareUtil.share(PreviewDecorationActivity.this, currentDesc, currentImgId, SHARE_MEDIA.QZONE, umShareListener);
+                shareUtil.shareImage(currentDesc, currentImgId, SHARE_MEDIA.QZONE, umShareListener);
             }
         });
         window.show(view);
@@ -300,17 +300,17 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
     private UMShareListener umShareListener = new UMShareListener() {
         @Override
         public void onResult(SHARE_MEDIA platform) {
-            makeTextShort(platform + " 分享成功啦");
+            makeTextShort(platform + getString(R.string.share_success));
         }
 
         @Override
         public void onError(SHARE_MEDIA platform, Throwable t) {
-            makeTextShort(platform + " 分享失败啦");
+            makeTextShort(platform + getString(R.string.share_failure));
         }
 
         @Override
         public void onCancel(SHARE_MEDIA platform) {
-            makeTextShort(platform + " 分享取消了");
+            makeTextShort(platform + getString(R.string.share_cancel));
         }
     };
 

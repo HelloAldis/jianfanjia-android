@@ -41,10 +41,10 @@
             style="@style/listview_item_text_style_middle"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/space_8"
             android:background="@drawable/btn_white_selector"
             android:padding="@dimen/space_4"
-            android:textColor="@color/orange_color" />
+            android:textColor="@color/orange_color"
+            />
 
     </RelativeLayout>
 

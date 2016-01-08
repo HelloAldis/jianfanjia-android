@@ -91,7 +91,8 @@ public class NewUserCollectPersonActivity extends BaseAnnotationActivity {
                         personList.remove(persons[lastSelectorPos]);
                         buttonNext.setEnabled(true);
                         personList.add(persons[position]);
-                        contentView.setText(personList.toString());
+                        contentView.setText(personList.toString().substring(1,personList.toString().length()-1));
+                        contentView.setTextColor(getResources().getColor(R.color.orange_color));
 
                         lastSelectorPos = currentSelcetorPos;
                     } else {
@@ -100,6 +101,7 @@ public class NewUserCollectPersonActivity extends BaseAnnotationActivity {
                             buttonNext.setEnabled(false);
                             contentView.setText(getString(R.string.collect_person_content));
                             personList.remove(persons[position]);
+                            contentView.setTextColor(getResources().getColor(R.color.light_black_color));
 
                             currentSelcetorPos = lastSelectorPos = -1;
                     }
@@ -107,7 +109,8 @@ public class NewUserCollectPersonActivity extends BaseAnnotationActivity {
                     loveStyleItemInfo.setIsSelector(true);
                     buttonNext.setEnabled(true);
                     personList.add(persons[position]);
-                    contentView.setText(personList.toString());
+                    contentView.setText(personList.toString().substring(1, personList.toString().length() - 1));
+                    contentView.setTextColor(getResources().getColor(R.color.orange_color));
                     lastSelectorPos = position;
                 }
                 collectPersonViewPageAdapter.notifyDataSetChanged();

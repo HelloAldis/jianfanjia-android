@@ -105,10 +105,12 @@ public class NewUserCollectLoveStyleActivity extends BaseAnnotationActivity {
     protected void notifyViewRefresh(){
         if(lovestyleList.size() > 0){
             buttonNext.setEnabled(true);
-            contentView.setText(lovestyleList.toString());
+            contentView.setText(lovestyleList.toString().substring(1, lovestyleList.toString().length() - 1));
+            contentView.setTextColor(getResources().getColor(R.color.orange_color));
         }else{
             buttonNext.setEnabled(false);
             contentView.setText(getString(R.string.collect_lovestyle_content));
+            contentView.setTextColor(getResources().getColor(R.color.light_black_color));
         }
     }
 

@@ -143,7 +143,8 @@ public class PublishRequirementActivity extends BaseActivity implements OnClickL
         JianFanJiaClient.add_Requirement(this, requirementInfo, this, this);
     }
 
-    protected RequirementInfo getConfirmRequirement() {
+    protected RequirementInfo
+    getConfirmRequirement() {
         RequirementInfo requirementInfo = null;
         switch (status) {
             case Global.DEC_TYPE_HOME:
