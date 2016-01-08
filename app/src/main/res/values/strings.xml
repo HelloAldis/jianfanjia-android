@@ -147,6 +147,7 @@
     <string name="appoint">位可预约</string>
     <string name="appointText">预约</string>
     <string name="marchDesignerText">匹配的设计师</string>
+    <string name="intentionDesignerText">意向设计师</string>
     <string name="moreText">更多</string>
     <string name="replaceText">替换</string>
     <string name="commentText">留言</string>
