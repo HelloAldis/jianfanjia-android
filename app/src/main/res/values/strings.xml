@@ -168,6 +168,7 @@
     <string name="cache_size">110M</string>
     <string name="feedback">用户反馈</string>
     <string name="logout">退出登录</string>
+    <string name="kefuText">联系客服</string>
     <string name="list_item_comment_pubtime_example">30分钟前</string>
     <string name="add_comment">添加评论</string>
     <string name="add_feedback">请添加您想说的内容</string>
@@ -300,5 +301,6 @@
     <string name="women">女</string>
     <string name="choose_sex">选择性别</string>
     <string name="str_collect_success">收藏成功</string>
+    <string name="title_activity_customer_service">CustomerServiceActivity</string>
 
 </resources>

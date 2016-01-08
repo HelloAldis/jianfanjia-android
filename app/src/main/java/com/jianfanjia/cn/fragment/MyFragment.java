@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.my.CollectActivity;
+import com.jianfanjia.cn.activity.my.CustomerServiceActivity;
 import com.jianfanjia.cn.activity.my.MyProcessActivity;
 import com.jianfanjia.cn.activity.my.NotifyActivity;
 import com.jianfanjia.cn.activity.my.SettingActivity;
@@ -109,6 +110,7 @@ public class MyFragment extends BaseFragment {
                 startActivityForResult(gotoUserInfo, REQUESTCODE_USERINFO);
                 break;
             case R.id.kefu_layout:
+                startActivity(CustomerServiceActivity.class);
                 break;
             case R.id.setting_layout:
                 startActivity(SettingActivity.class);
