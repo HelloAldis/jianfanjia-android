@@ -64,8 +64,6 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
     private String designertid = null;
     private String cell_name = null;
 
-    private State state;
-
     @Override
     public void initView() {
         activity_case_info_top_layout = (LinearLayout) findViewById(R.id.top_info_layout);
@@ -170,25 +168,16 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
     }
 
     @Override
-    public void onOffsetChanged(AppBarLayout appBarLayout, int verticaloffset) {
-        if (verticaloffset == 0) {
+    public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+        if (verticalOffset == 0) {
             toolbar_title.setText("");
-            if (state != State.COLLAPSED) {
-                activity_case_info_top_layout.setVisibility(View.INVISIBLE);
-            }
-            state = State.COLLAPSED;
-        } else if (Math.abs(verticaloffset) >= appBarLayout.getTotalScrollRange()) {
+            activity_case_info_top_layout.setVisibility(View.INVISIBLE);
+        } else if (Math.abs(verticalOffset) >= appBarLayout.getTotalScrollRange()) {
             toolbar_title.setText(cell_name);
-            if (state != State.EXPANDED) {
-                activity_case_info_top_layout.setVisibility(View.VISIBLE);
-            }
-            state = State.EXPANDED;
+            activity_case_info_top_layout.setVisibility(View.VISIBLE);
         } else {
             toolbar_title.setText("");
-            if (state != State.IDLE) {
-                activity_case_info_top_layout.setVisibility(View.INVISIBLE);
-            }
-            state = State.IDLE;
+            activity_case_info_top_layout.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -281,12 +270,6 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
     protected void onDestroy() {
         super.onDestroy();
         appBarLayout.removeOnOffsetChangedListener(this);
-    }
-
-    private enum State {
-        EXPANDED,
-        COLLAPSED,
-        IDLE
     }
 
     @Override
