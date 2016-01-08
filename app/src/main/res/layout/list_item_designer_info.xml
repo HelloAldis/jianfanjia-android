@@ -51,7 +51,7 @@
         style="@style/listview_item_text_style_small"
         android:layout_below="@id/list_item_xiaoqu_text"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="5dip"
+        android:layout_marginBottom="25dip"
         android:layout_marginTop="5dip"
         android:textColor="@color/home_page_text_color"
         android:textSize="@dimen/text_size_11" />
