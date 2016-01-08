@@ -35,7 +35,7 @@
                     android:layout_width="60dip"
                     android:layout_height="60dip"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="80dip">
+                    android:layout_marginTop="70dip">
 
                     <com.jianfanjia.cn.view.layout.CircleImageView
                         android:id="@+id/designerinfo_head_img"
@@ -58,7 +58,7 @@
                     android:id="@+id/designer_name"
                     style="@style/listview_item_text_style_big"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="5dip"
+                    android:layout_marginTop="8dip"
                     android:textColor="@color/home_page_text_color" />
 
                 <RatingBar
@@ -67,7 +67,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="5dip"
+                    android:layout_marginTop="8dip"
                     android:isIndicator="true"
                     android:numStars="5"
                     android:rating="0" />
@@ -76,7 +76,9 @@
                     android:id="@+id/infoLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dip"
+                    android:layout_marginLeft="30dip"
+                    android:layout_marginRight="30dip"
+                    android:layout_marginTop="15dip"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -96,6 +98,7 @@
                         <TextView
                             style="@style/listview_item_text_style_small"
                             android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="5dip"
                             android:text="浏览数"
                             android:textColor="@color/designer_info_text_color_bg"
                             android:textSize="@dimen/text_size_14" />
@@ -119,6 +122,7 @@
                         <TextView
                             style="@style/listview_item_text_style_small"
                             android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="5dip"
                             android:text="作品数"
                             android:textColor="@color/designer_info_text_color_bg"
                             android:textSize="@dimen/text_size_14" />
@@ -142,6 +146,7 @@
                         <TextView
                             style="@style/listview_item_text_style_small"
                             android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="5dip"
                             android:text="预约数"
                             android:textColor="@color/designer_info_text_color_bg"
                             android:textSize="@dimen/text_size_14" />
@@ -153,17 +158,17 @@
                     android:id="@+id/btn_add"
                     style="@style/button_add_style"
                     android:layout_marginBottom="@dimen/space_10"
-                    android:layout_marginLeft="@dimen/space_40"
-                    android:layout_marginRight="@dimen/space_40"
+                    android:layout_marginLeft="@dimen/space_50"
+                    android:layout_marginRight="@dimen/space_50"
                     android:layout_marginTop="@dimen/space_10"
                     android:text="@string/strl_add_yixiang" />
 
                 <Button
                     android:id="@+id/btn_delete"
-                    style="@style/button_add_style"
+                    style="@style/button_delete_style"
                     android:layout_marginBottom="@dimen/space_10"
-                    android:layout_marginLeft="@dimen/space_40"
-                    android:layout_marginRight="@dimen/space_40"
+                    android:layout_marginLeft="@dimen/space_50"
+                    android:layout_marginRight="@dimen/space_50"
                     android:layout_marginTop="@dimen/space_10"
                     android:text="@string/strl_delete_yixiang"
                     android:visibility="gone" />

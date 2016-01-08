@@ -2,8 +2,8 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    card_view:cardBackgroundColor="@color/font_white"
-    card_view:cardCornerRadius="5dp"
+    card_view:cardBackgroundColor="@color/main_layout_bg"
+    card_view:cardCornerRadius="0dp"
     card_view:contentPadding="8dp">
 
     <RelativeLayout
@@ -22,7 +22,7 @@
             style="@style/listview_item_text_style_middle"
             android:layout_below="@id/list_item_works_img"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/space_5"
+            android:layout_marginTop="@dimen/space_10"
             android:text="小区名称"
             android:textColor="@color/light_black_color" />
 
@@ -34,7 +34,7 @@
             android:layout_centerHorizontal="true"
             android:layout_margin="@dimen/space_5"
             android:text="100平米"
-            android:textColor="@color/main_color_grey"
+            android:textColor="@color/light_black_color"
             android:textSize="@dimen/text_size_12" />
     </RelativeLayout>
 

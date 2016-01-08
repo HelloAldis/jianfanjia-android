@@ -2,6 +2,7 @@
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/main_layout_bg"
     android:orientation="vertical">
 
     <LinearLayout
@@ -40,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dip"
             android:layout_marginRight="30dip"
-            android:layout_marginTop="20dip"
+            android:layout_marginTop="15dip"
             android:orientation="horizontal"
             android:visibility="gone">
 
@@ -65,7 +66,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dip"
             android:layout_marginRight="30dip"
-            android:layout_marginTop="20dip"
+            android:layout_marginTop="15dip"
             android:orientation="horizontal"
             android:visibility="gone">
 
@@ -90,7 +91,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dip"
             android:layout_marginRight="30dip"
-            android:layout_marginTop="20dip"
+            android:layout_marginTop="15dip"
             android:orientation="horizontal"
             android:visibility="gone">
 
@@ -115,7 +116,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dip"
             android:layout_marginRight="30dip"
-            android:layout_marginTop="20dip"
+            android:layout_marginTop="15dip"
             android:orientation="horizontal"
             android:visibility="gone">
 
@@ -140,7 +141,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dip"
             android:layout_marginRight="30dip"
-            android:layout_marginTop="20dip"
+            android:layout_marginTop="15dip"
             android:orientation="horizontal"
             android:visibility="gone">
 
@@ -165,14 +166,14 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dip"
             android:layout_marginRight="30dip"
-            android:layout_marginTop="20dip"
+            android:layout_marginTop="15dip"
             android:orientation="horizontal"
             android:visibility="gone">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="曾就职公司："
+                android:text="曾就职装修公司："
                 android:textColor="@color/home_page_text_color"
                 android:textSize="@dimen/text_size_14" />
 
@@ -190,7 +191,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dip"
             android:layout_marginRight="30dip"
-            android:layout_marginTop="20dip"
+            android:layout_marginTop="15dip"
             android:orientation="horizontal"
             android:visibility="gone">
 
@@ -223,7 +224,7 @@
             android:layout_marginBottom="20dip"
             android:layout_marginLeft="30dip"
             android:layout_marginRight="30dip"
-            android:layout_marginTop="20dip"
+            android:layout_marginTop="15dip"
             android:orientation="horizontal"
             android:visibility="gone">
 

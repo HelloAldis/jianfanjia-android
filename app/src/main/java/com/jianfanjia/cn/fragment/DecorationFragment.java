@@ -92,7 +92,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
     private void initMainHeadView(View view) {
         mainHeadView = (MainHeadView) view.findViewById(R.id.dec_head);
         mainHeadView.setMianTitle(getResources().getString(R.string.decoration_img));
-        mainHeadView.setLayoutBackground(R.color.head_layout_bg);
+        mainHeadView.setBackgroundTransparent();
         mainHeadView.setRightTitleVisable(View.GONE);
         mainHeadView.setBackLayoutVisable(View.GONE);
     }

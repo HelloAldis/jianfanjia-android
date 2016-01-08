@@ -35,7 +35,7 @@
                     android:id="@+id/cell_name"
                     style="@style/listview_item_text_style_big"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="80dip"
+                    android:layout_marginTop="70dip"
                     android:textColor="@color/home_page_text_color" />
 
                 <TextView
@@ -43,7 +43,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="5dip"
+                    android:layout_marginTop="8dip"
                     android:textColor="@color/home_page_text_color" />
 
                 <FrameLayout
@@ -51,7 +51,7 @@
                     android:layout_width="60dip"
                     android:layout_height="60dip"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="5dip">
+                    android:layout_marginTop="16dip">
 
                     <com.jianfanjia.cn.view.layout.CircleImageView
                         android:id="@+id/designerinfo_head_img"
@@ -74,27 +74,30 @@
                     android:id="@+id/produceTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dip"
-                    android:layout_marginRight="10dip"
-                    android:layout_marginTop="5dip"
+                    android:layout_marginLeft="15dip"
+                    android:layout_marginRight="15dip"
+                    android:layout_marginTop="10dip"
                     android:text="设计简介:"
                     android:textColor="@color/home_page_text_color"
-                    android:textSize="@dimen/text_size_17"
+                    android:textSize="@dimen/text_size_16"
                     android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/produceText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dip"
-                    android:layout_marginRight="10dip"
-                    android:textColor="@color/home_page_text_color" />
+                    android:layout_marginBottom="10dip"
+                    android:layout_marginLeft="15dip"
+                    android:layout_marginRight="15dip"
+                    android:textColor="@color/main_color_grey"
+                    android:textSize="14sp" />
             </LinearLayout>
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_48"
+                android:background="@color/head_layout_bg"
                 android:minHeight="@dimen/space_48"
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
@@ -112,8 +115,8 @@
                     android:layout_width="@dimen/space_64"
                     android:layout_height="match_parent"
                     android:layout_gravity="right"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dip"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dip"
                     android:visibility="gone">
 
                     <ImageView

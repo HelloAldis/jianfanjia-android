@@ -28,9 +28,9 @@
                     android:id="@+id/head_img"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:alpha="0.5"
                     android:scaleType="centerCrop"
-                    android:src="@mipmap/bg_my"
-                    android:alpha="0.5"/>
+                    android:src="@mipmap/bg_my" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -155,6 +155,29 @@
             </RelativeLayout>
 
             <!--<View style="@style/divier_line" />-->
+
+            <View
+                style="@style/divier_line"
+                android:layout_marginTop="10dp" />
+
+            <RelativeLayout
+                android:id="@+id/kefu_layout"
+                style="@style/my_list_item_layout_style">
+
+                <TextView
+                    style="@style/listview_item_text_style_middle"
+                    android:layout_centerVertical="true"
+                    android:text="联系客服"
+                    android:textColor="@color/light_black_color" />
+
+                <ImageView
+                    style="@style/my_item_layout_image_style"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@null" />
+            </RelativeLayout>
+
+            <View style="@style/divier_line" />
 
             <View
                 style="@style/divier_line"

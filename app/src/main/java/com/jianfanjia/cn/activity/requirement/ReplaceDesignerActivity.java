@@ -1,6 +1,5 @@
 package com.jianfanjia.cn.activity.requirement;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
@@ -25,8 +24,6 @@ import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
-import com.jianfanjia.cn.view.dialog.CommonDialog;
-import com.jianfanjia.cn.view.dialog.DialogHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -119,29 +116,11 @@ public class ReplaceDesignerActivity extends BaseActivity implements OnClickList
                 appManager.finishActivity(this);
                 break;
             case R.id.head_right_title:
-                replaceDesignerDialog();
+                replaceDesignerByUser(requestmentid, designerid, newDesignerid);
                 break;
             default:
                 break;
         }
-    }
-
-    private void replaceDesignerDialog() {
-        CommonDialog dialog = DialogHelper
-                .getPinterestDialogCancelable(ReplaceDesignerActivity.this);
-        dialog.setTitle("替换设计师");
-        dialog.setMessage("确定要替换设计师吗？");
-        dialog.setPositiveButton(R.string.ok,
-                new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        replaceDesignerByUser(requestmentid, designerid, newDesignerid);
-                    }
-                });
-        dialog.setNegativeButton(R.string.no, null);
-        dialog.show();
     }
 
     //获取自己可以预约的设计师

@@ -14,16 +14,18 @@
         android:id="@+id/list_item_case_title_text"
         style="@style/listview_item_text_style_middle"
         android:layout_below="@id/list_item_case_img"
-        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="@dimen/space_15"
         android:layout_marginTop="@dimen/space_10"
         android:textColor="@color/light_black_color"
-        android:textSize="@dimen/text_size_17" />
+        android:textSize="@dimen/text_size_16" />
 
     <TextView
         android:id="@+id/list_item_case_produce_text"
-        style="@style/listview_item_text_style_small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@id/list_item_case_title_text"
         android:layout_margin="@dimen/space_10"
-        android:textColor="@color/main_color_grey" />
+        android:textColor="@color/main_color_grey"
+        android:textSize="@dimen/text_size_12" />
 
 </RelativeLayout>

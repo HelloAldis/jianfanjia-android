@@ -32,10 +32,10 @@
     <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
     <!-- 个推的权限设置 -->
     <uses-permission android:name="getui.permission.GetuiService.com.jianfanjia.cn.activity" />
+
     <permission
         android:name="getui.permission.GetuiService.com.jianfanjia.cn.activity"
-        android:protectionLevel="normal" >
-    </permission>
+        android:protectionLevel="normal"></permission>
 
     <!-- QQ、QQ空间所需权限 -->
     <uses-permission android:name="android.permission.GET_TASKS" />
@@ -60,14 +60,12 @@
         <meta-data
             android:name="UMENG_CHANNEL"
             android:value="${UMENG_CHANNEL_VALUE}" />
-
         <meta-data
             android:name="SERVER_PORT"
-            android:value="${SERVER_PORT}"/>
-
+            android:value="${SERVER_PORT}" />
         <meta-data
             android:name="SERVER_IP"
-            android:value="${SERVER_IP}"/>
+            android:value="${SERVER_IP}" />
 
         <!-- 个推SDK配置开始 -->
         <!-- 配置的第三方参数属性 -->
@@ -338,7 +336,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".NewUserCollectDecStageActivity_"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".NewUserGuideActivity_"
             android:screenOrientation="portrait" />
@@ -351,34 +349,35 @@
         <activity
             android:name=".requirement.UpdateRequirementActivity_"
             android:screenOrientation="portrait" />
-        <activity android:name=".my.BindingPhoneActivity_"
+        <activity
+            android:name=".my.BindingPhoneActivity_"
             android:screenOrientation="portrait" />
-        <activity android:name=".my.BindingAccountActivity_"
+        <activity
+            android:name=".my.BindingAccountActivity_"
             android:screenOrientation="portrait" />
 
-        <!--第三方分享以及登录-->
+        <!-- 第三方分享以及登录 -->
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-
         <activity
             android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"
             android:configChanges="keyboardHidden|orientation"
-            android:windowSoftInputMode="adjustResize"
-            android:exported="false" >
-        </activity>
-
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"></activity>
         <activity
             android:name="com.tencent.tauth.AuthActivity"
             android:launchMode="singleTask"
-            android:noHistory="true" >
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="tencent100424468" />
             </intent-filter>
         </activity>
@@ -387,11 +386,14 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
-        <service android:name="com.sina.weibo.sdk.net.DownloadService"
-            android:exported="false"></service>
-        <!--第三方分享以及登录-->
+        <service
+            android:name="com.sina.weibo.sdk.net.DownloadService"
+            android:exported="false" />
+        <!-- 第三方分享以及登录 -->
+        <activity
+            android:name=".my.CustomerServiceActivity"
+            android:label="@string/title_activity_customer_service"
+            android:screenOrientation="portrait" />
     </application>
-
-
 
 </manifest>

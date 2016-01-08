@@ -41,6 +41,8 @@ public class Constant {
     public static final int HOME_PAGE_LIMIT = 20;//首页分页 每次加载20条
     public static final String IS_WEIXIN_FIRST_LOGIN = "is_weixin_first_login";
 
+    public static final String HOTLINE_URL = "http://chat16.live800.com/live800/chatClient/chatbox.jsp?companyID=611886&configID=139921&jid=3699665419";
+
     public static class Config {
         public static final boolean DEVELOPER_MODE = false;
     }
@@ -177,6 +179,7 @@ public class Constant {
     public static final int LOVE_STYLE_TOTAL = 3;//能够选择的风格喜好数量
 
     public static final String KEY = "Item";
+    public static final String TEXT_KEY = "Title";
 
     public static final int UPDATE_FRAGMENT = 10;
     public static final int UPDATE_REQUIRE_FRAGMENT = 20;

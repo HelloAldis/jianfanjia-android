@@ -1,6 +1,5 @@
 package com.jianfanjia.cn.activity.requirement;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
@@ -30,8 +29,6 @@ import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
-import com.jianfanjia.cn.view.dialog.CommonDialog;
-import com.jianfanjia.cn.view.dialog.DialogHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -128,7 +125,7 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
     public void onEventMainThread(BindingPhoneEvent bindingPhoneEvent) {
         if (TextUtils.isEmpty(bindingPhoneEvent.getPhone())) return;
         LogTool.d(this.getClass().getName(), "event:" + bindingPhoneEvent.getPhone());
-        appointDesignerDialog();
+        orderDesignerByUser(requestmentid, designerIds);
     }
 
     @Override
@@ -143,9 +140,9 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
                 appManager.finishActivity(this);
                 break;
             case R.id.head_right_title:
-                if(dataManager.getAccount() != null){
-                    appointDesignerDialog();
-                }else{
+                if (dataManager.getAccount() != null) {
+                    orderDesignerByUser(requestmentid, designerIds);
+                } else {
                     startActivity(BindingPhoneActivity_.class);
                     overridePendingTransition(R.anim.slide_and_fade_in_from_bottom, R.anim.fade_out);
                 }
@@ -153,24 +150,6 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
             default:
                 break;
         }
-    }
-
-    private void appointDesignerDialog() {
-        CommonDialog dialog = DialogHelper
-                .getPinterestDialogCancelable(AppointDesignerActivity.this);
-        dialog.setTitle("预约设计师");
-        dialog.setMessage("确定要预约设计师吗？");
-        dialog.setPositiveButton(R.string.ok,
-                new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        orderDesignerByUser(requestmentid, designerIds);
-                    }
-                });
-        dialog.setNegativeButton(R.string.no, null);
-        dialog.show();
     }
 
     //获取自己可以预约的设计师

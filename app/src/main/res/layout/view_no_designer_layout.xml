@@ -21,7 +21,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dip"
             android:text="@string/error_view_no_designer_data"
-            android:textColor="@color/designer_info_text_color_bg"
+            android:textColor="@color/designer_info_text_color"
             android:textSize="@dimen/middle_size" />
 
     </LinearLayout>
