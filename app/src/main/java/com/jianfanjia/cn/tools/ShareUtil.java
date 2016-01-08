@@ -2,6 +2,7 @@ package com.jianfanjia.cn.tools;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.BitmapFactory;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.config.Url_New;
@@ -45,7 +46,7 @@ public class ShareUtil {
 
     public void shareApp(SHARE_MEDIA platform,UMShareListener umShareListener){
         LogTool.d(this.getClass().getName(),context.getPackageResourcePath());
-        UMImage image = new UMImage(context, "http://www.jianfanjia.com/static/img/index/designers-sprite.png");
+        UMImage image = new UMImage(context, BitmapFactory.decodeResource(context.getResources(),R.mipmap.icon_share));
         shareAction.setPlatform(platform).setCallback(umShareListener).withText(context.getString(R.string.share_app_des)).withTargetUrl(context.getString(R.string.share_app_url)).withMedia(image).withTitle(context.getString(R.string.share_app_title)).share();
     }
 }

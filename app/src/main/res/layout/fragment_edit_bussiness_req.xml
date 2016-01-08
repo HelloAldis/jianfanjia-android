@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.jianfanjia.cn.view.ReboundScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_layout_bg"
     android:focusable="false"
-    android:scrollbars="none">
+    android:scrollbars="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -35,7 +35,8 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:text="@string/str_city" />
+                android:text="@string/str_city"
+                />
 
 
             <ImageView
@@ -52,7 +53,11 @@
                 style="@style/style_edit_req_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="16dp" />
+                android:layout_marginRight="16dp"
+                android:textColorHint="@color/btn_unenable"
+                android:hint="@string/city_tip"
+                android:singleLine="true"
+                android:ellipsize="end"/>
         </RelativeLayout>
 
         <View
@@ -75,21 +80,13 @@
 
             <EditText
                 android:id="@+id/act_edit_req_street_content"
+                style="@style/style_edit_req_edit"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/act_edit_req_street_title"
-                android:background="@null"
-                android:ellipsize="end"
                 android:gravity="right|center_vertical"
                 android:hint="@string/str_addr_hint"
                 android:maxLength="20"
-                android:nextFocusDown="@+id/act_edit_req_cell_content"
-                android:paddingLeft="@dimen/space_16"
-                android:paddingRight="@dimen/space_16"
-                android:singleLine="true"
-                android:textColor="@color/light_black_color"
-                android:textSize="@dimen/middle_size" />
+                android:nextFocusDown="@+id/act_edit_req_cell_content" />
 
         </RelativeLayout>
 
@@ -113,20 +110,12 @@
 
             <EditText
                 android:id="@+id/act_edit_req_cell_content"
+                style="@style/style_edit_req_edit"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/act_edit_req_cell_title"
-                android:background="@null"
-                android:ellipsize="end"
                 android:gravity="right|center_vertical"
                 android:maxLength="20"
-                android:nextFocusDown="@+id/act_edit_req_cell_content"
-                android:paddingLeft="@dimen/space_16"
-                android:paddingRight="@dimen/space_16"
-                android:singleLine="true"
-                android:textColor="@color/light_black_color"
-                android:textSize="@dimen/middle_size" />
+                android:nextFocusDown="@+id/act_edit_req_cell_content" />
 
         </RelativeLayout>
 
@@ -191,23 +180,14 @@
 
             <EditText
                 android:id="@+id/act_edit_req_housearea_content"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_centerVertical="true"
+                style="@style/style_edit_req_edit"
                 android:layout_toLeftOf="@+id/act_edit_req_housearea_unit"
                 android:layout_toRightOf="@+id/act_edit_req_housearea_title"
-                android:background="@null"
-                android:ellipsize="end"
                 android:gravity="right|center_vertical"
                 android:inputType="number"
                 android:maxLength="4"
                 android:nextFocusDown="@+id/act_edit_req_decoratebudget_content"
-                android:numeric="integer"
-                android:paddingLeft="@dimen/space_16"
-                android:paddingRight="@dimen/space_16"
-                android:singleLine="true"
-                android:textColor="@color/light_black_color"
-                android:textSize="@dimen/middle_size" />
+                android:numeric="integer" />
 
             <TextView
                 android:id="@+id/act_edit_req_housearea_unit"
@@ -273,22 +253,14 @@
 
             <EditText
                 android:id="@+id/act_edit_req_decoratebudget_content"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_centerVertical="true"
+                style="@style/style_edit_req_edit"
                 android:layout_toLeftOf="@+id/act_edit_req_decoratebudget_unit"
                 android:layout_toRightOf="@+id/act_edit_req_decoratebudget_title"
-                android:background="@null"
                 android:gravity="right|center_vertical"
                 android:inputType="number"
                 android:maxLength="4"
                 android:minWidth="@dimen/space_48"
-                android:numeric="integer"
-                android:paddingLeft="@dimen/space_16"
-                android:paddingRight="@dimen/space_16"
-                android:singleLine="true"
-                android:textColor="@color/light_black_color"
-                android:textSize="@dimen/middle_size" />
+                android:numeric="integer" />
 
             <TextView
                 android:id="@+id/act_edit_req_decoratebudget_unit"
@@ -414,4 +386,4 @@
             style="@style/divier_line"
             android:background="@color/horzontal_line_color" />
     </LinearLayout>
-</ScrollView>
+</com.jianfanjia.cn.view.ReboundScrollView>

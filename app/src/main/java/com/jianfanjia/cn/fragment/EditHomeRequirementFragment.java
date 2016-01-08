@@ -135,7 +135,7 @@ public class EditHomeRequirementFragment extends BaseAnnotationFragment {
      * @return
      */
     public void isAllInput() {
-        if (act_edit_req_city_content.length() > 0 && !act_edit_req_city_content.getText().equals(getResources().getString(R.string.city_tip))
+        if (act_edit_req_city_content.length() > 0
                 && act_edit_req_cell_content.length() > 0
                 && act_edit_req_danyuan_content.length() > 0
                 && act_edit_req_decoratebudget_content.length() > 0
@@ -231,7 +231,6 @@ public class EditHomeRequirementFragment extends BaseAnnotationFragment {
                 act_edit_req_work_type_content.setText(TextUtils.isEmpty(requirementInfo.getWork_type()) ? "" : arr_worktype[Integer.parseInt(requirementInfo.getWork_type())]);
                 break;
             case XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT:
-                act_edit_req_city_content.setText(getString(R.string.city_tip));
                 act_edit_req_persons_content.setText(TextUtils.isEmpty(requirementInfo.getFamily_description()) ? "" : requirementInfo.getFamily_description());
                 act_edit_req_lovestyle_content.setText(TextUtils.isEmpty(requirementInfo.getDec_style()) ? "" : arr_lovestyle[Integer.parseInt(requirementInfo.getDec_style())]);
                 break;

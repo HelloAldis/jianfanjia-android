@@ -116,7 +116,7 @@ public class PublishRequirementActivity extends BaseActivity implements OnClickL
     private void initMainHeadView() {
         mainHeadView = (MainHeadView) findViewById(R.id.act_edit_req_head_layout);
         mainHeadView.setBackListener(this);
-        mainHeadView.setRightTitle(getString(R.string.confirm));
+        mainHeadView.setRightTitle(getString(R.string.finish));
         mainHeadView.setRigthTitleEnable(false);
         mainHeadView.setRightTextListener(this);
     }

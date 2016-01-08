@@ -105,6 +105,11 @@ public class UpdateRequirementActivity extends BaseAnnotationActivity implements
     }
 
     @Override
+    public void preLoad() {
+        showWaitDialog(getString(R.string.submiting));
+    }
+
+    @Override
     public void loadSuccess(Object data) {
         super.loadSuccess(data);
         setResult(Activity.RESULT_OK);

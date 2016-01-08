@@ -1,17 +1,13 @@
 package com.jianfanjia.cn.tools;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.widget.ImageView;
 
-import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.config.Url_New;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 /**
@@ -24,18 +20,10 @@ public class ImageShow {
     public static final String TAG = "ImageShow";
     private static ImageShow imageShow;
     protected ImageLoader imageLoader;
-    protected DisplayImageOptions options;
     protected Url_New url_new;
 
     public ImageShow() {
         imageLoader = ImageLoader.getInstance();
-        options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.mipmap.pix_default)
-                .showImageForEmptyUri(R.mipmap.pix_default)
-                .showImageOnFail(R.mipmap.pix_default).cacheInMemory(true)
-                .cacheOnDisk(true).considerExifParams(true)
-                .bitmapConfig(Bitmap.Config.RGB_565).imageScaleType(ImageScaleType.IN_SAMPLE_INT)
-                .build();
         url_new = Url_New.getInstance();
     }
 
@@ -53,7 +41,7 @@ public class ImageShow {
      * @param imageView
      */
     public void displayImage(String imageid, ImageView imageView) {
-        imageLoader.displayImage(url_new.GET_IMAGE + imageid, imageView, options);
+        imageLoader.displayImage(url_new.GET_IMAGE + imageid, imageView, DisplayImageOptionsWrap.getDisplayImageOptionsIsMemoryCache(false));
     }
 
     /**
@@ -65,12 +53,12 @@ public class ImageShow {
      */
     public void displayThumbnailImage(String imageid, ImageView imageView, int width) {
         String imageUrl = url_new.GET_THUMBNAIL_IMAGE.replace(Url_New.WIDTH, width + "") + imageid;
-        imageLoader.displayImage(imageUrl, imageView, options);
+        imageLoader.displayImage(imageUrl, imageView, DisplayImageOptionsWrap.getDisplayImageOptionsIsMemoryCache(false));
     }
 
     public void displayThumbnailImage(String imageid, ImageView imageView, int width, ImageLoadingListener listener) {
         String imageUrl = url_new.GET_THUMBNAIL_IMAGE.replace(Url_New.WIDTH, width + "") + imageid;
-        imageLoader.displayImage(imageUrl, imageView, options, listener);
+        imageLoader.displayImage(imageUrl, imageView, DisplayImageOptionsWrap.getDisplayImageOptionsIsMemoryCache(false), listener);
     }
 
     /**
@@ -119,7 +107,8 @@ public class ImageShow {
      */
     public void displayImageHeadWidthThumnailImage(Context context, String imageid, ImageView imageView) {
         int width = MyApplication.dip2px(context, Global.PIC_WIDTH_SHOW_WIDTH);
-        displayThumbnailImage(imageid, imageView, width);
+        String imageUrl = url_new.GET_THUMBNAIL_IMAGE.replace(Url_New.WIDTH, width + "") + imageid;
+        imageLoader.displayImage(imageUrl, imageView, DisplayImageOptionsWrap.getDisplayImageOptionsIsMemoryCache(true));
     }
 
 }

@@ -7,6 +7,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.TranslateAnimation;
 import android.widget.ScrollView;
+
 /**
  * Description: com.jianfanjia.cn.view
  * Author: zhanghao
@@ -50,6 +51,7 @@ public class ReboundScrollView extends ScrollView {
 
     public ReboundScrollView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        setOverScrollMode(OVER_SCROLL_NEVER);
     }
 
     @Override
@@ -161,14 +163,14 @@ public class ReboundScrollView extends ScrollView {
      */
     private boolean isCanPullDown() {
         return getScrollY() == 0 ||
-                contentView.getHeight() < getHeight() + getScrollY();
+                contentView.getHeight() <= getHeight() + getScrollY();
     }
 
     /**
      * 判断是否滚动到底部
      */
     private boolean isCanPullUp() {
-        return  contentView.getHeight() <= getHeight() + getScrollY();
+        return true;
     }
 
 }

@@ -6,7 +6,7 @@
     android:background="@color/main_layout_bg"
     tools:context="com.jianfanjia.cn.fragment.MyFragment">
 
-    <com.jianfanjia.cn.view.ReboundScrollView
+    <ScrollView
         android:id="@+id/setting_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -202,5 +202,5 @@
 
             <View style="@style/divier_line" />
         </LinearLayout>
-    </com.jianfanjia.cn.view.ReboundScrollView>
+    </ScrollView>
 </FrameLayout>
