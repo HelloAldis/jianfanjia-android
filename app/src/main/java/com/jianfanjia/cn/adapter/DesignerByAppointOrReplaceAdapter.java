@@ -15,6 +15,7 @@ import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.bean.DesignerCanOrderInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.CheckListener;
+import com.jianfanjia.cn.tools.LogTool;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +62,15 @@ public class DesignerByAppointOrReplaceAdapter extends BaseRecyclerViewAdapter<M
             case TYPE_TAG:
                 DesignerByAppointOrReplaceTagViewHolder tagViewHolder = (DesignerByAppointOrReplaceTagViewHolder) viewHolder;
                 String tag = (String) list.get(position).get(Constant.KEY);
+                String text_tag = (String) list.get(position).get(Constant.TEXT_KEY);
                 tagViewHolder.itemNameText.setText(tag);
+                tagViewHolder.itemMoreText.setText(text_tag);
+                tagViewHolder.itemMoreText.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        LogTool.d(TAG, "44444444444");
+                    }
+                });
                 break;
             case TYPE_TITLE:
                 final DesignerByAppointOrReplaceViewHolder holder = (DesignerByAppointOrReplaceViewHolder) viewHolder;
@@ -154,10 +163,12 @@ public class DesignerByAppointOrReplaceAdapter extends BaseRecyclerViewAdapter<M
 
     private static class DesignerByAppointOrReplaceTagViewHolder extends RecyclerViewHolderBase {
         public TextView itemNameText = null;
+        public TextView itemMoreText = null;
 
         public DesignerByAppointOrReplaceTagViewHolder(View itemView) {
             super(itemView);
             itemNameText = (TextView) itemView.findViewById(R.id.list_item_name_text);
+            itemMoreText = (TextView) itemView.findViewById(R.id.list_item_more_text);
         }
     }
 
