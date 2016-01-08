@@ -88,7 +88,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dip"
                     android:layout_marginRight="10dip"
-                    android:textColor="@color/home_page_text_color" />
+                    android:textColor="@color/main_color_grey" />
             </LinearLayout>
 
             <android.support.v7.widget.Toolbar
