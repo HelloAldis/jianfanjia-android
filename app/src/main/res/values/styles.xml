@@ -44,10 +44,19 @@
     <style name="button_add_style">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/space_40</item>
-        <item name="android:background">@drawable/btn_selector_bg</item>
+        <item name="android:background">@drawable/btn_orange_bg</item>
         <item name="android:textColor">@color/font_white</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
+
+    <style name="button_delete_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/space_40</item>
+        <item name="android:background">@drawable/btn_orange_white_bg</item>
+        <item name="android:textColor">@color/black_color</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+    </style>
+    <!--btn_selector_bg-->
 
     <style name="dialog_button_ok">
         <item name="android:textColor">@color/font_white</item>

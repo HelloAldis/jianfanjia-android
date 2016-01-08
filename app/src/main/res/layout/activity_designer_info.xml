@@ -165,7 +165,7 @@
 
                 <Button
                     android:id="@+id/btn_delete"
-                    style="@style/button_add_style"
+                    style="@style/button_delete_style"
                     android:layout_marginBottom="@dimen/space_10"
                     android:layout_marginLeft="@dimen/space_50"
                     android:layout_marginRight="@dimen/space_50"
