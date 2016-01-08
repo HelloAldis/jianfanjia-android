@@ -96,6 +96,7 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_48"
+                android:background="@color/head_layout_bg"
                 android:minHeight="@dimen/space_48"
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
@@ -113,8 +114,8 @@
                     android:layout_width="@dimen/space_64"
                     android:layout_height="match_parent"
                     android:layout_gravity="right"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dip"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dip"
                     android:visibility="gone">
 
                     <ImageView
