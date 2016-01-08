@@ -36,8 +36,10 @@ public class PopWindowAdapter extends BaseListAdapter<String> {
         }
         holder.mName.setText(title);
         if (mSelectedPos == position) {
+            holder.mName.setTextColor(context.getResources().getColor(R.color.font_white));
             holder.mName.setBackgroundResource(R.drawable.text_bg_border);
         } else {
+            holder.mName.setTextColor(context.getResources().getColor(R.color.home_page_text_color));
             holder.mName.setBackgroundResource(R.drawable.text_bg_normal_border);
         }
         return convertView;
