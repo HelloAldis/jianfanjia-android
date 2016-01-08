@@ -35,7 +35,7 @@
                     android:id="@+id/cell_name"
                     style="@style/listview_item_text_style_big"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="70dip"
+                    android:layout_marginTop="80dip"
                     android:textColor="@color/home_page_text_color" />
 
                 <TextView

@@ -35,7 +35,7 @@
                     android:layout_width="60dip"
                     android:layout_height="60dip"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="70dip">
+                    android:layout_marginTop="80dip">
 
                     <com.jianfanjia.cn.view.layout.CircleImageView
                         android:id="@+id/designerinfo_head_img"
