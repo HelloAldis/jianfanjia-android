@@ -53,7 +53,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/space_40</item>
         <item name="android:background">@drawable/btn_orange_white_bg</item>
-        <item name="android:textColor">@color/light_white_color</item>
+        <item name="android:textColor">@color/home_page_text_color</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
     <!--btn_selector_bg-->
