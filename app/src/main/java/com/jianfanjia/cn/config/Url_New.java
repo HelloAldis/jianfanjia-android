@@ -47,6 +47,8 @@ public class Url_New {
 
     public String CONTRACT_URL = "http://" + SEVER_IP + "/tpl/user/agreement.html";
 
+    public String HOTLINE_URL = "http://chat16.live800.com/live800/chatClient/chatbox.jsp?companyID=611886&configID=139921&jid=3699665419";
+
     public static String ID = "id";
 
     //屏幕宽高
