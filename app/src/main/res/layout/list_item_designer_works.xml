@@ -22,7 +22,7 @@
             style="@style/listview_item_text_style_middle"
             android:layout_below="@id/list_item_works_img"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/space_5"
+            android:layout_marginTop="@dimen/space_10"
             android:text="小区名称"
             android:textColor="@color/light_black_color" />
 

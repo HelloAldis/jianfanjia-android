@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     card_view:cardBackgroundColor="@color/font_white"
-    card_view:cardCornerRadius="5dp"
-    card_view:cardPreventCornerOverlap="true"
+    card_view:cardCornerRadius="0dp"
     card_view:contentPadding="8dp">
 
     <RelativeLayout
@@ -37,20 +36,18 @@
             style="@style/listview_item_text_style_middle"
             android:layout_below="@id/list_item_head_img"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="5dip"
-            android:textColor="@color/home_page_text_color"
-            android:textSize="@dimen/text_size_14"
-            android:textStyle="bold" />
+            android:layout_marginTop="@dimen/space_10"
+            android:textColor="@color/light_black_color" />
 
         <TextView
             android:id="@+id/list_item_produce_text"
-            style="@style/listview_item_text_style_small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_below="@id/list_item_xiaoqu_text"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="5dip"
-            android:layout_marginTop="5dip"
-            android:textColor="@color/home_page_text_color"
-            android:textSize="@dimen/text_size_11" />
+            android:layout_margin="@dimen/space_5"
+            android:textColor="@color/light_black_color"
+            android:textSize="@dimen/text_size_12" />
     </RelativeLayout>
 
     <RelativeLayout
