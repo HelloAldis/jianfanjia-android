@@ -179,6 +179,7 @@ public class Constant {
     public static final int LOVE_STYLE_TOTAL = 3;//能够选择的风格喜好数量
 
     public static final String KEY = "Item";
+    public static final String TEXT_KEY = "Title";
 
     public static final int UPDATE_FRAGMENT = 10;
     public static final int UPDATE_REQUIRE_FRAGMENT = 20;
