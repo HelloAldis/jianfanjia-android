@@ -63,6 +63,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
     private List<String> imgList = new ArrayList<String>();
     private int totalCount = 0;
     private int currentPosition = 0;
+    private String picTitle = null;
     private String currentImgId = null;
     private String currentDesc = null;
 
@@ -161,8 +162,9 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
                 } else {
                     toolbar_collect.setSelected(false);
                 }
+                picTitle = beautyImgInfo.getTitle();
                 currentDesc = beautyImgInfo.getDescription();
-                pic_title.setText(beautyImgInfo.getTitle());
+                pic_title.setText(picTitle);
                 String keyDes = BusinessManager.spilteKeyWord(beautyImgInfo.getKeywords());
                 if (!TextUtils.isEmpty(keyDes)) {
                     pic_des.setText(keyDes);
@@ -256,27 +258,27 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
         SharePopWindow window = new SharePopWindow(PreviewDecorationActivity.this, new ShowPopWindowCallBack() {
             @Override
             public void shareToWeiXin() {
-                shareUtil.shareImage(currentDesc, currentImgId, SHARE_MEDIA.WEIXIN, umShareListener);
+                shareUtil.shareImage(picTitle, currentDesc, currentImgId, SHARE_MEDIA.WEIXIN, umShareListener);
             }
 
             @Override
             public void shareToWeiBo() {
-                shareUtil.shareImage(currentDesc, currentImgId, SHARE_MEDIA.SINA, umShareListener);
+                shareUtil.shareImage(picTitle, currentDesc, currentImgId, SHARE_MEDIA.SINA, umShareListener);
             }
 
             @Override
             public void shareToQQ() {
-                shareUtil.shareImage(currentDesc, currentImgId, SHARE_MEDIA.QQ, umShareListener);
+                shareUtil.shareImage(picTitle, currentDesc, currentImgId, SHARE_MEDIA.QQ, umShareListener);
             }
 
             @Override
             public void shareToCircle() {
-                shareUtil.shareImage(currentDesc, currentImgId, SHARE_MEDIA.WEIXIN_CIRCLE, umShareListener);
+                shareUtil.shareImage(picTitle, currentDesc, currentImgId, SHARE_MEDIA.WEIXIN_CIRCLE, umShareListener);
             }
 
             @Override
             public void shareToZone() {
-                shareUtil.shareImage(currentDesc, currentImgId, SHARE_MEDIA.QZONE, umShareListener);
+                shareUtil.shareImage(picTitle, currentDesc, currentImgId, SHARE_MEDIA.QZONE, umShareListener);
             }
         });
         window.show(view);
