@@ -256,7 +256,7 @@
     <style name="PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">
-        <item name="tabIndicatorColor">#7c8489</item>
+        <item name="tabIndicatorColor">?attr/colorAccent</item>
         <item name="tabIndicatorHeight">3dp</item>
         <item name="tabPaddingStart">12dp</item>
         <item name="tabPaddingEnd">12dp</item>
