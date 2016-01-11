@@ -19,10 +19,10 @@
 
             <ImageView
                 android:id="@+id/head_back"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/space_14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/space_18"
                 android:src="@mipmap/icon_register_back" />
         </RelativeLayout>
 
@@ -38,12 +38,12 @@
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:background="@drawable/commom_head_back_bg_selector"
             android:gravity="center"
-            android:paddingLeft="@dimen/space_14"
-            android:paddingRight="@dimen/space_14"
+            android:paddingLeft="@dimen/space_18"
+            android:paddingRight="@dimen/space_18"
             android:textColor="@color/orange_color"
-            android:textSize="@dimen/middle_size"
-            android:background="@drawable/commom_head_back_bg_selector"/>
+            android:textSize="@dimen/middle_size" />
 
         <View
             android:id="@+id/head_divier"
