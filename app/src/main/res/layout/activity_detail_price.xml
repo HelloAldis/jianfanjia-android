@@ -10,7 +10,6 @@
         android:layout_height="wrap_content"
         android:background="@color/head_layout_bg" />
 
-
     <ScrollView
         android:id="@+id/setting_scrollview"
         android:layout_width="match_parent"
@@ -44,7 +43,6 @@
                 android:layout_marginRight="10dip"
                 android:textColor="@color/home_page_text_color"
                 android:textSize="@dimen/text_size_14" />
-
 
             <TextView
                 android:id="@+id/project_price_after_discount"
