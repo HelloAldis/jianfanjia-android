@@ -300,17 +300,17 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
     private UMShareListener umShareListener = new UMShareListener() {
         @Override
         public void onResult(SHARE_MEDIA platform) {
-            makeTextShort(platform + getString(R.string.share_success));
+            LogTool.d(TAG, platform + getString(R.string.share_success));
         }
 
         @Override
         public void onError(SHARE_MEDIA platform, Throwable t) {
-            makeTextShort(platform + getString(R.string.share_failure));
+            LogTool.d(TAG, platform + getString(R.string.share_failure));
         }
 
         @Override
         public void onCancel(SHARE_MEDIA platform) {
-            makeTextShort(platform + getString(R.string.share_cancel));
+            LogTool.d(TAG, platform + getString(R.string.share_cancel));
         }
     };
 
