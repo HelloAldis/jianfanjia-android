@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     card_view:cardBackgroundColor="@color/font_white"
-    card_view:cardCornerRadius="5dp">
+    card_view:cardCornerRadius="8dp">
 
     <ImageView
         android:id="@+id/list_item_decorate_img"
