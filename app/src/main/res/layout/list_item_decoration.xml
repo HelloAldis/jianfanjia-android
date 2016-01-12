@@ -2,9 +2,8 @@
     xmlns:app="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="@color/font_white"
-    app:cardUseCompatPadding="false"
-    app:cardCornerRadius="10dp">
+    app:cardCornerRadius="10dp"
+    app:cardUseCompatPadding="false">
 
     <ImageView
         android:id="@+id/list_item_decorate_img"
