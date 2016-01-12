@@ -75,7 +75,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dip"
                     android:layout_marginRight="15dip"
-                    android:layout_marginTop="10dip"
+                    android:layout_marginTop="20dip"
                     android:text="设计简介:"
                     android:textColor="@color/home_page_text_color"
                     android:textSize="@dimen/text_size_16"
