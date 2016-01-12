@@ -2,9 +2,11 @@ package com.jianfanjia.cn.tools;
 
 import android.app.Activity;
 
+import com.umeng.socialize.Config;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.utils.Log;
 
 /**
  * Description: com.jianfanjia.cn.tools
@@ -29,13 +31,15 @@ public class AuthUtil {
     private AuthUtil(Activity activity){
         this.activity = activity;
         umShareAPI = UMShareAPI.get(activity);
+        Log.LOG = false;//友盟的log开关
+        Config.IsToastTip = false;//友盟的toast开关
     }
 
     public  void doOauthVerify(Activity activity,SHARE_MEDIA platform,UMAuthListener umAuthListener){
         umShareAPI.doOauthVerify(activity,platform,umAuthListener);
     }
 
-    public void deleteOauth(Activity activity,SHARE_MEDIA platform,UMAuthListener umAuthListener){
+    public void deleteOauth(Activity activity,SHARE_MEDIA platform,UMAuthListener umAuthListener) {
         umShareAPI.doOauthVerify(activity, platform ,umAuthListener);
     }
 

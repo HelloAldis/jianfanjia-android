@@ -60,7 +60,6 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="16dp"
-                android:textColorHint="@color/btn_unenable"
                 android:hint="@string/city_tip"
                 android:singleLine="true"
                 android:ellipsize="end"/>

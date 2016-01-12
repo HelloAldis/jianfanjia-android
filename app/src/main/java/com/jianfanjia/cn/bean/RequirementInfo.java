@@ -23,26 +23,26 @@ public class RequirementInfo implements Serializable {
     private String cell_unit;
     private String cell_detail_number;
     private String cell;
-    private String house_type;
     private String house_area;
-    private String dec_style;
-    private String dec_type;
-    private String work_type;
+    private String house_type = "2";
+    private String dec_style = "0";
+    private String dec_type = "0";
+    private String work_type = "0";
+    private String communication_type = "0";
+    private String prefer_sex = "2";
     private String total_price;
     private String final_planid;
     private String final_designerid;
-    private String business_house_type;
+    private String business_house_type = "0";
     private ProcessInfo process;
     private long create_at;
     private long last_status_update_time;
     private String family_description;
     private String status;
-    private String communication_type;
     private List<String> order_designerids;
     private List<String> rec_designerids;
     private List<OrderDesignerInfo> rec_designers;//匹配的设计师
     private List<OrderDesignerInfo> order_designers;//预约的设计师
-    private String prefer_sex;
 
     public String get_id() {
         return _id;

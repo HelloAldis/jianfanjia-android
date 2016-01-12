@@ -38,6 +38,7 @@ public class PullToRefreshRecycleView extends PullToRefreshBase<RecyclerView> {
 
     public PullToRefreshRecycleView(Context context, Mode mode, AnimationStyle style) {
         super(context, mode, style);
+        setMode(Mode.PULL_FROM_START);
     }
 
     @Override
@@ -50,6 +51,18 @@ public class PullToRefreshRecycleView extends PullToRefreshBase<RecyclerView> {
         RecyclerView recyclerView = new RecyclerView(context, attrs);
         recyclerView.setId(R.id.recycleview);
         return recyclerView;
+    }
+
+    public void addOnScrollListener(RecyclerView.OnScrollListener onScrollListener){
+        if(onScrollListener != null){
+            mRefreshableView.addOnScrollListener(onScrollListener);
+        }
+    }
+
+    @Override
+    protected void updateUIForMode() {
+        super.updateUIForMode();
+
     }
 
     public void setLayoutManager(RecyclerView.LayoutManager mLayoutManager) {

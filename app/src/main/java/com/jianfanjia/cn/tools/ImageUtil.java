@@ -29,6 +29,8 @@ import android.provider.MediaStore.Images;
 import android.util.DisplayMetrics;
 import android.widget.ImageView;
 
+import com.jianfanjia.cn.config.Constant;
+
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -579,7 +581,7 @@ public class ImageUtil {
         boolean isSuccess = false;
         Bitmap bitmap = drawableToBitmap(imageView.getDrawable());
         if (bitmap != null) {
-            isSuccess = saveImageToSD(context, FileUtil.createTmpFile(context).getPath(), bitmap, quality);
+            isSuccess = saveImageToSD(context, Constant.BEAUTY_IMAG_PATH + File.separator + FileUtil.createTmpFilePath(), bitmap, quality);
         }
         return isSuccess;
     }

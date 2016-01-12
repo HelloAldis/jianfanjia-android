@@ -36,7 +36,6 @@
         <item name="android:textSize">@dimen/middle_size</item>
         <item name="android:textColor">@color/light_black_color</item>
         <item name="android:hint">@string/must_input</item>
-        <item name="android:textColorHint">@color/btn_unenable</item>
         <item name="android:layout_centerHorizontal">true</item>
     </style>
 

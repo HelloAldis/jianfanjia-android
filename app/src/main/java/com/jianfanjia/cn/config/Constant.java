@@ -1,8 +1,11 @@
 package com.jianfanjia.cn.config;
 
+import android.os.Environment;
+
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.tools.FileUtil;
+import com.jianfanjia.cn.tools.SDCardHelper;
 
 /**
  * Description:常量类
@@ -22,7 +25,7 @@ public class Constant {
     public static final String LOG_PATH = FileUtil.getAppCache(MyApplication.getInstance(), LOG_FILE_DIR);// log存放路径
     public static final String APK_PATH = FileUtil.getAppCache(MyApplication.getInstance(), APK_FILE_DIR);// 下载apk存放路径
     public static final String IMAG_PATH = FileUtil.getAppCache(MyApplication.getInstance(), PIC_FILE_DIR);// 保存照片
-    public static final String BEAUTY_IMAG_PATH = FileUtil.getAppCache(MyApplication.getInstance(), IMG_FILE_DIR);// 保存美图
+    public static final String BEAUTY_IMAG_PATH = SDCardHelper.getSDCardPublicDir(Environment.DIRECTORY_PICTURES);// 保存美图,这个是对外公开的，所以保持在公共目录
 
     public static final String LOG_FILE = LOG_PATH + "/log.txt";//log文件
     public static final String ERROR_LOG_FILE = LOG_PATH + "/errorLog.txt";// errorlog文件

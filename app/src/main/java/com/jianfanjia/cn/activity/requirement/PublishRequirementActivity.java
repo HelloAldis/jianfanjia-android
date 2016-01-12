@@ -50,7 +50,7 @@ public class PublishRequirementActivity extends BaseActivity implements OnClickL
     private EditHomeRequirementFragment_ editHomeRequirementFragment_;
     private EditBussinessRequirementFragment_ editBussinessRequirementFragment_;
 
-    protected String status;//当前页面的状态，家装还是商装
+    protected String status = Global.DEC_TYPE_HOME;//当前页面的状态，家装还是商装
 
     private OwnerInfo ownerInfo;
     private RequirementInfo requirementInfoInit = new RequirementInfo();
@@ -93,7 +93,7 @@ public class PublishRequirementActivity extends BaseActivity implements OnClickL
         }, this);
     }
 
-    private void initViewPager(){
+    private void initViewPager() {
         setupViewPager(viewPager);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
@@ -110,7 +110,6 @@ public class PublishRequirementActivity extends BaseActivity implements OnClickL
                 super.onTabUnselected(tab);
             }
         });
-        status = Global.DEC_TYPE_HOME;
     }
 
     private void initMainHeadView() {
@@ -143,8 +142,7 @@ public class PublishRequirementActivity extends BaseActivity implements OnClickL
         JianFanJiaClient.add_Requirement(this, requirementInfo, this, this);
     }
 
-    protected RequirementInfo
-    getConfirmRequirement() {
+    protected RequirementInfo getConfirmRequirement() {
         RequirementInfo requirementInfo = null;
         switch (status) {
             case Global.DEC_TYPE_HOME:
@@ -213,7 +211,7 @@ public class PublishRequirementActivity extends BaseActivity implements OnClickL
             requirementInfo.setFamily_description(family_des);
         }
         String lovestyle = requirementInfoInit.getDec_style();
-        if(lovestyle != null){
+        if (lovestyle != null) {
             requirementInfo.setDec_style(lovestyle);
         }
         bundle.putSerializable(Global.REQUIREMENT_INFO, requirementInfo);
@@ -226,22 +224,22 @@ public class PublishRequirementActivity extends BaseActivity implements OnClickL
 
     }
 
-    protected void back(){
+    protected void back() {
         boolean isChange = false;
         requirementInfoInit.setDec_type(Global.DEC_TYPE_BUSINESS);
-        if(BusinessManager.isRequirementChange(
-                editBussinessRequirementFragment_.getRequirementInfo(),requirementInfoInit)){
+        if (BusinessManager.isRequirementChange(
+                editBussinessRequirementFragment_.getRequirementInfo(), requirementInfoInit)) {
             isChange = true;
         }
         requirementInfoInit.setDec_type(Global.DEC_TYPE_HOME);
-        if(BusinessManager.isRequirementChange(
-                editHomeRequirementFragment_.getRequirementInfo(),requirementInfoInit)){
+        if (BusinessManager.isRequirementChange(
+                editHomeRequirementFragment_.getRequirementInfo(), requirementInfoInit)) {
             isChange = true;
         }
-        if(!isChange){
+        if (!isChange) {
             LogTool.d(this.getClass().getName(), "没有改变");
             appManager.finishActivity(this);
-        }else{
+        } else {
             LogTool.d(this.getClass().getName(), "有改变");
             showTipDialog();
         }
