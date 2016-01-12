@@ -65,7 +65,8 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
     private int currentPosition = 0;
     private String picTitle = null;
     private String currentImgId = null;
-    private String currentDesc = null;
+    private String currentStyle = null;
+    private String currentTag = null;
 
     @Override
     public void initView() {
@@ -163,8 +164,9 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
                     toolbar_collect.setSelected(false);
                 }
                 picTitle = beautyImgInfo.getTitle();
-                currentDesc = beautyImgInfo.getDescription();
-                pic_title.setText(picTitle);
+                currentStyle = beautyImgInfo.getDec_style();
+                currentTag = beautyImgInfo.getSection();
+                pic_title.setText(TextUtils.isEmpty(picTitle) ? "" : picTitle);
                 String keyDes = BusinessManager.spilteKeyWord(beautyImgInfo.getKeywords());
                 if (!TextUtils.isEmpty(keyDes)) {
                     pic_des.setText(keyDes);
@@ -186,6 +188,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
                 viewPager.setAdapter(showPicPagerAdapter);
             }
         }
+
 
         @Override
         public void loadFailture(String error_msg) {
@@ -255,33 +258,39 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
         LogTool.d(TAG, "currentImgId=" + currentImgId);
     }
 
+    private void shareByPlatform(SHARE_MEDIA platform) {
+        shareUtil.shareImage(picTitle, currentStyle, currentTag, currentImgId, platform, umShareListener);
+    }
+
     private void showPopwindow(View view) {
         SharePopWindow window = new SharePopWindow(PreviewDecorationActivity.this, new ShowPopWindowCallBack() {
             @Override
             public void shareToWeiXin() {
-                shareUtil.shareImage(picTitle, currentDesc, currentImgId, SHARE_MEDIA.WEIXIN, umShareListener);
+                shareByPlatform(SHARE_MEDIA.WEIXIN);
             }
 
             @Override
             public void shareToWeiBo() {
-                shareUtil.shareImage(picTitle, currentDesc, currentImgId, SHARE_MEDIA.SINA, umShareListener);
+                shareByPlatform(SHARE_MEDIA.SINA);
             }
 
             @Override
             public void shareToQQ() {
-                shareUtil.shareImage(picTitle, currentDesc, currentImgId, SHARE_MEDIA.QQ, umShareListener);
+                shareByPlatform(SHARE_MEDIA.QQ);
             }
 
             @Override
             public void shareToCircle() {
-                shareUtil.shareImage(picTitle, currentDesc, currentImgId, SHARE_MEDIA.WEIXIN_CIRCLE, umShareListener);
+                shareByPlatform(SHARE_MEDIA.WEIXIN_CIRCLE);
             }
 
             @Override
             public void shareToZone() {
-                shareUtil.shareImage(picTitle, currentDesc, currentImgId, SHARE_MEDIA.QZONE, umShareListener);
+                shareByPlatform(SHARE_MEDIA.QZONE);
             }
-        });
+        }
+
+        );
         window.show(view);
     }
 
@@ -320,7 +329,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        /** attention to this below ,must add this**/
+        /** attention to this below ,must icon_add this**/
         UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
     }
 

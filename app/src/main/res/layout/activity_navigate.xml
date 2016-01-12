@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:src="@mipmap/dot_selector" />
+            android:src="@mipmap/icon_dot_selector" />
 
         <ImageView
             android:layout_width="@dimen/space_4"
@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:src="@mipmap/dot_normal" />
+            android:src="@mipmap/icon_dot_normal" />
 
         <ImageView
             android:layout_width="@dimen/space_4"
@@ -47,7 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:src="@mipmap/dot_normal" />
+            android:src="@mipmap/icon_dot_normal" />
 
         <ImageView
             android:layout_width="@dimen/space_4"
@@ -59,7 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:src="@mipmap/dot_normal" />
+            android:src="@mipmap/icon_dot_normal" />
 
     </LinearLayout>
 

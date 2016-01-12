@@ -56,7 +56,7 @@ public class SoundPullEventListener<V extends View> implements PullToRefreshBase
 	 * sound plays for which events by calling this method multiple times for
 	 * each event.
 	 * <p/>
-	 * If you've already set a sound for a certain event, and add another sound
+	 * If you've already set a sound for a certain event, and icon_add another sound
 	 * for that event, only the new sound will be played.
 	 * 
 	 * @param event - The event for which the sound will be played.

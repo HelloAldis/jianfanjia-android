@@ -1020,7 +1020,7 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout imp
         // direction
         final LayoutParams lp = getLoadingLayoutLayoutParams();
 
-        // Remove Header, and then add Header Loading View again if needed
+        // Remove Header, and then icon_add Header Loading View again if needed
         if (this == mHeaderLayout.getParent()) {
             removeView(mHeaderLayout);
         }
@@ -1028,7 +1028,7 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout imp
             addViewInternal(mHeaderLayout, 0, lp);
         }
 
-        // Remove Footer, and then add Footer Loading View again if needed
+        // Remove Footer, and then icon_add Footer Loading View again if needed
         if (this == mFooterLayout.getParent()) {
             removeView(mFooterLayout);
         }
@@ -1095,7 +1095,7 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout imp
         }
 
         // Refreshable View
-        // By passing the attrs, we can add ListView/GridView params via XML
+        // By passing the attrs, we can icon_add ListView/GridView params via XML
         mRefreshableView = createRefreshableView(context, attrs);
         addRefreshableView(context, mRefreshableView);
 

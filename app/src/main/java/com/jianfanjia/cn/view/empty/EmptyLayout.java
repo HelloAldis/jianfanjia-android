@@ -122,10 +122,10 @@ public class EmptyLayout extends LinearLayout implements
                 // img.setBackgroundDrawable(SkinsUtil.getDrawable(context,"pagefailed_bg"));
                 if (NetTool.isNetworkAvailable(getContext())) {
                     tv.setText(R.string.error_view_load_error_click_to_refresh);
-                    img.setBackgroundResource(R.mipmap.loading_error);
+                    img.setBackgroundResource(R.mipmap.icon_loading_error);
                 } else {
                     tv.setText(R.string.error_view_network_error_click_to_refresh);
-                    img.setBackgroundResource(R.mipmap.loading_error);
+                    img.setBackgroundResource(R.mipmap.icon_loading_error);
                 }
                 img.setVisibility(View.VISIBLE);
                 animProgress.setVisibility(View.GONE);

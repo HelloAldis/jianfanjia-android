@@ -22,8 +22,8 @@ public class HelpActivity extends BaseActivity {
     private static final String TAG = HelpActivity.class.getName();
     private ViewPager viewPager = null;
     private List<View> bannerList = new ArrayList<View>();
-    private static final int IMG_ID[] = {R.mipmap.p1, R.mipmap.p2,
-            R.mipmap.p3, R.mipmap.p4};
+    private static final int IMG_ID[] = {R.mipmap.icon_guide1, R.mipmap.img_guide2,
+            R.mipmap.img_guide3, R.mipmap.img_guide4};
 
     @Override
     public void initView() {

@@ -231,7 +231,7 @@ public abstract class PullToRefreshAdapterViewBase<T extends AbsListView> extend
 		mShowIndicator = showIndicator;
 
 		if (getShowIndicatorInternal()) {
-			// If we're set to Show Indicator, add/update them
+			// If we're set to Show Indicator, icon_add/update them
 			addIndicatorViews();
 		} else {
 			// If not, then remove then
@@ -386,7 +386,7 @@ public abstract class PullToRefreshAdapterViewBase<T extends AbsListView> extend
 			 * This check should really just be:
 			 * mRefreshableView.getFirstVisiblePosition() == 0, but PtRListView
 			 * internally use a HeaderView which messes the positions up. For
-			 * now we'll just add one to account for it and rely on the inner
+			 * now we'll just icon_add one to account for it and rely on the inner
 			 * condition which checks getTop().
 			 */
 			if (mRefreshableView.getFirstVisiblePosition() <= 1) {

@@ -134,7 +134,7 @@ public class PullToRefreshWebView extends PullToRefreshBase<WebView> {
 	@TargetApi(9)
 	final class InternalWebViewSDK9 extends WebView {
 
-		// WebView doesn't always scroll back to it's edge so we add some
+		// WebView doesn't always scroll back to it's edge so we icon_add some
 		// fuzziness
 		static final int OVERSCROLL_FUZZY_THRESHOLD = 2;
 

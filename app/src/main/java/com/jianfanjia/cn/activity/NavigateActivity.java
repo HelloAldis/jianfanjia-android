@@ -35,8 +35,8 @@ public class NavigateActivity extends BaseActivity implements OnClickListener,
     private int currentItem = 0; // 当前图片的索引号
     private RelativeLayout imageLayout;
 
-    private int imgId[] = {R.mipmap.p1, R.mipmap.p2,
-            R.mipmap.p3, R.mipmap.p4};
+    private int imgId[] = {R.mipmap.icon_guide1, R.mipmap.img_guide2,
+            R.mipmap.img_guide3, R.mipmap.img_guide4};
 
     private ImageView[] dots = new ImageView[4];
 
@@ -108,8 +108,8 @@ public class NavigateActivity extends BaseActivity implements OnClickListener,
             btnLayout.setVisibility(View.GONE);
         }
         if(currentItem != lastSelectorItem){
-            dots[currentItem].setImageResource(R.mipmap.dot_selector);
-            dots[lastSelectorItem].setImageResource(R.mipmap.dot_normal);
+            dots[currentItem].setImageResource(R.mipmap.icon_dot_selector);
+            dots[lastSelectorItem].setImageResource(R.mipmap.icon_dot_normal);
             lastSelectorItem = currentItem;
         }
 
