@@ -27,6 +27,7 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
+import com.jianfanjia.cn.interf.EndlessRecyclerViewScrollListener;
 import com.jianfanjia.cn.interf.ListItemClickListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
@@ -53,6 +54,7 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
 
     private DesignerListAdapter designerAdapter = null;
     private List<DesignerListInfo> designerList = new ArrayList<DesignerListInfo>();
+    private LinearLayoutManager linearLayoutManager;
 
     private int FROM = 0;// 当前页的编号，从0开始
 
@@ -66,8 +68,14 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
     public void initView(View view) {
         errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
         pullToRefreshRecyclerView = (PullToRefreshRecycleView) view.findViewById(R.id.pull_refresh_scrollview);
-        pullToRefreshRecyclerView.setMode(PullToRefreshBase.Mode.BOTH);
-        pullToRefreshRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        linearLayoutManager = new LinearLayoutManager(getActivity());
+        pullToRefreshRecyclerView.setLayoutManager(linearLayoutManager);
+        pullToRefreshRecyclerView.addOnScrollListener(new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount) {
+                getHomePageDesigners(FROM, Constant.HOME_PAGE_LIMIT, pullUpListener);
+            }
+        });
         pullToRefreshRecyclerView.setItemAnimator(new DefaultItemAnimator());
         Paint paint = new Paint();
         paint.setStrokeWidth(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getResources().getDisplayMetrics()));

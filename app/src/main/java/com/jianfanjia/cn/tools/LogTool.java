@@ -1,7 +1,9 @@
 package com.jianfanjia.cn.tools;
 
 import android.util.Log;
+
 import com.jianfanjia.cn.config.Constant;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -16,6 +18,7 @@ import java.util.Date;
  * Date:15-10-11 12:45
  */
 public class LogTool {
+
     public static void d(String tag, String msg) {
         Log.i(tag, msg);
         final File file = new File(Constant.LOG_FILE);

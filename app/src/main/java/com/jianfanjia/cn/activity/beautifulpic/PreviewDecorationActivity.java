@@ -60,7 +60,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
     private TextView pic_title = null;
     private TextView pic_des = null;
     private String decorationId = null;
-    private List<String> imgList = new ArrayList<String>();
+    private List<String> imgList = new ArrayList<>();
     private int totalCount = 0;
     private int currentPosition = 0;
     private String picTitle = null;
@@ -180,6 +180,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
                     @Override
                     public void onClickItem(int pos) {
                         LogTool.d(TAG, "pos:" + pos);
+                        appManager.finishActivity(PreviewDecorationActivity.this);
                     }
                 });
                 viewPager.setAdapter(showPicPagerAdapter);

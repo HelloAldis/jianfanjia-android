@@ -130,7 +130,6 @@ public class EditBussinessRequirementFragment extends BaseAnnotationFragment {
             isFinish = false;
         }
         LogTool.d(this.getClass().getName(),"isFinish = " + isFinish);
-
         hostActivity.notifyStatusChange();
     }
 
@@ -191,19 +190,27 @@ public class EditBussinessRequirementFragment extends BaseAnnotationFragment {
         actionType = getArguments().getInt(Global.REQUIREMENG_ACTION_TYPE, 0);
         switch (actionType) {
             case XuQiuFragment.REQUESTCODE_EDIT_REQUIREMENT:
-                act_edit_req_city_content.setText(requirementInfo.getProvince() + requirementInfo.getCity() + requirementInfo.getDistrict());
-                act_edit_req_street_content.setText(requirementInfo.getStreet());
-                act_edit_req_cell_content.setText(requirementInfo.getCell());
-                act_edit_req_housearea_content.setText(requirementInfo.getHouse_area());
-                act_edit_req_decoratebudget_content.setText(requirementInfo.getTotal_price());
+            case XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT:
+                if (!TextUtils.isEmpty(requirementInfo.getProvince()) && !TextUtils.isEmpty(requirementInfo.getCity()) && !TextUtils.isEmpty(requirementInfo.getDistrict())) {
+                        act_edit_req_city_content.setText(requirementInfo.getProvince() + requirementInfo.getCity() + requirementInfo.getDistrict());
+                }
+                if(!TextUtils.isEmpty(requirementInfo.getStreet())){
+                        act_edit_req_street_content.setText(requirementInfo.getStreet());
+                }
+                if (!TextUtils.isEmpty(requirementInfo.getCell())) {
+                        act_edit_req_cell_content.setText(requirementInfo.getCell());
+                }
+                if (!TextUtils.isEmpty(requirementInfo.getHouse_area())) {
+                        act_edit_req_housearea_content.setText(requirementInfo.getHouse_area());
+                }
+                if (!TextUtils.isEmpty(requirementInfo.getTotal_price())) {
+                        act_edit_req_decoratebudget_content.setText(requirementInfo.getTotal_price());
+                }
                 act_edit_req_decoratetype_content.setText(TextUtils.isEmpty(requirementInfo.getBusiness_house_type()) ? "" : arr_busihousetype[Integer.parseInt(requirementInfo.getBusiness_house_type()) > (arr_busihousetype.length - 1) ? (arr_busihousetype.length - 1) : Integer.parseInt(requirementInfo.getBusiness_house_type())]);
                 act_edit_req_lovestyle_content.setText(TextUtils.isEmpty(requirementInfo.getDec_style()) ? "" : arr_lovestyle[Integer.parseInt(requirementInfo.getDec_style())]);
                 act_edit_req_lovedesistyle_content.setText(TextUtils.isEmpty(requirementInfo.getCommunication_type()) ? "" : arr_love_designerstyle[Integer.parseInt(requirementInfo.getCommunication_type())]);
                 act_edit_req_lovedesisex_content.setText(TextUtils.isEmpty(requirementInfo.getPrefer_sex()) ? "" : arr_desisex[Integer.parseInt(requirementInfo.getPrefer_sex())]);
                 act_edit_req_work_type_content.setText(TextUtils.isEmpty(requirementInfo.getWork_type()) ? "" : arr_worktype[Integer.parseInt(requirementInfo.getWork_type())]);
-                break;
-            case XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT:
-                act_edit_req_lovestyle_content.setText(TextUtils.isEmpty(requirementInfo.getDec_style()) ? "" : arr_lovestyle[Integer.parseInt(requirementInfo.getDec_style())]);
                 break;
         }
 

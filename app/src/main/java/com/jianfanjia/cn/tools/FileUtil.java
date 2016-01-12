@@ -29,7 +29,7 @@ import android.util.Log;
  */
 public class FileUtil {
     /**
-     * 鍐欐枃鏈枃锟? 鍦ˋndroid绯荤粺涓紝鏂囦欢淇濆瓨锟? /data/data/PACKAGE_NAME/files 鐩綍锟?
+     *  以私有方式写入内部存储中
      *
      * @param context
      * @param msg
@@ -50,7 +50,7 @@ public class FileUtil {
     }
 
     /**
-     * 璇诲彇鏂囨湰鏂囦欢
+     * 读取内部存储中的文件
      *
      * @param context
      * @param fileName
@@ -66,6 +66,12 @@ public class FileUtil {
         return "";
     }
 
+    /**
+     *
+     * 读取输入流中的内容
+     * @param inStream
+     * @return
+     */
     public static String readInStream(InputStream inStream) {
         try {
             ByteArrayOutputStream outStream = new ByteArrayOutputStream();
@@ -84,6 +90,12 @@ public class FileUtil {
         return null;
     }
 
+    /**
+     * 创建一个文件
+     * @param folderPath
+     * @param fileName
+     * @return
+     */
     public static File createFile(String folderPath, String fileName) {
         File destDir = new File(folderPath);
         if (!destDir.exists()) {
@@ -93,7 +105,7 @@ public class FileUtil {
     }
 
     /**
-     * 鍚戞墜鏈哄啓鍥剧墖
+     * 写文件到sd卡的自定义目录中
      *
      * @param buffer
      * @param folder
@@ -140,7 +152,7 @@ public class FileUtil {
     }
 
     /**
-     * 鏍规嵁鏂囦欢缁濆璺緞鑾峰彇鏂囦欢锟?
+     * 根据文件路径拿到文件名
      *
      * @param filePath
      * @return
@@ -152,7 +164,7 @@ public class FileUtil {
     }
 
     /**
-     * 鏍规嵁鏂囦欢鐨勭粷瀵硅矾寰勮幏鍙栨枃浠跺悕浣嗕笉鍖呭惈鎵╁睍锟?
+     *拿到不带后缀的文件名
      *
      * @param filePath
      * @return
@@ -181,7 +193,7 @@ public class FileUtil {
     }
 
     /**
-     * 鑾峰彇鏂囦欢澶у皬
+     * 拿到文件的大小
      *
      * @param filePath
      * @return
@@ -197,9 +209,9 @@ public class FileUtil {
     }
 
     /**
-     * 鑾峰彇鏂囦欢澶у皬
+     * 将字节单位转换成M或者K
      *
-     * @param size 瀛楄妭
+     * @param size
      * @return
      */
     public static String getFileSize(long size) {
@@ -215,7 +227,7 @@ public class FileUtil {
     }
 
     /**
-     * 杞崲鏂囦欢澶у皬
+     * 将字节单位转换成其他整数单位
      *
      * @param fileS
      * @return B/KB/MB/GB
@@ -236,7 +248,7 @@ public class FileUtil {
     }
 
     /**
-     * 鑾峰彇鐩綍鏂囦欢澶у皬
+     * 拿到目录的文件总大小
      *
      * @param dir
      * @return
@@ -262,7 +274,7 @@ public class FileUtil {
     }
 
     /**
-     * 鑾峰彇鐩綍鏂囦欢涓暟
+     * 拿到目录中总文件数量
      *
      * @param
      * @return
@@ -280,6 +292,12 @@ public class FileUtil {
         return count;
     }
 
+    /**
+     * 将输入流转换为字节数组
+     * @param in
+     * @return
+     * @throws IOException
+     */
     public static byte[] toBytes(InputStream in) throws IOException {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         int ch;
@@ -292,7 +310,7 @@ public class FileUtil {
     }
 
     /**
-     * 锟?鏌ユ枃浠舵槸鍚﹀瓨锟?
+     * 检查sd卡中的name文件是否存在
      *
      * @param name
      * @return
@@ -310,7 +328,7 @@ public class FileUtil {
     }
 
     /**
-     * 锟?鏌ヨ矾寰勬槸鍚﹀瓨锟?
+     * 检查某个目录是否存在
      *
      * @param path
      * @return
@@ -320,31 +338,7 @@ public class FileUtil {
     }
 
     /**
-     * 璁＄畻SD鍗＄殑鍓╀綑绌洪棿
-     *
-     * @return 杩斿洖-1锛岃鏄庢病鏈夊畨瑁卻d锟?
-     */
-    public static long getFreeDiskSpace() {
-        String status = Environment.getExternalStorageState();
-        long freeSpace = 0;
-        if (status.equals(Environment.MEDIA_MOUNTED)) {
-            try {
-                File path = Environment.getExternalStorageDirectory();
-                StatFs stat = new StatFs(path.getPath());
-                long blockSize = stat.getBlockSize();
-                long availableBlocks = stat.getAvailableBlocks();
-                freeSpace = availableBlocks * blockSize / 1024;
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else {
-            return -1;
-        }
-        return (freeSpace);
-    }
-
-    /**
-     * 鏂板缓鐩綍
+     * 在SD卡中创建一个目录
      *
      * @param directoryName
      * @return
@@ -474,7 +468,7 @@ public class FileUtil {
     }
 
     /**
-     * 娓呯┖锟?涓枃浠跺す
+     * 删除某个目录的所有文件
      *
      * @param
      */
@@ -493,7 +487,7 @@ public class FileUtil {
     }
 
     /**
-     * 拿到SD卡的跟目录
+     * 拿到SD卡的根目录
      *
      * @return
      */
@@ -644,7 +638,13 @@ public class FileUtil {
             File tmpFile = new File(cacheDir, fileName + ".jpg");
             return tmpFile;
         }
+    }
 
+    public static String createTmpFilePath(){
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss",
+                Locale.CHINA).format(new Date());
+        String fileName = "jyz_image_" + timeStamp + "" + ".jpg";
+        return fileName;
     }
 
 }

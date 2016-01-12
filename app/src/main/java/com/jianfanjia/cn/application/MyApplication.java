@@ -6,14 +6,12 @@ import android.content.pm.PackageManager;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseApplication;
 import com.jianfanjia.cn.cache.DataCleanManager;
-import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.OkHttpClientManager;
 import com.jianfanjia.cn.http.cookie.PersistentCookieStore;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.squareup.okhttp.OkHttpClient;
 import com.umeng.socialize.PlatformConfig;
 
-import java.io.File;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
 
@@ -145,13 +143,11 @@ public class MyApplication extends BaseApplication {
      * 清除app缓存
      */
     public void clearAppCache() {
-//		DataCleanManager.cleanDatabases(this);
+		DataCleanManager.cleanDatabases(this);
         // 清除数据缓存
-//		DataCleanManager.cleanInternalCache(this);
+		DataCleanManager.cleanInternalCache(this);
         ImageLoader.getInstance().clearDiskCache();
         ImageLoader.getInstance().clearMemoryCache();
-        DataCleanManager.deleteFilesByDirectory(new File(Constant.IMAG_PATH));
-
         //
         // 2.2版本才有将应用缓存转移到sd卡的功能
         if (isMethodsCompat(android.os.Build.VERSION_CODES.FROYO)) {
