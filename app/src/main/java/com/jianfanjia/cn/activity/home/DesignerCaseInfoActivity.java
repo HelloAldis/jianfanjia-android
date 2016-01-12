@@ -226,7 +226,6 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
             makeTextLong(error_msg);
             collapsingToolbar.setTitle("");
             toolbar_collect.setVisibility(View.GONE);
-
         }
     };
 
