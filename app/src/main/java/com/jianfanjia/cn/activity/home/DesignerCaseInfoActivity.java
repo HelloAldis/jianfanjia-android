@@ -27,6 +27,7 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
+import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
@@ -215,7 +216,17 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
                 produceTitle.setVisibility(View.VISIBLE);
                 produceText.setText(designerCaseInfo.getDescription());
                 nameText.setText(designerCaseInfo.getDesigner().getUsername());
-                DesignerCaseAdapter adapter = new DesignerCaseAdapter(DesignerCaseInfoActivity.this, designerCaseInfo.getImages());
+                DesignerCaseAdapter adapter = new DesignerCaseAdapter(DesignerCaseInfoActivity.this, designerCaseInfo.getImages(), new RecyclerViewOnItemClickListener() {
+                    @Override
+                    public void OnItemClick(View view, int position) {
+                        LogTool.d(TAG, "position:" + position);
+                    }
+
+                    @Override
+                    public void OnViewClick(int position) {
+
+                    }
+                });
                 designer_case_listview.setAdapter(adapter);
             }
         }
@@ -228,6 +239,7 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
             toolbar_collect.setVisibility(View.GONE);
         }
     };
+
 
     private ApiUiUpdateListener addProductHomePageInfoListener = new ApiUiUpdateListener() {
         @Override

@@ -10,6 +10,7 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.bean.ImageInfo;
+import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
 
 import java.util.List;
 
@@ -20,18 +21,28 @@ import java.util.List;
  * Time: 15:14
  */
 public class DesignerCaseAdapter extends BaseRecyclerViewAdapter<ImageInfo> {
+    private RecyclerViewOnItemClickListener listener;
 
-    public DesignerCaseAdapter(Context context, List<ImageInfo> list) {
+    public DesignerCaseAdapter(Context context, List<ImageInfo> list, RecyclerViewOnItemClickListener listener) {
         super(context, list);
+        this.listener = listener;
     }
 
     @Override
     public void bindView(RecyclerViewHolderBase viewHolder, int position, List<ImageInfo> list) {
         ImageInfo info = list.get(position);
-        DesignerCaseViewHolder holder = (DesignerCaseViewHolder) viewHolder;
+        final DesignerCaseViewHolder holder = (DesignerCaseViewHolder) viewHolder;
         imageShow.displayScreenWidthThumnailImage(context, info.getImageid(), holder.itemwCaseView);
         holder.itemTitleText.setText(info.getSection());
         holder.itemProduceText.setText(info.getDescription());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (null != listener) {
+                    listener.OnItemClick(v, holder.getLayoutPosition());
+                }
+            }
+        });
     }
 
     @Override
