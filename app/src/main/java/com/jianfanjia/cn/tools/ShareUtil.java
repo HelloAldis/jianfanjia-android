@@ -26,6 +26,12 @@ public class ShareUtil {
     private int width = 0;
     private Context context;
 
+    final SHARE_MEDIA[] displaylist = new SHARE_MEDIA[]
+            {
+                    SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE, SHARE_MEDIA.SINA,
+                    SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE
+            };
+
     public static ShareUtil getShareUtil(Activity activity) {
         if (null == shareUtil) {
             shareUtil = new ShareUtil(activity);
@@ -40,10 +46,26 @@ public class ShareUtil {
         context = activity.getApplicationContext();
     }
 
-    public void shareImage(String title, String style,String tag, String imgId, SHARE_MEDIA platform, UMShareListener umShareListener) {
+    public void shareImage(Activity activity, String title, String style, String tag, String imgId,UMShareListener umShareListener) {
         String desc = context.getString(R.string.share_image_des);
-        if(!TextUtils.isEmpty(style)  && !TextUtils.isEmpty(tag)){
-            desc = String.format(desc, BusinessManager.convertDecStyleToShow(style),tag);
+        if (!TextUtils.isEmpty(style) && !TextUtils.isEmpty(tag)) {
+            desc = String.format(desc, BusinessManager.convertDecStyleToShow(style), tag);
+        }
+        String imageUrl = url_new.GET_THUMBNAIL_IMAGE.replace(Url_New.WIDTH, width + "") + imgId;
+        UMImage image = new UMImage(context, imageUrl);
+        new ShareAction(activity).setDisplayList(displaylist)
+                .withText(desc)
+                .withTitle(title)
+                .withTargetUrl(imageUrl)
+                .withMedia(image)
+                .open();
+    }
+
+
+    public void shareImage(String title, String style, String tag, String imgId, SHARE_MEDIA platform, UMShareListener umShareListener) {
+        String desc = context.getString(R.string.share_image_des);
+        if (!TextUtils.isEmpty(style) && !TextUtils.isEmpty(tag)) {
+            desc = String.format(desc, BusinessManager.convertDecStyleToShow(style), tag);
         }
         String imageUrl = url_new.GET_THUMBNAIL_IMAGE.replace(Url_New.WIDTH, width + "") + imgId;
         UMImage image = new UMImage(context, imageUrl);

@@ -21,14 +21,12 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
-import com.jianfanjia.cn.interf.ShowPopWindowCallBack;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.tools.ImageUtil;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.ShareUtil;
 import com.jianfanjia.cn.tools.UiHelper;
-import com.jianfanjia.cn.view.SharePopWindow;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -259,11 +257,13 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
     }
 
     private void shareByPlatform(SHARE_MEDIA platform) {
+        showWaitDialog();
         shareUtil.shareImage(picTitle, currentStyle, currentTag, currentImgId, platform, umShareListener);
     }
 
     private void showPopwindow(View view) {
-        SharePopWindow window = new SharePopWindow(PreviewDecorationActivity.this, new ShowPopWindowCallBack() {
+        shareUtil.shareImage(this,picTitle, currentStyle, currentTag, currentImgId,umShareListener);
+       /* SharePopWindow window = new SharePopWindow(PreviewDecorationActivity.this, new ShowPopWindowCallBack() {
             @Override
             public void shareToWeiXin() {
                 shareByPlatform(SHARE_MEDIA.WEIXIN);
@@ -291,7 +291,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
         }
 
         );
-        window.show(view);
+        window.show(view);*/
     }
 
 
