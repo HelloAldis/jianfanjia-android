@@ -157,8 +157,8 @@
                     android:id="@+id/btn_add"
                     style="@style/button_add_style"
                     android:layout_marginBottom="@dimen/space_10"
-                    android:layout_marginLeft="@dimen/space_50"
-                    android:layout_marginRight="@dimen/space_50"
+                    android:layout_marginLeft="@dimen/space_60"
+                    android:layout_marginRight="@dimen/space_60"
                     android:layout_marginTop="@dimen/space_10"
                     android:text="@string/strl_add_yixiang" />
 
@@ -166,8 +166,8 @@
                     android:id="@+id/btn_delete"
                     style="@style/button_delete_style"
                     android:layout_marginBottom="@dimen/space_10"
-                    android:layout_marginLeft="@dimen/space_50"
-                    android:layout_marginRight="@dimen/space_50"
+                    android:layout_marginLeft="@dimen/space_60"
+                    android:layout_marginRight="@dimen/space_60"
                     android:layout_marginTop="@dimen/space_10"
                     android:text="@string/strl_delete_yixiang"
                     android:visibility="gone" />
