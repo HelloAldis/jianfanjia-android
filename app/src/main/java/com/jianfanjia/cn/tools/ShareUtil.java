@@ -34,19 +34,19 @@ public class ShareUtil {
     public ShareUtil(Activity activity) {
         url_new = Url_New.getInstance();
         shareAction = new ShareAction(activity);
-        width = (int)TDevice.getScreenWidth();
+        width = (int) TDevice.getScreenWidth();
         context = activity.getApplicationContext();
     }
 
-    public void shareImage(String desc, String imgId, SHARE_MEDIA platform, UMShareListener umShareListener) {
+    public void shareImage(String title, String desc, String imgId, SHARE_MEDIA platform, UMShareListener umShareListener) {
         String imageUrl = url_new.GET_THUMBNAIL_IMAGE.replace(Url_New.WIDTH, width + "") + imgId;
         UMImage image = new UMImage(context, imageUrl);
-        shareAction.setPlatform(platform).setCallback(umShareListener).withText(desc).withTargetUrl(imageUrl).withMedia(image).withTitle(desc).share();
+        shareAction.setPlatform(platform).setCallback(umShareListener).withText(desc).withTargetUrl(imageUrl).withMedia(image).withTitle(title).share();
     }
 
-    public void shareApp(SHARE_MEDIA platform,UMShareListener umShareListener){
-        LogTool.d(this.getClass().getName(),context.getPackageResourcePath());
-        UMImage image = new UMImage(context, BitmapFactory.decodeResource(context.getResources(),R.mipmap.icon_share));
+    public void shareApp(SHARE_MEDIA platform, UMShareListener umShareListener) {
+        LogTool.d(this.getClass().getName(), context.getPackageResourcePath());
+        UMImage image = new UMImage(context, BitmapFactory.decodeResource(context.getResources(), R.mipmap.icon_share));
         shareAction.setPlatform(platform).setCallback(umShareListener).withText(context.getString(R.string.share_app_des)).withTargetUrl(context.getString(R.string.share_app_url)).withMedia(image).withTitle(context.getString(R.string.share_app_title)).share();
     }
 }
