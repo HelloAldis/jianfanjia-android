@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.home.DesignerInfoActivity;
 import com.jianfanjia.cn.adapter.DesignerByAppointOrReplaceAdapter;
@@ -30,6 +31,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import de.greenrobot.event.EventBus;
+
 /**
  * Description:替换设计师
  * Author：fengliang
@@ -49,7 +52,15 @@ public class ReplaceDesignerActivity extends BaseActivity implements OnClickList
     private String designerid = null;
     private int totalCount = 1;//总可预约数
 
+    private int currentPos = -1;
+
     private String newDesignerid = null;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
 
     @Override
     public void initView() {
@@ -148,8 +159,9 @@ public class ReplaceDesignerActivity extends BaseActivity implements OnClickList
                 setReplaceDesignerList(rec_designer, favorite_designer);
                 designerByAppointOrReplaceAdapter = new DesignerByAppointOrReplaceAdapter(ReplaceDesignerActivity.this, mylist, splitList, totalCount, new CheckListener() {
                     @Override
-                    public void getItemData(String designerid) {
-                        LogTool.d(TAG, "designerid:" + designerid);
+                    public void getItemData(int position, String designerid) {
+                        LogTool.d(TAG, "position=" + position + " designerid=" + designerid);
+                        currentPos = position;
                         Bundle designerBundle = new Bundle();
                         designerBundle.putString(Global.DESIGNER_ID, designerid);
                         startActivity(DesignerInfoActivity.class, designerBundle);
@@ -205,6 +217,23 @@ public class ReplaceDesignerActivity extends BaseActivity implements OnClickList
             hideWaitDialog();
         }
     };
+
+    public void onEventMainThread(MessageEvent messageEvent) {
+        LogTool.d(TAG, "messageEvent:" + messageEvent.getEventType());
+        switch (messageEvent.getEventType()) {
+            case Constant.UPDATE_ORDER_DESIGNER_ACTIVITY:
+                designerByAppointOrReplaceAdapter.remove(currentPos);
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 
     @Override
     public int getLayoutId() {
