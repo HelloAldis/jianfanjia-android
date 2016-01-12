@@ -154,7 +154,7 @@
 
     <Button
         android:id="@+id/btn_delete"
-        style="@style/button_login_style"
+        style="@style/button_cancel_style"
         android:layout_height="@dimen/space_40"
         android:layout_marginBottom="@dimen/space_15"
         android:layout_marginLeft="@dimen/space_30"
