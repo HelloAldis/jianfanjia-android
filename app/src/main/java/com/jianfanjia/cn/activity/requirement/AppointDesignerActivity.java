@@ -126,8 +126,19 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
 
     public void onEventMainThread(BindingPhoneEvent bindingPhoneEvent) {
         if (TextUtils.isEmpty(bindingPhoneEvent.getPhone())) return;
-        LogTool.d(this.getClass().getName(), "event:" + bindingPhoneEvent.getPhone());
+        LogTool.d(TAG, "event:" + bindingPhoneEvent.getPhone());
         orderDesignerByUser(requestmentid, designerIds);
+    }
+
+    public void onEventMainThread(MessageEvent messageEvent) {
+        LogTool.d(TAG, "messageEvent:" + messageEvent.getEventType());
+        switch (messageEvent.getEventType()) {
+            case Constant.UPDATE_FAVORITE_FRAGMENT:
+
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
@@ -178,8 +189,8 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
                 designerByAppointOrReplaceAdapter = new DesignerByAppointOrReplaceAdapter(AppointDesignerActivity.this, mylist, splitList, total, new CheckListener() {
 
                     @Override
-                    public void getItemData(String designerid) {
-                        LogTool.d(TAG, "designerid=" + designerid);
+                    public void getItemData(int position, String designerid) {
+                        LogTool.d(TAG, "position=" + position + " designerid=" + designerid);
                         Bundle designerBundle = new Bundle();
                         designerBundle.putString(Global.DESIGNER_ID, designerid);
                         startActivity(DesignerInfoActivity.class, designerBundle);

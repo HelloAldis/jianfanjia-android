@@ -148,8 +148,8 @@ public class ReplaceDesignerActivity extends BaseActivity implements OnClickList
                 setReplaceDesignerList(rec_designer, favorite_designer);
                 designerByAppointOrReplaceAdapter = new DesignerByAppointOrReplaceAdapter(ReplaceDesignerActivity.this, mylist, splitList, totalCount, new CheckListener() {
                     @Override
-                    public void getItemData(String designerid) {
-                        LogTool.d(TAG, "designerid:" + designerid);
+                    public void getItemData(int position, String designerid) {
+                        LogTool.d(TAG, "position=" + position + " designerid=" + designerid);
                         Bundle designerBundle = new Bundle();
                         designerBundle.putString(Global.DESIGNER_ID, designerid);
                         startActivity(DesignerInfoActivity.class, designerBundle);

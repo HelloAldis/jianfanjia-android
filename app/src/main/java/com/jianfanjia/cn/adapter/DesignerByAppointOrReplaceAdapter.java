@@ -99,7 +99,7 @@ public class DesignerByAppointOrReplaceAdapter extends BaseRecyclerViewAdapter<M
                     @Override
                     public void onClick(View v) {
                         if (null != listener) {
-                            listener.getItemData(designerId);
+                            listener.getItemData(holder.getLayoutPosition(), designerId);
                         }
                     }
                 });
