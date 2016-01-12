@@ -55,18 +55,17 @@
                     android:rating="0" />
             </LinearLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/space_20"
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:id="@+id/speedLayout"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/space_20"
-                    android:layout_marginRight="@dimen/space_20"
-                    android:layout_marginTop="@dimen/space_20"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/space_60"
                     android:orientation="horizontal">
 
                     <TextView
@@ -87,11 +86,12 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:id="@+id/attudeLayout"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/space_20"
-                    android:layout_marginRight="@dimen/space_20"
-                    android:layout_marginTop="@dimen/space_20"
+                    android:layout_below="@id/speedLayout"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/space_30"
                     android:orientation="horizontal">
 
                     <TextView
@@ -113,22 +113,23 @@
 
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/space_20"
-                    android:layout_marginRight="@dimen/space_20"
-                    android:layout_marginTop="@dimen/space_20"
+                    android:layout_alignLeft="@id/attudeLayout"
+                    android:layout_alignRight="@id/attudeLayout"
+                    android:layout_below="@id/attudeLayout"
+                    android:layout_marginTop="@dimen/space_30"
                     android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/commentText"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="的说法是否哈师傅哈数据恢复举案说法举案说法哈师傅哈是大概是个发生的根深蒂固速度更快I"
+                        android:text="的说法是否"
                         android:textColor="@color/main_color_grey"
                         android:textSize="@dimen/text_size_14" />
                 </LinearLayout>
-            </LinearLayout>
+            </RelativeLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
