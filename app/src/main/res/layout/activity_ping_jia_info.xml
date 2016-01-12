@@ -21,20 +21,17 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="10dip"
                 android:orientation="vertical">
-
 
                 <com.jianfanjia.cn.view.layout.CircleImageView
                     android:id="@+id/designer_head_img"
                     android:layout_width="60dip"
                     android:layout_height="60dip"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="@dimen/space_10"
+                    android:layout_marginTop="@dimen/space_50"
                     android:scaleType="centerCrop"
                     android:src="@mipmap/pix_default" />
 
@@ -61,13 +58,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/space_20"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/space_10"
-                    android:layout_marginRight="@dimen/space_10"
+                    android:layout_marginLeft="@dimen/space_20"
+                    android:layout_marginRight="@dimen/space_20"
                     android:layout_marginTop="@dimen/space_20"
                     android:orientation="horizontal">
 
@@ -91,8 +89,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/space_10"
-                    android:layout_marginRight="@dimen/space_10"
+                    android:layout_marginLeft="@dimen/space_20"
+                    android:layout_marginRight="@dimen/space_20"
                     android:layout_marginTop="@dimen/space_20"
                     android:orientation="horizontal">
 
@@ -117,21 +115,16 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/space_10"
-                    android:layout_marginRight="@dimen/space_10"
+                    android:layout_marginLeft="@dimen/space_20"
+                    android:layout_marginRight="@dimen/space_20"
                     android:layout_marginTop="@dimen/space_20"
                     android:orientation="horizontal">
-
-                    <TextView
-                        style="@style/listview_item_text_style_middle"
-                        android:text="评价内容："
-                        android:textColor="@color/light_black_color" />
 
                     <TextView
                         android:id="@+id/commentText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_10"
+                        android:text="的说法是否哈师傅哈数据恢复举案说法举案说法哈师傅哈是大概是个发生的根深蒂固速度更快I"
                         android:textColor="@color/main_color_grey"
                         android:textSize="@dimen/text_size_14" />
                 </LinearLayout>
