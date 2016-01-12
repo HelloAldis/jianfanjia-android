@@ -83,7 +83,7 @@ public class BusinessManager {
     }
 
     /**
-     * @param houseType
+     * @param
      * @return
      */
     public static String convertDectypeToShow(String decType) {

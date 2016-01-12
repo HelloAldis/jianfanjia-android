@@ -24,7 +24,7 @@
                     android:id="@+id/img_error_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/loading_error"
+                    android:src="@mipmap/icon_loading_error"
                     android:visibility="gone" />
 
                 <ProgressBar

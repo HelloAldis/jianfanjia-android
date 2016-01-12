@@ -230,7 +230,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
         }
         for (int i = 0; i < 3; i++) {
             ViewPagerItem viewPagerItem = new ViewPagerItem();
-            viewPagerItem.setResId(R.mipmap.icon8_home_normal);
+            viewPagerItem.setResId(R.mipmap.icon_process_no);
             viewPagerItem.setTitle("");
             viewPagerItem.setDate("");
             processList.add(viewPagerItem);

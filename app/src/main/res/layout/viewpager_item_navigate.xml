@@ -10,6 +10,6 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:scaleType="center"
-        android:src="@mipmap/p1" />
+        android:src="@mipmap/icon_guide1" />
 
 </RelativeLayout>

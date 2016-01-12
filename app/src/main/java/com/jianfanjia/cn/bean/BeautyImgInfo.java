@@ -25,6 +25,7 @@ public class BeautyImgInfo implements Serializable {
     private String keywords;
     private String authorid;
     private String usertype;
+    private String section;
     private int __v;
     private int favorite_count;
     private int view_count;
@@ -182,5 +183,13 @@ public class BeautyImgInfo implements Serializable {
 
     public void setKeywords(String keywords) {
         this.keywords = keywords;
+    }
+
+    public String getSection() {
+        return section;
+    }
+
+    public void setSection(String section) {
+        this.section = section;
     }
 }

@@ -10,10 +10,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:paddingBottom="@dimen/space_8"
+        android:paddingBottom="@dimen/space_16"
         android:paddingLeft="@dimen/space_26"
         android:paddingRight="@dimen/space_26"
-        android:paddingTop="@dimen/space_8"
+        android:paddingTop="@dimen/space_16"
         android:background="@drawable/my_item_layout_bg_selector">
 
         <com.jianfanjia.cn.view.layout.CircleImageView
@@ -117,10 +117,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/first_line"
         android:orientation="horizontal"
-        android:paddingBottom="8dp"
+        android:paddingBottom="@dimen/space_16"
         android:paddingLeft="@dimen/space_32"
         android:paddingRight="@dimen/space_32"
-        android:paddingTop="8dp"
+        android:paddingTop="@dimen/space_16"
         android:weightSum="3">
 
         <RelativeLayout
@@ -143,7 +143,7 @@
                     android:layout_height="match_parent"
                     android:layout_width="match_parent"
                     android:scaleType="centerCrop"
-                    android:src="@mipmap/add"  />
+                    android:src="@mipmap/icon_add"  />
 
                 <ImageView
                     android:id="@+id/designerinfo_auth0"
@@ -199,7 +199,7 @@
                     android:layout_height="match_parent"
                     android:layout_width="match_parent"
                     android:scaleType="centerCrop"
-                    android:src="@mipmap/add"  />
+                    android:src="@mipmap/icon_add"  />
 
                 <ImageView
                     android:id="@+id/designerinfo_auth1"
@@ -254,7 +254,7 @@
                     android:layout_height="match_parent"
                     android:layout_width="match_parent"
                     android:scaleType="centerCrop"
-                    android:src="@mipmap/add"  />
+                    android:src="@mipmap/icon_add"  />
 
                 <ImageView
                     android:id="@+id/designerinfo_auth2"

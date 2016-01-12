@@ -3,8 +3,10 @@ package com.jianfanjia.cn.tools;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.BitmapFactory;
+import android.text.TextUtils;
 
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.cache.BusinessManager;
 import com.jianfanjia.cn.config.Url_New;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
@@ -38,7 +40,11 @@ public class ShareUtil {
         context = activity.getApplicationContext();
     }
 
-    public void shareImage(String title, String desc, String imgId, SHARE_MEDIA platform, UMShareListener umShareListener) {
+    public void shareImage(String title, String style,String tag, String imgId, SHARE_MEDIA platform, UMShareListener umShareListener) {
+        String desc = context.getString(R.string.share_image_des);
+        if(!TextUtils.isEmpty(style)  && !TextUtils.isEmpty(tag)){
+            desc = String.format(desc, BusinessManager.convertDecStyleToShow(style),tag);
+        }
         String imageUrl = url_new.GET_THUMBNAIL_IMAGE.replace(Url_New.WIDTH, width + "") + imgId;
         UMImage image = new UMImage(context, imageUrl);
         shareAction.setPlatform(platform).setCallback(umShareListener).withText(desc).withTargetUrl(imageUrl).withMedia(image).withTitle(title).share();
