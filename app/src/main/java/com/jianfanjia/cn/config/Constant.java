@@ -195,4 +195,5 @@ public class Constant {
     public static final int UPDATE_FAVORITE_FRAGMENT = 50;
     public static final int UPDATE_PRODUCT_FRAGMENT = 60;
     public static final int UPDATE_BEAUTY_FRAGMENT = 70;
+    public static final int UPDATE_ORDER_DESIGNER_ACTIVITY = 80;
 }

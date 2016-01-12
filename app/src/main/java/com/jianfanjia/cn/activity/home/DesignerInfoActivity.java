@@ -247,6 +247,7 @@ public class DesignerInfoActivity extends BaseActivity implements OnClickListene
             addBtn.setVisibility(View.VISIBLE);
             deleteBtn.setVisibility(View.GONE);
             EventBus.getDefault().post(new MessageEvent(Constant.UPDATE_FAVORITE_FRAGMENT));
+            EventBus.getDefault().post(new MessageEvent(Constant.UPDATE_ORDER_DESIGNER_ACTIVITY));
         }
 
         @Override

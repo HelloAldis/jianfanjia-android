@@ -58,6 +58,8 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
     private int total = 0;
     private int checkedItemCount = 0;//已选数
 
+    private int currentPos = -1;
+
     private List<String> designerIds = new ArrayList<String>();
 
     @Override
@@ -133,8 +135,8 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
     public void onEventMainThread(MessageEvent messageEvent) {
         LogTool.d(TAG, "messageEvent:" + messageEvent.getEventType());
         switch (messageEvent.getEventType()) {
-            case Constant.UPDATE_FAVORITE_FRAGMENT:
-
+            case Constant.UPDATE_ORDER_DESIGNER_ACTIVITY:
+                designerByAppointOrReplaceAdapter.remove(currentPos);
                 break;
             default:
                 break;
@@ -191,6 +193,7 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
                     @Override
                     public void getItemData(int position, String designerid) {
                         LogTool.d(TAG, "position=" + position + " designerid=" + designerid);
+                        currentPos = position;
                         Bundle designerBundle = new Bundle();
                         designerBundle.putString(Global.DESIGNER_ID, designerid);
                         startActivity(DesignerInfoActivity.class, designerBundle);
@@ -246,6 +249,12 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
             makeTextLong(error_msg);
         }
     };
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 
     @Override
     public int getLayoutId() {
