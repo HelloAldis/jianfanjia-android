@@ -158,7 +158,6 @@ public class DesignerInfoActivity extends BaseActivity implements OnClickListene
 
     @Override
     public void onScroll(int translationY, int maxY) {
-        LogTool.d(TAG, "translationY:" + translationY + "   maxY:" + maxY);
         translationY = -translationY;
         if (titleMaxScrollHeight == 0) {
             titleMaxScrollHeight = ((View) tv_title.getParent()).getBottom() - tv_title.getTop();
