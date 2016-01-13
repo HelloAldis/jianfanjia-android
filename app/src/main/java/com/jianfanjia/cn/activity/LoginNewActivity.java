@@ -20,7 +20,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.jianfanjia.cn.base.BaseAnnotationActivity;
@@ -33,8 +32,8 @@ import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.AuthUtil;
 import com.jianfanjia.cn.tools.GeTuiManager;
 import com.jianfanjia.cn.tools.LogTool;
-import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.controller.listener.SocializeListeners;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -274,7 +273,7 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
         super.onResume();
     }
 
-    @Click({R.id.btn_login, R.id.btn_next, R.id.act_forget_password, R.id.act_login, R.id.act_register, R.id.btn_login_weixin_layout,R.id.btn_register_weixin_layout})
+    @Click({R.id.btn_login, R.id.btn_next, R.id.act_forget_password, R.id.act_login, R.id.act_register, R.id.btn_login_weixin_layout, R.id.btn_register_weixin_layout})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_login:
@@ -305,61 +304,44 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
                 }
                 break;
             case R.id.btn_login_weixin_layout:
-             case   R.id.btn_register_weixin_layout:
+            case R.id.btn_register_weixin_layout:
                 SHARE_MEDIA platform = SHARE_MEDIA.WEIXIN;
-//                if (authUtil.isAuthorize(LoginNewActivity.this, platform)) {
-//                    authUtil.getPlatformInfo(LoginNewActivity.this, SHARE_MEDIA.WEIXIN, umAuthInfoListener);
-//                } else {
-                    authUtil.doOauthVerify(this, platform, umAuthListener);
-//                }
+                authUtil.doOauthVerify(this, platform, umDataListener);
                 break;
             default:
                 break;
         }
     }
 
-    private UMAuthListener umAuthListener = new UMAuthListener() {
+    private SocializeListeners.UMDataListener umDataListener = new SocializeListeners.UMDataListener() {
         @Override
-        public void onComplete(SHARE_MEDIA platform, int action, Map<String, String> data) {
-            if (data != null) {
-                LogTool.d(this.getClass().getName(), data.toString());
-                authUtil.getPlatformInfo(LoginNewActivity.this, SHARE_MEDIA.WEIXIN, umAuthInfoListener);
-            }
+        public void onStart() {
+
         }
 
         @Override
-        public void onError(SHARE_MEDIA platform, int action, Throwable t) {
-            Toast.makeText(getApplicationContext(), getString(R.string.authorize_fail), Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        public void onCancel(SHARE_MEDIA platform, int action) {
-            Toast.makeText(getApplicationContext(), getString(R.string.authorize_cancel), Toast.LENGTH_SHORT).show();
-        }
-    };
-
-    private UMAuthListener umAuthInfoListener = new UMAuthListener() {
-        @Override
-        public void onComplete(SHARE_MEDIA platform, int action, Map<String, String> data) {
-            if (data != null) {
+        public void onComplete(int i, Map<String, Object> data) {
+            if (i == 200 && data != null) {
                 LogTool.d(this.getClass().getName(), data.toString());
                 WeiXinRegisterInfo weiXinRegisterInfo = new WeiXinRegisterInfo();
-                weiXinRegisterInfo.setUsername(data.get("nickname"));
-                weiXinRegisterInfo.setImage_url(data.get("headimgurl"));
+                weiXinRegisterInfo.setUsername(data.get("nickname").toString());
+                weiXinRegisterInfo.setImage_url((String) data.get("headimgurl").toString());
                 String sex = null;
-                if ((sex = data.get("sex")) != null) {
+                if ((sex = data.get("sex").toString()) != null) {
                     weiXinRegisterInfo.setSex(sex.equals(Constant.SEX_MAN) ? Constant.SEX_WOMEN : Constant.SEX_MAN);//系统的性别和微信的性别要转换
                 }
-                weiXinRegisterInfo.setWechat_openid(data.get("openid"));
-                weiXinRegisterInfo.setWechat_unionid(data.get("unionid"));
+                weiXinRegisterInfo.setWechat_openid(data.get("openid").toString());
+                weiXinRegisterInfo.setWechat_unionid(data.get("unionid").toString());
 
                 JianFanJiaClient.weixinLogin(LoginNewActivity.this, weiXinRegisterInfo, new ApiUiUpdateListener() {
                     @Override
                     public void preLoad() {
+                        showWaitDialog();
                     }
 
                     @Override
                     public void loadSuccess(Object data) {
+                        hideWaitDialog();
                         if (data != null) {
                             if (dataManager.getWeixinFisrtLogin()) {
                                 startActivity(NewUserCollectDecStageActivity_.class);
@@ -373,20 +355,13 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
 
                     @Override
                     public void loadFailture(String error_msg) {
+                        hideWaitDialog();
                         makeTextShort(error_msg);
                     }
                 }, LoginNewActivity.this);
+            } else {
+                makeTextShort(getString(R.string.authorize_fail));
             }
-        }
-
-        @Override
-        public void onError(SHARE_MEDIA platform, int action, Throwable t) {
-            Toast.makeText(getApplicationContext(), getString(R.string.authorize_fail), Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        public void onCancel(SHARE_MEDIA platform, int action) {
-            Toast.makeText(getApplicationContext(), getString(R.string.authorize_cancel), Toast.LENGTH_SHORT).show();
         }
     };
 
@@ -656,6 +631,5 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        authUtil.getUmShareAPI().onActivityResult(requestCode, resultCode, data);
     }
 }

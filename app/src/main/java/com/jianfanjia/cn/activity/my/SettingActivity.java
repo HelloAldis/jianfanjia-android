@@ -15,19 +15,19 @@ import com.jianfanjia.cn.activity.LoginNewActivity_;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.interf.ShowPopWindowCallBack;
+import com.jianfanjia.cn.tools.AuthUtil;
 import com.jianfanjia.cn.tools.FileUtil;
 import com.jianfanjia.cn.tools.GeTuiManager;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.ShareUtil;
 import com.jianfanjia.cn.view.MainHeadView;
-import com.jianfanjia.cn.view.SharePopWindow;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.umeng.socialize.UMShareAPI;
-import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.bean.SocializeEntity;
+import com.umeng.socialize.controller.listener.SocializeListeners;
+import com.umeng.socialize.sso.UMSsoHandler;
 
 import java.io.File;
 
@@ -56,7 +56,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener, On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        shareUtil = ShareUtil.getShareUtil(this);
+        shareUtil = new ShareUtil(this);
     }
 
     @Override
@@ -115,54 +115,6 @@ public class SettingActivity extends BaseActivity implements OnClickListener, On
         }
     }
 
-    private void showPopwindow(View view) {
-        SharePopWindow window = new SharePopWindow(SettingActivity.this, new ShowPopWindowCallBack() {
-            @Override
-            public void shareToWeiXin() {
-                shareUtil.shareApp(SHARE_MEDIA.WEIXIN, umShareListener);
-            }
-
-            @Override
-            public void shareToWeiBo() {
-                shareUtil.shareApp(SHARE_MEDIA.SINA, umShareListener);
-            }
-
-            @Override
-            public void shareToQQ() {
-                shareUtil.shareApp(SHARE_MEDIA.QQ, umShareListener);
-            }
-
-            @Override
-            public void shareToCircle() {
-                shareUtil.shareApp(SHARE_MEDIA.WEIXIN_CIRCLE, umShareListener);
-            }
-
-            @Override
-            public void shareToZone() {
-                shareUtil.shareApp(SHARE_MEDIA.QZONE, umShareListener);
-            }
-        });
-        window.show(view);
-    }
-
-    private UMShareListener umShareListener = new UMShareListener() {
-        @Override
-        public void onResult(SHARE_MEDIA platform) {
-            makeTextShort(platform + getString(R.string.share_success));
-        }
-
-        @Override
-        public void onError(SHARE_MEDIA platform, Throwable t) {
-            makeTextShort(platform + getString(R.string.share_failure));
-        }
-
-        @Override
-        public void onCancel(SHARE_MEDIA platform) {
-            makeTextShort(platform + getString(R.string.share_cancel));
-        }
-    };
-
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -182,7 +134,17 @@ public class SettingActivity extends BaseActivity implements OnClickListener, On
 //                checkVersion();
                 break;
             case R.id.share_layout:
-                showPopwindow(v.getRootView());
+                shareUtil.shareApp(this, new SocializeListeners.SnsPostListener() {
+                    @Override
+                    public void onStart() {
+
+                    }
+
+                    @Override
+                    public void onComplete(SHARE_MEDIA share_media, int i, SocializeEntity socializeEntity) {
+//                        makeTextShort("status =" + i);
+                    }
+                });
                 break;
             case R.id.clear_cache_layout:
                 onClickCleanCache();
@@ -209,10 +171,11 @@ public class SettingActivity extends BaseActivity implements OnClickListener, On
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        GeTuiManager.cancelBind(getApplicationContext(),dataManager.getUserId());
+                        GeTuiManager.cancelBind(getApplicationContext(), dataManager.getUserId());
                         dataManager.cleanData();
                         MyApplication.getInstance().clearCookie();
                         appManager.finishAllActivity();
+                        AuthUtil.getInstance(SettingActivity.this).deleteOauth(SettingActivity.this,SHARE_MEDIA.WEIXIN);
                         startActivity(LoginNewActivity_.class);
                         finish();
                     }
@@ -294,6 +257,9 @@ public class SettingActivity extends BaseActivity implements OnClickListener, On
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+        UMSsoHandler ssoHandler = shareUtil.getUmSocialService().getConfig().getSsoHandler(requestCode);
+        if(ssoHandler != null){
+            ssoHandler.authorizeCallBack(requestCode, resultCode, data);
+        }
     }
 }

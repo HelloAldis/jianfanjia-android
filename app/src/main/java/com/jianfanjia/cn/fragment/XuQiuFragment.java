@@ -197,6 +197,7 @@ public class XuQiuFragment extends BaseAnnotationFragment {
         mainHeadView.setBackgroundTransparent();
         mainHeadView.setRightTitleVisable(View.VISIBLE);
         mainHeadView.setBackLayoutVisable(View.GONE);
+        setListVisiable();
         initPullRefresh();
         initListView();
         initIntent();

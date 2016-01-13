@@ -10,7 +10,6 @@ import com.jianfanjia.cn.http.OkHttpClientManager;
 import com.jianfanjia.cn.http.cookie.PersistentCookieStore;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.squareup.okhttp.OkHttpClient;
-import com.umeng.socialize.PlatformConfig;
 
 import java.net.CookieManager;
 import java.net.CookiePolicy;
@@ -35,9 +34,9 @@ public class MyApplication extends BaseApplication {
         cookieStore = new PersistentCookieStore(this);// 记录cookie
         saveCookie(OkHttpClientManager.getInstance().client());
 
-        PlatformConfig.setWeixin("wx391daabfce27e728", "f7c8e3e1b5910dd93be2744dacb3a1cc");
-        PlatformConfig.setSinaWeibo("10611350", "4a5b93b71687ec9af1ee91cfdfb361d3");
-        PlatformConfig.setQQZone("1104973048", "FuDs7s4vJGAEzCrz");
+//        PlatformConfig.setWeixin("wx391daabfce27e728", "f7c8e3e1b5910dd93be2744dacb3a1cc");
+//        PlatformConfig.setSinaWeibo("10611350", "4a5b93b71687ec9af1ee91cfdfb361d3");
+//        PlatformConfig.setQQZone("1104973048", "FuDs7s4vJGAEzCrz");
 
 
         /*

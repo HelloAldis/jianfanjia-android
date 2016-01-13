@@ -15,7 +15,7 @@
             android:layout_width="@dimen/space_60"
             android:layout_height="match_parent"
             android:layout_centerVertical="true"
-            android:background="@drawable/commom_head_back_bg_selector">
+            android:background="@drawable/common_head_back_bg_selector">
 
             <ImageView
                 android:id="@+id/head_back"
@@ -38,7 +38,7 @@
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:background="@drawable/commom_head_back_bg_selector"
+            android:background="@drawable/common_head_back_bg_selector"
             android:gravity="center"
             android:paddingLeft="@dimen/space_18"
             android:paddingRight="@dimen/space_18"
