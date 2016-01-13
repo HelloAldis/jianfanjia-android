@@ -182,7 +182,7 @@ public class Url_New {
             + "search_beautiful_image";
     //用户收藏作品
     public String ADD_PRODUCT = HTTPROOT
-            + "favorite/product/icon_add";
+            + "favorite/product/add";
     //用户获取收藏作品列表
     public String GET_PRODUCT_LIST_BY_COLLECTED = HTTPROOT
             + "favorite/product/list";
@@ -191,7 +191,7 @@ public class Url_New {
             + "favorite/product/delete";
     //用户收藏美图
     public String ADD_BEAUTY_IMG = HTTPROOT
-            + "favorite/beautiful_image/icon_add";
+            + "favorite/beautiful_image/add";
     //用户获取收藏的装修美图列表
     public String GET_BEAUTY_IMG_LIST_BY_USER = HTTPROOT
             + "favorite/beautiful_image/list";
