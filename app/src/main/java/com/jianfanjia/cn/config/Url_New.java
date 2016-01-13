@@ -99,7 +99,7 @@ public class Url_New {
     //业主获取我的意向设计师列表(Post)
     public String FAVORITE_DESIGNER_LIST = HTTPROOT + "favorite/designer/list";
     //业主添加设计师到意向列表（Post)
-    public String ADD_FAVORITE_DESIGNER = HTTPROOT + "favorite/designer/icon_add";
+    public String ADD_FAVORITE_DESIGNER = HTTPROOT + "favorite/designer/add";
     //业主移除意向设计师列表的设计师(Post)
     public String DELETE_FAVORITE_DESIGNER = HTTPROOT + "favorite/designer/delete";
     //获取某个作品主页
