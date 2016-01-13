@@ -1,196 +1,170 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_layout_bg"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appbar"
+    <include
+        android:id="@+id/ic_headerbar"
+        layout="@layout/ic_headerbar" />
+
+    <com.jianfanjia.cn.view.layout.ScrollableLayout
+        android:id="@+id/sl_root"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/head_layout_bg"
-        android:fitsSystemWindows="true"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/collapsing_toolbar"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fitsSystemWindows="true"
-            app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
-            app:titleEnabled="false">
+            android:background="@color/head_layout_bg"
+            android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fitsSystemWindows="true"
-                android:orientation="vertical">
+            <FrameLayout
+                android:id="@+id/imageLayout"
+                android:layout_width="60dip"
+                android:layout_height="60dip"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dip">
 
-                <FrameLayout
-                    android:id="@+id/imageLayout"
-                    android:layout_width="60dip"
-                    android:layout_height="60dip"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="80dip">
+                <com.jianfanjia.cn.view.layout.CircleImageView
+                    android:id="@+id/designerinfo_head_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    app:border_color="@color/white"
+                    app:border_width="2dip" />
 
-                    <com.jianfanjia.cn.view.layout.CircleImageView
-                        android:id="@+id/designerinfo_head_img"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="centerCrop"
-                        app:border_color="@color/white"
-                        app:border_width="2dip" />
-
-                    <ImageView
-                        android:id="@+id/designerinfo_auth"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="bottom|right"
-                        android:src="@mipmap/icon_auth"
-                        android:visibility="gone" />
-                </FrameLayout>
-
-                <TextView
-                    android:id="@+id/designer_name"
-                    style="@style/listview_item_text_style_big"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="8dip"
-                    android:textColor="@color/home_page_text_color" />
-
-                <RatingBar
-                    android:id="@+id/ratingBar"
-                    style="@style/list_item_ratingbar_style"
+                <ImageView
+                    android:id="@+id/designerinfo_auth"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="8dip"
-                    android:isIndicator="true"
-                    android:numStars="5"
-                    android:rating="0" />
+                    android:layout_gravity="bottom|right"
+                    android:src="@mipmap/icon_auth"
+                    android:visibility="gone" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/designer_name"
+                style="@style/listview_item_text_style_big"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="8dip"
+                android:textColor="@color/home_page_text_color" />
+
+            <RatingBar
+                android:id="@+id/ratingBar"
+                style="@style/list_item_ratingbar_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="8dip"
+                android:isIndicator="true"
+                android:numStars="5"
+                android:rating="0" />
+
+            <LinearLayout
+                android:id="@+id/infoLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dip"
+                android:layout_marginRight="30dip"
+                android:layout_marginTop="16dip"
+                android:orientation="horizontal">
 
                 <LinearLayout
-                    android:id="@+id/infoLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dip"
-                    android:layout_marginRight="30dip"
-                    android:layout_marginTop="16dip"
-                    android:orientation="horizontal">
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/viewCountText"
+                        style="@style/listview_item_text_style_middle"
+                        android:layout_gravity="center_horizontal"
+                        android:text="0"
+                        android:textColor="@color/home_page_text_color"
+                        android:textSize="@dimen/text_size_14" />
 
-                        <TextView
-                            android:id="@+id/viewCountText"
-                            style="@style/listview_item_text_style_middle"
-                            android:layout_gravity="center_horizontal"
-                            android:text="0"
-                            android:textColor="@color/home_page_text_color"
-                            android:textSize="@dimen/text_size_14" />
+                    <TextView
+                        style="@style/listview_item_text_style_small"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="5dip"
+                        android:text="浏览数"
+                        android:textColor="@color/designer_info_text_color_bg"
+                        android:textSize="@dimen/text_size_14" />
+                    <!-- android:textColor="@color/designer_info_text_color"-->
+                </LinearLayout>
 
-                        <TextView
-                            style="@style/listview_item_text_style_small"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_marginTop="5dip"
-                            android:text="浏览数"
-                            android:textColor="@color/designer_info_text_color_bg"
-                            android:textSize="@dimen/text_size_14" />
-                        <!-- android:textColor="@color/designer_info_text_color"-->
-                    </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/productCountText"
+                        style="@style/listview_item_text_style_middle"
+                        android:layout_gravity="center_horizontal"
+                        android:text="0"
+                        android:textColor="@color/home_page_text_color"
+                        android:textSize="@dimen/text_size_14" />
 
-                        <TextView
-                            android:id="@+id/productCountText"
-                            style="@style/listview_item_text_style_middle"
-                            android:layout_gravity="center_horizontal"
-                            android:text="0"
-                            android:textColor="@color/home_page_text_color"
-                            android:textSize="@dimen/text_size_14" />
-
-                        <TextView
-                            style="@style/listview_item_text_style_small"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_marginTop="5dip"
-                            android:text="作品数"
-                            android:textColor="@color/designer_info_text_color_bg"
-                            android:textSize="@dimen/text_size_14" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/appointCountText"
-                            style="@style/listview_item_text_style_middle"
-                            android:layout_gravity="center_horizontal"
-                            android:text="0"
-                            android:textColor="@color/home_page_text_color"
-                            android:textSize="@dimen/text_size_14" />
-
-                        <TextView
-                            style="@style/listview_item_text_style_small"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_marginTop="5dip"
-                            android:text="预约数"
-                            android:textColor="@color/designer_info_text_color_bg"
-                            android:textSize="@dimen/text_size_14" />
-                    </LinearLayout>
+                    <TextView
+                        style="@style/listview_item_text_style_small"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="5dip"
+                        android:text="作品数"
+                        android:textColor="@color/designer_info_text_color_bg"
+                        android:textSize="@dimen/text_size_14" />
 
                 </LinearLayout>
 
-                <Button
-                    android:id="@+id/btn_add"
-                    style="@style/button_add_style"
-                    android:layout_marginBottom="@dimen/space_10"
-                    android:layout_marginLeft="@dimen/space_60"
-                    android:layout_marginRight="@dimen/space_60"
-                    android:layout_marginTop="@dimen/space_10"
-                    android:text="@string/strl_add_yixiang" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-                <Button
-                    android:id="@+id/btn_delete"
-                    style="@style/button_delete_style"
-                    android:layout_marginBottom="@dimen/space_10"
-                    android:layout_marginLeft="@dimen/space_60"
-                    android:layout_marginRight="@dimen/space_60"
-                    android:layout_marginTop="@dimen/space_10"
-                    android:text="@string/strl_delete_yixiang"
-                    android:visibility="gone" />
+                    <TextView
+                        android:id="@+id/appointCountText"
+                        style="@style/listview_item_text_style_middle"
+                        android:layout_gravity="center_horizontal"
+                        android:text="0"
+                        android:textColor="@color/home_page_text_color"
+                        android:textSize="@dimen/text_size_14" />
+
+                    <TextView
+                        style="@style/listview_item_text_style_small"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="5dip"
+                        android:text="预约数"
+                        android:textColor="@color/designer_info_text_color_bg"
+                        android:textSize="@dimen/text_size_14" />
+                </LinearLayout>
             </LinearLayout>
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/space_48"
-                android:minHeight="@dimen/space_48"
-                app:layout_collapseMode="pin"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+            <Button
+                android:id="@+id/btn_add"
+                style="@style/button_add_style"
+                android:layout_marginBottom="@dimen/space_10"
+                android:layout_marginLeft="@dimen/space_60"
+                android:layout_marginRight="@dimen/space_60"
+                android:layout_marginTop="@dimen/space_10"
+                android:text="@string/strl_add_yixiang" />
 
-                <TextView
-                    android:id="@+id/toolbar_title"
-                    style="@style/listview_item_text_style_big"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:textColor="@color/home_page_text_color" />
-            </android.support.v7.widget.Toolbar>
-        </android.support.design.widget.CollapsingToolbarLayout>
+            <Button
+                android:id="@+id/btn_delete"
+                style="@style/button_delete_style"
+                android:layout_marginBottom="@dimen/space_10"
+                android:layout_marginLeft="@dimen/space_60"
+                android:layout_marginRight="@dimen/space_60"
+                android:layout_marginTop="@dimen/space_10"
+                android:text="@string/strl_delete_yixiang"
+                android:visibility="gone" />
+        </LinearLayout>
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"
@@ -202,12 +176,10 @@
             app:tabGravity="fill"
             app:tabMode="fixed" />
 
-    </android.support.design.widget.AppBarLayout>
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </com.jianfanjia.cn.view.layout.ScrollableLayout>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewpager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
-</android.support.design.widget.CoordinatorLayout>
+</LinearLayout>

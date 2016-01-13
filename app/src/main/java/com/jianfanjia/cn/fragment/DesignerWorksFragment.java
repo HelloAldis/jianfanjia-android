@@ -8,8 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.View;
 
-import com.jianfanjia.cn.activity.home.DesignerCaseInfoActivity;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.home.DesignerCaseInfoActivity;
 import com.jianfanjia.cn.adapter.DesignerWorksAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.DesignerWorksInfo;
@@ -20,6 +20,7 @@ import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.OnItemClickListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.tools.ScrollableHelper;
 import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
 
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ import java.util.List;
  * @date 2015-8-26 下午1:07:52
  */
 
-public class DesignerWorksFragment extends BaseFragment implements OnItemClickListener, ApiUiUpdateListener {
+public class DesignerWorksFragment extends BaseFragment implements OnItemClickListener, ApiUiUpdateListener, ScrollableHelper.ScrollableContainer {
     private static final String TAG = DesignerWorksFragment.class.getName();
     private RecyclerView designer_works_listview = null;
     private LinearLayoutManager mLayoutManager = null;
@@ -106,6 +107,11 @@ public class DesignerWorksFragment extends BaseFragment implements OnItemClickLi
     @Override
     public void loadFailture(String error_msg) {
         makeTextLong(error_msg);
+    }
+
+    @Override
+    public View getScrollableView() {
+        return designer_works_listview;
     }
 
     @Override

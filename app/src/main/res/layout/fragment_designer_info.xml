@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_layout_bg"
@@ -250,4 +251,4 @@
                 android:textSize="@dimen/text_size_14" />
         </LinearLayout>
     </LinearLayout>
-</android.support.v4.widget.NestedScrollView>
+</ScrollView>
