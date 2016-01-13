@@ -120,7 +120,7 @@ public class BindingAccountActivity extends BaseAnnotationActivity {
         if (TextUtils.isEmpty(phone = bindingPhoneEvent.getPhone())) return;
         LogTool.d(this.getClass().getName(), "event:" + bindingPhoneEvent.getPhone());
         bindingaccount_phoneText.setText(phone);
-        bindingaccount_phoneText.setVisibility(View.GONE);
+        bindingaccount_phone_goto.setVisibility(View.GONE);
     }
 
     private SocializeListeners.UMDataListener umDataListener = new SocializeListeners.UMDataListener() {
