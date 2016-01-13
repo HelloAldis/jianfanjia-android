@@ -2,17 +2,15 @@ package com.jianfanjia.cn.activity.home;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.Event.MessageEvent;
@@ -29,6 +27,8 @@ import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.tools.ScrollableHelper;
+import com.jianfanjia.cn.view.layout.ScrollableLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,12 +41,11 @@ import de.greenrobot.event.EventBus;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class DesignerInfoActivity extends BaseActivity implements OnClickListener, AppBarLayout.OnOffsetChangedListener {
+public class DesignerInfoActivity extends BaseActivity implements OnClickListener, ViewPager.OnPageChangeListener, ScrollableLayout.OnScrollListener {
     private static final String TAG = DesignerInfoActivity.class.getName();
-    private Toolbar toolbar = null;
-    private TextView toolbar_title = null;
-    private CollapsingToolbarLayout collapsingToolbar = null;
-    private AppBarLayout appBarLayout = null;
+    private ScrollableLayout sl_root = null;
+    private RelativeLayout head_back_layout = null;
+    private TextView tv_title = null;
     private TabLayout tabLayout = null;
     private ViewPager viewPager = null;
     private RatingBar ratingBar = null;
@@ -58,26 +57,24 @@ public class DesignerInfoActivity extends BaseActivity implements OnClickListene
     private TextView appointCountText = null;
     private Button addBtn = null;
     private Button deleteBtn = null;
-    private DesignerInfoFragment infoFragment = null;
-    private DesignerWorksFragment workFragment = null;
+
     private String designerid = null;
     private String designer_name = null;
 
+    private float titleMaxScrollHeight;
+    private float hearderMaxHeight;
+    private float avatarTop;
+    private float maxScrollHeight;
+
+    private List<SelectItem> listViews = new ArrayList<SelectItem>();
+
     @Override
     public void initView() {
-        LogTool.d(TAG, "designerid=" + designerid);
-        //---------------------------------
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("");
-        toolbar_title = (TextView) findViewById(R.id.toolbar_title);
-        toolbar.setNavigationIcon(R.mipmap.icon_register_back);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
+        sl_root = (ScrollableLayout) findViewById(R.id.sl_root);
+        head_back_layout = (RelativeLayout) findViewById(R.id.head_back_layout);
+        tv_title = (TextView) findViewById(R.id.tv_title);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         tabLayout = (TabLayout) findViewById(R.id.tabs);
-        collapsingToolbar =
-                (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         designerinfo_head_img = (ImageView) findViewById(R.id.designerinfo_head_img);
         designerinfo_auth = (ImageView) findViewById(R.id.designerinfo_auth);
         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
@@ -87,14 +84,15 @@ public class DesignerInfoActivity extends BaseActivity implements OnClickListene
         appointCountText = (TextView) findViewById(R.id.appointCountText);
         addBtn = (Button) findViewById(R.id.btn_add);
         deleteBtn = (Button) findViewById(R.id.btn_delete);
+        tv_title.setTranslationY(-1000);
         initData(this.getIntent());
+        setupViewPager(viewPager);
+        tabLayout.setupWithViewPager(viewPager);
     }
 
     private void initData(Intent intent) {
         Bundle designerBundle = intent.getExtras();
         designerid = designerBundle.getString(Global.DESIGNER_ID);
-        setupViewPager(viewPager);
-        tabLayout.setupWithViewPager(viewPager);
         getDesignerPageInfo(designerid);
     }
 
@@ -106,7 +104,6 @@ public class DesignerInfoActivity extends BaseActivity implements OnClickListene
     }
 
     private void setupViewPager(ViewPager viewPager) {
-        List<SelectItem> listViews = new ArrayList<SelectItem>();
         SelectItem caigouItem = new SelectItem(DesignerInfoFragment.newInstance(designerid),
                 "资料");
         SelectItem fukuanItem = new SelectItem(DesignerWorksFragment.newInstance(designerid),
@@ -115,24 +112,24 @@ public class DesignerInfoActivity extends BaseActivity implements OnClickListene
         listViews.add(fukuanItem);
         MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(fragmentManager, listViews);
         viewPager.setAdapter(adapter);
+        viewPager.addOnPageChangeListener(this);
+        sl_root.getHelper().setCurrentScrollableContainer((ScrollableHelper.ScrollableContainer) listViews.get(0).getFragment());
     }
 
     @Override
     public void setListener() {
+        head_back_layout.setOnClickListener(this);
+        sl_root.setOnScrollListener(this);
         addBtn.setOnClickListener(this);
         deleteBtn.setOnClickListener(this);
-        appBarLayout.addOnOffsetChangedListener(this);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                appManager.finishActivity(DesignerInfoActivity.this);
-            }
-        });
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.head_back_layout:
+                appManager.finishActivity(this);
+                break;
             case R.id.btn_add:
                 addFavoriteDesignerToList(designerid);
                 break;
@@ -144,16 +141,45 @@ public class DesignerInfoActivity extends BaseActivity implements OnClickListene
         }
     }
 
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
 
     @Override
-    public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-        if (verticalOffset == 0) {
-            toolbar_title.setText("");
-        } else if (Math.abs(verticalOffset) >= appBarLayout.getTotalScrollRange()) {
-            toolbar_title.setText(designer_name);
-        } else {
-            toolbar_title.setText("");
+    public void onPageSelected(int position) {
+        sl_root.getHelper().setCurrentScrollableContainer((ScrollableHelper.ScrollableContainer) listViews.get(position).getFragment());
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
+    }
+
+    @Override
+    public void onScroll(int translationY, int maxY) {
+        translationY = -translationY;
+        if (titleMaxScrollHeight == 0) {
+            titleMaxScrollHeight = ((View) tv_title.getParent()).getBottom() - tv_title.getTop();
+            maxScrollHeight = hearderMaxHeight + titleMaxScrollHeight;
         }
+        if (hearderMaxHeight == 0) {
+            hearderMaxHeight = designerName.getTop();
+            maxScrollHeight = hearderMaxHeight + titleMaxScrollHeight;
+        }
+        if (avatarTop == 0) {
+            avatarTop = designerinfo_head_img.getTop();
+        }
+        int alpha = 0;
+        int baseAlpha = 60;
+        if (0 > avatarTop + translationY) {
+            alpha = Math.min(255, (int) (Math.abs(avatarTop + translationY) * (255 - baseAlpha) / (hearderMaxHeight - avatarTop) + baseAlpha));
+            tv_title.setVisibility(View.VISIBLE);
+        } else {
+            tv_title.setVisibility(View.GONE);
+        }
+        tv_title.setAlpha(alpha);
+        tv_title.setTranslationY(Math.max(0, maxScrollHeight + translationY));
     }
 
     private void getDesignerPageInfo(String designerid) {
@@ -181,6 +207,7 @@ public class DesignerInfoActivity extends BaseActivity implements OnClickListene
             LogTool.d(TAG, "designerInfo:" + designerInfo);
             if (null != designerInfo) {
                 designer_name = designerInfo.getUsername();
+                tv_title.setText(designer_name);
                 designerName.setText(designer_name);
                 String designerid = designerInfo.getImageid();
                 if (!TextUtils.isEmpty(designerid)) {
@@ -259,7 +286,6 @@ public class DesignerInfoActivity extends BaseActivity implements OnClickListene
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        appBarLayout.removeOnOffsetChangedListener(this);
     }
 
     @Override

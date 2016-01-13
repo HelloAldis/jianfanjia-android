@@ -3,6 +3,7 @@ package com.jianfanjia.cn.fragment;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
@@ -14,6 +15,7 @@ import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.tools.ScrollableHelper;
 
 import java.util.List;
 
@@ -23,8 +25,9 @@ import java.util.List;
  * @Description: 设计师资料
  * @date 2015-8-26 下午1:07:52
  */
-public class DesignerInfoFragment extends BaseFragment implements ApiUiUpdateListener {
+public class DesignerInfoFragment extends BaseFragment implements ApiUiUpdateListener, ScrollableHelper.ScrollableContainer {
     private static final String TAG = DesignerInfoFragment.class.getName();
+    private ScrollView scrollView = null;
     private LinearLayout jiandanTypeLayout = null;
     private LinearLayout jiandanHouseTypeLayout = null;
     private LinearLayout jiandanDistrictLayout = null;
@@ -58,6 +61,7 @@ public class DesignerInfoFragment extends BaseFragment implements ApiUiUpdateLis
         Bundle bundle = getArguments();
         designerid = bundle.getString(Global.DESIGNER_ID);
         LogTool.d(TAG, "designerid=" + designerid);
+        scrollView = (ScrollView) view.findViewById(R.id.scrollView);
         jiandanTypeLayout = (LinearLayout) view.findViewById(R.id.jiandanTypeLayout);
         jiandanHouseTypeLayout = (LinearLayout) view.findViewById(R.id.jiandanHouseTypeLayout);
         jiandanDistrictLayout = (LinearLayout) view.findViewById(R.id.jiandanDistrictLayout);
@@ -141,6 +145,11 @@ public class DesignerInfoFragment extends BaseFragment implements ApiUiUpdateLis
     @Override
     public void loadFailture(String error_msg) {
         makeTextLong(error_msg);
+    }
+
+    @Override
+    public View getScrollableView() {
+        return scrollView;
     }
 
     @Override
