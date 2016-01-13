@@ -28,4 +28,20 @@
         android:text="简繁家"
         android:textColor="@color/light_black_color" />
 
+    <RelativeLayout
+        android:id="@+id/toolbar_collect_layout"
+        android:layout_width="@dimen/space_60"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/toolbar_collect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="@dimen/space_18"
+            android:background="@drawable/btn_collect" />
+    </RelativeLayout>
+
 </RelativeLayout>
