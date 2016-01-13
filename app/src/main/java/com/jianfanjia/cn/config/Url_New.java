@@ -166,6 +166,8 @@ public class Url_New {
     public String GET_IMAGE = HTTPROOT + "image/";
     //获取缩略图
     public String GET_THUMBNAIL_IMAGE = HTTPROOT + "thumbnail/" + WIDTH + "/";
+    //分享的链接
+    public String SHARE_IMAGE = "http://101.200.191.159/zt/mobile/sharemito.html?title=";
     // 根据工地id获取某个工地
     public String GET_PROCESSINFO_BYID = HTTPROOT + "process/"
             + ID;

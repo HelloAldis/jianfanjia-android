@@ -36,20 +36,23 @@
                 style="@style/listview_item_text_style_small"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/space_48"
-                android:layout_marginRight="@dimen/space_8"
                 android:layout_toLeftOf="@+id/bindingaccount_phone_goto"
                 android:layout_toRightOf="@+id/bindingaccount_phone_title"
                 android:ellipsize="end"
                 android:gravity="right"
                 android:singleLine="true"
-                android:textColor="@color/light_black_color" />
+                android:textColor="@color/light_black_color"
+                android:layout_alignWithParentIfMissing="true"
+                android:text="11111"/>
 
             <ImageView
                 android:id="@+id/bindingaccount_phone_goto"
                 style="@style/my_item_layout_image_style"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:contentDescription="@null" />
+                android:contentDescription="@null"
+                android:layout_marginLeft="@dimen/space_8"
+                />
         </RelativeLayout>
 
         <View style="@style/divier_line" />
@@ -71,19 +74,20 @@
                 style="@style/listview_item_text_style_small"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/space_48"
-                android:layout_marginRight="@dimen/space_8"
                 android:layout_toLeftOf="@+id/bindingaccount_weixin_goto"
                 android:layout_toRightOf="@+id/bindingaccount_weixin_title"
                 android:ellipsize="end"
                 android:gravity="right"
                 android:singleLine="true"
-                android:textColor="@color/light_black_color" />
+                android:textColor="@color/light_black_color"
+                android:layout_alignWithParentIfMissing="true"/>
 
             <ImageView
                 android:id="@+id/bindingaccount_weixin_goto"
                 style="@style/my_item_layout_image_style"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/space_8"
                 android:contentDescription="@null" />
         </RelativeLayout>
 

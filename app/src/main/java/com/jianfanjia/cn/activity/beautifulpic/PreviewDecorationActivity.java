@@ -27,9 +27,11 @@ import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.ShareUtil;
 import com.jianfanjia.cn.tools.UiHelper;
-import com.umeng.socialize.UMShareAPI;
-import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.bean.SocializeConfig;
+import com.umeng.socialize.bean.SocializeEntity;
+import com.umeng.socialize.controller.listener.SocializeListeners;
+import com.umeng.socialize.sso.UMSsoHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,7 +74,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
         Bundle decorationBundle = intent.getExtras();
         decorationId = decorationBundle.getString(Global.DECORATION_ID);
         LogTool.d(TAG, "decorationId=" + decorationId);
-        shareUtil = ShareUtil.getShareUtil(this);
+        shareUtil = new ShareUtil(this);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar_collect = (ImageView) findViewById(R.id.toolbar_collect);
         toolbar_share = (ImageView) findViewById(R.id.toolbar_share);
@@ -256,13 +258,18 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
         LogTool.d(TAG, "currentImgId=" + currentImgId);
     }
 
-    private void shareByPlatform(SHARE_MEDIA platform) {
-        showWaitDialog();
-        shareUtil.shareImage(picTitle, currentStyle, currentTag, currentImgId, platform, umShareListener);
-    }
-
     private void showPopwindow(View view) {
-        shareUtil.shareImage(this,picTitle, currentStyle, currentTag, currentImgId,umShareListener);
+        shareUtil.shareImage(this, picTitle, currentStyle, currentTag, currentImgId, new SocializeListeners.SnsPostListener() {
+            @Override
+            public void onStart() {
+
+            }
+
+            @Override
+            public void onComplete(SHARE_MEDIA share_media, int i, SocializeEntity socializeEntity) {
+//                makeTextShort("status =" + i);
+            }
+        });
        /* SharePopWindow window = new SharePopWindow(PreviewDecorationActivity.this, new ShowPopWindowCallBack() {
             @Override
             public void shareToWeiXin() {
@@ -309,28 +316,15 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
         }
     }
 
-    private UMShareListener umShareListener = new UMShareListener() {
-        @Override
-        public void onResult(SHARE_MEDIA platform) {
-            LogTool.d(TAG, platform + getString(R.string.share_success));
-        }
-
-        @Override
-        public void onError(SHARE_MEDIA platform, Throwable t) {
-            LogTool.d(TAG, platform + getString(R.string.share_failure));
-        }
-
-        @Override
-        public void onCancel(SHARE_MEDIA platform) {
-            LogTool.d(TAG, platform + getString(R.string.share_cancel));
-        }
-    };
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         /** attention to this below ,must icon_add this**/
-        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+        UMSsoHandler ssoHandler = SocializeConfig.getSocializeConfig().getSsoHandler(requestCode);
+        if (ssoHandler != null) {
+            ssoHandler.authorizeCallBack(requestCode, resultCode, data);
+        }
     }
 
     @Override

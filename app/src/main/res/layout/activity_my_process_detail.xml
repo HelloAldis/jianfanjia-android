@@ -22,7 +22,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="right|center_vertical"
             android:paddingRight="@dimen/space_14"
-            android:background="@drawable/commom_head_back_bg_selector">
+            android:background="@drawable/common_head_back_bg_selector">
 
             <ImageView
                 android:id="@+id/head_notification"
