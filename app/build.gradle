@@ -24,8 +24,8 @@ android {
         applicationId "com.jianfanjia.cn.activity"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 30
-        versionName "2.1.9"
+        versionCode 31
+        versionName "2.2.0"
 
         // AndroidManifest.xml 里面UMENG_CHANNEL的value为 ${UMENG_CHANNEL_VALUE}
 //        manifestPlaceholders = [UMENG_CHANNEL_VALUE: "channel_name"]
@@ -47,8 +47,8 @@ android {
     buildTypes {
 
         debug {
-//            minifyEnabled true
-//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.relealse
 
             manifestPlaceholders = [GETUI_PUSH_APPID    : "t9nLEYqbWI7HUX2QkE79v2", GETUI_PUSH_APPKEY: "m2fZOPk3fy5pgq6szkabb7",
@@ -56,8 +56,8 @@ android {
         }
 
         release {
-//            minifyEnabled true
-//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.relealse
 
             manifestPlaceholders = [GETUI_PUSH_APPID    : "YZV748rCe89l8CfZ7dtIF9", GETUI_PUSH_APPKEY: "8GJ1XgPOL9ArriE8xOJDK8",
@@ -65,14 +65,14 @@ android {
         }
         andtest {
             debuggable true
-//            minifyEnabled true
-//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.relealse
 
-            manifestPlaceholders = [GETUI_PUSH_APPID    : "t9nLEYqbWI7HUX2QkE79v2", GETUI_PUSH_APPKEY: "m2fZOPk3fy5pgq6szkabb7",
-                                    GETUI_PUSH_APPSECRET: "cO8DCexdK69ug14SeeIbg7", SERVER_PORT: RELEASE_SERVER_PORT, SERVER_IP: TEST_SERVER_IP]
-//            manifestPlaceholders = [GETUI_PUSH_APPID: "SLKdGK8YIr9wns6NPEL8v8", GETUI_PUSH_APPKEY: "O3oCpGEAVp7NjP67JbMPt5",
-//              GETUI_PUSH_APPSECRET: "MM8Ybygbsz7EUvMoNpkHd5",SERVER_PORT:TEST_SERVER_PORT , SERVER_IP : TEST_SERVER_IP]
+//            manifestPlaceholders = [GETUI_PUSH_APPID    : "t9nLEYqbWI7HUX2QkE79v2", GETUI_PUSH_APPKEY: "m2fZOPk3fy5pgq6szkabb7",
+//                                    GETUI_PUSH_APPSECRET: "cO8DCexdK69ug14SeeIbg7", SERVER_PORT: RELEASE_SERVER_PORT, SERVER_IP: TEST_SERVER_IP]
+            manifestPlaceholders = [GETUI_PUSH_APPID: "SLKdGK8YIr9wns6NPEL8v8", GETUI_PUSH_APPKEY: "O3oCpGEAVp7NjP67JbMPt5",
+              GETUI_PUSH_APPSECRET: "MM8Ybygbsz7EUvMoNpkHd5",SERVER_PORT:TEST_SERVER_PORT , SERVER_IP : TEST_SERVER_IP]
         }
     }
     sourceSets {
