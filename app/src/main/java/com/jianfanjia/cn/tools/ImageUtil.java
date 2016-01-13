@@ -1,5 +1,6 @@
 package com.jianfanjia.cn.tools;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -387,6 +388,10 @@ public class ImageUtil {
         return drawable;
     }
 
+    public static Bitmap drawableResToBitmap(Context context ,int resId){
+        return BitmapFactory.decodeResource(context.getResources(),resId);
+    }
+
     /**
      * 将Drawable转化为Bitmap
      *
@@ -404,6 +409,8 @@ public class ImageUtil {
         drawable.draw(canvas);
         return bitmap;
     }
+
+
 
     static Bitmap bitmap = null;
 
@@ -1208,5 +1215,31 @@ public class ImageUtil {
         canvas.drawBitmap(scaledSrcBmp, rect, rect, paint);
         return output;
     }
+
+    @SuppressLint("NewApi")
+    public static void blur(Bitmap bkg, ImageView view) {
+        long startMs = System.currentTimeMillis();
+        float scaleFactor = 10;//图片缩放比例；
+        float radius = 16;//模糊程度
+
+        Bitmap overlay = Bitmap.createBitmap(
+                (int) (bkg.getWidth() / scaleFactor),
+                (int) (bkg.getHeight() / scaleFactor),
+                Config.ARGB_8888);
+        Canvas canvas = new Canvas(overlay);
+        canvas.translate(-view.getLeft() / scaleFactor, -view.getTop() / scaleFactor);
+        canvas.scale(1 / scaleFactor, 1 / scaleFactor);
+        Paint paint = new Paint();
+        paint.setFlags(Paint.FILTER_BITMAP_FLAG);
+        canvas.drawBitmap(bkg, 0, 0, paint);
+
+        overlay = FastBlur.doBlur(overlay, (int) radius, true);
+        view.setImageDrawable(new BitmapDrawable(view.getResources(),overlay));
+        /**
+         * 打印高斯模糊处理时间，如果时间大约16ms，用户就能感到到卡顿，时间越长卡顿越明显，如果对模糊完图片要求不高，可是将scaleFactor设置大一些。
+         */
+        LogTool.d("ImageUtil.java", "blur time:" + (System.currentTimeMillis() - startMs));
+    }
+
 
 }

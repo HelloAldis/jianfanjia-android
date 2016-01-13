@@ -1,11 +1,15 @@
 package com.jianfanjia.cn.tools;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.base.BaseActivity;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.bean.SocializeEntity;
 import com.umeng.socialize.bean.StatusCode;
@@ -15,6 +19,8 @@ import com.umeng.socialize.controller.listener.SocializeListeners;
 import com.umeng.socialize.exception.SocializeException;
 import com.umeng.socialize.utils.Log;
 import com.umeng.socialize.weixin.controller.UMWXHandler;
+
+import java.util.List;
 
 /**
  * Description: com.jianfanjia.cn.tools
@@ -37,14 +43,24 @@ public class AuthUtil {
 
     private AuthUtil(Activity activity) {
         Log.LOG = true;//友盟的log开关
-        mController.getConfig().setSsoHandler(new UMWXHandler(activity.getApplicationContext(),"wx391daabfce27e728", "f7c8e3e1b5910dd93be2744dacb3a1cc"));
+        UMWXHandler wxHandler = new UMWXHandler(activity.getApplicationContext(),"wx391daabfce27e728", "f7c8e3e1b5910dd93be2744dacb3a1cc");
+        wxHandler.addToSocialSDK();
+//        mController.getConfig().setSsoHandler(wxHandler);
     }
 
-    public void doOauthVerify(final Activity activity, final SHARE_MEDIA platform, final SocializeListeners.UMDataListener umDataListener) {
+    public UMSocialService getUmSocialService(){
+        return mController;
+    }
+
+    public void doOauthVerify(final BaseActivity activity, final SHARE_MEDIA platform, final SocializeListeners.UMDataListener umDataListener) {
+        if(!isWeixinAvilible(activity)){
+            Toast.makeText(activity, "你还没有安装微信", Toast.LENGTH_SHORT).show();
+            return;
+        }
         mController.doOauthVerify(activity, platform, new SocializeListeners.UMAuthListener() {
             @Override
             public void onStart(SHARE_MEDIA share_media) {
-
+                activity.showWaitDialog();
             }
 
             @Override
@@ -53,23 +69,50 @@ public class AuthUtil {
                 if (!TextUtils.isEmpty(uid)) {
                     getPlatformInfo(activity, platform, umDataListener);
                 } else {
+                    activity.hideWaitDialog();
                     Toast.makeText(activity, activity.getString(R.string.authorize_fail), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onError(SocializeException e, SHARE_MEDIA share_media) {
+                activity.hideWaitDialog();
                 Toast.makeText(activity, activity.getString(R.string.authorize_fail), Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onCancel(SHARE_MEDIA share_media) {
+                activity.hideWaitDialog();
                 Toast.makeText(activity, activity.getString(R.string.authorize_cancel), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
+    /**
+     * 判断微信是否安装
+     * @param context
+     * @return
+     */
+    public static boolean isWeixinAvilible(Context context) {
+        final PackageManager packageManager = context.getPackageManager();// 获取packagemanager
+        List<PackageInfo> pinfo = packageManager.getInstalledPackages(0);// 获取所有已安装程序的包信息
+        if (pinfo != null) {
+            for (int i = 0; i < pinfo.size(); i++) {
+                String pn = pinfo.get(i).packageName;
+                if (pn.equals("com.tencent.mm")) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+
     public void deleteOauth(final Activity activity,final SHARE_MEDIA platform){
+        if(!isWeixinAvilible(activity)){
+            Toast.makeText(activity, "你没有安装微信", Toast.LENGTH_SHORT).show();
+            return;
+        }
         mController.deleteOauth(activity, platform, new SocializeListeners.SocializeClientListener() {
             @Override
             public void onStart() {

@@ -1,5 +1,6 @@
 package com.jianfanjia.cn.activity.my;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -18,6 +19,7 @@ import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.controller.listener.SocializeListeners;
+import com.umeng.socialize.sso.UMSsoHandler;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -133,7 +135,6 @@ public class BindingAccountActivity extends BaseAnnotationActivity {
                 JianFanJiaClient.bindingWeixin(BindingAccountActivity.this,data.get("openid").toString(),data.get("unionid").toString(), new ApiUiUpdateListener() {
                     @Override
                     public void preLoad() {
-                        showWaitDialog();
                     }
 
                     @Override
@@ -151,9 +152,18 @@ public class BindingAccountActivity extends BaseAnnotationActivity {
                     }
                 }, BindingAccountActivity.this);
             }else{
+                hideWaitDialog();
                 makeTextShort(getString(R.string.authorize_fail));
             }
         }
     };
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMSsoHandler ssoHandler = authUtil.getUmSocialService().getConfig().getSsoHandler(requestCode);
+        if (ssoHandler != null) {
+            ssoHandler.authorizeCallBack(requestCode, resultCode, data);
+        }
+    }
 }

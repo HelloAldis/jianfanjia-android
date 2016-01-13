@@ -1,6 +1,7 @@
 package com.jianfanjia.cn.fragment;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -17,7 +18,10 @@ import com.jianfanjia.cn.activity.my.SettingActivity;
 import com.jianfanjia.cn.activity.my.UserInfoActivity_;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.tools.ImageUtil;
 import com.jianfanjia.cn.tools.LogTool;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 /**
  * Description:我的
@@ -65,11 +69,34 @@ public class MyFragment extends BaseFragment {
         String imgPath = dataManager.getUserImagePath();
         LogTool.d(TAG, "imgPath=" + imgPath);
         if (!imgPath.contains(Constant.DEFALUT_PIC_HEAD)) {
-            imageShow.displayScreenWidthThumnailImage(getActivity(), imgPath, head_img);
-            imageShow.displayScreenWidthThumnailImage(getActivity(), imgPath, user_head_img);
+//            imageShow.displayScreenWidthThumnailImage(getActivity(), imgPath, head_img);
+            imageShow.displayImageHeadWidthThumnailImage(getActivity(), imgPath, user_head_img);
+            imageShow.loadImage(imgPath, new ImageLoadingListener() {
+                @Override
+                public void onLoadingStarted(String imageUri, View view) {
+
+                }
+
+                @Override
+                public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                    //网络头像加载失败就处理默认的背景
+                    ImageUtil.blur(ImageUtil.drawableResToBitmap(getActivity().getApplicationContext(), R.mipmap.bg_my), head_img);
+                }
+
+                @Override
+                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                    //进行高斯模糊处理
+                    ImageUtil.blur(loadedImage, head_img);
+                }
+
+                @Override
+                public void onLoadingCancelled(String imageUri, View view) {
+
+                }
+            });
         } else {
-            head_img.setImageResource(R.mipmap.bg_my);
-            user_head_img.setImageResource(R.mipmap.bg_my);
+            user_head_img.setImageResource(R.mipmap.icon_default_head);
+            ImageUtil.blur(ImageUtil.drawableResToBitmap(getActivity().getApplicationContext(), R.mipmap.bg_my), head_img);
         }
     }
 

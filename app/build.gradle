@@ -47,8 +47,8 @@ android {
     buildTypes {
 
         debug {
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            minifyEnabled true
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.relealse
 
             manifestPlaceholders = [GETUI_PUSH_APPID    : "t9nLEYqbWI7HUX2QkE79v2", GETUI_PUSH_APPKEY: "m2fZOPk3fy5pgq6szkabb7",
@@ -56,8 +56,8 @@ android {
         }
 
         release {
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            minifyEnabled true
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.relealse
 
             manifestPlaceholders = [GETUI_PUSH_APPID    : "YZV748rCe89l8CfZ7dtIF9", GETUI_PUSH_APPKEY: "8GJ1XgPOL9ArriE8xOJDK8",
@@ -65,8 +65,8 @@ android {
         }
         andtest {
             debuggable true
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            minifyEnabled true
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.relealse
 
             manifestPlaceholders = [GETUI_PUSH_APPID    : "t9nLEYqbWI7HUX2QkE79v2", GETUI_PUSH_APPKEY: "m2fZOPk3fy5pgq6szkabb7",

@@ -83,7 +83,7 @@ public class ImageShow {
      * @param imageid
      */
     public void displayScreenWidthThumnailImage(Context context, String imageid, ImageView imageView) {
-        displayThumbnailImage(imageid, imageView, (int)TDevice.getScreenWidth());
+        displayThumbnailImage(imageid, imageView, (int) TDevice.getScreenWidth());
     }
 
     public void displayHalfScreenWidthThumnailImage(Context context, String imageid, ImageView imageView) {
@@ -110,5 +110,12 @@ public class ImageShow {
         String imageUrl = url_new.GET_THUMBNAIL_IMAGE.replace(Url_New.WIDTH, width + "") + imageid;
         imageLoader.displayImage(imageUrl, imageView, DisplayImageOptionsWrap.getDisplayImageOptionsIsMemoryCache(true));
     }
+
+    public void loadImage(String imageid,ImageLoadingListener listener){
+        String imageUrl = url_new.GET_THUMBNAIL_IMAGE.replace(Url_New.WIDTH, TDevice.getScreenWidth() + "") + imageid;
+        imageLoader.loadImage(imageUrl,DisplayImageOptionsWrap.getDisplayImageOptionsIsMemoryCache(false),listener);
+    }
+
+
 
 }

@@ -34,6 +34,7 @@ import com.jianfanjia.cn.tools.GeTuiManager;
 import com.jianfanjia.cn.tools.LogTool;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.controller.listener.SocializeListeners;
+import com.umeng.socialize.sso.UMSsoHandler;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -336,7 +337,6 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
                 JianFanJiaClient.weixinLogin(LoginNewActivity.this, weiXinRegisterInfo, new ApiUiUpdateListener() {
                     @Override
                     public void preLoad() {
-                        showWaitDialog();
                     }
 
                     @Override
@@ -360,6 +360,7 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
                     }
                 }, LoginNewActivity.this);
             } else {
+                hideWaitDialog();
                 makeTextShort(getString(R.string.authorize_fail));
             }
         }
@@ -631,5 +632,9 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        UMSsoHandler ssoHandler = authUtil.getUmSocialService().getConfig().getSsoHandler(requestCode);
+        if (ssoHandler != null) {
+            ssoHandler.authorizeCallBack(requestCode, resultCode, data);
+        }
     }
 }
