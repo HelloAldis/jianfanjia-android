@@ -2,7 +2,6 @@ package com.jianfanjia.cn.tools;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.BitmapFactory;
 import android.text.TextUtils;
 
 import com.jianfanjia.cn.activity.R;
@@ -40,7 +39,7 @@ public class ShareUtil {
 
     public ShareUtil(Activity activity) {
         url_new = Url_New.getInstance();
-        width = (int) TDevice.getScreenWidth();
+        width = (int) TDevice.getScreenWidth() / 2;
         context = activity.getApplicationContext();
         mController.getConfig().removePlatform(SHARE_MEDIA.TENCENT);
         mController.getConfig().setPlatformOrder(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE, SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE, SHARE_MEDIA.SINA);
@@ -56,6 +55,9 @@ public class ShareUtil {
 
         UMQQSsoHandler qqSsoHandler = new UMQQSsoHandler(activity, "1104973048", "FuDs7s4vJGAEzCrz");
         qqSsoHandler.addToSocialSDK();
+        if (!AuthUtil.isQQAvilible(context)) {
+            mController.getConfig().removePlatform(SHARE_MEDIA.QQ);
+        }
 
         //参数1为当前Activity， 参数2为开发者在QQ互联申请的APP ID，参数3为开发者在QQ互联申请的APP kEY.
         QZoneSsoHandler qZoneSsoHandler = new QZoneSsoHandler(activity, "1104973048", "FuDs7s4vJGAEzCrz");
@@ -66,10 +68,6 @@ public class ShareUtil {
 //        sinaSsoHandler.addToSocialSDK();
     }
 
-    public UMSocialService getUmSocialService() {
-        return mController;
-    }
-
     public void shareImage(Activity activity, String title, String style, String tag, String imgId, SocializeListeners.SnsPostListener listener) {
         String desc = context.getString(R.string.share_image_des);
         if (!TextUtils.isEmpty(style) && !TextUtils.isEmpty(tag)) {
@@ -78,7 +76,7 @@ public class ShareUtil {
         try {
             String urlTitle = URLEncoder.encode(title, "utf-8");
             String targetUrl = url_new.SHARE_IMAGE + urlTitle + "&imageId=" + imgId;
-            String imageUrl = url_new.GET_THUMBNAIL_IMAGE.replace(Url_New.WIDTH, width + "") + imgId;
+            String imageUrl = url_new.GET_THUMBNAIL_IMAGE.replace(Url_New.WIDTH, 200 + "") + imgId;
             UMImage image = new UMImage(context, imageUrl);
             setShareContent(image, title, desc, targetUrl);
             mController.registerListener(listener);
@@ -136,14 +134,12 @@ public class ShareUtil {
         SinaShareContent sinaContent = new SinaShareContent();
         sinaContent.setShareContent(content + targetUrl);
         sinaContent.setShareImage(image);
-//        sinaContent.setTitle(title);
-//        sinaContent.setTargetUrl(targetUrl);
         mController.setShareMedia(sinaContent);
     }
 
     public void shareApp(Activity activity, SocializeListeners.SnsPostListener listener) {
         LogTool.d(this.getClass().getName(), context.getPackageResourcePath());
-        UMImage image = new UMImage(context, BitmapFactory.decodeResource(context.getResources(), R.mipmap.icon_share_app));
+        UMImage image = new UMImage(context, url_new.SHARE_APP_LOGO);
         setShareContent(image, context.getString(R.string.share_app_title), context.getString(R.string.share_app_des), context.getString(R.string.share_app_url));
         mController.registerListener(listener);
         mController.openShare(activity, false);

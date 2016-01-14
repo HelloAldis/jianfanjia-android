@@ -25,6 +25,7 @@ import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.bean.SocializeConfig;
 import com.umeng.socialize.bean.SocializeEntity;
 import com.umeng.socialize.controller.listener.SocializeListeners;
 import com.umeng.socialize.sso.UMSsoHandler;
@@ -142,7 +143,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener, On
 
                     @Override
                     public void onComplete(SHARE_MEDIA share_media, int i, SocializeEntity socializeEntity) {
-//                        makeTextShort("status =" + i);
+                        LogTool.d("onComplete","status =" + i);
                     }
                 });
                 break;
@@ -257,8 +258,8 @@ public class SettingActivity extends BaseActivity implements OnClickListener, On
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        UMSsoHandler ssoHandler = shareUtil.getUmSocialService().getConfig().getSsoHandler(requestCode);
-        if(ssoHandler != null){
+        UMSsoHandler ssoHandler = SocializeConfig.getSocializeConfig().getSsoHandler(requestCode);
+        if (ssoHandler != null) {
             ssoHandler.authorizeCallBack(requestCode, resultCode, data);
         }
     }

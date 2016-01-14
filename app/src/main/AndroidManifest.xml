@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.jianfanjia.cn.activity">
 
     <!-- 屏幕适配 -->
@@ -9,6 +10,12 @@
         android:normalScreens="true"
         android:smallScreens="true"
         android:xlargeScreens="true" />
+
+    <uses-sdk
+        android:minSdkVersion="15"
+        android:targetSdkVersion="23"
+        tools:overrideLibrary="com.umeng.socialize.evernote,com.umeng.socialize.pinterest"
+        />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -45,6 +52,7 @@
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
     <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_LOGS" />
+    <permission android:name="android.permission.WRITE_APN_SETTINGS"/>
 
     <application
         android:name="com.jianfanjia.cn.application.MyApplication"
@@ -384,7 +392,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="tencent100424468" />
+                <data android:scheme="tencent1104973048" />
             </intent-filter>
         </activity>
         <activity

@@ -267,7 +267,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
 
             @Override
             public void onComplete(SHARE_MEDIA share_media, int i, SocializeEntity socializeEntity) {
-//                makeTextShort("status =" + i);
+                LogTool.d("onComplete","status =" + i);
             }
         });
        /* SharePopWindow window = new SharePopWindow(PreviewDecorationActivity.this, new ShowPopWindowCallBack() {

@@ -169,6 +169,9 @@ public class Url_New {
     //分享的链接
     public String SHARE_IMAGE = "http://" + SEVER_IP + ":"
             + SEVER_PORT +"/zt/mobile/sharemito.html?title=";
+    //分享的APP的logo图片链接
+    public String SHARE_APP_LOGO = "http://" + SEVER_IP + ":"
+            + SEVER_PORT +"/zt/mobile/logo.png";
     // 根据工地id获取某个工地
     public String GET_PROCESSINFO_BYID = HTTPROOT + "process/"
             + ID;
