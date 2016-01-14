@@ -16,8 +16,7 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/ownerinfo_head_layout"
         android:layout_marginTop="@dimen/space_10"
-        android:overScrollMode="always"
-        >
+        android:overScrollMode="always">
 
         <LinearLayout
             android:id="@+id/rootview"
@@ -145,8 +144,7 @@
                     style="@style/my_item_layout_image_style"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:contentDescription="@null"
-                    />
+                    android:contentDescription="@null" />
             </RelativeLayout>
 
             <View style="@style/divier_line" />
