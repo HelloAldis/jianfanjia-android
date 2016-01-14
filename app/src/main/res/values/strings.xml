@@ -27,6 +27,9 @@
     <string name="error_view_no_designer_data">您还没有收藏任何设计师</string>
     <string name="error_view_no_product_data">您还没有收藏任何作品</string>
     <string name="error_view_no_img_data">您还没有收藏任何美图</string>
+    <string name="error_view_no_caigou_data">您还没有采购提醒</string>
+    <string name="error_view_no_pay_data">您还没有付款提醒</string>
+    <string name="error_view_no_delay_data">您还没有改期提醒</string>
     <!-- main activity -->
     <string name="main_tab_name_darly">日记</string>
     <string name="main_tab_name_site">工地</string>
