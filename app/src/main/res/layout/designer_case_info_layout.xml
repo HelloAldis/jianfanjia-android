@@ -52,7 +52,7 @@
         android:layout_below="@id/imageLayout"
         android:layout_marginLeft="15dip"
         android:layout_marginRight="15dip"
-        android:layout_marginTop="25dip"
+        android:layout_marginTop="30dip"
         android:textColor="@color/home_page_text_color"
         android:textSize="@dimen/text_size_16" />
 
