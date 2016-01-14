@@ -45,7 +45,6 @@
             android:visibility="gone" />
     </FrameLayout>
 
-
     <TextView
         android:id="@+id/produceTitle"
         android:layout_width="wrap_content"
@@ -53,7 +52,7 @@
         android:layout_below="@id/imageLayout"
         android:layout_marginLeft="15dip"
         android:layout_marginRight="15dip"
-        android:layout_marginTop="15dip"
+        android:layout_marginTop="25dip"
         android:textColor="@color/home_page_text_color"
         android:textSize="@dimen/text_size_16" />
 
@@ -62,7 +61,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/produceTitle"
-        android:layout_marginBottom="15dip"
+        android:layout_marginBottom="10dip"
         android:layout_marginLeft="15dip"
         android:layout_marginRight="15dip"
         android:textColor="@color/main_color_grey"
