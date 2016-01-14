@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.R;
@@ -38,6 +39,8 @@ import java.util.List;
 public class YanQiNotifyFragment extends BaseFragment implements ApiUiUpdateListener, DelayInfoListener, PullToRefreshBase.OnRefreshListener2<RecyclerView> {
     private static final String TAG = YanQiNotifyFragment.class.getName();
     private PullToRefreshRecycleView yanqiListView = null;
+    private RelativeLayout emptyLayout = null;
+    private RelativeLayout errorLayout = null;
     private List<NotifyDelayInfo> delayList = new ArrayList<NotifyDelayInfo>();
     private NotifyDelayInfo notifyDelayInfo = null;
     private DelayNotifyAdapter delayAdapter = null;
@@ -50,6 +53,8 @@ public class YanQiNotifyFragment extends BaseFragment implements ApiUiUpdateList
 
     @Override
     public void initView(View view) {
+        emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
+        errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
         yanqiListView = (PullToRefreshRecycleView) view.findViewById(R.id.tip_delay__listview);
         yanqiListView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
         yanqiListView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -77,6 +82,18 @@ public class YanQiNotifyFragment extends BaseFragment implements ApiUiUpdateList
     @Override
     public void setListener() {
         yanqiListView.setOnRefreshListener(this);
+        errorLayout.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.error_include:
+                getRescheduleNotifyList();
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
@@ -98,6 +115,9 @@ public class YanQiNotifyFragment extends BaseFragment implements ApiUiUpdateList
     @Override
     public void preLoad() {
         showWaitDialog(R.string.loading);
+        yanqiListView.setVisibility(View.GONE);
+        emptyLayout.setVisibility(View.GONE);
+        errorLayout.setVisibility(View.GONE);
     }
 
     @Override
@@ -107,13 +127,25 @@ public class YanQiNotifyFragment extends BaseFragment implements ApiUiUpdateList
         delayList = JsonParser.jsonToList(data.toString(), new TypeToken<List<NotifyDelayInfo>>() {
         }.getType());
         LogTool.d(TAG, "delayList:" + delayList);
-        delayAdapter = new DelayNotifyAdapter(getActivity(), delayList, this);
-        yanqiListView.setAdapter(delayAdapter);
+        if (null != delayList && delayList.size() > 0) {
+            delayAdapter = new DelayNotifyAdapter(getActivity(), delayList, this);
+            yanqiListView.setAdapter(delayAdapter);
+            yanqiListView.setVisibility(View.VISIBLE);
+            emptyLayout.setVisibility(View.GONE);
+            errorLayout.setVisibility(View.GONE);
+        } else {
+            yanqiListView.setVisibility(View.GONE);
+            emptyLayout.setVisibility(View.VISIBLE);
+            errorLayout.setVisibility(View.GONE);
+        }
     }
 
     @Override
     public void loadFailture(String error_msg) {
         hideWaitDialog();
+        yanqiListView.setVisibility(View.GONE);
+        emptyLayout.setVisibility(View.GONE);
+        errorLayout.setVisibility(View.VISIBLE);
     }
 
     @Override

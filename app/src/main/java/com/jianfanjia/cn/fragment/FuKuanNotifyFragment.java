@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.PayNotifyAdapter;
@@ -30,6 +31,8 @@ import java.util.List;
 public class FuKuanNotifyFragment extends BaseFragment implements PullToRefreshBase.OnRefreshListener2<RecyclerView> {
     private static final String TAG = FuKuanNotifyFragment.class.getName();
     private PullToRefreshRecycleView fukuanListView = null;
+    private RelativeLayout emptyLayout = null;
+    private RelativeLayout errorLayout = null;
     private List<NotifyMessage> payList = new ArrayList<NotifyMessage>();
     private PayNotifyAdapter payAdapter = null;
 
@@ -37,12 +40,23 @@ public class FuKuanNotifyFragment extends BaseFragment implements PullToRefreshB
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setUserVisibleHint(true);
-        payAdapter = new PayNotifyAdapter(getActivity(), payList);
-        fukuanListView.setAdapter(payAdapter);
+        if (null != payList && payList.size() > 0) {
+            payAdapter = new PayNotifyAdapter(getActivity(), payList);
+            fukuanListView.setAdapter(payAdapter);
+            fukuanListView.setVisibility(View.VISIBLE);
+            emptyLayout.setVisibility(View.GONE);
+            errorLayout.setVisibility(View.GONE);
+        } else {
+            fukuanListView.setVisibility(View.GONE);
+            emptyLayout.setVisibility(View.VISIBLE);
+            errorLayout.setVisibility(View.GONE);
+        }
     }
 
     @Override
     public void initView(View view) {
+        emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
+        errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
         fukuanListView = (PullToRefreshRecycleView) view.findViewById(R.id.tip_pay__listview);
         fukuanListView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
         fukuanListView.setLayoutManager(new LinearLayoutManager(getActivity()));
