@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.CaiGouNotifyAdapter;
@@ -30,6 +31,8 @@ import java.util.List;
 public class CaiGouNotifyFragment extends BaseFragment implements PullToRefreshBase.OnRefreshListener2<RecyclerView> {
     private static final String TAG = CaiGouNotifyFragment.class.getName();
     private PullToRefreshRecycleView caigouListView = null;
+    private RelativeLayout emptyLayout = null;
+    private RelativeLayout errorLayout = null;
     private List<NotifyMessage> caigouList = new ArrayList<NotifyMessage>();
     private CaiGouNotifyAdapter caiGouAdapter = null;
 
@@ -37,12 +40,23 @@ public class CaiGouNotifyFragment extends BaseFragment implements PullToRefreshB
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setUserVisibleHint(true);
-        caiGouAdapter = new CaiGouNotifyAdapter(getActivity(), caigouList);
-        caigouListView.setAdapter(caiGouAdapter);
+        if (null != caigouList && caigouList.size() > 0) {
+            caiGouAdapter = new CaiGouNotifyAdapter(getActivity(), caigouList);
+            caigouListView.setAdapter(caiGouAdapter);
+            caigouListView.setVisibility(View.VISIBLE);
+            emptyLayout.setVisibility(View.GONE);
+            errorLayout.setVisibility(View.GONE);
+        } else {
+            caigouListView.setVisibility(View.GONE);
+            emptyLayout.setVisibility(View.VISIBLE);
+            errorLayout.setVisibility(View.GONE);
+        }
     }
 
     @Override
     public void initView(View view) {
+        emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
+        errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
         caigouListView = (PullToRefreshRecycleView) view
                 .findViewById(R.id.tip_caigou__listview);
         caigouListView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);

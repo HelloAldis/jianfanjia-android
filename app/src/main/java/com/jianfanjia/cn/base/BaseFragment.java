@@ -45,8 +45,7 @@ public abstract class BaseFragment extends Fragment
     protected String mUserImageId = null;// 头像
     protected String mUserType = null;// 用户类型
     protected String mImageId = null;
-    private View view=null;
-
+    private View view = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

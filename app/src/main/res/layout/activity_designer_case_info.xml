@@ -1,141 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/main_content"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_layout_bg"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appbar"
+    <include
+        android:id="@+id/ic_headerbar"
+        layout="@layout/ic_headerbar" />
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/main_layout_bg"
-        android:fitsSystemWindows="true"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:layout_height="match_parent">
 
-        <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/collapsing_toolbar"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/designer_case_listview"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fitsSystemWindows="true"
-            app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
-            app:titleEnabled="false">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fitsSystemWindows="true"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/cell_name"
-                    style="@style/listview_item_text_style_big"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="80dip"
-                    android:textColor="@color/home_page_text_color" />
-
-                <TextView
-                    android:id="@+id/stylelName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="8dip"
-                    android:textColor="@color/home_page_text_color" />
-
-                <FrameLayout
-                    android:id="@+id/imageLayout"
-                    android:layout_width="60dip"
-                    android:layout_height="60dip"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="16dip">
-
-                    <com.jianfanjia.cn.view.layout.CircleImageView
-                        android:id="@+id/designerinfo_head_img"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="centerCrop"
-                        app:border_color="@color/white"
-                        app:border_width="2dip" />
-
-                    <ImageView
-                        android:id="@+id/designerinfo_auth"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="bottom|right"
-                        android:src="@mipmap/icon_auth"
-                        android:visibility="gone" />
-                </FrameLayout>
-
-                <TextView
-                    android:id="@+id/produceTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dip"
-                    android:layout_marginRight="15dip"
-                    android:layout_marginTop="20dip"
-                    android:text="设计简介:"
-                    android:textColor="@color/home_page_text_color"
-                    android:textSize="@dimen/text_size_16"
-                    android:visibility="gone" />
-
-                <TextView
-                    android:id="@+id/produceText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dip"
-                    android:layout_marginRight="15dip"
-                    android:textColor="@color/main_color_grey"
-                    android:textSize="14sp" />
-            </LinearLayout>
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/space_48"
-                android:background="@color/head_layout_bg"
-                android:minHeight="@dimen/space_48"
-                app:layout_collapseMode="pin"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
-
-                <TextView
-                    android:id="@+id/toolbar_title"
-                    style="@style/listview_item_text_style_big"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:textColor="@color/home_page_text_color" />
-
-                <RelativeLayout
-                    android:id="@+id/toolbar_collect_layout"
-                    android:layout_width="@dimen/space_64"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="right"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dip"
-                    android:visibility="gone">
-
-                    <ImageView
-                        android:id="@+id/toolbar_collect"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:layout_margin="@dimen/space_8"
-                        android:background="@drawable/btn_collect" />
-                </RelativeLayout>
-            </android.support.v7.widget.Toolbar>
-        </android.support.design.widget.CollapsingToolbarLayout>
+            android:layout_height="match_parent"
+            android:fadingEdge="none"
+            android:scrollbars="none" />
 
         <include layout="@layout/activity_case_info_top_layout" />
-    </android.support.design.widget.AppBarLayout>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/designer_case_listview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="none"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
-</android.support.design.widget.CoordinatorLayout>
+    </FrameLayout>
+</LinearLayout>

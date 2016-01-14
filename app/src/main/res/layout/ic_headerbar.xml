@@ -25,8 +25,8 @@
         android:id="@+id/tv_title"
         style="@style/listview_item_text_style_big"
         android:layout_centerInParent="true"
-        android:text="简繁家"
-        android:textColor="@color/light_black_color" />
+        android:textColor="@color/light_black_color"
+        android:visibility="gone" />
 
     <RelativeLayout
         android:id="@+id/toolbar_collect_layout"
