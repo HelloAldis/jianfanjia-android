@@ -43,7 +43,7 @@ public class CollectActivity extends BaseActivity implements OnClickListener {
         mainHeadView.setBackListener(this);
         mainHeadView.setMianTitle(getResources().getString(R.string.my_favorite));
         mainHeadView.setBackgroundTransparent();
-        mainHeadView.setDividerVisable(View.VISIBLE);
+        mainHeadView.setDividerVisable(View.GONE);
     }
 
     private void setupViewPager(ViewPager viewPager) {
