@@ -145,7 +145,7 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
 
     @Override
     public void onItemCallBack(int position, int itemType) {
-        LogTool.d(TAG, "itemType:" + itemType);
+        LogTool.d(TAG, "position:" + position + "itemType:" + itemType);
         PlanInfo planInfo = designerPlanList.get(position);
         LogTool.d(TAG, "planInfo:" + planInfo);
         String planid = planInfo.get_id();
