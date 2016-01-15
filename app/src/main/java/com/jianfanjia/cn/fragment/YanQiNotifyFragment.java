@@ -115,9 +115,6 @@ public class YanQiNotifyFragment extends BaseFragment implements ApiUiUpdateList
     @Override
     public void preLoad() {
         showWaitDialog(R.string.loading);
-        yanqiListView.setVisibility(View.GONE);
-        emptyLayout.setVisibility(View.GONE);
-        errorLayout.setVisibility(View.GONE);
     }
 
     @Override
