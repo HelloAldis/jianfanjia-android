@@ -640,7 +640,7 @@ public class ImageUtil {
      * @param bitmap
      * @return
      */
-    public static Bitmap getRoundedCornerBitmap(Bitmap bitmap) {
+    public static Bitmap getRoundedCornerBitmap(Bitmap bitmap,int radius) {
         Bitmap output = Bitmap.createBitmap(bitmap.getWidth(),
                 bitmap.getHeight(), Config.ARGB_8888);
         Canvas canvas = new Canvas(output);
@@ -650,7 +650,7 @@ public class ImageUtil {
 
         final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
         final RectF rectF = new RectF(rect);
-        final float roundPx = bitmap.getWidth() / 2;
+        final float roundPx = radius;
 
         paint.setAntiAlias(true);
         canvas.drawARGB(0, 0, 0, 0);

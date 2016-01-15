@@ -184,9 +184,6 @@ public class Constant {
     public static final String KEY = "Item";
     public static final String TEXT_KEY = "Title";
 
-    public static final int UPDATE_FRAGMENT = 10;
-    public static final int UPDATE_REQUIRE_FRAGMENT = 20;
-
     //消息类型
     public static final int UPDATE_HOME_FRAGMENT = 10;
     public static final int UPDATE_XUQIU_FRAGMENT = 20;

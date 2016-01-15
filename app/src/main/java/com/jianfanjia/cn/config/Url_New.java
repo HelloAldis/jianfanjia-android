@@ -148,9 +148,6 @@ public class Url_New {
     // 评价装修流程
     public String POST_PROCESS_COMMENT = HTTPROOT
             + "process/comment";
-    // 用户获取业主个人信息
-    public String GET_ONE_OWNER_INFO = HTTPROOT + "user/" + ID
-            + "/info";
     // 用户提交改期
     public String POST_RESCHDULE = HTTPROOT + "process/reschedule";
     // 用户同意改期

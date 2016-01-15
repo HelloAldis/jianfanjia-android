@@ -126,6 +126,9 @@ public class XuQiuFragment extends BaseAnnotationFragment {
             @Override
             public void click(int position, int itemType) {
                 requirementInfo = requirementInfos.get(position);
+                if(requirementInfo.getDec_style() == null){//此处是对老的可能没有家装类型的数据进行初始化，防止异常
+                    requirementInfo.setDec_style(Global.DEC_TYPE_HOME);
+                }
                 switch (itemType) {
                     case ITEM_PRIVIEW:
                         Intent gotoPriviewRequirement = null;
