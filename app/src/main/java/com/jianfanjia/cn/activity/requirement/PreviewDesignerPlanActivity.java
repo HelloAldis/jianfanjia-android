@@ -60,9 +60,15 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
     private String designerid = null;
     private String requirementid = null;
     private String planid = null;
+    private int itemPosition = -1;
 
     @Override
     public void initView() {
+        Intent intent = this.getIntent();
+        Bundle planBundle = intent.getExtras();
+        planid = planBundle.getString(Global.PLAN_ID);
+        itemPosition = planBundle.getInt(Global.POSITION);
+        LogTool.d(TAG, "planid=" + planid + " itemPosition=" + itemPosition);
         initMainHeadView();
         houseTypeLayout = (LinearLayout) findViewById(R.id.houseTypeLayout);
         houseAreaLayout = (LinearLayout) findViewById(R.id.houseAreaLayout);
@@ -80,10 +86,6 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
         designText = (TextView) findViewById(R.id.designText);
         btnDetail = (Button) findViewById(R.id.btnDetail);
         btn_choose = (Button) findViewById(R.id.btn_choose);
-        Intent intent = this.getIntent();
-        Bundle planBundle = intent.getExtras();
-        planid = planBundle.getString(Global.PLAN_ID);
-        LogTool.d(TAG, "planid=" + planid);
         getPlanInfo(planid);
     }
 
@@ -91,7 +93,7 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
         mainHeadView = (MainHeadView) findViewById(R.id.my_prieview_head_layout);
         mainHeadView.setBackListener(this);
         mainHeadView.setRightTextListener(this);
-        mainHeadView.setMianTitle(getResources().getString(R.string.designerPlanText));
+        mainHeadView.setMianTitle(getResources().getString(R.string.designerPlanText) + itemPosition);
         mainHeadView.setRightTitle(getResources().getString(R.string.detailPrice));
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
         mainHeadView.setRightTitleVisable(View.VISIBLE);
