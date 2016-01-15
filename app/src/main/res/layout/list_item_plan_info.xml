@@ -8,7 +8,10 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dip">
+        android:layout_marginBottom="8dip"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+        android:layout_marginTop="8dip">
 
         <TextView
             android:id="@+id/numText"
@@ -40,7 +43,10 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dip">
+        android:layout_marginBottom="8dip"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+        android:layout_marginTop="8dip">
 
         <TextView
             android:id="@+id/dateText"
@@ -61,7 +67,7 @@
             android:id="@+id/commentText"
             style="@style/listview_item_text_style_middle"
             android:layout_centerVertical="true"
-            android:layout_marginRight="40dip"
+            android:layout_marginRight="50dip"
             android:layout_toLeftOf="@id/previewText"
             android:text="留言"
             android:textColor="@color/light_black_color" />

@@ -65,7 +65,7 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
         designer_case_listview.setItemAnimator(new DefaultItemAnimator());
         designer_case_listview.setHasFixedSize(true);
         Paint paint = new Paint();
-        paint.setStrokeWidth(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5, getResources().getDisplayMetrics()));
+        paint.setStrokeWidth(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getResources().getDisplayMetrics()));
         paint.setAlpha(0);
         paint.setAntiAlias(true);
         designer_case_listview.addItemDecoration(new HorizontalDividerItemDecoration.Builder(DesignerCaseInfoActivity.this).paint(paint).showLastDivider().build());
@@ -96,12 +96,9 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
         toolbar_collect_layout.setOnClickListener(this);
         activity_case_info_top_layout.setOnClickListener(this);
         designer_case_listview.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            private int totalDy = 0;
 
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                totalDy -= dy;
-                LogTool.d(TAG, "dy=" + dy);
                 if (dy > 0) {
                     activity_case_info_top_layout.setVisibility(View.VISIBLE);
                     tv_title.setVisibility(View.VISIBLE);
