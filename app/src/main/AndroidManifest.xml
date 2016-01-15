@@ -349,8 +349,9 @@
             android:name=".NewUserGuideActivity_"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".requirement.PublishRequirementActivity"
-            android:screenOrientation="portrait" />
+            android:name=".requirement.PublishRequirementActivity_"
+            android:screenOrientation="portrait"
+            />
         <activity
             android:name=".requirement.PreviewBusinessRequirementActivity_"
             android:screenOrientation="portrait" />

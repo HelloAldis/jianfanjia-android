@@ -11,10 +11,6 @@ import java.util.List;
 public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
     private List<SelectItem> mList;
 
-    public MyFragmentPagerAdapter(FragmentManager fm) {
-        super(fm);
-    }
-
     public MyFragmentPagerAdapter(FragmentManager fm, List<SelectItem> mList) {
         super(fm);
         this.mList = mList;

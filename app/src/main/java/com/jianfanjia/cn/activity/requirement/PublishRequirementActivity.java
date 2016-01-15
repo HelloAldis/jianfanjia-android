@@ -6,12 +6,11 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.view.View.OnClickListener;
 
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.MyFragmentPagerAdapter;
-import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.base.BaseAnnotationActivity;
 import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.bean.SelectItem;
@@ -30,6 +29,11 @@ import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
 
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ViewById;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,14 +45,20 @@ import de.greenrobot.event.EventBus;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class PublishRequirementActivity extends BaseActivity implements OnClickListener, NotifyActivityStatusChange {
+@EActivity(R.layout.activity_edit_requirement)
+public class PublishRequirementActivity extends BaseAnnotationActivity implements NotifyActivityStatusChange {
     private static final String TAG = PublishRequirementActivity.class.getName();
-    private MainHeadView mainHeadView = null;
-    private TabLayout tabLayout = null;
-    private ViewPager viewPager = null;
+    @ViewById(R.id.act_edit_req_head_layout)
+    protected MainHeadView mainHeadView = null;
+    @ViewById(R.id.tablayout)
+    protected TabLayout tabLayout = null;
+    @ViewById(R.id.viewpager)
+    protected ViewPager viewPager = null;
 
     private EditHomeRequirementFragment_ editHomeRequirementFragment_;
     private EditBussinessRequirementFragment_ editBussinessRequirementFragment_;
+
+    private MyFragmentPagerAdapter adapter;
 
     protected String status = Global.DEC_TYPE_HOME;//当前页面的状态，家装还是商装
 
@@ -56,11 +66,19 @@ public class PublishRequirementActivity extends BaseActivity implements OnClickL
     private RequirementInfo requirementInfoInit = new RequirementInfo();
 
     @Override
-    public void initView() {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @AfterViews
+    public void initAnnotationView() {
         initMainHeadView();
-        tabLayout = (TabLayout) findViewById(R.id.tablayout);
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
         initData();
+    }
+
+    private void initMainHeadView() {
+        mainHeadView.setRightTitle(getString(R.string.finish));
+        mainHeadView.setRigthTitleEnable(false);
     }
 
     protected void initData() {
@@ -96,7 +114,6 @@ public class PublishRequirementActivity extends BaseActivity implements OnClickL
     private void initViewPager() {
         setupViewPager(viewPager);
         tabLayout.setupWithViewPager(viewPager);
-        tabLayout.setTabMode(TabLayout.MODE_FIXED);
         tabLayout.setOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager) {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -112,21 +129,35 @@ public class PublishRequirementActivity extends BaseActivity implements OnClickL
         });
     }
 
-    private void initMainHeadView() {
-        mainHeadView = (MainHeadView) findViewById(R.id.act_edit_req_head_layout);
-        mainHeadView.setBackListener(this);
-        mainHeadView.setRightTitle(getString(R.string.finish));
-        mainHeadView.setRigthTitleEnable(false);
-        mainHeadView.setRightTextListener(this);
+    private void setupViewPager(ViewPager viewPager) {
+        LogTool.d(this.getClass().getName(),"setupViewPager");
+        List<SelectItem> listViews = new ArrayList<>();
+        editBussinessRequirementFragment_ = new EditBussinessRequirementFragment_();
+        editBussinessRequirementFragment_.setArguments(getBundleByType(Global.DEC_TYPE_BUSINESS));
+        editHomeRequirementFragment_ = new EditHomeRequirementFragment_();
+        editHomeRequirementFragment_.setArguments(getBundleByType(Global.DEC_TYPE_HOME));
+        SelectItem designerItem = new SelectItem(editHomeRequirementFragment_, getString(R.string.home_dec));
+        SelectItem productItem = new SelectItem(editBussinessRequirementFragment_, getString(R.string.business_dec));
+        listViews.add(designerItem);
+        listViews.add(productItem);
+        adapter = new MyFragmentPagerAdapter(fragmentManager, listViews);
+        viewPager.setAdapter(adapter);
     }
 
     private void resetRightTitleStatus() {
         switch (status) {
             case Global.DEC_TYPE_HOME:
-                mainHeadView.setRigthTitleEnable(editHomeRequirementFragment_.isFinish());
+                if (editHomeRequirementFragment_ != null) {
+                    LogTool.d(this.getClass().getName(), "editHomeRequirementFragment_ is not null");
+                    mainHeadView.setRigthTitleEnable(editHomeRequirementFragment_.isFinish());
+                } else {
+                    LogTool.d(this.getClass().getName(), "editHomeRequirementFragment_ is null");
+                }
                 break;
             case Global.DEC_TYPE_BUSINESS:
-                mainHeadView.setRigthTitleEnable(editBussinessRequirementFragment_.isFinish());
+                if (editBussinessRequirementFragment_ != null) {
+                    mainHeadView.setRigthTitleEnable(editBussinessRequirementFragment_.isFinish());
+                }
                 break;
         }
     }
@@ -186,21 +217,6 @@ public class PublishRequirementActivity extends BaseActivity implements OnClickL
         commonDialog.show();
     }
 
-    private void setupViewPager(ViewPager viewPager) {
-        List<SelectItem> listViews = new ArrayList<>();
-        editBussinessRequirementFragment_ = new EditBussinessRequirementFragment_();
-        editBussinessRequirementFragment_.setArguments(getBundleByType(Global.DEC_TYPE_BUSINESS));
-        editHomeRequirementFragment_ = new EditHomeRequirementFragment_();
-        editHomeRequirementFragment_.setArguments(getBundleByType(Global.DEC_TYPE_HOME));
-        SelectItem designerItem = new SelectItem(editHomeRequirementFragment_,
-                getString(R.string.home_dec));
-        SelectItem productItem = new SelectItem(editBussinessRequirementFragment_,
-                getString(R.string.business_dec));
-        listViews.add(designerItem);
-        listViews.add(productItem);
-        MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(fragmentManager, listViews);
-        viewPager.setAdapter(adapter);
-    }
 
     protected Bundle getBundleByType(String type) {
         Bundle bundle = new Bundle();
@@ -245,8 +261,10 @@ public class PublishRequirementActivity extends BaseActivity implements OnClickL
         }
     }
 
-    @Override
-    public void onClick(View v) {
+    @Click({
+            R.id.head_back_layout, R.id.head_right_title
+    })
+    public void click(View v) {
         switch (v.getId()) {
             case R.id.head_back_layout:
                 back();
@@ -259,8 +277,4 @@ public class PublishRequirementActivity extends BaseActivity implements OnClickL
         }
     }
 
-    @Override
-    public int getLayoutId() {
-        return R.layout.activity_edit_requirement;
-    }
 }

@@ -15,7 +15,7 @@ import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.home.DesignerCaseInfoActivity;
 import com.jianfanjia.cn.activity.home.DesignerInfoActivity;
-import com.jianfanjia.cn.activity.requirement.PublishRequirementActivity;
+import com.jianfanjia.cn.activity.requirement.PublishRequirementActivity_;
 import com.jianfanjia.cn.adapter.DesignerListAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.DesignerListInfo;
@@ -99,7 +99,7 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_add:
-                Intent intent = new Intent(getActivity(), PublishRequirementActivity.class);
+                Intent intent = new Intent(getActivity(), PublishRequirementActivity_.class);
                 startActivityForResult(intent, XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT);
                 break;
             case R.id.error_include:
@@ -191,11 +191,12 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
 
                     @Override
                     public void onClick() {
-                        Intent intent = new Intent(getActivity(), PublishRequirementActivity.class);
+                        Intent intent = new Intent(getActivity(), PublishRequirementActivity_.class);
                         getActivity().startActivityForResult(intent, XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT);
                     }
                 });
                 pullToRefreshRecyclerView.setAdapter(designerAdapter);
+
                 FROM = designerList.size();
                 LogTool.d(TAG, "FROM:" + FROM);
                 errorLayout.setVisibility(View.GONE);
