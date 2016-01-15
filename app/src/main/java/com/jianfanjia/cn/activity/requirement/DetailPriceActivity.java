@@ -11,9 +11,12 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.PriceDetailAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.PlandetailInfo;
+import com.jianfanjia.cn.bean.PriceDetail;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
+
+import java.util.List;
 
 /**
  * Description:方案详细报价
@@ -48,13 +51,16 @@ public class DetailPriceActivity extends BaseActivity implements OnClickListener
         planDetailInfo = (PlandetailInfo) priceBundle.getSerializable(Global.PLAN_DETAIL);
         LogTool.d(TAG, "planDetailInfo =" + planDetailInfo);
         if (null != planDetailInfo) {
-            priceListView.addHeaderView(headView);
+            List<PriceDetail> details = planDetailInfo.getPrice_detail();
+            if (null != details && details.size() > 0) {
+                priceListView.addHeaderView(headView);
+                adapter = new PriceDetailAdapter(DetailPriceActivity.this, planDetailInfo.getPrice_detail());
+                priceListView.setAdapter(adapter);
+            }
             project_total_price.setText("工程总造价:" + planDetailInfo.getProject_price_before_discount() + "元");
             project_price_after_discount.setText("工程折后价:" + planDetailInfo.getProject_price_after_discount() + "元");
             total_design_fee.setText("设计费:" + planDetailInfo.getTotal_design_fee() + "元");
             project_price_before_discount.setText("折后总价:" + planDetailInfo.getTotal_price() + "元");
-            adapter = new PriceDetailAdapter(DetailPriceActivity.this, planDetailInfo.getPrice_detail());
-            priceListView.setAdapter(adapter);
         }
     }
 
