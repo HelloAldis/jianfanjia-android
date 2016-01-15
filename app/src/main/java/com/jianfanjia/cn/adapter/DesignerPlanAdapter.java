@@ -63,7 +63,6 @@ public class DesignerPlanAdapter extends BaseRecyclerViewAdapter<PlanInfo> {
                 }
             }
         });
-
         holder.item_plan_listview.setAdapter(adapter);
         holder.commentText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,7 +72,6 @@ public class DesignerPlanAdapter extends BaseRecyclerViewAdapter<PlanInfo> {
                 }
             }
         });
-
         holder.previewText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
