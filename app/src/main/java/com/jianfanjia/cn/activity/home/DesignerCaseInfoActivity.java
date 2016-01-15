@@ -16,9 +16,11 @@ import android.widget.TextView;
 
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.common.ShowPicActivity;
 import com.jianfanjia.cn.adapter.DesignerCaseAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.DesignerCaseInfo;
+import com.jianfanjia.cn.bean.ImageInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
@@ -28,6 +30,9 @@ import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import de.greenrobot.event.EventBus;
 
@@ -48,6 +53,7 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
     private LinearLayoutManager mLayoutManager = null;
     private ImageView head_img = null;
     private TextView nameText = null;
+    private List<String> imgs = new ArrayList<String>();
 
     private String productid = null;
     private String designertid = null;
@@ -173,10 +179,21 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
                 tv_title.setText(designerCaseInfo.getCell());
                 nameText.setText(designerCaseInfo.getDesigner().getUsername());
                 imageShow.displayImageHeadWidthThumnailImage(DesignerCaseInfoActivity.this, designerCaseInfo.getDesigner().getImageid(), head_img);
-                DesignerCaseAdapter adapter = new DesignerCaseAdapter(DesignerCaseInfoActivity.this, designerCaseInfo.getImages(), designerCaseInfo, new RecyclerViewOnItemClickListener() {
+                List<ImageInfo> imgList = designerCaseInfo.getImages();
+                for (ImageInfo info : imgList) {
+                    imgs.add(info.getImageid());
+                }
+                DesignerCaseAdapter adapter = new DesignerCaseAdapter(DesignerCaseInfoActivity.this, imgList, designerCaseInfo, new RecyclerViewOnItemClickListener() {
                     @Override
                     public void OnItemClick(View view, int position) {
                         LogTool.d(TAG, "position:" + position);
+                        Intent showPicIntent = new Intent(DesignerCaseInfoActivity.this, ShowPicActivity.class);
+                        Bundle showPicBundle = new Bundle();
+                        showPicBundle.putInt(Constant.CURRENT_POSITION, position);
+                        showPicBundle.putStringArrayList(Constant.IMAGE_LIST,
+                                (ArrayList<String>) imgs);
+                        showPicIntent.putExtras(showPicBundle);
+                        startActivity(showPicIntent);
                     }
 
                     @Override
