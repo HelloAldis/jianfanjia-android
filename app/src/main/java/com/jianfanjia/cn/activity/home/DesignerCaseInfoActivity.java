@@ -180,6 +180,7 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
                 nameText.setText(designerCaseInfo.getDesigner().getUsername());
                 imageShow.displayImageHeadWidthThumnailImage(DesignerCaseInfoActivity.this, designerCaseInfo.getDesigner().getImageid(), head_img);
                 List<ImageInfo> imgList = designerCaseInfo.getImages();
+                imgs.clear();
                 for (ImageInfo info : imgList) {
                     imgs.add(info.getImageid());
                 }
