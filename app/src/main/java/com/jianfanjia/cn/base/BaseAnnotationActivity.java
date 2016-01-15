@@ -9,6 +9,5 @@ package com.jianfanjia.cn.base;
 public abstract class BaseAnnotationActivity extends BaseActivity{
     @Override
     public void initView() {
-
     }
 }

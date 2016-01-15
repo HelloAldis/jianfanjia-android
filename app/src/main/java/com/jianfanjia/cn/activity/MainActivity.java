@@ -7,7 +7,7 @@ import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
 import com.jianfanjia.cn.AppManager;
-import com.jianfanjia.cn.activity.requirement.PublishRequirementActivity;
+import com.jianfanjia.cn.activity.requirement.PublishRequirementActivity_;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
@@ -56,7 +56,7 @@ public class MainActivity extends BaseActivity implements
         LogTool.d(TAG, "flag:" + flag);
         if (flag) {
             LogTool.d(TAG, "REGISTER PUBLISH REQUIREMENG");
-            startActivityForResult(new Intent(this, PublishRequirementActivity.class), XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT);
+            startActivityForResult(new Intent(this, PublishRequirementActivity_.class), XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT);
         }
     }
 
@@ -95,7 +95,7 @@ public class MainActivity extends BaseActivity implements
                     transaction.show(homeFragment);
                 } else {
                     homeFragment = new HomeFragment();
-                    transaction.add(R.id.tabLayout, homeFragment);
+                    transaction.add(R.id.tablayout, homeFragment);
                 }
                 break;
             case Constant.DECORATE:
@@ -103,7 +103,7 @@ public class MainActivity extends BaseActivity implements
                     transaction.show(decorationFragment);
                 } else {
                     decorationFragment = new DecorationFragment();
-                    transaction.add(R.id.tabLayout, decorationFragment);
+                    transaction.add(R.id.tablayout, decorationFragment);
                 }
                 break;
             case Constant.MANAGE:
@@ -111,7 +111,7 @@ public class MainActivity extends BaseActivity implements
                     transaction.show(xuqiuFragment);
                 } else {
                     xuqiuFragment = XuQiuFragment_.builder().build();
-                    transaction.add(R.id.tabLayout, xuqiuFragment);
+                    transaction.add(R.id.tablayout, xuqiuFragment);
                 }
                 break;
             case Constant.MY:
@@ -119,7 +119,7 @@ public class MainActivity extends BaseActivity implements
                     transaction.show(myFragment);
                 } else {
                     myFragment = new MyFragment();
-                    transaction.add(R.id.tabLayout, myFragment);
+                    transaction.add(R.id.tablayout, myFragment);
                 }
                 break;
             default:

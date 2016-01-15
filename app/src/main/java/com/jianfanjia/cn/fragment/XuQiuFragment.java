@@ -23,7 +23,7 @@ import com.jianfanjia.cn.activity.requirement.MyDesignerActivity_;
 import com.jianfanjia.cn.activity.requirement.MyProcessDetailActivity_;
 import com.jianfanjia.cn.activity.requirement.PreviewBusinessRequirementActivity_;
 import com.jianfanjia.cn.activity.requirement.PreviewRequirementActivity_;
-import com.jianfanjia.cn.activity.requirement.PublishRequirementActivity;
+import com.jianfanjia.cn.activity.requirement.PublishRequirementActivity_;
 import com.jianfanjia.cn.activity.requirement.UpdateRequirementActivity_;
 import com.jianfanjia.cn.adapter.RequirementNewAdapter;
 import com.jianfanjia.cn.base.BaseAnnotationFragment;
@@ -181,7 +181,7 @@ public class XuQiuFragment extends BaseAnnotationFragment {
 
     @Click({R.id.req_publish_layout, R.id.head_right_title})
     protected void publish_requirement() {
-        Intent intent = new Intent(getActivity(), PublishRequirementActivity.class);
+        Intent intent = new Intent(getActivity(), PublishRequirementActivity_.class);
         startActivityForResult(intent, REQUESTCODE_PUBLISH_REQUIREMENT);
     }
 
