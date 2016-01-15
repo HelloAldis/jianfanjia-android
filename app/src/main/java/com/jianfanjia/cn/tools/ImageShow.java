@@ -87,15 +87,15 @@ public class ImageShow {
     }
 
     public void displayHalfScreenWidthThumnailImage(Context context, String imageid, ImageView imageView) {
-        displayThumbnailImage(imageid, imageView, (int)TDevice.getScreenWidth() / 2);
+        displayThumbnailImage(imageid, imageView, (int) TDevice.getScreenWidth() / 2);
     }
 
     public void displayScreenWidthThumnailImage(Context context, String imageid, ImageView imageView, ImageLoadingListener listener) {
-        displayThumbnailImage(imageid, imageView, (int)TDevice.getScreenWidth(), listener);
+        displayThumbnailImage(imageid, imageView, (int) TDevice.getScreenWidth(), listener);
     }
 
     public void displayHalfScreenWidthThumnailImage(Context context, String imageid, ImageView imageView, ImageLoadingListener listener) {
-        displayThumbnailImage(imageid, imageView, (int)TDevice.getScreenWidth() / 2, listener);
+        displayThumbnailImage(imageid, imageView, (int) TDevice.getScreenWidth() / 2, listener);
     }
 
     /**
@@ -111,11 +111,10 @@ public class ImageShow {
         imageLoader.displayImage(imageUrl, imageView, DisplayImageOptionsWrap.getDisplayImageOptionsIsMemoryCache(true));
     }
 
-    public void loadImage(String imageid,ImageLoadingListener listener){
+    public void loadImage(String imageid, ImageLoadingListener listener) {
         String imageUrl = url_new.GET_THUMBNAIL_IMAGE.replace(Url_New.WIDTH, TDevice.getScreenWidth() + "") + imageid;
-        imageLoader.loadImage(imageUrl,DisplayImageOptionsWrap.getDisplayImageOptionsIsMemoryCache(false),listener);
+        imageLoader.loadImage(imageUrl, DisplayImageOptionsWrap.getDisplayImageOptionsIsMemoryCache(false), listener);
     }
-
 
 
 }
