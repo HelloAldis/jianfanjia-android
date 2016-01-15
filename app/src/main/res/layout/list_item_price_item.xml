@@ -18,10 +18,7 @@
             android:layout_weight="1"
             android:background="@drawable/layout_border_bg"
             android:gravity="center"
-            android:paddingBottom="13dip"
-            android:paddingLeft="10dip"
-            android:paddingRight="10dip"
-            android:paddingTop="13dip"
+            android:padding="10dip"
             android:text="餐厅"
             android:textColor="@color/home_page_text_color"
             android:textSize="@dimen/text_size_14" />
@@ -34,10 +31,7 @@
             android:layout_weight="1"
             android:background="@drawable/layout_border_bg"
             android:gravity="center"
-            android:paddingBottom="13dip"
-            android:paddingLeft="10dip"
-            android:paddingRight="10dip"
-            android:paddingTop="13dip"
+            android:padding="10dip"
             android:text="1000"
             android:textColor="@color/home_page_text_color"
             android:textSize="@dimen/text_size_14" />
