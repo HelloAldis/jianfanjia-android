@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/main_layout_bg"
     android:focusable="false"
-    android:scrollbars="vertical">
+    android:scrollbars="none">
 
     <!--<com.jianfanjia.cn.view.MainHeadView
         android:id="@+id/act_edit_req_head"
@@ -60,9 +60,9 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="16dp"
+                android:ellipsize="end"
                 android:hint="@string/city_tip"
-                android:singleLine="true"
-                android:ellipsize="end"/>
+                android:singleLine="true" />
         </RelativeLayout>
 
         <!--  <View
@@ -127,8 +127,7 @@
                 android:layout_weight="2"
                 android:gravity="center"
                 android:maxLength="20"
-                android:nextFocusDown="@+id/act_edit_req_qi_content"
-                />
+                android:nextFocusDown="@+id/act_edit_req_qi_content" />
 
             <TextView
                 android:id="@+id/act_edit_req_qi_title"
@@ -144,8 +143,7 @@
                 android:gravity="center"
                 android:inputType="number"
                 android:maxLength="10"
-                android:nextFocusDown="@+id/act_edit_req_dong_content"
-                />
+                android:nextFocusDown="@+id/act_edit_req_dong_content" />
         </LinearLayout>
 
         <View
@@ -175,8 +173,7 @@
                 android:gravity="center"
                 android:inputType="number"
                 android:maxLength="10"
-                android:nextFocusDown="@+id/act_edit_req_danyuan_content"
-                />
+                android:nextFocusDown="@+id/act_edit_req_danyuan_content" />
 
             <TextView
                 android:id="@+id/act_edit_req_danyuan_title"
@@ -192,8 +189,7 @@
                 android:gravity="center"
                 android:inputType="number"
                 android:maxLength="10"
-                android:nextFocusDown="@+id/act_edit_req_shi_content"
-                />
+                android:nextFocusDown="@+id/act_edit_req_shi_content" />
 
             <TextView
                 android:id="@+id/act_edit_req_shi_title"
@@ -209,8 +205,7 @@
                 android:gravity="center"
                 android:inputType="number"
                 android:maxLength="10"
-                android:nextFocusDown="@+id/act_edit_req_housetype_content"
-                />
+                android:nextFocusDown="@+id/act_edit_req_housetype_content" />
         </LinearLayout>
 
         <View
@@ -357,8 +352,7 @@
                 android:inputType="number"
                 android:maxLength="4"
                 android:minWidth="@dimen/space_48"
-                android:numeric="integer"
-                />
+                android:numeric="integer" />
 
             <TextView
                 android:id="@+id/act_edit_req_decoratebudget_unit"
