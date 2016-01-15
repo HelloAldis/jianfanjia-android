@@ -29,17 +29,11 @@
             android:textColor="@color/light_black_color" />
     </RelativeLayout>
 
-
-    <com.jianfanjia.cn.view.MyViewPager
-        android:id="@+id/viewpager"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/item_plan_listview"
         android:layout_width="match_parent"
-        android:layout_height="125dip"
-        android:layout_marginBottom="5dip"
-        android:layout_marginLeft="10dip"
-        android:layout_marginRight="10dip"
-        android:layout_marginTop="5dip"
+        android:layout_height="120dip"
         android:fadingEdge="none" />
-
 
     <RelativeLayout
         android:layout_width="match_parent"

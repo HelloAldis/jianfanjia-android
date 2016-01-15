@@ -1,7 +1,8 @@
 package com.jianfanjia.cn.adapter;
 
 import android.content.Context;
-import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -51,7 +52,10 @@ public class DesignerPlanAdapter extends BaseRecyclerViewAdapter<PlanInfo> {
             holder.statusText.setText("已中标");
         }
         List<String> imgList = info.getImages();
-        PlanViewAdapter adapter = new PlanViewAdapter(context, imgList, new ViewPagerClickListener() {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
+        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        holder.item_plan_listview.setLayoutManager(linearLayoutManager);
+        DesignerPlanRecyclerViewAdapter adapter = new DesignerPlanRecyclerViewAdapter(context, imgList, new ViewPagerClickListener() {
             @Override
             public void onClickItem(int pos) {
                 if (null != itemClickListener) {
@@ -59,8 +63,8 @@ public class DesignerPlanAdapter extends BaseRecyclerViewAdapter<PlanInfo> {
                 }
             }
         });
-        holder.viewPager.setPageMargin(10);
-        holder.viewPager.setAdapter(adapter);
+
+        holder.item_plan_listview.setAdapter(adapter);
         holder.commentText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,7 +99,7 @@ public class DesignerPlanAdapter extends BaseRecyclerViewAdapter<PlanInfo> {
     private static class DesignerPlanViewHolder extends RecyclerViewHolderBase {
         public TextView numText;
         public TextView statusText;
-        public ViewPager viewPager;
+        public RecyclerView item_plan_listview;
         public TextView dateText;
         public TextView commentText;
         public TextView previewText;
@@ -104,7 +108,7 @@ public class DesignerPlanAdapter extends BaseRecyclerViewAdapter<PlanInfo> {
             super(itemView);
             numText = (TextView) itemView.findViewById(R.id.numText);
             statusText = (TextView) itemView.findViewById(R.id.statusText);
-            viewPager = (ViewPager) itemView.findViewById(R.id.viewpager);
+            item_plan_listview = (RecyclerView) itemView.findViewById(R.id.item_plan_listview);
             dateText = (TextView) itemView.findViewById(R.id.dateText);
             previewText = (TextView) itemView.findViewById(R.id.previewText);
             commentText = (TextView) itemView.findViewById(R.id.commentText);
