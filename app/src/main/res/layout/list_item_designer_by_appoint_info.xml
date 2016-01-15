@@ -52,7 +52,7 @@
             <TextView
                 android:id="@+id/list_item_march_text"
                 style="@style/listview_item_text_style_small"
-                android:layout_marginTop="10dip"
+                android:layout_marginTop="15dip"
                 android:text="匹配度:100%"
                 android:textColor="@color/main_color_grey"
                 android:visibility="gone" />
@@ -62,7 +62,7 @@
                 style="@style/list_item_ratingbar_style"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dip"
+                android:layout_marginTop="15dip"
                 android:isIndicator="true"
                 android:numStars="5"
                 android:rating="0"
