@@ -43,7 +43,7 @@
                 android:drawableTop="@drawable/rb_btn_bg1"
                 android:paddingBottom="5dp"
                 android:paddingTop="6dp"
-                android:text="首页"
+                android:text="我的业主"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/text_size_10" />
 
@@ -58,7 +58,7 @@
                 android:drawableTop="@drawable/rb_btn_bg2"
                 android:paddingBottom="5dp"
                 android:paddingTop="6dp"
-                android:text="装修美图"
+                android:text="工地管理"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/text_size_10" />
 
@@ -70,25 +70,10 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
                 android:background="#00000000"
-                android:drawableTop="@drawable/rb_btn_bg3"
-                android:paddingBottom="5dp"
-                android:paddingTop="6dp"
-                android:text="装修需求"
-                android:textColor="@color/text_color"
-                android:textSize="@dimen/text_size_11" />
-
-            <RadioButton
-                android:id="@+id/tab_rb_4"
-                style="@style/tab_rb_style"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:background="#00000000"
                 android:drawableTop="@drawable/rb_btn_bg4"
                 android:paddingBottom="5dp"
                 android:paddingTop="6dp"
-                android:text="我的"
+                android:text="更多"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/text_size_10" />
         </RadioGroup>

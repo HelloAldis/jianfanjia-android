@@ -1,5 +1,6 @@
 package com.jianfanjia.cn.designer.config;
 
+
 import android.os.Environment;
 
 import com.jianfanjia.cn.designer.R;
@@ -194,3 +195,4 @@ public class Constant {
     public static final int UPDATE_BEAUTY_FRAGMENT = 70;
     public static final int UPDATE_ORDER_DESIGNER_ACTIVITY = 80;
 }
+
