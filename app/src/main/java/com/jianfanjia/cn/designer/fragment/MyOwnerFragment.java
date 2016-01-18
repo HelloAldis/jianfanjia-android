@@ -15,4 +15,5 @@ import org.androidannotations.annotations.EFragment;
 public class MyOwnerFragment extends BaseAnnotationFragment {
 
 
+
 }

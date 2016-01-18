@@ -81,7 +81,7 @@
                 android:layout_marginTop="8dp"
                 android:orientation="horizontal" >
 
-                <com.jianfanjia.designer.view.MyGridView
+                <com.jianfanjia.cn.designer.view.MyGridView
                     android:id="@+id/site_list_item_gridview"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

@@ -4,7 +4,7 @@
     android:background="@color/font_white"
     android:orientation="vertical">
 
-    <com.jianfanjia.designer.view.MainHeadView
+    <com.jianfanjia.cn.designer.view.MainHeadView
         android:id="@+id/my_price_head_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,7 +21,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <com.jianfanjia.designer.view.MyListView
+            <com.jianfanjia.cn.designer.view.MyListView
                 android:id="@+id/price_listview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

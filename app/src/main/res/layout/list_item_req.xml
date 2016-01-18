@@ -16,7 +16,7 @@
         android:paddingTop="@dimen/space_16"
         android:background="@drawable/my_item_layout_bg_selector">
 
-        <com.jianfanjia.designer.view.layout.CircleImageView
+        <com.jianfanjia.cn.designer.view.layout.CircleImageView
             android:id="@+id/ltm_req_owner_head"
             android:layout_width="60dp"
             android:layout_height="60dp"
@@ -138,7 +138,7 @@
                 android:layout_centerVertical="true"
                 >
 
-                <com.jianfanjia.designer.view.layout.CircleImageView
+                <com.jianfanjia.cn.designer.view.layout.CircleImageView
                     android:id="@+id/ltm_req_designer_head0"
                     android:layout_height="match_parent"
                     android:layout_width="match_parent"
@@ -194,7 +194,7 @@
                 android:layout_centerVertical="true"
                 >
 
-                <com.jianfanjia.designer.view.layout.CircleImageView
+                <com.jianfanjia.cn.designer.view.layout.CircleImageView
                     android:id="@+id/ltm_req_designer_head1"
                     android:layout_height="match_parent"
                     android:layout_width="match_parent"
@@ -249,7 +249,7 @@
                 android:layout_centerVertical="true"
                 >
 
-                <com.jianfanjia.designer.view.layout.CircleImageView
+                <com.jianfanjia.cn.designer.view.layout.CircleImageView
                     android:id="@+id/ltm_req_designer_head2"
                     android:layout_height="match_parent"
                     android:layout_width="match_parent"

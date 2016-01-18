@@ -5,7 +5,7 @@
     android:background="@color/main_layout_bg"
     >
 
-    <com.jianfanjia.designer.view.MainHeadView
+    <com.jianfanjia.cn.designer.view.MainHeadView
         android:id="@+id/my_manage_head_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,7 +23,7 @@
             android:src="@mipmap/icon_notification"
             android:layout_centerInParent="true"
             />
-        <com.jianfanjia.designer.view.layout.CircleImageView
+        <com.jianfanjia.cn.designer.view.layout.CircleImageView
             android:layout_width="6dp"
             android:layout_height="6dp"
             android:layout_toRightOf="@+id/frag_manage_notification"
@@ -34,7 +34,7 @@
             />
     </RelativeLayout>
 
-    <com.jianfanjia.designer.view.MyViewPager
+    <com.jianfanjia.cn.designer.view.MyViewPager
         android:id="@+id/processViewPager"
         android:layout_width="match_parent"
         android:layout_height="120dp"
@@ -53,7 +53,7 @@
             android:layout_marginLeft="45dp"
             android:background="@color/line_color" />
 
-        <com.jianfanjia.designer.view.library.PullToRefreshScrollView xmlns:ptr="http://schemas.android.com/apk/res-auto"
+        <com.jianfanjia.cn.designer.view.library.PullToRefreshScrollView xmlns:ptr="http://schemas.android.com/apk/res-auto"
             android:id="@+id/pull_refresh_scrollview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -70,7 +70,7 @@
             ptr:ptrHeaderTextAppearance="@android:attr/textAppearanceMedium"
             ptr:ptrHeaderTextColor="#000000">
 
-            <com.jianfanjia.designer.view.MyListView
+            <com.jianfanjia.cn.designer.view.MyListView
                 android:id="@+id/site__listview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -83,6 +83,6 @@
                 android:fastScrollEnabled="false"
                 android:listSelector="@android:color/transparent"
                 android:scrollbars="none" />
-        </com.jianfanjia.designer.view.library.PullToRefreshScrollView>
+        </com.jianfanjia.cn.designer.view.library.PullToRefreshScrollView>
     </FrameLayout>
 </RelativeLayout>

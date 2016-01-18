@@ -21,7 +21,7 @@
             android:textColor="@color/home_page_text_color"
             android:textSize="@dimen/text_size_14" />
 
-        <com.jianfanjia.designer.view.MyGridView
+        <com.jianfanjia.cn.designer.view.MyGridView
             android:id="@+id/marchGridview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

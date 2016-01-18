@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/main_layout_bg" >
 
-    <com.jianfanjia.designer.view.MainHeadView
+    <com.jianfanjia.cn.designer.view.MainHeadView
         android:id="@+id/check_pic_head_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -63,7 +63,7 @@
                     android:textColor="@color/light_black_color" />
             </LinearLayout>
 
-            <com.jianfanjia.designer.view.MyGridView
+            <com.jianfanjia.cn.designer.view.MyGridView
                 android:id="@+id/mygridview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

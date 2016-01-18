@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/main_layout_bg">
 
-    <com.jianfanjia.designer.view.MainHeadView
+    <com.jianfanjia.cn.designer.view.MainHeadView
         android:id="@+id/my_feedback_head_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

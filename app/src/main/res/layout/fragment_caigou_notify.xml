@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.jianfanjia.designer.view.library.PullToRefreshRecycleView xmlns:ptr="http://schemas.android.com/apk/res-auto"
+    <com.jianfanjia.cn.designer.view.library.PullToRefreshRecycleView xmlns:ptr="http://schemas.android.com/apk/res-auto"
         android:id="@+id/tip_caigou__listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

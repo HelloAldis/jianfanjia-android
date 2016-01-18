@@ -6,7 +6,7 @@
     android:background="@color/main_layout_bg"
     android:orientation="vertical">
 
-    <com.jianfanjia.designer.view.MainHeadView
+    <com.jianfanjia.cn.designer.view.MainHeadView
         android:id="@+id/manage_head"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
@@ -18,7 +18,7 @@
         android:layout_marginTop="@dimen/space_8"
         android:orientation="vertical">
 
-        <com.jianfanjia.designer.view.SuperSwipeRefreshLayout
+        <com.jianfanjia.cn.designer.view.SuperSwipeRefreshLayout
             android:id="@+id/manage_pull_refresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -28,7 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal" />
-        </com.jianfanjia.designer.view.SuperSwipeRefreshLayout>
+        </com.jianfanjia.cn.designer.view.SuperSwipeRefreshLayout>
 
         <include
             android:id="@+id/error_include"

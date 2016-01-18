@@ -19,7 +19,7 @@
             android:layout_marginRight="10dip"
             android:layout_marginTop="15dip">
 
-            <com.jianfanjia.designer.view.layout.CircleImageView
+            <com.jianfanjia.cn.designer.view.layout.CircleImageView
                 android:id="@+id/list_item_head_img"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

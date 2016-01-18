@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.jianfanjia.designer.view.MainHeadView
+        <com.jianfanjia.cn.designer.view.MainHeadView
             android:id="@+id/process_head_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -42,7 +42,7 @@
         android:layout_below="@+id/process_head_wrap"
         android:background="#ffffff">
 
-        <com.jianfanjia.designer.view.MyViewPager
+        <com.jianfanjia.cn.designer.view.MyViewPager
             android:id="@+id/process_viewpager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -67,7 +67,7 @@
             android:paddingBottom="@dimen/space_8"
             android:paddingTop="@dimen/space_8">
 
-            <com.jianfanjia.designer.view.library.PullToRefreshListView xmlns:ptr="http://schemas.android.com/apk/res-auto"
+            <com.jianfanjia.cn.designer.view.library.PullToRefreshListView xmlns:ptr="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/process__listview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

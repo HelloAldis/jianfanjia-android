@@ -92,17 +92,18 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
                             updateVersion = JsonParser
                                     .jsonToBean(data.toString(),
                                             UpdateVersion.class);
+                            LogTool.d(this.getClass().getName(),updateVersion.getVersion_code());
                             if (updateVersion != null) {
-                                if (Integer.parseInt(updateVersion
-                                        .getVersion_code()) > MyApplication
-                                        .getInstance().getVersionCode()) {
-                                    showNewVersionDialog(
-                                            String.format(getString(R.string.new_version_message),
-                                                    updateVersion.getVersion_name()),
-                                            updateVersion);
-                                } else {
+//                                if (Integer.parseInt(updateVersion
+//                                        .getVersion_code()) > MyApplication
+//                                        .getInstance().getVersionCode()) {
+//                                    showNewVersionDialog(
+//                                            String.format(getString(R.string.new_version_message),
+//                                                    updateVersion.getVersion_name()),
+//                                            updateVersion);
+//                                } else {
                                     handler.postDelayed(runnable, 2000);
-                                }
+//                                }
                             }
                         }
                     }

@@ -68,9 +68,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.relealse
 
-//            manifestPlaceholders = [GETUI_PUSH_APPID    : "t9nLEYqbWI7HUX2QkE79v2", GETUI_PUSH_APPKEY: "m2fZOPk3fy5pgq6szkabb7",
-//                                    GETUI_PUSH_APPSECRET: "cO8DCexdK69ug14SeeIbg7", SERVER_PORT: RELEASE_SERVER_PORT, SERVER_IP: TEST_SERVER_IP]
-            manifestPlaceholders = [GETUI_PUSH_APPID: "s7Et91ZLPu8KRwBEtY4AZ8", GETUI_PUSH_APPKEY: "8BTWfBSMYM95oFpDOwGYu5", GETUI_PUSH_APPSECRET: "QbclEVLgAIA6iWblkTjyD4", SERVER_PORT: TEST_SERVER_PORT, SERVER_IP: TEST_SERVER_IP]
+            manifestPlaceholders = [GETUI_PUSH_APPID: "Ec5Iv1QTPz9pBk2ZYFebd", GETUI_PUSH_APPKEY: "1zvknC2OFL6mUlWch6tcb3", GETUI_PUSH_APPSECRET: "cvNcATrYoo717R8milqyn7",
+                                    SERVER_PORT     : RELEASE_SERVER_PORT, SERVER_IP: TEST_SERVER_IP]
+//            manifestPlaceholders = [GETUI_PUSH_APPID: "s7Et91ZLPu8KRwBEtY4AZ8", GETUI_PUSH_APPKEY: "8BTWfBSMYM95oFpDOwGYu5", GETUI_PUSH_APPSECRET: "QbclEVLgAIA6iWblkTjyD4", SERVER_PORT: TEST_SERVER_PORT, SERVER_IP: TEST_SERVER_IP]
         }
     }
     sourceSets {

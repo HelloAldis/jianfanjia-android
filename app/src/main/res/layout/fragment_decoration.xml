@@ -4,7 +4,7 @@
     android:background="@color/main_layout_bg"
     android:orientation="vertical">
 
-    <com.jianfanjia.designer.view.MainHeadView
+    <com.jianfanjia.cn.designer.view.MainHeadView
         android:id="@+id/dec_head"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -88,7 +88,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.jianfanjia.designer.view.library.PullToRefreshRecycleView xmlns:ptr="http://schemas.android.com/apk/res-auto"
+        <com.jianfanjia.cn.designer.view.library.PullToRefreshRecycleView xmlns:ptr="http://schemas.android.com/apk/res-auto"
             android:id="@+id/decoration_listview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
