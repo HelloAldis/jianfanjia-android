@@ -51,11 +51,9 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
     private PullToRefreshRecycleView pullToRefreshRecyclerView = null;
     private RelativeLayout errorLayout = null;
     private boolean isFirst = true;
-
     private DesignerListAdapter designerAdapter = null;
     private List<DesignerListInfo> designerList = new ArrayList<DesignerListInfo>();
     private LinearLayoutManager linearLayoutManager;
-
     private int FROM = 0;// 当前页的编号，从0开始
 
     @Override
