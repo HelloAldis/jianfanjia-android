@@ -5,11 +5,15 @@
     android:layout_height="match_parent"
     android:background="@color/font_white">
 
+    <View
+        android:id="@+id/top_line"
+        style="@style/divier_line" />
+
     <RelativeLayout
         android:id="@+id/ltm_req_baseinfo_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_below="@id/top_line"
         android:background="@drawable/my_item_layout_bg_selector"
         android:paddingBottom="@dimen/space_16"
         android:paddingLeft="@dimen/space_26"
@@ -308,5 +312,8 @@
         android:textColor="@color/orange_color"
         android:textSize="@dimen/middle_size" />
 
-
+    <View
+        android:id="@+id/bottom_line"
+        style="@style/divier_line"
+        android:layout_below="@id/ltm_req_gotopro" />
 </RelativeLayout>
