@@ -28,7 +28,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dip">
 
-        <com.jianfanjia.cn.view.layout.CircleImageView
+        <com.jianfanjia.designer.view.layout.CircleImageView
             android:id="@+id/designerinfo_head_img"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

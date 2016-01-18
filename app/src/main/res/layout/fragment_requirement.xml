@@ -6,7 +6,7 @@
     android:background="@color/main_layout_bg"
     android:orientation="vertical">
 
-    <com.jianfanjia.cn.view.MainHeadView
+    <com.jianfanjia.designer.view.MainHeadView
         android:id="@+id/req_head"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -20,7 +20,7 @@
         android:orientation="vertical"
         android:visibility="gone">
 
-        <com.jianfanjia.cn.view.library.PullToRefreshRecycleView xmlns:ptr="http://schemas.android.com/apk/res-auto"
+        <com.jianfanjia.designer.view.library.PullToRefreshRecycleView xmlns:ptr="http://schemas.android.com/apk/res-auto"
             android:id="@+id/req_pullfefresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

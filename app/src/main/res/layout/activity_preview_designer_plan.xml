@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/font_white">
 
-    <com.jianfanjia.cn.view.MainHeadView
+    <com.jianfanjia.designer.view.MainHeadView
         android:id="@+id/my_prieview_head_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,7 +33,7 @@
             android:layout_below="@id/my_prieview_head_layout"
             android:orientation="vertical">
 
-            <com.jianfanjia.cn.view.MyViewPager
+            <com.jianfanjia.designer.view.MyViewPager
                 android:id="@+id/viewpager"
                 android:layout_width="match_parent"
                 android:layout_height="250dp" />

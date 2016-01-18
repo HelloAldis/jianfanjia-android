@@ -1,0 +1,36 @@
+package com.jianfanjia.cn.designer.http.request;
+
+import android.content.Context;
+
+import com.jianfanjia.cn.designer.base.BaseRequest;
+
+/**
+ * Name: GetDecorationImgRequest
+ * User: fengliang
+ * Date: 2015-12-08
+ * Time: 17:02
+ */
+public class GetDecorationImgRequest extends BaseRequest {
+    private String _id;
+
+    public GetDecorationImgRequest(Context context, String _id) {
+        super(context);
+        this._id = _id;
+        url = url_new.GET_DECORATION_IMG;
+    }
+
+    @Override
+    public void pre() {
+        super.pre();
+    }
+
+    @Override
+    public void all() {
+        super.all();
+    }
+
+    @Override
+    public void onSuccess(Object data) {
+        super.onSuccess(data);
+    }
+}

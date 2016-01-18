@@ -6,7 +6,7 @@
     android:background="@color/black_color"
     android:fitsSystemWindows="true">
 
-    <com.jianfanjia.cn.view.MyViewPager
+    <com.jianfanjia.designer.view.MyViewPager
         android:id="@+id/showpicPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

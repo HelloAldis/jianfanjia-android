@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.jianfanjia.cn.activity">
+    package="com.jianfanjia.cn.designer">
 
     <!-- 屏幕适配 -->
     <supports-screens
@@ -41,7 +41,7 @@
     <uses-permission android:name="getui.permission.GetuiService.com.jianfanjia.cn.activity" />
 
     <permission
-        android:name="getui.permission.GetuiService.com.jianfanjia.cn.activity"
+        android:name="getui.permission.GetuiService.com.jianfanjia.designer.activity"
         android:protectionLevel="normal"></permission>
 
     <!-- QQ、QQ空间所需权限 -->
@@ -55,7 +55,7 @@
     <permission android:name="android.permission.WRITE_APN_SETTINGS"/>
 
     <application
-        android:name="com.jianfanjia.cn.application.MyApplication"
+        android:name="com.jianfanjia.cn.designer.application.MyApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
@@ -92,7 +92,7 @@
 
         <!-- 配置第三方Receiver -->
         <receiver
-            android:name="com.jianfanjia.cn.receiver.PushMsgReceiver"
+            android:name="com.jianfanjia.cn.designer.receiver.PushMsgReceiver"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.igexin.sdk.action.${GETUI_PUSH_APPID}" />
@@ -146,7 +146,7 @@
 
         <provider
             android:name="com.igexin.download.DownloadProvider"
-            android:authorities="downloads.com.jianfanjia.cn.activity"
+            android:authorities="downloads.com.jianfanjia.designer.activity"
             android:process=":pushservice" />
         <!-- android:authorities="downloads.第三方包名" -->
         <activity
@@ -176,87 +176,87 @@
         <!-- 个推SDK配置结束 -->
 
         <activity
-            android:name=".MainActivity"
+            android:name="com.jianfanjia.cn.designer.activity.MainActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".LoginNewActivity_"
+            android:name=".activity.LoginNewActivity_"
             android:label="@string/title_activity_login"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
-            android:name=".RegisterNewActivity_"
+            android:name=".activity.RegisterNewActivity_"
             android:label="@string/title_activity_register"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible" />
         <activity
-            android:name=".my.HelpActivity"
+            android:name="com.jianfanjia.cn.designer.activity.my.HelpActivity"
             android:label="@string/title_activity_help"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".my.SettingActivity"
+            android:name="com.jianfanjia.cn.designer.activity.my.SettingActivity"
             android:label="@string/title_activity_setting"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".my.AboutActivity"
+            android:name="com.jianfanjia.cn.designer.activity.my.AboutActivity"
             android:label="@string/title_activity_about"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".my.ShareActivity"
+            android:name="com.jianfanjia.cn.designer.activity.my.ShareActivity"
             android:label="@string/title_activity_share"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".requirement.CheckActivity"
+            android:name=".activity.requirement.CheckActivity"
             android:label="@string/title_activity_check"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".common.CommentActivity"
+            android:name="com.jianfanjia.cn.designer.activity.common.CommentActivity"
             android:label="@string/title_activity_comment"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".my.EditOwnerInfoActivity"
+            android:name="com.jianfanjia.cn.designer.activity.my.EditOwnerInfoActivity"
             android:label="@string/title_activity_edit_info"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible" />
         <activity
-            android:name=".my.FeedBackActivity"
+            android:name="com.jianfanjia.cn.designer.activity.my.FeedBackActivity"
             android:label="@string/title_activity_feed_back"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible" />
         <activity
-            android:name=".ForgetPswActivity_"
+            android:name=".activity.ForgetPswActivity_"
             android:label="@string/title_activity_forget_psw"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible" />
         <activity
-            android:name=".requirement.MyDesignerActivity_"
+            android:name=".activity.requirement.MyDesignerActivity_"
             android:label="@string/title_activity_my_designer"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".NavigateActivity"
+            android:name="com.jianfanjia.cn.designer.activity.NavigateActivity"
             android:label="@string/title_activity_navigate"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".my.NotifyActivity"
+            android:name="com.jianfanjia.cn.designer.activity.my.NotifyActivity"
             android:label="@string/title_activity_notify"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".common.ShowPicActivity"
+            android:name="com.jianfanjia.cn.designer.activity.common.ShowPicActivity"
             android:label="@string/title_activity_show_pic"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".requirement.ShowProcessPicActivity"
+            android:name="com.jianfanjia.cn.designer.activity.requirement.ShowProcessPicActivity"
             android:label="@string/title_activity_show_pic"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".my.UserInfoActivity_"
+            android:name=".activity.my.UserInfoActivity_"
             android:label="@string/title_activity_user_info"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".WelcomeActivity"
+            android:name="com.jianfanjia.cn.designer.activity.WelcomeActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -266,108 +266,108 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".requirement.PreviewRequirementActivity_"
+            android:name=".activity.requirement.PreviewRequirementActivity_"
             android:label="PreviewRequirementActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".requirement.EditRequirementItemActivity_"
+            android:name=".activity.requirement.EditRequirementItemActivity_"
             android:label="EditRequirementItemActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".requirement.EditRequirementLovestyleActivity_"
+            android:name=".activity.requirement.EditRequirementLovestyleActivity_"
             android:label="EditRequirementLovestyleActivity"
             android:screenOrientation="portrait" />
 
-        <service android:name="com.jianfanjia.cn.service.UpdateService" />
+        <service android:name="com.jianfanjia.cn.designer.service.UpdateService" />
 
         <activity
-            android:name=".home.DesignerInfoActivity"
+            android:name="com.jianfanjia.cn.designer.activity.home.DesignerInfoActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".home.DesignerCaseInfoActivity"
+            android:name="com.jianfanjia.cn.designer.activity.home.DesignerCaseInfoActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".requirement.AppointDesignerActivity"
+            android:name="com.jianfanjia.cn.designer.activity.requirement.AppointDesignerActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".requirement.PingjiaActivity"
+            android:name="com.jianfanjia.cn.designer.activity.requirement.PingjiaActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".requirement.ContractActivity"
+            android:name="com.jianfanjia.cn.designer.activity.requirement.ContractActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".my.MyProcessActivity"
+            android:name="com.jianfanjia.cn.designer.activity.my.MyProcessActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".requirement.MyProcessDetailActivity_"
+            android:name=".activity.requirement.MyProcessDetailActivity_"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".requirement.DesignerPlanListActivity"
+            android:name="com.jianfanjia.cn.designer.activity.requirement.DesignerPlanListActivity"
             android:label="@string/title_activity_designer_plan_list"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".requirement.PreviewDesignerPlanActivity"
+            android:name="com.jianfanjia.cn.designer.activity.requirement.PreviewDesignerPlanActivity"
             android:label="@string/title_activity_preview_designer_plan"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".requirement.PingJiaInfoActivity"
+            android:name="com.jianfanjia.cn.designer.activity.requirement.PingJiaInfoActivity"
             android:label="@string/title_activity_ping_jia_info"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".requirement.DetailPriceActivity"
+            android:name="com.jianfanjia.cn.designer.activity.requirement.DetailPriceActivity"
             android:label="@string/title_activity_detail_price"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".requirement.ReplaceDesignerActivity"
+            android:name="com.jianfanjia.cn.designer.activity.requirement.ReplaceDesignerActivity"
             android:label="@string/title_activity_replace_designer"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".my.EditCityActivity_"
+            android:name=".activity.my.EditCityActivity_"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.soundcloud.android.crop.CropImageActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".my.CollectActivity"
+            android:name="com.jianfanjia.cn.designer.activity.my.CollectActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".beautifulpic.PreviewDecorationActivity"
+            android:name="com.jianfanjia.cn.designer.activity.beautifulpic.PreviewDecorationActivity"
             android:label=""
             android:screenOrientation="portrait" />
         <activity
-            android:name=".NewUserCollectLoveStyleActivity_"
+            android:name=".activity.NewUserCollectLoveStyleActivity_"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".NewUserCollectPersonActivity_"
+            android:name=".activity.NewUserCollectPersonActivity_"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".NewUserCollectDecStageActivity_"
+            android:name=".activity.NewUserCollectDecStageActivity_"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".NewUserGuideActivity_"
+            android:name=".activity.NewUserGuideActivity_"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".requirement.PublishRequirementActivity_"
+            android:name="com.jianfanjia.cn.designer.activity.requirement.PublishRequirementActivity_"
             android:screenOrientation="portrait"
             />
         <activity
-            android:name=".requirement.PreviewBusinessRequirementActivity_"
+            android:name=".activity.requirement.PreviewBusinessRequirementActivity_"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".requirement.UpdateRequirementActivity_"
+            android:name=".activity.requirement.UpdateRequirementActivity_"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".my.BindingPhoneActivity_"
+            android:name=".activity.my.BindingPhoneActivity_"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".my.BindingAccountActivity_"
+            android:name=".activity.my.BindingAccountActivity_"
             android:screenOrientation="portrait" />
 
         <!-- 第三方分享以及登录 -->
         <activity
-            android:name=".wxapi.WXEntryActivity"
+            android:name="com.jianfanjia.cn.designer.activity.wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:screenOrientation="portrait"
@@ -402,7 +402,7 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <!-- 第三方分享以及登录 -->
         <activity
-            android:name=".my.CustomerServiceActivity"
+            android:name="com.jianfanjia.cn.designer.activity.my.CustomerServiceActivity"
             android:label="@string/title_activity_customer_service"
             android:screenOrientation="portrait" />
     </application>

@@ -8,6 +8,6 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_replace_designer"
-    tools:context="com.jianfanjia.cn.activity.requirement.ReplaceDesignerActivity">
+    tools:context="com.jianfanjia.designer.activity.requirement.ReplaceDesignerActivity">
 
 </RelativeLayout>

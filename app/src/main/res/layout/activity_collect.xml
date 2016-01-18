@@ -6,7 +6,7 @@
     android:background="@color/main_layout_bg"
     android:orientation="vertical">
 
-    <com.jianfanjia.cn.view.MainHeadView
+    <com.jianfanjia.designer.view.MainHeadView
         android:id="@+id/my_collect_head_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
