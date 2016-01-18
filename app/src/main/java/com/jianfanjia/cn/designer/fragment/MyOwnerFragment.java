@@ -1,12 +1,18 @@
 package com.jianfanjia.cn.designer.fragment;
 
+import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.base.BaseAnnotationFragment;
 
+import org.androidannotations.annotations.EFragment;
+
 /**
- * Description: com.jianfanjia.cn.fragment
- * Author: zhanghao
- * Email: jame.zhang@myjyz.com
- * Date:2016-01-18 14:01
+ * Description:我的业主
+ * Author：fengliang
+ * Email：leo.feng@myjyz.com
+ * Date:15-10-11 14:30
  */
-public class MyOwnerFragment extends BaseAnnotationFragment{
+@EFragment(R.layout.fragment_my_owner)
+public class MyOwnerFragment extends BaseAnnotationFragment {
+
+
 }
