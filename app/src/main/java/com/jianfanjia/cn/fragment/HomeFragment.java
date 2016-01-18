@@ -140,7 +140,7 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
     private ApiUiUpdateListener pullDownListener = new ApiUiUpdateListener() {
         @Override
         public void preLoad() {
-            LogTool.d(TAG,"isFirst = " + isFirst);
+            LogTool.d(TAG, "isFirst = " + isFirst);
             if (isFirst) {
                 showWaitDialog();
             }
@@ -208,7 +208,7 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
         public void loadFailture(String error_msg) {
             hideWaitDialog();
             makeTextShort(error_msg);
-            if(isFirst){
+            if (isFirst) {
                 errorLayout.setVisibility(View.VISIBLE);
             }
             pullToRefreshRecyclerView.onRefreshComplete();
