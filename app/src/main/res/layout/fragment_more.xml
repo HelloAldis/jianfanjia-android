@@ -1,13 +1,181 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.jianfanjia.cn.fragment.MoreFragment">
+    android:background="@color/main_layout_bg">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
+        android:id="@+id/setting_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:scrollbars="none">
 
+        <LinearLayout
+            android:id="@+id/rootview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="255dip">
+
+                <ImageView
+                    android:id="@+id/head_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <RelativeLayout
+                        android:id="@+id/frag_my_info_layout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true">
+
+                        <com.jianfanjia.cn.view.layout.CircleImageView
+                            android:id="@+id/user_head_img"
+                            android:layout_width="90dip"
+                            android:layout_height="90dip"
+                            android:layout_centerHorizontal="true"
+                            android:scaleType="centerCrop"
+                            app:border_color="@color/white"
+                            app:border_width="2dip" />
+
+                        <TextView
+                            android:id="@+id/frag_my_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/user_head_img"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="10dip"
+                            android:textColor="#ffffff"
+                            android:textSize="@dimen/middle_size"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/frag_my_account"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/frag_my_name"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="10dip"
+                            android:textColor="#ffffff"
+                            android:textSize="@dimen/small_size" />
+                    </RelativeLayout>
+
+                </RelativeLayout>
+            </FrameLayout>
+
+            <View style="@style/divier_line" />
+
+            <RelativeLayout
+                android:id="@+id/xuqiu_layout"
+                style="@style/my_list_item_layout_style">
+
+                <TextView
+                    style="@style/listview_item_text_style_middle"
+                    android:layout_centerVertical="true"
+                    android:text="历史装修需求"
+                    android:textColor="@color/light_black_color" />
+
+                <ImageView
+                    style="@style/my_item_layout_image_style"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@null" />
+            </RelativeLayout>
+
+            <View style="@style/divier_line" />
+
+            <RelativeLayout
+                android:id="@+id/collect_layout"
+                style="@style/my_list_item_layout_style">
+
+                <TextView
+                    style="@style/listview_item_text_style_middle"
+                    android:layout_centerVertical="true"
+                    android:text="作品收藏"
+                    android:textColor="@color/light_black_color" />
+
+                <ImageView
+                    style="@style/my_item_layout_image_style"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@null" />
+            </RelativeLayout>
+
+            <View style="@style/divier_line" />
+
+            <RelativeLayout
+                android:id="@+id/my_designer_layout"
+                style="@style/my_list_item_layout_style"
+                android:visibility="gone">
+
+                <TextView
+                    style="@style/listview_item_text_style_middle"
+                    android:layout_centerVertical="true"
+                    android:text="我的意向设计师"
+                    android:textColor="@color/light_black_color" />
+
+                <ImageView
+                    style="@style/my_item_layout_image_style"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@null" />
+            </RelativeLayout>
+
+            <!--<View style="@style/divier_line" />-->
+
+            <View
+                style="@style/divier_line"
+                android:layout_marginTop="10dp" />
+
+            <RelativeLayout
+                android:id="@+id/kefu_layout"
+                style="@style/my_list_item_layout_style">
+
+                <TextView
+                    style="@style/listview_item_text_style_middle"
+                    android:layout_centerVertical="true"
+                    android:text="联系客服"
+                    android:textColor="@color/light_black_color" />
+
+                <ImageView
+                    style="@style/my_item_layout_image_style"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@null" />
+            </RelativeLayout>
+
+            <View style="@style/divier_line" />
+
+            <View
+                style="@style/divier_line"
+                android:layout_marginTop="10dp" />
+
+            <RelativeLayout
+                android:id="@+id/setting_layout"
+                style="@style/my_list_item_layout_style">
+
+                <TextView
+                    style="@style/listview_item_text_style_middle"
+                    android:layout_centerVertical="true"
+                    android:text="设置"
+                    android:textColor="@color/light_black_color" />
+
+                <ImageView
+                    style="@style/my_item_layout_image_style"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@null" />
+            </RelativeLayout>
+
+            <View style="@style/divier_line" />
+        </LinearLayout>
+    </ScrollView>
 </FrameLayout>
+
