@@ -36,10 +36,9 @@ public class Constant {
     public static final String EXTRA_BUNDLE = "launchBundle";
     public static final String KEY_WORD = "不限";
 
-    public static final int HOME = 0;//首页
-    public static final int DECORATE = 1;//装修美图
-    public static final int MANAGE = 2;//工地管理
-    public static final int MY = 3;//我的
+    public static final int OWNER = 0;//我的业主
+    public static final int MANAGE = 1;//工地管理
+    public static final int MORE = 2;//更多
 
     public static final int HOME_PAGE_LIMIT = 20;//首页分页 每次加载20条
     public static final String IS_WEIXIN_FIRST_LOGIN = "is_weixin_first_login";
