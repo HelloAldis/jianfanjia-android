@@ -51,6 +51,7 @@ public class MySiteAdapter extends BaseRecyclerViewAdapter<MySiteInfo> {
         public TextView itemPubTimeView;
         public TextView itemContractView;
         public TextView itemPlanView;
+        public TextView ltm_req_gotopro;
 
 
         public MySiteViewHolder(View itemView) {
@@ -62,6 +63,7 @@ public class MySiteAdapter extends BaseRecyclerViewAdapter<MySiteInfo> {
             itemPubTimeView = (TextView) itemView.findViewById(R.id.dateText);
             itemContractView = (TextView) itemView.findViewById(R.id.contractText);
             itemPlanView = (TextView) itemView.findViewById(R.id.planText);
+            ltm_req_gotopro = (TextView) itemView.findViewById(R.id.ltm_req_gotopro);
         }
     }
 }
