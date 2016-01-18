@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/font_white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dip"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+        android:layout_marginTop="8dip">
+
+        <com.jianfanjia.cn.view.layout.CircleImageView
+            android:id="@+id/list_item_head_img"
+            android:layout_width="50dip"
+            android:layout_height="50dip"
+            android:layout_centerVertical="true"
+            android:scaleType="centerCrop" />
+
+        <TextView
+            android:id="@+id/cellText"
+            style="@style/listview_item_text_style_middle"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:layout_toRightOf="@id/list_item_head_img"
+            android:text="中建康城东区"
+            android:textColor="@color/light_black_color" />
+
+        <TextView
+            android:id="@+id/nodeText"
+            style="@style/listview_item_text_style_middle"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="水电阶段"
+            android:textColor="@color/light_black_color" />
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/item_site_section_listview"
+        android:layout_width="match_parent"
+        android:layout_height="120dip"
+        android:fadingEdge="none" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dip"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+        android:layout_marginTop="8dip">
+
+        <TextView
+            android:id="@+id/dateText"
+            style="@style/listview_item_text_style_middle"
+            android:layout_centerVertical="true"
+            android:text="2015-10-22"
+            android:textColor="@color/grey_color" />
+
+        <TextView
+            android:id="@+id/contractText"
+            style="@style/listview_item_text_style_middle"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="查看合同"
+            android:textColor="@color/light_black_color" />
+
+        <TextView
+            android:id="@+id/planText"
+            style="@style/listview_item_text_style_middle"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="50dip"
+            android:layout_toLeftOf="@id/contractText"
+            android:text="查看方案"
+            android:textColor="@color/light_black_color" />
+    </RelativeLayout>
+
+</LinearLayout>
