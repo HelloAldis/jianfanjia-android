@@ -64,7 +64,7 @@ public class WaitDialog extends Dialog {
 		setCancelable(false);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		View view = LayoutInflater.from(context).inflate(
-				R.layout.progress_dialog, null);
+				R.layout.dialog_progress, null);
 		_messageTv = (TextView) view.findViewById(R.id.waiting_tv);
 		setContentView(view);
 	}

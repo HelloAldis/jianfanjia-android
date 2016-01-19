@@ -1,9 +1,16 @@
 package com.jianfanjia.cn.designer.fragment;
 
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
+import android.view.View;
+
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.base.BaseAnnotationFragment;
+import com.jianfanjia.cn.designer.view.MainHeadView;
 
+import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.ViewById;
 
 /**
  * Description:我的业主
@@ -14,6 +21,30 @@ import org.androidannotations.annotations.EFragment;
 @EFragment(R.layout.fragment_my_owner)
 public class MyOwnerFragment extends BaseAnnotationFragment {
 
+    @ViewById(R.id.viewpager)
+    protected ViewPager viewPager;
+
+    @ViewById(R.id.tablayout)
+    protected TabLayout tabLayout;
+
+    @ViewById(R.id.my_owner_head_layout)
+    protected MainHeadView mainHeadView;
+
+    @AfterViews
+    protected void initAnnotationView(){
+        initHeadView();
+        initViewPagerAndTab();
+    }
+
+    protected void initHeadView(){
+        mainHeadView.setBackLayoutVisable(View.GONE);
+        mainHeadView.setMianTitle(getString(R.string.my_ower));
+    }
+
+    protected void initViewPagerAndTab(){
+//        tabLayout.setupWithViewPager(viewPager);
+
+    }
 
 
 }

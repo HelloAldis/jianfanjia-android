@@ -19,7 +19,8 @@ import java.util.List;
  * Date: 2015-10-29
  * Time: 09:16
  */
-public class PreviewAdapter extends PagerAdapter {
+public class
+        PreviewAdapter extends PagerAdapter {
     private static final String TAG = "PreviewAdapter";
     private ViewPagerClickListener listener;
     private Context context;

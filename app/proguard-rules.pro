@@ -18,8 +18,8 @@
 -keepattributes Signature
 -keepattributes EnclosingMethod
 
--keep class com.jianfanjia.cn.bean.** { * ;}
--keep class com.jianfanjia.cn.http.** { * ;}
+-keep class com.jianfanjia.cn.designer.bean.** { * ;}
+-keep class com.jianfanjia.cn.designer.http.** { * ;}
 
 #个推混淆
 -dontwarn com.igexin.**
@@ -121,6 +121,6 @@
 -keep class im.yixin.sdk.api.YXMessage {*;}
 -keep class im.yixin.sdk.api.** implements im.yixin.sdk.api.YXMessage$YXMessageData{*;}
 
--keep public class com.jianfanjia.cn.activity.R$*{
+-keep public class com.jianfanjia.cn.designer.R$*{
     public static final int *;
 }

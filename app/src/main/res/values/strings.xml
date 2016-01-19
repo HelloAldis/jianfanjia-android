@@ -311,5 +311,7 @@
     <string name="choose_sex">选择性别</string>
     <string name="str_collect_success">收藏成功</string>
     <string name="title_activity_customer_service">CustomerServiceActivity</string>
+    <string name="measure_house_tip">请在24小时内响应业主并设置量房时间，否则自动视为放弃</string>
+    <string name="response">响应</string>
 
 </resources>

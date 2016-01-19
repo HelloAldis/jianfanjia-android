@@ -141,7 +141,7 @@ public class RegisterNewActivity extends BaseAnnotationActivity implements
         super.loadSuccess(data);
         switch (requsetCode){
             case REGISTER_CODE:
-                startActivity(NewUserCollectDecStageActivity_.class);
+                startActivity(MainActivity.class);
                 appManager.finishActivity(this);
                 GeTuiManager.bindGeTui(getApplicationContext(), dataManager.getUserId());
                 break;

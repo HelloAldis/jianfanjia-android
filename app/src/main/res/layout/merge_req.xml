@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:id="@+id/ltm_req_baseinfo_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:paddingBottom="@dimen/space_16"
+        android:paddingLeft="@dimen/space_16"
+        android:paddingRight="@dimen/space_16"
+        android:paddingTop="@dimen/space_16"
+        android:background="@drawable/my_item_layout_bg_selector">
+
+        <com.jianfanjia.cn.designer.view.layout.CircleImageView
+            android:id="@+id/ltm_req_owner_head"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/icon_sidebar_default_user" />
+
+        <TextView
+            android:id="@+id/ltm_req_username"
+            style="@style/listview_item_text_style_middle"
+            android:layout_alignTop="@+id/ltm_req_owner_head"
+            android:layout_marginLeft="@dimen/space_8"
+            android:layout_toRightOf="@+id/ltm_req_owner_head"
+            android:text="@string/str_publish_time"
+            android:textColor="@color/grey_color" />
+
+
+        <ImageView
+            android:id="@+id/ltm_req_starttime_cont"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/ltm_req_username"
+            android:src="@mipmap/icon_designer_user_man"
+             />
+
+        <TextView
+            android:id="@+id/ltm_req_time"
+            style="@style/listview_item_text_style_small"
+            android:layout_alignTop="@+id/ltm_req_username"
+            android:layout_toLeftOf="@+id/ltm_req_goto"
+            android:text="@string/str_publish_time"
+            android:textColor="@color/grey_color" />
+
+        <TextView
+            android:id="@+id/ltm_req_cell"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ltm_req_username"
+            android:layout_marginLeft="@dimen/space_8"
+            android:layout_marginTop="@dimen/space_6"
+            android:layout_toRightOf="@+id/ltm_req_owner_head"
+            android:text="@string/str_cell"
+            android:maxWidth="100dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="@color/light_black_color"
+            android:textSize="@dimen/middle_size" />
+
+        <TextView
+            android:id="@+id/ltm_req_status"
+            style="@style/listview_item_text_style_small"
+            android:layout_alignBaseline="@+id/ltm_req_cell"
+            android:layout_marginLeft="@dimen/space_8"
+            android:layout_toRightOf="@+id/ltm_req_cell"
+            android:textColor="@color/grey_color" />
+
+
+        <ImageView
+            android:id="@+id/ltm_req_goto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="@dimen/space_8"
+            android:src="@mipmap/icon_next"/>
+
+        <TextView
+            android:id="@+id/ltm_req_info"
+            style="@style/listview_item_text_style_small"
+            android:layout_alignLeft="@+id/ltm_req_username"
+            android:layout_alignStart="@+id/ltm_req_username"
+            android:layout_below="@+id/ltm_req_cell"
+            android:layout_marginTop="@dimen/space_8"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:layout_toLeftOf="@+id/ltm_req_goto"
+            android:gravity="left"
+            android:text="@string/str_update_time"
+            android:textColor="@color/grey_color" />
+
+    </RelativeLayout>
+
+</merge>
