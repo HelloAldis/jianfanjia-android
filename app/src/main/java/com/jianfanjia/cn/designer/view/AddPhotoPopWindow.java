@@ -31,7 +31,7 @@ public class AddPhotoPopWindow extends PopupWindow implements OnClickListener {
 		super(activity);
 		this.callback = callback;
 		inflater = LayoutInflater.from(activity);
-		menuView = inflater.inflate(R.layout.dialog_popwin, null);
+		menuView = inflater.inflate(R.layout.dialog_take_photo, null);
 		open_camera = (Button) menuView.findViewById(R.id.btn_open_camera);
 		open_album = (Button) menuView.findViewById(R.id.btn_open_album);
 		cancel = (Button) menuView.findViewById(R.id.btn_cancel);

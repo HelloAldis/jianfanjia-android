@@ -42,7 +42,7 @@
                 android:layout_weight="1"/>
 
             <Button
-                android:id="@+id/negative_bt"
+                android:id="@+id/button_refuse"
                 style="@style/dialog_button_cancel"
                 android:visibility="visible"
                 android:text="@string/refuse"
@@ -56,7 +56,7 @@
                 android:layout_weight="1"/>
 
             <Button
-                android:id="@+id/positive_bt"
+                android:id="@+id/button_confirm"
                 style="@style/dialog_button_ok"
                 android:visibility="visible"
                 android:text="@string/response"/>
@@ -64,7 +64,6 @@
             <View
                 android:id="@+id/button_divider2"
                 android:layout_width="@dimen/space_12"
-
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
                 android:layout_weight="1"/>

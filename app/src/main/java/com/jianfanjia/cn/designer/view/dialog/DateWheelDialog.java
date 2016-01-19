@@ -21,17 +21,17 @@ public class DateWheelDialog extends CommonDialog implements
     private Calendar startCalendar;// 起始时间
     private Calendar chooseCalendar = Calendar.getInstance();// 选择时间
     private Calendar currentCalendar = Calendar.getInstance();
-//	private Calendar endCalendar;//结束时间
 
     private int minYear;
     private int minMonth;
     private int minDate;
-    private int maxYear;
 
     private LayoutInflater inflater;
     private WheelView wheelView1;
     private WheelView wheelView2;
     private WheelView wheelView3;
+
+    private View view;
 
     public DateWheelDialog(Context context, Calendar calendar) {
         super(context);
@@ -41,6 +41,8 @@ public class DateWheelDialog extends CommonDialog implements
         minMonth = startCalendar.get(Calendar.MONTH);
         minDate = startCalendar.get(Calendar.DAY_OF_MONTH);
         chooseCalendar.setTimeInMillis(calendar.getTimeInMillis());
+        view = inflater.inflate(getLayoutId(), null);
+        setContent(view);
         initView();
     }
 
@@ -48,9 +50,11 @@ public class DateWheelDialog extends CommonDialog implements
         return chooseCalendar;
     }
 
-    private void initView() {
-        View view = inflater.inflate(R.layout.commont_wheel, null);
-        setContent(view);
+    protected int getLayoutId(){
+        return R.layout.commont_wheel;
+    }
+
+    protected void initView() {
         wheelView1 = (WheelView) view.findViewById(R.id.wheel_item1);
         wheelView2 = (WheelView) view.findViewById(R.id.wheel_item2);
         wheelView3 = (WheelView) view.findViewById(R.id.wheel_item3);

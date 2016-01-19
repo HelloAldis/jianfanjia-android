@@ -68,7 +68,7 @@ public class XuQiuFragment extends BaseAnnotationFragment {
     public static final int ITEM_GOTOODERDESI = 0x05;//去预约设计师
 
     protected RequirementNewAdapter requirementAdapter;
-    private List<RequirementInfo> requirementInfos = new ArrayList<RequirementInfo>();
+    private List<RequirementInfo> requirementInfos = new ArrayList<>();
     private boolean isFirst = true;//第一次加载成功之前都只显示等待对话框
 
     @ViewById(R.id.frag_req_rootview)

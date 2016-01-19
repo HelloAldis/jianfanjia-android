@@ -14,10 +14,10 @@
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tablayout"
-        style="@style/MyCustomTabLayout"
+        style="@style/EditRequirementTagLayout"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:background="@drawable/layout_border_bg"
+        android:background="@color/font_white"
         android:minHeight="45dp"
         app:tabGravity="fill" />
 

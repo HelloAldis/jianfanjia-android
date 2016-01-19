@@ -12,7 +12,6 @@ import android.widget.RelativeLayout;
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.activity.home.DesignerInfoActivity;
-import com.jianfanjia.cn.designer.activity.requirement.ContractActivity;
 import com.jianfanjia.cn.designer.adapter.MyDesignerAdapter;
 import com.jianfanjia.cn.designer.base.BaseAnnotationActivity;
 import com.jianfanjia.cn.designer.bean.OrderDesignerInfo;

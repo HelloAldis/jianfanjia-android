@@ -33,7 +33,7 @@
 
 
         <ImageView
-            android:id="@+id/ltm_req_starttime_cont"
+            android:id="@+id/ltm_req_sex"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/ltm_req_username"

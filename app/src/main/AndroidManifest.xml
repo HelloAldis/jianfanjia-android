@@ -364,6 +364,7 @@
         <activity
             android:name=".activity.my.BindingAccountActivity_"
             android:screenOrientation="portrait" />
+        <activity android:name=".activity.SettingMeasureDateActivity_"/>
 
         <!-- 第三方分享以及登录 -->
         <activity
