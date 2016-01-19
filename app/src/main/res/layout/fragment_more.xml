@@ -53,7 +53,7 @@
                             android:layout_below="@id/user_head_img"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="10dip"
-                            android:textColor="#ffffff"
+                            android:textColor="@color/font_white"
                             android:textSize="@dimen/middle_size"
                             android:textStyle="bold" />
 
