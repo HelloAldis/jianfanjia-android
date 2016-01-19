@@ -53,7 +53,7 @@
                             android:layout_below="@id/user_head_img"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="10dip"
-                            android:textColor="#ffffff"
+                            android:textColor="@color/font_white"
                             android:textSize="@dimen/middle_size"
                             android:textStyle="bold" />
 
@@ -74,25 +74,6 @@
             <View
                 style="@style/divier_line"
                 android:layout_marginTop="10dp" />
-
-            <RelativeLayout
-                android:id="@+id/xuqiu_layout"
-                style="@style/my_list_item_layout_style">
-
-                <TextView
-                    style="@style/listview_item_text_style_middle"
-                    android:layout_centerVertical="true"
-                    android:text="历史装修需求"
-                    android:textColor="@color/light_black_color" />
-
-                <ImageView
-                    style="@style/my_item_layout_image_style"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:contentDescription="@null" />
-            </RelativeLayout>
-
-            <View style="@style/divier_line" />
 
             <RelativeLayout
                 android:id="@+id/collect_layout"
