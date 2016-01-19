@@ -18,8 +18,6 @@ import android.widget.RelativeLayout;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.activity.common.CommentActivity;
 import com.jianfanjia.cn.designer.activity.my.NotifyActivity;
-import com.jianfanjia.cn.designer.activity.requirement.CheckActivity;
-import com.jianfanjia.cn.designer.activity.requirement.ShowProcessPicActivity;
 import com.jianfanjia.cn.designer.adapter.SectionItemAdapter;
 import com.jianfanjia.cn.designer.adapter.SectionViewPageAdapter;
 import com.jianfanjia.cn.designer.application.MyApplication;
@@ -168,7 +166,6 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
             processInfo = BusinessManager.getDefaultProcessInfo(this);
             initData();
         }
-
     }
 
     private void loadCurrentProcess(ApiUiUpdateListener apiUiUpdateListener) {
@@ -319,7 +316,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
         sectionItemAdapter = new SectionItemAdapter(getApplication(),
                 currentList, sectionInfos, this);
         detailNodeListView.setAdapter(sectionItemAdapter);
-        UiHelper.setLayoutAnim(this,detailNodeListView.getRefreshableView());
+        UiHelper.setLayoutAnim(this, detailNodeListView.getRefreshableView());
         detailNodeListView.setFocusable(false);
         detailNodeListView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -330,8 +327,6 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                 sectionItemAdapter.setCurrentOpenItem(position);
             }
         });
-
-
     }
 
     @Override
@@ -509,7 +504,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                     LogTool.d(TAG, "uri:" + uri);
                     if (null != uri) {
                         Bitmap imageBitmap = ImageUtil.getImage(ImageUtil
-                                .getImagePath(this,uri));
+                                .getImagePath(this, uri));
                         if (null != imageBitmap) {
                             upload_image(imageBitmap);
                         }
