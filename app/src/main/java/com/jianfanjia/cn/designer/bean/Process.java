@@ -32,7 +32,7 @@ public class Process implements Serializable {
 
     private User user;
 
-    private PlanInfo planInfo;
+    private PlanInfo plan;
 
     public String getFinal_designerid() {
         return final_designerid;
@@ -122,11 +122,11 @@ public class Process implements Serializable {
         this.lastupdate = lastupdate;
     }
 
-    public PlanInfo getPlanInfo() {
-        return planInfo;
+    public PlanInfo getPlan() {
+        return plan;
     }
 
-    public void setPlanInfo(PlanInfo planInfo) {
-        this.planInfo = planInfo;
+    public void setPlan(PlanInfo plan) {
+        this.plan = plan;
     }
 }
