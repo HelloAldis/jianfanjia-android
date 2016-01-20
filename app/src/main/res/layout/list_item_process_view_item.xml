@@ -9,7 +9,10 @@
         android:layout_width="50dip"
         android:layout_height="50dip"
         android:layout_centerHorizontal="true"
-        android:layout_margin="@dimen/space_10"
+        android:layout_marginBottom="@dimen/space_10"
+        android:layout_marginLeft="@dimen/space_15"
+        android:layout_marginRight="@dimen/space_15"
+        android:layout_marginTop="@dimen/space_10"
         android:scaleType="centerCrop" />
 
     <TextView
