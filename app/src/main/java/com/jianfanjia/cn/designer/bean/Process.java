@@ -10,7 +10,6 @@ import java.io.Serializable;
  */
 public class Process implements Serializable {
 
-    private static final long serialVersionUID = -5635939585005504702L;
     private String _id;// 工地id
 
     private String city;
@@ -32,6 +31,8 @@ public class Process implements Serializable {
     private long lastupdate;
 
     private User user;
+
+    private PlanInfo planInfo;
 
     public String getFinal_designerid() {
         return final_designerid;
@@ -119,5 +120,13 @@ public class Process implements Serializable {
 
     public void setLastupdate(long lastupdate) {
         this.lastupdate = lastupdate;
+    }
+
+    public PlanInfo getPlanInfo() {
+        return planInfo;
+    }
+
+    public void setPlanInfo(PlanInfo planInfo) {
+        this.planInfo = planInfo;
     }
 }
