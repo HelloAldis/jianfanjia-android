@@ -3,94 +3,130 @@ package com.jianfanjia.cn.designer.bean;
 import java.io.Serializable;
 
 /**
- *
+ * @author zhanghao
  * @ClassName: DesignerSiteInfo
  * @Description: 工地基本信息
- * @author zhanghao
  * @date 2015-8-26 下午20:03
- *
  */
 public class Process implements Serializable {
 
-	private static final long serialVersionUID = -5635939585005504702L;
-	private String _id;// 工地id
+    private String _id;// 工地id
 
-	private String city;
+    private String city;
 
-	private String district;
+    private String district;
 
-	private String cell;// 小区名称
+    private String cell;// 小区名称
 
-	private String userid;// 业主id
+    private String userid;// 业主id
 
-	private String going_on;// 所处阶段
+    private String going_on;// 所处阶段
 
-	private String final_designerid;//设计师id
+    private String final_designerid;//设计师id
 
-	private User user;
+    private String final_planid;
 
-	public String getFinal_designerid() {
-		return final_designerid;
-	}
+    private String requirementid;
 
-	public void setFinal_designerid(String final_designerid) {
-		this.final_designerid = final_designerid;
-	}
+    private long lastupdate;
 
-	public String getUserid() {
-		return userid;
-	}
+    private User user;
 
-	public void setUserid(String userid) {
-		this.userid = userid;
-	}
+    private PlanInfo planInfo;
 
-	public String getDistrict() {
-		return district;
-	}
+    public String getFinal_designerid() {
+        return final_designerid;
+    }
 
-	public void setDistrict(String district) {
-		this.district = district;
-	}
+    public void setFinal_designerid(String final_designerid) {
+        this.final_designerid = final_designerid;
+    }
 
-	public String getCell() {
-		return cell;
-	}
+    public String getUserid() {
+        return userid;
+    }
 
-	public void setCell(String cell) {
-		this.cell = cell;
-	}
+    public void setUserid(String userid) {
+        this.userid = userid;
+    }
 
-	public String getCity() {
-		return city;
-	}
+    public String getDistrict() {
+        return district;
+    }
 
-	public void setCity(String city) {
-		this.city = city;
-	}
+    public void setDistrict(String district) {
+        this.district = district;
+    }
 
-	public String get_id() {
-		return _id;
-	}
+    public String getCell() {
+        return cell;
+    }
 
-	public void set_id(String _id) {
-		this._id = _id;
-	}
+    public void setCell(String cell) {
+        this.cell = cell;
+    }
 
-	public String getGoing_on() {
-		return going_on;
-	}
+    public String getCity() {
+        return city;
+    }
 
-	public void setGoing_on(String going_on) {
-		this.going_on = going_on;
-	}
+    public void setCity(String city) {
+        this.city = city;
+    }
 
-	public User getUser() {
-		return user;
-	}
+    public String get_id() {
+        return _id;
+    }
 
-	public void setUser(User user) {
-		this.user = user;
-	}
+    public void set_id(String _id) {
+        this._id = _id;
+    }
 
+    public String getGoing_on() {
+        return going_on;
+    }
+
+    public void setGoing_on(String going_on) {
+        this.going_on = going_on;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getFinal_planid() {
+        return final_planid;
+    }
+
+    public void setFinal_planid(String final_planid) {
+        this.final_planid = final_planid;
+    }
+
+    public String getRequirementid() {
+        return requirementid;
+    }
+
+    public void setRequirementid(String requirementid) {
+        this.requirementid = requirementid;
+    }
+
+    public long getLastupdate() {
+        return lastupdate;
+    }
+
+    public void setLastupdate(long lastupdate) {
+        this.lastupdate = lastupdate;
+    }
+
+    public PlanInfo getPlanInfo() {
+        return planInfo;
+    }
+
+    public void setPlanInfo(PlanInfo planInfo) {
+        this.planInfo = planInfo;
+    }
 }
