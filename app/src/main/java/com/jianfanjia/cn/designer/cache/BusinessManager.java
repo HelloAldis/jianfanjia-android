@@ -210,4 +210,33 @@ public class BusinessManager {
         list.add(0, Constant.KEY_WORD);
         return list;
     }
+
+    /**
+     * 返回我的业主需求简单描述
+     * @param housetype
+     * @param housearea
+     * @param decStyle
+     * @param houseBudget
+     * @return
+     */
+    public static String getDesc(String housetype,String housearea,String decStyle,String houseBudget){
+        StringBuffer stringBuffer = new StringBuffer();
+        if(!TextUtils.isEmpty(housetype)){
+            stringBuffer.append(convertHouseTypeToShow(housetype));
+            stringBuffer.append("，");
+        }
+        if(!TextUtils.isEmpty(housearea)){
+            stringBuffer.append(housearea);
+            stringBuffer.append("㎡，");
+        }
+        if(!TextUtils.isEmpty(decStyle)){
+            stringBuffer.append(convertDecStyleToShow(decStyle));
+            stringBuffer.append("，");
+        }
+        if(!TextUtils.isEmpty(houseBudget)){
+            stringBuffer.append("装修预算" + houseBudget +"万");
+        }
+        return stringBuffer.toString();
+    }
+
 }

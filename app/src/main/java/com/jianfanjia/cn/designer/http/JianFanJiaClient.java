@@ -34,6 +34,7 @@ import com.jianfanjia.cn.designer.http.request.EvaluateDesignerRequest;
 import com.jianfanjia.cn.designer.http.request.FavoriteDesignerListRequest;
 import com.jianfanjia.cn.designer.http.request.FeedBackRequest;
 import com.jianfanjia.cn.designer.http.request.ForgetPswRequest;
+import com.jianfanjia.cn.designer.http.request.GetAllRequirementListRequest;
 import com.jianfanjia.cn.designer.http.request.GetAllRescheduleRequest;
 import com.jianfanjia.cn.designer.http.request.GetBeautyImgListRequest;
 import com.jianfanjia.cn.designer.http.request.GetCollectionRequest;
@@ -267,6 +268,17 @@ public class JianFanJiaClient {
         OkHttpClientManager.getInstance().getGetDelegate().getAsyn(getRequirementListRequest, listener, tag);
     }
 
+    /**
+     * 设计师获取首页的所有需求的api
+     * @param context
+     * @param listener
+     * @param tag
+     */
+    public static void getAllRequirementList(Context context, ApiUiUpdateListener listener, Object tag){
+        GetAllRequirementListRequest getAllRequirementListRequest = new GetAllRequirementListRequest(context);
+        LogTool.d(TAG, "getAllRequirementListRequest --" + getAllRequirementListRequest.getUrl());
+        OkHttpClientManager.getInstance().getPostDelegate().postAsyn(getAllRequirementListRequest, "" ,listener, tag);
+    }
     /**
      * 发布需求
      *

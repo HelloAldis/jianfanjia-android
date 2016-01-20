@@ -7,7 +7,6 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.activity.SettingMeasureDateActivity_;
 import com.jianfanjia.cn.designer.adapter.MyOwnerFragmentPagerAdapter;
 import com.jianfanjia.cn.designer.base.BaseAnnotationFragment;
 import com.jianfanjia.cn.designer.view.MainHeadView;
@@ -51,9 +50,9 @@ public class MyOwnerFragment extends BaseAnnotationFragment {
 
     protected void initViewPagerAndTab(){
 //        tabLayout.setupWithViewPager(viewPager);
-        viewPager.setAdapter(new MyOwnerFragmentPagerAdapter(getChildFragmentManager()));
+        viewPager.setAdapter(new MyOwnerFragmentPagerAdapter(getFragmentManager()));
+        viewPager.setOffscreenPageLimit(1);
         tabLayout.setupWithViewPager(viewPager);
-
 
     }
 
@@ -62,13 +61,13 @@ public class MyOwnerFragment extends BaseAnnotationFragment {
         super.onActivityCreated(savedInstanceState);
 //        showSettingMeasureDialog(Calendar.getInstance());
 
-        handler.postDelayed(new Runnable() {
+       /* handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 startActivity(SettingMeasureDateActivity_.class);
                 getActivity().overridePendingTransition(R.anim.slide_and_fade_in_from_bottom,R.anim.fade_out);
             }
-        },2000);
+        },2000);*/
 
     }
 
