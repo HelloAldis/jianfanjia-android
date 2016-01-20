@@ -7,13 +7,22 @@ import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.View;
 
+import com.jianfanjia.cn.designer.bean.Process;
+import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.adapter.MySiteAdapter;
 import com.jianfanjia.cn.designer.base.BaseFragment;
+import com.jianfanjia.cn.designer.http.JianFanJiaClient;
+import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
+import com.jianfanjia.cn.designer.tools.JsonParser;
+import com.jianfanjia.cn.designer.tools.LogTool;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.cn.designer.view.baseview.HorizontalDividerItemDecoration;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshRecycleView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Description:工地管理
@@ -25,7 +34,7 @@ public class ManageFragment extends BaseFragment implements PullToRefreshBase.On
     private static final String TAG = ManageFragment.class.getName();
     private MainHeadView mainHeadView = null;
     private PullToRefreshRecycleView manage_pullfefresh = null;
-    private MySiteAdapter mySiteAdapter = null;
+    private List<Process> processList = new ArrayList<Process>();
 
     @Override
     public void initView(View view) {
@@ -39,6 +48,7 @@ public class ManageFragment extends BaseFragment implements PullToRefreshBase.On
         paint.setAlpha(0);
         paint.setAntiAlias(true);
         manage_pullfefresh.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).paint(paint).showLastDivider().build());
+        getProcessList();
     }
 
     private void initMainHeadView(View view) {
@@ -52,6 +62,30 @@ public class ManageFragment extends BaseFragment implements PullToRefreshBase.On
     @Override
     public void setListener() {
         manage_pullfefresh.setOnRefreshListener(this);
+    }
+
+    private void getProcessList() {
+        JianFanJiaClient.get_Process_List(getActivity(), new ApiUiUpdateListener() {
+            @Override
+            public void preLoad() {
+
+            }
+
+            @Override
+            public void loadSuccess(Object data) {
+                LogTool.d(TAG, "data=" + data);
+                processList = JsonParser.jsonToList(data.toString(), new TypeToken<List<Process>>() {
+                }.getType());
+                LogTool.d(TAG, "processList:" + processList);
+                MySiteAdapter adapter = new MySiteAdapter(getActivity(), processList);
+                manage_pullfefresh.setAdapter(adapter);
+            }
+
+            @Override
+            public void loadFailture(String error_msg) {
+
+            }
+        }, this);
     }
 
     @Override

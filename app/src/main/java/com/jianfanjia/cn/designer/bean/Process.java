@@ -29,6 +29,8 @@ public class Process implements Serializable {
 
     private String requirementid;
 
+    private long lastupdate;
+
     private User user;
 
     public String getFinal_designerid() {
@@ -95,4 +97,27 @@ public class Process implements Serializable {
         this.user = user;
     }
 
+    public String getFinal_planid() {
+        return final_planid;
+    }
+
+    public void setFinal_planid(String final_planid) {
+        this.final_planid = final_planid;
+    }
+
+    public String getRequirementid() {
+        return requirementid;
+    }
+
+    public void setRequirementid(String requirementid) {
+        this.requirementid = requirementid;
+    }
+
+    public long getLastupdate() {
+        return lastupdate;
+    }
+
+    public void setLastupdate(long lastupdate) {
+        this.lastupdate = lastupdate;
+    }
 }

@@ -21,11 +21,11 @@
 
     <!-- vertical line_style -->
     <style name="vertical_divier_line">
-        <item name="android:layout_width">1dp</item>
+        <item name="android:layout_width">1px</item>
         <item name="android:layout_height">match_parent</item>
-        <item name="android:background">@color/line_color</item>
+        <item name="android:background">@color/light_white_color</item>
     </style>
-
+    <!-- <item name="android:background">@color/line_color</item>-->
     <style name="home_page_divier_line">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">10dip</item>
