@@ -101,7 +101,7 @@
                 <TextView
                     style="@style/listview_item_text_style_middle"
                     android:layout_centerVertical="true"
-                    android:text="作品收藏"
+                    android:text="我的收藏"
                     android:textColor="@color/light_black_color" />
 
                 <ImageView

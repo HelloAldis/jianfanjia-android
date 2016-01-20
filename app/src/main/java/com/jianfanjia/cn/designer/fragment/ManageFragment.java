@@ -1,6 +1,8 @@
 package com.jianfanjia.cn.designer.fragment;
 
+import android.content.Intent;
 import android.graphics.Paint;
+import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,12 +11,19 @@ import android.view.View;
 
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.designer.R;
+import com.jianfanjia.cn.designer.activity.requirement.ContractActivity;
+import com.jianfanjia.cn.designer.activity.requirement.MyProcessDetailActivity_;
+import com.jianfanjia.cn.designer.activity.requirement.PreviewBusinessRequirementActivity_;
+import com.jianfanjia.cn.designer.activity.requirement.PreviewDesignerPlanActivity;
+import com.jianfanjia.cn.designer.activity.requirement.PreviewRequirementActivity_;
 import com.jianfanjia.cn.designer.adapter.MySiteAdapter;
 import com.jianfanjia.cn.designer.base.BaseFragment;
 import com.jianfanjia.cn.designer.bean.Process;
 import com.jianfanjia.cn.designer.bean.SiteProcessItem;
+import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.http.JianFanJiaClient;
 import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
+import com.jianfanjia.cn.designer.interf.ClickCallBack;
 import com.jianfanjia.cn.designer.tools.JsonParser;
 import com.jianfanjia.cn.designer.tools.LogTool;
 import com.jianfanjia.cn.designer.view.MainHeadView;
@@ -33,6 +42,10 @@ import java.util.List;
  */
 public class ManageFragment extends BaseFragment implements PullToRefreshBase.OnRefreshListener2<RecyclerView> {
     private static final String TAG = ManageFragment.class.getName();
+    public static final int ITEM_PRIVIEW = 10;
+    public static final int ITEM_CONTRACT = 20;
+    public static final int ITEM_PLAN = 30;
+    public static final int ITEM_GOTOO_SITE = 40;
     private MainHeadView mainHeadView = null;
     private PullToRefreshRecycleView manage_pullfefresh = null;
     private String[] proTitle = null;
@@ -46,7 +59,7 @@ public class ManageFragment extends BaseFragment implements PullToRefreshBase.On
                 R.array.site_procedure);
         setProcessList();
         manage_pullfefresh = (PullToRefreshRecycleView) view.findViewById(R.id.manage_pullfefresh);
-        manage_pullfefresh.setMode(PullToRefreshBase.Mode.BOTH);
+        manage_pullfefresh.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
         manage_pullfefresh.setLayoutManager(new LinearLayoutManager(getActivity()));
         manage_pullfefresh.setItemAnimator(new DefaultItemAnimator());
         Paint paint = new Paint();
@@ -83,16 +96,58 @@ public class ManageFragment extends BaseFragment implements PullToRefreshBase.On
                 processList = JsonParser.jsonToList(data.toString(), new TypeToken<List<Process>>() {
                 }.getType());
                 LogTool.d(TAG, "processList:" + processList);
-                MySiteAdapter adapter = new MySiteAdapter(getActivity(), processList, siteProcessList);
+                MySiteAdapter adapter = new MySiteAdapter(getActivity(), processList, siteProcessList, new ClickCallBack() {
+                    @Override
+                    public void click(int position, int itemType) {
+                        Process process = processList.get(position);
+                        switch (itemType) {
+                            case ITEM_PRIVIEW:
+                                Intent gotoPriviewRequirement = null;
+                                if (process.getRequirement().getDec_type().equals(Global.DEC_TYPE_BUSINESS)) {
+                                    gotoPriviewRequirement = new Intent(getActivity(), PreviewBusinessRequirementActivity_.class);
+                                } else {
+                                    gotoPriviewRequirement = new Intent(getActivity(), PreviewRequirementActivity_.class);
+                                }
+                                gotoPriviewRequirement.putExtra(Global.REQUIREMENT_INFO, process.getRequirement());
+                                startActivity(gotoPriviewRequirement);
+                                break;
+                            case ITEM_CONTRACT:
+                                Intent viewContractIntent = new Intent(getActivity(), ContractActivity.class);
+                                Bundle contractBundle = new Bundle();
+                                contractBundle.putString(Global.REQUIREMENT_ID, process.getPlan().getRequirementid());
+                                contractBundle.putString(Global.REQUIREMENT_STATUS, process.getPlan().getStatus());
+                                viewContractIntent.putExtras(contractBundle);
+                                startActivity(viewContractIntent);
+                                break;
+                            case ITEM_PLAN:
+                                Intent viewPlanIntent = new Intent(getActivity(), PreviewDesignerPlanActivity.class);
+                                Bundle planBundle = new Bundle();
+                                planBundle.putSerializable(Global.PROCESS, process);
+                                viewPlanIntent.putExtras(planBundle);
+                                startActivity(viewPlanIntent);
+                                break;
+                            case ITEM_GOTOO_SITE:
+                                Intent gotoMyProcess = new Intent(getActivity(), MyProcessDetailActivity_.class);
+                                gotoMyProcess.putExtra(Global.PROCESS_ID, process.get_id());
+                                startActivity(gotoMyProcess);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                });
                 manage_pullfefresh.setAdapter(adapter);
+                manage_pullfefresh.onRefreshComplete();
             }
 
             @Override
             public void loadFailture(String error_msg) {
-
+                makeTextShort(error_msg);
+                manage_pullfefresh.onRefreshComplete();
             }
         }, this);
     }
+
 
     private void setProcessList() {
         for (int i = 0; i < proTitle.length; i++) {
@@ -107,12 +162,12 @@ public class ManageFragment extends BaseFragment implements PullToRefreshBase.On
 
     @Override
     public void onPullDownToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-        manage_pullfefresh.onRefreshComplete();
+        getProcessList();
     }
 
     @Override
     public void onPullUpToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-        manage_pullfefresh.onRefreshComplete();
+
     }
 
     @Override

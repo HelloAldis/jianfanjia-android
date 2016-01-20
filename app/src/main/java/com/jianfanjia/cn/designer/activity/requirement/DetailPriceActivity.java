@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.adapter.PriceDetailAdapter;
 import com.jianfanjia.cn.designer.base.BaseActivity;
-import com.jianfanjia.cn.designer.bean.PlandetailInfo;
+import com.jianfanjia.cn.designer.bean.PlanInfo;
 import com.jianfanjia.cn.designer.bean.PriceDetail;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.tools.LogTool;
@@ -34,7 +34,7 @@ public class DetailPriceActivity extends BaseActivity implements OnClickListener
     private TextView project_price_after_discount = null;
     private TextView total_design_fee = null;
     private PriceDetailAdapter adapter = null;
-    private PlandetailInfo planDetailInfo = null;
+    private PlanInfo planInfo = null;
 
     @Override
     public void initView() {
@@ -48,19 +48,19 @@ public class DetailPriceActivity extends BaseActivity implements OnClickListener
         total_design_fee = (TextView) findViewById(R.id.total_design_fee);
         Intent intent = this.getIntent();
         Bundle priceBundle = intent.getExtras();
-        planDetailInfo = (PlandetailInfo) priceBundle.getSerializable(Global.PLAN_DETAIL);
-        LogTool.d(TAG, "planDetailInfo =" + planDetailInfo);
-        if (null != planDetailInfo) {
-            List<PriceDetail> details = planDetailInfo.getPrice_detail();
+        planInfo = (PlanInfo) priceBundle.getSerializable(Global.PLAN_DETAIL);
+        LogTool.d(TAG, "planInfo =" + planInfo);
+        if (null != planInfo) {
+            List<PriceDetail> details = planInfo.getPrice_detail();
             if (null != details && details.size() > 0) {
                 priceListView.addHeaderView(headView);
-                adapter = new PriceDetailAdapter(DetailPriceActivity.this, planDetailInfo.getPrice_detail());
+                adapter = new PriceDetailAdapter(DetailPriceActivity.this, planInfo.getPrice_detail());
                 priceListView.setAdapter(adapter);
             }
-            project_total_price.setText("工程总造价:" + planDetailInfo.getProject_price_before_discount() + "元");
-            project_price_after_discount.setText("工程折后价:" + planDetailInfo.getProject_price_after_discount() + "元");
-            total_design_fee.setText("设计费:" + planDetailInfo.getTotal_design_fee() + "元");
-            project_price_before_discount.setText("折后总价:" + planDetailInfo.getTotal_price() + "元");
+            project_total_price.setText("工程总造价:" + planInfo.getProject_price_before_discount() + "元");
+            project_price_after_discount.setText("工程折后价:" + planInfo.getProject_price_after_discount() + "元");
+            total_design_fee.setText("设计费:" + planInfo.getTotal_design_fee() + "元");
+            project_price_before_discount.setText("折后总价:" + planInfo.getTotal_price() + "元");
         }
     }
 

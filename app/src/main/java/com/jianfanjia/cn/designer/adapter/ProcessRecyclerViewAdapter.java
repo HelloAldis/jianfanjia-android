@@ -20,6 +20,7 @@ import java.util.List;
  * Time: 10:51
  */
 public class ProcessRecyclerViewAdapter extends BaseRecyclerViewAdapter<SiteProcessItem> {
+    private int processIndex;
 
     public ProcessRecyclerViewAdapter(Context context, List<SiteProcessItem> list) {
         super(context, list);

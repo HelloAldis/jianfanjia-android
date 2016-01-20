@@ -28,11 +28,15 @@ public class Process implements Serializable {
 
     private String requirementid;
 
+    private long start_at;
+
     private long lastupdate;
 
     private User user;
 
-    private PlanInfo planInfo;
+    private PlanInfo plan;
+
+    private RequirementInfo requirement;
 
     public String getFinal_designerid() {
         return final_designerid;
@@ -122,11 +126,27 @@ public class Process implements Serializable {
         this.lastupdate = lastupdate;
     }
 
-    public PlanInfo getPlanInfo() {
-        return planInfo;
+    public PlanInfo getPlan() {
+        return plan;
     }
 
-    public void setPlanInfo(PlanInfo planInfo) {
-        this.planInfo = planInfo;
+    public void setPlan(PlanInfo plan) {
+        this.plan = plan;
+    }
+
+    public long getStart_at() {
+        return start_at;
+    }
+
+    public void setStart_at(long start_at) {
+        this.start_at = start_at;
+    }
+
+    public RequirementInfo getRequirement() {
+        return requirement;
+    }
+
+    public void setRequirement(RequirementInfo requirement) {
+        this.requirement = requirement;
     }
 }
