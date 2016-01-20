@@ -153,7 +153,7 @@ public class Process implements Serializable {
     }
 
 
-    public static class Requirement {
+    public static class Requirement implements Serializable {
         private String _id;
         private long last_status_update_time;
         private long create_at;
@@ -200,20 +200,20 @@ public class Process implements Serializable {
             this.last_status_update_time = last_status_update_time;
         }
 
-        public long getCreate_at() {
-            return create_at;
-        }
-
-        public void setCreate_at(long create_at) {
-            this.create_at = create_at;
-        }
-
         public String getProvince() {
             return province;
         }
 
         public void setProvince(String province) {
             this.province = province;
+        }
+
+        public long getCreate_at() {
+            return create_at;
+        }
+
+        public void setCreate_at(long create_at) {
+            this.create_at = create_at;
         }
 
         public String getCity() {

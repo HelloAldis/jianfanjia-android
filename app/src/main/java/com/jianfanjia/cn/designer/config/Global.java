@@ -24,6 +24,7 @@ public class Global {
     public static final String PROCESS_INFO = "process_info";
     public static final String PROCESS_ID = "process_id";
 
+    public static final String PROCESS = "process";
     public static final String DESIGNER_ID = "designer_id";
     public static final String PRODUCT_ID = "product_id";
     public static final String EVALUATION = "evaluation";

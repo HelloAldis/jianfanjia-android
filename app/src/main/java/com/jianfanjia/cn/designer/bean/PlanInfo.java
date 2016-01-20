@@ -19,6 +19,8 @@ public class PlanInfo implements Serializable {
     private String requirementid;
     private int __v;
     private long house_check_time;
+    private int project_price_before_discount;
+    private float total_design_fee;
     private int project_price_after_discount;
     private String manager;
     private String description;
@@ -174,5 +176,19 @@ public class PlanInfo implements Serializable {
         this.comment_count = comment_count;
     }
 
+    public int getProject_price_before_discount() {
+        return project_price_before_discount;
+    }
 
+    public void setProject_price_before_discount(int project_price_before_discount) {
+        this.project_price_before_discount = project_price_before_discount;
+    }
+
+    public float getTotal_design_fee() {
+        return total_design_fee;
+    }
+
+    public void setTotal_design_fee(float total_design_fee) {
+        this.total_design_fee = total_design_fee;
+    }
 }
