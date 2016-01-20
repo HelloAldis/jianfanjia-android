@@ -15,6 +15,9 @@ import com.jianfanjia.cn.designer.adapter.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.bean.Process;
 import com.jianfanjia.cn.designer.bean.SiteProcessItem;
+import com.jianfanjia.cn.designer.fragment.ManageFragment;
+import com.jianfanjia.cn.designer.interf.ClickCallBack;
+import com.jianfanjia.cn.designer.tools.LogTool;
 import com.jianfanjia.cn.designer.tools.StringUtils;
 
 import java.util.List;
@@ -26,28 +29,57 @@ import java.util.List;
  * Time: 14:21
  */
 public class MySiteAdapter extends BaseRecyclerViewAdapter<Process> {
+    private static final String TAG = MySiteAdapter.class.getName();
+    private ClickCallBack callBack;
     private List<SiteProcessItem> siteProcessList;
 
-    public MySiteAdapter(Context context, List<Process> list, List<SiteProcessItem> siteProcessList) {
+    public MySiteAdapter(Context context, List<Process> list, List<SiteProcessItem> siteProcessList, ClickCallBack callBack) {
         super(context, list);
         this.siteProcessList = siteProcessList;
+        this.callBack = callBack;
     }
 
     @Override
-    public void bindView(RecyclerViewHolderBase viewHolder, int position, List<Process> list) {
+    public void bindView(RecyclerViewHolderBase viewHolder, final int position, List<Process> list) {
         Process process = list.get(position);
         MySiteViewHolder holder = (MySiteViewHolder) viewHolder;
         imageShow.displayImageHeadWidthThumnailImage(context, process.getUser().getImageid(), holder.itemHeadView);
         holder.itemCellView.setText(process.getCell());
         holder.itemNodeView.setText(MyApplication.getInstance()
                 .getStringById(process.getGoing_on()) + "阶段");
-        holder.itemPubTimeView.setText(StringUtils.covertLongToString(process.getLastupdate()));
+        holder.itemPubTimeView.setText(StringUtils.covertLongToString(process.getStart_at()));
         holder.itemUpdateTimeView.setText(StringUtils.covertLongToString(process.getLastupdate()));
+        int processIndex = MyApplication.getInstance().getPositionByItemName(process.getGoing_on());
+        LogTool.d(TAG, "processIndex=" + processIndex);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         holder.item_process_listview.setLayoutManager(linearLayoutManager);
         ProcessRecyclerViewAdapter adapter = new ProcessRecyclerViewAdapter(context, siteProcessList);
         holder.item_process_listview.setAdapter(adapter);
+        holder.ltm_req_baseinfo_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callBack.click(position, ManageFragment.ITEM_PRIVIEW);
+            }
+        });
+        holder.contractLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callBack.click(position, ManageFragment.ITEM_CONTRACT);
+            }
+        });
+        holder.planLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callBack.click(position, ManageFragment.ITEM_PLAN);
+            }
+        });
+        holder.gotoLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callBack.click(position, ManageFragment.ITEM_GOTOO_SITE);
+            }
+        });
     }
 
     @Override
@@ -63,6 +95,7 @@ public class MySiteAdapter extends BaseRecyclerViewAdapter<Process> {
     }
 
     private static class MySiteViewHolder extends RecyclerViewHolderBase {
+        public RelativeLayout ltm_req_baseinfo_layout;
         public ImageView itemHeadView;
         public TextView itemCellView;
         public TextView itemNodeView;
@@ -75,6 +108,7 @@ public class MySiteAdapter extends BaseRecyclerViewAdapter<Process> {
 
         public MySiteViewHolder(View itemView) {
             super(itemView);
+            ltm_req_baseinfo_layout = (RelativeLayout) itemView.findViewById(R.id.ltm_req_baseinfo_layout);
             itemHeadView = (ImageView) itemView.findViewById(R.id.ltm_req_owner_head);
             itemCellView = (TextView) itemView.findViewById(R.id.ltm_req_cell);
             itemNodeView = (TextView) itemView.findViewById(R.id.ltm_req_status);
