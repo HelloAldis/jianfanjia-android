@@ -25,6 +25,7 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
  */
 public class MoreFragment extends BaseFragment {
     private static final String TAG = MoreFragment.class.getName();
+    private RelativeLayout notify_layout = null;
     private RelativeLayout collect_layout = null;
     private RelativeLayout setting_layout = null;
     private RelativeLayout kefu_layout = null;
@@ -36,6 +37,7 @@ public class MoreFragment extends BaseFragment {
 
     @Override
     public void initView(View view) {
+        notify_layout = (RelativeLayout) view.findViewById(R.id.notify_layout);
         collect_layout = (RelativeLayout) view.findViewById(R.id.collect_layout);
         setting_layout = (RelativeLayout) view.findViewById(R.id.setting_layout);
         my_info_layout = (RelativeLayout) view.findViewById(R.id.frag_my_info_layout);
@@ -91,6 +93,7 @@ public class MoreFragment extends BaseFragment {
 
     @Override
     public void setListener() {
+        notify_layout.setOnClickListener(this);
         collect_layout.setOnClickListener(this);
         setting_layout.setOnClickListener(this);
         my_info_layout.setOnClickListener(this);
@@ -100,6 +103,8 @@ public class MoreFragment extends BaseFragment {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.notify_layout:
+                break;
             case R.id.collect_layout:
 
                 break;
