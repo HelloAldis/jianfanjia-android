@@ -8,7 +8,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.designer.R;
+import com.jianfanjia.cn.designer.activity.my.CollectActivity;
 import com.jianfanjia.cn.designer.activity.my.CustomerServiceActivity;
+import com.jianfanjia.cn.designer.activity.my.NotifyActivity;
 import com.jianfanjia.cn.designer.activity.my.SettingActivity;
 import com.jianfanjia.cn.designer.base.BaseFragment;
 import com.jianfanjia.cn.designer.config.Constant;
@@ -104,12 +106,12 @@ public class MoreFragment extends BaseFragment {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.notify_layout:
+                startActivity(NotifyActivity.class);
                 break;
             case R.id.collect_layout:
-
+                startActivity(CollectActivity.class);
                 break;
             case R.id.frag_my_info_layout:
-
                 break;
             case R.id.kefu_layout:
                 startActivity(CustomerServiceActivity.class);
