@@ -75,6 +75,9 @@ public class Url_New {
     public String UPDATE_VERSION_URL = HTTPROOT
             + "device/designer_android_build_version";
 
+    //设计师获取所有的需求列表
+    public String GET_ALL_REQUIREMENT_LIST = HTTPROOT + "designer_get_user_requirements";
+
     // 用户反馈 feedback
     public String FEEDBACK_URL = HTTPROOT + "feedback";
     // --------------------------------------------------业主-----------------------------------------------------------

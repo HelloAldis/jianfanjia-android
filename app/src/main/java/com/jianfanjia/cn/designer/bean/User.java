@@ -11,6 +11,8 @@ public class User implements Serializable {
 
 	private String phone;
 
+	private String sex;
+
 	private String username;
 
 	public String getImageid() {
@@ -45,4 +47,11 @@ public class User implements Serializable {
 		this.username = username;
 	}
 
+	public String getSex() {
+		return sex;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
 }

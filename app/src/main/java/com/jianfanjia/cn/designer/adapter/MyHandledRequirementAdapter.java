@@ -5,18 +5,18 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.jianfanjia.cn.designer.adapter.base.RecyclerViewAdapterBase;
-import com.jianfanjia.cn.designer.bean.OrderDesignerInfo;
+import com.jianfanjia.cn.designer.bean.RequirementInfo;
 import com.jianfanjia.cn.designer.interf.ClickCallBack;
 import com.jianfanjia.cn.designer.view.baseview.ViewWrapper;
-import com.jianfanjia.cn.designer.view.custom_annotation_view.MyDesignerViewType0_;
-import com.jianfanjia.cn.designer.view.custom_annotation_view.MyDesignerViewType1_;
-import com.jianfanjia.cn.designer.view.custom_annotation_view.MyDesignerViewType2_;
-import com.jianfanjia.cn.designer.view.custom_annotation_view.MyDesignerViewType3_;
-import com.jianfanjia.cn.designer.view.custom_annotation_view.MyDesignerViewType4_;
-import com.jianfanjia.cn.designer.view.custom_annotation_view.MyDesignerViewType5_;
-import com.jianfanjia.cn.designer.view.custom_annotation_view.MyDesignerViewType6_;
-import com.jianfanjia.cn.designer.view.custom_annotation_view.MyDesignerViewType7_;
-import com.jianfanjia.cn.designer.view.custom_annotation_view.MyDesignerViewType8_;
+import com.jianfanjia.cn.designer.view.custom_annotation_view.MyPlanViewType0_;
+import com.jianfanjia.cn.designer.view.custom_annotation_view.MyPlanViewType1_;
+import com.jianfanjia.cn.designer.view.custom_annotation_view.MyPlanViewType2_;
+import com.jianfanjia.cn.designer.view.custom_annotation_view.MyPlanViewType3_;
+import com.jianfanjia.cn.designer.view.custom_annotation_view.MyPlanViewType4_;
+import com.jianfanjia.cn.designer.view.custom_annotation_view.MyPlanViewType5_;
+import com.jianfanjia.cn.designer.view.custom_annotation_view.MyPlanViewType6_;
+import com.jianfanjia.cn.designer.view.custom_annotation_view.MyPlanViewType7_;
+import com.jianfanjia.cn.designer.view.custom_annotation_view.MyPlanViewType8_;
 
 /**
  * Description: com.jianfanjia.cn.adapter.base
@@ -24,7 +24,7 @@ import com.jianfanjia.cn.designer.view.custom_annotation_view.MyDesignerViewType
  * Email: jame.zhang@myjyz.com
  * Date:2015-10-19 19:15
  */
-public class MyHandledRequirementAdapter extends RecyclerViewAdapterBase<OrderDesignerInfo, View> {
+public class MyHandledRequirementAdapter extends RecyclerViewAdapterBase<RequirementInfo, View> {
     public static final int PLAN_TYPE0 = 0;
     public static final int PLAN_TYPE1 = 1;
     public static final int PLAN_TYPE2 = 2;
@@ -45,8 +45,8 @@ public class MyHandledRequirementAdapter extends RecyclerViewAdapterBase<OrderDe
 
     @Override
     public int getItemViewType(int position) {
-        OrderDesignerInfo orderDesignerInfo = items.get(position);
-        String status = orderDesignerInfo.getPlan().getStatus();
+        RequirementInfo requirementInfo = items.get(position);
+        String status = requirementInfo.getPlan().getStatus();
         return Integer.parseInt(status);
     }
 
@@ -55,66 +55,66 @@ public class MyHandledRequirementAdapter extends RecyclerViewAdapterBase<OrderDe
         View view = null;
         switch (viewType) {
             case PLAN_TYPE0:
-                return MyDesignerViewType0_.build(context);
+                return MyPlanViewType0_.build(context);
             case PLAN_TYPE2:
-                return MyDesignerViewType2_.build(context);
+                return MyPlanViewType2_.build(context);
             case PLAN_TYPE1:
-                return MyDesignerViewType1_.build(context);
+                return MyPlanViewType1_.build(context);
             case PLAN_TYPE3:
-                return MyDesignerViewType3_.build(context);
+                return MyPlanViewType3_.build(context);
             case PLAN_TYPE4:
-                return MyDesignerViewType4_.build(context);
+                return MyPlanViewType4_.build(context);
             case PLAN_TYPE5:
-                return MyDesignerViewType5_.build(context);
+                return MyPlanViewType5_.build(context);
             case PLAN_TYPE6:
-                return MyDesignerViewType6_.build(context);
+                return MyPlanViewType6_.build(context);
             case PLAN_TYPE7:
-                return MyDesignerViewType7_.build(context);
+                return MyPlanViewType7_.build(context);
             case PLAN_TYPE8:
-                return MyDesignerViewType8_.build(context);
+                return MyPlanViewType8_.build(context);
         }
         return null;
     }
 
     @Override
     public void onBindViewHolder(ViewWrapper<View> viewHolder, int position) {
-        OrderDesignerInfo orderDesignerInfo = items.get(position);
+        RequirementInfo requirementInfo = items.get(position);
         switch (getItemViewType(position)) {
             case PLAN_TYPE0:
-                MyDesignerViewType0_ view0 = (MyDesignerViewType0_) viewHolder.getView();
-                view0.bind(orderDesignerInfo, clickCallBack, position);
+                MyPlanViewType0_ view0 = (MyPlanViewType0_) viewHolder.getView();
+                view0.bind(requirementInfo, clickCallBack, position);
                 break;
             case PLAN_TYPE2:
-                MyDesignerViewType2_ view2 = (MyDesignerViewType2_) viewHolder.getView();
-                view2.bind(orderDesignerInfo, clickCallBack, position);
+                MyPlanViewType2_ view2 = (MyPlanViewType2_) viewHolder.getView();
+                view2.bind(requirementInfo, clickCallBack, position);
                 break;
             case PLAN_TYPE1:
-                MyDesignerViewType1_ view1 = (MyDesignerViewType1_) viewHolder.getView();
-                view1.bind(orderDesignerInfo, clickCallBack, position);
+                MyPlanViewType1_ view1 = (MyPlanViewType1_) viewHolder.getView();
+                view1.bind(requirementInfo, clickCallBack, position);
                 break;
             case PLAN_TYPE3:
-                MyDesignerViewType3_ view3 = (MyDesignerViewType3_) viewHolder.getView();
-                view3.bind(orderDesignerInfo, clickCallBack, position);
+                MyPlanViewType3_ view3 = (MyPlanViewType3_) viewHolder.getView();
+                view3.bind(requirementInfo, clickCallBack, position);
                 break;
             case PLAN_TYPE4:
-                MyDesignerViewType4_ view4 = (MyDesignerViewType4_) viewHolder.getView();
-                view4.bind(orderDesignerInfo, clickCallBack, position);
+                MyPlanViewType4_ view4 = (MyPlanViewType4_) viewHolder.getView();
+                view4.bind(requirementInfo, clickCallBack, position);
                 break;
             case PLAN_TYPE5:
-                MyDesignerViewType5_ view5 = (MyDesignerViewType5_) viewHolder.getView();
-                view5.bind(orderDesignerInfo, clickCallBack, position);
+                MyPlanViewType5_ view5 = (MyPlanViewType5_) viewHolder.getView();
+                view5.bind(requirementInfo, clickCallBack, position);
                 break;
             case PLAN_TYPE6:
-                MyDesignerViewType6_ view6 = (MyDesignerViewType6_) viewHolder.getView();
-                view6.bind(orderDesignerInfo, clickCallBack, position);
+                MyPlanViewType6_ view6 = (MyPlanViewType6_) viewHolder.getView();
+                view6.bind(requirementInfo, clickCallBack, position);
                 break;
             case PLAN_TYPE7:
-                MyDesignerViewType7_ view7 = (MyDesignerViewType7_) viewHolder.getView();
-                view7.bind(orderDesignerInfo, clickCallBack, position);
+                MyPlanViewType7_ view7 = (MyPlanViewType7_) viewHolder.getView();
+                view7.bind(requirementInfo, clickCallBack, position);
                 break;
             case PLAN_TYPE8:
-                MyDesignerViewType8_ view8 = (MyDesignerViewType8_) viewHolder.getView();
-                view8.bind(orderDesignerInfo, clickCallBack, position);
+                MyPlanViewType8_ view8 = (MyPlanViewType8_) viewHolder.getView();
+                view8.bind(requirementInfo, clickCallBack, position);
                 break;
         }
     }

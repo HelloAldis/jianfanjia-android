@@ -35,6 +35,9 @@ public class RequirementInfo implements Serializable {
     private String final_designerid;
     private String business_house_type = "0";
     private ProcessInfo process;
+    private PlanInfo plan;
+    private User user;
+    private Evaluation evaluation;
     private long create_at;
     private long last_status_update_time;
     private String family_description;
@@ -290,5 +293,29 @@ public class RequirementInfo implements Serializable {
 
     public void setBusiness_house_type(String business_house_type) {
         this.business_house_type = business_house_type;
+    }
+
+    public PlanInfo getPlan() {
+        return plan;
+    }
+
+    public void setPlan(PlanInfo plan) {
+        this.plan = plan;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Evaluation getEvaluation() {
+        return evaluation;
+    }
+
+    public void setEvaluation(Evaluation evaluation) {
+        this.evaluation = evaluation;
     }
 }
