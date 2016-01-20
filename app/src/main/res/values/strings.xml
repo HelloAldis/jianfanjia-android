@@ -316,5 +316,14 @@
     <string name="phone_tip">为了更进一步与业主交流和确认量房时间，请及时与业主联系</string>
     <string name="setting_measure_date">设置量房时间</string>
     <string name="refuse_title">拒绝原因：</string>
+    <string name="phone_owner">联系业主</string>
+    <string name="other">其他</string>
+    <string name="str_view_comment">查看评价</string>
+    <string name="refuse_msg0">预算偏低，不符合预期</string>
+    <string name="refuse_msg1">时间忙，接不过来</string>
+    <string name="refuse_msg2">距离太远，交通不方便</string>
+    <string name="refuse_msg3">其他</string>
+    <string name="refuse_tip">PS:以下收集的信息，将不会向业主展示，麻烦您耐心选择拒绝接单原因，以便我们的合作更紧密</string>
+    <string name="refuse_reason">拒绝接单原因</string>
 
 </resources>

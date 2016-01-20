@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/font_white">
+
+    <View
+        style="@style/divier_line"/>
+
+    <include android:id="@+id/ltm_req_info_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/merge_req"/>
+
+    <View
+        style="@style/divier_line"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dip"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/refuseLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true">
+
+                <ImageView
+                    android:id="@+id/icon_contract"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/icon_notification" />
+
+                <TextView
+                    style="@style/listview_item_text_style_small"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/space_5"
+                    android:layout_toRightOf="@id/icon_contract"
+                    android:text="@string/refuse"
+                    android:textColor="@color/designer_info_text_color_bg"
+                    android:textSize="@dimen/text_size_14" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <View style="@style/vertical_divier_line" />
+
+        <RelativeLayout
+            android:id="@+id/response_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true">
+
+                <ImageView
+                    android:id="@+id/icon_plan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/icon_notification" />
+
+                <TextView
+                    style="@style/listview_item_text_style_small"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/space_5"
+                    android:layout_toRightOf="@id/icon_plan"
+                    android:text="@string/response"
+                    android:textColor="@color/orange_color"
+                    android:textSize="@dimen/text_size_14" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <View
+        style="@style/divier_line"/>
+
+
+</LinearLayout>

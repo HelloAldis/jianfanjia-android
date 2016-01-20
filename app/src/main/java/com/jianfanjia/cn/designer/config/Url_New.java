@@ -78,6 +78,15 @@ public class Url_New {
     //设计师获取所有的需求列表
     public String GET_ALL_REQUIREMENT_LIST = HTTPROOT + "designer_get_user_requirements";
 
+    //设计师拒绝用户的需求
+    public String REFUSE_REQUIREMENT = HTTPROOT + "designer/user/reject";
+
+    //设计师响应业主的需求
+    public String RESPONSE_REQUIREMENT = HTTPROOT + "designer/user/ok";
+
+    //设计师配置合同
+    public String DESIGNER_CONFIG_CONTRACT = HTTPROOT + "config_contract";
+
     // 用户反馈 feedback
     public String FEEDBACK_URL = HTTPROOT + "feedback";
     // --------------------------------------------------业主-----------------------------------------------------------
@@ -116,7 +125,7 @@ public class Url_New {
     //业主评价设计师
     public String EVALUATE_DESIGNER_BY_USER = HTTPROOT + "user_evaluate_designer";
     //业主获取我的方案
-    public String USER_REQUIREMENT_PLANS = HTTPROOT + "user_requirement_plans";
+    public String USER_REQUIREMENT_PLANS = HTTPROOT + "designer_requirement_plans";
     //业主选定方案
     public String USER_CHOOSE_PLAN = HTTPROOT + "user/plan/final";
     //用户获取某个方案的信息
@@ -131,10 +140,6 @@ public class Url_New {
     public String PROCESS = HTTPROOT + "user/process";
     //用户删除装修节点图片
     public String DELETE_PROCESS_PIC = HTTPROOT + "process/delete_image";
-
-    // 获取业主的设计师
-    public String GET_OWER_DESIGNER = HTTPROOT + "designer/" + ID
-            + "/basicinfo";
 
     // 业主获取自己的个人资料和修改个人资料
     public String GET_OWER_INFO = HTTPROOT + "user/info";

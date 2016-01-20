@@ -68,11 +68,11 @@
 
     <TextView
         android:id="@+id/phone_tip"
-        style="@style/listview_item_text_style_small"
+        style="@style/listview_item_text_style_middle"
         android:layout_gravity="center_horizontal"
         android:text="@string/phone_tip"
         android:layout_marginTop="@dimen/space_16"
-        android:textColor="#344a5d" />
+        android:textColor="@color/light_black_color" />
 
     <RelativeLayout
         android:id="@+id/btn_phone_layout"
@@ -89,10 +89,10 @@
             android:layout_centerVertical="true"
             android:padding="@dimen/space_8"
             android:layout_marginLeft="@dimen/space_8"
-            android:src="@mipmap/icon_weixin_login" />
+            android:src="@mipmap/icon_phone" />
 
         <TextView
-            android:id="@+id/weixin_login"
+            android:id="@+id/phone_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"

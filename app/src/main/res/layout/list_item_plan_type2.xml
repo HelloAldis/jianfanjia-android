@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/font_white"
+    android:orientation="vertical">
+
+    <View style="@style/divier_line" />
+
+    <include
+        android:id="@+id/ltm_req_info_layout"
+        layout="@layout/merge_req"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <View style="@style/divier_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dip"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/measureLayout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true">
+
+                <TextView
+                    android:id="@+id/measure_time_title"
+                    style="@style/listview_item_text_style_middle"
+                    android:layout_centerVertical="true"
+                    android:text="@string/measure_house_time" />
+
+                <TextView
+                    android:id="@+id/measure_time_content"
+                    style="@style/listview_item_text_style_middle"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/space_5"
+                    android:layout_toRightOf="@id/measure_time_title"
+                    android:textColor="@color/designer_info_text_color_bg"
+                    />
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <View style="@style/vertical_divier_line" />
+
+        <RelativeLayout
+            android:id="@+id/phoneLayout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true">
+
+                <ImageView
+                    android:id="@+id/icon_plan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/icon_phone" />
+
+                <TextView
+                    style="@style/listview_item_text_style_middle"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/space_5"
+                    android:layout_toRightOf="@id/icon_plan"
+                    android:text="@string/phone_owner"
+                    android:textColor="@color/orange_color"
+                     />
+            </RelativeLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <View style="@style/divier_line" />
+
+
+</LinearLayout>

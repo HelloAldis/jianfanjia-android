@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/font_white"
+    android:orientation="vertical">
+
+    <View style="@style/divier_line" />
+
+    <include
+        android:id="@+id/ltm_req_info_layout"
+        layout="@layout/merge_req"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <View style="@style/divier_line" />
+
+
+</LinearLayout>

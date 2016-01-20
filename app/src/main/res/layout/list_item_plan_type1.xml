@@ -16,35 +16,27 @@
     <View style="@style/divier_line" />
 
     <RelativeLayout
+        android:id="@+id/refuseLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/space_16">
 
         <TextView
-            android:id="@+id/measure_time_title"
+            android:id="@+id/refuse_title"
             style="@style/listview_item_text_style_small"
             android:layout_centerVertical="true"
-            android:text="@string/measure_house_time" />
+            android:text="@string/refuse_title" />
 
         <TextView
-            android:id="@+id/measure_time_content"
+            android:id="@+id/refuse_content"
             style="@style/listview_item_text_style_small"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/measure_time_title"
-            />
-
-        <ImageView
-            android:id="@+id/ltm_req_phone_goto"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:padding="@dimen/space_8"
-            android:src="@mipmap/icon_phone" />
-
+            android:layout_toRightOf="@+id/refuse_title"
+            android:text="@string/other" />
     </RelativeLayout>
 
-    <View style="@style/divier_line" />
+    <View style="@style/divier_line"/>
+
 
 
 </LinearLayout>

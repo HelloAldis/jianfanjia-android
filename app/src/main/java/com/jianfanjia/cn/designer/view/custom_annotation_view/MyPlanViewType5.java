@@ -3,7 +3,6 @@ package com.jianfanjia.cn.designer.view.custom_annotation_view;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -12,7 +11,7 @@ import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.bean.RequirementInfo;
 import com.jianfanjia.cn.designer.cache.BusinessManager;
 import com.jianfanjia.cn.designer.config.Constant;
-import com.jianfanjia.cn.designer.fragment.XuQiuFragment;
+import com.jianfanjia.cn.designer.fragment.RecycleViewFragment;
 import com.jianfanjia.cn.designer.interf.ClickCallBack;
 import com.jianfanjia.cn.designer.tools.StringUtils;
 import com.jianfanjia.cn.designer.view.baseview.BaseAnnotationView;
@@ -26,7 +25,7 @@ import org.androidannotations.annotations.ViewById;
  * Email: jame.zhang@myjyz.com
  * Date:2015-10-22 10:46
  */
-@EViewGroup(R.layout.list_item_req_communicate_type2)
+@EViewGroup(R.layout.list_item_plan_type5)
 public class MyPlanViewType5 extends BaseAnnotationView {
 
     @ViewById(R.id.ltm_req_owner_head)
@@ -53,27 +52,31 @@ public class MyPlanViewType5 extends BaseAnnotationView {
     @ViewById(R.id.ltm_req_sex)
     protected ImageView sexView;
 
-    @ViewById(R.id.ltm_req_button0)
-    protected Button button0;
+    @ViewById(R.id.phoneLayout)
+    protected RelativeLayout phoneLayout;
 
-    @ViewById(R.id.ltm_req_button1)
-    protected Button button1;
+    @ViewById(R.id.contractLayout)
+    protected RelativeLayout contractLayout;
 
-    @ViewById(R.id.ltm_req_phone_goto)
-    protected ImageView phoneGoto;
+    @ViewById(R.id.planLayout)
+    protected RelativeLayout planLayout;
 
     public MyPlanViewType5(Context context) {
         super(context);
     }
 
-    public void bind(RequirementInfo requirementInfo,final ClickCallBack clickCallBack,final int position) {
+    public void bind(RequirementInfo requirementInfo, final ClickCallBack clickCallBack, final int position) {
         cellView.setText(requirementInfo.getCell());
-        createTimeView.setText(StringUtils.covertLongToString(requirementInfo.getLast_status_update_time()));
+        long lastUpdateTime = requirementInfo.getPlan().getLast_status_update_time();
+        if (lastUpdateTime != 0l) {
+            createTimeView.setText(StringUtils.covertLongToStringHasMini(lastUpdateTime));
+        }
         statusView.setText(getResources().getStringArray(R.array.plan_status)[Integer.parseInt(requirementInfo.getPlan().getStatus())]);
+        statusView.setTextColor(getResources().getColor(R.color.orange_color));
         String imageId = requirementInfo.getUser().getImageid();
-        if(TextUtils.isEmpty(imageId)){
+        if (TextUtils.isEmpty(imageId)) {
             imageShow.displayLocalImage(dataManagerNew.getUserImagePath(), headView);
-        }else{
+        } else {
             imageShow.displayImageHeadWidthThumnailImage(context, imageId, headView);
         }
         String username = requirementInfo.getUser().getUsername();
@@ -83,9 +86,9 @@ public class MyPlanViewType5 extends BaseAnnotationView {
             nameView.setText(getResources().getString(R.string.ower));
         }
         String sex = requirementInfo.getUser().getSex();
-        if(!TextUtils.isEmpty(sex)){
+        if (!TextUtils.isEmpty(sex)) {
             sexView.setVisibility(View.VISIBLE);
-            switch (sex){
+            switch (sex) {
                 case Constant.SEX_MAN:
                     sexView.setImageResource(R.mipmap.icon_designer_user_man);
                     break;
@@ -93,7 +96,7 @@ public class MyPlanViewType5 extends BaseAnnotationView {
                     sexView.setImageResource(R.mipmap.icon_designer_user_woman);
                     break;
             }
-        }else {
+        } else {
             sexView.setVisibility(View.GONE);
         }
         String des = BusinessManager.getDesc(requirementInfo.getHouse_type(), requirementInfo.getHouse_area(),
@@ -104,7 +107,26 @@ public class MyPlanViewType5 extends BaseAnnotationView {
         contentLayout.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                clickCallBack.click(position, XuQiuFragment.ITEM_PRIVIEW);
+                clickCallBack.click(position, RecycleViewFragment.PRIVIEW_REQUIREMENT_TYPE);
+            }
+        });
+
+        phoneLayout.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickCallBack.click(position, RecycleViewFragment.PHONE_TYPE);
+            }
+        });
+        contractLayout.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickCallBack.click(position, RecycleViewFragment.PREVIEW_CONTRACT_TYPE);
+            }
+        });
+        planLayout.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickCallBack.click(position, RecycleViewFragment.PREVIEW_PLAN_TYPE);
             }
         });
     }
