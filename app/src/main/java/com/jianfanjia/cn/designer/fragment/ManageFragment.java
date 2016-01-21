@@ -11,7 +11,7 @@ import android.view.View;
 
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.activity.requirement.ContractActivity;
+import com.jianfanjia.cn.designer.activity.SettingContractActivity_;
 import com.jianfanjia.cn.designer.activity.requirement.MyProcessDetailActivity_;
 import com.jianfanjia.cn.designer.activity.requirement.PreviewBusinessRequirementActivity_;
 import com.jianfanjia.cn.designer.activity.requirement.PreviewDesignerPlanActivity;
@@ -112,10 +112,10 @@ public class ManageFragment extends BaseFragment implements PullToRefreshBase.On
                                 startActivity(gotoPriviewRequirement);
                                 break;
                             case ITEM_CONTRACT:
-                                Intent viewContractIntent = new Intent(getActivity(), ContractActivity.class);
+                                Intent viewContractIntent = new Intent(getActivity(), SettingContractActivity_.class);
                                 Bundle contractBundle = new Bundle();
-                                contractBundle.putString(Global.REQUIREMENT_ID, process.getPlan().getRequirementid());
-                                contractBundle.putString(Global.REQUIREMENT_STATUS, process.getPlan().getStatus());
+                                contractBundle.putSerializable(Global.REQUIREMENT_INFO, process.getRequirement());
+                                contractBundle.putSerializable(Global.PLAN, process.getPlan());
                                 viewContractIntent.putExtras(contractBundle);
                                 startActivity(viewContractIntent);
                                 break;

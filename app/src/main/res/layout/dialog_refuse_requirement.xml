@@ -24,7 +24,7 @@
             android:id="@+id/refuse_radio0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checked="true"
+            android:drawablePadding="@dimen/space_4"
             android:text="@string/refuse_msg0"
             android:textColor="@color/light_black_color"/>
 
@@ -33,6 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/refuse_msg1"
+            android:drawablePadding="@dimen/space_4"
             android:textColor="@color/light_black_color"/>
 
         <RadioButton
@@ -40,6 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/refuse_msg2"
+            android:drawablePadding="@dimen/space_4"
             android:textColor="@color/light_black_color"/>
 
         <RadioButton
@@ -47,6 +49,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/refuse_msg3"
+            android:drawablePadding="@dimen/space_4"
             android:textColor="@color/light_black_color"/>
 
     </RadioGroup>

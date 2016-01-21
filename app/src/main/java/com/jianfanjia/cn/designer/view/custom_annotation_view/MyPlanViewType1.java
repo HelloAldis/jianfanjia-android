@@ -78,7 +78,7 @@ public class MyPlanViewType1 extends BaseAnnotationView {
         } else {
             nameView.setText(getResources().getString(R.string.ower));
         }
-        String refuseReason = requirementInfo.getPlan().getReject_response_msg();
+        String refuseReason = requirementInfo.getPlan().getReject_respond_msg();
         if(!TextUtils.isEmpty(refuseReason)){
             refuseContent.setText(refuseReason);
         }

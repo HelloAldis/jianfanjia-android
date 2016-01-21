@@ -94,6 +94,18 @@ public class BusinessManager {
         return dectypes[decPosition];
     }
 
+    /**
+     * @param
+     * @return
+     */
+    public static String convertWorktypeToShow(String workType) {
+        if (workType == null) return null;
+        int decPosition = Integer.parseInt(workType);
+        String[] dectypes = MyApplication.getInstance().getResources().getStringArray(R.array.arr_worktype);
+        if (decPosition < 0 || decPosition > dectypes.length) return null;
+        return dectypes[decPosition];
+    }
+
 
     /**
      * 拿到显示的房子类型

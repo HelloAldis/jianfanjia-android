@@ -11,6 +11,7 @@ import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.bean.RequirementInfo;
 import com.jianfanjia.cn.designer.cache.BusinessManager;
 import com.jianfanjia.cn.designer.config.Constant;
+import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.fragment.RecycleViewFragment;
 import com.jianfanjia.cn.designer.interf.ClickCallBack;
 import com.jianfanjia.cn.designer.tools.StringUtils;
@@ -57,6 +58,9 @@ public class MyPlanViewType5 extends BaseAnnotationView {
 
     @ViewById(R.id.contractLayout)
     protected RelativeLayout contractLayout;
+
+    @ViewById(R.id.settingStartAtLayout)
+    protected RelativeLayout settingStartAtLayout;
 
     @ViewById(R.id.planLayout)
     protected RelativeLayout planLayout;
@@ -117,12 +121,25 @@ public class MyPlanViewType5 extends BaseAnnotationView {
                 clickCallBack.click(position, RecycleViewFragment.PHONE_TYPE);
             }
         });
-        contractLayout.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clickCallBack.click(position, RecycleViewFragment.PREVIEW_CONTRACT_TYPE);
-            }
-        });
+        if (requirementInfo.getStatus().equals(Global.REQUIREMENT_STATUS4)) {
+            settingStartAtLayout.setVisibility(View.VISIBLE);
+            contractLayout.setVisibility(View.GONE);
+            settingStartAtLayout.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    clickCallBack.click(position, RecycleViewFragment.SETTING_STARTAT_TYPE);
+                }
+            });
+        } else {
+            settingStartAtLayout.setVisibility(View.GONE);
+            contractLayout.setVisibility(View.VISIBLE);
+            contractLayout.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    clickCallBack.click(position, RecycleViewFragment.PREVIEW_CONTRACT_TYPE);
+                }
+            });
+        }
         planLayout.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {

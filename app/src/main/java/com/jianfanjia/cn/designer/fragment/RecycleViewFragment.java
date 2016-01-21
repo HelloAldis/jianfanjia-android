@@ -17,8 +17,8 @@ import android.widget.RadioGroup;
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.designer.Event.UpdateEvent;
 import com.jianfanjia.cn.designer.R;
+import com.jianfanjia.cn.designer.activity.SettingContractActivity_;
 import com.jianfanjia.cn.designer.activity.SettingMeasureDateActivity_;
-import com.jianfanjia.cn.designer.activity.requirement.ContractActivity;
 import com.jianfanjia.cn.designer.activity.requirement.DesignerPlanListActivity;
 import com.jianfanjia.cn.designer.activity.requirement.PingJiaInfoActivity;
 import com.jianfanjia.cn.designer.activity.requirement.PreviewBusinessRequirementActivity_;
@@ -38,6 +38,8 @@ import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.jianfanjia.cn.designer.view.baseview.HorizontalDividerItemDecoration;
 import com.jianfanjia.cn.designer.view.dialog.CommonDialog;
 import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
+import com.jianfanjia.cn.designer.view.library.PullToRefreshBase;
+import com.jianfanjia.cn.designer.view.library.PullToRefreshRecycleView;
 
 import java.util.List;
 
@@ -60,6 +62,7 @@ public class RecycleViewFragment extends Fragment {
     public static final int RREVIEW_COMMENT_TYPE = 0x08;
     public static final int PREVIEW_PLAN_TYPE = 0x09;
     public static final int PREVIEW_CONTRACT_TYPE = 0x10;
+    public static final int SETTING_STARTAT_TYPE = 0x11;
 
     private final int FIRST_FRAGMENT = 0;
     private final int SECOND_FRAGMENT = 1;
@@ -67,7 +70,7 @@ public class RecycleViewFragment extends Fragment {
 
     private int mNum;
 
-    protected RecyclerView pullrefresh;
+    protected PullToRefreshRecycleView pullrefresh;
 
     private MyHandledRequirementAdapter myHandledRequirementAdapter;
 
@@ -171,16 +174,15 @@ public class RecycleViewFragment extends Fragment {
     }
 
     protected void initRecycleView() {
-        pullrefresh = (RecyclerView) view.findViewById(R.id.pull_refresh_recycle_view);
-
-//        pullrefresh.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+        pullrefresh = (PullToRefreshRecycleView) view.findViewById(R.id.pull_refresh_recycle_view);
+        pullrefresh.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
         pullrefresh.setLayoutManager(new LinearLayoutManager(getActivity()));
-       /* pullrefresh.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<RecyclerView>() {
+        pullrefresh.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<RecyclerView>() {
             @Override
             public void onRefresh(PullToRefreshBase<RecyclerView> refreshView) {
                 initData();
             }
-        });*/
+        });
         myHandledRequirementAdapter = new MyHandledRequirementAdapter(getActivity(), new ClickCallBack() {
             @Override
             public void click(int position, int itemType) {
@@ -236,13 +238,14 @@ public class RecycleViewFragment extends Fragment {
                         startActivity(viewCommentIntent);
                         break;
                     case PREVIEW_CONTRACT_TYPE:
-                        Intent viewContractIntent = new Intent(_context, ContractActivity.class);
-                        Bundle contractBundle = new Bundle();
-                        contractBundle.putString(Global.REQUIREMENT_ID, requirementInfo.get_id());
-                        contractBundle.putString(Global.REQUIREMENT_STATUS, requirementInfo.getStatus());
-                        viewContractIntent.putExtras(contractBundle);
-                        startActivity(viewContractIntent);
-                        break;
+                    case SETTING_STARTAT_TYPE:
+                        Intent settingStartAt = new Intent(_context, SettingContractActivity_.class);
+                        Bundle settingStartAtBundle = new Bundle();
+                        settingStartAtBundle.putSerializable(Global.REQUIREMENT_INFO, requirementInfo);
+                        settingStartAtBundle.putSerializable(Global.PLAN,requirementInfo.getPlan());
+                        settingStartAt.putExtras(settingStartAtBundle);
+                        startActivity(settingStartAt);
+                        getActivity().overridePendingTransition(R.anim.slide_and_fade_in_from_bottom, R.anim.fade_out);
                     case PREVIEW_PLAN_TYPE:
                         Intent viewPlanIntent = new Intent(_context, DesignerPlanListActivity.class);
                         Bundle planBundle = new Bundle();
@@ -276,7 +279,7 @@ public class RecycleViewFragment extends Fragment {
 
             @Override
             public void loadFailture(String error_msg) {
-
+                
             }
         }, requirementid, msg, this);
     }
@@ -294,7 +297,6 @@ public class RecycleViewFragment extends Fragment {
         View contentView = LayoutInflater.from(_context).inflate(R.layout.dialog_refuse_requirement, null);
         RadioGroup radioGroup = (RadioGroup) contentView
                 .findViewById(R.id.refuse_radioGroup);
-        refuseMsg = getString(R.string.refuse_msg0);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -355,6 +357,7 @@ public class RecycleViewFragment extends Fragment {
 
             @Override
             public void loadSuccess(Object data) {
+                pullrefresh.onRefreshComplete();
                 LogTool.d(this.getClass().getName(), data.toString());
                 mHasLoadedOnce = true;
                 requirementInfos = JsonParser.jsonToList(data.toString(), new TypeToken<List<RequirementInfo>>() {
@@ -365,7 +368,7 @@ public class RecycleViewFragment extends Fragment {
 
             @Override
             public void loadFailture(String error_msg) {
-
+                pullrefresh.onRefreshComplete();
             }
         }, this);
     }
