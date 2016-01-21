@@ -20,10 +20,12 @@ import java.util.List;
  * Time: 10:51
  */
 public class ProcessRecyclerViewAdapter extends BaseRecyclerViewAdapter<SiteProcessItem> {
+    private static final String TAG = ProcessRecyclerViewAdapter.class.getName();
     private int processIndex;
 
-    public ProcessRecyclerViewAdapter(Context context, List<SiteProcessItem> list) {
+    public ProcessRecyclerViewAdapter(Context context, List<SiteProcessItem> list, int processIndex) {
         super(context, list);
+        this.processIndex = processIndex;
     }
 
     @Override
@@ -32,6 +34,14 @@ public class ProcessRecyclerViewAdapter extends BaseRecyclerViewAdapter<SiteProc
         ProcessViewHolder holder = (ProcessViewHolder) viewHolder;
         holder.itemImgView.setImageResource(item.getRes());
         holder.itemTitleView.setText(item.getTitle());
+        if (position < processIndex) {
+            holder.itemImgView.setSelected(true);
+            holder.itemTitleView.setSelected(true);
+        } else if (position == processIndex) {
+            holder.itemImgView.setPressed(true);
+        } else {
+
+        }
     }
 
     @Override
