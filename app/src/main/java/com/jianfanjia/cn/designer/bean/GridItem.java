@@ -12,6 +12,14 @@ public class GridItem implements Serializable {
     private static final long serialVersionUID = 5204218970824963589L;
     private String imgId;
 
+    public GridItem(String imgId) {
+        this.imgId = imgId;
+    }
+
+    public GridItem() {
+
+    }
+
     public String getImgId() {
         return imgId;
     }

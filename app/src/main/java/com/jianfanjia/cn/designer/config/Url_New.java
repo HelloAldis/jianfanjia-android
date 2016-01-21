@@ -215,9 +215,6 @@ public class Url_New {
     // 设计师提交验收图片
     public String SUBMIT_YAHSHOU_IMAGE = HTTPROOT
             + "process/ysimage";
-    // 设计师删除验收图片
-    public String DELETE_YAHSHOU_IMAGE = HTTPROOT
-            + "process/ysimage/delete";
     // 用户完工装修流程小节点
     public String POST_PROCESS_DONE_ITEM = HTTPROOT
             + "process/done_item";

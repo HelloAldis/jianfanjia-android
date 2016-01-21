@@ -8,6 +8,9 @@
     <!-- site_manager -->
     <color name="site_item_normal_bg">#999999</color>
     <color name="site_item_selected_bg">#ff9800</color>
+    <color name="site_content_bg">#f2f2f3</color>
+
+    <color name="back_color">#7c8489</color>
 
     <!-- 字体色值 -->
     <color name="font_white">#ffffff</color>
