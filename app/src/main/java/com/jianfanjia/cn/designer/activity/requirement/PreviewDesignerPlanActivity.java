@@ -76,7 +76,7 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
         Bundle planBundle = intent.getExtras();
         plan = (PlanInfo) planBundle.getSerializable(Global.PLAN);
         requirement = (RequirementInfo) planBundle.getSerializable(Global.REQUIRE);
-        LogTool.d(TAG, "requirement=" + requirement);
+        LogTool.d(TAG, "plan=" + plan + " requirement=" + requirement);
         if (null != plan && null != requirement) {
             totalDateLayout.setVisibility(View.VISIBLE);
             priceLayout.setVisibility(View.VISIBLE);
