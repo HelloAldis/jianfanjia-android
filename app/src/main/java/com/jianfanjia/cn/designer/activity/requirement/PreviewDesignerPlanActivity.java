@@ -10,12 +10,12 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.jianfanjia.cn.designer.bean.Process;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.activity.common.ShowPicActivity;
 import com.jianfanjia.cn.designer.adapter.PreviewAdapter;
 import com.jianfanjia.cn.designer.base.BaseActivity;
 import com.jianfanjia.cn.designer.bean.PlanInfo;
+import com.jianfanjia.cn.designer.bean.RequirementInfo;
 import com.jianfanjia.cn.designer.cache.BusinessManager;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
@@ -51,7 +51,8 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
     private TextView designText = null;
 
     private Button btnDetail = null;
-    private Process process = null;
+    private PlanInfo plan = null;
+    private RequirementInfo requirement = null;
 
     @Override
     public void initView() {
@@ -73,31 +74,32 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
         btnDetail = (Button) findViewById(R.id.btnDetail);
         Intent intent = this.getIntent();
         Bundle planBundle = intent.getExtras();
-        process = (Process) planBundle.getSerializable(Global.PROCESS);
-        LogTool.d(TAG, "process=" + process);
-        if (null != process) {
+        plan = (PlanInfo) planBundle.getSerializable(Global.PLAN);
+        requirement = (RequirementInfo) planBundle.getSerializable(Global.REQUIRE);
+        LogTool.d(TAG, "requirement=" + requirement);
+        if (null != plan && null != requirement) {
             totalDateLayout.setVisibility(View.VISIBLE);
             priceLayout.setVisibility(View.VISIBLE);
             designTextLayout.setVisibility(View.VISIBLE);
             mainHeadView.setRigthTitleEnable(true);
-            if (!TextUtils.isEmpty(process.getRequirement().getCell())) {
+            if (!TextUtils.isEmpty(requirement.getCell())) {
                 cellName.setVisibility(View.VISIBLE);
-                cellName.setText(process.getRequirement().getCell());
+                cellName.setText(requirement.getCell());
             }
-            if (!TextUtils.isEmpty(process.getRequirement().getHouse_type())) {
+            if (!TextUtils.isEmpty(requirement.getHouse_type())) {
                 houseTypeLayout.setVisibility(View.VISIBLE);
-                houseType.setText(BusinessManager.convertHouseTypeToShow(process.getRequirement().getHouse_type()));
+                houseType.setText(BusinessManager.convertHouseTypeToShow(requirement.getHouse_type()));
             }
             houseAreaLayout.setVisibility(View.VISIBLE);
-            houseArea.setText(process.getRequirement().getHouse_area() + getString(R.string.str_sq_unit));
-            if (!TextUtils.isEmpty(process.getRequirement().getWork_type())) {
+            houseArea.setText(requirement.getHouse_area() + getString(R.string.str_sq_unit));
+            if (!TextUtils.isEmpty(requirement.getWork_type())) {
                 decorateTypeLayout.setVisibility(View.VISIBLE);
-                decorateType.setText(BusinessManager.getWorkType(process.getRequirement().getWork_type()));
+                decorateType.setText(BusinessManager.getWorkType(requirement.getWork_type()));
             }
-            totalDate.setText(process.getPlan().getDuration() + "天");
-            price.setText(process.getPlan().getTotal_price() + "元");
-            designText.setText(process.getPlan().getDescription());
-            final List<String> imgList = process.getPlan().getImages();
+            totalDate.setText(plan.getDuration() + "天");
+            price.setText(plan.getTotal_price() + "元");
+            designText.setText(plan.getDescription());
+            final List<String> imgList = plan.getImages();
             PreviewAdapter adapter = new PreviewAdapter(PreviewDesignerPlanActivity.this, imgList, new ViewPagerClickListener() {
                 @Override
                 public void onClickItem(int pos) {
@@ -139,10 +141,10 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
                 appManager.finishActivity(this);
                 break;
             case R.id.head_right_title:
-                startToActivity(process.getPlan());
+                startToActivity(plan);
                 break;
             case R.id.btnDetail:
-                startToActivity(process.getPlan());
+                startToActivity(plan);
                 break;
             default:
                 break;
