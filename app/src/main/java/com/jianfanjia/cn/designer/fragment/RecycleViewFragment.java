@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -25,6 +24,7 @@ import com.jianfanjia.cn.designer.activity.requirement.PreviewBusinessRequiremen
 import com.jianfanjia.cn.designer.activity.requirement.PreviewRequirementActivity_;
 import com.jianfanjia.cn.designer.adapter.MyHandledRequirementAdapter;
 import com.jianfanjia.cn.designer.application.MyApplication;
+import com.jianfanjia.cn.designer.base.BaseAnnotationFragment;
 import com.jianfanjia.cn.designer.bean.RequirementInfo;
 import com.jianfanjia.cn.designer.bean.RequirementList;
 import com.jianfanjia.cn.designer.cache.DataManagerNew;
@@ -51,7 +51,7 @@ import de.greenrobot.event.EventBus;
  * Email: jame.zhang@myjyz.com
  * Date:2016-01-19 14:00
  */
-public class RecycleViewFragment extends Fragment {
+public class RecycleViewFragment extends BaseAnnotationFragment {
 
     private static final String TAG = "RecycleViewFragment";
 
@@ -92,6 +92,7 @@ public class RecycleViewFragment extends Fragment {
     private RequirementList requirementList;
 
     private Context _context;
+
 
     /**
      * Create a new instance of CountingFragment, providing "num"
@@ -279,7 +280,7 @@ public class RecycleViewFragment extends Fragment {
 
             @Override
             public void loadFailture(String error_msg) {
-                
+
             }
         }, requirementid, msg, this);
     }
@@ -352,11 +353,14 @@ public class RecycleViewFragment extends Fragment {
         JianFanJiaClient.getAllRequirementList(getActivity(), new ApiUiUpdateListener() {
             @Override
             public void preLoad() {
-
+                if(!mHasLoadedOnce){
+                    showWaitDialog();
+                }
             }
 
             @Override
             public void loadSuccess(Object data) {
+                hideWaitDialog();
                 pullrefresh.onRefreshComplete();
                 LogTool.d(this.getClass().getName(), data.toString());
                 mHasLoadedOnce = true;
@@ -368,6 +372,7 @@ public class RecycleViewFragment extends Fragment {
 
             @Override
             public void loadFailture(String error_msg) {
+                hideWaitDialog();
                 pullrefresh.onRefreshComplete();
             }
         }, this);
