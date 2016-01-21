@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.adapter.base.BaseRecyclerViewAdapter;
@@ -32,6 +33,10 @@ public class DesignerPlanRecyclerViewAdapter extends BaseRecyclerViewAdapter<Str
     public void bindView(RecyclerViewHolderBase viewHolder, final int position, List<String> list) {
         String imgId = list.get(position);
         DesignerPlanViewHolder holder = (DesignerPlanViewHolder) viewHolder;
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) holder.itemImgView.getLayoutParams();
+        layoutParams.width = (int) TDevice.getScreenWidth() / 3;
+        layoutParams.height = (int) TDevice.getScreenWidth() / 3;
+        holder.itemImgView.setLayoutParams(layoutParams);
         imageShow.displayThumbnailImage(imgId, holder.itemImgView, (int) TDevice.getScreenWidth() / 3);
         holder.itemImgView.setOnClickListener(new View.OnClickListener() {
             @Override
