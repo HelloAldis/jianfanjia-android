@@ -74,24 +74,6 @@ public class Url_New {
     // 检查版本
     public String UPDATE_VERSION_URL = HTTPROOT
             + "device/designer_android_build_version";
-
-    //设计师获取所有的需求列表
-    public String GET_ALL_REQUIREMENT_LIST = HTTPROOT + "designer_get_user_requirements";
-
-    //设计师拒绝用户的需求
-    public String REFUSE_REQUIREMENT = HTTPROOT + "designer/user/reject";
-
-    //设计师响应业主的需求
-    public String RESPONSE_REQUIREMENT = HTTPROOT + "designer/user/ok";
-
-    //设计师配置合同
-    public String DESIGNER_CONFIG_CONTRACT = HTTPROOT + "config_contract";
-
-    //设计师获取我的方案
-    public String USER_REQUIREMENT_PLANS = HTTPROOT + "designer_requirement_plans";
-
-    // 用户反馈 feedback
-    public String FEEDBACK_URL = HTTPROOT + "feedback";
     // --------------------------------------------------业主-----------------------------------------------------------
     //业主获取移动端首页数据
     public String HOME_PAGE_DISIGNERS = HTTPROOT + "home_page_designers";
@@ -173,10 +155,10 @@ public class Url_New {
     public String GET_THUMBNAIL_IMAGE = HTTPROOT + "thumbnail/" + WIDTH + "/";
     //分享的链接
     public String SHARE_IMAGE = "http://" + SEVER_IP + ":"
-            + SEVER_PORT +"/zt/mobile/sharemito.html?title=";
+            + SEVER_PORT + "/zt/mobile/sharemito.html?title=";
     //分享的APP的logo图片链接
     public String SHARE_APP_LOGO = "http://" + SEVER_IP + ":"
-            + SEVER_PORT +"/zt/mobile/logo.png";
+            + SEVER_PORT + "/zt/mobile/logo.png";
     // 根据工地id获取某个工地
     public String GET_PROCESSINFO_BYID = HTTPROOT + "process/"
             + ID;
@@ -207,4 +189,39 @@ public class Url_New {
     //用户删除收藏的装修美图
     public String DELETE_BEAUTY_IMG_BY_USER = HTTPROOT
             + "favorite/beautiful_image/delete";
+    // ----------------------------------------------------设计师----------------------------------------------------------
+    //设计师获取所有的需求列表
+    public String GET_ALL_REQUIREMENT_LIST = HTTPROOT + "designer_get_user_requirements";
+
+    //设计师拒绝用户的需求
+    public String REFUSE_REQUIREMENT = HTTPROOT + "designer/user/reject";
+
+    //设计师响应业主的需求
+    public String RESPONSE_REQUIREMENT = HTTPROOT + "designer/user/ok";
+
+    //设计师配置合同
+    public String DESIGNER_CONFIG_CONTRACT = HTTPROOT + "config_contract";
+
+    //设计师获取我的方案
+    public String USER_REQUIREMENT_PLANS = HTTPROOT + "designer_requirement_plans";
+
+    // 用户反馈 feedback
+    public String FEEDBACK_URL = HTTPROOT + "feedback";
+    // 设计师获取个人信息
+    public String GET_DESIGNER_INFO = HTTPROOT + "designer/info";
+    // 获取设计师的工地列表
+    public String GET_DESIGNER_PROCESS = HTTPROOT
+            + "/process/list";
+    // 设计师提交验收图片
+    public String SUBMIT_YAHSHOU_IMAGE = HTTPROOT
+            + "process/ysimage";
+    // 用户完工装修流程小节点
+    public String POST_PROCESS_DONE_ITEM = HTTPROOT
+            + "process/done_item";
+    // 设计师确认可以开始验收
+    public String CONFIRM_CHECK_BY_DESIGNER = HTTPROOT
+            + "process/can_ys";
+    // 设计师删除验收图片
+    public String DELETE_YANSHOU_IMG_BY_DESIGNER = HTTPROOT
+            + "process/ysimage/delete";
 }

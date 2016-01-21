@@ -3,6 +3,8 @@ package com.jianfanjia.cn.designer.activity.requirement;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,17 +21,21 @@ import com.jianfanjia.cn.designer.bean.CheckInfo.Imageid;
 import com.jianfanjia.cn.designer.bean.GridItem;
 import com.jianfanjia.cn.designer.bean.ProcessInfo;
 import com.jianfanjia.cn.designer.bean.SectionItemInfo;
-import com.jianfanjia.cn.designer.cache.BusinessManager;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.http.JianFanJiaClient;
 import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.designer.interf.ItemClickCallBack;
+import com.jianfanjia.cn.designer.interf.PopWindowCallBack;
+import com.jianfanjia.cn.designer.interf.UploadListener;
+import com.jianfanjia.cn.designer.tools.ImageUtil;
+import com.jianfanjia.cn.designer.tools.ImageUtils;
 import com.jianfanjia.cn.designer.tools.LogTool;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.cn.designer.view.dialog.CommonDialog;
 import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,22 +45,28 @@ import java.util.List;
  * @Description: 验收
  * @date 2015-8-28 下午2:25:36
  */
-public class CheckActivity extends BaseActivity implements OnClickListener, ItemClickCallBack {
+public class CheckActivity extends BaseActivity implements OnClickListener,
+        UploadListener, ItemClickCallBack, PopWindowCallBack {
     private static final String TAG = CheckActivity.class.getName();
-    private RelativeLayout checkLayout = null;
+    public static final int EDIT_STATUS = 0;
+    public static final int FINISH_STATUS = 1;
     private MainHeadView mainHeadView = null;
+    private RelativeLayout checkLayout = null;
     private GridView gridView = null;
     private TextView btn_confirm = null;
     private MyGridViewAdapter adapter = null;
-    private List<GridItem> checkGridList = new ArrayList<GridItem>();
-    private List<String> showSamplePic = new ArrayList<String>();
-    private List<String> showProcessPic = new ArrayList<String>();
+    private List<GridItem> checkGridList = new ArrayList<>();//本页显示的griditem项
+    private List<String> showSamplePic = new ArrayList<>();//示例照片
+    private List<String> showProcessPic = new ArrayList<>();//工地验收照片
     private List<Imageid> imageids = null;
     private String processInfoId = null;// 工地id
     private String sectionInfoName = null;// 工序名称
     private String sectionInfoStatus = null;// 工序状态
+    private int key;
+    private File mTmpFile = null;
     private ProcessInfo processInfo;
     private List<SectionItemInfo> sectionItemInfos;
+    private int currentState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,37 +127,37 @@ public class CheckActivity extends BaseActivity implements OnClickListener, Item
 
     @Override
     public void initView() {
-        mainHeadView = (MainHeadView) findViewById(R.id.check_pic_head_layout);
-        mainHeadView.setBackListener(this);
+        initMainHeadView();
         checkLayout = (RelativeLayout) findViewById(R.id.checkLayout);
         gridView = (GridView) findViewById(R.id.mygridview);
         btn_confirm = (TextView) findViewById(R.id.btn_confirm);
+        btn_confirm.setText(this.getResources().getString(
+                R.string.confirm_upload));
+        currentState = FINISH_STATUS;
         gridView.setFocusable(false);
     }
 
+    private void initMainHeadView() {
+        mainHeadView = (MainHeadView) findViewById(R.id.check_head_layout);
+        mainHeadView.setBackListener(this);
+        mainHeadView.setRightTextListener(this);
+        mainHeadView.setRightTitle(getString(R.string.edit));
+        mainHeadView.setLayoutBackground(R.color.head_layout_bg);
+        mainHeadView.setRightTitleVisable(View.VISIBLE);
+        mainHeadView.setBackLayoutVisable(View.VISIBLE);
+        mainHeadView.setRigthTitleEnable(false);
+    }
+
     private void initData() {
-        switch (sectionInfoStatus) {
-            case Constant.NO_START:
-                break;
-            case Constant.DOING:
-                break;
-            case Constant.FINISHED:
-                btn_confirm.setEnabled(false);
-                break;
-            default:
-                break;
-        }
         adapter = new MyGridViewAdapter(CheckActivity.this, checkGridList,
-                this);
+                this, this);
         gridView.setAdapter(adapter);
         processInfo = dataManager.getDefaultProcessInfo();
         if (processInfo != null) {
             sectionItemInfos = processInfo.getSectionInfoByName(sectionInfoName).getItems();
             refreshList();
         }
-        mainHeadView.setMianTitle(MyApplication.getInstance().getStringById(
-                sectionInfoName)
-                + "阶段验收");
+        mainHeadView.setMianTitle(MyApplication.getInstance().getStringById(sectionInfoName) + "阶段验收");
     }
 
     private void refreshList() {
@@ -154,7 +166,6 @@ public class CheckActivity extends BaseActivity implements OnClickListener, Item
         checkGridList = getCheckedImageById(sectionInfoName);
         processInfo = dataManager.getDefaultProcessInfo();
         imageids = processInfo.getImageidsByName(sectionInfoName);
-        int imagecount = imageids.size();
         for (int i = 0; imageids != null && i < imageids.size(); i++) {
             String key = imageids.get(i).getKey();
             LogTool.d(TAG, imageids.get(i).getImageid());
@@ -163,25 +174,49 @@ public class CheckActivity extends BaseActivity implements OnClickListener, Item
         }
         adapter.setList(checkGridList);
         adapter.notifyDataSetChanged();
-        setConfimStatus(imagecount);
+        setConfimStatus();
         initShowList();
     }
 
-    private void setConfimStatus(int count) {
+    private void setConfimStatus() {
+        int count = imageids.size();
         if (!sectionInfoStatus.equals(Constant.FINISHED)) {
-            if (count < BusinessManager
-                    .getCheckPicCountBySection(sectionInfoName)) {
+            mainHeadView.setRightTitleVisable(View.VISIBLE);
+            if (count < checkGridList.size() / 2) {
                 //设计师图片没上传完，不能验收
-                btn_confirm.setEnabled(false);
                 btn_confirm.setText(this.getResources().getString(
-                        R.string.confirm_done));
+                        R.string.confirm_upload));
+                btn_confirm.setOnClickListener(new OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        finish();
+                    }
+                });
+                if (currentState == FINISH_STATUS) {
+                    btn_confirm.setEnabled(true);
+                } else {
+                    btn_confirm.setEnabled(false);
+                }
             } else {
                 boolean isFinish = isSectionInfoFishish(sectionItemInfos);
                 if (isFinish) {
                     //图片上传完了，可以进行验收
-                    btn_confirm.setEnabled(true);
+//                    btn_confirm.setEnabled(true);
                     btn_confirm.setText(this.getResources().getString(
-                            R.string.confirm_done));
+                            R.string.confirm_tip));
+                    btn_confirm.setOnClickListener(new OnClickListener() {
+
+                        @Override
+                        public void onClick(View v) {
+                            onClickCheckConfirm();
+                        }
+                    });
+                    if (currentState == FINISH_STATUS) {
+                        btn_confirm.setEnabled(true);
+                    } else {
+                        btn_confirm.setEnabled(false);
+                    }
                 } else {
                     //图片上传完了，但是工序的某些节点还没有完工
                     btn_confirm.setEnabled(false);
@@ -190,18 +225,12 @@ public class CheckActivity extends BaseActivity implements OnClickListener, Item
                 }
             }
         } else {
+            mainHeadView.setRightTitleVisable(View.GONE);
             //已经验收过了
             btn_confirm.setEnabled(false);
             btn_confirm.setText(this.getResources().getString(
                     R.string.confirm_finish));
         }
-        btn_confirm.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                onClickCheckDone();
-            }
-        });
     }
 
     /**
@@ -222,21 +251,46 @@ public class CheckActivity extends BaseActivity implements OnClickListener, Item
             }
         }
         return flag;
+
     }
 
     @Override
     public void setListener() {
+
+    }
+
+    public void changeEditStatus() {
+        if (!sectionInfoStatus.equals(Constant.FINISHED)) {
+            if (currentState == FINISH_STATUS) {
+                mainHeadView.setRightTitle(getString(R.string.finish));
+                currentState = EDIT_STATUS;
+                adapter.setCanDelete(true);
+                adapter.notifyDataSetInvalidated();
+            } else {
+                mainHeadView.setRightTitle(getString(R.string.edit));
+                currentState = FINISH_STATUS;
+                adapter.setCanDelete(false);
+                adapter.notifyDataSetInvalidated();
+            }
+
+        } else {
+            mainHeadView.setRigthTitleEnable(false);
+            btn_confirm.setEnabled(false);
+        }
+        setConfimStatus();
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.head_back_layout:
-                setResult(RESULT_CANCELED);
                 appManager.finishActivity(this);
                 break;
+            case R.id.head_right_title:
+                changeEditStatus();
+                break;
             case R.id.btn_confirm:
-                onClickCheckDone();
+                onClickCheckConfirm();
                 break;
             default:
                 break;
@@ -244,31 +298,157 @@ public class CheckActivity extends BaseActivity implements OnClickListener, Item
     }
 
     @Override
-    public void loadSuccess(Object data) {
-        super.loadSuccess(data);
+    public void onUpload(int position) {
+        LogTool.d(TAG, "position:" + position);
+        key = position;
+        LogTool.d(TAG, "key:" + key);
+        showPopWindow(checkLayout);
     }
 
-    private void onClickCheckDone() {
+    @Override
+    public void delete(int position) {
+        LogTool.d(TAG, "position:" + position);
+        key = position;
+        LogTool.d(TAG, "key:" + key);
+        JianFanJiaClient.deleteYanshouImgByDesigner(this,
+                processInfoId, sectionInfoName, key + "", new ApiUiUpdateListener() {
+                    @Override
+                    public void preLoad() {
+                        showWaitDialog();
+                    }
+
+                    @Override
+                    public void loadSuccess(Object data) {
+                        hideWaitDialog();
+                        refreshList();
+//                        changeEditStatus();
+                    }
+
+                    @Override
+                    public void loadFailture(String errorMsg) {
+                        hideWaitDialog();
+                        makeTextShort(errorMsg);
+                    }
+                }, this);
+    }
+
+//    @Override
+//    public void takecamera() {
+//        mTmpFile = FileUtil.createTmpFile(this);
+//        if (mTmpFile != null) {
+//            Intent cameraIntent = UiHelper.createShotIntent(mTmpFile);
+//            startActivityForResult(cameraIntent, Constant.REQUESTCODE_CAMERA);
+//        } else {
+//            makeTextLong("没有sd卡，无法打开相机");
+//        }
+//    }
+//
+//    @Override
+//    public void takePhoto() {
+//        Intent albumIntent = new Intent(Intent.ACTION_PICK, null);
+//        albumIntent.setDataAndType(
+//                MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+//        startActivityForResult(albumIntent, Constant.REQUESTCODE_LOCATION);
+//    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case Constant.REQUESTCODE_CAMERA:// 拍照
+                mTmpFile = new File(dataManager.getPicPath());
+                if (mTmpFile != null) {
+                    Bitmap imageBitmap = ImageUtil.getImage(mTmpFile.getPath());
+                    LogTool.d(TAG, "imageBitmap:" + imageBitmap);
+                    if (null != imageBitmap) {
+                        uploadImage(imageBitmap);
+                    }
+                }
+                break;
+            case Constant.REQUESTCODE_LOCATION:// 本地选取
+                if (data != null) {
+                    Uri uri = data.getData();
+                    LogTool.d(TAG, "uri:" + uri);
+                    if (null != uri) {
+                        Bitmap imageBitmap = ImageUtil.getImage(ImageUtils
+                                .getImagePath(uri, this));
+                        if (null != imageBitmap) {
+                            uploadImage(imageBitmap);
+                        }
+                    }
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void uploadImage(Bitmap imageBitmap) {
+        if (null != imageBitmap) {
+            JianFanJiaClient.uploadImage(this, imageBitmap, new ApiUiUpdateListener() {
+
+                @Override
+                public void preLoad() {
+                    showWaitDialog();
+                }
+
+                @Override
+                public void loadSuccess(Object data) {
+                    JianFanJiaClient.submitYanShouImage(CheckActivity.this, processInfoId, sectionInfoName,
+                            key + "", dataManager.getCurrentUploadImageId(), new ApiUiUpdateListener() {
+
+                                @Override
+                                public void preLoad() {
+                                    // TODO Auto-generated
+                                    // method stub
+
+                                }
+
+                                @Override
+                                public void loadSuccess(Object data) {
+                                    hideWaitDialog();
+                                    refreshList();
+                                }
+
+                                @Override
+                                public void loadFailture(String errorMsg) {
+                                    hideWaitDialog();
+                                    makeTextShort(errorMsg);
+                                }
+                            }, this);
+                }
+
+                @Override
+                public void loadFailture(String errorMsg) {
+                    hideWaitDialog();
+                    makeTextShort(errorMsg);
+                }
+            }, this);
+        }
+    }
+
+    private void onClickCheckConfirm() {
         CommonDialog dialog = DialogHelper
                 .getPinterestDialogCancelable(CheckActivity.this);
-        dialog.setTitle("确认验收");
-        dialog.setMessage("确定验收吗？");
+        dialog.setTitle("提醒业主验收");
+        dialog.setMessage("确定提醒业主验收吗？");
         dialog.setPositiveButton(R.string.ok,
                 new DialogInterface.OnClickListener() {
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        confirmCheckDoneByOwner(processInfoId, sectionInfoName);
+                        confirmCanCheckByDesigner(processInfoId,
+                                sectionInfoName);
                     }
                 });
         dialog.setNegativeButton(R.string.no, null);
         dialog.show();
     }
 
-    // 业主确认对比验收完成
-    private void confirmCheckDoneByOwner(String processid, String section) {
-        JianFanJiaClient.confirm_CheckDoneByOwner(this, processid, section, new ApiUiUpdateListener() {
+    // 设计师确认可以开始验收
+    private void confirmCanCheckByDesigner(String processid, String section) {
+        JianFanJiaClient.confirm_canCheckBydesigner(this, processid, section, new ApiUiUpdateListener() {
             @Override
             public void preLoad() {
 
@@ -276,13 +456,14 @@ public class CheckActivity extends BaseActivity implements OnClickListener, Item
 
             @Override
             public void loadSuccess(Object data) {
-                setResult(RESULT_OK);
-                appManager.finishActivity(CheckActivity.this);
+                LogTool.d(TAG, "data:" + data.toString());
+                btn_confirm.setEnabled(false);
             }
 
             @Override
-            public void loadFailture(String err_msg) {
-
+            public void loadFailture(String errorMsg) {
+                LogTool.d(TAG, "errorMsg:" + errorMsg);
+                btn_confirm.setEnabled(false);
             }
         }, this);
     }
@@ -295,18 +476,15 @@ public class CheckActivity extends BaseActivity implements OnClickListener, Item
      */
     private List<GridItem> getCheckedImageById(String sectionName) {
         try {
-            List<GridItem> gridList = new ArrayList<GridItem>();
+            List<GridItem> gridList = new ArrayList<>();
             int arrId = getResources().getIdentifier(sectionName, "array",
                     MyApplication.getInstance().getPackageName());
             TypedArray ta = getResources().obtainTypedArray(arrId);
-            LogTool.d(TAG, "res length:" + ta.length());
             for (int i = 0; i < ta.length(); i++) {
                 LogTool.d(TAG, "res id:" + ta.getResourceId(i, 0));
-                GridItem item = new GridItem();
-                item.setImgId(Constant.DEFALUT_PIC_HEAD + ta.getResourceId(i, 0));
+                GridItem item = new GridItem("drawable://" + ta.getResourceId(i, 0));
                 gridList.add(item);
             }
-            ta.recycle();
             return gridList;
         } catch (Exception e) {
             e.printStackTrace();
@@ -349,7 +527,6 @@ public class CheckActivity extends BaseActivity implements OnClickListener, Item
     @Override
     public void click(int position, int itemType, List<String> imageUrlList) {
         // TODO Auto-generated method stub
-
     }
 
 }

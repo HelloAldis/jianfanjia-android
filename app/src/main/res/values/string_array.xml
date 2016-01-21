@@ -37,6 +37,7 @@
         <item>you_qi</item>
         <item>an_zhuang</item>
         <item>jun_gong</item>
+        <item>done</item>
     </string-array>
     <string-array name="process_status">
         <item>未开工</item>
