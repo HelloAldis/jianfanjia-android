@@ -247,6 +247,7 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
                         settingStartAt.putExtras(settingStartAtBundle);
                         startActivity(settingStartAt);
                         getActivity().overridePendingTransition(R.anim.slide_and_fade_in_from_bottom, R.anim.fade_out);
+                        break;
                     case PREVIEW_PLAN_TYPE:
                         Intent viewPlanIntent = new Intent(_context, DesignerPlanListActivity.class);
                         Bundle planBundle = new Bundle();
