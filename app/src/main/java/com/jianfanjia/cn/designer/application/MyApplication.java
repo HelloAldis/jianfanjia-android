@@ -62,9 +62,16 @@ public class MyApplication extends BaseApplication {
      * @description 根据英文的name, 拿到中文的name
      */
     public String getStringById(String name) {
-        int StringId = getResources().getIdentifier(name, "string",
-                getPackageName());
-        return getResources().getString(StringId);
+        String str = null;
+        try {
+            int StringId = getResources().getIdentifier(name, "string",
+                    getPackageName());
+           str = getResources().getString(StringId);
+            return str;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return null;
     }
 
     /**
@@ -142,9 +149,9 @@ public class MyApplication extends BaseApplication {
      * 清除app缓存
      */
     public void clearAppCache() {
-		DataCleanManager.cleanDatabases(this);
+        DataCleanManager.cleanDatabases(this);
         // 清除数据缓存
-		DataCleanManager.cleanInternalCache(this);
+        DataCleanManager.cleanInternalCache(this);
         ImageLoader.getInstance().clearDiskCache();
         ImageLoader.getInstance().clearMemoryCache();
         //
