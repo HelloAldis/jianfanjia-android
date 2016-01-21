@@ -31,6 +31,7 @@ import com.jianfanjia.cn.designer.interf.UploadListener;
 import com.jianfanjia.cn.designer.tools.ImageUtil;
 import com.jianfanjia.cn.designer.tools.ImageUtils;
 import com.jianfanjia.cn.designer.tools.LogTool;
+import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.cn.designer.view.dialog.CommonDialog;
 import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
 
@@ -46,13 +47,11 @@ import java.util.List;
  */
 public class CheckActivity extends BaseActivity implements OnClickListener,
         UploadListener, ItemClickCallBack, PopWindowCallBack {
+    private static final String TAG = CheckActivity.class.getName();
     public static final int EDIT_STATUS = 0;
     public static final int FINISH_STATUS = 1;
-    private static final String TAG = CheckActivity.class.getName();
+    private MainHeadView mainHeadView = null;
     private RelativeLayout checkLayout = null;
-    private TextView backView = null;// 返回视图
-    private TextView check_pic_title = null;
-    private TextView check_pic_edit = null;
     private GridView gridView = null;
     private TextView btn_confirm = null;
     private MyGridViewAdapter adapter = null;
@@ -128,18 +127,25 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 
     @Override
     public void initView() {
+        initMainHeadView();
         checkLayout = (RelativeLayout) findViewById(R.id.checkLayout);
-        backView = (TextView) findViewById(R.id.check_pic_back);
-        check_pic_title = (TextView) findViewById(R.id.check_pic_title);
-        check_pic_edit = (TextView) findViewById(R.id.check_pic_edit);
         gridView = (GridView) findViewById(R.id.mygridview);
         btn_confirm = (TextView) findViewById(R.id.btn_confirm);
         btn_confirm.setText(this.getResources().getString(
                 R.string.confirm_upload));
-        check_pic_edit.setVisibility(View.VISIBLE);
-        check_pic_edit.setText(getString(R.string.edit));
         currentState = FINISH_STATUS;
         gridView.setFocusable(false);
+    }
+
+    private void initMainHeadView() {
+        mainHeadView = (MainHeadView) findViewById(R.id.check_head_layout);
+        mainHeadView.setBackListener(this);
+        mainHeadView.setRightTextListener(this);
+        mainHeadView.setRightTitle(getString(R.string.edit));
+        mainHeadView.setLayoutBackground(R.color.head_layout_bg);
+        mainHeadView.setRightTitleVisable(View.VISIBLE);
+        mainHeadView.setBackLayoutVisable(View.VISIBLE);
+        mainHeadView.setRigthTitleEnable(false);
     }
 
     private void initData() {
@@ -151,9 +157,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
             sectionItemInfos = processInfo.getSectionInfoByName(sectionInfoName).getItems();
             refreshList();
         }
-        check_pic_title.setText(MyApplication.getInstance().getStringById(
-                sectionInfoName)
-                + "阶段验收");
+        mainHeadView.setMianTitle(MyApplication.getInstance().getStringById(sectionInfoName) + "阶段验收");
     }
 
     private void refreshList() {
@@ -177,7 +181,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
     private void setConfimStatus() {
         int count = imageids.size();
         if (!sectionInfoStatus.equals(Constant.FINISHED)) {
-            check_pic_edit.setVisibility(View.VISIBLE);
+            mainHeadView.setRightTitleVisable(View.VISIBLE);
             if (count < checkGridList.size() / 2) {
                 //设计师图片没上传完，不能验收
                 btn_confirm.setText(this.getResources().getString(
@@ -221,13 +225,12 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
                 }
             }
         } else {
-            check_pic_edit.setVisibility(View.GONE);
+            mainHeadView.setRightTitleVisable(View.GONE);
             //已经验收过了
             btn_confirm.setEnabled(false);
             btn_confirm.setText(this.getResources().getString(
                     R.string.confirm_finish));
         }
-
     }
 
     /**
@@ -253,26 +256,25 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 
     @Override
     public void setListener() {
-        backView.setOnClickListener(this);
-        check_pic_edit.setOnClickListener(this);
+
     }
 
     public void changeEditStatus() {
         if (!sectionInfoStatus.equals(Constant.FINISHED)) {
             if (currentState == FINISH_STATUS) {
-                check_pic_edit.setText(getString(R.string.finish));
+                mainHeadView.setRightTitle(getString(R.string.finish));
                 currentState = EDIT_STATUS;
                 adapter.setCanDelete(true);
                 adapter.notifyDataSetInvalidated();
             } else {
-                check_pic_edit.setText(getString(R.string.edit));
+                mainHeadView.setRightTitle(getString(R.string.edit));
                 currentState = FINISH_STATUS;
                 adapter.setCanDelete(false);
                 adapter.notifyDataSetInvalidated();
             }
 
         } else {
-            check_pic_edit.setEnabled(false);
+            mainHeadView.setRigthTitleEnable(false);
             btn_confirm.setEnabled(false);
         }
         setConfimStatus();
@@ -281,10 +283,10 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.check_pic_back:
-                finish();
+            case R.id.head_back_layout:
+                appManager.finishActivity(this);
                 break;
-            case R.id.check_pic_edit:
+            case R.id.head_right_title:
                 changeEditStatus();
                 break;
             case R.id.btn_confirm:

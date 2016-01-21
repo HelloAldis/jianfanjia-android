@@ -3,46 +3,14 @@
     android:id="@+id/checkLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/site_content_bg">
+    android:background="@color/main_layout_bg"
+    android:fitsSystemWindows="true">
 
-    <RelativeLayout
-        android:id="@+id/check_pic_head_layout"
+    <com.jianfanjia.cn.designer.view.MainHeadView
+        android:id="@+id/check_head_layout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/space_48">
-
-        <TextView
-            android:id="@+id/check_pic_back"
-            style="@style/listview_item_text_style_middle"
-            android:layout_height="match_parent"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/space_8"
-            android:drawableLeft="@drawable/icon_register_back"
-            android:drawablePadding="4dp"
-            android:text="@string/back"
-            android:textColor="@color/back_color" />
-
-        <TextView
-            android:id="@+id/check_pic_title"
-            style="@style/listview_item_text_style_big"
-            android:layout_centerInParent="true"
-            android:text="@string/check"
-            android:textColor="@color/black_color" />
-
-        <TextView
-            android:id="@+id/check_pic_edit"
-            style="@style/listview_item_text_style_middle"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/space_8"
-            android:padding="@dimen/space_8"
-            android:text="@string/edit"
-            android:textColor="@color/back_color" />
-
-        <View
-            style="@style/divier_line"
-            android:layout_alignParentBottom="true"
-            android:background="@color/light_white_color" />
-    </RelativeLayout>
+        android:layout_height="wrap_content"
+        android:background="@color/head_layout_bg" />
 
     <TextView
         android:id="@+id/btn_confirm"
@@ -60,7 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/btn_confirm"
-        android:layout_below="@id/check_pic_head_layout"
+        android:layout_below="@id/check_head_layout"
         android:scrollbars="none">
 
         <LinearLayout
