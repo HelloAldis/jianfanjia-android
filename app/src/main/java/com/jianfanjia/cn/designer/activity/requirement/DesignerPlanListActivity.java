@@ -16,6 +16,7 @@ import com.jianfanjia.cn.designer.activity.common.CommentActivity;
 import com.jianfanjia.cn.designer.adapter.DesignerPlanAdapter;
 import com.jianfanjia.cn.designer.base.BaseActivity;
 import com.jianfanjia.cn.designer.bean.PlanInfo;
+import com.jianfanjia.cn.designer.bean.RequirementInfo;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.http.JianFanJiaClient;
@@ -141,7 +142,7 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
         LogTool.d(TAG, "planInfo:" + planInfo);
         String planid = planInfo.get_id();
         LogTool.d(TAG, "planid:" + planid);
-        startToActivity(planid);
+        startToActivity(planInfo, null);
     }
 
     @Override
@@ -163,17 +164,18 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
                 startActivityForResult(commentIntent, Constant.REQUESTCODE_GOTO_COMMENT);
                 break;
             case Constant.PLAN_PREVIEW_ITEM:
-                startToActivity(planid);
+                startToActivity(planInfo, null);
                 break;
             default:
                 break;
         }
     }
 
-    private void startToActivity(String planid) {
+    private void startToActivity(PlanInfo planInfo, RequirementInfo requirement) {
         Bundle planBundle = new Bundle();
-        planBundle.putString(Global.PLAN_ID, planid);
-        startActivity(com.jianfanjia.cn.designer.activity.requirement.PreviewDesignerPlanActivity.class, planBundle);
+        planBundle.putSerializable(Global.PLAN, planInfo);
+        planBundle.putSerializable(Global.REQUIRE, requirement);
+        startActivity(PreviewDesignerPlanActivity.class, planBundle);
     }
 
     @Override
