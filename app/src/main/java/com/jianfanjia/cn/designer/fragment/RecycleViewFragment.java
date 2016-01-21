@@ -246,9 +246,7 @@ public class RecycleViewFragment extends Fragment {
                     case PREVIEW_PLAN_TYPE:
                         Intent viewPlanIntent = new Intent(_context, DesignerPlanListActivity.class);
                         Bundle planBundle = new Bundle();
-                        planBundle.putString(Global.DESIGNER_ID, DataManagerNew.getInstance().getUserId());
-                        planBundle.putString(Global.REQUIREMENT_ID, requirementInfo.get_id());
-                        planBundle.putString(Global.DESIGNER_NAME, DataManagerNew.getInstance().getUserName());
+                        planBundle.putSerializable(Global.REQUIREMENT_INFO, requirementInfo);
                         viewPlanIntent.putExtras(planBundle);
                         startActivity(viewPlanIntent);
                         break;

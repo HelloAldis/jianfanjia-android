@@ -159,7 +159,7 @@
     <string name="moreText">更多</string>
     <string name="replaceText">替换</string>
     <string name="commentText">留言</string>
-    <string name="planText">的方案</string>
+    <string name="planText">我的方案</string>
     <string name="designerPlanText">方案详情</string>
     <string name="pingjiaText">评价设计师</string>
     <string name="detailPrice">详细报价</string>
@@ -325,5 +325,6 @@
     <string name="refuse_msg3">其他</string>
     <string name="refuse_tip">PS:以下收集的信息，将不会向业主展示，麻烦您耐心选择拒绝接单原因，以便我们的合作更紧密</string>
     <string name="refuse_reason">拒绝接单原因</string>
+    <string name="str_setting_startdate">设置开工日期</string>
 
 </resources>

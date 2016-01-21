@@ -16,6 +16,7 @@ import com.jianfanjia.cn.designer.activity.common.CommentActivity;
 import com.jianfanjia.cn.designer.adapter.DesignerPlanAdapter;
 import com.jianfanjia.cn.designer.base.BaseActivity;
 import com.jianfanjia.cn.designer.bean.PlanInfo;
+import com.jianfanjia.cn.designer.bean.RequirementInfo;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.http.JianFanJiaClient;
@@ -43,17 +44,18 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
     private PullToRefreshRecycleView designer_plan_listview = null;
     private List<PlanInfo> designerPlanList = new ArrayList<PlanInfo>();
     private String requirementid = null;
-    private String designerid = null;
-    private String designerName = null;
+//    private String designerid = null;
+    private RequirementInfo requirementInfo = null;
 
     @Override
     public void initView() {
         Intent intent = this.getIntent();
         Bundle designerBundle = intent.getExtras();
-        requirementid = designerBundle.getString(Global.REQUIREMENT_ID);
-        designerid = designerBundle.getString(Global.DESIGNER_ID);
-        designerName = designerBundle.getString(Global.DESIGNER_NAME);
-        LogTool.d(TAG, "requirementid:" + requirementid + "  designerid:" + designerid + "  designerName:" + designerName);
+        requirementInfo = (RequirementInfo)designerBundle.getSerializable(Global.REQUIREMENT_INFO);
+        if(requirementInfo != null){
+            requirementid = requirementInfo.get_id();
+        }
+        LogTool.d(TAG, "requirementid:" + requirementid);
         initMainHeadView();
         designer_plan_listview = (PullToRefreshRecycleView) findViewById(R.id.designer_plan_listview);
         designer_plan_listview.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
@@ -64,14 +66,14 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
         paint.setAlpha(0);
         paint.setAntiAlias(true);
         designer_plan_listview.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this).paint(paint).showLastDivider().build());
-        getDesignerPlansList(requirementid, designerid);
+        getDesignerPlansList(requirementid, dataManager.getUserId());
     }
 
     private void initMainHeadView() {
         mainHeadView = (MainHeadView) findViewById(R.id.my_plan_head_layout);
         mainHeadView.setBackListener(this);
         mainHeadView
-                .setMianTitle(designerName + getResources().getString(R.string.planText));
+                .setMianTitle(getResources().getString(R.string.planText));
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
         mainHeadView.setRightTitleVisable(View.GONE);
         mainHeadView.setBackLayoutVisable(View.VISIBLE);
@@ -95,7 +97,7 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
 
     @Override
     public void onPullDownToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-        getDesignerPlansList(requirementid, designerid);
+        getDesignerPlansList(requirementid, dataManager.getUserId());
     }
 
     @Override
@@ -141,7 +143,7 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
         LogTool.d(TAG, "planInfo:" + planInfo);
         String planid = planInfo.get_id();
         LogTool.d(TAG, "planid:" + planid);
-        startToActivity(planid);
+        startToActivity(planInfo, requirementInfo);
     }
 
     @Override
@@ -163,17 +165,18 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
                 startActivityForResult(commentIntent, Constant.REQUESTCODE_GOTO_COMMENT);
                 break;
             case Constant.PLAN_PREVIEW_ITEM:
-                startToActivity(planid);
+                startToActivity(planInfo, requirementInfo);
                 break;
             default:
                 break;
         }
     }
 
-    private void startToActivity(String planid) {
+    private void startToActivity(PlanInfo planInfo, RequirementInfo requirement) {
         Bundle planBundle = new Bundle();
-        planBundle.putString(Global.PLAN_ID, planid);
-        startActivity(com.jianfanjia.cn.designer.activity.requirement.PreviewDesignerPlanActivity.class, planBundle);
+        planBundle.putSerializable(Global.PLAN, planInfo);
+        planBundle.putSerializable(Global.REQUIRE, requirement);
+        startActivity(PreviewDesignerPlanActivity.class, planBundle);
     }
 
     @Override
@@ -184,7 +187,7 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
         }
         switch (requestCode) {
             case Constant.REQUESTCODE_GOTO_COMMENT:
-                getDesignerPlansList(requirementid, designerid);
+                getDesignerPlansList(requirementid, dataManager.getUserId());
                 break;
             default:
                 break;

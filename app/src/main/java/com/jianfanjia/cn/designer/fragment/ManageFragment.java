@@ -122,7 +122,8 @@ public class ManageFragment extends BaseFragment implements PullToRefreshBase.On
                             case ITEM_PLAN:
                                 Intent viewPlanIntent = new Intent(getActivity(), PreviewDesignerPlanActivity.class);
                                 Bundle planBundle = new Bundle();
-                                planBundle.putSerializable(Global.PROCESS, process);
+                                planBundle.putSerializable(Global.PLAN, process.getPlan());
+                                planBundle.putSerializable(Global.REQUIRE, process.getRequirement());
                                 viewPlanIntent.putExtras(planBundle);
                                 startActivity(viewPlanIntent);
                                 break;

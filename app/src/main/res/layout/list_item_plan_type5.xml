@@ -36,14 +36,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:src="@mipmap/icon_constract" />
+                    android:src="@mipmap/icon_settingdate" />
 
                 <TextView
                     style="@style/listview_item_text_style_small"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/space_5"
                     android:layout_toRightOf="@id/icon_contract"
-                    android:text="@string/str_view_contract"
+                    android:text="@string/str_setting_startdate"
                     android:textColor="@color/designer_info_text_color_bg"
                     android:textSize="@dimen/text_size_14" />
             </RelativeLayout>
