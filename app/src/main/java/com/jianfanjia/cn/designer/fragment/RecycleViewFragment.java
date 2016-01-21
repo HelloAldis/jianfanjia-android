@@ -273,7 +273,7 @@ public class RecycleViewFragment extends Fragment {
 
             @Override
             public void loadSuccess(Object data) {
-
+                initData();
             }
 
             @Override
@@ -294,9 +294,9 @@ public class RecycleViewFragment extends Fragment {
                 .getPinterestDialogCancelable(getActivity());
         dialog.setTitle(getString(R.string.refuse_reason));
         View contentView = LayoutInflater.from(_context).inflate(R.layout.dialog_refuse_requirement, null);
-        refuseMsg = null;
         RadioGroup radioGroup = (RadioGroup) contentView
                 .findViewById(R.id.refuse_radioGroup);
+        refuseMsg = getString(R.string.refuse_msg0);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {

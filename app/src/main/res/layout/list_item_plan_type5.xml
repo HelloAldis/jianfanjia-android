@@ -36,7 +36,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:src="@mipmap/icon_notification" />
+                    android:src="@mipmap/icon_constract" />
 
                 <TextView
                     style="@style/listview_item_text_style_small"
@@ -67,7 +67,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:src="@mipmap/icon_notification" />
+                    android:src="@mipmap/icon_plan" />
 
                 <TextView
                     style="@style/listview_item_text_style_small"

@@ -87,6 +87,9 @@ public class Url_New {
     //设计师配置合同
     public String DESIGNER_CONFIG_CONTRACT = HTTPROOT + "config_contract";
 
+    //设计师获取我的方案
+    public String USER_REQUIREMENT_PLANS = HTTPROOT + "designer_requirement_plans";
+
     // 用户反馈 feedback
     public String FEEDBACK_URL = HTTPROOT + "feedback";
     // --------------------------------------------------业主-----------------------------------------------------------
@@ -124,8 +127,7 @@ public class Url_New {
     public String DESIGNER_HOUSE_CHECKED = HTTPROOT + "designer_house_checked";
     //业主评价设计师
     public String EVALUATE_DESIGNER_BY_USER = HTTPROOT + "user_evaluate_designer";
-    //业主获取我的方案
-    public String USER_REQUIREMENT_PLANS = HTTPROOT + "designer_requirement_plans";
+
     //业主选定方案
     public String USER_CHOOSE_PLAN = HTTPROOT + "user/plan/final";
     //用户获取某个方案的信息
