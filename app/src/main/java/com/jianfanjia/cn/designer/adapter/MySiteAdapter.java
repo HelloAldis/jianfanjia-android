@@ -3,6 +3,7 @@ package com.jianfanjia.cn.designer.adapter;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -45,8 +46,14 @@ public class MySiteAdapter extends BaseRecyclerViewAdapter<Process> {
         MySiteViewHolder holder = (MySiteViewHolder) viewHolder;
         imageShow.displayImageHeadWidthThumnailImage(context, process.getUser().getImageid(), holder.itemHeadView);
         holder.itemCellView.setText(process.getCell());
-        holder.itemNodeView.setText(MyApplication.getInstance()
-                .getStringById(process.getGoing_on()) + "阶段");
+        String itemNode = MyApplication.getInstance()
+                .getStringById(process.getGoing_on());
+        LogTool.d(TAG, "itemNode=" + itemNode);
+        if (!TextUtils.isEmpty(itemNode)) {
+            holder.itemNodeView.setText(itemNode + "阶段");
+        } else {
+            holder.itemNodeView.setText("已竣工");
+        }
         holder.itemPubTimeView.setText(StringUtils.covertLongToString(process.getStart_at()));
         holder.itemUpdateTimeView.setText(StringUtils.covertLongToString(process.getLastupdate()));
         int processIndex = MyApplication.getInstance().getPositionByItemName(process.getGoing_on());
