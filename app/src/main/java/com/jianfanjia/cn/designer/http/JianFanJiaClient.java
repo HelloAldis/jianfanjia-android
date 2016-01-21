@@ -24,6 +24,7 @@ import com.jianfanjia.cn.designer.http.request.ChangeOrderedDesignerRequest;
 import com.jianfanjia.cn.designer.http.request.CheckVersionRequest;
 import com.jianfanjia.cn.designer.http.request.ChoosePlanByUserRequest;
 import com.jianfanjia.cn.designer.http.request.CommitCommentRequest;
+import com.jianfanjia.cn.designer.http.request.ConfigContractRequest;
 import com.jianfanjia.cn.designer.http.request.ConformMeasureHouseRequest;
 import com.jianfanjia.cn.designer.http.request.DeleteBeautyImgRequest;
 import com.jianfanjia.cn.designer.http.request.DeleteCollectionRequest;
@@ -59,8 +60,10 @@ import com.jianfanjia.cn.designer.http.request.PostProcessRequest;
 import com.jianfanjia.cn.designer.http.request.PostRequirementRequest;
 import com.jianfanjia.cn.designer.http.request.PostRescheduleRequest;
 import com.jianfanjia.cn.designer.http.request.RefreshSessionRequest;
+import com.jianfanjia.cn.designer.http.request.RefuseRequirementRequest;
 import com.jianfanjia.cn.designer.http.request.RefuseRescheduleRequest;
 import com.jianfanjia.cn.designer.http.request.RegisterRequest;
+import com.jianfanjia.cn.designer.http.request.ResponseRequirementRequest;
 import com.jianfanjia.cn.designer.http.request.SearchDecorationImgRequest;
 import com.jianfanjia.cn.designer.http.request.SearchDesignerProductRequest;
 import com.jianfanjia.cn.designer.http.request.SendVerificationRequest;
@@ -154,7 +157,7 @@ public class JianFanJiaClient {
     }
 
     public static void weixinLogin(Context context, WeiXinRegisterInfo weiXinRegisterInfo, ApiUiUpdateListener listener, Object tag) {
-        WeiXinLoginRequest weiXinLoginRequest = new WeiXinLoginRequest(context,weiXinRegisterInfo);
+        WeiXinLoginRequest weiXinLoginRequest = new WeiXinLoginRequest(context, weiXinRegisterInfo);
         LogTool.d(TAG, "weixinLogin --" + weiXinLoginRequest.getUrl() + "---" + JsonParser.beanToJson(weiXinRegisterInfo));
         OkHttpClientManager.getInstance().getPostDelegate().postAsyn(weiXinLoginRequest, JsonParser.beanToJson(weiXinRegisterInfo), listener, tag);
     }
@@ -270,15 +273,84 @@ public class JianFanJiaClient {
 
     /**
      * 设计师获取首页的所有需求的api
+     *
      * @param context
      * @param listener
      * @param tag
      */
-    public static void getAllRequirementList(Context context, ApiUiUpdateListener listener, Object tag){
+    public static void getAllRequirementList(Context context, ApiUiUpdateListener listener, Object tag) {
         GetAllRequirementListRequest getAllRequirementListRequest = new GetAllRequirementListRequest(context);
         LogTool.d(TAG, "getAllRequirementListRequest --" + getAllRequirementListRequest.getUrl());
-        OkHttpClientManager.getInstance().getPostDelegate().postAsyn(getAllRequirementListRequest, "" ,listener, tag);
+        OkHttpClientManager.getInstance().getPostDelegate().postAsyn(getAllRequirementListRequest, "", listener, tag);
     }
+
+    /**
+     * 设计师拒绝业主的预约
+     *
+     * @param context
+     * @param listener
+     * @param msg
+     * @param tag
+     */
+    public static void refuseRequirement(Context context, ApiUiUpdateListener listener, String requirementId, String msg, Object tag) {
+        RefuseRequirementRequest refuseRequirementRequest = new RefuseRequirementRequest(context);
+        JSONObject jsonParams = new JSONObject();
+        try {
+            jsonParams.put("requirementid", requirementId);
+            jsonParams.put("reject_respond_msg", msg);
+            LogTool.d(TAG, "refuseRequirement --" + refuseRequirementRequest.getUrl() + "----" + jsonParams.toString());
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(refuseRequirementRequest, jsonParams.toString(), listener, tag);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 设计师响应业主的需求，
+     *
+     * @param context
+     * @param listener
+     * @param requirementId
+     * @param houseCheckTime
+     * @param tag
+     */
+    public static void responseRequirement(Context context, ApiUiUpdateListener listener, String requirementId, long houseCheckTime, Object tag) {
+        ResponseRequirementRequest responseRequirementRequest = new ResponseRequirementRequest(context);
+        JSONObject jsonParams = new JSONObject();
+        try {
+            jsonParams.put("requirementid", requirementId);
+            if (houseCheckTime != 0L) {//houseCheckTime不传为纯粹响应，传就是设置量房时间
+                jsonParams.put("house_check_time", houseCheckTime);
+            }
+            LogTool.d(TAG, "responseRequirement --" + responseRequirementRequest.getUrl() + "----" + jsonParams.toString());
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(responseRequirementRequest, jsonParams.toString(), listener, tag);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 设计师配置合同的开工时间
+     *
+     * @param context
+     * @param listener
+     * @param requirementId
+     * @param startAt
+     * @param tag
+     */
+    public static void configContract(Context context, ApiUiUpdateListener listener, String requirementId, long startAt, Object tag) {
+        ConfigContractRequest configContractRequest = new ConfigContractRequest(context);
+        JSONObject jsonParams = new JSONObject();
+        try {
+            jsonParams.put("requirementid", requirementId);
+            jsonParams.put("start_at", startAt);
+            LogTool.d(TAG, "configContractRequest --" + configContractRequest.getUrl() + "----" + jsonParams.toString());
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(configContractRequest, jsonParams.toString(), listener, tag);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * 发布需求
      *
@@ -350,7 +422,7 @@ public class JianFanJiaClient {
      */
     public static void bindingPhone(Context context, RegisterInfo registerInfo,
                                     ApiUiUpdateListener listener, Object tag) {
-        BindingPhoneRequest bindingPhoneRequest = new BindingPhoneRequest(context,registerInfo.getPhone());
+        BindingPhoneRequest bindingPhoneRequest = new BindingPhoneRequest(context, registerInfo.getPhone());
         LogTool.d(TAG, "register  " + bindingPhoneRequest.getUrl() + "--" + JsonParser.beanToJson(registerInfo));
         OkHttpClientManager.getInstance().getPostDelegate().postAsyn(bindingPhoneRequest, JsonParser.beanToJson(registerInfo), listener, tag);
     }
@@ -364,7 +436,7 @@ public class JianFanJiaClient {
      */
     public static void bindingWeixin(Context context, String openid, String unionid,
                                      ApiUiUpdateListener listener, Object tag) {
-        BindingWeiXinRequest bindingWeiXinRequest = new BindingWeiXinRequest(context,unionid);
+        BindingWeiXinRequest bindingWeiXinRequest = new BindingWeiXinRequest(context, unionid);
         JSONObject jsonParams = new JSONObject();
         try {
             jsonParams.put("wechat_openid", openid);

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/refuse_tip"
+        style="@style/listview_item_text_style_middle"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/refuse_tip"
+        android:layout_marginTop="@dimen/space_16"
+        android:gravity="left"
+        android:textColor="@color/light_black_color" />
+
+    <RadioGroup
+        android:id="@+id/refuse_radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/space_8"
+        android:layout_gravity="center_horizontal" >
+
+        <RadioButton
+            android:id="@+id/refuse_radio0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/refuse_msg0"
+            android:textColor="@color/light_black_color"/>
+
+        <RadioButton
+            android:id="@+id/refuse_radio1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/refuse_msg1"
+            android:textColor="@color/light_black_color"/>
+
+        <RadioButton
+            android:id="@+id/refuse_radio2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/refuse_msg2"
+            android:textColor="@color/light_black_color"/>
+
+        <RadioButton
+            android:id="@+id/refuse_radio3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/refuse_msg3"
+            android:textColor="@color/light_black_color"/>
+
+    </RadioGroup>
+
+</LinearLayout>

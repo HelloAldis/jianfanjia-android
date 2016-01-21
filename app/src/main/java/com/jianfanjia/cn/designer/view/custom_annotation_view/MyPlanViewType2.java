@@ -3,7 +3,6 @@ package com.jianfanjia.cn.designer.view.custom_annotation_view;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -12,7 +11,7 @@ import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.bean.RequirementInfo;
 import com.jianfanjia.cn.designer.cache.BusinessManager;
 import com.jianfanjia.cn.designer.config.Constant;
-import com.jianfanjia.cn.designer.fragment.XuQiuFragment;
+import com.jianfanjia.cn.designer.fragment.RecycleViewFragment;
 import com.jianfanjia.cn.designer.interf.ClickCallBack;
 import com.jianfanjia.cn.designer.tools.StringUtils;
 import com.jianfanjia.cn.designer.view.baseview.BaseAnnotationView;
@@ -26,7 +25,7 @@ import org.androidannotations.annotations.ViewById;
  * Email: jame.zhang@myjyz.com
  * Date:2015-10-22 10:46
  */
-@EViewGroup(R.layout.list_item_req_communicate_type1)
+@EViewGroup(R.layout.list_item_plan_type2)
 public class MyPlanViewType2 extends BaseAnnotationView {
 
     @ViewById(R.id.ltm_req_owner_head)
@@ -53,11 +52,11 @@ public class MyPlanViewType2 extends BaseAnnotationView {
     @ViewById(R.id.ltm_req_sex)
     protected ImageView sexView;
 
-    @ViewById(R.id.button_refuse)
-    protected Button refuseButton;
+    @ViewById(R.id.phoneLayout)
+    protected RelativeLayout phoneLayout;
 
-    @ViewById(R.id.button_confirm)
-    protected Button confirmButton;
+    @ViewById(R.id.measure_time_content)
+    protected TextView measureTimeView;
 
     public MyPlanViewType2(Context context) {
         super(context);
@@ -65,8 +64,16 @@ public class MyPlanViewType2 extends BaseAnnotationView {
 
     public void bind(RequirementInfo requirementInfo,final ClickCallBack clickCallBack,final int position) {
         cellView.setText(requirementInfo.getCell());
-        createTimeView.setText(StringUtils.covertLongToString(requirementInfo.getLast_status_update_time()));
         statusView.setText(getResources().getStringArray(R.array.plan_status)[Integer.parseInt(requirementInfo.getPlan().getStatus())]);
+        statusView.setTextColor(getResources().getColor(R.color.orange_color));
+        long lastUpdateTime = requirementInfo.getPlan().getLast_status_update_time();
+        if(lastUpdateTime != 0l){
+            createTimeView.setText(StringUtils.covertLongToStringHasMini(lastUpdateTime));
+        }
+        long measureTime = requirementInfo.getPlan().getHouse_check_time();
+        if(measureTime != 0l){
+            measureTimeView.setText(StringUtils.covertLongToStringHasMini(measureTime));
+        }
         String imageId = requirementInfo.getUser().getImageid();
         if(TextUtils.isEmpty(imageId)){
             imageShow.displayLocalImage(dataManagerNew.getUserImagePath(), headView);
@@ -101,7 +108,13 @@ public class MyPlanViewType2 extends BaseAnnotationView {
         contentLayout.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                clickCallBack.click(position, XuQiuFragment.ITEM_PRIVIEW);
+                clickCallBack.click(position, RecycleViewFragment.PRIVIEW_REQUIREMENT_TYPE);
+            }
+        });
+        phoneLayout.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickCallBack.click(position, RecycleViewFragment.PHONE_TYPE);
             }
         });
     }

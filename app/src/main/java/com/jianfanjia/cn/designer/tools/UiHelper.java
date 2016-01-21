@@ -42,6 +42,13 @@ import java.io.File;
 
 public class UiHelper {
 
+    public static void IntentToPhone(Context context,String phone){
+        Intent intent=new Intent();
+        intent.setAction(Intent.ACTION_DIAL);
+        intent.setData(Uri.parse("tel:" + phone));
+        context.startActivity(intent);
+    }
+
     /**
      * 设置listview下落动画
      * @param context

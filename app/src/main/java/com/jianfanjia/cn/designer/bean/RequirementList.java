@@ -54,9 +54,10 @@ public class RequirementList implements Serializable {
                                 break;
                             case Global.PLAN_STATUS1:
                             case Global.PLAN_STATUS4:
-                            case Global.PLAN_STATUS7:
                             case Global.PLAN_STATUS8:
                                 overRequirementInfoLists.add(requirementInfo);
+                                break;
+                            case Global.PLAN_STATUS7:
                                 break;
                             default:
                                 communicationRequirementInfoList.add(requirementInfo);

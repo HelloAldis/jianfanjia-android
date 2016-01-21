@@ -1,5 +1,8 @@
 package com.jianfanjia.cn.designer.fragment;
 
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,21 +12,36 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioGroup;
 
 import com.google.gson.reflect.TypeToken;
+import com.jianfanjia.cn.designer.Event.UpdateEvent;
 import com.jianfanjia.cn.designer.R;
+import com.jianfanjia.cn.designer.activity.SettingMeasureDateActivity_;
+import com.jianfanjia.cn.designer.activity.requirement.ContractActivity;
+import com.jianfanjia.cn.designer.activity.requirement.DesignerPlanListActivity;
+import com.jianfanjia.cn.designer.activity.requirement.PingJiaInfoActivity;
+import com.jianfanjia.cn.designer.activity.requirement.PreviewBusinessRequirementActivity_;
+import com.jianfanjia.cn.designer.activity.requirement.PreviewRequirementActivity_;
 import com.jianfanjia.cn.designer.adapter.MyHandledRequirementAdapter;
 import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.bean.RequirementInfo;
 import com.jianfanjia.cn.designer.bean.RequirementList;
+import com.jianfanjia.cn.designer.cache.DataManagerNew;
+import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.http.JianFanJiaClient;
 import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.designer.interf.ClickCallBack;
 import com.jianfanjia.cn.designer.tools.JsonParser;
 import com.jianfanjia.cn.designer.tools.LogTool;
+import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.jianfanjia.cn.designer.view.baseview.HorizontalDividerItemDecoration;
+import com.jianfanjia.cn.designer.view.dialog.CommonDialog;
+import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
 
 import java.util.List;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * Description: com.jianfanjia.cn.designer.fragment
@@ -34,6 +52,14 @@ import java.util.List;
 public class RecycleViewFragment extends Fragment {
 
     private static final String TAG = "RecycleViewFragment";
+
+    public static final int REFUSE_TYPE = 0x04;
+    public static final int RESPONDE_TYPE = 0x05;
+    public static final int PRIVIEW_REQUIREMENT_TYPE = 0x06;
+    public static final int PHONE_TYPE = 0x07;
+    public static final int RREVIEW_COMMENT_TYPE = 0x08;
+    public static final int PREVIEW_PLAN_TYPE = 0x09;
+    public static final int PREVIEW_CONTRACT_TYPE = 0x10;
 
     private final int FIRST_FRAGMENT = 0;
     private final int SECOND_FRAGMENT = 1;
@@ -49,12 +75,20 @@ public class RecycleViewFragment extends Fragment {
 
     private View view = null;
 
-    /** 标志位，标志已经初始化完成 */
+    /**
+     * 标志位，标志已经初始化完成
+     */
     private boolean isPrepared;
-    /** 是否已被加载过一次，第二次就不再去请求数据了 */
+    /**
+     * 是否已被加载过一次，第二次就不再去请求数据了
+     */
     private boolean mHasLoadedOnce;
 
     private List<RequirementInfo> requirementInfos;
+
+    private RequirementList requirementList;
+
+    private Context _context;
 
     /**
      * Create a new instance of CountingFragment, providing "num"
@@ -77,6 +111,7 @@ public class RecycleViewFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
         mNum = getArguments() != null ? getArguments().getInt("num") : 1;
 
         LogTool.d(this.getClass().getName(), "num =" + mNum);
@@ -86,14 +121,14 @@ public class RecycleViewFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         LogTool.d(TAG, "onCreateView");
-        if(view == null){
+        if (view == null) {
             view = inflater.inflate(R.layout.fragment_recycleview, container, false);
             initRecycleView();
             isPrepared = true;
             lazyLoad();
         }
-        ViewGroup parent = (ViewGroup)view.getParent();
-        if(parent != null) {
+        ViewGroup parent = (ViewGroup) view.getParent();
+        if (parent != null) {
             parent.removeView(view);
         }
         return view;
@@ -119,7 +154,7 @@ public class RecycleViewFragment extends Fragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
 
-        if(getUserVisibleHint()) {
+        if (getUserVisibleHint()) {
             isVisiable = true;
             onVisible();
         } else {
@@ -128,9 +163,7 @@ public class RecycleViewFragment extends Fragment {
         }
     }
 
-
-
-    private void lazyLoad(){
+    private void lazyLoad() {
         if (!isPrepared || !isVisiable || mHasLoadedOnce) {
             return;
         }
@@ -151,7 +184,75 @@ public class RecycleViewFragment extends Fragment {
         myHandledRequirementAdapter = new MyHandledRequirementAdapter(getActivity(), new ClickCallBack() {
             @Override
             public void click(int position, int itemType) {
-
+                RequirementInfo requirementInfo = null;
+                switch (mNum) {
+                    case FIRST_FRAGMENT:
+                        requirementInfo = requirementList.getUnHandleRequirementInfoList().get(position);
+                        break;
+                    case SECOND_FRAGMENT:
+                        requirementInfo = requirementList.getCommunicationRequirementInfoList().get(position);
+                        break;
+                    case THIRD_FRAGMENT:
+                        requirementInfo = requirementList.getOverRequirementInfoLists().get(position);
+                        break;
+                }
+                if (requirementInfo.getDec_style() == null) {//此处是对老的可能没有家装类型的数据进行初始化，防止异常
+                    requirementInfo.setDec_style(Global.DEC_TYPE_HOME);
+                }
+                switch (itemType) {
+                    case REFUSE_TYPE:
+                        showRefuseDialog(requirementInfo.get_id());
+                        break;
+                    case RESPONDE_TYPE:
+                        Intent settingHouseTimeIntent = new Intent(_context, SettingMeasureDateActivity_.class);
+                        Bundle settingHouseTimeBundle = new Bundle();
+                        settingHouseTimeBundle.putString(Global.REQUIREMENT_ID, requirementInfo.get_id());
+                        settingHouseTimeBundle.putString(Global.PHONE, requirementInfo.getUser().getPhone());
+                        settingHouseTimeIntent.putExtras(settingHouseTimeBundle);
+                        startActivity(settingHouseTimeIntent);
+                        getActivity().overridePendingTransition(R.anim.slide_and_fade_in_from_bottom, R.anim.fade_out);
+                        responseRequirement(requirementInfo.get_id(), 0);
+                        break;
+                    case PRIVIEW_REQUIREMENT_TYPE:
+                        Intent gotoPriviewRequirement = null;
+                        if (requirementInfo.getDec_type().equals(Global.DEC_TYPE_BUSINESS)) {
+                            gotoPriviewRequirement = new Intent(getActivity(), PreviewBusinessRequirementActivity_.class);
+                        } else {
+                            gotoPriviewRequirement = new Intent(getActivity(), PreviewRequirementActivity_.class);
+                        }
+                        gotoPriviewRequirement.putExtra(Global.REQUIREMENT_INFO, requirementInfo);
+                        getActivity().startActivity(gotoPriviewRequirement);
+                        break;
+                    case PHONE_TYPE:
+                        UiHelper.IntentToPhone(_context, requirementInfo.getUser().getPhone());
+                        break;
+                    case RREVIEW_COMMENT_TYPE:
+                        Intent viewCommentIntent = new Intent(_context, PingJiaInfoActivity.class);
+                        Bundle viewBundle = new Bundle();
+                        viewBundle.putString(Global.IMAGE_ID, DataManagerNew.getInstance().getUserImagePath());
+                        viewBundle.putString(Global.DESIGNER_NAME, DataManagerNew.getInstance().getUserName());
+                        viewBundle.putSerializable(Global.EVALUATION, requirementInfo.getEvaluation());
+                        viewCommentIntent.putExtras(viewBundle);
+                        startActivity(viewCommentIntent);
+                        break;
+                    case PREVIEW_CONTRACT_TYPE:
+                        Intent viewContractIntent = new Intent(_context, ContractActivity.class);
+                        Bundle contractBundle = new Bundle();
+                        contractBundle.putString(Global.REQUIREMENT_ID, requirementInfo.get_id());
+                        contractBundle.putString(Global.REQUIREMENT_STATUS, requirementInfo.getStatus());
+                        viewContractIntent.putExtras(contractBundle);
+                        startActivity(viewContractIntent);
+                        break;
+                    case PREVIEW_PLAN_TYPE:
+                        Intent viewPlanIntent = new Intent(_context, DesignerPlanListActivity.class);
+                        Bundle planBundle = new Bundle();
+                        planBundle.putString(Global.DESIGNER_ID, DataManagerNew.getInstance().getUserId());
+                        planBundle.putString(Global.REQUIREMENT_ID, requirementInfo.get_id());
+                        planBundle.putString(Global.DESIGNER_NAME, DataManagerNew.getInstance().getUserName());
+                        viewPlanIntent.putExtras(planBundle);
+                        startActivity(viewPlanIntent);
+                        break;
+                }
             }
         });
         pullrefresh.setAdapter(myHandledRequirementAdapter);
@@ -161,6 +262,90 @@ public class RecycleViewFragment extends Fragment {
         paint.setAntiAlias(true);
         pullrefresh.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).paint(paint).showLastDivider().build());
         LogTool.d(this.getClass().getName(), "initRecycle item count =" + myHandledRequirementAdapter.getItemCount());
+    }
+
+    private void refuseRequirement(String requirementid, String msg) {
+        JianFanJiaClient.refuseRequirement(getActivity(), new ApiUiUpdateListener() {
+            @Override
+            public void preLoad() {
+
+            }
+
+            @Override
+            public void loadSuccess(Object data) {
+
+            }
+
+            @Override
+            public void loadFailture(String error_msg) {
+
+            }
+        }, requirementid, msg, this);
+    }
+
+    public void onEventMainThread(UpdateEvent event) {
+//        LogTool.d(TAG, "event:" + event.getEventType());
+        initData();
+    }
+
+    String refuseMsg;
+    private void showRefuseDialog(final String requirementid) {
+        CommonDialog dialog = DialogHelper
+                .getPinterestDialogCancelable(getActivity());
+        dialog.setTitle(getString(R.string.refuse_reason));
+        View contentView = LayoutInflater.from(_context).inflate(R.layout.dialog_refuse_requirement, null);
+        refuseMsg = null;
+        RadioGroup radioGroup = (RadioGroup) contentView
+                .findViewById(R.id.refuse_radioGroup);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (group.getCheckedRadioButtonId() == R.id.refuse_radio0) {
+                    refuseMsg = getString(R.string.refuse_msg0);
+                } else if (group.getCheckedRadioButtonId() == R.id.refuse_radio1) {
+                    refuseMsg = getString(R.string.refuse_msg1);
+                } else if (group.getCheckedRadioButtonId() == R.id.refuse_radio2) {
+                    refuseMsg = getString(R.string.refuse_msg2);
+                } else {
+                    refuseMsg = getString(R.string.refuse_msg3);
+                }
+            }
+        });
+        dialog.setContent(contentView);
+        dialog.setPositiveButton(R.string.ok,
+                new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        if (refuseMsg != null) {
+                            refuseRequirement(requirementid, refuseMsg);
+                        } else {
+
+                        }
+                    }
+                });
+        dialog.setNegativeButton(R.string.no, null);
+        dialog.show();
+    }
+
+    private void responseRequirement(String requirementid, long houseCheckTime) {
+        JianFanJiaClient.responseRequirement(getActivity(), new ApiUiUpdateListener() {
+            @Override
+            public void preLoad() {
+
+            }
+
+            @Override
+            public void loadSuccess(Object data) {
+                initData();
+            }
+
+            @Override
+            public void loadFailture(String error_msg) {
+
+            }
+        }, requirementid, houseCheckTime, this);
     }
 
     private void initData() {
@@ -174,8 +359,9 @@ public class RecycleViewFragment extends Fragment {
             public void loadSuccess(Object data) {
                 LogTool.d(this.getClass().getName(), data.toString());
                 mHasLoadedOnce = true;
-                requirementInfos = JsonParser.jsonToList(data.toString(),new TypeToken<List<RequirementInfo>>(){}.getType());
-                RequirementList requirementList = new RequirementList(requirementInfos);
+                requirementInfos = JsonParser.jsonToList(data.toString(), new TypeToken<List<RequirementInfo>>() {
+                }.getType());
+                requirementList = new RequirementList(requirementInfos);
                 disposeData(requirementList);
             }
 
@@ -188,7 +374,7 @@ public class RecycleViewFragment extends Fragment {
 
 
     private void disposeData(RequirementList requirementList) {
-        switch (mNum){
+        switch (mNum) {
             case FIRST_FRAGMENT:
                 myHandledRequirementAdapter.addItem(requirementList.getUnHandleRequirementInfoList());
                 break;
@@ -198,11 +384,15 @@ public class RecycleViewFragment extends Fragment {
             case THIRD_FRAGMENT:
                 myHandledRequirementAdapter.addItem(requirementList.getOverRequirementInfoLists());
                 break;
-
         }
 
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        _context = context.getApplicationContext();
+    }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
