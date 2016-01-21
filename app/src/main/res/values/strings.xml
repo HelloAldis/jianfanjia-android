@@ -326,5 +326,12 @@
     <string name="refuse_tip">PS:以下收集的信息，将不会向业主展示，麻烦您耐心选择拒绝接单原因，以便我们的合作更紧密</string>
     <string name="refuse_reason">拒绝接单原因</string>
     <string name="str_setting_startdate">设置开工日期</string>
+    <string name="contract_profile">合同概况</string>
+    <string name="process_duration">工程期限：</string>
+    <string name="process_duration_cont">总工期__%1$d__天，开工日期__年__月__日，竣工日期__年__月__日。</string>
+    <string name="process_totalprice">工程价款：</string>
+    <string name="process_totalprice_cont">本工程装修总结为人民币（大写）__%1$s__元（￥__%2$d__元）</string>
+    <string name="process_workType">承包方式：</string>
+    <string name="process_workType_cont">__%1$s__（清包、半包、全包）</string>
 
 </resources>

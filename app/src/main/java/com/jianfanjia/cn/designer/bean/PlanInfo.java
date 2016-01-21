@@ -31,7 +31,7 @@ public class PlanInfo implements Serializable {
     private List<PriceDetail> price_detail;
     private Designer designer;
     private int comment_count;
-    private String reject_response_msg;
+    private String reject_respond_msg;
 
     public String getUserid() {
         return userid;
@@ -177,12 +177,12 @@ public class PlanInfo implements Serializable {
         this.comment_count = comment_count;
     }
 
-    public String getReject_response_msg() {
-        return reject_response_msg;
+    public String getReject_respond_msg() {
+        return reject_respond_msg;
     }
 
-    public void setReject_response_msg(String reject_response_msg) {
-        this.reject_response_msg = reject_response_msg;
+    public void setReject_respond_msg(String reject_respond_msg) {
+        this.reject_respond_msg = reject_respond_msg;
     }
 
     public int getProject_price_before_discount() {

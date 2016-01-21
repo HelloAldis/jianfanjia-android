@@ -33,7 +33,7 @@ import de.greenrobot.event.EventBus;
  * Email: jame.zhang@myjyz.com
  * Date:2016-01-19 17:48
  */
-@EActivity(R.layout.dialog_choose_date)
+@EActivity(R.layout.activity_choose_date)
 public class SettingMeasureDateActivity extends BaseAnnotationActivity {
 
     @ViewById(R.id.datePicker)
@@ -56,7 +56,6 @@ public class SettingMeasureDateActivity extends BaseAnnotationActivity {
         if (bundle != null) {
             phone = bundle.getString(Global.PHONE);
             requirementid = bundle.getString(Global.REQUIREMENT_ID);
-
             LogTool.d(this.getClass().getName(), "phone =" + phone + " requirementid = " + requirementid);
         }
     }
@@ -74,13 +73,13 @@ public class SettingMeasureDateActivity extends BaseAnnotationActivity {
         }
     }
 
-    @Click({R.id.head_back_layout, R.id.head_choose_layout, R.id.btn_phone_layout})
+    @Click({R.id.head_back_layout, R.id.btn_confirm, R.id.btn_phone_layout})
     protected void click(View view) {
         switch (view.getId()) {
             case R.id.head_back_layout:
                 appManager.finishActivity(this);
                 break;
-            case R.id.head_choose_layout:
+            case R.id.btn_confirm:
                 Calendar cal = Calendar.getInstance();
                 cal.set(datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth(), timePicker.getCurrentHour(), timePicker.getCurrentMinute(), 0);
                 long houseCheckTime = cal.getTimeInMillis();
