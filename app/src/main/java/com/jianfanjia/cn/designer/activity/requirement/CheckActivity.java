@@ -80,50 +80,9 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
             sectionInfoName = bundle.getString(Constant.PROCESS_NAME);
             sectionInfoStatus = bundle.getString(Constant.PROCESS_STATUS, Constant.DOING);
             processInfoId = bundle.getString(Global.PROCESS_ID);
-            LogTool.d(TAG, "processInfoId:" + processInfoId
-                    + " sectionInfoName:" + sectionInfoName
-                    + " processInfoStatus:" + sectionInfoStatus);
+            LogTool.d(TAG, "processInfoId:" + processInfoId + " sectionInfoName:" + sectionInfoName + " processInfoStatus:" + sectionInfoStatus);
             if (processInfoId != null) {
                 loadCurrentProcess(processInfoId);
-            }
-        }
-    }
-
-    private void loadCurrentProcess(String processid) {
-        JianFanJiaClient.get_ProcessInfo_By_Id(this, processid,
-                new ApiUiUpdateListener() {
-
-                    @Override
-                    public void preLoad() {
-                        showWaitDialog();
-                    }
-
-                    @Override
-                    public void loadSuccess(Object data) {
-                        hideWaitDialog();
-//                        initProcessInfo();
-                        initData();
-                    }
-
-                    @Override
-                    public void loadFailture(String errorMsg) {
-                        hideWaitDialog();
-                        makeTextShort(errorMsg);
-//                        initProcessInfo();
-                    }
-                }, this);
-    }
-
-    //初始化放大显示的list
-    private void initShowList() {
-        showProcessPic.clear();
-        showSamplePic.clear();
-        for (int i = 0; i < checkGridList.size(); i = i + 2) {
-            showSamplePic.add(checkGridList.get(i).getImgId());
-        }
-        for (int i = 1; i < checkGridList.size(); i = i + 2) {
-            if (!checkGridList.get(i).getImgId().contains(Constant.DEFALUT_PIC_HEAD)) {
-                showProcessPic.add(checkGridList.get(i).getImgId());
             }
         }
     }
@@ -149,6 +108,43 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
         mainHeadView.setRightTitleVisable(View.VISIBLE);
         mainHeadView.setBackLayoutVisable(View.VISIBLE);
         mainHeadView.setRigthTitleEnable(false);
+    }
+
+    private void loadCurrentProcess(String processid) {
+        JianFanJiaClient.get_ProcessInfo_By_Id(this, processid,
+                new ApiUiUpdateListener() {
+
+                    @Override
+                    public void preLoad() {
+                        showWaitDialog();
+                    }
+
+                    @Override
+                    public void loadSuccess(Object data) {
+                        hideWaitDialog();
+                        initData();
+                    }
+
+                    @Override
+                    public void loadFailture(String errorMsg) {
+                        hideWaitDialog();
+                        makeTextShort(errorMsg);
+                    }
+                }, this);
+    }
+
+    //初始化放大显示的list
+    private void initShowList() {
+        showProcessPic.clear();
+        showSamplePic.clear();
+        for (int i = 0; i < checkGridList.size(); i = i + 2) {
+            showSamplePic.add(checkGridList.get(i).getImgId());
+        }
+        for (int i = 1; i < checkGridList.size(); i = i + 2) {
+            if (!checkGridList.get(i).getImgId().contains(Constant.DEFALUT_PIC_HEAD)) {
+                showProcessPic.add(checkGridList.get(i).getImgId());
+            }
+        }
     }
 
     private void initData() {
