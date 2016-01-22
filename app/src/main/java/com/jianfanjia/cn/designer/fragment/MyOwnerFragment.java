@@ -1,7 +1,6 @@
 package com.jianfanjia.cn.designer.fragment;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -23,9 +22,6 @@ import org.androidannotations.annotations.ViewById;
  */
 @EFragment(R.layout.fragment_my_owner)
 public class MyOwnerFragment extends BaseAnnotationFragment {
-
-    private Handler handler = new Handler();
-
 
     @ViewById(R.id.viewpager)
     protected ViewPager viewPager;
@@ -59,15 +55,6 @@ public class MyOwnerFragment extends BaseAnnotationFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-//        showSettingMeasureDialog(Calendar.getInstance());
-
-       /* handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                startActivity(SettingMeasureDateActivity_.class);
-                getActivity().overridePendingTransition(R.anim.slide_and_fade_in_from_bottom,R.anim.fade_out);
-            }
-        },2000);*/
 
     }
 

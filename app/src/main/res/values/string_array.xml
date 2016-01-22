@@ -250,7 +250,7 @@
     </string-array>
 
     <string-array name="plan_status">
-        <item>已预约</item>
+        <item>预约量房</item>
         <item>已拒绝</item>
         <item>已响应</item>
         <item>有方案</item>

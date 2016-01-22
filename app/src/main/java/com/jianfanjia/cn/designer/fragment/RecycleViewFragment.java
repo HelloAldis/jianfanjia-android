@@ -13,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.designer.Event.UpdateEvent;
@@ -72,6 +74,8 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
 
     protected PullToRefreshRecycleView pullrefresh;
 
+    protected RelativeLayout emptyLayout;
+
     private MyHandledRequirementAdapter myHandledRequirementAdapter;
 
     private boolean isVisiable;
@@ -127,6 +131,7 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
         LogTool.d(TAG, "onCreateView");
         if (view == null) {
             view = inflater.inflate(R.layout.fragment_recycleview, container, false);
+            emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
             initRecycleView();
             isPrepared = true;
             lazyLoad();
@@ -260,8 +265,13 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
         });
         pullrefresh.setAdapter(myHandledRequirementAdapter);
         Paint paint = new Paint();
+<<<<<<< HEAD
+        paint.setStrokeWidth(MyApplication.dip2px(getActivity(), 8));
+        paint.setColor(getResources().getColor(R.color.transparent));
+=======
         paint.setStrokeWidth(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getResources().getDisplayMetrics()));
         paint.setAlpha(0);
+>>>>>>> 8244cd7a5951aaf52101710b5171c94bc28a002e
         paint.setAntiAlias(true);
         pullrefresh.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).paint(paint).showLastDivider().build());
         LogTool.d(this.getClass().getName(), "initRecycle item count =" + myHandledRequirementAdapter.getItemCount());
@@ -374,6 +384,7 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
 
             @Override
             public void loadFailture(String error_msg) {
+                makeTextShort(error_msg);
                 hideWaitDialog();
                 pullrefresh.onRefreshComplete();
             }
@@ -385,12 +396,30 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
         switch (mNum) {
             case FIRST_FRAGMENT:
                 myHandledRequirementAdapter.addItem(requirementList.getUnHandleRequirementInfoList());
+                if (requirementList.getUnHandleRequirementInfoList().size() == 0) {
+                    emptyLayout.setVisibility(View.VISIBLE);
+                    ((TextView) emptyLayout.findViewById(R.id.tipContent)).setText(getString(R.string.tip_no_unhandle));
+                } else {
+                    emptyLayout.setVisibility(View.GONE);
+                }
                 break;
             case SECOND_FRAGMENT:
                 myHandledRequirementAdapter.addItem(requirementList.getCommunicationRequirementInfoList());
+                if (requirementList.getCommunicationRequirementInfoList().size() == 0) {
+                    emptyLayout.setVisibility(View.VISIBLE);
+                    ((TextView) emptyLayout.findViewById(R.id.tipContent)).setText(getString(R.string.tip_handled));
+                } else {
+                    emptyLayout.setVisibility(View.GONE);
+                }
                 break;
             case THIRD_FRAGMENT:
                 myHandledRequirementAdapter.addItem(requirementList.getOverRequirementInfoLists());
+                if (requirementList.getOverRequirementInfoLists().size() == 0) {
+                    emptyLayout.setVisibility(View.VISIBLE);
+                    ((TextView) emptyLayout.findViewById(R.id.tipContent)).setText(getString(R.string.tip_already_handle));
+                } else {
+                    emptyLayout.setVisibility(View.GONE);
+                }
                 break;
         }
 
