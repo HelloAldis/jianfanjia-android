@@ -53,9 +53,16 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
     private Button btnDetail = null;
     private PlanInfo plan = null;
     private RequirementInfo requirement = null;
+    private int itemPosition = -1;
 
     @Override
     public void initView() {
+        Intent intent = this.getIntent();
+        Bundle planBundle = intent.getExtras();
+        plan = (PlanInfo) planBundle.getSerializable(Global.PLAN);
+        requirement = (RequirementInfo) planBundle.getSerializable(Global.REQUIRE);
+        itemPosition = planBundle.getInt(Global.POSITION);
+        LogTool.d(TAG, "plan=" + plan + " requirement=" + requirement + " itemPosition=" + itemPosition);
         initMainHeadView();
         houseTypeLayout = (LinearLayout) findViewById(R.id.houseTypeLayout);
         houseAreaLayout = (LinearLayout) findViewById(R.id.houseAreaLayout);
@@ -72,11 +79,6 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
         price = (TextView) findViewById(R.id.price);
         designText = (TextView) findViewById(R.id.designText);
         btnDetail = (Button) findViewById(R.id.btnDetail);
-        Intent intent = this.getIntent();
-        Bundle planBundle = intent.getExtras();
-        plan = (PlanInfo) planBundle.getSerializable(Global.PLAN);
-        requirement = (RequirementInfo) planBundle.getSerializable(Global.REQUIRE);
-        LogTool.d(TAG, "plan=" + plan + " requirement=" + requirement);
         if (null != plan && null != requirement) {
             totalDateLayout.setVisibility(View.VISIBLE);
             priceLayout.setVisibility(View.VISIBLE);
@@ -121,7 +123,7 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
         mainHeadView = (MainHeadView) findViewById(R.id.my_prieview_head_layout);
         mainHeadView.setBackListener(this);
         mainHeadView.setRightTextListener(this);
-        mainHeadView.setMianTitle(getResources().getString(R.string.designerPlanText));
+        mainHeadView.setMianTitle(getResources().getString(R.string.designerPlanText) + itemPosition);
         mainHeadView.setRightTitle(getResources().getString(R.string.detailPrice));
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
         mainHeadView.setRightTitleVisable(View.VISIBLE);
