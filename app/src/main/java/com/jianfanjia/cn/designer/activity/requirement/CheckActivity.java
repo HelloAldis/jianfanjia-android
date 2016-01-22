@@ -6,6 +6,7 @@ import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.GridView;
@@ -28,9 +29,11 @@ import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.designer.interf.ItemClickCallBack;
 import com.jianfanjia.cn.designer.interf.PopWindowCallBack;
 import com.jianfanjia.cn.designer.interf.UploadListener;
+import com.jianfanjia.cn.designer.tools.FileUtil;
 import com.jianfanjia.cn.designer.tools.ImageUtil;
 import com.jianfanjia.cn.designer.tools.ImageUtils;
 import com.jianfanjia.cn.designer.tools.LogTool;
+import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.cn.designer.view.dialog.CommonDialog;
 import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
@@ -77,50 +80,9 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
             sectionInfoName = bundle.getString(Constant.PROCESS_NAME);
             sectionInfoStatus = bundle.getString(Constant.PROCESS_STATUS, Constant.DOING);
             processInfoId = bundle.getString(Global.PROCESS_ID);
-            LogTool.d(TAG, "processInfoId:" + processInfoId
-                    + " sectionInfoName:" + sectionInfoName
-                    + " processInfoStatus:" + sectionInfoStatus);
+            LogTool.d(TAG, "processInfoId:" + processInfoId + " sectionInfoName:" + sectionInfoName + " processInfoStatus:" + sectionInfoStatus);
             if (processInfoId != null) {
-                loadCurrentProcess();
-            }
-        }
-    }
-
-    private void loadCurrentProcess() {
-        JianFanJiaClient.get_ProcessInfo_By_Id(this, processInfoId,
-                new ApiUiUpdateListener() {
-
-                    @Override
-                    public void preLoad() {
-                        showWaitDialog();
-                    }
-
-                    @Override
-                    public void loadSuccess(Object data) {
-                        hideWaitDialog();
-//                        initProcessInfo();
-                        initData();
-                    }
-
-                    @Override
-                    public void loadFailture(String errorMsg) {
-                        hideWaitDialog();
-                        makeTextShort(errorMsg);
-//                        initProcessInfo();
-                    }
-                }, this);
-    }
-
-    //初始化放大显示的list
-    private void initShowList() {
-        showProcessPic.clear();
-        showSamplePic.clear();
-        for (int i = 0; i < checkGridList.size(); i = i + 2) {
-            showSamplePic.add(checkGridList.get(i).getImgId());
-        }
-        for (int i = 1; i < checkGridList.size(); i = i + 2) {
-            if (!checkGridList.get(i).getImgId().contains(Constant.DEFALUT_PIC_HEAD)) {
-                showProcessPic.add(checkGridList.get(i).getImgId());
+                loadCurrentProcess(processInfoId);
             }
         }
     }
@@ -146,6 +108,43 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
         mainHeadView.setRightTitleVisable(View.VISIBLE);
         mainHeadView.setBackLayoutVisable(View.VISIBLE);
         mainHeadView.setRigthTitleEnable(false);
+    }
+
+    private void loadCurrentProcess(String processid) {
+        JianFanJiaClient.get_ProcessInfo_By_Id(this, processid,
+                new ApiUiUpdateListener() {
+
+                    @Override
+                    public void preLoad() {
+                        showWaitDialog();
+                    }
+
+                    @Override
+                    public void loadSuccess(Object data) {
+                        hideWaitDialog();
+                        initData();
+                    }
+
+                    @Override
+                    public void loadFailture(String errorMsg) {
+                        hideWaitDialog();
+                        makeTextShort(errorMsg);
+                    }
+                }, this);
+    }
+
+    //初始化放大显示的list
+    private void initShowList() {
+        showProcessPic.clear();
+        showSamplePic.clear();
+        for (int i = 0; i < checkGridList.size(); i = i + 2) {
+            showSamplePic.add(checkGridList.get(i).getImgId());
+        }
+        for (int i = 1; i < checkGridList.size(); i = i + 2) {
+            if (!checkGridList.get(i).getImgId().contains(Constant.DEFALUT_PIC_HEAD)) {
+                showProcessPic.add(checkGridList.get(i).getImgId());
+            }
+        }
     }
 
     private void initData() {
@@ -272,7 +271,6 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
                 adapter.setCanDelete(false);
                 adapter.notifyDataSetInvalidated();
             }
-
         } else {
             mainHeadView.setRigthTitleEnable(false);
             btn_confirm.setEnabled(false);
@@ -332,24 +330,24 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
                 }, this);
     }
 
-//    @Override
-//    public void takecamera() {
-//        mTmpFile = FileUtil.createTmpFile(this);
-//        if (mTmpFile != null) {
-//            Intent cameraIntent = UiHelper.createShotIntent(mTmpFile);
-//            startActivityForResult(cameraIntent, Constant.REQUESTCODE_CAMERA);
-//        } else {
-//            makeTextLong("没有sd卡，无法打开相机");
-//        }
-//    }
-//
-//    @Override
-//    public void takePhoto() {
-//        Intent albumIntent = new Intent(Intent.ACTION_PICK, null);
-//        albumIntent.setDataAndType(
-//                MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
-//        startActivityForResult(albumIntent, Constant.REQUESTCODE_LOCATION);
-//    }
+    @Override
+    public void firstItemClick() {
+        mTmpFile = FileUtil.createTmpFile(this);
+        if (mTmpFile != null) {
+            Intent cameraIntent = UiHelper.createShotIntent(mTmpFile);
+            startActivityForResult(cameraIntent, Constant.REQUESTCODE_CAMERA);
+        } else {
+            makeTextLong("没有sd卡，无法打开相机");
+        }
+    }
+
+    @Override
+    public void secondItemClick() {
+        Intent albumIntent = new Intent(Intent.ACTION_PICK, null);
+        albumIntent.setDataAndType(
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+        startActivityForResult(albumIntent, Constant.REQUESTCODE_LOCATION);
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -492,11 +490,6 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
         return null;
     }
 
-    @Override
-    public int getLayoutId() {
-        return R.layout.activity_check_pic;
-    }
-
     private void startShowActivity(int arg2) {
         Bundle bundle = new Bundle();
         if (arg2 % 2 == 0) {
@@ -529,4 +522,8 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
         // TODO Auto-generated method stub
     }
 
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_check_pic;
+    }
 }
