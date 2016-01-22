@@ -660,6 +660,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                                 dialog.dismiss();
                             }
                         });
+                loadCurrentProcess(MyProcessDetailActivity.this);
             }
         } else if (msgType.equals(Constant.FUKUAN_NOTIFY)) {
             dialog.setTitle(getResources().getString(R.string.fukuanText));
@@ -714,6 +715,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
             @Override
             public void loadSuccess(Object data) {
                 LogTool.d(TAG, "data:" + data.toString());
+                loadCurrentProcess(MyProcessDetailActivity.this);
             }
 
             @Override
@@ -734,6 +736,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
             @Override
             public void loadSuccess(Object data) {
                 LogTool.d(TAG, "data:" + data.toString());
+                loadCurrentProcess(MyProcessDetailActivity.this);
             }
 
             @Override
