@@ -192,7 +192,6 @@ public class ManageFragment extends BaseFragment implements PullToRefreshBase.On
         }, this);
     }
 
-
     private void setProcessList() {
         for (int i = 0; i < proTitle.length; i++) {
             SiteProcessItem item = new SiteProcessItem();
