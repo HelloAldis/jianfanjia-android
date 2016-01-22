@@ -5,11 +5,15 @@
     android:layout_height="match_parent"
     android:background="@color/font_white">
 
+    <View
+        android:id="@+id/top_line"
+        style="@style/divier_line" />
+
     <RelativeLayout
         android:id="@+id/ltm_req_baseinfo_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_below="@id/top_line"
         android:background="@drawable/my_item_layout_bg_selector"
         android:paddingBottom="@dimen/space_16"
         android:paddingLeft="@dimen/space_26"
@@ -114,6 +118,7 @@
         android:layout_below="@+id/item_site_section_listview" />
 
     <LinearLayout
+        android:id="@+id/bottomLayout"
         android:layout_width="match_parent"
         android:layout_height="48dip"
         android:layout_below="@+id/second_line"
@@ -211,4 +216,7 @@
         </RelativeLayout>
     </LinearLayout>
 
+    <View
+        style="@style/divier_line"
+        android:layout_below="@id/bottomLayout" />
 </RelativeLayout>
