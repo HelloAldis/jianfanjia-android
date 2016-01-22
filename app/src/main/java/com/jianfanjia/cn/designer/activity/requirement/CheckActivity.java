@@ -492,11 +492,6 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
         return null;
     }
 
-    @Override
-    public int getLayoutId() {
-        return R.layout.activity_check_pic;
-    }
-
     private void startShowActivity(int arg2) {
         Bundle bundle = new Bundle();
         if (arg2 % 2 == 0) {
@@ -529,4 +524,8 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
         // TODO Auto-generated method stub
     }
 
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_check_pic;
+    }
 }
