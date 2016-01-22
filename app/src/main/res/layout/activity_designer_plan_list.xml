@@ -19,7 +19,6 @@
             android:id="@+id/designer_plan_listview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="10dip"
             android:layout_marginTop="10dip"
             android:scrollbars="none"
             ptr:ptrAnimationStyle="flip"
