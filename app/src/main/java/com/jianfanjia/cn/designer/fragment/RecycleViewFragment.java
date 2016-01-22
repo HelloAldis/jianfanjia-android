@@ -243,7 +243,7 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
                         Intent settingStartAt = new Intent(_context, SettingContractActivity_.class);
                         Bundle settingStartAtBundle = new Bundle();
                         settingStartAtBundle.putSerializable(Global.REQUIREMENT_INFO, requirementInfo);
-                        settingStartAtBundle.putSerializable(Global.PLAN,requirementInfo.getPlan());
+                        settingStartAtBundle.putSerializable(Global.PLAN, requirementInfo.getPlan());
                         settingStartAt.putExtras(settingStartAtBundle);
                         startActivity(settingStartAt);
                         getActivity().overridePendingTransition(R.anim.slide_and_fade_in_from_bottom, R.anim.fade_out);
@@ -292,6 +292,7 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
     }
 
     String refuseMsg;
+
     private void showRefuseDialog(final String requirementid) {
         CommonDialog dialog = DialogHelper
                 .getPinterestDialogCancelable(getActivity());
@@ -354,7 +355,7 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
         JianFanJiaClient.getAllRequirementList(getActivity(), new ApiUiUpdateListener() {
             @Override
             public void preLoad() {
-                if(!mHasLoadedOnce){
+                if (!mHasLoadedOnce) {
                     showWaitDialog();
                 }
             }
@@ -407,4 +408,9 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
         LogTool.d(TAG, "onActivityCreated");
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 }
