@@ -104,7 +104,6 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
         mainHeadView.setBackListener(this);
         mainHeadView.setRightTextListener(this);
         mainHeadView.setRightTitle(getString(R.string.edit));
-        mainHeadView.setLayoutBackground(R.color.head_layout_bg);
         mainHeadView.setRightTitleVisable(View.VISIBLE);
         mainHeadView.setBackLayoutVisable(View.VISIBLE);
         mainHeadView.setRigthTitleEnable(false);
@@ -179,8 +178,10 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 
     private void setConfimStatus() {
         int count = imageids.size();
+        LogTool.d(TAG, "count=" + count + " sectionInfoStatus=" + sectionInfoStatus);
         if (!sectionInfoStatus.equals(Constant.FINISHED)) {
             mainHeadView.setRightTitleVisable(View.VISIBLE);
+            mainHeadView.setRigthTitleEnable(true);
             if (count < checkGridList.size() / 2) {
                 //设计师图片没上传完，不能验收
                 btn_confirm.setText(this.getResources().getString(
@@ -199,9 +200,9 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
                 }
             } else {
                 boolean isFinish = isSectionInfoFishish(sectionItemInfos);
+                LogTool.d(TAG, "isFinish=" + isFinish);
                 if (isFinish) {
                     //图片上传完了，可以进行验收
-//                    btn_confirm.setEnabled(true);
                     btn_confirm.setText(this.getResources().getString(
                             R.string.confirm_tip));
                     btn_confirm.setOnClickListener(new OnClickListener() {

@@ -26,7 +26,7 @@ import com.jianfanjia.cn.designer.tools.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SectionItemAdapter extends BaseAdapter{
+public class SectionItemAdapter extends BaseAdapter {
     private static final int IMG_COUNT = 9;
     private static final int CHECK_VIEW = 0;
     private static final int SECTION_ITME_VIEW = 1;
@@ -52,7 +52,7 @@ public class SectionItemAdapter extends BaseAdapter{
         setSectionInfoList(showSectionInfoList, position);
     }
 
-    public void setSectionInfoList(List<SectionInfo> sectionInfos,int position) {
+    public void setSectionInfoList(List<SectionInfo> sectionInfos, int position) {
         if (sectionInfos != null) {
             showSectionInfoList.clear();
             showSectionInfoList.addAll(sectionInfos);
@@ -79,6 +79,7 @@ public class SectionItemAdapter extends BaseAdapter{
                     .getPositionByItemName(sectionInfo.getName())]);
             sectionItemInfo.setDate(sectionInfo.getYs().getDate());
             sectionItemInfo.setOpen(false);
+            sectionItemInfo.setStatus(sectionInfo.getStatus() + "");//验收的状态就是工序的状态
             list.add(sectionItemInfo);
         } else {
             isHasCheck = false;
@@ -158,7 +159,7 @@ public class SectionItemAdapter extends BaseAdapter{
             switch (type) {
                 case CHECK_VIEW:
                     convertView = layoutInflater.inflate(
-                            R.layout.list_item_process_head, null);
+                            R.layout.site_listview_head, null);
                     viewHolderf = new ViewHolder2();
                     viewHolderf.finishStatusIcon = (ImageView) convertView
                             .findViewById(R.id.site_listview_item_status);
@@ -182,7 +183,7 @@ public class SectionItemAdapter extends BaseAdapter{
                     break;
                 case SECTION_ITME_VIEW:
                     convertView = layoutInflater.inflate(
-                            R.layout.list_item_process_item, null);
+                            R.layout.site_listview_item, null);
                     viewHolder = new ViewHolder();
                     viewHolder.smallcloseLayout = (RelativeLayout) convertView
                             .findViewById(R.id.site_listview_item_content_small);
@@ -200,6 +201,8 @@ public class SectionItemAdapter extends BaseAdapter{
                             .findViewById(R.id.site_list_item_content_expand_node_assess);
                     viewHolder.openFinishStatus = (TextView) convertView
                             .findViewById(R.id.site_list_item_content_expand_node_finish_status);
+                    viewHolder.confirmFinishStatus = (TextView) convertView
+                            .findViewById(R.id.site_list_item_content_expand_node_confirm_finish);
                     viewHolder.finishStatusIcon = (ImageView) convertView
                             .findViewById(R.id.site_listview_item_status);
                     viewHolder.gridView = (GridView) convertView
@@ -237,6 +240,7 @@ public class SectionItemAdapter extends BaseAdapter{
                         viewHolder.openFinishStatus.setText(context.getResources()
                                 .getString(R.string.site_example_node_finish));
                         viewHolder.finishTime.setVisibility(View.VISIBLE);
+                        viewHolder.confirmFinishStatus.setVisibility(View.GONE);
                         viewHolder.openFinishStatus.setVisibility(View.VISIBLE);
                         viewHolder.bigOpenLayout
                                 .setBackgroundResource(R.mipmap.list_item_text_bg2);
@@ -247,9 +251,11 @@ public class SectionItemAdapter extends BaseAdapter{
                         viewHolder.finishStatusIcon
                                 .setImageResource(R.drawable.site_listview_item_notstart_circle);
                         viewHolder.finishTime.setVisibility(View.GONE);
+                        viewHolder.openFinishStatus.setVisibility(View.GONE);
+                        viewHolder.confirmFinishStatus.setVisibility(View.VISIBLE);
                         viewHolder.openFinishStatus.setText(context.getResources()
-                                .getString(R.string.site_example_node_not_start));
-                        viewHolder.openFinishStatus.setVisibility(View.VISIBLE);
+                                .getString(
+                                        R.string.site_example_node_confirm_finish));
                         viewHolder.bigOpenLayout
                                 .setBackgroundResource(R.mipmap.list_item_text_bg1);
                         viewHolder.smallcloseLayout
@@ -263,8 +269,11 @@ public class SectionItemAdapter extends BaseAdapter{
                                 .setBackgroundResource(R.mipmap.list_item_text_bg2);
                         viewHolder.smallcloseLayout
                                 .setBackgroundResource(R.mipmap.list_item_text_bg2);
+                        viewHolder.openFinishStatus.setVisibility(View.GONE);
+                        viewHolder.confirmFinishStatus.setVisibility(View.VISIBLE);
                         viewHolder.openFinishStatus.setText(context.getResources()
-                                .getString(R.string.site_example_node_working));
+                                .getString(
+                                        R.string.site_example_node_confirm_finish));
                         break;
                     default:
                         break;
@@ -349,7 +358,7 @@ public class SectionItemAdapter extends BaseAdapter{
                     viewHolderf.smallcloseLayout
                             .setBackgroundResource(R.mipmap.list_item_text_bg1);
                 }
-                if(!section_status.equals(Constant.NO_START)){
+                if (!section_status.equals(Constant.NO_START)) {
                     if (sectionItemInfo.isOpen()) {
                         viewHolderf.bigOpenLayout.setVisibility(View.VISIBLE);
                         viewHolderf.smallcloseLayout.setVisibility(View.GONE);
@@ -357,7 +366,7 @@ public class SectionItemAdapter extends BaseAdapter{
                         viewHolderf.bigOpenLayout.setVisibility(View.GONE);
                         viewHolderf.smallcloseLayout.setVisibility(View.VISIBLE);
                     }
-                }else {
+                } else {
                     viewHolderf.bigOpenLayout.setVisibility(View.GONE);
                     viewHolderf.smallcloseLayout.setVisibility(View.VISIBLE);
                 }
@@ -387,7 +396,7 @@ public class SectionItemAdapter extends BaseAdapter{
                         });
                         break;
                     case Constant.YANQI_BE_DOING:
-                        LogTool.d(this.getClass().getName(),"this section is yanqi_doing");
+                        LogTool.d(this.getClass().getName(), "this section is yanqi_doing");
                         viewHolderf.openDelay.setTextColor(context.getResources().getColor(R.color.grey_color));
                         viewHolderf.openDelay.setText(context.getResources().getText(R.string.site_example_node_delay_doing));
                         viewHolderf.openDelay.setEnabled(false);
@@ -441,10 +450,12 @@ public class SectionItemAdapter extends BaseAdapter{
         RelativeLayout bigOpenLayout;
         TextView closeNodeName;
         TextView openNodeName;
+        TextView openUploadPic;
         TextView openComment;
         TextView openUploadTime;
         TextView finishTime;
         TextView openFinishStatus;
+        TextView confirmFinishStatus;
         ImageView finishStatusIcon;
         GridView gridView;
     }
