@@ -54,8 +54,6 @@ public class MyOwnerFragment extends BaseAnnotationFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
     }
-
 
 }
