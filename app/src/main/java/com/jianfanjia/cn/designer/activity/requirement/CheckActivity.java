@@ -271,7 +271,6 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
                 adapter.setCanDelete(false);
                 adapter.notifyDataSetInvalidated();
             }
-
         } else {
             mainHeadView.setRigthTitleEnable(false);
             btn_confirm.setEnabled(false);
