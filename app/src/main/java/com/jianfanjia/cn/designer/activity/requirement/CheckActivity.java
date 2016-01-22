@@ -200,6 +200,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
                 }
             } else {
                 boolean isFinish = isSectionInfoFishish(sectionItemInfos);
+                LogTool.d(TAG, "isFinish=" + isFinish);
                 if (isFinish) {
                     //图片上传完了，可以进行验收
 //                    btn_confirm.setEnabled(true);
