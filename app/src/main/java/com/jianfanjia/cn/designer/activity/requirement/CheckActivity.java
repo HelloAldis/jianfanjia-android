@@ -104,7 +104,6 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
         mainHeadView.setBackListener(this);
         mainHeadView.setRightTextListener(this);
         mainHeadView.setRightTitle(getString(R.string.edit));
-        mainHeadView.setLayoutBackground(R.color.head_layout_bg);
         mainHeadView.setRightTitleVisable(View.VISIBLE);
         mainHeadView.setBackLayoutVisable(View.VISIBLE);
         mainHeadView.setRigthTitleEnable(false);
