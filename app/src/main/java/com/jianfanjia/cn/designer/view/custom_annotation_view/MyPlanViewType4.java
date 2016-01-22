@@ -52,6 +52,9 @@ public class MyPlanViewType4 extends BaseAnnotationView {
     @ViewById(R.id.ltm_req_sex)
     protected ImageView sexView;
 
+    @ViewById(R.id.planLayout)
+    protected RelativeLayout planLayout;
+
     public MyPlanViewType4(Context context) {
         super(context);
     }
@@ -98,6 +101,12 @@ public class MyPlanViewType4 extends BaseAnnotationView {
             @Override
             public void onClick(View v) {
                 clickCallBack.click(position, RecycleViewFragment.PRIVIEW_REQUIREMENT_TYPE);
+            }
+        });
+        planLayout.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickCallBack.click(position,RecycleViewFragment.PREVIEW_PLAN_TYPE);
             }
         });
     }

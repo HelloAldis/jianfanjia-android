@@ -14,7 +14,7 @@
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tablayout"
-        style="@style/EditRequirementTagLayout"
+        style="@style/MyCustomTabLayout"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:background="@color/font_white"

@@ -76,6 +76,8 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
 
     protected RelativeLayout emptyLayout;
 
+    protected RelativeLayout errorLayout;
+
     private MyHandledRequirementAdapter myHandledRequirementAdapter;
 
     private boolean isVisiable;
@@ -131,7 +133,6 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
         LogTool.d(TAG, "onCreateView");
         if (view == null) {
             view = inflater.inflate(R.layout.fragment_recycleview, container, false);
-            emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
             initRecycleView();
             isPrepared = true;
             lazyLoad();
@@ -180,6 +181,15 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
     }
 
     protected void initRecycleView() {
+        emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
+        errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
+        errorLayout.findViewById(R.id.img_error).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                initData();
+            }
+        });
+
         pullrefresh = (PullToRefreshRecycleView) view.findViewById(R.id.pull_refresh_recycle_view);
         pullrefresh.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
         pullrefresh.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -374,6 +384,7 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
                 requirementInfos = JsonParser.jsonToList(data.toString(), new TypeToken<List<RequirementInfo>>() {
                 }.getType());
                 requirementList = new RequirementList(requirementInfos);
+                errorLayout.setVisibility(View.GONE);
                 disposeData(requirementList);
             }
 
@@ -382,6 +393,10 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
                 makeTextShort(error_msg);
                 hideWaitDialog();
                 pullrefresh.onRefreshComplete();
+                if(!mHasLoadedOnce){
+                    errorLayout.setVisibility(View.VISIBLE);
+                    emptyLayout.setVisibility(View.GONE);
+                }
             }
         }, this);
     }
