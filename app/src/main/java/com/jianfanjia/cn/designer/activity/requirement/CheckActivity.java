@@ -6,6 +6,7 @@ import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.GridView;
@@ -28,9 +29,11 @@ import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.designer.interf.ItemClickCallBack;
 import com.jianfanjia.cn.designer.interf.PopWindowCallBack;
 import com.jianfanjia.cn.designer.interf.UploadListener;
+import com.jianfanjia.cn.designer.tools.FileUtil;
 import com.jianfanjia.cn.designer.tools.ImageUtil;
 import com.jianfanjia.cn.designer.tools.ImageUtils;
 import com.jianfanjia.cn.designer.tools.LogTool;
+import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.cn.designer.view.dialog.CommonDialog;
 import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
@@ -332,24 +335,24 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
                 }, this);
     }
 
-//    @Override
-//    public void takecamera() {
-//        mTmpFile = FileUtil.createTmpFile(this);
-//        if (mTmpFile != null) {
-//            Intent cameraIntent = UiHelper.createShotIntent(mTmpFile);
-//            startActivityForResult(cameraIntent, Constant.REQUESTCODE_CAMERA);
-//        } else {
-//            makeTextLong("没有sd卡，无法打开相机");
-//        }
-//    }
-//
-//    @Override
-//    public void takePhoto() {
-//        Intent albumIntent = new Intent(Intent.ACTION_PICK, null);
-//        albumIntent.setDataAndType(
-//                MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
-//        startActivityForResult(albumIntent, Constant.REQUESTCODE_LOCATION);
-//    }
+    @Override
+    public void firstItemClick() {
+        mTmpFile = FileUtil.createTmpFile(this);
+        if (mTmpFile != null) {
+            Intent cameraIntent = UiHelper.createShotIntent(mTmpFile);
+            startActivityForResult(cameraIntent, Constant.REQUESTCODE_CAMERA);
+        } else {
+            makeTextLong("没有sd卡，无法打开相机");
+        }
+    }
+
+    @Override
+    public void secondItemClick() {
+        Intent albumIntent = new Intent(Intent.ACTION_PICK, null);
+        albumIntent.setDataAndType(
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+        startActivityForResult(albumIntent, Constant.REQUESTCODE_LOCATION);
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
