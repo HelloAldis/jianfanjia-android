@@ -69,14 +69,12 @@ import java.util.List;
 public class MyProcessDetailActivity extends BaseAnnotationActivity implements ItemClickCallBack, ReceiveMsgListener {
     private static final String TAG = MyProcessDetailActivity.class.getName();
     private static final int TOTAL_PROCESS = 7;// 7道工序
-
     @ViewById(R.id.process_viewpager)
     ViewPager processViewPager;
     @ViewById(R.id.process__listview)
     PullToRefreshListView detailNodeListView;
     @ViewById(R.id.process_head_layout)
     MainHeadView mainHeadView;
-
     @ViewById(R.id.head_notification_layout)
     RelativeLayout notificationLayout;
     @StringArrayRes(R.array.site_procedure)
