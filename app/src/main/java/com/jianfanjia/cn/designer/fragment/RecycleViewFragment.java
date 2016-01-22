@@ -12,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.designer.Event.UpdateEvent;
@@ -72,6 +74,8 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
 
     protected PullToRefreshRecycleView pullrefresh;
 
+    protected RelativeLayout emptyLayout;
+
     private MyHandledRequirementAdapter myHandledRequirementAdapter;
 
     private boolean isVisiable;
@@ -127,6 +131,7 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
         LogTool.d(TAG, "onCreateView");
         if (view == null) {
             view = inflater.inflate(R.layout.fragment_recycleview, container, false);
+            emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
             initRecycleView();
             isPrepared = true;
             lazyLoad();
@@ -243,7 +248,7 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
                         Intent settingStartAt = new Intent(_context, SettingContractActivity_.class);
                         Bundle settingStartAtBundle = new Bundle();
                         settingStartAtBundle.putSerializable(Global.REQUIREMENT_INFO, requirementInfo);
-                        settingStartAtBundle.putSerializable(Global.PLAN,requirementInfo.getPlan());
+                        settingStartAtBundle.putSerializable(Global.PLAN, requirementInfo.getPlan());
                         settingStartAt.putExtras(settingStartAtBundle);
                         startActivity(settingStartAt);
                         getActivity().overridePendingTransition(R.anim.slide_and_fade_in_from_bottom, R.anim.fade_out);
@@ -261,7 +266,7 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
         pullrefresh.setAdapter(myHandledRequirementAdapter);
         Paint paint = new Paint();
         paint.setStrokeWidth(MyApplication.dip2px(getActivity(), 8));
-        paint.setColor(getResources().getColor(R.color.light_white_color));
+        paint.setColor(getResources().getColor(R.color.transparent));
         paint.setAntiAlias(true);
         pullrefresh.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).paint(paint).showLastDivider().build());
         LogTool.d(this.getClass().getName(), "initRecycle item count =" + myHandledRequirementAdapter.getItemCount());
@@ -292,6 +297,7 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
     }
 
     String refuseMsg;
+
     private void showRefuseDialog(final String requirementid) {
         CommonDialog dialog = DialogHelper
                 .getPinterestDialogCancelable(getActivity());
@@ -354,7 +360,7 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
         JianFanJiaClient.getAllRequirementList(getActivity(), new ApiUiUpdateListener() {
             @Override
             public void preLoad() {
-                if(!mHasLoadedOnce){
+                if (!mHasLoadedOnce) {
                     showWaitDialog();
                 }
             }
@@ -373,6 +379,7 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
 
             @Override
             public void loadFailture(String error_msg) {
+                makeTextShort(error_msg);
                 hideWaitDialog();
                 pullrefresh.onRefreshComplete();
             }
@@ -384,12 +391,30 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
         switch (mNum) {
             case FIRST_FRAGMENT:
                 myHandledRequirementAdapter.addItem(requirementList.getUnHandleRequirementInfoList());
+                if (requirementList.getUnHandleRequirementInfoList().size() == 0) {
+                    emptyLayout.setVisibility(View.VISIBLE);
+                    ((TextView) emptyLayout.findViewById(R.id.tipContent)).setText(getString(R.string.tip_no_unhandle));
+                } else {
+                    emptyLayout.setVisibility(View.GONE);
+                }
                 break;
             case SECOND_FRAGMENT:
                 myHandledRequirementAdapter.addItem(requirementList.getCommunicationRequirementInfoList());
+                if (requirementList.getCommunicationRequirementInfoList().size() == 0) {
+                    emptyLayout.setVisibility(View.VISIBLE);
+                    ((TextView) emptyLayout.findViewById(R.id.tipContent)).setText(getString(R.string.tip_handled));
+                } else {
+                    emptyLayout.setVisibility(View.GONE);
+                }
                 break;
             case THIRD_FRAGMENT:
                 myHandledRequirementAdapter.addItem(requirementList.getOverRequirementInfoLists());
+                if (requirementList.getOverRequirementInfoLists().size() == 0) {
+                    emptyLayout.setVisibility(View.VISIBLE);
+                    ((TextView) emptyLayout.findViewById(R.id.tipContent)).setText(getString(R.string.tip_already_handle));
+                } else {
+                    emptyLayout.setVisibility(View.GONE);
+                }
                 break;
         }
 

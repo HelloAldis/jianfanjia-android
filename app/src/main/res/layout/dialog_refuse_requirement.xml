@@ -17,15 +17,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="@dimen/space_8"
-        android:layout_gravity="center_horizontal" >
+        android:layout_marginTop="@dimen/space_16"
+        android:layout_marginLeft="@dimen/space_16">
 
         <RadioButton
             android:id="@+id/refuse_radio0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawablePadding="@dimen/space_4"
+            android:drawableLeft="@drawable/checkbox_bg"
+            android:gravity="center_vertical|right"
+            android:button="@null"
+            android:drawablePadding="@dimen/space_24"
             android:text="@string/refuse_msg0"
+            android:padding="@dimen/space_8"
             android:textColor="@color/light_black_color"/>
 
         <RadioButton
@@ -33,7 +37,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/refuse_msg1"
-            android:drawablePadding="@dimen/space_4"
+            android:drawableLeft="@drawable/checkbox_bg"
+            android:gravity="center_vertical|right"
+            android:button="@null"
+            android:drawablePadding="@dimen/space_24"
+            android:padding="@dimen/space_8"
             android:textColor="@color/light_black_color"/>
 
         <RadioButton
@@ -41,7 +49,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/refuse_msg2"
-            android:drawablePadding="@dimen/space_4"
+            android:drawableLeft="@drawable/checkbox_bg"
+            android:gravity="center_vertical|right"
+            android:button="@null"
+            android:drawablePadding="@dimen/space_24"
+            android:padding="@dimen/space_8"
             android:textColor="@color/light_black_color"/>
 
         <RadioButton
@@ -49,7 +61,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/refuse_msg3"
-            android:drawablePadding="@dimen/space_4"
+            android:drawableLeft="@drawable/checkbox_bg"
+            android:gravity="center_vertical|right"
+            android:button="@null"
+            android:drawablePadding="@dimen/space_24"
+            android:padding="@dimen/space_8"
             android:textColor="@color/light_black_color"/>
 
     </RadioGroup>
