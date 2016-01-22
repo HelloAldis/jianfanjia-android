@@ -330,6 +330,9 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
     public void click(int position, int itemType) {
         LogTool.d(TAG, "position:" + position + "  itemType:" + itemType);
         switch (itemType) {
+            case Constant.CONFIRM_ITEM:
+                confirmFinishDialog();
+                break;
             case Constant.IMG_ITEM:
                 break;
             case Constant.COMMENT_ITEM:
@@ -427,6 +430,27 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
         startActivityForResult(albumIntent, Constant.REQUESTCODE_LOCATION);
     }
 
+    private void confirmFinishDialog() {
+        CommonDialog dialog = DialogHelper
+                .getPinterestDialogCancelable(MyProcessDetailActivity.this);
+        dialog.setTitle("确认完工");
+        dialog.setMessage("确认完工吗？");
+        dialog.setPositiveButton(R.string.ok,
+                new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        confirmProcessItemDone(processInfo.get_id(),
+                                sectionInfo.getName(),
+                                sectionItemAdapter.getCurrentItem());
+                    }
+                });
+        dialog.setNegativeButton(R.string.no, null);
+        dialog.show();
+    }
+
+
     private void delayDialog() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(sectionInfo.getStart_at() + Constant.DELAY_TIME);
@@ -452,6 +476,33 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
         dateWheelDialog.setNegativeButton(R.string.no, null);
         dateWheelDialog.show();
     }
+
+    // 确认完工装修流程小节点
+    private void confirmProcessItemDone(String siteId, String section,
+                                        String item) {
+        LogTool.d(TAG, "siteId:" + siteId + " section:" + section + " item:"
+                + item);
+        JianFanJiaClient.processItemDone(this, siteId, section,
+                item, new ApiUiUpdateListener() {
+                    @Override
+                    public void preLoad() {
+                        showWaitDialog();
+                    }
+
+                    @Override
+                    public void loadSuccess(Object data) {
+                        hideWaitDialog();
+                        loadCurrentProcess(MyProcessDetailActivity.this);
+                    }
+
+                    @Override
+                    public void loadFailture(String errorMsg) {
+                        makeTextShort(errorMsg);
+                        hideWaitDialog();
+                    }
+                }, this);
+    }
+
 
     // 提交改期
     private void postReschedule(String processId, String userId,
@@ -576,7 +627,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
 
     private void showNotifyDialog(final NotifyMessage message) {
         CommonDialog dialog = DialogHelper
-                .getPinterestDialogCancelable(MyProcessDetailActivity.this);
+                .getPinterestDialogCancelable(this);
         String msgType = message.getType();
         String msgStatus = message.getStatus();
         if (msgType.equals(Constant.YANQI_NOTIFY)) {
@@ -607,13 +658,12 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();
-                                loadCurrentProcess(MyProcessDetailActivity.this);
                             }
                         });
             }
         } else if (msgType.equals(Constant.FUKUAN_NOTIFY)) {
             dialog.setTitle(getResources().getString(R.string.fukuanText));
-            dialog.setMessage(message.getContent());
+            dialog.setMessage(getResources().getString(R.string.list_item_fukuan_example));
             dialog.setPositiveButton(R.string.ok,
                     new DialogInterface.OnClickListener() {
 
@@ -631,12 +681,11 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
-                            loadCurrentProcess(MyProcessDetailActivity.this);
                         }
                     });
         } else if (msgType.equals(Constant.CONFIRM_CHECK_NOTIFY)) {
             dialog.setTitle(getResources().getString(R.string.yanshouText));
-            dialog.setMessage(message.getContent());
+            dialog.setMessage("确定要进行验收吗？");
             dialog.setPositiveButton(R.string.ok,
                     new DialogInterface.OnClickListener() {
 
@@ -645,12 +694,9 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                             dialog.dismiss();
                             Bundle checkBundle = new Bundle();
                             checkBundle.putString(Constant.PROCESS_NAME, message.getSection());
-                            checkBundle
-                                    .putString(Constant.PROCESS_STATUS, message.getStatus());
-                            checkBundle.putString(Global.PROCESS_ID, message.getProcessid());
-                            Intent checkIntent = new Intent(MyProcessDetailActivity.this, CheckActivity.class);
-                            checkIntent.putExtras(checkBundle);
-                            startActivityForResult(checkIntent, Constant.REQUESTCODE_CHECK);
+                            checkBundle.putString(Constant.PROCESS_STATUS, message.getStatus());
+                            checkBundle.putSerializable(Global.PROCESS_ID, message.getProcessid());
+                            startActivity(CheckActivity.class, checkBundle);
                         }
                     });
         }
@@ -668,7 +714,6 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
             @Override
             public void loadSuccess(Object data) {
                 LogTool.d(TAG, "data:" + data.toString());
-                loadCurrentProcess(MyProcessDetailActivity.this);
             }
 
             @Override

@@ -62,6 +62,7 @@ import com.jianfanjia.cn.designer.http.request.PostCollectOwnerInfoRequest;
 import com.jianfanjia.cn.designer.http.request.PostProcessRequest;
 import com.jianfanjia.cn.designer.http.request.PostRequirementRequest;
 import com.jianfanjia.cn.designer.http.request.PostRescheduleRequest;
+import com.jianfanjia.cn.designer.http.request.PostSectionFinishRequest;
 import com.jianfanjia.cn.designer.http.request.RefreshSessionRequest;
 import com.jianfanjia.cn.designer.http.request.RefuseRequirementRequest;
 import com.jianfanjia.cn.designer.http.request.RefuseRescheduleRequest;
@@ -440,6 +441,7 @@ public class JianFanJiaClient {
             e.printStackTrace();
         }
     }
+
     /**
      * 设计师提交验收图片
      *
@@ -466,6 +468,7 @@ public class JianFanJiaClient {
             e.printStackTrace();
         }
     }
+
     /**
      * 绑定手机号
      *
@@ -732,6 +735,7 @@ public class JianFanJiaClient {
             e.printStackTrace();
         }
     }
+
     /**
      * 设计师提醒业主验收
      *
@@ -755,6 +759,29 @@ public class JianFanJiaClient {
         }
     }
 
+    /**
+     * 用户完工装修流程小节点
+     *
+     * @param context
+     * @param siteId
+     * @param section
+     * @param item
+     * @param listener
+     */
+    public static void processItemDone(Context context, String siteId,
+                                       String section, String item, ApiUiUpdateListener listener, Object tag) {
+        PostSectionFinishRequest postSectionFinishRequest = new PostSectionFinishRequest(context);
+        JSONObject jsonParams = new JSONObject();
+        try {
+            jsonParams.put("_id", siteId);
+            jsonParams.put("section", section);
+            jsonParams.put("item", item);
+            LogTool.d(TAG, "processItemDone -" + postSectionFinishRequest.getUrl() + "----" + jsonParams.toString());
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(postSectionFinishRequest, jsonParams.toString(), listener, tag);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * 根据id拿到工地信息
