@@ -84,13 +84,13 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
                     + " sectionInfoName:" + sectionInfoName
                     + " processInfoStatus:" + sectionInfoStatus);
             if (processInfoId != null) {
-                loadCurrentProcess();
+                loadCurrentProcess(processInfoId);
             }
         }
     }
 
-    private void loadCurrentProcess() {
-        JianFanJiaClient.get_ProcessInfo_By_Id(this, processInfoId,
+    private void loadCurrentProcess(String processid) {
+        JianFanJiaClient.get_ProcessInfo_By_Id(this, processid,
                 new ApiUiUpdateListener() {
 
                     @Override
