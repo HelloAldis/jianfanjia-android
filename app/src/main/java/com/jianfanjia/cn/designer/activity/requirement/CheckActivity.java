@@ -203,7 +203,6 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
                 LogTool.d(TAG, "isFinish=" + isFinish);
                 if (isFinish) {
                     //图片上传完了，可以进行验收
-//                    btn_confirm.setEnabled(true);
                     btn_confirm.setText(this.getResources().getString(
                             R.string.confirm_tip));
                     btn_confirm.setOnClickListener(new OnClickListener() {
