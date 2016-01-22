@@ -330,6 +330,19 @@ public class SectionItemAdapter extends BaseAdapter {
                 }
                 // 设置上传照片
                 setImageData(viewHolder.gridView);
+                viewHolder.confirmFinishStatus
+                        .setOnClickListener(new OnClickListener() {
+
+                            @Override
+                            public void onClick(View v) {
+                                if (isHasCheck) {
+                                    callBack.click(position - 1,
+                                            Constant.CONFIRM_ITEM);
+                                } else {
+                                    callBack.click(position, Constant.CONFIRM_ITEM);
+                                }
+                            }
+                        });
                 viewHolder.openComment.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
