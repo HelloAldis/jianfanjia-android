@@ -333,5 +333,6 @@
     <string name="process_totalprice_cont">本工程装修总结为人民币（大写）__%1$s__元（￥__%2$d__元）</string>
     <string name="process_workType">承包方式：</string>
     <string name="process_workType_cont">__%1$s__（清包、半包、全包）</string>
-
+    <string name="process_tip">由于您的工地还没有开工，请即时查看需求动态，如您想查看装修流程，我们已精心为您准备了工地模板</string>
+    <string name="process_tip_text">点击查看工地模板></string>
 </resources>
