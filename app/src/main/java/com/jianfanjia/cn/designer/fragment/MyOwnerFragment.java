@@ -46,11 +46,9 @@ public class MyOwnerFragment extends BaseAnnotationFragment {
     }
 
     protected void initViewPagerAndTab() {
-//        tabLayout.setupWithViewPager(viewPager);
         viewPager.setAdapter(new MyOwnerFragmentPagerAdapter(getFragmentManager()));
         viewPager.setOffscreenPageLimit(1);
         tabLayout.setupWithViewPager(viewPager);
-
     }
 
     @Override
