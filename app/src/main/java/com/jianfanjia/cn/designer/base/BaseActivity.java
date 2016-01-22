@@ -52,10 +52,10 @@ public abstract class BaseActivity extends AppCompatActivity implements
     protected NetStateReceiver netStateReceiver = null;
     protected AddPhotoPopWindow popupWindow = null;
     private boolean _isVisible;
-    private WaitDialog _waitDialog;
-    protected DataManagerNew dataManager;
-    protected ImageShow imageShow;
-    protected AppManager appManager;
+    private WaitDialog _waitDialog = null;
+    protected DataManagerNew dataManager = null;
+    protected ImageShow imageShow = null;
+    protected AppManager appManager = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
