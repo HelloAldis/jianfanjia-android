@@ -38,7 +38,8 @@ public class ProcessRecyclerViewAdapter extends BaseRecyclerViewAdapter<SiteProc
             holder.itemImgView.setSelected(true);
             holder.itemTitleView.setSelected(true);
         } else if (position == processIndex) {
-            holder.itemImgView.setPressed(true);
+            holder.itemImgView.setEnabled(false);
+            holder.itemTitleView.setSelected(true);
         } else {
 
         }
