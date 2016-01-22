@@ -80,7 +80,6 @@ public class MyGridViewAdapter extends BaseListAdapter<GridItem> {
 
                         @Override
                         public void onClick(View v) {
-                            // TODO Auto-generated method stub
                             if (position % 2 != 0) {
                                 listener.delete(position / 2);
                             }
