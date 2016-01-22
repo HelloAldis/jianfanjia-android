@@ -181,6 +181,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
         LogTool.d(TAG, "count=" + count + " sectionInfoStatus=" + sectionInfoStatus);
         if (!sectionInfoStatus.equals(Constant.FINISHED)) {
             mainHeadView.setRightTitleVisable(View.VISIBLE);
+            mainHeadView.setRigthTitleEnable(true);
             if (count < checkGridList.size() / 2) {
                 //设计师图片没上传完，不能验收
                 btn_confirm.setText(this.getResources().getString(
