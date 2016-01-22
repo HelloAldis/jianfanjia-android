@@ -265,7 +265,7 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
         });
         pullrefresh.setAdapter(myHandledRequirementAdapter);
         Paint paint = new Paint();
-        paint.setStrokeWidth(MyApplication.dip2px(getActivity(), 8));
+        paint.setStrokeWidth(MyApplication.dip2px(getActivity(), 10));
         paint.setColor(getResources().getColor(R.color.transparent));
         paint.setAntiAlias(true);
         pullrefresh.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).paint(paint).showLastDivider().build());
