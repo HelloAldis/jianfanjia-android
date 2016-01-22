@@ -18,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scaleType="centerCrop"
-        android:src="@drawable/icon_delete"
+        android:src="@mipmap/icon_check_delete"
         android:layout_alignParentRight="true"
         android:padding="@dimen/space_8"
         android:visibility="gone" />

@@ -10,7 +10,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.activity.my.CollectActivity;
 import com.jianfanjia.cn.designer.activity.my.CustomerServiceActivity;
 import com.jianfanjia.cn.designer.activity.my.MyProcessActivity;
 import com.jianfanjia.cn.designer.activity.my.NotifyActivity;
@@ -123,9 +122,6 @@ public class MyFragment extends BaseFragment {
         switch (v.getId()) {
             case R.id.notify_layout:
                 startActivity(NotifyActivity.class);
-                break;
-            case R.id.collect_layout:
-                startActivity(CollectActivity.class);
                 break;
             case R.id.my_designer_layout:
                 break;

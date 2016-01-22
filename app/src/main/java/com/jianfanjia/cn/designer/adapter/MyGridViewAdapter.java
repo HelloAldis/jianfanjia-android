@@ -20,10 +20,6 @@ public class MyGridViewAdapter extends BaseListAdapter<GridItem> {
     private boolean isCanDelete;
     private ItemClickCallBack itemClickCallBack;
 
-    public MyGridViewAdapter(Context context, List<GridItem> list) {
-        super(context, list);
-    }
-
     public MyGridViewAdapter(Context context, List<GridItem> list,
                              UploadListener listener, ItemClickCallBack itemClickCallBack) {
         super(context, list);

@@ -57,7 +57,7 @@
     <application
         android:name="com.jianfanjia.cn.designer.application.MyApplication"
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
 
@@ -231,11 +231,6 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible" />
         <activity
-            android:name=".activity.requirement.MyDesignerActivity_"
-            android:label="@string/title_activity_my_designer"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
-        <activity
             android:name="com.jianfanjia.cn.designer.activity.NavigateActivity"
             android:label="@string/title_activity_navigate"
             android:screenOrientation="portrait" />
@@ -269,28 +264,10 @@
             android:name=".activity.requirement.PreviewRequirementActivity_"
             android:label="PreviewRequirementActivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.requirement.EditRequirementItemActivity_"
-            android:label="EditRequirementItemActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.requirement.EditRequirementLovestyleActivity_"
-            android:label="EditRequirementLovestyleActivity"
-            android:screenOrientation="portrait" />
+
 
         <service android:name="com.jianfanjia.cn.designer.service.UpdateService" />
 
-        <activity
-            android:name="com.jianfanjia.cn.designer.activity.home.DesignerInfoActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.jianfanjia.cn.designer.activity.home.DesignerCaseInfoActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.jianfanjia.cn.designer.activity.requirement.AppointDesignerActivity"
-            android:screenOrientation="portrait" />
         <activity
             android:name="com.jianfanjia.cn.designer.activity.requirement.PingjiaActivity"
             android:screenOrientation="portrait" />
@@ -320,21 +297,10 @@
             android:label="@string/title_activity_detail_price"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.jianfanjia.cn.designer.activity.requirement.ReplaceDesignerActivity"
-            android:label="@string/title_activity_replace_designer"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".activity.my.EditCityActivity_"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.soundcloud.android.crop.CropImageActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.jianfanjia.cn.designer.activity.my.CollectActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.jianfanjia.cn.designer.activity.beautifulpic.PreviewDecorationActivity"
-            android:label=""
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.NewUserCollectLoveStyleActivity_"
@@ -349,15 +315,9 @@
             android:name=".activity.NewUserGuideActivity_"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.jianfanjia.cn.designer.activity.requirement.PublishRequirementActivity_"
-            android:screenOrientation="portrait"
-            />
-        <activity
             android:name=".activity.requirement.PreviewBusinessRequirementActivity_"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.requirement.UpdateRequirementActivity_"
-            android:screenOrientation="portrait" />
+
         <activity
             android:name=".activity.my.BindingPhoneActivity_"
             android:screenOrientation="portrait" />

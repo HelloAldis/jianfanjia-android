@@ -153,7 +153,7 @@ public class Constant {
             + R.mipmap.icon_default_head;
 
     public static final String DEFALUT_ADD_PIC = DEFALUT_PIC_HEAD
-            + R.mipmap.icon_add;
+            + R.mipmap.btn_icon_home_add;
 
     public static final String DEFALUT_PIC = DEFALUT_PIC_HEAD
             + R.mipmap.pix_default;
