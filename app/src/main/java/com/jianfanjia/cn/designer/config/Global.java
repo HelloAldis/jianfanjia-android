@@ -44,6 +44,7 @@ public class Global {
     public static final String DECORATION_ID = "decoration_id";
     public static final String CELL = "cell";
     public static final String PHONE = "phone";
+    public static final String POSITION = "position";
 
     public static final String TOPIC_PLAN = "0";//方案评论
     public static final String TOPIC_NODE = "1";//节点评论

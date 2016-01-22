@@ -46,6 +46,7 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
     private String requirementid = null;
 //    private String designerid = null;
     private RequirementInfo requirementInfo = null;
+    private int itemPosition = -1;
 
     @Override
     public void initView() {
@@ -139,6 +140,7 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
     @Override
     public void onCallBack(int position, int pos) {
         LogTool.d(TAG, "position:" + position + "  pos:" + pos);
+        itemPosition = position + 1;
         PlanInfo planInfo = designerPlanList.get(position);
         LogTool.d(TAG, "planInfo:" + planInfo);
         String planid = planInfo.get_id();
@@ -149,6 +151,7 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
     @Override
     public void onItemCallBack(int position, int itemType) {
         LogTool.d(TAG, "itemType:" + itemType);
+        itemPosition = position + 1;
         PlanInfo planInfo = designerPlanList.get(position);
         LogTool.d(TAG, "planInfo:" + planInfo);
         String planid = planInfo.get_id();
@@ -176,6 +179,7 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
         Bundle planBundle = new Bundle();
         planBundle.putSerializable(Global.PLAN, planInfo);
         planBundle.putSerializable(Global.REQUIRE, requirement);
+        planBundle.putInt(Global.POSITION, itemPosition);
         startActivity(PreviewDesignerPlanActivity.class, planBundle);
     }
 
