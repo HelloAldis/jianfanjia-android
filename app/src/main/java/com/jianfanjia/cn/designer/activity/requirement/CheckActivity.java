@@ -179,6 +179,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 
     private void setConfimStatus() {
         int count = imageids.size();
+        LogTool.d(TAG, "count=" + count + " sectionInfoStatus=" + sectionInfoStatus);
         if (!sectionInfoStatus.equals(Constant.FINISHED)) {
             mainHeadView.setRightTitleVisable(View.VISIBLE);
             if (count < checkGridList.size() / 2) {
