@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.jianfanjia.cn.designer.cache.DataManagerNew;
 import com.jianfanjia.cn.designer.tools.ImageShow;
 
 import java.util.List;
@@ -21,12 +22,14 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Re
     protected List<T> list;
     protected LayoutInflater layoutInflater;
     protected ImageShow imageShow;
+    protected DataManagerNew dataManagerNew;
 
     public BaseRecyclerViewAdapter(Context context, List<T> list) {
         this.context = context;
         this.list = list;
         layoutInflater = LayoutInflater.from(context);
         imageShow = ImageShow.getImageShow();
+        dataManagerNew = DataManagerNew.getInstance();
     }
 
     public void add(T t) {
