@@ -75,43 +75,18 @@ public class Url_New {
     public String UPDATE_VERSION_URL = HTTPROOT
             + "device/designer_android_build_version";
     // --------------------------------------------------业主-----------------------------------------------------------
-    //业主获取移动端首页数据
-    public String HOME_PAGE_DISIGNERS = HTTPROOT + "home_page_designers";
-    //获取设计师信息主页
-    public String DESIGNER_HOME_PAGE = HTTPROOT + "designer_home_page";
-    //获取设计师作品
-    public String SEARCH_DESIGNER_PRODUCT = HTTPROOT + "search_designer_product";
-    //业主提交需求(post)
-    public String POST_REQUIREMENT = HTTPROOT + "user_add_requirement";
     // 业主获取需求
     public String REQUIREMENT = HTTPROOT + "user/requirement";
     //业主获取需求列表(Get)
     public String REQUIREMENT_LIST = HTTPROOT + "user_my_requirement_list";
     //业主更新装修需求(Post)
     public String REQUIREMENT_UPDATE = HTTPROOT + "user_update_requirement";
-    //业主获取自己可以预约的设计师列表(Post)
-    public String REQUIREMENT_ORDER_DESIGNER_LIST = HTTPROOT + "designers_user_can_order";
-    //业主获取我的意向设计师列表(Post)
-    public String FAVORITE_DESIGNER_LIST = HTTPROOT + "favorite/designer/list";
-    //业主添加设计师到意向列表（Post)
-    public String ADD_FAVORITE_DESIGNER = HTTPROOT + "favorite/designer/add";
-    //业主移除意向设计师列表的设计师(Post)
-    public String DELETE_FAVORITE_DESIGNER = HTTPROOT + "favorite/designer/delete";
-    //获取某个作品主页
-    public String PRODUCT_HOME_PAGE = HTTPROOT + "product_home_page";
     //业主预约量房
     public String USER_ORDER_DESIGNER = HTTPROOT + "user_order_designer";
-    //业主获取我预约的设计师
-    public String USER_ORDERD_DESIGNERS = HTTPROOT + "user_ordered_designers";
-    //业主更换预约了的设计师
-    public String USER_CHANGE_ORDERD_DESIGNER = HTTPROOT + "user_change_ordered_designer";
     //业主确认设计师已量房
     public String DESIGNER_HOUSE_CHECKED = HTTPROOT + "designer_house_checked";
     //业主评价设计师
     public String EVALUATE_DESIGNER_BY_USER = HTTPROOT + "user_evaluate_designer";
-
-    //业主选定方案
-    public String USER_CHOOSE_PLAN = HTTPROOT + "user/plan/final";
     //用户获取某个方案的信息
     public String ONE_PLAN_INFO = HTTPROOT + "one_plan";
     //用户获取合同
@@ -165,30 +140,6 @@ public class Url_New {
     // 业主确认对比验收完成
     public String CONFIRM_CHECK_DONE_BY_OWNER = HTTPROOT
             + "process/done_section";
-    //获取装修美图首页
-    public String GET_DECORATION_IMG = HTTPROOT
-            + "beautiful_image_homepage";
-    //搜索装修美图
-    public String SEARCH_DECORATION_IMG = HTTPROOT
-            + "search_beautiful_image";
-    //用户收藏作品
-    public String ADD_PRODUCT = HTTPROOT
-            + "favorite/product/add";
-    //用户获取收藏作品列表
-    public String GET_PRODUCT_LIST_BY_COLLECTED = HTTPROOT
-            + "favorite/product/list";
-    //用户删除收藏的作品
-    public String DELETE_PRODUCT_BY_USER = HTTPROOT
-            + "favorite/product/delete";
-    //用户收藏美图
-    public String ADD_BEAUTY_IMG = HTTPROOT
-            + "favorite/beautiful_image/add";
-    //用户获取收藏的装修美图列表
-    public String GET_BEAUTY_IMG_LIST_BY_USER = HTTPROOT
-            + "favorite/beautiful_image/list";
-    //用户删除收藏的装修美图
-    public String DELETE_BEAUTY_IMG_BY_USER = HTTPROOT
-            + "favorite/beautiful_image/delete";
     // ----------------------------------------------------设计师----------------------------------------------------------
     //设计师获取所有的需求列表
     public String GET_ALL_REQUIREMENT_LIST = HTTPROOT + "designer_get_user_requirements";
