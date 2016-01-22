@@ -44,7 +44,11 @@ public class MySiteAdapter extends BaseRecyclerViewAdapter<Process> {
     public void bindView(RecyclerViewHolderBase viewHolder, final int position, List<Process> list) {
         Process process = list.get(position);
         MySiteViewHolder holder = (MySiteViewHolder) viewHolder;
-        imageShow.displayImageHeadWidthThumnailImage(context, process.getUser().getImageid(), holder.itemHeadView);
+        if (!TextUtils.isEmpty(process.getUser().getImageid())) {
+            imageShow.displayImageHeadWidthThumnailImage(context, process.getUser().getImageid(), holder.itemHeadView);
+        } else {
+            imageShow.displayLocalImage(dataManagerNew.getUserImagePath(),holder.itemHeadView);
+        }
         holder.itemCellView.setText(process.getCell());
         String itemNode = MyApplication.getInstance()
                 .getStringById(process.getGoing_on());

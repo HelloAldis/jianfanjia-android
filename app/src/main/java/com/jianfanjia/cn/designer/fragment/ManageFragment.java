@@ -111,7 +111,6 @@ public class ManageFragment extends BaseFragment implements PullToRefreshBase.On
         }
     }
 
-
     private void getProcessList() {
         JianFanJiaClient.get_Process_List(getActivity(), new ApiUiUpdateListener() {
             @Override
