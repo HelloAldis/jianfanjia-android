@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +25,7 @@ import com.jianfanjia.cn.designer.activity.requirement.PingJiaInfoActivity;
 import com.jianfanjia.cn.designer.activity.requirement.PreviewBusinessRequirementActivity_;
 import com.jianfanjia.cn.designer.activity.requirement.PreviewRequirementActivity_;
 import com.jianfanjia.cn.designer.adapter.MyHandledRequirementAdapter;
+import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.base.BaseAnnotationFragment;
 import com.jianfanjia.cn.designer.bean.RequirementInfo;
 import com.jianfanjia.cn.designer.bean.RequirementList;
@@ -265,13 +265,8 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
         });
         pullrefresh.setAdapter(myHandledRequirementAdapter);
         Paint paint = new Paint();
-<<<<<<< HEAD
         paint.setStrokeWidth(MyApplication.dip2px(getActivity(), 8));
         paint.setColor(getResources().getColor(R.color.transparent));
-=======
-        paint.setStrokeWidth(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getResources().getDisplayMetrics()));
-        paint.setAlpha(0);
->>>>>>> 8244cd7a5951aaf52101710b5171c94bc28a002e
         paint.setAntiAlias(true);
         pullrefresh.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).paint(paint).showLastDivider().build());
         LogTool.d(this.getClass().getName(), "initRecycle item count =" + myHandledRequirementAdapter.getItemCount());
