@@ -17,14 +17,14 @@
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="vertical">
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:paddingBottom="@dimen/space_8"
-            android:paddingTop="@dimen/space_8">
+            android:paddingBottom="@dimen/space_10"
+            android:paddingTop="@dimen/space_10">
 
             <View
                 style="@style/divier_line"
@@ -53,8 +53,7 @@
                     android:id="@+id/act_edit_req_city_content"
                     style="@style/style_edit_req_content"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                     />
+                    android:layout_centerVertical="true" />
             </RelativeLayout>
 
             <View
@@ -136,7 +135,7 @@
 
             <View
                 style="@style/divier_line"
-                android:layout_marginTop="@dimen/space_8"
+                android:layout_marginTop="@dimen/space_10"
                 android:background="@color/horzontal_line_color" />
 
             <RelativeLayout
@@ -197,7 +196,6 @@
                     android:layout_centerVertical="true"
                     android:text="@string/str_decoratebudget" />
 
-
                 <TextView
                     android:id="@+id/act_edit_req_decoratebudget_content"
                     android:layout_width="wrap_content"
@@ -227,10 +225,6 @@
                 style="@style/divier_line"
                 android:background="@color/horzontal_line_color" />
 
-            <View
-                style="@style/divier_line"
-                android:background="@color/horzontal_line_color" />
-
             <RelativeLayout
                 android:id="@+id/act_edit_req_decoratetype"
                 style="@style/my_list_item_layout_style"
@@ -249,8 +243,7 @@
                     android:id="@+id/act_edit_req_decoratetype_content"
                     style="@style/style_edit_req_content"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    />
+                    android:layout_centerVertical="true" />
             </RelativeLayout>
 
             <View
@@ -275,8 +268,7 @@
                     android:id="@+id/act_edit_req_work_type_content"
                     style="@style/style_edit_req_content"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    />
+                    android:layout_centerVertical="true" />
             </RelativeLayout>
 
             <View
@@ -285,7 +277,7 @@
 
             <View
                 style="@style/divier_line"
-                android:layout_marginTop="@dimen/space_8"
+                android:layout_marginTop="@dimen/space_10"
                 android:background="@color/horzontal_line_color" />
 
             <RelativeLayout
@@ -306,8 +298,7 @@
                     android:id="@+id/act_edit_req_lovestyle_content"
                     style="@style/style_edit_req_content"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    />
+                    android:layout_centerVertical="true" />
             </RelativeLayout>
 
             <View
@@ -332,8 +323,7 @@
                     android:id="@+id/act_edit_req_lovedesistyle_content"
                     style="@style/style_edit_req_content"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    />
+                    android:layout_centerVertical="true" />
             </RelativeLayout>
 
             <View
@@ -358,8 +348,7 @@
                     android:id="@+id/act_edit_req_lovedesisex_content"
                     style="@style/style_edit_req_content"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    />
+                    android:layout_centerVertical="true" />
             </RelativeLayout>
 
             <View
