@@ -52,7 +52,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
                     android:text="@string/show_pic"
-                    android:textColor="@color/black_color" />
+                    android:textColor="@color/light_black_color" />
 
                 <TextView
                     style="@style/listview_item_text_style_middle"
@@ -61,7 +61,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
                     android:text="@string/upload_pic"
-                    android:textColor="@color/black_color" />
+                    android:textColor="@color/light_black_color" />
             </LinearLayout>
 
             <com.jianfanjia.cn.designer.view.MyGridView
