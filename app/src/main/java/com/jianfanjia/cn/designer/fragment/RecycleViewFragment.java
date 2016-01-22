@@ -163,7 +163,6 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-
         if (getUserVisibleHint()) {
             isVisiable = true;
             onVisible();
@@ -393,7 +392,7 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
                 makeTextShort(error_msg);
                 hideWaitDialog();
                 pullrefresh.onRefreshComplete();
-                if(!mHasLoadedOnce){
+                if (!mHasLoadedOnce) {
                     errorLayout.setVisibility(View.VISIBLE);
                     emptyLayout.setVisibility(View.GONE);
                 }
@@ -432,7 +431,6 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
                 }
                 break;
         }
-
     }
 
     @Override
