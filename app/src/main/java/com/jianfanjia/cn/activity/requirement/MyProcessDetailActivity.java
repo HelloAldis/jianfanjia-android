@@ -295,7 +295,13 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                             + DateFormatTool.covertLongToString(sectionInfos
                             .get(i).getEnd_at(), "M.dd"));
                 }
-                if (!sectionInfos.get(i).getStatus().equals(Constant.NO_START)) {
+                if (sectionInfos.get(i).getStatus().equals(Constant.NO_START)) {
+                    int drawableId = getApplication().getResources()
+                            .getIdentifier("icon_home_normal" + (i + 1),
+                                    "mipmap",
+                                    getApplication().getPackageName());
+                    viewPagerItem.setResId(drawableId);
+                } else if (sectionInfos.get(i).getStatus().equals(Constant.FINISHED)) {
                     int drawableId = getApplication().getResources()
                             .getIdentifier("icon_home_checked" + (i + 1),
                                     "mipmap",
@@ -303,7 +309,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                     viewPagerItem.setResId(drawableId);
                 } else {
                     int drawableId = getApplication().getResources()
-                            .getIdentifier("icon_home_normal" + (i + 1),
+                            .getIdentifier("icon_home_normal_" + (i + 1),
                                     "mipmap",
                                     getApplication().getPackageName());
                     viewPagerItem.setResId(drawableId);
@@ -317,7 +323,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
         sectionItemAdapter = new SectionItemAdapter(getApplication(),
                 currentList, sectionInfos, this);
         detailNodeListView.setAdapter(sectionItemAdapter);
-        UiHelper.setLayoutAnim(this,detailNodeListView.getRefreshableView());
+        UiHelper.setLayoutAnim(this, detailNodeListView.getRefreshableView());
         detailNodeListView.setFocusable(false);
         detailNodeListView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -507,7 +513,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                     LogTool.d(TAG, "uri:" + uri);
                     if (null != uri) {
                         Bitmap imageBitmap = ImageUtil.getImage(ImageUtil
-                                .getImagePath(this,uri));
+                                .getImagePath(this, uri));
                         if (null != imageBitmap) {
                             upload_image(imageBitmap);
                         }

@@ -26,7 +26,7 @@ import com.jianfanjia.cn.tools.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SectionItemAdapter extends BaseAdapter{
+public class SectionItemAdapter extends BaseAdapter {
     private static final int IMG_COUNT = 9;
     private static final int CHECK_VIEW = 0;
     private static final int SECTION_ITME_VIEW = 1;
@@ -52,7 +52,7 @@ public class SectionItemAdapter extends BaseAdapter{
         setSectionInfoList(showSectionInfoList, position);
     }
 
-    public void setSectionInfoList(List<SectionInfo> sectionInfos,int position) {
+    public void setSectionInfoList(List<SectionInfo> sectionInfos, int position) {
         if (sectionInfos != null) {
             showSectionInfoList.clear();
             showSectionInfoList.addAll(sectionInfos);
@@ -349,7 +349,7 @@ public class SectionItemAdapter extends BaseAdapter{
                     viewHolderf.smallcloseLayout
                             .setBackgroundResource(R.mipmap.list_item_text_bg1);
                 }
-                if(!section_status.equals(Constant.NO_START)){
+                if (!section_status.equals(Constant.NO_START)) {
                     if (sectionItemInfo.isOpen()) {
                         viewHolderf.bigOpenLayout.setVisibility(View.VISIBLE);
                         viewHolderf.smallcloseLayout.setVisibility(View.GONE);
@@ -357,7 +357,7 @@ public class SectionItemAdapter extends BaseAdapter{
                         viewHolderf.bigOpenLayout.setVisibility(View.GONE);
                         viewHolderf.smallcloseLayout.setVisibility(View.VISIBLE);
                     }
-                }else {
+                } else {
                     viewHolderf.bigOpenLayout.setVisibility(View.GONE);
                     viewHolderf.smallcloseLayout.setVisibility(View.VISIBLE);
                 }
@@ -387,7 +387,7 @@ public class SectionItemAdapter extends BaseAdapter{
                         });
                         break;
                     case Constant.YANQI_BE_DOING:
-                        LogTool.d(this.getClass().getName(),"this section is yanqi_doing");
+                        LogTool.d(this.getClass().getName(), "this section is yanqi_doing");
                         viewHolderf.openDelay.setTextColor(context.getResources().getColor(R.color.grey_color));
                         viewHolderf.openDelay.setText(context.getResources().getText(R.string.site_example_node_delay_doing));
                         viewHolderf.openDelay.setEnabled(false);
