@@ -125,6 +125,7 @@ public class Constant {
     public static final String CAIGOU_NOTIFY = "1";// 采购提醒
     public static final String FUKUAN_NOTIFY = "2";// 付款提醒
     public static final String CONFIRM_CHECK_NOTIFY = "3";// 确认验收提醒
+    public static final String CONTRACT_NOTIFY = "4";// 确认合同提醒
 
     // 延期提醒状态,工序状态
     public static final String NO_START = "0";// 未开工
