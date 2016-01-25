@@ -33,30 +33,27 @@ public class MyOwnerFragment extends BaseAnnotationFragment {
     protected MainHeadView mainHeadView;
 
     @AfterViews
-    protected void initAnnotationView(){
+    protected void initAnnotationView() {
         initHeadView();
         initViewPagerAndTab();
     }
 
-    protected void initHeadView(){
+    protected void initHeadView() {
         mainHeadView.setBackLayoutVisable(View.GONE);
         mainHeadView.setMianTitle(getString(R.string.my_ower));
-
+        mainHeadView.setBackgroundTransparent();
+        mainHeadView.setDividerVisable(View.GONE);
     }
 
-    protected void initViewPagerAndTab(){
-//        tabLayout.setupWithViewPager(viewPager);
+    protected void initViewPagerAndTab() {
         viewPager.setAdapter(new MyOwnerFragmentPagerAdapter(getFragmentManager()));
         viewPager.setOffscreenPageLimit(1);
         tabLayout.setupWithViewPager(viewPager);
-
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
     }
-
 
 }

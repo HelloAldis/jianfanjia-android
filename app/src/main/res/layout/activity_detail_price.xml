@@ -73,6 +73,16 @@
                 android:layout_marginRight="10dip"
                 android:textColor="@color/home_page_text_color"
                 android:textSize="@dimen/text_size_14" />
+
+            <TextView
+                android:id="@+id/project_design_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dip"
+                android:layout_marginLeft="10dip"
+                android:layout_marginRight="10dip"
+                android:textColor="@color/home_page_text_color"
+                android:textSize="@dimen/text_size_14" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
