@@ -123,11 +123,8 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
         mainHeadView = (MainHeadView) findViewById(R.id.my_prieview_head_layout);
         mainHeadView.setBackListener(this);
         mainHeadView.setRightTextListener(this);
-        if (itemPosition != 0) {
-            mainHeadView.setMianTitle(getResources().getString(R.string.designerPlanText) + itemPosition);
-        } else {
-            mainHeadView.setMianTitle(getResources().getString(R.string.designerPlan));
-        }
+        mainHeadView.setMianTitle(itemPosition != 0 ? getResources().getString(R.string.designerPlanText) + itemPosition
+                : getResources().getString(R.string.designerPlan));
         mainHeadView.setRightTitle(getResources().getString(R.string.detailPrice));
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
         mainHeadView.setRightTitleVisable(View.VISIBLE);
