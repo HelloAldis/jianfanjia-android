@@ -128,7 +128,8 @@
             android:id="@+id/contractLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:background="@drawable/my_item_layout_bg_selector">
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -159,7 +160,8 @@
             android:id="@+id/planLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:background="@drawable/my_item_layout_bg_selector">
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -190,7 +192,8 @@
             android:id="@+id/gotoLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:background="@drawable/my_item_layout_bg_selector">
 
             <RelativeLayout
                 android:layout_width="wrap_content"
