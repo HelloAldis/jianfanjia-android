@@ -37,12 +37,17 @@ public class ProcessRecyclerViewAdapter extends BaseRecyclerViewAdapter<SiteProc
         ProcessViewHolder holder = (ProcessViewHolder) viewHolder;
         holder.itemImgView.setImageResource(item.getRes());
         holder.itemTitleView.setText(item.getTitle());
+        if (position == list.size() - 1) {
+            holder.lineView.setVisibility(View.GONE);
+        } else {
+            holder.lineView.setVisibility(View.VISIBLE);
+        }
+
         if (position < processIndex) {
             holder.itemImgView.setSelected(true);
             holder.itemTitleView.setSelected(true);
         } else if (position == processIndex) {
             holder.itemImgView.setEnabled(false);
-            holder.itemTitleView.setSelected(true);
         } else {
 
         }
@@ -71,6 +76,7 @@ public class ProcessRecyclerViewAdapter extends BaseRecyclerViewAdapter<SiteProc
     private static class ProcessViewHolder extends RecyclerViewHolderBase {
         public ImageView itemImgView;
         public TextView itemTitleView;
+        public View lineView;
 
         public ProcessViewHolder(View itemView) {
             super(itemView);
@@ -78,6 +84,8 @@ public class ProcessRecyclerViewAdapter extends BaseRecyclerViewAdapter<SiteProc
                     .findViewById(R.id.list_item_process_img);
             itemTitleView = (TextView) itemView
                     .findViewById(R.id.list_item_process_text);
+            lineView = (View) itemView
+                    .findViewById(R.id.line_view);
         }
     }
 }
