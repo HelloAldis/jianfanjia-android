@@ -4,9 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.DatePicker;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
 import com.jianfanjia.cn.designer.Event.UpdateEvent;
 import com.jianfanjia.cn.designer.R;
@@ -17,6 +15,7 @@ import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.designer.tools.LogTool;
 import com.jianfanjia.cn.designer.tools.StringUtils;
 import com.jianfanjia.cn.designer.tools.UiHelper;
+import com.jianfanjia.cn.designer.view.DateTimePicker;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -37,16 +36,19 @@ import de.greenrobot.event.EventBus;
 public class SettingMeasureDateActivity extends BaseAnnotationActivity {
 
     @ViewById(R.id.datePicker)
-    protected DatePicker datePicker;
+    protected DateTimePicker datePicker;
 
-    @ViewById(R.id.timePicker)
-    protected TimePicker timePicker;
+    @ViewById(R.id.timeTitle)
+    protected TextView timeTitleView;
 
     @ViewById(R.id.phone_login)
     protected TextView phoneLogin;
 
     private String phone;
     private String requirementid;
+
+    private Calendar chooseDate = Calendar.getInstance();
+    private Calendar currentDate = Calendar.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,15 +64,29 @@ public class SettingMeasureDateActivity extends BaseAnnotationActivity {
 
     @AfterViews
     protected void initAnnotationView() {
-        Calendar cal = Calendar.getInstance();
-        cal.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH), 0, 0, 0);
-        long time = cal.getTimeInMillis();
-        datePicker.setMinDate(time);
-        timePicker.setIs24HourView(true);
+//        updateTitle(chooseDate);
+        datePicker.setOnDateTimeChangedListener(new DateTimePicker.OnDateTimeChangedListener() {
+            @Override
+            public void onDateTimeChanged(DateTimePicker view,
+                                          int year, int month, int day, int hour, int minute) {
+                chooseDate.set(year, month, day, hour, minute, 0);
 
+                LogTool.d(this.getClass().getName(),"month =" + month + " day =" + day + " hour =" + hour +" minite =" + minute);
+
+                /**
+                 * 更新日期
+                 */
+                updateTitle(chooseDate);
+            }
+        });
+        datePicker.setMinDate(currentDate);
         if (!TextUtils.isEmpty(phone)) {
             phoneLogin.setText(phone);
         }
+    }
+
+    protected void updateTitle(Calendar calendar) {
+        timeTitleView.setText(StringUtils.covertLongToStringHasMiniAndChinese(calendar.getTimeInMillis()));
     }
 
     @Click({R.id.head_back_layout, R.id.btn_confirm, R.id.btn_phone_layout})
@@ -80,9 +96,7 @@ public class SettingMeasureDateActivity extends BaseAnnotationActivity {
                 appManager.finishActivity(this);
                 break;
             case R.id.btn_confirm:
-                Calendar cal = Calendar.getInstance();
-                cal.set(datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth(), timePicker.getCurrentHour(), timePicker.getCurrentMinute(), 0);
-                long houseCheckTime = cal.getTimeInMillis();
+                long houseCheckTime = chooseDate.getTimeInMillis();
                 LogTool.d(this.getClass().getName(), StringUtils.covertLongToStringHasMini(houseCheckTime));
                 setHouseTime(requirementid, houseCheckTime);
                 break;

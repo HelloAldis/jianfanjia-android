@@ -13,7 +13,7 @@ public class DialogHelper {
 
     public static CommonDialog getPinterestDialogCancelable(Context context) {
         CommonDialog dialog = new CommonDialog(context, R.style.common_dialog);
-        dialog.setCanceledOnTouchOutside(false);
+        dialog.setCanceledOnTouchOutside(true);
         return dialog;
     }
 

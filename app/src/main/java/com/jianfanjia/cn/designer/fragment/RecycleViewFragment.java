@@ -290,6 +290,9 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
 
             @Override
             public void loadSuccess(Object data) {
+                if(refuseDialog != null){
+                    refuseDialog.dismiss();
+                }
                 initData();
             }
 
@@ -306,11 +309,11 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
     }
 
     String refuseMsg;
-
+    CommonDialog refuseDialog;
     private void showRefuseDialog(final String requirementid) {
-        CommonDialog dialog = DialogHelper
+        refuseDialog = DialogHelper
                 .getPinterestDialogCancelable(getActivity());
-        dialog.setTitle(getString(R.string.refuse_reason));
+        refuseDialog.setTitle(getString(R.string.refuse_reason));
         View contentView = LayoutInflater.from(_context).inflate(R.layout.dialog_refuse_requirement, null);
         RadioGroup radioGroup = (RadioGroup) contentView
                 .findViewById(R.id.refuse_radioGroup);
@@ -328,22 +331,22 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
                 }
             }
         });
-        dialog.setContent(contentView);
-        dialog.setPositiveButton(R.string.ok,
+        refuseDialog.setContent(contentView);
+        refuseDialog.setPositiveButton(R.string.ok,
                 new DialogInterface.OnClickListener() {
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
                         if (refuseMsg != null) {
                             refuseRequirement(requirementid, refuseMsg);
+                            dialog.dismiss();
                         } else {
-
+                            makeTextShort(getString(R.string.tip_choose_refuse_reason));
                         }
                     }
                 });
-        dialog.setNegativeButton(R.string.no, null);
-        dialog.show();
+        refuseDialog.setNegativeButton(R.string.no, null);
+        refuseDialog.show();
     }
 
     private void responseRequirement(String requirementid, long houseCheckTime) {

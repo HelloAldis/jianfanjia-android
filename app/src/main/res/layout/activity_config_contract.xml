@@ -66,130 +66,172 @@
 
     </FrameLayout>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        >
 
         <LinearLayout
-            android:id="@+id/contractInfoLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/space_32"
-            android:layout_marginTop="@dimen/space_32"
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/durationContentLayout"
+                android:id="@+id/contractInfoLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="24dip"
-                android:layout_marginRight="24dip"
-                android:orientation="horizontal">
+                android:layout_marginBottom="@dimen/space_24"
+                android:layout_marginTop="@dimen/space_24"
+                android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/durationContentLayout"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/process_duration"
-                    android:textColor="@color/designer_info_text_color_bg"
-                    android:textSize="@dimen/text_size_14" />
+                    android:layout_marginLeft="24dip"
+                    android:layout_marginRight="24dip"
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/durationContent"
-                    android:layout_width="wrap_content"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/process_duration"
+                        android:textColor="@color/designer_info_text_color_bg"
+                        android:textSize="@dimen/text_size_14" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/durationContent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/process_duration_cont"
+                            android:textColor="@color/light_black_color"
+                            android:textSize="@dimen/text_size_14" />
+
+                        <TextView
+                            android:id="@+id/startTimeContent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/process_startTime_cont"
+                            android:textColor="@color/light_black_color"
+                            android:textSize="@dimen/text_size_14" />
+
+                        <TextView
+                            android:id="@+id/endTimeContent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/process_endTime_cont"
+                            android:textColor="@color/light_black_color"
+                            android:textSize="@dimen/text_size_14" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/totalPriceLayout"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/process_duration_cont"
-                    android:textColor="@color/light_black_color"
-                    android:textSize="@dimen/text_size_14" />
+                    android:layout_marginLeft="24dip"
+                    android:layout_marginRight="24dip"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/process_totalprice"
+                        android:textColor="@color/designer_info_text_color_bg"
+                        android:textSize="@dimen/text_size_14" />
+
+                    <TextView
+                        android:id="@+id/totalPriceContent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/process_totalprice_cont"
+                        android:textColor="@color/light_black_color"
+                        android:textSize="@dimen/text_size_14" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/workTypeLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="24dip"
+                    android:layout_marginRight="24dip"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/process_workType"
+                        android:textColor="@color/designer_info_text_color_bg"
+                        android:textSize="@dimen/text_size_14" />
+
+                    <TextView
+                        android:id="@+id/workTypeContent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/process_workType_cont"
+                        android:textColor="@color/light_black_color"
+                        android:textSize="@dimen/text_size_14" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/totalPriceLayout"
+                android:id="@+id/chooseDateLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="24dip"
-                android:layout_marginRight="24dip"
-                android:layout_marginTop="@dimen/space_8"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <View
+                    style="@style/divier_line"
+                    android:visibility="visible" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/process_totalprice"
-                    android:textColor="@color/designer_info_text_color_bg"
-                    android:textSize="@dimen/text_size_14" />
-
-                <TextView
-                    android:id="@+id/totalPriceContent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/process_totalprice_cont"
-                    android:textColor="@color/light_black_color"
-                    android:textSize="@dimen/text_size_14" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/workTypeLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="24dip"
-                android:layout_marginRight="24dip"
-                android:layout_marginTop="@dimen/space_8"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/process_workType"
-                    android:textColor="@color/designer_info_text_color_bg"
-                    android:textSize="@dimen/text_size_14" />
-
-                <TextView
-                    android:id="@+id/workTypeContent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/process_workType_cont"
-                    android:textColor="@color/light_black_color"
-                    android:textSize="@dimen/text_size_14" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/chooseDateLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            >
-
-            <View
-                style="@style/divier_line"
-                android:visibility="visible" />
-
-            <DatePicker
-                android:id="@+id/datePicker"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:calendarViewShown="false"
-                android:spinnersShown="true" />
-
-            <View style="@style/divier_line" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <Button
-                    android:id="@+id/btn_confirm"
-                    style="@style/button_login_style"
+                    android:id="@+id/timeTitle"
+                    android:layout_width="match_parent"
                     android:layout_height="@dimen/space_40"
-                    android:layout_gravity="center"
+                    android:layout_gravity="center_horizontal"
                     android:layout_marginLeft="@dimen/space_48"
                     android:layout_marginRight="@dimen/space_48"
-                    android:text="@string/confirm" />
+                    android:layout_marginTop="@dimen/space_16"
+                    android:background="@drawable/btn_grey_white_bg"
+                    android:gravity="center"
+                    android:textColor="@color/orange_color"
+                    android:textSize="@dimen/big_size" />
+
+                <DatePicker
+                    android:id="@+id/datePicker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:calendarViewShown="false"
+                    android:spinnersShown="true" />
+
+                <View style="@style/divier_line" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:id="@+id/btn_confirm"
+                        style="@style/button_login_style"
+                        android:layout_height="@dimen/space_40"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/space_48"
+                        android:layout_marginRight="@dimen/space_48"
+                        android:layout_marginTop="@dimen/space_24"
+                        android:layout_marginBottom="@dimen/space_24"
+                        android:text="@string/confirm" />
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+    </ScrollView>
 </LinearLayout>
 
 

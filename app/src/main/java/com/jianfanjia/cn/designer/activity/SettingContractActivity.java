@@ -3,6 +3,7 @@ package com.jianfanjia.cn.designer.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -49,11 +50,23 @@ public class SettingContractActivity extends BaseAnnotationActivity {
     @ViewById(R.id.durationContent)
     protected TextView durationContent;
 
+    @ViewById(R.id.startTimeContent)
+    protected TextView startTimeContent;
+
+    @ViewById(R.id.endTimeContent)
+    protected TextView endTimeContent;
+
+    @ViewById(R.id.timeTitle)
+    protected TextView titleTimeView;
+
     @ViewById(R.id.contractInfoLayout)
     protected LinearLayout contractInfoLayout;
 
     @ViewById(R.id.chooseDateLayout)
     protected LinearLayout chooseDateLayout;
+
+    @ViewById(R.id.head_center_title)
+    protected TextView titleHeadView;
 
     private RequirementInfo requirementInfo;
     private PlanInfo planInfo;
@@ -61,6 +74,9 @@ public class SettingContractActivity extends BaseAnnotationActivity {
     private int totalDuration;
     private float totalBudget;
     private String workType;
+    private Calendar startCalendar = Calendar.getInstance();//开工日期
+    private Calendar endCalendar = Calendar.getInstance();//竣工日期
+    private Calendar chooseCalendar = Calendar.getInstance();//选择日期
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,21 +100,51 @@ public class SettingContractActivity extends BaseAnnotationActivity {
 
     @AfterViews
     protected void initAnnotationView() {
-        Calendar cal = Calendar.getInstance();
-        cal.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH), 0, 0, 0);
-        long time = cal.getTimeInMillis();
-        datePicker.setMinDate(time);
 
-        decTypeContent.setText(String.format(getString(R.string.process_workType_cont), BusinessManager.convertWorktypeToShow(workType)));
-        totalPriceContent.setText(String.format(getString(R.string.process_totalprice_cont), StringUtils.digitUppercase(totalBudget), (int) totalBudget));
-        durationContent.setText(String.format(getString(R.string.process_duration_cont), totalDuration));
+        decTypeContent.setText(String.format(getString(R.string.process_workType_cont),
+                BusinessManager.convertWorktypeToShow(workType)));
+        totalPriceContent.setText(String.format(getString(R.string.process_totalprice_cont),
+                StringUtils.digitUppercase(totalBudget), (int) totalBudget));
+        durationContent.setText(String.format(getString(R.string.process_duration_cont),
+                totalDuration));
 
-        if(requirementInfo.getStatus().equals(Global.REQUIREMENT_STATUS4)){
+        if (requirementInfo.getStatus().equals(Global.REQUIREMENT_STATUS4)) {//设置开工日期
+            titleHeadView.setText(getString(R.string.str_setting_startdate));
 
-        }else{
+            startTimeContent.setText(String.format(getString(R.string.process_startTime_cont), "__", "__", "__"));
+            endTimeContent.setText(String.format(getString(R.string.process_endTime_cont), "__", "__", "__"));
+            startCalendar.add(Calendar.DAY_OF_MONTH,1);//开工日期必须从第二天开始算起
+            datePicker.setMinDate(startCalendar.getTimeInMillis());
+            datePicker.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
+            datePicker.init(startCalendar.get(Calendar.YEAR), startCalendar.get(Calendar.MONTH),
+                    startCalendar.get(Calendar.DAY_OF_MONTH), new DatePicker.OnDateChangedListener() {
+                        @Override
+                        public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                            chooseCalendar.set(year, monthOfYear, dayOfMonth, 0, 0, 0);
+                            updateTitle(chooseCalendar);
+                        }
+                    });
+            updateTitle(startCalendar);
+        } else {
+            titleHeadView.setText(getString(R.string.contract_profile));
+
             //已经设置了开工时间，就只展示合同
             chooseDateLayout.setVisibility(View.GONE);
+            startCalendar.setTimeInMillis(requirementInfo.getStart_at());
+            endCalendar.setTimeInMillis(startCalendar.getTimeInMillis());
+            endCalendar.add(Calendar.DAY_OF_MONTH, totalDuration);
+
+            startTimeContent.setText(String.format(getString(R.string.process_startTime_cont),
+                    startCalendar.get(Calendar.YEAR), startCalendar.get(Calendar.MONTH) + 1,
+                    startCalendar.get(Calendar.DAY_OF_MONTH)));
+            endTimeContent.setText(String.format(getString(R.string.process_endTime_cont),
+                    endCalendar.get(Calendar.YEAR), endCalendar.get(Calendar.MONTH) + 1,
+                    endCalendar.get(Calendar.DAY_OF_MONTH)));
         }
+    }
+
+    protected void updateTitle(Calendar calendar) {
+        titleTimeView.setText(StringUtils.covertLongToStringHasChinese(calendar.getTimeInMillis()));
     }
 
     @Click({R.id.head_back_layout, R.id.btn_confirm})
@@ -108,9 +154,7 @@ public class SettingContractActivity extends BaseAnnotationActivity {
                 appManager.finishActivity(this);
                 break;
             case R.id.btn_confirm:
-                Calendar cal = Calendar.getInstance();
-                cal.set(datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth(), 8, 0, 0);
-                long startTime = cal.getTimeInMillis();
+                long startTime = chooseCalendar.getTimeInMillis();
                 LogTool.d(this.getClass().getName(), StringUtils.covertLongToStringHasMini(startTime));
                 configStartTime(requirementid, startTime);
                 break;

@@ -78,19 +78,23 @@
             <TextView
                 android:id="@+id/phone_tip"
                 style="@style/listview_item_text_style_middle"
-                android:layout_width="240dp"
+                android:layout_width="match_parent"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/space_16"
                 android:gravity="left"
+                android:layout_marginLeft="@dimen/space_48"
+                android:layout_marginRight="@dimen/space_48"
                 android:text="@string/phone_tip"
                 android:textColor="@color/light_black_color" />
 
             <RelativeLayout
                 android:id="@+id/btn_phone_layout"
-                android:layout_width="240dp"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/space_40"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/space_24"
+                android:layout_marginLeft="@dimen/space_48"
+                android:layout_marginRight="@dimen/space_48"
                 android:background="@drawable/btn_orange_white_bg">
 
                 <ImageView
@@ -118,26 +122,25 @@
                 android:layout_marginTop="@dimen/space_16"
                 android:visibility="visible" />
 
-            <include
-                layout="@layout/commont_wheel"
+            <TextView
+                android:id="@+id/timeTitle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone" />
+                android:layout_height="@dimen/space_40"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:layout_marginLeft="@dimen/space_48"
+                android:layout_marginRight="@dimen/space_48"
+                android:background="@drawable/btn_grey_white_bg"
+                android:textColor="@color/orange_color"
+                android:textSize="@dimen/big_size"
+                android:layout_marginTop="@dimen/space_16"/>
 
-            <DatePicker
+            <com.jianfanjia.cn.designer.view.DateTimePicker
                 android:id="@+id/datePicker"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:calendarViewShown="false"
-                android:spinnersShown="true" />
-
-            <TimePicker
-                android:id="@+id/timePicker"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:timePickerMode="spinner" />
+                android:layout_marginTop="@dimen/space_16"
+                android:layout_gravity="center_horizontal"/>
 
             <View style="@style/divier_line" />
 
@@ -147,7 +150,7 @@
                 android:layout_height="@dimen/space_40"
                 android:layout_marginLeft="@dimen/space_48"
                 android:layout_marginRight="@dimen/space_48"
-                android:layout_marginTop="@dimen/space_16"
+                android:layout_marginTop="@dimen/space_48"
                 android:layout_marginBottom="@dimen/space_16"
                 android:text="@string/confirm" />
         </LinearLayout>

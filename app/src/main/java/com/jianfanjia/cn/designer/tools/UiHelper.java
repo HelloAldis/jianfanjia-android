@@ -22,12 +22,15 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.NumberPicker;
 import android.widget.RemoteViews;
 
-import com.jianfanjia.cn.designer.activity.MainActivity;
 import com.jianfanjia.cn.designer.R;
+import com.jianfanjia.cn.designer.activity.MainActivity;
 import com.jianfanjia.cn.designer.activity.my.NotifyActivity;
 import com.jianfanjia.cn.designer.activity.requirement.CheckActivity;
 import com.jianfanjia.cn.designer.bean.NotifyMessage;
@@ -39,8 +42,71 @@ import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.designer.service.UpdateService;
 
 import java.io.File;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UiHelper {
+
+    /**
+     * 调整FrameLayout大小
+     * @param tp
+     */
+    public static  void resizePikcer(FrameLayout tp){
+        List<NumberPicker> npList = findNumberPicker(tp);
+        for(NumberPicker np:npList){
+            resizeNumberPicker(np);
+        }
+    }
+
+    /**
+     * 得到viewGroup里面的numberpicker组件
+     * @param viewGroup
+     * @return
+     */
+    public static  List<NumberPicker> findNumberPicker(ViewGroup viewGroup){
+        List<NumberPicker> npList = new ArrayList<>();
+        View child = null;
+        if(null != viewGroup){
+            for(int i = 0; i < viewGroup.getChildCount(); i++){
+                child = viewGroup.getChildAt(i);
+                if(child instanceof NumberPicker){
+                    npList.add((NumberPicker)child);
+                }else if(child instanceof LinearLayout){
+                    List<NumberPicker> result = findNumberPicker((ViewGroup)child);
+                    if(result.size()>0){
+                        return result;
+                    }
+                }
+            }
+        }
+        return npList;
+    }
+
+    /*
+     * 调整numberpicker大小
+     */
+    public static void resizeNumberPicker(NumberPicker np){
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        params.setMargins(10, 0, 10, 0);
+        np.setLayoutParams(params);
+
+        np.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+        setNumberPickerDividerColor(np);
+    }
+
+    /**
+     * 反射设置numberPicker属性
+     * @param numberPicker
+     */
+    public static void setNumberPickerDividerColor(NumberPicker numberPicker) {
+        NumberPicker picker = numberPicker;
+        Field[] pickerFields = NumberPicker.class.getDeclaredFields();
+        for (Field pf : pickerFields) {
+            if(pf.getName().equals("mInputText")){
+            }
+        }
+    }
 
     public static void IntentToPhone(Context context,String phone){
         Intent intent=new Intent();

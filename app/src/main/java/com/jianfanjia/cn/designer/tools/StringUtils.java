@@ -42,6 +42,21 @@ public class StringUtils {
         }
     };
 
+    private final static ThreadLocal<SimpleDateFormat> dateFormater3 = new ThreadLocal<SimpleDateFormat>() {
+        @Override
+        protected SimpleDateFormat initialValue() {
+            return new SimpleDateFormat("yyyy年MM月dd日 HH:mm");
+        }
+    };
+
+    private final static ThreadLocal<SimpleDateFormat> dateFormater4 = new ThreadLocal<SimpleDateFormat>() {
+        @Override
+        protected SimpleDateFormat initialValue() {
+            return new SimpleDateFormat("yyyy年MM月dd日");
+        }
+    };
+
+
     /**
      * 灏嗗瓧绗︿覆杞綅鏃ユ湡绫诲瀷
      *
@@ -419,9 +434,19 @@ public class StringUtils {
         return dateFormater2.get().format(date);
     }
 
+    public static String covertLongToStringHasChinese(long times) {
+        Date date = new Date(times);
+        return dateFormater4.get().format(date);
+    }
+
     public static String covertLongToStringHasMini(long times) {
         Date date = new Date(times);
         return dateFormater.get().format(date);
+    }
+
+    public static String covertLongToStringHasMiniAndChinese(long times) {
+        Date date = new Date(times);
+        return dateFormater3.get().format(date);
     }
 
     /**

@@ -323,16 +323,18 @@
     <string name="refuse_msg1">时间忙，接不过来</string>
     <string name="refuse_msg2">距离太远，交通不方便</string>
     <string name="refuse_msg3">其他</string>
-    <string name="refuse_tip">PS:以下收集的信息，将不会向业主展示，麻烦您耐心选择拒绝接单原因，以便我们的合作更紧密</string>
+    <string name="refuse_tip">PS：以下收集的信息，将不会向业主展示，麻烦您耐心选择拒绝接单原因，以便我们的合作更紧密。</string>
     <string name="refuse_reason">拒绝接单原因</string>
     <string name="str_setting_startdate">设置开工日期</string>
     <string name="contract_profile">合同概况</string>
     <string name="process_duration">工程期限：</string>
-    <string name="process_duration_cont">总工期__%1$d__天，开工日期__年__月__日，竣工日期__年__月__日。</string>
+    <string name="process_duration_cont">总工期：%1$d天</string>
+    <string name="process_startTime_cont">开工日期：%1$s年%2$s月%3$s日</string>
+    <string name="process_endTime_cont">竣工日期：%1$s年%2$s月%3$s日</string>
     <string name="process_totalprice">工程价款：</string>
-    <string name="process_totalprice_cont">本工程装修总结为人民币（大写）__%1$s__元（￥__%2$d__元）</string>
+    <string name="process_totalprice_cont">本工程装修总价为人民币（大写）%1$s（￥%2$d元）</string>
     <string name="process_workType">承包方式：</string>
-    <string name="process_workType_cont">__%1$s__（清包、半包、全包）</string>
+    <string name="process_workType_cont">%1$s（清包、半包、全包）</string>
     <string name="tip_no_unhandle">您暂时没有待处理的需求</string>
     <string name="tip_handled">您暂时没有处理中的需求</string>
     <string name="tip_already_handle">您暂时没有已处理的需求</string>
@@ -340,4 +342,5 @@
     <string name="reminder_content">如您资料完善程度高，系统将会优先将您推送给业主</string>
     <string name="process_tip">由于您的工地还没有开工，请即时查看需求动态，如您想查看装修流程，我们已精心为您准备了工地模板</string>
     <string name="process_tip_text">点击查看工地模板></string>
+    <string name="tip_choose_refuse_reason">请选择拒绝接单原因</string>
 </resources>
