@@ -131,7 +131,6 @@ public class ManageFragment extends BaseFragment implements PullToRefreshBase.On
                         public void click(int position, int itemType) {
                             Process process = processList.get(position);
                             processId = process.get_id();
-                            itemPosition = position + 1;
                             LogTool.d(TAG, "processId:" + processId + "  itemPosition:" + itemPosition);
                             switch (itemType) {
                                 case ITEM_PRIVIEW:
@@ -157,7 +156,6 @@ public class ManageFragment extends BaseFragment implements PullToRefreshBase.On
                                     Bundle planBundle = new Bundle();
                                     planBundle.putSerializable(Global.PLAN, process.getPlan());
                                     planBundle.putSerializable(Global.REQUIRE, process.getRequirement());
-                                    planBundle.putInt(Global.POSITION, itemPosition);
                                     viewPlanIntent.putExtras(planBundle);
                                     startActivity(viewPlanIntent);
                                     break;
