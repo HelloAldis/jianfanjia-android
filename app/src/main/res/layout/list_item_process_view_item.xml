@@ -9,32 +9,36 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true">
 
-        <ImageView
-            android:id="@+id/list_item_process_img"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_centerVertical="true"
-            android:layout_marginBottom="@dimen/space_10"
-            android:scaleType="centerCrop" />
+        <LinearLayout
+            android:id="@+id/list_item_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_10"
+            android:orientation="horizontal">
 
-        <View
-            android:id="@+id/line_view"
-            android:layout_width="30dp"
-            android:layout_height="1dp"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@id/list_item_process_img"
-            android:background="@color/light_white_color" />
+            <ImageView
+                android:id="@+id/list_item_process_img"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_vertical"
+                android:scaleType="centerCrop" />
+
+            <View
+                android:id="@+id/line_view"
+                android:layout_width="30dp"
+                android:layout_height="1dp"
+                android:layout_gravity="center_vertical"
+                android:background="@color/light_white_color" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/list_item_process_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/list_item_process_img"
+            android:layout_below="@id/list_item_layout"
             android:layout_marginLeft="@dimen/space_10"
-            android:layout_marginTop="@dimen/space_10"
+            android:layout_marginTop="@dimen/space_5"
             android:textColor="@color/font_style_colors" />
-
     </RelativeLayout>
-
 
 </RelativeLayout>
