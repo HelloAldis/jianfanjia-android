@@ -42,7 +42,6 @@ public class ProcessRecyclerViewAdapter extends BaseRecyclerViewAdapter<SiteProc
         } else {
             holder.lineView.setVisibility(View.VISIBLE);
         }
-
         if (position < processIndex) {
             holder.itemImgView.setSelected(true);
             holder.itemTitleView.setSelected(true);
@@ -85,7 +84,7 @@ public class ProcessRecyclerViewAdapter extends BaseRecyclerViewAdapter<SiteProc
                     .findViewById(R.id.list_item_process_img);
             itemTitleView = (TextView) itemView
                     .findViewById(R.id.list_item_process_text);
-            lineView = (View) itemView
+            lineView = itemView
                     .findViewById(R.id.line_view);
         }
     }
