@@ -40,6 +40,7 @@ public class RequirementInfo implements Serializable {
     private Evaluation evaluation;
     private long create_at;
     private long last_status_update_time;
+    private long start_at;
     private String family_description;
     private String status;
     private List<String> order_designerids;
@@ -317,5 +318,13 @@ public class RequirementInfo implements Serializable {
 
     public void setEvaluation(Evaluation evaluation) {
         this.evaluation = evaluation;
+    }
+
+    public long getStart_at() {
+        return start_at;
+    }
+
+    public void setStart_at(long start_at) {
+        this.start_at = start_at;
     }
 }
