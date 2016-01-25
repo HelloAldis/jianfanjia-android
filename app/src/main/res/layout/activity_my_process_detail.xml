@@ -21,9 +21,9 @@
             android:layout_width="@dimen/space_64"
             android:layout_height="match_parent"
             android:layout_gravity="right|center_vertical"
-            android:paddingRight="@dimen/space_14"
+            android:layout_marginBottom="1px"
             android:background="@drawable/common_head_back_bg_selector"
-            android:layout_marginBottom="1px">
+            android:paddingRight="@dimen/space_14">
 
             <ImageView
                 android:id="@+id/head_notification"
@@ -59,7 +59,7 @@
             android:id="@+id/lineView"
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:layout_marginLeft="45dp"
+            android:layout_marginLeft="30dp"
             android:background="@color/line_color" />
 
         <RelativeLayout
@@ -72,7 +72,7 @@
                 android:id="@+id/process__listview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="33dp"
+                android:layout_marginLeft="18dp"
                 android:cacheColorHint="#ffffff"
                 android:clipToPadding="false"
                 android:divider="@null"
