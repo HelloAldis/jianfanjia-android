@@ -291,18 +291,26 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                             + DateFormatTool.covertLongToString(sectionInfos
                             .get(i).getEnd_at(), "M.dd"));
                 }
-                if (!sectionInfos.get(i).getStatus().equals(Constant.NO_START)) {
+                if (sectionInfos.get(i).getStatus().equals(Constant.NO_START)) {
+                    int drawableId = getApplication().getResources()
+                            .getIdentifier("icon_home_normal" + (i + 1),
+                                    "mipmap",
+                                    getApplication().getPackageName());
+                    viewPagerItem.setResId(drawableId);
+                } else if (sectionInfos.get(i).getStatus().equals(Constant.DOING)) {
+                    int drawableId = getApplication().getResources()
+                            .getIdentifier("icon_home_normal_" + (i + 1),
+                                    "mipmap",
+                                    getApplication().getPackageName());
+                    viewPagerItem.setResId(drawableId);
+                } else if (sectionInfos.get(i).getStatus().equals(Constant.FINISHED)) {
                     int drawableId = getApplication().getResources()
                             .getIdentifier("icon_home_checked" + (i + 1),
                                     "mipmap",
                                     getApplication().getPackageName());
                     viewPagerItem.setResId(drawableId);
                 } else {
-                    int drawableId = getApplication().getResources()
-                            .getIdentifier("icon_home_normal" + (i + 1),
-                                    "mipmap",
-                                    getApplication().getPackageName());
-                    viewPagerItem.setResId(drawableId);
+
                 }
             }
             sectionViewPageAdapter.notifyDataSetChanged();
