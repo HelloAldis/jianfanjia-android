@@ -18,6 +18,7 @@ import com.jianfanjia.cn.designer.bean.Process;
 import com.jianfanjia.cn.designer.bean.SiteProcessItem;
 import com.jianfanjia.cn.designer.fragment.ManageFragment;
 import com.jianfanjia.cn.designer.interf.ClickCallBack;
+import com.jianfanjia.cn.designer.interf.OnItemClickListener;
 import com.jianfanjia.cn.designer.tools.LogTool;
 import com.jianfanjia.cn.designer.tools.StringUtils;
 
@@ -47,7 +48,7 @@ public class MySiteAdapter extends BaseRecyclerViewAdapter<Process> {
         if (!TextUtils.isEmpty(process.getUser().getImageid())) {
             imageShow.displayImageHeadWidthThumnailImage(context, process.getUser().getImageid(), holder.itemHeadView);
         } else {
-            imageShow.displayLocalImage(dataManagerNew.getUserImagePath(),holder.itemHeadView);
+            imageShow.displayLocalImage(dataManagerNew.getUserImagePath(), holder.itemHeadView);
         }
         holder.itemCellView.setText(process.getCell());
         String itemNode = MyApplication.getInstance()
@@ -65,30 +66,45 @@ public class MySiteAdapter extends BaseRecyclerViewAdapter<Process> {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         holder.item_process_listview.setLayoutManager(linearLayoutManager);
-        ProcessRecyclerViewAdapter adapter = new ProcessRecyclerViewAdapter(context, siteProcessList, processIndex);
+        ProcessRecyclerViewAdapter adapter = new ProcessRecyclerViewAdapter(context, siteProcessList, processIndex, new OnItemClickListener() {
+            @Override
+            public void OnItemClick(int pos) {
+                if (null != callBack) {
+                    callBack.click(position, ManageFragment.ITEM_GOTOO_SITE);
+                }
+            }
+        });
         holder.item_process_listview.setAdapter(adapter);
         holder.ltm_req_baseinfo_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                callBack.click(position, ManageFragment.ITEM_PRIVIEW);
+                if (null != callBack) {
+                    callBack.click(position, ManageFragment.ITEM_PRIVIEW);
+                }
             }
         });
         holder.contractLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                callBack.click(position, ManageFragment.ITEM_CONTRACT);
+                if (null != callBack) {
+                    callBack.click(position, ManageFragment.ITEM_CONTRACT);
+                }
             }
         });
         holder.planLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                callBack.click(position, ManageFragment.ITEM_PLAN);
+                if (null != callBack) {
+                    callBack.click(position, ManageFragment.ITEM_PLAN);
+                }
             }
         });
         holder.gotoLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                callBack.click(position, ManageFragment.ITEM_GOTOO_SITE);
+                if (null != callBack) {
+                    callBack.click(position, ManageFragment.ITEM_GOTOO_SITE);
+                }
             }
         });
     }

@@ -10,6 +10,7 @@ import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.adapter.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.designer.adapter.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.designer.bean.SiteProcessItem;
+import com.jianfanjia.cn.designer.interf.OnItemClickListener;
 
 import java.util.List;
 
@@ -21,15 +22,17 @@ import java.util.List;
  */
 public class ProcessRecyclerViewAdapter extends BaseRecyclerViewAdapter<SiteProcessItem> {
     private static final String TAG = ProcessRecyclerViewAdapter.class.getName();
+    private OnItemClickListener listener;
     private int processIndex;
 
-    public ProcessRecyclerViewAdapter(Context context, List<SiteProcessItem> list, int processIndex) {
+    public ProcessRecyclerViewAdapter(Context context, List<SiteProcessItem> list, int processIndex, OnItemClickListener listener) {
         super(context, list);
         this.processIndex = processIndex;
+        this.listener = listener;
     }
 
     @Override
-    public void bindView(RecyclerViewHolderBase viewHolder, int position, List<SiteProcessItem> list) {
+    public void bindView(RecyclerViewHolderBase viewHolder, final int position, List<SiteProcessItem> list) {
         SiteProcessItem item = list.get(position);
         ProcessViewHolder holder = (ProcessViewHolder) viewHolder;
         holder.itemImgView.setImageResource(item.getRes());
@@ -39,9 +42,18 @@ public class ProcessRecyclerViewAdapter extends BaseRecyclerViewAdapter<SiteProc
             holder.itemTitleView.setSelected(true);
         } else if (position == processIndex) {
             holder.itemImgView.setEnabled(false);
+            holder.itemTitleView.setSelected(true);
         } else {
 
         }
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (null != listener) {
+                    listener.OnItemClick(position);
+                }
+            }
+        });
     }
 
     @Override
