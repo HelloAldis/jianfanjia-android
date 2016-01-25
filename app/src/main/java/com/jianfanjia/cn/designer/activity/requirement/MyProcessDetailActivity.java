@@ -291,7 +291,6 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                             + DateFormatTool.covertLongToString(sectionInfos
                             .get(i).getEnd_at(), "M.dd"));
                 }
-                Log.i(TAG, "sectionInfos.get(i).getStatus()=====" + sectionInfos.get(i).getStatus());
                 if (sectionInfos.get(i).getStatus().equals(Constant.NO_START)) {
                     int drawableId = getApplication().getResources()
                             .getIdentifier("icon_home_normal" + (i + 1),
