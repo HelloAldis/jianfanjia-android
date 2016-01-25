@@ -38,7 +38,7 @@ public class DelayNotifyAdapter extends BaseRecyclerViewAdapter<NotifyDelayInfo>
         holder.itemCellView.setText(info.getProcess().getCell());
         holder.itemNodeView.setText(MyApplication.getInstance()
                 .getStringById(info.getSection()) + "阶段");
-        if (role.equals(Constant.IDENTITY_OWNER)) {
+        if (role.equals(Constant.IDENTITY_DESIGNER)) {
             holder.itemNewTimeView.setText("您已申请改期验收至" + DateFormatTool.longToString(info.getNew_date()));
         } else {
             holder.itemNewTimeView.setText("对方已申请改期验收至" + DateFormatTool.longToString(info.getNew_date()));
@@ -52,7 +52,7 @@ public class DelayNotifyAdapter extends BaseRecyclerViewAdapter<NotifyDelayInfo>
         } else if (status.equals(Constant.FINISHED)) {
             holder.itemStatusView.setText("已完成");
         } else if (status.equals(Constant.YANQI_BE_DOING)) {
-            if (role.equals(Constant.IDENTITY_OWNER)) {
+            if (role.equals(Constant.IDENTITY_DESIGNER)) {
                 holder.itemStatusView.setText("等待对方确认");
             } else {
                 holder.itemStatusView.setText("未处理,点击前往处理");
