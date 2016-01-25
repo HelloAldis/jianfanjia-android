@@ -26,7 +26,7 @@
 
             <View
                 android:id="@+id/site_head_line_view"
-                android:layout_width="60dp"
+                android:layout_width="wrap_content"
                 android:layout_height="1dp"
                 android:layout_gravity="center_vertical"
                 android:background="@color/light_white_color" />
