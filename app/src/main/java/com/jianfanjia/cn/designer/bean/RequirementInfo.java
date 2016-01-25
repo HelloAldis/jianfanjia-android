@@ -39,7 +39,6 @@ public class RequirementInfo implements Serializable {
     private User user;
     private Evaluation evaluation;
     private long create_at;
-    private long start_at;
     private long last_status_update_time;
     private long start_at;
     private String family_description;

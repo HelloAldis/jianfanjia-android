@@ -23,6 +23,7 @@ public class DateTimePicker extends FrameLayout {
     private Calendar mDate;
     private Calendar mMinDate;
     private int mHour, mMinute;
+    private int mInitHour,mInitMinute;
     private String[] mDateDisplayValues = new String[7];
     private String[] mMiniDisplayValues = new String[6];
     private OnDateTimeChangedListener mOnDateTimeChangedListener;
@@ -39,6 +40,8 @@ public class DateTimePicker extends FrameLayout {
         mMinDate.setTimeInMillis(mDate.getTimeInMillis());
         mHour = mDate.get(Calendar.HOUR_OF_DAY);
         mMinute = mDate.get(Calendar.MINUTE);
+        mInitHour = mHour;
+        mInitMinute = mMinute;
         /**
          * 加载布局
          */
@@ -104,7 +107,8 @@ public class DateTimePicker extends FrameLayout {
             mHour = mHourSpinner.getValue();
             mDate.set(Calendar.HOUR_OF_DAY, mHour);
             if (mDate.getTimeInMillis() < mMinDate.getTimeInMillis()) {
-                mHourSpinner.setValue((++mHour));
+                mDate.setTimeInMillis(mMinDate.getTimeInMillis());
+                mHourSpinner.setValue(mInitHour);
             } else {
                 onDateTimeChanged();
             }
@@ -118,7 +122,8 @@ public class DateTimePicker extends FrameLayout {
             mMinute = mMinuteSpinner.getValue();
             mDate.set(Calendar.MINUTE, mMinute * 10);
             if (mDate.getTimeInMillis() < mMinDate.getTimeInMillis()) {
-                mMinuteSpinner.setValue((++mMinute));
+                mDate.setTimeInMillis(mMinDate.getTimeInMillis());
+                mMinuteSpinner.setValue(mInitMinute / 10);
             } else {
                 onDateTimeChanged();
             }
