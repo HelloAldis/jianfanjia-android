@@ -12,13 +12,17 @@ import com.igexin.sdk.PushManager;
  */
 public class GeTuiManager {
 
+    public static void initGeTui(Context context){
+        PushManager.getInstance().initialize(context);
+    }
+
     /**
      * 绑定个推
      * @param context
      * @param userid
      */
     public static void bindGeTui(Context context,String userid){
-        PushManager.getInstance().initialize(context);
+        initGeTui(context);
         if(userid != null){
             PushManager.getInstance().bindAlias(context,userid);
         }
@@ -33,8 +37,10 @@ public class GeTuiManager {
         if(userid != null){
             PushManager.getInstance().unBindAlias(context, userid, true);
         }
-        PushManager.getInstance().stopService(context);
+//        PushManager.getInstance().stopService(context);
     }
+
+
 
     /**
      * 个推是否已经打开

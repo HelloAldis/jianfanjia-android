@@ -487,9 +487,9 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
     @Override
     public void loadSuccess(Object data) {
         super.loadSuccess(data);
+        GeTuiManager.bindGeTui(getApplicationContext(), dataManager.getUserId());
         startActivity(MainActivity.class);
         appManager.finishActivity(this);
-        GeTuiManager.bindGeTui(getApplicationContext(), dataManager.getUserId());
     }
 
     @Override
