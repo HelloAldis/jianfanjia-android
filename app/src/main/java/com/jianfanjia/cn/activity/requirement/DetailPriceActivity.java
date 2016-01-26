@@ -57,10 +57,10 @@ public class DetailPriceActivity extends BaseActivity implements OnClickListener
                 adapter = new PriceDetailAdapter(DetailPriceActivity.this, planDetailInfo.getPrice_detail());
                 priceListView.setAdapter(adapter);
             }
-            project_total_price.setText("" + planDetailInfo.getProject_price_before_discount());
-            project_price_after_discount.setText("" + planDetailInfo.getProject_price_after_discount());
-            total_design_fee.setText("" + planDetailInfo.getTotal_design_fee());
-            project_price_before_discount.setText("" + planDetailInfo.getTotal_price());
+            project_total_price.setText("￥" + planDetailInfo.getProject_price_before_discount());
+            project_price_after_discount.setText("￥" + planDetailInfo.getProject_price_after_discount());
+            total_design_fee.setText("￥" + planDetailInfo.getTotal_design_fee());
+            project_price_before_discount.setText("￥" + planDetailInfo.getTotal_price());
         }
     }
 
