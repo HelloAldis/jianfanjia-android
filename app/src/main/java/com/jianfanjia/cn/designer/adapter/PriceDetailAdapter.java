@@ -31,18 +31,21 @@ public class PriceDetailAdapter extends BaseListAdapter<PriceDetail> {
                     null);
             holder = new ViewHolder();
             holder.itemTitle = (TextView) convertView.findViewById(R.id.titleText);
+            holder.itemDes = (TextView) convertView.findViewById(R.id.desText);
             holder.itemContent = (TextView) convertView.findViewById(R.id.contentText);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
         holder.itemTitle.setText(detail.getItem());
+        holder.itemDes.setText(detail.getDescription());
         holder.itemContent.setText("" + detail.getPrice() + "元");
         return convertView;
     }
 
     private static class ViewHolder {
         TextView itemTitle;
+        TextView itemDes;
         TextView itemContent;
     }
 }
