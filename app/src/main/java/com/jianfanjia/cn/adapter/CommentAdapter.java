@@ -1,6 +1,7 @@
 package com.jianfanjia.cn.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -12,6 +13,7 @@ import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.bean.CommentInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.tools.DateFormatTool;
+import com.jianfanjia.cn.tools.LogTool;
 
 import java.util.List;
 
@@ -22,6 +24,7 @@ import java.util.List;
  * Time: 17:10
  */
 public class CommentAdapter extends BaseRecyclerViewAdapter<CommentInfo> {
+    private static final String TAG = CommentAdapter.class.getName();
 
     public CommentAdapter(Context context, List<CommentInfo> list) {
         super(context, list);
@@ -43,10 +46,11 @@ public class CommentAdapter extends BaseRecyclerViewAdapter<CommentInfo> {
         }
         holder.itemTimeView.setText(DateFormatTool.toLocalTimeString(commentInfo.getDate()));
         String imageid = commentInfo.getByUser().getImageid();
-        if (!imageid.contains(Constant.DEFALUT_PIC_HEAD)) {
-            imageShow.displayImageHeadWidthThumnailImage(context, commentInfo.getByUser().getImageid(), holder.itemHeadView);
+        LogTool.d(TAG, "imageid=" + imageid);
+        if (!TextUtils.isEmpty(imageid)) {
+            imageShow.displayImageHeadWidthThumnailImage(context, imageid, holder.itemHeadView);
         } else {
-            imageShow.displayLocalImage(commentInfo.getByUser().getImageid(), holder.itemHeadView);
+            imageShow.displayLocalImage(Constant.DEFALUT_OWNER_PIC, holder.itemHeadView);
         }
     }
 
