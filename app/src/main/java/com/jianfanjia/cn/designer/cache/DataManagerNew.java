@@ -10,6 +10,7 @@ import com.jianfanjia.cn.designer.bean.Process;
 import com.jianfanjia.cn.designer.bean.ProcessInfo;
 import com.jianfanjia.cn.designer.bean.RequirementInfo;
 import com.jianfanjia.cn.designer.config.Constant;
+import com.jianfanjia.cn.designer.db.DBHelper;
 import com.jianfanjia.cn.designer.tools.LogTool;
 import com.jianfanjia.cn.designer.tools.SharedPrefer;
 
@@ -248,6 +249,7 @@ public class DataManagerNew {
         processLists = null;
         requirementInfo = null;
         currentProcessInfo = null;
+        DataCleanManager.cleanDatabaseByName(context, DBHelper.DBNAME);
     }
 
 }

@@ -17,7 +17,7 @@ import java.sql.SQLException;
  * Date:15-10-11 16:10
  */
 public class DBHelper extends OrmLiteSqliteOpenHelper {
-    private static final String DBNAME = "jianfanjia.db";
+    public static final String DBNAME = "jianfanjia.db";
     private static final int DBVERSION = 1;
     private static DBHelper helper;
 
