@@ -33,7 +33,6 @@ public class DetailPriceActivity extends BaseActivity implements OnClickListener
     private TextView project_price_before_discount = null;
     private TextView project_price_after_discount = null;
     private TextView total_design_fee = null;
-    private TextView project_design_description = null;
     private PriceDetailAdapter adapter = null;
     private PlanInfo planInfo = null;
 
@@ -47,7 +46,6 @@ public class DetailPriceActivity extends BaseActivity implements OnClickListener
         project_price_before_discount = (TextView) findViewById(R.id.project_price_before_discount);
         project_price_after_discount = (TextView) findViewById(R.id.project_price_after_discount);
         total_design_fee = (TextView) findViewById(R.id.total_design_fee);
-        project_design_description = (TextView) findViewById(R.id.project_design_description);
         Intent intent = this.getIntent();
         Bundle priceBundle = intent.getExtras();
         planInfo = (PlanInfo) priceBundle.getSerializable(Global.PLAN_DETAIL);
@@ -63,7 +61,6 @@ public class DetailPriceActivity extends BaseActivity implements OnClickListener
             project_price_after_discount.setText("工程折后价：" + planInfo.getProject_price_after_discount() + "元");
             total_design_fee.setText("        设计费：" + planInfo.getTotal_design_fee() + "元");
             project_price_before_discount.setText("    折后总价：" + planInfo.getTotal_price() + "元");
-            project_design_description.setText("    设计说明：" + planInfo.getDescription());
         }
     }
 

@@ -210,7 +210,7 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
         commentInfo.setTopictype(topictype);
         commentInfo.setDate(Calendar.getInstance().getTimeInMillis());
         commentInfo.setContent(content);
-        commentInfo.setUsertype(Constant.IDENTITY_OWNER);
+        commentInfo.setUsertype(Constant.IDENTITY_DESIGNER);
         User user = new User();
         user.setUsername(dataManager.getUserName());
         user.setImageid(dataManager.getUserImagePath());

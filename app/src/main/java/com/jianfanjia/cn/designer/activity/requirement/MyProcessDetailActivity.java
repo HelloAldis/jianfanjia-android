@@ -486,8 +486,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
     // 确认完工装修流程小节点
     private void confirmProcessItemDone(String siteId, String section,
                                         String item) {
-        LogTool.d(TAG, "siteId:" + siteId + " section:" + section + " item:"
-                + item);
+        LogTool.d(TAG, "siteId:" + siteId + " section:" + section + " item:" + item);
         JianFanJiaClient.processItemDone(this, siteId, section,
                 item, new ApiUiUpdateListener() {
                     @Override
@@ -513,9 +512,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
     // 提交改期
     private void postReschedule(String processId, String userId,
                                 String designerId, String section, String newDate) {
-        LogTool.d(TAG, "processId:" + processId + " userId:" + userId
-                + " designerId:" + designerId + " section:" + section
-                + " newDate:" + newDate);
+        LogTool.d(TAG, "processId:" + processId + " userId:" + userId + " designerId:" + designerId + " section:" + section + " newDate:" + newDate);
         JianFanJiaClient.postReschedule(this, processId, userId,
                 designerId, section, newDate, new ApiUiUpdateListener() {
                     @Override
