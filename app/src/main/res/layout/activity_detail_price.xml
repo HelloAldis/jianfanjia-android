@@ -45,7 +45,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="工程总造价：￥"
+                    android:text="工程总造价："
                     android:textColor="@color/home_page_text_color"
                     android:textSize="@dimen/text_size_14" />
 
@@ -68,7 +68,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="工程折后价：￥"
+                    android:text="工程折后价："
                     android:textColor="@color/home_page_text_color"
                     android:textSize="@dimen/text_size_14" />
 
@@ -91,7 +91,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="        设计费：￥"
+                    android:text="        设计费："
                     android:textColor="@color/home_page_text_color"
                     android:textSize="@dimen/text_size_14" />
 
@@ -114,7 +114,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="    折后总价：￥"
+                    android:text="    折后总价："
                     android:textColor="@color/home_page_text_color"
                     android:textSize="@dimen/text_size_14" />
 
