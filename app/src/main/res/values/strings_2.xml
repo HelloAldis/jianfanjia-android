@@ -9,6 +9,7 @@
     <string name="str_no_marched_tip_3">请您前往完善需求</string>
     <string name="str_req_pubReq">免费获取三套方案</string>
     <string name="str_publish_time">发布时间：</string>
+    <string name="str_start_time">开工时间：</string>
     <string name="str_edit_req">填写装修需求</string>
     <string name="str_create">创建</string>
     <string name="str_goto_pro">前往工地</string>

@@ -59,8 +59,8 @@ public class MySiteAdapter extends BaseRecyclerViewAdapter<Process> {
         } else {
             holder.itemNodeView.setText("已竣工");
         }
-        holder.itemPubTimeView.setText(StringUtils.covertLongToString(process.getRequirement().getStart_at()));
-        holder.itemUpdateTimeView.setText(StringUtils.covertLongToString(process.getRequirement().getLast_status_update_time()));
+        holder.itemPubTimeView.setText(StringUtils.covertLongToString(process.getStart_at()));
+        holder.itemUpdateTimeView.setText(StringUtils.covertLongToString(process.getLastupdate()));
         int processIndex = MyApplication.getInstance().getPositionByItemName(process.getGoing_on());
         LogTool.d(TAG, "processIndex=" + processIndex);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
