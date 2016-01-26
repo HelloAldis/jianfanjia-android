@@ -43,7 +43,7 @@
             android:background="@drawable/layout_border_bg"
             android:gravity="center"
             android:padding="10dip"
-            android:text="项目总价"
+            android:text="项目总价(元)"
             android:textColor="@color/home_page_text_color"
             android:textSize="@dimen/text_size_16" />
     </LinearLayout>
