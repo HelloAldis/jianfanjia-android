@@ -35,11 +35,9 @@ public class CommentAdapter extends BaseRecyclerViewAdapter<CommentInfo> {
         holder.itemContentView.setText(commentInfo.getContent());
         String userType = commentInfo.getUsertype();
         if (userType.equals(Constant.IDENTITY_OWNER)) {
-            holder.itemIdentityView.setText(context
-                    .getString(R.string.ower));
+            holder.itemIdentityView.setText(context.getString(R.string.ower));
         } else {
-            holder.itemIdentityView.setText(context
-                    .getString(R.string.designer));
+            holder.itemIdentityView.setText(context.getString(R.string.designer));
         }
         holder.itemTimeView.setText(DateFormatTool.toLocalTimeString(commentInfo.getDate()));
         String imageid = commentInfo.getByUser().getImageid();
