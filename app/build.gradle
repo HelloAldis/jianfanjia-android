@@ -24,8 +24,8 @@ android {
         applicationId "com.jianfanjia.cn.activity"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 34
-        versionName "2.2.3"
+        versionCode 35
+        versionName "2.2.4"
 
         // AndroidManifest.xml 里面UMENG_CHANNEL的value为 ${UMENG_CHANNEL_VALUE}
 //        manifestPlaceholders = [UMENG_CHANNEL_VALUE: "channel_name"]
@@ -68,10 +68,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.relealse
 
-            manifestPlaceholders = [GETUI_PUSH_APPID    : "t9nLEYqbWI7HUX2QkE79v2", GETUI_PUSH_APPKEY: "m2fZOPk3fy5pgq6szkabb7",
-                                    GETUI_PUSH_APPSECRET: "cO8DCexdK69ug14SeeIbg7", SERVER_PORT: RELEASE_SERVER_PORT, SERVER_IP: TEST_SERVER_IP]
-//            manifestPlaceholders = [GETUI_PUSH_APPID: "SLKdGK8YIr9wns6NPEL8v8", GETUI_PUSH_APPKEY: "O3oCpGEAVp7NjP67JbMPt5",
-//              GETUI_PUSH_APPSECRET: "MM8Ybygbsz7EUvMoNpkHd5",SERVER_PORT:TEST_SERVER_PORT , SERVER_IP : TEST_SERVER_IP]
+//            manifestPlaceholders = [GETUI_PUSH_APPID    : "t9nLEYqbWI7HUX2QkE79v2", GETUI_PUSH_APPKEY: "m2fZOPk3fy5pgq6szkabb7",
+//                                    GETUI_PUSH_APPSECRET: "cO8DCexdK69ug14SeeIbg7", SERVER_PORT: RELEASE_SERVER_PORT, SERVER_IP: TEST_SERVER_IP]
+            manifestPlaceholders = [GETUI_PUSH_APPID: "SLKdGK8YIr9wns6NPEL8v8", GETUI_PUSH_APPKEY: "O3oCpGEAVp7NjP67JbMPt5",
+              GETUI_PUSH_APPSECRET: "MM8Ybygbsz7EUvMoNpkHd5",SERVER_PORT:TEST_SERVER_PORT , SERVER_IP : TEST_SERVER_IP]
         }
     }
     sourceSets {
