@@ -39,7 +39,7 @@ public class PriceDetailAdapter extends BaseListAdapter<PriceDetail> {
         }
         holder.itemTitle.setText(detail.getItem());
         holder.itemDes.setText(detail.getDescription());
-        holder.itemContent.setText("" + detail.getPrice() + "元");
+        holder.itemContent.setText("" + detail.getPrice());
         return convertView;
     }
 
