@@ -50,31 +50,33 @@ public class UiHelper {
 
     /**
      * 调整FrameLayout大小
+     *
      * @param tp
      */
-    public static  void resizePikcer(FrameLayout tp){
+    public static void resizePikcer(FrameLayout tp) {
         List<NumberPicker> npList = findNumberPicker(tp);
-        for(NumberPicker np:npList){
+        for (NumberPicker np : npList) {
             resizeNumberPicker(np);
         }
     }
 
     /**
      * 得到viewGroup里面的numberpicker组件
+     *
      * @param viewGroup
      * @return
      */
-    public static  List<NumberPicker> findNumberPicker(ViewGroup viewGroup){
+    public static List<NumberPicker> findNumberPicker(ViewGroup viewGroup) {
         List<NumberPicker> npList = new ArrayList<>();
         View child = null;
-        if(null != viewGroup){
-            for(int i = 0; i < viewGroup.getChildCount(); i++){
+        if (null != viewGroup) {
+            for (int i = 0; i < viewGroup.getChildCount(); i++) {
                 child = viewGroup.getChildAt(i);
-                if(child instanceof NumberPicker){
-                    npList.add((NumberPicker)child);
-                }else if(child instanceof LinearLayout){
-                    List<NumberPicker> result = findNumberPicker((ViewGroup)child);
-                    if(result.size()>0){
+                if (child instanceof NumberPicker) {
+                    npList.add((NumberPicker) child);
+                } else if (child instanceof LinearLayout) {
+                    List<NumberPicker> result = findNumberPicker((ViewGroup) child);
+                    if (result.size() > 0) {
                         return result;
                     }
                 }
@@ -86,7 +88,7 @@ public class UiHelper {
     /*
      * 调整numberpicker大小
      */
-    public static void resizeNumberPicker(NumberPicker np){
+    public static void resizeNumberPicker(NumberPicker np) {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         params.setMargins(10, 0, 10, 0);
         np.setLayoutParams(params);
@@ -97,19 +99,20 @@ public class UiHelper {
 
     /**
      * 反射设置numberPicker属性
+     *
      * @param numberPicker
      */
     public static void setNumberPickerDividerColor(NumberPicker numberPicker) {
         NumberPicker picker = numberPicker;
         Field[] pickerFields = NumberPicker.class.getDeclaredFields();
         for (Field pf : pickerFields) {
-            if(pf.getName().equals("mInputText")){
+            if (pf.getName().equals("mInputText")) {
             }
         }
     }
 
-    public static void IntentToPhone(Context context,String phone){
-        Intent intent=new Intent();
+    public static void IntentToPhone(Context context, String phone) {
+        Intent intent = new Intent();
         intent.setAction(Intent.ACTION_DIAL);
         intent.setData(Uri.parse("tel:" + phone));
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -118,11 +121,12 @@ public class UiHelper {
 
     /**
      * 设置listview下落动画
+     *
      * @param context
      * @param viewGroup
      */
-    public static void setLayoutAnim(Context context,ViewGroup viewGroup){
-        Animation animation= AnimationUtils.loadAnimation(context, R.anim.listview_from_top);
+    public static void setLayoutAnim(Context context, ViewGroup viewGroup) {
+        Animation animation = AnimationUtils.loadAnimation(context, R.anim.listview_from_top);
 
         //得到一个LayoutAnimationController对象；
 
@@ -143,11 +147,11 @@ public class UiHelper {
 
     /**
      * 对按钮进行做点击效果的
+     *
      * @param view
      * @param listener
      */
-    public static void imageButtonAnim(View view,Animator.AnimatorListener listener)
-    {
+    public static void imageButtonAnim(View view, Animator.AnimatorListener listener) {
         Keyframe kf0 = Keyframe.ofFloat(0f, 1.0f);
         Keyframe kf1 = Keyframe.ofFloat(0.17f, 1.4f);
         Keyframe kf2 = Keyframe.ofFloat(0.34f, 0.9f);
@@ -160,10 +164,10 @@ public class UiHelper {
         PropertyValuesHolder propertyValuesHolderScaleYHolder = PropertyValuesHolder.ofKeyframe("scaleY", kf0, kf1,
                 kf2, kf3, kf4, kf5, kf6);
         ObjectAnimator rotaAnimator = ObjectAnimator.ofPropertyValuesHolder(view,
-                propertyValuesHolderScaleXHolder,propertyValuesHolderScaleYHolder);
+                propertyValuesHolderScaleXHolder, propertyValuesHolderScaleYHolder);
         rotaAnimator.setDuration(500);
         rotaAnimator.setInterpolator(new AccelerateInterpolator());
-        if(listener != null){
+        if (listener != null) {
             rotaAnimator.addListener(listener);
         }
         rotaAnimator.start();
@@ -179,32 +183,16 @@ public class UiHelper {
         mRemoteViews.setImageViewResource(R.id.list_item_img, R.mipmap.icon_notify);
         builder.setSmallIcon(R.mipmap.icon_notify);
         String type = message.getType();
-        LogTool.d("sendNotifycation","type =" + type);
+        LogTool.d("sendNotifycation", "type =" + type);
         PendingIntent pendingIntent = null;
         if (type.equals(Constant.YANQI_NOTIFY)) {
-            LogTool.d("sendNotifycation",context.getResources()
+            LogTool.d("sendNotifycation", context.getResources()
                     .getString(R.string.yanqiText));
             notifyId = Constant.YANQI_NOTIFY_ID;
             builder.setTicker(context.getResources()
                     .getText(R.string.yanqiText));
             mRemoteViews.setTextViewText(R.id.list_item_title, context.getResources()
                     .getText(R.string.yanqiText));
-            mRemoteViews.setTextViewText(R.id.list_item_date, DateFormatTool.toLocalTimeString(message.getTime()));
-            mRemoteViews.setTextViewText(R.id.list_item_content, message.getContent());
-            Intent mainIntent = new Intent(context, MainActivity.class);
-            mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-                    | Intent.FLAG_ACTIVITY_NEW_TASK);
-            Intent notifyIntent = new Intent(context, NotifyActivity.class);
-            notifyIntent.putExtra("Type", type);
-            Intent[] intents = {mainIntent, notifyIntent};
-            pendingIntent = PendingIntent.getActivities(context, 0, intents,
-                    PendingIntent.FLAG_UPDATE_CURRENT);
-        } else if (type.equals(Constant.FUKUAN_NOTIFY)) {
-            notifyId = Constant.FUKUAN_NOTIFY_ID;
-            builder.setTicker(context.getResources()
-                    .getText(R.string.fukuanText));
-            mRemoteViews.setTextViewText(R.id.list_item_title, context.getResources()
-                    .getText(R.string.fukuanText));
             mRemoteViews.setTextViewText(R.id.list_item_date, DateFormatTool.toLocalTimeString(message.getTime()));
             mRemoteViews.setTextViewText(R.id.list_item_content, message.getContent());
             Intent mainIntent = new Intent(context, MainActivity.class);
