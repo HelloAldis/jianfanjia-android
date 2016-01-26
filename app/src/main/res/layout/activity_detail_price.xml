@@ -34,45 +34,97 @@
                 android:listSelector="@android:color/transparent"
                 android:scrollbars="none" />
 
-            <TextView
-                android:id="@+id/project_total_price"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dip"
                 android:layout_marginLeft="10dip"
                 android:layout_marginRight="10dip"
-                android:textColor="@color/home_page_text_color"
-                android:textSize="@dimen/text_size_14" />
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/project_price_after_discount"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dip"
-                android:layout_marginLeft="10dip"
-                android:layout_marginRight="10dip"
-                android:textColor="@color/home_page_text_color"
-                android:textSize="@dimen/text_size_14" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="工程总造价："
+                    android:textColor="@color/home_page_text_color"
+                    android:textSize="@dimen/text_size_14" />
 
-            <TextView
-                android:id="@+id/total_design_fee"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dip"
-                android:layout_marginLeft="10dip"
-                android:layout_marginRight="10dip"
-                android:textColor="@color/home_page_text_color"
-                android:textSize="@dimen/text_size_14" />
+                <TextView
+                    android:id="@+id/project_total_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/orange_color"
+                    android:textSize="@dimen/text_size_14" />
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/project_price_before_discount"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dip"
                 android:layout_marginLeft="10dip"
                 android:layout_marginRight="10dip"
-                android:textColor="@color/home_page_text_color"
-                android:textSize="@dimen/text_size_14" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="工程折后价："
+                    android:textColor="@color/home_page_text_color"
+                    android:textSize="@dimen/text_size_14" />
+
+                <TextView
+                    android:id="@+id/project_price_after_discount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/orange_color"
+                    android:textSize="@dimen/text_size_14" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dip"
+                android:layout_marginLeft="10dip"
+                android:layout_marginRight="10dip"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="        设计费："
+                    android:textColor="@color/home_page_text_color"
+                    android:textSize="@dimen/text_size_14" />
+
+                <TextView
+                    android:id="@+id/total_design_fee"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/orange_color"
+                    android:textSize="@dimen/text_size_14" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dip"
+                android:layout_marginLeft="10dip"
+                android:layout_marginRight="10dip"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="    折后总价："
+                    android:textColor="@color/home_page_text_color"
+                    android:textSize="@dimen/text_size_14" />
+
+                <TextView
+                    android:id="@+id/project_price_before_discount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/orange_color"
+                    android:textSize="@dimen/text_size_14" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
