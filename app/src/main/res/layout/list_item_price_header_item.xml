@@ -31,7 +31,19 @@
             android:background="@drawable/layout_border_bg"
             android:gravity="center"
             android:padding="10dip"
-            android:text="价格"
+            android:text="备注说明"
+            android:textColor="@color/home_page_text_color"
+            android:textSize="@dimen/text_size_16" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="-1dp"
+            android:layout_weight="1"
+            android:background="@drawable/layout_border_bg"
+            android:gravity="center"
+            android:padding="10dip"
+            android:text="项目总价(元)"
             android:textColor="@color/home_page_text_color"
             android:textSize="@dimen/text_size_16" />
     </LinearLayout>

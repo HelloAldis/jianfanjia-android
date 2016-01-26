@@ -8,6 +8,7 @@ import android.view.View.OnClickListener;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseActivity;
@@ -29,6 +30,7 @@ import com.jianfanjia.cn.view.MainHeadView;
 public class ContractActivity extends BaseActivity implements OnClickListener, View.OnKeyListener {
     private static final String TAG = ContractActivity.class.getName();
     private MainHeadView mainHeadView = null;
+    private Button checkBtn = null;
     private WebView webView = null;
     private String requirementStatus = null;
     private String requirementid = null;
@@ -40,8 +42,14 @@ public class ContractActivity extends BaseActivity implements OnClickListener, V
         Bundle contractBundle = intent.getExtras();
         requirementStatus = contractBundle.getString(Global.REQUIREMENT_STATUS);
         requirementid = contractBundle.getString(Global.REQUIREMENT_ID);
-        LogTool.d(TAG, "requirementStatus:" + requirementStatus + " requirementid:" + requirementid);
+        LogTool.d(TAG, "requirementStatus:" + requirementStatus + "  requirementid:" + requirementid);
         initMainHeadView();
+        checkBtn = (Button) findViewById(R.id.btn_choose);
+        if (requirementStatus.equals(Global.REQUIREMENT_STATUS5)) {
+            checkBtn.setEnabled(false);
+        } else {
+            checkBtn.setEnabled(true);
+        }
         webView = (WebView) findViewById(R.id.webView);
         //支持javascript
         webView.getSettings().setJavaScriptEnabled(true);
@@ -69,22 +77,16 @@ public class ContractActivity extends BaseActivity implements OnClickListener, V
         mainHeadView = (MainHeadView) findViewById(R.id.my_contract_head_layout);
         mainHeadView.setBackListener(this);
         mainHeadView.setRightTextListener(this);
-        mainHeadView
-                .setMianTitle(getResources().getString(R.string.contractText));
-        mainHeadView.setRightTitle(getResources().getString(R.string.comfirmText));
+        mainHeadView.setMianTitle(getResources().getString(R.string.contractText));
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
-        mainHeadView.setRightTitleVisable(View.VISIBLE);
+        mainHeadView.setRightTitleVisable(View.GONE);
         mainHeadView.setBackLayoutVisable(View.VISIBLE);
-        if (requirementStatus.equals(Global.REQUIREMENT_STATUS5)) {
-            mainHeadView.setRigthTitleEnable(false);
-        } else {
-            mainHeadView.setRigthTitleEnable(true);
-        }
     }
 
 
     @Override
     public void setListener() {
+        checkBtn.setOnClickListener(this);
         webView.setOnKeyListener(this);
     }
 
@@ -94,7 +96,7 @@ public class ContractActivity extends BaseActivity implements OnClickListener, V
             case R.id.head_back_layout:
                 appManager.finishActivity(this);
                 break;
-            case R.id.head_right_title:
+            case R.id.btn_choose:
                 postUserProcess(requirementid, final_planid);
                 break;
             default:
@@ -158,7 +160,7 @@ public class ContractActivity extends BaseActivity implements OnClickListener, V
         @Override
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data.toString());
-            mainHeadView.setRigthTitleEnable(false);
+            checkBtn.setEnabled(false);
             setResult(RESULT_OK);
             appManager.finishActivity(ContractActivity.this);
         }
@@ -166,7 +168,7 @@ public class ContractActivity extends BaseActivity implements OnClickListener, V
         @Override
         public void loadFailture(String error_msg) {
             makeTextLong(error_msg);
-            mainHeadView.setRigthTitleEnable(true);
+            checkBtn.setEnabled(true);
         }
     };
 

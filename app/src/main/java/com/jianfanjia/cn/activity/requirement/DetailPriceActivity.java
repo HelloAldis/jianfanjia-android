@@ -57,10 +57,10 @@ public class DetailPriceActivity extends BaseActivity implements OnClickListener
                 adapter = new PriceDetailAdapter(DetailPriceActivity.this, planDetailInfo.getPrice_detail());
                 priceListView.setAdapter(adapter);
             }
-            project_total_price.setText("工程总造价:" + planDetailInfo.getProject_price_before_discount() + "元");
-            project_price_after_discount.setText("工程折后价:" + planDetailInfo.getProject_price_after_discount() + "元");
-            total_design_fee.setText("设计费:" + planDetailInfo.getTotal_design_fee() + "元");
-            project_price_before_discount.setText("折后总价:" + planDetailInfo.getTotal_price() + "元");
+            project_total_price.setText("工程总造价：" + planDetailInfo.getProject_price_before_discount() + "元");
+            project_price_after_discount.setText("工程折后价：" + planDetailInfo.getProject_price_after_discount() + "元");
+            total_design_fee.setText("        设计费：" + planDetailInfo.getTotal_design_fee() + "元");
+            project_price_before_discount.setText("    折后总价：" + planDetailInfo.getTotal_price() + "元");
         }
     }
 

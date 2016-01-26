@@ -53,9 +53,9 @@ public class PingJiaInfoActivity extends BaseActivity implements
         designer_name = viewBundle.getString(Global.DESIGNER_NAME);
         evaluation = (Evaluation) viewBundle.getSerializable(Global.EVALUATION);
         LogTool.d(TAG, "imageid:" + imageid + " designer_name:" + designer_name + " evaluation:" + evaluation);
-        if(!TextUtils.isEmpty(imageid)){
-            imageShow.displayImageHeadWidthThumnailImage(this,imageid, designer_head_img);
-        }else{
+        if (!TextUtils.isEmpty(imageid)) {
+            imageShow.displayImageHeadWidthThumnailImage(this, imageid, designer_head_img);
+        } else {
             imageShow.displayLocalImage(Constant.DEFALUT_OWNER_PIC, designer_head_img);
         }
         designerName.setText(designer_name);
@@ -68,7 +68,7 @@ public class PingJiaInfoActivity extends BaseActivity implements
             if (!TextUtils.isEmpty(evaluation.getComment())) {
                 commentText.setText(evaluation.getComment());
             } else {
-                commentText.setText("暂无");
+                commentText.setText("暂无内容");
             }
         }
     }

@@ -1,28 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="45dip"
-    android:background="@color/font_white"
+    android:layout_height="60dip"
+    android:background="@color/main_layout_bg"
     android:descendantFocusability="blocksDescendants">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="10dip">
+        android:layout_marginTop="10dip">
 
-        <TextView
-            android:id="@+id/list_item_name_text"
-            style="@style/listview_item_text_style_middle"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="15dip"
-            android:textColor="@color/grey_color" />
+        <View
+            android:id="@+id/top_line"
+            style="@style/divier_line" />
 
-        <TextView
-            android:id="@+id/list_item_more_text"
-            style="@style/listview_item_text_style_middle"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="15dip"
-            android:textColor="@color/light_black_color" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/top_line"
+            android:background="@color/font_white"
+            android:padding="10dip">
+
+            <TextView
+                android:id="@+id/list_item_name_text"
+                style="@style/listview_item_text_style_middle"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dip"
+                android:textColor="@color/grey_color" />
+
+            <TextView
+                android:id="@+id/list_item_more_text"
+                style="@style/listview_item_text_style_middle"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dip"
+                android:textColor="@color/light_black_color" />
+        </RelativeLayout>
+
     </RelativeLayout>
 </RelativeLayout>
