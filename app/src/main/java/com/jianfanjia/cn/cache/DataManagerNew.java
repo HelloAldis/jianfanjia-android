@@ -11,6 +11,7 @@ import com.jianfanjia.cn.bean.Process;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.db.DBHelper;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.SharedPrefer;
 
@@ -253,6 +254,7 @@ public class DataManagerNew {
         processLists = null;
         requirementInfo = null;
         currentProcessInfo = null;
+        DataCleanManager.cleanDatabaseByName(context, DBHelper.DBNAME);
     }
 
 }

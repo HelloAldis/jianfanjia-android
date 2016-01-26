@@ -175,7 +175,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener, On
                         GeTuiManager.cancelBind(getApplicationContext(), dataManager.getUserId());
                         dataManager.cleanData();
                         MyApplication.getInstance().clearCookie();
-                        MyApplication.getInstance().clearAppCache();
+//                        MyApplication.getInstance().clearAppCache();
                         appManager.finishAllActivity();
                         AuthUtil.getInstance(SettingActivity.this).deleteOauth(SettingActivity.this,SHARE_MEDIA.WEIXIN);
                         startActivity(LoginNewActivity_.class);
