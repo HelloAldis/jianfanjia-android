@@ -38,10 +38,10 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
     <!-- 个推的权限设置 -->
-    <uses-permission android:name="getui.permission.GetuiService.com.jianfanjia.cn.activity" />
+    <uses-permission android:name="getui.permission.GetuiService.com.jianfanjia.cn.user" />
 
     <permission
-        android:name="getui.permission.GetuiService.com.jianfanjia.cn.activity"
+        android:name="getui.permission.GetuiService.com.jianfanjia.cn.user"
         android:protectionLevel="normal"></permission>
 
     <!-- QQ、QQ空间所需权限 -->
@@ -57,7 +57,7 @@
     <application
         android:name="com.jianfanjia.cn.application.MyApplication"
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/ic_newyear_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
 

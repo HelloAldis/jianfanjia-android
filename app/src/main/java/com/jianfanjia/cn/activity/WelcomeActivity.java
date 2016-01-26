@@ -169,6 +169,7 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
         LogTool.d(TAG, "initView");
         dialog = DialogHelper
                 .getPinterestDialog(this);
+        GeTuiManager.initGeTui(getApplicationContext());
     }
 
     @Override
@@ -205,9 +206,9 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
                 } else {
                     if (!isLoginExpire) {// 登录未过期，添加cookies到httpclient记录身份
                         LogTool.d(TAG, "not expire");
+                        GeTuiManager.bindGeTui(getApplicationContext(),dataManager.getUserId());
                         startActivity(MainActivity.class);
                         appManager.finishActivity(WelcomeActivity.this);
-                        GeTuiManager.bindGeTui(getApplicationContext(),dataManager.getUserId());
                     } else {
                         LogTool.d(TAG, "expire");
                         MyApplication.getInstance().clearCookie();

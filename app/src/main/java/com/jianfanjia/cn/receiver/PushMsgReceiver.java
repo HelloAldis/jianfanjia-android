@@ -43,6 +43,7 @@ public class PushMsgReceiver extends BroadcastReceiver {
         //-------------------------------------------------
         Bundle bundle = intent.getExtras();
         if(bundle == null){
+            LogTool.d(TAG, "build  = null");
             return;
         }
         LogTool.d(TAG, "onReceive() action=" + bundle.getInt("action"));
