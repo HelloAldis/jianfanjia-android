@@ -148,7 +148,7 @@ public class YanQiNotifyFragment extends BaseFragment implements ApiUiUpdateList
     @Override
     public void onClick(int position, String status, String role) {
         LogTool.d(TAG, "position=" + position + " status=" + status + " role=" + role);
-        if (role.equals(Constant.IDENTITY_DESIGNER)) {
+        if (role.equals(Constant.IDENTITY_OWNER)) {
             if (status.equals(Constant.YANQI_BE_DOING)) {
                 notifyDelayInfo = delayList.get(position);
                 LogTool.d(TAG, " notifyDelayInfo:" + notifyDelayInfo);
