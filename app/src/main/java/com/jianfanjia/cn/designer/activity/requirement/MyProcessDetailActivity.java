@@ -456,7 +456,6 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
         dialog.show();
     }
 
-
     private void delayDialog() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(sectionInfo.getStart_at() + Constant.DELAY_TIME);
@@ -507,7 +506,6 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                     }
                 }, this);
     }
-
 
     // 提交改期
     private void postReschedule(String processId, String userId,
