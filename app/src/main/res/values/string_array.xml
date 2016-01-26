@@ -196,8 +196,8 @@
 
     <!-- 包工类型 -->
     <string-array name="arr_worktype">
-        <item>半包（设计+施工）</item>
-        <item>全包（设计+施工）</item>
+        <item>半包</item>
+        <item>全包</item>
         <item>纯设计</item>
     </string-array>
 

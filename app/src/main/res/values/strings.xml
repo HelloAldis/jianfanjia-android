@@ -335,7 +335,7 @@
     <string name="process_totalprice">工程价款：</string>
     <string name="process_totalprice_cont">本工程装修总价为人民币（大写）%1$s（￥%2$d元）</string>
     <string name="process_workType">承包方式：</string>
-    <string name="process_workType_cont">%1$s（清包、半包、全包）</string>
+    <string name="process_workType_cont">%1$s</string>
     <string name="tip_no_unhandle">您暂时没有待处理的需求</string>
     <string name="tip_handled">您暂时没有处理中的需求</string>
     <string name="tip_already_handle">您暂时没有已处理的需求</string>

@@ -75,10 +75,10 @@ public class MyPlanViewType2 extends BaseAnnotationView {
             measureTimeView.setText(StringUtils.covertLongToStringHasMini(measureTime));
         }
         String imageId = requirementInfo.getUser().getImageid();
-        if(TextUtils.isEmpty(imageId)){
-            imageShow.displayLocalImage(dataManagerNew.getUserImagePath(), headView);
-        }else{
+        if (!TextUtils.isEmpty(imageId)) {
             imageShow.displayImageHeadWidthThumnailImage(context, imageId, headView);
+        }else{
+            headView.setImageResource(R.mipmap.icon_default_head);
         }
         String username = requirementInfo.getUser().getUsername();
         if (!TextUtils.isEmpty(username)) {

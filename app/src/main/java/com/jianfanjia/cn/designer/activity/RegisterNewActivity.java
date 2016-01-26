@@ -57,7 +57,7 @@ public class RegisterNewActivity extends BaseAnnotationActivity implements
     public void initAnnotationView() {
         Intent intent = getIntent();
         registerInfo = (RegisterInfo) intent.getSerializableExtra(Global.REGISTER_INFO);
-        requsetCode = intent.getIntExtra(Global.REGISTER,0);
+        requsetCode = intent.getIntExtra(Global.REGISTER, 0);
         if (registerInfo != null) {
             mPhoneView.setText(registerInfo.getPhone());
         }
@@ -78,16 +78,16 @@ public class RegisterNewActivity extends BaseAnnotationActivity implements
             public void afterTextChanged(Editable s) {
                 LogTool.d(TAG, "register afterTextChanged");
                 String text = s.toString();
-                if(!TextUtils.isEmpty(text)){
+                if (!TextUtils.isEmpty(text)) {
                     mBtnCommit.setEnabled(true);
-                }else{
+                } else {
                     mBtnCommit.setEnabled(false);
                 }
             }
         });
     }
 
-    @Click({R.id.head_back_layout,R.id.btn_commit})
+    @Click({R.id.head_back_layout, R.id.btn_commit})
     void OnClick(View view) {
         switch (view.getId()) {
             case R.id.btn_commit:
@@ -112,17 +112,17 @@ public class RegisterNewActivity extends BaseAnnotationActivity implements
      * @param registerInfo
      */
     private void register(RegisterInfo registerInfo) {
-            switch (requsetCode){
-                case REGISTER_CODE:
-                    JianFanJiaClient.register(this, registerInfo, this, this);
-                    break;
-                case UPDATE_PSW_CODE:
-                    JianFanJiaClient.update_psw(this,registerInfo,this,this);
-                    break;
-                case BINDING_PHONE:
-                    JianFanJiaClient.bindingPhone(this, registerInfo, this, this);
-                    break;
-            }
+        switch (requsetCode) {
+            case REGISTER_CODE:
+                JianFanJiaClient.register(this, registerInfo, this, this);
+                break;
+            case UPDATE_PSW_CODE:
+                JianFanJiaClient.update_psw(this, registerInfo, this, this);
+                break;
+            case BINDING_PHONE:
+                JianFanJiaClient.bindingPhone(this, registerInfo, this, this);
+                break;
+        }
     }
 
     private boolean checkInput(String verification) {
@@ -139,13 +139,14 @@ public class RegisterNewActivity extends BaseAnnotationActivity implements
     public void loadSuccess(Object data) {
         //登录成功，加载首页
         super.loadSuccess(data);
-        switch (requsetCode){
+        switch (requsetCode) {
             case REGISTER_CODE:
                 startActivity(MainActivity.class);
                 appManager.finishActivity(this);
                 GeTuiManager.bindGeTui(getApplicationContext(), dataManager.getUserId());
                 break;
             case UPDATE_PSW_CODE:
+                makeTextShort(getString(R.string.update_psw_success));
                 startActivity(LoginNewActivity_.class);
                 appManager.finishActivity(this);
                 break;

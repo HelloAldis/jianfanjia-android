@@ -67,10 +67,10 @@ public class MyPlanViewType4 extends BaseAnnotationView {
         }
         statusView.setText(getResources().getStringArray(R.array.plan_status)[Integer.parseInt(requirementInfo.getPlan().getStatus())]);
         String imageId = requirementInfo.getUser().getImageid();
-        if (TextUtils.isEmpty(imageId)) {
-            imageShow.displayLocalImage(dataManagerNew.getUserImagePath(), headView);
-        } else {
+        if (!TextUtils.isEmpty(imageId)) {
             imageShow.displayImageHeadWidthThumnailImage(context, imageId, headView);
+        }else{
+            headView.setImageResource(R.mipmap.icon_default_head);
         }
         String username = requirementInfo.getUser().getUsername();
         if (!TextUtils.isEmpty(username)) {

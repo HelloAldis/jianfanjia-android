@@ -14,6 +14,7 @@ import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.fragment.RecycleViewFragment;
 import com.jianfanjia.cn.designer.interf.ClickCallBack;
+import com.jianfanjia.cn.designer.tools.LogTool;
 import com.jianfanjia.cn.designer.tools.StringUtils;
 import com.jianfanjia.cn.designer.view.baseview.BaseAnnotationView;
 
@@ -75,13 +76,14 @@ public class MyPlanViewType5 extends BaseAnnotationView {
         if (lastUpdateTime != 0l) {
             createTimeView.setText(StringUtils.covertLongToStringHasMini(lastUpdateTime));
         }
+
         statusView.setText(getResources().getStringArray(R.array.plan_status)[Integer.parseInt(requirementInfo.getPlan().getStatus())]);
         statusView.setTextColor(getResources().getColor(R.color.orange_color));
         String imageId = requirementInfo.getUser().getImageid();
-        if (TextUtils.isEmpty(imageId)) {
-            imageShow.displayLocalImage(dataManagerNew.getUserImagePath(), headView);
-        } else {
+        if (!TextUtils.isEmpty(imageId)) {
             imageShow.displayImageHeadWidthThumnailImage(context, imageId, headView);
+        } else {
+            headView.setImageResource(R.mipmap.icon_default_head);
         }
         String username = requirementInfo.getUser().getUsername();
         if (!TextUtils.isEmpty(username)) {
@@ -122,7 +124,12 @@ public class MyPlanViewType5 extends BaseAnnotationView {
             }
         });
         if (requirementInfo.getStatus().equals(Global.REQUIREMENT_STATUS4)) {
-            settingStartAtLayout.setVisibility(View.VISIBLE);
+            LogTool.d(this.getClass().getName(), "work_type =" + requirementInfo.getWork_type());
+            if (requirementInfo.getWork_type().equals(Global.WORK_TYPE_DESIGNER)) {
+                settingStartAtLayout.setVisibility(View.GONE);
+            } else {
+                settingStartAtLayout.setVisibility(View.VISIBLE);
+            }
             contractLayout.setVisibility(View.GONE);
             settingStartAtLayout.setOnClickListener(new OnClickListener() {
                 @Override

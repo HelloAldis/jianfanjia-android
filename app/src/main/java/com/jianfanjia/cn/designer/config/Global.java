@@ -71,6 +71,9 @@ public class Global {
     public static final String DEC_TYPE_HOME = "0";//家装
     public static final String DEC_TYPE_BUSINESS = "1";//商装
 
+    public static final String WORK_TYPE_HALF = "0";//半包
+    public static final String WORK_TYPE_ALL = "1";//全包
+    public static final String WORK_TYPE_DESIGNER = "2";//纯设计
 
     public static final String DEC_PROGRESS0 = "0";//我想看一看
     public static final String DEC_PROGRESS1 = "1";//正在做准备
