@@ -28,7 +28,7 @@
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:scaleType="centerCrop"
-            android:src="@mipmap/icon_sidebar_default_user" />
+            android:src="@mipmap/icon_default_head" />
 
         <TextView
             android:id="@+id/ltm_req_cell"

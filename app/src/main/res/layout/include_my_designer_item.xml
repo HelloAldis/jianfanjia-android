@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="@mipmap/icon_sidebar_default_user" />
+            android:src="@mipmap/icon_default_head" />
 
         <ImageView
             android:id="@+id/designerinfo_auth"
