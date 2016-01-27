@@ -58,14 +58,15 @@ public class NewUserCollectLoveStyleActivity extends BaseAnnotationActivity {
     protected String[] decstyles;
 
     protected int[] loveStyleImageIds = new int[]{
-            R.mipmap.img_oushi, R.mipmap.img_zhongshi, R.mipmap.img_meishi,
-            R.mipmap.img_xiandai, R.mipmap.img_dizhonghai, R.mipmap.img_dongnanya, R.mipmap.img_tianyuan
+            R.mipmap.img_oushi, R.mipmap.img_zhongshi, R.mipmap.img_xiandai,
+            R.mipmap.img_dizhonghai, R.mipmap.img_meishi, R.mipmap.img_dongnanya,
+            R.mipmap.img_tianyuan
     };
 
     @AfterViews
     protected void initAnnotationView() {
         Intent intent = getIntent();
-        ownerInfo = (OwnerInfo)intent.getSerializableExtra(Global.OWNERINFO);
+        ownerInfo = (OwnerInfo) intent.getSerializableExtra(Global.OWNERINFO);
 
         titleView.setText(getString(R.string.collect_lovestyle_title));
         contentView.setText(getString(R.string.collect_lovestyle_content));
@@ -103,12 +104,12 @@ public class NewUserCollectLoveStyleActivity extends BaseAnnotationActivity {
         loveStyleViewPager.setAdapter(collectLoveStyleViewPageAdapter);
     }
 
-    protected void notifyViewRefresh(){
-        if(lovestyleList.size() > 0){
+    protected void notifyViewRefresh() {
+        if (lovestyleList.size() > 0) {
             buttonNext.setEnabled(true);
             contentView.setText(lovestyleList.toString().substring(1, lovestyleList.toString().length() - 1));
             contentView.setTextColor(getResources().getColor(R.color.orange_color));
-        }else{
+        } else {
             buttonNext.setEnabled(false);
             contentView.setText(getString(R.string.collect_lovestyle_content));
             contentView.setTextColor(getResources().getColor(R.color.light_black_color));
@@ -128,12 +129,12 @@ public class NewUserCollectLoveStyleActivity extends BaseAnnotationActivity {
     }
 
     protected void intentToCollectPerson() {
-        if(ownerInfo == null){
+        if (ownerInfo == null) {
             ownerInfo = new OwnerInfo();
         }
         ownerInfo.setDec_styles(lovestyleNumber);
         Intent intent = new Intent(this, NewUserCollectPersonActivity_.class);
-        intent.putExtra(Global.OWNERINFO,ownerInfo);
+        intent.putExtra(Global.OWNERINFO, ownerInfo);
         startActivity(intent);
     }
 

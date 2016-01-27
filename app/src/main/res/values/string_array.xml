@@ -225,9 +225,9 @@
     <string-array name="arr_decstyle">
         <item>欧式</item>
         <item>中式</item>
-        <item>美式</item>
         <item>现代</item>
         <item>地中海</item>
+        <item>美式</item>
         <item>东南亚</item>
         <item>田园</item>
     </string-array>
@@ -242,9 +242,9 @@
     <string-array name="arr_lovestyle_pic">
         <item>@mipmap/img_req_ou_shi</item>
         <item>@mipmap/img_req_zhong_shi</item>
-        <item>@mipmap/img_req_mei_shi</item>
         <item>@mipmap/img_req_xian_dai</item>
         <item>@mipmap/img_req_di_zhonghai</item>
+        <item>@mipmap/img_req_mei_shi</item>
         <item>@mipmap/img_req_dong_nanya</item>
         <item>@mipmap/img_req_tian_yuan</item>
     </string-array>
