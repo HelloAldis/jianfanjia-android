@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/font_white"
+    android:background="@color/main_layout_bg"
     android:orientation="vertical">
 
     <com.jianfanjia.cn.designer.view.MainHeadView
@@ -10,121 +10,10 @@
         android:layout_height="wrap_content"
         android:background="@color/head_layout_bg" />
 
-    <ScrollView
-        android:id="@+id/setting_scrollview"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/detail_price_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="none">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <com.jianfanjia.cn.designer.view.MyListView
-                android:id="@+id/price_listview"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="10dip"
-                android:cacheColorHint="#00000000"
-                android:clipToPadding="false"
-                android:divider="@null"
-                android:fadingEdge="none"
-                android:fastScrollEnabled="false"
-                android:listSelector="@android:color/transparent"
-                android:scrollbars="none" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dip"
-                android:layout_marginLeft="10dip"
-                android:layout_marginRight="10dip"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="工程总造价："
-                    android:textColor="@color/home_page_text_color"
-                    android:textSize="@dimen/text_size_14" />
-
-                <TextView
-                    android:id="@+id/project_total_price"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/orange_color"
-                    android:textSize="@dimen/text_size_14" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dip"
-                android:layout_marginLeft="10dip"
-                android:layout_marginRight="10dip"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="工程折后价："
-                    android:textColor="@color/home_page_text_color"
-                    android:textSize="@dimen/text_size_14" />
-
-                <TextView
-                    android:id="@+id/project_price_after_discount"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/orange_color"
-                    android:textSize="@dimen/text_size_14" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dip"
-                android:layout_marginLeft="10dip"
-                android:layout_marginRight="10dip"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="        设计费："
-                    android:textColor="@color/home_page_text_color"
-                    android:textSize="@dimen/text_size_14" />
-
-                <TextView
-                    android:id="@+id/total_design_fee"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/orange_color"
-                    android:textSize="@dimen/text_size_14" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dip"
-                android:layout_marginLeft="10dip"
-                android:layout_marginRight="10dip"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="    折后总价："
-                    android:textColor="@color/home_page_text_color"
-                    android:textSize="@dimen/text_size_14" />
-
-                <TextView
-                    android:id="@+id/project_price_before_discount"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/orange_color"
-                    android:textSize="@dimen/text_size_14" />
-            </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
+        android:layout_marginBottom="@dimen/space_10"
+        android:scrollbars="none" />
 </LinearLayout>
