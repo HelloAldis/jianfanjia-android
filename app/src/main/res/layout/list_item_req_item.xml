@@ -11,6 +11,9 @@
         android:layout_gravity="center_horizontal"
         android:background="@drawable/my_item_layout_bg_selector"
         android:gravity="center_vertical"
-        android:paddingLeft="32dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:singleLine="true"
+        android:ellipsize="end"
         android:text="ltm_req_simple_item" />
 </LinearLayout>

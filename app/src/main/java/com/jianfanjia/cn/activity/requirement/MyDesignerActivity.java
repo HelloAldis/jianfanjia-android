@@ -134,7 +134,7 @@ public class MyDesignerActivity extends BaseAnnotationActivity {
                         Intent viewPlanIntent = new Intent(MyDesignerActivity.this, DesignerPlanListActivity.class);
                         Bundle planBundle = new Bundle();
                         planBundle.putString(Global.DESIGNER_ID, orderDesignerInfo.get_id());
-                        planBundle.putString(Global.REQUIREMENT_ID, requirementid);
+                        planBundle.putSerializable(Global.REQUIREMENT_INFO, orderDesignerInfo.getRequirement());
                         planBundle.putString(Global.DESIGNER_NAME, orderDesignerInfo.getUsername());
                         viewPlanIntent.putExtras(planBundle);
                         startActivity(viewPlanIntent);

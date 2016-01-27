@@ -311,5 +311,6 @@
     <string name="choose_sex">选择性别</string>
     <string name="str_collect_success">收藏成功</string>
     <string name="title_activity_customer_service">CustomerServiceActivity</string>
+    <string name="already_open_process">已开工</string>
 
 </resources>

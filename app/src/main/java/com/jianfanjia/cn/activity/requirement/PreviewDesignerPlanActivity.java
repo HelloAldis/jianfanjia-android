@@ -58,8 +58,9 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
     private Button btn_choose = null;
     private PlandetailInfo planDetailInfo = null;
     private String designerid = null;
-    private String requirementid = null;
     private String planid = null;
+    private String requirementid = null;
+    private RequirementInfo requirementInfo = null;
     private int itemPosition = -1;
 
     @Override
@@ -68,6 +69,8 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
         Bundle planBundle = intent.getExtras();
         planid = planBundle.getString(Global.PLAN_ID);
         itemPosition = planBundle.getInt(Global.POSITION);
+        requirementInfo = (RequirementInfo) planBundle.getSerializable(Global.REQUIREMENT_INFO);
+        requirementid = requirementInfo.get_id();
         LogTool.d(TAG, "planid=" + planid + " itemPosition=" + itemPosition);
         initMainHeadView();
         houseTypeLayout = (LinearLayout) findViewById(R.id.houseTypeLayout);
@@ -86,6 +89,15 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
         designText = (TextView) findViewById(R.id.designText);
         btnDetail = (Button) findViewById(R.id.btnDetail);
         btn_choose = (Button) findViewById(R.id.btn_choose);
+
+        String requirementStatus = requirementInfo.getStatus();
+        if (requirementStatus.equals(Global.REQUIREMENT_STATUS4) ||
+                requirementStatus.equals(Global.REQUIREMENT_STATUS5) ||
+                requirementStatus.equals(Global.REQUIREMENT_STATUS7)) {
+            btn_choose.setEnabled(false);
+        }else{
+            btn_choose.setEnabled(true);
+        }
         getPlanInfo(planid);
     }
 
@@ -162,7 +174,6 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
                 designTextLayout.setVisibility(View.VISIBLE);
                 mainHeadView.setRigthTitleEnable(true);
                 RequirementInfo requirementInfo = planDetailInfo.getRequirement();
-                requirementid = planDetailInfo.getRequirementid();
                 designerid = planDetailInfo.getDesignerid();
                 LogTool.d(TAG, "requirementid:" + requirementid + " designerid:" + designerid + " requirementInfo:" + requirementInfo);
                 if (!TextUtils.isEmpty(requirementInfo.getCell())) {
@@ -184,10 +195,6 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
                 totalDate.setText(planDetailInfo.getDuration() + "天");
                 price.setText(planDetailInfo.getTotal_price() + "元");
                 designText.setText(planDetailInfo.getDescription());
-                String planStatus = planDetailInfo.getStatus();
-                if (planStatus.equals(Global.PLAN_STATUS5)) {
-                    btn_choose.setEnabled(false);
-                }
                 final List<String> imgList = planDetailInfo.getImages();
                 PreviewAdapter adapter = new PreviewAdapter(PreviewDesignerPlanActivity.this, imgList, new ViewPagerClickListener() {
                     @Override

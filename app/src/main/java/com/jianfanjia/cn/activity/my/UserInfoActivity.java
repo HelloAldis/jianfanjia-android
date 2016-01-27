@@ -147,6 +147,7 @@ public class UserInfoActivity extends BaseAnnotationActivity implements
                 address.putExtra(Constant.EDIT_PROVICE, ownerInfo.getProvince());
                 address.putExtra(Constant.EDIT_CITY, ownerInfo.getCity());
                 address.putExtra(Constant.EDIT_DISTRICT, ownerInfo.getDistrict());
+                address.putExtra(EditCityActivity.PAGE,EditCityActivity.EDIT_USER_ADRESS);
                 startActivityForResult(address, Constant.REQUESTCODE_EDIT_ADDRESS);
                 break;
             case R.id.name_layout:

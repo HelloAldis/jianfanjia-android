@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.jianfanjia.cn.activity.my.EditCityActivity;
+import com.jianfanjia.cn.activity.my.EditCityActivity_;
 import com.jianfanjia.cn.activity.requirement.EditRequirementItemActivity_;
 import com.jianfanjia.cn.activity.requirement.EditRequirementLovestyleActivity_;
 import com.jianfanjia.cn.activity.R;
@@ -147,8 +149,15 @@ public class EditBussinessRequirementFragment extends BaseAnnotationFragment {
         int viewId = clickView.getId();
         switch (viewId) {
             case R.id.act_edit_req_city:
-                gotoItem.putExtra(Global.REQUIRE_DATA, Constant.REQUIRECODE_CITY);
-                startActivityForResult(gotoItem, Constant.REQUIRECODE_CITY);
+//                gotoItem.putExtra(Global.REQUIRE_DATA, Constant.REQUIRECODE_CITY);
+//                startActivityForResult(gotoItem, Constant.REQUIRECODE_CITY);
+                Intent address = new Intent(getActivity(),
+                        EditCityActivity_.class);
+                address.putExtra(Constant.EDIT_PROVICE, requirementInfo.getProvince());
+                address.putExtra(Constant.EDIT_CITY, requirementInfo.getCity());
+                address.putExtra(Constant.EDIT_DISTRICT, requirementInfo.getDistrict());
+                address.putExtra(EditCityActivity.PAGE,EditCityActivity.EDIT_REQUIREMENT_ADRESS);
+                startActivityForResult(address, Constant.REQUIRECODE_CITY);
                 break;
             case R.id.act_edit_req_lovedesistyle:
                 gotoItem.putExtra(Global.REQUIRE_DATA, Constant.REQUIRECODE_LOVEDESISTYLE);
@@ -230,8 +239,15 @@ public class EditBussinessRequirementFragment extends BaseAnnotationFragment {
             ReqItemFinderImp.ItemMap itemMap = (ReqItemFinderImp.ItemMap) data.getSerializableExtra(Global.RESPONSE_DATA);
             switch (requestCode) {
                 case Constant.REQUIRECODE_CITY:
-                    act_edit_req_city_content.setText(requirementInfo.getProvince() + requirementInfo.getCity() + itemMap.value);
-                    requirementInfo.setDistrict(itemMap.value);
+                    String provice = data.getStringExtra(Constant.EDIT_PROVICE);
+                    String city = data.getStringExtra(Constant.EDIT_CITY);
+                    String district = data.getStringExtra(Constant.EDIT_DISTRICT);
+                    if (!TextUtils.isEmpty(provice) && !TextUtils.isEmpty(city) && !TextUtils.isEmpty(district)) {
+                        act_edit_req_city_content.setText(provice + city + district);
+                        requirementInfo.setProvince(provice);
+                        requirementInfo.setCity(city);
+                        requirementInfo.setDistrict(district);
+                    }
                     break;
                 case Constant.REQUIRECODE_LOVEDESISTYLE:
                     act_edit_req_lovedesistyle_content.setText(itemMap.value);

@@ -57,9 +57,11 @@ public class NewUserCollectLoveStyleActivity extends BaseAnnotationActivity {
     protected String[] decstyles;
 
     protected int[] loveStyleImageIds = new int[]{
-            R.mipmap.img_oushi, R.mipmap.img_zhongshi, R.mipmap.img_meishi,
-            R.mipmap.img_xiandai, R.mipmap.img_dizhonghai, R.mipmap.img_dongnanya, R.mipmap.img_tianyuan
+            R.mipmap.img_oushi, R.mipmap.img_zhongshi, R.mipmap.img_xiandai,
+            R.mipmap.img_dizhonghai, R.mipmap.img_meishi, R.mipmap.img_dongnanya,
+            R.mipmap.img_tianyuan
     };
+
 
     @AfterViews
     protected void initAnnotationView() {

@@ -36,6 +36,10 @@ import java.util.Map;
 public class EditCityActivity extends BaseAnnotationActivity {
 
     private static final String TAG = "EditCityActivity";
+    public static final String PAGE = "page";
+    public static final int EDIT_USER_ADRESS = 0;
+    public static final int EDIT_REQUIREMENT_ADRESS = 1;
+
     @ViewById(R.id.spinner_pro)
     Spinner spinner_pro;
 
@@ -58,6 +62,7 @@ public class EditCityActivity extends BaseAnnotationActivity {
     private String provice;
     private String city;
     private String district;
+    private int page;
 
     private int currentPro = 0;
     private int currentCity = 0;
@@ -161,6 +166,17 @@ public class EditCityActivity extends BaseAnnotationActivity {
         provice = intent.getStringExtra(Constant.EDIT_PROVICE);
         city = intent.getStringExtra(Constant.EDIT_CITY);
         district = intent.getStringExtra(Constant.EDIT_DISTRICT);
+        page = intent.getIntExtra(PAGE,0);
+        switch (page){
+            case EDIT_REQUIREMENT_ADRESS:
+                spinner_pro.setEnabled(false);
+                spinner_city.setEnabled(false);
+                break;
+            case EDIT_USER_ADRESS:
+                spinner_pro.setEnabled(true);
+                spinner_city.setEnabled(true);
+                break;
+        }
         if (!TextUtils.isEmpty(provice) && !TextUtils.isEmpty(city)) {
             currentPro = provinces.indexOf(provice);
             citys = cityMap.get(provice);
@@ -171,6 +187,7 @@ public class EditCityActivity extends BaseAnnotationActivity {
             } else {
                 currentDistrict = 0;
             }
+            district = districts.get(currentDistrict);
             isInit = true;
         } else {
             provice = provinces.get(currentPro);
@@ -179,6 +196,7 @@ public class EditCityActivity extends BaseAnnotationActivity {
             districts = districtMap.get(city);
             district = districts.get(currentDistrict);
         }
+
 
         LogTool.d(TAG, provice + "= " + city + "= " + district);
 
@@ -197,12 +215,7 @@ public class EditCityActivity extends BaseAnnotationActivity {
                     @Override
                     public void loadSuccess(Object data) {
                         hideWaitDialog();
-                        intent.putExtra(Constant.EDIT_PROVICE, provice);
-                        intent.putExtra(Constant.EDIT_CITY, city);
-                        intent.putExtra(Constant.EDIT_DISTRICT, district);
-                        LogTool.d(TAG, provice + city + district);
-                        setResult(RESULT_OK, intent);
-                        appManager.finishActivity(EditCityActivity.this);
+                        setResultTo();
                     }
 
                     @Override
@@ -213,6 +226,15 @@ public class EditCityActivity extends BaseAnnotationActivity {
                 }, this);
     }
 
+    protected void setResultTo(){
+        intent.putExtra(Constant.EDIT_PROVICE, provice);
+        intent.putExtra(Constant.EDIT_CITY, city);
+        intent.putExtra(Constant.EDIT_DISTRICT, district);
+        LogTool.d(TAG, provice + city + district);
+        setResult(RESULT_OK, intent);
+        appManager.finishActivity(EditCityActivity.this);
+    }
+
     @Click({R.id.head_back_layout, R.id.btn_confirm})
     public void click(View view) {
         switch (view.getId()) {
@@ -220,10 +242,17 @@ public class EditCityActivity extends BaseAnnotationActivity {
                 appManager.finishActivity(this);
                 break;
             case R.id.btn_confirm:
-                ownerUpdateInfo.setProvince(provice);
-                ownerUpdateInfo.setCity(city);
-                ownerUpdateInfo.setDistrict(district);
-                put_Owner_Info();
+                switch (page){
+                    case EDIT_USER_ADRESS:
+                        ownerUpdateInfo.setProvince(provice);
+                        ownerUpdateInfo.setCity(city);
+                        ownerUpdateInfo.setDistrict(district);
+                        put_Owner_Info();
+                        break;
+                    case EDIT_REQUIREMENT_ADRESS:
+                        setResultTo();
+                        break;
+                }
                 break;
         }
     }

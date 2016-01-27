@@ -47,8 +47,10 @@ public class ContractActivity extends BaseActivity implements OnClickListener, V
         checkBtn = (Button) findViewById(R.id.btn_choose);
         if (requirementStatus.equals(Global.REQUIREMENT_STATUS5)) {
             checkBtn.setEnabled(false);
+            checkBtn.setText(getString(R.string.already_open_process));
         } else {
             checkBtn.setEnabled(true);
+            checkBtn.setText(getString(R.string.str_check_contract));
         }
         webView = (WebView) findViewById(R.id.webView);
         //支持javascript

@@ -16,6 +16,7 @@ import com.jianfanjia.cn.activity.common.CommentActivity;
 import com.jianfanjia.cn.adapter.DesignerPlanAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.PlanInfo;
+import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
@@ -43,6 +44,7 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
     private PullToRefreshRecycleView designer_plan_listview = null;
     private List<PlanInfo> designerPlanList = new ArrayList<PlanInfo>();
     private String requirementid = null;
+    private RequirementInfo requirementInfo = null;
     private String designerid = null;
     private String designerName = null;
     private int itemPosition = -1;
@@ -51,7 +53,8 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
     public void initView() {
         Intent intent = this.getIntent();
         Bundle designerBundle = intent.getExtras();
-        requirementid = designerBundle.getString(Global.REQUIREMENT_ID);
+        requirementInfo = (RequirementInfo)designerBundle.getSerializable(Global.REQUIREMENT_INFO);
+        requirementid = requirementInfo.get_id();
         designerid = designerBundle.getString(Global.DESIGNER_ID);
         designerName = designerBundle.getString(Global.DESIGNER_NAME);
         LogTool.d(TAG, "requirementid:" + requirementid + "  designerid:" + designerid + "  designerName:" + designerName);
@@ -71,7 +74,7 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
     private void initMainHeadView() {
         mainHeadView = (MainHeadView) findViewById(R.id.my_plan_head_layout);
         mainHeadView.setBackListener(this);
-        mainHeadView.setMianTitle("\"" + designerName + "\"" + getResources().getString(R.string.planText));
+        mainHeadView.setMianTitle("“" + designerName + "”" + getResources().getString(R.string.planText));
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
         mainHeadView.setRightTitleVisable(View.GONE);
         mainHeadView.setBackLayoutVisable(View.VISIBLE);
@@ -175,6 +178,7 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
     private void startToActivity(String planid) {
         Bundle planBundle = new Bundle();
         planBundle.putString(Global.PLAN_ID, planid);
+        planBundle.putSerializable(Global.REQUIREMENT_INFO,requirementInfo);
         planBundle.putInt(Global.POSITION, itemPosition);
         startActivity(PreviewDesignerPlanActivity.class, planBundle);
     }

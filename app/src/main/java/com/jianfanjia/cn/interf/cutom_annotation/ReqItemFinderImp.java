@@ -22,7 +22,7 @@ public class ReqItemFinderImp implements ReqItemFinder {
     @StringArrayRes(R.array.arr_district)
     protected String[] arr_district;
 
-    @StringArrayRes(R.array.arr_worktype)
+    @StringArrayRes(R.array.arr_show_worktype)
     protected String[] arr_worktype;
 
     @StringArrayRes(R.array.arr_housetype)

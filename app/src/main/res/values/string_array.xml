@@ -195,9 +195,15 @@
 
     <!-- 包工类型 -->
     <string-array name="arr_worktype">
-        <item>半包（设计+施工）</item>
-        <item>全包（设计+施工）</item>
+        <item>半包</item>
+        <item>全包</item>
         <item>纯设计</item>
+    </string-array>
+
+    <string-array name="arr_show_worktype">
+        <item>半包（包工包辅料，主料由您采购，用的最多的装修方式）</item>
+        <item>全包（一条龙服务，包工包主辅材，最省心的装修）</item>
+        <item>纯设计（我们不生产设计师，我们只是设计师的搬运工）</item>
     </string-array>
 
     <!-- 装修类型 -->
@@ -224,9 +230,9 @@
     <string-array name="arr_decstyle">
         <item>欧式</item>
         <item>中式</item>
-        <item>美式</item>
         <item>现代</item>
         <item>地中海</item>
+        <item>美式</item>
         <item>东南亚</item>
         <item>田园</item>
     </string-array>
@@ -241,9 +247,9 @@
     <string-array name="arr_lovestyle_pic">
         <item>@mipmap/img_req_ou_shi</item>
         <item>@mipmap/img_req_zhong_shi</item>
-        <item>@mipmap/img_req_mei_shi</item>
         <item>@mipmap/img_req_xian_dai</item>
         <item>@mipmap/img_req_di_zhonghai</item>
+        <item>@mipmap/img_req_mei_shi</item>
         <item>@mipmap/img_req_dong_nanya</item>
         <item>@mipmap/img_req_tian_yuan</item>
     </string-array>
