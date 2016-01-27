@@ -94,7 +94,6 @@ public class MoreFragment extends BaseFragment {
     public void setListener() {
         notify_layout.setOnClickListener(this);
         setting_layout.setOnClickListener(this);
-        my_info_layout.setOnClickListener(this);
         kefu_layout.setOnClickListener(this);
     }
 
@@ -103,8 +102,6 @@ public class MoreFragment extends BaseFragment {
         switch (v.getId()) {
             case R.id.notify_layout:
                 startActivity(NotifyActivity.class);
-                break;
-            case R.id.frag_my_info_layout:
                 break;
             case R.id.kefu_layout:
                 startActivity(CustomerServiceActivity.class);
