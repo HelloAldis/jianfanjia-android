@@ -51,7 +51,7 @@
                             android:layout_below="@id/text_project_total_price"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="@dimen/space_10"
-                            android:text="查看合同"
+                            android:text="￥100"
                             android:textColor="@color/light_black_color"
                             android:textSize="@dimen/text_size_14" />
                     </RelativeLayout>
@@ -84,7 +84,7 @@
                             android:layout_below="@id/text_project_price_after_discount"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="@dimen/space_10"
-                            android:text="查看方案"
+                            android:text="￥100"
                             android:textColor="@color/light_black_color"
                             android:textSize="@dimen/text_size_14" />
                     </RelativeLayout>
@@ -117,7 +117,7 @@
                             android:layout_below="@id/text_total_design_fee"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="@dimen/space_10"
-                            android:text="前往工地"
+                            android:text="￥100"
                             android:textColor="@color/light_black_color"
                             android:textSize="@dimen/text_size_14" />
                     </RelativeLayout>
