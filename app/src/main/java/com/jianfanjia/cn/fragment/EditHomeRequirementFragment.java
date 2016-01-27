@@ -310,7 +310,7 @@ public class EditHomeRequirementFragment extends BaseAnnotationFragment {
                     requirementInfo.setHouse_type(itemMap.key);
                     break;
                 case Constant.REQUIRECODE_WORKTYPE:
-                    act_edit_req_work_type_content.setText(itemMap.value);
+                    act_edit_req_work_type_content.setText(arr_worktype[Integer.parseInt(itemMap.key)]);
                     requirementInfo.setWork_type(itemMap.key);
                     break;
                 case Constant.REQUIRECODE_DESISEX:
