@@ -14,8 +14,7 @@
     <uses-sdk
         android:minSdkVersion="15"
         android:targetSdkVersion="23"
-        tools:overrideLibrary="com.umeng.socialize.evernote,com.umeng.socialize.pinterest"
-        />
+        tools:overrideLibrary="com.umeng.socialize.evernote,com.umeng.socialize.pinterest" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -52,7 +51,8 @@
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
     <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_LOGS" />
-    <permission android:name="android.permission.WRITE_APN_SETTINGS"/>
+
+    <permission android:name="android.permission.WRITE_APN_SETTINGS" />
 
     <application
         android:name="com.jianfanjia.cn.application.MyApplication"
@@ -350,8 +350,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".requirement.PublishRequirementActivity_"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".requirement.PreviewBusinessRequirementActivity_"
             android:screenOrientation="portrait" />
@@ -379,14 +378,13 @@
             android:launchMode="singleTask"
             android:noHistory="true"
             android:theme="@style/Theme.UMDialog"
-            android:windowSoftInputMode="stateVisible|adjustResize" >
-        </activity>
+            android:windowSoftInputMode="stateVisible|adjustResize"></activity>
 
         <!-- 腾讯SSO授权的Activity注册 -->
         <activity
             android:name="com.tencent.tauth.AuthActivity"
             android:launchMode="singleTask"
-            android:noHistory="true" >
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
