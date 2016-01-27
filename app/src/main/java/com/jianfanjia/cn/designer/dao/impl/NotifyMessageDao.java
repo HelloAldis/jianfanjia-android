@@ -22,10 +22,10 @@ public class NotifyMessageDao extends BaseDaoImpl<NotifyMessage> implements
     }
 
     @Override
-    public List<NotifyMessage> getNotifyListByType(String type) {
+    public List<NotifyMessage> getNotifyListByType(String type, String userid) {
         List<NotifyMessage> list = null;
         try {
-            list = dao.queryBuilder().orderBy("time", false).where()
+            list = dao.queryBuilder().orderBy("time", false).where().eq("userid", userid).and()
                     .eq("type", type).query();
             return list;
         } catch (SQLException e) {

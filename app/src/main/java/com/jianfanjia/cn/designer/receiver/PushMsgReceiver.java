@@ -42,7 +42,7 @@ public class PushMsgReceiver extends BroadcastReceiver {
         dataManager = DataManagerNew.getInstance();
         //-------------------------------------------------
         Bundle bundle = intent.getExtras();
-        if(bundle == null){
+        if (bundle == null) {
             return;
         }
         LogTool.d(TAG, "onReceive() action=" + bundle.getInt("action"));
@@ -98,7 +98,8 @@ public class PushMsgReceiver extends BroadcastReceiver {
         try {
             NotifyMessage message = JsonParser.jsonToBean(jsonStr,
                     NotifyMessage.class);
-            Log.i(TAG, "message:" + message);
+            Log.i(TAG, "message:" + message + "    userid:" + dataManager.getUserId());
+            message.setUserid(dataManager.getUserId());
             notifyMessageDao.save(message);
             if (TDevice.isAppAlive(context, context.getPackageName())) {
                 LogTool.d(TAG, "the app process is alive");

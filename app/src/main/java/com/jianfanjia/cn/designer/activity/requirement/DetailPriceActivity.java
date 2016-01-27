@@ -55,7 +55,9 @@ public class DetailPriceActivity extends BaseActivity implements OnClickListener
             detail.setPrice("项目总价(元)");
             detail.setDescription("备注");
             List<PriceDetail> details = planInfo.getPrice_detail();
-            details.add(0, detail);
+            if (null != details && details.size() > 0) {
+                details.add(0, detail);
+            }
             PriceDetailAdapter adapter = new PriceDetailAdapter(DetailPriceActivity.this, details, planInfo);
             detail_price_listview.setAdapter(adapter);
         }
