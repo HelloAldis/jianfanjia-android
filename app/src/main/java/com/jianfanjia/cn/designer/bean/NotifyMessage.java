@@ -14,7 +14,6 @@ import java.io.Serializable;
 @DatabaseTable(tableName = "NotifyMessage")
 public class NotifyMessage implements Serializable {
 
-    private static final long serialVersionUID = -5432981870622737812L;
     @DatabaseField(generatedId = true)
     public int id;// 自增长
 
@@ -38,6 +37,9 @@ public class NotifyMessage implements Serializable {
 
     @DatabaseField
     private String processid;// 工序id
+
+    @DatabaseField
+    private String userid;
 
     public NotifyMessage() {
 
@@ -105,5 +107,13 @@ public class NotifyMessage implements Serializable {
 
     public void setProcessid(String processid) {
         this.processid = processid;
+    }
+
+    public String getUserid() {
+        return userid;
+    }
+
+    public void setUserid(String userid) {
+        this.userid = userid;
     }
 }

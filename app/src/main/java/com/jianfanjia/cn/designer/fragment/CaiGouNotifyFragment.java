@@ -83,7 +83,7 @@ public class CaiGouNotifyFragment extends BaseFragment implements PullToRefreshB
     private void initData() {
         caigouList.clear();
         List<NotifyMessage> caigouMsgList = notifyMessageDao
-                .getNotifyListByType(Constant.CAIGOU_NOTIFY);
+                .getNotifyListByType(Constant.CAIGOU_NOTIFY, dataManager.getUserId());
         LogTool.d(TAG, "caigouMsgList:" + caigouMsgList);
         caigouList.addAll(caigouMsgList);
     }
