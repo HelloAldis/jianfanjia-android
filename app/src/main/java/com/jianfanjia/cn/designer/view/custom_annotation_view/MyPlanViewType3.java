@@ -123,6 +123,9 @@ public class MyPlanViewType3 extends BaseAnnotationView {
                     clickCallBack.click(position, RecycleViewFragment.RREVIEW_COMMENT_TYPE);
                 }
             });
+            commentLayout.setEnabled(true);
+        }else{
+            commentLayout.setEnabled(false);
         }
         planLayout.setOnClickListener(new OnClickListener() {
             @Override
