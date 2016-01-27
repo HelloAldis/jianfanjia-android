@@ -210,7 +210,7 @@ public class UiHelper {
             mRemoteViews.setTextViewText(R.id.list_item_title, context.getResources()
                     .getText(R.string.caigouText));
             mRemoteViews.setTextViewText(R.id.list_item_date, DateFormatTool.toLocalTimeString(message.getTime()));
-            mRemoteViews.setTextViewText(R.id.list_item_content, message.getContent());
+            mRemoteViews.setTextViewText(R.id.list_item_content, context.getResources().getString(R.string.list_item_caigou_example) + message.getContent());
             Intent mainIntent = new Intent(context, MainActivity.class);
             mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
                     | Intent.FLAG_ACTIVITY_NEW_TASK);
