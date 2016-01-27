@@ -17,28 +17,28 @@ public class NotifyMessage implements Serializable {
     @DatabaseField(generatedId = true)
     public int id;// 自增长
 
-    @DatabaseField
+    @DatabaseField(columnName = "type")
     private String type;// 类型
 
-    @DatabaseField
+    @DatabaseField(columnName = "cell")
     private String cell;//小区
 
-    @DatabaseField
+    @DatabaseField(columnName = "content")
     private String content;// 内容
 
-    @DatabaseField
+    @DatabaseField(columnName = "time")
     private long time;// 日期
 
-    @DatabaseField
+    @DatabaseField(columnName = "section")
     private String section;// 阶段
 
-    @DatabaseField
+    @DatabaseField(columnName = "status")
     private String status;// 状态
 
-    @DatabaseField
+    @DatabaseField(columnName = "processid")
     private String processid;// 工序id
 
-    @DatabaseField
+    @DatabaseField(columnName = "userid")
     private String userid;
 
     public NotifyMessage() {
