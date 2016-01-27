@@ -163,6 +163,7 @@
     <string name="designerPlanText">方案</string>
     <string name="designerPlan">方案详情</string>
     <string name="pingjiaText">评价设计师</string>
+    <string name="pingjiaDetailText">评价详情</string>
     <string name="detailPrice">详细报价</string>
     <string name="okText">确定</string>
     <string name="contractText">施工合同</string>
