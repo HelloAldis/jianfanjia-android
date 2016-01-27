@@ -10,7 +10,6 @@ import java.util.List;
  * Time: 14:23
  */
 public class PlandetailInfo implements Serializable {
-    private static final long serialVersionUID = -753875509577141602L;
     private String _id;
     private long last_status_update_time;
     private long request_date;
@@ -24,7 +23,7 @@ public class PlandetailInfo implements Serializable {
     private int project_price_after_discount;
     private String manager;
     private String description;
-    private float total_price;
+    private int total_price;
     private int duration;
     private String status;
     private List<String> images;
@@ -32,14 +31,6 @@ public class PlandetailInfo implements Serializable {
     private Designer designer;
     private User user;
     private RequirementInfo requirement;
-
-    public String get_id() {
-        return _id;
-    }
-
-    public void set_id(String _id) {
-        this._id = _id;
-    }
 
     public long getLast_status_update_time() {
         return last_status_update_time;
@@ -97,6 +88,22 @@ public class PlandetailInfo implements Serializable {
         this.house_check_time = house_check_time;
     }
 
+    public int getProject_price_before_discount() {
+        return project_price_before_discount;
+    }
+
+    public void setProject_price_before_discount(int project_price_before_discount) {
+        this.project_price_before_discount = project_price_before_discount;
+    }
+
+    public int getTotal_design_fee() {
+        return total_design_fee;
+    }
+
+    public void setTotal_design_fee(int total_design_fee) {
+        this.total_design_fee = total_design_fee;
+    }
+
     public int getProject_price_after_discount() {
         return project_price_after_discount;
     }
@@ -121,11 +128,11 @@ public class PlandetailInfo implements Serializable {
         this.description = description;
     }
 
-    public float getTotal_price() {
+    public int getTotal_price() {
         return total_price;
     }
 
-    public void setTotal_price(float total_price) {
+    public void setTotal_price(int total_price) {
         this.total_price = total_price;
     }
 
@@ -183,21 +190,5 @@ public class PlandetailInfo implements Serializable {
 
     public void setRequirement(RequirementInfo requirement) {
         this.requirement = requirement;
-    }
-
-    public int getProject_price_before_discount() {
-        return project_price_before_discount;
-    }
-
-    public void setProject_price_before_discount(int project_price_before_discount) {
-        this.project_price_before_discount = project_price_before_discount;
-    }
-
-    public int getTotal_design_fee() {
-        return total_design_fee;
-    }
-
-    public void setTotal_design_fee(int total_design_fee) {
-        this.total_design_fee = total_design_fee;
     }
 }
