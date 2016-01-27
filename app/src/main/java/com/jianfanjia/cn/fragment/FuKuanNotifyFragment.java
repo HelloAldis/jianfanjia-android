@@ -81,7 +81,7 @@ public class FuKuanNotifyFragment extends BaseFragment implements PullToRefreshB
 
     private void initData() {
         payList.clear();
-        List<NotifyMessage> payMsgList = notifyMessageDao.getNotifyListByType(Constant.FUKUAN_NOTIFY);
+        List<NotifyMessage> payMsgList = notifyMessageDao.getNotifyListByType(Constant.FUKUAN_NOTIFY, dataManager.getUserId());
         LogTool.d(TAG, "payMsgList:" + payMsgList);
         payList.addAll(payMsgList);
     }
