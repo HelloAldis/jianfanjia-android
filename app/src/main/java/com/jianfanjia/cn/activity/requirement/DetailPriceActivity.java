@@ -1,11 +1,13 @@
 package com.jianfanjia.cn.activity.requirement;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.PriceDetailAdapter;
@@ -15,6 +17,7 @@ import com.jianfanjia.cn.bean.PriceDetail;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
+import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
 
 import java.util.List;
 
@@ -27,40 +30,34 @@ import java.util.List;
 public class DetailPriceActivity extends BaseActivity implements OnClickListener {
     private static final String TAG = DetailPriceActivity.class.getName();
     private MainHeadView mainHeadView = null;
-    private ListView priceListView = null;
-    private View headView = null;
-    private TextView project_total_price = null;
-    private TextView project_price_before_discount = null;
-    private TextView project_price_after_discount = null;
-    private TextView total_design_fee = null;
+    private RecyclerView detail_price_listview = null;
     private PriceDetailAdapter adapter = null;
-    private PlandetailInfo planDetailInfo = null;
+    private PlandetailInfo detailInfo = null;
 
     @Override
     public void initView() {
-        initMainHeadView();
-        headView = inflater.inflate(R.layout.list_item_price_header_item, null);
-        priceListView = (ListView) findViewById(R.id.price_listview);
-        priceListView.setFocusable(false);
-        project_total_price = (TextView) findViewById(R.id.project_total_price);
-        project_price_before_discount = (TextView) findViewById(R.id.project_price_before_discount);
-        project_price_after_discount = (TextView) findViewById(R.id.project_price_after_discount);
-        total_design_fee = (TextView) findViewById(R.id.total_design_fee);
         Intent intent = this.getIntent();
         Bundle priceBundle = intent.getExtras();
-        planDetailInfo = (PlandetailInfo) priceBundle.getSerializable(Global.PLAN_DETAIL);
-        LogTool.d(TAG, "planDetailInfo =" + planDetailInfo);
-        if (null != planDetailInfo) {
-            List<PriceDetail> details = planDetailInfo.getPrice_detail();
-            if (null != details && details.size() > 0) {
-                priceListView.addHeaderView(headView);
-                adapter = new PriceDetailAdapter(DetailPriceActivity.this, planDetailInfo.getPrice_detail());
-                priceListView.setAdapter(adapter);
-            }
-            project_total_price.setText("￥" + planDetailInfo.getProject_price_before_discount());
-            project_price_after_discount.setText("￥" + planDetailInfo.getProject_price_after_discount());
-            total_design_fee.setText("￥" + planDetailInfo.getTotal_design_fee());
-            project_price_before_discount.setText("￥" + planDetailInfo.getTotal_price());
+        detailInfo = (PlandetailInfo) priceBundle.getSerializable(Global.PLAN_DETAIL);
+        LogTool.d(TAG, "detailInfo =" + detailInfo);
+        initMainHeadView();
+        detail_price_listview = (RecyclerView) findViewById(R.id.detail_price_listview);
+        detail_price_listview.setLayoutManager(new LinearLayoutManager(DetailPriceActivity.this));
+        detail_price_listview.setItemAnimator(new DefaultItemAnimator());
+        Paint paint = new Paint();
+        paint.setStrokeWidth(1);
+        paint.setColor(getResources().getColor(R.color.light_white_color));
+        paint.setAntiAlias(true);
+        detail_price_listview.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this).paint(paint).showLastDivider().build());
+        if (null != detailInfo) {
+            PriceDetail detail = new PriceDetail();
+            detail.setItem("项目");
+            detail.setPrice("项目总价(元)");
+            detail.setDescription("备注");
+            List<PriceDetail> details = detailInfo.getPrice_detail();
+            details.add(0, detail);
+            PriceDetailAdapter adapter = new PriceDetailAdapter(DetailPriceActivity.this, details, detailInfo);
+            detail_price_listview.setAdapter(adapter);
         }
     }
 

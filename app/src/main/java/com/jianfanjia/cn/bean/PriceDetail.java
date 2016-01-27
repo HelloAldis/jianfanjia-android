@@ -12,7 +12,7 @@ public class PriceDetail implements Serializable {
     private static final long serialVersionUID = 5886154173353451274L;
     private String _id;
     private String item;
-    private float price;
+    private String price;
     private String description;
 
     public String get_id() {
@@ -31,11 +31,11 @@ public class PriceDetail implements Serializable {
         this.item = item;
     }
 
-    public float getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
