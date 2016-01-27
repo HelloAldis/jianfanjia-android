@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/site_head_procedure_icon_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_8">
+
+        <LinearLayout
+            android:id="@+id/list_item_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="horizontal">
+
+            <View
+                android:id="@+id/left_line"
+                style="@style/divier_line"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                />
+
+            <View
+                android:id="@+id/right_line"
+                style="@style/divier_line"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/site_head_procedure_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/icon_home_checked1" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/site_head_procedure_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/site_head_procedure_icon_layout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/space_2"
+        android:textColor="@color/light_black_color" />
+
+    <TextView
+        android:id="@+id/site_head_procedure_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/site_head_procedure_name"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/space_2"
+        android:textColor="@color/main_color_grey"
+        />
+</RelativeLayout>

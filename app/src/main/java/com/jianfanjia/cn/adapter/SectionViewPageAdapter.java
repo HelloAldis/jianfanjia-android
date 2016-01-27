@@ -60,19 +60,29 @@ public class SectionViewPageAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, final int position) {
         View view = LayoutInflater.from(context).inflate(
-                R.layout.viewpager_item_section_item, container, false);
+                R.layout.viewpager_item_process_view_item, container, false);
         ImageView imageView = (ImageView) view
                 .findViewById(R.id.site_head_procedure_icon);
         TextView titleView = (TextView) view
                 .findViewById(R.id.site_head_procedure_name);
-        View lineView = view
-                .findViewById(R.id.site_head_line_view);
+        View leftLineView = view
+                .findViewById(R.id.left_line);
+        View rightLineView = view
+                .findViewById(R.id.right_line);
         TextView dateView = (TextView) view
                 .findViewById(R.id.site_head_procedure_date);
-        if (position < list.size() - 4) {
-            lineView.setVisibility(View.VISIBLE);
+        if(position == 0){
+            leftLineView.setVisibility(View.INVISIBLE);
+            rightLineView.setVisibility(View.VISIBLE);
+        }else if(position == list.size() - 4){
+            rightLineView.setVisibility(View.INVISIBLE);
+            leftLineView.setVisibility(View.VISIBLE);
+        }else if(position > list.size() - 4){
+            rightLineView.setVisibility(View.INVISIBLE);
+            leftLineView.setVisibility(View.INVISIBLE);
         } else {
-            lineView.setVisibility(View.INVISIBLE);
+            rightLineView.setVisibility(View.VISIBLE);
+            leftLineView.setVisibility(View.VISIBLE);
         }
         imageView.setImageResource(list.get(position).getResId());
         titleView.setText(list.get(position).getTitle());
