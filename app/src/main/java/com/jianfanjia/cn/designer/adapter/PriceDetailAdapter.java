@@ -1,6 +1,7 @@
 package com.jianfanjia.cn.designer.adapter;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,6 +56,7 @@ public class PriceDetailAdapter extends BaseRecyclerViewAdapter<PriceDetail> {
         switch (viewType) {
             case TYPE_HEAD:
                 PriceDetailHeadHolder priceDetailHeadHolder = (PriceDetailHeadHolder) viewHolder;
+                priceDetailHeadHolder.project_total_price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG); //中划线
                 priceDetailHeadHolder.project_total_price.setText("￥" + planInfo.getTotal_price());
                 priceDetailHeadHolder.project_price_after_discount.setText("￥" + planInfo.getProject_price_after_discount());
                 priceDetailHeadHolder.total_design_fee.setText("￥" + planInfo.getTotal_design_fee());
