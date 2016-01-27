@@ -25,11 +25,16 @@ public class ProcessRecyclerViewAdapter extends BaseRecyclerViewAdapter<SiteProc
     private OnItemClickListener listener;
     private int processIndex;
 
+    public static final int FIRST = 0;
+    public static final int LAST = 1;
+    public static final int NORMAL = 2;
+
     public ProcessRecyclerViewAdapter(Context context, List<SiteProcessItem> list, int processIndex, OnItemClickListener listener) {
         super(context, list);
         this.processIndex = processIndex;
         this.listener = listener;
     }
+
 
     @Override
     public void bindView(RecyclerViewHolderBase viewHolder, final int position, List<SiteProcessItem> list) {
@@ -37,10 +42,20 @@ public class ProcessRecyclerViewAdapter extends BaseRecyclerViewAdapter<SiteProc
         ProcessViewHolder holder = (ProcessViewHolder) viewHolder;
         holder.itemImgView.setImageResource(item.getRes());
         holder.itemTitleView.setText(item.getTitle());
-        if (position == list.size() - 1) {
-            holder.lineView.setVisibility(View.GONE);
+      /*  if (position == list.size() - 1) {
+            holder.LeftLineView.setVisibility(View.GONE);
         } else {
-            holder.lineView.setVisibility(View.VISIBLE);
+            holder.LeftLineView.setVisibility(View.VISIBLE);
+        }*/
+        if(position == 0){
+            holder.LeftLineView.setVisibility(View.INVISIBLE);
+            holder.rightLineView.setVisibility(View.VISIBLE);
+        }else if(position == list.size() - 1){
+            holder.rightLineView.setVisibility(View.INVISIBLE);
+            holder.LeftLineView.setVisibility(View.VISIBLE);
+        }else {
+            holder.rightLineView.setVisibility(View.VISIBLE);
+            holder.LeftLineView.setVisibility(View.VISIBLE);
         }
         if (position < processIndex) {
             holder.itemImgView.setSelected(true);
@@ -76,7 +91,8 @@ public class ProcessRecyclerViewAdapter extends BaseRecyclerViewAdapter<SiteProc
     private static class ProcessViewHolder extends RecyclerViewHolderBase {
         public ImageView itemImgView;
         public TextView itemTitleView;
-        public View lineView;
+        public View LeftLineView;
+        public View rightLineView;
 
         public ProcessViewHolder(View itemView) {
             super(itemView);
@@ -84,8 +100,9 @@ public class ProcessRecyclerViewAdapter extends BaseRecyclerViewAdapter<SiteProc
                     .findViewById(R.id.list_item_process_img);
             itemTitleView = (TextView) itemView
                     .findViewById(R.id.list_item_process_text);
-            lineView = itemView
-                    .findViewById(R.id.line_view);
+            LeftLineView = itemView
+                    .findViewById(R.id.left_line);
+            rightLineView = itemView.findViewById(R.id.right_line);
         }
     }
 }
