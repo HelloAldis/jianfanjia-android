@@ -76,8 +76,7 @@ public class PingJiaInfoActivity extends BaseActivity implements
     private void initMainHeadView() {
         mainHeadView = (MainHeadView) findViewById(R.id.my_pingjia_head_layout);
         mainHeadView.setBackListener(this);
-        mainHeadView
-                .setMianTitle(getResources().getString(R.string.pingjiaText));
+        mainHeadView.setMianTitle(getResources().getString(R.string.pingjiaDetailText));
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
         mainHeadView.setRightTitleVisable(View.GONE);
         mainHeadView.setBackLayoutVisable(View.VISIBLE);
