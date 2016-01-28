@@ -34,6 +34,7 @@ public class MySiteAdapter extends BaseRecyclerViewAdapter<Process> {
     private static final String TAG = MySiteAdapter.class.getName();
     private ClickCallBack callBack;
     private List<SiteProcessItem> siteProcessList;
+    private int processIndex = -1;
 
     public MySiteAdapter(Context context, List<Process> list, List<SiteProcessItem> siteProcessList, ClickCallBack callBack) {
         super(context, list);
@@ -56,12 +57,13 @@ public class MySiteAdapter extends BaseRecyclerViewAdapter<Process> {
         LogTool.d(TAG, "itemNode=" + itemNode);
         if (!TextUtils.isEmpty(itemNode)) {
             holder.itemNodeView.setText(itemNode + "阶段");
+            processIndex = MyApplication.getInstance().getPositionByItemName(process.getGoing_on());
         } else {
-            holder.itemNodeView.setText("已竣工");
+            holder.itemNodeView.setText(context.getResources().getText(R.string.all_finish));
+            processIndex = 7;
         }
         holder.itemPubTimeView.setText(StringUtils.covertLongToString(process.getStart_at()));
         holder.itemUpdateTimeView.setText(StringUtils.covertLongToString(process.getLastupdate()));
-        int processIndex = MyApplication.getInstance().getPositionByItemName(process.getGoing_on());
         LogTool.d(TAG, "processIndex=" + processIndex);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
