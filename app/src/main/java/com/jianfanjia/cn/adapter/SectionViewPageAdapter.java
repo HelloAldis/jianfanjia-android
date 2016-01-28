@@ -71,13 +71,13 @@ public class SectionViewPageAdapter extends PagerAdapter {
                 .findViewById(R.id.right_line);
         TextView dateView = (TextView) view
                 .findViewById(R.id.site_head_procedure_date);
-        if(position == 0){
+        if (position == 0) {
             leftLineView.setVisibility(View.INVISIBLE);
             rightLineView.setVisibility(View.VISIBLE);
-        }else if(position == list.size() - 4){
+        } else if (position == list.size() - 4) {
             rightLineView.setVisibility(View.INVISIBLE);
             leftLineView.setVisibility(View.VISIBLE);
-        }else if(position > list.size() - 4){
+        } else if (position > list.size() - 4) {
             rightLineView.setVisibility(View.INVISIBLE);
             leftLineView.setVisibility(View.INVISIBLE);
         } else {
