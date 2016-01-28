@@ -275,6 +275,7 @@
         <item>有工地</item>
         <item>已量房</item>
         <item>有合同</item>
+        <item>已完工</item>
     </string-array>
 
     <string-array name="edit_requirement_item">

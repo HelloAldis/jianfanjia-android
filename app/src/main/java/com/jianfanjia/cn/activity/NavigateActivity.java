@@ -35,7 +35,7 @@ public class NavigateActivity extends BaseActivity implements OnClickListener,
     private int currentItem = 0; // 当前图片的索引号
     private RelativeLayout imageLayout;
 
-    private int imgId[] = {R.mipmap.icon_guide1, R.mipmap.img_guide2,
+    private int imgId[] = {R.mipmap.img_guide1, R.mipmap.img_guide2,
             R.mipmap.img_guide3, R.mipmap.img_guide4};
 
     private ImageView[] dots = new ImageView[4];

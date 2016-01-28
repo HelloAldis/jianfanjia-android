@@ -62,6 +62,7 @@ public class Global {
     public static final String REQUIREMENT_STATUS5 = "5";//配置了工地
     public static final String REQUIREMENT_STATUS6 = "6";//有一个或多个设计师量完房但是没有人上传方案
     public static final String REQUIREMENT_STATUS7 = "7";//配置了合同但是没有配置工地
+    public static final String REQUIREMENT_STATUS8 = "8";//已完工
 
     public static final String DEC_TYPE_HOME = "0";//家装
     public static final String DEC_TYPE_BUSINESS = "1";//商装

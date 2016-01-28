@@ -112,7 +112,8 @@ public class MyDesignerViewType2 extends BaseAnnotationView {
 
         RequirementInfo requirementInfo = designerInfo.getRequirement();
         String requirementStatus = requirementInfo.getStatus();
-        if (requirementStatus.equals(Global.REQUIREMENT_STATUS4) || requirementStatus.equals(Global.REQUIREMENT_STATUS5) || requirementStatus.equals(Global.REQUIREMENT_STATUS7)) {
+        if (requirementStatus.equals(Global.REQUIREMENT_STATUS4) || requirementStatus.equals(Global.REQUIREMENT_STATUS5)
+                || requirementStatus.equals(Global.REQUIREMENT_STATUS7) || requirementStatus.equals(Global.REQUIREMENT_STATUS8) ) {
             button3.setEnabled(false);
             button3.setTextColor(getResources().getColor(R.color.grey_color));
         } else {

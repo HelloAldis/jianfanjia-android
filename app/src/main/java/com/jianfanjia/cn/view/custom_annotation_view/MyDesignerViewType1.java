@@ -7,8 +7,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.jianfanjia.cn.activity.requirement.MyDesignerActivity;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.requirement.MyDesignerActivity;
 import com.jianfanjia.cn.bean.OrderDesignerInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Constant;
@@ -94,7 +94,8 @@ public class MyDesignerViewType1 extends BaseAnnotationView {
 
         RequirementInfo requirementInfo = designerInfo.getRequirement();
         String requirementStatus = requirementInfo.getStatus();
-        if (requirementStatus.equals(Global.REQUIREMENT_STATUS4) || requirementStatus.equals(Global.REQUIREMENT_STATUS5) || requirementStatus.equals(Global.REQUIREMENT_STATUS7)) {
+        if (requirementStatus.equals(Global.REQUIREMENT_STATUS4) || requirementStatus.equals(Global.REQUIREMENT_STATUS5)
+                || requirementStatus.equals(Global.REQUIREMENT_STATUS7) || requirementStatus.equals(Global.REQUIREMENT_STATUS8)){
             button2.setEnabled(false);
             button2.setTextColor(getResources().getColor(R.color.grey_color));
         } else {

@@ -45,7 +45,7 @@ public class ContractActivity extends BaseActivity implements OnClickListener, V
         LogTool.d(TAG, "requirementStatus:" + requirementStatus + "  requirementid:" + requirementid);
         initMainHeadView();
         checkBtn = (Button) findViewById(R.id.btn_choose);
-        if (requirementStatus.equals(Global.REQUIREMENT_STATUS5)) {
+        if (requirementStatus.equals(Global.REQUIREMENT_STATUS5) || requirementStatus.equals(Global.REQUIREMENT_STATUS8)) {
             checkBtn.setEnabled(false);
             checkBtn.setText(getString(R.string.already_open_process));
         } else {

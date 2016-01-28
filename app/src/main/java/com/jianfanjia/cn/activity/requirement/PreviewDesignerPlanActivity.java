@@ -91,9 +91,8 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
         btn_choose = (Button) findViewById(R.id.btn_choose);
 
         String requirementStatus = requirementInfo.getStatus();
-        if (requirementStatus.equals(Global.REQUIREMENT_STATUS4) ||
-                requirementStatus.equals(Global.REQUIREMENT_STATUS5) ||
-                requirementStatus.equals(Global.REQUIREMENT_STATUS7)) {
+        if (requirementStatus.equals(Global.REQUIREMENT_STATUS4) || requirementStatus.equals(Global.REQUIREMENT_STATUS5)
+                || requirementStatus.equals(Global.REQUIREMENT_STATUS7) || requirementStatus.equals(Global.REQUIREMENT_STATUS8) ) {
             btn_choose.setEnabled(false);
         }else{
             btn_choose.setEnabled(true);

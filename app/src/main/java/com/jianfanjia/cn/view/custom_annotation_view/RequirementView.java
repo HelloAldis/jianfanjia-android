@@ -70,7 +70,12 @@ public class RequirementView extends BaseAnnotationView {
     protected TextView ltm_req_designer_status2;
 
     public void bind(RequirementInfo requirementInfo, final ClickCallBack clickCallBack, final int position) {
-        ltm_req_cell.setText(requirementInfo.getCell());
+        String cellPhase = requirementInfo.getCell_phase();
+        if(!TextUtils.isEmpty(cellPhase)){
+            ltm_req_cell.setText(requirementInfo.getCell() + cellPhase + context.getString(R.string.str_qi));
+        }else{
+            ltm_req_cell.setText(requirementInfo.getCell());
+        }
         ltm_req_starttime_cont.setText(StringUtils.covertLongToString(requirementInfo.getCreate_at()));
         ltm_req_updatetime_cont.setText(StringUtils.covertLongToString(requirementInfo.getLast_status_update_time()));
         ltm_req_status.setText(getResources().getStringArray(R.array.requirement_status)[Integer.parseInt(requirementInfo.getStatus())]);
@@ -80,7 +85,7 @@ public class RequirementView extends BaseAnnotationView {
             imageShow.displayLocalImage(dataManagerNew.getUserImagePath(), ltm_req_owner_head);
         }
         String requirementStatus = requirementInfo.getStatus();
-        if (requirementStatus.equals(Global.REQUIREMENT_STATUS5)) {
+        if (requirementStatus.equals(Global.REQUIREMENT_STATUS5) || requirementStatus.equals(Global.REQUIREMENT_STATUS8)) {
             ltm_req_gotopro.setText(getResources().getString(R.string.str_goto_pro));
             ltm_req_gotopro.setOnClickListener(new OnClickListener() {
                 @Override
@@ -193,6 +198,7 @@ public class RequirementView extends BaseAnnotationView {
                         case Global.REQUIREMENT_STATUS4:
                         case Global.REQUIREMENT_STATUS5:
                         case Global.REQUIREMENT_STATUS7:
+                        case Global.REQUIREMENT_STATUS8:
                             designerLayout.setOnClickListener(null);
                             break;
                     }
