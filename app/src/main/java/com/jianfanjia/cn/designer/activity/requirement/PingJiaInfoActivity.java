@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.base.BaseActivity;
+import com.jianfanjia.cn.designer.bean.Designer;
 import com.jianfanjia.cn.designer.bean.Evaluation;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
@@ -37,6 +38,8 @@ public class PingJiaInfoActivity extends BaseActivity implements
     private String imageid = null;
     private String designer_name = null;
     private Evaluation evaluation = null;
+    private Designer designer = null;
+    private float totalAttidude;
 
     @Override
     public void initView() {
@@ -49,27 +52,29 @@ public class PingJiaInfoActivity extends BaseActivity implements
         commentText = (TextView) findViewById(R.id.commentText);
         Intent intent = this.getIntent();
         Bundle viewBundle = intent.getExtras();
-        imageid = viewBundle.getString(Global.IMAGE_ID);
-        designer_name = viewBundle.getString(Global.DESIGNER_NAME);
+        designer = (Designer) viewBundle.getSerializable(Global.DESIGNER_INFO);
+        imageid = designer.getImageid();
+        designer_name = designer.getUsername();
+        totalAttidude = (designer.getRespond_speed() + designer.getService_attitude()) / 2;
         evaluation = (Evaluation) viewBundle.getSerializable(Global.EVALUATION);
-        LogTool.d(TAG, "imageid:" + imageid + " designer_name:" + designer_name + " evaluation:" + evaluation);
+        bar.setRating(totalAttidude);
+        designerName.setText(designer_name);
+        LogTool.d(TAG, "imageid:" + imageid + " designer_name:" + designer_name + " evaluation:" + evaluation + " totalAttitude =" + totalAttidude);
         if (!TextUtils.isEmpty(imageid)) {
             imageShow.displayImageHeadWidthThumnailImage(this, imageid, designer_head_img);
         } else {
             imageShow.displayLocalImage(Constant.DEFALUT_OWNER_PIC, designer_head_img);
         }
-        designerName.setText(designer_name);
         if (null != evaluation) {
             float speed = evaluation.getRespond_speed();
             float attitude = evaluation.getService_attitude();
-            bar.setRating((int) (speed + attitude) / 2);
             speedBar.setRating((int) speed);
             attudeBar.setRating((int) attitude);
             if (!TextUtils.isEmpty(evaluation.getComment())) {
                 commentText.setText(evaluation.getComment());
-            } else {
-                commentText.setText("暂无内容");
             }
+        } else {
+            commentText.setText(getString(R.string.not_comment));
         }
     }
 

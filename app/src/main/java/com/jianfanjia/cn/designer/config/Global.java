@@ -34,6 +34,7 @@ public class Global {
     public static final String PLAN_DETAIL = "plan_datail";
     public static final String IMAGE_ID = "image_id";
     public static final String DESIGNER_NAME = "designer_name";
+    public static final String DESIGNER_INFO = "designer_info";
     public static final String TOPIC_ID = "topic_id";
     public static final String TO = "to";
     public static final String SECTION = "section";
@@ -67,6 +68,7 @@ public class Global {
     public static final String REQUIREMENT_STATUS5 = "5";//配置了工地
     public static final String REQUIREMENT_STATUS6 = "6";//有一个或多个设计师量完房但是没有人上传方案
     public static final String REQUIREMENT_STATUS7 = "7";//配置了合同但是没有配置工地
+    public static final String REQUIREMENT_STATUS8 = "8";//已经完工
 
     public static final String DEC_TYPE_HOME = "0";//家装
     public static final String DEC_TYPE_BUSINESS = "1";//商装

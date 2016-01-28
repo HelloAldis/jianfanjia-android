@@ -29,7 +29,6 @@ import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.base.BaseAnnotationFragment;
 import com.jianfanjia.cn.designer.bean.RequirementInfo;
 import com.jianfanjia.cn.designer.bean.RequirementList;
-import com.jianfanjia.cn.designer.cache.DataManagerNew;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.http.JianFanJiaClient;
 import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
@@ -246,9 +245,8 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
                     case RREVIEW_COMMENT_TYPE:
                         Intent viewCommentIntent = new Intent(_context, PingJiaInfoActivity.class);
                         Bundle viewBundle = new Bundle();
-                        viewBundle.putString(Global.IMAGE_ID, DataManagerNew.getInstance().getUserImagePath());
-                        viewBundle.putString(Global.DESIGNER_NAME, DataManagerNew.getInstance().getUserName());
                         viewBundle.putSerializable(Global.EVALUATION, requirementInfo.getEvaluation());
+                        viewBundle.putSerializable(Global.DESIGNER_INFO,requirementInfo.getDesigner());
                         viewCommentIntent.putExtras(viewBundle);
                         startActivity(viewCommentIntent);
                         break;

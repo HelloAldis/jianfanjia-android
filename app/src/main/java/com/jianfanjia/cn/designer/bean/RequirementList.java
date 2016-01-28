@@ -32,7 +32,7 @@ public class RequirementList implements Serializable {
         sortRequirementInfoList();
     }
 
-    public RequirementList(List<RequirementInfo> requirementInfoList){
+    public RequirementList(List<RequirementInfo> requirementInfoList) {
         setRequirementInfoList(requirementInfoList);
     }
 
@@ -45,24 +45,28 @@ public class RequirementList implements Serializable {
             communicationRequirementInfoList.clear();
             overRequirementInfoLists.clear();
             for (RequirementInfo requirementInfo : requirementInfoList) {
+                String requiremnetStatus = requirementInfo.getStatus();
+                if (requiremnetStatus.equals(Global.REQUIREMENT_STATUS5) || requiremnetStatus.equals(Global.REQUIREMENT_STATUS8)) {
+                    continue;
+                }
                 PlanInfo planInfo = requirementInfo.getPlan();
                 if (planInfo != null) {
-                        String status = planInfo.getStatus();
-                        switch (status){
-                            case Global.PLAN_STATUS0:
-                                unHandleRequirementInfoList.add(requirementInfo);
-                                break;
-                            case Global.PLAN_STATUS1:
-                            case Global.PLAN_STATUS4:
-                            case Global.PLAN_STATUS8:
-                                overRequirementInfoLists.add(requirementInfo);
-                                break;
-                            case Global.PLAN_STATUS7:
-                                break;
-                            default:
-                                communicationRequirementInfoList.add(requirementInfo);
-                                break;
-                        }
+                    String status = planInfo.getStatus();
+                    switch (status) {
+                        case Global.PLAN_STATUS0:
+                            unHandleRequirementInfoList.add(requirementInfo);
+                            break;
+                        case Global.PLAN_STATUS1:
+                        case Global.PLAN_STATUS4:
+                        case Global.PLAN_STATUS8:
+                            overRequirementInfoLists.add(requirementInfo);
+                            break;
+                        case Global.PLAN_STATUS7:
+                            break;
+                        default:
+                            communicationRequirementInfoList.add(requirementInfo);
+                            break;
+                    }
                 }
             }
         }

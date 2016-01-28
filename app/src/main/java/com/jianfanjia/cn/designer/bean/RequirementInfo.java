@@ -37,6 +37,7 @@ public class RequirementInfo implements Serializable {
     private ProcessInfo process;
     private PlanInfo plan;
     private User user;
+    private Designer designer;
     private Evaluation evaluation;
     private long create_at;
     private long last_status_update_time;
@@ -326,5 +327,13 @@ public class RequirementInfo implements Serializable {
 
     public void setStart_at(long start_at) {
         this.start_at = start_at;
+    }
+
+    public Designer getDesigner() {
+        return designer;
+    }
+
+    public void setDesigner(Designer designer) {
+        this.designer = designer;
     }
 }
