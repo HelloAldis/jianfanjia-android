@@ -663,17 +663,6 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                         });
                 loadCurrentProcess(MyProcessDetailActivity.this);
             }
-        } else if (msgType.equals(Constant.FUKUAN_NOTIFY)) {
-            dialog.setTitle(getResources().getString(R.string.fukuanText));
-            dialog.setMessage(getResources().getString(R.string.list_item_fukuan_example));
-            dialog.setPositiveButton(R.string.ok,
-                    new DialogInterface.OnClickListener() {
-
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
         } else if (msgType.equals(Constant.CAIGOU_NOTIFY)) {
             dialog.setTitle(getResources().getString(R.string.caigouText));
             dialog.setMessage(getResources().getString(R.string.list_item_caigou_example) + message.getContent());
@@ -683,22 +672,6 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
-                        }
-                    });
-        } else if (msgType.equals(Constant.CONFIRM_CHECK_NOTIFY)) {
-            dialog.setTitle(getResources().getString(R.string.yanshouText));
-            dialog.setMessage("确定要进行验收吗？");
-            dialog.setPositiveButton(R.string.ok,
-                    new DialogInterface.OnClickListener() {
-
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                            Bundle checkBundle = new Bundle();
-                            checkBundle.putString(Constant.PROCESS_NAME, message.getSection());
-                            checkBundle.putString(Constant.PROCESS_STATUS, message.getStatus());
-                            checkBundle.putSerializable(Global.PROCESS_ID, message.getProcessid());
-                            startActivity(CheckActivity.class, checkBundle);
                         }
                     });
         }

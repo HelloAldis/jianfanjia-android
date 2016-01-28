@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
+import com.jianfanjia.cn.designer.Event.MessageEvent;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.activity.SettingContractActivity_;
 import com.jianfanjia.cn.designer.activity.requirement.MyProcessDetailActivity_;
@@ -22,6 +23,7 @@ import com.jianfanjia.cn.designer.adapter.MySiteAdapter;
 import com.jianfanjia.cn.designer.base.BaseFragment;
 import com.jianfanjia.cn.designer.bean.Process;
 import com.jianfanjia.cn.designer.bean.SiteProcessItem;
+import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.http.JianFanJiaClient;
 import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
@@ -35,6 +37,8 @@ import com.jianfanjia.cn.designer.view.library.PullToRefreshRecycleView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * Description:工地管理
@@ -59,6 +63,12 @@ public class ManageFragment extends BaseFragment implements PullToRefreshBase.On
 
     private String processId = null;
     private int itemPosition = -1;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
 
     @Override
     public void initView(View view) {
@@ -106,6 +116,17 @@ public class ManageFragment extends BaseFragment implements PullToRefreshBase.On
                 Intent gotoMyProcess = new Intent(getActivity(), MyProcessDetailActivity_.class);
                 gotoMyProcess.putExtra(Global.PROCESS_ID, processId);
                 startActivity(gotoMyProcess);
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void onEventMainThread(MessageEvent event) {
+        LogTool.d(TAG, "event:" + event.getEventType());
+        switch (event.getEventType()) {
+            case Constant.UPDATE_MANAAGE_FRAGMENT:
+
                 break;
             default:
                 break;
@@ -211,6 +232,17 @@ public class ManageFragment extends BaseFragment implements PullToRefreshBase.On
     @Override
     public void onPullUpToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override

@@ -118,5 +118,7 @@
     <string name="share_failure">分享失败啦</string>
     <string name="share_cancel">分享取消啦</string>
     <string name="must_input">必填</string>
-
+    <string name="project_text">项目</string>
+    <string name="project_price_text">项目总价(元)</string>
+    <string name="des_text">备注</string>
 </resources>

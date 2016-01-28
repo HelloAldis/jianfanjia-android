@@ -186,13 +186,6 @@ public class Constant {
     public static final String TEXT_KEY = "Title";
 
     //消息类型
-    public static final int UPDATE_HOME_FRAGMENT = 10;
-    public static final int UPDATE_XUQIU_FRAGMENT = 20;
-    public static final int UPDATE_DESIGNER_ACTIVITY = 30;
-    public static final int UPDATE_MY_FRAGMENT = 40;
-    public static final int UPDATE_FAVORITE_FRAGMENT = 50;
-    public static final int UPDATE_PRODUCT_FRAGMENT = 60;
-    public static final int UPDATE_BEAUTY_FRAGMENT = 70;
-    public static final int UPDATE_ORDER_DESIGNER_ACTIVITY = 80;
+    public static final int UPDATE_MANAAGE_FRAGMENT = 10;
 }
 

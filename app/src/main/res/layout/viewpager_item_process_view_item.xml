@@ -20,15 +20,15 @@
                 android:id="@+id/left_line"
                 style="@style/divier_line"
                 android:layout_width="0dp"
-                android:layout_weight="1"
-                />
+                android:layout_height="1dp"
+                android:layout_weight="1" />
 
             <View
                 android:id="@+id/right_line"
                 style="@style/divier_line"
                 android:layout_width="0dp"
-                android:layout_weight="1"
-                />
+                android:layout_height="1dp"
+                android:layout_weight="1" />
         </LinearLayout>
 
         <ImageView
@@ -57,6 +57,5 @@
         android:layout_below="@+id/site_head_procedure_name"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/space_2"
-        android:textColor="@color/main_color_grey"
-        />
+        android:textColor="@color/main_color_grey" />
 </RelativeLayout>
