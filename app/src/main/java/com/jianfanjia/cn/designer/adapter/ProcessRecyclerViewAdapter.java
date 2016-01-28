@@ -35,7 +35,6 @@ public class ProcessRecyclerViewAdapter extends BaseRecyclerViewAdapter<SiteProc
         this.listener = listener;
     }
 
-
     @Override
     public void bindView(RecyclerViewHolderBase viewHolder, final int position, List<SiteProcessItem> list) {
         SiteProcessItem item = list.get(position);
@@ -47,13 +46,13 @@ public class ProcessRecyclerViewAdapter extends BaseRecyclerViewAdapter<SiteProc
         } else {
             holder.LeftLineView.setVisibility(View.VISIBLE);
         }*/
-        if(position == 0){
+        if (position == 0) {
             holder.LeftLineView.setVisibility(View.INVISIBLE);
             holder.rightLineView.setVisibility(View.VISIBLE);
-        }else if(position == list.size() - 1){
+        } else if (position == list.size() - 1) {
             holder.rightLineView.setVisibility(View.INVISIBLE);
             holder.LeftLineView.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             holder.rightLineView.setVisibility(View.VISIBLE);
             holder.LeftLineView.setVisibility(View.VISIBLE);
         }
