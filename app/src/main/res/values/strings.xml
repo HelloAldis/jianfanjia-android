@@ -346,4 +346,6 @@
     <string name="process_tip_text">点击查看工地模板></string>
     <string name="tip_choose_refuse_reason">请选择拒绝接单原因</string>
     <string name="not_comment">业主还没有对您进行评论！</string>
+
+    <string name="all_finish">已竣工</string>
 </resources>
