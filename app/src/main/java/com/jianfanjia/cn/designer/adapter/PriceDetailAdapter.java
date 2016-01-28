@@ -57,10 +57,10 @@ public class PriceDetailAdapter extends BaseRecyclerViewAdapter<PriceDetail> {
             case TYPE_HEAD:
                 PriceDetailHeadHolder priceDetailHeadHolder = (PriceDetailHeadHolder) viewHolder;
                 priceDetailHeadHolder.project_total_price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG); //中划线
-                priceDetailHeadHolder.project_total_price.setText("￥" + planInfo.getTotal_price());
+                priceDetailHeadHolder.project_total_price.setText("￥" + planInfo.getProject_price_before_discount());
                 priceDetailHeadHolder.project_price_after_discount.setText("￥" + planInfo.getProject_price_after_discount());
                 priceDetailHeadHolder.total_design_fee.setText("￥" + planInfo.getTotal_design_fee());
-                priceDetailHeadHolder.project_price_before_discount.setText("￥" + planInfo.getProject_price_before_discount());
+                priceDetailHeadHolder.project_price_before_discount.setText("￥" + planInfo.getTotal_price());
                 break;
             case TYPE_ITEM:
                 final PriceDetail detail = list.get(position - 1);
