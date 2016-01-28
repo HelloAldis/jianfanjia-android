@@ -15,6 +15,8 @@ public class Designer implements Serializable {
     private String imageid;
     private String auth_type;
     private String username;
+    private float respond_speed;
+    private float service_attitude;
 
     public String get_id() {
         return _id;
@@ -54,5 +56,21 @@ public class Designer implements Serializable {
 
     public void setAuth_type(String auth_type) {
         this.auth_type = auth_type;
+    }
+
+    public float getRespond_speed() {
+        return respond_speed;
+    }
+
+    public void setRespond_speed(float respond_speed) {
+        this.respond_speed = respond_speed;
+    }
+
+    public float getService_attitude() {
+        return service_attitude;
+    }
+
+    public void setService_attitude(float service_attitude) {
+        this.service_attitude = service_attitude;
     }
 }

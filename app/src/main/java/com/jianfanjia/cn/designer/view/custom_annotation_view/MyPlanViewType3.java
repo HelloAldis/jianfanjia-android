@@ -76,7 +76,7 @@ public class MyPlanViewType3 extends BaseAnnotationView {
         String imageId = requirementInfo.getUser().getImageid();
         if (!TextUtils.isEmpty(imageId)) {
             imageShow.displayImageHeadWidthThumnailImage(context, imageId, headView);
-        }else{
+        } else {
             headView.setImageResource(R.mipmap.icon_default_head);
         }
         String username = requirementInfo.getUser().getUsername();
@@ -116,17 +116,12 @@ public class MyPlanViewType3 extends BaseAnnotationView {
                 clickCallBack.click(position, RecycleViewFragment.PHONE_TYPE);
             }
         });
-        if(requirementInfo.getEvaluation() != null){
-            commentLayout.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    clickCallBack.click(position, RecycleViewFragment.RREVIEW_COMMENT_TYPE);
-                }
-            });
-            commentLayout.setEnabled(true);
-        }else{
-            commentLayout.setEnabled(false);
-        }
+        commentLayout.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickCallBack.click(position, RecycleViewFragment.RREVIEW_COMMENT_TYPE);
+            }
+        });
         planLayout.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {

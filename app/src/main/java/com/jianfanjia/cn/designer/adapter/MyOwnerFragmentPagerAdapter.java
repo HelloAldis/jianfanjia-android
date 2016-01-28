@@ -8,7 +8,7 @@ import com.jianfanjia.cn.designer.fragment.RecycleViewFragment;
 
 public class MyOwnerFragmentPagerAdapter extends FragmentPagerAdapter {
 
-    private String[] tabs = new String[]{"待处理","处理中","已处理"};
+    private String[] tabs = new String[]{"待响应","进行中","已放弃"};
 
     public MyOwnerFragmentPagerAdapter(FragmentManager fm) {
         super(fm);

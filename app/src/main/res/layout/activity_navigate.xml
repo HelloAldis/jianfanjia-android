@@ -4,11 +4,11 @@
     android:background="@color/font_white"
     android:orientation="vertical">
 
-    <com.jianfanjia.cn.designer.view.WrapContentHeightViewPager
+    <com.jianfanjia.cn.designer.view.MyViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/space_72"/>
+        android:layout_height="match_parent"
+        />
 
     <LinearLayout
         android:id="@+id/dot_layout"
@@ -36,31 +36,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:src="@mipmap/icon_dot_normal" />
-
-        <ImageView
-            android:layout_width="@dimen/space_4"
-            android:layout_height="@dimen/space_4"
-            android:background="@color/transparent" />
-
-        <ImageView
-            android:id="@+id/welcome_dot2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:src="@mipmap/icon_dot_normal" />
-
-        <ImageView
-            android:layout_width="@dimen/space_4"
-            android:layout_height="@dimen/space_4"
-            android:background="@color/transparent" />
-
-        <ImageView
-            android:id="@+id/welcome_dot3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:src="@mipmap/icon_dot_normal" />
-
     </LinearLayout>
 
 

@@ -337,12 +337,13 @@
     <string name="process_totalprice_cont">本工程装修总价为人民币（大写）%1$s（￥%2$d元）</string>
     <string name="process_workType">承包方式：</string>
     <string name="process_workType_cont">%1$s</string>
-    <string name="tip_no_unhandle">您暂时没有待处理的需求</string>
-    <string name="tip_handled">您暂时没有处理中的需求</string>
-    <string name="tip_already_handle">您暂时没有已处理的需求</string>
+    <string name="tip_no_unhandle">您暂时没有待响应的需求</string>
+    <string name="tip_handled">您暂时没有进行中的需求</string>
+    <string name="tip_already_handle">您暂时没有已放弃的需求</string>
     <string name="reminder_title">温馨提示：</string>
     <string name="reminder_content">如您资料完善程度高，系统将会优先将您推送给业主</string>
     <string name="process_tip">由于您的工地还没有开工，请即时查看需求动态，如您想查看装修流程，我们已精心为您准备了工地模板</string>
     <string name="process_tip_text">点击查看工地模板></string>
     <string name="tip_choose_refuse_reason">请选择拒绝接单原因</string>
+    <string name="not_comment">业主还没有对您进行评论！</string>
 </resources>
