@@ -1,12 +1,14 @@
 package com.jianfanjia.cn.designer.adapter;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.jianfanjia.cn.designer.adapter.base.RecyclerViewAdapterBase;
 import com.jianfanjia.cn.designer.bean.RequirementInfo;
 import com.jianfanjia.cn.designer.interf.ClickCallBack;
+import com.jianfanjia.cn.designer.tools.LogTool;
 import com.jianfanjia.cn.designer.view.baseview.ViewWrapper;
 import com.jianfanjia.cn.designer.view.custom_annotation_view.MyPlanViewType0_;
 import com.jianfanjia.cn.designer.view.custom_annotation_view.MyPlanViewType1_;
@@ -37,10 +39,17 @@ public class MyHandledRequirementAdapter extends RecyclerViewAdapterBase<Require
 
     Context context;
     private ClickCallBack clickCallBack;
+    private LayoutInflater inflater;
 
     public MyHandledRequirementAdapter(Context context, ClickCallBack cickCallBack) {
         this.context = context;
         this.clickCallBack = cickCallBack;
+        this.inflater = LayoutInflater.from(context);
+    }
+
+    @Override
+    public int getItemCount() {
+        return super.getItemCount();
     }
 
     @Override
@@ -50,9 +59,9 @@ public class MyHandledRequirementAdapter extends RecyclerViewAdapterBase<Require
         return Integer.parseInt(status);
     }
 
+
     @Override
     protected View onCreateItemView(ViewGroup parent, int viewType) {
-        View view = null;
         switch (viewType) {
             case PLAN_TYPE0:
                 return MyPlanViewType0_.build(context);
@@ -76,8 +85,17 @@ public class MyHandledRequirementAdapter extends RecyclerViewAdapterBase<Require
         return null;
     }
 
+    protected void cacularView(ViewGroup parent,View view){
+        LogTool.d(this.getClass().getName(), "parent height =" + parent.getHeight() + " parent width =" + parent.getWidth());
+//        view.setLayoutParams();
+        view.setLayoutParams(new ViewGroup.LayoutParams(parent.getWidth(),parent.getHeight()));
+    }
+
     @Override
     public void onBindViewHolder(ViewWrapper<View> viewHolder, int position) {
+//        if(isEmpty){
+//            return;
+//        }
         RequirementInfo requirementInfo = items.get(position);
         switch (getItemViewType(position)) {
             case PLAN_TYPE0:
