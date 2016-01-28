@@ -82,7 +82,7 @@
             android:paddingRight="30dip"
             android:paddingTop="10dip"
             android:text="备注"
-            android:textColor="@color/home_page_text_color"
+            android:textColor="@color/designer_info_text_color_bg"
             android:textSize="@dimen/text_size_14" />
     </LinearLayout>
 </RelativeLayout>
