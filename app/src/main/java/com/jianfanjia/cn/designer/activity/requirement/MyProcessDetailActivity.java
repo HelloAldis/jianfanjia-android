@@ -663,17 +663,6 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                         });
                 loadCurrentProcess(MyProcessDetailActivity.this);
             }
-        } else if (msgType.equals(Constant.FUKUAN_NOTIFY)) {
-            dialog.setTitle(getResources().getString(R.string.fukuanText));
-            dialog.setMessage(getResources().getString(R.string.list_item_fukuan_example));
-            dialog.setPositiveButton(R.string.ok,
-                    new DialogInterface.OnClickListener() {
-
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
         } else if (msgType.equals(Constant.CAIGOU_NOTIFY)) {
             dialog.setTitle(getResources().getString(R.string.caigouText));
             dialog.setMessage(getResources().getString(R.string.list_item_caigou_example) + message.getContent());
