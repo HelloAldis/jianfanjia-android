@@ -66,8 +66,7 @@ public class DetailPriceActivity extends BaseActivity implements OnClickListener
     private void initMainHeadView() {
         mainHeadView = (MainHeadView) findViewById(R.id.my_price_head_layout);
         mainHeadView.setBackListener(this);
-        mainHeadView
-                .setMianTitle(getResources().getString(R.string.str_view_price));
+        mainHeadView.setMianTitle(getResources().getString(R.string.str_view_price));
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
         mainHeadView.setRightTitleVisable(View.GONE);
         mainHeadView.setBackLayoutVisable(View.VISIBLE);
