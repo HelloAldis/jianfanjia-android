@@ -51,9 +51,9 @@ public class DetailPriceActivity extends BaseActivity implements OnClickListener
         detail_price_listview.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this).paint(paint).showLastDivider().build());
         if (null != detailInfo) {
             PriceDetail detail = new PriceDetail();
-            detail.setItem("项目");
-            detail.setPrice("项目总价(元)");
-            detail.setDescription("备注");
+            detail.setItem(getResources().getString(R.string.project_text));
+            detail.setPrice(getResources().getString(R.string.project_price_text));
+            detail.setDescription(getResources().getString(R.string.des_text));
             List<PriceDetail> details = detailInfo.getPrice_detail();
             if (null != details && details.size() > 0) {
                 details.add(0, detail);
