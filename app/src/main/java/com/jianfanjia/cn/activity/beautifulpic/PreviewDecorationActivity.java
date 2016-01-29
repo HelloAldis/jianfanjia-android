@@ -210,6 +210,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data.toString());
             toolbar_collect.setSelected(true);
+            makeTextShort(getString(R.string.str_collect_success));
             EventBus.getDefault().post(new MessageEvent(Constant.UPDATE_BEAUTY_FRAGMENT));
         }
 
