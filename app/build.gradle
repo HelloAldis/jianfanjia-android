@@ -102,6 +102,7 @@ android {
     def force_update = '1' //强制更新
     def rec_update = '0'   //自愿更新
     def update = rec_update
+    def testApkPath = "F:\\快盘\\sharebox\\zjfzhangjingfu@yeah.net\\简繁家APP\\apk\\";
 
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
@@ -109,10 +110,13 @@ android {
             if (outputFile != null && outputFile.name.endsWith('.apk')) {
                 String fileName = outputFile.name.replace(".apk", "_${date}_${update}_${defaultConfig.versionCode}_${defaultConfig.versionName}.apk")
                 fileName = fileName.replace("app", "designer")
-                if (fileName.contains("-release")) {
+                if (variant.buildType.name.equals('release')) {
                     fileName = fileName.replace("-release", "")
+                    output.outputFile = new File(outputFile.parent, fileName)
                 }
-                output.outputFile = new File(outputFile.parent, fileName)
+                if(variant.buildType.name.equals('andtest')){
+                    output.outputFile = new File(testApkPath, fileName)
+                }
             }
         }
     }
