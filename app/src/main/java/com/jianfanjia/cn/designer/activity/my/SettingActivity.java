@@ -11,8 +11,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-import com.jianfanjia.cn.designer.activity.LoginNewActivity_;
 import com.jianfanjia.cn.designer.R;
+import com.jianfanjia.cn.designer.activity.LoginNewActivity_;
 import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.base.BaseActivity;
 import com.jianfanjia.cn.designer.tools.AuthUtil;
@@ -109,9 +109,9 @@ public class SettingActivity extends BaseActivity implements OnClickListener, On
     @Override
     public void onCheckedChanged(CompoundButton arg0, boolean check) {
         LogTool.d(TAG, "check:" + check);
-        if(check){
+        if (check) {
             GeTuiManager.turnOnPush(getApplicationContext());
-        }else{
+        } else {
             GeTuiManager.turnOffPush(getApplicationContext());
         }
     }
@@ -143,7 +143,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener, On
 
                     @Override
                     public void onComplete(SHARE_MEDIA share_media, int i, SocializeEntity socializeEntity) {
-                        LogTool.d("onComplete","status =" + i);
+                        LogTool.d("onComplete", "status =" + i);
                     }
                 });
                 break;
@@ -177,7 +177,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener, On
                         MyApplication.getInstance().clearCookie();
 //                        MyApplication.getInstance().clearAppCache();
                         appManager.finishAllActivity();
-                        AuthUtil.getInstance(SettingActivity.this).deleteOauth(SettingActivity.this,SHARE_MEDIA.WEIXIN);
+                        AuthUtil.getInstance(SettingActivity.this).deleteOauth(SettingActivity.this, SHARE_MEDIA.WEIXIN);
                         startActivity(LoginNewActivity_.class);
                         finish();
                     }
@@ -252,11 +252,6 @@ public class SettingActivity extends BaseActivity implements OnClickListener, On
     }
 
     @Override
-    public int getLayoutId() {
-        return R.layout.activity_setting;
-    }
-
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         UMSsoHandler ssoHandler = SocializeConfig.getSocializeConfig().getSsoHandler(requestCode);
@@ -264,4 +259,10 @@ public class SettingActivity extends BaseActivity implements OnClickListener, On
             ssoHandler.authorizeCallBack(requestCode, resultCode, data);
         }
     }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_setting;
+    }
+
 }

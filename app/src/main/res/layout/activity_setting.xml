@@ -67,7 +67,9 @@
                     android:contentDescription="@null" />
             </RelativeLayout>
 
-            <View style="@style/divier_line" />
+            <View
+                style="@style/divier_line"
+                android:visibility="gone" />
 
             <RelativeLayout
                 android:id="@+id/current_version_layout"
