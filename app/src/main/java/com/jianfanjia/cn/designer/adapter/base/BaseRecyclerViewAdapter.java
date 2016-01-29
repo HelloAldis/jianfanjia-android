@@ -32,6 +32,10 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Re
         dataManagerNew = DataManagerNew.getInstance();
     }
 
+    public void setList(List<T> list) {
+        this.list = list;
+    }
+
     public void add(T t) {
         if (t != null) {
             list.add(t);
