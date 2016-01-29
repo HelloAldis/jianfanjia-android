@@ -1,5 +1,9 @@
 package com.jianfanjia.cn.bean;
 
+import android.text.TextUtils;
+
+import com.jianfanjia.cn.config.Global;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -24,7 +28,7 @@ public class RequirementInfo implements Serializable {
     private String cell_detail_number;
     private String cell;
     private String house_area;
-    private String house_type = "2";
+    private String house_type;
     private String dec_style = "0";
     private String dec_type = "0";
     private String work_type = "0";
@@ -33,7 +37,7 @@ public class RequirementInfo implements Serializable {
     private String total_price;
     private String final_planid;
     private String final_designerid;
-    private String business_house_type = "0";
+    private String business_house_type;
     private ProcessInfo process;
     private long create_at;
     private long last_status_update_time;
@@ -133,6 +137,11 @@ public class RequirementInfo implements Serializable {
     }
 
     public String getHouse_type() {
+        if (!TextUtils.isEmpty(dec_type) && dec_type.equals(Global.DEC_TYPE_HOME)) {
+            if (TextUtils.isEmpty(house_type)) {
+                return "2";
+            }
+        }
         return house_type;
     }
 
@@ -285,6 +294,11 @@ public class RequirementInfo implements Serializable {
     }
 
     public String getBusiness_house_type() {
+        if (!TextUtils.isEmpty(dec_type) && dec_type.equals(Global.DEC_TYPE_BUSINESS)) {
+            if (TextUtils.isEmpty(business_house_type)) {
+                return "3";
+            }
+        }
         return business_house_type;
     }
 

@@ -71,16 +71,16 @@ public class RequirementView extends BaseAnnotationView {
 
     public void bind(RequirementInfo requirementInfo, final ClickCallBack clickCallBack, final int position) {
         String cellPhase = requirementInfo.getCell_phase();
-        if(!TextUtils.isEmpty(cellPhase)){
+        if (!TextUtils.isEmpty(cellPhase)) {
             ltm_req_cell.setText(requirementInfo.getCell() + cellPhase + context.getString(R.string.str_qi));
-        }else{
+        } else {
             ltm_req_cell.setText(requirementInfo.getCell());
         }
         ltm_req_starttime_cont.setText(StringUtils.covertLongToString(requirementInfo.getCreate_at()));
         ltm_req_updatetime_cont.setText(StringUtils.covertLongToString(requirementInfo.getLast_status_update_time()));
         ltm_req_status.setText(getResources().getStringArray(R.array.requirement_status)[Integer.parseInt(requirementInfo.getStatus())]);
         if (!dataManagerNew.getUserImagePath().contains(Constant.DEFALUT_PIC_HEAD)) {
-            imageShow.displayImageHeadWidthThumnailImage(context,dataManagerNew.getUserImagePath(),ltm_req_owner_head);
+            imageShow.displayImageHeadWidthThumnailImage(context, dataManagerNew.getUserImagePath(), ltm_req_owner_head);
         } else {
             imageShow.displayLocalImage(dataManagerNew.getUserImagePath(), ltm_req_owner_head);
         }
@@ -126,6 +126,25 @@ public class RequirementView extends BaseAnnotationView {
                 }
             });
         }
+        switch (requirementStatus) {
+            case Global.REQUIREMENT_STATUS1:
+            case Global.REQUIREMENT_STATUS7:
+                ltm_req_status.setTextColor(getResources().getColor(R.color.green_color));
+                break;
+            case Global.REQUIREMENT_STATUS2:
+                ltm_req_status.setTextColor(getResources().getColor(R.color.blue_color));
+                break;
+            case Global.REQUIREMENT_STATUS3:
+            case Global.REQUIREMENT_STATUS4:
+            case Global.REQUIREMENT_STATUS5:
+            case Global.REQUIREMENT_STATUS6:
+            case Global.REQUIREMENT_STATUS8:
+                ltm_req_status.setTextColor(getResources().getColor(R.color.orange_color));
+                break;
+            default:
+                ltm_req_status.setTextColor(getResources().getColor(R.color.middle_grey_color));
+                break;
+        }
 
         List<OrderDesignerInfo> recDesignerInfos = requirementInfo.getRec_designers();
         List<OrderDesignerInfo> orderDesignerInfos = requirementInfo.getOrder_designers();
@@ -149,9 +168,9 @@ public class RequirementView extends BaseAnnotationView {
                         nameView.setText(getResources().getString(R.string.designer));
                     }
                     if (!TextUtils.isEmpty(orderDesignerInfos.get(i).getImageid())) {
-                        imageShow.displayImageHeadWidthThumnailImage(context,orderDesignerInfos.get(i).getImageid(),headView);
+                        imageShow.displayImageHeadWidthThumnailImage(context, orderDesignerInfos.get(i).getImageid(), headView);
                     } else {
-                        imageShow.displayLocalImage(Constant.DEFALUT_ADD_PIC,headView);
+                        imageShow.displayLocalImage(Constant.DEFALUT_ADD_PIC, headView);
                     }
                     String status = orderDesignerInfos.get(i).getPlan().getStatus();
                     statusView.setText(getResources().getStringArray(R.array.plan_status)[Integer.parseInt(status)]);
@@ -160,6 +179,8 @@ public class RequirementView extends BaseAnnotationView {
                             statusView.setTextColor(getResources().getColor(R.color.green_color));
                             break;
                         case Global.PLAN_STATUS5:
+                        case Global.PLAN_STATUS6:
+                        case Global.PLAN_STATUS3:
                             statusView.setTextColor(getResources().getColor(R.color.orange_color));
                             break;
                         case Global.PLAN_STATUS2:
@@ -213,7 +234,7 @@ public class RequirementView extends BaseAnnotationView {
                 TextView statusView = (TextView) getRootView().findViewById(getResources().getIdentifier("ltm_req_designer_status" + i, "id", getContext().getPackageName()));
                 ImageView authView = (ImageView) getRootView().findViewById(getResources().getIdentifier("designerinfo_auth" + i, "id", getContext().getPackageName()));
                 nameView.setText(getResources().getString(R.string.designer));
-                imageShow.displayLocalImage(Constant.DEFALUT_ADD_PIC,headView);
+                imageShow.displayLocalImage(Constant.DEFALUT_ADD_PIC, headView);
                 statusView.setText(getResources().getString(R.string.str_not_order));
                 statusView.setTextColor(getResources().getColor(R.color.middle_grey_color));
                 designerLayout.setOnClickListener(new OnClickListener() {
