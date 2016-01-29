@@ -102,10 +102,12 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
         toolbar_collect_layout.setOnClickListener(this);
         activity_case_info_top_layout.setOnClickListener(this);
         designer_case_listview.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            int mScrollY;
 
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                if (dy > 0) {
+                mScrollY += dy;
+                if (mScrollY > 45) {
                     activity_case_info_top_layout.setVisibility(View.VISIBLE);
                     tv_title.setVisibility(View.VISIBLE);
                 } else {
