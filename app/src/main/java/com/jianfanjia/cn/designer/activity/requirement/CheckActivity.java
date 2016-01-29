@@ -369,6 +369,9 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode != RESULT_OK){
+            return;
+        }
         switch (requestCode) {
             case Constant.REQUESTCODE_CAMERA:// 拍照
                 mTmpFile = new File(dataManager.getPicPath());

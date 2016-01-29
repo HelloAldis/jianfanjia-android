@@ -65,8 +65,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="@dimen/space_8"
-            android:paddingTop="@dimen/space_8">
+            >
 
             <com.jianfanjia.cn.designer.view.library.PullToRefreshListView xmlns:ptr="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/process__listview"
