@@ -62,7 +62,7 @@ public class Url_New {
     //业主绑定微信
     public String BIND_WEIXIN = HTTPROOT + "user_bind_wechat";
     //业主刷新session
-    public String REFRESH_SESSION = HTTPROOT + "user_refresh_session";
+    public String REFRESH_SESSION = HTTPROOT + "designer_refresh_session";
     //检查手机号是否被占用
     public String VERIFY_PHONE = HTTPROOT + "verify_phone";
     // 获取短信验证码

@@ -21,6 +21,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 
 import com.jianfanjia.cn.designer.R;
+import com.jianfanjia.cn.designer.application.MyApplication;
 
 public class PullToRefreshRecycleView extends PullToRefreshBase<RecyclerView> {
 
@@ -49,6 +50,7 @@ public class PullToRefreshRecycleView extends PullToRefreshBase<RecyclerView> {
     protected RecyclerView createRefreshableView(Context context, AttributeSet attrs) {
         RecyclerView recyclerView = new RecyclerView(context, attrs);
         recyclerView.setId(R.id.recycleview);
+        recyclerView.setPadding(0, MyApplication.dip2px(context,10),0,0);
         return recyclerView;
     }
 
