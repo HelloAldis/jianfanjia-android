@@ -1,57 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/imageView">
+        android:layout_height="match_parent">
 
         <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="@dimen/space_24"
-            android:layout_marginRight="@dimen/space_24">
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_above="@+id/imageView">
 
-            <TextView
-                android:id="@+id/tipContent"
-                style="@style/listview_item_text_style_big"
-                android:layout_centerHorizontal="true"
-                android:text="@string/tip_no_unhandle"
-                android:textColor="@color/light_black_color" />
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="@dimen/space_24"
+                android:layout_marginRight="@dimen/space_24">
+
+                <TextView
+                    android:id="@+id/tipContent"
+                    style="@style/listview_item_text_style_big"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/tip_no_unhandle"
+                    android:textColor="@color/light_black_color" />
 
 
-            <TextView
-                android:id="@+id/reminderTitle"
-                style="@style/listview_item_text_style_middle"
-                android:layout_below="@+id/tipContent"
-                android:layout_marginTop="@dimen/space_24"
-                android:text="@string/reminder_title"
-                android:textColor="@color/light_black_color" />
+                <TextView
+                    android:id="@+id/reminderTitle"
+                    style="@style/listview_item_text_style_middle"
+                    android:layout_below="@+id/tipContent"
+                    android:layout_marginTop="@dimen/space_24"
+                    android:text="@string/reminder_title"
+                    android:textColor="@color/light_black_color" />
 
-            <TextView
-                style="@style/listview_item_text_style_middle"
-                android:layout_alignTop="@+id/reminderTitle"
-                android:layout_toRightOf="@+id/reminderTitle"
-                android:gravity="left"
-                android:singleLine="false"
-                android:text="@string/reminder_content"
-                android:textColor="@color/light_black_color" />
+                <TextView
+                    style="@style/listview_item_text_style_middle"
+                    android:layout_alignTop="@+id/reminderTitle"
+                    android:layout_toRightOf="@+id/reminderTitle"
+                    android:gravity="left"
+                    android:singleLine="false"
+                    android:text="@string/reminder_content"
+                    android:textColor="@color/light_black_color" />
+
+            </RelativeLayout>
 
         </RelativeLayout>
 
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/img_no_owner_req" />
+
     </RelativeLayout>
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:scaleType="centerCrop"
-        android:src="@mipmap/img_no_owner_req" />
-
 </RelativeLayout>

@@ -3,7 +3,6 @@ package com.jianfanjia.cn.designer.fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
@@ -41,6 +41,7 @@ import com.jianfanjia.cn.designer.view.dialog.CommonDialog;
 import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshRecycleView;
+import com.jianfanjia.cn.designer.view.library.PullToRefreshScrollView;
 
 import java.util.List;
 
@@ -72,10 +73,13 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
     private int mNum;
 
     protected PullToRefreshRecycleView pullrefresh;
+    protected PullToRefreshScrollView emptyPullRefresh;
 
     protected RelativeLayout emptyLayout;
 
     protected RelativeLayout errorLayout;
+
+    private RelativeLayout rootLayout;
 
     private MyHandledRequirementAdapter myHandledRequirementAdapter;
 
@@ -83,6 +87,8 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
 
     private View view = null;
 
+    private HorizontalDividerItemDecoration showLastHorizontalDividerItemDecoration;
+    private HorizontalDividerItemDecoration notShowHorizontalDividerItemDecoration;
     /**
      * 标志位，标志已经初始化完成
      */
@@ -93,6 +99,8 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
     private boolean mHasLoadedOnce;
 
     private List<RequirementInfo> requirementInfos;
+
+    private List<RequirementInfo> currentRequirementInfo;
 
     private RequirementList requirementList;
 
@@ -178,16 +186,33 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
         initData();
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
     protected void initRecycleView() {
         emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
         errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
+        rootLayout = (RelativeLayout) view.findViewById(R.id.root_layout);
         errorLayout.findViewById(R.id.img_error).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 initData();
             }
         });
-
+        emptyPullRefresh = (PullToRefreshScrollView) view.findViewById(R.id.emptyPullRefreshScrollView);
+        emptyPullRefresh.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ScrollView>() {
+            @Override
+            public void onRefresh(PullToRefreshBase<ScrollView> refreshView) {
+                initData();
+            }
+        });
         pullrefresh = (PullToRefreshRecycleView) view.findViewById(R.id.pull_refresh_recycle_view);
         pullrefresh.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
         pullrefresh.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -200,18 +225,7 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
         myHandledRequirementAdapter = new MyHandledRequirementAdapter(getActivity(), new ClickCallBack() {
             @Override
             public void click(int position, int itemType) {
-                RequirementInfo requirementInfo = null;
-                switch (mNum) {
-                    case FIRST_FRAGMENT:
-                        requirementInfo = requirementList.getUnHandleRequirementInfoList().get(position);
-                        break;
-                    case SECOND_FRAGMENT:
-                        requirementInfo = requirementList.getCommunicationRequirementInfoList().get(position);
-                        break;
-                    case THIRD_FRAGMENT:
-                        requirementInfo = requirementList.getOverRequirementInfoLists().get(position);
-                        break;
-                }
+                RequirementInfo requirementInfo = currentRequirementInfo.get(position);
                 if (requirementInfo.getDec_style() == null) {//此处是对老的可能没有家装类型的数据进行初始化，防止异常
                     requirementInfo.setDec_style(Global.DEC_TYPE_HOME);
                 }
@@ -246,7 +260,7 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
                         Intent viewCommentIntent = new Intent(_context, PingJiaInfoActivity.class);
                         Bundle viewBundle = new Bundle();
                         viewBundle.putSerializable(Global.EVALUATION, requirementInfo.getEvaluation());
-                        viewBundle.putSerializable(Global.DESIGNER_INFO,requirementInfo.getDesigner());
+                        viewBundle.putSerializable(Global.DESIGNER_INFO, requirementInfo.getDesigner());
                         viewCommentIntent.putExtras(viewBundle);
                         startActivity(viewCommentIntent);
                         break;
@@ -270,12 +284,8 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
                 }
             }
         });
-        pullrefresh.setAdapter(myHandledRequirementAdapter);
-        Paint paint = new Paint();
-        paint.setStrokeWidth(MyApplication.dip2px(getActivity(), 10));
-        paint.setColor(getResources().getColor(R.color.transparent));
-        paint.setAntiAlias(true);
-        pullrefresh.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).paint(paint).showLastDivider().build());
+        showLastHorizontalDividerItemDecoration = new HorizontalDividerItemDecoration.Builder(_context).paint(UiHelper.paintFactory()).showLastDivider().build();
+        pullrefresh.addItemDecoration(showLastHorizontalDividerItemDecoration);
         LogTool.d(this.getClass().getName(), "initRecycle item count =" + myHandledRequirementAdapter.getItemCount());
     }
 
@@ -288,7 +298,7 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
 
             @Override
             public void loadSuccess(Object data) {
-                if(refuseDialog != null){
+                if (refuseDialog != null) {
                     refuseDialog.dismiss();
                 }
                 initData();
@@ -308,6 +318,7 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
 
     String refuseMsg;
     CommonDialog refuseDialog;
+
     private void showRefuseDialog(final String requirementid) {
         refuseDialog = DialogHelper
                 .getPinterestDialogCancelable(getActivity());
@@ -379,6 +390,7 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
             public void loadSuccess(Object data) {
                 hideWaitDialog();
                 pullrefresh.onRefreshComplete();
+                emptyPullRefresh.onRefreshComplete();
                 LogTool.d(this.getClass().getName(), data.toString());
                 mHasLoadedOnce = true;
                 requirementInfos = JsonParser.jsonToList(data.toString(), new TypeToken<List<RequirementInfo>>() {
@@ -393,6 +405,7 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
                 makeTextShort(error_msg);
                 hideWaitDialog();
                 pullrefresh.onRefreshComplete();
+                emptyPullRefresh.onRefreshComplete();
                 if (!mHasLoadedOnce) {
                     errorLayout.setVisibility(View.VISIBLE);
                     emptyLayout.setVisibility(View.GONE);
@@ -405,32 +418,26 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
     private void disposeData(RequirementList requirementList) {
         switch (mNum) {
             case FIRST_FRAGMENT:
-                myHandledRequirementAdapter.addItem(requirementList.getUnHandleRequirementInfoList());
-                if (requirementList.getUnHandleRequirementInfoList().size() == 0) {
-                    emptyLayout.setVisibility(View.VISIBLE);
-                    ((TextView) emptyLayout.findViewById(R.id.tipContent)).setText(getString(R.string.tip_no_unhandle));
-                } else {
-                    emptyLayout.setVisibility(View.GONE);
-                }
+                currentRequirementInfo = requirementList.getUnHandleRequirementInfoList();
+                ((TextView) emptyLayout.findViewById(R.id.tipContent)).setText(getString(R.string.tip_no_unhandle));
                 break;
             case SECOND_FRAGMENT:
-                myHandledRequirementAdapter.addItem(requirementList.getCommunicationRequirementInfoList());
-                if (requirementList.getCommunicationRequirementInfoList().size() == 0) {
-                    emptyLayout.setVisibility(View.VISIBLE);
-                    ((TextView) emptyLayout.findViewById(R.id.tipContent)).setText(getString(R.string.tip_handled));
-                } else {
-                    emptyLayout.setVisibility(View.GONE);
-                }
+                currentRequirementInfo = requirementList.getCommunicationRequirementInfoList();
+                ((TextView) emptyLayout.findViewById(R.id.tipContent)).setText(getString(R.string.tip_handled));
                 break;
             case THIRD_FRAGMENT:
-                myHandledRequirementAdapter.addItem(requirementList.getOverRequirementInfoLists());
-                if (requirementList.getOverRequirementInfoLists().size() == 0) {
-                    emptyLayout.setVisibility(View.VISIBLE);
-                    ((TextView) emptyLayout.findViewById(R.id.tipContent)).setText(getString(R.string.tip_already_handle));
-                } else {
-                    emptyLayout.setVisibility(View.GONE);
-                }
+                currentRequirementInfo = requirementList.getOverRequirementInfoLists();
+                ((TextView) emptyLayout.findViewById(R.id.tipContent)).setText(getString(R.string.tip_already_handle));
                 break;
+        }
+        myHandledRequirementAdapter.addItem(currentRequirementInfo);
+        if (currentRequirementInfo.size() == 0) {
+            emptyLayout.setVisibility(View.VISIBLE);
+            emptyLayout.findViewById(R.id.empty_contentLayout).setLayoutParams(
+                    new RelativeLayout.LayoutParams(rootLayout.getWidth(), rootLayout.getHeight() - MyApplication.dip2px(_context, 10)));
+        } else {
+            emptyLayout.setVisibility(View.GONE);
+            pullrefresh.setAdapter(myHandledRequirementAdapter);
         }
     }
 
