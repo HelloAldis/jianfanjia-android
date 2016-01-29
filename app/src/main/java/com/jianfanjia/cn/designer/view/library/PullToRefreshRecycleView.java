@@ -76,6 +76,12 @@ public class PullToRefreshRecycleView extends PullToRefreshBase<RecyclerView> {
         }
     }
 
+    public void removeItemDecoration(RecyclerView.ItemDecoration itemDecoration){
+        if(itemDecoration != null){
+            mRefreshableView.removeItemDecoration(itemDecoration);
+        }
+    }
+
     public void addItemDecoration(RecyclerView.ItemDecoration itemDecoration) {
         if (itemDecoration != null) {
             mRefreshableView.addItemDecoration(itemDecoration);

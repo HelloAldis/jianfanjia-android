@@ -9,6 +9,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.graphics.Rect;
 import android.hardware.Camera;
 import android.net.Uri;
@@ -33,6 +34,7 @@ import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.activity.MainActivity;
 import com.jianfanjia.cn.designer.activity.my.NotifyActivity;
 import com.jianfanjia.cn.designer.activity.requirement.CheckActivity;
+import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.bean.NotifyMessage;
 import com.jianfanjia.cn.designer.cache.DataManagerNew;
 import com.jianfanjia.cn.designer.config.Constant;
@@ -47,6 +49,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UiHelper {
+
+    public static Paint paintFactory(){
+        Paint paint = new Paint();
+        paint.setStrokeWidth(MyApplication.dip2px(MyApplication.getInstance(), 10));
+        paint.setColor(MyApplication.getInstance().getResources().getColor(R.color.transparent));
+        paint.setAntiAlias(true);
+        return paint;
+    }
 
     /**
      * 调整FrameLayout大小
