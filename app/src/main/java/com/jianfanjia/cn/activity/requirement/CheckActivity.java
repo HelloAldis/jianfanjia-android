@@ -65,9 +65,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener, Item
             sectionInfoName = bundle.getString(Constant.PROCESS_NAME);
             sectionInfoStatus = bundle.getString(Constant.PROCESS_STATUS, Constant.DOING);
             processInfoId = bundle.getString(Global.PROCESS_ID);
-            LogTool.d(TAG, "processInfoId:" + processInfoId
-                    + " sectionInfoName:" + sectionInfoName
-                    + " processInfoStatus:" + sectionInfoStatus);
+            LogTool.d(TAG, "processInfoId:" + processInfoId + " sectionInfoName:" + sectionInfoName + " processInfoStatus:" + sectionInfoStatus);
             if (processInfoId != null) {
                 loadCurrentProcess();
             }
@@ -143,9 +141,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener, Item
             sectionItemInfos = processInfo.getSectionInfoByName(sectionInfoName).getItems();
             refreshList();
         }
-        mainHeadView.setMianTitle(MyApplication.getInstance().getStringById(
-                sectionInfoName)
-                + "阶段验收");
+        mainHeadView.setMianTitle(MyApplication.getInstance().getStringById(sectionInfoName) + "阶段验收");
     }
 
     private void refreshList() {
