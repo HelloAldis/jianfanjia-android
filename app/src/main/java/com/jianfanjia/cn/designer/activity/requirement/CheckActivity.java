@@ -7,15 +7,17 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.GridView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.activity.common.ShowPicActivity;
-import com.jianfanjia.cn.designer.adapter.MyGridViewAdapter;
+import com.jianfanjia.cn.designer.adapter.CheckGridViewAdapter;
 import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.base.BaseActivity;
 import com.jianfanjia.cn.designer.bean.CheckInfo.Imageid;
@@ -35,6 +37,7 @@ import com.jianfanjia.cn.designer.tools.ImageUtils;
 import com.jianfanjia.cn.designer.tools.LogTool;
 import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.jianfanjia.cn.designer.view.MainHeadView;
+import com.jianfanjia.cn.designer.view.baseview.SpacesItemDecoration;
 import com.jianfanjia.cn.designer.view.dialog.CommonDialog;
 import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
 
@@ -55,9 +58,10 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
     public static final int FINISH_STATUS = 1;
     private MainHeadView mainHeadView = null;
     private RelativeLayout checkLayout = null;
-    private GridView gridView = null;
+    private RecyclerView gridView = null;
+    private GridLayoutManager gridLayoutManager = null;
     private TextView btn_confirm = null;
-    private MyGridViewAdapter adapter = null;
+    private CheckGridViewAdapter adapter = null;
     private List<GridItem> checkGridList = new ArrayList<>();//本页显示的griditem项
     private List<String> showSamplePic = new ArrayList<>();//示例照片
     private List<String> showProcessPic = new ArrayList<>();//工地验收照片
@@ -91,7 +95,19 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
     public void initView() {
         initMainHeadView();
         checkLayout = (RelativeLayout) findViewById(R.id.checkLayout);
-        gridView = (GridView) findViewById(R.id.mygridview);
+        gridView = (RecyclerView) findViewById(R.id.mygridview);
+        gridLayoutManager = new GridLayoutManager(CheckActivity.this, 2);
+        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                return position == 0 ? gridLayoutManager.getSpanCount() : 1;
+            }
+        });
+        gridView.setLayoutManager(gridLayoutManager);
+        gridView.setHasFixedSize(true);
+        gridView.setItemAnimator(new DefaultItemAnimator());
+        SpacesItemDecoration decoration = new SpacesItemDecoration(10);
+        gridView.addItemDecoration(decoration);
         btn_confirm = (TextView) findViewById(R.id.btn_confirm);
         btn_confirm.setText(this.getResources().getString(
                 R.string.confirm_upload));
@@ -147,7 +163,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
     }
 
     private void initData() {
-        adapter = new MyGridViewAdapter(CheckActivity.this, checkGridList,
+        adapter = new CheckGridViewAdapter(CheckActivity.this, checkGridList,
                 this, this);
         gridView.setAdapter(adapter);
         processInfo = dataManager.getDefaultProcessInfo();
@@ -265,12 +281,12 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
                 mainHeadView.setRightTitle(getString(R.string.finish));
                 currentState = EDIT_STATUS;
                 adapter.setCanDelete(true);
-                adapter.notifyDataSetInvalidated();
+                adapter.notifyDataSetChanged();
             } else {
                 mainHeadView.setRightTitle(getString(R.string.edit));
                 currentState = FINISH_STATUS;
                 adapter.setCanDelete(false);
-                adapter.notifyDataSetInvalidated();
+                adapter.notifyDataSetChanged();
             }
         } else {
             mainHeadView.setRigthTitleEnable(false);

@@ -3,7 +3,6 @@
     android:id="@+id/ll_grid_item"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/layout_border"
     android:descendantFocusability="blocksDescendants">
 
     <ImageView
@@ -20,7 +19,7 @@
         android:layout_alignParentRight="true"
         android:padding="@dimen/space_8"
         android:scaleType="centerCrop"
-        android:src="@mipmap/icon_delete"
+        android:src="@mipmap/icon_check_delete"
         android:visibility="gone" />
 
 </com.jianfanjia.cn.designer.view.layout.SquareLayout>
