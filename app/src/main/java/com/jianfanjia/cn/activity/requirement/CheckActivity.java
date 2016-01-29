@@ -4,15 +4,17 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.GridView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.common.ShowPicActivity;
-import com.jianfanjia.cn.adapter.MyGridViewAdapter;
+import com.jianfanjia.cn.adapter.CheckGridViewAdapter;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.CheckInfo.Imageid;
@@ -27,6 +29,7 @@ import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
+import com.jianfanjia.cn.view.baseview.SpacesItemDecoration;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
 
@@ -43,9 +46,10 @@ public class CheckActivity extends BaseActivity implements OnClickListener, Item
     private static final String TAG = CheckActivity.class.getName();
     private RelativeLayout checkLayout = null;
     private MainHeadView mainHeadView = null;
-    private GridView gridView = null;
+    private RecyclerView gridView = null;
+    private GridLayoutManager gridLayoutManager = null;
     private TextView btn_confirm = null;
-    private MyGridViewAdapter adapter = null;
+    private CheckGridViewAdapter adapter = null;
     private List<GridItem> checkGridList = new ArrayList<GridItem>();
     private List<String> showSamplePic = new ArrayList<String>();
     private List<String> showProcessPic = new ArrayList<String>();
@@ -116,9 +120,20 @@ public class CheckActivity extends BaseActivity implements OnClickListener, Item
         mainHeadView = (MainHeadView) findViewById(R.id.check_pic_head_layout);
         mainHeadView.setBackListener(this);
         checkLayout = (RelativeLayout) findViewById(R.id.checkLayout);
-        gridView = (GridView) findViewById(R.id.mygridview);
+        gridView = (RecyclerView) findViewById(R.id.mygridview);
+        gridLayoutManager = new GridLayoutManager(CheckActivity.this, 2);
+        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                return position == 0 ? gridLayoutManager.getSpanCount() : 1;
+            }
+        });
+        gridView.setLayoutManager(gridLayoutManager);
+        gridView.setHasFixedSize(true);
+        gridView.setItemAnimator(new DefaultItemAnimator());
+        SpacesItemDecoration decoration = new SpacesItemDecoration(10);
+        gridView.addItemDecoration(decoration);
         btn_confirm = (TextView) findViewById(R.id.btn_confirm);
-        gridView.setFocusable(false);
     }
 
     private void initData() {
@@ -133,7 +148,8 @@ public class CheckActivity extends BaseActivity implements OnClickListener, Item
             default:
                 break;
         }
-        adapter = new MyGridViewAdapter(CheckActivity.this, checkGridList,
+        checkGridList = getCheckedImageById(sectionInfoName);
+        adapter = new CheckGridViewAdapter(CheckActivity.this, checkGridList,
                 this);
         gridView.setAdapter(adapter);
         processInfo = dataManager.getDefaultProcessInfo();
@@ -311,6 +327,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener, Item
     }
 
     private void startShowActivity(int arg2) {
+        LogTool.d(TAG, "arg2=" + arg2);
         Bundle bundle = new Bundle();
         if (arg2 % 2 == 0) {
             bundle.putStringArrayList(Constant.IMAGE_LIST,

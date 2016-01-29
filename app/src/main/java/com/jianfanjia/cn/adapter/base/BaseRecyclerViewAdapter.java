@@ -29,6 +29,10 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Re
         imageShow = ImageShow.getImageShow();
     }
 
+    public void setList(List<T> list) {
+        this.list = list;
+    }
+
     public void add(T t) {
         if (t != null) {
             list.add(t);
