@@ -50,7 +50,7 @@ public class PullToRefreshRecycleView extends PullToRefreshBase<RecyclerView> {
     protected RecyclerView createRefreshableView(Context context, AttributeSet attrs) {
         RecyclerView recyclerView = new RecyclerView(context, attrs);
         recyclerView.setId(R.id.recycleview);
-        recyclerView.setPadding(0, MyApplication.dip2px(context,10),0,0);
+        recyclerView.setPadding(0, MyApplication.dip2px(context, 10), 0, 0);//4个参数按顺序分别是左上右下
         return recyclerView;
     }
 

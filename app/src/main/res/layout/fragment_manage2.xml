@@ -16,13 +16,14 @@
         android:id="@+id/manage_pullfefresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/space_10"
         ptr:ptrAnimationStyle="flip"
         ptr:ptrHeaderTextColor="#344a5d" />
 
     <include
         android:id="@+id/empty_include"
         layout="@layout/view_no_process_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:visibility="gone" />
 
     <include

@@ -8,7 +8,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
@@ -34,6 +36,7 @@ import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.cn.designer.view.baseview.HorizontalDividerItemDecoration;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshRecycleView;
+import com.jianfanjia.cn.designer.view.library.PullToRefreshScrollView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,8 +60,13 @@ public class ManageFragment extends BaseFragment implements PullToRefreshBase.On
     private String[] proTitle = null;
     private List<Process> processList = new ArrayList<Process>();
     private List<SiteProcessItem> siteProcessList = new ArrayList<SiteProcessItem>();
-    private RelativeLayout emptyLayout = null;
-    private RelativeLayout errorLayout = null;
+    protected PullToRefreshScrollView emptyPullRefresh;
+
+    protected RelativeLayout emptyLayout;
+
+    protected RelativeLayout errorLayout;
+
+    private LinearLayout rootLayout;
     private TextView process_tip_text = null;
 
     private String processId = null;
@@ -75,6 +83,14 @@ public class ManageFragment extends BaseFragment implements PullToRefreshBase.On
         initMainHeadView(view);
         emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
         errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
+        rootLayout = (LinearLayout) view.findViewById(R.id.frag_req_rootview);
+        emptyPullRefresh = (PullToRefreshScrollView) view.findViewById(R.id.emptyPullRefreshScrollView);
+        emptyPullRefresh.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ScrollView>() {
+            @Override
+            public void onRefresh(PullToRefreshBase<ScrollView> refreshView) {
+                getProcessList();
+            }
+        });
         process_tip_text = (TextView) view.findViewById(R.id.process_tip_text);
         proTitle = getActivity().getApplication().getResources().getStringArray(
                 R.array.site_procedure);
@@ -197,15 +213,19 @@ public class ManageFragment extends BaseFragment implements PullToRefreshBase.On
                 } else {
                     manage_pullfefresh.setVisibility(View.GONE);
                     emptyLayout.setVisibility(View.VISIBLE);
+                    emptyLayout.findViewById(R.id.empty_contentLayout).setLayoutParams(//动态设置内容高度，防止滚动
+                            new RelativeLayout.LayoutParams(rootLayout.getWidth(), rootLayout.getHeight() - mainHeadView.getHeight()));
                     errorLayout.setVisibility(View.GONE);
                 }
                 manage_pullfefresh.onRefreshComplete();
+                emptyPullRefresh.onRefreshComplete();
             }
 
             @Override
             public void loadFailture(String error_msg) {
                 makeTextShort(error_msg);
                 manage_pullfefresh.onRefreshComplete();
+                emptyPullRefresh.onRefreshComplete();
                 manage_pullfefresh.setVisibility(View.GONE);
                 emptyLayout.setVisibility(View.GONE);
                 errorLayout.setVisibility(View.VISIBLE);
