@@ -107,7 +107,7 @@ public class DesignerCaseInfoActivity extends BaseActivity implements OnClickLis
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 mScrollY += dy;
-                if (mScrollY > 45) {
+                if (mScrollY > 30) {
                     activity_case_info_top_layout.setVisibility(View.VISIBLE);
                     tv_title.setVisibility(View.VISIBLE);
                 } else {
