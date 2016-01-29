@@ -116,7 +116,7 @@ public class AppointDesignerActivity extends BaseActivity implements OnClickList
         //----------------------------------------------------
         mp = new HashMap<String, Object>();
         mp.put(Constant.KEY, getResources().getString(R.string.intentionDesignerText));
-        mp.put(Constant.TEXT_KEY, "");
+        mp.put(Constant.TEXT_KEY, getResources().getString(R.string.noIntentionDesignerText));
         mylist.add(mp);
         splitList.add(mp);
         for (DesignerCanOrderInfo designerCanOrderInfo : favorite_designerList) {

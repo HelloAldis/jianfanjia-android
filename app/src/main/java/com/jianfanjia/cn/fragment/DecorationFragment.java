@@ -247,10 +247,13 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
             LogTool.d(TAG, "decorationItemInfo:" + decorationItemInfo);
             if (null != decorationItemInfo) {
                 List<BeautyImgInfo> beautyImgs = decorationItemInfo.getBeautiful_images();
+                LogTool.d(TAG, "beautyImgs=" + beautyImgs);
                 if (null != beautyImgs && beautyImgs.size() > 0) {
                     decorationAdapter.add(FROM, beautyImgs);
                     FROM += Constant.HOME_PAGE_LIMIT;
                     LogTool.d(TAG, "FROM=" + FROM);
+                } else {
+                    makeTextShort("没有更多了");
                 }
             }
             decoration_listview.onRefreshComplete();

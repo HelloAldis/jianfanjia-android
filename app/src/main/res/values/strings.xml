@@ -158,6 +158,7 @@
     <string name="intentionDesignerText">意向设计师</string>
     <string name="moreText">更多</string>
     <string name="replaceText">替换</string>
+    <string name="noIntentionDesignerText">(首页可以添加意向设计师)</string>
     <string name="commentText">留言</string>
     <string name="planText">的方案</string>
     <string name="designerPlanText">方案</string>

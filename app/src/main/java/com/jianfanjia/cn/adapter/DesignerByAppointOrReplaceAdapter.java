@@ -68,7 +68,7 @@ public class DesignerByAppointOrReplaceAdapter extends BaseRecyclerViewAdapter<M
                 tagViewHolder.itemMoreText.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        LogTool.d(TAG, "44444444444");
+                        LogTool.d(TAG, "更多");
                     }
                 });
                 break;
