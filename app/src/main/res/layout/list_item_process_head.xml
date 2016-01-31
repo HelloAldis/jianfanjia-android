@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:descendantFocusability="blocksDescendants" >
+    android:descendantFocusability="blocksDescendants">
 
     <!-- 外面套一层是为了让listview 头视图隐藏后，头部高度为0 -->
 
@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp" >
+        android:layout_marginTop="8dp">
 
         <ImageView
             android:id="@+id/site_listview_item_status"
@@ -31,7 +31,7 @@
             android:layout_marginRight="14dp"
             android:layout_toRightOf="@+id/site_listview_item_status"
             android:background="@mipmap/list_item_text_bg1"
-            android:padding="12dp" >
+            android:padding="12dp">
 
             <TextView
                 android:id="@+id/site_list_item_content_small_node_name"
@@ -57,7 +57,7 @@
             android:layout_toRightOf="@+id/site_listview_item_status"
             android:background="@mipmap/list_item_text_bg1"
             android:padding="12dp"
-            android:visibility="gone" >
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/site_list_item_content_expand_node_name"
@@ -78,7 +78,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/site_list_item_content_expand_node_name"
                 android:layout_marginTop="16dp"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/site_list_head_delay"
