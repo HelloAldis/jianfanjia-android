@@ -125,6 +125,7 @@ public class CheckGridViewAdapter extends BaseRecyclerViewAdapter<GridItem> {
                         }
                     });
                     imageShow.displayLocalImage(imgId, checkItemViewHolder.img);
+                    checkItemViewHolder.delete.setVisibility(View.GONE);
                 }
                 break;
             default:
