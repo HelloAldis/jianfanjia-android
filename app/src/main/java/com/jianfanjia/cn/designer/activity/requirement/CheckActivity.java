@@ -65,7 +65,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
     private List<GridItem> checkGridList = new ArrayList<>();//本页显示的griditem项
     private List<String> showSamplePic = new ArrayList<>();//示例照片
     private List<String> showProcessPic = new ArrayList<>();//工地验收照片
-    private List<Imageid> imageids = null;
+    private List<Imageid> imageids = new ArrayList<>();
     private String processInfoId = null;// 工地id
     private String sectionInfoName = null;// 工序名称
     private String sectionInfoStatus = null;// 工序状态
@@ -179,9 +179,10 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
         checkGridList = getCheckedImageById(sectionInfoName);
         processInfo = dataManager.getDefaultProcessInfo();
         imageids = processInfo.getImageidsByName(sectionInfoName);
+        LogTool.d(TAG, "imageids=" + imageids);
         for (int i = 0; imageids != null && i < imageids.size(); i++) {
             String key = imageids.get(i).getKey();
-            LogTool.d(TAG, imageids.get(i).getImageid());
+            LogTool.d(TAG, "key=" + key);
             checkGridList.get(Integer.parseInt(key) * 2 + 1).setImgId(
                     imageids.get(i).getImageid());
         }
@@ -280,12 +281,12 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
                 mainHeadView.setRightTitle(getString(R.string.finish));
                 currentState = EDIT_STATUS;
                 adapter.setCanDelete(true);
-                adapter.notifyDataSetChanged();
+                adapter.notifyItemRangeChanged(0, adapter.getItemCount());
             } else {
                 mainHeadView.setRightTitle(getString(R.string.edit));
                 currentState = FINISH_STATUS;
                 adapter.setCanDelete(false);
-                adapter.notifyDataSetChanged();
+                adapter.notifyItemRangeChanged(0, adapter.getItemCount());
             }
         } else {
             mainHeadView.setRigthTitleEnable(false);
