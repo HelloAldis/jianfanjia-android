@@ -88,12 +88,12 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
             designTextLayout.setVisibility(View.VISIBLE);
             mainHeadView.setRigthTitleEnable(true);
             String dec_type = requirement.getDec_type();
-            LogTool.d(TAG, "dec_type=" + dec_type);
+            LogTool.d(TAG, "dec_type=" + dec_type + "    requirement.getHouse_type()=" + requirement.getHouse_type());
             if (!TextUtils.isEmpty(requirement.getCell())) {
                 cellName.setVisibility(View.VISIBLE);
                 cellName.setText(requirement.getCell());
             }
-            if (!TextUtils.isEmpty(requirement.getHouse_type()) && dec_type.equals(dec_type.equals(Global.DEC_TYPE_HOME))) {
+            if (!TextUtils.isEmpty(requirement.getHouse_type()) && dec_type.equals(Global.DEC_TYPE_HOME)) {
                 houseTypeLayout.setVisibility(View.VISIBLE);
                 houseType.setText(BusinessManager.convertHouseTypeToShow(requirement.getHouse_type()));
             }
