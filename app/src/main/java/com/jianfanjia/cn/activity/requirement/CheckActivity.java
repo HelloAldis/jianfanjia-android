@@ -174,7 +174,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener, Item
                     imageids.get(i).getImageid());
         }
         adapter.setList(checkGridList);
-        adapter.notifyDataSetChanged();
+        adapter.notifyItemRangeChanged(0, adapter.getItemCount());
         setConfimStatus(imagecount);
         initShowList();
     }
