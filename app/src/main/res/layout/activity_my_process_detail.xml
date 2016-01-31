@@ -40,7 +40,7 @@
         android:id="@+id/process_viewpager_layout"
         android:layout_width="match_parent"
         android:layout_height="120dp"
-        android:layout_below="@+id/process_head_wrap"
+        android:layout_below="@id/process_head_wrap"
         android:background="#ffffff">
 
         <com.jianfanjia.cn.designer.view.MyViewPager
