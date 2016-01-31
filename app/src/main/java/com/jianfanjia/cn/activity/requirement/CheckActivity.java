@@ -120,6 +120,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener, Item
         mainHeadView = (MainHeadView) findViewById(R.id.check_pic_head_layout);
         mainHeadView.setBackListener(this);
         checkLayout = (RelativeLayout) findViewById(R.id.checkLayout);
+        btn_confirm = (TextView) findViewById(R.id.btn_confirm);
         gridView = (RecyclerView) findViewById(R.id.mygridview);
         gridLayoutManager = new GridLayoutManager(CheckActivity.this, 2);
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
@@ -133,7 +134,6 @@ public class CheckActivity extends BaseActivity implements OnClickListener, Item
         gridView.setItemAnimator(new DefaultItemAnimator());
         SpacesItemDecoration decoration = new SpacesItemDecoration(10);
         gridView.addItemDecoration(decoration);
-        btn_confirm = (TextView) findViewById(R.id.btn_confirm);
     }
 
     private void initData() {
