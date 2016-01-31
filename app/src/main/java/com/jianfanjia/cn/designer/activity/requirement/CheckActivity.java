@@ -112,7 +112,6 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
         btn_confirm.setText(this.getResources().getString(
                 R.string.confirm_upload));
         currentState = FINISH_STATUS;
-        gridView.setFocusable(false);
     }
 
     private void initMainHeadView() {
@@ -369,7 +368,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode != RESULT_OK){
+        if (resultCode != RESULT_OK) {
             return;
         }
         switch (requestCode) {
