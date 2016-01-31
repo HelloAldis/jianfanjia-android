@@ -495,7 +495,6 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
 
                     @Override
                     public void loadSuccess(Object data) {
-                        hideWaitDialog();
                         loadCurrentProcess(MyProcessDetailActivity.this);
                     }
 
