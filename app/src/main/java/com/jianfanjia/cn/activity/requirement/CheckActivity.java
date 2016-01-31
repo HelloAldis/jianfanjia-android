@@ -53,7 +53,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener, Item
     private List<GridItem> checkGridList = new ArrayList<GridItem>();
     private List<String> showSamplePic = new ArrayList<String>();
     private List<String> showProcessPic = new ArrayList<String>();
-    private List<Imageid> imageids = null;
+    private List<Imageid> imageids = new ArrayList<>();
     private String processInfoId = null;// 工地id
     private String sectionInfoName = null;// 工序名称
     private String sectionInfoStatus = null;// 工序状态
@@ -169,12 +169,12 @@ public class CheckActivity extends BaseActivity implements OnClickListener, Item
         int imagecount = imageids.size();
         for (int i = 0; imageids != null && i < imageids.size(); i++) {
             String key = imageids.get(i).getKey();
-            LogTool.d(TAG, imageids.get(i).getImageid());
+            LogTool.d(TAG, "key=" + key);
             checkGridList.get(Integer.parseInt(key) * 2 + 1).setImgId(
                     imageids.get(i).getImageid());
         }
         adapter.setList(checkGridList);
-        adapter.notifyDataSetChanged();
+        adapter.notifyItemRangeChanged(0, adapter.getItemCount());
         setConfimStatus(imagecount);
         initShowList();
     }
