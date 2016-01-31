@@ -10,8 +10,6 @@ import java.util.List;
  * Date:2015-10-20 09:49
  */
 public class PlanInfo implements Serializable {
-
-
     private String _id;
     private long last_status_update_time;
     private long request_date;
