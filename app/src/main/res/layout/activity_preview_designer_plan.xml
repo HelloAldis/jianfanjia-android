@@ -33,10 +33,25 @@
             android:layout_below="@id/my_prieview_head_layout"
             android:orientation="vertical">
 
-            <com.jianfanjia.cn.view.MyViewPager
-                android:id="@+id/viewpager"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="250dp" />
+                android:layout_height="250dp">
+
+                <com.jianfanjia.cn.view.MyViewPager
+                    android:id="@+id/viewpager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <LinearLayout
+                    android:id="@+id/indicatorGroup_lib"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="10.0dip"
+                    android:orientation="horizontal" />
+            </RelativeLayout>
+
 
             <TextView
                 android:id="@+id/cellName"

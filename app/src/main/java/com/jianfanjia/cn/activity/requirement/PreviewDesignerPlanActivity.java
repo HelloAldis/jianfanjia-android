@@ -6,6 +6,7 @@ import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -46,6 +47,7 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
     private LinearLayout priceLayout = null;
     private LinearLayout designTextLayout = null;
     private ViewPager viewPager = null;
+    private LinearLayout indicatorGroup_lib = null;
     private TextView cellName = null;
     private TextView houseType = null;
     private TextView houseArea = null;
@@ -80,6 +82,7 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
         priceLayout = (LinearLayout) findViewById(R.id.priceLayout);
         designTextLayout = (LinearLayout) findViewById(R.id.designTextLayout);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
+        indicatorGroup_lib = (LinearLayout) findViewById(R.id.indicatorGroup_lib);
         cellName = (TextView) findViewById(R.id.cellName);
         houseType = (TextView) findViewById(R.id.houseType);
         houseArea = (TextView) findViewById(R.id.houseArea);
@@ -92,9 +95,9 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
 
         String requirementStatus = requirementInfo.getStatus();
         if (requirementStatus.equals(Global.REQUIREMENT_STATUS4) || requirementStatus.equals(Global.REQUIREMENT_STATUS5)
-                || requirementStatus.equals(Global.REQUIREMENT_STATUS7) || requirementStatus.equals(Global.REQUIREMENT_STATUS8) ) {
+                || requirementStatus.equals(Global.REQUIREMENT_STATUS7) || requirementStatus.equals(Global.REQUIREMENT_STATUS8)) {
             btn_choose.setEnabled(false);
-        }else{
+        } else {
             btn_choose.setEnabled(true);
         }
         getPlanInfo(planid);
@@ -110,6 +113,62 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
         mainHeadView.setRightTitleVisable(View.VISIBLE);
         mainHeadView.setBackLayoutVisable(View.VISIBLE);
         mainHeadView.setRigthTitleEnable(false);
+    }
+
+
+    private void initViewPager(ViewPager viewPager, LinearLayout indicatorGroup_lib, final List<String> imgList) {
+        final View[] indicators = new View[imgList.size()];
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                new ViewGroup.LayoutParams(20, 20));
+        params.setMargins(0, 0, 15, 0);
+        for (int i = 0; i < indicators.length; i++) {
+            indicators[i] = new View(this);
+            if (i == 0) {
+                indicators[i].setBackgroundResource(R.drawable.shape_indicator_selected_oval);
+            } else {
+                indicators[i].setBackgroundResource(R.drawable.shape_indicator_unselected_oval);
+            }
+            indicators[i].setLayoutParams(params);
+            indicatorGroup_lib.addView(indicators[i]);
+        }
+        PreviewAdapter adapter = new PreviewAdapter(PreviewDesignerPlanActivity.this, imgList, new ViewPagerClickListener() {
+            @Override
+            public void onClickItem(int pos) {
+                LogTool.d(TAG, "pos:" + pos);
+                Intent showPicIntent = new Intent(PreviewDesignerPlanActivity.this, ShowPicActivity.class);
+                Bundle showPicBundle = new Bundle();
+                showPicBundle.putInt(Constant.CURRENT_POSITION, pos);
+                showPicBundle.putStringArrayList(Constant.IMAGE_LIST,
+                        (ArrayList<String>) imgList);
+                showPicIntent.putExtras(showPicBundle);
+                startActivity(showPicIntent);
+            }
+        });
+        viewPager.setAdapter(adapter);
+        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageSelected(int arg0) {
+                for (int i = 0; i < indicators.length; i++) {
+                    if (i == arg0) {
+                        indicators[i]
+                                .setBackgroundResource(R.drawable.shape_indicator_selected_oval);
+                    } else {
+                        indicators[i]
+                                .setBackgroundResource(R.drawable.shape_indicator_unselected_oval);
+                    }
+                }
+            }
+
+            @Override
+            public void onPageScrolled(int arg0, float arg1, int arg2) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int arg0) {
+
+            }
+        });
     }
 
     @Override
@@ -194,21 +253,7 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
                 totalDate.setText(planDetailInfo.getDuration() + "天");
                 price.setText(planDetailInfo.getTotal_price() + "元");
                 designText.setText(planDetailInfo.getDescription());
-                final List<String> imgList = planDetailInfo.getImages();
-                PreviewAdapter adapter = new PreviewAdapter(PreviewDesignerPlanActivity.this, imgList, new ViewPagerClickListener() {
-                    @Override
-                    public void onClickItem(int pos) {
-                        LogTool.d(TAG, "pos:" + pos);
-                        Intent showPicIntent = new Intent(PreviewDesignerPlanActivity.this, ShowPicActivity.class);
-                        Bundle showPicBundle = new Bundle();
-                        showPicBundle.putInt(Constant.CURRENT_POSITION, pos);
-                        showPicBundle.putStringArrayList(Constant.IMAGE_LIST,
-                                (ArrayList<String>) imgList);
-                        showPicIntent.putExtras(showPicBundle);
-                        startActivity(showPicIntent);
-                    }
-                });
-                viewPager.setAdapter(adapter);
+                initViewPager(viewPager, indicatorGroup_lib, planDetailInfo.getImages());
             }
         }
 
