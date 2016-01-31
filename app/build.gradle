@@ -47,6 +47,7 @@ android {
     buildTypes {
 
         debug {
+            debuggable true
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.relealse
@@ -63,13 +64,10 @@ android {
                                     SERVER_PORT     : RELEASE_SERVER_PORT, SERVER_IP: RELEASE_SERVER_IP]
         }
         andtest {
-            debuggable true
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.relealse
 
-//            manifestPlaceholders = [GETUI_PUSH_APPID: "Ec5Iv1QTPz9pBk2ZYFebd", GETUI_PUSH_APPKEY: "1zvknC2OFL6mUlWch6tcb3", GETUI_PUSH_APPSECRET: "cvNcATrYoo717R8milqyn7",
-//                                    SERVER_PORT     : RELEASE_SERVER_PORT, SERVER_IP: TEST_SERVER_IP]
             manifestPlaceholders = [GETUI_PUSH_APPID: "s7Et91ZLPu8KRwBEtY4AZ8", GETUI_PUSH_APPKEY: "8BTWfBSMYM95oFpDOwGYu5", GETUI_PUSH_APPSECRET: "QbclEVLgAIA6iWblkTjyD4", SERVER_PORT: TEST_SERVER_PORT, SERVER_IP: TEST_SERVER_IP]
         }
     }
@@ -114,8 +112,11 @@ android {
                     fileName = fileName.replace("-release", "")
                     output.outputFile = new File(outputFile.parent, fileName)
                 }
-                if(variant.buildType.name.equals('andtest')){
-                    output.outputFile = new File(testApkPath, fileName)
+//                if(variant.buildType.name.equals('andtest')){
+//                    output.outputFile = new File(testApkPath, fileName)
+//                }
+                if(variant.buildType.name.equals('debug')){
+                    output.outputFile = new File(outputFile.parent, fileName)
                 }
             }
         }
