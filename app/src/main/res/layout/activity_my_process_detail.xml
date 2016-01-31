@@ -83,7 +83,6 @@
                 android:smoothScrollbar="true"
                 ptr:ptrAnimationStyle="flip"
                 ptr:ptrHeaderTextColor="#344a5d" />
-
         </RelativeLayout>
     </FrameLayout>
 </RelativeLayout>
