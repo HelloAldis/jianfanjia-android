@@ -27,7 +27,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
         boolean flag = false;
         try {
             int result = dao.create(t);
-            LogTool.d(TAG, "save() result" + result);
+            LogTool.d(TAG, "save() result " + result);
             if (result > 0) {
                 flag = true;
             }
@@ -53,7 +53,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
         boolean flag = false;
         try {
             int result = dao.delete(t);
-            LogTool.d(TAG, "delete() result" + result);
+            LogTool.d(TAG, "delete() result " + result);
             if (result > 0) {
                 flag = true;
             }
@@ -68,7 +68,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
         boolean flag = false;
         try {
             int result = dao.update(t);
-            LogTool.d(TAG, "update() result" + result);
+            LogTool.d(TAG, "update() result " + result);
             if (result > 0) {
                 flag = true;
             }
