@@ -59,7 +59,7 @@
             android:id="@+id/lineView"
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:layout_marginLeft="44dp"
+            android:layout_marginLeft="45dp"
             android:background="@color/line_color" />
 
         <RelativeLayout
@@ -71,7 +71,7 @@
                 android:id="@+id/process__listview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="32dp"
+                android:layout_marginLeft="33dp"
                 android:cacheColorHint="#ffffff"
                 android:clipToPadding="false"
                 android:divider="@null"
