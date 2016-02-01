@@ -71,7 +71,7 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
                     var7 = var7.trim();
                 }
 
-                LogTool.d(TAG,"PUSH_APPID :" + var5 + "--" + "PUSH_APPSECRET :" + var6 + "--" + "PUSH_APPKEY:" + var7);
+                LogTool.d(TAG, "PUSH_APPID :" + var5 + "--" + "PUSH_APPSECRET :" + var6 + "--" + "PUSH_APPKEY:" + var7);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -206,7 +206,7 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
                 } else {
                     if (!isLoginExpire) {// 登录未过期，添加cookies到httpclient记录身份
                         LogTool.d(TAG, "not expire");
-                        GeTuiManager.bindGeTui(getApplicationContext(),dataManager.getUserId());
+                        GeTuiManager.bindGeTui(getApplicationContext(), dataManager.getUserId());
                         startActivity(MainActivity.class);
                         appManager.finishActivity(WelcomeActivity.this);
                     } else {
