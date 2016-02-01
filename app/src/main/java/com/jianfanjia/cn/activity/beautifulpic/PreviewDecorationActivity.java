@@ -74,7 +74,6 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
         Bundle decorationBundle = intent.getExtras();
         decorationId = decorationBundle.getString(Global.DECORATION_ID);
         LogTool.d(TAG, "decorationId=" + decorationId);
-        shareUtil = new ShareUtil(this);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar_collect = (ImageView) findViewById(R.id.toolbar_collect);
         toolbar_share = (ImageView) findViewById(R.id.toolbar_share);

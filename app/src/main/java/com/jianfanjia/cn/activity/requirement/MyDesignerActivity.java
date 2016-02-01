@@ -68,6 +68,8 @@ public class MyDesignerActivity extends BaseAnnotationActivity {
     MyDesignerAdapter myDesignerAdapter;
     List<OrderDesignerInfo> orderDesignerInfos = new ArrayList<>();
 
+    private boolean isLoadedOnce;//是否成功加载过一次数据
+
 
     @AfterViews
     protected void initMainHeadView() {
@@ -170,8 +172,8 @@ public class MyDesignerActivity extends BaseAnnotationActivity {
 
     @Click(R.id.error_include)
     protected void errorRefresh() {
-//        initData();
-        refreshView.setRefreshing(true);
+        initdata();
+//        refreshView.setRefreshing(true);
     }
 
 
@@ -184,7 +186,6 @@ public class MyDesignerActivity extends BaseAnnotationActivity {
 
             @Override
             public void loadSuccess(Object data) {
-                hideWaitDialog();
                 initdata();
                 //刷新Xuqiufragment
                 UiHelper.sendUpdateBroast(MyDesignerActivity.this);
@@ -192,6 +193,7 @@ public class MyDesignerActivity extends BaseAnnotationActivity {
 
             @Override
             public void loadFailture(String error_msg) {
+                makeTextShort(error_msg);
                 hideWaitDialog();
             }
         }, MyDesignerActivity.this);
@@ -205,33 +207,41 @@ public class MyDesignerActivity extends BaseAnnotationActivity {
     protected void initdata() {
         LogTool.d(this.getClass().getName(), "initdata");
         if (requirementid != null) {
-            JianFanJiaClient.getOrderedDesignerList(this, requirementid, new ApiUiUpdateListener() {
-                @Override
-                public void preLoad() {
-                }
+            JianFanJiaClient.getOrderedDesignerList(this, requirementid, this, this);
+        }
+    }
 
-                @Override
-                public void loadSuccess(Object data) {
-                    refreshView.onRefreshComplete();
-                    if (data != null) {
-                        orderDesignerInfos = JsonParser.jsonToList(data.toString(),
-                                new TypeToken<List<OrderDesignerInfo>>() {
-                                }.getType());
-                        if (orderDesignerInfos != null && orderDesignerInfos.size() > 0) {
-                            myDesignerAdapter.addItem(orderDesignerInfos);
-                            error_Layout.setVisibility(View.GONE);
-                        }
-                    }
-                }
+    @Override
+    public void preLoad() {
+        if (!isLoadedOnce) {
+            super.preLoad();
+        }
+    }
 
-                @Override
-                public void loadFailture(String error_msg) {
-                    refreshView.onRefreshComplete();
-                    if (orderDesignerInfos == null || orderDesignerInfos.size() == 0) {
-                        error_Layout.setVisibility(View.VISIBLE);
-                    }
-                }
-            }, this);
+    @Override
+    public void loadSuccess(Object data) {
+        super.loadSuccess(data);
+        refreshView.onRefreshComplete();
+        if (data != null) {
+            orderDesignerInfos = JsonParser.jsonToList(data.toString(),
+                    new TypeToken<List<OrderDesignerInfo>>() {
+                    }.getType());
+            if (orderDesignerInfos != null && orderDesignerInfos.size() > 0) {
+                isLoadedOnce = true;
+                myDesignerAdapter.addItem(orderDesignerInfos);
+                error_Layout.setVisibility(View.GONE);
+            }
+        }
+    }
+
+    @Override
+    public void loadFailture(String error_msg) {
+        super.loadFailture(error_msg);
+        refreshView.onRefreshComplete();
+        if (orderDesignerInfos == null || orderDesignerInfos.size() == 0) {
+            if(!isLoadedOnce){
+                error_Layout.setVisibility(View.VISIBLE);
+            }
         }
     }
 
