@@ -59,11 +59,7 @@ public class PriceDetailAdapter extends BaseRecyclerViewAdapter<PriceDetail> {
                 PriceDetailHeadHolder priceDetailHeadHolder = (PriceDetailHeadHolder) viewHolder;
                 priceDetailHeadHolder.project_total_price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG); //中划线
                 priceDetailHeadHolder.project_total_price.setText("￥" + detailInfo.getProject_price_before_discount());
-                if (detailInfo.getProject_price_after_discount() != 0) {
-                    priceDetailHeadHolder.project_price_after_discount.setText("￥" + detailInfo.getProject_price_after_discount());
-                } else {
-                    priceDetailHeadHolder.project_price_after_discount.setText("￥" + detailInfo.getProject_price_before_discount());
-                }
+                priceDetailHeadHolder.project_price_after_discount.setText("￥" + detailInfo.getProject_price_after_discount());
                 priceDetailHeadHolder.total_design_fee.setText("￥" + detailInfo.getTotal_design_fee());
                 priceDetailHeadHolder.project_price_before_discount.setText("￥" + detailInfo.getTotal_price());
                 break;
