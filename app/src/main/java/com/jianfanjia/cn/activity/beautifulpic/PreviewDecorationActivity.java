@@ -73,6 +73,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
         Intent intent = this.getIntent();
         Bundle decorationBundle = intent.getExtras();
         decorationId = decorationBundle.getString(Global.DECORATION_ID);
+        shareUtil = new ShareUtil(this);
         LogTool.d(TAG, "decorationId=" + decorationId);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar_collect = (ImageView) findViewById(R.id.toolbar_collect);
@@ -118,7 +119,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
                 break;
             case R.id.toolbar_share_layout:
                 UiHelper.imageButtonAnim(toolbar_share, null);
-                showPopwindow(getWindow().getDecorView());
+                showPopwindow();
                 break;
             case R.id.btn_download_layout:
                 UiHelper.imageButtonAnim(btn_download, null);
@@ -192,7 +193,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
         @Override
         public void loadFailture(String error_msg) {
             hideWaitDialog();
-            makeTextLong(error_msg);
+            makeTextShort(error_msg);
             btn_downloadLayout.setVisibility(View.GONE);
             toolbar_collectLayout.setVisibility(View.GONE);
             toolbar_shareLayout.setVisibility(View.GONE);
@@ -258,7 +259,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
         LogTool.d(TAG, "currentImgId=" + currentImgId);
     }
 
-    private void showPopwindow(View view) {
+    private void showPopwindow() {
         shareUtil.shareImage(this, picTitle, currentStyle, currentTag, currentImgId, new SocializeListeners.SnsPostListener() {
             @Override
             public void onStart() {
