@@ -25,9 +25,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
     @Override
     public void save(T t) {
         try {
-            LogTool.d(TAG, "save  start");
             dao.create(t);
-            LogTool.d(TAG, "save  end");
         } catch (SQLException e) {
             e.printStackTrace();
         }
