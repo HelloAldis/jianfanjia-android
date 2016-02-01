@@ -14,7 +14,6 @@ import com.jianfanjia.cn.designer.bean.UpdateVersion;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.http.JianFanJiaClient;
 import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
-import com.jianfanjia.cn.designer.tools.FileUtil;
 import com.jianfanjia.cn.designer.tools.GeTuiManager;
 import com.jianfanjia.cn.designer.tools.JsonParser;
 import com.jianfanjia.cn.designer.tools.LogTool;
@@ -46,32 +45,24 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
         first = dataManager.isFirst();
         LogTool.d(TAG, "first=" + first);
         checkVersion();
-        LogTool.d(TAG, "sd root =" + FileUtil.getSDRoot());
-        LogTool.d(TAG, "sd ex root =" + FileUtil.getExternalSDRoot());
-//        LogTool.d(TAG, "sd root =" + FileUtil.getAppCache(this, "jianfan"));
     }
 
     private void logGeTuiAPPKey() {
         try {
             ApplicationInfo var4 = getPackageManager().getApplicationInfo(getPackageName(), 128);
-            if (var4 != null && var4.metaData != null)
-
-            {
+            if (var4 != null && var4.metaData != null) {
                 String var5 = var4.metaData.getString("PUSH_APPID");
                 String var6 = var4.metaData.getString("PUSH_APPSECRET");
                 String var7 = var4.metaData.get("PUSH_APPKEY") != null ? var4.metaData.get("PUSH_APPKEY").toString() : null;
                 if (var5 != null) {
                     var5 = var5.trim();
                 }
-
                 if (var6 != null) {
                     var6 = var6.trim();
                 }
-
                 if (var7 != null) {
                     var7 = var7.trim();
                 }
-
                 LogTool.d(TAG, "PUSH_APPID :" + var5 + "--" + "PUSH_APPSECRET :" + var6 + "--" + "PUSH_APPKEY:" + var7);
             }
         } catch (Exception e) {
@@ -92,6 +83,7 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
                             updateVersion = JsonParser
                                     .jsonToBean(data.toString(),
                                             UpdateVersion.class);
+                            LogTool.d(TAG, "updateVersion:" + updateVersion);
                             if (updateVersion != null) {
 //                                if (Integer.parseInt(updateVersion
 //                                        .getVersion_code()) > MyApplication
