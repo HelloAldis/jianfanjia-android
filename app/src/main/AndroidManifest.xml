@@ -64,7 +64,7 @@
         <!-- 友盟配置 -->
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="55e40deee0f55acc66001861" />
+            android:value="5670dcd167e58e4832001024" />
         <meta-data
             android:name="UMENG_CHANNEL"
             android:value="${UMENG_CHANNEL_VALUE}" />
@@ -301,18 +301,6 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.soundcloud.android.crop.CropImageActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.NewUserCollectLoveStyleActivity_"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.NewUserCollectPersonActivity_"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.NewUserCollectDecStageActivity_"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.NewUserGuideActivity_"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.requirement.PreviewBusinessRequirementActivity_"
