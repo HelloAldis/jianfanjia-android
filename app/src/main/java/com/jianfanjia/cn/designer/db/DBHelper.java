@@ -25,6 +25,16 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
         super(context, DBNAME, null, DBVERSION);
     }
 
+    public static synchronized DBHelper getHelper(Context context) {
+        if (helper == null) {
+            synchronized (DBHelper.class) {
+                if (helper == null)
+                    helper = new DBHelper(context);
+            }
+        }
+        return helper;
+    }
+
     @Override
     public void onCreate(SQLiteDatabase db, ConnectionSource connectionSource) {
         try {
@@ -43,16 +53,6 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    public static synchronized DBHelper getHelper(Context context) {
-        if (helper == null) {
-            synchronized (DBHelper.class) {
-                if (helper == null)
-                    helper = new DBHelper(context);
-            }
-        }
-        return helper;
     }
 
     @Override
