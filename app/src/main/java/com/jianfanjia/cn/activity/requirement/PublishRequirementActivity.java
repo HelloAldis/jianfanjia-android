@@ -227,7 +227,7 @@ public class PublishRequirementActivity extends BaseAnnotationActivity implement
                 requirementInfo.setHouse_type("2");//设置默认初始值
                 break;
             case Global.DEC_TYPE_BUSINESS:
-                requirementInfo.setBusiness_house_type("3");//设置默认初始值
+                requirementInfo.setBusiness_house_type("0");//设置默认初始值
                 break;
         }
         String family_des = requirementInfoInit.getFamily_description();
@@ -272,7 +272,7 @@ public class PublishRequirementActivity extends BaseAnnotationActivity implement
 
     private boolean isBusinessTypeChange(){
         requirementInfoInit.setHouse_type(null);
-        requirementInfoInit.setBusiness_house_type("3");
+        requirementInfoInit.setBusiness_house_type("0");
         requirementInfoInit.setDec_type(Global.DEC_TYPE_BUSINESS);
         if (BusinessManager.isRequirementChange(
                 editBussinessRequirementFragment_.getRequirementInfo(), requirementInfoInit)) {
