@@ -49,7 +49,7 @@ public class MySiteAdapter extends BaseRecyclerViewAdapter<Process> {
         if (!TextUtils.isEmpty(process.getUser().getImageid())) {
             imageShow.displayImageHeadWidthThumnailImage(context, process.getUser().getImageid(), holder.itemHeadView);
         } else {
-            imageShow.displayLocalImage(dataManagerNew.getUserImagePath(), holder.itemHeadView);
+            holder.itemHeadView.setImageResource(R.mipmap.icon_default_head);
         }
         holder.itemCellView.setText(process.getCell());
         String itemNode = MyApplication.getInstance()
