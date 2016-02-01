@@ -54,7 +54,7 @@ public class UpdateService extends Service implements ApiUiUpdateListener {
             String download_url = intent.getStringExtra(Constant.DOWNLOAD_URL);
             if (download_url != null) {
                 int startPos = download_url.lastIndexOf("/");
-                if(startPos != -1){
+                if (startPos != -1) {
                     String fileName = download_url.substring(startPos);
                     downLoadManager.download(download_url, Constant.APK_PATH, fileName, this, uiProgressListener);
                 }

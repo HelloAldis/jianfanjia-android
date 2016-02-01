@@ -37,7 +37,7 @@ import de.greenrobot.event.EventBus;
  * @date 2015-8-26 下午1:07:52
  */
 public class MyFavoriteDesignerFragment extends BaseFragment {
-    private static final String TAG = DecorationImgFragment.class.getName();
+    private static final String TAG = MyFavoriteDesignerFragment.class.getName();
     private RecyclerView my_favorite_designer_listview = null;
     private RelativeLayout emptyLayout = null;
     private RelativeLayout errorLayout = null;

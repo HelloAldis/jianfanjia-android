@@ -39,7 +39,7 @@ import de.greenrobot.event.EventBus;
  * @date 2015-8-26 下午1:07:52
  */
 public class ProductFragment extends BaseFragment implements ApiUiUpdateListener, RecyclerViewOnItemClickListener {
-    private static final String TAG = DecorationImgFragment.class.getName();
+    private static final String TAG = ProductFragment.class.getName();
     private RecyclerView prodtct_listview = null;
     private RelativeLayout emptyLayout = null;
     private RelativeLayout errorLayout = null;
