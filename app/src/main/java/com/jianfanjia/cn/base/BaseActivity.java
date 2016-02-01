@@ -221,7 +221,7 @@ public abstract class BaseActivity extends AppCompatActivity implements
     @Override
     public void loadFailture(String error_msg) {
         hideWaitDialog();
-        makeTextLong(error_msg);
+        makeTextShort(error_msg);
     }
 
     @Override

@@ -82,7 +82,7 @@ android {
     productFlavors {
         Default {
         }
-        /*  zhushou_360{
+         /* zhushou_360{
           }
           mi{
           }
@@ -111,10 +111,10 @@ android {
             if (outputFile != null && outputFile.name.endsWith('.apk')) {
                 String fileName = outputFile.name.replace(".apk", "_${date}_${update}_${defaultConfig.versionCode}_${defaultConfig.versionName}.apk")
                 fileName = fileName.replace("app", "jianfanjia")
-                if (variant.buildType.name.equals('release')) {
-                    fileName = fileName.replace("-release", "")
-                    output.outputFile = new File(outputFile.parent, fileName)
-                }
+//                if (variant.buildType.name.equals('release')) {
+//                    fileName = fileName.replace("-release", "")
+//                    output.outputFile = new File(outputFile.parent, fileName)
+//                }
 //                if(variant.buildType.name.equals('andtest')){
 //                    output.outputFile = new File(testApkPath, fileName)
 //                }
