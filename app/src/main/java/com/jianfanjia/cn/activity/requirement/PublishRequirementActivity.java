@@ -142,6 +142,7 @@ public class PublishRequirementActivity extends BaseAnnotationActivity implement
         listViews.add(productItem);
         adapter = new MyFragmentPagerAdapter(fragmentManager, listViews);
         viewPager.setAdapter(adapter);
+        viewPager.setOffscreenPageLimit(2);
     }
 
     private void resetRightTitleStatus() {
@@ -183,7 +184,6 @@ public class PublishRequirementActivity extends BaseAnnotationActivity implement
                 requirementInfo = editBussinessRequirementFragment_.getRequirementInfo();
                 break;
         }
-
         return requirementInfo;
     }
 
@@ -222,6 +222,14 @@ public class PublishRequirementActivity extends BaseAnnotationActivity implement
         Bundle bundle = new Bundle();
         RequirementInfo requirementInfo = new RequirementInfo();
         requirementInfo.setDec_type(type);
+        switch (type){
+            case Global.DEC_TYPE_HOME:
+                requirementInfo.setHouse_type("2");//设置默认初始值
+                break;
+            case Global.DEC_TYPE_BUSINESS:
+                requirementInfo.setBusiness_house_type("3");//设置默认初始值
+                break;
+        }
         String family_des = requirementInfoInit.getFamily_description();
         if (family_des != null) {
             requirementInfo.setFamily_description(family_des);
@@ -231,6 +239,7 @@ public class PublishRequirementActivity extends BaseAnnotationActivity implement
             requirementInfo.setDec_style(lovestyle);
         }
         bundle.putSerializable(Global.REQUIREMENT_INFO, requirementInfo);
+        LogTool.d(TAG, "requirmentInfo =" + JsonParser.beanToJson(requirementInfo));
         bundle.putInt(Global.REQUIREMENG_ACTION_TYPE, XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT);
         return bundle;
     }
@@ -241,24 +250,35 @@ public class PublishRequirementActivity extends BaseAnnotationActivity implement
     }
 
     protected void back() {
-        boolean isChange = false;
+        if (isHomeTypeChange() || isBusinessTypeChange()) {
+            LogTool.d(this.getClass().getName(), "有改变");
+            showTipDialog();
+        } else {
+            LogTool.d(this.getClass().getName(), "没有改变");
+            appManager.finishActivity(this);
+        }
+    }
+
+    private boolean isHomeTypeChange(){
+        requirementInfoInit.setDec_type(Global.DEC_TYPE_HOME);
+        requirementInfoInit.setHouse_type("2");
+        requirementInfoInit.setBusiness_house_type(null);
+        if (BusinessManager.isRequirementChange(
+                editHomeRequirementFragment_.getRequirementInfo(), requirementInfoInit)) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean isBusinessTypeChange(){
+        requirementInfoInit.setHouse_type(null);
+        requirementInfoInit.setBusiness_house_type("3");
         requirementInfoInit.setDec_type(Global.DEC_TYPE_BUSINESS);
         if (BusinessManager.isRequirementChange(
                 editBussinessRequirementFragment_.getRequirementInfo(), requirementInfoInit)) {
-            isChange = true;
+            return true;
         }
-        requirementInfoInit.setDec_type(Global.DEC_TYPE_HOME);
-        if (BusinessManager.isRequirementChange(
-                editHomeRequirementFragment_.getRequirementInfo(), requirementInfoInit)) {
-            isChange = true;
-        }
-        if (!isChange) {
-            LogTool.d(this.getClass().getName(), "没有改变");
-            appManager.finishActivity(this);
-        } else {
-            LogTool.d(this.getClass().getName(), "有改变");
-            showTipDialog();
-        }
+        return false;
     }
 
     @Click({

@@ -57,7 +57,7 @@ public class EditRequirementLovestyleActivity extends BaseAnnotationActivity{
         appManager.finishActivity(this);
     }
 
-    @Click({R.id.head_back})
+    @Click({R.id.head_back_layout})
     protected void back(View clickView) {
         int resId = clickView.getId();
         switch (resId) {

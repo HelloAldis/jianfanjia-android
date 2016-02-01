@@ -1,9 +1,5 @@
 package com.jianfanjia.cn.bean;
 
-import android.text.TextUtils;
-
-import com.jianfanjia.cn.config.Global;
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -137,12 +133,7 @@ public class RequirementInfo implements Serializable {
     }
 
     public String getHouse_type() {
-        if (!TextUtils.isEmpty(dec_type) && dec_type.equals(Global.DEC_TYPE_HOME)) {
-            if (TextUtils.isEmpty(house_type)) {
-                return "2";
-            }
-        }
-        return house_type;
+       return house_type;
     }
 
     public void setHouse_type(String house_type) {
@@ -294,12 +285,7 @@ public class RequirementInfo implements Serializable {
     }
 
     public String getBusiness_house_type() {
-        if (!TextUtils.isEmpty(dec_type) && dec_type.equals(Global.DEC_TYPE_BUSINESS)) {
-            if (TextUtils.isEmpty(business_house_type)) {
-                return "3";
-            }
-        }
-        return business_house_type;
+       return business_house_type;
     }
 
     public void setBusiness_house_type(String business_house_type) {
