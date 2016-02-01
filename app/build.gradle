@@ -24,8 +24,8 @@ android {
         applicationId "com.jianfanjia.cn.activity"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 40
-        versionName "2.2.9"
+        versionCode 41
+        versionName "2.2.10"
 
         // AndroidManifest.xml 里面UMENG_CHANNEL的value为 ${UMENG_CHANNEL_VALUE}
 //        manifestPlaceholders = [UMENG_CHANNEL_VALUE: "channel_name"]
