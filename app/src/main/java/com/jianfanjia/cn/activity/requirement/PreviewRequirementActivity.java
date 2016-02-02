@@ -102,8 +102,8 @@ public class PreviewRequirementActivity extends BaseAnnotationActivity {
             act_edit_req_shi_content.setText(requirementInfo.getCell_detail_number());
             act_edit_req_housearea_content.setText(requirementInfo.getHouse_area());
             act_edit_req_housetype_content.setText(TextUtils.isEmpty(requirementInfo.getHouse_type()) ? "" : arr_housetype[Integer.parseInt(requirementInfo.getHouse_type())]);
-            act_edit_req_decoratebudget_content.setText(requirementInfo.getTotal_price());
-            act_edit_req_persons_content.setText(requirementInfo.getFamily_description());
+            act_edit_req_decoratebudget_content.setText(TextUtils.isEmpty(requirementInfo.getTotal_price()) ? "" : requirementInfo.getTotal_price());
+            act_edit_req_persons_content.setText(TextUtils.isEmpty(requirementInfo.getFamily_description()) ? "" : requirementInfo.getFamily_description());
             act_edit_req_lovestyle_content.setText(TextUtils.isEmpty(requirementInfo.getDec_style()) ? "" : arr_lovestyle[Integer.parseInt(requirementInfo.getDec_style())]);
             act_edit_req_lovedesistyle_content.setText(TextUtils.isEmpty(requirementInfo.getCommunication_type()) ? "" : arr_love_designerstyle[Integer.parseInt(requirementInfo.getCommunication_type())]);
             act_edit_req_lovedesisex_content.setText(TextUtils.isEmpty(requirementInfo.getPrefer_sex()) ? "" : arr_desisex[Integer.parseInt(requirementInfo.getPrefer_sex())]);
