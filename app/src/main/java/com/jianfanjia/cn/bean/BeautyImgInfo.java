@@ -10,8 +10,6 @@ import java.util.List;
  * Time: 17:38
  */
 public class BeautyImgInfo implements Serializable {
-
-    private static final long serialVersionUID = 3756904014887565122L;
     private String _id;
     private boolean is_deleted;
     private long lastupdate;
@@ -29,9 +27,11 @@ public class BeautyImgInfo implements Serializable {
     private int __v;
     private int favorite_count;
     private int view_count;
-    private boolean is_my_favorite;
     private List<AssociateImgInfo> associate_beautiful_images;
     private List<Img> images;
+    private Previous previous;
+    private Next next;
+    private boolean is_my_favorite;
 
     public String get_id() {
         return _id;
@@ -191,5 +191,21 @@ public class BeautyImgInfo implements Serializable {
 
     public void setSection(String section) {
         this.section = section;
+    }
+
+    public Previous getPrevious() {
+        return previous;
+    }
+
+    public void setPrevious(Previous previous) {
+        this.previous = previous;
+    }
+
+    public Next getNext() {
+        return next;
+    }
+
+    public void setNext(Next next) {
+        this.next = next;
     }
 }
