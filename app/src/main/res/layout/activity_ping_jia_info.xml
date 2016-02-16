@@ -125,7 +125,6 @@
                         android:id="@+id/commentText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="的说法是否"
                         android:textColor="@color/main_color_grey"
                         android:textSize="@dimen/text_size_14" />
                 </LinearLayout>

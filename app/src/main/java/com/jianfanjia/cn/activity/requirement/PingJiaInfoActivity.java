@@ -68,7 +68,7 @@ public class PingJiaInfoActivity extends BaseActivity implements
             if (!TextUtils.isEmpty(evaluation.getComment())) {
                 commentText.setText(evaluation.getComment());
             } else {
-                commentText.setText("暂无内容");
+                commentText.setText("");
             }
         }
     }
