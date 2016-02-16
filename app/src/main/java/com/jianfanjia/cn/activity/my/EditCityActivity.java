@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.base.BaseAnnotationActivity;
+import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.bean.OwnerUpdateInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaClient;
@@ -33,7 +33,7 @@ import java.util.Map;
  * Date:2015-11-09 13:06
  */
 @EActivity(R.layout.activity_cityedit)
-public class EditCityActivity extends BaseAnnotationActivity {
+public class EditCityActivity extends SwipeBackActivity {
 
     private static final String TAG = "EditCityActivity";
     public static final String PAGE = "page";

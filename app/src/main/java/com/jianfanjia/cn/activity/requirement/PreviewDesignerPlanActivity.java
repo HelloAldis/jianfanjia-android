@@ -12,9 +12,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.activity.common.ShowPicActivity;
 import com.jianfanjia.cn.adapter.PreviewAdapter;
-import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.PlandetailInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.cache.BusinessManager;
@@ -37,7 +37,7 @@ import java.util.List;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class PreviewDesignerPlanActivity extends BaseActivity implements OnClickListener {
+public class PreviewDesignerPlanActivity extends SwipeBackActivity implements OnClickListener {
     private static final String TAG = PreviewDesignerPlanActivity.class.getName();
     private MainHeadView mainHeadView = null;
     private LinearLayout houseTypeLayout = null;

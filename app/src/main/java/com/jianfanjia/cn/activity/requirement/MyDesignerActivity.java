@@ -11,9 +11,9 @@ import android.widget.RelativeLayout;
 
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.activity.home.DesignerInfoActivity;
 import com.jianfanjia.cn.adapter.MyDesignerAdapter;
-import com.jianfanjia.cn.base.BaseAnnotationActivity;
 import com.jianfanjia.cn.bean.OrderDesignerInfo;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
@@ -42,7 +42,7 @@ import java.util.List;
  * Date:15-10-11 14:30
  */
 @EActivity(R.layout.activity_my_designer)
-public class MyDesignerActivity extends BaseAnnotationActivity {
+public class MyDesignerActivity extends SwipeBackActivity {
     private static final String TAG = MyDesignerActivity.class.getName();
     public static final int CHANGE_DESIGNER = 0;//替换设计师
     public static final int VIEW_COMMENT = 1;//查看评价

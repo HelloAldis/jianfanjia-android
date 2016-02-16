@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 
@@ -23,13 +22,11 @@ import com.jianfanjia.cn.dao.impl.NotifyMessageDao;
 import com.jianfanjia.cn.http.OkHttpClientManager;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.NetStateListener;
-import com.jianfanjia.cn.interf.PopWindowCallBack;
 import com.jianfanjia.cn.interf.manager.ListenerManeger;
 import com.jianfanjia.cn.receiver.NetStateReceiver;
 import com.jianfanjia.cn.tools.DaoManager;
 import com.jianfanjia.cn.tools.ImageShow;
 import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.view.AddPhotoPopWindow;
 import com.jianfanjia.cn.view.dialog.DialogControl;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.cn.view.dialog.WaitDialog;
@@ -42,7 +39,7 @@ import com.umeng.analytics.MobclickAgent;
  * Date:15-10-11 14:30
  */
 public abstract class BaseActivity extends AppCompatActivity implements
-        DialogControl, NetStateListener, PopWindowCallBack, ApiUiUpdateListener {
+        DialogControl, NetStateListener,ApiUiUpdateListener {
     protected DownloadManager downloadManager = null;
     protected NotifyMessageDao notifyMessageDao = null;
     protected LayoutInflater inflater = null;
@@ -50,7 +47,6 @@ public abstract class BaseActivity extends AppCompatActivity implements
     protected NotificationManager nManager = null;
     protected ListenerManeger listenerManeger = null;
     protected NetStateReceiver netStateReceiver = null;
-    protected AddPhotoPopWindow popupWindow = null;
     private boolean _isVisible;
     private WaitDialog _waitDialog;
     protected DataManagerNew dataManager;
@@ -95,6 +91,7 @@ public abstract class BaseActivity extends AppCompatActivity implements
     public abstract void initView();
 
     public void setListener() {
+
     }
 
     @Override
@@ -108,7 +105,6 @@ public abstract class BaseActivity extends AppCompatActivity implements
         // TODO Auto-generated method stub
 
     }
-
 
     @Override
     protected void onStart() {
@@ -185,25 +181,6 @@ public abstract class BaseActivity extends AppCompatActivity implements
             intent.putExtras(bundle);
         }
         startActivity(intent);
-    }
-
-    protected void showPopWindow(View view) {
-        if (popupWindow == null) {
-            popupWindow = new AddPhotoPopWindow(this, this);
-        }
-        popupWindow.show(view);
-    }
-
-    @Override
-    public void firstItemClick() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void secondItemClick() {
-        // TODO Auto-generated method stub
-
     }
 
     @Override

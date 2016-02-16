@@ -170,7 +170,7 @@ public class ForgetPswActivity extends BaseAnnotationActivity{
 
                 @Override
                 public void loadFailture(String error_msg) {
-                    makeTextLong(error_msg);
+                    makeTextShort(error_msg);
                 }
             }, this);
     }

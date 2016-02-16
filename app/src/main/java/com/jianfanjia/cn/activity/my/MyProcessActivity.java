@@ -9,10 +9,10 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.google.gson.reflect.TypeToken;
-import com.jianfanjia.cn.activity.requirement.MyProcessDetailActivity_;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.SwipeBackActivity;
+import com.jianfanjia.cn.activity.requirement.MyProcessDetailActivity_;
 import com.jianfanjia.cn.adapter.MyProcessInfoAdapter;
-import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
@@ -29,7 +29,7 @@ import java.util.List;
  * @Description: 设计师工地
  * @date 2015-9-11 上午10:02:42
  */
-public class MyProcessActivity extends BaseActivity implements
+public class MyProcessActivity extends SwipeBackActivity implements
         OnClickListener, OnItemClickListener, ApiUiUpdateListener {
     private static final String TAG = MyProcessActivity.class.getName();
     private MainHeadView mainHeadView = null;

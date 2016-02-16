@@ -25,11 +25,13 @@ import android.view.animation.LayoutAnimationController;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RemoteViews;
+import android.widget.Toast;
 
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.my.NotifyActivity;
 import com.jianfanjia.cn.activity.requirement.CheckActivity;
+import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.config.Constant;
@@ -43,12 +45,21 @@ import java.io.File;
 public class UiHelper {
 
     /**
+     * 显示toast
+     * @param text
+     */
+    public static void showShortToast(String text) {
+        Toast.makeText(MyApplication.getInstance(), text, Toast.LENGTH_SHORT).show();
+    }
+
+    /**
      * 设置listview下落动画
+     *
      * @param context
      * @param viewGroup
      */
-    public static void setLayoutAnim(Context context,ViewGroup viewGroup){
-        Animation animation= AnimationUtils.loadAnimation(context, R.anim.listview_from_top);
+    public static void setLayoutAnim(Context context, ViewGroup viewGroup) {
+        Animation animation = AnimationUtils.loadAnimation(context, R.anim.listview_from_top);
 
         //得到一个LayoutAnimationController对象；
 
@@ -69,11 +80,11 @@ public class UiHelper {
 
     /**
      * 对按钮进行做点击效果的
+     *
      * @param view
      * @param listener
      */
-    public static void imageButtonAnim(View view,Animator.AnimatorListener listener)
-    {
+    public static void imageButtonAnim(View view, Animator.AnimatorListener listener) {
         Keyframe kf0 = Keyframe.ofFloat(0f, 1.0f);
         Keyframe kf1 = Keyframe.ofFloat(0.17f, 1.4f);
         Keyframe kf2 = Keyframe.ofFloat(0.34f, 0.9f);
@@ -86,10 +97,10 @@ public class UiHelper {
         PropertyValuesHolder propertyValuesHolderScaleYHolder = PropertyValuesHolder.ofKeyframe("scaleY", kf0, kf1,
                 kf2, kf3, kf4, kf5, kf6);
         ObjectAnimator rotaAnimator = ObjectAnimator.ofPropertyValuesHolder(view,
-                propertyValuesHolderScaleXHolder,propertyValuesHolderScaleYHolder);
+                propertyValuesHolderScaleXHolder, propertyValuesHolderScaleYHolder);
         rotaAnimator.setDuration(500);
         rotaAnimator.setInterpolator(new AccelerateInterpolator());
-        if(listener != null){
+        if (listener != null) {
             rotaAnimator.addListener(listener);
         }
         rotaAnimator.start();
@@ -105,10 +116,10 @@ public class UiHelper {
         mRemoteViews.setImageViewResource(R.id.list_item_img, R.mipmap.icon_notify);
         builder.setSmallIcon(R.mipmap.icon_notify);
         String type = message.getType();
-        LogTool.d("sendNotifycation","type =" + type);
+        LogTool.d("sendNotifycation", "type =" + type);
         PendingIntent pendingIntent = null;
         if (type.equals(Constant.YANQI_NOTIFY)) {
-            LogTool.d("sendNotifycation",context.getResources()
+            LogTool.d("sendNotifycation", context.getResources()
                     .getString(R.string.yanqiText));
             notifyId = Constant.YANQI_NOTIFY_ID;
             builder.setTicker(context.getResources()

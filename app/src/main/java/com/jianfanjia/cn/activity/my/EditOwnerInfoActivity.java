@@ -11,14 +11,14 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.bean.OwnerUpdateInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.view.MainHeadView;
 
-public class EditOwnerInfoActivity extends BaseActivity implements OnClickListener {
+public class EditOwnerInfoActivity extends SwipeBackActivity implements OnClickListener {
 	private static final String TAG = EditOwnerInfoActivity.class.getName();
 	private MainHeadView mainHeadView;
 	private EditText editInfoView;

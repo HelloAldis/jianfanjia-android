@@ -6,8 +6,8 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.adapter.ViewPageAdapter;
-import com.jianfanjia.cn.base.BaseActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,7 @@ import java.util.List;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class HelpActivity extends BaseActivity {
+public class HelpActivity extends SwipeBackActivity {
     private static final String TAG = HelpActivity.class.getName();
     private ViewPager viewPager = null;
     private List<View> bannerList = new ArrayList<View>();

@@ -15,8 +15,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.adapter.CommentAdapter;
-import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.Comment;
 import com.jianfanjia.cn.bean.CommentInfo;
 import com.jianfanjia.cn.bean.User;
@@ -39,7 +39,7 @@ import java.util.List;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class CommentActivity extends BaseActivity implements OnClickListener {
+public class CommentActivity extends SwipeBackActivity implements OnClickListener {
     private static final String TAG = CommentActivity.class.getName();
     private MainHeadView mainHeadView = null;
     private RecyclerView commentListView = null;

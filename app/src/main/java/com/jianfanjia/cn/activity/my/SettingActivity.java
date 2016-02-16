@@ -13,8 +13,8 @@ import android.widget.ToggleButton;
 
 import com.jianfanjia.cn.activity.LoginNewActivity_;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.application.MyApplication;
-import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.tools.AuthUtil;
 import com.jianfanjia.cn.tools.FileUtil;
 import com.jianfanjia.cn.tools.GeTuiManager;
@@ -38,7 +38,7 @@ import java.io.File;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class SettingActivity extends BaseActivity implements OnClickListener, OnCheckedChangeListener {
+public class SettingActivity extends SwipeBackActivity implements OnClickListener, OnCheckedChangeListener {
     private static final String TAG = SettingActivity.class.getName();
     private RelativeLayout feedbackFragment = null;
     private RelativeLayout aboutFragment = null;

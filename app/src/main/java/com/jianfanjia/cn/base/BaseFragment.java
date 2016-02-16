@@ -21,7 +21,7 @@ import com.jianfanjia.cn.interf.manager.ListenerManeger;
 import com.jianfanjia.cn.tools.DaoManager;
 import com.jianfanjia.cn.tools.ImageShow;
 import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.view.AddPhotoPopWindow;
+import com.jianfanjia.cn.view.AddPhotoDialog;
 import com.jianfanjia.cn.view.dialog.DialogControl;
 import com.jianfanjia.cn.view.dialog.WaitDialog;
 
@@ -38,7 +38,7 @@ public abstract class BaseFragment extends Fragment
     protected DataManagerNew dataManager = null;
     protected LayoutInflater inflater = null;
     protected ListenerManeger listenerManeger = null;
-    protected AddPhotoPopWindow popupWindow = null;
+    protected AddPhotoDialog popupWindow = null;
     protected ImageShow imageShow = null;
     protected String mUserName = null;// 用户名
     protected String mAccount = null;// 账号
@@ -144,13 +144,6 @@ public abstract class BaseFragment extends Fragment
             intent.putExtras(bundle);
         }
         startActivity(intent);
-    }
-
-    protected void showPopWindow(View view) {
-        if (popupWindow == null) {
-            popupWindow = new AddPhotoPopWindow(getActivity(), this);
-        }
-        popupWindow.show(view);
     }
 
     @Override

@@ -11,7 +11,7 @@ import android.widget.EditText;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.RegisterNewActivity;
 import com.jianfanjia.cn.activity.RegisterNewActivity_;
-import com.jianfanjia.cn.base.BaseAnnotationActivity;
+import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
@@ -30,7 +30,7 @@ import org.androidannotations.annotations.ViewById;
  * @date 2015-10-27 下午12:11:23
  */
 @EActivity(R.layout.activity_binding_phone)
-public class BindingPhoneActivity extends BaseAnnotationActivity implements
+public class BindingPhoneActivity extends SwipeBackActivity implements
         ApiUiUpdateListener {
     private static final String TAG = BindingPhoneActivity.class.getName();
     @ViewById(R.id.act_binding_input_phone)

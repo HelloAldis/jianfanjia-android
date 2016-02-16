@@ -16,9 +16,9 @@ import android.widget.TextView;
 
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.activity.common.ShowPicActivity;
 import com.jianfanjia.cn.adapter.DesignerCaseAdapter;
-import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.DesignerCaseInfo;
 import com.jianfanjia.cn.bean.ImageInfo;
 import com.jianfanjia.cn.config.Constant;
@@ -42,7 +42,7 @@ import de.greenrobot.event.EventBus;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class DesignerCaseInfoActivity extends BaseActivity implements OnClickListener {
+public class DesignerCaseInfoActivity extends SwipeBackActivity implements OnClickListener {
     private static final String TAG = DesignerCaseInfoActivity.class.getName();
     private RelativeLayout head_back_layout = null;
     private RelativeLayout toolbar_collect_layout = null;

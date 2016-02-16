@@ -9,8 +9,8 @@ import android.view.View;
 
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.adapter.MyFragmentPagerAdapter;
-import com.jianfanjia.cn.base.BaseAnnotationActivity;
 import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.bean.SelectItem;
@@ -46,7 +46,7 @@ import de.greenrobot.event.EventBus;
  * Date:15-10-11 14:30
  */
 @EActivity(R.layout.activity_edit_requirement)
-public class PublishRequirementActivity extends BaseAnnotationActivity implements NotifyActivityStatusChange {
+public class PublishRequirementActivity extends SwipeBackActivity implements NotifyActivityStatusChange {
     private static final String TAG = PublishRequirementActivity.class.getName();
     @ViewById(R.id.act_edit_req_head_layout)
     protected MainHeadView mainHeadView = null;

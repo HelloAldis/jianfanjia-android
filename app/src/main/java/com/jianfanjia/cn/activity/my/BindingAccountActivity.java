@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.jianfanjia.cn.Event.BindingPhoneEvent;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.base.BaseAnnotationActivity;
+import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
@@ -37,7 +37,7 @@ import de.greenrobot.event.EventBus;
  * Date:2016-01-05 11:51
  */
 @EActivity(R.layout.activity_binding_account)
-public class BindingAccountActivity extends BaseAnnotationActivity {
+public class BindingAccountActivity extends SwipeBackActivity {
 
     @ViewById(R.id.bindingaccount_head_layout)
     MainHeadView mainHeadView;

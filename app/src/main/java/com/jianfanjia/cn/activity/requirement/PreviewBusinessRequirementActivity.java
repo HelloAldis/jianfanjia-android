@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.base.BaseAnnotationActivity;
+import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.view.MainHeadView;
@@ -24,7 +24,7 @@ import org.androidannotations.annotations.res.StringArrayRes;
  * Date:2015-10-15 13:19
  */
 @EActivity(R.layout.activity_priview_busi_req)
-public class PreviewBusinessRequirementActivity extends BaseAnnotationActivity {
+public class PreviewBusinessRequirementActivity extends SwipeBackActivity {
 
     @ViewById(R.id.act_edit_req_head)
     protected MainHeadView mainHeadView;
