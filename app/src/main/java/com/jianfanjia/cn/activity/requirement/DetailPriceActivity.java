@@ -10,8 +10,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.adapter.PriceDetailAdapter;
-import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.PlandetailInfo;
 import com.jianfanjia.cn.bean.PriceDetail;
 import com.jianfanjia.cn.config.Global;
@@ -27,7 +27,7 @@ import java.util.List;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class DetailPriceActivity extends BaseActivity implements OnClickListener {
+public class DetailPriceActivity extends SwipeBackActivity implements OnClickListener {
     private static final String TAG = DetailPriceActivity.class.getName();
     private MainHeadView mainHeadView = null;
     private RecyclerView detail_price_listview = null;

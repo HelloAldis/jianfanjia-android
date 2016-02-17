@@ -6,8 +6,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.adapter.MyFragmentPagerAdapter;
-import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.SelectItem;
 import com.jianfanjia.cn.fragment.DecorationImgFragment;
 import com.jianfanjia.cn.fragment.MyFavoriteDesignerFragment;
@@ -23,7 +23,7 @@ import java.util.List;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class CollectActivity extends BaseActivity implements OnClickListener {
+public class CollectActivity extends SwipeBackActivity implements OnClickListener {
     private static final String TAG = CollectActivity.class.getName();
     private MainHeadView mainHeadView = null;
     private TabLayout tabLayout = null;

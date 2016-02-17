@@ -15,8 +15,8 @@ import android.widget.TextView;
 
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.adapter.MyFragmentPagerAdapter;
-import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.DesignerInfo;
 import com.jianfanjia.cn.bean.SelectItem;
 import com.jianfanjia.cn.config.Constant;
@@ -41,7 +41,7 @@ import de.greenrobot.event.EventBus;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class DesignerInfoActivity extends BaseActivity implements OnClickListener, ViewPager.OnPageChangeListener, ScrollableLayout.OnScrollListener {
+public class DesignerInfoActivity extends SwipeBackActivity implements OnClickListener, ViewPager.OnPageChangeListener, ScrollableLayout.OnScrollListener {
     private static final String TAG = DesignerInfoActivity.class.getName();
     private ScrollableLayout sl_root = null;
     private RelativeLayout head_back_layout = null;

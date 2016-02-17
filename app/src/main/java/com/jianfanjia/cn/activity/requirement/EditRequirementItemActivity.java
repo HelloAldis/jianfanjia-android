@@ -5,8 +5,8 @@ import android.view.View;
 import android.widget.ListView;
 
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.adapter.RequirementItemAdapter;
-import com.jianfanjia.cn.base.BaseAnnotationActivity;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.interf.cutom_annotation.ReqItemFinderImp;
@@ -26,7 +26,7 @@ import org.androidannotations.annotations.ViewById;
  * Date:2015-10-15 13:19
  */
 @EActivity(R.layout.activity_edit_req_item)
-public class EditRequirementItemActivity extends BaseAnnotationActivity {
+public class EditRequirementItemActivity extends SwipeBackActivity {
 
     //用来记录是展示那个列表
     private int requestCode;

@@ -16,12 +16,12 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.activity.common.CommentActivity;
 import com.jianfanjia.cn.activity.my.NotifyActivity;
 import com.jianfanjia.cn.adapter.SectionItemAdapter;
 import com.jianfanjia.cn.adapter.SectionViewPageAdapter;
 import com.jianfanjia.cn.application.MyApplication;
-import com.jianfanjia.cn.base.BaseAnnotationActivity;
 import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.SectionInfo;
@@ -32,6 +32,7 @@ import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
+import com.jianfanjia.cn.interf.PopWindowCallBack;
 import com.jianfanjia.cn.interf.ReceiveMsgListener;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.tools.DateFormatTool;
@@ -41,6 +42,7 @@ import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.StringUtils;
 import com.jianfanjia.cn.tools.UiHelper;
+import com.jianfanjia.cn.view.AddPhotoDialog;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DateWheelDialog;
@@ -66,7 +68,7 @@ import java.util.List;
  * @date 2015-8-26 上午11:14:00
  */
 @EActivity(R.layout.activity_my_process_detail)
-public class MyProcessDetailActivity extends BaseAnnotationActivity implements ItemClickCallBack, ReceiveMsgListener {
+public class MyProcessDetailActivity extends SwipeBackActivity implements ItemClickCallBack, ReceiveMsgListener,PopWindowCallBack{
     private static final String TAG = MyProcessDetailActivity.class.getName();
     private static final int TOTAL_PROCESS = 7;// 7道工序
 
@@ -82,6 +84,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
     @StringArrayRes(R.array.site_procedure)
     String[] proTitle = null;
 
+    protected AddPhotoDialog popupWindow = null;
     private SectionItemAdapter sectionItemAdapter = null;
     private SectionViewPageAdapter sectionViewPageAdapter = null;
     private List<ViewPagerItem> processList = new ArrayList<ViewPagerItem>();
@@ -409,11 +412,18 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                 startActivityForResult(intent, Constant.REQUESTCODE_SHOW_PROCESS_PIC);
                 break;
             case Constant.ADD_ITEM:
-                showPopWindow(getWindow().getDecorView());
+                showPopWindow();
                 break;
             default:
                 break;
         }
+    }
+
+    protected void showPopWindow() {
+        if (popupWindow == null) {
+            popupWindow = new AddPhotoDialog(this, this);
+        }
+        popupWindow.show();
     }
 
     @Override

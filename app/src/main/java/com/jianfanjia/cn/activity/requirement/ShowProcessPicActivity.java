@@ -8,19 +8,19 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.adapter.ShowPicPagerAdapter;
-import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.view.DeletePicPopWindow;
+import com.jianfanjia.cn.view.DeletePicDialog;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShowProcessPicActivity extends BaseActivity implements
+public class ShowProcessPicActivity extends SwipeBackActivity implements
         ViewPagerClickListener, OnPageChangeListener, View.OnClickListener, View.OnLongClickListener {
     private static final String TAG = ShowProcessPicActivity.class.getName();
     private ViewPager viewPager;
@@ -33,7 +33,7 @@ public class ShowProcessPicActivity extends BaseActivity implements
     private String section;
     private String item;
     private String tipText = null;
-    private DeletePicPopWindow deletePicPopWindow = null;
+    private DeletePicDialog deletePicDialog = null;
     private boolean isDeletePic = false;
 
     @Override
@@ -59,7 +59,7 @@ public class ShowProcessPicActivity extends BaseActivity implements
         viewPager.setCurrentItem(currentPosition);
         viewPager.setOnPageChangeListener(this);
         setTipText();
-        deletePicPopWindow = new DeletePicPopWindow(this, this);
+        deletePicDialog = new DeletePicDialog(this, this);
     }
 
     private void setTipText() {
@@ -90,7 +90,7 @@ public class ShowProcessPicActivity extends BaseActivity implements
             setResult(RESULT_OK);
             appManager.finishActivity(this);
         } else {
-            deletePicPopWindow.dismiss();
+            deletePicDialog.dismiss();
             totalCount--;
             setTipText();
             showPicPagerAdapter.deleteItem(currentPosition);
@@ -111,7 +111,7 @@ public class ShowProcessPicActivity extends BaseActivity implements
     @Override
     public boolean onLongClick(View v) {
         if (processid != null) {
-            deletePicPopWindow.show(v);
+            deletePicDialog.show();
             return true;
         }
         return false;

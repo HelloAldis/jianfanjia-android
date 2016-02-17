@@ -13,10 +13,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.activity.common.ShowPicActivity;
 import com.jianfanjia.cn.adapter.CheckGridViewAdapter;
 import com.jianfanjia.cn.application.MyApplication;
-import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.CheckInfo.Imageid;
 import com.jianfanjia.cn.bean.GridItem;
 import com.jianfanjia.cn.bean.ProcessInfo;
@@ -42,7 +42,7 @@ import java.util.List;
  * @Description: 验收
  * @date 2015-8-28 下午2:25:36
  */
-public class CheckActivity extends BaseActivity implements OnClickListener, ItemClickCallBack {
+public class CheckActivity extends SwipeBackActivity implements OnClickListener, ItemClickCallBack {
     private static final String TAG = CheckActivity.class.getName();
     private RelativeLayout checkLayout = null;
     private MainHeadView mainHeadView = null;

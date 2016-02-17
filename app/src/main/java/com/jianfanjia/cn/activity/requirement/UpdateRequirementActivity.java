@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.base.BaseAnnotationActivity;
+import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.fragment.EditBussinessRequirementFragment_;
@@ -29,7 +29,7 @@ import org.androidannotations.annotations.ViewById;
  * Date:2015-12-17 15:46
  */
 @EActivity(R.layout.activity_edit_busi_req)
-public class UpdateRequirementActivity extends BaseAnnotationActivity implements NotifyActivityStatusChange{
+public class UpdateRequirementActivity extends SwipeBackActivity implements NotifyActivityStatusChange{
 
     @ViewById(R.id.act_edit_req_head)
     protected MainHeadView mainHeadView;

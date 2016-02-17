@@ -13,7 +13,7 @@ import android.widget.RatingBar.OnRatingBarChangeListener;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
@@ -27,7 +27,7 @@ import com.jianfanjia.cn.view.MainHeadView;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class PingjiaActivity extends BaseActivity implements
+public class PingjiaActivity extends SwipeBackActivity implements
         OnClickListener, ApiUiUpdateListener {
     private static final String TAG = PingjiaActivity.class.getName();
     private MainHeadView mainHeadView = null;

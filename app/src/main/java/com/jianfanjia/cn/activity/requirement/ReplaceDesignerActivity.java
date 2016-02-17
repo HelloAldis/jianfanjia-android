@@ -11,9 +11,9 @@ import android.view.View.OnClickListener;
 
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.activity.home.DesignerInfoActivity;
 import com.jianfanjia.cn.adapter.DesignerByAppointOrReplaceAdapter;
-import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.DesignerCanOrderInfo;
 import com.jianfanjia.cn.bean.DesignerCanOrderListInfo;
 import com.jianfanjia.cn.config.Constant;
@@ -39,7 +39,7 @@ import de.greenrobot.event.EventBus;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class ReplaceDesignerActivity extends BaseActivity implements OnClickListener {
+public class ReplaceDesignerActivity extends SwipeBackActivity implements OnClickListener {
     private static final String TAG = ReplaceDesignerActivity.class.getName();
     private MainHeadView mainHeadView = null;
     private RecyclerView replace_designer_listview = null;

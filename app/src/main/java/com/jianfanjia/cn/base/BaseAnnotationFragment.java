@@ -16,7 +16,7 @@ import com.jianfanjia.cn.http.OkHttpClientManager;
 import com.jianfanjia.cn.interf.manager.ListenerManeger;
 import com.jianfanjia.cn.tools.DaoManager;
 import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.view.AddPhotoPopWindow;
+import com.jianfanjia.cn.view.AddPhotoDialog;
 import com.jianfanjia.cn.view.dialog.DialogControl;
 import com.jianfanjia.cn.view.dialog.WaitDialog;
 
@@ -33,7 +33,7 @@ public class BaseAnnotationFragment extends Fragment {
     protected LayoutInflater inflater = null;
     // protected SharedPrefer sharedPrefer = null;
     protected ListenerManeger listenerManeger = null;
-    protected AddPhotoPopWindow popupWindow = null;
+    protected AddPhotoDialog popupWindow = null;
     protected ProcessInfo processInfo = null;
     protected String mUserName = null;// 用户名
     protected String mAccount = null;// 账号

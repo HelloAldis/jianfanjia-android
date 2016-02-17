@@ -12,9 +12,9 @@ import android.view.View.OnClickListener;
 
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.activity.common.CommentActivity;
 import com.jianfanjia.cn.adapter.DesignerPlanAdapter;
-import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.PlanInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Constant;
@@ -38,7 +38,7 @@ import java.util.List;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class DesignerPlanListActivity extends BaseActivity implements OnClickListener, ApiUiUpdateListener, ItemClickListener, PullToRefreshBase.OnRefreshListener2<RecyclerView> {
+public class DesignerPlanListActivity extends SwipeBackActivity implements OnClickListener, ApiUiUpdateListener, ItemClickListener, PullToRefreshBase.OnRefreshListener2<RecyclerView> {
     private static final String TAG = DesignerPlanListActivity.class.getName();
     private MainHeadView mainHeadView = null;
     private PullToRefreshRecycleView designer_plan_listview = null;

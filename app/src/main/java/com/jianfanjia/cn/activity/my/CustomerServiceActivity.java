@@ -7,7 +7,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.view.MainHeadView;
 
@@ -17,7 +17,7 @@ import com.jianfanjia.cn.view.MainHeadView;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class CustomerServiceActivity extends BaseActivity implements View.OnClickListener, View.OnKeyListener {
+public class CustomerServiceActivity extends SwipeBackActivity implements View.OnClickListener, View.OnKeyListener {
     private static final String TAG = CustomerServiceActivity.class.getName();
     private MainHeadView mainHeadView = null;
     private WebView webView = null;

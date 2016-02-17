@@ -11,7 +11,7 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.bean.ContractInfo;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.config.Url_New;
@@ -27,7 +27,7 @@ import com.jianfanjia.cn.view.MainHeadView;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class ContractActivity extends BaseActivity implements OnClickListener, View.OnKeyListener {
+public class ContractActivity extends SwipeBackActivity implements OnClickListener, View.OnKeyListener {
     private static final String TAG = ContractActivity.class.getName();
     private MainHeadView mainHeadView = null;
     private Button checkBtn = null;

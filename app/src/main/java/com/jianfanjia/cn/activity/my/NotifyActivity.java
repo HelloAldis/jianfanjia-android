@@ -8,8 +8,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.adapter.MyFragmentPagerAdapter;
-import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.SelectItem;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.dao.impl.NotifyMessageDao;
@@ -22,7 +22,7 @@ import com.jianfanjia.cn.view.MainHeadView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NotifyActivity extends BaseActivity implements OnClickListener {
+public class NotifyActivity extends SwipeBackActivity implements OnClickListener {
     private static final String TAG = NotifyActivity.class.getName();
     private MainHeadView mainHeadView = null;
     private TabLayout tabLayout = null;

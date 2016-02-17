@@ -8,14 +8,14 @@ import android.view.View.OnLongClickListener;
 import android.widget.ImageView;
 
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.tools.ImageUtil;
 import com.jianfanjia.cn.view.MainHeadView;
 
 import java.io.IOException;
 
-public class ShareActivity extends BaseActivity implements OnClickListener,
+public class ShareActivity extends SwipeBackActivity implements OnClickListener,
         OnLongClickListener {
     private static final String TAG = ShareActivity.class.getName();
     private MainHeadView mainHeadView = null;

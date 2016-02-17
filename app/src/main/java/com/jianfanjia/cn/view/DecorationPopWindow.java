@@ -35,6 +35,12 @@ public class DecorationPopWindow extends PopupWindow {
     public DecorationPopWindow(Activity activity, int resId, final GetItemCallback callback, int currentPosition) {
         super(activity);
         popView = LayoutInflater.from(activity).inflate(R.layout.gird_item_pop, null);
+        popView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
         gridView = (GridView) popView.findViewById(R.id.popGridview);
         final List<String> list = BusinessManager.getListByResource(activity, resId);
         adapter = new PopWindowAdapter(activity, list);
@@ -49,7 +55,7 @@ public class DecorationPopWindow extends PopupWindow {
         });
         this.setContentView(popView);
         this.setWidth(LayoutParams.MATCH_PARENT);
-        this.setHeight(LayoutParams.WRAP_CONTENT);
+        this.setHeight(LayoutParams.MATCH_PARENT);
 //        this.setAnimationStyle(R.style.popwindow_anim);
         ColorDrawable dw = new ColorDrawable(0x80000000);
         this.setBackgroundDrawable(dw);

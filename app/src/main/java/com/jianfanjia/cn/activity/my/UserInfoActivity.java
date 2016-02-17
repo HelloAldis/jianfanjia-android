@@ -18,7 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.base.BaseAnnotationActivity;
+import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.bean.OwnerUpdateInfo;
 import com.jianfanjia.cn.config.Constant;
@@ -30,6 +30,7 @@ import com.jianfanjia.cn.tools.FileUtil;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
+import com.jianfanjia.cn.view.AddPhotoDialog;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
@@ -51,7 +52,7 @@ import java.io.InputStream;
  * @date 2015-8-18 下午12:11:49
  */
 @EActivity(R.layout.activity_user_info)
-public class UserInfoActivity extends BaseAnnotationActivity implements
+public class UserInfoActivity extends SwipeBackActivity implements
         OnClickListener, PopWindowCallBack {
     private static final String TAG = UserInfoActivity.class.getName();
     @ViewById(R.id.head_layout)
@@ -80,6 +81,7 @@ public class UserInfoActivity extends BaseAnnotationActivity implements
     private String sex = null;
 
     private boolean isUpdate = false;//是否更新，只有，更新了用户名或者头像才更新
+    protected AddPhotoDialog popupWindow = null;
 
     private File mTmpFile = null;
     private String imageId = null;
@@ -139,7 +141,7 @@ public class UserInfoActivity extends BaseAnnotationActivity implements
                 showTipDialog();
                 break;
             case R.id.head_layout:
-                showPopWindow(ownerInfoLayout);
+                showPopWindow();
                 break;
             case R.id.address_layout:
                 Intent address = new Intent(UserInfoActivity.this,
@@ -175,6 +177,13 @@ public class UserInfoActivity extends BaseAnnotationActivity implements
             default:
                 break;
         }
+    }
+
+    protected void showPopWindow() {
+        if (popupWindow == null) {
+            popupWindow = new AddPhotoDialog(this, this);
+        }
+        popupWindow.show();
     }
 
     //提示是否放弃修改

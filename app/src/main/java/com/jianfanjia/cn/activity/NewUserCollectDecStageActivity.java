@@ -37,7 +37,6 @@ public class NewUserCollectDecStageActivity extends BaseAnnotationActivity {
     @ViewById(R.id.dec_stage2)
     TextView dec_stage_2;
 
-
     @Click({R.id.dec_stage0, R.id.dec_stage1, R.id.dec_stage2})
     protected void click(final View view) {
         UiHelper.imageButtonAnim(view, new AnimatorListenerAdapter() {
