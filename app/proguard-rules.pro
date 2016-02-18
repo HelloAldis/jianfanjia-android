@@ -20,6 +20,7 @@
 
 -keep class com.jianfanjia.cn.bean.** { * ;}
 -keep class com.jianfanjia.cn.http.** { * ;}
+-keep class me.iwf.photopicker.** {*;}
 
 #个推混淆
 -dontwarn com.igexin.**
@@ -30,9 +31,9 @@
 -keep interface android.support.v4.app.** { *; }
 
 # LeakCanary
-#-keep class org.eclipse.mat.** { *; }
-#-keep class com.squareup.leakcanary.** { *; }
-#-dontwarn com.squareup.leakcanary.**
+-keep class org.eclipse.mat.** { *; }
+-keep class com.squareup.leakcanary.** { *; }
+-dontwarn com.squareup.leakcanary.**
 
 #ormlite混淆
 -dontwarn com.j256.**

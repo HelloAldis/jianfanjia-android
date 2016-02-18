@@ -65,6 +65,8 @@ public class Constant {
     public static final int REQUIRECODE_BUSI_DECORATETYPE = 0x05;
     public static final int REQUIRECODE_WORKTYPE = 0x06;
     public static final int REQUIRECODE_DESISEX = 0x07;
+    public static final int REQUESTCODE_PICKER_PIC = 0x11;
+
 
     // editactivity
     public static final int REQUESTCODE_EDIT_USERNAME = 4;
@@ -193,4 +195,5 @@ public class Constant {
     public static final int UPDATE_PRODUCT_FRAGMENT = 60;
     public static final int UPDATE_BEAUTY_FRAGMENT = 70;
     public static final int UPDATE_ORDER_DESIGNER_ACTIVITY = 80;
+
 }

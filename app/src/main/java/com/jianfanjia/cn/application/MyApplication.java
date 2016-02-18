@@ -9,6 +9,8 @@ import com.jianfanjia.cn.cache.DataCleanManager;
 import com.jianfanjia.cn.http.OkHttpClientManager;
 import com.jianfanjia.cn.http.cookie.PersistentCookieStore;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
 import com.squareup.okhttp.OkHttpClient;
 
 import java.net.CookieManager;
@@ -24,7 +26,7 @@ public class MyApplication extends BaseApplication {
     private static MyApplication instance;
     private PersistentCookieStore cookieStore;// cookie实例化
 
-//    private RefWatcher refWatcher;
+    private RefWatcher refWatcher;
 
     @Override
     public void onCreate() {
@@ -34,23 +36,17 @@ public class MyApplication extends BaseApplication {
         cookieStore = new PersistentCookieStore(this);// 记录cookie
         saveCookie(OkHttpClientManager.getInstance().client());
 
-//        PlatformConfig.setWeixin("wx391daabfce27e728", "f7c8e3e1b5910dd93be2744dacb3a1cc");
-//        PlatformConfig.setSinaWeibo("10611350", "4a5b93b71687ec9af1ee91cfdfb361d3");
-//        PlatformConfig.setQQZone("1104973048", "FuDs7s4vJGAEzCrz");
-
-
         /*
          * Thread.setDefaultUncaughtExceptionHandler(AppException
 		 * .getAppExceptionHandler(this));
 		 */
-//        refWatcher = LeakCanary.install(this);
+        refWatcher = LeakCanary.install(this);
     }
 
-    /*public static RefWatcher getRefWatcher(Context context) {
+    public static RefWatcher getRefWatcher(Context context) {
         MyApplication application = (MyApplication) context.getApplicationContext();
         return application.refWatcher;
     }
-*/
 
     public static MyApplication getInstance() {
         return instance;

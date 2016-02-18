@@ -16,6 +16,11 @@
         android:targetSdkVersion="23"
         tools:overrideLibrary="com.umeng.socialize.evernote,com.umeng.socialize.pinterest" />
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true"
+        />
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -125,6 +130,16 @@
                 <action android:name="com.igexin.sdk.action.pushmanager" />
             </intent-filter>
         </receiver>
+
+        <activity
+            android:name=".common.PhotoPickerActivity"
+            android:theme="@style/Theme.Swipe.Back"
+            />
+
+        <activity
+            android:name=".common.PhotoPagerActivity"
+            android:theme="@style/Theme.Swipe.Back"
+            />
 
         <activity
             android:name="com.igexin.sdk.PushActivity"
