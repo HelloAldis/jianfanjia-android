@@ -2,6 +2,7 @@ package com.jianfanjia.cn.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.PhotoDirectory;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -89,8 +91,7 @@ public class PopupDirectoryListAdapter extends BaseAdapter {
           .dontAnimate()
           .thumbnail(0.1f)
           .into(ivCover);*/
-
-      Picasso.with(context).load(directory.getCoverPath()).fit().centerCrop()
+      Picasso.with(context).load(Uri.fromFile(new File(directory.getCoverPath()))).fit().centerCrop()
               .into(ivCover);
       tvName.setText(directory.getName());
       tvCount.setText(context.getString(R.string.__picker_image_count, directory.getPhotos().size()));

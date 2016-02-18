@@ -578,8 +578,7 @@ public class MyProcessDetailActivity extends SwipeBackActivity implements ItemCl
                         processInfo.get_id(),
                         sectionInfo.getName(),
                         itemName,
-                        dataManager
-                                .getCurrentUploadImageId(), new ApiUiUpdateListener() {
+                        data.toString(), new ApiUiUpdateListener() {
                             @Override
                             public void preLoad() {
 

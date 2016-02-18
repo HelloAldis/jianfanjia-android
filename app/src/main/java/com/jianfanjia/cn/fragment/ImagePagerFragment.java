@@ -13,6 +13,7 @@ import android.view.ViewTreeObserver;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 
+import com.jianfanjia.cn.AppManager;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.PhotoPagerAdapter;
 import com.jianfanjia.cn.application.MyApplication;
@@ -134,7 +135,7 @@ public class ImagePagerFragment extends Fragment {
             @Override
             public void onClickItem(int pos) {
                 if (!getActivity().isFinishing()) {
-                    getActivity().onBackPressed();
+                    AppManager.getAppManager().finishActivity(getActivity());
                 }
             }
         });

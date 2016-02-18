@@ -13,6 +13,7 @@ public class Next implements Serializable {
     private List<AssociateImgInfo> beautiful_images;
     private int total;
 
+
     public List<AssociateImgInfo> getBeautiful_images() {
         return beautiful_images;
     }

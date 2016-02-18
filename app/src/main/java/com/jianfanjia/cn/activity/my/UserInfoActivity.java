@@ -35,6 +35,7 @@ import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.soundcloud.android.crop.Crop;
+import com.yalantis.ucrop.UCrop;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -341,12 +342,15 @@ public class UserInfoActivity extends SwipeBackActivity implements
 
     private void beginCrop(Uri source) {
         Uri destination = Uri.fromFile(new File(Constant.CROP_PATH));
-        Crop.of(source, destination).asSquare().withMaxSize(Global.PIC_WIDTH_UPLOAD_WIDTH, Global.PIC_WIDTH_UPLOAD_WIDTH).start(this);
+        UCrop.of(source, destination)
+                .withAspectRatio(1, 1)
+                .withMaxResultSize(Global.PIC_WIDTH_UPLOAD_WIDTH, Global.PIC_WIDTH_UPLOAD_WIDTH)
+                .start(this);
     }
 
     private void handleCrop(int resultCode, Intent result) {
         if (resultCode == RESULT_OK) {
-            Uri uri = Crop.getOutput(result);
+            Uri uri = UCrop.getOutput(result);
             LogTool.d(TAG, "uri path: " + uri.toString() + uri.getEncodedPath());
             Bitmap bitmap = null;
             try {
@@ -443,7 +447,7 @@ public class UserInfoActivity extends SwipeBackActivity implements
                     }
                 }
                 break;
-            case Crop.REQUEST_CROP:
+            case UCrop.REQUEST_CROP:
                 handleCrop(resultCode, data);
                 break;
             default:
