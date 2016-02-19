@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/viewpager_layout"
+        layout="@layout/viewpager_main"
+        android:layout_height="156dp"
+        android:layout_width="match_parent"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/space_12"
+        android:layout_marginTop="@dimen/space_12"
+        android:layout_marginBottom="@dimen/space_12"
+        android:background="@color/font_white">
+
+        <RelativeLayout
+            android:id="@+id/ltm_home_layout0"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <FrameLayout
+                android:id="@+id/imageLayout0"
+                android:layout_width="60dip"
+                android:layout_height="60dip"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true">
+
+                <com.jianfanjia.cn.view.layout.CircleImageView
+                    android:id="@+id/ltm_req_designer_head0"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/icon_home1" />
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/ltm_req_designer_name0"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imageLayout0"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="2dp"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="@string/home_tag0"
+                android:textColor="@color/light_black_color"
+                android:textSize="@dimen/middle_size" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/ltm_home_layout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <FrameLayout
+                android:id="@+id/imageLayout1"
+                android:layout_width="60dip"
+                android:layout_height="60dip"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true">
+
+                <com.jianfanjia.cn.view.layout.CircleImageView
+                    android:id="@+id/ltm_req_designer_head1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/icon_home3" />
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/ltm_req_designer_name1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imageLayout1"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="2dp"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="@string/home_tag1"
+                android:textColor="@color/light_black_color"
+                android:textSize="@dimen/middle_size" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/ltm_home_layout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <FrameLayout
+                android:id="@+id/imageLayout2"
+                android:layout_width="60dip"
+                android:layout_height="60dip"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true">
+
+                <com.jianfanjia.cn.view.layout.CircleImageView
+                    android:id="@+id/ltm_req_designer_head2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/icon_home2" />
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/ltm_req_designer_name2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imageLayout2"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="2dp"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="@string/home_tag2"
+                android:textColor="@color/light_black_color"
+                android:textSize="@dimen/middle_size" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/ltm_home_layout3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <FrameLayout
+                android:id="@+id/imageLayout3"
+                android:layout_width="60dip"
+                android:layout_height="60dip"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true">
+
+                <com.jianfanjia.cn.view.layout.CircleImageView
+                    android:id="@+id/ltm_req_designer_head3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/icon_home0" />
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/ltm_req_designer_name3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imageLayout3"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="2dp"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="@string/home_tag3"
+                android:textColor="@color/light_black_color"
+                android:textSize="@dimen/middle_size" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/ltm_req_simple_item"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/my_item_layout_bg_selector"
+            android:gravity="center_vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:textColor="@color/light_black_color"
+            android:textSize="@dimen/middle_size"
+            android:text="@string/home_good_case" />
+    </LinearLayout>
+
+</LinearLayout>

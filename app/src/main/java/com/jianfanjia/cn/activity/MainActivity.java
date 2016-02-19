@@ -12,7 +12,8 @@ import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.fragment.DecorationFragment;
-import com.jianfanjia.cn.fragment.HomeFragment;
+import com.jianfanjia.cn.fragment.HomeNewFragment;
+import com.jianfanjia.cn.fragment.HomeNewFragment_;
 import com.jianfanjia.cn.fragment.MyFragment;
 import com.jianfanjia.cn.fragment.XuQiuFragment;
 import com.jianfanjia.cn.fragment.XuQiuFragment_;
@@ -28,7 +29,7 @@ public class MainActivity extends BaseActivity implements
         OnCheckedChangeListener {
     private static final String TAG = MainActivity.class.getName();
     private RadioGroup mTabRg = null;
-    private HomeFragment homeFragment = null;
+    private HomeNewFragment homeFragment = null;
     private DecorationFragment decorationFragment = null;
     private XuQiuFragment xuqiuFragment = null;
     private MyFragment myFragment = null;
@@ -85,6 +86,24 @@ public class MainActivity extends BaseActivity implements
         }
     }
 
+    public void switchTab(int index){
+        switch (index){
+            case Constant.HOME:
+                mTabRg.check(R.id.tab_rb_1);
+                break;
+            case Constant.DECORATE:
+                mTabRg.check(R.id.tab_rb_2);
+                break;
+            case Constant.MANAGE:
+                mTabRg.check(R.id.tab_rb_3);
+                break;
+            case Constant.MY:
+                mTabRg.check(R.id.tab_rb_4);
+                break;
+        }
+        setTabSelection(index);
+    }
+
     private void setTabSelection(int index) {
         FragmentTransaction transaction = this.getSupportFragmentManager()
                 .beginTransaction();
@@ -94,7 +113,7 @@ public class MainActivity extends BaseActivity implements
                 if (homeFragment != null) {
                     transaction.show(homeFragment);
                 } else {
-                    homeFragment = new HomeFragment();
+                    homeFragment = HomeNewFragment_.builder().build();
                     transaction.add(R.id.tablayout, homeFragment);
                 }
                 break;

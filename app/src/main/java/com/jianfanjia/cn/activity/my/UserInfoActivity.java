@@ -34,7 +34,6 @@ import com.jianfanjia.cn.view.AddPhotoDialog;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
-import com.soundcloud.android.crop.Crop;
 import com.yalantis.ucrop.UCrop;
 
 import org.androidannotations.annotations.AfterViews;
@@ -114,9 +113,6 @@ public class UserInfoActivity extends SwipeBackActivity implements
         } else {
             sexText.setText(getString(R.string.not_edit));
         }
-//        phoneText
-//                .setText(TextUtils.isEmpty(ownerInfo.getPhone()) ? getString(R.string.not_edit)
-//                        : ownerInfo.getPhone());
         String city = ownerInfo.getCity();
         if (TextUtils.isEmpty(city)) {
             addressText
@@ -132,7 +128,8 @@ public class UserInfoActivity extends SwipeBackActivity implements
                 : ownerInfo.getAddress());
     }
 
-    @Click({R.id.error_include, R.id.head_back_layout, R.id.head_layout, R.id.address_layout, R.id.name_layout, R.id.sex_layout, R.id.home_layout,R.id.phone_layout})
+    @Click({R.id.error_include, R.id.head_back_layout, R.id.head_layout, R.id.address_layout,
+            R.id.name_layout, R.id.sex_layout, R.id.home_layout, R.id.phone_layout})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.error_include:
@@ -150,7 +147,7 @@ public class UserInfoActivity extends SwipeBackActivity implements
                 address.putExtra(Constant.EDIT_PROVICE, ownerInfo.getProvince());
                 address.putExtra(Constant.EDIT_CITY, ownerInfo.getCity());
                 address.putExtra(Constant.EDIT_DISTRICT, ownerInfo.getDistrict());
-                address.putExtra(EditCityActivity.PAGE,EditCityActivity.EDIT_USER_ADRESS);
+                address.putExtra(EditCityActivity.PAGE, EditCityActivity.EDIT_USER_ADRESS);
                 startActivityForResult(address, Constant.REQUESTCODE_EDIT_ADDRESS);
                 break;
             case R.id.name_layout:
@@ -191,7 +188,7 @@ public class UserInfoActivity extends SwipeBackActivity implements
     private void showTipDialog() {
         if (isUpdate) {
             setResult(RESULT_OK);
-        } else{
+        } else {
             setResult(RESULT_CANCELED);
         }
         appManager.finishActivity(this);
@@ -233,7 +230,7 @@ public class UserInfoActivity extends SwipeBackActivity implements
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if(ownerInfo.getSex() == null || !ownerInfo.getSex().equals(ownerUpdateInfo.getSex())){
+                        if (ownerInfo.getSex() == null || !ownerInfo.getSex().equals(ownerUpdateInfo.getSex())) {
                             updateSexInfo(ownerUpdateInfo);
                         }
                         dialog.dismiss();
@@ -245,9 +242,10 @@ public class UserInfoActivity extends SwipeBackActivity implements
 
     /**
      * 更新性别
+     *
      * @param ownerUpdateInfo
      */
-    protected void updateSexInfo(OwnerUpdateInfo ownerUpdateInfo){
+    protected void updateSexInfo(OwnerUpdateInfo ownerUpdateInfo) {
         JianFanJiaClient.put_OwnerInfo(this, ownerUpdateInfo, new ApiUiUpdateListener() {
             @Override
             public void preLoad() {
@@ -266,7 +264,7 @@ public class UserInfoActivity extends SwipeBackActivity implements
             public void loadFailture(String error_msg) {
 
             }
-        },this);
+        }, this);
     }
 
     // 修改设计师头像
@@ -384,8 +382,8 @@ public class UserInfoActivity extends SwipeBackActivity implements
                     }
                 }, this);
             }
-        } else if (resultCode == Crop.RESULT_ERROR) {
-            Toast.makeText(this, Crop.getError(result).getMessage(), Toast.LENGTH_SHORT).show();
+        } else if (resultCode == UCrop.RESULT_ERROR) {
+            Toast.makeText(this, UCrop.getError(result).getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 

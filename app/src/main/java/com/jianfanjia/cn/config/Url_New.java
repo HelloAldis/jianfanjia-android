@@ -163,6 +163,9 @@ public class Url_New {
     public String GET_IMAGE = HTTPROOT + "image/";
     //获取缩略图
     public String GET_THUMBNAIL_IMAGE = HTTPROOT + "thumbnail/" + WIDTH + "/";
+
+    //获取缩略图
+    public String GET_THUMBNAIL_IMAGE2 = HTTPROOT + "thumbnail2/" + WIDTH + "/";
     //分享的链接
     public String SHARE_IMAGE = "http://" + SEVER_IP + ":"
             + SEVER_PORT +"/zt/mobile/sharemito.html?title=";
@@ -199,4 +202,6 @@ public class Url_New {
     //用户删除收藏的装修美图
     public String DELETE_BEAUTY_IMG_BY_USER = HTTPROOT
             + "favorite/beautiful_image/delete";
+    //用户获取新作品列表
+    public String GET_TOP_PRODUCTS = HTTPROOT + "top_products";
 }

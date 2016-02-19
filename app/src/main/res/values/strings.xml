@@ -328,5 +328,10 @@
     <string name="__picker_all_image">所有图片</string>
     <string name="__picker_over_max_count_tips">你最多可以选择%1$d张图片</string>
     <string name="__picker_image_count">%1$d张</string>
+    <string name="home_tag0">免费方案</string>
+    <string name="home_tag1">装修攻略</string>
+    <string name="home_tag2">装修美图</string>
+    <string name="home_tag3">海量设计师</string>
+    <string name="home_good_case">精品案例</string>
 
 </resources>

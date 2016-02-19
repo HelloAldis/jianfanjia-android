@@ -41,6 +41,7 @@ import com.jianfanjia.cn.http.request.GetCommentsRequest;
 import com.jianfanjia.cn.http.request.GetContractRequest;
 import com.jianfanjia.cn.http.request.GetDecorationImgRequest;
 import com.jianfanjia.cn.http.request.GetDesignerPlansByUserRequest;
+import com.jianfanjia.cn.http.request.GetHomeProductRequest;
 import com.jianfanjia.cn.http.request.GetOrderDesignerListByUserRequest;
 import com.jianfanjia.cn.http.request.GetOrderedDesignerRequest;
 import com.jianfanjia.cn.http.request.GetPlanInfoRequest;
@@ -1212,7 +1213,7 @@ public class JianFanJiaClient {
      * 用户删除收藏的装修美图
      *
      * @param context
-     * @param productid
+     * @param id
      * @param listener
      * @param tag
      */
@@ -1226,5 +1227,25 @@ public class JianFanJiaClient {
             e.printStackTrace();
         }
     }
+
+    /**
+     * 拿到首页作品列表
+     * @param context
+     * @param limit
+     * @param listener
+     * @param tag
+     */
+    public static void getTopProducts(Context context, int limit, ApiUiUpdateListener listener, Object tag) {
+        GetHomeProductRequest getHomeProductRequest = new GetHomeProductRequest(context);
+        JSONObject jsonParams = new JSONObject();
+        try {
+            jsonParams.put("limit", limit);
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(getHomeProductRequest, jsonParams.toString(), listener, tag);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
 }

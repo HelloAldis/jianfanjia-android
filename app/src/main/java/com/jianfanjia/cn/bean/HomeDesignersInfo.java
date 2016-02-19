@@ -10,6 +10,8 @@ import java.util.List;
  * Time: 11:29
  */
 public class HomeDesignersInfo implements Serializable {
+
+
     private Requirement requirement;
     private List<DesignerListInfo> designers;
 

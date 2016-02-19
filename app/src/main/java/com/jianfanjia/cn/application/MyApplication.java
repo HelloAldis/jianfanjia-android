@@ -152,7 +152,6 @@ public class MyApplication extends BaseApplication {
 
     public void saveCookie(OkHttpClient client) {
         client.setCookieHandler(new CookieManager(cookieStore, CookiePolicy.ACCEPT_ALL));
-
     }
 
 
