@@ -63,6 +63,7 @@ import com.jianfanjia.cn.http.request.RefuseRescheduleRequest;
 import com.jianfanjia.cn.http.request.RegisterRequest;
 import com.jianfanjia.cn.http.request.SearchDecorationImgRequest;
 import com.jianfanjia.cn.http.request.SearchDesignerProductRequest;
+import com.jianfanjia.cn.http.request.SearchDesignerRequest;
 import com.jianfanjia.cn.http.request.SendVerificationRequest;
 import com.jianfanjia.cn.http.request.UpdateOwnerInfoRequest;
 import com.jianfanjia.cn.http.request.UpdateRequirementRequest;
@@ -154,7 +155,7 @@ public class JianFanJiaClient {
     }
 
     public static void weixinLogin(Context context, WeiXinRegisterInfo weiXinRegisterInfo, ApiUiUpdateListener listener, Object tag) {
-        WeiXinLoginRequest weiXinLoginRequest = new WeiXinLoginRequest(context,weiXinRegisterInfo);
+        WeiXinLoginRequest weiXinLoginRequest = new WeiXinLoginRequest(context, weiXinRegisterInfo);
         LogTool.d(TAG, "weixinLogin --" + weiXinLoginRequest.getUrl() + "---" + JsonParser.beanToJson(weiXinRegisterInfo));
         OkHttpClientManager.getInstance().getPostDelegate().postAsyn(weiXinLoginRequest, JsonParser.beanToJson(weiXinRegisterInfo), listener, tag);
     }
@@ -339,7 +340,7 @@ public class JianFanJiaClient {
      */
     public static void bindingPhone(Context context, RegisterInfo registerInfo,
                                     ApiUiUpdateListener listener, Object tag) {
-        BindingPhoneRequest bindingPhoneRequest = new BindingPhoneRequest(context,registerInfo.getPhone());
+        BindingPhoneRequest bindingPhoneRequest = new BindingPhoneRequest(context, registerInfo.getPhone());
         LogTool.d(TAG, "register  " + bindingPhoneRequest.getUrl() + "--" + JsonParser.beanToJson(registerInfo));
         OkHttpClientManager.getInstance().getPostDelegate().postAsyn(bindingPhoneRequest, JsonParser.beanToJson(registerInfo), listener, tag);
     }
@@ -353,7 +354,7 @@ public class JianFanJiaClient {
      */
     public static void bindingWeixin(Context context, String openid, String unionid,
                                      ApiUiUpdateListener listener, Object tag) {
-        BindingWeiXinRequest bindingWeiXinRequest = new BindingWeiXinRequest(context,unionid);
+        BindingWeiXinRequest bindingWeiXinRequest = new BindingWeiXinRequest(context, unionid);
         JSONObject jsonParams = new JSONObject();
         try {
             jsonParams.put("wechat_openid", openid);
@@ -1228,8 +1229,10 @@ public class JianFanJiaClient {
         }
     }
 
+
     /**
      * 拿到首页作品列表
+     *
      * @param context
      * @param limit
      * @param listener
@@ -1246,6 +1249,49 @@ public class JianFanJiaClient {
         }
     }
 
-
-
+    /**
+     * 游客搜索设计师
+     *
+     * @param context
+     * @param decType
+     * @param decHouseType
+     * @param decStyle
+     * @param decFee
+     * @param searchWord
+     * @param authedProductCount
+     * @param from
+     * @param limit
+     * @param listener
+     * @param tag
+     */
+    public static void searchDesigner(Context context, String decType, String decHouseType, String decStyle, String decFee, String searchWord, int authedProductCount, int from, int limit, ApiUiUpdateListener listener, Object tag) {
+        SearchDesignerRequest searchDesignerRequest = new SearchDesignerRequest(context, decType, decHouseType, decStyle, decFee, searchWord, authedProductCount, from, limit);
+        JSONObject jsonParams = new JSONObject();
+        try {
+            JSONObject params1 = new JSONObject();
+            if (!TextUtils.isEmpty(decType) && !decType.equals(Constant.KEY_WORD)) {
+                params1.put("dec_types", decType);
+            }
+            if (!TextUtils.isEmpty(decHouseType) && !decHouseType.equals(Constant.KEY_WORD)) {
+                params1.put("dec_house_types", decHouseType);
+            }
+            if (!TextUtils.isEmpty(decStyle) && !decStyle.equals(Constant.KEY_WORD)) {
+                params1.put("dec_styles", decStyle);
+            }
+            if (!TextUtils.isEmpty(decFee) && !decFee.equals(Constant.KEY_WORD)) {
+                params1.put("design_fee_range", decFee);
+            }
+            JSONObject params2 = new JSONObject();
+            params2.put("authed_product_count", authedProductCount);
+            jsonParams.put("query", params1);
+            jsonParams.put("sort", params2);
+            jsonParams.put("search_word", searchWord);
+            jsonParams.put("from", from);
+            jsonParams.put("limit", limit);
+            LogTool.d(TAG, "jsonParams:" + jsonParams.toString());
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(searchDesignerRequest, jsonParams.toString(), listener, tag);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 }

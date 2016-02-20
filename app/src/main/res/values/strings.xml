@@ -30,6 +30,7 @@
     <string name="error_view_no_caigou_data">您还没有采购提醒</string>
     <string name="error_view_no_pay_data">您还没有付款提醒</string>
     <string name="error_view_no_delay_data">您还没有改期提醒</string>
+    <string name="no_more_data">没有更多了</string>
     <!-- main activity -->
     <string name="main_tab_name_darly">日记</string>
     <string name="main_tab_name_site">工地</string>
@@ -318,6 +319,9 @@
     <string name="str_collect_success">收藏成功</string>
     <string name="title_activity_customer_service">CustomerServiceActivity</string>
     <string name="already_open_process">已开工</string>
+    <string name="title_activity_decorate_strategy">DecorateStrategyActivity</string>
+    <string name="title_activity_designer_list">DesignerListActivity</string>
+    <string name="title_activity_designer_case_list">DesignerCaseListActivity</string>
 
     <string name="__picker_title">图片</string>
     <string name="__picker_delete">删除</string>

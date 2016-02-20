@@ -135,6 +135,20 @@ public class BusinessManager {
         return designFees[feePosition];
     }
 
+    public static String getDecTypeByText(String decTypeText) {
+        try {
+            String[] items = MyApplication.getInstance().getResources().getStringArray(R.array.arr_dectype);
+            for (int i = 0; i < items.length; i++) {
+                if (items[i].equals(decTypeText)) {
+                    return i + "";
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public static String getHouseTypeByText(String houseTypeText) {
         try {
             String[] items = MyApplication.getInstance().getResources().getStringArray(R.array.arr_housetype);
@@ -154,6 +168,20 @@ public class BusinessManager {
             String[] items = MyApplication.getInstance().getResources().getStringArray(R.array.arr_decstyle);
             for (int i = 0; i < items.length; i++) {
                 if (items[i].equals(decStyleText)) {
+                    return i + "";
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static String getDecFeeByText(String decFeeText) {
+        try {
+            String[] items = MyApplication.getInstance().getResources().getStringArray(R.array.arr_fee);
+            for (int i = 0; i < items.length; i++) {
+                if (items[i].equals(decFeeText)) {
                     return i + "";
                 }
             }
@@ -209,5 +237,32 @@ public class BusinessManager {
         }
         list.add(0, Constant.KEY_WORD);
         return list;
+    }
+
+    public static String getHouseTypeStr(List<String> decHouseTypes) {
+        StringBuilder builder = new StringBuilder();
+        for (String str : decHouseTypes) {
+            LogTool.d("getHouseTypeStr()", "str:" + str);
+            builder.append(BusinessManager.convertHouseTypeToShow(str) + "  ");
+        }
+        return builder.toString();
+    }
+
+    public static String getDecTypeStr(List<String> decTypes) {
+        StringBuilder builder = new StringBuilder();
+        for (String str : decTypes) {
+            LogTool.d("getDecTypeStr()", "str:" + str);
+            builder.append(BusinessManager.convertDectypeToShow(str) + "  ");
+        }
+        return builder.toString();
+    }
+
+    public static String getDecStyleStr(List<String> decStyles) {
+        StringBuilder builder = new StringBuilder();
+        for (String str : decStyles) {
+            LogTool.d("getDecStyleStr()", "str:" + str);
+            builder.append(BusinessManager.convertDecStyleToShow(str) + "  ");
+        }
+        return builder.toString();
     }
 }

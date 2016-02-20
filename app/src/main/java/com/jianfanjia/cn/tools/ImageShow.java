@@ -41,7 +41,7 @@ public class ImageShow {
      * @param imageView
      */
     public void displayImage(String imageid, ImageView imageView) {
-        imageLoader.displayImage(url_new.GET_IMAGE + imageid, imageView, DisplayImageOptionsWrap.getDisplayImageOptionsIsMemoryCache(false));
+        imageLoader.displayImage(url_new.GET_IMAGE + imageid, imageView, DisplayImageOptionsWrap.getDisplayImageOptionsIsMemoryCache(true));
     }
 
     /**
@@ -53,12 +53,12 @@ public class ImageShow {
      */
     public void displayThumbnailImage(String imageid, ImageView imageView, int width) {
         String imageUrl = url_new.GET_THUMBNAIL_IMAGE.replace(Url_New.WIDTH, width + "") + imageid;
-        imageLoader.displayImage(imageUrl, imageView, DisplayImageOptionsWrap.getDisplayImageOptionsIsMemoryCache(false));
+        imageLoader.displayImage(imageUrl, imageView, DisplayImageOptionsWrap.getDisplayImageOptionsIsMemoryCache(true));
     }
 
     public void displayThumbnailImage(String imageid, ImageView imageView, int width, ImageLoadingListener listener) {
         String imageUrl = url_new.GET_THUMBNAIL_IMAGE.replace(Url_New.WIDTH, width + "") + imageid;
-        imageLoader.displayImage(imageUrl, imageView, DisplayImageOptionsWrap.getDisplayImageOptionsIsMemoryCache(false), listener);
+        imageLoader.displayImage(imageUrl, imageView, DisplayImageOptionsWrap.getDisplayImageOptionsIsMemoryCache(true), listener);
     }
 
     /**
@@ -113,7 +113,7 @@ public class ImageShow {
 
     public void loadImage(String imageid, ImageLoadingListener listener) {
         String imageUrl = url_new.GET_THUMBNAIL_IMAGE.replace(Url_New.WIDTH, TDevice.getScreenWidth() + "") + imageid;
-        imageLoader.loadImage(imageUrl, DisplayImageOptionsWrap.getDisplayImageOptionsIsMemoryCache(false), listener);
+        imageLoader.loadImage(imageUrl, DisplayImageOptionsWrap.getDisplayImageOptionsIsMemoryCache(true), listener);
     }
 
 

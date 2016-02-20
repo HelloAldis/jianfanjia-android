@@ -168,10 +168,10 @@ public class Url_New {
     public String GET_THUMBNAIL_IMAGE2 = HTTPROOT + "thumbnail2/" + WIDTH + "/";
     //分享的链接
     public String SHARE_IMAGE = "http://" + SEVER_IP + ":"
-            + SEVER_PORT +"/zt/mobile/sharemito.html?title=";
+            + SEVER_PORT + "/zt/mobile/sharemito.html?title=";
     //分享的APP的logo图片链接
     public String SHARE_APP_LOGO = "http://" + SEVER_IP + ":"
-            + SEVER_PORT +"/zt/mobile/logo.png";
+            + SEVER_PORT + "/zt/mobile/logo.png";
     // 根据工地id获取某个工地
     public String GET_PROCESSINFO_BYID = HTTPROOT + "process/"
             + ID;
@@ -202,6 +202,9 @@ public class Url_New {
     //用户删除收藏的装修美图
     public String DELETE_BEAUTY_IMG_BY_USER = HTTPROOT
             + "favorite/beautiful_image/delete";
+    //游客搜索设计师
+    public String SEARCH_DESIGNER = HTTPROOT
+            + "search_designer";
     //用户获取新作品列表
     public String GET_TOP_PRODUCTS = HTTPROOT + "top_products";
 }

@@ -99,7 +99,7 @@
                 android:layout_alignLeft="@+id/ltm_req_starttime"
                 android:layout_alignStart="@+id/ltm_req_starttime"
                 android:layout_below="@+id/ltm_req_starttime"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="6dp"
                 android:text="@string/good_at_style1"
                 android:textColor="@color/grey_color" />
 

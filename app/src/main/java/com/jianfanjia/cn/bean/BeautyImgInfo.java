@@ -29,8 +29,6 @@ public class BeautyImgInfo implements Serializable {
     private int view_count;
     private List<AssociateImgInfo> associate_beautiful_images;
     private List<Img> images;
-    private Previous previous;
-    private Next next;
     private boolean is_my_favorite;
 
     public String get_id() {
@@ -193,19 +191,4 @@ public class BeautyImgInfo implements Serializable {
         this.section = section;
     }
 
-    public Previous getPrevious() {
-        return previous;
-    }
-
-    public void setPrevious(Previous previous) {
-        this.previous = previous;
-    }
-
-    public Next getNext() {
-        return next;
-    }
-
-    public void setNext(Next next) {
-        this.next = next;
-    }
 }

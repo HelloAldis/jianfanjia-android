@@ -5,7 +5,6 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -26,6 +25,7 @@ import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
+import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +40,7 @@ import de.greenrobot.event.EventBus;
  */
 public class SearchDesignerFragment extends BaseFragment implements ApiUiUpdateListener, RecyclerViewOnItemClickListener {
     private static final String TAG = SearchDesignerFragment.class.getName();
-    private RecyclerView prodtct_listview = null;
+    private PullToRefreshRecycleView prodtct_listview = null;
     private RelativeLayout emptyLayout = null;
     private RelativeLayout errorLayout = null;
     private ProductAdapter productAdapter = null;
@@ -57,7 +57,7 @@ public class SearchDesignerFragment extends BaseFragment implements ApiUiUpdateL
     public void initView(View view) {
         emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
         errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
-        prodtct_listview = (RecyclerView) view.findViewById(R.id.prodtct_listview);
+        prodtct_listview = (PullToRefreshRecycleView) view.findViewById(R.id.prodtct_listview);
         prodtct_listview.setLayoutManager(new LinearLayoutManager(getActivity()));
         prodtct_listview.setItemAnimator(new DefaultItemAnimator());
         Paint paint = new Paint();

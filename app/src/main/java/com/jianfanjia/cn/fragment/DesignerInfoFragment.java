@@ -17,8 +17,6 @@ import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.ScrollableHelper;
 
-import java.util.List;
-
 /**
  * @author fengliang
  * @ClassName: DesignerInfoFragment
@@ -113,26 +111,10 @@ public class DesignerInfoFragment extends BaseFragment implements ApiUiUpdateLis
             companyLayout.setVisibility(View.VISIBLE);
             teamCountLayout.setVisibility(View.VISIBLE);
             designFeeLayout.setVisibility(View.VISIBLE);
-            List<String> decTypes = designerInfo.getDec_types();
-            StringBuilder decTypeStr = new StringBuilder();
-            for (String str : decTypes) {
-                LogTool.d(TAG, "str:" + str);
-                decTypeStr.append(BusinessManager.convertDectypeToShow(str) + "  ");
-            }
-            jiandanType.setText(decTypeStr.toString());
-            List<String> decHouseTypes = designerInfo.getDec_house_types();
-            StringBuilder decHouseType = new StringBuilder();
-            for (String str : decHouseTypes) {
-                decHouseType.append(BusinessManager.convertHouseTypeToShow(str) + "  ");
-            }
-            jiandanHouseType.setText(decHouseType.toString());
+            jiandanType.setText(BusinessManager.getDecTypeStr(designerInfo.getDec_types()));
+            jiandanHouseType.setText(BusinessManager.getHouseTypeStr(designerInfo.getDec_house_types()));
             jiandanDistrict.setText(designerInfo.getDistrict());
-            List<String> decStyles = designerInfo.getDec_styles();
-            StringBuilder decStyleType = new StringBuilder();
-            for (String str : decStyles) {
-                decStyleType.append(BusinessManager.convertDecStyleToShow(str) + "  ");
-            }
-            designStyle.setText(decStyleType.toString());
+            designStyle.setText(BusinessManager.getDecStyleStr(designerInfo.getDec_styles()));
             designIdea.setText(designerInfo.getPhilosophy());
             designAchievement.setText(designerInfo.getAchievement());
             company.setText(designerInfo.getCompany());
