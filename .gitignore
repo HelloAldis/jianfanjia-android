@@ -37,3 +37,6 @@ captures/
 
 # Intellij
 *.iml
+
+#Mac file
+.DS_Store
