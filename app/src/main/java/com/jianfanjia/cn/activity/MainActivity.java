@@ -86,8 +86,8 @@ public class MainActivity extends BaseActivity implements
         }
     }
 
-    public void switchTab(int index){
-        switch (index){
+    public void switchTab(int index) {
+        switch (index) {
             case Constant.HOME:
                 mTabRg.check(R.id.tab_rb_1);
                 break;
@@ -184,6 +184,10 @@ public class MainActivity extends BaseActivity implements
         Global.SECTION_POSITION = 0;
         Global.HOUSE_TYPE_POSITION = 0;
         Global.DEC_STYLE_POSITION = 0;
+        Global.DEC_TYPE_POSITION = 0;
+        Global.DEC_HOUSE_TYPE_POSITION = 0;
+        Global.STYLE_POSITION = 0;
+        Global.DEC_FEE_POSITION = 0;
     }
 
     @Override

@@ -13,11 +13,13 @@ import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.bean.MyFavoriteDesigner;
 import com.jianfanjia.cn.cache.BusinessManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.GetItemCallback;
+import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.DecorationPopWindow;
 import com.jianfanjia.cn.view.MainHeadView;
@@ -189,6 +191,11 @@ public class DesignerListActivity extends BaseActivity implements View.OnClickLi
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data.toString());
             designerListView.onRefreshComplete();
+            MyFavoriteDesigner designer = JsonParser.jsonToBean(data.toString(), MyFavoriteDesigner.class);
+            LogTool.d(TAG, "designer:" + designer);
+            if (null != designer) {
+                LogTool.d(TAG, "designer.getDesigners().size()=" + designer.getDesigners().size());
+            }
         }
 
         @Override
@@ -242,7 +249,7 @@ public class DesignerListActivity extends BaseActivity implements View.OnClickLi
             if (!TextUtils.isEmpty(title) && !title.equals(Constant.KEY_WORD)) {
                 decType_item.setText(title);
             } else {
-                decType_item.setText("装修类型");
+                decType_item.setText(getResources().getString(R.string.dec_type_str));
             }
             FROM = 0;
             decType = BusinessManager.getDecTypeByText(title);
@@ -272,7 +279,7 @@ public class DesignerListActivity extends BaseActivity implements View.OnClickLi
             if (!TextUtils.isEmpty(title) && !title.equals(Constant.KEY_WORD)) {
                 decHouseType_item.setText(title);
             } else {
-                decHouseType_item.setText("装修户型");
+                decHouseType_item.setText(getResources().getString(R.string.dec_house_type_str));
             }
             decHouseStyle = BusinessManager.getHouseTypeByText(title);
             FROM = 0;
@@ -302,7 +309,7 @@ public class DesignerListActivity extends BaseActivity implements View.OnClickLi
             if (!TextUtils.isEmpty(title) && !title.equals(Constant.KEY_WORD)) {
                 decStyle_item.setText(title);
             } else {
-                decStyle_item.setText("擅长风格");
+                decStyle_item.setText(getResources().getString(R.string.dec_style_str));
             }
             decStyle = BusinessManager.getDecStyleByText(title);
             FROM = 0;
@@ -332,7 +339,7 @@ public class DesignerListActivity extends BaseActivity implements View.OnClickLi
             if (!TextUtils.isEmpty(title) && !title.equals(Constant.KEY_WORD)) {
                 decFee_item.setText(title);
             } else {
-                decFee_item.setText("设计收费");
+                decFee_item.setText(getResources().getString(R.string.dec_fee_str));
             }
             decFeee = BusinessManager.getDecFeeByText(title);
             FROM = 0;

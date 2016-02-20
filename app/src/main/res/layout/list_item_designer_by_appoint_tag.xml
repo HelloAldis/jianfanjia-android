@@ -19,13 +19,13 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/top_line"
             android:background="@color/font_white"
-            android:padding="10dip">
+            android:padding="@dimen/space_10">
 
             <TextView
                 android:id="@+id/list_item_name_text"
                 style="@style/listview_item_text_style_middle"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="15dip"
+                android:layout_marginLeft="@dimen/space_15"
                 android:textColor="@color/grey_color" />
 
             <TextView
@@ -33,7 +33,7 @@
                 style="@style/listview_item_text_style_middle"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="15dip"
+                android:layout_marginRight="@dimen/space_20"
                 android:textColor="@color/grey_color" />
         </RelativeLayout>
 

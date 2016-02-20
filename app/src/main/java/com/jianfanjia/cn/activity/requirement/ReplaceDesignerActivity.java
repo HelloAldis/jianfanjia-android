@@ -107,7 +107,7 @@ public class ReplaceDesignerActivity extends SwipeBackActivity implements OnClic
         //----------------------------------------------------
         mp = new HashMap<String, Object>();
         mp.put(Constant.KEY, getResources().getString(R.string.intentionDesignerText));
-        mp.put(Constant.TEXT_KEY, getResources().getString(R.string.noIntentionDesignerText));
+        mp.put(Constant.TEXT_KEY, getResources().getString(R.string.moreText));
         mylist.add(mp);
         splitList.add(mp);
         for (DesignerCanOrderInfo designerCanOrderInfo : favorite_designerList) {

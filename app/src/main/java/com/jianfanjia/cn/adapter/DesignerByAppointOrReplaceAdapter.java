@@ -1,6 +1,7 @@
 package com.jianfanjia.cn.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
@@ -10,12 +11,12 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.home.DesignerListActivity;
 import com.jianfanjia.cn.adapter.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.bean.DesignerCanOrderInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.CheckListener;
-import com.jianfanjia.cn.tools.LogTool;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,7 +69,8 @@ public class DesignerByAppointOrReplaceAdapter extends BaseRecyclerViewAdapter<M
                 tagViewHolder.itemMoreText.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        LogTool.d(TAG, "更多");
+                        Intent designerIntent = new Intent(context, DesignerListActivity.class);
+                        context.startActivity(designerIntent);
                     }
                 });
                 break;

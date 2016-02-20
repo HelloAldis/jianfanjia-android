@@ -16,11 +16,6 @@
         android:smallScreens="true"
         android:xlargeScreens="true" />
 
-    <uses-sdk
-        android:minSdkVersion="15"
-        android:targetSdkVersion="23"
-        tools:overrideLibrary="com.umeng.socialize.evernote,com.umeng.socialize.pinterest" />
-
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
@@ -464,7 +459,7 @@
             android:label="@string/title_activity_customer_service"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".home.DecorateStrategyActivity"
+            android:name=".home.DecStrategyActivity_"
             android:label="@string/title_activity_decorate_strategy"
             android:theme="@style/AppTheme" />
         <activity

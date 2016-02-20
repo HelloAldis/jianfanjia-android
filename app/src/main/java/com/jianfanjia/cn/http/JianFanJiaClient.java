@@ -701,13 +701,27 @@ public class JianFanJiaClient {
      * @param listener
      * @param tag
      */
-    public static void getDesignerProduct(Context context, String designerid, int from, int limit, ApiUiUpdateListener listener, Object tag) {
+    public static void getDesignerProduct(Context context, String decType, String designStyle, String houseType, String decArea, String designerid, int from, int limit, ApiUiUpdateListener listener, Object tag) {
         SearchDesignerProductRequest productRequest = new SearchDesignerProductRequest(context, designerid, from, limit);
         JSONObject jsonParams = new JSONObject();
         try {
+            JSONObject params1 = new JSONObject();
+            if (!TextUtils.isEmpty(decType) && !decType.equals(Constant.KEY_WORD)) {
+                params1.put("dec_type", decType);
+            }
+            if (!TextUtils.isEmpty(designStyle) && !designStyle.equals(Constant.KEY_WORD)) {
+                params1.put("house_type", designStyle);
+            }
+            if (!TextUtils.isEmpty(houseType) && !houseType.equals(Constant.KEY_WORD)) {
+                params1.put("dec_style", houseType);
+            }
+            if (!TextUtils.isEmpty(decArea) && !decArea.equals(Constant.KEY_WORD)) {
+                params1.put("house_area", decArea);
+            }
+            params1.put("designerid", designerid);
             JSONObject params = new JSONObject();
-            params.put("designerid", designerid);
-            jsonParams.put("query", params);
+            jsonParams.put("query", params1);
+            jsonParams.put("search_word", "");
             jsonParams.put("from", from);
             jsonParams.put("limit", limit);
             LogTool.d(TAG, "jsonParams:" + jsonParams.toString());
