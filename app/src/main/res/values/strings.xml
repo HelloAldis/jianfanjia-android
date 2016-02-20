@@ -131,12 +131,16 @@
     <!-- my_designer_information -->
     <string name="my_designer_name">Jeff Zhang</string>
     <string name="my_designer_product">作品</string>
+    <string name="my_designer_product1">作品数</string>
     <string name="my_designer_product_sum">9999</string>
     <string name="my_designer_appointment">预约</string>
+    <string name="my_designer_appointment1">预约数</string>
     <string name="my_designer_appointment_sum">20</string>
     <string name="work_city">服务城市:</string>
     <string name="designer_budget">设计费:</string>
+    <string name="designer_budget1">设计费</string>
     <string name="good_at_style">擅长风格:</string>
+    <string name="good_at_style1">擅长风格</string>
     <string name="call_designer">联系设计师</string>
 
     <!-- my_fragment -->
@@ -333,5 +337,9 @@
     <string name="home_tag2">装修美图</string>
     <string name="home_tag3">海量设计师</string>
     <string name="home_good_case">精品案例</string>
+    <string name="str_case">案例</string>
+    <string name="beauty_img">美图</string>
+    <string name="searh_tip">搜索设计师/案例/美图</string>
+    <string name="str_decoratehousetype">装修户型</string>
 
 </resources>

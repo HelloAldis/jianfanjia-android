@@ -134,12 +134,17 @@
         <activity
             android:name=".common.PhotoPickerActivity"
             android:theme="@style/Theme.Swipe.Back"
-            />
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".common.PhotoPagerActivity"
             android:theme="@style/Theme.Swipe.Back"
+            android:screenOrientation="portrait"
             />
+
+        <activity android:name=".home.SearchActivity_"
+            android:theme="@style/Theme.Swipe.Back"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name="com.igexin.sdk.PushActivity"

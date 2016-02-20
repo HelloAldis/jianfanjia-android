@@ -13,6 +13,7 @@ import android.widget.ScrollView;
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.home.SearchActivity_;
 import com.jianfanjia.cn.activity.requirement.PublishRequirementActivity_;
 import com.jianfanjia.cn.adapter.HomeProductPagerAdapter;
 import com.jianfanjia.cn.adapter.ViewPageAdapter;
@@ -116,11 +117,11 @@ public class HomeNewFragment extends BaseAnnotationFragment {
         },this);
     }
 
-    @Click({R.id.ltm_home_layout0,R.id.ltm_home_layout1,R.id.ltm_home_layout2,R.id.ltm_home_layout3})
+    @Click({R.id.ltm_home_layout0,R.id.ltm_home_layout1,R.id.ltm_home_layout2,R.id.ltm_home_layout3,R.id.home_search})
     protected void click(View view){
         switch (view.getId()){
             case R.id.ltm_home_layout0:
-                Intent intent = new Intent(getActivity(), PublishRequirementActivity_.class);
+                Intent intent = new Intent(getContext(), PublishRequirementActivity_.class);
                 startActivityForResult(intent, XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT);
                 break;
             case R.id.ltm_home_layout1:
@@ -129,6 +130,10 @@ public class HomeNewFragment extends BaseAnnotationFragment {
                 ((MainActivity)getActivity()).switchTab(Constant.DECORATE);
                 break;
             case R.id.ltm_home_layout3:
+                break;
+            case R.id.home_search:
+                Intent searchIntent = new Intent(getContext(), SearchActivity_.class);
+                startActivity(searchIntent);
                 break;
         }
     }
