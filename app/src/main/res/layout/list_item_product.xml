@@ -1,66 +1,47 @@
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:cardBackgroundColor="@color/font_white"
-    app:cardCornerRadius="0dp">
+    android:layout_height="wrap_content"
+    android:background="@color/font_white">
 
-    <RelativeLayout
-        android:id="@+id/imgLayout"
+    <ImageView
+        android:id="@+id/list_item_product_img"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:visibility="gone">
+        android:layout_height="250dip"
+        android:scaleType="centerCrop" />
 
-        <ImageView
-            android:id="@+id/list_item_product_img"
-            android:layout_width="match_parent"
-            android:layout_height="250dip"
-            android:scaleType="centerCrop" />
+    <com.jianfanjia.cn.view.layout.CircleImageView
+        android:id="@+id/list_item_head_img"
+        android:layout_width="60dip"
+        android:layout_height="60dip"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/list_item_product_img"
+        android:layout_marginRight="30dip"
+        android:layout_marginTop="-30dip"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/icon_default_head"
+        app:border_color="@color/white"
+        app:border_width="2dip" />
 
-        <com.jianfanjia.cn.view.layout.CircleImageView
-            android:id="@+id/list_item_head_img"
-            android:layout_width="60dip"
-            android:layout_height="60dip"
-            android:layout_below="@id/list_item_product_img"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="-30dip"
-            android:scaleType="centerCrop"
-            android:visibility="gone"
-            app:border_color="@color/white"
-            app:border_width="2dip" />
+    <TextView
+        android:id="@+id/list_item_xiaoqu_text"
+        style="@style/listview_item_text_style_middle"
+        android:layout_below="@id/list_item_product_img"
+        android:layout_marginLeft="30dip"
+        android:layout_marginTop="@dimen/space_20"
+        android:textColor="@color/home_page_text_color"
+        android:textSize="@dimen/text_size_14"
+        android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/list_item_xiaoqu_text"
-            style="@style/listview_item_text_style_middle"
-            android:layout_below="@id/list_item_head_img"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/space_10"
-            android:textColor="@color/light_black_color" />
+    <TextView
+        android:id="@+id/list_item_produce_text"
+        style="@style/listview_item_text_style_small"
+        android:layout_below="@id/list_item_xiaoqu_text"
+        android:layout_marginBottom="@dimen/space_20"
+        android:layout_marginLeft="30dip"
+        android:layout_marginTop="@dimen/space_10"
+        android:paddingBottom="20dip"
+        android:textColor="@color/light_black_color"
+        android:textSize="@dimen/text_size_12" />
 
-        <TextView
-            android:id="@+id/list_item_produce_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/list_item_xiaoqu_text"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/space_5"
-            android:textColor="@color/light_black_color"
-            android:textSize="@dimen/text_size_12" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/noImgLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#30000000">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@mipmap/pix_default"
-            android:scaleType="centerCrop" />
-
-    </RelativeLayout>
-
-</android.support.v7.widget.CardView>
+</RelativeLayout>

@@ -1,5 +1,6 @@
 package com.jianfanjia.cn.activity.home;
 
+import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -10,19 +11,16 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.adapter.DesignerListAdapter;
+import com.jianfanjia.cn.adapter.ProductAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.bean.DesignerListInfo;
-import com.jianfanjia.cn.bean.HomeDesignersInfo;
-import com.jianfanjia.cn.bean.OrderDesignerInfo;
+import com.jianfanjia.cn.bean.DesignerWorksInfo;
 import com.jianfanjia.cn.bean.Product;
-import com.jianfanjia.cn.bean.Requirement;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.EndlessRecyclerViewScrollListener;
-import com.jianfanjia.cn.interf.ListItemClickListener;
+import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
@@ -41,14 +39,23 @@ import java.util.List;
  */
 public class DesignerCaseListActivity extends BaseActivity implements View.OnClickListener, PullToRefreshBase.OnRefreshListener2<RecyclerView> {
     private static final String TAG = DesignerCaseListActivity.class.getName();
+    private static final int DEC_TYPE = 1;
+    private static final int DESIGN_STYLE = 2;
+    private static final int HOUSE_TYPE = 3;
+    private static final int DEC_AREA = 4;
+    private static final int NOT = 5;
     private MainHeadView mainHeadView = null;
     private PullToRefreshRecycleView pullToRefreshRecyclerView = null;
     private RelativeLayout errorLayout = null;
     private boolean isFirst = true;
-    private DesignerListAdapter designerAdapter = null;
-    private List<DesignerListInfo> designerList = new ArrayList<DesignerListInfo>();
+    private ProductAdapter productAdapter = null;
+    private List<Product> productList = new ArrayList<>();
     private LinearLayoutManager linearLayoutManager;
-    private int FROM = 0;// 当前页的编号，从0开始
+    private int FROM = 0;
+    private String decType = null;
+    private String designStyle = null;
+    private String houseType = null;
+    private String decArea = null;
 
     @Override
     public void initView() {
@@ -60,7 +67,7 @@ public class DesignerCaseListActivity extends BaseActivity implements View.OnCli
         pullToRefreshRecyclerView.addOnScrollListener(new EndlessRecyclerViewScrollListener(linearLayoutManager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
-                getDesignerCaseList(FROM, Constant.HOME_PAGE_LIMIT, pullUpListener);
+                getDesignerCaseList(decType, designStyle, houseType, decArea, FROM, Constant.HOME_PAGE_LIMIT, pullUpListener);
             }
         });
         pullToRefreshRecyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -69,7 +76,7 @@ public class DesignerCaseListActivity extends BaseActivity implements View.OnCli
         paint.setAlpha(0);
         paint.setAntiAlias(true);
         pullToRefreshRecyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(DesignerCaseListActivity.this).paint(paint).showLastDivider().build());
-        getDesignerCaseList(FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
+        getDesignerCaseList(decType, designStyle, houseType, decArea, FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
     }
 
     private void initMainHeadView() {
@@ -91,6 +98,9 @@ public class DesignerCaseListActivity extends BaseActivity implements View.OnCli
             case R.id.head_back_layout:
                 appManager.finishActivity(this);
                 break;
+            case R.id.error_include:
+                getDesignerCaseList(decType, designStyle, houseType, decArea, FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
+                break;
             default:
                 break;
         }
@@ -99,17 +109,17 @@ public class DesignerCaseListActivity extends BaseActivity implements View.OnCli
     @Override
     public void onPullDownToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
         FROM = 0;
-        getDesignerCaseList(FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
+        getDesignerCaseList(decType, designStyle, houseType, decArea, FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
     }
 
     @Override
     public void onPullUpToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-        getDesignerCaseList(FROM, Constant.HOME_PAGE_LIMIT, pullUpListener);
+        getDesignerCaseList(decType, designStyle, houseType, decArea, FROM, Constant.HOME_PAGE_LIMIT, pullUpListener);
     }
 
-    private void getDesignerCaseList(int from, int limit, ApiUiUpdateListener listener) {
+    private void getDesignerCaseList(String decType, String designStyle, String houseType, String decArea, int from, int limit, ApiUiUpdateListener listener) {
         LogTool.d(TAG, "from=" + from + " limit=" + limit);
-        JianFanJiaClient.getHomePageDesigners(DesignerCaseListActivity.this, from, limit, listener, this);
+        JianFanJiaClient.searchDesignerProduct(DesignerCaseListActivity.this, decType, designStyle, houseType, decArea, "", from, limit, listener, this);
     }
 
 
@@ -125,53 +135,40 @@ public class DesignerCaseListActivity extends BaseActivity implements View.OnCli
         @Override
         public void loadSuccess(Object data) {
             hideWaitDialog();
-            HomeDesignersInfo homeDesignersInfo = JsonParser.jsonToBean(data.toString(), HomeDesignersInfo.class);
-            LogTool.d(TAG, "homeDesignersInfo:" + homeDesignersInfo);
-            if (null != homeDesignersInfo) {
+            DesignerWorksInfo worksInfo = JsonParser.jsonToBean(data.toString(), DesignerWorksInfo.class);
+            LogTool.d(TAG, "worksInfo :" + worksInfo);
+            if (null != worksInfo) {
                 isFirst = false;
-                Requirement requirement = homeDesignersInfo.getRequirement();
-                LogTool.d(TAG, "requirement=" + requirement);
-                designerList.clear();
-                designerList.addAll(homeDesignersInfo.getDesigners());
-                designerAdapter = new DesignerListAdapter(DesignerCaseListActivity.this, designerList, new ListItemClickListener() {
+                productList.clear();
+                productList.addAll(worksInfo.getProducts());
+                productAdapter = new ProductAdapter(DesignerCaseListActivity.this, productList, new RecyclerViewOnItemClickListener() {
+
                     @Override
-                    public void onMaxClick(int position) {
-                        DesignerListInfo designerListInfo = designerList.get(position);
-                        Product product = designerListInfo.getProduct();
+                    public void OnItemClick(View view, int position) {
+                        Product product = productList.get(position);
                         String productid = product.get_id();
                         LogTool.d(TAG, "productid:" + productid);
+                        Intent productIntent = new Intent(DesignerCaseListActivity.this, DesignerCaseInfoActivity.class);
                         Bundle productBundle = new Bundle();
                         productBundle.putString(Global.PRODUCT_ID, productid);
-                        startActivity(DesignerCaseInfoActivity.class, productBundle);
+                        productIntent.putExtras(productBundle);
+                        startActivity(productIntent);
                     }
 
                     @Override
-                    public void onMinClick(int position) {
-                        DesignerListInfo designerListInfo = designerList.get(position);
-                        String designertid = designerListInfo.get_id();
-                        LogTool.d(TAG, "designertid:" + designertid);
+                    public void OnViewClick(int position) {
+                        Product product = productList.get(position);
+                        String designertid = product.getDesignerid();
+                        LogTool.d(TAG, "designertid=" + designertid);
+                        Intent designerIntent = new Intent(DesignerCaseListActivity.this, DesignerInfoActivity.class);
                         Bundle designerBundle = new Bundle();
                         designerBundle.putString(Global.DESIGNER_ID, designertid);
-                        startActivity(DesignerInfoActivity.class, designerBundle);
-                    }
-
-                    @Override
-                    public void onItemClick(int itemPosition, OrderDesignerInfo orderDesignerInfo) {
-                        LogTool.d(TAG, "itemPosition:" + itemPosition + " orderDesignerInfo:" + orderDesignerInfo);
-                        String designertid = orderDesignerInfo.get_id();
-                        LogTool.d(TAG, "designertid:" + designertid);
-                        Bundle designerBundle = new Bundle();
-                        designerBundle.putString(Global.DESIGNER_ID, designertid);
-                        startActivity(DesignerInfoActivity.class, designerBundle);
-                    }
-
-                    @Override
-                    public void onClick() {
-
+                        designerIntent.putExtras(designerBundle);
+                        startActivity(designerIntent);
                     }
                 });
-                pullToRefreshRecyclerView.setAdapter(designerAdapter);
-                FROM = designerList.size();
+                pullToRefreshRecyclerView.setAdapter(productAdapter);
+                FROM = productList.size();
                 LogTool.d(TAG, "FROM:" + FROM);
                 errorLayout.setVisibility(View.GONE);
             }
@@ -197,12 +194,12 @@ public class DesignerCaseListActivity extends BaseActivity implements View.OnCli
 
         @Override
         public void loadSuccess(Object data) {
-            HomeDesignersInfo homeDesignersInfo = JsonParser.jsonToBean(data.toString(), HomeDesignersInfo.class);
-            LogTool.d(TAG, "homeDesignersInfo:" + homeDesignersInfo);
-            if (null != homeDesignersInfo) {
-                List<DesignerListInfo> designers = homeDesignersInfo.getDesigners();
-                if (null != designers && designers.size() > 0) {
-                    designerAdapter.add(FROM + 1, designers);
+            DesignerWorksInfo worksInfo = JsonParser.jsonToBean(data.toString(), DesignerWorksInfo.class);
+            LogTool.d(TAG, "worksInfo :" + worksInfo);
+            if (null != worksInfo) {
+                List<Product> products = worksInfo.getProducts();
+                if (null != products && products.size() > 0) {
+                    productAdapter.add(FROM + 1, products);
                     FROM += Constant.HOME_PAGE_LIMIT;
                     LogTool.d(TAG, "FROM=" + FROM);
                 }

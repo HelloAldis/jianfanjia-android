@@ -701,7 +701,7 @@ public class JianFanJiaClient {
      * @param listener
      * @param tag
      */
-    public static void getDesignerProduct(Context context, String decType, String designStyle, String houseType, String decArea, String designerid, int from, int limit, ApiUiUpdateListener listener, Object tag) {
+    public static void searchDesignerProduct(Context context, String decType, String designStyle, String houseType, String decArea, String designerid, int from, int limit, ApiUiUpdateListener listener, Object tag) {
         SearchDesignerProductRequest productRequest = new SearchDesignerProductRequest(context, designerid, from, limit);
         JSONObject jsonParams = new JSONObject();
         try {
@@ -710,15 +710,17 @@ public class JianFanJiaClient {
                 params1.put("dec_type", decType);
             }
             if (!TextUtils.isEmpty(designStyle) && !designStyle.equals(Constant.KEY_WORD)) {
-                params1.put("house_type", designStyle);
+                params1.put("dec_style", designStyle);
             }
             if (!TextUtils.isEmpty(houseType) && !houseType.equals(Constant.KEY_WORD)) {
-                params1.put("dec_style", houseType);
+                params1.put("house_type", houseType);
             }
             if (!TextUtils.isEmpty(decArea) && !decArea.equals(Constant.KEY_WORD)) {
                 params1.put("house_area", decArea);
             }
-            params1.put("designerid", designerid);
+            if (!TextUtils.isEmpty(decArea)) {
+                params1.put("designerid", designerid);
+            }
             JSONObject params = new JSONObject();
             jsonParams.put("query", params1);
             jsonParams.put("search_word", "");

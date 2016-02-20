@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
@@ -35,36 +34,28 @@ public class ProductAdapter extends BaseRecyclerViewAdapter<Product> {
     public void bindView(RecyclerViewHolderBase viewHolder, int position, List<Product> list) {
         Product product = list.get(position);
         final ProductViewHolder holder = (ProductViewHolder) viewHolder;
-        if (!product.is_deleted()) {
-            holder.imgLayout.setVisibility(View.VISIBLE);
-            holder.noImgLayout.setVisibility(View.GONE);
-            holder.itemXiaoQuText.setText(product.getCell());
-            String houseType = product.getHouse_type();
-            String decStyle = product.getDec_style();
-            holder.itemProduceText.setText(product.getHouse_area() + "㎡，" + BusinessManager.convertHouseTypeToShow(houseType) + "，" + BusinessManager.convertDecStyleToShow(decStyle));
-            imageShow.displayScreenWidthThumnailImage(context, product.getImages().get(0).getImageid(), holder.itemProductView);
-            imageShow.displayImageHeadWidthThumnailImage(context, product.getDesigner().getImageid(), holder.itemHeadView);
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (null != listener) {
-                        listener.OnItemClick(v, holder.getLayoutPosition());
-                    }
+        holder.itemXiaoQuText.setText(product.getCell());
+        String houseType = product.getHouse_type();
+        String decStyle = product.getDec_style();
+        holder.itemProduceText.setText(product.getHouse_area() + "㎡，" + BusinessManager.convertHouseTypeToShow(houseType) + "，" + BusinessManager.convertDecStyleToShow(decStyle));
+        imageShow.displayScreenWidthThumnailImage(context, product.getImages().get(0).getImageid(), holder.itemProductView);
+        imageShow.displayImageHeadWidthThumnailImage(context, product.getDesigner().getImageid(), holder.itemHeadView);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (null != listener) {
+                    listener.OnItemClick(v, holder.getLayoutPosition());
                 }
-            });
-            holder.itemHeadView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (null != listener) {
-                        listener.OnViewClick(holder.getLayoutPosition());
-                    }
+            }
+        });
+        holder.itemHeadView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (null != listener) {
+                    listener.OnViewClick(holder.getLayoutPosition());
                 }
-            });
-        } else {
-            holder.imgLayout.setVisibility(View.GONE);
-            holder.noImgLayout.setVisibility(View.VISIBLE);
-        }
-
+            }
+        });
     }
 
     @Override
@@ -81,8 +72,6 @@ public class ProductAdapter extends BaseRecyclerViewAdapter<Product> {
 
 
     private static class ProductViewHolder extends RecyclerViewHolderBase {
-        public RelativeLayout imgLayout = null;
-        public RelativeLayout noImgLayout = null;
         public ImageView itemProductView;
         public ImageView itemHeadView;
         public TextView itemXiaoQuText;
@@ -90,8 +79,6 @@ public class ProductAdapter extends BaseRecyclerViewAdapter<Product> {
 
         public ProductViewHolder(View itemView) {
             super(itemView);
-            imgLayout = (RelativeLayout) itemView.findViewById(R.id.imgLayout);
-            noImgLayout = (RelativeLayout) itemView.findViewById(R.id.noImgLayout);
             itemProductView = (ImageView) itemView
                     .findViewById(R.id.list_item_product_img);
             itemHeadView = (ImageView) itemView

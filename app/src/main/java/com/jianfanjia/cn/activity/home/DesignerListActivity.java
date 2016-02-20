@@ -59,7 +59,7 @@ public class DesignerListActivity extends BaseActivity implements View.OnClickLi
     private String decType = null;
     private String decHouseStyle = null;
     private String decStyle = null;
-    private String decFeee = null;
+    private String decFee = null;
 
     private int FROM = 0;
 
@@ -86,7 +86,7 @@ public class DesignerListActivity extends BaseActivity implements View.OnClickLi
         paint.setAlpha(0);
         paint.setAntiAlias(true);
         designerListView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(DesignerListActivity.this).paint(paint).showLastDivider().build());
-        searchDesigners(decType, decHouseStyle, decStyle, decFeee, FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
+        searchDesigners(decType, decHouseStyle, decStyle, decFee, FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
     }
 
     private void initMainHeadView() {
@@ -254,7 +254,7 @@ public class DesignerListActivity extends BaseActivity implements View.OnClickLi
             }
             FROM = 0;
             decType = BusinessManager.getDecTypeByText(title);
-            searchDesigners(decType, decHouseStyle, decStyle, decFeee, FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
+            searchDesigners(decType, decHouseStyle, decStyle, decFee, FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
@@ -284,7 +284,7 @@ public class DesignerListActivity extends BaseActivity implements View.OnClickLi
             }
             decHouseStyle = BusinessManager.getHouseTypeByText(title);
             FROM = 0;
-            searchDesigners(decType, decHouseStyle, decStyle, decFeee, FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
+            searchDesigners(decType, decHouseStyle, decStyle, decFee, FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
@@ -314,7 +314,7 @@ public class DesignerListActivity extends BaseActivity implements View.OnClickLi
             }
             decStyle = BusinessManager.getDecStyleByText(title);
             FROM = 0;
-            searchDesigners(decType, decHouseStyle, decStyle, decFeee, FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
+            searchDesigners(decType, decHouseStyle, decStyle, decFee, FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
@@ -342,9 +342,9 @@ public class DesignerListActivity extends BaseActivity implements View.OnClickLi
             } else {
                 decFee_item.setText(getResources().getString(R.string.dec_fee_str));
             }
-            decFeee = BusinessManager.getDecFeeByText(title);
+            decFee = BusinessManager.getDecFeeByText(title);
             FROM = 0;
-            searchDesigners(decType, decHouseStyle, decStyle, decFeee, FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
+            searchDesigners(decType, decHouseStyle, decStyle, decFee, FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
