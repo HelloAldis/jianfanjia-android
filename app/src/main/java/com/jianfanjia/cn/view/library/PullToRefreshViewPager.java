@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-=======
+package com.jianfanjia.cn.view.library;
 /*******************************************************************************
  * Copyright 2011, 2012 Chris Banes.
  * <p/>
@@ -15,8 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
->>>>>>> jianfanjia-user
-package com.jianfanjia.cn.view.library;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
@@ -25,15 +22,14 @@ import android.util.AttributeSet;
 
 import com.jianfanjia.cn.activity.R;
 
-<<<<<<< HEAD
+
 /**
  * Name: PullToRefreshViewPager
  * User: fengliang
  * Date: 2016-02-17
  * Time: 10:52
  */
-=======
->>>>>>> jianfanjia-user
+
 public class PullToRefreshViewPager extends PullToRefreshBase<ViewPager> {
 
     public PullToRefreshViewPager(Context context) {
@@ -59,39 +55,20 @@ public class PullToRefreshViewPager extends PullToRefreshBase<ViewPager> {
     @Override
     protected boolean isReadyForPullStart() {
         ViewPager refreshableView = getRefreshableView();
-<<<<<<< HEAD
-
-=======
->>>>>>> jianfanjia-user
         PagerAdapter adapter = refreshableView.getAdapter();
         if (null != adapter) {
             return refreshableView.getCurrentItem() == 0;
         }
-<<<<<<< HEAD
-
-=======
->>>>>>> jianfanjia-user
         return false;
     }
 
     @Override
     protected boolean isReadyForPullEnd() {
         ViewPager refreshableView = getRefreshableView();
-<<<<<<< HEAD
-
-=======
->>>>>>> jianfanjia-user
         PagerAdapter adapter = refreshableView.getAdapter();
         if (null != adapter) {
             return refreshableView.getCurrentItem() == adapter.getCount() - 1;
         }
-<<<<<<< HEAD
-
-        return false;
-    }
-}  
-=======
         return false;
     }
 }
->>>>>>> jianfanjia-user

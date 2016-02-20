@@ -18,6 +18,7 @@ package com.jianfanjia.cn.view;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.v4.view.MotionEventCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.ViewDragHelper;
@@ -30,6 +31,8 @@ import android.widget.AbsListView;
 import android.widget.ScrollView;
 
 import com.jianfanjia.cn.AppManager;
+import com.jianfanjia.cn.application.MyApplication;
+import com.jianfanjia.cn.tools.LogTool;
 
 /**
  * Swipe or Pull to finish a Activity.
@@ -242,12 +245,35 @@ public class SwipeBackLayout extends ViewGroup {
         }
     }
 
+    float startX = 0.0f;
+    float startY = 0.0f;
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         boolean handled = false;
+        if (MotionEventCompat.getActionMasked(ev) == MotionEvent.ACTION_DOWN) {
+            startX = ev.getRawX();
+            startY = ev.getRawY();
+        }
         ensureTarget();
         if (isEnabled()) {
             handled = viewDragHelper.shouldInterceptTouchEvent(ev);
+            if (handled) {
+                switch (dragEdge) {
+                    case TOP:
+                        break;
+                    case BOTTOM:
+                        break;
+                    case LEFT:
+                        handled = (startX < MyApplication.dip2px(getContext(),100));//只能从边缘拉动回退，防止误操作
+                        LogTool.d(this.getClass().getName(),"startX =" + startX);
+                        LogTool.d(this.getClass().getName(),"handled =" + handled);
+                        break;
+                    case RIGHT:
+                        break;
+                    default:
+                        break;
+                }
+            }
         } else {
             viewDragHelper.cancel();
         }

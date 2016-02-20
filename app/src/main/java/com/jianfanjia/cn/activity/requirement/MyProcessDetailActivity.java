@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.activity.common.CommentActivity;
+import com.jianfanjia.cn.activity.common.PhotoPickerActivity;
 import com.jianfanjia.cn.activity.my.NotifyActivity;
 import com.jianfanjia.cn.adapter.SectionItemAdapter;
 import com.jianfanjia.cn.adapter.SectionViewPageAdapter;
@@ -40,6 +41,7 @@ import com.jianfanjia.cn.tools.FileUtil;
 import com.jianfanjia.cn.tools.ImageUtil;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.tools.PhotoPickerIntent;
 import com.jianfanjia.cn.tools.StringUtils;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.AddPhotoDialog;
@@ -68,7 +70,7 @@ import java.util.List;
  * @date 2015-8-26 上午11:14:00
  */
 @EActivity(R.layout.activity_my_process_detail)
-public class MyProcessDetailActivity extends SwipeBackActivity implements ItemClickCallBack, ReceiveMsgListener,PopWindowCallBack{
+public class MyProcessDetailActivity extends SwipeBackActivity implements ItemClickCallBack, ReceiveMsgListener, PopWindowCallBack {
     private static final String TAG = MyProcessDetailActivity.class.getName();
     private static final int TOTAL_PROCESS = 7;// 7道工序
 
@@ -412,7 +414,16 @@ public class MyProcessDetailActivity extends SwipeBackActivity implements ItemCl
                 startActivityForResult(intent, Constant.REQUESTCODE_SHOW_PROCESS_PIC);
                 break;
             case Constant.ADD_ITEM:
-                showPopWindow();
+//                showPopWindow();
+                PhotoPickerIntent intent1 = new PhotoPickerIntent(MyProcessDetailActivity.this);
+                if(imageUrlList != null){
+                    intent1.setPhotoCount(9 - imageUrlList.size());
+                }else{
+                    intent1.setPhotoCount(9);
+                }
+                intent1.setShowGif(false);
+                intent1.setShowCamera(true);
+                startActivityForResult(intent1, Constant.REQUESTCODE_PICKER_PIC);
                 break;
             default:
                 break;
@@ -507,6 +518,18 @@ public class MyProcessDetailActivity extends SwipeBackActivity implements ItemCl
             return;
         }
         switch (requestCode) {
+            case Constant.REQUESTCODE_PICKER_PIC:
+                if (data != null) {
+                    List<String> photos = data.getStringArrayListExtra(PhotoPickerActivity.KEY_SELECTED_PHOTOS);
+                    for(String path : photos){
+                        Bitmap imageBitmap = ImageUtil.getImage(path);
+                        LogTool.d(TAG, "imageBitmap: path :" + path);
+                        if (null != imageBitmap) {
+                            upload_image(imageBitmap);
+                        }
+                    }
+                }
+                break;
             case Constant.REQUESTCODE_CAMERA:// 拍照
                 mTmpFile = new File(dataManager.getPicPath());
                 if (mTmpFile != null) {
@@ -555,8 +578,7 @@ public class MyProcessDetailActivity extends SwipeBackActivity implements ItemCl
                         processInfo.get_id(),
                         sectionInfo.getName(),
                         itemName,
-                        dataManager
-                                .getCurrentUploadImageId(), new ApiUiUpdateListener() {
+                        data.toString(), new ApiUiUpdateListener() {
                             @Override
                             public void preLoad() {
 

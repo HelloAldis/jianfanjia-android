@@ -4,8 +4,6 @@ import android.content.Context;
 
 import com.jianfanjia.cn.base.BaseRequest;
 import com.jianfanjia.cn.bean.ProcessInfo;
-import com.jianfanjia.cn.config.Url_New;
-import com.jianfanjia.cn.tools.LogTool;
 
 public class AddPicToSectionItemRequest extends BaseRequest {
 	
@@ -43,12 +41,12 @@ public class AddPicToSectionItemRequest extends BaseRequest {
 	public void onSuccess(Object data) {
 		if (data != null) {
 			ProcessInfo processInfo = dataManager.getDefaultProcessInfo();
-			if(processInfo != null){
-				LogTool.d(this.getClass().getName(), "processInfo != null");
-				processInfo.addImageToItem(section, item, imageId);
-				dataManager.setCurrentProcessInfo(processInfo);
-				dataManager.saveProcessInfo(processInfo);
-			}
+//			if(processInfo != null){
+//				LogTool.d(this.getClass().getName(), "processInfo != null");
+//				processInfo.addImageToItem(section, item, imageId);
+//				dataManager.setCurrentProcessInfo(processInfo);
+//				dataManager.saveProcessInfo(processInfo);
+//			}
 		}
 	}
 	
