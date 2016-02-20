@@ -7,7 +7,6 @@ package com.jianfanjia.cn.adapter.base;
  * Date:-- :
  */
 
-import android.support.v4.util.CircularArray;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,6 +20,9 @@ import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
 
+import java.util.Collection;
+import java.util.List;
+
 public abstract class BaseLoadingAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final String TAG = "BaseLoadingAdapter";
     //是否正在加载
@@ -33,9 +35,11 @@ public abstract class BaseLoadingAdapter<T> extends RecyclerView.Adapter<Recycle
     private LoadingViewHolder mLoadingViewHolder;
     private StaggeredGridLayoutManager mStaggeredGridLayoutManager;
     //数据集
-    private CircularArray<T> mTs;
+    private List<T> mTs;
 
-    public BaseLoadingAdapter(RecyclerView recyclerView, CircularArray<T> ts) {
+    private int lastCount;
+
+    public BaseLoadingAdapter(RecyclerView recyclerView, List<T> ts) {
         mTs = ts;
 
         setSpanCount(recyclerView);
@@ -66,7 +70,7 @@ public abstract class BaseLoadingAdapter<T> extends RecyclerView.Adapter<Recycle
      */
     public void setLoadingComplete() {
         mIsLoading = false;
-        mTs.removeFromEnd(1);
+        mTs.remove(mTs.size() - 1);
         notifyItemRemoved(mTs.size() - 1);
     }
 
@@ -76,6 +80,12 @@ public abstract class BaseLoadingAdapter<T> extends RecyclerView.Adapter<Recycle
     public void setLoadingNoMore() {
         mLoadingViewHolder.progressBar.setVisibility(View.GONE);
         mLoadingViewHolder.tvLoading.setText("数据已加载完！");
+    }
+
+    public void addAll(Collection<T> t) {
+        lastCount = mTs.size();
+        mTs.addAll(t);
+        notifyItemRangeInserted(lastCount, t.size() - 1);
     }
 
     /**
@@ -154,7 +164,7 @@ public abstract class BaseLoadingAdapter<T> extends RecyclerView.Adapter<Recycle
                 if (!canScrollDown(recyclerView)) {
                     if (!mIsLoading) {
                         mIsLoading = true;
-                        mTs.addLast(null);
+                        mTs.add(null);
                         notifyItemInserted(mTs.size() - 1);
                         if (mOnLoadingListener != null) {
                             mOnLoadingListener.loading();

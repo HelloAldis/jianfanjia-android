@@ -1,8 +1,10 @@
 package com.jianfanjia.cn.tools;
 
 import com.google.gson.Gson;
+
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Description:json解析类
@@ -47,6 +49,17 @@ public class JsonParser {
             e.printStackTrace();
         }
         return list;
+    }
+
+    /**
+     * 将map转为json格式字符串
+     * @param param
+     * @return
+     */
+    public static String MapToJson(Map<String, Object> param) {
+        Gson gson = new Gson();
+        String jsonStr = gson.toJson(param);
+        return jsonStr;
     }
 
     /**

@@ -3,6 +3,9 @@ package com.jianfanjia.cn.http.request;
 import android.content.Context;
 
 import com.jianfanjia.cn.base.BaseRequest;
+import com.jianfanjia.cn.tools.JsonParser;
+
+import java.util.Map;
 
 /**
  * Name: SearchDesignerRequest
@@ -11,25 +14,16 @@ import com.jianfanjia.cn.base.BaseRequest;
  * Time: 09:52
  */
 public class SearchDesignerRequest extends BaseRequest {
-    private String decType;
-    private String decHouseType;
-    private String decStyle;
-    private String decFee;
-    private String searchWord;
-    private int authedProductCount;
-    private int from;
-    private int limit;
 
-    public SearchDesignerRequest(Context context, String decType, String decHouseType, String decStyle, String decFee, String searchWord, int authedProductCount, int from, int limit) {
+    private Map<String,Object> param;
+
+    public SearchDesignerRequest(Context context, Map<String,Object> param) {
         super(context);
-        this.decType = decType;
-        this.decHouseType = decHouseType;
-        this.decStyle = decStyle;
-        this.decFee = decFee;
-        this.searchWord = searchWord;
-        this.authedProductCount = authedProductCount;
-        this.from = from;
-        this.limit = limit;
+        this.param = param;
         url = url_new.SEARCH_DESIGNER;
+    }
+
+    public String getParam(){
+        return JsonParser.MapToJson(param);
     }
 }

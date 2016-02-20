@@ -16,7 +16,6 @@ import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.cache.BusinessManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.GetItemCallback;
 import com.jianfanjia.cn.tools.LogTool;
@@ -167,7 +166,7 @@ public class DesignerListActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void searchDesigners(String decType, String decHouseType, String decStyle, String decFee, int from, int limit, ApiUiUpdateListener listener) {
-        JianFanJiaClient.searchDesigner(DesignerListActivity.this, decType, decHouseType, decStyle, decFee, "", -1, from, limit, listener, this);
+//        JianFanJiaClient.searchDesigner(DesignerListActivity.this, decType, decHouseType, decStyle, decFee, "", -1, from, limit, listener, this);
     }
 
     @Override
