@@ -15,6 +15,7 @@ import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.home.DesignerCaseListActivity;
 import com.jianfanjia.cn.activity.home.DesignerListActivity;
+import com.jianfanjia.cn.activity.home.SearchActivity_;
 import com.jianfanjia.cn.activity.requirement.PublishRequirementActivity_;
 import com.jianfanjia.cn.adapter.HomeProductPagerAdapter;
 import com.jianfanjia.cn.adapter.ViewPageAdapter;
@@ -54,7 +55,7 @@ public class HomeNewFragment extends BaseAnnotationFragment {
     protected MyViewPager scrollViewPager;
 
     @ViewById(R.id.indicatorGroup_lib)
-    protected LinearLayout dotLineoarLayout;
+    protected LinearLayout dotLinearLayout;
 
     @ViewById(R.id.content_layout)
     protected RelativeLayout coordinatorLayout;
