@@ -10,9 +10,7 @@ import java.util.List;
  * Email: jame.zhang@myjyz.com
  * Date:2015-10-21 13:48
  */
-public class MyFavoriteDesigner implements Serializable{
-
-    private static final long serialVersionUID = 6567201683315668291L;
+public class MyFavoriteDesigner implements Serializable {
     private int total;
     private List<DesignerInfo> designers;
 

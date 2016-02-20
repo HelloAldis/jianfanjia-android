@@ -10,7 +10,6 @@ import java.util.List;
  * @date 2015-9-2 11:52
  */
 public class DesignerInfo implements Serializable {
-    private static final long serialVersionUID = 6574862587608025365L;
     private String _id;
 
     private String phone;
@@ -88,6 +87,8 @@ public class DesignerInfo implements Serializable {
     private String bank_card;
 
     private String university;
+
+    private String authed_product_count;
 
     public boolean is_my_favorite() {
         return is_my_favorite;
@@ -404,5 +405,13 @@ public class DesignerInfo implements Serializable {
 
     public void setUniversity(String university) {
         this.university = university;
+    }
+
+    public String getAuthed_product_count() {
+        return authed_product_count;
+    }
+
+    public void setAuthed_product_count(String authed_product_count) {
+        this.authed_product_count = authed_product_count;
     }
 }

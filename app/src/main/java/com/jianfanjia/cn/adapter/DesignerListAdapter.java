@@ -1,19 +1,17 @@
 package com.jianfanjia.cn.adapter;
 
 import android.content.Context;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
-import com.jianfanjia.cn.bean.DesignerListInfo;
-import com.jianfanjia.cn.bean.Product;
+import com.jianfanjia.cn.bean.DesignerInfo;
 import com.jianfanjia.cn.cache.BusinessManager;
-import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.ListItemClickListener;
 
 import java.util.List;
@@ -24,11 +22,11 @@ import java.util.List;
  * Date: 2015-10-14
  * Time: 14:03
  */
-public class DesignerListAdapter extends BaseRecyclerViewAdapter<DesignerListInfo> {
+public class DesignerListAdapter extends BaseRecyclerViewAdapter<DesignerInfo> {
     private static final String TAG = DesignerListAdapter.class.getName();
     private ListItemClickListener listener;
 
-    public DesignerListAdapter(Context context, List<DesignerListInfo> list, ListItemClickListener listener) {
+    public DesignerListAdapter(Context context, List<DesignerInfo> list) {
         super(context, list);
         this.listener = listener;
     }
@@ -39,46 +37,24 @@ public class DesignerListAdapter extends BaseRecyclerViewAdapter<DesignerListInf
     }
 
     @Override
-    public void bindView(RecyclerViewHolderBase viewHolder, final int position, List<DesignerListInfo> list) {
-        DesignerListInfo info = list.get(position);
-        Product product = info.getProduct();
-        DesignerListViewHolder designerListViewHolder = (DesignerListViewHolder) viewHolder;
-        designerListViewHolder.itemXiaoQuText.setText(product.getCell());
-        if (info.getAuth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)) {
-            designerListViewHolder.itemAuthView.setVisibility(View.VISIBLE);
-        } else {
-            designerListViewHolder.itemAuthView.setVisibility(View.GONE);
-        }
-        String houseType = product.getHouse_type();
-        String decStyle = product.getDec_style();
-        designerListViewHolder.itemProduceText.setText(product.getHouse_area() + context.getString(R.string.str_sq_unit) + "，" + BusinessManager.convertHouseTypeToShow(houseType) + "，" + BusinessManager.convertDecStyleToShow(decStyle));
-        imageShow.displayScreenWidthThumnailImage(context, product.getImages().get(0).getImageid(), designerListViewHolder.itemProductView);
-        if (!TextUtils.isEmpty(info.getImageid())) {
-            imageShow.displayImageHeadWidthThumnailImage(context, info.getImageid(), designerListViewHolder.itemHeadView);
-        } else {
-            imageShow.displayLocalImage(Constant.DEFALUT_ADD_PIC, designerListViewHolder.itemHeadView);
-        }
-        designerListViewHolder.itemProductView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != listener) {
-                    listener.onMaxClick(position);
-                }
-            }
-        });
-        designerListViewHolder.itemHeadView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != listener) {
-                    listener.onMinClick(position);
-                }
-            }
-        });
+    public void bindView(RecyclerViewHolderBase viewHolder, final int position, List<DesignerInfo> list) {
+        DesignerInfo designerInfo = list.get(position);
+        DesignerListViewHolder holder = (DesignerListViewHolder) viewHolder;
+        holder.itemNameText.setText(designerInfo.getUsername());
+        imageShow.displayImageHeadWidthThumnailImage(context, designerInfo.getImageid(), holder.itemHeadView);
+        holder.itemProductCountText.setText(designerInfo.getAuthed_product_count());
+        int respond_speed = (int) designerInfo.getRespond_speed();
+        int service_attitude = (int) designerInfo.getService_attitude();
+        holder.itemRatingBar.setRating((respond_speed + service_attitude) / 2);
+//     holder.itemAppointCountText.setText(designerInfo.getOrder_count());
+        holder.itemDecTypeText.setText(BusinessManager.getDecTypeStr(designerInfo.getDec_types()));
+        holder.itemDecStyleText.setText(BusinessManager.getDecStyleStr(designerInfo.getDec_styles()));
+        holder.itemDecFeeText.setText(BusinessManager.convertDesignFeeToShow(designerInfo.getDesign_fee_range()));
     }
 
     @Override
     public View createView(ViewGroup viewGroup, int viewType) {
-        View itemView = layoutInflater.inflate(R.layout.list_item_designer_info,
+        View itemView = layoutInflater.inflate(R.layout.list_item_designer_common,
                 null);
         return itemView;
     }
@@ -89,24 +65,39 @@ public class DesignerListAdapter extends BaseRecyclerViewAdapter<DesignerListInf
     }
 
     private static class DesignerListViewHolder extends RecyclerViewHolderBase {
-        public ImageView itemProductView;
         public ImageView itemHeadView;
+        public TextView itemNameText;
+        public ImageView itemIdentityView;
         public ImageView itemAuthView;
-        public TextView itemXiaoQuText;
-        public TextView itemProduceText;
+        public RatingBar itemRatingBar;
+        public TextView itemDecTypeText;
+        public TextView itemDecStyleText;
+        public TextView itemProductCountText;
+        public TextView itemAppointCountText;
+        public TextView itemDecFeeText;
 
         public DesignerListViewHolder(View itemView) {
             super(itemView);
-            itemProductView = (ImageView) itemView
-                    .findViewById(R.id.list_item_product_img);
             itemHeadView = (ImageView) itemView
-                    .findViewById(R.id.list_item_head_img);
+                    .findViewById(R.id.ltm_req_owner_head);
+            itemNameText = (TextView) itemView
+                    .findViewById(R.id.ltm_req_username);
+            itemIdentityView = (ImageView) itemView
+                    .findViewById(R.id.ltm_identity_auth);
             itemAuthView = (ImageView) itemView
-                    .findViewById(R.id.list_item_auth);
-            itemXiaoQuText = (TextView) itemView
-                    .findViewById(R.id.list_item_xiaoqu_text);
-            itemProduceText = (TextView) itemView
-                    .findViewById(R.id.list_item_produce_text);
+                    .findViewById(R.id.ltm_info_auth);
+            itemRatingBar = (RatingBar) itemView
+                    .findViewById(R.id.ratingBar);
+            itemDecTypeText = (TextView) itemView
+                    .findViewById(R.id.ltm_decoratehousetype_cont);
+            itemDecStyleText = (TextView) itemView
+                    .findViewById(R.id.ltm_good_at_style_cont);
+            itemProductCountText = (TextView) itemView
+                    .findViewById(R.id.product_sum);
+            itemAppointCountText = (TextView) itemView
+                    .findViewById(R.id.appoint_sum);
+            itemDecFeeText = (TextView) itemView
+                    .findViewById(R.id.designer_fee);
         }
     }
 }

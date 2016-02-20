@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.adapter.DesignerListAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.MyFavoriteDesigner;
 import com.jianfanjia.cn.cache.BusinessManager;
@@ -54,7 +55,7 @@ public class DesignerListActivity extends BaseActivity implements View.OnClickLi
     private TextView decStyle_item = null;
     private TextView decFee_item = null;
     private PullToRefreshRecycleView designerListView = null;
-
+    private DesignerListAdapter designerListAdapter = null;
     private DecorationPopWindow window = null;
     private String decType = null;
     private String decHouseStyle = null;
@@ -196,6 +197,8 @@ public class DesignerListActivity extends BaseActivity implements View.OnClickLi
             LogTool.d(TAG, "designer:" + designer);
             if (null != designer) {
                 LogTool.d(TAG, "designer.getDesigners().size()=" + designer.getDesigners().size());
+                designerListAdapter = new DesignerListAdapter(DesignerListActivity.this, designer.getDesigners());
+                designerListView.setAdapter(designerListAdapter);
             }
         }
 
