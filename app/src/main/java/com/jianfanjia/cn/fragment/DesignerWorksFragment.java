@@ -84,7 +84,7 @@ public class DesignerWorksFragment extends BaseFragment implements OnItemClickLi
     }
 
     private void getDesignerProduct(String designerid, int from, int limit) {
-        JianFanJiaClient.getDesignerProduct(getActivity(), designerid, from, limit, this, this);
+        JianFanJiaClient.getDesignerProduct(getActivity(), "", "", "", "", designerid, from, limit, this, this);
     }
 
     @Override
