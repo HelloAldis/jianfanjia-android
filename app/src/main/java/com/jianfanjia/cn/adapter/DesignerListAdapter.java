@@ -47,7 +47,7 @@ public class DesignerListAdapter extends BaseRecyclerViewAdapter<DesignerInfo> {
         int service_attitude = (int) designerInfo.getService_attitude();
         holder.itemRatingBar.setRating((respond_speed + service_attitude) / 2);
 //     holder.itemAppointCountText.setText(designerInfo.getOrder_count());
-        holder.itemDecTypeText.setText(BusinessManager.getDecTypeStr(designerInfo.getDec_types()));
+        holder.itemDecTypeText.setText(BusinessManager.getHouseTypeStr(designerInfo.getDec_house_types()));
         holder.itemDecStyleText.setText(BusinessManager.getDecStyleStr(designerInfo.getDec_styles()));
         holder.itemDecFeeText.setText(BusinessManager.convertDesignFeeToShow(designerInfo.getDesign_fee_range()));
     }
