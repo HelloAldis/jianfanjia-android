@@ -84,7 +84,7 @@ public class Url_New {
     public String HOME_PAGE_DISIGNERS = HTTPROOT + "home_page_designers";
     //获取设计师信息主页
     public String DESIGNER_HOME_PAGE = HTTPROOT + "designer_home_page";
-    //获取设计师作品
+    //搜索设计师作品
     public String SEARCH_DESIGNER_PRODUCT = HTTPROOT + "search_designer_product";
     //业主提交需求(post)
     public String POST_REQUIREMENT = HTTPROOT + "user_add_requirement";
