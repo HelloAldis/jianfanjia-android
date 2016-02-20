@@ -54,7 +54,7 @@ public class HomeNewFragment extends BaseAnnotationFragment {
     protected MyViewPager scrollViewPager;
 
     @ViewById(R.id.indicatorGroup_lib)
-    protected LinearLayout dotLinearLayout;
+    protected LinearLayout dotLineoarLayout;
 
     @ViewById(R.id.content_layout)
     protected RelativeLayout coordinatorLayout;
@@ -114,11 +114,11 @@ public class HomeNewFragment extends BaseAnnotationFragment {
         }, this);
     }
 
-    @Click({R.id.ltm_home_layout0, R.id.ltm_home_layout1, R.id.ltm_home_layout2, R.id.ltm_home_layout3, R.id.list_item_more_layout})
+    @Click({R.id.ltm_home_layout0, R.id.ltm_home_layout1, R.id.ltm_home_layout2, R.id.ltm_home_layout3, R.id.home_search, R.id.list_item_more_layout})
     protected void click(View view) {
         switch (view.getId()) {
             case R.id.ltm_home_layout0:
-                Intent intent = new Intent(getActivity(), PublishRequirementActivity_.class);
+                Intent intent = new Intent(getContext(), PublishRequirementActivity_.class);
                 startActivityForResult(intent, XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT);
                 break;
             case R.id.ltm_home_layout1:
@@ -131,6 +131,10 @@ public class HomeNewFragment extends BaseAnnotationFragment {
                 break;
             case R.id.list_item_more_layout:
                 startActivity(DesignerCaseListActivity.class);
+                break;
+            case R.id.home_search:
+                Intent searchIntent = new Intent(getContext(), SearchActivity_.class);
+                startActivity(searchIntent);
                 break;
             default:
                 break;

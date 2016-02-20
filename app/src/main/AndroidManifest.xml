@@ -137,11 +137,18 @@
 
         <activity
             android:name=".common.PhotoPickerActivity"
-            android:theme="@style/Theme.Swipe.Back" />
+            android:theme="@style/Theme.Swipe.Back"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".common.PhotoPagerActivity"
-            android:theme="@style/Theme.Swipe.Back" />
+            android:theme="@style/Theme.Swipe.Back"
+            android:screenOrientation="portrait"
+            />
+
+        <activity android:name=".home.SearchActivity_"
+            android:theme="@style/Theme.Swipe.Back"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name="com.igexin.sdk.PushActivity"
@@ -375,9 +382,6 @@
             android:name=".my.EditCityActivity_"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back" />
-        <activity
-            android:name="com.soundcloud.android.crop.CropImageActivity"
-            android:screenOrientation="portrait" />
         <activity
             android:name=".my.CollectActivity"
             android:screenOrientation="portrait"
