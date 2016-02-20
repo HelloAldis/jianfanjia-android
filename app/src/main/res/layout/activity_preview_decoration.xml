@@ -6,18 +6,22 @@
     android:background="@color/black_color"
     android:fitsSystemWindows="true">
 
-    <com.jianfanjia.cn.view.MyViewPager
+    <com.jianfanjia.cn.view.library.PullToRefreshViewPager xmlns:ptr="http://schemas.android.com/apk/res-auto"
         android:id="@+id/showpicPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        ptr:ptrAnimationStyle="rotate"
+        ptr:ptrHeaderTextColor="#344a5d"
+        ptr:ptrMode="pullFromEnd" />
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_48"
-        android:minHeight="@dimen/space_48"
         android:background="@color/transparent_bg"
         android:fitsSystemWindows="true"
+        android:minHeight="@dimen/space_48"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
         <TextView
@@ -66,52 +70,22 @@
         </LinearLayout>
     </android.support.v7.widget.Toolbar>
 
-    <LinearLayout
-        android:id="@+id/textLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <RelativeLayout
+        android:id="@+id/btn_download_layout"
+        android:layout_width="@dimen/space_40"
+        android:layout_height="@dimen/space_48"
         android:layout_alignParentBottom="true"
-        android:background="@color/transparent_bg"
-        android:orientation="vertical"
-        android:paddingLeft="@dimen/space_20"
-        android:paddingTop="@dimen/space_8">
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/space_10"
+        android:visibility="gone">
 
-        <TextView
-            android:id="@+id/pic_title"
-            style="@style/listview_item_text_style_big"
+        <ImageView
+            android:id="@+id/btn_download"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/space_20"
-            android:gravity="left"
-            android:textColor="@color/font_white" />
-
-        <TextView
-            android:id="@+id/pic_des"
-            style="@style/listview_item_text_style_middle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/space_20"
-            android:layout_marginTop="@dimen/space_8"
-            android:gravity="left"
-            android:textColor="@color/font_white" />
-
-        <RelativeLayout
-            android:id="@+id/btn_download_layout"
-            android:layout_width="@dimen/space_40"
-            android:layout_height="@dimen/space_48"
-            android:layout_gravity="right"
-            android:layout_marginRight="@dimen/space_10"
-            android:visibility="gone">
-
-            <ImageView
-                android:id="@+id/btn_download"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_margin="@dimen/space_8"
-                android:background="@mipmap/icon_download" />
-        </RelativeLayout>
-    </LinearLayout>
-
+            android:layout_centerInParent="true"
+            android:layout_margin="@dimen/space_8"
+            android:background="@mipmap/icon_download" />
+    </RelativeLayout>
 
 </RelativeLayout>

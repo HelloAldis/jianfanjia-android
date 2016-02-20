@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.beautifulpic.PreviewDecorationActivity;
 import com.jianfanjia.cn.adapter.DecorationAdapter;
@@ -34,6 +35,8 @@ import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * Description:装修美图
@@ -66,6 +69,13 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
     private String decStyle = null;
     private int FROM = 0;
     private boolean isFirst = true;
+    private int total = 0;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
 
     @Override
     public void initView(View view) {
@@ -186,6 +196,8 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
             DecorationItemInfo decorationItemInfo = JsonParser.jsonToBean(data.toString(), DecorationItemInfo.class);
             LogTool.d(TAG, "decorationItemInfo:" + decorationItemInfo);
             if (null != decorationItemInfo) {
+                total = decorationItemInfo.getTotal();
+                LogTool.d(TAG, "total:" + total);
                 beautyImgList.clear();
                 beautyImgList.addAll(decorationItemInfo.getBeautiful_images());
                 LogTool.d(TAG, "beautyImgList=" + beautyImgList);
@@ -195,11 +207,18 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
                         decorationAdapter = new DecorationAdapter(getActivity(), beautyImgList, new OnItemClickListener() {
                             @Override
                             public void OnItemClick(int position) {
+                                LogTool.d(TAG, "position=" + position);
                                 BeautyImgInfo beautyImgInfo = beautyImgList.get(position);
                                 LogTool.d(TAG, "beautyImgInfo:" + beautyImgInfo);
                                 Intent decorationIntent = new Intent(getActivity(), PreviewDecorationActivity.class);
                                 Bundle decorationBundle = new Bundle();
                                 decorationBundle.putString(Global.DECORATION_ID, beautyImgInfo.get_id());
+                                decorationBundle.putInt(Global.POSITION, position);
+                                decorationBundle.putSerializable(Global.IMG_LIST, (ArrayList<BeautyImgInfo>) beautyImgList);
+                                decorationBundle.putString(Global.HOUSE_SECTION, section);
+                                decorationBundle.putString(Global.HOUSE_STYLE, houseStyle);
+                                decorationBundle.putString(Global.DEC_STYLE, decStyle);
+                                decorationBundle.putInt(Global.TOTAL_COUNT, total);
                                 decorationIntent.putExtras(decorationBundle);
                                 startActivity(decorationIntent);
                             }
@@ -253,7 +272,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
                     FROM += Constant.HOME_PAGE_LIMIT;
                     LogTool.d(TAG, "FROM=" + FROM);
                 } else {
-                    makeTextShort("没有更多了");
+                    makeTextShort(getResources().getString(R.string.no_more_data));
                 }
             }
             decoration_listview.onRefreshComplete();
@@ -370,6 +389,22 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
             }
         }
     };
+
+    public void onEventMainThread(MessageEvent event) {
+        switch (event.getEventType()) {
+            case Constant.UPDATE_BEAUTY_IMG_FRAGMENT:
+                searchDecorationImg(section, houseStyle, decStyle, FROM, Constant.HOME_PAGE_LIMIT, pullUpListener);
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 
     @Override
     public int getLayoutId() {

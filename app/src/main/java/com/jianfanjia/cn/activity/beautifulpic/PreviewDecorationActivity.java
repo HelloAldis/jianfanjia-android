@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -12,11 +11,10 @@ import android.widget.TextView;
 
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.adapter.ShowPicPagerAdapter;
+import com.jianfanjia.cn.adapter.PreImgPagerAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.BeautyImgInfo;
-import com.jianfanjia.cn.bean.Img;
-import com.jianfanjia.cn.cache.BusinessManager;
+import com.jianfanjia.cn.bean.DecorationItemInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
@@ -27,6 +25,8 @@ import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.ShareUtil;
 import com.jianfanjia.cn.tools.UiHelper;
+import com.jianfanjia.cn.view.library.PullToRefreshBase;
+import com.jianfanjia.cn.view.library.PullToRefreshViewPager;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.bean.SocializeConfig;
 import com.umeng.socialize.bean.SocializeEntity;
@@ -44,7 +44,7 @@ import de.greenrobot.event.EventBus;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class PreviewDecorationActivity extends BaseActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
+public class PreviewDecorationActivity extends BaseActivity implements View.OnClickListener, ViewPager.OnPageChangeListener, PullToRefreshBase.OnRefreshListener<ViewPager> {
     private static final String TAG = PreviewDecorationActivity.class.getName();
     private ShareUtil shareUtil = null;
     private Toolbar toolbar = null;
@@ -54,27 +54,44 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
     private RelativeLayout toolbar_collectLayout = null;
     private RelativeLayout toolbar_shareLayout = null;
     private RelativeLayout btn_downloadLayout = null;
-
-    private ViewPager viewPager = null;
+    private boolean isFirst = true;
+    private PullToRefreshViewPager mPullToRefreshViewPager = null;
+    private ViewPager imgViewPager = null;
     private TextView pic_tip = null;
     private TextView pic_title = null;
     private TextView pic_des = null;
     private String decorationId = null;
+    private List<BeautyImgInfo> beautiful_images = new ArrayList<>();
+    private List<String> imgIdList = new ArrayList<>();
     private List<String> imgList = new ArrayList<>();
-    private int totalCount = 0;
+    private PreImgPagerAdapter showPicPagerAdapter = null;
+    private String section = null;
+    private String houseStyle = null;
+    private String decStyle = null;
     private int currentPosition = 0;
     private String picTitle = null;
     private String currentImgId = null;
     private String currentStyle = null;
     private String currentTag = null;
+    private int totalCount = 0;
+    private int FROM = 0;
 
     @Override
     public void initView() {
         Intent intent = this.getIntent();
         Bundle decorationBundle = intent.getExtras();
         decorationId = decorationBundle.getString(Global.DECORATION_ID);
+        currentPosition = decorationBundle.getInt(Global.POSITION, 0);
+        totalCount = decorationBundle.getInt(Global.TOTAL_COUNT, 0);
+        beautiful_images = (List<BeautyImgInfo>) decorationBundle.getSerializable(Global.IMG_LIST);
+        section = decorationBundle.getString(Global.HOUSE_SECTION);
+        houseStyle = decorationBundle.getString(Global.HOUSE_STYLE);
+        decStyle = decorationBundle.getString(Global.DEC_STYLE);
+        LogTool.d(TAG, "section:" + section + " houseStyle:" + houseStyle + " decStyle:" + decStyle);
         shareUtil = new ShareUtil(this);
-        LogTool.d(TAG, "decorationId=" + decorationId);
+        LogTool.d(TAG, "decorationId=" + decorationId + " currentPosition=" + currentPosition + "  totalCount=" + totalCount + "  beautiful_images.size()=" + beautiful_images.size());
+        FROM = beautiful_images.size();
+        LogTool.d(TAG, "FROM=" + FROM);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar_collect = (ImageView) findViewById(R.id.toolbar_collect);
         toolbar_share = (ImageView) findViewById(R.id.toolbar_share);
@@ -85,11 +102,27 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
         toolbar.setNavigationIcon(R.mipmap.icon_back);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        viewPager = (ViewPager) findViewById(R.id.showpicPager);
+        mPullToRefreshViewPager = (PullToRefreshViewPager) findViewById(R.id.showpicPager);
+        imgViewPager = mPullToRefreshViewPager.getRefreshableView();
         pic_tip = (TextView) findViewById(R.id.pic_tip);
         pic_title = (TextView) findViewById(R.id.pic_title);
         pic_des = (TextView) findViewById(R.id.pic_des);
-        getDecorationImgInfo(decorationId);
+        btn_downloadLayout.setVisibility(View.VISIBLE);
+        toolbar_collectLayout.setVisibility(View.VISIBLE);
+        toolbar_shareLayout.setVisibility(View.VISIBLE);
+        initViewPager(beautiful_images);
+    }
+
+    private void initViewPager(List<BeautyImgInfo> beautyImagesList) {
+        showPicPagerAdapter = new PreImgPagerAdapter(PreviewDecorationActivity.this, beautyImagesList, new ViewPagerClickListener() {
+            @Override
+            public void onClickItem(int pos) {
+
+            }
+        });
+        imgViewPager.setAdapter(showPicPagerAdapter);
+        imgViewPager.setCurrentItem(currentPosition);
+        setPreviewImgInfo(currentPosition);
     }
 
     @Override
@@ -103,7 +136,8 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
         toolbar_shareLayout.setOnClickListener(this);
         toolbar_collectLayout.setOnClickListener(this);
         btn_downloadLayout.setOnClickListener(this);
-        viewPager.setOnPageChangeListener(this);
+        mPullToRefreshViewPager.setOnRefreshListener(this);
+        imgViewPager.setOnPageChangeListener(this);
     }
 
     @Override
@@ -130,8 +164,14 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
         }
     }
 
-    private void getDecorationImgInfo(String decorationId) {
-        JianFanJiaClient.getDecorationImgInfo(PreviewDecorationActivity.this, decorationId, getDecorationImgInfoListener, this);
+    @Override
+    public void onRefresh(PullToRefreshBase<ViewPager> refreshView) {
+        isFirst = false;
+        getDecorationImgInfo(FROM, Constant.HOME_PAGE_LIMIT);
+    }
+
+    private void getDecorationImgInfo(int from, int limit) {
+        JianFanJiaClient.searchDecorationImg(PreviewDecorationActivity.this, section, houseStyle, decStyle, "", -1, from, limit, getDecorationImgInfoListener, this);
     }
 
     private void addDecorationImgInfo(String decorationId) {
@@ -145,58 +185,35 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
     private ApiUiUpdateListener getDecorationImgInfoListener = new ApiUiUpdateListener() {
         @Override
         public void preLoad() {
-            showWaitDialog();
+            if (isFirst) {
+                showWaitDialog();
+            }
         }
 
         @Override
         public void loadSuccess(Object data) {
             hideWaitDialog();
+            mPullToRefreshViewPager.onRefreshComplete();
             LogTool.d(TAG, "data:" + data.toString());
-            BeautyImgInfo beautyImgInfo = JsonParser.jsonToBean(data.toString(), BeautyImgInfo.class);
-            LogTool.d(TAG, "beautyImgInfo:" + beautyImgInfo);
-            if (null != beautyImgInfo) {
-                btn_downloadLayout.setVisibility(View.VISIBLE);
-                toolbar_collectLayout.setVisibility(View.VISIBLE);
-                toolbar_shareLayout.setVisibility(View.VISIBLE);
-                if (beautyImgInfo.is_my_favorite()) {
-                    toolbar_collect.setSelected(true);
+            DecorationItemInfo decorationItemInfo = JsonParser.jsonToBean(data.toString(), DecorationItemInfo.class);
+            LogTool.d(TAG, "decorationItemInfo:" + decorationItemInfo);
+            if (null != decorationItemInfo) {
+                List<BeautyImgInfo> beautyImages = decorationItemInfo.getBeautiful_images();
+                if (null != beautyImages && beautyImages.size() > 0) {
+                    showPicPagerAdapter.addItem(beautyImages);
+                    FROM += Constant.HOME_PAGE_LIMIT;
+                    EventBus.getDefault().post(new MessageEvent(Constant.UPDATE_BEAUTY_IMG_FRAGMENT));
                 } else {
-                    toolbar_collect.setSelected(false);
+                    makeTextShort(getResources().getString(R.string.no_more_data));
                 }
-                picTitle = beautyImgInfo.getTitle();
-                currentStyle = beautyImgInfo.getDec_style();
-                currentTag = beautyImgInfo.getSection();
-                pic_title.setText(TextUtils.isEmpty(picTitle) ? "" : picTitle);
-                String keyDes = BusinessManager.spilteKeyWord(beautyImgInfo.getKeywords());
-                if (!TextUtils.isEmpty(keyDes)) {
-                    pic_des.setText(keyDes);
-                }
-                List<Img> decorationImgs = beautyImgInfo.getImages();
-                totalCount = decorationImgs.size();
-                for (Img img : decorationImgs) {
-                    imgList.add(img.getImageid());
-                }
-                currentImgId = imgList.get(currentPosition);
-                pic_tip.setText((currentPosition + 1) + "/" + totalCount);
-                final ShowPicPagerAdapter showPicPagerAdapter = new ShowPicPagerAdapter(PreviewDecorationActivity.this, imgList, new ViewPagerClickListener() {
-                    @Override
-                    public void onClickItem(int pos) {
-                        LogTool.d(TAG, "pos:" + pos);
-                        appManager.finishActivity(PreviewDecorationActivity.this);
-                    }
-                });
-                viewPager.setAdapter(showPicPagerAdapter);
             }
         }
-
 
         @Override
         public void loadFailture(String error_msg) {
             hideWaitDialog();
             makeTextShort(error_msg);
-            btn_downloadLayout.setVisibility(View.GONE);
-            toolbar_collectLayout.setVisibility(View.GONE);
-            toolbar_shareLayout.setVisibility(View.GONE);
+            mPullToRefreshViewPager.onRefreshComplete();
         }
     };
 
@@ -209,8 +226,9 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
         @Override
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data.toString());
-            toolbar_collect.setSelected(true);
             makeTextShort(getString(R.string.str_collect_success));
+            toolbar_collect.setSelected(true);
+            notifyChangeState(true);
             EventBus.getDefault().post(new MessageEvent(Constant.UPDATE_BEAUTY_FRAGMENT));
         }
 
@@ -230,6 +248,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data.toString());
             toolbar_collect.setSelected(false);
+            notifyChangeState(false);
             EventBus.getDefault().post(new MessageEvent(Constant.UPDATE_BEAUTY_FRAGMENT));
         }
 
@@ -238,6 +257,13 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
             makeTextShort(error_msg);
         }
     };
+
+    private void notifyChangeState(boolean isSelect) {
+        BeautyImgInfo beautyImgInfo = showPicPagerAdapter.getBeautyImagesList().get(currentPosition);
+        LogTool.d(TAG, "beautyImgInfo=====>" + beautyImgInfo.get_id());
+        beautyImgInfo.setIs_my_favorite(isSelect);
+        showPicPagerAdapter.notifyDataSetChanged();
+    }
 
     @Override
     public void onPageScrollStateChanged(int arg0) {
@@ -254,9 +280,26 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
     @Override
     public void onPageSelected(int arg0) {
         currentPosition = arg0;
-        pic_tip.setText((currentPosition + 1) + "/" + totalCount);
-        currentImgId = imgList.get(currentPosition);
-        LogTool.d(TAG, "currentImgId=" + currentImgId);
+        LogTool.d(TAG, "currentPosition=" + currentPosition);
+        setPreviewImgInfo(currentPosition);
+    }
+
+    private void setPreviewImgInfo(int position) {
+        LogTool.d(TAG, "position===" + position);
+        pic_tip.setText((position + 1) + "/" + totalCount);
+        BeautyImgInfo beautyImgInfo = beautiful_images.get(position);
+        currentImgId = beautyImgInfo.getImages().get(0).getImageid();
+        LogTool.d(TAG, "  currentImgId=" + currentImgId);
+        picTitle = beautyImgInfo.getTitle();
+        currentStyle = beautyImgInfo.getDec_style();
+        currentTag = beautyImgInfo.getSection();
+        LogTool.d(TAG, "picTitle:" + picTitle + " currentStyle:" + currentStyle + " currentTag:" + currentTag);
+        decorationId = beautyImgInfo.get_id();
+        if (beautyImgInfo.is_my_favorite()) {
+            toolbar_collect.setSelected(true);
+        } else {
+            toolbar_collect.setSelected(false);
+        }
     }
 
     private void showPopwindow() {
@@ -268,43 +311,14 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
 
             @Override
             public void onComplete(SHARE_MEDIA share_media, int i, SocializeEntity socializeEntity) {
-                LogTool.d("onComplete","status =" + i);
+                LogTool.d(TAG, "status =" + i);
             }
         });
-       /* SharePopWindow window = new SharePopWindow(PreviewDecorationActivity.this, new ShowPopWindowCallBack() {
-            @Override
-            public void shareToWeiXin() {
-                shareByPlatform(SHARE_MEDIA.WEIXIN);
-            }
-
-            @Override
-            public void shareToWeiBo() {
-                shareByPlatform(SHARE_MEDIA.SINA);
-            }
-
-            @Override
-            public void shareToQQ() {
-                shareByPlatform(SHARE_MEDIA.QQ);
-            }
-
-            @Override
-            public void shareToCircle() {
-                shareByPlatform(SHARE_MEDIA.WEIXIN_CIRCLE);
-            }
-
-            @Override
-            public void shareToZone() {
-                shareByPlatform(SHARE_MEDIA.QZONE);
-            }
-        }
-
-        );
-        window.show(view);*/
     }
 
-
     private void downloadImg() {
-        ImageView photoView = (ImageView) viewPager.getChildAt(currentPosition).findViewById(R.id.image_item);
+        View view = imgViewPager.getChildAt(0).findViewById(R.id.viewPagerLayout);
+        ImageView photoView = (ImageView) view.findViewById(R.id.image_item);
         try {
             boolean isSuccess = ImageUtil.snapshot(this, photoView, 100);
             if (isSuccess) {
@@ -316,7 +330,6 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
             makeTextShort(getResources().getString(R.string.save_image_failure));
         }
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -193,4 +193,5 @@ public class Constant {
     public static final int UPDATE_PRODUCT_FRAGMENT = 60;
     public static final int UPDATE_BEAUTY_FRAGMENT = 70;
     public static final int UPDATE_ORDER_DESIGNER_ACTIVITY = 80;
+    public static final int UPDATE_BEAUTY_IMG_FRAGMENT = 90;
 }

@@ -40,6 +40,12 @@ public class Global {
     public static final String ATTITUDE = "attitude";
     public static final String DECORATION_ID = "decoration_id";
     public static final String POSITION = "position";
+    public static final String IMG_LIST = "img_list";
+    public static final String TOTAL_COUNT = "total";
+    public static final String HOUSE_SECTION = "section";
+    public static final String HOUSE_STYLE = "houseStyle";
+    public static final String DEC_STYLE = "decStyle";
+
 
     public static final String TOPIC_PLAN = "0";//方案评论
     public static final String TOPIC_NODE = "1";//节点评论
@@ -90,4 +96,9 @@ public class Global {
     public static int SECTION_POSITION = 0;
     public static int HOUSE_TYPE_POSITION = 0;
     public static int DEC_STYLE_POSITION = 0;
+
+    public static int DEC_TYPE_POSITION = 0;
+    public static int DEC_HOUSE_TYPE_POSITION = 0;
+    public static int STYLE_POSITION = 0;
+    public static int DEC_FEE_POSITION = 0;
 }
