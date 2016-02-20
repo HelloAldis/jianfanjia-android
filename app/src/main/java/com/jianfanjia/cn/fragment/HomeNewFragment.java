@@ -13,7 +13,9 @@ import android.widget.ScrollView;
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.home.DecStrategyActivity_;
 import com.jianfanjia.cn.activity.home.SearchActivity_;
+import com.jianfanjia.cn.activity.my.CustomerServiceActivity;
 import com.jianfanjia.cn.activity.requirement.PublishRequirementActivity_;
 import com.jianfanjia.cn.adapter.HomeProductPagerAdapter;
 import com.jianfanjia.cn.adapter.ViewPageAdapter;
@@ -125,6 +127,7 @@ public class HomeNewFragment extends BaseAnnotationFragment {
                 startActivityForResult(intent, XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT);
                 break;
             case R.id.ltm_home_layout1:
+                startActivity(DecStrategyActivity_.class);
                 break;
             case R.id.ltm_home_layout2:
                 ((MainActivity)getActivity()).switchTab(Constant.DECORATE);
