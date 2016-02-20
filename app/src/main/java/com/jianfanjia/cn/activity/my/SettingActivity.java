@@ -14,6 +14,7 @@ import android.widget.ToggleButton;
 import com.jianfanjia.cn.activity.LoginNewActivity_;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
+import com.jianfanjia.cn.activity.home.DesignerCaseListActivity;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.tools.AuthUtil;
 import com.jianfanjia.cn.tools.FileUtil;
@@ -120,7 +121,7 @@ public class SettingActivity extends SwipeBackActivity implements OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.feedback_layout:
-                startActivity(FeedBackActivity.class);
+                startActivity(DesignerCaseListActivity.class);
                 break;
             case R.id.about_layout:
                 startActivity(AboutActivity.class);

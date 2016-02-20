@@ -24,7 +24,6 @@ import java.util.List;
  * Created by donglua on 15/6/21.
  */
 public class HomeProductPagerAdapter extends PagerAdapter {
-
     private List<ProductNew> paths;
     private Context mContext;
     private LayoutInflater mLayoutInflater;
@@ -48,19 +47,14 @@ public class HomeProductPagerAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, final int position) {
-
-        NestedScrollView itemView = (NestedScrollView)mLayoutInflater.inflate(R.layout.viewpager_item_home, container, false);
-
+        NestedScrollView itemView = (NestedScrollView) mLayoutInflater.inflate(R.layout.viewpager_item_home, container, false);
         ImageView imageView = (ImageView) itemView.findViewById(R.id.viewpager_home_item_pic);
-        imageView.setLayoutParams(new FrameLayout.LayoutParams(width,height));
-
+        imageView.setLayoutParams(new FrameLayout.LayoutParams(width, height));
         ProductNew productNew = paths.get(position);
         ImageInfo imageInfo = productNew.getImages().get(0);
-
         String uri = Url_New.getInstance().GET_THUMBNAIL_IMAGE2.replace(Url_New.WIDTH, width + "") + height + "/" + imageInfo.getImageid();
         LogTool.d(this.getClass().getName(), " uri =" + uri);
-
-        Picasso.with(mContext).load(uri).resize(width,height)
+        Picasso.with(mContext).load(uri).resize(width, height)
                 .placeholder(R.mipmap.icon_default_pic)
                 .error(R.drawable.ic_broken_image_black_48dp)
                 .into(imageView);
@@ -73,9 +67,7 @@ public class HomeProductPagerAdapter extends PagerAdapter {
                 }
             }
         });
-
         container.addView(itemView);
-
         return itemView;
     }
 
