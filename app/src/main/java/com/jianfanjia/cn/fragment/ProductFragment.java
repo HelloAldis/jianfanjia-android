@@ -26,6 +26,8 @@ import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
+import com.jianfanjia.cn.view.library.PullToRefreshBase;
+import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,14 +40,15 @@ import de.greenrobot.event.EventBus;
  * @Description: 作品
  * @date 2015-8-26 下午1:07:52
  */
-public class ProductFragment extends BaseFragment implements ApiUiUpdateListener, RecyclerViewOnItemClickListener {
+public class ProductFragment extends BaseFragment implements PullToRefreshBase.OnRefreshListener2<RecyclerView> {
     private static final String TAG = ProductFragment.class.getName();
-    private RecyclerView prodtct_listview = null;
+    private PullToRefreshRecycleView prodtct_listview = null;
     private RelativeLayout emptyLayout = null;
     private RelativeLayout errorLayout = null;
     private ProductAdapter productAdapter = null;
     private List<Product> products = new ArrayList<Product>();
     private int currentPos = -1;
+    private int FROM = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,8 +60,10 @@ public class ProductFragment extends BaseFragment implements ApiUiUpdateListener
     public void initView(View view) {
         emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
         errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
-        prodtct_listview = (RecyclerView) view.findViewById(R.id.prodtct_listview);
+        prodtct_listview = (PullToRefreshRecycleView) view.findViewById(R.id.prodtct_listview);
+        prodtct_listview.setMode(PullToRefreshBase.Mode.BOTH);
         prodtct_listview.setLayoutManager(new LinearLayoutManager(getActivity()));
+        prodtct_listview.setHasFixedSize(true);
         prodtct_listview.setItemAnimator(new DefaultItemAnimator());
         Paint paint = new Paint();
         paint.setStrokeWidth(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getResources().getDisplayMetrics()));
@@ -72,18 +77,20 @@ public class ProductFragment extends BaseFragment implements ApiUiUpdateListener
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
             LogTool.d(TAG, "ProductFragment 可见");
-            getProductList();
+            FROM = 0;
+            getProductList(FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
         } else {
             LogTool.d(TAG, "ProductFragment 不可见");
         }
     }
 
-    private void getProductList() {
-        JianFanJiaClient.getCollectListByUser(getActivity(), 0, 100, this, this);
+    private void getProductList(int from, int limit, ApiUiUpdateListener listener) {
+        JianFanJiaClient.getCollectListByUser(getActivity(), from, limit, listener, this);
     }
 
     @Override
     public void setListener() {
+        prodtct_listview.setOnRefreshListener(this);
         errorLayout.setOnClickListener(this);
     }
 
@@ -91,7 +98,7 @@ public class ProductFragment extends BaseFragment implements ApiUiUpdateListener
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.error_include:
-                getProductList();
+                getProductList(FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
                 break;
             default:
                 break;
@@ -99,64 +106,113 @@ public class ProductFragment extends BaseFragment implements ApiUiUpdateListener
     }
 
     @Override
-    public void preLoad() {
-
+    public void onPullDownToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
+        FROM = 0;
+        getProductList(FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
     }
 
     @Override
-    public void loadSuccess(Object data) {
-        LogTool.d(TAG, "data=" + data.toString());
-        ProductInfo productInfo = JsonParser.jsonToBean(data.toString(), ProductInfo.class);
-        LogTool.d(TAG, "productInfo=" + productInfo);
-        if (productInfo != null) {
-            products = productInfo.getProducts();
-            if (null != products && products.size() > 0) {
-                productAdapter = new ProductAdapter(getActivity(), products, this);
-                prodtct_listview.setAdapter(productAdapter);
-                prodtct_listview.setVisibility(View.VISIBLE);
-                emptyLayout.setVisibility(View.GONE);
-                errorLayout.setVisibility(View.GONE);
-            } else {
-                prodtct_listview.setVisibility(View.GONE);
-                emptyLayout.setVisibility(View.VISIBLE);
-                errorLayout.setVisibility(View.GONE);
+    public void onPullUpToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
+        getProductList(FROM, Constant.HOME_PAGE_LIMIT, pullUpListener);
+    }
+
+
+    private ApiUiUpdateListener pullDownListener = new ApiUiUpdateListener() {
+        @Override
+        public void preLoad() {
+
+        }
+
+        @Override
+        public void loadSuccess(Object data) {
+            LogTool.d(TAG, "data=" + data.toString());
+            prodtct_listview.onRefreshComplete();
+            ProductInfo productInfo = JsonParser.jsonToBean(data.toString(), ProductInfo.class);
+            LogTool.d(TAG, "productInfo=" + productInfo);
+            if (productInfo != null) {
+                products.clear();
+                products.addAll(productInfo.getProducts());
+                if (null != products && products.size() > 0) {
+                    productAdapter = new ProductAdapter(getActivity(), products, new RecyclerViewOnItemClickListener() {
+                        @Override
+                        public void OnItemClick(View view, int position) {
+                            LogTool.d(TAG, "position:" + position);
+                            currentPos = position;
+                            Product product = products.get(position);
+                            String productid = product.get_id();
+                            LogTool.d(TAG, "productid:" + productid);
+                            Intent productIntent = new Intent(getActivity(), DesignerCaseInfoActivity.class);
+                            Bundle productBundle = new Bundle();
+                            productBundle.putString(Global.PRODUCT_ID, productid);
+                            productIntent.putExtras(productBundle);
+                            startActivity(productIntent);
+                        }
+
+                        @Override
+                        public void OnViewClick(int position) {
+                            Product product = products.get(position);
+                            String designertid = product.getDesignerid();
+                            LogTool.d(TAG, "designertid=" + designertid);
+                            Intent designerIntent = new Intent(getActivity(), DesignerInfoActivity.class);
+                            Bundle designerBundle = new Bundle();
+                            designerBundle.putString(Global.DESIGNER_ID, designertid);
+                            designerIntent.putExtras(designerBundle);
+                            startActivity(designerIntent);
+                        }
+                    });
+                    prodtct_listview.setAdapter(productAdapter);
+                    prodtct_listview.setVisibility(View.VISIBLE);
+                    emptyLayout.setVisibility(View.GONE);
+                    errorLayout.setVisibility(View.GONE);
+                } else {
+                    prodtct_listview.setVisibility(View.GONE);
+                    emptyLayout.setVisibility(View.VISIBLE);
+                    errorLayout.setVisibility(View.GONE);
+                }
+                FROM = products.size();
+                LogTool.d(TAG, "FROM:" + FROM);
             }
         }
-    }
 
-    @Override
-    public void loadFailture(String error_msg) {
-        makeTextLong(error_msg);
-        prodtct_listview.setVisibility(View.GONE);
-        emptyLayout.setVisibility(View.GONE);
-        errorLayout.setVisibility(View.VISIBLE);
-    }
+        @Override
+        public void loadFailture(String error_msg) {
+            makeTextLong(error_msg);
+            prodtct_listview.onRefreshComplete();
+            prodtct_listview.setVisibility(View.GONE);
+            emptyLayout.setVisibility(View.GONE);
+            errorLayout.setVisibility(View.VISIBLE);
+        }
+    };
 
-    @Override
-    public void OnItemClick(View view, int position) {
-        LogTool.d(TAG, "position:" + position);
-        currentPos = position;
-        Product product = products.get(position);
-        String productid = product.get_id();
-        LogTool.d(TAG, "productid:" + productid);
-        Intent productIntent = new Intent(getActivity(), DesignerCaseInfoActivity.class);
-        Bundle productBundle = new Bundle();
-        productBundle.putString(Global.PRODUCT_ID, productid);
-        productIntent.putExtras(productBundle);
-        startActivity(productIntent);
-    }
+    private ApiUiUpdateListener pullUpListener = new ApiUiUpdateListener() {
+        @Override
+        public void preLoad() {
 
-    @Override
-    public void OnViewClick(int position) {
-        Product product = products.get(position);
-        String designertid = product.getDesignerid();
-        LogTool.d(TAG, "designertid=" + designertid);
-        Intent designerIntent = new Intent(getActivity(), DesignerInfoActivity.class);
-        Bundle designerBundle = new Bundle();
-        designerBundle.putString(Global.DESIGNER_ID, designertid);
-        designerIntent.putExtras(designerBundle);
-        startActivity(designerIntent);
-    }
+        }
+
+        @Override
+        public void loadSuccess(Object data) {
+            LogTool.d(TAG, "data=" + data.toString());
+            prodtct_listview.onRefreshComplete();
+            ProductInfo productInfo = JsonParser.jsonToBean(data.toString(), ProductInfo.class);
+            LogTool.d(TAG, "productInfo=" + productInfo);
+            if (productInfo != null) {
+                List<Product> productList = productInfo.getProducts();
+                if (null != productList && productList.size() > 0) {
+                    productAdapter.add(FROM, productList);
+                    FROM += Constant.HOME_PAGE_LIMIT;
+                } else {
+                    makeTextShort(getResources().getString(R.string.no_more_data));
+                }
+            }
+        }
+
+        @Override
+        public void loadFailture(String error_msg) {
+            makeTextLong(error_msg);
+            prodtct_listview.onRefreshComplete();
+        }
+    };
 
     public void onEventMainThread(MessageEvent event) {
         switch (event.getEventType()) {

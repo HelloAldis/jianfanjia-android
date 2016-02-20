@@ -3,6 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.jianfanjia.cn.activity">
 
+    <uses-sdk
+        android:minSdkVersion="15"
+        android:targetSdkVersion="23"
+        tools:overrideLibrary="com.umeng.socialize.evernote,com.umeng.socialize.pinterest" />
+
     <!-- 屏幕适配 -->
     <supports-screens
         android:anyDensity="true"
@@ -10,11 +15,6 @@
         android:normalScreens="true"
         android:smallScreens="true"
         android:xlargeScreens="true" />
-
-    <uses-sdk
-        android:minSdkVersion="15"
-        android:targetSdkVersion="23"
-        tools:overrideLibrary="com.umeng.socialize.evernote,com.umeng.socialize.pinterest" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -41,7 +41,7 @@
 
     <permission
         android:name="getui.permission.GetuiService.com.jianfanjia.cn.user"
-        android:protectionLevel="normal"></permission>
+        android:protectionLevel="normal" />
 
     <!-- QQ、QQ空间所需权限 -->
     <uses-permission android:name="android.permission.GET_TASKS" />
@@ -413,7 +413,7 @@
             android:launchMode="singleTask"
             android:noHistory="true"
             android:theme="@style/Theme.UMDialog"
-            android:windowSoftInputMode="stateVisible|adjustResize"></activity>
+            android:windowSoftInputMode="stateVisible|adjustResize" />
 
         <!-- 腾讯SSO授权的Activity注册 -->
         <activity
@@ -438,6 +438,18 @@
             android:name=".my.CustomerServiceActivity"
             android:label="@string/title_activity_customer_service"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".home.DecorateStrategyActivity"
+            android:label="@string/title_activity_decorate_strategy"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".home.DesignerListActivity"
+            android:label="@string/title_activity_designer_list"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".home.DesignerCaseListActivity"
+            android:label="@string/title_activity_designer_case_list"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>
