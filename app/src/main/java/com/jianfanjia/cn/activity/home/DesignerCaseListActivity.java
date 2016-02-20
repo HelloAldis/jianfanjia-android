@@ -133,7 +133,7 @@ public class DesignerCaseListActivity extends BaseActivity implements View.OnCli
                 LogTool.d(TAG, "requirement=" + requirement);
                 designerList.clear();
                 designerList.addAll(homeDesignersInfo.getDesigners());
-                designerAdapter = new DesignerListAdapter(DesignerCaseListActivity.this, designerList, requirement, new ListItemClickListener() {
+                designerAdapter = new DesignerListAdapter(DesignerCaseListActivity.this, designerList, new ListItemClickListener() {
                     @Override
                     public void onMaxClick(int position) {
                         DesignerListInfo designerListInfo = designerList.get(position);
@@ -167,8 +167,7 @@ public class DesignerCaseListActivity extends BaseActivity implements View.OnCli
 
                     @Override
                     public void onClick() {
-//                        Intent intent = new Intent(getActivity(), PublishRequirementActivity_.class);
-//                        getActivity().startActivityForResult(intent, XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT);
+
                     }
                 });
                 pullToRefreshRecyclerView.setAdapter(designerAdapter);
