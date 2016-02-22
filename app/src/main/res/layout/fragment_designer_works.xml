@@ -4,14 +4,16 @@
     android:layout_height="match_parent"
     android:background="@color/main_layout_bg">
 
-    <android.support.v7.widget.RecyclerView
+    <com.jianfanjia.cn.view.library.PullToRefreshRecycleView xmlns:ptr="http://schemas.android.com/apk/res-auto"
         android:id="@+id/designer_works_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="10dip"
         android:layout_marginRight="10dip"
         android:layout_marginTop="10dip"
-        android:scrollbars="none" />
+        android:scrollbars="none"
+        ptr:ptrAnimationStyle="flip"
+        ptr:ptrHeaderTextColor="#344a5d" />
 
 </FrameLayout>
 

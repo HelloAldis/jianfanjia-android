@@ -16,7 +16,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class BusinessManager {
 
@@ -190,6 +192,54 @@ public class BusinessManager {
         }
         return null;
     }
+
+    public static String getDecAreaByText(String decAreaText) {
+        try {
+            String[] items = MyApplication.getInstance().getResources().getStringArray(R.array.arr_area);
+            for (int i = 0; i < items.length; i++) {
+                if (items[i].equals(decAreaText)) {
+                    return i + "";
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static Map<String, Object> convertDecAreaValueByText(String decAreaText) {
+        try {
+            String area = getDecAreaByText(decAreaText);
+            if (null != area) {
+                Map<String, Object> param = new HashMap<>();
+                switch (Integer.parseInt(area)) {
+                    case 0:
+                        param.put("$lt", 90);
+                        break;
+                    case 1:
+                        param.put("$gte", 90);
+                        param.put("$lt", 120);
+                        break;
+                    case 2:
+                        param.put("$gte", 120);
+                        param.put("$lt", 150);
+                        break;
+                    case 3:
+                        param.put("$gte", 150);
+                        param.put("$lt", 200);
+                        break;
+                    default:
+                        param.put("$gte", 200);
+                        break;
+                }
+                return param;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
     /**
      * 比较需求是否改变

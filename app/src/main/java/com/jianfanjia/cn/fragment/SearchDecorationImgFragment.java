@@ -8,26 +8,27 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.widget.RelativeLayout;
 
-import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.beautifulpic.PreviewDecorationActivity;
-import com.jianfanjia.cn.adapter.DecorationImgAdapter;
+import com.jianfanjia.cn.adapter.SearchDecorationImgAdapter;
+import com.jianfanjia.cn.adapter.base.BaseLoadingAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.BeautyImgInfo;
 import com.jianfanjia.cn.bean.DecorationItemInfo;
-import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
+import com.jianfanjia.cn.http.request.SearchDecorationImgRequest;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
+import com.jianfanjia.cn.interf.OnItemClickListener;
 import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.baseview.SpacesItemDecoration;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
-import de.greenrobot.event.EventBus;
+import java.util.Map;
 
 /**
  * @author fengliang
@@ -37,39 +38,36 @@ import de.greenrobot.event.EventBus;
  */
 public class SearchDecorationImgFragment extends BaseFragment implements ApiUiUpdateListener, RecyclerViewOnItemClickListener {
     private static final String TAG = SearchDecorationImgFragment.class.getName();
+
+    public static final int PAGE_COUNT = 10;
     private RecyclerView decoration_img_listview = null;
     private RelativeLayout emptyLayout = null;
     private RelativeLayout errorLayout = null;
-    private List<BeautyImgInfo> beautyImgList = new ArrayList<BeautyImgInfo>();
-    private DecorationImgAdapter decorationImgAdapter = null;
-    private int currentPos = -1;
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        EventBus.getDefault().register(this);
-    }
+    private List<BeautyImgInfo> beautyImgList;
+    private SearchDecorationImgAdapter decorationImgAdapter = null;
+    private int currentPos = 0;
+    private String search = null;
 
     @Override
     public void initView(View view) {
         emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
         errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
-        decoration_img_listview = (RecyclerView) view.findViewById(R.id.decoration_img_listview);
+        decoration_img_listview = (RecyclerView) view.findViewById(R.id.recycleview);
         decoration_img_listview.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         decoration_img_listview.setItemAnimator(new DefaultItemAnimator());
         SpacesItemDecoration decoration = new SpacesItemDecoration(5);
         decoration_img_listview.addItemDecoration(decoration);
+
+        search = getArguments().getString(Global.SEARCH_TEXT);
+        getDecorationImgInfo(currentPos, PAGE_COUNT,search , this);
     }
 
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser) {
-            LogTool.d(TAG, "DecorationImgFragment 可见");
-            getDecorationImgList();
-        } else {
-            LogTool.d(TAG, "DecorationImgFragment 不可见");
-        }
+    private void getDecorationImgInfo(int from, int limit, String searchText, ApiUiUpdateListener listener) {
+        Map<String, Object> param = new HashMap<>();
+        param.put("search_word", searchText);
+        param.put("from", from);
+        param.put("limit", limit);
+        JianFanJiaClient.searchDecorationImg(new SearchDecorationImgRequest(getContext(), param), listener, this);
     }
 
     @Override
@@ -81,15 +79,11 @@ public class SearchDecorationImgFragment extends BaseFragment implements ApiUiUp
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.error_include:
-                getDecorationImgList();
+                getDecorationImgInfo(currentPos, PAGE_COUNT, search, this);
                 break;
             default:
                 break;
         }
-    }
-
-    private void getDecorationImgList() {
-        JianFanJiaClient.getBeautyImgListByUser(getActivity(), 0, 100, this, this);
     }
 
     @Override
@@ -105,8 +99,37 @@ public class SearchDecorationImgFragment extends BaseFragment implements ApiUiUp
         if (null != decorationItemInfo) {
             beautyImgList = decorationItemInfo.getBeautiful_images();
             if (null != beautyImgList && beautyImgList.size() > 0) {
-                decorationImgAdapter = new DecorationImgAdapter(getActivity(), beautyImgList, this);
-                decoration_img_listview.setAdapter(decorationImgAdapter);
+                currentPos += beautyImgList.size();
+                if (decorationImgAdapter == null) {
+                    decorationImgAdapter = new SearchDecorationImgAdapter(getActivity(), decoration_img_listview, beautyImgList, PAGE_COUNT, new OnItemClickListener() {
+                        @Override
+                        public void OnItemClick(int position) {
+                            LogTool.d(TAG, "position=" + position);
+                            BeautyImgInfo beautyImgInfo = beautyImgList.get(position);
+                            LogTool.d(TAG, "beautyImgInfo:" + beautyImgInfo);
+                            Intent decorationIntent = new Intent(getActivity(), PreviewDecorationActivity.class);
+                            Bundle decorationBundle = new Bundle();
+                            decorationBundle.putString(Global.DECORATION_ID, beautyImgInfo.get_id());
+                            decorationBundle.putInt(Global.POSITION, position);
+                            decorationBundle.putSerializable(Global.IMG_LIST, (ArrayList<BeautyImgInfo>) beautyImgList);
+//                        decorationBundle.putString(Global.HOUSE_SECTION, section);
+//                        decorationBundle.putString(Global.HOUSE_STYLE, houseStyle);
+//                        decorationBundle.putString(Global.DEC_STYLE, decStyle);
+//                        decorationBundle.putInt(Global.TOTAL_COUNT, total);
+                            decorationIntent.putExtras(decorationBundle);
+                            startActivity(decorationIntent);
+                        }
+                    });
+                    decorationImgAdapter.setOnLoadingListener(new BaseLoadingAdapter.OnLoadingListener() {
+                        @Override
+                        public void loading() {
+                            getDecorationImgInfo(currentPos, PAGE_COUNT, search, SearchDecorationImgFragment.this);
+                        }
+                    });
+                    decoration_img_listview.setAdapter(decorationImgAdapter);
+                } else {
+                    decorationImgAdapter.addAll(beautyImgList);
+                }
                 decoration_img_listview.setVisibility(View.VISIBLE);
                 emptyLayout.setVisibility(View.GONE);
             } else {
@@ -144,29 +167,9 @@ public class SearchDecorationImgFragment extends BaseFragment implements ApiUiUp
 
     }
 
-    public void onEventMainThread(MessageEvent event) {
-        switch (event.getEventType()) {
-            case Constant.UPDATE_BEAUTY_FRAGMENT:
-                decorationImgAdapter.remove(currentPos);
-                if (beautyImgList.size() == 0) {
-                    decoration_img_listview.setVisibility(View.GONE);
-                    emptyLayout.setVisibility(View.VISIBLE);
-                }
-                break;
-            default:
-                break;
-        }
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
-    }
-
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_decoration_img;
+        return R.layout.fragment_search_decoration_img;
     }
 
 }

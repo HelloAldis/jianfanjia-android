@@ -10,17 +10,17 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.RelativeLayout;
 
-import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.home.DesignerCaseInfoActivity;
 import com.jianfanjia.cn.activity.home.DesignerInfoActivity;
-import com.jianfanjia.cn.adapter.ProductAdapter;
+import com.jianfanjia.cn.adapter.SearchProductAdapter;
+import com.jianfanjia.cn.adapter.base.BaseLoadingAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.Product;
 import com.jianfanjia.cn.bean.ProductInfo;
-import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
+import com.jianfanjia.cn.http.request.SearchDesignerProductRequest;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
 import com.jianfanjia.cn.tools.JsonParser;
@@ -28,9 +28,9 @@ import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
-import de.greenrobot.event.EventBus;
+import java.util.Map;
 
 /**
  * @author fengliang
@@ -43,21 +43,23 @@ public class SearchProductFragment extends BaseFragment implements ApiUiUpdateLi
     private RecyclerView prodtct_listview = null;
     private RelativeLayout emptyLayout = null;
     private RelativeLayout errorLayout = null;
-    private ProductAdapter productAdapter = null;
+    private SearchProductAdapter productAdapter = null;
     private List<Product> products = new ArrayList<Product>();
-    private int currentPos = -1;
+    public static final int PAGE_COUNT = 10;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        EventBus.getDefault().register(this);
-    }
+    private int currentPos = 0;
+    private int FROM = 0;
+    private String decType = null;
+    private String designStyle = null;
+    private String houseType = null;
+    private String decArea = null;
+    private String search = null;
 
     @Override
     public void initView(View view) {
         emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
         errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
-        prodtct_listview = (RecyclerView) view.findViewById(R.id.prodtct_listview);
+        prodtct_listview = (RecyclerView) view.findViewById(R.id.recycleview);
         prodtct_listview.setLayoutManager(new LinearLayoutManager(getActivity()));
         prodtct_listview.setItemAnimator(new DefaultItemAnimator());
         Paint paint = new Paint();
@@ -65,21 +67,17 @@ public class SearchProductFragment extends BaseFragment implements ApiUiUpdateLi
         paint.setAlpha(0);
         paint.setAntiAlias(true);
         prodtct_listview.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).paint(paint).showLastDivider().build());
+
+        search = getArguments().getString(Global.SEARCH_TEXT);
+        searchProduct(currentPos,search);
     }
 
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser) {
-            LogTool.d(TAG, "ProductFragment 可见");
-            getProductList();
-        } else {
-            LogTool.d(TAG, "ProductFragment 不可见");
-        }
-    }
-
-    private void getProductList() {
-        JianFanJiaClient.getCollectListByUser(getActivity(), 0, 100, this, this);
+    private void searchProduct(int from, String searchText) {
+        Map<String, Object> param = new HashMap<>();
+        param.put("search_word", searchText);
+        param.put("limit", PAGE_COUNT);
+        param.put("from", from);
+        JianFanJiaClient.searchDesignerProduct(new SearchDesignerProductRequest(getContext(), param), this, this);
     }
 
     @Override
@@ -91,7 +89,7 @@ public class SearchProductFragment extends BaseFragment implements ApiUiUpdateLi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.error_include:
-                getProductList();
+                searchProduct(currentPos,search);
                 break;
             default:
                 break;
@@ -111,8 +109,19 @@ public class SearchProductFragment extends BaseFragment implements ApiUiUpdateLi
         if (productInfo != null) {
             products = productInfo.getProducts();
             if (null != products && products.size() > 0) {
-                productAdapter = new ProductAdapter(getActivity(), products, this);
-                prodtct_listview.setAdapter(productAdapter);
+                currentPos += products.size();
+                if (productAdapter == null) {
+                    productAdapter = new SearchProductAdapter(getActivity(), prodtct_listview, products, this ,PAGE_COUNT);
+                    productAdapter.setOnLoadingListener(new BaseLoadingAdapter.OnLoadingListener() {
+                        @Override
+                        public void loading() {
+                            searchProduct(currentPos,search);
+                        }
+                    });
+                    prodtct_listview.setAdapter(productAdapter);
+                } else {
+                    productAdapter.addAll(products);
+                }
                 prodtct_listview.setVisibility(View.VISIBLE);
                 emptyLayout.setVisibility(View.GONE);
                 errorLayout.setVisibility(View.GONE);
@@ -126,7 +135,7 @@ public class SearchProductFragment extends BaseFragment implements ApiUiUpdateLi
 
     @Override
     public void loadFailture(String error_msg) {
-        makeTextLong(error_msg);
+        makeTextShort(error_msg);
         prodtct_listview.setVisibility(View.GONE);
         emptyLayout.setVisibility(View.GONE);
         errorLayout.setVisibility(View.VISIBLE);
@@ -158,28 +167,8 @@ public class SearchProductFragment extends BaseFragment implements ApiUiUpdateLi
         startActivity(designerIntent);
     }
 
-    public void onEventMainThread(MessageEvent event) {
-        switch (event.getEventType()) {
-            case Constant.UPDATE_PRODUCT_FRAGMENT:
-                productAdapter.remove(currentPos);
-                if (products.size() == 0) {
-                    prodtct_listview.setVisibility(View.GONE);
-                    emptyLayout.setVisibility(View.VISIBLE);
-                }
-                break;
-            default:
-                break;
-        }
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
-    }
-
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_product;
+        return R.layout.fragment_search_product;
     }
 }

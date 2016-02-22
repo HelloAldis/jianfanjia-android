@@ -15,6 +15,7 @@ import com.jianfanjia.cn.adapter.base.BaseLoadingAdapter;
 import com.jianfanjia.cn.bean.DesignerInfo;
 import com.jianfanjia.cn.cache.BusinessManager;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
 import com.jianfanjia.cn.tools.ImageShow;
 
 import java.util.List;
@@ -27,14 +28,12 @@ import java.util.List;
  */
 public class SearchDesignerAdapter extends BaseLoadingAdapter<DesignerInfo> {
 
-    private List<DesignerInfo> designerInfoItems;
-    private Context context;
+    private RecyclerViewOnItemClickListener listener;
 
-    public SearchDesignerAdapter(Context context,RecyclerView recyclerView, List<DesignerInfo> ts) {
-        super(recyclerView, ts);
+    public SearchDesignerAdapter(Context context,RecyclerView recyclerView, List<DesignerInfo> ts ,int pageSize,RecyclerViewOnItemClickListener recyclerViewOnItemClickListener) {
+        super(context,recyclerView, ts ,pageSize);
+        this.listener = recyclerViewOnItemClickListener;
 
-        this.context = context;
-        this.designerInfoItems = ts;
     }
 
     @Override
@@ -44,10 +43,10 @@ public class SearchDesignerAdapter extends BaseLoadingAdapter<DesignerInfo> {
     }
 
     @Override
-    public void onBindNormalViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
+    public void onBindNormalViewHolder(RecyclerView.ViewHolder viewHolder, final int position) {
         SearchDesignerViewHolder holder = (SearchDesignerViewHolder) viewHolder;
 
-        DesignerInfo designerInfo = designerInfoItems.get(position);
+        DesignerInfo designerInfo = mTs.get(position);
 
         holder.nameView.setText(TextUtils.isEmpty(designerInfo.getUsername()) ? context.getResources().getString(R.string.designer) : designerInfo.getUsername());
         String imageid = designerInfo.getImageid();
@@ -62,14 +61,19 @@ public class SearchDesignerAdapter extends BaseLoadingAdapter<DesignerInfo> {
         } else {
             holder.infoAuthImageView.setVisibility(View.GONE);
         }
+        if(designerInfo.getUid_auth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)){
+            holder.identityAuthImageView.setVisibility(View.VISIBLE);
+        }else{
+            holder.identityAuthImageView.setVisibility(View.GONE);
+        }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                listener.OnViewClick(position);
             }
         });
-        holder.productSumView.setText(designerInfo.getProduct_count() + "");
-        holder.designerFeeView.setText(designerInfo.getDec_fee_half() + "-" + designerInfo.getDec_fee_all());
+        holder.productSumView.setText(designerInfo.getAuthed_product_count());
+        holder.designerFeeView.setText(BusinessManager.convertDesignFeeToShow(designerInfo.getDesign_fee_range()));
         holder.appointSumView.setText(designerInfo.getOrder_count() + "");
 
         holder.decorateHouseStyleView.setText(BusinessManager.getHouseTypeStr(designerInfo.getDec_house_types()));

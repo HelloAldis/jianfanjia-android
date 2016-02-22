@@ -184,10 +184,6 @@ public class MainActivity extends BaseActivity implements
         Global.SECTION_POSITION = 0;
         Global.HOUSE_TYPE_POSITION = 0;
         Global.DEC_STYLE_POSITION = 0;
-        Global.DEC_TYPE_POSITION = 0;
-        Global.DEC_HOUSE_TYPE_POSITION = 0;
-        Global.STYLE_POSITION = 0;
-        Global.DEC_FEE_POSITION = 0;
     }
 
     @Override

@@ -2,8 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/main_layout_bg">
+    android:background="@color/main_layout_bg"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -26,7 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:padding="@dimen/space_4"
+                android:padding="@dimen/space_6"
                 android:src="@mipmap/icon_search0" />
 
             <EditText
@@ -39,7 +40,6 @@
                 android:ellipsize="end"
                 android:gravity="left|center_vertical"
                 android:hint="@string/searh_tip"
-                android:inputType="phone"
                 android:maxLength="15"
                 android:paddingLeft="@dimen/space_8"
                 android:paddingRight="@dimen/space_8"
@@ -53,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:padding="@dimen/space_4"
+                android:padding="@dimen/space_6"
                 android:src="@mipmap/icon_delete" />
 
         </RelativeLayout>
@@ -66,8 +66,8 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:paddingBottom="@dimen/space_8"
-            android:paddingLeft="@dimen/space_16"
-            android:paddingRight="@dimen/space_16"
+            android:paddingLeft="@dimen/space_12"
+            android:paddingRight="@dimen/space_12"
             android:paddingTop="@dimen/space_8"
             android:text="@string/str_cancel" />
     </RelativeLayout>
@@ -80,64 +80,63 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-            <RadioGroup
-                android:id="@+id/tab_rg_menu"
+        <RadioGroup
+            android:id="@+id/tab_rg_menu"
+            android:layout_width="match_parent"
+            android:layout_height="48dip"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/tab_rb_1"
                 android:layout_width="match_parent"
-                android:layout_height="48dip"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="#00000000"
+                android:button="@null"
+                android:checked="true"
+                android:gravity="center"
+                android:text="@string/designer"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/middle_size" />
 
-                <RadioButton
-                    android:id="@+id/tab_rb_1"
-                    android:gravity="center"
-                    android:button="@null"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:background="#00000000"
-                    android:checked="true"
-                    android:text="@string/designer"
-                    android:textColor="@color/text_color"
-                    android:textSize="@dimen/middle_size" />
+            <View style="@style/vertical_divier_line" />
 
-                <View style="@style/vertical_divier_line" />
+            <RadioButton
+                android:id="@+id/tab_rb_2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="#00000000"
+                android:button="@null"
+                android:gravity="center"
+                android:text="@string/str_case"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/middle_size" />
 
-                <RadioButton
-                    android:id="@+id/tab_rb_2"
-                    android:gravity="center"
-                    android:button="@null"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:background="#00000000"
-                    android:text="@string/str_case"
-                    android:textColor="@color/text_color"
-                    android:textSize="@dimen/middle_size" />
+            <View style="@style/vertical_divier_line" />
 
-                <View style="@style/vertical_divier_line" />
-
-                <RadioButton
-                    android:id="@+id/tab_rb_3"
-                    android:gravity="center"
-                    android:button="@null"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:background="#00000000"
-                    android:text="@string/beauty_img"
-                    android:textColor="@color/text_color"
-                    android:textSize="@dimen/middle_size" />
-            </RadioGroup>
+            <RadioButton
+                android:id="@+id/tab_rb_3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="#00000000"
+                android:button="@null"
+                android:gravity="center"
+                android:text="@string/beauty_img"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/middle_size" />
+        </RadioGroup>
 
         <View style="@style/divier_line" />
 
         <FrameLayout
             android:id="@+id/container_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 

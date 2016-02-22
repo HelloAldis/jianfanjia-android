@@ -2,7 +2,6 @@ package com.jianfanjia.cn.http;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.text.TextUtils;
 
 import com.jianfanjia.cn.bean.CommitCommentInfo;
 import com.jianfanjia.cn.bean.OwnerInfo;
@@ -10,7 +9,6 @@ import com.jianfanjia.cn.bean.OwnerUpdateInfo;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.bean.WeiXinRegisterInfo;
-import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.http.request.AddBeautyImgRequest;
 import com.jianfanjia.cn.http.request.AddCollectionRequest;
@@ -692,48 +690,6 @@ public class JianFanJiaClient {
     }
 
     /**
-     * 获取设计师作品
-     *
-     * @param context
-     * @param designerid
-     * @param from
-     * @param limit
-     * @param listener
-     * @param tag
-     */
-    public static void searchDesignerProduct(Context context, String decType, String designStyle, String houseType, String decArea, String designerid, int from, int limit, ApiUiUpdateListener listener, Object tag) {
-        SearchDesignerProductRequest productRequest = new SearchDesignerProductRequest(context, designerid, from, limit);
-        JSONObject jsonParams = new JSONObject();
-        try {
-            JSONObject params1 = new JSONObject();
-            if (!TextUtils.isEmpty(decType) && !decType.equals(Constant.KEY_WORD)) {
-                params1.put("dec_type", decType);
-            }
-            if (!TextUtils.isEmpty(designStyle) && !designStyle.equals(Constant.KEY_WORD)) {
-                params1.put("dec_style", designStyle);
-            }
-            if (!TextUtils.isEmpty(houseType) && !houseType.equals(Constant.KEY_WORD)) {
-                params1.put("house_type", houseType);
-            }
-            if (!TextUtils.isEmpty(decArea) && !decArea.equals(Constant.KEY_WORD)) {
-                params1.put("house_area", decArea);
-            }
-            if (!TextUtils.isEmpty(decArea)) {
-                params1.put("designerid", designerid);
-            }
-            JSONObject params = new JSONObject();
-            jsonParams.put("query", params1);
-            jsonParams.put("search_word", "");
-            jsonParams.put("from", from);
-            jsonParams.put("limit", limit);
-            LogTool.d(TAG, "jsonParams:" + jsonParams.toString());
-            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(productRequest, jsonParams.toString(), listener, tag);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
      * 添加设计师到意向列表
      *
      * @param context
@@ -1080,32 +1036,9 @@ public class JianFanJiaClient {
      * @param listener
      * @param tag
      */
-    public static void searchDecorationImg(Context context, String section, String house_type, String dec_style, String searchWord, int lastUpdate, int from, int limit, ApiUiUpdateListener listener, Object tag) {
-        SearchDecorationImgRequest searchDecorationImgRequest = new SearchDecorationImgRequest(context, section, house_type, dec_style, searchWord, lastUpdate, from, limit);
-        JSONObject jsonParams = new JSONObject();
-        try {
-            JSONObject params1 = new JSONObject();
-            if (!TextUtils.isEmpty(section) && !section.equals(Constant.KEY_WORD)) {
-                params1.put("section", section);
-            }
-            if (!TextUtils.isEmpty(house_type) && !house_type.equals(Constant.KEY_WORD)) {
-                params1.put("house_type", house_type);
-            }
-            if (!TextUtils.isEmpty(dec_style) && !dec_style.equals(Constant.KEY_WORD)) {
-                params1.put("dec_style", dec_style);
-            }
-            JSONObject params2 = new JSONObject();
-            params2.put("lastupdate", lastUpdate);
-            jsonParams.put("query", params1);
-            jsonParams.put("sort", params2);
-            jsonParams.put("search_word", searchWord);
-            jsonParams.put("from", from);
-            jsonParams.put("limit", limit);
-            LogTool.d(TAG, "jsonParams:" + jsonParams.toString());
-            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(searchDecorationImgRequest, jsonParams.toString(), listener, tag);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+    public static void searchDecorationImg(SearchDecorationImgRequest searchDecorationImgRequest,ApiUiUpdateListener listener,Object tag) {
+        LogTool.d(TAG, "jsonParams:" + searchDecorationImgRequest.getParam());
+        OkHttpClientManager.getInstance().getPostDelegate().postAsyn(searchDecorationImgRequest, searchDecorationImgRequest.getParam(), listener, tag);
     }
 
     /**
@@ -1274,5 +1207,21 @@ public class JianFanJiaClient {
     public static void searchDesigner(SearchDesignerRequest searchDesignerRequest, ApiUiUpdateListener listener, Object tag) {
         LogTool.d(TAG, "jsonParams:" + searchDesignerRequest.getParam());
         OkHttpClientManager.getInstance().getPostDelegate().postAsyn(searchDesignerRequest, searchDesignerRequest.getParam(), listener, tag);
+    }
+
+
+    /**
+     * 获取设计师作品
+     *
+     * @param context
+     * @param designerid
+     * @param from
+     * @param limit
+     * @param listener
+     * @param tag
+     */
+    public static void searchDesignerProduct(SearchDesignerProductRequest searchProductRequest, ApiUiUpdateListener listener, Object tag) {
+        LogTool.d(TAG, "jsonParams:" + searchProductRequest.getParam());
+        OkHttpClientManager.getInstance().getPostDelegate().postAsyn(searchProductRequest, searchProductRequest.getParam(), listener, tag);
     }
 }

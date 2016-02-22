@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@+id/ltm_req_owner_head"
                 android:layout_marginLeft="@dimen/space_8"
-                android:layout_toRightOf="@+id/ltm_req_owner_head">
+                android:layout_toRightOf="@id/ltm_req_owner_head">
 
                 <TextView
                     android:id="@+id/ltm_req_username"
@@ -59,8 +59,10 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/space_8"
-                    android:layout_toRightOf="@+id/ltm_req_username"
-                    android:src="@mipmap/icon_identity_auth" />
+                    android:layout_toRightOf="@id/ltm_req_username"
+                    android:src="@mipmap/icon_identity_auth"
+                    android:layout_alignWithParentIfMissing="true"
+                    />
 
                 <ImageView
                     android:id="@+id/ltm_info_auth"
@@ -69,16 +71,17 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/space_6"
                     android:layout_toRightOf="@id/ltm_identity_auth"
-                    android:src="@mipmap/icon_info_auth" />
+                    android:src="@mipmap/icon_info_auth"
+                    android:layout_alignWithParentIfMissing="true"/>
 
                 <RatingBar
                     android:id="@+id/ratingBar"
-                    style="@style/list_item_ratingbar_style_small"
+                    style="@style/list_item_ratingbar_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/space_24"
-                    android:layout_toRightOf="@+id/ltm_info_auth"
+                    android:layout_toRightOf="@id/ltm_info_auth"
                     android:isIndicator="true"
                     android:numStars="5"
                     android:rating="0" />
@@ -88,40 +91,47 @@
             <TextView
                 android:id="@+id/ltm_req_starttime"
                 style="@style/listview_item_text_style_small"
-                android:layout_below="@+id/basic_info_layout"
+                android:layout_below="@id/basic_info_layout"
                 android:layout_marginLeft="@dimen/space_8"
                 android:layout_marginTop="@dimen/space_6"
-                android:layout_toRightOf="@+id/ltm_req_owner_head"
+                android:layout_toRightOf="@id/ltm_req_owner_head"
                 android:text="@string/str_decoratehousetype"
                 android:textColor="@color/grey_color" />
 
             <TextView
                 android:id="@+id/ltm_req_updatetime"
                 style="@style/listview_item_text_style_small"
-                android:layout_alignLeft="@+id/ltm_req_starttime"
-                android:layout_alignStart="@+id/ltm_req_starttime"
-                android:layout_below="@+id/ltm_req_starttime"
+                android:layout_alignLeft="@id/ltm_req_starttime"
+                android:layout_alignStart="@id/ltm_req_starttime"
+                android:layout_below="@id/ltm_req_starttime"
                 android:layout_marginTop="6dp"
                 android:text="@string/good_at_style1"
                 android:textColor="@color/grey_color" />
 
             <TextView
                 android:id="@+id/ltm_decoratehousetype_cont"
-                style="@style/listview_item_text_style_small"
-                android:layout_alignBaseline="@+id/ltm_req_starttime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@id/ltm_req_starttime"
                 android:layout_marginLeft="@dimen/space_16"
-                android:layout_toRightOf="@+id/ltm_req_starttime"
+                android:layout_toRightOf="@id/ltm_req_starttime"
+                android:ellipsize="end"
+                android:singleLine="true"
                 android:text="New Text"
-                android:textColor="@color/light_black_color" />
+                android:textSize="@dimen/text_size_12" />
 
             <TextView
                 android:id="@+id/ltm_good_at_style_cont"
-                style="@style/listview_item_text_style_small"
-                android:layout_alignBaseline="@+id/ltm_req_updatetime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@id/ltm_req_updatetime"
                 android:layout_marginLeft="@dimen/space_16"
-                android:layout_toRightOf="@+id/ltm_req_updatetime"
+                android:layout_toRightOf="@id/ltm_req_updatetime"
+                android:ellipsize="end"
+                android:singleLine="true"
                 android:text="New Text"
-                android:textColor="@color/light_black_color" />
+                android:textColor="@color/light_black_color"
+                android:textSize="@dimen/text_size_12" />
 
         </RelativeLayout>
 

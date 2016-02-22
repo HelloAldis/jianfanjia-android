@@ -18,6 +18,7 @@ import com.jianfanjia.cn.bean.DecorationItemInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
+import com.jianfanjia.cn.http.request.SearchDecorationImgRequest;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.tools.ImageUtil;
@@ -34,7 +35,9 @@ import com.umeng.socialize.controller.listener.SocializeListeners;
 import com.umeng.socialize.sso.UMSsoHandler;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import de.greenrobot.event.EventBus;
 
@@ -91,7 +94,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
         shareUtil = new ShareUtil(this);
         LogTool.d(TAG, "decorationId=" + decorationId + " currentPosition=" + currentPosition + "  totalCount=" + totalCount + "  beautiful_images.size()=" + beautiful_images.size());
         FROM = beautiful_images.size();
-        LogTool.d(TAG, "FROM=" + FROM);
+        LogTool.d(TAG, "FROM:" + FROM);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar_collect = (ImageView) findViewById(R.id.toolbar_collect);
         toolbar_share = (ImageView) findViewById(R.id.toolbar_share);
@@ -167,11 +170,19 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
     @Override
     public void onRefresh(PullToRefreshBase<ViewPager> refreshView) {
         isFirst = false;
-        getDecorationImgInfo(FROM, Constant.HOME_PAGE_LIMIT);
+        getDecorationImgInfo(FROM);
     }
 
-    private void getDecorationImgInfo(int from, int limit) {
-        JianFanJiaClient.searchDecorationImg(PreviewDecorationActivity.this, section, houseStyle, decStyle, "", -1, from, limit, getDecorationImgInfoListener, this);
+    private void getDecorationImgInfo(int from) {
+        Map<String, Object> param = new HashMap<>();
+        Map<String, Object> conditionParam = new HashMap<>();
+        conditionParam.put("section", section);
+        conditionParam.put("house_type", houseStyle);
+        conditionParam.put("dec_style", decStyle);
+        param.put("query", conditionParam);
+        param.put("from", from);
+        param.put("limit", Constant.HOME_PAGE_LIMIT);
+        JianFanJiaClient.searchDecorationImg(new SearchDecorationImgRequest(PreviewDecorationActivity.this, param), getDecorationImgInfoListener, this);
     }
 
     private void addDecorationImgInfo(String decorationId) {
@@ -199,6 +210,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
             LogTool.d(TAG, "decorationItemInfo:" + decorationItemInfo);
             if (null != decorationItemInfo) {
                 List<BeautyImgInfo> beautyImages = decorationItemInfo.getBeautiful_images();
+                LogTool.d(TAG, "beautyImages=" + beautyImages.size());
                 if (null != beautyImages && beautyImages.size() > 0) {
                     showPicPagerAdapter.addItem(beautyImages);
                     FROM += Constant.HOME_PAGE_LIMIT;

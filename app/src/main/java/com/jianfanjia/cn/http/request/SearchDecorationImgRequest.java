@@ -3,7 +3,9 @@ package com.jianfanjia.cn.http.request;
 import android.content.Context;
 
 import com.jianfanjia.cn.base.BaseRequest;
-import com.jianfanjia.cn.config.Url_New;
+import com.jianfanjia.cn.tools.JsonParser;
+
+import java.util.Map;
 
 /**
  * Name: SearchDecorationImgRequest
@@ -12,38 +14,15 @@ import com.jianfanjia.cn.config.Url_New;
  * Time: 17:01
  */
 public class SearchDecorationImgRequest extends BaseRequest {
-    private String section;
-    private String house_type;
-    private String dec_style;
-    private String searchWord;
-    private int lastupdate;
-    private int from;
-    private int limit;
+    private Map<String, Object> param;
 
-    public SearchDecorationImgRequest(Context context, String section, String house_type, String dec_style, String searchWord, int lastupdate, int from, int limit) {
+    public SearchDecorationImgRequest(Context context, Map<String, Object> param) {
         super(context);
-        this.section = section;
-        this.house_type = house_type;
-        this.dec_style = dec_style;
-        this.searchWord = searchWord;
-        this.lastupdate = lastupdate;
-        this.from = from;
-        this.limit = limit;
+        this.param = param;
         url = url_new.SEARCH_DECORATION_IMG;
     }
 
-    @Override
-    public void pre() {
-        super.pre();
-    }
-
-    @Override
-    public void all() {
-        super.all();
-    }
-
-    @Override
-    public void onSuccess(Object data) {
-        super.onSuccess(data);
+    public String getParam() {
+        return JsonParser.MapToJson(param);
     }
 }
