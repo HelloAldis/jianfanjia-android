@@ -82,8 +82,6 @@ public class SearchActivity extends SwipeBackActivity{
                         break;
                     case R.id.tab_rb_2:
                         setTabSelection(PRODUCTCASE);
-
-
                         break;
                     case R.id.tab_rb_3:
                         setTabSelection(BEAUTYIMAGE);

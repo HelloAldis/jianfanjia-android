@@ -112,6 +112,8 @@
                 android:layout_marginLeft="@dimen/space_16"
                 android:layout_toRightOf="@+id/ltm_req_starttime"
                 android:text="New Text"
+                android:singleLine="true"
+                android:ellipsize="end"
                 android:textColor="@color/light_black_color" />
 
             <TextView
@@ -121,6 +123,8 @@
                 android:layout_marginLeft="@dimen/space_16"
                 android:layout_toRightOf="@+id/ltm_req_updatetime"
                 android:text="New Text"
+                android:singleLine="true"
+                android:ellipsize="end"
                 android:textColor="@color/light_black_color" />
 
         </RelativeLayout>

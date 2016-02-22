@@ -7,6 +7,7 @@ package com.jianfanjia.cn.adapter.base;
  * Date:-- :
  */
 
+import android.content.Context;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,32 +20,53 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.tools.ImageShow;
+import com.jianfanjia.cn.tools.LogTool;
 
 import java.util.Collection;
 import java.util.List;
 
 public abstract class BaseLoadingAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
     private static final String TAG = "BaseLoadingAdapter";
-    //是否正在加载
-    private boolean mIsLoading = false;
+
     //正常条目
     private static final int TYPE_NORMAL_ITEM = 0;
     //加载条目
     private static final int TYPE_LOADING_ITEM = 1;
     //加载viewHolder
     private LoadingViewHolder mLoadingViewHolder;
+
     private StaggeredGridLayoutManager mStaggeredGridLayoutManager;
     //数据集
-    private List<T> mTs;
+    protected List<T> mTs;
 
-    private int lastCount;
+    protected boolean isHasLoadMore;//是否还有更多加载
 
-    public BaseLoadingAdapter(RecyclerView recyclerView, List<T> ts) {
+    protected ImageShow imageShow;
+
+    protected Context context;
+
+    protected LayoutInflater layoutInflater;
+
+    private int pageSize;
+
+    public BaseLoadingAdapter(Context context, RecyclerView recyclerView, List<T> ts, int pageSize) {
         mTs = ts;
 
         setSpanCount(recyclerView);
 
         setScrollListener(recyclerView);
+
+        this.pageSize = pageSize;
+
+        initLoadMore();
+
+        imageShow = ImageShow.getImageShow();
+
+        this.context = context;
+
+        this.layoutInflater = LayoutInflater.from(context);
     }
 
     private OnLoadingListener mOnLoadingListener;
@@ -54,6 +76,17 @@ public abstract class BaseLoadingAdapter<T> extends RecyclerView.Adapter<Recycle
      */
     public interface OnLoadingListener {
         void loading();
+    }
+
+    private void initLoadMore() {
+        if (mTs != null) {
+            mTs.add(null);
+            if (mTs.size() < pageSize) {
+                setLoadingNoMore(false);
+            } else {
+                setLoadingNoMore(true);
+            }
+        }
     }
 
     /**
@@ -66,26 +99,24 @@ public abstract class BaseLoadingAdapter<T> extends RecyclerView.Adapter<Recycle
     }
 
     /**
-     * 加载完成
-     */
-    public void setLoadingComplete() {
-        mIsLoading = false;
-        mTs.remove(mTs.size() - 1);
-        notifyItemRemoved(mTs.size() - 1);
-    }
-
-    /**
      * 没有更多数据
      */
-    public void setLoadingNoMore() {
-        mLoadingViewHolder.progressBar.setVisibility(View.GONE);
-        mLoadingViewHolder.tvLoading.setText("数据已加载完！");
+    private void setLoadingNoMore(boolean isHasLoadMore) {
+        this.isHasLoadMore = isHasLoadMore;
     }
 
     public void addAll(Collection<T> t) {
-        lastCount = mTs.size();
-        mTs.addAll(t);
-        notifyItemRangeInserted(lastCount, t.size() - 1);
+        if (t != null) {
+            if (t.size() == pageSize) {
+                setLoadingNoMore(true);
+            } else {
+                setLoadingNoMore(false);
+            }
+            int lastIndex = mTs.size() - 1;
+            LogTool.d(this.getClass().getName(),"lastIndex =" + lastIndex);
+            mTs.addAll(lastIndex, t);
+            notifyItemRangeInserted(lastIndex, t.size());
+        }
     }
 
     /**
@@ -101,7 +132,7 @@ public abstract class BaseLoadingAdapter<T> extends RecyclerView.Adapter<Recycle
                 public void onClick(View v) {
                     if (mOnLoadingListener != null) {
                         mLoadingViewHolder.progressBar.setVisibility(View.VISIBLE);
-                        mLoadingViewHolder.tvLoading.setText("正在加载");
+                        mLoadingViewHolder.tvLoading.setText("正在加载...");
 
                         mOnLoadingListener.loading();
                     }
@@ -161,14 +192,9 @@ public abstract class BaseLoadingAdapter<T> extends RecyclerView.Adapter<Recycle
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
-                if (!canScrollDown(recyclerView)) {
-                    if (!mIsLoading) {
-                        mIsLoading = true;
-                        mTs.add(null);
-                        notifyItemInserted(mTs.size() - 1);
-                        if (mOnLoadingListener != null) {
-                            mOnLoadingListener.loading();
-                        }
+                if (!canScrollDown(recyclerView) && isHasLoadMore) {
+                    if (mOnLoadingListener != null) {
+                        mOnLoadingListener.loading();
                     }
                 }
             }
@@ -225,8 +251,7 @@ public abstract class BaseLoadingAdapter<T> extends RecyclerView.Adapter<Recycle
         } else {
             View view = LayoutInflater.from(parent.getContext()).inflate(
                     R.layout.loading_view, parent, false);
-            mLoadingViewHolder = new LoadingViewHolder(view);
-            return mLoadingViewHolder;
+            return new LoadingViewHolder(view);
         }
     }
 
@@ -236,6 +261,7 @@ public abstract class BaseLoadingAdapter<T> extends RecyclerView.Adapter<Recycle
         if (type == TYPE_NORMAL_ITEM) {
             onBindNormalViewHolder(holder, position);
         } else {
+            onBindLoadMoreViewHolder(holder, position);
             if (mStaggeredGridLayoutManager != null) {
                 StaggeredGridLayoutManager.LayoutParams layoutParams =
                         new StaggeredGridLayoutManager.LayoutParams(
@@ -248,8 +274,21 @@ public abstract class BaseLoadingAdapter<T> extends RecyclerView.Adapter<Recycle
         }
     }
 
+    private void onBindLoadMoreViewHolder(RecyclerView.ViewHolder holder, int position) {
+        mLoadingViewHolder = (LoadingViewHolder) holder;
+        LogTool.d(this.getClass().getName(), "isLoadMore =" + isHasLoadMore);
+        if (!isHasLoadMore) {
+            mLoadingViewHolder.progressBar.setVisibility(View.GONE);
+            mLoadingViewHolder.tvLoading.setText("数据已全部加载完！");
+        } else {
+            mLoadingViewHolder.progressBar.setVisibility(View.VISIBLE);
+            mLoadingViewHolder.tvLoading.setText("正在加载...");
+        }
+    }
+
     @Override
     public int getItemCount() {
         return mTs.size();
     }
+
 }

@@ -27,14 +27,10 @@ import java.util.List;
  */
 public class SearchDesignerAdapter extends BaseLoadingAdapter<DesignerInfo> {
 
-    private List<DesignerInfo> designerInfoItems;
-    private Context context;
 
-    public SearchDesignerAdapter(Context context,RecyclerView recyclerView, List<DesignerInfo> ts) {
-        super(recyclerView, ts);
+    public SearchDesignerAdapter(Context context,RecyclerView recyclerView, List<DesignerInfo> ts ,int pageSize) {
+        super(context,recyclerView, ts ,pageSize);
 
-        this.context = context;
-        this.designerInfoItems = ts;
     }
 
     @Override
@@ -47,7 +43,7 @@ public class SearchDesignerAdapter extends BaseLoadingAdapter<DesignerInfo> {
     public void onBindNormalViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         SearchDesignerViewHolder holder = (SearchDesignerViewHolder) viewHolder;
 
-        DesignerInfo designerInfo = designerInfoItems.get(position);
+        DesignerInfo designerInfo = mTs.get(position);
 
         holder.nameView.setText(TextUtils.isEmpty(designerInfo.getUsername()) ? context.getResources().getString(R.string.designer) : designerInfo.getUsername());
         String imageid = designerInfo.getImageid();
@@ -69,7 +65,7 @@ public class SearchDesignerAdapter extends BaseLoadingAdapter<DesignerInfo> {
             }
         });
         holder.productSumView.setText(designerInfo.getProduct_count() + "");
-        holder.designerFeeView.setText(designerInfo.getDec_fee_half() + "-" + designerInfo.getDec_fee_all());
+        holder.designerFeeView.setText(BusinessManager.convertDesignFeeToShow(designerInfo.getDesign_fee_range()));
         holder.appointSumView.setText(designerInfo.getOrder_count() + "");
 
         holder.decorateHouseStyleView.setText(BusinessManager.getHouseTypeStr(designerInfo.getDec_house_types()));
