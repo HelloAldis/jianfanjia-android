@@ -1,6 +1,8 @@
 package com.jianfanjia.cn.activity.home;
 
+import android.content.Intent;
 import android.graphics.Paint;
+import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,6 +25,7 @@ import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.http.request.SearchDesignerRequest;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.GetItemCallback;
+import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.FilterPopWindow;
@@ -221,7 +224,23 @@ public class DesignerListActivity extends BaseActivity implements View.OnClickLi
                 designerList.clear();
                 designerList.addAll(designer.getDesigners());
                 if (null == designerListAdapter) {
-                    designerListAdapter = new DesignerListAdapter(DesignerListActivity.this, designerList);
+                    designerListAdapter = new DesignerListAdapter(DesignerListActivity.this, designerList, new RecyclerViewOnItemClickListener() {
+                        @Override
+                        public void OnItemClick(View view, int position) {
+
+                        }
+
+                        @Override
+                        public void OnViewClick(int position) {
+                            String designerId = designerList.get(position).get_id();
+                            LogTool.d(TAG, "designerId:" + designerId);
+                            Intent designerIntent = new Intent(DesignerListActivity.this, DesignerInfoActivity.class);
+                            Bundle designerBundle = new Bundle();
+                            designerBundle.putString(Global.DESIGNER_ID, designerId);
+                            designerIntent.putExtras(designerBundle);
+                            startActivity(designerIntent);
+                        }
+                    });
                     designerListView.setAdapter(designerListAdapter);
                 } else {
                     designerListAdapter.notifyDataSetChanged();

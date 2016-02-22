@@ -12,7 +12,7 @@ import com.jianfanjia.cn.adapter.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.bean.DesignerInfo;
 import com.jianfanjia.cn.cache.BusinessManager;
-import com.jianfanjia.cn.interf.ListItemClickListener;
+import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
 
 import java.util.List;
 
@@ -24,9 +24,9 @@ import java.util.List;
  */
 public class DesignerListAdapter extends BaseRecyclerViewAdapter<DesignerInfo> {
     private static final String TAG = DesignerListAdapter.class.getName();
-    private ListItemClickListener listener;
+    private RecyclerViewOnItemClickListener listener;
 
-    public DesignerListAdapter(Context context, List<DesignerInfo> list) {
+    public DesignerListAdapter(Context context, List<DesignerInfo> list, RecyclerViewOnItemClickListener listener) {
         super(context, list);
         this.listener = listener;
     }
@@ -50,6 +50,14 @@ public class DesignerListAdapter extends BaseRecyclerViewAdapter<DesignerInfo> {
         holder.itemDecTypeText.setText(BusinessManager.getHouseTypeStr(designerInfo.getDec_house_types()));
         holder.itemDecStyleText.setText(BusinessManager.getDecStyleStr(designerInfo.getDec_styles()));
         holder.itemDecFeeText.setText(BusinessManager.convertDesignFeeToShow(designerInfo.getDesign_fee_range()));
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (null != listener) {
+                    listener.OnViewClick(position);
+                }
+            }
+        });
     }
 
     @Override
