@@ -6,24 +6,30 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.ProductAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.DesignerWorksInfo;
 import com.jianfanjia.cn.bean.Product;
+import com.jianfanjia.cn.cache.BusinessManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.http.request.SearchDesignerProductRequest;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.EndlessRecyclerViewScrollListener;
+import com.jianfanjia.cn.interf.GetItemCallback;
 import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.view.FilterPopWindow;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
@@ -47,9 +53,19 @@ public class DesignerCaseListActivity extends BaseActivity implements View.OnCli
     private static final int HOUSE_TYPE = 3;
     private static final int DEC_AREA = 4;
     private static final int NOT = 5;
+    private LinearLayout topLayout = null;
+    private RelativeLayout decTypeLayout = null;
+    private RelativeLayout designStyleLayout = null;
+    private RelativeLayout houseTypeLayout = null;
+    private RelativeLayout decAreaLayout = null;
+    private TextView decType_item = null;
+    private TextView designStyle_item = null;
+    private TextView houseType_item = null;
+    private TextView decArea_item = null;
     private MainHeadView mainHeadView = null;
     private PullToRefreshRecycleView pullToRefreshRecyclerView = null;
     private RelativeLayout errorLayout = null;
+    private FilterPopWindow window = null;
     private boolean isFirst = true;
     private ProductAdapter productAdapter = null;
     private List<Product> productList = new ArrayList<>();
@@ -58,11 +74,20 @@ public class DesignerCaseListActivity extends BaseActivity implements View.OnCli
     private String decType = null;
     private String designStyle = null;
     private String houseType = null;
-    private String decArea = null;
+    private Map<String, Object> decArea = null;
 
     @Override
     public void initView() {
         initMainHeadView();
+        topLayout = (LinearLayout) findViewById(R.id.topLayout);
+        decTypeLayout = (RelativeLayout) findViewById(R.id.decTypeLayout);
+        designStyleLayout = (RelativeLayout) findViewById(R.id.designStyleLayout);
+        houseTypeLayout = (RelativeLayout) findViewById(R.id.houseTypeLayout);
+        decAreaLayout = (RelativeLayout) findViewById(R.id.decAreaLayout);
+        decType_item = (TextView) findViewById(R.id.decType_item);
+        designStyle_item = (TextView) findViewById(R.id.designStyle_item);
+        houseType_item = (TextView) findViewById(R.id.houseType_item);
+        decArea_item = (TextView) findViewById(R.id.decArea_item);
         errorLayout = (RelativeLayout) findViewById(R.id.error_include);
         pullToRefreshRecyclerView = (PullToRefreshRecycleView) findViewById(R.id.pull_refresh_scrollview);
         linearLayoutManager = new LinearLayoutManager(DesignerCaseListActivity.this);
@@ -91,6 +116,10 @@ public class DesignerCaseListActivity extends BaseActivity implements View.OnCli
 
     @Override
     public void setListener() {
+        decTypeLayout.setOnClickListener(this);
+        designStyleLayout.setOnClickListener(this);
+        houseTypeLayout.setOnClickListener(this);
+        decAreaLayout.setOnClickListener(this);
         pullToRefreshRecyclerView.setOnRefreshListener(this);
         errorLayout.setOnClickListener(this);
     }
@@ -101,6 +130,18 @@ public class DesignerCaseListActivity extends BaseActivity implements View.OnCli
             case R.id.head_back_layout:
                 appManager.finishActivity(this);
                 break;
+            case R.id.decTypeLayout:
+                setSelectState(DEC_TYPE);
+                break;
+            case R.id.designStyleLayout:
+                setSelectState(DESIGN_STYLE);
+                break;
+            case R.id.houseTypeLayout:
+                setSelectState(HOUSE_TYPE);
+                break;
+            case R.id.decAreaLayout:
+                setSelectState(DEC_AREA);
+                break;
             case R.id.error_include:
                 getDesignerProductList(decType, designStyle, houseType, decArea, FROM, pullDownListener);
                 break;
@@ -108,6 +149,47 @@ public class DesignerCaseListActivity extends BaseActivity implements View.OnCli
                 break;
         }
     }
+
+    private void setSelectState(int type) {
+        switch (type) {
+            case DEC_TYPE:
+                showWindow(R.array.arr_dectype, DEC_TYPE);
+                decTypeLayout.setSelected(true);
+                designStyleLayout.setSelected(false);
+                houseTypeLayout.setSelected(false);
+                decAreaLayout.setSelected(false);
+                break;
+            case DESIGN_STYLE:
+                showWindow(R.array.arr_decstyle, DESIGN_STYLE);
+                decTypeLayout.setSelected(false);
+                designStyleLayout.setSelected(true);
+                houseTypeLayout.setSelected(false);
+                decAreaLayout.setSelected(false);
+                break;
+            case HOUSE_TYPE:
+                showWindow(R.array.arr_housetype, HOUSE_TYPE);
+                decTypeLayout.setSelected(false);
+                designStyleLayout.setSelected(false);
+                houseTypeLayout.setSelected(true);
+                decAreaLayout.setSelected(false);
+                break;
+            case DEC_AREA:
+                showWindow(R.array.arr_area, DEC_AREA);
+                decTypeLayout.setSelected(false);
+                designStyleLayout.setSelected(false);
+                houseTypeLayout.setSelected(false);
+                decAreaLayout.setSelected(true);
+                break;
+            case NOT:
+                decTypeLayout.setSelected(false);
+                designStyleLayout.setSelected(false);
+                houseTypeLayout.setSelected(false);
+                decAreaLayout.setSelected(false);
+            default:
+                break;
+        }
+    }
+
 
     @Override
     public void onPullDownToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
@@ -120,7 +202,7 @@ public class DesignerCaseListActivity extends BaseActivity implements View.OnCli
         getDesignerProductList(decType, designStyle, houseType, decArea, FROM, pullUpListener);
     }
 
-    private void getDesignerProductList(String decType, String designStyle, String houseType, String decArea, int from, ApiUiUpdateListener listener) {
+    private void getDesignerProductList(String decType, String designStyle, String houseType, Map<String, Object> decArea, int from, ApiUiUpdateListener listener) {
         Map<String, Object> conditionParam = new HashMap<>();
         conditionParam.put("dec_type", decType);
         conditionParam.put("house_type", houseType);
@@ -137,7 +219,6 @@ public class DesignerCaseListActivity extends BaseActivity implements View.OnCli
     private ApiUiUpdateListener pullDownListener = new ApiUiUpdateListener() {
         @Override
         public void preLoad() {
-            LogTool.d(TAG, "isFirst = " + isFirst);
             if (isFirst) {
                 showWaitDialog();
             }
@@ -224,6 +305,160 @@ public class DesignerCaseListActivity extends BaseActivity implements View.OnCli
             pullToRefreshRecyclerView.onRefreshComplete();
         }
     };
+
+    private void showWindow(int resId, int type) {
+        switch (type) {
+            case DEC_TYPE:
+                window = new FilterPopWindow(DesignerCaseListActivity.this, resId, getDecTypeCallback, Global.DEC_TYPE_POSITION);
+                break;
+            case DESIGN_STYLE:
+                window = new FilterPopWindow(DesignerCaseListActivity.this, resId, getDesignStyleCallback, Global.STYLE_POSITION);
+                break;
+            case HOUSE_TYPE:
+                window = new FilterPopWindow(DesignerCaseListActivity.this, resId, getHouseTypeCallback, Global.DEC_HOUSE_TYPE_POSITION);
+                break;
+            case DEC_AREA:
+                window = new FilterPopWindow(DesignerCaseListActivity.this, resId, getHouseAreaCallback, Global.DEC_AREA_POSITION);
+                break;
+            default:
+                break;
+        }
+        window.show(topLayout);
+    }
+
+    private GetItemCallback getDecTypeCallback = new GetItemCallback() {
+        @Override
+        public void onItemCallback(int position, String title) {
+            isFirst = true;
+            Global.DEC_TYPE_POSITION = position;
+            if (!TextUtils.isEmpty(title) && !title.equals(Constant.KEY_WORD)) {
+                decType_item.setText(title);
+            } else {
+                decType_item.setText(getResources().getString(R.string.dec_type_str));
+            }
+            FROM = 0;
+            decType = BusinessManager.getDecTypeByText(title);
+            getDesignerProductList(decType, designStyle, houseType, decArea, FROM, pullDownListener);
+            if (null != window) {
+                if (window.isShowing()) {
+                    window.dismiss();
+                }
+            }
+        }
+
+        @Override
+        public void onDismissCallback() {
+            setSelectState(NOT);
+            if (null != window) {
+                if (window.isShowing()) {
+                    window.dismiss();
+                }
+            }
+        }
+    };
+
+    private GetItemCallback getDesignStyleCallback = new GetItemCallback() {
+        @Override
+        public void onItemCallback(int position, String title) {
+            isFirst = true;
+            Global.DEC_TYPE_POSITION = position;
+            if (!TextUtils.isEmpty(title) && !title.equals(Constant.KEY_WORD)) {
+                designStyle_item.setText(title);
+            } else {
+                designStyle_item.setText(getResources().getString(R.string.dec_style_str));
+            }
+            FROM = 0;
+            designStyle = BusinessManager.getDecStyleByText(title);
+            getDesignerProductList(decType, designStyle, houseType, decArea, FROM, pullDownListener);
+            if (null != window) {
+                if (window.isShowing()) {
+                    window.dismiss();
+                }
+            }
+        }
+
+        @Override
+        public void onDismissCallback() {
+            setSelectState(NOT);
+            if (null != window) {
+                if (window.isShowing()) {
+                    window.dismiss();
+                }
+            }
+        }
+    };
+
+    private GetItemCallback getHouseTypeCallback = new GetItemCallback() {
+        @Override
+        public void onItemCallback(int position, String title) {
+            isFirst = true;
+            Global.DEC_TYPE_POSITION = position;
+            if (!TextUtils.isEmpty(title) && !title.equals(Constant.KEY_WORD)) {
+                houseType_item.setText(title);
+            } else {
+                houseType_item.setText(getResources().getString(R.string.dec_house_type_str));
+            }
+            FROM = 0;
+            houseType = BusinessManager.getHouseTypeByText(title);
+            getDesignerProductList(decType, designStyle, houseType, decArea, FROM, pullDownListener);
+            if (null != window) {
+                if (window.isShowing()) {
+                    window.dismiss();
+                }
+            }
+        }
+
+        @Override
+        public void onDismissCallback() {
+            setSelectState(NOT);
+            if (null != window) {
+                if (window.isShowing()) {
+                    window.dismiss();
+                }
+            }
+        }
+    };
+
+    private GetItemCallback getHouseAreaCallback = new GetItemCallback() {
+        @Override
+        public void onItemCallback(int position, String title) {
+            isFirst = true;
+            Global.DEC_TYPE_POSITION = position;
+            if (!TextUtils.isEmpty(title) && !title.equals(Constant.KEY_WORD)) {
+                decArea_item.setText(title);
+            } else {
+                decArea_item.setText(getResources().getString(R.string.dec_area_str));
+            }
+            FROM = 0;
+            decArea = BusinessManager.convertDecAreaValueByText(title);
+            LogTool.d(TAG, "decArea=" + decArea);
+            getDesignerProductList(decType, designStyle, houseType, decArea, FROM, pullDownListener);
+            if (null != window) {
+                if (window.isShowing()) {
+                    window.dismiss();
+                }
+            }
+        }
+
+        @Override
+        public void onDismissCallback() {
+            setSelectState(NOT);
+            if (null != window) {
+                if (window.isShowing()) {
+                    window.dismiss();
+                }
+            }
+        }
+    };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Global.DEC_TYPE_POSITION = 0;
+        Global.DEC_HOUSE_TYPE_POSITION = 0;
+        Global.STYLE_POSITION = 0;
+        Global.DEC_AREA_POSITION = 0;
+    }
 
     @Override
     public int getLayoutId() {

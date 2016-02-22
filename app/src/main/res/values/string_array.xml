@@ -244,6 +244,14 @@
         <item>300以上</item>
     </string-array>
 
+    <string-array name="arr_area">
+        <item>90㎡以下</item>
+        <item>90-120㎡</item>
+        <item>120-150㎡</item>
+        <item>150-200㎡</item>
+        <item>200㎡以上</item>
+    </string-array>
+
     <string-array name="arr_lovestyle_pic">
         <item>@mipmap/img_req_ou_shi</item>
         <item>@mipmap/img_req_zhong_shi</item>
