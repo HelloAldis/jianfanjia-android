@@ -20,6 +20,7 @@ import com.jianfanjia.cn.bean.Product;
 import com.jianfanjia.cn.bean.ProductInfo;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
+import com.jianfanjia.cn.http.request.SearchDesignerProductRequest;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
 import com.jianfanjia.cn.tools.JsonParser;
@@ -27,7 +28,9 @@ import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author fengliang
@@ -44,7 +47,7 @@ public class SearchProductFragment extends BaseFragment implements ApiUiUpdateLi
     private List<Product> products = new ArrayList<Product>();
     public static final int PAGE_COUNT = 10;
 
-    private int currentPos = -1;
+    private int currentPos = 0;
     private int FROM = 0;
     private String decType = null;
     private String designStyle = null;
@@ -64,12 +67,15 @@ public class SearchProductFragment extends BaseFragment implements ApiUiUpdateLi
         paint.setAntiAlias(true);
         prodtct_listview.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).paint(paint).showLastDivider().build());
 
-        getDesignerCaseList(decType, designStyle, houseType, decArea, FROM, PAGE_COUNT, this);
+        searchProduct(currentPos,"水岸国际");
     }
 
-    private void getDesignerCaseList(String decType, String designStyle, String houseType, String decArea, int from, int limit, ApiUiUpdateListener listener) {
-        LogTool.d(TAG, "from=" + from + " limit=" + limit);
-        JianFanJiaClient.searchDesignerProduct(getContext(), decType, designStyle, houseType, decArea, "", from, limit, listener, this);
+    private void searchProduct(int from, String searchText) {
+        Map<String, Object> param = new HashMap<>();
+        param.put("search_word", searchText);
+        param.put("limit", PAGE_COUNT);
+        param.put("from", from);
+        JianFanJiaClient.searchDesignerProduct(new SearchDesignerProductRequest(getContext(), param), this, this);
     }
 
     @Override
@@ -106,7 +112,7 @@ public class SearchProductFragment extends BaseFragment implements ApiUiUpdateLi
                     productAdapter.setOnLoadingListener(new BaseLoadingAdapter.OnLoadingListener() {
                         @Override
                         public void loading() {
-                            getDesignerCaseList(decType, designStyle, houseType, decArea, currentPos, PAGE_COUNT, SearchProductFragment.this);
+                            searchProduct(currentPos,"水岸国际");
                         }
                     });
                     prodtct_listview.setAdapter(productAdapter);
@@ -126,7 +132,7 @@ public class SearchProductFragment extends BaseFragment implements ApiUiUpdateLi
 
     @Override
     public void loadFailture(String error_msg) {
-        makeTextLong(error_msg);
+        makeTextShort(error_msg);
         prodtct_listview.setVisibility(View.GONE);
         emptyLayout.setVisibility(View.GONE);
         errorLayout.setVisibility(View.VISIBLE);

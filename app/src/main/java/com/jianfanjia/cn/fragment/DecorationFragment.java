@@ -22,6 +22,7 @@ import com.jianfanjia.cn.cache.BusinessManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
+import com.jianfanjia.cn.http.request.SearchDecorationImgRequest;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.GetItemCallback;
 import com.jianfanjia.cn.interf.OnItemClickListener;
@@ -34,7 +35,9 @@ import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import de.greenrobot.event.EventBus;
 
@@ -63,7 +66,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
     private PullToRefreshRecycleView decoration_listview = null;
     private DecorationAdapter decorationAdapter = null;
     private FilterPopWindow window = null;
-    private List<BeautyImgInfo> beautyImgList = new ArrayList<BeautyImgInfo>();
+    private List<BeautyImgInfo> beautyImgList = new ArrayList<>();
     private String section = null;
     private String houseStyle = null;
     private String decStyle = null;
@@ -96,7 +99,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         decoration_listview.setItemAnimator(new DefaultItemAnimator());
         SpacesItemDecoration decoration = new SpacesItemDecoration(5);
         decoration_listview.addItemDecoration(decoration);
-        searchDecorationImg(section, houseStyle, decStyle, FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
+        getDecorationImgInfo(FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
     }
 
     private void initMainHeadView(View view) {
@@ -129,7 +132,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
                 setSelectState(DECSTYLE);
                 break;
             case R.id.error_include:
-                searchDecorationImg(section, houseStyle, decStyle, FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
+                getDecorationImgInfo(FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
                 break;
             default:
                 break;
@@ -165,20 +168,27 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         }
     }
 
-    private void searchDecorationImg(String section, String houseStyle, String decStyle, int from, int limit, ApiUiUpdateListener listener) {
-        LogTool.d(TAG, "section:" + section + " houseStyle:" + houseStyle + " decStyle:" + decStyle);
-        JianFanJiaClient.searchDecorationImg(getContext(), section, houseStyle, decStyle, "", -1, from, limit, listener, this);
+    private void getDecorationImgInfo(int from, int limit,ApiUiUpdateListener listener) {
+        Map<String,Object> param = new HashMap<>();
+        Map<String,Object> quire = new HashMap<>();
+        quire.put("section",section);
+        quire.put("house_type",houseStyle);
+        quire.put("dec_style",decStyle);
+        param.put("quire",quire);
+        param.put("from",from);
+        param.put("limit", limit);
+        JianFanJiaClient.searchDecorationImg(new SearchDecorationImgRequest(getContext(),param), listener, this);
     }
 
     @Override
     public void onPullDownToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
         FROM = 0;
-        searchDecorationImg(section, houseStyle, decStyle, FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
+        getDecorationImgInfo(FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
     }
 
     @Override
     public void onPullUpToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-        searchDecorationImg(section, houseStyle, decStyle, FROM, Constant.HOME_PAGE_LIMIT, pullUpListener);
+        getDecorationImgInfo(FROM, Constant.HOME_PAGE_LIMIT, pullUpListener);
     }
 
     private ApiUiUpdateListener pullDownListener = new ApiUiUpdateListener() {
@@ -313,7 +323,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
                 section_item.setText("空间");
             }
             FROM = 0;
-            searchDecorationImg(section, houseStyle, decStyle, FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
+            getDecorationImgInfo(FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
@@ -342,7 +352,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
             }
             houseStyle = BusinessManager.getHouseTypeByText(title);
             FROM = 0;
-            searchDecorationImg(section, houseStyle, decStyle, FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
+            getDecorationImgInfo(FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
@@ -371,7 +381,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
             }
             decStyle = BusinessManager.getDecStyleByText(title);
             FROM = 0;
-            searchDecorationImg(section, houseStyle, decStyle, FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
+            getDecorationImgInfo(FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
@@ -393,7 +403,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
     public void onEventMainThread(MessageEvent event) {
         switch (event.getEventType()) {
             case Constant.UPDATE_BEAUTY_IMG_FRAGMENT:
-                searchDecorationImg(section, houseStyle, decStyle, FROM, Constant.HOME_PAGE_LIMIT, pullUpListener);
+                getDecorationImgInfo(FROM, Constant.HOME_PAGE_LIMIT, pullUpListener);
                 break;
             default:
                 break;

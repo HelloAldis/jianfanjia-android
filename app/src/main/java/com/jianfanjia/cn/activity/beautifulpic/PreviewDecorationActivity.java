@@ -18,6 +18,7 @@ import com.jianfanjia.cn.bean.DecorationItemInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
+import com.jianfanjia.cn.http.request.SearchDecorationImgRequest;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.tools.ImageUtil;
@@ -34,7 +35,9 @@ import com.umeng.socialize.controller.listener.SocializeListeners;
 import com.umeng.socialize.sso.UMSsoHandler;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import de.greenrobot.event.EventBus;
 
@@ -171,7 +174,15 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
     }
 
     private void getDecorationImgInfo(int from, int limit) {
-        JianFanJiaClient.searchDecorationImg(PreviewDecorationActivity.this, section, houseStyle, decStyle, "", -1, from, limit, getDecorationImgInfoListener, this);
+        Map<String,Object> param = new HashMap<>();
+        Map<String,Object> quire = new HashMap<>();
+        quire.put("section",section);
+        quire.put("house_type",houseStyle);
+        quire.put("dec_style",decStyle);
+        param.put("quire",quire);
+        param.put("from",from);
+        param.put("limit",limit);
+        JianFanJiaClient.searchDecorationImg(new SearchDecorationImgRequest(getApplicationContext(),param), getDecorationImgInfoListener, this);
     }
 
     private void addDecorationImgInfo(String decorationId) {

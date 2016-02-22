@@ -61,7 +61,7 @@ public class DecorationImgFragment extends BaseFragment implements PullToRefresh
     public void initView(View view) {
         emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
         errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
-        decoration_img_listview = (PullToRefreshRecycleView) view.findViewById(R.id.decoration_img_listview);
+        decoration_img_listview = (PullToRefreshRecycleView) view.findViewById(R.id.recycleview);
         decoration_img_listview.setMode(PullToRefreshBase.Mode.BOTH);
         decoration_img_listview.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         decoration_img_listview.setHasFixedSize(true);

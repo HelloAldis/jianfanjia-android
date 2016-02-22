@@ -2,7 +2,6 @@ package com.jianfanjia.cn.http;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.text.TextUtils;
 
 import com.jianfanjia.cn.bean.CommitCommentInfo;
 import com.jianfanjia.cn.bean.OwnerInfo;
@@ -10,7 +9,6 @@ import com.jianfanjia.cn.bean.OwnerUpdateInfo;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.bean.WeiXinRegisterInfo;
-import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.http.request.AddBeautyImgRequest;
 import com.jianfanjia.cn.http.request.AddCollectionRequest;
@@ -1038,32 +1036,9 @@ public class JianFanJiaClient {
      * @param listener
      * @param tag
      */
-    public static void searchDecorationImg(Context context, String section, String house_type, String dec_style, String searchWord, int lastUpdate, int from, int limit, ApiUiUpdateListener listener, Object tag) {
-        SearchDecorationImgRequest searchDecorationImgRequest = new SearchDecorationImgRequest(context, section, house_type, dec_style, searchWord, lastUpdate, from, limit);
-        JSONObject jsonParams = new JSONObject();
-        try {
-            JSONObject params1 = new JSONObject();
-            if (!TextUtils.isEmpty(section) && !section.equals(Constant.KEY_WORD)) {
-                params1.put("section", section);
-            }
-            if (!TextUtils.isEmpty(house_type) && !house_type.equals(Constant.KEY_WORD)) {
-                params1.put("house_type", house_type);
-            }
-            if (!TextUtils.isEmpty(dec_style) && !dec_style.equals(Constant.KEY_WORD)) {
-                params1.put("dec_style", dec_style);
-            }
-            JSONObject params2 = new JSONObject();
-            params2.put("lastupdate", lastUpdate);
-            jsonParams.put("query", params1);
-            jsonParams.put("sort", params2);
-            jsonParams.put("search_word", searchWord);
-            jsonParams.put("from", from);
-            jsonParams.put("limit", limit);
-            LogTool.d(TAG, "jsonParams:" + jsonParams.toString());
-            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(searchDecorationImgRequest, jsonParams.toString(), listener, tag);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+    public static void searchDecorationImg(SearchDecorationImgRequest searchDecorationImgRequest,ApiUiUpdateListener listener,Object tag) {
+        LogTool.d(TAG, "jsonParams:" + searchDecorationImgRequest.getParam());
+        OkHttpClientManager.getInstance().getPostDelegate().postAsyn(searchDecorationImgRequest, searchDecorationImgRequest.getParam(), listener, tag);
     }
 
     /**
