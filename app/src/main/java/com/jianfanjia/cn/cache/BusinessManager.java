@@ -193,45 +193,47 @@ public class BusinessManager {
         return null;
     }
 
-    public static int getDecAreaByText(String decAreaText) {
+    public static String getDecAreaByText(String decAreaText) {
         try {
             String[] items = MyApplication.getInstance().getResources().getStringArray(R.array.arr_area);
             for (int i = 0; i < items.length; i++) {
                 if (items[i].equals(decAreaText)) {
-                    return i;
+                    return i + "";
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return 0;
+        return null;
     }
 
     public static Map<String, Object> convertDecAreaValueByText(String decAreaText) {
         try {
-            Map<String, Object> param = new HashMap<>();
-            int area = getDecAreaByText(decAreaText);
-            switch (area) {
-                case 0:
-                    param.put("$lt", 90);
-                    break;
-                case 1:
-                    param.put("$gte", 90);
-                    param.put("$lt", 120);
-                    break;
-                case 2:
-                    param.put("$gte", 120);
-                    param.put("$lt", 150);
-                    break;
-                case 3:
-                    param.put("$gte", 150);
-                    param.put("$lt", 200);
-                    break;
-                default:
-                    param.put("$gte", 200);
-                    break;
+            String area = getDecAreaByText(decAreaText);
+            if (null != area) {
+                Map<String, Object> param = new HashMap<>();
+                switch (Integer.parseInt(area)) {
+                    case 0:
+                        param.put("$lt", 90);
+                        break;
+                    case 1:
+                        param.put("$gte", 90);
+                        param.put("$lt", 120);
+                        break;
+                    case 2:
+                        param.put("$gte", 120);
+                        param.put("$lt", 150);
+                        break;
+                    case 3:
+                        param.put("$gte", 150);
+                        param.put("$lt", 200);
+                        break;
+                    default:
+                        param.put("$gte", 200);
+                        break;
+                }
+                return param;
             }
-            return param;
         } catch (Exception e) {
             e.printStackTrace();
         }
