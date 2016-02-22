@@ -145,5 +145,13 @@ public class ShareUtil {
         mController.openShare(activity, false);
     }
 
+    public void shareUrl(Activity activity, String imageUrl, String title, String description, String url, SocializeListeners.SnsPostListener listener) {
+        LogTool.d(this.getClass().getName(), "share the url " + url);
+        UMImage image = new UMImage(context, imageUrl);
+        setShareContent(image, title, description, url);
+        mController.registerListener(listener);
+        mController.openShare(activity, false);
+    }
+
 }
 

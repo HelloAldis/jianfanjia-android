@@ -15,6 +15,7 @@ public class Url_New {
     private static Url_New instance;
     public String SEVER_IP = "";
     public String SEVER_PORT = "";
+    public String MOBILE_SERVER_URL = "";
 
     public static Url_New getInstance() {
         if (instance == null) {
@@ -34,6 +35,7 @@ public class Url_New {
                             PackageManager.GET_META_DATA);
             SEVER_IP = appInfo.metaData.getString("SERVER_IP");
             SEVER_PORT = String.valueOf(appInfo.metaData.getInt("SERVER_PORT"));
+            MOBILE_SERVER_URL = appInfo.metaData.getString("MOBILE_SERVER_URL");
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }

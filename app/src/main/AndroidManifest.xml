@@ -78,6 +78,9 @@
         <meta-data
             android:name="SERVER_IP"
             android:value="${SERVER_IP}" />
+        <meta-data
+            android:name="MOBILE_SERVER_URL"
+            android:value="${MOBILE_SERVER_URL}" />
 
         <!-- 个推SDK配置开始 -->
         <!-- 配置的第三方参数属性 -->
