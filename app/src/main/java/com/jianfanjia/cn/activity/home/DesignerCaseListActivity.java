@@ -18,6 +18,7 @@ import com.jianfanjia.cn.bean.Product;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
+import com.jianfanjia.cn.http.request.SearchDesignerProductRequest;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.EndlessRecyclerViewScrollListener;
 import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
@@ -29,7 +30,9 @@ import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Description:全部案例
@@ -67,7 +70,7 @@ public class DesignerCaseListActivity extends BaseActivity implements View.OnCli
         pullToRefreshRecyclerView.addOnScrollListener(new EndlessRecyclerViewScrollListener(linearLayoutManager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
-                getDesignerCaseList(decType, designStyle, houseType, decArea, FROM, Constant.HOME_PAGE_LIMIT, pullUpListener);
+                getDesignerProductList(decType, designStyle, houseType, decArea, FROM, pullUpListener);
             }
         });
         pullToRefreshRecyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -76,7 +79,7 @@ public class DesignerCaseListActivity extends BaseActivity implements View.OnCli
         paint.setAlpha(0);
         paint.setAntiAlias(true);
         pullToRefreshRecyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(DesignerCaseListActivity.this).paint(paint).showLastDivider().build());
-        getDesignerCaseList(decType, designStyle, houseType, decArea, FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
+        getDesignerProductList(decType, designStyle, houseType, decArea, FROM, pullDownListener);
     }
 
     private void initMainHeadView() {
@@ -99,7 +102,7 @@ public class DesignerCaseListActivity extends BaseActivity implements View.OnCli
                 appManager.finishActivity(this);
                 break;
             case R.id.error_include:
-                getDesignerCaseList(decType, designStyle, houseType, decArea, FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
+                getDesignerProductList(decType, designStyle, houseType, decArea, FROM, pullDownListener);
                 break;
             default:
                 break;
@@ -109,17 +112,25 @@ public class DesignerCaseListActivity extends BaseActivity implements View.OnCli
     @Override
     public void onPullDownToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
         FROM = 0;
-        getDesignerCaseList(decType, designStyle, houseType, decArea, FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
+        getDesignerProductList(decType, designStyle, houseType, decArea, FROM, pullDownListener);
     }
 
     @Override
     public void onPullUpToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-        getDesignerCaseList(decType, designStyle, houseType, decArea, FROM, Constant.HOME_PAGE_LIMIT, pullUpListener);
+        getDesignerProductList(decType, designStyle, houseType, decArea, FROM, pullUpListener);
     }
 
-    private void getDesignerCaseList(String decType, String designStyle, String houseType, String decArea, int from, int limit, ApiUiUpdateListener listener) {
-        LogTool.d(TAG, "from=" + from + " limit=" + limit);
-        JianFanJiaClient.searchDesignerProduct(DesignerCaseListActivity.this, decType, designStyle, houseType, decArea, "", from, limit, listener, this);
+    private void getDesignerProductList(String decType, String designStyle, String houseType, String decArea, int from, ApiUiUpdateListener listener) {
+        Map<String, Object> conditionParam = new HashMap<>();
+        conditionParam.put("dec_type", decType);
+        conditionParam.put("house_type", houseType);
+        conditionParam.put("dec_style", designStyle);
+        conditionParam.put("house_area", decArea);
+        Map<String, Object> param = new HashMap<>();
+        param.put("query", conditionParam);
+        param.put("from", from);
+        param.put("limit", Constant.HOME_PAGE_LIMIT);
+        JianFanJiaClient.searchDesignerProduct(new SearchDesignerProductRequest(DesignerCaseListActivity.this, param), listener, this);
     }
 
 

@@ -14,8 +14,10 @@ import com.jianfanjia.cn.adapter.DesignerWorksAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.DesignerWorksInfo;
 import com.jianfanjia.cn.bean.Product;
+import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
+import com.jianfanjia.cn.http.request.SearchDesignerProductRequest;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.OnItemClickListener;
 import com.jianfanjia.cn.tools.JsonParser;
@@ -24,7 +26,9 @@ import com.jianfanjia.cn.tools.ScrollableHelper;
 import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author fengliang
@@ -40,6 +44,7 @@ public class DesignerWorksFragment extends BaseFragment implements OnItemClickLi
     private DesignerWorksAdapter adapter = null;
     private List<Product> productList = new ArrayList<Product>();
     private String designerid = null;
+    private int FROM = 0;
 
     public static DesignerWorksFragment newInstance(String info) {
         Bundle args = new Bundle();
@@ -65,7 +70,7 @@ public class DesignerWorksFragment extends BaseFragment implements OnItemClickLi
         paint.setAntiAlias(true);
         designer_works_listview.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).paint(paint).showLastDivider().build());
         designer_works_listview.setFocusable(false);
-        getDesignerProduct(designerid, 0, 10);
+        getDesignerProduct(designerid, FROM);
     }
 
     @Override
@@ -83,8 +88,14 @@ public class DesignerWorksFragment extends BaseFragment implements OnItemClickLi
         startActivity(DesignerCaseInfoActivity.class, productBundle);
     }
 
-    private void getDesignerProduct(String designerid, int from, int limit) {
-        JianFanJiaClient.searchDesignerProduct(getActivity(), "", "", "", "", designerid, from, limit, this, this);
+    private void getDesignerProduct(String designerid, int from) {
+        Map<String, Object> conditionParam = new HashMap<>();
+        conditionParam.put("designerid", designerid);
+        Map<String, Object> param = new HashMap<>();
+        param.put("query", conditionParam);
+        param.put("from", from);
+        param.put("limit", Constant.HOME_PAGE_LIMIT);
+        JianFanJiaClient.searchDesignerProduct(new SearchDesignerProductRequest(getActivity(), param), this, this);
     }
 
     @Override
