@@ -143,6 +143,7 @@
 
         <activity android:name=".home.SearchActivity_"
             android:theme="@style/Theme.Swipe.Back"
+            android:windowSoftInputMode="stateVisible"
             android:screenOrientation="portrait"/>
 
         <activity
