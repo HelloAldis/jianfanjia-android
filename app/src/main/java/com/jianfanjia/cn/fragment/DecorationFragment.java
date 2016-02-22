@@ -99,7 +99,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         decoration_listview.setItemAnimator(new DefaultItemAnimator());
         SpacesItemDecoration decoration = new SpacesItemDecoration(5);
         decoration_listview.addItemDecoration(decoration);
-        getDecorationImgInfo(FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
+        getDecorationImgInfo(FROM, pullDownListener);
     }
 
     private void initMainHeadView(View view) {
@@ -132,7 +132,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
                 setSelectState(DECSTYLE);
                 break;
             case R.id.error_include:
-                getDecorationImgInfo(FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
+                getDecorationImgInfo(FROM, pullDownListener);
                 break;
             default:
                 break;
@@ -168,27 +168,27 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         }
     }
 
-    private void getDecorationImgInfo(int from, int limit,ApiUiUpdateListener listener) {
-        Map<String,Object> param = new HashMap<>();
-        Map<String,Object> quire = new HashMap<>();
-        quire.put("section",section);
-        quire.put("house_type",houseStyle);
-        quire.put("dec_style",decStyle);
-        param.put("quire",quire);
-        param.put("from",from);
-        param.put("limit", limit);
-        JianFanJiaClient.searchDecorationImg(new SearchDecorationImgRequest(getContext(),param), listener, this);
+    private void getDecorationImgInfo(int from, ApiUiUpdateListener listener) {
+        Map<String, Object> param = new HashMap<>();
+        Map<String, Object> conditionParam = new HashMap<>();
+        conditionParam.put("section", section);
+        conditionParam.put("house_type", houseStyle);
+        conditionParam.put("dec_style", decStyle);
+        param.put("query", conditionParam);
+        param.put("from", from);
+        param.put("limit", Constant.HOME_PAGE_LIMIT);
+        JianFanJiaClient.searchDecorationImg(new SearchDecorationImgRequest(getContext(), param), listener, this);
     }
 
     @Override
     public void onPullDownToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
         FROM = 0;
-        getDecorationImgInfo(FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
+        getDecorationImgInfo(FROM, pullDownListener);
     }
 
     @Override
     public void onPullUpToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-        getDecorationImgInfo(FROM, Constant.HOME_PAGE_LIMIT, pullUpListener);
+        getDecorationImgInfo(FROM, pullUpListener);
     }
 
     private ApiUiUpdateListener pullDownListener = new ApiUiUpdateListener() {
@@ -320,10 +320,10 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
             if (!TextUtils.isEmpty(title) && !title.equals(Constant.KEY_WORD)) {
                 section_item.setText(title);
             } else {
-                section_item.setText("空间");
+                section_item.setText(getResources().getString(R.string.dec_section_str));
             }
             FROM = 0;
-            getDecorationImgInfo(FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
+            getDecorationImgInfo(FROM, pullDownListener);
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
@@ -348,11 +348,11 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
             if (!TextUtils.isEmpty(title) && !title.equals(Constant.KEY_WORD)) {
                 houseType_item.setText(title);
             } else {
-                houseType_item.setText("户型");
+                houseType_item.setText(getResources().getString(R.string.dec_house_type_str));
             }
             houseStyle = BusinessManager.getHouseTypeByText(title);
             FROM = 0;
-            getDecorationImgInfo(FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
+            getDecorationImgInfo(FROM, pullDownListener);
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
@@ -377,11 +377,11 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
             if (!TextUtils.isEmpty(title) && !title.equals(Constant.KEY_WORD)) {
                 decStyle_item.setText(title);
             } else {
-                decStyle_item.setText("风格");
+                houseType_item.setText(getResources().getString(R.string.dec_style_str));
             }
             decStyle = BusinessManager.getDecStyleByText(title);
             FROM = 0;
-            getDecorationImgInfo(FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
+            getDecorationImgInfo(FROM, pullDownListener);
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
@@ -403,7 +403,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
     public void onEventMainThread(MessageEvent event) {
         switch (event.getEventType()) {
             case Constant.UPDATE_BEAUTY_IMG_FRAGMENT:
-                getDecorationImgInfo(FROM, Constant.HOME_PAGE_LIMIT, pullUpListener);
+                getDecorationImgInfo(FROM, pullUpListener);
                 break;
             default:
                 break;

@@ -160,7 +160,7 @@ public class SearchDecorationImgFragment extends BaseFragment implements ApiUiUp
 
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_decoration_img;
+        return R.layout.fragment_search_decoration_img;
     }
 
 }
