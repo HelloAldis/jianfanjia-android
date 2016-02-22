@@ -170,19 +170,19 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
     @Override
     public void onRefresh(PullToRefreshBase<ViewPager> refreshView) {
         isFirst = false;
-        getDecorationImgInfo(FROM, Constant.HOME_PAGE_LIMIT);
+        getDecorationImgInfo(FROM);
     }
 
-    private void getDecorationImgInfo(int from, int limit) {
-        Map<String,Object> param = new HashMap<>();
-        Map<String,Object> quire = new HashMap<>();
-        quire.put("section",section);
-        quire.put("house_type",houseStyle);
-        quire.put("dec_style",decStyle);
-        param.put("quire",quire);
-        param.put("from",from);
-        param.put("limit",limit);
-        JianFanJiaClient.searchDecorationImg(new SearchDecorationImgRequest(getApplicationContext(),param), getDecorationImgInfoListener, this);
+    private void getDecorationImgInfo(int from) {
+        Map<String, Object> param = new HashMap<>();
+        Map<String, Object> conditionParam = new HashMap<>();
+        conditionParam.put("section", section);
+        conditionParam.put("house_type", houseStyle);
+        conditionParam.put("dec_style", decStyle);
+        param.put("query", conditionParam);
+        param.put("from", from);
+        param.put("limit", Constant.HOME_PAGE_LIMIT);
+        JianFanJiaClient.searchDecorationImg(new SearchDecorationImgRequest(getApplicationContext(), param), getDecorationImgInfoListener, this);
     }
 
     private void addDecorationImgInfo(String decorationId) {

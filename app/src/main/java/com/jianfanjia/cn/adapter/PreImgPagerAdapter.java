@@ -33,7 +33,6 @@ public class PreImgPagerAdapter extends PagerAdapter {
     private LayoutInflater inflater;
     private ViewPagerClickListener viewPagerClickListener;
     private ImageShow imageShow;
-    private View.OnLongClickListener onLongClickListener;
 
     public PreImgPagerAdapter(Context context, List<BeautyImgInfo> beautyImagesList,
                               ViewPagerClickListener viewPagerClickListener) {
@@ -46,10 +45,6 @@ public class PreImgPagerAdapter extends PagerAdapter {
 
     public List<BeautyImgInfo> getBeautyImagesList() {
         return beautyImagesList;
-    }
-
-    public void setOnLongClickListener(View.OnLongClickListener onLongClickListener) {
-        this.onLongClickListener = onLongClickListener;
     }
 
     public void addItem(List<BeautyImgInfo> list) {
@@ -105,9 +100,6 @@ public class PreImgPagerAdapter extends PagerAdapter {
                 }
             }
         });
-        if (onLongClickListener != null) {
-            imageView.setOnLongClickListener(onLongClickListener);
-        }
         container.addView(view, 0);
         return view;
     }
