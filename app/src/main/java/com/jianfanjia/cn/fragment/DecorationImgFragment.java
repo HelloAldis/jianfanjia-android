@@ -66,7 +66,7 @@ public class DecorationImgFragment extends BaseFragment implements PullToRefresh
         decoration_img_listview.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         decoration_img_listview.setHasFixedSize(true);
         decoration_img_listview.setItemAnimator(new DefaultItemAnimator());
-        SpacesItemDecoration decoration = new SpacesItemDecoration(5);
+        SpacesItemDecoration decoration = new SpacesItemDecoration(6);
         decoration_img_listview.addItemDecoration(decoration);
     }
 

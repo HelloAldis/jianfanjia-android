@@ -1,9 +1,9 @@
 package com.jianfanjia.cn.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.CardView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.jianfanjia.cn.activity.R;
@@ -38,9 +38,9 @@ public class DecorationAdapter extends BaseRecyclerViewAdapter<BeautyImgInfo> {
         List<Img> imgList = info.getImages();
         if (null != imgList && imgList.size() > 0) {
             Img img = info.getImages().get(0);
-            int width = (int)TDevice.getScreenWidth() / 2;
+            int width = (int) TDevice.getScreenWidth() / 2;
             int height = width * img.getHeight() / img.getWidth();//高通过宽等比例缩放
-            CardView.LayoutParams layoutParams = (CardView.LayoutParams) holder.itemDecorateView.getLayoutParams();
+            FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) holder.itemDecorateView.getLayoutParams();
             layoutParams.width = width;
             layoutParams.height = height;
             holder.itemDecorateView.setLayoutParams(layoutParams);
@@ -54,9 +54,9 @@ public class DecorationAdapter extends BaseRecyclerViewAdapter<BeautyImgInfo> {
                 }
             });
         } else {
-            int width = (int)TDevice.getScreenWidth() / 2;
+            int width = (int) TDevice.getScreenWidth() / 2;
             int height = width;
-            CardView.LayoutParams layoutParams = (CardView.LayoutParams) holder.itemDecorateView.getLayoutParams();
+            FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) holder.itemDecorateView.getLayoutParams();
             layoutParams.width = width;
             layoutParams.height = height;
             holder.itemDecorateView.setLayoutParams(layoutParams);

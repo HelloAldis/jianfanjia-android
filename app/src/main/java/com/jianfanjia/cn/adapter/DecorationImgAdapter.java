@@ -1,9 +1,9 @@
 package com.jianfanjia.cn.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.CardView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.jianfanjia.cn.activity.R;
@@ -41,7 +41,7 @@ public class DecorationImgAdapter extends BaseRecyclerViewAdapter<BeautyImgInfo>
             Img img = beautyImgInfo.getImages().get(0);
             int width = (int) TDevice.getScreenWidth() / 2;
             int height = width * img.getHeight() / img.getWidth();//高通过宽等比例缩放
-            CardView.LayoutParams params = (CardView.LayoutParams) holder.itemDecorateView.getLayoutParams();
+            FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) holder.itemDecorateView.getLayoutParams();
             params.width = width;
             params.height = height;
             holder.itemDecorateView.setLayoutParams(params);
