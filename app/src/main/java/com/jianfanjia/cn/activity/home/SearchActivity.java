@@ -69,6 +69,7 @@ public class SearchActivity extends SwipeBackActivity{
     @AfterViews
     protected void initAnnotationView(){
         contentLayout.setVisibility(View.GONE);
+        deleteView.setVisibility(View.GONE);
         searchText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -84,7 +85,10 @@ public class SearchActivity extends SwipeBackActivity{
             public void afterTextChanged(Editable s) {
                 if(TextUtils.isEmpty(s.toString())){
                     resetView();
+                    deleteView.setVisibility(View.GONE);
                     contentLayout.setVisibility(View.GONE);
+                }else{
+                    deleteView.setVisibility(View.VISIBLE);
                 }
             }
         });

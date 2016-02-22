@@ -5,10 +5,10 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.MainActivity;
@@ -28,7 +28,7 @@ import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.view.MyViewPager;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
-import com.jianfanjia.cn.view.library.PullToRefreshScrollView;
+import com.jianfanjia.cn.view.library.PullToRefreshFrameLayout;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -65,7 +65,7 @@ public class HomeNewFragment extends BaseAnnotationFragment {
     protected ViewPager contentViewPager;
 
     @ViewById(R.id.pullrefresh_scrollview)
-    protected PullToRefreshScrollView pullToRefreshScrollView;
+    protected PullToRefreshFrameLayout pullToRefreshScrollView;
 
     private List<View> bannerList;
     private HomeProductPagerAdapter mPagerAdapter;
@@ -79,15 +79,17 @@ public class HomeNewFragment extends BaseAnnotationFragment {
             @Override
             public void onGlobalLayout() {
                 pullToRefreshScrollView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                pullToRefreshScrollView.getRefreshableView().setLayoutParams(new FrameLayout.LayoutParams(coordinatorLayout.getWidth(), coordinatorLayout.getHeight()));
                 //此处需要动态传宽高给viewpager的imageview的宽高
-                mPagerAdapter = new HomeProductPagerAdapter(getContext(), productNews, null, pullToRefreshScrollView.getWidth(), pullToRefreshScrollView.getHeight());
+                mPagerAdapter = new HomeProductPagerAdapter(getContext(), productNews, null, coordinatorLayout.getWidth(), coordinatorLayout.getHeight());
+
                 contentViewPager.setAdapter(mPagerAdapter);
                 getProduct(TOTAL_COUNT);
             }
         });
-        pullToRefreshScrollView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ScrollView>() {
+        pullToRefreshScrollView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<FrameLayout>() {
             @Override
-            public void onRefresh(PullToRefreshBase<ScrollView> refreshView) {
+            public void onRefresh(PullToRefreshBase<FrameLayout> refreshView) {
                 getProduct(TOTAL_COUNT);
             }
         });

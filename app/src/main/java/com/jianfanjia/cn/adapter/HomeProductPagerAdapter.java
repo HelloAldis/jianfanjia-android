@@ -49,7 +49,7 @@ public class HomeProductPagerAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, final int position) {
         NestedScrollView itemView = (NestedScrollView) mLayoutInflater.inflate(R.layout.viewpager_item_home, container, false);
         ImageView imageView = (ImageView) itemView.findViewById(R.id.viewpager_home_item_pic);
-        imageView.setLayoutParams(new FrameLayout.LayoutParams(width, height));
+        itemView.findViewById(R.id.item_content).setLayoutParams(new FrameLayout.LayoutParams(width, height));
         ProductNew productNew = paths.get(position);
         ImageInfo imageInfo = productNew.getImages().get(0);
         String uri = Url_New.getInstance().GET_THUMBNAIL_IMAGE2.replace(Url_New.WIDTH, width + "") + height + "/" + imageInfo.getImageid();

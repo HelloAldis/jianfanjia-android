@@ -35,6 +35,11 @@ public class WrapContentHeightAndViewPager extends ViewPager {
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         try {
+            switch (ev.getAction()){
+                case MotionEvent.ACTION_MOVE:
+//                    LogTool.d(this.getClass().getName(),"ev gety =" + ev.getRawY());
+                    break;
+            }
             return super.onInterceptTouchEvent(ev);
         } catch (IllegalArgumentException e) {
             e.printStackTrace();

@@ -27,7 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:padding="@dimen/space_4"
+                android:padding="@dimen/space_6"
                 android:src="@mipmap/icon_search0" />
 
             <EditText
@@ -53,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:padding="@dimen/space_4"
+                android:padding="@dimen/space_6"
                 android:src="@mipmap/icon_delete" />
 
         </RelativeLayout>
@@ -66,8 +66,8 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:paddingBottom="@dimen/space_8"
-            android:paddingLeft="@dimen/space_16"
-            android:paddingRight="@dimen/space_16"
+            android:paddingLeft="@dimen/space_12"
+            android:paddingRight="@dimen/space_12"
             android:paddingTop="@dimen/space_8"
             android:text="@string/str_cancel" />
     </RelativeLayout>
