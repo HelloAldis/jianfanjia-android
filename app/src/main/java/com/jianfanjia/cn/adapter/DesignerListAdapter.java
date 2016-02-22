@@ -12,6 +12,7 @@ import com.jianfanjia.cn.adapter.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.bean.DesignerInfo;
 import com.jianfanjia.cn.cache.BusinessManager;
+import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
 
 import java.util.List;
@@ -43,10 +44,15 @@ public class DesignerListAdapter extends BaseRecyclerViewAdapter<DesignerInfo> {
         holder.itemNameText.setText(designerInfo.getUsername());
         imageShow.displayImageHeadWidthThumnailImage(context, designerInfo.getImageid(), holder.itemHeadView);
         holder.itemProductCountText.setText(designerInfo.getAuthed_product_count());
+        if (designerInfo.getAuth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)) {
+            holder.itemAuthView.setVisibility(View.VISIBLE);
+        } else {
+            holder.itemAuthView.setVisibility(View.GONE);
+        }
         int respond_speed = (int) designerInfo.getRespond_speed();
         int service_attitude = (int) designerInfo.getService_attitude();
         holder.itemRatingBar.setRating((respond_speed + service_attitude) / 2);
-//     holder.itemAppointCountText.setText(designerInfo.getOrder_count());
+        holder.itemAppointCountText.setText(designerInfo.getOrder_count() + "");
         holder.itemDecTypeText.setText(BusinessManager.getHouseTypeStr(designerInfo.getDec_house_types()));
         holder.itemDecStyleText.setText(BusinessManager.getDecStyleStr(designerInfo.getDec_styles()));
         holder.itemDecFeeText.setText(BusinessManager.convertDesignFeeToShow(designerInfo.getDesign_fee_range()));

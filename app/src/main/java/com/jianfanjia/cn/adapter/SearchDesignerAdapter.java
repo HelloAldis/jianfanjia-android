@@ -64,7 +64,7 @@ public class SearchDesignerAdapter extends BaseLoadingAdapter<DesignerInfo> {
 
             }
         });
-        holder.productSumView.setText(designerInfo.getProduct_count() + "");
+        holder.productSumView.setText(designerInfo.getAuthed_product_count());
         holder.designerFeeView.setText(BusinessManager.convertDesignFeeToShow(designerInfo.getDesign_fee_range()));
         holder.appointSumView.setText(designerInfo.getOrder_count() + "");
 
