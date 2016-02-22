@@ -69,7 +69,7 @@ public class DesignerListActivity extends BaseActivity implements View.OnClickLi
     private String decHouseStyle = null;
     private String decStyle = null;
     private String decFee = null;
-
+    private boolean isFirst = true;
     private int FROM = 0;
 
     @Override
@@ -192,6 +192,7 @@ public class DesignerListActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void onPullDownToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
+        isFirst = false;
         FROM = 0;
         searchDesigners(decType, decHouseStyle, decStyle, decFee, FROM, pullDownListener);
     }
@@ -204,12 +205,15 @@ public class DesignerListActivity extends BaseActivity implements View.OnClickLi
     private ApiUiUpdateListener pullDownListener = new ApiUiUpdateListener() {
         @Override
         public void preLoad() {
-
+            if (isFirst) {
+                showWaitDialog();
+            }
         }
 
         @Override
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data.toString());
+            hideWaitDialog();
             designerListView.onRefreshComplete();
             MyFavoriteDesigner designer = JsonParser.jsonToBean(data.toString(), MyFavoriteDesigner.class);
             LogTool.d(TAG, "designer:" + designer);
@@ -224,12 +228,14 @@ public class DesignerListActivity extends BaseActivity implements View.OnClickLi
                 }
                 FROM = designerList.size();
                 LogTool.d(TAG, "FROM:" + FROM);
+                isFirst = false;
             }
         }
 
         @Override
         public void loadFailture(String error_msg) {
             makeTextShort(error_msg);
+            hideWaitDialog();
             designerListView.onRefreshComplete();
         }
     };
@@ -287,6 +293,7 @@ public class DesignerListActivity extends BaseActivity implements View.OnClickLi
     private GetItemCallback getDecTypeCallback = new GetItemCallback() {
         @Override
         public void onItemCallback(int position, String title) {
+            isFirst = true;
             Global.DEC_TYPE_POSITION = position;
             if (!TextUtils.isEmpty(title) && !title.equals(Constant.KEY_WORD)) {
                 decType_item.setText(title);
@@ -317,6 +324,7 @@ public class DesignerListActivity extends BaseActivity implements View.OnClickLi
     private GetItemCallback getDecHouseTypeCallback = new GetItemCallback() {
         @Override
         public void onItemCallback(int position, String title) {
+            isFirst = true;
             Global.DEC_HOUSE_TYPE_POSITION = position;
             if (!TextUtils.isEmpty(title) && !title.equals(Constant.KEY_WORD)) {
                 decHouseType_item.setText(title);
@@ -347,6 +355,7 @@ public class DesignerListActivity extends BaseActivity implements View.OnClickLi
     private GetItemCallback getDecStyleCallback = new GetItemCallback() {
         @Override
         public void onItemCallback(int position, String title) {
+            isFirst = true;
             Global.STYLE_POSITION = position;
             if (!TextUtils.isEmpty(title) && !title.equals(Constant.KEY_WORD)) {
                 decStyle_item.setText(title);
@@ -377,6 +386,7 @@ public class DesignerListActivity extends BaseActivity implements View.OnClickLi
     private GetItemCallback getDecFeeCallback = new GetItemCallback() {
         @Override
         public void onItemCallback(int position, String title) {
+            isFirst = true;
             Global.DEC_FEE_POSITION = position;
             if (!TextUtils.isEmpty(title) && !title.equals(Constant.KEY_WORD)) {
                 decFee_item.setText(title);

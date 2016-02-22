@@ -692,48 +692,6 @@ public class JianFanJiaClient {
     }
 
     /**
-     * 获取设计师作品
-     *
-     * @param context
-     * @param designerid
-     * @param from
-     * @param limit
-     * @param listener
-     * @param tag
-     */
-    public static void searchDesignerProduct(Context context, String decType, String designStyle, String houseType, String decArea, String designerid, int from, int limit, ApiUiUpdateListener listener, Object tag) {
-        SearchDesignerProductRequest productRequest = new SearchDesignerProductRequest(context, designerid, from, limit);
-        JSONObject jsonParams = new JSONObject();
-        try {
-            JSONObject params1 = new JSONObject();
-            if (!TextUtils.isEmpty(decType) && !decType.equals(Constant.KEY_WORD)) {
-                params1.put("dec_type", decType);
-            }
-            if (!TextUtils.isEmpty(designStyle) && !designStyle.equals(Constant.KEY_WORD)) {
-                params1.put("dec_style", designStyle);
-            }
-            if (!TextUtils.isEmpty(houseType) && !houseType.equals(Constant.KEY_WORD)) {
-                params1.put("house_type", houseType);
-            }
-            if (!TextUtils.isEmpty(decArea) && !decArea.equals(Constant.KEY_WORD)) {
-                params1.put("house_area", decArea);
-            }
-            if (!TextUtils.isEmpty(decArea)) {
-                params1.put("designerid", designerid);
-            }
-            JSONObject params = new JSONObject();
-            jsonParams.put("query", params1);
-            jsonParams.put("search_word", "");
-            jsonParams.put("from", from);
-            jsonParams.put("limit", limit);
-            LogTool.d(TAG, "jsonParams:" + jsonParams.toString());
-            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(productRequest, jsonParams.toString(), listener, tag);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
      * 添加设计师到意向列表
      *
      * @param context
@@ -1274,5 +1232,21 @@ public class JianFanJiaClient {
     public static void searchDesigner(SearchDesignerRequest searchDesignerRequest, ApiUiUpdateListener listener, Object tag) {
         LogTool.d(TAG, "jsonParams:" + searchDesignerRequest.getParam());
         OkHttpClientManager.getInstance().getPostDelegate().postAsyn(searchDesignerRequest, searchDesignerRequest.getParam(), listener, tag);
+    }
+
+
+    /**
+     * 获取设计师作品
+     *
+     * @param context
+     * @param designerid
+     * @param from
+     * @param limit
+     * @param listener
+     * @param tag
+     */
+    public static void searchDesignerProduct(SearchDesignerProductRequest searchProductRequest, ApiUiUpdateListener listener, Object tag) {
+        LogTool.d(TAG, "jsonParams:" + searchProductRequest.getParam());
+        OkHttpClientManager.getInstance().getPostDelegate().postAsyn(searchProductRequest, searchProductRequest.getParam(), listener, tag);
     }
 }
