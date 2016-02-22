@@ -66,6 +66,7 @@ public abstract class BaseFragment extends Fragment
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        LogTool.d(this.getClass().getName(),"onActivityCreated");
         initUserInfo();
         initView(view);
         setListener();

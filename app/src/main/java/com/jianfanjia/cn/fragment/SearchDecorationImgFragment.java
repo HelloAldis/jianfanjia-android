@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.beautifulpic.PreviewDecorationActivity;
 import com.jianfanjia.cn.adapter.SearchDecorationImgAdapter;
+import com.jianfanjia.cn.adapter.base.BaseLoadingAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.BeautyImgInfo;
 import com.jianfanjia.cn.bean.DecorationItemInfo;
@@ -42,9 +43,10 @@ public class SearchDecorationImgFragment extends BaseFragment implements ApiUiUp
     private RecyclerView decoration_img_listview = null;
     private RelativeLayout emptyLayout = null;
     private RelativeLayout errorLayout = null;
-    private List<BeautyImgInfo> beautyImgList = new ArrayList<BeautyImgInfo>();
+    private List<BeautyImgInfo> beautyImgList;
     private SearchDecorationImgAdapter decorationImgAdapter = null;
     private int currentPos = 0;
+    private String search = null;
 
     @Override
     public void initView(View view) {
@@ -56,7 +58,8 @@ public class SearchDecorationImgFragment extends BaseFragment implements ApiUiUp
         SpacesItemDecoration decoration = new SpacesItemDecoration(5);
         decoration_img_listview.addItemDecoration(decoration);
 
-        getDecorationImgInfo(currentPos, PAGE_COUNT, "卫生间", this);
+        search = getArguments().getString(Global.SEARCH_TEXT);
+        getDecorationImgInfo(currentPos, PAGE_COUNT,search , this);
     }
 
     private void getDecorationImgInfo(int from, int limit, String searchText, ApiUiUpdateListener listener) {
@@ -76,7 +79,7 @@ public class SearchDecorationImgFragment extends BaseFragment implements ApiUiUp
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.error_include:
-                getDecorationImgInfo(currentPos, PAGE_COUNT, "卫生间", this);
+                getDecorationImgInfo(currentPos, PAGE_COUNT, search, this);
                 break;
             default:
                 break;
@@ -95,8 +98,8 @@ public class SearchDecorationImgFragment extends BaseFragment implements ApiUiUp
         LogTool.d(TAG, "decorationItemInfo:" + decorationItemInfo);
         if (null != decorationItemInfo) {
             beautyImgList = decorationItemInfo.getBeautiful_images();
-            currentPos += beautyImgList.size();
             if (null != beautyImgList && beautyImgList.size() > 0) {
+                currentPos += beautyImgList.size();
                 if (decorationImgAdapter == null) {
                     decorationImgAdapter = new SearchDecorationImgAdapter(getActivity(), decoration_img_listview, beautyImgList, PAGE_COUNT, new OnItemClickListener() {
                         @Override
@@ -115,6 +118,12 @@ public class SearchDecorationImgFragment extends BaseFragment implements ApiUiUp
 //                        decorationBundle.putInt(Global.TOTAL_COUNT, total);
                             decorationIntent.putExtras(decorationBundle);
                             startActivity(decorationIntent);
+                        }
+                    });
+                    decorationImgAdapter.setOnLoadingListener(new BaseLoadingAdapter.OnLoadingListener() {
+                        @Override
+                        public void loading() {
+                            getDecorationImgInfo(currentPos, PAGE_COUNT, search, SearchDecorationImgFragment.this);
                         }
                     });
                     decoration_img_listview.setAdapter(decorationImgAdapter);
@@ -160,7 +169,7 @@ public class SearchDecorationImgFragment extends BaseFragment implements ApiUiUp
 
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_decoration_img;
+        return R.layout.fragment_search_decoration_img;
     }
 
 }

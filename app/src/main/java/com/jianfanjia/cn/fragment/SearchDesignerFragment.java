@@ -14,6 +14,7 @@ import com.jianfanjia.cn.adapter.base.BaseLoadingAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.DesignerInfo;
 import com.jianfanjia.cn.bean.MyFavoriteDesigner;
+import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.http.request.SearchDesignerRequest;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
@@ -32,6 +33,7 @@ import java.util.Map;
  * @date 2015-8-26 下午1:07:52
  */
 public class SearchDesignerFragment extends BaseFragment implements ApiUiUpdateListener {
+
     private static final String TAG = SearchDesignerFragment.class.getName();
 
     public static final int PAGE_COUNT = 10;
@@ -40,6 +42,7 @@ public class SearchDesignerFragment extends BaseFragment implements ApiUiUpdateL
     private RelativeLayout errorLayout = null;
     private SearchDesignerAdapter searchDesignerAdapter = null;
     private int currentPos = 0;
+    private String search = null;
 
     @Override
     public void initView(View view) {
@@ -54,7 +57,8 @@ public class SearchDesignerFragment extends BaseFragment implements ApiUiUpdateL
         paint.setAntiAlias(true);
         recycleView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).paint(paint).showLastDivider().build());
 
-        searchDesignerInfo(currentPos, "戴涛");
+        search = getArguments().getString(Global.SEARCH_TEXT);
+        searchDesignerInfo(currentPos, search);
     }
 
     private void searchDesignerInfo(int from, String searchText) {
@@ -74,6 +78,8 @@ public class SearchDesignerFragment extends BaseFragment implements ApiUiUpdateL
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.error_include:
+                //
+                searchDesignerInfo(currentPos, search);
                 break;
             default:
                 break;
@@ -91,20 +97,28 @@ public class SearchDesignerFragment extends BaseFragment implements ApiUiUpdateL
         MyFavoriteDesigner myFavoriteDesigner = JsonParser.jsonToBean(data.toString(), MyFavoriteDesigner.class);
         if (myFavoriteDesigner != null) {
             List<DesignerInfo> designerInfoList = myFavoriteDesigner.getDesigners();
-            currentPos += designerInfoList.size();
-            if(searchDesignerAdapter == null){
-                searchDesignerAdapter = new SearchDesignerAdapter(getContext(),recycleView,designerInfoList,PAGE_COUNT);
-                searchDesignerAdapter.setOnLoadingListener(new BaseLoadingAdapter.OnLoadingListener() {
-                    @Override
-                    public void loading() {
-                        searchDesignerInfo(currentPos,"戴涛");
-                    }
-                });
-                recycleView.setAdapter(searchDesignerAdapter);
-            }else{
-                searchDesignerAdapter.addAll(designerInfoList);
+            if (designerInfoList != null && designerInfoList.size() > 0) {
+                currentPos += designerInfoList.size();
+                if (searchDesignerAdapter == null) {
+                    searchDesignerAdapter = new SearchDesignerAdapter(getContext(), recycleView, designerInfoList, PAGE_COUNT);
+                    searchDesignerAdapter.setOnLoadingListener(new BaseLoadingAdapter.OnLoadingListener() {
+                        @Override
+                        public void loading() {
+                            searchDesignerInfo(currentPos, search);
+                        }
+                    });
+                    recycleView.setAdapter(searchDesignerAdapter);
+                } else {
+                    searchDesignerAdapter.addAll(designerInfoList);
+                }
+                recycleView.setVisibility(View.VISIBLE);
+                emptyLayout.setVisibility(View.GONE);
+            } else {
+                recycleView.setVisibility(View.GONE);
+                emptyLayout.setVisibility(View.VISIBLE);
             }
         }
+        errorLayout.setVisibility(View.GONE);
     }
 
     @Override

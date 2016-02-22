@@ -39,7 +39,6 @@
                 android:ellipsize="end"
                 android:gravity="left|center_vertical"
                 android:hint="@string/searh_tip"
-                android:inputType="phone"
                 android:maxLength="15"
                 android:paddingLeft="@dimen/space_8"
                 android:paddingRight="@dimen/space_8"
@@ -98,7 +97,8 @@
                     android:checked="true"
                     android:text="@string/designer"
                     android:textColor="@color/text_color"
-                    android:textSize="@dimen/middle_size" />
+                    android:textSize="@dimen/middle_size"
+                    />
 
                 <View style="@style/vertical_divier_line" />
 

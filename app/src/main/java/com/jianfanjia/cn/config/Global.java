@@ -46,6 +46,8 @@ public class Global {
     public static final String HOUSE_STYLE = "houseStyle";
     public static final String DEC_STYLE = "decStyle";
 
+    public static final String SEARCH_TEXT = "search_text";
+
 
     public static final String TOPIC_PLAN = "0";//方案评论
     public static final String TOPIC_NODE = "1";//节点评论

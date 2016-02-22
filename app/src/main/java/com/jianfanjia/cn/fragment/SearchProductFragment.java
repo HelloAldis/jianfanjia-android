@@ -53,6 +53,7 @@ public class SearchProductFragment extends BaseFragment implements ApiUiUpdateLi
     private String designStyle = null;
     private String houseType = null;
     private String decArea = null;
+    private String search = null;
 
     @Override
     public void initView(View view) {
@@ -67,7 +68,8 @@ public class SearchProductFragment extends BaseFragment implements ApiUiUpdateLi
         paint.setAntiAlias(true);
         prodtct_listview.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).paint(paint).showLastDivider().build());
 
-        searchProduct(currentPos,"水岸国际");
+        search = getArguments().getString(Global.SEARCH_TEXT);
+        searchProduct(currentPos,search);
     }
 
     private void searchProduct(int from, String searchText) {
@@ -87,6 +89,7 @@ public class SearchProductFragment extends BaseFragment implements ApiUiUpdateLi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.error_include:
+                searchProduct(currentPos,search);
                 break;
             default:
                 break;
@@ -112,7 +115,7 @@ public class SearchProductFragment extends BaseFragment implements ApiUiUpdateLi
                     productAdapter.setOnLoadingListener(new BaseLoadingAdapter.OnLoadingListener() {
                         @Override
                         public void loading() {
-                            searchProduct(currentPos,"水岸国际");
+                            searchProduct(currentPos,search);
                         }
                     });
                     prodtct_listview.setAdapter(productAdapter);

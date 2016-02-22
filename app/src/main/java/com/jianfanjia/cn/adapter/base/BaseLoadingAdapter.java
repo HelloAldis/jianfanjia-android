@@ -193,6 +193,7 @@ public abstract class BaseLoadingAdapter<T> extends RecyclerView.Adapter<Recycle
                 super.onScrolled(recyclerView, dx, dy);
 
                 if (!canScrollDown(recyclerView) && isHasLoadMore) {
+                    LogTool.d(this.getClass().getName(),"loading...");
                     if (mOnLoadingListener != null) {
                         mOnLoadingListener.loading();
                     }
@@ -276,7 +277,7 @@ public abstract class BaseLoadingAdapter<T> extends RecyclerView.Adapter<Recycle
 
     private void onBindLoadMoreViewHolder(RecyclerView.ViewHolder holder, int position) {
         mLoadingViewHolder = (LoadingViewHolder) holder;
-        LogTool.d(this.getClass().getName(), "isLoadMore =" + isHasLoadMore);
+        LogTool.d(this.getClass().getName(), "isHasLoadMore =" + isHasLoadMore);
         if (!isHasLoadMore) {
             mLoadingViewHolder.progressBar.setVisibility(View.GONE);
             mLoadingViewHolder.tvLoading.setText("数据已全部加载完！");
