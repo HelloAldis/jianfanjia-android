@@ -415,6 +415,15 @@ public class DesignerListActivity extends BaseActivity implements View.OnClickLi
     };
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Global.DEC_TYPE_POSITION = 0;
+        Global.DEC_HOUSE_TYPE_POSITION = 0;
+        Global.STYLE_POSITION = 0;
+        Global.DEC_FEE_POSITION = 0;
+    }
+
+    @Override
     public int getLayoutId() {
         return R.layout.activity_designer_list;
     }

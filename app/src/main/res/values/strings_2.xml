@@ -123,8 +123,9 @@
     <string name="des_text">备注</string>
     <string name="all_designer">全部设计师</string>
     <string name="all_designer_case">全部案例</string>
-    <string name="dec_type_str">装修类型</string>
-    <string name="dec_house_type_str">装修户型</string>
-    <string name="dec_style_str">擅长风格</string>
-    <string name="dec_fee_str">设计收费</string>
+    <string name="dec_type_str">类型</string>
+    <string name="dec_house_type_str">户型</string>
+    <string name="dec_style_str">风格</string>
+    <string name="dec_fee_str">报价</string>
+    <string name="dec_area_str">面积</string>
 </resources>

@@ -35,7 +35,7 @@
                     android:layout_centerInParent="true"
                     android:drawablePadding="@dimen/space_5"
                     android:drawableRight="@drawable/icon_arrow"
-                    android:text="装修类型"
+                    android:text="@string/dec_type_str"
                     android:textColor="@color/font_style_colors" />
 
             </RelativeLayout>
@@ -53,7 +53,7 @@
                     android:layout_centerInParent="true"
                     android:drawablePadding="@dimen/space_5"
                     android:drawableRight="@drawable/icon_arrow"
-                    android:text="装修户型"
+                    android:text="@string/dec_house_type_str"
                     android:textColor="@color/font_style_colors" />
 
             </RelativeLayout>
@@ -71,7 +71,7 @@
                     android:layout_centerInParent="true"
                     android:drawablePadding="@dimen/space_5"
                     android:drawableRight="@drawable/icon_arrow"
-                    android:text="擅长风格"
+                    android:text="@string/dec_style_str"
                     android:textColor="@color/font_style_colors" />
 
             </RelativeLayout>
@@ -89,7 +89,7 @@
                     android:layout_centerInParent="true"
                     android:drawablePadding="@dimen/space_5"
                     android:drawableRight="@drawable/icon_arrow"
-                    android:text="设计收费"
+                    android:text="@string/dec_fee_str"
                     android:textColor="@color/font_style_colors" />
 
             </RelativeLayout>
