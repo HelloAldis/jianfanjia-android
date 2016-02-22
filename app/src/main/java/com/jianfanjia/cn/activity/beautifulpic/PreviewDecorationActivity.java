@@ -94,7 +94,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
         shareUtil = new ShareUtil(this);
         LogTool.d(TAG, "decorationId=" + decorationId + " currentPosition=" + currentPosition + "  totalCount=" + totalCount + "  beautiful_images.size()=" + beautiful_images.size());
         FROM = beautiful_images.size();
-        LogTool.d(TAG, "FROM=" + FROM);
+        LogTool.d(TAG, "FROM:" + FROM);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar_collect = (ImageView) findViewById(R.id.toolbar_collect);
         toolbar_share = (ImageView) findViewById(R.id.toolbar_share);
@@ -182,7 +182,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
         param.put("query", conditionParam);
         param.put("from", from);
         param.put("limit", Constant.HOME_PAGE_LIMIT);
-        JianFanJiaClient.searchDecorationImg(new SearchDecorationImgRequest(getApplicationContext(), param), getDecorationImgInfoListener, this);
+        JianFanJiaClient.searchDecorationImg(new SearchDecorationImgRequest(PreviewDecorationActivity.this, param), getDecorationImgInfoListener, this);
     }
 
     private void addDecorationImgInfo(String decorationId) {
@@ -210,6 +210,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
             LogTool.d(TAG, "decorationItemInfo:" + decorationItemInfo);
             if (null != decorationItemInfo) {
                 List<BeautyImgInfo> beautyImages = decorationItemInfo.getBeautiful_images();
+                LogTool.d(TAG, "beautyImages=" + beautyImages.size());
                 if (null != beautyImages && beautyImages.size() > 0) {
                     showPicPagerAdapter.addItem(beautyImages);
                     FROM += Constant.HOME_PAGE_LIMIT;

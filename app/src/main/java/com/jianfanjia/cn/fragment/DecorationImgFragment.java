@@ -44,9 +44,6 @@ public class DecorationImgFragment extends BaseFragment implements PullToRefresh
     private RelativeLayout errorLayout = null;
     private List<BeautyImgInfo> beautyImgList = new ArrayList<BeautyImgInfo>();
     private DecorationAdapter decorationImgAdapter = null;
-    private String section = null;
-    private String houseStyle = null;
-    private String decStyle = null;
     private int total = 0;
     private int currentPos = -1;
     private int FROM = 0;
