@@ -107,21 +107,25 @@
 
             <TextView
                 android:id="@+id/ltm_decoratehousetype_cont"
-                style="@style/listview_item_text_style_small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/ltm_req_starttime"
                 android:layout_marginLeft="@dimen/space_16"
                 android:layout_toRightOf="@+id/ltm_req_starttime"
                 android:text="New Text"
-                android:textColor="@color/light_black_color" />
+                android:textColor="@color/light_black_color"
+                android:textSize="@dimen/text_size_12" />
 
             <TextView
                 android:id="@+id/ltm_good_at_style_cont"
-                style="@style/listview_item_text_style_small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/ltm_req_updatetime"
                 android:layout_marginLeft="@dimen/space_16"
                 android:layout_toRightOf="@+id/ltm_req_updatetime"
                 android:text="New Text"
-                android:textColor="@color/light_black_color" />
+                android:textColor="@color/light_black_color"
+                android:textSize="@dimen/text_size_12" />
 
         </RelativeLayout>
 

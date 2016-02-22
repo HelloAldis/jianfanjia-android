@@ -4,12 +4,12 @@ import android.app.Activity;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.PopupWindow;
+import android.view.ViewGroup.LayoutParams;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.PopWindowAdapter;
@@ -19,20 +19,20 @@ import com.jianfanjia.cn.interf.GetItemCallback;
 import java.util.List;
 
 /**
- * Name: DecorationPopWindow
+ * Name: FilterPopWindow
  * User: fengliang
- * Date: 2015-12-14
- * Time: 15:56
+ * Date: 2016-02-22
+ * Time: 09:25
  */
-public class DecorationPopWindow extends PopupWindow {
-    private static final String TAG = DecorationPopWindow.class.getName();
+public class FilterPopWindow extends PopupWindow {
+    private static final String TAG = FilterPopWindow.class.getName();
     private View popView = null;
     private GridView gridView = null;
     private PopWindowAdapter adapter = null;
     private WindowManager.LayoutParams lp = null;
     private Window window = null;
 
-    public DecorationPopWindow(Activity activity, int resId, final GetItemCallback callback, int currentPosition) {
+    public FilterPopWindow(Activity activity, int resId, final GetItemCallback callback, int currentPosition) {
         super(activity);
         popView = LayoutInflater.from(activity).inflate(R.layout.gird_item_pop, null);
         popView.setOnClickListener(new View.OnClickListener() {
@@ -80,3 +80,4 @@ public class DecorationPopWindow extends PopupWindow {
         showAsDropDown(view, 0, 0);
     }
 }
+

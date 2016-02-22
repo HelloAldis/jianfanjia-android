@@ -27,7 +27,7 @@ import com.jianfanjia.cn.interf.GetItemCallback;
 import com.jianfanjia.cn.interf.OnItemClickListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.view.DecorationPopWindow;
+import com.jianfanjia.cn.view.FilterPopWindow;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.baseview.SpacesItemDecoration;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
@@ -62,7 +62,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
     private TextView decStyle_item = null;
     private PullToRefreshRecycleView decoration_listview = null;
     private DecorationAdapter decorationAdapter = null;
-    private DecorationPopWindow window = null;
+    private FilterPopWindow window = null;
     private List<BeautyImgInfo> beautyImgList = new ArrayList<BeautyImgInfo>();
     private String section = null;
     private String houseStyle = null;
@@ -288,13 +288,13 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
     private void showWindow(int resId, int type) {
         switch (type) {
             case SECTION:
-                window = new DecorationPopWindow(getActivity(), resId, getSectionCallback, Global.SECTION_POSITION);
+                window = new FilterPopWindow(getActivity(), resId, getSectionCallback, Global.SECTION_POSITION);
                 break;
             case HOUSETYPE:
-                window = new DecorationPopWindow(getActivity(), resId, getHouseStyleCallback, Global.HOUSE_TYPE_POSITION);
+                window = new FilterPopWindow(getActivity(), resId, getHouseStyleCallback, Global.HOUSE_TYPE_POSITION);
                 break;
             case DECSTYLE:
-                window = new DecorationPopWindow(getActivity(), resId, getDecStyleCallback, Global.DEC_STYLE_POSITION);
+                window = new FilterPopWindow(getActivity(), resId, getDecStyleCallback, Global.DEC_STYLE_POSITION);
                 break;
             default:
                 break;
