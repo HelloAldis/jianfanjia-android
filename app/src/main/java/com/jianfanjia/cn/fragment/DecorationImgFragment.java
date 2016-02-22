@@ -11,7 +11,7 @@ import android.widget.RelativeLayout;
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.beautifulpic.PreviewDecorationActivity;
-import com.jianfanjia.cn.adapter.DecorationImgAdapter;
+import com.jianfanjia.cn.adapter.DecorationAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.BeautyImgInfo;
 import com.jianfanjia.cn.bean.DecorationItemInfo;
@@ -19,7 +19,7 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
-import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
+import com.jianfanjia.cn.interf.OnItemClickListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.baseview.SpacesItemDecoration;
@@ -43,7 +43,7 @@ public class DecorationImgFragment extends BaseFragment implements PullToRefresh
     private RelativeLayout emptyLayout = null;
     private RelativeLayout errorLayout = null;
     private List<BeautyImgInfo> beautyImgList = new ArrayList<BeautyImgInfo>();
-    private DecorationImgAdapter decorationImgAdapter = null;
+    private DecorationAdapter decorationImgAdapter = null;
     private String section = null;
     private String houseStyle = null;
     private String decStyle = null;
@@ -133,9 +133,9 @@ public class DecorationImgFragment extends BaseFragment implements PullToRefresh
                 beautyImgList.addAll(decorationItemInfo.getBeautiful_images());
                 LogTool.d(TAG, "beautyImgList:" + beautyImgList.size());
                 if (null != beautyImgList && beautyImgList.size() > 0) {
-                    decorationImgAdapter = new DecorationImgAdapter(getActivity(), beautyImgList, new RecyclerViewOnItemClickListener() {
+                    decorationImgAdapter = new DecorationAdapter(getActivity(), beautyImgList, new OnItemClickListener() {
                         @Override
-                        public void OnItemClick(View view, int position) {
+                        public void OnItemClick(int position) {
                             LogTool.d(TAG, "position:" + position);
                             currentPos = position;
                             BeautyImgInfo beautyImgInfo = beautyImgList.get(position);
@@ -148,11 +148,6 @@ public class DecorationImgFragment extends BaseFragment implements PullToRefresh
                             decorationBundle.putInt(Global.TOTAL_COUNT, total);
                             decorationIntent.putExtras(decorationBundle);
                             startActivity(decorationIntent);
-                        }
-
-                        @Override
-                        public void OnViewClick(int position) {
-
                         }
                     });
                     decoration_img_listview.setAdapter(decorationImgAdapter);
