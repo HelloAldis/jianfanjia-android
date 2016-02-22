@@ -217,7 +217,7 @@ public class DesignerListActivity extends BaseActivity implements View.OnClickLi
                 designerList.clear();
                 designerList.addAll(designer.getDesigners());
                 if (null == designerListAdapter) {
-                    designerListAdapter = new DesignerListAdapter(DesignerListActivity.this, designer.getDesigners());
+                    designerListAdapter = new DesignerListAdapter(DesignerListActivity.this, designerList);
                     designerListView.setAdapter(designerListAdapter);
                 } else {
                     designerListAdapter.notifyDataSetChanged();
