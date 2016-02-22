@@ -1,6 +1,8 @@
 package com.jianfanjia.cn.activity.home;
 
+import android.content.Intent;
 import android.graphics.Paint;
+import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,6 +25,7 @@ import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.http.request.SearchDesignerRequest;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.GetItemCallback;
+import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.FilterPopWindow;
@@ -95,7 +98,7 @@ public class DesignerListActivity extends BaseActivity implements View.OnClickLi
         paint.setAlpha(0);
         paint.setAntiAlias(true);
         designerListView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(DesignerListActivity.this).paint(paint).showLastDivider().build());
-        searchDesigners(decType, decHouseStyle, decStyle, decFee, FROM, pullDownListener);
+        searchDesigners(FROM, pullDownListener);
     }
 
     private void initMainHeadView() {
@@ -177,10 +180,10 @@ public class DesignerListActivity extends BaseActivity implements View.OnClickLi
         }
     }
 
-    private void searchDesigners(String decType, String decHouseType, String decStyle, String decFee, int from, ApiUiUpdateListener listener) {
+    private void searchDesigners(int from, ApiUiUpdateListener listener) {
         Map<String, Object> conditionParam = new HashMap<>();
         conditionParam.put("dec_types", decType);
-        conditionParam.put("dec_house_types", decHouseType);
+        conditionParam.put("dec_house_types", decHouseStyle);
         conditionParam.put("dec_styles", decStyle);
         conditionParam.put("design_fee_range", decFee);
         Map<String, Object> param = new HashMap<>();
@@ -192,14 +195,13 @@ public class DesignerListActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void onPullDownToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-        isFirst = false;
         FROM = 0;
-        searchDesigners(decType, decHouseStyle, decStyle, decFee, FROM, pullDownListener);
+        searchDesigners(FROM, pullDownListener);
     }
 
     @Override
     public void onPullUpToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-        searchDesigners(decType, decHouseStyle, decStyle, decFee, FROM, pullUpListener);
+        searchDesigners(FROM, pullUpListener);
     }
 
     private ApiUiUpdateListener pullDownListener = new ApiUiUpdateListener() {
@@ -221,7 +223,23 @@ public class DesignerListActivity extends BaseActivity implements View.OnClickLi
                 designerList.clear();
                 designerList.addAll(designer.getDesigners());
                 if (null == designerListAdapter) {
-                    designerListAdapter = new DesignerListAdapter(DesignerListActivity.this, designerList);
+                    designerListAdapter = new DesignerListAdapter(DesignerListActivity.this, designerList, new RecyclerViewOnItemClickListener() {
+                        @Override
+                        public void OnItemClick(View view, int position) {
+
+                        }
+
+                        @Override
+                        public void OnViewClick(int position) {
+                            String designerId = designerList.get(position).get_id();
+                            LogTool.d(TAG, "designerId:" + designerId);
+                            Intent designerIntent = new Intent(DesignerListActivity.this, DesignerInfoActivity.class);
+                            Bundle designerBundle = new Bundle();
+                            designerBundle.putString(Global.DESIGNER_ID, designerId);
+                            designerIntent.putExtras(designerBundle);
+                            startActivity(designerIntent);
+                        }
+                    });
                     designerListView.setAdapter(designerListAdapter);
                 } else {
                     designerListAdapter.notifyDataSetChanged();
@@ -302,7 +320,7 @@ public class DesignerListActivity extends BaseActivity implements View.OnClickLi
             }
             FROM = 0;
             decType = BusinessManager.getDecTypeByText(title);
-            searchDesigners(decType, decHouseStyle, decStyle, decFee, FROM, pullDownListener);
+            searchDesigners(FROM, pullDownListener);
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
@@ -333,7 +351,7 @@ public class DesignerListActivity extends BaseActivity implements View.OnClickLi
             }
             decHouseStyle = BusinessManager.getHouseTypeByText(title);
             FROM = 0;
-            searchDesigners(decType, decHouseStyle, decStyle, decFee, FROM, pullDownListener);
+            searchDesigners(FROM, pullDownListener);
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
@@ -364,7 +382,7 @@ public class DesignerListActivity extends BaseActivity implements View.OnClickLi
             }
             decStyle = BusinessManager.getDecStyleByText(title);
             FROM = 0;
-            searchDesigners(decType, decHouseStyle, decStyle, decFee, FROM, pullDownListener);
+            searchDesigners(FROM, pullDownListener);
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
@@ -395,7 +413,7 @@ public class DesignerListActivity extends BaseActivity implements View.OnClickLi
             }
             decFee = BusinessManager.getDecFeeByText(title);
             FROM = 0;
-            searchDesigners(decType, decHouseStyle, decStyle, decFee, FROM, pullDownListener);
+            searchDesigners(FROM, pullDownListener);
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();

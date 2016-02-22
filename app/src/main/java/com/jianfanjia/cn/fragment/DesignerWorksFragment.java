@@ -24,6 +24,8 @@ import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.ScrollableHelper;
 import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
+import com.jianfanjia.cn.view.library.PullToRefreshBase;
+import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,10 +39,9 @@ import java.util.Map;
  * @date 2015-8-26 下午1:07:52
  */
 
-public class DesignerWorksFragment extends BaseFragment implements OnItemClickListener, ApiUiUpdateListener, ScrollableHelper.ScrollableContainer {
+public class DesignerWorksFragment extends BaseFragment implements PullToRefreshBase.OnRefreshListener2<RecyclerView>, ScrollableHelper.ScrollableContainer {
     private static final String TAG = DesignerWorksFragment.class.getName();
-    private RecyclerView designer_works_listview = null;
-    private LinearLayoutManager mLayoutManager = null;
+    private PullToRefreshRecycleView designer_works_listview = null;
     private DesignerWorksAdapter adapter = null;
     private List<Product> productList = new ArrayList<Product>();
     private String designerid = null;
@@ -59,9 +60,9 @@ public class DesignerWorksFragment extends BaseFragment implements OnItemClickLi
         Bundle bundle = getArguments();
         designerid = bundle.getString(Global.DESIGNER_ID);
         LogTool.d(TAG, "designerid:" + designerid);
-        designer_works_listview = (RecyclerView) view.findViewById(R.id.designer_works_listview);
-        mLayoutManager = new LinearLayoutManager(getActivity());
-        designer_works_listview.setLayoutManager(mLayoutManager);
+        designer_works_listview = (PullToRefreshRecycleView) view.findViewById(R.id.designer_works_listview);
+        designer_works_listview.setMode(PullToRefreshBase.Mode.PULL_FROM_END);
+        designer_works_listview.setLayoutManager(new LinearLayoutManager(getActivity()));
         designer_works_listview.setItemAnimator(new DefaultItemAnimator());
         designer_works_listview.setHasFixedSize(true);
         Paint paint = new Paint();
@@ -70,59 +71,104 @@ public class DesignerWorksFragment extends BaseFragment implements OnItemClickLi
         paint.setAntiAlias(true);
         designer_works_listview.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).paint(paint).showLastDivider().build());
         designer_works_listview.setFocusable(false);
-        getDesignerProduct(designerid, FROM);
+        getDesignerProduct(designerid, FROM, listener);
     }
 
     @Override
     public void setListener() {
+        designer_works_listview.setOnRefreshListener(this);
+    }
+
+    @Override
+    public void onPullDownToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
 
     }
 
     @Override
-    public void OnItemClick(int position) {
-        Product product = productList.get(position);
-        String productid = product.get_id();
-        LogTool.d(TAG, "productid:" + productid);
-        Bundle productBundle = new Bundle();
-        productBundle.putString(Global.PRODUCT_ID, productid);
-        startActivity(DesignerCaseInfoActivity.class, productBundle);
+    public void onPullUpToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
+        getDesignerProduct(designerid, FROM, pullUpListener);
     }
 
-    private void getDesignerProduct(String designerid, int from) {
+    private void getDesignerProduct(String designerid, int from, ApiUiUpdateListener listener) {
         Map<String, Object> conditionParam = new HashMap<>();
         conditionParam.put("designerid", designerid);
         Map<String, Object> param = new HashMap<>();
         param.put("query", conditionParam);
         param.put("from", from);
         param.put("limit", Constant.HOME_PAGE_LIMIT);
-        JianFanJiaClient.searchDesignerProduct(new SearchDesignerProductRequest(getActivity(), param), this, this);
+        JianFanJiaClient.searchDesignerProduct(new SearchDesignerProductRequest(getActivity(), param), listener, this);
     }
 
-    @Override
-    public void preLoad() {
+    private ApiUiUpdateListener listener = new ApiUiUpdateListener() {
+        @Override
+        public void preLoad() {
 
-    }
-
-    @Override
-    public void loadSuccess(Object data) {
-        LogTool.d(TAG, "data:" + data);
-        DesignerWorksInfo worksInfo = JsonParser.jsonToBean(data.toString(), DesignerWorksInfo.class);
-        LogTool.d(TAG, "worksInfo :" + worksInfo);
-        if (null != worksInfo) {
-            productList = worksInfo.getProducts();
-            adapter = new DesignerWorksAdapter(getActivity(), productList, this);
-            designer_works_listview.setAdapter(adapter);
         }
-    }
 
-    @Override
-    public void loadFailture(String error_msg) {
-        makeTextLong(error_msg);
-    }
+        @Override
+        public void loadSuccess(Object data) {
+            designer_works_listview.onRefreshComplete();
+            DesignerWorksInfo worksInfo = JsonParser.jsonToBean(data.toString(), DesignerWorksInfo.class);
+            LogTool.d(TAG, "worksInfo :" + worksInfo);
+            if (null != worksInfo) {
+                productList.addAll(worksInfo.getProducts());
+                adapter = new DesignerWorksAdapter(getActivity(), productList, new OnItemClickListener() {
+                    @Override
+                    public void OnItemClick(int position) {
+                        Product product = productList.get(position);
+                        String productid = product.get_id();
+                        LogTool.d(TAG, "productid:" + productid);
+                        Bundle productBundle = new Bundle();
+                        productBundle.putString(Global.PRODUCT_ID, productid);
+                        startActivity(DesignerCaseInfoActivity.class, productBundle);
+                    }
+                });
+                designer_works_listview.setAdapter(adapter);
+                FROM = productList.size();
+                LogTool.d(TAG, "FROM:" + FROM);
+            }
+        }
+
+        @Override
+        public void loadFailture(String error_msg) {
+            makeTextShort(error_msg);
+            designer_works_listview.onRefreshComplete();
+        }
+    };
+
+    private ApiUiUpdateListener pullUpListener = new ApiUiUpdateListener() {
+        @Override
+        public void preLoad() {
+
+        }
+
+        @Override
+        public void loadSuccess(Object data) {
+            designer_works_listview.onRefreshComplete();
+            DesignerWorksInfo worksInfo = JsonParser.jsonToBean(data.toString(), DesignerWorksInfo.class);
+            LogTool.d(TAG, "worksInfo :" + worksInfo);
+            if (null != worksInfo) {
+                List<Product> products = worksInfo.getProducts();
+                if (null != products && products.size() > 0) {
+                    adapter.add(FROM, products);
+                    FROM += Constant.HOME_PAGE_LIMIT;
+                    LogTool.d(TAG, "FROM=" + FROM);
+                } else {
+                    makeTextShort(getResources().getString(R.string.no_more_data));
+                }
+            }
+        }
+
+        @Override
+        public void loadFailture(String error_msg) {
+            makeTextShort(error_msg);
+            designer_works_listview.onRefreshComplete();
+        }
+    };
 
     @Override
     public View getScrollableView() {
-        return designer_works_listview;
+        return designer_works_listview.getRefreshableView();
     }
 
     @Override

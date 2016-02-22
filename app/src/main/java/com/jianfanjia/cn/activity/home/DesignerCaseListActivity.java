@@ -95,7 +95,7 @@ public class DesignerCaseListActivity extends BaseActivity implements View.OnCli
         pullToRefreshRecyclerView.addOnScrollListener(new EndlessRecyclerViewScrollListener(linearLayoutManager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
-                getDesignerProductList(decType, designStyle, houseType, decArea, FROM, pullUpListener);
+                getDesignerProductList(FROM, pullUpListener);
             }
         });
         pullToRefreshRecyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -104,7 +104,7 @@ public class DesignerCaseListActivity extends BaseActivity implements View.OnCli
         paint.setAlpha(0);
         paint.setAntiAlias(true);
         pullToRefreshRecyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(DesignerCaseListActivity.this).paint(paint).showLastDivider().build());
-        getDesignerProductList(decType, designStyle, houseType, decArea, FROM, pullDownListener);
+        getDesignerProductList(FROM, pullDownListener);
     }
 
     private void initMainHeadView() {
@@ -143,7 +143,7 @@ public class DesignerCaseListActivity extends BaseActivity implements View.OnCli
                 setSelectState(DEC_AREA);
                 break;
             case R.id.error_include:
-                getDesignerProductList(decType, designStyle, houseType, decArea, FROM, pullDownListener);
+                getDesignerProductList(FROM, pullDownListener);
                 break;
             default:
                 break;
@@ -194,15 +194,15 @@ public class DesignerCaseListActivity extends BaseActivity implements View.OnCli
     @Override
     public void onPullDownToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
         FROM = 0;
-        getDesignerProductList(decType, designStyle, houseType, decArea, FROM, pullDownListener);
+        getDesignerProductList(FROM, pullDownListener);
     }
 
     @Override
     public void onPullUpToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-        getDesignerProductList(decType, designStyle, houseType, decArea, FROM, pullUpListener);
+        getDesignerProductList(FROM, pullUpListener);
     }
 
-    private void getDesignerProductList(String decType, String designStyle, String houseType, Map<String, Object> decArea, int from, ApiUiUpdateListener listener) {
+    private void getDesignerProductList(int from, ApiUiUpdateListener listener) {
         Map<String, Object> conditionParam = new HashMap<>();
         conditionParam.put("dec_type", decType);
         conditionParam.put("house_type", houseType);
@@ -338,7 +338,7 @@ public class DesignerCaseListActivity extends BaseActivity implements View.OnCli
             }
             FROM = 0;
             decType = BusinessManager.getDecTypeByText(title);
-            getDesignerProductList(decType, designStyle, houseType, decArea, FROM, pullDownListener);
+            getDesignerProductList(FROM, pullDownListener);
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
@@ -369,7 +369,7 @@ public class DesignerCaseListActivity extends BaseActivity implements View.OnCli
             }
             FROM = 0;
             designStyle = BusinessManager.getDecStyleByText(title);
-            getDesignerProductList(decType, designStyle, houseType, decArea, FROM, pullDownListener);
+            getDesignerProductList(FROM, pullDownListener);
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
@@ -400,7 +400,7 @@ public class DesignerCaseListActivity extends BaseActivity implements View.OnCli
             }
             FROM = 0;
             houseType = BusinessManager.getHouseTypeByText(title);
-            getDesignerProductList(decType, designStyle, houseType, decArea, FROM, pullDownListener);
+            getDesignerProductList(FROM, pullDownListener);
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
@@ -432,7 +432,7 @@ public class DesignerCaseListActivity extends BaseActivity implements View.OnCli
             FROM = 0;
             decArea = BusinessManager.convertDecAreaValueByText(title);
             LogTool.d(TAG, "decArea=" + decArea);
-            getDesignerProductList(decType, designStyle, houseType, decArea, FROM, pullDownListener);
+            getDesignerProductList(FROM, pullDownListener);
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
