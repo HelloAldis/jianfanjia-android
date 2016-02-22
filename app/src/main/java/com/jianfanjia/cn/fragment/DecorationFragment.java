@@ -317,10 +317,11 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         public void onItemCallback(int position, String title) {
             Global.SECTION_POSITION = position;
             isFirst = true;
-            section = title;
             if (!TextUtils.isEmpty(title) && !title.equals(Constant.KEY_WORD)) {
+                section = title;
                 section_item.setText(title);
             } else {
+                section = null;
                 section_item.setText(getResources().getString(R.string.dec_section_str));
             }
             FROM = 0;
