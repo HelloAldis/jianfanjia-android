@@ -361,7 +361,7 @@ public class DesignerCaseListActivity extends BaseActivity implements View.OnCli
         @Override
         public void onItemCallback(int position, String title) {
             isFirst = true;
-            Global.DEC_TYPE_POSITION = position;
+            Global.STYLE_POSITION = position;
             if (!TextUtils.isEmpty(title) && !title.equals(Constant.KEY_WORD)) {
                 designStyle_item.setText(title);
             } else {
@@ -392,7 +392,7 @@ public class DesignerCaseListActivity extends BaseActivity implements View.OnCli
         @Override
         public void onItemCallback(int position, String title) {
             isFirst = true;
-            Global.DEC_TYPE_POSITION = position;
+            Global.DEC_HOUSE_TYPE_POSITION = position;
             if (!TextUtils.isEmpty(title) && !title.equals(Constant.KEY_WORD)) {
                 houseType_item.setText(title);
             } else {
@@ -423,7 +423,7 @@ public class DesignerCaseListActivity extends BaseActivity implements View.OnCli
         @Override
         public void onItemCallback(int position, String title) {
             isFirst = true;
-            Global.DEC_TYPE_POSITION = position;
+            Global.DEC_AREA_POSITION = position;
             if (!TextUtils.isEmpty(title) && !title.equals(Constant.KEY_WORD)) {
                 decArea_item.setText(title);
             } else {
