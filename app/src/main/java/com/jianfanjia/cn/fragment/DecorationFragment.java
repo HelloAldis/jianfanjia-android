@@ -316,6 +316,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         @Override
         public void onItemCallback(int position, String title) {
             Global.SECTION_POSITION = position;
+            isFirst = true;
             section = title;
             if (!TextUtils.isEmpty(title) && !title.equals(Constant.KEY_WORD)) {
                 section_item.setText(title);
@@ -345,6 +346,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         @Override
         public void onItemCallback(int position, String title) {
             Global.HOUSE_TYPE_POSITION = position;
+            isFirst = true;
             if (!TextUtils.isEmpty(title) && !title.equals(Constant.KEY_WORD)) {
                 houseType_item.setText(title);
             } else {
@@ -374,6 +376,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         @Override
         public void onItemCallback(int position, String title) {
             Global.DEC_STYLE_POSITION = position;
+            isFirst = true;
             if (!TextUtils.isEmpty(title) && !title.equals(Constant.KEY_WORD)) {
                 decStyle_item.setText(title);
             } else {
