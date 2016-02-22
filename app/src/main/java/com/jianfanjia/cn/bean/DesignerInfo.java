@@ -44,6 +44,8 @@ public class DesignerInfo implements Serializable {
 
     private String auth_type;
 
+    private String uid_auth_type;
+
     private int team_count;
 
     private int product_count;
@@ -144,6 +146,14 @@ public class DesignerInfo implements Serializable {
 
     public void setDesign_fee_range(String design_fee_range) {
         this.design_fee_range = design_fee_range;
+    }
+
+    public String getUid_auth_type() {
+        return uid_auth_type;
+    }
+
+    public void setUid_auth_type(String uid_auth_type) {
+        this.uid_auth_type = uid_auth_type;
     }
 
     public String getCompany() {
