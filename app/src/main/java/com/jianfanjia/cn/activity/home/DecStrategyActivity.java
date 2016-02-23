@@ -1,7 +1,6 @@
 package com.jianfanjia.cn.activity.home;
 
 import android.content.Intent;
-import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
@@ -35,7 +34,7 @@ import org.androidannotations.annotations.ViewById;
  * Author：Aldis.Zhan
  */
 @EActivity(R.layout.activity_dec_strategy)
-public class DecStrategyActivity extends SwipeBackActivity implements View.OnKeyListener {
+public class DecStrategyActivity extends SwipeBackActivity {
 
     private static final String TAG = DecStrategyActivity.class.getName();
     private ShareUtil shareUtil = null;
@@ -62,8 +61,8 @@ public class DecStrategyActivity extends SwipeBackActivity implements View.OnKey
         progressWebView.getSettings().setUseWideViewPort(true);
         progressWebView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         progressWebView.getSettings().setLoadWithOverviewMode(true);
-        progressWebView.loadUrl(Url_New.getInstance().MOBILE_SERVER_URL + "/view/article/detail.html?pid=56836f68d92ec98b7a111b44");
-        progressWebView.addJavascriptInterface( new InJavaScriptLocalObj(), "local_obj");
+        progressWebView.loadUrl(Url_New.getInstance().MOBILE_SERVER_URL + "/view/article/");
+        progressWebView.addJavascriptInterface(new InJavaScriptLocalObj(), "local_obj");
         progressWebView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -76,11 +75,11 @@ public class DecStrategyActivity extends SwipeBackActivity implements View.OnKey
                 DecStrategyActivity.this.description = null;
                 DecStrategyActivity.this.imageUrl = null;
                 view.loadUrl("javascript:var meta = document.getElementsByTagName('meta');\n" +
-                                "for (i in meta) {\n" +
-                                "  if (typeof meta[i].name!=\"undefined\" && meta[i].name.toLowerCase()==\"description\") {\n" +
-                                "    window.local_obj.description(meta[i].content);\n" +
-                                "  }\n" +
-                                "}");
+                        "for (i in meta) {\n" +
+                        "  if (typeof meta[i].name!=\"undefined\" && meta[i].name.toLowerCase()==\"description\") {\n" +
+                        "    window.local_obj.description(meta[i].content);\n" +
+                        "  }\n" +
+                        "}");
                 view.loadUrl("javascript:window.local_obj.imageUrl(document.getElementsByTagName('img')[0].src);");
                 super.onPageFinished(view, url);
 
@@ -112,17 +111,6 @@ public class DecStrategyActivity extends SwipeBackActivity implements View.OnKey
             default:
                 break;
         }
-    }
-
-    @Override
-    public boolean onKey(View v, int keyCode, KeyEvent event) {
-        if (event.getAction() == KeyEvent.ACTION_DOWN) {
-            if (keyCode == KeyEvent.KEYCODE_BACK && progressWebView.canGoBack()) {  //表示按返回键时的操作
-                this.goBackOrQuit();  //后退 或者 退出
-                return true;    //已处理
-            }
-        }
-        return false;
     }
 
     @Override

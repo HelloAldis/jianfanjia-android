@@ -2,12 +2,15 @@ package com.jianfanjia.cn.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
 import android.os.Handler;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import com.jianfanjia.cn.tools.LogTool;
 
 /**
  * Name: ProgressWebView
@@ -56,6 +59,18 @@ public class ProgressWebView extends WebView {
             _this.loadUrl(url);
             return true;
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (event.getAction() == KeyEvent.ACTION_DOWN) {
+            if (keyCode == KeyEvent.KEYCODE_BACK && this.canGoBack()) {  //表示按返回键时的操作
+                this.goBack();
+                return true;    //已处理
+            }
+        }
+
+        return super.onKeyDown(keyCode, event);
     }
 
     private Runnable runnable = new Runnable() {
