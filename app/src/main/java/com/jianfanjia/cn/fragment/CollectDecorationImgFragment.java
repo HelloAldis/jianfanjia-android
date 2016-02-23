@@ -47,6 +47,7 @@ public class CollectDecorationImgFragment extends CommonFragment implements Pull
     private RelativeLayout errorLayout = null;
     private List<BeautyImgInfo> beautyImgList = new ArrayList<>();
     private DecorationAdapter decorationImgAdapter = null;
+    private boolean isFirst = true;
     private boolean isPrepared = false;
     private boolean mHasLoadedOnce = false;
     private int total = 0;
@@ -131,12 +132,15 @@ public class CollectDecorationImgFragment extends CommonFragment implements Pull
     private ApiUiUpdateListener pullDownListener = new ApiUiUpdateListener() {
         @Override
         public void preLoad() {
-
+            if (isFirst) {
+                showWaitDialog();
+            }
         }
 
         @Override
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data.toString());
+            hideWaitDialog();
             mHasLoadedOnce = true;
             decoration_img_listview.onRefreshComplete();
             DecorationItemInfo decorationItemInfo = JsonParser.jsonToBean(data.toString(), DecorationItemInfo.class);
@@ -170,6 +174,7 @@ public class CollectDecorationImgFragment extends CommonFragment implements Pull
                     }
                     decoration_img_listview.setVisibility(View.VISIBLE);
                     emptyLayout.setVisibility(View.GONE);
+                    isFirst = false;
                 } else {
                     decoration_img_listview.setVisibility(View.GONE);
                     emptyLayout.setVisibility(View.VISIBLE);
@@ -183,6 +188,7 @@ public class CollectDecorationImgFragment extends CommonFragment implements Pull
         @Override
         public void loadFailture(String error_msg) {
             makeTextShort(error_msg);
+            hideWaitDialog();
             decoration_img_listview.onRefreshComplete();
             decoration_img_listview.setVisibility(View.GONE);
             emptyLayout.setVisibility(View.GONE);

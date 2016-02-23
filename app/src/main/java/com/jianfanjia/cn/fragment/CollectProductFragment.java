@@ -50,6 +50,7 @@ public class CollectProductFragment extends CommonFragment implements PullToRefr
     private RelativeLayout errorLayout = null;
     private ProductAdapter productAdapter = null;
     private List<Product> products = new ArrayList<>();
+    private boolean isFirst = true;
     private boolean isPrepared = false;
     private boolean mHasLoadedOnce = false;
     private int currentPos = -1;
@@ -136,12 +137,15 @@ public class CollectProductFragment extends CommonFragment implements PullToRefr
     private ApiUiUpdateListener pullDownListener = new ApiUiUpdateListener() {
         @Override
         public void preLoad() {
-
+            if (isFirst) {
+                showWaitDialog();
+            }
         }
 
         @Override
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data=" + data.toString());
+            hideWaitDialog();
             mHasLoadedOnce = true;
             prodtct_listview.onRefreshComplete();
             ProductInfo productInfo = JsonParser.jsonToBean(data.toString(), ProductInfo.class);
@@ -181,6 +185,7 @@ public class CollectProductFragment extends CommonFragment implements PullToRefr
                     prodtct_listview.setVisibility(View.VISIBLE);
                     emptyLayout.setVisibility(View.GONE);
                     errorLayout.setVisibility(View.GONE);
+                    isFirst = false;
                 } else {
                     prodtct_listview.setVisibility(View.GONE);
                     emptyLayout.setVisibility(View.VISIBLE);
@@ -194,6 +199,7 @@ public class CollectProductFragment extends CommonFragment implements PullToRefr
         @Override
         public void loadFailture(String error_msg) {
             makeTextLong(error_msg);
+            hideWaitDialog();
             prodtct_listview.onRefreshComplete();
             prodtct_listview.setVisibility(View.GONE);
             emptyLayout.setVisibility(View.GONE);

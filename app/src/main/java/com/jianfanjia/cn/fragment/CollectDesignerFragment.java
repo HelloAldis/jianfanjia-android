@@ -50,6 +50,7 @@ public class CollectDesignerFragment extends CommonFragment implements PullToRef
     private FavoriteDesignerAdapter designAdapter = null;
     private MyFavoriteDesigner myFavoriteDesigner = null;
     private List<DesignerInfo> designers = new ArrayList<>();
+    private boolean isFirst = true;
     private boolean isPrepared = false;
     private boolean mHasLoadedOnce = false;
     private int FROM = 0;
@@ -134,12 +135,15 @@ public class CollectDesignerFragment extends CommonFragment implements PullToRef
     private ApiUiUpdateListener getDownMyFavoriteDesignerListener = new ApiUiUpdateListener() {
         @Override
         public void preLoad() {
-
+            if (isFirst) {
+                showWaitDialog();
+            }
         }
 
         @Override
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data=" + data.toString());
+            hideWaitDialog();
             mHasLoadedOnce = true;
             my_favorite_designer_listview.onRefreshComplete();
             myFavoriteDesigner = JsonParser.jsonToBean(data.toString(), MyFavoriteDesigner.class);
@@ -171,6 +175,7 @@ public class CollectDesignerFragment extends CommonFragment implements PullToRef
                     my_favorite_designer_listview.setVisibility(View.VISIBLE);
                     emptyLayout.setVisibility(View.GONE);
                     errorLayout.setVisibility(View.GONE);
+                    isFirst = false;
                 } else {
                     my_favorite_designer_listview.setVisibility(View.GONE);
                     emptyLayout.setVisibility(View.VISIBLE);
@@ -184,6 +189,7 @@ public class CollectDesignerFragment extends CommonFragment implements PullToRef
         @Override
         public void loadFailture(String error_msg) {
             makeTextLong(error_msg);
+            hideWaitDialog();
             my_favorite_designer_listview.onRefreshComplete();
             my_favorite_designer_listview.setVisibility(View.GONE);
             emptyLayout.setVisibility(View.GONE);
