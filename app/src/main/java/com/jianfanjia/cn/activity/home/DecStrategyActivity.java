@@ -176,7 +176,7 @@ public class DecStrategyActivity extends SwipeBackActivity {
 
     private String getImageUrl() {
         if (StringUtils.isEmpty(this.imageUrl)) {
-            return  "http://www.jianfanjia.com/static/img/public/logo.png";
+            return  "http://www.jianfanjia.com/static/img/design/head.jpg";
         } else {
             return this.imageUrl;
         }
