@@ -7,7 +7,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.PayNotifyAdapter;
@@ -56,6 +58,8 @@ public class FuKuanNotifyFragment extends BaseFragment implements PullToRefreshB
     @Override
     public void initView(View view) {
         emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
+        ((TextView)emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.empty_view_no_pay_data));
+        ((ImageView)emptyLayout.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_pay);
         errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
         fukuanListView = (PullToRefreshRecycleView) view.findViewById(R.id.tip_pay__listview);
         fukuanListView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);

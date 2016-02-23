@@ -8,7 +8,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.home.DesignerInfoActivity;
@@ -32,7 +34,7 @@ import java.util.Map;
 
 /**
  * @author fengliang
- * @ClassName: ProductFragment
+ * @ClassName: CollectProductFragment
  * @Description: 作品
  * @date 2015-8-26 下午1:07:52
  */
@@ -51,6 +53,8 @@ public class SearchDesignerFragment extends BaseFragment implements ApiUiUpdateL
     @Override
     public void initView(View view) {
         emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
+        ((TextView)emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.search_no_designer));
+        ((ImageView)emptyLayout.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_designer);
         errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
         recycleView = (RecyclerView) view.findViewById(R.id.recycleview);
         recycleView.setLayoutManager(new LinearLayoutManager(getActivity()));

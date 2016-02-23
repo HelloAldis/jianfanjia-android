@@ -50,6 +50,8 @@ public class MainScrollView extends ScrollView {
     //在手指滑动的过程中记录是否移动了布局
     private boolean isMoved = false;
 
+    private int contentFlag;
+
     private ScrollPullUpListener scrollPullUpListener;
 
     public MainScrollView(Context context) {

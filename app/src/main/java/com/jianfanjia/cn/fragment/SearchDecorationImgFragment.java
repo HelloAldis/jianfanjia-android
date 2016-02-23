@@ -6,7 +6,9 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.beautifulpic.PreviewDecorationActivity;
@@ -32,7 +34,7 @@ import java.util.Map;
 
 /**
  * @author fengliang
- * @ClassName: DecorationImgFragment
+ * @ClassName: CollectDecorationImgFragment
  * @Description: 装修美图收藏
  * @date 2015-8-26 下午1:07:52
  */
@@ -51,6 +53,8 @@ public class SearchDecorationImgFragment extends BaseFragment implements ApiUiUp
     @Override
     public void initView(View view) {
         emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
+        ((TextView)emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.search_no_beautyimg));
+        ((ImageView)emptyLayout.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_img);
         errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
         decoration_img_listview = (RecyclerView) view.findViewById(R.id.recycleview);
         decoration_img_listview.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));

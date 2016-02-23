@@ -9,9 +9,9 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.adapter.MyFragmentPagerAdapter;
 import com.jianfanjia.cn.bean.SelectItem;
-import com.jianfanjia.cn.fragment.DecorationImgFragment;
-import com.jianfanjia.cn.fragment.MyFavoriteDesignerFragment;
-import com.jianfanjia.cn.fragment.ProductFragment;
+import com.jianfanjia.cn.fragment.CollectDecorationImgFragment;
+import com.jianfanjia.cn.fragment.CollectDesignerFragment;
+import com.jianfanjia.cn.fragment.CollectProductFragment;
 import com.jianfanjia.cn.view.MainHeadView;
 
 import java.util.ArrayList;
@@ -48,9 +48,9 @@ public class CollectActivity extends SwipeBackActivity implements OnClickListene
 
     private void setupViewPager(ViewPager viewPager) {
         List<SelectItem> listViews = new ArrayList<SelectItem>();
-        SelectItem designerItem = new SelectItem(new MyFavoriteDesignerFragment(), getResources().getString(R.string.designerText));
-        SelectItem productItem = new SelectItem(new ProductFragment(), getResources().getString(R.string.productText));
-        SelectItem imgItem = new SelectItem(new DecorationImgFragment(), getResources().getString(R.string.imgText));
+        SelectItem designerItem = new SelectItem(new CollectDesignerFragment(), getResources().getString(R.string.designerText));
+        SelectItem productItem = new SelectItem(new CollectProductFragment(), getResources().getString(R.string.productText));
+        SelectItem imgItem = new SelectItem(new CollectDecorationImgFragment(), getResources().getString(R.string.imgText));
         listViews.add(designerItem);
         listViews.add(productItem);
         listViews.add(imgItem);
