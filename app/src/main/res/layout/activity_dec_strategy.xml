@@ -7,7 +7,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/space_48">
+        android:layout_height="@dimen/space_48"
+        android:fitsSystemWindows="true">
 
         <com.jianfanjia.cn.view.MainHeadView
             android:id="@+id/my_contract_head_layout"
