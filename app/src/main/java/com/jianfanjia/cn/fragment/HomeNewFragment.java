@@ -1,19 +1,22 @@
 package com.jianfanjia.cn.fragment;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.home.DecStrategyActivity_;
+import com.jianfanjia.cn.activity.home.DesignerCaseInfoActivity;
 import com.jianfanjia.cn.activity.home.DesignerCaseListActivity;
 import com.jianfanjia.cn.activity.home.DesignerListActivity;
 import com.jianfanjia.cn.activity.home.SearchActivity_;
@@ -21,14 +24,17 @@ import com.jianfanjia.cn.activity.requirement.PublishRequirementActivity_;
 import com.jianfanjia.cn.adapter.HomeProductPagerAdapter;
 import com.jianfanjia.cn.adapter.ViewPageAdapter;
 import com.jianfanjia.cn.base.BaseAnnotationFragment;
-import com.jianfanjia.cn.bean.ProductNew;
+import com.jianfanjia.cn.bean.Product;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.JsonParser;
+import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.view.MainScrollView;
 import com.jianfanjia.cn.view.MyViewPager;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
-import com.jianfanjia.cn.view.library.PullToRefreshFrameLayout;
+import com.jianfanjia.cn.view.library.PullToRefreshScrollViewNew;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -65,11 +71,13 @@ public class HomeNewFragment extends BaseAnnotationFragment {
     protected ViewPager contentViewPager;
 
     @ViewById(R.id.pullrefresh_scrollview)
-    protected PullToRefreshFrameLayout pullToRefreshScrollView;
+    protected PullToRefreshScrollViewNew pullToRefreshScrollView;
 
-    private List<View> bannerList;
+    @ViewById(R.id.content_intent_to)
+    protected ImageButton contentIntent;
+
     private HomeProductPagerAdapter mPagerAdapter;
-    private List<ProductNew> productNews;
+    private List<Product> productNews;
 
     @AfterViews
     protected void initAnnotationView() {
@@ -79,20 +87,40 @@ public class HomeNewFragment extends BaseAnnotationFragment {
             @Override
             public void onGlobalLayout() {
                 pullToRefreshScrollView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                pullToRefreshScrollView.getRefreshableView().setLayoutParams(new FrameLayout.LayoutParams(coordinatorLayout.getWidth(), coordinatorLayout.getHeight()));
+//                pullToRefreshScrollView.getRefreshableView().setLayoutParams(new FrameLayout.LayoutParams(coordinatorLayout.getWidth(), coordinatorLayout.getHeight()));
                 //此处需要动态传宽高给viewpager的imageview的宽高
-                mPagerAdapter = new HomeProductPagerAdapter(getContext(), productNews, null, coordinatorLayout.getWidth(), coordinatorLayout.getHeight());
+                mPagerAdapter = new HomeProductPagerAdapter(getContext(), productNews, null, pullToRefreshScrollView.getWidth(), pullToRefreshScrollView.getHeight());
 
                 contentViewPager.setAdapter(mPagerAdapter);
                 getProduct(TOTAL_COUNT);
             }
         });
-        pullToRefreshScrollView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<FrameLayout>() {
+        pullToRefreshScrollView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ScrollView>() {
             @Override
-            public void onRefresh(PullToRefreshBase<FrameLayout> refreshView) {
+            public void onRefresh(PullToRefreshBase<ScrollView> refreshView) {
                 getProduct(TOTAL_COUNT);
             }
         });
+        pullToRefreshScrollView.setScrollPullUpListener(new MainScrollView.ScrollPullUpListener() {
+            @Override
+            public void scrollPullUp() {
+                intentToProduct();
+            }
+        });
+    }
+
+    private void intentToProduct(){
+        if (productNews != null) {
+            Product product = productNews.get(contentViewPager.getCurrentItem());
+            String productid = product.get_id();
+            LogTool.d(TAG, "productid:" + productid);
+            Intent productIntent = new Intent(getActivity(), DesignerCaseInfoActivity.class);
+            Bundle productBundle = new Bundle();
+            productBundle.putString(Global.PRODUCT_ID, productid);
+            productIntent.putExtras(productBundle);
+            startActivity(productIntent);
+            getActivity().overridePendingTransition(R.anim.slide_and_fade_in_from_bottom, 0);
+        }
     }
 
     private void getProduct(int limit) {
@@ -104,21 +132,23 @@ public class HomeNewFragment extends BaseAnnotationFragment {
 
             @Override
             public void loadSuccess(Object data) {
-                List<ProductNew> productNews = JsonParser.jsonToList(data.toString(), new TypeToken<List<ProductNew>>() {
+                productNews = JsonParser.jsonToList(data.toString(), new TypeToken<List<Product>>() {
                 }.getType());
-                mPagerAdapter.setPaths(productNews);
+                contentIntent.setVisibility(View.VISIBLE);
+                mPagerAdapter.setProductList(productNews);
                 pullToRefreshScrollView.onRefreshComplete();
             }
 
             @Override
             public void loadFailture(String error_msg) {
                 makeTextShort(error_msg);
+                contentIntent.setVisibility(View.GONE);
                 pullToRefreshScrollView.onRefreshComplete();
             }
         }, this);
     }
 
-    @Click({R.id.ltm_home_layout0, R.id.ltm_home_layout1, R.id.ltm_home_layout2, R.id.ltm_home_layout3, R.id.home_search, R.id.list_item_more_layout})
+    @Click({R.id.ltm_home_layout0, R.id.ltm_home_layout1, R.id.ltm_home_layout2, R.id.ltm_home_layout3, R.id.home_search, R.id.list_item_more_layout,R.id.content_intent_to})
     protected void click(View view) {
         switch (view.getId()) {
             case R.id.ltm_home_layout0:
@@ -140,6 +170,9 @@ public class HomeNewFragment extends BaseAnnotationFragment {
             case R.id.home_search:
                 Intent searchIntent = new Intent(getContext(), SearchActivity_.class);
                 startActivity(searchIntent);
+                break;
+            case R.id.content_intent_to:
+                intentToProduct();
                 break;
             default:
                 break;

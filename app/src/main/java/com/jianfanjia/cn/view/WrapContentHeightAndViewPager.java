@@ -6,8 +6,6 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.jianfanjia.cn.tools.TDevice;
-
 /**
  * Name: 自定义ViewPager
  * User: fengliang
@@ -23,7 +21,7 @@ public class WrapContentHeightAndViewPager extends ViewPager {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        this.getParent().requestDisallowInterceptTouchEvent(true);
+//        this.getParent().requestDisallowInterceptTouchEvent(true);
         return super.dispatchTouchEvent(ev);
     }
 
@@ -35,11 +33,6 @@ public class WrapContentHeightAndViewPager extends ViewPager {
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         try {
-            switch (ev.getAction()){
-                case MotionEvent.ACTION_MOVE:
-//                    LogTool.d(this.getClass().getName(),"ev gety =" + ev.getRawY());
-                    break;
-            }
             return super.onInterceptTouchEvent(ev);
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
@@ -54,24 +47,23 @@ public class WrapContentHeightAndViewPager extends ViewPager {
         // find the first child view
         int maxHeight = 0;
         int height = 0;
-        for(int i= 0;i<getChildCount();i++){
+        for (int i = 0; i < getChildCount(); i++) {
             View view = getChildAt(i);
             // measure the first child view with the specified measure spec
             view.measure(widthMeasureSpec, heightMeasureSpec);
             height = measureHeight(heightMeasureSpec, view);
-            if(height > maxHeight){
+            if (height > maxHeight) {
                 maxHeight = height;
             }
         }
-        setMeasuredDimension(getMeasuredWidth(), (int)TDevice.getScreenHeight());
+        setMeasuredDimension(getMeasuredWidth(), height);
     }
 
     /**
      * Determines the height of this view
      *
      * @param measureSpec A measureSpec packed into an int
-     * @param view the base view with already measured height
-     *
+     * @param view        the base view with already measured height
      * @return The height of the view, honoring constraints from measureSpec
      */
     private int measureHeight(int measureSpec, View view) {
