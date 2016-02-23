@@ -11,6 +11,7 @@ import com.jianfanjia.cn.adapter.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.bean.Product;
 import com.jianfanjia.cn.cache.BusinessManager;
+import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
 
 import java.util.List;
@@ -35,11 +36,17 @@ public class ProductAdapter extends BaseRecyclerViewAdapter<Product> {
         Product product = list.get(position);
         final ProductViewHolder holder = (ProductViewHolder) viewHolder;
         holder.itemXiaoQuText.setText(product.getCell());
+        String decType = product.getDec_type();
         String houseType = product.getHouse_type();
         String decStyle = product.getDec_style();
-        holder.itemProduceText.setText(product.getHouse_area() + "㎡，" + BusinessManager.convertHouseTypeToShow(houseType) + "，" + BusinessManager.convertDecStyleToShow(decStyle));
+        holder.itemProduceText.setText(product.getHouse_area() + "㎡，" + BusinessManager.convertDectypeToShow(decType) + "，" + BusinessManager.convertHouseTypeToShow(houseType) + "，" + BusinessManager.convertDecStyleToShow(decStyle) + "风格");
         imageShow.displayScreenWidthThumnailImage(context, product.getImages().get(0).getImageid(), holder.itemProductView);
         imageShow.displayImageHeadWidthThumnailImage(context, product.getDesigner().getImageid(), holder.itemHeadView);
+        if (product.getAuth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)) {
+            holder.itemAuthView.setVisibility(View.VISIBLE);
+        } else {
+            holder.itemAuthView.setVisibility(View.GONE);
+        }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,6 +81,7 @@ public class ProductAdapter extends BaseRecyclerViewAdapter<Product> {
     private static class ProductViewHolder extends RecyclerViewHolderBase {
         public ImageView itemProductView;
         public ImageView itemHeadView;
+        public ImageView itemAuthView;
         public TextView itemXiaoQuText;
         public TextView itemProduceText;
 
@@ -83,6 +91,8 @@ public class ProductAdapter extends BaseRecyclerViewAdapter<Product> {
                     .findViewById(R.id.list_item_product_img);
             itemHeadView = (ImageView) itemView
                     .findViewById(R.id.list_item_head_img);
+            itemAuthView = (ImageView) itemView
+                    .findViewById(R.id.list_item_auth);
             itemXiaoQuText = (TextView) itemView
                     .findViewById(R.id.list_item_xiaoqu_text);
             itemProduceText = (TextView) itemView
