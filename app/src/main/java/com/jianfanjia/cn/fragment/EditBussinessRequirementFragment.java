@@ -131,7 +131,7 @@ public class EditBussinessRequirementFragment extends BaseAnnotationFragment {
         } else {
             isFinish = false;
         }
-        LogTool.d(this.getClass().getName(),"isFinish = " + isFinish);
+        LogTool.d(this.getClass().getName(), "isFinish = " + isFinish);
         hostActivity.notifyStatusChange();
     }
 
@@ -149,14 +149,12 @@ public class EditBussinessRequirementFragment extends BaseAnnotationFragment {
         int viewId = clickView.getId();
         switch (viewId) {
             case R.id.act_edit_req_city:
-//                gotoItem.putExtra(Global.REQUIRE_DATA, Constant.REQUIRECODE_CITY);
-//                startActivityForResult(gotoItem, Constant.REQUIRECODE_CITY);
                 Intent address = new Intent(getActivity(),
                         EditCityActivity_.class);
                 address.putExtra(Constant.EDIT_PROVICE, requirementInfo.getProvince());
                 address.putExtra(Constant.EDIT_CITY, requirementInfo.getCity());
                 address.putExtra(Constant.EDIT_DISTRICT, requirementInfo.getDistrict());
-                address.putExtra(EditCityActivity.PAGE,EditCityActivity.EDIT_REQUIREMENT_ADRESS);
+                address.putExtra(EditCityActivity.PAGE, EditCityActivity.EDIT_REQUIREMENT_ADRESS);
                 startActivityForResult(address, Constant.REQUIRECODE_CITY);
                 break;
             case R.id.act_edit_req_lovedesistyle:
@@ -201,19 +199,19 @@ public class EditBussinessRequirementFragment extends BaseAnnotationFragment {
             case XuQiuFragment.REQUESTCODE_EDIT_REQUIREMENT:
             case XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT:
                 if (!TextUtils.isEmpty(requirementInfo.getProvince()) && !TextUtils.isEmpty(requirementInfo.getCity()) && !TextUtils.isEmpty(requirementInfo.getDistrict())) {
-                        act_edit_req_city_content.setText(requirementInfo.getProvince() + requirementInfo.getCity() + requirementInfo.getDistrict());
+                    act_edit_req_city_content.setText(requirementInfo.getProvince() + requirementInfo.getCity() + requirementInfo.getDistrict());
                 }
-                if(!TextUtils.isEmpty(requirementInfo.getStreet())){
-                        act_edit_req_street_content.setText(requirementInfo.getStreet());
+                if (!TextUtils.isEmpty(requirementInfo.getStreet())) {
+                    act_edit_req_street_content.setText(requirementInfo.getStreet());
                 }
                 if (!TextUtils.isEmpty(requirementInfo.getCell())) {
-                        act_edit_req_cell_content.setText(requirementInfo.getCell());
+                    act_edit_req_cell_content.setText(requirementInfo.getCell());
                 }
                 if (!TextUtils.isEmpty(requirementInfo.getHouse_area())) {
-                        act_edit_req_housearea_content.setText(requirementInfo.getHouse_area());
+                    act_edit_req_housearea_content.setText(requirementInfo.getHouse_area());
                 }
                 if (!TextUtils.isEmpty(requirementInfo.getTotal_price())) {
-                        act_edit_req_decoratebudget_content.setText(requirementInfo.getTotal_price());
+                    act_edit_req_decoratebudget_content.setText(requirementInfo.getTotal_price());
                 }
                 act_edit_req_decoratetype_content.setText(TextUtils.isEmpty(requirementInfo.getBusiness_house_type()) ? "" : arr_busihousetype[Integer.parseInt(requirementInfo.getBusiness_house_type()) > (arr_busihousetype.length - 1) ? (arr_busihousetype.length - 1) : Integer.parseInt(requirementInfo.getBusiness_house_type())]);
                 act_edit_req_lovestyle_content.setText(TextUtils.isEmpty(requirementInfo.getDec_style()) ? "" : arr_lovestyle[Integer.parseInt(requirementInfo.getDec_style())]);

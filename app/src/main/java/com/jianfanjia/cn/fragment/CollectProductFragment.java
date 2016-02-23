@@ -10,7 +10,9 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
@@ -37,12 +39,12 @@ import de.greenrobot.event.EventBus;
 
 /**
  * @author fengliang
- * @ClassName: ProductFragment
+ * @ClassName: CollectProductFragment
  * @Description: 作品
  * @date 2015-8-26 下午1:07:52
  */
-public class ProductFragment extends CommonFragment implements PullToRefreshBase.OnRefreshListener2<RecyclerView> {
-    private static final String TAG = ProductFragment.class.getName();
+public class CollectProductFragment extends CommonFragment implements PullToRefreshBase.OnRefreshListener2<RecyclerView> {
+    private static final String TAG = CollectProductFragment.class.getName();
     private PullToRefreshRecycleView prodtct_listview = null;
     private RelativeLayout emptyLayout = null;
     private RelativeLayout errorLayout = null;
@@ -53,8 +55,8 @@ public class ProductFragment extends CommonFragment implements PullToRefreshBase
     private int currentPos = -1;
     private int FROM = 0;
 
-    public static ProductFragment newInstance() {
-        ProductFragment productFragment = new ProductFragment();
+    public static CollectProductFragment newInstance() {
+        CollectProductFragment productFragment = new CollectProductFragment();
         return productFragment;
     }
 
@@ -66,7 +68,7 @@ public class ProductFragment extends CommonFragment implements PullToRefreshBase
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_product, container, false);
+        View view = inflater.inflate(R.layout.fragment_collect_product, container, false);
         init(view);
         isPrepared = true;
         load();
@@ -75,6 +77,8 @@ public class ProductFragment extends CommonFragment implements PullToRefreshBase
 
     public void init(View view) {
         emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
+        ((TextView) emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.empty_view_no_product_data));
+        ((ImageView) emptyLayout.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_product);
         errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
         prodtct_listview = (PullToRefreshRecycleView) view.findViewById(R.id.prodtct_listview);
         prodtct_listview.setMode(PullToRefreshBase.Mode.BOTH);
@@ -245,10 +249,5 @@ public class ProductFragment extends CommonFragment implements PullToRefreshBase
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-    }
-
-    @Override
-    public int getLayoutId() {
-        return R.layout.fragment_product;
     }
 }

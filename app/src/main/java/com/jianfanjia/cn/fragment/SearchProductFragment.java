@@ -8,7 +8,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.home.DesignerCaseInfoActivity;
@@ -34,7 +36,7 @@ import java.util.Map;
 
 /**
  * @author fengliang
- * @ClassName: ProductFragment
+ * @ClassName: CollectProductFragment
  * @Description: 作品
  * @date 2015-8-26 下午1:07:52
  */
@@ -58,6 +60,8 @@ public class SearchProductFragment extends BaseFragment implements ApiUiUpdateLi
     @Override
     public void initView(View view) {
         emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
+        ((TextView) emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.search_no_product));
+        ((ImageView) emptyLayout.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_product);
         errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
         prodtct_listview = (RecyclerView) view.findViewById(R.id.recycleview);
         prodtct_listview.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -69,7 +73,7 @@ public class SearchProductFragment extends BaseFragment implements ApiUiUpdateLi
         prodtct_listview.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).paint(paint).showLastDivider().build());
 
         search = getArguments().getString(Global.SEARCH_TEXT);
-        searchProduct(currentPos,search);
+        searchProduct(currentPos, search);
     }
 
     private void searchProduct(int from, String searchText) {
@@ -89,7 +93,7 @@ public class SearchProductFragment extends BaseFragment implements ApiUiUpdateLi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.error_include:
-                searchProduct(currentPos,search);
+                searchProduct(currentPos, search);
                 break;
             default:
                 break;
@@ -111,11 +115,11 @@ public class SearchProductFragment extends BaseFragment implements ApiUiUpdateLi
             if (null != products && products.size() > 0) {
                 currentPos += products.size();
                 if (productAdapter == null) {
-                    productAdapter = new SearchProductAdapter(getActivity(), prodtct_listview, products, this ,PAGE_COUNT);
+                    productAdapter = new SearchProductAdapter(getActivity(), prodtct_listview, products, this, PAGE_COUNT);
                     productAdapter.setOnLoadingListener(new BaseLoadingAdapter.OnLoadingListener() {
                         @Override
                         public void loading() {
-                            searchProduct(currentPos,search);
+                            searchProduct(currentPos, search);
                         }
                     });
                     prodtct_listview.setAdapter(productAdapter);

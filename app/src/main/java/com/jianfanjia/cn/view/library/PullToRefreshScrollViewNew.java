@@ -17,68 +17,57 @@ package com.jianfanjia.cn.view.library;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.os.Build.VERSION;
-import android.os.Build.VERSION_CODES;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.HorizontalScrollView;
+import android.widget.ScrollView;
 
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.view.MainScrollView;
 
-public class PullToRefreshHorizontalScrollView extends PullToRefreshBase<HorizontalScrollView> {
+public class PullToRefreshScrollViewNew extends PullToRefreshBase<ScrollView> {
 
-	public PullToRefreshHorizontalScrollView(Context context) {
+	public PullToRefreshScrollViewNew(Context context) {
 		super(context);
 	}
 
-	public PullToRefreshHorizontalScrollView(Context context, AttributeSet attrs) {
+	public PullToRefreshScrollViewNew(Context context, AttributeSet attrs) {
 		super(context, attrs);
-	}
-
-	public PullToRefreshHorizontalScrollView(Context context, Mode mode) {
-		super(context, mode);
-	}
-
-	public PullToRefreshHorizontalScrollView(Context context, Mode mode, AnimationStyle style) {
-		super(context, mode, style);
 	}
 
 	@Override
 	public final Orientation getPullToRefreshScrollDirection() {
-		return Orientation.HORIZONTAL;
+		return Orientation.VERTICAL;
 	}
 
 	@Override
-	protected HorizontalScrollView createRefreshableView(Context context, AttributeSet attrs) {
-		HorizontalScrollView scrollView;
-
-		if (VERSION.SDK_INT >= VERSION_CODES.GINGERBREAD) {
-			scrollView = new InternalHorizontalScrollViewSDK9(context, attrs);
-		} else {
-			scrollView = new HorizontalScrollView(context, attrs);
-		}
+	protected ScrollView createRefreshableView(Context context, AttributeSet attrs) {
+		ScrollView scrollView = new MainScrollView(context,attrs);
 		scrollView.setId(R.id.scrollview);
 		return scrollView;
 	}
 
+	public void setScrollPullUpListener(MainScrollView.ScrollPullUpListener scrollPullUpListener){
+		((MainScrollView)getRefreshableView()).setScrollPullUpListener(scrollPullUpListener);
+	}
+
 	@Override
 	protected boolean isReadyForPullStart() {
-		return mRefreshableView.getScrollX() == 0;
+		return mRefreshableView.getScrollY() == 0;
 	}
 
 	@Override
 	protected boolean isReadyForPullEnd() {
 		View scrollViewChild = mRefreshableView.getChildAt(0);
 		if (null != scrollViewChild) {
-			return mRefreshableView.getScrollX() >= (scrollViewChild.getWidth() - getWidth());
+			return mRefreshableView.getScrollY() >= (scrollViewChild.getHeight() - getHeight());
 		}
 		return false;
 	}
 
 	@TargetApi(9)
-	final class InternalHorizontalScrollViewSDK9 extends HorizontalScrollView {
+	final class InternalScrollViewSDK9 extends ScrollView {
 
-		public InternalHorizontalScrollViewSDK9(Context context, AttributeSet attrs) {
+		public InternalScrollViewSDK9(Context context, AttributeSet attrs) {
 			super(context, attrs);
 		}
 
@@ -90,7 +79,7 @@ public class PullToRefreshHorizontalScrollView extends PullToRefreshBase<Horizon
 					scrollRangeY, maxOverScrollX, maxOverScrollY, isTouchEvent);
 
 			// Does all of the hard work...
-			OverscrollHelper.overScrollBy(PullToRefreshHorizontalScrollView.this, deltaX, scrollX, deltaY, scrollY,
+			OverscrollHelper.overScrollBy(PullToRefreshScrollViewNew.this, deltaX, scrollX, deltaY, scrollY,
 					getScrollRange(), isTouchEvent);
 
 			return returnValue;
@@ -103,7 +92,7 @@ public class PullToRefreshHorizontalScrollView extends PullToRefreshBase<Horizon
 			int scrollRange = 0;
 			if (getChildCount() > 0) {
 				View child = getChildAt(0);
-				scrollRange = Math.max(0, child.getWidth() - (getWidth() - getPaddingLeft() - getPaddingRight()));
+				scrollRange = Math.max(0, child.getHeight() - (getHeight() - getPaddingBottom() - getPaddingTop()));
 			}
 			return scrollRange;
 		}

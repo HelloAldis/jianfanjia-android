@@ -24,12 +24,12 @@
     <string name="error_view_load_error_click_to_refresh">内容加载失败\r\n点击重新加载</string>
     <string name="error_view_network_error_click_to_refresh">没有可用的网络</string>
     <string name="tip_network_error">没有可用的网络</string>
-    <string name="error_view_no_designer_data">您还没有收藏任何设计师</string>
-    <string name="error_view_no_product_data">您还没有收藏任何作品</string>
-    <string name="error_view_no_img_data">您还没有收藏任何美图</string>
-    <string name="error_view_no_caigou_data">您还没有采购提醒</string>
-    <string name="error_view_no_pay_data">您还没有付款提醒</string>
-    <string name="error_view_no_delay_data">您还没有改期提醒</string>
+    <string name="emtpy_view_no_designer_data">您还没有收藏任何设计师</string>
+    <string name="empty_view_no_product_data">您还没有收藏任何作品</string>
+    <string name="empty_view_no_img_data">您还没有收藏任何美图</string>
+    <string name="empty_view_no_caigou_data">您还没有采购提醒</string>
+    <string name="empty_view_no_pay_data">您还没有付款提醒</string>
+    <string name="empty_view_no_delay_data">您还没有改期提醒</string>
     <string name="no_more_data">没有更多了</string>
     <!-- main activity -->
     <string name="main_tab_name_darly">日记</string>
@@ -345,5 +345,8 @@
     <string name="beauty_img">美图</string>
     <string name="searh_tip">搜索设计师/案例/美图</string>
     <string name="str_decoratehousetype">装修户型</string>
+    <string name="search_no_designer">没有找到任何匹配的设计师</string>
+    <string name="search_no_beautyimg">没有找到任何匹配的美图</string>
+    <string name="search_no_product">没有找到任何匹配的作品</string>
 
 </resources>

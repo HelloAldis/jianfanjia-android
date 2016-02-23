@@ -4,23 +4,24 @@
     android:layout_height="match_parent">
 
     <com.jianfanjia.cn.view.library.PullToRefreshRecycleView xmlns:ptr="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/prodtct_listview"
+        android:id="@+id/decoration_img_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="10dip"
+        android:layout_margin="5dip"
         android:scrollbars="none"
         ptr:ptrAnimationStyle="flip"
         ptr:ptrHeaderTextColor="#344a5d" />
 
     <include
         android:id="@+id/empty_include"
-        layout="@layout/view_no_product_layout"
+        layout="@layout/view_empty_layout"
         android:visibility="gone" />
 
     <include
         android:id="@+id/error_include"
         layout="@layout/view_error_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:visibility="gone" />
 </FrameLayout>
-
-

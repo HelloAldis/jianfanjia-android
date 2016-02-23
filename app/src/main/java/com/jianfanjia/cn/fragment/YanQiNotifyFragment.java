@@ -8,7 +8,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.R;
@@ -54,6 +56,8 @@ public class YanQiNotifyFragment extends BaseFragment implements ApiUiUpdateList
     @Override
     public void initView(View view) {
         emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
+        ((TextView) emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.empty_view_no_delay_data));
+        ((ImageView) emptyLayout.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_yanqi);
         errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
         yanqiListView = (PullToRefreshRecycleView) view.findViewById(R.id.tip_delay__listview);
         yanqiListView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);

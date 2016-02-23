@@ -9,7 +9,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
@@ -33,14 +35,15 @@ import java.util.List;
 
 import de.greenrobot.event.EventBus;
 
+
 /**
  * @author fengliang
- * @ClassName: MyFavoriteDesignerFragment
+ * @ClassName: CollectDesignerFragment
  * @Description: 我的意向设计师
  * @date 2015-8-26 下午1:07:52
  */
-public class MyFavoriteDesignerFragment extends CommonFragment implements PullToRefreshBase.OnRefreshListener2<RecyclerView> {
-    private static final String TAG = MyFavoriteDesignerFragment.class.getName();
+public class CollectDesignerFragment extends CommonFragment implements PullToRefreshBase.OnRefreshListener2<RecyclerView> {
+    private static final String TAG = CollectDesignerFragment.class.getName();
     private PullToRefreshRecycleView my_favorite_designer_listview = null;
     private RelativeLayout emptyLayout = null;
     private RelativeLayout errorLayout = null;
@@ -52,8 +55,8 @@ public class MyFavoriteDesignerFragment extends CommonFragment implements PullTo
     private int FROM = 0;
     private int currentPos = -1;
 
-    public static MyFavoriteDesignerFragment newInstance() {
-        MyFavoriteDesignerFragment designerFragment = new MyFavoriteDesignerFragment();
+    public static CollectDesignerFragment newInstance() {
+        CollectDesignerFragment designerFragment = new CollectDesignerFragment();
         return designerFragment;
     }
 
@@ -65,7 +68,7 @@ public class MyFavoriteDesignerFragment extends CommonFragment implements PullTo
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_my_favorite_designer, container, false);
+        View view = inflater.inflate(R.layout.fragment_collect_designer, container, false);
         init(view);
         isPrepared = true;
         load();
@@ -74,6 +77,8 @@ public class MyFavoriteDesignerFragment extends CommonFragment implements PullTo
 
     public void init(View view) {
         emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
+        ((TextView) emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.emtpy_view_no_designer_data));
+        ((ImageView) emptyLayout.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_designer);
         errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
         my_favorite_designer_listview = (PullToRefreshRecycleView) view.findViewById(R.id.my_favorite_designer_listview);
         my_favorite_designer_listview.setMode(PullToRefreshBase.Mode.BOTH);
@@ -87,7 +92,6 @@ public class MyFavoriteDesignerFragment extends CommonFragment implements PullTo
         my_favorite_designer_listview.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).paint(paint).showLastDivider().build());
     }
 
-    @Override
     public void setListener() {
         errorLayout.setOnClickListener(this);
         my_favorite_designer_listview.setOnRefreshListener(this);
@@ -231,4 +235,9 @@ public class MyFavoriteDesignerFragment extends CommonFragment implements PullTo
         }
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 }

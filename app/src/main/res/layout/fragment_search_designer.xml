@@ -13,7 +13,7 @@
 
     <include
         android:id="@+id/empty_include"
-        layout="@layout/view_no_product_layout"
+        layout="@layout/view_empty_layout"
         android:visibility="gone" />
 
     <include
