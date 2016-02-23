@@ -7,7 +7,9 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -17,7 +19,6 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.home.DesignerCaseInfoActivity;
 import com.jianfanjia.cn.activity.home.DesignerInfoActivity;
 import com.jianfanjia.cn.adapter.ProductAdapter;
-import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.Product;
 import com.jianfanjia.cn.bean.ProductInfo;
 import com.jianfanjia.cn.config.Constant;
@@ -42,15 +43,23 @@ import de.greenrobot.event.EventBus;
  * @Description: 作品
  * @date 2015-8-26 下午1:07:52
  */
-public class CollectProductFragment extends BaseFragment implements PullToRefreshBase.OnRefreshListener2<RecyclerView> {
+public class CollectProductFragment extends CommonFragment implements PullToRefreshBase.OnRefreshListener2<RecyclerView> {
     private static final String TAG = CollectProductFragment.class.getName();
     private PullToRefreshRecycleView prodtct_listview = null;
     private RelativeLayout emptyLayout = null;
     private RelativeLayout errorLayout = null;
     private ProductAdapter productAdapter = null;
-    private List<Product> products = new ArrayList<Product>();
+    private List<Product> products = new ArrayList<>();
+    private boolean isFirst = true;
+    private boolean isPrepared = false;
+    private boolean mHasLoadedOnce = false;
     private int currentPos = -1;
     private int FROM = 0;
+
+    public static CollectProductFragment newInstance() {
+        CollectProductFragment productFragment = new CollectProductFragment();
+        return productFragment;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,10 +68,18 @@ public class CollectProductFragment extends BaseFragment implements PullToRefres
     }
 
     @Override
-    public void initView(View view) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_collect_product, container, false);
+        init(view);
+        isPrepared = true;
+        load();
+        return view;
+    }
+
+    public void init(View view) {
         emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
-        ((TextView)emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.empty_view_no_product_data));
-        ((ImageView)emptyLayout.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_product);
+        ((TextView) emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.empty_view_no_product_data));
+        ((ImageView) emptyLayout.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_product);
         errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
         prodtct_listview = (PullToRefreshRecycleView) view.findViewById(R.id.prodtct_listview);
         prodtct_listview.setMode(PullToRefreshBase.Mode.BOTH);
@@ -77,15 +94,11 @@ public class CollectProductFragment extends BaseFragment implements PullToRefres
     }
 
     @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser) {
-            LogTool.d(TAG, "CollectProductFragment 可见");
-            FROM = 0;
-            getProductList(FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
-        } else {
-            LogTool.d(TAG, "CollectProductFragment 不可见");
+    protected void load() {
+        if (!isPrepared || !isVisible || mHasLoadedOnce) {
+            return;
         }
+        getProductList(FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
     }
 
     private void getProductList(int from, int limit, ApiUiUpdateListener listener) {
@@ -124,12 +137,16 @@ public class CollectProductFragment extends BaseFragment implements PullToRefres
     private ApiUiUpdateListener pullDownListener = new ApiUiUpdateListener() {
         @Override
         public void preLoad() {
-
+            if (isFirst) {
+                showWaitDialog();
+            }
         }
 
         @Override
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data=" + data.toString());
+            hideWaitDialog();
+            mHasLoadedOnce = true;
             prodtct_listview.onRefreshComplete();
             ProductInfo productInfo = JsonParser.jsonToBean(data.toString(), ProductInfo.class);
             LogTool.d(TAG, "productInfo=" + productInfo);
@@ -168,6 +185,7 @@ public class CollectProductFragment extends BaseFragment implements PullToRefres
                     prodtct_listview.setVisibility(View.VISIBLE);
                     emptyLayout.setVisibility(View.GONE);
                     errorLayout.setVisibility(View.GONE);
+                    isFirst = false;
                 } else {
                     prodtct_listview.setVisibility(View.GONE);
                     emptyLayout.setVisibility(View.VISIBLE);
@@ -181,6 +199,7 @@ public class CollectProductFragment extends BaseFragment implements PullToRefres
         @Override
         public void loadFailture(String error_msg) {
             makeTextLong(error_msg);
+            hideWaitDialog();
             prodtct_listview.onRefreshComplete();
             prodtct_listview.setVisibility(View.GONE);
             emptyLayout.setVisibility(View.GONE);
@@ -236,10 +255,5 @@ public class CollectProductFragment extends BaseFragment implements PullToRefres
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-    }
-
-    @Override
-    public int getLayoutId() {
-        return R.layout.fragment_collect_product;
     }
 }

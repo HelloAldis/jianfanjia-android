@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -14,7 +16,6 @@ import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.beautifulpic.PreviewDecorationActivity;
 import com.jianfanjia.cn.adapter.DecorationAdapter;
-import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.BeautyImgInfo;
 import com.jianfanjia.cn.bean.DecorationItemInfo;
 import com.jianfanjia.cn.config.Constant;
@@ -39,16 +40,24 @@ import de.greenrobot.event.EventBus;
  * @Description: 装修美图收藏
  * @date 2015-8-26 下午1:07:52
  */
-public class CollectDecorationImgFragment extends BaseFragment implements PullToRefreshBase.OnRefreshListener2<RecyclerView> {
+public class CollectDecorationImgFragment extends CommonFragment implements PullToRefreshBase.OnRefreshListener2<RecyclerView> {
     private static final String TAG = CollectDecorationImgFragment.class.getName();
     private PullToRefreshRecycleView decoration_img_listview = null;
     private RelativeLayout emptyLayout = null;
     private RelativeLayout errorLayout = null;
-    private List<BeautyImgInfo> beautyImgList = new ArrayList<BeautyImgInfo>();
+    private List<BeautyImgInfo> beautyImgList = new ArrayList<>();
     private DecorationAdapter decorationImgAdapter = null;
+    private boolean isFirst = true;
+    private boolean isPrepared = false;
+    private boolean mHasLoadedOnce = false;
     private int total = 0;
     private int currentPos = -1;
     private int FROM = 0;
+
+    public static CollectDecorationImgFragment newInstance() {
+        CollectDecorationImgFragment imgFragment = new CollectDecorationImgFragment();
+        return imgFragment;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,10 +66,18 @@ public class CollectDecorationImgFragment extends BaseFragment implements PullTo
     }
 
     @Override
-    public void initView(View view) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_collect_decoration_img, container, false);
+        init(view);
+        isPrepared = true;
+        load();
+        return view;
+    }
+
+    public void init(View view) {
         emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
-        ((TextView)emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.empty_view_no_img_data));
-        ((ImageView)emptyLayout.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_img);
+        ((TextView) emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.empty_view_no_img_data));
+        ((ImageView) emptyLayout.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_img);
         errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
         decoration_img_listview = (PullToRefreshRecycleView) view.findViewById(R.id.decoration_img_listview);
         decoration_img_listview.setMode(PullToRefreshBase.Mode.BOTH);
@@ -72,15 +89,11 @@ public class CollectDecorationImgFragment extends BaseFragment implements PullTo
     }
 
     @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser) {
-            LogTool.d(TAG, "CollectDecorationImgFragment 可见");
-            FROM = 0;
-            getDecorationImgList(FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
-        } else {
-            LogTool.d(TAG, "CollectDecorationImgFragment 不可见");
+    protected void load() {
+        if (!isPrepared || !isVisible || mHasLoadedOnce) {
+            return;
         }
+        getDecorationImgList(FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
     }
 
     @Override
@@ -119,12 +132,16 @@ public class CollectDecorationImgFragment extends BaseFragment implements PullTo
     private ApiUiUpdateListener pullDownListener = new ApiUiUpdateListener() {
         @Override
         public void preLoad() {
-
+            if (isFirst) {
+                showWaitDialog();
+            }
         }
 
         @Override
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data.toString());
+            hideWaitDialog();
+            mHasLoadedOnce = true;
             decoration_img_listview.onRefreshComplete();
             DecorationItemInfo decorationItemInfo = JsonParser.jsonToBean(data.toString(), DecorationItemInfo.class);
             LogTool.d(TAG, "decorationItemInfo:" + decorationItemInfo);
@@ -132,28 +149,32 @@ public class CollectDecorationImgFragment extends BaseFragment implements PullTo
                 total = decorationItemInfo.getTotal();
                 beautyImgList.clear();
                 beautyImgList.addAll(decorationItemInfo.getBeautiful_images());
-                LogTool.d(TAG, "beautyImgList:" + beautyImgList.size());
                 if (null != beautyImgList && beautyImgList.size() > 0) {
-                    decorationImgAdapter = new DecorationAdapter(getActivity(), beautyImgList, new OnItemClickListener() {
-                        @Override
-                        public void OnItemClick(int position) {
-                            LogTool.d(TAG, "position:" + position);
-                            currentPos = position;
-                            BeautyImgInfo beautyImgInfo = beautyImgList.get(position);
-                            LogTool.d(TAG, "beautyImgInfo:" + beautyImgInfo);
-                            Intent decorationIntent = new Intent(getActivity(), PreviewDecorationActivity.class);
-                            Bundle decorationBundle = new Bundle();
-                            decorationBundle.putString(Global.DECORATION_ID, beautyImgInfo.get_id());
-                            decorationBundle.putInt(Global.POSITION, position);
-                            decorationBundle.putSerializable(Global.IMG_LIST, (ArrayList<BeautyImgInfo>) beautyImgList);
-                            decorationBundle.putInt(Global.TOTAL_COUNT, total);
-                            decorationIntent.putExtras(decorationBundle);
-                            startActivity(decorationIntent);
-                        }
-                    });
-                    decoration_img_listview.setAdapter(decorationImgAdapter);
+                    if (null == decorationImgAdapter) {
+                        decorationImgAdapter = new DecorationAdapter(getActivity(), beautyImgList, new OnItemClickListener() {
+                            @Override
+                            public void OnItemClick(int position) {
+                                LogTool.d(TAG, "position:" + position);
+                                currentPos = position;
+                                BeautyImgInfo beautyImgInfo = beautyImgList.get(position);
+                                LogTool.d(TAG, "beautyImgInfo:" + beautyImgInfo);
+                                Intent decorationIntent = new Intent(getActivity(), PreviewDecorationActivity.class);
+                                Bundle decorationBundle = new Bundle();
+                                decorationBundle.putString(Global.DECORATION_ID, beautyImgInfo.get_id());
+                                decorationBundle.putInt(Global.POSITION, position);
+                                decorationBundle.putSerializable(Global.IMG_LIST, (ArrayList<BeautyImgInfo>) beautyImgList);
+                                decorationBundle.putInt(Global.TOTAL_COUNT, total);
+                                decorationIntent.putExtras(decorationBundle);
+                                startActivity(decorationIntent);
+                            }
+                        });
+                        decoration_img_listview.setAdapter(decorationImgAdapter);
+                    } else {
+                        decorationImgAdapter.notifyDataSetChanged();
+                    }
                     decoration_img_listview.setVisibility(View.VISIBLE);
                     emptyLayout.setVisibility(View.GONE);
+                    isFirst = false;
                 } else {
                     decoration_img_listview.setVisibility(View.GONE);
                     emptyLayout.setVisibility(View.VISIBLE);
@@ -167,6 +188,7 @@ public class CollectDecorationImgFragment extends BaseFragment implements PullTo
         @Override
         public void loadFailture(String error_msg) {
             makeTextShort(error_msg);
+            hideWaitDialog();
             decoration_img_listview.onRefreshComplete();
             decoration_img_listview.setVisibility(View.GONE);
             emptyLayout.setVisibility(View.GONE);
@@ -226,11 +248,6 @@ public class CollectDecorationImgFragment extends BaseFragment implements PullTo
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-    }
-
-    @Override
-    public int getLayoutId() {
-        return R.layout.fragment_collect_decoration_img;
     }
 
 }

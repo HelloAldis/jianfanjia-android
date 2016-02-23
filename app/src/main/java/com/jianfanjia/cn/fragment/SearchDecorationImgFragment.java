@@ -53,17 +53,17 @@ public class SearchDecorationImgFragment extends BaseFragment implements ApiUiUp
     @Override
     public void initView(View view) {
         emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
-        ((TextView)emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.search_no_beautyimg));
-        ((ImageView)emptyLayout.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_img);
+        ((TextView) emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.search_no_beautyimg));
+        ((ImageView) emptyLayout.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_img);
         errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
         decoration_img_listview = (RecyclerView) view.findViewById(R.id.recycleview);
         decoration_img_listview.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         decoration_img_listview.setItemAnimator(new DefaultItemAnimator());
-        SpacesItemDecoration decoration = new SpacesItemDecoration(5);
+        SpacesItemDecoration decoration = new SpacesItemDecoration(6);
         decoration_img_listview.addItemDecoration(decoration);
 
         search = getArguments().getString(Global.SEARCH_TEXT);
-        getDecorationImgInfo(currentPos, PAGE_COUNT,search , this);
+        getDecorationImgInfo(currentPos, PAGE_COUNT, search, this);
     }
 
     private void getDecorationImgInfo(int from, int limit, String searchText, ApiUiUpdateListener listener) {

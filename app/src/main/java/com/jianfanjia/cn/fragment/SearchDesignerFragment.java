@@ -53,8 +53,8 @@ public class SearchDesignerFragment extends BaseFragment implements ApiUiUpdateL
     @Override
     public void initView(View view) {
         emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
-        ((TextView)emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.search_no_designer));
-        ((ImageView)emptyLayout.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_designer);
+        ((TextView) emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.search_no_designer));
+        ((ImageView) emptyLayout.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_designer);
         errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
         recycleView = (RecyclerView) view.findViewById(R.id.recycleview);
         recycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -107,7 +107,7 @@ public class SearchDesignerFragment extends BaseFragment implements ApiUiUpdateL
             if (designerInfoList != null && designerInfoList.size() > 0) {
                 currentPos += designerInfoList.size();
                 if (searchDesignerAdapter == null) {
-                    searchDesignerAdapter = new SearchDesignerAdapter(getContext(), recycleView, designerInfoList, PAGE_COUNT ,new RecyclerViewOnItemClickListener() {
+                    searchDesignerAdapter = new SearchDesignerAdapter(getContext(), recycleView, designerInfoList, PAGE_COUNT, new RecyclerViewOnItemClickListener() {
                         @Override
                         public void OnItemClick(View view, int position) {
 
