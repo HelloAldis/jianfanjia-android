@@ -106,16 +106,21 @@ public abstract class BaseLoadingAdapter<T> extends RecyclerView.Adapter<Recycle
     }
 
     public void addAll(Collection<T> t) {
-        if (t != null) {
-            if (t.size() == pageSize) {
-                setLoadingNoMore(true);
+        if (mTs != null) {
+            int lastIndex = mTs.size() - 1;
+            if (t != null) {
+                if (t.size() == pageSize) {
+                    setLoadingNoMore(true);
+                } else {
+                    setLoadingNoMore(false);
+                }
+                LogTool.d(this.getClass().getName(), "lastIndex =" + lastIndex);
+                mTs.addAll(lastIndex, t);
+                notifyItemRangeInserted(lastIndex, t.size());
             } else {
                 setLoadingNoMore(false);
+                notifyItemRangeChanged(lastIndex, 1);
             }
-            int lastIndex = mTs.size() - 1;
-            LogTool.d(this.getClass().getName(),"lastIndex =" + lastIndex);
-            mTs.addAll(lastIndex, t);
-            notifyItemRangeInserted(lastIndex, t.size());
         }
     }
 
@@ -193,7 +198,7 @@ public abstract class BaseLoadingAdapter<T> extends RecyclerView.Adapter<Recycle
                 super.onScrolled(recyclerView, dx, dy);
 
                 if (!canScrollDown(recyclerView) && isHasLoadMore) {
-                    LogTool.d(this.getClass().getName(),"loading...");
+                    LogTool.d(this.getClass().getName(), "loading...");
                     if (mOnLoadingListener != null) {
                         mOnLoadingListener.loading();
                     }

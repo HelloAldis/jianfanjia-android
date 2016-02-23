@@ -8,6 +8,7 @@ import com.jianfanjia.cn.base.BaseApplication;
 import com.jianfanjia.cn.cache.DataCleanManager;
 import com.jianfanjia.cn.http.OkHttpClientManager;
 import com.jianfanjia.cn.http.cookie.PersistentCookieStore;
+import com.jianfanjia.cn.tools.LogTool;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
@@ -33,7 +34,7 @@ public class MyApplication extends BaseApplication {
         super.onCreate();
         instance = this;
 //        saveDefaultProcess();// 加载默认的工地信息
-        cookieStore = new PersistentCookieStore(this);// 记录cookie
+        cookieStore = new PersistentCookieStore(getApplicationContext());// 记录cookie
         saveCookie(OkHttpClientManager.getInstance().client());
 
         /*
@@ -154,8 +155,10 @@ public class MyApplication extends BaseApplication {
         client.setCookieHandler(new CookieManager(cookieStore, CookiePolicy.ACCEPT_ALL));
     }
 
-
     public void clearCookie() {
+        LogTool.d(this.getClass().getName(),"clearCookie");
         cookieStore.removeAll();
+//        cookieStore = new PersistentCookieStore(this);
+//        OkHttpClientManager.getInstance().client().setCookieHandler(new CookieManager(cookieStore, CookiePolicy.ACCEPT_ALL));
     }
 }
