@@ -59,7 +59,7 @@ public class SearchDecorationImgFragment extends BaseFragment implements ApiUiUp
         decoration_img_listview = (RecyclerView) view.findViewById(R.id.recycleview);
         decoration_img_listview.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         decoration_img_listview.setItemAnimator(new DefaultItemAnimator());
-        SpacesItemDecoration decoration = new SpacesItemDecoration(5);
+        SpacesItemDecoration decoration = new SpacesItemDecoration(6);
         decoration_img_listview.addItemDecoration(decoration);
 
         search = getArguments().getString(Global.SEARCH_TEXT);
