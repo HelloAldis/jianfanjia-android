@@ -74,6 +74,7 @@ public class DesignerInfoActivity extends SwipeBackActivity implements OnClickLi
         head_back_layout = (RelativeLayout) findViewById(R.id.head_back_layout);
         tv_title = (TextView) findViewById(R.id.tv_title);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
+        viewPager.setOffscreenPageLimit(1);
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         designerinfo_head_img = (ImageView) findViewById(R.id.designerinfo_head_img);
         designerinfo_auth = (ImageView) findViewById(R.id.designerinfo_auth);
@@ -104,12 +105,12 @@ public class DesignerInfoActivity extends SwipeBackActivity implements OnClickLi
     }
 
     private void setupViewPager(ViewPager viewPager) {
-        SelectItem caigouItem = new SelectItem(DesignerInfoFragment.newInstance(designerid),
-                "资料");
-        SelectItem fukuanItem = new SelectItem(DesignerWorksFragment.newInstance(designerid),
-                "作品");
-        listViews.add(caigouItem);
-        listViews.add(fukuanItem);
+        SelectItem resItem = new SelectItem(DesignerInfoFragment.newInstance(designerid),
+                getResources().getString(R.string.resourceText));
+        SelectItem productItem = new SelectItem(DesignerWorksFragment.newInstance(designerid),
+                getResources().getString(R.string.productText));
+        listViews.add(resItem);
+        listViews.add(productItem);
         MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(fragmentManager, listViews);
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(this);

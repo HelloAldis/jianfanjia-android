@@ -1,13 +1,14 @@
 package com.jianfanjia.cn.fragment;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.DesignerInfo;
 import com.jianfanjia.cn.cache.BusinessManager;
 import com.jianfanjia.cn.config.Global;
@@ -23,8 +24,10 @@ import com.jianfanjia.cn.tools.ScrollableHelper;
  * @Description: 设计师资料
  * @date 2015-8-26 下午1:07:52
  */
-public class DesignerInfoFragment extends BaseFragment implements ApiUiUpdateListener, ScrollableHelper.ScrollableContainer {
+public class DesignerInfoFragment extends CommonFragment implements ApiUiUpdateListener, ScrollableHelper.ScrollableContainer {
     private static final String TAG = DesignerInfoFragment.class.getName();
+    private boolean isPrepared = false;
+    private boolean mHasLoadedOnce = false;
     private ScrollView scrollView = null;
     private LinearLayout jiandanTypeLayout = null;
     private LinearLayout jiandanHouseTypeLayout = null;
@@ -55,7 +58,15 @@ public class DesignerInfoFragment extends BaseFragment implements ApiUiUpdateLis
     }
 
     @Override
-    public void initView(View view) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_designer_info, container, false);
+        init(view);
+        isPrepared = true;
+        load();
+        return view;
+    }
+
+    public void init(View view) {
         Bundle bundle = getArguments();
         designerid = bundle.getString(Global.DESIGNER_ID);
         LogTool.d(TAG, "designerid=" + designerid);
@@ -82,6 +93,14 @@ public class DesignerInfoFragment extends BaseFragment implements ApiUiUpdateLis
     }
 
     @Override
+    protected void load() {
+        if (!isPrepared || !isVisible || mHasLoadedOnce) {
+            return;
+        }
+        getDesignerPageInfo(designerid);
+    }
+
+    @Override
     public void setListener() {
 
     }
@@ -89,7 +108,6 @@ public class DesignerInfoFragment extends BaseFragment implements ApiUiUpdateLis
     private void getDesignerPageInfo(String designerid) {
         JianFanJiaClient.getDesignerHomePage(getActivity(), designerid, this, this);
     }
-
 
     @Override
     public void preLoad() {
@@ -99,6 +117,7 @@ public class DesignerInfoFragment extends BaseFragment implements ApiUiUpdateLis
     @Override
     public void loadSuccess(Object data) {
         LogTool.d(TAG, "data:" + data);
+        mHasLoadedOnce = true;
         DesignerInfo designerInfo = JsonParser.jsonToBean(data.toString(), DesignerInfo.class);
         LogTool.d(TAG, "designerInfo:" + designerInfo);
         if (null != designerInfo) {
@@ -132,11 +151,6 @@ public class DesignerInfoFragment extends BaseFragment implements ApiUiUpdateLis
     @Override
     public View getScrollableView() {
         return scrollView;
-    }
-
-    @Override
-    public int getLayoutId() {
-        return R.layout.fragment_designer_info;
     }
 
 }
