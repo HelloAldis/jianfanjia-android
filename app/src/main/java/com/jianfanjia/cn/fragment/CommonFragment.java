@@ -5,14 +5,14 @@ import android.view.View;
 import com.jianfanjia.cn.base.BaseFragment;
 
 /**
- * @author fengliang
- * @ClassName:CollectFragment
- * @Description: 收藏
- * @date 2015-8-26 下午1:07:52
+ * Name: CommonFragment
+ * User: fengliang
+ * Date: 2016-02-23
+ * Time: 16:44
  */
-public class CollectFragment extends BaseFragment {
-    private static final String TAG = CollectFragment.class.getName();
-    protected boolean isVisible;
+public class CommonFragment extends BaseFragment {
+    private static final String TAG = CommonFragment.class.getName();
+    protected boolean isVisible = false;
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {

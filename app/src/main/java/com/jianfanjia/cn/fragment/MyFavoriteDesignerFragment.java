@@ -39,7 +39,7 @@ import de.greenrobot.event.EventBus;
  * @Description: 我的意向设计师
  * @date 2015-8-26 下午1:07:52
  */
-public class MyFavoriteDesignerFragment extends CollectFragment implements PullToRefreshBase.OnRefreshListener2<RecyclerView> {
+public class MyFavoriteDesignerFragment extends CommonFragment implements PullToRefreshBase.OnRefreshListener2<RecyclerView> {
     private static final String TAG = MyFavoriteDesignerFragment.class.getName();
     private PullToRefreshRecycleView my_favorite_designer_listview = null;
     private RelativeLayout emptyLayout = null;

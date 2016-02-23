@@ -38,7 +38,7 @@ import de.greenrobot.event.EventBus;
  * @Description: 装修美图收藏
  * @date 2015-8-26 下午1:07:52
  */
-public class DecorationImgFragment extends CollectFragment implements PullToRefreshBase.OnRefreshListener2<RecyclerView> {
+public class DecorationImgFragment extends CommonFragment implements PullToRefreshBase.OnRefreshListener2<RecyclerView> {
     private static final String TAG = DecorationImgFragment.class.getName();
     private PullToRefreshRecycleView decoration_img_listview = null;
     private RelativeLayout emptyLayout = null;
