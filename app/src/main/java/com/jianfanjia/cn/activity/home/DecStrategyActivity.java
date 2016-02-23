@@ -62,7 +62,7 @@ public class DecStrategyActivity extends SwipeBackActivity implements View.OnKey
         progressWebView.getSettings().setUseWideViewPort(true);
         progressWebView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         progressWebView.getSettings().setLoadWithOverviewMode(true);
-        progressWebView.loadUrl(Url_New.getInstance().MOBILE_SERVER_URL + "/view/article/");
+        progressWebView.loadUrl(Url_New.getInstance().MOBILE_SERVER_URL + "/view/article/detail.html?pid=56836f68d92ec98b7a111b44");
         progressWebView.addJavascriptInterface( new InJavaScriptLocalObj(), "local_obj");
         progressWebView.setWebViewClient(new WebViewClient() {
             @Override
@@ -103,7 +103,7 @@ public class DecStrategyActivity extends SwipeBackActivity implements View.OnKey
     protected void click(View view){
         switch (view.getId()){
             case R.id.head_back_layout:
-                appManager.finishActivity(this);
+                this.goBackOrQuit();
                 break;
             case R.id.toolbar_share_layout:
                 UiHelper.imageButtonAnim(toolbar_share, null);
@@ -118,11 +118,29 @@ public class DecStrategyActivity extends SwipeBackActivity implements View.OnKey
     public boolean onKey(View v, int keyCode, KeyEvent event) {
         if (event.getAction() == KeyEvent.ACTION_DOWN) {
             if (keyCode == KeyEvent.KEYCODE_BACK && progressWebView.canGoBack()) {  //表示按返回键时的操作
-                progressWebView.goBack();   //后退
+                this.goBackOrQuit();  //后退 或者 退出
                 return true;    //已处理
             }
         }
         return false;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        /** attention to this below ,must icon_add this**/
+        UMSsoHandler ssoHandler = SocializeConfig.getSocializeConfig().getSsoHandler(requestCode);
+        if (ssoHandler != null) {
+            ssoHandler.authorizeCallBack(requestCode, resultCode, data);
+        }
+    }
+
+    private void goBackOrQuit() {
+        if (this.progressWebView.canGoBack()) {
+            progressWebView.goBack();
+        } else {
+            appManager.finishActivity(this);
+        }
     }
 
     private void showPopwindow() {
@@ -137,16 +155,6 @@ public class DecStrategyActivity extends SwipeBackActivity implements View.OnKey
                 LogTool.d(TAG, "status =" + i);
             }
         });
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        /** attention to this below ,must icon_add this**/
-        UMSsoHandler ssoHandler = SocializeConfig.getSocializeConfig().getSsoHandler(requestCode);
-        if (ssoHandler != null) {
-            ssoHandler.authorizeCallBack(requestCode, resultCode, data);
-        }
     }
 
     final class InJavaScriptLocalObj {
@@ -173,7 +181,7 @@ public class DecStrategyActivity extends SwipeBackActivity implements View.OnKey
 
     private String getDescription() {
         if (StringUtils.isEmpty(this.description)) {
-            return "default description";
+            return "我在使用 #简繁家# 的App，业内一线设计师为您量身打造房间，比传统装修便宜20%，让你一手轻松掌控装修全过程。";
         } else {
             return this.description;
         }
