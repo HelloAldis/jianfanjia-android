@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -79,6 +80,8 @@ public class DesignerListActivity extends BaseActivity implements View.OnClickLi
     public void initView() {
         initMainHeadView();
         emptyLayout = (RelativeLayout) findViewById(R.id.empty_include);
+        ((TextView)emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.empty_view_no_product_data));
+        ((ImageView)emptyLayout.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_product);
         errorLayout = (RelativeLayout) findViewById(R.id.error_include);
         topLayout = (LinearLayout) findViewById(R.id.topLayout);
         decTypeLayout = (RelativeLayout) findViewById(R.id.decTypeLayout);

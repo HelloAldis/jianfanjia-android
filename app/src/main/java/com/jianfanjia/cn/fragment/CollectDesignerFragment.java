@@ -7,7 +7,9 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
@@ -34,12 +36,12 @@ import de.greenrobot.event.EventBus;
 
 /**
  * @author fengliang
- * @ClassName: MyFavoriteDesignerFragment
+ * @ClassName: CollectDesignerFragment
  * @Description: 我的意向设计师
  * @date 2015-8-26 下午1:07:52
  */
-public class MyFavoriteDesignerFragment extends BaseFragment implements PullToRefreshBase.OnRefreshListener2<RecyclerView> {
-    private static final String TAG = MyFavoriteDesignerFragment.class.getName();
+public class CollectDesignerFragment extends BaseFragment implements PullToRefreshBase.OnRefreshListener2<RecyclerView> {
+    private static final String TAG = CollectDesignerFragment.class.getName();
     private PullToRefreshRecycleView my_favorite_designer_listview = null;
     private RelativeLayout emptyLayout = null;
     private RelativeLayout errorLayout = null;
@@ -58,6 +60,8 @@ public class MyFavoriteDesignerFragment extends BaseFragment implements PullToRe
     @Override
     public void initView(View view) {
         emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
+        ((TextView)emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.emtpy_view_no_designer_data));
+        ((ImageView)emptyLayout.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_designer);
         errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
         my_favorite_designer_listview = (PullToRefreshRecycleView) view.findViewById(R.id.my_favorite_designer_listview);
         my_favorite_designer_listview.setMode(PullToRefreshBase.Mode.BOTH);
@@ -75,11 +79,11 @@ public class MyFavoriteDesignerFragment extends BaseFragment implements PullToRe
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
-            LogTool.d(TAG, "MyFavoriteDesignerFragment 可见");
+            LogTool.d(TAG, "CollectDesignerFragment 可见");
             FROM = 0;
             getMyFavoriteDesignerList(FROM, Constant.HOME_PAGE_LIMIT, getDownMyFavoriteDesignerListener);
         } else {
-            LogTool.d(TAG, "MyFavoriteDesignerFragment 不可见");
+            LogTool.d(TAG, "CollectDesignerFragment 不可见");
         }
     }
 
@@ -226,7 +230,7 @@ public class MyFavoriteDesignerFragment extends BaseFragment implements PullToRe
 
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_my_favorite_designer;
+        return R.layout.fragment_collect_designer;
     }
 
 

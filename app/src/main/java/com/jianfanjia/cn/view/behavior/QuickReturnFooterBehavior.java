@@ -5,8 +5,11 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.view.ViewCompat;
+import android.support.v4.widget.NestedScrollView;
 import android.util.AttributeSet;
 import android.view.View;
+
+import com.jianfanjia.cn.tools.LogTool;
 
 
 public class QuickReturnFooterBehavior extends CoordinatorLayout.Behavior<View> {
@@ -26,6 +29,11 @@ public class QuickReturnFooterBehavior extends CoordinatorLayout.Behavior<View> 
     }
 
     @Override
+    public boolean onDependentViewChanged(CoordinatorLayout parent, View child, View dependency) {
+        return dependency instanceof NestedScrollView;
+    }
+
+    @Override
     public boolean onNestedFling(CoordinatorLayout coordinatorLayout, View child, View target, float velocityX, float velocityY, boolean consumed) {
         return super.onNestedFling(coordinatorLayout, child, target, velocityX, velocityY, consumed);
     }
@@ -38,19 +46,21 @@ public class QuickReturnFooterBehavior extends CoordinatorLayout.Behavior<View> 
     @Override
     public void onNestedPreScroll(CoordinatorLayout coordinatorLayout, View child, View target, int dx, int dy, int[] consumed) {
         //判断手指是否先往一个方向移动一段距离后再往反方向移动，如果是，则在往反方向移动时mTotalDyDistance初始化为0，再计算该方向的距离总和
-        if (dy > 0 && mTotalDyDistance < 0 || dy < 0 && mTotalDyDistance > 0) {
+       /* if (dy > 0 && mTotalDyDistance < 0 || dy < 0 && mTotalDyDistance > 0) {
             mTotalDyDistance = 0;
-        }
+        }*/
         //计算该方向的总距离
         mTotalDyDistance += dy;
-        //判断当前操作是向上滑动还是向下滑动
+        child.setTranslationY(-mTotalDyDistance);
+        LogTool.d(this.getClass().getName(),"dy =" + dy);
+       /* //判断当前操作是向上滑动还是向下滑动
         if (!hide && mTotalDyDistance > childHeight) {
             hideView(child);
             hide = true;
         } else if (hide && mTotalDyDistance < 0) {
             showView(child);
             hide = false;
-        }
+        }*/
     }
 
     private void hideView(final View child) {

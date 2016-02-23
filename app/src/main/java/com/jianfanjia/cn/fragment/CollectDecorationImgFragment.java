@@ -6,7 +6,9 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
@@ -33,12 +35,12 @@ import de.greenrobot.event.EventBus;
 
 /**
  * @author fengliang
- * @ClassName: DecorationImgFragment
+ * @ClassName: CollectDecorationImgFragment
  * @Description: 装修美图收藏
  * @date 2015-8-26 下午1:07:52
  */
-public class DecorationImgFragment extends BaseFragment implements PullToRefreshBase.OnRefreshListener2<RecyclerView> {
-    private static final String TAG = DecorationImgFragment.class.getName();
+public class CollectDecorationImgFragment extends BaseFragment implements PullToRefreshBase.OnRefreshListener2<RecyclerView> {
+    private static final String TAG = CollectDecorationImgFragment.class.getName();
     private PullToRefreshRecycleView decoration_img_listview = null;
     private RelativeLayout emptyLayout = null;
     private RelativeLayout errorLayout = null;
@@ -57,6 +59,8 @@ public class DecorationImgFragment extends BaseFragment implements PullToRefresh
     @Override
     public void initView(View view) {
         emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
+        ((TextView)emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.empty_view_no_img_data));
+        ((ImageView)emptyLayout.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_img);
         errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
         decoration_img_listview = (PullToRefreshRecycleView) view.findViewById(R.id.decoration_img_listview);
         decoration_img_listview.setMode(PullToRefreshBase.Mode.BOTH);
@@ -71,11 +75,11 @@ public class DecorationImgFragment extends BaseFragment implements PullToRefresh
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
-            LogTool.d(TAG, "DecorationImgFragment 可见");
+            LogTool.d(TAG, "CollectDecorationImgFragment 可见");
             FROM = 0;
             getDecorationImgList(FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
         } else {
-            LogTool.d(TAG, "DecorationImgFragment 不可见");
+            LogTool.d(TAG, "CollectDecorationImgFragment 不可见");
         }
     }
 
@@ -226,7 +230,7 @@ public class DecorationImgFragment extends BaseFragment implements PullToRefresh
 
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_decoration_img;
+        return R.layout.fragment_collect_decoration_img;
     }
 
 }

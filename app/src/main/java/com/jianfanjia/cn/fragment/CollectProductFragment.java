@@ -8,7 +8,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
@@ -36,12 +38,12 @@ import de.greenrobot.event.EventBus;
 
 /**
  * @author fengliang
- * @ClassName: ProductFragment
+ * @ClassName: CollectProductFragment
  * @Description: 作品
  * @date 2015-8-26 下午1:07:52
  */
-public class ProductFragment extends BaseFragment implements PullToRefreshBase.OnRefreshListener2<RecyclerView> {
-    private static final String TAG = ProductFragment.class.getName();
+public class CollectProductFragment extends BaseFragment implements PullToRefreshBase.OnRefreshListener2<RecyclerView> {
+    private static final String TAG = CollectProductFragment.class.getName();
     private PullToRefreshRecycleView prodtct_listview = null;
     private RelativeLayout emptyLayout = null;
     private RelativeLayout errorLayout = null;
@@ -59,6 +61,8 @@ public class ProductFragment extends BaseFragment implements PullToRefreshBase.O
     @Override
     public void initView(View view) {
         emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
+        ((TextView)emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.empty_view_no_product_data));
+        ((ImageView)emptyLayout.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_product);
         errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
         prodtct_listview = (PullToRefreshRecycleView) view.findViewById(R.id.prodtct_listview);
         prodtct_listview.setMode(PullToRefreshBase.Mode.BOTH);
@@ -76,11 +80,11 @@ public class ProductFragment extends BaseFragment implements PullToRefreshBase.O
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
-            LogTool.d(TAG, "ProductFragment 可见");
+            LogTool.d(TAG, "CollectProductFragment 可见");
             FROM = 0;
             getProductList(FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
         } else {
-            LogTool.d(TAG, "ProductFragment 不可见");
+            LogTool.d(TAG, "CollectProductFragment 不可见");
         }
     }
 
@@ -236,6 +240,6 @@ public class ProductFragment extends BaseFragment implements PullToRefreshBase.O
 
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_product;
+        return R.layout.fragment_collect_product;
     }
 }
