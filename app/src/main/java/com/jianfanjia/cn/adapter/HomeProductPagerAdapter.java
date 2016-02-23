@@ -14,6 +14,7 @@ import com.jianfanjia.cn.bean.Product;
 import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.tools.TDevice;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -37,6 +38,8 @@ public class HomeProductPagerAdapter extends PagerAdapter {
         this.viewPagerClickListener = viewPagerClickListener;
         this.width = width;
         this.height = height;
+        LogTool.d(this.getClass().getName()," statusBar height =" + TDevice.getStatusBarHeight(context));
+        LogTool.d(this.getClass().getName(),"width =" + width + "height =" + height);
     }
 
     public void setProductList(List<Product> productList) {

@@ -76,20 +76,23 @@ public class HomeNewFragment extends BaseAnnotationFragment {
     @ViewById(R.id.content_intent_to)
     protected ImageButton contentIntent;
 
+    @ViewById(R.id.rootview)
+    protected LinearLayout rootView;
+
     private HomeProductPagerAdapter mPagerAdapter;
     private List<Product> productNews;
 
     @AfterViews
     protected void initAnnotationView() {
         initBannerView(scrollViewPager, dotLinearLayout);
-        ViewTreeObserver vto2 = pullToRefreshScrollView.getViewTreeObserver();
+        ViewTreeObserver vto2 = coordinatorLayout.getViewTreeObserver();
         vto2.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
                 pullToRefreshScrollView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
 //                pullToRefreshScrollView.getRefreshableView().setLayoutParams(new FrameLayout.LayoutParams(coordinatorLayout.getWidth(), coordinatorLayout.getHeight()));
                 //此处需要动态传宽高给viewpager的imageview的宽高
-                mPagerAdapter = new HomeProductPagerAdapter(getContext(), productNews, null, pullToRefreshScrollView.getWidth(), pullToRefreshScrollView.getHeight());
+                mPagerAdapter = new HomeProductPagerAdapter(getContext(), productNews, null, coordinatorLayout.getWidth(), coordinatorLayout.getHeight());
 
                 contentViewPager.setAdapter(mPagerAdapter);
                 getProduct(TOTAL_COUNT);

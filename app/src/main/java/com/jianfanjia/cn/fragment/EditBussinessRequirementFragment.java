@@ -149,8 +149,6 @@ public class EditBussinessRequirementFragment extends BaseAnnotationFragment {
         int viewId = clickView.getId();
         switch (viewId) {
             case R.id.act_edit_req_city:
-//                gotoItem.putExtra(Global.REQUIRE_DATA, Constant.REQUIRECODE_CITY);
-//                startActivityForResult(gotoItem, Constant.REQUIRECODE_CITY);
                 Intent address = new Intent(getActivity(),
                         EditCityActivity_.class);
                 address.putExtra(Constant.EDIT_PROVICE, requirementInfo.getProvince());

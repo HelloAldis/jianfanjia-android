@@ -6,6 +6,8 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.jianfanjia.cn.tools.LogTool;
+
 /**
  * Name: 自定义ViewPager
  * User: fengliang
@@ -56,6 +58,7 @@ public class WrapContentHeightAndViewPager extends ViewPager {
                 maxHeight = height;
             }
         }
+        LogTool.d(this.getClass().getName(),"height =" + height);
         setMeasuredDimension(getMeasuredWidth(), height);
     }
 
