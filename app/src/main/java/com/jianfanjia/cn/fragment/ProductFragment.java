@@ -7,7 +7,9 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.jianfanjia.cn.Event.MessageEvent;
@@ -15,7 +17,6 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.home.DesignerCaseInfoActivity;
 import com.jianfanjia.cn.activity.home.DesignerInfoActivity;
 import com.jianfanjia.cn.adapter.ProductAdapter;
-import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.Product;
 import com.jianfanjia.cn.bean.ProductInfo;
 import com.jianfanjia.cn.config.Constant;
@@ -40,15 +41,22 @@ import de.greenrobot.event.EventBus;
  * @Description: 作品
  * @date 2015-8-26 下午1:07:52
  */
-public class ProductFragment extends BaseFragment implements PullToRefreshBase.OnRefreshListener2<RecyclerView> {
+public class ProductFragment extends CollectFragment implements PullToRefreshBase.OnRefreshListener2<RecyclerView> {
     private static final String TAG = ProductFragment.class.getName();
     private PullToRefreshRecycleView prodtct_listview = null;
     private RelativeLayout emptyLayout = null;
     private RelativeLayout errorLayout = null;
     private ProductAdapter productAdapter = null;
-    private List<Product> products = new ArrayList<Product>();
+    private List<Product> products = new ArrayList<>();
+    private boolean isPrepared = false;
+    private boolean mHasLoadedOnce = false;
     private int currentPos = -1;
     private int FROM = 0;
+
+    public static ProductFragment newInstance() {
+        ProductFragment productFragment = new ProductFragment();
+        return productFragment;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,7 +65,15 @@ public class ProductFragment extends BaseFragment implements PullToRefreshBase.O
     }
 
     @Override
-    public void initView(View view) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_product, container, false);
+        init(view);
+        isPrepared = true;
+        load();
+        return view;
+    }
+
+    public void init(View view) {
         emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
         errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
         prodtct_listview = (PullToRefreshRecycleView) view.findViewById(R.id.prodtct_listview);
@@ -73,15 +89,11 @@ public class ProductFragment extends BaseFragment implements PullToRefreshBase.O
     }
 
     @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser) {
-            LogTool.d(TAG, "ProductFragment 可见");
-            FROM = 0;
-            getProductList(FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
-        } else {
-            LogTool.d(TAG, "ProductFragment 不可见");
+    protected void load() {
+        if (!isPrepared || !isVisible || mHasLoadedOnce) {
+            return;
         }
+        getProductList(FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
     }
 
     private void getProductList(int from, int limit, ApiUiUpdateListener listener) {
@@ -126,6 +138,7 @@ public class ProductFragment extends BaseFragment implements PullToRefreshBase.O
         @Override
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data=" + data.toString());
+            mHasLoadedOnce = true;
             prodtct_listview.onRefreshComplete();
             ProductInfo productInfo = JsonParser.jsonToBean(data.toString(), ProductInfo.class);
             LogTool.d(TAG, "productInfo=" + productInfo);

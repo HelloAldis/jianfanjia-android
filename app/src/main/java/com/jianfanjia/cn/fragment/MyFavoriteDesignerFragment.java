@@ -6,14 +6,15 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.home.DesignerInfoActivity;
 import com.jianfanjia.cn.adapter.FavoriteDesignerAdapter;
-import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.DesignerInfo;
 import com.jianfanjia.cn.bean.MyFavoriteDesigner;
 import com.jianfanjia.cn.config.Constant;
@@ -38,16 +39,23 @@ import de.greenrobot.event.EventBus;
  * @Description: 我的意向设计师
  * @date 2015-8-26 下午1:07:52
  */
-public class MyFavoriteDesignerFragment extends BaseFragment implements PullToRefreshBase.OnRefreshListener2<RecyclerView> {
+public class MyFavoriteDesignerFragment extends CollectFragment implements PullToRefreshBase.OnRefreshListener2<RecyclerView> {
     private static final String TAG = MyFavoriteDesignerFragment.class.getName();
     private PullToRefreshRecycleView my_favorite_designer_listview = null;
     private RelativeLayout emptyLayout = null;
     private RelativeLayout errorLayout = null;
     private FavoriteDesignerAdapter designAdapter = null;
     private MyFavoriteDesigner myFavoriteDesigner = null;
-    private List<DesignerInfo> designers = new ArrayList<DesignerInfo>();
+    private List<DesignerInfo> designers = new ArrayList<>();
+    private boolean isPrepared = false;
+    private boolean mHasLoadedOnce = false;
     private int FROM = 0;
     private int currentPos = -1;
+
+    public static MyFavoriteDesignerFragment newInstance() {
+        MyFavoriteDesignerFragment designerFragment = new MyFavoriteDesignerFragment();
+        return designerFragment;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,7 +64,15 @@ public class MyFavoriteDesignerFragment extends BaseFragment implements PullToRe
     }
 
     @Override
-    public void initView(View view) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_my_favorite_designer, container, false);
+        init(view);
+        isPrepared = true;
+        load();
+        return view;
+    }
+
+    public void init(View view) {
         emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
         errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
         my_favorite_designer_listview = (PullToRefreshRecycleView) view.findViewById(R.id.my_favorite_designer_listview);
@@ -69,18 +85,6 @@ public class MyFavoriteDesignerFragment extends BaseFragment implements PullToRe
         paint.setColor(getResources().getColor(R.color.light_white_color));
         paint.setAntiAlias(true);
         my_favorite_designer_listview.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).paint(paint).showLastDivider().build());
-    }
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser) {
-            LogTool.d(TAG, "MyFavoriteDesignerFragment 可见");
-            FROM = 0;
-            getMyFavoriteDesignerList(FROM, Constant.HOME_PAGE_LIMIT, getDownMyFavoriteDesignerListener);
-        } else {
-            LogTool.d(TAG, "MyFavoriteDesignerFragment 不可见");
-        }
     }
 
     @Override
@@ -98,6 +102,14 @@ public class MyFavoriteDesignerFragment extends BaseFragment implements PullToRe
             default:
                 break;
         }
+    }
+
+    @Override
+    protected void load() {
+        if (!isPrepared || !isVisible || mHasLoadedOnce) {
+            return;
+        }
+        getMyFavoriteDesignerList(FROM, Constant.HOME_PAGE_LIMIT, getDownMyFavoriteDesignerListener);
     }
 
     @Override
@@ -124,6 +136,7 @@ public class MyFavoriteDesignerFragment extends BaseFragment implements PullToRe
         @Override
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data=" + data.toString());
+            mHasLoadedOnce = true;
             my_favorite_designer_listview.onRefreshComplete();
             myFavoriteDesigner = JsonParser.jsonToBean(data.toString(), MyFavoriteDesigner.class);
             LogTool.d(TAG, "myFavoriteDesigner=" + myFavoriteDesigner);
@@ -217,17 +230,5 @@ public class MyFavoriteDesignerFragment extends BaseFragment implements PullToRe
                 break;
         }
     }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
-    }
-
-    @Override
-    public int getLayoutId() {
-        return R.layout.fragment_my_favorite_designer;
-    }
-
 
 }

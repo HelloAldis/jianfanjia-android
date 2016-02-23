@@ -34,6 +34,7 @@ public class CollectActivity extends SwipeBackActivity implements OnClickListene
         initMainHeadView();
         tabLayout = (TabLayout) findViewById(R.id.tabLyout);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
+        viewPager.setOffscreenPageLimit(2);
         setupViewPager(viewPager);
         tabLayout.setupWithViewPager(viewPager);
     }
@@ -47,10 +48,10 @@ public class CollectActivity extends SwipeBackActivity implements OnClickListene
     }
 
     private void setupViewPager(ViewPager viewPager) {
-        List<SelectItem> listViews = new ArrayList<SelectItem>();
-        SelectItem designerItem = new SelectItem(new MyFavoriteDesignerFragment(), getResources().getString(R.string.designerText));
-        SelectItem productItem = new SelectItem(new ProductFragment(), getResources().getString(R.string.productText));
-        SelectItem imgItem = new SelectItem(new DecorationImgFragment(), getResources().getString(R.string.imgText));
+        List<SelectItem> listViews = new ArrayList<>();
+        SelectItem designerItem = new SelectItem(MyFavoriteDesignerFragment.newInstance(), getResources().getString(R.string.designerText));
+        SelectItem productItem = new SelectItem(ProductFragment.newInstance(), getResources().getString(R.string.productText));
+        SelectItem imgItem = new SelectItem(DecorationImgFragment.newInstance(), getResources().getString(R.string.imgText));
         listViews.add(designerItem);
         listViews.add(productItem);
         listViews.add(imgItem);
