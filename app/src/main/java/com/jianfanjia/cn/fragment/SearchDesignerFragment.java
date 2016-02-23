@@ -104,7 +104,7 @@ public class SearchDesignerFragment extends BaseFragment implements ApiUiUpdateL
         MyFavoriteDesigner myFavoriteDesigner = JsonParser.jsonToBean(data.toString(), MyFavoriteDesigner.class);
         if (myFavoriteDesigner != null) {
             final List<DesignerInfo> designerInfoList = myFavoriteDesigner.getDesigners();
-            if (designerInfoList != null && designerInfoList.size() > 0) {
+            if (myFavoriteDesigner.getTotal() > 0) {
                 currentPos += designerInfoList.size();
                 if (searchDesignerAdapter == null) {
                     searchDesignerAdapter = new SearchDesignerAdapter(getContext(), recycleView, designerInfoList, PAGE_COUNT, new RecyclerViewOnItemClickListener() {
@@ -147,9 +147,13 @@ public class SearchDesignerFragment extends BaseFragment implements ApiUiUpdateL
     @Override
     public void loadFailture(String error_msg) {
         makeTextShort(error_msg);
-        recycleView.setVisibility(View.GONE);
-        emptyLayout.setVisibility(View.GONE);
-        errorLayout.setVisibility(View.VISIBLE);
+        if (searchDesignerAdapter != null) {
+            searchDesignerAdapter.setLoadingError();
+        } else {
+            recycleView.setVisibility(View.GONE);
+            emptyLayout.setVisibility(View.GONE);
+            errorLayout.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

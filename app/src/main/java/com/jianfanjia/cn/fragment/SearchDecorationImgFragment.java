@@ -102,7 +102,7 @@ public class SearchDecorationImgFragment extends BaseFragment implements ApiUiUp
         LogTool.d(TAG, "decorationItemInfo:" + decorationItemInfo);
         if (null != decorationItemInfo) {
             beautyImgList = decorationItemInfo.getBeautiful_images();
-            if (null != beautyImgList && beautyImgList.size() > 0) {
+            if (decorationItemInfo.getTotal() > 0) {
                 currentPos += beautyImgList.size();
                 if (decorationImgAdapter == null) {
                     decorationImgAdapter = new SearchDecorationImgAdapter(getActivity(), decoration_img_listview, beautyImgList, PAGE_COUNT, new OnItemClickListener() {
@@ -147,9 +147,13 @@ public class SearchDecorationImgFragment extends BaseFragment implements ApiUiUp
     @Override
     public void loadFailture(String error_msg) {
         makeTextShort(error_msg);
-        decoration_img_listview.setVisibility(View.GONE);
-        emptyLayout.setVisibility(View.GONE);
-        errorLayout.setVisibility(View.VISIBLE);
+        if (decorationImgAdapter != null) {
+            decorationImgAdapter.setLoadingError();
+        } else {
+            decoration_img_listview.setVisibility(View.GONE);
+            emptyLayout.setVisibility(View.GONE);
+            errorLayout.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

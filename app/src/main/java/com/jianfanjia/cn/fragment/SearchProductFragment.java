@@ -112,7 +112,7 @@ public class SearchProductFragment extends BaseFragment implements ApiUiUpdateLi
         LogTool.d(TAG, "productInfo=" + productInfo);
         if (productInfo != null) {
             products = productInfo.getProducts();
-            if (null != products && products.size() > 0) {
+            if (productInfo.getTotal() > 0) {
                 currentPos += products.size();
                 if (productAdapter == null) {
                     productAdapter = new SearchProductAdapter(getActivity(), prodtct_listview, products, this, PAGE_COUNT);
@@ -140,9 +140,13 @@ public class SearchProductFragment extends BaseFragment implements ApiUiUpdateLi
     @Override
     public void loadFailture(String error_msg) {
         makeTextShort(error_msg);
-        prodtct_listview.setVisibility(View.GONE);
-        emptyLayout.setVisibility(View.GONE);
-        errorLayout.setVisibility(View.VISIBLE);
+        if (productAdapter != null) {
+            productAdapter.setLoadingError();
+        } else {
+            prodtct_listview.setVisibility(View.GONE);
+            emptyLayout.setVisibility(View.GONE);
+            errorLayout.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

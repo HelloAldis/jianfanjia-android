@@ -102,13 +102,14 @@ public abstract class BaseLoadingAdapter<T> extends RecyclerView.Adapter<Recycle
      * 没有更多数据
      */
     private void setLoadingNoMore(boolean isHasLoadMore) {
+        LogTool.d(this.getClass().getName(),"isHadLoadMore =" + isHasLoadMore);
         this.isHasLoadMore = isHasLoadMore;
     }
 
     public void addAll(Collection<T> t) {
         if (mTs != null) {
             int lastIndex = mTs.size() - 1;
-            if (t != null) {
+            if (t != null && t.size() > 0) {
                 if (t.size() == pageSize) {
                     setLoadingNoMore(true);
                 } else {
@@ -117,6 +118,7 @@ public abstract class BaseLoadingAdapter<T> extends RecyclerView.Adapter<Recycle
                 LogTool.d(this.getClass().getName(), "lastIndex =" + lastIndex);
                 mTs.addAll(lastIndex, t);
                 notifyItemRangeInserted(lastIndex, t.size());
+                notifyItemRangeChanged(mTs.size() - 1, 1);
             } else {
                 setLoadingNoMore(false);
                 notifyItemRangeChanged(lastIndex, 1);
