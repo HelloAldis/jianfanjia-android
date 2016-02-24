@@ -84,7 +84,7 @@ public class CollectDecorationImgFragment extends CommonFragment implements Pull
         decoration_img_listview.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         decoration_img_listview.setHasFixedSize(true);
         decoration_img_listview.setItemAnimator(new DefaultItemAnimator());
-        SpacesItemDecoration decoration = new SpacesItemDecoration(6);
+        SpacesItemDecoration decoration = new SpacesItemDecoration(10);
         decoration_img_listview.addItemDecoration(decoration);
     }
 
