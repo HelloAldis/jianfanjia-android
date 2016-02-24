@@ -161,7 +161,7 @@ public class DesignerCaseInfoActivity extends SwipeBackActivity implements OnCli
     private ApiUiUpdateListener getProductHomePageInfoListener = new ApiUiUpdateListener() {
         @Override
         public void preLoad() {
-            showWaitDialog(R.string.loding);
+            showWaitDialog(R.string.loading);
         }
 
         @Override

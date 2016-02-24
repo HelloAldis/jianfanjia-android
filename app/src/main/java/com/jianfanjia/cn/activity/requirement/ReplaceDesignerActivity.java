@@ -144,7 +144,7 @@ public class ReplaceDesignerActivity extends SwipeBackActivity implements OnClic
     private ApiUiUpdateListener getOrderDesignerListener = new ApiUiUpdateListener() {
         @Override
         public void preLoad() {
-            showWaitDialog(R.string.loding);
+            showWaitDialog(R.string.loading);
         }
 
         @Override
