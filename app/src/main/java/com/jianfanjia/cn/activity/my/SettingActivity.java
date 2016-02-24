@@ -110,9 +110,9 @@ public class SettingActivity extends SwipeBackActivity implements OnClickListene
     @Override
     public void onCheckedChanged(CompoundButton arg0, boolean check) {
         LogTool.d(TAG, "check:" + check);
-        if(check){
+        if (check) {
             GeTuiManager.turnOnPush(getApplicationContext());
-        }else{
+        } else {
             GeTuiManager.turnOffPush(getApplicationContext());
         }
     }
@@ -121,7 +121,7 @@ public class SettingActivity extends SwipeBackActivity implements OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.feedback_layout:
-                startActivity(DesignerCaseListActivity.class);
+                startActivity(FeedBackActivity.class);
                 break;
             case R.id.about_layout:
                 startActivity(AboutActivity.class);
@@ -144,7 +144,7 @@ public class SettingActivity extends SwipeBackActivity implements OnClickListene
 
                     @Override
                     public void onComplete(SHARE_MEDIA share_media, int i, SocializeEntity socializeEntity) {
-                        LogTool.d("onComplete","status =" + i);
+                        LogTool.d("onComplete", "status =" + i);
                     }
                 });
                 break;
@@ -178,7 +178,7 @@ public class SettingActivity extends SwipeBackActivity implements OnClickListene
                         MyApplication.getInstance().clearCookie();
 //                        MyApplication.getInstance().clearAppCache();
                         appManager.finishAllActivity();
-                        AuthUtil.getInstance(SettingActivity.this).deleteOauth(SettingActivity.this,SHARE_MEDIA.WEIXIN);
+                        AuthUtil.getInstance(SettingActivity.this).deleteOauth(SettingActivity.this, SHARE_MEDIA.WEIXIN);
                         startActivity(LoginNewActivity_.class);
                         finish();
                     }
