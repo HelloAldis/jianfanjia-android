@@ -1,9 +1,10 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="@dimen/space_10"
-    android:layout_marginRight="@dimen/space_10"
-    android:background="@color/font_white">
+    tools:cardBackgroundColor="@color/font_white"
+    tools:cardCornerRadius="0dp"
+    tools:cardUseCompatPadding="true">
 
     <RelativeLayout
         android:id="@+id/imgLayout"
@@ -22,7 +23,7 @@
             style="@style/listview_item_text_style_middle"
             android:layout_below="@id/list_item_product_img"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/space_20"
+            android:layout_marginTop="@dimen/space_10"
             android:textColor="@color/home_page_text_color"
             android:textSize="@dimen/text_size_14"
             android:textStyle="bold" />
@@ -32,9 +33,8 @@
             style="@style/listview_item_text_style_small"
             android:layout_below="@id/list_item_xiaoqu_text"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="@dimen/space_10"
-            android:layout_marginTop="@dimen/space_10"
+            android:layout_marginTop="@dimen/space_5"
             android:textColor="@color/light_black_color"
             android:textSize="@dimen/text_size_12" />
     </RelativeLayout>
-</FrameLayout>
+</android.support.v7.widget.CardView>
