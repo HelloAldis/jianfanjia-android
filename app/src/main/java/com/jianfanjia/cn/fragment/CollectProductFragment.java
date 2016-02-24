@@ -17,8 +17,7 @@ import android.widget.TextView;
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.home.DesignerCaseInfoActivity;
-import com.jianfanjia.cn.activity.home.DesignerInfoActivity;
-import com.jianfanjia.cn.adapter.ProductAdapter;
+import com.jianfanjia.cn.adapter.CollectProductAdapter;
 import com.jianfanjia.cn.bean.Product;
 import com.jianfanjia.cn.bean.ProductInfo;
 import com.jianfanjia.cn.config.Constant;
@@ -48,7 +47,7 @@ public class CollectProductFragment extends CommonFragment implements PullToRefr
     private PullToRefreshRecycleView prodtct_listview = null;
     private RelativeLayout emptyLayout = null;
     private RelativeLayout errorLayout = null;
-    private ProductAdapter productAdapter = null;
+    private CollectProductAdapter productAdapter = null;
     private List<Product> products = new ArrayList<>();
     private boolean isFirst = true;
     private boolean isPrepared = false;
@@ -154,7 +153,7 @@ public class CollectProductFragment extends CommonFragment implements PullToRefr
                 products.clear();
                 products.addAll(productInfo.getProducts());
                 if (null != products && products.size() > 0) {
-                    productAdapter = new ProductAdapter(getActivity(), products, new RecyclerViewOnItemClickListener() {
+                    productAdapter = new CollectProductAdapter(getActivity(), products, new RecyclerViewOnItemClickListener() {
                         @Override
                         public void OnItemClick(View view, int position) {
                             LogTool.d(TAG, "position:" + position);
@@ -171,14 +170,7 @@ public class CollectProductFragment extends CommonFragment implements PullToRefr
 
                         @Override
                         public void OnViewClick(int position) {
-                            Product product = products.get(position);
-                            String designertid = product.getDesignerid();
-                            LogTool.d(TAG, "designertid=" + designertid);
-                            Intent designerIntent = new Intent(getActivity(), DesignerInfoActivity.class);
-                            Bundle designerBundle = new Bundle();
-                            designerBundle.putString(Global.DESIGNER_ID, designertid);
-                            designerIntent.putExtras(designerBundle);
-                            startActivity(designerIntent);
+
                         }
                     });
                     prodtct_listview.setAdapter(productAdapter);

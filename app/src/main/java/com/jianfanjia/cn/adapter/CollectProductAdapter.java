@@ -11,22 +11,21 @@ import com.jianfanjia.cn.adapter.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.bean.Product;
 import com.jianfanjia.cn.cache.BusinessManager;
-import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
 
 import java.util.List;
 
 /**
- * Name: ProductAdapter
+ * Name: CollectProductAdapter
  * User: fengliang
- * Date: 2015-12-11
- * Time: 13:20
+ * Date: 2016-02-24
+ * Time: 10:08
  */
-public class ProductAdapter extends BaseRecyclerViewAdapter<Product> {
-    private static final String TAG = ProductAdapter.class.getName();
+public class CollectProductAdapter extends BaseRecyclerViewAdapter<Product> {
+    private static final String TAG = CollectProductAdapter.class.getName();
     private RecyclerViewOnItemClickListener listener;
 
-    public ProductAdapter(Context context, List<Product> list, RecyclerViewOnItemClickListener listener) {
+    public CollectProductAdapter(Context context, List<Product> list, RecyclerViewOnItemClickListener listener) {
         super(context, list);
         this.listener = listener;
     }
@@ -41,12 +40,6 @@ public class ProductAdapter extends BaseRecyclerViewAdapter<Product> {
         String decStyle = product.getDec_style();
         holder.itemProduceText.setText(product.getHouse_area() + "㎡，" + BusinessManager.convertDectypeToShow(decType) + "，" + BusinessManager.convertHouseTypeToShow(houseType) + "，" + BusinessManager.convertDecStyleToShow(decStyle) + "风格");
         imageShow.displayScreenWidthThumnailImage(context, product.getImages().get(0).getImageid(), holder.itemProductView);
-        imageShow.displayImageHeadWidthThumnailImage(context, product.getDesigner().getImageid(), holder.itemHeadView);
-        if (product.getDesigner().getAuth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)) {
-            holder.itemAuthView.setVisibility(View.VISIBLE);
-        } else {
-            holder.itemAuthView.setVisibility(View.GONE);
-        }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,19 +48,11 @@ public class ProductAdapter extends BaseRecyclerViewAdapter<Product> {
                 }
             }
         });
-        holder.itemHeadView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != listener) {
-                    listener.OnViewClick(holder.getLayoutPosition());
-                }
-            }
-        });
     }
 
     @Override
     public View createView(ViewGroup viewGroup, int viewType) {
-        View view = layoutInflater.inflate(R.layout.list_item_product,
+        View view = layoutInflater.inflate(R.layout.list_item_collect_product,
                 null);
         return view;
     }
@@ -80,8 +65,6 @@ public class ProductAdapter extends BaseRecyclerViewAdapter<Product> {
 
     private static class ProductViewHolder extends RecyclerViewHolderBase {
         public ImageView itemProductView;
-        public ImageView itemHeadView;
-        public ImageView itemAuthView;
         public TextView itemXiaoQuText;
         public TextView itemProduceText;
 
@@ -89,10 +72,6 @@ public class ProductAdapter extends BaseRecyclerViewAdapter<Product> {
             super(itemView);
             itemProductView = (ImageView) itemView
                     .findViewById(R.id.list_item_product_img);
-            itemHeadView = (ImageView) itemView
-                    .findViewById(R.id.list_item_head_img);
-            itemAuthView = (ImageView) itemView
-                    .findViewById(R.id.list_item_auth);
             itemXiaoQuText = (TextView) itemView
                     .findViewById(R.id.list_item_xiaoqu_text);
             itemProduceText = (TextView) itemView
