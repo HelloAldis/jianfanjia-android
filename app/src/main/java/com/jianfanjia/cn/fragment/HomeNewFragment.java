@@ -32,7 +32,7 @@ import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainScrollView;
-import com.jianfanjia.cn.view.MyViewPager;
+import com.jianfanjia.cn.view.auto_view_pager.AutoScrollViewPager;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshScrollViewNew;
 
@@ -55,11 +55,10 @@ public class HomeNewFragment extends BaseAnnotationFragment {
     private static final String TAG = HomeNewFragment.class.getName();
     public static final int TOTAL_COUNT = 20;
     private int BANNER_ICON[] = {R.mipmap.bg_home_banner1,
-            R.mipmap.bg_home_banner2, R.mipmap.bg_home_banner3,
-            R.mipmap.bg_home_banner4};
+            R.mipmap.bg_home_banner2};
 
     @ViewById(R.id.viewPager_lib)
-    protected MyViewPager scrollViewPager;
+    protected AutoScrollViewPager scrollViewPager;
 
     @ViewById(R.id.indicatorGroup_lib)
     protected LinearLayout dotLinearLayout;
@@ -93,7 +92,6 @@ public class HomeNewFragment extends BaseAnnotationFragment {
 //                pullToRefreshScrollView.getRefreshableView().setLayoutParams(new FrameLayout.LayoutParams(coordinatorLayout.getWidth(), coordinatorLayout.getHeight()));
                 //此处需要动态传宽高给viewpager的imageview的宽高
                 mPagerAdapter = new HomeProductPagerAdapter(getContext(), productNews, null, coordinatorLayout.getWidth(), coordinatorLayout.getHeight());
-
                 contentViewPager.setAdapter(mPagerAdapter);
                 getProduct(TOTAL_COUNT);
             }
@@ -182,7 +180,7 @@ public class HomeNewFragment extends BaseAnnotationFragment {
         }
     }
 
-    private void initBannerView(MyViewPager viewPager, LinearLayout indicatorGroup_lib) {
+    private void initBannerView(AutoScrollViewPager viewPager, LinearLayout indicatorGroup_lib) {
         indicatorGroup_lib.removeAllViews();
         List<View> bannerList = new ArrayList<View>();
         for (int i = 0; i < BANNER_ICON.length; i++) {
@@ -230,6 +228,9 @@ public class HomeNewFragment extends BaseAnnotationFragment {
 
             }
         });
+        viewPager.setInterval(4000);
+        viewPager.startAutoScroll();
+
     }
 
 }
