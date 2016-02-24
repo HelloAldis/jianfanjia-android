@@ -228,7 +228,7 @@ public class HomeNewFragment extends BaseAnnotationFragment {
 
             }
         });
-        viewPager.setInterval(4000);
+        viewPager.setInterval(3000);
         viewPager.startAutoScroll();
 
     }

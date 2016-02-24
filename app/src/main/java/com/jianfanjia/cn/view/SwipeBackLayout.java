@@ -84,6 +84,8 @@ public class SwipeBackLayout extends ViewGroup {
 
     private int draggingOffset;
 
+
+
     /**
      * Whether allow to pull this layout.
      */
@@ -264,7 +266,7 @@ public class SwipeBackLayout extends ViewGroup {
                     case BOTTOM:
                         break;
                     case LEFT:
-                        handled = (startX < MyApplication.dip2px(getContext(),100));//只能从边缘拉动回退，防止误操作
+                        handled = (startX < MyApplication.dip2px(getContext(),50));//只能从边缘拉动回退，防止误操作
                         LogTool.d(this.getClass().getName(),"startX =" + startX);
                         LogTool.d(this.getClass().getName(),"handled =" + handled);
                         break;

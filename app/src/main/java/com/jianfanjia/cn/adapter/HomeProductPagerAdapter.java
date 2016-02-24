@@ -62,14 +62,14 @@ public class HomeProductPagerAdapter extends PagerAdapter {
                 .error(R.drawable.ic_broken_image_black_48dp)
                 .into(imageView);
 
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (viewPagerClickListener != null) {
-                    viewPagerClickListener.onClickItem(position);
-                }
-            }
-        });
+//        imageView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if (viewPagerClickListener != null) {
+//                    viewPagerClickListener.onClickItem(position);
+//                }
+//            }
+//        });
         container.addView(itemView);
         return itemView;
     }
