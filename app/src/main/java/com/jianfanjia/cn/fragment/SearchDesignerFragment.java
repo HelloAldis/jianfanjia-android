@@ -53,6 +53,8 @@ public class SearchDesignerFragment extends BaseFragment implements PullToRefres
 
     @Override
     public void initView(View view) {
+        search = getArguments().getString(Global.SEARCH_TEXT);
+        LogTool.d(TAG, "search=" + search);
         emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
         ((TextView) emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.search_no_designer));
         ((ImageView) emptyLayout.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_designer);
@@ -67,9 +69,6 @@ public class SearchDesignerFragment extends BaseFragment implements PullToRefres
         paint.setAlpha(0);
         paint.setAntiAlias(true);
         recycleView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).paint(paint).showLastDivider().build());
-
-        search = getArguments().getString(Global.SEARCH_TEXT);
-        LogTool.d(TAG, "search=" + search);
         searchDesignerInfo(FROM, search, listener);
     }
 

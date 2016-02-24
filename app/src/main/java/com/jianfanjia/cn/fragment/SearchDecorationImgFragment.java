@@ -52,6 +52,8 @@ public class SearchDecorationImgFragment extends BaseFragment implements PullToR
 
     @Override
     public void initView(View view) {
+        search = getArguments().getString(Global.SEARCH_TEXT);
+        LogTool.d(TAG, "search=" + search);
         emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
         ((TextView) emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.search_no_beautyimg));
         ((ImageView) emptyLayout.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_img);
@@ -62,8 +64,6 @@ public class SearchDecorationImgFragment extends BaseFragment implements PullToR
         decoration_img_listview.setItemAnimator(new DefaultItemAnimator());
         SpacesItemDecoration decoration = new SpacesItemDecoration(10);
         decoration_img_listview.addItemDecoration(decoration);
-
-        search = getArguments().getString(Global.SEARCH_TEXT);
         getDecorationImgInfo(FROM, search, listener);
     }
 
