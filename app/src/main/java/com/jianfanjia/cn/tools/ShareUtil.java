@@ -33,22 +33,20 @@ import java.net.URLEncoder;
  */
 public class ShareUtil {
     private Url_New url_new = null;
-    private int width = 0;
     private Context context;
     final UMSocialService mController = UMServiceFactory.getUMSocialService("com.umeng.share");
 
     public ShareUtil(Activity activity) {
         url_new = Url_New.getInstance();
-        width = (int) TDevice.getScreenWidth() / 2;
         context = activity.getApplicationContext();
         mController.getConfig().removePlatform(SHARE_MEDIA.TENCENT);
         mController.getConfig().setPlatformOrder(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE, SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE, SHARE_MEDIA.SINA);
         // 添加微信平台
-        UMWXHandler wxHandler = new UMWXHandler(activity, "wx391daabfce27e728", "f7c8e3e1b5910dd93be2744dacb3a1cc");
+        UMWXHandler wxHandler = new UMWXHandler(context, "wx391daabfce27e728", "f7c8e3e1b5910dd93be2744dacb3a1cc");
         wxHandler.showCompressToast(false);
         wxHandler.addToSocialSDK();
         // 支持微信朋友圈
-        UMWXHandler wxCircleHandler = new UMWXHandler(activity, "wx391daabfce27e728", "f7c8e3e1b5910dd93be2744dacb3a1cc");
+        UMWXHandler wxCircleHandler = new UMWXHandler(context, "wx391daabfce27e728", "f7c8e3e1b5910dd93be2744dacb3a1cc");
         wxCircleHandler.setToCircle(true);
         wxCircleHandler.showCompressToast(false);
         wxCircleHandler.addToSocialSDK();

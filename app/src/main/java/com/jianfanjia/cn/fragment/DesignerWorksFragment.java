@@ -6,12 +6,13 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.home.DesignerCaseInfoActivity;
 import com.jianfanjia.cn.adapter.DesignerWorksAdapter;
-import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.DesignerWorksInfo;
 import com.jianfanjia.cn.bean.Product;
 import com.jianfanjia.cn.config.Constant;
@@ -39,8 +40,10 @@ import java.util.Map;
  * @date 2015-8-26 下午1:07:52
  */
 
-public class DesignerWorksFragment extends BaseFragment implements PullToRefreshBase.OnRefreshListener2<RecyclerView>, ScrollableHelper.ScrollableContainer {
+public class DesignerWorksFragment extends CommonFragment implements PullToRefreshBase.OnRefreshListener2<RecyclerView>, ScrollableHelper.ScrollableContainer {
     private static final String TAG = DesignerWorksFragment.class.getName();
+    private boolean isPrepared = false;
+    private boolean mHasLoadedOnce = false;
     private PullToRefreshRecycleView designer_works_listview = null;
     private DesignerWorksAdapter adapter = null;
     private List<Product> productList = new ArrayList<Product>();
@@ -56,7 +59,15 @@ public class DesignerWorksFragment extends BaseFragment implements PullToRefresh
     }
 
     @Override
-    public void initView(View view) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_designer_works, container, false);
+        init(view);
+        isPrepared = true;
+        load();
+        return view;
+    }
+
+    public void init(View view) {
         Bundle bundle = getArguments();
         designerid = bundle.getString(Global.DESIGNER_ID);
         LogTool.d(TAG, "designerid:" + designerid);
@@ -72,6 +83,14 @@ public class DesignerWorksFragment extends BaseFragment implements PullToRefresh
         designer_works_listview.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).paint(paint).showLastDivider().build());
         designer_works_listview.setFocusable(false);
         getDesignerProduct(designerid, FROM, listener);
+    }
+
+    @Override
+    protected void load() {
+        if (!isPrepared || !isVisible || mHasLoadedOnce) {
+            return;
+        }
+        getDesignerProduct(designerid, FROM, pullUpListener);
     }
 
     @Override
@@ -107,6 +126,7 @@ public class DesignerWorksFragment extends BaseFragment implements PullToRefresh
 
         @Override
         public void loadSuccess(Object data) {
+            mHasLoadedOnce = true;
             designer_works_listview.onRefreshComplete();
             DesignerWorksInfo worksInfo = JsonParser.jsonToBean(data.toString(), DesignerWorksInfo.class);
             LogTool.d(TAG, "worksInfo :" + worksInfo);
@@ -169,11 +189,6 @@ public class DesignerWorksFragment extends BaseFragment implements PullToRefresh
     @Override
     public View getScrollableView() {
         return designer_works_listview.getRefreshableView();
-    }
-
-    @Override
-    public int getLayoutId() {
-        return R.layout.fragment_designer_works;
     }
 
 }

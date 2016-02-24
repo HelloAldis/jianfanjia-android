@@ -9,13 +9,14 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.adapter.ProductAdapter;
-import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.DesignerWorksInfo;
 import com.jianfanjia.cn.bean.Product;
 import com.jianfanjia.cn.cache.BusinessManager;
@@ -46,7 +47,7 @@ import java.util.Map;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class DesignerCaseListActivity extends BaseActivity implements View.OnClickListener, PullToRefreshBase.OnRefreshListener2<RecyclerView> {
+public class DesignerCaseListActivity extends SwipeBackActivity implements View.OnClickListener, PullToRefreshBase.OnRefreshListener2<RecyclerView> {
     private static final String TAG = DesignerCaseListActivity.class.getName();
     private static final int DEC_TYPE = 1;
     private static final int DESIGN_STYLE = 2;
@@ -65,6 +66,7 @@ public class DesignerCaseListActivity extends BaseActivity implements View.OnCli
     private MainHeadView mainHeadView = null;
     private PullToRefreshRecycleView pullToRefreshRecyclerView = null;
     private RelativeLayout errorLayout = null;
+    private RelativeLayout emptyLayout = null;
     private FilterPopWindow window = null;
     private boolean isFirst = true;
     private ProductAdapter productAdapter = null;
@@ -89,6 +91,9 @@ public class DesignerCaseListActivity extends BaseActivity implements View.OnCli
         houseType_item = (TextView) findViewById(R.id.houseType_item);
         decArea_item = (TextView) findViewById(R.id.decArea_item);
         errorLayout = (RelativeLayout) findViewById(R.id.error_include);
+        emptyLayout = (RelativeLayout) findViewById(R.id.empty_include);
+        ((TextView) emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.empty_view_no_product_list_data));
+        ((ImageView) emptyLayout.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_product);
         pullToRefreshRecyclerView = (PullToRefreshRecycleView) findViewById(R.id.pull_refresh_scrollview);
         linearLayoutManager = new LinearLayoutManager(DesignerCaseListActivity.this);
         pullToRefreshRecyclerView.setLayoutManager(linearLayoutManager);
@@ -233,36 +238,44 @@ public class DesignerCaseListActivity extends BaseActivity implements View.OnCli
                 isFirst = false;
                 productList.clear();
                 productList.addAll(worksInfo.getProducts());
-                productAdapter = new ProductAdapter(DesignerCaseListActivity.this, productList, new RecyclerViewOnItemClickListener() {
+                if (null != productList && productList.size() > 0) {
+                    productAdapter = new ProductAdapter(DesignerCaseListActivity.this, productList, new RecyclerViewOnItemClickListener() {
 
-                    @Override
-                    public void OnItemClick(View view, int position) {
-                        Product product = productList.get(position);
-                        String productid = product.get_id();
-                        LogTool.d(TAG, "productid:" + productid);
-                        Intent productIntent = new Intent(DesignerCaseListActivity.this, DesignerCaseInfoActivity.class);
-                        Bundle productBundle = new Bundle();
-                        productBundle.putString(Global.PRODUCT_ID, productid);
-                        productIntent.putExtras(productBundle);
-                        startActivity(productIntent);
-                    }
+                        @Override
+                        public void OnItemClick(View view, int position) {
+                            Product product = productList.get(position);
+                            String productid = product.get_id();
+                            LogTool.d(TAG, "productid:" + productid);
+                            Intent productIntent = new Intent(DesignerCaseListActivity.this, DesignerCaseInfoActivity.class);
+                            Bundle productBundle = new Bundle();
+                            productBundle.putString(Global.PRODUCT_ID, productid);
+                            productIntent.putExtras(productBundle);
+                            startActivity(productIntent);
+                        }
 
-                    @Override
-                    public void OnViewClick(int position) {
-                        Product product = productList.get(position);
-                        String designertid = product.getDesignerid();
-                        LogTool.d(TAG, "designertid=" + designertid);
-                        Intent designerIntent = new Intent(DesignerCaseListActivity.this, DesignerInfoActivity.class);
-                        Bundle designerBundle = new Bundle();
-                        designerBundle.putString(Global.DESIGNER_ID, designertid);
-                        designerIntent.putExtras(designerBundle);
-                        startActivity(designerIntent);
-                    }
-                });
-                pullToRefreshRecyclerView.setAdapter(productAdapter);
-                FROM = productList.size();
-                LogTool.d(TAG, "FROM:" + FROM);
-                errorLayout.setVisibility(View.GONE);
+                        @Override
+                        public void OnViewClick(int position) {
+                            Product product = productList.get(position);
+                            String designertid = product.getDesignerid();
+                            LogTool.d(TAG, "designertid=" + designertid);
+                            Intent designerIntent = new Intent(DesignerCaseListActivity.this, DesignerInfoActivity.class);
+                            Bundle designerBundle = new Bundle();
+                            designerBundle.putString(Global.DESIGNER_ID, designertid);
+                            designerIntent.putExtras(designerBundle);
+                            startActivity(designerIntent);
+                        }
+                    });
+                    pullToRefreshRecyclerView.setAdapter(productAdapter);
+                    FROM = productList.size();
+                    LogTool.d(TAG, "FROM:" + FROM);
+                    pullToRefreshRecyclerView.setVisibility(View.VISIBLE);
+                    errorLayout.setVisibility(View.GONE);
+                    emptyLayout.setVisibility(View.GONE);
+                } else {
+                    pullToRefreshRecyclerView.setVisibility(View.GONE);
+                    errorLayout.setVisibility(View.GONE);
+                    emptyLayout.setVisibility(View.VISIBLE);
+                }
             }
             pullToRefreshRecyclerView.onRefreshComplete();
         }
@@ -271,9 +284,9 @@ public class DesignerCaseListActivity extends BaseActivity implements View.OnCli
         public void loadFailture(String error_msg) {
             hideWaitDialog();
             makeTextShort(error_msg);
-            if (isFirst) {
-                errorLayout.setVisibility(View.VISIBLE);
-            }
+            pullToRefreshRecyclerView.setVisibility(View.GONE);
+            errorLayout.setVisibility(View.VISIBLE);
+            emptyLayout.setVisibility(View.GONE);
             pullToRefreshRecyclerView.onRefreshComplete();
         }
     };

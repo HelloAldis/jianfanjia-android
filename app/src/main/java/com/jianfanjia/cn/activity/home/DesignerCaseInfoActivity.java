@@ -107,7 +107,7 @@ public class DesignerCaseInfoActivity extends SwipeBackActivity implements OnCli
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 mScrollY += dy;
-                if (mScrollY > 60) {
+                if (mScrollY > 100) {
                     activity_case_info_top_layout.setVisibility(View.VISIBLE);
                     tv_title.setVisibility(View.VISIBLE);
                 } else {
@@ -161,7 +161,7 @@ public class DesignerCaseInfoActivity extends SwipeBackActivity implements OnCli
     private ApiUiUpdateListener getProductHomePageInfoListener = new ApiUiUpdateListener() {
         @Override
         public void preLoad() {
-            showWaitDialog(R.string.loding);
+            showWaitDialog(R.string.loading);
         }
 
         @Override

@@ -99,6 +99,12 @@ public class BindingAccountActivity extends SwipeBackActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
     @Click({R.id.head_back_layout, R.id.bindingaccount_phone_layout, R.id.bindingaccount_weixin_layout})
     protected void click(View view) {
         switch (view.getId()) {

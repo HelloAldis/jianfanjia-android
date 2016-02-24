@@ -315,4 +315,13 @@ public class BusinessManager {
         }
         return builder.toString();
     }
+
+    public static String getDecDistrictStr(List<String> dec_districts) {
+        StringBuilder builder = new StringBuilder();
+        for (String str : dec_districts) {
+            LogTool.d("getDecDistrictStr()", "str:" + str);
+            builder.append(str + "  ");
+        }
+        return builder.toString();
+    }
 }

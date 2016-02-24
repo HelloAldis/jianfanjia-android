@@ -39,6 +39,7 @@ public class HomeProductPagerAdapter extends PagerAdapter {
         this.width = width;
         this.height = height;
         LogTool.d(this.getClass().getName()," statusBar height =" + TDevice.getStatusBarHeight(context));
+        LogTool.d(this.getClass().getName()," NavigationBar height =" + TDevice.getNavigationBarHeight(context));
         LogTool.d(this.getClass().getName(),"width =" + width + "height =" + height);
     }
 

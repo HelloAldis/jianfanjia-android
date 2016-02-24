@@ -102,20 +102,27 @@ public abstract class BaseLoadingAdapter<T> extends RecyclerView.Adapter<Recycle
      * 没有更多数据
      */
     private void setLoadingNoMore(boolean isHasLoadMore) {
+        LogTool.d(this.getClass().getName(),"isHadLoadMore =" + isHasLoadMore);
         this.isHasLoadMore = isHasLoadMore;
     }
 
     public void addAll(Collection<T> t) {
-        if (t != null) {
-            if (t.size() == pageSize) {
-                setLoadingNoMore(true);
+        if (mTs != null) {
+            int lastIndex = mTs.size() - 1;
+            if (t != null && t.size() > 0) {
+                if (t.size() == pageSize) {
+                    setLoadingNoMore(true);
+                } else {
+                    setLoadingNoMore(false);
+                }
+                LogTool.d(this.getClass().getName(), "lastIndex =" + lastIndex);
+                mTs.addAll(lastIndex, t);
+                notifyItemRangeInserted(lastIndex, t.size());
+                notifyItemRangeChanged(mTs.size() - 1, 1);
             } else {
                 setLoadingNoMore(false);
+                notifyItemRangeChanged(lastIndex, 1);
             }
-            int lastIndex = mTs.size() - 1;
-            LogTool.d(this.getClass().getName(),"lastIndex =" + lastIndex);
-            mTs.addAll(lastIndex, t);
-            notifyItemRangeInserted(lastIndex, t.size());
         }
     }
 
@@ -193,7 +200,7 @@ public abstract class BaseLoadingAdapter<T> extends RecyclerView.Adapter<Recycle
                 super.onScrolled(recyclerView, dx, dy);
 
                 if (!canScrollDown(recyclerView) && isHasLoadMore) {
-                    LogTool.d(this.getClass().getName(),"loading...");
+                    LogTool.d(this.getClass().getName(), "loading...");
                     if (mOnLoadingListener != null) {
                         mOnLoadingListener.loading();
                     }

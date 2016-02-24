@@ -27,6 +27,8 @@ import android.widget.ListView;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
+import com.jianfanjia.cn.AppManager;
+import com.jianfanjia.cn.activity.LoginNewActivity_;
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.my.NotifyActivity;
@@ -43,6 +45,17 @@ import com.jianfanjia.cn.service.UpdateService;
 import java.io.File;
 
 public class UiHelper {
+
+    /**
+     * 跳转到登录界面
+     */
+    public static void forbiddenToLogin(){
+        Intent intent = new Intent(MyApplication.getInstance(), LoginNewActivity_.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        MyApplication.getInstance().startActivity(intent);
+        AppManager.getAppManager().finishAllActivity();
+        showShortToast("登录过期，请重新登录！");
+    }
 
     /**
      * 显示toast

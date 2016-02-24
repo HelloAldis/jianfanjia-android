@@ -15,8 +15,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.adapter.DesignerListAdapter;
-import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.DesignerInfo;
 import com.jianfanjia.cn.bean.MyFavoriteDesigner;
 import com.jianfanjia.cn.cache.BusinessManager;
@@ -46,7 +46,7 @@ import java.util.Map;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class DesignerListActivity extends BaseActivity implements View.OnClickListener, PullToRefreshBase.OnRefreshListener2<RecyclerView> {
+public class DesignerListActivity extends SwipeBackActivity implements View.OnClickListener, PullToRefreshBase.OnRefreshListener2<RecyclerView> {
     private static final String TAG = DesignerListActivity.class.getName();
     private static final int DEC_TYPE = 1;
     private static final int DEC_HOUSE_TYPE = 2;
