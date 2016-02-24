@@ -49,7 +49,7 @@ public class DecorationAdapter extends BaseRecyclerViewAdapter<BeautyImgInfo> {
                 @Override
                 public void onClick(View v) {
                     if (null != listener) {
-                        listener.OnItemClick(position);
+                        listener.OnItemClick(holder.getLayoutPosition());
                     }
                 }
             });
