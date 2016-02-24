@@ -70,7 +70,6 @@ public class MyDesignerActivity extends SwipeBackActivity {
 
     private boolean isLoadedOnce;//是否成功加载过一次数据
 
-
     @AfterViews
     protected void initMainHeadView() {
         LogTool.d(this.getClass().getName(), "initMainHeadView");
