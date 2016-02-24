@@ -42,7 +42,7 @@ public class ProductAdapter extends BaseRecyclerViewAdapter<Product> {
         holder.itemProduceText.setText(product.getHouse_area() + "㎡，" + BusinessManager.convertDectypeToShow(decType) + "，" + BusinessManager.convertHouseTypeToShow(houseType) + "，" + BusinessManager.convertDecStyleToShow(decStyle) + "风格");
         imageShow.displayScreenWidthThumnailImage(context, product.getImages().get(0).getImageid(), holder.itemProductView);
         imageShow.displayImageHeadWidthThumnailImage(context, product.getDesigner().getImageid(), holder.itemHeadView);
-        if (product.getAuth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)) {
+        if (product.getDesigner().getAuth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)) {
             holder.itemAuthView.setVisibility(View.VISIBLE);
         } else {
             holder.itemAuthView.setVisibility(View.GONE);
