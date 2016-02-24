@@ -196,4 +196,9 @@ public class Constant {
     public static final int UPDATE_BEAUTY_FRAGMENT = 70;
     public static final int UPDATE_ORDER_DESIGNER_ACTIVITY = 80;
     public static final int UPDATE_BEAUTY_IMG_FRAGMENT = 90;
+
+
+    //view类型
+    public static final int BEAUTY_FRAGMENT = 1;//装修美图
+    public static final int COLLECT_BEAUTY_FRAGMENT = 2;//装修美图收藏
 }

@@ -47,6 +47,7 @@ public class Global {
     public static final String DEC_STYLE = "decStyle";
 
     public static final String SEARCH_TEXT = "search_text";
+    public static final String VIEW_TYPE = "type";
 
 
     public static final String TOPIC_PLAN = "0";//方案评论

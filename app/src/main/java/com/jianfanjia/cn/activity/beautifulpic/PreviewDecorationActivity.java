@@ -68,6 +68,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
     private List<String> imgIdList = new ArrayList<>();
     private List<String> imgList = new ArrayList<>();
     private PreImgPagerAdapter showPicPagerAdapter = null;
+    private int viewType = -1;
     private String section = null;
     private String houseStyle = null;
     private String decStyle = null;
@@ -83,6 +84,8 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
     public void initView() {
         Intent intent = this.getIntent();
         Bundle decorationBundle = intent.getExtras();
+        viewType = decorationBundle.getInt(Global.VIEW_TYPE, 0);
+        LogTool.d(TAG, "viewType==" + viewType);
         decorationId = decorationBundle.getString(Global.DECORATION_ID);
         currentPosition = decorationBundle.getInt(Global.POSITION, 0);
         totalCount = decorationBundle.getInt(Global.TOTAL_COUNT, 0);
@@ -170,7 +173,16 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
     @Override
     public void onRefresh(PullToRefreshBase<ViewPager> refreshView) {
         isFirst = false;
-        getDecorationImgInfo(FROM);
+        switch (viewType) {
+            case Constant.BEAUTY_FRAGMENT:
+                getDecorationImgInfo(FROM);
+                break;
+            case Constant.COLLECT_BEAUTY_FRAGMENT:
+                getCollectedDecorationImgInfo(FROM, Constant.HOME_PAGE_LIMIT);
+                break;
+            default:
+                break;
+        }
     }
 
     private void getDecorationImgInfo(int from) {
@@ -183,6 +195,10 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
         param.put("from", from);
         param.put("limit", Constant.HOME_PAGE_LIMIT);
         JianFanJiaClient.searchDecorationImg(new SearchDecorationImgRequest(PreviewDecorationActivity.this, param), getDecorationImgInfoListener, this);
+    }
+
+    private void getCollectedDecorationImgInfo(int from, int limit) {
+        JianFanJiaClient.getBeautyImgListByUser(PreviewDecorationActivity.this, from, limit, getDecorationImgInfoListener, this);
     }
 
     private void addDecorationImgInfo(String decorationId) {
@@ -214,7 +230,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
                 if (null != beautyImages && beautyImages.size() > 0) {
                     showPicPagerAdapter.addItem(beautyImages);
                     FROM += Constant.HOME_PAGE_LIMIT;
-                    EventBus.getDefault().post(new MessageEvent(Constant.UPDATE_BEAUTY_IMG_FRAGMENT));
+//                    EventBus.getDefault().post(new MessageEvent(Constant.UPDATE_BEAUTY_IMG_FRAGMENT));
                 } else {
                     makeTextShort(getResources().getString(R.string.no_more_data));
                 }

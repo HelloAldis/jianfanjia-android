@@ -8,8 +8,8 @@
     <string name="ower">业主</string>
     <string name="updated">更新于:</string>
     <string name="jianfanjia_net">http://www.jianfanjia.com</string>
-    <string name="loading">正在加载中</string>
-    <string name="submiting">正在提交中</string>
+    <string name="loading"></string>
+    <string name="submiting"></string>
     <string name="no_data">暂无数据</string>
 
     <string name="share_app_des">我在使用 #简繁家# 的App，业内一线设计师为您量身打造房间，比传统装修便宜20%，让你一手轻松掌控装修全过程。</string>
@@ -26,6 +26,7 @@
     <string name="tip_network_error">没有可用的网络</string>
     <string name="emtpy_view_no_designer_data">您还没有收藏任何设计师</string>
     <string name="empty_view_no_product_data">您还没有收藏任何作品</string>
+    <string name="empty_view_no_product_list_data">没有任何匹配的案例</string>
     <string name="empty_view_no_img_data">您还没有收藏任何美图</string>
     <string name="empty_view_no_caigou_data">您还没有采购提醒</string>
     <string name="empty_view_no_pay_data">您还没有付款提醒</string>
@@ -43,8 +44,6 @@
     <!-- login_activity -->
     <string name="login">登录</string>
     <string name="enter">欢迎使用</string>
-    <string name="loging">正在登录中</string>
-    <string name="loding">正在加载中</string>
     <string name="no">取     消</string>
     <string name="ok">确     定</string>
     <string name="agree">同     意</string>

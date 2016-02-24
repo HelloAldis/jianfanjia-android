@@ -100,7 +100,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         decoration_listview.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         decoration_listview.setHasFixedSize(true);
         decoration_listview.setItemAnimator(new DefaultItemAnimator());
-        SpacesItemDecoration decoration = new SpacesItemDecoration(6);
+        SpacesItemDecoration decoration = new SpacesItemDecoration(10);
         decoration_listview.addItemDecoration(decoration);
         getDecorationImgInfo(FROM, pullDownListener);
     }
@@ -232,6 +232,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
                                 decorationBundle.putString(Global.HOUSE_STYLE, houseStyle);
                                 decorationBundle.putString(Global.DEC_STYLE, decStyle);
                                 decorationBundle.putInt(Global.TOTAL_COUNT, total);
+                                decorationBundle.putInt(Global.VIEW_TYPE, Constant.BEAUTY_FRAGMENT);
                                 decorationIntent.putExtras(decorationBundle);
                                 startActivity(decorationIntent);
                             }
