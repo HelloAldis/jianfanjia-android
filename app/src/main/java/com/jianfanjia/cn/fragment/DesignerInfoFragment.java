@@ -132,7 +132,7 @@ public class DesignerInfoFragment extends CommonFragment implements ApiUiUpdateL
             designFeeLayout.setVisibility(View.VISIBLE);
             jiandanType.setText(BusinessManager.getDecTypeStr(designerInfo.getDec_types()));
             jiandanHouseType.setText(BusinessManager.getHouseTypeStr(designerInfo.getDec_house_types()));
-            jiandanDistrict.setText(designerInfo.getDistrict());
+            jiandanDistrict.setText(BusinessManager.getDecDistrictStr(designerInfo.getDec_districts()));
             designStyle.setText(BusinessManager.getDecStyleStr(designerInfo.getDec_styles()));
             designIdea.setText(designerInfo.getPhilosophy());
             designAchievement.setText(designerInfo.getAchievement());
