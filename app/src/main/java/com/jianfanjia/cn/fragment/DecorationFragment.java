@@ -232,6 +232,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
                                 decorationBundle.putString(Global.HOUSE_STYLE, houseStyle);
                                 decorationBundle.putString(Global.DEC_STYLE, decStyle);
                                 decorationBundle.putInt(Global.TOTAL_COUNT, total);
+                                decorationBundle.putInt(Global.VIEW_TYPE, Constant.BEAUTY_FRAGMENT);
                                 decorationIntent.putExtras(decorationBundle);
                                 startActivity(decorationIntent);
                             }
