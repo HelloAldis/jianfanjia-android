@@ -110,12 +110,13 @@ public class SearchDesignerFragment extends BaseFragment implements PullToRefres
     private ApiUiUpdateListener listener = new ApiUiUpdateListener() {
         @Override
         public void preLoad() {
-
+            showWaitDialog();
         }
 
         @Override
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data=" + data.toString());
+            hideWaitDialog();
             MyFavoriteDesigner designer = JsonParser.jsonToBean(data.toString(), MyFavoriteDesigner.class);
             if (designer != null) {
                 designerList.addAll(designer.getDesigners());
@@ -154,6 +155,7 @@ public class SearchDesignerFragment extends BaseFragment implements PullToRefres
         @Override
         public void loadFailture(String error_msg) {
             makeTextShort(error_msg);
+            hideWaitDialog();
             recycleView.setVisibility(View.GONE);
             emptyLayout.setVisibility(View.GONE);
             errorLayout.setVisibility(View.VISIBLE);

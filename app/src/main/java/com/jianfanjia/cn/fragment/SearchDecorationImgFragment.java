@@ -105,12 +105,13 @@ public class SearchDecorationImgFragment extends BaseFragment implements PullToR
     private ApiUiUpdateListener listener = new ApiUiUpdateListener() {
         @Override
         public void preLoad() {
-
+            showWaitDialog();
         }
 
         @Override
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data=" + data.toString());
+            hideWaitDialog();
             DecorationItemInfo decorationItemInfo = JsonParser.jsonToBean(data.toString(), DecorationItemInfo.class);
             LogTool.d(TAG, "decorationItemInfo:" + decorationItemInfo);
             if (null != decorationItemInfo) {
@@ -150,6 +151,7 @@ public class SearchDecorationImgFragment extends BaseFragment implements PullToR
         @Override
         public void loadFailture(String error_msg) {
             makeTextShort(error_msg);
+            hideWaitDialog();
             decoration_img_listview.setVisibility(View.GONE);
             emptyLayout.setVisibility(View.GONE);
             errorLayout.setVisibility(View.VISIBLE);

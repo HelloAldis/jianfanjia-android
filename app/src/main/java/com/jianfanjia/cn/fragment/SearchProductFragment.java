@@ -115,12 +115,13 @@ public class SearchProductFragment extends BaseFragment implements PullToRefresh
     private ApiUiUpdateListener listener = new ApiUiUpdateListener() {
         @Override
         public void preLoad() {
-
+            showWaitDialog();
         }
 
         @Override
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data=" + data.toString());
+            hideWaitDialog();
             DesignerWorksInfo worksInfo = JsonParser.jsonToBean(data.toString(), DesignerWorksInfo.class);
             LogTool.d(TAG, "worksInfo :" + worksInfo);
             if (null != worksInfo) {
@@ -169,6 +170,7 @@ public class SearchProductFragment extends BaseFragment implements PullToRefresh
         @Override
         public void loadFailture(String error_msg) {
             makeTextShort(error_msg);
+            hideWaitDialog();
             prodtct_listview.setVisibility(View.GONE);
             emptyLayout.setVisibility(View.GONE);
             errorLayout.setVisibility(View.VISIBLE);
