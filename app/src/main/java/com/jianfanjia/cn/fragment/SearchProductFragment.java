@@ -125,41 +125,53 @@ public class SearchProductFragment extends BaseFragment implements PullToRefresh
             LogTool.d(TAG, "worksInfo :" + worksInfo);
             if (null != worksInfo) {
                 productList.addAll(worksInfo.getProducts());
-                productAdapter = new ProductAdapter(getActivity(), productList, new RecyclerViewOnItemClickListener() {
+                if (null != productList && productList.size() > 0) {
+                    productAdapter = new ProductAdapter(getActivity(), productList, new RecyclerViewOnItemClickListener() {
 
-                    @Override
-                    public void OnItemClick(View view, int position) {
-                        Product product = productList.get(position);
-                        String productid = product.get_id();
-                        LogTool.d(TAG, "productid:" + productid);
-                        Intent productIntent = new Intent(getActivity(), DesignerCaseInfoActivity.class);
-                        Bundle productBundle = new Bundle();
-                        productBundle.putString(Global.PRODUCT_ID, productid);
-                        productIntent.putExtras(productBundle);
-                        startActivity(productIntent);
-                    }
+                        @Override
+                        public void OnItemClick(View view, int position) {
+                            Product product = productList.get(position);
+                            String productid = product.get_id();
+                            LogTool.d(TAG, "productid:" + productid);
+                            Intent productIntent = new Intent(getActivity(), DesignerCaseInfoActivity.class);
+                            Bundle productBundle = new Bundle();
+                            productBundle.putString(Global.PRODUCT_ID, productid);
+                            productIntent.putExtras(productBundle);
+                            startActivity(productIntent);
+                        }
 
-                    @Override
-                    public void OnViewClick(int position) {
-                        Product product = productList.get(position);
-                        String designertid = product.getDesignerid();
-                        LogTool.d(TAG, "designertid=" + designertid);
-                        Intent designerIntent = new Intent(getActivity(), DesignerInfoActivity.class);
-                        Bundle designerBundle = new Bundle();
-                        designerBundle.putString(Global.DESIGNER_ID, designertid);
-                        designerIntent.putExtras(designerBundle);
-                        startActivity(designerIntent);
-                    }
-                });
-                prodtct_listview.setAdapter(productAdapter);
-                FROM = productList.size();
-                LogTool.d(TAG, "FROM:" + FROM);
+                        @Override
+                        public void OnViewClick(int position) {
+                            Product product = productList.get(position);
+                            String designertid = product.getDesignerid();
+                            LogTool.d(TAG, "designertid=" + designertid);
+                            Intent designerIntent = new Intent(getActivity(), DesignerInfoActivity.class);
+                            Bundle designerBundle = new Bundle();
+                            designerBundle.putString(Global.DESIGNER_ID, designertid);
+                            designerIntent.putExtras(designerBundle);
+                            startActivity(designerIntent);
+                        }
+                    });
+                    prodtct_listview.setAdapter(productAdapter);
+                    FROM = productList.size();
+                    LogTool.d(TAG, "FROM:" + FROM);
+                    prodtct_listview.setVisibility(View.VISIBLE);
+                    emptyLayout.setVisibility(View.GONE);
+                    errorLayout.setVisibility(View.GONE);
+                } else {
+                    prodtct_listview.setVisibility(View.GONE);
+                    emptyLayout.setVisibility(View.VISIBLE);
+                    errorLayout.setVisibility(View.GONE);
+                }
             }
         }
 
         @Override
         public void loadFailture(String error_msg) {
             makeTextShort(error_msg);
+            prodtct_listview.setVisibility(View.GONE);
+            emptyLayout.setVisibility(View.GONE);
+            errorLayout.setVisibility(View.VISIBLE);
         }
     };
 

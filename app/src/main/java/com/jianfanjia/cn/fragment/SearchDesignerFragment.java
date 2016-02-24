@@ -119,32 +119,44 @@ public class SearchDesignerFragment extends BaseFragment implements PullToRefres
             MyFavoriteDesigner designer = JsonParser.jsonToBean(data.toString(), MyFavoriteDesigner.class);
             if (designer != null) {
                 designerList.addAll(designer.getDesigners());
-                designerListAdapter = new DesignerListAdapter(getActivity(), designerList, new RecyclerViewOnItemClickListener() {
-                    @Override
-                    public void OnItemClick(View view, int position) {
+                if (null != designerList && designerList.size() > 0) {
+                    designerListAdapter = new DesignerListAdapter(getActivity(), designerList, new RecyclerViewOnItemClickListener() {
+                        @Override
+                        public void OnItemClick(View view, int position) {
 
-                    }
+                        }
 
-                    @Override
-                    public void OnViewClick(int position) {
-                        String designerId = designerList.get(position).get_id();
-                        LogTool.d(TAG, "designerId:" + designerId);
-                        Intent designerIntent = new Intent(getActivity(), DesignerInfoActivity.class);
-                        Bundle designerBundle = new Bundle();
-                        designerBundle.putString(Global.DESIGNER_ID, designerId);
-                        designerIntent.putExtras(designerBundle);
-                        startActivity(designerIntent);
-                    }
-                });
-                recycleView.setAdapter(designerListAdapter);
-                FROM = designerList.size();
-                LogTool.d(TAG, "FROM:" + FROM);
+                        @Override
+                        public void OnViewClick(int position) {
+                            String designerId = designerList.get(position).get_id();
+                            LogTool.d(TAG, "designerId:" + designerId);
+                            Intent designerIntent = new Intent(getActivity(), DesignerInfoActivity.class);
+                            Bundle designerBundle = new Bundle();
+                            designerBundle.putString(Global.DESIGNER_ID, designerId);
+                            designerIntent.putExtras(designerBundle);
+                            startActivity(designerIntent);
+                        }
+                    });
+                    recycleView.setAdapter(designerListAdapter);
+                    FROM = designerList.size();
+                    LogTool.d(TAG, "FROM:" + FROM);
+                    recycleView.setVisibility(View.VISIBLE);
+                    emptyLayout.setVisibility(View.GONE);
+                    errorLayout.setVisibility(View.GONE);
+                } else {
+                    recycleView.setVisibility(View.GONE);
+                    emptyLayout.setVisibility(View.VISIBLE);
+                    errorLayout.setVisibility(View.GONE);
+                }
             }
         }
 
         @Override
         public void loadFailture(String error_msg) {
             makeTextShort(error_msg);
+            recycleView.setVisibility(View.GONE);
+            emptyLayout.setVisibility(View.GONE);
+            errorLayout.setVisibility(View.VISIBLE);
         }
     };
 

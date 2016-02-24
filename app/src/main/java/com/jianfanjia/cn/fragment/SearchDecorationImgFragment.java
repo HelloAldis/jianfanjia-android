@@ -116,31 +116,43 @@ public class SearchDecorationImgFragment extends BaseFragment implements PullToR
             if (null != decorationItemInfo) {
                 total = decorationItemInfo.getTotal();
                 beautyImgList.addAll(decorationItemInfo.getBeautiful_images());
-                decorationAdapter = new DecorationAdapter(getActivity(), beautyImgList, new OnItemClickListener() {
-                    @Override
-                    public void OnItemClick(int position) {
-                        LogTool.d(TAG, "position=" + position);
-                        BeautyImgInfo beautyImgInfo = beautyImgList.get(position);
-                        LogTool.d(TAG, "beautyImgInfo:" + beautyImgInfo);
-                        Intent decorationIntent = new Intent(getActivity(), PreviewDecorationActivity.class);
-                        Bundle decorationBundle = new Bundle();
-                        decorationBundle.putString(Global.DECORATION_ID, beautyImgInfo.get_id());
-                        decorationBundle.putInt(Global.POSITION, position);
-                        decorationBundle.putSerializable(Global.IMG_LIST, (ArrayList<BeautyImgInfo>) beautyImgList);
-                        decorationBundle.putInt(Global.TOTAL_COUNT, total);
-                        decorationIntent.putExtras(decorationBundle);
-                        startActivity(decorationIntent);
-                    }
-                });
-                decoration_img_listview.setAdapter(decorationAdapter);
-                FROM = beautyImgList.size();
-                LogTool.d(TAG, "FROM:" + FROM);
+                if (null != beautyImgList && beautyImgList.size() > 0) {
+                    decorationAdapter = new DecorationAdapter(getActivity(), beautyImgList, new OnItemClickListener() {
+                        @Override
+                        public void OnItemClick(int position) {
+                            LogTool.d(TAG, "position=" + position);
+                            BeautyImgInfo beautyImgInfo = beautyImgList.get(position);
+                            LogTool.d(TAG, "beautyImgInfo:" + beautyImgInfo);
+                            Intent decorationIntent = new Intent(getActivity(), PreviewDecorationActivity.class);
+                            Bundle decorationBundle = new Bundle();
+                            decorationBundle.putString(Global.DECORATION_ID, beautyImgInfo.get_id());
+                            decorationBundle.putInt(Global.POSITION, position);
+                            decorationBundle.putSerializable(Global.IMG_LIST, (ArrayList<BeautyImgInfo>) beautyImgList);
+                            decorationBundle.putInt(Global.TOTAL_COUNT, total);
+                            decorationIntent.putExtras(decorationBundle);
+                            startActivity(decorationIntent);
+                        }
+                    });
+                    decoration_img_listview.setAdapter(decorationAdapter);
+                    FROM = beautyImgList.size();
+                    LogTool.d(TAG, "FROM:" + FROM);
+                    decoration_img_listview.setVisibility(View.VISIBLE);
+                    emptyLayout.setVisibility(View.GONE);
+                    errorLayout.setVisibility(View.GONE);
+                } else {
+                    decoration_img_listview.setVisibility(View.GONE);
+                    emptyLayout.setVisibility(View.VISIBLE);
+                    errorLayout.setVisibility(View.GONE);
+                }
             }
         }
 
         @Override
         public void loadFailture(String error_msg) {
             makeTextShort(error_msg);
+            decoration_img_listview.setVisibility(View.GONE);
+            emptyLayout.setVisibility(View.GONE);
+            errorLayout.setVisibility(View.VISIBLE);
         }
     };
 
