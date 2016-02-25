@@ -110,7 +110,7 @@ public class HomeNewFragment extends BaseAnnotationFragment {
         });
     }
 
-    private void intentToProduct(){
+    private void intentToProduct() {
         if (productNews != null) {
             Product product = productNews.get(contentViewPager.getCurrentItem());
             String productid = product.get_id();
@@ -149,7 +149,7 @@ public class HomeNewFragment extends BaseAnnotationFragment {
         }, this);
     }
 
-    @Click({R.id.ltm_home_layout0, R.id.ltm_home_layout1, R.id.ltm_home_layout2, R.id.ltm_home_layout3, R.id.home_search, R.id.list_item_more_layout,R.id.content_intent_to})
+    @Click({R.id.ltm_home_layout0, R.id.ltm_home_layout1, R.id.ltm_home_layout2, R.id.ltm_home_layout3, R.id.home_search, R.id.list_item_more_layout, R.id.content_intent_to})
     protected void click(View view) {
         switch (view.getId()) {
             case R.id.ltm_home_layout0:
@@ -228,7 +228,7 @@ public class HomeNewFragment extends BaseAnnotationFragment {
 
             }
         });
-        viewPager.setInterval(3000);
+        viewPager.setInterval(5000);
         viewPager.startAutoScroll();
 
     }
