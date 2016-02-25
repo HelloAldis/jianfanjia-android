@@ -96,6 +96,8 @@ public class Constant {
     public static final String IDENTITY_DESIGNER = "2";// 设计师
 
     public static final String ISFIRST = "isFirst";// 是否是首次打开程序
+    public static final String ISSHOWGUIDE = "isshowguide";// 是否显示过首页手势引导
+    public static final String ISSHOWNEXT = "isshownext";// 是否显示过首页next
     public static final String ACCOUNT = "account";// 账号
     public static final String PASSWORD = "password";// 密码
     public static final String USERNAME = "username";// 用户名称
