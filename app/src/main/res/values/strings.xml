@@ -347,5 +347,6 @@
     <string name="search_no_designer">没有找到任何匹配的设计师</string>
     <string name="search_no_beautyimg">没有找到任何匹配的美图</string>
     <string name="search_no_product">没有找到任何匹配的作品</string>
+    <string name="already_finish">已完成</string>
 
 </resources>

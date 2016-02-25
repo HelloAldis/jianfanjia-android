@@ -85,7 +85,6 @@ public class SwipeBackLayout extends ViewGroup {
     private int draggingOffset;
 
 
-
     /**
      * Whether allow to pull this layout.
      */
@@ -249,6 +248,7 @@ public class SwipeBackLayout extends ViewGroup {
 
     float startX = 0.0f;
     float startY = 0.0f;
+
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         boolean handled = false;
@@ -258,23 +258,23 @@ public class SwipeBackLayout extends ViewGroup {
         }
         ensureTarget();
         if (isEnabled()) {
-            handled = viewDragHelper.shouldInterceptTouchEvent(ev);
+            switch (dragEdge) {
+                case TOP:
+                    break;
+                case BOTTOM:
+                    break;
+                case LEFT:
+                    handled = (startX < MyApplication.dip2px(getContext(), 50));//只能从边缘拉动回退，防止误操作
+                    LogTool.d(this.getClass().getName(), "startX =" + startX);
+                    LogTool.d(this.getClass().getName(), "handled =" + handled);
+                    break;
+                case RIGHT:
+                    break;
+                default:
+                    break;
+            }
             if (handled) {
-                switch (dragEdge) {
-                    case TOP:
-                        break;
-                    case BOTTOM:
-                        break;
-                    case LEFT:
-                        handled = (startX < MyApplication.dip2px(getContext(),50));//只能从边缘拉动回退，防止误操作
-                        LogTool.d(this.getClass().getName(),"startX =" + startX);
-                        LogTool.d(this.getClass().getName(),"handled =" + handled);
-                        break;
-                    case RIGHT:
-                        break;
-                    default:
-                        break;
-                }
+                handled = viewDragHelper.shouldInterceptTouchEvent(ev);
             }
         } else {
             viewDragHelper.cancel();

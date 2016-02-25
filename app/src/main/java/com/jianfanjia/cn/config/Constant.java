@@ -108,10 +108,8 @@ public class Constant {
     public static final String OPEN_ID = "open_id";//微信openid
     public static final String UNION_ID = "union_id";//微信union_id
 
-    public static final String OWNER_INFO = "owner_info";// 当前业主信息
     public static final String DEFAULT_PROCESS = "default_process";// 当前工地
     public static final String DESIGNER_PROCESS_LIST = "designer_process_list";// 设计师工地列表
-    public static final String DEFAULT_PROCESSINFO = "default_processinfo.txt";// 默认工地信息
     public static final String DEFAULT_PROCESSINFO_ID = "1";
 
     public static final String DATA = "data";// 获取成功的数据
