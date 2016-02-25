@@ -250,6 +250,7 @@ public class DesignerListActivity extends SwipeBackActivity implements View.OnCl
                         });
                         designerListView.setAdapter(designerListAdapter);
                     } else {
+                        designerListView.scrollToPosition(0);
                         designerListAdapter.notifyDataSetChanged();
                     }
                     FROM = designerList.size();
