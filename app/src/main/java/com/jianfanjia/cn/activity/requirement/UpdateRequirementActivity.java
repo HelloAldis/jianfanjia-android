@@ -29,7 +29,7 @@ import org.androidannotations.annotations.ViewById;
  * Date:2015-12-17 15:46
  */
 @EActivity(R.layout.activity_edit_busi_req)
-public class UpdateRequirementActivity extends SwipeBackActivity implements NotifyActivityStatusChange{
+public class UpdateRequirementActivity extends SwipeBackActivity implements NotifyActivityStatusChange {
 
     @ViewById(R.id.act_edit_req_head)
     protected MainHeadView mainHeadView;
@@ -41,29 +41,29 @@ public class UpdateRequirementActivity extends SwipeBackActivity implements Noti
     private RequirementInfo requirementInfo;
 
     @AfterViews
-    protected void initMainView(){
+    protected void initMainView() {
         mainHeadView.setMianTitle(getString(R.string.update_requirement));
         mainHeadView.setRightTitle(getString(R.string.confirm));
         mainHeadView.setRigthTitleEnable(false);
 
         Intent intent = getIntent();
-        requirementInfo = (RequirementInfo)intent.getSerializableExtra(Global.REQUIREMENT_INFO);
-        if(requirementInfo != null){
+        requirementInfo = (RequirementInfo) intent.getSerializableExtra(Global.REQUIREMENT_INFO);
+        if (requirementInfo != null) {
             status = requirementInfo.getDec_type();
-            if(status != null){
+            if (status != null) {
                 initFragment();
             }
         }
     }
 
-    protected void initFragment(){
+    protected void initFragment() {
         FragmentTransaction transaction = this.getSupportFragmentManager()
                 .beginTransaction();
-        switch (status){
+        switch (status) {
             case Global.DEC_TYPE_BUSINESS:
                 editBussinessRequirementFragment_ = new EditBussinessRequirementFragment_();
                 editBussinessRequirementFragment_.setArguments(getBundle());
-                transaction.replace(R.id.content_layout,editBussinessRequirementFragment_);
+                transaction.replace(R.id.content_layout, editBussinessRequirementFragment_);
                 break;
             case Global.DEC_TYPE_HOME:
                 editHomeRequirementFragment_ = new EditHomeRequirementFragment_();
@@ -74,8 +74,8 @@ public class UpdateRequirementActivity extends SwipeBackActivity implements Noti
         transaction.commit();
     }
 
-    private void resetRightTitleStatus(){
-        switch (status){
+    private void resetRightTitleStatus() {
+        switch (status) {
             case Global.DEC_TYPE_HOME:
                 mainHeadView.setRigthTitleEnable(editHomeRequirementFragment_.isFinish());
                 break;
@@ -93,7 +93,7 @@ public class UpdateRequirementActivity extends SwipeBackActivity implements Noti
 
     protected void confirm() {
         RequirementInfo requirementInfo = null;
-        switch (status){
+        switch (status) {
             case Global.DEC_TYPE_HOME:
                 requirementInfo = editHomeRequirementFragment_.getRequirementInfo();
                 break;
@@ -106,7 +106,7 @@ public class UpdateRequirementActivity extends SwipeBackActivity implements Noti
 
     @Override
     public void preLoad() {
-        showWaitDialog(getString(R.string.submiting));
+        showWaitDialog(getString(R.string.loading));
     }
 
     @Override
@@ -116,9 +116,9 @@ public class UpdateRequirementActivity extends SwipeBackActivity implements Noti
         appManager.finishActivity(this);
     }
 
-    @Click({R.id.head_back_layout,R.id.head_right_title})
-    protected void click(View view){
-        switch (view.getId()){
+    @Click({R.id.head_back_layout, R.id.head_right_title})
+    protected void click(View view) {
+        switch (view.getId()) {
             case R.id.head_back_layout:
                 appManager.finishActivity(this);
                 break;
@@ -128,7 +128,7 @@ public class UpdateRequirementActivity extends SwipeBackActivity implements Noti
         }
     }
 
-    protected Bundle getBundle(){
+    protected Bundle getBundle() {
         Bundle bundle = new Bundle();
         bundle.putSerializable(Global.REQUIREMENT_INFO, requirementInfo);
         bundle.putInt(Global.REQUIREMENG_ACTION_TYPE, XuQiuFragment.REQUESTCODE_EDIT_REQUIREMENT);

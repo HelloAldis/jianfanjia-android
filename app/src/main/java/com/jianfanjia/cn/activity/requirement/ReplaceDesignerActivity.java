@@ -43,10 +43,10 @@ public class ReplaceDesignerActivity extends SwipeBackActivity implements OnClic
     private static final String TAG = ReplaceDesignerActivity.class.getName();
     private MainHeadView mainHeadView = null;
     private RecyclerView replace_designer_listview = null;
-    private List<Map<String, Object>> mylist = new ArrayList<Map<String, Object>>();
-    private List<Map<String, Object>> splitList = new ArrayList<Map<String, Object>>();
-    private List<DesignerCanOrderInfo> rec_designer = new ArrayList<DesignerCanOrderInfo>();
-    private List<DesignerCanOrderInfo> favorite_designer = new ArrayList<DesignerCanOrderInfo>();
+    private List<Map<String, Object>> mylist = new ArrayList<>();
+    private List<Map<String, Object>> splitList = new ArrayList<>();
+    private List<DesignerCanOrderInfo> rec_designer = new ArrayList<>();
+    private List<DesignerCanOrderInfo> favorite_designer = new ArrayList<>();
     private DesignerByAppointOrReplaceAdapter designerByAppointOrReplaceAdapter = null;
     private String requestmentid = null;
     private String designerid = null;
@@ -94,24 +94,24 @@ public class ReplaceDesignerActivity extends SwipeBackActivity implements OnClic
     }
 
     private void setReplaceDesignerList(List<DesignerCanOrderInfo> rec_designerList, List<DesignerCanOrderInfo> favorite_designerList) {
-        Map<String, Object> mp = new HashMap<String, Object>();
+        Map<String, Object> mp = new HashMap<>();
         mp.put(Constant.KEY, getResources().getString(R.string.marchDesignerText));
         mp.put(Constant.TEXT_KEY, "");
         mylist.add(mp);
         splitList.add(mp);
         for (DesignerCanOrderInfo designerCanOrderInfo : rec_designerList) {
-            Map<String, Object> map = new HashMap<String, Object>();
+            Map<String, Object> map = new HashMap<>();
             map.put(Constant.KEY, designerCanOrderInfo);
             mylist.add(map);
         }
         //----------------------------------------------------
-        mp = new HashMap<String, Object>();
+        mp = new HashMap<>();
         mp.put(Constant.KEY, getResources().getString(R.string.intentionDesignerText));
         mp.put(Constant.TEXT_KEY, getResources().getString(R.string.moreText));
         mylist.add(mp);
         splitList.add(mp);
         for (DesignerCanOrderInfo designerCanOrderInfo : favorite_designerList) {
-            Map<String, Object> map = new HashMap<String, Object>();
+            Map<String, Object> map = new HashMap<>();
             map.put(Constant.KEY, designerCanOrderInfo);
             mylist.add(map);
         }
@@ -200,7 +200,7 @@ public class ReplaceDesignerActivity extends SwipeBackActivity implements OnClic
     private ApiUiUpdateListener replaceDesignerListener = new ApiUiUpdateListener() {
         @Override
         public void preLoad() {
-            showWaitDialog(R.string.submiting);
+            showWaitDialog(R.string.loading);
         }
 
         @Override

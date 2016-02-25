@@ -47,10 +47,10 @@ public class AppointDesignerActivity extends SwipeBackActivity implements OnClic
     private static final String TAG = AppointDesignerActivity.class.getName();
     private MainHeadView mainHeadView = null;
     private RecyclerView appoint_designer_listview = null;
-    private List<Map<String, Object>> mylist = new ArrayList<Map<String, Object>>();
-    private List<Map<String, Object>> splitList = new ArrayList<Map<String, Object>>();
-    private List<DesignerCanOrderInfo> rec_designer = new ArrayList<DesignerCanOrderInfo>();
-    private List<DesignerCanOrderInfo> favorite_designer = new ArrayList<DesignerCanOrderInfo>();
+    private List<Map<String, Object>> mylist = new ArrayList<>();
+    private List<Map<String, Object>> splitList = new ArrayList<>();
+    private List<DesignerCanOrderInfo> rec_designer = new ArrayList<>();
+    private List<DesignerCanOrderInfo> favorite_designer = new ArrayList<>();
     private DesignerByAppointOrReplaceAdapter designerByAppointOrReplaceAdapter = null;
     private String requestmentid = null;
     private int orderDesignerNum = 0;//已预约设计师数
@@ -60,7 +60,7 @@ public class AppointDesignerActivity extends SwipeBackActivity implements OnClic
 
     private int currentPos = -1;
 
-    private List<String> designerIds = new ArrayList<String>();
+    private List<String> designerIds = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,24 +103,24 @@ public class AppointDesignerActivity extends SwipeBackActivity implements OnClic
     }
 
     private void setAppointDesignerList(List<DesignerCanOrderInfo> rec_designerList, List<DesignerCanOrderInfo> favorite_designerList) {
-        Map<String, Object> mp = new HashMap<String, Object>();
+        Map<String, Object> mp = new HashMap<>();
         mp.put(Constant.KEY, getResources().getString(R.string.marchDesignerText));
         mp.put(Constant.TEXT_KEY, "");
         mylist.add(mp);
         splitList.add(mp);
         for (DesignerCanOrderInfo designerCanOrderInfo : rec_designerList) {
-            Map<String, Object> map = new HashMap<String, Object>();
+            Map<String, Object> map = new HashMap<>();
             map.put(Constant.KEY, designerCanOrderInfo);
             mylist.add(map);
         }
         //----------------------------------------------------
-        mp = new HashMap<String, Object>();
+        mp = new HashMap<>();
         mp.put(Constant.KEY, getResources().getString(R.string.intentionDesignerText));
         mp.put(Constant.TEXT_KEY, getResources().getString(R.string.moreText));
         mylist.add(mp);
         splitList.add(mp);
         for (DesignerCanOrderInfo designerCanOrderInfo : favorite_designerList) {
-            Map<String, Object> map = new HashMap<String, Object>();
+            Map<String, Object> map = new HashMap<>();
             map.put(Constant.KEY, designerCanOrderInfo);
             mylist.add(map);
         }
