@@ -57,7 +57,7 @@ public class DesignerCaseAdapter extends BaseRecyclerViewAdapter<ImageInfo> {
             case TYPE_HEAD:
                 DesignerCaseInfoHeadHolder designerCaseInfoHeadHolder = (DesignerCaseInfoHeadHolder) viewHolder;
                 designerCaseInfoHeadHolder.cellNameText.setText(designerCaseInfo.getCell());
-                designerCaseInfoHeadHolder.stylelNameText.setText(designerCaseInfo.getHouse_area() + "㎡，" + BusinessManager.convertHouseTypeToShow(designerCaseInfo.getHouse_type()) + "，" + BusinessManager.convertDecStyleToShow(designerCaseInfo.getDec_style()));
+                designerCaseInfoHeadHolder.stylelNameText.setText(designerCaseInfo.getHouse_area() + "㎡，" + BusinessManager.convertDectypeToShow(designerCaseInfo.getDec_type()) + "，" + BusinessManager.convertHouseTypeToShow(designerCaseInfo.getHouse_type()) + "，" + BusinessManager.convertDecStyleToShow(designerCaseInfo.getDec_style()) + "风格");
                 imageShow.displayImageHeadWidthThumnailImage(context, designerCaseInfo.getDesigner().getImageid(), designerCaseInfoHeadHolder.designerinfo_head_img);
                 if (designerCaseInfo.getDesigner().getAuth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)) {
                     designerCaseInfoHeadHolder.designerinfo_auth.setVisibility(View.VISIBLE);

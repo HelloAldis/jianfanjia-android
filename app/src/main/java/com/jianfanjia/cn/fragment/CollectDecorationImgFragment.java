@@ -156,7 +156,8 @@ public class CollectDecorationImgFragment extends CommonFragment implements Pull
                             public void OnItemClick(int position) {
                                 LogTool.d(TAG, "position:" + position);
                                 currentPos = position;
-                                BeautyImgInfo beautyImgInfo = beautyImgList.get(position);
+                                LogTool.d(TAG, "currentPos====" + currentPos);
+                                BeautyImgInfo beautyImgInfo = beautyImgList.get(currentPos);
                                 LogTool.d(TAG, "beautyImgInfo:" + beautyImgInfo);
                                 Intent decorationIntent = new Intent(getActivity(), PreviewDecorationActivity.class);
                                 Bundle decorationBundle = new Bundle();
