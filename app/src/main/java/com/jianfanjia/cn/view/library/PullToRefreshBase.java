@@ -86,17 +86,17 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout imp
     private boolean mOverScrollEnabled = true;
     private boolean mLayoutVisibilityChangesEnabled = true;
 
-    private Interpolator mScrollAnimationInterpolator;
     private AnimationStyle mLoadingAnimationStyle = AnimationStyle.getDefault();
-
     private LoadingLayout mHeaderLayout;
-    private LoadingLayout mFooterLayout;
 
+    private LoadingLayout mFooterLayout;
     private OnRefreshListener<T> mOnRefreshListener;
+
     private OnRefreshListener2<T> mOnRefreshListener2;
     private OnPullEventListener<T> mOnPullEventListener;
-
     private SmoothScrollRunnable mCurrentSmoothScrollRunnable;
+
+    private Interpolator mScrollAnimationInterpolator;
 
     // ===========================================================
     // Constructors

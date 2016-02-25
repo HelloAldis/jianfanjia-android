@@ -172,7 +172,6 @@ public class MyDesignerActivity extends SwipeBackActivity {
     @Click(R.id.error_include)
     protected void errorRefresh() {
         initdata();
-//        refreshView.setRefreshing(true);
     }
 
 

@@ -1,8 +1,13 @@
 package com.jianfanjia.cn.activity;
 
 import android.content.Intent;
+import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.view.Gravity;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
@@ -18,6 +23,8 @@ import com.jianfanjia.cn.fragment.MyFragment;
 import com.jianfanjia.cn.fragment.XuQiuFragment;
 import com.jianfanjia.cn.fragment.XuQiuFragment_;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.tools.TDevice;
+import com.jianfanjia.cn.view.GestureGuideView;
 
 /**
  * Description:主界面
@@ -36,6 +43,8 @@ public class MainActivity extends BaseActivity implements
     private long mExitTime = 0L;
     private int tab = -1;
 
+    private GestureGuideView img;
+
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
@@ -45,6 +54,43 @@ public class MainActivity extends BaseActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+    }
+
+    public void showGuide(){
+        // 动态初始化图层
+        img = new GestureGuideView(this);
+        img.setLayoutParams(new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT));
+//                img.setScaleType(ImageView.ScaleType.CENTER);
+//        img.setImageResource(R.mipmap.home_guide_gesture);
+//        img.setBackgroundColor(getResources().getColor(R.color.black_translucencen));
+
+        LinearLayout linearLayout = new LinearLayout(this);
+        linearLayout.setLayoutParams(new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT));
+        linearLayout.addView(img);
+        linearLayout.setEnabled(false);
+
+        // 设置LayoutParams参数
+        WindowManager.LayoutParams params = new WindowManager.LayoutParams();
+        // 设置显示的类型，TYPE_PHONE指的是来电话的时候会被覆盖，其他时候会在最前端，显示位置在stateBar下面，其他更多的值请查阅文档
+        params.type = WindowManager.LayoutParams.TYPE_APPLICATION_PANEL;
+        // 设置显示格式
+        params.format = PixelFormat.RGBA_8888;
+        // 设置对齐方式
+        params.gravity = Gravity.LEFT | Gravity.TOP;
+        // 设置宽高
+        params.width = (int)TDevice.getScreenWidth();
+        params.height = (int)TDevice.getScreenHeight();
+
+        // 添加到当前的窗口上
+        getWindowManager().addView(linearLayout,params);
+    }
+
+    public void removeGuide(){
+        getWindow().getWindowManager().removeView(img);
     }
 
     @Override
