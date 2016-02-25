@@ -180,6 +180,8 @@ public class PreviewDecorationActivity extends SwipeBackActivity implements View
             case Constant.COLLECT_BEAUTY_FRAGMENT:
                 getCollectedDecorationImgInfo(FROM, Constant.HOME_PAGE_LIMIT);
                 break;
+            case Constant.SEARCH_BEAUTY_FRAGMENT:
+                break;
             default:
                 break;
         }

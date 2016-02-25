@@ -240,7 +240,7 @@
     <!-- activity_about -->
     <string name="about">关于我们</string>
     <string name="about_my">关于简繁家</string>
-    <string name="about_content">让装修更简单</string>
+    <string name="about_content">让装修变简单</string>
     <string name="about_version">版本号：%1$s</string>
     <string name="company">武汉家易装科技有限公司</string>
     <string name="compant_net">Copyright © 2015-2016 jianfanjia.com</string>
@@ -342,7 +342,7 @@
     <string name="all_good_case">全部案例</string>
     <string name="str_case">案例</string>
     <string name="beauty_img">美图</string>
-    <string name="searh_tip">搜索设计师/案例/美图</string>
+    <string name="searh_tip">设计师、案例、美图</string>
     <string name="str_decoratehousetype">装修户型</string>
     <string name="search_no_designer">没有找到任何匹配的设计师</string>
     <string name="search_no_beautyimg">没有找到任何匹配的美图</string>
