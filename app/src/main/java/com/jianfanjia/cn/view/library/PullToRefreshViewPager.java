@@ -21,6 +21,7 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.view.MyViewPager;
 
 
 /**
@@ -47,7 +48,7 @@ public class PullToRefreshViewPager extends PullToRefreshBase<ViewPager> {
 
     @Override
     protected ViewPager createRefreshableView(Context context, AttributeSet attrs) {
-        ViewPager viewPager = new ViewPager(context, attrs);
+        ViewPager viewPager = new MyViewPager(context, attrs);
         viewPager.setId(R.id.viewpager);
         return viewPager;
     }
