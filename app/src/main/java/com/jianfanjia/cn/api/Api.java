@@ -1,6 +1,9 @@
 package com.jianfanjia.cn.api;
 
+import com.jianfanjia.cn.api.request.SearchDesignerRequest;
 import com.jianfanjia.cn.application.MyApplication;
+import com.jianfanjia.cn.bean.MyFavoriteDesigner;
+import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.NetTool;
@@ -50,7 +53,7 @@ public class Api {
                     String json = response.body().string();
                     ApiResponse apiResponse = JsonParser.jsonToBean(json, ApiResponse.class);
 
-                    if (StringUtils.isEmpty(apiResponse.err_msg)) {
+                    if (StringUtils.isEmpty(apiResponse.getErr_msg())) {
                         BASE_HANDLER.onSuccess(apiResponse);
                         if (handler != null) {
                             handler.onSuccess(apiResponse);
@@ -86,5 +89,7 @@ public class Api {
         okhttp(request, handler);
     }
 
-
+    private static void searchDesigner(SearchDesignerRequest request, BaseHandler<ApiResponse<MyFavoriteDesigner>> handler) {
+        okPost(Url_New.getInstance().SEARCH_DESIGNER, request, handler);
+    }
 }
