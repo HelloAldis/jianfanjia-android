@@ -26,6 +26,7 @@ import com.jianfanjia.cn.activity.home.SearchActivity_;
 import com.jianfanjia.cn.activity.requirement.PublishRequirementActivity_;
 import com.jianfanjia.cn.adapter.HomeProductPagerAdapter;
 import com.jianfanjia.cn.adapter.ViewPageAdapter;
+import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseAnnotationFragment;
 import com.jianfanjia.cn.bean.Product;
 import com.jianfanjia.cn.config.Constant;
@@ -206,10 +207,10 @@ public class HomeNewFragment extends BaseAnnotationFragment {
             public void loadSuccess(Object data) {
                 productNews = JsonParser.jsonToList(data.toString(), new TypeToken<List<Product>>() {
                 }.getType());
-                if(mPagerAdapter == null){
+                if (mPagerAdapter == null) {
                     mPagerAdapter = new HomeProductPagerAdapter(getContext(), productNews, null, coordinatorLayout.getWidth(), coordinatorLayout.getHeight());
                     contentViewPager.setAdapter(mPagerAdapter);
-                }else{
+                } else {
                     mPagerAdapter.setProductList(productNews);
                 }
                 contentIntent.setVisibility(View.VISIBLE);
@@ -262,18 +263,23 @@ public class HomeNewFragment extends BaseAnnotationFragment {
 
     private void initBannerView(AutoScrollViewPager viewPager, LinearLayout indicatorGroup_lib) {
         indicatorGroup_lib.removeAllViews();
-        List<View> bannerList = new ArrayList<View>();
+        List<View> bannerList = new ArrayList<>();
         for (int i = 0; i < BANNER_ICON.length; i++) {
-            ImageView imageView = new ImageView(getContext());
-            imageView.setBackgroundResource(BANNER_ICON[i]);
-            bannerList.add(imageView);
+            LinearLayout linearLayout = new LinearLayout(getActivity().getApplicationContext());
+            linearLayout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            ImageView imageView = new ImageView(getActivity().getApplicationContext());
+            imageView.setImageResource(BANNER_ICON[i]);
+            imageView.setLayoutParams(new LinearLayout.LayoutParams((int) TDevice.getScreenWidth(), (int) (520 / (1242 / TDevice.getScreenWidth()))));
+            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+            linearLayout.addView(imageView);
+            bannerList.add(linearLayout);
         }
         final View[] indicators = new View[bannerList.size()];
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                new ViewGroup.LayoutParams(20, 20));
-        params.setMargins(0, 0, 15, 0);
+                new ViewGroup.LayoutParams(MyApplication.dip2px(getContext(), 8), MyApplication.dip2px(getContext(), 8)));
+        params.setMargins(0, 0, MyApplication.dip2px(getContext(), 8), MyApplication.dip2px(getContext(), 8));
         for (int i = 0; i < indicators.length; i++) {
-            indicators[i] = new View(getContext());
+            indicators[i] = new View(getActivity().getApplicationContext());
             if (i == 0) {
                 indicators[i].setBackgroundResource(R.drawable.shape_indicator_selected_oval);
             } else {
