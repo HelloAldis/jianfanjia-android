@@ -220,7 +220,6 @@ public class DesignerCaseListActivity extends SwipeBackActivity implements View.
         JianFanJiaClient.searchDesignerProduct(new SearchDesignerProductRequest(DesignerCaseListActivity.this, param), listener, this);
     }
 
-
     private ApiUiUpdateListener pullDownListener = new ApiUiUpdateListener() {
         @Override
         public void preLoad() {
@@ -239,33 +238,38 @@ public class DesignerCaseListActivity extends SwipeBackActivity implements View.
                 productList.clear();
                 productList.addAll(worksInfo.getProducts());
                 if (null != productList && productList.size() > 0) {
-                    productAdapter = new ProductAdapter(DesignerCaseListActivity.this, productList, new RecyclerViewOnItemClickListener() {
+                    if (null == productAdapter) {
+                        productAdapter = new ProductAdapter(DesignerCaseListActivity.this, productList, new RecyclerViewOnItemClickListener() {
 
-                        @Override
-                        public void OnItemClick(View view, int position) {
-                            Product product = productList.get(position);
-                            String productid = product.get_id();
-                            LogTool.d(TAG, "productid:" + productid);
-                            Intent productIntent = new Intent(DesignerCaseListActivity.this, DesignerCaseInfoActivity.class);
-                            Bundle productBundle = new Bundle();
-                            productBundle.putString(Global.PRODUCT_ID, productid);
-                            productIntent.putExtras(productBundle);
-                            startActivity(productIntent);
-                        }
+                            @Override
+                            public void OnItemClick(View view, int position) {
+                                Product product = productList.get(position);
+                                String productid = product.get_id();
+                                LogTool.d(TAG, "productid:" + productid);
+                                Intent productIntent = new Intent(DesignerCaseListActivity.this, DesignerCaseInfoActivity.class);
+                                Bundle productBundle = new Bundle();
+                                productBundle.putString(Global.PRODUCT_ID, productid);
+                                productIntent.putExtras(productBundle);
+                                startActivity(productIntent);
+                            }
 
-                        @Override
-                        public void OnViewClick(int position) {
-                            Product product = productList.get(position);
-                            String designertid = product.getDesignerid();
-                            LogTool.d(TAG, "designertid=" + designertid);
-                            Intent designerIntent = new Intent(DesignerCaseListActivity.this, DesignerInfoActivity.class);
-                            Bundle designerBundle = new Bundle();
-                            designerBundle.putString(Global.DESIGNER_ID, designertid);
-                            designerIntent.putExtras(designerBundle);
-                            startActivity(designerIntent);
-                        }
-                    });
-                    pullToRefreshRecyclerView.setAdapter(productAdapter);
+                            @Override
+                            public void OnViewClick(int position) {
+                                Product product = productList.get(position);
+                                String designertid = product.getDesignerid();
+                                LogTool.d(TAG, "designertid=" + designertid);
+                                Intent designerIntent = new Intent(DesignerCaseListActivity.this, DesignerInfoActivity.class);
+                                Bundle designerBundle = new Bundle();
+                                designerBundle.putString(Global.DESIGNER_ID, designertid);
+                                designerIntent.putExtras(designerBundle);
+                                startActivity(designerIntent);
+                            }
+                        });
+                        pullToRefreshRecyclerView.setAdapter(productAdapter);
+                    } else {
+                        pullToRefreshRecyclerView.scrollToPosition(0);
+                        productAdapter.notifyDataSetChanged();
+                    }
                     FROM = productList.size();
                     LogTool.d(TAG, "FROM:" + FROM);
                     pullToRefreshRecyclerView.setVisibility(View.VISIBLE);
