@@ -166,7 +166,7 @@ public class HomeNewFragment extends BaseAnnotationFragment {
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                dataManager.setShowGuide(false);
+                dataManager.setShowGuide(false);
                 removeGuide();
                 intentToProduct();
             }
