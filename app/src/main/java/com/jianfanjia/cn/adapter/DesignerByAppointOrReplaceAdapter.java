@@ -31,10 +31,10 @@ import java.util.Map;
 public class DesignerByAppointOrReplaceAdapter extends BaseRecyclerViewAdapter<Map<String, Object>> {
     private static final String TAG = DesignerByAppointOrReplaceAdapter.class.getName();
     private CheckListener listener;
-    private List<String> checkedList = new ArrayList<String>();// 选中的数据
+    private List<String> checkedList = new ArrayList<>();// 选中的数据
     private static final int TYPE_TAG = 0;
     private static final int TYPE_TITLE = 1;
-    private List<Map<String, Object>> splitList = new ArrayList<Map<String, Object>>();
+    private List<Map<String, Object>> splitList = new ArrayList<>();
     private List<Integer> checkPositionlist;
     private int viewType = -1;
     private int canOrderCount = -1;
