@@ -18,7 +18,6 @@ import com.jianfanjia.cn.fragment.MyFragment;
 import com.jianfanjia.cn.fragment.XuQiuFragment;
 import com.jianfanjia.cn.fragment.XuQiuFragment_;
 import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.view.GestureGuideView;
 
 /**
  * Description:主界面
@@ -36,7 +35,6 @@ public class MainActivity extends BaseActivity implements
     private MyFragment myFragment = null;
     private long mExitTime = 0L;
     private int tab = -1;
-
 
 
     @Override

@@ -86,15 +86,16 @@ public class HomeNewFragment extends BaseAnnotationFragment {
     @ViewById(R.id.rootview)
     protected LinearLayout rootView;
 
-    private GestureGuideView img;
-    private WindowManager windowManager;
-
     private HomeProductPagerAdapter mPagerAdapter;
     private List<Product> productNews;
+
+    private GestureGuideView img;
+    private WindowManager windowManager;
 
     @AfterViews
     protected void initAnnotationView() {
         initBannerView(scrollViewPager, dotLinearLayout);
+
         pullToRefreshScrollView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ScrollView>() {
             @Override
             public void onRefresh(PullToRefreshBase<ScrollView> refreshView) {
@@ -140,7 +141,7 @@ public class HomeNewFragment extends BaseAnnotationFragment {
         getProduct(TOTAL_COUNT);
     }
 
-    public void intentToProduct() {
+    private void intentToProduct() {
         if (productNews != null) {
             Product product = productNews.get(contentViewPager.getCurrentItem());
             String productid = product.get_id();
@@ -205,10 +206,10 @@ public class HomeNewFragment extends BaseAnnotationFragment {
             public void loadSuccess(Object data) {
                 productNews = JsonParser.jsonToList(data.toString(), new TypeToken<List<Product>>() {
                 }.getType());
-                if (mPagerAdapter == null) {
+                if(mPagerAdapter == null){
                     mPagerAdapter = new HomeProductPagerAdapter(getContext(), productNews, null, coordinatorLayout.getWidth(), coordinatorLayout.getHeight());
                     contentViewPager.setAdapter(mPagerAdapter);
-                } else {
+                }else{
                     mPagerAdapter.setProductList(productNews);
                 }
                 contentIntent.setVisibility(View.VISIBLE);
@@ -221,8 +222,8 @@ public class HomeNewFragment extends BaseAnnotationFragment {
             @Override
             public void loadFailture(String error_msg) {
                 makeTextShort(error_msg);
-                contentIntent.setVisibility(View.GONE);
                 contentNext.setVisibility(View.GONE);
+                contentIntent.setVisibility(View.GONE);
                 pullToRefreshScrollView.onRefreshComplete();
             }
         }, this);
@@ -307,7 +308,7 @@ public class HomeNewFragment extends BaseAnnotationFragment {
 
             }
         });
-        viewPager.setInterval(3000);
+        viewPager.setInterval(5000);
         viewPager.startAutoScroll();
 
     }
