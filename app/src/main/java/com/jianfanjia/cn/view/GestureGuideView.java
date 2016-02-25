@@ -2,16 +2,19 @@ package com.jianfanjia.cn.view;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.util.AttributeSet;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.TDevice;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
  * Description: com.jianfanjia.cn.view
@@ -22,14 +25,58 @@ import com.jianfanjia.cn.tools.TDevice;
 public class GestureGuideView extends View {
 
     private Paint paint;
-    private int bitmapWidth;
-    private int bitmapHeight;
+    private float cx,cy,radius;
+    private OnClickListener onClickListener;
+
+    private GestureDetector gestureDetector;
+
+    private GestureDetector.SimpleOnGestureListener simpleOnGestureListener = new GestureDetector.SimpleOnGestureListener(){
+
+        @Override
+        public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+            float lastY = e1.getY();
+            float currentY = e2.getY();
+            if(distanceY > distanceX  && lastY - currentY > 200){
+                if(onClickListener != null){
+                    onClickListener.onClick(GestureGuideView.this);
+                    return false;
+                }
+            }
+            return super.onScroll(e1, e2, distanceX, distanceY);
+        }
+
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+            if(velocityY < -200 && Math.abs(velocityY) > Math.abs(velocityX)){
+                if(onClickListener != null){
+                    onClickListener.onClick(GestureGuideView.this);
+                    return false;
+                }
+            }
+            return super.onFling(e1, e2, velocityX, velocityY);
+        }
+
+        @Override
+        public boolean onSingleTapUp(MotionEvent e) {
+            float x = e.getRawX();
+            float y = e.getRawY();
+            if(x >= cx - radius && x <= cx + radius && y >= cy - radius && y <= cy + radius ){
+                if(onClickListener != null){
+                    onClickListener.onClick(GestureGuideView.this);
+                }
+            }
+            return super.onSingleTapUp(e);
+        }
+
+    };
+
+    public void setOnClickListener(OnClickListener clickListener){
+        this.onClickListener = clickListener;
+    }
 
     public GestureGuideView(Context context) {
-        super(context);
-        paint = new Paint();
-        paint.setAntiAlias(false);
-        paint.setColor(getResources().getColor(R.color.black_translucencen));
+        this(context,null);
+        gestureDetector = new GestureDetector(simpleOnGestureListener);
     }
 
     public GestureGuideView(Context context, AttributeSet attrs) {
@@ -40,8 +87,16 @@ public class GestureGuideView extends View {
     }
 
     private Bitmap loadBitmap(){
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.home_guide_gesture);
+        Bitmap bitmap = ImageLoader.getInstance().loadImageSync("drawable://" + R.mipmap.home_guide_gesture);
         return bitmap;
+    }
+
+    public void setCicrePosition(float x,float y,float radius){
+        this.cx = x + radius;
+        this.cy = y + radius;
+        this.radius = radius;
+
+        LogTool.d(this.getClass().getName(), "cx =" + cx + " cy" + cy);
     }
 
     @Override
@@ -52,7 +107,13 @@ public class GestureGuideView extends View {
         canvas.drawBitmap(bitmap,(TDevice.getScreenWidth() - bitmap.getWidth())/2 , (TDevice.getScreenHeight() - bitmap.getHeight())/2 ,paint);
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
         paint.setColor(getResources().getColor(R.color.transparent_bg));
-        canvas.drawCircle(200, 200, 100, paint);
+        canvas.drawCircle(cx, cy, radius, paint);
         paint.reset();
     }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return gestureDetector.onTouchEvent(event);
+    }
+
 }

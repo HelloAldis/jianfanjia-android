@@ -11,8 +11,8 @@ import android.widget.TextView;
 
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.adapter.PreImgPagerAdapter;
-import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.BeautyImgInfo;
 import com.jianfanjia.cn.bean.DecorationItemInfo;
 import com.jianfanjia.cn.config.Constant;
@@ -47,7 +47,7 @@ import de.greenrobot.event.EventBus;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class PreviewDecorationActivity extends BaseActivity implements View.OnClickListener, ViewPager.OnPageChangeListener, PullToRefreshBase.OnRefreshListener<ViewPager> {
+public class PreviewDecorationActivity extends SwipeBackActivity implements View.OnClickListener, ViewPager.OnPageChangeListener, PullToRefreshBase.OnRefreshListener<ViewPager> {
     private static final String TAG = PreviewDecorationActivity.class.getName();
     private ShareUtil shareUtil = null;
     private Toolbar toolbar = null;

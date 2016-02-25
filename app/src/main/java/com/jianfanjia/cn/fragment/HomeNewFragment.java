@@ -1,11 +1,14 @@
 package com.jianfanjia.cn.fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -31,6 +34,8 @@ import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.tools.TDevice;
+import com.jianfanjia.cn.view.GestureGuideView;
 import com.jianfanjia.cn.view.MainScrollView;
 import com.jianfanjia.cn.view.auto_view_pager.AutoScrollViewPager;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
@@ -75,8 +80,14 @@ public class HomeNewFragment extends BaseAnnotationFragment {
     @ViewById(R.id.content_intent_to)
     protected ImageButton contentIntent;
 
+    @ViewById(R.id.content_next)
+    protected ImageButton contentNext;
+
     @ViewById(R.id.rootview)
     protected LinearLayout rootView;
+
+    private GestureGuideView img;
+    private WindowManager windowManager;
 
     private HomeProductPagerAdapter mPagerAdapter;
     private List<Product> productNews;
@@ -84,18 +95,6 @@ public class HomeNewFragment extends BaseAnnotationFragment {
     @AfterViews
     protected void initAnnotationView() {
         initBannerView(scrollViewPager, dotLinearLayout);
-        ViewTreeObserver vto2 = coordinatorLayout.getViewTreeObserver();
-        vto2.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                pullToRefreshScrollView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-//                pullToRefreshScrollView.getRefreshableView().setLayoutParams(new FrameLayout.LayoutParams(coordinatorLayout.getWidth(), coordinatorLayout.getHeight()));
-                //此处需要动态传宽高给viewpager的imageview的宽高
-                mPagerAdapter = new HomeProductPagerAdapter(getContext(), productNews, null, coordinatorLayout.getWidth(), coordinatorLayout.getHeight());
-                contentViewPager.setAdapter(mPagerAdapter);
-                getProduct(TOTAL_COUNT);
-            }
-        });
         pullToRefreshScrollView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ScrollView>() {
             @Override
             public void onRefresh(PullToRefreshBase<ScrollView> refreshView) {
@@ -108,9 +107,21 @@ public class HomeNewFragment extends BaseAnnotationFragment {
                 intentToProduct();
             }
         });
+
+        pullToRefreshScrollView.setShowGuideListener(new MainScrollView.ShowGuideListener() {
+            @Override
+            public void showGuideView() {
+                if(dataManager.isShowGuide()){
+                    int[] location = new int[2];
+                    contentIntent.getLocationInWindow(location);
+                    showGuide(location[0], location[1], contentIntent.getWidth() / 2);
+                }
+            }
+        });
+        getProduct(TOTAL_COUNT);
     }
 
-    private void intentToProduct(){
+    public void intentToProduct() {
         if (productNews != null) {
             Product product = productNews.get(contentViewPager.getCurrentItem());
             String productid = product.get_id();
@@ -121,6 +132,46 @@ public class HomeNewFragment extends BaseAnnotationFragment {
             productIntent.putExtras(productBundle);
             startActivity(productIntent);
             getActivity().overridePendingTransition(R.anim.slide_and_fade_in_from_bottom, 0);
+        }
+    }
+
+    public void showGuide(float x, float y, float radius) {
+        // 动态初始化图层
+        img = new GestureGuideView(getActivity().getApplicationContext());
+        img.setCicrePosition(x, y, radius);
+        img.setLayoutParams(new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT));
+
+        img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dataManager.setShowGuide(false);
+                removeGuide();
+                intentToProduct();
+            }
+        });
+
+        // 设置LayoutParams参数
+        WindowManager.LayoutParams params = new WindowManager.LayoutParams();
+        // 设置显示的类型，TYPE_PHONE指的是来电话的时候会被覆盖，其他时候会在最前端，显示位置在stateBar下面，其他更多的值请查阅文档
+        params.type = WindowManager.LayoutParams.TYPE_APPLICATION_PANEL;
+        // 设置显示格式
+        params.format = PixelFormat.RGBA_8888;
+        // 设置对齐方式
+        params.gravity = Gravity.LEFT | Gravity.TOP;
+        // 设置宽高
+        params.width = (int) TDevice.getScreenWidth();
+        params.height = (int) TDevice.getScreenHeight();
+
+        // 添加到当前的窗口上
+        windowManager = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
+        windowManager.addView(img, params);
+    }
+
+    public void removeGuide() {
+        if (windowManager != null) {
+            windowManager.removeView(img);
         }
     }
 
@@ -135,8 +186,16 @@ public class HomeNewFragment extends BaseAnnotationFragment {
             public void loadSuccess(Object data) {
                 productNews = JsonParser.jsonToList(data.toString(), new TypeToken<List<Product>>() {
                 }.getType());
+                if (mPagerAdapter == null) {
+                    mPagerAdapter = new HomeProductPagerAdapter(getContext(), productNews, null, coordinatorLayout.getWidth(), coordinatorLayout.getHeight());
+                    contentViewPager.setAdapter(mPagerAdapter);
+                } else {
+                    mPagerAdapter.setProductList(productNews);
+                }
                 contentIntent.setVisibility(View.VISIBLE);
-                mPagerAdapter.setProductList(productNews);
+                if(dataManager.isShowNext()){
+                    contentNext.setVisibility(View.VISIBLE);
+                }
                 pullToRefreshScrollView.onRefreshComplete();
             }
 
@@ -144,12 +203,13 @@ public class HomeNewFragment extends BaseAnnotationFragment {
             public void loadFailture(String error_msg) {
                 makeTextShort(error_msg);
                 contentIntent.setVisibility(View.GONE);
+                contentNext.setVisibility(View.GONE);
                 pullToRefreshScrollView.onRefreshComplete();
             }
         }, this);
     }
 
-    @Click({R.id.ltm_home_layout0, R.id.ltm_home_layout1, R.id.ltm_home_layout2, R.id.ltm_home_layout3, R.id.home_search, R.id.list_item_more_layout,R.id.content_intent_to})
+    @Click({R.id.ltm_home_layout0, R.id.ltm_home_layout1, R.id.ltm_home_layout2, R.id.ltm_home_layout3, R.id.home_search, R.id.list_item_more_layout, R.id.content_intent_to})
     protected void click(View view) {
         switch (view.getId()) {
             case R.id.ltm_home_layout0:
@@ -216,6 +276,8 @@ public class HomeNewFragment extends BaseAnnotationFragment {
                                 .setBackgroundResource(R.drawable.shape_indicator_unselected_oval);
                     }
                 }
+                dataManager.setShowNext(false);
+                contentNext.setVisibility(View.GONE);
             }
 
             @Override

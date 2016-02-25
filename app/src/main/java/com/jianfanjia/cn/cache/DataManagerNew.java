@@ -169,6 +169,22 @@ public class DataManagerNew {
         sharedPreferdata.setValue(Constant.ISFIRST, isFirst);
     }
 
+    public boolean isShowGuide(){
+        return sharedPreferdata.getValue(Constant.ISSHOWGUIDE,true);
+    }
+
+    public void setShowGuide(boolean isShowGuide){
+        sharedPreferdata.setValue(Constant.ISSHOWGUIDE,isShowGuide);
+    }
+
+    public boolean isShowNext(){
+        return sharedPreferdata.getValue(Constant.ISSHOWNEXT,true);
+    }
+
+    public void setShowNext(boolean isShowNext){
+        sharedPreferdata.setValue(Constant.ISSHOWNEXT,isShowNext);
+    }
+
     public void setUserImagePath(String imgId) {
         sharedPreferuser.setValue(Constant.USERIMAGE_ID, imgId);
     }
