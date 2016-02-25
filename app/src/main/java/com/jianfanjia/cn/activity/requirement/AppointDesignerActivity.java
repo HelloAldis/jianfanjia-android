@@ -238,8 +238,6 @@ public class AppointDesignerActivity extends SwipeBackActivity implements OnClic
         @Override
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data.toString());
-            //刷新Xuqiufragmet
-            EventBus.getDefault().post(new MessageEvent(Constant.UPDATE_HOME_FRAGMENT));
             UiHelper.sendUpdateBroast(AppointDesignerActivity.this);
             appManager.finishActivity(AppointDesignerActivity.this);
         }
