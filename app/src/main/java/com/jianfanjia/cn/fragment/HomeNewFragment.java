@@ -111,11 +111,30 @@ public class HomeNewFragment extends BaseAnnotationFragment {
         pullToRefreshScrollView.setShowGuideListener(new MainScrollView.ShowGuideListener() {
             @Override
             public void showGuideView() {
-                if(dataManager.isShowGuide()){
+                if (dataManager.isShowGuide()) {
                     int[] location = new int[2];
                     contentIntent.getLocationInWindow(location);
                     showGuide(location[0], location[1], contentIntent.getWidth() / 2);
                 }
+            }
+        });
+        contentViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if (position > 0) {
+                    dataManager.setShowNext(false);
+                    contentNext.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
             }
         });
         getProduct(TOTAL_COUNT);
@@ -146,7 +165,7 @@ public class HomeNewFragment extends BaseAnnotationFragment {
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dataManager.setShowGuide(false);
+//                dataManager.setShowGuide(false);
                 removeGuide();
                 intentToProduct();
             }
@@ -193,7 +212,7 @@ public class HomeNewFragment extends BaseAnnotationFragment {
                     mPagerAdapter.setProductList(productNews);
                 }
                 contentIntent.setVisibility(View.VISIBLE);
-                if(dataManager.isShowNext()){
+                if (dataManager.isShowNext()) {
                     contentNext.setVisibility(View.VISIBLE);
                 }
                 pullToRefreshScrollView.onRefreshComplete();
@@ -264,7 +283,7 @@ public class HomeNewFragment extends BaseAnnotationFragment {
         }
         ViewPageAdapter mPagerAdapter = new ViewPageAdapter(getContext(), bannerList);
         viewPager.setAdapter(mPagerAdapter);
-        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageSelected(int arg0) {
                 for (int i = 0; i < indicators.length; i++) {
@@ -276,8 +295,6 @@ public class HomeNewFragment extends BaseAnnotationFragment {
                                 .setBackgroundResource(R.drawable.shape_indicator_unselected_oval);
                     }
                 }
-                dataManager.setShowNext(false);
-                contentNext.setVisibility(View.GONE);
             }
 
             @Override

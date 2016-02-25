@@ -76,14 +76,12 @@ public class GestureGuideView extends View {
 
     public GestureGuideView(Context context) {
         this(context,null);
-        gestureDetector = new GestureDetector(simpleOnGestureListener);
+        gestureDetector = new GestureDetector(context,simpleOnGestureListener);
     }
 
     public GestureGuideView(Context context, AttributeSet attrs) {
         super(context, attrs);
         paint = new Paint();
-        paint.setAntiAlias(false);
-        paint.setColor(getResources().getColor(R.color.black_translucencen));
     }
 
     private Bitmap loadBitmap(){
@@ -102,9 +100,13 @@ public class GestureGuideView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        paint.setAntiAlias(false);
+        paint.setColor(getResources().getColor(R.color.transparent_bg));
+        paint.setAlpha(144);
         canvas.drawRect(0, 0, TDevice.getScreenWidth(), TDevice.getScreenHeight(), paint);
+        paint.setAlpha(255);
         Bitmap bitmap = loadBitmap();
-        canvas.drawBitmap(bitmap,(TDevice.getScreenWidth() - bitmap.getWidth())/2 , (TDevice.getScreenHeight() - bitmap.getHeight())/2 ,paint);
+        canvas.drawBitmap(bitmap, (TDevice.getScreenWidth() - bitmap.getWidth()) / 2, (TDevice.getScreenHeight() - bitmap.getHeight()) / 2, paint);
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
         paint.setColor(getResources().getColor(R.color.transparent_bg));
         canvas.drawCircle(cx, cy, radius, paint);
