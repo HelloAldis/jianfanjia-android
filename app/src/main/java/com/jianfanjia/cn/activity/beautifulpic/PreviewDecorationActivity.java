@@ -65,8 +65,6 @@ public class PreviewDecorationActivity extends SwipeBackActivity implements View
     private TextView pic_des = null;
     private String decorationId = null;
     private List<BeautyImgInfo> beautiful_images = new ArrayList<>();
-    private List<String> imgIdList = new ArrayList<>();
-    private List<String> imgList = new ArrayList<>();
     private PreImgPagerAdapter showPicPagerAdapter = null;
     private int viewType = -1;
     private String section = null;
@@ -228,7 +226,7 @@ public class PreviewDecorationActivity extends SwipeBackActivity implements View
             LogTool.d(TAG, "decorationItemInfo:" + decorationItemInfo);
             if (null != decorationItemInfo) {
                 List<BeautyImgInfo> beautyImages = decorationItemInfo.getBeautiful_images();
-                LogTool.d(TAG, "beautyImages=" + beautyImages.size());
+                LogTool.d(TAG, "beautyImages:" + beautyImages.size());
                 if (null != beautyImages && beautyImages.size() > 0) {
                     showPicPagerAdapter.addItem(beautyImages);
                     FROM += Constant.HOME_PAGE_LIMIT;
