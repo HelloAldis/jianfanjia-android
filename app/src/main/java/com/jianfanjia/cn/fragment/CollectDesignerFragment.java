@@ -157,8 +157,9 @@ public class CollectDesignerFragment extends CommonFragment implements PullToRef
                         public void OnItemClick(View view, int position) {
                             LogTool.d(TAG, "position=" + position);
                             currentPos = position;
-                            String designerId = myFavoriteDesigner.getDesigners().get(position).get_id();
-                            LogTool.d(this.getClass().getName(), designerId);
+                            LogTool.d(TAG, "currentPos========" + currentPos);
+                            String designerId = designers.get(currentPos).get_id();
+                            LogTool.d(TAG, "designerId:" + designerId);
                             Intent designerIntent = new Intent(getActivity(), DesignerInfoActivity.class);
                             Bundle designerBundle = new Bundle();
                             designerBundle.putString(Global.DESIGNER_ID, designerId);

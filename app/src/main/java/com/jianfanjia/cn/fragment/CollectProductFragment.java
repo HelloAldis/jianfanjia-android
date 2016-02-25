@@ -158,8 +158,8 @@ public class CollectProductFragment extends CommonFragment implements PullToRefr
                         public void OnItemClick(View view, int position) {
                             LogTool.d(TAG, "position:" + position);
                             currentPos = position;
-                            Product product = products.get(position);
-                            String productid = product.get_id();
+                            LogTool.d(TAG, "currentPos-------" + currentPos);
+                            String productid = products.get(currentPos).get_id();
                             LogTool.d(TAG, "productid:" + productid);
                             Intent productIntent = new Intent(getActivity(), DesignerCaseInfoActivity.class);
                             Bundle productBundle = new Bundle();
