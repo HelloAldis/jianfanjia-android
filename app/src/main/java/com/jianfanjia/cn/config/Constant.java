@@ -201,4 +201,5 @@ public class Constant {
     //view类型
     public static final int BEAUTY_FRAGMENT = 1;//装修美图
     public static final int COLLECT_BEAUTY_FRAGMENT = 2;//装修美图收藏
+    public static final int SEARCH_BEAUTY_FRAGMENT = 3;//装修美图搜索
 }
