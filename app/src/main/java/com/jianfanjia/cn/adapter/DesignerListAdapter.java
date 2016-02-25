@@ -49,6 +49,11 @@ public class DesignerListAdapter extends BaseRecyclerViewAdapter<DesignerInfo> {
         } else {
             holder.itemAuthView.setVisibility(View.GONE);
         }
+        if (designerInfo.getUid_auth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)) {
+            holder.itemIdentityView.setVisibility(View.VISIBLE);
+        } else {
+            holder.itemIdentityView.setVisibility(View.GONE);
+        }
         int respond_speed = (int) designerInfo.getRespond_speed();
         int service_attitude = (int) designerInfo.getService_attitude();
         holder.itemRatingBar.setRating((respond_speed + service_attitude) / 2);
