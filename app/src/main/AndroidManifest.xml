@@ -467,7 +467,7 @@
             android:label="@string/title_activity_customer_service"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".home.DecStrategyActivity_"
+            android:name=".home.WebViewActivity_"
             android:label="@string/title_activity_decorate_strategy"
             android:theme="@style/Theme.Swipe.Back"  />
         <activity

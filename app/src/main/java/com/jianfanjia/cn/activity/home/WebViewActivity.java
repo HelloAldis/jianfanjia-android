@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
+import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.ShareUtil;
@@ -33,10 +34,10 @@ import org.androidannotations.annotations.ViewById;
  * Description:装修攻略
  * Author：Aldis.Zhan
  */
-@EActivity(R.layout.activity_dec_strategy)
-public class DecStrategyActivity extends SwipeBackActivity {
+@EActivity(R.layout.activity_web_view)
+public class WebViewActivity extends SwipeBackActivity {
 
-    private static final String TAG = DecStrategyActivity.class.getName();
+    private static final String TAG = WebViewActivity.class.getName();
     private ShareUtil shareUtil = null;
     private String description = null;
     private String imageUrl = null;
@@ -61,7 +62,7 @@ public class DecStrategyActivity extends SwipeBackActivity {
         progressWebView.getSettings().setUseWideViewPort(true);
         progressWebView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         progressWebView.getSettings().setLoadWithOverviewMode(true);
-        progressWebView.loadUrl(Url_New.getInstance().MOBILE_SERVER_URL + "/view/article/");
+        progressWebView.loadUrl(Url_New.getInstance().MOBILE_SERVER_URL + this.getUrlFromIntent());
         progressWebView.addJavascriptInterface(new InJavaScriptLocalObj(), "local_obj");
         progressWebView.setWebViewClient(new WebViewClient() {
             @Override
@@ -72,8 +73,8 @@ public class DecStrategyActivity extends SwipeBackActivity {
 
             public void onPageFinished(WebView view, String url) {
                 LogTool.d("WebView", "onPageFinished ");
-                DecStrategyActivity.this.description = null;
-                DecStrategyActivity.this.imageUrl = null;
+                WebViewActivity.this.description = null;
+                WebViewActivity.this.imageUrl = null;
                 view.loadUrl("javascript:var meta = document.getElementsByTagName('meta');\n" +
                         "for (i in meta) {\n" +
                         "  if (typeof meta[i].name!=\"undefined\" && meta[i].name.toLowerCase()==\"description\") {\n" +
@@ -83,7 +84,7 @@ public class DecStrategyActivity extends SwipeBackActivity {
                 view.loadUrl("javascript:window.local_obj.imageUrl(document.getElementsByTagName('img')[0].src);");
                 super.onPageFinished(view, url);
 
-                mainHeadView.setMianTitle(DecStrategyActivity.this.getWebTitle());
+                mainHeadView.setMianTitle(WebViewActivity.this.getWebTitle());
             }
         });
 
@@ -148,14 +149,20 @@ public class DecStrategyActivity extends SwipeBackActivity {
         @JavascriptInterface
         public void description(String description) {
             LogTool.d(TAG, description);
-            DecStrategyActivity.this.description = description;
+            WebViewActivity.this.description = description;
         }
 
         @JavascriptInterface
         public void imageUrl(String imageUrl) {
             LogTool.d(TAG, imageUrl);
-            DecStrategyActivity.this.imageUrl = imageUrl;
+            WebViewActivity.this.imageUrl = imageUrl;
         }
+    }
+
+    private String getUrlFromIntent() {
+        Intent intent = this.getIntent();
+        String url = intent.getStringExtra(Global.WEB_VIEW_URL);
+        return url;
     }
 
     private String getWebTitle() {

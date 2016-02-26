@@ -18,7 +18,8 @@ import android.widget.ScrollView;
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.home.DecStrategyActivity_;
+import com.jianfanjia.cn.activity.home.DesignerInfoActivity;
+import com.jianfanjia.cn.activity.home.WebViewActivity_;
 import com.jianfanjia.cn.activity.home.DesignerCaseInfoActivity;
 import com.jianfanjia.cn.activity.home.DesignerCaseListActivity;
 import com.jianfanjia.cn.activity.home.DesignerListActivity;
@@ -238,7 +239,9 @@ public class HomeNewFragment extends BaseAnnotationFragment {
                 startActivityForResult(intent, XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT);
                 break;
             case R.id.ltm_home_layout1:
-                startActivity(DecStrategyActivity_.class);
+                Bundle bundle = new Bundle();
+                bundle.putString(Global.WEB_VIEW_URL, Global.WEB_VIEW_URL_DEC_STRATEGY);
+                startActivity(WebViewActivity_.class, bundle);
                 break;
             case R.id.ltm_home_layout2:
                 ((MainActivity) getActivity()).switchTab(Constant.DECORATE);
