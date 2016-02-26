@@ -101,6 +101,15 @@ public class HomeNewFragment extends BaseAnnotationFragment {
             @Override
             public void onClickItem(int pos) {
                 LogTool.d(this.getClass().getName(), "position =" + pos);
+                if (pos == 0) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString(Global.WEB_VIEW_URL, Global.WEB_VIEW_URL_SUPERVISION);
+                    startActivity(WebViewActivity_.class, bundle);
+                } else if (pos == 1) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString(Global.WEB_VIEW_URL, Global.WEB_VIEW_URL_SAFEGUARD);
+                    startActivity(WebViewActivity_.class, bundle);
+                }
             }
         });
 
