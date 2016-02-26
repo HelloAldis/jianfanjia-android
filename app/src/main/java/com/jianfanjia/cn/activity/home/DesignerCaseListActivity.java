@@ -359,6 +359,7 @@ public class DesignerCaseListActivity extends SwipeBackActivity implements View.
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
+                    window = null;
                 }
             }
         }
@@ -369,6 +370,7 @@ public class DesignerCaseListActivity extends SwipeBackActivity implements View.
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
+                    window = null;
                 }
             }
         }
@@ -390,6 +392,7 @@ public class DesignerCaseListActivity extends SwipeBackActivity implements View.
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
+                    window = null;
                 }
             }
         }
@@ -400,6 +403,7 @@ public class DesignerCaseListActivity extends SwipeBackActivity implements View.
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
+                    window = null;
                 }
             }
         }
@@ -421,6 +425,7 @@ public class DesignerCaseListActivity extends SwipeBackActivity implements View.
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
+                    window = null;
                 }
             }
         }
@@ -431,6 +436,7 @@ public class DesignerCaseListActivity extends SwipeBackActivity implements View.
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
+                    window = null;
                 }
             }
         }
@@ -453,6 +459,7 @@ public class DesignerCaseListActivity extends SwipeBackActivity implements View.
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
+                    window = null;
                 }
             }
         }
@@ -463,6 +470,7 @@ public class DesignerCaseListActivity extends SwipeBackActivity implements View.
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
+                    window = null;
                 }
             }
         }

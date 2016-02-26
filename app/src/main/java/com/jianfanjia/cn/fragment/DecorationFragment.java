@@ -335,6 +335,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
+                    window = null;
                 }
             }
         }
@@ -345,6 +346,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
+                    window = null;
                 }
             }
         }
@@ -365,6 +367,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
+                    window = null;
                 }
             }
         }
@@ -375,6 +378,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
+                    window = null;
                 }
             }
         }
@@ -395,6 +399,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
+                    window = null;
                 }
             }
         }
@@ -405,6 +410,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
+                    window = null;
                 }
             }
         }
