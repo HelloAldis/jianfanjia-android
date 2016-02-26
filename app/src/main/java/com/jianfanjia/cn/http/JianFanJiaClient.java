@@ -37,7 +37,6 @@ import com.jianfanjia.cn.http.request.GetBeautyImgListRequest;
 import com.jianfanjia.cn.http.request.GetCollectionRequest;
 import com.jianfanjia.cn.http.request.GetCommentsRequest;
 import com.jianfanjia.cn.http.request.GetContractRequest;
-import com.jianfanjia.cn.http.request.GetDecorationImgRequest;
 import com.jianfanjia.cn.http.request.GetDesignerPlansByUserRequest;
 import com.jianfanjia.cn.http.request.GetHomeProductRequest;
 import com.jianfanjia.cn.http.request.GetOrderDesignerListByUserRequest;
@@ -47,7 +46,6 @@ import com.jianfanjia.cn.http.request.GetProcessInfoRequest;
 import com.jianfanjia.cn.http.request.GetProcessListRequest;
 import com.jianfanjia.cn.http.request.GetProductHomePageRequest;
 import com.jianfanjia.cn.http.request.GetRequirementListRequest;
-import com.jianfanjia.cn.http.request.HomePageRequest;
 import com.jianfanjia.cn.http.request.LoginRequest;
 import com.jianfanjia.cn.http.request.LogoutRequest;
 import com.jianfanjia.cn.http.request.OrderDesignerByUserRequest;
@@ -649,28 +647,6 @@ public class JianFanJiaClient {
     }
 
     /**
-     * 获取首页数据
-     *
-     * @param context
-     * @param from
-     * @param limit
-     * @param listener
-     * @param tag
-     */
-    public static void getHomePageDesigners(Context context, int from, int limit, ApiUiUpdateListener listener, Object tag) {
-        HomePageRequest homePageRequest = new HomePageRequest(context, from, limit);
-        JSONObject jsonParams = new JSONObject();
-        try {
-            jsonParams.put("from", from);
-            jsonParams.put("limit", limit);
-            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(homePageRequest, jsonParams.toString(), listener, tag);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    /**
      * 获取设计师信息主页
      *
      * @param context
@@ -1036,28 +1012,9 @@ public class JianFanJiaClient {
      * @param listener
      * @param tag
      */
-    public static void searchDecorationImg(SearchDecorationImgRequest searchDecorationImgRequest,ApiUiUpdateListener listener,Object tag) {
+    public static void searchDecorationImg(SearchDecorationImgRequest searchDecorationImgRequest, ApiUiUpdateListener listener, Object tag) {
         LogTool.d(TAG, "jsonParams:" + searchDecorationImgRequest.getParam());
         OkHttpClientManager.getInstance().getPostDelegate().postAsyn(searchDecorationImgRequest, searchDecorationImgRequest.getParam(), listener, tag);
-    }
-
-    /**
-     * 游客获取装修美图首页
-     *
-     * @param context
-     * @param id
-     * @param listener
-     * @param tag
-     */
-    public static void getDecorationImgInfo(Context context, String id, ApiUiUpdateListener listener, Object tag) {
-        GetDecorationImgRequest getDecorationImgRequest = new GetDecorationImgRequest(context, id);
-        JSONObject jsonParams = new JSONObject();
-        try {
-            jsonParams.put("_id", id);
-            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(getDecorationImgRequest, jsonParams.toString(), listener, tag);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
     }
 
     /**
