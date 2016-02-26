@@ -51,6 +51,17 @@ public class JsonParser {
         return list;
     }
 
+    public static <T> T jsonToT(String jsonString, Type typeOfT) {
+        T t = null;
+        try {
+            Gson gson = new Gson();
+            t = gson.fromJson(jsonString, typeOfT);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return t;
+    }
+
     /**
      * 将map转为json格式字符串
      * @param param

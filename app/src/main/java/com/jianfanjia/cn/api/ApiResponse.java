@@ -1,7 +1,7 @@
 package com.jianfanjia.cn.api;
 
 /**
- * Created by jyz on 16/2/24.
+ * Created by Aldis.Zhan on 16/2/24.
  */
 public class ApiResponse<T> {
     private T data;
