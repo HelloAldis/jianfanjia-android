@@ -204,7 +204,6 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
 
         @Override
         public void loadSuccess(Object data) {
-            LogTool.d(TAG, "data:" + data.toString());
             hideWaitDialog();
             DecorationItemInfo decorationItemInfo = JsonParser.jsonToBean(data.toString(), DecorationItemInfo.class);
             LogTool.d(TAG, "decorationItemInfo:" + decorationItemInfo);
