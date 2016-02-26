@@ -82,8 +82,6 @@ public class Url_New {
     // 用户反馈 feedback
     public String FEEDBACK_URL = HTTPROOT + "feedback";
     // --------------------------------------------------业主-----------------------------------------------------------
-    //业主获取移动端首页数据
-    public String HOME_PAGE_DISIGNERS = HTTPROOT + "home_page_designers";
     //获取设计师信息主页
     public String DESIGNER_HOME_PAGE = HTTPROOT + "designer_home_page";
     //搜索设计师作品
