@@ -7,7 +7,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
-import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.adapter.MyFragmentPagerAdapter;
@@ -15,7 +14,6 @@ import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.bean.SelectItem;
 import com.jianfanjia.cn.cache.BusinessManager;
-import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.fragment.EditBussinessRequirementFragment_;
 import com.jianfanjia.cn.fragment.EditHomeRequirementFragment_;
@@ -36,8 +34,6 @@ import org.androidannotations.annotations.ViewById;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import de.greenrobot.event.EventBus;
 
 /**
  * Description:发布需求
@@ -190,7 +186,6 @@ public class PublishRequirementActivity extends SwipeBackActivity implements Not
     @Override
     public void loadSuccess(Object data) {
         super.loadSuccess(data);
-        EventBus.getDefault().post(new MessageEvent(Constant.UPDATE_HOME_FRAGMENT));
         setResult(Activity.RESULT_OK);
         appManager.finishActivity(this);
     }

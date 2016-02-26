@@ -57,22 +57,21 @@
                     android:id="@+id/ltm_identity_auth"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignWithParentIfMissing="true"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/space_8"
                     android:layout_toRightOf="@id/ltm_req_username"
-                    android:src="@mipmap/icon_identity_auth"
-                    android:layout_alignWithParentIfMissing="true"
-                    />
+                    android:src="@mipmap/icon_identity_auth" />
 
                 <ImageView
                     android:id="@+id/ltm_info_auth"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignWithParentIfMissing="true"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/space_6"
                     android:layout_toRightOf="@id/ltm_identity_auth"
-                    android:src="@mipmap/icon_info_auth"
-                    android:layout_alignWithParentIfMissing="true"/>
+                    android:src="@mipmap/icon_info_auth" />
 
                 <RatingBar
                     android:id="@+id/ratingBar"

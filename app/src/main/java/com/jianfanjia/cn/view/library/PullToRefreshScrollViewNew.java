@@ -50,6 +50,10 @@ public class PullToRefreshScrollViewNew extends PullToRefreshBase<ScrollView> {
 		((MainScrollView)getRefreshableView()).setScrollPullUpListener(scrollPullUpListener);
 	}
 
+	public void setShowGuideListener(MainScrollView.ShowGuideListener showGuideListener){
+		((MainScrollView)getRefreshableView()).setShowGuideListener(showGuideListener);
+	}
+
 	@Override
 	protected boolean isReadyForPullStart() {
 		return mRefreshableView.getScrollY() == 0;

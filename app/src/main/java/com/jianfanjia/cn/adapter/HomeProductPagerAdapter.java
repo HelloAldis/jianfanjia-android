@@ -41,6 +41,7 @@ public class HomeProductPagerAdapter extends PagerAdapter {
         LogTool.d(this.getClass().getName()," statusBar height =" + TDevice.getStatusBarHeight(context));
         LogTool.d(this.getClass().getName()," NavigationBar height =" + TDevice.getNavigationBarHeight(context));
         LogTool.d(this.getClass().getName(),"width =" + width + "height =" + height);
+        LogTool.d(this.getClass().getName(),"TDevide height =" + TDevice.getScreenHeight());
     }
 
     public void setProductList(List<Product> productList) {
@@ -59,7 +60,7 @@ public class HomeProductPagerAdapter extends PagerAdapter {
         LogTool.d(this.getClass().getName(), " uri =" + uri);
         Picasso.with(mContext).load(uri).resize(width, height)
                 .placeholder(R.mipmap.icon_default_pic)
-                .error(R.drawable.ic_broken_image_black_48dp)
+                .error(R.mipmap.icon_default_pic)
                 .into(imageView);
 
 //        imageView.setOnClickListener(new View.OnClickListener() {

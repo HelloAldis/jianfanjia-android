@@ -268,7 +268,7 @@ public class PreviewDesignerPlanActivity extends SwipeBackActivity implements On
     private ApiUiUpdateListener chooseDesignerPlanListener = new ApiUiUpdateListener() {
         @Override
         public void preLoad() {
-            showWaitDialog(R.string.submiting);
+            showWaitDialog(R.string.loading);
         }
 
         @Override

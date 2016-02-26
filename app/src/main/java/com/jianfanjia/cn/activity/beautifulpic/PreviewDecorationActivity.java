@@ -11,8 +11,8 @@ import android.widget.TextView;
 
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.adapter.PreImgPagerAdapter;
-import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.BeautyImgInfo;
 import com.jianfanjia.cn.bean.DecorationItemInfo;
 import com.jianfanjia.cn.config.Constant;
@@ -47,7 +47,7 @@ import de.greenrobot.event.EventBus;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class PreviewDecorationActivity extends BaseActivity implements View.OnClickListener, ViewPager.OnPageChangeListener, PullToRefreshBase.OnRefreshListener<ViewPager> {
+public class PreviewDecorationActivity extends SwipeBackActivity implements View.OnClickListener, ViewPager.OnPageChangeListener, PullToRefreshBase.OnRefreshListener<ViewPager> {
     private static final String TAG = PreviewDecorationActivity.class.getName();
     private ShareUtil shareUtil = null;
     private Toolbar toolbar = null;
@@ -65,8 +65,6 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
     private TextView pic_des = null;
     private String decorationId = null;
     private List<BeautyImgInfo> beautiful_images = new ArrayList<>();
-    private List<String> imgIdList = new ArrayList<>();
-    private List<String> imgList = new ArrayList<>();
     private PreImgPagerAdapter showPicPagerAdapter = null;
     private int viewType = -1;
     private String section = null;
@@ -123,7 +121,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
         showPicPagerAdapter = new PreImgPagerAdapter(PreviewDecorationActivity.this, beautyImagesList, new ViewPagerClickListener() {
             @Override
             public void onClickItem(int pos) {
-
+                appManager.finishActivity(PreviewDecorationActivity.this);
             }
         });
         imgViewPager.setAdapter(showPicPagerAdapter);
@@ -180,6 +178,8 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
             case Constant.COLLECT_BEAUTY_FRAGMENT:
                 getCollectedDecorationImgInfo(FROM, Constant.HOME_PAGE_LIMIT);
                 break;
+            case Constant.SEARCH_BEAUTY_FRAGMENT:
+                break;
             default:
                 break;
         }
@@ -226,7 +226,7 @@ public class PreviewDecorationActivity extends BaseActivity implements View.OnCl
             LogTool.d(TAG, "decorationItemInfo:" + decorationItemInfo);
             if (null != decorationItemInfo) {
                 List<BeautyImgInfo> beautyImages = decorationItemInfo.getBeautiful_images();
-                LogTool.d(TAG, "beautyImages=" + beautyImages.size());
+                LogTool.d(TAG, "beautyImages:" + beautyImages.size());
                 if (null != beautyImages && beautyImages.size() > 0) {
                     showPicPagerAdapter.addItem(beautyImages);
                     FROM += Constant.HOME_PAGE_LIMIT;

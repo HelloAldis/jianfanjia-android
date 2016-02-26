@@ -40,6 +40,7 @@
     <color name="home_page_text_color">#344a5d</color>
     <color name="designer_info_text_color">#aab1b6</color>
     <color name="black_translucencen">#dd000000</color>
+    <color name="light_black_translucencen">#ee000000</color>
     <color name="color_red">#FF4445</color>
     <color name="colorAccent">#FF4081</color>
     <color name="designer_info_text_color_bg">#7c8489</color>

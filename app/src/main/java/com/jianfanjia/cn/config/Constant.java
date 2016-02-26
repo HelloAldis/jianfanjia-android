@@ -96,6 +96,8 @@ public class Constant {
     public static final String IDENTITY_DESIGNER = "2";// 设计师
 
     public static final String ISFIRST = "isFirst";// 是否是首次打开程序
+    public static final String ISSHOWGUIDE = "isshowguide";// 是否显示过首页手势引导
+    public static final String ISSHOWNEXT = "isshownext";// 是否显示过首页next
     public static final String ACCOUNT = "account";// 账号
     public static final String PASSWORD = "password";// 密码
     public static final String USERNAME = "username";// 用户名称
@@ -106,10 +108,8 @@ public class Constant {
     public static final String OPEN_ID = "open_id";//微信openid
     public static final String UNION_ID = "union_id";//微信union_id
 
-    public static final String OWNER_INFO = "owner_info";// 当前业主信息
     public static final String DEFAULT_PROCESS = "default_process";// 当前工地
     public static final String DESIGNER_PROCESS_LIST = "designer_process_list";// 设计师工地列表
-    public static final String DEFAULT_PROCESSINFO = "default_processinfo.txt";// 默认工地信息
     public static final String DEFAULT_PROCESSINFO_ID = "1";
 
     public static final String DATA = "data";// 获取成功的数据
@@ -187,18 +187,18 @@ public class Constant {
     public static final String TEXT_KEY = "Title";
 
     //消息类型
-    public static final int UPDATE_HOME_FRAGMENT = 10;
-    public static final int UPDATE_XUQIU_FRAGMENT = 20;
-    public static final int UPDATE_DESIGNER_ACTIVITY = 30;
-    public static final int UPDATE_MY_FRAGMENT = 40;
-    public static final int UPDATE_FAVORITE_FRAGMENT = 50;
-    public static final int UPDATE_PRODUCT_FRAGMENT = 60;
-    public static final int UPDATE_BEAUTY_FRAGMENT = 70;
-    public static final int UPDATE_ORDER_DESIGNER_ACTIVITY = 80;
-    public static final int UPDATE_BEAUTY_IMG_FRAGMENT = 90;
+    public static final int UPDATE_XUQIU_FRAGMENT = 10;
+    public static final int UPDATE_DESIGNER_ACTIVITY = 20;
+    public static final int UPDATE_MY_FRAGMENT = 30;
+    public static final int UPDATE_FAVORITE_FRAGMENT = 40;
+    public static final int UPDATE_PRODUCT_FRAGMENT = 50;
+    public static final int UPDATE_BEAUTY_FRAGMENT = 60;
+    public static final int UPDATE_ORDER_DESIGNER_ACTIVITY = 70;
+    public static final int UPDATE_BEAUTY_IMG_FRAGMENT = 80;
 
 
     //view类型
     public static final int BEAUTY_FRAGMENT = 1;//装修美图
     public static final int COLLECT_BEAUTY_FRAGMENT = 2;//装修美图收藏
+    public static final int SEARCH_BEAUTY_FRAGMENT = 3;//装修美图搜索
 }

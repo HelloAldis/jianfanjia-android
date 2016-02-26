@@ -14,8 +14,8 @@ import com.jianfanjia.cn.bean.SelectItem;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.dao.impl.NotifyMessageDao;
 import com.jianfanjia.cn.fragment.CaiGouNotifyFragment;
-import com.jianfanjia.cn.fragment.FuKuanNotifyFragment;
-import com.jianfanjia.cn.fragment.YanQiNotifyFragment;
+import com.jianfanjia.cn.fragment.DelayNotifyFragment;
+import com.jianfanjia.cn.fragment.PayNotifyFragment;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
 
@@ -83,11 +83,11 @@ public class NotifyActivity extends SwipeBackActivity implements OnClickListener
     private void setupViewPager(ViewPager viewPager) {
         List<SelectItem> listViews = new ArrayList<SelectItem>();
         SelectItem caigouItem = new SelectItem(new CaiGouNotifyFragment(), getResources().getString(R.string.caigouText));
-        SelectItem fukuanItem = new SelectItem(new FuKuanNotifyFragment(), getResources().getString(R.string.fukuanText));
-        SelectItem yanqiItem = new SelectItem(new YanQiNotifyFragment(), getResources().getString(R.string.yanqiText));
+        SelectItem payItem = new SelectItem(new PayNotifyFragment(), getResources().getString(R.string.fukuanText));
+        SelectItem delayItem = new SelectItem(new DelayNotifyFragment(), getResources().getString(R.string.yanqiText));
         listViews.add(caigouItem);
-        listViews.add(fukuanItem);
-        listViews.add(yanqiItem);
+        listViews.add(payItem);
+        listViews.add(delayItem);
         MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(fragmentManager, listViews);
         viewPager.setAdapter(adapter);
     }

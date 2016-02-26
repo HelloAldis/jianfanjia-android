@@ -34,7 +34,7 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
     private boolean isLoginExpire;// 是否登录过期
     private boolean isLogin;// 是否登录过
     private UpdateVersion updateVersion;
-    private CommonDialog dialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,6 +121,8 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
      * @param updateVersion
      */
     public void showNewVersionDialog(String message, final UpdateVersion updateVersion) {
+        CommonDialog dialog = DialogHelper
+                .getPinterestDialog(this);
         dialog.setTitle("版本更新");
         dialog.setMessage(message);
         dialog.setPositiveButton(R.string.ok,
@@ -167,8 +169,6 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
     @Override
     public void initView() {
         LogTool.d(TAG, "initView");
-        dialog = DialogHelper
-                .getPinterestDialog(this);
         GeTuiManager.initGeTui(getApplicationContext());
     }
 

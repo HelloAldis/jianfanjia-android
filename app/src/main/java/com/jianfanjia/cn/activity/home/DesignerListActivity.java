@@ -80,8 +80,8 @@ public class DesignerListActivity extends SwipeBackActivity implements View.OnCl
     public void initView() {
         initMainHeadView();
         emptyLayout = (RelativeLayout) findViewById(R.id.empty_include);
-        ((TextView)emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.empty_view_no_product_data));
-        ((ImageView)emptyLayout.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_product);
+        ((TextView) emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.search_no_designer));
+        ((ImageView) emptyLayout.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_designer);
         errorLayout = (RelativeLayout) findViewById(R.id.error_include);
         topLayout = (LinearLayout) findViewById(R.id.topLayout);
         decTypeLayout = (RelativeLayout) findViewById(R.id.decTypeLayout);
@@ -118,6 +118,7 @@ public class DesignerListActivity extends SwipeBackActivity implements View.OnCl
         decStyleLayout.setOnClickListener(this);
         decFeeLayout.setOnClickListener(this);
         designerListView.setOnRefreshListener(this);
+        errorLayout.setOnClickListener(this);
     }
 
     @Override
@@ -137,6 +138,9 @@ public class DesignerListActivity extends SwipeBackActivity implements View.OnCl
                 break;
             case R.id.decFeeLayout:
                 setSelectState(DEC_FEE);
+                break;
+            case R.id.error_include:
+                searchDesigners(FROM, pullUpListener);
                 break;
             default:
                 break;
@@ -225,31 +229,41 @@ public class DesignerListActivity extends SwipeBackActivity implements View.OnCl
             if (null != designer) {
                 designerList.clear();
                 designerList.addAll(designer.getDesigners());
-                if (null == designerListAdapter) {
-                    designerListAdapter = new DesignerListAdapter(DesignerListActivity.this, designerList, new RecyclerViewOnItemClickListener() {
-                        @Override
-                        public void OnItemClick(View view, int position) {
+                if (null != designerList && designerList.size() > 0) {
+                    if (null == designerListAdapter) {
+                        designerListAdapter = new DesignerListAdapter(DesignerListActivity.this, designerList, new RecyclerViewOnItemClickListener() {
+                            @Override
+                            public void OnItemClick(View view, int position) {
 
-                        }
+                            }
 
-                        @Override
-                        public void OnViewClick(int position) {
-                            String designerId = designerList.get(position).get_id();
-                            LogTool.d(TAG, "designerId:" + designerId);
-                            Intent designerIntent = new Intent(DesignerListActivity.this, DesignerInfoActivity.class);
-                            Bundle designerBundle = new Bundle();
-                            designerBundle.putString(Global.DESIGNER_ID, designerId);
-                            designerIntent.putExtras(designerBundle);
-                            startActivity(designerIntent);
-                        }
-                    });
-                    designerListView.setAdapter(designerListAdapter);
+                            @Override
+                            public void OnViewClick(int position) {
+                                String designerId = designerList.get(position).get_id();
+                                LogTool.d(TAG, "designerId:" + designerId);
+                                Intent designerIntent = new Intent(DesignerListActivity.this, DesignerInfoActivity.class);
+                                Bundle designerBundle = new Bundle();
+                                designerBundle.putString(Global.DESIGNER_ID, designerId);
+                                designerIntent.putExtras(designerBundle);
+                                startActivity(designerIntent);
+                            }
+                        });
+                        designerListView.setAdapter(designerListAdapter);
+                    } else {
+                        designerListView.scrollToPosition(0);
+                        designerListAdapter.notifyDataSetChanged();
+                    }
+                    FROM = designerList.size();
+                    LogTool.d(TAG, "FROM:" + FROM);
+                    isFirst = false;
+                    designerListView.setVisibility(View.VISIBLE);
+                    emptyLayout.setVisibility(View.GONE);
+                    errorLayout.setVisibility(View.GONE);
                 } else {
-                    designerListAdapter.notifyDataSetChanged();
+                    designerListView.setVisibility(View.GONE);
+                    emptyLayout.setVisibility(View.VISIBLE);
+                    errorLayout.setVisibility(View.GONE);
                 }
-                FROM = designerList.size();
-                LogTool.d(TAG, "FROM:" + FROM);
-                isFirst = false;
             }
         }
 
@@ -258,6 +272,9 @@ public class DesignerListActivity extends SwipeBackActivity implements View.OnCl
             makeTextShort(error_msg);
             hideWaitDialog();
             designerListView.onRefreshComplete();
+            designerListView.setVisibility(View.GONE);
+            emptyLayout.setVisibility(View.GONE);
+            errorLayout.setVisibility(View.VISIBLE);
         }
     };
 
@@ -327,6 +344,7 @@ public class DesignerListActivity extends SwipeBackActivity implements View.OnCl
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
+                    window = null;
                 }
             }
         }
@@ -337,6 +355,7 @@ public class DesignerListActivity extends SwipeBackActivity implements View.OnCl
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
+                    window = null;
                 }
             }
         }
@@ -358,6 +377,7 @@ public class DesignerListActivity extends SwipeBackActivity implements View.OnCl
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
+                    window = null;
                 }
             }
         }
@@ -368,6 +388,7 @@ public class DesignerListActivity extends SwipeBackActivity implements View.OnCl
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
+                    window = null;
                 }
             }
         }
@@ -389,6 +410,7 @@ public class DesignerListActivity extends SwipeBackActivity implements View.OnCl
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
+                    window = null;
                 }
             }
         }
@@ -399,6 +421,7 @@ public class DesignerListActivity extends SwipeBackActivity implements View.OnCl
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
+                    window = null;
                 }
             }
         }
@@ -420,6 +443,7 @@ public class DesignerListActivity extends SwipeBackActivity implements View.OnCl
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
+                    window = null;
                 }
             }
         }
@@ -430,6 +454,7 @@ public class DesignerListActivity extends SwipeBackActivity implements View.OnCl
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
+                    window = null;
                 }
             }
         }

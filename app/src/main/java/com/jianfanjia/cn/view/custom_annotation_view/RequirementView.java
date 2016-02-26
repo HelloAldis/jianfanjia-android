@@ -134,8 +134,13 @@ public class RequirementView extends BaseAnnotationView {
             case Global.REQUIREMENT_STATUS2:
                 ltm_req_status.setTextColor(getResources().getColor(R.color.blue_color));
                 break;
-            case Global.REQUIREMENT_STATUS3:
             case Global.REQUIREMENT_STATUS4:
+                ltm_req_status.setTextColor(getResources().getColor(R.color.orange_color));
+                if(requirementInfo.getWork_type().equals(Global.PURE_DESIGNER)){
+                    ltm_req_status.setText(getResources().getString(R.string.already_finish));
+                }
+                break;
+            case Global.REQUIREMENT_STATUS3:
             case Global.REQUIREMENT_STATUS5:
             case Global.REQUIREMENT_STATUS6:
             case Global.REQUIREMENT_STATUS8:

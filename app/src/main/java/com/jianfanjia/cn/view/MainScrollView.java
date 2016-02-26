@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Rect;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
-import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -32,13 +31,6 @@ public class MainScrollView extends ScrollView {
 
     private float totaloffset;//滚动偏移量
 
-    //移动因子, 是一个百分比, 比如手指移动了100px, 那么View就只移动50px
-    //目的是达到一个延迟的效果
-    private static final float MOVE_FACTOR = 2.5f;
-
-    //松开手指后, 界面回到正常位置需要的动画时间
-    private static final int ANIM_TIME = 300;
-
     public static final int SMOOTH_SCROLL_DURATION_MS = 200;
     private SmoothScrollRunnable mCurrentSmoothScrollRunnable;
 
@@ -47,27 +39,15 @@ public class MainScrollView extends ScrollView {
     //ScrollView的子View， 也是ScrollView的唯一一个子View
     private View contentView;
 
-    //手指按下时的Y值, 用于在移动时计算移动距离
-    //如果按下时不能上拉和下拉， 会在手指移动时更新为当前手指的Y值
-    private float startY;
 
     //用于记录正常的布局位置
     private Rect originalRect = new Rect();
-
-    //手指按下时记录是否可以继续上拉
-    private boolean canPullUp = false;
-
-    //是否可以滑动导向另一个界面
-    private boolean canIntentTo = false;
-
-    //在手指滑动的过程中记录是否移动了布局
-    private boolean isMoved = false;
 
     private int contentFlag = ANCHOR_TOP;
 
     private ScrollPullUpListener scrollPullUpListener;
 
-    private GestureDetector gestureDetector;
+    private ShowGuideListener showGuideListener;
 
     public MainScrollView(Context context) {
         super(context);
@@ -78,7 +58,6 @@ public class MainScrollView extends ScrollView {
         contentView = LayoutInflater.from(context).inflate(R.layout.include_home_content, null);
         addView(contentView);
         setOverScrollMode(OVER_SCROLL_NEVER);
-
     }
 
     @Override
@@ -109,133 +88,81 @@ public class MainScrollView extends ScrollView {
         void scrollPullUp();
     }
 
+    public interface ShowGuideListener{
+        void showGuideView();
+    }
+
     public void setScrollPullUpListener(ScrollPullUpListener scrollPullUpListener) {
         this.scrollPullUpListener = scrollPullUpListener;
     }
 
-    private float lastX, lastY, currentX, currentY;
+    public void setShowGuideListener(ShowGuideListener showGuideListener){
+        this.showGuideListener = showGuideListener;
+    }
+
+    private float lastX, lastY;
+
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        return super.onInterceptTouchEvent(ev);
+    }
+
+    private boolean isIntent = false;
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
+        LogTool.d(this.getClass().getName(), "onTouchEvent");
+        int action = ev.getAction();
+        float nowY = ev.getY();
+        float nowX = ev.getX();
+        switch (action) {
+            case MotionEvent.ACTION_MOVE:
+                if (nowY - lastY < 0 && contentFlag == ANCHOR_BOTTOPM) {
+                    if (scrollPullUpListener != null  && !isIntent) {
+                        LogTool.d(this.getClass().getName(), "intentTo");
+                        isIntent = true;
+                        scrollPullUpListener.scrollPullUp();
+                    }
+                }
+                break;
+            case MotionEvent.ACTION_UP:
+                LogTool.d(this.getClass().getName(), "ACTION_Up");
+                LogTool.d(this.getClass().getName(), "(nowY - lastY) =" + (nowY - lastY) + " (nowX - lastX)" + (nowX - lastX));
+                if (nowY - lastY < 0 && contentFlag == ANCHOR_TOP) {
+                    LogTool.d(this.getClass().getName(), "scrollUP");
+                    smoothScrollTo((int) totaloffset, onSmoothScrollFinishedListener);
+                    break;
+                }
+                if (nowY - lastY > 0 && contentFlag == ANCHOR_BOTTOPM) {
+                    LogTool.d(this.getClass().getName(), "scrollBottom");
+                    smoothScrollTo(0, onSmoothScrollFinishedListener);
+                    break;
+                }
+                isIntent = false;
+                break;
+            case MotionEvent.ACTION_CANCEL:
+                LogTool.d(this.getClass().getName(), "ACTION_cancel");
+                break;
+            default:
+                break;
+        }
 
         return super.onTouchEvent(ev);
     }
-
     /**
      * 在触摸事件中, 处理上拉和下拉的逻辑
      */
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-
         if (contentView == null) {
             return super.dispatchTouchEvent(ev);
         }
-
         int action = ev.getAction();
-
         switch (action) {
             case MotionEvent.ACTION_DOWN:
-
-                //判断是否可以上拉和下拉
-                canPullUp = isCanPullUp();
-                canIntentTo = isOnBottom();
-
+                LogTool.d(this.getClass().getName(), "ACTION_DOWN");
                 lastX = ev.getX();
                 lastY = ev.getY();
-
-                //记录按下时的Y值
-                startY = ev.getY();
-                break;
-
-            case MotionEvent.ACTION_UP:
-
-                float nowY = ev.getY();
-                float nowX = ev.getX();
-
-                if (Math.abs(nowY - lastY) > Math.abs(nowX - lastX)) {
-                    if (nowY - lastY < 0 && contentFlag == ANCHOR_TOP) {
-                        LogTool.d(this.getClass().getName(), "scrollUP");
-                        smoothScrollTo((int) totaloffset, null);
-//                        scrollTo(0,(int) totaloffset);
-                        contentFlag = ANCHOR_BOTTOPM;
-                        break;
-                    }
-                    if (nowY - lastY < 0 && contentFlag == ANCHOR_BOTTOPM) {
-                        LogTool.d(this.getClass().getName(), "intentTo");
-                        if (scrollPullUpListener != null) {
-                            scrollPullUpListener.scrollPullUp();
-                            return false;
-                        }
-                        break;
-                    }
-                    if (nowY - lastY > 0 && contentFlag == ANCHOR_BOTTOPM) {
-                        LogTool.d(this.getClass().getName(), "scrollBottom");
-                        smoothScrollTo(0, null);
-//                        scrollTo(0,0);
-                        contentFlag = ANCHOR_TOP;
-                        break;
-                    }
-                }
-
-              /*  if (!isMoved) break;  //如果没有移动布局， 则跳过执行
-
-                // 开启动画
-                TranslateAnimation anim = new TranslateAnimation(0, 0, contentView.getTop(),
-                        originalRect.top);
-                anim.setDuration(ANIM_TIME);
-
-                contentView.startAnimation(anim);
-
-                // 设置回到正常的布局位置
-                contentView.layout(originalRect.left, originalRect.top,
-                        originalRect.right, originalRect.bottom);
-
-                //将标志位设回false
-                canPullUp = false;
-                isMoved = false;*/
-
-                break;
-            case MotionEvent.ACTION_MOVE:
-
-                currentX = ev.getX();
-                currentY = ev.getY();
-
-              /*  if (canIntentTo) {
-                    if (currentY - lastY < 0 && Math.abs(currentX - lastX) < Math.abs(currentY - lastY)) {
-                        if (scrollPullUpListener != null) {
-                            scrollPullUpListener.scrollPullUp();
-                            return false;
-                        }
-                    }
-                } else {
-
-                    //在移动的过程中， 既没有滚动到可以上拉的程度， 也没有滚动到可以下拉的程度
-                    if (!canPullUp) {
-                        startY = ev.getY();
-                        canPullUp = isCanPullUp();
-                        break;
-                    }
-
-                    //计算手指移动的距离
-                    float nowY = ev.getY();
-                    int deltaY = (int) (nowY - startY);
-
-                    //是否应该移动布局
-                    boolean shouldMove = (canPullUp && deltaY < 0);   //可以上拉， 并且手指向上移动
-
-                    if (shouldMove) {
-                        //计算偏移量
-                        int offset = (int) (deltaY / MOVE_FACTOR);
-                        LogTool.d(this.getClass().getName(), "offset =" + offset);
-
-                        //随着手指的移动而移动布局
-                        contentView.layout(originalRect.left, originalRect.top + offset,
-                                originalRect.right, originalRect.bottom + offset);
-
-                        isMoved = true;  //记录移动了布局
-                    }
-                }
-*/
                 break;
             default:
                 break;
@@ -244,23 +171,19 @@ public class MainScrollView extends ScrollView {
         return super.dispatchTouchEvent(ev);
     }
 
-    @Override
-    public void computeScroll() {
-        super.computeScroll();
-        LogTool.d(this.getClass().getName(), "computeScroll");
-    }
-
-    /**
-     * 判断是否滚动到底部
-     */
-    private boolean isCanPullUp() {
-        return true;
-    }
-
-    private boolean isOnBottom() {
-        LogTool.d(this.getClass().getName(), "isCanPullUp" + !ViewCompat.canScrollVertically(this, 0));
-        return !ViewCompat.canScrollVertically(this, 0);
-    }
+    private OnSmoothScrollFinishedListener onSmoothScrollFinishedListener = new OnSmoothScrollFinishedListener() {
+        @Override
+        public void onSmoothScrollFinished() {
+            if (contentFlag == ANCHOR_BOTTOPM) {
+                contentFlag = ANCHOR_TOP;
+            } else {
+                if(showGuideListener != null){
+                    showGuideListener.showGuideView();
+                }
+                contentFlag = ANCHOR_BOTTOPM;
+            }
+        }
+    };
 
     private final void smoothScrollTo(int newScrollValue, long duration, long delayMillis,
                                       OnSmoothScrollFinishedListener listener) {
@@ -361,7 +284,7 @@ public class MainScrollView extends ScrollView {
         }
     }
 
-    static interface OnSmoothScrollFinishedListener {
+    public interface OnSmoothScrollFinishedListener {
         void onSmoothScrollFinished();
     }
 

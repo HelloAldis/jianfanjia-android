@@ -7,7 +7,7 @@
         <item name="android:textColorHint">@color/light_white_color</item>
     </style>
 
-    <style name="Theme.Swipe.Back" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="Theme.Swipe.Back" parent="AppTheme">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="windowActionBar">false</item>

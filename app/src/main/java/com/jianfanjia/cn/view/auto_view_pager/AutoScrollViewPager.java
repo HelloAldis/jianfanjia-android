@@ -8,7 +8,10 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.View;
 import android.view.animation.Interpolator;
+
+import com.jianfanjia.cn.tools.LogTool;
 
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
@@ -78,7 +81,7 @@ public class AutoScrollViewPager extends ViewPager {
      */
     public void startAutoScroll() {
         isAutoScroll = true;
-        sendScrollMessage((long)(interval + scroller.getDuration() / autoScrollFactor * swipeScrollFactor));
+        sendScrollMessage((long) (interval + scroller.getDuration() / autoScrollFactor * swipeScrollFactor));
     }
 
     /**
@@ -210,6 +213,52 @@ public class AutoScrollViewPager extends ViewPager {
 //        getParent().requestDisallowInterceptTouchEvent(true);
 
         return super.dispatchTouchEvent(ev);
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
+        // find the first child view
+        int maxHeight = 0;
+        int height = 0;
+        for (int i = 0; i < getChildCount(); i++) {
+            View view = getChildAt(i);
+            // measure the first child view with the specified measure spec
+            view.measure(widthMeasureSpec, heightMeasureSpec);
+            height = measureHeight(heightMeasureSpec, view);
+            if (height > maxHeight) {
+                maxHeight = height;
+            }
+        }
+        LogTool.d(this.getClass().getName(), "height =" + height);
+        setMeasuredDimension(getMeasuredWidth(), height);
+    }
+
+    /**
+     * Determines the height of this view
+     *
+     * @param measureSpec A measureSpec packed into an int
+     * @param view        the base view with already measured height
+     * @return The height of the view, honoring constraints from measureSpec
+     */
+    private int measureHeight(int measureSpec, View view) {
+        int result = 0;
+        int specMode = MeasureSpec.getMode(measureSpec);
+        int specSize = MeasureSpec.getSize(measureSpec);
+
+        if (specMode == MeasureSpec.EXACTLY) {
+            result = specSize;
+        } else {
+            // set the height from the base view if available
+            if (view != null) {
+                result = view.getMeasuredHeight();
+            }
+            if (specMode == MeasureSpec.AT_MOST) {
+                result = Math.min(result, specSize);
+            }
+        }
+        return result;
     }
 
     private static class MyHandler extends Handler {

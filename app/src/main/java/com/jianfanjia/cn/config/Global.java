@@ -105,4 +105,6 @@ public class Global {
     public static int STYLE_POSITION = 0;
     public static int DEC_FEE_POSITION = 0;
     public static int DEC_AREA_POSITION = 0;
+
+    public static final String PURE_DESIGNER = "2";//纯设计
 }
