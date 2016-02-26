@@ -58,7 +58,6 @@ public class MainScrollView extends ScrollView {
         contentView = LayoutInflater.from(context).inflate(R.layout.include_home_content, null);
         addView(contentView);
         setOverScrollMode(OVER_SCROLL_NEVER);
-
     }
 
     @Override
@@ -104,29 +103,34 @@ public class MainScrollView extends ScrollView {
     private float lastX, lastY;
 
     @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        return super.onInterceptTouchEvent(ev);
+    }
+
+    private boolean isIntent = false;
+
+    @Override
     public boolean onTouchEvent(MotionEvent ev) {
         LogTool.d(this.getClass().getName(), "onTouchEvent");
         int action = ev.getAction();
+        float nowY = ev.getY();
+        float nowX = ev.getX();
         switch (action) {
             case MotionEvent.ACTION_MOVE:
+                if (nowY - lastY < 0 && contentFlag == ANCHOR_BOTTOPM) {
+                    if (scrollPullUpListener != null  && !isIntent) {
+                        LogTool.d(this.getClass().getName(), "intentTo");
+                        isIntent = true;
+                        scrollPullUpListener.scrollPullUp();
+                    }
+                }
                 break;
             case MotionEvent.ACTION_UP:
                 LogTool.d(this.getClass().getName(), "ACTION_Up");
-                float nowY = ev.getY();
-                float nowX = ev.getX();
-
                 LogTool.d(this.getClass().getName(), "(nowY - lastY) =" + (nowY - lastY) + " (nowX - lastX)" + (nowX - lastX));
-
                 if (nowY - lastY < 0 && contentFlag == ANCHOR_TOP) {
                     LogTool.d(this.getClass().getName(), "scrollUP");
                     smoothScrollTo((int) totaloffset, onSmoothScrollFinishedListener);
-                    break;
-                }
-                if (nowY - lastY < 0 && contentFlag == ANCHOR_BOTTOPM) {
-                    LogTool.d(this.getClass().getName(), "intentTo");
-                    if (scrollPullUpListener != null) {
-                        scrollPullUpListener.scrollPullUp();
-                    }
                     break;
                 }
                 if (nowY - lastY > 0 && contentFlag == ANCHOR_BOTTOPM) {
@@ -134,6 +138,10 @@ public class MainScrollView extends ScrollView {
                     smoothScrollTo(0, onSmoothScrollFinishedListener);
                     break;
                 }
+                isIntent = false;
+                break;
+            case MotionEvent.ACTION_CANCEL:
+                LogTool.d(this.getClass().getName(), "ACTION_cancel");
                 break;
             default:
                 break;
@@ -141,17 +149,14 @@ public class MainScrollView extends ScrollView {
 
         return super.onTouchEvent(ev);
     }
-
     /**
      * 在触摸事件中, 处理上拉和下拉的逻辑
      */
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-
         if (contentView == null) {
             return super.dispatchTouchEvent(ev);
         }
-
         int action = ev.getAction();
         switch (action) {
             case MotionEvent.ACTION_DOWN:

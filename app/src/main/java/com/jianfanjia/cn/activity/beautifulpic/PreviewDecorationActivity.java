@@ -121,7 +121,7 @@ public class PreviewDecorationActivity extends SwipeBackActivity implements View
         showPicPagerAdapter = new PreImgPagerAdapter(PreviewDecorationActivity.this, beautyImagesList, new ViewPagerClickListener() {
             @Override
             public void onClickItem(int pos) {
-
+                appManager.finishActivity(PreviewDecorationActivity.this);
             }
         });
         imgViewPager.setAdapter(showPicPagerAdapter);
