@@ -34,6 +34,7 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
+import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.TDevice;
@@ -96,7 +97,12 @@ public class HomeNewFragment extends BaseAnnotationFragment {
 
     @AfterViews
     protected void initAnnotationView() {
-        initBannerView(scrollViewPager, dotLinearLayout);
+        initBannerView(scrollViewPager, dotLinearLayout, new ViewPagerClickListener() {
+            @Override
+            public void onClickItem(int pos) {
+                LogTool.d(this.getClass().getName(), "position =" + pos);
+            }
+        });
 
         pullToRefreshScrollView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ScrollView>() {
             @Override
@@ -264,7 +270,7 @@ public class HomeNewFragment extends BaseAnnotationFragment {
         }
     }
 
-    private void initBannerView(AutoScrollViewPager viewPager, LinearLayout indicatorGroup_lib) {
+    private void initBannerView(AutoScrollViewPager viewPager, LinearLayout indicatorGroup_lib, final ViewPagerClickListener viewPagerClickListener) {
         indicatorGroup_lib.removeAllViews();
         List<View> bannerList = new ArrayList<>();
         for (int i = 0; i < BANNER_ICON.length; i++) {
@@ -292,6 +298,7 @@ public class HomeNewFragment extends BaseAnnotationFragment {
             indicatorGroup_lib.addView(indicators[i]);
         }
         ViewPageAdapter mPagerAdapter = new ViewPageAdapter(getContext(), bannerList);
+        mPagerAdapter.setViewPagerClickListener(viewPagerClickListener);
         viewPager.setAdapter(mPagerAdapter);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

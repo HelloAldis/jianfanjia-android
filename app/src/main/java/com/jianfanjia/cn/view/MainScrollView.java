@@ -13,6 +13,7 @@ import android.widget.ScrollView;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.tools.TDevice;
 
 /**
  * Description: com.jianfanjia.cn.view
@@ -101,17 +102,17 @@ public class MainScrollView extends ScrollView {
     }
 
     private float lastX, lastY;
-
-    @Override
-    public boolean onInterceptTouchEvent(MotionEvent ev) {
-        return super.onInterceptTouchEvent(ev);
-    }
-
     private boolean isIntent = false;
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         LogTool.d(this.getClass().getName(), "onTouchEvent");
+
+        if(contentView.getBottom() - contentView.getTop() < TDevice.getScreenHeight()){
+            //图片加载失败，禁止滑动事件
+            return false;
+        }
+
         int action = ev.getAction();
         float nowY = ev.getY();
         float nowX = ev.getX();

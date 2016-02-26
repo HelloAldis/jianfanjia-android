@@ -6,16 +6,23 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.jianfanjia.cn.interf.ViewPagerClickListener;
+
 import java.util.List;
 
 public class ViewPageAdapter extends PagerAdapter {
 	private static final String TAG = "ViewPageAdapter";
 	private Context context;
 	private List<View> list;
+	private ViewPagerClickListener viewPagerClickListener;
 
 	public ViewPageAdapter(Context context, List<View> list) {
 		this.context = context;
 		this.list = list;
+	}
+
+	public void setViewPagerClickListener(ViewPagerClickListener viewPagerClickListener){
+		this.viewPagerClickListener = viewPagerClickListener;
 	}
 
 	@Override
@@ -43,6 +50,14 @@ public class ViewPageAdapter extends PagerAdapter {
 						.get(position));
 				container.addView(list.get(position));
 			}
+			list.get(position).setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					if(viewPagerClickListener != null){
+						viewPagerClickListener.onClickItem(position);
+					}
+				}
+			});
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
