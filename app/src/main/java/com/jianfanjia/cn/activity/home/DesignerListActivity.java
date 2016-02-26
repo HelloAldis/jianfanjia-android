@@ -344,6 +344,7 @@ public class DesignerListActivity extends SwipeBackActivity implements View.OnCl
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
+                    window = null;
                 }
             }
         }
@@ -354,6 +355,7 @@ public class DesignerListActivity extends SwipeBackActivity implements View.OnCl
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
+                    window = null;
                 }
             }
         }
@@ -375,6 +377,7 @@ public class DesignerListActivity extends SwipeBackActivity implements View.OnCl
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
+                    window = null;
                 }
             }
         }
@@ -385,6 +388,7 @@ public class DesignerListActivity extends SwipeBackActivity implements View.OnCl
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
+                    window = null;
                 }
             }
         }
@@ -406,6 +410,7 @@ public class DesignerListActivity extends SwipeBackActivity implements View.OnCl
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
+                    window = null;
                 }
             }
         }
@@ -416,6 +421,7 @@ public class DesignerListActivity extends SwipeBackActivity implements View.OnCl
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
+                    window = null;
                 }
             }
         }
@@ -437,6 +443,7 @@ public class DesignerListActivity extends SwipeBackActivity implements View.OnCl
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
+                    window = null;
                 }
             }
         }
@@ -447,6 +454,7 @@ public class DesignerListActivity extends SwipeBackActivity implements View.OnCl
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
+                    window = null;
                 }
             }
         }
