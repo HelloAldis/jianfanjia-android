@@ -387,7 +387,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
             if (!TextUtils.isEmpty(title) && !title.equals(Constant.KEY_WORD)) {
                 decStyle_item.setText(title);
             } else {
-                houseType_item.setText(getResources().getString(R.string.dec_style_str));
+                decStyle_item.setText(getResources().getString(R.string.dec_style_str));
             }
             decStyle = BusinessManager.getDecStyleByText(title);
             FROM = 0;
