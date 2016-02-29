@@ -23,14 +23,18 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
     }
 
     @Override
-    public void save(T t) {
+    public boolean save(T t) {
+        boolean flag = false;
         try {
-            LogTool.d(TAG, "save  start");
-            dao.create(t);
-            LogTool.d(TAG, "save  end");
+            int result = dao.create(t);
+            LogTool.d(TAG, "save() result " + result);
+            if (result > 0) {
+                flag = true;
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return flag;
     }
 
     @Override
@@ -45,21 +49,33 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
     }
 
     @Override
-    public void delete(T t) {
+    public boolean delete(T t) {
+        boolean flag = false;
         try {
-            dao.delete(t);
+            int result = dao.delete(t);
+            LogTool.d(TAG, "delete() result " + result);
+            if (result > 0) {
+                flag = true;
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return flag;
     }
 
     @Override
-    public void update(T t) {
+    public boolean update(T t) {
+        boolean flag = false;
         try {
-            dao.update(t);
+            int result = dao.update(t);
+            LogTool.d(TAG, "update() result " + result);
+            if (result > 0) {
+                flag = true;
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return flag;
     }
 
     @Override

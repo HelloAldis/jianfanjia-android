@@ -18,11 +18,21 @@ import java.sql.SQLException;
  */
 public class DBHelper extends OrmLiteSqliteOpenHelper {
     public static final String DBNAME = "jianfanjia.db";
-    private static final int DBVERSION = 1;
+    private static final int DBVERSION = 2;
     private static DBHelper helper;
 
     public DBHelper(Context context) {
         super(context, DBNAME, null, DBVERSION);
+    }
+
+    public static synchronized DBHelper getHelper(Context context) {
+        if (helper == null) {
+            synchronized (DBHelper.class) {
+                if (helper == null)
+                    helper = new DBHelper(context);
+            }
+        }
+        return helper;
     }
 
     @Override
@@ -43,16 +53,6 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    public static synchronized DBHelper getHelper(Context context) {
-        if (helper == null) {
-            synchronized (DBHelper.class) {
-                if (helper == null)
-                    helper = new DBHelper(context);
-            }
-        }
-        return helper;
     }
 
     @Override
