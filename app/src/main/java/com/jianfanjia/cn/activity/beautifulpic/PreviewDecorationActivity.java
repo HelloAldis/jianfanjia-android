@@ -182,7 +182,7 @@ public class PreviewDecorationActivity extends SwipeBackActivity implements View
                 getCollectedDecorationImgInfo(FROM, Constant.HOME_PAGE_LIMIT);
                 break;
             case Constant.SEARCH_BEAUTY_FRAGMENT:
-                getDecorationImgInfo(FROM, search);
+                getDecorationImgInfo(FROM);
                 break;
             default:
                 break;
@@ -196,6 +196,7 @@ public class PreviewDecorationActivity extends SwipeBackActivity implements View
         conditionParam.put("house_type", houseStyle);
         conditionParam.put("dec_style", decStyle);
         param.put("query", conditionParam);
+        param.put("search_word", search);
         param.put("from", from);
         param.put("limit", Constant.HOME_PAGE_LIMIT);
         JianFanJiaClient.searchDecorationImg(new SearchDecorationImgRequest(PreviewDecorationActivity.this, param), getDecorationImgInfoListener, this);
@@ -203,14 +204,6 @@ public class PreviewDecorationActivity extends SwipeBackActivity implements View
 
     private void getCollectedDecorationImgInfo(int from, int limit) {
         JianFanJiaClient.getBeautyImgListByUser(PreviewDecorationActivity.this, from, limit, getDecorationImgInfoListener, this);
-    }
-
-    private void getDecorationImgInfo(int from, String searchText) {
-        Map<String, Object> param = new HashMap<>();
-        param.put("search_word", searchText);
-        param.put("from", from);
-        param.put("limit", Constant.HOME_PAGE_LIMIT);
-        JianFanJiaClient.searchDecorationImg(new SearchDecorationImgRequest(PreviewDecorationActivity.this, param), getDecorationImgInfoListener, this);
     }
 
     private void addDecorationImgInfo(String decorationId) {
