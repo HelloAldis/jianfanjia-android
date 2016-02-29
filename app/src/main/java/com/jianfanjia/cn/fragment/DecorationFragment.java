@@ -85,7 +85,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
     public void initView(View view) {
         initMainHeadView(view);
         emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
-        ((TextView) emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.error_view_no_data));
+        ((TextView) emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.error_view_no_img_data));
         ((ImageView) emptyLayout.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_img);
         errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
         topLayout = (LinearLayout) view.findViewById(R.id.topLayout);
@@ -204,7 +204,6 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
 
         @Override
         public void loadSuccess(Object data) {
-            LogTool.d(TAG, "data:" + data.toString());
             hideWaitDialog();
             DecorationItemInfo decorationItemInfo = JsonParser.jsonToBean(data.toString(), DecorationItemInfo.class);
             LogTool.d(TAG, "decorationItemInfo:" + decorationItemInfo);
