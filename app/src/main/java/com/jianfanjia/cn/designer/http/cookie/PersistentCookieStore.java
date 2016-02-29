@@ -1,10 +1,11 @@
-package com.jianfanjia.cn.designer.http.cookie;
+package com.jianfanjia.cn.http.cookie;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.jianfanjia.cn.designer.http.cookie.SerializableHttpCookie;
 import com.jianfanjia.cn.designer.tools.LogTool;
 
 import java.io.ByteArrayInputStream;
@@ -42,11 +43,11 @@ public class PersistentCookieStore implements CookieStore {
      */
     public PersistentCookieStore(Context context) {
         cookiePrefs = context.getSharedPreferences(COOKIE_PREFS, 0);
-        cookies = new HashMap<String, ConcurrentHashMap<String, HttpCookie>>();
+        cookies = new HashMap<>();
         // Load any previously stored cookies into the store
         Map<String, ?> prefsMap = cookiePrefs.getAll();
         for(Map.Entry<String, ?> entry : prefsMap.entrySet()) {
-            if (((String)entry.getValue()) != null && !((String)entry.getValue()).startsWith(COOKIE_NAME_PREFIX)) {
+            if ((entry.getValue()) != null && !((String)entry.getValue()).startsWith(COOKIE_NAME_PREFIX)) {
                 String[] cookieNames = TextUtils.split((String) entry.getValue(), ",");
                 for (String name : cookieNames) {
                     String encodedCookie = cookiePrefs.getString(COOKIE_NAME_PREFIX + name, null);
@@ -72,15 +73,17 @@ public class PersistentCookieStore implements CookieStore {
         if (!cookie.hasExpired()) {
             if(!cookies.containsKey(uri.getHost())) {
                 cookies.put(uri.getHost(), new ConcurrentHashMap<String, HttpCookie>());
+                LogTool.d(this.getClass().getName(), "cookies.put uri.getHost =" + uri.getHost());
             }
-            LogTool.d(this.getClass().getName(),"not expired : " + "uri =" + uri + "--name =" + name + "--value =" + cookie.getValue() + "--age=" + cookie.getMaxAge());
+            LogTool.d(this.getClass().getName(), "not expired : " + "uri =" + uri + "--name =" + name + "--value =" + cookie.getValue() + "--age=" + cookie.getMaxAge());
             cookies.get(uri.getHost()).put(name, cookie);
         } else {
-            LogTool.d(this.getClass().getName(),"expired : "  + "uri =" + uri + "--name =" + name + "--value =" + cookie.getValue() + "--age=" + cookie.getMaxAge());
-            if(cookies.containsKey(uri.toString()))
+            LogTool.d(this.getClass().getName(), "expired : " + "uri =" + uri + "--name =" + name + "--value =" + cookie.getValue() + "--age=" + cookie.getMaxAge());
+            if(cookies.containsKey(uri.getHost())){
+                LogTool.d(this.getClass().getName(),"cookies.containsKey =" + uri.getHost());
                 cookies.get(uri.getHost()).remove(name);
+            }
         }
-
         // Save cookie into persistent store
         SharedPreferences.Editor prefsWriter = cookiePrefs.edit();
         prefsWriter.putString(uri.getHost(), TextUtils.join(",", cookies.get(uri.getHost()).keySet()));
@@ -94,9 +97,20 @@ public class PersistentCookieStore implements CookieStore {
 
     @Override
     public List<HttpCookie> get(URI uri) {
+        LogTool.d(this.getClass().getName(),"get(Uri uri) =" + uri.toString());
         ArrayList<HttpCookie> ret = new ArrayList<>();
-        if(cookies.containsKey(uri.getHost()))
+        if(cookies.containsKey(uri.getHost())){
+            /*for(String keyName : cookies.get(uri.getHost()).keySet()){
+                HttpCookie httpCookie = cookies.get(uri.getHost()).get(keyName);
+                LogTool.d(this.getClass().getName(), "get(Uri uri): " + "uri =" + uri + "--value =" + httpCookie.getValue() + "--age=" + httpCookie.getMaxAge());
+                if(httpCookie.hasExpired()){
+                    LogTool.d(this.getClass().getName(),"remove expires cookie");
+                    cookies.get(uri.getHost()).remove(keyName);
+                }
+            }*/
+
             ret.addAll(cookies.get(uri.getHost()).values());
+        }
         return ret;
     }
 
@@ -132,9 +146,17 @@ public class PersistentCookieStore implements CookieStore {
 
     @Override
     public List<HttpCookie> getCookies() {
+        LogTool.d(this.getClass().getName(),"getCookies");
         ArrayList<HttpCookie> ret = new ArrayList<>();
-        for (String key : cookies.keySet())
+        for (String key : cookies.keySet()){
+           /* for(String keyName : cookies.get(key).keySet()){
+                HttpCookie httpCookie = cookies.get(key).get(keyName);
+                if(httpCookie.hasExpired()){
+                    cookies.get(key).remove(keyName);
+                }
+            }*/
             ret.addAll(cookies.get(key).values());
+        }
 
         return ret;
     }

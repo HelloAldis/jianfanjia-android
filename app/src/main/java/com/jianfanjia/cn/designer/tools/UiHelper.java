@@ -29,7 +29,10 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.RemoteViews;
+import android.widget.Toast;
 
+import com.jianfanjia.cn.activity.LoginNewActivity_;
+import com.jianfanjia.cn.designer.AppManager;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.activity.MainActivity;
 import com.jianfanjia.cn.designer.activity.my.NotifyActivity;
@@ -49,6 +52,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UiHelper {
+
+    /**
+     * 跳转到登录界面
+     */
+    public static void forbiddenToLogin(){
+        Intent intent = new Intent(MyApplication.getInstance(), LoginNewActivity_.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        MyApplication.getInstance().startActivity(intent);
+        AppManager.getAppManager().finishAllActivity();
+        showShortToast("登录过期，请重新登录！");
+    }
+
+    /**
+     * 显示toast
+     * @param text
+     */
+    public static void showShortToast(String text) {
+        Toast.makeText(MyApplication.getInstance(), text, Toast.LENGTH_SHORT).show();
+    }
+
 
     public static Paint paintFactory(){
         Paint paint = new Paint();
