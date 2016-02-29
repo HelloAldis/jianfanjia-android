@@ -190,11 +190,13 @@ public class Constant {
     public static final int UPDATE_XUQIU_FRAGMENT = 10;
     public static final int UPDATE_DESIGNER_ACTIVITY = 20;
     public static final int UPDATE_MY_FRAGMENT = 30;
-    public static final int UPDATE_FAVORITE_FRAGMENT = 40;
-    public static final int UPDATE_PRODUCT_FRAGMENT = 50;
-    public static final int UPDATE_BEAUTY_FRAGMENT = 60;
-    public static final int UPDATE_ORDER_DESIGNER_ACTIVITY = 70;
-    public static final int UPDATE_BEAUTY_IMG_FRAGMENT = 80;
+    public static final int ADD_FAVORITE_DESIGNER_FRAGMENT = 40;
+    public static final int DELETE_FAVORITE_DESIGNER_FRAGMENT = 50;
+    public static final int UPDATE_PRODUCT_FRAGMENT = 60;
+    public static final int UPDATE_BEAUTY_FRAGMENT = 70;
+    public static final int UPDATE_ORDER_DESIGNER_ACTIVITY = 80;
+    public static final int DELETE_ORDER_DESIGNER_ACTIVITY = 90;
+    public static final int UPDATE_BEAUTY_IMG_FRAGMENT = 100;
 
 
     //view类型
