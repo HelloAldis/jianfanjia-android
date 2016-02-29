@@ -1,7 +1,10 @@
 package com.jianfanjia.cn.fragment;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,7 +17,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
-import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.requirement.AppointDesignerActivity;
 import com.jianfanjia.cn.activity.requirement.MyDesignerActivity_;
@@ -26,7 +28,6 @@ import com.jianfanjia.cn.activity.requirement.UpdateRequirementActivity_;
 import com.jianfanjia.cn.adapter.RequirementNewAdapter;
 import com.jianfanjia.cn.base.BaseAnnotationFragment;
 import com.jianfanjia.cn.bean.RequirementInfo;
-import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
@@ -45,8 +46,6 @@ import org.androidannotations.annotations.ViewById;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import de.greenrobot.event.EventBus;
 
 /**
  * Description:需求
@@ -100,12 +99,13 @@ public class XuQiuFragment extends BaseAnnotationFragment {
     protected Intent gotoMyProcess;
 
     // Header View
+    private UpdateBroadcastReceiver updateBroadcastReceiver;
     private RequirementInfo requirementInfo;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EventBus.getDefault().register(this);
+
     }
 
     protected void setListVisiable() {
@@ -207,6 +207,15 @@ public class XuQiuFragment extends BaseAnnotationFragment {
     }
 
     @Override
+    public void onAttach(Context context) {
+        updateBroadcastReceiver = new UpdateBroadcastReceiver();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Global.ACTION_UPDATE);    //只有持有相同的action的接受者才能接收此广播
+        context.registerReceiver(updateBroadcastReceiver, filter);
+        super.onAttach(context);
+    }
+
+    @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
     }
@@ -285,20 +294,17 @@ public class XuQiuFragment extends BaseAnnotationFragment {
         }
     }
 
-    public void onEventMainThread(MessageEvent event) {
-        switch (event.getEventType()) {
-            case Constant.UPDATE_XUQIU_FRAGMENT:
-                initData();
-                break;
-            default:
-                break;
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        getActivity().unregisterReceiver(updateBroadcastReceiver);
+    }
+
+    //刷新数据的广播
+    class UpdateBroadcastReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            initData();
         }
     }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
-    }
-
 }
