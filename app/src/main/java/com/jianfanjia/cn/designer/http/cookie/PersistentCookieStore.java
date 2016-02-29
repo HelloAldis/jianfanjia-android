@@ -1,11 +1,10 @@
-package com.jianfanjia.cn.http.cookie;
+package com.jianfanjia.cn.designer.http.cookie;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.jianfanjia.cn.designer.http.cookie.SerializableHttpCookie;
 import com.jianfanjia.cn.designer.tools.LogTool;
 
 import java.io.ByteArrayInputStream;
@@ -108,7 +107,6 @@ public class PersistentCookieStore implements CookieStore {
                     cookies.get(uri.getHost()).remove(keyName);
                 }
             }*/
-
             ret.addAll(cookies.get(uri.getHost()).values());
         }
         return ret;
