@@ -257,7 +257,7 @@ public class PreviewDecorationActivity extends SwipeBackActivity implements View
             makeTextShort(getString(R.string.str_collect_success));
             toolbar_collect.setSelected(true);
             notifyChangeState(true);
-            EventBus.getDefault().post(new MessageEvent(Constant.UPDATE_BEAUTY_FRAGMENT));
+            EventBus.getDefault().post(new MessageEvent(Constant.UPDATE_BEAUTY_IMG_FRAGMENT));
         }
 
         @Override
@@ -288,7 +288,7 @@ public class PreviewDecorationActivity extends SwipeBackActivity implements View
 
     private void notifyChangeState(boolean isSelect) {
         BeautyImgInfo beautyImgInfo = showPicPagerAdapter.getBeautyImagesList().get(currentPosition);
-        LogTool.d(TAG, "beautyImgInfo=====>" + beautyImgInfo.get_id());
+        LogTool.d(TAG, "beautyImgInfo=" + beautyImgInfo);
         beautyImgInfo.setIs_my_favorite(isSelect);
         showPicPagerAdapter.notifyDataSetChanged();
     }
