@@ -131,6 +131,7 @@ public class SearchDecorationImgFragment extends BaseFragment implements PullToR
                             decorationBundle.putSerializable(Global.IMG_LIST, (ArrayList<BeautyImgInfo>) beautyImgList);
                             decorationBundle.putInt(Global.TOTAL_COUNT, total);
                             decorationBundle.putInt(Global.VIEW_TYPE, Constant.SEARCH_BEAUTY_FRAGMENT);
+                            decorationBundle.putString(Global.SEARCH_TEXT, search);
                             decorationIntent.putExtras(decorationBundle);
                             startActivity(decorationIntent);
                         }

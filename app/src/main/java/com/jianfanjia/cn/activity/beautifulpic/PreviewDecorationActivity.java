@@ -76,6 +76,7 @@ public class PreviewDecorationActivity extends SwipeBackActivity implements View
     private String currentStyle = null;
     private String currentTag = null;
     private int totalCount = 0;
+    private String search = null;
     private int FROM = 0;
 
     @Override
@@ -84,6 +85,8 @@ public class PreviewDecorationActivity extends SwipeBackActivity implements View
         Bundle decorationBundle = intent.getExtras();
         viewType = decorationBundle.getInt(Global.VIEW_TYPE, 0);
         LogTool.d(TAG, "viewType==" + viewType);
+        search = decorationBundle.getString(Global.SEARCH_TEXT);
+        LogTool.d(TAG, "search==" + search);
         decorationId = decorationBundle.getString(Global.DECORATION_ID);
         currentPosition = decorationBundle.getInt(Global.POSITION, 0);
         totalCount = decorationBundle.getInt(Global.TOTAL_COUNT, 0);
@@ -179,6 +182,7 @@ public class PreviewDecorationActivity extends SwipeBackActivity implements View
                 getCollectedDecorationImgInfo(FROM, Constant.HOME_PAGE_LIMIT);
                 break;
             case Constant.SEARCH_BEAUTY_FRAGMENT:
+                getDecorationImgInfo(FROM, search);
                 break;
             default:
                 break;
@@ -199,6 +203,14 @@ public class PreviewDecorationActivity extends SwipeBackActivity implements View
 
     private void getCollectedDecorationImgInfo(int from, int limit) {
         JianFanJiaClient.getBeautyImgListByUser(PreviewDecorationActivity.this, from, limit, getDecorationImgInfoListener, this);
+    }
+
+    private void getDecorationImgInfo(int from, String searchText) {
+        Map<String, Object> param = new HashMap<>();
+        param.put("search_word", searchText);
+        param.put("from", from);
+        param.put("limit", Constant.HOME_PAGE_LIMIT);
+        JianFanJiaClient.searchDecorationImg(new SearchDecorationImgRequest(PreviewDecorationActivity.this, param), getDecorationImgInfoListener, this);
     }
 
     private void addDecorationImgInfo(String decorationId) {
