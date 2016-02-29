@@ -254,7 +254,7 @@ public class DesignerInfoActivity extends SwipeBackActivity implements OnClickLi
             LogTool.d(TAG, "data:" + data.toString());
             addBtn.setVisibility(View.GONE);
             deleteBtn.setVisibility(View.VISIBLE);
-            EventBus.getDefault().post(new MessageEvent(Constant.UPDATE_FAVORITE_FRAGMENT));
+            EventBus.getDefault().post(new MessageEvent(Constant.UPDATE_ORDER_DESIGNER_ACTIVITY));
         }
 
         @Override
@@ -274,8 +274,8 @@ public class DesignerInfoActivity extends SwipeBackActivity implements OnClickLi
             LogTool.d(TAG, "data=" + data.toString());
             addBtn.setVisibility(View.VISIBLE);
             deleteBtn.setVisibility(View.GONE);
-            EventBus.getDefault().post(new MessageEvent(Constant.UPDATE_FAVORITE_FRAGMENT));
-            EventBus.getDefault().post(new MessageEvent(Constant.UPDATE_ORDER_DESIGNER_ACTIVITY));
+            EventBus.getDefault().post(new MessageEvent(Constant.DELETE_FAVORITE_DESIGNER_FRAGMENT));
+            EventBus.getDefault().post(new MessageEvent(Constant.DELETE_ORDER_DESIGNER_ACTIVITY));
         }
 
         @Override

@@ -31,6 +31,10 @@ public class DecorationAdapter extends BaseRecyclerViewAdapter<BeautyImgInfo> {
         this.listener = listener;
     }
 
+    public List<BeautyImgInfo> getBeautyImgList() {
+        return list;
+    }
+
     @Override
     public void bindView(final RecyclerViewHolderBase viewHolder, final int position, final List<BeautyImgInfo> list) {
         BeautyImgInfo info = list.get(position);

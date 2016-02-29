@@ -76,6 +76,7 @@ public class PreviewDecorationActivity extends SwipeBackActivity implements View
     private String currentStyle = null;
     private String currentTag = null;
     private int totalCount = 0;
+    private String search = null;
     private int FROM = 0;
 
     @Override
@@ -84,6 +85,8 @@ public class PreviewDecorationActivity extends SwipeBackActivity implements View
         Bundle decorationBundle = intent.getExtras();
         viewType = decorationBundle.getInt(Global.VIEW_TYPE, 0);
         LogTool.d(TAG, "viewType==" + viewType);
+        search = decorationBundle.getString(Global.SEARCH_TEXT);
+        LogTool.d(TAG, "search==" + search);
         decorationId = decorationBundle.getString(Global.DECORATION_ID);
         currentPosition = decorationBundle.getInt(Global.POSITION, 0);
         totalCount = decorationBundle.getInt(Global.TOTAL_COUNT, 0);
@@ -179,6 +182,7 @@ public class PreviewDecorationActivity extends SwipeBackActivity implements View
                 getCollectedDecorationImgInfo(FROM, Constant.HOME_PAGE_LIMIT);
                 break;
             case Constant.SEARCH_BEAUTY_FRAGMENT:
+                getDecorationImgInfo(FROM);
                 break;
             default:
                 break;
@@ -192,6 +196,7 @@ public class PreviewDecorationActivity extends SwipeBackActivity implements View
         conditionParam.put("house_type", houseStyle);
         conditionParam.put("dec_style", decStyle);
         param.put("query", conditionParam);
+        param.put("search_word", search);
         param.put("from", from);
         param.put("limit", Constant.HOME_PAGE_LIMIT);
         JianFanJiaClient.searchDecorationImg(new SearchDecorationImgRequest(PreviewDecorationActivity.this, param), getDecorationImgInfoListener, this);
@@ -257,7 +262,7 @@ public class PreviewDecorationActivity extends SwipeBackActivity implements View
             makeTextShort(getString(R.string.str_collect_success));
             toolbar_collect.setSelected(true);
             notifyChangeState(true);
-            EventBus.getDefault().post(new MessageEvent(Constant.UPDATE_BEAUTY_FRAGMENT));
+            EventBus.getDefault().post(new MessageEvent(Constant.UPDATE_BEAUTY_IMG_FRAGMENT));
         }
 
         @Override
@@ -288,7 +293,7 @@ public class PreviewDecorationActivity extends SwipeBackActivity implements View
 
     private void notifyChangeState(boolean isSelect) {
         BeautyImgInfo beautyImgInfo = showPicPagerAdapter.getBeautyImagesList().get(currentPosition);
-        LogTool.d(TAG, "beautyImgInfo=====>" + beautyImgInfo.get_id());
+        LogTool.d(TAG, "beautyImgInfo=" + beautyImgInfo);
         beautyImgInfo.setIs_my_favorite(isSelect);
         showPicPagerAdapter.notifyDataSetChanged();
     }

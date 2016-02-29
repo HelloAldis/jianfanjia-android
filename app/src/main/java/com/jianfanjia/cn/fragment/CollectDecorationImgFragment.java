@@ -229,6 +229,7 @@ public class CollectDecorationImgFragment extends CommonFragment implements Pull
     };
 
     public void onEventMainThread(MessageEvent event) {
+        LogTool.d(TAG, "event=" + event.getEventType());
         switch (event.getEventType()) {
             case Constant.UPDATE_BEAUTY_FRAGMENT:
                 decorationImgAdapter.remove(currentPos);
@@ -237,9 +238,6 @@ public class CollectDecorationImgFragment extends CommonFragment implements Pull
                     decoration_img_listview.setVisibility(View.GONE);
                     emptyLayout.setVisibility(View.VISIBLE);
                 }
-                break;
-            case Constant.UPDATE_BEAUTY_IMG_FRAGMENT:
-                LogTool.d(TAG, "88888888888888888888888");
                 break;
             default:
                 break;

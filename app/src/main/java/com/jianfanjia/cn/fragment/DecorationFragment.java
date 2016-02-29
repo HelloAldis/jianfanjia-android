@@ -75,6 +75,8 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
     private boolean isFirst = true;
     private int total = 0;
 
+    private int currentPos = -1;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -220,7 +222,9 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
                             @Override
                             public void OnItemClick(int position) {
                                 LogTool.d(TAG, "position=" + position);
-                                BeautyImgInfo beautyImgInfo = beautyImgList.get(position);
+                                currentPos = position;
+                                LogTool.d(TAG, "currentPos-----" + currentPos);
+                                BeautyImgInfo beautyImgInfo = beautyImgList.get(currentPos);
                                 LogTool.d(TAG, "beautyImgInfo:" + beautyImgInfo);
                                 Intent decorationIntent = new Intent(getActivity(), PreviewDecorationActivity.class);
                                 Bundle decorationBundle = new Bundle();
@@ -416,13 +420,23 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
     };
 
     public void onEventMainThread(MessageEvent event) {
+        LogTool.d(TAG, "event=" + event.getEventType());
         switch (event.getEventType()) {
             case Constant.UPDATE_BEAUTY_IMG_FRAGMENT:
-                getDecorationImgInfo(FROM, pullUpListener);
+                notifyChangeItemState(true);
+                break;
+            case Constant.UPDATE_BEAUTY_FRAGMENT:
+                notifyChangeItemState(false);
                 break;
             default:
                 break;
         }
+    }
+
+    private void notifyChangeItemState(boolean isSelect) {
+        BeautyImgInfo beautyImgInfo = decorationAdapter.getBeautyImgList().get(currentPos);
+        beautyImgInfo.setIs_my_favorite(isSelect);
+        decorationAdapter.notifyDataSetChanged();
     }
 
     @Override
