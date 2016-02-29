@@ -16,14 +16,12 @@ import android.view.animation.DecelerateInterpolator;
 import com.jianfanjia.cn.AppManager;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.PhotoPagerAdapter;
-import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.tools.LogTool;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.view.ViewHelper;
 import com.nineoldandroids.view.ViewPropertyAnimator;
-import com.squareup.leakcanary.RefWatcher;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -103,8 +101,8 @@ public class ImagePagerFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        RefWatcher refWatcher = MyApplication.getRefWatcher(getActivity().getApplicationContext());
-        refWatcher.watch(this);
+//        RefWatcher refWatcher = MyApplication.getRefWatcher(getActivity().getApplicationContext());
+//        refWatcher.watch(this);
     }
 
     @Override

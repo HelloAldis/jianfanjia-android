@@ -20,13 +20,11 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.common.PhotoPickerActivity;
 import com.jianfanjia.cn.adapter.PhotoGridAdapter;
 import com.jianfanjia.cn.adapter.PopupDirectoryListAdapter;
-import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.bean.Photo;
 import com.jianfanjia.cn.bean.PhotoDirectory;
 import com.jianfanjia.cn.interf.OnPhotoClickListener;
 import com.jianfanjia.cn.tools.ImageCaptureManager;
 import com.jianfanjia.cn.tools.MediaStoreHelper;
-import com.squareup.leakcanary.RefWatcher;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -101,8 +99,8 @@ public class PhotoPickerFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        RefWatcher refWatcher = MyApplication.getRefWatcher(getActivity().getApplicationContext());
-        refWatcher.watch(this);
+//        RefWatcher refWatcher = MyApplication.getRefWatcher(getActivity().getApplicationContext());
+//        refWatcher.watch(this);
     }
 
     @Override
