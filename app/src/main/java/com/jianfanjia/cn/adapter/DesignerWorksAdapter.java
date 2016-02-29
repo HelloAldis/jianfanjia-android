@@ -35,9 +35,10 @@ public class DesignerWorksAdapter extends BaseRecyclerViewAdapter<Product> {
         DesignerWorksViewHolder holder = (DesignerWorksViewHolder) viewHolder;
         imageShow.displayScreenWidthThumnailImage(context, product.getImages().get(0).getImageid(), holder.itemwWorksView);
         holder.itemXiaoQuText.setText(product.getCell());
+        String decType = product.getDec_type();
         String house_type = product.getHouse_type();
         String dec_style = product.getDec_style();
-        holder.itemProduceText.setText(product.getHouse_area() + "㎡，" + BusinessManager.convertHouseTypeToShow(house_type) + "，" + BusinessManager.convertDecStyleToShow(dec_style) + "风格");
+        holder.itemProduceText.setText(product.getHouse_area() + "㎡，" + BusinessManager.convertDectypeToShow(decType) + "，" + BusinessManager.convertHouseTypeToShow(house_type) + "，" + BusinessManager.convertDecStyleToShow(dec_style) + "风格");
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
