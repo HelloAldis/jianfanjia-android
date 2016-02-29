@@ -37,7 +37,7 @@ public class DesignerWorksAdapter extends BaseRecyclerViewAdapter<Product> {
         holder.itemXiaoQuText.setText(product.getCell());
         String house_type = product.getHouse_type();
         String dec_style = product.getDec_style();
-        holder.itemProduceText.setText(product.getHouse_area() + "㎡，" + BusinessManager.convertHouseTypeToShow(house_type) + "，" + BusinessManager.convertDecStyleToShow(dec_style));
+        holder.itemProduceText.setText(product.getHouse_area() + "㎡，" + BusinessManager.convertHouseTypeToShow(house_type) + "，" + BusinessManager.convertDecStyleToShow(dec_style) + "风格");
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
