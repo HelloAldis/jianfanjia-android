@@ -12,7 +12,7 @@ import java.util.List;
 public class DesignerWorksInfo implements Serializable {
     private static final long serialVersionUID = 5438941915418246822L;
     private List<Product> products;
-    private String total;
+    private int total;
 
     public List<Product> getProducts() {
         return products;
@@ -22,11 +22,11 @@ public class DesignerWorksInfo implements Serializable {
         this.products = products;
     }
 
-    public String getTotal() {
+    public int getTotal() {
         return total;
     }
 
-    public void setTotal(String total) {
+    public void setTotal(int total) {
         this.total = total;
     }
 }

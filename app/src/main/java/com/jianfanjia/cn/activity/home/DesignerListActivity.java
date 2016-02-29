@@ -92,7 +92,7 @@ public class DesignerListActivity extends SwipeBackActivity implements View.OnCl
         decHouseType_item = (TextView) findViewById(R.id.decHouseType_item);
         decStyle_item = (TextView) findViewById(R.id.decStyle_item);
         decFee_item = (TextView) findViewById(R.id.decFee_item);
-        designerListView = (PullToRefreshRecycleView) findViewById(R.id.designer_listview);
+        designerListView = (PullToRefreshRecycleView) findViewById(R.id.recycleview);
         designerListView.setMode(PullToRefreshBase.Mode.BOTH);
         designerListView.setLayoutManager(new LinearLayoutManager(DesignerListActivity.this));
         designerListView.setItemAnimator(new DefaultItemAnimator());
