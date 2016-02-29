@@ -26,7 +26,6 @@ import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.CheckListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
 
@@ -238,7 +237,7 @@ public class AppointDesignerActivity extends SwipeBackActivity implements OnClic
         @Override
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data.toString());
-            UiHelper.sendUpdateBroast(AppointDesignerActivity.this);
+            EventBus.getDefault().post(new MessageEvent(Constant.UPDATE_XUQIU_FRAGMENT));
             appManager.finishActivity(AppointDesignerActivity.this);
         }
 
