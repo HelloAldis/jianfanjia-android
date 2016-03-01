@@ -122,7 +122,7 @@ public class Constant {
     public final static int YANQI_NOTIFY_ID = 3;
     public final static int YANSHOU_NOTIFY_ID = 4;
 
-    // 提醒类型
+    // 业主消息提醒类型
     public static final String YANQI_NOTIFY = "0";// 延期提醒
     public static final String CAIGOU_NOTIFY = "1";// 采购提醒
     public static final String FUKUAN_NOTIFY = "2";// 付款提醒
