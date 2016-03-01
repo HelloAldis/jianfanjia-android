@@ -41,6 +41,8 @@ import de.greenrobot.event.EventBus;
  */
 public class DesignerCaseInfoActivity extends SwipeBackActivity implements OnClickListener {
     private static final String TAG = DesignerCaseInfoActivity.class.getName();
+    private static final int SCROLL_Y = 100;
+    private int mScrollY = 0;
     private RelativeLayout head_back_layout = null;
     private RelativeLayout toolbar_collect_layout = null;
     private TextView tv_title = null;
@@ -50,7 +52,7 @@ public class DesignerCaseInfoActivity extends SwipeBackActivity implements OnCli
     private LinearLayoutManager mLayoutManager = null;
     private ImageView head_img = null;
     private TextView nameText = null;
-    private List<String> imgs = new ArrayList<String>();
+    private List<String> imgs = new ArrayList<>();
 
     private String productid = null;
     private String designertid = null;
@@ -86,6 +88,7 @@ public class DesignerCaseInfoActivity extends SwipeBackActivity implements OnCli
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         LogTool.d(TAG, "onNewIntent");
+        mScrollY = 0;
         initData(intent);
     }
 
@@ -95,12 +98,11 @@ public class DesignerCaseInfoActivity extends SwipeBackActivity implements OnCli
         toolbar_collect_layout.setOnClickListener(this);
         activity_case_info_top_layout.setOnClickListener(this);
         designer_case_listview.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            int mScrollY;
 
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 mScrollY += dy;
-                if (mScrollY > 100) {
+                if (mScrollY > SCROLL_Y) {
                     activity_case_info_top_layout.setVisibility(View.VISIBLE);
                     tv_title.setVisibility(View.VISIBLE);
                 } else {
