@@ -1219,13 +1219,13 @@ public class ImageUtil {
     @SuppressLint("NewApi")
     public static void blur(Bitmap bkg, ImageView view) {
         long startMs = System.currentTimeMillis();
-        float scaleFactor = 10;//图片缩放比例；
-        float radius = 16;//模糊程度
+        float scaleFactor = 16;//图片缩放比例；
+        float radius = 12;//模糊程度
 
         Bitmap overlay = Bitmap.createBitmap(
                 (int) (bkg.getWidth() / scaleFactor),
                 (int) (bkg.getHeight() / scaleFactor),
-                Config.ARGB_8888);
+                Config.ARGB_4444);
         Canvas canvas = new Canvas(overlay);
         canvas.translate(-view.getLeft() / scaleFactor, -view.getTop() / scaleFactor);
         canvas.scale(1 / scaleFactor, 1 / scaleFactor);

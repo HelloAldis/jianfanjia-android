@@ -26,7 +26,8 @@
                     android:id="@+id/head_img"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="centerCrop" />
+                    android:scaleType="centerCrop"
+                    />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
