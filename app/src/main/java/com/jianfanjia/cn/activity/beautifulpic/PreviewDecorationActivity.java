@@ -81,24 +81,8 @@ public class PreviewDecorationActivity extends SwipeBackActivity implements View
 
     @Override
     public void initView() {
-        Intent intent = this.getIntent();
-        Bundle decorationBundle = intent.getExtras();
-        viewType = decorationBundle.getInt(Global.VIEW_TYPE, 0);
-        LogTool.d(TAG, "viewType==" + viewType);
-        search = decorationBundle.getString(Global.SEARCH_TEXT);
-        LogTool.d(TAG, "search==" + search);
-        decorationId = decorationBundle.getString(Global.DECORATION_ID);
-        currentPosition = decorationBundle.getInt(Global.POSITION, 0);
-        totalCount = decorationBundle.getInt(Global.TOTAL_COUNT, 0);
-        beautiful_images = (List<BeautyImgInfo>) decorationBundle.getSerializable(Global.IMG_LIST);
-        section = decorationBundle.getString(Global.HOUSE_SECTION);
-        houseStyle = decorationBundle.getString(Global.HOUSE_STYLE);
-        decStyle = decorationBundle.getString(Global.DEC_STYLE);
-        LogTool.d(TAG, "section:" + section + " houseStyle:" + houseStyle + " decStyle:" + decStyle);
+        initData(getIntent());
         shareUtil = new ShareUtil(this);
-        LogTool.d(TAG, "decorationId=" + decorationId + " currentPosition=" + currentPosition + "  totalCount=" + totalCount + "  beautiful_images.size()=" + beautiful_images.size());
-        FROM = beautiful_images.size();
-        LogTool.d(TAG, "FROM:" + FROM);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar_collect = (ImageView) findViewById(R.id.toolbar_collect);
         toolbar_share = (ImageView) findViewById(R.id.toolbar_share);
@@ -118,6 +102,25 @@ public class PreviewDecorationActivity extends SwipeBackActivity implements View
         toolbar_collectLayout.setVisibility(View.VISIBLE);
         toolbar_shareLayout.setVisibility(View.VISIBLE);
         initViewPager(beautiful_images);
+    }
+
+    private void initData(Intent intent) {
+        Bundle decorationBundle = intent.getExtras();
+        viewType = decorationBundle.getInt(Global.VIEW_TYPE, 0);
+        LogTool.d(TAG, "viewType==" + viewType);
+        search = decorationBundle.getString(Global.SEARCH_TEXT);
+        LogTool.d(TAG, "search==" + search);
+        decorationId = decorationBundle.getString(Global.DECORATION_ID);
+        currentPosition = decorationBundle.getInt(Global.POSITION, 0);
+        totalCount = decorationBundle.getInt(Global.TOTAL_COUNT, 0);
+        beautiful_images = (List<BeautyImgInfo>) decorationBundle.getSerializable(Global.IMG_LIST);
+        section = decorationBundle.getString(Global.HOUSE_SECTION);
+        houseStyle = decorationBundle.getString(Global.HOUSE_STYLE);
+        decStyle = decorationBundle.getString(Global.DEC_STYLE);
+        LogTool.d(TAG, "section:" + section + " houseStyle:" + houseStyle + " decStyle:" + decStyle);
+        LogTool.d(TAG, "decorationId=" + decorationId + " currentPosition=" + currentPosition + "  totalCount=" + totalCount + "  beautiful_images.size()=" + beautiful_images.size());
+        FROM = beautiful_images.size();
+        LogTool.d(TAG, "FROM:" + FROM);
     }
 
     private void initViewPager(List<BeautyImgInfo> beautyImagesList) {

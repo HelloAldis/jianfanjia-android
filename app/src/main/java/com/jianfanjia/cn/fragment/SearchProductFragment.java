@@ -36,7 +36,7 @@ import java.util.Map;
 
 /**
  * @author fengliang
- * @ClassName: CollectProductFragment
+ * @ClassName: SearchProductFragment
  * @Description: 作品
  * @date 2015-8-26 下午1:07:52
  */
