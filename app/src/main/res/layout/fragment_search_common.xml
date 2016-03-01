@@ -3,16 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.jianfanjia.cn.view.library.PullToRefreshRecycleView xmlns:ptr="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/beauty_listview"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycleview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="5dip"
-        android:layout_marginRight="5dip"
-        android:layout_marginTop="10dip"
         android:scrollbars="none"
-        ptr:ptrAnimationStyle="flip"
-        ptr:ptrHeaderTextColor="#344a5d" />
+        />
 
     <include
         android:id="@+id/empty_include"
@@ -22,8 +18,7 @@
     <include
         android:id="@+id/error_include"
         layout="@layout/view_error_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
         android:visibility="gone" />
 </FrameLayout>
+
+

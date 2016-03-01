@@ -1,7 +1,6 @@
 package com.jianfanjia.cn.activity.common;
 
 import android.content.Intent;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -26,8 +25,8 @@ import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.MainHeadView;
-import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -64,11 +63,7 @@ public class CommentActivity extends SwipeBackActivity implements OnClickListene
         commentListView.setLayoutManager(new LinearLayoutManager(this));
         commentListView.setItemAnimator(new DefaultItemAnimator());
         commentListView.setHasFixedSize(true);
-        Paint paint = new Paint();
-        paint.setStrokeWidth(1);
-        paint.setColor(getResources().getColor(R.color.light_white_color));
-        paint.setAntiAlias(true);
-        commentListView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this).paint(paint).showLastDivider().build());
+        commentListView.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getApplicationContext()));
         commentEdit = (EditText) findViewById(R.id.add_comment);
         btnSend = (Button) findViewById(R.id.btn_send);
         btnSend.setEnabled(false);

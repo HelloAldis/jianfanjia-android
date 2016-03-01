@@ -41,10 +41,20 @@ import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.service.UpdateService;
+import com.jianfanjia.cn.view.baseview.HorizontalDividerDecoration;
 
 import java.io.File;
 
 public class UiHelper {
+
+    /**
+     * 生成一个默认的分割线
+     * @param context
+     * @return
+     */
+    public static HorizontalDividerDecoration buildDefaultHeightDecoration(Context context){
+        return new HorizontalDividerDecoration(MyApplication.dip2px(context,10));
+    }
 
     /**
      * 跳转到登录界面

@@ -9,7 +9,6 @@
         android:layout_height="match_parent"
         android:layout_marginLeft="@dimen/space_10"
         android:layout_marginRight="@dimen/space_10"
-        android:layout_marginTop="@dimen/space_10"
         android:scrollbars="none"
         ptr:ptrAnimationStyle="flip"
         ptr:ptrHeaderTextColor="#344a5d" />

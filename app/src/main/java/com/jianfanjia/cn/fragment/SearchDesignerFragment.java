@@ -1,12 +1,10 @@
 package com.jianfanjia.cn.fragment;
 
 import android.content.Intent;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -26,7 +24,7 @@ import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
+import com.jianfanjia.cn.tools.UiHelper;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -84,11 +82,7 @@ public class SearchDesignerFragment extends BaseFragment {
         searchDesignerAdapter.setEmptyView(emptyLayout);
         searchDesignerAdapter.setErrorView(errorLayout);
         recyclerView.setAdapter(searchDesignerAdapter);
-        Paint paint = new Paint();
-        paint.setStrokeWidth(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getResources().getDisplayMetrics()));
-        paint.setAlpha(0);
-        paint.setAntiAlias(true);
-        recyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).paint(paint).showLastDivider().build());
+        recyclerView.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getActivity().getApplicationContext()));
         searchDesignerInfo(searchDesignerAdapter.getData().size(), search, listener);
     }
 
@@ -155,6 +149,6 @@ public class SearchDesignerFragment extends BaseFragment {
 
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_search_designer;
+        return R.layout.fragment_search_common;
     }
 }

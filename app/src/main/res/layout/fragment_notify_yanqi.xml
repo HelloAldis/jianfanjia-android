@@ -4,10 +4,9 @@
     android:layout_height="match_parent">
 
     <com.jianfanjia.cn.view.library.PullToRefreshRecycleView xmlns:ptr="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/product_listview"
+        android:id="@+id/tip_delay__listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="10dip"
         android:scrollbars="none"
         ptr:ptrAnimationStyle="flip"
         ptr:ptrHeaderTextColor="#344a5d" />
@@ -22,5 +21,3 @@
         layout="@layout/view_error_layout"
         android:visibility="gone" />
 </FrameLayout>
-
-

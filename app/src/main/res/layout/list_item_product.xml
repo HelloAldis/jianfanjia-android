@@ -51,7 +51,7 @@
         android:id="@+id/list_item_produce_text"
         style="@style/listview_item_text_style_small"
         android:layout_below="@id/list_item_xiaoqu_text"
-        android:layout_marginBottom="@dimen/space_10"
+        android:layout_marginBottom="@dimen/space_20"
         android:layout_marginLeft="30dip"
         android:layout_marginTop="@dimen/space_10"
         android:textColor="@color/light_black_color"

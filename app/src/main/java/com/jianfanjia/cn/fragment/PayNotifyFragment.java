@@ -1,11 +1,9 @@
 package com.jianfanjia.cn.fragment;
 
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -17,7 +15,7 @@ import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
+import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
 
@@ -65,11 +63,7 @@ public class PayNotifyFragment extends BaseFragment implements PullToRefreshBase
         payListView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
         payListView.setLayoutManager(new LinearLayoutManager(getActivity()));
         payListView.setItemAnimator(new DefaultItemAnimator());
-        Paint paint = new Paint();
-        paint.setStrokeWidth(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getResources().getDisplayMetrics()));
-        paint.setAlpha(0);
-        paint.setAntiAlias(true);
-        payListView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).paint(paint).showLastDivider().build());
+        payListView.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getActivity().getApplicationContext()));
     }
 
     @Override
@@ -109,7 +103,7 @@ public class PayNotifyFragment extends BaseFragment implements PullToRefreshBase
 
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_fukuan_notify;
+        return R.layout.fragment_notify_fukuan;
     }
 
 }

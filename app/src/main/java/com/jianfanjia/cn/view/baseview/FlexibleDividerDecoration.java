@@ -3,14 +3,12 @@ package com.jianfanjia.cn.view.baseview;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
-import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DimenRes;
 import android.support.annotation.DrawableRes;
-import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -80,7 +78,7 @@ public abstract class FlexibleDividerDecoration extends RecyclerView.ItemDecorat
         }
     }
 
-    @Override
+   /* @Override
     public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
         int lastChildPosition = -1;
         int childCount = mShowLastDivider ? parent.getChildCount() : parent.getChildCount() - 1;
@@ -121,7 +119,7 @@ public abstract class FlexibleDividerDecoration extends RecyclerView.ItemDecorat
                     break;
             }
         }
-    }
+    }*/
 
     @Override
     public void getItemOffsets(Rect rect, View v, RecyclerView parent, RecyclerView.State state) {

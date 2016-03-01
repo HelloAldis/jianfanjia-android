@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <com.jianfanjia.cn.view.library.PullToRefreshRecycleView xmlns:ptr="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/my_favorite_designer_listview"
+        android:id="@+id/tip_caigou__listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none"
