@@ -16,7 +16,6 @@ import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.dao.impl.NotifyMessageDao;
-import com.jianfanjia.cn.interf.manager.ListenerManeger;
 import com.jianfanjia.cn.tools.DaoManager;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
@@ -31,13 +30,11 @@ import com.jianfanjia.cn.tools.UiHelper;
  */
 public class PushMsgReceiver extends BroadcastReceiver {
     private static final String TAG = PushMsgReceiver.class.getName();
-    private ListenerManeger listenerManeger = null;
     private NotifyMessageDao notifyMessageDao = null;
     private DataManagerNew dataManager = null;
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        listenerManeger = ListenerManeger.getListenerManeger();
         notifyMessageDao = DaoManager.getNotifyMessageDao(context);
         dataManager = DataManagerNew.getInstance();
         //-------------------------------------------------

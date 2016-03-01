@@ -17,7 +17,6 @@ import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.dao.impl.NotifyMessageDao;
 import com.jianfanjia.cn.http.OkHttpClientManager;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
-import com.jianfanjia.cn.interf.manager.ListenerManeger;
 import com.jianfanjia.cn.tools.DaoManager;
 import com.jianfanjia.cn.tools.ImageShow;
 import com.jianfanjia.cn.tools.LogTool;
@@ -37,7 +36,6 @@ public abstract class BaseFragment extends Fragment
     protected NotifyMessageDao notifyMessageDao = null;
     protected DataManagerNew dataManager = null;
     protected LayoutInflater inflater = null;
-    protected ListenerManeger listenerManeger = null;
     protected AddPhotoDialog popupWindow = null;
     protected ImageShow imageShow = null;
     protected String mUserName = null;// 用户名
@@ -66,7 +64,7 @@ public abstract class BaseFragment extends Fragment
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        LogTool.d(this.getClass().getName(),"onActivityCreated");
+        LogTool.d(this.getClass().getName(), "onActivityCreated");
         initUserInfo();
         initView(view);
         setListener();

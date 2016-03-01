@@ -13,7 +13,6 @@ import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.dao.impl.NotifyMessageDao;
 import com.jianfanjia.cn.http.OkHttpClientManager;
-import com.jianfanjia.cn.interf.manager.ListenerManeger;
 import com.jianfanjia.cn.tools.DaoManager;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.AddPhotoDialog;
@@ -32,7 +31,6 @@ public class BaseAnnotationFragment extends Fragment {
     protected DataManagerNew dataManager = null;
     protected LayoutInflater inflater = null;
     // protected SharedPrefer sharedPrefer = null;
-    protected ListenerManeger listenerManeger = null;
     protected AddPhotoDialog popupWindow = null;
     protected ProcessInfo processInfo = null;
     protected String mUserName = null;// 用户名

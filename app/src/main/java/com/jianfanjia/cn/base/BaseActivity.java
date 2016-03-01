@@ -22,7 +22,6 @@ import com.jianfanjia.cn.dao.impl.NotifyMessageDao;
 import com.jianfanjia.cn.http.OkHttpClientManager;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.NetStateListener;
-import com.jianfanjia.cn.interf.manager.ListenerManeger;
 import com.jianfanjia.cn.receiver.NetStateReceiver;
 import com.jianfanjia.cn.tools.DaoManager;
 import com.jianfanjia.cn.tools.ImageShow;
@@ -39,13 +38,12 @@ import com.umeng.analytics.MobclickAgent;
  * Date:15-10-11 14:30
  */
 public abstract class BaseActivity extends AppCompatActivity implements
-        DialogControl, NetStateListener,ApiUiUpdateListener {
+        DialogControl, NetStateListener, ApiUiUpdateListener {
     protected DownloadManager downloadManager = null;
     protected NotifyMessageDao notifyMessageDao = null;
     protected LayoutInflater inflater = null;
     protected FragmentManager fragmentManager = null;
     protected NotificationManager nManager = null;
-    protected ListenerManeger listenerManeger = null;
     protected NetStateReceiver netStateReceiver = null;
     private boolean _isVisible;
     private WaitDialog _waitDialog;
@@ -78,7 +76,6 @@ public abstract class BaseActivity extends AppCompatActivity implements
         nManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         dataManager = DataManagerNew.getInstance();
         fragmentManager = this.getSupportFragmentManager();
-        listenerManeger = ListenerManeger.getListenerManeger();
         netStateReceiver = new NetStateReceiver(this);
         imageShow = ImageShow.getImageShow();
         _isVisible = true;
