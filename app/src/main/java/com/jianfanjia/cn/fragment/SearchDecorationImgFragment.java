@@ -147,7 +147,6 @@ public class SearchDecorationImgFragment extends BaseFragment {
             makeTextShort(error_msg);
             decorationAdapter.setErrorViewShow();
             decorationAdapter.setState(BaseRecycleAdapter.STATE_NETWORK_ERROR);
-            decorationAdapter.notifyDataSetChanged();
         }
     };
 

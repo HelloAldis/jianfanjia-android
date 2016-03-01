@@ -80,7 +80,12 @@ public abstract class BaseRecycleAdapter<T> extends RecyclerView.Adapter<Recycle
 
     public void setState(int state) {
         this.state = state;
-        notifyDataSetChanged();
+        if(isHasFooterView()){
+            if(mDatas.size() > 0){
+                //设置状态只需通知改变footerview的显示
+                notifyItemChanged(getItemCount() - 1);
+            }
+        }
     }
 
     public int getState() {
@@ -130,9 +135,12 @@ public abstract class BaseRecycleAdapter<T> extends RecyclerView.Adapter<Recycle
 
     public void addData(List<T> data) {
         if (mDatas != null && data != null && !data.isEmpty()) {
-            mDatas.addAll(data);
+            for (T t : data) {
+                addItem(t);
+            }
+        } else {
+            notifyDataSetChanged();
         }
-        notifyDataSetChanged();
     }
 
     public void addItem(T obj) {
@@ -249,7 +257,7 @@ public abstract class BaseRecycleAdapter<T> extends RecyclerView.Adapter<Recycle
         }
     }
 
-    public void hideErrorAndEmptyView(){
+    public void hideErrorAndEmptyView() {
         if (errorView != null) {
             LogTool.d(this.getClass().getName(), "set_error_view =");
             errorView.setVisibility(View.GONE);

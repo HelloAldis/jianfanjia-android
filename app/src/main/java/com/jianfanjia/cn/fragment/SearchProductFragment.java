@@ -159,7 +159,6 @@ public class SearchProductFragment extends BaseFragment {
             makeTextShort(error_msg);
             productAdapter.setErrorViewShow();
             productAdapter.setState(BaseRecycleAdapter.STATE_NETWORK_ERROR);
-            productAdapter.notifyDataSetChanged();
         }
     };
 

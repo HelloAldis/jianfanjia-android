@@ -18,6 +18,7 @@ import com.jianfanjia.cn.adapter.SearchDesignerAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.base.BaseRecycleAdapter;
 import com.jianfanjia.cn.bean.MyFavoriteDesigner;
+import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.http.request.SearchDesignerRequest;
@@ -95,7 +96,7 @@ public class SearchDesignerFragment extends BaseFragment {
         Map<String, Object> param = new HashMap<>();
         param.put("search_word", searchText);
         param.put("from", from);
-        param.put("limit", 10);
+        param.put("limit", Constant.HOME_PAGE_LIMIT);
         JianFanJiaClient.searchDesigner(new SearchDesignerRequest(getContext(), param), listener, this);
     }
 
@@ -148,7 +149,6 @@ public class SearchDesignerFragment extends BaseFragment {
             makeTextShort(error_msg);
             searchDesignerAdapter.setErrorViewShow();
             searchDesignerAdapter.setState(BaseRecycleAdapter.STATE_NETWORK_ERROR);
-            searchDesignerAdapter.notifyDataSetChanged();
         }
     };
 
