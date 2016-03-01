@@ -32,7 +32,7 @@ import java.util.Map;
 
 /**
  * @author fengliang
- * @ClassName: CollectDecorationImgFragment
+ * @ClassName: SearchDecorationImgFragment
  * @Description: 装修美图收藏
  * @date 2015-8-26 下午1:07:52
  */
@@ -57,7 +57,6 @@ public class SearchDecorationImgFragment extends BaseFragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.recycleview);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-
         decorationAdapter = new SearchDecorationImgAdapter(getContext(), recyclerView, new OnItemClickListener() {
             @Override
             public void OnItemClick(int position) {
@@ -71,6 +70,7 @@ public class SearchDecorationImgFragment extends BaseFragment {
                 decorationBundle.putSerializable(Global.IMG_LIST, decorationAdapter.getData());
                 decorationBundle.putInt(Global.TOTAL_COUNT, total);
                 decorationBundle.putInt(Global.VIEW_TYPE, Constant.SEARCH_BEAUTY_FRAGMENT);
+                decorationBundle.putString(Global.SEARCH_TEXT, search);
                 decorationIntent.putExtras(decorationBundle);
                 startActivity(decorationIntent);
             }
