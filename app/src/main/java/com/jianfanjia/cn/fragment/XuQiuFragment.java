@@ -208,11 +208,11 @@ public class XuQiuFragment extends BaseAnnotationFragment {
 
     @Override
     public void onAttach(Context context) {
+        super.onAttach(context);
         updateBroadcastReceiver = new UpdateBroadcastReceiver();
         IntentFilter filter = new IntentFilter();
         filter.addAction(Global.ACTION_UPDATE);    //只有持有相同的action的接受者才能接收此广播
         context.registerReceiver(updateBroadcastReceiver, filter);
-        super.onAttach(context);
     }
 
     @Override
