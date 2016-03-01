@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.home.DesignerCaseInfoActivity;
+import com.jianfanjia.cn.activity.home.DesignerInfoActivity;
 import com.jianfanjia.cn.adapter.SearchProductAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.base.BaseRecycleAdapter;
@@ -29,9 +30,7 @@ import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -46,12 +45,6 @@ public class SearchProductFragment extends BaseFragment {
     private RelativeLayout emptyLayout = null;
     private RelativeLayout errorLayout = null;
     private SearchProductAdapter productAdapter = null;
-    private List<Product> productList = new ArrayList<>();
-    private int FROM = 0;
-    private String decType = null;
-    private String designStyle = null;
-    private String houseType = null;
-    private String decArea = null;
     private String search = null;
 
     @Override
@@ -63,16 +56,16 @@ public class SearchProductFragment extends BaseFragment {
         ((ImageView) emptyLayout.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_product);
         errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycleview);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
         recyclerView.setHasFixedSize(true);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         productAdapter = new SearchProductAdapter(getContext(), recyclerView, new RecyclerViewOnItemClickListener() {
             @Override
             public void OnItemClick(View view, int position) {
-                Product product = productList.get(position);
+                Product product = productAdapter.getData().get(position);
                 String productid = product.get_id();
                 LogTool.d(TAG, "productid:" + productid);
-                Intent productIntent = new Intent(getActivity(), DesignerCaseInfoActivity.class);
+                Intent productIntent = new Intent(getActivity().getApplicationContext(), DesignerCaseInfoActivity.class);
                 Bundle productBundle = new Bundle();
                 productBundle.putString(Global.PRODUCT_ID, productid);
                 productIntent.putExtras(productBundle);
@@ -81,7 +74,14 @@ public class SearchProductFragment extends BaseFragment {
 
             @Override
             public void OnViewClick(int position) {
-
+                Product product = productAdapter.getData().get(position);
+                String designertid = product.getDesignerid();
+                LogTool.d(TAG, "designertid=" + designertid);
+                Intent designerIntent = new Intent(getActivity().getApplicationContext(), DesignerInfoActivity.class);
+                Bundle designerBundle = new Bundle();
+                designerBundle.putString(Global.DESIGNER_ID, designertid);
+                designerIntent.putExtras(designerBundle);
+                startActivity(designerIntent);
             }
         });
         productAdapter.setLoadMoreListener(new BaseRecycleAdapter.LoadMoreListener() {
@@ -124,7 +124,6 @@ public class SearchProductFragment extends BaseFragment {
                 break;
         }
     }
-
 
     private ApiUiUpdateListener listener = new ApiUiUpdateListener() {
         @Override
