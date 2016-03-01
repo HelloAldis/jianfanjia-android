@@ -167,7 +167,7 @@ public class WebViewActivity extends SwipeBackActivity {
 
     private String getWebTitle() {
         if (StringUtils.isEmpty(this.progressWebView.getTitle())) {
-            return getResources().getString(R.string.home_tag1);
+            return "";
         } else {
             return this.progressWebView.getTitle();
         }
