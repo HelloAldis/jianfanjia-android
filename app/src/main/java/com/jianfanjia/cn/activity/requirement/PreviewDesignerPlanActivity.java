@@ -1,5 +1,6 @@
 package com.jianfanjia.cn.activity.requirement;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -27,6 +28,8 @@ import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.MainHeadView;
+import com.jianfanjia.cn.view.dialog.CommonDialog;
+import com.jianfanjia.cn.view.dialog.DialogHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -190,11 +193,29 @@ public class PreviewDesignerPlanActivity extends SwipeBackActivity implements On
                 startToActivity(planDetailInfo);
                 break;
             case R.id.btn_choose:
-                chooseDesignerPlan(requirementid, designerid, planid);
+                choosePlanDialog();
                 break;
             default:
                 break;
         }
+    }
+
+    private void choosePlanDialog() {
+        CommonDialog dialog = DialogHelper
+                .getPinterestDialogCancelable(PreviewDesignerPlanActivity.this);
+        dialog.setTitle(getResources().getString(R.string.hint_choose_plan_text));
+        dialog.setMessage(getResources().getString(R.string.hint_choose_plan_str));
+        dialog.setPositiveButton(R.string.ok,
+                new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        chooseDesignerPlan(requirementid, designerid, planid);
+                    }
+                });
+        dialog.setNegativeButton(R.string.no, null);
+        dialog.show();
     }
 
     private void startToActivity(PlandetailInfo detailInfo) {

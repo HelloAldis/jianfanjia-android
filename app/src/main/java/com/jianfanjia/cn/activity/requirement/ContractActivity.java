@@ -1,5 +1,6 @@
 package com.jianfanjia.cn.activity.requirement;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -20,6 +21,8 @@ import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
+import com.jianfanjia.cn.view.dialog.CommonDialog;
+import com.jianfanjia.cn.view.dialog.DialogHelper;
 
 /**
  * Description:合同查看
@@ -99,7 +102,7 @@ public class ContractActivity extends SwipeBackActivity implements OnClickListen
                 appManager.finishActivity(this);
                 break;
             case R.id.btn_choose:
-                postUserProcess(requirementid, final_planid);
+                chooseContractDialog();
                 break;
             default:
                 break;
@@ -116,6 +119,24 @@ public class ContractActivity extends SwipeBackActivity implements OnClickListen
             }
         }
         return false;
+    }
+
+    private void chooseContractDialog() {
+        CommonDialog dialog = DialogHelper
+                .getPinterestDialogCancelable(ContractActivity.this);
+        dialog.setTitle(getResources().getString(R.string.hint_contract_text));
+        dialog.setMessage(getResources().getString(R.string.hint_contract_str));
+        dialog.setPositiveButton(R.string.ok,
+                new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        postUserProcess(requirementid, final_planid);
+                    }
+                });
+        dialog.setNegativeButton(R.string.no, null);
+        dialog.show();
     }
 
     //查看合同
@@ -146,7 +167,7 @@ public class ContractActivity extends SwipeBackActivity implements OnClickListen
         }
     };
 
-    //确认开启工地
+    //确认开启工地  确认合同
     private void postUserProcess(String requirementid, String final_planid) {
         LogTool.d(TAG, "requirementid=" + requirementid + "  final_planid=" + final_planid);
         JianFanJiaClient.post_Owner_Process(ContractActivity.this, requirementid, final_planid, postUserProcessListener, this);
