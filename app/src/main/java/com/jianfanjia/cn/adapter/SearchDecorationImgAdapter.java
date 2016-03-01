@@ -8,8 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.adapter.base.BaseLoadingAdapter;
 import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
+import com.jianfanjia.cn.base.BaseRecycleAdapter;
 import com.jianfanjia.cn.bean.BeautyImgInfo;
 import com.jianfanjia.cn.bean.Img;
 import com.jianfanjia.cn.interf.OnItemClickListener;
@@ -23,12 +23,12 @@ import java.util.List;
  * Date: 2015-12-07
  * Time: 10:33
  */
-public class SearchDecorationImgAdapter extends BaseLoadingAdapter<BeautyImgInfo> {
+public class SearchDecorationImgAdapter extends BaseRecycleAdapter<BeautyImgInfo> {
     private static final String TAG = SearchDecorationImgAdapter.class.getName();
     private OnItemClickListener listener;
 
-    public SearchDecorationImgAdapter(Context context, RecyclerView recyclerView, List<BeautyImgInfo> beautyImgInfos, int pageSize,OnItemClickListener listener) {
-        super(context, recyclerView, beautyImgInfos, pageSize);
+    public SearchDecorationImgAdapter(Context context, RecyclerView recyclerView,OnItemClickListener listener) {
+        super(context, recyclerView);
         this.listener = listener;
     }
 
@@ -41,7 +41,7 @@ public class SearchDecorationImgAdapter extends BaseLoadingAdapter<BeautyImgInfo
 
     @Override
     public void onBindNormalViewHolder(RecyclerView.ViewHolder viewHolder,final int position) {
-        BeautyImgInfo info = mTs.get(position);
+        BeautyImgInfo info = mDatas.get(position);
         final DecorationViewHolder holder = (DecorationViewHolder) viewHolder;
         List<Img> imgList = info.getImages();
         if (null != imgList && imgList.size() > 0) {

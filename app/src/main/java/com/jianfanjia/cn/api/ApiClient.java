@@ -46,8 +46,6 @@ import okhttp3.RequestBody;
  *
  */
 public class ApiClient {
-    public static final int HTTP_FORBIDDEN_CODE = 403;
-    public static final int NO_NETWORK_ERROR = -1;
 
     private static final String TAG = ApiClient.class.getName();
     private static final MediaType JSON_MEDIA_TYPE = MediaType.parse("application/json; charset=utf-8");
@@ -57,12 +55,12 @@ public class ApiClient {
     private static Handler mDelivery = new Handler(Looper.getMainLooper());
 
 
-    private static void okhttp(Request okRequest, final BaseRequest baseRequest, final ApiCallback apiCallback) {
+    private static void api(Request okRequest, final BaseRequest baseRequest, final ApiCallback apiCallback) {
         preLoad(baseRequest, apiCallback);
 
         if (!NetTool.isNetworkAvailable(MyApplication.getInstance())) {
             httpDone(baseRequest, apiCallback);
-            networkError(baseRequest, apiCallback, NO_NETWORK_ERROR);
+            networkError(baseRequest, apiCallback, HttpCode.NO_NETWORK_ERROR_CODE);
             return;
         }
 
@@ -77,7 +75,7 @@ public class ApiClient {
                 if (call.isCanceled()) {
                     //什么都不做应为请求被取消
                 } else {
-                    networkError(baseRequest, apiCallback, NO_NETWORK_ERROR);
+                    networkError(baseRequest, apiCallback,HttpCode.NO_NETWORK_ERROR_CODE);
                 }
 
             }
@@ -171,12 +169,13 @@ public class ApiClient {
     }
 
     private static ApiResponse getApiResponse(String json, ApiCallback apiCallback) {
-        if (apiCallback != null ) {
+        if (apiCallback != null) {
             Type[] types = apiCallback.getClass().getGenericInterfaces();
             ParameterizedType parameterized = (ParameterizedType) types[0];
             return JsonParser.jsonToT(json, parameterized.getActualTypeArguments()[0]);
         } else {
-            Type type = new TypeToken<ApiResponse<Object>>(){}.getType();
+            Type type = new TypeToken<ApiResponse<Object>>() {
+            }.getType();
             return JsonParser.jsonToT(json, type);
         }
     }
@@ -191,20 +190,22 @@ public class ApiClient {
 
 
     /**
-     *  Get 方法请求通用
-     * @param url api url
+     * Get 方法请求通用
+     *
+     * @param url         api url
      * @param baseRequest request对象
      * @param apiCallback
      */
     public static void okGet(String url, BaseRequest baseRequest, ApiCallback apiCallback) {
         Request request = new Request.Builder().url(url).build();
-        okhttp(request, baseRequest, apiCallback);
+        api(request, baseRequest, apiCallback);
     }
 
 
     /**
-     *  POST 方法请求通用
-     * @param url api url
+     * POST 方法请求通用
+     *
+     * @param url         api url
      * @param baseRequest request对象
      * @param apiCallback 回调
      */
@@ -213,19 +214,20 @@ public class ApiClient {
         logRequestBody(json);
         RequestBody body = RequestBody.create(JSON_MEDIA_TYPE, json);
         Request request = new Request.Builder().url(url).post(body).build();
-        okhttp(request, baseRequest, apiCallback);
+        api(request, baseRequest, apiCallback);
     }
 
     /**
      * POST上传数据
-     * @param url api url
+     *
+     * @param url         api url
      * @param baseRequest request对象
-     * @param bytes 数据的byte数组
+     * @param bytes       数据的byte数组
      * @param apiCallback 回调
      */
     public static void upload(String url, BaseRequest baseRequest, byte[] bytes, ApiCallback apiCallback) {
         RequestBody body = RequestBody.create(IMAGE_MEDIA_TYPE, bytes);
         Request request = new Request.Builder().url(url).post(body).build();
-        okhttp(request, baseRequest, apiCallback);
+        api(request, baseRequest, apiCallback);
     }
 }

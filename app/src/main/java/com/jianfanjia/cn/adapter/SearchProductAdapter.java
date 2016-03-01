@@ -8,13 +8,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.adapter.base.BaseLoadingAdapter;
 import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
+import com.jianfanjia.cn.base.BaseRecycleAdapter;
 import com.jianfanjia.cn.bean.Product;
 import com.jianfanjia.cn.cache.BusinessManager;
 import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
-
-import java.util.List;
 
 /**
  * Name: ProductAdapter
@@ -22,18 +20,18 @@ import java.util.List;
  * Date: 2015-12-11
  * Time: 13:20
  */
-public class SearchProductAdapter extends BaseLoadingAdapter<Product> {
+public class SearchProductAdapter extends BaseRecycleAdapter<Product> {
     private static final String TAG = SearchProductAdapter.class.getName();
     private RecyclerViewOnItemClickListener listener;
 
-    public SearchProductAdapter(Context context, RecyclerView recyclerView, List<Product> list, RecyclerViewOnItemClickListener listener ,int pageSize) {
-        super(context, recyclerView, list ,pageSize);
+    public SearchProductAdapter(Context context, RecyclerView recyclerView,RecyclerViewOnItemClickListener listener) {
+        super(context, recyclerView);
         this.listener = listener;
     }
 
     @Override
     public void onBindNormalViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
-        Product product = mTs.get(position);
+        Product product = mDatas.get(position);
         final ProductViewHolder holder = (ProductViewHolder) viewHolder;
         holder.itemXiaoQuText.setText(product.getCell());
         String houseType = product.getHouse_type();

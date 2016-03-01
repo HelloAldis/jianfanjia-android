@@ -229,8 +229,9 @@ public class CollectDesignerFragment extends CommonFragment implements PullToRef
     };
 
     public void onEventMainThread(MessageEvent event) {
+        LogTool.d(TAG, "event:" + event.getEventType());
         switch (event.getEventType()) {
-            case Constant.UPDATE_FAVORITE_FRAGMENT:
+            case Constant.DELETE_FAVORITE_DESIGNER_FRAGMENT:
                 designAdapter.remove(currentPos);
                 if (designers.size() == 0) {
                     my_favorite_designer_listview.setVisibility(View.GONE);

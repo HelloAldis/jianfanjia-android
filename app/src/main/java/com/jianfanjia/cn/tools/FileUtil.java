@@ -1,6 +1,7 @@
 package com.jianfanjia.cn.tools;
 
 import java.io.ByteArrayOutputStream;
+import java.io.Closeable;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -101,7 +102,7 @@ public class FileUtil {
         if (!destDir.exists()) {
             destDir.mkdirs();
         }
-        return new File(folderPath, fileName + fileName);
+        return new File(folderPath, fileName);
     }
 
     /**
@@ -645,6 +646,16 @@ public class FileUtil {
                 Locale.CHINA).format(new Date());
         String fileName = "jyz_image_" + timeStamp + "" + ".jpg";
         return fileName;
+    }
+
+    public static void closeQuietly(Closeable closeable) {
+        if (closeable != null) {
+            try {
+                closeable.close();
+            } catch (IOException e) {
+
+            }
+        }
     }
 
 }

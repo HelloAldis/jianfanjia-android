@@ -125,7 +125,7 @@ public class XuQiuFragment extends BaseAnnotationFragment {
             @Override
             public void click(int position, int itemType) {
                 requirementInfo = requirementInfos.get(position);
-                if(requirementInfo.getDec_style() == null){//此处是对老的可能没有家装类型的数据进行初始化，防止异常
+                if (requirementInfo.getDec_style() == null) {//此处是对老的可能没有家装类型的数据进行初始化，防止异常
                     requirementInfo.setDec_style(Global.DEC_TYPE_HOME);
                 }
                 switch (itemType) {
@@ -206,14 +206,13 @@ public class XuQiuFragment extends BaseAnnotationFragment {
         initData();
     }
 
-
     @Override
     public void onAttach(Context context) {
+        super.onAttach(context);
         updateBroadcastReceiver = new UpdateBroadcastReceiver();
         IntentFilter filter = new IntentFilter();
         filter.addAction(Global.ACTION_UPDATE);    //只有持有相同的action的接受者才能接收此广播
         context.registerReceiver(updateBroadcastReceiver, filter);
-        super.onAttach(context);
     }
 
     @Override
@@ -293,11 +292,6 @@ public class XuQiuFragment extends BaseAnnotationFragment {
             default:
                 break;
         }
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
     }
 
     @Override

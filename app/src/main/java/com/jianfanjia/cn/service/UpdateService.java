@@ -67,7 +67,7 @@ public class UpdateService extends Service implements ApiUiUpdateListener {
     public void preLoad() {
         builder = new NotificationCompat.Builder(
                 getApplicationContext());
-        builder.setSmallIcon(R.mipmap.icon_notify);
+        builder.setSmallIcon(R.mipmap.icon_notify_small);
         builder.setTicker("正在下载新版本");
         builder.setContentTitle("简繁家");
         builder.setContentText("正在下载,请稍后...");

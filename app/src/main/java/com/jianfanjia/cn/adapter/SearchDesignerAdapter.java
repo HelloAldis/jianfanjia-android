@@ -11,14 +11,12 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.adapter.base.BaseLoadingAdapter;
+import com.jianfanjia.cn.base.BaseRecycleAdapter;
 import com.jianfanjia.cn.bean.DesignerInfo;
 import com.jianfanjia.cn.cache.BusinessManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
 import com.jianfanjia.cn.tools.ImageShow;
-
-import java.util.List;
 
 /**
  * Description: com.jianfanjia.cn.adapter
@@ -26,12 +24,12 @@ import java.util.List;
  * Email: jame.zhang@myjyz.com
  * Date:2016-02-20 14:59
  */
-public class SearchDesignerAdapter extends BaseLoadingAdapter<DesignerInfo> {
+public class SearchDesignerAdapter extends BaseRecycleAdapter<DesignerInfo> {
 
     private RecyclerViewOnItemClickListener listener;
 
-    public SearchDesignerAdapter(Context context,RecyclerView recyclerView, List<DesignerInfo> ts ,int pageSize,RecyclerViewOnItemClickListener recyclerViewOnItemClickListener) {
-        super(context,recyclerView, ts ,pageSize);
+    public SearchDesignerAdapter(Context context,RecyclerView recyclerView,RecyclerViewOnItemClickListener recyclerViewOnItemClickListener) {
+        super(context,recyclerView);
         this.listener = recyclerViewOnItemClickListener;
 
     }
@@ -46,7 +44,7 @@ public class SearchDesignerAdapter extends BaseLoadingAdapter<DesignerInfo> {
     public void onBindNormalViewHolder(RecyclerView.ViewHolder viewHolder, final int position) {
         SearchDesignerViewHolder holder = (SearchDesignerViewHolder) viewHolder;
 
-        DesignerInfo designerInfo = mTs.get(position);
+        DesignerInfo designerInfo = mDatas.get(position);
 
         holder.nameView.setText(TextUtils.isEmpty(designerInfo.getUsername()) ? context.getResources().getString(R.string.designer) : designerInfo.getUsername());
         String imageid = designerInfo.getImageid();

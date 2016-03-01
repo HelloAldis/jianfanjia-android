@@ -18,11 +18,11 @@ import android.widget.ScrollView;
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.home.DecStrategyActivity_;
 import com.jianfanjia.cn.activity.home.DesignerCaseInfoActivity;
 import com.jianfanjia.cn.activity.home.DesignerCaseListActivity;
 import com.jianfanjia.cn.activity.home.DesignerListActivity;
 import com.jianfanjia.cn.activity.home.SearchActivity_;
+import com.jianfanjia.cn.activity.home.WebViewActivity_;
 import com.jianfanjia.cn.activity.requirement.PublishRequirementActivity_;
 import com.jianfanjia.cn.adapter.HomeProductPagerAdapter;
 import com.jianfanjia.cn.adapter.ViewPageAdapter;
@@ -33,6 +33,7 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
+import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.TDevice;
@@ -95,7 +96,21 @@ public class HomeNewFragment extends BaseAnnotationFragment {
 
     @AfterViews
     protected void initAnnotationView() {
-        initBannerView(scrollViewPager, dotLinearLayout);
+        initBannerView(scrollViewPager, dotLinearLayout, new ViewPagerClickListener() {
+            @Override
+            public void onClickItem(int pos) {
+                LogTool.d(this.getClass().getName(), "position =" + pos);
+                if (pos == 0) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString(Global.WEB_VIEW_URL, Global.WEB_VIEW_URL_SUPERVISION);
+                    startActivity(WebViewActivity_.class, bundle);
+                } else if (pos == 1) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString(Global.WEB_VIEW_URL, Global.WEB_VIEW_URL_SAFEGUARD);
+                    startActivity(WebViewActivity_.class, bundle);
+                }
+            }
+        });
 
         pullToRefreshScrollView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ScrollView>() {
             @Override
@@ -238,7 +253,9 @@ public class HomeNewFragment extends BaseAnnotationFragment {
                 startActivityForResult(intent, XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT);
                 break;
             case R.id.ltm_home_layout1:
-                startActivity(DecStrategyActivity_.class);
+                Bundle bundle = new Bundle();
+                bundle.putString(Global.WEB_VIEW_URL, Global.WEB_VIEW_URL_DEC_STRATEGY);
+                startActivity(WebViewActivity_.class, bundle);
                 break;
             case R.id.ltm_home_layout2:
                 ((MainActivity) getActivity()).switchTab(Constant.DECORATE);
@@ -261,7 +278,7 @@ public class HomeNewFragment extends BaseAnnotationFragment {
         }
     }
 
-    private void initBannerView(AutoScrollViewPager viewPager, LinearLayout indicatorGroup_lib) {
+    private void initBannerView(AutoScrollViewPager viewPager, LinearLayout indicatorGroup_lib, final ViewPagerClickListener viewPagerClickListener) {
         indicatorGroup_lib.removeAllViews();
         List<View> bannerList = new ArrayList<>();
         for (int i = 0; i < BANNER_ICON.length; i++) {
@@ -289,6 +306,7 @@ public class HomeNewFragment extends BaseAnnotationFragment {
             indicatorGroup_lib.addView(indicators[i]);
         }
         ViewPageAdapter mPagerAdapter = new ViewPageAdapter(getContext(), bannerList);
+        mPagerAdapter.setViewPagerClickListener(viewPagerClickListener);
         viewPager.setAdapter(mPagerAdapter);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

@@ -57,7 +57,6 @@ public class MyFragment extends BaseFragment {
         user_head_img = (ImageView) view.findViewById(R.id.user_head_img);
         my_account = (TextView) view.findViewById(R.id.frag_my_account);
         my_name = (TextView) view.findViewById(R.id.frag_my_name);
-        initMyInfo();
     }
 
     @Override
@@ -114,6 +113,7 @@ public class MyFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
+        initMyInfo();
         my_name.setText(TextUtils.isEmpty(dataManager.getUserName()) ? getResources().getString(R.string.ower) : dataManager.getUserName());
         my_account.setText(TextUtils.isEmpty(dataManager.getAccount()) ? "" : "账号：" + dataManager.getAccount());
     }

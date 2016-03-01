@@ -6,17 +6,16 @@
 
     <RelativeLayout
         android:id="@+id/icon_layout"
-        android:layout_width="@dimen/space_72"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/space_12"
         android:paddingBottom="@dimen/space_12"
-        android:paddingLeft="@dimen/space_8">
+        android:paddingTop="@dimen/space_12">
 
         <ImageView
             android:id="@+id/list_item_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
             android:src="@mipmap/icon_notify" />
     </RelativeLayout>
 
@@ -26,12 +25,13 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/icon_layout"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginLeft="@dimen/space_8"
+        android:layout_marginRight="@dimen/space_8">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="8dip"
             android:layout_marginTop="2dip">
 
             <TextView
@@ -52,11 +52,10 @@
             android:id="@+id/list_item_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="8dip"
             android:layout_marginTop="2dip"
+            android:ellipsize="end"
             android:maxLines="2"
             android:text="泥木阶段"
-            android:ellipsize="end"
             android:textColor="@color/light_black_color"
             android:textSize="@dimen/text_size_14" />
 

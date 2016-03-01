@@ -126,7 +126,7 @@ public class PublishRequirementActivity extends SwipeBackActivity implements Not
     }
 
     private void setupViewPager(ViewPager viewPager) {
-        LogTool.d(this.getClass().getName(),"setupViewPager");
+        LogTool.d(this.getClass().getName(), "setupViewPager");
         List<SelectItem> listViews = new ArrayList<>();
         editBussinessRequirementFragment_ = new EditBussinessRequirementFragment_();
         editBussinessRequirementFragment_.setArguments(getBundleByType(Global.DEC_TYPE_BUSINESS));
@@ -212,12 +212,11 @@ public class PublishRequirementActivity extends SwipeBackActivity implements Not
         commonDialog.show();
     }
 
-
     protected Bundle getBundleByType(String type) {
         Bundle bundle = new Bundle();
         RequirementInfo requirementInfo = new RequirementInfo();
         requirementInfo.setDec_type(type);
-        switch (type){
+        switch (type) {
             case Global.DEC_TYPE_HOME:
                 requirementInfo.setHouse_type("2");//设置默认初始值
                 break;
@@ -254,7 +253,7 @@ public class PublishRequirementActivity extends SwipeBackActivity implements Not
         }
     }
 
-    private boolean isHomeTypeChange(){
+    private boolean isHomeTypeChange() {
         requirementInfoInit.setDec_type(Global.DEC_TYPE_HOME);
         requirementInfoInit.setHouse_type("2");
         requirementInfoInit.setBusiness_house_type(null);
@@ -265,7 +264,7 @@ public class PublishRequirementActivity extends SwipeBackActivity implements Not
         return false;
     }
 
-    private boolean isBusinessTypeChange(){
+    private boolean isBusinessTypeChange() {
         requirementInfoInit.setHouse_type(null);
         requirementInfoInit.setBusiness_house_type("0");
         requirementInfoInit.setDec_type(Global.DEC_TYPE_BUSINESS);

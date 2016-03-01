@@ -15,8 +15,9 @@ import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.home.DesignerCaseInfoActivity;
 import com.jianfanjia.cn.activity.home.DesignerInfoActivity;
-import com.jianfanjia.cn.adapter.ProductAdapter;
+import com.jianfanjia.cn.adapter.SearchProductAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
+import com.jianfanjia.cn.base.BaseRecycleAdapter;
 import com.jianfanjia.cn.bean.DesignerWorksInfo;
 import com.jianfanjia.cn.bean.Product;
 import com.jianfanjia.cn.config.Constant;
@@ -28,32 +29,22 @@ import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
-import com.jianfanjia.cn.view.library.PullToRefreshBase;
-import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
  * @author fengliang
- * @ClassName: CollectProductFragment
+ * @ClassName: SearchProductFragment
  * @Description: 作品
  * @date 2015-8-26 下午1:07:52
  */
-public class SearchProductFragment extends BaseFragment implements PullToRefreshBase.OnRefreshListener2<RecyclerView> {
+public class SearchProductFragment extends BaseFragment {
     private static final String TAG = SearchProductFragment.class.getName();
-    private PullToRefreshRecycleView prodtct_listview = null;
+    private RecyclerView recyclerView = null;
     private RelativeLayout emptyLayout = null;
     private RelativeLayout errorLayout = null;
-    private ProductAdapter productAdapter = null;
-    private List<Product> productList = new ArrayList<>();
-    private int FROM = 0;
-    private String decType = null;
-    private String designStyle = null;
-    private String houseType = null;
-    private String decArea = null;
+    private SearchProductAdapter productAdapter = null;
     private String search = null;
 
     @Override
@@ -64,17 +55,50 @@ public class SearchProductFragment extends BaseFragment implements PullToRefresh
         ((TextView) emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.search_no_product));
         ((ImageView) emptyLayout.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_product);
         errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
-        prodtct_listview = (PullToRefreshRecycleView) view.findViewById(R.id.product_listview);
-        prodtct_listview.setMode(PullToRefreshBase.Mode.PULL_FROM_END);
-        prodtct_listview.setLayoutManager(new LinearLayoutManager(getActivity()));
-        prodtct_listview.setHasFixedSize(true);
-        prodtct_listview.setItemAnimator(new DefaultItemAnimator());
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycleview);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        productAdapter = new SearchProductAdapter(getContext(), recyclerView, new RecyclerViewOnItemClickListener() {
+            @Override
+            public void OnItemClick(View view, int position) {
+                Product product = productAdapter.getData().get(position);
+                String productid = product.get_id();
+                LogTool.d(TAG, "productid:" + productid);
+                Intent productIntent = new Intent(getActivity().getApplicationContext(), DesignerCaseInfoActivity.class);
+                Bundle productBundle = new Bundle();
+                productBundle.putString(Global.PRODUCT_ID, productid);
+                productIntent.putExtras(productBundle);
+                startActivity(productIntent);
+            }
+
+            @Override
+            public void OnViewClick(int position) {
+                Product product = productAdapter.getData().get(position);
+                String designertid = product.getDesignerid();
+                LogTool.d(TAG, "designertid=" + designertid);
+                Intent designerIntent = new Intent(getActivity().getApplicationContext(), DesignerInfoActivity.class);
+                Bundle designerBundle = new Bundle();
+                designerBundle.putString(Global.DESIGNER_ID, designertid);
+                designerIntent.putExtras(designerBundle);
+                startActivity(designerIntent);
+            }
+        });
+        productAdapter.setLoadMoreListener(new BaseRecycleAdapter.LoadMoreListener() {
+            @Override
+            public void loadMore() {
+                searchProduct(productAdapter.getData().size(), search, listener);
+            }
+        });
+        productAdapter.setErrorView(errorLayout);
+        productAdapter.setEmptyView(emptyLayout);
+        recyclerView.setAdapter(productAdapter);
         Paint paint = new Paint();
         paint.setStrokeWidth(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getResources().getDisplayMetrics()));
         paint.setAlpha(0);
         paint.setAntiAlias(true);
-        prodtct_listview.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).paint(paint).showLastDivider().build());
-        searchProduct(FROM, search, listener);
+        recyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).paint(paint).showLastDivider().build());
+        searchProduct(productAdapter.getData().size(), search, listener);
     }
 
     private void searchProduct(int from, String searchText, ApiUiUpdateListener listener) {
@@ -88,81 +112,43 @@ public class SearchProductFragment extends BaseFragment implements PullToRefresh
     @Override
     public void setListener() {
         errorLayout.setOnClickListener(this);
-        prodtct_listview.setOnRefreshListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.error_include:
-                searchProduct(FROM, search, listener);
+                searchProduct(productAdapter.getData().size(), search, listener);
                 break;
             default:
                 break;
         }
     }
 
-    @Override
-    public void onPullDownToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-
-    }
-
-    @Override
-    public void onPullUpToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-        searchProduct(FROM, search, pullUpListener);
-    }
-
     private ApiUiUpdateListener listener = new ApiUiUpdateListener() {
         @Override
         public void preLoad() {
-            showWaitDialog();
         }
 
         @Override
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data=" + data.toString());
-            hideWaitDialog();
             DesignerWorksInfo worksInfo = JsonParser.jsonToBean(data.toString(), DesignerWorksInfo.class);
             LogTool.d(TAG, "worksInfo :" + worksInfo);
             if (null != worksInfo) {
-                productList.addAll(worksInfo.getProducts());
-                if (null != productList && productList.size() > 0) {
-                    productAdapter = new ProductAdapter(getActivity(), productList, new RecyclerViewOnItemClickListener() {
-
-                        @Override
-                        public void OnItemClick(View view, int position) {
-                            Product product = productList.get(position);
-                            String productid = product.get_id();
-                            LogTool.d(TAG, "productid:" + productid);
-                            Intent productIntent = new Intent(getActivity(), DesignerCaseInfoActivity.class);
-                            Bundle productBundle = new Bundle();
-                            productBundle.putString(Global.PRODUCT_ID, productid);
-                            productIntent.putExtras(productBundle);
-                            startActivity(productIntent);
-                        }
-
-                        @Override
-                        public void OnViewClick(int position) {
-                            Product product = productList.get(position);
-                            String designertid = product.getDesignerid();
-                            LogTool.d(TAG, "designertid=" + designertid);
-                            Intent designerIntent = new Intent(getActivity(), DesignerInfoActivity.class);
-                            Bundle designerBundle = new Bundle();
-                            designerBundle.putString(Global.DESIGNER_ID, designertid);
-                            designerIntent.putExtras(designerBundle);
-                            startActivity(designerIntent);
-                        }
-                    });
-                    prodtct_listview.setAdapter(productAdapter);
-                    FROM = productList.size();
-                    LogTool.d(TAG, "FROM:" + FROM);
-                    prodtct_listview.setVisibility(View.VISIBLE);
-                    emptyLayout.setVisibility(View.GONE);
-                    errorLayout.setVisibility(View.GONE);
+                int total = worksInfo.getTotal();
+                if (total > 0) {
+                    LogTool.d(this.getClass().getName(), "total size =" + total);
+                    LogTool.d(this.getClass().getName(), "searchDesignerAdapter.getData().size() =" + productAdapter.getData().size());
+                    productAdapter.addData(worksInfo.getProducts());
+                    if (total > productAdapter.getData().size()) {
+                        productAdapter.setState(BaseRecycleAdapter.STATE_LOAD_MORE);
+                    } else {
+                        productAdapter.setState(BaseRecycleAdapter.STATE_NO_MORE);
+                    }
+                    productAdapter.hideErrorAndEmptyView();
                 } else {
-                    prodtct_listview.setVisibility(View.GONE);
-                    emptyLayout.setVisibility(View.VISIBLE);
-                    errorLayout.setVisibility(View.GONE);
+                    productAdapter.setEmptyViewShow();
                 }
             }
         }
@@ -170,45 +156,13 @@ public class SearchProductFragment extends BaseFragment implements PullToRefresh
         @Override
         public void loadFailture(String error_msg) {
             makeTextShort(error_msg);
-            hideWaitDialog();
-            prodtct_listview.setVisibility(View.GONE);
-            emptyLayout.setVisibility(View.GONE);
-            errorLayout.setVisibility(View.VISIBLE);
-        }
-    };
-
-    private ApiUiUpdateListener pullUpListener = new ApiUiUpdateListener() {
-        @Override
-        public void preLoad() {
-
-        }
-
-        @Override
-        public void loadSuccess(Object data) {
-            prodtct_listview.onRefreshComplete();
-            DesignerWorksInfo worksInfo = JsonParser.jsonToBean(data.toString(), DesignerWorksInfo.class);
-            LogTool.d(TAG, "worksInfo :" + worksInfo);
-            if (null != worksInfo) {
-                List<Product> products = worksInfo.getProducts();
-                if (null != products && products.size() > 0) {
-                    productAdapter.add(FROM, products);
-                    FROM += Constant.HOME_PAGE_LIMIT;
-                    LogTool.d(TAG, "FROM=" + FROM);
-                } else {
-                    makeTextShort(getResources().getString(R.string.no_more_data));
-                }
-            }
-        }
-
-        @Override
-        public void loadFailture(String error_msg) {
-            makeTextShort(error_msg);
-            prodtct_listview.onRefreshComplete();
+            productAdapter.setErrorViewShow();
+            productAdapter.setState(BaseRecycleAdapter.STATE_NETWORK_ERROR);
         }
     };
 
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_search_product;
+        return R.layout.fragment_search_designer;
     }
 }

@@ -30,7 +30,7 @@
             android:id="@+id/head_center_title"
             style="@style/listview_item_text_style_big"
             android:layout_centerInParent="true"
-            android:maxEms="12"
+            android:maxEms="10"
             android:maxLines="1"
             android:ellipsize="end"
             android:textColor="@color/light_black_color" />

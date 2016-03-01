@@ -49,6 +49,11 @@ public class Global {
     public static final String SEARCH_TEXT = "search_text";
     public static final String VIEW_TYPE = "type";
 
+    public static final String WEB_VIEW_URL = "web_view_url";
+    public static final String WEB_VIEW_URL_DEC_STRATEGY = "/view/article/";
+    public static final String WEB_VIEW_URL_SAFEGUARD = "/view/zt/safeguard/";
+    public static final String WEB_VIEW_URL_SUPERVISION = "/view/zt/supervision/";
+
 
     public static final String TOPIC_PLAN = "0";//方案评论
     public static final String TOPIC_NODE = "1";//节点评论

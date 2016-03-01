@@ -94,6 +94,8 @@ public class ReplaceDesignerActivity extends SwipeBackActivity implements OnClic
     }
 
     private void setReplaceDesignerList(List<DesignerCanOrderInfo> rec_designerList, List<DesignerCanOrderInfo> favorite_designerList) {
+        mylist.clear();
+        splitList.clear();
         Map<String, Object> mp = new HashMap<>();
         mp.put(Constant.KEY, getResources().getString(R.string.marchDesignerText));
         mp.put(Constant.TEXT_KEY, "");
@@ -221,8 +223,11 @@ public class ReplaceDesignerActivity extends SwipeBackActivity implements OnClic
     public void onEventMainThread(MessageEvent messageEvent) {
         LogTool.d(TAG, "messageEvent:" + messageEvent.getEventType());
         switch (messageEvent.getEventType()) {
-            case Constant.UPDATE_ORDER_DESIGNER_ACTIVITY:
+            case Constant.DELETE_ORDER_DESIGNER_ACTIVITY:
                 designerByAppointOrReplaceAdapter.remove(currentPos);
+                break;
+            case Constant.UPDATE_ORDER_DESIGNER_ACTIVITY:
+                getOrderDesignerList(requestmentid);
                 break;
             default:
                 break;
