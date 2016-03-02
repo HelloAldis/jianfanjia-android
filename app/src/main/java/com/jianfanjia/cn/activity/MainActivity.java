@@ -76,7 +76,6 @@ public class MainActivity extends BaseActivity implements
                 break;
             case R.id.tab_rb_2:
                 setTabSelection(Constant.DECORATE);
-//                showGuide();
                 break;
             case R.id.tab_rb_3:
                 setTabSelection(Constant.MANAGE);
