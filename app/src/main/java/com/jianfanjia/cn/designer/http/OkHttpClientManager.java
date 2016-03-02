@@ -17,6 +17,7 @@ import com.jianfanjia.cn.designer.http.coreprogress.listener.impl.UIProgressList
 import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.designer.tools.LogTool;
 import com.jianfanjia.cn.designer.tools.NetTool;
+import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.squareup.okhttp.Call;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.Headers;
@@ -167,6 +168,16 @@ public class OkHttpClientManager {
             @Override
             public void onResponse(final Response response) {
                 LogTool.d(TAG, "response :" + response + "  response code :" + response.code());
+                if(response.code() == 403){
+                    // 403跳转到登录界面
+                    mDelivery.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            UiHelper.forbiddenToLogin();
+                        }
+                    });
+                    return;
+                }
                 try {
                     final String string = response.body().string();
                     JSONObject responseString = new JSONObject(string);
