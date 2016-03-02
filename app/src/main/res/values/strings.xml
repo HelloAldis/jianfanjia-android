@@ -351,7 +351,7 @@
 
 
     <string name="hint_choose_plan_text">选定方案</string>
-    <string name="hint_choose_plan_str">确定选定此方案吗？</string>
+    <string name="hint_choose_plan_str">您确定要选定此方案吗？</string>
     <string name="hint_contract_text">确认合同</string>
-    <string name="hint_contract_str">确定要确认合同吗？</string>
+    <string name="hint_contract_str">您确定要确认合同吗？</string>
 </resources>
