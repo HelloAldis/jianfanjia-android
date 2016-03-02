@@ -61,6 +61,7 @@ public class UiHelper {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         MyApplication.getInstance().startActivity(intent);
         AppManager.getAppManager().finishAllActivity();
+        DataManagerNew.getInstance().cleanData();
         showShortToast("登录过期，请重新登录！");
     }
 
