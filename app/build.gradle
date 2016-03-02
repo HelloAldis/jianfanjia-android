@@ -80,7 +80,7 @@ android {
     productFlavors {
         Default {
         }
-     /*   zhushou_360 {
+       /* zhushou_360 {
         }
         mi {
         }
