@@ -96,7 +96,7 @@ public class PushMsgReceiver extends BroadcastReceiver {
         try {
             NotifyMessage message = JsonParser.jsonToBean(jsonStr,
                     NotifyMessage.class);
-            Log.i(TAG, "message:" + message + "    userid:" + dataManager.getUserId());
+            Log.i(TAG, "message:" + message + "  userid:" + dataManager.getUserId());
             message.setUserid(dataManager.getUserId());
             boolean result = notifyMessageDao.save(message);
             Log.i(TAG, "result:" + result);
