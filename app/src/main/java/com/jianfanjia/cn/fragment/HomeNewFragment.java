@@ -250,7 +250,7 @@ public class HomeNewFragment extends BaseAnnotationFragment {
         switch (view.getId()) {
             case R.id.ltm_home_layout0:
                 Intent intent = new Intent(getContext(), PublishRequirementActivity_.class);
-                startActivityForResult(intent, XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT);
+                getActivity().startActivityForResult(intent, XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT);
                 break;
             case R.id.ltm_home_layout1:
                 Bundle bundle = new Bundle();

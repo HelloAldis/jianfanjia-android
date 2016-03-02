@@ -197,7 +197,6 @@ public class MainActivity extends BaseActivity implements
             mTabRg.check(R.id.tab_rb_3);
             setTabSelection(Constant.MANAGE);
             xuqiuFragment.onActivityResult(requestCode, resultCode, data);
-            homeFragment.onActivityResult(requestCode, resultCode, data);
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
