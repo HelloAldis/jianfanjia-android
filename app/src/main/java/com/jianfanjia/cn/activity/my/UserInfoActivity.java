@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
@@ -142,29 +143,26 @@ public class UserInfoActivity extends SwipeBackActivity implements
                 showPopWindow();
                 break;
             case R.id.address_layout:
-                Intent address = new Intent(UserInfoActivity.this,
-                        EditCityActivity_.class);
-                address.putExtra(Constant.EDIT_PROVICE, ownerInfo.getProvince());
-                address.putExtra(Constant.EDIT_CITY, ownerInfo.getCity());
-                address.putExtra(Constant.EDIT_DISTRICT, ownerInfo.getDistrict());
-                address.putExtra(EditCityActivity.PAGE, EditCityActivity.EDIT_USER_ADRESS);
-                startActivityForResult(address, Constant.REQUESTCODE_EDIT_ADDRESS);
+                Bundle address = new Bundle();
+                address.putString(Constant.EDIT_PROVICE, ownerInfo.getProvince());
+                address.putString(Constant.EDIT_CITY, ownerInfo.getCity());
+                address.putString(Constant.EDIT_DISTRICT, ownerInfo.getDistrict());
+                address.putInt(EditCityActivity.PAGE, EditCityActivity.EDIT_USER_ADRESS);
+                startActivityForResult(EditCityActivity_.class,address, Constant.REQUESTCODE_EDIT_ADDRESS);
                 break;
             case R.id.name_layout:
-                Intent name = new Intent(UserInfoActivity.this,
-                        EditOwnerInfoActivity.class);
-                name.putExtra(Constant.EDIT_TYPE,
+                Bundle name = new Bundle();
+                name.putInt(Constant.EDIT_TYPE,
                         Constant.REQUESTCODE_EDIT_USERNAME);
-                name.putExtra(Constant.EDIT_CONTENT, ownerInfo.getUsername());
-                startActivityForResult(name, Constant.REQUESTCODE_EDIT_USERNAME);
+                name.putString(Constant.EDIT_CONTENT, ownerInfo.getUsername());
+                startActivityForResult(EditOwnerInfoActivity.class,name,Constant.REQUESTCODE_EDIT_USERNAME);
                 break;
             case R.id.home_layout:
-                Intent home = new Intent(UserInfoActivity.this,
-                        EditOwnerInfoActivity.class);
-                home.putExtra(Constant.EDIT_TYPE,
+                Bundle home = new Bundle();
+                home.putInt(Constant.EDIT_TYPE,
                         Constant.REQUESTCODE_EDIT_HOME);
-                home.putExtra(Constant.EDIT_CONTENT, ownerInfo.getAddress());
-                startActivityForResult(home, Constant.REQUESTCODE_EDIT_HOME);
+                home.putString(Constant.EDIT_CONTENT, ownerInfo.getAddress());
+                startActivityForResult(EditOwnerInfoActivity.class,home, Constant.REQUESTCODE_EDIT_HOME);
                 break;
             case R.id.sex_layout:
                 showSexChooseDialog();

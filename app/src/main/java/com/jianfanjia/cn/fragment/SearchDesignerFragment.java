@@ -1,6 +1,5 @@
 package com.jianfanjia.cn.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -66,11 +65,9 @@ public class SearchDesignerFragment extends BaseFragment {
             public void OnViewClick(int position) {
                 String designerId = searchDesignerAdapter.getData().get(position).get_id();
                 LogTool.d(TAG, "designerId:" + designerId);
-                Intent designerIntent = new Intent(getActivity(), DesignerInfoActivity.class);
                 Bundle designerBundle = new Bundle();
                 designerBundle.putString(Global.DESIGNER_ID, designerId);
-                designerIntent.putExtras(designerBundle);
-                startActivity(designerIntent);
+                startActivity(DesignerInfoActivity.class,designerBundle);
             }
         });
         searchDesignerAdapter.setLoadMoreListener(new BaseRecycleAdapter.LoadMoreListener() {

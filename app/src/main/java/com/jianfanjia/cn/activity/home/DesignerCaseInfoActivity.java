@@ -185,13 +185,11 @@ public class DesignerCaseInfoActivity extends SwipeBackActivity implements OnCli
                     @Override
                     public void OnItemClick(View view, int position) {
                         LogTool.d(TAG, "position:" + position);
-                        Intent showPicIntent = new Intent(DesignerCaseInfoActivity.this, ShowPicActivity.class);
                         Bundle showPicBundle = new Bundle();
                         showPicBundle.putInt(Constant.CURRENT_POSITION, position);
                         showPicBundle.putStringArrayList(Constant.IMAGE_LIST,
                                 (ArrayList<String>) imgs);
-                        showPicIntent.putExtras(showPicBundle);
-                        startActivity(showPicIntent);
+                        startActivity(ShowPicActivity.class,showPicBundle);
                     }
 
                     @Override

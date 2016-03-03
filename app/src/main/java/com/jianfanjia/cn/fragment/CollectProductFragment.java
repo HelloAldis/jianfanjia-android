@@ -1,6 +1,5 @@
 package com.jianfanjia.cn.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -155,11 +154,9 @@ public class CollectProductFragment extends CommonFragment implements PullToRefr
                             LogTool.d(TAG, "currentPos-------" + currentPos);
                             String productid = products.get(currentPos).get_id();
                             LogTool.d(TAG, "productid:" + productid);
-                            Intent productIntent = new Intent(getActivity(), DesignerCaseInfoActivity.class);
                             Bundle productBundle = new Bundle();
                             productBundle.putString(Global.PRODUCT_ID, productid);
-                            productIntent.putExtras(productBundle);
-                            startActivity(productIntent);
+                            startActivity(DesignerCaseInfoActivity.class,productBundle);
                         }
 
                         @Override

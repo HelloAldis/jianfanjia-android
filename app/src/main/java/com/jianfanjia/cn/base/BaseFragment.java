@@ -1,6 +1,5 @@
 package com.jianfanjia.cn.base;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -19,8 +18,8 @@ import com.jianfanjia.cn.http.OkHttpClientManager;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
 import com.jianfanjia.cn.tools.DaoManager;
 import com.jianfanjia.cn.tools.ImageShow;
+import com.jianfanjia.cn.tools.IntentUtil;
 import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.view.AddPhotoDialog;
 import com.jianfanjia.cn.view.dialog.DialogControl;
 import com.jianfanjia.cn.view.dialog.WaitDialog;
 
@@ -36,7 +35,6 @@ public abstract class BaseFragment extends Fragment
     protected NotifyMessageDao notifyMessageDao = null;
     protected DataManagerNew dataManager = null;
     protected LayoutInflater inflater = null;
-    protected AddPhotoDialog popupWindow = null;
     protected ImageShow imageShow = null;
     protected String mUserName = null;// 用户名
     protected String mAccount = null;// 账号
@@ -57,7 +55,9 @@ public abstract class BaseFragment extends Fragment
                              Bundle savedInstanceState) {
         LogTool.d(this.getClass().getName(), "onCreateView");
         this.inflater = inflater;
-        view = inflateView(getLayoutId());
+        if(getLayoutId() > 0){
+            view = inflateView(getLayoutId());
+        }
         return view;
     }
 
@@ -73,7 +73,6 @@ public abstract class BaseFragment extends Fragment
     private void init() {
         dataManager = DataManagerNew.getInstance();
         notifyMessageDao = DaoManager.getNotifyMessageDao(MyApplication.getInstance());
-        // sharedPrefer = dataManager.sharedPreferdata;
         fragmentManager = getFragmentManager();
         imageShow = ImageShow.getImageShow();
     }
@@ -137,12 +136,23 @@ public abstract class BaseFragment extends Fragment
 
     // 含有Bundle通过Class跳转界面
     protected void startActivity(Class<?> cls, Bundle bundle) {
-        Intent intent = new Intent();
-        intent.setClass(getActivity(), cls);
-        if (bundle != null) {
-            intent.putExtras(bundle);
-        }
-        startActivity(intent);
+        IntentUtil.startActivity(getContext(), cls, bundle);
+    }
+
+    protected void startActivityForResult(Class<?> cls, Bundle bundle, int requestCode) {
+        IntentUtil.startActivityForResult(this, cls, bundle, requestCode);
+    }
+
+    protected void startActivityForResult(Class<?> cls, int requestCode) {
+        startActivityForResult(cls, null, requestCode);
+    }
+
+    protected void startActivityForResultByHost(Class<?> cls, Bundle bundle, int requestCode) {
+        IntentUtil.startActivityForResult(getActivity(), cls, bundle, requestCode);
+    }
+
+    protected void startActivityForResultByHost(Class<?> cls, int requestCode) {
+        startActivityForResultByHost(cls, null, requestCode);
     }
 
     @Override

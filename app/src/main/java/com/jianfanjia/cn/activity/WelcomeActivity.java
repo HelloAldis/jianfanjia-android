@@ -181,8 +181,6 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
     public void loadSuccess(Object data) {
         startActivity(MainActivity.class);
         appManager.finishActivity(WelcomeActivity.this);
-//        PushManager.getInstance().initialize(getApplicationContext());//初始化个推
-//        PushManager.getInstance().bindAlias(getApplicationContext(), dataManager.getUserId());
     }
 
     @Override

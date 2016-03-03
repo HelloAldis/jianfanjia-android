@@ -57,7 +57,7 @@ public class IntentUtil {
         context.startActivity(intent);
     }
 
-    public static void startActivityForResult(Activity activity, Class<?> clazz , int requestCode) {
+    public static void startActivityForResult(Activity activity, Class<?> clazz, int requestCode) {
         startActivityForResult(activity, clazz, null, requestCode);
     }
 

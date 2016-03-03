@@ -1,6 +1,5 @@
 package com.jianfanjia.cn.activity.home;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -238,11 +237,9 @@ public class DesignerCaseListActivity extends SwipeBackActivity implements View.
                                 Product product = productList.get(position);
                                 String productid = product.get_id();
                                 LogTool.d(TAG, "productid:" + productid);
-                                Intent productIntent = new Intent(DesignerCaseListActivity.this, DesignerCaseInfoActivity.class);
                                 Bundle productBundle = new Bundle();
                                 productBundle.putString(Global.PRODUCT_ID, productid);
-                                productIntent.putExtras(productBundle);
-                                startActivity(productIntent);
+                                startActivity(DesignerCaseInfoActivity.class,productBundle);
                             }
 
                             @Override
@@ -250,11 +247,9 @@ public class DesignerCaseListActivity extends SwipeBackActivity implements View.
                                 Product product = productList.get(position);
                                 String designertid = product.getDesignerid();
                                 LogTool.d(TAG, "designertid=" + designertid);
-                                Intent designerIntent = new Intent(DesignerCaseListActivity.this, DesignerInfoActivity.class);
                                 Bundle designerBundle = new Bundle();
                                 designerBundle.putString(Global.DESIGNER_ID, designertid);
-                                designerIntent.putExtras(designerBundle);
-                                startActivity(designerIntent);
+                                startActivity(DesignerInfoActivity.class,designerBundle);
                             }
                         });
                         pullToRefreshRecyclerView.setAdapter(productAdapter);
