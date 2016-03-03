@@ -39,7 +39,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Description:全部案例
+ * Description:全部作品案例
  * Author：fengliang
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
@@ -107,7 +107,7 @@ public class DesignerCaseListActivity extends SwipeBackActivity implements View.
     private void initMainHeadView() {
         mainHeadView = (MainHeadView) findViewById(R.id.designer_case_head);
         mainHeadView.setBackListener(this);
-        mainHeadView.setMianTitle(getResources().getString(R.string.all_designer_case));
+        mainHeadView.setMianTitle(getResources().getString(R.string.all_designer_product));
         mainHeadView.setBackgroundTransparent();
     }
 
