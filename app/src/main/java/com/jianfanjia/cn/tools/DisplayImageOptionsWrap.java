@@ -16,14 +16,14 @@ public class DisplayImageOptionsWrap {
 
     private static DisplayImageOptions.Builder getBaseOptionsBuilder() {
         return new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.mipmap.pix_default)
-                .showImageForEmptyUri(R.mipmap.pix_default)
-                .showImageOnFail(R.mipmap.pix_default)
+                .showImageOnLoading(R.mipmap.icon_default_pic)
+                .showImageForEmptyUri(R.mipmap.icon_default_pic)
+                .showImageOnFail(R.mipmap.icon_default_pic)
                 .cacheOnDisk(true).considerExifParams(true)
                 .bitmapConfig(Bitmap.Config.RGB_565).imageScaleType(ImageScaleType.IN_SAMPLE_INT);
     }
 
-    public static DisplayImageOptions getDisplayImageOptionsIsMemoryCache(boolean iscache){
+    public static DisplayImageOptions getDisplayImageOptionsIsMemoryCache(boolean iscache) {
         return getBaseOptionsBuilder().cacheInMemory(iscache).build();
     }
 
