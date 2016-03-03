@@ -22,7 +22,7 @@ import com.jianfanjia.cn.bean.SelectItem;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.fragment.DesignerInfoFragment;
-import com.jianfanjia.cn.fragment.DesignerWorksFragment;
+import com.jianfanjia.cn.fragment.DesignerProductFragment;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.JsonParser;
@@ -107,7 +107,7 @@ public class DesignerInfoActivity extends SwipeBackActivity implements OnClickLi
     private void setupViewPager(ViewPager viewPager) {
         SelectItem resItem = new SelectItem(DesignerInfoFragment.newInstance(designerid),
                 getResources().getString(R.string.resourceText));
-        SelectItem productItem = new SelectItem(DesignerWorksFragment.newInstance(designerid),
+        SelectItem productItem = new SelectItem(DesignerProductFragment.newInstance(designerid),
                 getResources().getString(R.string.productText));
         listViews.add(resItem);
         listViews.add(productItem);

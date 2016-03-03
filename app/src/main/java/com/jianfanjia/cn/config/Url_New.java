@@ -19,7 +19,11 @@ public class Url_New {
 
     public static Url_New getInstance() {
         if (instance == null) {
-            instance = new Url_New();
+            synchronized (Url_New.class) {
+                if (instance == null) {
+                    instance = new Url_New();
+                }
+            }
         }
         return instance;
     }

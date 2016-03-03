@@ -33,13 +33,13 @@ import java.util.Map;
 
 /**
  * @author fengliang
- * @ClassName: DesignerWorksFragment
+ * @ClassName: DesignerProductFragment
  * @Description: 设计师作品
  * @date 2015-8-26 下午1:07:52
  */
 
-public class DesignerWorksFragment extends CommonFragment implements PullToRefreshBase.OnRefreshListener2<RecyclerView>, ScrollableHelper.ScrollableContainer {
-    private static final String TAG = DesignerWorksFragment.class.getName();
+public class DesignerProductFragment extends CommonFragment implements PullToRefreshBase.OnRefreshListener2<RecyclerView>, ScrollableHelper.ScrollableContainer {
+    private static final String TAG = DesignerProductFragment.class.getName();
     private boolean isPrepared = false;
     private boolean mHasLoadedOnce = false;
     private PullToRefreshRecycleView designer_works_listview = null;
@@ -48,12 +48,12 @@ public class DesignerWorksFragment extends CommonFragment implements PullToRefre
     private String designerid = null;
     private int FROM = 0;
 
-    public static DesignerWorksFragment newInstance(String info) {
+    public static DesignerProductFragment newInstance(String info) {
         Bundle args = new Bundle();
-        DesignerWorksFragment workFragment = new DesignerWorksFragment();
+        DesignerProductFragment productFragment = new DesignerProductFragment();
         args.putString(Global.DESIGNER_ID, info);
-        workFragment.setArguments(args);
-        return workFragment;
+        productFragment.setArguments(args);
+        return productFragment;
     }
 
     @Override
