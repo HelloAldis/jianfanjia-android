@@ -178,7 +178,6 @@ public class HomeNewFragment extends BaseAnnotationFragment {
         img.setLayoutParams(new ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT));
-
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -187,7 +186,6 @@ public class HomeNewFragment extends BaseAnnotationFragment {
                 intentToProduct();
             }
         });
-
         // 设置LayoutParams参数
         WindowManager.LayoutParams params = new WindowManager.LayoutParams();
         // 设置显示的类型，TYPE_PHONE指的是来电话的时候会被覆盖，其他时候会在最前端，显示位置在stateBar下面，其他更多的值请查阅文档
@@ -329,6 +327,7 @@ public class HomeNewFragment extends BaseAnnotationFragment {
 
             @Override
             public void onPageScrollStateChanged(int arg0) {
+
 
             }
         });
