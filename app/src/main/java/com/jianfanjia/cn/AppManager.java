@@ -9,24 +9,28 @@ import java.util.Stack;
 
 /**
  * activity堆栈式管理
- * 
+ *
  * @author FireAnt（http://my.oschina.net/LittleDY）
  * @created 2014年10月30日 下午6:22:05
- * 
  */
 public class AppManager {
 
     private static Stack<Activity> activityStack = new Stack<Activity>();
     private static AppManager instance;
 
-    private AppManager() {}
+    private AppManager() {
+    }
 
     /**
      * 单一实例
      */
     public static AppManager getAppManager() {
         if (instance == null) {
-            instance = new AppManager();
+            synchronized (AppManager.class) {
+                if (instance == null) {
+                    instance = new AppManager();
+                }
+            }
         }
         return instance;
     }
@@ -46,7 +50,7 @@ public class AppManager {
      * 获取当前Activity（堆栈中最后一个压入的）
      */
     public Activity currentActivity() {
-        if(!activityStack.empty()){
+        if (!activityStack.empty()) {
             Activity activity = activityStack.peek();
             return activity;
         }
@@ -91,7 +95,7 @@ public class AppManager {
     public void finishAllActivity() {
         LogTool.d(this.getClass().getName(), "activityStack.size() =" + activityStack.size());
         Iterator<Activity> iterator = activityStack.iterator();
-        while (iterator.hasNext()){
+        while (iterator.hasNext()) {
             Activity activity = iterator.next();
             LogTool.d(this.getClass().getName(), "activityStack.name() =" + activity.getClass().getName());
             activity.finish();
@@ -102,7 +106,7 @@ public class AppManager {
 
     /**
      * 获取指定的Activity
-     * 
+     *
      * @author kymjs
      */
     public static Activity getActivity(Class<?> cls) {
