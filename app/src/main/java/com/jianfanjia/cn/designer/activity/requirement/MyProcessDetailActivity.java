@@ -424,7 +424,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
 //                makeTextShort(getString(R.string.tip_open_camera));
             }
         } else {
-            makeTextLong(getString(R.string.tip_not_sdcard));
+            makeTextShort(getString(R.string.tip_not_sdcard));
         }
     }
 

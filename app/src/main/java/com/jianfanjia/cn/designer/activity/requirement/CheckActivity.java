@@ -309,6 +309,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
                 break;
             default:
                 break;
+
         }
     }
 
@@ -352,7 +353,11 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
         mTmpFile = FileUtil.createTmpFile(this);
         if (mTmpFile != null) {
             Intent cameraIntent = UiHelper.createShotIntent(mTmpFile);
-            startActivityForResult(cameraIntent, Constant.REQUESTCODE_CAMERA);
+            if (cameraIntent != null) {
+                startActivityForResult(cameraIntent, Constant.REQUESTCODE_CAMERA);
+            } else {
+//                makeTextShort(getString(R.string.tip_open_camera));
+            }
         } else {
             makeTextLong("没有sd卡，无法打开相机");
         }
