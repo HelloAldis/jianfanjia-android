@@ -353,4 +353,11 @@
     <string name="hint_choose_plan_str">您确定要选定此方案吗？</string>
     <string name="hint_contract_text">确认合同</string>
     <string name="hint_contract_str">您确定要确认合同吗？</string>
+    <string name="title_activity_notice">NoticeActivity</string>
+
+    <string name="my_notice">我的通知</string>
+    <string name="all_notice">全部</string>
+    <string name="system_notice">系统公告</string>
+    <string name="req_notice">需求提醒</string>
+    <string name="site_notice">工地提醒</string>
 </resources>
