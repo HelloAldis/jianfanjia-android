@@ -8,7 +8,7 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.adapter.MyFragmentPagerAdapter;
 import com.jianfanjia.cn.bean.SelectItem;
-import com.jianfanjia.cn.fragment.AllNoticeFragment;
+import com.jianfanjia.cn.fragment.NoticeFragment;
 import com.jianfanjia.cn.view.MainHeadView;
 
 import java.util.ArrayList;
@@ -22,6 +22,10 @@ import java.util.List;
  */
 public class NoticeActivity extends SwipeBackActivity implements View.OnClickListener {
     private static final String TAG = AboutActivity.class.getName();
+    public static final int TYPE_ALL = 0;
+    public static final int TYPE_SYS = 1;
+    public static final int TYPE_REQ = 2;
+    public static final int TYPE_SITE = 3;
     private MainHeadView mainHeadView = null;
     private TabLayout tabLayout = null;
     private MyFragmentPagerAdapter adapter = null;
@@ -33,6 +37,7 @@ public class NoticeActivity extends SwipeBackActivity implements View.OnClickLis
         initMainHeadView();
         tabLayout = (TabLayout) findViewById(R.id.tabLyout);
         mPager = (ViewPager) findViewById(R.id.viewpager);
+        mPager.setOffscreenPageLimit(3);
         setupViewPager(mPager);
         mPager.setCurrentItem(initPosition);
         tabLayout.setupWithViewPager(mPager);
@@ -65,10 +70,10 @@ public class NoticeActivity extends SwipeBackActivity implements View.OnClickLis
 
     private void setupViewPager(ViewPager viewPager) {
         List<SelectItem> listViews = new ArrayList<>();
-        SelectItem allItem = new SelectItem(new AllNoticeFragment(), getResources().getString(R.string.all_notice));
-        SelectItem sysItem = new SelectItem(new AllNoticeFragment(), getResources().getString(R.string.system_notice));
-        SelectItem reqItem = new SelectItem(new AllNoticeFragment(), getResources().getString(R.string.req_notice));
-        SelectItem siteItem = new SelectItem(new AllNoticeFragment(), getResources().getString(R.string.site_notice));
+        SelectItem allItem = new SelectItem(NoticeFragment.newInstance(TYPE_ALL), getResources().getString(R.string.all_notice));
+        SelectItem sysItem = new SelectItem(NoticeFragment.newInstance(TYPE_SYS), getResources().getString(R.string.system_notice));
+        SelectItem reqItem = new SelectItem(NoticeFragment.newInstance(TYPE_REQ), getResources().getString(R.string.req_notice));
+        SelectItem siteItem = new SelectItem(NoticeFragment.newInstance(TYPE_SITE), getResources().getString(R.string.site_notice));
         listViews.add(allItem);
         listViews.add(sysItem);
         listViews.add(reqItem);
