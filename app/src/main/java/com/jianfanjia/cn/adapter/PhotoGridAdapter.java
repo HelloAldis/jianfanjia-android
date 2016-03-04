@@ -116,12 +116,8 @@ public class PhotoGridAdapter extends SelectableAdapter<PhotoGridAdapter.PhotoVi
                 photo = photos.get(position);
             }
             LogTool.d(this.getClass().getName(), "photo path =" + photo.getPath());
-     /* Picasso.with(mContext).load(Uri.fromFile(new File(photo.getPath()))).resize(imageSize,imageSize).centerCrop()
-              .placeholder(R.drawable.ic_photo_black_48dp)
-              .error(R.drawable.ic_broken_image_black_48dp)
-              .into(holder.ivPhoto);*/
 
-            ImageLoader.getInstance().displayImage(Uri.fromFile(new File(photo.getPath())).toString(), holder.ivPhoto, DisplayImageOptionsWrap.getDisplayImageOptionsIsMemoryCache(false));
+            ImageLoader.getInstance().displayImage(Uri.fromFile(new File(photo.getPath())).toString(), holder.ivPhoto, DisplayImageOptionsWrap.getDisplayImageOptionsIsMemoryCache(true));
 
             final boolean isChecked = isSelected(photo);
 
