@@ -83,11 +83,11 @@ public class SearchActivity extends SwipeBackActivity{
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(TextUtils.isEmpty(s.toString())){
+                if (TextUtils.isEmpty(s.toString())) {
                     resetView();
                     deleteView.setVisibility(View.GONE);
                     contentLayout.setVisibility(View.GONE);
-                }else{
+                } else {
                     deleteView.setVisibility(View.VISIBLE);
                 }
             }
@@ -95,7 +95,7 @@ public class SearchActivity extends SwipeBackActivity{
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                LogTool.d(this.getClass().getName(),"checkId");
+                LogTool.d(this.getClass().getName(), "checkId");
                 switch (checkedId) {
                     case R.id.tab_rb_1:
                         setTabSelection(DESIGNER);
