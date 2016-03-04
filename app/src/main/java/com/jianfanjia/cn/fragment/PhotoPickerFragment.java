@@ -115,7 +115,7 @@ public class PhotoPickerFragment extends Fragment {
 
         RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.rv_photos);
         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(column, OrientationHelper.VERTICAL);
-        layoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS);
+//        layoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(photoGridAdapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());

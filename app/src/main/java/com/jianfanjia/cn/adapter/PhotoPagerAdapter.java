@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
-import com.squareup.picasso.Picasso;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -51,44 +51,17 @@ public class PhotoPagerAdapter extends PagerAdapter {
             uri = Uri.fromFile(new File(path));
         }
 
-        Picasso.with(mContext).load(uri).fit().centerInside()
-                .placeholder(R.drawable.ic_photo_black_48dp)
-                .error(R.drawable.ic_broken_image_black_48dp)
-                .into(imageView);
-  /*  Glide.with(mContext)
-        .load(uri)
-        .thumbnail(0.1f)
-        .dontAnimate()
-        .dontTransform()
-        .override(800, 800)
-        .placeholder(R.drawable.ic_photo_black_48dp)
-        .error(R.drawable.ic_broken_image_black_48dp)
-        .into(imageView);
-*/
+        ImageLoader.getInstance().displayImage(uri.toString(), imageView);
+
         imageView.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
             @Override
             public void onPhotoTap(View view, float x, float y) {
-            /*if (mContext instanceof PhotoPickerActivity) {
-                if (!((Activity) mContext).isFinishing()) {
-                    ((Activity) mContext).onBackPressed();
-                }
-            }*/
 
                 if (viewPagerClickListener != null) {
                     viewPagerClickListener.onClickItem(position);
                 }
             }
         });
-
-    /*imageView.setOnClickListener(new View.OnClickListener() {
-      @Override public void onClick(View view) {
-        if (mContext instanceof PhotoPickerActivity) {
-                  if (!((Activity) mContext).isFinishing()) {
-                    ((Activity) mContext).onBackPressed();
-                  }
-                }
-              }
-    });*/
 
         container.addView(itemView);
 

@@ -51,7 +51,7 @@ public class DesignerPlanListActivity extends SwipeBackActivity implements OnCli
     public void initView() {
         Intent intent = this.getIntent();
         Bundle designerBundle = intent.getExtras();
-        requirementInfo = (RequirementInfo)designerBundle.getSerializable(Global.REQUIREMENT_INFO);
+        requirementInfo = (RequirementInfo) designerBundle.getSerializable(Global.REQUIREMENT_INFO);
         requirementid = requirementInfo.get_id();
         designerid = designerBundle.getString(Global.DESIGNER_ID);
         designerName = designerBundle.getString(Global.DESIGNER_NAME);
@@ -126,7 +126,7 @@ public class DesignerPlanListActivity extends SwipeBackActivity implements OnCli
 
     @Override
     public void loadFailture(String error_msg) {
-        makeTextLong(error_msg);
+        makeTextShort(error_msg);
         hideWaitDialog();
         designer_plan_listview.onRefreshComplete();
     }
@@ -153,13 +153,11 @@ public class DesignerPlanListActivity extends SwipeBackActivity implements OnCli
         LogTool.d(TAG, "planid:" + planid + " designerid:" + designerid);
         switch (itemType) {
             case Constant.PLAN_COMMENT_ITEM:
-                Intent commentIntent = new Intent(DesignerPlanListActivity.this, CommentActivity.class);
                 Bundle commentBundle = new Bundle();
                 commentBundle.putString(Global.TOPIC_ID, planid);
                 commentBundle.putString(Global.TO, designerid);
                 commentBundle.putString(Global.TOPICTYPE, Global.TOPIC_PLAN);
-                commentIntent.putExtras(commentBundle);
-                startActivityForResult(commentIntent, Constant.REQUESTCODE_GOTO_COMMENT);
+                startActivityForResult(CommentActivity.class, commentBundle, Constant.REQUESTCODE_GOTO_COMMENT);
                 break;
             case Constant.PLAN_PREVIEW_ITEM:
                 startToActivity(planid);
@@ -172,7 +170,7 @@ public class DesignerPlanListActivity extends SwipeBackActivity implements OnCli
     private void startToActivity(String planid) {
         Bundle planBundle = new Bundle();
         planBundle.putString(Global.PLAN_ID, planid);
-        planBundle.putSerializable(Global.REQUIREMENT_INFO,requirementInfo);
+        planBundle.putSerializable(Global.REQUIREMENT_INFO, requirementInfo);
         planBundle.putInt(Global.POSITION, itemPosition);
         startActivity(PreviewDesignerPlanActivity.class, planBundle);
     }

@@ -56,7 +56,6 @@ public class XuQiuFragment extends BaseAnnotationFragment {
     private static final String TAG = XuQiuFragment.class.getName();
     public static final int REQUESTCODE_PUBLISH_REQUIREMENT = 1;
     public static final int REQUESTCODE_EDIT_REQUIREMENT = 2;
-    public static final int REQUESTCODE_FRESH_REQUIREMENT = 3;
     public static final int ITEM_PRIVIEW = 0x06;
     public static final int ITEM_EDIT = 0x00;
     public static final int ITEM_GOTOPRO = 0x01;
@@ -92,10 +91,6 @@ public class XuQiuFragment extends BaseAnnotationFragment {
     @ViewById(R.id.error_include)
     RelativeLayout error_Layout;
 
-    protected Intent gotoOrderDesigner;
-    protected Intent gotoMyDesigner;
-    protected Intent gotoMyProcess;
-
     // Header View
     private UpdateBroadcastReceiver updateBroadcastReceiver;
     private RequirementInfo requirementInfo;
@@ -128,27 +123,28 @@ public class XuQiuFragment extends BaseAnnotationFragment {
                 }
                 switch (itemType) {
                     case ITEM_PRIVIEW:
-                        Intent gotoPriviewRequirement = null;
+                        Bundle gotoPriviewRequirementBundle = new Bundle();
+                        gotoPriviewRequirementBundle.putSerializable(Global.REQUIREMENT_INFO, requirementInfo);
                         if (requirementInfo.getDec_type().equals(Global.DEC_TYPE_BUSINESS)) {
-                            gotoPriviewRequirement = new Intent(getActivity(), PreviewBusinessRequirementActivity_.class);
+                            startActivity(PreviewBusinessRequirementActivity_.class, gotoPriviewRequirementBundle);
                         } else {
-                            gotoPriviewRequirement = new Intent(getActivity(), PreviewRequirementActivity_.class);
+                            startActivity(PreviewRequirementActivity_.class, gotoPriviewRequirementBundle);
                         }
-                        gotoPriviewRequirement.putExtra(Global.REQUIREMENT_INFO, requirementInfo);
-                        getActivity().startActivityForResult(gotoPriviewRequirement, REQUESTCODE_FRESH_REQUIREMENT);
                         break;
                     case ITEM_EDIT:
-                        Intent intent = new Intent(getActivity(), UpdateRequirementActivity_.class);
-                        intent.putExtra(Global.REQUIREMENT_INFO, requirementInfo);
-                        getActivity().startActivityForResult(intent, REQUESTCODE_EDIT_REQUIREMENT);
+                        Bundle requirementInfoBundle = new Bundle();
+                        requirementInfoBundle.putSerializable(Global.REQUIREMENT_INFO, requirementInfo);
+                        startActivityForResult(UpdateRequirementActivity_.class, requirementInfoBundle, REQUESTCODE_EDIT_REQUIREMENT);
                         break;
                     case ITEM_GOTOPRO:
-                        gotoMyProcess.putExtra(Global.PROCESS_INFO, requirementInfo.getProcess());
-                        startActivity(gotoMyProcess);
+                        Bundle gotoMyProcessBundle = new Bundle();
+                        gotoMyProcessBundle.putSerializable(Global.PROCESS_INFO, requirementInfo.getProcess());
+                        startActivity(MyProcessDetailActivity_.class,gotoMyProcessBundle);
                         break;
                     case ITEM_GOTOMYDESI:
-                        gotoMyDesigner.putExtra(Global.REQUIREMENT_ID, requirementInfos.get(position).get_id());
-                        startActivity(gotoMyDesigner);
+                        Bundle gotoMyDesignerBundle = new Bundle();
+                        gotoMyDesignerBundle.putSerializable(Global.REQUIREMENT_ID, requirementInfos.get(position).get_id());
+                        startActivity(MyDesignerActivity_.class,gotoMyDesignerBundle);
                         break;
                     case ITEM_GOTOODERDESI:
                         gotoOrderDesigner();
@@ -163,19 +159,19 @@ public class XuQiuFragment extends BaseAnnotationFragment {
     }
 
     protected void gotoOrderDesigner() {
+        Bundle gotoOrderDesignerBundle = new Bundle();
         if (requirementInfo.getOrder_designers() != null && requirementInfo.getOrder_designers().size() > 0) {
-            gotoOrderDesigner.putExtra(Global.REQUIREMENT_DESIGNER_NUM, requirementInfo.getOrder_designers().size());
+            gotoOrderDesignerBundle.putInt(Global.REQUIREMENT_DESIGNER_NUM, requirementInfo.getOrder_designers().size());
         } else {
-            gotoOrderDesigner.putExtra(Global.REQUIREMENT_DESIGNER_NUM, 0);
+            gotoOrderDesignerBundle.putInt(Global.REQUIREMENT_DESIGNER_NUM, 0);
         }
-        gotoOrderDesigner.putExtra(Global.REQUIREMENT_ID, requirementInfo.get_id());
-        startActivity(gotoOrderDesigner);
+        gotoOrderDesignerBundle.putString(Global.REQUIREMENT_ID, requirementInfo.get_id());
+        startActivity(AppointDesignerActivity.class,gotoOrderDesignerBundle);
     }
 
     @Click({R.id.req_publish_layout, R.id.head_right_title})
     protected void publish_requirement() {
-        Intent intent = new Intent(getActivity(), PublishRequirementActivity_.class);
-        startActivityForResult(intent, REQUESTCODE_PUBLISH_REQUIREMENT);
+        startActivityForResult(PublishRequirementActivity_.class, REQUESTCODE_PUBLISH_REQUIREMENT);
     }
 
     @Click(R.id.error_include)
@@ -184,7 +180,7 @@ public class XuQiuFragment extends BaseAnnotationFragment {
     }
 
     @AfterViews
-    protected void initView() {
+    protected void initAnnotationView() {
         mainHeadView.setMianTitle(getResources().getString(R.string.requirement_list));
         mainHeadView.setRightTitle(getResources().getString(R.string.str_create));
         mainHeadView.setBackgroundTransparent();
@@ -193,7 +189,6 @@ public class XuQiuFragment extends BaseAnnotationFragment {
         setListVisiable();
         initPullRefresh();
         initListView();
-        initIntent();
         initData();
     }
 
@@ -206,10 +201,6 @@ public class XuQiuFragment extends BaseAnnotationFragment {
         context.registerReceiver(updateBroadcastReceiver, filter);
     }
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
 
     private void initPullRefresh() {
         pullrefresh.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
@@ -220,12 +211,6 @@ public class XuQiuFragment extends BaseAnnotationFragment {
                 initData();
             }
         });
-    }
-
-    protected void initIntent() {
-        gotoOrderDesigner = new Intent(getActivity(), AppointDesignerActivity.class);
-        gotoMyDesigner = new Intent(getActivity(), MyDesignerActivity_.class);
-        gotoMyProcess = new Intent(getActivity(), MyProcessDetailActivity_.class);
     }
 
     protected void initData() {

@@ -356,9 +356,7 @@ public class MyProcessDetailActivity extends SwipeBackActivity implements ItemCl
                 bundle.putString(Global.SECTION, sectionInfo.getName());
                 bundle.putString(Global.ITEM, sectionInfo.getItems().get(position).getName());
                 bundle.putString(Global.TOPICTYPE, Global.TOPIC_NODE);
-                Intent intent = new Intent(this, CommentActivity.class);
-                intent.putExtras(bundle);
-                startActivityForResult(intent, Constant.REQUESTCODE_GOTO_COMMENT);
+                startActivityForResult(CommentActivity.class, bundle, Constant.REQUESTCODE_GOTO_COMMENT);
                 break;
             case Constant.DELAY_ITEM:
                 delayDialog();
@@ -366,12 +364,9 @@ public class MyProcessDetailActivity extends SwipeBackActivity implements ItemCl
             case Constant.CHECK_ITEM:
                 Bundle checkBundle = new Bundle();
                 checkBundle.putString(Constant.PROCESS_NAME, sectionInfo.getName());
-                checkBundle
-                        .putString(Constant.PROCESS_STATUS, sectionInfo.getStatus());
+                checkBundle.putString(Constant.PROCESS_STATUS, sectionInfo.getStatus());
                 checkBundle.putString(Global.PROCESS_ID, processId);
-                Intent checkIntent = new Intent(MyProcessDetailActivity.this, CheckActivity.class);
-                checkIntent.putExtras(checkBundle);
-                startActivityForResult(checkIntent, Constant.REQUESTCODE_CHECK);
+                startActivityForResult(CheckActivity.class, checkBundle, Constant.REQUESTCODE_CHECK);
                 break;
             default:
                 break;
@@ -409,16 +404,14 @@ public class MyProcessDetailActivity extends SwipeBackActivity implements ItemCl
                 bundle.putString(Global.PROCESS_ID, processId);
                 bundle.putString(Global.SECTION, sectionInfo.getName());
                 bundle.putString(Global.ITEM, sectionItemAdapter.getCurrentItem());
-                Intent intent = new Intent(this, ShowProcessPicActivity.class);
-                intent.putExtras(bundle);
-                startActivityForResult(intent, Constant.REQUESTCODE_SHOW_PROCESS_PIC);
+                startActivityForResult(ShowProcessPicActivity.class,bundle, Constant.REQUESTCODE_SHOW_PROCESS_PIC);
                 break;
             case Constant.ADD_ITEM:
 //                showPopWindow();
                 PhotoPickerIntent intent1 = new PhotoPickerIntent(MyProcessDetailActivity.this);
-                if(imageUrlList != null){
+                if (imageUrlList != null) {
                     intent1.setPhotoCount(9 - imageUrlList.size());
-                }else{
+                } else {
                     intent1.setPhotoCount(9);
                 }
                 intent1.setShowGif(false);
@@ -521,7 +514,7 @@ public class MyProcessDetailActivity extends SwipeBackActivity implements ItemCl
             case Constant.REQUESTCODE_PICKER_PIC:
                 if (data != null) {
                     List<String> photos = data.getStringArrayListExtra(PhotoPickerActivity.KEY_SELECTED_PHOTOS);
-                    for(String path : photos){
+                    for (String path : photos) {
                         Bitmap imageBitmap = ImageUtil.getImage(path);
                         LogTool.d(TAG, "imageBitmap: path :" + path);
                         if (null != imageBitmap) {

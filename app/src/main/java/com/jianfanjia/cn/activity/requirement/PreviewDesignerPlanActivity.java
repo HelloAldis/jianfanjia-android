@@ -138,13 +138,11 @@ public class PreviewDesignerPlanActivity extends SwipeBackActivity implements On
             @Override
             public void onClickItem(int pos) {
                 LogTool.d(TAG, "pos:" + pos);
-                Intent showPicIntent = new Intent(PreviewDesignerPlanActivity.this, ShowPicActivity.class);
                 Bundle showPicBundle = new Bundle();
                 showPicBundle.putInt(Constant.CURRENT_POSITION, pos);
                 showPicBundle.putStringArrayList(Constant.IMAGE_LIST,
                         (ArrayList<String>) imgList);
-                showPicIntent.putExtras(showPicBundle);
-                startActivity(showPicIntent);
+                startActivity(ShowPicActivity.class,showPicBundle);
             }
         });
         viewPager.setAdapter(adapter);

@@ -1,6 +1,5 @@
 package com.jianfanjia.cn.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -155,11 +154,9 @@ public class CollectDesignerFragment extends CommonFragment implements PullToRef
                             LogTool.d(TAG, "currentPos========" + currentPos);
                             String designerId = designers.get(currentPos).get_id();
                             LogTool.d(TAG, "designerId:" + designerId);
-                            Intent designerIntent = new Intent(getActivity(), DesignerInfoActivity.class);
                             Bundle designerBundle = new Bundle();
                             designerBundle.putString(Global.DESIGNER_ID, designerId);
-                            designerIntent.putExtras(designerBundle);
-                            startActivity(designerIntent);
+                            startActivity(DesignerInfoActivity.class,designerBundle);
                         }
 
                         @Override

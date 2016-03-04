@@ -3,7 +3,6 @@ package com.jianfanjia.cn.base;
 import android.app.DownloadManager;
 import android.app.NotificationManager;
 import android.content.Context;
-import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.Build;
@@ -25,6 +24,7 @@ import com.jianfanjia.cn.interf.NetStateListener;
 import com.jianfanjia.cn.receiver.NetStateReceiver;
 import com.jianfanjia.cn.tools.DaoManager;
 import com.jianfanjia.cn.tools.ImageShow;
+import com.jianfanjia.cn.tools.IntentUtil;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.dialog.DialogControl;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
@@ -157,27 +157,19 @@ public abstract class BaseActivity extends AppCompatActivity implements
 
     // 含有Bundle通过Class跳转界面
     protected void startActivity(Class<?> cls, Bundle bundle) {
-        Intent intent = new Intent();
-        intent.setClass(this, cls);
-        if (bundle != null) {
-            intent.putExtras(bundle);
-        }
-        startActivity(intent);
+        startActivity(cls, bundle, -1);
     }
 
-    // 通过Action跳转界面
-    protected void startActivity(String action) {
-        startActivity(action, null);
+    protected void startActivity(Class<?> cls, Bundle bundle, int flag) {
+        IntentUtil.startActivityHasFlag(this, cls, bundle, flag);
     }
 
-    // 含有Bundle通过Action跳转界面
-    protected void startActivity(String action, Bundle bundle) {
-        Intent intent = new Intent();
-        intent.setAction(action);
-        if (bundle != null) {
-            intent.putExtras(bundle);
-        }
-        startActivity(intent);
+    protected void startActivityForResult(Class<?> cls, int requestCode) {
+        IntentUtil.startActivityForResult(this, cls, null, requestCode);
+    }
+
+    protected void startActivityForResult(Class<?> cls, Bundle bundle, int requestCode) {
+        IntentUtil.startActivityForResult(this, cls, bundle, requestCode);
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.jianfanjia.cn.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
@@ -66,7 +65,6 @@ public class SearchDecorationImgFragment extends BaseFragment {
                 LogTool.d(TAG, "position=" + position);
                 BeautyImgInfo beautyImgInfo = decorationAdapter.getData().get(position);
                 LogTool.d(TAG, "beautyImgInfo:" + beautyImgInfo);
-                Intent decorationIntent = new Intent(getActivity(), PreviewDecorationActivity.class);
                 Bundle decorationBundle = new Bundle();
                 decorationBundle.putString(Global.DECORATION_ID, beautyImgInfo.get_id());
                 decorationBundle.putInt(Global.POSITION, position);
@@ -74,8 +72,7 @@ public class SearchDecorationImgFragment extends BaseFragment {
                 decorationBundle.putInt(Global.TOTAL_COUNT, total);
                 decorationBundle.putInt(Global.VIEW_TYPE, Constant.SEARCH_BEAUTY_FRAGMENT);
                 decorationBundle.putString(Global.SEARCH_TEXT, search);
-                decorationIntent.putExtras(decorationBundle);
-                startActivity(decorationIntent);
+                startActivity(PreviewDecorationActivity.class,decorationBundle);
             }
         });
         decorationAdapter.setLoadMoreListener(new BaseRecycleAdapter.LoadMoreListener() {

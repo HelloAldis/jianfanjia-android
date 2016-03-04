@@ -110,7 +110,6 @@ public class MyDesignerActivity extends SwipeBackActivity {
                         startActivity(PingJiaInfoActivity.class, viewBundle);
                         break;
                     case COMMENT:
-                        Intent commentIntent = new Intent(MyDesignerActivity.this, PingjiaActivity.class);
                         Bundle commentBundle = new Bundle();
                         commentBundle.putString(Global.IMAGE_ID, orderDesignerInfo.getImageid());
                         commentBundle.putString(Global.DESIGNER_NAME, orderDesignerInfo.getUsername());
@@ -118,33 +117,26 @@ public class MyDesignerActivity extends SwipeBackActivity {
                         commentBundle.putFloat(Global.SPEED, orderDesignerInfo.getRespond_speed());
                         commentBundle.putFloat(Global.ATTITUDE, orderDesignerInfo.getService_attitude());
                         commentBundle.putString(Global.REQUIREMENT_ID, requirementid);
-                        commentIntent.putExtras(commentBundle);
-                        startActivityForResult(commentIntent, REQUESTCODE_FRESH_LIST);
+                        startActivityForResult(PingjiaActivity.class, commentBundle, REQUESTCODE_FRESH_LIST);
                         break;
                     case VIEW_CONTRACT:
-                        Intent viewContractIntent = new Intent(MyDesignerActivity.this, ContractActivity.class);
                         Bundle contractBundle = new Bundle();
                         contractBundle.putString(Global.REQUIREMENT_ID, requirementid);
                         contractBundle.putString(Global.REQUIREMENT_STATUS, orderDesignerInfo.getRequirement().getStatus());
-                        viewContractIntent.putExtras(contractBundle);
-                        startActivityForResult(viewContractIntent, REQUESTCODE_FRESH_LIST);
+                        startActivityForResult(ContractActivity.class, contractBundle, REQUESTCODE_FRESH_LIST);
                         break;
                     case VIEW_PLAN:
-                        Intent viewPlanIntent = new Intent(MyDesignerActivity.this, DesignerPlanListActivity.class);
                         Bundle planBundle = new Bundle();
                         planBundle.putString(Global.DESIGNER_ID, orderDesignerInfo.get_id());
                         planBundle.putSerializable(Global.REQUIREMENT_INFO, orderDesignerInfo.getRequirement());
                         planBundle.putString(Global.DESIGNER_NAME, orderDesignerInfo.getUsername());
-                        viewPlanIntent.putExtras(planBundle);
-                        startActivity(viewPlanIntent);
+                        startActivity(DesignerPlanListActivity.class, planBundle);
                         break;
                     case CHANGE_DESIGNER:
-                        Intent changeDesignerIntent = new Intent(MyDesignerActivity.this, ReplaceDesignerActivity.class);
                         Bundle changeBundle = new Bundle();
                         changeBundle.putString(Global.DESIGNER_ID, orderDesignerInfo.get_id());
                         changeBundle.putString(Global.REQUIREMENT_ID, requirementid);
-                        changeDesignerIntent.putExtras(changeBundle);
-                        startActivityForResult(changeDesignerIntent, REQUESTCODE_FRESH_LIST);
+                        startActivityForResult(ReplaceDesignerActivity.class, changeBundle, REQUESTCODE_FRESH_LIST);
                         break;
                     case CONFIRM_MEASURE_HOUSE:
                         confirmMeasureHouse(orderDesignerInfo.get_id());
@@ -231,7 +223,7 @@ public class MyDesignerActivity extends SwipeBackActivity {
         super.loadFailture(error_msg);
         refreshView.onRefreshComplete();
         if (orderDesignerInfos == null || orderDesignerInfos.size() == 0) {
-            if(!isLoadedOnce){
+            if (!isLoadedOnce) {
                 error_Layout.setVisibility(View.VISIBLE);
             }
         }

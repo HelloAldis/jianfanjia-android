@@ -59,7 +59,7 @@ public class MainActivity extends BaseActivity implements
         LogTool.d(TAG, "flag:" + flag);
         if (flag) {
             LogTool.d(TAG, "REGISTER PUBLISH REQUIREMENG");
-            startActivityForResult(new Intent(this, PublishRequirementActivity_.class), XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT);
+            startActivityForResult(PublishRequirementActivity_.class,XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT);
         }
     }
 
@@ -197,7 +197,6 @@ public class MainActivity extends BaseActivity implements
             mTabRg.check(R.id.tab_rb_3);
             setTabSelection(Constant.MANAGE);
             xuqiuFragment.onActivityResult(requestCode, resultCode, data);
-            homeFragment.onActivityResult(requestCode, resultCode, data);
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }

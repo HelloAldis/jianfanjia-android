@@ -133,8 +133,7 @@ public class MyFragment extends BaseFragment {
                 startActivity(MyProcessActivity.class);
                 break;
             case R.id.frag_my_info_layout:
-                Intent gotoUserInfo = new Intent(getActivity(), UserInfoActivity_.class);
-                startActivityForResult(gotoUserInfo, REQUESTCODE_USERINFO);
+                startActivityForResult(UserInfoActivity_.class, REQUESTCODE_USERINFO);
                 break;
             case R.id.kefu_layout:
                 startActivity(CustomerServiceActivity.class);

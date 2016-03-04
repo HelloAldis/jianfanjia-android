@@ -1,7 +1,6 @@
 package com.jianfanjia.cn.fragment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -162,11 +161,9 @@ public class HomeNewFragment extends BaseAnnotationFragment {
             Product product = productNews.get(contentViewPager.getCurrentItem());
             String productid = product.get_id();
             LogTool.d(TAG, "productid:" + productid);
-            Intent productIntent = new Intent(getActivity(), DesignerCaseInfoActivity.class);
             Bundle productBundle = new Bundle();
             productBundle.putString(Global.PRODUCT_ID, productid);
-            productIntent.putExtras(productBundle);
-            startActivity(productIntent);
+            startActivity(DesignerCaseInfoActivity.class,productBundle);
             getActivity().overridePendingTransition(R.anim.slide_and_fade_in_from_bottom, 0);
         }
     }
@@ -178,7 +175,6 @@ public class HomeNewFragment extends BaseAnnotationFragment {
         img.setLayoutParams(new ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT));
-
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -187,7 +183,6 @@ public class HomeNewFragment extends BaseAnnotationFragment {
                 intentToProduct();
             }
         });
-
         // 设置LayoutParams参数
         WindowManager.LayoutParams params = new WindowManager.LayoutParams();
         // 设置显示的类型，TYPE_PHONE指的是来电话的时候会被覆盖，其他时候会在最前端，显示位置在stateBar下面，其他更多的值请查阅文档
@@ -249,8 +244,7 @@ public class HomeNewFragment extends BaseAnnotationFragment {
     protected void click(View view) {
         switch (view.getId()) {
             case R.id.ltm_home_layout0:
-                Intent intent = new Intent(getContext(), PublishRequirementActivity_.class);
-                startActivityForResult(intent, XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT);
+                startActivityForResultByHost(PublishRequirementActivity_.class, XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT);
                 break;
             case R.id.ltm_home_layout1:
                 Bundle bundle = new Bundle();
@@ -267,8 +261,7 @@ public class HomeNewFragment extends BaseAnnotationFragment {
                 startActivity(DesignerCaseListActivity.class);
                 break;
             case R.id.home_search:
-                Intent searchIntent = new Intent(getContext(), SearchActivity_.class);
-                startActivity(searchIntent);
+                startActivity(SearchActivity_.class);
                 break;
             case R.id.content_intent_to:
                 intentToProduct();
@@ -329,6 +322,7 @@ public class HomeNewFragment extends BaseAnnotationFragment {
 
             @Override
             public void onPageScrollStateChanged(int arg0) {
+
 
             }
         });

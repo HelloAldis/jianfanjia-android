@@ -1,6 +1,5 @@
 package com.jianfanjia.cn.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
@@ -160,15 +159,13 @@ public class CollectDecorationImgFragment extends CommonFragment implements Pull
                                 LogTool.d(TAG, "currentPos====" + currentPos);
                                 BeautyImgInfo beautyImgInfo = beautyImgList.get(currentPos);
                                 LogTool.d(TAG, "beautyImgInfo:" + beautyImgInfo);
-                                Intent decorationIntent = new Intent(getActivity(), PreviewDecorationActivity.class);
                                 Bundle decorationBundle = new Bundle();
                                 decorationBundle.putString(Global.DECORATION_ID, beautyImgInfo.get_id());
                                 decorationBundle.putInt(Global.POSITION, position);
                                 decorationBundle.putSerializable(Global.IMG_LIST, (ArrayList<BeautyImgInfo>) beautyImgList);
                                 decorationBundle.putInt(Global.TOTAL_COUNT, total);
                                 decorationBundle.putInt(Global.VIEW_TYPE, Constant.COLLECT_BEAUTY_FRAGMENT);
-                                decorationIntent.putExtras(decorationBundle);
-                                startActivity(decorationIntent);
+                                startActivity(PreviewDecorationActivity.class,decorationBundle);
                             }
                         });
                         decoration_img_listview.setAdapter(decorationImgAdapter);

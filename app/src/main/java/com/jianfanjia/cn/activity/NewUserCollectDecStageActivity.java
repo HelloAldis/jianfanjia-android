@@ -2,7 +2,7 @@ package com.jianfanjia.cn.activity;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
 import android.widget.TextView;
@@ -76,16 +76,11 @@ public class NewUserCollectDecStageActivity extends BaseAnnotationActivity {
 
     }
 
-    @Override
-    public void onBackPressed() {
-//        super.onBackPressed();
-    }
-
     protected void intentToCollectReq(String stage) {
         OwnerInfo ownerInfo = new OwnerInfo();
         ownerInfo.setDec_progress(stage);
-        Intent intent = new Intent(this, NewUserCollectLoveStyleActivity_.class);
-        intent.putExtra(Global.OWNERINFO, ownerInfo);
-        startActivity(intent);
+        Bundle ownerBundle = new Bundle();
+        ownerBundle.putSerializable(Global.OWNERINFO, ownerInfo);
+        startActivity(NewUserCollectLoveStyleActivity_.class, ownerBundle);
     }
 }
