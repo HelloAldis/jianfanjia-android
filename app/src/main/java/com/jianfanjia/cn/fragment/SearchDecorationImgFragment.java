@@ -5,8 +5,6 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -72,7 +70,7 @@ public class SearchDecorationImgFragment extends BaseFragment {
                 decorationBundle.putInt(Global.TOTAL_COUNT, total);
                 decorationBundle.putInt(Global.VIEW_TYPE, Constant.SEARCH_BEAUTY_FRAGMENT);
                 decorationBundle.putString(Global.SEARCH_TEXT, search);
-                startActivity(PreviewDecorationActivity.class,decorationBundle);
+                startActivity(PreviewDecorationActivity.class, decorationBundle);
             }
         });
         decorationAdapter.setLoadMoreListener(new BaseRecycleAdapter.LoadMoreListener() {
@@ -84,11 +82,10 @@ public class SearchDecorationImgFragment extends BaseFragment {
         decorationAdapter.setErrorView(errorLayout);
         decorationAdapter.setEmptyView(emptyLayout);
         recyclerView.setAdapter(decorationAdapter);
-        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        lp.leftMargin = MyApplication.dip2px(getContext().getApplicationContext(), 5);
-        lp.rightMargin = lp.leftMargin;
-        recyclerView.setLayoutParams(lp);
-
+//        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+//        lp.leftMargin = MyApplication.dip2px(getContext().getApplicationContext(), 5);
+//        lp.rightMargin = lp.leftMargin;
+//        recyclerView.setLayoutParams(lp);
         SpacesItemDecoration decoration = new SpacesItemDecoration(MyApplication.dip2px(getContext().getApplicationContext(), 5));
         recyclerView.addItemDecoration(decoration);
         getDecorationImgInfo(decorationAdapter.getData().size(), search, listener);

@@ -7,8 +7,9 @@
         android:id="@+id/recycleview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="none"
-        />
+        android:layout_marginLeft="@dimen/space_7"
+        android:layout_marginRight="@dimen/space_7"
+        android:scrollbars="none" />
 
     <include
         android:id="@+id/empty_include"
