@@ -93,6 +93,7 @@ public class DesignerListActivity extends SwipeBackActivity implements View.OnCl
         designerListView = (PullToRefreshRecycleView) findViewById(R.id.recycleview);
         designerListView.setMode(PullToRefreshBase.Mode.BOTH);
         designerListView.setLayoutManager(new LinearLayoutManager(DesignerListActivity.this));
+        designerListView.setHasFixedSize(true);
         designerListView.setItemAnimator(new DefaultItemAnimator());
         designerListView.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getApplicationContext()));
         searchDesigners(FROM, pullDownListener);

@@ -25,7 +25,8 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/space_10"
             android:text="小区名称"
-            android:textColor="@color/light_black_color" />
+            android:textColor="@color/light_black_color"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/list_item_works_produce_text"

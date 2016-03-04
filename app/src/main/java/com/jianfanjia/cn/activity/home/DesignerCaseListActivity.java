@@ -99,6 +99,7 @@ public class DesignerCaseListActivity extends SwipeBackActivity implements View.
                 getDesignerProductList(FROM, pullUpListener);
             }
         });
+        pullToRefreshRecyclerView.setHasFixedSize(true);
         pullToRefreshRecyclerView.setItemAnimator(new DefaultItemAnimator());
         getDesignerProductList(FROM, pullDownListener);
     }
