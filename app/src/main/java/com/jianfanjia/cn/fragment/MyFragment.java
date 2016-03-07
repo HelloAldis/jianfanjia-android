@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
@@ -39,6 +41,7 @@ public class MyFragment extends BaseFragment {
     private RelativeLayout setting_layout = null;
     private RelativeLayout kefu_layout = null;
     private RelativeLayout my_info_layout = null;
+    private ScrollView scrollView = null;
     private ImageView head_img = null;
     private ImageView user_head_img = null;
     private TextView my_name = null;
@@ -57,6 +60,8 @@ public class MyFragment extends BaseFragment {
         user_head_img = (ImageView) view.findViewById(R.id.user_head_img);
         my_account = (TextView) view.findViewById(R.id.frag_my_account);
         my_name = (TextView) view.findViewById(R.id.frag_my_name);
+
+        scrollView = (ScrollView)view.findViewById(R.id.setting_scrollview);
     }
 
     @Override
@@ -108,6 +113,14 @@ public class MyFragment extends BaseFragment {
         setting_layout.setOnClickListener(this);
         my_info_layout.setOnClickListener(this);
         kefu_layout.setOnClickListener(this);
+
+        scrollView.setOverScrollMode(View.OVER_SCROLL_NEVER);
+        scrollView.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+            @Override
+            public boolean onGenericMotion(View v, MotionEvent event) {
+                return false;
+            }
+        });
     }
 
     @Override

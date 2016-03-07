@@ -42,10 +42,39 @@ import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.service.UpdateService;
 import com.jianfanjia.cn.view.baseview.HorizontalDividerDecoration;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.io.File;
 
 public class UiHelper {
+
+    public static void callPhoneIntent(Context context,String phone){
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setData(Uri.parse("tel:"+phone));
+        context.startActivity(intent);
+    }
+
+    /**
+     * 计算缓存大小
+     * @return
+     */
+    public static String caculateCacheSize(){
+        long fileSize = 0;
+        String cacheSize = "0KB";
+        File filesDir = ImageLoader.getInstance().getDiskCache().getDirectory();
+        fileSize += FileUtil.getDirSize(filesDir);
+
+        // 2.2版本才有将应用缓存转移到sd卡的功能
+        if (MyApplication.isMethodsCompat(android.os.Build.VERSION_CODES.FROYO)) {
+            File externalCacheDir = MyApplication.getInstance().getExternalCacheDir();
+            fileSize += FileUtil.getDirSize(externalCacheDir);
+        }
+        if (fileSize > 0){
+            cacheSize = FileUtil.formatFileSize(fileSize);
+        }
+        return cacheSize;
+    }
 
     /**
      * 生成一个默认的分割线

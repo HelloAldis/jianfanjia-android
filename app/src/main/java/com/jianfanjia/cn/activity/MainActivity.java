@@ -14,7 +14,7 @@ import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.fragment.DecorationFragment;
 import com.jianfanjia.cn.fragment.HomeNewFragment;
 import com.jianfanjia.cn.fragment.HomeNewFragment_;
-import com.jianfanjia.cn.fragment.MyFragment;
+import com.jianfanjia.cn.fragment.MyNewFragment;
 import com.jianfanjia.cn.fragment.XuQiuFragment;
 import com.jianfanjia.cn.fragment.XuQiuFragment_;
 import com.jianfanjia.cn.tools.LogTool;
@@ -32,7 +32,7 @@ public class MainActivity extends BaseActivity implements
     private HomeNewFragment homeFragment = null;
     private DecorationFragment decorationFragment = null;
     private XuQiuFragment xuqiuFragment = null;
-    private MyFragment myFragment = null;
+    private MyNewFragment myFragment = null;
     private long mExitTime = 0L;
     private int tab = -1;
 
@@ -139,7 +139,7 @@ public class MainActivity extends BaseActivity implements
                 if (myFragment != null) {
                     transaction.show(myFragment);
                 } else {
-                    myFragment = new MyFragment();
+                    myFragment = new MyNewFragment();
                     transaction.add(R.id.tablayout, myFragment);
                 }
                 break;

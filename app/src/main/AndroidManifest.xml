@@ -479,6 +479,10 @@
             android:name=".home.DesignerCaseListActivity"
             android:label="@string/title_activity_designer_case_list"
             android:theme="@style/Theme.Swipe.Back"/>
+        <activity
+            android:name=".common.CommentListActivity_"
+            android:label="@string/title_activity_designer_case_list"
+            android:theme="@style/Theme.Swipe.Back"/>
     </application>
 
 </manifest>
