@@ -11,9 +11,9 @@
         android:id="@+id/setting_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fillViewport="true"
         android:fitsSystemWindows="true"
-        android:scrollbars="none"
-        android:fillViewport="true">
+        android:scrollbars="none">
 
         <LinearLayout
             android:id="@+id/rootview"
@@ -101,6 +101,14 @@
                             android:scaleType="centerCrop"
                             android:src="@mipmap/icon_home1" />
 
+                        <com.jianfanjia.cn.view.layout.BadgeView
+                            android:id="@+id/notify_count_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="top|right"
+                            android:text="1"
+                            android:textSize="@dimen/text_size_14" />
+
                     </FrameLayout>
 
                     <TextView
@@ -183,6 +191,13 @@
                             android:scaleType="centerCrop"
                             android:src="@mipmap/icon_home2" />
 
+                        <com.jianfanjia.cn.view.layout.BadgeView
+                            android:id="@+id/comment_count_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="top|right"
+                            android:text="1"
+                            android:textSize="@dimen/text_size_14" />
                     </FrameLayout>
 
                     <TextView
@@ -249,22 +264,22 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:src="@mipmap/icon_info_auth"/>
+                    android:src="@mipmap/icon_info_auth" />
 
                 <TextView
                     style="@style/listview_item_text_style_middle"
                     android:layout_centerVertical="true"
-                    android:text="@string/clear_cache"
-                    android:textColor="@color/light_black_color"
+                    android:layout_marginLeft="@dimen/space_10"
                     android:layout_toRightOf="@+id/clear_cache_icon"
-                    android:layout_marginLeft="@dimen/space_10"/>
+                    android:text="@string/clear_cache"
+                    android:textColor="@color/light_black_color" />
 
                 <TextView
                     android:id="@+id/cache_size"
                     style="@style/listview_item_text_style_middle"
                     android:layout_centerVertical="true"
-                    android:layout_toLeftOf="@+id/clear_cache_next"
                     android:layout_marginRight="@dimen/space_12"
+                    android:layout_toLeftOf="@+id/clear_cache_next"
                     android:text="0M"
                     android:textColor="@color/main_color_grey" />
 
@@ -287,16 +302,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:src="@mipmap/icon_info_auth"
-                    />
+                    android:src="@mipmap/icon_info_auth" />
 
                 <TextView
                     style="@style/listview_item_text_style_middle"
                     android:layout_centerVertical="true"
-                    android:text="@string/feedback"
-                    android:textColor="@color/light_black_color"
+                    android:layout_marginLeft="@dimen/space_10"
                     android:layout_toRightOf="@+id/feedback_icon"
-                    android:layout_marginLeft="@dimen/space_10"/>
+                    android:text="@string/feedback"
+                    android:textColor="@color/light_black_color" />
 
                 <ImageView
                     style="@style/my_item_layout_image_style"
@@ -316,16 +330,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:src="@mipmap/icon_info_auth"
-                    />
+                    android:src="@mipmap/icon_info_auth" />
 
                 <TextView
                     style="@style/listview_item_text_style_middle"
                     android:layout_centerVertical="true"
-                    android:text="联系客服"
-                    android:textColor="@color/light_black_color"
+                    android:layout_marginLeft="@dimen/space_10"
                     android:layout_toRightOf="@+id/kefu_icon"
-                    android:layout_marginLeft="@dimen/space_10"/>
+                    android:text="联系客服"
+                    android:textColor="@color/light_black_color" />
 
                 <ImageView
                     style="@style/my_item_layout_image_style"
@@ -344,16 +357,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:src="@mipmap/icon_info_auth"
-                    />
+                    android:src="@mipmap/icon_info_auth" />
 
                 <TextView
                     style="@style/listview_item_text_style_middle"
                     android:layout_centerVertical="true"
-                    android:text="@string/more"
-                    android:textColor="@color/light_black_color"
+                    android:layout_marginLeft="@dimen/space_10"
                     android:layout_toRightOf="@+id/more_icon"
-                    android:layout_marginLeft="@dimen/space_10"/>
+                    android:text="@string/more"
+                    android:textColor="@color/light_black_color" />
 
                 <ImageView
                     style="@style/my_item_layout_image_style"

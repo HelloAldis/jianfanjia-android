@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.jianfanjia.cn.AppManager;
+import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.requirement.PublishRequirementActivity_;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.config.Constant;
@@ -18,6 +19,8 @@ import com.jianfanjia.cn.fragment.MyNewFragment;
 import com.jianfanjia.cn.fragment.XuQiuFragment;
 import com.jianfanjia.cn.fragment.XuQiuFragment_;
 import com.jianfanjia.cn.tools.LogTool;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * Description:主界面
@@ -47,7 +50,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -192,6 +195,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 
+    public void onEventMainThread(MessageEvent messageEvent) {
+        LogTool.d(TAG, "messageEvent:" + messageEvent.getEventType());
+      
+    }
+
     @Override
     protected void onStop() {
         super.onStop();
@@ -200,6 +208,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        EventBus.getDefault().unregister(this);
         Global.SECTION_POSITION = 0;
         Global.HOUSE_TYPE_POSITION = 0;
         Global.DEC_STYLE_POSITION = 0;
