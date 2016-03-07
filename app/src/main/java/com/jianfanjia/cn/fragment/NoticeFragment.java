@@ -5,6 +5,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseFragment;
@@ -22,6 +23,8 @@ import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
 public class NoticeFragment extends BaseFragment implements PullToRefreshBase.OnRefreshListener2<RecyclerView> {
     private static final String TAG = NoticeFragment.class.getName();
     private PullToRefreshRecycleView all_notice_listview = null;
+    private RelativeLayout emptyLayout = null;
+    private RelativeLayout errorLayout = null;
 
     private int mType = -1;
 
@@ -42,6 +45,8 @@ public class NoticeFragment extends BaseFragment implements PullToRefreshBase.On
 
     @Override
     public void initView(View view) {
+        emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
+        errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
         all_notice_listview = (PullToRefreshRecycleView) view.findViewById(R.id.all_notice_listview);
         all_notice_listview.setMode(PullToRefreshBase.Mode.BOTH);
         all_notice_listview.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -63,6 +68,15 @@ public class NoticeFragment extends BaseFragment implements PullToRefreshBase.On
     @Override
     public void onPullUpToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
         all_notice_listview.onRefreshComplete();
+    }
+
+    private void getNoticeList() {
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 
     @Override

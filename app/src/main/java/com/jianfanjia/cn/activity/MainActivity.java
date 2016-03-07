@@ -3,8 +3,8 @@ package com.jianfanjia.cn.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
-import android.widget.RadioGroup;
-import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.view.View;
+import android.widget.LinearLayout;
 
 import com.jianfanjia.cn.AppManager;
 import com.jianfanjia.cn.activity.requirement.PublishRequirementActivity_;
@@ -25,17 +25,18 @@ import com.jianfanjia.cn.tools.LogTool;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class MainActivity extends BaseActivity implements
-        OnCheckedChangeListener {
+public class MainActivity extends BaseActivity implements View.OnClickListener {
     private static final String TAG = MainActivity.class.getName();
-    private RadioGroup mTabRg = null;
+    private LinearLayout homeLayout = null;
+    private LinearLayout beautyLayout = null;
+    private LinearLayout reqLayout = null;
+    private LinearLayout myLayout = null;
     private HomeNewFragment homeFragment = null;
     private DecorationFragment decorationFragment = null;
     private XuQiuFragment xuqiuFragment = null;
     private MyFragment myFragment = null;
     private long mExitTime = 0L;
     private int tab = -1;
-
 
     @Override
     protected void onNewIntent(Intent intent) {
@@ -51,39 +52,43 @@ public class MainActivity extends BaseActivity implements
 
     @Override
     public void initView() {
-        mTabRg = (RadioGroup) findViewById(R.id.tab_rg_menu);
-        setTabSelection(Constant.HOME);
+        homeLayout = (LinearLayout) findViewById(R.id.home_layout);
+        beautyLayout = (LinearLayout) findViewById(R.id.img_layout);
+        reqLayout = (LinearLayout) findViewById(R.id.req_layout);
+        myLayout = (LinearLayout) findViewById(R.id.my_layout);
+        switchTab(Constant.HOME);
         //如果是注册直接点击发布需求，先创建mainactivity再启动editrequirementactivity
         Intent intent = getIntent();
         boolean flag = intent.getBooleanExtra(Global.IS_PUBLISHREQUIREMENT, false);
         LogTool.d(TAG, "flag:" + flag);
         if (flag) {
             LogTool.d(TAG, "REGISTER PUBLISH REQUIREMENG");
-            startActivityForResult(PublishRequirementActivity_.class,XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT);
+            startActivityForResult(PublishRequirementActivity_.class, XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT);
         }
     }
 
     @Override
     public void setListener() {
-        mTabRg.setOnCheckedChangeListener(this);
+        homeLayout.setOnClickListener(this);
+        beautyLayout.setOnClickListener(this);
+        reqLayout.setOnClickListener(this);
+        myLayout.setOnClickListener(this);
     }
 
     @Override
-    public void onCheckedChanged(RadioGroup group, int checkedId) {
-        switch (checkedId) {
-            case R.id.tab_rb_1:
-                setTabSelection(Constant.HOME);
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.home_layout:
+                switchTab(Constant.HOME);
                 break;
-            case R.id.tab_rb_2:
-                setTabSelection(Constant.DECORATE);
+            case R.id.img_layout:
+                switchTab(Constant.DECORATE);
                 break;
-            case R.id.tab_rb_3:
-                setTabSelection(Constant.MANAGE);
+            case R.id.req_layout:
+                switchTab(Constant.MANAGE);
                 break;
-            case R.id.tab_rb_4:
-                setTabSelection(Constant.MY);
-                break;
-            default:
+            case R.id.my_layout:
+                switchTab(Constant.MY);
                 break;
         }
     }
@@ -91,16 +96,28 @@ public class MainActivity extends BaseActivity implements
     public void switchTab(int index) {
         switch (index) {
             case Constant.HOME:
-                mTabRg.check(R.id.tab_rb_1);
+                homeLayout.setSelected(true);
+                beautyLayout.setSelected(false);
+                reqLayout.setSelected(false);
+                myLayout.setSelected(false);
                 break;
             case Constant.DECORATE:
-                mTabRg.check(R.id.tab_rb_2);
+                homeLayout.setSelected(false);
+                beautyLayout.setSelected(true);
+                reqLayout.setSelected(false);
+                myLayout.setSelected(false);
                 break;
             case Constant.MANAGE:
-                mTabRg.check(R.id.tab_rb_3);
+                homeLayout.setSelected(false);
+                beautyLayout.setSelected(false);
+                reqLayout.setSelected(true);
+                myLayout.setSelected(false);
                 break;
             case Constant.MY:
-                mTabRg.check(R.id.tab_rb_4);
+                homeLayout.setSelected(false);
+                beautyLayout.setSelected(false);
+                reqLayout.setSelected(false);
+                myLayout.setSelected(true);
                 break;
         }
         setTabSelection(index);
@@ -194,8 +211,7 @@ public class MainActivity extends BaseActivity implements
         if (requestCode == XuQiuFragment.REQUESTCODE_EDIT_REQUIREMENT) {
             xuqiuFragment.onActivityResult(requestCode, resultCode, data);
         } else if (requestCode == XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT) {
-            mTabRg.check(R.id.tab_rb_3);
-            setTabSelection(Constant.MANAGE);
+            switchTab(Constant.MANAGE);
             xuqiuFragment.onActivityResult(requestCode, resultCode, data);
         } else {
             super.onActivityResult(requestCode, resultCode, data);
@@ -206,6 +222,5 @@ public class MainActivity extends BaseActivity implements
     public int getLayoutId() {
         return R.layout.activity_main;
     }
-
 
 }
