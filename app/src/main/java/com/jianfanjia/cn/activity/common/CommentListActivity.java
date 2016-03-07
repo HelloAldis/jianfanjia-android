@@ -1,5 +1,7 @@
 package com.jianfanjia.cn.activity.common;
 
+import android.support.v7.widget.LinearLayoutManager;
+
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.view.MainHeadView;
@@ -27,6 +29,8 @@ public class CommentListActivity extends SwipeBackActivity{
     @AfterViews
     protected void initAnnotationView(){
         mainHeadView.setMianTitle(getString(R.string.my_comment));
+
+        refreshRecycleView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
     }
 
 
