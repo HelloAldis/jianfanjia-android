@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.common.CommentListActivity_;
+import com.jianfanjia.cn.activity.my.BindingAccountActivity_;
 import com.jianfanjia.cn.activity.my.CollectActivity;
 import com.jianfanjia.cn.activity.my.CustomerServiceActivity;
 import com.jianfanjia.cn.activity.my.FeedBackActivity;
@@ -44,6 +45,7 @@ public class MyNewFragment extends BaseFragment {
     private RelativeLayout clearCacheLayout = null;
     private RelativeLayout callPhoneLayout = null;
     private RelativeLayout commentLayout = null;
+    private RelativeLayout bindingAccountLayout = null;
     private TextView cacheSizeView = null;
     private ScrollView scrollView = null;
     private ImageView head_img = null;
@@ -63,6 +65,7 @@ public class MyNewFragment extends BaseFragment {
         cacheSizeView = (TextView) view.findViewById(R.id.cache_size);
         callPhoneLayout = (RelativeLayout) view.findViewById(R.id.call_layout);
         commentLayout = (RelativeLayout) view.findViewById(R.id.comment_layout);
+        bindingAccountLayout = (RelativeLayout) view.findViewById(R.id.binding_account_layout);
         head_img = (ImageView) view.findViewById(R.id.head_img);
         user_head_img = (ImageView) view.findViewById(R.id.user_head_img);
         my_account = (TextView) view.findViewById(R.id.frag_my_account);
@@ -100,6 +103,7 @@ public class MyNewFragment extends BaseFragment {
         clearCacheLayout.setOnClickListener(this);
         callPhoneLayout.setOnClickListener(this);
         commentLayout.setOnClickListener(this);
+        bindingAccountLayout.setOnClickListener(this);
 
         scrollView.setOverScrollMode(View.OVER_SCROLL_NEVER);
     }
@@ -137,10 +141,13 @@ public class MyNewFragment extends BaseFragment {
                 onClickCleanCache();
                 break;
             case R.id.call_layout:
-                UiHelper.callPhoneIntent(getContext(),"15927163098");
+                UiHelper.callPhoneIntent(getContext(), "15927163098");
                 break;
             case R.id.comment_layout:
                 startActivity(CommentListActivity_.class);
+                break;
+            case R.id.binding_account_layout:
+                startActivity(BindingAccountActivity_.class);
                 break;
             default:
                 break;
