@@ -15,8 +15,11 @@
     </style>
 
     <style name="tab_rb_style">
-        <item name="android:gravity">center_horizontal|bottom</item>
-        <item name="android:button">@null</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/tab_selector_text_color</item>
+        <item name="android:textSize">@dimen/text_size_10</item>
+        <item name="android:gravity">center</item>
     </style>
 
     <!-- horizontal line_style -->

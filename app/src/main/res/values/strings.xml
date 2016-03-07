@@ -200,7 +200,7 @@
     <string name="fukuanText">付款提醒</string>
     <string name="yanqiText">改期提醒</string>
     <string name="yanshouText">验收提醒</string>
-    <string name="list_item_caigou_example">系统提示：您即将进入下一轮建材购买阶段，您需要购买的是</string>
+    <string name="list_item_caigou_example">您即将进入下一轮建材购买阶段，您需要购买的是</string>
     <string name="list_item_fukuan_example">系统提示：您即将进入下一轮付款环节，请您及时与设计师联系</string>
     <string name="list_item_yanqi_example">对方已申请改期验收至</string>
 
@@ -353,7 +353,13 @@
     <string name="hint_choose_plan_str">您确定要选定此方案吗？</string>
     <string name="hint_contract_text">确认合同</string>
     <string name="hint_contract_str">您确定要确认合同吗？</string>
-    <string name="my_notice">我的通知</string>
     <string name="my_comment">我的评论</string>
     <string name="call_phone">咨询热线：400-8515-167</string>
+    <string name="title_activity_notice">NoticeActivity</string>
+
+    <string name="my_notice">我的通知</string>
+    <string name="all_notice">全部</string>
+    <string name="system_notice">系统公告</string>
+    <string name="req_notice">需求提醒</string>
+    <string name="site_notice">工地提醒</string>
 </resources>

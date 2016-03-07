@@ -72,7 +72,7 @@ public class SearchDecorationImgFragment extends BaseFragment {
                 decorationBundle.putInt(Global.TOTAL_COUNT, total);
                 decorationBundle.putInt(Global.VIEW_TYPE, Constant.SEARCH_BEAUTY_FRAGMENT);
                 decorationBundle.putString(Global.SEARCH_TEXT, search);
-                startActivity(PreviewDecorationActivity.class,decorationBundle);
+                startActivity(PreviewDecorationActivity.class, decorationBundle);
             }
         });
         decorationAdapter.setLoadMoreListener(new BaseRecycleAdapter.LoadMoreListener() {
