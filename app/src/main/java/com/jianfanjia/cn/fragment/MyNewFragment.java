@@ -15,7 +15,7 @@ import com.jianfanjia.cn.activity.common.CommentListActivity_;
 import com.jianfanjia.cn.activity.my.CollectActivity;
 import com.jianfanjia.cn.activity.my.CustomerServiceActivity;
 import com.jianfanjia.cn.activity.my.FeedBackActivity;
-import com.jianfanjia.cn.activity.my.NotifyActivity;
+import com.jianfanjia.cn.activity.my.NoticeActivity;
 import com.jianfanjia.cn.activity.my.SettingActivity;
 import com.jianfanjia.cn.activity.my.UserInfoActivity_;
 import com.jianfanjia.cn.application.MyApplication;
@@ -68,7 +68,7 @@ public class MyNewFragment extends BaseFragment {
         my_account = (TextView) view.findViewById(R.id.frag_my_account);
         my_name = (TextView) view.findViewById(R.id.frag_my_name);
 
-        scrollView = (ScrollView)view.findViewById(R.id.setting_scrollview);
+        scrollView = (ScrollView) view.findViewById(R.id.setting_scrollview);
 
         cacheSizeView.setText(UiHelper.caculateCacheSize());
     }
@@ -116,7 +116,7 @@ public class MyNewFragment extends BaseFragment {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.notify_layout:
-                startActivity(NotifyActivity.class);
+                startActivity(NoticeActivity.class);
                 break;
             case R.id.collect_layout:
                 startActivity(CollectActivity.class);
@@ -137,7 +137,7 @@ public class MyNewFragment extends BaseFragment {
                 onClickCleanCache();
                 break;
             case R.id.call_layout:
-                UiHelper.callPhoneIntent(getContext(),"15927163098");
+                UiHelper.callPhoneIntent(getContext(), "15927163098");
                 break;
             case R.id.comment_layout:
                 startActivity(CommentListActivity_.class);
