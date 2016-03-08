@@ -43,6 +43,7 @@ import java.util.List;
  */
 @EActivity(R.layout.activity_edit_requirement)
 public class PublishRequirementActivity extends SwipeBackActivity implements NotifyActivityStatusChange {
+
     private static final String TAG = PublishRequirementActivity.class.getName();
     @ViewById(R.id.act_edit_req_head_layout)
     protected MainHeadView mainHeadView = null;

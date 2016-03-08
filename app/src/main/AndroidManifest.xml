@@ -481,6 +481,10 @@
             android:name=".my.NoticeActivity"
             android:label="@string/title_activity_notice"
             android:theme="@style/Theme.Swipe.Back"/>
+        <activity
+            android:name=".home.DecorateLiveActivity_"
+            android:label="@string/title_activity_notice"
+            android:theme="@style/Theme.Swipe.Back"/>
     </application>
 
 </manifest>

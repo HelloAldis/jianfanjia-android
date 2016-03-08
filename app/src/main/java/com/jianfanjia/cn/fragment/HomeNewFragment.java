@@ -15,8 +15,8 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
 import com.google.gson.reflect.TypeToken;
-import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.home.DecorateLiveActivity_;
 import com.jianfanjia.cn.activity.home.DesignerCaseInfoActivity;
 import com.jianfanjia.cn.activity.home.DesignerCaseListActivity;
 import com.jianfanjia.cn.activity.home.DesignerListActivity;
@@ -28,7 +28,6 @@ import com.jianfanjia.cn.adapter.ViewPageAdapter;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseAnnotationFragment;
 import com.jianfanjia.cn.bean.Product;
-import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
@@ -252,7 +251,7 @@ public class HomeNewFragment extends BaseAnnotationFragment {
                 startActivity(WebViewActivity_.class, bundle);
                 break;
             case R.id.ltm_home_layout2:
-                ((MainActivity) getActivity()).switchTab(Constant.DECORATE);
+                startActivity(DecorateLiveActivity_.class);
                 break;
             case R.id.ltm_home_layout3:
                 startActivity(DesignerListActivity.class);
