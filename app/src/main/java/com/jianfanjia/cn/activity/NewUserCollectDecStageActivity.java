@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.OvershootInterpolator;
 import android.widget.TextView;
 
@@ -36,6 +37,14 @@ public class NewUserCollectDecStageActivity extends BaseAnnotationActivity {
 
     @ViewById(R.id.dec_stage2)
     TextView dec_stage_2;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    }
 
     @Click({R.id.dec_stage0, R.id.dec_stage1, R.id.dec_stage2})
     protected void click(final View view) {
