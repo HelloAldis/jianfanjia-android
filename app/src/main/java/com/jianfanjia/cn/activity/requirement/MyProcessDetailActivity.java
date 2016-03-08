@@ -404,7 +404,7 @@ public class MyProcessDetailActivity extends SwipeBackActivity implements ItemCl
                 bundle.putString(Global.PROCESS_ID, processId);
                 bundle.putString(Global.SECTION, sectionInfo.getName());
                 bundle.putString(Global.ITEM, sectionItemAdapter.getCurrentItem());
-                startActivityForResult(ShowProcessPicActivity.class,bundle, Constant.REQUESTCODE_SHOW_PROCESS_PIC);
+                startActivityForResult(ShowProcessPicActivity.class, bundle, Constant.REQUESTCODE_SHOW_PROCESS_PIC);
                 break;
             case Constant.ADD_ITEM:
 //                showPopWindow();
@@ -616,7 +616,7 @@ public class MyProcessDetailActivity extends SwipeBackActivity implements ItemCl
                 .getPinterestDialogCancelable(MyProcessDetailActivity.this);
         String msgType = message.getType();
         String msgStatus = message.getStatus();
-        if (msgType.equals(Constant.YANQI_NOTIFY)) {
+        if (msgType.equals(Constant.TYPE_DELAY_MSG)) {
             dialog.setTitle(getResources().getString(R.string.yanqiText));
             dialog.setMessage(message.getContent());
             if (msgStatus.equals(Constant.YANQI_BE_DOING)) {
@@ -648,7 +648,7 @@ public class MyProcessDetailActivity extends SwipeBackActivity implements ItemCl
                             }
                         });
             }
-        } else if (msgType.equals(Constant.FUKUAN_NOTIFY)) {
+        } else if (msgType.equals(Constant.TYPE_PAY_MSG)) {
             dialog.setTitle(getResources().getString(R.string.fukuanText));
             dialog.setMessage(message.getContent());
             dialog.setPositiveButton(R.string.ok,
@@ -659,7 +659,7 @@ public class MyProcessDetailActivity extends SwipeBackActivity implements ItemCl
                             dialog.dismiss();
                         }
                     });
-        } else if (msgType.equals(Constant.CAIGOU_NOTIFY)) {
+        } else if (msgType.equals(Constant.TYPE_CAIGOU_MSG)) {
             dialog.setTitle(getResources().getString(R.string.caigouText));
             dialog.setMessage(getResources().getString(R.string.list_item_caigou_example) + message.getContent());
             dialog.setPositiveButton(R.string.ok,
@@ -671,7 +671,7 @@ public class MyProcessDetailActivity extends SwipeBackActivity implements ItemCl
                             loadCurrentProcess(MyProcessDetailActivity.this);
                         }
                     });
-        } else if (msgType.equals(Constant.CONFIRM_CHECK_NOTIFY)) {
+        } else if (msgType.equals(Constant.TYPE_CONFIRM_CHECK_MSG)) {
             dialog.setTitle(getResources().getString(R.string.yanshouText));
             dialog.setMessage(message.getContent());
             dialog.setPositiveButton(R.string.ok,

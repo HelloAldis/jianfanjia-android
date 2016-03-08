@@ -48,18 +48,19 @@ import java.io.File;
 
 public class UiHelper {
 
-    public static void callPhoneIntent(Context context,String phone){
+    public static void callPhoneIntent(Context context, String phone) {
         Intent intent = new Intent(Intent.ACTION_DIAL);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.setData(Uri.parse("tel:"+phone));
+        intent.setData(Uri.parse("tel:" + phone));
         context.startActivity(intent);
     }
 
     /**
      * 计算缓存大小
+     *
      * @return
      */
-    public static String caculateCacheSize(){
+    public static String caculateCacheSize() {
         long fileSize = 0;
         String cacheSize = "0KB";
         File filesDir = ImageLoader.getInstance().getDiskCache().getDirectory();
@@ -70,7 +71,7 @@ public class UiHelper {
             File externalCacheDir = MyApplication.getInstance().getExternalCacheDir();
             fileSize += FileUtil.getDirSize(externalCacheDir);
         }
-        if (fileSize > 0){
+        if (fileSize > 0) {
             cacheSize = FileUtil.formatFileSize(fileSize);
         }
         return cacheSize;
@@ -78,17 +79,18 @@ public class UiHelper {
 
     /**
      * 生成一个默认的分割线
+     *
      * @param context
      * @return
      */
-    public static HorizontalDividerDecoration buildDefaultHeightDecoration(Context context){
-        return new HorizontalDividerDecoration(MyApplication.dip2px(context,10));
+    public static HorizontalDividerDecoration buildDefaultHeightDecoration(Context context) {
+        return new HorizontalDividerDecoration(MyApplication.dip2px(context, 10));
     }
 
     /**
      * 跳转到登录界面
      */
-    public static void forbiddenToLogin(){
+    public static void forbiddenToLogin() {
         Intent intent = new Intent(MyApplication.getInstance(), LoginNewActivity_.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         MyApplication.getInstance().startActivity(intent);
@@ -98,6 +100,7 @@ public class UiHelper {
 
     /**
      * 显示toast
+     *
      * @param text
      */
     public static void showShortToast(String text) {
@@ -170,7 +173,7 @@ public class UiHelper {
         String type = message.getType();
         LogTool.d("sendNotifycation", "type =" + type);
         PendingIntent pendingIntent = null;
-        if (type.equals(Constant.YANQI_NOTIFY)) {
+        if (type.equals(Constant.TYPE_DELAY_MSG)) {
             LogTool.d("sendNotifycation", context.getResources()
                     .getString(R.string.yanqiText));
             notifyId = Constant.YANQI_NOTIFY_ID;
@@ -188,7 +191,7 @@ public class UiHelper {
             Intent[] intents = {mainIntent, notifyIntent};
             pendingIntent = PendingIntent.getActivities(context, 0, intents,
                     PendingIntent.FLAG_UPDATE_CURRENT);
-        } else if (type.equals(Constant.FUKUAN_NOTIFY)) {
+        } else if (type.equals(Constant.TYPE_PAY_MSG)) {
             notifyId = Constant.FUKUAN_NOTIFY_ID;
             builder.setTicker(context.getResources()
                     .getText(R.string.fukuanText));
@@ -204,7 +207,7 @@ public class UiHelper {
             Intent[] intents = {mainIntent, notifyIntent};
             pendingIntent = PendingIntent.getActivities(context, 0, intents,
                     PendingIntent.FLAG_UPDATE_CURRENT);
-        } else if (type.equals(Constant.CAIGOU_NOTIFY)) {
+        } else if (type.equals(Constant.TYPE_CAIGOU_MSG)) {
             notifyId = Constant.CAIGOU_NOTIFY_ID;
             builder.setTicker(context.getResources()
                     .getText(R.string.caigouText));
@@ -220,7 +223,7 @@ public class UiHelper {
             Intent[] intents = {mainIntent, notifyIntent};
             pendingIntent = PendingIntent.getActivities(context, 0, intents,
                     PendingIntent.FLAG_UPDATE_CURRENT);
-        } else if (type.equals(Constant.CONFIRM_CHECK_NOTIFY)) {
+        } else if (type.equals(Constant.TYPE_CONFIRM_CHECK_MSG)) {
             notifyId = Constant.YANSHOU_NOTIFY_ID;
             builder.setTicker(context.getResources().getText(R.string.yanshouText));
             mRemoteViews.setTextViewText(R.id.list_item_title, context.getResources().getText(R.string.yanshouText));

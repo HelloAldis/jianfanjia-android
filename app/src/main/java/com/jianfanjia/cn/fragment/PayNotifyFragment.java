@@ -79,7 +79,7 @@ public class PayNotifyFragment extends BaseFragment implements PullToRefreshBase
 
     private void initData() {
         payList.clear();
-        List<NotifyMessage> payMsgList = notifyMessageDao.getNotifyListByType(Constant.FUKUAN_NOTIFY, dataManager.getUserId());
+        List<NotifyMessage> payMsgList = notifyMessageDao.getNotifyListByType(Constant.TYPE_PAY_MSG, dataManager.getUserId());
         LogTool.d(TAG, "payMsgList:" + payMsgList);
         payList.addAll(payMsgList);
     }
