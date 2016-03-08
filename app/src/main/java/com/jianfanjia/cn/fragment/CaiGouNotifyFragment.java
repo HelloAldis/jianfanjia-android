@@ -56,8 +56,8 @@ public class CaiGouNotifyFragment extends BaseFragment implements PullToRefreshB
     @Override
     public void initView(View view) {
         emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
-        ((TextView)emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.empty_view_no_caigou_data));
-        ((ImageView)emptyLayout.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_caigou);
+        ((TextView) emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.empty_view_no_caigou_data));
+        ((ImageView) emptyLayout.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_caigou);
         errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
         caigouListView = (PullToRefreshRecycleView) view
                 .findViewById(R.id.tip_caigou__listview);
@@ -81,7 +81,7 @@ public class CaiGouNotifyFragment extends BaseFragment implements PullToRefreshB
     private void initData() {
         caigouList.clear();
         List<NotifyMessage> caigouMsgList = notifyMessageDao
-                .getNotifyListByType(Constant.CAIGOU_NOTIFY, dataManager.getUserId());
+                .getNotifyListByType(Constant.TYPE_CAIGOU_MSG, dataManager.getUserId());
         LogTool.d(TAG, "caigouMsgList:" + caigouMsgList);
         caigouList.addAll(caigouMsgList);
     }

@@ -38,11 +38,11 @@ public class NotifyActivity extends SwipeBackActivity implements OnClickListener
         String notifyType = intent.getStringExtra("Type");
         LogTool.d(TAG, "notifyType=" + notifyType);
         if (!TextUtils.isEmpty(notifyType)) {
-            if (notifyType.equals(Constant.CAIGOU_NOTIFY)) {
+            if (notifyType.equals(Constant.TYPE_CAIGOU_MSG)) {
                 initPosition = 0;
-            } else if (notifyType.equals(Constant.FUKUAN_NOTIFY)) {
+            } else if (notifyType.equals(Constant.TYPE_PAY_MSG)) {
                 initPosition = 1;
-            } else if (notifyType.equals(Constant.YANQI_NOTIFY)) {
+            } else if (notifyType.equals(Constant.TYPE_DELAY_MSG)) {
                 initPosition = 2;
             }
         } else {

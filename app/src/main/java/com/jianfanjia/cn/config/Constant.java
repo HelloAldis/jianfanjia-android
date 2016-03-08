@@ -122,11 +122,20 @@ public class Constant {
     public final static int YANQI_NOTIFY_ID = 3;
     public final static int YANSHOU_NOTIFY_ID = 4;
 
-    // 业主消息提醒类型
-    public static final String YANQI_NOTIFY = "0";// 延期提醒
-    public static final String CAIGOU_NOTIFY = "1";// 采购提醒
-    public static final String FUKUAN_NOTIFY = "2";// 付款提醒
-    public static final String CONFIRM_CHECK_NOTIFY = "3";// 确认验收提醒
+    // 业主消息提醒类型user_message_type
+    public static final String TYPE_DELAY_MSG = "0";// 设计师提出改期提醒
+    public static final String TYPE_CAIGOU_MSG = "1";// 采购提醒
+    public static final String TYPE_PAY_MSG = "2";// 付款提醒
+    public static final String TYPE_CONFIRM_CHECK_MSG = "3";// 确认验收提醒
+    public static final String TYPE_SYSTEM_MSG = "4";//平台通知
+    public static final String TYPE_PLAN_COMMENT_MSG = "5";//方案评论
+    public static final String TYPE_SECTIOJN_COMMENT_MSG = "6";//装修小节点评论
+    public static final String TYPE_DESIGNER_RESPONSE_MSG = "7";//设计师响应
+    public static final String TYPE_DESIGNER_REJECT_MSG = "8";//设计师拒绝
+    public static final String TYPE_DESIGNER_UPLOAD_PLAN_MSG = "9";//设计师上传了方案
+    public static final String TYPE_DESIGNER_CONFIG_CONTRACT_MSG = "10";//设计师配置了合同
+    public static final String TYPE_DESIGNER_REJECT_DELAY_MSG = "11";//设计师拒绝改期
+    public static final String TYPE_DESIGNER_AGREE_DELAY_MSG = "12";//设计师同意改期
 
     // 延期提醒状态,工序状态
     public static final String NO_START = "0";// 未开工
