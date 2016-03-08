@@ -60,6 +60,7 @@ public class DesignerPlanListActivity extends SwipeBackActivity implements OnCli
         designer_plan_listview = (PullToRefreshRecycleView) findViewById(R.id.designer_plan_listview);
         designer_plan_listview.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
         designer_plan_listview.setLayoutManager(new LinearLayoutManager(this));
+        designer_plan_listview.setHasFixedSize(true);
         designer_plan_listview.setItemAnimator(new DefaultItemAnimator());
         designer_plan_listview.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getApplicationContext()));
         getDesignerPlansList(requirementid, designerid);
