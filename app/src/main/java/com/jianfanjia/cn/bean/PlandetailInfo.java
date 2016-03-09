@@ -32,6 +32,14 @@ public class PlandetailInfo implements Serializable {
     private User user;
     private RequirementInfo requirement;
 
+    public String get_id() {
+        return _id;
+    }
+
+    public void set_id(String _id) {
+        this._id = _id;
+    }
+
     public long getLast_status_update_time() {
         return last_status_update_time;
     }

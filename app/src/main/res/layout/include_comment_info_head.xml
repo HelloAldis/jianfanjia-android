@@ -19,7 +19,7 @@
             android:layout_centerVertical="true">
 
             <com.jianfanjia.cn.view.layout.CircleImageView
-                android:id="@+id/ltm_cominfo_designer_head"
+                android:id="@+id/ltm_cominfo_head"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
@@ -51,7 +51,7 @@
                 android:textColor="@color/light_black_color" />
 
             <TextView
-                android:id="@+id/ltm_cominfo_designer_status"
+                android:id="@+id/ltm_cominfo_designer_date"
                 style="@style/listview_item_text_style_small"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/ltm_cominfo_designer_name"
@@ -65,7 +65,7 @@
         </RelativeLayout>
 
         <TextView
-            android:id="@+id/merger_button2"
+            android:id="@+id/ltm_cominfo_response"
             style="@style/listview_item_text_style_big"
             android:layout_width="wrap_content"
             android:layout_alignParentRight="true"

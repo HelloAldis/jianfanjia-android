@@ -16,7 +16,7 @@ import android.widget.EditText;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.adapter.CommentAdapter;
-import com.jianfanjia.cn.bean.Comment;
+import com.jianfanjia.cn.bean.CommentList;
 import com.jianfanjia.cn.bean.CommentInfo;
 import com.jianfanjia.cn.bean.User;
 import com.jianfanjia.cn.config.Constant;
@@ -151,19 +151,19 @@ public class CommentActivity extends SwipeBackActivity implements OnClickListene
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data);
             hideWaitDialog();
-            Comment comment = JsonParser.jsonToBean(data.toString(), Comment.class);
-            LogTool.d(TAG, "comment:" + comment);
-            if (null != comment) {
-                commentList = comment.getComments();
-                LogTool.d(TAG, "commentList=" + commentList);
-                commentAdapter = new CommentAdapter(CommentActivity.this, commentList);
+            CommentList commentList = JsonParser.jsonToBean(data.toString(), CommentList.class);
+            LogTool.d(TAG, "commentList:" + commentList);
+            if (null != commentList) {
+                CommentActivity.this.commentList = commentList.getComments();
+                LogTool.d(TAG, "commentList=" + CommentActivity.this.commentList);
+                commentAdapter = new CommentAdapter(CommentActivity.this, CommentActivity.this.commentList);
                 commentListView.setAdapter(commentAdapter);
             }
         }
 
         @Override
         public void loadFailture(String error_msg) {
-            makeTextLong(error_msg);
+            makeTextShort(error_msg);
             hideWaitDialog();
         }
     };

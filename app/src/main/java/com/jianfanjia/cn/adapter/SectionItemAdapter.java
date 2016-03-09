@@ -298,7 +298,7 @@ public class SectionItemAdapter extends BaseAdapter {
                                     R.mipmap.btn_icon_comment_pressed), null,
                             null, null);
                 } else {
-                    viewHolder.openComment.setText(R.string.comment);
+                    viewHolder.openComment.setText(R.string.commentText);
                     viewHolder.openComment.setCompoundDrawablesWithIntrinsicBounds(
                             context.getResources().getDrawable(
                                     R.mipmap.btn_icon_comment_normal), null,

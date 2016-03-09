@@ -4,12 +4,12 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Name: Comment
+ * Name: CommentList
  * User: fengliang
  * Date: 2015-10-28
  * Time: 17:01
  */
-public class Comment implements Serializable {
+public class CommentList implements Serializable {
 
     private static final long serialVersionUID = -7792774353344872678L;
     private List<CommentInfo> comments;

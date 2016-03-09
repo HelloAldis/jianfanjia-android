@@ -187,7 +187,7 @@
     <string name="add_comment">添加评论</string>
     <string name="add_feedback">请添加您想说的内容</string>
     <string name="userinfo">个人信息</string>
-    <string name="comment">评论</string>
+    <string name="commentList">评论</string>
     <string name="check">阶段验收</string>
     <string name="back">返回</string>
     <string name="send">发送</string>
