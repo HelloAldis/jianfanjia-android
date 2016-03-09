@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -23,6 +24,7 @@ import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.tools.TDevice;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
@@ -74,6 +76,8 @@ public class MyNewFragment extends BaseFragment {
         scrollView = (ScrollView) view.findViewById(R.id.setting_scrollview);
 
         cacheSizeView.setText(UiHelper.caculateCacheSize());
+        //动态计算imageview的宽高
+        head_img.setLayoutParams(new FrameLayout.LayoutParams((int) TDevice.getScreenWidth(), (int) (880 / (1242 / TDevice.getScreenWidth()))));
     }
 
     @Override

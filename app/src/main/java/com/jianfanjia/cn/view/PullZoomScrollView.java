@@ -28,7 +28,7 @@ public class PullZoomScrollView extends ScrollView {
 
     //移动因子, 是一个百分比, 比如手指移动了100px, 那么View就只移动50px
     //目的是达到一个延迟的效果
-    private static final float MOVE_FACTOR = 1.5f;
+    private static final float MOVE_FACTOR = 2.0f;
 
     //松开手指后, 界面回到正常位置需要的动画时间
     private static final int ANIM_TIME = 300;
@@ -137,6 +137,7 @@ public class PullZoomScrollView extends ScrollView {
                 //在移动的过程中， 既没有滚动到可以上拉的程度， 也没有滚动到可以下拉的程度
                 if (!canPullDown && !canPullUp) {
                     startY = ev.getY();
+                    canPullDown = isCanPullDown();
                     break;
                 }
 
@@ -177,8 +178,7 @@ public class PullZoomScrollView extends ScrollView {
      * 判断是否滚动到顶部
      */
     private boolean isCanPullDown() {
-        return getScrollY() == 0 ||
-                contentView.getHeight() <= getHeight() + getScrollY();
+        return getScrollY() == 0;
     }
 
     /**

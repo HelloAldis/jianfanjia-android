@@ -34,9 +34,9 @@ public abstract class BaseRecycleAdapter<T> extends RecyclerView.Adapter<Recycle
     public static final int STATE_NETWORK_ERROR = 5;
 
     //正常条目
-    private static final int TYPE_NORMAL_ITEM = 7;
+    protected static final int TYPE_NORMAL_ITEM = 7;
     //加载条目
-    private static final int TYPE_LOADING_ITEM = 8;
+    protected static final int TYPE_LOADING_ITEM = 8;
 
     protected ArrayList<T> mDatas = new ArrayList<>();
 
@@ -217,7 +217,7 @@ public abstract class BaseRecycleAdapter<T> extends RecyclerView.Adapter<Recycle
      * @param parent viewGroup
      * @return viewHolder
      */
-    public abstract RecyclerView.ViewHolder onCreateNormalViewHolder(ViewGroup parent);
+    public abstract RecyclerView.ViewHolder onCreateNormalViewHolder(ViewGroup parent,int viewType);
 
     /**
      * 绑定viewHolder
@@ -229,21 +229,19 @@ public abstract class BaseRecycleAdapter<T> extends RecyclerView.Adapter<Recycle
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if (viewType == TYPE_NORMAL_ITEM) {
-            return onCreateNormalViewHolder(parent);
-        } else {
+        if (viewType == TYPE_LOADING_ITEM) {
             View view = LayoutInflater.from(parent.getContext()).inflate(
                     R.layout.loading_view, parent, false);
             return new LoadingViewHolder(view);
+        } else {
+            return onCreateNormalViewHolder(parent,viewType);
         }
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         int type = getItemViewType(position);
-        if (type == TYPE_NORMAL_ITEM) {
-            onBindNormalViewHolder(holder, position);
-        } else {
+        if (type == TYPE_LOADING_ITEM) {
             onBindLoadMoreViewHolder(holder, position);
             if (mStaggeredGridLayoutManager != null) {
                 StaggeredGridLayoutManager.LayoutParams layoutParams =
@@ -254,6 +252,8 @@ public abstract class BaseRecycleAdapter<T> extends RecyclerView.Adapter<Recycle
 
                 mLoadingViewHolder.llyLoading.setLayoutParams(layoutParams);
             }
+        } else {
+            onBindNormalViewHolder(holder, position);
         }
     }
 

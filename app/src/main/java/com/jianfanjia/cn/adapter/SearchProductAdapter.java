@@ -58,7 +58,7 @@ public class SearchProductAdapter extends BaseRecycleAdapter<Product> {
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateNormalViewHolder(ViewGroup parent) {
+    public RecyclerView.ViewHolder onCreateNormalViewHolder(ViewGroup parent,int viewType) {
         View view = layoutInflater.inflate(R.layout.list_item_product,
                 null);
         return new ProductViewHolder(view);

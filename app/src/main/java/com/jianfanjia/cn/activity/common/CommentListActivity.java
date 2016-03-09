@@ -4,6 +4,7 @@ import android.support.v7.widget.LinearLayoutManager;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
+import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
 
@@ -31,6 +32,7 @@ public class CommentListActivity extends SwipeBackActivity{
         mainHeadView.setMianTitle(getString(R.string.my_comment));
 
         refreshRecycleView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        refreshRecycleView.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getApplicationContext()));
     }
 
 

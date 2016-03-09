@@ -27,6 +27,9 @@ import java.util.List;
  */
 public class CommentInfoAdapter extends BaseRecycleAdapter<PlanInfo> {
 
+    private static final int PLAN_TYPE = 0;//方案的评论
+    private static final int NODE_TYPE = 1;//节点的评论
+
     private ItemClickListener itemClickListener;
 
     public CommentInfoAdapter(Context context, RecyclerView recyclerView, ItemClickListener itemClickListener) {
@@ -36,7 +39,21 @@ public class CommentInfoAdapter extends BaseRecycleAdapter<PlanInfo> {
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateNormalViewHolder(ViewGroup parent) {
+    public int getItemViewType(int position) {
+         if(super.getItemViewType(position) == TYPE_NORMAL_ITEM){
+             return mDatas.get(position).getComment_count();
+         }
+        return super.getItemViewType(position);
+    }
+
+    @Override
+    public RecyclerView.ViewHolder onCreateNormalViewHolder(ViewGroup parent,int viewType) {
+        switch (viewType){
+            case PLAN_TYPE:
+                break;
+            case NODE_TYPE:
+                break;
+        }
         return new DesignerPlanViewHolder(parent);
     }
 
