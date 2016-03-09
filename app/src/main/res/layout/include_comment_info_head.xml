@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="16dip"
+    android:paddingLeft="20dip"
+    android:paddingRight="20dip"
+    android:paddingTop="16dip">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <FrameLayout
+            android:id="@+id/imageLayout"
+            android:layout_width="48dip"
+            android:layout_height="48dip"
+            android:layout_centerVertical="true">
+
+            <com.jianfanjia.cn.view.layout.CircleImageView
+                android:id="@+id/ltm_cominfo_designer_head"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/icon_default_head" />
+
+            <ImageView
+                android:id="@+id/designerinfo_auth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|right"
+                android:src="@mipmap/icon_auth" />
+        </FrameLayout>
+
+        <RelativeLayout
+            android:id="@+id/ltm_cominfo_designer_middle_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/space_8"
+            android:layout_toRightOf="@+id/imageLayout">
+
+            <TextView
+                android:id="@+id/ltm_cominfo_designer_name"
+                style="@style/listview_item_text_style_middle"
+                android:ellipsize="end"
+                android:gravity="left"
+                android:maxWidth="@dimen/space_70"
+                android:singleLine="true"
+                android:textColor="@color/light_black_color" />
+
+            <TextView
+                android:id="@+id/ltm_cominfo_designer_status"
+                style="@style/listview_item_text_style_small"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/ltm_cominfo_designer_name"
+                android:layout_marginTop="@dimen/space_8"
+                android:ellipsize="end"
+                android:gravity="left"
+                android:maxWidth="@dimen/space_70"
+                android:singleLine="true"
+                android:text="@string/str_publish_time"
+                android:textColor="@color/grey_color" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/merger_button2"
+            style="@style/listview_item_text_style_big"
+            android:layout_width="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/btn_grey_white_bg"
+            android:padding="@dimen/space_8"
+            android:text="@string/response"
+            android:textColor="@color/grey_color" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/ltm_cominfo_content"
+        style="@style/listview_item_text_style_middle"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/space_16"
+        android:textColor="@color/grey_color" />
+</LinearLayout>

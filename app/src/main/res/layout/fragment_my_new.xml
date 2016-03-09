@@ -31,7 +31,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:scaleType="centerCrop"
-                    android:src="@mipmap/bg_home_banner4" />
+                    android:src="@mipmap/img_my_bg" />
 
                 <RelativeLayout
                     android:id="@+id/frag_my_info_layout"
@@ -88,18 +88,18 @@
 
                     <FrameLayout
                         android:id="@+id/imageLayout0"
-                        android:layout_width="60dip"
-                        android:layout_height="60dip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true">
 
                         <com.jianfanjia.cn.view.layout.CircleImageView
                             android:id="@+id/ltm_req_designer_head0"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:scaleType="centerCrop"
-                            android:src="@mipmap/icon_home1" />
+                            android:src="@mipmap/icon_notify_big" />
 
                         <com.jianfanjia.cn.view.layout.BadgeView
                             android:id="@+id/notify_count_text"
@@ -137,18 +137,18 @@
 
                     <FrameLayout
                         android:id="@+id/imageLayout1"
-                        android:layout_width="60dip"
-                        android:layout_height="60dip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true">
 
                         <com.jianfanjia.cn.view.layout.CircleImageView
                             android:id="@+id/ltm_req_designer_head1"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:scaleType="centerCrop"
-                            android:src="@mipmap/icon_home3" />
+                            android:src="@mipmap/icon_collect_big" />
 
                     </FrameLayout>
 
@@ -178,18 +178,18 @@
 
                     <FrameLayout
                         android:id="@+id/imageLayout2"
-                        android:layout_width="60dip"
-                        android:layout_height="60dip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true">
 
                         <com.jianfanjia.cn.view.layout.CircleImageView
                             android:id="@+id/ltm_req_designer_head2"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:scaleType="centerCrop"
-                            android:src="@mipmap/icon_home2" />
+                            android:src="@mipmap/icon_comment_big" />
 
                         <com.jianfanjia.cn.view.layout.BadgeView
                             android:id="@+id/comment_count_text"
@@ -227,7 +227,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:src="@mipmap/icon_info_auth"/>
+                    android:src="@mipmap/icon_account"/>
 
                 <TextView
                     style="@style/listview_item_text_style_middle"
@@ -264,7 +264,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:src="@mipmap/icon_info_auth" />
+                    android:src="@mipmap/icon_clean" />
 
                 <TextView
                     style="@style/listview_item_text_style_middle"
@@ -302,7 +302,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:src="@mipmap/icon_info_auth" />
+                    android:src="@mipmap/icon_phone" />
 
                 <TextView
                     style="@style/listview_item_text_style_middle"
@@ -330,7 +330,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:src="@mipmap/icon_info_auth" />
+                    android:src="@mipmap/icon_kefu" />
 
                 <TextView
                     style="@style/listview_item_text_style_middle"
@@ -357,7 +357,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:src="@mipmap/icon_info_auth" />
+                    android:src="@mipmap/icon_more" />
 
                 <TextView
                     style="@style/listview_item_text_style_middle"

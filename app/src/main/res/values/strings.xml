@@ -363,4 +363,5 @@
     <string name="req_notice">需求提醒</string>
     <string name="site_notice">工地提醒</string>
     <string name="decoration_live">装修直播</string>
+    <string name="response">回复</string>
 </resources>
