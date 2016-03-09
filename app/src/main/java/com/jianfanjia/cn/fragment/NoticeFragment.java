@@ -12,11 +12,18 @@ import android.widget.RelativeLayout;
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.http.JianFanJiaClient;
+import com.jianfanjia.cn.http.request.SearchUserMsgRequest;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import de.greenrobot.event.EventBus;
 
@@ -32,7 +39,7 @@ public class NoticeFragment extends CommonFragment implements PullToRefreshBase.
     private PullToRefreshRecycleView all_notice_listview = null;
     private RelativeLayout emptyLayout = null;
     private RelativeLayout errorLayout = null;
-
+    private List<String> msgTypeList = new ArrayList<>();
     private boolean isPrepared = false;
     private boolean mHasLoadedOnce = false;
     private int FROM = 0;
@@ -86,7 +93,7 @@ public class NoticeFragment extends CommonFragment implements PullToRefreshBase.
         if (!isPrepared || !isVisible || mHasLoadedOnce) {
             return;
         }
-        getNoticeList(FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
+        getNoticeList(msgTypeList, pullDownListener);
     }
 
     @Override
@@ -106,8 +113,16 @@ public class NoticeFragment extends CommonFragment implements PullToRefreshBase.
         }
     }
 
-    private void getNoticeList(int from, int limit, ApiUiUpdateListener listener) {
-
+    private void getNoticeList(List<String> msgType, ApiUiUpdateListener listener) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("$in", msgType);
+        Map<String, Object> conditionParam = new HashMap<>();
+        conditionParam.put("message_type", params);
+        Map<String, Object> param = new HashMap<>();
+        param.put("query", conditionParam);
+        param.put("from", FROM);
+        param.put("limit", Constant.HOME_PAGE_LIMIT);
+        JianFanJiaClient.searchUserMsg(new SearchUserMsgRequest(getContext(), param), listener, this);
     }
 
     @Override

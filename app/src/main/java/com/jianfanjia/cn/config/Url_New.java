@@ -211,4 +211,10 @@ public class Url_New {
             + "search_designer";
     //用户获取新作品列表
     public String GET_TOP_PRODUCTS = HTTPROOT + "top_products";
+    //业主未读通知个数
+    public String GET_UNREAD_MSG_COUNT = HTTPROOT + "unread_user_message_count";
+    //业主搜索业主通知
+    public String SEARCH_USER_MSG = HTTPROOT + "search_user_message";
+    //业主通知详情
+    public String GET_USER_MSG_DETAIL = HTTPROOT + "user_message_detail";
 }
