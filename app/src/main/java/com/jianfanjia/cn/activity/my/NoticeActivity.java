@@ -21,7 +21,7 @@ import java.util.List;
  * Date:15-10-11 14:30
  */
 public class NoticeActivity extends SwipeBackActivity implements View.OnClickListener {
-    private static final String TAG = AboutActivity.class.getName();
+    private static final String TAG = NoticeActivity.class.getName();
     public static final int TYPE_ALL = 0;
     public static final int TYPE_SYS = 1;
     public static final int TYPE_REQ = 2;
@@ -37,7 +37,7 @@ public class NoticeActivity extends SwipeBackActivity implements View.OnClickLis
         initMainHeadView();
         tabLayout = (TabLayout) findViewById(R.id.tabLyout);
         mPager = (ViewPager) findViewById(R.id.viewpager);
-        mPager.setOffscreenPageLimit(3);
+        mPager.setOffscreenPageLimit(1);
         setupViewPager(mPager);
         mPager.setCurrentItem(initPosition);
         tabLayout.setupWithViewPager(mPager);
