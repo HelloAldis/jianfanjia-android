@@ -15,6 +15,8 @@ public class NoticeDetailInfo implements Serializable {
     private String designerid;
     private String planid;
     private String requirementid;
+    private String processid;
+    private String section;
     private String title;
     private String content;
     private String message_type;
@@ -116,5 +118,21 @@ public class NoticeDetailInfo implements Serializable {
 
     public void setLastupdate(long lastupdate) {
         this.lastupdate = lastupdate;
+    }
+
+    public String getProcessid() {
+        return processid;
+    }
+
+    public void setProcessid(String processid) {
+        this.processid = processid;
+    }
+
+    public String getSection() {
+        return section;
+    }
+
+    public void setSection(String section) {
+        this.section = section;
     }
 }
