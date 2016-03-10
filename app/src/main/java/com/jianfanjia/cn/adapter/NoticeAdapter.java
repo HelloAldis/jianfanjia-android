@@ -8,8 +8,10 @@ import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
+import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.bean.NoticeInfo;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.interf.ClickCallBack;
 import com.jianfanjia.cn.tools.DateFormatTool;
 import com.jianfanjia.cn.tools.LogTool;
 
@@ -36,18 +38,19 @@ public class NoticeAdapter extends BaseRecyclerViewAdapter<NoticeInfo> {
     private static final int ITEM_TYPE10 = 10;
     private static final int ITEM_TYPE11 = 11;
     private static final int ITEM_TYPE12 = 12;
-
+    private ClickCallBack callback;
     private int viewType = -1;
 
-    public NoticeAdapter(Context context, List<NoticeInfo> list) {
+    public NoticeAdapter(Context context, List<NoticeInfo> list, ClickCallBack callback) {
         super(context, list);
+        this.callback = callback;
     }
 
     @Override
     public int getItemViewType(int position) {
         NoticeInfo noticeInfo = list.get(position);
         String msgType = noticeInfo.getMessage_type();
-        LogTool.d(TAG, "msgType------------------------" + msgType);
+        LogTool.d(TAG, "msgType:" + msgType);
         if (msgType.equals(Constant.TYPE_DELAY_MSG)) {
             viewType = ITEM_TYPE0;
         } else if (msgType.equals(Constant.TYPE_CAIGOU_MSG)) {
@@ -79,83 +82,197 @@ public class NoticeAdapter extends BaseRecyclerViewAdapter<NoticeInfo> {
     }
 
     @Override
-    public void bindView(RecyclerViewHolderBase viewHolder, int position, List<NoticeInfo> list) {
+    public void bindView(RecyclerViewHolderBase viewHolder, final int position, List<NoticeInfo> list) {
         NoticeInfo info = list.get(position);
         switch (viewType) {
             case ITEM_TYPE0:
-                DelayViewHolder holder0 = (DelayViewHolder) viewHolder;
-                holder0.itemCellView.setText(info.getTitle());
-                holder0.itemNewTimeView.setText(info.getContent());
+                SiteViewHolder holder0 = (SiteViewHolder) viewHolder;
+                holder0.itemTitle.setText(info.getTitle());
+                holder0.itemDate.setText(DateFormatTool.getRelativeTime(info.getCreate_at()));
+                holder0.itemContent.setText(info.getContent());
+                holder0.itemSection.setText(MyApplication.getInstance()
+                        .getStringById(info.getSection()) + "阶段");
+                holder0.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (null != callback) {
+                            callback.click(position, ITEM_TYPE0);
+                        }
+                    }
+                });
                 break;
             case ITEM_TYPE1:
-                CaiGouViewHolder holder1 = (CaiGouViewHolder) viewHolder;
-                holder1.itemCellView.setText(info.getTitle());
-                holder1.itemNameView.setText(info.getContent());
+                SiteViewHolder holder1 = (SiteViewHolder) viewHolder;
+                holder1.itemTitle.setText(info.getTitle());
+                holder1.itemDate.setText(DateFormatTool.getRelativeTime(info.getCreate_at()));
+                holder1.itemContent.setText(info.getContent());
+                holder1.itemSection.setText(MyApplication.getInstance()
+                        .getStringById(info.getSection()) + "阶段");
+                holder1.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (null != callback) {
+                            callback.click(position, ITEM_TYPE1);
+                        }
+                    }
+                });
                 break;
             case ITEM_TYPE2:
-                PayViewHolder holder2 = (PayViewHolder) viewHolder;
-                holder2.itemCellView.setText(info.getTitle());
-                holder2.itemNameView.setText(info.getContent());
+                SiteViewHolder holder2 = (SiteViewHolder) viewHolder;
+                holder2.itemTitle.setText(info.getTitle());
+                holder2.itemDate.setText(DateFormatTool.getRelativeTime(info.getCreate_at()));
+                holder2.itemContent.setText(info.getContent());
+                holder2.itemSection.setText(MyApplication.getInstance()
+                        .getStringById(info.getSection()) + "阶段");
+                holder2.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (null != callback) {
+                            callback.click(position, ITEM_TYPE2);
+                        }
+                    }
+                });
                 break;
             case ITEM_TYPE3:
-                CheckViewHolder holder3 = (CheckViewHolder) viewHolder;
+                SiteViewHolder holder3 = (SiteViewHolder) viewHolder;
                 holder3.itemTitle.setText(info.getTitle());
-                holder3.itemExample.setText(info.getContent());
-                holder3.itemDate.setText(DateFormatTool.toLocalTimeString(info.getCreate_at()));
+                holder3.itemDate.setText(DateFormatTool.getRelativeTime(info.getCreate_at()));
+                holder3.itemContent.setText(info.getContent());
+                holder3.itemSection.setText(MyApplication.getInstance().getStringById(info.getSection()) + "阶段");
+                holder3.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (null != callback) {
+                            callback.click(position, ITEM_TYPE3);
+                        }
+                    }
+                });
                 break;
             case ITEM_TYPE4:
-                ReqViewHolder holder4 = (ReqViewHolder) viewHolder;
+                SysViewHolder holder4 = (SysViewHolder) viewHolder;
                 holder4.itemTitle.setText(info.getTitle());
-                holder4.itemExample.setText(info.getContent());
-                holder4.itemDate.setText(DateFormatTool.toLocalTimeString(info.getCreate_at()));
+                holder4.itemContent.setText(info.getContent());
+                holder4.itemDate.setText(DateFormatTool.getRelativeTime(info.getCreate_at()));
+                holder4.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (null != callback) {
+                            callback.click(position, ITEM_TYPE4);
+                        }
+                    }
+                });
                 break;
             case ITEM_TYPE5:
                 ReqViewHolder holder5 = (ReqViewHolder) viewHolder;
-                holder5.itemTitle.setText(info.getTitle());
-                holder5.itemExample.setText(info.getContent());
-                holder5.itemDate.setText(DateFormatTool.toLocalTimeString(info.getCreate_at()));
+                holder5.itemTitleView.setText(info.getTitle());
+                holder5.itemContentView.setText(info.getContent());
+                holder5.itemPubTimeView.setText(DateFormatTool.getRelativeTime(info.getCreate_at()));
+                holder5.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (null != callback) {
+                            callback.click(position, ITEM_TYPE5);
+                        }
+                    }
+                });
                 break;
             case ITEM_TYPE6:
                 ReqViewHolder holder6 = (ReqViewHolder) viewHolder;
-                holder6.itemTitle.setText(info.getTitle());
-                holder6.itemExample.setText(info.getContent());
-                holder6.itemDate.setText(DateFormatTool.toLocalTimeString(info.getCreate_at()));
+                holder6.itemTitleView.setText(info.getTitle());
+                holder6.itemContentView.setText(info.getContent());
+                holder6.itemPubTimeView.setText(DateFormatTool.getRelativeTime(info.getCreate_at()));
+                holder6.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (null != callback) {
+                            callback.click(position, ITEM_TYPE6);
+                        }
+                    }
+                });
                 break;
             case ITEM_TYPE7:
                 ReqViewHolder holder7 = (ReqViewHolder) viewHolder;
-                holder7.itemTitle.setText(info.getTitle());
-                holder7.itemExample.setText(info.getContent());
-                holder7.itemDate.setText(DateFormatTool.toLocalTimeString(info.getCreate_at()));
+                holder7.itemTitleView.setText(info.getTitle());
+                holder7.itemContentView.setText(info.getContent());
+                holder7.itemPubTimeView.setText(DateFormatTool.getRelativeTime(info.getCreate_at()));
+                holder7.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (null != callback) {
+                            callback.click(position, ITEM_TYPE7);
+                        }
+                    }
+                });
                 break;
             case ITEM_TYPE8:
                 ReqViewHolder holder8 = (ReqViewHolder) viewHolder;
-                holder8.itemTitle.setText(info.getTitle());
-                holder8.itemExample.setText(info.getContent());
-                holder8.itemDate.setText(DateFormatTool.toLocalTimeString(info.getCreate_at()));
+                holder8.itemTitleView.setText(info.getTitle());
+                holder8.itemContentView.setText(info.getContent());
+                holder8.itemPubTimeView.setText(DateFormatTool.getRelativeTime(info.getCreate_at()));
+                holder8.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (null != callback) {
+                            callback.click(position, ITEM_TYPE8);
+                        }
+                    }
+                });
                 break;
             case ITEM_TYPE9:
                 ReqViewHolder holder9 = (ReqViewHolder) viewHolder;
-                holder9.itemTitle.setText(info.getTitle());
-                holder9.itemExample.setText(info.getContent());
-                holder9.itemDate.setText(DateFormatTool.toLocalTimeString(info.getCreate_at()));
+                holder9.itemTitleView.setText(info.getTitle());
+                holder9.itemContentView.setText(info.getContent());
+                holder9.itemPubTimeView.setText(DateFormatTool.getRelativeTime(info.getCreate_at()));
+                holder9.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (null != callback) {
+                            callback.click(position, ITEM_TYPE9);
+                        }
+                    }
+                });
                 break;
             case ITEM_TYPE10:
                 ReqViewHolder holder10 = (ReqViewHolder) viewHolder;
-                holder10.itemTitle.setText(info.getTitle());
-                holder10.itemExample.setText(info.getContent());
-                holder10.itemDate.setText(DateFormatTool.toLocalTimeString(info.getCreate_at()));
+                holder10.itemTitleView.setText(info.getTitle());
+                holder10.itemContentView.setText(info.getContent());
+                holder10.itemPubTimeView.setText(DateFormatTool.getRelativeTime(info.getCreate_at()));
+                holder10.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (null != callback) {
+                            callback.click(position, ITEM_TYPE10);
+                        }
+                    }
+                });
                 break;
             case ITEM_TYPE11:
                 ReqViewHolder holder11 = (ReqViewHolder) viewHolder;
-                holder11.itemTitle.setText(info.getTitle());
-                holder11.itemExample.setText(info.getContent());
-                holder11.itemDate.setText(DateFormatTool.toLocalTimeString(info.getCreate_at()));
+                holder11.itemTitleView.setText(info.getTitle());
+                holder11.itemContentView.setText(info.getContent());
+                holder11.itemPubTimeView.setText(DateFormatTool.getRelativeTime(info.getCreate_at()));
+                holder11.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (null != callback) {
+                            callback.click(position, ITEM_TYPE11);
+                        }
+                    }
+                });
                 break;
             case ITEM_TYPE12:
                 ReqViewHolder holder12 = (ReqViewHolder) viewHolder;
-                holder12.itemTitle.setText(info.getTitle());
-                holder12.itemExample.setText(info.getContent());
-                holder12.itemDate.setText(DateFormatTool.toLocalTimeString(info.getCreate_at()));
+                holder12.itemTitleView.setText(info.getTitle());
+                holder12.itemContentView.setText(info.getContent());
+                holder12.itemPubTimeView.setText(DateFormatTool.getRelativeTime(info.getCreate_at()));
+                holder12.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (null != callback) {
+                            callback.click(position, ITEM_TYPE12);
+                        }
+                    }
+                });
                 break;
             default:
                 break;
@@ -166,15 +283,15 @@ public class NoticeAdapter extends BaseRecyclerViewAdapter<NoticeInfo> {
     public View createView(ViewGroup viewGroup, int viewType) {
         switch (viewType) {
             case ITEM_TYPE0:
-                return layoutInflater.inflate(R.layout.list_notice_item_delay, null);
+                return layoutInflater.inflate(R.layout.list_notice_item_site, null);
             case ITEM_TYPE1:
-                return layoutInflater.inflate(R.layout.list_notice_item_caigou, null);
+                return layoutInflater.inflate(R.layout.list_notice_item_site, null);
             case ITEM_TYPE2:
-                return layoutInflater.inflate(R.layout.list_notice_item_pay, null);
+                return layoutInflater.inflate(R.layout.list_notice_item_site, null);
             case ITEM_TYPE3:
-                return layoutInflater.inflate(R.layout.list_notice_item_check, null);
+                return layoutInflater.inflate(R.layout.list_notice_item_site, null);
             case ITEM_TYPE4:
-                return layoutInflater.inflate(R.layout.list_notice_item_req, null);
+                return layoutInflater.inflate(R.layout.list_notice_item_sys, null);
             case ITEM_TYPE5:
                 return layoutInflater.inflate(R.layout.list_notice_item_req, null);
             case ITEM_TYPE6:
@@ -199,13 +316,13 @@ public class NoticeAdapter extends BaseRecyclerViewAdapter<NoticeInfo> {
     public RecyclerViewHolderBase createViewHolder(View view) {
         switch (viewType) {
             case ITEM_TYPE0:
-                return new DelayViewHolder(view);
+                return new SiteViewHolder(view);
             case ITEM_TYPE1:
-                return new CaiGouViewHolder(view);
+                return new SiteViewHolder(view);
             case ITEM_TYPE2:
-                return new PayViewHolder(view);
+                return new SiteViewHolder(view);
             case ITEM_TYPE3:
-                return new CheckViewHolder(view);
+                return new SiteViewHolder(view);
             case ITEM_TYPE4:
                 return new ReqViewHolder(view);
             case ITEM_TYPE5:
@@ -231,102 +348,32 @@ public class NoticeAdapter extends BaseRecyclerViewAdapter<NoticeInfo> {
     private static class SysViewHolder extends RecyclerViewHolderBase {
         public TextView itemTitle;
         public TextView itemDate;
-        public TextView itemExample;
+        public TextView itemContent;
 
         public SysViewHolder(View itemView) {
             super(itemView);
             itemTitle = (TextView) itemView.findViewById(R.id.list_item_sys_tip_title);
             itemDate = (TextView) itemView.findViewById(R.id.list_item_sys_tip_date);
-            itemExample = (TextView) itemView.findViewById(R.id.list_item_sys_tip_example);
-        }
-    }
-
-    private static class CaiGouViewHolder extends RecyclerViewHolderBase {
-        public TextView itemCellView;
-        public TextView itemNameView;// 采购工序视图
-        public TextView itemContentView;// 采购内容视图
-        public TextView itemNodeView;// 采购节点
-        public TextView itemPubTimeView;// 发布时间
-
-        public CaiGouViewHolder(View itemView) {
-            super(itemView);
-            itemCellView = (TextView) itemView
-                    .findViewById(R.id.list_item_tip_cell_name);
-            itemContentView = (TextView) itemView
-                    .findViewById(R.id.list_item_tip_caigou_content);
-            itemNameView = (TextView) itemView
-                    .findViewById(R.id.list_item_tip_caigou_name);
-            itemNodeView = (TextView) itemView
-                    .findViewById(R.id.list_item_tip_caigou_node);
-            itemPubTimeView = (TextView) itemView
-                    .findViewById(R.id.list_item_tip_caigou_time);
-        }
-    }
-
-    private static class PayViewHolder extends RecyclerViewHolderBase {
-        TextView itemCellView;
-        TextView itemNameView;// 延迟工序
-        TextView itemNodeView;// 延迟节点
-        TextView itemPubTimeView;// 发布时间
-
-        public PayViewHolder(View itemView) {
-            super(itemView);
-            itemCellView = (TextView) itemView
-                    .findViewById(R.id.list_item_tip_cell_name);
-            itemNameView = (TextView) itemView
-                    .findViewById(R.id.list_item_tip_pay_name);
-            itemNodeView = (TextView) itemView
-                    .findViewById(R.id.list_item_tip_pay_node);
-            itemPubTimeView = (TextView) itemView
-                    .findViewById(R.id.list_item_tip_pay_time);
-        }
-    }
-
-    private static class DelayViewHolder extends RecyclerViewHolderBase {
-        public TextView itemCellView;
-        public TextView itemNodeView;// 延迟节点
-        public TextView itemNewTimeView;// 延期时间
-        public TextView itemPubTimeView;// 发布时间
-        public TextView itemStatusView;
-
-        public DelayViewHolder(View itemView) {
-            super(itemView);
-            itemCellView = (TextView) itemView
-                    .findViewById(R.id.list_item_tip_cell_name);
-            itemNodeView = (TextView) itemView
-                    .findViewById(R.id.list_item_tip_delay_node);
-            itemNewTimeView = (TextView) itemView
-                    .findViewById(R.id.list_item_tip_delay_new_time);
-            itemPubTimeView = (TextView) itemView
-                    .findViewById(R.id.list_item_tip_delay_time);
-            itemStatusView = (TextView) itemView
-                    .findViewById(R.id.list_item_tip_delay_status);
-        }
-    }
-
-    private static class CheckViewHolder extends RecyclerViewHolderBase {
-        public TextView itemTitle;
-        public TextView itemDate;
-        public TextView itemExample;
-
-        public CheckViewHolder(View itemView) {
-            super(itemView);
-            itemTitle = (TextView) itemView.findViewById(R.id.list_item_sys_tip_title);
-            itemDate = (TextView) itemView.findViewById(R.id.list_item_sys_tip_date);
-            itemExample = (TextView) itemView.findViewById(R.id.list_item_sys_tip_example);
+            itemContent = (TextView) itemView.findViewById(R.id.list_item_sys_tip_content);
         }
     }
 
     private static class ReqViewHolder extends RecyclerViewHolderBase {
-        public TextView itemTitle;
-        public TextView itemDate;
-        public TextView itemExample;
+        public TextView itemTitleView;
+        public TextView itemCellView;
+        public TextView itemContentView;
+        public TextView itemPubTimeView;
 
         public ReqViewHolder(View itemView) {
             super(itemView);
-            itemTitle = (TextView) itemView.findViewById(R.id.list_item_req_tip_title);
-            itemDate = (TextView) itemView.findViewById(R.id.list_item_req_tip_date);
-            itemExample = (TextView) itemView.findViewById(R.id.list_item_req_tip_example);
+            itemTitleView = (TextView) itemView
+                    .findViewById(R.id.list_item_tip_req_title);
+            itemContentView = (TextView) itemView
+                    .findViewById(R.id.list_item_tip_req_content);
+            itemCellView = (TextView) itemView
+                    .findViewById(R.id.list_item_tip_req_cell);
+            itemPubTimeView = (TextView) itemView
+                    .findViewById(R.id.list_item_tip_req_time);
         }
     }
 
@@ -335,15 +382,15 @@ public class NoticeAdapter extends BaseRecyclerViewAdapter<NoticeInfo> {
         public TextView itemDate;
         public TextView itemCell;
         public TextView itemSection;
-        public TextView itemExample;
+        public TextView itemContent;
 
         public SiteViewHolder(View itemView) {
             super(itemView);
-            itemTitle = (TextView) itemView.findViewById(R.id.list_item_tip_title);
-            itemDate = (TextView) itemView.findViewById(R.id.list_item_tip_date);
-            itemCell = (TextView) itemView.findViewById(R.id.list_item_tip_cell);
-            itemSection = (TextView) itemView.findViewById(R.id.list_item_tip_section);
-            itemExample = (TextView) itemView.findViewById(R.id.list_item_tip_example);
+            itemTitle = (TextView) itemView.findViewById(R.id.list_item_tip_site_title);
+            itemDate = (TextView) itemView.findViewById(R.id.list_item_tip_site_time);
+            itemCell = (TextView) itemView.findViewById(R.id.list_item_tip_site_cell);
+            itemSection = (TextView) itemView.findViewById(R.id.list_item_tip_site_node);
+            itemContent = (TextView) itemView.findViewById(R.id.list_item_tip_site_content);
         }
     }
 }

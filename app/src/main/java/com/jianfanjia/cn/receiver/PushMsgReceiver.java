@@ -11,6 +11,7 @@ import android.util.Log;
 import com.igexin.sdk.PushConsts;
 import com.igexin.sdk.PushManager;
 import com.jianfanjia.cn.AppManager;
+import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.requirement.MyProcessDetailActivity;
 import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.cache.DataManagerNew;
@@ -19,6 +20,8 @@ import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.TDevice;
 import com.jianfanjia.cn.tools.UiHelper;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * Description:推送消息监听广播
@@ -111,6 +114,7 @@ public class PushMsgReceiver extends BroadcastReceiver {
                 } else {
                     LogTool.d(TAG, "MyProcessDetailActivity is not in stakes");
                     UiHelper.sendNotifycation(context, message);
+                    EventBus.getDefault().post(new MessageEvent(Constant.NOTICE_EVENT));
                 }
             } else {
                 LogTool.d(TAG, "the app process is dead");

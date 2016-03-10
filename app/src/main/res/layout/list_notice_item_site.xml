@@ -14,62 +14,50 @@
         android:paddingTop="@dimen/space_16">
 
         <TextView
-            android:id="@+id/list_item_tip_title"
+            android:id="@+id/list_item_tip_site_title"
             style="@style/listview_item_text_style_small"
-            android:text="采购提醒"
+            android:text="改期提醒"
             android:textColor="@color/light_black_color"
             android:textSize="@dimen/text_size_14" />
 
         <TextView
-            android:id="@+id/list_item_tip_date"
+            android:id="@+id/list_item_tip_site_time"
             style="@style/listview_item_text_style_small"
-            android:layout_alignBottom="@id/list_item_tip_title"
+            android:layout_alignBottom="@id/list_item_tip_site_title"
             android:layout_alignParentRight="true"
             android:text="2015-09-22 23:05"
             android:textColor="@color/main_color_grey"
-            android:textSize="@dimen/text_size_14" />
+            android:textSize="@dimen/text_size_12" />
 
         <TextView
-            android:id="@+id/list_item_tip_cell"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/list_item_tip_title"
-            android:layout_marginTop="@dimen/space_10"
-            android:text="清江山水"
+            android:id="@+id/list_item_tip_site_cell"
+            style="@style/listview_item_text_style_small"
+            android:layout_below="@id/list_item_tip_site_title"
+            android:layout_marginTop="@dimen/space_5"
+            android:text="中建康城"
             android:textColor="@color/light_black_color"
-            android:textSize="@dimen/text_size_14" />
+            android:textSize="@dimen/text_size_12" />
 
         <TextView
-            android:id="@+id/list_item_tip_section"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/list_item_tip_title"
+            android:id="@+id/list_item_tip_site_node"
+            style="@style/listview_item_text_style_small"
+            android:layout_below="@id/list_item_tip_site_title"
             android:layout_marginLeft="@dimen/space_10"
-            android:layout_marginTop="@dimen/space_10"
-            android:layout_toRightOf="@id/list_item_tip_title"
+            android:layout_marginTop="@dimen/space_5"
+            android:layout_toRightOf="@id/list_item_tip_site_cell"
             android:text="泥木阶段"
-            android:textColor="@color/light_black_color"
-            android:textSize="@dimen/text_size_14" />
+            android:textColor="@color/main_color_grey"
+            android:textSize="@dimen/text_size_12" />
 
         <TextView
-            android:id="@+id/list_item_tip_example"
+            android:id="@+id/list_item_tip_site_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/list_item_tip_cell"
-            android:layout_marginBottom="@dimen/space_10"
-            android:layout_marginTop="@dimen/space_10"
-            android:text="@string/list_item_caigou_example"
-            android:textColor="@color/light_black_color"
-            android:textSize="@dimen/text_size_14" />
-
-        <TextView
-            android:id="@+id/list_item_tip_content"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/list_item_tip_example"
-            android:text="复合板"
+            android:layout_below="@id/list_item_tip_site_cell"
+            android:layout_marginTop="@dimen/space_5"
+            android:text="设计师延期"
             android:textColor="@color/orange_color"
-            android:textSize="@dimen/text_size_14" />
+            android:textSize="@dimen/text_size_12" />
 
     </RelativeLayout>
 
@@ -77,6 +65,7 @@
         style="@style/my_item_layout_image_style"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="@dimen/space_10"
+        android:layout_marginRight="@dimen/space_16"
         android:contentDescription="@null" />
+
 </RelativeLayout>
