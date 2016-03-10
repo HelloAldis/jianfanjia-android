@@ -11,10 +11,14 @@ import android.widget.RelativeLayout;
 
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.my.NoticeActivity;
+import com.jianfanjia.cn.adapter.NoticeAdapter;
+import com.jianfanjia.cn.bean.NoticeListInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.http.request.SearchUserMsgRequest;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
+import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
@@ -39,6 +43,7 @@ public class NoticeFragment extends CommonFragment implements PullToRefreshBase.
     private PullToRefreshRecycleView all_notice_listview = null;
     private RelativeLayout emptyLayout = null;
     private RelativeLayout errorLayout = null;
+    private NoticeAdapter noticeAdapter = null;
     private List<String> msgTypeList = new ArrayList<>();
     private boolean isPrepared = false;
     private boolean mHasLoadedOnce = false;
@@ -59,6 +64,19 @@ public class NoticeFragment extends CommonFragment implements PullToRefreshBase.
         EventBus.getDefault().register(this);
         mType = getArguments().getInt("Type");
         LogTool.d(TAG, "mType=" + mType);
+
+        msgTypeList.add("0");
+        msgTypeList.add("1");
+        msgTypeList.add("2");
+        msgTypeList.add("3");
+        msgTypeList.add("4");
+        msgTypeList.add("7");
+        msgTypeList.add("8");
+        msgTypeList.add("9");
+        msgTypeList.add("10");
+        msgTypeList.add("11");
+        msgTypeList.add("12");
+
     }
 
     @Override
@@ -125,6 +143,14 @@ public class NoticeFragment extends CommonFragment implements PullToRefreshBase.
         JianFanJiaClient.searchUserMsg(new SearchUserMsgRequest(getContext(), param), listener, this);
     }
 
+//    private void getUnReadNoticeCount(List<List<String>> msgType, ApiUiUpdateListener listener) {
+//        Map<String, Object> param = new HashMap<>();
+//        param.put("query_array", msgType);
+//        param.put("from", FROM);
+//        param.put("limit", Constant.HOME_PAGE_LIMIT);
+//        JianFanJiaClient.getUnReadUserMsg(new GetUnReadMsgRequest(getContext(), param), listener, this);
+//    }
+
     @Override
     public void onPullDownToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
         all_notice_listview.onRefreshComplete();
@@ -144,7 +170,12 @@ public class NoticeFragment extends CommonFragment implements PullToRefreshBase.
         @Override
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data.toString());
-
+            NoticeListInfo noticeListInfo = JsonParser.jsonToBean(data.toString(), NoticeListInfo.class);
+            LogTool.d(TAG, "noticeListInfo:" + noticeListInfo);
+            if (null != noticeListInfo) {
+                noticeAdapter = new NoticeAdapter(getActivity(), noticeListInfo.getList());
+                all_notice_listview.setAdapter(noticeAdapter);
+            }
         }
 
         @Override
@@ -170,6 +201,21 @@ public class NoticeFragment extends CommonFragment implements PullToRefreshBase.
             makeTextLong(error_msg);
         }
     };
+
+    private void setNoticeList(NoticeListInfo noticeListInfo) {
+        switch (mType) {
+            case NoticeActivity.TYPE_ALL:
+                break;
+            case NoticeActivity.TYPE_SYS:
+                break;
+            case NoticeActivity.TYPE_REQ:
+                break;
+            case NoticeActivity.TYPE_SITE:
+                break;
+            default:
+                break;
+        }
+    }
 
     public void onEventMainThread(MessageEvent event) {
 

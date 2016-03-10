@@ -121,6 +121,15 @@ public class Constant {
     public final static int FUKUAN_NOTIFY_ID = 2;
     public final static int YANQI_NOTIFY_ID = 3;
     public final static int YANSHOU_NOTIFY_ID = 4;
+    public final static int SYSTEM_NOTIFY_ID = 5;
+    public final static int PLAN_COMMENT_NOTIFY_ID = 6;
+    public final static int SECTION_COMMENT_NOTIFY_ID = 7;
+    public final static int DESIGNER_RESPONSE_NOTIFY_ID = 8;
+    public final static int DESIGNER_REJECT_NOTIFY_ID = 9;
+    public final static int DESIGNER_UPLOAD_PLAN_NOTIFY_ID = 10;
+    public final static int DESIGNER_CONFIG_CONTRACT_NOTIFY_ID = 11;
+    public final static int DESIGNER_REJECT_DELAY_NOTIFY_ID = 12;
+    public final static int DESIGNER_AGREE_DELAY_NOTIFY_ID = 13;
 
     // 业主消息提醒类型user_message_type
     public static final String TYPE_DELAY_MSG = "0";// 设计师提出改期提醒
@@ -129,9 +138,9 @@ public class Constant {
     public static final String TYPE_CONFIRM_CHECK_MSG = "3";// 确认验收提醒
     public static final String TYPE_SYSTEM_MSG = "4";//平台通知
     public static final String TYPE_PLAN_COMMENT_MSG = "5";//方案评论
-    public static final String TYPE_SECTIOJN_COMMENT_MSG = "6";//装修小节点评论
+    public static final String TYPE_SECTION_COMMENT_MSG = "6";//装修小节点评论
     public static final String TYPE_DESIGNER_RESPONSE_MSG = "7";//设计师响应
-    public static final String TYPE_DESIGNER_REJECT_MSG = "8";//设计师拒绝
+    public static final String TYPE_DESIGNER_REJECT_MSG = "8";//设计师拒绝响应
     public static final String TYPE_DESIGNER_UPLOAD_PLAN_MSG = "9";//设计师上传了方案
     public static final String TYPE_DESIGNER_CONFIG_CONTRACT_MSG = "10";//设计师配置了合同
     public static final String TYPE_DESIGNER_REJECT_DELAY_MSG = "11";//设计师拒绝改期

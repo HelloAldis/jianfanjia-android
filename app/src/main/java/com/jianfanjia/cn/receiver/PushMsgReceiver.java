@@ -15,8 +15,6 @@ import com.jianfanjia.cn.activity.requirement.MyProcessDetailActivity;
 import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.dao.impl.NotifyMessageDao;
-import com.jianfanjia.cn.tools.DaoManager;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.TDevice;
@@ -30,12 +28,10 @@ import com.jianfanjia.cn.tools.UiHelper;
  */
 public class PushMsgReceiver extends BroadcastReceiver {
     private static final String TAG = PushMsgReceiver.class.getName();
-    private NotifyMessageDao notifyMessageDao = null;
     private DataManagerNew dataManager = null;
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        notifyMessageDao = DaoManager.getNotifyMessageDao(context);
         dataManager = DataManagerNew.getInstance();
         //-------------------------------------------------
         Bundle bundle = intent.getExtras();
@@ -96,10 +92,7 @@ public class PushMsgReceiver extends BroadcastReceiver {
         try {
             NotifyMessage message = JsonParser.jsonToBean(jsonStr,
                     NotifyMessage.class);
-            Log.i(TAG, "message:" + message + "  userid:" + dataManager.getUserId());
-            message.setUserid(dataManager.getUserId());
-            boolean result = notifyMessageDao.save(message);
-            Log.i(TAG, "result:" + result);
+            Log.i(TAG, "message:" + message);
             if (TDevice.isAppAlive(context, context.getPackageName())) {
                 LogTool.d(TAG, "the app process is alive");
                 Activity activity = AppManager.getAppManager().currentActivity();
