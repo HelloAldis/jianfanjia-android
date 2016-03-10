@@ -217,4 +217,6 @@ public class Url_New {
     public String SEARCH_USER_MSG = HTTPROOT + "search_user_message";
     //业主通知详情
     public String GET_USER_MSG_DETAIL = HTTPROOT + "user_message_detail";
+    //业主获取评论消息列表
+    public String SEARCH_USER_COMMENT = HTTPROOT + "search_user_comment";
 }

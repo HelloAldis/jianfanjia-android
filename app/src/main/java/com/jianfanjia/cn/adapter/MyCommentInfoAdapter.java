@@ -9,12 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
+import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseRecycleAdapter;
-import com.jianfanjia.cn.bean.MyCommentList;
+import com.jianfanjia.cn.bean.NoticeInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.tools.DateFormatTool;
@@ -28,7 +30,7 @@ import java.util.List;
  * Email: jame.zhang@myjyz.com
  * Date:2016-03-07 17:46
  */
-public class MyCommentInfoAdapter extends BaseRecycleAdapter<MyCommentList.MyCommentInfo> {
+public class MyCommentInfoAdapter extends BaseRecycleAdapter<NoticeInfo> {
 
     public static final int PLAN_TYPE = 0;//方案的评论
     public static final int NODE_TYPE = 1;//节点的评论
@@ -43,48 +45,55 @@ public class MyCommentInfoAdapter extends BaseRecycleAdapter<MyCommentList.MyCom
 
     @Override
     public int getItemViewType(int position) {
-         if(super.getItemViewType(position) == TYPE_NORMAL_ITEM){
-             return Integer.parseInt(mDatas.get(position).getTopictype());
-         }
+        if (super.getItemViewType(position) == TYPE_NORMAL_ITEM) {
+            if (mDatas.get(position).getMessage_type().equals(Constant.TYPE_PLAN_COMMENT_MSG)) {
+                return PLAN_TYPE;
+            }
+            if (mDatas.get(position).getMessage_type().equals(Constant.TYPE_SECTION_COMMENT_MSG)) {
+                return NODE_TYPE;
+            }
+        }
         return super.getItemViewType(position);
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateNormalViewHolder(ViewGroup parent,int viewType) {
+    public RecyclerView.ViewHolder onCreateNormalViewHolder(ViewGroup parent, int viewType) {
         View view = null;
-        switch (viewType){
+        switch (viewType) {
             case PLAN_TYPE:
-                view = LayoutInflater.from(context).inflate(R.layout.list_item_commentinfo_type1,null);
+                view = LayoutInflater.from(context).inflate(R.layout.list_item_commentinfo_type1, null);
                 return new PlanCommentViewHolder(view);
             case NODE_TYPE:
-                view = LayoutInflater.from(context).inflate(R.layout.list_item_commentinfo_type2,null);
+                view = LayoutInflater.from(context).inflate(R.layout.list_item_commentinfo_type2, null);
                 return new ProcessCommentViewHolder(view);
         }
         return null;
     }
 
     @Override
-    public void onBindNormalViewHolder(RecyclerView.ViewHolder viewHolder,final int position) {
-        MyCommentList.MyCommentInfo myCommentInfo = mDatas.get(position);
-        switch (getItemViewType(position)){
+    public void onBindNormalViewHolder(RecyclerView.ViewHolder viewHolder, final int position) {
+        NoticeInfo noticeInfo = mDatas.get(position);
+        switch (getItemViewType(position)) {
             case PLAN_TYPE:
-                PlanCommentViewHolder planHolder = (PlanCommentViewHolder)viewHolder;
-                onBindPlanCommentViewHolder(myCommentInfo,planHolder);
+                PlanCommentViewHolder planHolder = (PlanCommentViewHolder) viewHolder;
+                onBindPlanCommentViewHolder(noticeInfo, planHolder);
                 break;
             case NODE_TYPE:
-                ProcessCommentViewHolder processHolder = (ProcessCommentViewHolder)viewHolder;
-                onBindProcessCommentViewHolder(myCommentInfo,processHolder);
+                ProcessCommentViewHolder processHolder = (ProcessCommentViewHolder) viewHolder;
+                onBindProcessCommentViewHolder(noticeInfo, processHolder);
                 break;
         }
     }
 
-    private void onBindPlanCommentViewHolder(final MyCommentList.MyCommentInfo myCommentInfo,PlanCommentViewHolder holder){
+    private void onBindPlanCommentViewHolder(final NoticeInfo noticeInfo, PlanCommentViewHolder holder) {
 
         //设计师的名字
-        holder.nameView.setText(myCommentInfo.getByUser().getUsername());
+        holder.nameView.setText(noticeInfo.getDesigner().getUsername());
+
+        holder.cellText.setText(noticeInfo.getRequirement().getCell());
 
         //设计师的头像
-        String imageid = myCommentInfo.getByUser().getImageid();
+        String imageid = noticeInfo.getDesigner().getImageid();
         LogTool.d(this.getClass().getName(), "imageid=" + imageid);
         if (!TextUtils.isEmpty(imageid)) {
             imageShow.displayImageHeadWidthThumnailImage(context, imageid, holder.itemHeadView);
@@ -93,12 +102,12 @@ public class MyCommentInfoAdapter extends BaseRecycleAdapter<MyCommentList.MyCom
         }
 
         //评论时间
-        holder.dateText.setText(DateFormatTool.longToString(myCommentInfo.getCreate_at()));
+        holder.dateText.setText(DateFormatTool.longToString(noticeInfo.getCreate_at()));
         //评论内容
-        holder.contentText.setText(myCommentInfo.getContent());
+        holder.contentText.setText(noticeInfo.getContent());
 
         //方案状态
-        String status = myCommentInfo.getStatus();
+        String status = noticeInfo.getPlan().getStatus();
         if (status.equals(Global.PLAN_STATUS3)) {
             holder.statusText.setTextColor(context.getResources().getColor(R.color.orange_color));
             holder.statusText.setText("沟通中");
@@ -114,42 +123,102 @@ public class MyCommentInfoAdapter extends BaseRecycleAdapter<MyCommentList.MyCom
         holder.responseView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(onItemCallback != null){
-                    onItemCallback.onResponse(myCommentInfo,PLAN_TYPE);
+                if (onItemCallback != null) {
+                    onItemCallback.onResponse(noticeInfo, PLAN_TYPE);
                 }
             }
         });
 
         //方案图片
-        List<String> imgList = myCommentInfo.getPlanInfo().getImages();
+        List<String> imgList = noticeInfo.getPlan().getImages();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         holder.item_plan_listview.setLayoutManager(linearLayoutManager);
-        DesignerPlanRecyclerViewAdapter adapter = new DesignerPlanRecyclerViewAdapter(context, imgList,null);
+        DesignerPlanRecyclerViewAdapter adapter = new DesignerPlanRecyclerViewAdapter(context, imgList, null);
         holder.item_plan_listview.setAdapter(adapter);
 
         holder.contentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(onItemCallback != null){
-                    onItemCallback.showDetail(myCommentInfo,PLAN_TYPE);
+                if (onItemCallback != null) {
+                    onItemCallback.showDetail(noticeInfo, PLAN_TYPE);
                 }
             }
         });
 
     }
 
-    private void onBindProcessCommentViewHolder(MyCommentList.MyCommentInfo myCommentInfo,ProcessCommentViewHolder holder){
-        String imageid = myCommentInfo.getByUser().getImageid();
+    private void onBindProcessCommentViewHolder(final NoticeInfo noticeInfo, ProcessCommentViewHolder holder) {
+        String imageid = noticeInfo.getDesigner().getImageid();
         LogTool.d(this.getClass().getName(), "imageid=" + imageid);
         if (!TextUtils.isEmpty(imageid)) {
             imageShow.displayImageHeadWidthThumnailImage(context, imageid, holder.itemHeadView);
         } else {
             imageShow.displayLocalImage(Constant.DEFALUT_OWNER_PIC, holder.itemHeadView);
         }
+
+        //设计师的名字
+        holder.nameView.setText(noticeInfo.getDesigner().getUsername());
+        //评论时间
+        holder.dateText.setText(DateFormatTool.longToString(noticeInfo.getCreate_at()));
+        //评论内容
+        holder.contentText.setText(noticeInfo.getContent());
+
+        //回复
+        holder.responseView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onItemCallback != null) {
+                    onItemCallback.onResponse(noticeInfo, NODE_TYPE);
+                }
+            }
+        });
+
+        holder.cellName.setText(noticeInfo.getProcess().getCell());
+        holder.nodeName.setText(MyApplication.getInstance()
+                .getStringById(noticeInfo.getItem()));
+        switch (noticeInfo.getStatus()) {
+            case Constant.FINISHED:
+                holder.itemStatus
+                        .setImageResource(R.mipmap.icon_home_finish);
+                holder.nodeStatus.setText(context.getResources()
+                        .getString(R.string.site_example_node_finish));
+                holder.itemBackground
+                        .setBackgroundResource(R.mipmap.list_item_text_bg2);
+                break;
+            case Constant.NO_START:
+
+                holder.itemStatus
+                        .setImageResource(R.drawable.site_listview_item_notstart_circle);
+                holder.nodeStatus.setText(context.getResources()
+                        .getString(R.string.site_example_node_not_start));
+                holder.itemBackground
+                        .setBackgroundResource(R.mipmap.list_item_text_bg1);
+                break;
+            case Constant.DOING:
+
+                holder.itemStatus
+                        .setImageResource(R.mipmap.icon_home_working);
+                holder.nodeStatus.setText(context.getResources()
+                        .getString(R.string.site_example_node_working));
+                holder.itemBackground
+                        .setBackgroundResource(R.mipmap.list_item_text_bg2);
+                break;
+            default:
+                break;
+        }
+
+        holder.itemLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onItemCallback != null) {
+                    onItemCallback.showDetail(noticeInfo, NODE_TYPE);
+                }
+            }
+        });
     }
 
-    private static class PlanCommentViewHolder extends RecyclerViewHolderBase{
+    private static class PlanCommentViewHolder extends RecyclerViewHolderBase {
 
         public LinearLayout contentLayout;
         public ImageView itemHeadView;
@@ -162,44 +231,57 @@ public class MyCommentInfoAdapter extends BaseRecycleAdapter<MyCommentList.MyCom
         public TextView statusText;
         public RecyclerView item_plan_listview;
 
-        public PlanCommentViewHolder(View itemView){
+        public PlanCommentViewHolder(View itemView) {
             super(itemView);
-            this.itemHeadView = (ImageView)itemView.findViewById(R.id.ltm_cominfo_head);
-            this.nameView = (TextView)itemView.findViewById(R.id.ltm_cominfo_designer_name);
-            this.dateText = (TextView)itemView.findViewById(R.id.ltm_cominfo_designer_date);
-            this.responseView = (TextView)itemView.findViewById(R.id.ltm_cominfo_response);
-            this.contentText = (TextView)itemView.findViewById(R.id.ltm_cominfo_content);
-            this.cellText = (TextView)itemView.findViewById(R.id.cell_name);
-            this.numText = (TextView)itemView.findViewById(R.id.numText);
-            this.statusText = (TextView)itemView.findViewById(R.id.statusText);
-            this.item_plan_listview = (RecyclerView)itemView.findViewById(R.id.item_plan_listview);
-            this.contentLayout = (LinearLayout)itemView.findViewById(R.id.content_layout);
+            this.itemHeadView = (ImageView) itemView.findViewById(R.id.ltm_cominfo_head);
+            this.nameView = (TextView) itemView.findViewById(R.id.ltm_cominfo_designer_name);
+            this.dateText = (TextView) itemView.findViewById(R.id.ltm_cominfo_designer_date);
+            this.responseView = (TextView) itemView.findViewById(R.id.ltm_cominfo_response);
+            this.contentText = (TextView) itemView.findViewById(R.id.ltm_cominfo_content);
+            this.cellText = (TextView) itemView.findViewById(R.id.cell_name);
+            this.numText = (TextView) itemView.findViewById(R.id.numText);
+            this.statusText = (TextView) itemView.findViewById(R.id.statusText);
+            this.item_plan_listview = (RecyclerView) itemView.findViewById(R.id.item_plan_listview);
+            this.contentLayout = (LinearLayout) itemView.findViewById(R.id.content_layout);
         }
 
     }
 
-    private static class ProcessCommentViewHolder extends RecyclerViewHolderBase{
+    private static class ProcessCommentViewHolder extends RecyclerViewHolderBase {
 
         public ImageView itemHeadView;
         public TextView nameView;
         public TextView dateText;
         public TextView responseView;
         public TextView contentText;
+        public TextView nodeName;
+        public TextView nodeStatus;
+        public TextView cellName;
+        public ImageView itemStatus;
+        public RelativeLayout itemBackground;
+        public RelativeLayout itemLayout;
 
-        public ProcessCommentViewHolder(View itemView){
+        public ProcessCommentViewHolder(View itemView) {
             super(itemView);
-            this.itemHeadView = (ImageView)itemView.findViewById(R.id.ltm_cominfo_head);
-            this.nameView = (TextView)itemView.findViewById(R.id.ltm_cominfo_designer_name);
-            this.dateText = (TextView)itemView.findViewById(R.id.ltm_cominfo_designer_date);
-            this.responseView = (TextView)itemView.findViewById(R.id.ltm_cominfo_response);
-            this.contentText = (TextView)itemView.findViewById(R.id.ltm_cominfo_content);
+            this.itemHeadView = (ImageView) itemView.findViewById(R.id.ltm_cominfo_head);
+            this.nameView = (TextView) itemView.findViewById(R.id.ltm_cominfo_designer_name);
+            this.dateText = (TextView) itemView.findViewById(R.id.ltm_cominfo_designer_date);
+            this.responseView = (TextView) itemView.findViewById(R.id.ltm_cominfo_response);
+            this.contentText = (TextView) itemView.findViewById(R.id.ltm_cominfo_content);
+            this.cellName = (TextView) itemView.findViewById(R.id.cell_name);
+            this.nodeStatus = (TextView) itemView.findViewById(R.id.node_status);
+            this.nodeName = (TextView) itemView.findViewById(R.id.node_name);
+            this.itemBackground = (RelativeLayout) itemView.findViewById(R.id.node_layout);
+            this.itemStatus = (ImageView) itemView.findViewById(R.id.item_status);
+            this.itemLayout = (RelativeLayout) itemView.findViewById(R.id.item_layout);
 
         }
     }
 
-    public interface OnItemCallback{
-        void onResponse(MyCommentList.MyCommentInfo myCommentInfo,int viewType);
-        void showDetail(MyCommentList.MyCommentInfo myCommentInfo,int viewType);
+    public interface OnItemCallback {
+        void onResponse(NoticeInfo noticeInfo, int viewType);
+
+        void showDetail(NoticeInfo noticeInfo, int viewType);
     }
 
 

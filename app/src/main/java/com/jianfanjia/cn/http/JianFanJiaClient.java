@@ -62,6 +62,7 @@ import com.jianfanjia.cn.http.request.RegisterRequest;
 import com.jianfanjia.cn.http.request.SearchDecorationImgRequest;
 import com.jianfanjia.cn.http.request.SearchDesignerProductRequest;
 import com.jianfanjia.cn.http.request.SearchDesignerRequest;
+import com.jianfanjia.cn.http.request.SearchUserCommentRequest;
 import com.jianfanjia.cn.http.request.SearchUserMsgRequest;
 import com.jianfanjia.cn.http.request.SendVerificationRequest;
 import com.jianfanjia.cn.http.request.UpdateOwnerInfoRequest;
@@ -1204,6 +1205,17 @@ public class JianFanJiaClient {
     public static void searchUserMsg(SearchUserMsgRequest searchUserMsgRequest, ApiUiUpdateListener listener, Object tag) {
         LogTool.d(TAG, "jsonParams:" + searchUserMsgRequest.getParam());
         OkHttpClientManager.getInstance().getPostDelegate().postAsyn(searchUserMsgRequest, searchUserMsgRequest.getParam(), listener, tag);
+    }
+
+    /**
+     * 业主搜索我的评论
+     * @param searchUserCommentRequest
+     * @param listener
+     * @param tag
+     */
+    public static void searchUserComment(SearchUserCommentRequest searchUserCommentRequest, ApiUiUpdateListener listener, Object tag) {
+        LogTool.d(TAG, "jsonParams:" + searchUserCommentRequest.getParam());
+        OkHttpClientManager.getInstance().getPostDelegate().postAsyn(searchUserCommentRequest, searchUserCommentRequest.getParam(), listener, tag);
     }
 
     /**
