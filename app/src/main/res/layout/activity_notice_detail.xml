@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_layout_bg"
@@ -11,5 +11,117 @@
         android:layout_height="wrap_content"
         android:background="@color/head_layout_bg" />
 
+    <LinearLayout
+        android:id="@+id/infoLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/my_notice__detail_head_layout"
+        android:layout_marginLeft="@dimen/space_20"
+        android:layout_marginTop="@dimen/space_20"
+        android:orientation="horizontal">
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/typeText"
+            style="@style/listview_item_text_style_middle"
+            android:background="@color/ower_color"
+            android:paddingBottom="@dimen/space_2"
+            android:paddingLeft="@dimen/space_5"
+            android:paddingRight="@dimen/space_5"
+            android:paddingTop="@dimen/space_2"
+            android:text="改期"
+            android:textColor="@color/home_page_text_color" />
+
+        <TextView
+            android:id="@+id/cellText"
+            style="@style/listview_item_text_style_middle"
+            android:layout_marginLeft="@dimen/space_10"
+            android:text="中建康城"
+            android:textColor="@color/home_page_text_color"
+            android:textSize="@dimen/text_size_16" />
+
+        <TextView
+            android:id="@+id/sectionText"
+            style="@style/listview_item_text_style_small"
+            android:layout_marginLeft="@dimen/space_10"
+            android:text="安装阶段"
+            android:textColor="@color/home_page_text_color" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/dateText"
+        style="@style/listview_item_text_style_small"
+        android:layout_below="@id/infoLayout"
+        android:layout_marginBottom="@dimen/space_10"
+        android:layout_marginLeft="@dimen/space_20"
+        android:layout_marginTop="@dimen/space_10"
+        android:text="4小时前"
+        android:textColor="@color/home_page_text_color" />
+
+    <View
+        android:id="@+id/top_line"
+        style="@style/divier_line"
+        android:layout_below="@id/dateText" />
+
+    <TextView
+        android:id="@+id/contentText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/top_line"
+        android:layout_margin="@dimen/space_20"
+        android:text="中建康城中建康城中建康城中建康城中建康城中建康城中建康城中建康城中建康城中建康城中建康城中建康城中建康城"
+        android:textColor="@color/home_page_text_color"
+        android:textSize="@dimen/text_size_16" />
+
+
+    <LinearLayout
+        android:id="@+id/buttonLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="60dip"
+        android:layout_alignParentBottom="true"
+        android:background="@color/font_white"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_ok"
+            style="@style/button_add_style"
+            android:layout_marginBottom="@dimen/space_10"
+            android:layout_marginLeft="@dimen/space_60"
+            android:layout_marginRight="@dimen/space_20"
+            android:layout_marginTop="@dimen/space_10"
+            android:layout_weight="1"
+            android:text="同意" />
+
+        <Button
+            android:id="@+id/btn_no"
+            style="@style/button_delete_style"
+            android:layout_marginBottom="@dimen/space_10"
+            android:layout_marginLeft="@dimen/space_20"
+            android:layout_marginRight="@dimen/space_60"
+            android:layout_marginTop="@dimen/space_10"
+            android:layout_weight="1"
+            android:text="拒绝" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/buttonLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="60dip"
+        android:layout_alignParentBottom="true"
+        android:background="@color/font_white"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/btn_check"
+            style="@style/button_add_style"
+            android:layout_marginBottom="@dimen/space_10"
+            android:layout_marginLeft="@dimen/space_60"
+            android:layout_marginRight="@dimen/space_60"
+            android:layout_marginTop="@dimen/space_10"
+            android:layout_weight="1"
+            android:text="确认" />
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -35,7 +35,7 @@
             android:layout_below="@id/list_item_tip_site_title"
             android:layout_marginTop="@dimen/space_5"
             android:text="中建康城"
-            android:textColor="@color/light_black_color"
+            android:textColor="@color/main_color_grey"
             android:textSize="@dimen/text_size_12" />
 
         <TextView
@@ -56,7 +56,7 @@
             android:layout_below="@id/list_item_tip_site_cell"
             android:layout_marginTop="@dimen/space_5"
             android:text="设计师延期"
-            android:textColor="@color/orange_color"
+            android:textColor="@color/main_color_grey"
             android:textSize="@dimen/text_size_12" />
 
     </RelativeLayout>

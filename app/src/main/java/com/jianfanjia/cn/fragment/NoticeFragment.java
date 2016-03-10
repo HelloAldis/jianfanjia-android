@@ -13,14 +13,16 @@ import android.widget.TextView;
 
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.my.NoticeDetailActivity;
 import com.jianfanjia.cn.adapter.NoticeAdapter;
 import com.jianfanjia.cn.bean.NoticeInfo;
 import com.jianfanjia.cn.bean.NoticeListInfo;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.http.request.SearchUserMsgRequest;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
-import com.jianfanjia.cn.interf.ClickCallBack;
+import com.jianfanjia.cn.interf.RecyclerItemCallBack;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
@@ -116,7 +118,7 @@ public class NoticeFragment extends CommonFragment implements PullToRefreshBase.
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.error_include:
-
+                getNoticeList(typeArray, pullDownListener);
                 break;
             default:
                 break;
@@ -166,10 +168,14 @@ public class NoticeFragment extends CommonFragment implements PullToRefreshBase.
                 noticeList.clear();
                 noticeList.addAll(noticeListInfo.getList());
                 if (null != noticeList && noticeList.size() > 0) {
-                    noticeAdapter = new NoticeAdapter(getActivity(), noticeList, new ClickCallBack() {
+                    noticeAdapter = new NoticeAdapter(getActivity(), noticeList, new RecyclerItemCallBack() {
                         @Override
-                        public void click(int position, int itemType) {
-                            LogTool.d(TAG, "position:" + position + "  itemType:" + itemType);
+                        public void onClick(int position, Object obj) {
+                            NoticeInfo noticeInfo = (NoticeInfo) obj;
+                            LogTool.d(TAG, "position=" + position + " noticeInfo:" + noticeInfo.getContent());
+                            Bundle detailBundle = new Bundle();
+                            detailBundle.putString(Global.MSG_ID, noticeInfo.get_id());
+                            startActivity(NoticeDetailActivity.class, detailBundle);
                         }
                     });
                     all_notice_listview.setAdapter(noticeAdapter);

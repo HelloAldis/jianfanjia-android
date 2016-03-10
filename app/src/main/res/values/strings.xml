@@ -361,9 +361,9 @@
     <string name="my_notice">我的通知</string>
     <string name="my_notice_detail">通知详情</string>
     <string name="all_notice">全部</string>
-    <string name="system_notice">系统公告</string>
-    <string name="req_notice">需求提醒</string>
-    <string name="site_notice">工地提醒</string>
+    <string name="system_notice">系统</string>
+    <string name="req_notice">需求</string>
+    <string name="site_notice">工地</string>
     <string name="decoration_live">装修直播</string>
     <string name="response">回复</string>
     <string name="title_activity_notice_detail">NoticeDetailActivity</string>

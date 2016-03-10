@@ -149,6 +149,10 @@ public class Constant {
     public static final String TYPE_DESIGNER_REJECT_DELAY_MSG = "11";//设计师拒绝改期
     public static final String TYPE_DESIGNER_AGREE_DELAY_MSG = "12";//设计师同意改期
 
+    // 业主消息提醒状态
+    public static final String UNREAD = "0";// 未读
+    public static final String READ = "1";// 已读
+
     // 延期提醒状态,工序状态
     public static final String NO_START = "0";// 未开工
     public static final String DOING = "1";// 进行中

@@ -24,6 +24,7 @@ public class NoticeInfo implements Serializable {
     private String message_type;
     private long create_at;
     private long lastupdate;
+    private String cell;
     private String status;
     private RequirementInfo requirement;
     private DesignerInfo designer;
@@ -188,5 +189,13 @@ public class NoticeInfo implements Serializable {
 
     public void setProcess(ProcessInfo process) {
         this.process = process;
+    }
+
+    public String getCell() {
+        return cell;
+    }
+
+    public void setCell(String cell) {
+        this.cell = cell;
     }
 }
