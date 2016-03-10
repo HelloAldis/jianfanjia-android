@@ -47,7 +47,7 @@ public class FeedBackActivity extends SwipeBackActivity implements OnClickListen
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.head_back_layout:
-                finish();
+                appManager.finishActivity(this);
                 break;
             case R.id.btn_commit:
                 String content = feedContentView.getText().toString().trim();

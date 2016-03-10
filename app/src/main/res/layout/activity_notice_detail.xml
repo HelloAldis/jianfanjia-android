@@ -1,15 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_layout_bg"
     android:orientation="vertical">
 
     <com.jianfanjia.cn.view.MainHeadView
-        android:id="@+id/my_notice__detail_head_layout"
+        android:id="@+id/my_notice_detail_head_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/head_layout_bg" />
 
+    <FrameLayout
+        android:id="@+id/bottomLayout"
+        android:layout_width="match_parent"
+        android:layout_height="60dip"
+        android:layout_alignParentBottom="true"
+        android:background="@color/font_white">
 
-</LinearLayout>
+        <LinearLayout
+            android:id="@+id/doubleBtnLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnAgree"
+                style="@style/button_add_style"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="@dimen/space_10"
+                android:layout_weight="1"
+                android:text="同意" />
+
+            <Button
+                android:id="@+id/btnReject"
+                style="@style/button_delete_style"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="@dimen/space_10"
+                android:layout_weight="1"
+                android:text="拒绝" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/singleBtnLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <Button
+                android:id="@+id/btnConfirm"
+                style="@style/button_add_style"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="@dimen/space_10"
+                android:layout_marginLeft="@dimen/space_100"
+                android:layout_marginRight="@dimen/space_100"
+                android:layout_marginTop="@dimen/space_10"
+                android:layout_weight="1"
+                android:text="确认" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottomLayout"
+        android:layout_below="@id/my_notice_detail_head_layout"
+        android:fillViewport="false"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/infoLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/my_notice_detail_head_layout"
+                android:layout_marginLeft="@dimen/space_20"
+                android:layout_marginTop="@dimen/space_20"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/typeText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/text_bg_border"
+                    android:text="改期"
+                    android:textColor="@color/home_page_text_color"
+                    android:textSize="@dimen/text_size_12" />
+
+                <TextView
+                    android:id="@+id/cellText"
+                    style="@style/listview_item_text_style_middle"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/space_10"
+                    android:textColor="@color/home_page_text_color"
+                    android:textSize="@dimen/text_size_16" />
+
+                <TextView
+                    android:id="@+id/sectionText"
+                    style="@style/listview_item_text_style_small"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/space_10"
+                    android:textColor="@color/home_page_text_color"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/dateText"
+                style="@style/listview_item_text_style_small"
+                android:layout_below="@id/infoLayout"
+                android:layout_marginBottom="@dimen/space_10"
+                android:layout_marginLeft="@dimen/space_20"
+                android:layout_marginTop="@dimen/space_10"
+                android:textColor="@color/home_page_text_color" />
+
+            <View
+                android:id="@+id/top_line"
+                style="@style/divier_line"
+                android:layout_below="@id/dateText" />
+
+            <TextView
+                android:id="@+id/contentText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/top_line"
+                android:layout_margin="@dimen/space_20"
+                android:textColor="@color/home_page_text_color"
+                android:textSize="@dimen/text_size_16" />
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

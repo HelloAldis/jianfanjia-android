@@ -45,6 +45,7 @@ public class Global {
     public static final String HOUSE_SECTION = "section";
     public static final String HOUSE_STYLE = "houseStyle";
     public static final String DEC_STYLE = "decStyle";
+    public static final String MSG_ID = "msg_id";
 
     public static final String SEARCH_TEXT = "search_text";
     public static final String VIEW_TYPE = "type";

@@ -27,7 +27,6 @@ import de.greenrobot.event.EventBus;
  * Date:2016-03-10 15:15
  */
 public class MessageUtil {
-
     private static final String TAG = "MessageUtil";
 
     //解析推送透传消息
@@ -115,7 +114,7 @@ public class MessageUtil {
             notifyId = Constant.DESIGNER_AGREE_DELAY_NOTIFY_ID;
         }
         Intent mainIntent = new Intent(context, MainActivity.class);
-        Intent checkIntent;
+        Intent checkIntent = null;
         mainIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         if (message.getType().equals(Constant.TYPE_SECTION_COMMENT_MSG) || message.getType().equals(Constant.TYPE_PLAN_COMMENT_MSG)) {
             checkIntent = new Intent(context, CommentListActivity_.class);
@@ -125,7 +124,6 @@ public class MessageUtil {
         Intent[] intents = {mainIntent, checkIntent};
         pendingIntent = PendingIntent.getActivities(context, 0, intents,
                 PendingIntent.FLAG_UPDATE_CURRENT);
-
         builder.setTicker(context.getResources().getText(R.string.app_name));
         mRemoteViews.setTextViewText(R.id.list_item_title, context.getResources().getText(R.string.app_name));
         mRemoteViews.setTextViewText(R.id.list_item_date, DateFormatTool.toLocalTimeString(message.getTime()));
