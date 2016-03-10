@@ -25,6 +25,10 @@ public class NoticeInfo implements Serializable {
     private long create_at;
     private long lastupdate;
     private String status;
+    private RequirementInfo requirement;
+    private DesignerInfo designer;
+    private PlandetailInfo plan;
+    private ProcessInfo process;
 
     public String getTitle() {
         return title;
@@ -152,5 +156,37 @@ public class NoticeInfo implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public RequirementInfo getRequirement() {
+        return requirement;
+    }
+
+    public void setRequirement(RequirementInfo requirement) {
+        this.requirement = requirement;
+    }
+
+    public DesignerInfo getDesigner() {
+        return designer;
+    }
+
+    public void setDesigner(DesignerInfo designer) {
+        this.designer = designer;
+    }
+
+    public PlandetailInfo getPlan() {
+        return plan;
+    }
+
+    public void setPlan(PlandetailInfo plan) {
+        this.plan = plan;
+    }
+
+    public ProcessInfo getProcess() {
+        return process;
+    }
+
+    public void setProcess(ProcessInfo process) {
+        this.process = process;
     }
 }

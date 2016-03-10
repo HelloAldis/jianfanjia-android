@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:background="@color/font_white"
     android:paddingBottom="16dip"
     android:paddingLeft="20dip"
     android:paddingRight="20dip"
@@ -81,5 +82,6 @@
         style="@style/listview_item_text_style_middle"
         android:layout_width="match_parent"
         android:layout_marginTop="@dimen/space_16"
+        android:gravity="left"
         android:textColor="@color/grey_color" />
 </LinearLayout>
