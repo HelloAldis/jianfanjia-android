@@ -93,7 +93,7 @@ public class MyCommentInfoAdapter extends BaseRecycleAdapter<MyCommentList.MyCom
         }
 
         //评论时间
-        holder.dateText.setText(DateFormatTool.longToString(myCommentInfo.getDate()));
+        holder.dateText.setText(DateFormatTool.longToString(myCommentInfo.getCreate_at()));
         //评论内容
         holder.contentText.setText(myCommentInfo.getContent());
 

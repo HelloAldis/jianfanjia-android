@@ -13,6 +13,8 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
+        <View style="@style/vertical_divier_line"/>
+
         <ImageView
             android:id="@+id/site_listview_item_status"
             android:layout_width="24dp"

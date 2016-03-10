@@ -45,7 +45,7 @@ public class MyCommentList implements Serializable {
         private String section;
         private String by;
         private String item;
-        private long date;
+        private long create_at;
         private String status;
         private int __v;
         private User byUser;
@@ -109,12 +109,12 @@ public class MyCommentList implements Serializable {
             this.usertype = usertype;
         }
 
-        public long getDate() {
-            return date;
+        public long getCreate_at() {
+            return create_at;
         }
 
-        public void setDate(long date) {
-            this.date = date;
+        public void setCreate_at(long create_at) {
+            this.create_at = create_at;
         }
 
         public String getStatus() {
