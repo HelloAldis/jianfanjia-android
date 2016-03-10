@@ -162,7 +162,7 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
                 Intent commentIntent = new Intent(DesignerPlanListActivity.this, CommentActivity.class);
                 Bundle commentBundle = new Bundle();
                 commentBundle.putString(Global.TOPIC_ID, planid);
-                commentBundle.putString(Global.TO, designerid);
+                commentBundle.putString(Global.TO, planInfo.getUserid());
                 commentBundle.putString(Global.TOPICTYPE, Global.TOPIC_PLAN);
                 commentIntent.putExtras(commentBundle);
                 startActivityForResult(commentIntent, Constant.REQUESTCODE_GOTO_COMMENT);

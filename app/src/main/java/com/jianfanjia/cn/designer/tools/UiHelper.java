@@ -350,14 +350,6 @@ public class UiHelper {
                 });
     }
 
-    public static void intentTo(Context context, Class<?> clazz, Bundle bundle) {
-        Intent intent = new Intent(context, clazz);
-        if (bundle != null) {
-            intent.putExtras(bundle);
-        }
-        context.startActivity(intent);
-    }
-
     /**
      * 动态计算listview 的高度
      *
