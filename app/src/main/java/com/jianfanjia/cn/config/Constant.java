@@ -229,4 +229,15 @@ public class Constant {
     public static final int BEAUTY_FRAGMENT = 1;//装修美图
     public static final int COLLECT_BEAUTY_FRAGMENT = 2;//装修美图收藏
     public static final int SEARCH_BEAUTY_FRAGMENT = 3;//装修美图搜索
+
+    public static final String[] searchMsgCountType1 = {
+            TYPE_DELAY_MSG, TYPE_CAIGOU_MSG, TYPE_PAY_MSG,
+            TYPE_CONFIRM_CHECK_MSG, TYPE_SYSTEM_MSG, TYPE_DESIGNER_RESPONSE_MSG,
+            TYPE_DESIGNER_REJECT_MSG, TYPE_DESIGNER_UPLOAD_PLAN_MSG,
+            TYPE_DESIGNER_CONFIG_CONTRACT_MSG, TYPE_DESIGNER_REJECT_DELAY_MSG,
+            TYPE_DESIGNER_AGREE_DELAY_MSG
+    };
+    public static final String[] searchMsgCountType2 = {
+            TYPE_PLAN_COMMENT_MSG, TYPE_SECTION_COMMENT_MSG
+    };
 }

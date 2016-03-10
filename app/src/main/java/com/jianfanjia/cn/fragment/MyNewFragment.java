@@ -2,7 +2,6 @@ package com.jianfanjia.cn.fragment;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -11,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.common.CommentListActivity_;
 import com.jianfanjia.cn.activity.my.BindingAccountActivity_;
@@ -23,11 +23,21 @@ import com.jianfanjia.cn.activity.my.UserInfoActivity_;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.http.JianFanJiaClient;
+import com.jianfanjia.cn.http.request.GetUnReadMsgRequest;
+import com.jianfanjia.cn.interf.ApiUiUpdateListener;
+import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.TDevice;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
+import com.jianfanjia.cn.view.layout.BadgeView;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Description:我的
@@ -54,6 +64,8 @@ public class MyNewFragment extends BaseFragment {
     private ImageView user_head_img = null;
     private TextView my_name = null;
     private TextView my_account = null;
+    private BadgeView noticeCountView = null;
+    private BadgeView commentCountView = null;
 
     @Override
     public void initView(View view) {
@@ -73,16 +85,19 @@ public class MyNewFragment extends BaseFragment {
         my_account = (TextView) view.findViewById(R.id.frag_my_account);
         my_name = (TextView) view.findViewById(R.id.frag_my_name);
 
+        commentCountView = (BadgeView) view.findViewById(R.id.comment_count_text);
+        noticeCountView = (BadgeView) view.findViewById(R.id.notify_count_text);
+        commentCountView.setVisibility(View.GONE);
+        noticeCountView.setVisibility(View.GONE);
+
+
         scrollView = (ScrollView) view.findViewById(R.id.setting_scrollview);
 
         cacheSizeView.setText(UiHelper.caculateCacheSize());
         //动态计算imageview的宽高
         head_img.setLayoutParams(new FrameLayout.LayoutParams((int) TDevice.getScreenWidth(), (int) (880 / (1242 / TDevice.getScreenWidth()))));
-    }
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+        getUnReadMessageCount(Constant.searchMsgCountType1, Constant.searchMsgCountType2);
     }
 
     protected void initMyInfo() {
@@ -115,9 +130,60 @@ public class MyNewFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
+        getUnReadMessageCount(Constant.searchMsgCountType1, Constant.searchMsgCountType2);
         initMyInfo();
         my_name.setText(TextUtils.isEmpty(dataManager.getUserName()) ? getResources().getString(R.string.ower) : dataManager.getUserName());
         my_account.setText(TextUtils.isEmpty(dataManager.getAccount()) ? "" : "账号：" + dataManager.getAccount());
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        LogTool.d(this.getClass().getName(), "isHidden =" + hidden);
+        if (!hidden) {
+            getUnReadMessageCount(Constant.searchMsgCountType1, Constant.searchMsgCountType2);
+        }
+    }
+
+    protected void getUnReadMessageCount(String[]... selectLists) {
+        Map<String, Object> param = new HashMap<>();
+        List<String[]> contain = new ArrayList<>();
+        for (String[] temp : selectLists) {
+            contain.add(temp);
+        }
+        param.put("query_array", contain);
+        JianFanJiaClient.getUnReadUserMsg(new GetUnReadMsgRequest(getContext(), param), new ApiUiUpdateListener() {
+            @Override
+            public void preLoad() {
+
+            }
+
+            @Override
+            public void loadSuccess(Object data) {
+                List<Integer> countList = JsonParser.jsonToList(data.toString(), new TypeToken<List<Integer>>() {
+                }.getType());
+                if (countList != null) {
+                    if (countList.get(0) > 0) {
+                        noticeCountView.setVisibility(View.VISIBLE);
+                        noticeCountView.setText(countList.get(0) + "");
+                    } else {
+                        noticeCountView.setVisibility(View.GONE);
+                    }
+                    if (countList.get(1) > 0) {
+                        commentCountView.setVisibility(View.VISIBLE);
+                        commentCountView.setText(countList.get(1) + "");
+                    } else {
+                        commentCountView.setVisibility(View.GONE);
+                        commentCountView.setText("");
+                    }
+                }
+            }
+
+            @Override
+            public void loadFailture(String error_msg) {
+
+            }
+        }, this);
     }
 
     @Override

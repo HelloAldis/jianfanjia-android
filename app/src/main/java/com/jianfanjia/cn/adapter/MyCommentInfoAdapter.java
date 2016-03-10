@@ -177,7 +177,9 @@ public class MyCommentInfoAdapter extends BaseRecycleAdapter<NoticeInfo> {
         holder.cellName.setText(noticeInfo.getProcess().getCell());
         holder.nodeName.setText(MyApplication.getInstance()
                 .getStringById(noticeInfo.getItem()));
-        switch (noticeInfo.getStatus()) {
+        switch (noticeInfo.getProcess().getSectionInfoByName(noticeInfo.getSection()).
+                getSectionItemInfoByName(noticeInfo.getItem())
+                .getStatus()) {
             case Constant.FINISHED:
                 holder.itemStatus
                         .setImageResource(R.mipmap.icon_home_finish);
