@@ -6,9 +6,9 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.AppManager;
-import com.jianfanjia.cn.Event.MessageEvent;
-import com.jianfanjia.cn.activity.requirement.PublishRequirementActivity_;
+import com.jianfanjia.cn.Event.MessageCountEvent;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
@@ -18,8 +18,13 @@ import com.jianfanjia.cn.fragment.HomeNewFragment_;
 import com.jianfanjia.cn.fragment.MyNewFragment;
 import com.jianfanjia.cn.fragment.XuQiuFragment;
 import com.jianfanjia.cn.fragment.XuQiuFragment_;
+import com.jianfanjia.cn.interf.ApiUiUpdateListener;
+import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.layout.BadgeView;
+
+import java.util.List;
 
 import de.greenrobot.event.EventBus;
 
@@ -59,20 +64,71 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public void initView() {
         badgeView = (BadgeView) findViewById(R.id.badgeView);
         badgeView.hide();
+
         homeLayout = (LinearLayout) findViewById(R.id.home_layout);
         beautyLayout = (LinearLayout) findViewById(R.id.img_layout);
         reqLayout = (LinearLayout) findViewById(R.id.req_layout);
         myLayout = (LinearLayout) findViewById(R.id.my_layout);
+
         switchTab(Constant.HOME);
-        //如果是注册直接点击发布需求，先创建mainactivity再启动editrequirementactivity
-        Intent intent = getIntent();
-        boolean flag = intent.getBooleanExtra(Global.IS_PUBLISHREQUIREMENT, false);
-        LogTool.d(TAG, "flag:" + flag);
-        if (flag) {
-            LogTool.d(TAG, "REGISTER PUBLISH REQUIREMENG");
-            startActivityForResult(PublishRequirementActivity_.class, XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT);
-        }
+//        //如果是注册直接点击发布需求，先创建mainactivity再启动editrequirementactivity
+//        Intent intent = getIntent();
+//        boolean flag = intent.getBooleanExtra(Global.IS_PUBLISHREQUIREMENT, false);
+//        LogTool.d(TAG, "flag:" + flag);
+//        if (flag) {
+//            LogTool.d(TAG, "REGISTER PUBLISH REQUIREMENG");
+//            startActivityForResult(PublishRequirementActivity_.class, XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT);
+//        }
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        //每次resume刷新一下消息条数
+        UiHelper.getUnReadMessageCount(this, getMessageCountListener, this, Constant.searchMsgCountType1, Constant.searchMsgCountType2);
+    }
+
+    private ApiUiUpdateListener getMessageCountListener = new ApiUiUpdateListener() {
+        @Override
+        public void preLoad() {
+
+        }
+
+        @Override
+        public void loadSuccess(Object data) {
+            List<Integer> countList = JsonParser.jsonToList(data.toString(), new TypeToken<List<Integer>>() {
+            }.getType());
+            if (countList != null) {
+                if (countList.get(0) > 0 || countList.get(1) > 0) {
+                    badgeView.setText(countList.get(0) + countList.get(1) + "");
+                    badgeView.show();
+                } else {
+                    badgeView.hide();
+                }
+                if (myFragment != null) {
+                    if (countList.get(0) > 0) {
+                        myFragment.noticeCountView.setVisibility(View.VISIBLE);
+                        myFragment.noticeCountView.setText(countList.get(0) + "");
+                    } else {
+                        myFragment.noticeCountView.setVisibility(View.GONE);
+                    }
+                    if (countList.get(1) > 0) {
+                        myFragment.commentCountView.setVisibility(View.VISIBLE);
+                        myFragment.commentCountView.setText(countList.get(1) + "");
+                    } else {
+                        myFragment.commentCountView.setVisibility(View.GONE);
+                        myFragment.commentCountView.setText("");
+                    }
+                }
+            }
+        }
+
+        @Override
+        public void loadFailture(String error_msg) {
+
+        }
+    };
 
     @Override
     public void setListener() {
@@ -199,15 +255,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 
-    public void onEventMainThread(MessageEvent messageEvent) {
-        LogTool.d(TAG, "messageEvent:" + messageEvent.getEventType());
-        switch (messageEvent.getEventType()) {
-            case Constant.NOTICE_EVENT:
-
-                break;
-            default:
-                break;
-        }
+    public void onEventMainThread(MessageCountEvent messageCountEvent) {
+        //为了让在当前屏能及时响应，所以每次收到提醒时刷新一下view
+        UiHelper.getUnReadMessageCount(this, getMessageCountListener, this, Constant.searchMsgCountType1, Constant.searchMsgCountType2);
     }
 
     @Override

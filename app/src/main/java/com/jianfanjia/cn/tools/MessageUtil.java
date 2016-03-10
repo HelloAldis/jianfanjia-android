@@ -10,7 +10,7 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.RemoteViews;
 
-import com.jianfanjia.cn.Event.MessageEvent;
+import com.jianfanjia.cn.Event.MessageCountEvent;
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.common.CommentListActivity_;
@@ -37,7 +37,7 @@ public class MessageUtil {
                     NotifyMessage.class);
             Log.i(TAG, "message:" + message);
             sendNotifycation(context, message);
-            EventBus.getDefault().post(new MessageEvent(Constant.NOTICE_EVENT));
+            EventBus.getDefault().post(new MessageCountEvent());
            /* if (TDevice.isAppAlive(context, context.getPackageName())) {
                 LogTool.d(TAG, "the app process is alive");
 

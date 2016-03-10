@@ -2,6 +2,7 @@ package com.jianfanjia.cn.fragment;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -23,8 +24,6 @@ import com.jianfanjia.cn.activity.my.UserInfoActivity_;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.http.JianFanJiaClient;
-import com.jianfanjia.cn.http.request.GetUnReadMsgRequest;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
@@ -34,10 +33,7 @@ import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.cn.view.layout.BadgeView;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Description:我的
@@ -64,8 +60,13 @@ public class MyNewFragment extends BaseFragment {
     private ImageView user_head_img = null;
     private TextView my_name = null;
     private TextView my_account = null;
-    private BadgeView noticeCountView = null;
-    private BadgeView commentCountView = null;
+    public BadgeView noticeCountView = null;
+    public BadgeView commentCountView = null;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     public void initView(View view) {
@@ -130,7 +131,7 @@ public class MyNewFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        getUnReadMessageCount(Constant.searchMsgCountType1, Constant.searchMsgCountType2);
+//        getUnReadMessageCount(Constant.searchMsgCountType1, Constant.searchMsgCountType2);
         initMyInfo();
         my_name.setText(TextUtils.isEmpty(dataManager.getUserName()) ? getResources().getString(R.string.ower) : dataManager.getUserName());
         my_account.setText(TextUtils.isEmpty(dataManager.getAccount()) ? "" : "账号：" + dataManager.getAccount());
@@ -141,18 +142,12 @@ public class MyNewFragment extends BaseFragment {
         super.onHiddenChanged(hidden);
         LogTool.d(this.getClass().getName(), "isHidden =" + hidden);
         if (!hidden) {
-            getUnReadMessageCount(Constant.searchMsgCountType1, Constant.searchMsgCountType2);
+//            getUnReadMessageCount(Constant.searchMsgCountType1, Constant.searchMsgCountType2);
         }
     }
 
     protected void getUnReadMessageCount(String[]... selectLists) {
-        Map<String, Object> param = new HashMap<>();
-        List<String[]> contain = new ArrayList<>();
-        for (String[] temp : selectLists) {
-            contain.add(temp);
-        }
-        param.put("query_array", contain);
-        JianFanJiaClient.getUnReadUserMsg(new GetUnReadMsgRequest(getContext(), param), new ApiUiUpdateListener() {
+        UiHelper.getUnReadMessageCount(getContext(), new ApiUiUpdateListener() {
             @Override
             public void preLoad() {
 
@@ -183,7 +178,7 @@ public class MyNewFragment extends BaseFragment {
             public void loadFailture(String error_msg) {
 
             }
-        }, this);
+        }, this, selectLists);
     }
 
     @Override

@@ -30,15 +30,37 @@ import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
+import com.jianfanjia.cn.http.request.GetUnReadMsgRequest;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.service.UpdateService;
 import com.jianfanjia.cn.view.baseview.HorizontalDividerDecoration;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class UiHelper {
     private static final String TAG = UiHelper.class.getName();
+
+    /**
+     * 拿到未读消息个数
+     *
+     * @param context
+     * @param apiUiUpdateListener
+     * @param selectLists
+     */
+    public static void getUnReadMessageCount(Context context, ApiUiUpdateListener apiUiUpdateListener, Object tag, String[]... selectLists) {
+        Map<String, Object> param = new HashMap<>();
+        List<String[]> contain = new ArrayList<>();
+        for (String[] temp : selectLists) {
+            contain.add(temp);
+        }
+        param.put("query_array", contain);
+        JianFanJiaClient.getUnReadUserMsg(new GetUnReadMsgRequest(context, param), apiUiUpdateListener, tag);
+    }
 
     public static void callPhoneIntent(Context context, String phone) {
         Intent intent = new Intent(Intent.ACTION_DIAL);
