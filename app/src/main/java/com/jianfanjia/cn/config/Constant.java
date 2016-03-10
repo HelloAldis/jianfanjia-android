@@ -208,6 +208,7 @@ public class Constant {
     public static final String TEXT_KEY = "Title";
 
     //event消息类型
+    public static final int NOTICE_EVENT = 0;
     public static final int UPDATE_XUQIU_FRAGMENT = 10;
     public static final int UPDATE_DESIGNER_ACTIVITY = 20;
     public static final int UPDATE_MY_FRAGMENT = 30;

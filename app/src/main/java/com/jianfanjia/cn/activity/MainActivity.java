@@ -19,6 +19,7 @@ import com.jianfanjia.cn.fragment.MyNewFragment;
 import com.jianfanjia.cn.fragment.XuQiuFragment;
 import com.jianfanjia.cn.fragment.XuQiuFragment_;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.view.layout.BadgeView;
 
 import de.greenrobot.event.EventBus;
 
@@ -30,6 +31,7 @@ import de.greenrobot.event.EventBus;
  */
 public class MainActivity extends BaseActivity implements View.OnClickListener {
     private static final String TAG = MainActivity.class.getName();
+    private BadgeView badgeView = null;
     private LinearLayout homeLayout = null;
     private LinearLayout beautyLayout = null;
     private LinearLayout reqLayout = null;
@@ -55,6 +57,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void initView() {
+        badgeView = (BadgeView) findViewById(R.id.badgeView);
+        badgeView.hide();
         homeLayout = (LinearLayout) findViewById(R.id.home_layout);
         beautyLayout = (LinearLayout) findViewById(R.id.img_layout);
         reqLayout = (LinearLayout) findViewById(R.id.req_layout);
@@ -197,7 +201,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     public void onEventMainThread(MessageEvent messageEvent) {
         LogTool.d(TAG, "messageEvent:" + messageEvent.getEventType());
-      
+        switch (messageEvent.getEventType()) {
+            case Constant.NOTICE_EVENT:
+
+                break;
+            default:
+                break;
+        }
     }
 
     @Override

@@ -31,6 +31,7 @@
     <string name="empty_view_no_caigou_data">您还没有采购提醒</string>
     <string name="empty_view_no_pay_data">您还没有付款提醒</string>
     <string name="empty_view_no_delay_data">您还没有改期提醒</string>
+    <string name="empty_view_no_notice_data">您还没有通知</string>
     <string name="no_more_data">没有更多了</string>
     <!-- main activity -->
     <string name="main_tab_name_darly">日记</string>
@@ -358,10 +359,13 @@
     <string name="title_activity_notice">NoticeActivity</string>
 
     <string name="my_notice">我的通知</string>
+    <string name="my_notice_detail">通知详情</string>
     <string name="all_notice">全部</string>
     <string name="system_notice">系统公告</string>
     <string name="req_notice">需求提醒</string>
     <string name="site_notice">工地提醒</string>
     <string name="decoration_live">装修直播</string>
     <string name="response">回复</string>
+    <string name="title_activity_notice_detail">NoticeDetailActivity</string>
+
 </resources>

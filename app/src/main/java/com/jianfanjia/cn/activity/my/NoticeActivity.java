@@ -8,6 +8,7 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.adapter.MyFragmentPagerAdapter;
 import com.jianfanjia.cn.bean.SelectItem;
+import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.fragment.NoticeFragment;
 import com.jianfanjia.cn.view.MainHeadView;
 
@@ -22,10 +23,10 @@ import java.util.List;
  */
 public class NoticeActivity extends SwipeBackActivity implements View.OnClickListener {
     private static final String TAG = NoticeActivity.class.getName();
-    public static final int TYPE_ALL = 0;
-    public static final int TYPE_SYS = 1;
-    public static final int TYPE_REQ = 2;
-    public static final int TYPE_SITE = 3;
+    private static final String[] ALL = {Constant.TYPE_DELAY_MSG, Constant.TYPE_CAIGOU_MSG, Constant.TYPE_PAY_MSG, Constant.TYPE_CONFIRM_CHECK_MSG, Constant.TYPE_SYSTEM_MSG, Constant.TYPE_DESIGNER_RESPONSE_MSG, Constant.TYPE_DESIGNER_REJECT_MSG, Constant.TYPE_DESIGNER_UPLOAD_PLAN_MSG, Constant.TYPE_DESIGNER_CONFIG_CONTRACT_MSG, Constant.TYPE_DESIGNER_REJECT_DELAY_MSG, Constant.TYPE_DESIGNER_AGREE_DELAY_MSG};
+    private static final String[] SYSTEM = {Constant.TYPE_SYSTEM_MSG};
+    private static final String[] REQUIRE = {Constant.TYPE_DESIGNER_RESPONSE_MSG, Constant.TYPE_DESIGNER_REJECT_MSG, Constant.TYPE_DESIGNER_UPLOAD_PLAN_MSG, Constant.TYPE_DESIGNER_CONFIG_CONTRACT_MSG, Constant.TYPE_DESIGNER_REJECT_DELAY_MSG, Constant.TYPE_DESIGNER_AGREE_DELAY_MSG};
+    private static final String[] SITE = {Constant.TYPE_DELAY_MSG, Constant.TYPE_CAIGOU_MSG, Constant.TYPE_PAY_MSG, Constant.TYPE_CONFIRM_CHECK_MSG};
     private MainHeadView mainHeadView = null;
     private TabLayout tabLayout = null;
     private MyFragmentPagerAdapter adapter = null;
@@ -37,7 +38,7 @@ public class NoticeActivity extends SwipeBackActivity implements View.OnClickLis
         initMainHeadView();
         tabLayout = (TabLayout) findViewById(R.id.tabLyout);
         mPager = (ViewPager) findViewById(R.id.viewpager);
-        mPager.setOffscreenPageLimit(1);
+        mPager.setOffscreenPageLimit(3);
         setupViewPager(mPager);
         mPager.setCurrentItem(initPosition);
         tabLayout.setupWithViewPager(mPager);
@@ -49,7 +50,7 @@ public class NoticeActivity extends SwipeBackActivity implements View.OnClickLis
         mainHeadView.setBackListener(this);
         mainHeadView.setMianTitle(getResources().getString(R.string.my_notice));
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
-        mainHeadView.setDividerVisable(View.VISIBLE);
+        mainHeadView.setDividerVisable(View.GONE);
     }
 
     @Override
@@ -70,10 +71,10 @@ public class NoticeActivity extends SwipeBackActivity implements View.OnClickLis
 
     private void setupViewPager(ViewPager viewPager) {
         List<SelectItem> listViews = new ArrayList<>();
-        SelectItem allItem = new SelectItem(NoticeFragment.newInstance(TYPE_ALL), getResources().getString(R.string.all_notice));
-        SelectItem sysItem = new SelectItem(NoticeFragment.newInstance(TYPE_SYS), getResources().getString(R.string.system_notice));
-        SelectItem reqItem = new SelectItem(NoticeFragment.newInstance(TYPE_REQ), getResources().getString(R.string.req_notice));
-        SelectItem siteItem = new SelectItem(NoticeFragment.newInstance(TYPE_SITE), getResources().getString(R.string.site_notice));
+        SelectItem allItem = new SelectItem(NoticeFragment.newInstance(ALL), getResources().getString(R.string.all_notice));
+        SelectItem sysItem = new SelectItem(NoticeFragment.newInstance(SYSTEM), getResources().getString(R.string.system_notice));
+        SelectItem reqItem = new SelectItem(NoticeFragment.newInstance(REQUIRE), getResources().getString(R.string.req_notice));
+        SelectItem siteItem = new SelectItem(NoticeFragment.newInstance(SITE), getResources().getString(R.string.site_notice));
         listViews.add(allItem);
         listViews.add(sysItem);
         listViews.add(reqItem);

@@ -78,6 +78,4 @@ public class PushMsgReceiver extends BroadcastReceiver {
         }
     }
 
-
-
 }

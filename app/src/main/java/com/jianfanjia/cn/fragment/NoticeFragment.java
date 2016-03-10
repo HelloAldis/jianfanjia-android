@@ -7,17 +7,20 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.my.NoticeActivity;
 import com.jianfanjia.cn.adapter.NoticeAdapter;
+import com.jianfanjia.cn.bean.NoticeInfo;
 import com.jianfanjia.cn.bean.NoticeListInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.http.request.SearchUserMsgRequest;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
+import com.jianfanjia.cn.interf.ClickCallBack;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
@@ -44,16 +47,17 @@ public class NoticeFragment extends CommonFragment implements PullToRefreshBase.
     private RelativeLayout emptyLayout = null;
     private RelativeLayout errorLayout = null;
     private NoticeAdapter noticeAdapter = null;
-    private List<String> msgTypeList = new ArrayList<>();
+    private List<NoticeInfo> noticeList = new ArrayList<>();
     private boolean isPrepared = false;
     private boolean mHasLoadedOnce = false;
+    private boolean isFirst = true;
     private int FROM = 0;
-    private int mType = -1;
+    private String[] typeArray = null;
 
-    public static NoticeFragment newInstance(int type) {
+    public static NoticeFragment newInstance(String[] typeArray) {
         Bundle args = new Bundle();
         NoticeFragment noticeFragment = new NoticeFragment();
-        args.putInt("Type", type);
+        args.putStringArray("TypeArray", typeArray);
         noticeFragment.setArguments(args);
         return noticeFragment;
     }
@@ -62,26 +66,12 @@ public class NoticeFragment extends CommonFragment implements PullToRefreshBase.
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
-        mType = getArguments().getInt("Type");
-        LogTool.d(TAG, "mType=" + mType);
-
-        msgTypeList.add("0");
-        msgTypeList.add("1");
-        msgTypeList.add("2");
-        msgTypeList.add("3");
-        msgTypeList.add("4");
-        msgTypeList.add("7");
-        msgTypeList.add("8");
-        msgTypeList.add("9");
-        msgTypeList.add("10");
-        msgTypeList.add("11");
-        msgTypeList.add("12");
-
+        typeArray = getArguments().getStringArray("TypeArray");
+        LogTool.d(TAG, "typeArray=" + typeArray);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        LogTool.d(TAG, "=========onCreateView()");
         if (null == view) {
             view = inflater.inflate(R.layout.fragment_all_notice, container, false);
             initView();
@@ -98,6 +88,8 @@ public class NoticeFragment extends CommonFragment implements PullToRefreshBase.
     public void initView() {
         emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
         errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
+        ((TextView) emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.empty_view_no_notice_data));
+        ((ImageView) emptyLayout.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_product);
         all_notice_listview = (PullToRefreshRecycleView) view.findViewById(R.id.all_notice_listview);
         all_notice_listview.setMode(PullToRefreshBase.Mode.BOTH);
         all_notice_listview.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -111,7 +103,7 @@ public class NoticeFragment extends CommonFragment implements PullToRefreshBase.
         if (!isPrepared || !isVisible || mHasLoadedOnce) {
             return;
         }
-        getNoticeList(msgTypeList, pullDownListener);
+        getNoticeList(typeArray, pullDownListener);
     }
 
     @Override
@@ -131,9 +123,9 @@ public class NoticeFragment extends CommonFragment implements PullToRefreshBase.
         }
     }
 
-    private void getNoticeList(List<String> msgType, ApiUiUpdateListener listener) {
+    private void getNoticeList(String[] typeStr, ApiUiUpdateListener listener) {
         Map<String, Object> params = new HashMap<>();
-        params.put("$in", msgType);
+        params.put("$in", typeStr);
         Map<String, Object> conditionParam = new HashMap<>();
         conditionParam.put("message_type", params);
         Map<String, Object> param = new HashMap<>();
@@ -143,44 +135,66 @@ public class NoticeFragment extends CommonFragment implements PullToRefreshBase.
         JianFanJiaClient.searchUserMsg(new SearchUserMsgRequest(getContext(), param), listener, this);
     }
 
-//    private void getUnReadNoticeCount(List<List<String>> msgType, ApiUiUpdateListener listener) {
-//        Map<String, Object> param = new HashMap<>();
-//        param.put("query_array", msgType);
-//        param.put("from", FROM);
-//        param.put("limit", Constant.HOME_PAGE_LIMIT);
-//        JianFanJiaClient.getUnReadUserMsg(new GetUnReadMsgRequest(getContext(), param), listener, this);
-//    }
-
     @Override
     public void onPullDownToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-        all_notice_listview.onRefreshComplete();
+        FROM = 0;
+        getNoticeList(typeArray, pullDownListener);
     }
 
     @Override
     public void onPullUpToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-        all_notice_listview.onRefreshComplete();
+        getNoticeList(typeArray, pullUpListener);
     }
 
     private ApiUiUpdateListener pullDownListener = new ApiUiUpdateListener() {
         @Override
         public void preLoad() {
-
+            if (isFirst) {
+                showWaitDialog();
+            }
         }
 
         @Override
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data.toString());
+            hideWaitDialog();
+            mHasLoadedOnce = true;
+            all_notice_listview.onRefreshComplete();
             NoticeListInfo noticeListInfo = JsonParser.jsonToBean(data.toString(), NoticeListInfo.class);
             LogTool.d(TAG, "noticeListInfo:" + noticeListInfo);
             if (null != noticeListInfo) {
-                noticeAdapter = new NoticeAdapter(getActivity(), noticeListInfo.getList());
-                all_notice_listview.setAdapter(noticeAdapter);
+                noticeList.clear();
+                noticeList.addAll(noticeListInfo.getList());
+                if (null != noticeList && noticeList.size() > 0) {
+                    noticeAdapter = new NoticeAdapter(getActivity(), noticeList, new ClickCallBack() {
+                        @Override
+                        public void click(int position, int itemType) {
+                            LogTool.d(TAG, "position:" + position + "  itemType:" + itemType);
+                        }
+                    });
+                    all_notice_listview.setAdapter(noticeAdapter);
+                    all_notice_listview.setVisibility(View.VISIBLE);
+                    emptyLayout.setVisibility(View.GONE);
+                    errorLayout.setVisibility(View.GONE);
+                    isFirst = false;
+                } else {
+                    all_notice_listview.setVisibility(View.GONE);
+                    emptyLayout.setVisibility(View.VISIBLE);
+                    errorLayout.setVisibility(View.GONE);
+                }
+                FROM = noticeList.size();
+                LogTool.d(TAG, "FROM:" + FROM);
             }
         }
 
         @Override
         public void loadFailture(String error_msg) {
             makeTextShort(error_msg);
+            hideWaitDialog();
+            all_notice_listview.onRefreshComplete();
+            all_notice_listview.setVisibility(View.GONE);
+            emptyLayout.setVisibility(View.GONE);
+            errorLayout.setVisibility(View.VISIBLE);
         }
     };
 
@@ -193,29 +207,26 @@ public class NoticeFragment extends CommonFragment implements PullToRefreshBase.
         @Override
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data.toString());
-
+            all_notice_listview.onRefreshComplete();
+            NoticeListInfo noticeListInfo = JsonParser.jsonToBean(data.toString(), NoticeListInfo.class);
+            LogTool.d(TAG, "noticeListInfo:" + noticeListInfo);
+            if (null != noticeListInfo) {
+                List<NoticeInfo> noticeLists = noticeListInfo.getList();
+                if (null != noticeLists && noticeLists.size() > 0) {
+                    noticeAdapter.add(FROM, noticeLists);
+                    FROM += Constant.HOME_PAGE_LIMIT;
+                } else {
+                    makeTextShort(getResources().getString(R.string.no_more_data));
+                }
+            }
         }
 
         @Override
         public void loadFailture(String error_msg) {
             makeTextLong(error_msg);
+            all_notice_listview.onRefreshComplete();
         }
     };
-
-    private void setNoticeList(NoticeListInfo noticeListInfo) {
-        switch (mType) {
-            case NoticeActivity.TYPE_ALL:
-                break;
-            case NoticeActivity.TYPE_SYS:
-                break;
-            case NoticeActivity.TYPE_REQ:
-                break;
-            case NoticeActivity.TYPE_SITE:
-                break;
-            default:
-                break;
-        }
-    }
 
     public void onEventMainThread(MessageEvent event) {
 
