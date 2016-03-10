@@ -31,8 +31,7 @@ import com.jianfanjia.cn.AppManager;
 import com.jianfanjia.cn.activity.LoginNewActivity_;
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.my.NotifyActivity;
-import com.jianfanjia.cn.activity.requirement.CheckActivity;
+import com.jianfanjia.cn.activity.my.NoticeActivity;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.cache.DataManagerNew;
@@ -47,6 +46,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import java.io.File;
 
 public class UiHelper {
+    private static final String TAG = UiHelper.class.getName();
 
     public static void callPhoneIntent(Context context, String phone) {
         Intent intent = new Intent(Intent.ACTION_DIAL);
@@ -171,76 +171,93 @@ public class UiHelper {
         mRemoteViews.setImageViewResource(R.id.list_item_img, R.mipmap.icon_notify);
         builder.setSmallIcon(R.mipmap.icon_notify_small);
         String type = message.getType();
-        LogTool.d("sendNotifycation", "type =" + type);
+        LogTool.d(TAG, "type =" + type);
         PendingIntent pendingIntent = null;
         if (type.equals(Constant.TYPE_DELAY_MSG)) {
-            LogTool.d("sendNotifycation", context.getResources()
-                    .getString(R.string.yanqiText));
             notifyId = Constant.YANQI_NOTIFY_ID;
-            builder.setTicker(context.getResources()
-                    .getText(R.string.yanqiText));
-            mRemoteViews.setTextViewText(R.id.list_item_title, context.getResources()
-                    .getText(R.string.yanqiText));
+            builder.setTicker(context.getResources().getText(R.string.app_name));
+            mRemoteViews.setTextViewText(R.id.list_item_title, context.getResources().getText(R.string.app_name));
             mRemoteViews.setTextViewText(R.id.list_item_date, DateFormatTool.toLocalTimeString(message.getTime()));
             mRemoteViews.setTextViewText(R.id.list_item_content, message.getContent());
-            Intent mainIntent = new Intent(context, MainActivity.class);
-            mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-                    | Intent.FLAG_ACTIVITY_NEW_TASK);
-            Intent notifyIntent = new Intent(context, NotifyActivity.class);
-            notifyIntent.putExtra("Type", type);
-            Intent[] intents = {mainIntent, notifyIntent};
-            pendingIntent = PendingIntent.getActivities(context, 0, intents,
-                    PendingIntent.FLAG_UPDATE_CURRENT);
         } else if (type.equals(Constant.TYPE_PAY_MSG)) {
             notifyId = Constant.FUKUAN_NOTIFY_ID;
-            builder.setTicker(context.getResources()
-                    .getText(R.string.fukuanText));
-            mRemoteViews.setTextViewText(R.id.list_item_title, context.getResources()
-                    .getText(R.string.fukuanText));
+            builder.setTicker(context.getResources().getText(R.string.app_name));
+            mRemoteViews.setTextViewText(R.id.list_item_title, context.getResources().getText(R.string.app_name));
             mRemoteViews.setTextViewText(R.id.list_item_date, DateFormatTool.toLocalTimeString(message.getTime()));
             mRemoteViews.setTextViewText(R.id.list_item_content, message.getContent());
-            Intent mainIntent = new Intent(context, MainActivity.class);
-            mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-                    | Intent.FLAG_ACTIVITY_NEW_TASK);
-            Intent notifyIntent = new Intent(context, NotifyActivity.class);
-            notifyIntent.putExtra("Type", type);
-            Intent[] intents = {mainIntent, notifyIntent};
-            pendingIntent = PendingIntent.getActivities(context, 0, intents,
-                    PendingIntent.FLAG_UPDATE_CURRENT);
         } else if (type.equals(Constant.TYPE_CAIGOU_MSG)) {
             notifyId = Constant.CAIGOU_NOTIFY_ID;
-            builder.setTicker(context.getResources()
-                    .getText(R.string.caigouText));
-            mRemoteViews.setTextViewText(R.id.list_item_title, context.getResources()
-                    .getText(R.string.caigouText));
+            builder.setTicker(context.getResources().getText(R.string.app_name));
+            mRemoteViews.setTextViewText(R.id.list_item_title, context.getResources().getText(R.string.app_name));
             mRemoteViews.setTextViewText(R.id.list_item_date, DateFormatTool.toLocalTimeString(message.getTime()));
             mRemoteViews.setTextViewText(R.id.list_item_content, context.getResources().getString(R.string.list_item_caigou_example) + message.getContent());
-            Intent mainIntent = new Intent(context, MainActivity.class);
-            mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-                    | Intent.FLAG_ACTIVITY_NEW_TASK);
-            Intent notifyIntent = new Intent(context, NotifyActivity.class);
-            notifyIntent.putExtra("Type", type);
-            Intent[] intents = {mainIntent, notifyIntent};
-            pendingIntent = PendingIntent.getActivities(context, 0, intents,
-                    PendingIntent.FLAG_UPDATE_CURRENT);
         } else if (type.equals(Constant.TYPE_CONFIRM_CHECK_MSG)) {
             notifyId = Constant.YANSHOU_NOTIFY_ID;
-            builder.setTicker(context.getResources().getText(R.string.yanshouText));
-            mRemoteViews.setTextViewText(R.id.list_item_title, context.getResources().getText(R.string.yanshouText));
+            builder.setTicker(context.getResources().getText(R.string.app_name));
+            mRemoteViews.setTextViewText(R.id.list_item_title, context.getResources().getText(R.string.app_name));
             mRemoteViews.setTextViewText(R.id.list_item_date, DateFormatTool.toLocalTimeString(message.getTime()));
             mRemoteViews.setTextViewText(R.id.list_item_content, message.getContent());
-            Intent mainIntent = new Intent(context, MainActivity.class);
-            mainIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            Intent checkIntent = new Intent(context, CheckActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putString(Constant.PROCESS_NAME, message.getSection());
-            bundle.putString(Constant.PROCESS_STATUS, message.getStatus());
-            bundle.putString(Global.PROCESS_ID, message.getProcessid());
-            checkIntent.putExtras(bundle);
-            Intent[] intents = {mainIntent, checkIntent};
-            pendingIntent = PendingIntent.getActivities(context, 0, intents,
-                    PendingIntent.FLAG_UPDATE_CURRENT);
+        } else if (type.equals(Constant.TYPE_SYSTEM_MSG)) {
+            notifyId = Constant.SYSTEM_NOTIFY_ID;
+            builder.setTicker(context.getResources().getText(R.string.app_name));
+            mRemoteViews.setTextViewText(R.id.list_item_title, context.getResources().getText(R.string.app_name));
+            mRemoteViews.setTextViewText(R.id.list_item_date, DateFormatTool.toLocalTimeString(message.getTime()));
+            mRemoteViews.setTextViewText(R.id.list_item_content, message.getContent());
+        } else if (type.equals(Constant.TYPE_PLAN_COMMENT_MSG)) {
+            notifyId = Constant.PLAN_COMMENT_NOTIFY_ID;
+            builder.setTicker(context.getResources().getText(R.string.app_name));
+            mRemoteViews.setTextViewText(R.id.list_item_title, context.getResources().getText(R.string.app_name));
+            mRemoteViews.setTextViewText(R.id.list_item_date, DateFormatTool.toLocalTimeString(message.getTime()));
+            mRemoteViews.setTextViewText(R.id.list_item_content, message.getContent());
+        } else if (type.equals(Constant.TYPE_SECTION_COMMENT_MSG)) {
+            notifyId = Constant.SECTION_COMMENT_NOTIFY_ID;
+            builder.setTicker(context.getResources().getText(R.string.app_name));
+            mRemoteViews.setTextViewText(R.id.list_item_title, context.getResources().getText(R.string.app_name));
+            mRemoteViews.setTextViewText(R.id.list_item_date, DateFormatTool.toLocalTimeString(message.getTime()));
+            mRemoteViews.setTextViewText(R.id.list_item_content, message.getContent());
+        } else if (type.equals(Constant.TYPE_DESIGNER_RESPONSE_MSG)) {
+            notifyId = Constant.DESIGNER_RESPONSE_NOTIFY_ID;
+            builder.setTicker(context.getResources().getText(R.string.app_name));
+            mRemoteViews.setTextViewText(R.id.list_item_title, context.getResources().getText(R.string.app_name));
+            mRemoteViews.setTextViewText(R.id.list_item_date, DateFormatTool.toLocalTimeString(message.getTime()));
+            mRemoteViews.setTextViewText(R.id.list_item_content, message.getContent());
+        } else if (type.equals(Constant.TYPE_DESIGNER_REJECT_MSG)) {
+            notifyId = Constant.DESIGNER_REJECT_NOTIFY_ID;
+            builder.setTicker(context.getResources().getText(R.string.app_name));
+            mRemoteViews.setTextViewText(R.id.list_item_title, context.getResources().getText(R.string.app_name));
+            mRemoteViews.setTextViewText(R.id.list_item_date, DateFormatTool.toLocalTimeString(message.getTime()));
+            mRemoteViews.setTextViewText(R.id.list_item_content, message.getContent());
+        } else if (type.equals(Constant.TYPE_DESIGNER_UPLOAD_PLAN_MSG)) {
+            notifyId = Constant.DESIGNER_UPLOAD_PLAN_NOTIFY_ID;
+            builder.setTicker(context.getResources().getText(R.string.app_name));
+            mRemoteViews.setTextViewText(R.id.list_item_title, context.getResources().getText(R.string.app_name));
+            mRemoteViews.setTextViewText(R.id.list_item_date, DateFormatTool.toLocalTimeString(message.getTime()));
+            mRemoteViews.setTextViewText(R.id.list_item_content, message.getContent());
+        } else if (type.equals(Constant.TYPE_DESIGNER_CONFIG_CONTRACT_MSG)) {
+            notifyId = Constant.DESIGNER_CONFIG_CONTRACT_NOTIFY_ID;
+            builder.setTicker(context.getResources().getText(R.string.app_name));
+            mRemoteViews.setTextViewText(R.id.list_item_title, context.getResources().getText(R.string.app_name));
+            mRemoteViews.setTextViewText(R.id.list_item_date, DateFormatTool.toLocalTimeString(message.getTime()));
+            mRemoteViews.setTextViewText(R.id.list_item_content, message.getContent());
+        } else if (type.equals(Constant.TYPE_DESIGNER_REJECT_DELAY_MSG)) {
+            notifyId = Constant.DESIGNER_REJECT_DELAY_NOTIFY_ID;
+            builder.setTicker(context.getResources().getText(R.string.app_name));
+            mRemoteViews.setTextViewText(R.id.list_item_title, context.getResources().getText(R.string.app_name));
+            mRemoteViews.setTextViewText(R.id.list_item_date, DateFormatTool.toLocalTimeString(message.getTime()));
+            mRemoteViews.setTextViewText(R.id.list_item_content, message.getContent());
+        } else if (type.equals(Constant.TYPE_DESIGNER_AGREE_DELAY_MSG)) {
+            notifyId = Constant.DESIGNER_AGREE_DELAY_NOTIFY_ID;
+            builder.setTicker(context.getResources().getText(R.string.app_name));
+            mRemoteViews.setTextViewText(R.id.list_item_title, context.getResources().getText(R.string.app_name));
+            mRemoteViews.setTextViewText(R.id.list_item_date, DateFormatTool.toLocalTimeString(message.getTime()));
+            mRemoteViews.setTextViewText(R.id.list_item_content, message.getContent());
         }
+        Intent mainIntent = new Intent(context, MainActivity.class);
+        mainIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        Intent checkIntent = new Intent(context, NoticeActivity.class);
+        Intent[] intents = {mainIntent, checkIntent};
+        pendingIntent = PendingIntent.getActivities(context, 0, intents,
+                PendingIntent.FLAG_UPDATE_CURRENT);
         builder.setContent(mRemoteViews);
         builder.setWhen(System.currentTimeMillis());
         builder.setAutoCancel(true);

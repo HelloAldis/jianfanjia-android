@@ -12,6 +12,7 @@ import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.db.DBHelper;
+import com.jianfanjia.cn.tools.ImageShow;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.SharedPrefer;
 
@@ -31,7 +32,11 @@ public class DataManagerNew {
 
     public static DataManagerNew getInstance() {
         if (instance == null) {
-            instance = new DataManagerNew();
+            synchronized (DataManagerNew.class) {
+                if (instance == null) {
+                    instance = new DataManagerNew();
+                }
+            }
         }
         return instance;
     }
@@ -169,20 +174,20 @@ public class DataManagerNew {
         sharedPreferdata.setValue(Constant.ISFIRST, isFirst);
     }
 
-    public boolean isShowGuide(){
-        return sharedPreferdata.getValue(Constant.ISSHOWGUIDE,true);
+    public boolean isShowGuide() {
+        return sharedPreferdata.getValue(Constant.ISSHOWGUIDE, true);
     }
 
-    public void setShowGuide(boolean isShowGuide){
-        sharedPreferdata.setValue(Constant.ISSHOWGUIDE,isShowGuide);
+    public void setShowGuide(boolean isShowGuide) {
+        sharedPreferdata.setValue(Constant.ISSHOWGUIDE, isShowGuide);
     }
 
-    public boolean isShowNext(){
-        return sharedPreferdata.getValue(Constant.ISSHOWNEXT,true);
+    public boolean isShowNext() {
+        return sharedPreferdata.getValue(Constant.ISSHOWNEXT, true);
     }
 
-    public void setShowNext(boolean isShowNext){
-        sharedPreferdata.setValue(Constant.ISSHOWNEXT,isShowNext);
+    public void setShowNext(boolean isShowNext) {
+        sharedPreferdata.setValue(Constant.ISSHOWNEXT, isShowNext);
     }
 
     public void setUserImagePath(String imgId) {
@@ -196,25 +201,25 @@ public class DataManagerNew {
         sharedPreferuser.setValue(Constant.USERIMAGE_ID, userBean.getImageid());
         sharedPreferuser.setValue(Constant.USER_ID, userBean.get_id());
         sharedPreferuser.setValue(Constant.PASSWORD, userBean.getPass());
-        sharedPreferuser.setValue(Constant.OPEN_ID,userBean.getWechat_openid());
-        sharedPreferuser.setValue(Constant.UNION_ID,userBean.getWechat_unionid());
-        sharedPreferdata.setValue(Constant.IS_WEIXIN_FIRST_LOGIN,userBean.is_wechat_first_login());
+        sharedPreferuser.setValue(Constant.OPEN_ID, userBean.getWechat_openid());
+        sharedPreferuser.setValue(Constant.UNION_ID, userBean.getWechat_unionid());
+        sharedPreferdata.setValue(Constant.IS_WEIXIN_FIRST_LOGIN, userBean.is_wechat_first_login());
     }
 
-    public String getWechat_unionid(){
-        return sharedPreferuser.getValue(Constant.UNION_ID,null);
+    public String getWechat_unionid() {
+        return sharedPreferuser.getValue(Constant.UNION_ID, null);
     }
 
-    public void setWechat_unionid(String wechat_unionid){
-        sharedPreferuser.setValue(Constant.UNION_ID,wechat_unionid);
+    public void setWechat_unionid(String wechat_unionid) {
+        sharedPreferuser.setValue(Constant.UNION_ID, wechat_unionid);
     }
 
-    public void setWeixinFisrtLogin(boolean flag){
-        sharedPreferdata.setValue(Constant.IS_WEIXIN_FIRST_LOGIN,flag);
+    public void setWeixinFisrtLogin(boolean flag) {
+        sharedPreferdata.setValue(Constant.IS_WEIXIN_FIRST_LOGIN, flag);
     }
 
-    public boolean getWeixinFisrtLogin(){
-        return sharedPreferdata.getValue(Constant.IS_WEIXIN_FIRST_LOGIN,false);
+    public boolean getWeixinFisrtLogin() {
+        return sharedPreferdata.getValue(Constant.IS_WEIXIN_FIRST_LOGIN, false);
     }
 
     public void setUserName(String userName) {
@@ -225,7 +230,7 @@ public class DataManagerNew {
         return sharedPreferuser.getValue(Constant.PASSWORD, null);
     }
 
-    public void setAccount(String phone){
+    public void setAccount(String phone) {
         sharedPreferuser.setValue(Constant.ACCOUNT, phone);
     }
 
