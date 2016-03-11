@@ -224,11 +224,16 @@ public class Constant {
     public static final int DELETE_ORDER_DESIGNER_ACTIVITY = 90;
     public static final int UPDATE_BEAUTY_IMG_FRAGMENT = 100;
 
-
     //view类型
     public static final int BEAUTY_FRAGMENT = 1;//装修美图
     public static final int COLLECT_BEAUTY_FRAGMENT = 2;//装修美图收藏
     public static final int SEARCH_BEAUTY_FRAGMENT = 3;//装修美图搜索
+
+    //通知搜索类型
+    public static final String[] ALL = {Constant.TYPE_DELAY_MSG, Constant.TYPE_CAIGOU_MSG, Constant.TYPE_PAY_MSG, Constant.TYPE_CONFIRM_CHECK_MSG, Constant.TYPE_SYSTEM_MSG, Constant.TYPE_DESIGNER_RESPONSE_MSG, Constant.TYPE_DESIGNER_REJECT_MSG, Constant.TYPE_DESIGNER_UPLOAD_PLAN_MSG, Constant.TYPE_DESIGNER_CONFIG_CONTRACT_MSG, Constant.TYPE_DESIGNER_REJECT_DELAY_MSG, Constant.TYPE_DESIGNER_AGREE_DELAY_MSG};
+    public static final String[] SYSTEM = {Constant.TYPE_SYSTEM_MSG};
+    public static final String[] REQUIRE = {Constant.TYPE_DESIGNER_RESPONSE_MSG, Constant.TYPE_DESIGNER_REJECT_MSG, Constant.TYPE_DESIGNER_UPLOAD_PLAN_MSG, Constant.TYPE_DESIGNER_CONFIG_CONTRACT_MSG, Constant.TYPE_DESIGNER_REJECT_DELAY_MSG, Constant.TYPE_DESIGNER_AGREE_DELAY_MSG};
+    public static final String[] SITE = {Constant.TYPE_DELAY_MSG, Constant.TYPE_CAIGOU_MSG, Constant.TYPE_PAY_MSG, Constant.TYPE_CONFIRM_CHECK_MSG};
 
     public static final String[] searchMsgCountType1 = {
             TYPE_DELAY_MSG, TYPE_CAIGOU_MSG, TYPE_PAY_MSG,
