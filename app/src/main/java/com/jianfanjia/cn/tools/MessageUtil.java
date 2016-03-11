@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.RemoteViews;
@@ -14,9 +15,10 @@ import com.jianfanjia.cn.Event.MessageCountEvent;
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.common.CommentListActivity_;
-import com.jianfanjia.cn.activity.my.NoticeActivity;
+import com.jianfanjia.cn.activity.my.NoticeDetailActivity;
 import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.config.Global;
 
 import de.greenrobot.event.EventBus;
 
@@ -93,7 +95,10 @@ public class MessageUtil {
         if (message.getType().equals(Constant.TYPE_SECTION_COMMENT_MSG) || message.getType().equals(Constant.TYPE_PLAN_COMMENT_MSG)) {
             targetIntent = new Intent(context, CommentListActivity_.class);
         } else {
-            targetIntent = new Intent(context, NoticeActivity.class);
+            targetIntent = new Intent(context, NoticeDetailActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString(Global.MSG_ID, message.getMessageid());
+            targetIntent.putExtras(bundle);
         }
         Intent[] intents = {mainIntent, targetIntent};
         PendingIntent pendingIntent = PendingIntent.getActivities(context, 0, intents,

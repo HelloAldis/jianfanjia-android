@@ -88,9 +88,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:background="@drawable/text_bg_border"
-                    android:text="改期"
-                    android:textColor="@color/home_page_text_color"
+                    android:textColor="@color/font_white"
                     android:textSize="@dimen/text_size_12" />
 
                 <TextView
@@ -106,7 +104,7 @@
                     style="@style/listview_item_text_style_small"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="@dimen/space_10"
-                    android:textColor="@color/home_page_text_color"
+                    android:textColor="@color/blue_color"
                     android:visibility="gone" />
 
             </LinearLayout>
@@ -125,14 +123,14 @@
                 style="@style/divier_line"
                 android:layout_below="@id/dateText" />
 
-            <TextView
-                android:id="@+id/contentText"
-                android:layout_width="wrap_content"
+            <WebView
+                android:id="@+id/contentView"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/top_line"
                 android:layout_margin="@dimen/space_20"
-                android:textColor="@color/home_page_text_color"
-                android:textSize="@dimen/text_size_16" />
+                android:layerType="software" />
+
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>
