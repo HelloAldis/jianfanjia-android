@@ -132,7 +132,7 @@ public class CheckActivity extends SwipeBackActivity implements OnClickListener,
         gridView.setLayoutManager(gridLayoutManager);
         gridView.setHasFixedSize(true);
         gridView.setItemAnimator(new DefaultItemAnimator());
-        ItemSpaceDecoration decoration = new ItemSpaceDecoration(10);
+        ItemSpaceDecoration decoration = new ItemSpaceDecoration(MyApplication.dip2px(getApplicationContext(), 5));
         gridView.addItemDecoration(decoration);
     }
 
