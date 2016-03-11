@@ -97,7 +97,7 @@
                     android:layout_height="40dp"
                     android:layout_marginLeft="12dp"
                     android:layout_weight="1"
-                    android:background="@drawable/btn_orange_bg"
+                    android:background="@drawable/btn_orange_oval_bg"
                     android:gravity="center"
                     android:text="@string/site_example_node_check"
                     android:textColor="@color/font_white"

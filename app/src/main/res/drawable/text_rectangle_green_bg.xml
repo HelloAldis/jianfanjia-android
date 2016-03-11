@@ -2,8 +2,6 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
 
-    <solid android:color="@color/btn_unenable" />
-
-    <corners android:radius="0dip" />
+    <solid android:color="@color/green_color" />
 
 </shape>

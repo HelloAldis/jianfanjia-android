@@ -219,4 +219,6 @@ public class Url_New {
     public String GET_USER_MSG_DETAIL = HTTPROOT + "user_message_detail";
     //业主获取评论消息列表
     public String SEARCH_USER_COMMENT = HTTPROOT + "search_user_comment";
+    //用户获取装修直播列表
+    public String SEARCH_SHARE = HTTPROOT + "search_share";
 }

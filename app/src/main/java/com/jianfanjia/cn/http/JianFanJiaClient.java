@@ -37,6 +37,7 @@ import com.jianfanjia.cn.http.request.GetBeautyImgListRequest;
 import com.jianfanjia.cn.http.request.GetCollectionRequest;
 import com.jianfanjia.cn.http.request.GetCommentsRequest;
 import com.jianfanjia.cn.http.request.GetContractRequest;
+import com.jianfanjia.cn.http.request.GetDecorateLiveRequest;
 import com.jianfanjia.cn.http.request.GetDesignerPlansByUserRequest;
 import com.jianfanjia.cn.http.request.GetHomeProductRequest;
 import com.jianfanjia.cn.http.request.GetMsgDetailRequest;
@@ -1216,6 +1217,17 @@ public class JianFanJiaClient {
     public static void searchUserComment(SearchUserCommentRequest searchUserCommentRequest, ApiUiUpdateListener listener, Object tag) {
         LogTool.d(TAG, "jsonParams:" + searchUserCommentRequest.getParam());
         OkHttpClientManager.getInstance().getPostDelegate().postAsyn(searchUserCommentRequest, searchUserCommentRequest.getParam(), listener, tag);
+    }
+
+    /**
+     * 用户获取装修直播列表
+     * @param getDecorateLiveRequest
+     * @param listener
+     * @param tag
+     */
+    public static void searchShare(GetDecorateLiveRequest getDecorateLiveRequest,ApiUiUpdateListener listener,Object tag){
+        LogTool.d(TAG, "jsonParams:" + getDecorateLiveRequest.getParam());
+        OkHttpClientManager.getInstance().getPostDelegate().postAsyn(getDecorateLiveRequest, getDecorateLiveRequest.getParam(), listener, tag);
     }
 
     /**

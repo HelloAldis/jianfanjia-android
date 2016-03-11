@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
+import com.jianfanjia.cn.adapter.DecorateLiveFragmentPagerAdapter;
 import com.jianfanjia.cn.view.MainHeadView;
 
 import org.androidannotations.annotations.AfterViews;
@@ -34,7 +35,13 @@ public class DecorateLiveActivity extends SwipeBackActivity {
     protected void initAnnotationView(){
 
         mainHeadView.setMianTitle(getString(R.string.decoration_live));
+        initViewPagerAndTab();
+    }
 
+    protected void initViewPagerAndTab() {
+        viewPager.setAdapter(new DecorateLiveFragmentPagerAdapter(getSupportFragmentManager()));
+        viewPager.setOffscreenPageLimit(1);
+        tabLayout.setupWithViewPager(viewPager);
     }
 
     @Click({R.id.head_back_layout})

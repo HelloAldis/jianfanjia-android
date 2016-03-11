@@ -45,6 +45,7 @@ public class Constant {
     public static final String IS_WEIXIN_FIRST_LOGIN = "is_weixin_first_login";
     public static final String FROM = "from";
     public static final String LIMIT = "limit";
+    public static final String QUERY= "query";
     public static final int FROM_START = 0;
 
     public static final String HOTLINE_URL = "http://chat16.live800.com/live800/chatClient/chatbox.jsp?companyID=611886&configID=139921&jid=3699665419";
@@ -152,6 +153,10 @@ public class Constant {
     // 业主消息提醒状态
     public static final String UNREAD = "0";// 未读
     public static final String READ = "1";// 已读
+
+    //装修直播分类
+    public static final String DECORATE_LIVE_GOING = "0";// 进行中
+    public static final String DECORATE_LIVE_FINISH = "1";// 已完工
 
     // 延期提醒状态,工序状态
     public static final String NO_START = "0";// 未开工

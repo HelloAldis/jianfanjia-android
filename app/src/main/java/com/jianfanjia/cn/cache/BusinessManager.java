@@ -137,6 +137,23 @@ public class BusinessManager {
         return designFees[feePosition];
     }
 
+    /**
+     * 装修直播显示阶段
+     * @param section
+     * @return
+     */
+    public static String convertSectionNameToLiveShow(String section) {
+        if (section == null) return null;
+        int sectionPosition = Integer.parseInt(section);
+        String[] sectionList = MyApplication.getInstance().getResources().getStringArray(R.array.live_site_procedure);
+        if (sectionPosition < 0 || sectionPosition > sectionList.length) return null;
+        return sectionList[sectionPosition];
+    }
+
+    /**
+     * @param decTypeText
+     * @return
+     */
     public static String getDecTypeByText(String decTypeText) {
         try {
             String[] items = MyApplication.getInstance().getResources().getStringArray(R.array.arr_dectype);

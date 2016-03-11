@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/btn_bg"
+        android:background="@drawable/btn_rectangle_orange_selector_bg"
         android:gravity="center"
         android:text="@string/confirm_upload"
         android:textColor="@color/font_white"

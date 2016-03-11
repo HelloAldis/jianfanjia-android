@@ -367,5 +367,7 @@
     <string name="decoration_live">装修直播</string>
     <string name="response">回复</string>
     <string name="title_activity_notice_detail">NoticeDetailActivity</string>
+    <string name="live_date">直播时间：</string>
+    <string name="search_no_process">暂时没有已竣工的工地</string>
 
 </resources>
