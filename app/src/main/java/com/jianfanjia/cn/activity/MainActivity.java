@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.google.gson.reflect.TypeToken;
@@ -22,7 +23,6 @@ import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
-import com.jianfanjia.cn.view.layout.BadgeView;
 
 import java.util.List;
 
@@ -36,7 +36,7 @@ import de.greenrobot.event.EventBus;
  */
 public class MainActivity extends BaseActivity implements View.OnClickListener {
     private static final String TAG = MainActivity.class.getName();
-    private BadgeView badgeView = null;
+    private ImageView badgeView = null;
     private LinearLayout homeLayout = null;
     private LinearLayout beautyLayout = null;
     private LinearLayout reqLayout = null;
@@ -62,8 +62,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void initView() {
-        badgeView = (BadgeView) findViewById(R.id.badgeView);
-        badgeView.hide();
+        badgeView = (ImageView) findViewById(R.id.badgeView);
+        badgeView.setVisibility(View.GONE);
 
         homeLayout = (LinearLayout) findViewById(R.id.home_layout);
         beautyLayout = (LinearLayout) findViewById(R.id.img_layout);
@@ -101,10 +101,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             }.getType());
             if (countList != null) {
                 if (countList.get(0) > 0 || countList.get(1) > 0) {
-                    badgeView.setText(countList.get(0) + countList.get(1) + "");
-                    badgeView.show();
+//                    badgeView.setText(countList.get(0) + countList.get(1) + "");
+//                    badgeView.show();
+                    badgeView.setVisibility(View.VISIBLE);
                 } else {
-                    badgeView.hide();
+                    badgeView.setVisibility(View.GONE);
+//                    badgeView.hide();
                 }
                 if (myFragment != null) {
                     if (countList.get(0) > 0) {
