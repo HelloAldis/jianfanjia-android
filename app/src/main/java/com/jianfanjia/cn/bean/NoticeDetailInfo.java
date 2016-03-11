@@ -16,6 +16,7 @@ public class NoticeDetailInfo implements Serializable {
     private String planid;
     private String requirementid;
     private String processid;
+    private String rescheduleid;
     private String section;
     private String title;
     private String content;
@@ -23,6 +24,10 @@ public class NoticeDetailInfo implements Serializable {
     private String status;
     private int __v;
     private long lastupdate;
+    private ProcessInfo process;
+    private RequirementInfo requirement;
+    private RescheduleInfo reschedule;
+    private PlandetailInfo plan;
 
     public String get_id() {
         return _id;
@@ -134,5 +139,45 @@ public class NoticeDetailInfo implements Serializable {
 
     public void setSection(String section) {
         this.section = section;
+    }
+
+    public ProcessInfo getProcess() {
+        return process;
+    }
+
+    public void setProcess(ProcessInfo process) {
+        this.process = process;
+    }
+
+    public RequirementInfo getRequirement() {
+        return requirement;
+    }
+
+    public void setRequirement(RequirementInfo requirement) {
+        this.requirement = requirement;
+    }
+
+    public String getRescheduleid() {
+        return rescheduleid;
+    }
+
+    public void setRescheduleid(String rescheduleid) {
+        this.rescheduleid = rescheduleid;
+    }
+
+    public RescheduleInfo getReschedule() {
+        return reschedule;
+    }
+
+    public void setReschedule(RescheduleInfo reschedule) {
+        this.reschedule = reschedule;
+    }
+
+    public PlandetailInfo getPlan() {
+        return plan;
+    }
+
+    public void setPlan(PlandetailInfo plan) {
+        this.plan = plan;
     }
 }

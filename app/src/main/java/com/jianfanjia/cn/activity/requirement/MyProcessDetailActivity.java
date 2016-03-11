@@ -34,7 +34,6 @@ import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
-import com.jianfanjia.cn.interf.ReceiveMsgListener;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.tools.DateFormatTool;
 import com.jianfanjia.cn.tools.FileUtil;
@@ -70,7 +69,7 @@ import java.util.List;
  * @date 2015-8-26 上午11:14:00
  */
 @EActivity(R.layout.activity_my_process_detail)
-public class MyProcessDetailActivity extends SwipeBackActivity implements ItemClickCallBack, ReceiveMsgListener, PopWindowCallBack {
+public class MyProcessDetailActivity extends SwipeBackActivity implements ItemClickCallBack, PopWindowCallBack {
     private static final String TAG = MyProcessDetailActivity.class.getName();
     private static final int TOTAL_PROCESS = 7;// 7道工序
 
@@ -601,14 +600,6 @@ public class MyProcessDetailActivity extends SwipeBackActivity implements ItemCl
                 hideWaitDialog();
             }
         }, this);
-    }
-
-    @Override
-    public void onReceive(NotifyMessage message) {
-        LogTool.d(TAG, "onReceive message");
-        if (null != message) {
-            showNotifyDialog(message);
-        }
     }
 
     private void showNotifyDialog(final NotifyMessage message) {
