@@ -370,4 +370,10 @@
     <string name="live_date">直播时间：</string>
     <string name="search_no_process">暂时没有已竣工的工地</string>
 
+    <string name="delay_str">改期</string>
+    <string name="pay_str">付款</string>
+    <string name="caigou_str">采购</string>
+    <string name="check_str">验收</string>
+    <string name="sys_str">系统</string>
+    <string name="req_str">需求</string>
 </resources>

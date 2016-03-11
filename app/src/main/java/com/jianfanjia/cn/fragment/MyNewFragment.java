@@ -140,13 +140,13 @@ public class MyNewFragment extends BaseFragment {
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        LogTool.d(this.getClass().getName(), "isHidden =" + hidden);
+        LogTool.d(TAG, "isHidden =" + hidden);
         if (!hidden) {
 //            getUnReadMessageCount(Constant.searchMsgCountType1, Constant.searchMsgCountType2);
         }
     }
 
-    protected void getUnReadMessageCount(String[]... selectLists) {
+    private void getUnReadMessageCount(String[]... selectLists) {
         UiHelper.getUnReadMessageCount(getContext(), new ApiUiUpdateListener() {
             @Override
             public void preLoad() {

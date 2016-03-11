@@ -108,8 +108,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="top|right"
-                            android:textSize="@dimen/text_size_14"
-                            />
+                            android:textSize="@dimen/text_size_14" />
 
                     </FrameLayout>
 
@@ -202,8 +201,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="top|right"
-                            android:textSize="@dimen/text_size_14"
-                            />
+                            android:textSize="@dimen/text_size_14" />
                     </FrameLayout>
 
                     <TextView
@@ -233,15 +231,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:src="@mipmap/icon_account"/>
+                    android:src="@mipmap/icon_account" />
 
                 <TextView
                     style="@style/listview_item_text_style_middle"
                     android:layout_centerVertical="true"
-                    android:text="@string/account_binding"
-                    android:textColor="@color/light_black_color"
+                    android:layout_marginLeft="@dimen/space_10"
                     android:layout_toRightOf="@+id/binding_account_icon"
-                    android:layout_marginLeft="@dimen/space_10"/>
+                    android:text="@string/account_binding"
+                    android:textColor="@color/light_black_color" />
 
                 <TextView
                     android:id="@+id/phoneText"

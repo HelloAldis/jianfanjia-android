@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.RemoteViews;
@@ -14,9 +15,10 @@ import com.jianfanjia.cn.Event.MessageCountEvent;
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.common.CommentListActivity_;
-import com.jianfanjia.cn.activity.my.NoticeActivity;
+import com.jianfanjia.cn.activity.my.NoticeDetailActivity;
 import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.config.Global;
 
 import de.greenrobot.event.EventBus;
 
@@ -75,7 +77,8 @@ public class MessageUtil {
     }
 
     public static void sendNotifycation(Context context, NotifyMessage message) {
-        int notifyId = -1;
+        int notifyId = (int) System.currentTimeMillis();
+        LogTool.d(TAG, "notifyId =" + notifyId);
         NotificationManager nManager = (NotificationManager) context
                 .getSystemService(Context.NOTIFICATION_SERVICE);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(
@@ -85,44 +88,20 @@ public class MessageUtil {
         builder.setSmallIcon(R.mipmap.icon_notify_small);
         String type = message.getType();
         LogTool.d(TAG, "type =" + type);
-        PendingIntent pendingIntent = null;
-        if (type.equals(Constant.TYPE_DELAY_MSG)) {
-            notifyId = Constant.YANQI_NOTIFY_ID;
-        } else if (type.equals(Constant.TYPE_PAY_MSG)) {
-            notifyId = Constant.FUKUAN_NOTIFY_ID;
-        } else if (type.equals(Constant.TYPE_CAIGOU_MSG)) {
-            notifyId = Constant.CAIGOU_NOTIFY_ID;
-        } else if (type.equals(Constant.TYPE_CONFIRM_CHECK_MSG)) {
-            notifyId = Constant.YANSHOU_NOTIFY_ID;
-        } else if (type.equals(Constant.TYPE_SYSTEM_MSG)) {
-            notifyId = Constant.SYSTEM_NOTIFY_ID;
-        } else if (type.equals(Constant.TYPE_PLAN_COMMENT_MSG)) {
-            notifyId = Constant.PLAN_COMMENT_NOTIFY_ID;
-        } else if (type.equals(Constant.TYPE_SECTION_COMMENT_MSG)) {
-            notifyId = Constant.SECTION_COMMENT_NOTIFY_ID;
-        } else if (type.equals(Constant.TYPE_DESIGNER_RESPONSE_MSG)) {
-            notifyId = Constant.DESIGNER_RESPONSE_NOTIFY_ID;
-        } else if (type.equals(Constant.TYPE_DESIGNER_REJECT_MSG)) {
-            notifyId = Constant.DESIGNER_REJECT_NOTIFY_ID;
-        } else if (type.equals(Constant.TYPE_DESIGNER_UPLOAD_PLAN_MSG)) {
-            notifyId = Constant.DESIGNER_UPLOAD_PLAN_NOTIFY_ID;
-        } else if (type.equals(Constant.TYPE_DESIGNER_CONFIG_CONTRACT_MSG)) {
-            notifyId = Constant.DESIGNER_CONFIG_CONTRACT_NOTIFY_ID;
-        } else if (type.equals(Constant.TYPE_DESIGNER_REJECT_DELAY_MSG)) {
-            notifyId = Constant.DESIGNER_REJECT_DELAY_NOTIFY_ID;
-        } else if (type.equals(Constant.TYPE_DESIGNER_AGREE_DELAY_MSG)) {
-            notifyId = Constant.DESIGNER_AGREE_DELAY_NOTIFY_ID;
-        }
         Intent mainIntent = new Intent(context, MainActivity.class);
-        Intent checkIntent = null;
-        mainIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        Intent targetIntent = null;
+        mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                | Intent.FLAG_ACTIVITY_NEW_TASK);
         if (message.getType().equals(Constant.TYPE_SECTION_COMMENT_MSG) || message.getType().equals(Constant.TYPE_PLAN_COMMENT_MSG)) {
-            checkIntent = new Intent(context, CommentListActivity_.class);
+            targetIntent = new Intent(context, CommentListActivity_.class);
         } else {
-            checkIntent = new Intent(context, NoticeActivity.class);
+            targetIntent = new Intent(context, NoticeDetailActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString(Global.MSG_ID, message.getMessageid());
+            targetIntent.putExtras(bundle);
         }
-        Intent[] intents = {mainIntent, checkIntent};
-        pendingIntent = PendingIntent.getActivities(context, 0, intents,
+        Intent[] intents = {mainIntent, targetIntent};
+        PendingIntent pendingIntent = PendingIntent.getActivities(context, 0, intents,
                 PendingIntent.FLAG_UPDATE_CURRENT);
         builder.setTicker(context.getResources().getText(R.string.app_name));
         mRemoteViews.setTextViewText(R.id.list_item_title, context.getResources().getText(R.string.app_name));
@@ -131,6 +110,7 @@ public class MessageUtil {
         builder.setContent(mRemoteViews);
         builder.setWhen(System.currentTimeMillis());
         builder.setAutoCancel(true);
+        builder.setPriority(NotificationCompat.PRIORITY_MAX);
         builder.setContentIntent(pendingIntent);
         Notification notification = builder.build();
         notification.vibrate = new long[]{0, 300, 500, 700};
