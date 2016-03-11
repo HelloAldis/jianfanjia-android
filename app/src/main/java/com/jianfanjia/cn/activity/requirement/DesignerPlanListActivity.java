@@ -140,7 +140,7 @@ public class DesignerPlanListActivity extends SwipeBackActivity implements OnCli
         LogTool.d(TAG, "planInfo:" + planInfo);
         String planid = planInfo.get_id();
         LogTool.d(TAG, "planid:" + planid);
-        startToActivity(planid);
+        startToActivity(planInfo);
     }
 
     @Override
@@ -161,18 +161,18 @@ public class DesignerPlanListActivity extends SwipeBackActivity implements OnCli
                 startActivityForResult(CommentActivity.class, commentBundle, Constant.REQUESTCODE_GOTO_COMMENT);
                 break;
             case Constant.PLAN_PREVIEW_ITEM:
-                startToActivity(planid);
+                startToActivity(planInfo);
                 break;
             default:
                 break;
         }
     }
 
-    private void startToActivity(String planid) {
+    private void startToActivity(PlanInfo planInfo) {
         Bundle planBundle = new Bundle();
-        planBundle.putString(Global.PLAN_ID, planid);
+        planBundle.putString(Global.PLAN_ID, planInfo.get_id());
         planBundle.putSerializable(Global.REQUIREMENT_INFO, requirementInfo);
-        planBundle.putInt(Global.POSITION, itemPosition);
+        planBundle.putString(Global.POSITION, planInfo.getName());
         startActivity(PreviewDesignerPlanActivity.class, planBundle);
     }
 

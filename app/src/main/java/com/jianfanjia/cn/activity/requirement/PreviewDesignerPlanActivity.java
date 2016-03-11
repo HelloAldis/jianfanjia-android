@@ -66,14 +66,14 @@ public class PreviewDesignerPlanActivity extends SwipeBackActivity implements On
     private String planid = null;
     private String requirementid = null;
     private RequirementInfo requirementInfo = null;
-    private int itemPosition = -1;
+    private String itemPosition;
 
     @Override
     public void initView() {
         Intent intent = this.getIntent();
         Bundle planBundle = intent.getExtras();
         planid = planBundle.getString(Global.PLAN_ID);
-        itemPosition = planBundle.getInt(Global.POSITION);
+        itemPosition = planBundle.getString(Global.POSITION);
         requirementInfo = (RequirementInfo) planBundle.getSerializable(Global.REQUIREMENT_INFO);
         requirementid = requirementInfo.get_id();
         LogTool.d(TAG, "planid=" + planid + " itemPosition=" + itemPosition);
@@ -110,7 +110,7 @@ public class PreviewDesignerPlanActivity extends SwipeBackActivity implements On
         mainHeadView = (MainHeadView) findViewById(R.id.my_prieview_head_layout);
         mainHeadView.setBackListener(this);
         mainHeadView.setRightTextListener(this);
-        mainHeadView.setMianTitle(getResources().getString(R.string.designerPlanText) + itemPosition);
+        mainHeadView.setMianTitle(itemPosition);
         mainHeadView.setRightTitle(getResources().getString(R.string.detailPrice));
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
         mainHeadView.setRightTitleVisable(View.VISIBLE);

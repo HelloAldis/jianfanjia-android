@@ -35,7 +35,7 @@
         <TextView
             android:id="@+id/numText"
             style="@style/listview_item_text_style_middle"
-            android:layout_centerVertical="true"
+            android:layout_alignBaseline="@+id/cell_name"
             android:text="方案"
             android:layout_toRightOf="@+id/cell_name"
             android:layout_marginLeft="@dimen/space_4"
@@ -45,7 +45,7 @@
             android:id="@+id/statusText"
             style="@style/listview_item_text_style_middle"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
+            android:layout_alignBaseline="@+id/cell_name"
             android:text="已中标"
             android:textColor="@color/light_black_color" />
     </RelativeLayout>

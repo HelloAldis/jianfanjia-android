@@ -57,6 +57,8 @@ public class CommentListActivity extends SwipeBackActivity {
     @ViewById(R.id.error_include)
     protected View errorView;
 
+    private boolean mHasLoadOnce;
+
     private MyCommentInfoAdapter myCommentInfoAdapter;
 
     @AfterViews
@@ -116,14 +118,14 @@ public class CommentListActivity extends SwipeBackActivity {
         myCommentInfoAdapter.setEmptyView(emptyView);
         myCommentInfoAdapter.setErrorView(errorView);
 
-        getMyCommentInfo(Constant.FROM_START, this);
+        getMyCommentInfo(Constant.FROM_START, pullDownListener);
     }
 
     private void startPlanInfoActivity(PlandetailInfo plandetailInfo, RequirementInfo requirementInfo) {
         Bundle planBundle = new Bundle();
         planBundle.putString(Global.PLAN_ID, plandetailInfo.get_id());
         planBundle.putSerializable(Global.REQUIREMENT_INFO, requirementInfo);
-        planBundle.putInt(Global.POSITION, 1);
+        planBundle.putString(Global.POSITION, plandetailInfo.getName());
         startActivity(PreviewDesignerPlanActivity.class, planBundle);
     }
 
@@ -143,11 +145,14 @@ public class CommentListActivity extends SwipeBackActivity {
     private ApiUiUpdateListener pullDownListener = new ApiUiUpdateListener() {
         @Override
         public void preLoad() {
-
+            if(!mHasLoadOnce){
+                showWaitDialog();
+            }
         }
 
         @Override
         public void loadSuccess(Object data) {
+            hideWaitDialog();
             refreshRecycleView.onRefreshComplete();
             NoticeListInfo noticeListInfo = JsonParser.jsonToBean(data.toString(), NoticeListInfo.class);
             if (noticeListInfo != null) {
@@ -166,11 +171,13 @@ public class CommentListActivity extends SwipeBackActivity {
                 } else {
                     myCommentInfoAdapter.setEmptyViewShow();
                 }
+                mHasLoadOnce = true;
             }
         }
 
         @Override
         public void loadFailture(String error_msg) {
+            hideWaitDialog();
             makeTextShort(error_msg);
             refreshRecycleView.onRefreshComplete();
             myCommentInfoAdapter.setErrorViewShow();
@@ -180,7 +187,6 @@ public class CommentListActivity extends SwipeBackActivity {
 
     @Override
     public void preLoad() {
-        super.preLoad();
     }
 
     @Override

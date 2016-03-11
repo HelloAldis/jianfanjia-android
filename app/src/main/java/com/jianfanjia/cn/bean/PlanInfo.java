@@ -12,6 +12,7 @@ import java.util.List;
 public class PlanInfo implements Serializable {
     private static final long serialVersionUID = 4639135003005635785L;
     private String _id;
+    private String name;
     private long last_status_update_time;
     private long request_date;
     private String designerid;
@@ -29,6 +30,14 @@ public class PlanInfo implements Serializable {
     private List<PriceDetail> price_detail;
     private Designer designer;
     private int comment_count;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getUserid() {
         return userid;
