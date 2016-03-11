@@ -129,8 +129,7 @@
                     <FrameLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="@dimen/space_25"
-                        android:paddingRight="@dimen/space_25">
+                        >
 
                         <ImageView
                             android:id="@+id/my_img"
@@ -140,12 +139,14 @@
                             android:layout_gravity="center_horizontal"
                             android:src="@drawable/tab_selector_my" />
 
-                        <com.jianfanjia.cn.view.layout.BadgeView
+                        <ImageView
                             android:id="@+id/badgeView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="@dimen/space_6"
+                            android:layout_height="@dimen/space_6"
                             android:layout_gravity="top|right"
-                            />
+                            android:layout_marginTop="@dimen/space_2"
+                            android:layout_marginRight="@dimen/space_2"
+                            android:background="@drawable/shape_indicator_badge"/>
                     </FrameLayout>
 
                     <TextView
