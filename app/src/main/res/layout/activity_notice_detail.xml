@@ -17,12 +17,13 @@
         android:layout_height="60dip"
         android:layout_alignParentBottom="true"
         android:background="@color/font_white">
-
+        <!--改期-->
         <LinearLayout
-            android:id="@+id/doubleBtnLayout"
+            android:id="@+id/delayBtnLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <Button
                 android:id="@+id/btnAgree"
@@ -41,8 +42,9 @@
                 android:text="拒绝" />
         </LinearLayout>
 
+        <!--验收-->
         <LinearLayout
-            android:id="@+id/singleBtnLayout"
+            android:id="@+id/checkBtnLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
@@ -50,6 +52,26 @@
 
             <Button
                 android:id="@+id/btnConfirm"
+                style="@style/button_add_style"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="@dimen/space_10"
+                android:layout_marginLeft="@dimen/space_100"
+                android:layout_marginRight="@dimen/space_100"
+                android:layout_marginTop="@dimen/space_10"
+                android:layout_weight="1"
+                android:text="确认" />
+        </LinearLayout>
+
+        <!--其它-->
+        <LinearLayout
+            android:id="@+id/otherBtnLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <Button
+                android:id="@+id/btnOther"
                 style="@style/button_add_style"
                 android:layout_gravity="center_vertical"
                 android:layout_marginBottom="@dimen/space_10"
