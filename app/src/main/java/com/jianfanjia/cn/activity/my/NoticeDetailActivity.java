@@ -11,8 +11,10 @@ import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
+import com.jianfanjia.cn.activity.requirement.CheckActivity;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.bean.NoticeDetailInfo;
+import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
@@ -46,8 +48,8 @@ public class NoticeDetailActivity extends SwipeBackActivity implements View.OnCl
     private String messageid = null;
 
     private String processid = null;
-    private String section = null;
-    private String status = null;
+    private String sectionName = null;
+    private ProcessInfo processInfo = null;
 
     @Override
     public void initView() {
@@ -105,12 +107,12 @@ public class NoticeDetailActivity extends SwipeBackActivity implements View.OnCl
                 refuseReschedule(processid);
                 break;
             case R.id.btnConfirm:
-//                Bundle checkBundle = new Bundle();
-//                checkBundle.putString(Constant.PROCESS_NAME, section);
-//                checkBundle.putString(Constant.PROCESS_STATUS, "");
-//                checkBundle.putString(Global.PROCESS_ID, processid);
-//                Intent checkIntent = new Intent(NoticeDetailActivity.this, CheckActivity.class);
-//                checkIntent.putExtras(checkBundle);
+                Bundle checkBundle = new Bundle();
+                checkBundle.putString(Constant.SECTION, sectionName);
+                checkBundle.putSerializable(Constant.PROCESS_INFO, processInfo);
+                Intent checkIntent = new Intent(NoticeDetailActivity.this, CheckActivity.class);
+                checkIntent.putExtras(checkBundle);
+                startActivity(checkIntent);
                 break;
             case R.id.btnOther:
                 appManager.finishActivity(this);
@@ -147,20 +149,38 @@ public class NoticeDetailActivity extends SwipeBackActivity implements View.OnCl
                         cellText.setText(noticeDetailInfo.getProcess().getCell());
                         sectionText.setVisibility(View.VISIBLE);
                         sectionText.setText(MyApplication.getInstance().getStringById(noticeDetailInfo.getSection()) + "阶段");
+                        if (noticeDetailInfo.getReschedule().getStatus().equals(Constant.YANQI_AGREE)) {
+                            btnAgree.setText(getResources().getString(R.string.agree_str));
+                            btnAgree.setEnabled(false);
+                            btnReject.setEnabled(false);
+                        } else if (noticeDetailInfo.getReschedule().getStatus().equals(Constant.YANQI_REFUSE)) {
+                            btnReject.setText(getResources().getString(R.string.reject_str));
+                            btnAgree.setEnabled(false);
+                            btnReject.setEnabled(false);
+                        } else {
+                            btnAgree.setEnabled(true);
+                            btnReject.setEnabled(true);
+                        }
                     } else if (msgType.equals(Constant.TYPE_CAIGOU_MSG)) {
+                        delayBtnLayout.setVisibility(View.GONE);
+                        checkBtnLayout.setVisibility(View.GONE);
+                        otherBtnLayout.setVisibility(View.VISIBLE);
                         typeText.setText(getResources().getString(R.string.caigou_str));
                         cellText.setText(noticeDetailInfo.getProcess().getCell());
                         sectionText.setVisibility(View.VISIBLE);
                         sectionText.setText(MyApplication.getInstance().getStringById(noticeDetailInfo.getSection()) + "阶段");
                     } else if (msgType.equals(Constant.TYPE_PAY_MSG)) {
+                        delayBtnLayout.setVisibility(View.GONE);
+                        checkBtnLayout.setVisibility(View.GONE);
+                        otherBtnLayout.setVisibility(View.VISIBLE);
                         typeText.setText(getResources().getString(R.string.pay_str));
                         cellText.setText(noticeDetailInfo.getProcess().getCell());
                         sectionText.setVisibility(View.VISIBLE);
                         sectionText.setText(MyApplication.getInstance().getStringById(noticeDetailInfo.getSection()) + "阶段");
                     } else if (msgType.equals(Constant.TYPE_CONFIRM_CHECK_MSG)) {
-                        processid = noticeDetailInfo.getProcessid();
-                        section = noticeDetailInfo.getSection();
-                        LogTool.d(TAG, "processid:" + processid + " section:" + section);
+                        sectionName = noticeDetailInfo.getSection();
+                        processInfo = noticeDetailInfo.getProcess();
+                        LogTool.d(TAG, "sectionName=" + sectionName + "  processInfo=" + processInfo);
                         delayBtnLayout.setVisibility(View.GONE);
                         checkBtnLayout.setVisibility(View.VISIBLE);
                         otherBtnLayout.setVisibility(View.GONE);
@@ -202,7 +222,9 @@ public class NoticeDetailActivity extends SwipeBackActivity implements View.OnCl
             @Override
             public void loadSuccess(Object data) {
                 LogTool.d(TAG, "data:" + data.toString());
-
+                btnAgree.setText(getResources().getString(R.string.agree_str));
+                btnAgree.setEnabled(false);
+                btnReject.setEnabled(false);
             }
 
             @Override
@@ -223,6 +245,9 @@ public class NoticeDetailActivity extends SwipeBackActivity implements View.OnCl
             @Override
             public void loadSuccess(Object data) {
                 LogTool.d(TAG, "data:" + data.toString());
+                btnReject.setText(getResources().getString(R.string.reject_str));
+                btnAgree.setEnabled(false);
+                btnReject.setEnabled(false);
             }
 
             @Override

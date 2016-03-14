@@ -376,4 +376,7 @@
     <string name="check_str">验收</string>
     <string name="sys_str">系统</string>
     <string name="req_str">需求</string>
+
+    <string name="agree_str">已同意</string>
+    <string name="reject_str">已拒绝</string>
 </resources>

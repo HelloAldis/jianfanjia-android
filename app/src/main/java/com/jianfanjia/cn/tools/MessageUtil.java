@@ -91,7 +91,7 @@ public class MessageUtil {
         LogTool.d(TAG, "type =" + type);
         Intent mainIntent = new Intent(context, MainActivity.class);
         Intent targetIntent = null;
-        mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+        mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK
                 | Intent.FLAG_ACTIVITY_NEW_TASK);
         if (message.getType().equals(Constant.TYPE_SECTION_COMMENT_MSG) || message.getType().equals(Constant.TYPE_PLAN_COMMENT_MSG)) {
             targetIntent = new Intent(context, CommentListActivity_.class);
@@ -102,11 +102,11 @@ public class MessageUtil {
             targetIntent.putExtras(bundle);
         }
         PendingIntent pendingIntent = null;
-        if(AppManager.getAppManager().getActivity(MainActivity.class) == null){
+        if (AppManager.getAppManager().getActivity(MainActivity.class) == null) {
             Intent[] intents = {mainIntent, targetIntent};
             pendingIntent = PendingIntent.getActivities(context, 0, intents,
                     PendingIntent.FLAG_UPDATE_CURRENT);
-        }else {
+        } else {
             pendingIntent = PendingIntent.getActivity(context, 0, targetIntent,
                     PendingIntent.FLAG_UPDATE_CURRENT);
         }

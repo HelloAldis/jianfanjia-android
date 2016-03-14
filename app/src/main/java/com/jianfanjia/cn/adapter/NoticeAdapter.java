@@ -428,7 +428,7 @@ public class NoticeAdapter extends BaseRecyclerViewAdapter<NoticeInfo> {
             case ITEM_TYPE3:
                 return new SiteViewHolder(view);
             case ITEM_TYPE4:
-                return new ReqViewHolder(view);
+                return new SysViewHolder(view);
             case ITEM_TYPE5:
                 return new ReqViewHolder(view);
             case ITEM_TYPE6:
