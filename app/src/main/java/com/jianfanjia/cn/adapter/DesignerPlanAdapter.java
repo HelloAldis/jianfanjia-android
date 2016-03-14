@@ -3,6 +3,7 @@ package com.jianfanjia.cn.adapter;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -37,7 +38,7 @@ public class DesignerPlanAdapter extends BaseRecyclerViewAdapter<PlanInfo> {
     public void bindView(RecyclerViewHolderBase viewHolder, final int position, List<PlanInfo> list) {
         PlanInfo info = list.get(position);
         DesignerPlanViewHolder holder = (DesignerPlanViewHolder) viewHolder;
-        holder.numText.setText("方案" + (position + 1));
+        holder.numText.setText(TextUtils.isEmpty(info.getName()) ? "" : info.getName());
         holder.dateText.setText(DateFormatTool.longToString(info.getLast_status_update_time()));
         holder.commentText.setText("留言(" + info.getComment_count() + ")");
         String status = info.getStatus();

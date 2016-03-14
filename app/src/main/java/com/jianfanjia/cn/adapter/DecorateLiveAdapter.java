@@ -42,7 +42,7 @@ public class DecorateLiveAdapter extends BaseRecycleAdapter<DecorateLiveInfo> {
 
         String status = decorateLiveInfo.getProcess().get(decorateLiveInfo.getProcess().size() -1 ).getName();
         viewHolder.statusText.setText(BusinessManager.convertSectionNameToLiveShow(status));
-        if(decorateLiveInfo.getStatus().equals(Constant.DECORATE_LIVE_GOING)){
+        if(decorateLiveInfo.getProgress().equals(Constant.DECORATE_LIVE_GOING)){
             viewHolder.statusText.setBackgroundColor(context.getResources().getColor(R.color.orange_color));
         }else {
             viewHolder.statusText.setBackgroundColor(context.getResources().getColor(R.color.green_color));

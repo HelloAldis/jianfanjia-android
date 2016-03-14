@@ -92,6 +92,7 @@ public class MyCommentInfoAdapter extends BaseRecycleAdapter<NoticeInfo> {
 
         holder.cellText.setText(noticeInfo.getRequirement().getCell());
 
+        holder.numText.setText(noticeInfo.getPlan().getName());
         //设计师的头像
         String imageid = noticeInfo.getDesigner().getImageid();
         LogTool.d(this.getClass().getName(), "imageid=" + imageid);
