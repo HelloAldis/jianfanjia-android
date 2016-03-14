@@ -11,6 +11,7 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.RemoteViews;
 
+import com.jianfanjia.cn.AppManager;
 import com.jianfanjia.cn.Event.MessageCountEvent;
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
@@ -100,9 +101,15 @@ public class MessageUtil {
             bundle.putString(Global.MSG_ID, message.getMessageid());
             targetIntent.putExtras(bundle);
         }
-        Intent[] intents = {mainIntent, targetIntent};
-        PendingIntent pendingIntent = PendingIntent.getActivities(context, 0, intents,
-                PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = null;
+        if(AppManager.getAppManager().getActivity(MainActivity.class) == null){
+            Intent[] intents = {mainIntent, targetIntent};
+            pendingIntent = PendingIntent.getActivities(context, 0, intents,
+                    PendingIntent.FLAG_UPDATE_CURRENT);
+        }else {
+            pendingIntent = PendingIntent.getActivity(context, 0, targetIntent,
+                    PendingIntent.FLAG_UPDATE_CURRENT);
+        }
         builder.setTicker(context.getResources().getText(R.string.app_name));
         mRemoteViews.setTextViewText(R.id.list_item_title, context.getResources().getText(R.string.app_name));
         mRemoteViews.setTextViewText(R.id.list_item_date, DateFormatTool.toLocalTimeString(message.getTime()));
