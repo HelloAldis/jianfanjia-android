@@ -46,6 +46,8 @@ public class NoticeDetailActivity extends SwipeBackActivity implements View.OnCl
     private String messageid = null;
 
     private String processid = null;
+    private String section = null;
+    private String status = null;
 
     @Override
     public void initView() {
@@ -104,14 +106,14 @@ public class NoticeDetailActivity extends SwipeBackActivity implements View.OnCl
                 break;
             case R.id.btnConfirm:
 //                Bundle checkBundle = new Bundle();
-//                checkBundle.putString(Constant.PROCESS_NAME, "");
+//                checkBundle.putString(Constant.PROCESS_NAME, section);
 //                checkBundle.putString(Constant.PROCESS_STATUS, "");
-//                checkBundle.putString(Global.PROCESS_ID, "");
+//                checkBundle.putString(Global.PROCESS_ID, processid);
 //                Intent checkIntent = new Intent(NoticeDetailActivity.this, CheckActivity.class);
 //                checkIntent.putExtras(checkBundle);
                 break;
             case R.id.btnOther:
-                LogTool.d(TAG, "==================================================");
+                appManager.finishActivity(this);
                 break;
             default:
                 break;
@@ -156,6 +158,9 @@ public class NoticeDetailActivity extends SwipeBackActivity implements View.OnCl
                         sectionText.setVisibility(View.VISIBLE);
                         sectionText.setText(MyApplication.getInstance().getStringById(noticeDetailInfo.getSection()) + "阶段");
                     } else if (msgType.equals(Constant.TYPE_CONFIRM_CHECK_MSG)) {
+                        processid = noticeDetailInfo.getProcessid();
+                        section = noticeDetailInfo.getSection();
+                        LogTool.d(TAG, "processid:" + processid + " section:" + section);
                         delayBtnLayout.setVisibility(View.GONE);
                         checkBtnLayout.setVisibility(View.VISIBLE);
                         otherBtnLayout.setVisibility(View.GONE);
@@ -174,15 +179,7 @@ public class NoticeDetailActivity extends SwipeBackActivity implements View.OnCl
                         sectionText.setVisibility(View.GONE);
                     }
                     dateText.setText(DateFormatTool.getRelativeTime(noticeDetailInfo.getCreate_at()));
-                    contentView.loadDataWithBaseURL(null, "<html>" + "<body>\n" +
-                            "<font size=\"4\" color=\"#7c8389\">\n" +
-                            "<p>尊敬的业主您好：</p >\n" +
-                            "<p>您的设计师戴涛希望将本阶段工期修改至</p >\n" +
-                            "<p><font size=\"4\" color=\"#fe7003\">2016-04-01</font></p >\n" +
-                            "<p>等待您的确认！如有问题请及时与设计师联系。</p >\n" +
-                            "<p>也可以拨打我们的客服热线：400-8515-167</p >\n" +
-                            "</font>\n" +
-                            "</body>" + "<html>", "text/html", "utf-8", null);
+                    contentView.loadDataWithBaseURL(null, noticeDetailInfo.getHtml(), "text/html", "utf-8", null);
                 }
             }
 

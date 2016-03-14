@@ -20,6 +20,7 @@ public class NoticeDetailInfo implements Serializable {
     private String section;
     private String title;
     private String content;
+    private String html;
     private String message_type;
     private String status;
     private int __v;
@@ -179,5 +180,13 @@ public class NoticeDetailInfo implements Serializable {
 
     public void setPlan(PlandetailInfo plan) {
         this.plan = plan;
+    }
+
+    public String getHtml() {
+        return html;
+    }
+
+    public void setHtml(String html) {
+        this.html = html;
     }
 }

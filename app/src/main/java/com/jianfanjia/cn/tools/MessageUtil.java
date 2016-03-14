@@ -110,6 +110,7 @@ public class MessageUtil {
         builder.setContent(mRemoteViews);
         builder.setWhen(System.currentTimeMillis());
         builder.setAutoCancel(true);
+        builder.setOngoing(true);
         builder.setPriority(NotificationCompat.PRIORITY_MAX);
         builder.setContentIntent(pendingIntent);
         Notification notification = builder.build();
