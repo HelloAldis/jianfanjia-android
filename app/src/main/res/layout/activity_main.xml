@@ -73,7 +73,7 @@
                 android:drawableTop="@drawable/rb_btn_bg4"
                 android:paddingBottom="5dp"
                 android:paddingTop="6dp"
-                android:text="更多"
+                android:text="@string/my"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/text_size_10" />
         </RadioGroup>

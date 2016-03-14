@@ -344,7 +344,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
             case Constant.COMMENT_ITEM:
                 Bundle bundle = new Bundle();
                 bundle.putString(Global.TOPIC_ID, processId);
-                bundle.putString(Global.TO, processInfo.getFinal_designerid());
+                bundle.putString(Global.TO, processInfo.getUserid());
                 bundle.putString(Global.SECTION, sectionInfo.getName());
                 bundle.putString(Global.ITEM, sectionInfo.getItems().get(position).getName());
                 bundle.putString(Global.TOPICTYPE, Global.TOPIC_NODE);
@@ -424,7 +424,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
 //                makeTextShort(getString(R.string.tip_open_camera));
             }
         } else {
-            makeTextLong(getString(R.string.tip_not_sdcard));
+            makeTextShort(getString(R.string.tip_not_sdcard));
         }
     }
 
@@ -495,7 +495,6 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
 
                     @Override
                     public void loadSuccess(Object data) {
-                        hideWaitDialog();
                         loadCurrentProcess(MyProcessDetailActivity.this);
                     }
 

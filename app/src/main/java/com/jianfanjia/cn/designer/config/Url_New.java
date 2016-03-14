@@ -62,7 +62,7 @@ public class Url_New {
     //业主绑定微信
     public String BIND_WEIXIN = HTTPROOT + "user_bind_wechat";
     //业主刷新session
-    public String REFRESH_SESSION = HTTPROOT + "user_refresh_session";
+    public String REFRESH_SESSION = HTTPROOT + "designer_refresh_session";
     //检查手机号是否被占用
     public String VERIFY_PHONE = HTTPROOT + "verify_phone";
     // 获取短信验证码
@@ -175,4 +175,13 @@ public class Url_New {
     // 设计师删除验收图片
     public String DELETE_YANSHOU_IMG_BY_DESIGNER = HTTPROOT
             + "process/ysimage/delete";
+
+    //设计师未读通知个数
+    public String GET_UNREAD_MSG_COUNT = HTTPROOT + "unread_designer_message_count";
+    //设计师搜索业主通知
+    public String SEARCH_USER_MSG = HTTPROOT + "search_designer_message";
+    //设计师通知详情
+    public String GET_USER_MSG_DETAIL = HTTPROOT + "designer_message_detail";
+    //设计师获取评论消息列表
+    public String SEARCH_USER_COMMENT = HTTPROOT + "search_designer_comment";
 }

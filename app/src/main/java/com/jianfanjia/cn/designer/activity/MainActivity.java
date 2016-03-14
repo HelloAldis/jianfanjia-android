@@ -11,7 +11,7 @@ import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.base.BaseActivity;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.fragment.ManageFragment;
-import com.jianfanjia.cn.designer.fragment.MoreFragment;
+import com.jianfanjia.cn.designer.fragment.MyNewFragment;
 import com.jianfanjia.cn.designer.fragment.MyOwnerFragment;
 import com.jianfanjia.cn.designer.fragment.MyOwnerFragment_;
 import com.jianfanjia.cn.designer.tools.LogTool;
@@ -28,7 +28,7 @@ public class MainActivity extends BaseActivity implements
     private RadioGroup mTabRg = null;
     private MyOwnerFragment ownerFragment = null;
     private ManageFragment manageFragment = null;
-    private MoreFragment moreFragment = null;
+    private MyNewFragment moreFragment = null;
     private long mExitTime = 0L;
     private int tab = -1;
 
@@ -96,7 +96,7 @@ public class MainActivity extends BaseActivity implements
                 if (moreFragment != null) {
                     transaction.show(moreFragment);
                 } else {
-                    moreFragment = new MoreFragment();
+                    moreFragment = new MyNewFragment();
                     transaction.add(R.id.tablayout, moreFragment);
                 }
                 break;

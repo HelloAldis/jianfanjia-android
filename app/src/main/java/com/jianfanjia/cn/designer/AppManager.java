@@ -9,17 +9,17 @@ import java.util.Stack;
 
 /**
  * activity堆栈式管理
- * 
+ *
  * @author FireAnt（http://my.oschina.net/LittleDY）
  * @created 2014年10月30日 下午6:22:05
- * 
  */
 public class AppManager {
-
+    private static final String TAG = AppManager.class.getName();
     private static Stack<Activity> activityStack = new Stack<Activity>();
     private static AppManager instance;
 
-    private AppManager() {}
+    private AppManager() {
+    }
 
     /**
      * 单一实例
@@ -39,14 +39,14 @@ public class AppManager {
             activityStack = new Stack<Activity>();
         }
         activityStack.add(activity);
-        LogTool.d(this.getClass().getName(), currentActivity().getClass().getName());
+        LogTool.d(TAG, currentActivity().getClass().getName());
     }
 
     /**
      * 获取当前Activity（堆栈中最后一个压入的）
      */
     public Activity currentActivity() {
-        if(!activityStack.empty()){
+        if (!activityStack.empty()) {
             Activity activity = activityStack.peek();
             return activity;
         }
@@ -65,7 +65,7 @@ public class AppManager {
      * 结束指定的Activity
      */
     public void finishActivity(Activity activity) {
-        LogTool.d(this.getClass().getName(), activity.getClass().getName() + " finish()");
+        LogTool.d(TAG, activity.getClass().getName() + " finish()");
         if (activity != null) {
             activityStack.remove(activity);
             activity.finish();
@@ -89,11 +89,11 @@ public class AppManager {
      * 结束所有Activity
      */
     public void finishAllActivity() {
-        LogTool.d(this.getClass().getName(), "activityStack.size() =" + activityStack.size());
+        LogTool.d(TAG, "activityStack.size() =" + activityStack.size());
         Iterator<Activity> iterator = activityStack.iterator();
-        while (iterator.hasNext()){
+        while (iterator.hasNext()) {
             Activity activity = iterator.next();
-            LogTool.d(this.getClass().getName(), "activityStack.name() =" + activity.getClass().getName());
+            LogTool.d(TAG, "activityStack.name() =" + activity.getClass().getName());
             activity.finish();
             activity = null;
         }
@@ -102,7 +102,7 @@ public class AppManager {
 
     /**
      * 获取指定的Activity
-     * 
+     *
      * @author kymjs
      */
     public static Activity getActivity(Class<?> cls) {

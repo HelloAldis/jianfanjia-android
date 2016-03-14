@@ -100,7 +100,8 @@ public class PushMsgReceiver extends BroadcastReceiver {
                     NotifyMessage.class);
             Log.i(TAG, "message:" + message + "    userid:" + dataManager.getUserId());
             message.setUserid(dataManager.getUserId());
-            notifyMessageDao.save(message);
+            boolean result = notifyMessageDao.save(message);
+            Log.i(TAG, "result:" + result);
             if (TDevice.isAppAlive(context, context.getPackageName())) {
                 LogTool.d(TAG, "the app process is alive");
                 Activity activity = AppManager.getAppManager().currentActivity();

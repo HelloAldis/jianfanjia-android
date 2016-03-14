@@ -24,8 +24,8 @@ android {
         applicationId "com.jianfanjia.cn.designer"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 23
-        versionName "2.1.4"
+        versionCode 30
+        versionName "2.1.11"
 
         // AndroidManifest.xml 里面UMENG_CHANNEL的value为 ${UMENG_CHANNEL_VALUE}
 //        manifestPlaceholders = [UMENG_CHANNEL_VALUE: "channel_name"]
@@ -47,6 +47,7 @@ android {
     buildTypes {
 
         debug {
+            debuggable true
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.relealse
@@ -63,13 +64,10 @@ android {
                                     SERVER_PORT     : RELEASE_SERVER_PORT, SERVER_IP: RELEASE_SERVER_IP]
         }
         andtest {
-            debuggable true
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.relealse
 
-//            manifestPlaceholders = [GETUI_PUSH_APPID: "Ec5Iv1QTPz9pBk2ZYFebd", GETUI_PUSH_APPKEY: "1zvknC2OFL6mUlWch6tcb3", GETUI_PUSH_APPSE4CRET: "cvNcATrYoo717R8milqyn7",
-//                                    SERVER_PORT     : RELEASE_SERVER_PORT, SERVER_IP: TEST_SERVER_IP]
             manifestPlaceholders = [GETUI_PUSH_APPID: "s7Et91ZLPu8KRwBEtY4AZ8", GETUI_PUSH_APPKEY: "8BTWfBSMYM95oFpDOwGYu5", GETUI_PUSH_APPSECRET: "QbclEVLgAIA6iWblkTjyD4", SERVER_PORT: TEST_SERVER_PORT, SERVER_IP: TEST_SERVER_IP]
         }
     }
@@ -82,7 +80,7 @@ android {
     productFlavors {
         Default {
         }
-      /*  zhushou_360 {
+       /* zhushou_360 {
         }
         mi {
         }
@@ -102,6 +100,7 @@ android {
     def force_update = '1' //强制更新
     def rec_update = '0'   //自愿更新
     def update = rec_update
+    def testApkPath = "F:\\快盘\\sharebox\\zjfzhangjingfu@yeah.net\\简繁家APP\\apk\\designer_${defaultConfig.versionName}\\";
 
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
@@ -109,10 +108,16 @@ android {
             if (outputFile != null && outputFile.name.endsWith('.apk')) {
                 String fileName = outputFile.name.replace(".apk", "_${date}_${update}_${defaultConfig.versionCode}_${defaultConfig.versionName}.apk")
                 fileName = fileName.replace("app", "designer")
-                if (fileName.contains("-release")) {
-                    fileName = fileName.replace("-release", "")
+//                if (variant.buildType.name.equals('release')) {
+//                    fileName = fileName.replace("-release", "")
+//                    output.outputFile = new File(outputFile.parent, fileName)
+//                }
+//                if(variant.buildType.name.equals('andtest')){
+//                    output.outputFile = new File(testApkPath, fileName)
+//                }
+                if(variant.buildType.name.equals('debug')){
+                    output.outputFile = new File(outputFile.parent, fileName)
                 }
-                output.outputFile = new File(outputFile.parent, fileName)
             }
         }
     }

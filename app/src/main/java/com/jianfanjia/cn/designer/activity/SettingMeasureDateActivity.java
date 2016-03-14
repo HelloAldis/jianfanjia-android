@@ -102,7 +102,7 @@ public class SettingMeasureDateActivity extends BaseAnnotationActivity {
                 break;
             case R.id.btn_phone_layout:
                 if (!TextUtils.isEmpty(phone)) {
-                    UiHelper.IntentToPhone(this, phone);
+                    UiHelper.callPhoneIntent(this, phone);
                 }
                 break;
         }

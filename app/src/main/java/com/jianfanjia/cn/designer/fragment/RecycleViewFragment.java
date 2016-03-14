@@ -25,7 +25,6 @@ import com.jianfanjia.cn.designer.activity.requirement.PingJiaInfoActivity;
 import com.jianfanjia.cn.designer.activity.requirement.PreviewBusinessRequirementActivity_;
 import com.jianfanjia.cn.designer.activity.requirement.PreviewRequirementActivity_;
 import com.jianfanjia.cn.designer.adapter.MyHandledRequirementAdapter;
-import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.base.BaseAnnotationFragment;
 import com.jianfanjia.cn.designer.bean.RequirementInfo;
 import com.jianfanjia.cn.designer.bean.RequirementList;
@@ -199,13 +198,13 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
     protected void initRecycleView() {
         emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
         errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
-        rootLayout = (RelativeLayout) view.findViewById(R.id.root_layout);
         errorLayout.findViewById(R.id.img_error).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 initData();
             }
         });
+        rootLayout = (RelativeLayout) view.findViewById(R.id.root_layout);
         emptyPullRefresh = (PullToRefreshScrollView) view.findViewById(R.id.emptyPullRefreshScrollView);
         emptyPullRefresh.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ScrollView>() {
             @Override
@@ -254,7 +253,7 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
                         getActivity().startActivity(gotoPriviewRequirement);
                         break;
                     case PHONE_TYPE:
-                        UiHelper.IntentToPhone(_context, requirementInfo.getUser().getPhone());
+                        UiHelper.callPhoneIntent(_context, requirementInfo.getUser().getPhone());
                         break;
                     case RREVIEW_COMMENT_TYPE:
                         Intent viewCommentIntent = new Intent(_context, PingJiaInfoActivity.class);
@@ -434,7 +433,7 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
         if (currentRequirementInfo.size() == 0) {
             emptyLayout.setVisibility(View.VISIBLE);
             emptyLayout.findViewById(R.id.empty_contentLayout).setLayoutParams(
-                    new RelativeLayout.LayoutParams(rootLayout.getWidth(), rootLayout.getHeight() - MyApplication.dip2px(_context, 10)));
+                    new RelativeLayout.LayoutParams(rootLayout.getWidth(), rootLayout.getHeight()));
         } else {
             emptyLayout.setVisibility(View.GONE);
             pullrefresh.setAdapter(myHandledRequirementAdapter);
@@ -447,11 +446,6 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
         _context = context.getApplicationContext();
     }
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        LogTool.d(TAG, "onActivityCreated");
-    }
 
     @Override
     public void onDestroy() {

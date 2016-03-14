@@ -7,15 +7,17 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.GridView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.activity.common.ShowPicActivity;
-import com.jianfanjia.cn.designer.adapter.MyGridViewAdapter;
+import com.jianfanjia.cn.designer.adapter.CheckGridViewAdapter;
 import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.base.BaseActivity;
 import com.jianfanjia.cn.designer.bean.CheckInfo.Imageid;
@@ -35,6 +37,7 @@ import com.jianfanjia.cn.designer.tools.ImageUtils;
 import com.jianfanjia.cn.designer.tools.LogTool;
 import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.jianfanjia.cn.designer.view.MainHeadView;
+import com.jianfanjia.cn.designer.view.baseview.SpacesItemDecoration;
 import com.jianfanjia.cn.designer.view.dialog.CommonDialog;
 import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
 
@@ -55,13 +58,14 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
     public static final int FINISH_STATUS = 1;
     private MainHeadView mainHeadView = null;
     private RelativeLayout checkLayout = null;
-    private GridView gridView = null;
+    private RecyclerView gridView = null;
+    private GridLayoutManager gridLayoutManager = null;
     private TextView btn_confirm = null;
-    private MyGridViewAdapter adapter = null;
+    private CheckGridViewAdapter adapter = null;
     private List<GridItem> checkGridList = new ArrayList<>();//本页显示的griditem项
     private List<String> showSamplePic = new ArrayList<>();//示例照片
     private List<String> showProcessPic = new ArrayList<>();//工地验收照片
-    private List<Imageid> imageids = null;
+    private List<Imageid> imageids = new ArrayList<>();
     private String processInfoId = null;// 工地id
     private String sectionInfoName = null;// 工序名称
     private String sectionInfoStatus = null;// 工序状态
@@ -91,12 +95,23 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
     public void initView() {
         initMainHeadView();
         checkLayout = (RelativeLayout) findViewById(R.id.checkLayout);
-        gridView = (GridView) findViewById(R.id.mygridview);
+        gridView = (RecyclerView) findViewById(R.id.mygridview);
+        gridLayoutManager = new GridLayoutManager(CheckActivity.this, 2);
+        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                return position == 0 ? gridLayoutManager.getSpanCount() : 1;
+            }
+        });
+        gridView.setLayoutManager(gridLayoutManager);
+        gridView.setHasFixedSize(true);
+        gridView.setItemAnimator(new DefaultItemAnimator());
+        SpacesItemDecoration decoration = new SpacesItemDecoration(10);
+        gridView.addItemDecoration(decoration);
         btn_confirm = (TextView) findViewById(R.id.btn_confirm);
         btn_confirm.setText(this.getResources().getString(
                 R.string.confirm_upload));
         currentState = FINISH_STATUS;
-        gridView.setFocusable(false);
     }
 
     private void initMainHeadView() {
@@ -147,7 +162,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
     }
 
     private void initData() {
-        adapter = new MyGridViewAdapter(CheckActivity.this, checkGridList,
+        adapter = new CheckGridViewAdapter(CheckActivity.this, checkGridList,
                 this, this);
         gridView.setAdapter(adapter);
         processInfo = dataManager.getDefaultProcessInfo();
@@ -164,14 +179,15 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
         checkGridList = getCheckedImageById(sectionInfoName);
         processInfo = dataManager.getDefaultProcessInfo();
         imageids = processInfo.getImageidsByName(sectionInfoName);
+        LogTool.d(TAG, "imageids=" + imageids);
         for (int i = 0; imageids != null && i < imageids.size(); i++) {
             String key = imageids.get(i).getKey();
-            LogTool.d(TAG, imageids.get(i).getImageid());
+            LogTool.d(TAG, "key=" + key);
             checkGridList.get(Integer.parseInt(key) * 2 + 1).setImgId(
                     imageids.get(i).getImageid());
         }
         adapter.setList(checkGridList);
-        adapter.notifyDataSetChanged();
+        adapter.notifyItemRangeChanged(0, adapter.getItemCount());
         setConfimStatus();
         initShowList();
     }
@@ -265,12 +281,12 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
                 mainHeadView.setRightTitle(getString(R.string.finish));
                 currentState = EDIT_STATUS;
                 adapter.setCanDelete(true);
-                adapter.notifyDataSetInvalidated();
+                adapter.notifyItemRangeChanged(0, adapter.getItemCount());
             } else {
                 mainHeadView.setRightTitle(getString(R.string.edit));
                 currentState = FINISH_STATUS;
                 adapter.setCanDelete(false);
-                adapter.notifyDataSetInvalidated();
+                adapter.notifyItemRangeChanged(0, adapter.getItemCount());
             }
         } else {
             mainHeadView.setRigthTitleEnable(false);
@@ -293,6 +309,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
                 break;
             default:
                 break;
+
         }
     }
 
@@ -336,7 +353,11 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
         mTmpFile = FileUtil.createTmpFile(this);
         if (mTmpFile != null) {
             Intent cameraIntent = UiHelper.createShotIntent(mTmpFile);
-            startActivityForResult(cameraIntent, Constant.REQUESTCODE_CAMERA);
+            if (cameraIntent != null) {
+                startActivityForResult(cameraIntent, Constant.REQUESTCODE_CAMERA);
+            } else {
+//                makeTextShort(getString(R.string.tip_open_camera));
+            }
         } else {
             makeTextLong("没有sd卡，无法打开相机");
         }
@@ -353,6 +374,9 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != RESULT_OK) {
+            return;
+        }
         switch (requestCode) {
             case Constant.REQUESTCODE_CAMERA:// 拍照
                 mTmpFile = new File(dataManager.getPicPath());
