@@ -265,7 +265,6 @@
             android:label="PreviewRequirementActivity"
             android:screenOrientation="portrait" />
 
-
         <service android:name="com.jianfanjia.cn.designer.service.UpdateService" />
 
         <activity
@@ -329,6 +328,9 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.SettingContractActivity_"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.common.CommentListActivity_"
             android:screenOrientation="portrait" />
 
         <!-- 第三方分享以及登录 -->

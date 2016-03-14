@@ -43,6 +43,10 @@ public class Constant {
 
     public static final int HOME_PAGE_LIMIT = 20;//首页分页 每次加载20条
     public static final String IS_WEIXIN_FIRST_LOGIN = "is_weixin_first_login";
+    public static final String FROM = "from";
+    public static final String LIMIT = "limit";
+    public static final String QUERY= "query";
+    public static final int FROM_START = 0;
 
     public static final String HOTLINE_URL = "http://chat16.live800.com/live800/chatClient/chatbox.jsp?companyID=611886&configID=139921&jid=3699665419";
 
@@ -119,6 +123,33 @@ public class Constant {
     public final static int FUKUAN_NOTIFY_ID = 2;
     public final static int YANQI_NOTIFY_ID = 3;
     public final static int YANSHOU_NOTIFY_ID = 4;
+
+    // 业主消息提醒类型user_message_type
+    public static final String TYPE_DELAY_MSG = "0";// 设计师提出改期提醒
+    public static final String TYPE_CAIGOU_MSG = "1";// 采购提醒
+    public static final String TYPE_SYSTEM_MSG = "2";//平台通知
+    public static final String TYPE_PLAN_COMMENT_MSG = "3";//方案评论
+    public static final String TYPE_SECTION_COMMENT_MSG = "4";//装修小节点评论
+    public static final String TYPE_AUTH_TYPE_AGRAEE = "5";//基本信息认证通过
+    public static final String TYPE_AUTH_TYPE_DISGREE = "6";//基本信息认证不通过
+    public static final String TYPE_UID_TYPE_AGRAEE = "7";//身份证和银行卡审核通过
+    public static final String TYPE_UID_TYPE_DISGRAEE = "8";//身份证和银行卡审核不通过
+    public static final String TYPE_PROCESS_AGRAEE = "9";//工地审核通过
+    public static final String TYPE_PROCESS_DISGRAEE = "10";//工地审核不通过
+    public static final String TYPE_PRODUCT_AGRAEE = "11";//作品审核通过
+    public static final String TYPE_PRODUCT_DISGRAEE = "12";//作品审核不通过
+    public static final String TYPE_PRODUCT_OFFLINE = "13";//作品违规被下线
+    public static final String TYPE_USER_APPOINT_MSG = "14";//业主预约提醒
+    public static final String TYPE_USER_CONFIRM_HOSER_MSG = "15";//业主确认量房提醒
+    public static final String TYPE_PLAN_CHOOSED_MSG = "16";//方案中标提醒
+    public static final String TYPE_PLAN_NOT_CHOOSED_MSG = "17";//方案未中标提醒
+    public static final String TYPE_CONFIRM_CONTRACT_MSG = "18";//确认合同提醒
+    public static final String TYPE_REJECT_DELAY_MSG = "19";//设计师拒绝改期
+    public static final String TYPE_AGREE_DELAY_MSG = "20";//设计师同意改期
+
+    // 业主消息提醒状态
+    public static final String UNREAD = "0";// 未读
+    public static final String READ = "1";// 已读
 
     // 提醒类型
     public static final String YANQI_NOTIFY = "0";// 延期提醒

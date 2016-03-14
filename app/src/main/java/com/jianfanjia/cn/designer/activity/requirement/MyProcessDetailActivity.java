@@ -344,7 +344,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
             case Constant.COMMENT_ITEM:
                 Bundle bundle = new Bundle();
                 bundle.putString(Global.TOPIC_ID, processId);
-                bundle.putString(Global.TO, processInfo.getFinal_designerid());
+                bundle.putString(Global.TO, processInfo.getUserid());
                 bundle.putString(Global.SECTION, sectionInfo.getName());
                 bundle.putString(Global.ITEM, sectionInfo.getItems().get(position).getName());
                 bundle.putString(Global.TOPICTYPE, Global.TOPIC_NODE);

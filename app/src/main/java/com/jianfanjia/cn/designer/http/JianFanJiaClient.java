@@ -28,10 +28,12 @@ import com.jianfanjia.cn.designer.http.request.GetAllRescheduleRequest;
 import com.jianfanjia.cn.designer.http.request.GetCommentsRequest;
 import com.jianfanjia.cn.designer.http.request.GetContractRequest;
 import com.jianfanjia.cn.designer.http.request.GetDesignerPlansByUserRequest;
+import com.jianfanjia.cn.designer.http.request.GetMsgDetailRequest;
 import com.jianfanjia.cn.designer.http.request.GetPlanInfoRequest;
 import com.jianfanjia.cn.designer.http.request.GetProcessInfoRequest;
 import com.jianfanjia.cn.designer.http.request.GetProcessListRequest;
 import com.jianfanjia.cn.designer.http.request.GetRequirementListRequest;
+import com.jianfanjia.cn.designer.http.request.GetUnReadMsgRequest;
 import com.jianfanjia.cn.designer.http.request.LoginRequest;
 import com.jianfanjia.cn.designer.http.request.LogoutRequest;
 import com.jianfanjia.cn.designer.http.request.NotifyOwnerCheckRequest;
@@ -45,6 +47,8 @@ import com.jianfanjia.cn.designer.http.request.RefuseRequirementRequest;
 import com.jianfanjia.cn.designer.http.request.RefuseRescheduleRequest;
 import com.jianfanjia.cn.designer.http.request.RegisterRequest;
 import com.jianfanjia.cn.designer.http.request.ResponseRequirementRequest;
+import com.jianfanjia.cn.designer.http.request.SearchUserCommentRequest;
+import com.jianfanjia.cn.designer.http.request.SearchUserMsgRequest;
 import com.jianfanjia.cn.designer.http.request.SendVerificationRequest;
 import com.jianfanjia.cn.designer.http.request.UpdateOwnerInfoRequest;
 import com.jianfanjia.cn.designer.http.request.UpdateRequirementRequest;
@@ -915,6 +919,60 @@ public class JianFanJiaClient {
             jsonParams.put("section", section);
             jsonParams.put("item", item);
             OkHttpClientManager.getInstance().getPostDelegate().postAsyn(getCommentsRequest, jsonParams.toString(), listener, tag);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 业主未读通知个数
+     *
+     * @param getUnReadMsgRequest
+     * @param listener
+     * @param tag
+     */
+    public static void getUnReadUserMsg(GetUnReadMsgRequest getUnReadMsgRequest, ApiUiUpdateListener listener, Object tag) {
+        LogTool.d(TAG, "jsonParams:" + getUnReadMsgRequest.getParam());
+        OkHttpClientManager.getInstance().getPostDelegate().postAsyn(getUnReadMsgRequest, getUnReadMsgRequest.getParam(), listener, tag);
+    }
+
+    /**
+     * 业主搜索业主通知
+     *
+     * @param searchUserMsgRequest
+     * @param listener
+     * @param tag
+     */
+    public static void searchUserMsg(SearchUserMsgRequest searchUserMsgRequest, ApiUiUpdateListener listener, Object tag) {
+        LogTool.d(TAG, "jsonParams:" + searchUserMsgRequest.getParam());
+        OkHttpClientManager.getInstance().getPostDelegate().postAsyn(searchUserMsgRequest, searchUserMsgRequest.getParam(), listener, tag);
+    }
+
+    /**
+     * 业主搜索我的评论
+     * @param searchUserCommentRequest
+     * @param listener
+     * @param tag
+     */
+    public static void searchUserComment(SearchUserCommentRequest searchUserCommentRequest, ApiUiUpdateListener listener, Object tag) {
+        LogTool.d(TAG, "jsonParams:" + searchUserCommentRequest.getParam());
+        OkHttpClientManager.getInstance().getPostDelegate().postAsyn(searchUserCommentRequest, searchUserCommentRequest.getParam(), listener, tag);
+    }
+
+    /**
+     * 业主通知详情
+     *
+     * @param context
+     * @param messageid
+     * @param listener
+     * @param tag
+     */
+    public static void getUserMsgDetail(Context context, String messageid, ApiUiUpdateListener listener, Object tag) {
+        GetMsgDetailRequest getMsgDetailRequest = new GetMsgDetailRequest(context, messageid);
+        JSONObject jsonParams = new JSONObject();
+        try {
+            jsonParams.put("messageid", messageid);
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(getMsgDetailRequest, jsonParams.toString(), listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
         }

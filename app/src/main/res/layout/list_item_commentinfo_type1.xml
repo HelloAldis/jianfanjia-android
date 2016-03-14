@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_comment_info_head"/>
+
+    <LinearLayout
+        android:id="@+id/content_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/space_16"
+        android:paddingBottom="@dimen/space_16"
+        android:background="@color/head_layout_bg">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dip"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+        >
+
+        <TextView
+            android:id="@+id/cell_name"
+            style="@style/listview_item_text_style_middle"
+            android:layout_centerVertical="true"
+            android:text="@string/str_cell"
+            android:singleLine="true"
+            android:maxEms="8"
+            android:textColor="@color/light_black_color" />
+
+        <TextView
+            android:id="@+id/numText"
+            style="@style/listview_item_text_style_middle"
+            android:layout_alignBaseline="@+id/cell_name"
+            android:text="方案"
+            android:layout_toRightOf="@+id/cell_name"
+            android:layout_marginLeft="@dimen/space_4"
+            android:textColor="@color/light_black_color" />
+
+        <TextView
+            android:id="@+id/statusText"
+            style="@style/listview_item_text_style_middle"
+            android:layout_alignParentRight="true"
+            android:layout_alignBaseline="@+id/cell_name"
+            android:text="已中标"
+            android:textColor="@color/light_black_color" />
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/item_plan_listview"
+        android:layout_width="match_parent"
+        android:layout_height="120dip"
+        android:fadingEdge="none" />
+
+    </LinearLayout>
+
+</LinearLayout>
