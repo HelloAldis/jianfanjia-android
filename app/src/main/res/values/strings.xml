@@ -378,4 +378,6 @@
     <string name="req_str">需求</string>
     <string name="app_phone">4008515167</string>
     <string name="reply">回复</string>
+    <string name="agree_str">已同意</string>
+    <string name="reject_str">已拒绝</string>
 </resources>

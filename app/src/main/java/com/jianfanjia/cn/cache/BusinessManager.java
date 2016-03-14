@@ -7,6 +7,7 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
+import com.jianfanjia.cn.bean.SectionInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
@@ -84,6 +85,19 @@ public class BusinessManager {
         return processInfo;
     }
 
+    public static SectionInfo getSectionInfoByName(ArrayList<SectionInfo> sections, String name) {
+        try {
+            for (SectionInfo info : sections) {
+                if (info.getName().equals(name)) {
+                    return info;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     /**
      * @param
      * @return
@@ -139,6 +153,7 @@ public class BusinessManager {
 
     /**
      * 装修直播显示阶段
+     *
      * @param section
      * @return
      */

@@ -45,7 +45,7 @@ public class Constant {
     public static final String IS_WEIXIN_FIRST_LOGIN = "is_weixin_first_login";
     public static final String FROM = "from";
     public static final String LIMIT = "limit";
-    public static final String QUERY= "query";
+    public static final String QUERY = "query";
     public static final int FROM_START = 0;
 
     public static final String HOTLINE_URL = "http://chat16.live800.com/live800/chatClient/chatbox.jsp?companyID=611886&configID=139921&jid=3699665419";
@@ -196,6 +196,8 @@ public class Constant {
     public static final String IMAGE_LIST = "image_list";
     public static final String PROCESS_NAME = "process_name";
     public static final String PROCESS_STATUS = "process_status";
+    public static final String PROCESS_INFO = "process";
+    public static final String SECTION = "section";
 
     public static final String LAST_LOGIN_TIME = "last_login_time";// 上次登录时间
     public static final long DELAY_TIME = 24 * 60 * 60 * 1000L;// 延期过期时间为开工日期之后的24小时
